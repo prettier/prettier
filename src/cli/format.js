@@ -9,7 +9,7 @@ import getOptionsForFile from "./options/get-options-for-file.js";
 import isTTY from "./is-tty.js";
 import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
-import { statSafe } from "./utils.js";
+import { statSafe, normalizeToPosix } from "./utils.js";
 
 const { getStdin } = thirdParty;
 
@@ -351,7 +351,7 @@ async function formatFiles(context) {
 
     let printedFilename;
     if (isTTY()) {
-      printedFilename = context.logger.log(filename, {
+      printedFilename = context.logger.log(normalizeToPosix(filename), {
         newline: false,
         clearable: true,
       });
@@ -423,7 +423,9 @@ async function formatFiles(context) {
       // mtime based caches.
       if (isDifferent) {
         if (!context.argv.check && !context.argv.listDifferent) {
-          context.logger.log(`${filename} ${Date.now() - start}ms`);
+          context.logger.log(
+            `${normalizeToPosix(filename)} ${Date.now() - start}ms`
+          );
         }
 
         try {
@@ -440,7 +442,9 @@ async function formatFiles(context) {
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
-        const message = `${chalk.grey(filename)} ${Date.now() - start}ms`;
+        const message = `${chalk.grey(normalizeToPosix(filename))} ${
+          Date.now() - start
+        }ms`;
         if (isCacheExists) {
           context.logger.log(`${message} (cached)`);
         } else {
@@ -449,7 +453,7 @@ async function formatFiles(context) {
       }
     } else if (context.argv.debugCheck) {
       if (result.filepath) {
-        context.logger.log(result.filepath);
+        context.logger.log(normalizeToPosix(result.filepath));
       } else {
         /* c8 ignore next */
         process.exitCode = 2;
@@ -466,9 +470,9 @@ async function formatFiles(context) {
 
     if (isDifferent) {
       if (context.argv.check) {
-        context.logger.warn(filename);
+        context.logger.warn(normalizeToPosix(filename));
       } else if (context.argv.listDifferent) {
-        context.logger.log(filename);
+        context.logger.log(normalizeToPosix(filename));
       }
       numberOfUnformattedFilesFound += 1;
     }
