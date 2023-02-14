@@ -341,7 +341,6 @@ function printTypescript(path, options, print) {
       return ["require(", print("expression"), ")"];
     case "TSModuleDeclaration": {
       const { parent } = path;
-      const isExternalModule = isStringLiteral(node.id);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
       const bodyIsDeclaration = node.body?.type === "TSModuleDeclaration";
 
@@ -352,15 +351,22 @@ function printTypescript(path, options, print) {
 
         // Global declaration looks like this:
         // (declare)? global { ... }
-        if (!node.global) {
-          parts.push(
-            isExternalModule ||
-              /(?:^|\s)module(?:\s|$)/.test(
-                options.originalText.slice(locStart(node), locStart(node.id))
-              )
-              ? "module "
-              : "namespace "
-          );
+        const isGlobal =
+          node.kind === "global" ||
+          // TODO: Use `node.kind` when babel update AST
+          node.global;
+
+        if (!isGlobal) {
+          const kind =
+            node.kind ??
+            // TODO: Use `node.kind` when babel update AST
+            (isStringLiteral(node.id) ||
+            /(?:^|\s)module(?:\s|$)/.test(
+              options.originalText.slice(locStart(node), locStart(node.id))
+            )
+              ? "module"
+              : "namespace");
+          parts.push(kind, " ");
         }
       }
 
