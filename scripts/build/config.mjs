@@ -1,5 +1,6 @@
 import path from "node:path";
 import url from "node:url";
+import fs from "node:fs";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.mjs";
@@ -17,6 +18,34 @@ const {
 const resolveEsmModulePath = async (specifier) =>
   url.fileURLToPath(await importMetaResolve(specifier));
 
+const checkedDtsFiles = new Set();
+function getDtsFileConfig({ input: jsFileInput, outputBaseName }) {
+  if (checkedDtsFiles.has(jsFileInput)) {
+    return;
+  }
+  checkedDtsFiles.add(jsFileInput);
+
+  const input = jsFileInput.replace(/\.[cm]?js$/, ".d.ts");
+  if (!fs.existsSync(path.join(PROJECT_ROOT, input))) {
+    return;
+  }
+
+  return {
+    input,
+    output: {
+      file: outputBaseName + ".d.ts",
+    },
+    kind: "typing",
+    build: copyFileBuilder,
+  };
+}
+
+const copyFileBuilder = ({ file }) =>
+  copyFile(
+    path.join(PROJECT_ROOT, file.input),
+    path.join(DIST_DIR, file.output.file)
+  );
+
 /**
  * @typedef {Object} BuildOptions
  * @property {object[]?} replaceModule - Module replacements
@@ -26,18 +55,18 @@ const resolveEsmModulePath = async (specifier) =>
  * @property {boolean?} minify - disable code minification
  *
  * @typedef {Object} Output
- * @property {'esm' | 'umd' | 'cjs' | 'text' | 'json'} format - File format
+ * @property {"esm" | "umd" | "cjs" | "text" | "json"} format - File format
  * @property {string} file - path of the output file in the `dist/` folder
  * @property {string?} umdVariableName - name for the UMD file (for plugins, it'll be `prettierPlugins.${name}`)
  *
  * @typedef {Object} File
- * @property {string?} input - input of the file
+ * @property {string} input - input of the file
  * @property {Output} output - output of the file
+ * @property {"javascript" | "typing" | "meta"} kind - file kind
  * @property {function} build - file generate function
- * @property {'node' | 'universal'} platform - ESBuild platform
+ * @property {"node" | "universal"} platform - ESBuild platform
  * @property {BuildOptions} buildOptions - ESBuild options
  * @property {boolean?} isPlugin - file is a plugin
- * @property {boolean?} isMeta - file is a meta file (package.json, LICENSE README.md)
  */
 
 /*
@@ -369,22 +398,27 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
     outputBaseName ??= path.basename(input);
 
     return [
-      {
-        format: "esm",
-        file: `${outputBaseName}${extensions.esm}`,
-      },
-      {
-        format: "umd",
-        file: `${outputBaseName}${extensions.umd}`,
-        umdVariableName,
-      },
-    ].map((output) => ({
-      input,
-      output,
-      platform: "universal",
-      buildOptions,
-      isPlugin,
-    }));
+      ...[
+        {
+          format: "esm",
+          file: `${outputBaseName}${extensions.esm}`,
+        },
+        {
+          format: "umd",
+          file: `${outputBaseName}${extensions.umd}`,
+          umdVariableName,
+        },
+      ].map((output) => ({
+        input,
+        output,
+        platform: "universal",
+        buildOptions,
+        isPlugin,
+        build: buildJavascriptModule,
+        kind: "javascript",
+      })),
+      getDtsFileConfig({ input, outputBaseName }),
+    ];
   }
 );
 
@@ -450,21 +484,26 @@ const nodejsFiles = [
       },
     ],
   },
-].map((file) => {
+].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
 
   const format = input.endsWith(".cjs") ? "cjs" : "esm";
   outputBaseName ??= path.basename(input, path.extname(input));
 
-  return {
-    input,
-    output: {
-      format,
-      file: `${outputBaseName}${extensions[format]}`,
+  return [
+    {
+      input,
+      output: {
+        format,
+        file: `${outputBaseName}${extensions[format]}`,
+      },
+      platform: "node",
+      buildOptions,
+      build: buildJavascriptModule,
+      kind: "javascript",
     },
-    platform: "node",
-    buildOptions,
-  };
+    getDtsFileConfig({ input, outputBaseName }),
+  ];
 });
 
 const metaFiles = [
@@ -472,37 +511,23 @@ const metaFiles = [
     input: "package.json",
     output: {
       format: "json",
-      file: "package.json",
     },
     build: buildPackageJson,
   },
   {
-    output: {
-      format: "text",
-      file: "README.md",
-    },
-    async build() {
-      await copyFile(
-        path.join(PROJECT_ROOT, "README.md"),
-        path.join(DIST_DIR, "README.md")
-      );
-    },
+    input: "README.md",
+    build: copyFileBuilder,
   },
   {
-    output: {
-      format: "text",
-      file: "LICENSE",
-    },
+    input: "LICENSE",
     build: buildLicense,
   },
-].map((file) => ({ ...file, isMetaFile: true }));
+].map((file) => ({
+  ...file,
+  output: { file: file.input, ...file.output },
+  kind: "meta",
+}));
 
 /** @type {Files[]} */
-const files = [
-  ...[...nodejsFiles, ...universalFiles].map((file) => ({
-    ...file,
-    build: buildJavascriptModule,
-  })),
-  ...metaFiles,
-];
+const files = [...nodejsFiles, ...universalFiles, ...metaFiles].filter(Boolean);
 export default files;

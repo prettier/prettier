@@ -128,7 +128,7 @@ async function buildLicense({ file, files, shouldCollectLicenses }) {
     return;
   }
 
-  const javascriptFiles = files.filter((file) => !file.isMetaFile);
+  const javascriptFiles = files.filter((file) => file.kind === "javascript");
   if (javascriptFiles.some((file) => !Array.isArray(file.dependencies))) {
     return { skipped: true };
   }
