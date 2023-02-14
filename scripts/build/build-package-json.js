@@ -20,6 +20,7 @@ async function buildPackageJson({ file, files }) {
   packageJson.exports = {
     ".": {
       require: "./index.cjs",
+      types: "./index.d.ts",
       default: "./index.mjs",
     },
     "./*": "./*",
@@ -32,6 +33,7 @@ async function buildPackageJson({ file, files }) {
             file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
             {
               require: `./${file.output.file}`,
+              types: `./${file.output.file.replace(/\.js$/, ".d.ts")}`,
               default: `./${file.output.file.replace(/\.js$/, ".mjs")}`,
             },
           ];
@@ -73,7 +75,6 @@ async function buildPackageJson({ file, files }) {
       "node -e \"assert.equal(require('.').version, require('..').version)\"",
   };
   packageJson.files = files.map(({ output: { file } }) => file).sort();
-  packageJson.types = "./index.d.ts";
 
   await writeJson(path.join(DIST_DIR, file.output.file), packageJson);
 }

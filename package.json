@@ -15,6 +15,7 @@
   "exports": {
     ".": {
       "require": "./src/index.cjs",
+      "types": "./src/index.d.ts",
       "default": "./src/index.js"
     },
     "./*": "./*"
