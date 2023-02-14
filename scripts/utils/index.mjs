@@ -33,14 +33,12 @@ const PROJECT_ROOT = url.fileURLToPath(new URL("../../", import.meta.url));
 const DIST_DIR = path.join(PROJECT_ROOT, "dist");
 const WEBSITE_DIR = path.join(PROJECT_ROOT, "website");
 const SOURCE_DIR = path.join(PROJECT_ROOT, "src");
-const BUILD_DIR = path.join(PROJECT_ROOT, "scripts", "build");
 
 export {
   PROJECT_ROOT,
   DIST_DIR,
   WEBSITE_DIR,
   SOURCE_DIR,
-  BUILD_DIR,
   readJson,
   writeJson,
   writeFile,

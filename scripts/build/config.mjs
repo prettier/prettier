@@ -18,13 +18,7 @@ const {
 const resolveEsmModulePath = async (specifier) =>
   url.fileURLToPath(await importMetaResolve(specifier));
 
-const checkedDtsFiles = new Set();
 function getDtsFileConfig({ input: jsFileInput, outputBaseName }) {
-  if (checkedDtsFiles.has(jsFileInput)) {
-    return;
-  }
-  checkedDtsFiles.add(jsFileInput);
-
   const input = jsFileInput.replace(/\.[cm]?js$/, ".d.ts");
   if (!fs.existsSync(path.join(PROJECT_ROOT, input))) {
     return;
