@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"Missing semicolon. (1:10)
+> 1 | namespace "a" {}
+    |          ^"
+`;
+
+exports[`snippet: #0 [typescript] format 1`] = `
+"Identifier expected. (1:11)
+> 1 | namespace "a" {}
+    |           ^"
+`;
