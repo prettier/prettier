@@ -144,7 +144,7 @@ Available parsers:
 
   For JavaScript code.
 
-  Lives in `plugins/babel.mjs` and `plugins/babel.js`.
+  Lives in [`plugins/babel.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/babel.mjs) and [`plugins/babel.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/babel.js).
 
   Possible embedded parsers:
 
@@ -165,37 +165,37 @@ Available parsers:
 
   Same as `babel` parser, but for Flow syntax.
 
-  Lives in `plugins/flow.mjs` and `plugins/flow.js`.
+  Lives in [`plugins/flow.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/flow.mjs) and [`plugins/flow.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/flow.js).
 
 - `typescript`
 
   Same as `babel` parser, but for TypeScript syntax.
 
-  Lives in `plugins/typescript.mjs` and `plugins/typescript.js`.
+  Lives in [`plugins/typescript.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/typescript.mjs) and [`plugins/typescript.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/typescript.js).
 
 - `acorn`
 
   Same as `babel` parser.
 
-  Lives in `plugins/acorn-and-espree.mjs` and `plugins/acorn-and-espree.js`.
+  Lives in [`plugins/acorn-and-espree.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/acorn-and-espree.mjs) and [`plugins/acorn-and-espree.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/acorn-and-espree.js).
 
 - `espree`
 
   Same as `babel` parser.
 
-  Lives in `plugins/acorn-and-espree.mjs` and `plugins/acorn-and-espree.js`.
+  Lives in [`plugins/acorn-and-espree.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/acorn-and-espree.mjs) and [`plugins/acorn-and-espree.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/acorn-and-espree.js).
 
 - `meriyah`
 
   Same as `babel` parser.
 
-  Lives in `plugins/meriyah.mjs` and `plugins/meriyah.js`.
+  Lives in [`plugins/meriyah.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/meriyah.mjs) and [`plugins/meriyah.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/meriyah.js).
 
 - `css`
 
   For CSS code.
 
-  Lives in `plugins/postcss.mjs` and `plugins/postcss.js`.
+  Lives in [`plugins/postcss.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/postcss.mjs) and [`plugins/postcss.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/postcss.js).
 
   Possible embedded parsers:
 
@@ -213,7 +213,7 @@ Available parsers:
 
   For JSON code.
 
-  Lives in `plugins/babel.mjs` and `plugins/babel.js` (it uses babel to parse).
+  Lives in [`plugins/babel.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/babel.mjs) and [`plugins/babel.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/babel.js) (it uses babel to parse).
 
 - `json5`
 
@@ -227,13 +227,13 @@ Available parsers:
 
   For Graphql code.
 
-  Lives in `plugins/graphql.mjs` and `plugins/graphql.js`.
+  Lives in [`plugins/graphql.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/graphql.mjs) and [`plugins/graphql.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/graphql.js).
 
 - `markdown`
 
   For MarkDown code.
 
-  Lives in `plugins/markdown.mjs` and `plugins/markdown.js`.
+  Lives in [`plugins/markdown.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/markdown.mjs) and [`plugins/markdown.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/markdown.js).
 
   It's possible to call any parser, since code blocks can have any language.
 
@@ -245,7 +245,7 @@ Available parsers:
 
   For HTML code.
 
-  Lives in `plugins/html.mjs` and `plugins/html.js`.
+  Lives in [`plugins/html.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/html.mjs) and [`plugins/html.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/html.js).
 
   Possible embedded parsers:
 
@@ -270,7 +270,7 @@ Available parsers:
   - `__ng_interpolation`
   - `__ng_directive`
 
-  Those parsers are private, lives in `plugins/angular.mjs` and `plugins/angular.js`.
+  Those parsers are private, lives in [`plugins/angular.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/angular.mjs) and [`plugins/angular.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/angular.js).
   <!-- TODO: Mention the printers are in JavaScript plugins, when we fix #13256 -->
 
 - `lwc`
@@ -281,7 +281,7 @@ Available parsers:
 
   For YAML code.
 
-  Lives in `plugins/yaml.mjs` and `plugins/yaml.js`.
+  Lives in [`plugins/yaml.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/yaml.mjs) and [`plugins/yaml.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/yaml.js).
 
   Possible embedded parsers:
 
