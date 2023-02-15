@@ -254,7 +254,7 @@ const pluginFiles = [
   },
   "src/language-graphql/index.js",
   {
-    input: "src/language-markdown/parser-markdown.js",
+    input: "src/language-markdown/index.js",
     replaceModule: [
       {
         module: require.resolve("parse-entities/decode-entity.browser.js"),

@@ -180,7 +180,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     for (const file of [
       "src/language-css/parsers.js",
       "src/language-js/parse/parsers.js",
-      "src/language-markdown/parsers.js",
       // This module requires file access, should not include in universal bundle
       "src/utils/get-interpreter.js",
     ]) {
@@ -198,7 +197,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         export * as css from "./language-css/index.js";
         // export * as handlebars from "./language-handlebars/index.js";
         // export * as graphql from "./language-graphql/index.js";
-        export * as markdown from "./language-markdown/index.js";
+        // export * as markdown from "./language-markdown/index.js";
         // export * as html from "./language-html/index.js";
         // export * as yaml from "./language-yaml/index.js";
         export * as json from "./language-json/index.js";
