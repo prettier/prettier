@@ -22,7 +22,6 @@ const resolveEsmModulePath = async (specifier) =>
  * @property {object[]?} replaceModule - Module replacements
  * @property {string[]?} target - ESBuild targets
  * @property {string[]?} external - array of paths that should not be included in the final bundle
- * @property {boolean?} interopDefault - interop default export
  * @property {boolean?} minify - disable code minification
  *
  * @typedef {Object} Output
@@ -326,13 +325,11 @@ const nonPluginUniversalFiles = [
     input: "src/document/index.js",
     outputBaseName: "doc",
     umdVariableName: "doc",
-    interopDefault: false,
     minify: false,
   },
   {
     input: "src/standalone.js",
     umdVariableName: "prettier",
-    interopDefault: false,
     replaceModule: [
       {
         module: require.resolve("@babel/highlight"),

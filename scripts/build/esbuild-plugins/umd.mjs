@@ -3,7 +3,7 @@ import camelCase from "camelcase";
 import { outdent } from "outdent";
 
 const PLACEHOLDER = "__PLACEHOLDER__";
-function getUmdWrapper({ name, interopDefault = false }, build) {
+function getUmdWrapper({ name }, build) {
   const path = name.split(".");
   const { minify } = build.initialOptions;
   const temporaryName = minify ? "m" : camelCase(name);
@@ -23,17 +23,15 @@ function getUmdWrapper({ name, interopDefault = false }, build) {
 
   let wrapper = outdent`
     (function (factory) {
-      function interopModuleDefault(factory) {
+      function interopModuleDefault() {
         var module = factory();
-        return module${interopDefault ? ".default" : ""};
+        return module.default || module;
       }
 
       if (typeof exports === "object" && typeof module === "object") {
-        module.exports = interopModuleDefault(factory);
+        module.exports = interopModuleDefault();
       } else if (typeof define === "function" && define.amd) {
-        define(function () {
-          return interopModuleDefault(factory)
-        });
+        define(interopModuleDefault);
       } else {
         var root =
           typeof globalThis !== "undefined"
@@ -43,7 +41,7 @@ function getUmdWrapper({ name, interopDefault = false }, build) {
             : typeof self !== "undefined"
             ? self
             : this || {};
-        ${globalObjectText.trimStart()} = interopModuleDefault(factory);
+        ${globalObjectText.trimStart()} = interopModuleDefault();
       }
     })(function() {
       "use strict";${PLACEHOLDER}
