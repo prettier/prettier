@@ -257,7 +257,7 @@ Available parsers:
 
   Same as `html` parser, but for Vue syntax.
 
-  It's possible to call any parser, since Vue SFC supports custom block.
+  It's possible to call any parser, since Vue SFC supports custom blocks.
 
 - `angular`
 
