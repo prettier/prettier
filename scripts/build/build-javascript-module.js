@@ -179,7 +179,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     // Replace parser getters with `undefined`
     for (const file of [
       "src/language-css/parsers.js",
-      "src/language-html/parsers.js",
       "src/language-handlebars/parsers.js",
       "src/language-js/parse/parsers.js",
       "src/language-markdown/parsers.js",
@@ -201,7 +200,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         export * as handlebars from "./language-handlebars/index.js";
         // export * as graphql from "./language-graphql/index.js";
         export * as markdown from "./language-markdown/index.js";
-        export * as html from "./language-html/index.js";
+        // export * as html from "./language-html/index.js";
         // export * as yaml from "./language-yaml/index.js";
         export * as json from "./language-json/index.js";
       `,
