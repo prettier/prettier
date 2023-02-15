@@ -178,7 +178,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
 
     // Replace parser getters with `undefined`
     for (const file of [
-      "src/language-css/parsers.js",
       "src/language-js/parse/parsers.js",
       // This module requires file access, should not include in universal bundle
       "src/utils/get-interpreter.js",
@@ -194,7 +193,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       module: path.join(PROJECT_ROOT, "src/languages.js"),
       text: outdent`
         export * as js from "./language-js/index.js";
-        export * as css from "./language-css/index.js";
+        // export * as css from "./language-css/index.js";
         // export * as handlebars from "./language-handlebars/index.js";
         // export * as graphql from "./language-graphql/index.js";
         // export * as markdown from "./language-markdown/index.js";

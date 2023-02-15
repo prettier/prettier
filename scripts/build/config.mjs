@@ -212,7 +212,8 @@ const pluginFiles = [
     ],
   },
   {
-    input: "src/language-css/parser-postcss.js",
+    input: "src/language-css/index.js",
+    outputBaseName: "postcss",
     replaceModule: [
       // `postcss-values-parser` uses constructor.name, it will be changed by bundler
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
