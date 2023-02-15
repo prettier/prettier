@@ -1,7 +1,9 @@
 function createParsers(modules) {
+  /* c8 ignore start */
   if (!modules) {
     return;
   }
+  /* c8 ignore end */
 
   const parsers = Object.create(null);
 

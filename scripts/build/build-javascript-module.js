@@ -1,6 +1,7 @@
 import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
+import { outdent } from "outdent";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import browserslistToEsbuild from "browserslist-to-esbuild";
@@ -182,7 +183,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       "src/language-handlebars/parsers.js",
       "src/language-js/parse/parsers.js",
       "src/language-markdown/parsers.js",
-      "src/language-yaml/parsers.js",
       // This module requires file access, should not include in universal bundle
       "src/utils/get-interpreter.js",
     ]) {
@@ -195,8 +195,16 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     // TODO: We should not include any plugins in standalone version
     replaceModule.push({
       module: path.join(PROJECT_ROOT, "src/languages.js"),
-      find: 'export * as graphql from "./language-graphql/index.js";',
-      replacement: "",
+      text: outdent`
+        export * as js from "./language-js/index.js";
+        export * as css from "./language-css/index.js";
+        export * as handlebars from "./language-handlebars/index.js";
+        // export * as graphql from "./language-graphql/index.js";
+        export * as markdown from "./language-markdown/index.js";
+        export * as html from "./language-html/index.js";
+        // export * as yaml from "./language-yaml/index.js";
+        export * as json from "./language-json/index.js";
+      `,
     });
   }
 

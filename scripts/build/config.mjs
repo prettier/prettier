@@ -295,7 +295,7 @@ const pluginFiles = [
     ],
   },
   "src/language-html/parser-html.js",
-  "src/language-yaml/parser-yaml.js",
+  "src/language-yaml/index.js",
 ].map((file) => {
   if (typeof file === "string") {
     file = { input: file };
