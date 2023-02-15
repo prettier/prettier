@@ -9,7 +9,6 @@ import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
-import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.mjs";
 import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
@@ -248,17 +247,12 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       esbuildOptions.plugins.push(
         esbuildPluginUmd({
           name: file.output.umdVariableName,
-          interopDefault: buildOptions.interopDefault ?? true,
         })
       );
     }
   } else {
     esbuildOptions.platform = "node";
     esbuildOptions.external.push(...files.map((file) => file.output.file));
-
-    if (file.output.format !== "esm" && buildOptions.interopDefault) {
-      esbuildOptions.plugins.push(esbuildPluginInteropDefault());
-    }
 
     // https://github.com/evanw/esbuild/issues/1921
     if (file.output.format === "esm") {
