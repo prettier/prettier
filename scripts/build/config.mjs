@@ -263,7 +263,8 @@ const pluginFiles = [
     ],
   },
   {
-    input: "src/language-handlebars/parser-glimmer.js",
+    input: "src/language-handlebars/index.js",
+    outputBaseName: "glimmer",
     replaceModule: [
       // See comment in `src/language-handlebars/parser-glimmer.js` file
       {
