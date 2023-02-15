@@ -1,8 +1,12 @@
 import * as core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
-import * as languages from "./languages.js";
+import * as prettierPluginJs from "./language-js/index.js";
+import * as prettierPluginJson from "./language-json/index.js";
 
-const builtinPlugins = Object.values(languages);
+const builtinPlugins = [
+  prettierPluginJs,
+  prettierPluginJson,
+];
 
 function withPlugins(
   fn,
