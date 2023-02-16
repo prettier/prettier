@@ -101,7 +101,7 @@
     "regexp-util": "1.2.2",
     "remark-footnotes": "2.0.0",
     "remark-math": "5.1.1",
-    "remark-math-v3": "3.0.1",
+    "remark-math-v3": "npm:remark-math@3.0.1",
     "remark-parse": "10.0.1",
     "remark-parse-v8": "npm:remark-parse@8.0.3",
     "sdbm": "2.0.0",
