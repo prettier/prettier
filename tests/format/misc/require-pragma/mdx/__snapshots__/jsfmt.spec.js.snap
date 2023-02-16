@@ -12,7 +12,7 @@ requirePragma: true
 I     should      be      formatted       !!
 
 =====================================output=====================================
-{/\\* @prettier \\*/}
+{/* @prettier */}
 
 I should be formatted !!
 
