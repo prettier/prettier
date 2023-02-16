@@ -725,15 +725,9 @@ function isLooseListItem(node, options) {
   return (
     node.type === "listItem" &&
     (node.spread ||
-<<<<<<< HEAD
       // Check if `listItem` ends with `\n`
       // since it can't be empty, so we only need check the last character
       options.originalText.charAt(node.position.end.offset - 1) === "\n")
-=======
-      options.originalText
-        .slice(node.position.start.offset, node.position.end.offset)
-        .endsWith("\n"))
->>>>>>> 77168f6e2 (Markdown: Remove loos-item plugin)
   );
 }
 
