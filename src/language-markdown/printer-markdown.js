@@ -724,16 +724,23 @@ function isLooseListItem(node, options) {
   return (
     node.type === "listItem" &&
     (node.spread ||
+      // Check if `listItem` ends with `\n`
+      // since it can't be empty, so we can only need check the last character
       options.originalText.charAt(node.position.end.offset - 1) === "\n")
   );
 }
 
 function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
+  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
+
+  if (isPrevNodeLooseListItem) {
+    return true;
+  }
+
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
     parent.type === "listItem" && !isLooseListItem(parent, options);
-  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
@@ -745,15 +752,12 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
 
-  return (
-    isPrevNodeLooseListItem ||
-    !(
-      isSiblingNode ||
-      isInTightListItem ||
-      isPrevNodePrettierIgnore ||
-      isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-      isHtmlDirectAfterListItem
-    )
+  return !(
+    isSiblingNode ||
+    isInTightListItem ||
+    isPrevNodePrettierIgnore ||
+    isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
+    isHtmlDirectAfterListItem
   );
 }
 
