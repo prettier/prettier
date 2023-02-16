@@ -1,3 +1,4 @@
+import assert from "node:assert";
 import remarkParse from "remark-parse";
 import unified from "unified";
 import remarkMath from "remark-math";
@@ -7,10 +8,9 @@ import { locStart, locEnd } from "./loc.js";
 import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import gfm from "./unified-plugins/gfm.js";
 import htmlToJsx from "./unified-plugins/html-to-jsx.js";
-import liquid from "./unified-plugins/liquid.js";
-import wikiLink from "./unified-plugins/wiki-link.js";
+import liquid from "./unified-plugins/liquid-for-micromark.js";
+import wikiLink from "./unified-plugins/wiki-link-for-micromark.js";
 import looseItems from "./unified-plugins/loose-items.js";
-import assert from "assert";
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:

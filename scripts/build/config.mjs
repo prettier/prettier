@@ -288,6 +288,15 @@ const pluginFiles = [
     ],
   },
   {
+    input: "src/language-markdown/parser-mdx.js",
+    replaceModule: [
+      {
+        module: require.resolve("parse-entities/decode-entity.browser.js"),
+        path: require.resolve("parse-entities/decode-entity.js"),
+      },
+    ],
+  },
+  {
     input: "src/language-handlebars/parser-glimmer.js",
     replaceModule: [
       // See comment in `src/language-handlebars/parser-glimmer.js` file
