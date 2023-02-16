@@ -59,7 +59,20 @@ const extensions = {
 };
 
 const pluginFiles = [
-  "src/language-js/parse/babel.js",
+  {
+    input: "src/language-js/parse/babel.js",
+    replaceModule: [
+      {
+        // We don't use value of JSXText
+        module: require.resolve("@babel/parser"),
+        process: (text) =>
+          text.replaceAll(
+            "const entity = entities[desc];",
+            "const entity = undefined"
+          ),
+      },
+    ],
+  },
   {
     input: "src/language-js/parse/flow.js",
     replaceModule: [
@@ -160,13 +173,22 @@ const pluginFiles = [
     replaceModule: [
       {
         module: require.resolve("espree"),
-        find: "const Syntax = (function() {",
-        replacement: "const Syntax = undefined && (function() {",
+        process: (text) =>
+          text
+            .replaceAll(
+              /exports\.(?:Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions|tokenize|version) = .*?;/g,
+              ""
+            )
+            .replaceAll(
+              /const (Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions) = /g,
+              "const $1 = undefined && "
+            )
+            .replace("require('eslint-visitor-keys')", "{}"),
       },
       {
-        module: require.resolve("espree"),
-        find: "var visitorKeys = require('eslint-visitor-keys');",
-        replacement: "var visitorKeys;",
+        // We don't use value of JSXText
+        module: require.resolve("acorn-jsx/xhtml.js"),
+        text: "module.exports = {};",
       },
     ],
   },
