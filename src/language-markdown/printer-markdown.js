@@ -651,7 +651,7 @@ function printChildren(path, options, print, events = {}) {
         parts.push(hardline);
 
         if (
-          shouldPrePrintDoubleHardline(path) ||
+          shouldPrePrintDoubleHardline(path, options) ||
           shouldPrePrintTripleHardline(path)
         ) {
           parts.push(hardline);
@@ -720,14 +720,24 @@ function shouldPrePrintHardline({ node, parent }) {
   return !isInlineNode && !isInlineHTML;
 }
 
-function shouldPrePrintDoubleHardline({ node, previous, parent }) {
+function isLooseListItem(node, options) {
+  return (
+    node.type === "listItem" &&
+    (node.spread ||
+      options.originalText
+        .slice(node.position.start.offset, node.position.end.offset)
+        .endsWith("\n"))
+  );
+}
+
+function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
 
-  const isInTightListItem = parent.type === "listItem" && !parent.loose;
+  const isInTightListItem =
+    parent.type === "listItem" && !isLooseListItem(parent, options);
 
-  const isPrevNodeLooseListItem =
-    previous.type === "listItem" && previous.loose;
+  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
 
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
 
