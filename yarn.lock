@@ -7342,7 +7342,9 @@ __metadata:
     prettier: 2.8.4
     pretty-bytes: 6.1.0
     regexp-util: 1.2.2
+    remark-footnotes: 2.0.0
     remark-math: 5.1.1
+    remark-math-v3: "npm:remark-math@3.0.1"
     remark-parse: 10.0.1
     remark-parse-v8: "npm:remark-parse@8.0.3"
     rollup-plugin-license: 3.0.1
@@ -7583,6 +7585,20 @@ __metadata:
   bin:
     regjsparser: bin/parser
   checksum: 5e1b76afe8f1d03c3beaf9e0d935dd467589c3625f6d65fb8ffa14f224d783a0fed4bf49c2c1b8211043ef92b6117313419edf055a098ed8342e340586741afc
+  languageName: node
+  linkType: hard
+
+"remark-footnotes@npm:2.0.0":
+  version: 2.0.0
+  resolution: "remark-footnotes@npm:2.0.0"
+  checksum: f2f87ffd6fe25892373c7164d6584a7cb03ab0ea4f186af493a73df519e24b72998a556e7f16cb996f18426cdb80556b95ff252769e252cf3ccba0fd2ca20621
+  languageName: node
+  linkType: hard
+
+"remark-math-v3@npm:remark-math@3.0.1":
+  version: 3.0.1
+  resolution: "remark-math@npm:3.0.1"
+  checksum: 690256f27f2b42dadcf41806fec443056e09592454622ae77f03b1a8474e8c83cc7610e694be7e17de92c96cc272c61209e59a6e7a24e3af6ede47d48b185ccd
   languageName: node
   linkType: hard
 
