@@ -1,7 +1,11 @@
 const parsers = [
   {
     importPlugin: () => import("./parser-markdown.js"),
-    parserNames: ["remark", "markdown", "mdx"],
+    parserNames: ["remark", "markdown"],
+  },
+  {
+    importPlugin: () => import("./parser-mdx.js"),
+    parserNames: ["mdx"],
   },
 ];
 
