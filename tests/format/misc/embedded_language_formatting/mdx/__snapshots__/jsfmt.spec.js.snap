@@ -154,8 +154,8 @@ printWidth: 80
 ---
 
 <>
-test <World        /> test
-</> 123
+    test   <World        />   test
+</>       123
 
 ---
 
