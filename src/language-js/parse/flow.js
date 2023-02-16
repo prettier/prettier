@@ -1,3 +1,4 @@
+import flowParser from "flow-parser";
 import createError from "../../common/parser-create-error.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
@@ -39,12 +40,8 @@ function createParseError(error) {
   });
 }
 
-async function parse(text, options = {}) {
-  // Inline `import()` to avoid loading all the JS if we don't use it
-  const {
-    default: { parse },
-  } = await import("flow-parser");
-  const ast = parse(replaceHashbang(text), parseOptions);
+function parse(text, options = {}) {
+  const ast = flowParser.parse(replaceHashbang(text), parseOptions);
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);

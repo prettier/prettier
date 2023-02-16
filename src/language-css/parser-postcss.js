@@ -1,3 +1,9 @@
+import postcssParse from "postcss/lib/parse";
+import postcssLess from "postcss-less";
+import postcssScssParse from "postcss-scss/lib/scss-parse";
+import PostcssValuesParser from "postcss-values-parser/lib/parser.js";
+import PostcssSelectorParser from "postcss-selector-parser/dist/processor.js";
+import postcssMediaQueryParser from "postcss-media-query-parser";
 import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import { hasPragma } from "./pragma.js";
@@ -21,7 +27,7 @@ const getHighestAncestor = (node) => {
   return node;
 };
 
-async function parseValueNode(valueNode, options) {
+function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
   let parenGroup = {
     open: null,
@@ -55,7 +61,7 @@ async function parseValueNode(valueNode, options) {
 
     if (node.type === "func" && node.value === "selector") {
       node.group.groups = [
-        await parseSelector(
+        parseSelector(
           getHighestAncestor(valueNode).text.slice(
             node.group.open.sourceIndex + 1,
             node.group.close.sourceIndex
@@ -190,13 +196,13 @@ function addMissingType(node) {
   return node;
 }
 
-async function parseNestedValue(node, options) {
+function parseNestedValue(node, options) {
   if (node && typeof node === "object") {
     for (const key in node) {
       if (key !== "parent") {
-        await parseNestedValue(node[key], options);
+        parseNestedValue(node[key], options);
         if (key === "nodes") {
-          node.group = flattenGroups(await parseValueNode(node, options));
+          node.group = flattenGroups(parseValueNode(node, options));
           delete node[key];
         }
       }
@@ -206,16 +212,14 @@ async function parseNestedValue(node, options) {
   return node;
 }
 
-async function parseValue(value, options) {
+function parseValue(value, options) {
   // Inline javascript in Less
   if (options.parser === "less" && value.startsWith("~`")) {
     return { type: "value-unknown", value };
   }
 
-  const Parser = await import("postcss-values-parser/lib/parser.js").then(
-    (m) => m.default
-  );
-  const valueParser = (source, options) => new Parser(source, options);
+  const valueParser = (source, options) =>
+    new PostcssValuesParser(source, options);
 
   let result = null;
 
@@ -230,12 +234,12 @@ async function parseValue(value, options) {
 
   result.text = value;
 
-  const parsedResult = await parseNestedValue(result, options);
+  const parsedResult = parseNestedValue(result, options);
 
   return addTypePrefix(parsedResult, "value-", /^selector-/);
 }
 
-async function parseSelector(selector) {
+function parseSelector(selector) {
   // If there's a comment inside of a selector, the parser tries to parse
   // the content of the comment as selectors which turns it into complete
   // garbage. Better to print the whole selector as-is and not try to parse
@@ -247,10 +251,7 @@ async function parseSelector(selector) {
     };
   }
 
-  const SelectorProcessor = await import(
-    "postcss-selector-parser/dist/processor.js"
-  ).then((m) => m.default);
-  const selectorParser = (processor) => new SelectorProcessor(processor);
+  const selectorParser = (processor) => new PostcssSelectorParser(processor);
 
   let result = null;
 
@@ -274,15 +275,11 @@ async function parseSelector(selector) {
   return addTypePrefix(result, "selector-");
 }
 
-async function parseMediaQuery(params) {
-  const mediaParser = await import("postcss-media-query-parser").then(
-    (m) => m.default.default
-  );
-
+function parseMediaQuery(params) {
   let result = null;
 
   try {
-    result = mediaParser(params);
+    result = postcssMediaQueryParser.default(params);
   } catch {
     // Ignore bad media queries
     /* c8 ignore next 4 */
@@ -298,12 +295,12 @@ async function parseMediaQuery(params) {
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
-async function parseNestedCSS(node, options) {
+function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {
     delete node.parent;
 
     for (const key in node) {
-      await parseNestedCSS(node[key], options);
+      parseNestedCSS(node[key], options);
     }
 
     if (!node.type) {
@@ -344,7 +341,7 @@ async function parseNestedCSS(node, options) {
         }
         let ast;
         try {
-          ast = await parse(fakeContent, { ...options });
+          ast = parse(fakeContent, { ...options });
         } catch {
           // noop
         }
@@ -424,7 +421,7 @@ async function parseNestedCSS(node, options) {
       /* c8 ignore next 6 */
       // Ignore LESS mixins
       if (node.mixin) {
-        node.selector = await parseValue(selector, options);
+        node.selector = parseValue(selector, options);
 
         return node;
       }
@@ -434,7 +431,7 @@ async function parseNestedCSS(node, options) {
         node.isSCSSNesterProperty = true;
       }
 
-      node.selector = await parseSelector(selector);
+      node.selector = parseSelector(selector);
 
       return node;
     }
@@ -469,7 +466,7 @@ async function parseNestedCSS(node, options) {
         };
       }
 
-      node.value = await parseValue(value, options);
+      node.value = parseValue(value, options);
     }
 
     if (
@@ -483,7 +480,7 @@ async function parseNestedCSS(node, options) {
       // `:extend()` is parsed as value
       if (node.extend && !node.selector) {
         delete node.value;
-        node.selector = await parseSelector(value.slice("extend(".length, -1));
+        node.selector = parseSelector(value.slice("extend(".length, -1));
       }
     }
 
@@ -496,7 +493,7 @@ async function parseNestedCSS(node, options) {
             node.name +
             node.raws.afterName +
             node.raws.params;
-          node.selector = await parseSelector(source);
+          node.selector = parseSelector(source);
           delete node.params;
           return node;
         }
@@ -511,7 +508,7 @@ async function parseNestedCSS(node, options) {
       if (options.parser === "css" && node.name === "custom-selector") {
         const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
         node.customSelector = customSelector;
-        node.selector = await parseSelector(
+        node.selector = parseSelector(
           node.params.slice(customSelector.length).trim()
         );
         delete node.params;
@@ -527,7 +524,7 @@ async function parseNestedCSS(node, options) {
           node.variable = true;
           const parts = node.name.split(":");
           node.name = parts[0];
-          node.value = await parseValue(parts.slice(1).join(":"), options);
+          node.value = parseValue(parts.slice(1).join(":"), options);
         }
 
         // `@color :blue;`
@@ -538,7 +535,7 @@ async function parseNestedCSS(node, options) {
           node.variable = true;
           const text = node.params.slice(1);
           if (text) {
-            node.value = await parseValue(text, options);
+            node.value = parseValue(text, options);
           }
           node.raws.afterName += ":";
         }
@@ -570,7 +567,7 @@ async function parseNestedCSS(node, options) {
       }
 
       if (name === "extend" || name === "nest") {
-        node.selector = await parseSelector(params);
+        node.selector = parseSelector(params);
         delete node.params;
 
         return node;
@@ -578,9 +575,9 @@ async function parseNestedCSS(node, options) {
 
       if (name === "at-root") {
         if (/^\(\s*(?:without|with)\s*:.+\)$/s.test(params)) {
-          node.params = await parseValue(params, options);
+          node.params = parseValue(params, options);
         } else {
-          node.selector = await parseSelector(params);
+          node.selector = parseSelector(params);
           delete node.params;
         }
 
@@ -590,7 +587,7 @@ async function parseNestedCSS(node, options) {
       if (isModuleRuleName(lowercasedName)) {
         node.import = true;
         delete node.filename;
-        node.params = await parseValue(params, options);
+        node.params = parseValue(params, options);
         return node;
       }
 
@@ -619,7 +616,7 @@ async function parseNestedCSS(node, options) {
         // Move spaces after the `(`, so we can keep the range correct
         params = params.replace(/^(?!if)(\S+)(\s+)\(/, "$1($2");
 
-        node.value = await parseValue(params, options);
+        node.value = parseValue(params, options);
         delete node.params;
 
         return node;
@@ -634,7 +631,7 @@ async function parseNestedCSS(node, options) {
           };
         }
 
-        node.params = await parseMediaQuery(params);
+        node.params = parseMediaQuery(params);
 
         return node;
       }
@@ -648,7 +645,7 @@ async function parseNestedCSS(node, options) {
   return node;
 }
 
-async function parseWithParser(parse, text, options) {
+function parseWithParser(parse, text, options) {
   const parsed = parseFrontMatter(text);
   const { frontMatter } = parsed;
   text = parsed.content;
@@ -674,7 +671,7 @@ async function parseWithParser(parse, text, options) {
   }
 
   options.originalText = text;
-  result = await parseNestedCSS(addTypePrefix(result, "css-"), options);
+  result = parseNestedCSS(addTypePrefix(result, "css-"), options);
 
   calculateLoc(result, text);
 
@@ -689,26 +686,22 @@ async function parseWithParser(parse, text, options) {
   return result;
 }
 
-async function parseCss(text, options = {}) {
-  const parse = await import("postcss/lib/parse").then((m) => m.default);
-  return parseWithParser(parse, text, options);
+function parseCss(text, options = {}) {
+  return parseWithParser(postcssParse.default, text, options);
 }
 
-async function parseLess(text, options = {}) {
-  const less = await import("postcss-less");
-
+function parseLess(text, options = {}) {
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
     // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    (text) => less.parse(replaceQuotesInInlineComments(text)),
+    (text) => postcssLess.parse(replaceQuotesInInlineComments(text)),
     text,
     options
   );
 }
 
-async function parseScss(text, options = {}) {
-  const { default: parse } = await import("postcss-scss/lib/scss-parse");
-  return parseWithParser(parse, text, options);
+function parseScss(text, options = {}) {
+  return parseWithParser(postcssScssParse, text, options);
 }
 
 const postCssParser = {

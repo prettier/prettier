@@ -1,9 +1,7 @@
+import ts from "typescript";
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import visitNode from "./visit-node.js";
 import throwTsSyntaxError from "./throw-ts-syntax-error.js";
-
-/** @type {import("typescript")} */
-let ts;
 
 function getTsNodeLocation(nodeOrToken) {
   const sourceFile =
@@ -292,13 +290,9 @@ const decoratorOrModifierRegExp = new RegExp(
   ["@", ...POSSIBLE_MODIFIERS].join("|")
 );
 
-async function throwErrorForInvalidNodes(tsParseResult, options) {
+function throwErrorForInvalidNodes(tsParseResult, options) {
   if (!decoratorOrModifierRegExp.test(options.originalText)) {
     return;
-  }
-
-  if (!ts) {
-    ({ default: ts } = await import("typescript"));
   }
 
   visitNode(tsParseResult.ast, (esTreeNode) => {
