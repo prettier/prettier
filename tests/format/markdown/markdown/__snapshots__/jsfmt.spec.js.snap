@@ -924,7 +924,7 @@ Prettier is an opinionated code formatter with support for:
 - [JSON](http://json.org/)
 - [GraphQL](http://graphql.org/)
 
-It removes all original styling[\\\\*](#styling-footnote) and ensures that all
+It removes all original styling[\\*](#styling-footnote) and ensures that all
 outputted code conforms to a consistent style. (See this
 [blog post](http://jlongster.com/A-Prettier-Formatter))
 
@@ -1020,11 +1020,11 @@ foo(
 
 Prettier enforces a consistent code **style** (i.e. code formatting that won't
 affect the AST) across your entire codebase because it disregards the original
-styling[\\\\*](#styling-footnote) by parsing it away and re-printing the parsed
-AST with its own rules that take the maximum line length into account, wrapping
-code when necessary.
+styling[\\*](#styling-footnote) by parsing it away and re-printing the parsed AST
+with its own rules that take the maximum line length into account, wrapping code
+when necessary.
 
-<a href="#styling-footnote" name="styling-footnote">\\\\*</a>_Well actually, some
+<a href="#styling-footnote" name="styling-footnote">\\*</a>_Well actually, some
 original styling is preserved when practical—see [empty lines] and [multi-line
 objects]._
 
@@ -1201,8 +1201,8 @@ npm install --save-dev --save-exact prettier
 npm install --global prettier
 \`\`\`
 
-> We recommend pinning an exact version of prettier in your \`package.json\` > as
-> we introduce stylistic changes in patch releases.
+> We recommend pinning an exact version of prettier in your \`package.json\` as we
+> introduce stylistic changes in patch releases.
 
 ### CLI
 
@@ -1634,9 +1634,9 @@ Valid options:
   This requires node 8 or a
   [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
-| Default  | CLI Override                                           | API Override                                           |
-| -------- | ------------------------------------------------------ | ------------------------------------------------------ |
-| \`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
+| Default  | CLI Override                                 | API Override                                 |
+| -------- | -------------------------------------------- | -------------------------------------------- |
+| \`"none"\` | <code>--trailing-comma <none|es5|all></code> | <code>trailingComma: "<none|es5|all>"</code> |
 
 ### Bracket Spacing
 
@@ -2901,7 +2901,7 @@ Prettier is an opinionated code formatter with support for:
 - [JSON](http://json.org/)
 - [GraphQL](http://graphql.org/)
 
-It removes all original styling[\\\\*](#styling-footnote) and ensures that all
+It removes all original styling[\\*](#styling-footnote) and ensures that all
 outputted code conforms to a consistent style. (See this
 [blog post](http://jlongster.com/A-Prettier-Formatter))
 
@@ -2997,11 +2997,11 @@ foo(
 
 Prettier enforces a consistent code **style** (i.e. code formatting that won't
 affect the AST) across your entire codebase because it disregards the original
-styling[\\\\*](#styling-footnote) by parsing it away and re-printing the parsed
-AST with its own rules that take the maximum line length into account, wrapping
-code when necessary.
+styling[\\*](#styling-footnote) by parsing it away and re-printing the parsed AST
+with its own rules that take the maximum line length into account, wrapping code
+when necessary.
 
-<a href="#styling-footnote" name="styling-footnote">\\\\*</a>_Well actually, some
+<a href="#styling-footnote" name="styling-footnote">\\*</a>_Well actually, some
 original styling is preserved when practical—see [empty lines] and [multi-line
 objects]._
 
@@ -3178,8 +3178,8 @@ npm install --save-dev --save-exact prettier
 npm install --global prettier
 \`\`\`
 
-> We recommend pinning an exact version of prettier in your \`package.json\` > as
-> we introduce stylistic changes in patch releases.
+> We recommend pinning an exact version of prettier in your \`package.json\` as we
+> introduce stylistic changes in patch releases.
 
 ### CLI
 
@@ -3611,9 +3611,9 @@ Valid options:
   This requires node 8 or a
   [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
-| Default  | CLI Override                                           | API Override                                           |
-| -------- | ------------------------------------------------------ | ------------------------------------------------------ |
-| \`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
+| Default  | CLI Override                                 | API Override                                 |
+| -------- | -------------------------------------------- | -------------------------------------------- |
+| \`"none"\` | <code>--trailing-comma <none|es5|all></code> | <code>trailingComma: "<none|es5|all>"</code> |
 
 ### Bracket Spacing
 

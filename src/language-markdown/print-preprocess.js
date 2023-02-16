@@ -8,7 +8,7 @@ function preprocess(ast, options) {
   ast = mergeContinuousTexts(ast);
   ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
   ast = markAlignedList(ast, options);
-  ast = splitTextIntoSentences(ast, options);
+  ast = splitTextIntoSentences(ast);
   return ast;
 }
 
@@ -63,31 +63,27 @@ function mergeContinuousTexts(ast) {
   );
 }
 
-function splitTextIntoSentences(ast, options) {
+function splitTextIntoSentences(ast) {
   return mapAst(ast, (node, index, [parentNode]) => {
     if (node.type !== "text") {
       return node;
     }
 
-    // remark 10 unescape html entries, we can't use node.value here
-    let text = options.originalText.slice(
-      node.position.start.offset,
-      node.position.end.offset
-    );
+    let { value } = node;
 
     if (parentNode.type === "paragraph") {
       if (index === 0) {
-        text = text.trimStart();
+        value = value.trimStart();
       }
       if (index === parentNode.children.length - 1) {
-        text = text.trimEnd();
+        value = value.trimEnd();
       }
     }
 
     return {
       type: "sentence",
       position: node.position,
-      children: splitText(text),
+      children: splitText(value),
     };
   });
 }
