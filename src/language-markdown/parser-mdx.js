@@ -9,7 +9,6 @@ import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 import frontMatter from "./unified-plugins/front-matter.js";
 import liquid from "./unified-plugins/liquid.js";
 import wikiLink from "./unified-plugins/wiki-link.js";
-import looseItems from "./unified-plugins/loose-items.js";
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -43,8 +42,7 @@ const mdxParser = {
       .use(esSyntax)
       .use(liquid)
       .use(htmlToJsx)
-      .use(wikiLink)
-      .use(looseItems);
+      .use(wikiLink);
     return processor.run(processor.parse(text));
   },
 };
