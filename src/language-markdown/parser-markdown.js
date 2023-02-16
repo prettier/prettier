@@ -7,7 +7,6 @@ import { locStart, locEnd } from "./loc.js";
 import gfm from "./unified-plugins/gfm.js";
 import liquid from "./unified-plugins/liquid-for-micromark.js";
 import wikiLink from "./unified-plugins/wiki-link-for-micromark.js";
-// import looseItems from "./unified-plugins/loose-items.js";
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -30,7 +29,6 @@ function createParse() {
     .use(gfm)
     .use(liquid)
     .use(wikiLink);
-  // .use(looseItems);
 
   return async (text) => {
     const { frontMatter, content } = parseFrontMatter(text);
