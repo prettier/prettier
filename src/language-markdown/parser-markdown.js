@@ -30,9 +30,10 @@ function createParse() {
     .use(liquid)
     .use(wikiLink);
 
-  return async (text) => {
+  return async (text, options) => {
     const { frontMatter, content } = parseFrontMatter(text);
     const ast = await processor.run(processor.parse(content));
+// {console.log(JSON.stringify(ast.children, 0, 2))}
 
     if (frontMatter) {
       ast.children.unshift(frontMatter);

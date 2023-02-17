@@ -746,8 +746,10 @@ function isLooseListItem(node, options) {
   return isNextLineEmpty(options.originalText, node.position.end.offset);
 }
 
-function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
+function shouldPrePrintDoubleHardline(path, options) {
+  const { node, previous, parent } = path;
   const isPrevNodeLooseListItem = isLooseListItem(previous, options);
+
 
   if (isPrevNodeLooseListItem) {
     return true;
@@ -756,7 +758,9 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
-    parent.type === "listItem" && !isLooseListItem(parent, options);
+    parent.type === "listItem" && !path.callParent(({node, isLast}) => !isLast && isLooseListItem(node, options))
+
+
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
