@@ -22,7 +22,7 @@ function embed(path, options) {
         }
 
         const doc = await textToDoc(
-          getFencedCodeBlockValue(node, options.originalText),
+          getFencedCodeBlockValue(node, options),
           newOptions
         );
 

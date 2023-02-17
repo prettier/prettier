@@ -204,14 +204,22 @@ function hasGitDiffFriendlyOrderedList(node, options) {
 
 // The final new line should not include in value
 // https://github.com/remarkjs/remark/issues/512
-function getFencedCodeBlockValue(node, originalText) {
+function getFencedCodeBlockValue(node, { parser, originalText }) {
   const { value } = node;
+
   if (
     node.position.end.offset === originalText.length &&
     value.endsWith("\n") &&
     // Code block has no end mark
     originalText.endsWith("\n")
   ) {
+
+  if (parser !== "mdx"&&
+    value.endsWith("\n\n") &&
+    originalText.endsWith("\n\n")) {
+    return value.slice(0, -2);
+  }
+
     return value.slice(0, -1);
   }
   return value;

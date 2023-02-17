@@ -256,7 +256,7 @@ function genericPrint(path, options, print) {
         node.meta ? " " + node.meta : "",
         hardline,
         replaceEndOfLine(
-          getFencedCodeBlockValue(node, options.originalText),
+          getFencedCodeBlockValue(node, options),
           hardline
         ),
         hardline,
