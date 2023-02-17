@@ -178,10 +178,8 @@ function genericPrint(path, options, print) {
       return [backtickString, padding, code, padding, backtickString];
     }
     case "wikiLink": {
-      let contents = "";
-      if (options.proseWrap === "preserve") {
-        contents = node.value;
-      } else {
+      let contents = node.value;
+      if (options.proseWrap !== "preserve") {
         contents = node.value.replaceAll(/[\t\n]+/g, " ");
       }
 

@@ -109,7 +109,7 @@ const wikiLinkMDAST = {
   exit: {
     wikiLinkContent(token) {
       const node = this.exit(token);
-      node.value = this.sliceSerialize(token);
+      node.value = this.sliceSerialize(token).trim();
     },
   },
 };
