@@ -1,5 +1,5 @@
 import remarkParse from "remark-parse";
-import unified from "unified";
+import { unified } from "unified";
 import remarkMath from "remark-math";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import { hasPragma } from "./pragma.js";

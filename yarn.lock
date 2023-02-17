@@ -7358,7 +7358,8 @@ __metadata:
     to-fast-properties: 4.0.0
     typescript: 4.9.5
     unicode-regex: 3.0.0
-    unified: 9.2.2
+    unified: 10.1.2
+    unified-v9: "npm:unified@9.2.2"
     vnopts: 1.0.2
     wcwidth: 1.0.1
     yaml-unist-parser: 2.0.1
@@ -8732,7 +8733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unified@npm:9.2.2":
+"unified-v9@npm:unified@9.2.2":
   version: 9.2.2
   resolution: "unified@npm:9.2.2"
   dependencies:
@@ -8746,7 +8747,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unified@npm:^10.0.0":
+"unified@npm:10.1.2, unified@npm:^10.0.0":
   version: 10.1.2
   resolution: "unified@npm:10.1.2"
   dependencies:

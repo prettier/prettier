@@ -1,5 +1,5 @@
 import remarkParse from "remark-parse-v8";
-import unified from "unified";
+import unified from "unified-v9";
 import remarkMath from "remark-math-v3";
 import footnotes from "remark-footnotes";
 import { hasPragma } from "./pragma.js";
