@@ -428,6 +428,7 @@ function genericPrint(path, options, print) {
     case "math":
       return [
         "$$",
+        node.meta ? " " + node.meta : "",
         hardline,
         node.value ? [replaceEndOfLine(node.value, hardline), hardline] : "",
         "$$",
