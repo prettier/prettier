@@ -27,7 +27,6 @@ import { locStart, locEnd } from "./loc.js";
 import preprocess from "./print-preprocess.js";
 import clean from "./clean.js";
 import {
-  getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
   splitText,
   punctuationPattern,
@@ -256,7 +255,7 @@ function genericPrint(path, options, print) {
         node.meta ? " " + node.meta : "",
         hardline,
         replaceEndOfLine(
-          getFencedCodeBlockValue(node, options),
+          node.value,
           hardline
         ),
         hardline,
