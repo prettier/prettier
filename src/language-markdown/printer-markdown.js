@@ -350,6 +350,8 @@ function genericPrint(path, options, print) {
       switch (node.referenceType) {
         case "full":
           return ["![", node.alt || "", "]", printLinkReference(node)];
+        case "shortcut":
+          return ["!", printLinkReference(node)];
         default:
           return [
             "![",
@@ -736,11 +738,9 @@ function isLooseListItem(node, options) {
 
   // remark v8
   if (options.parser === "mdx") {
-    return (
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n"
-    );
+    // Check if `listItem` ends with `\n`
+    // since it can't be empty, so we only need check the last character
+    return options.originalText.charAt(node.position.end.offset - 1) === "\n";
   }
 
   return isNextLineEmpty(options.originalText, node.position.end.offset);
