@@ -60,7 +60,6 @@ function splitTextIntoSentences(ast) {
       return node;
     }
 
-    // remark 10 unescape html entries, we can't use node.value here
     let text = node.raw;
 
     if (parentNode.type === "paragraph") {
@@ -71,6 +70,7 @@ function splitTextIntoSentences(ast) {
       if (index === 0) {
         text = text.trimStart();
       }
+
       if (index === parentNode.children.length - 1) {
         text = text.trimEnd();
       }

@@ -108,6 +108,7 @@ tabWidth: 0
 
 1. 123
 2. 123
+
    1. 123
    2. 123
 
@@ -115,6 +116,7 @@ tabWidth: 0
 
 1. 123
 2. 123
+
    1. 123
    2. 123
 
@@ -236,6 +238,7 @@ tabWidth: 4
 
 1. 123
 2. 123
+
     1. 123
     2. 123
 
@@ -243,6 +246,7 @@ tabWidth: 4
 
 1.  123
 2.  123
+
     1.  123
     2.  123
 
@@ -364,6 +368,7 @@ tabWidth: 999
 
 1. 123
 2. 123
+
       1. 123
       2. 123
 
@@ -371,6 +376,7 @@ tabWidth: 999
 
 1. 123
 2. 123
+
       1. 123
       2. 123
 
@@ -491,6 +497,7 @@ proseWrap: "always"
 
 1. 123
 2. 123
+
    1. 123
    2. 123
 
@@ -498,6 +505,7 @@ proseWrap: "always"
 
 1.  123
 2.  123
+
     1.  123
     2.  123
 
@@ -932,10 +940,15 @@ tabWidth: 0
 * hello6
 =====================================output=====================================
 - hello1
+
 - hello2
+
 - hello3
+
 - hello4
+
 - hello5
+
 - hello6
 
 ================================================================================
@@ -964,10 +977,15 @@ tabWidth: 4
 * hello6
 =====================================output=====================================
 -   hello1
+
 -   hello2
+
 -   hello3
+
 -   hello4
+
 -   hello5
+
 -   hello6
 
 ================================================================================
@@ -996,10 +1014,15 @@ tabWidth: 999
 * hello6
 =====================================output=====================================
 - hello1
+
 - hello2
+
 - hello3
+
 - hello4
+
 - hello5
+
 - hello6
 
 ================================================================================
@@ -1027,10 +1050,15 @@ proseWrap: "always"
 * hello6
 =====================================output=====================================
 - hello1
+
 - hello2
+
 - hello3
+
 - hello4
+
 - hello5
+
 - hello6
 
 ================================================================================
@@ -2792,8 +2820,10 @@ tabWidth: 0
 
 - Top level list item 1
 - Top level list item 2
+
   - Nested List item 1
   - Nested List item 2
+
     - Sub-Nested List item 1
     - Sub-Nested List item 2
 
@@ -2838,8 +2868,10 @@ tabWidth: 4
 
 -   Top level list item 1
 -   Top level list item 2
+
     -   Nested List item 1
     -   Nested List item 2
+
         -   Sub-Nested List item 1
         -   Sub-Nested List item 2
 
@@ -2884,8 +2916,10 @@ tabWidth: 999
 
 - Top level list item 1
 - Top level list item 2
+
      - Nested List item 1
      - Nested List item 2
+
           - Sub-Nested List item 1
           - Sub-Nested List item 2
 
@@ -2929,8 +2963,10 @@ proseWrap: "always"
 
 - Top level list item 1
 - Top level list item 2
+
   - Nested List item 1
   - Nested List item 2
+
     - Sub-Nested List item 1
     - Sub-Nested List item 2
 

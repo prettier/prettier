@@ -2,6 +2,7 @@ import collapseWhiteSpace from "collapse-white-space";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getStringWidth from "../utils/get-string-width.js";
+import isNextLineEmpty from "../utils/is-next-line-empty.js";
 import {
   breakParent,
   join,
@@ -65,9 +66,12 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return node.raw ?? options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset
+      return (
+        node.raw ??
+        options.originalText.slice(
+          node.position.start.offset,
+          node.position.end.offset
+        )
       );
     case "root":
       /* c8 ignore next 3 */
@@ -722,13 +726,24 @@ function shouldPrePrintHardline({ node, parent }) {
 }
 
 function isLooseListItem(node, options) {
-  return (
-    node.type === "listItem" &&
-    (node.spread ||
+  if (node.type !== "listItem") {
+    return false;
+  }
+
+  if (node.spread) {
+    return true;
+  }
+
+  // remark v8
+  if (options.parser === "mdx") {
+    return (
       // Check if `listItem` ends with `\n`
       // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
-  );
+      options.originalText.charAt(node.position.end.offset - 1) === "\n"
+    );
+  }
+
+  return isNextLineEmpty(options.originalText, node.position.end.offset);
 }
 
 function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
