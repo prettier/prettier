@@ -350,13 +350,10 @@ function genericPrint(path, options, print) {
       switch (node.referenceType) {
         case "full":
           return ["![", node.alt || "", "]", printLinkReference(node)];
-        case "shortcut":
-          return ["!", printLinkReference(node)];
         default:
           return [
-            "![",
-            node.alt,
-            "]",
+            "!",
+            printLinkReference(node),
             node.referenceType === "collapsed" ? "[]" : "",
           ];
       }

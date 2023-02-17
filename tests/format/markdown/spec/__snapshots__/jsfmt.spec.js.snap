@@ -9688,7 +9688,7 @@ proseWrap: "always"
 [foo *bar*]: train.jpg "train & tracks"
 
 =====================================output=====================================
-![foo bar][]
+![foo *bar*][]
 
 [foo *bar*]: train.jpg "train & tracks"
 
@@ -9843,7 +9843,7 @@ proseWrap: "always"
 [*foo* bar]: /url "title"
 
 =====================================output=====================================
-![foo bar][]
+![*foo* bar][]
 
 [*foo* bar]: /url "title"
 
