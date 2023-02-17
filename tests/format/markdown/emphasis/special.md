@@ -18,7 +18,7 @@
 
 !_1_2
 
-0_1_! <!-- remark-misparsing, should be formatted as `0_1\_!` -->
+0_1_!
 
 !_1_!
 
@@ -26,6 +26,6 @@
 
 ！_1_2
 
-0_1_！ <!-- remark-misparsing, should be formatted as `0_1\_！` -->
+0_1_！
 
 ！_1_！
