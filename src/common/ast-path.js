@@ -16,7 +16,8 @@ class AstPath {
 
   /** @type {object} */
   get node() {
-    return this.stack.at(-1);
+    // eslint-disable-next-line unicorn/prefer-at
+    return this.stack[this.stack.length - 1];
   }
 
   /** @type {object | null} */
