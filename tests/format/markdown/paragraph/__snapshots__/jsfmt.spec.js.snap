@@ -169,7 +169,7 @@ proseWrap: "always"
 It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
 =====================================output=====================================
-It removes all original styling[\\*](#styling-footnote) and ensures that all
+It removes all original styling[*](#styling-footnote) and ensures that all
 outputted code conforms to a consistent style. (See this
 [blog post](http://jlongster.com/A-Prettier-Formatter))
 
@@ -186,7 +186,7 @@ proseWrap: "never"
 It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
 =====================================output=====================================
-It removes all original styling[\\*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
+It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
 ================================================================================
 `;
@@ -201,7 +201,7 @@ proseWrap: "preserve"
 It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
 =====================================output=====================================
-It removes all original styling[\\*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
+It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
 ================================================================================
 `;

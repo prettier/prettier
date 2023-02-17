@@ -86,6 +86,10 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printChildren(path, options, print);
     case "word": {
+      if (options.parser !== "mdx") {
+        return node.value;
+      }
+
       let escapedValue = node.value
         .replaceAll("*", "\\*") // escape all `*`
         .replaceAll(
