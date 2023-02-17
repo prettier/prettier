@@ -1,14 +1,12 @@
 import remarkParse from "remark-parse";
 import unified from "unified";
 import remarkMath from "remark-math";
-import remarkGFM from "remark-gfm";
-import footnotes from "remark-footnotes";
+import parseFrontMatter from "../utils/front-matter/parse.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import gfm from "./unified-plugins/gfm.js";
-import htmlToJsx from "./unified-plugins/html-to-jsx.js";
-import liquid from "./unified-plugins/liquid.js";
-import wikiLink from "./unified-plugins/wiki-link.js";
+import liquid from "./unified-plugins/liquid-for-micromark.js";
+import wikiLink from "./unified-plugins/wiki-link-for-micromark.js";
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -24,20 +22,23 @@ import wikiLink from "./unified-plugins/wiki-link.js";
  * interface Sentence { children: Array<Word | Whitespace> }
  * interface InlineCode { children: Array<Sentence> }
  */
-function createParse({ isMDX }) {
-  return (text) => {
-    const processor = unified()
-      .use(remarkParse, {
-        commonmark: true,
-        ...(isMDX && { blocks: [BLOCKS_REGEX] }),
-      })
-      .use(footnotes)
-      .use(remarkMath)
-      .use(isMDX ? esSyntax : identity)
-      .use(liquid)
-      .use(isMDX ? htmlToJsx : identity)
-      .use(wikiLink);
-    return processor.run(processor.parse(text));
+function createParse() {
+  const processor = unified()
+    .use(remarkParse)
+    .use(remarkMath)
+    .use(gfm)
+    .use(liquid)
+    .use(wikiLink);
+
+  return async (text) => {
+    const { frontMatter, content } = parseFrontMatter(text);
+    const ast = await processor.run(processor.parse(content));
+
+    if (frontMatter) {
+      ast.children.unshift(frontMatter);
+    }
+
+    return ast;
   };
 }
 
