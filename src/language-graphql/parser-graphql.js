@@ -1,3 +1,4 @@
+import { parse as parseGraphql } from "graphql/language/parser.mjs";
 import createError from "../common/parser-create-error.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
@@ -31,14 +32,11 @@ function createParseError(error) {
   return error;
 }
 
-async function parse(text /*, options */) {
-  // Inline `import()` to avoid loading all the JS if we don't use it
-  const { parse } = await import("graphql/language/parser.mjs");
-
+function parse(text /*, options */) {
   /** @type {any} */
   let ast;
   try {
-    ast = parse(text, parseOptions);
+    ast = parseGraphql(text, parseOptions);
   } catch (error) {
     throw createParseError(error);
   }

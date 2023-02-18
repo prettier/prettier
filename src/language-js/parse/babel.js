@@ -1,3 +1,4 @@
+import { parse as babelParse, parseExpression } from "@babel/parser";
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
@@ -102,7 +103,7 @@ function parseWithOptions(parse, text, options) {
 }
 
 function createParse({ isExpression = false, optionsCombinations }) {
-  return async (text, opts = {}) => {
+  return (text, opts = {}) => {
     if (
       (opts.parser === "babel" || opts.parser === "__babel_estree") &&
       isFlowFile(text, opts)
@@ -142,10 +143,6 @@ function createParse({ isExpression = false, optionsCombinations }) {
       );
     }
 
-    // Inline `import()` to avoid loading all the JS if we don't use it
-    const { parse: babelParse, parseExpression } = await import(
-      "@babel/parser"
-    );
     /** @type {Parse} */
     const parseFunction = isExpression ? parseExpression : babelParse;
     let { result: ast, error } = tryCombinations(

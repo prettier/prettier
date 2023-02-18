@@ -1,3 +1,4 @@
+import { codeFrameColumns } from "@babel/code-frame";
 import { ConfigError } from "../common/errors.js";
 
 function resolveParser({ plugins, parser }) {
@@ -41,17 +42,16 @@ async function parse(originalText, options) {
       options
     );
   } catch (error) {
-    await handleParseError(error, originalText);
+    handleParseError(error, originalText);
   }
 
   return { text, ast };
 }
 
-async function handleParseError(error, text) {
+function handleParseError(error, text) {
   const { loc } = error;
 
   if (loc) {
-    const { codeFrameColumns } = await import("@babel/code-frame");
     const codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
     error.message += "\n" + codeFrame;
     error.codeFrame = codeFrame;

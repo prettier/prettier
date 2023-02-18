@@ -1,3 +1,13 @@
+import {
+  ParseSourceFile,
+  ParseLocation,
+  ParseSourceSpan,
+  parse as parseHtml,
+  RecursiveVisitor,
+  visitAll,
+  getHtmlTagDefinition,
+  TagContentType,
+} from "angular-html-parser";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParserByLanguage from "../utils/infer-parser-by-language.js";
 import createError from "../common/parser-create-error.js";
@@ -33,13 +43,11 @@ import { locStart, locEnd } from "./loc.js";
  */
 
 /**
- * @param {AngularHtmlParser} angularHtmlParser
  * @param {string} input
  * @param {ParserOptions} parserOptions
  * @param {Options} options
  */
 function ngHtmlParser(
-  angularHtmlParser,
   input,
   {
     canSelfClose,
@@ -51,16 +59,7 @@ function ngHtmlParser(
   },
   options
 ) {
-  const {
-    parse,
-    RecursiveVisitor,
-    visitAll,
-    ParseSourceSpan,
-    getHtmlTagDefinition,
-    TagContentType,
-  } = angularHtmlParser;
-
-  let { rootNodes, errors } = parse(input, {
+  let { rootNodes, errors } = parseHtml(input, {
     canSelfClose,
     allowHtmComponentClosingTags,
     isTagNameCaseSensitive,
@@ -94,7 +93,7 @@ function ngHtmlParser(
         /** @type {ParserTreeResult | undefined} */
         let secondParseResult;
         const doSecondParse = () =>
-          parse(input, {
+          parseHtml(input, {
             canSelfClose,
             allowHtmComponentClosingTags,
             isTagNameCaseSensitive,
@@ -137,7 +136,7 @@ function ngHtmlParser(
       normalizeAttributeName = true;
       allowHtmComponentClosingTags = true;
       isTagNameCaseSensitive = false;
-      const htmlParseResult = parse(input, {
+      const htmlParseResult = parseHtml(input, {
         canSelfClose,
         allowHtmComponentClosingTags,
         isTagNameCaseSensitive,
@@ -293,24 +292,15 @@ function ngHtmlParser(
 }
 
 /**
- * @param {AngularHtmlParser} angularHtmlParser
  * @param {string} text
  * @param {Options} options
  * @param {ParserOptions} parserOptions
  * @param {boolean} shouldParseFrontMatter
  */
-function _parse(
-  angularHtmlParser,
-  text,
-  options,
-  parserOptions,
-  shouldParseFrontMatter = true
-) {
+function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
   const { frontMatter, content } = shouldParseFrontMatter
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
-
-  const { ParseSourceFile, ParseLocation, ParseSourceSpan } = angularHtmlParser;
 
   const file = new ParseSourceFile(text, options.filepath);
   const start = new ParseLocation(file, 0, 0, 0);
@@ -318,7 +308,7 @@ function _parse(
   const rawAst = {
     type: "root",
     sourceSpan: new ParseSourceSpan(start, end),
-    children: ngHtmlParser(angularHtmlParser, content, parserOptions, options),
+    children: ngHtmlParser(content, parserOptions, options),
   };
 
   if (frontMatter) {
@@ -336,7 +326,6 @@ function _parse(
     const fakeContent = text.slice(0, offset).replaceAll(/[^\n\r]/g, " ");
     const realContent = subContent;
     const subAst = _parse(
-      angularHtmlParser,
       fakeContent + realContent,
       options,
       parserOptions,
@@ -366,7 +355,6 @@ function _parse(
   ast.walk((node) => {
     if (node.type === "comment") {
       const ieConditionalComment = parseIeConditionalComment(
-        angularHtmlParser,
         node,
         parseSubHtml
       );
@@ -392,10 +380,8 @@ function createParser({
   shouldParseAsRawText,
 } = {}) {
   return {
-    async parse(text, options) {
-      const angularHtmlParser = await import("angular-html-parser");
+    parse(text, options) {
       return _parse(
-        angularHtmlParser,
         text,
         { parser: name, ...options },
         {

@@ -1,3 +1,4 @@
+import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree/dist/parser.js";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
@@ -36,13 +37,10 @@ function createParseError(error) {
   });
 }
 
-async function parse(text, options = {}) {
+function parse(text, options = {}) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 
-  const { parseWithNodeMaps } = await import(
-    "@typescript-eslint/typescript-estree/dist/parser.js"
-  );
   const { result, error } = tryCombinations([
     // Try passing with our best guess first.
     () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
@@ -57,7 +55,7 @@ async function parse(text, options = {}) {
 
   options.originalText = text;
 
-  await throwErrorForInvalidNodes(result, options);
+  throwErrorForInvalidNodes(result, options);
 
   return postprocess(result.ast, options);
 }
