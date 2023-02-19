@@ -407,4 +407,16 @@ function findExpressionIndexForComment(quasis, comment, options) {
   return 0;
 }
 
-export { attach, getSortedChildNodes };
+function attachComments(text, ast, opts) {
+  const { comments } = ast;
+  if (comments) {
+    delete ast.comments;
+    attach(comments, ast, text, opts);
+  }
+  opts[Symbol.for("comments")] = comments || [];
+  opts[Symbol.for("tokens")] = ast.tokens || [];
+  opts.originalText = text;
+  return comments;
+}
+
+export { attachComments, getSortedChildNodes };
