@@ -134,6 +134,18 @@ const pluginFiles = [
       },
       {
         module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/ExpiringCache.js"
+        ),
+        text: "exports.ExpiringCache = class {};",
+      },
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/getProjectConfigFiles.js"
+        ),
+        text: "exports.resolveProjectList = () => [];",
+      },
+      {
+        module: require.resolve(
           "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js"
         ),
         text: "exports.warnAboutTSVersion = () => {};",
