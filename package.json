@@ -98,7 +98,7 @@
     "to-fast-properties": "4.0.0",
     "typescript": "4.9.5",
     "unicode-regex": "3.0.0",
-    "unified": "9.2.2",
+    "unified": "10.1.2",
     "vnopts": "1.0.2",
     "wcwidth": "1.0.1",
     "yaml-unist-parser": "2.0.1"
