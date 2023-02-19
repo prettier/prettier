@@ -2419,10 +2419,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001449, caniuse-lite@npm:^1.0.30001450":
-  version: 1.0.30001450
-  resolution: "caniuse-lite@npm:1.0.30001450"
-  checksum: 511b360bfc907b2e437699364cf96b83507bc45043926450056642332bcd6f65a1e72540c828534ae15e0ac906e3e9af46cb2bb84458dd580bc31478e9dce282
+"caniuse-lite@npm:^1.0.30001449, caniuse-lite@npm:^1.0.30001451":
+  version: 1.0.30001456
+  resolution: "caniuse-lite@npm:1.0.30001456"
+  checksum: c2cc479962149abd09a25b64699ee7484d9c433db2bad0a489f7b51b09a463c991f6efd7b8e201bc1a1ccf3294263f88503a3adf0a57db9046939ee7e58b76a6
   languageName: node
   linkType: hard
 
@@ -2733,13 +2733,6 @@ __metadata:
   version: 2.0.0
   resolution: "convert-source-map@npm:2.0.0"
   checksum: 63ae9933be5a2b8d4509daca5124e20c14d023c820258e484e32dc324d34c2754e71297c94a05784064ad27615037ef677e3f0c00469fb55f409d2bb21261035
-  languageName: node
-  linkType: hard
-
-"core-js@npm:^3.27.2":
-  version: 3.27.2
-  resolution: "core-js@npm:3.27.2"
-  checksum: 718debd426f55a6b97cf9b757c936be258afd6d4f7052f89d0f96c982d7013e9000b0b006df42831a0cf32adad298e34d6a19052dce9ae1c7ab87162c0c665e0
   languageName: node
   linkType: hard
 
@@ -3401,21 +3394,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-compat@npm:4.1.1":
-  version: 4.1.1
-  resolution: "eslint-plugin-compat@npm:4.1.1"
+"eslint-plugin-compat@npm:4.1.2":
+  version: 4.1.2
+  resolution: "eslint-plugin-compat@npm:4.1.2"
   dependencies:
     "@mdn/browser-compat-data": ^5.2.34
     ast-metadata-inferer: ^0.7.0
     browserslist: ^4.21.5
-    caniuse-lite: ^1.0.30001450
-    core-js: ^3.27.2
+    caniuse-lite: ^1.0.30001451
     find-up: ^5.0.0
     lodash.memoize: 4.1.2
     semver: 7.3.8
   peerDependencies:
     eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
-  checksum: 1cfbb5285d4690af255567a5009f161ed26586d46ed2faaac3fb62f4923e8cac3b5214cd89ffd63b80753fa513c2897d3cbc30c617fc46c28be39816a3afd6cc
+  checksum: 385c29d7392ce161cf24bb118fa98f45a817106fbb131919be03c4b332c0e2baa4609e57ee182cb1c26a788d6030569a08a1598561014fe0a2fa648c11502de2
   languageName: node
   linkType: hard
 
@@ -6754,7 +6746,7 @@ __metadata:
     eslint: 8.34.0
     eslint-config-prettier: 8.6.0
     eslint-formatter-friendly: 7.0.0
-    eslint-plugin-compat: 4.1.1
+    eslint-plugin-compat: 4.1.2
     eslint-plugin-import: 2.27.5
     eslint-plugin-jest: 27.2.1
     eslint-plugin-n: 15.6.1
