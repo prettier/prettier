@@ -194,7 +194,8 @@
       "src/index.cjs",
       "src/document/debug.js",
       "src/utils/unexpected-node-error.js",
-      "src/language-js/types/estree.d.ts"
+      "src/language-js/types/estree.d.ts",
+      "src/**/**/*.d.ts"
     ]
   },
   "browserslist": [
