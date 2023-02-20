@@ -91,9 +91,11 @@ function parse(text, options = {}) {
   const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
     (sourceType) => () => parseWithOptions(text, sourceType)
   );
-  const { result: ast, error } = tryCombinations(combinations);
 
-  if (!ast) {
+  let ast;
+  try {
+    ast = tryCombinations(combinations);
+  } catch ({ errors: [error] }) {
     throw createParseError(error);
   }
 

@@ -1,15 +1,14 @@
 function tryCombinations(combinations) {
-  let firstError;
-  for (const [index, fn] of combinations.entries()) {
+  const errors = [];
+  for (const fn of combinations) {
     try {
-      return { result: fn() };
+      return fn();
     } catch (error) {
-      if (index === 0) {
-        firstError = error;
-      }
+      errors.push(error);
     }
   }
-  return { error: firstError };
+
+  throw new AggregateError(errors, "All combinations failed");
 }
 
 export default tryCombinations;
