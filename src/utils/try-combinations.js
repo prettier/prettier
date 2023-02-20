@@ -8,7 +8,9 @@ function tryCombinations(combinations) {
     }
   }
 
-  throw new AggregateError(errors, "All combinations failed");
+  // TODO: Use `AggregateError` when we drop Node.js v14
+  // throw new AggregateError(errors, "All combinations failed");
+  throw Object.assign(new Error("All combinations failed"), { errors });
 }
 
 export default tryCombinations;
