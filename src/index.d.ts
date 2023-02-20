@@ -320,7 +320,7 @@ export interface RequiredOptions extends doc.printer.Options {
   jsxSingleQuote: boolean;
   /**
    * Print trailing commas wherever possible.
-   * @default 'all'
+   * @default "all"
    */
   trailingComma: "none" | "es5" | "all";
   /**
@@ -431,7 +431,9 @@ export interface ParserOptions<T = any> extends RequiredOptions {
 
 export interface Plugin<T = any> {
   languages?: SupportLanguage[] | undefined;
-  parsers?: { [parserName: string]: Parser<T> } | undefined;
+  parsers?:
+    | { [parserName: string]: Parser<T> | (() => Promise<Parser<T>>) }
+    | undefined;
   printers?: { [astFormat: string]: Printer<T> } | undefined;
   options?: SupportOptions | undefined;
   defaultOptions?: Partial<RequiredOptions> | undefined;
@@ -647,7 +649,6 @@ export type CoreCategoryType =
 
 export interface BaseSupportOption<Type extends SupportOptionType> {
   readonly name?: string | undefined;
-  since: string;
   /**
    * Usually you can use {@link CoreCategoryType}
    */
@@ -710,7 +711,7 @@ export interface BooleanArraySupportOption
 
 export interface ChoiceSupportOption<Value = any>
   extends BaseSupportOption<"choice"> {
-  default?: Value | Array<{ since: string; value: Value }> | undefined;
+  default?: Value | Array<{ value: Value }> | undefined;
   description: string;
   choices: Array<{
     since?: string | undefined;
@@ -1018,7 +1019,7 @@ export namespace doc {
     function join(sep: Doc, docs: Doc[]): Doc[];
 
     /** @see [label](https://github.com/prettier/prettier/blob/main/commands.md#label) */
-    function label(label: string, doc: Doc): Label;
+    function label(label: any | undefined, contents: Doc): Label;
 
     /** @see [line](https://github.com/prettier/prettier/blob/main/commands.md#line) */
     const line: Line;
@@ -1097,8 +1098,6 @@ export namespace doc {
     function propagateBreaks(doc: Doc): void;
     function removeLines(doc: Doc): Doc;
     function stripTrailingHardline(doc: Doc): Doc;
-    function normalizeParts(parts: Doc[]): Doc[];
-    function normalizeDoc(doc: Doc): Doc;
     function cleanDoc(doc: Doc): Doc;
     function replaceEndOfLine(doc: Doc, replacement?: Doc): Doc;
     function canBreak(doc: Doc): boolean;

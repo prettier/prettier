@@ -1,9 +1,9 @@
 import * as prettier from "../../../../src/index";
 
 import acornEspreeParser from "../../../../src/language-js/parse/acorn-and-espree";
-import angularParser from "../../../../src/language-js/parse//angular";
-import babelParser from "../../../../src/language-js/parse//babel";
-import flowParser from "../../../../src/language-js/parse//flow";
+import angularParser from "../../../../src/language-js/parse/angular";
+import babelParser from "../../../../src/language-js/parse/babel";
+import flowParser from "../../../../src/language-js/parse/flow";
 import glimmerParser from "../../../../src/language-handlebars/parser-glimmer";
 import graphqlParser from "../../../../src/language-graphql/parser-graphql";
 import htmlParser from "../../../../src/language-html/parser-html";
