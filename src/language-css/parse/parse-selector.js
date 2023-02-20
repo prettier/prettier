@@ -1,4 +1,4 @@
-import Parser from "postcss-selector-parser/dist/processor.js";
+import PostcssSelectorParser from "postcss-selector-parser/dist/processor.js";
 import { addTypePrefix } from "./utils.js";
 
 function parseSelector(selector) {
@@ -13,13 +13,11 @@ function parseSelector(selector) {
     };
   }
 
-  const selectorParser = (processor) => new Parser(processor);
-
-  let result = null;
+  let result;
 
   try {
-    selectorParser((result_) => {
-      result = result_;
+    new PostcssSelectorParser((selectors) => {
+      result = selectors;
     }).process(selector);
   } catch {
     // Fail silently. It's better to print it as is than to try and parse it
