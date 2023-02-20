@@ -49,7 +49,6 @@ const plugin: prettier.Plugin<PluginAST> = {
   },
   options: {
     testBoolOption: {
-      since: "1.0.1",
       type: "boolean",
       category: "Test",
       default: true,
@@ -58,7 +57,6 @@ const plugin: prettier.Plugin<PluginAST> = {
         "Don't move open brace for code blocks onto new line.",
     },
     testBoolArrOption: {
-      since: "1.0.1",
       type: "boolean",
       array: true,
       category: "Test",
@@ -67,7 +65,6 @@ const plugin: prettier.Plugin<PluginAST> = {
       description: "Move open brace for code blocks onto new line.",
     },
     testIntOption: {
-      since: "1.0.2",
       type: "int",
       category: "Global",
       default: 15,
@@ -80,7 +77,6 @@ const plugin: prettier.Plugin<PluginAST> = {
       description: "This is a number.",
     },
     testIntArrOption: {
-      since: "forever",
       type: "int",
       category: "Test",
       default: [{ value: [3, 8, 12] }],
@@ -88,14 +84,12 @@ const plugin: prettier.Plugin<PluginAST> = {
       description: "This is a number.",
     },
     testStringOption: {
-      since: "1.0.0",
       type: "string",
       category: "Test",
       default: "default",
       description: "This is a string.",
     },
     testStringArrOption: {
-      since: "1.0.0",
       type: "string",
       category: "Test",
       default: [{ value: ["one", "two", "three"] }],
@@ -103,7 +97,6 @@ const plugin: prettier.Plugin<PluginAST> = {
       description: "This is a string.",
     },
     testChoiceOption: {
-      since: "1.0.3",
       type: "choice",
       default: "one",
       choices: [
@@ -115,7 +108,6 @@ const plugin: prettier.Plugin<PluginAST> = {
       description: "Choose one of three.",
     },
     testChoiceComplexOption: {
-      since: "1.0.5",
       type: "choice",
       default: [{ since: "1.0.7", value: "banana" }, { value: "apple" }],
       choices: [
@@ -131,20 +123,17 @@ const plugin: prettier.Plugin<PluginAST> = {
       description: "Choose one of three.",
     },
     testPathOption: {
-      since: "1.0.0",
       type: "path",
       category: "Test",
       default: "./path.js",
     },
     testPathArrOption: {
-      since: "1.0.0",
       type: "path",
       category: "Test",
       array: true,
       default: [{ value: ["./pathA.js", "./pathB.js"] }],
     },
     testNoDefaultOption: {
-      since: "1.0.0",
       type: "path",
       category: "Test",
     },
