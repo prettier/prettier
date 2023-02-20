@@ -483,7 +483,7 @@ export interface Printer<T = any> {
         options: ParserOptions<T>
       ) => Doc | null)
     | undefined;
-  insertPragma?: ((text: string) => string) | undefined;
+  insertPragma?: (text: string) => string;
   /**
    * @returns `null` if you want to remove this node
    * @returns `void` if you want to use modified newNode
@@ -1061,7 +1061,7 @@ export namespace doc {
     function join(sep: Doc, docs: Doc[]): Doc[];
 
     /** @see [label](https://github.com/prettier/prettier/blob/main/commands.md#label) */
-    function label(label: any | undefined, contents: Doc): Label;
+    function label(label: any | undefined, contents: Doc): Doc;
 
     /** @see [line](https://github.com/prettier/prettier/blob/main/commands.md#line) */
     const line: Line;
