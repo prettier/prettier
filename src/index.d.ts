@@ -775,7 +775,7 @@ export function getSupportInfo(): Promise<SupportInfo>;
  */
 export const version: string;
 
-// https://github.com/prettier/prettier/blob/main/src/common/util-shared.js
+// https://github.com/prettier/prettier/blob/next/src/utils/public.js
 export namespace util {
   interface SkipOptions {
     backwards?: boolean | undefined;
@@ -783,81 +783,105 @@ export namespace util {
 
   type Quote = "'" | '"';
 
-  function addDanglingComment(node: any, comment: any, marker: any): void;
-  function addLeadingComment(node: any, comment: any): void;
-  function addTrailingComment(node: any, comment: any): void;
-  function getAlignmentSize(
-    value: string,
-    tabWidth: number,
-    startIndex?: number
-  ): number;
-  function getIndentSize(value: string, tabWidth: number): number;
-  function getMaxContinuousCount(str: string, target: string): number;
-  function getNextNonSpaceNonCommentCharacterIndex<N>(
-    text: string,
-    node: N,
-    locEnd: (node: N) => number
-  ): number | false;
+  function getMaxContinuousCount(text: string, searchString: string): number;
+
   function getStringWidth(text: string): number;
-  function hasNewline(text: string, index: number, opts?: SkipOptions): boolean;
-  function hasNewlineInRange(text: string, start: number, end: number): boolean;
-  function hasSpaces(text: string, index: number, opts?: SkipOptions): boolean;
-  function isNextLineEmpty<N>(
+
+  function getAlignmentSize(
     text: string,
-    node: N,
-    locEnd: (node: N) => number
-  ): boolean;
-  function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
-  function isPreviousLineEmpty<N>(
-    text: string,
-    node: N,
-    locStart: (node: N) => number
-  ): boolean;
-  function makeString(
-    rawContent: string,
-    enclosingQuote: Quote,
-    unescapeUnnecessaryEscapes?: boolean
-  ): string;
-  function skip(
-    chars: string | RegExp
-  ): (
-    text: string,
-    index: number | false,
-    opts?: SkipOptions
-  ) => number | false;
-  function skipEverythingButNewLine(
-    text: string,
-    index: number | false,
-    opts?: SkipOptions
-  ): number | false;
-  function skipInlineComment(
-    text: string,
-    index: number | false
-  ): number | false;
+    tabWidth: number,
+    startIndex?: number | undefined
+  ): number;
+
+  function getIndentSize(value: string, tabWidth: number): number;
+
   function skipNewline(
     text: string,
-    index: number | false,
-    opts?: SkipOptions
+    startIndex: number | false,
+    options?: SkipOptions | undefined
   ): number | false;
-  function skipSpaces(
+
+  function skipInlineComment(
     text: string,
-    index: number | false,
-    opts?: SkipOptions
+    startIndex: number | false
   ): number | false;
-  function skipToLineEnd(
-    text: string,
-    index: number | false,
-    opts?: SkipOptions
-  ): number | false;
+
   function skipTrailingComment(
     text: string,
-    index: number | false
+    startIndex: number | false
   ): number | false;
-  function skipWhitespace(
+
+  function skipTrailingComment(
     text: string,
-    index: number | false,
-    opts?: SkipOptions
+    startIndex: number | false
   ): number | false;
+
+  function hasNewline(
+    text: string,
+    startIndex: number,
+    options?: SkipOptions | undefined
+  ): boolean;
+
+  function hasNewlineInRange(
+    text: string,
+    startIndex: number,
+    endIndex: number
+  ): boolean;
+
+  function hasSpaces(
+    text: string,
+    startIndex: number,
+    options?: SkipOptions | undefined
+  ): boolean;
+
+  function getNextNonSpaceNonCommentCharacter(
+    text: string,
+    startIndex: number
+  ): string;
+
+  function makeString(
+    rawText: string,
+    enclosingQuote: Quote,
+    unescapeUnnecessaryEscapes?: boolean | undefined
+  ): string;
+
+  function skip(
+    characters: string | RegExp
+  ): (
+    text: string,
+    startIndex: number | false,
+    options?: SkipOptions
+  ) => number | false;
+
+  const skipWhitespace: (
+    text: string,
+    startIndex: number | false,
+    options?: SkipOptions
+  ) => number | false;
+
+  const skipSpaces: (
+    text: string,
+    startIndex: number | false,
+    options?: SkipOptions
+  ) => number | false;
+
+  const skipToLineEnd: (
+    text: string,
+    startIndex: number | false,
+    options?: SkipOptions
+  ) => number | false;
+
+  const skipEverythingButNewLine: (
+    text: string,
+    startIndex: number | false,
+    options?: SkipOptions
+  ) => number | false;
+
+  function addLeadingComment(node: any, comment: any): void;
+
+  function addDanglingComment(node: any, comment: any, marker: any): void;
+
+  function addTrailingComment(node: any, comment: any): void;
 }
 
 // https://github.com/prettier/prettier/blob/next/src/document/index.js
