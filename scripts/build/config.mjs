@@ -40,7 +40,7 @@ async function typesFileBuilder({ file }) {
   ];
   /** @type {ReplacementMap} */
   const pathReplacementMap = {
-    "src/document/index.d.ts": [{ from: "../index.js", to: "./index.js" }],
+    "src/index.d.ts": [{ from: "./document/index.js", to: "./doc.js" }],
     "src/language-js/parse/acorn-and-espree.d.ts": jsParsersImportReplacement,
     "src/language-js/parse/angular.d.ts": jsParsersImportReplacement,
     "src/language-js/parse/babel.d.ts": jsParsersImportReplacement,
