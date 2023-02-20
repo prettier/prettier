@@ -3,7 +3,12 @@ import url from "node:url";
 import fs from "node:fs";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
-import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.mjs";
+import {
+  PROJECT_ROOT,
+  DIST_DIR,
+  copyFile,
+  writeFile,
+} from "../utils/index.mjs";
 import buildJavascriptModule from "./build-javascript-module.js";
 import buildPackageJson from "./build-package-json.js";
 import buildLicense from "./build-license.js";
@@ -22,6 +27,32 @@ const copyFileBuilder = ({ file }) =>
     path.join(PROJECT_ROOT, file.input),
     path.join(DIST_DIR, file.output.file)
   );
+
+async function buildTypesFile({ file }) {
+  const replacementMap = {
+    "src/document/index.d.ts": {
+      replacements: [
+        {
+          from: "../index.js",
+          to: "./index.js",
+        },
+      ],
+    },
+  };
+  const replacements = replacementMap[file.input]?.replacements;
+  if (!replacements || replacements.length === 0) {
+    await copyFileBuilder({ file });
+    return;
+  }
+  let data = await fs.promises.readFile(file.input, "utf8");
+  for (const { from, to } of replacements) {
+    data = data.replace(
+      new RegExp(`^import (.+) from "(${from})";`),
+      (_, p1) => `import ${p1} from "${to}";`
+    );
+  }
+  await writeFile(path.join(DIST_DIR, file.output.file), data);
+}
 function getTypesFileConfig({ input: jsFileInput, outputBaseName }) {
   const input = jsFileInput.replace(/\.[cm]?js$/, ".d.ts");
   if (!fs.existsSync(path.join(PROJECT_ROOT, input))) {
@@ -34,7 +65,7 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName }) {
       file: outputBaseName + ".d.ts",
     },
     kind: "types",
-    build: copyFileBuilder,
+    build: buildTypesFile,
   };
 }
 
