@@ -48,11 +48,7 @@ async function typesFileBuilder({ file }) {
     "src/language-js/parse/meriyah.d.ts": jsParsersImportReplacement,
     "src/language-js/parse/typescript.d.ts": jsParsersImportReplacement,
   };
-  const replacements = pathReplacementMap[file.input];
-  if (!replacements || replacements.length === 0) {
-    await copyFileBuilder({ file });
-    return;
-  }
+  const replacements = pathReplacementMap[file.input] ?? [];
   let data = await fs.promises.readFile(file.input, "utf8");
   for (const { from, to } of replacements) {
     data = data.replaceAll(
