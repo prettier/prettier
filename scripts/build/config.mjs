@@ -29,24 +29,36 @@ const copyFileBuilder = ({ file }) =>
   );
 
 async function typesFileBuilder({ file }) {
+  /**
+   * @typedef {{ from: string, to: string }} ImportPathReplacement
+   * @typedef {{ [input: string]: Array<ImportPathReplacement> }} ReplacementMap
+   */
+
+  /** @type {Array<ImportPathReplacement>} */
+  const jsParsersImportReplacement = [
+    { from: "../../index.js", to: "../index.js" },
+  ];
+  /** @type {ReplacementMap} */
   const pathReplacementMap = {
-    "src/document/index.d.ts": {
-      pathReplacements: [
-        {
-          from: "../index.js",
-          to: "./index.js",
-        },
-      ],
-    },
+    "src/document/index.d.ts": [{ from: "../index.js", to: "./index.js" }],
+    "src/language-js/parse/acorn-and-espree.d.ts": jsParsersImportReplacement,
+    "src/language-js/parse/angular.d.ts": jsParsersImportReplacement,
+    "src/language-js/parse/babel.d.ts": jsParsersImportReplacement,
+    "src/language-js/parse/flow.d.ts": jsParsersImportReplacement,
+    "src/language-js/parse/meriyah.d.ts": jsParsersImportReplacement,
+    "src/language-js/parse/typescript.d.ts": jsParsersImportReplacement,
   };
-  const pathReplacements = pathReplacementMap[file.input]?.pathReplacements;
-  if (!pathReplacements || pathReplacements.length === 0) {
+  const replacements = pathReplacementMap[file.input];
+  if (!replacements || replacements.length === 0) {
     await copyFileBuilder({ file });
     return;
   }
   let data = await fs.promises.readFile(file.input, "utf8");
-  for (const { from, to } of pathReplacements) {
-    data = data.replaceAll(new RegExp(` from "${from}";`), ` from "${to}";`);
+  for (const { from, to } of replacements) {
+    data = data.replaceAll(
+      new RegExp(` from "${from}";`, "g"),
+      ` from "${to}";`
+    );
   }
   await writeFile(path.join(DIST_DIR, file.output.file), data);
 }
