@@ -94,11 +94,29 @@ export class AstPath<T = any> {
   get ancestors(): T[];
 
   stack: T[];
+
   callParent<U>(callback: (path: this) => U, count?: number): U;
+
+  /**
+   * @deprecated Please use `key`
+   */
   getName(): PropertyKey | null;
+
+  /**
+   * @deprecated Please use `node`
+   */
   getValue(): T;
+
+  /**
+   * @deprecated Please use `node`
+   */
   getNode(count?: number): T | null;
+
+  /**
+   * @deprecated Please use `parent`
+   */
   getParentNode(count?: number): T | null;
+
   match(
     ...predicates: Array<
       (node: any, name: string | null, number: number | null) => boolean
