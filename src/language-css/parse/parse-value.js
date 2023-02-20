@@ -173,13 +173,10 @@ function parseValue(value, options) {
     return { type: "value-unknown", value };
   }
 
-  const valueParser = (source, options) =>
-    new PostcssValuesParser(source, options);
-
   let result = null;
 
   try {
-    result = valueParser(value, { loose: true }).parse();
+    result = new PostcssValuesParser(value, { loose: true }).parse();
   } catch {
     return {
       type: "value-unknown",
