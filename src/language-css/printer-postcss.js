@@ -927,18 +927,11 @@ function genericPrint(path, options, print) {
 
       if (!node.open) {
         const parentParentParentNode = path.getParentNode(2);
-        let forceHardLine =
-          parentParentParentNode.type === "css-decl" ||
+      const forceHardLine =
+        (parentParentParentNode.type === "css-decl" ||
           (parentParentParentNode.type === "css-atrule" &&
-            parentParentParentNode.variable);
-        if (forceHardLine) {
-          forceHardLine = false;
-          for (let i = 0; i < node.groups.length; i++) {
-            if (node.groups[i].type === "value-comma_group") {
-              forceHardLine = true;
-            }
-          }
-        }
+            parentParentParentNode.variable)) &&
+        node.groups.some((node) => node.type === "value-comma_group");
 
         const printed = path.map(print, "groups");
         /** @type{Doc[]} */
