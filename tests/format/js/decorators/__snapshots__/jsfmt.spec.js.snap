@@ -162,6 +162,144 @@ export class Bar {}
 ================================================================================
 `;
 
+exports[`member-expression.js [acorn] format 1`] = `
+"Unexpected character '@' (3:5)
+  1 | [
+  2 |   class {
+> 3 |     @(decorators[0])
+    |     ^
+  4 |     method() {}
+  5 |   },
+  6 |   class {"
+`;
+
+exports[`member-expression.js [espree] format 1`] = `
+"Unexpected character '@' (3:5)
+  1 | [
+  2 |   class {
+> 3 |     @(decorators[0])
+    |     ^
+  4 |     method() {}
+  5 |   },
+  6 |   class {"
+`;
+
+exports[`member-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  class {
+    @(decorators[0])
+    method() {}
+  },
+  class {
+    @decorators[0]
+    method() {}
+  },
+  class {
+    @(decorators?.[0])
+    method() {}
+  },
+  class {
+    @(decorators.at(0))
+    method() {}
+  },
+  class {
+    @(decorators?.at(0))
+    method() {}
+  },
+  class {
+    @(decorators.first)
+    method() {}
+  },
+  class {
+    @(decorators?.first)
+    method() {}
+  },
+  class {
+    @(decorators[first])
+    method() {}
+  },
+  class {
+    @decorators[first]
+    method() {}
+  },
+  class {
+    @(decorators["first"])
+    method() {}
+  },
+  @(decorators[first])
+  class {
+    method() {}
+  },
+  @(decorators[0])
+  class {
+    method() {}
+  },
+]
+
+=====================================output=====================================
+[
+  class {
+    @(decorators[0])
+    method() {}
+  },
+  class {
+    @decorators [0];
+    method() {}
+  },
+  class {
+    @(decorators?.[0])
+    method() {}
+  },
+  class {
+    @decorators.at(0)
+    method() {}
+  },
+  class {
+    @(decorators?.at(0))
+    method() {}
+  },
+  class {
+    @decorators.first
+    method() {}
+  },
+  class {
+    @(decorators?.first)
+    method() {}
+  },
+  class {
+    @(decorators[first])
+    method() {}
+  },
+  class {
+    @decorators [first];
+    method() {}
+  },
+  class {
+    @(decorators["first"])
+    method() {}
+  },
+  (
+    @(decorators[first])
+    class {
+      method() {}
+    }
+  ),
+  (
+    @(decorators[0])
+    class {
+      method() {}
+    }
+  ),
+];
+
+================================================================================
+`;
+
 exports[`methods.js [acorn] format 1`] = `
 "Unexpected character '@' (3:3)
   1 |

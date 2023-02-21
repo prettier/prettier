@@ -82,6 +82,8 @@ const meriyahDisabledTests = new Set([
     __dirname,
     "../format/js/babel-plugins/decorator-auto-accessors.js"
   ),
+  // Parsing to different ASTs
+  path.join(__dirname, "../format/js/decorators/member-expression.js"),
 ]);
 
 const isUnstable = (filename, options) => {
