@@ -103,6 +103,7 @@ function throwErrorForInvalidModifier(node) {
     if (
       modifier.kind !== SyntaxKind.InKeyword &&
       modifier.kind !== SyntaxKind.OutKeyword &&
+      modifier.kind !== SyntaxKind.ConstKeyword &&
       node.kind === SyntaxKind.TypeParameter
     ) {
       throwErrorOnTsNode(
