@@ -23,6 +23,7 @@ const parseOptions = {
   sourceType: "module",
   allowImportExportEverywhere: true,
   allowReturnOutsideFunction: true,
+  allowNewTargetOutsideFunction: true,
   allowSuperOutsideMethod: true,
   allowUndeclaredExports: true,
   errorRecovery: true,
