@@ -927,11 +927,11 @@ function genericPrint(path, options, print) {
 
       if (!node.open) {
         const parentParentParentNode = path.getParentNode(2);
-      const forceHardLine =
-        (parentParentParentNode.type === "css-decl" ||
-          (parentParentParentNode.type === "css-atrule" &&
-            parentParentParentNode.variable)) &&
-        node.groups.some((node) => node.type === "value-comma_group");
+        const forceHardLine =
+          (parentParentParentNode.type === "css-decl" ||
+            (parentParentParentNode.type === "css-atrule" &&
+              parentParentParentNode.variable)) &&
+          node.groups.some((node) => node.type === "value-comma_group");
 
         const printed = path.map(print, "groups");
         /** @type{Doc[]} */
