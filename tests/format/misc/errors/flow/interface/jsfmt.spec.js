@@ -2,12 +2,15 @@ run_spec(
   {
     importMeta: import.meta,
     snippets: [
-      // Invalid initializer
-      "interface I { x: number = 1;}",
+      // Not allowed
+      "declare export interface A {}",
+
       // Can't have mixins nor implements
       "interface A mixins B {}",
       "interface A implements B {}",
+      "declare interface A mixins B {}",
+      "declare interface A implements B {}",
     ],
   },
-  ["babel-ts", "typescript"]
+  ["flow", "babel-flow"]
 );
