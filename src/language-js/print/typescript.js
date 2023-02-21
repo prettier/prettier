@@ -124,6 +124,7 @@ function printTypescript(path, options, print) {
     case "TSInterfaceHeritage":
     case "TSClassImplements":
     case "TSExpressionWithTypeArguments": // Babel AST
+    case "TSInstantiationExpression":
       return [print("expression"), print("typeParameters")];
     case "TSTemplateLiteralType":
       return printTemplateLiteral(path, print, options);
@@ -412,8 +413,6 @@ function printTypescript(path, options, print) {
       return printJSDocType(path, print, /* token */ "?");
     case "TSJSDocNonNullableType":
       return printJSDocType(path, print, /* token */ "!");
-    case "TSInstantiationExpression":
-      return [print("expression"), print("typeParameters")];
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "TypeScript");
