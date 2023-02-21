@@ -491,16 +491,6 @@ async function baz() {
 ================================================================================
 `;
 
-exports[`await_parse.js [babel-flow] format 1`] = `
-"Can not use 'await' as identifier inside an async function. (23:5)
-  21 | console.log(x.await);
-  22 |
-> 23 | var await = 3;
-     |     ^
-  24 | var y = { await };
-  25 |"
-`;
-
 exports[`await_parse.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
