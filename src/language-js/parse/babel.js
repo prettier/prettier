@@ -37,7 +37,7 @@ const parseOptions = {
     "functionSent",
     "throwExpressions",
     "partialApplication",
-    ["decorators", { allowCallParenthesized: true }],
+    "decorators",
     "importAssertions",
     "decimal",
     "moduleBlocks",
