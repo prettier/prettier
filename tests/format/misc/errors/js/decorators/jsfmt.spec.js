@@ -14,7 +14,7 @@ run_spec(
       `,
       "@decorator1 export @decorator2 class A {}",
       "@decorator1 export default @decorator2 class A {}",
-      "export @decorator2 default class A {}"
+      "export @decorator2 default class A {}",
     ],
   },
   ["babel"]
