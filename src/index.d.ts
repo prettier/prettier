@@ -1,9 +1,9 @@
-// This is copied from `@types/prettier`
+// Copied from `@types/prettier`
 // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/5bb07fc4b087cb7ee91084afa6fe750551a7bbb1/types/prettier/index.d.ts
 
 // Minimum TypeScript Version: 4.2
 
-// Adding export {} here to shut off automatic exporting from index.d.ts. There
+// Add `export {}` here to shut off automatic exporting from index.d.ts. There
 // are quite a few utility types here that don't need to be shipped with the
 // exported module.
 export {};
@@ -365,7 +365,7 @@ export interface RequiredOptions extends doc.printer.Options {
   rangeStart: number;
   /**
    * Format only a segment of a file.
-   * @default Infinity
+   * @default Number.POSITIVE_INFINITY
    */
   rangeEnd: number;
   /**
@@ -393,12 +393,12 @@ export interface RequiredOptions extends doc.printer.Options {
   /**
    * By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer.
    * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
-   * @default 'preserve'
+   * @default "preserve"
    */
   proseWrap: "always" | "never" | "preserve";
   /**
    * Include parentheses around a sole arrow function parameter.
-   * @default 'always'
+   * @default "always"
    */
   arrowParens: "avoid" | "always";
   /**
@@ -411,17 +411,17 @@ export interface RequiredOptions extends doc.printer.Options {
   pluginSearchDirs: string[] | false;
   /**
    * How to handle whitespaces in HTML.
-   * @default 'css'
+   * @default "css"
    */
   htmlWhitespaceSensitivity: "css" | "strict" | "ignore";
   /**
    * Which end of line characters to apply.
-   * @default 'lf'
+   * @default "lf"
    */
   endOfLine: "auto" | "lf" | "crlf" | "cr";
   /**
    * Change when properties in objects are quoted.
-   * @default 'as-needed'
+   * @default "as-needed"
    */
   quoteProps: "as-needed" | "consistent" | "preserve";
   /**
@@ -431,7 +431,7 @@ export interface RequiredOptions extends doc.printer.Options {
   vueIndentScriptAndStyle: boolean;
   /**
    * Control whether Prettier formats quoted code embedded in the file.
-   * @default 'auto'
+   * @default "auto"
    */
   embeddedLanguageFormatting: "auto" | "off";
   /**

@@ -7,9 +7,9 @@ import { CursorOptions, CursorResult, Options, SupportInfo } from "./index.js";
  * The cursorOffset option should be provided, to specify where the cursor is. This option cannot be used with rangeStart and rangeEnd.
  *
  * ```js
- * prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
+ * await prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
  * ```
- * `-> { formatted: '1;\n', cursorOffset: 1 }`
+ * `-> { formatted: "1;\n", cursorOffset: 1 }`
  */
 export function formatWithCursor(
   source: string,
