@@ -37,8 +37,7 @@ const parseOptions = {
     "functionSent",
     "throwExpressions",
     "partialApplication",
-    // @ts-expect-error
-    ["decorators", { version: "2023-01", allowCallParenthesized: true }],
+    ["decorators", { allowCallParenthesized: true }],
     "importAssertions",
     "decimal",
     "moduleBlocks",
