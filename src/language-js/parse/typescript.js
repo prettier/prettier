@@ -41,15 +41,20 @@ function parse(text, options = {}) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 
-  const { result, error } = tryCombinations([
-    // Try passing with our best guess first.
-    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
-    // But if we get it wrong, try the opposite.
-    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx: !jsx }),
-  ]);
-
-  if (!result) {
-    // Suppose our guess is correct, throw the first error
+  let result;
+  try {
+    result = tryCombinations([
+      // Try passing with our best guess first.
+      () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
+      // But if we get it wrong, try the opposite.
+      () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx: !jsx }),
+    ]);
+  } catch ({
+    errors: [
+      // Suppose our guess is correct, throw the first error
+      error,
+    ],
+  }) {
     throw createParseError(error);
   }
 

@@ -145,13 +145,15 @@ function createParse({ isExpression = false, optionsCombinations }) {
 
     /** @type {Parse} */
     const parseFunction = isExpression ? parseExpression : babelParse;
-    let { result: ast, error } = tryCombinations(
-      combinations.map(
-        (options) => () => parseWithOptions(parseFunction, text, options)
-      )
-    );
 
-    if (!ast) {
+    let ast;
+    try {
+      ast = tryCombinations(
+        combinations.map(
+          (options) => () => parseWithOptions(parseFunction, text, options)
+        )
+      );
+    } catch ({ errors: [error] }) {
       throw createBabelParseError(error);
     }
 
