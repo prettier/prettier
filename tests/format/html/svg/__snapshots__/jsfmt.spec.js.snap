@@ -1,37 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`script.svg format 1`] = `
-====================================options=====================================
-parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<script>
-document.addEventListener(
-'DOMContentLoaded', () => {
-  const element = document.getElementById('foo')
-   if (element) {
-element.fillStyle = 'currentColor'
-}
-});
-</script>
-</svg>
-=====================================output=====================================
-<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const element = document.getElementById("foo");
-      if (element) {
-        element.fillStyle = "currentColor";
-      }
-    });
-  </script>
-</svg>
-
-================================================================================
-`;
-
 exports[`svg.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
@@ -51,25 +19,7 @@ printWidth: 80
 </html>
 
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<script>
-document.addEventListener(
-'DOMContentLoaded', () => {
-  const element = document.getElementById('foo')
-   if (element) {
-element.fillStyle = 'currentColor'
-}
-});
-</script>
-<defs /> <style >
-    polygon { fill: black }
-
-    div {
-  color: white;
-      font:18px serif;
-      height: 100%;
-      overflow: auto;
-    }
-  </style>
+<defs /> 
 
  <g>
   <g><polygon points="5,5 195,10 185,185 10,195" />
@@ -113,27 +63,7 @@ element.fillStyle = 'currentColor'
 </html>
 
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const element = document.getElementById("foo");
-      if (element) {
-        element.fillStyle = "currentColor";
-      }
-    });
-  </script>
   <defs />
-  <style>
-    polygon {
-      fill: black;
-    }
-
-    div {
-      color: white;
-      font: 18px serif;
-      height: 100%;
-      overflow: auto;
-    }
-  </style>
 
   <g>
     <g>

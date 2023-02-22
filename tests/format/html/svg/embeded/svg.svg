@@ -8,4 +8,14 @@ element.fillStyle = 'currentColor'
 }
 });
 </script>
+<style >
+    polygon { fill: black }
+
+    div {
+  color: white;
+      font:18px serif;
+      height: 100%;
+      overflow: auto;
+    }
+  </style>
 </svg>
