@@ -109,6 +109,7 @@ function isScriptLikeTag(node) {
     (node.fullName === "script" ||
       node.fullName === "style" ||
       node.fullName === "svg:style" ||
+      node.fullName === "svg:script" ||
       (isUnknownNamespace(node) &&
         (node.name === "script" || node.name === "style")))
   );

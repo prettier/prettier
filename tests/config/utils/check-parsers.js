@@ -46,7 +46,7 @@ const categoryParsers = new Map([
     "handlebars",
     { parsers: ["glimmer"], verifyParsers: [], extensions: [".hbs"] },
   ],
-  ["html", { parsers: ["html"], verifyParsers: [], extensions: [".html"] }],
+  ["html", { parsers: ["html"], verifyParsers: [], extensions: [".html", '.svg'] }],
   ["mjml", { parsers: ["html"], verifyParsers: [], extensions: [".mjml"] }],
   [
     "js",
