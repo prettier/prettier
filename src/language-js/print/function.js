@@ -41,6 +41,7 @@ import { locEnd } from "../loc.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
+  shouldBreakFunctionParameters,
 } from "./function-parameters.js";
 import { printPropertyKey } from "./property.js";
 import { printFunctionTypeParameters, printDeclareToken } from "./misc.js";
@@ -170,7 +171,12 @@ function printMethod(path, options, print) {
 function printMethodValue(path, options, print) {
   const { node } = path;
   const parametersDoc = printFunctionParameters(path, print, options);
+<<<<<<< HEAD
   const returnTypeDoc = printReturnType(path, print);
+=======
+  const returnTypeDoc = printReturnType(path, print, options);
+  const shouldBreakParameters = shouldBreakFunctionParameters(node);
+>>>>>>> 5ef9e3c85 (break parameters for TypeScript parameter properties)
   const shouldGroupParameters = shouldGroupFunctionParameters(
     node,
     returnTypeDoc
@@ -178,7 +184,11 @@ function printMethodValue(path, options, print) {
   const parts = [
     printFunctionTypeParameters(path, options, print),
     group([
-      shouldGroupParameters ? group(parametersDoc) : parametersDoc,
+      shouldBreakParameters
+        ? group(parametersDoc, { shouldBreak: true })
+        : shouldGroupParameters
+        ? group(parametersDoc)
+        : parametersDoc,
       returnTypeDoc,
     ]),
   ];
