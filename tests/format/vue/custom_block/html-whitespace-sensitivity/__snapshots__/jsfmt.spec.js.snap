@@ -7,14 +7,12 @@ parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<docs lang=unknown></docs><docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
+<docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
 
 =====================================output=====================================
 <docs lang="unknown"></docs>
 <docs lang="unknown"></docs>
-<docs lang="unknown"></docs>
 <!-- display: inline -->
-<docs lang="unknown"></docs>
 <docs lang="unknown"></docs>
 <docs lang="unknown" style="display: inline"></docs>
 
@@ -28,14 +26,12 @@ parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<docs lang=unknown></docs><docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
+<docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
 
 =====================================output=====================================
 <docs lang="unknown"></docs>
 <docs lang="unknown"></docs>
-<docs lang="unknown"></docs>
 <!-- display: inline -->
-<docs lang="unknown"></docs>
 <docs lang="unknown"></docs>
 <docs lang="unknown" style="display: inline"></docs>
 
@@ -49,14 +45,12 @@ parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<docs lang=unknown></docs><docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
+<docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
 
 =====================================output=====================================
 <docs lang="unknown"></docs>
 <docs lang="unknown"></docs>
-<docs lang="unknown"></docs>
 <!-- display: inline -->
-<docs lang="unknown"></docs>
 <docs lang="unknown"></docs>
 <docs lang="unknown" style="display: inline"></docs>
 
@@ -69,14 +63,12 @@ parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<docs lang=unknown></docs><docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
+<docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
 
 =====================================output=====================================
 <docs lang="unknown"></docs>
 <docs lang="unknown"></docs>
-<docs lang="unknown"></docs>
 <!-- display: inline -->
-<docs lang="unknown"></docs>
 <docs lang="unknown"></docs>
 <docs lang="unknown" style="display: inline"></docs>
 
