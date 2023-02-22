@@ -280,7 +280,7 @@ function isDecoratedFunction(path) {
 }
 
 function shouldBreakFunctionParameters(functionNode) {
-  const { params } = functionNode;
+  const params = getFunctionParameters(functionNode);
   return (
     params.length > 1 && params.some((p) => p.type === "TSParameterProperty")
   );
