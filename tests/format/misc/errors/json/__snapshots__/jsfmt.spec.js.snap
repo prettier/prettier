@@ -247,7 +247,7 @@ exports[`snippet: #10 [json] format 1`] = `
 `;
 
 exports[`snippet: #10 [json] format 2`] = `
-"This experimental syntax requires enabling one of the following parser plugin(s): "decorators", "decorators-legacy". (1:2)
+"Unexpected token (1:2)
 > 1 | [@decorator class {}]
     |  ^"
 `;
@@ -661,7 +661,7 @@ exports[`snippet: #27 [json] format 1`] = `
 `;
 
 exports[`snippet: #27 [json] format 2`] = `
-"This experimental syntax requires enabling one of the following parser plugin(s): "jsx", "flow", "typescript". (1:2)
+"Unexpected token (1:2)
 > 1 | [<foo></foo>]
     |  ^"
 `;

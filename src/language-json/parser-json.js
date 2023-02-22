@@ -16,7 +16,10 @@ function createJsonParse(options = {}) {
         ranges: true,
       });
     } catch (error) {
-      if (error?.reasonCode === "MissingPlugin") {
+      if (
+        (error?.reasonCode === "MissingPlugin") |
+        (error?.reasonCode === "MissingOneOfPlugins")
+      ) {
         throw createBabelParseError({
           message: "Unexpected token",
           loc: error.loc,
