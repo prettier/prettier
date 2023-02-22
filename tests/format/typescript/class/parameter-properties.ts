@@ -7,3 +7,8 @@ class Mixed {
   constructor(public a: number, b: unknown) {
   }
 }
+
+class OneParameterProperty {
+  constructor(public foobar: boolean) {
+  }
+}
