@@ -79,7 +79,7 @@ exports[`snippet: #3 [json] format 1`] = `
 `;
 
 exports[`snippet: #3 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "doExpressions". (1:2)
+"Unexpected token (1:2)
 > 1 | [do {}]
     |  ^"
 `;
@@ -175,7 +175,7 @@ exports[`snippet: #7 [json] format 1`] = `
 `;
 
 exports[`snippet: #7 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "functionSent". (1:24)
+"Unexpected token (1:24)
 > 1 | [function*() {function.sent}]
     |                        ^"
 `;
@@ -199,7 +199,7 @@ exports[`snippet: #8 [json] format 1`] = `
 `;
 
 exports[`snippet: #8 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "throwExpressions". (1:2)
+"Unexpected token (1:2)
 > 1 | [throw {}]
     |  ^"
 `;
@@ -223,7 +223,7 @@ exports[`snippet: #9 [json] format 1`] = `
 `;
 
 exports[`snippet: #9 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "partialApplication". (1:6)
+"Unexpected token (1:6)
 > 1 | [foo(?)]
     |      ^"
 `;
@@ -271,7 +271,7 @@ exports[`snippet: #11 [json] format 1`] = `
 `;
 
 exports[`snippet: #11 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "importAssertions". (1:28)
+"Unexpected token (1:28)
 > 1 | [import('a', {type:'json'})]
     |                            ^"
 `;
@@ -295,7 +295,7 @@ exports[`snippet: #12 [json] format 1`] = `
 `;
 
 exports[`snippet: #12 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "decimal". (1:3)
+"Unexpected token (1:3)
 > 1 | [1m]
     |   ^"
 `;
@@ -319,7 +319,7 @@ exports[`snippet: #13 [json] format 1`] = `
 `;
 
 exports[`snippet: #13 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "moduleBlocks". (1:2)
+"Unexpected token (1:2)
 > 1 | [module {}]
     |  ^"
 `;
@@ -343,7 +343,7 @@ exports[`snippet: #14 [json] format 1`] = `
 `;
 
 exports[`snippet: #14 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "doExpressions". (1:8)
+"Unexpected token (1:8)
 > 1 | [async do {}]
     |        ^"
 `;
@@ -367,7 +367,7 @@ exports[`snippet: #15 [json] format 1`] = `
 `;
 
 exports[`snippet: #15 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "regexpUnicodeSets". (1:6)
+"Unexpected token (1:6)
 > 1 | [/a/v]
     |      ^"
 `;
@@ -391,7 +391,7 @@ exports[`snippet: #16 [json] format 1`] = `
 `;
 
 exports[`snippet: #16 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "destructuringPrivate". (1:28)
+"Unexpected token (1:28)
 > 1 | [class {#foo;bar() {const {#foo: foo} = this;}}]
     |                            ^"
 `;
@@ -415,7 +415,7 @@ exports[`snippet: #17 [json] format 1`] = `
 `;
 
 exports[`snippet: #17 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "decoratorAutoAccessors". (1:18)
+"Unexpected token (1:18)
 > 1 | [class {accessor foo = 1}]
     |                  ^"
 `;
@@ -439,7 +439,7 @@ exports[`snippet: #18 [json] format 1`] = `
 `;
 
 exports[`snippet: #18 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "importAssertions". (1:34)
+"Unexpected token (1:34)
 > 1 | [import('a', {reflect: 'module'})]
     |                                  ^"
 `;
@@ -487,7 +487,7 @@ exports[`snippet: #20 [json] format 1`] = `
 `;
 
 exports[`snippet: #20 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "explicitResourceManagement". (1:16)
+"Unexpected token (1:16)
 > 1 | [function() { {using a = b} }]
     |                ^"
 `;
@@ -565,7 +565,7 @@ exports[`snippet: #23 [json] format 1`] = `
 `;
 
 exports[`snippet: #23 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "recordAndTuple". (1:2)
+"Unexpected token (1:2)
 > 1 | [#{}]
     |  ^"
 `;
@@ -613,7 +613,7 @@ exports[`snippet: #25 [json] format 1`] = `
 `;
 
 exports[`snippet: #25 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "pipelineOperator". (1:8)
+"Unexpected token (1:8)
 > 1 | ['foo' |> bar]
     |        ^"
 `;
@@ -637,7 +637,7 @@ exports[`snippet: #26 [json] format 1`] = `
 `;
 
 exports[`snippet: #26 [json] format 2`] = `
-"This experimental syntax requires enabling the parser plugin: "pipelineOperator". (1:8)
+"Unexpected token (1:8)
 > 1 | ['foo' |> bar(%)]
     |        ^"
 `;
