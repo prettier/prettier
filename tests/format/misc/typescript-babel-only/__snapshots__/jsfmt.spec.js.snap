@@ -117,11 +117,10 @@ export type a =
   // bar
   | (bar1 & bar2)
   // prettier-ignore
-  | (
-    | aaaaaaaaaaaaa&1
+  | (| aaaaaaaaaaaaa&1
     // b
-    | bbbbbbbbbbbbb&2
-  )
+    | bbbbbbbbbbbbb&2)
+    // baz
   // baz
   | (baz1 & baz2);
 
@@ -130,12 +129,11 @@ export type b =
   | (foo1 & foo2)
   // bar
   | (bar1 & bar2)
-  | (
-      | // prettier-ignore
-      aaaaaaaaaaaaa&1
-      // b
-      | (bbbbbbbbbbbbb & 2)
-    )
+  // prettier-ignore
+  | (| aaaaaaaaaaaaa&1
+    // b
+    | bbbbbbbbbbbbb&2)
+    // baz
   // baz
   | (baz1 & baz2);
 
@@ -157,9 +155,7 @@ type Foo =
 =====================================output=====================================
 type Foo =
   // prettier-ignore
-  (
-    aa
-  );
+  aa;
 
 ================================================================================
 `;
