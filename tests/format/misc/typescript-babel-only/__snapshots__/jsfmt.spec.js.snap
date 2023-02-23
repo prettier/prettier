@@ -120,7 +120,6 @@ export type a =
   | (| aaaaaaaaaaaaa&1
     // b
     | bbbbbbbbbbbbb&2)
-    // baz
   // baz
   | (baz1 & baz2);
 
@@ -133,7 +132,6 @@ export type b =
   | (| aaaaaaaaaaaaa&1
     // b
     | bbbbbbbbbbbbb&2)
-    // baz
   // baz
   | (baz1 & baz2);
 

@@ -5,7 +5,6 @@ import {
   isJsxElement,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
-import { isIgnored } from "../print/ignored.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
@@ -69,8 +68,7 @@ function getCommentChildNodes(node, options) {
 function willPrintOwnComments(path) {
   const { node, parent } = path;
   return (
-    isIgnored(path) ||
-    ((isJsxElement(node) ||
+    (isJsxElement(node) ||
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||
@@ -79,9 +77,9 @@ function willPrintOwnComments(path) {
           ((parent.type === "ClassDeclaration" ||
             parent.type === "ClassExpression") &&
             parent.superClass === node)))) &&
-      (!hasNodeIgnoreComment(node) ||
-        parent.type === "UnionTypeAnnotation" ||
-        parent.type === "TSUnionType"))
+    (!hasNodeIgnoreComment(node) ||
+      parent.type === "UnionTypeAnnotation" ||
+      parent.type === "TSUnionType")
   );
 }
 

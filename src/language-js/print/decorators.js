@@ -9,7 +9,7 @@ import {
 } from "../../document/builders.js";
 import { locEnd, hasSameLocStart } from "../loc.js";
 import { isExportDeclaration } from "../utils/index.js";
-import { isIgnored } from "./ignored.js";
+import isIgnored from "./print/is-ignored.js";
 
 function printClassMemberDecorators(path, options, print) {
   const { node } = path;

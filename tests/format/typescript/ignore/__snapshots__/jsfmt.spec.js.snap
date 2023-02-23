@@ -12,8 +12,8 @@ export const foo = (
 ).qux;
 
 =====================================output=====================================
-export const foo = (// prettier-ignore
-bar as Baz).qux;
+export const foo = // prettier-ignore
+(bar as Baz).qux;
 
 ================================================================================
 `;

@@ -36,8 +36,8 @@ printWidth: 80
 
 =====================================output=====================================
 +(
-  (// prettier-ignore
-  (
+  // prettier-ignore
+  ((
       first
     )
     ,

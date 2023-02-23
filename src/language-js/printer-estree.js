@@ -1,5 +1,6 @@
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 import { printDanglingComments } from "../main/comments/print.js";
+import printIgnored from "../main/print-ignored.js";
 import hasNewline from "../utils/has-newline.js";
 import {
   join,
@@ -31,6 +32,7 @@ import {
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
+import isIgnored from "./print/is-ignored.js";
 import getVisitorKeys from "./traverse/get-visitor-keys.js";
 
 import {
@@ -89,7 +91,6 @@ import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 import { printTypeAnnotationProperty } from "./print/type-annotation.js";
 import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
-import { isIgnored, printIgnored } from "./print/ignored.js"
 
 /**
  * @typedef {import("../common/ast-path.js").default} AstPath
@@ -187,7 +188,7 @@ function genericPrint(path, options, print, args) {
  */
 function printPathNoParens(path, options, print, args) {
   if (isIgnored(path)) {
-    return printIgnored(path, options)
+    return printIgnored(path, options);
   }
 
   for (const printer of [

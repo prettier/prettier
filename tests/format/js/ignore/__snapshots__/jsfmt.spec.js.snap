@@ -359,9 +359,9 @@ function HelloWorld(x) {
 
 =====================================output=====================================
 function HelloWorld(x) {
-  (// prettier-ignore
+  // prettier-ignore
   // eslint-disable-next-line
-  x.a |
+  (x.a |
     x.b).call(null);
 }
 
@@ -395,13 +395,13 @@ a=(
 
 =====================================output=====================================
 oneArgument(
-  (// prettier-ignore
-  0, 1),
+  // prettier-ignore
+  (0, 1),
 );
 
 a =
-  (// prettier-ignore
-  0, 1);
+  // prettier-ignore
+  (0, 1);
 
 ================================================================================
 `;
@@ -422,9 +422,9 @@ async function foo() {
 
 =====================================output=====================================
 async function foo() {
-  (// prettier-ignore
+  // prettier-ignore
   // b
-  await thing()).blah;
+  (await thing()).blah;
 }
 
 ================================================================================

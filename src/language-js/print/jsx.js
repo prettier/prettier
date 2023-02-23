@@ -31,7 +31,6 @@ import {
 } from "../utils/index.js";
 import pathNeedsParens from "../needs-parens.js";
 import { willPrintOwnComments } from "../comments/printer-methods.js";
-import { isIgnored } from "./ignored.js";
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -695,11 +694,7 @@ function printJsxSpreadAttributeOrChild(path, options, print) {
     path.call(
       ({ node }) => {
         const printed = ["...", print()];
-        if (
-          !hasComment(node) ||
-          !willPrintOwnComments(path) ||
-          isIgnored(path)
-        ) {
+        if (!hasComment(node) || !willPrintOwnComments(path)) {
           return printed;
         }
         return [
