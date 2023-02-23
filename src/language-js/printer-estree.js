@@ -89,6 +89,7 @@ import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 import { printTypeAnnotationProperty } from "./print/type-annotation.js";
 import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
+import { isIgnored, printIgnored } from "./print/ignored.js"
 
 /**
  * @typedef {import("../common/ast-path.js").default} AstPath
@@ -103,13 +104,12 @@ import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
  * @returns {Doc}
  */
 function genericPrint(path, options, print, args) {
-  const { node } = path;
-
   const printed = printPathNoParens(path, options, print, args);
   if (!printed) {
     return "";
   }
 
+  const { node } = path;
   const { type } = node;
   // Their decorators are handled themselves, and they can't have parentheses
   if (
@@ -186,6 +186,10 @@ function genericPrint(path, options, print, args) {
  * @returns {Doc}
  */
 function printPathNoParens(path, options, print, args) {
+  if (isIgnored(path)) {
+    return printIgnored(path, options)
+  }
+
   for (const printer of [
     printLiteral,
     printHtmlBinding,

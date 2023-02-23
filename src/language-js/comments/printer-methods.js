@@ -1,10 +1,10 @@
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { hasJsxIgnoreComment } from "../print/jsx.js";
 import {
   getFunctionParameters,
   hasNodeIgnoreComment,
   isJsxElement,
 } from "../utils/index.js";
+import isBlockComment from "../utils/is-block-comment.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
@@ -61,17 +61,15 @@ function getCommentChildNodes(node, options) {
   }
 }
 
-function hasPrettierIgnore(path) {
-  return hasNodeIgnoreComment(path.node) || hasJsxIgnoreComment(path);
-}
-
 /**
  * @param {AstPath} path
  * @returns {boolean}
  */
-function willPrintOwnComments({ node, parent }) {
+function willPrintOwnComments(path) {
+  const { node, parent } = path;
   return (
-    (isJsxElement(node) ||
+    isIgnored(path) ||
+    ((isJsxElement(node) ||
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||
@@ -80,9 +78,9 @@ function willPrintOwnComments({ node, parent }) {
           ((parent.type === "ClassDeclaration" ||
             parent.type === "ClassExpression") &&
             parent.superClass === node)))) &&
-    (!hasNodeIgnoreComment(node) ||
-      parent.type === "UnionTypeAnnotation" ||
-      parent.type === "TSUnionType")
+      (!hasNodeIgnoreComment(node) ||
+        parent.type === "UnionTypeAnnotation" ||
+        parent.type === "TSUnionType"))
   );
 }
 
@@ -101,7 +99,11 @@ export { default as isBlockComment } from "../utils/is-block-comment.js";
 export {
   canAttachComment,
   getCommentChildNodes,
+<<<<<<< HEAD
   hasPrettierIgnore,
+=======
+  isBlockComment,
+>>>>>>> 5c1f1b6a7 (Move ignore node print into js)
   willPrintOwnComments,
   isGap,
 };
