@@ -122,7 +122,7 @@ class D<T, U> {
   constructor(x: T, y: U);
   constructor(
     x: T = 1,
-    public y: U = x
+    public y: U = x,
   ) {
     var z = x;
   }
@@ -240,7 +240,7 @@ class C {
   y: string;
   constructor(
     private x: string,
-    protected z: string
+    protected z: string,
   ) {}
 }
 
@@ -254,7 +254,7 @@ class D<T> {
   constructor(
     a: T,
     private x: T,
-    protected z: T
+    protected z: T,
   ) {}
 }
 

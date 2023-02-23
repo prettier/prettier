@@ -130,7 +130,7 @@ module A {
   export class Point {
     constructor(
       public x: number,
-      public y: number
+      public y: number,
     ) {}
   }
   export module B {
@@ -158,7 +158,7 @@ module X {
     export class Point {
       constructor(
         public x: number,
-        public y: number
+        public y: number,
       ) {}
     }
   }
@@ -269,7 +269,7 @@ module moduleA {
   export class Point {
     constructor(
       public x: number,
-      public y: number
+      public y: number,
     ) {}
   }
 }

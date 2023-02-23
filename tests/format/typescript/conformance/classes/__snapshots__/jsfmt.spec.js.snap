@@ -350,7 +350,7 @@ type Constructor<T> = new (...args: any[]) => T;
 class Base {
   constructor(
     public x: number,
-    public y: number
+    public y: number,
   ) {}
 }
 
@@ -358,7 +358,7 @@ class Derived extends Base {
   constructor(
     x: number,
     y: number,
-    public z: number
+    public z: number,
   ) {
     super(x, y);
   }
@@ -494,7 +494,7 @@ type Constructor<T> = new (...args: any[]) => T;
 class Base {
   constructor(
     public x: number,
-    public y: number
+    public y: number,
   ) {}
 }
 
@@ -502,7 +502,7 @@ class Derived extends Base {
   constructor(
     x: number,
     y: number,
-    public z: number
+    public z: number,
   ) {
     super(x, y);
   }
