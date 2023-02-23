@@ -5,6 +5,7 @@ import {
   isJsxElement,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
+import { isIgnored } from "../print/ignored.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
