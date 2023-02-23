@@ -241,3 +241,27 @@ because the prettier-ignore comment is attached as MemberExpression leading comm
 
 ================================================================================
 `;
+
+exports[`issue-14404.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function foo() {
+(
+  	// prettier-ignore
+  	// b
+	await thing()
+).blah
+}
+
+=====================================output=====================================
+async function foo() {
+  (// prettier-ignore
+  // b
+  await thing()).blah;
+}
+
+================================================================================
+`;
