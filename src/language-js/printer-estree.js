@@ -32,7 +32,7 @@ import {
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
-import isIgnored from "./print/is-ignored.js";
+import isIgnored from "./utils/is-ignored.js";
 import getVisitorKeys from "./traverse/get-visitor-keys.js";
 
 import {
