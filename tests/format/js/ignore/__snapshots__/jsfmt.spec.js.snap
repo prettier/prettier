@@ -242,6 +242,53 @@ because the prettier-ignore comment is attached as MemberExpression leading comm
 ================================================================================
 `;
 
+exports[`issue-11077.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function HelloWorld(x) {
+
+  (
+    // prettier-ignore
+    // eslint-disable-next-line
+    x.a |
+    x.b
+  ).call(null)
+
+}
+
+function HelloWorld(x) {
+  // prettier-ignore
+  (
+    // eslint-disable-next-line
+    x.a |
+    x.b
+  ).call(null)
+
+}
+
+=====================================output=====================================
+function HelloWorld(x) {
+  (// prettier-ignore
+  // eslint-disable-next-line
+  x.a |
+    x.b).call(null);
+}
+
+function HelloWorld(x) {
+  // prettier-ignore
+  (
+    // eslint-disable-next-line
+    x.a |
+    x.b
+  ).call(null)
+}
+
+================================================================================
+`;
+
 exports[`issue-13737.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
