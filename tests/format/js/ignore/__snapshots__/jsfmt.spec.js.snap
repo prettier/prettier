@@ -242,6 +242,35 @@ because the prettier-ignore comment is attached as MemberExpression leading comm
 ================================================================================
 `;
 
+exports[`issue-13737.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+oneArgument(
+ // prettier-ignore
+ (0, 1)
+)
+
+a=(
+ // prettier-ignore
+ (0, 1)
+)
+
+=====================================output=====================================
+oneArgument(
+  (// prettier-ignore
+  0, 1),
+);
+
+a =
+  (// prettier-ignore
+  0, 1);
+
+================================================================================
+`;
+
 exports[`issue-14404.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
