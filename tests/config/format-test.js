@@ -42,7 +42,7 @@ const unstableTests = new Map(
     "typescript/satisfies-operators/comments-unstable.ts",
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
     "jsx/comments/in-attributes.js",
-    ["js/ignore/semi/jsfmt.spec.js", (options) => options.semi === false],
+    ["js/ignore/semi/asi.js", (options) => options.semi === false],
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
