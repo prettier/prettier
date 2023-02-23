@@ -279,10 +279,11 @@ function isDecoratedFunction(path) {
   );
 }
 
-function shouldBreakFunctionParameters(functionNode) {
-  const params = getFunctionParameters(functionNode);
+function shouldBreakFunctionParameters(node) {
+  const parameters = getFunctionParameters(node);
   return (
-    params.length > 1 && params.some((p) => p.type === "TSParameterProperty")
+    parameters.length > 1 &&
+    parameters.some((parameter) => parameter.type === "TSParameterProperty")
   );
 }
 
