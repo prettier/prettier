@@ -1,8 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`decorator.js [acorn] format 1`] = `
+"Unexpected character '@' (2:1)
+  1 | // prettier-ignore
+> 2 | @decorator
+    | ^
+  3 | class A {}
+  4 |"
+`;
+
+exports[`decorator.js [espree] format 1`] = `
+"Unexpected character '@' (2:1)
+  1 | // prettier-ignore
+> 2 | @decorator
+    | ^
+  3 | class A {}
+  4 |"
+`;
+
+exports[`decorator.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// prettier-ignore
+@decorator
+class A {}
+
+=====================================output=====================================
+// prettier-ignore
+@decorator
+class A {}
+
+================================================================================
+`;
+
 exports[`ignore.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -130,7 +166,7 @@ const response = {
 
 exports[`ignore-2.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -180,7 +216,7 @@ a = <div {...{} /* prettier-ignore */} />;
 
 exports[`issue-9335.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -198,7 +234,7 @@ class foo
 
 exports[`issue-9877.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -232,7 +268,7 @@ export default function test() {
 
 exports[`issue-10661.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -296,7 +332,7 @@ because the prettier-ignore comment is attached as MemberExpression leading comm
 
 exports[`issue-11077.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -343,7 +379,7 @@ function HelloWorld(x) {
 
 exports[`issue-13737.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -372,7 +408,7 @@ a =
 
 exports[`issue-14404.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
