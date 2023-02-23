@@ -651,7 +651,7 @@ function printChildren(path, options, print, events = {}) {
         parts.push(hardline);
 
         if (
-          shouldPrePrintDoubleHardline(path) ||
+          shouldPrePrintDoubleHardline(path, options) ||
           shouldPrePrintTripleHardline(path)
         ) {
           parts.push(hardline);
@@ -720,37 +720,44 @@ function shouldPrePrintHardline({ node, parent }) {
   return !isInlineNode && !isInlineHTML;
 }
 
-function shouldPrePrintDoubleHardline({ node, previous, parent }) {
+function isLooseListItem(node, options) {
+  return (
+    node.type === "listItem" &&
+    (node.spread ||
+      // Check if `listItem` ends with `\n`
+      // since it can't be empty, so we only need check the last character
+      options.originalText.charAt(node.position.end.offset - 1) === "\n")
+  );
+}
+
+function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
+  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
+
+  if (isPrevNodeLooseListItem) {
+    return true;
+  }
+
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
-
-  const isInTightListItem = parent.type === "listItem" && !parent.loose;
-
-  const isPrevNodeLooseListItem =
-    previous.type === "listItem" && previous.loose;
-
+  const isInTightListItem =
+    parent.type === "listItem" && !isLooseListItem(parent, options);
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
-
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
     previous.type === "html" &&
     previous.position.end.line + 1 === node.position.start.line;
-
   const isHtmlDirectAfterListItem =
     node.type === "html" &&
     parent.type === "listItem" &&
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
 
-  return (
-    isPrevNodeLooseListItem ||
-    !(
-      isSiblingNode ||
-      isInTightListItem ||
-      isPrevNodePrettierIgnore ||
-      isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-      isHtmlDirectAfterListItem
-    )
+  return !(
+    isSiblingNode ||
+    isInTightListItem ||
+    isPrevNodePrettierIgnore ||
+    isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
+    isHtmlDirectAfterListItem
   );
 }
 

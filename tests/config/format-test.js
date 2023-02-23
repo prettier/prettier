@@ -77,12 +77,12 @@ const meriyahDisabledTests = new Set([
     ].map((filename) => `js/decorator-auto-accessors/${filename}`),
     // https://github.com/meriyah/meriyah/issues/233
     "js/babel-plugins/decorator-auto-accessors.js",
-    // https://github.com/meriyah/meriyah/issues/235
-    "jsx/spread/child.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const babelTsDisabledTest = new Set(
-  [].map((directory) => path.join(__dirname, "../format/typescript", directory))
+  ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
+    path.join(__dirname, "../format/typescript", file)
+  )
 );
 
 const isUnstable = (filename, options) => {
@@ -236,8 +236,7 @@ function runSpec(fixtures, parsers, options) {
     if (
       parsers.includes("typescript") &&
       !parsers.includes("babel-ts") &&
-      !IS_TYPESCRIPT_ONLY_TEST &&
-      !babelTsDisabledTest.has(dirname)
+      !IS_TYPESCRIPT_ONLY_TEST
     ) {
       allParsers.push("babel-ts");
     }
@@ -285,7 +284,8 @@ function runSpec(fixtures, parsers, options) {
         if (
           (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
-          (currentParser === "acorn" && acornDisabledTests.has(filename))
+          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
+          (currentParser === "babel-ts" && babelTsDisabledTest.has(filename))
         ) {
           continue;
         }

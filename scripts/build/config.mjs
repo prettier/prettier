@@ -80,7 +80,6 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName }) {
  * @property {object[]?} replaceModule - Module replacements
  * @property {string[]?} target - ESBuild targets
  * @property {string[]?} external - array of paths that should not be included in the final bundle
- * @property {boolean?} interopDefault - interop default export
  * @property {boolean?} minify - disable code minification
  *
  * @typedef {Object} Output
@@ -118,7 +117,20 @@ const extensions = {
 };
 
 const pluginFiles = [
-  "src/language-js/parse/babel.js",
+  {
+    input: "src/language-js/parse/babel.js",
+    replaceModule: [
+      {
+        // We don't use value of JSXText
+        module: require.resolve("@babel/parser"),
+        process: (text) =>
+          text.replaceAll(
+            "const entity = entities[desc];",
+            "const entity = undefined"
+          ),
+      },
+    ],
+  },
   {
     input: "src/language-js/parse/flow.js",
     replaceModule: [
@@ -180,6 +192,18 @@ const pluginFiles = [
       },
       {
         module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/ExpiringCache.js"
+        ),
+        text: "exports.ExpiringCache = class {};",
+      },
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/getProjectConfigFiles.js"
+        ),
+        text: "exports.resolveProjectList = () => [];",
+      },
+      {
+        module: require.resolve(
           "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js"
         ),
         text: "exports.warnAboutTSVersion = () => {};",
@@ -219,13 +243,22 @@ const pluginFiles = [
     replaceModule: [
       {
         module: require.resolve("espree"),
-        find: "const Syntax = (function() {",
-        replacement: "const Syntax = undefined && (function() {",
+        process: (text) =>
+          text
+            .replaceAll(
+              /exports\.(?:Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions|tokenize|version) = .*?;/g,
+              ""
+            )
+            .replaceAll(
+              /const (Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions) = /g,
+              "const $1 = undefined && "
+            )
+            .replace("require('eslint-visitor-keys')", "{}"),
       },
       {
-        module: require.resolve("espree"),
-        find: "var visitorKeys = require('eslint-visitor-keys');",
-        replacement: "var visitorKeys;",
+        // We don't use value of JSXText
+        module: require.resolve("acorn-jsx/xhtml.js"),
+        text: "module.exports = {};",
       },
     ],
   },
@@ -384,13 +417,11 @@ const nonPluginUniversalFiles = [
     input: "src/document/index.js",
     outputBaseName: "doc",
     umdVariableName: "doc",
-    interopDefault: false,
     minify: false,
   },
   {
     input: "src/standalone.js",
     umdVariableName: "prettier",
-    interopDefault: false,
     replaceModule: [
       {
         module: require.resolve("@babel/highlight"),

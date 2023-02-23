@@ -11,7 +11,7 @@ import {
 } from "../common/end-of-line.js";
 import { normalize as normalizeOptions } from "./options.js";
 import massageAst from "./massage-ast.js";
-import { attach } from "./comments/attach.js";
+import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted } from "./comments/print.js";
 import { parse as parseText, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
@@ -20,18 +20,6 @@ import { calculateRange, findNodeAtOffset } from "./range-util.js";
 const BOM = "\uFEFF";
 
 const CURSOR = Symbol("cursor");
-
-function attachComments(text, ast, opts) {
-  const astComments = ast.comments;
-  if (astComments) {
-    delete ast.comments;
-    attach(astComments, ast, text, opts);
-  }
-  opts[Symbol.for("comments")] = astComments || [];
-  opts[Symbol.for("tokens")] = ast.tokens || [];
-  opts.originalText = text;
-  return astComments;
-}
 
 async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
@@ -49,10 +37,9 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
   const astComments = attachComments(text, ast, opts);
   const doc = await printAstToDoc(ast, opts, addAlignmentSize);
-
   const result = printDocToStringWithoutNormalizeOptions(doc, opts);
-
   ensureAllCommentsPrinted(astComments);
+
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
     const trimmed = result.formatted.trim();

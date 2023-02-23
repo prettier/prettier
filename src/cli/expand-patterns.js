@@ -1,5 +1,5 @@
 import path from "node:path";
-import { statSafe } from "./utils.js";
+import { statSafe, normalizeToPosix } from "./utils.js";
 import { fastGlob } from "./prettier-internal.js";
 
 /** @typedef {import('./context').Context} Context */
@@ -186,17 +186,12 @@ function escapePathForGlob(path) {
     .replaceAll("\0", "@(\\\\)"); // Workaround for fast-glob#262 (part 2)
 }
 
-const isWindows = path.sep === "\\";
-
 /**
  * Using backslashes in globs is probably not okay, but not accepting
  * backslashes as path separators on Windows is even more not okay.
  * https://github.com/prettier/prettier/pull/6776#discussion_r380723717
  * https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
- * @param {string} pattern
  */
-function fixWindowsSlashes(pattern) {
-  return isWindows ? pattern.replaceAll("\\", "/") : pattern;
-}
+const fixWindowsSlashes = normalizeToPosix;
 
 export { expandPatterns };

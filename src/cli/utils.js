@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import path from "node:path";
 import sdbm from "sdbm";
 // @ts-expect-error
 import { __internal as sharedWithCli } from "../index.js";
@@ -80,6 +81,16 @@ function isJson(value) {
   }
 }
 
+/**
+ * Replace `\` with `/` on Windows
+ * @param {string} filepath
+ * @returns {string}
+ */
+const normalizeToPosix =
+  path.sep === "\\"
+    ? (filepath) => filepath.replaceAll("\\", "/")
+    : (filepath) => filepath;
+
 export {
   arrayify,
   isNonEmptyArray,
@@ -90,4 +101,5 @@ export {
   createHash,
   statSafe,
   isJson,
+  normalizeToPosix,
 };
