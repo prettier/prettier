@@ -171,12 +171,8 @@ function printMethod(path, options, print) {
 function printMethodValue(path, options, print) {
   const { node } = path;
   const parametersDoc = printFunctionParameters(path, print, options);
-<<<<<<< HEAD
   const returnTypeDoc = printReturnType(path, print);
-=======
-  const returnTypeDoc = printReturnType(path, print, options);
   const shouldBreakParameters = shouldBreakFunctionParameters(node);
->>>>>>> 5ef9e3c85 (break parameters for TypeScript parameter properties)
   const shouldGroupParameters = shouldGroupFunctionParameters(
     node,
     returnTypeDoc
