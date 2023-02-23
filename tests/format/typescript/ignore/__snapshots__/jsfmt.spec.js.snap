@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issue-14238.js format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const foo = (
+  // prettier-ignore
+  bar as Baz
+).qux;
+
+=====================================output=====================================
+export const foo = (// prettier-ignore
+bar as Baz).qux;
+
+================================================================================
+`;
