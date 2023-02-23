@@ -61,6 +61,7 @@ const config = {
     "<rootDir>/tests/format/**/jsfmt.spec.js",
     "<rootDir>/tests/integration/__tests__/**/*.js",
     "<rootDir>/tests/unit/**/*.js",
+    "<rootDir>/tests/dts/unit/**/*.js",
   ],
   testPathIgnorePatterns,
   // collectCoverage: ENABLE_CODE_COVERAGE,

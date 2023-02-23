@@ -271,6 +271,7 @@ module.exports = {
         "tests/format/**/jsfmt.spec.js",
         "tests/integration/**/*.js",
         "tests/unit/**/*.js",
+        "tests/dts/unit/**/*.js",
         "scripts/release/__tests__/**/*.spec.js",
       ],
       env: {

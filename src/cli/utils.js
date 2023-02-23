@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import sdbm from "sdbm";
+// @ts-expect-error
 import { __internal as sharedWithCli } from "../index.js";
 
 const { arrayify, isNonEmptyArray, partition } = sharedWithCli.utils;

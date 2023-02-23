@@ -6811,6 +6811,7 @@ __metadata:
     strip-ansi: 7.0.1
     tempy: 3.0.0
     to-fast-properties: 4.0.0
+    ts-expect: 1.3.0
     typescript: 4.9.5
     unicode-regex: 3.0.0
     unified: 9.2.2
@@ -7974,6 +7975,13 @@ __metadata:
   version: 1.0.5
   resolution: "trough@npm:1.0.5"
   checksum: d6c8564903ed00e5258bab92134b020724dbbe83148dc72e4bf6306c03ed8843efa1bcc773fa62410dd89161ecb067432dd5916501793508a9506cacbc408e25
+  languageName: node
+  linkType: hard
+
+"ts-expect@npm:1.3.0":
+  version: 1.3.0
+  resolution: "ts-expect@npm:1.3.0"
+  checksum: c007702906354ada640392c26373660a8a034506859b5c084de74376ca2c6fe092c5909235d1bad8ed67423e7ab023dae4dc3032dcdcce70852c0211c5238013
   languageName: node
   linkType: hard
 
