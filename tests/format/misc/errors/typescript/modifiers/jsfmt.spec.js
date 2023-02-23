@@ -102,6 +102,11 @@ run_spec(
       ).map(
         (modifier) => `class Foo { constructor(${modifier} parameter) {} }`
       ),
+      'class Foo {["constructor"](private parameter) {}}',
+      "class Foo {['constructor'](private parameter) {}}",
+      "class Foo {[`constructor`](private parameter) {}}",
+      // cspell:disable-next-line
+      "class Foo {['const' + 'ructor'](private parameter) {}}",
 
       // `TSPropertySignature`
       ...POSSIBLE_MODIFIERS.filter((modifier) => modifier !== "readonly").map(
