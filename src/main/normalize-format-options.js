@@ -1,11 +1,10 @@
-import path from "node:path";
 import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
-import getInterpreter from "../utils/get-interpreter.js";
-import normalizeOptions from "./options-normalizer.js";
+import normalizeOptions from "./normalize-options.js";
 import { resolveParser } from "./parser.js";
+import inferParser from "./infer-parser.js";
 
-const hiddenDefaults = {
+const formatOptionsHiddenDefaults = {
   astFormat: "estree",
   printer: {},
   originalText: undefined,
@@ -14,7 +13,7 @@ const hiddenDefaults = {
 };
 
 // Copy options and fill in default values.
-async function normalize(options, opts = {}) {
+async function normalizeFormatOptions(options, opts = {}) {
   const rawOptions = { ...options };
 
   const supportOptions = getSupportInfo({
@@ -23,7 +22,7 @@ async function normalize(options, opts = {}) {
   }).options;
 
   const defaults = {
-    ...hiddenDefaults,
+    ...formatOptionsHiddenDefaults,
     ...Object.fromEntries(
       supportOptions
         .filter((optionInfo) => optionInfo.default !== undefined)
@@ -88,7 +87,7 @@ async function normalize(options, opts = {}) {
   }
 
   return normalizeOptions(rawOptions, supportOptions, {
-    passThrough: Object.keys(hiddenDefaults),
+    passThrough: Object.keys(formatOptionsHiddenDefaults),
     ...opts,
   });
 }
@@ -113,33 +112,5 @@ function getPlugin(options) {
   return printerPlugin;
 }
 
-function inferParser(filepath, plugins) {
-  const filename = path.basename(filepath).toLowerCase();
-  const { languages } = getSupportInfo({ plugins });
-
-  // If the file has no extension, we can try to infer the language from the
-  // interpreter in the shebang line, if any; but since this requires FS access,
-  // do it last.
-  let language = languages.find(
-    (language) =>
-      language.extensions?.some((extension) => filename.endsWith(extension)) ||
-      language.filenames?.some((name) => name.toLowerCase() === filename)
-  );
-
-  if (
-    process.env.PRETTIER_TARGET !== "universal" &&
-    !language &&
-    !filename.includes(".")
-  ) {
-    const interpreter = getInterpreter(filepath);
-    if (interpreter) {
-      language = languages.find((language) =>
-        language.interpreters?.includes(interpreter)
-      );
-    }
-  }
-
-  return language?.parsers[0];
-}
-
-export { normalize, hiddenDefaults, inferParser };
+export default normalizeFormatOptions;
+export { formatOptionsHiddenDefaults };

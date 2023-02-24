@@ -5,7 +5,7 @@ export const {
   errors,
   coreOptions,
   createIsIgnoredFunction,
-  optionsHiddenDefaults,
+  formatOptionsHiddenDefaults,
   normalizeOptions,
   getSupportInfoWithoutPlugins,
   vnopts,
