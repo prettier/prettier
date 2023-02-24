@@ -1,30 +1,32 @@
 import escapeStringRegexp from "escape-string-regexp";
 
 class WhitespaceUtils {
-  #characters;
+  #whitespaceCharacters;
 
-  constructor(characters) {
-    this.#characters = new Set(characters);
+  constructor(whitespaceCharacters) {
+    this.#whitespaceCharacters = new Set(whitespaceCharacters);
 
     if (
       process.env.NODE_ENV !== "production" &&
-      (this.#characters.size === 0 ||
+      (this.#whitespaceCharacters.size === 0 ||
         Array.prototype.some.call(
-          characters,
+          whitespaceCharacters,
           (character) => !/^\s$/.test(character)
         ))
     ) {
-      throw new TypeError(`Invalid characters: ${JSON.stringify(characters)}`);
+      throw new TypeError(
+        `Invalid characters: ${JSON.stringify(whitespaceCharacters)}`
+      );
     }
   }
 
-  getLeadingWhitespaceCount(string) {
-    const characters = this.#characters;
+  getLeadingWhitespaceCount(text) {
+    const whitespaceCharacters = this.#whitespaceCharacters;
     let count = 0;
 
     for (
       let index = 0;
-      index < string.length && characters.has(string.charAt(index));
+      index < text.length && whitespaceCharacters.has(text.charAt(index));
       index++
     ) {
       count++;
@@ -33,13 +35,13 @@ class WhitespaceUtils {
     return count;
   }
 
-  getTrailingWhitespaceCount(string) {
-    const characters = this.#characters;
+  getTrailingWhitespaceCount(text) {
+    const whitespaceCharacters = this.#whitespaceCharacters;
     let count = 0;
 
     for (
-      let index = string.length - 1;
-      index >= 0 && characters.has(string.charAt(index));
+      let index = text.length - 1;
+      index >= 0 && whitespaceCharacters.has(text.charAt(index));
       index--
     ) {
       count++;
@@ -48,63 +50,65 @@ class WhitespaceUtils {
     return count;
   }
 
-  getLeadingWhitespace(string) {
-    const count = this.getLeadingWhitespaceCount(string);
-    return string.slice(0, count);
+  getLeadingWhitespace(text) {
+    const count = this.getLeadingWhitespaceCount(text);
+    return text.slice(0, count);
   }
 
-  getTrailingWhitespace(string) {
-    const count = this.getTrailingWhitespaceCount(string);
-    return string.slice(string.length - count);
+  getTrailingWhitespace(text) {
+    const count = this.getTrailingWhitespaceCount(text);
+    return text.slice(text.length - count);
   }
 
-  hasLeadingWhitespace(string) {
-    return this.#characters.has(string.charAt(0));
+  hasLeadingWhitespace(text) {
+    return this.#whitespaceCharacters.has(text.charAt(0));
   }
 
-  hasTrailingWhitespace(string) {
-    return this.#characters.has(string.at(-1));
+  hasTrailingWhitespace(text) {
+    return this.#whitespaceCharacters.has(text.at(-1));
   }
 
-  trimStart(string) {
-    const count = this.getLeadingWhitespaceCount(string);
-    return string.slice(count);
+  trimStart(text) {
+    const count = this.getLeadingWhitespaceCount(text);
+    return text.slice(count);
   }
 
-  trimEnd(string) {
-    const count = this.getTrailingWhitespaceCount(string);
-    return string.slice(0, string.length - count);
+  trimEnd(text) {
+    const count = this.getTrailingWhitespaceCount(text);
+    return text.slice(0, text.length - count);
   }
 
-  trim(string) {
-    return this.trimEnd(this.trimStart(string));
+  trim(text) {
+    return this.trimEnd(this.trimStart(text));
   }
 
-  split(string, captureWhitespace = false) {
-    const pattern = `[${escapeStringRegexp([...this.#characters].join(""))}]+`;
+  split(text, captureWhitespace = false) {
+    const pattern = `[${escapeStringRegexp(
+      [...this.#whitespaceCharacters].join("")
+    )}]+`;
     const regexp = new RegExp(captureWhitespace ? `(${pattern})` : pattern);
-    return string.split(regexp);
+    return text.split(regexp);
   }
 
-  hasWhitespaceCharacter(string) {
-    const characters = this.#characters;
-    return Array.prototype.some.call(string, (character) =>
-      characters.has(character)
+  hasWhitespaceCharacter(text) {
+    const whitespaceCharacters = this.#whitespaceCharacters;
+    return Array.prototype.some.call(text, (character) =>
+      whitespaceCharacters.has(character)
     );
   }
 
-  hasNonWhitespaceCharacter(string) {
-    const characters = this.#characters;
+  hasNonWhitespaceCharacter(text) {
+    const whitespaceCharacters = this.#whitespaceCharacters;
     return Array.prototype.some.call(
-      string,
-      (character) => !characters.has(character)
+      text,
+      (character) => !whitespaceCharacters.has(character)
     );
   }
 
-  isWhitespaceOnly(string) {
-    const characters = this.#characters;
-    return Array.prototype.every.call(string, (character) =>
-      characters.has(character)
+  isWhitespaceOnly(text) {
+    const whitespaceCharacters = this.#whitespaceCharacters;
+    return Array.prototype.every.call(text, (character) =>
+      whitespaceCharacters.has(character)
     );
   }
 }
