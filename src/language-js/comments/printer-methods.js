@@ -94,9 +94,4 @@ function isGap(text, { parser }) {
 export * as handleComments from "./handle-comments.js";
 export { printComment } from "../print/comment.js";
 export { default as isBlockComment } from "../utils/is-block-comment.js";
-export {
-  canAttachComment,
-  getCommentChildNodes,
-  willPrintOwnComments,
-  isGap,
-};
+export { canAttachComment, getCommentChildNodes, willPrintOwnComments, isGap };
