@@ -155,7 +155,8 @@ function needsParens(path, options) {
           node.type === "UnaryExpression" ||
           node.type === "UpdateExpression" ||
           node.type === "YieldExpression" ||
-          node.type === "TSNonNullExpression")
+          node.type === "TSNonNullExpression" ||
+          (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)))
       ) {
         return true;
       }
@@ -766,10 +767,6 @@ function needsParens(path, options) {
       }
 
     case "ClassExpression":
-      if (isNonEmptyArray(node.decorators)) {
-        return true;
-      }
-
       switch (parent.type) {
         case "NewExpression":
           return key === "callee";
