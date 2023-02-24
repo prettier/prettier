@@ -4,7 +4,6 @@ import {
   hasNodeIgnoreComment,
   isJsxElement,
 } from "../utils/index.js";
-import isBlockComment from "../utils/is-block-comment.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
@@ -98,11 +97,6 @@ export { default as isBlockComment } from "../utils/is-block-comment.js";
 export {
   canAttachComment,
   getCommentChildNodes,
-<<<<<<< HEAD
-  hasPrettierIgnore,
-=======
-  isBlockComment,
->>>>>>> 5c1f1b6a7 (Move ignore node print into js)
   willPrintOwnComments,
   isGap,
 };

@@ -12,6 +12,7 @@ import {
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import embed from "./embed.js";
 import clean from "./clean.js";
 import { insertPragma } from "./pragma.js";
@@ -134,7 +135,7 @@ function genericPrint(path, options, print, args) {
 
   const printedDecorators = printDecorators(path, options, print);
   const isClassExpressionWithDecorators =
-    node.type === "ClassExpression" && printedDecorators;
+    node.type === "ClassExpression" && isNonEmptyArray(node.decorators);
   // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
   if (printedDecorators) {
     parts = [...printedDecorators, printed];
