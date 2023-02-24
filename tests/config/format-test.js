@@ -77,6 +77,8 @@ const meriyahDisabledTests = new Set([
     ].map((filename) => `js/decorator-auto-accessors/${filename}`),
     // https://github.com/meriyah/meriyah/issues/233
     "js/babel-plugins/decorator-auto-accessors.js",
+   // Parsing to different ASTs
+    "js/decorators/member-expression.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const babelTsDisabledTest = new Set(

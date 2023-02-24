@@ -173,6 +173,10 @@ function needsParens(path, options) {
 
     case "Decorator":
       if (key === "expression") {
+        if (isMemberExpression(node) && node.computed) {
+          return true;
+        }
+
         let hasCallExpression = false;
         let hasMemberExpression = false;
         let current = node;
