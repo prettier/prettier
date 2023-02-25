@@ -10,7 +10,7 @@ describe("cleanDoc", () => {
     [
       "fill",
       [fill(["", ""]), fill([]), fill(["1"]), fill(["2", "3"])],
-      [fill(["1"]), fill(["2", "3"])],
+      ["1", fill(["2", "3"])],
     ],
     ["nested group", group(group("_")), group("_")],
     [
