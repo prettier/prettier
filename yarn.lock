@@ -421,14 +421,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:7.21.0, @babel/types@npm:^7.0.0, @babel/types@npm:^7.18.10, @babel/types@npm:^7.18.6, @babel/types@npm:^7.18.9, @babel/types@npm:^7.21.0, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
-  version: 7.21.0
-  resolution: "@babel/types@npm:7.21.0"
+"@babel/types@npm:7.21.2, @babel/types@npm:^7.0.0, @babel/types@npm:^7.18.10, @babel/types@npm:^7.18.6, @babel/types@npm:^7.18.9, @babel/types@npm:^7.21.0, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
+  version: 7.21.2
+  resolution: "@babel/types@npm:7.21.2"
   dependencies:
     "@babel/helper-string-parser": ^7.19.4
     "@babel/helper-validator-identifier": ^7.19.1
     to-fast-properties: ^2.0.0
-  checksum: dbcdda202b3a2bfd59e4de880ce38652f1f8957893a9751be069ac86e47ad751222070fe6cd92220214d77973f1474e4e1111c16dc48199dfca1489c0ee8c0c5
+  checksum: a45a52acde139e575502c6de42c994bdbe262bafcb92ae9381fb54cdf1a3672149086843fda655c7683ce9806e998fd002bbe878fa44984498d0fdc7935ce7ff
   languageName: node
   linkType: hard
 
@@ -6713,7 +6713,7 @@ __metadata:
     "@babel/code-frame": 7.18.6
     "@babel/generator": 7.21.1
     "@babel/parser": 7.21.2
-    "@babel/types": 7.21.0
+    "@babel/types": 7.21.2
     "@esbuild-plugins/node-modules-polyfill": 0.2.2
     "@glimmer/reference": 0.84.2
     "@glimmer/syntax": 0.84.2
