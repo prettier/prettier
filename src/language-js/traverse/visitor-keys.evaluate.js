@@ -1,7 +1,13 @@
+import { createRequire } from "node:module";
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
-import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
+// import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
 import flowVisitorKeys from "hermes-eslint/dist/HermesESLintVisitorKeys.js";
 import unionVisitorKeys from "./union-visitor-keys.js";
+
+const require = createRequire(import.meta.url);
+const {
+  visitorKeys: tsVisitorKeys,
+} = require("@typescript-eslint/visitor-keys");
 
 const angularVisitorKeys = {
   NGRoot: ["node"],

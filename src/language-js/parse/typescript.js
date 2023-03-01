@@ -1,10 +1,14 @@
-import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree/dist/parser.js";
+import { createRequire } from "node:module";
+// import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 import postprocess from "./postprocess/index.js";
 import { throwErrorForInvalidNodes } from "./postprocess/typescript.js";
+
+const require = createRequire(import.meta.url);
+const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const parseOptions = {
