@@ -9,7 +9,7 @@ import {
   countEndOfLineChars,
   normalizeEndOfLine,
 } from "../common/end-of-line.js";
-import { normalize as normalizeOptions } from "./options.js";
+import normalizeFormatOptions from "./normalize-format-options.js";
 import massageAst from "./massage-ast.js";
 import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted } from "./comments/print.js";
@@ -268,7 +268,7 @@ async function hasPragma(text, options) {
 async function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
-    await normalizeOptions(originalOptions)
+    await normalizeFormatOptions(originalOptions)
   );
 
   if (
@@ -312,7 +312,7 @@ async function formatWithCursor(originalText, originalOptions) {
 async function parse(originalText, originalOptions, devOptions) {
   const { text, options } = normalizeInputAndOptions(
     originalText,
-    await normalizeOptions(originalOptions)
+    await normalizeFormatOptions(originalOptions)
   );
   const parsed = await parseText(text, options);
   if (devOptions) {
@@ -330,7 +330,7 @@ async function parse(originalText, originalOptions, devOptions) {
 }
 
 async function formatAst(ast, options) {
-  options = await normalizeOptions(options);
+  options = await normalizeFormatOptions(options);
   const doc = await printAstToDoc(ast, options);
   return printDocToStringWithoutNormalizeOptions(doc, options);
 }
@@ -347,7 +347,7 @@ async function formatDoc(doc, options) {
 }
 
 async function printToDoc(originalText, options) {
-  options = await normalizeOptions(options);
+  options = await normalizeFormatOptions(options);
   const { ast, text } = await parseText(originalText, options);
   attachComments(text, ast, options);
   return printAstToDoc(ast, options);
@@ -356,7 +356,7 @@ async function printToDoc(originalText, options) {
 async function printDocToString(doc, options) {
   return printDocToStringWithoutNormalizeOptions(
     doc,
-    await normalizeOptions(options)
+    await normalizeFormatOptions(options)
   );
 }
 

@@ -1,4 +1,4 @@
-import { inferParser } from "../main/options.js";
+import inferParser from "../main/infer-parser.js";
 import { resolveConfig } from "../config/resolve-config.js";
 import { isIgnored } from "../utils/ignore.js";
 
