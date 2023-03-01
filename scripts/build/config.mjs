@@ -14,6 +14,7 @@ import buildPackageJson from "./build-package-json.js";
 import buildLicense from "./build-license.js";
 import modifyTypescriptModule from "./modify-typescript-module.mjs";
 import reuseDocumentModule from "./reuse-document-module.js";
+import { getPackageFile } from "./utils.js";
 
 const {
   require,
@@ -99,15 +100,14 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName }) {
 
 /*
 `diff` use deprecated folder mapping "./" in the "exports" field,
-so we can't `require("diff/lib/diff/array.js")` directly.
+so we can't `import("diff/lib/diff/array.js")` directly.
 To reduce the bundle size, replace the entry with smaller files.
 
-We can switch to deep require once https://github.com/kpdecker/jsdiff/pull/351 get merged
+We can switch to deep import once https://github.com/kpdecker/jsdiff/pull/351 get merged
 */
-const diffPackageDirectory = path.dirname(require.resolve("diff/package.json"));
 const replaceDiffPackageEntry = (file) => ({
-  module: path.join(diffPackageDirectory, "lib/index.mjs"),
-  path: path.join(diffPackageDirectory, file),
+  module: getPackageFile("diff/lib/index.mjs"),
+  path: getPackageFile(`diff/${file}`),
 });
 
 const extensions = {
@@ -151,7 +151,7 @@ const pluginFiles = [
         process: modifyTypescriptModule,
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parser.js"
         ),
         process(text) {
@@ -164,7 +164,7 @@ const pluginFiles = [
         },
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js"
         ),
         process(text) {
@@ -185,31 +185,31 @@ const pluginFiles = [
         },
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js"
         ),
         text: "exports.inferSingleRun = () => false;",
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/ExpiringCache.js"
         ),
         text: "exports.ExpiringCache = class {};",
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/getProjectConfigFiles.js"
         ),
         text: "exports.resolveProjectList = () => [];",
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js"
         ),
         text: "exports.warnAboutTSVersion = () => {};",
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js"
         ),
         process: (text) =>
@@ -219,20 +219,20 @@ const pluginFiles = [
           ),
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/version-check.js"
         ),
         text: "exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
       },
       // Only needed if `range`/`loc` in parse options is `false`
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/ast-converter.js"
         ),
         process: (text) => text.replace('require("./simple-traverse")', "{}"),
       },
       {
-        module: require.resolve("debug/src/browser.js"),
+        module: getPackageFile("debug/src/browser.js"),
         path: path.join(dirname, "./shims/debug.js"),
       },
     ],
@@ -257,7 +257,7 @@ const pluginFiles = [
       },
       {
         // We don't use value of JSXText
-        module: require.resolve("acorn-jsx/xhtml.js"),
+        module: getPackageFile("acorn-jsx/xhtml.js"),
         text: "module.exports = {};",
       },
     ],
@@ -279,10 +279,7 @@ const pluginFiles = [
       // We only use a small set of `@angular/compiler` from `esm2020/src/expression_parser/`
       // Those files can't be imported, they also not directly runnable, because `.mjs` extension is missing
       {
-        module: path.join(
-          path.dirname(require.resolve("@angular/compiler/package.json")),
-          "fesm2020/compiler.mjs"
-        ),
+        module: getPackageFile("@angular/compiler/fesm2020/compiler.mjs"),
         text: /* indent */ `
           export * from '../esm2020/src/expression_parser/ast.mjs';
           export {Lexer} from '../esm2020/src/expression_parser/lexer.mjs';
@@ -294,10 +291,7 @@ const pluginFiles = [
         "expression_parser/parser.mjs",
         "ml_parser/interpolation_config.mjs",
       ].map((file) => ({
-        module: path.join(
-          path.dirname(require.resolve("@angular/compiler/package.json")),
-          `esm2020/src/${file}`
-        ),
+        module: getPackageFile(`@angular/compiler/esm2020/src/${file}`),
         process: (text) =>
           text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/g, "'$1.mjs'"),
       })),
@@ -309,22 +303,13 @@ const pluginFiles = [
       // `postcss-values-parser` uses constructor.name, it will be changed by bundler
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
       {
-        module: require.resolve("postcss-values-parser/lib/parser.js"),
+        module: getPackageFile("postcss-values-parser/lib/parser.js"),
         find: "node.constructor.name === 'Word'",
         replacement: "node.type === 'word'",
       },
-      // The following two replacements prevent load `source-map` module
-      {
-        module: path.join(require.resolve("postcss"), "../previous-map.js"),
-        text: "module.exports = class {};",
-      },
-      {
-        module: path.join(require.resolve("postcss"), "../map-generator.js"),
-        text: "module.exports = class { generate() {} };",
-      },
       // Prevent `node:util`, `node:utl`, and `node:path` shim
       {
-        module: require.resolve("postcss-values-parser/lib/tokenize.js"),
+        module: getPackageFile("postcss-values-parser/lib/tokenize.js"),
         process: (text) =>
           text
             .replace("require('util')", "{}")
@@ -337,10 +322,14 @@ const pluginFiles = [
               "let message = `Syntax error at line: ${line}, column: ${pos - offset}, token: ${pos}`;"
             ),
       },
+      // The following two replacements prevent load `source-map` module
       {
-        module: path.join(require.resolve("postcss"), "../input.js"),
-        process: (text) =>
-          text.replace("require('url')", "{}").replace("require('path')", "{}"),
+        module: getPackageFile("postcss/lib/previous-map.js"),
+        text: "module.exports = class {};",
+      },
+      {
+        module: getPackageFile("postcss/lib/map-generator.js"),
+        text: "module.exports = class { generate() {} };",
       },
     ],
   },
@@ -349,8 +338,8 @@ const pluginFiles = [
     input: "src/language-markdown/parser-markdown.js",
     replaceModule: [
       {
-        module: require.resolve("parse-entities/decode-entity.browser.js"),
-        path: require.resolve("parse-entities/decode-entity.js"),
+        module: getPackageFile("parse-entities/decode-entity.browser.js"),
+        path: getPackageFile("parse-entities/decode-entity.js"),
       },
     ],
   },
@@ -359,30 +348,24 @@ const pluginFiles = [
     replaceModule: [
       // See comment in `src/language-handlebars/parser-glimmer.js` file
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js"
         ),
-        path: require.resolve(
+        path: getPackageFile(
           "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
         ),
       },
       // This passed to plugins, our plugin don't need access to the options
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
         ),
         process: (text) =>
           text.replace(/\nconst syntax = \{.*?\n\};/su, "\nconst syntax = {};"),
       },
       {
-        module: path.join(
-          path.dirname(require.resolve("@handlebars/parser/package.json")),
-          "dist/esm/index.js"
-        ),
-        path: path.join(
-          path.dirname(require.resolve("@handlebars/parser/package.json")),
-          "dist/esm/parse.js"
-        ),
+        module: getPackageFile("@handlebars/parser/dist/esm/index.js"),
+        path: getPackageFile("@handlebars/parser/dist/esm/parse.js"),
       },
     ],
   },
