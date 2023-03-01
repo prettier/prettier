@@ -300,6 +300,20 @@ const pluginFiles = [
   {
     input: "src/language-css/parser-postcss.js",
     replaceModule: [
+      // The following two replacements prevent load `source-map` module
+      {
+        module: getPackageFile("postcss/lib/previous-map.js"),
+        text: "module.exports = class {};",
+      },
+      {
+        module: getPackageFile("postcss/lib/map-generator.js"),
+        text: "module.exports = class { generate() {} };",
+      },
+      {
+        module: getPackageFile("postcss/lib/input.js"),
+        process: (text) =>
+          text.replace("require('url')", "{}").replace("require('path')", "{}"),
+      },
       // `postcss-values-parser` uses constructor.name, it will be changed by bundler
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
       {
@@ -321,15 +335,6 @@ const pluginFiles = [
               "let message = util.format('Syntax error at line: %d, column: %d, token: %d', line, pos - offset, pos);",
               "let message = `Syntax error at line: ${line}, column: ${pos - offset}, token: ${pos}`;"
             ),
-      },
-      // The following two replacements prevent load `source-map` module
-      {
-        module: getPackageFile("postcss/lib/previous-map.js"),
-        text: "module.exports = class {};",
-      },
-      {
-        module: getPackageFile("postcss/lib/map-generator.js"),
-        text: "module.exports = class { generate() {} };",
       },
     ],
   },
