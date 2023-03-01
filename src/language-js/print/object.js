@@ -201,7 +201,8 @@ function printObject(path, options, print) {
   // type
   if (
     path.match(
-      (node) => node.type === "ObjectPattern" && !node.decorators,
+      (node) =>
+        node.type === "ObjectPattern" && !isNonEmptyArray(node.decorators),
       shouldHugTheOnlyParameter
     ) ||
     (isObjectType(node) &&

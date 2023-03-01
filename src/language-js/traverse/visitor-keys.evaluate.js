@@ -34,6 +34,11 @@ const additionalVisitorKeys = {
   TSJSDocNonNullableType: ["typeAnnotation"],
   // This one maybe invalid, need investigate
   TSAbstractMethodDefinition: ["decorators"],
+  // `@typescript-eslint/typescript-estree` v6 renamed `typeParameters` to `typeArguments`
+  // Remove those when babel update AST
+  JSXOpeningElement: ["typeParameters"],
+  TSClassImplements: ["typeParameters"],
+  TSInterfaceHeritage: ["typeParameters"],
 
   // Flow
   BigIntTypeAnnotation: [],
