@@ -58,6 +58,7 @@ function throwErrorForInvalidModifier(node) {
     if (ts.isDecorator(modifier)) {
       const legacyDecorators = true;
       if (
+        // @ts-expect-error -- internal?
         !ts.nodeCanBeDecorated(
           legacyDecorators,
           node,
@@ -67,6 +68,7 @@ function throwErrorForInvalidModifier(node) {
       ) {
         if (
           node.kind === SyntaxKind.MethodDeclaration &&
+          // @ts-expect-error -- internal?
           !ts.nodeIsPresent(node.body)
         ) {
           throwErrorOnTsNode(
@@ -81,11 +83,13 @@ function throwErrorForInvalidModifier(node) {
         (node.kind === SyntaxKind.GetAccessor ||
           node.kind === SyntaxKind.SetAccessor)
       ) {
+        // @ts-expect-error -- internal?
         const accessors = ts.getAllAccessorDeclarations(
           node.parent.members,
           node
         );
         if (
+          // @ts-expect-error -- internal?
           ts.hasDecorators(accessors.firstAccessor) &&
           node === accessors.secondAccessor
         ) {
