@@ -1,10 +1,11 @@
 import { Parser } from "../index.js";
 
-declare const parser: {
+declare const plugin: {
   parsers: {
     css: Parser;
     less: Parser;
     scss: Parser;
   };
 };
-export = parser;
+
+export default plugin;

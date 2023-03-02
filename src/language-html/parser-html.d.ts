@@ -1,6 +1,6 @@
 import { Parser } from "../index.js";
 
-declare const parser: {
+declare const plugin: {
   parsers: {
     html: Parser;
     angular: Parser;
@@ -8,4 +8,5 @@ declare const parser: {
     lwc: Parser;
   };
 };
-export = parser;
+
+export default plugin;
