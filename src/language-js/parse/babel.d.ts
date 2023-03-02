@@ -1,6 +1,6 @@
 import { Parser } from "../../index.js";
 
-declare const parser: {
+declare const plugin: {
   parsers: {
     babel: Parser;
     "babel-flow": Parser;
@@ -13,4 +13,5 @@ declare const parser: {
     __vue_event_binding: Parser;
   };
 };
-export = parser;
+
+export default plugin;
