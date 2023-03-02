@@ -355,15 +355,18 @@ class Foo {
 
 =====================================output=====================================
 class Foo {
-  accessor ["bar"]
+  accessor;
+  ["bar"]
 }
 
 class Foo {
-  static accessor bar
+  static accessor;
+  bar
 }
 
 class Foo {
-  accessor bar
+  accessor;
+  bar
 }
 
 ================================================================================
@@ -392,15 +395,18 @@ class Foo {
 
 =====================================output=====================================
 class Foo {
-  accessor ["bar"];
+  accessor;
+  ["bar"];
 }
 
 class Foo {
-  static accessor bar;
+  static accessor;
+  bar;
 }
 
 class Foo {
-  accessor bar;
+  accessor;
+  bar;
 }
 
 ================================================================================
