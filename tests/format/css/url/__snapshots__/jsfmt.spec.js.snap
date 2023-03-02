@@ -11,10 +11,17 @@ div {
   background: -fb-url(/images/bg.png);
 }
 
+@font-face {
+  src: url(RobotoFlex-VariableFont_GRAD,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf);
+}
 =====================================output=====================================
 div {
   background: url(/images/bg.png);
   background: -fb-url(/images/bg.png);
+}
+
+@font-face {
+  src: url(RobotoFlex-VariableFont_GRADXTRAYOPQYTASYTDEYTFIYTLCYTUCopszslntwdthwght.ttf);
 }
 
 ================================================================================
