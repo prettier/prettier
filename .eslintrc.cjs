@@ -29,6 +29,7 @@ module.exports = {
     "logical-assignment-operators": "error",
     "no-console": isCI ? "error" : "warn",
     "no-constant-binary-expression": "error",
+    "no-duplicate-imports": "error",
     "no-else-return": [
       "error",
       {
@@ -270,6 +271,7 @@ module.exports = {
         "tests/format/**/jsfmt.spec.js",
         "tests/integration/**/*.js",
         "tests/unit/**/*.js",
+        "tests/dts/unit/**/*.js",
         "scripts/release/__tests__/**/*.spec.js",
       ],
       env: {

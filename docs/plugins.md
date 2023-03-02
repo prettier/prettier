@@ -520,12 +520,12 @@ A `util` module from Prettier core is considered a private API and is not meant 
 type Quote = '"' | "'";
 type SkipOptions = { backwards?: boolean };
 
-function getMaxContinuousCount(str: string, target: string): number;
+function getMaxContinuousCount(text: string, searchString: string): number;
 
 function getStringWidth(text: string): number;
 
 function getAlignmentSize(
-  value: string,
+  text: string,
   tabWidth: number,
   startIndex?: number
 ): number;
@@ -533,77 +533,90 @@ function getAlignmentSize(
 function getIndentSize(value: string, tabWidth: number): number;
 
 function skip(
-  chars: string | RegExp
-): (text: string, index: number | false, opts?: SkipOptions) => number | false;
+  characters: string | RegExp
+): (
+  text: string,
+  startIndex: number | false,
+  options?: SkipOptions
+) => number | false;
 
 function skipWhitespace(
   text: string,
-  index: number | false,
-  opts?: SkipOptions
+  startIndex: number | false,
+  options?: SkipOptions
 ): number | false;
 
 function skipSpaces(
   text: string,
-  index: number | false,
-  opts?: SkipOptions
+  startIndex: number | false,
+  options?: SkipOptions
 ): number | false;
 
 function skipToLineEnd(
   text: string,
-  index: number | false,
-  opts?: SkipOptions
+  startIndex: number | false,
+  options?: SkipOptions
 ): number | false;
 
 function skipEverythingButNewLine(
   text: string,
-  index: number | false,
-  opts?: SkipOptions
+  startIndex: number | false,
+  options?: SkipOptions
 ): number | false;
 
-function skipInlineComment(text: string, index: number | false): number | false;
+function skipInlineComment(
+  text: string,
+  startIndex: number | false
+): number | false;
 
 function skipTrailingComment(
   text: string,
-  index: number | false
+  startIndex: number | false
 ): number | false;
 
 function skipNewline(
   text: string,
-  index: number | false,
-  opts?: SkipOptions
+  startIndex: number | false,
+  options?: SkipOptions
 ): number | false;
 
-function hasNewline(text: string, index: number, opts?: SkipOptions): boolean;
+function hasNewline(
+  text: string,
+  startIndex: number,
+  options?: SkipOptions
+): boolean;
 
-function hasNewlineInRange(text: string, start: number, end: number): boolean;
+function hasNewlineInRange(
+  text: string,
+  startIndex: number,
+  startIndex: number
+): boolean;
 
-function hasSpaces(text: string, index: number, opts?: SkipOptions): boolean;
+function hasSpaces(
+  text: string,
+  startIndex: number,
+  options?: SkipOptions
+): boolean;
 
 function makeString(
-  rawContent: string,
+  rawText: string,
   enclosingQuote: Quote,
   unescapeUnnecessaryEscapes?: boolean
 ): string;
 
-function getNextNonSpaceNonCommentCharacterIndex<N>(
+function getNextNonSpaceNonCommentCharacter(
   text: string,
-  node: N,
-  locEnd: (node: N) => number
+  startIndex: number
+): string;
+
+function getNextNonSpaceNonCommentCharacterIndex(
+  text: string,
+  startIndex: number
 ): number | false;
 
-function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
+function isNextLineEmpty(text: string, startIndex: number): boolean;
 
-function isNextLineEmpty<N>(
-  text: string,
-  node: N,
-  locEnd: (node: N) => number
-): boolean;
-
-function isPreviousLineEmpty<N>(
-  text: string,
-  node: N,
-  locStart: (node: N) => number
-): boolean;
+function isPreviousLineEmpty(text: string, startIndex: number): boolean;
 ```
 
 ### Tutorials

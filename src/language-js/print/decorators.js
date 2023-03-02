@@ -1,4 +1,5 @@
-import { isNonEmptyArray, hasNewline } from "../../common/util.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import hasNewline from "../../utils/has-newline.js";
 import {
   line,
   hardline,

@@ -1,11 +1,9 @@
-import {
-  printNumber,
-  printString,
-  hasNewline,
-  isFrontMatterNode,
-  isNextLineEmpty,
-  isNonEmptyArray,
-} from "../common/util.js";
+import printNumber from "../utils/print-number.js";
+import printString from "../utils/print-string.js";
+import hasNewline from "../utils/has-newline.js";
+import isFrontMatter from "../utils/front-matter/is-front-matter.js";
+import isNextLineEmpty from "../utils/is-next-line-empty.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import {
   join,
   line,
@@ -989,7 +987,7 @@ function genericPrint(path, options, print) {
 
                   if (
                     last.source &&
-                    isNextLineEmpty(options.originalText, last, locEnd)
+                    isNextLineEmpty(options.originalText, locEnd(last))
                   ) {
                     printed.push(hardline);
                   }
@@ -1100,7 +1098,7 @@ function printNodeSequence(path, options, print) {
         !hasNewline(options.originalText, locStart(next), {
           backwards: true,
         }) &&
-        !isFrontMatterNode(node)) ||
+        !isFrontMatter(node)) ||
       (next.type === "css-atrule" &&
         next.name === "else" &&
         node.type !== "css-comment")
@@ -1109,8 +1107,8 @@ function printNodeSequence(path, options, print) {
     } else {
       parts.push(options.__isHTMLStyleAttribute ? line : hardline);
       if (
-        isNextLineEmpty(options.originalText, node, locEnd) &&
-        !isFrontMatterNode(node)
+        isNextLineEmpty(options.originalText, locEnd(node)) &&
+        !isFrontMatter(node)
       ) {
         parts.push(hardline);
       }

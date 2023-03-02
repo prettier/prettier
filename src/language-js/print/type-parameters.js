@@ -1,4 +1,4 @@
-import { printDanglingComments } from "../../main/comments.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import {
   join,
   line,
@@ -18,7 +18,7 @@ import {
   isObjectType,
   getTypeScriptMappedTypeModifier,
 } from "../utils/index.js";
-import { createGroupIdMapper } from "../../common/util.js";
+import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
 import {
   printTypeAnnotationProperty,
   shouldHugType,
@@ -79,7 +79,7 @@ function printTypeParameters(path, options, print, paramsKey) {
         !node[paramsKey][0].constraint &&
         path.parent.type === "ArrowFunctionExpression"
       ? ","
-      : shouldPrintComma(options, "all")
+      : shouldPrintComma(options)
       ? ifBreak(",")
       : "";
 
@@ -101,11 +101,9 @@ function printDanglingCommentsForInline(path, options) {
     return "";
   }
   const hasOnlyBlockComments = !hasComment(node, CommentCheckFlags.Line);
-  const printed = printDanglingComments(
-    path,
-    options,
-    /* sameIndent */ hasOnlyBlockComments
-  );
+  const printed = printDanglingComments(path, options, {
+    indent: !hasOnlyBlockComments,
+  });
   if (hasOnlyBlockComments) {
     return printed;
   }
@@ -113,9 +111,8 @@ function printDanglingCommentsForInline(path, options) {
 }
 
 function printTypeParameter(path, options, print) {
-  const { node } = path;
-  const parts = [];
-  const { parent } = path;
+  const { node, parent } = path;
+  const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
 
   const name = node.type === "TSTypeParameter" ? print("name") : node.name;
 

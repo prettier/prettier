@@ -1,3 +1,3 @@
-run_spec(import.meta, ["flow", "babel-flow"], {
+run_spec(import.meta, ["flow"], {
   errors: { flow: ["arrows.js"] },
 });

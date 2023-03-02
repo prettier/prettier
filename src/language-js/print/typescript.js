@@ -1,5 +1,5 @@
-import { printDanglingComments } from "../../main/comments.js";
-import { hasNewlineInRange } from "../../common/util.js";
+import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import {
   join,
   line,
@@ -22,7 +22,11 @@ import {
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { locStart, locEnd } from "../loc.js";
 
-import { printOptionalToken, printTypeScriptModifiers } from "./misc.js";
+import {
+  printOptionalToken,
+  printDeclareToken,
+  printTypeScriptAccessibilityToken,
+} from "./misc.js";
 import { printTernary } from "./ternary.js";
 import {
   printFunctionParameters,
@@ -50,7 +54,6 @@ import {
   printTypeAnnotationProperty,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
-import { printDeclareToken } from "./misc.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
@@ -119,14 +122,10 @@ function printTypescript(path, options, print) {
     case "TSAbstractPropertyDefinition":
       return printClassProperty(path, options, print);
     case "TSInterfaceHeritage":
+    case "TSClassImplements":
     case "TSExpressionWithTypeArguments": // Babel AST
-      parts.push(print("expression"));
-
-      if (node.typeParameters) {
-        parts.push(print("typeParameters"));
-      }
-
-      return parts;
+    case "TSInstantiationExpression":
+      return [print("expression"), print("typeParameters")];
     case "TSTemplateLiteralType":
       return printTemplateLiteral(path, print, options);
     case "TSNamedTupleMember":
@@ -137,8 +136,6 @@ function printTypescript(path, options, print) {
       return [print("typeAnnotation"), "?"];
     case "TSInterfaceDeclaration":
       return printInterface(path, options, print);
-    case "TSClassImplements":
-      return [print("expression"), print("typeParameters")];
     case "TSTypeParameterDeclaration":
     case "TSTypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
@@ -160,48 +157,25 @@ function printTypescript(path, options, print) {
     case "TSArrayType":
       return [print("elementType"), "[]"];
     case "TSPropertySignature":
-      if (node.readonly) {
-        parts.push("readonly ");
-      }
-
-      parts.push(
+      return [
+        node.readonly ? "readonly " : "",
         printPropertyKey(path, options, print),
         printOptionalToken(path),
-        printTypeAnnotationProperty(path, print)
-      );
-
-      // This isn't valid semantically, but it's in the AST so we can print it.
-      if (node.initializer) {
-        parts.push(" = ", print("initializer"));
-      }
-
-      return parts;
+        printTypeAnnotationProperty(path, print),
+      ];
 
     case "TSParameterProperty":
-      if (node.accessibility) {
-        parts.push(node.accessibility + " ");
-      }
-      if (node.export) {
-        parts.push("export ");
-      }
-      if (node.static) {
-        parts.push("static ");
-      }
-      if (node.override) {
-        parts.push("override ");
-      }
-      if (node.readonly) {
-        parts.push("readonly ");
-      }
+      return [
+        printTypeScriptAccessibilityToken(node),
+        node.static ? "static " : "",
+        node.override ? "override " : "",
+        node.readonly ? "readonly " : "",
+        print("parameter"),
+      ];
 
-      parts.push(print("parameter"));
-
-      return parts;
     case "TSTypeQuery":
       return ["typeof ", print("exprName"), print("typeParameters")];
     case "TSIndexSignature": {
-      const { parent } = path;
-
       // The typescript parser accepts multiple parameters here. If you're
       // using them, it makes sense to have a trailing comma. But if you
       // aren't, this is more like a computed property name than an array.
@@ -220,17 +194,18 @@ function printTypescript(path, options, print) {
         softline,
       ]);
 
+      const isClassMember =
+        path.parent.type === "ClassBody" && path.key === "body";
+
       return [
-        node.export ? "export " : "",
-        node.accessibility ? [node.accessibility, " "] : "",
-        node.static ? "static " : "",
+        // `static` only allowed in class member
+        isClassMember && node.static ? "static " : "",
         node.readonly ? "readonly " : "",
-        printDeclareToken(path),
         "[",
         node.parameters ? parametersGroup : "",
         "]",
         printTypeAnnotationProperty(path, print),
-        parent.type === "ClassBody" ? semi : "",
+        isClassMember ? semi : "",
       ];
     }
     case "TSTypePredicate":
@@ -278,7 +253,7 @@ function printTypescript(path, options, print) {
             print("typeAnnotation"),
             ifBreak(semi),
           ]),
-          printDanglingComments(path, options, /* sameIndent */ true),
+          printDanglingComments(path, options),
           options.bracketSpacing ? line : softline,
           "}",
         ],
@@ -288,7 +263,7 @@ function printTypescript(path, options, print) {
     case "TSMethodSignature": {
       const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";
       parts.push(
-        node.accessibility ? [node.accessibility, " "] : "",
+        printTypeScriptAccessibilityToken(node),
         kind,
         node.computed ? "[" : "",
         print("key"),
@@ -360,29 +335,33 @@ function printTypescript(path, options, print) {
       return ["require(", print("expression"), ")"];
     case "TSModuleDeclaration": {
       const { parent } = path;
-      const isExternalModule = isStringLiteral(node.id);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
       const bodyIsDeclaration = node.body?.type === "TSModuleDeclaration";
 
       if (parentIsDeclaration) {
         parts.push(".");
       } else {
-        parts.push(
-          printDeclareToken(path),
-          printTypeScriptModifiers(path, options, print)
-        );
+        parts.push(printDeclareToken(path));
 
         // Global declaration looks like this:
         // (declare)? global { ... }
-        if (!node.global) {
-          parts.push(
-            isExternalModule ||
-              /(?:^|\s)module(?:\s|$)/.test(
-                options.originalText.slice(locStart(node), locStart(node.id))
-              )
-              ? "module "
-              : "namespace "
-          );
+        const isGlobal =
+          node.kind === "global" ||
+          // TODO: Use `node.kind` when babel update AST
+          // https://github.com/typescript-eslint/typescript-eslint/pull/6443
+          node.global;
+
+        if (!isGlobal) {
+          const kind =
+            node.kind ??
+            // TODO: Use `node.kind` when babel update AST
+            (isStringLiteral(node.id) ||
+            /(?:^|\s)module(?:\s|$)/.test(
+              options.originalText.slice(locStart(node), locStart(node.id))
+            )
+              ? "module"
+              : "namespace");
+          parts.push(kind, " ");
         }
       }
 
@@ -434,8 +413,6 @@ function printTypescript(path, options, print) {
       return printJSDocType(path, print, /* token */ "?");
     case "TSJSDocNonNullableType":
       return printJSDocType(path, print, /* token */ "!");
-    case "TSInstantiationExpression":
-      return [print("expression"), print("typeParameters")];
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "TypeScript");

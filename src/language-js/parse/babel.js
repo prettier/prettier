@@ -1,6 +1,7 @@
+import { parse as babelParse, parseExpression } from "@babel/parser";
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
-import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 // JSON parsers are bundled here so we can reduce package size
 import jsonParsers from "../../language-json/parser-json.js";
 import createParser from "./utils/create-parser.js";
@@ -22,6 +23,7 @@ const parseOptions = {
   sourceType: "module",
   allowImportExportEverywhere: true,
   allowReturnOutsideFunction: true,
+  allowNewTargetOutsideFunction: true,
   allowSuperOutsideMethod: true,
   allowUndeclaredExports: true,
   errorRecovery: true,
@@ -35,7 +37,7 @@ const parseOptions = {
     "functionSent",
     "throwExpressions",
     "partialApplication",
-    ["decorators", { decoratorsBeforeExport: false }],
+    "decorators",
     "importAssertions",
     "decimal",
     "moduleBlocks",
@@ -81,7 +83,7 @@ function isFlowFile(text, options) {
   }
 
   const firstNonSpaceNonCommentCharacterIndex =
-    getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, 0);
+    getNextNonSpaceNonCommentCharacterIndex(text, 0);
 
   if (firstNonSpaceNonCommentCharacterIndex !== false) {
     text = text.slice(0, firstNonSpaceNonCommentCharacterIndex);
@@ -102,7 +104,7 @@ function parseWithOptions(parse, text, options) {
 }
 
 function createParse({ isExpression = false, optionsCombinations }) {
-  return async (text, opts = {}) => {
+  return (text, opts = {}) => {
     if (
       (opts.parser === "babel" || opts.parser === "__babel_estree") &&
       isFlowFile(text, opts)
@@ -142,19 +144,17 @@ function createParse({ isExpression = false, optionsCombinations }) {
       );
     }
 
-    // Inline `import()` to avoid loading all the JS if we don't use it
-    const { parse: babelParse, parseExpression } = await import(
-      "@babel/parser"
-    );
     /** @type {Parse} */
     const parseFunction = isExpression ? parseExpression : babelParse;
-    let { result: ast, error } = tryCombinations(
-      combinations.map(
-        (options) => () => parseWithOptions(parseFunction, text, options)
-      )
-    );
 
-    if (!ast) {
+    let ast;
+    try {
+      ast = tryCombinations(
+        combinations.map(
+          (options) => () => parseWithOptions(parseFunction, text, options)
+        )
+      );
+    } catch ({ errors: [error] }) {
       throw createBabelParseError(error);
     }
 
@@ -187,13 +187,10 @@ const allowedMessageCodes = new Set([
   "ConstructorHasTypeParameters",
 
   "UnsupportedParameterPropertyKind",
-  "UnexpectedParameterModifier",
 
   "MixedLabeledAndUnlabeledElements",
-  "InvalidTupleMemberLabel",
 
   "DuplicateAccessibilityModifier",
-  "IndexSignatureHasDeclare",
 
   "DecoratorExportClass",
   "ParamDupe",
@@ -220,8 +217,9 @@ const allowedMessageCodes = new Set([
   "DuplicateExport",
 ]);
 
+const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
 const babel = createBabelParser({
-  optionsCombinations: [appendPlugins(["jsx", "flow"])],
+  optionsCombinations: babelParserOptionsCombinations,
 });
 const babelTs = createBabelParser({
   optionsCombinations: [
@@ -237,7 +235,6 @@ const babelTSExpression = createBabelParser({
   isExpression: true,
   optionsCombinations: [appendPlugins(["typescript"])],
 });
-
 const babelFlow = createBabelParser({
   optionsCombinations: [
     appendPlugins([
@@ -248,7 +245,9 @@ const babelFlow = createBabelParser({
   ],
 });
 const babelEstree = createBabelParser({
-  optionsCombinations: [appendPlugins(["jsx", "flow", "estree"])],
+  optionsCombinations: babelParserOptionsCombinations.map((options) =>
+    appendPlugins(["estree"], options)
+  ),
 });
 
 // Export as a plugin so we can reuse the same bundle for UMD loading

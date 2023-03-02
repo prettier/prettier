@@ -1,5 +1,5 @@
-import { getNextNonSpaceNonCommentCharacter } from "../../common/util.js";
-import { printDanglingComments } from "../../main/comments.js";
+import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import {
   line,
   hardline,
@@ -47,17 +47,13 @@ function printFunctionParameters(
     return [
       typeParams,
       "(",
-      printDanglingComments(
-        path,
-        options,
-        /* sameIndent */ true,
-        (comment) =>
+      printDanglingComments(path, options, {
+        filter: (comment) =>
           getNextNonSpaceNonCommentCharacter(
             options.originalText,
-            comment,
-            locEnd
-          ) === ")"
-      ),
+            locEnd(comment)
+          ) === ")",
+      }),
       ")",
     ];
   }

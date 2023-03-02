@@ -1,7 +1,8 @@
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
 import assert from "node:assert";
-import { printString, printNumber } from "../../common/util.js";
+import printString from "../../utils/print-string.js";
+import printNumber from "../../utils/print-number.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
@@ -65,7 +66,14 @@ function printFlow(path, options, print) {
         semi,
       ];
     case "DeclareVariable":
-      return [printDeclareToken(path), "var ", print("id"), semi];
+      return [
+        printDeclareToken(path),
+        // TODO: Only use `node.kind` when babel update AST
+        node.kind ?? "var",
+        " ",
+        print("id"),
+        semi,
+      ];
     case "DeclareExportDeclaration":
       return printExportDeclaration(path, options, print);
     case "DeclareExportAllDeclaration":

@@ -1,4 +1,5 @@
-import { getStringWidth, getIndentSize } from "../../common/util.js";
+import getStringWidth from "../../utils/get-string-width.js";
+import getIndentSize from "../../utils/get-indent-size.js";
 import {
   join,
   hardline,

@@ -8,6 +8,18 @@ import visitNode from "./visit-node.js";
 import throwSyntaxError from "./throw-ts-syntax-error.js";
 
 function postprocess(ast, options) {
+  // `InterpreterDirective` from babel parser
+  // Other parsers parse it as comment, babel treat it as comment too
+  // https://github.com/babel/babel/issues/15116
+  if (ast.type === "File" && ast.program.interpreter) {
+    const {
+      program: { interpreter },
+      comments,
+    } = ast;
+    delete ast.program.interpreter;
+    comments.unshift(interpreter);
+  }
+
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
   if (
     options.parser !== "typescript" &&
@@ -49,10 +61,6 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
-      // Espree
-      case "ChainExpression":
-        return transformChainExpression(node.expression);
-
       case "LogicalExpression":
         // We remove unneeded parens around same-operator LogicalExpressions
         if (isUnbalancedLogicalTree(node)) {
@@ -102,6 +110,31 @@ function postprocess(ast, options) {
           if (invalidProperty) {
             throwSyntaxError(invalidProperty.value, "Unexpected token.");
           }
+        }
+        break;
+      case "DeclareInterface":
+      case "InterfaceDeclaration":
+      case "TSInterfaceDeclaration":
+        if (isNonEmptyArray(node.mixins)) {
+          throwSyntaxError(
+            node.mixins[0],
+            "Interface declaration cannot have 'mixins' clause."
+          );
+        }
+        if (isNonEmptyArray(node.implements)) {
+          throwSyntaxError(
+            node.implements[0],
+            "Interface declaration cannot have 'implements' clause."
+          );
+        }
+        break;
+
+      case "TSPropertySignature":
+        if (node.initializer) {
+          throwSyntaxError(
+            node.initializer,
+            "An interface property cannot have an initializer."
+          );
         }
         break;
 
@@ -185,29 +218,6 @@ function postprocess(ast, options) {
       locEnd(toOverrideNode),
     ];
   }
-}
-
-// This is a workaround to transform `ChainExpression` from `acorn`, `espree`,
-// `meriyah`, and `typescript` into `babel` shape AST, we should do the opposite,
-// since `ChainExpression` is the standard `estree` AST for `optional chaining`
-// https://github.com/estree/estree/blob/master/es2020.md
-function transformChainExpression(node) {
-  switch (node.type) {
-    case "CallExpression":
-      node.type = "OptionalCallExpression";
-      node.callee = transformChainExpression(node.callee);
-      break;
-    case "MemberExpression":
-      node.type = "OptionalMemberExpression";
-      node.object = transformChainExpression(node.object);
-      break;
-    // typescript
-    case "TSNonNullExpression":
-      node.expression = transformChainExpression(node.expression);
-      break;
-    // No default
-  }
-  return node;
 }
 
 function isUnbalancedLogicalTree(node) {

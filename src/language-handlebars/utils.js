@@ -1,4 +1,4 @@
-import { htmlVoidElements } from "html-void-elements";
+import htmlVoidElements from "./html-void-elements.evaluate.js";
 
 function isUppercase(string) {
   return string.toUpperCase() === string;
@@ -14,10 +14,15 @@ function isGlimmerComponent(node) {
 }
 
 const voidTags = new Set(htmlVoidElements);
+// https://github.com/glimmerjs/glimmer-vm/blob/ec5648f3895b9ab8d085523be001553746221449/packages/%40glimmer/syntax/lib/generation/printer.ts#L44-L46
+function isVoidTag(tag) {
+  return voidTags.has(tag.toLowerCase()) && !isUppercase(tag[0]);
+}
+
 function isVoidElement(node) {
   return (
-    voidTags.has(node.tag) ||
     node.selfClosing === true ||
+    isVoidTag(node.tag) ||
     (isGlimmerComponent(node) &&
       node.children.every((node) => isWhitespaceNode(node)))
   );

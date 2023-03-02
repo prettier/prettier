@@ -1,4 +1,4 @@
-import { isNonEmptyArray } from "../../common/util.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   softline,
@@ -9,7 +9,7 @@ import {
   ifBreak,
   hardline,
 } from "../../document/builders.js";
-import { printDanglingComments } from "../../main/comments.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 
 import {
   hasComment,
@@ -84,10 +84,7 @@ function printExportDeclaration(path, options, print) {
   }
 
   if (hasComment(node, CommentCheckFlags.Dangling)) {
-    parts.push(
-      " ",
-      printDanglingComments(path, options, /* sameIndent */ true)
-    );
+    parts.push(" ", printDanglingComments(path, options));
 
     if (needsHardlineAfterDanglingComment(node)) {
       parts.push(hardline);

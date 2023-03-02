@@ -3,27 +3,32 @@ import { hasJsxIgnoreComment } from "../print/jsx.js";
 import {
   getFunctionParameters,
   hasNodeIgnoreComment,
-  isJsxNode,
-  isLineComment,
+  isJsxElement,
 } from "../utils/index.js";
-import isBlockComment from "../utils/is-block-comment.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 
+const nodeTypesCanNotAttachComment = new Set([
+  "EmptyStatement",
+  "TemplateElement",
+  // In ESTree `import` is a token, `import("foo")`
+  "Import",
+  // There is no similar node in Babel AST
+  // ```ts
+  // class Foo {
+  //   bar();
+  //      ^^^ TSEmptyBodyFunctionExpression
+  // }
+  // ```
+  "TSEmptyBodyFunctionExpression",
+  // There is no similar node in Babel AST, `a?.b`
+  "ChainExpression",
+]);
 function canAttachComment(node) {
-  return (
-    node.type &&
-    !isBlockComment(node) &&
-    !isLineComment(node) &&
-    node.type !== "EmptyStatement" &&
-    node.type !== "TemplateElement" &&
-    node.type !== "Import" &&
-    // `babel-ts` doesn't have similar node for `class Foo { bar() /* bat */; }`
-    node.type !== "TSEmptyBodyFunctionExpression"
-  );
+  return !nodeTypesCanNotAttachComment.has(node.type);
 }
 
 /**
@@ -66,7 +71,7 @@ function hasPrettierIgnore(path) {
  */
 function willPrintOwnComments({ node, parent }) {
   return (
-    (isJsxNode(node) ||
+    (isJsxElement(node) ||
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||
@@ -92,11 +97,11 @@ function isGap(text, { parser }) {
 
 export * as handleComments from "./handle-comments.js";
 export { printComment } from "../print/comment.js";
+export { default as isBlockComment } from "../utils/is-block-comment.js";
 export {
   canAttachComment,
   getCommentChildNodes,
   hasPrettierIgnore,
-  isBlockComment,
   willPrintOwnComments,
   isGap,
 };

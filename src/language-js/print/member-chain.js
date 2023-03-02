@@ -1,8 +1,6 @@
-import { printComments } from "../../main/comments.js";
-import {
-  isNextLineEmptyAfterIndex,
-  getNextNonSpaceNonCommentCharacterIndex,
-} from "../../common/util.js";
+import { printComments } from "../../main/comments/print.js";
+import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
   isCallExpression,
@@ -67,8 +65,7 @@ function printMemberChain(path, options, print) {
     const { originalText } = options;
     const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
-      node,
-      locEnd
+      locEnd(node)
     );
     const nextChar = originalText.charAt(nextCharIndex);
 

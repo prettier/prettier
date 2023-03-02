@@ -10,12 +10,18 @@ import {
   softline,
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
-import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
+import getPreferredQuote from "../utils/get-preferred-quote.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 import getVisitorKeys from "./get-visitor-keys.js";
+
+/**
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
@@ -194,15 +200,10 @@ function print(path, options, print) {
         return replaceEndOfLine(text);
       }
 
-      const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
-      const isWhitespaceOnly = whitespacesOnlyRE.test(text);
+      const isWhitespaceOnly = htmlWhitespaceUtils.isWhitespaceOnly(text);
       const { isFirst, isLast } = path;
 
       if (options.htmlWhitespaceSensitivity !== "ignore") {
-        // https://infra.spec.whatwg.org/#ascii-whitespace
-        const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
-        const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
-
         // let's remove the file's final newline
         // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
         const shouldTrimTrailingNewlines =
@@ -229,27 +230,29 @@ function print(path, options, print) {
           return breaks;
         }
 
-        const [lead] = text.match(leadingWhitespacesRE);
-        const [tail] = text.match(trailingWhitespacesRE);
+        const leadingWhitespace =
+          htmlWhitespaceUtils.getLeadingWhitespace(text);
 
         let leadBreaks = [];
-        if (lead) {
+        if (leadingWhitespace) {
           leadBreaks = [line];
 
-          const leadingNewlines = countNewLines(lead);
+          const leadingNewlines = countNewLines(leadingWhitespace);
           if (leadingNewlines) {
             leadBreaks = generateHardlines(leadingNewlines);
           }
 
-          text = text.replace(leadingWhitespacesRE, "");
+          text = text.slice(leadingWhitespace.length);
         }
 
+        const tailingWhitespace =
+          htmlWhitespaceUtils.getTrailingWhitespace(text);
         let trailBreaks = [];
-        if (tail) {
+        if (tailingWhitespace) {
           if (!shouldTrimTrailingNewlines) {
             trailBreaks = [line];
 
-            const trailingNewlines = countNewLines(tail);
+            const trailingNewlines = countNewLines(tailingWhitespace);
             if (trailingNewlines) {
               trailBreaks = generateHardlines(trailingNewlines);
             }
@@ -259,7 +262,7 @@ function print(path, options, print) {
             }
           }
 
-          text = text.replace(trailingWhitespacesRE, "");
+          text = text.slice(0, -tailingWhitespace.length);
         }
 
         return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
@@ -329,9 +332,13 @@ function print(path, options, print) {
         trailingSpace = "";
       }
 
-      text = text
-        .replaceAll(/^[\t\n\f\r ]+/g, leadingSpace)
-        .replace(/[\t\n\f\r ]+$/, trailingSpace);
+      if (htmlWhitespaceUtils.hasLeadingWhitespace(text)) {
+        text = leadingSpace + htmlWhitespaceUtils.trimStart(text);
+      }
+
+      if (htmlWhitespaceUtils.hasTrailingWhitespace(text)) {
+        text = htmlWhitespaceUtils.trimEnd(text) + trailingSpace;
+      }
 
       return [
         ...generateHardlines(leadingLineBreaksCount),
@@ -500,27 +507,24 @@ function printInverseBlockClosingMustache(node) {
 
 function printOpenBlock(path, print) {
   const { node } = path;
+  /** @type {Doc[]} */
+  const parts = [];
 
-  const openingMustache = printOpeningBlockOpeningMustache(node);
-  const closingMustache = printOpeningBlockClosingMustache(node);
-
-  const attributes = [printPath(path, print)];
-
-  const params = printParams(path, print);
-  if (params) {
-    attributes.push(line, params);
+  const paramsDoc = printParams(path, print);
+  if (paramsDoc) {
+    parts.push(group(paramsDoc));
   }
 
   if (isNonEmptyArray(node.program.blockParams)) {
-    const block = printBlockParams(node.program);
-    attributes.push(line, block);
+    parts.push(printBlockParams(node.program));
   }
 
   return group([
-    openingMustache,
-    indent(attributes),
+    printOpeningBlockOpeningMustache(node),
+    printPath(path, print),
+    parts.length > 0 ? indent([line, join(line, parts)]) : "",
     softline,
-    closingMustache,
+    printOpeningBlockClosingMustache(node),
   ]);
 }
 
@@ -544,22 +548,16 @@ function isElseIfLike(path) {
 
 function printElseIfLikeBlock(path, print) {
   const { node, grandparent } = path;
-  let blockParams = [];
-
-  if (isNonEmptyArray(node.program.blockParams)) {
-    blockParams = [line, printBlockParams(node.program)];
-  }
-
   return group([
     printInverseBlockOpeningMustache(grandparent),
-    indent(
-      group([
-        group(["else", line, grandparent.inverse.body[0].path.parts[0]]),
-        line,
-        printParams(path, print),
-      ])
-    ),
-    indent(blockParams),
+    ["else", " ", grandparent.inverse.body[0].path.parts[0]],
+    indent([
+      line,
+      group(printParams(path, print)),
+      ...(isNonEmptyArray(node.program.blockParams)
+        ? [line, printBlockParams(node.program)]
+        : []),
+    ]),
     softline,
     printInverseBlockClosingMustache(grandparent),
   ]);
@@ -647,11 +645,7 @@ function printInverse(path, print, options) {
 /* TextNode print helpers */
 
 function getTextValueParts(value) {
-  return join(line, splitByHtmlWhitespace(value));
-}
-
-function splitByHtmlWhitespace(string) {
-  return string.split(/[\t\n\f\r ]+/);
+  return join(line, htmlWhitespaceUtils.split(value));
 }
 
 function getCurrentAttributeName(path) {
@@ -691,7 +685,7 @@ function generateHardlines(number = 0) {
 
 /* StringLiteral print helpers */
 
-/** @typedef {import("../common/util.js").Quote} Quote */
+/** @typedef {import("../utils/get-preferred-quote.js").Quote} Quote */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on

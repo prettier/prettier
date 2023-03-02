@@ -937,6 +937,15 @@ export * as ns from "mod";
 ================================================================================
 `;
 
+exports[`flow.js [__babel_estree] format 1`] = `
+"Unexpected token, expected "," (3:17)
+  1 | // https://babeljs.io/docs/en/babel-preset-flow
+  2 |
+> 3 | function foo(one: any, two: number, three?): string {}
+    |                 ^
+  4 |"
+`;
+
 exports[`flow.js [acorn] format 1`] = `
 "Unexpected token (3:17)
   1 | // https://babeljs.io/docs/en/babel-preset-flow
@@ -944,6 +953,51 @@ exports[`flow.js [acorn] format 1`] = `
 > 3 | function foo(one: any, two: number, three?): string {}
     |                 ^
   4 |"
+`;
+
+exports[`flow.js [babel] format 1`] = `
+"Unexpected token, expected "," (3:17)
+  1 | // https://babeljs.io/docs/en/babel-preset-flow
+  2 |
+> 3 | function foo(one: any, two: number, three?): string {}
+    |                 ^
+  4 |"
+`;
+
+exports[`flow.js [babel-flow] format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://babeljs.io/docs/en/babel-preset-flow
+
+function foo(one: any, two: number, three?): string {}
+
+=====================================output=====================================
+// https://babeljs.io/docs/en/babel-preset-flow
+
+function foo(one: any, two: number, three?): string {}
+
+================================================================================
+`;
+
+exports[`flow.js [babel-ts] format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://babeljs.io/docs/en/babel-preset-flow
+
+function foo(one: any, two: number, three?): string {}
+
+=====================================output=====================================
+// https://babeljs.io/docs/en/babel-preset-flow
+
+function foo(one: any, two: number, three?): string {}
+
+================================================================================
 `;
 
 exports[`flow.js [espree] format 1`] = `
@@ -962,24 +1016,6 @@ exports[`flow.js [meriyah] format 1`] = `
 > 3 | function foo(one: any, two: number, three?): string {}
     |                 ^
   4 |"
-`;
-
-exports[`flow.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// https://babeljs.io/docs/en/babel-preset-flow
-
-function foo(one: any, two: number, three?): string {}
-
-=====================================output=====================================
-// https://babeljs.io/docs/en/babel-preset-flow
-
-function foo(one: any, two: number, three?): string {}
-
-================================================================================
 `;
 
 exports[`function-bind.js [acorn] format 1`] = `
@@ -2326,6 +2362,41 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`regexp-modifiers.js [acorn] format 1`] = `
+"Invalid regular expression: /^(?i:[a-z])[a-z]$/: Invalid group (1:13)
+> 1 | const re = /^(?i:[a-z])[a-z]$/;
+    |             ^
+  2 |"
+`;
+
+exports[`regexp-modifiers.js [espree] format 1`] = `
+"Invalid regular expression: /^(?i:[a-z])[a-z]$/: Invalid group (1:13)
+> 1 | const re = /^(?i:[a-z])[a-z]$/;
+    |             ^
+  2 |"
+`;
+
+exports[`regexp-modifiers.js [meriyah] format 1`] = `
+"Unterminated regular expression (1:30)
+> 1 | const re = /^(?i:[a-z])[a-z]$/;
+    |                              ^
+  2 |"
+`;
+
+exports[`regexp-modifiers.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const re = /^(?i:[a-z])[a-z]$/;
+
+=====================================output=====================================
+const re = /^(?i:[a-z])[a-z]$/;
+
+================================================================================
+`;
+
 exports[`throw-expressions.js [acorn] format 1`] = `
 "Unexpected token (3:23)
   1 | // https://babeljs.io/docs/en/babel-plugin-proposal-throw-expressions
@@ -2381,6 +2452,15 @@ function test(param = throw new Error("required!")) {
 ================================================================================
 `;
 
+exports[`typescript.js [__babel_estree] format 1`] = `
+"Unexpected token (3:8)
+  1 | // https://babeljs.io/docs/en/babel-preset-typescript
+  2 |
+> 3 | const x: number = 0;
+    |        ^
+  4 |"
+`;
+
 exports[`typescript.js [acorn] format 1`] = `
 "Unexpected token (3:8)
   1 | // https://babeljs.io/docs/en/babel-preset-typescript
@@ -2388,6 +2468,51 @@ exports[`typescript.js [acorn] format 1`] = `
 > 3 | const x: number = 0;
     |        ^
   4 |"
+`;
+
+exports[`typescript.js [babel] format 1`] = `
+"Unexpected token (3:8)
+  1 | // https://babeljs.io/docs/en/babel-preset-typescript
+  2 |
+> 3 | const x: number = 0;
+    |        ^
+  4 |"
+`;
+
+exports[`typescript.js [babel-flow] format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://babeljs.io/docs/en/babel-preset-typescript
+
+const x: number = 0;
+
+=====================================output=====================================
+// https://babeljs.io/docs/en/babel-preset-typescript
+
+const x: number = 0;
+
+================================================================================
+`;
+
+exports[`typescript.js [babel-ts] format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://babeljs.io/docs/en/babel-preset-typescript
+
+const x: number = 0;
+
+=====================================output=====================================
+// https://babeljs.io/docs/en/babel-preset-typescript
+
+const x: number = 0;
+
+================================================================================
 `;
 
 exports[`typescript.js [espree] format 1`] = `
@@ -2406,24 +2531,6 @@ exports[`typescript.js [meriyah] format 1`] = `
 > 3 | const x: number = 0;
     |        ^
   4 |"
-`;
-
-exports[`typescript.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// https://babeljs.io/docs/en/babel-preset-typescript
-
-const x: number = 0;
-
-=====================================output=====================================
-// https://babeljs.io/docs/en/babel-preset-typescript
-
-const x: number = 0;
-
-================================================================================
 `;
 
 exports[`v8intrinsic.js [acorn] format 1`] = `

@@ -1,7 +1,6 @@
 import semver from "semver";
-import { runGit, readJson } from "./utils.js";
+import { runGit, readJson, logPromise } from "./utils.js";
 import parseArguments from "./parse-arguments.js";
-import { logPromise } from "./utils.js";
 import * as steps from "./steps/index.js";
 
 const params = parseArguments();

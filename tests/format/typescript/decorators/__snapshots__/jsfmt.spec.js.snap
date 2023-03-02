@@ -104,6 +104,28 @@ class Foo {
 ================================================================================
 `;
 
+exports[`comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Something {
+    @Annotateme()
+    // comment
+    static property: Array<string>;
+}
+
+=====================================output=====================================
+class Something {
+  @Annotateme()
+  // comment
+  static property: Array<string>;
+}
+
+================================================================================
+`;
+
 exports[`decorator-type-assertion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -470,6 +492,100 @@ class Bar {
 class MyContainerComponent {
   @ContentChildren(MyComponent)
   components: QueryListSomeBigName<MyComponentThat>;
+}
+
+================================================================================
+`;
+
+exports[`mobx.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {observable} from "mobx";
+
+@observer class OrderLine {
+  @observable price:number = 0;
+  @observable amount:number = 1;
+
+  constructor(price) {
+    this.price = price;
+  }
+
+  @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound setPrice(price) {
+    this.price = price;
+  }
+
+  @computed
+  get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound
+  setPrice(price) {
+    this.price = price;
+  }
+
+  @computed @computed @computed @computed @computed @computed @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) => this.count--;
+
+  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) => doSomething();
+}
+
+=====================================output=====================================
+import { observable } from "mobx";
+
+@observer
+class OrderLine {
+  @observable price: number = 0;
+  @observable amount: number = 1;
+
+  constructor(price) {
+    this.price = price;
+  }
+
+  @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound setPrice(price) {
+    this.price = price;
+  }
+
+  @computed
+  get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound
+  setPrice(price) {
+    this.price = price;
+  }
+
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  get total() {
+    return this.price * this.amount;
+  }
+
+  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) =>
+    this.count--;
+
+  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
+    doSomething();
 }
 
 ================================================================================

@@ -1,4 +1,4 @@
-import { isFrontMatterNode } from "../common/util.js";
+import isFrontMatter from "../utils/front-matter/is-front-matter.js";
 
 const ignoredProperties = new Set([
   "sourceSpan",
@@ -18,7 +18,7 @@ function clean(ast, newNode) {
   }
 
   // may be formatted by multiparser
-  if (isFrontMatterNode(ast) || ast.type === "yaml" || ast.type === "toml") {
+  if (isFrontMatter(ast) || ast.type === "yaml" || ast.type === "toml") {
     return null;
   }
 

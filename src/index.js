@@ -1,6 +1,6 @@
 import vnopts from "vnopts";
 import fastGlob from "fast-glob";
-import core from "./main/core.js";
+import * as core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import {
@@ -15,12 +15,12 @@ import {
 import * as languages from "./languages.js";
 import * as errors from "./common/errors.js";
 import * as coreOptions from "./main/core-options.evaluate.js";
-import createIgnorer from "./common/create-ignorer.js";
-import { hiddenDefaults as optionsHiddenDefaults } from "./main/options.js";
-import normalizeOptions from "./main/options-normalizer.js";
+import { createIsIgnoredFunction } from "./utils/ignore.js";
+import { formatOptionsHiddenDefaults } from "./main/normalize-format-options.js";
+import normalizeOptions from "./main/normalize-options.js";
 import arrayify from "./utils/arrayify.js";
 import partition from "./utils/partition.js";
-import { isNonEmptyArray } from "./common/util.js";
+import isNonEmptyArray from "./utils/is-non-empty-array.js";
 
 const builtinPlugins = Object.values(languages);
 
@@ -77,8 +77,8 @@ const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 const sharedWithCli = {
   errors,
   coreOptions,
-  createIgnorer,
-  optionsHiddenDefaults,
+  createIsIgnoredFunction,
+  formatOptionsHiddenDefaults,
   normalizeOptions,
   getSupportInfoWithoutPlugins,
   vnopts,
@@ -92,7 +92,7 @@ const sharedWithCli = {
 
 const debugApis = {
   parse: withPlugins(core.parse),
-  formatAST: withPlugins(core.formatAST),
+  formatAST: withPlugins(core.formatAst),
   formatDoc: withPlugins(core.formatDoc),
   printToDoc: withPlugins(core.printToDoc),
   printDocToString: withPlugins(core.printDocToString),
@@ -110,6 +110,6 @@ export {
   sharedWithCli as __internal,
   debugApis as __debug,
 };
-export * as util from "./common/util-shared.js";
+export * as util from "./utils/public.js";
 export * as doc from "./document/index.js";
 export { default as version } from "./main/version.evaluate.cjs";

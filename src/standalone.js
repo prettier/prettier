@@ -1,4 +1,4 @@
-import core from "./main/core.js";
+import * as core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 import * as languages from "./languages.js";
 
@@ -44,7 +44,7 @@ const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 
 const debugApis = {
   parse: withPlugins(core.parse),
-  formatAST: withPlugins(core.formatAST),
+  formatAST: withPlugins(core.formatAst),
   formatDoc: withPlugins(core.formatDoc),
   printToDoc: withPlugins(core.printToDoc),
   printDocToString: withPlugins(core.printDocToString),
@@ -57,6 +57,6 @@ export {
   getSupportInfo,
   debugApis as __debug,
 };
-export * as util from "./common/util-shared.js";
+export * as util from "./utils/public.js";
 export * as doc from "./document/index.js";
 export { default as version } from "./main/version.evaluate.cjs";

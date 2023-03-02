@@ -21,9 +21,6 @@ const additionalVisitorKeys = {
   JsExpressionRoot: ["node"],
   JsonRoot: ["node"],
 
-  // Babel missing this
-  Program: ["interpreter"],
-
   // TypeScript
   TSJSDocAllType: [],
   TSJSDocUnknownType: [],
@@ -31,8 +28,6 @@ const additionalVisitorKeys = {
   TSJSDocNonNullableType: ["typeAnnotation"],
   // This one maybe invalid, need investigate
   TSAbstractMethodDefinition: ["decorators"],
-  TSModuleDeclaration: ["modifiers"],
-  TSEnumDeclaration: ["modifiers"],
 
   // Flow
   BigIntTypeAnnotation: [],
@@ -52,6 +47,9 @@ const additionalVisitorKeys = {
 };
 
 const excludeKeys = {
+  // From `tsVisitorKeys`
+  MethodDefinition: ["typeParameters"],
+
   // From `flowVisitorKeys`
   ArrowFunctionExpression: ["id"],
   DeclareOpaqueType: ["impltype"],
@@ -59,6 +57,11 @@ const excludeKeys = {
   // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
   // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab
   // TupleTypeAnnotation: ["types"],
+  DeclareInterface: ["mixins", "implements"],
+  InterfaceDeclaration: ["mixins", "implements"],
+
+  // TypeScript
+  TSPropertySignature: ["initializer"],
 };
 
 const visitorKeys = Object.fromEntries(

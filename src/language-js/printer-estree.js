@@ -1,8 +1,6 @@
-/** @typedef {import("../document/builders.js").Doc} Doc */
-
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
-import { printDanglingComments } from "../main/comments.js";
-import { hasNewline } from "../common/util.js";
+import { printDanglingComments } from "../main/comments/print.js";
+import hasNewline from "../utils/has-newline.js";
 import {
   join,
   line,
@@ -49,7 +47,6 @@ import {
   adjustClause,
   printRestSpread,
   printDefiniteToken,
-  printDirective,
   printDeclareToken,
 } from "./print/misc.js";
 import {
@@ -91,7 +88,20 @@ import { printBlock, printBlockBody } from "./print/block.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 import { printTypeAnnotationProperty } from "./print/type-annotation.js";
+import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
 
+/**
+ * @typedef {import("../common/ast-path.js").default} AstPath
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
+
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @param {*} print
+ * @param {*} [args]
+ * @returns {Doc}
+ */
 function genericPrint(path, options, print, args) {
   const { node } = path;
 
@@ -134,7 +144,7 @@ function genericPrint(path, options, print, args) {
   }
 
   const needsParens = pathNeedsParens(path, options);
-  const needsSemi = args?.needsSemi;
+  const needsSemi = shouldPrintLeadingSemicolon(path, options);
 
   if (!needsParens) {
     if (needsSemi) {
@@ -168,6 +178,13 @@ function genericPrint(path, options, print, args) {
   return parts;
 }
 
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @param {*} print
+ * @param {*} [args]
+ * @returns {Doc}
+ */
 function printPathNoParens(path, options, print, args) {
   for (const printer of [
     printLiteral,
@@ -194,15 +211,7 @@ function printPathNoParens(path, options, print, args) {
     case "JsonRoot":
       return [print("node"), hardline];
     case "File":
-      // Print @babel/parser's InterpreterDirective here so that
-      // leading comments on the `Program` node get printed after the hashbang.
-      if (node.program.interpreter) {
-        parts.push(print(["program", "interpreter"]));
-      }
-
-      parts.push(print("program"));
-
-      return parts;
+      return print("program");
 
     case "Program":
       return printBlockBody(path, options, print);
@@ -227,12 +236,9 @@ function printPathNoParens(path, options, print, args) {
         }
       }
 
-      const danglingComment = printDanglingComments(
-        path,
-        options,
-        /** sameIndent */ true,
-        ({ marker }) => marker === markerForIfWithoutBlockAndSameLineComment
-      );
+      const danglingComment = printDanglingComments(path, options, {
+        marker: markerForIfWithoutBlockAndSameLineComment,
+      });
 
       // Do not append semicolon after the only JSX element in a program
       return [
@@ -241,6 +247,10 @@ function printPathNoParens(path, options, print, args) {
         danglingComment ? [" ", danglingComment] : "",
       ];
     }
+
+    case "ChainExpression":
+      return print("expression");
+
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
       const shouldHug =
@@ -422,8 +432,6 @@ function printPathNoParens(path, options, print, args) {
       return "super";
     case "Directive":
       return [print("value"), semi]; // Babel 6
-    case "DirectiveLiteral":
-      return printDirective(node.extra.raw, options);
     case "UnaryExpression":
       parts.push(node.operator);
 
@@ -523,7 +531,7 @@ function printPathNoParens(path, options, print, args) {
 
         if (hasComment(node, CommentCheckFlags.Dangling)) {
           parts.push(
-            printDanglingComments(path, options, true),
+            printDanglingComments(path, options),
             commentOnOwnLine ? hardline : " "
           );
         }
@@ -548,11 +556,7 @@ function printPathNoParens(path, options, print, args) {
       // We want to keep dangling comments above the loop to stay consistent.
       // Any comment positioned between the for statement and the parentheses
       // is going to be printed before the statement.
-      const dangling = printDanglingComments(
-        path,
-        options,
-        /* sameLine */ true
-      );
+      const dangling = printDanglingComments(path, options);
       const printedComments = dangling ? [dangling, softline] : "";
 
       if (!node.init && !node.test && !node.update) {
@@ -716,7 +720,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       if (hasComment(node, CommentCheckFlags.Dangling)) {
-        parts.push(" ", printDanglingComments(path, options, true));
+        parts.push(" ", printDanglingComments(path, options));
       }
 
       const consequent = node.consequent.filter(
@@ -724,7 +728,7 @@ function printPathNoParens(path, options, print, args) {
       );
 
       if (consequent.length > 0) {
-        const cons = printStatementSequence(path, options, print);
+        const cons = printStatementSequence(path, options, print, "consequent");
 
         parts.push(
           consequent.length === 1 && consequent[0].type === "BlockStatement"
@@ -763,15 +767,6 @@ function printPathNoParens(path, options, print, args) {
     case "PrivateName":
       return ["#", print("id")];
 
-    case "InterpreterDirective":
-      parts.push("#!", node.value, hardline);
-
-      if (isNextLineEmpty(node, options)) {
-        parts.push(hardline);
-      }
-
-      return parts;
-
     // For hack-style pipeline
     case "TopicReference":
       return "%";
@@ -789,6 +784,7 @@ function printPathNoParens(path, options, print, args) {
       return parts;
     }
 
+    case "InterpreterDirective": // Printed as comment
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "ESTree");

@@ -2,7 +2,7 @@
 
 exports[`issue-6259.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

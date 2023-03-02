@@ -1,4 +1,4 @@
-import { skipEverythingButNewLine } from "../utils/text/skip.js";
+import { skipEverythingButNewLine } from "../utils/skip.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import lineColumnToIndex from "../utils/line-column-to-index.js";
 

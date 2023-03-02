@@ -6,7 +6,7 @@ import {
   label,
 } from "../document/builders.js";
 import { propagateBreaks } from "../document/utils.js";
-import { printComments } from "./comments.js";
+import { printComments } from "./comments/print.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
 

@@ -278,20 +278,6 @@ type Unpacked<T> = T extends (infer U)[]
 ================================================================================
 `;
 
-exports[`issue-13275.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
-
-=====================================output=====================================
-type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
-
-================================================================================
-`;
-
 exports[`nested-in-condition.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -428,6 +414,60 @@ type Unpacked<T> = T extends (infer U)[]
   : T extends Promise<infer U>
   ? U
   : T;
+
+================================================================================
+`;
+
+exports[`parentheses.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #13275
+type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
+type Foo<T> = T extends (new (...a: any[]) => infer R extends string) ? R : never;
+
+// #14275
+type Test<T> = T extends ((
+  token: TSESTree.Token
+) => token is infer U extends TSESTree.Token)
+  ? U
+  : TSESTree.Token;
+type Test<T> = T extends ((
+  token: TSESTree.Token
+) => asserts token is infer U extends TSESTree.Token)
+  ? U
+  : TSESTree.Token;
+type Test<T> = T extends (new (
+  token: TSESTree.Token
+) => token is infer U extends TSESTree.Token)
+  ? U
+  : TSESTree.Token;
+
+=====================================output=====================================
+// #13275
+type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
+type Foo<T> = T extends (new (...a: any[]) => infer R extends string)
+  ? R
+  : never;
+
+// #14275
+type Test<T> = T extends ((
+  token: TSESTree.Token,
+) => token is infer U extends TSESTree.Token)
+  ? U
+  : TSESTree.Token;
+type Test<T> = T extends ((
+  token: TSESTree.Token,
+) => asserts token is infer U extends TSESTree.Token)
+  ? U
+  : TSESTree.Token;
+type Test<T> = T extends (new (
+  token: TSESTree.Token,
+) => token is infer U extends TSESTree.Token)
+  ? U
+  : TSESTree.Token;
 
 ================================================================================
 `;

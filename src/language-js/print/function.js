@@ -4,8 +4,8 @@ import assert from "node:assert";
 import {
   printDanglingComments,
   printCommentsSeparately,
-} from "../../main/comments.js";
-import { getNextNonSpaceNonCommentCharacterIndex } from "../../common/util.js";
+} from "../../main/comments/print.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import {
   line,
   softline,
@@ -22,7 +22,7 @@ import { ArgExpansionBailout } from "../../common/errors.js";
 import {
   getFunctionParameters,
   hasLeadingOwnLineComment,
-  isJsxNode,
+  isJsxElement,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
@@ -225,22 +225,18 @@ function printArrowFunctionSignature(path, options, print, args) {
     );
   }
 
-  const dangling = printDanglingComments(
-    path,
-    options,
-    /* sameIndent */ true,
-    (comment) => {
+  const dangling = printDanglingComments(path, options, {
+    filter(comment) {
       const nextCharacter = getNextNonSpaceNonCommentCharacterIndex(
         options.originalText,
-        comment,
-        locEnd
+        locEnd(comment)
       );
       return (
         nextCharacter !== false &&
         options.originalText.slice(nextCharacter, nextCharacter + 2) === "=>"
       );
-    }
-  );
+    },
+  });
   if (dangling) {
     parts.push(" ", dangling);
   }
@@ -348,7 +344,7 @@ function printArrowFunction(path, options, print, args) {
     (isArrayOrTupleExpression(node.body) ||
       isObjectOrRecordExpression(node.body) ||
       node.body.type === "BlockStatement" ||
-      isJsxNode(node.body) ||
+      isJsxElement(node.body) ||
       (body[0].label?.hug !== false &&
         (body[0].label?.embed ||
           isTemplateOnItsOwnLine(node.body, options.originalText))) ||
@@ -487,10 +483,7 @@ function printReturnOrThrowArgument(path, options, print) {
   }
 
   if (hasDanglingComments) {
-    parts.push(
-      " ",
-      printDanglingComments(path, options, /* sameIndent */ true)
-    );
+    parts.push(" ", printDanglingComments(path, options));
   }
 
   if (!shouldPrintSemiBeforeComments) {

@@ -2,7 +2,7 @@
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 
-import { isFrontMatterNode } from "../../common/util.js";
+import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
 import inferParserByLanguage from "../../utils/infer-parser-by-language.js";
 import { line, hardline, join } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
@@ -12,30 +12,30 @@ import {
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
 } from "../constants.evaluate.js";
+import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import isUnknownNamespace from "./is-unknown-namespace.js";
 
-// https://infra.spec.whatwg.org/#ascii-whitespace
-const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
-const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");
-const htmlTrimEnd = (string) => string.replace(/[\t\n\f\r ]+$/, "");
-const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
 const htmlTrimLeadingBlankLines = (string) =>
   string.replaceAll(/^[\t\f\r ]*\n/g, "");
 const htmlTrimPreserveIndentation = (string) =>
-  htmlTrimLeadingBlankLines(htmlTrimEnd(string));
-const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
-const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
+  htmlTrimLeadingBlankLines(htmlWhitespaceUtils.trimEnd(string));
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
-  const [, leadingWhitespace, text, trailingWhitespace] = string.match(
-    /^([\t\n\f\r ]*)(.*?)([\t\n\f\r ]*)$/s
-  );
+  let text = string;
+  const leadingWhitespace = htmlWhitespaceUtils.getLeadingWhitespace(text);
+  if (leadingWhitespace) {
+    text = text.slice(leadingWhitespace.length);
+  }
+  const trailingWhitespace = htmlWhitespaceUtils.getTrailingWhitespace(text);
+  if (trailingWhitespace) {
+    text = text.slice(0, -trailingWhitespace.length);
+  }
+
   return {
     leadingWhitespace,
     trailingWhitespace,
     text,
   };
 };
-const hasHtmlWhitespace = (string) => /[\t\n\f\r ]/.test(string);
 
 function shouldPreserveContent(node, options) {
   // unterminated node in ie conditional comment
@@ -144,7 +144,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
   return isLeadingSpaceSensitive;
 
   function _isLeadingSpaceSensitiveNode() {
-    if (isFrontMatterNode(node)) {
+    if (isFrontMatter(node)) {
       return false;
     }
 
@@ -187,7 +187,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
 }
 
 function isTrailingSpaceSensitiveNode(node, options) {
-  if (isFrontMatterNode(node)) {
+  if (isFrontMatter(node)) {
     return false;
   }
 
@@ -237,7 +237,7 @@ function isDanglingSpaceSensitiveNode(node) {
 
 function forceNextEmptyLine(node) {
   return (
-    isFrontMatterNode(node) ||
+    isFrontMatter(node) ||
     (node.next &&
       node.sourceSpan.end &&
       node.sourceSpan.end.line + 1 < node.next.sourceSpan.start.line)
@@ -513,11 +513,10 @@ function getMinIndentation(text) {
       continue;
     }
 
-    if (!HTML_WHITESPACE.has(lineText[0])) {
+    const indentation = htmlWhitespaceUtils.getLeadingWhitespaceCount(lineText);
+    if (indentation === 0) {
       return 0;
     }
-
-    const indentation = getLeadingHtmlWhitespace(lineText).length;
 
     if (lineText.length === indentation) {
       continue;
@@ -612,7 +611,7 @@ function getTextValueParts(node, value = node.value) {
           dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
-    : join(line, splitByHtmlWhitespace(value));
+    : join(line, htmlWhitespaceUtils.split(value));
 }
 
 function isVueScriptTag(node, options) {
@@ -620,9 +619,7 @@ function isVueScriptTag(node, options) {
 }
 
 export {
-  htmlTrim,
   htmlTrimPreserveIndentation,
-  hasHtmlWhitespace,
   getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
   countChars,
@@ -655,4 +652,5 @@ export {
   shouldPreserveContent,
   unescapeQuoteEntities,
   getTextValueParts,
+  htmlWhitespaceUtils,
 };
