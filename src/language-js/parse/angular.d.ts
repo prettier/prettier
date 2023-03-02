@@ -1,6 +1,6 @@
 import { Parser } from "../../index.js";
 
-declare const parser: {
+declare const plugin: {
   parsers: {
     __ng_action: Parser;
     __ng_binding: Parser;
@@ -8,4 +8,5 @@ declare const parser: {
     __ng_directive: Parser;
   };
 };
-export = parser;
+
+export default plugin;

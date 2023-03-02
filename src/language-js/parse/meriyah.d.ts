@@ -1,8 +1,9 @@
 import { Parser } from "../../index.js";
 
-declare const parser: {
+declare const plugin: {
   parsers: {
     meriyah: Parser;
   };
 };
-export = parser;
+
+export default plugin;
