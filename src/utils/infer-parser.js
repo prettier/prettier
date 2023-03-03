@@ -44,13 +44,16 @@ function getLanguageByInterpreter(languages, file) {
 }
 
 /**
- * @typedef {import("../index.js").Plugin} PrettierPlugin
- * @param {{plugins: PrettierPlugin[]}} options
+ * @param {import("../index.js").Options} options
  * @param {{physicalFile?: string, file?: string, language?: string}} fileInfo
  * @returns {string | void} matched parser name if found
  */
 function inferParser(options, fileInfo) {
-  const languages = options.plugins.flatMap((plugin) => plugin.languages ?? []);
+  const languages = options.plugins.flatMap(
+    (plugin) =>
+      // @ts-expect-error -- Safe
+      plugin.languages ?? []
+  );
   const { language: languageName, physicalFile, file } = fileInfo;
 
   // If the file has no extension, we can try to infer the language from the
