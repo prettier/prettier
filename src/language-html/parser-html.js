@@ -9,7 +9,7 @@ import {
   TagContentType,
 } from "angular-html-parser";
 import parseFrontMatter from "../utils/front-matter/parse.js";
-import inferParserByLanguage from "../utils/infer-parser-by-language.js";
+import inferParser from "../utils/infer-parser.js";
 import createError from "../common/parser-create-error.js";
 import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
 import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
@@ -87,7 +87,7 @@ function ngHtmlParser(
           return false;
         }
         const language = node.attrs.find((attr) => attr.name === "lang")?.value;
-        return !language || inferParserByLanguage(options, language) === "html";
+        return !language || inferParser(options, { language }) === "html";
       };
       if (rootNodes.some(shouldParseAsHTML)) {
         /** @type {ParserTreeResult | undefined} */
