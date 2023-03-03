@@ -128,6 +128,7 @@ function ngHtmlParser(input, options, parseOptions) {
         }
       }
     } else {
+      // If not Vue SFC, treat as html
       return ngHtmlParser(input, options, htmlParseOptions);
     }
   }
