@@ -25,9 +25,8 @@ import { locStart, locEnd } from "./loc.js";
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Attribute} Attribute
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Element} Element
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/parser.js').ParseTreeResult} ParserTreeResult
- * @typedef {Omit<import('angular-html-parser').ParseOptions, 'canSelfClose'> & {
+ * @typedef {import('angular-html-parser').ParseOptions & {
  *   name: 'html' | 'angular' | 'vue' | 'lwc';
- *   canSelfClose?: boolean;
  *   normalizeTagName?: boolean;
  *   normalizeAttributeName?: boolean;
  *   shouldParseAsRawText?: (tagName: string, prefix: string, hasParent: boolean, attrs: Array<{
@@ -35,19 +34,16 @@ import { locStart, locEnd } from "./loc.js";
  *      name: string;
  *      value?: string;
  *   }>) => boolean;
- * }} ParserOptions
- * @typedef {{
- *   parser: 'html' | 'angular' | 'vue' | 'lwc',
- *   filepath?: string
- * }} Options
+ * }} ParseOptions
+ * @typedef {{filepath?: string}} Options
  */
 
 /**
  * @param {string} input
+ * @param {ParseOptions} parseOptions
  * @param {Options} options
- * @param {ParserOptions} parseOptions
  */
-function ngHtmlParser(input, options, parseOptions) {
+function ngHtmlParser(input, parseOptions, options) {
   const {
     name,
     canSelfClose = false,
@@ -129,7 +125,7 @@ function ngHtmlParser(input, options, parseOptions) {
       }
     } else {
       // If not Vue SFC, treat as html
-      return ngHtmlParser(input, options, htmlParseOptions);
+      return ngHtmlParser(input, HTML_PARSE_OPTIONS, options);
     }
   }
 
@@ -279,11 +275,16 @@ function ngHtmlParser(input, options, parseOptions) {
 
 /**
  * @param {string} text
+ * @param {ParseOptions} parseOptions
  * @param {Options} options
- * @param {ParserOptions} parserOptions
  * @param {boolean} shouldParseFrontMatter
  */
-function parse(text, options, parserOptions, shouldParseFrontMatter = true) {
+function parse(
+  text,
+  parseOptions,
+  options = {},
+  shouldParseFrontMatter = true
+) {
   const { frontMatter, content } = shouldParseFrontMatter
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
@@ -294,14 +295,13 @@ function parse(text, options, parserOptions, shouldParseFrontMatter = true) {
   const rawAst = {
     type: "root",
     sourceSpan: new ParseSourceSpan(start, end),
-    children: ngHtmlParser(content, options, parserOptions),
+    children: ngHtmlParser(content, parseOptions, options),
   };
 
   if (frontMatter) {
     const start = new ParseLocation(file, 0, 0, 0);
     const end = start.moveBy(frontMatter.raw.length);
     frontMatter.sourceSpan = new ParseSourceSpan(start, end);
-    // @ts-expect-error
     rawAst.children.unshift(frontMatter);
   }
 
@@ -313,8 +313,8 @@ function parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     const realContent = subContent;
     const subAst = parse(
       fakeContent + realContent,
+      parseOptions,
       options,
-      parserOptions,
       false
     );
     // @ts-expect-error
@@ -354,11 +354,11 @@ function parse(text, options, parserOptions, shouldParseFrontMatter = true) {
 }
 
 /**
- * @param {ParserOptions} parserOptions
+ * @param {ParseOptions} parseOptions
  */
 function createParser(parseOptions) {
   return {
-    parse: (text, options) => parse(text, options, parseOptions),
+    parse: (text, options) => parse(text, parseOptions, options),
     hasPragma,
     astFormat: "html",
     locStart,
@@ -366,7 +366,8 @@ function createParser(parseOptions) {
   };
 }
 
-const htmlParseOptions = {
+/** @type {ParseOptions} */
+const HTML_PARSE_OPTIONS = {
   name: "html",
   canSelfClose: true,
   normalizeTagName: true,
@@ -376,7 +377,7 @@ const htmlParseOptions = {
 
 const parser = {
   parsers: {
-    html: createParser(htmlParseOptions),
+    html: createParser(HTML_PARSE_OPTIONS),
     angular: createParser({ name: "angular", canSelfClose: true }),
     vue: createParser({
       name: "vue",
