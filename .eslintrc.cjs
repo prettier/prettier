@@ -182,6 +182,8 @@ module.exports = {
     ],
     // Conflicting with `unicorn/better-regex`
     "regexp/strict": "off",
+    // Hard to fix
+    "regexp/no-super-linear-backtracking": "off",
 
     // eslint-plugin-unicorn
     "unicorn/better-regex": "error",

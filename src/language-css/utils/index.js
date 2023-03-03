@@ -125,8 +125,8 @@ function isDetachedRulesetDeclarationNode(node) {
   }
 
   return (
-    (typeof selector === "string" && /^@.+:.*$/.test(selector)) ||
-    (selector.value && /^@.+:.*$/.test(selector.value))
+    (typeof selector === "string" && /^@[^:]+:.*$/.test(selector)) ||
+    (selector.value && /^@[^:]:.*$/.test(selector.value))
   );
 }
 
