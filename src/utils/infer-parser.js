@@ -1,12 +1,14 @@
-import path from "node:path";
 import getInterpreter from "./get-interpreter.js";
+
+// Didn't use `path.basename` since this module need work in browsers too
+const getFileBasename = (file) => file.split(/[/\\]/).pop();
 
 function getLanguageByFilename(languages, filename) {
   if (!filename) {
     return;
   }
 
-  const basename = path.basename(filename).toLowerCase();
+  const basename = getFileBasename(filename).toLowerCase();
 
   return languages.find(
     (language) =>
