@@ -203,6 +203,11 @@ function postprocess(ast, options) {
     }
   }
 
+  // In `typescript`/`espree`/`flow`, `Program` doesn't count whitespace and comments
+  // See https://github.com/eslint/espree/issues/488
+  if (ast.type === "Program") {
+    ast.range = [0, options.originalText.length];
+  }
   return ast;
 
   /**

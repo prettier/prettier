@@ -15,7 +15,8 @@ import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted } from "./comments/print.js";
 import { parse as parseText, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
-import { calculateRange, findNodeAtOffset } from "./range-util.js";
+import { calculateRange } from "./range-util.js";
+import getCursorNode from "./get-cursor-node.js";
 
 const BOM = "\uFEFF";
 
@@ -29,10 +30,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   const { ast, text } = await parseText(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
-    const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
-    if (nodeResult?.node) {
-      opts.cursorNode = nodeResult.node;
-    }
+    opts.cursorNode = getCursorNode(ast, opts);
   }
 
   const astComments = attachComments(text, ast, opts);
