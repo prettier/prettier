@@ -1,10 +1,9 @@
 import path from "node:path";
-import { getSupportInfo } from "../main/support.js";
 import getInterpreter from "../utils/get-interpreter.js";
 
 function inferParser(filepath, plugins) {
   const filename = path.basename(filepath).toLowerCase();
-  const { languages } = getSupportInfo({ plugins });
+  const languages = plugins.flatMap((plugin) => plugin.languages ?? []);
 
   // If the file has no extension, we can try to infer the language from the
   // interpreter in the shebang line, if any; but since this requires FS access,
