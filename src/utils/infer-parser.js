@@ -60,16 +60,15 @@ function inferParser(options, fileInfo) {
       // @ts-expect-error -- Safe
       plugin.languages ?? []
   );
-  const { language: languageName, physicalFile, file } = fileInfo;
 
   // If the file has no extension, we can try to infer the language from the
   // interpreter in the shebang line, if any; but since this requires FS access,
   // do it last.
   const language =
-    getLanguageByName(languages, languageName) ??
-    getLanguageByFilename(languages, physicalFile) ??
-    getLanguageByFilename(languages, file) ??
-    getLanguageByInterpreter(languages, physicalFile);
+    getLanguageByName(languages, fileInfo.language) ??
+    getLanguageByFilename(languages, fileInfo.physicalFile) ??
+    getLanguageByFilename(languages, fileInfo.file) ??
+    getLanguageByInterpreter(languages, fileInfo.physicalFile);
 
   return language?.parsers[0];
 }
