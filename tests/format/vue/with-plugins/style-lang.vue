@@ -1,5 +1,5 @@
 <style lang="uppercase-rocks">
-/* Should not be uppercased */
+/* Should be uppercased */
 hello,
 world!
 </style>
