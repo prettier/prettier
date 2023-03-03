@@ -9,7 +9,7 @@ function embed(path, options) {
   const { node } = path;
 
   if (node.type === "code" && node.lang !== null) {
-    const parser = inferParserByLanguage(node.lang, options);
+    const parser = inferParserByLanguage(options, node.lang);
     if (parser) {
       return async (textToDoc) => {
         const styleUnit = options.__inJsTemplate ? "~" : "`";
