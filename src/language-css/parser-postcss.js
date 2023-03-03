@@ -139,23 +139,22 @@ function parseValueNode(valueNode, options) {
 }
 
 function flattenGroups(node) {
-  if (
-    node.type === "paren_group" &&
-    !node.open &&
-    !node.close &&
-    node.groups.length === 1
-  ) {
-    return flattenGroups(node.groups[0]);
+  if (node.type === "paren_group") {
+    if (node.groups.length === 1) {
+      const group = node.groups[0];
+      if (group.type === "comma_group") {
+        if (!node.open && !node.close && group.groups.length === 1) {
+          return flattenGroups(group.groups[0]);
+        }
+      }
+    }
   }
-
-  if (node.type === "comma_group" && node.groups.length === 1) {
-    return flattenGroups(node.groups[0]);
+  if (node.type === "comma_group" || node.type === "paren_group") {
+    return {
+      ...node,
+      groups: node.groups.map(flattenGroups),
+    };
   }
-
-  if (node.type === "paren_group" || node.type === "comma_group") {
-    return { ...node, groups: node.groups.map(flattenGroups) };
-  }
-
   return node;
 }
 
