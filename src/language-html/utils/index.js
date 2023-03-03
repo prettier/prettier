@@ -3,7 +3,7 @@
  */
 
 import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
-import inferParserByLanguage from "../../utils/infer-parser-by-language.js";
+import inferParser from "../../utils/infer-parser.js";
 import { line, hardline, join } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import {
@@ -386,7 +386,7 @@ function inferStyleParser(node, options) {
   // But, we need to handle `"stylus"` here for printing a style block in Vue SFC as stylus code by external plugin.
   // https://github.com/prettier/prettier/pull/12707
   if (lang === "stylus") {
-    return inferParserByLanguage(options, "stylus");
+    return inferParser(options, { language: "stylus" });
   }
 }
 
@@ -406,7 +406,7 @@ function inferScriptParser(node, options) {
     return (
       _inferScriptParser(node) ||
       (!("src" in node.attrMap) &&
-        inferParserByLanguage(options, node.attrMap.lang))
+        inferParser(options, { language: node.attrMap.lang }))
     );
   }
 }
