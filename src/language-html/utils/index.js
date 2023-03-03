@@ -386,7 +386,7 @@ function inferStyleParser(node, options) {
   // But, we need to handle `"stylus"` here for printing a style block in Vue SFC as stylus code by external plugin.
   // https://github.com/prettier/prettier/pull/12707
   if (lang === "stylus") {
-    return inferParserByLanguage("stylus", options);
+    return inferParserByLanguage(options, "stylus");
   }
 }
 
@@ -406,7 +406,7 @@ function inferScriptParser(node, options) {
     return (
       _inferScriptParser(node) ||
       (!("src" in node.attrMap) &&
-        inferParserByLanguage(node.attrMap.lang, options))
+        inferParserByLanguage(options, node.attrMap.lang))
     );
   }
 }

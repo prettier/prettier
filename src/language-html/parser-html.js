@@ -87,7 +87,7 @@ function ngHtmlParser(
           return false;
         }
         const language = node.attrs.find((attr) => attr.name === "lang")?.value;
-        return !language || inferParserByLanguage(language, options) === "html";
+        return !language || inferParserByLanguage(options, language) === "html";
       };
       if (rootNodes.some(shouldParseAsHTML)) {
         /** @type {ParserTreeResult | undefined} */
