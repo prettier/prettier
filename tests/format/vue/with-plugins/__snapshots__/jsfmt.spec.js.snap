@@ -106,7 +106,6 @@ world!
 
 =====================================output=====================================
 <script lang="uppercase-rocks">
-
 HELLO,
 WORLD!
 </script>
@@ -169,7 +168,6 @@ a
 
 =====================================output=====================================
 <style lang="uppercase-rocks">
-
 /* SHOULD BE UPPERCASED */
 HELLO,
 WORLD!
