@@ -12,7 +12,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  extends: ["eslint:recommended", "prettier"],
+  extends: ["eslint:recommended", "prettier", "plugin:regexp/recommended"],
   plugins: [
     "prettier-internal-rules",
     "import",
@@ -180,6 +180,8 @@ module.exports = {
         strictTypes: false,
       },
     ],
+    // Conflicting with `unicorn/better-regex`
+    "regexp/strict": "off",
 
     // eslint-plugin-unicorn
     "unicorn/better-regex": "error",
