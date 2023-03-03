@@ -46,7 +46,7 @@ import { locStart, locEnd } from "./loc.js";
 function ngHtmlParser(input, parseOptions, options) {
   const {
     name,
-    canSelfClose = false,
+    canSelfClose = true,
     normalizeTagName = false,
     normalizeAttributeName = false,
     allowHtmComponentClosingTags = false,
@@ -369,7 +369,6 @@ function createParser(parseOptions) {
 /** @type {ParseOptions} */
 const HTML_PARSE_OPTIONS = {
   name: "html",
-  canSelfClose: true,
   normalizeTagName: true,
   normalizeAttributeName: true,
   allowHtmComponentClosingTags: true,
@@ -378,10 +377,9 @@ const HTML_PARSE_OPTIONS = {
 const parser = {
   parsers: {
     html: createParser(HTML_PARSE_OPTIONS),
-    angular: createParser({ name: "angular", canSelfClose: true }),
+    angular: createParser({ name: "angular" }),
     vue: createParser({
       name: "vue",
-      canSelfClose: true,
       isTagNameCaseSensitive: true,
       shouldParseAsRawText(tagName, prefix, hasParent, attrs) {
         return (
@@ -398,7 +396,7 @@ const parser = {
         );
       },
     }),
-    lwc: createParser({ name: "lwc" }),
+    lwc: createParser({ name: "lwc", canSelfClose: false }),
   },
 };
 
