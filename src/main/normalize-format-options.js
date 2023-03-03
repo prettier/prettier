@@ -1,8 +1,8 @@
 import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
+import inferParser from "../utils/infer-parser.js";
 import normalizeOptions from "./normalize-options.js";
 import { resolveParser } from "./parser.js";
-import inferParser from "./infer-parser.js";
 
 const formatOptionsHiddenDefaults = {
   astFormat: "estree",
@@ -39,7 +39,9 @@ async function normalizeFormatOptions(options, opts = {}) {
       );
       rawOptions.parser = "babel";
     } else {
-      rawOptions.parser = inferParser(rawOptions.filepath, rawOptions.plugins);
+      rawOptions.parser = inferParser(rawOptions, {
+        physicalFile: rawOptions.filepath,
+      });
       if (!rawOptions.parser) {
         throw new UndefinedParserError(
           `No parser could be inferred for file: ${rawOptions.filepath}`
