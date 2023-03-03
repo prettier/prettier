@@ -30,7 +30,11 @@ function getLanguageByName(languages, languageName) {
 }
 
 function getLanguageByInterpreter(languages, file) {
-  if (process.env.PRETTIER_TARGET === "universal" || !file) {
+  if (
+    process.env.PRETTIER_TARGET === "universal" ||
+    !file ||
+    getFileBasename(file).includes(".")
+  ) {
     return;
   }
 
