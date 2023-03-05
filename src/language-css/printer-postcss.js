@@ -535,8 +535,11 @@ function genericPrint(path, options, print) {
         (declAncestorProp === "grid" ||
           declAncestorProp.startsWith("grid-template"));
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
+      const commaGroupAncestorNode = getAncestorNode(path, "value-comma_group");
       const isControlDirective =
-        atRuleAncestorNode && isSCSSControlDirectiveNode(atRuleAncestorNode);
+        commaGroupAncestorNode === null &&
+        atRuleAncestorNode &&
+        isSCSSControlDirectiveNode(atRuleAncestorNode);
       const hasInlineComment = node.groups.some((node) =>
         isInlineValueCommentNode(node)
       );
@@ -932,6 +935,10 @@ function genericPrint(path, options, print) {
             res.push([",", line]);
           }
           res.push(printed[i]);
+        }
+
+        if (res.length === 1) {
+          return group(fill(res));
         }
 
         return group(indent(fill(res)));
