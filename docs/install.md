@@ -18,6 +18,12 @@ npm install --save-dev --save-exact prettier
 yarn add --dev --exact prettier
 ```
 
+<!--pnpm-->
+
+```bash
+pnpm add --save-dev --save-exact prettier
+```
+
 <!--END_DOCUSAURUS_CODE_TABS-->
 
 Then, create an empty config file to let editors and other tools know you are using Prettier:
@@ -60,6 +66,14 @@ yarn prettier . --write
 ```
 
 > What is `yarn` doing at the start? `yarn prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn` part for brevity throughout the rest of this file!
+
+<!--pnpm-->
+
+```bash
+pnpm exec prettier . --write
+```
+
+> What is `pnpm` doing at the start? `pnpm prettier` runs the locally installed version of Prettier. We’ll leave off the `pnpm` part for brevity throughout the rest of this file!
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
@@ -117,6 +131,15 @@ For example, you can do the following to have Prettier run before each commit:
    ```
 
    > If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
+
+   <!--pnpm-->
+
+   ```bash
+   pnpm add --save-dev husky lint-staged
+   pnpm exec husky install
+   npm pkg set scripts.prepare="husky install"
+   pnpm exec husky add .husky/pre-commit "pnpm exec lint-staged"
+   ```
 
    <!--END_DOCUSAURUS_CODE_TABS-->
 
