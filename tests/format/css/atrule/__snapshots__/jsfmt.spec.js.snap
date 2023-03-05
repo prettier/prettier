@@ -1170,7 +1170,17 @@ h3
 }
 @each $animal in ((puma), (sea-slug), (egret), (salamander)) {
 }
-@each $animal in ((puma), (sea-slug), (egret), (salamander)) {
+@each $animal
+  in (
+    (puma),
+
+    (sea-slug),
+
+    (egret),
+
+    (salamander)
+  )
+{
 }
 @each $animal, $color, $cursor in (puma, black, default),
   (sea-slug, blue, pointer), (egret, white, move)
@@ -1937,7 +1947,9 @@ $args
 }
 @function func(
   $arg,
+
   $arg1,
+
   $arg2: 10,
 
   $args...
@@ -2564,7 +2576,9 @@ border-color: $very-very-very-very-very-very-very-very-very-very-very-very-very-
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(
   1px,
+
   2px,
+
   $arg2: 10,
 
   2px 4px 6px
@@ -3516,7 +3530,9 @@ $background
 }
 @mixin mix(
   $arg,
+
   $arg1,
+
   $arg2: 10,
 
   $args...
