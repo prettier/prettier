@@ -531,7 +531,7 @@ function genericPrint(path, options, print) {
       const declAncestorProp = getPropOfDeclNode(path);
       const isGridValue =
         declAncestorProp &&
-        parentNode.type === "value-value" &&
+        parentParentNode.type === "value-value" &&
         (declAncestorProp === "grid" ||
           declAncestorProp.startsWith("grid-template"));
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
