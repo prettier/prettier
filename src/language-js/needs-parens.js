@@ -529,7 +529,7 @@ function needsParens(path, options) {
         (name === "objectType" && parent.type === "TSIndexedAccessType") ||
         (name === "elementType" && parent.type === "TSArrayType")
       );
-    // Same as `TSTypeQuery`, but for FLow syntax
+    // Same as `TSTypeQuery`, but for Flow syntax
     case "TypeofTypeAnnotation":
       return (
         (name === "objectType" &&
