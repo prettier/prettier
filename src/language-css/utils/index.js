@@ -302,7 +302,9 @@ function isSCSSMapItemNode(path) {
   // SCSS Map is argument of function (i.e. `func((key: value, other-key: other-value))`)
   if (
     parentNode.type === "value-comma_group" &&
-    parentNode.groups?.length === 1 &&
+    (parentNode.groups?.length === 1 ||
+      (parentNode.groups?.length === 3 &&
+        parentNode.groups[1].type === "value-colon")) &&
     ancestorParenGroupParentNode?.type === "value-func"
   ) {
     return true;

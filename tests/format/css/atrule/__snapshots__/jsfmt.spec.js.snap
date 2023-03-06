@@ -3566,7 +3566,13 @@ $background
 }
 @mixin button-variant($foo: "  ...  ") {
 }
-@mixin sexy-border($color, $width, $foo: (color: red)) {
+@mixin sexy-border(
+  $color,
+  $width,
+  $foo: (
+    color: red,
+  )
+) {
 }
 
 @mixin selector($param: "value") {
