@@ -6599,12 +6599,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lz-string@npm:1.4.4":
-  version: 1.4.4
-  resolution: "lz-string@npm:1.4.4"
+"lz-string@npm:1.5.0":
+  version: 1.5.0
+  resolution: "lz-string@npm:1.5.0"
   bin:
     lz-string: bin/bin.js
-  checksum: 54e31238a61a84d8f664d9860a9fba7310c5b97a52c444f80543069bc084815eff40b8d4474ae1d93992fdf6c252dca37cf27f6adbeb4dbc3df2f3ac773d0e61
+  checksum: 1ee98b4580246fd90dd54da6e346fb1caefcf05f677c686d9af237a157fdea3fd7c83a4bc58f858cd5b10a34d27afe0fdcbd0505a47e0590726a873dc8b8f65d
   languageName: node
   linkType: hard
 
@@ -8695,7 +8695,7 @@ __metadata:
     concurrently: 7.6.0
     docusaurus: 1.14.7
     js-yaml: 4.1.0
-    lz-string: 1.4.4
+    lz-string: 1.5.0
     prop-types: 15.8.1
     react: 18.2.0
     react-dom: 18.2.0
