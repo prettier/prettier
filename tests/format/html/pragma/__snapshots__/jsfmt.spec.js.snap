@@ -7,9 +7,9 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+
+
 <!-- @not-a-pragma -->
-
-
 <!doctype html>
 <html>
             </html>
@@ -18,7 +18,6 @@ printWidth: 80
 <!-- @format -->
 
 <!-- @not-a-pragma -->
-
 <!doctype html>
 <html></html>
 
@@ -32,17 +31,17 @@ printWidth: 80
 requirePragma: true
                                                                                 | printWidth
 =====================================input======================================
+
+
 <!-- @not-a-pragma -->
-
-
 <!doctype html>
 <html>
             </html>
 
 =====================================output=====================================
+
+
 <!-- @not-a-pragma -->
-
-
 <!doctype html>
 <html>
             </html>
@@ -57,16 +56,15 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+
+
 <!-- @format -->
-
-
 <!doctype html>
 <html>
             </html>
 
 =====================================output=====================================
 <!-- @format -->
-
 <!doctype html>
 <html></html>
 
@@ -80,16 +78,15 @@ printWidth: 80
 requirePragma: true
                                                                                 | printWidth
 =====================================input======================================
+
+
 <!-- @format -->
-
-
 <!doctype html>
 <html>
             </html>
 
 =====================================output=====================================
 <!-- @format -->
-
 <!doctype html>
 <html></html>
 
@@ -103,16 +100,15 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+
+
 <!-- @prettier -->
-
-
 <!doctype html>
 <html>
             </html>
 
 =====================================output=====================================
 <!-- @prettier -->
-
 <!doctype html>
 <html></html>
 
@@ -126,16 +122,15 @@ printWidth: 80
 requirePragma: true
                                                                                 | printWidth
 =====================================input======================================
+
+
 <!-- @prettier -->
-
-
 <!doctype html>
 <html>
             </html>
 
 =====================================output=====================================
 <!-- @prettier -->
-
 <!doctype html>
 <html></html>
 
