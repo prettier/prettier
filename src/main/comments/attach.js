@@ -165,7 +165,6 @@ function attach(comments, ast, text, options) {
     isLastComment: comments.length - 1 === index,
   }));
 
-
   for (const [index, context] of decoratedComments.entries()) {
     const {
       comment,
@@ -207,7 +206,6 @@ function attach(comments, ast, text, options) {
 
     if (isOwnLineComment(text, options, decoratedComments, index)) {
       comment.placement = "ownLine";
-
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (handleOwnLineComment(...args)) {
@@ -243,7 +241,6 @@ function attach(comments, ast, text, options) {
       }
     } else {
       comment.placement = "remaining";
-
       if (handleRemainingComment(...args)) {
         // We're good
       } else if (precedingNode && followingNode) {
