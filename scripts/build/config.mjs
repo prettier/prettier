@@ -41,7 +41,7 @@ async function typesFileBuilder({ file }) {
   ];
   /** @type {ReplacementMap} */
   const pathReplacementMap = {
-    "src/index.d.ts": [{ from: "./document/index.js", to: "./doc.js" }],
+    "src/index.d.ts": [{ from: "./document/public.js", to: "./doc.js" }],
     "src/language-js/parse/acorn-and-espree.d.ts": jsParsersImportReplacement,
     "src/language-js/parse/angular.d.ts": jsParsersImportReplacement,
     "src/language-js/parse/babel.d.ts": jsParsersImportReplacement,
@@ -402,7 +402,7 @@ const pluginFiles = [
 
 const nonPluginUniversalFiles = [
   {
-    input: "src/document/index.js",
+    input: "src/document/public.js",
     outputBaseName: "doc",
     umdVariableName: "doc",
     minify: false,
@@ -497,7 +497,7 @@ const nodejsFiles = [
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
-      ...reuseDocumentModule(),
+      ...(await reuseDocumentModule()),
     ],
   },
   {

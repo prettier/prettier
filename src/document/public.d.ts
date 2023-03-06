@@ -1,4 +1,4 @@
-// https://github.com/prettier/prettier/blob/next/src/document/index.js
+// https://github.com/prettier/prettier/blob/next/src/document/public.js
 export namespace builders {
   type DocCommand =
     | Align
