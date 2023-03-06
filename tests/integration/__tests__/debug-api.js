@@ -71,9 +71,15 @@ describe("API", () => {
       await formatDoc(fill(["foo", hardline, "bar", literalline, "baz"]))
     ).toBe('fill(["foo", hardline, "bar", literalline, "baz"])');
 
+    /*
+    This is not really `cleanDoc` from `src/document/utils.js`
+    But if we pass array to it, it will flat array
+    */
+    const cleanDoc = (parts) => parts.flat();
     expect(
       await formatDoc(
-        fill(["foo", literalline, "bar"]) // invalid fill
+        // The argument of fill must not be passed to cleanDoc because it's not a doc
+        fill(cleanDoc(["foo", literalline, "bar"])) // invalid fill
       )
     ).toBe('fill(["foo", literallineWithoutBreakParent, breakParent, "bar"])');
 
