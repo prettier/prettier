@@ -183,10 +183,6 @@ export namespace builders {
   const cursor: Cursor;
 }
 
-export namespace debug {
-  function printDocToDebug(doc: builders.Doc): string;
-}
-
 export namespace printer {
   function printDocToString(
     doc: builders.Doc,

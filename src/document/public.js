@@ -26,20 +26,14 @@ import {
 } from "./builders.js";
 import { printDocToString } from "./printer.js";
 import {
-  getDocParts,
   willBreak,
   traverseDoc,
   findInDoc,
   mapDoc,
-  propagateBreaks,
   removeLines,
-  stripTrailingHardline,
-  cleanDoc,
   replaceEndOfLine,
   canBreak,
-  getDocType,
 } from "./utils.js";
-import { printDocToDebug } from "./debug.js";
 
 export const builders = {
   join,
@@ -79,4 +73,3 @@ export const utils = {
   replaceEndOfLine,
   canBreak,
 };
-export const debug = { printDocToDebug };
