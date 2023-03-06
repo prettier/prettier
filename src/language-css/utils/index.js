@@ -271,7 +271,13 @@ function isSCSSMapItemNode(path) {
     return false;
   }
 
+  const parentNode = path.getParentNode();
   const parentParentNode = path.getParentNode(1);
+  const ancestorParenCount = getAncestorCounter(path, "value-paren_group");
+  const ancestorParenGroupParentNode =
+    ancestorParenCount > 0
+      ? path.getParentNode(getAncestorCounter(path, "value-paren_group") + 1)
+      : null;
 
   // Check open parens contain key/value pair (i.e. `(key: value)` and `(key: (value, other-value)`)
   if (
@@ -294,7 +300,11 @@ function isSCSSMapItemNode(path) {
   }
 
   // SCSS Map is argument of function (i.e. `func((key: value, other-key: other-value))`)
-  if (parentParentNode.type === "value-func") {
+  if (
+    parentNode.type === "value-comma_group" &&
+    parentNode.groups?.length === 1 &&
+    ancestorParenGroupParentNode?.type === "value-func"
+  ) {
     return true;
   }
 
