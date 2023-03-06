@@ -529,6 +529,13 @@ function needsParens(path, options) {
         (name === "objectType" && parent.type === "TSIndexedAccessType") ||
         (name === "elementType" && parent.type === "TSArrayType")
       );
+    case "TypeofTypeAnnotation":
+      return (
+        (name === "objectType" &&
+          (parent.type === "IndexedAccessType" ||
+            parent.type === "OptionalIndexedAccessType")) ||
+        (name === "elementType" && parent.type === "ArrayTypeAnnotation")
+      );
     case "ArrayTypeAnnotation":
       return parent.type === "NullableTypeAnnotation";
 
