@@ -3,10 +3,7 @@ import prettier from "../../config/prettier-entry.js";
 
 const {
   __debug: { parse, formatAST, formatDoc, printToDoc, printDocToString },
-  doc: {
-    builders,
-    utils: { cleanDoc },
-  },
+  doc: { builders },
 } = prettier;
 
 const code = outdent`
@@ -76,8 +73,7 @@ describe("API", () => {
 
     expect(
       await formatDoc(
-        // The argument of fill must not be passed to cleanDoc because it's not a doc
-        fill(cleanDoc(["foo", literalline, "bar"])) // invalid fill
+        fill(["foo", literalline, "bar"]) // invalid fill
       )
     ).toBe('fill(["foo", literallineWithoutBreakParent, breakParent, "bar"])');
 
