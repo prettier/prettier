@@ -529,6 +529,7 @@ function needsParens(path, options) {
         (name === "objectType" && parent.type === "TSIndexedAccessType") ||
         (name === "elementType" && parent.type === "TSArrayType")
       );
+    // Same as `TSTypeQuery`, but for FLow syntax
     case "TypeofTypeAnnotation":
       return (
         (name === "objectType" &&
@@ -589,13 +590,6 @@ function needsParens(path, options) {
 
     case "OptionalIndexedAccessType":
       return name === "objectType" && parent.type === "IndexedAccessType";
-
-    case "TypeofTypeAnnotation":
-      return (
-        name === "objectType" &&
-        (parent.type === "IndexedAccessType" ||
-          parent.type === "OptionalIndexedAccessType")
-      );
 
     case "StringLiteral":
     case "NumericLiteral":
