@@ -31,6 +31,7 @@ import {
   findInDoc,
   mapDoc,
   removeLines,
+  stripTrailingHardline,
   replaceEndOfLine,
   canBreak,
 } from "./utils.js";
@@ -70,6 +71,7 @@ export const utils = {
   findInDoc,
   mapDoc,
   removeLines,
+  stripTrailingHardline,
   replaceEndOfLine,
   canBreak,
 };

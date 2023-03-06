@@ -231,6 +231,7 @@ export namespace utils {
     callback: (doc: builders.Doc) => T
   ): T;
   function removeLines(doc: builders.Doc): builders.Doc;
+  function stripTrailingHardline(doc: builders.Doc): builders.Doc;
   function replaceEndOfLine(
     doc: builders.Doc,
     replacement?: builders.Doc
