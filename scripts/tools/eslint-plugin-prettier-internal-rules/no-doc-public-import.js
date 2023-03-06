@@ -7,7 +7,7 @@ const selector = [
   "Literal.source",
 ].join("");
 
-const messageId = "no-doc-index-import";
+const messageId = "no-doc-public-import";
 const docIndexFile = path.join(__dirname, "../../../src/document/public.js");
 const ignored = new Set([
   path.join(__dirname, "../../../src/index.js"),
@@ -88,7 +88,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-doc-index-import.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-doc-public-import.js",
     },
     messages: {
       [messageId]: "Do not {{type}} document/public.js file",
