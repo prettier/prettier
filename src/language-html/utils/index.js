@@ -370,7 +370,7 @@ function inferParserByTypeAttribute(type) {
 function inferScriptParser(node, options) {
   const { name, attrMap } = node;
 
-  if (name !== "script" || "src" in attrMap) {
+  if (name !== "script" || Object.hasOwn(attrMap, "src")) {
     return;
   }
 
