@@ -9,6 +9,7 @@ import { propagateBreaks } from "../document/utils.js";
 import { printComments } from "./comments/print.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
+import printIgnored from "./print-ignored.js";
 
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a
@@ -33,6 +34,9 @@ import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
  */
 async function printAstToDoc(ast, options, alignmentSize = 0) {
   const { printer } = options;
+
+  // For JS printer to ignore attached comments
+  options[Symbol.for("printedComments")] = new Set();
 
   if (printer.preprocess) {
     ast = await printer.preprocess(ast, options);
@@ -104,38 +108,15 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
   }
 }
 
-function printPrettierIgnoredNode(node, options) {
-  const {
-    originalText,
-    [Symbol.for("comments")]: comments,
-    locStart,
-    locEnd,
-  } = options;
-
-  const start = locStart(node);
-  const end = locEnd(node);
-  const printedComments = new Set();
-
-  for (const comment of comments) {
-    if (locStart(comment) >= start && locEnd(comment) <= end) {
-      comment.printed = true;
-      printedComments.add(comment);
-    }
-  }
-
-  return { doc: originalText.slice(start, end), printedComments };
-}
-
 function callPluginPrintFunction(path, options, printPath, args, embeds) {
   const { node } = path;
   const { printer } = options;
 
   let doc;
-  let printedComments;
 
   // Escape hatch
   if (printer.hasPrettierIgnore?.(path)) {
-    ({ doc, printedComments } = printPrettierIgnoredNode(node, options));
+    doc = printIgnored(path, options);
   } else if (embeds.has(node)) {
     doc = embeds.get(node);
   } else {
@@ -150,7 +131,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
   ) {
     // printComments will call the plugin print function and check for
     // comments to print
-    doc = printComments(path, doc, options, printedComments);
+    doc = printComments(path, doc, options);
   }
 
   if (node === options.cursorNode) {

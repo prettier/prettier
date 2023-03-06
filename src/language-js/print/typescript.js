@@ -413,6 +413,7 @@ function printTypescript(path, options, print) {
       return printJSDocType(path, print, /* token */ "?");
     case "TSJSDocNonNullableType":
       return printJSDocType(path, print, /* token */ "!");
+    case "TSParenthesizedType": // Removed in `../parse/postprocess.js`
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "TypeScript");

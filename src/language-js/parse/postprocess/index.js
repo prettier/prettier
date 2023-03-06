@@ -1,5 +1,4 @@
 import { locStart, locEnd } from "../../loc.js";
-import isTsKeywordType from "../../utils/is-ts-keyword-type.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import isBlockComment from "../../utils/is-block-comment.js";
@@ -78,14 +77,6 @@ function postprocess(ast, options) {
       }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType":
-        if (
-          !(
-            isTsKeywordType(node.typeAnnotation) ||
-            node.typeAnnotation.type === "TSThisType"
-          )
-        ) {
-          node.typeAnnotation.range = [locStart(node), locEnd(node)];
-        }
         return node.typeAnnotation;
 
       case "TSTypeParameter":

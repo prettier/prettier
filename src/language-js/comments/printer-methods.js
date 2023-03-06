@@ -1,5 +1,4 @@
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { hasJsxIgnoreComment } from "../print/jsx.js";
 import {
   getFunctionParameters,
   hasNodeIgnoreComment,
@@ -61,15 +60,12 @@ function getCommentChildNodes(node, options) {
   }
 }
 
-function hasPrettierIgnore(path) {
-  return hasNodeIgnoreComment(path.node) || hasJsxIgnoreComment(path);
-}
-
 /**
  * @param {AstPath} path
  * @returns {boolean}
  */
-function willPrintOwnComments({ node, parent }) {
+function willPrintOwnComments(path) {
+  const { node, parent } = path;
   return (
     (isJsxElement(node) ||
       (parent &&
@@ -98,10 +94,4 @@ function isGap(text, { parser }) {
 export * as handleComments from "./handle-comments.js";
 export { printComment } from "../print/comment.js";
 export { default as isBlockComment } from "../utils/is-block-comment.js";
-export {
-  canAttachComment,
-  getCommentChildNodes,
-  hasPrettierIgnore,
-  willPrintOwnComments,
-  isGap,
-};
+export { canAttachComment, getCommentChildNodes, willPrintOwnComments, isGap };

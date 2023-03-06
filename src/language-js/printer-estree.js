@@ -1,5 +1,6 @@
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 import { printDanglingComments } from "../main/comments/print.js";
+import printIgnored from "../main/print-ignored.js";
 import hasNewline from "../utils/has-newline.js";
 import {
   join,
@@ -11,6 +12,7 @@ import {
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import embed from "./embed.js";
 import clean from "./clean.js";
 import { insertPragma } from "./pragma.js";
@@ -31,6 +33,7 @@ import {
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
+import isIgnored from "./utils/is-ignored.js";
 import getVisitorKeys from "./traverse/get-visitor-keys.js";
 
 import {
@@ -103,13 +106,12 @@ import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
  * @returns {Doc}
  */
 function genericPrint(path, options, print, args) {
-  const { node } = path;
-
   const printed = printPathNoParens(path, options, print, args);
   if (!printed) {
     return "";
   }
 
+  const { node } = path;
   const { type } = node;
   // Their decorators are handled themselves, and they can't have parentheses
   if (
@@ -133,7 +135,7 @@ function genericPrint(path, options, print, args) {
 
   const printedDecorators = printDecorators(path, options, print);
   const isClassExpressionWithDecorators =
-    node.type === "ClassExpression" && printedDecorators;
+    node.type === "ClassExpression" && isNonEmptyArray(node.decorators);
   // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
   if (printedDecorators) {
     parts = [...printedDecorators, printed];
@@ -186,6 +188,10 @@ function genericPrint(path, options, print, args) {
  * @returns {Doc}
  */
 function printPathNoParens(path, options, print, args) {
+  if (isIgnored(path)) {
+    return printIgnored(path, options);
+  }
+
   for (const printer of [
     printLiteral,
     printHtmlBinding,

@@ -36,7 +36,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   const astComments = attachComments(text, ast, opts);
   const doc = await printAstToDoc(ast, opts, addAlignmentSize);
   const result = printDocToStringWithoutNormalizeOptions(doc, opts);
-  ensureAllCommentsPrinted(astComments);
+  ensureAllCommentsPrinted(opts);
 
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
