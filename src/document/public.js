@@ -71,17 +71,12 @@ export const builders = {
 };
 export const printer = { printDocToString };
 export const utils = {
-  getDocParts,
   willBreak,
   traverseDoc,
   findInDoc,
   mapDoc,
-  propagateBreaks,
   removeLines,
-  stripTrailingHardline,
-  cleanDoc,
   replaceEndOfLine,
   canBreak,
-  getDocType,
 };
 export const debug = { printDocToDebug };
