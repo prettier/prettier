@@ -391,7 +391,7 @@ function inferVueSfcBlockParser(node, options) {
   }
   const { attrMap } = node;
 
-  if ("src" in attrMap) {
+  if (Object.hasOwn(attrMap, "src")) {
     return;
   }
 
