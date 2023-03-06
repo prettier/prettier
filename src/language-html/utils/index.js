@@ -332,83 +332,90 @@ function hasNonTextChild(node) {
   return node.children?.some((child) => child.type !== "text");
 }
 
-function _inferScriptParser(node) {
-  const { type, lang } = node.attrMap;
-  if (
-    type === "module" ||
-    type === "text/javascript" ||
-    type === "text/babel" ||
-    type === "application/javascript" ||
-    lang === "jsx"
-  ) {
-    return "babel";
+function inferParserByTypeAttribute(type) {
+  if (!type) {
+    return;
   }
 
-  if (type === "application/x-typescript" || lang === "ts" || lang === "tsx") {
-    return "typescript";
-  }
+  switch (type) {
+    case "module":
+    case "text/javascript":
+    case "text/babel":
+    case "application/javascript":
+      return "babel";
 
-  if (type === "text/markdown") {
-    return "markdown";
-  }
+    case "application/x-typescript":
+      return "typescript";
 
-  if (type === "text/html") {
-    return "html";
-  }
+    case "text/markdown":
+      return "markdown";
 
-  if (
-    (type && (type.endsWith("json") || type.endsWith("importmap"))) ||
-    type === "speculationrules"
-  ) {
-    return "json";
-  }
+    case "text/html":
+      return "html";
 
-  if (type === "text/x-handlebars-template") {
-    return "glimmer";
-  }
-}
+    case "text/x-handlebars-template":
+      return "glimmer";
 
-function inferStyleParser(node, options) {
-  const { lang } = node.attrMap;
-  if (!lang || lang === "postcss" || lang === "css") {
-    return "css";
-  }
-
-  if (lang === "scss") {
-    return "scss";
-  }
-
-  if (lang === "less") {
-    return "less";
-  }
-
-  // Prettier does not officially support stylus.
-  // But, we need to handle `"stylus"` here for printing a style block in Vue SFC as stylus code by external plugin.
-  // https://github.com/prettier/prettier/pull/12707
-  if (lang === "stylus") {
-    return inferParser(options, { language: "stylus" });
+    default:
+      if (
+        type.endsWith("json") ||
+        type.endsWith("importmap") ||
+        type === "speculationrules"
+      ) {
+        return "json";
+      }
   }
 }
 
 function inferScriptParser(node, options) {
-  if (node.name === "script" && !node.attrMap.src) {
-    if (!node.attrMap.lang && !node.attrMap.type) {
-      return "babel";
-    }
-    return _inferScriptParser(node);
+  const { name, attrMap } = node;
+
+  if (name !== "script" || Object.hasOwn(attrMap, "src")) {
+    return;
   }
 
-  if (node.name === "style") {
-    return inferStyleParser(node, options);
+  const { type, lang } = node.attrMap;
+
+  if (!lang && !type) {
+    return "babel";
   }
 
-  if (options && isVueNonHtmlBlock(node, options)) {
-    return (
-      _inferScriptParser(node) ||
-      (!("src" in node.attrMap) &&
-        inferParser(options, { language: node.attrMap.lang }))
-    );
+  return (
+    inferParser(options, { language: lang }) ?? inferParserByTypeAttribute(type)
+  );
+}
+
+function inferVueSfcBlockParser(node, options) {
+  if (!isVueNonHtmlBlock(node, options)) {
+    return;
   }
+  const { attrMap } = node;
+
+  if (Object.hasOwn(attrMap, "src")) {
+    return;
+  }
+
+  const { type, lang } = attrMap;
+
+  return (
+    inferParser(options, { language: lang }) ?? inferParserByTypeAttribute(type)
+  );
+}
+
+function inferStyleParser(node, options) {
+  if (node.name !== "style") {
+    return;
+  }
+  const { lang } = node.attrMap;
+  return lang ? inferParser(options, { language: lang }) : "css";
+}
+
+function inferElementParser(node, options) {
+  return (
+    inferScriptParser(node, options) ??
+    inferStyleParser(node, options) ??
+    inferVueSfcBlockParser(node, options)
+  );
 }
 
 function isBlockLikeCssDisplay(cssDisplay) {
@@ -631,7 +638,7 @@ export {
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
   hasPrettierIgnore,
-  inferScriptParser,
+  inferElementParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
   isVueScriptTag,
