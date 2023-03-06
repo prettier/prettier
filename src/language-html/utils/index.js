@@ -381,7 +381,7 @@ function inferScriptParser(node, options) {
   }
 
   return (
-    inferParserByTypeAttribute(type) ?? inferParser(options, { language: lang })
+    inferParser(options, { language: lang }) ?? inferParserByTypeAttribute(type)
   );
 }
 
@@ -398,7 +398,7 @@ function inferVueSfcBlockParser(node, options) {
   const { type, lang } = attrMap;
 
   return (
-    inferParserByTypeAttribute(type) ?? inferParser(options, { language: lang })
+    inferParser(options, { language: lang }) ?? inferParserByTypeAttribute(type)
   );
 }
 
