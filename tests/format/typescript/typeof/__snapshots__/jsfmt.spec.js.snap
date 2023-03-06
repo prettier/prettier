@@ -19,31 +19,3 @@ type D = number[typeof node.children];
 
 ================================================================================
 `;
-
-exports[`typeof-2.ts [babel-ts] format 1`] = `
-"Unexpected token (1:32)
-> 1 | type E = (typeof node.children)?.[number];
-    |                                ^
-  2 |"
-`;
-
-exports[`typeof-2.ts [flow] format 1`] = `
-====================================options=====================================
-parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-type E = (typeof node.children)?.[number];
-
-=====================================output=====================================
-type E = (typeof node.children)?.[number];
-
-================================================================================
-`;
-
-exports[`typeof-2.ts [typescript] format 1`] = `
-"';' expected. (1:32)
-> 1 | type E = (typeof node.children)?.[number];
-    |                                ^
-  2 |"
-`;
