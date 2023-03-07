@@ -1,4 +1,4 @@
-// https://github.com/prettier/prettier/blob/next/src/document/index.js
+// https://github.com/prettier/prettier/blob/next/src/document/public.js
 export namespace builders {
   type DocCommand =
     | Align
@@ -183,10 +183,6 @@ export namespace builders {
   const cursor: Cursor;
 }
 
-export namespace debug {
-  function printDocToDebug(doc: builders.Doc): string;
-}
-
 export namespace printer {
   function printDocToString(
     doc: builders.Doc,
@@ -218,7 +214,6 @@ export namespace printer {
 }
 
 export namespace utils {
-  function getDocParts(doc: builders.Doc): builders.Doc;
   function willBreak(doc: builders.Doc): boolean;
   function traverseDoc(
     doc: builders.Doc,
@@ -235,14 +230,11 @@ export namespace utils {
     doc: builders.Doc,
     callback: (doc: builders.Doc) => T
   ): T;
-  function propagateBreaks(doc: builders.Doc): void;
   function removeLines(doc: builders.Doc): builders.Doc;
   function stripTrailingHardline(doc: builders.Doc): builders.Doc;
-  function cleanDoc(doc: builders.Doc): builders.Doc;
   function replaceEndOfLine(
     doc: builders.Doc,
     replacement?: builders.Doc
   ): builders.Doc;
   function canBreak(doc: builders.Doc): boolean;
-  function getDocType(doc: builders.Doc): string;
 }

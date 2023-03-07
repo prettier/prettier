@@ -8,10 +8,10 @@
 // exported module.
 export {};
 
-import { builders, debug, printer, utils } from "./document/index.js";
+import { builders, printer, utils } from "./document/public.js";
 
 export namespace doc {
-  export { builders, debug, printer, utils };
+  export { builders, printer, utils };
 }
 
 // This utility is here to handle the case where you have an explicit union
