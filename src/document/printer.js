@@ -296,8 +296,6 @@ function fits(
 }
 
 function printDocToString(doc, options) {
-  propagateBreaks(doc);
-
   /** @type GroupModeMap */
   const groupModeMap = {};
 
@@ -314,6 +312,8 @@ function printDocToString(doc, options) {
   /** @type Command[] */
   const lineSuffix = [];
   let printedCursorCount = 0;
+
+  propagateBreaks(doc);
 
   while (cmds.length > 0) {
     const { ind, mode, doc } = cmds.pop();
