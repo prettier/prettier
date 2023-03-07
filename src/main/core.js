@@ -1,5 +1,6 @@
 import { diffArrays } from "diff";
 
+import { hardline, addAlignmentToDoc } from "../document/builders.js";
 import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer.js";
 import { printDocToDebug } from "../document/debug.js";
 import getAlignmentSize from "../utils/get-alignment-size.js";
@@ -34,9 +35,15 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   }
 
   const astComments = attachComments(text, ast, opts);
-  const doc = await printAstToDoc(ast, opts, addAlignmentSize);
-  const result = printDocToStringWithoutNormalizeOptions(doc, opts);
+  let doc = await printAstToDoc(ast, opts, addAlignmentSize);
   ensureAllCommentsPrinted(opts);
+
+  if (addAlignmentSize > 0) {
+    // Add a hardline to make the indents take effect, it will be removed later
+    doc = addAlignmentToDoc([hardline, doc], addAlignmentSize, opts.tabWidth);
+  }
+
+  const result = printDocToStringWithoutNormalizeOptions(doc, opts);
 
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {

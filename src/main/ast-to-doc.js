@@ -1,10 +1,5 @@
 import AstPath from "../common/ast-path.js";
-import {
-  hardline,
-  addAlignmentToDoc,
-  cursor,
-  label,
-} from "../document/builders.js";
+import { cursor, label } from "../document/builders.js";
 import { printComments } from "./comments/print.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
@@ -31,7 +26,7 @@ import printIgnored from "./print-ignored.js";
  * state of the recursion. It is called "path", because it represents
  * the path to the current node through the Abstract Syntax Tree.
  */
-async function printAstToDoc(ast, options, alignmentSize = 0) {
+async function printAstToDoc(ast, options) {
   const { printer } = options;
 
   // For JS printer to ignore attached comments
@@ -51,19 +46,13 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
 
   // Only the root call of the print method is awaited.
   // This is done to make things simpler for plugins that don't use recursive printing.
-  let doc = await callPluginPrintFunction(
+  const doc = await callPluginPrintFunction(
     path,
     options,
     mainPrint,
     undefined,
     embeds
   );
-
-  if (alignmentSize > 0) {
-    // Add a hardline to make the indents take effect
-    // It should be removed in index.js format()
-    doc = addAlignmentToDoc([hardline, doc], alignmentSize, options.tabWidth);
-  }
 
   return doc;
 
