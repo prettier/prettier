@@ -951,7 +951,9 @@ function genericPrint(path, options, print) {
       const isSCSSMapItem = isSCSSMapItemNode(path);
 
       const lastItem = getLast(node.groups);
-      const isLastItemComment = lastItem && lastItem.type === "value-comment";
+      const isLastItemComment =
+        lastItem?.groups?.length === 1 &&
+        lastItem?.groups[0].type === "value-comment";
       const isKey = isKeyInValuePairNode(node, parentNode);
       const isConfiguration = isConfigurationNode(node, parentNode);
 
