@@ -1184,10 +1184,6 @@ function isObjectProperty(node) {
   );
 }
 
-function isEnabledHackPipeline(options) {
-  return Boolean(options.__isUsingHackPipeline);
-}
-
 /**
  * This is used as a marker for dangling comments.
  */
@@ -1217,7 +1213,6 @@ export {
   identity,
   isBinaryish,
   isCallLikeExpression,
-  isEnabledHackPipeline,
   isLineComment,
   isPrettierIgnoreComment,
   isCallExpression,

@@ -37,7 +37,7 @@ function createParseError(error) {
   });
 }
 
-function parse(text, options = {}) {
+function parse(text) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 
@@ -58,11 +58,9 @@ function parse(text, options = {}) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
+  throwErrorForInvalidNodes(result, text);
 
-  throwErrorForInvalidNodes(result, options);
-
-  return postprocess(result.ast, options);
+  return postprocess(result.ast, { parser: "typescript", text });
 }
 
 /**

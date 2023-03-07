@@ -104,17 +104,17 @@ function parseWithOptions(parse, text, options) {
 }
 
 function createParse({ isExpression = false, optionsCombinations }) {
-  return (text, opts = {}) => {
+  return (text, options = {}) => {
     if (
-      (opts.parser === "babel" || opts.parser === "__babel_estree") &&
-      isFlowFile(text, opts)
+      (options.parser === "babel" || options.parser === "__babel_estree") &&
+      isFlowFile(text, options)
     ) {
-      opts.parser = "babel-flow";
-      return babelFlow.parse(text, opts);
+      options.parser = "babel-flow";
+      return babelFlow.parse(text, options);
     }
 
     let combinations = optionsCombinations;
-    const sourceType = opts.__babelSourceType ?? getSourceType(opts);
+    const sourceType = options.__babelSourceType ?? getSourceType(options);
     if (sourceType === "script") {
       combinations = combinations.map((options) => ({
         ...options,
@@ -158,13 +158,11 @@ function createParse({ isExpression = false, optionsCombinations }) {
       throw createBabelParseError(error);
     }
 
-    opts.originalText = text;
-
     if (isExpression) {
-      ast = wrapBabelExpression(ast, opts);
+      ast = wrapBabelExpression(ast, { text, rootMarker: options.rootMarker });
     }
 
-    return postprocess(ast, opts);
+    return postprocess(ast, { parser: "babel", text });
   };
 }
 
