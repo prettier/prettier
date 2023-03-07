@@ -1,50 +1,50 @@
-import * as prettier from "../../../../src/index";
+import * as prettier from "../../../../dist/index.js";
 
-import acornEspreeParser from "../../../../src/language-js/parse/acorn-and-espree";
-import angularParser from "../../../../src/language-js/parse/angular";
-import babelParser from "../../../../src/language-js/parse/babel";
-import flowParser from "../../../../src/language-js/parse/flow";
-import glimmerParser from "../../../../src/language-handlebars/parser-glimmer";
-import graphqlParser from "../../../../src/language-graphql/parser-graphql";
-import htmlParser from "../../../../src/language-html/parser-html";
-import markdownParser from "../../../../src/language-markdown/parser-markdown";
-import meriyahParser from "../../../../src/language-js/parse/meriyah";
-import postcssParser from "../../../../src/language-css/parser-postcss";
-import typescriptParser from "../../../../src/language-js/parse/typescript";
-import yamlParser from "../../../../src/language-yaml/parser-yaml";
+import acornEspreePlugin from "../../../../dist/plugins/acorn-and-espree.js";
+import angularPlugin from "../../../../dist/plugins/angular.js";
+import babelPlugin from "../../../../dist/plugins/babel.js";
+import flowPlugin from "../../../../dist/plugins/flow.js";
+import glimmerPlugin from "../../../../dist/plugins/glimmer.js";
+import graphqlPlugin from "../../../../dist/plugins/graphql.js";
+import htmlPlugin from "../../../../dist/plugins/html.js";
+import markdownPlugin from "../../../../dist/plugins/markdown.js";
+import typescriptPlugin from "../../../../dist/plugins/typescript.js";
+import meriyahPlugin from "../../../../dist/plugins/meriyah.js";
+import postcssPlugin from "../../../../dist/plugins/postcss.js";
+import yamlPlugin from "../../../../dist/plugins/yaml.js";
 
-acornEspreeParser.parsers.acorn.parse;
-acornEspreeParser.parsers.espree.parse;
-angularParser.parsers.__ng_action.parse;
-babelParser.parsers.babel.parse;
-flowParser.parsers.flow.parse;
-glimmerParser.parsers.glimmer.parse;
-graphqlParser.parsers.graphql.parse;
-htmlParser.parsers.html.parse;
-htmlParser.parsers.vue.parse;
-htmlParser.parsers.lwc.parse;
-htmlParser.parsers.angular.parse;
-markdownParser.parsers.markdown.parse;
-markdownParser.parsers.mdx.parse;
-meriyahParser.parsers.meriyah.parse;
-postcssParser.parsers.css.parse;
-postcssParser.parsers.less.parse;
-postcssParser.parsers.scss.parse;
-typescriptParser.parsers.typescript.parse;
-yamlParser.parsers.yaml.parse;
+acornEspreePlugin.parsers.acorn.parse;
+acornEspreePlugin.parsers.espree.parse;
+angularPlugin.parsers.__ng_action.parse;
+babelPlugin.parsers.babel.parse;
+flowPlugin.parsers.flow.parse;
+glimmerPlugin.parsers.glimmer.parse;
+graphqlPlugin.parsers.graphql.parse;
+htmlPlugin.parsers.html.parse;
+htmlPlugin.parsers.vue.parse;
+htmlPlugin.parsers.lwc.parse;
+htmlPlugin.parsers.angular.parse;
+markdownPlugin.parsers.markdown.parse;
+markdownPlugin.parsers.mdx.parse;
+typescriptPlugin.parsers.typescript.parse;
+meriyahPlugin.parsers.meriyah.parse;
+postcssPlugin.parsers.css.parse;
+postcssPlugin.parsers.less.parse;
+postcssPlugin.parsers.scss.parse;
+yamlPlugin.parsers.yaml.parse;
 
 prettier.format("hello world", {
   plugins: [
-    acornEspreeParser,
-    angularParser,
-    babelParser,
-    flowParser,
-    glimmerParser,
-    htmlParser,
-    markdownParser,
-    meriyahParser,
-    postcssParser,
-    typescriptParser,
-    yamlParser,
+    acornEspreePlugin,
+    angularPlugin,
+    babelPlugin,
+    flowPlugin,
+    glimmerPlugin,
+    htmlPlugin,
+    markdownPlugin,
+    meriyahPlugin,
+    postcssPlugin,
+    typescriptPlugin,
+    yamlPlugin,
   ],
 });
