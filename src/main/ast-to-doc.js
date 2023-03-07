@@ -6,10 +6,11 @@ import {
   label,
 } from "../document/builders.js";
 import { propagateBreaks } from "../document/utils.js";
-import { printComments } from "./comments/print.js";
+import { printComments, ensureAllCommentsPrinted } from "./comments/print.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
 import printIgnored from "./print-ignored.js";
+import { attachComments } from "./comments/attach.js";
 
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a
@@ -33,14 +34,7 @@ import printIgnored from "./print-ignored.js";
  * the path to the current node through the Abstract Syntax Tree.
  */
 async function printAstToDoc(ast, options, alignmentSize = 0) {
-  const { printer } = options;
-
-  // For JS printer to ignore attached comments
-  options[Symbol.for("printedComments")] = new Set();
-
-  if (printer.preprocess) {
-    ast = await printer.preprocess(ast, options);
-  }
+  ({ ast } = await prepareToPrint(ast, options));
 
   const cache = new Map();
   const path = new AstPath(ast);
@@ -59,6 +53,8 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
     undefined,
     embeds
   );
+
+  ensureAllCommentsPrinted(options);
 
   if (alignmentSize > 0) {
     // Add a hardline to make the indents take effect
@@ -146,4 +142,22 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
   return doc;
 }
 
-export default printAstToDoc;
+async function prepareToPrint(ast, options) {
+  const comments = ast.comments ?? [];
+  options[Symbol.for("comments")] = comments;
+  options[Symbol.for("tokens")] = ast.tokens ?? [];
+  // For JS printer to ignore attached comments
+  options[Symbol.for("printedComments")] = new Set();
+
+  attachComments(ast, options);
+
+  const {
+    printer: { preprocess },
+  } = options;
+
+  ast = preprocess ? await preprocess(ast, options) : ast;
+
+  return { ast, comments };
+}
+
+export { printAstToDoc, prepareToPrint };

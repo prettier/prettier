@@ -45,6 +45,7 @@ async function parse(originalText, options) {
     handleParseError(error, originalText);
   }
 
+  options.originalText = text;
   return { text, ast };
 }
 
