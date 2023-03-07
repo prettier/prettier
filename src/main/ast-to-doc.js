@@ -1,4 +1,5 @@
 import AstPath from "../common/ast-path.js";
+<<<<<<< HEAD
 import {
   hardline,
   addAlignmentToDoc,
@@ -7,6 +8,10 @@ import {
 } from "../document/builders.js";
 import { propagateBreaks } from "../document/utils.js";
 import { printComments, ensureAllCommentsPrinted } from "./comments/print.js";
+=======
+import { cursor, label } from "../document/builders.js";
+import { printComments } from "./comments/print.js";
+>>>>>>> next
 import { printEmbeddedLanguages } from "./multiparser.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
 import printIgnored from "./print-ignored.js";
@@ -33,7 +38,7 @@ import { attachComments } from "./comments/attach.js";
  * state of the recursion. It is called "path", because it represents
  * the path to the current node through the Abstract Syntax Tree.
  */
-async function printAstToDoc(ast, options, alignmentSize = 0) {
+async function printAstToDoc(ast, options) {
   ({ ast } = await prepareToPrint(ast, options));
 
   const cache = new Map();
@@ -46,7 +51,7 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
 
   // Only the root call of the print method is awaited.
   // This is done to make things simpler for plugins that don't use recursive printing.
-  let doc = await callPluginPrintFunction(
+  const doc = await callPluginPrintFunction(
     path,
     options,
     mainPrint,
@@ -55,14 +60,6 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
   );
 
   ensureAllCommentsPrinted(options);
-
-  if (alignmentSize > 0) {
-    // Add a hardline to make the indents take effect
-    // It should be removed in index.js format()
-    doc = addAlignmentToDoc([hardline, doc], alignmentSize, options.tabWidth);
-  }
-
-  propagateBreaks(doc);
 
   return doc;
 
