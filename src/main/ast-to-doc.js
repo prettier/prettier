@@ -1,6 +1,5 @@
 import AstPath from "../common/ast-path.js";
 import { cursor, label } from "../document/builders.js";
-import { propagateBreaks } from "../document/utils.js";
 import { printComments } from "./comments/print.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
@@ -54,8 +53,6 @@ async function printAstToDoc(ast, options) {
     undefined,
     embeds
   );
-
-  propagateBreaks(doc);
 
   return doc;
 
