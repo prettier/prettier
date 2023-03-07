@@ -37,8 +37,7 @@ function createJsonParse(options = {}) {
 
     assertJsonNode(ast);
 
-    options.originalText = text;
-    return wrapBabelExpression(ast, options, "JsonRoot");
+    return wrapBabelExpression(ast, { type: "JsonRoot", text });
   };
 }
 

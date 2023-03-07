@@ -99,8 +99,7 @@ function parse(text, options = {}) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { parser: "meriyah", text });
 }
 
 const parser = {

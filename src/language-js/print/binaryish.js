@@ -20,7 +20,6 @@ import {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-  isEnabledHackPipeline,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
 } from "../utils/index.js";
@@ -37,7 +36,7 @@ function printBinaryishExpression(path, options, print) {
       parent.type === "SwitchStatement" ||
       parent.type === "DoWhileStatement");
   const isHackPipeline =
-    isEnabledHackPipeline(options) && node.operator === "|>";
+    node.operator === "|>" && path.root.extra?.__isUsingHackPipeline;
 
   const parts = printBinaryishExpressions(
     path,
@@ -253,7 +252,8 @@ function printBinaryishExpressions(
   if (shouldInline) {
     right = [operator, " ", print("right"), rightSuffix];
   } else {
-    const isHackPipeline = isEnabledHackPipeline(options) && operator === "|>";
+    const isHackPipeline =
+      operator === "|>" && path.root.extra?.__isUsingHackPipeline;
     const rightContent = isHackPipeline
       ? path.call(
           (left) =>

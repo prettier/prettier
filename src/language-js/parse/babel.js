@@ -158,13 +158,11 @@ function createParse({ isExpression = false, optionsCombinations }) {
       throw createBabelParseError(error);
     }
 
-    opts.originalText = text;
-
     if (isExpression) {
-      ast = wrapBabelExpression(ast, opts);
+      ast = wrapBabelExpression(ast, { text, rootMarker: opts.rootMarker });
     }
 
-    return postprocess(ast, opts);
+    return postprocess(ast, { parser: "babel", text });
   };
 }
 
