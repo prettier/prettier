@@ -8,7 +8,7 @@ import wrapBabelExpression from "../language-js/parse/utils/wrap-babel-expressio
 function createJsonParse(options = {}) {
   const { allowComments = true } = options;
 
-  return function parse(text, options = {}) {
+  return function parse(text) {
     let ast;
     try {
       ast = parseExpression(text, {
