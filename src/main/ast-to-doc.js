@@ -1,10 +1,10 @@
 import AstPath from "../common/ast-path.js";
 import { cursor, label } from "../document/builders.js";
+import { attachComments } from "./comments/attach.js";
 import { printComments, ensureAllCommentsPrinted } from "./comments/print.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
 import printIgnored from "./print-ignored.js";
-import { attachComments } from "./comments/attach.js";
 
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a
