@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-import { outdent } from "outdent";
 import { PROJECT_ROOT, DIST_DIR, writeFile } from "../utils/index.mjs";
+import { format } from "../../index.js";
 
 async function typesFileBuilder({ file }) {
   /**
@@ -32,7 +32,8 @@ async function buildPluginTypes({ file: { input, output } }) {
 
   await writeFile(
     path.join(DIST_DIR, output.file),
-    outdent`
+    await format(
+      `
       import { Parser } from "../index.js";
 
       declare const plugin: {
@@ -47,7 +48,9 @@ async function buildPluginTypes({ file: { input, output } }) {
       };
 
       export default plugin;
-    ` + "\n"
+    `,
+      { parser: "typescript" }
+    )
   );
 }
 
