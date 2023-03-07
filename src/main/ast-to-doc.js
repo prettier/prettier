@@ -112,8 +112,9 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
   // We let JSXElement print its comments itself because it adds () around
   // UnionTypeAnnotation has to align the child without the comments
   if (
-    !printer.willPrintOwnComments ||
-    !printer.willPrintOwnComments(path, options)
+    printer.printComment &&
+    (!printer.willPrintOwnComments ||
+      !printer.willPrintOwnComments(path, options))
   ) {
     // printComments will call the plugin print function and check for
     // comments to print
@@ -124,7 +125,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
     doc = label(
       // Propagate object labels so that the printing logic for ancestor nodes
       // could easily check them.
-      typeof doc.label === "object" && { commented: true, ...doc.label },
+      doc.label,
       [cursor, doc, cursor]
     );
   }
