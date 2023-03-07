@@ -18,7 +18,7 @@ import {
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
 import { fill, indent, hardlineWithoutBreakParent } from "./builders.js";
-import { getDocParts, getDocType } from "./utils.js";
+import { getDocParts, getDocType, propagateBreaks } from "./utils.js";
 import InvalidDocError from "./invalid-doc-error.js";
 
 /** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
@@ -296,6 +296,8 @@ function fits(
 }
 
 function printDocToString(doc, options) {
+  propagateBreaks(doc);
+
   /** @type GroupModeMap */
   const groupModeMap = {};
 

@@ -5,7 +5,6 @@ import {
   cursor,
   label,
 } from "../document/builders.js";
-import { propagateBreaks } from "../document/utils.js";
 import { printComments } from "./comments/print.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
@@ -65,8 +64,6 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
     // It should be removed in index.js format()
     doc = addAlignmentToDoc([hardline, doc], alignmentSize, options.tabWidth);
   }
-
-  propagateBreaks(doc);
 
   return doc;
 
