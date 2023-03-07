@@ -3,12 +3,7 @@ import url from "node:url";
 import fs from "node:fs";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
-import {
-  PROJECT_ROOT,
-  DIST_DIR,
-  copyFile,
-  writeFile,
-} from "../utils/index.mjs";
+import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.mjs";
 import buildJavascriptModule from "./build-javascript-module.js";
 import buildPackageJson from "./build-package-json.js";
 import buildLicense from "./build-license.js";
