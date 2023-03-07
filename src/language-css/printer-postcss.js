@@ -904,6 +904,10 @@ function genericPrint(path, options, print) {
         return group(fill(parts));
       }
 
+      if (parts.length === 1) {
+        return parts[0];
+      }
+
       return group(indent(fill(parts)));
     }
     case "value-paren_group": {
