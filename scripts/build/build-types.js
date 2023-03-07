@@ -33,22 +33,22 @@ async function buildPluginTypes({ file: { input, output } }) {
   await writeFile(
     path.join(DIST_DIR, output.file),
     await format(
-      `
-      import { Parser } from "../index.js";
+      /* indent */ `
+        import { Parser } from "../index.js";
 
-      declare const plugin: {
-        parsers: {
-      ${Object.keys(plugin.parsers)
-        .map(
-          (parserName) =>
-            `${" ".repeat(4)}${JSON.stringify(parserName)}: Parser;`
-        )
-        .join("\n")}
+        declare const plugin: {
+          parsers: {
+        ${Object.keys(plugin.parsers)
+          .map(
+            (parserName) =>
+              `${" ".repeat(4)}${JSON.stringify(parserName)}: Parser;`
+          )
+          .join("\n")}
+          };
         };
-      };
 
-      export default plugin;
-    `,
+        export default plugin;
+      `,
       { parser: "typescript" }
     )
   );
