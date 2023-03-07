@@ -1,17 +1,6 @@
 import AstPath from "../common/ast-path.js";
-<<<<<<< HEAD
-import {
-  hardline,
-  addAlignmentToDoc,
-  cursor,
-  label,
-} from "../document/builders.js";
-import { propagateBreaks } from "../document/utils.js";
-import { printComments, ensureAllCommentsPrinted } from "./comments/print.js";
-=======
 import { cursor, label } from "../document/builders.js";
-import { printComments } from "./comments/print.js";
->>>>>>> next
+import { printComments, ensureAllCommentsPrinted } from "./comments/print.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
 import printIgnored from "./print-ignored.js";
