@@ -35,11 +35,12 @@ function* getChildren(node, options) {
  */
 function* getDescendants(node, options) {
   const queue = [node];
-  while (queue.length > 0) {
-    const node = queue.shift();
+  for (let index = 0; index < queue.length; index++) {
+    const node = queue[index];
+
     for (const child of getChildren(node, options)) {
-      queue.push(child);
       yield child;
+      queue.push(child);
     }
   }
 }
