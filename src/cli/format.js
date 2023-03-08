@@ -204,11 +204,9 @@ async function format(context, input, opt) {
         JSON.stringify(result, null, 2)
     );
   } else if (performanceTestFlag?.debugRepeat) {
-    const repeat = context.argv.debugRepeat;
+    const repeat = performanceTestFlag.debugRepeat;
     context.logger.debug(
-      "'--debug-repeat' option found, running formatWithCursor " +
-        repeat +
-        " times."
+      `'${performanceTestFlag.name}' found, running formatWithCursor ${repeat} times.`
     );
     let totalMs = 0;
     for (let i = 0; i < repeat; ++i) {
@@ -224,8 +222,9 @@ async function format(context, input, opt) {
       ms: averageMs,
     };
     context.logger.debug(
-      "'--debug-repeat' measurements for formatWithCursor: " +
-        JSON.stringify(results, null, 2)
+      `'${
+        performanceTestFlag.name
+      }' measurements for formatWithCursor: ${JSON.stringify(results, null, 2)}`
     );
   }
 
