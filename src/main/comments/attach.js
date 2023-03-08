@@ -2,6 +2,7 @@ import assert from "node:assert";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import createGetVisitorKeysFunction from "../create-get-visitor-keys-function.js";
+import { getChildren } from "../ast-utils.js";
 import {
   addLeadingComment,
   addDanglingComment,
@@ -33,20 +34,14 @@ function getSortedChildNodes(node, options) {
   }
 
   const childNodes = (
-    getCommentChildNodes?.(node, options) ??
-    createGetVisitorKeysFunction(printerGetVisitorKeys)(node).flatMap(
-      (key) => node[key]
-    )
-  ).flatMap((childNode) => {
-    if (!(childNode !== null && typeof childNode === "object")) {
-      return [];
-    }
-
-    return canAttachComment(childNode)
-      ? childNode
-      : getSortedChildNodes(childNode, options);
-  });
-
+    getCommentChildNodes?.(node, options) ?? [
+      ...getChildren(node, {
+        getVisitorKeys: createGetVisitorKeysFunction(printerGetVisitorKeys),
+      }),
+    ]
+  ).flatMap((node) =>
+    canAttachComment(node) ? [node] : getSortedChildNodes(node, options)
+  );
   // Sort by `start` location first, then `end` location
   childNodes.sort(
     (nodeA, nodeB) =>
