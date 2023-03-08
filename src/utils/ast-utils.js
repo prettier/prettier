@@ -1,4 +1,4 @@
-import isObject from "../utils/is-object.js";
+import isObject from "./is-object.js";
 
 function* getChildren(node, options) {
   const { getVisitorKeys, filter = () => true } = options;

@@ -1,5 +1,5 @@
 import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
-import { hasDescendant } from "../../main/ast-utils.js";
+import { hasDescendant } from "../../utils/ast-utils.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";

@@ -1,8 +1,8 @@
 import assert from "node:assert";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { getChildren } from "../../utils/ast-utils.js";
 import createGetVisitorKeysFunction from "../create-get-visitor-keys-function.js";
-import { getChildren } from "../ast-utils.js";
 import {
   addLeadingComment,
   addDanglingComment,
