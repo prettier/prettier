@@ -535,10 +535,10 @@ function genericPrint(path, options, print) {
         (declAncestorProp === "grid" ||
           declAncestorProp.startsWith("grid-template"));
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
-      const commaGroupAncestorNode = getAncestorNode(path, "value-comma_group");
+      const valueRootNode = getAncestorNode(path, "value-root");
       const isControlDirective =
-        commaGroupAncestorNode === null &&
         atRuleAncestorNode &&
+        atRuleAncestorNode.value === valueRootNode &&
         isSCSSControlDirectiveNode(atRuleAncestorNode);
       const hasInlineComment = node.groups.some((node) =>
         isInlineValueCommentNode(node)
@@ -788,7 +788,7 @@ function genericPrint(path, options, print) {
 
         // Add `hardline` after inline comment (i.e. `// comment\n foo: bar;`)
         if (isInlineValueCommentNode(iNode)) {
-          if (parentNode.type === "value-paren_group") {
+          if (parentNode.type === "value-paren_group" && parentNode.open) {
             parts.push(dedent(hardline));
             continue;
           }
