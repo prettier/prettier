@@ -109,7 +109,7 @@ const hasSideEffect = createTypeCheckFunction([
  * @returns {boolean}
  */
 function hasNgSideEffect({ node }) {
-  return hasSideEffect(node) || hasNode(node, hasSideEffect);
+  return hasNode(node, hasSideEffect);
 }
 
 export { printAngular };

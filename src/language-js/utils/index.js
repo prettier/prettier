@@ -32,7 +32,7 @@ import isNodeMatches from "./is-node-matches.js";
  * @returns {boolean}
  */
 function hasNode(node, predicate) {
-  return hasDescendant(node, { getVisitorKeys, predicate });
+  return predicate(node) || hasDescendant(node, { getVisitorKeys, predicate });
 }
 
 /**
