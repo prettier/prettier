@@ -34,12 +34,11 @@ function* getChildren(node, options) {
  * @param {{getVisitorKeys: GetVisitorKeys, filter?: Predicate}} options
  */
 function* getDescendants(node, options) {
-  const nodes = [node];
-  while (nodes.length > 0) {
-    const node = nodes.pop();
-
+  const queue = [node];
+  while (queue.length > 0) {
+    const node = queue.shift();
     for (const child of getChildren(node, options)) {
-      nodes.push(child);
+      queue.push(child);
       yield child;
     }
   }

@@ -18,8 +18,8 @@ test("Breadth-first", () => {
         "tree.list.1",
         "tree.list.2",
         "tree.leaf",
-        "tree.list.2.list.1",
         "tree.list.1.leaf",
+        "tree.list.2.list.1",
       ]
     `);
 });
