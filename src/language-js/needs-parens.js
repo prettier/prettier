@@ -942,13 +942,9 @@ function isPathInForStatementInitializer(path) {
 function includesFunctionTypeInObjectType(node) {
   return hasNode(
     node,
-    (n1) =>
-      (n1.type === "ObjectTypeAnnotation" &&
-        hasNode(
-          n1,
-          (n2) => n2.type === "FunctionTypeAnnotation" || undefined
-        )) ||
-      undefined
+    (node) =>
+      node.type === "ObjectTypeAnnotation" &&
+      hasNode(node, (node) => node.type === "FunctionTypeAnnotation")
   );
 }
 

@@ -31,4 +31,14 @@ function* getDescendants(node, options) {
   }
 }
 
-export { getDescendants, getChildren };
+function hasDescendant(node, { getVisitorKeys, predicate }) {
+  for (const descendant of getDescendants(node, { getVisitorKeys })) {
+    if (predicate(descendant)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+export { hasDescendant, getDescendants, getChildren };
