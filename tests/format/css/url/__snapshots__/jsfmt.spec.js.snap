@@ -21,7 +21,7 @@ div {
 }
 
 @font-face {
-  src: url(RobotoFlex-VariableFont_GRADXTRAYOPQYTASYTDEYTFIYTLCYTUCopszslntwdthwght.ttf);
+  src: url(RobotoFlex-VariableFont_GRAD,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf);
 }
 
 ================================================================================
