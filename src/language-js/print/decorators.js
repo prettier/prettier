@@ -1,5 +1,6 @@
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import hasNewline from "../../utils/has-newline.js";
+import isIgnored from "../utils/is-ignored.js";
 import {
   line,
   hardline,
@@ -36,7 +37,9 @@ function printDecorators(path, options, print) {
     // If the parent node is an export declaration and the decorator
     // was written before the export, the export will be responsible
     // for printing the decorators.
-    hasDecoratorsBeforeExport(parent)
+    hasDecoratorsBeforeExport(parent) ||
+    // Decorators already printed in ignored node
+    isIgnored(path)
   ) {
     return;
   }

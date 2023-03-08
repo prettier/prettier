@@ -1,3 +1,4 @@
+import { parse as babelParse, parseExpression } from "@babel/parser";
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
@@ -22,6 +23,7 @@ const parseOptions = {
   sourceType: "module",
   allowImportExportEverywhere: true,
   allowReturnOutsideFunction: true,
+  allowNewTargetOutsideFunction: true,
   allowSuperOutsideMethod: true,
   allowUndeclaredExports: true,
   errorRecovery: true,
@@ -35,7 +37,7 @@ const parseOptions = {
     "functionSent",
     "throwExpressions",
     "partialApplication",
-    ["decorators", { decoratorsBeforeExport: false }],
+    "decorators",
     "importAssertions",
     "decimal",
     "moduleBlocks",
@@ -102,17 +104,17 @@ function parseWithOptions(parse, text, options) {
 }
 
 function createParse({ isExpression = false, optionsCombinations }) {
-  return async (text, opts = {}) => {
+  return (text, options = {}) => {
     if (
-      (opts.parser === "babel" || opts.parser === "__babel_estree") &&
-      isFlowFile(text, opts)
+      (options.parser === "babel" || options.parser === "__babel_estree") &&
+      isFlowFile(text, options)
     ) {
-      opts.parser = "babel-flow";
-      return babelFlow.parse(text, opts);
+      options.parser = "babel-flow";
+      return babelFlow.parse(text, options);
     }
 
     let combinations = optionsCombinations;
-    const sourceType = opts.__babelSourceType ?? getSourceType(opts);
+    const sourceType = options.__babelSourceType ?? getSourceType(options);
     if (sourceType === "script") {
       combinations = combinations.map((options) => ({
         ...options,
@@ -142,29 +144,25 @@ function createParse({ isExpression = false, optionsCombinations }) {
       );
     }
 
-    // Inline `import()` to avoid loading all the JS if we don't use it
-    const { parse: babelParse, parseExpression } = await import(
-      "@babel/parser"
-    );
     /** @type {Parse} */
     const parseFunction = isExpression ? parseExpression : babelParse;
-    let { result: ast, error } = tryCombinations(
-      combinations.map(
-        (options) => () => parseWithOptions(parseFunction, text, options)
-      )
-    );
 
-    if (!ast) {
+    let ast;
+    try {
+      ast = tryCombinations(
+        combinations.map(
+          (options) => () => parseWithOptions(parseFunction, text, options)
+        )
+      );
+    } catch ({ errors: [error] }) {
       throw createBabelParseError(error);
     }
 
-    opts.originalText = text;
-
     if (isExpression) {
-      ast = wrapBabelExpression(ast, opts);
+      ast = wrapBabelExpression(ast, { text, rootMarker: options.rootMarker });
     }
 
-    return postprocess(ast, opts);
+    return postprocess(ast, { parser: "babel", text });
   };
 }
 

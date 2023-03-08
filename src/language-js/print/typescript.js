@@ -122,14 +122,10 @@ function printTypescript(path, options, print) {
     case "TSAbstractPropertyDefinition":
       return printClassProperty(path, options, print);
     case "TSInterfaceHeritage":
+    case "TSClassImplements":
     case "TSExpressionWithTypeArguments": // Babel AST
-      parts.push(print("expression"));
-
-      if (node.typeParameters) {
-        parts.push(print("typeParameters"));
-      }
-
-      return parts;
+    case "TSInstantiationExpression":
+      return [print("expression"), print("typeParameters")];
     case "TSTemplateLiteralType":
       return printTemplateLiteral(path, print, options);
     case "TSNamedTupleMember":
@@ -140,8 +136,6 @@ function printTypescript(path, options, print) {
       return [print("typeAnnotation"), "?"];
     case "TSInterfaceDeclaration":
       return printInterface(path, options, print);
-    case "TSClassImplements":
-      return [print("expression"), print("typeParameters")];
     case "TSTypeParameterDeclaration":
     case "TSTypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
@@ -341,7 +335,6 @@ function printTypescript(path, options, print) {
       return ["require(", print("expression"), ")"];
     case "TSModuleDeclaration": {
       const { parent } = path;
-      const isExternalModule = isStringLiteral(node.id);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
       const bodyIsDeclaration = node.body?.type === "TSModuleDeclaration";
 
@@ -352,15 +345,23 @@ function printTypescript(path, options, print) {
 
         // Global declaration looks like this:
         // (declare)? global { ... }
-        if (!node.global) {
-          parts.push(
-            isExternalModule ||
-              /(?:^|\s)module(?:\s|$)/.test(
-                options.originalText.slice(locStart(node), locStart(node.id))
-              )
-              ? "module "
-              : "namespace "
-          );
+        const isGlobal =
+          node.kind === "global" ||
+          // TODO: Use `node.kind` when babel update AST
+          // https://github.com/typescript-eslint/typescript-eslint/pull/6443
+          node.global;
+
+        if (!isGlobal) {
+          const kind =
+            node.kind ??
+            // TODO: Use `node.kind` when babel update AST
+            (isStringLiteral(node.id) ||
+            /(?:^|\s)module(?:\s|$)/.test(
+              options.originalText.slice(locStart(node), locStart(node.id))
+            )
+              ? "module"
+              : "namespace");
+          parts.push(kind, " ");
         }
       }
 
@@ -412,8 +413,7 @@ function printTypescript(path, options, print) {
       return printJSDocType(path, print, /* token */ "?");
     case "TSJSDocNonNullableType":
       return printJSDocType(path, print, /* token */ "!");
-    case "TSInstantiationExpression":
-      return [print("expression"), print("typeParameters")];
+    case "TSParenthesizedType": // Removed in `../parse/postprocess.js`
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "TypeScript");

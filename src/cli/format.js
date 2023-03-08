@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import chalk from "chalk";
+import { createTwoFilesPatch } from "diff";
 import * as prettier from "../index.js";
 import thirdParty from "../common/third-party.js";
 import { createIsIgnoredFunction, errors } from "./prettier-internal.js";
@@ -9,18 +10,15 @@ import getOptionsForFile from "./options/get-options-for-file.js";
 import isTTY from "./is-tty.js";
 import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
-import { statSafe } from "./utils.js";
+import { statSafe, normalizeToPosix } from "./utils.js";
 
 const { getStdin } = thirdParty;
 
-let createTwoFilesPatch;
-async function diff(a, b) {
-  if (!createTwoFilesPatch) {
-    ({ createTwoFilesPatch } = await import("diff"));
-  }
-
+function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
 }
+
+class DebugError extends Error {}
 
 function handleError(context, filename, error, printedFilename) {
   if (error instanceof errors.UndefinedParserError) {
@@ -56,7 +54,7 @@ function handleError(context, filename, error, printedFilename) {
     context.logger.error(error.message);
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
-  } else if (error instanceof errors.DebugError) {
+  } else if (error instanceof DebugError) {
     // `invalid.js: Some debug error message`
     context.logger.error(`${filename}: ${error.message}`);
   } else {
@@ -136,9 +134,8 @@ async function format(context, input, opt) {
     const pp = await prettier.format(input, opt);
     const pppp = await prettier.format(pp, opt);
     if (pp !== pppp) {
-      throw new errors.DebugError(
-        "prettier(input) !== prettier(prettier(input))\n" +
-          (await diff(pp, pppp))
+      throw new DebugError(
+        "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
       );
     } else {
       const stringify = (obj) => JSON.stringify(obj, null, 2);
@@ -155,12 +152,12 @@ async function format(context, input, opt) {
         const astDiff =
           ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
             ? "AST diff too large to render"
-            : await diff(ast, past);
-        throw new errors.DebugError(
+            : diff(ast, past);
+        throw new DebugError(
           "ast(input) !== ast(prettier(input))\n" +
             astDiff +
             "\n" +
-            (await diff(input, pp))
+            diff(input, pp)
         );
       }
       /* c8 ignore end */
@@ -351,7 +348,7 @@ async function formatFiles(context) {
 
     let printedFilename;
     if (isTTY()) {
-      printedFilename = context.logger.log(filename, {
+      printedFilename = context.logger.log(normalizeToPosix(filename), {
         newline: false,
         clearable: true,
       });
@@ -423,7 +420,9 @@ async function formatFiles(context) {
       // mtime based caches.
       if (isDifferent) {
         if (!context.argv.check && !context.argv.listDifferent) {
-          context.logger.log(`${filename} ${Date.now() - start}ms`);
+          context.logger.log(
+            `${normalizeToPosix(filename)} ${Date.now() - start}ms`
+          );
         }
 
         try {
@@ -440,7 +439,9 @@ async function formatFiles(context) {
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
-        const message = `${chalk.grey(filename)} ${Date.now() - start}ms`;
+        const message = `${chalk.grey(normalizeToPosix(filename))} ${
+          Date.now() - start
+        }ms`;
         if (isCacheExists) {
           context.logger.log(`${message} (cached)`);
         } else {
@@ -449,7 +450,7 @@ async function formatFiles(context) {
       }
     } else if (context.argv.debugCheck) {
       if (result.filepath) {
-        context.logger.log(result.filepath);
+        context.logger.log(normalizeToPosix(result.filepath));
       } else {
         /* c8 ignore next */
         process.exitCode = 2;
@@ -466,9 +467,9 @@ async function formatFiles(context) {
 
     if (isDifferent) {
       if (context.argv.check) {
-        context.logger.warn(filename);
+        context.logger.warn(normalizeToPosix(filename));
       } else if (context.argv.listDifferent) {
-        context.logger.log(filename);
+        context.logger.log(normalizeToPosix(filename));
       }
       numberOfUnformattedFilesFound += 1;
     }

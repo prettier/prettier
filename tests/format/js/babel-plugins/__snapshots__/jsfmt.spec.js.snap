@@ -2362,6 +2362,41 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`regexp-modifiers.js [acorn] format 1`] = `
+"Invalid regular expression: /^(?i:[a-z])[a-z]$/: Invalid group (1:13)
+> 1 | const re = /^(?i:[a-z])[a-z]$/;
+    |             ^
+  2 |"
+`;
+
+exports[`regexp-modifiers.js [espree] format 1`] = `
+"Invalid regular expression: /^(?i:[a-z])[a-z]$/: Invalid group (1:13)
+> 1 | const re = /^(?i:[a-z])[a-z]$/;
+    |             ^
+  2 |"
+`;
+
+exports[`regexp-modifiers.js [meriyah] format 1`] = `
+"Unterminated regular expression (1:30)
+> 1 | const re = /^(?i:[a-z])[a-z]$/;
+    |                              ^
+  2 |"
+`;
+
+exports[`regexp-modifiers.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const re = /^(?i:[a-z])[a-z]$/;
+
+=====================================output=====================================
+const re = /^(?i:[a-z])[a-z]$/;
+
+================================================================================
+`;
+
 exports[`throw-expressions.js [acorn] format 1`] = `
 "Unexpected token (3:23)
   1 | // https://babeljs.io/docs/en/babel-plugin-proposal-throw-expressions

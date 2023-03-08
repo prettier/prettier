@@ -15,6 +15,7 @@ import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
 import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.mjs";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.mjs";
 import transform from "./transform/index.js";
+import { getPackageFile } from "./utils.js";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
@@ -62,10 +63,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     })),
     // https://github.com/evanw/esbuild/issues/2103
     {
-      module: path.join(
-        path.dirname(require.resolve("outdent/package.json")),
-        "lib-module/index.js"
-      ),
+      module: getPackageFile("outdent/lib-module/index.js"),
       process(text) {
         const index = text.indexOf('if (typeof module !== "undefined") {');
         if (index === -1) {

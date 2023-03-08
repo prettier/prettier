@@ -16,7 +16,8 @@ class AstPath {
 
   /** @type {object} */
   get node() {
-    return this.stack.at(-1);
+    // eslint-disable-next-line unicorn/prefer-at -- `Array#at` is slow on Node.js v16 and v18
+    return this.stack[this.stack.length - 1];
   }
 
   /** @type {object | null} */

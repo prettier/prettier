@@ -232,11 +232,11 @@ function replaceQuotesInInlineComments(text) {
 }
 
 function locStart(node) {
-  return node.source.startOffset;
+  return node.source?.startOffset;
 }
 
 function locEnd(node) {
-  return node.source.endOffset;
+  return node.source?.endOffset;
 }
 
 export { locStart, locEnd, calculateLoc, replaceQuotesInInlineComments };

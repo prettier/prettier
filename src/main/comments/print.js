@@ -155,16 +155,16 @@ function printDanglingComments(
   return shouldIndent ? indent([hardline, doc]) : doc;
 }
 
-function printCommentsSeparately(path, options, ignored) {
+function printCommentsSeparately(path, options) {
   const value = path.node;
   if (!value) {
     return {};
   }
 
-  let comments = value.comments || [];
-  if (ignored) {
-    comments = comments.filter((comment) => !ignored.has(comment));
-  }
+  const ignored = options[Symbol.for("printedComments")];
+  const comments = (value.comments || []).filter(
+    (comment) => !ignored.has(comment)
+  );
 
   if (comments.length === 0) {
     return { leading: "", trailing: "" };
@@ -195,8 +195,8 @@ function printCommentsSeparately(path, options, ignored) {
   return { leading: leadingParts, trailing: trailingParts };
 }
 
-function printComments(path, doc, options, ignored) {
-  const { leading, trailing } = printCommentsSeparately(path, options, ignored);
+function printComments(path, doc, options) {
+  const { leading, trailing } = printCommentsSeparately(path, options);
   if (!leading && !trailing) {
     return doc;
   }
@@ -208,13 +208,14 @@ function printComments(path, doc, options, ignored) {
   );
 }
 
-function ensureAllCommentsPrinted(astComments) {
-  if (!astComments) {
-    return;
-  }
+function ensureAllCommentsPrinted(options) {
+  const {
+    [Symbol.for("comments")]: comments,
+    [Symbol.for("printedComments")]: printedComments,
+  } = options;
 
-  for (const comment of astComments) {
-    if (!comment.printed) {
+  for (const comment of comments) {
+    if (!comment.printed && !printedComments.has(comment)) {
       throw new Error(
         'Comment "' +
           comment.value.trim() +

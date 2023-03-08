@@ -1,7 +1,7 @@
 import camelCase from "camelcase";
 import { categoryOrder, usageSummary } from "./constants.evaluate.js";
 import { groupBy } from "./utils.js";
-import { optionsHiddenDefaults } from "./prettier-internal.js";
+import { formatOptionsHiddenDefaults } from "./prettier-internal.js";
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -29,7 +29,7 @@ function getOptionDefaultValue(context, optionName) {
 
   const optionCamelName = camelCase(optionName);
   return (
-    optionsHiddenDefaults[optionCamelName] ??
+    formatOptionsHiddenDefaults[optionCamelName] ??
     context.supportOptions.find(
       (option) => !option.deprecated && option.name === optionCamelName
     )?.default

@@ -1,8 +1,7 @@
 import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import {
-  htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,
-  hasHtmlWhitespace,
   canHaveInterpolation,
   getNodeCssStyleDisplay,
   isDanglingSpaceSensitiveNode,
@@ -145,7 +144,7 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.attrs.length === 0 &&
     node.children.length === 1 &&
     node.firstChild.type === "text" &&
-    !hasHtmlWhitespace(node.children[0].value) &&
+    !htmlWhitespaceUtils.hasWhitespaceCharacter(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
     node.isLeadingSpaceSensitive &&
@@ -264,7 +263,7 @@ function extractWhitespaces(ast /*, options*/) {
       node.children.length === 0 ||
       (node.children.length === 1 &&
         node.children[0].type === "text" &&
-        htmlTrim(node.children[0].value).length === 0)
+        htmlWhitespaceUtils.trim(node.children[0].value).length === 0)
     ) {
       node.hasDanglingSpaces = node.children.length > 0;
       node.children = [];

@@ -1,5 +1,6 @@
 import { diffArrays } from "diff";
 
+import { hardline, addAlignmentToDoc } from "../document/builders.js";
 import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer.js";
 import { printDocToDebug } from "../document/debug.js";
 import getAlignmentSize from "../utils/get-alignment-size.js";
@@ -9,29 +10,18 @@ import {
   countEndOfLineChars,
   normalizeEndOfLine,
 } from "../common/end-of-line.js";
-import { normalize as normalizeOptions } from "./options.js";
+import normalizeFormatOptions from "./normalize-format-options.js";
 import massageAst from "./massage-ast.js";
-import { attach } from "./comments/attach.js";
+import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted } from "./comments/print.js";
 import { parse as parseText, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
-import { calculateRange, findNodeAtOffset } from "./range-util.js";
+import { calculateRange } from "./range-util.js";
+import getCursorNode from "./get-cursor-node.js";
 
 const BOM = "\uFEFF";
 
 const CURSOR = Symbol("cursor");
-
-function attachComments(text, ast, opts) {
-  const astComments = ast.comments;
-  if (astComments) {
-    delete ast.comments;
-    attach(astComments, ast, text, opts);
-  }
-  opts[Symbol.for("comments")] = astComments || [];
-  opts[Symbol.for("tokens")] = ast.tokens || [];
-  opts.originalText = text;
-  return astComments;
-}
 
 async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
@@ -41,18 +31,20 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   const { ast, text } = await parseText(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
-    const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
-    if (nodeResult?.node) {
-      opts.cursorNode = nodeResult.node;
-    }
+    opts.cursorNode = getCursorNode(ast, opts);
   }
 
   const astComments = attachComments(text, ast, opts);
-  const doc = await printAstToDoc(ast, opts, addAlignmentSize);
+  let doc = await printAstToDoc(ast, opts, addAlignmentSize);
+  ensureAllCommentsPrinted(opts);
+
+  if (addAlignmentSize > 0) {
+    // Add a hardline to make the indents take effect, it will be removed later
+    doc = addAlignmentToDoc([hardline, doc], addAlignmentSize, opts.tabWidth);
+  }
 
   const result = printDocToStringWithoutNormalizeOptions(doc, opts);
 
-  ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
     const trimmed = result.formatted.trim();
@@ -281,7 +273,7 @@ async function hasPragma(text, options) {
 async function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
-    await normalizeOptions(originalOptions)
+    await normalizeFormatOptions(originalOptions)
   );
 
   if (
@@ -325,7 +317,7 @@ async function formatWithCursor(originalText, originalOptions) {
 async function parse(originalText, originalOptions, devOptions) {
   const { text, options } = normalizeInputAndOptions(
     originalText,
-    await normalizeOptions(originalOptions)
+    await normalizeFormatOptions(originalOptions)
   );
   const parsed = await parseText(text, options);
   if (devOptions) {
@@ -343,7 +335,7 @@ async function parse(originalText, originalOptions, devOptions) {
 }
 
 async function formatAst(ast, options) {
-  options = await normalizeOptions(options);
+  options = await normalizeFormatOptions(options);
   const doc = await printAstToDoc(ast, options);
   return printDocToStringWithoutNormalizeOptions(doc, options);
 }
@@ -360,7 +352,7 @@ async function formatDoc(doc, options) {
 }
 
 async function printToDoc(originalText, options) {
-  options = await normalizeOptions(options);
+  options = await normalizeFormatOptions(options);
   const { ast, text } = await parseText(originalText, options);
   attachComments(text, ast, options);
   return printAstToDoc(ast, options);
@@ -369,7 +361,7 @@ async function printToDoc(originalText, options) {
 async function printDocToString(doc, options) {
   return printDocToStringWithoutNormalizeOptions(
     doc,
-    await normalizeOptions(options)
+    await normalizeFormatOptions(options)
   );
 }
 

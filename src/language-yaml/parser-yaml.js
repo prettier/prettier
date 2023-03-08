@@ -1,10 +1,9 @@
+import { parse as parseYaml } from "yaml-unist-parser/lib/parse.js";
 import createError from "../common/parser-create-error.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 
-async function parse(text) {
-  const { parse: parseYaml } = await import("yaml-unist-parser/lib/parse.js");
-
+function parse(text) {
   try {
     const root = parseYaml(text);
 
