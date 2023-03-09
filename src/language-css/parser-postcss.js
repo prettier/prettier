@@ -22,8 +22,28 @@ const getHighestAncestor = (node) => {
   return node;
 };
 
+/**
+ * @typedef {Object} ParenGroup
+ * @property {"paren_group"} type
+ * @property {Object | null} open
+ * @property {Object | null} close
+ * @property {CommaGroup[]} groups
+ */
+
+/**
+ * @typedef {Object} CommaGroup
+ * @property {"comma_group"} type
+ * @property {any[]} groups
+ */
+
+/**
+ * @param {*} valueNode
+ * @param {*} options
+ * @returns {ParenGroup}
+ */
 function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
+  /** @type {ParenGroup} */
   let parenGroup = {
     open: null,
     close: null,
@@ -32,6 +52,7 @@ function parseValueNode(valueNode, options) {
   };
   const parenGroupStack = [parenGroup];
   const rootParenGroup = parenGroup;
+  /** @type {CommaGroup} */
   let commaGroup = {
     groups: [],
     type: "comma_group",
