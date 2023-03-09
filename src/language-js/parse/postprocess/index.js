@@ -107,7 +107,6 @@ function postprocess(ast, options) {
         break;
       case "DeclareInterface":
       case "InterfaceDeclaration":
-      case "TSInterfaceDeclaration":
         if (isNonEmptyArray(node.mixins)) {
           throwSyntaxError(
             node.mixins[0],
@@ -118,15 +117,6 @@ function postprocess(ast, options) {
           throwSyntaxError(
             node.implements[0],
             "Interface declaration cannot have 'implements' clause."
-          );
-        }
-        break;
-
-      case "TSPropertySignature":
-        if (node.initializer) {
-          throwSyntaxError(
-            node.initializer,
-            "An interface property cannot have an initializer."
           );
         }
         break;
