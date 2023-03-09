@@ -1,23 +1,5 @@
 import { outdent } from "outdent";
-
-// `isModifierKind` in `typescript`
-const POSSIBLE_MODIFIERS = [
-  "abstract",
-  "accessor",
-  "async",
-  "const",
-  "declare",
-  "default",
-  "export",
-  "in",
-  "out",
-  "override",
-  "private",
-  "protected",
-  "public",
-  "readonly",
-  "static",
-];
+import { POSSIBLE_MODIFIERS } from "../../../../../../src/language-js/parse/postprocess/typescript.js";
 
 run_spec(
   {

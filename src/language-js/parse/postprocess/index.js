@@ -3,18 +3,8 @@ import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import isBlockComment from "../../utils/is-block-comment.js";
 import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
-import createError from "../../../common/parser-create-error.js";
 import visitNode from "./visit-node.js";
-
-function throwSyntaxError(node, message) {
-  const { start, end } = node.loc;
-  throw createError(message, {
-    loc: {
-      start: { line: start.line, column: start.column + 1 },
-      end: { line: end.line, column: end.column + 1 },
-    },
-  });
-}
+import throwSyntaxError from "./throw-ts-syntax-error.js";
 
 /**
  * @param {{
@@ -102,12 +92,41 @@ function postprocess(ast, options) {
           };
         }
         break;
+      case "ObjectExpression":
+        // #12963
+        if (parser === "typescript") {
+          const invalidProperty = node.properties.find(
+            (property) =>
+              property.type === "Property" &&
+              property.value.type === "TSEmptyBodyFunctionExpression"
+          );
+          if (invalidProperty) {
+            throwSyntaxError(invalidProperty.value, "Unexpected token.");
+          }
+        }
+        break;
       case "DeclareInterface":
       case "InterfaceDeclaration":
+      case "TSInterfaceDeclaration":
         if (isNonEmptyArray(node.mixins)) {
           throwSyntaxError(
             node.mixins[0],
             "Interface declaration cannot have 'mixins' clause."
+          );
+        }
+        if (isNonEmptyArray(node.implements)) {
+          throwSyntaxError(
+            node.implements[0],
+            "Interface declaration cannot have 'implements' clause."
+          );
+        }
+        break;
+
+      case "TSPropertySignature":
+        if (node.initializer) {
+          throwSyntaxError(
+            node.initializer,
+            "An interface property cannot have an initializer."
           );
         }
         break;
