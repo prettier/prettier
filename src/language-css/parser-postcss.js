@@ -85,6 +85,7 @@ function parseValueNode(valueNode, options) {
         (!hasStringOrFunction(groupList) && !isSCSSVariable(groupList[0]))
       ) {
         const stringifiedContent = stringifyNode({
+          type: node.group.type,
           groups: node.group.groups,
         });
         node.group.groups = [stringifiedContent.trim()];
