@@ -110,7 +110,12 @@ function parseValueNode(valueNode, options) {
           open: null,
           close: null,
         });
-        node.group.groups = [stringifiedContent.trim()];
+        node.group.groups = [
+          {
+            type: "comma_group",
+            groups: [stringifiedContent.trim()],
+          },
+        ];
       }
     }
     if (node.type === "paren" && node.value === "(") {
