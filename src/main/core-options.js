@@ -264,6 +264,22 @@ const options = {
       },
     ],
   },
+  operatorPosition: {
+    category: CATEGORY_GLOBAL,
+    type: "choice",
+    default: "end",
+    description: "Placement of operators.",
+    choices: [
+      {
+        value: "end",
+        description: "Places operators at the end of line (default).",
+      },
+      {
+        value: "beginning",
+        description: "Places operators at the beginning of line.",
+      },
+    ],
+  },
 };
 
 module.exports = {
