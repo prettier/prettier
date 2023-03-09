@@ -921,7 +921,6 @@ function genericPrint(path, options, print) {
         isURLFunctionNode(parentNode) &&
         (node.groups.length === 1 ||
           (node.groups.length > 0 &&
-            node.groups[0].type === "value-comma_group" &&
             node.groups[0].groups.length > 0 &&
             node.groups[0].groups[0].type === "value-word" &&
             node.groups[0].groups[0].value.startsWith("data:")))
@@ -979,11 +978,8 @@ function genericPrint(path, options, print) {
                 // Key/Value pair in open paren already indented
                 if (
                   isKeyValuePairNode(child) &&
-                  child.type === "value-comma_group" &&
-                  child.groups &&
-                  child.groups[0].type !== "value-paren_group" &&
-                  child.groups[2] &&
-                  child.groups[2].type === "value-paren_group"
+                  child.groups[0]?.type !== "value-paren_group" &&
+                  child.groups[2]?.type === "value-paren_group"
                 ) {
                   const parts = getDocParts(printed[0].contents.contents);
                   parts[1] = group(parts[1]);
