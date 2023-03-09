@@ -986,11 +986,7 @@ function genericPrint(path, options, print) {
                   printed = [group(dedent(printed))];
                 }
 
-                if (
-                  !isLast &&
-                  child.type === "value-comma_group" &&
-                  isNonEmptyArray(child.groups)
-                ) {
+                if (!isLast && isNonEmptyArray(child.groups)) {
                   let last = getLast(child.groups);
 
                   // `value-paren_group` does not have location info, but its closing parenthesis does.

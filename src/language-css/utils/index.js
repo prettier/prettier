@@ -376,11 +376,7 @@ function isAtWordPlaceholderNode(node) {
 }
 
 function isConfigurationNode(node, parentNode) {
-  if (
-    node.open?.value !== "(" ||
-    node.close?.value !== ")" ||
-    node.groups.some((group) => group.type !== "value-comma_group")
-  ) {
+  if (node.open?.value !== "(" || node.close?.value !== ")") {
     return false;
   }
   if (parentNode.type === "value-comma_group") {
