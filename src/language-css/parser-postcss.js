@@ -135,27 +135,15 @@ function parseValueNode(valueNode, options) {
   if (commaGroup.groups.length > 0) {
     parenGroup.groups.push(commaGroup);
   }
-  return rootParenGroup;
-}
 
-function flattenGroups(node) {
-  if (node.type === "paren_group") {
-    if (node.groups.length === 1) {
-      const group = node.groups[0];
-      if (group.type === "comma_group") {
-        if (!node.open && !node.close && group.groups.length === 1) {
-          return flattenGroups(group.groups[0]);
-        }
-      }
-    }
+  if (
+    rootParenGroup.groups.length === 1 &&
+    rootParenGroup.groups[0].groups.length === 1
+  ) {
+    return rootParenGroup.groups[0].groups[0];
   }
-  if (node.type === "comma_group" || node.type === "paren_group") {
-    return {
-      ...node,
-      groups: node.groups.map(flattenGroups),
-    };
-  }
-  return node;
+
+  return rootParenGroup;
 }
 
 function addTypePrefix(node, prefix, skipPrefix) {
@@ -195,7 +183,7 @@ function parseNestedValue(node, options) {
       if (key !== "parent") {
         parseNestedValue(node[key], options);
         if (key === "nodes") {
-          node.group = flattenGroups(parseValueNode(node, options));
+          node.group = parseValueNode(node, options);
           delete node[key];
         }
       }
