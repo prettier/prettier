@@ -10,7 +10,7 @@ import {
   group,
   indent,
 } from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
+import { replaceEndOfLine, inheritLabel } from "../document/utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import embed from "./embed.js";
@@ -30,6 +30,7 @@ import {
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   startsWithNoLookaheadToken,
+  createTypeCheckFunction,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
@@ -98,6 +99,22 @@ import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
+// Their decorators are handled themselves, and they don't need parentheses or leading semicolons
+const shouldPrintDirectly = createTypeCheckFunction([
+  "ClassMethod",
+  "ClassPrivateMethod",
+  "ClassProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "TSAbstractAccessorProperty",
+  "PropertyDefinition",
+  "TSAbstractPropertyDefinition",
+  "ClassPrivateProperty",
+  "MethodDefinition",
+  "TSAbstractMethodDefinition",
+  "TSDeclareMethod",
+]);
+
 /**
  * @param {AstPath} path
  * @param {*} options
@@ -106,78 +123,39 @@ import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
  * @returns {Doc}
  */
 function genericPrint(path, options, print, args) {
-  const printed = printPathNoParens(path, options, print, args);
-  if (!printed) {
+  const doc = printPathNoParens(path, options, print, args);
+  if (!doc) {
     return "";
   }
 
   const { node } = path;
-  const { type } = node;
-  // Their decorators are handled themselves, and they can't have parentheses
-  if (
-    type === "ClassMethod" ||
-    type === "ClassPrivateMethod" ||
-    type === "ClassProperty" ||
-    type === "ClassAccessorProperty" ||
-    type === "AccessorProperty" ||
-    type === "TSAbstractAccessorProperty" ||
-    type === "PropertyDefinition" ||
-    type === "TSAbstractPropertyDefinition" ||
-    type === "ClassPrivateProperty" ||
-    type === "MethodDefinition" ||
-    type === "TSAbstractMethodDefinition" ||
-    type === "TSDeclareMethod"
-  ) {
-    return printed;
+  if (shouldPrintDirectly(node)) {
+    return doc;
   }
 
-  let parts = [printed];
-
-  const printedDecorators = printDecorators(path, options, print);
-  const isClassExpressionWithDecorators =
-    node.type === "ClassExpression" && isNonEmptyArray(node.decorators);
+  const hasDecorators = isNonEmptyArray(node.decorators);
+  const decoratorsDoc = printDecorators(path, options, print);
+  const isClassExpression = node.type === "ClassExpression";
   // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
-  if (printedDecorators) {
-    parts = [...printedDecorators, printed];
-
-    if (!isClassExpressionWithDecorators) {
-      return group(parts);
-    }
+  if (hasDecorators && !isClassExpression) {
+    return inheritLabel(doc, (doc) => group([decoratorsDoc, doc]));
   }
 
   const needsParens = pathNeedsParens(path, options);
   const needsSemi = shouldPrintLeadingSemicolon(path, options);
 
-  if (!needsParens) {
-    if (needsSemi) {
-      parts.unshift(";");
-    }
-
-    // In member-chain print, it add `label` to the doc, if we return array here it will be broken
-    if (parts.length === 1 && parts[0] === printed) {
-      return printed;
-    }
-
-    return parts;
+  if (!decoratorsDoc && !needsParens && !needsSemi) {
+    return doc;
   }
 
-  if (isClassExpressionWithDecorators) {
-    parts = [indent([line, ...parts])];
-  }
-
-  parts.unshift("(");
-
-  if (needsSemi) {
-    parts.unshift(";");
-  }
-
-  if (isClassExpressionWithDecorators) {
-    parts.push(line);
-  }
-
-  parts.push(")");
-
-  return parts;
+  return inheritLabel(doc, (doc) => [
+    needsSemi ? ";" : "",
+    needsParens ? "(" : "",
+    needsParens && isClassExpression && hasDecorators
+      ? [indent([line, decoratorsDoc, doc]), line]
+      : [decoratorsDoc, doc],
+    needsParens ? ")" : "",
+  ]);
 }
 
 /**
