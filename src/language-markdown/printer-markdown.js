@@ -2,6 +2,7 @@ import collapseWhiteSpace from "collapse-white-space";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getStringWidth from "../utils/get-string-width.js";
+import getPreferredQuote from "../utils/get-preferred-quote.js";
 import {
   breakParent,
   join,
@@ -808,17 +809,7 @@ function printTitle(title, options, printSpace = true) {
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
   }
-  // faster than using RegExps: https://jsperf.com/performance-of-match-vs-split
-  const singleCount = title.split("'").length - 1;
-  const doubleCount = title.split('"').length - 1;
-  const quote =
-    singleCount > doubleCount
-      ? '"'
-      : doubleCount > singleCount
-      ? "'"
-      : options.singleQuote
-      ? "'"
-      : '"';
+  const { quote } = getPreferredQuote(title, options.singleQuote ? "'" : '"');
   title = title.replaceAll("\\", "\\\\");
   title = title.replaceAll(new RegExp(`(${quote})`, "g"), "\\$1");
   return `${quote}${title}${quote}`;
