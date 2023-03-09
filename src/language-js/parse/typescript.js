@@ -22,16 +22,19 @@ const parseOptions = {
 };
 
 function createParseError(error) {
-  const { message, lineNumber, column } = error;
+  const { message, location } = error;
 
   /* c8 ignore next 3 */
-  if (typeof lineNumber !== "number") {
+  if (!location) {
     return error;
   }
 
+  const { start, end } = location;
+
   return createError(message, {
     loc: {
-      start: { line: lineNumber, column: column + 1 },
+      start: { line: start.line, column: start.column + 1 },
+      end: { line: end.line, column: end.column + 1 },
     },
     cause: error,
   });
