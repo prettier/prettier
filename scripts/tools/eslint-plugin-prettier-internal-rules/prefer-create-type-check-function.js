@@ -18,10 +18,7 @@ const isTypeAccess = (node, parameterName) => {
 };
 
 const isEqualCheck = (node) =>
-  node.type === "BinaryExpression" &&
-  node.operator === "===" &&
-  node.right.type === "Literal" &&
-  typeof node.right.value === "string";
+  node.type === "BinaryExpression" && node.operator === "===";
 
 const isTypeIdentifierCheck = (node) =>
   isEqualCheck(node) &&
@@ -33,7 +30,7 @@ const isTypeAccessCheck = (node, parameterName) =>
 
 function getTypesFromNodeParameter(node, parameterName) {
   if (isTypeAccessCheck(node, parameterName)) {
-    return [node.right.value];
+    return [node.right];
   }
 
   if (node.type === "LogicalExpression" && node.operator === "||") {
@@ -54,7 +51,7 @@ function getTypesFromNodeParameter(node, parameterName) {
 
 function getTypesFromTypeParameter(node) {
   if (isTypeIdentifierCheck(node)) {
-    return [node.right.value];
+    return [node.right];
   }
 
   if (node.type === "LogicalExpression" && node.operator === "||") {
@@ -151,6 +148,7 @@ module.exports = {
       onlyTopLevelFunctions: false,
       ...context.options[0],
     };
+    const sourceCode = context.getSourceCode();
 
     return {
       [selector](functionNode) {
@@ -187,15 +185,23 @@ module.exports = {
           messageId: MESSAGE_ID,
         };
 
-        if (
-          context.getSourceCode().getCommentsInside(functionNode).length === 0
-        ) {
+        const commentsInFunction =
+          sourceCode.getCommentsInside(functionNode).length;
+        const commentsInTypes =
+          commentsInFunction === 0
+            ? 0
+            : types.reduce(
+                (count, node) =>
+                  count + sourceCode.getCommentsInside(node).length,
+                0
+              );
+
+        if (commentsInFunction === commentsInTypes) {
           problem.fix = (fixer) => {
-            let text = `createTypeCheckFunction(${JSON.stringify(
-              types,
-              undefined,
-              2
-            )})`;
+            let text = types.map((node) => sourceCode.getText(node)).join(", ");
+
+            text = `createTypeCheckFunction([${text}])`;
+
             if (functionNode.type === "FunctionDeclaration") {
               const functionName =
                 functionNode.id?.name ?? "__please_name_this_function";
