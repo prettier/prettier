@@ -8,13 +8,13 @@ const DOUBLE_QUOTE = '"';
 /**
  *
  * @param {string} rawContent
- * @param {Quote | boolean} quoteOrPreferSingleQuote
+ * @param {Quote | boolean} preferredQuoteOrPreferSingleQuote
  * @returns {Quote}
  */
-function getPreferredQuote(rawContent, quoteOrPreferSingleQuote) {
+function getPreferredQuote(rawContent, preferredQuoteOrPreferSingleQuote) {
   const preferred =
-    quoteOrPreferSingleQuote === true ||
-    quoteOrPreferSingleQuote === SINGLE_QUOTE
+    preferredQuoteOrPreferSingleQuote === true ||
+    preferredQuoteOrPreferSingleQuote === SINGLE_QUOTE
       ? SINGLE_QUOTE
       : DOUBLE_QUOTE;
   const alternate = preferred === SINGLE_QUOTE ? DOUBLE_QUOTE : SINGLE_QUOTE;
