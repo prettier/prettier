@@ -509,6 +509,36 @@ test("prefer-create-type-check-function", {
         "const foo = createTypeCheckFunction([a.complex.way.to.get.type()]);",
       errors: 1,
     },
+    {
+      code: outdent`
+        const foo = ({type}) => type === a.complex.way.to.get.type();
+      `,
+      output:
+        "const foo = createTypeCheckFunction([a.complex.way.to.get.type()]);",
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = ({type}) =>
+          a.complex.way.to.get.types().includes(type) ||
+          another.complex.way.to.get.types().has(type) ||
+          type === "Identifier";
+      `,
+      output:
+        'const foo = createTypeCheckFunction([...a.complex.way.to.get.types(), ...another.complex.way.to.get.types(), "Identifier"]);',
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = (node) =>
+          a.complex.way.to.get.types().includes(node.type) ||
+          another.complex.way.to.get.types().has(node.type) ||
+          node.type === "Identifier";
+      `,
+      output:
+        'const foo = createTypeCheckFunction([...a.complex.way.to.get.types(), ...another.complex.way.to.get.types(), "Identifier"]);',
+      errors: 1,
+    },
     // Skip fix if comments can't be kept
     {
       code: outdent`

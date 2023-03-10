@@ -20,17 +20,35 @@ const isTypeAccess = (node, parameterName) => {
 const isEqualCheck = (node) =>
   node.type === "BinaryExpression" && node.operator === "===";
 
-const isTypeIdentifierCheck = (node) =>
-  isEqualCheck(node) &&
-  node.left.type === "Identifier" &&
-  node.left.name === "type";
+const isTypeIdentifier = (node) =>
+  node.type === "Identifier" && node.name === "type";
 
+const isTypeIdentifierCheck = (node) =>
+  isEqualCheck(node) && isTypeIdentifier(node.left);
 const isTypeAccessCheck = (node, parameterName) =>
   isEqualCheck(node) && isTypeAccess(node.left, parameterName);
+
+const isSetHasOrArrayIncludesCall = (node) =>
+  node.type === "CallExpression" &&
+  node.arguments.length === 1 &&
+  node.callee.type === "MemberExpression" &&
+  node.callee.property.type === "Identifier" &&
+  (node.callee.property.name === "has" ||
+    node.callee.property.name === "includes");
+
+const isMultipleTypeAccessCheck = (node, parameterName) =>
+  isSetHasOrArrayIncludesCall(node) &&
+  isTypeAccess(node.arguments[0], parameterName);
+
+const isMultipleTypeIdentifierCheck = (node) =>
+  isSetHasOrArrayIncludesCall(node) && isTypeIdentifier(node.arguments[0]);
 
 function getTypesFromNodeParameter(node, parameterName) {
   if (isTypeAccessCheck(node, parameterName)) {
     return [{ type: "single", node: node.right }];
+  }
+  if (isMultipleTypeAccessCheck(node, parameterName)) {
+    return [{ type: "multiple", node: node.callee.object }];
   }
 
   if (node.type === "LogicalExpression" && node.operator === "||") {
@@ -52,6 +70,9 @@ function getTypesFromNodeParameter(node, parameterName) {
 function getTypesFromTypeParameter(node) {
   if (isTypeIdentifierCheck(node)) {
     return [{ type: "single", node: node.right }];
+  }
+  if (isMultipleTypeIdentifierCheck(node)) {
+    return [{ type: "multiple", node: node.callee.object }];
   }
 
   if (node.type === "LogicalExpression" && node.operator === "||") {
