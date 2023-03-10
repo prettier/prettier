@@ -17,7 +17,7 @@ function printString(raw, options) {
       ? '"'
       : options.__isInHtmlAttribute
       ? "'"
-      : getPreferredQuote(rawContent, options.singleQuote ? "'" : '"');
+      : getPreferredQuote(rawContent, options.singleQuote);
 
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain

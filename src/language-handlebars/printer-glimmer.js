@@ -127,14 +127,14 @@ function print(path, options, print) {
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
-        ? getPreferredQuote(value.chars, favoriteQuote)
+        ? getPreferredQuote(value.chars, options.singleQuote)
         : value.type === "ConcatStatement"
         ? getPreferredQuote(
             value.parts
               .filter((part) => part.type === "TextNode")
               .map((part) => part.chars)
               .join(""),
-            favoriteQuote
+            options.singleQuote
           )
         : "";
 

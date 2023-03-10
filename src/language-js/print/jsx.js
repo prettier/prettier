@@ -479,10 +479,7 @@ function printJsxAttribute(path, options, print) {
         .slice(1, -1)
         .replaceAll("&apos;", "'")
         .replaceAll("&quot;", '"');
-      const quote = getPreferredQuote(
-        final,
-        options.jsxSingleQuote ? "'" : '"'
-      );
+      const quote = getPreferredQuote(final, options.jsxSingleQuote);
       final =
         quote === '"'
           ? final.replaceAll('"', "&quot;")
