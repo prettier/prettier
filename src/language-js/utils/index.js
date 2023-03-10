@@ -5,6 +5,7 @@ import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
+import createTypeCheckFunction from "./create-type-check-function.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
 
@@ -107,11 +108,6 @@ function getLeftSidePathName(node) {
     return ["expression"];
   }
   throw new Error("Unexpected node has no left side.");
-}
-
-function createTypeCheckFunction(types) {
-  types = new Set(types);
-  return (node) => types.has(node?.type);
 }
 
 /**
