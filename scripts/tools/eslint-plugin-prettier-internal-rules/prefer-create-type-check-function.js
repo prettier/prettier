@@ -197,7 +197,11 @@ module.exports = {
           return;
         }
 
-        if (ignoreSingleType && types.length === 1) {
+        if (
+          ignoreSingleType &&
+          types.length === 1 &&
+          types[0].type === "single"
+        ) {
           return;
         }
 
