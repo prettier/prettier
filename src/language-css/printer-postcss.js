@@ -1,4 +1,3 @@
-import printNumber from "../utils/print-number.js";
 import printString from "../utils/print-string.js";
 import isNextLineEmpty from "../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
@@ -20,7 +19,6 @@ import clean from "./clean.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-
 import {
   maybeToLowerCase,
   insideValueFunctionNode,
@@ -46,13 +44,16 @@ import {
   isVarFunctionNode,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
-import printUnit from "./utils/print-unit.js";
+import {
+  adjustStrings,
+  adjustNumbers,
+  quoteAttributeValue,
+  shouldPrintComma,
+  printUnit,
+  printCssNumber,
+} from "./print/mic.js";
 import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
-import printSequence from "./sequence.js";
-
-function shouldPrintComma(options) {
-  return options.trailingComma === "es5" || options.trailingComma === "all";
-}
+import printSequence from "./print/sequence.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -152,7 +153,7 @@ function genericPrint(path, options, print) {
         node.nodes
           ? [
               " {",
-              indent([softline, printNodeSequence(path, options, print)]),
+              indent([softline, printSequence(path, options, print)]),
               softline,
               "}",
             ]
@@ -201,7 +202,7 @@ function genericPrint(path, options, print) {
                   "{",
                   indent([
                     node.nodes.length > 0 ? softline : "",
-                    printNodeSequence(path, options, print),
+                    printSequence(path, options, print),
                   ]),
                   softline,
                   "}",
@@ -272,7 +273,7 @@ function genericPrint(path, options, print) {
               "{",
               indent([
                 node.nodes.length > 0 ? softline : "",
-                printNodeSequence(path, options, print),
+                printSequence(path, options, print),
               ]),
               softline,
               "}",
@@ -672,48 +673,6 @@ function genericPrint(path, options, print) {
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "PostCSS");
   }
-}
-
-const STRING_REGEX = /(["'])(?:(?!\1)[^\\]|\\.)*\1/gs;
-const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[Ee][+-]?\d+)?/g;
-const STANDARD_UNIT_REGEX = /[A-Za-z]+/g;
-const WORD_PART_REGEX = /[$@]?[A-Z_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/g;
-const ADJUST_NUMBERS_REGEX = new RegExp(
-  STRING_REGEX.source +
-    "|" +
-    `(${WORD_PART_REGEX.source})?` +
-    `(${NUMBER_REGEX.source})` +
-    `(${STANDARD_UNIT_REGEX.source})?`,
-  "g"
-);
-
-function adjustStrings(value, options) {
-  return value.replaceAll(STRING_REGEX, (match) => printString(match, options));
-}
-
-function quoteAttributeValue(value, options) {
-  const quote = options.singleQuote ? "'" : '"';
-  return value.includes('"') || value.includes("'")
-    ? value
-    : quote + value + quote;
-}
-
-function adjustNumbers(value) {
-  return value.replace(
-    ADJUST_NUMBERS_REGEX,
-    (match, quote, wordPart, number, unit) =>
-      !wordPart && number
-        ? printCssNumber(number) + maybeToLowerCase(unit || "")
-        : match
-  );
-}
-
-function printCssNumber(rawNumber) {
-  return (
-    printNumber(rawNumber)
-      // Remove trailing `.0`.
-      .replace(/\.0(?=$|e)/, "")
-  );
 }
 
 const printer = {
