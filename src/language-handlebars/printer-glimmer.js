@@ -129,8 +129,7 @@ function print(path, options, print) {
         : value.type === "ConcatStatement"
         ? getPreferredQuote(
             value.parts
-              .filter((part) => part.type === "TextNode")
-              .map((part) => part.chars)
+              .map((part) => (part.type === "TextNode" ? part.chars : ""))
               .join(""),
             options.singleQuote
           )
