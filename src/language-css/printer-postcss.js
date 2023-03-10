@@ -49,7 +49,7 @@ import {
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import printUnit from "./utils/print-unit.js";
-import printValueCommaGroup from "./print/value-comma-group.js";
+import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
@@ -496,7 +496,7 @@ function genericPrint(path, options, print) {
       return options.originalText.slice(locStart(node), locEnd(node));
 
     case "value-comma_group":
-      return printValueCommaGroup();
+      return printCommaSeparatedValueGroup(path, options, print);
 
     case "value-paren_group": {
       const parentNode = path.parent;

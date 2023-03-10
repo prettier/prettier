@@ -38,7 +38,7 @@ import {
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 
-function printValueCommaGroup(path, options, print) {
+function printCommaSeparatedValueGroup(path, options, print) {
   const { node } = path;
   const parentNode = path.parent;
   const parentParentNode = path.grandparent;
@@ -415,4 +415,4 @@ function printValueCommaGroup(path, options, print) {
   return group(indent(fill(parts)));
 }
 
-export default printValueCommaGroup;
+export default printCommaSeparatedValueGroup;
