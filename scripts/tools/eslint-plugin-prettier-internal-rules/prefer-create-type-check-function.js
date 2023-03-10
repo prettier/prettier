@@ -219,14 +219,19 @@ module.exports = {
 
         if (commentsInFunction === commentsInTypes) {
           problem.fix = (fixer) => {
-            let text = types
-              .map(
-                ({ type, node }) =>
-                  `${type === "single" ? "" : "..."}${sourceCode.getText(node)}`
-              )
-              .join(", ");
+            const typesText =
+              types.length === 1 && types[0].type === "multiple"
+                ? sourceCode.getText(types[0].node)
+                : `[${types
+                    .map(
+                      ({ type, node }) =>
+                        `${type === "single" ? "" : "..."}${sourceCode.getText(
+                          node
+                        )}`
+                    )
+                    .join(", ")}]`;
 
-            text = `createTypeCheckFunction([${text}])`;
+            let text = `createTypeCheckFunction(${typesText})`;
 
             if (functionNode.type === "FunctionDeclaration") {
               const functionName =

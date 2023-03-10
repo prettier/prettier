@@ -539,6 +539,12 @@ test("prefer-create-type-check-function", {
         'const foo = createTypeCheckFunction([...a.complex.way.to.get.types(), ...another.complex.way.to.get.types(), "Identifier"]);',
       errors: 1,
     },
+    // Single set
+    {
+      code: "const foo = ({type}) => foo.has(type);",
+      output: "const foo = createTypeCheckFunction(foo);",
+      errors: 1,
+    },
     // Skip fix if comments can't be kept
     {
       code: outdent`
