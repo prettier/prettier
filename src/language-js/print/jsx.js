@@ -479,11 +479,14 @@ function printJsxAttribute(path, options, print) {
         .slice(1, -1)
         .replaceAll("&apos;", "'")
         .replaceAll("&quot;", '"');
-      const { escaped, quote, regex } = getPreferredQuote(
+      const quote = getPreferredQuote(
         final,
         options.jsxSingleQuote ? "'" : '"'
       );
-      final = final.replace(regex, escaped);
+      final =
+        quote === '"'
+          ? final.replaceAll('"', "&quot;")
+          : final.replaceAll("'", "&apos;");
       res = path.call(
         () =>
           printComments(path, replaceEndOfLine(quote + final + quote), options),

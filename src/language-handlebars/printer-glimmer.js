@@ -127,7 +127,7 @@ function print(path, options, print) {
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
-        ? getPreferredQuote(value.chars, favoriteQuote).quote
+        ? getPreferredQuote(value.chars, favoriteQuote)
         : value.type === "ConcatStatement"
         ? getPreferredQuote(
             value.parts
@@ -135,7 +135,7 @@ function print(path, options, print) {
               .map((part) => part.chars)
               .join(""),
             favoriteQuote
-          ).quote
+          )
         : "";
 
       const valueDoc = print("value");
@@ -697,8 +697,8 @@ function generateHardlines(number = 0) {
  * @param {Quote} favoriteQuote - the user's preferred quote: `'` or `"`
  */
 function printStringLiteral(stringLiteral, favoriteQuote) {
-  const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);
-  return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
+  const quote = getPreferredQuote(stringLiteral, favoriteQuote);
+  return [quote, stringLiteral.replaceAll(quote, `\\${quote}`), quote];
 }
 
 function needsOppositeQuote(path) {

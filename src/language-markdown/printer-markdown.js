@@ -809,9 +809,9 @@ function printTitle(title, options, printSpace = true) {
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
   }
-  const { quote } = getPreferredQuote(title, options.singleQuote ? "'" : '"');
+  const quote = getPreferredQuote(title, options.singleQuote ? "'" : '"');
   title = title.replaceAll("\\", "\\\\");
-  title = title.replaceAll(new RegExp(`(${quote})`, "g"), "\\$1");
+  title = title.replaceAll(quote, `\\${quote}`);
   return `${quote}${title}${quote}`;
 }
 
