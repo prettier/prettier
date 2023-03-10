@@ -14,6 +14,11 @@ div {
 @font-face {
   src: url(RobotoFlex-VariableFont_GRAD,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf);
 }
+
+@font-face {
+  src: url(foo.ttf?query=foo,bar,);
+  src: url(foo.woff2?foo=rgb(255,255,0));
+}
 =====================================output=====================================
 div {
   background: url(/images/bg.png);
@@ -22,6 +27,11 @@ div {
 
 @font-face {
   src: url(RobotoFlex-VariableFont_GRAD,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf);
+}
+
+@font-face {
+  src: url(foo.ttf?query=foo,bar);
+  src: url(foo.woff2?foo=rgb(255, 255, 0));
 }
 
 ================================================================================
