@@ -30,7 +30,7 @@ const isTypeAccessCheck = (node, parameterName) =>
 
 function getTypesFromNodeParameter(node, parameterName) {
   if (isTypeAccessCheck(node, parameterName)) {
-    return [node.right];
+    return [{ type: "single", node: node.right }];
   }
 
   if (node.type === "LogicalExpression" && node.operator === "||") {
@@ -51,7 +51,7 @@ function getTypesFromNodeParameter(node, parameterName) {
 
 function getTypesFromTypeParameter(node) {
   if (isTypeIdentifierCheck(node)) {
-    return [node.right];
+    return [{ type: "single", node: node.right }];
   }
 
   if (node.type === "LogicalExpression" && node.operator === "||") {
@@ -191,14 +191,19 @@ module.exports = {
           commentsInFunction === 0
             ? 0
             : types.reduce(
-                (count, node) =>
+                (count, { node }) =>
                   count + sourceCode.getCommentsInside(node).length,
                 0
               );
 
         if (commentsInFunction === commentsInTypes) {
           problem.fix = (fixer) => {
-            let text = types.map((node) => sourceCode.getText(node)).join(", ");
+            let text = types
+              .map(
+                ({ type, node }) =>
+                  `${type === "single" ? "" : "..."}${sourceCode.getText(node)}`
+              )
+              .join(", ");
 
             text = `createTypeCheckFunction([${text}])`;
 
