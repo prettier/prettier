@@ -1,5 +1,5 @@
 import { stripTrailingHardline } from "../document/utils.js";
-import { normalize } from "./options.js";
+import normalizeFormatOptions from "./normalize-format-options.js";
 import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted } from "./comments/print.js";
 import { parse } from "./parser.js";
@@ -110,7 +110,7 @@ async function textToDoc(
   parentOptions,
   printAstToDoc
 ) {
-  const options = await normalize(
+  const options = await normalizeFormatOptions(
     {
       ...parentOptions,
       ...partialNextOptions,
@@ -125,9 +125,9 @@ async function textToDoc(
 
   text = result.text;
 
-  const astComments = attachComments(text, ast, options);
+  attachComments(text, ast, options);
   const doc = await printAstToDoc(ast, options);
-  ensureAllCommentsPrinted(astComments);
+  ensureAllCommentsPrinted(options);
 
   return stripTrailingHardline(doc);
 }

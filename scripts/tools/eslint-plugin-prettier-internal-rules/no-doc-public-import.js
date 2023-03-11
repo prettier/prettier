@@ -7,8 +7,8 @@ const selector = [
   "Literal.source",
 ].join("");
 
-const messageId = "no-doc-index-import";
-const docIndexFile = path.join(__dirname, "../../../src/document/index.js");
+const messageId = "no-doc-public-import";
+const docIndexFile = path.join(__dirname, "../../../src/document/public.js");
 const ignored = new Set([
   path.join(__dirname, "../../../src/index.js"),
   path.join(__dirname, "../../../src/standalone.js"),
@@ -17,7 +17,7 @@ const ignored = new Set([
 const docProperties = new Set(["builders", "debug", "printer", "utils"]);
 
 function fix(source, context) {
-  // only fix `import doc from './document/index.js'`
+  // only fix `import doc from './document/public.js'`
   if (
     !(
       source.parent.type === "ImportDeclaration" &&
@@ -73,7 +73,7 @@ function fix(source, context) {
         return `import ${sourceCode.getText(
           property.value
         )} from "${source.value.replace(
-          "/document/index.js",
+          "/document/public.js",
           `/document/${propertyName}.js`
         )}";`;
       })
@@ -88,10 +88,10 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-doc-index-import.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-doc-public-import.js",
     },
     messages: {
-      [messageId]: "Do not {{type}} document/index.js file",
+      [messageId]: "Do not {{type}} document/public.js file",
     },
     fixable: "code",
   },
@@ -109,7 +109,7 @@ module.exports = {
 
         if (
           !value.startsWith(".") ||
-          !value.endsWith("/document/index.js") ||
+          !value.endsWith("/document/public.js") ||
           path.join(dir, value) !== docIndexFile
         ) {
           return;

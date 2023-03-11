@@ -84,36 +84,6 @@ exports[`invalid-for-using-binding-of-of.js [typescript] format 1`] = `
   2 |"
 `;
 
-exports[`invalid-using-binding-await.js [babel] format 1`] = `
-"Can not use 'await' as identifier inside an async function. (2:12)
-  1 | {
-> 2 |   using x, await = h();
-    |            ^
-  3 | }
-  4 | {
-  5 |   for (using await of []);"
-`;
-
-exports[`invalid-using-binding-await.js [flow] format 1`] = `
-"Unexpected identifier, expected the end of an expression statement (\`;\`) (2:9)
-  1 | {
-> 2 |   using x, await = h();
-    |         ^
-  3 | }
-  4 | {
-  5 |   for (using await of []);"
-`;
-
-exports[`invalid-using-binding-await.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (2:3)
-  1 | {
-> 2 |   using x, await = h();
-    |   ^
-  3 | }
-  4 | {
-  5 |   for (using await of []);"
-`;
-
 exports[`invalid-using-binding-let.js [babel] format 1`] = `
 "'let' is not allowed to be used as a name in 'let' or 'const' declarations. (2:9)
   1 | {

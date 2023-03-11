@@ -35,12 +35,14 @@ const unstableTests = new Map(
     ["js/no-semi/comments.js", (options) => options.semi === false],
     ["flow/no-semi/comments.js", (options) => options.semi === false],
     "typescript/prettier-ignore/mapped-types.ts",
+    "typescript/prettier-ignore/issue-14238.ts",
     "js/comments/html-like/comment.js",
     "js/for/continue-and-break-comment-without-blocks.js",
     "js/sequence-expression/parenthesized.js",
     "typescript/satisfies-operators/comments-unstable.ts",
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
     "jsx/comments/in-attributes.js",
+    ["js/ignore/semi/asi.js", (options) => options.semi === false],
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -77,6 +79,8 @@ const meriyahDisabledTests = new Set([
     ].map((filename) => `js/decorator-auto-accessors/${filename}`),
     // https://github.com/meriyah/meriyah/issues/233
     "js/babel-plugins/decorator-auto-accessors.js",
+    // Parsing to different ASTs
+    "js/decorators/member-expression.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const babelTsDisabledTest = new Set(

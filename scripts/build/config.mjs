@@ -1,13 +1,19 @@
 import path from "node:path";
 import url from "node:url";
+import fs from "node:fs";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
-import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.mjs";
+import {
+  PROJECT_ROOT,
+  DIST_DIR,
+  copyFile,
+  writeFile,
+} from "../utils/index.mjs";
 import buildJavascriptModule from "./build-javascript-module.js";
 import buildPackageJson from "./build-package-json.js";
 import buildLicense from "./build-license.js";
 import modifyTypescriptModule from "./modify-typescript-module.mjs";
-import reuseDocumentModule from "./reuse-document-module.js";
+import { getPackageFile } from "./utils.js";
 
 const {
   require,
@@ -16,6 +22,58 @@ const {
 } = createEsmUtils(import.meta);
 const resolveEsmModulePath = async (specifier) =>
   url.fileURLToPath(await importMetaResolve(specifier));
+const copyFileBuilder = ({ file }) =>
+  copyFile(
+    path.join(PROJECT_ROOT, file.input),
+    path.join(DIST_DIR, file.output.file)
+  );
+
+async function typesFileBuilder({ file }) {
+  /**
+   * @typedef {{ from: string, to: string }} ImportPathReplacement
+   * @typedef {{ [input: string]: Array<ImportPathReplacement> }} ReplacementMap
+   */
+
+  /** @type {Array<ImportPathReplacement>} */
+  const jsParsersImportReplacement = [
+    { from: "../../index.js", to: "../index.js" },
+  ];
+  /** @type {ReplacementMap} */
+  const pathReplacementMap = {
+    "src/index.d.ts": [{ from: "./document/public.js", to: "./doc.js" }],
+    "src/language-js/parse/acorn-and-espree.d.ts": jsParsersImportReplacement,
+    "src/language-js/parse/angular.d.ts": jsParsersImportReplacement,
+    "src/language-js/parse/babel.d.ts": jsParsersImportReplacement,
+    "src/language-js/parse/flow.d.ts": jsParsersImportReplacement,
+    "src/language-js/parse/meriyah.d.ts": jsParsersImportReplacement,
+    "src/language-js/parse/typescript.d.ts": jsParsersImportReplacement,
+  };
+  const replacements = pathReplacementMap[file.input] ?? [];
+  let data = await fs.promises.readFile(file.input, "utf8");
+  for (const { from, to } of replacements) {
+    data = data.replaceAll(
+      new RegExp(` from "${from}";`, "g"),
+      ` from "${to}";`
+    );
+  }
+  await writeFile(path.join(DIST_DIR, file.output.file), data);
+}
+
+function getTypesFileConfig({ input: jsFileInput, outputBaseName }) {
+  const input = jsFileInput.replace(/\.[cm]?js$/, ".d.ts");
+  if (!fs.existsSync(path.join(PROJECT_ROOT, input))) {
+    return;
+  }
+
+  return {
+    input,
+    output: {
+      file: outputBaseName + ".d.ts",
+    },
+    kind: "types",
+    build: typesFileBuilder,
+  };
+}
 
 /**
  * @typedef {Object} BuildOptions
@@ -25,31 +83,30 @@ const resolveEsmModulePath = async (specifier) =>
  * @property {boolean?} minify - disable code minification
  *
  * @typedef {Object} Output
- * @property {'esm' | 'umd' | 'cjs' | 'text' | 'json'} format - File format
+ * @property {"esm" | "umd" | "cjs" | "text" | "json"} format - File format
  * @property {string} file - path of the output file in the `dist/` folder
  * @property {string?} umdVariableName - name for the UMD file (for plugins, it'll be `prettierPlugins.${name}`)
  *
  * @typedef {Object} File
- * @property {string?} input - input of the file
+ * @property {string} input - input of the file
  * @property {Output} output - output of the file
+ * @property {"javascript" | "types" | "meta"} kind - file kind
  * @property {function} build - file generate function
- * @property {'node' | 'universal'} platform - ESBuild platform
+ * @property {"node" | "universal"} platform - ESBuild platform
  * @property {BuildOptions} buildOptions - ESBuild options
  * @property {boolean?} isPlugin - file is a plugin
- * @property {boolean?} isMeta - file is a meta file (package.json, LICENSE README.md)
  */
 
 /*
 `diff` use deprecated folder mapping "./" in the "exports" field,
-so we can't `require("diff/lib/diff/array.js")` directly.
+so we can't `import("diff/lib/diff/array.js")` directly.
 To reduce the bundle size, replace the entry with smaller files.
 
-We can switch to deep require once https://github.com/kpdecker/jsdiff/pull/351 get merged
+We can switch to deep import once https://github.com/kpdecker/jsdiff/pull/351 get merged
 */
-const diffPackageDirectory = path.dirname(require.resolve("diff/package.json"));
 const replaceDiffPackageEntry = (file) => ({
-  module: path.join(diffPackageDirectory, "lib/index.mjs"),
-  path: path.join(diffPackageDirectory, file),
+  module: getPackageFile("diff/lib/index.mjs"),
+  path: getPackageFile(`diff/${file}`),
 });
 
 const extensions = {
@@ -93,7 +150,7 @@ const pluginFiles = [
         process: modifyTypescriptModule,
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parser.js"
         ),
         process(text) {
@@ -106,7 +163,7 @@ const pluginFiles = [
         },
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js"
         ),
         process(text) {
@@ -127,31 +184,31 @@ const pluginFiles = [
         },
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js"
         ),
         text: "exports.inferSingleRun = () => false;",
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/ExpiringCache.js"
         ),
         text: "exports.ExpiringCache = class {};",
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/getProjectConfigFiles.js"
         ),
         text: "exports.resolveProjectList = () => [];",
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js"
         ),
         text: "exports.warnAboutTSVersion = () => {};",
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js"
         ),
         process: (text) =>
@@ -161,20 +218,20 @@ const pluginFiles = [
           ),
       },
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/version-check.js"
         ),
         text: "exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
       },
       // Only needed if `range`/`loc` in parse options is `false`
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/ast-converter.js"
         ),
         process: (text) => text.replace('require("./simple-traverse")', "{}"),
       },
       {
-        module: require.resolve("debug/src/browser.js"),
+        module: getPackageFile("debug/src/browser.js"),
         path: path.join(dirname, "./shims/debug.js"),
       },
     ],
@@ -199,7 +256,7 @@ const pluginFiles = [
       },
       {
         // We don't use value of JSXText
-        module: require.resolve("acorn-jsx/xhtml.js"),
+        module: getPackageFile("acorn-jsx/xhtml.js"),
         text: "module.exports = {};",
       },
     ],
@@ -221,10 +278,7 @@ const pluginFiles = [
       // We only use a small set of `@angular/compiler` from `esm2020/src/expression_parser/`
       // Those files can't be imported, they also not directly runnable, because `.mjs` extension is missing
       {
-        module: path.join(
-          path.dirname(require.resolve("@angular/compiler/package.json")),
-          "fesm2020/compiler.mjs"
-        ),
+        module: getPackageFile("@angular/compiler/fesm2020/compiler.mjs"),
         text: /* indent */ `
           export * from '../esm2020/src/expression_parser/ast.mjs';
           export {Lexer} from '../esm2020/src/expression_parser/lexer.mjs';
@@ -236,10 +290,7 @@ const pluginFiles = [
         "expression_parser/parser.mjs",
         "ml_parser/interpolation_config.mjs",
       ].map((file) => ({
-        module: path.join(
-          path.dirname(require.resolve("@angular/compiler/package.json")),
-          `esm2020/src/${file}`
-        ),
+        module: getPackageFile(`@angular/compiler/esm2020/src/${file}`),
         process: (text) =>
           text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/g, "'$1.mjs'"),
       })),
@@ -248,25 +299,30 @@ const pluginFiles = [
   {
     input: "src/language-css/parser-postcss.js",
     replaceModule: [
-      // `postcss-values-parser` uses constructor.name, it will be changed by bundler
-      // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
-      {
-        module: require.resolve("postcss-values-parser/lib/parser.js"),
-        find: "node.constructor.name === 'Word'",
-        replacement: "node.type === 'word'",
-      },
       // The following two replacements prevent load `source-map` module
       {
-        module: path.join(require.resolve("postcss"), "../previous-map.js"),
+        module: getPackageFile("postcss/lib/previous-map.js"),
         text: "module.exports = class {};",
       },
       {
-        module: path.join(require.resolve("postcss"), "../map-generator.js"),
+        module: getPackageFile("postcss/lib/map-generator.js"),
         text: "module.exports = class { generate() {} };",
+      },
+      {
+        module: getPackageFile("postcss/lib/input.js"),
+        process: (text) =>
+          text.replace("require('url')", "{}").replace("require('path')", "{}"),
+      },
+      // `postcss-values-parser` uses constructor.name, it will be changed by bundler
+      // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
+      {
+        module: getPackageFile("postcss-values-parser/lib/parser.js"),
+        find: "node.constructor.name === 'Word'",
+        replacement: "node.type === 'word'",
       },
       // Prevent `node:util`, `node:utl`, and `node:path` shim
       {
-        module: require.resolve("postcss-values-parser/lib/tokenize.js"),
+        module: getPackageFile("postcss-values-parser/lib/tokenize.js"),
         process: (text) =>
           text
             .replace("require('util')", "{}")
@@ -279,11 +335,6 @@ const pluginFiles = [
               "let message = `Syntax error at line: ${line}, column: ${pos - offset}, token: ${pos}`;"
             ),
       },
-      {
-        module: path.join(require.resolve("postcss"), "../input.js"),
-        process: (text) =>
-          text.replace("require('url')", "{}").replace("require('path')", "{}"),
-      },
     ],
   },
   "src/language-graphql/parser-graphql.js",
@@ -291,8 +342,8 @@ const pluginFiles = [
     input: "src/language-markdown/parser-markdown.js",
     replaceModule: [
       {
-        module: require.resolve("parse-entities/decode-entity.browser.js"),
-        path: require.resolve("parse-entities/decode-entity.js"),
+        module: getPackageFile("parse-entities/decode-entity.browser.js"),
+        path: getPackageFile("parse-entities/decode-entity.js"),
       },
     ],
   },
@@ -301,30 +352,24 @@ const pluginFiles = [
     replaceModule: [
       // See comment in `src/language-handlebars/parser-glimmer.js` file
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js"
         ),
-        path: require.resolve(
+        path: getPackageFile(
           "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
         ),
       },
       // This passed to plugins, our plugin don't need access to the options
       {
-        module: require.resolve(
+        module: getPackageFile(
           "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
         ),
         process: (text) =>
           text.replace(/\nconst syntax = \{.*?\n\};/su, "\nconst syntax = {};"),
       },
       {
-        module: path.join(
-          path.dirname(require.resolve("@handlebars/parser/package.json")),
-          "dist/esm/index.js"
-        ),
-        path: path.join(
-          path.dirname(require.resolve("@handlebars/parser/package.json")),
-          "dist/esm/parse.js"
-        ),
+        module: getPackageFile("@handlebars/parser/dist/esm/index.js"),
+        path: getPackageFile("@handlebars/parser/dist/esm/parse.js"),
       },
     ],
   },
@@ -356,7 +401,7 @@ const pluginFiles = [
 
 const nonPluginUniversalFiles = [
   {
-    input: "src/document/index.js",
+    input: "src/document/public.js",
     outputBaseName: "doc",
     umdVariableName: "doc",
     minify: false,
@@ -400,22 +445,27 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
     outputBaseName ??= path.basename(input);
 
     return [
-      {
-        format: "esm",
-        file: `${outputBaseName}${extensions.esm}`,
-      },
-      {
-        format: "umd",
-        file: `${outputBaseName}${extensions.umd}`,
-        umdVariableName,
-      },
-    ].map((output) => ({
-      input,
-      output,
-      platform: "universal",
-      buildOptions,
-      isPlugin,
-    }));
+      ...[
+        {
+          format: "esm",
+          file: `${outputBaseName}${extensions.esm}`,
+        },
+        {
+          format: "umd",
+          file: `${outputBaseName}${extensions.umd}`,
+          umdVariableName,
+        },
+      ].map((output) => ({
+        input,
+        output,
+        platform: "universal",
+        buildOptions,
+        isPlugin,
+        build: buildJavascriptModule,
+        kind: "javascript",
+      })),
+      getTypesFileConfig({ input, outputBaseName }),
+    ];
   }
 );
 
@@ -446,7 +496,6 @@ const nodejsFiles = [
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
-      ...reuseDocumentModule(),
     ],
   },
   {
@@ -481,21 +530,26 @@ const nodejsFiles = [
       },
     ],
   },
-].map((file) => {
+].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
 
   const format = input.endsWith(".cjs") ? "cjs" : "esm";
   outputBaseName ??= path.basename(input, path.extname(input));
 
-  return {
-    input,
-    output: {
-      format,
-      file: `${outputBaseName}${extensions[format]}`,
+  return [
+    {
+      input,
+      output: {
+        format,
+        file: `${outputBaseName}${extensions[format]}`,
+      },
+      platform: "node",
+      buildOptions,
+      build: buildJavascriptModule,
+      kind: "javascript",
     },
-    platform: "node",
-    buildOptions,
-  };
+    getTypesFileConfig({ input, outputBaseName }),
+  ];
 });
 
 const metaFiles = [
@@ -503,37 +557,23 @@ const metaFiles = [
     input: "package.json",
     output: {
       format: "json",
-      file: "package.json",
     },
     build: buildPackageJson,
   },
   {
-    output: {
-      format: "text",
-      file: "README.md",
-    },
-    async build() {
-      await copyFile(
-        path.join(PROJECT_ROOT, "README.md"),
-        path.join(DIST_DIR, "README.md")
-      );
-    },
+    input: "README.md",
+    build: copyFileBuilder,
   },
   {
-    output: {
-      format: "text",
-      file: "LICENSE",
-    },
+    input: "LICENSE",
     build: buildLicense,
   },
-].map((file) => ({ ...file, isMetaFile: true }));
+].map((file) => ({
+  ...file,
+  output: { file: file.input, ...file.output },
+  kind: "meta",
+}));
 
 /** @type {Files[]} */
-const files = [
-  ...[...nodejsFiles, ...universalFiles].map((file) => ({
-    ...file,
-    build: buildJavascriptModule,
-  })),
-  ...metaFiles,
-];
+const files = [...nodejsFiles, ...universalFiles, ...metaFiles].filter(Boolean);
 export default files;

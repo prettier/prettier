@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel] format 1`] = `
+"Decorators can be placed *either* before or after the 'export' keyword, but not in both locations at the same time. (2:8)
+  1 | @decorator1
+> 2 | export @decorator2 class A{}
+    |        ^"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"Decorators can be placed *either* before or after the 'export' keyword, but not in both locations at the same time. (2:16)
+  1 | @decorator1
+> 2 | export default @decorator2 class A{}
+    |                ^"
+`;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"Decorators can be placed *either* before or after the 'export' keyword, but not in both locations at the same time. (1:20)
+> 1 | @decorator1 export @decorator2 class A {}
+    |                    ^"
+`;
+
+exports[`snippet: #3 [babel] format 1`] = `
+"Decorators can be placed *either* before or after the 'export' keyword, but not in both locations at the same time. (1:28)
+> 1 | @decorator1 export default @decorator2 class A {}
+    |                            ^"
+`;
+
+exports[`snippet: #4 [babel] format 1`] = `
+"Leading decorators must be attached to a class declaration. (1:20)
+> 1 | export @decorator2 default class A {}
+    |                    ^"
+`;

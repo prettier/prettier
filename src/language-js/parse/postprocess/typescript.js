@@ -103,6 +103,7 @@ function throwErrorForInvalidModifier(node) {
     if (
       modifier.kind !== SyntaxKind.InKeyword &&
       modifier.kind !== SyntaxKind.OutKeyword &&
+      modifier.kind !== SyntaxKind.ConstKeyword &&
       node.kind === SyntaxKind.TypeParameter
     ) {
       throwErrorOnTsNode(
@@ -290,8 +291,8 @@ const decoratorOrModifierRegExp = new RegExp(
   ["@", ...POSSIBLE_MODIFIERS].join("|")
 );
 
-function throwErrorForInvalidNodes(tsParseResult, options) {
-  if (!decoratorOrModifierRegExp.test(options.originalText)) {
+function throwErrorForInvalidNodes(tsParseResult, text) {
+  if (!decoratorOrModifierRegExp.test(text)) {
     return;
   }
 

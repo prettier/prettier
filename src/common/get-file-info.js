@@ -1,4 +1,4 @@
-import { inferParser } from "../main/options.js";
+import inferParser from "../utils/infer-parser.js";
 import { resolveConfig } from "../config/resolve-config.js";
 import { isIgnored } from "../utils/ignore.js";
 
@@ -42,7 +42,7 @@ async function getParser(filePath, options) {
     config = await resolveConfig(filePath);
   }
 
-  return config?.parser ?? inferParser(filePath, options.plugins);
+  return config?.parser ?? inferParser(options, { physicalFile: filePath });
 }
 
 export default getFileInfo;

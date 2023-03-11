@@ -8,7 +8,7 @@ import wrapBabelExpression from "../language-js/parse/utils/wrap-babel-expressio
 function createJsonParse(options = {}) {
   const { allowComments = true } = options;
 
-  return function parse(text, options = {}) {
+  return function parse(text) {
     let ast;
     try {
       ast = parseExpression(text, {
@@ -16,6 +16,16 @@ function createJsonParse(options = {}) {
         ranges: true,
       });
     } catch (error) {
+      if (
+        error?.reasonCode === "MissingPlugin" ||
+        error?.reasonCode === "MissingOneOfPlugins"
+      ) {
+        throw createBabelParseError({
+          message: "Unexpected token",
+          loc: error.loc,
+        });
+      }
+
       throw createBabelParseError(error);
     }
 
@@ -27,8 +37,7 @@ function createJsonParse(options = {}) {
 
     assertJsonNode(ast);
 
-    options.originalText = text;
-    return wrapBabelExpression(ast, options, "JsonRoot");
+    return wrapBabelExpression(ast, { type: "JsonRoot", text });
   };
 }
 

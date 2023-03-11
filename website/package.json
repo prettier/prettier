@@ -8,14 +8,14 @@
   },
   "dependencies": {
     "clipboard": "2.0.11",
-    "codemirror-graphql": "2.0.3",
-    "lz-string": "1.4.4",
+    "codemirror-graphql": "2.0.4",
+    "lz-string": "1.5.0",
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.20.12",
+    "@babel/core": "7.21.0",
     "@babel/preset-env": "7.20.2",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "9.1.2",

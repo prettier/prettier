@@ -9,7 +9,7 @@ import {
   TagContentType,
 } from "angular-html-parser";
 import parseFrontMatter from "../utils/front-matter/parse.js";
-import inferParserByLanguage from "../utils/infer-parser-by-language.js";
+import inferParser from "../utils/infer-parser.js";
 import createError from "../common/parser-create-error.js";
 import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
 import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
@@ -25,9 +25,8 @@ import { locStart, locEnd } from "./loc.js";
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Attribute} Attribute
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Element} Element
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/parser.js').ParseTreeResult} ParserTreeResult
- * @typedef {Omit<import('angular-html-parser').ParseOptions, 'canSelfClose'> & {
- *   name?: 'html' | 'angular' | 'vue' | 'lwc';
- *   canSelfClose?: boolean;
+ * @typedef {import('angular-html-parser').ParseOptions & {
+ *   name: 'html' | 'angular' | 'vue' | 'lwc';
  *   normalizeTagName?: boolean;
  *   normalizeAttributeName?: boolean;
  *   shouldParseAsRawText?: (tagName: string, prefix: string, hasParent: boolean, attrs: Array<{
@@ -35,42 +34,37 @@ import { locStart, locEnd } from "./loc.js";
  *      name: string;
  *      value?: string;
  *   }>) => boolean;
- * }} ParserOptions
- * @typedef {{
- *   parser: 'html' | 'angular' | 'vue' | 'lwc',
- *   filepath?: string
- * }} Options
+ * }} ParseOptions
+ * @typedef {{filepath?: string}} Options
  */
 
 /**
  * @param {string} input
- * @param {ParserOptions} parserOptions
+ * @param {ParseOptions} parseOptions
  * @param {Options} options
  */
-function ngHtmlParser(
-  input,
-  {
-    canSelfClose,
-    normalizeTagName,
-    normalizeAttributeName,
-    allowHtmComponentClosingTags,
-    isTagNameCaseSensitive,
+function ngHtmlParser(input, parseOptions, options) {
+  const {
+    name,
+    canSelfClose = true,
+    normalizeTagName = false,
+    normalizeAttributeName = false,
+    allowHtmComponentClosingTags = false,
+    isTagNameCaseSensitive = false,
     shouldParseAsRawText,
-  },
-  options
-) {
+  } = parseOptions;
+
   let { rootNodes, errors } = parseHtml(input, {
     canSelfClose,
     allowHtmComponentClosingTags,
     isTagNameCaseSensitive,
-    getTagContentType(tagName, prefix, hasParent, attrs) {
-      if (shouldParseAsRawText?.(tagName, prefix, hasParent, attrs)) {
-        return TagContentType.RAW_TEXT;
-      }
-    },
+    getTagContentType: shouldParseAsRawText
+      ? (...args) =>
+          shouldParseAsRawText(...args) ? TagContentType.RAW_TEXT : undefined
+      : undefined,
   });
 
-  if (options.parser === "vue") {
+  if (name === "vue") {
     const isVueHtml = rootNodes.some(
       (node) =>
         (node.type === "docType" && node.value === "html") ||
@@ -87,7 +81,7 @@ function ngHtmlParser(
           return false;
         }
         const language = node.attrs.find((attr) => attr.name === "lang")?.value;
-        return !language || inferParserByLanguage(language, options) === "html";
+        return !language || inferParser(options, { language }) === "html";
       };
       if (rootNodes.some(shouldParseAsHTML)) {
         /** @type {ParserTreeResult | undefined} */
@@ -131,19 +125,7 @@ function ngHtmlParser(
       }
     } else {
       // If not Vue SFC, treat as html
-      canSelfClose = true;
-      normalizeTagName = true;
-      normalizeAttributeName = true;
-      allowHtmComponentClosingTags = true;
-      isTagNameCaseSensitive = false;
-      const htmlParseResult = parseHtml(input, {
-        canSelfClose,
-        allowHtmComponentClosingTags,
-        isTagNameCaseSensitive,
-      });
-
-      rootNodes = htmlParseResult.rootNodes;
-      errors = htmlParseResult.errors;
+      return ngHtmlParser(input, HTML_PARSE_OPTIONS, options);
     }
   }
 
@@ -293,11 +275,16 @@ function ngHtmlParser(
 
 /**
  * @param {string} text
+ * @param {ParseOptions} parseOptions
  * @param {Options} options
- * @param {ParserOptions} parserOptions
  * @param {boolean} shouldParseFrontMatter
  */
-function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
+function parse(
+  text,
+  parseOptions,
+  options = {},
+  shouldParseFrontMatter = true
+) {
   const { frontMatter, content } = shouldParseFrontMatter
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
@@ -308,14 +295,13 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
   const rawAst = {
     type: "root",
     sourceSpan: new ParseSourceSpan(start, end),
-    children: ngHtmlParser(content, parserOptions, options),
+    children: ngHtmlParser(content, parseOptions, options),
   };
 
   if (frontMatter) {
     const start = new ParseLocation(file, 0, 0, 0);
     const end = start.moveBy(frontMatter.raw.length);
     frontMatter.sourceSpan = new ParseSourceSpan(start, end);
-    // @ts-expect-error
     rawAst.children.unshift(frontMatter);
   }
 
@@ -325,10 +311,10 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     const { offset } = startSpan;
     const fakeContent = text.slice(0, offset).replaceAll(/[^\n\r]/g, " ");
     const realContent = subContent;
-    const subAst = _parse(
+    const subAst = parse(
       fakeContent + realContent,
+      parseOptions,
       options,
-      parserOptions,
       false
     );
     // @ts-expect-error
@@ -368,32 +354,11 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
 }
 
 /**
- * @param {ParserOptions} parserOptions
+ * @param {ParseOptions} parseOptions
  */
-function createParser({
-  name,
-  canSelfClose = false,
-  normalizeTagName = false,
-  normalizeAttributeName = false,
-  allowHtmComponentClosingTags = false,
-  isTagNameCaseSensitive = false,
-  shouldParseAsRawText,
-} = {}) {
+function createParser(parseOptions) {
   return {
-    parse(text, options) {
-      return _parse(
-        text,
-        { parser: name, ...options },
-        {
-          canSelfClose,
-          normalizeTagName,
-          normalizeAttributeName,
-          allowHtmComponentClosingTags,
-          isTagNameCaseSensitive,
-          shouldParseAsRawText,
-        }
-      );
-    },
+    parse: (text, options) => parse(text, parseOptions, options),
     hasPragma,
     astFormat: "html",
     locStart,
@@ -401,19 +366,20 @@ function createParser({
   };
 }
 
+/** @type {ParseOptions} */
+const HTML_PARSE_OPTIONS = {
+  name: "html",
+  normalizeTagName: true,
+  normalizeAttributeName: true,
+  allowHtmComponentClosingTags: true,
+};
+
 const parser = {
   parsers: {
-    html: createParser({
-      name: "html",
-      canSelfClose: true,
-      normalizeTagName: true,
-      normalizeAttributeName: true,
-      allowHtmComponentClosingTags: true,
-    }),
-    angular: createParser({ name: "angular", canSelfClose: true }),
+    html: createParser(HTML_PARSE_OPTIONS),
+    angular: createParser({ name: "angular" }),
     vue: createParser({
       name: "vue",
-      canSelfClose: true,
       isTagNameCaseSensitive: true,
       shouldParseAsRawText(tagName, prefix, hasParent, attrs) {
         return (
@@ -430,7 +396,7 @@ const parser = {
         );
       },
     }),
-    lwc: createParser({ name: "lwc" }),
+    lwc: createParser({ name: "lwc", canSelfClose: false }),
   },
 };
 

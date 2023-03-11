@@ -230,6 +230,23 @@ exportDefaultWhatever(function (
 ================================================================================
 `;
 
+exports[`issue-14454.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+f(() => {}, scroller.qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq)
+
+=====================================output=====================================
+f(
+  () => {},
+  scroller.qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq,
+);
+
+================================================================================
+`;
+
 exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
