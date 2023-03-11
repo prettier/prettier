@@ -5,7 +5,7 @@ const tree = {
   list: [
     { id: "tree.list.1", leaf: { id: "tree.list.1.leaf" } },
     { id: "tree.list.2", list: [{ id: "tree.list.2.list.1" }], leaf: null },
-    "not-a-object",
+    "not-an-object",
   ],
   leaf: { id: "tree.leaf" },
 };
