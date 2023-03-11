@@ -11,3 +11,9 @@ div {
   src: url(foo.ttf?query=foo,bar,);
   src: url(foo.woff2?foo=rgb\(255,255,0\));
 }
+
+a {
+  content: url(https://example.com/\)\).jpg);
+  content: url(https://example.com/\(\(.jpg);
+  content: url(https://example.com/\ \ .jpg);
+}
