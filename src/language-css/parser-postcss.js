@@ -8,11 +8,11 @@ const { locStart, locEnd } = require("./loc.js");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
 const hasSCSSInterpolation = require("./utils/has-scss-interpolation.js");
 const hasStringOrFunction = require("./utils/has-string-or-function.js");
+const stringifyFuncParam = require("./utils/stringify-func-param.js");
 const isLessParser = require("./utils/is-less-parser.js");
 const isSCSS = require("./utils/is-scss.js");
 const isSCSSNestedPropertyNode = require("./utils/is-scss-nested-property-node.js");
 const isSCSSVariable = require("./utils/is-scss-variable.js");
-const stringifyNode = require("./utils/stringify-node.js");
 const isModuleRuleName = require("./utils/is-module-rule-name.js");
 
 const getHighestAncestor = (node) => {
@@ -84,11 +84,7 @@ function parseValueNode(valueNode, options) {
         hasSCSSInterpolation(groupList) ||
         (!hasStringOrFunction(groupList) && !isSCSSVariable(groupList[0]))
       ) {
-        const stringifiedContent = stringifyNode({
-          type: node.group.type,
-          groups: node.group.groups,
-        });
-        node.group.groups = [stringifiedContent.trim()];
+        node.group.groups = [stringifyFuncParam(node)];
       }
     }
     if (node.type === "paren" && node.value === "(") {
@@ -198,7 +194,6 @@ function parseNestedValue(node, options) {
         parseNestedValue(node[key], options);
         if (key === "nodes") {
           node.group = flattenGroups(parseValueNode(node, options));
-          delete node[key];
         }
       }
     }
