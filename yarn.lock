@@ -4515,10 +4515,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-meta-resolve@npm:2.2.1, import-meta-resolve@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "import-meta-resolve@npm:2.2.1"
-  checksum: 8dd5ff7f6e96dea13653cbf79457588b9850949fde0412dba3cc944f8a61a155a3713d65878d903af6b0db7da960600ef66dfe994311743cdd49fe33dc91b0c5
+"import-meta-resolve@npm:2.2.2, import-meta-resolve@npm:^2.2.1":
+  version: 2.2.2
+  resolution: "import-meta-resolve@npm:2.2.2"
+  checksum: 3a5910a6f914b5f06b307d7d1c25710bc56f12e21e923d5b2180dd0d53c6c2d51e7b55df26f168b63f5670babcaca9422b7a9429e877bbb8c1997d79bd65882b
   languageName: node
   linkType: hard
 
@@ -6791,7 +6791,7 @@ __metadata:
     html-styles: 1.0.0
     html-tag-names: 2.0.1
     ignore: 5.2.4
-    import-meta-resolve: 2.2.1
+    import-meta-resolve: 2.2.2
     jest: 29.4.3
     jest-docblock: 29.4.3
     jest-light-runner: 0.4.1
