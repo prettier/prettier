@@ -2,29 +2,12 @@
 
 "use strict";
 
-const imported = Object.create(null);
-function importScriptOnce(url) {
-  if (!imported[url]) {
-    imported[url] = true;
-    importScripts(url);
-  }
-}
-
 importScripts("lib/parsers-location.js");
 importScripts("lib/standalone.js");
 
-// this is required to only load parsers when we need them
-const parsers = Object.create(null);
-for (const [parser, file] of Object.entries(parsersLocation)) {
-  Object.defineProperty(parsers, parser, {
-    get() {
-      const url = `lib/${file}`;
-      importScriptOnce(url);
-      return Object.values(prettierPlugins).find((plugin) =>
-        Object.hasOwn(plugin.parsers, parser)
-      ).parsers[parser];
-    },
-  });
+// TODO[@fisker]: Lazy load plugins
+for (const file of new Set(Object.values(parsersLocation))) {
+  importScripts(`lib/${file}`);
 }
 
 const docExplorerPlugin = {
@@ -45,6 +28,8 @@ const docExplorerPlugin = {
   },
   languages: [{ name: "doc-explorer", parsers: ["doc-explorer"] }],
 };
+
+const plugins = [...Object.values(prettierPlugins), docExplorerPlugin];
 
 self.onmessage = async function (event) {
   self.postMessage({
@@ -78,9 +63,7 @@ function handleMessage(message) {
 }
 
 async function handleMetaMessage() {
-  const supportInfo = await prettier.getSupportInfo({
-    plugins: [docExplorerPlugin],
-  });
+  const supportInfo = await prettier.getSupportInfo({ plugins });
 
   return {
     type: "meta",
@@ -90,7 +73,6 @@ async function handleMetaMessage() {
 }
 
 async function handleFormatMessage(message) {
-  const plugins = [{ parsers }, docExplorerPlugin];
   const options = { ...message.options, plugins };
 
   delete options.ast;

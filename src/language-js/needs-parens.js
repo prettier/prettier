@@ -155,7 +155,8 @@ function needsParens(path, options) {
           node.type === "UnaryExpression" ||
           node.type === "UpdateExpression" ||
           node.type === "YieldExpression" ||
-          node.type === "TSNonNullExpression")
+          node.type === "TSNonNullExpression" ||
+          (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)))
       ) {
         return true;
       }
@@ -766,10 +767,6 @@ function needsParens(path, options) {
       }
 
     case "ClassExpression":
-      if (isNonEmptyArray(node.decorators)) {
-        return true;
-      }
-
       switch (parent.type) {
         case "NewExpression":
           return key === "callee";
@@ -942,13 +939,9 @@ function isPathInForStatementInitializer(path) {
 function includesFunctionTypeInObjectType(node) {
   return hasNode(
     node,
-    (n1) =>
-      (n1.type === "ObjectTypeAnnotation" &&
-        hasNode(
-          n1,
-          (n2) => n2.type === "FunctionTypeAnnotation" || undefined
-        )) ||
-      undefined
+    (node) =>
+      node.type === "ObjectTypeAnnotation" &&
+      hasNode(node, (node) => node.type === "FunctionTypeAnnotation")
   );
 }
 

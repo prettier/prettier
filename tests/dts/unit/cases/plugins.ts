@@ -1,4 +1,4 @@
-import * as prettier from "../../../../src/index";
+import * as prettier from "../../../../src/index.js";
 import { expectType } from "ts-expect";
 
 interface PluginAST {

@@ -422,6 +422,12 @@ function canBreak(doc) {
   return findInDoc(doc, canBreakFn, false);
 }
 
+function inheritLabel(doc, fn) {
+  return doc.type === DOC_TYPE_LABEL
+    ? { ...doc, contents: fn(doc.contents) }
+    : fn(doc);
+}
+
 export {
   getDocParts,
   willBreak,
@@ -437,4 +443,5 @@ export {
   replaceEndOfLine,
   canBreak,
   getDocType,
+  inheritLabel,
 };
