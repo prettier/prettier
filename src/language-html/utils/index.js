@@ -465,6 +465,11 @@ function hasParent(node, fn) {
 }
 
 function getNodeCssStyleDisplay(node, options) {
+  // Every root block in Vue SFC is a block
+  if (isVueSfcBlock(node, options)) {
+    return "block";
+  }
+
   if (node.prev?.type === "comment") {
     // <!-- display: block -->
     const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
@@ -488,10 +493,6 @@ function getNodeCssStyleDisplay(node, options) {
     case "ignore":
       return "block";
     default:
-      // See https://github.com/prettier/prettier/issues/8151
-      if (options.parser === "vue" && node.parent?.type === "root") {
-        return "block";
-      }
       return (
         (node.type === "element" &&
           (!node.namespace ||
