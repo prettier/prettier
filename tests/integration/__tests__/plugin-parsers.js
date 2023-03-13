@@ -11,10 +11,8 @@ test("parsers", async () => {
     const { default: parserConfigs } = await import(parsersConfigModule);
 
     for (const { importPlugin, parserNames } of parserConfigs) {
-      const {
-        default: { parsers },
-      } = await importPlugin();
-      expect(Object.keys(parsers).sort()).toEqual(parserNames.sort());
+      const plugins = await importPlugin();
+      expect(Object.keys(plugins.parsers).sort()).toEqual(parserNames.sort());
     }
   }
 });
