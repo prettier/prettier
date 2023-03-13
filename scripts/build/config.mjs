@@ -3,15 +3,11 @@ import url from "node:url";
 import fs from "node:fs";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
-import {
-  PROJECT_ROOT,
-  DIST_DIR,
-  copyFile,
-  writeFile,
-} from "../utils/index.mjs";
+import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.mjs";
 import buildJavascriptModule from "./build-javascript-module.js";
 import buildPackageJson from "./build-package-json.js";
 import buildLicense from "./build-license.js";
+import buildTypes from "./build-types.js";
 import modifyTypescriptModule from "./modify-typescript-module.mjs";
 import { getPackageFile } from "./utils.js";
 
@@ -28,41 +24,14 @@ const copyFileBuilder = ({ file }) =>
     path.join(DIST_DIR, file.output.file)
   );
 
-async function typesFileBuilder({ file }) {
-  /**
-   * @typedef {{ from: string, to: string }} ImportPathReplacement
-   * @typedef {{ [input: string]: Array<ImportPathReplacement> }} ReplacementMap
-   */
+function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
+  let input = jsFileInput;
+  if (!isPlugin) {
+    input = jsFileInput.replace(/\.[cm]?js$/, ".d.ts");
 
-  /** @type {Array<ImportPathReplacement>} */
-  const jsParsersImportReplacement = [
-    { from: "../../index.js", to: "../index.js" },
-  ];
-  /** @type {ReplacementMap} */
-  const pathReplacementMap = {
-    "src/index.d.ts": [{ from: "./document/public.js", to: "./doc.js" }],
-    "src/language-js/parse/acorn-and-espree.d.ts": jsParsersImportReplacement,
-    "src/language-js/parse/angular.d.ts": jsParsersImportReplacement,
-    "src/language-js/parse/babel.d.ts": jsParsersImportReplacement,
-    "src/language-js/parse/flow.d.ts": jsParsersImportReplacement,
-    "src/language-js/parse/meriyah.d.ts": jsParsersImportReplacement,
-    "src/language-js/parse/typescript.d.ts": jsParsersImportReplacement,
-  };
-  const replacements = pathReplacementMap[file.input] ?? [];
-  let data = await fs.promises.readFile(file.input, "utf8");
-  for (const { from, to } of replacements) {
-    data = data.replaceAll(
-      new RegExp(` from "${from}";`, "g"),
-      ` from "${to}";`
-    );
-  }
-  await writeFile(path.join(DIST_DIR, file.output.file), data);
-}
-
-function getTypesFileConfig({ input: jsFileInput, outputBaseName }) {
-  const input = jsFileInput.replace(/\.[cm]?js$/, ".d.ts");
-  if (!fs.existsSync(path.join(PROJECT_ROOT, input))) {
-    return;
+    if (!fs.existsSync(path.join(PROJECT_ROOT, input))) {
+      return;
+    }
   }
 
   return {
@@ -71,7 +40,8 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName }) {
       file: outputBaseName + ".d.ts",
     },
     kind: "types",
-    build: typesFileBuilder,
+    isPlugin,
+    build: buildTypes,
   };
 }
 
@@ -464,7 +434,7 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
         build: buildJavascriptModule,
         kind: "javascript",
       })),
-      getTypesFileConfig({ input, outputBaseName }),
+      getTypesFileConfig({ input, outputBaseName, isPlugin }),
     ];
   }
 );

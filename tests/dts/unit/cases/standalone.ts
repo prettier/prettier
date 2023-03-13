@@ -1,4 +1,4 @@
-import * as prettierStandalone from "../../../../src/standalone";
+import * as prettierStandalone from "../../../../src/standalone.js";
 
 prettierStandalone.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
 prettierStandalone.formatWithCursor(" 1", {
