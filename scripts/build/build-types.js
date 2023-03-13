@@ -26,7 +26,7 @@ async function typesFileBuilder({ file }) {
 }
 
 async function buildPluginTypes({ file: { input, output } }) {
-  const { default: plugin } = await import(
+  const plugin = await import(
     url.pathToFileURL(path.join(PROJECT_ROOT, input))
   );
 

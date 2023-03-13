@@ -10,10 +10,8 @@ function createParsers(modules) {
   for (const { importPlugin, parserNames } of modules) {
     for (const parserName of parserNames) {
       parsers[parserName] = async () => {
-        const {
-          default: { parsers: pluginParsers },
-        } = await importPlugin();
-        return Object.assign(parsers, pluginParsers)[parserName];
+        const plugin = await importPlugin();
+        return Object.assign(parsers, plugin.parsers)[parserName];
       };
     }
   }
