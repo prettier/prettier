@@ -30,8 +30,6 @@ async function buildPluginTypes({ file: { input, output } }) {
     url.pathToFileURL(path.join(PROJECT_ROOT, input))
   );
 
-  console.log({ input, plugin });
-
   await writeFile(
     path.join(DIST_DIR, output.file),
     await format(
