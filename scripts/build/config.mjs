@@ -267,7 +267,8 @@ const pluginFiles = [
     ],
   },
   {
-    input: "src/language-css/parser-postcss.js",
+    input: "src/language-css/index.js",
+    outputBaseName: "postcss",
     replaceModule: [
       // The following two replacements prevent load `source-map` module
       {
@@ -307,9 +308,9 @@ const pluginFiles = [
       },
     ],
   },
-  "src/language-graphql/parser-graphql.js",
+  "src/language-graphql/index.js",
   {
-    input: "src/language-markdown/parser-markdown.js",
+    input: "src/language-markdown/index.js",
     replaceModule: [
       {
         module: getPackageFile("parse-entities/decode-entity.browser.js"),
@@ -318,7 +319,8 @@ const pluginFiles = [
     ],
   },
   {
-    input: "src/language-handlebars/parser-glimmer.js",
+    input: "src/language-handlebars/index.js",
+    outputBaseName: "glimmer",
     replaceModule: [
       // See comment in `src/language-handlebars/parser-glimmer.js` file
       {
@@ -343,8 +345,8 @@ const pluginFiles = [
       },
     ],
   },
-  "src/language-html/parser-html.js",
-  "src/language-yaml/parser-yaml.js",
+  "src/language-html/index.js",
+  "src/language-yaml/index.js",
 ].map((file) => {
   if (typeof file === "string") {
     file = { input: file };
@@ -352,8 +354,9 @@ const pluginFiles = [
 
   let { input, umdPropertyName, outputBaseName, ...buildOptions } = file;
 
-  outputBaseName ??= input.match(
-    /(?:parser-|parse\/)(?<outputBaseName>.*?)\.js$/
+  outputBaseName ??= (
+    input.match(/\/(?:parser-|parse\/)(?<outputBaseName>.*?)\.js$/) ??
+    input.match(/\/language-(?<outputBaseName>.*?)\/index\.js$/)
   ).groups.outputBaseName;
 
   const umdVariableName = `prettierPlugins.${
