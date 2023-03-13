@@ -23,20 +23,6 @@ function throwErrorOnTsNode(node, message) {
   throwTsSyntaxError({ loc: getTsNodeLocation(node) }, message);
 }
 
-// Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
-// https://github.com/typescript-eslint/typescript-eslint/pull/2375
-// There is a `checkGrammarDecorators` in `typescript` package, consider use it directly in future
-function throwErrorForInvalidDecorator(tsNode) {
-  const { illegalDecorators } = tsNode;
-  if (!isNonEmptyArray(illegalDecorators)) {
-    return;
-  }
-
-  const [{ expression }] = illegalDecorators;
-
-  throwErrorOnTsNode(expression, "Decorators are not valid here.");
-}
-
 // Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5
 // https://github.com/typescript-eslint/typescript-eslint/releases/tag/v5.0.0
 function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
@@ -287,12 +273,10 @@ const POSSIBLE_MODIFIERS = [
   "static",
 ];
 
-const decoratorOrModifierRegExp = new RegExp(
-  ["@", ...POSSIBLE_MODIFIERS].join("|")
-);
+const modifierRegExp = new RegExp(POSSIBLE_MODIFIERS.join("|"));
 
 function throwErrorForInvalidNodes(tsParseResult, text) {
-  if (!decoratorOrModifierRegExp.test(text)) {
+  if (!modifierRegExp.test(text)) {
     return;
   }
 
@@ -302,7 +286,6 @@ function throwErrorForInvalidNodes(tsParseResult, text) {
       return;
     }
 
-    throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
     throwErrorForInvalidModifier(tsNode);
   });
