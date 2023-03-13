@@ -92,19 +92,6 @@ function postprocess(ast, options) {
           };
         }
         break;
-      case "ObjectExpression":
-        // #12963
-        if (parser === "typescript") {
-          const invalidProperty = node.properties.find(
-            (property) =>
-              property.type === "Property" &&
-              property.value.type === "TSEmptyBodyFunctionExpression"
-          );
-          if (invalidProperty) {
-            throwSyntaxError(invalidProperty.value, "Unexpected token.");
-          }
-        }
-        break;
       case "DeclareInterface":
       case "InterfaceDeclaration":
         if (isNonEmptyArray(node.mixins)) {
