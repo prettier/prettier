@@ -156,6 +156,24 @@ function flattenGroups(node) {
   return node;
 }
 
+function purgeNodes(node) {
+  if (!node || typeof node !== "object") {
+    return;
+  }
+  if (node.type?.startsWith("selector-")) {
+    return;
+  }
+  if ("nodes" in node) {
+    delete node.nodes;
+  }
+  for (const key in node) {
+    if (key === "parent") {
+      continue;
+    }
+    purgeNodes(node[key]);
+  }
+}
+
 function addTypePrefix(node, prefix, skipPrefix) {
   if (node && typeof node === "object") {
     delete node.parent;
@@ -219,6 +237,8 @@ function parseValue(value, options) {
   result.text = value;
 
   const parsedResult = parseNestedValue(result, options);
+
+  purgeNodes(parsedResult);
 
   return addTypePrefix(parsedResult, "value-", /^selector-/);
 }
