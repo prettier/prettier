@@ -1,17 +1,17 @@
 import * as prettier from "../../../../dist/index.js";
 
-import acornEspreePlugin from "../../../../dist/plugins/acorn-and-espree.js";
-import angularPlugin from "../../../../dist/plugins/angular.js";
-import babelPlugin from "../../../../dist/plugins/babel.js";
-import flowPlugin from "../../../../dist/plugins/flow.js";
-import glimmerPlugin from "../../../../dist/plugins/glimmer.js";
-import graphqlPlugin from "../../../../dist/plugins/graphql.js";
-import htmlPlugin from "../../../../dist/plugins/html.js";
-import markdownPlugin from "../../../../dist/plugins/markdown.js";
-import typescriptPlugin from "../../../../dist/plugins/typescript.js";
-import meriyahPlugin from "../../../../dist/plugins/meriyah.js";
-import postcssPlugin from "../../../../dist/plugins/postcss.js";
-import yamlPlugin from "../../../../dist/plugins/yaml.js";
+import * as acornEspreePlugin from "../../../../dist/plugins/acorn-and-espree.js";
+import * as angularPlugin from "../../../../dist/plugins/angular.js";
+import * as babelPlugin from "../../../../dist/plugins/babel.js";
+import * as flowPlugin from "../../../../dist/plugins/flow.js";
+import * as glimmerPlugin from "../../../../dist/plugins/glimmer.js";
+import * as graphqlPlugin from "../../../../dist/plugins/graphql.js";
+import * as htmlPlugin from "../../../../dist/plugins/html.js";
+import * as markdownPlugin from "../../../../dist/plugins/markdown.js";
+import * as typescriptPlugin from "../../../../dist/plugins/typescript.js";
+import * as meriyahPlugin from "../../../../dist/plugins/meriyah.js";
+import * as postcssPlugin from "../../../../dist/plugins/postcss.js";
+import * as yamlPlugin from "../../../../dist/plugins/yaml.js";
 
 acornEspreePlugin.parsers.acorn.parse;
 acornEspreePlugin.parsers.espree.parse;
