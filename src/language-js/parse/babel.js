@@ -249,25 +249,21 @@ const babelEstree = createBabelParser({
 });
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-const parser = {
-  parsers: {
-    babel,
-    "babel-flow": babelFlow,
-    "babel-ts": babelTs,
-    ...jsonParsers,
-    /** @internal */
-    __js_expression: babelExpression,
-    /** for vue filter */
-    __vue_expression: babelExpression,
-    /** for vue filter written in TS */
-    __vue_ts_expression: babelTSExpression,
-    /** for vue event binding to handle semicolon */
-    __vue_event_binding: babel,
-    /** for vue event binding written in TS to handle semicolon */
-    __vue_ts_event_binding: babelTs,
-    /** verify that we can print this AST */
-    __babel_estree: babelEstree,
-  },
+export const parsers = {
+  babel,
+  "babel-flow": babelFlow,
+  "babel-ts": babelTs,
+  ...jsonParsers,
+  /** @internal */
+  __js_expression: babelExpression,
+  /** for vue filter */
+  __vue_expression: babelExpression,
+  /** for vue filter written in TS */
+  __vue_ts_expression: babelTSExpression,
+  /** for vue event binding to handle semicolon */
+  __vue_event_binding: babel,
+  /** for vue event binding written in TS to handle semicolon */
+  __vue_ts_event_binding: babelTs,
+  /** verify that we can print this AST */
+  __babel_estree: babelEstree,
 };
-
-export default parser;

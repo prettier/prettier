@@ -51,10 +51,6 @@ function parse(text) {
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-const parser = {
-  parsers: {
-    flow: createParser(parse),
-  },
+export const parsers = {
+  flow: createParser(parse),
 };
-
-export default parser;

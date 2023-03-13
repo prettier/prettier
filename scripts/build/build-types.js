@@ -26,7 +26,7 @@ async function typesFileBuilder({ file }) {
 }
 
 async function buildPluginTypes({ file: { input, output } }) {
-  const { default: plugin } = await import(
+  const plugin = await import(
     url.pathToFileURL(path.join(PROJECT_ROOT, input))
   );
 
@@ -36,18 +36,14 @@ async function buildPluginTypes({ file: { input, output } }) {
       /* indent */ `
         import { Parser } from "../index.js";
 
-        declare const plugin: {
-          parsers: {
+        export declare const parsers: {
         ${Object.keys(plugin.parsers)
           .map(
             (parserName) =>
               `${" ".repeat(4)}${JSON.stringify(parserName)}: Parser;`
           )
           .join("\n")}
-          };
         };
-
-        export default plugin;
       `,
       { parser: "typescript" }
     )
