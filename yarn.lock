@@ -3376,14 +3376,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:8.6.0":
-  version: 8.6.0
-  resolution: "eslint-config-prettier@npm:8.6.0"
+"eslint-config-prettier@npm:8.7.0":
+  version: 8.7.0
+  resolution: "eslint-config-prettier@npm:8.7.0"
   peerDependencies:
     eslint: ">=7.0.0"
   bin:
     eslint-config-prettier: bin/cli.js
-  checksum: ff0d0dfc839a556355422293428637e8d35693de58dabf8638bf0b6529131a109d0b2ade77521aa6e54573bb842d7d9d322e465dd73dd61c7590fa3834c3fa81
+  checksum: b05bc7f2296ce3e0925c14147849706544870e0382d38af2352d709a6cf8521bdaff2bd8e5021f1780e570775a8ffa1d2bac28b8065d90d43a3f1f98fd26ce52
   languageName: node
   linkType: hard
 
@@ -6765,7 +6765,7 @@ __metadata:
     esbuild-visualizer: 0.4.0
     escape-string-regexp: 5.0.0
     eslint: 8.35.0
-    eslint-config-prettier: 8.6.0
+    eslint-config-prettier: 8.7.0
     eslint-formatter-friendly: 7.0.0
     eslint-plugin-compat: 4.1.2
     eslint-plugin-import: 2.27.5
