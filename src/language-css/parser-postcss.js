@@ -14,13 +14,7 @@ const isSCSS = require("./utils/is-scss.js");
 const isSCSSNestedPropertyNode = require("./utils/is-scss-nested-property-node.js");
 const isSCSSVariable = require("./utils/is-scss-variable.js");
 const isModuleRuleName = require("./utils/is-module-rule-name.js");
-
-const getHighestAncestor = (node) => {
-  while (node.parent) {
-    node = node.parent;
-  }
-  return node;
-};
+const getHighestAncestor = require("./utils/get-highest-ancestor.js");
 
 function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
@@ -156,24 +150,6 @@ function flattenGroups(node) {
   return node;
 }
 
-function purgeNodes(node) {
-  if (!node || typeof node !== "object") {
-    return;
-  }
-  if (node.type?.startsWith("selector-")) {
-    return;
-  }
-  if ("nodes" in node) {
-    delete node.nodes;
-  }
-  for (const key in node) {
-    if (key === "parent") {
-      continue;
-    }
-    purgeNodes(node[key]);
-  }
-}
-
 function addTypePrefix(node, prefix, skipPrefix) {
   if (node && typeof node === "object") {
     delete node.parent;
@@ -212,10 +188,10 @@ function parseNestedValue(node, options) {
         parseNestedValue(node[key], options);
         if (key === "nodes") {
           node.group = flattenGroups(parseValueNode(node, options));
+          delete node[key];
         }
       }
     }
-    delete node.parent;
   }
   return node;
 }
@@ -237,8 +213,6 @@ function parseValue(value, options) {
   result.text = value;
 
   const parsedResult = parseNestedValue(result, options);
-
-  purgeNodes(parsedResult);
 
   return addTypePrefix(parsedResult, "value-", /^selector-/);
 }
