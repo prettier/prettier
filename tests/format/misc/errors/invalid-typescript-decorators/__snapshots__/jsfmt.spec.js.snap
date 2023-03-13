@@ -51,11 +51,11 @@ exports[`function.ts [babel-ts] format 1`] = `
 `;
 
 exports[`function.ts [typescript] format 1`] = `
-"Decorators are not valid here. (3:2)
+"Decorators are not valid here. (3:1)
   1 | // https://github.com/typescript-eslint/typescript-eslint/pull/2375
   2 |
 > 3 | @decorator()
-    |  ^^^^^^^^^^^
+    | ^^^^^^^^^^^^
   4 | function foo(      ){}
   5 |"
 `;
