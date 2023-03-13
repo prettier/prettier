@@ -57,12 +57,8 @@ const markdownParser = { ...baseParser, parse: createParse({ isMDX: false }) };
 
 const mdxParser = { ...baseParser, parse: createParse({ isMDX: true }) };
 
-const markdown = {
-  parsers: {
-    remark: markdownParser,
-    markdown: markdownParser,
-    mdx: mdxParser,
-  },
+export const parsers = {
+  remark: markdownParser,
+  markdown: markdownParser,
+  mdx: mdxParser,
 };
-
-export default markdown;
