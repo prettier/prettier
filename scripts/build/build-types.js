@@ -36,18 +36,14 @@ async function buildPluginTypes({ file: { input, output } }) {
       /* indent */ `
         import { Parser } from "../index.js";
 
-        declare const plugin: {
-          parsers: {
+        export type plugins = {
         ${Object.keys(plugin.parsers)
           .map(
             (parserName) =>
               `${" ".repeat(4)}${JSON.stringify(parserName)}: Parser;`
           )
           .join("\n")}
-          };
         };
-
-        export default plugin;
       `,
       { parser: "typescript" }
     )
