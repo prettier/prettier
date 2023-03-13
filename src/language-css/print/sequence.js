@@ -1,5 +1,7 @@
 import hasNewline from "../../utils/has-newline.js";
+import isNextLineEmpty from "../../utils/is-next-line-empty.js";
 import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
+import { line, hardline } from "../../document/builders.js";
 import { locStart, locEnd } from "../loc.js";
 
 function printSequence(path, options, print) {
