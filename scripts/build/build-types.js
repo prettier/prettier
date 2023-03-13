@@ -36,7 +36,7 @@ async function buildPluginTypes({ file: { input, output } }) {
       /* indent */ `
         import { Parser } from "../index.js";
 
-        export type plugins = {
+        export declare const parsers: {
         ${Object.keys(plugin.parsers)
           .map(
             (parserName) =>
