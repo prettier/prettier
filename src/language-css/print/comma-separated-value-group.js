@@ -148,9 +148,9 @@ function printCommaSeparatedValueGroup(path, options, print) {
     }
 
     /*
-        @var[ @notVarNested ][notVar]
-                            ^^^^^^^^^
-        */
+    @var[ @notVarNested ][notVar]
+                        ^^^^^^^^^
+    */
     if (iNextNode.type === "value-word" && iNextNode.value.startsWith("]")) {
       continue;
     }
