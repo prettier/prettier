@@ -37,10 +37,6 @@ const parser = {
   locEnd,
 };
 
-const yaml = {
-  parsers: {
-    yaml: parser,
-  },
+export const parsers = {
+  yaml: parser,
 };
-
-export default yaml;

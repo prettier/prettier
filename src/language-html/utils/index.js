@@ -3,7 +3,7 @@
  */
 
 import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
-import inferParserByLanguage from "../../utils/infer-parser-by-language.js";
+import inferParser from "../../utils/infer-parser.js";
 import { line, hardline, join } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import {
@@ -332,83 +332,90 @@ function hasNonTextChild(node) {
   return node.children?.some((child) => child.type !== "text");
 }
 
-function _inferScriptParser(node) {
-  const { type, lang } = node.attrMap;
-  if (
-    type === "module" ||
-    type === "text/javascript" ||
-    type === "text/babel" ||
-    type === "application/javascript" ||
-    lang === "jsx"
-  ) {
-    return "babel";
+function inferParserByTypeAttribute(type) {
+  if (!type) {
+    return;
   }
 
-  if (type === "application/x-typescript" || lang === "ts" || lang === "tsx") {
-    return "typescript";
-  }
+  switch (type) {
+    case "module":
+    case "text/javascript":
+    case "text/babel":
+    case "application/javascript":
+      return "babel";
 
-  if (type === "text/markdown") {
-    return "markdown";
-  }
+    case "application/x-typescript":
+      return "typescript";
 
-  if (type === "text/html") {
-    return "html";
-  }
+    case "text/markdown":
+      return "markdown";
 
-  if (
-    (type && (type.endsWith("json") || type.endsWith("importmap"))) ||
-    type === "speculationrules"
-  ) {
-    return "json";
-  }
+    case "text/html":
+      return "html";
 
-  if (type === "text/x-handlebars-template") {
-    return "glimmer";
-  }
-}
+    case "text/x-handlebars-template":
+      return "glimmer";
 
-function inferStyleParser(node, options) {
-  const { lang } = node.attrMap;
-  if (!lang || lang === "postcss" || lang === "css") {
-    return "css";
-  }
-
-  if (lang === "scss") {
-    return "scss";
-  }
-
-  if (lang === "less") {
-    return "less";
-  }
-
-  // Prettier does not officially support stylus.
-  // But, we need to handle `"stylus"` here for printing a style block in Vue SFC as stylus code by external plugin.
-  // https://github.com/prettier/prettier/pull/12707
-  if (lang === "stylus") {
-    return inferParserByLanguage("stylus", options);
+    default:
+      if (
+        type.endsWith("json") ||
+        type.endsWith("importmap") ||
+        type === "speculationrules"
+      ) {
+        return "json";
+      }
   }
 }
 
 function inferScriptParser(node, options) {
-  if (node.name === "script" && !node.attrMap.src) {
-    if (!node.attrMap.lang && !node.attrMap.type) {
-      return "babel";
-    }
-    return _inferScriptParser(node);
+  const { name, attrMap } = node;
+
+  if (name !== "script" || Object.hasOwn(attrMap, "src")) {
+    return;
   }
 
-  if (node.name === "style") {
-    return inferStyleParser(node, options);
+  const { type, lang } = node.attrMap;
+
+  if (!lang && !type) {
+    return "babel";
   }
 
-  if (options && isVueNonHtmlBlock(node, options)) {
-    return (
-      _inferScriptParser(node) ||
-      (!("src" in node.attrMap) &&
-        inferParserByLanguage(node.attrMap.lang, options))
-    );
+  return (
+    inferParser(options, { language: lang }) ?? inferParserByTypeAttribute(type)
+  );
+}
+
+function inferVueSfcBlockParser(node, options) {
+  if (!isVueNonHtmlBlock(node, options)) {
+    return;
   }
+  const { attrMap } = node;
+
+  if (Object.hasOwn(attrMap, "src")) {
+    return;
+  }
+
+  const { type, lang } = attrMap;
+
+  return (
+    inferParser(options, { language: lang }) ?? inferParserByTypeAttribute(type)
+  );
+}
+
+function inferStyleParser(node, options) {
+  if (node.name !== "style") {
+    return;
+  }
+  const { lang } = node.attrMap;
+  return lang ? inferParser(options, { language: lang }) : "css";
+}
+
+function inferElementParser(node, options) {
+  return (
+    inferScriptParser(node, options) ??
+    inferStyleParser(node, options) ??
+    inferVueSfcBlockParser(node, options)
+  );
 }
 
 function isBlockLikeCssDisplay(cssDisplay) {
@@ -458,6 +465,11 @@ function hasParent(node, fn) {
 }
 
 function getNodeCssStyleDisplay(node, options) {
+  // Every root block in Vue SFC is a block
+  if (isVueSfcBlock(node, options)) {
+    return "block";
+  }
+
   if (node.prev?.type === "comment") {
     // <!-- display: block -->
     const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
@@ -481,10 +493,6 @@ function getNodeCssStyleDisplay(node, options) {
     case "ignore":
       return "block";
     default:
-      // See https://github.com/prettier/prettier/issues/8151
-      if (options.parser === "vue" && node.parent?.type === "root") {
-        return "block";
-      }
       return (
         (node.type === "element" &&
           (!node.namespace ||
@@ -537,16 +545,6 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .split("\n")
         .map((lineText) => lineText.slice(minIndent))
         .join("\n");
-}
-
-function countChars(text, char) {
-  let counter = 0;
-  for (let i = 0; i < text.length; i++) {
-    if (text[i] === char) {
-      counter++;
-    }
-  }
-  return counter;
 }
 
 function unescapeQuoteEntities(text) {
@@ -622,7 +620,6 @@ export {
   htmlTrimPreserveIndentation,
   getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
-  countChars,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
@@ -631,7 +628,7 @@ export {
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
   hasPrettierIgnore,
-  inferScriptParser,
+  inferElementParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
   isVueScriptTag,

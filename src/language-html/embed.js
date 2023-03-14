@@ -25,7 +25,7 @@ import {
 import {
   isScriptLikeTag,
   isVueNonHtmlBlock,
-  inferScriptParser,
+  inferElementParser,
   htmlTrimPreserveIndentation,
   dedentString,
   unescapeQuoteEntities,
@@ -256,7 +256,7 @@ function embed(path, options) {
       }
 
       if (!node.isSelfClosing && isVueNonHtmlBlock(node, options)) {
-        const parser = inferScriptParser(node, options);
+        const parser = inferElementParser(node, options);
         if (!parser) {
           return;
         }
@@ -288,7 +288,7 @@ function embed(path, options) {
 
     case "text":
       if (isScriptLikeTag(node.parent)) {
-        const parser = inferScriptParser(node.parent, options);
+        const parser = inferElementParser(node.parent, options);
         if (parser) {
           return async (textToDoc) => {
             const value =

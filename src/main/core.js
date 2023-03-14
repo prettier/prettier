@@ -1,5 +1,6 @@
 import { diffArrays } from "diff";
 
+import { hardline, addAlignmentToDoc } from "../document/builders.js";
 import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer.js";
 import { printDocToDebug } from "../document/debug.js";
 import getAlignmentSize from "../utils/get-alignment-size.js";
@@ -15,7 +16,8 @@ import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted } from "./comments/print.js";
 import { parse as parseText, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
-import { calculateRange, findNodeAtOffset } from "./range-util.js";
+import { calculateRange } from "./range-util.js";
+import getCursorNode from "./get-cursor-node.js";
 
 const BOM = "\uFEFF";
 
@@ -29,16 +31,19 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   const { ast, text } = await parseText(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
-    const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
-    if (nodeResult?.node) {
-      opts.cursorNode = nodeResult.node;
-    }
+    opts.cursorNode = getCursorNode(ast, opts);
   }
 
   const astComments = attachComments(text, ast, opts);
-  const doc = await printAstToDoc(ast, opts, addAlignmentSize);
+  let doc = await printAstToDoc(ast, opts, addAlignmentSize);
+  ensureAllCommentsPrinted(opts);
+
+  if (addAlignmentSize > 0) {
+    // Add a hardline to make the indents take effect, it will be removed later
+    doc = addAlignmentToDoc([hardline, doc], addAlignmentSize, opts.tabWidth);
+  }
+
   const result = printDocToStringWithoutNormalizeOptions(doc, opts);
-  ensureAllCommentsPrinted(astComments);
 
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {

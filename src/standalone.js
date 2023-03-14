@@ -1,8 +1,9 @@
 import * as core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
-import * as languages from "./languages.js";
+import * as prettierPluginJs from "./language-js/index.js";
+import * as prettierPluginJson from "./language-json/index.js";
 
-const builtinPlugins = Object.values(languages);
+const builtinPlugins = [prettierPluginJs, prettierPluginJson];
 
 function withPlugins(
   fn,
@@ -58,5 +59,5 @@ export {
   debugApis as __debug,
 };
 export * as util from "./utils/public.js";
-export * as doc from "./document/index.js";
+export * as doc from "./document/public.js";
 export { default as version } from "./main/version.evaluate.cjs";

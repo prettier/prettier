@@ -125,9 +125,9 @@ async function textToDoc(
 
   text = result.text;
 
-  const astComments = attachComments(text, ast, options);
+  attachComments(text, ast, options);
   const doc = await printAstToDoc(ast, options);
-  ensureAllCommentsPrinted(astComments);
+  ensureAllCommentsPrinted(options);
 
   return stripTrailingHardline(doc);
 }

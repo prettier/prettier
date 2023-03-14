@@ -40,22 +40,17 @@ function createParseError(error) {
   });
 }
 
-function parse(text, options = {}) {
+function parse(text) {
   const ast = flowParser.parse(replaceHashbang(text), parseOptions);
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { text });
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-const parser = {
-  parsers: {
-    flow: createParser(parse),
-  },
+export const parsers = {
+  flow: createParser(parse),
 };
-
-export default parser;

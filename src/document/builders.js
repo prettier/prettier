@@ -232,9 +232,6 @@ function label(label, contents) {
   return label ? { type: DOC_TYPE_LABEL, label, contents } : contents;
 }
 
-// TODO: Remove this in v4
-export const concat = (parts) => parts;
-
 export {
   join,
   line,

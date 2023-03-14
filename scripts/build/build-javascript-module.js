@@ -175,13 +175,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
 
     // Replace parser getters with `undefined`
     for (const file of [
-      "src/language-css/parsers.js",
-      "src/language-graphql/parsers.js",
-      "src/language-html/parsers.js",
-      "src/language-handlebars/parsers.js",
       "src/language-js/parse/parsers.js",
-      "src/language-markdown/parsers.js",
-      "src/language-yaml/parsers.js",
       // This module requires file access, should not include in universal bundle
       "src/utils/get-interpreter.js",
     ]) {

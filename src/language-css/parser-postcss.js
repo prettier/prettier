@@ -437,21 +437,17 @@ const postCssParser = {
 };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-const postcssParser = {
-  parsers: {
-    css: {
-      ...postCssParser,
-      parse: parseCss,
-    },
-    less: {
-      ...postCssParser,
-      parse: parseLess,
-    },
-    scss: {
-      ...postCssParser,
-      parse: parseScss,
-    },
+export const parsers = {
+  css: {
+    ...postCssParser,
+    parse: parseCss,
+  },
+  less: {
+    ...postCssParser,
+    parse: parseLess,
+  },
+  scss: {
+    ...postCssParser,
+    parse: parseScss,
   },
 };
-
-export default postcssParser;

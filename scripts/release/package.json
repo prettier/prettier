@@ -7,7 +7,7 @@
   "dependencies": {
     "chalk": "5.2.0",
     "enquirer": "2.3.6",
-    "execa": "6.1.0",
+    "execa": "7.1.0",
     "outdent": "0.8.0",
     "semver": "7.3.8",
     "string-width": "5.1.2"
