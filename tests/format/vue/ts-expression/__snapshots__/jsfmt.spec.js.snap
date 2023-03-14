@@ -1,5 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`attribute-expr.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script lang="ts"></script>
+
+<template>
+  <comp :foo="   (a:string)=>1"/>
+</template>
+=====================================output=====================================
+<script lang="ts"></script>
+
+<template>
+  <comp :foo="   (a:string)=>1" />
+</template>
+
+================================================================================
+`;
+
 exports[`basic.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
