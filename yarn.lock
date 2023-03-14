@@ -6877,7 +6877,7 @@ __metadata:
     tempy: 3.0.0
     to-fast-properties: 4.0.0
     ts-expect: 1.3.0
-    typescript: 4.9.5
+    typescript: 5.0.1-rc
     unicode-regex: 3.0.0
     unified: 9.2.2
     vnopts: 1.0.2
@@ -8168,23 +8168,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.9.5":
-  version: 4.9.5
-  resolution: "typescript@npm:4.9.5"
+"typescript@npm:5.0.1-rc":
+  version: 5.0.1-rc
+  resolution: "typescript@npm:5.0.1-rc"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
+  checksum: 47e2381464f0b8a2d54ddb60ddd44a57577462d5faecd7db445b8b24a02d6f16d117fd4f49ba66fe8e22c49b79f5bfb1b6851e1e32e29c6d4c2ab324bc184b70
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.9.5#~builtin<compat/typescript>":
-  version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"
+"typescript@patch:typescript@5.0.1-rc#~builtin<compat/typescript>":
+  version: 5.0.1-rc
+  resolution: "typescript@patch:typescript@npm%3A5.0.1-rc#~builtin<compat/typescript>::version=5.0.1-rc&hash=1f5320"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: ab417a2f398380c90a6cf5a5f74badd17866adf57f1165617d6a551f059c3ba0a3e4da0d147b3ac5681db9ac76a303c5876394b13b3de75fdd5b1eaa06181c9d
+  checksum: 61b43eb0e562e61f311c3138854d75a7d9f57153df6b7a4a509db76ae8aea2029116186fb391fa266c00b1e36c16daa075baf5e23f0bb133f9281adf6ca308f7
   languageName: node
   linkType: hard
 
