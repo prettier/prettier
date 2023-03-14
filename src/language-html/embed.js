@@ -140,8 +140,11 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
+      const exprParser = options.__should_parse_vue_template_with_ts
+        ? "__vue_ts_expression"
+        : "__vue_expression";
       return printMaybeHug(
-        await attributeTextToDoc(getValue(), { parser: "__vue_expression" })
+        await attributeTextToDoc(getValue(), { parser: exprParser })
       );
     }
 
