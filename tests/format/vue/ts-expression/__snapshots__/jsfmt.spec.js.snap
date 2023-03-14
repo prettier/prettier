@@ -43,6 +43,7 @@ printWidth: 80
 =====================================input======================================
 <template>
   <p v-if="isFolder(file)">{{ (   file as   mymodule.Folder    ).deadline }}</p>
+  <prettier :format=" myFunc(  o as unknown )" />
 </template>
 
 <script lang="ts"></script>
@@ -50,6 +51,7 @@ printWidth: 80
 =====================================output=====================================
 <template>
   <p v-if="isFolder(file)">{{ (file as mymodule.Folder).deadline }}</p>
+  <prettier :format="myFunc(o as unknown)" />
 </template>
 
 <script lang="ts"></script>
@@ -116,6 +118,7 @@ printWidth: 80
 =====================================input======================================
 <template>
   <p v-if="isFolder(file)">{{ (   file as   mymodule.Folder    ).deadline }}</p>
+  <prettier :format=" myFunc(  o as unknown )" />
 </template>
 
 <script></script>
@@ -123,6 +126,7 @@ printWidth: 80
 =====================================output=====================================
 <template>
   <p v-if="isFolder(file)">{{ (   file as   mymodule.Folder    ).deadline }}</p>
+  <prettier :format=" myFunc(  o as unknown )" />
 </template>
 
 <script></script>
