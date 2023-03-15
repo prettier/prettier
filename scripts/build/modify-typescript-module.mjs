@@ -4,92 +4,82 @@ import { outdent } from "outdent";
 import MagicString from "magic-string";
 import { writeFile, PROJECT_ROOT } from "../utils/index.mjs";
 
-/*
-Root submodule in `typescript.js` are bundled like
+function* getModules(text) {
+  const parts = text.split(/(?<=\n)( {2}\/\/ src\/\S+\n)/);
 
-```js
-var ts;
-(function (ts) {
-  // Submodule
-})(ts || (ts = {}));
-```
-*/
+  let start = parts[0].length;
 
-const SUBMODULE_START = escapeStringRegexp("var ts;\n(function (ts) {");
-const SUBMODULE_END = escapeStringRegexp("})(ts || (ts = {}));");
+  for (let partIndex = 1; partIndex < parts.length - 1; partIndex += 2) {
+    const comment = parts[partIndex];
+    const code = parts[partIndex + 1];
 
-function getSubmodules(text) {
-  const regexp = new RegExp(
-    [
-      "(?<=\n)",
-      `(?<before>${SUBMODULE_START})`,
-      "(?=\n)",
-      "(?<text>.*?)",
-      "(?<=\n)",
-      `(?<after>${SUBMODULE_END})`,
-      "(?=\n)",
-    ].join(""),
-    "gsu"
-  );
+    const path = comment.slice("  // ".length, -1);
+    const end = start + comment.length + code.length;
 
-  return [...text.matchAll(regexp)].map((match) => ({
-    start: match.index,
-    end: match.index + match[0].length,
-    ...match.groups,
-  }));
+    if (/\S/.test(code)) {
+      const esmRegExp = new RegExp(
+        [
+          "\\s*var (?<initFunctionName>\\w+) = __esm\\({",
+          `\\s*"${escapeStringRegexp(path)}"\\(\\) {`,
+          ".*",
+          "\\s*}",
+          "\\s*}\\);",
+        ].join("\\n"),
+        "s"
+      );
+      const match = code.match(esmRegExp);
+
+      yield {
+        isEntry: path === "src/typescript/typescript.ts",
+        path,
+        start: start + comment.length,
+        end: end - 1,
+        code,
+        esmModuleInitFunctionName: match?.groups.initFunctionName,
+      };
+    }
+
+    start = end;
+  }
 }
 
 class TypeScriptModuleSource {
   #source;
-  #modules;
+  modules;
 
   constructor(text) {
     this.#source = new MagicString(text);
-    this.#modules = getSubmodules(text);
+    this.modules = [...getModules(text)];
   }
 
-  removeSubmodule(testFunction) {
-    return this.replaceSubmodule(testFunction, "");
-  }
-
-  replaceSubmodule(testFunction, replacement) {
-    const modules = this.#modules.filter(({ text }) => testFunction(text));
-    if (modules.length !== 1) {
-      return this;
-
-      // TODO: Enable this check when merge to `next` branch
-      // throw Object.assign(
-      //   new Error(
-      //     `Expect exactly one submodule to be found, got ${modules.length} submodules.`
-      //   ),
-      //   { modules }
-      // );
+  replaceModule(module, replacement) {
+    if (typeof module === "string") {
+      module = this.modules.find((searching) => searching.path === module);
     }
 
-    const [{ start, end, before, after }] = modules;
-    if (!replacement) {
-      this.#source.remove(start, end);
-    } else {
-      this.#source.overwrite(
-        start,
-        end,
-        before + "\n" + replacement + "\n" + after
-      );
+    if (!module) {
+      throw Object.assign(new Error("Module not found"), { module });
     }
+
+    const { esmModuleInitFunctionName } = module;
+    const moduleInitCode = esmModuleInitFunctionName
+      ? `var ${esmModuleInitFunctionName} = () => {};`
+      : "";
+
+    this.#source.overwrite(
+      module.start,
+      module.end,
+      moduleInitCode + replacement
+    );
     return this;
   }
 
-  removeMultipleSubmodules(testFunction) {
-    const modules = this.#modules.filter(({ text }) => testFunction(text));
-
-    if (modules.length < 2) {
-      throw new Error("Expect more than one submodules to be found");
+  removeModule(module) {
+    if (typeof module === "string") {
+      module = this.modules.find((searching) => searching.path === module);
     }
 
-    for (const { start, end } of modules) {
-      this.#source.remove(start, end);
-    }
-    return this;
+    return this.replaceModule(module, "");
   }
 
   replaceAlignedCode({ start, end, replacement = "" }) {
@@ -116,8 +106,18 @@ class TypeScriptModuleSource {
     return this;
   }
 
+  prepend(...args) {
+    this.#source.prepend(...args);
+    return this;
+  }
+
   append(...args) {
     this.#source.append(...args);
+    return this;
+  }
+
+  replace(...args) {
+    this.#source.replace(...args);
     return this;
   }
 
@@ -126,363 +126,167 @@ class TypeScriptModuleSource {
     return this;
   }
 
+  applyChanges() {
+    const text = this.#source.toString();
+    this.#source = new MagicString(text);
+    this.modules = getModules(text);
+  }
+
   toString() {
     return this.#source.toString();
   }
 }
 
+function unwrap(text) {
+  const startMark = "var ts = (() => {";
+  const endMark = "return require_typescript();";
+  const start = text.indexOf(startMark);
+  const end = text.lastIndexOf(endMark);
+
+  if (start === -1 || end === -1) {
+    throw new Error("Unexpected source");
+  }
+
+  return text.slice(start + startMark.length, end);
+}
+
 function modifyTypescriptModule(text) {
+  text = unwrap(text);
+
   const source = new TypeScriptModuleSource(text);
 
-  // Code after `globalThis` shim are useless
-  const positionOfGlobalThisShim = text.indexOf(
-    "// We polyfill `globalThis` here so re can reliably patch the global scope"
-  );
-  if (positionOfGlobalThisShim === -1) {
-    throw new Error("Unexpected source.");
+  // Deprecated
+  for (const module of source.modules) {
+    if (module.path.startsWith("src/deprecatedCompat/")) {
+      source.removeModule(module);
+    }
   }
-  source.remove(positionOfGlobalThisShim, text.length);
-  source.append("module.exports = ts;");
 
-  // File system
-  source.removeSubmodule((text) =>
-    text.includes("ts.generateDjb2Hash = generateDjb2Hash;")
-  );
+  // jsTyping
+  for (const module of source.modules) {
+    if (module.path.startsWith("src/jsTyping/")) {
+      source.removeModule(module);
+    }
+  }
 
-  // Language service
-  source.removeSubmodule((text) =>
-    text.includes("ts.TypeScriptServicesFactory = TypeScriptServicesFactory;")
-  );
+  // services
+  for (const module of source.modules) {
+    if (
+      module.path === "src/services/services.ts" ||
+      module.path === "src/services/_namespaces/ts.ts"
+    ) {
+      continue;
+    }
 
-  // `ts.Version`
-  source.removeSubmodule((text) => text.includes("ts.Version = Version;"));
+    // This is a big module, most code except `scanner` is not used
+    if (module.path === "src/services/utilities.ts") {
+      source.replaceModule(
+        module,
+        outdent`
+          var scanner;
+          var ${module.esmModuleInitFunctionName} = () => {
+            init_debug();
+            scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);
+          };
+        `
+      );
+      continue;
+    }
 
-  // `ts.transform`
-  source.removeSubmodule((text) => text.includes("ts.transform = transform;"));
+    if (module.path.startsWith("src/services/")) {
+      source.removeModule(module);
+    }
+  }
 
-  // `ts.BreakpointResolver`
-  source.removeSubmodule((text) =>
-    text.trimStart().startsWith("var BreakpointResolver;")
-  );
-
-  // `ts.textChanges`
-  source.removeSubmodule((text) =>
-    text.trimStart().startsWith("var textChanges;")
-  );
-
-  // `ts.preProcessFile`
-  source.removeSubmodule((text) =>
-    text.includes("ts.preProcessFile = preProcessFile;")
-  );
-
-  // `ts.Rename`
-  source.removeSubmodule((text) => text.trimStart().startsWith("var Rename;"));
-
-  // `ts.SmartSelectionRange`
-  source.removeSubmodule((text) =>
-    text.trimStart().startsWith("var SmartSelectionRange;")
-  );
-
-  // `ts.SignatureHelp`
-  source.removeSubmodule((text) =>
-    text.trimStart().startsWith("var SignatureHelp;")
-  );
-
-  // `ts.InlayHints`
-  source.removeSubmodule((text) =>
-    text.trimStart().startsWith("var InlayHints;")
-  );
-
-  // Sourcemap
-  source
-    .removeSubmodule((text) =>
-      text.includes("ts.getSourceMapper = getSourceMapper;")
-    )
-    .removeSubmodule((text) =>
-      text.includes("ts.createSourceMapGenerator = createSourceMapGenerator;")
-    );
-
-  // Suggestion
-  source.removeSubmodule((text) =>
-    text.includes(
-      "ts.computeSuggestionDiagnostics = computeSuggestionDiagnostics;"
-    )
-  );
-
-  // Tracing
-  source.removeSubmodule((text) =>
-    text.includes("ts.startTracing = tracingEnabled.startTracing;")
-  );
-
-  // Diagnostics
-  source.removeSubmodule((text) =>
-    text.includes("ts.createProgramHost = createProgramHost;")
-  );
-
-  // `ts.transformTypeScript`
-  source.removeSubmodule((text) =>
-    text.includes("ts.transformTypeScript = transformTypeScript;")
-  );
-
-  // `ts.createRuntimeTypeSerializer`
-  source.removeSubmodule((text) =>
-    text.includes(
-      "ts.createRuntimeTypeSerializer = createRuntimeTypeSerializer;"
-    )
-  );
-
-  // Transform
-  source
-    // `ts.transformLegacyDecorators`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformLegacyDecorators = transformLegacyDecorators;")
-    )
-    // `ts.transformES5`
-    .removeSubmodule((text) => text.includes("ts.transformES5 = transformES5;"))
-    // `ts.transformES2015`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformES2015 = transformES2015;")
-    )
-    // `ts.transformES2016`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformES2016 = transformES2016;")
-    )
-    // `ts.transformES2017` & `ts.createSuperAccessVariableStatement`
-    .removeSubmodule(
-      (text) =>
-        text.includes("ts.transformES2017 = transformES2017;") &&
-        text.includes(
-          "ts.createSuperAccessVariableStatement = createSuperAccessVariableStatement;"
-        )
-    )
-    // `ts.transformES2018`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformES2018 = transformES2018;")
-    )
-    // `ts.transformES2019`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformES2019 = transformES2019;")
-    )
-    // `ts.transformES2020`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformES2020 = transformES2020;")
-    )
-    // `ts.transformES2021`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformES2021 = transformES2021;")
-    )
-    // `ts.transformESNext`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformESNext = transformESNext;")
-    )
-    // `ts.transformJsx`
-    .removeSubmodule((text) => text.includes("ts.transformJsx = transformJsx;"))
-    // `ts.transformGenerators`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformGenerators = transformGenerators;")
-    )
-    // `ts.transformModule`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformModule = transformModule;")
-    )
-    // `ts.transformSystemModule`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformSystemModule = transformSystemModule;")
-    )
-    // `ts.transformECMAScriptModule`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformECMAScriptModule = transformECMAScriptModule;")
-    )
-    // `ts.transformNodeModule`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformNodeModule = transformNodeModule;")
-    )
-    // `ts.transformClassFields`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformClassFields = transformClassFields;")
-    )
-    // `ts.transformDeclarations`
-    .removeSubmodule((text) =>
-      text.includes("ts.transformDeclarations = transformDeclarations;")
-    );
-
-  // `ts.transformNodes` and more
-  source.removeSubmodule((text) =>
-    text.includes("ts.transformNodes = transformNodes;")
-  );
-
-  // `ts.server`
-  source.removeSubmodule((text) => text.includes("(ts.server = {})"));
-
-  // `ts.JsTyping`
-  source.removeSubmodule((text) => text.includes("(ts.JsTyping = {})"));
-
-  // `ts.ClassificationType`
-  source.removeSubmodule((text) =>
-    text.includes("(ts.ClassificationType = {})")
-  );
-
-  // Build
-  source
-    .removeSubmodule((text) =>
-      text.includes("ts.createSolutionBuilder = createSolutionBuilder;")
-    )
-    .removeSubmodule((text) =>
-      text.includes("ts.parseBuildCommand = parseBuildCommand;")
-    )
-    .removeSubmodule((text) =>
-      text.includes("ts.createBuilderProgram = createBuilderProgram;")
-    )
-    .removeSubmodule((text) =>
-      text.includes(
-        "ts.createSemanticDiagnosticsBuilderProgram = createSemanticDiagnosticsBuilderProgram;"
-      )
-    )
-    .removeSubmodule((text) =>
-      text.includes("ts.createResolutionCache = createResolutionCache;")
-    )
-    .removeSubmodule((text) =>
-      text.includes("ts.createWatchCompilerHost = createWatchCompilerHost;")
-    )
-    .removeSubmodule((text) =>
-      text.includes(
-        "ts.resolveConfigFileProjectName = resolveConfigFileProjectName;"
-      )
-    )
-    .removeSubmodule((text) =>
-      text.includes("ts.getBuildInfo = getBuildInfo;")
-    );
-
-  // Compile
-  source
-    .removeSubmodule((text) =>
-      text.includes("ts.createCompilerHost = createCompilerHost;")
-    )
-    .removeSubmodule((text) => text.includes("(ts.BuilderState = {})"))
-    .removeSubmodule((text) => text.includes("ts.transpile = transpile;"));
-
-  // Watch
-  source.removeSubmodule((text) =>
-    text.includes("ts.getWatchFactory = getWatchFactory;")
-  );
-
-  // `ts.canProduceDiagnostics`, `ts.createGetSymbolAccessibilityDiagnosticForNode`, and `ts.createGetSymbolAccessibilityDiagnosticForNode`
-  source.removeSubmodule((text) =>
-    text.includes("ts.canProduceDiagnostics = canProduceDiagnostics;")
-  );
+  // `transformers`
+  source.removeModule("src/compiler/transformer.ts");
+  for (const module of source.modules) {
+    if (module.path.startsWith("src/compiler/transformers/")) {
+      source.removeModule(module);
+    }
+  }
 
   // `ts.moduleSpecifiers`
-  source.removeSubmodule((text) => text.includes("(ts.moduleSpecifiers = {})"));
+  source.removeModule("src/compiler/_namespaces/ts.moduleSpecifiers.ts");
+  source.removeModule("src/compiler/moduleSpecifiers.ts");
 
-  // `ts.trace`
-  source.removeSubmodule((text) => text.includes("ts.trace = trace;"));
+  // Sourcemap
+  source.removeModule("src/compiler/sourcemap.ts");
 
-  // `ts.createTypeChecker`
-  source.removeSubmodule((text) =>
-    text.includes("ts.createTypeChecker = createTypeChecker;")
+  // watch
+  source.removeModule("src/compiler/watch.ts");
+  source.removeModule("src/compiler/watchPublic.ts");
+  source.removeModule("src/compiler/watchUtilities.ts");
+
+  // build
+  source.removeModule("src/compiler/commandLineParser.ts");
+  source.removeModule("src/compiler/builder.ts");
+  source.removeModule("src/compiler/builderPublic.ts");
+  source.removeModule("src/compiler/resolutionCache.ts");
+  source.removeModule("src/compiler/tsbuild.ts");
+  source.removeModule("src/compiler/tsbuildPublic.ts");
+  source.removeModule("src/compiler/builderState.ts");
+  source.removeModule("src/compiler/builderStatePublic.ts");
+
+  // Misc
+  source.removeModule("src/compiler/symbolWalker.ts");
+  source.removeModule("src/compiler/binder.ts");
+  source.removeModule("src/compiler/semver.ts");
+  source.removeModule("src/compiler/program.ts");
+  source.removeModule("src/compiler/moduleNameResolver.ts");
+  source.removeModule("src/compiler/checker.ts");
+  source.removeModule("src/compiler/visitorPublic.ts");
+  source.removeModule("src/compiler/emitter.ts");
+  source.removeModule("src/compiler/_namespaces/ts.performance.ts");
+
+  // File system
+  source.replaceModule("src/compiler/sys.ts", "var sys;");
+  source.replaceModule("src/compiler/tracing.ts", "var tracing;");
+
+  // perfLogger
+  source.replaceModule(
+    "src/compiler/perfLogger.ts",
+    "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});"
   );
 
-  // `ts.DocumentHighlights`
-  source.removeSubmodule((text) =>
-    text.includes("(ts.DocumentHighlights = {})")
-  );
-
-  // `ts.createDocumentRegistry`
-  source.removeSubmodule((text) =>
-    text.includes("ts.createDocumentRegistry = createDocumentRegistry;")
-  );
-
-  // `ts.CallHierarchy`
-  source.removeSubmodule((text) => text.includes("(ts.CallHierarchy = {})"));
-
-  // `ts.flattenDestructuringAssignment` and `ts.flattenDestructuringBinding`
-  source.removeSubmodule(
-    (text) =>
-      text.includes(
-        "ts.flattenDestructuringAssignment = flattenDestructuringAssignment"
-      ) &&
-      text.includes(
-        "ts.flattenDestructuringBinding = flattenDestructuringBinding"
-      )
-  );
-
-  // `ts.processTaggedTemplateExpression`
-  source.removeSubmodule((text) =>
-    text.includes(
-      "ts.processTaggedTemplateExpression = processTaggedTemplateExpression"
-    )
-  );
-
-  // Editor
-  source
-    .removeSubmodule((text) =>
-      text.includes("ts.getEditsForFileRename = getEditsForFileRename;")
-    )
-    .removeSubmodule((text) => text.includes("(ts.GoToDefinition = {})"))
-    .removeSubmodule((text) => text.includes("(ts.JsDoc = {})"))
-    .removeSubmodule((text) => text.includes("(ts.NavigateTo = {})"))
-    .removeSubmodule((text) => text.includes("(ts.NavigationBar = {})"))
-    .removeSubmodule((text) => text.includes("(ts.OrganizeImports = {})"))
-    .removeSubmodule((text) =>
-      text.includes("(ts.OutliningElementsCollector = {})")
-    )
-    .removeSubmodule((text) =>
-      text.includes("ts.createPatternMatcher = createPatternMatcher;")
-    )
-    .removeSubmodule((text) => text.includes("(ts.SymbolDisplay = {})"));
-
-  // `ts.refactor` (multiple)
-  source.removeMultipleSubmodules((text) =>
-    text.trimStart().startsWith("var refactor;")
-  );
-
-  // `ts.codefix` (multiple)
-  source.removeMultipleSubmodules((text) =>
-    text.trimStart().startsWith("var codefix;")
-  );
-
-  // `ts.formatting` (multiple)
-  source.removeMultipleSubmodules((text) =>
-    text.trimStart().startsWith("var formatting;")
-  );
-
-  // `ts.Completions` (multiple)
-  source.removeMultipleSubmodules((text) =>
-    text.trimStart().startsWith("var Completions;")
-  );
-
-  // `ts.FindAllReferences` (multiple)
-  source.removeMultipleSubmodules((text) =>
-    text.trimStart().startsWith("var FindAllReferences;")
-  );
-
-  // Performance
-  source.replaceSubmodule(
-    (text) =>
-      text.includes(
-        "ts.tryGetNativePerformanceHooks = tryGetNativePerformanceHooks;"
-      ),
+  // performanceCore
+  source.replaceModule(
+    "src/compiler/performanceCore.ts",
     outdent`
-      ts.tryGetNativePerformanceHooks = () => {};
-      ts.timestamp = Date.now;
+      var tryGetNativePerformanceHooks = () => {};
+      var timestamp = Date.now;
     `
   );
 
-  for (const [find, replacement] of Object.entries({
-    // yarn pnp
-    "process.versions.pnp": "undefined",
+  // `factory`
+  source.removeModule("src/compiler/factory/emitNode.ts");
+  source.removeModule("src/compiler/factory/emitHelpers.ts");
+  source.replaceModule(
+    "src/compiler/factory/nodeConverters.ts",
+    outdent`
+      var createNodeConverters = () => new Proxy({}, {get: () => () => {}});
+    `
+  );
 
-    // Dynamic `require()`s
-    "ts.sys && ts.sys.require": "false",
-    "require(etwModulePath)": "undefined",
-  })) {
-    source.replaceAll(find, replacement);
-  }
+  /* spell-checker: disable */
+  // `ts.createParenthesizerRules`
+  source.replaceAlignedCode({
+    start: "function createParenthesizerRules(",
+    end: "}",
+  });
+  /* spell-checker: enable */
 
   source.replaceAlignedCode({
-    start: "var debugObjectHost = (function () {",
-    end: "})();",
+    start: "function getScriptTargetFeatures(",
+    end: "}",
   });
+
+  source.replaceAlignedCode({
+    start: "var __require = ",
+    end: "});",
+  });
+
+  source.append("module.exports = require_typescript();");
 
   return source.toString();
 }
