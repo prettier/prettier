@@ -1,5 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`decorator-auto-accessors-new-line.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor
+  ["bar"];
+}
+
+class Foo {
+  static accessor
+  bar;
+}
+
+class Foo {
+  accessor
+  bar;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor;
+  ["bar"];
+}
+
+class Foo {
+  static accessor;
+  bar;
+}
+
+class Foo {
+  accessor;
+  bar;
+}
+
+================================================================================
+`;
+
 exports[`decorator-auto-accessors-type-annotations.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

@@ -34,11 +34,11 @@ exports[`class-expression-decorator.js [flow] format 1`] = `
 `;
 
 exports[`class-expression-decorator.js [typescript] format 1`] = `
-"Expression expected. (3:3)
+"Decorators are not valid here. (3:3)
   1 | (
   2 |   // prettier-ignore
 > 3 |   @decorator
-    |   ^
+    |   ^^^^^^^^^^
   4 |   class {}
   5 | );
   6 |"

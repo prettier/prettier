@@ -23,20 +23,6 @@ function throwErrorOnTsNode(node, message) {
   throwTsSyntaxError({ loc: getTsNodeLocation(node) }, message);
 }
 
-// Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
-// https://github.com/typescript-eslint/typescript-eslint/pull/2375
-// There is a `checkGrammarDecorators` in `typescript` package, consider use it directly in future
-function throwErrorForInvalidDecorator(tsNode) {
-  const { illegalDecorators } = tsNode;
-  if (!isNonEmptyArray(illegalDecorators)) {
-    return;
-  }
-
-  const [{ expression }] = illegalDecorators;
-
-  throwErrorOnTsNode(expression, "Decorators are not valid here.");
-}
-
 // Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5
 // https://github.com/typescript-eslint/typescript-eslint/releases/tag/v5.0.0
 function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
@@ -70,7 +56,49 @@ function throwErrorForInvalidModifier(node) {
 
   for (const modifier of modifiers) {
     if (ts.isDecorator(modifier)) {
-      continue;
+      const legacyDecorators = true;
+      if (
+        // @ts-expect-error -- internal?
+        !ts.nodeCanBeDecorated(
+          legacyDecorators,
+          node,
+          node.parent,
+          node.parent.parent
+        )
+      ) {
+        if (
+          node.kind === SyntaxKind.MethodDeclaration &&
+          // @ts-expect-error -- internal?
+          !ts.nodeIsPresent(node.body)
+        ) {
+          throwErrorOnTsNode(
+            modifier,
+            "A decorator can only decorate a method implementation, not an overload."
+          );
+        } else {
+          throwErrorOnTsNode(modifier, "Decorators are not valid here.");
+        }
+      } else if (
+        legacyDecorators &&
+        (node.kind === SyntaxKind.GetAccessor ||
+          node.kind === SyntaxKind.SetAccessor)
+      ) {
+        // @ts-expect-error -- internal?
+        const accessors = ts.getAllAccessorDeclarations(
+          node.parent.members,
+          node
+        );
+        if (
+          // @ts-expect-error -- internal?
+          ts.hasDecorators(accessors.firstAccessor) &&
+          node === accessors.secondAccessor
+        ) {
+          throwErrorOnTsNode(
+            modifier,
+            "Decorators cannot be applied to multiple get/set accessors of the same name."
+          );
+        }
+      }
     }
 
     if (modifier.kind !== SyntaxKind.ReadonlyKeyword) {
@@ -302,7 +330,6 @@ function throwErrorForInvalidNodes(tsParseResult, text) {
       return;
     }
 
-    throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
     throwErrorForInvalidModifier(tsNode);
   });
