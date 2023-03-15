@@ -1,25 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`decorator-auto-accessor-like-property-name.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-class C {
-  accessor;
-  bar;
-}
-
-=====================================output=====================================
-class C {
-  accessor;
-  bar;
-}
-
-================================================================================
-`;
-
 exports[`decorator-auto-accessors-new-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
