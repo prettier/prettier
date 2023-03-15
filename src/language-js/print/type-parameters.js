@@ -107,7 +107,7 @@ function printDanglingCommentsForInline(path, options) {
 
 function printTypeParameter(path, options, print) {
   const node = path.getValue();
-  const parts = [];
+  const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
   const parent = path.getParentNode();
   if (parent.type === "TSMappedType") {
     if (parent.readonly) {
