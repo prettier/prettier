@@ -47,7 +47,7 @@ run_spec(
           `
       ),
 
-      // `TSTypeParameter`, only `in`, `out` and `const` allowed in type parameter
+      // `TSTypeParameter`, only `in`, `out`, and `const` allowed in type parameter
       ...POSSIBLE_MODIFIERS.filter(
         (modifier) =>
           modifier !== "in" && modifier !== "out" && modifier !== "const"
