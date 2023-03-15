@@ -7,9 +7,9 @@ exports[`snippet: #0 [acorn] format 1`] = `
 `;
 
 exports[`snippet: #0 [babel] format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (1:36)
+"Constructors in/after an Optional Chain are not allowed. (1:21)
 > 1 | const baz3 = new obj?.foo?.bar?.baz(); // baz instance
-    |                                    ^"
+    |                     ^"
 `;
 
 exports[`snippet: #0 [espree] format 1`] = `
@@ -31,9 +31,9 @@ exports[`snippet: #1 [acorn] format 1`] = `
 `;
 
 exports[`snippet: #1 [babel] format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (1:32)
+"Constructors in/after an Optional Chain are not allowed. (1:22)
 > 1 | const safe5 = new obj?.qux?.baz(); // undefined
-    |                                ^"
+    |                      ^"
 `;
 
 exports[`snippet: #1 [espree] format 1`] = `
@@ -55,9 +55,9 @@ exports[`snippet: #2 [acorn] format 1`] = `
 `;
 
 exports[`snippet: #2 [babel] format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (1:35)
+"Constructors in/after an Optional Chain are not allowed. (1:22)
 > 1 | const safe6 = new obj?.foo.bar.qux?.(); // undefined
-    |                                   ^"
+    |                      ^"
 `;
 
 exports[`snippet: #2 [espree] format 1`] = `
@@ -79,9 +79,9 @@ exports[`snippet: #3 [acorn] format 1`] = `
 `;
 
 exports[`snippet: #3 [babel] format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (1:39)
+"Constructors in/after an Optional Chain are not allowed. (1:26)
 > 1 | const willThrow = new obj?.foo.bar.qux(); // Error: not a constructor
-    |                                       ^"
+    |                          ^"
 `;
 
 exports[`snippet: #3 [espree] format 1`] = `
@@ -105,11 +105,11 @@ exports[`snippet: #4 [acorn] format 1`] = `
 `;
 
 exports[`snippet: #4 [babel] format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (4:11)
+"Constructors in/after an Optional Chain are not allowed. (4:9)
   2 | class Test {
   3 | }
 > 4 | new Test?.(); // test instance
-    |           ^"
+    |         ^"
 `;
 
 exports[`snippet: #4 [espree] format 1`] = `
@@ -135,9 +135,9 @@ exports[`snippet: #5 [acorn] format 1`] = `
 `;
 
 exports[`snippet: #5 [babel] format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (1:13)
+"Constructors in/after an Optional Chain are not allowed. (1:11)
 > 1 | new exists?.(); // undefined
-    |             ^"
+    |           ^"
 `;
 
 exports[`snippet: #5 [espree] format 1`] = `

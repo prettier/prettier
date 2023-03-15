@@ -19,25 +19,77 @@ function getSourceFileOfNode(node) {
   return node;
 }
 
-// Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
-// https://github.com/typescript-eslint/typescript-eslint/pull/2375
-// There is a `checkGrammarDecorators` in `typescript` package, consider use it directly in future
-function throwErrorForInvalidDecorator(tsNode) {
-  const { illegalDecorators } = tsNode;
-  if (!isNonEmptyArray(illegalDecorators)) {
-    return;
-  }
 
-  const [{ expression }] = illegalDecorators;
-
-  const sourceFile = getSourceFileOfNode(expression);
-  const [start, end] = [expression.pos, expression.end].map((position) => {
+function throwErrorOnTsNode(node) {
+  const sourceFile = getSourceFileOfNode(node);
+  const [start, end] = [node.getStart(), node.end].map((position) => {
     const { line, character: column } =
       sourceFile.getLineAndCharacterOfPosition(position);
     return { line: line + 1, column };
   });
 
   throwSyntaxError({ loc: { start, end } }, "Decorators are not valid here.");
+}
+
+// Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
+// https://github.com/typescript-eslint/typescript-eslint/pull/2375
+// There is a `checkGrammarDecorators` in `typescript` package, consider use it directly in future
+function throwErrorForInvalidDecorator(node) {
+  const { modifiers } = node;
+  if (!isNonEmptyArray(modifiers)) {
+    return;
+  }
+
+  const ts = require("typescript");
+
+  const { SyntaxKind } = ts;
+  for (const modifier of modifiers) {
+    if (ts.isDecorator(modifier)) {
+      const legacyDecorators = true;
+      if (
+        // @ts-expect-error -- internal?
+        !ts.nodeCanBeDecorated(
+          legacyDecorators,
+          node,
+          node.parent,
+          node.parent.parent
+        )
+      ) {
+        if (
+          node.kind === SyntaxKind.MethodDeclaration &&
+          // @ts-expect-error -- internal?
+          !ts.nodeIsPresent(node.body)
+        ) {
+          throwErrorOnTsNode(
+            modifier,
+            "A decorator can only decorate a method implementation, not an overload."
+          );
+        } else {
+          throwErrorOnTsNode(modifier, "Decorators are not valid here.");
+        }
+      } else if (
+        legacyDecorators &&
+        (node.kind === SyntaxKind.GetAccessor ||
+          node.kind === SyntaxKind.SetAccessor)
+      ) {
+        // @ts-expect-error -- internal?
+        const accessors = ts.getAllAccessorDeclarations(
+          node.parent.members,
+          node
+        );
+        if (
+          // @ts-expect-error -- internal?
+          ts.hasDecorators(accessors.firstAccessor) &&
+          node === accessors.secondAccessor
+        ) {
+          throwErrorOnTsNode(
+            modifier,
+            "Decorators cannot be applied to multiple get/set accessors of the same name."
+          );
+        }
+      }
+    }
+  }
 }
 
 // Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5

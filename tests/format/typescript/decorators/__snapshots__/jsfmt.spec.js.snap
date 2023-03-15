@@ -256,12 +256,6 @@ class Something2 {
     abstract property: Array<string>
 }
 
-class Something3 {
-    @foo()
-    // comment
-    abstract method(): Array<string>
-}
-
 =====================================output=====================================
 class Foo1 {
   @foo
@@ -297,12 +291,6 @@ class Something2 {
   @foo()
   // comment
   abstract property: Array<string>;
-}
-
-class Something3 {
-  @foo()
-  // comment
-  abstract method(): Array<string>;
 }
 
 ================================================================================
