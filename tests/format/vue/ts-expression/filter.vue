@@ -5,4 +5,5 @@
   <div class="allowed">{{value | thisIsARealSuperLongFilterPipe("arg1", arg2 as unknown) | anotherPipeLongJustForFun | pipeTheThird}}</div>
   <div class="allowed" v-bind:something='value | thisIsARealSuperLongFilterPipe("arg1", arg2 as unknown) | anotherPipeLongJustForFun | pipeTheThird'></div>
   <div class="allowed" :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2 as unknown) | anotherPipeLongJustForFun | pipeTheThird'></div>
+  <div class="not-allowed" v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2 as unknown) | anotherPipeLongJustForFun | pipeTheThird'></div>
 </template>
