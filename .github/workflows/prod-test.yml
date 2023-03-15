@@ -55,7 +55,8 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "19"
+          # https://github.com/nodejs/node/issues/47096
+          - "19.7.0"
           - "18"
           - "16"
           - "14"
