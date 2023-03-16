@@ -19,8 +19,7 @@ function getSourceFileOfNode(node) {
   return node;
 }
 
-
-function throwErrorOnTsNode(node) {
+function throwErrorOnTsNode(node, message) {
   const sourceFile = getSourceFileOfNode(node);
   const [start, end] = [node.getStart(), node.end].map((position) => {
     const { line, character: column } =
@@ -28,7 +27,7 @@ function throwErrorOnTsNode(node) {
     return { line: line + 1, column };
   });
 
-  throwSyntaxError({ loc: { start, end } }, "Decorators are not valid here.");
+  throwSyntaxError({ loc: { start, end } }, message);
 }
 
 // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
@@ -112,11 +111,17 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
   }
 }
 
-function throwErrorForInvalidNodes(ast, options) {
-  const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } =
-    options.tsParseResult;
+function throwErrorForInvalidNodes(result, options) {
+  if (
+    // decorators or abstract properties
+    !/@|abstract/.test(options.originalText)
+  ) {
+    return;
+  }
 
-  visitNode(ast, (node) => {
+  const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } = result;
+
+  visitNode(result.ast, (node) => {
     const tsNode = esTreeNodeToTSNodeMap.get(node);
     if (!tsNode) {
       return;
