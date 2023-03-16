@@ -2917,10 +2917,10 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
-editorconfig-to-prettier@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/editorconfig-to-prettier/-/editorconfig-to-prettier-0.2.0.tgz#db4f4e96796c746673c863ccac881377ea83dbe8"
-  integrity sha512-tOcbAuPyYE9zOA1HF2xI9Xqm2TW7BE9E2lhwbz69ngtaJrBWQwL6akzyWA+UPx8jRss91KXMChyjHNpqaYFWuQ==
+editorconfig-to-prettier@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/editorconfig-to-prettier/-/editorconfig-to-prettier-1.0.0.tgz#f2bccca5877be9dea8a8022b93bcc6aba582a31c"
+  integrity sha512-WkBQRWxQOat9zBBhrnV0eoCRRMj0fMc/OIwTs+R3pvjsBD2fhTjGLLToGwalUwug3L5K4NvTTMfVRRHT6Hmorg==
 
 editorconfig@0.15.3:
   version "0.15.3"
