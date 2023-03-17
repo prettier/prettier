@@ -19,6 +19,8 @@ const parseOptions = {
   tokens: true,
   loggerFn: false,
   project: [],
+  // TODO: Use new properties when update printer
+  suppressDeprecatedPropertyWarnings: false,
 };
 
 function createParseError(error) {
