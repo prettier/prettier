@@ -26,7 +26,8 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "19"
+          # https://github.com/nodejs/node/issues/47096
+          - "19.7.0"
           - "18"
           - "16"
         include:
@@ -38,9 +39,9 @@ jobs:
             CHECK_TEST_PARSERS: true
         exclude:
           - os: "macos-latest"
-            node: "19"
+            node: "19.7.0"
           - os: "windows-latest"
-            node: "19"
+            node: "19.7.0"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}

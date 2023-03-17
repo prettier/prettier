@@ -286,7 +286,7 @@ const appIDs = createSelector(
 ================================================================================
 `;
 
-exports[`const.ts [babel-ts] format 1`] = `
+exports[`const.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -360,15 +360,6 @@ class _ {
 }
 
 ================================================================================
-`;
-
-exports[`const.ts [typescript] format 1`] = `
-"Type parameter declaration expected. (1:12)
-> 1 | function a<const T>() {}
-    |            ^
-  2 | function b<const T extends U>() {}
-  3 | function c<T, const U>() {}
-  4 | declare function d<const T>();"
 `;
 
 exports[`long-function-arg.ts format 1`] = `

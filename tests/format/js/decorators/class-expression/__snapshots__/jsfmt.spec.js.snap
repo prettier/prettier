@@ -25,9 +25,9 @@ exports[`arguments.js [flow] format 1`] = `
 `;
 
 exports[`arguments.js [typescript] format 1`] = `
-"Argument expression expected. (1:13)
+"Decorators are not valid here. (1:13)
 > 1 | console.log(@deco class Foo {})
-    |             ^
+    |             ^^^^^
   2 | console.log(@deco class {})
   3 |"
 `;
@@ -57,9 +57,9 @@ exports[`arguments.js - {"semi":false} [flow] format 1`] = `
 `;
 
 exports[`arguments.js - {"semi":false} [typescript] format 1`] = `
-"Argument expression expected. (1:13)
+"Decorators are not valid here. (1:13)
 > 1 | console.log(@deco class Foo {})
-    |             ^
+    |             ^^^^^
   2 | console.log(@deco class {})
   3 |"
 `;
@@ -137,9 +137,9 @@ exports[`class-expression.js [flow] format 1`] = `
 `;
 
 exports[`class-expression.js [typescript] format 1`] = `
-"Expression expected. (1:13)
+"Decorators are not valid here. (1:13)
 > 1 | const a1 = (@deco class Foo {});
-    |             ^
+    |             ^^^^^
   2 | const a2 = (@deco class {});
   3 |
   4 | (@deco class Foo {});"
@@ -173,9 +173,9 @@ exports[`class-expression.js - {"semi":false} [flow] format 1`] = `
 `;
 
 exports[`class-expression.js - {"semi":false} [typescript] format 1`] = `
-"Expression expected. (1:13)
+"Decorators are not valid here. (1:13)
 > 1 | const a1 = (@deco class Foo {});
-    |             ^
+    |             ^^^^^
   2 | const a2 = (@deco class {});
   3 |
   4 | (@deco class Foo {});"
@@ -321,9 +321,9 @@ exports[`member-expression.js [flow] format 1`] = `
 `;
 
 exports[`member-expression.js [typescript] format 1`] = `
-"Expression expected. (1:2)
+"Decorators are not valid here. (1:2)
 > 1 | (@deco class Foo {}).name;
-    |  ^
+    |  ^^^^^
   2 | (@deco class {}).name;
   3 |"
 `;
@@ -353,9 +353,9 @@ exports[`member-expression.js - {"semi":false} [flow] format 1`] = `
 `;
 
 exports[`member-expression.js - {"semi":false} [typescript] format 1`] = `
-"Expression expected. (1:2)
+"Decorators are not valid here. (1:2)
 > 1 | (@deco class Foo {}).name;
-    |  ^
+    |  ^^^^^
   2 | (@deco class {}).name;
   3 |"
 `;
@@ -433,9 +433,9 @@ exports[`super-class.js [flow] format 1`] = `
 `;
 
 exports[`super-class.js [typescript] format 1`] = `
-"Expression expected. (1:20)
+"Decorators are not valid here. (1:20)
 > 1 | class Foo extends (@deco class Foo {}){}
-    |                    ^
+    |                    ^^^^^
   2 |
   3 | class Foo extends (@deco class {}){}
   4 |"
@@ -469,9 +469,9 @@ exports[`super-class.js - {"semi":false} [flow] format 1`] = `
 `;
 
 exports[`super-class.js - {"semi":false} [typescript] format 1`] = `
-"Expression expected. (1:20)
+"Decorators are not valid here. (1:20)
 > 1 | class Foo extends (@deco class Foo {}){}
-    |                    ^
+    |                    ^^^^^
   2 |
   3 | class Foo extends (@deco class {}){}
   4 |"
