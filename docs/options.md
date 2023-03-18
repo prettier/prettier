@@ -51,7 +51,7 @@ Indent lines with tabs instead of spaces.
 
 Setting `indent_style` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab usage, unless overridden.
 
-(Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries.)
+(Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries. This behavior is known as [SmartTabs](https://www.emacswiki.org/emacs/SmartTabs).)
 
 ## Semicolons
 
