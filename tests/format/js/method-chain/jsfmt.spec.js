@@ -7,3 +7,7 @@ const errors = {
 };
 
 run_spec(import.meta, ["babel", "flow", "typescript"], { errors });
+run_spec(import.meta, ["babel", "flow", "typescript"], {
+  errors,
+  experimentalOperatorLocation: true,
+});

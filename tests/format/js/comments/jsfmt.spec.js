@@ -16,3 +16,7 @@ const errors = {
 
 run_spec(fixtures, ["babel", "flow", "typescript"], { errors });
 run_spec(fixtures, ["babel", "flow", "typescript"], { semi: false, errors });
+run_spec(fixtures, ["babel", "flow", "typescript"], {
+  errors,
+  experimentalOperatorLocation: true,
+});

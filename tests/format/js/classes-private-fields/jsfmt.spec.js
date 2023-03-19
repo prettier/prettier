@@ -10,3 +10,7 @@ run_spec(import.meta, ["babel"], {
   semi: false,
   errors,
 });
+run_spec(import.meta, ["babel"], {
+  experimentalOperatorLocation: true,
+  errors,
+});

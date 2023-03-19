@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`asi.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/facebook/flow/commit/78f657e8da014e16ff509ad34f8178b158c47af7
+class C {
+  foo
+    () {}
+}
+
+=====================================output=====================================
+// https://github.com/facebook/flow/commit/78f657e8da014e16ff509ad34f8178b158c47af7
+class C {
+  foo() {}
+}
+
+================================================================================
+`;
+
 exports[`asi.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -17,6 +39,85 @@ class C {
 class C {
   foo() {}
 }
+
+================================================================================
+`;
+
+exports[`assignment.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
+  aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg1
+) {
+  method () {
+    console.log("foo");
+  }
+};
+
+foo = class extends bar {
+  method() {
+    console.log("foo");
+  }
+};
+
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends bar {
+  method() {
+    console.log("foo");
+  }
+};
+
+foo = class extends aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 {
+  method() {
+    console.log("foo");
+  }
+};
+
+module.exports = class A extends B {
+  method () {
+    console.log("foo");
+  }
+};
+
+=====================================output=====================================
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
+  aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg1
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+foo = class extends bar {
+  method() {
+    console.log("foo");
+  }
+};
+
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
+  bar
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+foo = class extends (
+  aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+module.exports = class A extends B {
+  method() {
+    console.log("foo");
+  }
+};
 
 ================================================================================
 `;
@@ -99,6 +200,27 @@ module.exports = class A extends B {
 ================================================================================
 `;
 
+exports[`binary.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(class {}) + 1;
+(class a {}) + 1;
+(class extends b {}) + 1;
+(class a extends b {}) + 1;
+
+=====================================output=====================================
+(class {}) + 1;
+(class a {}) + 1;
+(class extends b {}) + 1;
+(class a extends b {}) + 1;
+
+================================================================================
+`;
+
 exports[`binary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -119,6 +241,21 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`call.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(class {})(class {});
+
+=====================================output=====================================
+(class {})(class {});
+
+================================================================================
+`;
+
 exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -129,6 +266,51 @@ printWidth: 80
 
 =====================================output=====================================
 (class {})(class {});
+
+================================================================================
+`;
+
+exports[`class-fields-features.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static epoch = new CustomDate(0);
+  #xValue = 0;
+  get #x() { return this.#xValue; }
+  set #x(value) {
+    this.#xValue = value;
+    window.requestAnimationFrame(this.#render.bind(this));
+  }
+  #clicked() {
+    this.#x++;
+  }
+  #render() {
+    this.textContent = this.#x.toString();
+  }
+}
+
+=====================================output=====================================
+class Foo {
+  static epoch = new CustomDate(0);
+  #xValue = 0;
+  get #x() {
+    return this.#xValue;
+  }
+  set #x(value) {
+    this.#xValue = value;
+    window.requestAnimationFrame(this.#render.bind(this));
+  }
+  #clicked() {
+    this.#x++;
+  }
+  #render() {
+    this.textContent = this.#x.toString();
+  }
+}
 
 ================================================================================
 `;
@@ -177,6 +359,45 @@ class Foo {
 ================================================================================
 `;
 
+exports[`empty.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A1 {
+  // comment
+}
+
+class A2 { // comment
+}
+
+class A3 {
+}
+
+class A4 {
+  m() {}
+}
+
+=====================================output=====================================
+class A1 {
+  // comment
+}
+
+class A2 {
+  // comment
+}
+
+class A3 {}
+
+class A4 {
+  m() {}
+}
+
+================================================================================
+`;
+
 exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -215,6 +436,23 @@ class A4 {
 ================================================================================
 `;
 
+exports[`member.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(class {})[1];
+(class {}).a;
+
+=====================================output=====================================
+(class {})[1];
+(class {}).a;
+
+================================================================================
+`;
+
 exports[`member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -227,6 +465,37 @@ printWidth: 80
 =====================================output=====================================
 (class {})[1];
 (class {}).a;
+
+================================================================================
+`;
+
+exports[`method.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+class C {
+  name/*comment*/() {
+  }
+};
+
+
+({
+  name/*comment*/() {
+  }
+});
+
+=====================================output=====================================
+class C {
+  name /*comment*/() {}
+}
+
+({
+  name /*comment*/() {},
+});
 
 ================================================================================
 `;
@@ -261,6 +530,23 @@ class C {
 ================================================================================
 `;
 
+exports[`new.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+new class {};
+new Ctor(class {});
+
+=====================================output=====================================
+new (class {})();
+new Ctor(class {});
+
+================================================================================
+`;
+
 exports[`new.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -273,6 +559,55 @@ new Ctor(class {});
 =====================================output=====================================
 new (class {})();
 new Ctor(class {});
+
+================================================================================
+`;
+
+exports[`property.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  foobar =
+    // comment to break
+    1 +
+    // comment to break again
+    2;
+}
+
+class B {
+  someInstanceProperty = this.props.foofoofoofoofoofoo &&
+    this.props.barbarbarbar;
+  
+  someInstanceProperty2 = { foo: this.props.foofoofoofoofoofoo &&
+    this.props.barbarbarbar };
+  
+    someInstanceProperty3 =
+  "foo";
+}
+
+=====================================output=====================================
+class A {
+  foobar =
+    // comment to break
+    1
+    // comment to break again
+    + 2;
+}
+
+class B {
+  someInstanceProperty =
+    this.props.foofoofoofoofoofoo && this.props.barbarbarbar;
+
+  someInstanceProperty2 = {
+    foo: this.props.foofoofoofoofoofoo && this.props.barbarbarbar,
+  };
+
+  someInstanceProperty3 = "foo";
+}
 
 ================================================================================
 `;
@@ -325,6 +660,29 @@ class B {
 ================================================================================
 `;
 
+exports[`super.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A extends B {
+    #a() {
+        super.x();
+    }
+}
+
+=====================================output=====================================
+class A extends B {
+  #a() {
+    super.x();
+  }
+}
+
+================================================================================
+`;
+
 exports[`super.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -343,6 +701,21 @@ class A extends B {
     super.x();
   }
 }
+
+================================================================================
+`;
+
+exports[`ternary.js - {"experimentalOperatorLocation":true} format 1`] = `
+====================================options=====================================
+experimentalOperatorLocation: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (1) (class {}) ? 1 : 2;
+
+=====================================output=====================================
+if (1) (class {}) ? 1 : 2;
 
 ================================================================================
 `;

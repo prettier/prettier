@@ -5,3 +5,6 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
   useTabs: true,
   tabWidth: 4,
 });
+run_spec(import.meta, ["babel", "flow", "typescript"], {
+  experimentalOperatorLocation: true,
+});

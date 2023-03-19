@@ -14,3 +14,8 @@ run_spec(import.meta, ["flow", "babel", "typescript"], {
   singleQuote: true,
   jsxSingleQuote: true,
 });
+run_spec(import.meta, ["flow", "babel", "typescript"], {
+  singleQuote: true,
+  jsxSingleQuote: true,
+  experimentalOperatorLocation: true,
+});

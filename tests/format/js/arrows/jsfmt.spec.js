@@ -13,3 +13,8 @@ run_spec(import.meta, ["babel", "typescript"], {
   arrowParens: "avoid",
   errors,
 });
+run_spec(import.meta, ["babel", "typescript"], {
+  arrowParens: "avoid",
+  experimentalOperatorLocation: true,
+  errors,
+});
