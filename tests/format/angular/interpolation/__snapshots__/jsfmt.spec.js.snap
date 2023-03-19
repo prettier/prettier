@@ -1,10 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`logical-expression.ng - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`logical-expression.ng - {"experimentalOperatorPosition":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: true
 parsers: ["__ng_interpolation"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 [
@@ -16,9 +17,9 @@ printWidth: 80
 [
   advancedSearchService.patientInformationFieldsRow2
     && advancedSearchService.patientInformationFieldsRow2.indexOf(
-      advancedSearchService.formElementData.customFieldList[i].customFieldType,
+      advancedSearchService.formElementData.customFieldList[i].customFieldType
     ) !== -1,
-  (x && y) ?? z,
+  (x && y) ?? z
 ]
 ================================================================================
 `;
@@ -46,11 +47,12 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`optional-chaining.ng - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`optional-chaining.ng - {"experimentalOperatorPosition":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: true
 parsers: ["__ng_interpolation"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 [  a?.b[c], (a?.b)[c]  ]
@@ -74,11 +76,12 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`pipe-expression.ng - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`pipe-expression.ng - {"experimentalOperatorPosition":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: true
 parsers: ["__ng_interpolation"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 [
@@ -126,17 +129,17 @@ printWidth: 80
     | pipeA
       : {
           keyA: reallySuperLongValue,
-          keyB: shortValue | pipeB | pipeC : valueToPipeC,
+          keyB: shortValue | pipeB | pipeC : valueToPipeC
         }
       : {
           keyA: reallySuperLongValue,
-          keyB: shortValue | pipeB | pipeC : valueToPipeC,
+          keyB: shortValue | pipeB | pipeC : valueToPipeC
         }
     | aaa,
   (hideLinqPanel
     ? "ReportSelection.HideShowLabel_Show.String"
     : "ReportSelection.HideShowLabel_Hide.String"
-  ) | localize : localizationSection,
+  ) | localize : localizationSection
 ]
 ================================================================================
 `;
@@ -208,11 +211,12 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`pipe-in-object.ng - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`pipe-in-object.ng - {"experimentalOperatorPosition":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: true
 parsers: ["__ng_interpolation"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 [{ AngularJS: '1.x', 'color': ('#222' | darken)}]
