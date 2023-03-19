@@ -3552,21 +3552,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-regexp@npm:1.12.0":
-  version: 1.12.0
-  resolution: "eslint-plugin-regexp@npm:1.12.0"
+"eslint-plugin-regexp@npm:1.13.0":
+  version: 1.13.0
+  resolution: "eslint-plugin-regexp@npm:1.13.0"
   dependencies:
+    "@eslint-community/eslint-utils": ^4.2.0
+    "@eslint-community/regexpp": ^4.4.0
     comment-parser: ^1.1.2
-    eslint-utils: ^3.0.0
     grapheme-splitter: ^1.0.4
     jsdoctypeparser: ^9.0.0
     refa: ^0.9.0
     regexp-ast-analysis: ^0.5.1
-    regexpp: ^3.2.0
     scslre: ^0.1.6
   peerDependencies:
     eslint: ">=6.0.0"
-  checksum: 64a3f94568742602d7b906353e23eee1e0c5f24b9c38bd29510615a2d1045bf1b39e1a7ed5f782975d2300843dce3822ce6b643b7e7e18ad40dec0372f82addc
+  checksum: 395c1783f0d268701f9f12cca09f2fe55de8c43feb706fc6bf1878741ba32e2e946949bb9e2fba2856ee182ba32fb6886f30dcceee429a3312ce4d4d957d8be6
   languageName: node
   linkType: hard
 
@@ -6774,7 +6774,7 @@ __metadata:
     eslint-plugin-n: 15.6.1
     eslint-plugin-prettier-internal-rules: 2.0.1
     eslint-plugin-react: 7.32.2
-    eslint-plugin-regexp: 1.12.0
+    eslint-plugin-regexp: 1.13.0
     eslint-plugin-unicorn: 46.0.0
     esm-utils: 4.1.2
     espree: 9.5.0
