@@ -132,7 +132,7 @@
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-regexp": "1.12.0",
     "eslint-plugin-unicorn": "46.0.0",
-    "esm-utils": "4.1.1",
+    "esm-utils": "4.1.2",
     "execa": "7.0.0",
     "jest": "29.5.0",
     "jest-light-runner": "0.4.1",
