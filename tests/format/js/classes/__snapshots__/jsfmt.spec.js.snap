@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`asi.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`asi.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -43,9 +43,9 @@ class C {
 ================================================================================
 `;
 
-exports[`assignment.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`assignment.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -200,9 +200,9 @@ module.exports = class A extends B {
 ================================================================================
 `;
 
-exports[`binary.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`binary.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -241,9 +241,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`call.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`call.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -270,9 +270,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`class-fields-features.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`class-fields-features.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -359,9 +359,9 @@ class Foo {
 ================================================================================
 `;
 
-exports[`empty.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`empty.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -436,9 +436,9 @@ class A4 {
 ================================================================================
 `;
 
-exports[`member.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`member.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -469,9 +469,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`method.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`method.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -530,9 +530,9 @@ class C {
 ================================================================================
 `;
 
-exports[`new.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`new.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -563,9 +563,9 @@ new Ctor(class {});
 ================================================================================
 `;
 
-exports[`property.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`property.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -660,9 +660,9 @@ class B {
 ================================================================================
 `;
 
-exports[`super.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`super.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -705,9 +705,9 @@ class A extends B {
 ================================================================================
 `;
 
-exports[`ternary.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`ternary.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`basic.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -33,9 +33,9 @@ const foo = bar<T>;
 ================================================================================
 `;
 
-exports[`binary-expr.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`binary-expr.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -66,9 +66,9 @@ C;
 ================================================================================
 `;
 
-exports[`inferface-asi.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`inferface-asi.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -111,9 +111,9 @@ interface Example {
 ================================================================================
 `;
 
-exports[`logical-expr.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`logical-expr.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -178,9 +178,9 @@ function sample(error: unknown) {
 ================================================================================
 `;
 
-exports[`new.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`new.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -211,9 +211,9 @@ new A<T>();
 ================================================================================
 `;
 
-exports[`typeof.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`typeof.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth

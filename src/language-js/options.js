@@ -85,7 +85,7 @@ const options = {
     ],
   },
   singleAttributePerLine: commonOptions.singleAttributePerLine,
-  experimentalOperatorLocation: {
+  experimentalOperatorPosition: {
     category: coreOptions.CATEGORY_EXPERIMENTAL,
     type: "boolean",
     default: false,

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`comments.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -513,9 +513,9 @@ c */
 ================================================================================
 `;
 
-exports[`new-expression.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`new-expression.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -550,9 +550,9 @@ const testConsole = new TestConsole(
 ================================================================================
 `;
 
-exports[`new-ternary-examples.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`new-ternary-examples.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1151,9 +1151,9 @@ inJSXExpressionContainer.withNullConditional = (
 ================================================================================
 `;
 
-exports[`new-ternary-spec.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`new-ternary-spec.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1938,9 +1938,9 @@ jsxExpressionContainer.inJSXAttribute.hasNoSpecialCasing = (
 ================================================================================
 `;
 
-exports[`no-confusing-arrow.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`no-confusing-arrow.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1975,9 +1975,9 @@ var x = a <= 1 ? 2 : 3;
 ================================================================================
 `;
 
-exports[`postfix-ternary-regressions.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`postfix-ternary-regressions.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`binary.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -210,9 +210,9 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`func-call.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`func-call.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -365,9 +365,9 @@ fn(
 ================================================================================
 `;
 
-exports[`indent.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`indent.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2019,9 +2019,9 @@ a
 ================================================================================
 `;
 
-exports[`indent-after-paren.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`indent-after-paren.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -5284,9 +5284,9 @@ fn?.[
 ================================================================================
 `;
 
-exports[`nested.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`nested.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -6604,9 +6604,9 @@ showNotification(
 ================================================================================
 `;
 
-exports[`nested-in-condition.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`nested-in-condition.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -7049,9 +7049,9 @@ const value = (
 ================================================================================
 `;
 
-exports[`parenthesis.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`parenthesis.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -7234,9 +7234,9 @@ debug
 ================================================================================
 `;
 
-exports[`test.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`test.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

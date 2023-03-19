@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`13018.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`13018.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -57,9 +57,9 @@ foo(a--).bar().leet();
 ================================================================================
 `;
 
-exports[`bracket_0.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`bracket_0.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -120,9 +120,9 @@ function a() {
 ================================================================================
 `;
 
-exports[`bracket_0-1.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`bracket_0-1.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -155,9 +155,9 @@ const thingamabobMetaAlias = path.scope
 ================================================================================
 `;
 
-exports[`break-last-call.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`break-last-call.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -408,9 +408,9 @@ it("should group messages with same created time", () => {
 ================================================================================
 `;
 
-exports[`break-last-member.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`break-last-member.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -547,9 +547,9 @@ const {
 ================================================================================
 `;
 
-exports[`break-multiple.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`break-multiple.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -592,9 +592,9 @@ foo().bar.baz();
 ================================================================================
 `;
 
-exports[`comment.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`comment.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -847,9 +847,9 @@ angular
 ================================================================================
 `;
 
-exports[`complex-args.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`complex-args.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -888,9 +888,9 @@ client.execute(
 ================================================================================
 `;
 
-exports[`computed.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`computed.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -937,9 +937,9 @@ nock(/test/)
 ================================================================================
 `;
 
-exports[`computed-merge.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`computed-merge.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1026,9 +1026,9 @@ window.Data[key]("foo")
 ================================================================================
 `;
 
-exports[`conditional.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`conditional.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1157,9 +1157,9 @@ object[
 ================================================================================
 `;
 
-exports[`cypress.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`cypress.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1202,9 +1202,9 @@ cy.get(".ready").should("have.text", "FOO").should("have.css", "color", "#aaa");
 ================================================================================
 `;
 
-exports[`d3.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`d3.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1289,9 +1289,9 @@ not.d3.scaleLinear().domain([1950, 1980]).range([0, width]);
 ================================================================================
 `;
 
-exports[`first_long.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`first_long.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1448,9 +1448,9 @@ function f() {
 ================================================================================
 `;
 
-exports[`fluent-configuration.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`fluent-configuration.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1527,9 +1527,9 @@ domain.concept(CONCEPT_NAME).val("title").vals();
 ================================================================================
 `;
 
-exports[`inline_merge.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`inline_merge.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1618,9 +1618,9 @@ var jqxhr = $.ajax("example.php").done(doneFn).fail(failFn);
 ================================================================================
 `;
 
-exports[`issue-3594.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-3594.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1671,9 +1671,9 @@ let column = new Column(null, conn).table(data.table).json(data.column);
 ================================================================================
 `;
 
-exports[`issue-3621.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-3621.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1740,9 +1740,9 @@ expect(cells.at(4).render().text()).toBe("link text4");
 ================================================================================
 `;
 
-exports[`issue-4125.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-4125.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2397,9 +2397,9 @@ var l = base
 ================================================================================
 `;
 
-exports[`issue-11298.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-11298.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2442,9 +2442,9 @@ foo1(/叱叱叱/)
 ================================================================================
 `;
 
-exports[`logical.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`logical.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2551,9 +2551,9 @@ const someLongVariableName = (
 ================================================================================
 `;
 
-exports[`multiple-members.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`multiple-members.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2740,9 +2740,9 @@ wrapper
 ================================================================================
 `;
 
-exports[`object-literal.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`object-literal.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2825,9 +2825,9 @@ of("test")
 ================================================================================
 `;
 
-exports[`pr-7889.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`pr-7889.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2894,9 +2894,9 @@ const Profile2 = view.with({ name }).as((props) => (
 ================================================================================
 `;
 
-exports[`short-names.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`short-names.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2935,9 +2935,9 @@ const svgJsFiles = fs
 ================================================================================
 `;
 
-exports[`simple-args.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`simple-args.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2972,9 +2972,9 @@ console.log(values.filter(isValid).map(extractId).slice(-5, -1));
 ================================================================================
 `;
 
-exports[`square_0.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`square_0.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -3033,9 +3033,9 @@ const component = find(".org-lclp-edit-copy-url-banner__link")[0]
 ================================================================================
 `;
 
-exports[`test.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`test.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -3084,9 +3084,9 @@ method()
 ================================================================================
 `;
 
-exports[`this.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`this.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -3171,7 +3171,7 @@ exports[`tuple-and-record.js [typescript] format 1`] = `
   5 | foo.a().b().c(#{n, o})"
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorLocation":true} [acorn] format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [acorn] format 1`] = `
 "Unexpected character '[' (2:16)
   1 | foo.a().b().c([n, o])
 > 2 | foo.a().b().c(#[n, o])
@@ -3181,7 +3181,7 @@ exports[`tuple-and-record.js - {"experimentalOperatorLocation":true} [acorn] for
   5 | foo.a().b().c(#{n, o})"
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorLocation":true} [espree] format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [espree] format 1`] = `
 "Unexpected character '[' (2:16)
   1 | foo.a().b().c([n, o])
 > 2 | foo.a().b().c(#[n, o])
@@ -3191,7 +3191,7 @@ exports[`tuple-and-record.js - {"experimentalOperatorLocation":true} [espree] fo
   5 | foo.a().b().c(#{n, o})"
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorLocation":true} [flow] format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [flow] format 1`] = `
 "Unexpected token \`#\`, expected an identifier (2:15)
   1 | foo.a().b().c([n, o])
 > 2 | foo.a().b().c(#[n, o])
@@ -3201,7 +3201,7 @@ exports[`tuple-and-record.js - {"experimentalOperatorLocation":true} [flow] form
   5 | foo.a().b().c(#{n, o})"
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorLocation":true} [meriyah] format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [meriyah] format 1`] = `
 "'#' not followed by identifier (2:15)
   1 | foo.a().b().c([n, o])
 > 2 | foo.a().b().c(#[n, o])
@@ -3211,7 +3211,7 @@ exports[`tuple-and-record.js - {"experimentalOperatorLocation":true} [meriyah] f
   5 | foo.a().b().c(#{n, o})"
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorLocation":true} [typescript] format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [typescript] format 1`] = `
 "Invalid character. (2:15)
   1 | foo.a().b().c([n, o])
 > 2 | foo.a().b().c(#[n, o])
@@ -3221,9 +3221,9 @@ exports[`tuple-and-record.js - {"experimentalOperatorLocation":true} [typescript
   5 | foo.a().b().c(#{n, o})"
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

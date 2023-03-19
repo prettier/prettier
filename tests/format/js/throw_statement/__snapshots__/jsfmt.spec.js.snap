@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binaryish.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`binaryish.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -117,9 +117,9 @@ function f() {
 ================================================================================
 `;
 
-exports[`comment.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`comment.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -230,9 +230,9 @@ fn(function f() {
 ================================================================================
 `;
 
-exports[`jsx.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`jsx.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

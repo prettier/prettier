@@ -234,9 +234,9 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`array-iter.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`array-iter.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -619,9 +619,9 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`attr-comments.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`attr-comments.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1066,9 +1066,9 @@ async function testFunction() {
 ================================================================================
 `;
 
-exports[`await.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`await.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -2214,9 +2214,9 @@ foo ? (
 ================================================================================
 `;
 
-exports[`conditional-expression.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`conditional-expression.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -3581,9 +3581,9 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4142,9 +4142,9 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`flow_fix_me.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`flow_fix_me.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4251,9 +4251,9 @@ export default () => <a href="https://foo.bar?q1=foo&q2=bar" />;
 ================================================================================
 `;
 
-exports[`html_escape.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`html_escape.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4538,9 +4538,9 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`hug.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`hug.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4937,9 +4937,9 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`logical-expression.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`logical-expression.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -5214,9 +5214,9 @@ const tabs = [
 ================================================================================
 `;
 
-exports[`object-property.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`object-property.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -5427,9 +5427,9 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`open-break.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`open-break.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -5672,9 +5672,9 @@ new Foo(<Component />);
 ================================================================================
 `;
 
-exports[`parens.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`parens.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -6047,9 +6047,9 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`quotes.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`quotes.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -6294,9 +6294,9 @@ x = <a>{/w/.test(s)}</a>;
 ================================================================================
 `;
 
-exports[`regex.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`regex.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -6681,9 +6681,9 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`return-statement.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`return-statement.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -6964,9 +6964,9 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`self-closing.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`self-closing.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -7121,9 +7121,9 @@ const Labels = {
 ================================================================================
 `;
 
-exports[`spacing.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`spacing.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -7298,9 +7298,9 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`template-literal-in-attr.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`template-literal-in-attr.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -7411,9 +7411,9 @@ a == 3 ? (a = <h1>123</h1>) : (a = <h1>abc</h1>);
 ================================================================================
 `;
 
-exports[`ternary.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorLocation":true} format 1`] = `
+exports[`ternary.js - {"singleQuote":true,"jsxSingleQuote":true,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80

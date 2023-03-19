@@ -71,7 +71,7 @@ Format options:
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
-  --experimental-operator-location
+  --experimental-operator-position
                            Use experimental formatting for breaking lines before binary operators
                            Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>
@@ -249,7 +249,7 @@ Format options:
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
-  --experimental-operator-location
+  --experimental-operator-position
                            Use experimental formatting for breaking lines before binary operators
                            Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>

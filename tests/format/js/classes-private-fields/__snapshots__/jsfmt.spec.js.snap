@@ -27,7 +27,7 @@ exports[`optional-chaining.js [meriyah] format 1`] = `
   4 |"
 `;
 
-exports[`optional-chaining.js - {"experimentalOperatorLocation":true} [acorn] format 1`] = `
+exports[`optional-chaining.js - {"experimentalOperatorPosition":true} [acorn] format 1`] = `
 "Private field '#x' must be declared in an enclosing class (3:13)
   1 | // https://github.com/babel/babel/pull/11669
   2 |
@@ -36,7 +36,7 @@ exports[`optional-chaining.js - {"experimentalOperatorLocation":true} [acorn] fo
   4 |"
 `;
 
-exports[`optional-chaining.js - {"experimentalOperatorLocation":true} [espree] format 1`] = `
+exports[`optional-chaining.js - {"experimentalOperatorPosition":true} [espree] format 1`] = `
 "Private field '#x' must be declared in an enclosing class (3:13)
   1 | // https://github.com/babel/babel/pull/11669
   2 |
@@ -45,7 +45,7 @@ exports[`optional-chaining.js - {"experimentalOperatorLocation":true} [espree] f
   4 |"
 `;
 
-exports[`optional-chaining.js - {"experimentalOperatorLocation":true} [meriyah] format 1`] = `
+exports[`optional-chaining.js - {"experimentalOperatorPosition":true} [meriyah] format 1`] = `
 "Dot property must be an identifier (3:13)
   1 | // https://github.com/babel/babel/pull/11669
   2 |
@@ -54,9 +54,9 @@ exports[`optional-chaining.js - {"experimentalOperatorLocation":true} [meriyah] 
   4 |"
 `;
 
-exports[`optional-chaining.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`optional-chaining.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -137,9 +137,9 @@ delete obj?.#x.a;
 ================================================================================
 `;
 
-exports[`private_fields.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`private_fields.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -523,9 +523,9 @@ class F {
 ================================================================================
 `;
 
-exports[`with_comments.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`with_comments.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth

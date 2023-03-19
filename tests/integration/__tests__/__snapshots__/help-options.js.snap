@@ -206,10 +206,10 @@ Default: lf
 
 exports[`show detailed usage with --help end-of-line (write) 1`] = `[]`;
 
-exports[`show detailed usage with --help experimental-operator-location (stderr) 1`] = `""`;
+exports[`show detailed usage with --help experimental-operator-position (stderr) 1`] = `""`;
 
-exports[`show detailed usage with --help experimental-operator-location (stdout) 1`] = `
-"--experimental-operator-location
+exports[`show detailed usage with --help experimental-operator-position (stdout) 1`] = `
+"--experimental-operator-position
 
   Use experimental formatting for breaking lines before binary operators
 
@@ -217,7 +217,7 @@ Default: false
 "
 `;
 
-exports[`show detailed usage with --help experimental-operator-location (write) 1`] = `[]`;
+exports[`show detailed usage with --help experimental-operator-position (write) 1`] = `[]`;
 
 exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
 

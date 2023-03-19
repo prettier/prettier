@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditional.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`conditional.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -41,9 +41,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`expand.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`expand.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -228,9 +228,9 @@ window.FooClient.something
 ================================================================================
 `;
 
-exports[`logical.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`logical.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

@@ -64,7 +64,7 @@ exports[`show external options with \`--help\` 1`] = `
 @@ -25,16 +25,18 @@
                              Which end of line characters to apply.
                              Defaults to lf.
-    --experimental-operator-location
+    --experimental-operator-position
                              Use experimental formatting for breaking lines before binary operators
                              Defaults to false.
 +   --foo-option <bar|baz>   foo description

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`broken-html.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`broken-html.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -69,9 +69,9 @@ extra space(s)
 ================================================================================
 `;
 
-exports[`comment.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`comment.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -98,9 +98,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`empty.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -123,9 +123,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty-doc.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`empty-doc.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -168,9 +168,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`form.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`form.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -549,9 +549,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`hello-world.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`hello-world.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -628,9 +628,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html-comments.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`html-comments.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -681,9 +681,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html5-boilerplate.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`html5-boilerplate.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -912,9 +912,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`issue-9368.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-9368.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -941,9 +941,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`issue-9368-2.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-9368-2.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -970,9 +970,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`issue-9368-3.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-9368-3.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -999,9 +999,9 @@ a track<strong>pad</strong>, or a <strong>gyro</strong>scope.
 ================================================================================
 `;
 
-exports[`more-html.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`more-html.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -1052,9 +1052,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`void-elements.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`void-elements.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -1105,9 +1105,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`void-elements-2.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`void-elements-2.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -1184,9 +1184,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`with-colon.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`with-colon.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth

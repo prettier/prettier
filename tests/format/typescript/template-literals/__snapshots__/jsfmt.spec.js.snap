@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`as-expression.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`as-expression.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -63,9 +63,9 @@ const b = \`\${
 ================================================================================
 `;
 
-exports[`expressions.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`expressions.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth

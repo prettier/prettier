@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`break.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -205,9 +205,9 @@ expect(
 ================================================================================
 `;
 
-exports[`parent.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`parent.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -266,9 +266,9 @@ runtimeAgent.getProperties(
 ================================================================================
 `;
 
-exports[`react.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`react.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -631,9 +631,9 @@ function Comp5() {
 ================================================================================
 `;
 
-exports[`reduce.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`reduce.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

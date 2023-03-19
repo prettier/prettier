@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`multiline-literal.js - {"trailingComma":"all","experimentalOperatorLocation":true} format 1`] = `
+exports[`multiline-literal.js - {"trailingComma":"all","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow"]
 printWidth: 80
 trailingComma: "all"
@@ -100,7 +100,7 @@ const loremIpsumFooBazBar2 =
 ================================================================================
 `;
 
-exports[`non-octal-eight-and-nine.js - {"trailingComma":"all","experimentalOperatorLocation":true} [acorn] format 1`] = `
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"all","experimentalOperatorPosition":true} [acorn] format 1`] = `
 "Invalid escape sequence (3:3)
   1 | // https://github.com/babel/babel/pull/11852
   2 |
@@ -111,7 +111,7 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"all","experimentalOpera
   6 |   "\\8", "\\9";"
 `;
 
-exports[`non-octal-eight-and-nine.js - {"trailingComma":"all","experimentalOperatorLocation":true} [espree] format 1`] = `
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"all","experimentalOperatorPosition":true} [espree] format 1`] = `
 "Invalid escape sequence (3:3)
   1 | // https://github.com/babel/babel/pull/11852
   2 |
@@ -122,9 +122,9 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"all","experimentalOpera
   6 |   "\\8", "\\9";"
 `;
 
-exports[`non-octal-eight-and-nine.js - {"trailingComma":"all","experimentalOperatorLocation":true} format 1`] = `
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"all","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow"]
 printWidth: 80
 trailingComma: "all"
@@ -248,9 +248,9 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`strings.js - {"trailingComma":"all","experimentalOperatorLocation":true} format 1`] = `
+exports[`strings.js - {"trailingComma":"all","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow"]
 printWidth: 80
 trailingComma: "all"
@@ -438,9 +438,9 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`template-literals.js - {"trailingComma":"all","experimentalOperatorLocation":true} format 1`] = `
+exports[`template-literals.js - {"trailingComma":"all","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow"]
 printWidth: 80
 trailingComma: "all"

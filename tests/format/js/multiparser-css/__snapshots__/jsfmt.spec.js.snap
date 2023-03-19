@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`colons-after-substitutions.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`colons-after-substitutions.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -91,9 +91,9 @@ const Icon = styled.div\`
 ================================================================================
 `;
 
-exports[`colons-after-substitutions2.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`colons-after-substitutions2.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -208,9 +208,9 @@ const Icon3 = styled.div\`
 ================================================================================
 `;
 
-exports[`issue-2636.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-2636.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -293,9 +293,9 @@ export const ButtonWrapper2 = styled.button\`
 ================================================================================
 `;
 
-exports[`issue-2883.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-2883.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -386,9 +386,9 @@ export const global = css\`
 ================================================================================
 `;
 
-exports[`issue-5697.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-5697.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -481,9 +481,9 @@ const StyledH1 = styled.div\`
 ================================================================================
 `;
 
-exports[`issue-5961.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-5961.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -648,9 +648,9 @@ const Steps2 = styled.div\`
 ================================================================================
 `;
 
-exports[`issue-6259.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-6259.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -733,9 +733,9 @@ export const Group = styled.div\`
 ================================================================================
 `;
 
-exports[`issue-9072.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-9072.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -810,9 +810,9 @@ const style3 = css\`
 ================================================================================
 `;
 
-exports[`issue-11797.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-11797.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -885,9 +885,9 @@ const paragraph3 = css\`
 ================================================================================
 `;
 
-exports[`styled-components.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`styled-components.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -1960,9 +1960,9 @@ const StyledDiv = styled.div\`
 ================================================================================
 `;
 
-exports[`styled-components-multiple-expressions.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`styled-components-multiple-expressions.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -2081,9 +2081,9 @@ styled.div\`
 ================================================================================
 `;
 
-exports[`url.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`url.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -2116,9 +2116,9 @@ styled.div\`
 ================================================================================
 `;
 
-exports[`var.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`var.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth

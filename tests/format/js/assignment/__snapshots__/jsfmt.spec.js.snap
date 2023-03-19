@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binaryish.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`binaryish.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -57,9 +57,9 @@ computedDescriptionLines =
 ================================================================================
 `;
 
-exports[`call-with-template.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`call-with-template.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -120,9 +120,9 @@ const output = template(\`function f() %%A%%\`)({
 ================================================================================
 `;
 
-exports[`chain.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`chain.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -269,9 +269,9 @@ a = b = c;
 ================================================================================
 `;
 
-exports[`chain-two-segments.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`chain-two-segments.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -314,9 +314,9 @@ tt.parenR.updateContext = tt.braceR.updateContext = function () {
 ================================================================================
 `;
 
-exports[`destructuring.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`destructuring.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -391,9 +391,9 @@ const {
 ================================================================================
 `;
 
-exports[`destructuring-array.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`destructuring-array.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -430,9 +430,9 @@ const [width = nextWidth, height = nextHeight, baseline = nextBaseline] =
 ================================================================================
 `;
 
-exports[`destructuring-heuristic.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`destructuring-heuristic.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -563,9 +563,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`issue-1419.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-1419.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -604,9 +604,9 @@ someReallyLongThingStoredInAMapWithAReallyBigName[pageletID] =
 ================================================================================
 `;
 
-exports[`issue-1966.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-1966.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -655,9 +655,9 @@ this.isaverylongmethodexpression.withmultiplelevels =
 ================================================================================
 `;
 
-exports[`issue-2184.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-2184.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -696,9 +696,9 @@ const areaPercentageDiff = (
 ================================================================================
 `;
 
-exports[`issue-2482-1.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-2482-1.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -779,9 +779,9 @@ aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
 ================================================================================
 `;
 
-exports[`issue-2482-2.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-2482-2.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -834,9 +834,9 @@ class foo {
 ================================================================================
 `;
 
-exports[`issue-2540.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-2540.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -869,9 +869,9 @@ manifestCache[templateId] = readFileSync(
 ================================================================================
 `;
 
-exports[`issue-3819.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-3819.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -938,9 +938,9 @@ this.dummy.type1.dummyPropertyFunction =
 ================================================================================
 `;
 
-exports[`issue-4094.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-4094.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -979,9 +979,9 @@ if (something) {
 ================================================================================
 `;
 
-exports[`issue-5610.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-5610.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1030,9 +1030,9 @@ const { qfwvfkwjdqgz, bctsyljqucgz, xuodxhmgwwpw } = qbhtcuzxwedz(
 ================================================================================
 `;
 
-exports[`issue-6922.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-6922.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1161,9 +1161,9 @@ const data4 = request.delete(
 ================================================================================
 `;
 
-exports[`issue-7091.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-7091.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1196,9 +1196,9 @@ const { imStore, showChat, customerServiceAccount } =
 ================================================================================
 `;
 
-exports[`issue-7572.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-7572.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1245,9 +1245,9 @@ const t = {
 ================================================================================
 `;
 
-exports[`issue-7961.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-7961.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1294,9 +1294,9 @@ something.veeeeeery.looooooooooooooooooooooooooong =
 ================================================================================
 `;
 
-exports[`issue-8218.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-8218.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1337,9 +1337,9 @@ const pendingIndicatorz =
 ================================================================================
 `;
 
-exports[`issue-10218.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-10218.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1394,9 +1394,9 @@ const { _id: id3 } =
 ================================================================================
 `;
 
-exports[`lone-arg.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`lone-arg.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1497,9 +1497,9 @@ const bifornCringerMoshedPerplexSawderGlyphsHb = someBigFunctionName(\`foo
 ================================================================================
 `;
 
-exports[`sequence.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`sequence.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1550,9 +1550,9 @@ for (i = 0, len = arr.length; i < len; i++) {
 ================================================================================
 `;
 
-exports[`unary.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`unary.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

@@ -9,7 +9,7 @@ exports[`bigint-key.js [typescript] format 1`] = `
   4 |"
 `;
 
-exports[`bigint-key.js - {"experimentalOperatorLocation":true} [typescript] format 1`] = `
+exports[`bigint-key.js - {"experimentalOperatorPosition":true} [typescript] format 1`] = `
 "Property assignment expected. (1:6)
 > 1 | a = {1n: ""}
     |      ^
@@ -18,9 +18,9 @@ exports[`bigint-key.js - {"experimentalOperatorLocation":true} [typescript] form
   4 |"
 `;
 
-exports[`bigint-key.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`bigint-key.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -55,9 +55,9 @@ a = { get 1n() {} };
 ================================================================================
 `;
 
-exports[`escape-sequence-key.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`escape-sequence-key.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -112,9 +112,9 @@ const b = {
 ================================================================================
 `;
 
-exports[`expand.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`expand.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -216,7 +216,7 @@ exports[`expression.js [typescript] format 1`] = `
   8 | ({} = 0);"
 `;
 
-exports[`expression.js - {"experimentalOperatorLocation":true} [acorn] format 1`] = `
+exports[`expression.js - {"experimentalOperatorPosition":true} [acorn] format 1`] = `
 "Unexpected token (5:4)
   3 | a = () => ({}).x;
   4 | ({} && a, b);
@@ -227,7 +227,7 @@ exports[`expression.js - {"experimentalOperatorLocation":true} [acorn] format 1`
   8 | ({} = 0);"
 `;
 
-exports[`expression.js - {"experimentalOperatorLocation":true} [espree] format 1`] = `
+exports[`expression.js - {"experimentalOperatorPosition":true} [espree] format 1`] = `
 "Unexpected token : (5:4)
   3 | a = () => ({}).x;
   4 | ({} && a, b);
@@ -238,7 +238,7 @@ exports[`expression.js - {"experimentalOperatorLocation":true} [espree] format 1
   8 | ({} = 0);"
 `;
 
-exports[`expression.js - {"experimentalOperatorLocation":true} [flow] format 1`] = `
+exports[`expression.js - {"experimentalOperatorPosition":true} [flow] format 1`] = `
 "Unexpected token \`:\`, expected a type (5:5)
   3 | a = () => ({}).x;
   4 | ({} && a, b);
@@ -249,7 +249,7 @@ exports[`expression.js - {"experimentalOperatorLocation":true} [flow] format 1`]
   8 | ({} = 0);"
 `;
 
-exports[`expression.js - {"experimentalOperatorLocation":true} [meriyah] format 1`] = `
+exports[`expression.js - {"experimentalOperatorPosition":true} [meriyah] format 1`] = `
 "Expected ')' (5:4)
   3 | a = () => ({}).x;
   4 | ({} && a, b);
@@ -260,7 +260,7 @@ exports[`expression.js - {"experimentalOperatorLocation":true} [meriyah] format 
   8 | ({} = 0);"
 `;
 
-exports[`expression.js - {"experimentalOperatorLocation":true} [typescript] format 1`] = `
+exports[`expression.js - {"experimentalOperatorPosition":true} [typescript] format 1`] = `
 "')' expected. (5:4)
   3 | a = () => ({}).x;
   4 | ({} && a, b);
@@ -271,9 +271,9 @@ exports[`expression.js - {"experimentalOperatorLocation":true} [typescript] form
   8 | ({} = 0);"
 `;
 
-exports[`expression.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`expression.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -394,9 +394,9 @@ const a3 = {
 ================================================================================
 `;
 
-exports[`getter-setter.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`getter-setter.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -443,9 +443,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`method.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`method.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -472,9 +472,9 @@ a = { f() {} };
 ================================================================================
 `;
 
-exports[`range.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`range.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -549,9 +549,9 @@ group(
 ================================================================================
 `;
 
-exports[`right-break.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`right-break.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth

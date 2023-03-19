@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`intersection.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`intersection.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -53,9 +53,9 @@ function bar(x: Error & { type: number }): number {
 ================================================================================
 `;
 
-exports[`objassign.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`objassign.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -122,9 +122,9 @@ let y: ObjAssignT = { ...x }; // should be fine
 ================================================================================
 `;
 
-exports[`pred.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`pred.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -253,9 +253,9 @@ function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
 ================================================================================
 `;
 
-exports[`test_fun.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`test_fun.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -402,9 +402,9 @@ var g: (_: number | string) => void = f;
 ================================================================================
 `;
 
-exports[`test_obj.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`test_obj.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth

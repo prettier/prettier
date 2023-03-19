@@ -233,11 +233,11 @@ function printBinaryishExpressions(
     (comment) => isTypeCastComment(comment)
   );
   const commentBeforeOperator =
-    options.experimentalOperatorLocation &&
+    options.experimentalOperatorPosition &&
     !hasTypeCastComment &&
     hasLeadingOwnLineComment(options.originalText, node.right);
   const lineBeforeOperator =
-    options.experimentalOperatorLocation ||
+    options.experimentalOperatorPosition ||
     ((node.operator === "|>" ||
       node.type === "NGPipeExpression" ||
       (node.operator === "|" && options.parser === "__vue_expression")) &&

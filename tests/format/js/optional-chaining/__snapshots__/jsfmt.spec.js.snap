@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`chaining.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`chaining.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -365,9 +365,9 @@ new (foo?.())();
 ================================================================================
 `;
 
-exports[`comments.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`comments.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -578,9 +578,9 @@ foo.bar.baz
 ================================================================================
 `;
 
-exports[`eval.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`eval.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

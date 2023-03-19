@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`webtsc.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`webtsc.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth

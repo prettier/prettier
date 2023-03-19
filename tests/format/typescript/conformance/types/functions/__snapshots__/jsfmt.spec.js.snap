@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TSFunctionTypeNoUnnecessaryParentheses.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`TSFunctionTypeNoUnnecessaryParentheses.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -35,9 +35,9 @@ class Foo {
 ================================================================================
 `;
 
-exports[`functionImplementationErrors.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`functionImplementationErrors.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -370,9 +370,9 @@ var f13 = () => {
 ================================================================================
 `;
 
-exports[`functionImplementations.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`functionImplementations.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1067,9 +1067,9 @@ var f12: (x: number) => any = (x) => {
 ================================================================================
 `;
 
-exports[`functionOverloadCompatibilityWithVoid01.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`functionOverloadCompatibilityWithVoid01.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1108,9 +1108,9 @@ function f(x: string): void {
 ================================================================================
 `;
 
-exports[`functionOverloadCompatibilityWithVoid02.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`functionOverloadCompatibilityWithVoid02.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1149,9 +1149,9 @@ function f(x: string): number {
 ================================================================================
 `;
 
-exports[`functionOverloadCompatibilityWithVoid03.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`functionOverloadCompatibilityWithVoid03.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1200,7 +1200,7 @@ exports[`functionOverloadErrorsSyntax.ts [babel-ts] format 1`] = `
   11 |"
 `;
 
-exports[`functionOverloadErrorsSyntax.ts - {"experimentalOperatorLocation":true} [babel-ts] format 1`] = `
+exports[`functionOverloadErrorsSyntax.ts - {"experimentalOperatorPosition":true} [babel-ts] format 1`] = `
 "Rest element must be last element. (9:36)
    7 |
    8 | //Function overload signature with rest param followed by non-optional parameter
@@ -1210,9 +1210,9 @@ exports[`functionOverloadErrorsSyntax.ts - {"experimentalOperatorLocation":true}
   11 |"
 `;
 
-exports[`functionOverloadErrorsSyntax.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`functionOverloadErrorsSyntax.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1275,9 +1275,9 @@ function fn5() {}
 ================================================================================
 `;
 
-exports[`functionTypeTypeParameters.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`functionTypeTypeParameters.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1304,9 +1304,9 @@ type FuncWithTypeParameter = <T, P>() => {};
 ================================================================================
 `;
 
-exports[`parameterInitializersForwardReferencing.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`parameterInitializersForwardReferencing.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth

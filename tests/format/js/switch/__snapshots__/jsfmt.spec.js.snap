@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`comments.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -273,9 +273,9 @@ switch (x) {
 ================================================================================
 `;
 
-exports[`comments2.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`comments2.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -394,9 +394,9 @@ switch (5) {
 ================================================================================
 `;
 
-exports[`empty_lines.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`empty_lines.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -695,9 +695,9 @@ switch (a) {
 ================================================================================
 `;
 
-exports[`empty_statement.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`empty_statement.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -746,9 +746,9 @@ switch (error.code) {
 ================================================================================
 `;
 
-exports[`empty_switch.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`empty_switch.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -785,9 +785,9 @@ switch (1) {
 ================================================================================
 `;
 
-exports[`switch.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`switch.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

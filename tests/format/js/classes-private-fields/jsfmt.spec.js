@@ -11,6 +11,6 @@ run_spec(import.meta, ["babel"], {
   errors,
 });
 run_spec(import.meta, ["babel"], {
-  experimentalOperatorLocation: true,
+  experimentalOperatorPosition: true,
   errors,
 });

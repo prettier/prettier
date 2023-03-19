@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`class.js - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow"]
 printWidth: 80
 semi: false
@@ -741,9 +741,9 @@ class G4 {
 ================================================================================
 `;
 
-exports[`comments.js - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`comments.js - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow"]
 printWidth: 80
 semi: false
@@ -846,9 +846,9 @@ x;
 ================================================================================
 `;
 
-exports[`issue2006.js - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`issue2006.js - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow"]
 printWidth: 80
 semi: false
@@ -933,9 +933,9 @@ var c = a.e;
 ================================================================================
 `;
 
-exports[`no-semi.js - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`no-semi.js - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow"]
 printWidth: 80
 semi: false
@@ -1485,9 +1485,9 @@ aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
 ================================================================================
 `;
 
-exports[`private-field.js - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`private-field.js - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow"]
 printWidth: 80
 semi: false

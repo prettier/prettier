@@ -89,7 +89,7 @@ This option cannot be used with --range-start and --range-end.",
             },
           ],
         },
-        "experimentalOperatorLocation": {
+        "experimentalOperatorPosition": {
           "default": false,
           "description": "Use experimental formatting for breaking lines before binary operators",
           "type": "boolean",

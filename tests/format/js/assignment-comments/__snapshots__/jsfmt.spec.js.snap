@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`call.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`call.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -53,9 +53,9 @@ if (true)
 ================================================================================
 `;
 
-exports[`call2.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`call2.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -86,9 +86,9 @@ const kochabCooieGameOnOboleUnweave = // ???
 ================================================================================
 `;
 
-exports[`function.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`function.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -343,9 +343,9 @@ let f6 =
 ================================================================================
 `;
 
-exports[`identifier.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`identifier.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -396,9 +396,9 @@ const bifornCringerMoshedPerplexSawder = // !!!
 ================================================================================
 `;
 
-exports[`number.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`number.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -589,9 +589,9 @@ var fnNumber =
 ================================================================================
 `;
 
-exports[`string.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`string.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

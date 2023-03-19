@@ -130,7 +130,7 @@ exports[`API getSupportInfo() 1`] = `
       "default": "lf",
       "type": "choice",
     },
-    "experimentalOperatorLocation": {
+    "experimentalOperatorPosition": {
       "default": false,
       "type": "boolean",
     },
@@ -861,7 +861,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "category": "Experimental",
       "default": false,
       "description": "Use experimental formatting for breaking lines before binary operators",
-      "name": "experimentalOperatorLocation",
+      "name": "experimentalOperatorPosition",
       "pluginDefaults": {},
       "type": "boolean"
     },

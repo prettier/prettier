@@ -82,10 +82,10 @@ a = (b) => {
 ================================================================================
 `;
 
-exports[`arrow_function_expression.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`arrow_function_expression.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -285,10 +285,10 @@ x2 =
 ================================================================================
 `;
 
-exports[`arrow-chain-with-trailing-comments.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`arrow-chain-with-trailing-comments.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -462,10 +462,10 @@ const bifornCringer3 =
 ================================================================================
 `;
 
-exports[`assignment-chain-with-arrow-chain.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`assignment-chain-with-arrow-chain.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -674,10 +674,10 @@ a = () => ({} = this);
 ================================================================================
 `;
 
-exports[`block_like.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`block_like.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1502,10 +1502,10 @@ foo(
 ================================================================================
 `;
 
-exports[`call.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`call.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -3185,10 +3185,10 @@ const z = a.b(
 ================================================================================
 `;
 
-exports[`chain-as-arg.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`chain-as-arg.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -3391,10 +3391,10 @@ const x =
 ================================================================================
 `;
 
-exports[`chain-in-logical-expression.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`chain-in-logical-expression.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -3524,10 +3524,10 @@ export const bem =
 ================================================================================
 `;
 
-exports[`comment.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`comment.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -4115,10 +4115,10 @@ import(
 ================================================================================
 `;
 
-exports[`curried.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`curried.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -5027,10 +5027,10 @@ const middleware = (options) => (req, res, next) => {
 ================================================================================
 `;
 
-exports[`currying.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`currying.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -5171,10 +5171,10 @@ request.get(
 ================================================================================
 `;
 
-exports[`currying-2.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`currying-2.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -5346,10 +5346,10 @@ function f(
 ================================================================================
 `;
 
-exports[`currying-3.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`currying-3.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -5562,10 +5562,10 @@ const makeSomeFunction2 =
 ================================================================================
 `;
 
-exports[`issue-1389-curry.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-1389-curry.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -5698,10 +5698,10 @@ const myCurriedFn = (arg1) => (arg2) => (arg3) => arg1 + arg2 + arg3;
 ================================================================================
 `;
 
-exports[`issue-4166-curry.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`issue-4166-curry.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -5751,10 +5751,10 @@ veryLongCall(
 ================================================================================
 `;
 
-exports[`long-call-no-args.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`long-call-no-args.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -5812,10 +5812,10 @@ const foo = () => {
 ================================================================================
 `;
 
-exports[`long-contents.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`long-contents.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -5918,10 +5918,10 @@ foo((a) => (b) => (0, 1));
 ================================================================================
 `;
 
-exports[`parens.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`parens.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -6146,7 +6146,7 @@ map(() => #{
 ================================================================================
 `;
 
-exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} [acorn] format 1`] = `
+exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} [acorn] format 1`] = `
 "Identifier 'fn12' has already been declared (4:7)
   2 |   ({ foo: bar, bar: baz, baz: foo });
   3 |
@@ -6157,7 +6157,7 @@ exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorLocat
   7 | map(() => (["
 `;
 
-exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} [espree] format 1`] = `
+exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} [espree] format 1`] = `
 "Identifier 'fn12' has already been declared (4:7)
   2 |   ({ foo: bar, bar: baz, baz: foo });
   3 |
@@ -6168,7 +6168,7 @@ exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorLocat
   7 | map(() => (["
 `;
 
-exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} [meriyah] format 1`] = `
+exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} [meriyah] format 1`] = `
 "'#' not followed by identifier (5:4)
   3 |
   4 | const fn12 = (a) => (b) => (c) => (d) => (e) =>
@@ -6179,7 +6179,7 @@ exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorLocat
   8 |   // comment"
 `;
 
-exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} [typescript] format 1`] = `
+exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} [typescript] format 1`] = `
 "Invalid character. (5:4)
   3 |
   4 | const fn12 = (a) => (b) => (c) => (d) => (e) =>
@@ -6190,10 +6190,10 @@ exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorLocat
   8 |   // comment"
 `;
 
-exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorLocation":true} format 1`] = `
+exports[`tuple-and-record.js - {"arrowParens":"avoid","experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth

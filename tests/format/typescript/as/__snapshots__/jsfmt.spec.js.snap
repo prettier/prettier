@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array-pattern.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`array-pattern.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -29,9 +29,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`as.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`as.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -268,9 +268,9 @@ const iter2 = createIterator(
 ================================================================================
 `;
 
-exports[`assignment.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`assignment.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -413,9 +413,9 @@ this.intervalID = setInterval(() => {
 ================================================================================
 `;
 
-exports[`assignment2.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`assignment2.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -562,9 +562,9 @@ const originalPrototype = originalConstructor.prototype as TComponent &
 ================================================================================
 `;
 
-exports[`export_default_as.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`export_default_as.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -591,9 +591,9 @@ export default (function log() {} as typeof console.log);
 ================================================================================
 `;
 
-exports[`long-identifiers.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`long-identifiers.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -674,9 +674,9 @@ averredBathersBoxroomBuggyNurl(
 ================================================================================
 `;
 
-exports[`nested-await-and-as.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`nested-await-and-as.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -729,9 +729,9 @@ const getAccountCount = async () =>
 ================================================================================
 `;
 
-exports[`return.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`return.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -778,9 +778,9 @@ function foo() {
 ================================================================================
 `;
 
-exports[`ternary.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`ternary.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth

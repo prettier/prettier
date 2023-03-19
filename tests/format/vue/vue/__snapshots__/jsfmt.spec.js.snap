@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attributes.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`attributes.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -1465,9 +1465,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`board_card.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`board_card.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -2130,9 +2130,9 @@ export default {
 ================================================================================
 `;
 
-exports[`case-sensitive-tags.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`case-sensitive-tags.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -2207,9 +2207,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`custom-block.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`custom-block.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -2328,9 +2328,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`expression-binding.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`expression-binding.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -2625,9 +2625,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`filter.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`filter.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -2858,9 +2858,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`interpolations.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`interpolations.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -3383,9 +3383,9 @@ x => {
 ================================================================================
 `;
 
-exports[`multiple-template1.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`multiple-template1.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -3476,9 +3476,9 @@ cloned.
 ================================================================================
 `;
 
-exports[`multiple-template2.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`multiple-template2.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -3569,9 +3569,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`nested-template.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`nested-template.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -3694,9 +3694,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`one-line-template1.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`one-line-template1.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -3767,9 +3767,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`one-line-template2.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`one-line-template2.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -3848,9 +3848,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`pre-child.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`pre-child.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -4273,9 +4273,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`script_src.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`script_src.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -4342,9 +4342,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`self_closing.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`self_closing.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -4563,9 +4563,9 @@ foo();
 ================================================================================
 `;
 
-exports[`self_closing_style.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`self_closing_style.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -4656,9 +4656,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`style.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`style.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -5085,9 +5085,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`tag-name.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`tag-name.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -5162,9 +5162,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`template.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`template.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -5419,9 +5419,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`template-dom.html - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`template-dom.html - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -5548,9 +5548,9 @@ new Vue({el: '#app'})
 ================================================================================
 `;
 
-exports[`template-lang.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`template-lang.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -5873,9 +5873,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`test.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`test.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false
@@ -6002,9 +6002,9 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`v-if.vue - {"semi":false,"experimentalOperatorLocation":true} format 1`] = `
+exports[`v-if.vue - {"semi":false,"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["vue"]
 printWidth: 80
 semi: false

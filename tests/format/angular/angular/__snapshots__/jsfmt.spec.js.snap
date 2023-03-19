@@ -41,9 +41,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`angularjs.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`angularjs.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -291,9 +291,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attr-name.component.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`attr-name.component.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -639,9 +639,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attributes.component.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`attributes.component.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -2414,9 +2414,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`first-lf.component.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`first-lf.component.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -3017,9 +3017,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`ignore-attribute.component.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -3502,9 +3502,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`interpolation.component.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`interpolation.component.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -6074,9 +6074,9 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`real-world.component.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -15758,9 +15758,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`tag-name.component.html - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`tag-name.component.html - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth

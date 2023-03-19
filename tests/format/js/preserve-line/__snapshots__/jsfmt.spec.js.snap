@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument-list.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`argument-list.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -791,9 +791,9 @@ function foo(
 ================================================================================
 `;
 
-exports[`comments.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`comments.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -928,9 +928,9 @@ function a() {
 ================================================================================
 `;
 
-exports[`member-chain.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`member-chain.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1189,9 +1189,9 @@ const sel = this.connections
 ================================================================================
 `;
 
-exports[`parameter-list.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`parameter-list.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

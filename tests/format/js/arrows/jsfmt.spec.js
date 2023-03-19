@@ -15,6 +15,6 @@ run_spec(import.meta, ["babel", "typescript"], {
 });
 run_spec(import.meta, ["babel", "typescript"], {
   arrowParens: "avoid",
-  experimentalOperatorLocation: true,
+  experimentalOperatorPosition: true,
   errors,
 });

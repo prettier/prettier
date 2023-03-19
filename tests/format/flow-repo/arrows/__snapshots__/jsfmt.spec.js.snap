@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`advanced_arrows.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`advanced_arrows.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -69,9 +69,9 @@ var ident = <T>(x: T): T => x;
 ================================================================================
 `;
 
-exports[`arrows.js - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`arrows.js - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth

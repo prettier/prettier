@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument-expansion.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`argument-expansion.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -188,9 +188,9 @@ const bar5 = [1, 2, 3].reduce((carry, value) => {
 ================================================================================
 `;
 
-exports[`assignment.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`assignment.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -355,9 +355,9 @@ this.intervalID = setInterval(() => {
 ================================================================================
 `;
 
-exports[`basic.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`basic.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -573,9 +573,9 @@ var v = undefined satisfies 1;
 ================================================================================
 `;
 
-exports[`comments.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`comments.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -629,9 +629,9 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 ================================================================================
 `;
 
-exports[`comments-unstable.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`comments-unstable.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -706,9 +706,9 @@ Record<string, number>;
 ================================================================================
 `;
 
-exports[`export-default-as.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`export-default-as.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -750,9 +750,9 @@ export default (function log() {} satisfies typeof console.log);
 ================================================================================
 `;
 
-exports[`gt-lt.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`gt-lt.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -800,9 +800,9 @@ x satisfies boolean ?? y; // (x satisfies boolean) ?? y;
 ================================================================================
 `;
 
-exports[`hug-args.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`hug-args.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -868,9 +868,9 @@ window.postMessage({
 ================================================================================
 `;
 
-exports[`lhs.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`lhs.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -951,9 +951,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`nested-await-and-satisfies.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`nested-await-and-satisfies.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1034,9 +1034,9 @@ const getAccountCount = async () =>
 ================================================================================
 `;
 
-exports[`non-null.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`non-null.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1090,9 +1090,9 @@ const el = ReactDOM.findDOMNode(ref);
 ================================================================================
 `;
 
-exports[`satisfies.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`satisfies.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1260,9 +1260,9 @@ foo as unknown satisfies Bar;
 ================================================================================
 `;
 
-exports[`template-literal.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`template-literal.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1355,9 +1355,9 @@ const b = \`\${
 ================================================================================
 `;
 
-exports[`ternary.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`ternary.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1663,9 +1663,9 @@ bifornCringerMoshedPerplexSawder =
 ================================================================================
 `;
 
-exports[`types-comments.ts - {"experimentalOperatorLocation":true} format 1`] = `
+exports[`types-comments.ts - {"experimentalOperatorPosition":true} format 1`] = `
 ====================================options=====================================
-experimentalOperatorLocation: true
+experimentalOperatorPosition: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
