@@ -1,3 +1,4 @@
+import * as coreOptions from "../main/core-options.evaluate.js";
 import commonOptions from "../common/common-options.js";
 
 const CATEGORY_JAVASCRIPT = "JavaScript";
@@ -84,6 +85,13 @@ const options = {
     ],
   },
   singleAttributePerLine: commonOptions.singleAttributePerLine,
+  experimentalOperatorLocation: {
+    category: coreOptions.CATEGORY_EXPERIMENTAL,
+    type: "boolean",
+    default: false,
+    description:
+      "Use experimental formatting for breaking lines before binary operators",
+  },
 };
 
 export default options;

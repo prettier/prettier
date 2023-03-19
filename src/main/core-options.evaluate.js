@@ -7,6 +7,7 @@ const CATEGORY_OTHER = "Other";
 const CATEGORY_OUTPUT = "Output";
 const CATEGORY_GLOBAL = "Global";
 const CATEGORY_SPECIAL = "Special";
+const CATEGORY_EXPERIMENTAL = "Experimental";
 
 /**
  * @typedef {Object} OptionInfo
@@ -243,5 +244,6 @@ export {
   CATEGORY_OUTPUT,
   CATEGORY_GLOBAL,
   CATEGORY_SPECIAL,
+  CATEGORY_EXPERIMENTAL,
   options,
 };
