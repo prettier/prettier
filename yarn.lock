@@ -3118,10 +3118,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"editorconfig-to-prettier@npm:0.2.0":
-  version: 0.2.0
-  resolution: "editorconfig-to-prettier@npm:0.2.0"
-  checksum: 9803934b0835fc57aa67c190de3a0b4c737e53c80424de7ac8ea183950190273a50e7b693932effacfb147109f2af8af5d5df5810dc13bd505cd6df50142a72a
+"editorconfig-to-prettier@npm:1.0.0":
+  version: 1.0.0
+  resolution: "editorconfig-to-prettier@npm:1.0.0"
+  checksum: 8054f8593c2f93abca9f3c6db91030fbd80a15fd36b076a5f3fbeb246267173e290817adfb3389d9066026bcc85822e72b7635596e9dda6e74927ae110cbc474
   languageName: node
   linkType: hard
 
@@ -6760,7 +6760,7 @@ __metadata:
     dashify: 2.0.0
     diff: 5.1.0
     editorconfig: 0.15.3
-    editorconfig-to-prettier: 0.2.0
+    editorconfig-to-prettier: 1.0.0
     enquirer: 2.3.6
     esbuild: 0.17.12
     esbuild-visualizer: 0.4.0
