@@ -33,6 +33,22 @@ function hasComma({ node, parent }, options) {
   );
 }
 
+function printTrailingComma(path, options) {
+  if (isVarFunctionNode(path.grandparent) && hasComma(path, options)) {
+    return ",";
+  }
+
+  if (
+    path.node.type !== "value-comment" &&
+    shouldPrintTrailingComma(options) &&
+    path.callParent(() => isSCSSMapItemNode(path, options))
+  ) {
+    return ifBreak(",");
+  }
+
+  return "";
+}
+
 function printParenthesizedValueGroup(path, options, print) {
   const { node, parent } = path;
   const groupDocs = path.map(
@@ -61,11 +77,6 @@ function printParenthesizedValueGroup(path, options, print) {
     return group(indent(fill(join([",", line], groupDocs))));
   }
 
-  const isSCSSMapItem = isSCSSMapItemNode(path, options);
-
-  const lastItem = node.groups.at(-1);
-  const isLastItemComment = lastItem?.type === "value-comment";
-
   const parts = join(
     line,
     path.map(({ node: child, isLast, index }) => {
@@ -84,18 +95,7 @@ function printParenthesizedValueGroup(path, options, print) {
         doc = group(dedent(doc));
       }
 
-      const parts = [doc];
-      if (!isLast || (isVarFunctionNode(parent) && hasComma(path, options))) {
-        parts.push(",");
-      } else if (
-        isLast &&
-        !isLastItemComment &&
-        options.parser === "scss" &&
-        isSCSSMapItem &&
-        shouldPrintTrailingComma(options)
-      ) {
-        parts.push(ifBreak(","));
-      }
+      const parts = [doc, isLast ? printTrailingComma(path, options) : ","];
 
       if (
         !isLast &&
@@ -123,6 +123,7 @@ function printParenthesizedValueGroup(path, options, print) {
 
   const isKey = isKeyInValuePairNode(node, parent);
   const isConfiguration = isConfigurationNode(node, parent);
+  const isSCSSMapItem = isSCSSMapItemNode(path, options);
   const shouldBreak = isConfiguration || (isSCSSMapItem && !isKey);
   const shouldDedent = isConfiguration || isKey;
 
