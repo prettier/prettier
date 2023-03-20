@@ -42,7 +42,7 @@
     "dashify": "2.0.0",
     "diff": "5.0.0",
     "editorconfig": "0.15.3",
-    "editorconfig-to-prettier": "0.2.0",
+    "editorconfig-to-prettier": "1.0.0",
     "escape-string-regexp": "5.0.0",
     "espree": "9.4.1",
     "esutils": "2.0.3",
