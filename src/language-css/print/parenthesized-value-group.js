@@ -21,7 +21,7 @@ import {
   isVarFunctionNode,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
-import { shouldPrintComma } from "./misc.js";
+import { shouldPrintTrailingComma } from "./misc.js";
 
 function hasComma({ node, parent }, options) {
   return Boolean(
@@ -73,63 +73,67 @@ function printParenthesizedValueGroup(path, options, print) {
   const shouldBreak = isConfiguration || (isSCSSMapItem && !isKey);
   const shouldDedent = isConfiguration || isKey;
 
+  const groupsDoc = join(
+    [line],
+    path.map(({ node: child, isLast, index }) => {
+      let doc = printedGroups[index];
+
+      // Key/Value pair in open paren already indented
+      if (
+        isKeyValuePairNode(child) &&
+        child.type === "value-comma_group" &&
+        child.groups &&
+        child.groups[0].type !== "value-paren_group" &&
+        child.groups[2]?.type === "value-paren_group"
+      ) {
+        const parts = getDocParts(doc.contents.contents);
+        parts[1] = group(parts[1]);
+        doc = [group(dedent(doc))];
+      }
+
+      const parts = [doc];
+      if (!isLast || (isVarFunction && hasComma(path, options))) {
+        parts.push(",");
+      }
+
+      if (
+        isLast &&
+        !isLastItemComment &&
+        options.parser === "scss" &&
+        isSCSSMapItem &&
+        shouldPrintTrailingComma(options)
+      ) {
+        parts.push(ifBreak(","));
+      }
+
+      if (
+        !isLast &&
+        child.type === "value-comma_group" &&
+        isNonEmptyArray(child.groups)
+      ) {
+        let last = child.groups.at(-1);
+
+        // `value-paren_group` does not have location info, but its closing parenthesis does.
+        if (!last.source && last.close) {
+          last = last.close;
+        }
+
+        if (
+          last.source &&
+          isNextLineEmpty(options.originalText, locEnd(last))
+        ) {
+          parts.push(hardline);
+        }
+      }
+
+      return parts;
+    }, "groups")
+  );
+
   const printed = group(
     [
       node.open ? print("open") : "",
-      indent([
-        softline,
-        join(
-          [line],
-          path.map(({ node: child, isLast, index }) => {
-            const shouldPrintComma =
-              !isLast || (isVarFunction && hasComma(path, options));
-            let printed = [printedGroups[index], shouldPrintComma ? "," : ""];
-
-            // Key/Value pair in open paren already indented
-            if (
-              isKeyValuePairNode(child) &&
-              child.type === "value-comma_group" &&
-              child.groups &&
-              child.groups[0].type !== "value-paren_group" &&
-              child.groups[2]?.type === "value-paren_group"
-            ) {
-              const parts = getDocParts(printed[0].contents.contents);
-              parts[1] = group(parts[1]);
-              printed = [group(dedent(printed))];
-            }
-
-            if (
-              !isLast &&
-              child.type === "value-comma_group" &&
-              isNonEmptyArray(child.groups)
-            ) {
-              let last = child.groups.at(-1);
-
-              // `value-paren_group` does not have location info, but its closing parenthesis does.
-              if (!last.source && last.close) {
-                last = last.close;
-              }
-
-              if (
-                last.source &&
-                isNextLineEmpty(options.originalText, locEnd(last))
-              ) {
-                printed.push(hardline);
-              }
-            }
-
-            return printed;
-          }, "groups")
-        ),
-      ]),
-      ifBreak(
-        !isLastItemComment &&
-          options.parser === "scss" &&
-          isSCSSMapItem &&
-          shouldPrintComma(options)
-          ? ","
-          : ""
-      ),
+      indent([softline, groupsDoc]),
       softline,
       node.close ? print("close") : "",
     ],
