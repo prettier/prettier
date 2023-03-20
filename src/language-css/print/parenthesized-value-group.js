@@ -23,16 +23,6 @@ import {
 import { locStart, locEnd } from "../loc.js";
 import { shouldPrintComma } from "./misc.js";
 
-function hasComma({ node, parent }, options) {
-  return Boolean(
-    node.source &&
-      options.originalText
-        .slice(locStart(node), locStart(parent.close))
-        .trimEnd()
-        .endsWith(",")
-  );
-}
-
 function printParenthesizedValueGroup(path, options, print) {
   const { node } = path;
   const parentNode = path.parent;
@@ -81,8 +71,15 @@ function printParenthesizedValueGroup(path, options, print) {
         join(
           [line],
           path.map(({ node: child, isLast, index }) => {
-            const shouldPrintComma =
-              !isLast || (isVarFunction && hasComma(path, options));
+            const hasComma = () =>
+              Boolean(
+                child.source &&
+                  options.originalText
+                    .slice(locStart(child), locStart(node.close))
+                    .trimEnd()
+                    .endsWith(",")
+              );
+            const shouldPrintComma = !isLast || (isVarFunction && hasComma());
             let printed = [printedGroups[index], shouldPrintComma ? "," : ""];
 
             // Key/Value pair in open paren already indented
