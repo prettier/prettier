@@ -50,10 +50,12 @@ async function buildPrettier() {
 }
 
 async function buildPlaygroundFiles() {
-  const patterns = IS_PULL_REQUEST
-    ? ["standalone.js", "plugins/*.js"]
-    : // TODO: Remove this after we release v3
-      ["standalone.js", "parser-*.js"];
+  const patterns = [
+    "standalone.js",
+    "plugins/*.js",
+    // TODO: Remove this after we release v3
+    "parser-*.js",
+  ];
 
   const files = await fastGlob(patterns, {
     cwd: PRETTIER_DIR,

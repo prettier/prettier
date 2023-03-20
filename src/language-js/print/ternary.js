@@ -1,6 +1,6 @@
-import { hasNewlineInRange } from "../../common/util.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import {
-  isJsxNode,
+  isJsxElement,
   isCallExpression,
   isMemberExpression,
   isTSTypeExpression,
@@ -89,7 +89,7 @@ function conditionalExpressionChainContainsJsx(node) {
     for (const property of ["test", "consequent", "alternate"]) {
       const node = conditionalExpression[property];
 
-      if (isJsxNode(node)) {
+      if (isJsxElement(node)) {
         return true;
       }
 
@@ -150,6 +150,7 @@ function shouldExtraIndentForConditionalExpression(path) {
     const node = path.getParentNode(ancestorCount);
 
     if (
+      (node.type === "ChainExpression" && node.expression === child) ||
       (isCallExpression(node) && node.callee === child) ||
       (isMemberExpression(node) && node.object === child) ||
       (node.type === "TSNonNullExpression" && node.expression === child)
@@ -235,9 +236,9 @@ function printTernary(path, options, print) {
 
   if (
     isConditionalExpression &&
-    (isJsxNode(node[testNodePropertyNames[0]]) ||
-      isJsxNode(consequentNode) ||
-      isJsxNode(alternateNode) ||
+    (isJsxElement(node[testNodePropertyNames[0]]) ||
+      isJsxElement(consequentNode) ||
+      isJsxElement(alternateNode) ||
       conditionalExpressionChainContainsJsx(lastConditionalParent))
   ) {
     jsxMode = true;

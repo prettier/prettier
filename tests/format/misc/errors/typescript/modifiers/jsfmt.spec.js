@@ -47,9 +47,10 @@ run_spec(
           `
       ),
 
-      // `TSTypeParameter`, only `in` and `out` allowed in type parameter
+      // `TSTypeParameter`, only `in`, `out`, and `const` allowed in type parameter
       ...POSSIBLE_MODIFIERS.filter(
-        (modifier) => modifier !== "in" && modifier !== "out"
+        (modifier) =>
+          modifier !== "in" && modifier !== "out" && modifier !== "const"
       ).map((modifier) => `interface Foo<${modifier} T> {}`),
 
       ...["declare", "readonly"].map(
@@ -102,11 +103,23 @@ run_spec(
       ).map(
         (modifier) => `class Foo { constructor(${modifier} parameter) {} }`
       ),
+      'class Foo {["constructor"](private parameter) {}}',
+      "class Foo {['constructor'](private parameter) {}}",
+      "class Foo {[`constructor`](private parameter) {}}",
+      // cspell:disable-next-line
+      "class Foo {['const' + 'ructor'](private parameter) {}}",
 
       // `TSPropertySignature`
       ...POSSIBLE_MODIFIERS.filter((modifier) => modifier !== "readonly").map(
         (modifier) => `type Foo = {${modifier} bar};`
       ),
+
+      // `TSIndexSignature`
+      outdent`
+        class Foo {
+          declare [index: string]: number
+        }
+      `,
     ],
   },
   ["babel-ts", "typescript"]

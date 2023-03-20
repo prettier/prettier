@@ -29,6 +29,7 @@ module.exports = {
     "logical-assignment-operators": "error",
     "no-console": isCI ? "error" : "warn",
     "no-constant-binary-expression": "error",
+    "no-duplicate-imports": "error",
     "no-else-return": [
       "error",
       {
@@ -270,6 +271,7 @@ module.exports = {
         "tests/format/**/jsfmt.spec.js",
         "tests/integration/**/*.js",
         "tests/unit/**/*.js",
+        "tests/dts/unit/**/*.js",
         "scripts/release/__tests__/**/*.spec.js",
       ],
       env: {
@@ -354,7 +356,7 @@ module.exports = {
       rules: {
         "prettier-internal-rules/flat-ast-path-call": "error",
         "prettier-internal-rules/no-conflicting-comment-check-flags": "error",
-        "prettier-internal-rules/no-doc-index-import": "error",
+        "prettier-internal-rules/no-doc-public-import": "error",
         "prettier-internal-rules/no-empty-flat-contents-for-if-break": "error",
         "prettier-internal-rules/no-unnecessary-ast-path-call": "error",
         "prettier-internal-rules/prefer-ast-path-each": "error",

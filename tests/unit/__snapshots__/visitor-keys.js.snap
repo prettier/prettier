@@ -176,8 +176,6 @@ exports[`visitor keys estree 1`] = `
     "id",
     "typeParameters",
     "extends",
-    "mixins",
-    "implements",
     "body",
   ],
   "DeclareModule": [
@@ -375,8 +373,6 @@ exports[`visitor keys estree 1`] = `
     "id",
     "typeParameters",
     "extends",
-    "mixins",
-    "implements",
     "body",
   ],
   "InterfaceExtends": [
@@ -604,7 +600,6 @@ exports[`visitor keys estree 1`] = `
   "Program": [
     "directives",
     "body",
-    "interpreter",
   ],
   "Property": [
     "key",

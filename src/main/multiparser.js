@@ -1,6 +1,5 @@
 import { stripTrailingHardline } from "../document/utils.js";
-import { normalize } from "./options.js";
-import { ensureAllCommentsPrinted, attach } from "./comments.js";
+import normalizeFormatOptions from "./normalize-format-options.js";
 import { parse } from "./parser.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
@@ -109,7 +108,7 @@ async function textToDoc(
   parentOptions,
   printAstToDoc
 ) {
-  const nextOptions = await normalize(
+  const options = await normalizeFormatOptions(
     {
       ...parentOptions,
       ...partialNextOptions,
@@ -119,21 +118,8 @@ async function textToDoc(
     { passThrough: true }
   );
 
-  const result = await parse(text, nextOptions);
-  const { ast } = result;
-
-  text = result.text;
-
-  const astComments = ast.comments;
-  delete ast.comments;
-  attach(astComments, ast, text, nextOptions);
-  // @ts-expect-error -- Casting to `unique symbol` isn't allowed in JSDoc comment
-  nextOptions[Symbol.for("comments")] = astComments || [];
-  // @ts-expect-error -- Casting to `unique symbol` isn't allowed in JSDoc comment
-  nextOptions[Symbol.for("tokens")] = ast.tokens || [];
-
-  const doc = await printAstToDoc(ast, nextOptions);
-  ensureAllCommentsPrinted(astComments);
+  const { ast } = await parse(text, options);
+  const doc = await printAstToDoc(ast, options);
 
   return stripTrailingHardline(doc);
 }

@@ -133,7 +133,7 @@ const {
 
 =====================================output=====================================
 export class BaseSingleLevelProfileTargeting<
-  T extends ValidSingleLevelProfileNode
+  T extends ValidSingleLevelProfileNode,
 > {}
 
 enum Enum {

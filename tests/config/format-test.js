@@ -35,12 +35,14 @@ const unstableTests = new Map(
     ["js/no-semi/comments.js", (options) => options.semi === false],
     ["flow/no-semi/comments.js", (options) => options.semi === false],
     "typescript/prettier-ignore/mapped-types.ts",
+    "typescript/prettier-ignore/issue-14238.ts",
     "js/comments/html-like/comment.js",
     "js/for/continue-and-break-comment-without-blocks.js",
     "js/sequence-expression/parenthesized.js",
     "typescript/satisfies-operators/comments-unstable.ts",
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
     "jsx/comments/in-attributes.js",
+    ["js/ignore/semi/asi.js", (options) => options.semi === false],
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -77,12 +79,14 @@ const meriyahDisabledTests = new Set([
     ].map((filename) => `js/decorator-auto-accessors/${filename}`),
     // https://github.com/meriyah/meriyah/issues/233
     "js/babel-plugins/decorator-auto-accessors.js",
-    // https://github.com/meriyah/meriyah/issues/235
-    "jsx/spread/child.js",
+    // Parsing to different ASTs
+    "js/decorators/member-expression.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const babelTsDisabledTest = new Set(
-  [].map((directory) => path.join(__dirname, "../format/typescript", directory))
+  ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
+    path.join(__dirname, "../format/typescript", file)
+  )
 );
 
 const isUnstable = (filename, options) => {
@@ -219,19 +223,6 @@ function runSpec(fixtures, parsers, options) {
 
   if (!IS_ERROR_TESTS) {
     if (
-      parsers.includes("typescript") &&
-      !parsers.includes("babel-ts") &&
-      !IS_TYPESCRIPT_ONLY_TEST &&
-      !babelTsDisabledTest.has(dirname)
-    ) {
-      allParsers.push("babel-ts");
-    }
-
-    if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
-      allParsers.push("babel-flow");
-    }
-
-    if (
       parsers.includes("babel") &&
       (isTestDirectory(dirname, "js") || isTestDirectory(dirname, "jsx"))
     ) {
@@ -244,6 +235,18 @@ function runSpec(fixtures, parsers, options) {
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
       }
+    }
+
+    if (
+      parsers.includes("typescript") &&
+      !parsers.includes("babel-ts") &&
+      !IS_TYPESCRIPT_ONLY_TEST
+    ) {
+      allParsers.push("babel-ts");
+    }
+
+    if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
+      allParsers.push("babel-flow");
     }
 
     if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {
@@ -285,7 +288,8 @@ function runSpec(fixtures, parsers, options) {
         if (
           (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
-          (currentParser === "acorn" && acornDisabledTests.has(filename))
+          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
+          (currentParser === "babel-ts" && babelTsDisabledTest.has(filename))
         ) {
           continue;
         }

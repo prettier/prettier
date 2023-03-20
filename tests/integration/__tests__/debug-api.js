@@ -3,10 +3,7 @@ import prettier from "../../config/prettier-entry.js";
 
 const {
   __debug: { parse, formatAST, formatDoc, printToDoc, printDocToString },
-  doc: {
-    builders,
-    utils: { cleanDoc },
-  },
+  doc: { builders },
 } = prettier;
 
 const code = outdent`
@@ -74,6 +71,11 @@ describe("API", () => {
       await formatDoc(fill(["foo", hardline, "bar", literalline, "baz"]))
     ).toBe('fill(["foo", hardline, "bar", literalline, "baz"])');
 
+    /*
+    This is not really `cleanDoc` from `src/document/utils.js`
+    But if we pass array to it, it will flat array
+    */
+    const cleanDoc = (parts) => parts.flat();
     expect(
       await formatDoc(
         // The argument of fill must not be passed to cleanDoc because it's not a doc

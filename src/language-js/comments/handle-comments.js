@@ -1,14 +1,13 @@
+import hasNewline from "../../utils/has-newline.js";
+import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
-  hasNewline,
-  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
-  getNextNonSpaceNonCommentCharacter,
-  hasNewlineInRange,
   addLeadingComment,
   addTrailingComment,
   addDanglingComment,
-  getNextNonSpaceNonCommentCharacterIndex,
-  isNonEmptyArray,
-} from "../../common/util.js";
+} from "../../main/comments/utils.js";
 import {
   getFunctionParameters,
   isPrettierIgnoreComment,
@@ -179,8 +178,7 @@ function handleIfStatementComments({
   // it is a ).
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
-    comment,
-    locEnd
+    locEnd(comment)
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
@@ -260,8 +258,7 @@ function handleWhileComments({
   // it is a ).
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
-    comment,
-    locEnd
+    locEnd(comment)
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
@@ -461,7 +458,7 @@ function handleMethodNameComments({
   if (
     enclosingNode &&
     precedingNode &&
-    getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "(" &&
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === "(" &&
     // "MethodDefinition" is handled in getCommentChildNodes
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "TSDeclareMethod" ||
@@ -470,7 +467,7 @@ function handleMethodNameComments({
     enclosingNode.key === precedingNode &&
     // special Property case: { key: /*comment*/(value) };
     // comment should be attached to value instead of key
-    getNextNonSpaceNonCommentCharacter(text, precedingNode, locEnd) !== ":"
+    getNextNonSpaceNonCommentCharacter(text, locEnd(precedingNode)) !== ":"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -502,7 +499,7 @@ function handleFunctionNameComments({
   enclosingNode,
   text,
 }) {
-  if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== "(") {
+  if (getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !== "(") {
     return false;
   }
   if (precedingNode && functionLikeNodeTypes.has(enclosingNode?.type)) {
@@ -517,7 +514,7 @@ function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
     return false;
   }
 
-  const index = getNextNonSpaceNonCommentCharacterIndex(text, comment, locEnd);
+  const index = getNextNonSpaceNonCommentCharacterIndex(text, locEnd(comment));
   if (index !== false && text.slice(index, index + 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
     return true;
@@ -527,7 +524,7 @@ function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
 }
 
 function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
-  if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== ")") {
+  if (getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !== ")") {
     return false;
   }
 
@@ -577,7 +574,7 @@ function handleLastFunctionArgComments({
       precedingNode?.type === "AssignmentPattern") &&
     enclosingNode &&
     isRealFunctionLikeNode(enclosingNode) &&
-    getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === ")"
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -590,19 +587,16 @@ function handleLastFunctionArgComments({
     const functionParamRightParenIndex = (() => {
       const parameters = getFunctionParameters(enclosingNode);
       if (parameters.length > 0) {
-        return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        return getNextNonSpaceNonCommentCharacterIndex(
           text,
           locEnd(parameters.at(-1))
         );
       }
       const functionParamLeftParenIndex =
-        getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
-          text,
-          locEnd(enclosingNode.id)
-        );
+        getNextNonSpaceNonCommentCharacterIndex(text, locEnd(enclosingNode.id));
       return (
         functionParamLeftParenIndex !== false &&
-        getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        getNextNonSpaceNonCommentCharacterIndex(
           text,
           functionParamLeftParenIndex + 1
         )
@@ -816,7 +810,7 @@ function handleTSFunctionTrailingComments({
     (enclosingNode?.type === "TSMethodSignature" ||
       enclosingNode?.type === "TSDeclareFunction" ||
       enclosingNode?.type === "TSAbstractMethodDefinition") &&
-    getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === ";"
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ";"
   ) {
     addTrailingComment(enclosingNode, comment);
     return true;

@@ -10,7 +10,7 @@ import {
   lineSuffix,
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
-import { isPreviousLineEmpty } from "../common/util.js";
+import isPreviousLineEmpty from "../utils/is-previous-line-empty.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { insertPragma, isPragma } from "./pragma.js";
 import { locStart } from "./loc.js";
@@ -129,7 +129,7 @@ function genericPrint(path, options, print) {
           hardline,
           path.map(
             ({ node }) => [
-              isPreviousLineEmpty(options.originalText, node, locStart)
+              isPreviousLineEmpty(options.originalText, locStart(node))
                 ? hardline
                 : "",
               print(),

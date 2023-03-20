@@ -1,4 +1,4 @@
-import { isNonEmptyArray } from "../../common/util.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { join, line, group, indent, ifBreak } from "../../document/builders.js";
 import { hasComment, identity, CommentCheckFlags } from "../utils/index.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";

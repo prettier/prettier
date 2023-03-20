@@ -1,4 +1,4 @@
-import { isNonEmptyArray } from "../../common/util.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { indent, hardline, softline } from "../../document/builders.js";
 import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
 import { printTemplateExpressions } from "../print/template-literal.js";

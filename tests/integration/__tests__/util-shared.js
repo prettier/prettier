@@ -21,6 +21,7 @@ test("shared util has correct structure", () => {
   expect(typeof sharedUtil.isNextLineEmpty).toBe("function");
   expect(typeof sharedUtil.isNextLineEmptyAfterIndex).toBe("function");
   expect(typeof sharedUtil.isPreviousLineEmpty).toBe("function");
+  expect(typeof sharedUtil.getNextNonSpaceNonCommentCharacter).toBe("function");
   expect(typeof sharedUtil.getNextNonSpaceNonCommentCharacterIndex).toBe(
     "function"
   );
@@ -95,6 +96,104 @@ test("sharedUtil.getIndentSize", () => {
   expect(getIndentSize("\n\t\n\t\t", /* tabWidth */ 2)).toBe(4);
   expect(getIndentSize("\n \n  ", /* tabWidth */ 2)).toBe(2);
   expect(getIndentSize("   \n\t\t\n", /* tabWidth */ 2)).toBe(0);
+});
+
+test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpaceNonCommentCharacterIndex", () => {
+  const {
+    getNextNonSpaceNonCommentCharacter,
+    getNextNonSpaceNonCommentCharacterIndex,
+  } = sharedUtil;
+  const FAKE_NODE = { type: "Identifier", name: "a" };
+
+  {
+    const text = "/* comment 1 */ a /* comment 2 */ b";
+    const endOfIdentifierA = text.indexOf("a") + 1;
+    const indexOfIdentifierB = text.indexOf("b");
+    const locEnd = () => endOfIdentifierA;
+
+    expect(getNextNonSpaceNonCommentCharacter(text, endOfIdentifierA)).toBe(
+      "b"
+    );
+    expect(
+      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA)
+    ).toBe(indexOfIdentifierB);
+    expect(
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+    ).toBe(indexOfIdentifierB);
+  }
+
+  {
+    const text = "/* comment 1 */ a /* comment 2 */";
+    const endOfIdentifierA = text.indexOf("a") + 1;
+    const locEnd = () => endOfIdentifierA;
+
+    expect(getNextNonSpaceNonCommentCharacter(text, endOfIdentifierA)).toBe("");
+    expect(
+      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA)
+    ).toBe(text.length);
+    expect(
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+    ).toBe(text.length);
+  }
+
+  {
+    const text = "/* comment 1 */ a /* comment 2 */";
+    const startIndex = false;
+    const locEnd = () => startIndex;
+
+    expect(getNextNonSpaceNonCommentCharacter(text, startIndex)).toBe("");
+    expect(getNextNonSpaceNonCommentCharacterIndex(text, startIndex)).toBe(
+      false
+    );
+    expect(
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+    ).toBe(false);
+  }
+});
+
+test("sharedUtil.isPreviousLineEmpty, sharedUtil.isNextLineEmpty and sharedUtil.isNextLineEmptyAfterIndex", () => {
+  const { isPreviousLineEmpty, isNextLineEmpty, isNextLineEmptyAfterIndex } =
+    sharedUtil;
+  const FAKE_NODE_A = { type: "Identifier", name: "a" };
+  const FAKE_NODE_B = { type: "Identifier", name: "b" };
+
+  {
+    const text = "a\n  \t  \t  \nb";
+    const endOfIdentifierA = text.indexOf("a") + 1;
+    const startOfIdentifierB = text.indexOf("b");
+
+    expect(isPreviousLineEmpty(text, startOfIdentifierB)).toBe(true);
+    expect(
+      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB)
+    ).toBe(true);
+    expect(isNextLineEmpty(text, endOfIdentifierA)).toBe(true);
+    expect(isNextLineEmptyAfterIndex(text, endOfIdentifierA)).toBe(true);
+    expect(isNextLineEmpty(text, FAKE_NODE_A, () => endOfIdentifierA)).toBe(
+      true
+    );
+  }
+
+  {
+    const text = "a\n  \t NON_SPACE \t  \nb";
+    const endOfIdentifierA = text.indexOf("a") + 1;
+    const startOfIdentifierB = text.indexOf("b");
+
+    expect(isPreviousLineEmpty(text, startOfIdentifierB)).toBe(false);
+    expect(
+      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB)
+    ).toBe(false);
+    expect(isNextLineEmpty(text, endOfIdentifierA)).toBe(false);
+    expect(isNextLineEmptyAfterIndex(text, endOfIdentifierA)).toBe(false);
+    expect(isNextLineEmpty(text, FAKE_NODE_A, () => endOfIdentifierA)).toBe(
+      false
+    );
+  }
+
+  let called = false;
+  isNextLineEmptyAfterIndex("text", {}, () => {
+    called = true;
+  });
+  expect(called).toBe(false);
 });
 
 test("sharedUtil.makeString", () => {

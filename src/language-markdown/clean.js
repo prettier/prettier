@@ -1,5 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
-import { isFrontMatterNode } from "../common/util.js";
+import isFrontMatter from "../utils/front-matter/is-front-matter.js";
 import { startWithPragma } from "./pragma.js";
 
 const ignoredProperties = new Set([
@@ -25,7 +25,6 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "list" || ast.type === "listItem") {
     delete newObj.spread;
-    delete newObj.loose;
   }
 
   // texts can be splitted or merged
@@ -63,7 +62,7 @@ function clean(ast, newObj, parent) {
     parent?.type === "root" &&
     parent.children.length > 0 &&
     (parent.children[0] === ast ||
-      (isFrontMatterNode(parent.children[0]) && parent.children[1] === ast)) &&
+      (isFrontMatter(parent.children[0]) && parent.children[1] === ast)) &&
     ast.type === "html" &&
     startWithPragma(ast.value)
   ) {

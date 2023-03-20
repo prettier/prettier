@@ -48,7 +48,10 @@ describe("standalone", () => {
     esmPlugins = await Promise.all(
       fastGlob
         .sync(["plugins/*.mjs"], { cwd: distDirectory, absolute: true })
-        .map(async (file) => (await importModule(file)).default)
+        .map(async (file) => {
+          const plugin = await importModule(file);
+          return plugin.default ?? plugin;
+        })
     );
   });
 

@@ -1,5 +1,4 @@
 import { locStart, locEnd } from "../../loc.js";
-import isTsKeywordType from "../../utils/is-ts-keyword-type.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import isBlockComment from "../../utils/is-block-comment.js";
@@ -7,15 +6,29 @@ import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js
 import visitNode from "./visit-node.js";
 import throwSyntaxError from "./throw-ts-syntax-error.js";
 
+/**
+ * @param {{
+ *   text: string,
+ *   parser?: string,
+ * }} options
+ */
 function postprocess(ast, options) {
+  const { parser, text } = options;
+
+  // `InterpreterDirective` from babel parser
+  // Other parsers parse it as comment, babel treat it as comment too
+  // https://github.com/babel/babel/issues/15116
+  if (ast.type === "File" && ast.program.interpreter) {
+    const {
+      program: { interpreter },
+      comments,
+    } = ast;
+    delete ast.program.interpreter;
+    comments.unshift(interpreter);
+  }
+
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
-  if (
-    options.parser !== "typescript" &&
-    options.parser !== "flow" &&
-    options.parser !== "acorn" &&
-    options.parser !== "espree" &&
-    options.parser !== "meriyah"
-  ) {
+  if (parser === "babel") {
     const startOffsetsOfTypeCastedNodes = new Set();
 
     // Comments might be attached not directly to ParenthesizedExpression but to its ancestor.
@@ -49,10 +62,6 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
-      // Espree
-      case "ChainExpression":
-        return transformChainExpression(node.expression);
-
       case "LogicalExpression":
         // We remove unneeded parens around same-operator LogicalExpressions
         if (isUnbalancedLogicalTree(node)) {
@@ -85,7 +94,7 @@ function postprocess(ast, options) {
         break;
       case "ObjectExpression":
         // #12963
-        if (options.parser === "typescript") {
+        if (parser === "typescript") {
           const invalidProperty = node.properties.find(
             (property) =>
               property.type === "Property" &&
@@ -96,6 +105,15 @@ function postprocess(ast, options) {
           }
         }
         break;
+      case "TSInterfaceDeclaration":
+        if (isNonEmptyArray(node.implements)) {
+          throwSyntaxError(
+            node.implements[0],
+            "Interface declaration cannot have 'implements' clause."
+          );
+        }
+        break;
+
       case "TSPropertySignature":
         if (node.initializer) {
           throwSyntaxError(
@@ -107,16 +125,14 @@ function postprocess(ast, options) {
 
       // For hack-style pipeline
       case "TopicReference":
-        options.__isUsingHackPipeline = true;
+        ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
         break;
+
       // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
       case "ExportAllDeclaration": {
         const { exported } = node;
-        if (options.parser === "meriyah" && exported?.type === "Identifier") {
-          const raw = options.originalText.slice(
-            locStart(exported),
-            locEnd(exported)
-          );
+        if (parser === "meriyah" && exported?.type === "Identifier") {
+          const raw = text.slice(locStart(exported), locEnd(exported));
           if (raw.startsWith('"') || raw.startsWith("'")) {
             node.exported = {
               ...node.exported,
@@ -131,7 +147,7 @@ function postprocess(ast, options) {
       // TODO: Remove this when https://github.com/meriyah/meriyah/issues/231 get fixed
       case "PropertyDefinition":
         if (
-          options.parser === "meriyah" &&
+          parser === "meriyah" &&
           node.static &&
           !node.computed &&
           !node.key
@@ -170,6 +186,11 @@ function postprocess(ast, options) {
     }
   }
 
+  // In `typescript`/`espree`/`flow`, `Program` doesn't count whitespace and comments
+  // See https://github.com/eslint/espree/issues/488
+  if (ast.type === "Program") {
+    ast.range = [0, text.length];
+  }
   return ast;
 
   /**
@@ -177,7 +198,7 @@ function postprocess(ast, options) {
    * - do nothing if there's a semicolon on `toOverrideNode.end` (no need to fix)
    */
   function overrideLocEnd(toBeOverriddenNode, toOverrideNode) {
-    if (options.originalText[locEnd(toOverrideNode)] === ";") {
+    if (text[locEnd(toOverrideNode)] === ";") {
       return;
     }
     toBeOverriddenNode.range = [
@@ -185,29 +206,6 @@ function postprocess(ast, options) {
       locEnd(toOverrideNode),
     ];
   }
-}
-
-// This is a workaround to transform `ChainExpression` from `acorn`, `espree`,
-// `meriyah`, and `typescript` into `babel` shape AST, we should do the opposite,
-// since `ChainExpression` is the standard `estree` AST for `optional chaining`
-// https://github.com/estree/estree/blob/master/es2020.md
-function transformChainExpression(node) {
-  switch (node.type) {
-    case "CallExpression":
-      node.type = "OptionalCallExpression";
-      node.callee = transformChainExpression(node.callee);
-      break;
-    case "MemberExpression":
-      node.type = "OptionalMemberExpression";
-      node.object = transformChainExpression(node.object);
-      break;
-    // typescript
-    case "TSNonNullExpression":
-      node.expression = transformChainExpression(node.expression);
-      break;
-    // No default
-  }
-  return node;
 }
 
 function isUnbalancedLogicalTree(node) {

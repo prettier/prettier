@@ -6,8 +6,8 @@ import {
   writeJson,
 } from "../utils/index.mjs";
 
-async function buildPackageJson({ files }) {
-  const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
+async function buildPackageJson({ file, files }) {
+  const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));
 
   const bin = files.find(
     (file) =>
@@ -20,6 +20,7 @@ async function buildPackageJson({ files }) {
   packageJson.exports = {
     ".": {
       require: "./index.cjs",
+      types: "./index.d.ts",
       default: "./index.mjs",
     },
     "./*": "./*",
@@ -32,6 +33,7 @@ async function buildPackageJson({ files }) {
             file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
             {
               require: `./${file.output.file}`,
+              types: `./${file.output.file.replace(/\.js$/, ".d.ts")}`,
               default: `./${file.output.file.replace(/\.js$/, ".mjs")}`,
             },
           ];
@@ -74,7 +76,7 @@ async function buildPackageJson({ files }) {
   };
   packageJson.files = files.map(({ output: { file } }) => file).sort();
 
-  await writeJson(path.join(DIST_DIR, "package.json"), packageJson);
+  await writeJson(path.join(DIST_DIR, file.output.file), packageJson);
 }
 
 export default buildPackageJson;

@@ -196,16 +196,24 @@ function clean(ast, newObj, parent) {
     }
   }
 
-  if (ast.type === "InterpreterDirective") {
-    newObj.value = newObj.value.trimEnd();
-  }
-
   // Prettier removes degenerate union and intersection types with only one member.
   if (
     (ast.type === "TSIntersectionType" || ast.type === "TSUnionType") &&
     ast.types.length === 1
   ) {
     return newObj.types[0];
+  }
+
+  // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently
+  if (
+    ast.type === "ChainExpression" &&
+    ast.expression.type === "TSNonNullExpression"
+  ) {
+    // Ideally, we should swap these two nodes, but `type` is the only difference
+    [newObj.type, newObj.expression.type] = [
+      newObj.expression.type,
+      newObj.type,
+    ];
   }
 }
 

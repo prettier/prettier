@@ -1,3 +1,4 @@
+import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree/dist/parser.js";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
@@ -36,30 +37,30 @@ function createParseError(error) {
   });
 }
 
-async function parse(text, options = {}) {
+function parse(text) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 
-  const { parseWithNodeMaps } = await import(
-    "@typescript-eslint/typescript-estree/dist/parser.js"
-  );
-  const { result, error } = tryCombinations([
-    // Try passing with our best guess first.
-    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
-    // But if we get it wrong, try the opposite.
-    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx: !jsx }),
-  ]);
-
-  if (!result) {
-    // Suppose our guess is correct, throw the first error
+  let result;
+  try {
+    result = tryCombinations([
+      // Try passing with our best guess first.
+      () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
+      // But if we get it wrong, try the opposite.
+      () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx: !jsx }),
+    ]);
+  } catch ({
+    errors: [
+      // Suppose our guess is correct, throw the first error
+      error,
+    ],
+  }) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
+  throwErrorForInvalidNodes(result, text);
 
-  await throwErrorForInvalidNodes(result, options);
-
-  return postprocess(result.ast, options);
+  return postprocess(result.ast, { parser: "typescript", text });
 }
 
 /**
@@ -77,10 +78,6 @@ function isProbablyJsx(text) {
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-const parser = {
-  parsers: {
-    typescript: createParser(parse),
-  },
+export const parsers = {
+  typescript: createParser(parse),
 };
-
-export default parser;

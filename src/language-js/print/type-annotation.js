@@ -1,4 +1,4 @@
-import { printComments } from "../../main/comments.js";
+import { printComments } from "../../main/comments/print.js";
 import {
   group,
   line,
@@ -22,7 +22,15 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printOptionalToken, printDeclareToken } from "./misc.js";
+import {
+  printOptionalToken,
+  printDeclareToken,
+  printAbstractToken,
+} from "./misc.js";
+
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -261,11 +269,11 @@ function isFlowArrowFunctionTypeAnnotation(path) {
 */
 function printFunctionType(path, options, print) {
   const { node } = path;
-  const parts = [];
-
-  if (node.type === "TSConstructorType" && node.abstract) {
-    parts.push("abstract ");
-  }
+  /** @type {Doc[]} */
+  const parts = [
+    // `TSConstructorType` only
+    printAbstractToken(path),
+  ];
 
   if (
     node.type === "TSConstructorType" ||
