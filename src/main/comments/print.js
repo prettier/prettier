@@ -5,8 +5,8 @@ import {
   indent,
   lineSuffix,
   join,
-  label,
 } from "../../document/builders.js";
+import { inheritLabel } from "../../document/utils.js";
 import hasNewline from "../../utils/has-newline.js";
 import skipNewline from "../../utils/skip-newline.js";
 import { skipSpaces } from "../../utils/skip.js";
@@ -200,12 +200,7 @@ function printComments(path, doc, options) {
   if (!leading && !trailing) {
     return doc;
   }
-  return label(
-    // Propagate object labels so that the printing logic for ancestor nodes
-    // could easily check them.
-    doc.label,
-    [leading, doc, trailing]
-  );
+  return inheritLabel(doc, (doc) => [leading, doc, trailing]);
 }
 
 function ensureAllCommentsPrinted(options) {

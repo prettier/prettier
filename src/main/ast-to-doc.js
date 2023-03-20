@@ -1,5 +1,6 @@
 import AstPath from "../common/ast-path.js";
-import { cursor, label } from "../document/builders.js";
+import { cursor } from "../document/builders.js";
+import { inheritLabel } from "../document/utils.js";
 import { attachComments } from "./comments/attach.js";
 import { printComments, ensureAllCommentsPrinted } from "./comments/print.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
@@ -118,12 +119,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
   }
 
   if (node === options.cursorNode) {
-    doc = label(
-      // Propagate object labels so that the printing logic for ancestor nodes
-      // could easily check them.
-      doc.label,
-      [cursor, doc, cursor]
-    );
+    doc = inheritLabel(doc, (doc) => [cursor, doc, cursor]);
   }
 
   return doc;
