@@ -51,6 +51,35 @@ export * as default from "foo";
 ================================================================================
 `;
 
+exports[`export-star-as-reserved-word.js [flow] format 1`] = `
+"Unexpected token \`function\` (1:13)
+> 1 | export * as function from 'foo'
+    |             ^^^^^^^^
+  2 | export * as const from 'foo'
+  3 | export * as as from 'foo'
+  4 | export * as from from 'foo'"
+`;
+
+exports[`export-star-as-reserved-word.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export * as function from 'foo'
+export * as const from 'foo'
+export * as as from 'foo'
+export * as from from 'foo'
+
+=====================================output=====================================
+export * as function from "foo";
+export * as const from "foo";
+export * as as from "foo";
+export * as from from "foo";
+
+================================================================================
+`;
+
 exports[`export-star-as-string.js [flow] format 1`] = `
 "Unexpected string, expected an identifier (1:13)
 > 1 | export * as 'foo' from 'foo'
