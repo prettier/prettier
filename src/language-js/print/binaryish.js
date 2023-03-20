@@ -338,16 +338,12 @@ const isBitwiseOrExpression = (node) =>
   node.type === "BinaryExpression" || node.operator === "|";
 
 function isVueFilterSequenceExpression(path, options) {
-  if (options.parser !== "__vue_expression") {
-    return false;
-  }
-
-  if (!isBitwiseOrExpression(path.node)) {
-    return false;
-  }
-
-  return !path.hasAncestor(
-    (node) => !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot"
+  return (
+    options.parser === "__vue_expression" &&
+    isBitwiseOrExpression(path.node) &&
+    !path.hasAncestor(
+      (node) => !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot"
+    )
   );
 }
 
