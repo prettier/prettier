@@ -1,5 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`abstract-method.ts [babel-ts] format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+    @decorator()
+    abstract method(): Array<string>
+}
+
+=====================================output=====================================
+class A {
+  @decorator()
+  abstract method(): Array<string>;
+}
+
+================================================================================
+`;
+
+exports[`abstract-method.ts [typescript] format 1`] = `
+"A decorator can only decorate a method implementation, not an overload. (2:5)
+  1 | class A {
+> 2 |     @decorator()
+    |     ^^^^^^^^^^^^
+  3 |     abstract method(): Array<string>
+  4 | }
+  5 |"
+`;
+
+exports[`accessor.ts [babel-ts] format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+    @foo()
+    get a() {return 1}
+    @bar()
+    set a(v) {}
+}
+
+=====================================output=====================================
+class A {
+  @foo()
+  get a() {
+    return 1;
+  }
+  @bar()
+  set a(v) {}
+}
+
+================================================================================
+`;
+
+exports[`accessor.ts [typescript] format 1`] = `
+"Decorators cannot be applied to multiple get/set accessors of the same name. (4:5)
+  2 |     @foo()
+  3 |     get a() {return 1}
+> 4 |     @bar()
+    |     ^^^^^^
+  5 |     set a(v) {}
+  6 | }
+  7 |"
+`;
+
 exports[`argument-list-preserve-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -32,6 +99,28 @@ class Foo {
     @inject(InjectionTypes.AnotherThing)
     private readonly anotherThing: IAnotherThing | undefined
   ) {}
+}
+
+================================================================================
+`;
+
+exports[`comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Something {
+    @Annotateme()
+    // comment
+    static property: Array<string>;
+}
+
+=====================================output=====================================
+class Something {
+  @Annotateme()
+  // comment
+  static property: Array<string>;
 }
 
 ================================================================================
@@ -256,12 +345,6 @@ class Something2 {
     abstract property: Array<string>
 }
 
-class Something3 {
-    @foo()
-    // comment
-    abstract method(): Array<string>
-}
-
 =====================================output=====================================
 class Foo1 {
   @foo
@@ -297,12 +380,6 @@ class Something2 {
   @foo()
   // comment
   abstract property: Array<string>;
-}
-
-class Something3 {
-  @foo()
-  // comment
-  abstract method(): Array<string>;
 }
 
 ================================================================================
@@ -415,6 +492,100 @@ class Bar {
 class MyContainerComponent {
   @ContentChildren(MyComponent)
   components: QueryListSomeBigName<MyComponentThat>;
+}
+
+================================================================================
+`;
+
+exports[`mobx.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {observable} from "mobx";
+
+@observer class OrderLine {
+  @observable price:number = 0;
+  @observable amount:number = 1;
+
+  constructor(price) {
+    this.price = price;
+  }
+
+  @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound setPrice(price) {
+    this.price = price;
+  }
+
+  @computed
+  get total2() {
+    return this.price * this.amount;
+  }
+
+  @action.bound
+  setPrice(price) {
+    this.price = price;
+  }
+
+  @computed @computed @computed @computed @computed @computed @computed get total3() {
+    return this.price * this.amount;
+  }
+
+  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) => this.count--;
+
+  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) => doSomething();
+}
+
+=====================================output=====================================
+import { observable } from "mobx";
+
+@observer
+class OrderLine {
+  @observable price: number = 0;
+  @observable amount: number = 1;
+
+  constructor(price) {
+    this.price = price;
+  }
+
+  @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound setPrice(price) {
+    this.price = price;
+  }
+
+  @computed
+  get total2() {
+    return this.price * this.amount;
+  }
+
+  @action.bound
+  setPrice(price) {
+    this.price = price;
+  }
+
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  get total3() {
+    return this.price * this.amount;
+  }
+
+  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) =>
+    this.count--;
+
+  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
+    doSomething();
 }
 
 ================================================================================

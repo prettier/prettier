@@ -67,9 +67,9 @@ printWidth: 80
 `;
 
 exports[`4.ts [typescript] format 1`] = `
-"Expression expected. (1:2)
+"Decorators are not valid here. (1:2)
 > 1 | (@f<<T>(v: T) => void>() class {});
-    |  ^
+    |  ^^^^^^^^^^^^^^^^^^^^^^^
   2 |"
 `;
 

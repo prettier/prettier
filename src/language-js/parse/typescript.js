@@ -5,6 +5,7 @@ const tryCombinations = require("../../utils/try-combinations.js");
 const createParser = require("./utils/create-parser.js");
 const replaceHashbang = require("./utils/replace-hashbang.js");
 const postprocess = require("./postprocess/index.js");
+const { throwErrorForInvalidNodes } = require("./postprocess/typescript.js");
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const parseOptions = {
@@ -50,7 +51,8 @@ function parse(text, parsers, options = {}) {
   }
 
   options.originalText = text;
-  options.tsParseResult = result;
+  throwErrorForInvalidNodes(result, options);
+
   return postprocess(result.ast, options);
 }
 

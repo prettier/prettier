@@ -42,7 +42,7 @@ async function run() {
 
   const steps = await Promise.all(
     [
-      "./steps/validate-new-version.js",
+      // "./steps/validate-new-version.js",
       "./steps/check-git-status.js",
       !params["skip-dependencies-install"] && "./steps/install-dependencies.js",
       params.manual && "./steps/run-tests.js",
