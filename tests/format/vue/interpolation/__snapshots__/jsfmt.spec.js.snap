@@ -25,10 +25,10 @@ printWidth: 80
   <div>
     {{
       fn(
-        bitwise
-          | or
-          | operator
-          | a_long_long_long_long_long_long_long_long_long_long_variable,
+        bitwise |
+          or |
+          operator |
+          a_long_long_long_long_long_long_long_long_long_long_variable,
       )
         | filter
         | filter
