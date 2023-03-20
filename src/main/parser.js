@@ -31,6 +31,7 @@ async function parse(originalText, options) {
   const text = parser.preprocess
     ? parser.preprocess(originalText, options)
     : originalText;
+  options.originalText = text;
 
   let ast;
   try {
