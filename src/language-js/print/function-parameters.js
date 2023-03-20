@@ -279,8 +279,17 @@ function isDecoratedFunction(path) {
   );
 }
 
+function shouldBreakFunctionParameters(functionNode) {
+  const parameters = getFunctionParameters(functionNode);
+  return (
+    parameters.length > 1 &&
+    parameters.some((parameter) => parameter.type === "TSParameterProperty")
+  );
+}
+
 export {
   printFunctionParameters,
   shouldHugTheOnlyFunctionParameter,
   shouldGroupFunctionParameters,
+  shouldBreakFunctionParameters,
 };

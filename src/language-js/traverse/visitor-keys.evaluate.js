@@ -59,6 +59,7 @@ const excludeKeys = {
   // TupleTypeAnnotation: ["types"],
   DeclareInterface: ["mixins", "implements"],
   InterfaceDeclaration: ["mixins", "implements"],
+  PropertyDefinition: ["tsModifiers"],
 
   // TypeScript
   TSPropertySignature: ["initializer"],

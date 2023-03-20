@@ -1,10 +1,12 @@
 import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
+import { hasDescendant } from "../../utils/ast-utils.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
+import createTypeCheckFunction from "./create-type-check-function.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
 
@@ -27,20 +29,11 @@ import isNodeMatches from "./is-node-matches.js";
 
 /**
  * @param {Node} node
- * @param {(Node) => boolean} fn
+ * @param {(Node) => boolean} predicate
  * @returns {boolean}
  */
-function hasNode(node, fn) {
-  if (node === null || typeof node !== "object") {
-    return false;
-  }
-  if (Array.isArray(node)) {
-    return node.some((value) => hasNode(value, fn));
-  }
-  const result = fn(node);
-  return typeof result === "boolean"
-    ? result
-    : getVisitorKeys(node).some((key) => hasNode(node[key], fn));
+function hasNode(node, predicate) {
+  return predicate(node) || hasDescendant(node, { getVisitorKeys, predicate });
 }
 
 /**
@@ -107,11 +100,6 @@ function getLeftSidePathName(node) {
     return ["expression"];
   }
   throw new Error("Unexpected node has no left side.");
-}
-
-function createTypeCheckFunction(types) {
-  types = new Set(types);
-  return (node) => types.has(node?.type);
 }
 
 /**

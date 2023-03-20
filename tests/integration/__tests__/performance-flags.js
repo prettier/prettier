@@ -2,7 +2,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   const assertStderr = (message) => {
     expect(
       message.includes(
-        "'--debug-repeat' option found, running formatWithCursor 2 times"
+        "'--debug-repeat' found, running formatWithCursor 2 times"
       )
     ).toBe(true);
   };

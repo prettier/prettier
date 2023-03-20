@@ -1,6 +1,7 @@
 import assert from "node:assert";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { getChildren } from "../../utils/ast-utils.js";
 import createGetVisitorKeysFunction from "../create-get-visitor-keys-function.js";
 import {
   addLeadingComment,
@@ -33,20 +34,14 @@ function getSortedChildNodes(node, options) {
   }
 
   const childNodes = (
-    getCommentChildNodes?.(node, options) ??
-    createGetVisitorKeysFunction(printerGetVisitorKeys)(node).flatMap(
-      (key) => node[key]
-    )
-  ).flatMap((childNode) => {
-    if (!(childNode !== null && typeof childNode === "object")) {
-      return [];
-    }
-
-    return canAttachComment(childNode)
-      ? childNode
-      : getSortedChildNodes(childNode, options);
-  });
-
+    getCommentChildNodes?.(node, options) ?? [
+      ...getChildren(node, {
+        getVisitorKeys: createGetVisitorKeysFunction(printerGetVisitorKeys),
+      }),
+    ]
+  ).flatMap((node) =>
+    canAttachComment(node) ? [node] : getSortedChildNodes(node, options)
+  );
   // Sort by `start` location first, then `end` location
   childNodes.sort(
     (nodeA, nodeB) =>
@@ -137,7 +132,10 @@ function decorateComment(node, comment, options, enclosingNode) {
 }
 
 const returnFalse = () => false;
-function attach(comments, ast, text, options) {
+function attachComments(ast, options) {
+  const { comments } = ast;
+  delete ast.comments;
+
   if (!isNonEmptyArray(comments) || !options.printer.canAttachComment) {
     return;
   }
@@ -147,6 +145,7 @@ function attach(comments, ast, text, options) {
     locStart,
     locEnd,
     printer: { handleComments = {} },
+    originalText: text,
   } = options;
   // TODO: Make this as default behavior
   const {
@@ -253,7 +252,7 @@ function attach(comments, ast, text, options) {
         if (tieCount > 0) {
           const lastTie = tiesToBreak[tieCount - 1];
           if (lastTie.followingNode !== followingNode) {
-            breakTies(tiesToBreak, text, options);
+            breakTies(tiesToBreak, options);
           }
         }
         tiesToBreak.push(context);
@@ -271,7 +270,7 @@ function attach(comments, ast, text, options) {
     }
   }
 
-  breakTies(tiesToBreak, text, options);
+  breakTies(tiesToBreak, options);
 
   if (!avoidAstMutation) {
     for (const comment of comments) {
@@ -336,7 +335,7 @@ function isEndOfLineComment(text, options, decoratedComments, commentIndex) {
   return hasNewline(text, end);
 }
 
-function breakTies(tiesToBreak, text, options) {
+function breakTies(tiesToBreak, options) {
   const tieCount = tiesToBreak.length;
   if (tieCount === 0) {
     return;
@@ -364,7 +363,7 @@ function breakTies(tiesToBreak, text, options) {
     assert.strictEqual(currentCommentPrecedingNode, precedingNode);
     assert.strictEqual(currentCommentFollowingNode, followingNode);
 
-    const gap = text.slice(options.locEnd(comment), gapEndPos);
+    const gap = options.originalText.slice(options.locEnd(comment), gapEndPos);
 
     if (options.printer.isGap?.(gap, options) ?? /^[\s(]*$/.test(gap)) {
       gapEndPos = options.locStart(comment);
@@ -405,18 +404,6 @@ function findExpressionIndexForComment(quasis, comment, options) {
   // Let's just return the first one.
   /* c8 ignore next */
   return 0;
-}
-
-function attachComments(text, ast, opts) {
-  const { comments } = ast;
-  if (comments) {
-    delete ast.comments;
-    attach(comments, ast, text, opts);
-  }
-  opts[Symbol.for("comments")] = comments || [];
-  opts[Symbol.for("tokens")] = ast.tokens || [];
-  opts.originalText = text;
-  return comments;
 }
 
 export { attachComments, getSortedChildNodes };

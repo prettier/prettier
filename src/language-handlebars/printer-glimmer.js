@@ -31,8 +31,6 @@ const NEWLINES_TO_PRESERVE_MAX = 2;
 function print(path, options, print) {
   const { node } = path;
 
-  const favoriteQuote = options.singleQuote ? "'" : '"';
-
   switch (node.type) {
     case "Block":
     case "Program":
@@ -127,15 +125,14 @@ function print(path, options, print) {
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
-        ? getPreferredQuote(value.chars, favoriteQuote).quote
+        ? getPreferredQuote(value.chars, options.singleQuote)
         : value.type === "ConcatStatement"
         ? getPreferredQuote(
             value.parts
-              .filter((part) => part.type === "TextNode")
-              .map((part) => part.chars)
+              .map((part) => (part.type === "TextNode" ? part.chars : ""))
               .join(""),
-            favoriteQuote
-          ).quote
+            options.singleQuote
+          )
         : "";
 
       const valueDoc = print("value");
@@ -378,11 +375,7 @@ function print(path, options, print) {
       return ["<!--", node.value, "-->"];
 
     case "StringLiteral":
-      if (needsOppositeQuote(path)) {
-        const printFavoriteQuote = !options.singleQuote ? "'" : '"';
-        return printStringLiteral(node.value, printFavoriteQuote);
-      }
-      return printStringLiteral(node.value, favoriteQuote);
+      return printStringLiteral(path, options);
 
     case "NumberLiteral":
       return String(node.value);
@@ -693,12 +686,18 @@ function generateHardlines(number = 0) {
  * the string literal. This function is the glimmer equivalent of `printString`
  * in `common/util`, but has differences because of the way escaped characters
  * are treated in hbs string literals.
- * @param {string} stringLiteral - the string literal value
- * @param {Quote} favoriteQuote - the user's preferred quote: `'` or `"`
  */
-function printStringLiteral(stringLiteral, favoriteQuote) {
-  const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);
-  return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
+function printStringLiteral(path, options) {
+  const {
+    node: { value },
+  } = path;
+
+  const quote = getPreferredQuote(
+    value,
+    needsOppositeQuote(path) ? !options.singleQuote : options.singleQuote
+  );
+
+  return [quote, value.replaceAll(quote, `\\${quote}`), quote];
 }
 
 function needsOppositeQuote(path) {

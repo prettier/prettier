@@ -41,7 +41,7 @@ function printDecorators(path, options, print) {
     // Decorators already printed in ignored node
     isIgnored(path)
   ) {
-    return;
+    return "";
   }
 
   const shouldBreak =

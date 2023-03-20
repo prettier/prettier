@@ -26,7 +26,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3.6.0
@@ -55,7 +55,8 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "19"
+          # https://github.com/nodejs/node/issues/47096
+          - "19.7.0"
           - "18"
           - "16"
           - "14"
@@ -65,9 +66,9 @@ jobs:
             FULL_TEST: true
         exclude:
           - os: "macos-latest"
-            node: "19"
+            node: "19.7.0"
           - os: "windows-latest"
-            node: "19"
+            node: "19.7.0"
           - os: "macos-latest"
             node: "16"
           - os: "windows-latest"
@@ -79,7 +80,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3.6.0
@@ -108,7 +109,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3.6.0

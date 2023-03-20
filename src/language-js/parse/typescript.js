@@ -78,10 +78,6 @@ function isProbablyJsx(text) {
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-const parser = {
-  parsers: {
-    typescript: createParser(parse),
-  },
+export const parsers = {
+  typescript: createParser(parse),
 };
-
-export default parser;

@@ -348,11 +348,18 @@ class Thing3 extends Thing2 {
 type Constructor<T> = new (...args: any[]) => T;
 
 class Base {
-  constructor(public x: number, public y: number) {}
+  constructor(
+    public x: number,
+    public y: number,
+  ) {}
 }
 
 class Derived extends Base {
-  constructor(x: number, y: number, public z: number) {
+  constructor(
+    x: number,
+    y: number,
+    public z: number,
+  ) {
     super(x, y);
   }
 }
@@ -485,11 +492,18 @@ const Timestamped = <CT extends Constructor<object>>(Base: CT) => {
 type Constructor<T> = new (...args: any[]) => T;
 
 class Base {
-  constructor(public x: number, public y: number) {}
+  constructor(
+    public x: number,
+    public y: number,
+  ) {}
 }
 
 class Derived extends Base {
-  constructor(x: number, y: number, public z: number) {
+  constructor(
+    x: number,
+    y: number,
+    public z: number,
+  ) {
     super(x, y);
   }
 }
