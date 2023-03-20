@@ -105,15 +105,7 @@ function postprocess(ast, options) {
           }
         }
         break;
-      case "DeclareInterface":
-      case "InterfaceDeclaration":
       case "TSInterfaceDeclaration":
-        if (isNonEmptyArray(node.mixins)) {
-          throwSyntaxError(
-            node.mixins[0],
-            "Interface declaration cannot have 'mixins' clause."
-          );
-        }
         if (isNonEmptyArray(node.implements)) {
           throwSyntaxError(
             node.implements[0],
