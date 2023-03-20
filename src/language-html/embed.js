@@ -150,7 +150,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       const exprParser = options.__should_parse_vue_template_with_ts
-        ? "__vue_ts_expression"
+        ? "__ts_expression"
         : "__js_expression";
       return printMaybeHug(
         await attributeTextToDoc(getValue(), { parser: exprParser })

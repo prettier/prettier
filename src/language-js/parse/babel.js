@@ -256,6 +256,7 @@ export const parsers = {
   ...jsonParsers,
   /** @internal */
   __js_expression: babelExpression,
+  __ts_expression: babelTSExpression,
   /** for vue filter */
   __vue_expression: babelExpression,
   /** for vue filter written in TS */
