@@ -335,7 +335,7 @@ function shouldInlineLogicalExpression(node) {
 }
 
 const isBitwiseOrExpression = (node) =>
-  node.type === "BinaryExpression" || node.operator === "|";
+  node.type === "BinaryExpression" && node.operator === "|";
 
 function isVueFilterSequenceExpression(path, options) {
   return (
