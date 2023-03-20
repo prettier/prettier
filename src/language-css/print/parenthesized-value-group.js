@@ -77,50 +77,43 @@ function printParenthesizedValueGroup(path, options, print) {
     return group(indent(fill(join([",", line], groupDocs))));
   }
 
-  const parts = join(
-    line,
-    path.map(({ node: child, isLast, index }) => {
-      let doc = groupDocs[index];
+  const parts = path.map(({ node: child, isLast, index }) => {
+    let doc = groupDocs[index];
 
-      // Key/Value pair in open paren already indented
-      if (
-        isKeyValuePairNode(child) &&
-        child.type === "value-comma_group" &&
-        child.groups &&
-        child.groups[0].type !== "value-paren_group" &&
-        child.groups[2]?.type === "value-paren_group"
-      ) {
-        const parts = getDocParts(doc.contents.contents);
-        parts[1] = group(parts[1]);
-        doc = group(dedent(doc));
+    // Key/Value pair in open paren already indented
+    if (
+      isKeyValuePairNode(child) &&
+      child.type === "value-comma_group" &&
+      child.groups &&
+      child.groups[0].type !== "value-paren_group" &&
+      child.groups[2]?.type === "value-paren_group"
+    ) {
+      const parts = getDocParts(doc.contents.contents);
+      parts[1] = group(parts[1]);
+      doc = group(dedent(doc));
+    }
+
+    const parts = [doc, isLast ? printTrailingComma(path, options) : ","];
+
+    if (
+      !isLast &&
+      child.type === "value-comma_group" &&
+      isNonEmptyArray(child.groups)
+    ) {
+      let last = child.groups.at(-1);
+
+      // `value-paren_group` does not have location info, but its closing parenthesis does.
+      if (!last.source && last.close) {
+        last = last.close;
       }
 
-      const parts = [doc, isLast ? printTrailingComma(path, options) : ","];
-
-      if (
-        !isLast &&
-        child.type === "value-comma_group" &&
-        isNonEmptyArray(child.groups)
-      ) {
-        let last = child.groups.at(-1);
-
-        // `value-paren_group` does not have location info, but its closing parenthesis does.
-        if (!last.source && last.close) {
-          last = last.close;
-        }
-
-        if (
-          last.source &&
-          isNextLineEmpty(options.originalText, locEnd(last))
-        ) {
-          parts.push(hardline);
-        }
+      if (last.source && isNextLineEmpty(options.originalText, locEnd(last))) {
+        parts.push(hardline);
       }
+    }
 
-      return parts;
-    }, "groups")
-  );
-
+    return parts;
+  }, "groups");
   const isKey = isKeyInValuePairNode(node, parent);
   const isConfiguration = isConfigurationNode(node, parent);
   const isSCSSMapItem = isSCSSMapItemNode(path, options);
@@ -130,7 +123,7 @@ function printParenthesizedValueGroup(path, options, print) {
   const doc = group(
     [
       node.open ? print("open") : "",
-      indent([softline, parts]),
+      indent([softline, join(line, parts)]),
       softline,
       node.close ? print("close") : "",
     ],
