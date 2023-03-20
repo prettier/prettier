@@ -34,16 +34,15 @@ function hasComma({ node, parent }, options) {
 }
 
 function printParenthesizedValueGroup(path, options, print) {
-  const { node } = path;
-  const parentNode = path.parent;
-  const printedGroups = path.map(() => {
-    const child = path.node;
-    return typeof child === "string" ? child : print();
-  }, "groups");
+  const { node, parent } = path;
+  const groupDocs = path.map(
+    ({ node }) => (typeof node === "string" ? node : print()),
+    "groups"
+  );
 
   if (
-    parentNode &&
-    isURLFunctionNode(parentNode) &&
+    parent &&
+    isURLFunctionNode(parent) &&
     (node.groups.length === 1 ||
       (node.groups.length > 0 &&
         node.groups[0].type === "value-comma_group" &&
@@ -53,30 +52,24 @@ function printParenthesizedValueGroup(path, options, print) {
   ) {
     return [
       node.open ? print("open") : "",
-      join(",", printedGroups),
+      join(",", groupDocs),
       node.close ? print("close") : "",
     ];
   }
 
   if (!node.open) {
-    return group(indent(fill(join([",", line], printedGroups))));
+    return group(indent(fill(join([",", line], groupDocs))));
   }
 
   const isSCSSMapItem = isSCSSMapItemNode(path, options);
 
   const lastItem = node.groups.at(-1);
   const isLastItemComment = lastItem?.type === "value-comment";
-  const isKey = isKeyInValuePairNode(node, parentNode);
-  const isConfiguration = isConfigurationNode(node, parentNode);
-  const isVarFunction = isVarFunctionNode(parentNode);
 
-  const shouldBreak = isConfiguration || (isSCSSMapItem && !isKey);
-  const shouldDedent = isConfiguration || isKey;
-
-  const groupsDoc = join(
-    [line],
+  const parts = join(
+    line,
     path.map(({ node: child, isLast, index }) => {
-      let doc = printedGroups[index];
+      let doc = groupDocs[index];
 
       // Key/Value pair in open paren already indented
       if (
@@ -88,15 +81,13 @@ function printParenthesizedValueGroup(path, options, print) {
       ) {
         const parts = getDocParts(doc.contents.contents);
         parts[1] = group(parts[1]);
-        doc = [group(dedent(doc))];
+        doc = group(dedent(doc));
       }
 
       const parts = [doc];
-      if (!isLast || (isVarFunction && hasComma(path, options))) {
+      if (!isLast || (isVarFunctionNode(parent) && hasComma(path, options))) {
         parts.push(",");
-      }
-
-      if (
+      } else if (
         isLast &&
         !isLastItemComment &&
         options.parser === "scss" &&
@@ -130,10 +121,15 @@ function printParenthesizedValueGroup(path, options, print) {
     }, "groups")
   );
 
-  const printed = group(
+  const isKey = isKeyInValuePairNode(node, parent);
+  const isConfiguration = isConfigurationNode(node, parent);
+  const shouldBreak = isConfiguration || (isSCSSMapItem && !isKey);
+  const shouldDedent = isConfiguration || isKey;
+
+  const doc = group(
     [
       node.open ? print("open") : "",
-      indent([softline, groupsDoc]),
+      indent([softline, parts]),
       softline,
       node.close ? print("close") : "",
     ],
@@ -142,7 +138,7 @@ function printParenthesizedValueGroup(path, options, print) {
     }
   );
 
-  return shouldDedent ? dedent(printed) : printed;
+  return shouldDedent ? dedent(doc) : doc;
 }
 
 export default printParenthesizedValueGroup;
