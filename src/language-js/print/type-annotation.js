@@ -32,10 +32,6 @@ import {
  * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
-/**
- * @typedef {import("../../document/builders.js").Doc} Doc
- */
-
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
     return true;
