@@ -62,9 +62,10 @@ function printExportDeclaration(path, options, print) {
     printDeclareToken(path),
     "export",
     isDefaultExport(node) ? " default" : "",
+    printExportKind(node),
   ];
 
-  const { exportKind, declaration, exported } = node;
+  const { declaration, exported } = node;
 
   if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(" ", printDanglingComments(path, options));
@@ -77,8 +78,6 @@ function printExportDeclaration(path, options, print) {
   if (declaration) {
     parts.push(" ", print("declaration"));
   } else {
-    parts.push(exportKind === "type" ? " type" : "");
-
     if (
       node.type === "ExportAllDeclaration" ||
       node.type === "DeclareExportAllDeclaration"
@@ -124,12 +123,18 @@ function printSemicolonAfterExportDeclaration(node, options) {
   return "";
 }
 
-function printImportKind({ importKind }) {
-  return importKind && importKind !== "value" ? ` ${importKind}` : "";
+function printImportOrExportKind(kind, spaceBeforeKind = true) {
+  return kind && kind !== "value"
+    ? `${spaceBeforeKind ? " " : ""}${kind}${spaceBeforeKind ? "" : " "}`
+    : "";
 }
 
-function printExportKind({ exportKind }) {
-  return exportKind && exportKind !== "value" ? ` ${exportKind}` : "";
+function printImportKind(node) {
+  return printImportOrExportKind(node.importKind);
+}
+
+function printExportKind(node) {
+  return printImportOrExportKind(node.exportKind);
 }
 
 function printModuleSource(path, options, print) {
@@ -260,16 +265,6 @@ function printModuleSpecifier(path, options, print) {
 
   const { type } = node;
 
-  /** @type {Doc[]} */
-  const parts = [];
-
-  /** @type {"type" | "typeof" | "value"} */
-  const kind = type === "ImportSpecifier" ? node.importKind : node.exportKind;
-
-  if (kind && kind !== "value") {
-    parts.push(kind, " ");
-  }
-
   const isImport = type.startsWith("Import");
   const leftSideProperty = isImport ? "imported" : "local";
   const rightSideProperty = isImport ? "local" : "exported";
@@ -290,8 +285,15 @@ function printModuleSpecifier(path, options, print) {
     right = print(rightSideProperty);
   }
 
-  parts.push(left, left && right ? " as " : "", right);
-  return parts;
+  return [
+    printImportOrExportKind(
+      type === "ImportSpecifier" ? node.importKind : node.exportKind,
+      /* spaceBeforeKind */ false
+    ),
+    left,
+    left && right ? " as " : "",
+    right,
+  ];
 }
 
 function isShorthandSpecifier(specifier) {
@@ -331,4 +333,9 @@ function isShorthandSpecifier(specifier) {
   }
 }
 
-export { printImportDeclaration, printExportDeclaration, printModuleSpecifier };
+export {
+  printImportDeclaration,
+  printExportDeclaration,
+  printModuleSpecifier,
+  printImportKind,
+};

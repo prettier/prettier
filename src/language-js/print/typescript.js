@@ -54,6 +54,7 @@ import {
   printTypeAnnotationProperty,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
+import { printImportKind } from "./module.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
@@ -314,23 +315,15 @@ function printTypescript(path, options, print) {
       return printEnumMember(path, print);
 
     case "TSImportEqualsDeclaration":
-      if (node.isExport) {
-        parts.push("export ");
-      }
-
-      parts.push("import ");
-
-      if (node.importKind && node.importKind !== "value") {
-        parts.push(node.importKind, " ");
-      }
-
-      parts.push(print("id"), " = ", print("moduleReference"));
-
-      if (options.semi) {
-        parts.push(";");
-      }
-
-      return group(parts);
+      return group([
+        node.isExport ? "export " : "",
+        "import ",
+        printImportKind(node, /* spaceBeforeKind */ true),
+        print("id"),
+        " = ",
+        print("moduleReference"),
+        options.semi ? ";" : "",
+      ]);
     case "TSExternalModuleReference":
       return ["require(", print("expression"), ")"];
     case "TSModuleDeclaration": {
