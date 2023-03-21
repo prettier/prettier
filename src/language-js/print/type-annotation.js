@@ -484,6 +484,19 @@ function printArrayType(print) {
   return [print("elementType"), "[]"];
 }
 
+/*
+- `TSTypeQuery`
+- `TypeofTypeAnnotation`
+*/
+function printTypeQuery({ node }, print) {
+  return [
+    "typeof ",
+    ...(node.type === "TSTypeQuery"
+      ? [print("exprName"), print("typeParameters")]
+      : [print("argument")]),
+  ];
+}
+
 export {
   printOpaqueType,
   printTypeAlias,
@@ -498,4 +511,5 @@ export {
   printTypeAnnotationProperty,
   printTypeAnnotation,
   printArrayType,
+  printTypeQuery,
 };

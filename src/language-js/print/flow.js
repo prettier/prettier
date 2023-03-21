@@ -23,6 +23,7 @@ import {
   printTypeAnnotation,
   printTypeAnnotationProperty,
   printArrayType,
+  printTypeQuery,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -114,7 +115,7 @@ function printFlow(path, options, print) {
     case "TypeParameter":
       return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
-      return ["typeof ", print("argument")];
+      return printTypeQuery(path, print);
     case "ExistsTypeAnnotation":
       return "*";
     case "EmptyTypeAnnotation":

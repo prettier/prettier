@@ -53,6 +53,7 @@ import {
   printTypeAnnotation,
   printTypeAnnotationProperty,
   printArrayType,
+  printTypeQuery,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 
@@ -175,7 +176,7 @@ function printTypescript(path, options, print) {
       ];
 
     case "TSTypeQuery":
-      return ["typeof ", print("exprName"), print("typeParameters")];
+      return printTypeQuery(path, print);
     case "TSIndexSignature": {
       // The typescript parser accepts multiple parameters here. If you're
       // using them, it makes sense to have a trailing comma. But if you
