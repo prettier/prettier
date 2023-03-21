@@ -305,7 +305,7 @@ function printBinaryishExpressions(
       node.right.type !== node.type);
 
   parts.push(
-    lineBeforeOperator && !commentBeforeOperator && !shouldInline ? "" : " ",
+    lineBeforeOperator && !shouldInline ? "" : " ",
     shouldGroup ? group(right, { shouldBreak }) : right
   );
 
