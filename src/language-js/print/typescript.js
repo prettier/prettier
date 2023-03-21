@@ -318,7 +318,7 @@ function printTypescript(path, options, print) {
       return group([
         node.isExport ? "export " : "",
         "import ",
-        printImportKind(node, /* spaceBeforeKind */ true),
+        printImportKind(node, /* spaceBeforeKind */ false),
         print("id"),
         " = ",
         print("moduleReference"),

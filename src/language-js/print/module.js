@@ -129,8 +129,8 @@ function printImportOrExportKind(kind, spaceBeforeKind = true) {
     : "";
 }
 
-function printImportKind(node) {
-  return printImportOrExportKind(node.importKind);
+function printImportKind(node, spaceBeforeKind) {
+  return printImportOrExportKind(node.importKind, spaceBeforeKind);
 }
 
 function printExportKind(node) {
