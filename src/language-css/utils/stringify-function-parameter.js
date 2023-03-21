@@ -6,7 +6,7 @@ const getHighestAncestor = require("./get-highest-ancestor.js");
  * @param {*} node
  * @returns {string}
  */
-function stringifyFuncParam(node) {
+function stringifyFunctionParameter(node) {
   const text = getHighestAncestor(node).text.slice(
     node.group.open.sourceIndex + 1,
     node.group.close.sourceIndex
@@ -15,4 +15,4 @@ function stringifyFuncParam(node) {
   return innerText;
 }
 
-module.exports = stringifyFuncParam;
+module.exports = stringifyFunctionParameter;
