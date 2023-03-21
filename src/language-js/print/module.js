@@ -30,31 +30,21 @@ import { printDeclareToken } from "./misc.js";
 
 function printImportDeclaration(path, options, print) {
   const { node } = path;
-  const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
-  const parts = [];
-
-  const { importKind } = node;
-
-  parts.push("import");
-
-  if (node.module) {
-    parts.push(" module");
-  }
-
-  if (importKind && importKind !== "value") {
-    parts.push(" ", importKind);
-  }
-
-  parts.push(
+  return [
+    "import",
+    node.module ? " module" : "",
+    printImportKind(node),
     printModuleSpecifiers(path, options, print),
     printModuleSource(path, options, print),
     printImportAssertions(path, options, print),
-    semi
-  );
-
-  return parts;
+    options.semi ? ";" : "",
+  ];
 }
+
+const isDefaultExport = (node) =>
+  node.type === "ExportDefaultDeclaration" ||
+  (node.type === "DeclareExportDeclaration" && node.default);
 
 /*
 - `ExportDefaultDeclaration`
@@ -64,19 +54,17 @@ function printImportDeclaration(path, options, print) {
 - `DeclareExportAllDeclaration`(flow)
 */
 function printExportDeclaration(path, options, print) {
+  const { node } = path;
+
   /** @type{Doc[]} */
   const parts = [
     printDecoratorsBeforeExport(path, options, print),
     printDeclareToken(path),
     "export",
+    isDefaultExport(node) ? " default" : "",
   ];
 
-  const { node } = path;
-  const { type, exportKind, declaration, exported } = node;
-
-  if (node.default || type === "ExportDefaultDeclaration") {
-    parts.push(" default");
-  }
+  const { exportKind, declaration, exported } = node;
 
   if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(" ", printDanglingComments(path, options));
@@ -134,6 +122,14 @@ function printSemicolonAfterExportDeclaration(node, options) {
   }
 
   return "";
+}
+
+function printImportKind({ importKind }) {
+  return importKind && importKind !== "value" ? ` ${importKind}` : "";
+}
+
+function printExportKind({ exportKind }) {
+  return exportKind && exportKind !== "value" ? ` ${exportKind}` : "";
 }
 
 function printModuleSource(path, options, print) {
