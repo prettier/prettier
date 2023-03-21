@@ -52,6 +52,7 @@ import {
   printNamedTupleMember,
   printTypeAnnotation,
   printTypeAnnotationProperty,
+  printArrayType,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 
@@ -155,7 +156,7 @@ function printTypescript(path, options, print) {
       return parts;
     }
     case "TSArrayType":
-      return [print("elementType"), "[]"];
+      return printArrayType(print);
     case "TSPropertySignature":
       return [
         node.readonly ? "readonly " : "",

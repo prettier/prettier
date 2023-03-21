@@ -476,6 +476,14 @@ function printTypeAnnotation(path, options, print) {
     : print("typeAnnotation");
 }
 
+/*
+- `TSArrayType`
+- `ArrayTypeAnnotation`
+*/
+function printArrayType(print) {
+  return [print("elementType"), "[]"];
+}
+
 export {
   printOpaqueType,
   printTypeAlias,
@@ -489,4 +497,5 @@ export {
   printNamedTupleMember,
   printTypeAnnotationProperty,
   printTypeAnnotation,
+  printArrayType,
 };
