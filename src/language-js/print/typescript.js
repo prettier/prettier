@@ -301,13 +301,11 @@ function printTypescript(path, options, print) {
       return group(parts);
     }
     case "TSNamespaceExportDeclaration":
-      parts.push("export as namespace ", print("id"));
-
-      if (options.semi) {
-        parts.push(";");
-      }
-
-      return group(parts);
+      return group([
+        "export as namespace ",
+        print("id"),
+        options.semi ? ";" : "",
+      ]);
     case "TSEnumDeclaration":
       return printEnumDeclaration(path, print, options);
 
