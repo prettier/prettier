@@ -12,10 +12,8 @@ import {
 } from "../common/end-of-line.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
 import massageAst from "./massage-ast.js";
-import { attachComments } from "./comments/attach.js";
-import { ensureAllCommentsPrinted } from "./comments/print.js";
 import { parse as parseText, resolveParser } from "./parser.js";
-import printAstToDoc from "./ast-to-doc.js";
+import { printAstToDoc, prepareToPrint } from "./ast-to-doc.js";
 import { calculateRange } from "./range-util.js";
 import getCursorNode from "./get-cursor-node.js";
 
@@ -34,9 +32,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
     opts.cursorNode = getCursorNode(ast, opts);
   }
 
-  const astComments = attachComments(text, ast, opts);
   let doc = await printAstToDoc(ast, opts, addAlignmentSize);
-  ensureAllCommentsPrinted(opts);
 
   if (addAlignmentSize > 0) {
     // Add a hardline to make the indents take effect, it will be removed later
@@ -55,6 +51,8 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
     result.formatted = trimmed + convertEndOfLineToChars(opts.endOfLine);
   }
+
+  const comments = opts[Symbol.for("comments")];
 
   if (opts.cursorOffset >= 0) {
     let oldCursorNodeStart;
@@ -91,7 +89,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
       return {
         formatted: result.formatted,
         cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode,
-        comments: astComments,
+        comments,
       };
     }
 
@@ -125,14 +123,10 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
       }
     }
 
-    return { formatted: result.formatted, cursorOffset, comments: astComments };
+    return { formatted: result.formatted, cursorOffset, comments };
   }
 
-  return {
-    formatted: result.formatted,
-    cursorOffset: -1,
-    comments: astComments,
-  };
+  return { formatted: result.formatted, cursorOffset: -1, comments };
 }
 
 async function formatRange(originalText, opts) {
@@ -321,14 +315,11 @@ async function parse(originalText, originalOptions, devOptions) {
   );
   const parsed = await parseText(text, options);
   if (devOptions) {
+    if (devOptions.preprocessForPrint) {
+      parsed.ast = await prepareToPrint(parsed.ast, options);
+    }
     if (devOptions.massage) {
       parsed.ast = massageAst(parsed.ast, options);
-    }
-    if (devOptions.preprocessForPrint) {
-      attachComments(parsed.text, parsed.ast, options);
-      if (options.printer.preprocess) {
-        parsed.ast = await options.printer.preprocess(parsed.ast, options);
-      }
     }
   }
   return parsed;
@@ -353,8 +344,7 @@ async function formatDoc(doc, options) {
 
 async function printToDoc(originalText, options) {
   options = await normalizeFormatOptions(options);
-  const { ast, text } = await parseText(originalText, options);
-  attachComments(text, ast, options);
+  const { ast } = await parseText(originalText, options);
   return printAstToDoc(ast, options);
 }
 

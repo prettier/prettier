@@ -1,3 +1,73 @@
+# 2.8.5
+
+[diff](https://github.com/prettier/prettier/compare/2.8.4...2.8.5)
+
+#### Support TypeScript 5.0 ([#14391](https://github.com/prettier/prettier/pull/14391) by [@fisker](https://github.com/fisker), [#13819](https://github.com/prettier/prettier/pull/13819) by [@fisker](https://github.com/fisker), [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+TypeScript 5.0 introduces two new syntactic features:
+
+- `const` modifiers for type parameters
+- `export type *` declarations
+
+#### Add missing parentheses for decorator ([#14393](https://github.com/prettier/prettier/pull/14393) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+class Person {
+  @(myDecoratorArray[0])
+  greet() {}
+}
+
+// Prettier 2.8.4
+class Person {
+  @myDecoratorArray[0]
+  greet() {}
+}
+
+// Prettier 2.8.5
+class Person {
+  @(myDecoratorArray[0])
+  greet() {}
+}
+```
+
+#### Add parentheses for `TypeofTypeAnnotation` to improve readability ([#14458](https://github.com/prettier/prettier/pull/14458) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type A = (typeof node.children)[];
+
+// Prettier 2.8.4
+type A = typeof node.children[];
+
+// Prettier 2.8.5
+type A = (typeof node.children)[];
+```
+
+#### Support `max_line_length=off` when parsing `.editorconfig` ([#14516](https://github.com/prettier/prettier/pull/14516) by [@josephfrazier](https://github.com/josephfrazier))
+
+If an .editorconfig file is in your project and it sets `max_line_length=off` for the file you're formatting,
+it will be interpreted as a `printWidth` of `Infinity` rather than being ignored
+(which previously resulted in the default `printWidth` of 80 being applied, if not overridden by Prettier-specific configuration).
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<div className='HelloWorld' title={`You are visitor number ${ num }`} onMouseOver={onMouseOver}/>
+
+<!-- Prettier 2.8.4 -->
+<div
+  className="HelloWorld"
+  title={`You are visitor number ${num}`}
+  onMouseOver={onMouseOver}
+/>;
+
+<!-- Prettier 2.8.5 -->
+<div className="HelloWorld" title={`You are visitor number ${num}`} onMouseOver={onMouseOver} />;
+```
+
 # 2.8.4
 
 [diff](https://github.com/prettier/prettier/compare/2.8.3...2.8.4)

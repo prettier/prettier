@@ -1,7 +1,5 @@
 import { stripTrailingHardline } from "../document/utils.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
-import { attachComments } from "./comments/attach.js";
-import { ensureAllCommentsPrinted } from "./comments/print.js";
 import { parse } from "./parser.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
@@ -120,14 +118,8 @@ async function textToDoc(
     { passThrough: true }
   );
 
-  const result = await parse(text, options);
-  const { ast } = result;
-
-  text = result.text;
-
-  attachComments(text, ast, options);
+  const { ast } = await parse(text, options);
   const doc = await printAstToDoc(ast, options);
-  ensureAllCommentsPrinted(options);
 
   return stripTrailingHardline(doc);
 }

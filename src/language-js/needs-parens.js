@@ -537,6 +537,14 @@ function needsParens(path, options) {
         (key === "objectType" && parent.type === "TSIndexedAccessType") ||
         (key === "elementType" && parent.type === "TSArrayType")
       );
+    // Same as `TSTypeQuery`, but for Flow syntax
+    case "TypeofTypeAnnotation":
+      return (
+        (key === "objectType" &&
+          (parent.type === "IndexedAccessType" ||
+            parent.type === "OptionalIndexedAccessType")) ||
+        (key === "elementType" && parent.type === "ArrayTypeAnnotation")
+      );
     case "ArrayTypeAnnotation":
       return parent.type === "NullableTypeAnnotation";
 
@@ -598,13 +606,6 @@ function needsParens(path, options) {
 
     case "OptionalIndexedAccessType":
       return key === "objectType" && parent.type === "IndexedAccessType";
-
-    case "TypeofTypeAnnotation":
-      return (
-        key === "objectType" &&
-        (parent.type === "IndexedAccessType" ||
-          parent.type === "OptionalIndexedAccessType")
-      );
 
     case "StringLiteral":
     case "NumericLiteral":

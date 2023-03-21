@@ -92,14 +92,20 @@ function postprocess(ast, options) {
           };
         }
         break;
-      case "DeclareInterface":
-      case "InterfaceDeclaration":
-        if (isNonEmptyArray(node.mixins)) {
-          throwSyntaxError(
-            node.mixins[0],
-            "Interface declaration cannot have 'mixins' clause."
+      case "ObjectExpression":
+        // #12963
+        if (parser === "typescript") {
+          const invalidProperty = node.properties.find(
+            (property) =>
+              property.type === "Property" &&
+              property.value.type === "TSEmptyBodyFunctionExpression"
           );
+          if (invalidProperty) {
+            throwSyntaxError(invalidProperty.value, "Unexpected token.");
+          }
         }
+        break;
+      case "TSInterfaceDeclaration":
         if (isNonEmptyArray(node.implements)) {
           throwSyntaxError(
             node.implements[0],
