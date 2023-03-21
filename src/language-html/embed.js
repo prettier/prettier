@@ -140,20 +140,22 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
-      const exprParser = options.__should_parse_vue_template_with_ts
-        ? "__vue_ts_expression"
-        : "__vue_expression";
       return printMaybeHug(
-        await attributeTextToDoc(getValue(), { parser: exprParser })
+        await attributeTextToDoc(getValue(), {
+          parser: options.__should_parse_vue_template_with_ts
+            ? "__vue_ts_expression"
+            : "__vue_expression",
+        })
       );
     }
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
-      const exprParser = options.__should_parse_vue_template_with_ts
-        ? "__ts_expression"
-        : "__js_expression";
       return printMaybeHug(
-        await attributeTextToDoc(getValue(), { parser: exprParser })
+        await attributeTextToDoc(getValue(), {
+          parser: options.__should_parse_vue_template_with_ts
+            ? "__ts_expression"
+            : "__js_expression",
+        })
       );
     }
   }
