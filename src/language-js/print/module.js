@@ -134,7 +134,7 @@ function printImportKind(node) {
 }
 
 function printExportKind(node) {
-  return printImportOrExportKind(node.exportKind);
+  return node.declaration ? "" : printImportOrExportKind(node.exportKind);
 }
 
 function printModuleSource(path, options, print) {
