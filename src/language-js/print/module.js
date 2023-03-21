@@ -59,6 +59,8 @@ function printImportDeclaration(path, options, print) {
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
 - `DeclareExportDeclaration`(flow)
+- `ExportAllDeclaration`
+- `DeclareExportAllDeclaration`(flow)
 */
 function printExportDeclaration(path, options, print) {
   /** @type{Doc[]} */
@@ -69,8 +71,11 @@ function printExportDeclaration(path, options, print) {
   ];
 
   const { node } = path;
-  const { type, exportKind, declaration } = node;
+  const { type, exportKind, declaration, exported } = node;
 
+  const isExportAllDeclaration =
+    node.type === "ExportAllDeclaration" ||
+    node.type === "DeclareExportAllDeclaration";
   const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
   if (isDefaultExport) {
     parts.push(" default");
@@ -87,46 +92,24 @@ function printExportDeclaration(path, options, print) {
   if (declaration) {
     parts.push(" ", print("declaration"));
   } else {
+    parts.push(exportKind === "type" ? " type" : "");
+
+    if (isExportAllDeclaration) {
+      parts.push(" *");
+      if (exported) {
+        parts.push(" as ", print("exported"));
+      }
+    } else {
+      parts.push(printModuleSpecifiers(path, options, print));
+    }
+
     parts.push(
-      exportKind === "type" ? " type" : "",
-      printModuleSpecifiers(path, options, print),
       printModuleSource(path, options, print),
       printImportAssertions(path, options, print)
     );
   }
 
   parts.push(printSemicolonAfterExportDeclaration(node, options));
-
-  return parts;
-}
-
-/*
-- `ExportAllDeclaration`
-- `DeclareExportAllDeclaration`(flow)
-*/
-function printExportAllDeclaration(path, options, print) {
-  const { node } = path;
-  const semi = options.semi ? ";" : "";
-  /** @type{Doc[]} */
-  const parts = [printDeclareToken(path), "export"];
-
-  const { exportKind, exported } = node;
-
-  if (exportKind === "type") {
-    parts.push(" type");
-  }
-
-  parts.push(" *");
-
-  if (exported) {
-    parts.push(" as ", print("exported"));
-  }
-
-  parts.push(
-    printModuleSource(path, options, print),
-    printImportAssertions(path, options, print),
-    semi
-  );
 
   return parts;
 }
@@ -358,9 +341,4 @@ function isShorthandSpecifier(specifier) {
   }
 }
 
-export {
-  printImportDeclaration,
-  printExportDeclaration,
-  printExportAllDeclaration,
-  printModuleSpecifier,
-};
+export { printImportDeclaration, printExportDeclaration, printModuleSpecifier };
