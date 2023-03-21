@@ -497,6 +497,48 @@ class MyContainerComponent {
 ================================================================================
 `;
 
+exports[`legacy.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  @decorator() class {},
+  @decorator() class A {},
+];
+
+class A {
+  @decorator() accessor #field;
+}
+
+class B {
+  @decorator() #field () {}
+}
+
+=====================================output=====================================
+[
+  (
+    @decorator()
+    class {}
+  ),
+  (
+    @decorator()
+    class A {}
+  ),
+];
+
+class A {
+  @decorator() accessor #field;
+}
+
+class B {
+  @decorator() #field() {}
+}
+
+================================================================================
+`;
+
 exports[`mobx.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

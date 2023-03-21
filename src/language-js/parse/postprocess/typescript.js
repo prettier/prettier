@@ -45,6 +45,18 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
   );
 }
 
+function nodeCanBeDecorated(node) {
+  return [true, false].some((useLegacyDecorators) =>
+    // @ts-expect-error -- internal?
+    ts.nodeCanBeDecorated(
+      useLegacyDecorators,
+      node,
+      node.parent,
+      node.parent.parent
+    )
+  );
+}
+
 // Based on `checkGrammarModifiers` function in `typescript`
 function throwErrorForInvalidModifier(node) {
   const { modifiers } = node;
@@ -56,16 +68,7 @@ function throwErrorForInvalidModifier(node) {
 
   for (const modifier of modifiers) {
     if (ts.isDecorator(modifier)) {
-      const legacyDecorators = true;
-      if (
-        // @ts-expect-error -- internal?
-        !ts.nodeCanBeDecorated(
-          legacyDecorators,
-          node,
-          node.parent,
-          node.parent.parent
-        )
-      ) {
+      if (!nodeCanBeDecorated(node)) {
         if (
           node.kind === SyntaxKind.MethodDeclaration &&
           // @ts-expect-error -- internal?
@@ -79,9 +82,8 @@ function throwErrorForInvalidModifier(node) {
           throwErrorOnTsNode(modifier, "Decorators are not valid here.");
         }
       } else if (
-        legacyDecorators &&
-        (node.kind === SyntaxKind.GetAccessor ||
-          node.kind === SyntaxKind.SetAccessor)
+        node.kind === SyntaxKind.GetAccessor ||
+        node.kind === SyntaxKind.SetAccessor
       ) {
         // @ts-expect-error -- internal?
         const accessors = ts.getAllAccessorDeclarations(
