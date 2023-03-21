@@ -24,6 +24,9 @@ a {
   content: url(https://example.com/\\)\\).jpg);
   content: url(https://example.com/\\(\\(.jpg);
   content: url(https://example.com/\\ \\ .jpg);
+  content: url(   https://example.com/\\)\\).jpg   );
+  content: url(   https://example.com/\\(\\(.jpg   );
+  content: url(   https://example.com/\\ \\ .jpg   );
 }
 
 =====================================output=====================================
@@ -44,6 +47,9 @@ div {
 a {
   content: url(https://example.com/\\)\\).jpg);
   content: url(https://example.com/\\(\\(.jpg);
+  content: url(https://example.com/\\ \\ .jpg);
+  content: url(   https://example.com/\\)\\).jpg   );
+  content: url(   https://example.com/\\(\\(.jpg   );
   content: url(https://example.com/\\ \\ .jpg);
 }
 

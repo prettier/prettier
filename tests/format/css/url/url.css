@@ -16,4 +16,7 @@ a {
   content: url(https://example.com/\)\).jpg);
   content: url(https://example.com/\(\(.jpg);
   content: url(https://example.com/\ \ .jpg);
+  content: url(   https://example.com/\)\).jpg   );
+  content: url(   https://example.com/\(\(.jpg   );
+  content: url(   https://example.com/\ \ .jpg   );
 }
