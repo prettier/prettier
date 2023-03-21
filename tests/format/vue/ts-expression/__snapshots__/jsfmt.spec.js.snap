@@ -88,7 +88,7 @@ printWidth: 80
     "
     :format="
       /* leading comment */ myFunc(
-        /* NOTE: I like banana */ o as unknown
+        /* NOTE: I like banana */ o as unknown,
       ) /* trailing comment */
     "
   >
