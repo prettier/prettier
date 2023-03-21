@@ -102,7 +102,7 @@ function printExportDeclaration(path, options, print) {
   return parts;
 }
 
-const canOmitSemicolon = createTypeCheckFunction([
+const shouldOmitSemicolon = createTypeCheckFunction([
   "ClassDeclaration",
   "FunctionDeclaration",
   "TSInterfaceDeclaration",
@@ -116,7 +116,7 @@ function printSemicolonAfterExportDeclaration(node, options) {
     options.semi &&
     (!node.declaration ||
       ((node.default || node.type === "ExportDefaultDeclaration") &&
-        !canOmitSemicolon(node.declaration)))
+        !shouldOmitSemicolon(node.declaration)))
   ) {
     return ";";
   }
