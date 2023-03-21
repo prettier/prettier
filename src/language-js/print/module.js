@@ -18,6 +18,7 @@ import {
   needsHardlineAfterDanglingComment,
   isStringLiteral,
   rawText,
+  createTypeCheckFunction,
 } from "../utils/index.js";
 import { locStart, hasSameLoc } from "../loc.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
@@ -73,11 +74,7 @@ function printExportDeclaration(path, options, print) {
   const { node } = path;
   const { type, exportKind, declaration, exported } = node;
 
-  const isExportAllDeclaration =
-    node.type === "ExportAllDeclaration" ||
-    node.type === "DeclareExportAllDeclaration";
-  const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
-  if (isDefaultExport) {
+  if (node.default || type === "ExportDefaultDeclaration") {
     parts.push(" default");
   }
 
@@ -94,7 +91,10 @@ function printExportDeclaration(path, options, print) {
   } else {
     parts.push(exportKind === "type" ? " type" : "");
 
-    if (isExportAllDeclaration) {
+    if (
+      node.type === "ExportAllDeclaration" ||
+      node.type === "DeclareExportAllDeclaration"
+    ) {
       parts.push(" *");
       if (exported) {
         parts.push(" as ", print("exported"));
@@ -114,27 +114,21 @@ function printExportDeclaration(path, options, print) {
   return parts;
 }
 
+const canOmitSemicolon = createTypeCheckFunction([
+  "ClassDeclaration",
+  "FunctionDeclaration",
+  "TSInterfaceDeclaration",
+  "DeclareClass",
+  "DeclareFunction",
+  "TSDeclareFunction",
+  "EnumDeclaration",
+]);
 function printSemicolonAfterExportDeclaration(node, options) {
-  if (!options.semi) {
-    return "";
-  }
-
-  const { type, declaration } = node;
-  const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
-  if (!declaration) {
-    return ";";
-  }
-
-  const { type: declarationType } = declaration;
   if (
-    isDefaultExport &&
-    declarationType !== "ClassDeclaration" &&
-    declarationType !== "FunctionDeclaration" &&
-    declarationType !== "TSInterfaceDeclaration" &&
-    declarationType !== "DeclareClass" &&
-    declarationType !== "DeclareFunction" &&
-    declarationType !== "TSDeclareFunction" &&
-    declarationType !== "EnumDeclaration"
+    options.semi &&
+    (!node.declaration ||
+      ((node.default || node.type === "ExportDefaultDeclaration") &&
+        !canOmitSemicolon(node.declaration)))
   ) {
     return ";";
   }
