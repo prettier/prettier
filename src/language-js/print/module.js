@@ -115,8 +115,7 @@ function printSemicolonAfterExportDeclaration(node, options) {
   if (
     options.semi &&
     (!node.declaration ||
-      ((node.default || node.type === "ExportDefaultDeclaration") &&
-        !shouldOmitSemicolon(node.declaration)))
+      (isDefaultExport(node) && !shouldOmitSemicolon(node.declaration)))
   ) {
     return ";";
   }
