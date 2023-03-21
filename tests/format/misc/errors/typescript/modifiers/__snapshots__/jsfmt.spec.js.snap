@@ -393,7 +393,7 @@ exports[`snippet: #24 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #24 [typescript] format 1`] = `
-"A method signature cannot have an export modifier. (2:3)
+"'export' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
 > 2 |   export method();
     |   ^^^^^^
@@ -409,7 +409,7 @@ exports[`snippet: #25 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #25 [typescript] format 1`] = `
-"A property signature cannot have an export modifier. (2:3)
+"'export' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
 > 2 |   export property;
     |   ^^^^^^
@@ -425,7 +425,7 @@ exports[`snippet: #26 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #26 [typescript] format 1`] = `
-"An index signature cannot have an export modifier. (2:3)
+"'export' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
 > 2 |   export [index: string]: number
     |   ^^^^^^
@@ -441,7 +441,7 @@ exports[`snippet: #27 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #27 [typescript] format 1`] = `
-"An index signature cannot have an export modifier. (2:3)
+"'export' modifier cannot appear on an index signature (2:3)
   1 | const foo: {
 > 2 |   export [index: string] : string
     |   ^^^^^^
@@ -1883,7 +1883,7 @@ exports[`snippet: #136 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #136 [typescript] format 1`] = `
-"A parameter cannot have an export modifier. (1:14)
+"'export' modifier cannot appear on a parameter. (1:14)
 > 1 | function foo(export parameter) {}
     |              ^^^^^^"
 `;
@@ -1895,7 +1895,7 @@ exports[`snippet: #137 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #137 [typescript] format 1`] = `
-"A parameter cannot have an export modifier. (1:20)
+"'export' modifier cannot appear on a parameter. (1:20)
 > 1 | class Foo { method(export parameter) {} }
     |                    ^^^^^^"
 `;
@@ -2171,7 +2171,7 @@ exports[`snippet: #160 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #160 [typescript] format 1`] = `
-"A parameter cannot have an export modifier. (1:25)
+"'export' modifier cannot appear on a parameter. (1:25)
 > 1 | class Foo { constructor(export parameter) {} }
     |                         ^^^^^^"
 `;
@@ -2339,7 +2339,7 @@ exports[`snippet: #174 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #174 [typescript] format 1`] = `
-"A property signature cannot have an export modifier. (1:13)
+"'export' modifier cannot appear on a type member (1:13)
 > 1 | type Foo = {export bar};
     |             ^^^^^^"
 `;
