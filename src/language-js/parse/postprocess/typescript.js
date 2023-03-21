@@ -30,6 +30,20 @@ function throwErrorOnTsNode(node, message) {
   throwSyntaxError({ loc: { start, end } }, message);
 }
 
+function nodeCanBeDecorated(node) {
+  const ts = require("typescript");
+
+  return [true, false].some((useLegacyDecorators) =>
+    // @ts-expect-error -- internal?
+    ts.nodeCanBeDecorated(
+      useLegacyDecorators,
+      node,
+      node.parent,
+      node.parent.parent
+    )
+  );
+}
+
 // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
 // https://github.com/typescript-eslint/typescript-eslint/pull/2375
 // There is a `checkGrammarDecorators` in `typescript` package, consider use it directly in future
@@ -44,16 +58,7 @@ function throwErrorForInvalidDecorator(node) {
   const { SyntaxKind } = ts;
   for (const modifier of modifiers) {
     if (ts.isDecorator(modifier)) {
-      const legacyDecorators = true;
-      if (
-        // @ts-expect-error -- internal?
-        !ts.nodeCanBeDecorated(
-          legacyDecorators,
-          node,
-          node.parent,
-          node.parent.parent
-        )
-      ) {
+      if (!nodeCanBeDecorated(node)) {
         if (
           node.kind === SyntaxKind.MethodDeclaration &&
           // @ts-expect-error -- internal?
@@ -67,9 +72,8 @@ function throwErrorForInvalidDecorator(node) {
           throwErrorOnTsNode(modifier, "Decorators are not valid here.");
         }
       } else if (
-        legacyDecorators &&
-        (node.kind === SyntaxKind.GetAccessor ||
-          node.kind === SyntaxKind.SetAccessor)
+        node.kind === SyntaxKind.GetAccessor ||
+        node.kind === SyntaxKind.SetAccessor
       ) {
         // @ts-expect-error -- internal?
         const accessors = ts.getAllAccessorDeclarations(
