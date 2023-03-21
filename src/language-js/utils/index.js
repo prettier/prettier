@@ -9,6 +9,8 @@ import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import createTypeCheckFunction from "./create-type-check-function.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
+import isFlowKeywordType from "./is-flow-keyword-type.js";
+import isTsKeywordType from "./is-ts-keyword-type.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
@@ -318,78 +320,30 @@ function isMemberish(node) {
   );
 }
 
-const simpleTypeAnnotations = new Set([
-  // `any`
-  "AnyTypeAnnotation",
-  "TSAnyKeyword",
-  // `null`
-  "NullLiteralTypeAnnotation",
-  "TSNullKeyword",
-  // `this`
-  "ThisTypeAnnotation",
+const isSimpleTypeAnnotation = createTypeCheckFunction([
   "TSThisType",
-  // `number`
-  "NumberTypeAnnotation",
-  "TSNumberKeyword",
-  // `void`
-  "VoidTypeAnnotation",
-  "TSVoidKeyword",
-  // `boolean`
-  "BooleanTypeAnnotation",
-  "TSBooleanKeyword",
-  // `bigint`
-  "BigIntTypeAnnotation",
-  "TSBigIntKeyword",
-  // `symbol`
-  "SymbolTypeAnnotation",
-  "TSSymbolKeyword",
-  // `string`
-  "StringTypeAnnotation",
-  "TSStringKeyword",
-  // `never`
-  "NeverTypeAnnotation",
-  "TSNeverKeyword",
-  // `undefined`
-  "UndefinedTypeAnnotation",
-  "TSUndefinedKeyword",
-  // `unknown`
-  "UnknownTypeAnnotation",
-  "TSUnknownKeyword",
   // literals
+  "NullLiteralTypeAnnotation",
   "BooleanLiteralTypeAnnotation",
   "StringLiteralTypeAnnotation",
   "BigIntLiteralTypeAnnotation",
   "NumberLiteralTypeAnnotation",
   "TSLiteralType",
   "TSTemplateLiteralType",
-  // flow only, `empty`, `mixed`
-  "EmptyTypeAnnotation",
-  "MixedTypeAnnotation",
-  // typescript only `object`
-  "TSObjectKeyword",
 ]);
 /**
  * @param {Node} node
  * @returns {boolean}
  */
 function isSimpleType(node) {
-  if (!node) {
-    return false;
-  }
-
-  if (
-    (node.type === "GenericTypeAnnotation" ||
+  return (
+    isTsKeywordType(node) ||
+    isFlowKeywordType(node) ||
+    isSimpleTypeAnnotation(node) ||
+    ((node.type === "GenericTypeAnnotation" ||
       node.type === "TSTypeReference") &&
-    !node.typeParameters
-  ) {
-    return true;
-  }
-
-  if (simpleTypeAnnotations.has(node.type)) {
-    return true;
-  }
-
-  return false;
+      !node.typeParameters)
+  );
 }
 
 /**
