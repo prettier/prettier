@@ -62,7 +62,6 @@ function printExportDeclaration(path, options, print) {
     printDeclareToken(path),
     "export",
     isDefaultExport(node) ? " default" : "",
-    printExportKind(node),
   ];
 
   const { declaration, exported } = node;
@@ -78,6 +77,8 @@ function printExportDeclaration(path, options, print) {
   if (declaration) {
     parts.push(" ", print("declaration"));
   } else {
+    parts.push(printExportKind(node));
+
     if (
       node.type === "ExportAllDeclaration" ||
       node.type === "DeclareExportAllDeclaration"
@@ -134,7 +135,7 @@ function printImportKind(node, spaceBeforeKind) {
 }
 
 function printExportKind(node) {
-  return node.declaration ? "" : printImportOrExportKind(node.exportKind);
+  return printImportOrExportKind(node.exportKind);
 }
 
 function printModuleSource(path, options, print) {
