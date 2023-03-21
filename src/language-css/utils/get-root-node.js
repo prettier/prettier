@@ -1,10 +1,10 @@
 "use strict";
 
-const getHighestAncestor = (node) => {
+const getRootNode = (node) => {
   while (node.parent) {
     node = node.parent;
   }
   return node;
 };
 
-module.exports = getHighestAncestor;
+module.exports = getRootNode;

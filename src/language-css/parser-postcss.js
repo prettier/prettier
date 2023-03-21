@@ -14,7 +14,7 @@ const isSCSS = require("./utils/is-scss.js");
 const isSCSSNestedPropertyNode = require("./utils/is-scss-nested-property-node.js");
 const isSCSSVariable = require("./utils/is-scss-variable.js");
 const isModuleRuleName = require("./utils/is-module-rule-name.js");
-const getHighestAncestor = require("./utils/get-highest-ancestor.js");
+const getRootNode = require("./utils/get-root-node.js");
 
 function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
@@ -51,7 +51,7 @@ function parseValueNode(valueNode, options) {
     if (node.type === "func" && node.value === "selector") {
       node.group.groups = [
         parseSelector(
-          getHighestAncestor(valueNode).text.slice(
+          getRootNode(valueNode).text.slice(
             node.group.open.sourceIndex + 1,
             node.group.close.sourceIndex
           )
