@@ -8,7 +8,7 @@ const { locStart, locEnd } = require("./loc.js");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
 const hasSCSSInterpolation = require("./utils/has-scss-interpolation.js");
 const hasStringOrFunction = require("./utils/has-string-or-function.js");
-const stringifyFunctionParameter = require("./utils/stringify-function-parameter.js");
+const stringifyFunctionParameters = require("./utils/stringify-function-parameters.js");
 const isLessParser = require("./utils/is-less-parser.js");
 const isSCSS = require("./utils/is-scss.js");
 const isSCSSNestedPropertyNode = require("./utils/is-scss-nested-property-node.js");
@@ -78,7 +78,7 @@ function parseValueNode(valueNode, options) {
         hasSCSSInterpolation(groupList) ||
         (!hasStringOrFunction(groupList) && !isSCSSVariable(groupList[0]))
       ) {
-        node.group.groups = [stringifyFunctionParameter(node)];
+        node.group.groups = [stringifyFunctionParameters(node)];
       }
     }
     if (node.type === "paren" && node.value === "(") {
