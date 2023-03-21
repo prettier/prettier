@@ -20,10 +20,7 @@ import {
   rawText,
 } from "../utils/index.js";
 import { locStart, hasSameLoc } from "../loc.js";
-import {
-  hasDecoratorsBeforeExport,
-  printDecoratorsBeforeExport,
-} from "./decorators.js";
+import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./misc.js";
 
 /**
@@ -64,19 +61,15 @@ function printImportDeclaration(path, options, print) {
 - `DeclareExportDeclaration`(flow)
 */
 function printExportDeclaration(path, options, print) {
-  const { node } = path;
   /** @type{Doc[]} */
-  const parts = [];
+  const parts = [
+    printDecoratorsBeforeExport(path, options, print),
+    printDeclareToken(path),
+    "export",
+  ];
 
-  // Only print decorators here if they were written before the export,
-  // otherwise they are printed by the node.declaration
-  if (hasDecoratorsBeforeExport(node)) {
-    parts.push(printDecoratorsBeforeExport(path, options, print));
-  }
-
+  const { node } = path;
   const { type, exportKind, declaration } = node;
-
-  parts.push(printDeclareToken(path), "export");
 
   const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
   if (isDefaultExport) {
@@ -102,9 +95,7 @@ function printExportDeclaration(path, options, print) {
     );
   }
 
-  if (shouldExportDeclarationPrintSemi(node, options)) {
-    parts.push(";");
-  }
+  parts.push(printSemicolonAfterExportDeclaration(node, options));
 
   return parts;
 }
@@ -140,15 +131,15 @@ function printExportAllDeclaration(path, options, print) {
   return parts;
 }
 
-function shouldExportDeclarationPrintSemi(node, options) {
+function printSemicolonAfterExportDeclaration(node, options) {
   if (!options.semi) {
-    return false;
+    return "";
   }
 
   const { type, declaration } = node;
   const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
   if (!declaration) {
-    return true;
+    return ";";
   }
 
   const { type: declarationType } = declaration;
@@ -162,9 +153,10 @@ function shouldExportDeclarationPrintSemi(node, options) {
     declarationType !== "TSDeclareFunction" &&
     declarationType !== "EnumDeclaration"
   ) {
-    return true;
+    return ";";
   }
-  return false;
+
+  return "";
 }
 
 function printModuleSource(path, options, print) {
