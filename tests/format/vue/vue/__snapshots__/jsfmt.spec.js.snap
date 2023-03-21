@@ -1977,7 +1977,7 @@ semi: false
   <div class="allowed">{{value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird}}</div>
   <div class="allowed" v-bind:something='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
   <div class="allowed" :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
-  <div class="not-allowed" v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
+  <div class="not-allowed" v-if='value | thisIsARealSuperLongBitwiseOr("arg1", arg2) | anotherBitwiseOrLongJustForFun | bitwiseOrTheThird'></div>
 </template>
 
 =====================================output=====================================
@@ -2013,9 +2013,9 @@ semi: false
     class="not-allowed"
     v-if="
       value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+        thisIsARealSuperLongBitwiseOr('arg1', arg2) |
+        anotherBitwiseOrLongJustForFun |
+        bitwiseOrTheThird
     "
   ></div>
 </template>
@@ -2035,7 +2035,7 @@ trailingComma: "es5"
   <div class="allowed">{{value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird}}</div>
   <div class="allowed" v-bind:something='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
   <div class="allowed" :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
-  <div class="not-allowed" v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
+  <div class="not-allowed" v-if='value | thisIsARealSuperLongBitwiseOr("arg1", arg2) | anotherBitwiseOrLongJustForFun | bitwiseOrTheThird'></div>
 </template>
 
 =====================================output=====================================
@@ -2071,9 +2071,9 @@ trailingComma: "es5"
     class="not-allowed"
     v-if="
       value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+        thisIsARealSuperLongBitwiseOr('arg1', arg2) |
+        anotherBitwiseOrLongJustForFun |
+        bitwiseOrTheThird
     "
   ></div>
 </template>
@@ -2093,7 +2093,7 @@ trailingComma: "none"
   <div class="allowed">{{value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird}}</div>
   <div class="allowed" v-bind:something='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
   <div class="allowed" :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
-  <div class="not-allowed" v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
+  <div class="not-allowed" v-if='value | thisIsARealSuperLongBitwiseOr("arg1", arg2) | anotherBitwiseOrLongJustForFun | bitwiseOrTheThird'></div>
 </template>
 
 =====================================output=====================================
@@ -2129,9 +2129,9 @@ trailingComma: "none"
     class="not-allowed"
     v-if="
       value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+        thisIsARealSuperLongBitwiseOr('arg1', arg2) |
+        anotherBitwiseOrLongJustForFun |
+        bitwiseOrTheThird
     "
   ></div>
 </template>
