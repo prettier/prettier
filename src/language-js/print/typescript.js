@@ -301,11 +301,7 @@ function printTypescript(path, options, print) {
       return group(parts);
     }
     case "TSNamespaceExportDeclaration":
-      return group([
-        "export as namespace ",
-        print("id"),
-        options.semi ? ";" : "",
-      ]);
+      return ["export as namespace ", print("id"), options.semi ? ";" : ""];
     case "TSEnumDeclaration":
       return printEnumDeclaration(path, print, options);
 
@@ -313,7 +309,7 @@ function printTypescript(path, options, print) {
       return printEnumMember(path, print);
 
     case "TSImportEqualsDeclaration":
-      return group([
+      return [
         node.isExport ? "export " : "",
         "import ",
         printImportKind(node, /* spaceBeforeKind */ false),
@@ -321,7 +317,7 @@ function printTypescript(path, options, print) {
         " = ",
         print("moduleReference"),
         options.semi ? ";" : "",
-      ]);
+      ];
     case "TSExternalModuleReference":
       return ["require(", print("expression"), ")"];
     case "TSModuleDeclaration": {
