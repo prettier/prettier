@@ -248,26 +248,26 @@ function shouldNotPrintSpecifiers(node, options) {
 
 function printImportAssertions(path, options, print) {
   const { node } = path;
-  if (isNonEmptyArray(node.assertions)) {
-    return [
-      " assert {",
-      options.bracketSpacing ? " " : "",
-      join(", ", path.map(print, "assertions")),
-      options.bracketSpacing ? " " : "",
-      "}",
-    ];
+  if (!isNonEmptyArray(node.assertions)) {
+    return "";
   }
-  return "";
+
+  return [
+    " assert {",
+    options.bracketSpacing ? " " : "",
+    join(", ", path.map(print, "assertions")),
+    options.bracketSpacing ? " " : "",
+    "}",
+  ];
 }
 
 function printModuleSpecifier(path, options, print) {
   const { node } = path;
-
   const { type } = node;
 
-  const isImport = type.startsWith("Import");
-  const leftSideProperty = isImport ? "imported" : "local";
-  const rightSideProperty = isImport ? "local" : "exported";
+  const isImportSpecifier = type.startsWith("Import");
+  const leftSideProperty = isImportSpecifier ? "imported" : "local";
+  const rightSideProperty = isImportSpecifier ? "local" : "exported";
   const leftSideNode = node[leftSideProperty];
   const rightSideNode = node[rightSideProperty];
   let left = "";
