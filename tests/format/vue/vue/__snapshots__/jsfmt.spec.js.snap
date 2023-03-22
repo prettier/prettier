@@ -1752,63 +1752,35 @@ semi: false
 =====================================input======================================
 <!-- #7396 -->
 <template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
-</template>
-<template>
-<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
-</template>
-<template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
-</template>
-<template>
-<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
-</template>
-<template>
-<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
-</template>
-<template>
-<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
 </template>
 
 =====================================output=====================================
 <!-- #7396 -->
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
       foo + bar
     } template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :num="
       100000000000000000000000000000000000000000000000000000000000000000000000000
     "
   />
@@ -1826,63 +1798,35 @@ trailingComma: "es5"
 =====================================input======================================
 <!-- #7396 -->
 <template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
-</template>
-<template>
-<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
-</template>
-<template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
-</template>
-<template>
-<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
-</template>
-<template>
-<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
-</template>
-<template>
-<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
 </template>
 
 =====================================output=====================================
 <!-- #7396 -->
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
       foo + bar
     } template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :num="
       100000000000000000000000000000000000000000000000000000000000000000000000000
     "
   />
@@ -1900,63 +1844,35 @@ trailingComma: "none"
 =====================================input======================================
 <!-- #7396 -->
 <template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
-</template>
-<template>
-<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
-</template>
-<template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
-</template>
-<template>
-<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
-</template>
-<template>
-<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
-</template>
-<template>
-<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
 </template>
 
 =====================================output=====================================
 <!-- #7396 -->
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
       foo + bar
     } template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :num="
       100000000000000000000000000000000000000000000000000000000000000000000000000
     "
   />
@@ -1974,23 +1890,15 @@ semi: false
 =====================================input======================================
 <!-- #7396 -->
 <template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
-</template>
-<template>
-<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
-</template>
-<template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
-</template>
-<template>
-<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
-</template>
-<template>
-<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
-</template>
-<template>
-<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
 </template>
 <script lang="ts"></script>
 
@@ -1998,40 +1906,20 @@ semi: false
 <!-- #7396 -->
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
       foo + bar
     } template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :num="
       100000000000000000000000000000000000000000000000000000000000000000000000000
     "
   />
@@ -2050,23 +1938,15 @@ trailingComma: "es5"
 =====================================input======================================
 <!-- #7396 -->
 <template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
-</template>
-<template>
-<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
-</template>
-<template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
-</template>
-<template>
-<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
-</template>
-<template>
-<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
-</template>
-<template>
-<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
 </template>
 <script lang="ts"></script>
 
@@ -2074,40 +1954,20 @@ trailingComma: "es5"
 <!-- #7396 -->
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
       foo + bar
     } template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :num="
       100000000000000000000000000000000000000000000000000000000000000000000000000
     "
   />
@@ -2126,23 +1986,15 @@ trailingComma: "none"
 =====================================input======================================
 <!-- #7396 -->
 <template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
-</template>
-<template>
-<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
-</template>
-<template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
-</template>
-<template>
-<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
-</template>
-<template>
-<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
-</template>
-<template>
-<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
 </template>
 <script lang="ts"></script>
 
@@ -2150,40 +2002,20 @@ trailingComma: "none"
 <!-- #7396 -->
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
       foo + bar
     } template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :num="
       100000000000000000000000000000000000000000000000000000000000000000000000000
     "
   />
