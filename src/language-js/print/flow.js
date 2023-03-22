@@ -22,6 +22,8 @@ import {
   printNamedTupleMember,
   printTypeAnnotation,
   printTypeAnnotationProperty,
+  printArrayType,
+  printTypeQuery,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -113,7 +115,7 @@ function printFlow(path, options, print) {
     case "TypeParameter":
       return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
-      return ["typeof ", print("argument")];
+      return printTypeQuery(path, print);
     case "ExistsTypeAnnotation":
       return "*";
     case "EmptyTypeAnnotation":
@@ -121,7 +123,7 @@ function printFlow(path, options, print) {
     case "MixedTypeAnnotation":
       return "mixed";
     case "ArrayTypeAnnotation":
-      return [print("elementType"), "[]"];
+      return printArrayType(print);
     case "BooleanLiteralTypeAnnotation":
       return String(node.value);
 

@@ -52,6 +52,8 @@ import {
   printNamedTupleMember,
   printTypeAnnotation,
   printTypeAnnotationProperty,
+  printArrayType,
+  printTypeQuery,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 
@@ -114,7 +116,7 @@ function printTypescript(path, options, print) {
     case "TSTypeAliasDeclaration":
       return printTypeAlias(path, options, print);
     case "TSQualifiedName":
-      return join(".", [print("left"), print("right")]);
+      return [print("left"), ".", print("right")];
     case "TSAbstractMethodDefinition":
     case "TSDeclareMethod":
       return printClassMethod(path, options, print);
@@ -155,7 +157,7 @@ function printTypescript(path, options, print) {
       return parts;
     }
     case "TSArrayType":
-      return [print("elementType"), "[]"];
+      return printArrayType(print);
     case "TSPropertySignature":
       return [
         node.readonly ? "readonly " : "",
@@ -174,7 +176,7 @@ function printTypescript(path, options, print) {
       ];
 
     case "TSTypeQuery":
-      return ["typeof ", print("exprName"), print("typeParameters")];
+      return printTypeQuery(path, print);
     case "TSIndexSignature": {
       // The typescript parser accepts multiple parameters here. If you're
       // using them, it makes sense to have a trailing comma. But if you
@@ -382,7 +384,7 @@ function printTypescript(path, options, print) {
       return printTernary(path, options, print);
 
     case "TSInferType":
-      return ["infer", " ", print("typeParameter")];
+      return ["infer ", print("typeParameter")];
     case "TSIntersectionType":
       return printIntersectionType(path, options, print);
     case "TSUnionType":
