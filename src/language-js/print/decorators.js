@@ -20,6 +20,12 @@ function printClassMemberDecorators(path, options, print) {
 }
 
 function printDecoratorsBeforeExport(path, options, print) {
+  // Only print decorators here if they were written before the export,
+  // otherwise they are printed by the node.declaration
+  if (!hasDecoratorsBeforeExport(path.node)) {
+    return "";
+  }
+
   // Export declarations are responsible for printing any decorators
   // that logically apply to node.declaration.
   return [

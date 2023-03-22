@@ -56,6 +56,7 @@ import {
   printTypeQuery,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
+import { printImportKind } from "./module.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
@@ -302,13 +303,7 @@ function printTypescript(path, options, print) {
       return group(parts);
     }
     case "TSNamespaceExportDeclaration":
-      parts.push("export as namespace ", print("id"));
-
-      if (options.semi) {
-        parts.push(";");
-      }
-
-      return group(parts);
+      return ["export as namespace ", print("id"), options.semi ? ";" : ""];
     case "TSEnumDeclaration":
       return printEnumDeclaration(path, print, options);
 
@@ -316,23 +311,15 @@ function printTypescript(path, options, print) {
       return printEnumMember(path, print);
 
     case "TSImportEqualsDeclaration":
-      if (node.isExport) {
-        parts.push("export ");
-      }
-
-      parts.push("import ");
-
-      if (node.importKind && node.importKind !== "value") {
-        parts.push(node.importKind, " ");
-      }
-
-      parts.push(print("id"), " = ", print("moduleReference"));
-
-      if (options.semi) {
-        parts.push(";");
-      }
-
-      return group(parts);
+      return [
+        node.isExport ? "export " : "",
+        "import ",
+        printImportKind(node, /* spaceBeforeKind */ false),
+        print("id"),
+        " = ",
+        print("moduleReference"),
+        options.semi ? ";" : "",
+      ];
     case "TSExternalModuleReference":
       return ["require(", print("expression"), ")"];
     case "TSModuleDeclaration": {
