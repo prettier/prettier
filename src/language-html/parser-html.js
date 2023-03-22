@@ -130,6 +130,15 @@ function ngHtmlParser(input, parseOptions, options) {
   }
 
   if (errors.length > 0) {
+    if (name === "vue") {
+      // Try to parse as HTML
+      try {
+        return ngHtmlParser(input, HTML_PARSE_OPTIONS, options);
+      } catch {
+        // Noop
+      }
+    }
+
     const [error] = errors;
     const {
       msg,
