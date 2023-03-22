@@ -4,7 +4,6 @@ import assert from "node:assert";
 import printString from "../../utils/print-string.js";
 import printNumber from "../../utils/print-number.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   isFunctionNotation,
   isGetterOrSetter,
@@ -252,25 +251,6 @@ function printFlow(path, options, print) {
       return "%checks";
     case "DeclaredPredicate":
       return ["%checks(", print("value"), ")"];
-
-    // These types are unprintable because they serve as abstract
-    // supertypes for other (printable) types.
-    case "Node":
-    case "Printable":
-    case "SourceLocation":
-    case "Position":
-    case "Statement":
-    case "Function":
-    case "Pattern":
-    case "Expression":
-    case "Declaration":
-    case "Specifier":
-    case "NamedSpecifier":
-    case "Comment":
-    case "MemberTypeAnnotation": // Flow
-    case "Type":
-      /* c8 ignore next */
-      throw new UnexpectedNodeError(node, "Flow");
   }
 }
 
