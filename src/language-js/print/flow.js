@@ -10,6 +10,7 @@ import {
   isGetterOrSetter,
   rawText,
 } from "../utils/index.js";
+import isFlowKeywordType from "../utils/is-flow-keyword-type.js";
 import { printClass } from "./class.js";
 import {
   printOpaqueType,
@@ -45,6 +46,12 @@ import {
 
 function printFlow(path, options, print) {
   const { node } = path;
+
+  if (isFlowKeywordType(node)) {
+    // Flow keyword types ends with `TypeAnnotation`
+    return node.type.slice(0, -14).toLowerCase();
+  }
+
   const semi = options.semi ? ";" : "";
 
   switch (node.type) {
@@ -117,14 +124,8 @@ function printFlow(path, options, print) {
       return printTypeQuery(path, print);
     case "ExistsTypeAnnotation":
       return "*";
-    case "EmptyTypeAnnotation":
-      return "empty";
-    case "MixedTypeAnnotation":
-      return "mixed";
     case "ArrayTypeAnnotation":
       return printArrayType(print);
-    case "BooleanLiteralTypeAnnotation":
-      return String(node.value);
 
     case "DeclareEnum":
     case "EnumDeclaration":
@@ -224,6 +225,11 @@ function printFlow(path, options, print) {
     case "QualifiedTypeofIdentifier":
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
+
+    case "NullLiteralTypeAnnotation":
+      return "null";
+    case "BooleanLiteralTypeAnnotation":
+      return String(node.value);
     case "StringLiteralTypeAnnotation":
       return replaceEndOfLine(printString(rawText(node), options));
     case "NumberLiteralTypeAnnotation":
@@ -246,30 +252,7 @@ function printFlow(path, options, print) {
       return "%checks";
     case "DeclaredPredicate":
       return ["%checks(", print("value"), ")"];
-    case "AnyTypeAnnotation":
-      return "any";
-    case "BooleanTypeAnnotation":
-      return "boolean";
-    case "BigIntTypeAnnotation":
-      return "bigint";
-    case "NullLiteralTypeAnnotation":
-      return "null";
-    case "NumberTypeAnnotation":
-      return "number";
-    case "SymbolTypeAnnotation":
-      return "symbol";
-    case "StringTypeAnnotation":
-      return "string";
-    case "VoidTypeAnnotation":
-      return "void";
-    case "ThisTypeAnnotation":
-      return "this";
-    case "NeverTypeAnnotation":
-      return "never";
-    case "UndefinedTypeAnnotation":
-      return "undefined";
-    case "UnknownTypeAnnotation":
-      return "unknown";
+
     // These types are unprintable because they serve as abstract
     // supertypes for other (printable) types.
     case "Node":
