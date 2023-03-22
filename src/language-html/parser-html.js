@@ -101,14 +101,13 @@ function ngHtmlParser(input, parseOptions, options) {
         rootNodes[index] = getNodeWithSameLocation(node);
       } else if (shouldParseVueRootNodeAsHtml(node, options)) {
         const result = getSecondParse();
-        const startOffset = startSourceSpan.end.offset;
-        const endOffset = endSourceSpan.start.offset;
-        for (const error of result.errors) {
-          const { offset } = error.span.start;
-          /* c8 ignore next 3 */
-          if (startOffset < offset && offset < endOffset) {
-            throwParseError(errors);
-          }
+        const error = result.errors.find(
+          (error) =>
+            error.span.start.offset > startSourceSpan.end.offset &&
+            error.span.start.offset < endSourceSpan.start.offset
+        );
+        if (error) {
+          throwParseError(error);
         }
         rootNodes[index] = getNodeWithSameLocation(node);
       }
