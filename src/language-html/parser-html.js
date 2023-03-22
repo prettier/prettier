@@ -78,16 +78,15 @@ function ngHtmlParser(input, parseOptions, options) {
 
     /** @type {ParserTreeResult | undefined} */
     let secondParseResult;
-    const doSecondParse = () =>
-      parseHtml(input, {
+    const getHtmlParseResult = () =>
+      (secondParseResult ??= parseHtml(input, {
         canSelfClose,
         allowHtmComponentClosingTags,
         isTagNameCaseSensitive,
-      });
+      }));
 
-    const getSecondParse = () => (secondParseResult ??= doSecondParse());
     const getNodeWithSameLocation = (node) =>
-      getSecondParse().rootNodes.find(
+      getHtmlParseResult().rootNodes.find(
         ({ startSourceSpan }) =>
           startSourceSpan &&
           startSourceSpan.start.offset === node.startSourceSpan.start.offset
@@ -96,12 +95,10 @@ function ngHtmlParser(input, parseOptions, options) {
       const { endSourceSpan, startSourceSpan } = node;
       const isUnclosedNode = endSourceSpan === null;
       if (isUnclosedNode) {
-        const result = getSecondParse();
-        errors = result.errors;
+        errors = getHtmlParseResult().errors;
         rootNodes[index] = getNodeWithSameLocation(node);
       } else if (shouldParseVueRootNodeAsHtml(node, options)) {
-        const result = getSecondParse();
-        const error = result.errors.find(
+        const error = getHtmlParseResult().errors.find(
           (error) =>
             error.span.start.offset > startSourceSpan.start.offset &&
             error.span.start.offset < endSourceSpan.end.offset
