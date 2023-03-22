@@ -87,58 +87,49 @@ function ngHtmlParser(input, parseOptions, options) {
       const language = node.attrs.find((attr) => attr.name === "lang")?.value;
       return !language || inferParser(options, { language }) === "html";
     };
-    if (rootNodes.some(shouldParseAsHTML)) {
-      /** @type {ParserTreeResult | undefined} */
-      let secondParseResult;
-      const doSecondParse = () =>
-        parseHtml(input, {
-          canSelfClose,
-          allowHtmComponentClosingTags,
-          isTagNameCaseSensitive,
-        });
-      const getSecondParse = () => (secondParseResult ??= doSecondParse());
-      const getSameLocationNode = (node) =>
-        getSecondParse().rootNodes.find(
-          ({ startSourceSpan }) =>
-            startSourceSpan &&
-            startSourceSpan.start.offset === node.startSourceSpan.start.offset
-        );
-      for (let i = 0; i < rootNodes.length; i++) {
-        const node = rootNodes[i];
-        const { endSourceSpan, startSourceSpan } = node;
-        const isUnclosedNode = endSourceSpan === null;
-        if (isUnclosedNode) {
-          const result = getSecondParse();
-          errors = result.errors;
-          rootNodes[i] = getSameLocationNode(node) || node;
-        } else if (shouldParseAsHTML(node)) {
-          const result = getSecondParse();
-          const startOffset = startSourceSpan.end.offset;
-          const endOffset = endSourceSpan.start.offset;
-          for (const error of result.errors) {
-            const { offset } = error.span.start;
-            /* c8 ignore next 4 */
-            if (startOffset < offset && offset < endOffset) {
-              errors = [error];
-              break;
-            }
+
+    /** @type {ParserTreeResult | undefined} */
+    let secondParseResult;
+    const doSecondParse = () =>
+      parseHtml(input, {
+        canSelfClose,
+        allowHtmComponentClosingTags,
+        isTagNameCaseSensitive,
+      });
+
+    const getSecondParse = () => (secondParseResult ??= doSecondParse());
+    const getSameLocationNode = (node) =>
+      getSecondParse().rootNodes.find(
+        ({ startSourceSpan }) =>
+          startSourceSpan &&
+          startSourceSpan.start.offset === node.startSourceSpan.start.offset
+      );
+    for (let i = 0; i < rootNodes.length; i++) {
+      const node = rootNodes[i];
+      const { endSourceSpan, startSourceSpan } = node;
+      const isUnclosedNode = endSourceSpan === null;
+      if (isUnclosedNode) {
+        const result = getSecondParse();
+        errors = result.errors;
+        rootNodes[i] = getSameLocationNode(node) || node;
+      } else if (shouldParseAsHTML(node)) {
+        const result = getSecondParse();
+        const startOffset = startSourceSpan.end.offset;
+        const endOffset = endSourceSpan.start.offset;
+        for (const error of result.errors) {
+          const { offset } = error.span.start;
+          /* c8 ignore next 4 */
+          if (startOffset < offset && offset < endOffset) {
+            errors = [error];
+            break;
           }
-          rootNodes[i] = getSameLocationNode(node) || node;
         }
+        rootNodes[i] = getSameLocationNode(node) || node;
       }
     }
   }
 
   if (errors.length > 0) {
-    if (name === "vue") {
-      // Try to parse as HTML
-      try {
-        return ngHtmlParser(input, HTML_PARSE_OPTIONS, options);
-      } catch {
-        // Noop
-      }
-    }
-
     const [error] = errors;
     const {
       msg,
