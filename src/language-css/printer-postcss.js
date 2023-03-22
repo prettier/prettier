@@ -940,13 +940,11 @@ function genericPrint(path, options, print) {
           [",", forceHardLine ? hardline : line],
           path.map(print, "groups")
         );
-        return group(
-          indent(
-            forceHardLine
-              ? [hardline, parts]
-              : // TODO: Use `parts` when merge to `next` branch
-                fill(parts.parts)
-          )
+        return indent(
+          forceHardLine
+            ? [hardline, parts]
+            : // TODO: Use `parts` when merge to `next` branch
+              group(fill(parts.parts))
         );
       }
 
