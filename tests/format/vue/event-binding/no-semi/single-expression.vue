@@ -1,3 +1,6 @@
 <template>
-  <v-map @loaded="(map = $event) && initMap()"></v-map>
+  <foo-bar
+    @click="[foo, bar].forEach(fn => void fn())"
+    @loaded="(map = $event) && initMap()"
+  ></foo-bar>
 </template>
