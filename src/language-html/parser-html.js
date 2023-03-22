@@ -76,14 +76,6 @@ function ngHtmlParser(input, parseOptions, options) {
       return ngHtmlParser(input, HTML_PARSE_OPTIONS, options);
     }
 
-    const shouldParseAsHTML = (/** @type {AstNode} */ node) => {
-      if (node.type !== "element" || node.name !== "template") {
-        return false;
-      }
-      const language = node.attrs.find((attr) => attr.name === "lang")?.value;
-      return !language || inferParser(options, { language }) === "html";
-    };
-
     /** @type {ParserTreeResult | undefined} */
     let secondParseResult;
     const doSecondParse = () =>
@@ -107,7 +99,7 @@ function ngHtmlParser(input, parseOptions, options) {
         const result = getSecondParse();
         errors = result.errors;
         rootNodes[index] = getNodeWithSameLocation(node) || node;
-      } else if (shouldParseAsHTML(node)) {
+      } else if (shouldParseVueRootNodeAsHtml(node, options)) {
         const result = getSecondParse();
         const startOffset = startSourceSpan.end.offset;
         const endOffset = endSourceSpan.start.offset;
@@ -266,6 +258,14 @@ function ngHtmlParser(input, parseOptions, options) {
   );
 
   return rootNodes;
+}
+
+function shouldParseVueRootNodeAsHtml(node, options) {
+  if (node.type !== "element" || node.name !== "template") {
+    return false;
+  }
+  const language = node.attrs.find((attr) => attr.name === "lang")?.value;
+  return !language || inferParser(options, { language }) === "html";
 }
 
 /**
