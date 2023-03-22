@@ -56,7 +56,6 @@ import {
 import {
   printImportDeclaration,
   printExportDeclaration,
-  printExportAllDeclaration,
   printModuleSpecifier,
 } from "./print/module.js";
 import { printTernary } from "./print/ternary.js";
@@ -339,9 +338,8 @@ function printPathNoParens(path, options, print, args) {
 
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
-      return printExportDeclaration(path, options, print);
     case "ExportAllDeclaration":
-      return printExportAllDeclaration(path, options, print);
+      return printExportDeclaration(path, options, print);
     case "ImportDeclaration":
       return printImportDeclaration(path, options, print);
     case "ImportSpecifier":

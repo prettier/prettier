@@ -1,6 +1,7 @@
 import AstPath from "../common/ast-path.js";
 import { cursor, label } from "../document/builders.js";
-import { printComments } from "./comments/print.js";
+import { attachComments } from "./comments/attach.js";
+import { printComments, ensureAllCommentsPrinted } from "./comments/print.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
 import printIgnored from "./print-ignored.js";
@@ -27,14 +28,7 @@ import printIgnored from "./print-ignored.js";
  * the path to the current node through the Abstract Syntax Tree.
  */
 async function printAstToDoc(ast, options) {
-  const { printer } = options;
-
-  // For JS printer to ignore attached comments
-  options[Symbol.for("printedComments")] = new Set();
-
-  if (printer.preprocess) {
-    ast = await printer.preprocess(ast, options);
-  }
+  ({ ast } = await prepareToPrint(ast, options));
 
   const cache = new Map();
   const path = new AstPath(ast);
@@ -53,6 +47,8 @@ async function printAstToDoc(ast, options) {
     undefined,
     embeds
   );
+
+  ensureAllCommentsPrinted(options);
 
   return doc;
 
@@ -132,4 +128,22 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
   return doc;
 }
 
-export default printAstToDoc;
+async function prepareToPrint(ast, options) {
+  const comments = ast.comments ?? [];
+  options[Symbol.for("comments")] = comments;
+  options[Symbol.for("tokens")] = ast.tokens ?? [];
+  // For JS printer to ignore attached comments
+  options[Symbol.for("printedComments")] = new Set();
+
+  attachComments(ast, options);
+
+  const {
+    printer: { preprocess },
+  } = options;
+
+  ast = preprocess ? await preprocess(ast, options) : ast;
+
+  return { ast, comments };
+}
+
+export { printAstToDoc, prepareToPrint };

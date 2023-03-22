@@ -21,8 +21,8 @@ Required options:
 
 - **`plugins`**: Unlike the `format` function from the [Node.js-based API](api.md#prettierformatsource--options), this function doesn’t load plugins automatically. The `plugins` option is required because all the parsers included in the Prettier package come as plugins (for reasons of file size). These plugins are files named
 
-  - `parser-*.js` in <https://unpkg.com/browse/prettier@2.8.4/> and
-  - `parser-*.mjs` in <https://unpkg.com/browse/prettier@2.8.4/esm/>
+  - `parser-*.js` in <https://unpkg.com/browse/prettier@2.8.6/> and
+  - `parser-*.mjs` in <https://unpkg.com/browse/prettier@2.8.6/esm/>
 
   You need to load the ones that you’re going to use and pass them to `prettier.format` using the `plugins` option.
 
@@ -33,8 +33,8 @@ See below for examples.
 ### Global
 
 ```html
-<script src="https://unpkg.com/prettier@2.8.4/standalone.js"></script>
-<script src="https://unpkg.com/prettier@2.8.4/parser-graphql.js"></script>
+<script src="https://unpkg.com/prettier@2.8.6/standalone.js"></script>
+<script src="https://unpkg.com/prettier@2.8.6/parser-graphql.js"></script>
 <script>
   prettier.format("type Query { hello: String }", {
     parser: "graphql",
@@ -49,8 +49,8 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 
 ```html
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.8.4/esm/standalone.mjs";
-  import parserGraphql from "https://unpkg.com/prettier@2.8.4/esm/parser-graphql.mjs";
+  import prettier from "https://unpkg.com/prettier@2.8.6/esm/standalone.mjs";
+  import parserGraphql from "https://unpkg.com/prettier@2.8.6/esm/parser-graphql.mjs";
 
   prettier.format("type Query { hello: String }", {
     parser: "graphql",
@@ -63,8 +63,8 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 
 ```js
 define([
-  "https://unpkg.com/prettier@2.8.4/standalone.js",
-  "https://unpkg.com/prettier@2.8.4/parser-graphql.js",
+  "https://unpkg.com/prettier@2.8.6/standalone.js",
+  "https://unpkg.com/prettier@2.8.6/parser-graphql.js",
 ], (prettier, ...plugins) => {
   prettier.format("type Query { hello: String }", {
     parser: "graphql",
@@ -89,8 +89,8 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 ### Worker
 
 ```js
-importScripts("https://unpkg.com/prettier@2.8.4/standalone.js");
-importScripts("https://unpkg.com/prettier@2.8.4/parser-graphql.js");
+importScripts("https://unpkg.com/prettier@2.8.6/standalone.js");
+importScripts("https://unpkg.com/prettier@2.8.6/parser-graphql.js");
 prettier.format("type Query { hello: String }", {
   parser: "graphql",
   plugins: prettierPlugins,
@@ -103,8 +103,8 @@ If you want to format [embedded code](options.md#embedded-language-formatting), 
 
 ```html
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.8.4/esm/standalone.mjs";
-  import parserBabel from "https://unpkg.com/prettier@2.8.4/esm/parser-babel.mjs";
+  import prettier from "https://unpkg.com/prettier@2.8.6/esm/standalone.mjs";
+  import parserBabel from "https://unpkg.com/prettier@2.8.6/esm/parser-babel.mjs";
 
   console.log(
     prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
@@ -120,9 +120,9 @@ The HTML code embedded in JavaScript stays unformatted because the `html` parser
 
 ```html
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.8.4/esm/standalone.mjs";
-  import parserBabel from "https://unpkg.com/prettier@2.8.4/esm/parser-babel.mjs";
-  import parserHtml from "https://unpkg.com/prettier@2.8.4/esm/parser-html.mjs";
+  import prettier from "https://unpkg.com/prettier@2.8.6/esm/standalone.mjs";
+  import parserBabel from "https://unpkg.com/prettier@2.8.6/esm/parser-babel.mjs";
+  import parserHtml from "https://unpkg.com/prettier@2.8.6/esm/parser-html.mjs";
 
   console.log(
     prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
