@@ -9,7 +9,6 @@ import {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-  isVueScriptTag,
 } from "./utils/index.js";
 
 const PREPROCESS_PIPELINE = [
