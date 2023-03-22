@@ -64,6 +64,7 @@ function printTypescript(path, options, print) {
   }
 
   if (isTsKeywordType(node)) {
+    // TS keyword types stars with `TS`, ends with `Keyword`
     return node.type.slice(2, -7).toLowerCase();
   }
 

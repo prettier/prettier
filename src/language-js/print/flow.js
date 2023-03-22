@@ -46,6 +46,7 @@ function printFlow(path, options, print) {
   const { node } = path;
 
   if (isFlowKeywordType(node)) {
+    // Flow keyword types ends with `TypeAnnotation`
     return node.type.slice(0, -14).toLowerCase();
   }
 
