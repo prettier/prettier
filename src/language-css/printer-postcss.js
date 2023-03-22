@@ -154,7 +154,16 @@ function genericPrint(path, options, print) {
         ? removeLines(print("value"))
         : print("value");
 
-      if (!isColon && lastLineHasInlineComment(trimmedBetween)) {
+      if (
+        !isColon &&
+        lastLineHasInlineComment(trimmedBetween) &&
+        !(
+          node.value.type === "value-root" &&
+          node.value.group.type === "value-value" &&
+          node.value.group.group.type === "value-paren_group" &&
+          path.call(() => shouldBreakList(path), "value", "group", "group")
+        )
+      ) {
         value = indent([hardline, dedent(value)]);
       }
 
@@ -926,12 +935,7 @@ function genericPrint(path, options, print) {
       }
 
       if (!node.open) {
-        const parentParentParentNode = path.getParentNode(2);
-        const forceHardLine =
-          (parentParentParentNode.type === "css-decl" ||
-            (parentParentParentNode.type === "css-atrule" &&
-              parentParentParentNode.variable)) &&
-          node.groups.some((node) => node.type === "value-comma_group");
+        const forceHardLine = shouldBreakList(path);
 
         const printed = path.map(print, "groups");
         /** @type{Doc[]} */
@@ -1176,6 +1180,18 @@ function printCssNumber(rawNumber) {
     printNumber(rawNumber)
       // Remove trailing `.0`.
       .replace(/\.0(?=$|e)/, "")
+  );
+}
+
+function shouldBreakList(path) {
+  const node = path.getNode();
+  const parentParentParentNode = path.getParentNode(2);
+  return (
+    !node.open &&
+    (parentParentParentNode.type === "css-decl" ||
+      (parentParentParentNode.type === "css-atrule" &&
+        parentParentParentNode.variable)) &&
+    node.groups.some((node) => node.type === "value-comma_group")
   );
 }
 

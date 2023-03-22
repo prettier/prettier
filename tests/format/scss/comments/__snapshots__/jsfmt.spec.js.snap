@@ -224,7 +224,6 @@ selector {
 // #8052
 $font-family-rich:
   // custom
-
   "Noto Sans TC",
   "Noto Sans SC",
   "Noto Sans JP",
