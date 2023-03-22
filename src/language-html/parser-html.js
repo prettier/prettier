@@ -104,14 +104,13 @@ function ngHtmlParser(input, parseOptions, options) {
           startSourceSpan &&
           startSourceSpan.start.offset === node.startSourceSpan.start.offset
       );
-    for (let i = 0; i < rootNodes.length; i++) {
-      const node = rootNodes[i];
+    for (const [index, node] of rootNodes.entries()) {
       const { endSourceSpan, startSourceSpan } = node;
       const isUnclosedNode = endSourceSpan === null;
       if (isUnclosedNode) {
         const result = getSecondParse();
         errors = result.errors;
-        rootNodes[i] = getSameLocationNode(node) || node;
+        rootNodes[index] = getSameLocationNode(node) || node;
       } else if (shouldParseAsHTML(node)) {
         const result = getSecondParse();
         const startOffset = startSourceSpan.end.offset;
@@ -124,7 +123,7 @@ function ngHtmlParser(input, parseOptions, options) {
             break;
           }
         }
-        rootNodes[i] = getSameLocationNode(node) || node;
+        rootNodes[index] = getSameLocationNode(node) || node;
       }
     }
   }
