@@ -936,19 +936,18 @@ function genericPrint(path, options, print) {
 
       if (!node.open) {
         const forceHardLine = shouldBreakList(path);
-
-        const printed = path.map(print, "groups");
-        /** @type{Doc[]} */
-        const res = forceHardLine ? [hardline] : [];
-
-        for (let i = 0; i < printed.length; i++) {
-          if (i !== 0) {
-            res.push([",", forceHardLine ? hardline : line]);
-          }
-          res.push(printed[i]);
-        }
-
-        return group(indent(fill(res)));
+        const parts = join(
+          [",", forceHardLine ? hardline : line],
+          path.map(print, "groups")
+        );
+        return group(
+          indent(
+            forceHardLine
+              ? [hardline, parts]
+              : // TODO: Use `parts` when merge to `next` branch
+                fill(parts.parts)
+          )
+        );
       }
 
       const isSCSSMapItem = isSCSSMapItemNode(path);
