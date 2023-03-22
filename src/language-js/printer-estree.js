@@ -21,12 +21,10 @@ import pathNeedsParens from "./needs-parens.js";
 import {
   hasComment,
   CommentCheckFlags,
-  isTheOnlyJsxElementInMarkdown,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   isCallExpression,
   isMemberExpression,
-  markerForIfWithoutBlockAndSameLineComment,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   startsWithNoLookaheadToken,
@@ -37,10 +35,7 @@ import isBlockComment from "./utils/is-block-comment.js";
 import isIgnored from "./utils/is-ignored.js";
 import getVisitorKeys from "./traverse/get-visitor-keys.js";
 
-import {
-  printHtmlBinding,
-  isVueEventBindingExpression,
-} from "./print/html-binding.js";
+import { printHtmlBinding } from "./print/html-binding.js";
 import { printAngular } from "./print/angular.js";
 import { printJsx } from "./print/jsx.js";
 import { printFlow } from "./print/flow.js";
@@ -92,6 +87,7 @@ import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 import { printTypeAnnotationProperty } from "./print/type-annotation.js";
 import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
+import { printExpressionStatement } from "./print/expression-statement.js";
 
 /**
  * @typedef {import("../common/ast-path.js").default} AstPath
@@ -201,35 +197,8 @@ function printPathNoParens(path, options, print, args) {
     // Babel extension.
     case "EmptyStatement":
       return "";
-    case "ExpressionStatement": {
-      if (
-        options.parser === "__vue_event_binding" ||
-        options.parser === "__vue_ts_event_binding"
-      ) {
-        const { parent } = path;
-        if (
-          parent.type === "Program" &&
-          parent.body.length === 1 &&
-          parent.body[0] === node
-        ) {
-          return [
-            print("expression"),
-            isVueEventBindingExpression(node.expression) ? ";" : "",
-          ];
-        }
-      }
-
-      const danglingComment = printDanglingComments(path, options, {
-        marker: markerForIfWithoutBlockAndSameLineComment,
-      });
-
-      // Do not append semicolon after the only JSX element in a program
-      return [
-        print("expression"),
-        isTheOnlyJsxElementInMarkdown(options, path) ? "" : semi,
-        danglingComment ? [" ", danglingComment] : "",
-      ];
-    }
+    case "ExpressionStatement":
+      return printExpressionStatement(path, options, print);
 
     case "ChainExpression":
       return print("expression");
