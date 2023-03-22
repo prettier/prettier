@@ -103,8 +103,8 @@ function ngHtmlParser(input, parseOptions, options) {
         const result = getSecondParse();
         const error = result.errors.find(
           (error) =>
-            error.span.start.offset > startSourceSpan.end.offset &&
-            error.span.start.offset < endSourceSpan.start.offset
+            error.span.start.offset > startSourceSpan.start.offset &&
+            error.span.start.offset < endSourceSpan.end.offset
         );
         if (error) {
           throwParseError(error);
