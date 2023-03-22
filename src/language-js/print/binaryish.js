@@ -229,7 +229,7 @@ function printBinaryishExpressions(
   const lineBeforeOperator =
     (node.operator === "|>" ||
       node.type === "NGPipeExpression" ||
-      (node.operator === "|" && options.parser === "__vue_expression")) &&
+      isVueFilterSequenceExpression(path, options)) &&
     !hasLeadingOwnLineComment(options.originalText, node.right);
 
   const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
@@ -332,6 +332,19 @@ function shouldInlineLogicalExpression(node) {
   }
 
   return false;
+}
+
+const isBitwiseOrExpression = (node) =>
+  node.type === "BinaryExpression" && node.operator === "|";
+
+function isVueFilterSequenceExpression(path, options) {
+  return (
+    options.parser === "__vue_expression" &&
+    isBitwiseOrExpression(path.node) &&
+    !path.hasAncestor(
+      (node) => !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot"
+    )
+  );
 }
 
 export { printBinaryishExpression, shouldInlineLogicalExpression };
