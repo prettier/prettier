@@ -117,18 +117,7 @@ function ngHtmlParser(input, parseOptions, options) {
   }
 
   if (errors.length > 0) {
-    const [error] = errors;
-    const {
-      msg,
-      span: { start, end },
-    } = error;
-    throw createError(msg, {
-      loc: {
-        start: { line: start.line + 1, column: start.col + 1 },
-        end: { line: end.line + 1, column: end.col + 1 },
-      },
-      cause: error,
-    });
+    throwParseError(errors[0]);
   }
 
   /**
@@ -266,6 +255,20 @@ function shouldParseVueRootNodeAsHtml(node, options) {
   }
   const language = node.attrs.find((attr) => attr.name === "lang")?.value;
   return !language || inferParser(options, { language }) === "html";
+}
+
+function throwParseError(error) {
+  const {
+    msg,
+    span: { start, end },
+  } = error;
+  throw createError(msg, {
+    loc: {
+      start: { line: start.line + 1, column: start.col + 1 },
+      end: { line: end.line + 1, column: end.col + 1 },
+    },
+    cause: error,
+  });
 }
 
 /**
