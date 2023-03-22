@@ -57,7 +57,8 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
       rootNode &&
       (rootNode.type === "ObjectExpression" ||
         rootNode.type === "ArrayExpression" ||
-        (options.parser === "__vue_expression" &&
+        ((options.parser === "__vue_expression" ||
+          options.parser === "__vue_ts_expression") &&
           (rootNode.type === "TemplateLiteral" ||
             rootNode.type === "StringLiteral")))
     ) {
@@ -132,7 +133,9 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
       const parser = isVueEventBindingExpression(value)
-        ? "__js_expression"
+        ? options.__should_parse_vue_template_with_ts
+          ? "__ts_expression"
+          : "__js_expression"
         : options.__should_parse_vue_template_with_ts
         ? "__vue_ts_event_binding"
         : "__vue_event_binding";

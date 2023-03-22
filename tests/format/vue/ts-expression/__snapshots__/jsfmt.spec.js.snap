@@ -208,9 +208,7 @@ printWidth: 80
 <!-- #7396 -->
 <template>
   <MyComponent
-    :attr="
-      \`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`
-    "
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
   />
 </template>
 <template>
@@ -223,18 +221,14 @@ printWidth: 80
 </template>
 <template>
   <MyComponent
-    :attr="
-      \`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
-        foo + bar
-      } template literal value\`
-    "
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
   />
 </template>
 <template>
   <MyComponent
-    :src="
-      'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'
-    "
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
   />
 </template>
 <template>
