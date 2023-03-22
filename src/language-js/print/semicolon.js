@@ -7,7 +7,11 @@ import {
 import { shouldPrintParamsWithoutParens } from "./function.js";
 
 function shouldPrintLeadingSemicolon(path, options) {
-  if (options.semi || isSingleJsxExpressionStatementInMarkdown(path, options)) {
+  if (
+    options.semi ||
+    isSingleJsxExpressionStatementInMarkdown(path, options) ||
+    isSingleVueEventBindingExpressionStatement(path, options)
+  ) {
     return false;
   }
 
