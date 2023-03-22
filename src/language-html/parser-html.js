@@ -77,10 +77,6 @@ function ngHtmlParser(input, parseOptions, options) {
     }
 
     const shouldParseAsHTML = (/** @type {AstNode} */ node) => {
-      /* c8 ignore next 3 */
-      if (!node) {
-        return false;
-      }
       if (node.type !== "element" || node.name !== "template") {
         return false;
       }
