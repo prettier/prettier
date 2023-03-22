@@ -91,27 +91,26 @@ function ngHtmlParser(input, parseOptions, options) {
         ({ startSourceSpan }) =>
           startSourceSpan &&
           startSourceSpan.start.offset === node.startSourceSpan.start.offset
-      );
+      ) ?? node;
     for (const [index, node] of rootNodes.entries()) {
       const { endSourceSpan, startSourceSpan } = node;
       const isUnclosedNode = endSourceSpan === null;
       if (isUnclosedNode) {
         const result = getSecondParse();
         errors = result.errors;
-        rootNodes[index] = getNodeWithSameLocation(node) || node;
+        rootNodes[index] = getNodeWithSameLocation(node);
       } else if (shouldParseVueRootNodeAsHtml(node, options)) {
         const result = getSecondParse();
         const startOffset = startSourceSpan.end.offset;
         const endOffset = endSourceSpan.start.offset;
         for (const error of result.errors) {
           const { offset } = error.span.start;
-          /* c8 ignore next 4 */
+          /* c8 ignore next 3 */
           if (startOffset < offset && offset < endOffset) {
-            errors = [error];
-            break;
+            throwParseError(errors);
           }
         }
-        rootNodes[index] = getNodeWithSameLocation(node) || node;
+        rootNodes[index] = getNodeWithSameLocation(node);
       }
     }
   }
