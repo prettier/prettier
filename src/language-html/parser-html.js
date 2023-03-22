@@ -93,8 +93,8 @@ function ngHtmlParser(input, parseOptions, options) {
       ) ?? node;
     for (const [index, node] of rootNodes.entries()) {
       const { endSourceSpan, startSourceSpan } = node;
-      const isUnclosedNode = endSourceSpan === null;
-      if (isUnclosedNode) {
+      const isVoidElement = endSourceSpan === null;
+      if (isVoidElement) {
         errors = getHtmlParseResult().errors;
         rootNodes[index] = getNodeWithSameLocation(node);
       } else if (shouldParseVueRootNodeAsHtml(node, options)) {
