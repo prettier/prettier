@@ -65,67 +65,67 @@ function ngHtmlParser(input, parseOptions, options) {
   });
 
   if (name === "vue") {
-    const isVueHtml = rootNodes.some(
+    const isHtml = rootNodes.some(
       (node) =>
         (node.type === "docType" && node.value === "html") ||
         (node.type === "element" && node.name.toLowerCase() === "html")
     );
 
-    if (!isVueHtml) {
-      const shouldParseAsHTML = (/** @type {AstNode} */ node) => {
-        /* c8 ignore next 3 */
-        if (!node) {
-          return false;
-        }
-        if (node.type !== "element" || node.name !== "template") {
-          return false;
-        }
-        const language = node.attrs.find((attr) => attr.name === "lang")?.value;
-        return !language || inferParser(options, { language }) === "html";
-      };
-      if (rootNodes.some(shouldParseAsHTML)) {
-        /** @type {ParserTreeResult | undefined} */
-        let secondParseResult;
-        const doSecondParse = () =>
-          parseHtml(input, {
-            canSelfClose,
-            allowHtmComponentClosingTags,
-            isTagNameCaseSensitive,
-          });
-        const getSecondParse = () => (secondParseResult ??= doSecondParse());
-        const getSameLocationNode = (node) =>
-          getSecondParse().rootNodes.find(
-            ({ startSourceSpan }) =>
-              startSourceSpan &&
-              startSourceSpan.start.offset === node.startSourceSpan.start.offset
-          );
-        for (let i = 0; i < rootNodes.length; i++) {
-          const node = rootNodes[i];
-          const { endSourceSpan, startSourceSpan } = node;
-          const isUnclosedNode = endSourceSpan === null;
-          if (isUnclosedNode) {
-            const result = getSecondParse();
-            errors = result.errors;
-            rootNodes[i] = getSameLocationNode(node) || node;
-          } else if (shouldParseAsHTML(node)) {
-            const result = getSecondParse();
-            const startOffset = startSourceSpan.end.offset;
-            const endOffset = endSourceSpan.start.offset;
-            for (const error of result.errors) {
-              const { offset } = error.span.start;
-              /* c8 ignore next 4 */
-              if (startOffset < offset && offset < endOffset) {
-                errors = [error];
-                break;
-              }
+    // If not Vue SFC, treat as html
+    if (isHtml) {
+      return ngHtmlParser(input, HTML_PARSE_OPTIONS, options);
+    }
+
+    const shouldParseAsHTML = (/** @type {AstNode} */ node) => {
+      /* c8 ignore next 3 */
+      if (!node) {
+        return false;
+      }
+      if (node.type !== "element" || node.name !== "template") {
+        return false;
+      }
+      const language = node.attrs.find((attr) => attr.name === "lang")?.value;
+      return !language || inferParser(options, { language }) === "html";
+    };
+    if (rootNodes.some(shouldParseAsHTML)) {
+      /** @type {ParserTreeResult | undefined} */
+      let secondParseResult;
+      const doSecondParse = () =>
+        parseHtml(input, {
+          canSelfClose,
+          allowHtmComponentClosingTags,
+          isTagNameCaseSensitive,
+        });
+      const getSecondParse = () => (secondParseResult ??= doSecondParse());
+      const getSameLocationNode = (node) =>
+        getSecondParse().rootNodes.find(
+          ({ startSourceSpan }) =>
+            startSourceSpan &&
+            startSourceSpan.start.offset === node.startSourceSpan.start.offset
+        );
+      for (let i = 0; i < rootNodes.length; i++) {
+        const node = rootNodes[i];
+        const { endSourceSpan, startSourceSpan } = node;
+        const isUnclosedNode = endSourceSpan === null;
+        if (isUnclosedNode) {
+          const result = getSecondParse();
+          errors = result.errors;
+          rootNodes[i] = getSameLocationNode(node) || node;
+        } else if (shouldParseAsHTML(node)) {
+          const result = getSecondParse();
+          const startOffset = startSourceSpan.end.offset;
+          const endOffset = endSourceSpan.start.offset;
+          for (const error of result.errors) {
+            const { offset } = error.span.start;
+            /* c8 ignore next 4 */
+            if (startOffset < offset && offset < endOffset) {
+              errors = [error];
+              break;
             }
-            rootNodes[i] = getSameLocationNode(node) || node;
           }
+          rootNodes[i] = getSameLocationNode(node) || node;
         }
       }
-    } else {
-      // If not Vue SFC, treat as html
-      return ngHtmlParser(input, HTML_PARSE_OPTIONS, options);
     }
   }
 
