@@ -32,10 +32,26 @@ import {
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   getTextValueParts,
+  isVueScriptTag,
 } from "./utils/index.js";
 import getNodeContent from "./get-node-content.js";
 
-async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
+const cache = new WeakMap();
+function isVueSfcWithTypescriptScript(path, options) {
+  const { root } = path;
+  if (!cache.has(root)) {
+    const scriptLanguage = root.children.find((child) =>
+      isVueScriptTag(child, options)
+    )?.attrMap.lang;
+
+    cache.set(root, scriptLanguage === "ts" || scriptLanguage === "typescript");
+  }
+
+  return cache.get(root);
+}
+
+async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
+  const { node } = path;
   const isKeyMatched = (patterns) =>
     new RegExp(patterns.join("|")).test(node.fullName);
   const getValue = () => unescapeQuoteEntities(node.value);
@@ -133,7 +149,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
       const value = getValue();
       const parser = isVueEventBindingExpression(value)
         ? "__js_expression"
-        : options.__should_parse_vue_template_with_ts
+        : isVueSfcWithTypescriptScript(path, options)
         ? "__vue_ts_event_binding"
         : "__vue_event_binding";
       return printMaybeHug(await attributeTextToDoc(value, { parser }));
@@ -330,10 +346,12 @@ function embed(path, options) {
             textToDocOptions.parser = "__ng_interpolation";
             textToDocOptions.trailingComma = "none";
           } else if (options.parser === "vue") {
-            textToDocOptions.parser =
-              options.__should_parse_vue_template_with_ts
-                ? "__vue_ts_expression"
-                : "__vue_expression";
+            textToDocOptions.parser = isVueSfcWithTypescriptScript(
+              path,
+              options
+            )
+              ? "__vue_ts_expression"
+              : "__vue_expression";
           } else {
             textToDocOptions.parser = "__js_expression";
           }
@@ -383,7 +401,7 @@ function embed(path, options) {
 
       return async (textToDoc) => {
         const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
-          node,
+          path,
           (code, opts) =>
             // strictly prefer single quote to avoid unnecessary html entity escape
             textToDoc(code, {
