@@ -23,10 +23,12 @@ import {
   printNamedTupleMember,
   printTypeAnnotation,
   printTypeAnnotationProperty,
+  printArrayType,
+  printTypeQuery,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
-import { printExportDeclaration, printExportAllDeclaration } from "./module.js";
+import { printExportDeclaration } from "./module.js";
 import { printArray } from "./array.js";
 import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
@@ -82,9 +84,8 @@ function printFlow(path, options, print) {
         semi,
       ];
     case "DeclareExportDeclaration":
-      return printExportDeclaration(path, options, print);
     case "DeclareExportAllDeclaration":
-      return printExportAllDeclaration(path, options, print);
+      return printExportDeclaration(path, options, print);
     case "DeclareOpaqueType":
     case "OpaqueType":
       return printOpaqueType(path, options, print);
@@ -120,11 +121,11 @@ function printFlow(path, options, print) {
     case "TypeParameter":
       return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
-      return ["typeof ", print("argument")];
+      return printTypeQuery(path, print);
     case "ExistsTypeAnnotation":
       return "*";
     case "ArrayTypeAnnotation":
-      return [print("elementType"), "[]"];
+      return printArrayType(print);
 
     case "DeclareEnum":
     case "EnumDeclaration":
