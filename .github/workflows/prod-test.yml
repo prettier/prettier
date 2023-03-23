@@ -55,8 +55,7 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          # https://github.com/nodejs/node/issues/47096
-          - "19.7.0"
+          - "19"
           - "18"
           - "16"
           - "14"
@@ -66,9 +65,9 @@ jobs:
             FULL_TEST: true
         exclude:
           - os: "macos-latest"
-            node: "19.7.0"
+            node: "19"
           - os: "windows-latest"
-            node: "19.7.0"
+            node: "19"
           - os: "macos-latest"
             node: "16"
           - os: "windows-latest"
