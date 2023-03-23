@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`display-inline.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>foo<!-- display: inline --><span>bar</span></div>
+
+=====================================output=====================================
+<div>foo<!-- display: inline --><span>bar</span></div>
+
+================================================================================
+`;
+
+exports[`display-inline.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>foo<!-- display: inline --><span>bar</span></div>
+
+=====================================output=====================================
+<div>foo<!-- display: inline --><span>bar</span></div>
+
+================================================================================
+`;
+
+exports[`display-inline.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>foo<!-- display: inline --><span>bar</span></div>
+
+=====================================output=====================================
+<div>foo<!-- display: inline --><span>bar</span></div>
+
+================================================================================
+`;
