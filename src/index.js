@@ -20,8 +20,7 @@ import normalizeOptions from "./main/normalize-options.js";
 import arrayify from "./utils/arrayify.js";
 import partition from "./utils/partition.js";
 import isNonEmptyArray from "./utils/is-non-empty-array.js";
-
-let builtinPlugins;
+import loadBuiltinPlugins from "./common/load-builtin-plugins.js";
 
 /**
  * @param {*} fn
@@ -34,28 +33,14 @@ function withPlugins(
 ) {
   return async (...args) => {
     const opts = args[optsArgIdx] || {};
-    builtinPlugins ??= await Promise.all([
-      import("./plugins/estree.js"),
-      import("./plugins/babel.js"),
-      import("./plugins/flow.js"),
-      import("./plugins/typescript.js"),
-      import("./plugins/acorn.js"),
-      import("./plugins/meriyah.js"),
-      import("./plugins/angular.js"),
-      import("./plugins/postcss.js"),
-      import("./plugins/graphql.js"),
-      import("./plugins/markdown.js"),
-      import("./plugins/glimmer.js"),
-      import("./plugins/html.js"),
-      import("./plugins/yaml.js"),
+    const plugins = await Promise.all([
+      loadBuiltinPlugins(),
+      loadPlugins(opts.plugins, opts.pluginSearchDirs),
     ]);
 
     args[optsArgIdx] = {
       ...opts,
-      plugins: [
-        ...builtinPlugins,
-        ...(await loadPlugins(opts.plugins, opts.pluginSearchDirs)),
-      ],
+      plugins,
     };
     return fn(...args);
   };

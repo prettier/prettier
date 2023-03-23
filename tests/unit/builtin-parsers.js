@@ -1,4 +1,4 @@
-import builtinPlugins from "../../src/plugins/all.js";
+import loadBuiltinPlugins from "../../src/common/load-builtin-plugins.js";
 
 test("builtin parsers", async () => {
   const parserNamesFromConfigFiles = [];
@@ -27,7 +27,7 @@ test("builtin parsers", async () => {
   }
 
   parserNamesFromConfigFiles.sort();
-  const parserNames = builtinPlugins
+  const parserNames = (await loadBuiltinPlugins())
     .flatMap((plugin) => (plugin.parsers ? Object.keys(plugin.parsers) : []))
     .sort();
 
