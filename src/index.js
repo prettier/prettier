@@ -12,7 +12,7 @@ import {
   resolveConfigFile,
   clearCache as clearConfigCache,
 } from "./config/resolve-config.js";
-import * as languages from "./languages.js";
+import builtinPlugins from "./plugins/all.js";
 import * as errors from "./common/errors.js";
 import * as coreOptions from "./main/core-options.evaluate.js";
 import { createIsIgnoredFunction } from "./utils/ignore.js";
@@ -21,8 +21,6 @@ import normalizeOptions from "./main/normalize-options.js";
 import arrayify from "./utils/arrayify.js";
 import partition from "./utils/partition.js";
 import isNonEmptyArray from "./utils/is-non-empty-array.js";
-
-const builtinPlugins = Object.values(languages);
 
 /**
  * @param {*} fn
