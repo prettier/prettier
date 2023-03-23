@@ -1,1 +1,1 @@
-export * from "../src/language-js/parse/flow.js";
+export * from "../language-js/parse/flow.js";

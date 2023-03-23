@@ -1,1 +1,1 @@
-export * from "../src/language-js/parse/angular.js";
+export * from "../language-js/parse/angular.js";

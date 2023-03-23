@@ -1,1 +1,1 @@
-export * from "../src/language-js/parse/babel.js";
+export * from "../language-js/parse/babel.js";

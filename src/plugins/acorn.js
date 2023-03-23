@@ -1,5 +1,5 @@
-import acorn from "../src/language-js/parse/acorn.js";
-import espree from "../src/language-js/parse/espree.js";
+import acorn from "../language-js/parse/acorn.js";
+import espree from "../language-js/parse/espree.js";
 
 export const parsers = {
   acorn,

@@ -1,1 +1,1 @@
-export * from "../src/language-js/parse/meriyah.js";
+export * from "../language-js/parse/meriyah.js";
