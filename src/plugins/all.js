@@ -1,15 +1,15 @@
-import * as prettierPluginEstree from "./estree.js";
-import * as prettierPluginBabel from "./babel.js";
-import * as prettierPluginFlow from "./flow.js";
-import * as prettierPluginTypeScript from "./typescript.js";
-import * as prettierPluginAcorn from "./acorn.js";
-import * as prettierPluginMeriyah from "./meriyah.js";
-import * as prettierPluginAngular from "./angular.js";
-import * as prettierPluginGraphql from "./graphql.js";
-import * as prettierPluginMarkdown from "./markdown.js";
-import * as prettierPluginGlimmer from "./glimmer.js";
-import * as prettierPluginHtml from "./html.js";
-import * as prettierPluginYaml from "./yaml.js";
+import prettierPluginEstree from "./estree.js";
+import prettierPluginBabel from "./babel.js";
+import prettierPluginFlow from "./flow.js";
+import prettierPluginTypeScript from "./typescript.js";
+import prettierPluginAcorn from "./acorn.js";
+import prettierPluginMeriyah from "./meriyah.js";
+import prettierPluginAngular from "./angular.js";
+import prettierPluginGraphql from "./graphql.js";
+import prettierPluginMarkdown from "./markdown.js";
+import prettierPluginGlimmer from "./glimmer.js";
+import prettierPluginHtml from "./html.js";
+import prettierPluginYaml from "./yaml.js";
 
 export default [
   prettierPluginEstree,
