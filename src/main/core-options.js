@@ -104,6 +104,16 @@ const options = {
     cliCategory: CATEGORY_OTHER,
     cliDescription: "Path to the file to pretend that stdin comes from.",
   },
+  stdin: {
+    since: "2.8.0",
+    category: CATEGORY_SPECIAL,
+    type: "boolean",
+    default: false,
+    description:
+      "Starts accepting std input from terminal. Requires either stdin-filepath or parser options to be a passed as well.",
+    cliName: "stdin",
+    cliCategory: CATEGORY_OTHER,
+  },
   insertPragma: {
     since: "1.8.0",
     category: CATEGORY_SPECIAL,

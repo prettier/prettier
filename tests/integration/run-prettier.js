@@ -83,6 +83,10 @@ async function run(dir, args, options) {
 
   jest.resetModules();
 
+  jest.mock("../../src/cli/input-from-terminal.js", () => ({
+    getInputFromTerminal: jest.fn(() => options.input || ""),
+  }));
+
   // We cannot use `jest.setMock("get-stream", impl)` here, because in the
   // production build everything is bundled into one file so there is no
   // "get-stream" module to mock.
@@ -93,6 +97,7 @@ async function run(dir, args, options) {
   jest
     .spyOn(require(thirdParty), "isCI")
     .mockImplementation(() => Boolean(options.ci));
+
   jest
     .spyOn(require(thirdParty), "cosmiconfig")
     .mockImplementation((moduleName, options) =>

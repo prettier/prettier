@@ -3,6 +3,7 @@
 const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
+const { getStdin } = require("../common/third-party.js");
 const createLogger = require("./logger.js");
 const Context = require("./context.js");
 const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
@@ -14,6 +15,7 @@ const {
   utils: { isNonEmptyArray },
 } = require("./prettier-internal.js");
 const { printToScreen } = require("./utils.js");
+const { getInputFromTerminal } = require("./input-from-terminal.js");
 
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
@@ -55,6 +57,12 @@ async function main(context) {
     }
   }
 
+  if (context.argv.stdin && !context.argv.filepath && !context.argv.parser) {
+    throw new Error(
+      "'--stdin-filepath' or '--parser' is required when using '--stdin'"
+    );
+  }
+
   if (context.argv.check && context.argv.listDifferent) {
     throw new Error("Cannot use --check and --list-different together.");
   }
@@ -94,9 +102,16 @@ async function main(context) {
     return;
   }
 
+  if (context.argv.stdin) {
+    printToScreen("Start writing your code snippet below");
+    printToScreen("After finishing press ctrl+D to exit the read mode");
+    await formatStdin(context, await getInputFromTerminal());
+    return;
+  }
+
   const hasFilePatterns = context.filePatterns.length > 0;
   const useStdin =
-    !hasFilePatterns && (!process.stdin.isTTY || context.argv.filePath);
+    !hasFilePatterns && (!process.stdin.isTTY || context.argv.filepath);
 
   if (context.argv.findConfigPath) {
     await logResolvedConfigPathOrDie(context);
@@ -107,7 +122,7 @@ async function main(context) {
       context.logger.error("`--cache` cannot be used with stdin.");
       process.exit(2);
     }
-    await formatStdin(context);
+    await formatStdin(context, await getStdin());
   } else if (hasFilePatterns) {
     await formatFiles(context);
   } else {
