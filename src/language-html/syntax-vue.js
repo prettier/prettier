@@ -1,24 +1,34 @@
 import { group } from "../document/builders.js";
+/**
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
 
 /**
  *     v-for="... in ..."
  *     v-for="... of ..."
  *     v-for="(..., ...) in ..."
  *     v-for="(..., ...) of ..."
+ *
+ * @param {*} value
+ * @param {(code: string, opts: *) => Doc} attributeTextToDoc
+ * @param {{ts: boolean}} opts
+ * @returns {Promise<Doc>}
  */
-async function printVueFor(value, attributeTextToDoc) {
+async function printVueFor(value, attributeTextToDoc, { ts }) {
   const { left, operator, right } = parseVueFor(value);
   return [
     group(
       await attributeTextToDoc(`function _(${left}) {}`, {
-        parser: "babel",
+        parser: ts ? "babel-ts" : "babel",
         __isVueForBindingLeft: true,
       })
     ),
     " ",
     operator,
     " ",
-    await attributeTextToDoc(right, { parser: "__js_expression" }),
+    await attributeTextToDoc(right, {
+      parser: ts ? "__ts_expression" : "__js_expression",
+    }),
   ];
 }
 
@@ -68,9 +78,15 @@ function parseVueFor(value) {
   };
 }
 
-function printVueBindings(value, attributeTextToDoc) {
+/**
+ * @param {*} value
+ * @param {(code: string, opts: *) => Doc} attributeTextToDoc
+ * @param {{ts: boolean}} opts
+ * @returns {Doc}
+ */
+function printVueBindings(value, attributeTextToDoc, { ts }) {
   return attributeTextToDoc(`function _(${value}) {}`, {
-    parser: "babel",
+    parser: ts ? "babel-ts" : "babel",
     __isVueBindings: true,
   });
 }

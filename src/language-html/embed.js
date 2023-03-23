@@ -106,11 +106,15 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
 
   if (options.parser === "vue") {
     if (node.fullName === "v-for") {
-      return printVueFor(getValue(), attributeTextToDoc);
+      return printVueFor(getValue(), attributeTextToDoc, {
+        ts: options.__should_parse_vue_template_with_ts,
+      });
     }
 
     if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueBindings(getValue(), attributeTextToDoc);
+      return printVueBindings(getValue(), attributeTextToDoc, {
+        ts: options.__should_parse_vue_template_with_ts,
+      });
     }
 
     /**
