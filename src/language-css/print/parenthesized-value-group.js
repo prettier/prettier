@@ -26,10 +26,10 @@ import { shouldPrintComma } from "./misc.js";
 function printParenthesizedValueGroup(path, options, print) {
   const { node } = path;
   const parentNode = path.parent;
-  const printedGroups = path.map(() => {
-    const child = path.node;
-    return typeof child === "string" ? child : print();
-  }, "groups");
+  const printedGroups = path.map(
+    ({ node }) => (typeof node === "string" ? node : print()),
+    "groups"
+  );
 
   if (
     parentNode &&
@@ -49,7 +49,9 @@ function printParenthesizedValueGroup(path, options, print) {
   }
 
   if (!node.open) {
-    return group(indent(fill(join([",", line], printedGroups))));
+    const forceHardLine = shouldBreakList(path);
+    const parts = join([",", forceHardLine ? hardline : line], printedGroups);
+    return indent(forceHardLine ? [hardline, parts] : group(fill(parts)));
   }
 
   const isSCSSMapItem = isSCSSMapItemNode(path, options);
@@ -138,4 +140,16 @@ function printParenthesizedValueGroup(path, options, print) {
   return shouldDedent ? dedent(printed) : printed;
 }
 
-export default printParenthesizedValueGroup;
+function shouldBreakList(path) {
+  const { node } = path;
+  const parentParentParentNode = path.getParentNode(2);
+  return (
+    !node.open &&
+    (parentParentParentNode.type === "css-decl" ||
+      (parentParentParentNode.type === "css-atrule" &&
+        parentParentParentNode.variable)) &&
+    node.groups.some((node) => node.type === "value-comma_group")
+  );
+}
+
+export { printParenthesizedValueGroup, shouldBreakList };

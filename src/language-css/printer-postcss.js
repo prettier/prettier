@@ -44,7 +44,10 @@ import {
   printCssNumber,
 } from "./print/misc.js";
 import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
-import printParenthesizedValueGroup from "./print/parenthesized-value-group.js";
+import {
+  printParenthesizedValueGroup,
+  shouldBreakList,
+} from "./print/parenthesized-value-group.js";
 import printSequence from "./print/sequence.js";
 
 function genericPrint(path, options, print) {
@@ -109,7 +112,16 @@ function genericPrint(path, options, print) {
 
       value = hasComposesNode(node) ? removeLines(value) : value;
 
-      if (!isColon && lastLineHasInlineComment(trimmedBetween)) {
+      if (
+        !isColon &&
+        lastLineHasInlineComment(trimmedBetween) &&
+        !(
+          node.value.type === "value-root" &&
+          node.value.group.type === "value-value" &&
+          node.value.group.group.type === "value-paren_group" &&
+          path.call(() => shouldBreakList(path), "value", "group", "group")
+        )
+      ) {
         value = indent([hardline, dedent(value)]);
       }
 
