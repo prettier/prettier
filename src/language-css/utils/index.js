@@ -118,6 +118,21 @@ function insideURLFunctionInImportAtRuleNode(path) {
   );
 }
 
+function isSCSSModuleConfigurationProvided(path) {
+  const node = path.getValue();
+  const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
+  const { length } = node.groups;
+
+  return (
+    atRuleAncestorNode &&
+    (atRuleAncestorNode.name === "use" ||
+      atRuleAncestorNode.name === "forward") &&
+    node.groups[length - 1].type === "value-paren_group" &&
+    node.groups[length - 2].type === "value-word" &&
+    node.groups[length - 2].value === "with"
+  );
+}
+
 function isURLFunctionNode(node) {
   return node.type === "value-func" && node.value.toLowerCase() === "url";
 }
@@ -441,4 +456,5 @@ module.exports = {
   isAtWordPlaceholderNode,
   isConfigurationNode,
   isParenGroupNode,
+  isSCSSModuleConfigurationProvided,
 };

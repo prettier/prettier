@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`print-width.scss - {"printWidth":40} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+@use "library" with ($black: #222, $border-radius: 0.1rem, $font-family: "Helvetica, sans-serif", $list: (1, 2, 3));
+
+@forward "library" with ($black: #222, $border-radius: 0.1rem, $font-family: "Helvetica, sans-serif", $list: (1, 2, 3));
+
+=====================================output=====================================
+@use "library" with (
+  $black: #222,
+  $border-radius: 0.1rem,
+  $font-family: "Helvetica, sans-serif",
+  $list: (
+    1,
+    2,
+    3,
+  )
+);
+
+@forward "library" with (
+  $black: #222,
+  $border-radius: 0.1rem,
+  $font-family: "Helvetica, sans-serif",
+  $list: (
+    1,
+    2,
+    3,
+  )
+);
+
+================================================================================
+`;
+
+exports[`print-width.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@use "library" with ($black: #222, $border-radius: 0.1rem, $font-family: "Helvetica, sans-serif", $list: (1, 2, 3));
+
+@forward "library" with ($black: #222, $border-radius: 0.1rem, $font-family: "Helvetica, sans-serif", $list: (1, 2, 3));
+
+=====================================output=====================================
+@use "library" with (
+  $black: #222,
+  $border-radius: 0.1rem,
+  $font-family: "Helvetica, sans-serif",
+  $list: (
+    1,
+    2,
+    3,
+  )
+);
+
+@forward "library" with (
+  $black: #222,
+  $border-radius: 0.1rem,
+  $font-family: "Helvetica, sans-serif",
+  $list: (
+    1,
+    2,
+    3,
+  )
+);
+
+================================================================================
+`;
