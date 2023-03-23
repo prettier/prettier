@@ -374,8 +374,11 @@ const HTML_PARSE_OPTIONS = {
   allowHtmComponentClosingTags: true,
 };
 
+// HTML
 export const html = createParser(HTML_PARSE_OPTIONS);
+// Angular
 export const angular = createParser({ name: "angular" });
+// Vue
 export const vue = createParser({
   name: "vue",
   isTagNameCaseSensitive: true,
@@ -394,4 +397,5 @@ export const vue = createParser({
     );
   },
 });
+// Lightning Web Components
 export const lwc = createParser({ name: "lwc", canSelfClose: false });
