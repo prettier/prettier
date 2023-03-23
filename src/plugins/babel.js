@@ -23,3 +23,4 @@ export const parsers = createParsers([
     parserNames: ["json", "json5", "json-stringify"],
   },
 ]);
+export default { parsers };

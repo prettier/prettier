@@ -6,3 +6,4 @@ export const parsers = createParsers([
     parserNames: ["typescript"],
   },
 ]);
+export default { parsers };

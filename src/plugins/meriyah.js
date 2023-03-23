@@ -6,3 +6,4 @@ export const parsers = createParsers([
     parserNames: ["meriyah"],
   },
 ]);
+export default { parsers };

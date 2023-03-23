@@ -11,3 +11,4 @@ export const parsers = createParsers([
     ],
   },
 ]);
+export default { parsers };

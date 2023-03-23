@@ -6,3 +6,4 @@ export const parsers = createParsers([
     parserNames: ["flow"],
   },
 ]);
+export default { parsers };
