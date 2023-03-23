@@ -82,4 +82,4 @@ function parse(text, options = {}) {
   return postprocess(ast, { text });
 }
 
-export default createParser(parse);
+export const acorn = createParser(parse);
