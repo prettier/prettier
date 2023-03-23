@@ -141,14 +141,17 @@ function printParenthesizedValueGroup(path, options, print) {
 }
 
 function shouldBreakList(path) {
-  const { node } = path;
-  const parentParentParentNode = path.getParentNode(2);
-  return (
-    !node.open &&
-    (parentParentParentNode.type === "css-decl" ||
-      (parentParentParentNode.type === "css-atrule" &&
-        parentParentParentNode.variable)) &&
-    node.groups.some((node) => node.type === "value-comma_group")
+  return path.match(
+    (node) =>
+      node.type === "value-paren_group" &&
+      !node.open &&
+      node.groups.some((node) => node.type === "value-comma_group"),
+    (node, key) => key === "group" && node.type === "value-value",
+    (node, key) => key === "group" && node.type === "value-root",
+    (node, key) =>
+      key === "value" &&
+      (node.type === "css-decl" ||
+        (node.type === "css-atrule" && node.variable))
   );
 }
 

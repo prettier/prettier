@@ -116,9 +116,7 @@ function genericPrint(path, options, print) {
         !isColon &&
         lastLineHasInlineComment(trimmedBetween) &&
         !(
-          node.value.type === "value-root" &&
-          node.value.group.type === "value-value" &&
-          node.value.group.group.type === "value-paren_group" &&
+          node.value?.group?.group &&
           path.call(() => shouldBreakList(path), "value", "group", "group")
         )
       ) {
