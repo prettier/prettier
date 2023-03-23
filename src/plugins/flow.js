@@ -1,1 +1,3 @@
-export * from "../language-js/parse/flow.js";
+import flow from "../language-js/parse/flow.js";
+
+export const parsers = { flow };
