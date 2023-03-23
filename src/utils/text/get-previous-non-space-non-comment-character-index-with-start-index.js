@@ -7,10 +7,10 @@ const getClosestNonSpaceNonCommentCharacterIndexWithStartIndex = require("./get-
  * @param {number} idx
  * @returns {number | false}
  */
-function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
+function getPreviousNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
   return getClosestNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx, {
-    backwards: false,
+    backwards: true,
   });
 }
 
-module.exports = getNextNonSpaceNonCommentCharacterIndexWithStartIndex;
+module.exports = getPreviousNonSpaceNonCommentCharacterIndexWithStartIndex;

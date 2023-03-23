@@ -38,6 +38,32 @@ else stuff;
 ================================================================================
 `;
 
+exports[`comment_before_empty_statement.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (cond) /** comment 1 */;
+else /** comment 2 */;
+
+if (cond);
+else /** comment */;
+
+if (cond) /** comment */;
+
+=====================================output=====================================
+if (cond) /** comment 1 */;
+else /** comment 2 */;
+
+if (cond);
+else /** comment */;
+
+if (cond) /** comment */;
+
+================================================================================
+`;
+
 exports[`else.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

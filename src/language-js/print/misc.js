@@ -78,7 +78,7 @@ function printTypeScriptModifiers(path, options, print) {
 }
 
 function adjustClause(node, clause, forceSpace) {
-  if (node.type === "EmptyStatement") {
+  if (node.type === "EmptyStatement" && clause === ";") {
     return ";";
   }
 

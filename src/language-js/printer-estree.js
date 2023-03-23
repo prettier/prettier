@@ -212,8 +212,10 @@ function printPathNoParens(path, options, print, args) {
     case "Program":
       return printBlockBody(path, options, print);
     // Babel extension.
-    case "EmptyStatement":
-      return "";
+    case "EmptyStatement": {
+      const danglingComment = printDanglingComments(path, options, true);
+      return danglingComment ? [danglingComment, ";"] : ";";
+    }
     case "ExpressionStatement": {
       if (
         options.parser === "__vue_event_binding" ||
