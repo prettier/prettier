@@ -352,10 +352,8 @@ const pluginFiles = [
 
   let { input, umdPropertyName, outputBaseName, ...buildOptions } = file;
 
-  outputBaseName ??= (
-    input.match(/\/(?:parser-|parse\/|plugins\/)(?<outputBaseName>.*?)\.js$/) ??
-    input.match(/\/language-(?<outputBaseName>.*?)\/index\.js$/)
-  ).groups.outputBaseName;
+  outputBaseName ??= input.match(/\/plugins\/(?<outputBaseName>.*?)\.js$/)
+    .groups.outputBaseName;
 
   const umdVariableName = `prettierPlugins.${
     umdPropertyName ?? outputBaseName

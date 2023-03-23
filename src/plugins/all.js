@@ -5,6 +5,7 @@ import prettierPluginTypeScript from "./typescript.js";
 import prettierPluginAcorn from "./acorn.js";
 import prettierPluginMeriyah from "./meriyah.js";
 import prettierPluginAngular from "./angular.js";
+import prettierPluginPostcss from "./postcss.js";
 import prettierPluginGraphql from "./graphql.js";
 import prettierPluginMarkdown from "./markdown.js";
 import prettierPluginGlimmer from "./glimmer.js";
@@ -19,6 +20,7 @@ export default [
   prettierPluginAcorn,
   prettierPluginMeriyah,
   prettierPluginAngular,
+  prettierPluginPostcss,
   prettierPluginGraphql,
   prettierPluginMarkdown,
   prettierPluginGlimmer,
