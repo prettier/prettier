@@ -324,6 +324,14 @@ function printIndexedAccessType(path, options, print) {
   ];
 }
 
+/*
+- `TSInferType`(TypeScript)
+- `InferTypeAnnotation`(flow)
+*/
+function printInferType(path, options, print) {
+  return ["infer", " ", print("typeParameter")];
+}
+
 // `TSJSDocNullableType`, `TSJSDocNonNullableType`
 function printJSDocType(path, print, token) {
   const { node } = path;
@@ -504,6 +512,7 @@ export {
   printUnionType,
   printFunctionType,
   printIndexedAccessType,
+  printInferType,
   shouldHugType,
   printJSDocType,
   printRestType,

@@ -152,7 +152,11 @@ function printTypeParameter(path, options, print) {
   parts.push(name);
 
   if (node.bound) {
-    parts.push(printTypeAnnotationProperty(path, print, "bound"));
+    if (node.usesExtendsBound) {
+      parts.push(" extends ", print(["bound", "typeAnnotation"]));
+    } else {
+      parts.push(printTypeAnnotationProperty(path, print, "bound"));
+    }
   }
 
   if (node.constraint) {
