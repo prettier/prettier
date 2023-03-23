@@ -309,7 +309,7 @@ async function formatFiles(context) {
   let numberOfUnformattedFilesFound = 0;
   const { performanceTestFlag } = context;
 
-  if (context.argv.check && !performanceTestFlag) {
+  if (context.argv.check && !context.argv.diff && !performanceTestFlag) {
     context.logger.log("Checking formatting...");
   }
 
@@ -497,12 +497,13 @@ async function formatFiles(context) {
     }
 
     if (isDifferent) {
-      if (context.argv.check) {
+      // Order matters because `--diff --check` should behave the same as `--diff` alone.
+      if (context.argv.diff) {
+        context.logger.log(createPatch(filename, input, output));
+      } else if (context.argv.check) {
         context.logger.warn(filename);
       } else if (context.argv.listDifferent) {
         context.logger.log(filename);
-      } else if (context.argv.diff) {
-        context.logger.log(createPatch(filename, input, output));
       }
       numberOfUnformattedFilesFound += 1;
     }
@@ -511,7 +512,7 @@ async function formatFiles(context) {
   formatResultsCache?.reconcile();
 
   // Print check summary based on expected exit code
-  if (context.argv.check) {
+  if (context.argv.check && !context.argv.diff) {
     if (numberOfUnformattedFilesFound === 0) {
       context.logger.log("All matched files use Prettier code style!");
     } else if (numberOfUnformattedFilesFound === 1) {

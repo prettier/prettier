@@ -1,37 +1,84 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`--diff works in CI just as in a non-TTY mode (stderr) 1`] = `""`;
+exports[`--diff can't be used with --write (stderr) 1`] = `
+"[error] Cannot use --write and --diff together.
+"
+`;
 
-exports[`--diff works in CI just as in a non-TTY mode (stderr) 2`] = `""`;
+exports[`--diff can't be used with --write (stdout) 1`] = `""`;
 
-exports[`--diff works in CI just as in a non-TTY mode (stdout) 1`] = `
+exports[`--diff can't be used with --write (write) 1`] = `[]`;
+
+exports[`--diff works with --check (stderr) 1`] = `""`;
+
+exports[`--diff works with --check (stderr) 2`] = `""`;
+
+exports[`--diff works with --check (stdout) 1`] = `
 "Index: unformatted.js
 ===================================================================
 --- unformatted.js
 +++ unformatted.js
 @@ -1,1 +1,1 @@
 -var x      =      1;
-\\\\ No newline at end of file
+\\ No newline at end of file
 +var x = 1;
 
 "
 `;
 
-exports[`--diff works in CI just as in a non-TTY mode (stdout) 2`] = `
+exports[`--diff works with --check (stdout) 2`] = `
 "Index: unformatted.js
 ===================================================================
 --- unformatted.js
 +++ unformatted.js
 @@ -1,1 +1,1 @@
 -var x      =      1;
-\\\\ No newline at end of file
+\\ No newline at end of file
 +var x = 1;
 
 "
 `;
 
-exports[`--diff works in CI just as in a non-TTY mode (write) 1`] = `Array []`;
+exports[`--diff works with --check (write) 1`] = `[]`;
 
-exports[`--diff works in CI just as in a non-TTY mode (write) 2`] = `Array []`;
+exports[`--diff works with --check (write) 2`] = `[]`;
 
-exports[`checks stdin with --diff (write) 1`] = `Array []`;
+exports[`checks files with --diff (stderr) 1`] = `""`;
+
+exports[`checks files with --diff (stdout) 1`] = `
+"Index: unformatted.js
+===================================================================
+--- unformatted.js
++++ unformatted.js
+@@ -1,1 +1,1 @@
+-var x      =      1;
+\\ No newline at end of file
++var x = 1;
+
+"
+`;
+
+exports[`checks files with --diff (write) 1`] = `[]`;
+
+exports[`checks stdin with --diff (stderr) 1`] = `""`;
+
+exports[`checks stdin with --diff (stderr) 2`] = `""`;
+
+exports[`checks stdin with --diff (stdout) 1`] = `""`;
+
+exports[`checks stdin with --diff (stdout) 2`] = `
+"Index: (stdin)
+===================================================================
+--- (stdin)
++++ (stdin)
+@@ -1,1 +1,1 @@
+-var x      =      1;
+\\ No newline at end of file
++var x = 1;
+
+"
+`;
+
+exports[`checks stdin with --diff (write) 1`] = `[]`;
+
+exports[`checks stdin with --diff (write) 2`] = `[]`;
