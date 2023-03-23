@@ -1,9 +1,37 @@
 import builtinPlugins from "../../src/plugins/all.js";
 
-test("builtin parsers", () => {
+test("builtin parsers", async () => {
+  const parserNamesFromConfigFiles = [];
+
+  for (const parsersConfigFile of [
+    "../../src/language-css/parsers-config.js",
+    "../../src/language-graphql/parsers-config.js",
+    "../../src/language-handlebars/parsers-config.js",
+    "../../src/language-html/parsers-config.js",
+    "../../src/language-markdown/parsers-config.js",
+    "../../src/language-yaml/parsers-config.js",
+    "../../src/plugins/acorn-parsers-config.js",
+    "../../src/plugins/angular-parsers-config.js",
+    "../../src/plugins/babel-parsers-config.js",
+    "../../src/plugins/flow-parsers-config.js",
+    "../../src/plugins/meriyah-parsers-config.js",
+    "../../src/plugins/typescript-parsers-config.js",
+  ]) {
+    const { default: parserConfigs } = await import(parsersConfigFile);
+
+    for (const { importParsers, parserNames } of parserConfigs) {
+      const parsers = await importParsers();
+      expect(Object.keys(parsers).sort()).toEqual(parserNames.sort());
+      parserNamesFromConfigFiles.push(...parserNames);
+    }
+  }
+
+  parserNamesFromConfigFiles.sort();
   const parserNames = builtinPlugins
     .flatMap((plugin) => (plugin.parsers ? Object.keys(plugin.parsers) : []))
     .sort();
+
+  expect(parserNamesFromConfigFiles).toEqual(parserNames);
 
   expect(parserNames).toMatchInlineSnapshot(`
     [

@@ -1,4 +1,4 @@
-import babelParsers from "../language-js/parse/babel.js";
-import jsonParsers from "../language-json/parser-json.js";
+import createParsers from "../utils/create-parsers.js";
+import parsersConfig from "./babel-parsers-config.js";
 
-export const parsers = { ...babelParsers, ...jsonParsers };
+export const parsers = createParsers(parsersConfig);

@@ -1,4 +1,4 @@
-import * as acornParsers from "../language-js/parse/acorn.js";
-import * as espreeParsers from "../language-js/parse/espree.js";
+import createParsers from "../utils/create-parsers.js";
+import parsersConfig from "./acorn-parsers-config.js";
 
-export const parsers = { ...acornParsers, ...espreeParsers };
+export const parsers = createParsers(parsersConfig);

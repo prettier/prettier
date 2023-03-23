@@ -1,1 +1,4 @@
-export * as parsers from "../language-js/parse/angular.js";
+import createParsers from "../utils/create-parsers.js";
+import parsersConfig from "./angular-parsers-config.js";
+
+export const parsers = createParsers(parsersConfig);
