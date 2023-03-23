@@ -88,7 +88,7 @@ const extensions = {
 const pluginFiles = [
   "src/plugins/estree.js",
   {
-    input: "src/language-js/parse/babel.js",
+    input: "src/plugins/babel.js",
     replaceModule: [
       {
         // We don't use value of JSXText
@@ -102,7 +102,7 @@ const pluginFiles = [
     ],
   },
   {
-    input: "src/language-js/parse/flow.js",
+    input: "src/plugins/flow.js",
     replaceModule: [
       {
         module: require.resolve("flow-parser"),
@@ -114,7 +114,7 @@ const pluginFiles = [
     ],
   },
   {
-    input: "src/language-js/parse/typescript.js",
+    input: "src/plugins/typescript.js",
     replaceModule: [
       {
         module: require.resolve("typescript"),
@@ -208,8 +208,7 @@ const pluginFiles = [
     ],
   },
   {
-    input: "src/language-js/parse/acorn-and-espree.js",
-    umdPropertyName: "acornAndEspree",
+    input: "src/plugins/acorn.js",
     replaceModule: [
       {
         module: require.resolve("espree"),
@@ -233,7 +232,7 @@ const pluginFiles = [
     ],
   },
   {
-    input: "src/language-js/parse/meriyah.js",
+    input: "src/plugins/meriyah.js",
     replaceModule: [
       {
         // We don't use value of JSXText
@@ -244,7 +243,7 @@ const pluginFiles = [
     ],
   },
   {
-    input: "src/language-js/parse/angular.js",
+    input: "src/plugins/angular.js",
     replaceModule: [
       // We only use a small set of `@angular/compiler` from `esm2020/src/expression_parser/`
       // Those files can't be imported, they also not directly runnable, because `.mjs` extension is missing
@@ -268,8 +267,7 @@ const pluginFiles = [
     ],
   },
   {
-    input: "src/language-css/index.js",
-    outputBaseName: "postcss",
+    input: "src/plugins/postcss.js",
     replaceModule: [
       // The following two replacements prevent load `source-map` module
       {
@@ -309,9 +307,9 @@ const pluginFiles = [
       },
     ],
   },
-  "src/language-graphql/index.js",
+  "src/plugins/graphql.js",
   {
-    input: "src/language-markdown/index.js",
+    input: "src/plugins/markdown.js",
     replaceModule: [
       {
         module: getPackageFile("parse-entities/decode-entity.browser.js"),
@@ -320,8 +318,7 @@ const pluginFiles = [
     ],
   },
   {
-    input: "src/language-handlebars/index.js",
-    outputBaseName: "glimmer",
+    input: "src/plugins/glimmer.js",
     replaceModule: [
       // See comment in `src/language-handlebars/parser-glimmer.js` file
       {
@@ -346,8 +343,8 @@ const pluginFiles = [
       },
     ],
   },
-  "src/language-html/index.js",
-  "src/language-yaml/index.js",
+  "src/plugins/html.js",
+  "src/plugins/yaml.js",
 ].map((file) => {
   if (typeof file === "string") {
     file = { input: file };
