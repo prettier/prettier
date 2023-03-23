@@ -86,7 +86,7 @@ async function run(dir, args, options) {
   // We cannot use `jest.setMock("get-stream", impl)` here, because in the
   // production build everything is bundled into one file so there is no
   // "get-stream" module to mock.
-  jest
+  const inputMock = jest
     .spyOn(require(thirdParty), "getStdin")
     // eslint-disable-next-line require-await
     .mockImplementation(async () => options.input || "");
@@ -126,6 +126,11 @@ async function run(dir, args, options) {
     process.stdin.isTTY = originalStdinIsTTY;
     process.stdout.isTTY = originalStdoutIsTTY;
     jest.restoreAllMocks();
+  }
+
+  // Disallow unused `input`
+  if (Object.prototype.hasOwnProperty.call(options, "input")) {
+    expect(inputMock.mock.calls.length).not.toBe(0);
   }
 
   return { status, stdout, stderr, write };
