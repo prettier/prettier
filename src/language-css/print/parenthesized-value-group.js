@@ -150,7 +150,7 @@ function shouldBreakList(path) {
     (node, key) => key === "group" && node.type === "value-root",
     (node, key) =>
       key === "value" &&
-      (node.type === "css-decl" ||
+      ((node.type === "css-decl" && !node.prop.startsWith("--")) ||
         (node.type === "css-atrule" && node.variable))
   );
 }
