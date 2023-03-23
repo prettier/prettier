@@ -9,13 +9,13 @@ First, install Prettier locally:
 <!--DOCUSAURUS_CODE_TABS-->
 <!--npm-->
 
-```bash
+```shell
 npm install --save-dev --save-exact prettier
 ```
 
 <!--yarn-->
 
-```bash
+```shell
 yarn add --dev --exact prettier
 ```
 
