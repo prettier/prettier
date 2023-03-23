@@ -86,6 +86,7 @@ const extensions = {
 };
 
 const pluginFiles = [
+  "src/plugins/estree.js",
   {
     input: "src/language-js/parse/babel.js",
     replaceModule: [
@@ -355,7 +356,7 @@ const pluginFiles = [
   let { input, umdPropertyName, outputBaseName, ...buildOptions } = file;
 
   outputBaseName ??= (
-    input.match(/\/(?:parser-|parse\/)(?<outputBaseName>.*?)\.js$/) ??
+    input.match(/\/(?:parser-|parse\/|plugins\/)(?<outputBaseName>.*?)\.js$/) ??
     input.match(/\/language-(?<outputBaseName>.*?)\/index\.js$/)
   ).groups.outputBaseName;
 
