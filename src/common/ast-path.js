@@ -126,6 +126,19 @@ class AstPath {
   }
 
   /**
+   * Checks whether the nodes at the end of this path match the respective
+   * predicate, in reverse order. Array indexes are ignored.
+   *
+   * For example, if the current stack were
+   *
+   * `[$root, "bar", $barNode, "fooNodes", $array, 2, $fooNode]`
+   *
+   * the following calls would return true:
+   *
+   * - `match(isFooNode)`
+   * - `match(isFooNode, isBarNode)` (arrays are skipped)
+   * - `match(isFooNode, isBarNode, isRoot)`
+   *
    * @param {...(
    *   | ((node: any, name: string | null, number: number | null) => boolean)
    *   | undefined
