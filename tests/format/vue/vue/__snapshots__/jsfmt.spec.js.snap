@@ -3540,6 +3540,123 @@ trailingComma: "none"
 ================================================================================
 `;
 
+exports[`slot-ts.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+    v-slot="x:    unknown   []"
+    v-slot:named="   y  :     never"
+    slot-scope=" { des: {truc: tured  } } : any "
+    #shorthand=" abc   : string  "
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
+
+=====================================output=====================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+      v-slot="x:    unknown   []"
+      v-slot:named="   y  :     never"
+      slot-scope=" { des: {truc: tured  } } : any "
+      #shorthand=" abc   : string  "
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
+
+================================================================================
+`;
+
+exports[`slot-ts.vue - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+    v-slot="x:    unknown   []"
+    v-slot:named="   y  :     never"
+    slot-scope=" { des: {truc: tured  } } : any "
+    #shorthand=" abc   : string  "
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
+
+=====================================output=====================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+      v-slot="x:    unknown   []"
+      v-slot:named="   y  :     never"
+      slot-scope=" { des: {truc: tured  } } : any "
+      #shorthand=" abc   : string  "
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
+
+================================================================================
+`;
+
+exports[`slot-ts.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+    v-slot="x:    unknown   []"
+    v-slot:named="   y  :     never"
+    slot-scope=" { des: {truc: tured  } } : any "
+    #shorthand=" abc   : string  "
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
+
+=====================================output=====================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+      v-slot="x:    unknown   []"
+      v-slot:named="   y  :     never"
+      slot-scope=" { des: {truc: tured  } } : any "
+      #shorthand=" abc   : string  "
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
+
+================================================================================
+`;
+
 exports[`style.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
