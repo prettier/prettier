@@ -71,9 +71,11 @@ async function buildPlaygroundFiles() {
       continue;
     }
 
-    const plugin = require(dist);
-    for (const parser of Object.keys(plugin.parsers)) {
-      parsersLocation[parser] = fileName;
+    const pluginModule = require(dist);
+    const plugin = pluginModule.default ?? pluginModule;
+    const parserNames = Object.keys(plugin.parsers ?? {});
+    for (const parserName of parserNames) {
+      parsersLocation[parserName] = fileName;
     }
   }
 

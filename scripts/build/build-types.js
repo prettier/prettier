@@ -1,8 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
+import { isValidIdentifier } from "@babel/types";
+import { outdent } from "outdent";
 import { PROJECT_ROOT, DIST_DIR, writeFile } from "../utils/index.mjs";
-import { format } from "../../index.js";
 
 async function typesFileBuilder({ file }) {
   /**
@@ -25,29 +26,36 @@ async function typesFileBuilder({ file }) {
   await writeFile(path.join(DIST_DIR, file.output.file), text);
 }
 
+function toPropertyKey(name) {
+  return isValidIdentifier(name) ? name : JSON.stringify(name);
+}
+
 async function buildPluginTypes({ file: { input, output } }) {
-  const plugin = await import(
+  const pluginModule = await import(
     url.pathToFileURL(path.join(PROJECT_ROOT, input))
   );
+  const plugin = pluginModule.default ?? pluginModule;
+  const parserNames = Object.keys(plugin.parsers ?? {});
 
-  await writeFile(
-    path.join(DIST_DIR, output.file),
-    await format(
-      /* indent */ `
+  // We only add `parsers` to types file, printers should not be used alone
+  // For `estree` plugin, we just write an empty file
+  const code =
+    parserNames.length === 0
+      ? ""
+      : outdent`
         import { Parser } from "../index.js";
 
         export declare const parsers: {
-        ${Object.keys(plugin.parsers)
+        ${parserNames
           .map(
             (parserName) =>
-              `${" ".repeat(4)}${JSON.stringify(parserName)}: Parser;`
+              `${" ".repeat(2)}${toPropertyKey(parserName)}: Parser;`
           )
           .join("\n")}
-        };
-      `,
-      { parser: "typescript" }
-    )
-  );
+        };\n
+      `;
+
+  await writeFile(path.join(DIST_DIR, output.file), code);
 }
 
 function buildTypes(options) {
