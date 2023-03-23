@@ -11,15 +11,16 @@ import { group } from "../document/builders.js";
  *
  * @param {*} value
  * @param {(code: string, opts: *) => Doc} attributeTextToDoc
- * @param {{ts: boolean}} opts
+ * @param {*} options
  * @returns {Promise<Doc>}
  */
-async function printVueFor(value, attributeTextToDoc, { ts }) {
+async function printVueFor(value, attributeTextToDoc, options) {
   const { left, operator, right } = parseVueFor(value);
+  const parseWithTs = options.__should_parse_vue_template_with_ts;
   return [
     group(
       await attributeTextToDoc(`function _(${left}) {}`, {
-        parser: ts ? "babel-ts" : "babel",
+        parser: parseWithTs ? "babel-ts" : "babel",
         __isVueForBindingLeft: true,
       })
     ),
@@ -27,7 +28,7 @@ async function printVueFor(value, attributeTextToDoc, { ts }) {
     operator,
     " ",
     await attributeTextToDoc(right, {
-      parser: ts ? "__ts_expression" : "__js_expression",
+      parser: parseWithTs ? "__ts_expression" : "__js_expression",
     }),
   ];
 }
@@ -81,12 +82,12 @@ function parseVueFor(value) {
 /**
  * @param {*} value
  * @param {(code: string, opts: *) => Doc} attributeTextToDoc
- * @param {{ts: boolean}} opts
+ * @param {*} options
  * @returns {Doc}
  */
-function printVueBindings(value, attributeTextToDoc, { ts }) {
+function printVueBindings(value, attributeTextToDoc, options) {
   return attributeTextToDoc(`function _(${value}) {}`, {
-    parser: ts ? "babel-ts" : "babel",
+    parser: options.__should_parse_vue_template_with_ts ? "babel-ts" : "babel",
     __isVueBindings: true,
   });
 }
