@@ -2,10 +2,11 @@
 
 const {
   builders: { indent, join, hardline },
+  utils: { mapDoc },
 } = require("../../document/index.js");
 const {
-  escapeTemplateCharacters,
   printTemplateExpressions,
+  uncookTemplateElementValue,
 } = require("../print/template-literal.js");
 
 function format(path, print, textToDoc) {
@@ -58,7 +59,11 @@ function format(path, print, textToDoc) {
     }
 
     if (doc) {
-      doc = escapeTemplateCharacters(doc, false);
+      doc = mapDoc(doc, (currentDoc) =>
+        typeof currentDoc !== "string"
+          ? currentDoc
+          : uncookTemplateElementValue(currentDoc)
+      );
       if (!isFirst && startsWithBlankLine) {
         parts.push("");
       }

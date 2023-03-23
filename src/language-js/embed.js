@@ -76,12 +76,10 @@ function embed(path, print, textToDoc, options) {
  * markdown`...`
  */
 function isMarkdown(path) {
-  const node = path.getValue();
   const parent = path.getParentNode();
   return (
     parent &&
     parent.type === "TaggedTemplateExpression" &&
-    node.quasis.length === 1 &&
     parent.tag.type === "Identifier" &&
     (parent.tag.name === "md" || parent.tag.name === "markdown")
   );
