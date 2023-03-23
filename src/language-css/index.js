@@ -1,5 +1,5 @@
 import createParsers from "../utils/create-parsers.js";
-import parsersConfig  from "./parsers-config.js";
+import parsersConfig from "./parsers-config.js";
 import printer from "./printer-postcss.js";
 
 export const printers = {
