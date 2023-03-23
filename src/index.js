@@ -12,7 +12,6 @@ import {
   resolveConfigFile,
   clearCache as clearConfigCache,
 } from "./config/resolve-config.js";
-import builtinPlugins from "./plugins/all.js";
 import * as errors from "./common/errors.js";
 import * as coreOptions from "./main/core-options.evaluate.js";
 import { createIsIgnoredFunction } from "./utils/ignore.js";
@@ -21,6 +20,8 @@ import normalizeOptions from "./main/normalize-options.js";
 import arrayify from "./utils/arrayify.js";
 import partition from "./utils/partition.js";
 import isNonEmptyArray from "./utils/is-non-empty-array.js";
+
+let builtinPlugins;
 
 /**
  * @param {*} fn
@@ -33,6 +34,21 @@ function withPlugins(
 ) {
   return async (...args) => {
     const opts = args[optsArgIdx] || {};
+    builtinPlugins ??= await Promise.all([
+      import("./plugins/estree.js"),
+      import("./plugins/babel.js"),
+      import("./plugins/flow.js"),
+      import("./plugins/typescript.js"),
+      import("./plugins/acorn.js"),
+      import("./plugins/meriyah.js"),
+      import("./plugins/angular.js"),
+      import("./plugins/postcss.js"),
+      import("./plugins/graphql.js"),
+      import("./plugins/markdown.js"),
+      import("./plugins/glimmer.js"),
+      import("./plugins/html.js"),
+      import("./plugins/yaml.js"),
+    ]);
 
     args[optsArgIdx] = {
       ...opts,
