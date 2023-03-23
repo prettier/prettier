@@ -399,6 +399,18 @@ query User {
 fragment another on User { name
 }\${ fragment }\`
 
+// Using CallExpression
+
+gql(\`
+      {
+    user(   id :   5  )  {
+      firstName
+
+      lastName
+    }
+  }
+\`);
+
 =====================================output=====================================
 import gql from "graphql-tag";
 
@@ -563,6 +575,18 @@ gql\`
   }
   \${fragment}
 \`;
+
+// Using CallExpression
+
+gql(\`
+  {
+    user(id: 5) {
+      firstName
+
+      lastName
+    }
+  }
+\`);
 
 ================================================================================
 `;

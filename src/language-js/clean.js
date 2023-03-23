@@ -186,7 +186,8 @@ function clean(ast, newObj, parent) {
     );
     if (
       hasLanguageComment ||
-      (parent.type === "CallExpression" && parent.callee.name === "graphql") ||
+      (parent.type === "CallExpression" &&
+        (parent.callee.name === "gql" || parent.callee.name === "graphql")) ||
       // TODO: check parser
       // `flow` and `typescript` don't have `leadingComments`
       !ast.leadingComments
