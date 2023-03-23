@@ -33,10 +33,12 @@ function withPlugins(
 ) {
   return async (...args) => {
     const opts = args[optsArgIdx] || {};
-    const plugins = await Promise.all([
-      loadBuiltinPlugins(),
-      loadPlugins(opts.plugins, opts.pluginSearchDirs),
-    ]);
+    const plugins = (
+      await Promise.all([
+        loadBuiltinPlugins(),
+        loadPlugins(opts.plugins, opts.pluginSearchDirs),
+      ])
+    ).flat();
 
     args[optsArgIdx] = {
       ...opts,
