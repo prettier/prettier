@@ -27,14 +27,16 @@ const findPluginsInNodeModules = mem(async (nodeModulesDir) => {
 });
 
 const searchPluginsInDirectory = mem(async (directory) => {
-  directory = path.resolve(process.cwd(), directory);
-
-  const nodeModulesDir = path.resolve(directory, "node_modules");
+  const absolutePath = path.resolve(process.cwd(), directory);
+  const nodeModulesDir = path.join(absolutePath, "node_modules");
 
   // In some fringe cases (ex: files "mounted" as virtual directories), the
-  // isDirectory(directory) check might be false even though
+  // isDirectory(absolutePath) check might be false even though
   // the node_modules actually exists.
-  if (!(await isDirectory(nodeModulesDir)) && !(await isDirectory(directory))) {
+  if (
+    !(await isDirectory(nodeModulesDir)) &&
+    !(await isDirectory(absolutePath))
+  ) {
     throw new Error(`${directory} does not exist or is not a directory`);
   }
 
