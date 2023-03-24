@@ -13,10 +13,7 @@ import {
 import { replaceEndOfLine, inheritLabel } from "../document/utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
-import embed from "./embed.js";
-import clean from "./clean.js";
-import { insertPragma } from "./pragma.js";
-import * as commentsRelatedPrinterMethods from "./comments/printer-methods.js";
+
 import pathNeedsParens from "./needs-parens.js";
 import {
   hasComment,
@@ -33,7 +30,6 @@ import {
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
 import isIgnored from "./utils/is-ignored.js";
-import getVisitorKeys from "./traverse/get-visitor-keys.js";
 
 import { printHtmlBinding } from "./print/html-binding.js";
 import { printAngular } from "./print/angular.js";
@@ -742,13 +738,13 @@ function printPathNoParens(path, options, print, args) {
   }
 }
 
-const printer = {
-  print: genericPrint,
-  embed,
-  insertPragma,
-  massageAstNode: clean,
-  getVisitorKeys,
-  ...commentsRelatedPrinterMethods,
+export const experimentalFeatures = {
+  // TODO: Make this default behavior
+  avoidAstMutation: true,
 };
-
-export default printer;
+export { genericPrint as print };
+export * from "./comments/printer-methods.js";
+export { default as embed } from "./embed.js";
+export { default as massageAstNode } from "./clean.js";
+export { insertPragma } from "./pragma.js";
+export { default as getVisitorKeys } from "./traverse/get-visitor-keys.js";

@@ -910,12 +910,8 @@ const isRealFunctionLikeNode = createTypeCheckFunction([
   "TSDeclareMethod",
 ]);
 
-// TODO: Make this default behavior
-const avoidAstMutation = true;
-
 export {
   handleOwnLineComment as ownLine,
   handleEndOfLineComment as endOfLine,
   handleRemainingComment as remaining,
-  avoidAstMutation,
 };

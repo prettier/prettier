@@ -57,7 +57,8 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
       rootNode &&
       (rootNode.type === "ObjectExpression" ||
         rootNode.type === "ArrayExpression" ||
-        (options.parser === "__vue_expression" &&
+        ((options.parser === "__vue_expression" ||
+          options.parser === "__vue_ts_expression") &&
           (rootNode.type === "TemplateLiteral" ||
             rootNode.type === "StringLiteral")))
     ) {
@@ -105,11 +106,11 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
 
   if (options.parser === "vue") {
     if (node.fullName === "v-for") {
-      return printVueFor(getValue(), attributeTextToDoc);
+      return printVueFor(getValue(), attributeTextToDoc, options);
     }
 
     if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueBindings(getValue(), attributeTextToDoc);
+      return printVueBindings(getValue(), attributeTextToDoc, options);
     }
 
     /**
@@ -132,7 +133,9 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
       const parser = isVueEventBindingExpression(value)
-        ? "__js_expression"
+        ? options.__should_parse_vue_template_with_ts
+          ? "__ts_expression"
+          : "__js_expression"
         : options.__should_parse_vue_template_with_ts
         ? "__vue_ts_event_binding"
         : "__vue_event_binding";
@@ -141,13 +144,21 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        await attributeTextToDoc(getValue(), { parser: "__vue_expression" })
+        await attributeTextToDoc(getValue(), {
+          parser: options.__should_parse_vue_template_with_ts
+            ? "__vue_ts_expression"
+            : "__vue_expression",
+        })
       );
     }
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        await attributeTextToDoc(getValue(), { parser: "__js_expression" })
+        await attributeTextToDoc(getValue(), {
+          parser: options.__should_parse_vue_template_with_ts
+            ? "__ts_expression"
+            : "__js_expression",
+        })
       );
     }
   }
