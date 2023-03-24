@@ -8,13 +8,13 @@ const { locStart, locEnd } = require("./loc.js");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
 const hasSCSSInterpolation = require("./utils/has-scss-interpolation.js");
 const hasStringOrFunction = require("./utils/has-string-or-function.js");
-const stringifyFunctionParameters = require("./utils/stringify-function-parameters.js");
+const getFunctionArgumentsText = require("./utils/get-function-arguments-text.js");
 const isLessParser = require("./utils/is-less-parser.js");
 const isSCSS = require("./utils/is-scss.js");
 const isSCSSNestedPropertyNode = require("./utils/is-scss-nested-property-node.js");
 const isSCSSVariable = require("./utils/is-scss-variable.js");
 const isModuleRuleName = require("./utils/is-module-rule-name.js");
-const getRootNode = require("./utils/get-root-node.js");
+const getValueRoot = require("./get-root-node.js");
 
 function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
@@ -51,7 +51,7 @@ function parseValueNode(valueNode, options) {
     if (node.type === "func" && node.value === "selector") {
       node.group.groups = [
         parseSelector(
-          getRootNode(valueNode).text.slice(
+          getValueRoot(valueNode).text.slice(
             node.group.open.sourceIndex + 1,
             node.group.close.sourceIndex
           )
@@ -78,7 +78,7 @@ function parseValueNode(valueNode, options) {
         hasSCSSInterpolation(groupList) ||
         (!hasStringOrFunction(groupList) && !isSCSSVariable(groupList[0]))
       ) {
-        node.group.groups = [stringifyFunctionParameters(node)];
+        node.group.groups = [getFunctionArgumentsText(node)];
       }
     }
     if (node.type === "paren" && node.value === "(") {
