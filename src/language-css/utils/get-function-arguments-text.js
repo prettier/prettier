@@ -1,6 +1,6 @@
 "use strict";
 
-const getValueRoot = require("./get-root-node.js");
+const getValueRoot = require("./get-value-root.js");
 
 /**
  * @param {*} node

@@ -14,7 +14,7 @@ const isSCSS = require("./utils/is-scss.js");
 const isSCSSNestedPropertyNode = require("./utils/is-scss-nested-property-node.js");
 const isSCSSVariable = require("./utils/is-scss-variable.js");
 const isModuleRuleName = require("./utils/is-module-rule-name.js");
-const getValueRoot = require("./get-root-node.js");
+const getValueRoot = require("./utils/get-value-root.js");
 
 function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
