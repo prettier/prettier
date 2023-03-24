@@ -1,7 +1,7 @@
 import { pathToFileURL } from "node:url";
 import path from "node:path";
 import mem, { memClear } from "mem";
-import importFromDirectory from "../utils/import-from-directory.js";
+import importFromDirectory from "../../utils/import-from-directory.js";
 
 function normalizePlugin(pluginInstanceOfPluginModule, name) {
   const plugin =

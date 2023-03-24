@@ -3,8 +3,12 @@ import fastGlob from "fast-glob";
 import * as core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
-import loadPlugins from "./common/load-plugins.js";
-import searchPlugins from "./common/search-plugins.js";
+import {
+  loadBuiltinPlugins,
+  loadPlugins,
+  searchPlugins,
+  clearCache as clearPluginCache,
+} from "./main/plugins/index.js";
 import {
   resolveConfig,
   resolveConfigFile,
@@ -18,7 +22,6 @@ import normalizeOptions from "./main/normalize-options.js";
 import arrayify from "./utils/arrayify.js";
 import partition from "./utils/partition.js";
 import isNonEmptyArray from "./utils/is-non-empty-array.js";
-import loadBuiltinPlugins from "./common/load-builtin-plugins.js";
 
 /**
  * @param {*} fn
@@ -66,8 +69,7 @@ async function check(text, options) {
 // eslint-disable-next-line require-await
 async function clearCache() {
   clearConfigCache();
-  loadPlugins.clearCache();
-  searchPlugins.clearCache();
+  clearPluginCache();
 }
 
 /** @type {typeof getFileInfoWithoutPlugins} */

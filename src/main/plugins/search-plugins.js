@@ -2,12 +2,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import mem, { memClear } from "mem";
 import fastGlob from "fast-glob";
-import isDirectory from "../utils/is-directory.js";
-import thirdParty from "./third-party.js";
-import {
-  loadPluginFromDirectory,
-  clearCache as clearPluginLoadCache,
-} from "./load-plugin.js";
+import isDirectory from "../../utils/is-directory.js";
+import thirdParty from "../../common/third-party.js";
+import { loadPluginFromDirectory } from "./load-plugin.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -64,12 +61,11 @@ const searchPlugins = mem(async (pluginSearchDirs = []) => {
   ).flat();
 });
 
-searchPlugins.clearCache = () => {
+function clearCache() {
   memClear(searchPlugins);
   memClear(searchPluginsInDirectory);
   memClear(findPluginsInNodeModules);
   memClear(findNodeModules);
-  clearPluginLoadCache();
-};
+}
 
-export default searchPlugins;
+export { searchPlugins, clearCache };
