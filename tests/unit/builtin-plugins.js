@@ -14,6 +14,7 @@ test("builtin parsers", async () => {
       "__ng_binding",
       "__ng_directive",
       "__ng_interpolation",
+      "__ts_expression",
       "__vue_event_binding",
       "__vue_expression",
       "__vue_ts_event_binding",

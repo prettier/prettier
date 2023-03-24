@@ -9,6 +9,7 @@ export const parsers = createParsers([
       "babel-flow",
       "babel-ts",
       "__js_expression",
+      "__ts_expression",
       "__vue_expression",
       "__vue_ts_expression",
       "__vue_event_binding",
