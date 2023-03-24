@@ -1,4 +1,4 @@
-import loadBuiltinPlugins from "../../src/common/load-builtin-plugins.js";
+import loadBuiltinPlugins from "../../src/main/plugins/load-builtin-plugins.js";
 
 // Snapshot to prevent mistakes
 test("builtin parsers", async () => {
