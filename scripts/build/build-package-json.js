@@ -52,7 +52,7 @@ async function buildPackageJson({ file, files }) {
         )
         .flatMap((file) => {
           let basename = path.basename(file.output.file, ".js");
-          if (basename === "acorn-and-espree") {
+          if (basename === "acorn") {
             basename = "espree";
           }
           return [

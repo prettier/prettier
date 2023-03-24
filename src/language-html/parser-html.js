@@ -374,26 +374,28 @@ const HTML_PARSE_OPTIONS = {
   allowHtmComponentClosingTags: true,
 };
 
-export const parsers = {
-  html: createParser(HTML_PARSE_OPTIONS),
-  angular: createParser({ name: "angular" }),
-  vue: createParser({
-    name: "vue",
-    isTagNameCaseSensitive: true,
-    shouldParseAsRawText(tagName, prefix, hasParent, attrs) {
-      return (
-        tagName.toLowerCase() !== "html" &&
-        !hasParent &&
-        (tagName !== "template" ||
-          attrs.some(
-            ({ name, value }) =>
-              name === "lang" &&
-              value !== "html" &&
-              value !== "" &&
-              value !== undefined
-          ))
-      );
-    },
-  }),
-  lwc: createParser({ name: "lwc", canSelfClose: false }),
-};
+// HTML
+export const html = createParser(HTML_PARSE_OPTIONS);
+// Angular
+export const angular = createParser({ name: "angular" });
+// Vue
+export const vue = createParser({
+  name: "vue",
+  isTagNameCaseSensitive: true,
+  shouldParseAsRawText(tagName, prefix, hasParent, attrs) {
+    return (
+      tagName.toLowerCase() !== "html" &&
+      !hasParent &&
+      (tagName !== "template" ||
+        attrs.some(
+          ({ name, value }) =>
+            name === "lang" &&
+            value !== "html" &&
+            value !== "" &&
+            value !== undefined
+        ))
+    );
+  },
+});
+// Lightning Web Components
+export const lwc = createParser({ name: "lwc", canSelfClose: false });

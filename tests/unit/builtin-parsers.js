@@ -1,0 +1,47 @@
+import loadBuiltinPlugins from "../../src/common/load-builtin-plugins.js";
+
+// Snapshot to avoid mistakes
+test("builtin parsers", async () => {
+  const parserNames = (await loadBuiltinPlugins())
+    .flatMap((plugin) => (plugin.parsers ? Object.keys(plugin.parsers) : []))
+    .sort();
+
+  expect(parserNames).toMatchInlineSnapshot(`
+    [
+      "__babel_estree",
+      "__js_expression",
+      "__ng_action",
+      "__ng_binding",
+      "__ng_directive",
+      "__ng_interpolation",
+      "__vue_event_binding",
+      "__vue_expression",
+      "__vue_ts_event_binding",
+      "__vue_ts_expression",
+      "acorn",
+      "angular",
+      "babel",
+      "babel-flow",
+      "babel-ts",
+      "css",
+      "espree",
+      "flow",
+      "glimmer",
+      "graphql",
+      "html",
+      "json",
+      "json-stringify",
+      "json5",
+      "less",
+      "lwc",
+      "markdown",
+      "mdx",
+      "meriyah",
+      "remark",
+      "scss",
+      "typescript",
+      "vue",
+      "yaml",
+    ]
+  `);
+});

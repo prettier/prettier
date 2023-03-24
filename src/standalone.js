@@ -1,8 +1,6 @@
 import * as core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 
-const builtinPlugins = [];
-
 function withPlugins(
   fn,
   optsArgIdx = 1 // Usually `opts` is the 2nd argument
@@ -15,10 +13,7 @@ function withPlugins(
 
     args[optsArgIdx] = {
       ...opts,
-      plugins: [
-        ...builtinPlugins,
-        ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
-      ],
+      plugins: Array.isArray(plugins) ? plugins : Object.values(plugins),
     };
 
     return fn(...args);
