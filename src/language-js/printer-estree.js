@@ -769,6 +769,10 @@ function printPathNoParens(path, options, print, args) {
   }
 }
 
+export const experimentalFeatures = {
+  // TODO: Make this default behavior
+  avoidAstMutation: true,
+};
 export { genericPrint as print };
 export * from "./comments/printer-methods.js";
 export { default as embed } from "./embed.js";
