@@ -144,12 +144,16 @@ function attachComments(ast, options) {
   const {
     locStart,
     locEnd,
-    printer: { handleComments = {} },
+    printer: {
+      experimentalFeatures: {
+        // TODO: Make this as default behavior
+        avoidAstMutation = false,
+      } = {},
+      handleComments = {},
+    },
     originalText: text,
   } = options;
-  // TODO: Make this as default behavior
   const {
-    avoidAstMutation,
     ownLine: handleOwnLineComment = returnFalse,
     endOfLine: handleEndOfLineComment = returnFalse,
     remaining: handleRemainingComment = returnFalse,
