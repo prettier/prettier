@@ -45,21 +45,24 @@ const searchPluginsInDirectory = mem(async (directory) => {
   );
 });
 
-const searchPlugins = mem(async (pluginSearchDirs = []) => {
-  // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
-  if (pluginSearchDirs.length === 0) {
-    const autoLoadDir = findNodeModules(__dirname);
-    if (autoLoadDir) {
-      pluginSearchDirs = [autoLoadDir];
+const searchPlugins = mem(
+  async (directories = []) => {
+    // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
+    if (directories.length === 0) {
+      const nodeModulesDirectory = findNodeModules(__dirname);
+      if (nodeModulesDirectory) {
+        directories = [nodeModulesDirectory];
+      }
     }
-  }
 
-  return (
-    await Promise.all(
-      pluginSearchDirs.map((directory) => searchPluginsInDirectory(directory))
-    )
-  ).flat();
-});
+    return (
+      await Promise.all(
+        directories.map((directory) => searchPluginsInDirectory(directory))
+      )
+    ).flat();
+  },
+  { cacheKey: JSON.stringify }
+);
 
 function clearCache() {
   memClear(searchPlugins);
