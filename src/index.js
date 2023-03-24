@@ -3,10 +3,8 @@ import fastGlob from "fast-glob";
 import * as core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
-import {
-  loadPlugins,
-  clearCache as clearPluginCache,
-} from "./common/load-plugins.js";
+import loadPlugins from "./common/load-plugins.js";
+import searchPlugins from "./common/search-plugins.js";
 import {
   resolveConfig,
   resolveConfigFile,
@@ -36,7 +34,10 @@ function withPlugins(
     const plugins = (
       await Promise.all([
         loadBuiltinPlugins(),
-        loadPlugins(opts.plugins, opts.pluginSearchDirs),
+        loadPlugins(opts.plugins),
+        opts.pluginSearchDirs === false
+          ? []
+          : searchPlugins(opts.pluginSearchDirs),
       ])
     ).flat();
 
@@ -65,7 +66,8 @@ async function check(text, options) {
 // eslint-disable-next-line require-await
 async function clearCache() {
   clearConfigCache();
-  clearPluginCache();
+  loadPlugins.clearCache();
+  searchPlugins.clearCache();
 }
 
 /** @type {typeof getFileInfoWithoutPlugins} */
