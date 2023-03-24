@@ -1,6 +1,6 @@
 import loadBuiltinPlugins from "../../src/common/load-builtin-plugins.js";
 
-// Snapshot to avoid mistakes
+// Snapshot to prevent mistakes
 test("builtin parsers", async () => {
   const parserNames = (await loadBuiltinPlugins())
     .flatMap((plugin) => (plugin.parsers ? Object.keys(plugin.parsers) : []))
