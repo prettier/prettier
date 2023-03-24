@@ -129,6 +129,7 @@ describe("Invalid toml file", () => {
     stdout: "",
     write: [],
     stderr: expect.stringContaining(
+      /* cSpell:disable */
       outdent`
         Unexpected character, expecting string, number, datetime, boolean, inline array or inline table at row 1, col 4, pos 3:
         1> a=
@@ -138,6 +139,7 @@ describe("Invalid toml file", () => {
         .split("\n")
         .map((line) => `[error] ${line}`)
         .join("\n")
+      /* cSpell:enable */
     ),
   });
 });
