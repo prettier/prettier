@@ -339,7 +339,8 @@ const isBitwiseOrExpression = (node) =>
 
 function isVueFilterSequenceExpression(path, options) {
   return (
-    options.parser === "__vue_expression" &&
+    (options.parser === "__vue_expression" ||
+      options.parser === "__vue_ts_expression") &&
     isBitwiseOrExpression(path.node) &&
     !path.hasAncestor(
       (node) => !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot"

@@ -1,6 +1,6 @@
 import loadBuiltinPlugins from "../../src/common/load-builtin-plugins.js";
 
-// Snapshot to avoid mistakes
+// Snapshot to prevent mistakes
 test("builtin parsers", async () => {
   const parserNames = (await loadBuiltinPlugins())
     .flatMap((plugin) => (plugin.parsers ? Object.keys(plugin.parsers) : []))
@@ -14,6 +14,7 @@ test("builtin parsers", async () => {
       "__ng_binding",
       "__ng_directive",
       "__ng_interpolation",
+      "__ts_expression",
       "__vue_event_binding",
       "__vue_expression",
       "__vue_ts_event_binding",

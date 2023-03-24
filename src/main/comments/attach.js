@@ -180,6 +180,7 @@ function attachComments(ast, options) {
       options.parser === "json" ||
       options.parser === "json5" ||
       options.parser === "__js_expression" ||
+      options.parser === "__ts_expression" ||
       options.parser === "__vue_expression" ||
       options.parser === "__vue_ts_expression"
     ) {
