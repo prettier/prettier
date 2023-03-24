@@ -207,7 +207,7 @@ export namespace printer {
      * Indent lines with tabs instead of spaces
      * @default false
      */
-    useTabs: boolean;
+    useTabs?: boolean;
     parentParser?: string | undefined;
     __embeddedInHtml?: boolean | undefined;
   }

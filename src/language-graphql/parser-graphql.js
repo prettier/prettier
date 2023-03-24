@@ -45,12 +45,10 @@ function parse(text /*, options */) {
   return ast;
 }
 
-export const parsers = {
-  graphql: {
-    parse,
-    astFormat: "graphql",
-    hasPragma,
-    locStart,
-    locEnd,
-  },
+export const graphql = {
+  parse,
+  astFormat: "graphql",
+  hasPragma,
+  locStart,
+  locEnd,
 };
