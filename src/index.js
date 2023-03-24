@@ -25,29 +25,31 @@ import isNonEmptyArray from "./utils/is-non-empty-array.js";
 
 /**
  * @param {*} fn
- * @param {*} optsArgIdx
+ * @param {number} [optionsArgumentIndex]
  * @returns {*}
  */
 function withPlugins(
   fn,
-  optsArgIdx = 1 // Usually `opts` is the 2nd argument
+  optionsArgumentIndex = 1 // Usually `options` is the 2nd argument
 ) {
   return async (...args) => {
-    const opts = args[optsArgIdx] || {};
-    const plugins = (
-      await Promise.all([
-        loadBuiltinPlugins(),
-        loadPlugins(opts.plugins),
-        opts.pluginSearchDirs === false
-          ? []
-          : searchPlugins(opts.pluginSearchDirs),
-      ])
-    ).flat();
+    const options = args[optionsArgumentIndex] ?? {};
+    const { plugins = [], pluginSearchDirs } = options;
 
-    args[optsArgIdx] = {
-      ...opts,
-      plugins,
+    args[optionsArgumentIndex] = {
+      ...options,
+      plugins: (
+        await Promise.all([
+          loadBuiltinPlugins(),
+          // TODO: standalone version allow `plugins` to be `prettierPlugins` which is an object, should allow that too
+          loadPlugins(plugins),
+          options.pluginSearchDirs === false
+            ? []
+            : searchPlugins(pluginSearchDirs),
+        ])
+      ).flat(),
     };
+
     return fn(...args);
   };
 }

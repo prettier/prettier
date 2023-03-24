@@ -3,16 +3,16 @@ import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.j
 
 function withPlugins(
   fn,
-  optsArgIdx = 1 // Usually `opts` is the 2nd argument
+  optionsArgumentIndex = 1 // Usually `options` is the 2nd argument
 ) {
   // Returns Promises to consistent with functions in `index.js`
   // eslint-disable-next-line require-await
   return async (...args) => {
-    const opts = args[optsArgIdx] || {};
-    const plugins = opts.plugins || [];
+    const options = args[optionsArgumentIndex] ?? {};
+    const plugins = options.plugins ?? [];
 
-    args[optsArgIdx] = {
-      ...opts,
+    args[optionsArgumentIndex] = {
+      ...options,
       plugins: Array.isArray(plugins) ? plugins : Object.values(plugins),
     };
 
