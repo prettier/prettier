@@ -5,7 +5,7 @@ const getValueRoot = (node) => {
     node = node.parent;
   }
 
-  return node.type;
+  return node;
 };
 
 module.exports = getValueRoot;
