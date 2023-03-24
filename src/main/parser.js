@@ -18,12 +18,12 @@ function resolveParser({ plugins, parser }) {
     }
   }
 
-  /* c8 ignore next 5 */
+  let message = `Couldn't resolve parser "${parser}".`;
   if (process.env.PRETTIER_TARGET === "universal") {
-    throw new ConfigError(
-      `Couldn't resolve parser "${parser}". Parsers must be explicitly added to the standalone bundle.`
-    );
+    message += " Parsers must be explicitly added to the standalone bundle.";
   }
+
+  throw new ConfigError(message);
 }
 
 async function parse(originalText, options) {
