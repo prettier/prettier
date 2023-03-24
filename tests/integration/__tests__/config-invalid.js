@@ -1,3 +1,4 @@
+import outdent from "outdent";
 import runPrettier from "../run-prettier.js";
 import jestPathSerializer from "../path-serializer.js";
 
@@ -25,7 +26,7 @@ describe("throw error with invalid config format", () => {
     "type-error/.prettierrc",
   ]).test({
     status: "non-zero",
-    stderr: expect.stringMatching(
+    stderr: expect.stringContaining(
       "Config is only allowed to be an object, but received number in"
     ),
   });
@@ -90,5 +91,53 @@ describe("show warning with kebab-case option key", () => {
     "babel",
   ]).test({
     status: 0,
+  });
+});
+
+// #8815, please make sure this error contains code frame
+describe("Invalid json file", () => {
+  runPrettier("cli/config/invalid", [
+    "--config",
+    "broken-json/.prettierrc.json",
+    "--parser",
+    "babel",
+  ]).test({
+    status: 2,
+    stdout: "",
+    write: [],
+    stderr: expect.stringContaining(
+      outdent`
+        > 1 | {a':}
+            |  ^
+          2 |
+      `
+        .split("\n")
+        .map((line) => `[error] ${line}`)
+        .join("\n")
+    ),
+  });
+});
+
+describe("Invalid toml file", () => {
+  runPrettier("cli/config/invalid", [
+    "--config",
+    "broken-toml/.prettierrc.toml",
+    "--parser",
+    "babel",
+  ]).test({
+    status: 2,
+    stdout: "",
+    write: [],
+    stderr: expect.stringContaining(
+      outdent`
+        Unexpected character, expecting string, number, datetime, boolean, inline array or inline table at row 1, col 4, pos 3:
+        1> a=
+              ^
+        2:   b!=
+      `
+        .split("\n")
+        .map((line) => `[error] ${line}`)
+        .join("\n")
+    ),
   });
 });
