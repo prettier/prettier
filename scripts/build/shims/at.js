@@ -10,7 +10,7 @@ const at = (isOptionalObject, object, index) => {
     return;
   }
 
-  if (Array.isArray(object)) {
+  if (Array.isArray(object) || typeof object === "string") {
     return object[index < 0 ? object.length + index : index];
   }
   return object.at(index);
