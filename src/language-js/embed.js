@@ -240,7 +240,7 @@ function isGraphQL({ node, parent }) {
             (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
         (parent.type === "CallExpression" &&
           parent.callee.type === "Identifier" &&
-          parent.callee.name === "graphql")))
+          (parent.callee.name === "gql" || parent.callee.name === "graphql"))))
   );
 }
 
