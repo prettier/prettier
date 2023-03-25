@@ -117,7 +117,7 @@ let x: string | number = 1;
     v-for="a in [1,2,  3,4,5].map(   (x  :    number) => x *   x)"
     :foo="  (x    as number).toFixed(   2) "
   >
-    {{ (x      as      number).toFixed(2) }}
+    {{ (x as number).toFixed(2) }}
   </span>
 </template>
 

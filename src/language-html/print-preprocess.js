@@ -412,14 +412,13 @@ function addIsSpaceSensitive(ast, options) {
 
 function markTsScript(ast, options) {
   if (options.parser === "vue") {
-    const vueScriptTag = ast.children.find((child) =>
+    const vueScriptTags = ast.children.filter((child) =>
       isVueScriptTag(child, options)
     );
-    if (!vueScriptTag) {
-      return;
-    }
-    const { lang } = vueScriptTag.attrMap;
-    if (lang === "ts" || lang === "typescript") {
+    const shouldMarkTs = vueScriptTags.some((vueScriptTag) =>
+      ["ts", "typescript"].includes(vueScriptTag.attrMap.lang)
+    );
+    if (shouldMarkTs) {
       options.__should_parse_vue_template_with_ts = true;
     }
   }
