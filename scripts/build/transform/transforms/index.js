@@ -1,9 +1,17 @@
-import transformObjectHasOwnCall from "./transform-object-has-own.js";
-import transformRelativeIndexing from "./transform-relative-indexing.js";
-import transformStringReplaceAll from "./transform-string-replace-all.js";
+/**
+ * @typedef {import("@babel/types").Node} Node
+ * @typedef {{
+ *   shouldSkip: (text: string): boolean,
+ *   test(node: Node): boolean,
+ *   transform(node: Node): Node,
+ *   inject: string
+ * }} Transform
+ * Please check https://github.com/prettier/prettier/pull/13815 for transformer implementation example.
+ */
 
-export default [
-  transformObjectHasOwnCall,
-  transformRelativeIndexing,
-  transformStringReplaceAll,
-];
+/**
+ * @type {Array<Transform>}
+ */
+const transforms = [];
+
+export default transforms;
