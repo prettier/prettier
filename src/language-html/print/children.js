@@ -19,7 +19,6 @@ const {
   needsToBorrowPrevClosingTagEndMarker,
   printClosingTagEndMarker,
   printClosingTagSuffix,
-  needsToBorrowParentClosingTagStartMarker,
 } = require("./tag.js");
 
 function printChild(childPath, options, print) {
@@ -89,18 +88,7 @@ function printBetweenLine(prevNode, nextNode) {
         needsToBorrowPrevClosingTagEndMarker(nextNode))
     ? ""
     : !nextNode.isLeadingSpaceSensitive ||
-      preferHardlineAsLeadingSpaces(nextNode) ||
-      /**
-       *       Want to write us a letter? Use our<a
-       *         ><b><a>mailing address</a></b></a
-       *                                          ~
-       *       >.
-       */
-      (needsToBorrowPrevClosingTagEndMarker(nextNode) &&
-        prevNode.lastChild &&
-        needsToBorrowParentClosingTagStartMarker(prevNode.lastChild) &&
-        prevNode.lastChild.lastChild &&
-        needsToBorrowParentClosingTagStartMarker(prevNode.lastChild.lastChild))
+      preferHardlineAsLeadingSpaces(nextNode)
     ? hardline
     : nextNode.hasLeadingSpaces
     ? line
