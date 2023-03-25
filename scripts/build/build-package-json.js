@@ -67,7 +67,7 @@ async function buildPackageJson({ file, files }) {
     ),
   };
   // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
-  packageJson.engines.node = ">=14";
+  // packageJson.engines.node = ">=16.19";
   delete packageJson.dependencies;
   delete packageJson.devDependencies;
   delete packageJson.browserslist;
