@@ -10,9 +10,7 @@ const at = (isOptionalObject, object, index) => {
     return;
   }
 
-  return object.at
-    ? object.at(index)
-    : object[index < 0 ? object.length + index : index];
+  return object[index < 0 ? object.length + index : index];
 };
 
 export default at;
