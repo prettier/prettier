@@ -10,9 +10,13 @@ const at = (isOptionalObject, object, index) => {
     return;
   }
 
+  // `.at` is not available in Node.js v14
+  // `.at` is slow on Node.js v16 and v18, see #14396
+  // Only checked arrays and strings, since we haven't use TypedArray, and the transform only works for sources
   if (Array.isArray(object) || typeof object === "string") {
     return object[index < 0 ? object.length + index : index];
   }
+
   return object.at(index);
 };
 
