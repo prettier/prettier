@@ -85,7 +85,15 @@ function printAngular(path, options, print) {
       return [
         "let ",
         print("key"),
-        node.value === null ? "" : [" = ", print("value")],
+        node.value === null
+          ? ""
+          : [
+              " = ",
+              print("value")
+                .slice(1, -1)
+                .replace(/&apos;/g, "'")
+                .replace(/&quot;/g, '"'),
+            ],
       ];
     case "NGMicrosyntaxAs":
       return [print("key"), " as ", print("alias")];
