@@ -1092,6 +1092,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@glimmer/interfaces@npm:0.84.3":
+  version: 0.84.3
+  resolution: "@glimmer/interfaces@npm:0.84.3"
+  dependencies:
+    "@simple-dom/interface": ^1.4.0
+  checksum: f6a6757a2fc6fc0a8aeb9c1ce4acaec7adf03b31130c9c3149265a401d8fc4773dfb1ff6a567fc008c669cb3c5b9a94f505c68298f72f283d03a46bc0dcb1121
+  languageName: node
+  linkType: hard
+
 "@glimmer/reference@npm:0.84.2":
   version: 0.84.2
   resolution: "@glimmer/reference@npm:0.84.2"
@@ -1105,15 +1114,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@glimmer/syntax@npm:0.84.2":
-  version: 0.84.2
-  resolution: "@glimmer/syntax@npm:0.84.2"
+"@glimmer/syntax@npm:0.84.3":
+  version: 0.84.3
+  resolution: "@glimmer/syntax@npm:0.84.3"
   dependencies:
-    "@glimmer/interfaces": 0.84.2
-    "@glimmer/util": 0.84.2
+    "@glimmer/interfaces": 0.84.3
+    "@glimmer/util": 0.84.3
     "@handlebars/parser": ~2.0.0
     simple-html-tokenizer: ^0.5.11
-  checksum: cba53d097a9732af95d75a5891429c264ad789c05cc59c3b64961bcb8682af9c34ddf36a75075a9236e7c99008134d192d5c3365017587e4b722fbf9d9075a05
+  checksum: afadea62f1c54735df723120a94f4da3cb663d762be1c9b130f8d22584ccc93a037198b60759706d3cf0d3658268170eae687dfdc7cb21e5c0a9af7005ebc727
   languageName: node
   linkType: hard
 
@@ -1125,6 +1134,17 @@ __metadata:
     "@glimmer/interfaces": 0.84.2
     "@simple-dom/interface": ^1.4.0
   checksum: 0f87eb76229a6b0f7e3e18a452596ad25432f19fc6b4defae8a970f9468dd3c9c4a41684b276d3fb75ef29583668f2618d085555c751d7f51c34a93f51b07c33
+  languageName: node
+  linkType: hard
+
+"@glimmer/util@npm:0.84.3":
+  version: 0.84.3
+  resolution: "@glimmer/util@npm:0.84.3"
+  dependencies:
+    "@glimmer/env": 0.1.7
+    "@glimmer/interfaces": 0.84.3
+    "@simple-dom/interface": ^1.4.0
+  checksum: d0f8d461a7653a113e630ee45aa57e4efbc33f78ab7b7ce12bdaa699b3513df93a7ffba96b1863883fafe566b650dfb01c4122f79207d6267d1655255b9baa4a
   languageName: node
   linkType: hard
 
@@ -6718,7 +6738,7 @@ __metadata:
     "@babel/types": 7.21.3
     "@esbuild-plugins/node-modules-polyfill": 0.2.2
     "@glimmer/reference": 0.84.2
-    "@glimmer/syntax": 0.84.2
+    "@glimmer/syntax": 0.84.3
     "@iarna/toml": 2.2.5
     "@prettier/is-es5-identifier-name": 0.1.0
     "@prettier/parse-srcset": 2.0.2
