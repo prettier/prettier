@@ -193,6 +193,16 @@ const options = {
       "Find and print the path to a configuration file for the given input file.",
     type: "path",
   },
+  "file-list": {
+    type: "string",
+    category: coreOptions.CATEGORY_CONFIG,
+    description: outdent`TBD`,
+    array: true,
+  },
+  git: {
+    type: "boolean",
+    description: outdent`TBD`,
+  },
   help: {
     alias: "h",
     description: outdent`

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`file list (stderr) 1`] = `""`;
+
+exports[`file list (stdout) 1`] = `
+"listed.js
+"
+`;
+
+exports[`file list (write) 1`] = `Array []`;
+
+exports[`multiple file list (stderr) 1`] = `""`;
+
+exports[`multiple file list (stdout) 1`] = `
+"listed.js
+other-listed.js
+"
+`;
+
+exports[`multiple file list (write) 1`] = `Array []`;
