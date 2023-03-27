@@ -73,13 +73,19 @@ function printVueAttribute(valuePrinter, { parseWithTs }) {
   };
 }
 
-function printAngularAttribute({parser}) {
+function printAngularAttribute({ parser }) {
   return async (textToDoc, print, path, options) => {
     const { node } = path;
     const value = getUnescapedAttributeValue(node);
-    const valueDoc = await printAttributeValue(value, {parser,
-      // angular does not allow trailing comma
-trailingComma: "none"}, textToDoc);
+    const valueDoc = await printAttributeValue(
+      value,
+      {
+        parser,
+        // angular does not allow trailing comma
+        trailingComma: "none",
+      },
+      textToDoc
+    );
     if (!valueDoc) {
       return;
     }
@@ -186,7 +192,6 @@ function printAttribute(path, options) {
   }
 
   if (options.parser === "angular") {
-
     /**
      *     (click)="angularStatement"
      *     on-click="angularStatement"
@@ -195,10 +200,8 @@ function printAttribute(path, options) {
       (attributeName.startsWith("(") && attributeName.endsWith(")")) ||
       attributeName.startsWith("on-")
     ) {
-      return printAngularAttribute({parser: "__ng_action"});
-
+      return printAngularAttribute({ parser: "__ng_action" });
     }
-
 
     /**
      *     [target]="angularExpression"
@@ -212,37 +215,33 @@ function printAttribute(path, options) {
       // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
       /^ng-(?:if|show|hide|class|style)$/.test(attributeName)
     ) {
-      return printAngularAttribute({parser: "__ng_binding"});
+      return printAngularAttribute({ parser: "__ng_binding" });
     }
-
-
 
     /**
      *     i18n="longDescription"
      *     i18n-attr="longDescription"
      */
     if (/^i18n(?:-.+)?$/.test(attributeName)) {
-      return createAttributePrinter(() => printExpand(
-        fill(getTextValueParts(node, value.trim())),
-        !value.includes("@@")
-      ));
+      return createAttributePrinter(() =>
+        printExpand(
+          fill(getTextValueParts(node, value.trim())),
+          !value.includes("@@")
+        )
+      );
     }
 
     /**
      *     *directive="angularDirective"
      */
     if (attributeName.startsWith("*")) {
-      return printAngularAttribute({parser: "__ng_directive"});
+      return printAngularAttribute({ parser: "__ng_directive" });
     }
-
-
 
     if (angularInterpolationRegex.test(value)) {
       return createAttributePrinter(printAngularInterpolation);
-
     }
+  }
 }
-}
-
 
 export default printAttribute;
