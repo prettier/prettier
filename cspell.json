@@ -393,7 +393,9 @@
         "author: \".*?\"",
         "authorURL: \".*?\"",
         "\"author\": \".*?\"",
-        "(long|after){3,}"
+        "(long|after){3,}",
+        "(#[a-z-]+)",
+        "href=\"#[a-z-]+\""
     ],
     "files": [
         "*",
