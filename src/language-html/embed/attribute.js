@@ -23,7 +23,7 @@ import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
 } from "./angular-interpolation.js";
-import { shouldHugAttribute, formatAttributeValue } from "./utils.js";
+import { shouldHugAttribute, formatAttributeValue, printAttributeValue } from "./utils.js";
 
 function printAttribute(path, options) {
   const { node } = path;
@@ -137,7 +137,7 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
         : isVueSfcWithTypescriptScript(path, options)
         ? "__vue_ts_event_binding"
         : "__vue_event_binding";
-      return printMaybeHug(await attributeTextToDoc(value, { parser }));
+      return printAttributeValue(value, {parser}, textToDoc)
     }
 
     /**

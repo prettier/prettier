@@ -33,8 +33,18 @@ function shouldHugAttribute(ast, options) {
   );
 }
 
-function printAttributeValue(code, options, textToDoc) {
-  return formatAttributeValue(code, options, textToDoc)
+async function printAttributeValue(code, options, textToDoc) {
+  let shouldHug = false
+
+  const doc = await formatAttributeValue(code, {
+        __onHtmlBindingRoot(ast, options) {
+          shouldHug = shouldHugAttribute(ast, options);
+        },
+    ...options
+  }, textToDoc)
+
+
+  return printMaybeHug(doc, shouldHug)
 }
 
 function formatAttributeValue(code, options, textToDoc) {
