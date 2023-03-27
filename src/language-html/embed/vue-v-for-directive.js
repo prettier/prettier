@@ -1,6 +1,6 @@
-import { group } from "../document/builders.js";
-import { getUnescapedAttributeValue } from "./utils/index.js";
-import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
+import { group } from "../../document/builders.js";
+import { getUnescapedAttributeValue } from "../utils/index.js";
+import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
 
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
@@ -16,9 +16,9 @@ import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-scr
  * @param {*} options
  * @returns {Promise<Doc>}
  */
-async function printVueFor(path, attributeTextToDoc, options) {
+async function printVueVForDirective(path, attributeTextToDoc, options) {
   const value = getUnescapedAttributeValue(path.node);
-  const { left, operator, right } = parseVueFor(value);
+  const { left, operator, right } = parseVueVForDirective(value);
   const parseWithTs = isVueSfcWithTypescriptScript(path, options);
   return [
     group(
@@ -37,7 +37,7 @@ async function printVueFor(path, attributeTextToDoc, options) {
 }
 
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387
-function parseVueFor(value) {
+function parseVueVForDirective(value) {
   const forAliasRE = /(.*?)\s+(in|of)\s+(.*)/s;
   const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/;
   const stripParensRE = /^\(|\)$/g;
@@ -82,31 +82,4 @@ function parseVueFor(value) {
   };
 }
 
-/**
- * @param {(code: string, opts: *) => Doc} attributeTextToDoc
- * @param {*} options
- * @returns {Doc}
- */
-function printVueBindings(path, attributeTextToDoc, options) {
-  const value = getUnescapedAttributeValue(path.node);
-  return attributeTextToDoc(`function _(${value}) {}`, {
-    parser: isVueSfcWithTypescriptScript(path, options) ? "babel-ts" : "babel",
-    __isVueBindings: true,
-  });
-}
-
-function isVueEventBindingExpression(eventBindingValue) {
-  // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/codegen/events.js#L3-L4
-  // arrow function or anonymous function
-  const fnExpRE = /^(?:[\w$]+|\([^)]*\))\s*=>|^function\s*\(/;
-  // simple member expression chain (a, a.b, a['b'], a["b"], a[0], a[b])
-  const simplePathRE =
-    /^[$A-Z_a-z][\w$]*(?:\.[$A-Z_a-z][\w$]*|\['[^']*']|\["[^"]*"]|\[\d+]|\[[$A-Z_a-z][\w$]*])*$/;
-
-  // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/helpers.js#L104
-  const value = eventBindingValue.trim();
-
-  return fnExpRE.test(value) || simplePathRE.test(value);
-}
-
-export { isVueEventBindingExpression, printVueFor, printVueBindings };
+export { printVueVForDirective };

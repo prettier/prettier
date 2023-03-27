@@ -1,5 +1,5 @@
 import parseSrcset from "@prettier/parse-srcset";
-import { ifBreak, join, line } from "../document/builders.js";
+import { ifBreak, join, line } from "../../document/builders.js";
 
 function printImgSrcset(value) {
   const srcset = parseSrcset(value);
@@ -49,8 +49,4 @@ function printImgSrcset(value) {
   );
 }
 
-function printClassNames(value) {
-  return value.trim().split(/\s+/).join(" ");
-}
-
-export { printImgSrcset, printClassNames };
+export default printImgSrcset;
