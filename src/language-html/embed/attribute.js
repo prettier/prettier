@@ -48,12 +48,20 @@ function printAttribute(path, options) {
     return printLwcInterpolation(path);
   }
 
+  if (
+    node.fullName === "srcset" &&
+    (node.parent.fullName === "img" || node.parent.fullName === "source")
+  ) {
+    return () => printSrcset(path);
+  }
+
   return async (textToDoc) => printAttributeDoc(path,  await printEmbeddedAttributeValue(
       path,
       textToDoc,
       options
     ))
 }
+
 async function printEmbeddedAttributeValue(path, textToDoc, options) {
   const { node } = path;
   const attributeName = node.fullName;
@@ -65,13 +73,6 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
       textToDoc
     );
   const value = getUnescapedAttributeValue(node);
-
-  if (
-    node.fullName === "srcset" &&
-    (node.parent.fullName === "img" || node.parent.fullName === "source")
-  ) {
-    return printSrcset(value);
-  }
 
   if (
     node.fullName === "class" &&

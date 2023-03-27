@@ -1,9 +1,10 @@
 import parseSrcset from "@prettier/parse-srcset";
+import { getUnescapedAttributeValue } from "../utils/index.js";
 import { ifBreak, join, line } from "../../document/builders.js";
-import { printExpand } from "./utils.js";
+import { printExpand, printAttributeDoc } from "./utils.js";
 
-function printSrcset(value) {
-  const srcset = parseSrcset(value);
+function printSrcset(path) {
+  const srcset = parseSrcset(getUnescapedAttributeValue(path.node));
 
   const hasW = srcset.some(({ w }) => w);
   const hasH = srcset.some(({ h }) => h);
@@ -30,7 +31,7 @@ function printSrcset(value) {
   });
   const maxDescriptorLeftLength = getMax(descriptorLeftLengths);
 
-  return printExpand(
+  return printAttributeDoc(path, printExpand(
     join(
       [",", line],
       urls.map((url, index) => {
@@ -49,7 +50,7 @@ function printSrcset(value) {
         return parts;
       })
     )
-  );
+  ));
 }
 
 export default printSrcset;
