@@ -139,6 +139,7 @@ function needsParens(path, options) {
     )?.body;
     if (
       arrowFunctionBody &&
+      arrowFunctionBody.type !== "SequenceExpression" && // these have parens added anyway
       startsWithNoLookaheadToken(
         arrowFunctionBody,
         (leftmostNode) => leftmostNode === node
