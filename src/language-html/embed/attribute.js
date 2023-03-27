@@ -12,9 +12,9 @@ import {
   isVueEventBindingExpression,
 } from "./vue-bindings.js";
 import { printVueVForDirective } from "./vue-v-for-directive.js";
-import {printVueVOnDirective} from "./vue-v-on-directive.js"
+import { printVueVOnDirective } from "./vue-v-on-directive.js";
 import { printVueVBindDirective } from "./vue-v-bind-directive.js";
-import {printVueVUnknownDirective} from "./vue-v-unknown-directive.js"
+import { printVueVUnknownDirective } from "./vue-v-unknown-directive.js";
 import printSrcsetValue from "./srcset.js";
 import printClassNames from "./class-names.js";
 import { printStyleAttribute as printStyleAttributeValue } from "./style.js";
@@ -51,12 +51,11 @@ function createAttributePrinter(valuePrinter) {
   };
 }
 
-function printVueAttribute(valuePrinter, {parseWithTs}) {
-
+function printVueAttribute(valuePrinter, { parseWithTs }) {
   return async (textToDoc, print, path, options) => {
     const { node } = path;
     const value = getUnescapedAttributeValue(node);
-    const valueDoc = await valuePrinter(value, textToDoc, {parseWithTs});
+    const valueDoc = await valuePrinter(value, textToDoc, { parseWithTs });
     if (!valueDoc) {
       return;
     }
@@ -71,7 +70,7 @@ function printVueAttribute(valuePrinter, {parseWithTs}) {
       ),
       '"',
     ];
-  }
+  };
 }
 
 const printSrcset = createAttributePrinter(printSrcsetValue);
@@ -126,17 +125,15 @@ function printAttribute(path, options) {
 
   const attributeName = node.fullName;
   if (options.parser === "vue") {
-      const parseWithTs = isVueSfcWithTypescriptScript(path, options);
+    const parseWithTs = isVueSfcWithTypescriptScript(path, options);
 
-if (node.fullName === "v-for") {
-      return printVueAttribute(printVueVForDirective, {parseWithTs});
-}
-
-    if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueAttribute(printVueBindings, {parseWithTs});
+    if (node.fullName === "v-for") {
+      return printVueAttribute(printVueVForDirective, { parseWithTs });
     }
 
-
+    if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
+      return printVueAttribute(printVueBindings, { parseWithTs });
+    }
 
     /**
      *     @click="jsStatement"
@@ -145,26 +142,24 @@ if (node.fullName === "v-for") {
      *     v-on:click="jsExpression"
      */
     if (attributeName.startsWith("@") || attributeName.startsWith("v-on:")) {
-      return printVueAttribute(printVueVOnDirective, {parseWithTs});
+      return printVueAttribute(printVueVOnDirective, { parseWithTs });
     }
 
-
-      /**
-      *     :class="vueExpression"
-      *     v-bind:id="vueExpression"
-      */
-      if (attributeName.startsWith(":") || attributeName.startsWith("v-bind:")) {
-        return  printVueAttribute(printVueVBindDirective, {parseWithTs});
-      }
+    /**
+     *     :class="vueExpression"
+     *     v-bind:id="vueExpression"
+     */
+    if (attributeName.startsWith(":") || attributeName.startsWith("v-bind:")) {
+      return printVueAttribute(printVueVBindDirective, { parseWithTs });
+    }
 
     /**
      *     v-if="jsExpression"
      */
-   if( attributeName.startsWith("v-")) {
-      return printVueAttribute(printVueVUnknownDirective, {parseWithTs});
+    if (attributeName.startsWith("v-")) {
+      return printVueAttribute(printVueVUnknownDirective, { parseWithTs });
     }
-
-    }
+  }
 
   return async (textToDoc) =>
     printAttributeDoc(
@@ -173,14 +168,13 @@ if (node.fullName === "v-for") {
     );
 }
 
-async function printEmbeddedAttributeValue(path, textToDoc, options) {
+function printEmbeddedAttributeValue(path, textToDoc, options) {
   const { node } = path;
   const attributeName = node.fullName;
 
   const attributeTextToDoc = (code, options) =>
     formatAttributeValue(code, options, textToDoc);
   const value = getUnescapedAttributeValue(node);
-
 
   if (options.parser === "angular") {
     const ngTextToDoc = (code, options) =>

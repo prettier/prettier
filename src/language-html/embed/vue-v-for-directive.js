@@ -16,7 +16,7 @@ import { formatAttributeValue } from "./utils.js";
  * @param {*} options
  * @returns {Promise<Doc>}
  */
-async function printVueVForDirective(value, textToDoc, {parseWithTs}) {
+async function printVueVForDirective(value, textToDoc, { parseWithTs }) {
   const { left, operator, right } = parseVueVForDirective(value);
   return [
     group(

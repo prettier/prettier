@@ -10,13 +10,11 @@ import { formatAttributeValue } from "./utils.js";
  * @param {*} options
  * @returns {Doc}
  */
-function printVueBindings(text, textToDoc, {parseWithTs}) {
+function printVueBindings(text, textToDoc, { parseWithTs }) {
   return formatAttributeValue(
     `function _(${text}) {}`,
     {
-      parser: parseWithTs
-        ? "babel-ts"
-        : "babel",
+      parser: parseWithTs ? "babel-ts" : "babel",
       __isVueBindings: true,
     },
     textToDoc
