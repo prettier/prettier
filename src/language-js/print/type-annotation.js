@@ -464,7 +464,10 @@ const getTypeAnnotationFirstToken = (path) => {
     */
     path.match(
       (node) => node.type === "TypeAnnotation",
-      (node, key) => key === "bound" && node.type === "TypeParameter"
+      (node, key) =>
+        key === "bound" &&
+        node.type === "TypeParameter" &&
+        node.usesExtendsBound
     )
   ) {
     return "";
