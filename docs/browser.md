@@ -135,3 +135,154 @@ The HTML code embedded in JavaScript stays unformatted because the `html` parser
   // Output: const html = /* HTML */ `<div></div>`;
 </script>
 ```
+
+## Builtin Plugins & Parsers
+
+Available parsers:
+
+- `babel`
+
+  For JavaScript code.
+
+  Lives in [`plugins/babel.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/babel.mjs) and [`plugins/babel.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/babel.js).
+
+  Possible embedded parsers:
+
+  - `html`
+  - `scss`
+  - `markdown`
+  - `graphql`
+
+- `babel-flow`
+
+  Same as `babel` parser, but for Flow syntax.
+
+- `babel-ts`
+
+  Same as `babel` parser, but for TypeScript syntax.
+
+- `flow`
+
+  Same as `babel` parser, but for Flow syntax.
+
+  Lives in [`plugins/flow.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/flow.mjs) and [`plugins/flow.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/flow.js).
+
+- `typescript`
+
+  Same as `babel` parser, but for TypeScript syntax.
+
+  Lives in [`plugins/typescript.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/typescript.mjs) and [`plugins/typescript.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/typescript.js).
+
+- `acorn`
+
+  Same as `babel` parser.
+
+  Lives in [`plugins/acorn-and-espree.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/acorn-and-espree.mjs) and [`plugins/acorn-and-espree.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/acorn-and-espree.js).
+
+- `espree`
+
+  Same as `babel` parser.
+
+  Lives in [`plugins/acorn-and-espree.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/acorn-and-espree.mjs) and [`plugins/acorn-and-espree.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/acorn-and-espree.js).
+
+- `meriyah`
+
+  Same as `babel` parser.
+
+  Lives in [`plugins/meriyah.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/meriyah.mjs) and [`plugins/meriyah.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/meriyah.js).
+
+- `css`
+
+  For CSS code.
+
+  Lives in [`plugins/postcss.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/postcss.mjs) and [`plugins/postcss.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/postcss.js).
+
+  Possible embedded parsers:
+
+  - `markdown` - For Front Matter support.
+
+- `scss`
+
+  Same as `css` parser, but for SCSS code.
+
+- `less`
+
+  Same as `css` parser, but for LESS code.
+
+- `json`
+
+  For JSON code.
+
+  Lives in [`plugins/babel.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/babel.mjs) and [`plugins/babel.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/babel.js) (it uses babel to parse).
+
+- `json5`
+
+  Same as `json` parser.
+
+- `json5-stringify`
+
+  Same as `json` parser.
+
+- `graphql`
+
+  For Graphql code.
+
+  Lives in [`plugins/graphql.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/graphql.mjs) and [`plugins/graphql.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/graphql.js).
+
+- `markdown`
+
+  For MarkDown code.
+
+  Lives in [`plugins/markdown.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/markdown.mjs) and [`plugins/markdown.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/markdown.js).
+
+  It's possible to call any parser, since code blocks can have any language.
+
+- `mdx`
+
+  Same as `markdown` parser, but for MDX syntax.
+
+- `html`
+
+  For HTML code.
+
+  Lives in [`plugins/html.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/html.mjs) and [`plugins/html.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/html.js).
+
+  Possible embedded parsers:
+
+  - `markdown` - For Front Matter support.
+  - `css`, `scss`, `less` - Format `<style>` element and `style` attribute.
+  - All JavaScript, Flow, TypeScript parsers - Format `<script>` element and interpolation.
+
+- `vue`
+
+  Same as `html` parser, but for Vue syntax.
+
+  It's possible to call any parser, since Vue SFC supports custom blocks.
+
+- `angular`
+
+  Same as `html` parser, but for Angular syntax.
+
+  Extra embedded parsers:
+
+  - `__ng_action`
+  - `__ng_binding`
+  - `__ng_interpolation`
+  - `__ng_directive`
+
+  Those parsers are private, lives in [`plugins/angular.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/angular.mjs) and [`plugins/angular.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/angular.js).
+  <!-- TODO: Mention the printers are in JavaScript plugins, when we fix #13256 -->
+
+- `lwc`
+
+  Same as `html` parser, but for LWC syntax.
+
+- `yaml`
+
+  For YAML code.
+
+  Lives in [`plugins/yaml.mjs`](https://unpkg.com/browse/prettier@2.8.4/plugins/yaml.mjs) and [`plugins/yaml.js`](https://unpkg.com/browse/prettier@2.8.4/plugins/yaml.js).
+
+  Possible embedded parsers:
+
+  - `json` - We format some YAML files like JSON.

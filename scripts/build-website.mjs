@@ -104,5 +104,10 @@ await buildPlaygroundFiles();
 console.log("Installing website dependencies...");
 await runYarn("install", [], { cwd: WEBSITE_DIR });
 
+if (IS_PULL_REQUEST) {
+  console.log("Synchronizing docs...");
+  await runYarn("update-stable-docs", [], { cwd: WEBSITE_DIR });
+}
+
 console.log("Building website...");
 await runYarn("build", [], { cwd: WEBSITE_DIR });
