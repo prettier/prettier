@@ -103,10 +103,9 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
     }
   };
 
-  const printHug = (doc) => group(doc);
   const printExpand = (doc, canHaveTrailingWhitespace = true) =>
     group([indent([softline, doc]), canHaveTrailingWhitespace ? softline : ""]);
-  const printMaybeHug = (doc) => (shouldHug ? printHug(doc) : printExpand(doc));
+  const printMaybeHug = (doc) => (shouldHug ? group(doc) : printExpand(doc));
 
   const attributeTextToDoc = (code, opts) =>
     htmlTextToDoc(code, {
