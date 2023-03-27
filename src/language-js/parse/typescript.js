@@ -82,7 +82,4 @@ function isProbablyJsx(text) {
   ).test(text);
 }
 
-// Export as a plugin so we can reuse the same bundle for UMD loading
-export const parsers = {
-  typescript: createParser(parse),
-};
+export const typescript = createParser(parse);

@@ -551,6 +551,10 @@ function unescapeQuoteEntities(text) {
   return text.replaceAll("&apos;", "'").replaceAll("&quot;", '"');
 }
 
+function getUnescapedAttributeValue(node) {
+  return unescapeQuoteEntities(node.value);
+}
+
 // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
 // See https://vue-loader.vuejs.org/spec.html for detail
 const vueRootElementsSet = new Set(["template", "style", "script"]);
@@ -650,4 +654,5 @@ export {
   unescapeQuoteEntities,
   getTextValueParts,
   htmlWhitespaceUtils,
+  getUnescapedAttributeValue,
 };

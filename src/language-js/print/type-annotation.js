@@ -476,6 +476,27 @@ function printTypeAnnotation(path, options, print) {
     : print("typeAnnotation");
 }
 
+/*
+- `TSArrayType`
+- `ArrayTypeAnnotation`
+*/
+function printArrayType(print) {
+  return [print("elementType"), "[]"];
+}
+
+/*
+- `TSTypeQuery`
+- `TypeofTypeAnnotation`
+*/
+function printTypeQuery({ node }, print) {
+  return [
+    "typeof ",
+    ...(node.type === "TSTypeQuery"
+      ? [print("exprName"), print("typeParameters")]
+      : [print("argument")]),
+  ];
+}
+
 export {
   printOpaqueType,
   printTypeAlias,
@@ -489,4 +510,6 @@ export {
   printNamedTupleMember,
   printTypeAnnotationProperty,
   printTypeAnnotation,
+  printArrayType,
+  printTypeQuery,
 };

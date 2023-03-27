@@ -1,24 +1,38 @@
 import { group } from "../document/builders.js";
+import { getUnescapedAttributeValue } from "./utils/index.js";
+import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
+
+/**
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
 
 /**
  *     v-for="... in ..."
  *     v-for="... of ..."
  *     v-for="(..., ...) in ..."
  *     v-for="(..., ...) of ..."
+ *
+ * @param {(code: string, opts: *) => Doc} attributeTextToDoc
+ * @param {*} options
+ * @returns {Promise<Doc>}
  */
-async function printVueFor(value, attributeTextToDoc) {
+async function printVueFor(path, attributeTextToDoc, options) {
+  const value = getUnescapedAttributeValue(path.node);
   const { left, operator, right } = parseVueFor(value);
+  const parseWithTs = isVueSfcWithTypescriptScript(path, options);
   return [
     group(
       await attributeTextToDoc(`function _(${left}) {}`, {
-        parser: "babel",
+        parser: parseWithTs ? "babel-ts" : "babel",
         __isVueForBindingLeft: true,
       })
     ),
     " ",
     operator,
     " ",
-    await attributeTextToDoc(right, { parser: "__js_expression" }),
+    await attributeTextToDoc(right, {
+      parser: parseWithTs ? "__ts_expression" : "__js_expression",
+    }),
   ];
 }
 
@@ -68,9 +82,15 @@ function parseVueFor(value) {
   };
 }
 
-function printVueBindings(value, attributeTextToDoc) {
+/**
+ * @param {(code: string, opts: *) => Doc} attributeTextToDoc
+ * @param {*} options
+ * @returns {Doc}
+ */
+function printVueBindings(path, attributeTextToDoc, options) {
+  const value = getUnescapedAttributeValue(path.node);
   return attributeTextToDoc(`function _(${value}) {}`, {
-    parser: "babel",
+    parser: isVueSfcWithTypescriptScript(path, options) ? "babel-ts" : "babel",
     __isVueBindings: true,
   });
 }

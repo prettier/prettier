@@ -30,7 +30,7 @@ exports[`abstract-method.ts [typescript] format 1`] = `
   5 |"
 `;
 
-exports[`accessor.ts [babel-ts] format 1`] = `
+exports[`accessor.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -54,17 +54,6 @@ class A {
 }
 
 ================================================================================
-`;
-
-exports[`accessor.ts [typescript] format 1`] = `
-"Decorators cannot be applied to multiple get/set accessors of the same name. (4:5)
-  2 |     @foo()
-  3 |     get a() {return 1}
-> 4 |     @bar()
-    |     ^^^^^^
-  5 |     set a(v) {}
-  6 | }
-  7 |"
 `;
 
 exports[`argument-list-preserve-line.ts format 1`] = `
@@ -492,6 +481,44 @@ class Bar {
 class MyContainerComponent {
   @ContentChildren(MyComponent)
   components: QueryListSomeBigName<MyComponentThat>;
+}
+
+================================================================================
+`;
+
+exports[`legacy.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  @decorator() class {},
+  @decorator() class A {},
+];
+
+class A {
+  @decorator() accessor #field;
+}
+
+class B {
+  @decorator() #field () {}
+}
+
+=====================================output=====================================
+[
+  @decorator()
+  class {},
+  @decorator()
+  class A {},
+];
+
+class A {
+  @decorator() accessor #field;
+}
+
+class B {
+  @decorator() #field() {}
 }
 
 ================================================================================

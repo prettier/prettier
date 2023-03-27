@@ -26,8 +26,7 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          # https://github.com/nodejs/node/issues/47096
-          - "19.7.0"
+          - "19"
           - "18"
           - "16"
         include:
@@ -39,9 +38,9 @@ jobs:
             CHECK_TEST_PARSERS: true
         exclude:
           - os: "macos-latest"
-            node: "19.7.0"
+            node: "19"
           - os: "windows-latest"
-            node: "19.7.0"
+            node: "19"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}
@@ -50,7 +49,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.4.0
+        uses: actions/checkout@v3.5.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3

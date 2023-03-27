@@ -1,3 +1,68 @@
+# 2.8.7
+
+[diff](https://github.com/prettier/prettier/compare/2.8.6...2.8.7)
+
+#### Allow multiple decorators on same getter/setter ([#14584](https://github.com/prettier/prettier/pull/14584) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class A {
+  @decorator()
+  get foo () {}
+  
+  @decorator()
+  set foo (value) {}
+}
+
+// Prettier 2.8.6
+SyntaxError: Decorators cannot be applied to multiple get/set accessors of the same name. (5:3)
+  3 |   get foo () {}
+  4 |   
+> 5 |   @decorator()
+    |   ^^^^^^^^^^^^
+  6 |   set foo (value) {}
+  7 | }
+
+// Prettier 2.8.7
+class A {
+  @decorator()
+  get foo() {}
+
+  @decorator()
+  set foo(value) {}
+}
+```
+
+# 2.8.6
+
+[diff](https://github.com/prettier/prettier/compare/2.8.5...2.8.6)
+
+#### Allow decorators on private members and class expressions ([#14548](https://github.com/prettier/prettier/pull/14548) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class A {
+  @decorator()
+  #privateMethod () {}
+}
+
+// Prettier 2.8.5
+SyntaxError: Decorators are not valid here. (2:3)
+  1 | class A {
+> 2 |   @decorator()
+    |   ^^^^^^^^^^^^
+  3 |   #privateMethod () {}
+  4 | }
+
+// Prettier 2.8.6
+class A {
+  @decorator()
+  #privateMethod() {}
+}
+```
+
 # 2.8.5
 
 [diff](https://github.com/prettier/prettier/compare/2.8.4...2.8.5)

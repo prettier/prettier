@@ -49,7 +49,6 @@ async function normalizeFormatOptions(options, opts = {}) {
       }
     }
   }
-
   const parser = await resolveParser(
     // @ts-expect-error
     normalizeOptions(
