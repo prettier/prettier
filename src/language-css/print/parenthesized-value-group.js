@@ -74,7 +74,9 @@ function printParenthesizedValueGroup(path, options, print) {
   }
 
   if (!node.open) {
-    return group(indent(fill(join([",", line], groupDocs))));
+    const forceHardLine = shouldBreakList(path);
+    const parts = join([",", forceHardLine ? hardline : line], groupDocs);
+    return indent(forceHardLine ? [hardline, parts] : group(fill(parts)));
   }
 
   const parts = path.map(({ node: child, isLast, index }) => {
@@ -135,4 +137,19 @@ function printParenthesizedValueGroup(path, options, print) {
   return shouldDedent ? dedent(doc) : doc;
 }
 
-export default printParenthesizedValueGroup;
+function shouldBreakList(path) {
+  return path.match(
+    (node) =>
+      node.type === "value-paren_group" &&
+      !node.open &&
+      node.groups.some((node) => node.type === "value-comma_group"),
+    (node, key) => key === "group" && node.type === "value-value",
+    (node, key) => key === "group" && node.type === "value-root",
+    (node, key) =>
+      key === "value" &&
+      ((node.type === "css-decl" && !node.prop.startsWith("--")) ||
+        (node.type === "css-atrule" && node.variable))
+  );
+}
+
+export { printParenthesizedValueGroup, shouldBreakList };

@@ -13,20 +13,15 @@ import {
 import { replaceEndOfLine, inheritLabel } from "../document/utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
-import embed from "./embed.js";
-import clean from "./clean.js";
-import { insertPragma } from "./pragma.js";
-import * as commentsRelatedPrinterMethods from "./comments/printer-methods.js";
+
 import pathNeedsParens from "./needs-parens.js";
 import {
   hasComment,
   CommentCheckFlags,
-  isTheOnlyJsxElementInMarkdown,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   isCallExpression,
   isMemberExpression,
-  markerForIfWithoutBlockAndSameLineComment,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   startsWithNoLookaheadToken,
@@ -35,12 +30,8 @@ import {
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
 import isIgnored from "./utils/is-ignored.js";
-import getVisitorKeys from "./traverse/get-visitor-keys.js";
 
-import {
-  printHtmlBinding,
-  isVueEventBindingExpression,
-} from "./print/html-binding.js";
+import { printHtmlBinding } from "./print/html-binding.js";
 import { printAngular } from "./print/angular.js";
 import { printJsx } from "./print/jsx.js";
 import { printFlow } from "./print/flow.js";
@@ -56,7 +47,6 @@ import {
 import {
   printImportDeclaration,
   printExportDeclaration,
-  printExportAllDeclaration,
   printModuleSpecifier,
 } from "./print/module.js";
 import { printTernary } from "./print/ternary.js";
@@ -93,6 +83,7 @@ import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 import { printTypeAnnotationProperty } from "./print/type-annotation.js";
 import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
+import { printExpressionStatement } from "./print/expression-statement.js";
 
 /**
  * @typedef {import("../common/ast-path.js").default} AstPath
@@ -202,35 +193,8 @@ function printPathNoParens(path, options, print, args) {
     // Babel extension.
     case "EmptyStatement":
       return "";
-    case "ExpressionStatement": {
-      if (
-        options.parser === "__vue_event_binding" ||
-        options.parser === "__vue_ts_event_binding"
-      ) {
-        const { parent } = path;
-        if (
-          parent.type === "Program" &&
-          parent.body.length === 1 &&
-          parent.body[0] === node
-        ) {
-          return [
-            print("expression"),
-            isVueEventBindingExpression(node.expression) ? ";" : "",
-          ];
-        }
-      }
-
-      const danglingComment = printDanglingComments(path, options, {
-        marker: markerForIfWithoutBlockAndSameLineComment,
-      });
-
-      // Do not append semicolon after the only JSX element in a program
-      return [
-        print("expression"),
-        isTheOnlyJsxElementInMarkdown(options, path) ? "" : semi,
-        danglingComment ? [" ", danglingComment] : "",
-      ];
-    }
+    case "ExpressionStatement":
+      return printExpressionStatement(path, options, print);
 
     case "ChainExpression":
       return print("expression");
@@ -339,9 +303,8 @@ function printPathNoParens(path, options, print, args) {
 
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
-      return printExportDeclaration(path, options, print);
     case "ExportAllDeclaration":
-      return printExportAllDeclaration(path, options, print);
+      return printExportDeclaration(path, options, print);
     case "ImportDeclaration":
       return printImportDeclaration(path, options, print);
     case "ImportSpecifier":
@@ -775,13 +738,13 @@ function printPathNoParens(path, options, print, args) {
   }
 }
 
-const printer = {
-  print: genericPrint,
-  embed,
-  insertPragma,
-  massageAstNode: clean,
-  getVisitorKeys,
-  ...commentsRelatedPrinterMethods,
+export const experimentalFeatures = {
+  // TODO: Make this default behavior
+  avoidAstMutation: true,
 };
-
-export default printer;
+export { genericPrint as print };
+export * from "./comments/printer-methods.js";
+export { default as embed } from "./embed.js";
+export { default as massageAstNode } from "./clean.js";
+export { insertPragma } from "./pragma.js";
+export { default as getVisitorKeys } from "./traverse/get-visitor-keys.js";

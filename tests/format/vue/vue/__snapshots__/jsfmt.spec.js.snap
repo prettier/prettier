@@ -1752,63 +1752,35 @@ semi: false
 =====================================input======================================
 <!-- #7396 -->
 <template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
-</template>
-<template>
-<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
-</template>
-<template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
-</template>
-<template>
-<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
-</template>
-<template>
-<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
-</template>
-<template>
-<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
 </template>
 
 =====================================output=====================================
 <!-- #7396 -->
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
       foo + bar
     } template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :num="
       100000000000000000000000000000000000000000000000000000000000000000000000000
     "
   />
@@ -1826,63 +1798,35 @@ trailingComma: "es5"
 =====================================input======================================
 <!-- #7396 -->
 <template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
-</template>
-<template>
-<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
-</template>
-<template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
-</template>
-<template>
-<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
-</template>
-<template>
-<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
-</template>
-<template>
-<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
 </template>
 
 =====================================output=====================================
 <!-- #7396 -->
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
       foo + bar
     } template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :num="
       100000000000000000000000000000000000000000000000000000000000000000000000000
     "
   />
@@ -1900,67 +1844,183 @@ trailingComma: "none"
 =====================================input======================================
 <!-- #7396 -->
 <template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
-</template>
-<template>
-<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
-</template>
-<template>
-<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
-</template>
-<template>
-<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
-</template>
-<template>
-<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
-</template>
-<template>
-<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
 </template>
 
 =====================================output=====================================
 <!-- #7396 -->
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
       foo + bar
     } template literal value\`"
-  />
-</template>
-<template>
-  <MyComponent
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
-  />
-</template>
-<template>
-  <MyComponent
-    :src="
+    :num="
       100000000000000000000000000000000000000000000000000000000000000000000000000
     "
   />
 </template>
+
+================================================================================
+`;
+
+exports[`expression-binding-ts.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
+</template>
+<script lang="ts"></script>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+    :add="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+    :num="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+<script lang="ts"></script>
+
+================================================================================
+`;
+
+exports[`expression-binding-ts.vue - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
+</template>
+<script lang="ts"></script>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+    :add="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+    :num="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+<script lang="ts"></script>
+
+================================================================================
+`;
+
+exports[`expression-binding-ts.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent
+:foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+:bar="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+:baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+:src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+:add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+:num="100000000000000000000000000000000000000000000000000000000000000000000000000"
+/>
+</template>
+<script lang="ts"></script>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+    :bar="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+    :add="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+    :num="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+<script lang="ts"></script>
 
 ================================================================================
 `;
@@ -1977,7 +2037,7 @@ semi: false
   <div class="allowed">{{value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird}}</div>
   <div class="allowed" v-bind:something='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
   <div class="allowed" :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
-  <div class="not-allowed" v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
+  <div class="not-allowed" v-if='value | thisIsARealSuperLongBitwiseOr("arg1", arg2) | anotherBitwiseOrLongJustForFun | bitwiseOrTheThird'></div>
 </template>
 
 =====================================output=====================================
@@ -2013,9 +2073,9 @@ semi: false
     class="not-allowed"
     v-if="
       value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+        thisIsARealSuperLongBitwiseOr('arg1', arg2) |
+        anotherBitwiseOrLongJustForFun |
+        bitwiseOrTheThird
     "
   ></div>
 </template>
@@ -2035,7 +2095,7 @@ trailingComma: "es5"
   <div class="allowed">{{value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird}}</div>
   <div class="allowed" v-bind:something='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
   <div class="allowed" :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
-  <div class="not-allowed" v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
+  <div class="not-allowed" v-if='value | thisIsARealSuperLongBitwiseOr("arg1", arg2) | anotherBitwiseOrLongJustForFun | bitwiseOrTheThird'></div>
 </template>
 
 =====================================output=====================================
@@ -2071,9 +2131,9 @@ trailingComma: "es5"
     class="not-allowed"
     v-if="
       value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+        thisIsARealSuperLongBitwiseOr('arg1', arg2) |
+        anotherBitwiseOrLongJustForFun |
+        bitwiseOrTheThird
     "
   ></div>
 </template>
@@ -2093,7 +2153,7 @@ trailingComma: "none"
   <div class="allowed">{{value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird}}</div>
   <div class="allowed" v-bind:something='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
   <div class="allowed" :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
-  <div class="not-allowed" v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
+  <div class="not-allowed" v-if='value | thisIsARealSuperLongBitwiseOr("arg1", arg2) | anotherBitwiseOrLongJustForFun | bitwiseOrTheThird'></div>
 </template>
 
 =====================================output=====================================
@@ -2129,9 +2189,9 @@ trailingComma: "none"
     class="not-allowed"
     v-if="
       value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+        thisIsARealSuperLongBitwiseOr('arg1', arg2) |
+        anotherBitwiseOrLongJustForFun |
+        bitwiseOrTheThird
     "
   ></div>
 </template>
@@ -3476,6 +3536,123 @@ trailingComma: "none"
 </template>
 
 <style src="./style.css" module />
+
+================================================================================
+`;
+
+exports[`slot-ts.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+    v-slot="x:    unknown   []"
+    v-slot:named="   y  :     never"
+    slot-scope=" { des: {truc: tured  } } : any "
+    #shorthand=" abc   : string  "
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
+
+=====================================output=====================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+      v-slot="x: unknown[]"
+      v-slot:named="y: never"
+      slot-scope="{ des: { truc: tured } }: any"
+      #shorthand="abc: string"
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
+
+================================================================================
+`;
+
+exports[`slot-ts.vue - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+    v-slot="x:    unknown   []"
+    v-slot:named="   y  :     never"
+    slot-scope=" { des: {truc: tured  } } : any "
+    #shorthand=" abc   : string  "
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
+
+=====================================output=====================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+      v-slot="x: unknown[]"
+      v-slot:named="y: never"
+      slot-scope="{ des: { truc: tured } }: any"
+      #shorthand="abc: string"
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
+
+================================================================================
+`;
+
+exports[`slot-ts.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+    v-slot="x:    unknown   []"
+    v-slot:named="   y  :     never"
+    slot-scope=" { des: {truc: tured  } } : any "
+    #shorthand=" abc   : string  "
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
+
+=====================================output=====================================
+<script lang="ts"></script>
+<template>
+  <comp>
+    <template
+      v-slot="x: unknown[]"
+      v-slot:named="y: never"
+      slot-scope="{ des: { truc: tured } }: any"
+      #shorthand="abc: string"
+    >
+      {{ x[1] }}
+    </template>
+  </comp>
+</template>
 
 ================================================================================
 `;

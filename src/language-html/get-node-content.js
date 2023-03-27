@@ -8,6 +8,10 @@ import {
 } from "./print/tag.js";
 
 function getNodeContent(node, options) {
+  if (!node.endSourceSpan) {
+    return "";
+  }
+
   let start = node.startSourceSpan.end.offset;
   if (
     node.firstChild &&

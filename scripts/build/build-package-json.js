@@ -44,10 +44,15 @@ async function buildPackageJson({ file, files }) {
     "./esm/standalone.mjs": "./standalone.mjs",
     ...Object.fromEntries(
       files
-        .filter((file) => file.isPlugin && file.output.format === "umd")
+        .filter(
+          (file) =>
+            file.isPlugin &&
+            file.output.format === "umd" &&
+            file.output.file !== "plugins/estree.js"
+        )
         .flatMap((file) => {
           let basename = path.basename(file.output.file, ".js");
-          if (basename === "acorn-and-espree") {
+          if (basename === "acorn") {
             basename = "espree";
           }
           return [

@@ -1,42 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic.vue format 1`] = `
+exports[`single-expression.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+semi: false
                                                                                 | printWidth
 =====================================input======================================
-<script setup lang="ts">
-let x = 1;
-function log(...args) {
-  console.log(...args);
-}
-</script>
-
 <template>
-  <div @click="if (x === 1 as number) { log('hello') } else { log('nonhello') };">{{ x }}</div>
+  <foo-bar
+    @click="[foo, bar].forEach(fn => void fn())"
+    @loaded="(map = $event) && initMap()"
+  ></foo-bar>
 </template>
 
 =====================================output=====================================
-<script setup lang="ts">
-let x = 1;
-function log(...args) {
-  console.log(...args);
-}
-</script>
-
 <template>
-  <div
-    @click="
-      if (x === (1 as number)) {
-        log('hello');
-      } else {
-        log('nonhello');
-      }
-    "
-  >
-    {{ x }}
-  </div>
+  <foo-bar
+    @click="[foo, bar].forEach((fn) => void fn())"
+    @loaded="(map = $event) && initMap()"
+  ></foo-bar>
 </template>
 
 ================================================================================
