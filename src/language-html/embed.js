@@ -28,7 +28,6 @@ import {
   inferElementParser,
   htmlTrimPreserveIndentation,
   dedentString,
-  unescapeQuoteEntities,
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   getTextValueParts,
