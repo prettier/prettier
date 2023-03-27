@@ -346,6 +346,14 @@ singleQuote: true
   Hello
 </div>
 
+<input
+  name="is-active"
+  type="checkbox"
+  value="active"
+  {{{onlyIf active 'checked="checked"'}}}
+  {{{ with space }}}
+/>
+
 =====================================output=====================================
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
@@ -397,6 +405,14 @@ singleQuote: true
 >
   Hello
 </div>
+
+<input
+  name='is-active'
+  type='checkbox'
+  value='active'
+  {{{onlyIf active 'checked="checked"'}}}
+  {{{with space}}}
+/>
 ================================================================================
 `;
 
@@ -422,6 +438,14 @@ printWidth: 80
   Hello
 </div>
 
+<input
+  name="is-active"
+  type="checkbox"
+  value="active"
+  {{{onlyIf active 'checked="checked"'}}}
+  {{{ with space }}}
+/>
+
 =====================================output=====================================
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
@@ -473,6 +497,14 @@ printWidth: 80
 >
   Hello
 </div>
+
+<input
+  name="is-active"
+  type="checkbox"
+  value="active"
+  {{{onlyIf active 'checked="checked"'}}}
+  {{{with space}}}
+/>
 ================================================================================
 `;
 

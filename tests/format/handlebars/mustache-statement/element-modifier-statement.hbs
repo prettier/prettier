@@ -13,3 +13,11 @@
 <div {{hello param param param param hashPair=value hashPair=value hashPair=value hashPair=value hashPair=value}}>
   Hello
 </div>
+
+<input
+  name="is-active"
+  type="checkbox"
+  value="active"
+  {{{onlyIf active 'checked="checked"'}}}
+  {{{ with space }}}
+/>

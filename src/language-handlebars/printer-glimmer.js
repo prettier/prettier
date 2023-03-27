@@ -126,7 +126,23 @@ function print(path, options, print) {
     }
 
     case "ElementModifierStatement": {
-      return group(["{{", printPathAndParams(path, print), "}}"]);
+      let openingMustache = "{{";
+      let closingMustache = "}}";
+      // https://github.com/prettier/prettier/issues/14090
+      const originalText = options.originalText.slice(
+        locStart(node),
+        locEnd(node)
+      );
+      if (originalText.startsWith("{{{") && originalText.endsWith("}}}")) {
+        openingMustache = "{{{";
+        closingMustache = "}}}";
+      }
+
+      return group([
+        openingMustache,
+        printPathAndParams(path, print),
+        closingMustache,
+      ]);
     }
 
     case "MustacheStatement": {
