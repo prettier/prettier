@@ -32,26 +32,9 @@ import {
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   getTextValueParts,
-  isVueScriptTag,
 } from "./utils/index.js";
+import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
 import getNodeContent from "./get-node-content.js";
-
-const cache = new WeakMap();
-function isVueSfcWithTypescriptScript(path, options) {
-  const { root } = path;
-  if (!cache.has(root)) {
-    cache.set(
-      root,
-      root.children.some(
-        (child) =>
-          isVueScriptTag(child, options) &&
-          ["ts", "typescript"].includes(child.attrMap.lang)
-      )
-    );
-  }
-
-  return cache.get(root);
-}
 
 async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
   const { node } = path;
@@ -125,11 +108,11 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
 
   if (options.parser === "vue") {
     if (node.fullName === "v-for") {
-      return printVueFor(getValue(), attributeTextToDoc, options);
+      return printVueFor(path, getValue(), attributeTextToDoc, options);
     }
 
     if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueBindings(getValue(), attributeTextToDoc, options);
+      return printVueBindings(path, getValue(), attributeTextToDoc, options);
     }
 
     /**
@@ -164,7 +147,7 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
         await attributeTextToDoc(getValue(), {
-          parser: options.__should_parse_vue_template_with_ts
+          parser: isVueSfcWithTypescriptScript(path, options)
             ? "__vue_ts_expression"
             : "__vue_expression",
         })
@@ -174,7 +157,7 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
         await attributeTextToDoc(getValue(), {
-          parser: options.__should_parse_vue_template_with_ts
+          parser: isVueSfcWithTypescriptScript(path, options)
             ? "__ts_expression"
             : "__js_expression",
         })

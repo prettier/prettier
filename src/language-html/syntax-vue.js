@@ -1,4 +1,6 @@
 import { group } from "../document/builders.js";
+import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
+
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
  */
@@ -14,9 +16,9 @@ import { group } from "../document/builders.js";
  * @param {*} options
  * @returns {Promise<Doc>}
  */
-async function printVueFor(value, attributeTextToDoc, options) {
+async function printVueFor(path, value, attributeTextToDoc, options) {
   const { left, operator, right } = parseVueFor(value);
-  const parseWithTs = options.__should_parse_vue_template_with_ts;
+  const parseWithTs = isVueSfcWithTypescriptScript(path, options);
   return [
     group(
       await attributeTextToDoc(`function _(${left}) {}`, {
@@ -85,9 +87,9 @@ function parseVueFor(value) {
  * @param {*} options
  * @returns {Doc}
  */
-function printVueBindings(value, attributeTextToDoc, options) {
+function printVueBindings(path, value, attributeTextToDoc, options) {
   return attributeTextToDoc(`function _(${value}) {}`, {
-    parser: options.__should_parse_vue_template_with_ts ? "babel-ts" : "babel",
+    parser: isVueSfcWithTypescriptScript(path, options) ? "babel-ts" : "babel",
     __isVueBindings: true,
   });
 }
