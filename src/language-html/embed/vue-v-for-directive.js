@@ -16,10 +16,8 @@ import { formatAttributeValue } from "./utils.js";
  * @param {*} options
  * @returns {Promise<Doc>}
  */
-async function printVueVForDirective(path, textToDoc, options) {
-  const value = getUnescapedAttributeValue(path.node);
+async function printVueVForDirective(value, textToDoc, {parseWithTs}) {
   const { left, operator, right } = parseVueVForDirective(value);
-  const parseWithTs = isVueSfcWithTypescriptScript(path, options);
   return [
     group(
       await formatAttributeValue(

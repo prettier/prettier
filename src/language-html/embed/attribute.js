@@ -48,6 +48,29 @@ function createAttributePrinter(valuePrinter) {
   };
 }
 
+function printVueAttribute(valuePrinter, {parseWithTs}) {
+
+  return async (textToDoc, print, path, options) => {
+    const { node } = path;
+    const value = getUnescapedAttributeValue(node);
+    const valueDoc = await valuePrinter(value, textToDoc, {parseWithTs});
+    if (!valueDoc) {
+      return;
+    }
+
+    return [
+      path.node.rawName,
+      '="',
+      group(
+        mapDoc(valueDoc, (doc) =>
+          typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
+        )
+      ),
+      '"',
+    ];
+  }
+}
+
 const printSrcset = createAttributePrinter(printSrcsetValue);
 const printStyleAttribute = createAttributePrinter(printStyleAttributeValue);
 
@@ -97,6 +120,11 @@ function printAttribute(path, options) {
   ) {
     return printClassNames;
   }
+
+  if (options.parser === "vue" && node.fullName === "v-for") {
+      const parseWithTs = isVueSfcWithTypescriptScript(path, options);
+      return printVueAttribute(printVueVForDirective, {parseWithTs});
+    }
 
   return async (textToDoc) =>
     printAttributeDoc(
