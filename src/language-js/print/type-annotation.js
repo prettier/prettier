@@ -329,7 +329,7 @@ function printIndexedAccessType(path, options, print) {
 - `InferTypeAnnotation`(flow)
 */
 function printInferType(path, options, print) {
-  return ["infer", " ", print("typeParameter")];
+  return ["infer ", print("typeParameter")];
 }
 
 // `TSJSDocNullableType`, `TSJSDocNonNullableType`
