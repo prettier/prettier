@@ -1,11 +1,5 @@
-import {
-  group,
-  indent,
-  line,
-  fill,
-  softline,
-} from "../../document/builders.js";
-import { mapDoc, replaceEndOfLine } from "../../document/utils.js";
+import { group, indent, fill, softline } from "../../document/builders.js";
+import { mapDoc } from "../../document/utils.js";
 import {
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
@@ -25,6 +19,10 @@ import {
   isLwcInterpolation,
   printLwcInterpolation,
 } from "./lwc-interpolation.js";
+import {
+  interpolationRegex as angularInterpolationRegex,
+  printAngularInterpolation,
+} from "./angular-interpolation.js";
 
 function printAttribute(path, options) {
   const { node } = path;
@@ -269,34 +267,8 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
       );
     }
 
-    const interpolationRegex = /{{(.+?)}}/s;
-    if (interpolationRegex.test(value)) {
-      const parts = [];
-      for (const [index, part] of value.split(interpolationRegex).entries()) {
-        if (index % 2 === 0) {
-          parts.push(replaceEndOfLine(part));
-        } else {
-          try {
-            parts.push(
-              group([
-                "{{",
-                indent([
-                  line,
-                  await ngTextToDoc(part, {
-                    parser: "__ng_interpolation",
-                    __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-                  }),
-                ]),
-                line,
-                "}}",
-              ])
-            );
-          } catch {
-            parts.push("{{", replaceEndOfLine(part), "}}");
-          }
-        }
-      }
-      return group(parts);
+    if (angularInterpolationRegex.test(value)) {
+      return printAngularInterpolation(path, ngTextToDoc);
     }
   }
 
