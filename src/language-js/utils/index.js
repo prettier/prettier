@@ -244,22 +244,6 @@ function isAngularTestWrapper(node) {
  */
 const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
-function isTheOnlyJsxElementInMarkdown(options, path) {
-  if (options.parentParser !== "markdown" && options.parentParser !== "mdx") {
-    return false;
-  }
-
-  const { node } = path;
-
-  if (!node.expression || !isJsxElement(node.expression)) {
-    return false;
-  }
-
-  const { parent } = path;
-
-  return parent.type === "Program" && parent.body.length === 1;
-}
-
 function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }
@@ -1181,7 +1165,6 @@ export {
   isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
-  isTheOnlyJsxElementInMarkdown,
   isTSXFile,
   isTypeAnnotationAFunction,
   isNextLineEmpty,
