@@ -2,7 +2,7 @@
 
 exports[`dobule-quotes.html - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["angular"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -17,7 +17,7 @@ singleQuote: true
 
 exports[`dobule-quotes.html format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -31,7 +31,7 @@ printWidth: 80
 
 exports[`single-quotes.html - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["angular"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -46,7 +46,7 @@ singleQuote: true
 
 exports[`single-quotes.html format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -60,7 +60,7 @@ printWidth: 80
 
 exports[`smart-quotes.html - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["angular"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -83,7 +83,7 @@ singleQuote: true
 
 exports[`smart-quotes.html format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -105,7 +105,7 @@ printWidth: 80
 
 exports[`without-quotes.html - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["angular"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -120,7 +120,7 @@ singleQuote: true
 
 exports[`without-quotes.html format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

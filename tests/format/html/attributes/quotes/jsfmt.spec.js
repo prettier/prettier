@@ -1,2 +1,2 @@
-run_spec(import.meta, ["html", "vue", "angular"]);
-run_spec(import.meta, ["html", "vue", "angular"], { singleQuote: true });
+run_spec(import.meta, ["html"]);
+run_spec(import.meta, ["html"], { singleQuote: true });
