@@ -234,37 +234,15 @@ function printAttribute(path, options) {
     if (attributeName.startsWith("*")) {
       return printAngularAttribute({parser: "__ng_directive"});
     }
-}
-
-  return async (textToDoc) =>
-    printAttributeDoc(
-      path,
-      await printEmbeddedAttributeValue(path, textToDoc, options)
-    );
-}
-
-function printEmbeddedAttributeValue(path, textToDoc, options) {
-  const { node } = path;
-  const attributeName = node.fullName;
-
-  const attributeTextToDoc = (code, options) =>
-    formatAttributeValue(code, options, textToDoc);
-  const value = getUnescapedAttributeValue(node);
-
-  if (options.parser === "angular") {
-    const ngTextToDoc = (code, options) =>
-      attributeTextToDoc(code, { ...options });
-
-
 
 
 
     if (angularInterpolationRegex.test(value)) {
-      return printAngularInterpolation(path, ngTextToDoc);
-    }
-  }
+      return createAttributePrinter(printAngularInterpolation);
 
-  return null;
+    }
 }
+}
+
 
 export default printAttribute;
