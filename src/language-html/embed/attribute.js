@@ -55,6 +55,16 @@ function printAttribute(path, options) {
     return () => printSrcset(path);
   }
 
+  const value = getUnescapedAttributeValue(node);
+
+  if (
+    node.fullName === "style" &&
+    !options.parentParser &&
+    !value.includes("{{")
+  ) {
+    return printStyleAttribute;
+  }
+
   return async (textToDoc) => printAttributeDoc(path,  await printEmbeddedAttributeValue(
       path,
       textToDoc,
@@ -80,14 +90,6 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
     !value.includes("{{")
   ) {
     return printClassNames(value);
-  }
-
-  if (
-    node.fullName === "style" &&
-    !options.parentParser &&
-    !value.includes("{{")
-  ) {
-    return printStyleAttribute(value, textToDoc);
   }
 
   if (options.parser === "vue") {
