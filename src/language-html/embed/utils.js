@@ -33,4 +33,15 @@ function shouldHugAttribute(ast, options) {
   );
 }
 
-export { shouldHugAttribute, printExpand, printMaybeHug };
+function printAttributeValue(code, options, textToDoc) {
+  options = {
+    // strictly prefer single quote to avoid unnecessary html entity escape
+    __isInHtmlAttribute: true,
+    __embeddedInHtml: true,
+    ...options,
+  };
+
+  return textToDoc(code, options);
+}
+
+export { shouldHugAttribute, printExpand, printMaybeHug, printAttributeValue };

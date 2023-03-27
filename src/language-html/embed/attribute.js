@@ -23,7 +23,7 @@ import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
 } from "./angular-interpolation.js";
-import { shouldHugAttribute } from "./utils.js";
+import { shouldHugAttribute, printAttributeValue } from "./utils.js";
 
 function printAttribute(path, options) {
   const { node } = path;
@@ -51,13 +51,7 @@ function printAttribute(path, options) {
   return async (textToDoc) => {
     const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
       path,
-      (code, opts) =>
-        // strictly prefer single quote to avoid unnecessary html entity escape
-        textToDoc(code, {
-          __isInHtmlAttribute: true,
-          __embeddedInHtml: true,
-          ...opts,
-        }),
+      textToDoc,
       options
     );
     if (embeddedAttributeValueDoc) {
@@ -74,7 +68,7 @@ function printAttribute(path, options) {
     }
   };
 }
-async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
+async function printEmbeddedAttributeValue(path, textToDoc, options) {
   const { node } = path;
   const attributeName = node.fullName;
 
@@ -84,14 +78,17 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
     group([indent([softline, doc]), canHaveTrailingWhitespace ? softline : ""]);
   const printMaybeHug = (doc) => (shouldHug ? group(doc) : printExpand(doc));
 
-  const attributeTextToDoc = (code, opts) =>
-    htmlTextToDoc(code, {
-      __onHtmlBindingRoot(ast, options) {
-        shouldHug = shouldHugAttribute(ast, options);
+  const attributeTextToDoc = (code, options) =>
+    printAttributeValue(
+      code,
+      {
+        __onHtmlBindingRoot(ast, options) {
+          shouldHug = shouldHugAttribute(ast, options);
+        },
+        ...options,
       },
-      __embeddedInHtml: true,
-      ...opts,
-    });
+      textToDoc
+    );
   const value = getUnescapedAttributeValue(node);
 
   if (
