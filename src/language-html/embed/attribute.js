@@ -75,8 +75,7 @@ function printAttribute(path, options) {
 }
 async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
   const { node } = path;
-  const isKeyMatched = (patterns) =>
-    new RegExp(patterns.join("|")).test(node.fullName);
+  const attributeName = node.fullName
 
   let shouldHug = false;
 
@@ -155,18 +154,7 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
      *     v-on:click="jsStatement"
      *     v-on:click="jsExpression"
      */
-    const vueEventBindingPatterns = ["^@", "^v-on:"];
-    /**
-     *     :class="vueExpression"
-     *     v-bind:id="vueExpression"
-     */
-    const vueExpressionBindingPatterns = ["^:", "^v-bind:"];
-    /**
-     *     v-if="jsExpression"
-     */
-    const jsExpressionBindingPatterns = ["^v-"];
-
-    if (isKeyMatched(vueEventBindingPatterns)) {
+    if (attributeName.startsWith("@")|| attributeName.startsWith("v-on:")) {
       const parser = isVueEventBindingExpression(value)
         ? isVueSfcWithTypescriptScript(path, options)
           ? "__ts_expression"
@@ -177,7 +165,11 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
       return printMaybeHug(await attributeTextToDoc(value, { parser }));
     }
 
-    if (isKeyMatched(vueExpressionBindingPatterns)) {
+    /**
+     *     :class="vueExpression"
+     *     v-bind:id="vueExpression"
+     */
+    if (attributeName.startsWith(":")|| attributeName.startsWith("v-bind:")) {
       return printMaybeHug(
         await attributeTextToDoc(value, {
           parser: isVueSfcWithTypescriptScript(path, options)
@@ -187,7 +179,11 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
       );
     }
 
-    if (isKeyMatched(jsExpressionBindingPatterns)) {
+
+    /**
+     *     v-if="jsExpression"
+     */
+    if (attributeName.startsWith("v-")) {
       return printMaybeHug(
         await attributeTextToDoc(value, {
           parser: isVueSfcWithTypescriptScript(path, options)
@@ -204,50 +200,47 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
       attributeTextToDoc(code, { ...opts, trailingComma: "none" });
 
     /**
-     *     *directive="angularDirective"
-     */
-    const ngDirectiveBindingPatterns = ["^\\*"];
-    /**
      *     (click)="angularStatement"
      *     on-click="angularStatement"
      */
-    const ngStatementBindingPatterns = ["^\\(.+\\)$", "^on-"];
+    if ((attributeName.startsWith("(") && attributeName.endsWith(")")) || attributeName.startsWith("on-") ) {
+      return printMaybeHug(await ngTextToDoc(value, { parser: "__ng_action" }));
+    }
+
+
     /**
      *     [target]="angularExpression"
      *     bind-target="angularExpression"
      *     [(target)]="angularExpression"
      *     bindon-target="angularExpression"
      */
-    const ngExpressionBindingPatterns = [
-      "^\\[.+\\]$",
-      "^bind(on)?-",
+    if (
+      (attributeName.startsWith("[") && attributeName.endsWith("]")) ||
+      /^bind(?:on)?-/.test(attributeName) ||
       // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
-      "^ng-(if|show|hide|class|style)$",
-    ];
-    /**
-     *     i18n="longDescription"
-     *     i18n-attr="longDescription"
-     */
-    const ngI18nPatterns = ["^i18n(-.+)?$"];
-
-    if (isKeyMatched(ngStatementBindingPatterns)) {
-      return printMaybeHug(await ngTextToDoc(value, { parser: "__ng_action" }));
-    }
-
-    if (isKeyMatched(ngExpressionBindingPatterns)) {
+      /^ng-(?:if|show|hide|class|style)$/.test(attributeName)
+    ) {
       return printMaybeHug(
         await ngTextToDoc(value, { parser: "__ng_binding" })
       );
     }
 
-    if (isKeyMatched(ngI18nPatterns)) {
+    /**
+     *     i18n="longDescription"
+     *     i18n-attr="longDescription"
+     */
+    if (/^i18n(?:-.+)?$/.test(attributeName)) {
       return printExpand(
         fill(getTextValueParts(node, value.trim())),
         !value.includes("@@")
       );
     }
 
-    if (isKeyMatched(ngDirectiveBindingPatterns)) {
+
+    /**
+     *     *directive="angularDirective"
+     */
+    if (attributeName.startsWith("*")) {
       return printMaybeHug(
         await ngTextToDoc(value, { parser: "__ng_directive" })
       );
