@@ -131,7 +131,6 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
       __embeddedInHtml: true,
       ...opts,
     });
-  const value = getUnescapedAttributeValue(node);
 
   if (
     node.fullName === "srcset" &&
@@ -140,6 +139,7 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
     return printExpand(printSrcset(value));
   }
 
+  const value = getUnescapedAttributeValue(node);
   if (
     node.fullName === "class" &&
     !options.parentParser &&
