@@ -133,6 +133,21 @@ function needsParens(path, options) {
     }
   }
 
+  if (node.type === "ObjectExpression") {
+    const arrowFunctionBody = path.findAncestor(
+      (node) => node.type === "ArrowFunctionExpression"
+    )?.body;
+    if (
+      arrowFunctionBody &&
+      startsWithNoLookaheadToken(
+        arrowFunctionBody,
+        (leftmostNode) => leftmostNode === node
+      )
+    ) {
+      return true;
+    }
+  }
+
   switch (parent.type) {
     case "ParenthesizedExpression":
       return false;
@@ -207,19 +222,6 @@ function needsParens(path, options) {
               return true;
           }
         }
-        return true;
-      }
-      break;
-
-    case "ArrowFunctionExpression":
-      if (
-        key === "body" &&
-        node.type !== "SequenceExpression" && // these have parens added anyway
-        startsWithNoLookaheadToken(
-          node,
-          (node) => node.type === "ObjectExpression"
-        )
-      ) {
         return true;
       }
       break;
