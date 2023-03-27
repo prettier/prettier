@@ -908,8 +908,8 @@ const bar = styled.div\`
   width: 40px;
 
   \${(props) =>
-    (props.complete || props.inProgress) &&
-    css\`
+    (props.complete || props.inProgress)
+    && css\`
       border-color: rgba(var(--green-rgb), 0.15);
     \`}
 
@@ -921,15 +921,15 @@ const bar = styled.div\`
     display: inline-flex;
 
     \${(props) =>
-      props.complete &&
-      css\`
+      props.complete
+      && css\`
         background-color: var(--green);
         border-width: 7px;
       \`}
 
     \${(props) =>
-      (props.complete || props.inProgress) &&
-      css\`
+      (props.complete || props.inProgress)
+      && css\`
         border-color: var(--green);
       \`}
   }
@@ -939,8 +939,8 @@ const A = styled.a\`
   display: inline-block;
   color: #fff;
   \${(props) =>
-    props.a &&
-    css\`
+    props.a
+    && css\`
       display: none;
     \`}
   height: 30px;
