@@ -15,7 +15,8 @@ function getLanguage(path) {
     isStyledJsx(path) ||
     isStyledComponents(path) ||
     isCssProp(path) ||
-    isAngularComponentStyles(path)
+    isAngularComponentStyles(path) ||
+    hasLanguageComment(path.getValue(), "CSS")
   ) {
     return "css";
   }
@@ -273,10 +274,13 @@ function hasLanguageComment(node, languageName) {
   // we will not trim the comment value and we will expect exactly one space on
   // either side of the GraphQL string
   // Also see ./clean.js
+
+  const strict = languageName === "GraphQL";
+
   return hasComment(
     node,
     CommentCheckFlags.Block | CommentCheckFlags.Leading,
-    ({ value }) => value === ` ${languageName} `
+    ({ value }) => strict ? value === ` ${languageName} ` : value.trim().toLowerCase() === languageName.toLowerCase()
   );
 }
 
