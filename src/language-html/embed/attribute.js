@@ -12,6 +12,7 @@ import {
   isVueEventBindingExpression,
 } from "./vue-bindings.js";
 import { printVueVForDirective } from "./vue-v-for-directive.js";
+import {printVueVOnDirective} from "./vue-v-on-directive.js"
 import printSrcsetValue from "./srcset.js";
 import printClassNames from "./class-names.js";
 import { printStyleAttribute as printStyleAttributeValue } from "./style.js";
@@ -121,6 +122,7 @@ function printAttribute(path, options) {
     return printClassNames;
   }
 
+  const attributeName = node.fullName;
   if (options.parser === "vue") {
       const parseWithTs = isVueSfcWithTypescriptScript(path, options);
 
@@ -131,6 +133,19 @@ if (node.fullName === "v-for") {
     if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
       return printVueAttribute(printVueBindings, {parseWithTs});
     }
+
+
+
+    /**
+     *     @click="jsStatement"
+     *     @click="jsExpression"
+     *     v-on:click="jsStatement"
+     *     v-on:click="jsExpression"
+     */
+    if (attributeName.startsWith("@") || attributeName.startsWith("v-on:")) {
+      return printVueAttribute(printVueVOnDirective, {parseWithTs});
+    }
+
     }
 
   return async (textToDoc) =>
@@ -149,23 +164,6 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
   const value = getUnescapedAttributeValue(node);
 
   if (options.parser === "vue") {
-
-    /**
-     *     @click="jsStatement"
-     *     @click="jsExpression"
-     *     v-on:click="jsStatement"
-     *     v-on:click="jsExpression"
-     */
-    if (attributeName.startsWith("@") || attributeName.startsWith("v-on:")) {
-      const parser = isVueEventBindingExpression(value)
-        ? isVueSfcWithTypescriptScript(path, options)
-          ? "__ts_expression"
-          : "__js_expression"
-        : isVueSfcWithTypescriptScript(path, options)
-        ? "__vue_ts_event_binding"
-        : "__vue_event_binding";
-      return printAttributeValue(value, { parser }, textToDoc);
-    }
 
     /**
      *     :class="vueExpression"
