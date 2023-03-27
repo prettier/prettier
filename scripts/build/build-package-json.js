@@ -1,10 +1,5 @@
 import path from "node:path";
-import {
-  PROJECT_ROOT,
-  DIST_DIR,
-  readJson,
-  writeJson,
-} from "../utils/index.js";
+import { PROJECT_ROOT, DIST_DIR, readJson, writeJson } from "../utils/index.js";
 
 async function buildPackageJson({ file, files }) {
   const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));
