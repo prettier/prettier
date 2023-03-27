@@ -9,6 +9,7 @@ importScripts(
 
 const plugins = [
   ...new Set(Object.values(parsersLocation).map((file) => `lib/${file}`)),
+  "lib/plugins/estree.js",
 ];
 
 toolbox.precache([

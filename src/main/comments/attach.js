@@ -144,12 +144,16 @@ function attachComments(ast, options) {
   const {
     locStart,
     locEnd,
-    printer: { handleComments = {} },
+    printer: {
+      experimentalFeatures: {
+        // TODO: Make this as default behavior
+        avoidAstMutation = false,
+      } = {},
+      handleComments = {},
+    },
     originalText: text,
   } = options;
-  // TODO: Make this as default behavior
   const {
-    avoidAstMutation,
     ownLine: handleOwnLineComment = returnFalse,
     endOfLine: handleEndOfLineComment = returnFalse,
     remaining: handleRemainingComment = returnFalse,
@@ -180,6 +184,7 @@ function attachComments(ast, options) {
       options.parser === "json" ||
       options.parser === "json5" ||
       options.parser === "__js_expression" ||
+      options.parser === "__ts_expression" ||
       options.parser === "__vue_expression" ||
       options.parser === "__vue_ts_expression"
     ) {

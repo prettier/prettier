@@ -67,40 +67,19 @@ function throwErrorForInvalidModifier(node) {
   const { SyntaxKind } = ts;
 
   for (const modifier of modifiers) {
-    if (ts.isDecorator(modifier)) {
-      if (!nodeCanBeDecorated(node)) {
-        if (
-          node.kind === SyntaxKind.MethodDeclaration &&
-          // @ts-expect-error -- internal?
-          !ts.nodeIsPresent(node.body)
-        ) {
-          throwErrorOnTsNode(
-            modifier,
-            "A decorator can only decorate a method implementation, not an overload."
-          );
-        } else {
-          throwErrorOnTsNode(modifier, "Decorators are not valid here.");
-        }
-      } else if (
-        node.kind === SyntaxKind.GetAccessor ||
-        node.kind === SyntaxKind.SetAccessor
-      ) {
+    if (ts.isDecorator(modifier) && !nodeCanBeDecorated(node)) {
+      if (
+        node.kind === SyntaxKind.MethodDeclaration &&
         // @ts-expect-error -- internal?
-        const accessors = ts.getAllAccessorDeclarations(
-          node.parent.members,
-          node
+        !ts.nodeIsPresent(node.body)
+      ) {
+        throwErrorOnTsNode(
+          modifier,
+          "A decorator can only decorate a method implementation, not an overload."
         );
-        if (
-          // @ts-expect-error -- internal?
-          ts.hasDecorators(accessors.firstAccessor) &&
-          node === accessors.secondAccessor
-        ) {
-          throwErrorOnTsNode(
-            modifier,
-            "Decorators cannot be applied to multiple get/set accessors of the same name."
-          );
-        }
       }
+
+      throwErrorOnTsNode(modifier, "Decorators are not valid here.");
     }
 
     if (modifier.kind !== SyntaxKind.ReadonlyKeyword) {

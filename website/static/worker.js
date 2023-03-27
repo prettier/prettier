@@ -9,6 +9,7 @@ importScripts("lib/standalone.js");
 for (const file of new Set(Object.values(parsersLocation))) {
   importScripts(`lib/${file}`);
 }
+importScripts("lib/plugins/estree.js");
 
 const docExplorerPlugin = {
   parsers: {

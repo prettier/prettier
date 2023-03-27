@@ -26,10 +26,10 @@ import { shouldPrintComma } from "./misc.js";
 function printParenthesizedValueGroup(path, options, print) {
   const { node } = path;
   const parentNode = path.parent;
-  const printedGroups = path.map(() => {
-    const child = path.node;
-    return typeof child === "string" ? child : print();
-  }, "groups");
+  const printedGroups = path.map(
+    ({ node }) => (typeof node === "string" ? node : print()),
+    "groups"
+  );
 
   if (
     parentNode &&
@@ -49,7 +49,9 @@ function printParenthesizedValueGroup(path, options, print) {
   }
 
   if (!node.open) {
-    return group(indent(fill(join([",", line], printedGroups))));
+    const forceHardLine = shouldBreakList(path);
+    const parts = join([",", forceHardLine ? hardline : line], printedGroups);
+    return indent(forceHardLine ? [hardline, parts] : group(fill(parts)));
   }
 
   const isSCSSMapItem = isSCSSMapItemNode(path, options);
@@ -138,4 +140,19 @@ function printParenthesizedValueGroup(path, options, print) {
   return shouldDedent ? dedent(printed) : printed;
 }
 
-export default printParenthesizedValueGroup;
+function shouldBreakList(path) {
+  return path.match(
+    (node) =>
+      node.type === "value-paren_group" &&
+      !node.open &&
+      node.groups.some((node) => node.type === "value-comma_group"),
+    (node, key) => key === "group" && node.type === "value-value",
+    (node, key) => key === "group" && node.type === "value-root",
+    (node, key) =>
+      key === "value" &&
+      ((node.type === "css-decl" && !node.prop.startsWith("--")) ||
+        (node.type === "css-atrule" && node.variable))
+  );
+}
+
+export { printParenthesizedValueGroup, shouldBreakList };

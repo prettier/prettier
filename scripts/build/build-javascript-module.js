@@ -170,20 +170,13 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       {
         module: "module",
         text: "export const createRequire = () => {};",
+      },
+      // This module requires file access, should not include in universal bundle
+      {
+        module: path.join(PROJECT_ROOT, "src/utils/get-interpreter.js"),
+        text: "export default undefined;",
       }
     );
-
-    // Replace parser getters with `undefined`
-    for (const file of [
-      "src/language-js/parse/parsers.js",
-      // This module requires file access, should not include in universal bundle
-      "src/utils/get-interpreter.js",
-    ]) {
-      replaceModule.push({
-        module: path.join(PROJECT_ROOT, file),
-        text: "export default undefined;",
-      });
-    }
   }
 
   const { buildOptions } = file;

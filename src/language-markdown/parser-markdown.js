@@ -53,12 +53,6 @@ const baseParser = {
   locEnd,
 };
 
-const markdownParser = { ...baseParser, parse: createParse({ isMDX: false }) };
-
-const mdxParser = { ...baseParser, parse: createParse({ isMDX: true }) };
-
-export const parsers = {
-  remark: markdownParser,
-  markdown: markdownParser,
-  mdx: mdxParser,
-};
+export const markdown = { ...baseParser, parse: createParse({ isMDX: false }) };
+export const mdx = { ...baseParser, parse: createParse({ isMDX: true }) };
+export { markdown as remark };
