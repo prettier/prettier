@@ -13,6 +13,8 @@ import {
 } from "./vue-bindings.js";
 import { printVueVForDirective } from "./vue-v-for-directive.js";
 import {printVueVOnDirective} from "./vue-v-on-directive.js"
+import { printVueVBindDirective } from "./vue-v-bind-directive.js";
+import {printVueVUnknownDirective} from "./vue-v-unknown-directive.js"
 import printSrcsetValue from "./srcset.js";
 import printClassNames from "./class-names.js";
 import { printStyleAttribute as printStyleAttributeValue } from "./style.js";
@@ -146,6 +148,22 @@ if (node.fullName === "v-for") {
       return printVueAttribute(printVueVOnDirective, {parseWithTs});
     }
 
+
+      /**
+      *     :class="vueExpression"
+      *     v-bind:id="vueExpression"
+      */
+      if (attributeName.startsWith(":") || attributeName.startsWith("v-bind:")) {
+        return  printVueAttribute(printVueVBindDirective, {parseWithTs});
+      }
+
+    /**
+     *     v-if="jsExpression"
+     */
+   if( attributeName.startsWith("v-")) {
+      return printVueAttribute(printVueVUnknownDirective, {parseWithTs});
+    }
+
     }
 
   return async (textToDoc) =>
@@ -163,39 +181,6 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
     formatAttributeValue(code, options, textToDoc);
   const value = getUnescapedAttributeValue(node);
 
-  if (options.parser === "vue") {
-
-    /**
-     *     :class="vueExpression"
-     *     v-bind:id="vueExpression"
-     */
-    if (attributeName.startsWith(":") || attributeName.startsWith("v-bind:")) {
-      return printAttributeValue(
-        value,
-        {
-          parser: isVueSfcWithTypescriptScript(path, options)
-            ? "__vue_ts_expression"
-            : "__vue_expression",
-        },
-        textToDoc
-      );
-    }
-
-    /**
-     *     v-if="jsExpression"
-     */
-    if (attributeName.startsWith("v-")) {
-      return printAttributeValue(
-        value,
-        {
-          parser: isVueSfcWithTypescriptScript(path, options)
-            ? "__ts_expression"
-            : "__js_expression",
-        },
-        textToDoc
-      );
-    }
-  }
 
   if (options.parser === "angular") {
     const ngTextToDoc = (code, options) =>
