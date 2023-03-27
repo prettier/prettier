@@ -7,7 +7,12 @@ const createLogger = require("./logger.js");
 const Context = require("./context.js");
 const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
 const { createDetailedUsage, createUsage } = require("./usage.js");
-const { formatStdin, formatFiles } = require("./format.js");
+const {
+  formatStdin,
+  formatFiles,
+  enableSupportedFilesGlob,
+  disableSupportedFilesGlob,
+} = require("./format.js");
 const logFileInfoOrDie = require("./file-info.js");
 const logResolvedConfigPathOrDie = require("./find-config-path.js");
 const {
@@ -109,7 +114,15 @@ async function main(context) {
     }
     await formatStdin(context);
   } else if (hasFilePatterns) {
+    const { plugins } = parseArgvWithoutPlugins(
+      context.rawArguments,
+      context.logger,
+      ["plugin"]
+    );
+
+    await enableSupportedFilesGlob(context, plugins);
     await formatFiles(context);
+    await disableSupportedFilesGlob(context);
   } else {
     process.exitCode = 1;
     printToScreen(createUsage(context));

@@ -11,7 +11,11 @@ const prettier = require("../index.js");
 // eslint-disable-next-line no-restricted-modules
 const { getStdin } = require("../common/third-party.js");
 
-const { createIgnorer, errors } = require("./prettier-internal.js");
+const {
+  createIgnorer,
+  errors,
+  utils: { isNonEmptyArray },
+} = require("./prettier-internal.js");
 const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
 const getOptionsForFile = require("./options/get-options-for-file.js");
 const isTTY = require("./is-tty.js");
@@ -286,6 +290,52 @@ async function formatStdin(context) {
   }
 }
 
+async function enableSupportedFilesGlob(context, plugins) {
+  const ignorer = await createIgnorerFromContextOrDie(context);
+  if (ignorer === null) {
+    context.pushContextPlugins(plugins);
+    return;
+  }
+
+  let _plugins = [...plugins];
+
+  for (const pattern of context.filePatterns) {
+    const filename = pattern;
+    // If there's an ignore-path set, the filename must be relative to the
+    // ignore path, not the current working directory.
+    const ignoreFilename = context.argv.ignorePath
+      ? path.relative(path.dirname(context.argv.ignorePath), filename)
+      : filename;
+
+    const fileIgnored = ignorer.ignores(fixWindowsSlashes(ignoreFilename));
+    if (fileIgnored) {
+      continue;
+    }
+
+    let config = null;
+    try {
+      config = await prettier.resolveConfig(pattern, {});
+    } catch {
+      // ignore
+    }
+    if (config === null) {
+      continue;
+    }
+    if (
+      Object.prototype.hasOwnProperty.call(config, "plugins") &&
+      isNonEmptyArray(config.plugins)
+    ) {
+      _plugins = [..._plugins, ...config.plugins];
+    }
+  }
+
+  context.pushContextPlugins(_plugins);
+}
+
+async function disableSupportedFilesGlob(context) {
+  await context.popContextPlugins();
+}
+
 async function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
@@ -514,4 +564,9 @@ async function formatFiles(context) {
   }
 }
 
-module.exports = { formatStdin, formatFiles };
+module.exports = {
+  formatStdin,
+  formatFiles,
+  enableSupportedFilesGlob,
+  disableSupportedFilesGlob,
+};
