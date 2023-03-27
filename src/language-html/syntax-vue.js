@@ -1,4 +1,7 @@
 import { group } from "../document/builders.js";
+import { getUnescapedAttributeValue } from "./utils/index.js";
+import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
+
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
  */
@@ -9,14 +12,14 @@ import { group } from "../document/builders.js";
  *     v-for="(..., ...) in ..."
  *     v-for="(..., ...) of ..."
  *
- * @param {*} value
  * @param {(code: string, opts: *) => Doc} attributeTextToDoc
  * @param {*} options
  * @returns {Promise<Doc>}
  */
-async function printVueFor(value, attributeTextToDoc, options) {
+async function printVueFor(path, attributeTextToDoc, options) {
+  const value = getUnescapedAttributeValue(path.node);
   const { left, operator, right } = parseVueFor(value);
-  const parseWithTs = options.__should_parse_vue_template_with_ts;
+  const parseWithTs = isVueSfcWithTypescriptScript(path, options);
   return [
     group(
       await attributeTextToDoc(`function _(${left}) {}`, {
@@ -80,14 +83,14 @@ function parseVueFor(value) {
 }
 
 /**
- * @param {*} value
  * @param {(code: string, opts: *) => Doc} attributeTextToDoc
  * @param {*} options
  * @returns {Doc}
  */
-function printVueBindings(value, attributeTextToDoc, options) {
+function printVueBindings(path, attributeTextToDoc, options) {
+  const value = getUnescapedAttributeValue(path.node);
   return attributeTextToDoc(`function _(${value}) {}`, {
-    parser: options.__should_parse_vue_template_with_ts ? "babel-ts" : "babel",
+    parser: isVueSfcWithTypescriptScript(path, options) ? "babel-ts" : "babel",
     __isVueBindings: true,
   });
 }
