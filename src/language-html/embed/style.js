@@ -1,8 +1,8 @@
 import { printExpand } from "./utils.js";
 
-async function printStyleAttribute(value, attributeTextToDoc) {
+async function printStyleAttribute(value, textToDoc) {
   return printExpand(
-    await attributeTextToDoc(value, {
+    await textToDoc(value, {
       parser: "css",
       __isHTMLStyleAttribute: true,
     })

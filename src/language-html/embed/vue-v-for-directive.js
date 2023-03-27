@@ -1,6 +1,7 @@
 import { group } from "../../document/builders.js";
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
+import {printAttributeValue} from "./utils.js"
 
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
@@ -12,27 +13,26 @@ import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-sc
  *     v-for="(..., ...) in ..."
  *     v-for="(..., ...) of ..."
  *
- * @param {(code: string, opts: *) => Doc} attributeTextToDoc
  * @param {*} options
  * @returns {Promise<Doc>}
  */
-async function printVueVForDirective(path, attributeTextToDoc, options) {
+async function printVueVForDirective(path, textToDoc, options) {
   const value = getUnescapedAttributeValue(path.node);
   const { left, operator, right } = parseVueVForDirective(value);
   const parseWithTs = isVueSfcWithTypescriptScript(path, options);
   return [
     group(
-      await attributeTextToDoc(`function _(${left}) {}`, {
+      await printAttributeValue(`function _(${left}) {}`, {
         parser: parseWithTs ? "babel-ts" : "babel",
         __isVueForBindingLeft: true,
-      })
+      }, textToDoc)
     ),
     " ",
     operator,
     " ",
-    await attributeTextToDoc(right, {
+    await printAttributeValue(right, {
       parser: parseWithTs ? "__ts_expression" : "__js_expression",
-    }),
+    }, textToDoc),
   ];
 }
 

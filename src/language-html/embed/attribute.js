@@ -116,7 +116,7 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
 
   if (options.parser === "vue") {
     if (node.fullName === "v-for") {
-      return printVueVForDirective(path, attributeTextToDoc, options);
+      return printVueVForDirective(path, textToDoc, options);
     }
 
     if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
