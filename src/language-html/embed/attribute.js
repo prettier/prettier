@@ -73,6 +73,30 @@ function printVueAttribute(valuePrinter, { parseWithTs }) {
   };
 }
 
+function printAngularAttribute({parser}) {
+  return async (textToDoc, print, path, options) => {
+    const { node } = path;
+    const value = getUnescapedAttributeValue(node);
+    const valueDoc = await printAttributeValue(value, {parser,
+      // angular does not allow trailing comma
+trailingComma: "none"}, textToDoc);
+    if (!valueDoc) {
+      return;
+    }
+
+    return [
+      path.node.rawName,
+      '="',
+      group(
+        mapDoc(valueDoc, (doc) =>
+          typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
+        )
+      ),
+      '"',
+    ];
+  };
+}
+
 const printSrcset = createAttributePrinter(printSrcsetValue);
 const printStyleAttribute = createAttributePrinter(printStyleAttributeValue);
 
@@ -161,6 +185,47 @@ function printAttribute(path, options) {
     }
   }
 
+  if (options.parser === "angular") {
+
+    /**
+     *     (click)="angularStatement"
+     *     on-click="angularStatement"
+     */
+    if (
+      (attributeName.startsWith("(") && attributeName.endsWith(")")) ||
+      attributeName.startsWith("on-")
+    ) {
+      return printAngularAttribute({parser: "__ng_action"});
+
+    }
+
+
+    /**
+     *     [target]="angularExpression"
+     *     bind-target="angularExpression"
+     *     [(target)]="angularExpression"
+     *     bindon-target="angularExpression"
+     */
+    if (
+      (attributeName.startsWith("[") && attributeName.endsWith("]")) ||
+      /^bind(?:on)?-/.test(attributeName) ||
+      // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
+      /^ng-(?:if|show|hide|class|style)$/.test(attributeName)
+    ) {
+      return printAngularAttribute({parser: "__ng_binding"});
+    }
+
+
+/* TODO: i18n */
+
+    /**
+     *     *directive="angularDirective"
+     */
+    if (attributeName.startsWith("*")) {
+      return printAngularAttribute({parser: "__ng_directive"});
+    }
+}
+
   return async (textToDoc) =>
     printAttributeDoc(
       path,
@@ -178,42 +243,9 @@ function printEmbeddedAttributeValue(path, textToDoc, options) {
 
   if (options.parser === "angular") {
     const ngTextToDoc = (code, options) =>
-      // angular does not allow trailing comma
       attributeTextToDoc(code, { ...options });
 
-    /**
-     *     (click)="angularStatement"
-     *     on-click="angularStatement"
-     */
-    if (
-      (attributeName.startsWith("(") && attributeName.endsWith(")")) ||
-      attributeName.startsWith("on-")
-    ) {
-      return printAttributeValue(
-        value,
-        { parser: "__ng_action", trailingComma: "none" },
-        textToDoc
-      );
-    }
 
-    /**
-     *     [target]="angularExpression"
-     *     bind-target="angularExpression"
-     *     [(target)]="angularExpression"
-     *     bindon-target="angularExpression"
-     */
-    if (
-      (attributeName.startsWith("[") && attributeName.endsWith("]")) ||
-      /^bind(?:on)?-/.test(attributeName) ||
-      // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
-      /^ng-(?:if|show|hide|class|style)$/.test(attributeName)
-    ) {
-      return printAttributeValue(
-        value,
-        { parser: "__ng_binding", trailingComma: "none" },
-        textToDoc
-      );
-    }
 
     /**
      *     i18n="longDescription"
@@ -226,16 +258,6 @@ function printEmbeddedAttributeValue(path, textToDoc, options) {
       );
     }
 
-    /**
-     *     *directive="angularDirective"
-     */
-    if (attributeName.startsWith("*")) {
-      return printAttributeValue(
-        value,
-        { parser: "__ng_directive", trailingComma: "none" },
-        textToDoc
-      );
-    }
 
     if (angularInterpolationRegex.test(value)) {
       return printAngularInterpolation(path, ngTextToDoc);
