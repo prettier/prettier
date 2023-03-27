@@ -121,9 +121,16 @@ function printAttribute(path, options) {
     return printClassNames;
   }
 
-  if (options.parser === "vue" && node.fullName === "v-for") {
+  if (options.parser === "vue") {
       const parseWithTs = isVueSfcWithTypescriptScript(path, options);
+
+if (node.fullName === "v-for") {
       return printVueAttribute(printVueVForDirective, {parseWithTs});
+}
+
+    if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
+      return printVueAttribute(printVueBindings, {parseWithTs});
+    }
     }
 
   return async (textToDoc) =>
@@ -142,13 +149,6 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
   const value = getUnescapedAttributeValue(node);
 
   if (options.parser === "vue") {
-    if (node.fullName === "v-for") {
-      return printVueVForDirective(path, textToDoc, options);
-    }
-
-    if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueBindings(path, textToDoc, options);
-    }
 
     /**
      *     @click="jsStatement"

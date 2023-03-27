@@ -10,12 +10,11 @@ import { formatAttributeValue } from "./utils.js";
  * @param {*} options
  * @returns {Doc}
  */
-function printVueBindings(path, textToDoc, options) {
-  const value = getUnescapedAttributeValue(path.node);
+function printVueBindings(text, textToDoc, {parseWithTs}) {
   return formatAttributeValue(
-    `function _(${value}) {}`,
+    `function _(${text}) {}`,
     {
-      parser: isVueSfcWithTypescriptScript(path, options)
+      parser: parseWithTs
         ? "babel-ts"
         : "babel",
       __isVueBindings: true,
