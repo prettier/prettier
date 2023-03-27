@@ -1,47 +1,25 @@
 import ts from "typescript";
+import createError from "../../../common/parser-create-error.js";
 import visitNode from "./visit-node.js";
-import throwTsSyntaxError from "./throw-ts-syntax-error.js";
+
+function throwErrorOnTsNode(node, message) {
+  throw createError(message, { loc: getTsNodeLocation(node) });
+}
 
 function getTsNodeLocation(nodeOrToken) {
   const sourceFile =
     // @ts-expect-error -- internal?
     ts.getSourceFileOfNode(nodeOrToken);
-  const position =
-    // @ts-expect-error -- internal?
-    ts.rangeOfNode(nodeOrToken);
-  const [start, end] = [position.pos, position.end].map((position) => {
+  const [start, end] = [
+    nodeOrToken.getStart(sourceFile),
+    nodeOrToken.getEnd(),
+  ].map((position) => {
     const { line, character: column } =
       sourceFile.getLineAndCharacterOfPosition(position);
-    return { line: line + 1, column };
+    return { line: line + 1, column: column + 1 };
   });
 
   return { start, end };
-}
-
-function throwErrorOnTsNode(node, message) {
-  throwTsSyntaxError({ loc: getTsNodeLocation(node) }, message);
-}
-
-// Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5
-// https://github.com/typescript-eslint/typescript-eslint/releases/tag/v5.0.0
-function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
-  if (
-    !(
-      tsNode.kind === ts.SyntaxKind.PropertyDeclaration &&
-      tsNode.initializer &&
-      esTreeNode.value === null &&
-      tsNode.modifiers?.some(
-        (modifier) => modifier.kind === ts.SyntaxKind.AbstractKeyword
-      )
-    )
-  ) {
-    return;
-  }
-
-  throwTsSyntaxError(
-    esTreeNode,
-    "Abstract property cannot have an initializer"
-  );
 }
 
 function nodeCanBeDecorated(node) {
