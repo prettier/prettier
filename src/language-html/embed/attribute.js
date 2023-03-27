@@ -111,7 +111,7 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
     !options.parentParser &&
     !value.includes("{{")
   ) {
-    return printStyleAttribute(value, attributeTextToDoc);
+    return printStyleAttribute(value, textToDoc);
   }
 
   if (options.parser === "vue") {
