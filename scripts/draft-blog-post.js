@@ -10,7 +10,7 @@ import {
   changelogUnreleasedDirPath,
   changelogUnreleasedDirs,
   printEntries,
-} from "./utils/changelog.mjs";
+} from "./utils/changelog.js";
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const blogDir = path.join(__dirname, "../website/blog");

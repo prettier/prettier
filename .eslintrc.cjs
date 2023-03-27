@@ -127,7 +127,7 @@ module.exports = {
       "error",
       {
         devDependencies: [
-          "jest.config.mjs",
+          "jest.config.js",
           "tests/**",
           "scripts/**",
           "website/**/*",
@@ -260,7 +260,7 @@ module.exports = {
       },
     },
     {
-      files: ["scripts/**/*.mjs"],
+      files: ["scripts/**/*.js"],
       rules: {
         "unicorn/prefer-top-level-await": "error",
       },

@@ -2,7 +2,7 @@ import path from "node:path";
 import escapeStringRegexp from "escape-string-regexp";
 import { outdent } from "outdent";
 import MagicString from "magic-string";
-import { writeFile, PROJECT_ROOT } from "../utils/index.mjs";
+import { writeFile, PROJECT_ROOT } from "../utils/index.js";
 
 function* getModules(text) {
   const parts = text.split(/(?<=\n)( {2}\/\/ src\/\S+\n)/);

@@ -7,8 +7,8 @@ import chalk from "chalk";
 import minimist from "minimist";
 import prettyBytes from "pretty-bytes";
 import createEsmUtils from "esm-utils";
-import { DIST_DIR } from "../utils/index.mjs";
-import files from "./config.mjs";
+import { DIST_DIR } from "../utils/index.js";
+import files from "./config.js";
 
 const { require } = createEsmUtils(import.meta);
 

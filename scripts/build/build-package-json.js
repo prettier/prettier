@@ -4,7 +4,7 @@ import {
   DIST_DIR,
   readJson,
   writeJson,
-} from "../utils/index.mjs";
+} from "../utils/index.js";
 
 async function buildPackageJson({ file, files }) {
   const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));

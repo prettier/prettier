@@ -3,7 +3,7 @@ import path from "node:path";
 import url from "node:url";
 import { isValidIdentifier } from "@babel/types";
 import { outdent } from "outdent";
-import { PROJECT_ROOT, DIST_DIR, writeFile } from "../utils/index.mjs";
+import { PROJECT_ROOT, DIST_DIR, writeFile } from "../utils/index.js";
 
 async function typesFileBuilder({ file }) {
   /**

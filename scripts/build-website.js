@@ -14,7 +14,7 @@ import {
   writeJson,
   copyFile,
   writeFile,
-} from "./utils/index.mjs";
+} from "./utils/index.js";
 
 const { require } = createEsmUtils(import.meta);
 const runYarn = (command, args, options) =>
