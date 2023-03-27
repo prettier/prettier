@@ -23,6 +23,7 @@ import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
 } from "./angular-interpolation.js";
+import { shouldHugAttribute } from "./utils.js";
 
 function printAttribute(path, options) {
   const { node } = path;
@@ -75,33 +76,9 @@ function printAttribute(path, options) {
 }
 async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
   const { node } = path;
-  const attributeName = node.fullName
+  const attributeName = node.fullName;
 
   let shouldHug = false;
-
-  const __onHtmlBindingRoot = (root, options) => {
-    const rootNode =
-      root.type === "NGRoot"
-        ? root.node.type === "NGMicrosyntax" &&
-          root.node.body.length === 1 &&
-          root.node.body[0].type === "NGMicrosyntaxExpression"
-          ? root.node.body[0].expression
-          : root.node
-        : root.type === "JsExpressionRoot"
-        ? root.node
-        : root;
-    if (
-      rootNode &&
-      (rootNode.type === "ObjectExpression" ||
-        rootNode.type === "ArrayExpression" ||
-        ((options.parser === "__vue_expression" ||
-          options.parser === "__vue_ts_expression") &&
-          (rootNode.type === "TemplateLiteral" ||
-            rootNode.type === "StringLiteral")))
-    ) {
-      shouldHug = true;
-    }
-  };
 
   const printExpand = (doc, canHaveTrailingWhitespace = true) =>
     group([indent([softline, doc]), canHaveTrailingWhitespace ? softline : ""]);
@@ -109,7 +86,9 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
 
   const attributeTextToDoc = (code, opts) =>
     htmlTextToDoc(code, {
-      __onHtmlBindingRoot,
+      __onHtmlBindingRoot(ast, options) {
+        shouldHug = shouldHugAttribute(ast, options);
+      },
       __embeddedInHtml: true,
       ...opts,
     });
@@ -119,7 +98,7 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
     node.fullName === "srcset" &&
     (node.parent.fullName === "img" || node.parent.fullName === "source")
   ) {
-    return printExpand(printSrcset(value));
+    return printSrcset(value);
   }
 
   if (
@@ -135,7 +114,7 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
     !options.parentParser &&
     !value.includes("{{")
   ) {
-    return printExpand(await printStyleAttribute(value, attributeTextToDoc));
+    return printStyleAttribute(value, attributeTextToDoc);
   }
 
   if (options.parser === "vue") {
@@ -153,7 +132,7 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
      *     v-on:click="jsStatement"
      *     v-on:click="jsExpression"
      */
-    if (attributeName.startsWith("@")|| attributeName.startsWith("v-on:")) {
+    if (attributeName.startsWith("@") || attributeName.startsWith("v-on:")) {
       const parser = isVueEventBindingExpression(value)
         ? isVueSfcWithTypescriptScript(path, options)
           ? "__ts_expression"
@@ -168,7 +147,7 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
      *     :class="vueExpression"
      *     v-bind:id="vueExpression"
      */
-    if (attributeName.startsWith(":")|| attributeName.startsWith("v-bind:")) {
+    if (attributeName.startsWith(":") || attributeName.startsWith("v-bind:")) {
       return printMaybeHug(
         await attributeTextToDoc(value, {
           parser: isVueSfcWithTypescriptScript(path, options)
@@ -177,7 +156,6 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
         })
       );
     }
-
 
     /**
      *     v-if="jsExpression"
@@ -194,18 +172,20 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
   }
 
   if (options.parser === "angular") {
-    const ngTextToDoc = (code, opts) =>
+    const ngTextToDoc = (code, options) =>
       // angular does not allow trailing comma
-      attributeTextToDoc(code, { ...opts, trailingComma: "none" });
+      attributeTextToDoc(code, { ...options, trailingComma: "none" });
 
     /**
      *     (click)="angularStatement"
      *     on-click="angularStatement"
      */
-    if ((attributeName.startsWith("(") && attributeName.endsWith(")")) || attributeName.startsWith("on-") ) {
+    if (
+      (attributeName.startsWith("(") && attributeName.endsWith(")")) ||
+      attributeName.startsWith("on-")
+    ) {
       return printMaybeHug(await ngTextToDoc(value, { parser: "__ng_action" }));
     }
-
 
     /**
      *     [target]="angularExpression"
@@ -234,7 +214,6 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
         !value.includes("@@")
       );
     }
-
 
     /**
      *     *directive="angularDirective"
