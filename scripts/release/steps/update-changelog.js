@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import { execa } from "execa";
 import chalk from "chalk";
-import outdent from "outdent";
 import semver from "semver";
 import {
   waitForEnter,
@@ -10,8 +9,6 @@ import {
   getBlogPostInfo,
   getChangelogContent,
 } from "../utils.js";
-
-const outdentString = outdent.string;
 
 function writeChangelog(params) {
   const changelog = fs.readFileSync("CHANGELOG.md", "utf8");
@@ -30,7 +27,15 @@ async function getChangelogForPatch({ version, previousVersion }) {
   return changelog;
 }
 
-export default async function updateChangelog({ version, previousVersion }) {
+export default async function updateChangelog({
+  dry,
+  version,
+  previousVersion,
+}) {
+  if (dry) {
+    return;
+  }
+
   const semverDiff = semver.diff(version, previousVersion);
 
   if (semverDiff !== "patch") {
@@ -45,11 +50,11 @@ export default async function updateChangelog({ version, previousVersion }) {
       return;
     }
     console.warn(
-      outdentString(chalk`
-        {yellow warning} The file {bold ${blogPost.file}} doesn't exist, but it will be referenced in {bold CHANGELOG.md}. Make sure to create it later.
-
-        Press ENTER to continue.
-      `)
+      `${chalk.yellow("warning")} The file ${chalk.bold(
+        blogPost.file
+      )} doesn't exist, but it will be referenced in ${chalk.bold(
+        "CHANGELOG.md"
+      )}. Make sure to create it later.`
     );
   } else {
     const body = await getChangelogForPatch({
@@ -61,7 +66,6 @@ export default async function updateChangelog({ version, previousVersion }) {
       previousVersion,
       body,
     });
-    console.log("Press ENTER to continue.");
   }
 
   await waitForEnter();

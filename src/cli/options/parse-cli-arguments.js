@@ -1,10 +1,9 @@
-"use strict";
-const camelCase = require("camelcase");
-const { pick } = require("../utils.js");
-const getContextOptions = require("./get-context-options.js");
-const minimist = require("./minimist.js");
-const createMinimistOptions = require("./create-minimist-options.js");
-const normalizeCliOptions = require("./normalize-cli-options.js");
+import camelCase from "camelcase";
+import { pick } from "../utils.js";
+import { getContextOptionsWithoutPlugins } from "./get-context-options.js";
+import minimist from "./minimist.js";
+import createMinimistOptions from "./create-minimist-options.js";
+import normalizeCliOptions from "./normalize-cli-options.js";
 
 function parseArgv(rawArguments, detailedOptions, logger, keys) {
   const minimistOptions = createMinimistOptions(detailedOptions);
@@ -34,16 +33,15 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
         return [option.forwardToApi || camelCase(key), value];
       })
     ),
+    _: normalized._?.map(String),
     get __raw() {
       return argv;
     },
   };
 }
 
-const detailedOptionsWithoutPlugins = getContextOptions(
-  [],
-  false
-).detailedOptions;
+const { detailedOptions: detailedOptionsWithoutPlugins } =
+  getContextOptionsWithoutPlugins();
 function parseArgvWithoutPlugins(rawArguments, logger, keys) {
   return parseArgv(
     rawArguments,
@@ -53,4 +51,4 @@ function parseArgvWithoutPlugins(rawArguments, logger, keys) {
   );
 }
 
-module.exports = { parseArgv, parseArgvWithoutPlugins };
+export { parseArgv, parseArgvWithoutPlugins };

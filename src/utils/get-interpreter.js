@@ -1,10 +1,8 @@
-"use strict";
-
-const fs = require("fs");
-const readlines = require("n-readlines");
+import fs from "node:fs";
+import readlines from "n-readlines";
 
 function getInterpreter(filepath) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (typeof filepath !== "string") {
     return "";
   }
@@ -13,7 +11,7 @@ function getInterpreter(filepath) {
   try {
     fd = fs.openSync(filepath, "r");
   } catch {
-    // istanbul ignore next
+    /* c8 ignore next */
     return "";
   }
 
@@ -36,7 +34,7 @@ function getInterpreter(filepath) {
   } catch {
     // There are some weird cases where paths are missing, causing Jest
     // failures. It's unclear what these correspond to in the real world.
-    /* istanbul ignore next */
+    /* c8 ignore next */
     return "";
   } finally {
     try {
@@ -49,4 +47,4 @@ function getInterpreter(filepath) {
   }
 }
 
-module.exports = getInterpreter;
+export default getInterpreter;

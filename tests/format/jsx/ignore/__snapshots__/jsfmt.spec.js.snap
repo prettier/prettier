@@ -80,7 +80,7 @@ f(
   <Component>
     {/*prettier-ignore*/}
     <span     ugly  format=''   />
-  </Component>
+  </Component>,
 );
 
 // this be formatted
@@ -108,7 +108,7 @@ f(
 push(
   // prettier-ignore
   <td> :)
-  </td>
+  </td>,
 );
 
 function f() {

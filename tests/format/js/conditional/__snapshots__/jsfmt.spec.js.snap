@@ -268,7 +268,7 @@ const testConsole = new TestConsole(
 
 =====================================output=====================================
 const testConsole = new TestConsole(
-  config.useStderr ? process.stderr : process.stdout
+  config.useStderr ? process.stderr : process.stdout,
 );
 
 ================================================================================
@@ -463,7 +463,7 @@ const typeofExample = definition.encode
         ? row[field]
         : typeof definition.default !== "undefined"
         ? definition.default
-        : null
+        : null,
     )
   : typeof row[field] !== "undefined"
   ? row[field]
@@ -478,7 +478,7 @@ const typeofExampleFlipped = definition.encode
         ? typeof definition.default === "undefined"
           ? null
           : definition.default
-        : row[field]
+        : row[field],
     )
   : typeof row[field] === "undefined"
   ? typeof definition.default === "undefined"
@@ -543,7 +543,7 @@ inJSXExpressionContainer.withLoops.orBooleans.example = (
             <Item item={item} attr="breaks ternary but not consequent" />
           ) : (
             <Blank />
-          )
+          ),
         )
       : null}
 
@@ -886,7 +886,7 @@ definition.encode(
     ? typeof definition.default === "undefined"
       ? null
       : definition.default
-    : row[field]
+    : row[field],
 );
 
 // In a return, break and over-indent:
@@ -1243,7 +1243,7 @@ resolveRedirectTo(
     ? payload.data
     : requestPayload && requestPayload.data
     ? requestPayload.data
-    : null
+    : null,
 );
 
 const delayedDataProvider = new Proxy(restProvider, {
@@ -1252,7 +1252,10 @@ const delayedDataProvider = new Proxy(restProvider, {
       ? self
       : (resource, params) =>
           new Promise((resolve) =>
-            setTimeout(() => resolve(restProvider[name](resource, params)), 500)
+            setTimeout(
+              () => resolve(restProvider[name](resource, params)),
+              500,
+            ),
           ),
 });
 

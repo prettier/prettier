@@ -1,2 +1,2 @@
-run_spec(__dirname, ["html"]);
-run_spec(__dirname, ["html"], { embeddedLanguageFormatting: "off" });
+run_spec(import.meta, ["html"]);
+run_spec(import.meta, ["html"], { embeddedLanguageFormatting: "off" });

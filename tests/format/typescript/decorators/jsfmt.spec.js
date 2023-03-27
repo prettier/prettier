@@ -1,3 +1,6 @@
-run_spec(__dirname, ["typescript"], {
-  errors: { typescript: ["abstract-method.ts"] },
+run_spec(import.meta, ["typescript"], {
+  errors: {
+    typescript: ["abstract-method.ts"],
+    "babel-ts": ["issue-9102.ts"],
+  },
 });

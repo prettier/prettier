@@ -1,7 +1,4 @@
-"use strict";
-
-const getLast = require("../utils/get-last.js");
-const { getOrderedListItemInfo, mapAst, splitText } = require("./utils.js");
+import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
 // 0x0 ~ 0x10ffff
 const isSingleCharRegex = /^.$/su;
@@ -9,33 +6,10 @@ const isSingleCharRegex = /^.$/su;
 function preprocess(ast, options) {
   ast = restoreUnescapedCharacter(ast, options);
   ast = mergeContinuousTexts(ast);
-  ast = transformInlineCode(ast, options);
   ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
   ast = markAlignedList(ast, options);
-  ast = splitTextIntoSentences(ast, options);
-  ast = transformImportExport(ast);
-  ast = mergeContinuousImportExport(ast);
+  ast = splitTextIntoSentences(ast);
   return ast;
-}
-
-function transformImportExport(ast) {
-  return mapAst(ast, (node) => {
-    if (node.type !== "import" && node.type !== "export") {
-      return node;
-    }
-
-    return { ...node, type: "importExport" };
-  });
-}
-
-function transformInlineCode(ast, options) {
-  return mapAst(ast, (node) => {
-    if (node.type !== "inlineCode" || options.proseWrap === "preserve") {
-      return node;
-    }
-
-    return { ...node, value: node.value.replace(/\s+/g, " ") };
-  });
 }
 
 function restoreUnescapedCharacter(ast, options) {
@@ -56,29 +30,13 @@ function restoreUnescapedCharacter(ast, options) {
   );
 }
 
-function mergeContinuousImportExport(ast) {
-  return mergeChildren(
-    ast,
-    (prevNode, node) =>
-      prevNode.type === "importExport" && node.type === "importExport",
-    (prevNode, node) => ({
-      type: "importExport",
-      value: prevNode.value + "\n\n" + node.value,
-      position: {
-        start: prevNode.position.start,
-        end: node.position.end,
-      },
-    })
-  );
-}
-
 function mergeChildren(ast, shouldMerge, mergeNode) {
   return mapAst(ast, (node) => {
     if (!node.children) {
       return node;
     }
     const children = node.children.reduce((current, child) => {
-      const lastChild = getLast(current);
+      const lastChild = current.at(-1);
       if (lastChild && shouldMerge(lastChild, child)) {
         current.splice(-1, 1, mergeNode(lastChild, child));
       } else {
@@ -105,7 +63,7 @@ function mergeContinuousTexts(ast) {
   );
 }
 
-function splitTextIntoSentences(ast, options) {
+function splitTextIntoSentences(ast) {
   return mapAst(ast, (node, index, [parentNode]) => {
     if (node.type !== "text") {
       return node;
@@ -125,7 +83,7 @@ function splitTextIntoSentences(ast, options) {
     return {
       type: "sentence",
       position: node.position,
-      children: splitText(value, options),
+      children: splitText(value),
     };
   });
 }
@@ -271,4 +229,4 @@ function markAlignedList(ast, options) {
   }
 }
 
-module.exports = preprocess;
+export default preprocess;

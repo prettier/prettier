@@ -1,40 +1,45 @@
-"use strict";
-
-const {
-  builders: { breakParent, group, hardline, indent, line, fill, softline },
-  utils: { mapDoc, replaceTextEndOfLine },
-} = require("../document/index.js");
-const printFrontMatter = require("../utils/front-matter/print.js");
-const {
+import {
+  breakParent,
+  group,
+  hardline,
+  indent,
+  line,
+  fill,
+  softline,
+} from "../document/builders.js";
+import { mapDoc, replaceEndOfLine } from "../document/utils.js";
+import printFrontMatter from "../utils/front-matter/print.js";
+import {
   printClosingTag,
   printClosingTagSuffix,
   needsToBorrowPrevClosingTagEndMarker,
   printOpeningTagPrefix,
   printOpeningTag,
-} = require("./print/tag.js");
-const { printImgSrcset, printClassNames } = require("./syntax-attribute.js");
-const {
+} from "./print/tag.js";
+import { printImgSrcset, printClassNames } from "./syntax-attribute.js";
+import {
   printVueFor,
   printVueBindings,
   isVueEventBindingExpression,
-} = require("./syntax-vue.js");
-const {
+} from "./syntax-vue.js";
+import {
   isScriptLikeTag,
   isVueNonHtmlBlock,
-  inferScriptParser,
+  inferElementParser,
   htmlTrimPreserveIndentation,
   dedentString,
-  unescapeQuoteEntities,
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   getTextValueParts,
-} = require("./utils/index.js");
-const getNodeContent = require("./get-node-content.js");
+  getUnescapedAttributeValue,
+} from "./utils/index.js";
+import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
+import getNodeContent from "./get-node-content.js";
 
-function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
+async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
+  const { node } = path;
   const isKeyMatched = (patterns) =>
     new RegExp(patterns.join("|")).test(node.fullName);
-  const getValue = () => unescapeQuoteEntities(node.value);
 
   let shouldHug = false;
 
@@ -53,7 +58,8 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
       rootNode &&
       (rootNode.type === "ObjectExpression" ||
         rootNode.type === "ArrayExpression" ||
-        (options.parser === "__vue_expression" &&
+        ((options.parser === "__vue_expression" ||
+          options.parser === "__vue_ts_expression") &&
           (rootNode.type === "TemplateLiteral" ||
             rootNode.type === "StringLiteral")))
     ) {
@@ -72,40 +78,43 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
       __embeddedInHtml: true,
       ...opts,
     });
+  const value = getUnescapedAttributeValue(node);
 
   if (
     node.fullName === "srcset" &&
     (node.parent.fullName === "img" || node.parent.fullName === "source")
   ) {
-    return printExpand(printImgSrcset(getValue()));
+    return printExpand(printImgSrcset(value));
   }
 
-  if (node.fullName === "class" && !options.parentParser) {
-    const value = getValue();
-    if (!value.includes("{{")) {
-      return printClassNames(value);
-    }
+  if (
+    node.fullName === "class" &&
+    !options.parentParser &&
+    !value.includes("{{")
+  ) {
+    return printClassNames(value);
   }
 
-  if (node.fullName === "style" && !options.parentParser) {
-    const value = getValue();
-    if (!value.includes("{{")) {
-      return printExpand(
-        attributeTextToDoc(value, {
-          parser: "css",
-          __isHTMLStyleAttribute: true,
-        })
-      );
-    }
+  if (
+    node.fullName === "style" &&
+    !options.parentParser &&
+    !value.includes("{{")
+  ) {
+    return printExpand(
+      await attributeTextToDoc(value, {
+        parser: "css",
+        __isHTMLStyleAttribute: true,
+      })
+    );
   }
 
   if (options.parser === "vue") {
     if (node.fullName === "v-for") {
-      return printVueFor(getValue(), attributeTextToDoc);
+      return printVueFor(path, attributeTextToDoc, options);
     }
 
     if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueBindings(getValue(), attributeTextToDoc);
+      return printVueBindings(path, attributeTextToDoc, options);
     }
 
     /**
@@ -126,28 +135,33 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
     const jsExpressionBindingPatterns = ["^v-"];
 
     if (isKeyMatched(vueEventBindingPatterns)) {
-      const value = getValue();
       const parser = isVueEventBindingExpression(value)
-        ? "__js_expression"
-        : options.__should_parse_vue_template_with_ts
+        ? isVueSfcWithTypescriptScript(path, options)
+          ? "__ts_expression"
+          : "__js_expression"
+        : isVueSfcWithTypescriptScript(path, options)
         ? "__vue_ts_event_binding"
         : "__vue_event_binding";
-      return printMaybeHug(
-        attributeTextToDoc(value, {
-          parser,
-        })
-      );
+      return printMaybeHug(await attributeTextToDoc(value, { parser }));
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        attributeTextToDoc(getValue(), { parser: "__vue_expression" })
+        await attributeTextToDoc(value, {
+          parser: isVueSfcWithTypescriptScript(path, options)
+            ? "__vue_ts_expression"
+            : "__vue_expression",
+        })
       );
     }
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        attributeTextToDoc(getValue(), { parser: "__js_expression" })
+        await attributeTextToDoc(value, {
+          parser: isVueSfcWithTypescriptScript(path, options)
+            ? "__ts_expression"
+            : "__js_expression",
+        })
       );
     }
   }
@@ -185,34 +199,34 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
     const ngI18nPatterns = ["^i18n(-.+)?$"];
 
     if (isKeyMatched(ngStatementBindingPatterns)) {
-      return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_action" }));
+      return printMaybeHug(await ngTextToDoc(value, { parser: "__ng_action" }));
     }
 
     if (isKeyMatched(ngExpressionBindingPatterns)) {
-      return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_binding" }));
+      return printMaybeHug(
+        await ngTextToDoc(value, { parser: "__ng_binding" })
+      );
     }
 
     if (isKeyMatched(ngI18nPatterns)) {
-      const value = getValue().trim();
       return printExpand(
-        fill(getTextValueParts(node, value)),
+        fill(getTextValueParts(node, value.trim())),
         !value.includes("@@")
       );
     }
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
       return printMaybeHug(
-        ngTextToDoc(getValue(), { parser: "__ng_directive" })
+        await ngTextToDoc(value, { parser: "__ng_directive" })
       );
     }
 
     const interpolationRegex = /{{(.+?)}}/s;
-    const value = getValue();
     if (interpolationRegex.test(value)) {
       const parts = [];
       for (const [index, part] of value.split(interpolationRegex).entries()) {
         if (index % 2 === 0) {
-          parts.push(replaceTextEndOfLine(part));
+          parts.push(replaceEndOfLine(part));
         } else {
           try {
             parts.push(
@@ -220,7 +234,7 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
                 "{{",
                 indent([
                   line,
-                  ngTextToDoc(part, {
+                  await ngTextToDoc(part, {
                     parser: "__ng_interpolation",
                     __isInHtmlInterpolation: true, // to avoid unexpected `}}`
                   }),
@@ -230,7 +244,7 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
               ])
             );
           } catch {
-            parts.push("{{", replaceTextEndOfLine(part), "}}");
+            parts.push("{{", replaceEndOfLine(part), "}}");
           }
         }
       }
@@ -241,108 +255,113 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   return null;
 }
 
-function embed(path, print, textToDoc, options) {
-  const node = path.getValue();
+function embed(path, options) {
+  const { node } = path;
 
   switch (node.type) {
-    case "element": {
+    case "element":
       if (isScriptLikeTag(node) || node.type === "interpolation") {
         // Fall through to "text"
         return;
       }
 
       if (!node.isSelfClosing && isVueNonHtmlBlock(node, options)) {
-        const parser = inferScriptParser(node, options);
+        const parser = inferElementParser(node, options);
         if (!parser) {
           return;
         }
 
-        const content = getNodeContent(node, options);
-        let isEmpty = /^\s*$/.test(content);
-        let doc = "";
-        if (!isEmpty) {
-          doc = textToDoc(
-            htmlTrimPreserveIndentation(content),
-            { parser, __embeddedInHtml: true },
-            { stripTrailingHardline: true }
-          );
-          isEmpty = doc === "";
-        }
-
-        return [
-          printOpeningTagPrefix(node, options),
-          group(printOpeningTag(path, options, print)),
-          isEmpty ? "" : hardline,
-          doc,
-          isEmpty ? "" : hardline,
-          printClosingTag(node, options),
-          printClosingTagSuffix(node, options),
-        ];
-      }
-      break;
-    }
-    case "text": {
-      if (isScriptLikeTag(node.parent)) {
-        const parser = inferScriptParser(node.parent, options);
-        if (parser) {
-          const value =
-            parser === "markdown"
-              ? dedentString(node.value.replace(/^[^\S\n]*\n/, ""))
-              : node.value;
-          const textToDocOptions = { parser, __embeddedInHtml: true };
-          if (options.parser === "html" && parser === "babel") {
-            let sourceType = "script";
-            const { attrMap } = node.parent;
-            if (
-              attrMap &&
-              (attrMap.type === "module" ||
-                (attrMap.type === "text/babel" &&
-                  attrMap["data-type"] === "module"))
-            ) {
-              sourceType = "module";
-            }
-            textToDocOptions.__babelSourceType = sourceType;
+        return async (textToDoc, print) => {
+          const content = getNodeContent(node, options);
+          let isEmpty = /^\s*$/.test(content);
+          let doc = "";
+          if (!isEmpty) {
+            doc = await textToDoc(htmlTrimPreserveIndentation(content), {
+              parser,
+              __embeddedInHtml: true,
+            });
+            isEmpty = doc === "";
           }
+
           return [
-            breakParent,
             printOpeningTagPrefix(node, options),
-            textToDoc(value, textToDocOptions, {
-              stripTrailingHardline: true,
-            }),
+            group(printOpeningTag(path, options, print)),
+            isEmpty ? "" : hardline,
+            doc,
+            isEmpty ? "" : hardline,
+            printClosingTag(node, options),
             printClosingTagSuffix(node, options),
           ];
-        }
-      } else if (node.parent.type === "interpolation") {
-        const textToDocOptions = {
-          __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-          __embeddedInHtml: true,
         };
-        if (options.parser === "angular") {
-          textToDocOptions.parser = "__ng_interpolation";
-          textToDocOptions.trailingComma = "none";
-        } else if (options.parser === "vue") {
-          textToDocOptions.parser = options.__should_parse_vue_template_with_ts
-            ? "__vue_ts_expression"
-            : "__vue_expression";
-        } else {
-          textToDocOptions.parser = "__js_expression";
-        }
-        return [
-          indent([
-            line,
-            textToDoc(node.value, textToDocOptions, {
-              stripTrailingHardline: true,
-            }),
-          ]),
-          node.parent.next &&
-          needsToBorrowPrevClosingTagEndMarker(node.parent.next)
-            ? " "
-            : line,
-        ];
       }
       break;
-    }
-    case "attribute": {
+
+    case "text":
+      if (isScriptLikeTag(node.parent)) {
+        const parser = inferElementParser(node.parent, options);
+        if (parser) {
+          return async (textToDoc) => {
+            const value =
+              parser === "markdown"
+                ? dedentString(node.value.replace(/^[^\S\n]*\n/, ""))
+                : node.value;
+            const textToDocOptions = { parser, __embeddedInHtml: true };
+            if (options.parser === "html" && parser === "babel") {
+              let sourceType = "script";
+              const { attrMap } = node.parent;
+              if (
+                attrMap &&
+                (attrMap.type === "module" ||
+                  (attrMap.type === "text/babel" &&
+                    attrMap["data-type"] === "module"))
+              ) {
+                sourceType = "module";
+              }
+              textToDocOptions.__babelSourceType = sourceType;
+            }
+
+            return [
+              breakParent,
+              printOpeningTagPrefix(node, options),
+              await textToDoc(value, textToDocOptions, {
+                stripTrailingHardline: true,
+              }),
+              printClosingTagSuffix(node, options),
+            ];
+          };
+        }
+      } else if (node.parent.type === "interpolation") {
+        return async (textToDoc) => {
+          const textToDocOptions = {
+            __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+            __embeddedInHtml: true,
+          };
+          if (options.parser === "angular") {
+            textToDocOptions.parser = "__ng_interpolation";
+            textToDocOptions.trailingComma = "none";
+          } else if (options.parser === "vue") {
+            textToDocOptions.parser = isVueSfcWithTypescriptScript(
+              path,
+              options
+            )
+              ? "__vue_ts_expression"
+              : "__vue_expression";
+          } else {
+            textToDocOptions.parser = "__js_expression";
+          }
+
+          return [
+            indent([line, await textToDoc(node.value, textToDocOptions)]),
+            node.parent.next &&
+            needsToBorrowPrevClosingTagEndMarker(node.parent.next)
+              ? " "
+              : line,
+          ];
+        };
+      }
+      break;
+
+    case "attribute":
       if (!node.value) {
         break;
       }
@@ -374,34 +393,35 @@ function embed(path, print, textToDoc, options) {
         }
       }
 
-      const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
-        node,
-        (code, opts) =>
-          // strictly prefer single quote to avoid unnecessary html entity escape
-          textToDoc(
-            code,
-            { __isInHtmlAttribute: true, __embeddedInHtml: true, ...opts },
-            { stripTrailingHardline: true }
-          ),
-        options
-      );
-      if (embeddedAttributeValueDoc) {
-        return [
-          node.rawName,
-          '="',
-          group(
-            mapDoc(embeddedAttributeValueDoc, (doc) =>
-              typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
-            )
-          ),
-          '"',
-        ];
-      }
-      break;
-    }
+      return async (textToDoc) => {
+        const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
+          path,
+          (code, opts) =>
+            // strictly prefer single quote to avoid unnecessary html entity escape
+            textToDoc(code, {
+              __isInHtmlAttribute: true,
+              __embeddedInHtml: true,
+              ...opts,
+            }),
+          options
+        );
+        if (embeddedAttributeValueDoc) {
+          return [
+            node.rawName,
+            '="',
+            group(
+              mapDoc(embeddedAttributeValueDoc, (doc) =>
+                typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
+              )
+            ),
+            '"',
+          ];
+        }
+      };
+
     case "front-matter":
-      return printFrontMatter(node, textToDoc);
+      return (textToDoc) => printFrontMatter(node, textToDoc);
   }
 }
 
-module.exports = embed;
+export default embed;

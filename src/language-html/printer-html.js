@@ -1,48 +1,42 @@
-"use strict";
-
 /**
- * @typedef {import("../document").Doc} Doc
+ * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-const {
-  builders: { fill, group, hardline, literalline },
-  utils: { cleanDoc, getDocParts, isConcat, replaceTextEndOfLine },
-} = require("../document/index.js");
-const clean = require("./clean.js");
-const {
-  countChars,
-  unescapeQuoteEntities,
-  getTextValueParts,
-} = require("./utils/index.js");
-const preprocess = require("./print-preprocess.js");
-const { insertPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
-const embed = require("./embed.js");
-const {
+import { fill, group, hardline } from "../document/builders.js";
+import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import getPreferredQuote from "../utils/get-preferred-quote.js";
+import clean from "./clean.js";
+import { unescapeQuoteEntities, getTextValueParts } from "./utils/index.js";
+import preprocess from "./print-preprocess.js";
+import { insertPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
+import embed from "./embed.js";
+import {
   printClosingTagSuffix,
   printClosingTagEnd,
   printOpeningTagPrefix,
   printOpeningTagStart,
-} = require("./print/tag.js");
-const { printElement } = require("./print/element.js");
-const { printChildren } = require("./print/children.js");
+} from "./print/tag.js";
+import { printElement } from "./print/element.js";
+import { printChildren } from "./print/children.js";
+import getVisitorKeys from "./get-visitor-keys.js";
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   switch (node.type) {
     case "front-matter":
-      return replaceTextEndOfLine(node.raw);
+      return replaceEndOfLine(node.raw);
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
       }
-      // use original concat to not break stripTrailingHardline
       return [group(printChildren(path, options, print)), hardline];
     case "element":
-    case "ieConditionalComment": {
+    case "ieConditionalComment":
       return printElement(path, options, print);
-    }
+
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":
       return [printOpeningTagStart(node), printClosingTagEnd(node)];
@@ -60,10 +54,7 @@ function genericPrint(path, options, print) {
         const value = hasTrailingNewline
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
-        return [
-          ...replaceTextEndOfLine(value),
-          hasTrailingNewline ? hardline : "",
-        ];
+        return [replaceEndOfLine(value), hasTrailingNewline ? hardline : ""];
       }
 
       const printed = cleanDoc([
@@ -71,10 +62,11 @@ function genericPrint(path, options, print) {
         ...getTextValueParts(node),
         printClosingTagSuffix(node, options),
       ]);
-      if (isConcat(printed) || printed.type === "fill") {
-        return fill(getDocParts(printed));
+
+      if (Array.isArray(printed)) {
+        return fill(printed);
       }
-      /* istanbul ignore next */
+
       return printed;
     }
     case "docType":
@@ -82,52 +74,51 @@ function genericPrint(path, options, print) {
         group([
           printOpeningTagStart(node, options),
           " ",
-          node.value.replace(/^html\b/i, "html").replace(/\s+/g, " "),
+          node.value.replace(/^html\b/i, "html").replaceAll(/\s+/g, " "),
         ]),
         printClosingTagEnd(node, options),
       ];
-    case "comment": {
+    case "comment":
       return [
         printOpeningTagPrefix(node, options),
-        ...replaceTextEndOfLine(
-          options.originalText.slice(locStart(node), locEnd(node)),
-          literalline
+        replaceEndOfLine(
+          options.originalText.slice(locStart(node), locEnd(node))
         ),
         printClosingTagSuffix(node, options),
       ];
-    }
+
     case "attribute": {
       if (node.value === null) {
         return node.rawName;
       }
       const value = unescapeQuoteEntities(node.value);
-      const singleQuoteCount = countChars(value, "'");
-      const doubleQuoteCount = countChars(value, '"');
-      const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
+      const quote = getPreferredQuote(value, '"');
       return [
         node.rawName,
-
         "=",
         quote,
-
-        ...replaceTextEndOfLine(
+        replaceEndOfLine(
           quote === '"'
-            ? value.replace(/"/g, "&quot;")
-            : value.replace(/'/g, "&apos;")
+            ? value.replaceAll('"', "&quot;")
+            : value.replaceAll("'", "&apos;")
         ),
         quote,
       ];
     }
+    case "cdata": // Transformed into `text`
     default:
-      /* istanbul ignore next */
-      throw new Error(`Unexpected node type ${node.type}`);
+      /* c8 ignore next */
+      throw new UnexpectedNodeError(node, "HTML");
   }
 }
 
-module.exports = {
+const printer = {
   preprocess,
   print: genericPrint,
   insertPragma,
   massageAstNode: clean,
   embed,
+  getVisitorKeys,
 };
+
+export default printer;

@@ -15,13 +15,13 @@ class App extends React.Component {
     this.worker = new WorkerApi("/worker.js");
   }
 
-  componentDidMount() {
-    this.worker.getMetadata().then(({ supportInfo, version }) => {
-      this.setState({
-        loaded: true,
-        availableOptions: supportInfo.options.map(augmentOption),
-        version: fixPrettierVersion(version),
-      });
+  async componentDidMount() {
+    const { supportInfo, version } = await this.worker.getMetadata();
+
+    this.setState({
+      loaded: true,
+      availableOptions: supportInfo.options.map(augmentOption),
+      version: fixPrettierVersion(version),
     });
   }
 
@@ -53,7 +53,7 @@ function augmentOption(option) {
   option.cliName =
     "--" +
     (option.inverted ? "no-" : "") +
-    option.name.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+    option.name.replaceAll(/(?<=[a-z])(?=[A-Z])/g, "-").toLowerCase();
 
   return option;
 }

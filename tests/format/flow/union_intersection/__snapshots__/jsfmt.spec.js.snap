@@ -131,7 +131,7 @@ type Props = {
       }
     | {
         year: year,
-      }
+      },
   ) => void,
 };
 
@@ -142,7 +142,7 @@ declare class FormData {
       | {
           filepath?: string,
           filename?: string,
-        }
+        },
   ): void;
 }
 

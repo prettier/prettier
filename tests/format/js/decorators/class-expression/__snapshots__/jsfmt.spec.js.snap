@@ -60,16 +60,12 @@ console.log(@deco class {})
 
 =====================================output=====================================
 console.log(
-  (
-    @deco
-    class Foo {}
-  )
+  @deco
+  class Foo {},
 )
 console.log(
-  (
-    @deco
-    class {}
-  )
+  @deco
+  class {},
 )
 
 ================================================================================
@@ -86,16 +82,12 @@ console.log(@deco class {})
 
 =====================================output=====================================
 console.log(
-  (
-    @deco
-    class Foo {}
-  )
+  @deco
+  class Foo {},
 );
 console.log(
-  (
-    @deco
-    class {}
-  )
+  @deco
+  class {},
 );
 
 ================================================================================
@@ -179,15 +171,11 @@ const b2 = []
 
 =====================================output=====================================
 const a1 =
-  (
-    @deco
-    class Foo {}
-  )
+  @deco
+  class Foo {}
 const a2 =
-  (
-    @deco
-    class {}
-  )
+  @deco
+  class {}
 
 ;(
   @deco
@@ -240,15 +228,11 @@ const b2 = []
 
 =====================================output=====================================
 const a1 =
-  (
-    @deco
-    class Foo {}
-  );
+  @deco
+  class Foo {};
 const a2 =
-  (
-    @deco
-    class {}
-  );
+  @deco
+  class {};
 
 (
   @deco

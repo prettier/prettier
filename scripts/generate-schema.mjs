@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import prettier from "../index.js";
-import generateSchema from "./utils/generate-schema.js";
+import { format } from "../index.js";
+import { getSupportInfo } from "../src/main/support.js";
+import generateSchema from "./utils/generate-schema.mjs";
 
 console.log(
-  prettier.format(
-    JSON.stringify(generateSchema(prettier.getSupportInfo().options)),
-    { parser: "json" }
-  )
+  await format(JSON.stringify(generateSchema(getSupportInfo().options)), {
+    parser: "json",
+  })
 );

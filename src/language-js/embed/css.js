@@ -1,14 +1,10 @@
-"use strict";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { indent, hardline, softline } from "../../document/builders.js";
+import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
+import { printTemplateExpressions } from "../print/template-literal.js";
 
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { indent, hardline, softline },
-  utils: { mapDoc, replaceEndOfLine, cleanDoc },
-} = require("../../document/index.js");
-const { printTemplateExpressions } = require("../print/template-literal.js");
-
-function format(path, print, textToDoc) {
-  const node = path.getValue();
+async function embedCss(textToDoc, print, path /*, options*/) {
+  const { node } = path;
 
   // Get full template literal with expressions replaced by placeholders
   const rawQuasis = node.quasis.map((q) => q.value.raw);
@@ -24,24 +20,10 @@ function format(path, print, textToDoc) {
           currVal,
     ""
   );
-  const doc = textToDoc(
-    text,
-    { parser: "scss" },
-    { stripTrailingHardline: true }
-  );
+  const quasisDoc = await textToDoc(text, { parser: "scss" });
   const expressionDocs = printTemplateExpressions(path, print);
-  return transformCssDoc(doc, node, expressionDocs);
-}
-
-function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
-  const isEmpty =
-    parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
-  if (isEmpty) {
-    return "``";
-  }
-
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
-  /* istanbul ignore if */
+  /* c8 ignore next 3 */
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }
@@ -77,4 +59,4 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }
 
-module.exports = format;
+export default embedCss;

@@ -1,1 +1,1 @@
-run_spec(__dirname, ["vue"], { requirePragma: true });
+run_spec(import.meta, ["vue"], { requirePragma: true });

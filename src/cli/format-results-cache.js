@@ -1,16 +1,13 @@
-"use strict";
-
 // Inspired by LintResultsCache from ESLint
 // https://github.com/eslint/eslint/blob/c2d0a830754b6099a3325e6d3348c3ba983a677a/lib/cli-engine/lint-result-cache.js
 
-const fileEntryCache = require("file-entry-cache");
-const stringify = require("fast-json-stable-stringify");
-// eslint-disable-next-line no-restricted-modules
-const { version: prettierVersion } = require("../index.js");
-const { createHash } = require("./utils.js");
+import fileEntryCache from "file-entry-cache";
+import stringify from "fast-json-stable-stringify";
+import { version as prettierVersion } from "../index.js";
+import { createHash } from "./utils.js";
 
 const optionsHashCache = new WeakMap();
-const nodeVersion = process && process.version;
+const nodeVersion = process.version;
 
 /**
  * @param {*} options
@@ -39,6 +36,8 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
 }
 
 class FormatResultsCache {
+  #fileEntryCache;
+
   /**
    * @param {string} cacheFileLocation The path of cache file location. (default: `node_modules/.cache/prettier/.prettier-cache`)
    * @param {string} cacheStrategy
@@ -46,8 +45,7 @@ class FormatResultsCache {
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
 
-    this.cacheFileLocation = cacheFileLocation;
-    this.fileEntryCache = fileEntryCache.create(
+    this.#fileEntryCache = fileEntryCache.create(
       /* cacheId */ cacheFileLocation,
       /* directory */ undefined,
       useChecksum
@@ -59,8 +57,9 @@ class FormatResultsCache {
    * @param {any} options
    */
   existsAvailableFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.fileEntryCache.getFileDescriptor(filePath);
+    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
 
+    /* c8 ignore next 3 */
     if (fileDescriptor.notFound) {
       return false;
     }
@@ -78,7 +77,7 @@ class FormatResultsCache {
    * @param {any} options
    */
   setFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.fileEntryCache.getFileDescriptor(filePath);
+    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
     const meta = getMetadataFromFileDescriptor(fileDescriptor);
     if (fileDescriptor && !fileDescriptor.notFound) {
       meta.hashOfOptions = getHashOfOptions(options);
@@ -89,12 +88,12 @@ class FormatResultsCache {
    * @param {string} filePath
    */
   removeFormatResultsCache(filePath) {
-    this.fileEntryCache.removeEntry(filePath);
+    this.#fileEntryCache.removeEntry(filePath);
   }
 
   reconcile() {
-    this.fileEntryCache.reconcile();
+    this.#fileEntryCache.reconcile();
   }
 }
 
-module.exports = FormatResultsCache;
+export default FormatResultsCache;

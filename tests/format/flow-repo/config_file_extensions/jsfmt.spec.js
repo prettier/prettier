@@ -1,1 +1,1 @@
-run_spec(__dirname, ["flow"]);
+run_spec(import.meta, ["flow"]);

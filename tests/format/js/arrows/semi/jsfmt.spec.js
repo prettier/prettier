@@ -1,8 +1,8 @@
-run_spec(__dirname, ["babel", "typescript"], {
+run_spec(import.meta, ["babel", "typescript"], {
   arrowParens: "always",
   semi: false,
 });
-run_spec(__dirname, ["babel", "typescript"], {
+run_spec(import.meta, ["babel", "typescript"], {
   arrowParens: "avoid",
   semi: false,
 });

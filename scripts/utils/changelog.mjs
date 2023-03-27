@@ -64,11 +64,11 @@ export function printEntries(entries) {
 
 export function replaceVersions(data, prevVer, newVer, isPatch = false) {
   return data
-    .replace(
+    .replaceAll(
       /prettier stable/gi,
       `Prettier ${isPatch ? prevVer : formatVersion(prevVer)}`
     )
-    .replace(
+    .replaceAll(
       /prettier main/gi,
       `Prettier ${isPatch ? newVer : formatVersion(newVer)}`
     );
@@ -80,11 +80,11 @@ function formatVersion(version) {
 
 function processTitle(title) {
   return title
-    .replace(/\[(BREAKING|HIGHLIGHT|IMPROVEMENT(:\d+)?)]/g, "")
-    .replace(/\s+/g, " ")
+    .replaceAll(/\[(BREAKING|HIGHLIGHT|IMPROVEMENT(:\d+)?)]/g, "")
+    .replaceAll(/\s+/g, " ")
     .replace(/^#{4} [a-z]/, (s) => s.toUpperCase())
-    .replace(/(?<![[`])@([\w-]+)/g, "[@$1](https://github.com/$1)")
-    .replace(
+    .replaceAll(/(?<![[`])@([\w-]+)/g, "[@$1](https://github.com/$1)")
+    .replaceAll(
       /(?<![[`])#(\d{4,})/g,
       "[#$1](https://github.com/prettier/prettier/pull/$1)"
     );

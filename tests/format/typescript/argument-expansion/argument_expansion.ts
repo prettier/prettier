@@ -29,3 +29,7 @@ const bar7 = [1,2,3].reduce((carry, value) => {
 const bar8 = [1,2,3].reduce((carry, value) => {
   return {...carry, [value]: true};
 }, <{[key: number]: boolean}>{1: true});
+
+const bar9 = [1,2,3].reduce((carry, value) => {
+  return [...carry, value];
+}, [] as foo);

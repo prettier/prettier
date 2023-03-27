@@ -399,7 +399,7 @@ new Promise(function (resolve, reject) {
   resolve(
     new Promise(function (resolve, reject) {
       resolve(0);
-    })
+    }),
   );
 }).then(function (num) {
   var a: number = num;
@@ -413,9 +413,9 @@ new Promise(function (resolve, reject) {
       resolve(
         new Promise(function (resolve, reject) {
           resolve(0);
-        })
+        }),
       );
-    })
+    }),
   );
 }).then(function (num) {
   var a: number = num;
@@ -457,7 +457,7 @@ new Promise(function (resolve, reject) {
   reject(
     new Promise(function (resolve, reject) {
       reject(0);
-    })
+    }),
   );
 }).catch(function (num) {
   var a: Promise<number> = num;

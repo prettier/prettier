@@ -2,7 +2,7 @@
 
 exports[`await.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -26,7 +26,7 @@ async function a() {
 
 exports[`let.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

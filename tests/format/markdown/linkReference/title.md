@@ -15,9 +15,24 @@
 
 [a]: https://example.com "\\\""
 [a]: https://example.com '\\\''
-[a] https://example.com (\\\))
+[a]: https://example.com (\\\))
 
 [a]: https://example.com "\\'"
 [a]: https://example.com '\\"'
 [a]: https://example.com (\\")
 
+[a]: https://example.com "\a\a"
+[a]: https://example.com '\a\a'
+[a]: https://example.com (\a\a)
+
+[a]: https://example.com "\\a\\a"
+[a]: https://example.com '\\a\\a'
+[a]: https://example.com (\\a\\a)
+
+[a]: https://example.com "\\\a\\\a"
+[a]: https://example.com '\\\a\\\a'
+[a]: https://example.com (\\\a\\\a)
+
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com '\\\\a\\\\a'
+[a]: https://example.com (\\\\a\\\\a)

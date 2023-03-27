@@ -1,27 +1,9 @@
-"use strict";
+import runPrettier from "../run-prettier.js";
+import { getContextOptions } from "../../../src/cli/options/get-context-options.js";
 
-const prettier = require("prettier-local");
-const runPrettier = require("../run-prettier.js");
-const constant = require("../../../src/cli/constant.js");
-const {
-  createDetailedOptionMap,
-  normalizeDetailedOptionMap,
-} = require("../../../src/cli/options/option-map.js");
-const arrayify = require("../../../src/utils/arrayify.js");
+const { detailedOptions } = await getContextOptions();
 
-for (const option of arrayify(
-  {
-    ...createDetailedOptionMap(
-      prettier.getSupportInfo({
-        showDeprecated: true,
-        showUnreleased: true,
-        showInternal: true,
-      }).options
-    ),
-    ...normalizeDetailedOptionMap(constant.options),
-  },
-  "name"
-)) {
+for (const option of detailedOptions) {
   const optionNames = [
     option.description ? option.name : null,
     option.oppositeDescription ? `no-${option.name}` : null,

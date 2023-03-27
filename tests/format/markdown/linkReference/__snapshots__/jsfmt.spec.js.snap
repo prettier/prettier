@@ -206,12 +206,27 @@ proseWrap: "always"
 
 [a]: https://example.com "\\\\\\""
 [a]: https://example.com '\\\\\\''
-[a] https://example.com (\\\\\\))
+[a]: https://example.com (\\\\\\))
 
 [a]: https://example.com "\\\\'"
 [a]: https://example.com '\\\\"'
 [a]: https://example.com (\\\\")
 
+[a]: https://example.com "\\a\\a"
+[a]: https://example.com '\\a\\a'
+[a]: https://example.com (\\a\\a)
+
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com '\\\\a\\\\a'
+[a]: https://example.com (\\\\a\\\\a)
+
+[a]: https://example.com "\\\\\\a\\\\\\a"
+[a]: https://example.com '\\\\\\a\\\\\\a'
+[a]: https://example.com (\\\\\\a\\\\\\a)
+
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com '\\\\\\\\a\\\\\\\\a'
+[a]: https://example.com (\\\\\\\\a\\\\\\\\a)
 
 =====================================output=====================================
 [ref]: https://example.com "bar"
@@ -231,12 +246,24 @@ https://example.com (\\")
 
 [a]: https://example.com (\\))
 
-[a]: https://example.com "\\\\\\"" [a]: https://example.com '\\\\\\'' [a]
+[a]: https://example.com "\\\\\\"" [a]: https://example.com '\\\\\\'' [a]:
 https://example.com (\\\\\\))
 
 [a]: https://example.com "'"
 [a]: https://example.com '"'
 [a]: https://example.com '"'
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
 
 ================================================================================
 `;
@@ -265,12 +292,27 @@ proseWrap: "never"
 
 [a]: https://example.com "\\\\\\""
 [a]: https://example.com '\\\\\\''
-[a] https://example.com (\\\\\\))
+[a]: https://example.com (\\\\\\))
 
 [a]: https://example.com "\\\\'"
 [a]: https://example.com '\\\\"'
 [a]: https://example.com (\\\\")
 
+[a]: https://example.com "\\a\\a"
+[a]: https://example.com '\\a\\a'
+[a]: https://example.com (\\a\\a)
+
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com '\\\\a\\\\a'
+[a]: https://example.com (\\\\a\\\\a)
+
+[a]: https://example.com "\\\\\\a\\\\\\a"
+[a]: https://example.com '\\\\\\a\\\\\\a'
+[a]: https://example.com (\\\\\\a\\\\\\a)
+
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com '\\\\\\\\a\\\\\\\\a'
+[a]: https://example.com (\\\\\\\\a\\\\\\\\a)
 
 =====================================output=====================================
 [ref]: https://example.com "bar"
@@ -287,11 +329,23 @@ proseWrap: "never"
 
 [a]: https://example.com (\\))
 
-[a]: https://example.com "\\\\\\"" [a]: https://example.com '\\\\\\'' [a] https://example.com (\\\\\\))
+[a]: https://example.com "\\\\\\"" [a]: https://example.com '\\\\\\'' [a]: https://example.com (\\\\\\))
 
 [a]: https://example.com "'"
 [a]: https://example.com '"'
 [a]: https://example.com '"'
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\a\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
+[a]: https://example.com "\\\\\\\\a\\\\\\\\a"
 
 ================================================================================
 `;

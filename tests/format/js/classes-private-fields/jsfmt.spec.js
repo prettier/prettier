@@ -3,10 +3,10 @@ const errors = {
   espree: ["optional-chaining.js"],
   meriyah: ["optional-chaining.js"],
 };
-run_spec(__dirname, ["babel"], {
+run_spec(import.meta, ["babel"], {
   errors,
 });
-run_spec(__dirname, ["babel"], {
+run_spec(import.meta, ["babel"], {
   semi: false,
   errors,
 });

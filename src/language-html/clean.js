@@ -1,6 +1,4 @@
-"use strict";
-
-const { isFrontMatterNode } = require("../common/util.js");
+import isFrontMatter from "../utils/front-matter/is-front-matter.js";
 
 const ignoredProperties = new Set([
   "sourceSpan",
@@ -8,6 +6,10 @@ const ignoredProperties = new Set([
   "endSourceSpan",
   "nameSpan",
   "valueSpan",
+  "keySpan",
+  "tagDefinition",
+  "tokens",
+  "valueTokens",
 ]);
 
 function clean(ast, newNode) {
@@ -16,7 +18,7 @@ function clean(ast, newNode) {
   }
 
   // may be formatted by multiparser
-  if (isFrontMatterNode(ast) || ast.type === "yaml" || ast.type === "toml") {
+  if (isFrontMatter(ast) || ast.type === "yaml" || ast.type === "toml") {
     return null;
   }
 
@@ -31,4 +33,4 @@ function clean(ast, newNode) {
 
 clean.ignoredProperties = ignoredProperties;
 
-module.exports = clean;
+export default clean;

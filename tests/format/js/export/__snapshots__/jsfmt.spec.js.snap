@@ -345,7 +345,21 @@ export * as foo from "./baz";
 ================================================================================
 `;
 
+exports[`undefined.js [acorn] format 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |"
+`;
+
 exports[`undefined.js [espree] format 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |"
+`;
+
+exports[`undefined.js - {"bracketSpacing":false} [acorn] format 1`] = `
 "Export 'undefinedExport' is not defined (1:10)
 > 1 | export { undefinedExport };
     |          ^

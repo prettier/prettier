@@ -1,32 +1,23 @@
-"use strict";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { join, line, group, indent, ifBreak } from "../../document/builders.js";
+import { hasComment, identity, CommentCheckFlags } from "../utils/index.js";
+import { getTypeParametersGroupId } from "./type-parameters.js";
+import { printDeclareToken } from "./misc.js";
 
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { join, line, group, indent, ifBreak },
-} = require("../../document/index.js");
-const {
-  hasComment,
-  identity,
-  CommentCheckFlags,
-} = require("../utils/index.js");
-const { getTypeParametersGroupId } = require("./type-parameters.js");
-const { printTypeScriptModifiers } = require("./misc.js");
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
 
+/*
+- `TSInterfaceDeclaration`(TypeScript)
+- `DeclareInterface`(flow)
+- `InterfaceDeclaration`(flow)
+- `InterfaceTypeAnnotation`(flow)
+*/
 function printInterface(path, options, print) {
-  const node = path.getValue();
-  const parts = [];
-  if (node.declare) {
-    parts.push("declare ");
-  }
-
-  if (node.type === "TSInterfaceDeclaration") {
-    parts.push(
-      node.abstract ? "abstract " : "",
-      printTypeScriptModifiers(path, options, print)
-    );
-  }
-
-  parts.push("interface");
+  const { node } = path;
+  /** @type {Doc[]} */
+  const parts = [printDeclareToken(path), "interface"];
 
   const partsGroup = [];
   const extendsParts = [];
@@ -57,7 +48,7 @@ function printInterface(path, options, print) {
   }
 
   if (
-    (node.id && hasComment(node.id, CommentCheckFlags.Trailing)) ||
+    hasComment(node.id, CommentCheckFlags.Trailing) ||
     isNonEmptyArray(node.extends)
   ) {
     if (shouldIndentOnlyHeritageClauses) {
@@ -74,4 +65,4 @@ function printInterface(path, options, print) {
   return group(parts);
 }
 
-module.exports = { printInterface };
+export { printInterface };

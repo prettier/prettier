@@ -1,32 +1,38 @@
-"use strict";
+import { group } from "../document/builders.js";
+import { getUnescapedAttributeValue } from "./utils/index.js";
+import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
 
-const {
-  builders: { group },
-} = require("../document/index.js");
+/**
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
 
 /**
  *     v-for="... in ..."
  *     v-for="... of ..."
  *     v-for="(..., ...) in ..."
  *     v-for="(..., ...) of ..."
+ *
+ * @param {(code: string, opts: *) => Doc} attributeTextToDoc
+ * @param {*} options
+ * @returns {Promise<Doc>}
  */
-function printVueFor(value, textToDoc) {
+async function printVueFor(path, attributeTextToDoc, options) {
+  const value = getUnescapedAttributeValue(path.node);
   const { left, operator, right } = parseVueFor(value);
+  const parseWithTs = isVueSfcWithTypescriptScript(path, options);
   return [
     group(
-      textToDoc(`function _(${left}) {}`, {
-        parser: "babel",
+      await attributeTextToDoc(`function _(${left}) {}`, {
+        parser: parseWithTs ? "babel-ts" : "babel",
         __isVueForBindingLeft: true,
       })
     ),
     " ",
     operator,
     " ",
-    textToDoc(
-      right,
-      { parser: "__js_expression" },
-      { stripTrailingHardline: true }
-    ),
+    await attributeTextToDoc(right, {
+      parser: parseWithTs ? "__ts_expression" : "__js_expression",
+    }),
   ];
 }
 
@@ -47,7 +53,7 @@ function parseVueFor(value) {
     return;
   }
 
-  const alias = inMatch[1].trim().replace(stripParensRE, "");
+  const alias = inMatch[1].trim().replaceAll(stripParensRE, "");
   const iteratorMatch = alias.match(forIteratorRE);
   if (iteratorMatch) {
     res.alias = alias.replace(forIteratorRE, "");
@@ -76,9 +82,15 @@ function parseVueFor(value) {
   };
 }
 
-function printVueBindings(value, textToDoc) {
-  return textToDoc(`function _(${value}) {}`, {
-    parser: "babel",
+/**
+ * @param {(code: string, opts: *) => Doc} attributeTextToDoc
+ * @param {*} options
+ * @returns {Doc}
+ */
+function printVueBindings(path, attributeTextToDoc, options) {
+  const value = getUnescapedAttributeValue(path.node);
+  return attributeTextToDoc(`function _(${value}) {}`, {
+    parser: isVueSfcWithTypescriptScript(path, options) ? "babel-ts" : "babel",
     __isVueBindings: true,
   });
 }
@@ -97,8 +109,4 @@ function isVueEventBindingExpression(eventBindingValue) {
   return fnExpRE.test(value) || simplePathRE.test(value);
 }
 
-module.exports = {
-  isVueEventBindingExpression,
-  printVueFor,
-  printVueBindings,
-};
+export { isVueEventBindingExpression, printVueFor, printVueBindings };

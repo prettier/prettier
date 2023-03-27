@@ -1,32 +1,42 @@
-"use strict";
+import { indent, line } from "../../document/builders.js";
+import { isCallExpression, isMemberExpression } from "../utils/index.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { indent, join, line },
-} = require("../../document/index.js");
-const { isFlowAnnotationComment } = require("../utils/index.js");
+/**
+ * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
 
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
 function printOptionalToken(path) {
-  const node = path.getValue();
+  const { node } = path;
   if (
     !node.optional ||
     // It's an optional computed method parsed by typescript-estree.
     // "?" is printed in `printMethod`.
-    (node.type === "Identifier" && node === path.getParentNode().key)
+    (node.type === "Identifier" && node === path.parent.key)
   ) {
     return "";
   }
   if (
-    node.type === "OptionalCallExpression" ||
-    (node.type === "OptionalMemberExpression" && node.computed)
+    isCallExpression(node) ||
+    (isMemberExpression(node) && node.computed) ||
+    node.type === "OptionalIndexedAccessType"
   ) {
     return "?.";
   }
   return "?";
 }
 
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
 function printDefiniteToken(path) {
-  return path.getValue().definite ||
+  return path.node.definite ||
     path.match(
       undefined,
       (node, name) =>
@@ -36,8 +46,50 @@ function printDefiniteToken(path) {
     : "";
 }
 
+const flowDeclareNodeTypes = new Set([
+  "DeclareClass",
+  "DeclareFunction",
+  "DeclareVariable",
+  "DeclareExportDeclaration",
+  "DeclareExportAllDeclaration",
+  "DeclareOpaqueType",
+  "DeclareTypeAlias",
+  "DeclareEnum",
+  "DeclareInterface",
+]);
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
+function printDeclareToken(path) {
+  const { node } = path;
+
+  return (
+    // TypeScript
+    node.declare ||
+      // Flow
+      (flowDeclareNodeTypes.has(node.type) &&
+        path.parent.type !== "DeclareExportDeclaration")
+      ? "declare "
+      : ""
+  );
+}
+
+const tsAbstractNodeTypes = new Set([
+  "TSAbstractMethodDefinition",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
+/**
+ * @param {AstPath} param0
+ * @returns {Doc}
+ */
+function printAbstractToken({ node }) {
+  return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
+}
+
 function printFunctionTypeParameters(path, options, print) {
-  const fun = path.getValue();
+  const fun = path.node;
   if (fun.typeArguments) {
     return print("typeArguments");
   }
@@ -47,34 +99,8 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
-function printTypeAnnotation(path, options, print) {
-  const node = path.getValue();
-  if (!node.typeAnnotation) {
-    return "";
-  }
-
-  const parentNode = path.getParentNode();
-
-  const isFunctionDeclarationIdentifier =
-    parentNode.type === "DeclareFunction" && parentNode.id === node;
-
-  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
-    return [" /*: ", print("typeAnnotation"), " */"];
-  }
-
-  return [isFunctionDeclarationIdentifier ? "" : ": ", print("typeAnnotation")];
-}
-
 function printBindExpressionCallee(path, options, print) {
   return ["::", print("callee")];
-}
-
-function printTypeScriptModifiers(path, options, print) {
-  const node = path.getValue();
-  if (!isNonEmptyArray(node.modifiers)) {
-    return "";
-  }
-  return [join(" ", path.map(print, "modifiers")), " "];
 }
 
 function adjustClause(node, clause, forceSpace) {
@@ -89,36 +115,22 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
-function printRestSpread(path, options, print) {
-  return ["...", print("argument"), printTypeAnnotation(path, options, print)];
+function printRestSpread(path, print) {
+  return ["...", print("argument"), printTypeAnnotationProperty(path, print)];
 }
 
-function printDirective(rawText, options) {
-  const rawContent = rawText.slice(1, -1);
-
-  // Check for the alternate quote, to determine if we're allowed to swap
-  // the quotes on a DirectiveLiteral.
-  if (rawContent.includes('"') || rawContent.includes("'")) {
-    return rawText;
-  }
-
-  const enclosingQuote = options.singleQuote ? "'" : '"';
-
-  // Directives are exact code unit sequences, which means that you can't
-  // change the escape sequences they use.
-  // See https://github.com/prettier/prettier/issues/1555
-  // and https://tc39.github.io/ecma262/#directive-prologue
-  return enclosingQuote + rawContent + enclosingQuote;
+function printTypeScriptAccessibilityToken(node) {
+  return node.accessibility ? node.accessibility + " " : "";
 }
 
-module.exports = {
+export {
   printOptionalToken,
   printDefiniteToken,
+  printDeclareToken,
+  printAbstractToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
-  printTypeScriptModifiers,
-  printTypeAnnotation,
   printRestSpread,
   adjustClause,
-  printDirective,
+  printTypeScriptAccessibilityToken,
 };

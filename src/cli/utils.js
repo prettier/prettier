@@ -1,9 +1,10 @@
-"use strict";
+import fs from "node:fs/promises";
+import path from "node:path";
+import sdbm from "sdbm";
+// @ts-expect-error
+import { __internal as sharedWithCli } from "../index.js";
 
-const { promises: fs } = require("fs");
-
-// eslint-disable-next-line no-restricted-modules
-const { default: sdbm } = require("../../vendors/sdbm.js");
+const { arrayify, isNonEmptyArray, partition } = sharedWithCli.utils;
 
 // eslint-disable-next-line no-console
 const printToScreen = console.log.bind(console);
@@ -60,7 +61,7 @@ async function statSafe(filePath) {
   try {
     return await fs.stat(filePath);
   } catch (error) {
-    /* istanbul ignore next */
+    /* c8 ignore next 3 */
     if (error.code !== "ENOENT") {
       throw error;
     }
@@ -80,4 +81,25 @@ function isJson(value) {
   }
 }
 
-module.exports = { printToScreen, groupBy, pick, createHash, statSafe, isJson };
+/**
+ * Replace `\` with `/` on Windows
+ * @param {string} filepath
+ * @returns {string}
+ */
+const normalizeToPosix =
+  path.sep === "\\"
+    ? (filepath) => filepath.replaceAll("\\", "/")
+    : (filepath) => filepath;
+
+export {
+  arrayify,
+  isNonEmptyArray,
+  partition,
+  printToScreen,
+  groupBy,
+  pick,
+  createHash,
+  statSafe,
+  isJson,
+  normalizeToPosix,
+};

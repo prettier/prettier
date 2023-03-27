@@ -21,11 +21,11 @@ async function update() {
   );
   const dependentsCountGithub = Number(
     githubPage
-      .replace(/\n/g, "")
+      .replaceAll("\n", "")
       .match(
         /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/
       )[1]
-      .replace(/,/g, "")
+      .replaceAll(",", "")
   );
   if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
@@ -71,7 +71,11 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-export default async function updateDependentsCount() {
+export default async function updateDependentsCount({ dry }) {
+  if (dry) {
+    return;
+  }
+
   try {
     await update();
   } catch (error) {

@@ -1,18 +1,21 @@
-"use strict";
-
-const {
-  builders: { breakParent, group, ifBreak, line, softline, hardline },
-  utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const {
+import {
+  breakParent,
+  group,
+  ifBreak,
+  line,
+  softline,
+  hardline,
+} from "../../document/builders.js";
+import { replaceEndOfLine } from "../../document/utils.js";
+import { locStart, locEnd } from "../loc.js";
+import {
   forceBreakChildren,
   forceNextEmptyLine,
   isTextLikeNode,
   hasPrettierIgnore,
   preferHardlineAsLeadingSpaces,
-} = require("../utils/index.js");
-const {
+} from "../utils/index.js";
+import {
   printOpeningTagPrefix,
   needsToBorrowNextOpeningTagStartMarker,
   printOpeningTagStartMarker,
@@ -20,15 +23,15 @@ const {
   printClosingTagEndMarker,
   printClosingTagSuffix,
   needsToBorrowParentClosingTagStartMarker,
-} = require("./tag.js");
+} from "./tag.js";
 
 function printChild(childPath, options, print) {
-  const child = childPath.getValue();
+  const child = childPath.node;
 
   if (hasPrettierIgnore(child)) {
     return [
       printOpeningTagPrefix(child, options),
-      ...replaceTextEndOfLine(
+      replaceEndOfLine(
         options.originalText.slice(
           locStart(child) +
             (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
@@ -108,14 +111,14 @@ function printBetweenLine(prevNode, nextNode) {
 }
 
 function printChildren(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (forceBreakChildren(node)) {
     return [
       breakParent,
 
       ...path.map((childPath) => {
-        const childNode = childPath.getValue();
+        const childNode = childPath.node;
         const prevBetweenLine = !childNode.prev
           ? ""
           : printBetweenLine(childNode.prev, childNode);
@@ -134,7 +137,7 @@ function printChildren(path, options, print) {
 
   const groupIds = node.children.map(() => Symbol(""));
   return path.map((childPath, childIndex) => {
-    const childNode = childPath.getValue();
+    const childNode = childPath.node;
 
     if (isTextLikeNode(childNode)) {
       if (childNode.prev && isTextLikeNode(childNode.prev)) {
@@ -167,16 +170,14 @@ function printChildren(path, options, print) {
         prevParts.push(hardline, hardline);
       } else if (prevBetweenLine === hardline) {
         prevParts.push(hardline);
+      } else if (isTextLikeNode(childNode.prev)) {
+        leadingParts.push(prevBetweenLine);
       } else {
-        if (isTextLikeNode(childNode.prev)) {
-          leadingParts.push(prevBetweenLine);
-        } else {
-          leadingParts.push(
-            ifBreak("", softline, {
-              groupId: groupIds[childIndex - 1],
-            })
-          );
-        }
+        leadingParts.push(
+          ifBreak("", softline, {
+            groupId: groupIds[childIndex - 1],
+          })
+        );
       }
     }
 
@@ -207,4 +208,4 @@ function printChildren(path, options, print) {
   }, "children");
 }
 
-module.exports = { printChildren };
+export { printChildren };

@@ -1,18 +1,4 @@
-"use strict";
-
-const { getLast, isNonEmptyArray } = require("../common/util.js");
-
-function getAncestorCount(path, filter) {
-  let counter = 0;
-  const pathStackLength = path.stack.length - 1;
-  for (let i = 0; i < pathStackLength; i++) {
-    const value = path.stack[i];
-    if (isNode(value) && filter(value)) {
-      counter++;
-    }
-  }
-  return counter;
-}
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 
 /**
  * @param {any} value
@@ -20,9 +6,7 @@ function getAncestorCount(path, filter) {
  */
 function isNode(value, types) {
   return (
-    value &&
-    typeof value.type === "string" &&
-    (!types || types.includes(value.type))
+    typeof value?.type === "string" && (!types || types.includes(value.type))
   );
 }
 
@@ -70,7 +54,7 @@ function isNextLineEmpty(node, text) {
 }
 
 function isLastDescendantNode(path) {
-  const node = path.getValue();
+  const { node } = path;
 
   switch (node.type) {
     case "tag":
@@ -99,7 +83,7 @@ function isLastDescendantNode(path) {
 
 function getLastDescendantNode(node) {
   return isNonEmptyArray(node.children)
-    ? getLastDescendantNode(getLast(node.children))
+    ? getLastDescendantNode(node.children.at(-1))
     : node;
 }
 
@@ -108,18 +92,18 @@ function isPrettierIgnore(comment) {
 }
 
 function hasPrettierIgnore(path) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (node.type === "documentBody") {
-    const document = path.getParentNode();
+    const documentHead = path.parent.head;
     return (
-      hasEndComments(document.head) &&
-      isPrettierIgnore(getLast(document.head.endComments))
+      hasEndComments(documentHead) &&
+      isPrettierIgnore(documentHead.endComments.at(-1))
     );
   }
 
   return (
-    hasLeadingComments(node) && isPrettierIgnore(getLast(node.leadingComments))
+    hasLeadingComments(node) && isPrettierIgnore(node.leadingComments.at(-1))
   );
 }
 
@@ -165,7 +149,6 @@ function splitWithSingleSpace(text) {
 
   let lastPart;
   for (const part of text.split(/( +)/)) {
-    /* istanbul ignore else */
     if (part !== " ") {
       if (lastPart === " ") {
         parts.push(part);
@@ -179,7 +162,7 @@ function splitWithSingleSpace(text) {
     lastPart = part;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (lastPart === " ") {
     parts.push((parts.pop() || "") + " ");
   }
@@ -222,15 +205,9 @@ function getFlowScalarLineContents(nodeType, content, options) {
         lineContentWords.length > 0 &&
         !(
           // trailing backslash in quoteDouble should be preserved
-          (
-            nodeType === "quoteDouble" &&
-            getLast(getLast(reduced)).endsWith("\\")
-          )
+          (nodeType === "quoteDouble" && reduced.at(-1).at(-1).endsWith("\\"))
         )
-          ? [
-              ...reduced.slice(0, -1),
-              [...getLast(reduced), ...lineContentWords],
-            ]
+          ? [...reduced.slice(0, -1), [...reduced.at(-1), ...lineContentWords]]
           : [...reduced, lineContentWords],
       []
     )
@@ -286,10 +263,10 @@ function getBlockValueLineContents(
           rawLineContents[index - 1].length > 0 &&
           lineContentWords.length > 0 &&
           !/^\s/.test(lineContentWords[0]) &&
-          !/^\s|\s$/.test(getLast(reduced))
+          !/^\s|\s$/.test(reduced.at(-1))
             ? [
                 ...reduced.slice(0, -1),
-                [...getLast(reduced), ...lineContentWords],
+                [...reduced.at(-1), ...lineContentWords],
               ]
             : [...reduced, lineContentWords],
         []
@@ -298,8 +275,8 @@ function getBlockValueLineContents(
         lineContentWords.reduce(
           (reduced, word) =>
             // disallow trailing spaces
-            reduced.length > 0 && /\s$/.test(getLast(reduced))
-              ? [...reduced.slice(0, -1), getLast(reduced) + " " + word]
+            reduced.length > 0 && /\s$/.test(reduced.at(-1))
+              ? [...reduced.slice(0, -1), reduced.at(-1) + " " + word]
               : [...reduced, word],
           []
         )
@@ -313,7 +290,7 @@ function getBlockValueLineContents(
 
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
-      return getLast(lineContents).length === 0
+      return lineContents.at(-1).length === 0
         ? lineContents.slice(0, -1)
         : lineContents;
     }
@@ -337,7 +314,7 @@ function getBlockValueLineContents(
 }
 
 function isInlineNode(node) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!node) {
     return true;
   }
@@ -355,9 +332,7 @@ function isInlineNode(node) {
   }
 }
 
-module.exports = {
-  getLast,
-  getAncestorCount,
+export {
   isNode,
   isEmptyNode,
   isInlineNode,

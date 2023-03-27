@@ -1,2 +1,2 @@
-run_spec(__dirname, ["typescript"], { printWidth: 109 });
-run_spec(__dirname, ["typescript"], { printWidth: 110 });
+run_spec(import.meta, ["typescript"], { printWidth: 109 });
+run_spec(import.meta, ["typescript"], { printWidth: 110 });

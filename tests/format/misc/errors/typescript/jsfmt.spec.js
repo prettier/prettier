@@ -1,6 +1,6 @@
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       "let x1 = <div>}</div>;",
       "let x2 = <div>></div>;",

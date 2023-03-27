@@ -253,7 +253,7 @@ const b = t.builders;
 import type { TypedNode } from "./ast";
 
 function getBinaryOp(
-  op: "plus" | "minus" | "divide" | "multiply"
+  op: "plus" | "minus" | "divide" | "multiply",
 ): "+" | "-" | "*" | "/" {
   switch (op) {
     case "plus":
@@ -278,7 +278,7 @@ export function emitExpression(node: TypedNode): t.Expression {
       return b.memberExpression(
         b.identifier("vars"),
         b.identifier(node.name),
-        false
+        false,
       );
     case "binary_op": {
       const lhs = emitExpression(node.lhs);
@@ -295,7 +295,7 @@ export function emitExpression(node: TypedNode): t.Expression {
       const callee = b.memberExpression(
         b.identifier("fns"),
         b.identifier(node.name),
-        false
+        false,
       );
 
       const args = node.parameters.map((n) => emitExpression(n));
@@ -1448,7 +1448,7 @@ export const builders: {
   ifStatement(
     test: Expression,
     consequent: Statement,
-    alternate?: Statement
+    alternate?: Statement,
   ): IfStatement,
   breakStatement(label?: Identifier): BreakStatement,
   continueStatement(label?: Identifier): ContinueStatement,
@@ -1459,28 +1459,28 @@ export const builders: {
     init: ?(VariableDeclaration | Expression),
     test: ?Expression,
     update: ?Expression,
-    body: Statement
+    body: Statement,
   ): ForStatement,
   forInStatement(
     left: VariableDeclaration | Expression,
     right: Expression,
-    body: Statement
+    body: Statement,
   ): ForInStatement,
   tryStatement(
     block: BlockStatement,
     handler: ?CatchClause,
     handlers: CatchClause[],
-    finalizer?: BlockStatement
+    finalizer?: BlockStatement,
   ): TryStatement,
   catchClause(
     param: Pattern,
     guard: ?Expression,
-    body: BlockStatement
+    body: BlockStatement,
   ): CatchClause,
   identifier(name: string): Identifier,
   literal(
     value: ?(string | boolean | number | RegExp),
-    regex?: { pattern: string, flags: string }
+    regex?: { pattern: string, flags: string },
   ): Literal,
   thisExpression(): ThisExpression,
   arrayExpression(elements: Expression[]): ArrayExpression,
@@ -1488,58 +1488,58 @@ export const builders: {
   property(
     kind: "init" | "get" | "set",
     key: Literal | Identifier,
-    value: Expression
+    value: Expression,
   ): Property,
   functionExpression(
     id: ?Identifier,
     params: Pattern[],
-    body: BlockStatement
+    body: BlockStatement,
   ): FunctionExpression,
   binaryExpression(
     operator: BinaryOperator,
     left: Expression,
-    right: Expression
+    right: Expression,
   ): BinaryExpression,
   unaryExpression(
     operator: UnaryOperator,
     argument: Expression,
-    prefix: boolean
+    prefix: boolean,
   ): UnaryExpression,
   assignmentExpression(
     operator: AssignmentOperator,
     left: Pattern,
-    right: Expression
+    right: Expression,
   ): AssignmentExpression,
   updateExpression(
     operator: UpdateOperator,
     argument: Expression,
-    prefix: boolean
+    prefix: boolean,
   ): UpdateExpression,
   logicalExpression(
     operator: LogicalOperator,
     left: Expression,
-    right: Expression
+    right: Expression,
   ): LogicalExpression,
   conditionalExpression(
     test: Expression,
     consequent: Expression,
-    alternate: Expression
+    alternate: Expression,
   ): ConditionalExpression,
   newExpression(callee: Expression, arguments: Expression[]): NewExpression,
   callExpression(callee: Expression, arguments: Expression[]): CallExpression,
   memberExpression(
     object: Expression,
     property: Identifier | Expression,
-    computed: boolean
+    computed: boolean,
   ): MemberExpression,
   variableDeclaration(
     kind: "var" | "let" | "const",
-    declarations: VariableDeclarator[]
+    declarations: VariableDeclarator[],
   ): VariableDeclaration,
   functionDeclaration(
     id: Identifier,
     body: BlockStatement,
-    params: Pattern[]
+    params: Pattern[],
   ): FunctionDeclaration,
   variableDeclarator(id: Pattern, init?: Expression): VariableDeclarator,
 } = a;

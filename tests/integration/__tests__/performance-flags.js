@@ -1,12 +1,8 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
-
 describe("should not write file or print code when `--debug-benchmark` or `--debug-repeat` found", () => {
   const assertStderr = (message) => {
     expect(
       message.includes(
-        "'--debug-repeat' option found, running formatWithCursor 2 times"
+        "'--debug-repeat' found, running formatWithCursor 2 times"
       )
     ).toBe(true);
   };
@@ -27,7 +23,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   for (const logLevel of ["warn", "error", "debug", "log"]) {
     runPrettier(
       "cli/performance-flags",
-      ["--debug-repeat", "2", "--parser", "babel", "--loglevel", logLevel],
+      ["--debug-repeat", "2", "--parser", "babel", "--log-level", logLevel],
       { input: "foo(    bar    )" }
     ).test({
       stderr: assertStderr,

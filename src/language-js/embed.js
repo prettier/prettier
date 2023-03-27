@@ -1,44 +1,17 @@
-"use strict";
-
-const {
+import { label } from "../document/builders.js";
+import {
   hasComment,
   CommentCheckFlags,
   isObjectProperty,
-} = require("./utils/index.js");
-const formatMarkdown = require("./embed/markdown.js");
-const formatCss = require("./embed/css.js");
-const formatGraphql = require("./embed/graphql.js");
-const formatHtml = require("./embed/html.js");
+  isArrayOrTupleExpression,
+} from "./utils/index.js";
+import embedMarkdown from "./embed/markdown.js";
+import embedCss from "./embed/css.js";
+import embedGraphQL from "./embed/graphql.js";
+import { embedHtml, embedAngular } from "./embed/html.js";
 
-function getLanguage(path) {
-  if (
-    isStyledJsx(path) ||
-    isStyledComponents(path) ||
-    isCssProp(path) ||
-    isAngularComponentStyles(path)
-  ) {
-    return "css";
-  }
-
-  if (isGraphQL(path)) {
-    return "graphql";
-  }
-
-  if (isHtml(path)) {
-    return "html";
-  }
-
-  if (isAngularComponentTemplate(path)) {
-    return "angular";
-  }
-
-  if (isMarkdown(path)) {
-    return "markdown";
-  }
-}
-
-function embed(path, print, textToDoc, options) {
-  const node = path.getValue();
+function embed(path) {
+  const { node } = path;
 
   if (
     node.type !== "TemplateLiteral" ||
@@ -49,25 +22,45 @@ function embed(path, print, textToDoc, options) {
     return;
   }
 
-  const language = getLanguage(path);
-  if (!language) {
-    return;
+  const embedder = getEmbedder(path);
+
+  if (embedder) {
+    // Special case: whitespace-only template literals
+    if (node.quasis.length === 1 && node.quasis[0].value.raw.trim() === "") {
+      return "``";
+    }
+
+    return async (...args) => {
+      const doc = await embedder(...args);
+      return doc && label({ embed: true, ...doc.label }, doc);
+    };
+  }
+}
+
+function getEmbedder(path) {
+  if (
+    isStyledJsx(path) ||
+    isStyledComponents(path) ||
+    isCssProp(path) ||
+    isAngularComponentStyles(path)
+  ) {
+    return embedCss;
   }
 
-  if (language === "markdown") {
-    return formatMarkdown(path, print, textToDoc);
+  if (isGraphQL(path)) {
+    return embedGraphQL;
   }
 
-  if (language === "css") {
-    return formatCss(path, print, textToDoc);
+  if (isHtml(path)) {
+    return embedHtml;
   }
 
-  if (language === "graphql") {
-    return formatGraphql(path, print, textToDoc);
+  if (isAngularComponentTemplate(path)) {
+    return embedAngular;
   }
 
-  if (language === "html" || language === "angular") {
-    return formatHtml(path, print, textToDoc, options, { parser: language });
+  if (isMarkdown(path)) {
+    return embedMarkdown;
   }
 }
 
@@ -75,12 +68,9 @@ function embed(path, print, textToDoc, options) {
  * md`...`
  * markdown`...`
  */
-function isMarkdown(path) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
+function isMarkdown({ node, parent }) {
   return (
-    parent &&
-    parent.type === "TaggedTemplateExpression" &&
+    parent?.type === "TaggedTemplateExpression" &&
     node.quasis.length === 1 &&
     parent.tag.type === "Identifier" &&
     (parent.tag.name === "md" || parent.tag.name === "markdown")
@@ -94,25 +84,20 @@ function isMarkdown(path) {
  * css.global``
  * css.resolve``
  */
-function isStyledJsx(path) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
+function isStyledJsx({ node, parent, grandparent }) {
   return (
-    (parentParent &&
+    (grandparent &&
       node.quasis &&
       parent.type === "JSXExpressionContainer" &&
-      parentParent.type === "JSXElement" &&
-      parentParent.openingElement.name.name === "style" &&
-      parentParent.openingElement.attributes.some(
+      grandparent.type === "JSXElement" &&
+      grandparent.openingElement.name.name === "style" &&
+      grandparent.openingElement.attributes.some(
         (attribute) => attribute.name.name === "jsx"
       )) ||
-    (parent &&
-      parent.type === "TaggedTemplateExpression" &&
+    (parent?.type === "TaggedTemplateExpression" &&
       parent.tag.type === "Identifier" &&
       parent.tag.name === "css") ||
-    (parent &&
-      parent.type === "TaggedTemplateExpression" &&
+    (parent?.type === "TaggedTemplateExpression" &&
       parent.tag.type === "MemberExpression" &&
       parent.tag.object.name === "css" &&
       (parent.tag.property.name === "global" ||
@@ -137,7 +122,7 @@ function isStyledJsx(path) {
 function isAngularComponentStyles(path) {
   return path.match(
     (node) => node.type === "TemplateLiteral",
-    (node, name) => node.type === "ArrayExpression" && name === "elements",
+    (node, name) => isArrayOrTupleExpression(node) && name === "elements",
     (node, name) =>
       isObjectProperty(node) &&
       node.key.type === "Identifier" &&
@@ -170,9 +155,7 @@ const angularComponentObjectExpressionPredicates = [
 /**
  * styled-components template literals
  */
-function isStyledComponents(path) {
-  const parent = path.getParentNode();
-
+function isStyledComponents({ parent }) {
   if (!parent || parent.type !== "TaggedTemplateExpression") {
     return false;
   }
@@ -218,15 +201,12 @@ function isStyledComponents(path) {
 /**
  * JSX element with CSS prop
  */
-function isCssProp(path) {
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
+function isCssProp({ parent, grandparent }) {
   return (
-    parentParent &&
+    grandparent?.type === "JSXAttribute" &&
     parent.type === "JSXExpressionContainer" &&
-    parentParent.type === "JSXAttribute" &&
-    parentParent.name.type === "JSXIdentifier" &&
-    parentParent.name.name === "css"
+    grandparent.name.type === "JSXIdentifier" &&
+    grandparent.name.name === "css"
   );
 }
 
@@ -248,10 +228,7 @@ function isStyledExtend(node) {
  * This intentionally excludes Relay Classic tags, as Prettier does not
  * support Relay Classic formatting.
  */
-function isGraphQL(path) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
-
+function isGraphQL({ node, parent }) {
   return (
     hasLanguageComment(node, "GraphQL") ||
     (parent &&
@@ -286,7 +263,7 @@ function hasLanguageComment(node, languageName) {
  */
 function isHtml(path) {
   return (
-    hasLanguageComment(path.getValue(), "HTML") ||
+    hasLanguageComment(path.node, "HTML") ||
     path.match(
       (node) => node.type === "TemplateLiteral",
       (node, name) =>
@@ -302,4 +279,4 @@ function hasInvalidCookedValue({ quasis }) {
   return quasis.some(({ value: { cooked } }) => cooked === null);
 }
 
-module.exports = embed;
+export default embed;

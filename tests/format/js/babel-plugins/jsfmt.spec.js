@@ -1,7 +1,7 @@
 // Only testing babel parsing
 // Do not add extra parsers here
 
-run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
+run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
   errors: {
     acorn: [
       "decimal.js",
@@ -27,6 +27,9 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "async-do-expressions.js",
       "regex-v-flag.js",
       "decorator-auto-accessors.js",
+      "import-reflection.js",
+      "explicit-resource-management.js",
+      "regexp-modifiers.js",
     ],
     espree: [
       "decimal.js",
@@ -52,6 +55,9 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "async-do-expressions.js",
       "regex-v-flag.js",
       "decorator-auto-accessors.js",
+      "import-reflection.js",
+      "explicit-resource-management.js",
+      "regexp-modifiers.js",
     ],
     meriyah: [
       "decimal.js",
@@ -72,13 +78,17 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "throw-expressions.js",
       "typescript.js",
       "v8intrinsic.js",
-      "class-static-block.js",
       "import-assertions-dynamic.js",
       "import-assertions-static.js",
       "module-string-names.js",
       "module-blocks.js",
       "async-do-expressions.js",
       "regex-v-flag.js",
+      "import-reflection.js",
+      "explicit-resource-management.js",
+      "regexp-modifiers.js",
     ],
+    babel: ["flow.js", "typescript.js"],
+    __babel_estree: ["flow.js", "typescript.js"],
   },
 });

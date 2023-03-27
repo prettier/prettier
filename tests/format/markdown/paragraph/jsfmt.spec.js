@@ -1,3 +1,3 @@
-run_spec(__dirname, ["markdown"], { proseWrap: "always" });
-run_spec(__dirname, ["markdown"], { proseWrap: "never" });
-run_spec(__dirname, ["markdown"], { proseWrap: "preserve" });
+run_spec(import.meta, ["markdown"], { proseWrap: "always" });
+run_spec(import.meta, ["markdown"], { proseWrap: "never" });
+run_spec(import.meta, ["markdown"], { proseWrap: "preserve" });

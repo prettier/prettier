@@ -1,38 +1,51 @@
-"use strict";
+import ts from "typescript";
+import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
+import visitNode from "./visit-node.js";
+import throwTsSyntaxError from "./throw-ts-syntax-error.js";
 
-const isNonEmptyArray = require("../../../utils/is-non-empty-array.js");
-const visitNode = require("./visit-node.js");
-const throwSyntaxError = require("./throw-syntax-error.js");
-
-// Taken from `typescript` package
-const SyntaxKind = {
-  AbstractKeyword: 126,
-  SourceFile: 308,
-  PropertyDeclaration: 169,
-};
-
-// Copied from https://unpkg.com/typescript@4.8.2/lib/typescript.js
-function getSourceFileOfNode(node) {
-  while (node && node.kind !== SyntaxKind.SourceFile) {
-    node = node.parent;
-  }
-  return node;
-}
-
-function throwErrorOnTsNode(node, message) {
-  const sourceFile = getSourceFileOfNode(node);
-  const [start, end] = [node.getStart(), node.end].map((position) => {
+function getTsNodeLocation(nodeOrToken) {
+  const sourceFile =
+    // @ts-expect-error -- internal?
+    ts.getSourceFileOfNode(nodeOrToken);
+  const position =
+    // @ts-expect-error -- internal?
+    ts.rangeOfNode(nodeOrToken);
+  const [start, end] = [position.pos, position.end].map((position) => {
     const { line, character: column } =
       sourceFile.getLineAndCharacterOfPosition(position);
     return { line: line + 1, column };
   });
 
-  throwSyntaxError({ loc: { start, end } }, message);
+  return { start, end };
+}
+
+function throwErrorOnTsNode(node, message) {
+  throwTsSyntaxError({ loc: getTsNodeLocation(node) }, message);
+}
+
+// Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5
+// https://github.com/typescript-eslint/typescript-eslint/releases/tag/v5.0.0
+function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
+  if (
+    !(
+      tsNode.kind === ts.SyntaxKind.PropertyDeclaration &&
+      tsNode.initializer &&
+      esTreeNode.value === null &&
+      tsNode.modifiers?.some(
+        (modifier) => modifier.kind === ts.SyntaxKind.AbstractKeyword
+      )
+    )
+  ) {
+    return;
+  }
+
+  throwTsSyntaxError(
+    esTreeNode,
+    "Abstract property cannot have an initializer"
+  );
 }
 
 function nodeCanBeDecorated(node) {
-  const ts = require("typescript");
-
   return [true, false].some((useLegacyDecorators) =>
     // @ts-expect-error -- internal?
     ts.nodeCanBeDecorated(
@@ -44,18 +57,15 @@ function nodeCanBeDecorated(node) {
   );
 }
 
-// Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
-// https://github.com/typescript-eslint/typescript-eslint/pull/2375
-// There is a `checkGrammarDecorators` in `typescript` package, consider use it directly in future
-function throwErrorForInvalidDecorator(node) {
+// Based on `checkGrammarModifiers` function in `typescript`
+function throwErrorForInvalidModifier(node) {
   const { modifiers } = node;
   if (!isNonEmptyArray(modifiers)) {
     return;
   }
 
-  const ts = require("typescript");
-
   const { SyntaxKind } = ts;
+
   for (const modifier of modifiers) {
     if (ts.isDecorator(modifier) && !nodeCanBeDecorated(node)) {
       if (
@@ -71,52 +81,243 @@ function throwErrorForInvalidDecorator(node) {
 
       throwErrorOnTsNode(modifier, "Decorators are not valid here.");
     }
+
+    if (modifier.kind !== SyntaxKind.ReadonlyKeyword) {
+      if (
+        node.kind === SyntaxKind.PropertySignature ||
+        node.kind === SyntaxKind.MethodSignature
+      ) {
+        throwErrorOnTsNode(
+          modifier,
+          `'${ts.tokenToString(
+            modifier.kind
+          )}' modifier cannot appear on a type member`
+        );
+      }
+
+      if (
+        node.kind === SyntaxKind.IndexSignature &&
+        (modifier.kind !== SyntaxKind.StaticKeyword ||
+          !ts.isClassLike(node.parent))
+      ) {
+        throwErrorOnTsNode(
+          modifier,
+          `'${ts.tokenToString(
+            modifier.kind
+          )}' modifier cannot appear on an index signature`
+        );
+      }
+    }
+
+    if (
+      modifier.kind !== SyntaxKind.InKeyword &&
+      modifier.kind !== SyntaxKind.OutKeyword &&
+      modifier.kind !== SyntaxKind.ConstKeyword &&
+      node.kind === SyntaxKind.TypeParameter
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on a type parameter`
+      );
+    }
+
+    if (
+      (modifier.kind === SyntaxKind.InKeyword ||
+        modifier.kind === SyntaxKind.OutKeyword) &&
+      (node.kind !== SyntaxKind.TypeParameter ||
+        !(
+          ts.isInterfaceDeclaration(node.parent) ||
+          ts.isClassLike(node.parent) ||
+          ts.isTypeAliasDeclaration(node.parent)
+        ))
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier can only appear on a type parameter of a class, interface or type alias`
+      );
+    }
+
+    if (
+      modifier.kind === SyntaxKind.ReadonlyKeyword &&
+      node.kind !== SyntaxKind.PropertyDeclaration &&
+      node.kind !== SyntaxKind.PropertySignature &&
+      node.kind !== SyntaxKind.IndexSignature &&
+      node.kind !== SyntaxKind.Parameter
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        "'readonly' modifier can only appear on a property declaration or index signature."
+      );
+    }
+
+    if (
+      modifier.kind === SyntaxKind.DeclareKeyword &&
+      ts.isClassLike(node.parent) &&
+      !ts.isPropertyDeclaration(node)
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on class elements of this kind.`
+      );
+    }
+
+    if (
+      modifier.kind === SyntaxKind.AbstractKeyword &&
+      node.kind !== SyntaxKind.ClassDeclaration &&
+      node.kind !== SyntaxKind.ConstructorType &&
+      node.kind !== SyntaxKind.MethodDeclaration &&
+      node.kind !== SyntaxKind.PropertyDeclaration &&
+      node.kind !== SyntaxKind.GetAccessor &&
+      node.kind !== SyntaxKind.SetAccessor
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier can only appear on a class, method, or property declaration.`
+      );
+    }
+
+    if (
+      (modifier.kind === SyntaxKind.StaticKeyword ||
+        modifier.kind === SyntaxKind.PublicKeyword ||
+        modifier.kind === SyntaxKind.ProtectedKeyword ||
+        modifier.kind === SyntaxKind.PrivateKeyword) &&
+      (node.parent.kind === SyntaxKind.ModuleBlock ||
+        node.parent.kind === SyntaxKind.SourceFile)
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on a module or namespace element.`
+      );
+    }
+
+    if (
+      modifier.kind === SyntaxKind.AccessorKeyword &&
+      node.kind !== SyntaxKind.PropertyDeclaration
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        "'accessor' modifier can only appear on a property declaration."
+      );
+    }
+
+    // `checkGrammarAsyncModifier` function in `typescript`
+    if (
+      modifier.kind === SyntaxKind.AsyncKeyword &&
+      node.kind !== SyntaxKind.MethodDeclaration &&
+      node.kind !== SyntaxKind.FunctionDeclaration &&
+      node.kind !== SyntaxKind.FunctionExpression &&
+      node.kind !== SyntaxKind.ArrowFunction
+    ) {
+      throwErrorOnTsNode(modifier, "'async' modifier cannot be used here.");
+    }
+
+    // `checkGrammarModifiers` function in `typescript`
+    if (
+      node.kind === SyntaxKind.Parameter &&
+      (modifier.kind === SyntaxKind.StaticKeyword ||
+        modifier.kind === SyntaxKind.ExportKeyword ||
+        modifier.kind === SyntaxKind.DeclareKeyword ||
+        modifier.kind === SyntaxKind.AsyncKeyword)
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on a parameter.`
+      );
+    }
+
+    // `checkParameter` function in `typescript`
+    if (
+      node.kind === SyntaxKind.Parameter &&
+      // @ts-expect-error -- internal?
+      ts.hasSyntacticModifier(node, ts.ModifierFlags.ParameterPropertyModifier)
+    ) {
+      const func =
+        // @ts-expect-error -- internal?
+        ts.getContainingFunction(node);
+      if (
+        !(
+          func.kind === SyntaxKind.Constructor &&
+          // @ts-expect-error -- internal?
+          ts.nodeIsPresent(func.body)
+        )
+      ) {
+        throwErrorOnTsNode(
+          modifier,
+          "A parameter property is only allowed in a constructor implementation."
+        );
+      }
+    }
   }
 }
 
-// Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5
-// https://github.com/typescript-eslint/typescript-eslint/releases/tag/v5.0.0
-function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
-  if (
-    tsNode.kind !== SyntaxKind.PropertyDeclaration ||
-    (tsNode.modifiers &&
-      !tsNode.modifiers.some(
-        (modifier) => modifier.kind === SyntaxKind.AbstractKeyword
-      ))
-  ) {
+function getTsNode(node, tsParseResult) {
+  const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } = tsParseResult;
+  const tsNode = esTreeNodeToTSNodeMap.get(node);
+  if (!tsNode) {
     return;
   }
-  if (tsNode.initializer && esTreeNode.value === null) {
-    throwSyntaxError(
-      esTreeNode,
-      "Abstract property cannot have an initializer"
-    );
+
+  const esTreeNode = tsNodeToESTreeNodeMap.get(tsNode);
+  if (esTreeNode !== node) {
+    return;
   }
+
+  return tsNode;
 }
 
-function throwErrorForInvalidNodes(result, options) {
-  if (
-    // decorators or abstract properties
-    !/@|abstract/.test(options.originalText)
-  ) {
+// `isModifierKind` in `typescript`
+const POSSIBLE_MODIFIERS = [
+  "abstract",
+  "accessor",
+  "async",
+  "const",
+  "declare",
+  "default",
+  "export",
+  "in",
+  "out",
+  "override",
+  "private",
+  "protected",
+  "public",
+  "readonly",
+  "static",
+];
+
+const decoratorOrModifierRegExp = new RegExp(
+  ["@", ...POSSIBLE_MODIFIERS].join("|")
+);
+
+function throwErrorForInvalidNodes(tsParseResult, text) {
+  if (!decoratorOrModifierRegExp.test(text)) {
     return;
   }
 
-  const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } = result;
-
-  visitNode(result.ast, (node) => {
-    const tsNode = esTreeNodeToTSNodeMap.get(node);
+  visitNode(tsParseResult.ast, (esTreeNode) => {
+    const tsNode = getTsNode(esTreeNode, tsParseResult);
     if (!tsNode) {
       return;
     }
-    const esTreeNode = tsNodeToESTreeNodeMap.get(tsNode);
-    if (esTreeNode !== node) {
-      return;
-    }
 
-    throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
+    throwErrorForInvalidModifier(tsNode);
   });
 }
 
-module.exports = { throwErrorForInvalidNodes };
+export {
+  throwErrorForInvalidNodes,
+  // For test
+  POSSIBLE_MODIFIERS,
+};

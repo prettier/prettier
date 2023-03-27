@@ -1,20 +1,13 @@
-"use strict";
-
-const {
-  builders: { indent, join, hardline },
-} = require("../../document/index.js");
-const {
+import { indent, join, hardline } from "../../document/builders.js";
+import {
   escapeTemplateCharacters,
   printTemplateExpressions,
-} = require("../print/template-literal.js");
+} from "../print/template-literal.js";
 
-function format(path, print, textToDoc) {
-  const node = path.getValue();
+async function embedGraphQL(textToDoc, print, path /*, options*/) {
+  const { node } = path;
 
   const numQuasis = node.quasis.length;
-  if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
-    return "``";
-  }
 
   const expressionDocs = printTemplateExpressions(path, print);
   const parts = [];
@@ -50,11 +43,7 @@ function format(path, print, textToDoc) {
     if (commentsAndWhitespaceOnly) {
       doc = printGraphqlComments(lines);
     } else {
-      doc = textToDoc(
-        text,
-        { parser: "graphql" },
-        { stripTrailingHardline: true }
-      );
+      doc = await textToDoc(text, { parser: "graphql" });
     }
 
     if (doc) {
@@ -105,4 +94,4 @@ function printGraphqlComments(lines) {
   return parts.length === 0 ? null : join(hardline, parts);
 }
 
-module.exports = format;
+export default embedGraphQL;

@@ -1,10 +1,14 @@
-"use strict";
-
-const { printDanglingComments } = require("../../main/comments.js");
-const {
-  builders: { join, line, hardline, softline, group, indent, ifBreak },
-} = require("../../document/index.js");
-const {
+import { printDanglingComments } from "../../main/comments/print.js";
+import {
+  join,
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  ifBreak,
+} from "../../document/builders.js";
+import {
   isTestCall,
   hasComment,
   CommentCheckFlags,
@@ -13,15 +17,18 @@ const {
   getFunctionParameters,
   isObjectType,
   getTypeScriptMappedTypeModifier,
-} = require("../utils/index.js");
-const { createGroupIdMapper } = require("../../common/util.js");
-const { shouldHugType } = require("./type-annotation.js");
-const { isArrowFunctionVariableDeclarator } = require("./assignment.js");
+} from "../utils/index.js";
+import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
+import {
+  printTypeAnnotationProperty,
+  shouldHugType,
+} from "./type-annotation.js";
+import { isArrowFunctionVariableDeclarator } from "./assignment.js";
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 function printTypeParameters(path, options, print, paramsKey) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (!node[paramsKey]) {
     return "";
@@ -70,9 +77,9 @@ function printTypeParameters(path, options, print, paramsKey) {
       : getFunctionParameters(node).length === 1 &&
         isTSXFile(options) &&
         !node[paramsKey][0].constraint &&
-        path.getParentNode().type === "ArrowFunctionExpression"
+        path.parent.type === "ArrowFunctionExpression"
       ? ","
-      : shouldPrintComma(options, "all")
+      : shouldPrintComma(options)
       ? ifBreak(",")
       : "";
 
@@ -89,16 +96,14 @@ function printTypeParameters(path, options, print, paramsKey) {
 }
 
 function printDanglingCommentsForInline(path, options) {
-  const node = path.getValue();
+  const { node } = path;
   if (!hasComment(node, CommentCheckFlags.Dangling)) {
     return "";
   }
   const hasOnlyBlockComments = !hasComment(node, CommentCheckFlags.Line);
-  const printed = printDanglingComments(
-    path,
-    options,
-    /* sameIndent */ hasOnlyBlockComments
-  );
+  const printed = printDanglingComments(path, options, {
+    indent: !hasOnlyBlockComments,
+  });
   if (hasOnlyBlockComments) {
     return printed;
   }
@@ -106,9 +111,11 @@ function printDanglingCommentsForInline(path, options) {
 }
 
 function printTypeParameter(path, options, print) {
-  const node = path.getValue();
+  const { node, parent } = path;
   const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
-  const parent = path.getParentNode();
+
+  const name = node.type === "TSTypeParameter" ? print("name") : node.name;
+
   if (parent.type === "TSMappedType") {
     if (parent.readonly) {
       parts.push(
@@ -116,7 +123,7 @@ function printTypeParameter(path, options, print) {
         " "
       );
     }
-    parts.push("[", print("name"));
+    parts.push("[", name);
     if (node.constraint) {
       parts.push(" in ", print("constraint"));
     }
@@ -142,10 +149,10 @@ function printTypeParameter(path, options, print) {
     parts.push("out ");
   }
 
-  parts.push(print("name"));
+  parts.push(name);
 
   if (node.bound) {
-    parts.push(": ", print("bound"));
+    parts.push(printTypeAnnotationProperty(path, print, "bound"));
   }
 
   if (node.constraint) {
@@ -159,8 +166,4 @@ function printTypeParameter(path, options, print) {
   return parts;
 }
 
-module.exports = {
-  printTypeParameter,
-  printTypeParameters,
-  getTypeParametersGroupId,
-};
+export { printTypeParameter, printTypeParameters, getTypeParametersGroupId };

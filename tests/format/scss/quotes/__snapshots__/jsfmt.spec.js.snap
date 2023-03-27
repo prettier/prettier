@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`escape-in-string.scss - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+$description: "Lorem ipsum dolor sit \\"amet\\", consectetur adipiscing elit, " +
+  "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
+=====================================output=====================================
+$description: 'Lorem ipsum dolor sit "amet", consectetur adipiscing elit, ' +
+  'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+
+================================================================================
+`;
+
+exports[`escape-in-string.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+$description: "Lorem ipsum dolor sit \\"amet\\", consectetur adipiscing elit, " +
+  "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
+=====================================output=====================================
+$description: 'Lorem ipsum dolor sit "amet", consectetur adipiscing elit, ' +
+  "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
+================================================================================
+`;
+
 exports[`forward-with.scss - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]

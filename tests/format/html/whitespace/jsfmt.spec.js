@@ -1,8 +1,8 @@
-const { outdent } = require("outdent");
+import { outdent } from "outdent";
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       ...[
         // https://developer.mozilla.org/en-US/docs/Glossary/Whitespace#In_HTML

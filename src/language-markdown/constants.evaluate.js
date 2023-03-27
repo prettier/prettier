@@ -1,8 +1,6 @@
-"use strict";
-
-const cjkRegex = require("cjk-regex");
-const regexpUtil = require("regexp-util");
-const unicodeRegex = require("unicode-regex");
+import cjkRegex from "cjk-regex";
+import regexpUtil from "regexp-util";
+import unicodeRegex from "unicode-regex";
 
 const cjkPattern = `(?:${cjkRegex()
   .union(
@@ -22,9 +20,9 @@ const cjkPattern = `(?:${cjkRegex()
   Block: ["Variation_Selectors", "Variation_Selectors_Supplement"],
 }).toString()})?`;
 
-const kPattern = unicodeRegex({ Script: ["Hangul"] })
+const kRegex = unicodeRegex({ Script: ["Hangul"] })
   .union(unicodeRegex({ Script_Extensions: ["Hangul"] }))
-  .toString();
+  .toRegExp();
 
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
 const asciiPunctuationCharset =
@@ -51,8 +49,4 @@ const punctuationCharset = unicodeRegex({
 
 const punctuationPattern = punctuationCharset.toString();
 
-module.exports = {
-  cjkPattern,
-  kPattern,
-  punctuationPattern,
-};
+export { cjkPattern, kRegex, punctuationPattern };

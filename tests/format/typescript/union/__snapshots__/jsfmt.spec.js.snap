@@ -47,6 +47,35 @@ interface RelayProps {
   } | null> | null | void,
 }
 
+interface RelayProps {
+  articles: Array<{
+    __id: string,
+  } | null>
+  | null // articles type may be null
+  | void, // articles type may be void
+}
+
+type FooBar = null // null
+| { /** x **/
+  y: number;
+  z: string;
+} // this documents the first option
+  | void // this documents the second option
+  ;
+
+type FooBarWithoutComment = null
+  | {
+  y: number;
+  z: string;
+}
+  | void
+  ;
+
+type FooBar2 =
+  | Number // this documents the first option
+  | void // this documents the second option
+  ;
+
 type UploadState<E, EM, D>
   // The upload hasnt begun yet
   = {type: "Not_begun"}
@@ -89,6 +118,32 @@ interface RelayProps {
     __id: string;
   } | null> | null | void;
 }
+
+interface RelayProps {
+  articles:
+    | Array<{
+        __id: string;
+      } | null>
+    | null // articles type may be null
+    | void; // articles type may be void
+}
+
+type FooBar =
+  | null // null
+  | {
+      /** x **/ y: number;
+      z: string;
+    } // this documents the first option
+  | void; // this documents the second option
+
+type FooBarWithoutComment = null | {
+  y: number;
+  z: string;
+} | void;
+
+type FooBar2 =
+  | Number // this documents the first option
+  | void; // this documents the second option
 
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
@@ -165,7 +220,7 @@ export type a =
   // bar
   | (bar1 & bar2)
   // prettier-ignore
-  | qux1&qux2;
+  | (qux1&qux2);
 
 export type a =
   // foo
@@ -173,13 +228,13 @@ export type a =
   // bar
   | (bar1 & bar2)
   // prettier-ignore
-  | qux1&qux2
+  | (qux1&qux2)
   // baz
   | (baz1 & baz2);
 
 export type a =
   // prettier-ignore
-  | foo1&foo2
+  | (foo1&foo2)
   // bar
   | (bar1 & bar2)
   // qux
@@ -525,21 +580,21 @@ type A = [
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
+  | DDDDDDDDDDDDDDDDDDDDDD,
 ];
 
 type B = [
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
+  | DDDDDDDDDDDDDDDDDDDDDD,
 ];
 
 type B1 = [
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
+  | DDDDDDDDDDDDDDDDDDDDDD,
 ];
 
 type C = [
@@ -547,14 +602,14 @@ type C = [
       | AAAAAAAAAAAAAAAAAAAAAA
       | BBBBBBBBBBBBBBBBBBBBBB
       | CCCCCCCCCCCCCCCCCCCCCC
-      | DDDDDDDDDDDDDDDDDDDDDD
+      | DDDDDDDDDDDDDDDDDDDDDD,
     ]
   | [
       | AAAAAAAAAAAAAAAAAAAAAA
       | BBBBBBBBBBBBBBBBBBBBBB
       | CCCCCCCCCCCCCCCCCCCCCC
-      | DDDDDDDDDDDDDDDDDDDDDD
-    ]
+      | DDDDDDDDDDDDDDDDDDDDDD,
+    ],
 ];
 
 type D = [
@@ -569,7 +624,7 @@ type D = [
     | BBBBBBBBBBBBBBBBBBBBBB
     | CCCCCCCCCCCCCCCCCCCCCC
     | DDDDDDDDDDDDDDDDDDDDDD
-  )
+  ),
 ];
 
 type D1 = [
@@ -584,7 +639,7 @@ type D1 = [
     | BBBBBBBBBBBBBBBBBBBBBB
     | CCCCCCCCCCCCCCCCCCCCCC
     | DDDDDDDDDDDDDDDDDDDDDD
-  )
+  ),
 ];
 
 type D2 = [
@@ -599,7 +654,7 @@ type D2 = [
     | BBBBBBBBBBBBBBBBBBBBBB
     | CCCCCCCCCCCCCCCCCCCCCC
     | DDDDDDDDDDDDDDDDDDDDDD
-  )
+  ),
 ];
 
 type E = [AA | BB, AA | BB];
@@ -611,7 +666,7 @@ type F = [
     | CCCCCCCCCCCCCCCCCCCCCC
     | DDDDDDDDDDDDDDDDDDDDDD
   ),
-  AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB
+  AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB,
 ];
 
 ================================================================================

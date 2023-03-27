@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "name": "prettier-plugin-dummy-stylus",
-  "version": "1.0.0",
-  "main": "./index.cjs"
-}

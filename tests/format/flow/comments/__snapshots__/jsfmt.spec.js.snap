@@ -2,7 +2,7 @@
 
 exports[`arrow.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -18,21 +18,49 @@ const run = (cmd /*: string */) /*: Promise<void> */ => {}
 
 =====================================output=====================================
 // Error
-const a = (data /*: Object */) => {};
+const a = (data: Object) => {};
 
 // OK
-const b = (data /*: Object */, secondData /*: Object */) => {};
+const b = (data: Object, secondData: Object) => {};
 
-const c = (data /*: /* this is an object *-/ Object */) => {};
+const c = (data: /* this is an object */ Object) => {};
 
-const run = (cmd /*: string */) /*: Promise<void> */ => {};
+const run = (cmd: string): Promise<void> => {};
+
+================================================================================
+`;
+
+exports[`cast.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(a /* b */ /*: c */);
+(a /* b */   : c   );
+(a /* b */ /*  : c */);
+(a /* b */ /*:: : c */);
+(a /* b */ /*  :: : c */);
+
+(a : /* b */ c );
+(a : c /* b */ );
+
+=====================================output=====================================
+(a /* b */ : c);
+(a /* b */ : c);
+(a /* b */ : c);
+(a /* b */ : c);
+(a /* b */ : c);
+
+(a: /* b */ c);
+(a: c /* b */);
 
 ================================================================================
 `;
 
 exports[`class.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -44,9 +72,9 @@ class A {
 
 =====================================output=====================================
 class A {
-  x /*: string */;
+  x: string;
 
-  method(a /*: T */, b /*: T */) /*: T */ {}
+  method(a: T, b: T): T {}
 }
 
 ================================================================================
@@ -54,21 +82,47 @@ class A {
 
 exports[`functions.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 function foo<T>(bar  /*: T[] */, baz  /*: T */) /*: S */ {}
 
 =====================================output=====================================
-function foo<T>(bar /*: T[] */, baz /*: T */) /*: S */ {}
+function foo<T>(bar: T[], baz: T): S {}
+
+================================================================================
+`;
+
+exports[`functions2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function f1(a /* b */ /*: c */){}
+function f2(a /* b */   : c   ){}
+function f3(a /* b */ /*  : c */){}
+function f4(a /* b */ /*:: : c */){}
+
+function f2(a : /* b */ c ){}
+function f2(a : c /* b */ ){}
+
+=====================================output=====================================
+function f1(a /* b */ : c) {}
+function f2(a /* b */ : c) {}
+function f3(a /* b */ : c) {}
+function f4(a /* b */ : c) {}
+
+function f2(a: /* b */ c) {}
+function f2(a: c /* b */) {}
 
 ================================================================================
 `;
 
 exports[`generics.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -85,24 +139,24 @@ foo/*::<bar>*/(baz);
 foo/*::<bar>*/();
 
 =====================================output=====================================
-const Component = branch/*:: <Props, ExternalProps> */(
+const Component = branch<Props, ExternalProps>(
   ({ src }) => !src,
   // $FlowFixMe
-  renderNothing
+  renderNothing,
 )(BaseComponent);
 
-const C = b/*:: <A> */(foo) + c/*:: <B> */(bar);
+const C = b<A>(foo) + c<B>(bar);
 
-foo/*:: <bar> */(baz);
+foo<bar>(baz);
 
-foo/*:: <bar> */();
+foo<bar>();
 
 ================================================================================
 `;
 
 exports[`interface.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -116,7 +170,7 @@ interface Foo {
 =====================================output=====================================
 interface Foo {
   bar(
-    currentRequest: { a: number }
+    currentRequest: { a: number },
     // TODO this is a very very very very long comment that makes it go > 80 columns
   ): number;
 }
@@ -126,7 +180,7 @@ interface Foo {
 
 exports[`issues.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -204,7 +258,7 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 
 exports[`let.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -212,15 +266,15 @@ let foo /*: Groups<T> */;
 let bar /*: string */ = 'a';
 
 =====================================output=====================================
-let foo /*: Groups<T> */;
-let bar /*: string */ = "a";
+let foo: Groups<T>;
+let bar: string = "a";
 
 ================================================================================
 `;
 
 exports[`object_type_annotation.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -260,7 +314,7 @@ type Props3 = {
 
 exports[`type_annotations.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -278,25 +332,25 @@ new (window.Request/*: Class<Request> */)("");
 const x = (input /*: string */) /*: string */ => {};
 
 =====================================output=====================================
-new (window.Request /*: Class<Request> */)("");
+new (window.Request: Class<Request>)("");
 
-(this /*: any */).foo = 5;
+(this: any).foo = 5;
 
-(this /*: any */).foo = 5;
+(this: any).foo = 5;
 
 // This next example illustrates that Prettier will not remove a line break
 // and unintentionally create a type annotation that was not there before.
 this /*
 : any */.foo = 5;
 
-const x = (input /*: string */) /*: string */ => {};
+const x = (input: string): string => {};
 
 ================================================================================
 `;
 
 exports[`type_annotations-2.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -305,7 +359,7 @@ class Foo {
   bar( data: Array<string>) {}
 }
 =====================================output=====================================
-foo/*:: <bar> */(baz);
+foo<bar>(baz);
 class Foo {
   bar(data: Array<string>) {}
 }
@@ -313,9 +367,35 @@ class Foo {
 ================================================================================
 `;
 
+exports[`type_annotations-3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import type { OneType } from './oneFile.js'
+/*::
+import type { HelloType } from './otherFile.js'
+*/
+
+type PropTypes = {|
+  TestComponent: React.AbstractComponent<any>,
+  hello: HelloType,
+|};
+=====================================output=====================================
+import type { OneType } from "./oneFile.js";
+import type { HelloType } from "./otherFile.js";
+type PropTypes = {|
+  TestComponent: React.AbstractComponent<any>,
+  hello: HelloType,
+|};
+
+================================================================================
+`;
+
 exports[`union.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

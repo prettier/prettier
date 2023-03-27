@@ -43,7 +43,7 @@ beep.boop().baz(
     },
   },
   { another: { thing: true } },
-  () => {}
+  () => {},
 );
 
 //https://github.com/prettier/prettier/issues/2984
@@ -60,7 +60,7 @@ db.collection("indexOptionDefault").createIndex(
 
     client.close();
     done();
-  }
+  },
 );
 
 ================================================================================

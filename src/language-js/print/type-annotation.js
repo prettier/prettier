@@ -1,28 +1,37 @@
-"use strict";
-
-const {
-  printComments,
-  printDanglingComments,
-} = require("../../main/comments.js");
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { group, join, line, softline, indent, align, ifBreak },
-} = require("../../document/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const { locStart } = require("../loc.js");
-const {
+import { printComments } from "../../main/comments/print.js";
+import {
+  group,
+  join,
+  line,
+  softline,
+  indent,
+  align,
+  ifBreak,
+} from "../../document/builders.js";
+import pathNeedsParens from "../needs-parens.js";
+import { hasSameLocStart } from "../loc.js";
+import {
   isSimpleType,
   isObjectType,
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
-  shouldPrintComma,
-} = require("../utils/index.js");
-const { printAssignment } = require("./assignment.js");
-const {
+  hasComment,
+  CommentCheckFlags,
+} from "../utils/index.js";
+import { printAssignment } from "./assignment.js";
+import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
-} = require("./function-parameters.js");
-const { printArrayItems } = require("./array.js");
+} from "./function-parameters.js";
+import {
+  printOptionalToken,
+  printDeclareToken,
+  printAbstractToken,
+} from "./misc.js";
+
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -47,7 +56,9 @@ function shouldHugType(node) {
         node.type === "TSTypeReference"
     );
 
-    if (node.types.length - 1 === voidCount && hasObject) {
+    const hasComments = node.types.some((node) => hasComment(node));
+
+    if (node.types.length - 1 === voidCount && hasObject && !hasComments) {
       return true;
     }
   }
@@ -55,11 +66,19 @@ function shouldHugType(node) {
   return false;
 }
 
+/*
+- `DeclareOpaqueType`(flow)
+- `OpaqueType`(flow)
+*/
 function printOpaqueType(path, options, print) {
   const semi = options.semi ? ";" : "";
-  const node = path.getValue();
-  const parts = [];
-  parts.push("opaque type ", print("id"), print("typeParameters"));
+  const { node } = path;
+  const parts = [
+    printDeclareToken(path),
+    "opaque type ",
+    print("id"),
+    print("typeParameters"),
+  ];
 
   if (node.supertype) {
     parts.push(": ", print("supertype"));
@@ -74,13 +93,16 @@ function printOpaqueType(path, options, print) {
   return parts;
 }
 
+/*
+- `DeclareTypeAlias`(flow)
+- `TypeAlias`(flow)
+- `TSTypeAliasDeclaration`(TypeScript)
+*/
 function printTypeAlias(path, options, print) {
   const semi = options.semi ? ";" : "";
-  const node = path.getValue();
-  const parts = [];
-  if (node.declare) {
-    parts.push("declare ");
-  }
+  const { node } = path;
+  const parts = [printDeclareToken(path)];
+
   parts.push("type ", print("id"), print("typeParameters"));
   const rightPropertyName =
     node.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
@@ -92,7 +114,7 @@ function printTypeAlias(path, options, print) {
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
 function printIntersectionType(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const types = path.map(print, "types");
   const result = [];
   let wasIndented = false;
@@ -121,7 +143,7 @@ function printIntersectionType(path, options, print) {
 
 // `TSUnionType` and `UnionTypeAnnotation`
 function printUnionType(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   // single-line variation
   // A | B | C
 
@@ -130,7 +152,7 @@ function printUnionType(path, options, print) {
   // | B
   // | C
 
-  const parent = path.getParentNode();
+  const { parent } = path;
 
   // If there's a leading comment, the parent is doing the indentation
   const shouldIndent =
@@ -144,7 +166,7 @@ function printUnionType(path, options, print) {
     !(
       parent.type === "FunctionTypeParam" &&
       !parent.name &&
-      path.getParentNode(1).this !== parent
+      path.grandparent.this !== parent
     ) &&
     !(
       (parent.type === "TypeAlias" ||
@@ -187,65 +209,72 @@ function printUnionType(path, options, print) {
     return group([indent(code), softline]);
   }
 
-  if (
-    (parent.type === "TupleTypeAnnotation" && parent.types.length > 1) ||
-    (parent.type === "TSTupleType" && parent.elementTypes.length > 1)
-  ) {
-    return group([
-      indent([ifBreak(["(", softline]), code]),
-      softline,
-      ifBreak(")"),
-    ]);
+  if (parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType") {
+    const elementTypes =
+      parent[
+        // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
+        parent.type === "TupleTypeAnnotation" && parent.types
+          ? "types"
+          : "elementTypes"
+      ];
+
+    if (elementTypes.length > 1) {
+      return group([
+        indent([ifBreak(["(", softline]), code]),
+        softline,
+        ifBreak(")"),
+      ]);
+    }
   }
 
   return group(shouldIndent ? indent(code) : code);
 }
 
-// `TSFunctionType` and `FunctionTypeAnnotation`
+/*
+`FunctionTypeAnnotation` is ambiguous:
+- `declare function foo(a: B): void;`
+- `var A: (a: B) => void;`
+*/
+function isFlowArrowFunctionTypeAnnotation(path) {
+  const { node, parent } = path;
+  return (
+    node.type === "FunctionTypeAnnotation" &&
+    (isObjectTypePropertyAFunction(parent) ||
+      !(
+        ((parent.type === "ObjectTypeProperty" ||
+          parent.type === "ObjectTypeInternalSlot") &&
+          !parent.variance &&
+          !parent.optional &&
+          hasSameLocStart(parent, node)) ||
+        parent.type === "ObjectTypeCallProperty" ||
+        path.getParentNode(2)?.type === "DeclareFunction"
+      ))
+  );
+}
+
+/*
+- `TSFunctionType` (TypeScript)
+- `TSCallSignatureDeclaration` (TypeScript)
+- `TSConstructorType` (TypeScript)
+- `TSConstructSignatureDeclaration` (TypeScript)
+- `FunctionTypeAnnotation` (Flow)
+*/
 function printFunctionType(path, options, print) {
-  const node = path.getValue();
-  const parts = [];
-  // FunctionTypeAnnotation is ambiguous:
-  // declare function foo(a: B): void; OR
-  // var A: (a: B) => void;
-  const parent = path.getParentNode(0);
-  const parentParent = path.getParentNode(1);
-  const parentParentParent = path.getParentNode(2);
-  let isArrowFunctionTypeAnnotation =
-    node.type === "TSFunctionType" ||
-    !(
-      ((parent.type === "ObjectTypeProperty" ||
-        parent.type === "ObjectTypeInternalSlot") &&
-        !parent.variance &&
-        !parent.optional &&
-        locStart(parent) === locStart(node)) ||
-      parent.type === "ObjectTypeCallProperty" ||
-      (parentParentParent && parentParentParent.type === "DeclareFunction")
-    );
+  const { node } = path;
+  /** @type {Doc[]} */
+  const parts = [
+    // `TSConstructorType` only
+    printAbstractToken(path),
+  ];
 
-  let needsColon =
-    isArrowFunctionTypeAnnotation &&
-    (parent.type === "TypeAnnotation" || parent.type === "TSTypeAnnotation");
-
-  // Sadly we can't put it inside of AstPath::needsColon because we are
-  // printing ":" as part of the expression and it would put parenthesis
-  // around :(
-  const needsParens =
-    needsColon &&
-    isArrowFunctionTypeAnnotation &&
-    (parent.type === "TypeAnnotation" || parent.type === "TSTypeAnnotation") &&
-    parentParent.type === "ArrowFunctionExpression";
-
-  if (isObjectTypePropertyAFunction(parent)) {
-    isArrowFunctionTypeAnnotation = true;
-    needsColon = true;
+  if (
+    node.type === "TSConstructorType" ||
+    node.type === "TSConstructSignatureDeclaration"
+  ) {
+    parts.push("new ");
   }
 
-  if (needsParens) {
-    parts.push("(");
-  }
-
-  const parametersDoc = printFunctionParameters(
+  let parametersDoc = printFunctionParameters(
     path,
     print,
     options,
@@ -253,82 +282,234 @@ function printFunctionType(path, options, print) {
     /* printTypeParams */ true
   );
 
-  // The returnType is not wrapped in a TypeAnnotation, so the colon
+  const returnTypeDoc = [];
+  // `flow` doesn't wrap the `returnType` with `TypeAnnotation`, so the colon
   // needs to be added separately.
-  const returnTypeDoc =
-    node.returnType || node.predicate || node.typeAnnotation
-      ? [
-          isArrowFunctionTypeAnnotation ? " => " : ": ",
-          print("returnType"),
-          print("predicate"),
-          print("typeAnnotation"),
-        ]
-      : "";
-
-  const shouldGroupParameters = shouldGroupFunctionParameters(
-    node,
-    returnTypeDoc
-  );
-
-  parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
-
-  if (returnTypeDoc) {
-    parts.push(returnTypeDoc);
+  if (node.type === "FunctionTypeAnnotation") {
+    returnTypeDoc.push(
+      isFlowArrowFunctionTypeAnnotation(path) ? " => " : ": ",
+      print("returnType")
+    );
+  } else {
+    returnTypeDoc.push(
+      printTypeAnnotationProperty(
+        path,
+        print,
+        node.returnType ? "returnType" : "typeAnnotation"
+      )
+    );
   }
 
-  if (needsParens) {
-    parts.push(")");
+  if (shouldGroupFunctionParameters(node, returnTypeDoc)) {
+    parametersDoc = group(parametersDoc);
   }
+
+  parts.push(parametersDoc, returnTypeDoc);
 
   return group(parts);
 }
 
-// `TSTupleType` and `TupleTypeAnnotation`
-function printTupleType(path, options, print) {
-  const node = path.getValue();
-  const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
-  const types = node[typesField];
-  const isNonEmptyTuple = isNonEmptyArray(types);
-  const bracketsDelimiterLine = isNonEmptyTuple ? softline : "";
-  return group([
-    "[",
-    indent([
-      bracketsDelimiterLine,
-      printArrayItems(path, options, typesField, print),
-    ]),
-    ifBreak(isNonEmptyTuple && shouldPrintComma(options, "all") ? "," : ""),
-    printDanglingComments(path, options, /* sameIndent */ true),
-    bracketsDelimiterLine,
-    "]",
-  ]);
-}
-
-// `TSIndexedAccessType`, `IndexedAccessType`, and `OptionalIndexedAccessType`
+/*
+- `TSIndexedAccessType`(TypeScript)
+- `IndexedAccessType`(flow)
+- `OptionalIndexedAccessType`(flow)
+*/
 function printIndexedAccessType(path, options, print) {
-  const node = path.getValue();
-  const leftDelimiter =
-    node.type === "OptionalIndexedAccessType" && node.optional ? "?.[" : "[";
-  return [print("objectType"), leftDelimiter, print("indexType"), "]"];
+  return [
+    print("objectType"),
+    printOptionalToken(path),
+    "[",
+    print("indexType"),
+    "]",
+  ];
 }
 
 // `TSJSDocNullableType`, `TSJSDocNonNullableType`
 function printJSDocType(path, print, token) {
-  const node = path.getValue();
+  const { node } = path;
   return [
     node.postfix ? "" : token,
-    print("typeAnnotation"),
+    printTypeAnnotationProperty(path, print),
     node.postfix ? token : "",
   ];
 }
 
-module.exports = {
+/*
+- `TSRestType`(TypeScript)
+- `TupleTypeSpreadElement`(flow)
+*/
+function printRestType(path, options, print) {
+  const { node } = path;
+
+  return [
+    "...",
+    ...(node.type === "TupleTypeSpreadElement" && node.label
+      ? [print("label"), ": "]
+      : []),
+    print("typeAnnotation"),
+  ];
+}
+
+/*
+- `TSNamedTupleMember`(TypeScript)
+- `TupleTypeLabeledElement`(flow)
+*/
+function printNamedTupleMember(path, options, print) {
+  const { node } = path;
+
+  return [
+    // `TupleTypeLabeledElement` only
+    node.variance ? print("variance") : "",
+    print("label"),
+    node.optional ? "?" : "",
+    ": ",
+    print("elementType"),
+  ];
+}
+
+const typeAnnotationNodesCheckedLeadingComments = new WeakSet();
+function printTypeAnnotationProperty(
+  path,
+  print,
+  propertyName = "typeAnnotation"
+) {
+  const {
+    node: { [propertyName]: typeAnnotation },
+  } = path;
+
+  if (!typeAnnotation) {
+    return "";
+  }
+
+  let shouldPrintLeadingSpace = false;
+
+  if (
+    typeAnnotation.type === "TSTypeAnnotation" ||
+    typeAnnotation.type === "TypeAnnotation"
+  ) {
+    const firstToken = path.call(getTypeAnnotationFirstToken, propertyName);
+
+    if (
+      firstToken === "=>" ||
+      (firstToken === ":" &&
+        hasComment(typeAnnotation, CommentCheckFlags.Leading))
+    ) {
+      shouldPrintLeadingSpace = true;
+    }
+
+    typeAnnotationNodesCheckedLeadingComments.add(typeAnnotation);
+  }
+
+  return shouldPrintLeadingSpace
+    ? [" ", print(propertyName)]
+    : print(propertyName);
+}
+
+const getTypeAnnotationFirstToken = (path) => {
+  if (
+    // TypeScript
+    path.match(
+      (node) => node.type === "TSTypeAnnotation",
+      (node, key) =>
+        (key === "returnType" || key === "typeAnnotation") &&
+        (node.type === "TSFunctionType" || node.type === "TSConstructorType")
+    )
+  ) {
+    return "=>";
+  }
+
+  if (
+    // TypeScript
+    path.match(
+      (node) => node.type === "TSTypeAnnotation",
+      (node, key) =>
+        key === "typeAnnotation" &&
+        (node.type === "TSJSDocNullableType" ||
+          node.type === "TSJSDocNonNullableType" ||
+          node.type === "TSTypePredicate")
+    ) ||
+    /*
+    Flow
+
+    ```js
+    declare function foo(): void;
+                        ^^^^^^^^ `TypeAnnotation`
+    ```
+    */
+    path.match(
+      (node) => node.type === "TypeAnnotation",
+      (node, key) => key === "typeAnnotation" && node.type === "Identifier",
+      (node, key) => key === "id" && node.type === "DeclareFunction"
+    )
+  ) {
+    return "";
+  }
+
+  return ":";
+};
+
+/*
+- `TSTypeAnnotation` (TypeScript)
+- `TypeAnnotation` (Flow)
+*/
+function printTypeAnnotation(path, options, print) {
+  // We need print space before leading comments,
+  // `printTypeAnnotationProperty` is responsible for it.
+  /* c8 ignore start */
+  if (process.env.NODE_ENV !== "production") {
+    const { node } = path;
+
+    if (!typeAnnotationNodesCheckedLeadingComments.has(node)) {
+      throw Object.assign(
+        new Error(
+          `'${node.type}' should be printed by '${printTypeAnnotationProperty.name}' function.`
+        ),
+        { parentNode: path.parent, propertyName: path.key }
+      );
+    }
+  }
+  /* c8 ignore stop */
+
+  const token = getTypeAnnotationFirstToken(path);
+  return token
+    ? [token, " ", print("typeAnnotation")]
+    : print("typeAnnotation");
+}
+
+/*
+- `TSArrayType`
+- `ArrayTypeAnnotation`
+*/
+function printArrayType(print) {
+  return [print("elementType"), "[]"];
+}
+
+/*
+- `TSTypeQuery`
+- `TypeofTypeAnnotation`
+*/
+function printTypeQuery({ node }, print) {
+  return [
+    "typeof ",
+    ...(node.type === "TSTypeQuery"
+      ? [print("exprName"), print("typeParameters")]
+      : [print("argument")]),
+  ];
+}
+
+export {
   printOpaqueType,
   printTypeAlias,
   printIntersectionType,
   printUnionType,
   printFunctionType,
-  printTupleType,
   printIndexedAccessType,
   shouldHugType,
   printJSDocType,
+  printRestType,
+  printNamedTupleMember,
+  printTypeAnnotationProperty,
+  printTypeAnnotation,
+  printArrayType,
+  printTypeQuery,
 };

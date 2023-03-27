@@ -16,6 +16,7 @@ export default class PrettierFormat extends React.Component {
       "code",
       "options",
       "debugAst",
+      "debugPreprocessedAst",
       "debugDoc",
       "debugComments",
       "reformat",
@@ -28,13 +29,14 @@ export default class PrettierFormat extends React.Component {
     }
   }
 
-  format() {
+  async format() {
     const {
       enabled,
       worker,
       code,
       options,
       debugAst: ast,
+      debugPreprocessedAst: preprocessedAst,
       debugDoc: doc,
       debugComments: comments,
       reformat,
@@ -45,15 +47,16 @@ export default class PrettierFormat extends React.Component {
       return;
     }
 
-    worker
-      .format(code, options, {
-        ast,
-        doc,
-        comments,
-        reformat,
-        rethrowEmbedErrors,
-      })
-      .then((result) => this.setState(result));
+    const result = await worker.format(code, options, {
+      ast,
+      preprocessedAst,
+      doc,
+      comments,
+      reformat,
+      rethrowEmbedErrors,
+    });
+
+    this.setState(result);
   }
 
   render() {

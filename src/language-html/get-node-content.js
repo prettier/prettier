@@ -1,15 +1,17 @@
-"use strict";
-
-const {
+import {
   needsToBorrowParentClosingTagStartMarker,
   printClosingTagStartMarker,
   needsToBorrowLastChildClosingTagEndMarker,
   printClosingTagEndMarker,
   needsToBorrowParentOpeningTagEndMarker,
   printOpeningTagEndMarker,
-} = require("./print/tag.js");
+} from "./print/tag.js";
 
 function getNodeContent(node, options) {
+  if (!node.endSourceSpan) {
+    return "";
+  }
+
   let start = node.startSourceSpan.end.offset;
   if (
     node.firstChild &&
@@ -31,4 +33,4 @@ function getNodeContent(node, options) {
   return options.originalText.slice(start, end);
 }
 
-module.exports = getNodeContent;
+export default getNodeContent;

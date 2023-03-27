@@ -1,204 +1,444 @@
 import path from "node:path";
+import url from "node:url";
+import fs from "node:fs";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
-import { PROJECT_ROOT } from "../utils/index.mjs";
+import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.mjs";
+import buildJavascriptModule from "./build-javascript-module.js";
+import buildPackageJson from "./build-package-json.js";
+import buildLicense from "./build-license.js";
+import buildTypes from "./build-types.js";
 import modifyTypescriptModule from "./modify-typescript-module.mjs";
+import { getPackageFile } from "./utils.js";
 
-const { require } = createEsmUtils(import.meta);
+const {
+  require,
+  dirname,
+  resolve: importMetaResolve,
+} = createEsmUtils(import.meta);
+const resolveEsmModulePath = async (specifier) =>
+  url.fileURLToPath(await importMetaResolve(specifier));
+const copyFileBuilder = ({ file }) =>
+  copyFile(
+    path.join(PROJECT_ROOT, file.input),
+    path.join(DIST_DIR, file.output.file)
+  );
+
+function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
+  let input = jsFileInput;
+  if (!isPlugin) {
+    input = jsFileInput.replace(/\.[cm]?js$/, ".d.ts");
+
+    if (!fs.existsSync(path.join(PROJECT_ROOT, input))) {
+      return;
+    }
+  }
+
+  return {
+    input,
+    output: {
+      file: outputBaseName + ".d.ts",
+    },
+    kind: "types",
+    isPlugin,
+    build: buildTypes,
+  };
+}
 
 /**
- * @typedef {Object} Bundle
- * @property {string} input - input of the bundle
- * @property {string?} output - path of the output file in the `dist/` folder
- * @property {string?} name - name for the UMD bundle (for plugins, it'll be `prettierPlugins.${name}`)
- * @property {'node' | 'universal'} target - should generate a CJS only for node or universal bundle
- * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
- * @property {string[]} external - array of paths that should not be included in the final bundle
- * @property {object[]} replaceModule - Module replacements
- * @property {string[]} babelPlugins - babel plugins
- * @property {boolean?} minify - minify
- * @property {string[]?} esbuildTarget - ESBuild target
- * @property {boolean?} skipBabel - Skip babel transform
-
- * @typedef {Object} CommonJSConfig
- * @property {string[]} ignore - paths of CJS modules to ignore
+ * @typedef {Object} BuildOptions
+ * @property {object[]?} replaceModule - Module replacements
+ * @property {string[]?} target - ESBuild targets
+ * @property {string[]?} external - array of paths that should not be included in the final bundle
+ * @property {boolean?} minify - disable code minification
+ *
+ * @typedef {Object} Output
+ * @property {"esm" | "umd" | "cjs" | "text" | "json"} format - File format
+ * @property {string} file - path of the output file in the `dist/` folder
+ * @property {string?} umdVariableName - name for the UMD file (for plugins, it'll be `prettierPlugins.${name}`)
+ *
+ * @typedef {Object} File
+ * @property {string} input - input of the file
+ * @property {Output} output - output of the file
+ * @property {"javascript" | "types" | "meta"} kind - file kind
+ * @property {function} build - file generate function
+ * @property {"node" | "universal"} platform - ESBuild platform
+ * @property {BuildOptions} buildOptions - ESBuild options
+ * @property {boolean?} isPlugin - file is a plugin
  */
 
 /*
 `diff` use deprecated folder mapping "./" in the "exports" field,
-so we can't `require("diff/lib/diff/array.js")` directly.
+so we can't `import("diff/lib/diff/array.js")` directly.
 To reduce the bundle size, replace the entry with smaller files.
 
-We can switch to deep require once https://github.com/kpdecker/jsdiff/pull/351 get merged
+We can switch to deep import once https://github.com/kpdecker/jsdiff/pull/351 get merged
 */
 const replaceDiffPackageEntry = (file) => ({
-  module: require.resolve("diff"),
-  path: path.join(path.dirname(require.resolve("diff/package.json")), file),
+  module: getPackageFile("diff/lib/index.mjs"),
+  path: getPackageFile(`diff/${file}`),
 });
 
-/** @type {Bundle[]} */
-const parsers = [
+const extensions = {
+  esm: ".mjs",
+  umd: ".js",
+  cjs: ".cjs",
+};
+
+const pluginFiles = [
+  "src/plugins/estree.js",
   {
-    input: "src/language-js/parse/babel.js",
-  },
-  {
-    input: "src/language-js/parse/flow.js",
+    input: "src/plugins/babel.js",
     replaceModule: [
-      // `flow-parser` use this for `globalThis`, can't work in strictMode
       {
-        module: require.resolve("flow-parser"),
-        find: "(function(){return this}())",
-        replacement: "(globalThis)",
+        // We don't use value of JSXText
+        module: require.resolve("@babel/parser"),
+        process: (text) =>
+          text.replaceAll(
+            "const entity = entities[desc];",
+            "const entity = undefined"
+          ),
       },
     ],
   },
   {
-    input: "src/language-js/parse/typescript.js",
+    input: "src/plugins/flow.js",
     replaceModule: [
-      // `@typescript-eslint/typescript-estree` v4
       {
-        module: "*",
-        find: 'require("globby")',
-        replacement: "{}",
+        module: require.resolve("flow-parser"),
+        process: (text) =>
+          text
+            .replaceAll('require("fs")', "{}")
+            .replaceAll('require("constants")', "{}"),
       },
-      {
-        module: "*",
-        find: "extra.projects = prepareAndTransformProjects(",
-        replacement: "extra.projects = [] || prepareAndTransformProjects(",
-      },
-      {
-        module: "*",
-        find: "process.versions.node",
-        replacement: JSON.stringify("999.999.999"),
-      },
-      {
-        module: "*",
-        find: "process.cwd()",
-        replacement: JSON.stringify("/prettier-security-dirname-placeholder"),
-      },
-      {
-        module: "*",
-        find: 'require("perf_hooks")',
-        replacement: "{}",
-      },
-      {
-        module: "*",
-        find: 'require("inspector")',
-        replacement: "{}",
-      },
-      {
-        module: "*",
-        find: "typescriptVersionIsAtLeast[version] = semverCheck(version);",
-        replacement: "typescriptVersionIsAtLeast[version] = true;",
-      },
-      // The next two replacement fixed webpack warning `Critical dependency: require function is used in a way in which dependencies cannot be statically extracted`
-      // #12338
-      {
-        module: require.resolve(
-          "@typescript-eslint/typescript-estree/dist/create-program/shared.js"
-        ),
-        find: "moduleResolver = require(moduleResolverPath);",
-        replacement: "throw new Error('Dynamic require is not supported');",
-      },
+    ],
+  },
+  {
+    input: "src/plugins/typescript.js",
+    replaceModule: [
       {
         module: require.resolve("typescript"),
         process: modifyTypescriptModule,
       },
       {
-        module: require.resolve("debug/src/browser.js"),
-        path: require.resolve("./shims/debug.cjs"),
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parser.js"
+        ),
+        process(text) {
+          text = text
+            .replace('require("./create-program/createDefaultProgram")', "{}")
+            .replace('require("./create-program/createIsolatedProgram")', "{}")
+            .replace('require("./create-program/createProjectProgram")', "{}")
+            .replace('require("./create-program/useProvidedPrograms")', "{}");
+          return text;
+        },
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js"
+        ),
+        process(text) {
+          return text
+            .replace('require("./resolveProjectList")', "{}")
+            .replace(
+              'require("../create-program/shared")',
+              "{ensureAbsolutePath: path => path}"
+            )
+            .replace(
+              "process.cwd()",
+              JSON.stringify("/prettier-security-dirname-placeholder")
+            )
+            .replace(
+              "parseSettings.projects = ",
+              "parseSettings.projects = [] || "
+            );
+        },
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js"
+        ),
+        text: "exports.inferSingleRun = () => false;",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/ExpiringCache.js"
+        ),
+        text: "exports.ExpiringCache = class {};",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/getProjectConfigFiles.js"
+        ),
+        text: "exports.resolveProjectList = () => [];",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js"
+        ),
+        text: "exports.warnAboutTSVersion = () => {};",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js"
+        ),
+        process: (text) =>
+          text.replace(
+            'require("path")',
+            "{extname: file => file.split('.').pop()}"
+          ),
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/version-check.js"
+        ),
+        text: "exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
+      },
+      // Only needed if `range`/`loc` in parse options is `false`
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/ast-converter.js"
+        ),
+        process: (text) => text.replace('require("./simple-traverse")', "{}"),
+      },
+      {
+        module: getPackageFile("debug/src/browser.js"),
+        path: path.join(dirname, "./shims/debug.js"),
       },
     ],
   },
   {
-    input: "src/language-js/parse/acorn-and-espree.js",
-    name: "prettierPlugins.espree",
-    // TODO: Rename this file to `parser-acorn-and-espree.js` or find a better way
-    output: "parser-espree.js",
+    input: "src/plugins/acorn.js",
     replaceModule: [
       {
         module: require.resolve("espree"),
-        find: "const Syntax = (function() {",
-        replacement: "const Syntax = undefined && (function() {",
+        process: (text) =>
+          text
+            .replaceAll(
+              /exports\.(?:Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions|tokenize|version) = .*?;/g,
+              ""
+            )
+            .replaceAll(
+              /const (Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions) = /g,
+              "const $1 = undefined && "
+            )
+            .replace("require('eslint-visitor-keys')", "{}"),
       },
       {
-        module: require.resolve("espree"),
-        find: "var visitorKeys = require('eslint-visitor-keys');",
-        replacement: "var visitorKeys;",
+        // We don't use value of JSXText
+        module: getPackageFile("acorn-jsx/xhtml.js"),
+        text: "module.exports = {};",
       },
     ],
   },
   {
-    input: "src/language-js/parse/meriyah.js",
-  },
-  {
-    input: "src/language-js/parse/angular.js",
+    input: "src/plugins/meriyah.js",
     replaceModule: [
       {
-        module: "*",
-        find: 'require("@angular/compiler/src/',
-        replacement: 'require("@angular/compiler/esm2015/src/',
+        // We don't use value of JSXText
+        module: await resolveEsmModulePath("meriyah"),
+        find: "parser.tokenValue = decodeHTMLStrict(raw);",
+        replacement: "parser.tokenValue = raw;",
       },
     ],
   },
   {
-    input: "src/language-css/parser-postcss.js",
+    input: "src/plugins/angular.js",
     replaceModule: [
-      // `postcss-values-parser` uses constructor.name, it will be changed by bundler
-      // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
+      // We only use a small set of `@angular/compiler` from `esm2020/src/expression_parser/`
+      // Those files can't be imported, they also not directly runnable, because `.mjs` extension is missing
       {
-        module: require.resolve("postcss-values-parser/lib/parser.js"),
-        find: "node.constructor.name === 'Word'",
-        replacement: "node.type === 'word'",
+        module: getPackageFile("@angular/compiler/fesm2020/compiler.mjs"),
+        text: /* indent */ `
+          export * from '../esm2020/src/expression_parser/ast.mjs';
+          export {Lexer} from '../esm2020/src/expression_parser/lexer.mjs';
+          export {Parser} from '../esm2020/src/expression_parser/parser.mjs';
+        `,
       },
+      ...[
+        "expression_parser/lexer.mjs",
+        "expression_parser/parser.mjs",
+        "ml_parser/interpolation_config.mjs",
+      ].map((file) => ({
+        module: getPackageFile(`@angular/compiler/esm2020/src/${file}`),
+        process: (text) =>
+          text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/g, "'$1.mjs'"),
+      })),
+    ],
+  },
+  {
+    input: "src/plugins/postcss.js",
+    replaceModule: [
       // The following two replacements prevent load `source-map` module
       {
-        module: require.resolve("postcss/lib/previous-map.js"),
+        module: getPackageFile("postcss/lib/previous-map.js"),
         text: "module.exports = class {};",
       },
       {
-        module: require.resolve("postcss/lib/map-generator.js"),
+        module: getPackageFile("postcss/lib/map-generator.js"),
         text: "module.exports = class { generate() {} };",
       },
+      {
+        module: getPackageFile("postcss/lib/input.js"),
+        process: (text) =>
+          text.replace("require('url')", "{}").replace("require('path')", "{}"),
+      },
+      // `postcss-values-parser` uses constructor.name, it will be changed by bundler
+      // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
+      {
+        module: getPackageFile("postcss-values-parser/lib/parser.js"),
+        find: "node.constructor.name === 'Word'",
+        replacement: "node.type === 'word'",
+      },
+      // Prevent `node:util`, `node:utl`, and `node:path` shim
+      {
+        module: getPackageFile("postcss-values-parser/lib/tokenize.js"),
+        process: (text) =>
+          text
+            .replace("require('util')", "{}")
+            .replace(
+              "let message = util.format('Unclosed %s at line: %d, column: %d, token: %d', what, line, pos - offset, pos);",
+              "let message = `Unclosed ${what} at line: ${line}, column: ${pos - offset}, token: ${pos}`;"
+            )
+            .replace(
+              "let message = util.format('Syntax error at line: %d, column: %d, token: %d', line, pos - offset, pos);",
+              "let message = `Syntax error at line: ${line}, column: ${pos - offset}, token: ${pos}`;"
+            ),
+      },
     ],
   },
+  "src/plugins/graphql.js",
   {
-    input: "src/language-graphql/parser-graphql.js",
-  },
-  {
-    input: "src/language-markdown/parser-markdown.js",
+    input: "src/plugins/markdown.js",
     replaceModule: [
       {
-        module: require.resolve("parse-entities/decode-entity.browser.js"),
-        path: require.resolve("parse-entities/decode-entity.js"),
+        module: getPackageFile("parse-entities/decode-entity.browser.js"),
+        path: getPackageFile("parse-entities/decode-entity.js"),
       },
     ],
   },
   {
-    input: "src/language-handlebars/parser-glimmer.js",
+    input: "src/plugins/glimmer.js",
+    replaceModule: [
+      // See comment in `src/language-handlebars/parser-glimmer.js` file
+      {
+        module: getPackageFile(
+          "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js"
+        ),
+        path: getPackageFile(
+          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
+        ),
+      },
+      // This passed to plugins, our plugin don't need access to the options
+      {
+        module: getPackageFile(
+          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
+        ),
+        process: (text) =>
+          text.replace(/\nconst syntax = \{.*?\n\};/su, "\nconst syntax = {};"),
+      },
+      {
+        module: getPackageFile("@handlebars/parser/dist/esm/index.js"),
+        path: getPackageFile("@handlebars/parser/dist/esm/parse.js"),
+      },
+    ],
   },
-  {
-    input: "src/language-html/parser-html.js",
-  },
-  {
-    input: "src/language-yaml/parser-yaml.js",
-  },
-].map((bundle) => {
-  const { name } = bundle.input.match(
-    /(?:parser-|parse\/)(?<name>.*?)\.js$/
-  ).groups;
+  "src/plugins/html.js",
+  "src/plugins/yaml.js",
+].map((file) => {
+  if (typeof file === "string") {
+    file = { input: file };
+  }
+
+  let { input, umdPropertyName, outputBaseName, ...buildOptions } = file;
+
+  outputBaseName ??= input.match(/\/plugins\/(?<outputBaseName>.*?)\.js$/)
+    .groups.outputBaseName;
+
+  const umdVariableName = `prettierPlugins.${
+    umdPropertyName ?? outputBaseName
+  }`;
 
   return {
-    type: "plugin",
-    target: "universal",
-    name: `prettierPlugins.${name}`,
-    output: `parser-${name}.js`,
-    ...bundle,
+    input,
+    outputBaseName: `plugins/${outputBaseName}`,
+    umdVariableName,
+    buildOptions,
+    isPlugin: true,
   };
 });
 
-/** @type {Bundle[]} */
-const coreBundles = [
+const nonPluginUniversalFiles = [
+  {
+    input: "src/document/public.js",
+    outputBaseName: "doc",
+    umdVariableName: "doc",
+    minify: false,
+  },
+  {
+    input: "src/standalone.js",
+    umdVariableName: "prettier",
+    replaceModule: [
+      {
+        module: require.resolve("@babel/highlight"),
+        path: path.join(dirname, "./shims/babel-highlight.js"),
+      },
+      {
+        module: createRequire(require.resolve("vnopts")).resolve("chalk"),
+        path: path.join(dirname, "./shims/chalk.js"),
+      },
+      replaceDiffPackageEntry("lib/diff/array.js"),
+    ],
+  },
+].map((file) => {
+  const {
+    input,
+    outputBaseName = path.basename(input, ".js"),
+    umdVariableName,
+    ...buildOptions
+  } = file;
+
+  return {
+    input,
+    outputBaseName,
+    umdVariableName,
+    buildOptions,
+  };
+});
+
+const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
+  (file) => {
+    let { input, outputBaseName, umdVariableName, buildOptions, isPlugin } =
+      file;
+
+    outputBaseName ??= path.basename(input);
+
+    return [
+      ...[
+        {
+          format: "esm",
+          file: `${outputBaseName}${extensions.esm}`,
+        },
+        {
+          format: "umd",
+          file: `${outputBaseName}${extensions.umd}`,
+          umdVariableName,
+        },
+      ].map((output) => ({
+        input,
+        output,
+        platform: "universal",
+        buildOptions,
+        isPlugin,
+        build: buildJavascriptModule,
+        kind: "javascript",
+      })),
+      getTypesFileConfig({ input, outputBaseName, isPlugin }),
+    ];
+  }
+);
+
+const nodejsFiles = [
   {
     input: "src/index.js",
     replaceModule: [
@@ -219,65 +459,90 @@ const coreBundles = [
           };
         `,
       },
+      {
+        module: require.resolve("n-readlines"),
+        find: "const readBuffer = new Buffer(this.options.readChunk);",
+        replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
+      },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
   },
   {
-    input: "src/document/index.js",
-    name: "doc",
-    output: "doc.js",
-    target: "universal",
-    format: "umd",
-    minify: false,
+    input: "src/index.cjs",
   },
   {
-    input: "src/standalone.js",
-    name: "prettier",
-    target: "universal",
+    input: "bin/prettier.cjs",
+    outputBaseName: "bin/prettier",
+    target: ["node0.10"],
     replaceModule: [
       {
-        module: require.resolve("@babel/highlight"),
-        path: require.resolve("./shims/babel-highlight.cjs"),
-      },
-      {
-        module: createRequire(require.resolve("vnopts")).resolve("chalk"),
-        path: require.resolve("./shims/chalk.cjs"),
-      },
-      replaceDiffPackageEntry("lib/diff/array.js"),
-      {
-        module: path.join(PROJECT_ROOT, "src/main/load-parser.js"),
-        text: "module.exports = () => {};",
+        module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
+        process: (text) =>
+          text.replace('"../src/cli/index.js"', '"../internal/cli.mjs"'),
       },
     ],
-  },
-  {
-    input: "bin/prettier.js",
-    output: "bin-prettier.js",
-    esbuildTarget: ["node0.10"],
-    skipBabel: true,
   },
   {
     input: "src/cli/index.js",
-    output: "cli.js",
+    outputBaseName: "internal/cli",
     external: ["benchmark"],
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
   },
   {
     input: "src/common/third-party.js",
+    outputBaseName: "internal/third-party",
     replaceModule: [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {
         module: require.resolve("parent-module"),
-        path: require.resolve("./shims/parent-module.cjs"),
+        path: path.join(dirname, "./shims/parent-module.cjs"),
       },
     ],
   },
-].map((bundle) => ({
-  type: "core",
-  target: "node",
-  output: path.basename(bundle.input),
-  ...bundle,
+].flatMap((file) => {
+  let { input, output, outputBaseName, ...buildOptions } = file;
+
+  const format = input.endsWith(".cjs") ? "cjs" : "esm";
+  outputBaseName ??= path.basename(input, path.extname(input));
+
+  return [
+    {
+      input,
+      output: {
+        format,
+        file: `${outputBaseName}${extensions[format]}`,
+      },
+      platform: "node",
+      buildOptions,
+      build: buildJavascriptModule,
+      kind: "javascript",
+    },
+    getTypesFileConfig({ input, outputBaseName }),
+  ];
+});
+
+const metaFiles = [
+  {
+    input: "package.json",
+    output: {
+      format: "json",
+    },
+    build: buildPackageJson,
+  },
+  {
+    input: "README.md",
+    build: copyFileBuilder,
+  },
+  {
+    input: "LICENSE",
+    build: buildLicense,
+  },
+].map((file) => ({
+  ...file,
+  output: { file: file.input, ...file.output },
+  kind: "meta",
 }));
 
-const configs = [...coreBundles, ...parsers];
-export default configs;
+/** @type {Files[]} */
+const files = [...nodejsFiles, ...universalFiles, ...metaFiles].filter(Boolean);
+export default files;

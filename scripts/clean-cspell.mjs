@@ -22,7 +22,6 @@ await updateConfig({ ...config, words: [] });
 
 console.log("Running spellcheck with empty words ...");
 const { stdout } = await runSpellcheck({
-  yarnArgs: ["--silent"],
   args: ["--words-only", "--unique"],
   execaOptions: { reject: false },
 });

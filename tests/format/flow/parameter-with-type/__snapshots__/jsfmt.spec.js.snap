@@ -2,7 +2,7 @@
 
 exports[`param.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -18,10 +18,11 @@ function g({}: Foo) {}
 ================================================================================
 `;
 
-exports[`param.js format 1`] = `
+exports[`param.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};

@@ -96,25 +96,25 @@ buffer = buffer.fill("a", 0, 0, "utf8");
 buffer = buffer.fill("a", "utf8");
 
 maybeNum = buffer.find(
-  (element: number, index: number, array: Uint8Array) => false
+  (element: number, index: number, array: Uint8Array) => false,
 );
 maybeNum = buffer.find(
   (element: number, index: number, array: Uint8Array) => false,
-  buffer
+  buffer,
 );
 
 num = buffer.findIndex(
-  (element: number, index: number, array: Uint8Array) => false
+  (element: number, index: number, array: Uint8Array) => false,
 );
 num = buffer.findIndex(
   (element: number, index: number, array: Uint8Array) => false,
-  buffer
+  buffer,
 );
 
 buffer.forEach((value: number) => console.log(value), buffer);
 buffer.forEach(
   (value: number, index: number, array: Uint8Array) => console.log(value),
-  buffer
+  buffer,
 );
 
 bool = buffer.includes(3);
@@ -129,7 +129,7 @@ const typedArray = new Uint8Array([0x34]);
 buffer = Buffer.from(
   typedArray.buffer,
   typedArray.byteOffset,
-  typedArray.byteLength
+  typedArray.byteLength,
 );
 buffer = Buffer.from(new Buffer(0));
 buffer = Buffer.from("foo", "utf8");
@@ -141,7 +141,7 @@ buffer = Buffer.from("foo", "utf8");
 buffer = Buffer.from(
   [0x62, 0x75, 0x66, 0x66, 0x65, 0x72],
   (a: number) => a + 1,
-  {}
+  {},
 ); // error
 
 ================================================================================

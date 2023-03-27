@@ -1,5 +1,3 @@
-"use strict";
-
 const NODES_KEYS = {
   attrs: true,
   children: true,
@@ -172,6 +170,4 @@ function mapNodesIfChanged(nodes, fn) {
     : nodes;
 }
 
-module.exports = {
-  Node,
-};
+export { Node };

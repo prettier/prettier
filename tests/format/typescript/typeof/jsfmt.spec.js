@@ -1,1 +1,1 @@
-run_spec(__dirname, ["typescript", "flow"]);
+run_spec(import.meta, ["typescript", "flow"]);

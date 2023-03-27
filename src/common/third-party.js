@@ -1,9 +1,13 @@
-"use strict";
+import { cosmiconfig } from "cosmiconfig";
+import { sync as findParentDir } from "find-parent-dir";
+import getStdin from "get-stdin";
+import { isCI } from "ci-info";
 
-module.exports = {
-  cosmiconfig: require("cosmiconfig").cosmiconfig,
-  cosmiconfigSync: require("cosmiconfig").cosmiconfigSync,
-  findParentDir: require("find-parent-dir").sync,
-  getStdin: require("get-stdin"),
-  isCI: () => require("ci-info").isCI,
+const thirdParty = {
+  cosmiconfig,
+  findParentDir,
+  getStdin,
+  isCI: () => isCI,
 };
+
+export default thirdParty;
