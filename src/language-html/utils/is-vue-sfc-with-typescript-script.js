@@ -1,4 +1,4 @@
-import { isVueScriptTag } from "./utils/index.js";
+import { isVueScriptTag } from "./index.js";
 
 const cache = new WeakMap();
 function isVueSfcWithTypescriptScript(path, options) {
