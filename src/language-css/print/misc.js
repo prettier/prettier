@@ -50,7 +50,7 @@ function printCssNumber(rawNumber) {
   );
 }
 
-function shouldPrintComma(options) {
+function shouldPrintTrailingComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
 }
 
@@ -58,7 +58,7 @@ export {
   adjustStrings,
   adjustNumbers,
   quoteAttributeValue,
-  shouldPrintComma,
+  shouldPrintTrailingComma,
   printUnit,
   printCssNumber,
 };
