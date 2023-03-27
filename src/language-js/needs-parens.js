@@ -592,7 +592,9 @@ function needsParens(path, options) {
           (ancestor.type === "IndexedAccessType" ||
             ancestor.type === "OptionalIndexedAccessType")) ||
         (key === "checkType" && parent.type === "ConditionalTypeAnnotation") ||
-        (node.returnType.type === "InferTypeAnnotation" &&
+        (key === "extendsType" &&
+          parent.type === "ConditionalTypeAnnotation" &&
+          node.returnType.type === "InferTypeAnnotation" &&
           node.returnType.typeParameter.bound) ||
         // We should check ancestor's parent to know whether the parentheses
         // are really needed, but since ??T doesn't make sense this check

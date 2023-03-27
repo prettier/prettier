@@ -16,7 +16,7 @@ printWidth: 80
 type A = () => infer R extends/* comment */ string
 
 =====================================output=====================================
-type A = (() => infer R extends /* comment */ string);
+type A = () => infer R extends /* comment */ string;
 
 ================================================================================
 `;
@@ -123,7 +123,7 @@ printWidth: 80
 type A = () => infer R extends <|>string
 
 =====================================output=====================================
-type A = (() => infer R extends <|>string);
+type A = () => infer R extends <|>string;
 
 ================================================================================
 `;
