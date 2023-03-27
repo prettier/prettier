@@ -216,7 +216,17 @@ function printAttribute(path, options) {
     }
 
 
-/* TODO: i18n */
+
+    /**
+     *     i18n="longDescription"
+     *     i18n-attr="longDescription"
+     */
+    if (/^i18n(?:-.+)?$/.test(attributeName)) {
+      return createAttributePrinter(() => printExpand(
+        fill(getTextValueParts(node, value.trim())),
+        !value.includes("@@")
+      ));
+    }
 
     /**
      *     *directive="angularDirective"
@@ -247,16 +257,6 @@ function printEmbeddedAttributeValue(path, textToDoc, options) {
 
 
 
-    /**
-     *     i18n="longDescription"
-     *     i18n-attr="longDescription"
-     */
-    if (/^i18n(?:-.+)?$/.test(attributeName)) {
-      return printExpand(
-        fill(getTextValueParts(node, value.trim())),
-        !value.includes("@@")
-      );
-    }
 
 
     if (angularInterpolationRegex.test(value)) {
