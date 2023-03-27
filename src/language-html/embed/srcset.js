@@ -3,8 +3,8 @@ import { getUnescapedAttributeValue } from "../utils/index.js";
 import { ifBreak, join, line } from "../../document/builders.js";
 import { printExpand, printAttributeDoc } from "./utils.js";
 
-function printSrcset(path) {
-  const srcset = parseSrcset(getUnescapedAttributeValue(path.node));
+function printSrcset(value) {
+  const srcset = parseSrcset(value);
 
   const hasW = srcset.some(({ w }) => w);
   const hasH = srcset.some(({ h }) => h);
@@ -31,27 +31,24 @@ function printSrcset(path) {
   });
   const maxDescriptorLeftLength = getMax(descriptorLeftLengths);
 
-  return printAttributeDoc(
-    path,
-    printExpand(
-      join(
-        [",", line],
-        urls.map((url, index) => {
-          const parts = [url];
+  return printExpand(
+    join(
+      [",", line],
+      urls.map((url, index) => {
+        const parts = [url];
 
-          const descriptor = descriptors[index];
-          if (descriptor) {
-            const urlPadding = maxUrlLength - url.length + 1;
-            const descriptorPadding =
-              maxDescriptorLeftLength - descriptorLeftLengths[index];
+        const descriptor = descriptors[index];
+        if (descriptor) {
+          const urlPadding = maxUrlLength - url.length + 1;
+          const descriptorPadding =
+            maxDescriptorLeftLength - descriptorLeftLengths[index];
 
-            const alignment = " ".repeat(urlPadding + descriptorPadding);
-            parts.push(ifBreak(alignment, " "), descriptor + unit);
-          }
+          const alignment = " ".repeat(urlPadding + descriptorPadding);
+          parts.push(ifBreak(alignment, " "), descriptor + unit);
+        }
 
-          return parts;
-        })
-      )
+        return parts;
+      })
     )
   );
 }

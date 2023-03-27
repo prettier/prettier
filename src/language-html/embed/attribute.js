@@ -12,7 +12,7 @@ import {
   isVueEventBindingExpression,
 } from "./vue-bindings.js";
 import { printVueVForDirective } from "./vue-v-for-directive.js";
-import printSrcset from "./srcset.js";
+import printSrcsetValue from "./srcset.js";
 import printClassNames from "./class-names.js";
 import { printStyleAttribute } from "./style.js";
 import {
@@ -25,6 +25,30 @@ import {
   printAttributeValue,
   printExpand,
 } from "./utils.js";
+
+function createAttributePrinter(valuePrinter) {
+  return async (textToDoc, print, path, options) => {
+    const { node } = path;
+    const value = getUnescapedAttributeValue(node);
+    const valueDoc = await valuePrinter(value, textToDoc);
+    if (!valueDoc) {
+      return;
+    }
+
+    return [
+      path.node.rawName,
+      '="',
+      group(
+        mapDoc(valueDoc, (doc) =>
+          typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
+        )
+      ),
+      '"',
+    ];
+  };
+}
+
+const printSrcset = createAttributePrinter(printSrcsetValue);
 
 function printAttribute(path, options) {
   const { node } = path;
@@ -52,7 +76,7 @@ function printAttribute(path, options) {
     node.fullName === "srcset" &&
     (node.parent.fullName === "img" || node.parent.fullName === "source")
   ) {
-    return () => printSrcset(path);
+    return printSrcset;
   }
 
   const value = getUnescapedAttributeValue(node);
