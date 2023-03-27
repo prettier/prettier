@@ -23,7 +23,7 @@ import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
 } from "./angular-interpolation.js";
-import { shouldHugAttribute, formatAttributeValue, printAttributeValue , printExpand} from "./utils.js";
+import { printAttributeDoc, formatAttributeValue, printAttributeValue , printExpand} from "./utils.js";
 
 function printAttribute(path, options) {
   const { node } = path;
@@ -48,25 +48,11 @@ function printAttribute(path, options) {
     return printLwcInterpolation(path);
   }
 
-  return async (textToDoc) => {
-    const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
+  return async (textToDoc) => printAttributeDoc(path,  await printEmbeddedAttributeValue(
       path,
       textToDoc,
       options
-    );
-    if (embeddedAttributeValueDoc) {
-      return [
-        node.rawName,
-        '="',
-        group(
-          mapDoc(embeddedAttributeValueDoc, (doc) =>
-            typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
-          )
-        ),
-        '"',
-      ];
-    }
-  };
+    ))
 }
 async function printEmbeddedAttributeValue(path, textToDoc, options) {
   const { node } = path;

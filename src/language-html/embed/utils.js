@@ -1,4 +1,5 @@
 import { group, indent, softline } from "../../document/builders.js";
+import { mapDoc } from "../../document/utils.js";
 
 function printExpand(doc, canHaveTrailingWhitespace = true) {
   return group([
@@ -56,7 +57,19 @@ function formatAttributeValue(code, options, textToDoc) {
   };
 
   return textToDoc(code, options);
-
 }
 
-export { shouldHugAttribute, printExpand, printMaybeHug, printAttributeValue, formatAttributeValue };
+function printAttributeDoc(path, valueDoc) {
+return valueDoc ? [
+       path. node.rawName,
+        '="',
+        group(
+          mapDoc(valueDoc, (doc) =>
+            typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
+          )
+        ),
+        '"',
+      ] : undefined;
+}
+
+export { shouldHugAttribute, printExpand, printMaybeHug, printAttributeValue, formatAttributeValue, printAttributeDoc };
