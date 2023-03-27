@@ -120,7 +120,7 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
     }
 
     if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueBindings(path, attributeTextToDoc, options);
+      return printVueBindings(path, textToDoc, options);
     }
 
     /**

@@ -1,21 +1,21 @@
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
+import {printAttributeValue} from "./utils.js"
 
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
 /**
- * @param {(code: string, opts: *) => Doc} attributeTextToDoc
  * @param {*} options
  * @returns {Doc}
  */
-function printVueBindings(path, attributeTextToDoc, options) {
+function printVueBindings(path, textToDoc, options) {
   const value = getUnescapedAttributeValue(path.node);
-  return attributeTextToDoc(`function _(${value}) {}`, {
+  return printAttributeValue(`function _(${value}) {}`, {
     parser: isVueSfcWithTypescriptScript(path, options) ? "babel-ts" : "babel",
     __isVueBindings: true,
-  });
+  }, textToDoc);
 }
 
 function isVueEventBindingExpression(eventBindingValue) {
