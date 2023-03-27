@@ -4,10 +4,10 @@ authorURL: "https://github.com/sosukesuzuki"
 title: "Prettier 3.0"
 ---
 
-This version includes breaking changes. For example, the markdown formatting no longer inserts a space between Latin characters and Chinese or Japanese characters! [Tatsunori Uchino](https://github.com/tats-u) has been a great contributor to Prettier for a year for this feature. And the default value of `trailingComma` is now `all`!
+We are excited to announce the release of the new version of Prettier! This update comes with several breaking changes. One notable example is the alteration in markdown formatting - spaces are no longer inserted between Latin characters and Chinese or Japanese characters. We'd like to extend our gratitude to [Tatsunori Uchino](https://github.com/tats-u), who has made significant contributions to Prettier over the past year, particularly with this feature. Additionally, the default value of `trailingComma` has been changed to `"all"`.
 
-In particular, the plugin interface has changed significantly. We now supports plugins written with ECMAScript Modules and async parsers. If you are a plugin developer, please be careful when updating. The migration guide is [here](https://github.com/prettier/prettier/wiki/How-to-migrate-my-plugin-to-support-Prettier-v3%3F). Bug reports and feedback are welcome!
+Another important change in this release is the significant overhaul of the plugin interface. Prettier now supports plugins written using ECMAScript Modules and async parsers. If you're a plugin developer, please exercise caution while updating. You can find the migration guide here. As always, we welcome bug reports and feedback!
 
-In addition, many formatting improvements and bug fixes are included.
+This release also includes numerous formatting improvements and bug fixes.
 
-If you enjoy Prettier and would like to support our work, consider sponsoring us directly via [our OpenCollective](https://opencollective.com/prettier) or by sponsoring the projects we depend on, including [typescript-eslint](https://opencollective.com/typescript-eslint), [remark](https://opencollective.com/unified), and [Babel](https://opencollective.com/babel).
+If you appreciate Prettier and would like to support our work, please consider sponsoring us directly via our OpenCollective or by sponsoring the projects we depend on, such as [typescript-eslint](https://opencollective.com/typescript-eslint), [remark](https://opencollective.com/unified), and [Babel](https://opencollective.com/babel). Thank you for your continued support!
