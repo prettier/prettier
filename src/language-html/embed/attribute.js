@@ -65,6 +65,14 @@ function printAttribute(path, options) {
     return printStyleAttribute;
   }
 
+  if (
+    node.fullName === "class" &&
+    !options.parentParser &&
+    !value.includes("{{")
+  ) {
+    return printClassNames;
+  }
+
   return async (textToDoc) => printAttributeDoc(path,  await printEmbeddedAttributeValue(
       path,
       textToDoc,
@@ -83,14 +91,6 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
       textToDoc
     );
   const value = getUnescapedAttributeValue(node);
-
-  if (
-    node.fullName === "class" &&
-    !options.parentParser &&
-    !value.includes("{{")
-  ) {
-    return printClassNames(value);
-  }
 
   if (options.parser === "vue") {
     if (node.fullName === "v-for") {
