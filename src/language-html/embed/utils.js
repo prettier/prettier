@@ -35,17 +35,20 @@ function shouldHugAttribute(ast, options) {
 }
 
 async function printAttributeValue(code, options, textToDoc) {
-  let shouldHug = false
+  let shouldHug = false;
 
-  const doc = await formatAttributeValue(code, {
-        __onHtmlBindingRoot(ast, options) {
-          shouldHug = shouldHugAttribute(ast, options);
-        },
-    ...options
-  }, textToDoc)
+  const doc = await formatAttributeValue(
+    code,
+    {
+      __onHtmlBindingRoot(ast, options) {
+        shouldHug = shouldHugAttribute(ast, options);
+      },
+      ...options,
+    },
+    textToDoc
+  );
 
-
-  return printMaybeHug(doc, shouldHug)
+  return printMaybeHug(doc, shouldHug);
 }
 
 function formatAttributeValue(code, options, textToDoc) {
@@ -60,8 +63,9 @@ function formatAttributeValue(code, options, textToDoc) {
 }
 
 function printAttributeDoc(path, valueDoc) {
-return valueDoc ? [
-       path. node.rawName,
+  return valueDoc
+    ? [
+        path.node.rawName,
         '="',
         group(
           mapDoc(valueDoc, (doc) =>
@@ -69,7 +73,15 @@ return valueDoc ? [
           )
         ),
         '"',
-      ] : undefined;
+      ]
+    : undefined;
 }
 
-export { shouldHugAttribute, printExpand, printMaybeHug, printAttributeValue, formatAttributeValue, printAttributeDoc };
+export {
+  shouldHugAttribute,
+  printExpand,
+  printMaybeHug,
+  printAttributeValue,
+  formatAttributeValue,
+  printAttributeDoc,
+};

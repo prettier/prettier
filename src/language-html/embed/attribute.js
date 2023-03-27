@@ -16,14 +16,15 @@ import printSrcset from "./srcset.js";
 import printClassNames from "./class-names.js";
 import { printStyleAttribute } from "./style.js";
 import {
-  isLwcInterpolation,
-  printLwcInterpolation,
-} from "./lwc-interpolation.js";
-import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
 } from "./angular-interpolation.js";
-import { printAttributeDoc, formatAttributeValue, printAttributeValue , printExpand} from "./utils.js";
+import {
+  printAttributeDoc,
+  formatAttributeValue,
+  printAttributeValue,
+  printExpand,
+} from "./utils.js";
 
 function printAttribute(path, options) {
   const { node } = path;
@@ -32,20 +33,19 @@ function printAttribute(path, options) {
     return;
   }
 
-  // lit-html: html`<my-element obj=${obj}></my-element>`
   if (
+    // lit-html: html`<my-element obj=${obj}></my-element>`
     /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(
       options.originalText.slice(
         node.valueSpan.start.offset,
         node.valueSpan.end.offset
       )
-    )
+    ) || // lwc: html`<my-element data-for={value}></my-element>`
+    (options.parser === "lwc" &&
+      node.value.startsWith("{") &&
+      node.value.endsWith("}"))
   ) {
     return [node.rawName, "=", node.value];
-  }
-
-  if (isLwcInterpolation(path, options)) {
-    return printLwcInterpolation(path);
   }
 
   if (
@@ -73,11 +73,11 @@ function printAttribute(path, options) {
     return printClassNames;
   }
 
-  return async (textToDoc) => printAttributeDoc(path,  await printEmbeddedAttributeValue(
+  return async (textToDoc) =>
+    printAttributeDoc(
       path,
-      textToDoc,
-      options
-    ))
+      await printEmbeddedAttributeValue(path, textToDoc, options)
+    );
 }
 
 async function printEmbeddedAttributeValue(path, textToDoc, options) {
@@ -85,11 +85,7 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
   const attributeName = node.fullName;
 
   const attributeTextToDoc = (code, options) =>
-    formatAttributeValue(
-      code,
-      options,
-      textToDoc
-    );
+    formatAttributeValue(code, options, textToDoc);
   const value = getUnescapedAttributeValue(node);
 
   if (options.parser === "vue") {
@@ -115,7 +111,7 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
         : isVueSfcWithTypescriptScript(path, options)
         ? "__vue_ts_event_binding"
         : "__vue_event_binding";
-      return printAttributeValue(value, {parser}, textToDoc)
+      return printAttributeValue(value, { parser }, textToDoc);
     }
 
     /**
@@ -123,12 +119,14 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
      *     v-bind:id="vueExpression"
      */
     if (attributeName.startsWith(":") || attributeName.startsWith("v-bind:")) {
-      return (
-         printAttributeValue(value, {
+      return printAttributeValue(
+        value,
+        {
           parser: isVueSfcWithTypescriptScript(path, options)
             ? "__vue_ts_expression"
             : "__vue_expression",
-        }, textToDoc)
+        },
+        textToDoc
       );
     }
 
@@ -136,12 +134,14 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
      *     v-if="jsExpression"
      */
     if (attributeName.startsWith("v-")) {
-      return (
-         printAttributeValue(value, {
+      return printAttributeValue(
+        value,
+        {
           parser: isVueSfcWithTypescriptScript(path, options)
             ? "__ts_expression"
             : "__js_expression",
-        }, textToDoc)
+        },
+        textToDoc
       );
     }
   }
@@ -159,7 +159,11 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
       (attributeName.startsWith("(") && attributeName.endsWith(")")) ||
       attributeName.startsWith("on-")
     ) {
-      return ( printAttributeValue(value, { parser: "__ng_action", trailingComma: "none" }, textToDoc));
+      return printAttributeValue(
+        value,
+        { parser: "__ng_action", trailingComma: "none" },
+        textToDoc
+      );
     }
 
     /**
@@ -174,8 +178,10 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
       // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
       /^ng-(?:if|show|hide|class|style)$/.test(attributeName)
     ) {
-      return (
-         printAttributeValue(value, { parser: "__ng_binding", trailingComma: "none" }, textToDoc)
+      return printAttributeValue(
+        value,
+        { parser: "__ng_binding", trailingComma: "none" },
+        textToDoc
       );
     }
 
@@ -194,7 +200,11 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
      *     *directive="angularDirective"
      */
     if (attributeName.startsWith("*")) {
-      return  printAttributeValue(value, { parser: "__ng_directive", trailingComma: "none" }, textToDoc)
+      return printAttributeValue(
+        value,
+        { parser: "__ng_directive", trailingComma: "none" },
+        textToDoc
+      );
     }
 
     if (angularInterpolationRegex.test(value)) {

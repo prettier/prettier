@@ -31,26 +31,29 @@ function printSrcset(path) {
   });
   const maxDescriptorLeftLength = getMax(descriptorLeftLengths);
 
-  return printAttributeDoc(path, printExpand(
-    join(
-      [",", line],
-      urls.map((url, index) => {
-        const parts = [url];
+  return printAttributeDoc(
+    path,
+    printExpand(
+      join(
+        [",", line],
+        urls.map((url, index) => {
+          const parts = [url];
 
-        const descriptor = descriptors[index];
-        if (descriptor) {
-          const urlPadding = maxUrlLength - url.length + 1;
-          const descriptorPadding =
-            maxDescriptorLeftLength - descriptorLeftLengths[index];
+          const descriptor = descriptors[index];
+          if (descriptor) {
+            const urlPadding = maxUrlLength - url.length + 1;
+            const descriptorPadding =
+              maxDescriptorLeftLength - descriptorLeftLengths[index];
 
-          const alignment = " ".repeat(urlPadding + descriptorPadding);
-          parts.push(ifBreak(alignment, " "), descriptor + unit);
-        }
+            const alignment = " ".repeat(urlPadding + descriptorPadding);
+            parts.push(ifBreak(alignment, " "), descriptor + unit);
+          }
 
-        return parts;
-      })
+          return parts;
+        })
+      )
     )
-  ));
+  );
 }
 
 export default printSrcset;
