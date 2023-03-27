@@ -445,8 +445,8 @@ const getTypeAnnotationFirstToken = (path) => {
     Flow
 
     ```js
-    type A = (() => infer R extends string);
-                                    ^^^^^^ `TypeAnnotation`
+    declare function foo(): void;
+                        ^^^^^^^^ `TypeAnnotation`
     ```
     */
     path.match(
