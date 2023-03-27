@@ -45,7 +45,7 @@ const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
   "utf8"
 );
-const [templateComment] = template.match(/<!--.*?-->/s);
+const [templateComment1, templateComment2] = template.match(/<!--.*?-->/gs);
 const [templateAuthorLink] = template.match(authorRegex);
 const checkedFiles = new Map();
 
@@ -94,10 +94,11 @@ for (const category of CHANGELOG_CATEGORIES) {
     if (!authorRegex.test(content)) {
       showErrorMessage(`[${displayPath}]: Author link is missing.`);
     }
-    if (content.includes(templateComment)) {
-      showErrorMessage(
-        `[${displayPath}]: Please remove template comments at top.`
-      );
+    if (
+      content.includes(templateComment1) ||
+      content.includes(templateComment2)
+    ) {
+      showErrorMessage(`[${displayPath}]: Please remove template comments`);
     }
     if (content.includes(templateAuthorLink)) {
       showErrorMessage(
