@@ -23,7 +23,7 @@ import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
 } from "./angular-interpolation.js";
-import { shouldHugAttribute, printAttributeValue } from "./utils.js";
+import { shouldHugAttribute, formatAttributeValue } from "./utils.js";
 
 function printAttribute(path, options) {
   const { node } = path;
@@ -79,7 +79,7 @@ async function printEmbeddedAttributeValue(path, textToDoc, options) {
   const printMaybeHug = (doc) => (shouldHug ? group(doc) : printExpand(doc));
 
   const attributeTextToDoc = (code, options) =>
-    printAttributeValue(
+    formatAttributeValue(
       code,
       {
         __onHtmlBindingRoot(ast, options) {
