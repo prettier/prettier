@@ -47,20 +47,6 @@ function printAttribute(path, options) {
     return printLwcInterpolation(path);
   }
 
-  if (options.parser === "lwc") {
-    const interpolationRegex = /^{.*}$/s;
-    if (
-      interpolationRegex.test(
-        options.originalText.slice(
-          node.valueSpan.start.offset,
-          node.valueSpan.end.offset
-        )
-      )
-    ) {
-      return [node.rawName, "=", node.value];
-    }
-  }
-
   return async (textToDoc) => {
     const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
       path,

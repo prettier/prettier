@@ -32,6 +32,7 @@ async function printAngularInterpolation(path, ngTextToDoc) {
       }
     }
   }
+
   return group(parts);
 }
 
