@@ -153,10 +153,10 @@ function printTypeParameter(path, options, print) {
 
   if (node.bound) {
     if (node.usesExtendsBound) {
-      parts.push(" extends ", print(["bound", "typeAnnotation"]));
-    } else {
-      parts.push(printTypeAnnotationProperty(path, print, "bound"));
+      parts.push(" extends ");
     }
+
+    parts.push(printTypeAnnotationProperty(path, print, "bound"));
   }
 
   if (node.constraint) {

@@ -1,8 +1,9 @@
 run_spec(import.meta, ["flow", "typescript"], {
   errors: {
     "babel-flow": [
-      "comments.js",
+      "comments-in-type-annotation.js",
       "conditional-types.js",
+      "cursor.js",
       "infer-type.js",
       "nested-in-condition.js",
       "new-ternary-spec.js",

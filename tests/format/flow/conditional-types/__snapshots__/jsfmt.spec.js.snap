@@ -1,5 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments-in-type-annotation.js [babel-flow] format 1`] = `
+"Unexpected token (1:24)
+> 1 | type A = () => infer R extends/* comment */ string
+    |                        ^
+  2 |"
+`;
+
+exports[`comments-in-type-annotation.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = () => infer R extends/* comment */ string
+
+=====================================output=====================================
+type A = (() => infer R extends /* comment */ string);
+
+================================================================================
+`;
+
 exports[`conditional-types.js [babel-flow] format 1`] = `
 "Unexpected token (3:33)
   1 | // @flow
@@ -81,6 +102,28 @@ type T1 = () => void extends T ? U : V;
 type T1a = () => void extends T ? U : V;
 type T1b = () => void extends T ? U : V;
 type T2 = (() => void) extends T ? U : V;
+
+================================================================================
+`;
+
+exports[`cursor.js [babel-flow] format 1`] = `
+"Unexpected token (1:24)
+> 1 | type A = () => infer R extends string
+    |                        ^
+  2 |"
+`;
+
+exports[`cursor.js format 1`] = `
+====================================options=====================================
+cursorOffset: 31
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = () => infer R extends <|>string
+
+=====================================output=====================================
+type A = (() => infer R extends <|>string);
 
 ================================================================================
 `;

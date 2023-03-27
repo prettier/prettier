@@ -375,6 +375,11 @@ function printNamedTupleMember(path, options, print) {
   ];
 }
 
+/*
+Normally the `TypeAnnotation` and `TSTypeAnnotation` range starts with `:` token.
+If we print `:` in parent node, `cursorNodeDiff` in `/src/main/core.js` will consider `:` is removed, cause cursor after `:` moves, see #12491.
+`getTypeAnnotationFirstToken` are responsible to print tokens before `(TS)TypeAnnotation.typeAnnotation`.
+*/
 const typeAnnotationNodesCheckedLeadingComments = new WeakSet();
 function printTypeAnnotationProperty(
   path,
@@ -440,14 +445,26 @@ const getTypeAnnotationFirstToken = (path) => {
     Flow
 
     ```js
-    declare function foo(): void;
-                        ^^^^^^^^ `TypeAnnotation`
+    type A = (() => infer R extends string);
+                                    ^^^^^^ `TypeAnnotation`
     ```
     */
     path.match(
       (node) => node.type === "TypeAnnotation",
       (node, key) => key === "typeAnnotation" && node.type === "Identifier",
       (node, key) => key === "id" && node.type === "DeclareFunction"
+    ) ||
+    /*
+    Flow
+
+    ```js
+    type A = () => infer R extends string;
+                                   ^^^^^^ `TypeAnnotation`
+    ```
+    */
+    path.match(
+      (node) => node.type === "TypeAnnotation",
+      (node, key) => key === "bound" && node.type === "TypeParameter"
     )
   ) {
     return "";
