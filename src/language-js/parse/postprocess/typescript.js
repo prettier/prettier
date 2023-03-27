@@ -53,28 +53,13 @@ function throwErrorForInvalidModifier(node) {
   }
 }
 
-function getTsNode(node, tsParseResult) {
-  const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } = tsParseResult;
-  const tsNode = esTreeNodeToTSNodeMap.get(node);
-  if (!tsNode) {
-    return;
-  }
-
-  const esTreeNode = tsNodeToESTreeNodeMap.get(tsNode);
-  if (esTreeNode !== node) {
-    return;
-  }
-
-  return tsNode;
-}
-
-function throwErrorForInvalidNodes(tsParseResult, text) {
+function throwErrorForInvalidNodes({ ast, esTreeNodeToTSNodeMap }, text) {
   if (!text.includes("@")) {
     return;
   }
 
-  visitNode(tsParseResult.ast, (esTreeNode) => {
-    const tsNode = getTsNode(esTreeNode, tsParseResult);
+  visitNode(ast, (esTreeNode) => {
+    const tsNode = esTreeNodeToTSNodeMap.get(esTreeNode);
     if (!tsNode) {
       return;
     }
