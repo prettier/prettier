@@ -53,17 +53,22 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
 
   function mainPrint(selector, args) {
     if (selector === undefined || selector === path) {
-      return mainPrintInternal(args);
+      return mainPrintInternal(args, path);
+    }
+
+    if (selector instanceof AstPath) {
+      // An AstPath that doesn't match `path` should be propagated.
+      return mainPrintInternal(args, selector);
     }
 
     if (Array.isArray(selector)) {
-      return path.call(() => mainPrintInternal(args), ...selector);
+      return path.call(() => mainPrintInternal(args, path), ...selector);
     }
 
-    return path.call(() => mainPrintInternal(args), selector);
+    return path.call(() => mainPrintInternal(args, path), selector);
   }
 
-  function mainPrintInternal(args) {
+  function mainPrintInternal(args, path) {
     const value = path.getValue();
 
     const shouldCache =
