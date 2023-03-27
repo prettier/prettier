@@ -9,7 +9,10 @@ importScripts("lib/standalone.js");
 for (const file of new Set(Object.values(parsersLocation))) {
   importScripts(`lib/${file}`);
 }
-importScripts("lib/plugins/estree.js");
+// TODO: Remove after release v3
+if (self.location.hostname !== "prettier.io") {
+  importScripts("lib/plugins/estree.js");
+}
 
 const docExplorerPlugin = {
   parsers: {

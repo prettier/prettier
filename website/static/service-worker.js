@@ -9,8 +9,11 @@ importScripts(
 
 const plugins = [
   ...new Set(Object.values(parsersLocation).map((file) => `lib/${file}`)),
-  "lib/plugins/estree.js",
 ];
+// TODO: Remove after release v3
+if (self.location.hostname !== "prettier.io") {
+  plugins.push("lib/plugins/estree.js");
+}
 
 toolbox.precache([
   // Scripts
