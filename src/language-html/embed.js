@@ -32,6 +32,7 @@ import {
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   getTextValueParts,
+  getUnescapedAttributeValue,
 } from "./utils/index.js";
 import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
 import getNodeContent from "./get-node-content.js";
@@ -40,7 +41,6 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
   const { node } = path;
   const isKeyMatched = (patterns) =>
     new RegExp(patterns.join("|")).test(node.fullName);
-  const getValue = () => unescapeQuoteEntities(node.value);
 
   let shouldHug = false;
 
@@ -79,40 +79,43 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
       __embeddedInHtml: true,
       ...opts,
     });
+  const value = getUnescapedAttributeValue(node);
 
   if (
     node.fullName === "srcset" &&
     (node.parent.fullName === "img" || node.parent.fullName === "source")
   ) {
-    return printExpand(printImgSrcset(getValue()));
+    return printExpand(printImgSrcset(value));
   }
 
-  if (node.fullName === "class" && !options.parentParser) {
-    const value = getValue();
-    if (!value.includes("{{")) {
-      return printClassNames(value);
-    }
+  if (
+    node.fullName === "class" &&
+    !options.parentParser &&
+    !value.includes("{{")
+  ) {
+    return printClassNames(value);
   }
 
-  if (node.fullName === "style" && !options.parentParser) {
-    const value = getValue();
-    if (!value.includes("{{")) {
-      return printExpand(
-        await attributeTextToDoc(value, {
-          parser: "css",
-          __isHTMLStyleAttribute: true,
-        })
-      );
-    }
+  if (
+    node.fullName === "style" &&
+    !options.parentParser &&
+    !value.includes("{{")
+  ) {
+    return printExpand(
+      await attributeTextToDoc(value, {
+        parser: "css",
+        __isHTMLStyleAttribute: true,
+      })
+    );
   }
 
   if (options.parser === "vue") {
     if (node.fullName === "v-for") {
-      return printVueFor(path, getValue(), attributeTextToDoc, options);
+      return printVueFor(path, attributeTextToDoc, options);
     }
 
     if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueBindings(path, getValue(), attributeTextToDoc, options);
+      return printVueBindings(path, attributeTextToDoc, options);
     }
 
     /**
@@ -133,7 +136,6 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
     const jsExpressionBindingPatterns = ["^v-"];
 
     if (isKeyMatched(vueEventBindingPatterns)) {
-      const value = getValue();
       const parser = isVueEventBindingExpression(value)
         ? isVueSfcWithTypescriptScript(path, options)
           ? "__ts_expression"
@@ -146,7 +148,7 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        await attributeTextToDoc(getValue(), {
+        await attributeTextToDoc(value, {
           parser: isVueSfcWithTypescriptScript(path, options)
             ? "__vue_ts_expression"
             : "__vue_expression",
@@ -156,7 +158,7 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        await attributeTextToDoc(getValue(), {
+        await attributeTextToDoc(value, {
           parser: isVueSfcWithTypescriptScript(path, options)
             ? "__ts_expression"
             : "__js_expression",
@@ -198,33 +200,29 @@ async function printEmbeddedAttributeValue(path, htmlTextToDoc, options) {
     const ngI18nPatterns = ["^i18n(-.+)?$"];
 
     if (isKeyMatched(ngStatementBindingPatterns)) {
-      return printMaybeHug(
-        await ngTextToDoc(getValue(), { parser: "__ng_action" })
-      );
+      return printMaybeHug(await ngTextToDoc(value, { parser: "__ng_action" }));
     }
 
     if (isKeyMatched(ngExpressionBindingPatterns)) {
       return printMaybeHug(
-        await ngTextToDoc(getValue(), { parser: "__ng_binding" })
+        await ngTextToDoc(value, { parser: "__ng_binding" })
       );
     }
 
     if (isKeyMatched(ngI18nPatterns)) {
-      const value = getValue().trim();
       return printExpand(
-        fill(getTextValueParts(node, value)),
+        fill(getTextValueParts(node, value.trim())),
         !value.includes("@@")
       );
     }
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
       return printMaybeHug(
-        await ngTextToDoc(getValue(), { parser: "__ng_directive" })
+        await ngTextToDoc(value, { parser: "__ng_directive" })
       );
     }
 
     const interpolationRegex = /{{(.+?)}}/s;
-    const value = getValue();
     if (interpolationRegex.test(value)) {
       const parts = [];
       for (const [index, part] of value.split(interpolationRegex).entries()) {
