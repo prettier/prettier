@@ -14,7 +14,7 @@ import {
 import { printVueVForDirective } from "./vue-v-for-directive.js";
 import printSrcsetValue from "./srcset.js";
 import printClassNames from "./class-names.js";
-import { printStyleAttribute } from "./style.js";
+import { printStyleAttribute as printStyleAttributeValue } from "./style.js";
 import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
@@ -49,6 +49,7 @@ function createAttributePrinter(valuePrinter) {
 }
 
 const printSrcset = createAttributePrinter(printSrcsetValue);
+const printStyleAttribute = createAttributePrinter(printStyleAttributeValue);
 
 function printAttribute(path, options) {
   const { node } = path;
