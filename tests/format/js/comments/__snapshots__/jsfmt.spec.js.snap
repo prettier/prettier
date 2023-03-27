@@ -5649,8 +5649,8 @@ finally { // Comment 8
 try {
   // Comment 2
   // Comment 3
-} catch (e) {
-  // Comment 4
+} // Comment 4
+catch (e) {
   // Comment 5
   // Comment 6
 } finally {
@@ -5688,8 +5688,8 @@ finally { // Comment 8
 try {
   // Comment 2
   // Comment 3
-} catch (e) {
-  // Comment 4
+} // Comment 4
+catch (e) {
   // Comment 5
   // Comment 6
 } finally {
