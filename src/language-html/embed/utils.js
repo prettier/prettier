@@ -1,12 +1,7 @@
 import { group, indent, softline } from "../../document/builders.js";
-import { mapDoc } from "../../document/utils.js";
 
 function printExpand(doc, canHaveTrailingWhitespace = true) {
   return [indent([softline, doc]), canHaveTrailingWhitespace ? softline : ""];
-}
-
-function printMaybeHug(doc, shouldHug) {
-  return shouldHug ? group(doc) : printExpand(doc);
 }
 
 function shouldHugJsExpression(ast, options) {
@@ -31,7 +26,12 @@ function shouldHugJsExpression(ast, options) {
   );
 }
 
-async function formatJsAttribute(code, options, textToDoc, shouldHug) {
+async function formatJsExpression(
+  code,
+  textToDoc,
+  options,
+  shouldHugJsExpression
+) {
   options = {
     // strictly prefer single quote to avoid unnecessary html entity escape
     __isInHtmlAttribute: true,
@@ -39,7 +39,8 @@ async function formatJsAttribute(code, options, textToDoc, shouldHug) {
     ...options,
   };
 
-  if (shouldHug === undefined) {
+  let shouldHug = true;
+  if (shouldHugJsExpression !== undefined) {
     options.__onHtmlBindingRoot = (ast, options) => {
       shouldHug = shouldHugJsExpression(ast, options);
     };
@@ -47,12 +48,7 @@ async function formatJsAttribute(code, options, textToDoc, shouldHug) {
 
   const doc = await textToDoc(code, options, textToDoc);
 
-  return printMaybeHug(doc, shouldHug);
+  return shouldHug ? group(doc) : printExpand(doc);
 }
 
-
-export {
-  printExpand,
-  printMaybeHug,
-  formatJsAttribute,
-};
+export { printExpand, formatJsExpression, shouldHugJsExpression };

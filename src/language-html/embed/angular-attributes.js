@@ -3,7 +3,11 @@ import {
   getTextValueParts,
 } from "../utils/index.js";
 import { fill } from "../../document/builders.js";
-import { formatJsAttribute, printExpand } from "./utils.js";
+import {
+  formatJsExpression,
+  printExpand,
+  shouldHugJsExpression,
+} from "./utils.js";
 import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
@@ -13,14 +17,15 @@ function createAngularPrinter({ parser }) {
   return (textToDoc, print, path /*, options*/) => {
     const { node } = path;
     const value = getUnescapedAttributeValue(node);
-    return formatJsAttribute(
+    return formatJsExpression(
       value,
+      textToDoc,
       {
         parser,
         // angular does not allow trailing comma
         trailingComma: "none",
       },
-      textToDoc
+      shouldHugJsExpression
     );
   };
 }

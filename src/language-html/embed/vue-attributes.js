@@ -5,7 +5,7 @@ import {
 } from "../utils/index.js";
 import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
 import { printVueVForDirective } from "./vue-v-for-directive.js";
-import { formatJsAttribute } from "./utils.js";
+import { formatJsExpression, shouldHugJsExpression } from "./utils.js";
 import {
   printVueBindings,
   isVueEventBindingExpression,
@@ -70,7 +70,7 @@ function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
     ? "__vue_ts_event_binding"
     : "__vue_event_binding";
 
-  return formatJsAttribute(text, { parser }, textToDoc);
+  return formatJsExpression(text, textToDoc, { parser }, shouldHugJsExpression);
 }
 
 /**
@@ -78,10 +78,11 @@ function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
  * @returns {Doc}
  */
 function printVueVBindDirective(text, textToDoc, { parseWithTs }) {
-  return formatJsAttribute(
+  return formatJsExpression(
     text,
+    textToDoc,
     { parser: parseWithTs ? "__vue_ts_expression" : "__vue_expression" },
-    textToDoc
+    shouldHugJsExpression
   );
 }
 
@@ -90,10 +91,11 @@ function printVueVBindDirective(text, textToDoc, { parseWithTs }) {
  * @returns {Doc}
  */
 function printExpression(text, textToDoc, { parseWithTs }) {
-  return formatJsAttribute(
+  return formatJsExpression(
     text,
+    textToDoc,
     { parser: parseWithTs ? "__ts_expression" : "__js_expression" },
-    textToDoc
+    shouldHugJsExpression
   );
 }
 

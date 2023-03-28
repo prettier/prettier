@@ -1,4 +1,4 @@
-import { formatJsAttribute } from "./utils.js";
+import { formatJsExpression } from "./utils.js";
 
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
@@ -9,15 +9,10 @@ import { formatJsAttribute } from "./utils.js";
  * @returns {Doc}
  */
 function printVueBindings(text, textToDoc, { parseWithTs }) {
-  return formatJsAttribute(
-    `function _(${text}) {}`,
-    {
-      parser: parseWithTs ? "babel-ts" : "babel",
-      __isVueBindings: true,
-    },
-    textToDoc,
-/* hug */ true
-  );
+  return formatJsExpression(`function _(${text}) {}`, textToDoc, {
+    parser: parseWithTs ? "babel-ts" : "babel",
+    __isVueBindings: true,
+  });
 }
 
 function isVueEventBindingExpression(eventBindingValue) {

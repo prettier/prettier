@@ -53,9 +53,9 @@ function printAttributeWithValuePrinter(printValue) {
   return async (textToDoc, print, path, options) => {
     let valueDoc = await printValue(textToDoc, print, path, options);
 
-    // if (!valueDoc) {
-    //   return;
-    // }
+    if (!valueDoc) {
+      return;
+    }
 
     valueDoc = mapDoc(valueDoc, (doc) =>
       typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc

@@ -448,7 +448,7 @@ width="205px" alt="Yahoo"/></a></h1></div></div>
 =====================================output=====================================
 <img class="foo bar" />
 
-<img class="" />
+<img class="  " />
 <img class />
 
 <img

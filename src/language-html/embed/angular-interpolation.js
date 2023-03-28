@@ -1,6 +1,6 @@
 import { group, indent, line } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import { formatJsAttribute } from "./utils.js";
+import { formatJsExpression } from "./utils.js";
 
 const interpolationRegex = /{{(.+?)}}/s;
 
@@ -16,16 +16,11 @@ async function printAngularInterpolation(text, textToDoc) {
             "{{",
             indent([
               line,
-              await formatJsAttribute(
-                part,
-                {
-                  parser: "__ng_interpolation",
-                  __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-                  trailingComma: "none",
-                },
-                textToDoc,
-/* hug */ true
-              ),
+              await formatJsExpression(part, textToDoc, {
+                parser: "__ng_interpolation",
+                __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+                trailingComma: "none",
+              }),
             ]),
             line,
             "}}",
