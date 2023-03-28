@@ -5,7 +5,6 @@ import getValueRoot from "./get-value-root.js";
  * @returns {string}
  */
 function getFunctionArgumentsText(node) {
-  // @ts-ignore
   return getValueRoot(node)
     .text.slice(node.group.open.sourceIndex + 1, node.group.close.sourceIndex)
     .trim();
