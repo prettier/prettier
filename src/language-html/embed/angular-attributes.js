@@ -14,7 +14,8 @@ import {
 } from "./angular-interpolation.js";
 
 function createAngularPrinter({ parser }) {
-  return (textToDoc, print, path /*, options*/) => formatAttributeValue(
+  return (textToDoc, print, path /*, options*/) =>
+    formatAttributeValue(
       getUnescapedAttributeValue(path.node),
       textToDoc,
       {

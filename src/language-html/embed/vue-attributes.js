@@ -74,7 +74,12 @@ function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
     ? "__vue_ts_event_binding"
     : "__vue_event_binding";
 
-  return formatAttributeValue(text, textToDoc, { parser }, shouldHugJsExpression);
+  return formatAttributeValue(
+    text,
+    textToDoc,
+    { parser },
+    shouldHugJsExpression
+  );
 }
 
 /**
