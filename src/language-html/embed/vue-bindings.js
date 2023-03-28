@@ -1,4 +1,4 @@
-import { formatAttributeValue } from "./utils.js";
+import { formatJsAttribute } from "./utils.js";
 
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
@@ -9,13 +9,14 @@ import { formatAttributeValue } from "./utils.js";
  * @returns {Doc}
  */
 function printVueBindings(text, textToDoc, { parseWithTs }) {
-  return formatAttributeValue(
+  return formatJsAttribute(
     `function _(${text}) {}`,
     {
       parser: parseWithTs ? "babel-ts" : "babel",
       __isVueBindings: true,
     },
-    textToDoc
+    textToDoc,
+/* hug */ true
   );
 }
 

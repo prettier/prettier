@@ -9,7 +9,7 @@ function printMaybeHug(doc, shouldHug) {
   return shouldHug ? group(doc) : printExpand(doc);
 }
 
-function shouldJsExpression(ast, options) {
+function shouldHugJsExpression(ast, options) {
   const rootNode =
     ast.type === "NGRoot"
       ? ast.node.type === "NGMicrosyntax" &&
@@ -31,27 +31,7 @@ function shouldJsExpression(ast, options) {
   );
 }
 
-async function formatJsAttribute(code, options, textToDoc) {
-  let shouldHug = false;
-
-  const doc = await textToDoc(
-    code,
-    {
-      // strictly prefer single quote to avoid unnecessary html entity escape
-      __isInHtmlAttribute: true,
-      __embeddedInHtml: true,
-      __onHtmlBindingRoot(ast, options) {
-        shouldHug = shouldJsExpression(ast, options);
-      },
-      ...options,
-    },
-    textToDoc
-  );
-
-  return printMaybeHug(doc, shouldHug);
-}
-
-function formatAttributeValue(code, options, textToDoc) {
+async function formatJsAttribute(code, options, textToDoc, shouldHug) {
   options = {
     // strictly prefer single quote to avoid unnecessary html entity escape
     __isInHtmlAttribute: true,
@@ -59,35 +39,20 @@ function formatAttributeValue(code, options, textToDoc) {
     ...options,
   };
 
-  return textToDoc(code, options);
-}
-
-/**
- * @param {AstPath} path
- * @param {Doc} valueDoc
- * @param {{expand: boolean}} [param2]
- * @returns
- */
-function printAttribute(path, valueDoc, { expand } = {}) {
-  if (!valueDoc) {
-    return;
+  if (shouldHug === undefined) {
+    options.__onHtmlBindingRoot = (ast, options) => {
+      shouldHug = shouldHugJsExpression(ast, options);
+    };
   }
 
-  valueDoc = mapDoc(valueDoc, (doc) =>
-    typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
-  );
+  const doc = await textToDoc(code, options, textToDoc);
 
-  if (expand) {
-    valueDoc = printExpand(valueDoc);
-  }
-
-  return [path.node.rawName, '="', group(valueDoc), '"'];
+  return printMaybeHug(doc, shouldHug);
 }
+
 
 export {
   printExpand,
   printMaybeHug,
   formatJsAttribute,
-  formatAttributeValue,
-  printAttribute,
 };
