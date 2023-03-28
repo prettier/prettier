@@ -1,5 +1,156 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments.js [babel-flow] format 1`] = `
+"Unexpected token, expected "]" (3:7)
+  1 | type Type = {
+  2 |   // comment
+> 3 |   +[T in number]: number;
+    |       ^
+  4 | };
+  5 |
+  6 | type Type = {"
+`;
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Type = {
+  // comment
+  +[T in number]: number;
+};
+
+type Type = {
+  // comment1
+  // comment2
+  +[T in number]: number;
+};
+
+type Type = {
+  // comment
+  -[T in number]: number;
+};
+
+type Type = {
+  // comment
+  +    [T in number]: number;
+};
+
+type Type = {
+  // comment
+  +     [T in number]: number;
+};
+
+type Type = {
+  // comment
+  +       [T in number]: number;
+};
+
+type Type = {
+  // comment
+  [T in number]: number;
+};
+
+type Type = {
+  + 
+  // comment
+  [T in number]: number;
+};
+
+type Type = {
+  + // foo
+  /* bar */ [T in number]: number;
+};
+
+=====================================output=====================================
+type Type = {
+  // comment
+  +[T in number]: number,
+};
+
+type Type = {
+  // comment1
+  // comment2
+  +[T in number]: number,
+};
+
+type Type = {
+  // comment
+  -[T in number]: number,
+};
+
+type Type = {
+  // comment
+  +[T in number]: number,
+};
+
+type Type = {
+  // comment
+  +[T in number]: number,
+};
+
+type Type = {
+  // comment
+  +[T in number]: number,
+};
+
+type Type = {
+  // comment
+  [T in number]: number,
+};
+
+type Type = {
+  +[
+    // comment
+    T in
+    number
+  ]: number,
+};
+
+type Type = {
+  +[ // foo
+    /* bar */ T in
+    number
+  ]: number,
+};
+
+================================================================================
+`;
+
+exports[`intersection.js [babel-flow] format 1`] = `
+"Unexpected token, expected "]" (2:6)
+  1 | type Example = {
+> 2 |   [A in B]: T;
+    |      ^
+  3 | } & {
+  4 |   [A in B]: T;
+  5 | };"
+`;
+
+exports[`intersection.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Example = {
+  [A in B]: T;
+} & {
+  [A in B]: T;
+};
+
+=====================================output=====================================
+type Example = {
+  [A in B]: T,
+} & {
+  [A in B]: T,
+};
+
+================================================================================
+`;
+
 exports[`mapped-types.js [babel-flow] format 1`] = `
 "Unexpected token, expected "]" (3:21)
   1 | //@flow
