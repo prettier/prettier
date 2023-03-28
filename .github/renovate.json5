@@ -37,4 +37,8 @@
       labels: ["dependency:tools"],
     },
   ],
+  ignoreDeps: [
+    // It's a dependency of `remark-parse`, use same version to reduce size
+    "collapse-white-space",
+  ],
 }
