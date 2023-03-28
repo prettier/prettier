@@ -11,10 +11,6 @@ import {
   printVueBindings,
   isVueEventBindingExpression,
 } from "./vue-bindings.js";
-import { printVueVForDirective } from "./vue-v-for-directive.js";
-import { printVueVOnDirective } from "./vue-v-on-directive.js";
-import { printVueVBindDirective } from "./vue-v-bind-directive.js";
-import { printVueVUnknownDirective } from "./vue-v-unknown-directive.js";
 import printSrcset from "./srcset.js";
 import printClassNames from "./class-names.js";
 import { printStyleAttribute } from "./style.js";
@@ -135,31 +131,6 @@ function printAttribute(path, options) {
   const attributeName = node.fullName;
   if (options.parser === "vue") {
     const parseWithTs = isVueSfcWithTypescriptScript(path, options);
-
-    /**
-     *     @click="jsStatement"
-     *     @click="jsExpression"
-     *     v-on:click="jsStatement"
-     *     v-on:click="jsExpression"
-     */
-    if (attributeName.startsWith("@") || attributeName.startsWith("v-on:")) {
-      return printVueAttribute2(printVueVOnDirective, { parseWithTs });
-    }
-
-    /**
-     *     :class="vueExpression"
-     *     v-bind:id="vueExpression"
-     */
-    if (attributeName.startsWith(":") || attributeName.startsWith("v-bind:")) {
-      return printVueAttribute2(printVueVBindDirective, { parseWithTs });
-    }
-
-    /**
-     *     v-if="jsExpression"
-     */
-    if (attributeName.startsWith("v-")) {
-      return printVueAttribute2(printVueVUnknownDirective, { parseWithTs });
-    }
   }
 
   if (options.parser === "angular") {
