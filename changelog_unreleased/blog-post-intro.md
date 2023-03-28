@@ -1,7 +1,7 @@
 ---
 author: "Sosuke Suzuki (@sosukesuzuki)"
 authorURL: "https://github.com/sosukesuzuki"
-title: "Prettier 3.0"
+title: "Prettier 3.0: Hello, ECMAScript Modules!"
 ---
 
 We are excited to announce the release of the new version of Prettier! This update comes with several breaking changes. One notable example is the alteration in markdown formatting - spaces are no longer inserted between Latin characters and Chinese or Japanese characters. We'd like to extend our gratitude to [Tatsunori Uchino](https://github.com/tats-u), who has made significant contributions to Prettier over the past year, particularly with this feature. Additionally, the default value of `trailingComma` has been changed to `"all"`.
