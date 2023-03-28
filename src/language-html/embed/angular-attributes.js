@@ -14,11 +14,8 @@ import {
 } from "./angular-interpolation.js";
 
 function createAngularPrinter({ parser }) {
-  return (textToDoc, print, path /*, options*/) => {
-    const { node } = path;
-    const value = getUnescapedAttributeValue(node);
-    return formatAttributeValue(
-      value,
+  return (textToDoc, print, path /*, options*/) => formatAttributeValue(
+      getUnescapedAttributeValue(path.node),
       textToDoc,
       {
         parser,
@@ -27,7 +24,6 @@ function createAngularPrinter({ parser }) {
       },
       shouldHugJsExpression
     );
-  };
 }
 
 const printNgAction = createAngularPrinter({ parser: "__ng_action" });
