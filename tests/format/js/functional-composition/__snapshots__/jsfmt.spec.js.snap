@@ -55,25 +55,25 @@ this.subscriptions.add(
 compose(
   sortBy((x) => x),
   flatten,
-  map((x) => [x, x * 2])
+  map((x) => [x, x * 2]),
 );
 
 somelib.compose(
   sortBy((x) => x),
   flatten,
-  map((x) => [x, x * 2])
+  map((x) => [x, x * 2]),
 );
 
 composeFlipped(
   sortBy((x) => x),
   flatten,
-  map((x) => [x, x * 2])
+  map((x) => [x, x * 2]),
 );
 
 somelib.composeFlipped(
   sortBy((x) => x),
   flatten,
-  map((x) => [x, x * 2])
+  map((x) => [x, x * 2]),
 );
 
 // no regression (#4602)
@@ -81,11 +81,11 @@ const hasValue = hasOwnProperty(a, b);
 
 this.compose(
   sortBy((x) => x),
-  flatten
+  flatten,
 );
 this.a.b.c.compose(
   sortBy((x) => x),
-  flatten
+  flatten,
 );
 someObj.someMethod(this.field.compose(a, b));
 
@@ -93,7 +93,7 @@ class A extends B {
   compose() {
     super.compose(
       sortBy((x) => x),
-      flatten
+      flatten,
     );
   }
 }
@@ -101,7 +101,7 @@ class A extends B {
 this.subscriptions.add(
   this.componentUpdates
     .pipe(startWith(this.props), distinctUntilChanged(isEqual))
-    .subscribe((props) => {})
+    .subscribe((props) => {}),
 );
 
 ================================================================================
@@ -167,7 +167,7 @@ import { flow } from "lodash";
 const foo = flow(
   (x) => x + 1,
   (x) => x * 3,
-  (x) => x - 6
+  (x) => x - 6,
 );
 
 foo(6);
@@ -177,7 +177,7 @@ import * as _ from "lodash";
 const bar = _.flow(
   (x) => x + 1,
   (x) => x * 3,
-  (x) => x - 6
+  (x) => x - 6,
 );
 
 bar(6);
@@ -217,7 +217,7 @@ import { flowRight } from "lodash";
 const foo = flowRight(
   (x) => x + 1,
   (x) => x * 3,
-  (x) => x - 6
+  (x) => x - 6,
 );
 
 foo(6);
@@ -227,7 +227,7 @@ import * as _ from "lodash";
 const bar = _.flowRight(
   (x) => x + 1,
   (x) => x * 3,
-  (x) => x - 6
+  (x) => x - 6,
 );
 
 bar(6);
@@ -312,12 +312,12 @@ printWidth: 80
 
   pipe(
     serviceEventFromMessage(msg),
-    TE.chain(flow(publishServiceEvent(analytics), TE.mapLeft(nackFromError)))
+    TE.chain(flow(publishServiceEvent(analytics), TE.mapLeft(nackFromError))),
   )()
     .then(messageResponse(logger, msg))
     .catch((err) => {
       logger.error(
-        pipe(O.fromNullable(err.stack), O.getOrElse(constant(err.message)))
+        pipe(O.fromNullable(err.stack), O.getOrElse(constant(err.message))),
       );
       process.exit(1);
     });
@@ -395,7 +395,7 @@ printWidth: 80
     timelines,
     everyCommitTimestamps,
     A.sort(ordDate),
-    A.head
+    A.head,
   );
 
   pipe(
@@ -405,9 +405,9 @@ printWidth: 80
       flow(
         // add a descriptive comment here
         publishServiceEvent(analytics),
-        TE.mapLeft(nackFromError)
-      )
-    )
+        TE.mapLeft(nackFromError),
+      ),
+    ),
   )()
     .then(messageResponse(logger, msg))
     .catch((err) => {
@@ -415,8 +415,8 @@ printWidth: 80
         pipe(
           // add a descriptive comment here
           O.fromNullable(err.stack),
-          O.getOrElse(constant(err.message))
-        )
+          O.getOrElse(constant(err.message)),
+        ),
       );
       process.exit(1);
     });
@@ -424,7 +424,7 @@ printWidth: 80
   pipe(
     // add a descriptive comment here
     Changelog.timestampOfFirstCommit([[commit]]),
-    O.toUndefined
+    O.toUndefined,
   );
 
   chain(
@@ -432,8 +432,8 @@ printWidth: 80
       // add a descriptive comment here
       getUploadUrl,
       E.mapLeft(Errors.unknownError),
-      TE.fromEither
-    )
+      TE.fromEither,
+    ),
   );
 })();
 
@@ -506,7 +506,7 @@ var getStateCode = R.composeK(
   R.compose(Maybe.of, R.toUpper),
   get("state"),
   get("address"),
-  get("user")
+  get("user"),
 );
 getStateCode({ user: { address: { state: "ny" } } }); //=> Maybe.Just("NY")
 getStateCode({}); //=> Maybe.Nothing()
@@ -528,14 +528,14 @@ lookupUser("JOE").then(lookupFollowers);
 //  followersForUser :: String -> Promise [UserId]
 var followersForUser = R.composeP(lookupFollowers, lookupUser);
 followersForUser("JOE").then((followers) =>
-  console.log("Followers:", followers)
+  console.log("Followers:", followers),
 );
 // Followers: ["STEVE","SUZY"]
 
 const mapStateToProps = (state) => ({
   users: R.compose(
     R.filter(R.propEq("status", "active")),
-    R.values
+    R.values,
   )(state.users),
 });
 
@@ -586,7 +586,7 @@ var getStateCode = R.pipeK(
   get("user"),
   get("address"),
   get("state"),
-  R.compose(Maybe.of, R.toUpper)
+  R.compose(Maybe.of, R.toUpper),
 );
 
 getStateCode('{"user":{"address":{"state":"ny"}}}');
@@ -628,7 +628,7 @@ import reducer from "../reducers";
 
 const store = createStore(
   reducer,
-  compose(applyMiddleware(thunk), DevTools.instrument())
+  compose(applyMiddleware(thunk), DevTools.instrument()),
 );
 
 ================================================================================
@@ -646,7 +646,7 @@ const ArtistInput = connect(mapStateToProps, mapDispatchToProps, mergeProps)(Com
 const ArtistInput = connect(
   mapStateToProps,
   mapDispatchToProps,
-  mergeProps
+  mergeProps,
 )(Component);
 
 ================================================================================
@@ -675,11 +675,11 @@ const bar = createSelector(
 import { createSelector } from "reselect";
 
 const foo = createSelector(getIds, getObjects, (ids, objects) =>
-  ids.map((id) => objects[id])
+  ids.map((id) => objects[id]),
 );
 
 const bar = createSelector([getIds, getObjects], (ids, objects) =>
-  ids.map((id) => objects[id])
+  ids.map((id) => objects[id]),
 );
 
 ================================================================================
@@ -713,7 +713,7 @@ source$
   .pipe(
     filter((x) => x % 2 === 0),
     map((x) => x + x),
-    scan((acc, x) => acc + x, 0)
+    scan((acc, x) => acc + x, 0),
   )
   .subscribe((x) => console.log(x));
 

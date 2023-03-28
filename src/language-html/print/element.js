@@ -1,44 +1,39 @@
-"use strict";
-
-const {
-  builders: {
-    breakParent,
-    dedentToRoot,
-    group,
-    ifBreak,
-    indentIfBreak,
-    indent,
-    line,
-    softline,
-  },
-  utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
-const getNodeContent = require("../get-node-content.js");
-const {
+import {
+  breakParent,
+  dedentToRoot,
+  group,
+  ifBreak,
+  indentIfBreak,
+  indent,
+  line,
+  softline,
+} from "../../document/builders.js";
+import { replaceEndOfLine } from "../../document/utils.js";
+import getNodeContent from "../get-node-content.js";
+import {
   shouldPreserveContent,
   isScriptLikeTag,
   isVueCustomBlock,
-  countParents,
   forceBreakContent,
-} = require("../utils/index.js");
-const {
+} from "../utils/index.js";
+import {
   printOpeningTagPrefix,
   printOpeningTag,
   printClosingTagSuffix,
   printClosingTag,
   needsToBorrowPrevClosingTagEndMarker,
   needsToBorrowLastChildClosingTagEndMarker,
-} = require("./tag.js");
-const { printChildren } = require("./children.js");
+} from "./tag.js";
+import { printChildren } from "./children.js";
 
 function printElement(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (shouldPreserveContent(node, options)) {
     return [
       printOpeningTagPrefix(node, options),
       group(printOpeningTag(path, options, print)),
-      ...replaceTextEndOfLine(getNodeContent(node, options)),
+      replaceEndOfLine(getNodeContent(node, options)),
       ...printClosingTag(node, options),
       printClosingTagSuffix(node, options),
     ];
@@ -143,13 +138,7 @@ function printElement(path, options, print) {
           node.isWhitespaceSensitive &&
           node.isIndentationSensitive)) &&
       new RegExp(
-        `\\n[\\t ]{${
-          options.tabWidth *
-          countParents(
-            path,
-            (node) => node.parent && node.parent.type !== "root"
-          )
-        }}$`
+        `\\n[\\t ]{${options.tabWidth * (path.ancestors.length - 1)}}$`
       ).test(node.lastChild.value)
     ) {
       return "";
@@ -173,4 +162,4 @@ function printElement(path, options, print) {
   ]);
 }
 
-module.exports = { printElement };
+export { printElement };

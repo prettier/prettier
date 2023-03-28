@@ -1,27 +1,24 @@
-"use strict";
+import {
+  indent,
+  softline,
+  literalline,
+  dedentToRoot,
+} from "../../document/builders.js";
+import { escapeTemplateCharacters } from "../print/template-literal.js";
 
-const {
-  builders: { indent, softline, literalline, dedentToRoot },
-} = require("../../document/index.js");
-const { escapeTemplateCharacters } = require("../print/template-literal.js");
-
-function format(path, print, textToDoc) {
-  const node = path.getValue();
-  let text = node.quasis[0].value.raw.replace(
+async function printEmbedMarkdown(textToDoc, print, path /*, options*/) {
+  const { node } = path;
+  let text = node.quasis[0].value.raw.replaceAll(
     /((?:\\\\)*)\\`/g,
     (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
   );
   const indentation = getIndentation(text);
   const hasIndent = indentation !== "";
   if (hasIndent) {
-    text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
+    text = text.replaceAll(new RegExp(`^${indentation}`, "gm"), "");
   }
   const doc = escapeTemplateCharacters(
-    textToDoc(
-      text,
-      { parser: "markdown", __inJsTemplate: true },
-      { stripTrailingHardline: true }
-    ),
+    await textToDoc(text, { parser: "markdown", __inJsTemplate: true }),
     true
   );
   return [
@@ -37,4 +34,23 @@ function getIndentation(str) {
   return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
-module.exports = format;
+function printMarkdown(path /*, options*/) {
+  if (isMarkdown(path)) {
+    return printEmbedMarkdown;
+  }
+}
+
+/**
+ * md`...`
+ * markdown`...`
+ */
+function isMarkdown({ node, parent }) {
+  return (
+    parent?.type === "TaggedTemplateExpression" &&
+    node.quasis.length === 1 &&
+    parent.tag.type === "Identifier" &&
+    (parent.tag.name === "md" || parent.tag.name === "markdown")
+  );
+}
+
+export default printMarkdown;

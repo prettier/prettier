@@ -1,7 +1,9 @@
-"use strict";
+function isSCSSNestedPropertyNode(node, options) {
+  if (options.parser !== "scss") {
+    return false;
+  }
 
-function isSCSSNestedPropertyNode(node) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!node.selector) {
     return false;
   }
@@ -13,4 +15,4 @@ function isSCSSNestedPropertyNode(node) {
     .endsWith(":");
 }
 
-module.exports = isSCSSNestedPropertyNode;
+export default isSCSSNestedPropertyNode;

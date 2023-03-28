@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`attribute-expr.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script lang="ts"></script>
+
+<template>
+  <comp :foo="   (a:string)=>1"/>
+  <comp :foo=" <X extends Something & AnothoerOne, Y    extends unknown[]>(x:X,y:Y)=>y.length + x.foobar.abcdefg"/>
+  <comp :foo="(myFunction<T   |U>(qwerty,qwerty.qwerty?.qwerty)as any) + x.filter(abcdefg as never).join(xxx)"/>
+</template>
+
+=====================================output=====================================
+<script lang="ts"></script>
+
+<template>
+  <comp :foo="(a: string) => 1" />
+  <comp
+    :foo="
+      <X extends Something & AnothoerOne, Y extends unknown[]>(x: X, y: Y) =>
+        y.length + x.foobar.abcdefg
+    "
+  />
+  <comp
+    :foo="
+      (myFunction<T | U>(qwerty, qwerty.qwerty?.qwerty) as any) +
+      x.filter(abcdefg as never).join(xxx)
+    "
+  />
+</template>
+
+================================================================================
+`;
+
 exports[`basic.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
@@ -8,6 +44,7 @@ printWidth: 80
 =====================================input======================================
 <template>
   <p v-if="isFolder(file)">{{ (   file as   mymodule.Folder    ).deadline }}</p>
+  <prettier :format=" myFunc(  o as unknown )" />
 </template>
 
 <script lang="ts"></script>
@@ -15,9 +52,127 @@ printWidth: 80
 =====================================output=====================================
 <template>
   <p v-if="isFolder(file)">{{ (file as mymodule.Folder).deadline }}</p>
+  <prettier :format="myFunc(o as unknown)" />
 </template>
 
 <script lang="ts"></script>
+
+================================================================================
+`;
+
+exports[`comment.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div v-if="
+            // leading comment
+    isFolder(   /* NOTE: I like pizza */file)
+    // trailing comment
+    "
+  :format="   /* leading comment */ myFunc( /* NOTE: I like banana */ o as unknown ) /* trailing comment */"
+  >{{ /* leading comment */ (   file as /* NOTE: I like sushi */   mymodule.Folder   ).deadline /* trailing comment */    }}</div>
+</template>
+
+<script lang="ts"></script>
+
+=====================================output=====================================
+<template>
+  <div
+    v-if="
+      // leading comment
+      isFolder(/* NOTE: I like pizza */ file)
+      // trailing comment
+    "
+    :format="
+      /* leading comment */ myFunc(
+        /* NOTE: I like banana */ o as unknown,
+      ) /* trailing comment */
+    "
+  >
+    {{
+      /* leading comment */ (file as /* NOTE: I like sushi */ mymodule.Folder)
+        .deadline /* trailing comment */
+    }}
+  </div>
+</template>
+
+<script lang="ts"></script>
+
+================================================================================
+`;
+
+exports[`filter.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script setup lang="ts"></script>
+
+<!-- vue filters are only allowed in v-bind and interpolation -->
+<template>
+  <div>
+    <div class="allowed">{{
+      value | thisIsARealSuperLongFilterPipe("arg1", arg2 as unknown) | anotherPipeLongJustForFun | pipeTheThird
+    }}</div>
+    <div class="allowed" v-bind:something='
+      value | thisIsARealSuperLongFilterPipe("arg1", arg2 as unknown) | anotherPipeLongJustForFun | pipeTheThird
+    '></div>
+    <div class="allowed" :class='
+      value | thisIsARealSuperLongFilterPipe("arg1", arg2 as unknown) | anotherPipeLongJustForFun | pipeTheThird'
+    ></div>
+    <div class="not-allowed" v-if='
+      value | thisIsARealSuperLongBitwiseOr("arg1", arg2 as unknown) | anotherBitwiseOrLongJustForFun | bitwiseOrTheThird
+    '></div>
+  </div>
+</template>
+
+=====================================output=====================================
+<script setup lang="ts"></script>
+
+<!-- vue filters are only allowed in v-bind and interpolation -->
+<template>
+  <div>
+    <div class="allowed">
+      {{
+        value
+          | thisIsARealSuperLongFilterPipe("arg1", arg2 as unknown)
+          | anotherPipeLongJustForFun
+          | pipeTheThird
+      }}
+    </div>
+    <div
+      class="allowed"
+      v-bind:something="
+        value
+          | thisIsARealSuperLongFilterPipe('arg1', arg2 as unknown)
+          | anotherPipeLongJustForFun
+          | pipeTheThird
+      "
+    ></div>
+    <div
+      class="allowed"
+      :class="
+        value
+          | thisIsARealSuperLongFilterPipe('arg1', arg2 as unknown)
+          | anotherPipeLongJustForFun
+          | pipeTheThird
+      "
+    ></div>
+    <div
+      class="not-allowed"
+      v-if="
+        value |
+          thisIsARealSuperLongBitwiseOr('arg1', arg2 as unknown) |
+          anotherBitwiseOrLongJustForFun |
+          bitwiseOrTheThird
+      "
+    ></div>
+  </div>
+</template>
 
 ================================================================================
 `;
@@ -30,6 +185,7 @@ printWidth: 80
 =====================================input======================================
 <template>
   <p v-if="isFolder(file)">{{ (   file as   mymodule.Folder    ).deadline }}</p>
+  <prettier :format=" myFunc(  o as unknown )" />
 </template>
 
 <script></script>
@@ -37,6 +193,7 @@ printWidth: 80
 =====================================output=====================================
 <template>
   <p v-if="isFolder(file)">{{ (   file as   mymodule.Folder    ).deadline }}</p>
+  <prettier :format=" myFunc(  o as unknown )" />
 </template>
 
 <script></script>

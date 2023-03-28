@@ -1,103 +1,68 @@
-"use strict";
+import { codeFrameColumns } from "@babel/code-frame";
+import { ConfigError } from "../common/errors.js";
 
-const { ConfigError } = require("../common/errors.js");
-const jsLoc = require("../language-js/loc.js");
-const loadParser = require("./load-parser.js");
+function resolveParser({ plugins, parser }) {
+  /*
+  Loop from end to allow plugins override builtin plugins,
+  this is how `resolveParser` works in v2.
+  This is a temporarily solution, see #13729
+  */
+  for (let index = plugins.length - 1; index >= 0; index--) {
+    const { parsers } = plugins[index];
+    if (parsers && Object.hasOwn(parsers, parser)) {
+      const parserOrParserInitFunction = parsers[parser];
 
-const { locStart, locEnd } = jsLoc;
-
-// Use defineProperties()/getOwnPropertyDescriptor() to prevent
-// triggering the parsers getters.
-const ownNames = Object.getOwnPropertyNames;
-const ownDescriptor = Object.getOwnPropertyDescriptor;
-function getParsers(options) {
-  const parsers = {};
-  for (const plugin of options.plugins) {
-    // TODO: test this with plugins
-    /* istanbul ignore next */
-    if (!plugin.parsers) {
-      continue;
-    }
-
-    for (const name of ownNames(plugin.parsers)) {
-      Object.defineProperty(parsers, name, ownDescriptor(plugin.parsers, name));
+      return typeof parserOrParserInitFunction === "function"
+        ? parserOrParserInitFunction()
+        : parserOrParserInitFunction;
     }
   }
 
-  return parsers;
+  /* c8 ignore start */
+  let message = `Couldn't resolve parser "${parser}".`;
+  if (process.env.PRETTIER_TARGET === "universal") {
+    message += " Parsers must be explicitly added to the standalone bundle.";
+  }
+
+  throw new ConfigError(message);
+  /* c8 ignore stop */
 }
 
-function resolveParser(opts, parsers = getParsers(opts)) {
-  if (typeof opts.parser === "function") {
-    // Custom parser API always works with JavaScript.
-    return {
-      parse: opts.parser,
-      astFormat: "estree",
-      locStart,
-      locEnd,
-    };
-  }
+async function parse(originalText, options) {
+  const parser = await resolveParser(options);
+  const text = parser.preprocess
+    ? parser.preprocess(originalText, options)
+    : originalText;
+  options.originalText = text;
 
-  if (typeof opts.parser === "string") {
-    if (Object.prototype.hasOwnProperty.call(parsers, opts.parser)) {
-      return parsers[opts.parser];
-    }
-
-    /* istanbul ignore next */
-    if (process.env.PRETTIER_TARGET === "universal") {
-      throw new ConfigError(
-        `Couldn't resolve parser "${opts.parser}". Parsers must be explicitly added to the standalone bundle.`
-      );
-    }
-
-    return loadParser(opts.parser);
-  }
-}
-
-function parse(text, opts) {
-  const parsers = getParsers(opts);
-
-  // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
-  // the parsers getters when actually calling the parser `parse` function.
-  const parsersForCustomParserApi = Object.defineProperties(
-    {},
-    Object.fromEntries(
-      Object.keys(parsers).map((parserName) => [
-        parserName,
-        {
-          enumerable: true,
-          get() {
-            return parsers[parserName].parse;
-          },
-        },
-      ])
-    )
-  );
-
-  const parser = resolveParser(opts, parsers);
-
+  let ast;
   try {
-    if (parser.preprocess) {
-      text = parser.preprocess(text, opts);
-    }
-
-    return {
+    ast = await parser.parse(
       text,
-      ast: parser.parse(text, parsersForCustomParserApi, opts),
-    };
+      options,
+      // TODO: remove the third argument in v4
+      // The duplicated argument is passed as intended, see #10156
+      options
+    );
   } catch (error) {
-    const { loc } = error;
+    handleParseError(error, originalText);
+  }
 
-    if (loc) {
-      const { codeFrameColumns } = require("@babel/code-frame");
-      error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
-      error.message += "\n" + error.codeFrame;
-      throw error;
-    }
+  return { text, ast };
+}
 
-    /* istanbul ignore next */
+function handleParseError(error, text) {
+  const { loc } = error;
+
+  if (loc) {
+    const codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
+    error.message += "\n" + codeFrame;
+    error.codeFrame = codeFrame;
     throw error;
   }
+
+  /* c8 ignore next */
+  throw error;
 }
 
-module.exports = { parse, resolveParser };
+export { parse, resolveParser };

@@ -26,7 +26,7 @@ class loooooooooooooooooooong3 extends class {
 
 =====================================output=====================================
 class loooooooooooooooooooong1 extends foooooooo(
-  foooooooo(foooooooo(foooooooo(foooooooo(foooooooo(foooooooo(foooooooo()))))))
+  foooooooo(foooooooo(foooooooo(foooooooo(foooooooo(foooooooo(foooooooo())))))),
 ) {}
 
 class loooooooooooooooooooong2 extends function (make, model, year, owner) {
@@ -170,6 +170,78 @@ function* f2() {
 }
 
 x = class extends (++b) {};
+
+================================================================================
+`;
+
+exports[`tuple-and-record.js [acorn] format 1`] = `
+"Unexpected character '{' (2:18)
+  1 | class A extends {} {}
+> 2 | class B extends #{} {}
+    |                  ^
+  3 |
+  4 | class C extends [] {}
+  5 | class D extends #[] {}"
+`;
+
+exports[`tuple-and-record.js [espree] format 1`] = `
+"Unexpected character '{' (2:18)
+  1 | class A extends {} {}
+> 2 | class B extends #{} {}
+    |                  ^
+  3 |
+  4 | class C extends [] {}
+  5 | class D extends #[] {}"
+`;
+
+exports[`tuple-and-record.js [flow] format 1`] = `
+"Unexpected token \`#\`, expected an identifier (2:17)
+  1 | class A extends {} {}
+> 2 | class B extends #{} {}
+    |                 ^
+  3 |
+  4 | class C extends [] {}
+  5 | class D extends #[] {}"
+`;
+
+exports[`tuple-and-record.js [meriyah] format 1`] = `
+"'#' not followed by identifier (2:17)
+  1 | class A extends {} {}
+> 2 | class B extends #{} {}
+    |                 ^
+  3 |
+  4 | class C extends [] {}
+  5 | class D extends #[] {}"
+`;
+
+exports[`tuple-and-record.js [typescript] format 1`] = `
+"Invalid character. (2:17)
+  1 | class A extends {} {}
+> 2 | class B extends #{} {}
+    |                 ^
+  3 |
+  4 | class C extends [] {}
+  5 | class D extends #[] {}"
+`;
+
+exports[`tuple-and-record.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A extends {} {}
+class B extends #{} {}
+
+class C extends [] {}
+class D extends #[] {}
+
+=====================================output=====================================
+class A extends ({}) {}
+class B extends #{} {}
+
+class C extends [] {}
+class D extends #[] {}
 
 ================================================================================
 `;

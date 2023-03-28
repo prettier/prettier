@@ -1,32 +1,18 @@
-"use strict";
-
-const {
-  builders: { softline, group, indent, label },
-} = require("../../document/index.js");
-const {
+import { softline, group, indent, label } from "../../document/builders.js";
+import {
   isNumericLiteral,
   isMemberExpression,
   isCallExpression,
-} = require("../utils/index.js");
-const { printOptionalToken } = require("./misc.js");
+} from "../utils/index.js";
+import { printOptionalToken } from "./misc.js";
 
 function printMemberExpression(path, options, print) {
-  const node = path.getValue();
-
-  const parent = path.getParentNode();
-  let firstNonMemberParent;
-  let i = 0;
-  do {
-    firstNonMemberParent = path.getParentNode(i);
-    i++;
-  } while (
-    firstNonMemberParent &&
-    (isMemberExpression(firstNonMemberParent) ||
-      firstNonMemberParent.type === "TSNonNullExpression")
-  );
-
   const objectDoc = print("object");
   const lookupDoc = printMemberLookup(path, options, print);
+  const { node, parent } = path;
+  const firstNonMemberParent = path.findAncestor(
+    (node) => !(isMemberExpression(node) || node.type === "TSNonNullExpression")
+  );
 
   const shouldInline =
     (firstNonMemberParent &&
@@ -44,9 +30,9 @@ function printMemberExpression(path, options, print) {
         (node.object.type === "TSNonNullExpression" &&
           isCallExpression(node.object.expression) &&
           node.object.expression.arguments.length > 0) ||
-        objectDoc.label === "member-chain"));
+        objectDoc.label?.memberChain));
 
-  return label(objectDoc.label === "member-chain" ? "member-chain" : "member", [
+  return label(objectDoc.label, [
     objectDoc,
     shouldInline ? lookupDoc : group(indent([softline, lookupDoc])),
   ]);
@@ -54,7 +40,7 @@ function printMemberExpression(path, options, print) {
 
 function printMemberLookup(path, options, print) {
   const property = print("property");
-  const node = path.getValue();
+  const { node } = path;
   const optional = printOptionalToken(path);
 
   if (!node.computed) {
@@ -68,4 +54,4 @@ function printMemberLookup(path, options, print) {
   return group([optional, "[", indent([softline, property]), softline, "]"]);
 }
 
-module.exports = { printMemberExpression, printMemberLookup };
+export { printMemberExpression, printMemberLookup };

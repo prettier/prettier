@@ -2,7 +2,7 @@
 
 exports[`class_with_generics.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -21,21 +21,19 @@ class Component extends React.Component/*:: <Props, State> */ {
 =====================================output=====================================
 import React from "react";
 
-/*:: type Props = {
+type Props = {
   foo?: ?string,
   bar: number,
-}; */
-
-/*:: type State = { baz: number }; */
-
-class Component extends React.Component /*:: <Props, State> */ {}
+};
+type State = { baz: number };
+class Component extends React.Component<Props, State> {}
 
 ================================================================================
 `;
 
 exports[`constructor-field-override.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -55,7 +53,7 @@ class Foo {
 
 exports[`functions.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -67,8 +65,8 @@ export function updateStoreFromURL(
 
 =====================================output=====================================
 export function updateStoreFromURL(
-  store /*: Store*/,
-  { search, hash } /*: {search: string, hash: string}*/
+  store: Store,
+  { search, hash }: { search: string, hash: string },
 ) {}
 
 ================================================================================

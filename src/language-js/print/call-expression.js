@@ -1,76 +1,58 @@
-"use strict";
-
-const {
-  builders: { join, group },
-} = require("../../document/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const {
+import { join, group } from "../../document/builders.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
   getCallArguments,
-  hasFlowAnnotationComment,
   isCallExpression,
   isMemberish,
   isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
-} = require("../utils/index.js");
-const printMemberChain = require("./member-chain.js");
-const printCallArguments = require("./call-arguments.js");
-const {
-  printOptionalToken,
-  printFunctionTypeParameters,
-} = require("./misc.js");
+} from "../utils/index.js";
+import printMemberChain from "./member-chain.js";
+import printCallArguments from "./call-arguments.js";
+import { printOptionalToken, printFunctionTypeParameters } from "./misc.js";
 
 function printCallExpression(path, options, print) {
-  const node = path.getValue();
-  const parentNode = path.getParentNode();
+  const { node, parent } = path;
   const isNew = node.type === "NewExpression";
   const isDynamicImport = node.type === "ImportExpression";
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
+
+  const isTemplateLiteralSingleArg =
+    args.length === 1 && isTemplateOnItsOwnLine(args[0], options.originalText);
+
   if (
+    isTemplateLiteralSingleArg ||
     // Dangling comments are not handled, all these special cases should have arguments #9668
-    args.length > 0 &&
-    // We want to keep CommonJS- and AMD-style require calls, and AMD-style
-    // define calls, as a unit.
-    // e.g. `define(["some/lib"], (lib) => {`
-    ((!isDynamicImport && !isNew && isCommonsJsOrAmdCall(node, parentNode)) ||
-      // Template literals as single arguments
-      (args.length === 1 &&
-        isTemplateOnItsOwnLine(args[0], options.originalText)) ||
-      // Keep test declarations on a single line
-      // e.g. `it('long name', () => {`
-      (!isNew && isTestCall(node, parentNode)))
+    (args.length > 0 &&
+      !isNew &&
+      !isDynamicImport &&
+      // We want to keep CommonJS- and AMD-style require calls, and AMD-style
+      // define calls, as a unit.
+      // e.g. `define(["some/lib"], (lib) => {`
+      (isCommonsJsOrAmdCall(node, parent) ||
+        // Keep test declarations on a single line
+        // e.g. `it('long name', () => {`
+        isTestCall(node, parent)))
   ) {
     const printed = [];
     iterateCallArgumentsPath(path, () => {
       printed.push(print());
     });
-    return [
-      isNew ? "new " : "",
-      print("callee"),
-      optional,
-      printFunctionTypeParameters(path, options, print),
-      "(",
-      join(", ", printed),
-      ")",
-    ];
-  }
-
-  // Inline Flow annotation comments following Identifiers in Call nodes need to
-  // stay with the Identifier. For example:
-  //
-  // foo /*:: <SomeGeneric> */(bar);
-  //
-  // Here, we ensure that such comments stay between the Identifier and the Callee.
-  const isIdentifierWithFlowAnnotation =
-    (options.parser === "babel" || options.parser === "babel-flow") &&
-    node.callee &&
-    node.callee.type === "Identifier" &&
-    hasFlowAnnotationComment(node.callee.trailingComments);
-  if (isIdentifierWithFlowAnnotation) {
-    node.callee.trailingComments[0].printed = true;
+    if (!(isTemplateLiteralSingleArg && printed[0].label?.embed)) {
+      return [
+        isNew ? "new " : "",
+        print("callee"),
+        optional,
+        printFunctionTypeParameters(path, options, print),
+        "(",
+        join(", ", printed),
+        ")",
+      ];
+    }
   }
 
   // We detect calls on member lookups and possibly print them in a
@@ -88,9 +70,6 @@ function printCallExpression(path, options, print) {
     isNew ? "new " : "",
     isDynamicImport ? "import" : print("callee"),
     optional,
-    isIdentifierWithFlowAnnotation
-      ? `/*:: ${node.callee.trailingComments[0].value.slice(2).trim()} */`
-      : "",
     printFunctionTypeParameters(path, options, print),
     printCallArguments(path, options, print),
   ];
@@ -128,4 +107,4 @@ function isCommonsJsOrAmdCall(node, parentNode) {
   return false;
 }
 
-module.exports = { printCallExpression };
+export { printCallExpression };

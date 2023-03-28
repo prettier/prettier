@@ -154,7 +154,8 @@ em {
 }
 
 .mainContainer .tldrSection ul li a {
-  font-size: 18px;
+  color: inherit !important;
+  font-size: inherit;
 }
 
 .tldrSection li::before {

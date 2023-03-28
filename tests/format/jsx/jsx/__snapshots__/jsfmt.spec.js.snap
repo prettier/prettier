@@ -677,7 +677,7 @@ async function testFunction() {
   const long = (
     <>
       {await Promise.all(
-        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter,
       )}
       {
         await hierarchyCriticism.IncongruousCooperate.MaterialEducation
@@ -688,7 +688,7 @@ async function testFunction() {
       }
 
       {Promise.all(
-        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter,
       )}
       {
         hierarchyCriticism.IncongruousCooperate.MaterialEducation
@@ -775,7 +775,7 @@ async function testFunction() {
   const long = (
     <>
       {await Promise.all(
-        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter,
       )}
       {
         await hierarchyCriticism.IncongruousCooperate.MaterialEducation
@@ -786,7 +786,7 @@ async function testFunction() {
       }
 
       {Promise.all(
-        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter,
       )}
       {
         hierarchyCriticism.IncongruousCooperate.MaterialEducation
@@ -873,7 +873,7 @@ async function testFunction() {
   const long = (
     <>
       {await Promise.all(
-        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter,
       )}
       {
         await hierarchyCriticism.IncongruousCooperate.MaterialEducation
@@ -884,7 +884,7 @@ async function testFunction() {
       }
 
       {Promise.all(
-        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter,
       )}
       {
         hierarchyCriticism.IncongruousCooperate.MaterialEducation
@@ -971,7 +971,7 @@ async function testFunction() {
   const long = (
     <>
       {await Promise.all(
-        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter,
       )}
       {
         await hierarchyCriticism.IncongruousCooperate.MaterialEducation
@@ -982,7 +982,7 @@ async function testFunction() {
       }
 
       {Promise.all(
-        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter,
       )}
       {
         hierarchyCriticism.IncongruousCooperate.MaterialEducation
@@ -2368,17 +2368,6 @@ singleQuote: false
   }}
 />;
 
-<Component
-  onChange={(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>,
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
-  }}
-/>;
-
 <BookingIntroPanel>
   {data => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
@@ -2394,17 +2383,6 @@ singleQuote: false
     doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
   }}
 </BookingIntroPanel>;
-
-<Component>
-  {(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>,
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
-  }}
-</Component>;
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: "scroll" }}>
@@ -2490,7 +2468,7 @@ singleQuote: false
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
-      data
+      data,
     )
   }
 />;
@@ -2500,19 +2478,8 @@ singleQuote: false
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
-      data
+      data,
     );
-  }}
-/>;
-
-<Component
-  onChange={(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
   }}
 />;
 
@@ -2525,7 +2492,7 @@ singleQuote: false
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
-      data
+      data,
     )
   }
 </BookingIntroPanel>;
@@ -2535,21 +2502,10 @@ singleQuote: false
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
-      data
+      data,
     );
   }}
 </BookingIntroPanel>;
-
-<Component>
-  {(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
-</Component>;
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: "scroll" }}>
@@ -2656,17 +2612,6 @@ singleQuote: false
   }}
 />;
 
-<Component
-  onChange={(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>,
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
-  }}
-/>;
-
 <BookingIntroPanel>
   {data => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
@@ -2682,17 +2627,6 @@ singleQuote: false
     doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
   }}
 </BookingIntroPanel>;
-
-<Component>
-  {(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>,
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
-  }}
-</Component>;
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: "scroll" }}>
@@ -2778,7 +2712,7 @@ singleQuote: false
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
-      data
+      data,
     )
   }
 />;
@@ -2788,19 +2722,8 @@ singleQuote: false
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
-      data
+      data,
     );
-  }}
-/>;
-
-<Component
-  onChange={(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
   }}
 />;
 
@@ -2813,7 +2736,7 @@ singleQuote: false
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
-      data
+      data,
     )
   }
 </BookingIntroPanel>;
@@ -2823,21 +2746,10 @@ singleQuote: false
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
-      data
+      data,
     );
   }}
 </BookingIntroPanel>;
-
-<Component>
-  {(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
-</Component>;
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: "scroll" }}>
@@ -2944,17 +2856,6 @@ singleQuote: true
   }}
 />;
 
-<Component
-  onChange={(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>,
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
-  }}
-/>;
-
 <BookingIntroPanel>
   {data => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
@@ -2970,17 +2871,6 @@ singleQuote: true
     doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
   }}
 </BookingIntroPanel>;
-
-<Component>
-  {(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>,
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
-  }}
-</Component>;
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: "scroll" }}>
@@ -3066,7 +2956,7 @@ singleQuote: true
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
-      data
+      data,
     )
   }
 />;
@@ -3076,19 +2966,8 @@ singleQuote: true
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
-      data
+      data,
     );
-  }}
-/>;
-
-<Component
-  onChange={(
-    key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
   }}
 />;
 
@@ -3101,7 +2980,7 @@ singleQuote: true
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
-      data
+      data,
     )
   }
 </BookingIntroPanel>;
@@ -3111,21 +2990,10 @@ singleQuote: true
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
-      data
+      data,
     );
   }}
 </BookingIntroPanel>;
-
-<Component>
-  {(
-    key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
-</Component>;
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: 'scroll' }}>
@@ -3232,17 +3100,6 @@ singleQuote: true
   }}
 />;
 
-<Component
-  onChange={(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>,
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
-  }}
-/>;
-
 <BookingIntroPanel>
   {data => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
@@ -3258,17 +3115,6 @@ singleQuote: true
     doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
   }}
 </BookingIntroPanel>;
-
-<Component>
-  {(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>,
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
-  }}
-</Component>;
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: "scroll" }}>
@@ -3354,7 +3200,7 @@ singleQuote: true
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
-      data
+      data,
     )
   }
 />;
@@ -3364,19 +3210,8 @@ singleQuote: true
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
-      data
+      data,
     );
-  }}
-/>;
-
-<Component
-  onChange={(
-    key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
   }}
 />;
 
@@ -3389,7 +3224,7 @@ singleQuote: true
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
-      data
+      data,
     )
   }
 </BookingIntroPanel>;
@@ -3399,21 +3234,10 @@ singleQuote: true
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
-      data
+      data,
     );
   }}
 </BookingIntroPanel>;
-
-<Component>
-  {(
-    key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
-</Component>;
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: 'scroll' }}>

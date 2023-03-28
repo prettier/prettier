@@ -1,5 +1,3 @@
-"use strict";
-
 function stringifyNode(node) {
   if (node.groups) {
     const open = node.open?.value || "";
@@ -22,4 +20,4 @@ function stringifyNode(node) {
   return before + quote + atword + value + quote + unit + group + after;
 }
 
-module.exports = stringifyNode;
+export default stringifyNode;

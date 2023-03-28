@@ -1,12 +1,6 @@
 #!/usr/bin/env node
 
-"use strict";
+// Add this file so we can use `node bin/prettier` or `node bin/prettier.js`
+// instead of `node bin/prettier.cjs`.
 
-var pleaseUpgradeNode = require("please-upgrade-node");
-var packageJson = require("../package.json");
-
-pleaseUpgradeNode(packageJson);
-
-var cli = require("../src/cli/index.js");
-
-module.exports = cli.run(process.argv.slice(2));
+import "./prettier.cjs";

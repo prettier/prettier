@@ -1,1 +1,1 @@
-run_spec(__dirname, ["graphql"], { insertPragma: true });
+run_spec(import.meta, ["graphql"], { insertPragma: true });

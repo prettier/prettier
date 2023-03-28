@@ -1,2 +1,2 @@
-run_spec(__dirname, ["flow"], { arrowParens: "always" });
-run_spec(__dirname, ["flow"], { arrowParens: "avoid" });
+run_spec(import.meta, ["flow"], { arrowParens: "always" });
+run_spec(import.meta, ["flow"], { arrowParens: "avoid" });

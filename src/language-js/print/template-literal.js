@@ -1,38 +1,31 @@
-"use strict";
-
-const getLast = require("../../utils/get-last.js");
-const { getStringWidth, getIndentSize } = require("../../common/util.js");
-const {
-  builders: {
-    join,
-    hardline,
-    softline,
-    group,
-    indent,
-    align,
-    lineSuffixBoundary,
-    addAlignmentToDoc,
-  },
-  printer: { printDocToString },
-  utils: { mapDoc },
-} = require("../../document/index.js");
-const {
+import getStringWidth from "../../utils/get-string-width.js";
+import getIndentSize from "../../utils/get-indent-size.js";
+import {
+  join,
+  hardline,
+  softline,
+  group,
+  indent,
+  align,
+  lineSuffixBoundary,
+  addAlignmentToDoc,
+  label,
+} from "../../document/builders.js";
+import { printDocToString } from "../../document/printer.js";
+import { mapDoc } from "../../document/utils.js";
+import {
   isBinaryish,
-  isJestEachTemplateLiteral,
   isSimpleTemplateLiteral,
   hasComment,
   isMemberExpression,
   isTSTypeExpression,
-} = require("../utils/index.js");
+} from "../utils/index.js";
 
 function printTemplateLiteral(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
   const isTemplateLiteral = node.type === "TemplateLiteral";
 
-  if (
-    isTemplateLiteral &&
-    isJestEachTemplateLiteral(node, path.getParentNode())
-  ) {
+  if (isTemplateLiteral && isJestEachTemplateLiteral(path)) {
     const printed = printJestEachTemplateLiteral(path, options, print);
     if (printed) {
       return printed;
@@ -44,11 +37,11 @@ function printTemplateLiteral(path, print, options) {
   }
   const parts = [];
 
-  let expressions = path.map(print, expressionsKey);
+  let expressionDocs = path.map(print, expressionsKey);
   const isSimple = isSimpleTemplateLiteral(node);
 
   if (isSimple) {
-    expressions = expressions.map(
+    expressionDocs = expressionDocs.map(
       (doc) =>
         printDocToString(doc, {
           ...options,
@@ -59,57 +52,71 @@ function printTemplateLiteral(path, print, options) {
 
   parts.push(lineSuffixBoundary, "`");
 
-  path.each((childPath) => {
-    const i = childPath.getName();
-
+  let previousQuasiIndentSize = 0;
+  path.each(({ index, node: quasi }) => {
     parts.push(print());
 
-    if (i < expressions.length) {
-      // For a template literal of the following form:
-      //   `someQuery {
-      //     ${call({
-      //       a,
-      //       b,
-      //     })}
-      //   }`
-      // the expression is on its own line (there is a \n in the previous
-      // quasi literal), therefore we want to indent the JavaScript
-      // expression inside at the beginning of ${ instead of the beginning
-      // of the `.
-      const { tabWidth } = options;
-      const quasi = childPath.getValue();
-      const indentSize = getIndentSize(quasi.value.raw, tabWidth);
-
-      let printed = expressions[i];
-
-      if (!isSimple) {
-        const expression = node[expressionsKey][i];
-        // Breaks at the template element boundaries (${ and }) are preferred to breaking
-        // in the middle of a MemberExpression
-        if (
-          hasComment(expression) ||
-          isMemberExpression(expression) ||
-          expression.type === "ConditionalExpression" ||
-          expression.type === "SequenceExpression" ||
-          isTSTypeExpression(expression) ||
-          isBinaryish(expression)
-        ) {
-          printed = [indent([softline, printed]), softline];
-        }
-      }
-
-      const aligned =
-        indentSize === 0 && quasi.value.raw.endsWith("\n")
-          ? align(Number.NEGATIVE_INFINITY, printed)
-          : addAlignmentToDoc(printed, indentSize, tabWidth);
-
-      parts.push(group(["${", aligned, lineSuffixBoundary, "}"]));
+    if (quasi.tail) {
+      return;
     }
+
+    // For a template literal of the following form:
+    //   `someQuery {
+    //     ${call({
+    //       a,
+    //       b,
+    //     })}
+    //   }`
+    // the expression is on its own line (there is a \n in the previous
+    // quasi literal), therefore we want to indent the JavaScript
+    // expression inside at the beginning of ${ instead of the beginning
+    // of the `.
+    const { tabWidth } = options;
+    const text = quasi.value.raw;
+    const indentSize = text.includes("\n")
+      ? getIndentSize(text, tabWidth)
+      : previousQuasiIndentSize;
+    previousQuasiIndentSize = indentSize;
+
+    let expressionDoc = expressionDocs[index];
+
+    if (!isSimple) {
+      const expression = node[expressionsKey][index];
+      // Breaks at the template element boundaries (${ and }) are preferred to breaking
+      // in the middle of a MemberExpression
+      if (
+        hasComment(expression) ||
+        isMemberExpression(expression) ||
+        expression.type === "ConditionalExpression" ||
+        expression.type === "SequenceExpression" ||
+        isTSTypeExpression(expression) ||
+        isBinaryish(expression)
+      ) {
+        expressionDoc = [indent([softline, expressionDoc]), softline];
+      }
+    }
+
+    const aligned =
+      indentSize === 0 && text.endsWith("\n")
+        ? align(Number.NEGATIVE_INFINITY, expressionDoc)
+        : addAlignmentToDoc(expressionDoc, indentSize, tabWidth);
+
+    parts.push(group(["${", aligned, lineSuffixBoundary, "}"]));
   }, "quasis");
 
   parts.push("`");
 
   return parts;
+}
+
+function printTaggedTemplateLiteral(print) {
+  const quasiDoc = print("quasi");
+  return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
+    print("tag"),
+    print("typeParameters"),
+    lineSuffixBoundary,
+    quasiDoc,
+  ]);
 }
 
 function printJestEachTemplateLiteral(path, options, print) {
@@ -119,7 +126,7 @@ function printJestEachTemplateLiteral(path, options, print) {
    * ${1} | ${2} | ${3}
    * ${2} | ${1} | ${3}
    */
-  const node = path.getNode();
+  const { node } = path;
   const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
     headerNames.length > 1 ||
@@ -142,7 +149,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 
     const tableBody = [{ hasLineBreak: false, cells: [] }];
     for (let i = 1; i < node.quasis.length; i++) {
-      const row = getLast(tableBody);
+      const row = tableBody.at(-1);
       const correspondingExpression = stringifiedExpressions[i - 1];
 
       row.cells.push(correspondingExpression);
@@ -202,7 +209,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 }
 
 function printTemplateExpression(path, print) {
-  const node = path.getValue();
+  const { node } = path;
   let printed = print();
   if (hasComment(node)) {
     printed = group([indent([softline, printed]), softline]);
@@ -221,7 +228,7 @@ function escapeTemplateCharacters(doc, raw) {
   return mapDoc(doc, (currentDoc) => {
     if (typeof currentDoc === "string") {
       return raw
-        ? currentDoc.replace(/(\\*)`/g, "$1$1\\`")
+        ? currentDoc.replaceAll(/(\\*)`/g, "$1$1\\`")
         : uncookTemplateElementValue(currentDoc);
     }
 
@@ -230,11 +237,41 @@ function escapeTemplateCharacters(doc, raw) {
 }
 
 function uncookTemplateElementValue(cookedValue) {
-  return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
+  return cookedValue.replaceAll(/([\\`]|\${)/g, "\\$1");
 }
 
-module.exports = {
+function isJestEachTemplateLiteral({ node, parent }) {
+  /**
+   * describe.each`table`(name, fn)
+   * describe.only.each`table`(name, fn)
+   * describe.skip.each`table`(name, fn)
+   * test.each`table`(name, fn)
+   * test.only.each`table`(name, fn)
+   * test.skip.each`table`(name, fn)
+   *
+   * Ref: https://github.com/facebook/jest/pull/6102
+   */
+  const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/;
+  return (
+    parent.type === "TaggedTemplateExpression" &&
+    parent.quasi === node &&
+    parent.tag.type === "MemberExpression" &&
+    parent.tag.property.type === "Identifier" &&
+    parent.tag.property.name === "each" &&
+    ((parent.tag.object.type === "Identifier" &&
+      jestEachTriggerRegex.test(parent.tag.object.name)) ||
+      (parent.tag.object.type === "MemberExpression" &&
+        parent.tag.object.property.type === "Identifier" &&
+        (parent.tag.object.property.name === "only" ||
+          parent.tag.object.property.name === "skip") &&
+        parent.tag.object.object.type === "Identifier" &&
+        jestEachTriggerRegex.test(parent.tag.object.object.name)))
+  );
+}
+
+export {
   printTemplateLiteral,
+  printTaggedTemplateLiteral,
   printTemplateExpressions,
   escapeTemplateCharacters,
   uncookTemplateElementValue,

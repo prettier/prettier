@@ -1,3 +1,261 @@
+# 2.8.7
+
+[diff](https://github.com/prettier/prettier/compare/2.8.6...2.8.7)
+
+#### Allow multiple decorators on same getter/setter ([#14584](https://github.com/prettier/prettier/pull/14584) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class A {
+  @decorator()
+  get foo () {}
+  
+  @decorator()
+  set foo (value) {}
+}
+
+// Prettier 2.8.6
+SyntaxError: Decorators cannot be applied to multiple get/set accessors of the same name. (5:3)
+  3 |   get foo () {}
+  4 |   
+> 5 |   @decorator()
+    |   ^^^^^^^^^^^^
+  6 |   set foo (value) {}
+  7 | }
+
+// Prettier 2.8.7
+class A {
+  @decorator()
+  get foo() {}
+
+  @decorator()
+  set foo(value) {}
+}
+```
+
+# 2.8.6
+
+[diff](https://github.com/prettier/prettier/compare/2.8.5...2.8.6)
+
+#### Allow decorators on private members and class expressions ([#14548](https://github.com/prettier/prettier/pull/14548) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class A {
+  @decorator()
+  #privateMethod () {}
+}
+
+// Prettier 2.8.5
+SyntaxError: Decorators are not valid here. (2:3)
+  1 | class A {
+> 2 |   @decorator()
+    |   ^^^^^^^^^^^^
+  3 |   #privateMethod () {}
+  4 | }
+
+// Prettier 2.8.6
+class A {
+  @decorator()
+  #privateMethod() {}
+}
+```
+
+# 2.8.5
+
+[diff](https://github.com/prettier/prettier/compare/2.8.4...2.8.5)
+
+#### Support TypeScript 5.0 ([#14391](https://github.com/prettier/prettier/pull/14391) by [@fisker](https://github.com/fisker), [#13819](https://github.com/prettier/prettier/pull/13819) by [@fisker](https://github.com/fisker), [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+TypeScript 5.0 introduces two new syntactic features:
+
+- `const` modifiers for type parameters
+- `export type *` declarations
+
+#### Add missing parentheses for decorator ([#14393](https://github.com/prettier/prettier/pull/14393) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+class Person {
+  @(myDecoratorArray[0])
+  greet() {}
+}
+
+// Prettier 2.8.4
+class Person {
+  @myDecoratorArray[0]
+  greet() {}
+}
+
+// Prettier 2.8.5
+class Person {
+  @(myDecoratorArray[0])
+  greet() {}
+}
+```
+
+#### Add parentheses for `TypeofTypeAnnotation` to improve readability ([#14458](https://github.com/prettier/prettier/pull/14458) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type A = (typeof node.children)[];
+
+// Prettier 2.8.4
+type A = typeof node.children[];
+
+// Prettier 2.8.5
+type A = (typeof node.children)[];
+```
+
+#### Support `max_line_length=off` when parsing `.editorconfig` ([#14516](https://github.com/prettier/prettier/pull/14516) by [@josephfrazier](https://github.com/josephfrazier))
+
+If an .editorconfig file is in your project and it sets `max_line_length=off` for the file you're formatting,
+it will be interpreted as a `printWidth` of `Infinity` rather than being ignored
+(which previously resulted in the default `printWidth` of 80 being applied, if not overridden by Prettier-specific configuration).
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<div className='HelloWorld' title={`You are visitor number ${ num }`} onMouseOver={onMouseOver}/>
+
+<!-- Prettier 2.8.4 -->
+<div
+  className="HelloWorld"
+  title={`You are visitor number ${num}`}
+  onMouseOver={onMouseOver}
+/>;
+
+<!-- Prettier 2.8.5 -->
+<div className="HelloWorld" title={`You are visitor number ${num}`} onMouseOver={onMouseOver} />;
+```
+
+# 2.8.4
+
+[diff](https://github.com/prettier/prettier/compare/2.8.3...2.8.4)
+
+#### Fix leading comments in mapped types with `readonly` ([#13427](https://github.com/prettier/prettier/pull/13427) by [@thorn0](https://github.com/thorn0), [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type Type = {
+  // comment
+  readonly [key in Foo];
+};
+
+// Prettier 2.8.3
+type Type = {
+  readonly // comment
+  [key in Foo];
+};
+
+// Prettier 2.8.4
+type Type = {
+  // comment
+  readonly [key in Foo];
+};
+```
+
+#### Group params in opening block statements ([#14067](https://github.com/prettier/prettier/pull/14067) by [@jamescdavis](https://github.com/jamescdavis))
+
+This is a follow-up to #13930 to establish wrapping consistency between opening block statements and else blocks by
+grouping params in opening blocks. This causes params to break to a new line together and not be split across lines
+unless the length of params exceeds the print width. This also updates the else block wrapping to behave exactly the
+same as opening blocks.
+
+<!-- prettier-ignore -->
+```hbs
+{{! Input }}
+{{#block param param param param param param param param param param as |blockParam|}}
+  Hello
+{{else block param param param param param param param param param param as |blockParam|}}
+  There
+{{/block}}
+
+{{! Prettier 2.8.3 }}
+{{#block
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  as |blockParam|
+}}
+  Hello
+{{else block param
+param
+param
+param
+param
+param
+param
+param
+param
+param}}
+  There
+{{/block}}
+
+{{! Prettier 2.8.4 }}
+{{#block
+  param param param param param param param param param param
+  as |blockParam|
+}}
+  Hello
+{{else block
+  param param param param param param param param param param
+  as |blockParam|
+}}
+  There
+{{/block}}
+```
+
+#### Ignore files in `.sl/` ([#14206](https://github.com/prettier/prettier/pull/14206) by [@bolinfest](https://github.com/bolinfest))
+
+In [Sapling SCM](https://sapling-scm.com/), `.sl/` is the folder where it stores its state, analogous to `.git/` in Git. It should be ignored in Prettier like the other SCM folders.
+
+#### Recognize `@satisfies` in Closure-style type casts ([#14262](https://github.com/prettier/prettier/pull/14262) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+const a = /** @satisfies {Record<string, string>} */ ({hello: 1337});
+const b = /** @type {Record<string, string>} */ ({hello: 1337});
+
+// Prettier 2.8.3
+const a = /** @satisfies {Record<string, string>} */ { hello: 1337 };
+const b = /** @type {Record<string, string>} */ ({ hello: 1337 });
+
+// Prettier 2.8.4
+const a = /** @satisfies {Record<string, string>} */ ({hello: 1337});
+const b = /** @type {Record<string, string>} */ ({hello: 1337});
+```
+
+#### Fix parens in inferred function return types with `extends` ([#14279](https://github.com/prettier/prettier/pull/14279) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type Foo<T> = T extends ((a) => a is infer R extends string) ? R : never;
+
+// Prettier 2.8.3 (First format)
+type Foo<T> = T extends (a) => a is infer R extends string ? R : never;
+
+// Prettier 2.8.3 (Second format)
+SyntaxError: '?' expected. 
+
+// Prettier 2.8.4
+type Foo<T> = T extends ((a) => a is infer R extends string) ? R : never;
+```
+
 # 2.8.3
 
 [diff](https://github.com/prettier/prettier/compare/2.8.2...2.8.3)

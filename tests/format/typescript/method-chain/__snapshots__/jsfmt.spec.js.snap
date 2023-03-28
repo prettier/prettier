@@ -2,7 +2,7 @@
 
 exports[`comment.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -24,13 +24,13 @@ this.firebase
     (
       shop: ShopQueryResult,
       index: number,
-      source: Observable<ShopQueryResult>
+      source: Observable<ShopQueryResult>,
     ): any => {
       // add distance to result
       const s = shop;
       s.distance = shopLocation.distance;
       return s;
-    }
+    },
   );
 
 ================================================================================

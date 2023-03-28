@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`await-keywords.js [babel-flow] format 1`] = `
+"'await' is only allowed within async functions and at the top levels of modules. (12:7)
+  10 |
+  11 | export class C2 {
+> 12 |   p = await 0;
+     |       ^
+  13 | }
+  14 |
+  15 | function foo(promise) { await (promise); }"
+`;
+
 exports[`await-keywords.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -15,8 +26,6 @@ await (0);
 async function foo() {
   function bar(x = await (2)) {}
 }
-
-async (x = await (2)) => {};
 
 export class C2 {
   p = await 0;
@@ -51,8 +60,6 @@ await(0);
 async function foo() {
   function bar(x = await(2)) {}
 }
-
-async (x = await(2)) => {};
 
 export class C2 {
   p = await;

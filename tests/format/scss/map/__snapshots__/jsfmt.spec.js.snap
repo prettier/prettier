@@ -1,5 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`key-values.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+$map: (
+  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
+  ('key': 'value',),
+  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
+  ('list'),
+  ('list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list'):
+  ('list'),
+  ('list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list'):
+  ('key': 'value',),
+  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
+  1,
+);
+
+=====================================output=====================================
+$map: (
+  (
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
+  ):
+    (
+      "key": "value",
+    ),
+  (
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
+  ):
+    (
+      "list",
+    ),
+  (
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+  ):
+    (
+      "list",
+    ),
+  (
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+  ):
+    (
+      "key": "value",
+    ),
+  (
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
+  ):
+    1,
+);
+
+================================================================================
+`;
+
 exports[`key-values.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
@@ -85,85 +170,47 @@ $map: (
 ================================================================================
 `;
 
-exports[`key-values.scss format 1`] = `
+exports[`keys.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 $map: (
-  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
-  ('key': 'value',),
-  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
-  ('list'),
-  ('list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list'):
-  ('list'),
-  ('list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list'):
-  ('key': 'value',),
-  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
-  1,
+  'string': 'hello world',
+  ('list'): 'hello world',
+  ('key': 'value'): 'hello world',
+  ('list', 'long long long long long long long long long long long long long list'): 'hello world',
+  ('key': 'value','long long long long long long long long long long long long long map': 'value',): 'hello world',
+);
+
+// #10000
+$map: (
+	('my list'): 'hello world',
 );
 
 =====================================output=====================================
 $map: (
-  (
-    "key": "value",
-    "key": "value",
-    "key": "value",
-    "key": "value",
-    "key": "value",
-  ):
-    (
-      "key": "value",
-    ),
-  (
-    "key": "value",
-    "key": "value",
-    "key": "value",
-    "key": "value",
-    "key": "value",
-  ):
-    (
-      "list",
-    ),
+  "string": "hello world",
+  ("list"): "hello world",
+  ("key": "value"): "hello world",
   (
     "list",
-    "list",
-    "list",
-    "list",
-    "list",
-    "list",
-    "list",
-    "list",
-    "list",
-    "list",
+    "long long long long long long long long long long long long long list",
   ):
-    (
-      "list",
-    ),
-  (
-    "list",
-    "list",
-    "list",
-    "list",
-    "list",
-    "list",
-    "list",
-    "list",
-    "list",
-    "list",
-  ):
-    (
-      "key": "value",
-    ),
+    "hello world",
   (
     "key": "value",
-    "key": "value",
-    "key": "value",
-    "key": "value",
-    "key": "value",
+    "long long long long long long long long long long long long long map":
+      "value",
   ):
-    1,
+    "hello world",
+);
+
+// #10000
+$map: (
+  ("my list"): "hello world",
 );
 
 ================================================================================
@@ -210,51 +257,6 @@ $map: (
 // #10000
 $map: (
   ("my list"): "hello world"
-);
-
-================================================================================
-`;
-
-exports[`keys.scss format 1`] = `
-====================================options=====================================
-parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-$map: (
-  'string': 'hello world',
-  ('list'): 'hello world',
-  ('key': 'value'): 'hello world',
-  ('list', 'long long long long long long long long long long long long long list'): 'hello world',
-  ('key': 'value','long long long long long long long long long long long long long map': 'value',): 'hello world',
-);
-
-// #10000
-$map: (
-	('my list'): 'hello world',
-);
-
-=====================================output=====================================
-$map: (
-  "string": "hello world",
-  ("list"): "hello world",
-  ("key": "value"): "hello world",
-  (
-    "list",
-    "long long long long long long long long long long long long long list",
-  ):
-    "hello world",
-  (
-    "key": "value",
-    "long long long long long long long long long long long long long map":
-      "value",
-  ):
-    "hello world",
-);
-
-// #10000
-$map: (
-  ("my list"): "hello world",
 );
 
 ================================================================================

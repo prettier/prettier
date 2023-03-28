@@ -1,3 +1,5 @@
 "use strict";
 
-module.exports = (file) => file;
+const parentModule = (file) => file;
+
+module.exports = parentModule;

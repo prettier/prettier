@@ -1,13 +1,8 @@
-"use strict";
-
-const { printComments } = require("../../main/comments.js");
-const {
-  getLast,
-  isNextLineEmptyAfterIndex,
-  getNextNonSpaceNonCommentCharacterIndex,
-} = require("../../common/util.js");
-const pathNeedsParens = require("../needs-parens.js");
-const {
+import { printComments } from "../../main/comments/print.js";
+import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
   isCallExpression,
   isMemberExpression,
   isFunctionOrArrowExpression,
@@ -18,28 +13,26 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils/index.js");
-const { locEnd } = require("../loc.js");
+} from "../utils/index.js";
+import { locEnd } from "../loc.js";
 
-const {
-  builders: {
-    join,
-    hardline,
-    group,
-    indent,
-    conditionalGroup,
-    breakParent,
-    label,
-  },
-  utils: { willBreak },
-} = require("../../document/index.js");
-const printCallArguments = require("./call-arguments.js");
-const { printMemberLookup } = require("./member.js");
-const {
+import {
+  join,
+  hardline,
+  group,
+  indent,
+  conditionalGroup,
+  breakParent,
+  label,
+} from "../../document/builders.js";
+import { willBreak } from "../../document/utils.js";
+import printCallArguments from "./call-arguments.js";
+import { printMemberLookup } from "./member.js";
+import {
   printOptionalToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
-} = require("./misc.js");
+} from "./misc.js";
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
@@ -53,7 +46,7 @@ const {
 // MemberExpression and CallExpression. We need to traverse the AST
 // and make groups out of it to print it in the desired way.
 function printMemberChain(path, options, print) {
-  const parent = path.getParentNode();
+  const { parent } = path;
   const isExpressionStatement =
     !parent || parent.type === "ExpressionStatement";
 
@@ -72,8 +65,7 @@ function printMemberChain(path, options, print) {
     const { originalText } = options;
     const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
-      node,
-      locEnd
+      locEnd(node)
     );
     const nextChar = originalText.charAt(nextCharIndex);
 
@@ -90,7 +82,7 @@ function printMemberChain(path, options, print) {
   }
 
   function rec(path) {
-    const node = path.getValue();
+    const { node } = path;
     if (
       isCallExpression(node) &&
       (isMemberish(node.callee) || isCallExpression(node.callee))
@@ -140,7 +132,7 @@ function printMemberChain(path, options, print) {
   // Note: the comments of the root node have already been printed, so we
   // need to extract this first call without printing them as they would
   // if handled inside of the recursive call.
-  const node = path.getValue();
+  const { node } = path;
   printedNodes.unshift({
     node,
     printed: [
@@ -277,7 +269,7 @@ function printMemberChain(path, options, print) {
   }
 
   function shouldNotWrap(groups) {
-    const hasComputed = groups[1].length > 0 && groups[1][0].node.computed;
+    const hasComputed = groups[1][0]?.node.computed;
 
     if (groups[0].length === 1) {
       const firstNode = groups[0][0].node;
@@ -290,7 +282,7 @@ function printMemberChain(path, options, print) {
       );
     }
 
-    const lastNode = getLast(groups[0]).node;
+    const lastNode = groups[0].at(-1).node;
     return (
       isMemberExpression(lastNode) &&
       lastNode.property.type === "Identifier" &&
@@ -307,14 +299,14 @@ function printMemberChain(path, options, print) {
     const printed = printedGroup.map((tuple) => tuple.printed);
     // Checks if the last node (i.e. the parent node) needs parens and print
     // accordingly
-    if (printedGroup.length > 0 && getLast(printedGroup).needsParens) {
+    if (printedGroup.length > 0 && printedGroup.at(-1).needsParens) {
       return ["(", ...printed, ")"];
     }
     return printed;
   }
 
   function printIndentedGroup(groups) {
-    /* istanbul ignore next */
+    /* c8 ignore next 3 */
     if (groups.length === 0) {
       return "";
     }
@@ -348,7 +340,7 @@ function printMemberChain(path, options, print) {
 
   // Find out the last node in the first group and check if it has an
   // empty line after
-  const lastNodeBeforeIndent = getLast(groups[shouldMerge ? 1 : 0]).node;
+  const lastNodeBeforeIndent = groups[shouldMerge ? 1 : 0].at(-1).node;
   const shouldHaveEmptyLineBeforeIndent =
     !isCallExpression(lastNodeBeforeIndent) &&
     shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
@@ -365,8 +357,8 @@ function printMemberChain(path, options, print) {
     .filter(isCallExpression);
 
   function lastGroupWillBreakAndOtherCallsHaveFunctionArguments() {
-    const lastGroupNode = getLast(getLast(groups)).node;
-    const lastGroupDoc = getLast(printedGroups);
+    const lastGroupNode = groups.at(-1).at(-1).node;
+    const lastGroupDoc = printedGroups.at(-1);
     return (
       isCallExpression(lastGroupNode) &&
       willBreak(lastGroupDoc) &&
@@ -388,7 +380,7 @@ function printMemberChain(path, options, print) {
     nodeHasComment ||
     (callExpressions.length > 2 &&
       callExpressions.some(
-        (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg, 0))
+        (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg))
       )) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     lastGroupWillBreakAndOtherCallsHaveFunctionArguments()
@@ -404,7 +396,7 @@ function printMemberChain(path, options, print) {
     ];
   }
 
-  return label("member-chain", result);
+  return label({ memberChain: true }, result);
 }
 
-module.exports = printMemberChain;
+export default printMemberChain;

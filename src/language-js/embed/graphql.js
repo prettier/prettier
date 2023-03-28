@@ -1,20 +1,14 @@
-"use strict";
-
-const {
-  builders: { indent, join, hardline },
-} = require("../../document/index.js");
-const {
+import { indent, join, hardline } from "../../document/builders.js";
+import {
   escapeTemplateCharacters,
   printTemplateExpressions,
-} = require("../print/template-literal.js");
+} from "../print/template-literal.js";
+import { hasLanguageComment } from "./utils.js";
 
-function format(path, print, textToDoc) {
-  const node = path.getValue();
+async function printEmbedGraphQL(textToDoc, print, path /*, options*/) {
+  const { node } = path;
 
   const numQuasis = node.quasis.length;
-  if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
-    return "``";
-  }
 
   const expressionDocs = printTemplateExpressions(path, print);
   const parts = [];
@@ -50,11 +44,7 @@ function format(path, print, textToDoc) {
     if (commentsAndWhitespaceOnly) {
       doc = printGraphqlComments(lines);
     } else {
-      doc = textToDoc(
-        text,
-        { parser: "graphql" },
-        { stripTrailingHardline: true }
-      );
+      doc = await textToDoc(text, { parser: "graphql" });
     }
 
     if (doc) {
@@ -105,4 +95,36 @@ function printGraphqlComments(lines) {
   return parts.length === 0 ? null : join(hardline, parts);
 }
 
-module.exports = format;
+/*
+ * react-relay and graphql-tag
+ * graphql`...`
+ * graphql.experimental`...`
+ * gql`...`
+ * GraphQL comment block
+ *
+ * This intentionally excludes Relay Classic tags, as Prettier does not
+ * support Relay Classic formatting.
+ */
+function isGraphQL({ node, parent }) {
+  return (
+    hasLanguageComment(node, "GraphQL") ||
+    (parent &&
+      ((parent.type === "TaggedTemplateExpression" &&
+        ((parent.tag.type === "MemberExpression" &&
+          parent.tag.object.name === "graphql" &&
+          parent.tag.property.name === "experimental") ||
+          (parent.tag.type === "Identifier" &&
+            (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
+        (parent.type === "CallExpression" &&
+          parent.callee.type === "Identifier" &&
+          parent.callee.name === "graphql")))
+  );
+}
+
+function printGraphql(path /*, options*/) {
+  if (isGraphQL(path)) {
+    return printEmbedGraphQL;
+  }
+}
+
+export default printGraphql;

@@ -3,6 +3,7 @@
   "version": "1.0.3",
   "description": "Prettier internal eslint rules",
   "private": true,
+  "type": "commonjs",
   "author": "fisker",
   "main": "./index.js",
   "license": "MIT",

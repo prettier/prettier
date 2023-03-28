@@ -1,1 +1,1 @@
-run_spec(__dirname, ["markdown"], { trailingComma: "all" });
+run_spec(import.meta, ["markdown"], { trailingComma: "all" });

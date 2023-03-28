@@ -1,20 +1,19 @@
-"use strict";
+import { createRequire } from "node:module";
+import createError from "../../common/parser-create-error.js";
+import tryCombinations from "../../utils/try-combinations.js";
+import createParser from "./utils/create-parser.js";
+import postprocess from "./postprocess/index.js";
+import getSourceType from "./utils/get-source-type.js";
 
-const createError = require("../../common/parser-create-error.js");
-const tryCombinations = require("../../utils/try-combinations.js");
-const createParser = require("./utils/create-parser.js");
-const postprocess = require("./postprocess/index.js");
+const require = createRequire(import.meta.url);
 
 /** @type {import("acorn").Options} */
 const parseOptions = {
   ecmaVersion: "latest",
-  sourceType: "module",
-  allowReserved: true,
+  // sourceType: "module",
   allowReturnOutsideFunction: true,
-  allowImportExportEverywhere: true,
-  allowAwaitOutsideFunction: true,
+  // allowImportExportEverywhere: true,
   allowSuperOutsideMethod: true,
-  allowHashBang: true,
   locations: true,
   ranges: true,
 };
@@ -22,7 +21,7 @@ const parseOptions = {
 function createParseError(error) {
   const { message, loc } = error;
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!loc) {
     return error;
   }
@@ -30,7 +29,10 @@ function createParseError(error) {
   const { line, column } = loc;
 
   return createError(message.replace(/ \(\d+:\d+\)$/, ""), {
-    start: { line, column: column + 1 },
+    loc: {
+      start: { line, column: column + 1 },
+    },
+    cause: error,
   });
 }
 
@@ -54,6 +56,7 @@ function parseWithOptions(text, sourceType) {
   const ast = parser.parse(text, {
     ...parseOptions,
     sourceType,
+    allowImportExportEverywhere: sourceType === "module",
     onComment: comments,
     onToken: tokens,
   });
@@ -63,19 +66,20 @@ function parseWithOptions(text, sourceType) {
   return ast;
 }
 
-function parse(text, parsers, options = {}) {
-  const { result: ast, error: moduleParseError } = tryCombinations(
-    () => parseWithOptions(text, /* sourceType */ "module"),
-    () => parseWithOptions(text, /* sourceType */ "script")
+function parse(text, options = {}) {
+  const sourceType = getSourceType(options);
+  const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
+    (sourceType) => () => parseWithOptions(text, sourceType)
   );
 
-  if (!ast) {
-    // throw the error for `module` parsing
-    throw createParseError(moduleParseError);
+  let ast;
+  try {
+    ast = tryCombinations(combinations);
+  } catch ({ errors: [error] }) {
+    throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { text });
 }
 
-module.exports = createParser(parse);
+export const acorn = createParser(parse);

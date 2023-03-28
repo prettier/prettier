@@ -37,7 +37,7 @@ const someVariable = define(
 const someVariable = define(
   "some string literal",
   anotherVariable,
-  yetAnotherVariable
+  yetAnotherVariable,
 );
 
 ================================================================================
@@ -101,7 +101,7 @@ require([
   Rectangle,
   Triangle,
   Circle,
-  Star
+  Star,
 ) {
   console.log("some code");
 });
@@ -123,7 +123,7 @@ define([
   Rectangle,
   Triangle,
   Circle,
-  Star
+  Star,
 ) {
   console.log("some code");
 });

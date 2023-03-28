@@ -52,7 +52,7 @@ applyType(withRest, ['hi', 123, false]); // Error - too many args
 
 function apply<Args: $ReadOnlyArray<mixed>, Ret>(
   fn: (...Args) => Ret,
-  args: Args
+  args: Args,
 ): Ret {
   return fn(...args);
 }
@@ -77,7 +77,7 @@ apply(withRest, ["hi", 123, false]); // Error - too many args
 // Same thing, but with types instead of functions
 declare var applyType: <Args: $ReadOnlyArray<mixed>, Ret>(
   fn: (...Args) => Ret,
-  args: Args
+  args: Args,
 ) => Ret;
 
 function noRest(x: "hi", y: 123): true {
@@ -212,7 +212,7 @@ declare function ExpectsChildrenArray(props: any, children: Array<string>): stri
 declare function JSX<
   Children: $ReadOnlyArray<mixed>,
   Elem,
-  C: (props: {}, children: Children) => Elem
+  C: (props: {}, children: Children) => Elem,
 >(
   component: C,
   props: null,
@@ -224,7 +224,7 @@ declare function JSX<
   Children: $ReadOnlyArray<mixed>,
   Elem,
   Props: Object,
-  C: (props: Props, children: Children) => Elem
+  C: (props: Props, children: Children) => Elem,
 >(
   component: C,
   props: Props,
@@ -247,7 +247,7 @@ declare function ExpectsChildrenTuple(props: any, children: [string]): string;
 
 declare function ExpectsChildrenArray(
   props: any,
-  children: Array<string>
+  children: Array<string>,
 ): string;
 <ExpectsChildrenArray />; // No error - 0 children is fine
 <ExpectsChildrenArray>Hi</ExpectsChildrenArray>; // No error - 1 child is fine

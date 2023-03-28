@@ -1,4 +1,4 @@
-"use strict";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 
 function clean(ast, newNode /*, parent*/) {
   // (Glimmer/HTML) ignore TextNode
@@ -7,7 +7,7 @@ function clean(ast, newNode /*, parent*/) {
     if (!trimmed) {
       return null;
     }
-    newNode.chars = trimmed.replace(/[\t\n\f\r ]+/g, " ");
+    newNode.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
   }
 
   // `class` is reformatted
@@ -18,4 +18,4 @@ function clean(ast, newNode /*, parent*/) {
 
 clean.ignoredProperties = new Set(["loc", "selfClosing"]);
 
-module.exports = clean;
+export default clean;

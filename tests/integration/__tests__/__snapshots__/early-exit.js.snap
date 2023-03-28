@@ -21,6 +21,7 @@ exports[`show detailed usage with plugin options (automatic resolution) (stdout)
 Default: 2
 Plugin defaults:
 * prettier-plugin-bar: 4
+* prettier-plugin-baz.js: 4
 "
 `;
 
@@ -35,7 +36,7 @@ exports[`show detailed usage with plugin options (manual resolution) (stdout) 1`
 
 Default: 2
 Plugin defaults:
-* ../plugins/automatic/node_modules/prettier-plugin-bar: 4
+* ../plugins/automatic/node_modules/prettier-plugin-bar/index.js: 4
 "
 `;
 
@@ -93,9 +94,9 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
-  --trailing-comma <es5|none|all>
+  --trailing-comma <all|es5|none>
                            Print trailing commas wherever possible when multi-line.
-                           Defaults to es5.
+                           Defaults to all.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style
@@ -155,7 +156,7 @@ Other options:
   -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
-  --loglevel <silent|error|warn|log|debug>
+  --log-level <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
   --no-plugin-search       Disable plugin autoloading.
@@ -268,9 +269,9 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
-  --trailing-comma <es5|none|all>
+  --trailing-comma <all|es5|none>
                            Print trailing commas wherever possible when multi-line.
-                           Defaults to es5.
+                           Defaults to all.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style
@@ -330,7 +331,7 @@ Other options:
   -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
-  --loglevel <silent|error|warn|log|debug>
+  --log-level <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
   --no-plugin-search       Disable plugin autoloading.

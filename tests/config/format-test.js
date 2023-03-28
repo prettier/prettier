@@ -1,19 +1,17 @@
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import url from "node:url";
+import createEsmUtils from "esm-utils";
+import getPrettier from "./get-prettier.js";
+import checkParsers from "./utils/check-parsers.js";
+import createSnapshot from "./utils/create-snapshot.js";
+import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import consistentEndOfLine from "./utils/consistent-end-of-line.js";
+import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
 
-const { TEST_STANDALONE } = process.env;
+const { __dirname } = createEsmUtils(import.meta);
 
-const fs = require("fs");
-const path = require("path");
-const prettier = !TEST_STANDALONE
-  ? require("prettier-local")
-  : require("prettier-standalone");
-const checkParsers = require("./utils/check-parsers.js");
-const createSnapshot = require("./utils/create-snapshot.js");
-const visualizeEndOfLine = require("./utils/visualize-end-of-line.js");
-const consistentEndOfLine = require("./utils/consistent-end-of-line.js");
-const stringifyOptionsForTitle = require("./utils/stringify-options-for-title.js");
-
-const { FULL_TEST } = process.env;
+const { FULL_TEST, TEST_STANDALONE } = process.env;
 const BOM = "\uFEFF";
 
 const CURSOR_PLACEHOLDER = "<|>";
@@ -30,7 +28,6 @@ const unstableTests = new Map(
     "js/comments/tagged-template-literal.js",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
-    "html/multiparser/js/script-tag-escaping.html",
     [
       "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",
@@ -38,11 +35,14 @@ const unstableTests = new Map(
     ["js/no-semi/comments.js", (options) => options.semi === false],
     ["flow/no-semi/comments.js", (options) => options.semi === false],
     "typescript/prettier-ignore/mapped-types.ts",
+    "typescript/prettier-ignore/issue-14238.ts",
     "js/comments/html-like/comment.js",
     "js/for/continue-and-break-comment-without-blocks.js",
+    "js/sequence-expression/parenthesized.js",
     "typescript/satisfies-operators/comments-unstable.ts",
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
     "jsx/comments/in-attributes.js",
+    ["js/ignore/semi/asi.js", (options) => options.semi === false],
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -62,27 +62,32 @@ const espreeDisabledTests = new Set(
 const acornDisabledTests = espreeDisabledTests;
 const meriyahDisabledTests = new Set([
   ...espreeDisabledTests,
-  // Meriyah does not support decorator auto accessors syntax.
-  // But meriyah can parse it as an ordinary class property.
-  // So meriyah does not throw parsing error for it.
   ...[
-    "basic.js",
-    "computed.js",
-    "private.js",
-    "static-computed.js",
-    "static-private.js",
-    "static.js",
-    "with-semicolon-1.js",
-    "with-semicolon-2.js",
-    "comments.js",
-  ].map((filename) =>
-    path.join(__dirname, "../format/js/decorator-auto-accessors", filename)
-  ),
-  path.join(
-    __dirname,
-    "../format/js/babel-plugins/decorator-auto-accessors.js"
-  ),
+    // Meriyah does not support decorator auto accessors syntax.
+    // But meriyah can parse it as an ordinary class property.
+    // So meriyah does not throw parsing error for it.
+    ...[
+      "basic.js",
+      "computed.js",
+      "private.js",
+      "static-computed.js",
+      "static-private.js",
+      "static.js",
+      "with-semicolon-1.js",
+      "with-semicolon-2.js",
+      "comments.js",
+    ].map((filename) => `js/decorator-auto-accessors/${filename}`),
+    // https://github.com/meriyah/meriyah/issues/233
+    "js/babel-plugins/decorator-auto-accessors.js",
+    // Parsing to different ASTs
+    "js/decorators/member-expression.js",
+  ].map((file) => path.join(__dirname, "../format", file)),
 ]);
+const babelTsDisabledTest = new Set(
+  ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
+    path.join(__dirname, "../format/typescript", file)
+  )
+);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -124,9 +129,24 @@ const isTestDirectory = (dirname, name) =>
     path.join(__dirname, "../format", name) + path.sep
   );
 
+const ensurePromise = (value) => {
+  const isPromise = TEST_STANDALONE
+    ? // In standalone test, promise is from another context
+      Object.prototype.toString.call(value) === "[object Promise]"
+    : value instanceof Promise;
+
+  if (!isPromise) {
+    throw new TypeError("Expected value to be a 'Promise'.");
+  }
+
+  return value;
+};
+
 function runSpec(fixtures, parsers, options) {
-  let { dirname, snippets = [] } =
-    typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
+  let { importMeta, snippets = [] } = fixtures.importMeta
+    ? fixtures
+    : { importMeta: fixtures };
+  const dirname = path.dirname(url.fileURLToPath(importMeta.url));
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
@@ -153,6 +173,11 @@ function runSpec(fixtures, parsers, options) {
 
   snippets = snippets.map((test, index) => {
     test = typeof test === "string" ? { code: test } : test;
+
+    if (typeof test.code !== "string") {
+      throw Object.assign(new Error("Invalid test"), { test });
+    }
+
     return {
       ...test,
       name: `snippet: ${test.name || `#${index}`}`,
@@ -198,6 +223,21 @@ function runSpec(fixtures, parsers, options) {
 
   if (!IS_ERROR_TESTS) {
     if (
+      parsers.includes("babel") &&
+      (isTestDirectory(dirname, "js") || isTestDirectory(dirname, "jsx"))
+    ) {
+      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
+        allParsers.push("acorn");
+      }
+      if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
+        allParsers.push("espree");
+      }
+      if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
+        allParsers.push("meriyah");
+      }
+    }
+
+    if (
       parsers.includes("typescript") &&
       !parsers.includes("babel-ts") &&
       !IS_TYPESCRIPT_ONLY_TEST
@@ -205,16 +245,8 @@ function runSpec(fixtures, parsers, options) {
       allParsers.push("babel-ts");
     }
 
-    if (parsers.includes("babel") && isTestDirectory(dirname, "js")) {
-      if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
-        allParsers.push("espree");
-      }
-      if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
-        allParsers.push("meriyah");
-      }
-      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
-        allParsers.push("acorn");
-      }
+    if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
+      allParsers.push("babel-flow");
     }
 
     if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {
@@ -256,7 +288,8 @@ function runSpec(fixtures, parsers, options) {
         if (
           (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
-          (currentParser === "acorn" && acornDisabledTests.has(filename))
+          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
+          (currentParser === "babel-ts" && babelTsDisabledTest.has(filename))
         ) {
           continue;
         }
@@ -365,8 +398,8 @@ async function runTest({
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
     const { input, output } = formatResult;
-    const originalAst = parse(input, formatOptions);
-    const formattedAst = parse(output, formatOptions);
+    const originalAst = await parse(input, formatOptions);
+    const formattedAst = await parse(output, formatOptions);
     if (isAstUnstableTest) {
       expect(formattedAst).not.toEqual(originalAst);
     } else {
@@ -421,8 +454,12 @@ function shouldSkipEolTest(code, options) {
   return false;
 }
 
-function parse(source, options) {
-  return prettier.__debug.parse(source, options, /* massage */ true).ast;
+async function parse(source, options) {
+  const prettier = await getPrettier();
+  const { ast } = await prettier.__debug.parse(source, options, {
+    massage: true,
+  });
+  return ast;
 }
 
 const indexProperties = [
@@ -465,17 +502,16 @@ const insertCursor = (text, cursorOffset) =>
       CURSOR_PLACEHOLDER +
       text.slice(cursorOffset)
     : text;
-// eslint-disable-next-line require-await
 async function format(originalText, originalOptions) {
   const { text: input, options } = replacePlaceholders(
     originalText,
     originalOptions
   );
   const inputWithCursor = insertCursor(input, options.cursorOffset);
+  const prettier = await getPrettier();
 
-  const { formatted: output, cursorOffset } = prettier.formatWithCursor(
-    input,
-    options
+  const { formatted: output, cursorOffset } = await ensurePromise(
+    prettier.formatWithCursor(input, options)
   );
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);
@@ -493,4 +529,4 @@ async function format(originalText, originalOptions) {
   };
 }
 
-module.exports = runSpec;
+export default runSpec;

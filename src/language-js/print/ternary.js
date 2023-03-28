@@ -1,31 +1,27 @@
-"use strict";
-
-const { hasNewlineInRange } = require("../../common/util.js");
-const {
-  isJsxNode,
-  getComments,
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import {
+  isJsxElement,
   isCallExpression,
   isMemberExpression,
   isTSTypeExpression,
-} = require("../utils/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const isBlockComment = require("../utils/is-block-comment.js");
-const {
-  builders: {
-    line,
-    softline,
-    group,
-    indent,
-    align,
-    ifBreak,
-    dedent,
-    breakParent,
-  },
-} = require("../../document/index.js");
+  hasComment,
+} from "../utils/index.js";
+import { locStart, locEnd } from "../loc.js";
+import isBlockComment from "../utils/is-block-comment.js";
+import {
+  line,
+  softline,
+  group,
+  indent,
+  align,
+  ifBreak,
+  dedent,
+  breakParent,
+} from "../../document/builders.js";
 
 /**
- * @typedef {import("../../document").Doc} Doc
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js").default} AstPath
  *
  * @typedef {any} Options - Prettier options (TBD ...)
  */
@@ -93,7 +89,7 @@ function conditionalExpressionChainContainsJsx(node) {
     for (const property of ["test", "consequent", "alternate"]) {
       const node = conditionalExpression[property];
 
-      if (isJsxNode(node)) {
+      if (isJsxElement(node)) {
         return true;
       }
 
@@ -107,13 +103,13 @@ function conditionalExpressionChainContainsJsx(node) {
 }
 
 function printTernaryTest(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
   const alternateNodePropertyName = isConditionalExpression
     ? "alternate"
     : "falseType";
 
-  const parent = path.getParentNode();
+  const { parent } = path;
 
   const printed = isConditionalExpression
     ? print("test")
@@ -143,7 +139,7 @@ const ancestorNameMap = new Map([
   ["YieldExpression", "argument"],
 ]);
 function shouldExtraIndentForConditionalExpression(path) {
-  const node = path.getValue();
+  const { node } = path;
   if (node.type !== "ConditionalExpression") {
     return false;
   }
@@ -154,6 +150,7 @@ function shouldExtraIndentForConditionalExpression(path) {
     const node = path.getParentNode(ancestorCount);
 
     if (
+      (node.type === "ChainExpression" && node.expression === child) ||
       (isCallExpression(node) && node.callee === child) ||
       (isMemberExpression(node) && node.object === child) ||
       (node.type === "TSNonNullExpression" && node.expression === child)
@@ -185,15 +182,15 @@ function shouldExtraIndentForConditionalExpression(path) {
 
 /**
  * The following is the shared logic for
- * ternary operators, namely ConditionalExpression
- * and TSConditionalType
+ * ternary operators, namely ConditionalExpression,
+ * ConditionalTypeAnnotation and TSConditionalType
  * @param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
  * @returns {Doc}
  */
 function printTernary(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
   const consequentNodePropertyName = isConditionalExpression
     ? "consequent"
@@ -211,7 +208,7 @@ function printTernary(path, options, print) {
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
   // See `tests/format/jsx/conditional-expression.js` for more info.
   let jsxMode = false;
-  const parent = path.getParentNode();
+  const { parent } = path;
   const isParentTest =
     parent.type === node.type &&
     testNodePropertyNames.some((prop) => parent[prop] === node);
@@ -239,9 +236,9 @@ function printTernary(path, options, print) {
 
   if (
     isConditionalExpression &&
-    (isJsxNode(node[testNodePropertyNames[0]]) ||
-      isJsxNode(consequentNode) ||
-      isJsxNode(alternateNode) ||
+    (isJsxElement(node[testNodePropertyNames[0]]) ||
+      isJsxElement(consequentNode) ||
+      isJsxElement(alternateNode) ||
       conditionalExpressionChainContainsJsx(lastConditionalParent))
   ) {
     jsxMode = true;
@@ -304,21 +301,21 @@ function printTernary(path, options, print) {
   // We want a whole chain of ConditionalExpressions to all
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
-  const comments = [
-    ...testNodePropertyNames.map((propertyName) =>
-      getComments(node[propertyName])
-    ),
-    getComments(consequentNode),
-    getComments(alternateNode),
-  ].flat();
-  const shouldBreak = comments.some(
-    (comment) =>
-      isBlockComment(comment) &&
-      hasNewlineInRange(
-        options.originalText,
-        locStart(comment),
-        locEnd(comment)
-      )
+  const shouldBreak = [
+    consequentNodePropertyName,
+    alternateNodePropertyName,
+    ...testNodePropertyNames,
+  ].some((property) =>
+    hasComment(
+      node[property],
+      (comment) =>
+        isBlockComment(comment) &&
+        hasNewlineInRange(
+          options.originalText,
+          locStart(comment),
+          locEnd(comment)
+        )
+    )
   );
   const maybeGroup = (doc) =>
     parent === firstNonConditionalParent
@@ -353,4 +350,4 @@ function printTernary(path, options, print) {
     : result;
 }
 
-module.exports = { printTernary };
+export { printTernary };

@@ -116,18 +116,18 @@ const value4 = thisIsAReallyLongIdentifier as {
 const value5 =
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as [
     string,
-    number
+    number,
   ];
 
 const iter1 = createIterator(
   this.controller,
   child,
-  this.tag as SyncFunctionComponent
+  this.tag as SyncFunctionComponent,
 );
 const iter2 = createIterator(
   self.controller,
   child,
-  self.tag as SyncFunctionComponent
+  self.tag as SyncFunctionComponent,
 );
 
 ================================================================================
@@ -242,7 +242,7 @@ const originalPrototype = originalConstructor.prototype as TComponent & Injectio
 
 =====================================output=====================================
 const defaultMaskGetter = $parse(attrs[directiveName]) as (
-  scope: ng.IScope
+  scope: ng.IScope,
 ) => Mask;
 
 (this.configuration as any) =
@@ -269,7 +269,7 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   Object.create(null)) as FieldService.RendererAttributes;
 
 const annotate = (angular.injector as any).$$annotate as (
-  fn: Function
+  fn: Function,
 ) => string[];
 
 const originalPrototype = originalConstructor.prototype as TComponent &
@@ -328,7 +328,7 @@ averredBathersBoxroomBuggyNurl = {
 };
 
 averredBathersBoxroomBuggyNurl(
-  anodyneCondosMalateOverateRetinol.annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave
+  anodyneCondosMalateOverateRetinol.annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave,
 );
 
 ================================================================================

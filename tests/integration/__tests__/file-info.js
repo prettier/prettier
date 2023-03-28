@@ -1,14 +1,14 @@
-"use strict";
+import path from "node:path";
+import fs from "node:fs";
+import { temporaryDirectory as getTemporaryDirectory } from "tempy";
+import createEsmUtils from "esm-utils";
+import prettier from "../../config/prettier-entry.js";
+import runPrettier from "../run-prettier.js";
+import jestPathSerializer from "../path-serializer.js";
 
-const path = require("path");
-const fs = require("fs");
+const { __dirname } = createEsmUtils(import.meta);
 
-const prettier = require("prettier-local");
-const runPrettier = require("../run-prettier.js");
-
-const { default: tempy } = require("../../../vendors/tempy.js");
-
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("extracts file-info for a js file", () => {
   runPrettier("cli/", ["--file-info", "something.js"]).test({
@@ -128,7 +128,7 @@ describe("extracts file-info with inferredParser=foo when a plugin is hand-picke
     "--file-info",
     "file.foo",
     "--plugin",
-    "../plugins/automatic/node_modules/@prettier/plugin-foo",
+    "../plugins/automatic/node_modules/@prettier/plugin-foo/index.js",
   ]).test({
     status: 0,
   });
@@ -140,21 +140,8 @@ test("API getFileInfo with no args", async () => {
   );
 });
 
-test("API getFileInfo.sync with no args", () => {
-  expect(() => prettier.getFileInfo.sync()).toThrow(
-    new TypeError("expect `filePath` to be a string, got `undefined`")
-  );
-});
-
 test("API getFileInfo with filepath only", async () => {
   await expect(prettier.getFileInfo("README")).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: "markdown",
-  });
-});
-
-test("API getFileInfo.sync with filepath only", () => {
-  expect(prettier.getFileInfo.sync("README")).toMatchObject({
     ignored: false,
     inferredParser: "markdown",
   });
@@ -172,11 +159,11 @@ describe("API getFileInfo resolveConfig", () => {
   test("{resolveConfig: undefined}", async () => {
     await expect(prettier.getFileInfo(files.foo)).resolves.toMatchObject({
       ignored: false,
-      inferredParser: null,
+      inferredParser: "foo-parser",
     });
     await expect(prettier.getFileInfo(files.js)).resolves.toMatchObject({
       ignored: false,
-      inferredParser: "babel",
+      inferredParser: "override-js-parser",
     });
     await expect(prettier.getFileInfo(files.bar)).resolves.toMatchObject({
       ignored: false,
@@ -213,58 +200,6 @@ describe("API getFileInfo resolveConfig", () => {
       inferredParser: "css",
     });
   });
-  test("sync {resolveConfig: undefined}", () => {
-    expect(prettier.getFileInfo.sync(files.foo)).toMatchObject({
-      ignored: false,
-      inferredParser: null,
-    });
-    expect(prettier.getFileInfo.sync(files.js)).toMatchObject({
-      ignored: false,
-      inferredParser: "babel",
-    });
-    expect(prettier.getFileInfo.sync(files.bar)).toMatchObject({
-      ignored: false,
-      inferredParser: null,
-    });
-    expect(prettier.getFileInfo.sync(files.css)).toMatchObject({
-      ignored: false,
-      inferredParser: "css",
-    });
-  });
-  test("sync {resolveConfig: true}", () => {
-    expect(
-      prettier.getFileInfo.sync(files.foo, {
-        resolveConfig: true,
-      })
-    ).toMatchObject({
-      ignored: false,
-      inferredParser: "foo-parser",
-    });
-    expect(
-      prettier.getFileInfo.sync(files.js, {
-        resolveConfig: true,
-      })
-    ).toMatchObject({
-      ignored: false,
-      inferredParser: "override-js-parser",
-    });
-    expect(
-      prettier.getFileInfo.sync(files.bar, {
-        resolveConfig: true,
-      })
-    ).toMatchObject({
-      ignored: false,
-      inferredParser: null,
-    });
-    expect(
-      prettier.getFileInfo.sync(files.css, {
-        resolveConfig: true,
-      })
-    ).toMatchObject({
-      ignored: false,
-      inferredParser: "css",
-    });
-  });
 });
 
 describe("API getFileInfo resolveConfig when no config is present", () => {
@@ -294,30 +229,6 @@ describe("API getFileInfo resolveConfig when no config is present", () => {
     await expect(
       prettier.getFileInfo(files.js, { resolveConfig: true })
     ).resolves.toMatchObject({
-      ignored: false,
-      inferredParser: "babel",
-    });
-  });
-  test("sync {resolveConfig: undefined}", () => {
-    expect(prettier.getFileInfo.sync(files.foo)).toMatchObject({
-      ignored: false,
-      inferredParser: null,
-    });
-    expect(prettier.getFileInfo.sync(files.js)).toMatchObject({
-      ignored: false,
-      inferredParser: "babel",
-    });
-  });
-  test("sync {resolveConfig: true}", () => {
-    expect(
-      prettier.getFileInfo.sync(files.foo, { resolveConfig: true })
-    ).toMatchObject({
-      ignored: false,
-      inferredParser: null,
-    });
-    expect(
-      prettier.getFileInfo.sync(files.js, { resolveConfig: true })
-    ).toMatchObject({
       ignored: false,
       inferredParser: "babel",
     });
@@ -369,36 +280,13 @@ test("API getFileInfo with ignorePath containing relative paths", async () => {
   });
 });
 
-test("API getFileInfo.sync with ignorePath", () => {
-  const file = path.resolve(
-    path.join(__dirname, "../cli/ignore-path/regular-module.js")
-  );
-  const ignorePath = path.resolve(
-    path.join(__dirname, "../cli/ignore-path/.prettierignore")
-  );
-
-  expect(prettier.getFileInfo.sync(file)).toMatchObject({
-    ignored: false,
-    inferredParser: "babel",
-  });
-
-  expect(
-    prettier.getFileInfo.sync(file, {
-      ignorePath,
-    })
-  ).toMatchObject({
-    ignored: true,
-    inferredParser: null,
-  });
-});
-
-describe("API getFileInfo.sync with ignorePath", () => {
+describe("API getFileInfo with ignorePath", () => {
   let cwd;
   let filePath;
   let options;
   beforeAll(() => {
     cwd = process.cwd();
-    const tempDir = tempy.directory();
+    const tempDir = getTemporaryDirectory();
     process.chdir(tempDir);
     const fileDir = "src";
     filePath = `${fileDir}/should-be-ignored.js`;
@@ -409,20 +297,20 @@ describe("API getFileInfo.sync with ignorePath", () => {
   afterAll(() => {
     process.chdir(cwd);
   });
-  test("with relative filePath", () => {
-    expect(
-      prettier.getFileInfo.sync(filePath, options).ignored
-    ).toMatchInlineSnapshot("true");
+  test("with relative filePath", async () => {
+    const { ignored } = await prettier.getFileInfo(filePath, options);
+    expect(ignored).toBe(true);
   });
-  test("with relative filePath starts with dot", () => {
-    expect(
-      prettier.getFileInfo.sync(`./${filePath}`, options).ignored
-    ).toMatchInlineSnapshot("true");
+  test("with relative filePath starts with dot", async () => {
+    const { ignored } = await prettier.getFileInfo(`./${filePath}`, options);
+    expect(ignored).toBe(true);
   });
-  test("with absolute filePath", () => {
-    expect(
-      prettier.getFileInfo.sync(path.resolve(filePath), options).ignored
-    ).toMatchInlineSnapshot("true");
+  test("with absolute filePath", async () => {
+    const { ignored } = await prettier.getFileInfo(
+      path.resolve(filePath),
+      options
+    );
+    expect(ignored).toBe(true);
   });
 });
 
@@ -444,28 +332,28 @@ test("API getFileInfo with withNodeModules", async () => {
   });
 });
 
-describe("extracts file-info for a JS file with no extension but a standard shebang", () => {
-  expect(
-    prettier.getFileInfo.sync("tests/integration/cli/shebang/node-shebang")
-  ).toMatchObject({
+test("extracts file-info for a JS file with no extension but a standard shebang", async () => {
+  await expect(
+    prettier.getFileInfo("tests/integration/cli/shebang/node-shebang")
+  ).resolves.toMatchObject({
     ignored: false,
     inferredParser: "babel",
   });
 });
 
-describe("extracts file-info for a JS file with no extension but an env-based shebang", () => {
-  expect(
-    prettier.getFileInfo.sync("tests/integration/cli/shebang/env-node-shebang")
-  ).toMatchObject({
+test("extracts file-info for a JS file with no extension but an env-based shebang", async () => {
+  await expect(
+    prettier.getFileInfo("tests/integration/cli/shebang/env-node-shebang")
+  ).resolves.toMatchObject({
     ignored: false,
     inferredParser: "babel",
   });
 });
 
-describe("returns null parser for unknown shebang", () => {
-  expect(
-    prettier.getFileInfo.sync("tests/integration/cli/shebang/nonsense-shebang")
-  ).toMatchObject({
+test("returns null parser for unknown shebang", async () => {
+  await expect(
+    prettier.getFileInfo("tests/integration/cli/shebang/nonsense-shebang")
+  ).resolves.toMatchObject({
     ignored: false,
     inferredParser: null,
   });
@@ -495,7 +383,7 @@ test("API getFileInfo with hand-picked plugins", async () => {
   const pluginPath = path.resolve(
     path.join(
       __dirname,
-      "../plugins/automatic/node_modules/@prettier/plugin-foo"
+      "../plugins/automatic/node_modules/@prettier/plugin-foo/index.js"
     )
   );
   await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
@@ -522,11 +410,6 @@ test("API getFileInfo with ignorePath and resolveConfig should infer parser with
   };
 
   await expect(prettier.getFileInfo(filePath, options)).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: "parser-for-config-dir",
-  });
-
-  expect(prettier.getFileInfo.sync(filePath, options)).toMatchObject({
     ignored: false,
     inferredParser: "parser-for-config-dir",
   });

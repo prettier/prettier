@@ -1,9 +1,5 @@
-"use strict";
-
-const { isCI } = require("ci-info");
-const { outdent } = require("outdent");
-const runPrettier = require("../run-prettier.js");
-
+import { isCI } from "ci-info";
+import { outdent } from "outdent";
 describe("format correctly if stdin content compatible with stdin-filepath", () => {
   runPrettier(
     "cli",

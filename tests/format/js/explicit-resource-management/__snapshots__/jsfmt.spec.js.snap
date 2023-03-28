@@ -1,0 +1,706 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`for-await-using-of-comments.js [acorn] format 1`] = `
+"Unexpected token (1:19)
+> 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
+    |                   ^
+  2 |"
+`;
+
+exports[`for-await-using-of-comments.js [espree] format 1`] = `
+"Unexpected token await (1:19)
+> 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
+    |                   ^
+  2 |"
+`;
+
+exports[`for-await-using-of-comments.js [flow] format 1`] = `
+"Unexpected token \`await\`, expected the token \`(\` (1:19)
+> 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
+    |                   ^^^^^
+  2 |"
+`;
+
+exports[`for-await-using-of-comments.js [meriyah] format 1`] = `
+"for await (... of ...) is only valid in async functions and async generators (1:52)
+> 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
+    |                                                    ^
+  2 |"
+`;
+
+exports[`for-await-using-of-comments.js [typescript] format 1`] = `
+"'of' expected. (1:51)
+> 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
+    |                                                   ^
+  2 |"
+`;
+
+exports[`for-await-using-of-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
+
+=====================================output=====================================
+/*1*/ for await (/* 2 */ /*3*/ /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/ /*9*/);
+
+================================================================================
+`;
+
+exports[`invalid-duplicate-using-bindings.js [acorn] format 1`] = `
+"Unexpected token (2:9)
+  1 | {
+> 2 |   using f, f = foo();
+    |         ^
+  3 | }
+  4 | {
+  5 |   using g = foo();"
+`;
+
+exports[`invalid-duplicate-using-bindings.js [espree] format 1`] = `
+"Unexpected token f (2:9)
+  1 | {
+> 2 |   using f, f = foo();
+    |         ^
+  3 | }
+  4 | {
+  5 |   using g = foo();"
+`;
+
+exports[`invalid-duplicate-using-bindings.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (2:9)
+  1 | {
+> 2 |   using f, f = foo();
+    |         ^
+  3 | }
+  4 | {
+  5 |   using g = foo();"
+`;
+
+exports[`invalid-duplicate-using-bindings.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (2:9)
+  1 | {
+> 2 |   using f, f = foo();
+    |         ^
+  3 | }
+  4 | {
+  5 |   using g = foo();"
+`;
+
+exports[`invalid-duplicate-using-bindings.js [typescript] format 1`] = `
+"Unexpected keyword or identifier. (2:3)
+  1 | {
+> 2 |   using f, f = foo();
+    |   ^
+  3 | }
+  4 | {
+  5 |   using g = foo();"
+`;
+
+exports[`invalid-duplicate-using-bindings.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+  using f, f = foo();
+}
+{
+  using g = foo();
+  using g = foo();
+}
+
+=====================================output=====================================
+{
+  using f,
+    f = foo();
+}
+{
+  using g = foo();
+  using g = foo();
+}
+
+================================================================================
+`;
+
+exports[`invalid-script-top-level-using-binding.js [acorn] format 1`] = `
+"Unexpected token (1:7)
+> 1 | using x = bar();
+    |       ^
+  2 |"
+`;
+
+exports[`invalid-script-top-level-using-binding.js [espree] format 1`] = `
+"Unexpected token x (1:7)
+> 1 | using x = bar();
+    |       ^
+  2 |"
+`;
+
+exports[`invalid-script-top-level-using-binding.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)
+> 1 | using x = bar();
+    |       ^
+  2 |"
+`;
+
+exports[`invalid-script-top-level-using-binding.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (1:7)
+> 1 | using x = bar();
+    |       ^
+  2 |"
+`;
+
+exports[`invalid-script-top-level-using-binding.js [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | using x = bar();
+    | ^
+  2 |"
+`;
+
+exports[`invalid-script-top-level-using-binding.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+using x = bar();
+
+=====================================output=====================================
+using x = bar();
+
+================================================================================
+`;
+
+exports[`using-declarations.js [acorn] format 1`] = `
+"Unexpected token (2:17)
+  1 | {
+> 2 |   using /* 1 */ a = foo(), /* 2 */ b = foo()
+    |                 ^
+  3 | }
+  4 |
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+`;
+
+exports[`using-declarations.js [espree] format 1`] = `
+"Unexpected token a (2:17)
+  1 | {
+> 2 |   using /* 1 */ a = foo(), /* 2 */ b = foo()
+    |                 ^
+  3 | }
+  4 |
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+`;
+
+exports[`using-declarations.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (2:17)
+  1 | {
+> 2 |   using /* 1 */ a = foo(), /* 2 */ b = foo()
+    |                 ^
+  3 | }
+  4 |
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+`;
+
+exports[`using-declarations.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (2:17)
+  1 | {
+> 2 |   using /* 1 */ a = foo(), /* 2 */ b = foo()
+    |                 ^
+  3 | }
+  4 |
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+`;
+
+exports[`using-declarations.js [typescript] format 1`] = `
+"Unexpected keyword or identifier. (2:3)
+  1 | {
+> 2 |   using /* 1 */ a = foo(), /* 2 */ b = foo()
+    |   ^
+  3 | }
+  4 |
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+`;
+
+exports[`using-declarations.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+  using /* 1 */ a = foo(), /* 2 */ b = foo()
+}
+
+for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+
+for(using /* 1 */ foo of bar());
+
+=====================================output=====================================
+{
+  using /* 1 */ a = foo(),
+    /* 2 */ b = foo();
+}
+
+for (using /* 1 */ a = foo(), /* 2 */ b = foo(); ; );
+
+for (using /* 1 */ foo of bar());
+
+================================================================================
+`;
+
+exports[`valid-for-await-using-binding-escaped-of-of.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// TODO: Fix this test
+// for await (using \\u006ff of of);
+
+=====================================output=====================================
+// TODO: Fix this test
+// for await (using \\u006ff of of);
+
+================================================================================
+`;
+
+exports[`valid-for-using-binding-escaped-of-of.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// TODO: Fix this test
+// for (using o\\u0066 of of);
+
+=====================================output=====================================
+// TODO: Fix this test
+// for (using o\\u0066 of of);
+
+================================================================================
+`;
+
+exports[`valid-module-block-top-level-using-binding.js [acorn] format 1`] = `
+"Unexpected token (1:8)
+> 1 | module {
+    |        ^
+  2 |   using foo = bar();
+  3 | }
+  4 |"
+`;
+
+exports[`valid-module-block-top-level-using-binding.js [espree] format 1`] = `
+"Unexpected token { (1:8)
+> 1 | module {
+    |        ^
+  2 |   using foo = bar();
+  3 | }
+  4 |"
+`;
+
+exports[`valid-module-block-top-level-using-binding.js [flow] format 1`] = `
+"Unexpected token \`{\`, expected the end of an expression statement (\`;\`) (1:8)
+> 1 | module {
+    |        ^
+  2 |   using foo = bar();
+  3 | }
+  4 |"
+`;
+
+exports[`valid-module-block-top-level-using-binding.js [meriyah] format 1`] = `
+"Unexpected token: '{' (1:8)
+> 1 | module {
+    |        ^
+  2 |   using foo = bar();
+  3 | }
+  4 |"
+`;
+
+exports[`valid-module-block-top-level-using-binding.js [typescript] format 1`] = `
+"Namespace must be given a name. (1:8)
+> 1 | module {
+    |        ^
+  2 |   using foo = bar();
+  3 | }
+  4 |"
+`;
+
+exports[`valid-module-block-top-level-using-binding.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+module {
+  using foo = bar();
+}
+
+=====================================output=====================================
+module {
+  using foo = bar();
+};
+
+================================================================================
+`;
+
+exports[`valid-using-as-identifier-computed-member.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+using [x] = 0;
+for (using [x] of []);
+
+=====================================output=====================================
+using[x] = 0;
+for (using[x] of []);
+
+================================================================================
+`;
+
+exports[`valid-using-as-identifier-expression-statement.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+using
+reader = getReader()
+
+=====================================output=====================================
+using;
+reader = getReader();
+
+================================================================================
+`;
+
+exports[`valid-using-as-identifier-for-await-of.js [flow] format 1`] = `
+"Unexpected token \`await\`, expected the token \`(\` (1:5)
+> 1 | for await (using of of);
+    |     ^^^^^
+  2 |"
+`;
+
+exports[`valid-using-as-identifier-for-await-of.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for await (using of of);
+
+=====================================output=====================================
+for await (using of of);
+
+================================================================================
+`;
+
+exports[`valid-using-as-identifier-for-in.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for (using in []);
+for (using.foo in []);
+for (using().foo in []);
+for (using\`\`.foo in []);
+
+=====================================output=====================================
+for (using in []);
+for (using.foo in []);
+for (using().foo in []);
+for (using\`\`.foo in []);
+
+================================================================================
+`;
+
+exports[`valid-using-as-identifier-for-init.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for (
+  using;
+  reader = getReader(););
+
+=====================================output=====================================
+for (using; (reader = getReader()); );
+
+================================================================================
+`;
+
+exports[`valid-using-as-identifier-for-of.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for (using of of);
+for (using.foo of of);
+for (using().foo of of);
+for (using\`\`.foo of of);
+
+=====================================output=====================================
+for (using of of);
+for (using.foo of of);
+for (using().foo of of);
+for (using\`\`.foo of of);
+
+================================================================================
+`;
+
+exports[`valid-using-as-identifier-in.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+using in using instanceof using;
+
+=====================================output=====================================
+using in using instanceof using;
+
+================================================================================
+`;
+
+exports[`valid-using-binding-basic.js [acorn] format 1`] = `
+"Unexpected token (2:9)
+  1 | {
+> 2 |   using basic = getReader();
+    |         ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-using-binding-basic.js [espree] format 1`] = `
+"Unexpected token basic (2:9)
+  1 | {
+> 2 |   using basic = getReader();
+    |         ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-using-binding-basic.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (2:9)
+  1 | {
+> 2 |   using basic = getReader();
+    |         ^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-using-binding-basic.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (2:13)
+  1 | {
+> 2 |   using basic = getReader();
+    |             ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-using-binding-basic.js [typescript] format 1`] = `
+"Unexpected keyword or identifier. (2:3)
+  1 | {
+> 2 |   using basic = getReader();
+    |   ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-using-binding-basic.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+  using basic = getReader();
+}
+
+=====================================output=====================================
+{
+  using basic = getReader();
+}
+
+================================================================================
+`;
+
+exports[`valid-using-binding-escaped.js [acorn] format 1`] = `
+"Unexpected token (1:9)
+> 1 | { using \\u0061b = c; }
+    |         ^
+  2 |"
+`;
+
+exports[`valid-using-binding-escaped.js [espree] format 1`] = `
+"Unexpected token \\u0061b (1:9)
+> 1 | { using \\u0061b = c; }
+    |         ^
+  2 |"
+`;
+
+exports[`valid-using-binding-escaped.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (1:9)
+> 1 | { using \\u0061b = c; }
+    |         ^^^^^^^
+  2 |"
+`;
+
+exports[`valid-using-binding-escaped.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (1:9)
+> 1 | { using \\u0061b = c; }
+    |         ^
+  2 |"
+`;
+
+exports[`valid-using-binding-escaped.js [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:3)
+> 1 | { using \\u0061b = c; }
+    |   ^
+  2 |"
+`;
+
+exports[`valid-using-binding-escaped.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{ using \\u0061b = c; }
+
+=====================================output=====================================
+{
+  using ab = c;
+}
+
+================================================================================
+`;
+
+exports[`valid-using-binding-non-bmp.js [acorn] format 1`] = `
+"Unexpected token (1:9)
+> 1 | { using 𠮷 = foo(); }
+    |         ^
+  2 |"
+`;
+
+exports[`valid-using-binding-non-bmp.js [espree] format 1`] = `
+"Unexpected token 𠮷 (1:9)
+> 1 | { using 𠮷 = foo(); }
+    |         ^
+  2 |"
+`;
+
+exports[`valid-using-binding-non-bmp.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (1:9)
+> 1 | { using 𠮷 = foo(); }
+    |         ^
+  2 |"
+`;
+
+exports[`valid-using-binding-non-bmp.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (1:11)
+> 1 | { using 𠮷 = foo(); }
+    |           ^
+  2 |"
+`;
+
+exports[`valid-using-binding-non-bmp.js [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:3)
+> 1 | { using 𠮷 = foo(); }
+    |   ^
+  2 |"
+`;
+
+exports[`valid-using-binding-non-bmp.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{ using 𠮷 = foo(); }
+
+=====================================output=====================================
+{
+  using 𠮷 = foo();
+}
+
+================================================================================
+`;
+
+exports[`valid-using-binding-using.js [acorn] format 1`] = `
+"Unexpected token (2:9)
+  1 | {
+> 2 |   using using = of;
+    |         ^
+  3 |   for (using using of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-using-binding-using.js [espree] format 1`] = `
+"Unexpected token using (2:9)
+  1 | {
+> 2 |   using using = of;
+    |         ^
+  3 |   for (using using of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-using-binding-using.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (2:9)
+  1 | {
+> 2 |   using using = of;
+    |         ^^^^^
+  3 |   for (using using of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-using-binding-using.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (2:13)
+  1 | {
+> 2 |   using using = of;
+    |             ^
+  3 |   for (using using of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-using-binding-using.js [typescript] format 1`] = `
+"Unexpected keyword or identifier. (2:3)
+  1 | {
+> 2 |   using using = of;
+    |   ^
+  3 |   for (using using of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-using-binding-using.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+  using using = of;
+  for (using using of of);
+}
+
+=====================================output=====================================
+{
+  using using = of;
+  for (using using of of);
+}
+
+================================================================================
+`;

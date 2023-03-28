@@ -1,6 +1,6 @@
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: ["class interface {}", 'import interface from "foo";'],
   },
   ["espree", "meriyah"]
