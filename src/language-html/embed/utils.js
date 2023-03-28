@@ -1,5 +1,9 @@
 import { group, indent, softline } from "../../document/builders.js";
 
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
+
 function printExpand(doc, canHaveTrailingWhitespace = true) {
   return [indent([softline, doc]), canHaveTrailingWhitespace ? softline : ""];
 }
@@ -26,6 +30,13 @@ function shouldHugJsExpression(ast, options) {
   );
 }
 
+/**
+ * @param {string} code
+ * @param {Function} textToDoc
+ * @param {*} options
+ * @param {(ast: any, options: any) => boolean} [shouldHugJsExpression]
+ * @returns {Promise<Doc>}
+ */
 async function formatJsExpression(
   code,
   textToDoc,
@@ -40,7 +51,7 @@ async function formatJsExpression(
   };
 
   let shouldHug = true;
-  if (shouldHugJsExpression !== undefined) {
+  if (shouldHugJsExpression) {
     options.__onHtmlBindingRoot = (ast, options) => {
       shouldHug = shouldHugJsExpression(ast, options);
     };

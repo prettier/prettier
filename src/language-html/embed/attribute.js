@@ -5,7 +5,11 @@ import printClassNames from "./class-names.js";
 import { printStyleAttribute } from "./style.js";
 import printVueAttribute from "./vue-attributes.js";
 import printAngularAttribute from "./angular-attributes.js";
-import { printExpand } from "./utils.js";
+
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js")} AstPath
+ */
 
 function printAttribute(path, options) {
   const { node } = path;
@@ -44,10 +48,8 @@ function printAttribute(path, options) {
 }
 
 /**
- * @param {AstPath} path
- * @param {Doc} valueDoc
- * @param {{expand: boolean}} [param2]
- * @returns
+ * @param {(textToDoc, print, path, options) => Promise<Doc>} printValue
+ * @returns {(textToDoc, print, path, options) => Promise<Doc>}
  */
 function printAttributeWithValuePrinter(printValue) {
   return async (textToDoc, print, path, options) => {

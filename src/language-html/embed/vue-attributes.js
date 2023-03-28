@@ -11,6 +11,11 @@ import {
   isVueEventBindingExpression,
 } from "./vue-bindings.js";
 
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js")} AstPath
+ */
+
 function printVueAttribute(path, options) {
   if (options.parser !== "vue") {
     return;
@@ -58,8 +63,7 @@ function printVueAttribute(path, options) {
 }
 
 /**
- * @param {*} options
- * @returns {Doc}
+ * @returns {Promise<Doc>}
  */
 function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
   const parser = isVueEventBindingExpression(text)
@@ -74,8 +78,7 @@ function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
 }
 
 /**
- * @param {*} options
- * @returns {Doc}
+ * @returns {Promise<Doc>}
  */
 function printVueVBindDirective(text, textToDoc, { parseWithTs }) {
   return formatJsExpression(
@@ -87,8 +90,7 @@ function printVueVBindDirective(text, textToDoc, { parseWithTs }) {
 }
 
 /**
- * @param {*} options
- * @returns {Doc}
+ * @returns {Promise<Doc>}
  */
 function printExpression(text, textToDoc, { parseWithTs }) {
   return formatJsExpression(

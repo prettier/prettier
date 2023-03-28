@@ -4,7 +4,7 @@ import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-sc
 import { formatJsExpression } from "./utils.js";
 
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
 /**

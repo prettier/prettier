@@ -1,12 +1,11 @@
 import { formatJsExpression } from "./utils.js";
 
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
 /**
- * @param {*} options
- * @returns {Doc}
+ * @returns {Promise<Doc>}
  */
 function printVueBindings(text, textToDoc, { parseWithTs }) {
   return formatJsExpression(`function _(${text}) {}`, textToDoc, {
