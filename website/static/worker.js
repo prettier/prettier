@@ -1,15 +1,14 @@
-/* globals prettier prettierPlugins parsersLocation */
+/* globals prettier prettierPlugins prettierPackageMeta */
 
 "use strict";
 
-importScripts("lib/parsers-location.js");
+importScripts("lib/packageMeta.js");
 importScripts("lib/standalone.js");
 
 // TODO[@fisker]: Lazy load plugins
-for (const file of new Set(Object.values(parsersLocation))) {
+for (const { file } of prettierPackageMeta.builtinPlugins) {
   importScripts(`lib/${file}`);
 }
-importScripts("lib/plugins/estree.js");
 
 const docExplorerPlugin = {
   parsers: {

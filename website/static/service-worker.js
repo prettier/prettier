@@ -1,21 +1,19 @@
-/* global toolbox parsersLocation */
+/* global toolbox prettierPackageMeta */
 
 "use strict";
 
-importScripts("lib/parsers-location.js");
+importScripts("lib/package-meta.js");
 importScripts(
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js"
 );
 
-const plugins = [
-  ...new Set(Object.values(parsersLocation).map((file) => `lib/${file}`)),
-  "lib/plugins/estree.js",
-];
+const plugins = prettierPackageMeta.builtinPlugins.map(
+  ({ file }) => `lib/${file}`
+);
 
 toolbox.precache([
   // Scripts
   "lib/standalone.js",
-  "lib/parsers-location.js",
   ...plugins,
   "playground.js",
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
