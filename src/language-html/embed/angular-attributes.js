@@ -3,7 +3,7 @@ import {
   getTextValueParts,
 } from "../utils/index.js";
 import { fill } from "../../document/builders.js";
-import { printAttributeValue, printExpand } from "./utils.js";
+import { formatJsAttribute, printExpand } from "./utils.js";
 import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
@@ -13,7 +13,7 @@ function createAngularPrinter({ parser }) {
   return (textToDoc, print, path /*, options*/) => {
     const { node } = path;
     const value = getUnescapedAttributeValue(node);
-    return printAttributeValue(
+    return formatJsAttribute(
       value,
       {
         parser,

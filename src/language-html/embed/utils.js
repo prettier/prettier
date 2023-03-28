@@ -9,7 +9,7 @@ function printMaybeHug(doc, shouldHug) {
   return shouldHug ? group(doc) : printExpand(doc);
 }
 
-function shouldHugAttribute(ast, options) {
+function shouldJsExpression(ast, options) {
   const rootNode =
     ast.type === "NGRoot"
       ? ast.node.type === "NGMicrosyntax" &&
@@ -31,14 +31,17 @@ function shouldHugAttribute(ast, options) {
   );
 }
 
-async function printAttributeValue(code, options, textToDoc) {
+async function formatJsAttribute(code, options, textToDoc) {
   let shouldHug = false;
 
-  const doc = await formatAttributeValue(
+  const doc = await textToDoc(
     code,
     {
+      // strictly prefer single quote to avoid unnecessary html entity escape
+      __isInHtmlAttribute: true,
+      __embeddedInHtml: true,
       __onHtmlBindingRoot(ast, options) {
-        shouldHug = shouldHugAttribute(ast, options);
+        shouldHug = shouldJsExpression(ast, options);
       },
       ...options,
     },
@@ -82,10 +85,9 @@ function printAttribute(path, valueDoc, { expand } = {}) {
 }
 
 export {
-  shouldHugAttribute,
   printExpand,
   printMaybeHug,
-  printAttributeValue,
+  formatJsAttribute,
   formatAttributeValue,
   printAttribute,
 };

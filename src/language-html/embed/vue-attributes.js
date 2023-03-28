@@ -5,7 +5,7 @@ import {
 } from "../utils/index.js";
 import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
 import { printVueVForDirective } from "./vue-v-for-directive.js";
-import { printAttribute, printAttributeValue } from "./utils.js";
+import { formatJsAttribute } from "./utils.js";
 import {
   printVueBindings,
   isVueEventBindingExpression,
@@ -70,7 +70,7 @@ function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
     ? "__vue_ts_event_binding"
     : "__vue_event_binding";
 
-  return printAttributeValue(text, { parser }, textToDoc);
+  return formatJsAttribute(text, { parser }, textToDoc);
 }
 
 /**
@@ -78,7 +78,7 @@ function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
  * @returns {Doc}
  */
 function printVueVBindDirective(text, textToDoc, { parseWithTs }) {
-  return printAttributeValue(
+  return formatJsAttribute(
     text,
     { parser: parseWithTs ? "__vue_ts_expression" : "__vue_expression" },
     textToDoc
@@ -90,7 +90,7 @@ function printVueVBindDirective(text, textToDoc, { parseWithTs }) {
  * @returns {Doc}
  */
 function printExpression(text, textToDoc, { parseWithTs }) {
-  return printAttributeValue(
+  return formatJsAttribute(
     text,
     { parser: parseWithTs ? "__ts_expression" : "__js_expression" },
     textToDoc
