@@ -66,18 +66,14 @@ function printVueAttribute(path, options) {
  * @returns {Promise<Doc>}
  */
 function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
-  const parser = isVueEventBindingExpression(text)
-    ? parseWithTs
-      ? "__ts_expression"
-      : "__js_expression"
-    : parseWithTs
-    ? "__vue_ts_event_binding"
-    : "__vue_event_binding";
+  if (isVueEventBindingExpression(text)) {
+    return printExpression(text, textToDoc, { parseWithTs });
+  }
 
   return formatAttributeValue(
     text,
     textToDoc,
-    { parser },
+    { parser: parseWithTs ? "__vue_ts_event_binding" : "__vue_event_binding" },
     shouldHugJsExpression
   );
 }
