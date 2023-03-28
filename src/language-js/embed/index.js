@@ -25,6 +25,10 @@ function embed(path) {
   ]) {
     embedder = getEmbedder(path);
 
+    if (!embedder) {
+      continue;
+    }
+
     // Special case: whitespace-only template literals
     if (node.quasis.length === 1 && node.quasis[0].value.raw.trim() === "") {
       return "``";
