@@ -324,6 +324,14 @@ function printIndexedAccessType(path, options, print) {
   ];
 }
 
+/*
+- `TSInferType`(TypeScript)
+- `InferTypeAnnotation`(flow)
+*/
+function printInferType(path, options, print) {
+  return ["infer ", print("typeParameter")];
+}
+
 // `TSJSDocNullableType`, `TSJSDocNonNullableType`
 function printJSDocType(path, print, token) {
   const { node } = path;
@@ -367,6 +375,11 @@ function printNamedTupleMember(path, options, print) {
   ];
 }
 
+/*
+Normally the `(TS)TypeAnnotation` node starts with `:` token.
+If we print `:` in parent node, `cursorNodeDiff` in `/src/main/core.js` will consider `:` is removed, cause cursor moves, see #12491.
+Token *before* `(TS)TypeAnnotation.typeAnnotation` should be printed in `getTypeAnnotationFirstToken` function.
+*/
 const typeAnnotationNodesCheckedLeadingComments = new WeakSet();
 function printTypeAnnotationProperty(
   path,
@@ -440,6 +453,21 @@ const getTypeAnnotationFirstToken = (path) => {
       (node) => node.type === "TypeAnnotation",
       (node, key) => key === "typeAnnotation" && node.type === "Identifier",
       (node, key) => key === "id" && node.type === "DeclareFunction"
+    ) ||
+    /*
+    Flow
+
+    ```js
+    type A = () => infer R extends string;
+                                   ^^^^^^ `TypeAnnotation`
+    ```
+    */
+    path.match(
+      (node) => node.type === "TypeAnnotation",
+      (node, key) =>
+        key === "bound" &&
+        node.type === "TypeParameter" &&
+        node.usesExtendsBound
     )
   ) {
     return "";
@@ -504,6 +532,7 @@ export {
   printUnionType,
   printFunctionType,
   printIndexedAccessType,
+  printInferType,
   shouldHugType,
   printJSDocType,
   printRestType,
