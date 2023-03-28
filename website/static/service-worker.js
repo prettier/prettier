@@ -1,13 +1,13 @@
-/* global toolbox prettierPackageMeta */
+/* global toolbox prettierPackageManifest */
 
 "use strict";
 
-importScripts("lib/package-meta.js");
+importScripts("lib/package-manifest.js");
 importScripts(
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js"
 );
 
-const plugins = prettierPackageMeta.builtinPlugins.map(
+const plugins = prettierPackageManifest.builtinPlugins.map(
   ({ file }) => `lib/${file}`
 );
 

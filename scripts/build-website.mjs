@@ -61,7 +61,7 @@ async function buildPlaygroundFiles() {
     cwd: PRETTIER_DIR,
   });
 
-  const packageMeta = {
+  const packageManifest = {
     builtinPlugins: [],
   };
   for (const fileName of files) {
@@ -76,7 +76,7 @@ async function buildPlaygroundFiles() {
     const pluginModule = require(dist);
     const plugin = pluginModule.default ?? pluginModule;
     const { parsers = {}, printers = {} } = plugin;
-    packageMeta.builtinPlugins.push({
+    packageManifest.builtinPlugins.push({
       file: fileName,
       parsers: Object.keys(parsers),
       printers: Object.keys(printers),
@@ -84,12 +84,12 @@ async function buildPlaygroundFiles() {
   }
 
   await writeFile(
-    path.join(PLAYGROUND_PRETTIER_DIR, "package-meta.js"),
+    path.join(PLAYGROUND_PRETTIER_DIR, "package-manifest.js"),
     await format(
-      `
+      /* Indent */ `
         "use strict";
 
-        const prettierPackageMeta = ${JSON.stringify(packageMeta)};
+        const prettierPackageManifest = ${JSON.stringify(packageManifest)};
       `,
       { parser: "meriyah" }
     )

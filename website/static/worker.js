@@ -1,12 +1,12 @@
-/* globals prettier prettierPlugins prettierPackageMeta */
+/* globals prettier prettierPlugins prettierPackageManifest */
 
 "use strict";
 
-importScripts("lib/package-meta.js");
+importScripts("lib/package-manifest.js");
 importScripts("lib/standalone.js");
 
 // TODO[@fisker]: Lazy load plugins
-for (const { file } of prettierPackageMeta.builtinPlugins) {
+for (const { file } of prettierPackageManifest.builtinPlugins) {
   importScripts(`lib/${file}`);
 }
 
