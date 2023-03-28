@@ -17,7 +17,7 @@ import { printVueVBindDirective } from "./vue-v-bind-directive.js";
 import { printVueVUnknownDirective } from "./vue-v-unknown-directive.js";
 import printSrcset from "./srcset.js";
 import printClassNames from "./class-names.js";
-import { printStyleAttribute as printStyleAttributeValue } from "./style.js";
+import { printStyleAttribute } from "./style.js";
 import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
@@ -98,8 +98,6 @@ function printAngularAttribute({ parser }) {
   };
 }
 
-const printStyleAttribute = createAttributePrinter(printStyleAttributeValue);
-
 function printAttribute(path, options) {
   const { node } = path;
 
@@ -122,20 +120,12 @@ function printAttribute(path, options) {
     return [node.rawName, "=", node.value];
   }
 
-  const x = printSrcset(path, options);
+  const x = printSrcset(path, options) ?? printStyleAttribute(path, options);
   if (x) {
     return x;
   }
 
   const value = getUnescapedAttributeValue(node);
-
-  if (
-    node.fullName === "style" &&
-    !options.parentParser &&
-    !value.includes("{{")
-  ) {
-    return printStyleAttribute;
-  }
 
   if (
     node.fullName === "class" &&

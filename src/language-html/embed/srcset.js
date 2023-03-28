@@ -1,19 +1,19 @@
 import parseSrcset from "@prettier/parse-srcset";
 import { ifBreak, join, line } from "../../document/builders.js";
-import {
-  getUnescapedAttributeValue,
-} from "../utils/index.js";
+import { getUnescapedAttributeValue } from "../utils/index.js";
 import { printExpand, printAttribute } from "./utils.js";
 
 function printSrcset(path /*, options*/) {
   if (
-      path.node.fullName === "srcset" &&
-      (path.parent.fullName === "img" || path.parent.fullName === "source")
+    path.node.fullName === "srcset" &&
+    (path.parent.fullName === "img" || path.parent.fullName === "source")
   ) {
-  return () => printAttribute(path, printSrcsetValue(getUnescapedAttributeValue(path.node)));
+    return () =>
+      printAttribute(
+        path,
+        printSrcsetValue(getUnescapedAttributeValue(path.node))
+      );
   }
-
-
 }
 
 function printSrcsetValue(value) {
