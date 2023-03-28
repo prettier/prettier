@@ -1,4 +1,4 @@
-import { formatJsExpression } from "./utils.js";
+import { formatAttributeValue } from "./utils.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -8,7 +8,7 @@ import { formatJsExpression } from "./utils.js";
  * @returns {Promise<Doc>}
  */
 function printVueBindings(text, textToDoc, { parseWithTs }) {
-  return formatJsExpression(`function _(${text}) {}`, textToDoc, {
+  return formatAttributeValue(`function _(${text}) {}`, textToDoc, {
     parser: parseWithTs ? "babel-ts" : "babel",
     __isVueBindings: true,
   });

@@ -37,7 +37,7 @@ function shouldHugJsExpression(ast, options) {
  * @param {(ast: any, options: any) => boolean} [shouldHugJsExpression]
  * @returns {Promise<Doc>}
  */
-async function formatJsExpression(
+async function formatAttributeValue(
   code,
   textToDoc,
   options,
@@ -62,4 +62,4 @@ async function formatJsExpression(
   return shouldHug ? group(doc) : printExpand(doc);
 }
 
-export { printExpand, formatJsExpression, shouldHugJsExpression };
+export { printExpand, formatAttributeValue, shouldHugJsExpression };

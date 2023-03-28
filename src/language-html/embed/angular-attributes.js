@@ -4,7 +4,7 @@ import {
 } from "../utils/index.js";
 import { fill } from "../../document/builders.js";
 import {
-  formatJsExpression,
+  formatAttributeValue,
   printExpand,
   shouldHugJsExpression,
 } from "./utils.js";
@@ -17,7 +17,7 @@ function createAngularPrinter({ parser }) {
   return (textToDoc, print, path /*, options*/) => {
     const { node } = path;
     const value = getUnescapedAttributeValue(node);
-    return formatJsExpression(
+    return formatAttributeValue(
       value,
       textToDoc,
       {

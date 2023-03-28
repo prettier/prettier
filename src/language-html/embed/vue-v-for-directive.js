@@ -1,7 +1,7 @@
 import { group } from "../../document/builders.js";
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
-import { formatJsExpression } from "./utils.js";
+import { formatAttributeValue } from "./utils.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -22,7 +22,7 @@ async function printVueVForDirective(textToDoc, print, path, options) {
   const parseWithTs = isVueSfcWithTypescriptScript(path, options);
   return [
     group(
-      await formatJsExpression(`function _(${left}) {}`, textToDoc, {
+      await formatAttributeValue(`function _(${left}) {}`, textToDoc, {
         parser: parseWithTs ? "babel-ts" : "babel",
         __isVueForBindingLeft: true,
       })
@@ -30,7 +30,7 @@ async function printVueVForDirective(textToDoc, print, path, options) {
     " ",
     operator,
     " ",
-    await formatJsExpression(right, textToDoc, {
+    await formatAttributeValue(right, textToDoc, {
       parser: parseWithTs ? "__ts_expression" : "__js_expression",
     }),
   ];
