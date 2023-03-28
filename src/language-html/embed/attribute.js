@@ -15,19 +15,14 @@ import { printVueVForDirective } from "./vue-v-for-directive.js";
 import { printVueVOnDirective } from "./vue-v-on-directive.js";
 import { printVueVBindDirective } from "./vue-v-bind-directive.js";
 import { printVueVUnknownDirective } from "./vue-v-unknown-directive.js";
-import printSrcsetValue from "./srcset.js";
+import printSrcset from "./srcset.js";
 import printClassNames from "./class-names.js";
 import { printStyleAttribute as printStyleAttributeValue } from "./style.js";
 import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
 } from "./angular-interpolation.js";
-import {
-  printAttributeDoc,
-  formatAttributeValue,
-  printAttributeValue,
-  printExpand,
-} from "./utils.js";
+import { printAttributeValue, printExpand } from "./utils.js";
 
 function createAttributePrinter(valuePrinter) {
   return async (textToDoc, print, path, options) => {
@@ -103,7 +98,6 @@ function printAngularAttribute({ parser }) {
   };
 }
 
-const printSrcset = createAttributePrinter(printSrcsetValue);
 const printStyleAttribute = createAttributePrinter(printStyleAttributeValue);
 
 function printAttribute(path, options) {
@@ -128,11 +122,9 @@ function printAttribute(path, options) {
     return [node.rawName, "=", node.value];
   }
 
-  if (
-    node.fullName === "srcset" &&
-    (node.parent.fullName === "img" || node.parent.fullName === "source")
-  ) {
-    return printSrcset;
+  const x = printSrcset(path, options);
+  if (x) {
+    return x;
   }
 
   const value = getUnescapedAttributeValue(node);

@@ -77,6 +77,23 @@ function printAttributeDoc(path, valueDoc) {
     : undefined;
 }
 
+function printAttribute(path, valueDoc) {
+  if (!valueDoc) {
+    return;
+  }
+
+  return [
+    path.node.rawName,
+    '="',
+    group(
+      mapDoc(valueDoc, (doc) =>
+        typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
+      )
+    ),
+    '"',
+  ];
+}
+
 export {
   shouldHugAttribute,
   printExpand,
@@ -84,4 +101,5 @@ export {
   printAttributeValue,
   formatAttributeValue,
   printAttributeDoc,
+  printAttribute,
 };
