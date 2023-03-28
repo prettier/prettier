@@ -15,7 +15,6 @@ const keysToKeep = [
   "funding",
   "homepage",
   "author",
-  "type",
   "license",
   "main",
   "browser",
@@ -36,7 +35,6 @@ async function buildPackageJson({ file, files }) {
 
   const overrides = {
     bin: `./${bin}`,
-    type: "commonjs",
     main: "./index.cjs",
     engines: {
       ...packageJson.engines,
