@@ -75,12 +75,11 @@ async function buildPlaygroundFiles() {
 
     const pluginModule = require(dist);
     const plugin = pluginModule.default ?? pluginModule;
-    const parserNames = Object.keys(plugin.parsers ?? {});
-    const printerNames = Object.keys(plugin.printers ?? {});
+    const { parsers = {}, printers = {} } = plugin;
     packageMeta.builtinPlugins.push({
       file: fileName,
-      parserNames,
-      printerNames,
+      parsers: Object.keys(parsers),
+      printers: Object.keys(printers),
     });
   }
 
