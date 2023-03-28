@@ -559,7 +559,7 @@ function needsParens(path, options) {
           (parent.type === "IndexedAccessType" ||
             parent.type === "OptionalIndexedAccessType"))
       );
-
+    case "InferTypeAnnotation":
     case "NullableTypeAnnotation":
       return (
         parent.type === "ArrayTypeAnnotation" ||
@@ -591,6 +591,11 @@ function needsParens(path, options) {
         (key === "objectType" &&
           (ancestor.type === "IndexedAccessType" ||
             ancestor.type === "OptionalIndexedAccessType")) ||
+        (key === "checkType" && parent.type === "ConditionalTypeAnnotation") ||
+        (key === "extendsType" &&
+          parent.type === "ConditionalTypeAnnotation" &&
+          node.returnType.type === "InferTypeAnnotation" &&
+          node.returnType.typeParameter.bound) ||
         // We should check ancestor's parent to know whether the parentheses
         // are really needed, but since ??T doesn't make sense this check
         // will almost never be true.
@@ -604,6 +609,20 @@ function needsParens(path, options) {
       );
     }
 
+    case "ConditionalTypeAnnotation":
+      if (
+        key === "extendsType" &&
+        parent.type === "ConditionalTypeAnnotation" &&
+        node.type === "ConditionalTypeAnnotation"
+      ) {
+        return true;
+      }
+
+      if (key === "checkType" && parent.type === "ConditionalTypeAnnotation") {
+        return true;
+      }
+
+    // fallthrough
     case "OptionalIndexedAccessType":
       return key === "objectType" && parent.type === "IndexedAccessType";
 

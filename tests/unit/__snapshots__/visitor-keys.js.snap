@@ -143,6 +143,12 @@ exports[`visitor keys estree 1`] = `
     "consequent",
     "alternate",
   ],
+  "ConditionalTypeAnnotation": [
+    "checkType",
+    "extendsType",
+    "trueType",
+    "falseType",
+  ],
   "ContinueStatement": [
     "label",
   ],
@@ -367,6 +373,9 @@ exports[`visitor keys estree 1`] = `
   "IndexedAccessType": [
     "objectType",
     "indexType",
+  ],
+  "InferTypeAnnotation": [
+    "typeParameter",
   ],
   "InferredPredicate": [],
   "InterfaceDeclaration": [

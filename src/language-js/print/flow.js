@@ -15,6 +15,7 @@ import {
   printOpaqueType,
   printTypeAlias,
   printIntersectionType,
+  printInferType,
   printUnionType,
   printFunctionType,
   printIndexedAccessType,
@@ -42,6 +43,7 @@ import {
   printRestSpread,
   printDeclareToken,
 } from "./misc.js";
+import { printTernary } from "./ternary.js";
 
 function printFlow(path, options, print) {
   const { node } = path;
@@ -97,6 +99,10 @@ function printFlow(path, options, print) {
       return printIntersectionType(path, options, print);
     case "UnionTypeAnnotation":
       return printUnionType(path, options, print);
+    case "ConditionalTypeAnnotation":
+      return printTernary(path, options, print);
+    case "InferTypeAnnotation":
+      return printInferType(path, options, print);
     case "FunctionTypeAnnotation":
       return printFunctionType(path, options, print);
     case "TupleTypeAnnotation":

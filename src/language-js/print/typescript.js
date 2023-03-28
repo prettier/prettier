@@ -47,6 +47,7 @@ import {
   printUnionType,
   printFunctionType,
   printIndexedAccessType,
+  printInferType,
   printJSDocType,
   printRestType,
   printNamedTupleMember,
@@ -372,7 +373,7 @@ function printTypescript(path, options, print) {
       return printTernary(path, options, print);
 
     case "TSInferType":
-      return ["infer ", print("typeParameter")];
+      return printInferType(path, options, print);
     case "TSIntersectionType":
       return printIntersectionType(path, options, print);
     case "TSUnionType":
