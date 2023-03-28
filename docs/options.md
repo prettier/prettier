@@ -268,7 +268,7 @@ Valid options:
 - `"acorn"` (via [acorn](https://github.com/acornjs/acorn)) _First available in v2.6.0_
 - `"css"` (via [postcss](https://github.com/postcss/postcss)) _First available in v1.7.1_
 - `"scss"` (via [postcss-scss](https://github.com/postcss/postcss-scss)) _First available in v1.7.1_
-- `"less"` (via [postcss-less](https://github.com/shellscape/postcss-less) _First available in v1.7.1_
+- `"less"` (via [postcss-less](https://github.com/shellscape/postcss-less)) _First available in v1.7.1_
 - `"json"` (via [@babel/parser parseExpression](https://babeljs.io/docs/en/next/babel-parser.html#babelparserparseexpressioncode-options)) _First available in v1.5.0_
 - `"json5"` (same parser as `"json"`, but outputs as [json5](https://json5.org/)) _First available in v1.13.0_
 - `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _First available in v1.13.0_
