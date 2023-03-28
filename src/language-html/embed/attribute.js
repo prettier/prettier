@@ -124,7 +124,8 @@ function printAttribute(path, options) {
   const x =
     printSrcset(path, options) ??
     printStyleAttribute(path, options) ??
-    printClassNames(path, options)??printVueAttribute(path, options);
+    printClassNames(path, options) ??
+    printVueAttribute(path, options);
   if (x) {
     return x;
   }
@@ -134,11 +135,6 @@ function printAttribute(path, options) {
   const attributeName = node.fullName;
   if (options.parser === "vue") {
     const parseWithTs = isVueSfcWithTypescriptScript(path, options);
-
-
-    if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueAttribute2(printVueBindings, { parseWithTs });
-    }
 
     /**
      *     @click="jsStatement"
