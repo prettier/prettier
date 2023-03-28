@@ -499,7 +499,7 @@ function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
 }
 
 /**
- * @param {string} tokenNode
+ * @param {string | null} optional
  * @returns {string}
  */
 function getFlowMappedTypeOptionalModifier(optional) {
