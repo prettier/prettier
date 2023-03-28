@@ -1,4 +1,5 @@
 import { getUnescapedAttributeValue } from "../utils/index.js";
+import { printExpand } from "./utils.js";
 
 function printStyleAttribute(path, options) {
   const { node } = path;
@@ -8,11 +9,10 @@ function printStyleAttribute(path, options) {
     !options.parentParser &&
     !text.includes("{{")
   ) {
-    return (textToDoc) =>
-      text
-        ? textToDoc(text, { parser: "css", __isHTMLStyleAttribute: true })
-        : // An empty doc to prevent fallback to normal print
-          [];
+    return async (textToDoc) =>
+      printExpand(
+        await textToDoc(text, { parser: "css", __isHTMLStyleAttribute: true })
+      );
   }
 }
 

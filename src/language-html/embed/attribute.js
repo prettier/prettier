@@ -61,10 +61,6 @@ function printAttributeWithValuePrinter(printValue) {
       typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
     );
 
-    if (path.node.fullName === "srcset" || path.node.fullName === "style") {
-      valueDoc = printExpand(valueDoc);
-    }
-
     return [path.node.rawName, '="', group(valueDoc), '"'];
   };
 }
