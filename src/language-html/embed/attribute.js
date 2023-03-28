@@ -23,6 +23,7 @@ import {
   printAngularInterpolation,
 } from "./angular-interpolation.js";
 import { printAttributeValue, printExpand } from "./utils.js";
+import printVueAttribute from "./vue-attributes.js";
 
 function createAttributePrinter(valuePrinter) {
   return async (textToDoc, print, path, options) => {
@@ -46,7 +47,7 @@ function createAttributePrinter(valuePrinter) {
   };
 }
 
-function printVueAttribute(valuePrinter, { parseWithTs }) {
+function printVueAttribute2(valuePrinter, { parseWithTs }) {
   return async (textToDoc, print, path, options) => {
     const { node } = path;
     const value = getUnescapedAttributeValue(node);
@@ -123,31 +124,20 @@ function printAttribute(path, options) {
   const x =
     printSrcset(path, options) ??
     printStyleAttribute(path, options) ??
-    printClassNames(path, options);
+    printClassNames(path, options)??printVueAttribute(path, options);
   if (x) {
     return x;
   }
 
   const value = getUnescapedAttributeValue(node);
 
-  if (
-    node.fullName === "class" &&
-    !options.parentParser &&
-    !value.includes("{{")
-  ) {
-    return printClassNames;
-  }
-
   const attributeName = node.fullName;
   if (options.parser === "vue") {
     const parseWithTs = isVueSfcWithTypescriptScript(path, options);
 
-    if (node.fullName === "v-for") {
-      return printVueAttribute(printVueVForDirective, { parseWithTs });
-    }
 
     if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueAttribute(printVueBindings, { parseWithTs });
+      return printVueAttribute2(printVueBindings, { parseWithTs });
     }
 
     /**
@@ -157,7 +147,7 @@ function printAttribute(path, options) {
      *     v-on:click="jsExpression"
      */
     if (attributeName.startsWith("@") || attributeName.startsWith("v-on:")) {
-      return printVueAttribute(printVueVOnDirective, { parseWithTs });
+      return printVueAttribute2(printVueVOnDirective, { parseWithTs });
     }
 
     /**
@@ -165,14 +155,14 @@ function printAttribute(path, options) {
      *     v-bind:id="vueExpression"
      */
     if (attributeName.startsWith(":") || attributeName.startsWith("v-bind:")) {
-      return printVueAttribute(printVueVBindDirective, { parseWithTs });
+      return printVueAttribute2(printVueVBindDirective, { parseWithTs });
     }
 
     /**
      *     v-if="jsExpression"
      */
     if (attributeName.startsWith("v-")) {
-      return printVueAttribute(printVueVUnknownDirective, { parseWithTs });
+      return printVueAttribute2(printVueVUnknownDirective, { parseWithTs });
     }
   }
 

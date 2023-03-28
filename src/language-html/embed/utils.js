@@ -59,6 +59,12 @@ function formatAttributeValue(code, options, textToDoc) {
   return textToDoc(code, options);
 }
 
+/**
+ * @param {AstPath} path
+ * @param {Doc} valueDoc
+ * @param {{expand: boolean}} [param2]
+ * @returns
+ */
 function printAttribute(path, valueDoc, { expand } = {}) {
   if (!valueDoc) {
     return;
