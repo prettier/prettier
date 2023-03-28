@@ -1,6 +1,5 @@
 import { group, indent, line } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import { getUnescapedAttributeValue } from "../utils/index.js";
 import { formatAttributeValue } from "./utils.js";
 
 const interpolationRegex = /{{(.+?)}}/s;
@@ -37,7 +36,7 @@ async function printAngularInterpolation(text, textToDoc) {
     }
   }
 
-  return group(parts);
+  return parts;
 }
 
 export { interpolationRegex, printAngularInterpolation };
