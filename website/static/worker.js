@@ -2,7 +2,7 @@
 
 "use strict";
 
-importScripts("lib/packageMeta.js");
+importScripts("lib/package-meta.js");
 importScripts("lib/standalone.js");
 
 // TODO[@fisker]: Lazy load plugins
