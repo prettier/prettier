@@ -33,10 +33,11 @@ const loremIpsumFooBazBar2 =
 ================================================================================
 `;
 
-exports[`multiline-literal.js format 1`] = `
+exports[`multiline-literal.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 // https://github.com/prettier/prettier/pull/13274
@@ -63,28 +64,6 @@ const loremIpsumFooBazBar2 =
          Multiline string";
 
 ================================================================================
-`;
-
-exports[`non-octal-eight-and-nine.js [acorn] format 1`] = `
-"Invalid escape sequence (3:3)
-  1 | // https://github.com/babel/babel/pull/11852
-  2 |
-> 3 | "\\8","\\9";
-    |   ^
-  4 | () => {
-  5 |   "use strict";
-  6 |   "\\8", "\\9";"
-`;
-
-exports[`non-octal-eight-and-nine.js [espree] format 1`] = `
-"Invalid escape sequence (3:3)
-  1 | // https://github.com/babel/babel/pull/11852
-  2 |
-> 3 | "\\8","\\9";
-    |   ^
-  4 | () => {
-  5 |   "use strict";
-  6 |   "\\8", "\\9";"
 `;
 
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [acorn] format 1`] = `
@@ -136,10 +115,33 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`non-octal-eight-and-nine.js format 1`] = `
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [acorn] format 1`] = `
+"Invalid escape sequence (3:3)
+  1 | // https://github.com/babel/babel/pull/11852
+  2 |
+> 3 | "\\8","\\9";
+    |   ^
+  4 | () => {
+  5 |   "use strict";
+  6 |   "\\8", "\\9";"
+`;
+
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [espree] format 1`] = `
+"Invalid escape sequence (3:3)
+  1 | // https://github.com/babel/babel/pull/11852
+  2 |
+> 3 | "\\8","\\9";
+    |   ^
+  4 | () => {
+  5 |   "use strict";
+  6 |   "\\8", "\\9";"
+`;
+
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 // https://github.com/babel/babel/pull/11852
@@ -225,10 +227,11 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`strings.js format 1`] = `
+exports[`strings.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 [
@@ -471,10 +474,11 @@ const Bar = styled.div\`
 ================================================================================
 `;
 
-exports[`template-literals.js format 1`] = `
+exports[`template-literals.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 foo(\`a long string \${ 1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 } with expr\`);

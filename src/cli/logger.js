@@ -1,12 +1,7 @@
-"use strict";
-
-const readline = require("readline");
-const wcwidth = require("wcwidth");
-
-// eslint-disable-next-line no-restricted-modules
-const { default: stripAnsi } = require("../../vendors/strip-ansi.js");
-// eslint-disable-next-line no-restricted-modules
-const { default: chalk, chalkStderr } = require("../../vendors/chalk.js");
+import readline from "node:readline";
+import chalk, { chalkStderr } from "chalk";
+import stripAnsi from "strip-ansi";
+import wcwidth from "wcwidth";
 
 const countLines = (stream, text) => {
   const columns = stream.columns || 80;
@@ -21,6 +16,7 @@ const clear = (stream, text) => () => {
   const lineCount = countLines(stream, text);
 
   for (let line = 0; line < lineCount; line++) {
+    /* c8 ignore next 3 */
     if (line > 0) {
       readline.moveCursor(stream, 0, -1);
     }
@@ -55,7 +51,8 @@ function createLogger(logLevel = "log") {
         clearable: false,
         ...options,
       };
-      message = message.replace(/^/gm, prefix) + (options.newline ? "\n" : "");
+      message =
+        message.replaceAll(/^/gm, prefix) + (options.newline ? "\n" : "");
       stream.write(message);
 
       if (options.clearable) {
@@ -91,4 +88,4 @@ function createLogger(logLevel = "log") {
   }
 }
 
-module.exports = createLogger;
+export default createLogger;

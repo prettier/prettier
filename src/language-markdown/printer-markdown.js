@@ -1,38 +1,32 @@
-"use strict";
-
-const collapseWhiteSpace = require("collapse-white-space");
-const {
-  getLast,
-  getMinNotPresentContinuousCount,
-  getMaxContinuousCount,
-  getStringWidth,
-  isNonEmptyArray,
-} = require("../common/util.js");
-const {
-  builders: {
-    breakParent,
-    join,
-    line,
-    literalline,
-    markAsRoot,
-    hardline,
-    softline,
-    ifBreak,
-    fill,
-    align,
-    indent,
-    group,
-    hardlineWithoutBreakParent,
-  },
-  utils: { normalizeDoc, replaceTextEndOfLine },
-  printer: { printDocToString },
-} = require("../document/index.js");
-const embed = require("./embed.js");
-const { insertPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
-const preprocess = require("./print-preprocess.js");
-const clean = require("./clean.js");
-const {
+import collapseWhiteSpace from "collapse-white-space";
+import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
+import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
+import getStringWidth from "../utils/get-string-width.js";
+import getPreferredQuote from "../utils/get-preferred-quote.js";
+import {
+  breakParent,
+  join,
+  line,
+  literalline,
+  markAsRoot,
+  hardline,
+  softline,
+  ifBreak,
+  fill,
+  align,
+  indent,
+  group,
+  hardlineWithoutBreakParent,
+} from "../document/builders.js";
+import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
+import { printDocToString } from "../document/printer.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import embed from "./embed.js";
+import { insertPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
+import preprocess from "./print-preprocess.js";
+import clean from "./clean.js";
+import {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
   splitText,
@@ -40,14 +34,14 @@ const {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
-} = require("./utils.js");
+} from "./utils.js";
+import getVisitorKeys from "./get-visitor-keys.js";
+import { printWhitespace } from "./print-whitespace.js";
 
 /**
- * @typedef {import("../document").Doc} Doc
+ * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
-const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 const SIBLING_NODE_TYPES = new Set([
   "listItem",
   "definition",
@@ -55,21 +49,18 @@ const SIBLING_NODE_TYPES = new Set([
 ]);
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
     return splitText(
       options.originalText.slice(
         node.position.start.offset,
         node.position.end.offset
-      ),
-      options
+      )
     ).map((node) =>
       node.type === "word"
         ? node.value
-        : node.value === ""
-        ? ""
-        : printLine(path, node.value, options)
+        : printWhitespace(path, node.value, options.proseWrap, true)
     );
   }
 
@@ -80,15 +71,11 @@ function genericPrint(path, options, print) {
         node.position.end.offset
       );
     case "root":
+      /* c8 ignore next 3 */
       if (node.children.length === 0) {
         return "";
       }
-      return [
-        normalizeDoc(printRoot(path, options, print)),
-        !TRAILING_HARDLINE_NODES.has(getLastDescendantNode(node).type)
-          ? hardline
-          : "",
-      ];
+      return [normalizeDoc(printRoot(path, options, print)), hardline];
     case "paragraph":
       return printChildren(path, options, print, {
         postprocessor: fill,
@@ -97,8 +84,8 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print);
     case "word": {
       let escapedValue = node.value
-        .replace(/\*/g, "\\$&") // escape all `*`
-        .replace(
+        .replaceAll("*", "\\*") // escape all `*`
+        .replaceAll(
           new RegExp(
             [
               `(^|${punctuationPattern})(_+)`,
@@ -110,7 +97,7 @@ function genericPrint(path, options, print) {
             (underscore1
               ? `${text1}${underscore1}`
               : `${underscore2}${text2}`
-            ).replace(/_/g, "\\_")
+            ).replaceAll("_", "\\_")
         ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
 
       const isFirstSentence = (node, name, index) =>
@@ -130,47 +117,41 @@ function genericPrint(path, options, print) {
       ) {
         // backslash is parsed as part of autolinks, so we need to remove it
         escapedValue = escapedValue.replace(/^(\\?[*_])+/, (prefix) =>
-          prefix.replace(/\\/g, "")
+          prefix.replaceAll("\\", "")
         );
       }
 
       return escapedValue;
     }
     case "whitespace": {
-      const parentNode = path.getParentNode();
-      const index = parentNode.children.indexOf(node);
-      const nextNode = parentNode.children[index + 1];
+      const { next } = path;
 
       const proseWrap =
         // leading char that may cause different syntax
-        nextNode && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
+        next && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value)
           ? "never"
           : options.proseWrap;
 
-      return printLine(path, node.value, { proseWrap });
+      return printWhitespace(path, node.value, proseWrap);
     }
     case "emphasis": {
       let style;
       if (isAutolink(node.children[0])) {
         style = options.originalText[node.position.start.offset];
       } else {
-        const parentNode = path.getParentNode();
-        const index = parentNode.children.indexOf(node);
-        const prevNode = parentNode.children[index - 1];
-        const nextNode = parentNode.children[index + 1];
+        const { previous, next } = path;
         const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
-          (prevNode &&
-            prevNode.type === "sentence" &&
-            prevNode.children.length > 0 &&
-            getLast(prevNode.children).type === "word" &&
-            !getLast(prevNode.children).hasTrailingPunctuation) ||
-          (nextNode &&
-            nextNode.type === "sentence" &&
-            nextNode.children.length > 0 &&
-            nextNode.children[0].type === "word" &&
-            !nextNode.children[0].hasLeadingPunctuation);
+          (previous?.type === "sentence" &&
+            previous.children.at(-1)?.type === "word" &&
+            !previous.children.at(-1).hasTrailingPunctuation) ||
+          (next?.type === "sentence" &&
+            next.children[0]?.type === "word" &&
+            !next.children[0].hasLeadingPunctuation);
         style =
-          hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
+          hasPrevOrNextWord ||
+          path.hasAncestor((node) => node.type === "emphasis")
+            ? "*"
+            : "_";
       }
       return [style, printChildren(path, options, print), style];
     }
@@ -179,17 +160,26 @@ function genericPrint(path, options, print) {
     case "delete":
       return ["~~", printChildren(path, options, print), "~~"];
     case "inlineCode": {
-      const backtickCount = getMinNotPresentContinuousCount(node.value, "`");
-      const style = "`".repeat(backtickCount || 1);
-      const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
-      return [style, gap, node.value, gap, style];
+      const code =
+        options.proseWrap === "preserve"
+          ? node.value
+          : node.value.replaceAll("\n", " ");
+      const backtickCount = getMinNotPresentContinuousCount(code, "`");
+      const backtickString = "`".repeat(backtickCount || 1);
+      const padding =
+        code.startsWith("`") ||
+        code.endsWith("`") ||
+        (/^[\n ]/.test(code) && /[\n ]$/.test(code) && /[^\n ]/.test(code))
+          ? " "
+          : "";
+      return [backtickString, padding, code, padding, backtickString];
     }
     case "wikiLink": {
       let contents = "";
       if (options.proseWrap === "preserve") {
         contents = node.value;
       } else {
-        contents = node.value.replace(/[\t\n]+/g, " ");
+        contents = node.value.replaceAll(/[\t\n]+/g, " ");
       }
 
       return ["[[", contents, "]]"];
@@ -246,7 +236,7 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(alignment, [
           alignment,
-          ...replaceTextEndOfLine(node.value, hardline),
+          replaceEndOfLine(node.value, hardline),
         ]);
       }
 
@@ -260,8 +250,7 @@ function genericPrint(path, options, print) {
         node.lang || "",
         node.meta ? " " + node.meta : "",
         hardline,
-
-        ...replaceTextEndOfLine(
+        replaceEndOfLine(
           getFencedCodeBlockValue(node, options.originalText),
           hardline
         ),
@@ -270,24 +259,19 @@ function genericPrint(path, options, print) {
       ];
     }
     case "html": {
-      const parentNode = path.getParentNode();
+      const { parent, isLast } = path;
       const value =
-        parentNode.type === "root" && getLast(parentNode.children) === node
-          ? node.value.trimEnd()
-          : node.value;
+        parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
       const isHtmlComment = /^<!--.*-->$/s.test(value);
 
-      return replaceTextEndOfLine(
+      return replaceEndOfLine(
         value,
         // @ts-expect-error
         isHtmlComment ? hardline : markAsRoot(literalline)
       );
     }
     case "list": {
-      const nthSiblingIndex = getNthListSiblingIndex(
-        node,
-        path.getParentNode()
-      );
+      const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
 
       const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
         node,
@@ -295,9 +279,9 @@ function genericPrint(path, options, print) {
       );
 
       return printChildren(path, options, print, {
-        processor: (childPath, index) => {
+        processor(childPath) {
           const prefix = getPrefix();
-          const childNode = childPath.getValue();
+          const childNode = childPath.node;
 
           if (
             childNode.children.length === 2 &&
@@ -318,11 +302,11 @@ function genericPrint(path, options, print) {
 
           function getPrefix() {
             const rawPrefix = node.ordered
-              ? (index === 0
+              ? (childPath.isFirst
                   ? node.start
                   : isGitDiffFriendlyOrderedList
                   ? 1
-                  : node.start + index) +
+                  : node.start + childPath.index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
               ? "- "
@@ -337,13 +321,14 @@ function genericPrint(path, options, print) {
       });
     }
     case "thematicBreak": {
-      const counter = getAncestorCounter(path, "list");
+      const { ancestors } = path;
+      const counter = ancestors.findIndex((node) => node.type === "list");
       if (counter === -1) {
         return "---";
       }
       const nthSiblingIndex = getNthListSiblingIndex(
-        path.getParentNode(counter),
-        path.getParentNode(counter + 1)
+        ancestors[counter],
+        ancestors[counter + 1]
       );
       return nthSiblingIndex % 2 === 0 ? "***" : "---";
     }
@@ -386,13 +371,12 @@ function genericPrint(path, options, print) {
     }
     // `footnote` requires `.use(footnotes, {inlineNotes: true})`, we are not using this option
     // https://github.com/remarkjs/remark-footnotes#optionsinlinenotes
-    /* istanbul ignore next */
+    /* c8 ignore next 2 */
     case "footnote":
       return ["[^", printChildren(path, options, print), "]"];
     case "footnoteReference":
       return printFootnoteReference(node);
     case "footnoteDefinition": {
-      const nextNode = path.getParentNode().children[path.getName() + 1];
       const shouldInlineFootnote =
         node.children.length === 1 &&
         node.children[0].type === "paragraph" &&
@@ -409,13 +393,11 @@ function genericPrint(path, options, print) {
               align(
                 " ".repeat(4),
                 printChildren(path, options, print, {
-                  processor: (childPath, index) =>
-                    index === 0 ? group([softline, print()]) : print(),
+                  processor: ({ isFirst }) =>
+                    isFirst ? group([softline, print()]) : print(),
                 })
               ),
-              nextNode && nextNode.type === "footnoteDefinition"
-                ? softline
-                : "",
+              path.next?.type === "footnoteDefinition" ? softline : "",
             ]),
       ];
     }
@@ -428,47 +410,45 @@ function genericPrint(path, options, print) {
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
-      return replaceTextEndOfLine(node.value, hardline);
+      return replaceEndOfLine(node.value, hardline);
     // MDX
     // fallback to the original text if multiparser failed
     // or `embeddedLanguageFormatting: "off"`
-    case "importExport":
-      return [node.value, hardline];
-    case "esComment":
-      return ["{/* ", node.value, " */}"];
+    case "import":
+    case "export":
     case "jsx":
       return node.value;
+    case "esComment":
+      return ["{/* ", node.value, " */}"];
     case "math":
       return [
         "$$",
         hardline,
-        node.value
-          ? [...replaceTextEndOfLine(node.value, hardline), hardline]
-          : "",
+        node.value ? [replaceEndOfLine(node.value, hardline), hardline] : "",
         "$$",
       ];
-    case "inlineMath": {
+    case "inlineMath":
       // remark-math trims content but we don't want to remove whitespaces
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(locStart(node), locEnd(node));
-    }
 
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
+    case "text": // handled in other types
     default:
-      /* istanbul ignore next */
-      throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
+      /* c8 ignore next */
+      throw new UnexpectedNodeError(node, "Markdown");
   }
 }
 
 function printListItem(path, options, print, listPrefix) {
-  const node = path.getValue();
+  const { node } = path;
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
   return [
     prefix,
     printChildren(path, options, print, {
-      processor: (childPath, index) => {
-        if (index === 0 && childPath.getValue().type !== "list") {
+      processor({ node, isFirst }) {
+        if (isFirst && node.type !== "list") {
           return align(" ".repeat(prefix.length), print());
         }
 
@@ -520,51 +500,14 @@ function getNthSiblingIndex(node, parentNode, condition) {
   }
 }
 
-function getAncestorCounter(path, typeOrTypes) {
-  const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
-
-  let counter = -1;
-  let ancestorNode;
-
-  while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.includes(ancestorNode.type)) {
-      return counter;
-    }
-  }
-
-  return -1;
-}
-
-function getAncestorNode(path, typeOrTypes) {
-  const counter = getAncestorCounter(path, typeOrTypes);
-  return counter === -1 ? null : path.getParentNode(counter);
-}
-
-function printLine(path, value, options) {
-  if (options.proseWrap === "preserve" && value === "\n") {
-    return hardline;
-  }
-
-  const isBreakable =
-    options.proseWrap === "always" &&
-    !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
-  return value !== ""
-    ? isBreakable
-      ? line
-      : " "
-    : isBreakable
-    ? softline
-    : "";
-}
-
 function printTable(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const columnMaxWidths = [];
   // { [rowIndex: number]: { [columnIndex: number]: {text: string, width: number} } }
   const contents = path.map(
-    (rowPath) =>
-      rowPath.map((cellPath, columnIndex) => {
+    () =>
+      path.map(({ index: columnIndex }) => {
         const text = printDocToString(print(), options).formatted;
         const width = getStringWidth(text);
         columnMaxWidths[columnIndex] = Math.max(
@@ -642,7 +585,7 @@ function printRoot(path, options, print) {
   /** @type {IgnorePosition | null} */
   let ignoreStart = null;
 
-  const { children } = path.getValue();
+  const { children } = path.node;
   for (const [index, childNode] of children.entries()) {
     switch (isPrettierIgnore(childNode)) {
       case "start":
@@ -666,7 +609,7 @@ function printRoot(path, options, print) {
   }
 
   return printChildren(path, options, print, {
-    processor: (childPath, index) => {
+    processor({ index }) {
       if (ignoreRanges.length > 0) {
         const ignoreRange = ignoreRanges[0];
 
@@ -697,56 +640,34 @@ function printRoot(path, options, print) {
 }
 
 function printChildren(path, options, print, events = {}) {
-  const { postprocessor } = events;
-  const processor = events.processor || (() => print());
+  const { postprocessor = (parts) => parts, processor = () => print() } =
+    events;
 
-  const node = path.getValue();
   const parts = [];
 
-  let lastChildNode;
-
-  path.each((childPath, index) => {
-    const childNode = childPath.getValue();
-
-    const result = processor(childPath, index);
+  path.each(() => {
+    const result = processor(path);
     if (result !== false) {
-      const data = {
-        parts,
-        prevNode: lastChildNode,
-        parentNode: node,
-        options,
-      };
-
-      if (shouldPrePrintHardline(childNode, data)) {
+      if (parts.length > 0 && shouldPrePrintHardline(path)) {
         parts.push(hardline);
 
-        // Can't find a case to pass `shouldPrePrintTripleHardline`
-        /* istanbul ignore next */
-        if (lastChildNode && TRAILING_HARDLINE_NODES.has(lastChildNode.type)) {
-          if (shouldPrePrintTripleHardline(childNode, data)) {
-            parts.push(hardline);
-          }
-        } else {
-          if (
-            shouldPrePrintDoubleHardline(childNode, data) ||
-            shouldPrePrintTripleHardline(childNode, data)
-          ) {
-            parts.push(hardline);
-          }
+        if (
+          shouldPrePrintDoubleHardline(path, options) ||
+          shouldPrePrintTripleHardline(path)
+        ) {
+          parts.push(hardline);
+        }
 
-          if (shouldPrePrintTripleHardline(childNode, data)) {
-            parts.push(hardline);
-          }
+        if (shouldPrePrintTripleHardline(path)) {
+          parts.push(hardline);
         }
       }
 
       parts.push(result);
-
-      lastChildNode = childNode;
     }
   }, "children");
 
-  return postprocessor ? postprocessor(parts) : parts;
+  return postprocessor(parts);
 }
 
 function printIgnoreComment(node) {
@@ -762,14 +683,6 @@ function printIgnoreComment(node) {
   ) {
     return ["{/* ", node.children[0].value, " */}"];
   }
-}
-
-function getLastDescendantNode(node) {
-  let current = node;
-  while (isNonEmptyArray(current.children)) {
-    current = getLast(current.children);
-  }
-  return current;
 }
 
 /** @return {false | 'next' | 'start' | 'end'} */
@@ -799,69 +712,69 @@ function isPrettierIgnore(node) {
   return match ? match[1] || "next" : false;
 }
 
-function shouldPrePrintHardline(node, data) {
-  const isFirstNode = data.parts.length === 0;
-  const isInlineNode = INLINE_NODE_TYPES.includes(node.type);
+function shouldPrePrintHardline({ node, parent }) {
+  const isInlineNode = INLINE_NODE_TYPES.has(node.type);
 
   const isInlineHTML =
-    node.type === "html" &&
-    INLINE_NODE_WRAPPER_TYPES.includes(data.parentNode.type);
+    node.type === "html" && INLINE_NODE_WRAPPER_TYPES.has(parent.type);
 
-  return !isFirstNode && !isInlineNode && !isInlineHTML;
+  return !isInlineNode && !isInlineHTML;
 }
 
-function shouldPrePrintDoubleHardline(node, data) {
-  const isSequence = (data.prevNode && data.prevNode.type) === node.type;
-  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
-
-  const isInTightListItem =
-    data.parentNode.type === "listItem" && !data.parentNode.loose;
-
-  const isPrevNodeLooseListItem =
-    data.prevNode?.type === "listItem" && data.prevNode.loose;
-
-  const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode) === "next";
-
-  const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
-    node.type === "html" &&
-    data.prevNode?.type === "html" &&
-    data.prevNode.position.end.line + 1 === node.position.start.line;
-
-  const isHtmlDirectAfterListItem =
-    node.type === "html" &&
-    data.parentNode.type === "listItem" &&
-    data.prevNode?.type === "paragraph" &&
-    data.prevNode.position.end.line + 1 === node.position.start.line;
-
+function isLooseListItem(node, options) {
   return (
-    isPrevNodeLooseListItem ||
-    !(
-      isSiblingNode ||
-      isInTightListItem ||
-      isPrevNodePrettierIgnore ||
-      isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-      isHtmlDirectAfterListItem
-    )
+    node.type === "listItem" &&
+    (node.spread ||
+      // Check if `listItem` ends with `\n`
+      // since it can't be empty, so we only need check the last character
+      options.originalText.charAt(node.position.end.offset - 1) === "\n")
   );
 }
 
-function shouldPrePrintTripleHardline(node, data) {
-  const isPrevNodeList = data.prevNode && data.prevNode.type === "list";
+function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
+  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
+
+  if (isPrevNodeLooseListItem) {
+    return true;
+  }
+
+  const isSequence = previous.type === node.type;
+  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
+  const isInTightListItem =
+    parent.type === "listItem" && !isLooseListItem(parent, options);
+  const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
+  const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
+    node.type === "html" &&
+    previous.type === "html" &&
+    previous.position.end.line + 1 === node.position.start.line;
+  const isHtmlDirectAfterListItem =
+    node.type === "html" &&
+    parent.type === "listItem" &&
+    previous.type === "paragraph" &&
+    previous.position.end.line + 1 === node.position.start.line;
+
+  return !(
+    isSiblingNode ||
+    isInTightListItem ||
+    isPrevNodePrettierIgnore ||
+    isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
+    isHtmlDirectAfterListItem
+  );
+}
+
+function shouldPrePrintTripleHardline({ node, previous }) {
+  const isPrevNodeList = previous.type === "list";
   const isIndentedCode = node.type === "code" && node.isIndented;
 
   return isPrevNodeList && isIndentedCode;
 }
 
 function shouldRemainTheSameContent(path) {
-  const ancestorNode = getAncestorNode(path, [
-    "linkReference",
-    "imageReference",
-  ]);
-
+  const node = path.findAncestor(
+    (node) => node.type === "linkReference" || node.type === "imageReference"
+  );
   return (
-    ancestorNode &&
-    (ancestorNode.type !== "linkReference" ||
-      ancestorNode.referenceType !== "full")
+    node && (node.type !== "linkReference" || node.referenceType !== "full")
   );
 }
 
@@ -891,24 +804,14 @@ function printTitle(title, options, printSpace = true) {
   }
 
   // title is escaped after `remark-parse` v7
-  title = title.replace(/\\(["')])/g, "$1");
+  title = title.replaceAll(/\\(?=["')])/g, "");
 
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
   }
-  // faster than using RegExps: https://jsperf.com/performance-of-match-vs-split
-  const singleCount = title.split("'").length - 1;
-  const doubleCount = title.split('"').length - 1;
-  const quote =
-    singleCount > doubleCount
-      ? '"'
-      : doubleCount > singleCount
-      ? "'"
-      : options.singleQuote
-      ? "'"
-      : '"';
-  title = title.replace(/\\/, "\\\\");
-  title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
+  const quote = getPreferredQuote(title, options.singleQuote);
+  title = title.replaceAll("\\", "\\\\");
+  title = title.replaceAll(quote, `\\${quote}`);
   return `${quote}${title}${quote}`;
 }
 
@@ -917,14 +820,7 @@ function clamp(value, min, max) {
 }
 
 function hasPrettierIgnore(path) {
-  const index = Number(path.getName());
-
-  if (index === 0) {
-    return false;
-  }
-
-  const prevNode = path.getParentNode().children[index - 1];
-  return isPrettierIgnore(prevNode) === "next";
+  return path.index > 0 && isPrettierIgnore(path.previous) === "next";
 }
 
 // `remark-parse` lowercase the `label` as `identifier`, we don't want do that
@@ -937,11 +833,14 @@ function printFootnoteReference(node) {
   return `[^${node.label}]`;
 }
 
-module.exports = {
+const printer = {
   preprocess,
   print: genericPrint,
   embed,
   massageAstNode: clean,
   hasPrettierIgnore,
   insertPragma,
+  getVisitorKeys,
 };
+
+export default printer;

@@ -1,5 +1,3 @@
-"use strict";
-
 function liquid() {
   const proto = this.Parser.prototype;
   const methods = proto.inlineMethods;
@@ -21,4 +19,4 @@ function liquid() {
   };
 }
 
-module.exports = liquid;
+export default liquid;

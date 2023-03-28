@@ -1,24 +1,26 @@
-"use strict";
-
 /**
- * @typedef {import("../../document").Doc} Doc
+ * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
-const assert = require("assert");
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { indent, join, line, softline, hardline },
-  utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const {
+import assert from "node:assert";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import {
+  indent,
+  join,
+  line,
+  softline,
+  hardline,
+} from "../../document/builders.js";
+import { replaceEndOfLine } from "../../document/utils.js";
+import { locStart, locEnd } from "../loc.js";
+import {
   isTextLikeNode,
   getLastDescendant,
   isPreLikeNode,
   hasPrettierIgnore,
   shouldPreserveContent,
   isVueSfcBlock,
-} = require("../utils/index.js");
+} from "../utils/index.js";
 
 function printClosingTag(node, options) {
   return [
@@ -66,7 +68,7 @@ function printClosingTagSuffix(node, options) {
 
 function printClosingTagStartMarker(node, options) {
   assert(!node.isSelfClosing);
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
@@ -141,8 +143,7 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
    *     >
    */
   return (
-    node.lastChild &&
-    node.lastChild.isTrailingSpaceSensitive &&
+    node.lastChild?.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
     !isTextLikeNode(getLastDescendant(node.lastChild)) &&
     !isPreLikeNode(node)
@@ -212,7 +213,7 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
 }
 
 function printAttributes(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (!isNonEmptyArray(node.attrs)) {
     return node.isSelfClosing
@@ -225,8 +226,7 @@ function printAttributes(path, options, print) {
   }
 
   const ignoreAttributeData =
-    node.prev &&
-    node.prev.type === "comment" &&
+    node.prev?.type === "comment" &&
     getPrettierIgnoreAttributeCommentData(node.prev.value);
 
   const hasPrettierIgnoreAttribute =
@@ -236,14 +236,15 @@ function printAttributes(path, options, print) {
       ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
       : () => false;
 
-  const printedAttributes = path.map((attributePath) => {
-    const attribute = attributePath.getValue();
-    return hasPrettierIgnoreAttribute(attribute)
-      ? replaceTextEndOfLine(
-          options.originalText.slice(locStart(attribute), locEnd(attribute))
-        )
-      : print();
-  }, "attrs");
+  const printedAttributes = path.map(
+    ({ node: attribute }) =>
+      hasPrettierIgnoreAttribute(attribute)
+        ? replaceEndOfLine(
+            options.originalText.slice(locStart(attribute), locEnd(attribute))
+          )
+        : print(),
+    "attrs"
+  );
 
   const forceNotToBreakAttrContent =
     node.type === "element" &&
@@ -309,7 +310,7 @@ function printOpeningTagEnd(node) {
 }
 
 function printOpeningTag(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   return [
     printOpeningTagStart(node, options),
@@ -342,7 +343,7 @@ function printOpeningTagStartMarker(node) {
     case "interpolation":
       return "{{";
     case "docType":
-      return "<!DOCTYPE";
+      return node.value === "html" ? "<!doctype" : "<!DOCTYPE";
     case "element":
       if (node.condition) {
         return `<!--[if ${node.condition}]><!--><${node.rawName}`;
@@ -368,7 +369,7 @@ function printOpeningTagEndMarker(node) {
   }
 }
 
-module.exports = {
+export {
   printClosingTag,
   printClosingTagStart,
   printClosingTagStartMarker,

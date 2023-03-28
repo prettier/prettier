@@ -88,14 +88,14 @@ function pipeline() {
 bifornCringerMoshedPerplexSawder(
   askTrovenaBeenaDependsRowans,
   glimseGlyphsHazardNoopsTieTie,
-  averredBathersBoxroomBuggyNurl
+  averredBathersBoxroomBuggyNurl,
 ) // comment
   |> kochabCooieGameOnOboleUnweave
   |> glimseGlyphsHazardNoopsTieTie;
 
 bifornCringerMoshedPerplexSawder(
   askTrovenaBeenaDependsRowans,
-  glimseGlyphsHazardNoopsTieTie
+  glimseGlyphsHazardNoopsTieTie,
 )
   |> foo // comment
   |> kochabCooieGameOnOboleUnweave

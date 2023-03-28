@@ -1,4 +1,13 @@
-"use strict";
+// @ts-expect-error
+import { __internal as sharedWithCli } from "../index.js";
 
-// eslint-disable-next-line no-restricted-modules
-module.exports = require("../index.js").__internal;
+export const {
+  errors,
+  coreOptions,
+  createIsIgnoredFunction,
+  formatOptionsHiddenDefaults,
+  normalizeOptions,
+  getSupportInfoWithoutPlugins,
+  vnopts,
+  fastGlob,
+} = sharedWithCli;

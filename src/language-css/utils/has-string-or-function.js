@@ -1,5 +1,3 @@
-"use strict";
-
 function hasStringOrFunction(groupList) {
   return groupList.some(
     (group) =>
@@ -10,4 +8,4 @@ function hasStringOrFunction(groupList) {
   );
 }
 
-module.exports = hasStringOrFunction;
+export default hasStringOrFunction;

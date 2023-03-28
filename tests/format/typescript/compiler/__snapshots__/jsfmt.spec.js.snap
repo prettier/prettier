@@ -441,33 +441,6 @@ const;
 ================================================================================
 `;
 
-exports[`errorOnInitializerInInterfaceProperty.ts [babel-ts] format 1`] = `
-"Unexpected token, expected ";" (2:17)
-  1 | interface Foo {
-> 2 |     bar: number = 5;
-    |                 ^
-  3 | }
-  4 |"
-`;
-
-exports[`errorOnInitializerInInterfaceProperty.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-interface Foo {
-    bar: number = 5;
-}
-
-=====================================output=====================================
-interface Foo {
-  bar: number = 5;
-}
-
-================================================================================
-`;
-
 exports[`es5ExportDefaultClassDeclaration4.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -668,11 +641,12 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 interface I {
-  public [a: string]: number;
+  [a: string]: number;
 }
+
 =====================================output=====================================
 interface I {
-  public [a: string]: number;
+  [a: string]: number;
 }
 
 ================================================================================

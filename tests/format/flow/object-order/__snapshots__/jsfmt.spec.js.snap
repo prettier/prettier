@@ -37,10 +37,11 @@ type Foo = {
 ================================================================================
 `;
 
-exports[`order.js format 1`] = `
+exports[`order.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 type Foo = {

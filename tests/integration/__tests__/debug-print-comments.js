@@ -1,7 +1,3 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
-
 describe("prints information for debugging comment attachment with --debug-print-comments", () => {
   runPrettier(
     "cli/with-shebang",

@@ -1,12 +1,7 @@
-"use strict";
-
-const {
-  ParseSourceSpan,
-} = require("angular-html-parser/lib/compiler/src/parse_util");
-const {
-  htmlTrim,
+import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import {
   getLeadingAndTrailingHtmlWhitespace,
-  hasHtmlWhitespace,
   canHaveInterpolation,
   getNodeCssStyleDisplay,
   isDanglingSpaceSensitiveNode,
@@ -14,8 +9,7 @@ const {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-  isVueScriptTag,
-} = require("./utils/index.js");
+} from "./utils/index.js";
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,
@@ -28,7 +22,6 @@ const PREPROCESS_PIPELINE = [
   addHasHtmComponentClosingTag,
   addIsSpaceSensitive,
   mergeSimpleElementIntoText,
-  markTsScript,
 ];
 
 function preprocess(ast, options) {
@@ -65,11 +58,9 @@ function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
    */
   const isTarget = (node) =>
     node.type === "element" &&
-    node.prev &&
-    node.prev.type === "ieConditionalStartComment" &&
+    node.prev?.type === "ieConditionalStartComment" &&
     node.prev.sourceSpan.end.offset === node.startSourceSpan.start.offset &&
-    node.firstChild &&
-    node.firstChild.type === "ieConditionalEndComment" &&
+    node.firstChild?.type === "ieConditionalEndComment" &&
     node.firstChild.sourceSpan.start.offset === node.startSourceSpan.end.offset;
   ast.walk((node) => {
     if (node.children) {
@@ -151,17 +142,15 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.attrs.length === 0 &&
     node.children.length === 1 &&
     node.firstChild.type === "text" &&
-    !hasHtmlWhitespace(node.children[0].value) &&
+    !htmlWhitespaceUtils.hasWhitespaceCharacter(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces &&
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces &&
-    node.prev &&
-    node.prev.type === "text" &&
-    node.next &&
-    node.next.type === "text";
+    node.prev?.type === "text" &&
+    node.next?.type === "text";
   ast.walk((node) => {
     if (node.children) {
       for (let i = 0; i < node.children.length; i++) {
@@ -272,7 +261,7 @@ function extractWhitespaces(ast /*, options*/) {
       node.children.length === 0 ||
       (node.children.length === 1 &&
         node.children[0].type === "text" &&
-        htmlTrim(node.children[0].value).length === 0)
+        htmlWhitespaceUtils.trim(node.children[0].value).length === 0)
     ) {
       node.hasDanglingSpaces = node.children.length > 0;
       node.children = [];
@@ -342,7 +331,9 @@ function addIsSelfClosing(ast /*, options */) {
       (node.type === "element" &&
         (node.tagDefinition.isVoid ||
           // self-closing
-          node.startSourceSpan === node.endSourceSpan));
+          (node.endSourceSpan &&
+            node.startSourceSpan.start === node.endSourceSpan.start &&
+            node.startSourceSpan.end === node.endSourceSpan.end)));
   });
 }
 
@@ -410,19 +401,4 @@ function addIsSpaceSensitive(ast, options) {
   });
 }
 
-function markTsScript(ast, options) {
-  if (options.parser === "vue") {
-    const vueScriptTag = ast.children.find((child) =>
-      isVueScriptTag(child, options)
-    );
-    if (!vueScriptTag) {
-      return;
-    }
-    const { lang } = vueScriptTag.attrMap;
-    if (lang === "ts" || lang === "typescript") {
-      options.__should_parse_vue_template_with_ts = true;
-    }
-  }
-}
-
-module.exports = preprocess;
+export default preprocess;

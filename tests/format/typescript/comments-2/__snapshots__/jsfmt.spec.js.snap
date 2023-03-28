@@ -2,7 +2,7 @@
 
 exports[`dangling.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -22,7 +22,7 @@ declare class Foo extends Qux<string> {
 
 exports[`dangling.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -41,7 +41,7 @@ declare class Foo extends Qux<string> {
 
 exports[`issues.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -56,7 +56,7 @@ function f(
 =====================================output=====================================
 function f(
   someReallyLongArgument: WithSomeLongType,
-  someReallyLongArgument2: WithSomeLongType
+  someReallyLongArgument2: WithSomeLongType,
   // Trailing comment should stay after
 ) {}
 
@@ -65,7 +65,7 @@ function f(
 
 exports[`issues.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -79,7 +79,7 @@ function f(
 =====================================output=====================================
 function f(
   someReallyLongArgument: WithSomeLongType,
-  someReallyLongArgument2: WithSomeLongType
+  someReallyLongArgument2: WithSomeLongType,
   // Trailing comment should stay after
 ) {}
 
@@ -88,7 +88,7 @@ function f(
 
 exports[`last-arg.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -149,34 +149,34 @@ class X2 {
 
 =====================================output=====================================
 type f1 = (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => number
 
 f2 = (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ): number => {}
 
 f3 = (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => {}
 
 f4 = function (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) {}
 
 class X {
   f(
-    currentRequest: { a: number }
+    currentRequest: { a: number },
     // TODO this is a very very very very long comment that makes it go > 80 columns
   ) {}
 }
 
 function f5(
-  a: number
+  a: number,
   // some comment here
 ): number {
   return a + 1
@@ -185,7 +185,7 @@ function f5(
 var x = {
   getSectionMode(
     pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData
+    sectionMetaData: SectionMetaData,
     /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {},
@@ -194,7 +194,7 @@ var x = {
 class X2 {
   getSectionMode(
     pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData = ["unknown"]
+    sectionMetaData: SectionMetaData = ["unknown"],
     /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {}
@@ -205,7 +205,7 @@ class X2 {
 
 exports[`last-arg.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -265,34 +265,34 @@ class X2 {
 
 =====================================output=====================================
 type f1 = (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => number;
 
 f2 = (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ): number => {};
 
 f3 = (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => {};
 
 f4 = function (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) {};
 
 class X {
   f(
-    currentRequest: { a: number }
+    currentRequest: { a: number },
     // TODO this is a very very very very long comment that makes it go > 80 columns
   ) {}
 }
 
 function f5(
-  a: number
+  a: number,
   // some comment here
 ): number {
   return a + 1;
@@ -301,7 +301,7 @@ function f5(
 var x = {
   getSectionMode(
     pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData
+    sectionMetaData: SectionMetaData,
     /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {},
@@ -310,7 +310,7 @@ var x = {
 class X2 {
   getSectionMode(
     pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData = ["unknown"]
+    sectionMetaData: SectionMetaData = ["unknown"],
     /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {}

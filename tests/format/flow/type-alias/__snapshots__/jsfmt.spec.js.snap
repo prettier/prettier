@@ -2,7 +2,7 @@
 
 exports[`issue-100857.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -44,7 +44,7 @@ type FieldLayoutWith<
 =====================================output=====================================
 type FieldLayoutWith<
   T: string,
-  S: unknown = { xxxxxxxx: number, y: string }
+  S: unknown = { xxxxxxxx: number, y: string },
 > = {
   type: T,
   code: string,
@@ -65,7 +65,7 @@ type FieldLayoutWith<T: string> = {
 
 type FieldLayoutWith<
   T: stringgggggggggggggggggg,
-  S: stringgggggggggggggggggg
+  S: stringgggggggggggggggggg,
 > = {
   type: T,
   code: string,

@@ -1,0 +1,5 @@
+{
+  "name": "prettier-config-mjs-in-type-commonjs",
+  "private": true,
+  "type": "commonjs"
+}

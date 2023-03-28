@@ -1,7 +1,6 @@
-"use strict";
-
-const path = require("path");
-const runPrettier = require("../run-prettier.js");
+import path from "node:path";
+import createEsmUtils from "esm-utils";
+const { __dirname } = createEsmUtils(import.meta);
 
 describe("support absolute filename", () => {
   runPrettier("cli/ignore-absolute-path", [

@@ -1,9 +1,6 @@
-"use strict";
-
-const path = require("path");
-const fastGlob = require("fast-glob");
-
-const { statSafe } = require("./utils.js");
+import path from "node:path";
+import { statSafe, normalizeToPosix } from "./utils.js";
+import { fastGlob } from "./prettier-internal.js";
 
 /** @typedef {import('./context').Context} Context */
 
@@ -110,9 +107,9 @@ async function* expandPatternsInternal(context) {
     try {
       result = await fastGlob(glob, globOptions);
     } catch ({ message }) {
-      /* istanbul ignore next */
+      /* c8 ignore next */
       yield { error: `${errorMessages.globError[type]}: ${input}\n${message}` };
-      /* istanbul ignore next */
+      /* c8 ignore next */
       continue;
     }
 
@@ -183,26 +180,18 @@ function sortPaths(paths) {
 function escapePathForGlob(path) {
   return fastGlob
     .escapePath(
-      path.replace(/\\/g, "\0") // Workaround for fast-glob#262 (part 1)
+      path.replaceAll("\\", "\0") // Workaround for fast-glob#262 (part 1)
     )
-    .replace(/\\!/g, "@(!)") // Workaround for fast-glob#261
-    .replace(/\0/g, "@(\\\\)"); // Workaround for fast-glob#262 (part 2)
+    .replaceAll("\\!", "@(!)") // Workaround for fast-glob#261
+    .replaceAll("\0", "@(\\\\)"); // Workaround for fast-glob#262 (part 2)
 }
-
-const isWindows = path.sep === "\\";
 
 /**
  * Using backslashes in globs is probably not okay, but not accepting
  * backslashes as path separators on Windows is even more not okay.
  * https://github.com/prettier/prettier/pull/6776#discussion_r380723717
  * https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
- * @param {string} pattern
  */
-function fixWindowsSlashes(pattern) {
-  return isWindows ? pattern.replace(/\\/g, "/") : pattern;
-}
+const fixWindowsSlashes = normalizeToPosix;
 
-module.exports = {
-  expandPatterns,
-  fixWindowsSlashes,
-};
+export { expandPatterns };

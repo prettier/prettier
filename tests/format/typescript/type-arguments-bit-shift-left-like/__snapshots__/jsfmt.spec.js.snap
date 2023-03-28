@@ -49,7 +49,7 @@ exports[`3.ts [typescript] format 1`] = `
   2 |"
 `;
 
-exports[`4.ts [babel-ts] format 1`] = `
+exports[`4.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -64,13 +64,6 @@ printWidth: 80
 );
 
 ================================================================================
-`;
-
-exports[`4.ts [typescript] format 1`] = `
-"Expression expected. (1:2)
-> 1 | (@f<<T>(v: T) => void>() class {});
-    |  ^
-  2 |"
 `;
 
 exports[`5.tsx [babel-ts] format 1`] = `

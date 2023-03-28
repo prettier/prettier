@@ -1,25 +1,14 @@
-"use strict";
+import createParsers from "../utils/create-parsers.js";
+import printer from "./printer-graphql.js";
 
-const createLanguage = require("../utils/create-language.js");
-const printer = require("./printer-graphql.js");
-const options = require("./options.js");
-const parsers = require("./parsers.js");
-
-const languages = [
-  createLanguage(require("linguist-languages/data/GraphQL.json"), () => ({
-    since: "1.5.0",
-    parsers: ["graphql"],
-    vscodeLanguageIds: ["graphql"],
-  })),
-];
-
-const printers = {
+export const printers = {
   graphql: printer,
 };
-
-module.exports = {
-  languages,
-  options,
-  printers,
-  parsers,
-};
+export const parsers = createParsers([
+  {
+    importParsers: () => import("./parser-graphql.js"),
+    parserNames: ["graphql"],
+  },
+]);
+export { default as languages } from "./languages.evaluate.js";
+export { default as options } from "./options.js";

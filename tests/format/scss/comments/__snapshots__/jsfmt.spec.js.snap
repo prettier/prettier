@@ -224,16 +224,22 @@ selector {
 // #8052
 $font-family-rich:
   // custom
-  "Noto Sans TC", "Noto Sans SC", "Noto Sans JP",
+  "Noto Sans TC",
+  "Noto Sans SC",
+  "Noto Sans JP",
   // Safari for OS X and iOS (San Francisco)
   -apple-system,
   BlinkMacSystemFont,
   // fallback
   Roboto,
-  "Helvetica Neue", Helvetica, Arial, sans-serif,
+  "Helvetica Neue",
+  Helvetica,
+  Arial,
+  sans-serif,
   // emoji
   "Apple Color Emoji",
-  "Segoe UI Emoji", "Segoe UI Symbol" !default;
+  "Segoe UI Emoji",
+  "Segoe UI Symbol" !default;
 
 // #7109
 .test {
@@ -296,6 +302,35 @@ printWidth: 80
 // Catchall baseclass
 /* Catchall baseclass */
 .glyphicon {
+}
+
+================================================================================
+`;
+
+exports[`custom-properties.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* custom properties set & @apply rule */
+:root {
+    /* comments 192 */ --centered /* comments 193 */ : /* comments 194 */ {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    };
+}
+
+=====================================output=====================================
+/* custom properties set & @apply rule */
+:root {
+  /* comments 192 */
+  --centered/* comments 193 */ : /* comments 194 */ {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  };
 }
 
 ================================================================================
@@ -394,7 +429,8 @@ $my-list2:
   c;
 
 =====================================output=====================================
-$my-list: "foo",
+$my-list:
+  "foo",
   // Foo
   "bar"; // Bar
 

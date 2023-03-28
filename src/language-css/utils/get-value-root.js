@@ -1,5 +1,3 @@
-"use strict";
-
 const getValueRoot = (node) => {
   while (node.parent) {
     node = node.parent;
@@ -8,4 +6,4 @@ const getValueRoot = (node) => {
   return node;
 };
 
-module.exports = getValueRoot;
+export default getValueRoot;

@@ -1,6 +1,5 @@
-"use strict";
-
-const isBlockComment = require("./utils/is-block-comment.js");
+import isBlockComment from "./utils/is-block-comment.js";
+import { isArrayOrTupleExpression } from "./utils/index.js";
 
 const ignoredProperties = new Set([
   "range",
@@ -30,17 +29,17 @@ function clean(ast, newObj, parent) {
   }
 
   if (
-    ast.type === "BigIntLiteral" ||
-    ast.type === "BigIntLiteralTypeAnnotation"
+    (ast.type === "BigIntLiteral" ||
+      ast.type === "BigIntLiteralTypeAnnotation") &&
+    newObj.value
   ) {
-    if (newObj.value) {
-      newObj.value = newObj.value.toLowerCase();
-    }
+    newObj.value = newObj.value.toLowerCase();
   }
-  if (ast.type === "BigIntLiteral" || ast.type === "Literal") {
-    if (newObj.bigint) {
-      newObj.bigint = newObj.bigint.toLowerCase();
-    }
+  if (
+    (ast.type === "BigIntLiteral" || ast.type === "Literal") &&
+    newObj.bigint
+  ) {
+    newObj.bigint = newObj.bigint.toLowerCase();
   }
 
   if (ast.type === "DecimalLiteral") {
@@ -121,11 +120,13 @@ function clean(ast, newObj, parent) {
   // We change quotes
   if (
     ast.type === "JSXAttribute" &&
-    ast.value &&
-    ast.value.type === "Literal" &&
+    ast.value?.type === "Literal" &&
     /["']|&quot;|&apos;/.test(ast.value.value)
   ) {
-    newObj.value.value = newObj.value.value.replace(/["']|&quot;|&apos;/g, '"');
+    newObj.value.value = newObj.value.value.replaceAll(
+      /["']|&quot;|&apos;/g,
+      '"'
+    );
   }
 
   // Angular Components: Inline HTML template and Inline CSS styles
@@ -143,7 +144,7 @@ function clean(ast, newObj, parent) {
     ] of newObj.expression.arguments[0].properties.entries()) {
       switch (astProps[index].key.name) {
         case "styles":
-          if (prop.value.type === "ArrayExpression") {
+          if (isArrayOrTupleExpression(prop.value)) {
             removeTemplateElementsValue(prop.value.elements[0]);
           }
           break;
@@ -195,10 +196,6 @@ function clean(ast, newObj, parent) {
     }
   }
 
-  if (ast.type === "InterpreterDirective") {
-    newObj.value = newObj.value.trimEnd();
-  }
-
   // Prettier removes degenerate union and intersection types with only one member.
   if (
     (ast.type === "TSIntersectionType" || ast.type === "TSUnionType") &&
@@ -206,8 +203,20 @@ function clean(ast, newObj, parent) {
   ) {
     return newObj.types[0];
   }
+
+  // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently
+  if (
+    ast.type === "ChainExpression" &&
+    ast.expression.type === "TSNonNullExpression"
+  ) {
+    // Ideally, we should swap these two nodes, but `type` is the only difference
+    [newObj.type, newObj.expression.type] = [
+      newObj.expression.type,
+      newObj.type,
+    ];
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;
 
-module.exports = clean;
+export default clean;

@@ -65,7 +65,7 @@ setFoo(
     <div>two</div>
     <div>three</div>
   \`,
-  secondArgument
+  secondArgument,
 );
 
 setFoo(
@@ -76,7 +76,7 @@ setFoo(
     <div>two</div>
     <div>three</div>
   \`,
-  secondArgument
+  secondArgument,
 );
 
 setFoo(
@@ -85,7 +85,7 @@ setFoo(
       <div>nested</div>
     </div>
   \`,
-  secondArgument
+  secondArgument,
 );
 
 ================================================================================
@@ -145,7 +145,7 @@ setFoo(
   html\`<div>one</div>
     <div>two</div>
     <div>three</div>\`,
-  secondArgument
+  secondArgument,
 );
 
 setFoo(
@@ -154,14 +154,14 @@ setFoo(
     </div>
     <div>two</div>
     <div>three</div>\`,
-  secondArgument
+  secondArgument,
 );
 
 setFoo(
   html\`<div>
     <div>nested</div>
   </div>\`,
-  secondArgument
+  secondArgument,
 );
 
 ================================================================================
@@ -190,7 +190,7 @@ export default function include_photoswipe(gallery_selector = ".my-gallery") {
   return /* HTML */ \`
     <script>
       window.addEventListener("load", () =>
-        initPhotoSwipeFromDOM("\${gallery_selector}")
+        initPhotoSwipeFromDOM("\${gallery_selector}"),
       );
     </script>
   \`;
@@ -220,7 +220,7 @@ export default function include_photoswipe(
 export default function include_photoswipe(gallery_selector = ".my-gallery") {
   return /* HTML */ \` <script>
     window.addEventListener("load", () =>
-      initPhotoSwipeFromDOM("\${gallery_selector}")
+      initPhotoSwipeFromDOM("\${gallery_selector}"),
     );
   </script>\`;
 }
@@ -407,7 +407,7 @@ function HelloWorld() {
     \${bars.map(
       (bar) => html\`
         <p>\${bar}</p>
-      \`
+      \`,
     )}
   \`;
 }

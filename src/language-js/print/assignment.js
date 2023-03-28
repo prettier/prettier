@@ -1,15 +1,17 @@
-"use strict";
-
-const { isNonEmptyArray, getStringWidth } = require("../../common/util.js");
-const {
-  builders: { line, group, indent, indentIfBreak, lineSuffixBoundary },
-  utils: { cleanDoc, willBreak, canBreak },
-} = require("../../document/index.js");
-const {
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import getStringWidth from "../../utils/get-string-width.js";
+import {
+  line,
+  group,
+  indent,
+  indentIfBreak,
+  lineSuffixBoundary,
+} from "../../document/builders.js";
+import { cleanDoc, willBreak, canBreak } from "../../document/utils.js";
+import {
   hasLeadingOwnLineComment,
   isBinaryish,
   isStringLiteral,
-  isLiteral,
   isNumericLiteral,
   isCallExpression,
   isMemberExpression,
@@ -18,9 +20,11 @@ const {
   hasComment,
   isSignedNumericLiteral,
   isObjectProperty,
-} = require("../utils/index.js");
-const { shouldInlineLogicalExpression } = require("./binaryish.js");
-const { printCallExpression } = require("./call-expression.js");
+  createTypeCheckFunction,
+} from "../utils/index.js";
+import { shouldInlineLogicalExpression } from "./binaryish.js";
+import { printCallExpression } from "./call-expression.js";
+import { isLiteral } from "./literal.js";
 
 function printAssignment(
   path,
@@ -32,7 +36,9 @@ function printAssignment(
 ) {
   const layout = chooseLayout(path, options, print, leftDoc, rightPropertyName);
 
-  const rightDoc = print(rightPropertyName, { assignmentLayout: layout });
+  const rightDoc = rightPropertyName
+    ? print(rightPropertyName, { assignmentLayout: layout })
+    : "";
 
   switch (layout) {
     // First break after operator, then the sides are broken independently on their own lines
@@ -75,7 +81,7 @@ function printAssignment(
 }
 
 function printAssignmentExpression(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   return printAssignment(
     path,
     options,
@@ -91,7 +97,7 @@ function printVariableDeclarator(path, options, print) {
 }
 
 function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
-  const node = path.getValue();
+  const { node } = path;
   const rightNode = node[rightPropertyName];
 
   if (!rightNode) {
@@ -174,7 +180,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
 }
 
 function shouldBreakAfterOperator(path, options, print, hasShortKey) {
-  const rightNode = path.getValue();
+  const rightNode = path.node;
 
   if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
     return true;
@@ -233,8 +239,7 @@ function isComplexDestructuring(node) {
       leftNode.properties.some(
         (property) =>
           isObjectProperty(property) &&
-          (!property.shorthand ||
-            (property.value && property.value.type === "AssignmentPattern"))
+          (!property.shorthand || property.value?.type === "AssignmentPattern")
       )
     );
   }
@@ -264,15 +269,14 @@ function isComplexTypeAliasParams(node) {
   return false;
 }
 
+const isTypeAlias = createTypeCheckFunction([
+  "TSTypeAliasDeclaration",
+  "TypeAlias",
+]);
 function getTypeParametersFromTypeAlias(node) {
-  if (isTypeAlias(node) && node.typeParameters && node.typeParameters.params) {
-    return node.typeParameters.params;
+  if (isTypeAlias(node)) {
+    return node.typeParameters?.params;
   }
-  return null;
-}
-
-function isTypeAlias(node) {
-  return node.type === "TSTypeAliasDeclaration" || node.type === "TypeAlias";
 }
 
 function hasComplexTypeAnnotation(node) {
@@ -300,26 +304,18 @@ function hasComplexTypeAnnotation(node) {
 function isArrowFunctionVariableDeclarator(node) {
   return (
     node.type === "VariableDeclarator" &&
-    node.init &&
-    node.init.type === "ArrowFunctionExpression"
+    node.init?.type === "ArrowFunctionExpression"
   );
 }
 
+const isTypeReference = createTypeCheckFunction([
+  "TSTypeReference",
+  "GenericTypeAnnotation",
+]);
 function getTypeParametersFromTypeReference(node) {
-  if (
-    isTypeReference(node) &&
-    node.typeParameters &&
-    node.typeParameters.params
-  ) {
-    return node.typeParameters.params;
+  if (isTypeReference(node)) {
+    return node.typeParameters?.params;
   }
-  return null;
-}
-
-function isTypeReference(node) {
-  return (
-    node.type === "TSTypeReference" || node.type === "GenericTypeAnnotation"
-  );
 }
 
 /**
@@ -332,18 +328,18 @@ function isPoorlyBreakableMemberOrCallChain(
   print,
   deep = false
 ) {
-  const node = path.getValue();
+  const { node } = path;
   const goDeeper = () =>
     isPoorlyBreakableMemberOrCallChain(path, options, print, true);
 
-  if (node.type === "TSNonNullExpression") {
+  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
     return path.call(goDeeper, "expression");
   }
 
   if (isCallExpression(node)) {
     /** @type {any} TODO */
     const doc = printCallExpression(path, options, print);
-    if (doc.label === "member-chain") {
+    if (doc.label?.memberChain) {
       return false;
     }
 
@@ -459,13 +455,10 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
 }
 
 function getTypeArgumentsFromCallExpression(node) {
-  return (
-    (node.typeParameters && node.typeParameters.params) ||
-    (node.typeArguments && node.typeArguments.params)
-  );
+  return (node.typeParameters ?? node.typeArguments)?.params;
 }
 
-module.exports = {
+export {
   printVariableDeclarator,
   printAssignmentExpression,
   printAssignment,

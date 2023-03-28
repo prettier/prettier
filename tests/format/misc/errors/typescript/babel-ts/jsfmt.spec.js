@@ -1,6 +1,6 @@
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       "foo as any = 10;",
       "({ a: b as any = 2000 } = x);",

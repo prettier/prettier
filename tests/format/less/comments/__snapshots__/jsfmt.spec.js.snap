@@ -407,6 +407,35 @@ foo {
 ================================================================================
 `;
 
+exports[`selectors.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* custom properties set & @apply rule */
+:root {
+    /* comments 192 */ --centered /* comments 193 */ : /* comments 194 */ {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    };
+}
+
+=====================================output=====================================
+/* custom properties set & @apply rule */
+:root {
+  /* comments 192 */
+  --centered/* comments 193 */ : /* comments 194 */ {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  };
+}
+
+================================================================================
+`;
+
 exports[`trailing_star_slash.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -455,7 +484,8 @@ printWidth: 80
   #bbbbbb // then some B
   #cccccc; // and round it out with C
 
-@test-comma-separated: #aaaaaa,
+@test-comma-separated:
+  #aaaaaa,
   // Start with A
   #bbbbbb,
   // then some B

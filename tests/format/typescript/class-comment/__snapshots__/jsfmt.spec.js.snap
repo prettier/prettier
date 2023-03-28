@@ -2,7 +2,7 @@
 
 exports[`class-implements.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -177,7 +177,7 @@ class a9
 
 exports[`declare.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -213,7 +213,7 @@ declare class A1<T> // 1
 
 exports[`generic.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -255,7 +255,7 @@ class G3<T> // g3
 }
 
 class G4<
-    T // g4
+    T, // g4
   >
   extends U
   implements IPoly<T>
@@ -268,7 +268,7 @@ class G4<
 
 exports[`misc.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -284,7 +284,7 @@ export class SnapshotLogger {
 export class SnapshotLogger {
   constructor(
     retentionPeriod: number = 5 * 60 * 1000, // retain past five minutes
-    snapshotInterval: number = 30 * 1000 // snapshot no more than every 30s
+    snapshotInterval: number = 30 * 1000, // snapshot no more than every 30s
   ) {}
 }
 

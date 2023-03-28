@@ -1,14 +1,14 @@
-"use strict";
-
-const createError = require("../../common/parser-create-error.js");
-const tryCombinations = require("../../utils/try-combinations.js");
-const createParser = require("./utils/create-parser.js");
-const postprocess = require("./postprocess/index.js");
+import { parse as meriyahParse } from "meriyah";
+import createError from "../../common/parser-create-error.js";
+import tryCombinations from "../../utils/try-combinations.js";
+import createParser from "./utils/create-parser.js";
+import postprocess from "./postprocess/index.js";
+import getSourceType from "./utils/get-source-type.js";
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
   // Allow module code
-  module: true,
+  // module: true,
   // Enable stage 3 support (ESNext)
   next: true,
   // Enable start and end offsets to each node
@@ -41,15 +41,14 @@ const parseOptions = {
   uniqueKeyInPattern: false,
 };
 
-function parseWithOptions(text, module) {
-  const { parse } = require("meriyah");
+function parseWithOptions(text, sourceType) {
   const comments = [];
   const tokens = [];
 
   /** @type {any} */
-  const ast = parse(text, {
+  const ast = meriyahParse(text, {
     ...parseOptions,
-    module,
+    module: sourceType === "module",
     onComment: comments,
     onToken: tokens,
   });
@@ -62,45 +61,45 @@ function parseWithOptions(text, module) {
 function createParseError(error) {
   let { message, line, column } = error;
 
-  const matches = (
-    message.match(/^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/) || {}
-  ).groups;
+  const matches = message.match(
+    /^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/
+  )?.groups;
 
   if (matches) {
     message = matches.message;
 
-    /* istanbul ignore next */
+    /* c8 ignore next 4 */
     if (typeof line !== "number") {
       line = Number(matches.line);
       column = Number(matches.column);
     }
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (typeof line !== "number") {
     return error;
   }
 
-  return createError(message, { start: { line, column } });
+  return createError(message, {
+    loc: { start: { line, column } },
+    cause: error,
+  });
 }
 
-function parse(text, parsers, options = {}) {
-  const { result: ast, error: moduleParseError } = tryCombinations(
-    () => parseWithOptions(text, /* module */ true),
-    () => parseWithOptions(text, /* module */ false)
+function parse(text, options = {}) {
+  const sourceType = getSourceType(options);
+  const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
+    (sourceType) => () => parseWithOptions(text, sourceType)
   );
 
-  if (!ast) {
-    // Throw the error for `module` parsing
-    throw createParseError(moduleParseError);
+  let ast;
+  try {
+    ast = tryCombinations(combinations);
+  } catch ({ errors: [error] }) {
+    throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { parser: "meriyah", text });
 }
 
-module.exports = {
-  parsers: {
-    meriyah: createParser(parse),
-  },
-};
+export const meriyah = createParser(parse);

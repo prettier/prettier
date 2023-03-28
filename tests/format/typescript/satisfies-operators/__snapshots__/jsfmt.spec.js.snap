@@ -28,26 +28,32 @@ const bar5 = [1,2,3].reduce((carry, value) => {
 }, [] satisfies foo);
 
 =====================================output=====================================
-const bar1 = [1, 2, 3].reduce((carry, value) => {
-  return [...carry, value]
-}, [] satisfies unknown satisfies number[])
+const bar1 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return [...carry, value]
+  },
+  [] satisfies unknown satisfies number[],
+)
 
 const bar2 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value]
   },
-  [1, 2, 3] satisfies unknown satisfies number[]
+  [1, 2, 3] satisfies unknown satisfies number[],
 )
 
-const bar3 = [1, 2, 3].reduce((carry, value) => {
-  return { ...carry, [value]: true }
-}, {} satisfies unknown satisfies { [key: number]: boolean })
+const bar3 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return { ...carry, [value]: true }
+  },
+  {} satisfies unknown satisfies { [key: number]: boolean },
+)
 
 const bar4 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true }
   },
-  { 1: true } satisfies unknown satisfies { [key: number]: boolean }
+  { 1: true } satisfies unknown satisfies { [key: number]: boolean },
 )
 
 const bar5 = [1, 2, 3].reduce((carry, value) => {
@@ -84,26 +90,32 @@ const bar5 = [1,2,3].reduce((carry, value) => {
 }, [] satisfies foo);
 
 =====================================output=====================================
-const bar1 = [1, 2, 3].reduce((carry, value) => {
-  return [...carry, value];
-}, [] satisfies unknown satisfies number[]);
+const bar1 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return [...carry, value];
+  },
+  [] satisfies unknown satisfies number[],
+);
 
 const bar2 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value];
   },
-  [1, 2, 3] satisfies unknown satisfies number[]
+  [1, 2, 3] satisfies unknown satisfies number[],
 );
 
-const bar3 = [1, 2, 3].reduce((carry, value) => {
-  return { ...carry, [value]: true };
-}, {} satisfies unknown satisfies { [key: number]: boolean });
+const bar3 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return { ...carry, [value]: true };
+  },
+  {} satisfies unknown satisfies { [key: number]: boolean },
+);
 
 const bar4 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true };
   },
-  { 1: true } satisfies unknown satisfies { [key: number]: boolean }
+  { 1: true } satisfies unknown satisfies { [key: number]: boolean },
 );
 
 const bar5 = [1, 2, 3].reduce((carry, value) => {
@@ -148,7 +160,7 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   Object.create(null)) satisfies FieldService.RendererAttributes
 
 const annotate = (angular.injector satisfies any).$$annotate satisfies (
-  fn: Function
+  fn: Function,
 ) => string[]
 
 const originalPrototype = originalConstructor.prototype satisfies TComponent &
@@ -203,7 +215,7 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   Object.create(null)) satisfies FieldService.RendererAttributes;
 
 const annotate = (angular.injector satisfies any).$$annotate satisfies (
-  fn: Function
+  fn: Function,
 ) => string[];
 
 const originalPrototype = originalConstructor.prototype satisfies TComponent &

@@ -45,7 +45,7 @@ function f() {
     chalk.dim(
       patternInfo.watch
         ? "Press \`a\` to run all tests, or run Jest with \`--watchAll\`."
-        : "Run Jest without \`-o\` to run all tests."
+        : "Run Jest without \`-o\` to run all tests.",
     )
   );
 

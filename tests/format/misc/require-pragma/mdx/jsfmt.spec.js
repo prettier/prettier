@@ -1,1 +1,1 @@
-run_spec(__dirname, ["mdx"], { requirePragma: true });
+run_spec(import.meta, ["mdx"], { requirePragma: true });

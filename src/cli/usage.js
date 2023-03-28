@@ -1,15 +1,14 @@
-"use strict";
-
-const camelCase = require("camelcase");
-const constant = require("./constant.js");
-const { groupBy } = require("./utils.js");
+import camelCase from "camelcase";
+import { categoryOrder, usageSummary } from "./constants.evaluate.js";
+import { groupBy } from "./utils.js";
+import { formatOptionsHiddenDefaults } from "./prettier-internal.js";
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 function indent(str, spaces) {
-  return str.replace(/^/gm, " ".repeat(spaces));
+  return str.replaceAll(/^/gm, " ".repeat(spaces));
 }
 
 function createDefaultValueDisplay(value) {
@@ -20,20 +19,21 @@ function createDefaultValueDisplay(value) {
 
 function getOptionDefaultValue(context, optionName) {
   // --no-option
-  if (!(optionName in context.detailedOptionMap)) {
-    return;
-  }
+  const option = context.detailedOptions.find(
+    ({ name }) => name === optionName
+  );
 
-  const option = context.detailedOptionMap[optionName];
-
-  if (option.default !== undefined) {
+  if (option?.default !== undefined) {
     return option.default;
   }
 
   const optionCamelName = camelCase(optionName);
-  if (optionCamelName in context.apiDefaultOptions) {
-    return context.apiDefaultOptions[optionCamelName];
-  }
+  return (
+    formatOptionsHiddenDefaults[optionCamelName] ??
+    context.supportOptions.find(
+      (option) => !option.deprecated && option.name === optionCamelName
+    )?.default
+  );
 }
 
 function createOptionUsageHeader(option) {
@@ -49,7 +49,7 @@ function createOptionUsageRow(header, content, threshold) {
       ? `\n${" ".repeat(threshold)}`
       : " ".repeat(threshold - header.length);
 
-  const description = content.replace(/\n/g, `\n${" ".repeat(threshold)}`);
+  const description = content.replaceAll("\n", `\n${" ".repeat(threshold)}`);
 
   return `${header}${separator}${description}`;
 }
@@ -60,7 +60,7 @@ function createOptionUsageType(option) {
       return null;
     case "choice":
       return `<${option.choices
-        .filter((choice) => !choice.deprecated && choice.since !== null)
+        .filter((choice) => !choice.deprecated)
         .map((choice) => choice.value)
         .join("|")}>`;
     default:
@@ -69,9 +69,7 @@ function createOptionUsageType(option) {
 }
 
 function createChoiceUsages(choices, margin, indentation) {
-  const activeChoices = choices.filter(
-    (choice) => !choice.deprecated && choice.since !== null
-  );
+  const activeChoices = choices.filter((choice) => !choice.deprecated);
   const threshold =
     Math.max(0, ...activeChoices.map((choice) => choice.value.length)) + margin;
   return activeChoices.map((choice) =>
@@ -113,7 +111,11 @@ function getOptionsWithOpposites(options) {
 }
 
 function createUsage(context) {
-  const options = getOptionsWithOpposites(context.detailedOptions).filter(
+  const sortedOptions = context.detailedOptions.sort((optionA, optionB) =>
+    optionA.name.localeCompare(optionB.name)
+  );
+
+  const options = getOptionsWithOpposites(sortedOptions).filter(
     // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
     (option) =>
       !(
@@ -122,13 +124,12 @@ function createUsage(context) {
         !option.name.startsWith("no-")
       )
   );
-
   const groupedOptions = groupBy(options, (option) => option.category);
 
-  const firstCategories = constant.categoryOrder.slice(0, -1);
-  const lastCategories = constant.categoryOrder.slice(-1);
+  const firstCategories = categoryOrder.slice(0, -1);
+  const lastCategories = categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
-    (category) => !constant.categoryOrder.includes(category)
+    (category) => !categoryOrder.includes(category)
   );
   const allCategories = [
     ...firstCategories,
@@ -145,7 +146,24 @@ function createUsage(context) {
     return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
 
-  return [constant.usageSummary, ...optionsUsage, ""].join("\n\n");
+  return [usageSummary, ...optionsUsage, ""].join("\n\n");
+}
+
+function createPluginDefaults(pluginDefaults) {
+  if (!pluginDefaults || Object.keys(pluginDefaults).length === 0) {
+    return "";
+  }
+
+  const defaults = Object.entries(pluginDefaults)
+    .sort(([pluginNameA], [pluginNameB]) =>
+      pluginNameA.localeCompare(pluginNameB)
+    )
+    .map(
+      ([plugin, value]) => `* ${plugin}: ${createDefaultValueDisplay(value)}`
+    )
+    .join("\n");
+
+  return `\nPlugin defaults:\n${defaults}`;
 }
 
 function createDetailedUsage(context, flag) {
@@ -171,16 +189,8 @@ function createDetailedUsage(context, flag) {
       ? `\n\nDefault: ${createDefaultValueDisplay(optionDefaultValue)}`
       : "";
 
-  const pluginDefaults =
-    option.pluginDefaults && Object.keys(option.pluginDefaults).length > 0
-      ? `\nPlugin defaults:${Object.entries(option.pluginDefaults).map(
-          ([key, value]) => `\n* ${key}: ${createDefaultValueDisplay(value)}`
-        )}`
-      : "";
+  const pluginDefaults = createPluginDefaults(option.pluginDefaults);
   return `${header}${description}${choices}${defaults}${pluginDefaults}`;
 }
 
-module.exports = {
-  createUsage,
-  createDetailedUsage,
-};
+export { createUsage, createDetailedUsage };

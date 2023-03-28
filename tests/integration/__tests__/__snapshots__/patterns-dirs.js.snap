@@ -13,7 +13,7 @@ dir2/nested2/bn2.js
 "
 `;
 
-exports[`1a - with *.foo plugin: prettier dir1 dir2 --plugin=../../plugins/extensions/plugin (stdout) 1`] = `
+exports[`1a - with *.foo plugin: prettier dir1 dir2 --plugin=../../plugins/extensions/plugin.cjs (stdout) 1`] = `
 "dir1/a1.foo
 dir1/a1.js
 dir1/b1.js

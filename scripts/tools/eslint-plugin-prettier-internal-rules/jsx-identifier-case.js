@@ -15,6 +15,10 @@ module.exports = {
       [MESSAGE_ID]: "Please rename '{{name}}' to '{{fixed}}'.",
     },
     fixable: "code",
+    schema: {
+      type: "array",
+      uniqueItems: true,
+    },
   },
   create(context) {
     const ignored = new Set(context.options);
@@ -28,7 +32,7 @@ module.exports = {
           return;
         }
 
-        const fixed = name.replace(/JSX/g, "Jsx");
+        const fixed = name.replaceAll("JSX", "Jsx");
         context.report({
           node,
           messageId: MESSAGE_ID,
@@ -37,9 +41,5 @@ module.exports = {
         });
       },
     };
-  },
-  schema: {
-    type: "array",
-    uniqueItems: true,
   },
 };

@@ -1,7 +1,5 @@
-"use strict";
-
 /** @type {import('prettier')} */
-const prettier = require("prettier-local");
+import prettier from "../config/prettier-entry.js";
 
 function printDoc(doc) {
   // This dummy plugin ignores the input and simply returns the given doc.
@@ -27,4 +25,4 @@ function printDoc(doc) {
   });
 }
 
-module.exports = printDoc;
+export default printDoc;

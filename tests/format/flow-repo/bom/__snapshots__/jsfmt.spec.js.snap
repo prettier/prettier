@@ -197,7 +197,7 @@ o.disconnect(); // correct
 // constructor
 function callback(
   arr: Array<MutationRecord>,
-  observer: MutationObserver
+  observer: MutationObserver,
 ): void {
   return;
 }

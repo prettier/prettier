@@ -1,38 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abstract.ts - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-abstract interface I {
-
-}
-
-=====================================output=====================================
-abstract interface I {}
-
-================================================================================
-`;
-
-exports[`abstract.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-abstract interface I {
-
-}
-
-=====================================output=====================================
-abstract interface I {}
-
-================================================================================
-`;
-
 exports[`comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -116,14 +83,14 @@ interface Foo<
 interface ReallyReallyLongName<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
-    TypeArgumentNumberThree
+    TypeArgumentNumberThree,
   > // 1
   extends BaseInterface {}
 
 interface ReallyReallyLongName2<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
-    TypeArgumentNumberThree
+    TypeArgumentNumberThree,
   > // 1
   // 2
   extends BaseInterface {}
@@ -131,7 +98,7 @@ interface ReallyReallyLongName2<
 interface ReallyReallyLongName3<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
-    TypeArgumentNumberThree
+    TypeArgumentNumberThree,
   > // 1
   // 2
   extends BaseInterface {
@@ -141,7 +108,7 @@ interface ReallyReallyLongName3<
 interface Foo<
     FOOOOOOOOOOOOOOOOOOOOOOOOOO,
     FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   > // comments
   extends Foo {}
 
@@ -189,14 +156,14 @@ interface Foo<
 interface ReallyReallyLongName<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
-    TypeArgumentNumberThree
+    TypeArgumentNumberThree,
   > // 1
   extends BaseInterface {}
 
 interface ReallyReallyLongName2<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
-    TypeArgumentNumberThree
+    TypeArgumentNumberThree,
   > // 1
   // 2
   extends BaseInterface {}
@@ -204,7 +171,7 @@ interface ReallyReallyLongName2<
 interface ReallyReallyLongName3<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
-    TypeArgumentNumberThree
+    TypeArgumentNumberThree,
   > // 1
   // 2
   extends BaseInterface {
@@ -214,7 +181,7 @@ interface ReallyReallyLongName3<
 interface Foo<
     FOOOOOOOOOOOOOOOOOOOOOOOOOO,
     FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   > // comments
   extends Foo {}
 
@@ -244,7 +211,7 @@ interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
 > extends Foo {}
 
 ================================================================================
@@ -272,7 +239,7 @@ interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
 > extends Foo {}
 
 ================================================================================

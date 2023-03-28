@@ -47,7 +47,7 @@ printWidth: 80
   (fmap) => (algebra) =>
     function doFold(v) {
       return algebra(fmap(doFold)(v));
-    }
+    },
 );
 
 ================================================================================

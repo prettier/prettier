@@ -1,1 +1,1 @@
-run_spec(__dirname, ["css"]);
+run_spec(import.meta, ["css"]);

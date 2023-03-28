@@ -1,26 +1,25 @@
-"use strict";
-
-const { printComments } = require("../../main/comments.js");
-const { printString, printNumber } = require("../../common/util.js");
-const {
+import { printComments } from "../../main/comments/print.js";
+import printString from "../../utils/print-string.js";
+import printNumber from "../../utils/print-number.js";
+import {
   isNumericLiteral,
   isSimpleNumber,
   isStringLiteral,
   isStringPropSafeToUnquote,
   rawText,
-} = require("../utils/index.js");
-const { printAssignment } = require("./assignment.js");
+} from "../utils/index.js";
+import { printAssignment } from "./assignment.js";
 
 const needsQuoteProps = new WeakMap();
 
 function printPropertyKey(path, options, print) {
-  const node = path.getNode();
+  const { node } = path;
 
   if (node.computed) {
     return ["[", print("key"), "]"];
   }
 
-  const parent = path.getParentNode();
+  const { parent } = path;
   const { key } = node;
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
@@ -85,7 +84,7 @@ function printPropertyKey(path, options, print) {
 }
 
 function printProperty(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   if (node.shorthand) {
     return print("value");
   }
@@ -100,4 +99,4 @@ function printProperty(path, options, print) {
   );
 }
 
-module.exports = { printProperty, printPropertyKey };
+export { printProperty, printPropertyKey };

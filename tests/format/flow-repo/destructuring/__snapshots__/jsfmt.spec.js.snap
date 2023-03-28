@@ -186,7 +186,7 @@ obj_prop_var({ p: {} }); // ok
 obj_prop_var({ p: { q: null } }); // ok, provides add'l lower bound
 
 function obj_rest(
-  { p: { q, ...o } = { q: 0, r: 0 } } = { p: { q: 0, r: "" } }
+  { p: { q, ...o } = { q: 0, r: 0 } } = { p: { q: 0, r: "" } },
 ) {
   // errors:
   // * number  ~> void, from default on _.p
@@ -206,7 +206,7 @@ function obj_prop_annot(
     p: string,
   } = {
     p: 0, // error: number ~> string
-  }
+  },
 ) {
   (p: void); // error: string ~> void
 }

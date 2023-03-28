@@ -671,7 +671,7 @@ Math.min(
   document.body.scrollHeight -
     (window.scrollY + window.innerHeight) -
     devsite_footer_height,
-  0
+  0,
 )
 
 ================================================================================
@@ -702,7 +702,7 @@ Math.min(
   document.body.scrollHeight -
     (window.scrollY + window.innerHeight) -
     devsite_footer_height,
-  0
+  0,
 );
 
 ================================================================================
@@ -1015,19 +1015,19 @@ render?.( // Warm any cache
 render(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 )
 
 React.render(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 )
 
 render?.(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 )
 
 ================================================================================
@@ -1058,19 +1058,19 @@ render?.( // Warm any cache
 render(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 );
 
 React.render(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 );
 
 render?.(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 );
 
 ================================================================================
@@ -1440,6 +1440,101 @@ const test = '💖'
 const test = "💖";
 // This comment
 // should not get collapsed
+
+================================================================================
+`;
+
+exports[`empty-statements.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+a; /* a */ // b
+; /* c */
+
+foo; // first
+;// second
+;// third
+
+function x() {
+} // first
+; // second
+
+a = (
+  b // 1
+  + // 2
+  c // 3
+  + // 4
+  d // 5
+  + /* 6 */
+  e // 7
+);
+
+=====================================output=====================================
+a /* a */ // b
+/* c */
+foo // first
+// second
+// third
+function x() {} // first
+// second
+a =
+  b + // 1
+  // 2
+  c + // 3
+  // 4
+  d + // 5
+  /* 6 */
+  e // 7
+
+================================================================================
+`;
+
+exports[`empty-statements.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a; /* a */ // b
+; /* c */
+
+foo; // first
+;// second
+;// third
+
+function x() {
+} // first
+; // second
+
+a = (
+  b // 1
+  + // 2
+  c // 3
+  + // 4
+  d // 5
+  + /* 6 */
+  e // 7
+);
+
+=====================================output=====================================
+a; /* a */ // b
+/* c */
+foo; // first
+// second
+// third
+function x() {} // first
+// second
+a =
+  b + // 1
+  // 2
+  c + // 3
+  // 4
+  d + // 5
+  /* 6 */
+  e; // 7
 
 ================================================================================
 `;
@@ -1853,8 +1948,8 @@ function c(/* comment */ argA, argB, argC) {} // comment
 call((/*object*/ row) => {})
 KEYPAD_NUMBERS.map(
   (
-    num // Buttons 0-9
-  ) => <div />
+    num, // Buttons 0-9
+  ) => <div />,
 )
 
 function f1 /* f */() {}
@@ -1989,8 +2084,8 @@ function c(/* comment */ argA, argB, argC) {} // comment
 call((/*object*/ row) => {});
 KEYPAD_NUMBERS.map(
   (
-    num // Buttons 0-9
-  ) => <div />
+    num, // Buttons 0-9
+  ) => <div />,
 );
 
 function f1 /* f */() {}
@@ -2524,101 +2619,6 @@ export default AspectRatioBox;
 ================================================================================
 `;
 
-exports[`issue-7724.js - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-const foo = "Bar";
-
-/**
- * @template T
- * @param {Type} type
- * @param {T} value
- * @return {Value}
- *//**
- * @param {Type} type
- * @return {Value}
- */
-function value(type, value) {
-  if (arguments.length === 2) {
-    return new ConcreteValue(type, value);
-  } else {
-    return new Value(type);
-  }
-}
-=====================================output=====================================
-const foo = "Bar"
-
-/**
- * @template T
- * @param {Type} type
- * @param {T} value
- * @return {Value}
- */ /**
- * @param {Type} type
- * @return {Value}
- */
-function value(type, value) {
-  if (arguments.length === 2) {
-    return new ConcreteValue(type, value)
-  } else {
-    return new Value(type)
-  }
-}
-
-================================================================================
-`;
-
-exports[`issue-7724.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-const foo = "Bar";
-
-/**
- * @template T
- * @param {Type} type
- * @param {T} value
- * @return {Value}
- *//**
- * @param {Type} type
- * @return {Value}
- */
-function value(type, value) {
-  if (arguments.length === 2) {
-    return new ConcreteValue(type, value);
-  } else {
-    return new Value(type);
-  }
-}
-=====================================output=====================================
-const foo = "Bar";
-
-/**
- * @template T
- * @param {Type} type
- * @param {T} value
- * @return {Value}
- */ /**
- * @param {Type} type
- * @return {Value}
- */
-function value(type, value) {
-  if (arguments.length === 2) {
-    return new ConcreteValue(type, value);
-  } else {
-    return new Value(type);
-  }
-}
-
-================================================================================
-`;
-
 exports[`issues.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -2725,7 +2725,7 @@ const regex = new RegExp(
     "['\\"]" + // opening quotation mark
     escapeStringRegExp(target.name) + // target name
     "['\\"]" + // closing quotation mark
-    ",?$" // optional trailing comma
+    ",?$", // optional trailing comma
 )
 
 // The comment is moved and doesn't trigger the eslint rule anymore
@@ -2764,7 +2764,7 @@ const result = asyncExecute("non_existing_command", /* args */ [])
 
 // The closing paren is printed on the same line as the comment
 foo(
-  {}
+  {},
   // Hi
 )
 
@@ -2876,7 +2876,7 @@ const regex = new RegExp(
     "['\\"]" + // opening quotation mark
     escapeStringRegExp(target.name) + // target name
     "['\\"]" + // closing quotation mark
-    ",?$" // optional trailing comma
+    ",?$", // optional trailing comma
 );
 
 // The comment is moved and doesn't trigger the eslint rule anymore
@@ -2915,7 +2915,7 @@ const result = asyncExecute("non_existing_command", /* args */ []);
 
 // The closing paren is printed on the same line as the comment
 foo(
-  {}
+  {},
   // Hi
 );
 
@@ -3044,6 +3044,230 @@ function HelloWorld() {
       <span>Test</span>
     </div>
   );
+}
+
+================================================================================
+`;
+
+exports[`jsdoc-nestled.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const issues = {
+  see: "#7724 and #12653"
+  /** Trailing comment 1 (not nestled as both comments should be multiline for that) *//**
+  * Trailing comment 2
+  */
+};
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ *//**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
+
+/** Trailing nestled comment 1
+ *//** Trailing nestled comment 2
+ *//** Trailing nestled comment 3
+ */
+
+=====================================output=====================================
+const issues = {
+  see: "#7724 and #12653",
+  /** Trailing comment 1 (not nestled as both comments should be multiline for that) */ /**
+   * Trailing comment 2
+   */
+}
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ *//**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value)
+  } else {
+    return new Value(type)
+  }
+}
+
+/** Trailing nestled comment 1
+ *//** Trailing nestled comment 2
+ *//** Trailing nestled comment 3
+ */
+
+================================================================================
+`;
+
+exports[`jsdoc-nestled.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const issues = {
+  see: "#7724 and #12653"
+  /** Trailing comment 1 (not nestled as both comments should be multiline for that) *//**
+  * Trailing comment 2
+  */
+};
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ *//**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
+
+/** Trailing nestled comment 1
+ *//** Trailing nestled comment 2
+ *//** Trailing nestled comment 3
+ */
+
+=====================================output=====================================
+const issues = {
+  see: "#7724 and #12653",
+  /** Trailing comment 1 (not nestled as both comments should be multiline for that) */ /**
+   * Trailing comment 2
+   */
+};
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ *//**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
+
+/** Trailing nestled comment 1
+ *//** Trailing nestled comment 2
+ *//** Trailing nestled comment 3
+ */
+
+================================================================================
+`;
+
+exports[`jsdoc-nestled-dangling.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+{{{{{{{
+o={
+  /**
+   * A
+   *//**
+   * B
+   */
+
+}
+}}}}}}}
+
+=====================================output=====================================
+{
+  {
+    {
+      {
+        {
+          {
+            {
+              o = {
+                /**
+                 * A
+                 *//**
+                 * B
+                 */
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`jsdoc-nestled-dangling.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{{{{{{{
+o={
+  /**
+   * A
+   *//**
+   * B
+   */
+
+}
+}}}}}}}
+
+=====================================output=====================================
+{
+  {
+    {
+      {
+        {
+          {
+            {
+              o = {
+                /**
+                 * A
+                 *//**
+                 * B
+                 */
+              };
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 ================================================================================
@@ -3189,8 +3413,7 @@ onClick={() => {}}>
 
 ;<div>
   {
-    a
-    /* comment
+    a /* comment
      */
   }
 </div>
@@ -3430,8 +3653,7 @@ onClick={() => {}}>
 
 <div>
   {
-    a
-    /* comment
+    a /* comment
      */
   }
 </div>;
@@ -3593,7 +3815,7 @@ class Foo {
     lol /*string*/,
     lol2 /*string*/,
     lol3 /*string*/,
-    lol4 /*string*/
+    lol4 /*string*/,
   ) /*string*/ {}
 
   // prettier-ignore
@@ -3680,7 +3902,7 @@ class Foo {
     lol /*string*/,
     lol2 /*string*/,
     lol3 /*string*/,
-    lol4 /*string*/
+    lol4 /*string*/,
   ) /*string*/ {}
 
   // prettier-ignore
@@ -3973,8 +4195,7 @@ a
 b
 
 a /*
-1*/ /*2*/
-/*3
+1*/ /*2*/ /*3
  */
 b
 
@@ -4165,8 +4386,7 @@ a;
 b;
 
 a; /*
-1*/ /*2*/
-/*3
+1*/ /*2*/ /*3
  */
 b;
 
@@ -5538,11 +5758,9 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
   NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
 })
 
-/* A comment */
-/**
+/* A comment */ /**
  * A type that can be written to a buffer.
- */
-/**
+ */ /**
  * Describes the connection status of a ReactiveSocket/DuplexConnection.
  * - NOT_CONNECTED: no connection established or pending.
  * - CONNECTING: when \`connect()\` has been called but a connection is not yet
@@ -5550,12 +5768,10 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
  * - CONNECTED: when a connection is established.
  * - CLOSED: when the connection has been explicitly closed via \`close()\`.
  * - ERROR: when the connection has been closed for any other reason.
- */
-/**
+ */ /**
  * A contract providing different interaction models per the [ReactiveSocket protocol]
  * (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).
- */
-/**
+ */ /**
  * A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
  */
 
@@ -5599,11 +5815,9 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
   NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
 });
 
-/* A comment */
-/**
+/* A comment */ /**
  * A type that can be written to a buffer.
- */
-/**
+ */ /**
  * Describes the connection status of a ReactiveSocket/DuplexConnection.
  * - NOT_CONNECTED: no connection established or pending.
  * - CONNECTING: when \`connect()\` has been called but a connection is not yet
@@ -5611,12 +5825,10 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
  * - CONNECTED: when a connection is established.
  * - CLOSED: when the connection has been explicitly closed via \`close()\`.
  * - ERROR: when the connection has been closed for any other reason.
- */
-/**
+ */ /**
  * A contract providing different interaction models per the [ReactiveSocket protocol]
  * (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).
- */
-/**
+ */ /**
  * A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
  */
 
@@ -5698,6 +5910,217 @@ try {
   // Comment 9
 }
 // Comment 10
+
+================================================================================
+`;
+
+exports[`tuple-and-record.js [acorn] format 1`] = `
+"Unexpected character '{' (7:2)
+   5 |
+   6 | let record = // Comment
+>  7 | #{
+     |  ^
+   8 |   key: 'value'
+   9 | }
+  10 |"
+`;
+
+exports[`tuple-and-record.js [espree] format 1`] = `
+"Unexpected character '{' (7:2)
+   5 |
+   6 | let record = // Comment
+>  7 | #{
+     |  ^
+   8 |   key: 'value'
+   9 | }
+  10 |"
+`;
+
+exports[`tuple-and-record.js [flow] format 1`] = `
+"Unexpected token \`#\`, expected an identifier (7:1)
+   5 |
+   6 | let record = // Comment
+>  7 | #{
+     | ^
+   8 |   key: 'value'
+   9 | }
+  10 |"
+`;
+
+exports[`tuple-and-record.js [meriyah] format 1`] = `
+"'#' not followed by identifier (7:1)
+   5 |
+   6 | let record = // Comment
+>  7 | #{
+     | ^
+   8 |   key: 'value'
+   9 | }
+  10 |"
+`;
+
+exports[`tuple-and-record.js [typescript] format 1`] = `
+"Invalid character. (7:1)
+   5 |
+   6 | let record = // Comment
+>  7 | #{
+     | ^
+   8 |   key: 'value'
+   9 | }
+  10 |"
+`;
+
+exports[`tuple-and-record.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected character '{' (7:2)
+   5 |
+   6 | let record = // Comment
+>  7 | #{
+     |  ^
+   8 |   key: 'value'
+   9 | }
+  10 |"
+`;
+
+exports[`tuple-and-record.js - {"semi":false} [espree] format 1`] = `
+"Unexpected character '{' (7:2)
+   5 |
+   6 | let record = // Comment
+>  7 | #{
+     |  ^
+   8 |   key: 'value'
+   9 | }
+  10 |"
+`;
+
+exports[`tuple-and-record.js - {"semi":false} [flow] format 1`] = `
+"Unexpected token \`#\`, expected an identifier (7:1)
+   5 |
+   6 | let record = // Comment
+>  7 | #{
+     | ^
+   8 |   key: 'value'
+   9 | }
+  10 |"
+`;
+
+exports[`tuple-and-record.js - {"semi":false} [meriyah] format 1`] = `
+"'#' not followed by identifier (7:1)
+   5 |
+   6 | let record = // Comment
+>  7 | #{
+     | ^
+   8 |   key: 'value'
+   9 | }
+  10 |"
+`;
+
+exports[`tuple-and-record.js - {"semi":false} [typescript] format 1`] = `
+"Invalid character. (7:1)
+   5 |
+   6 | let record = // Comment
+>  7 | #{
+     | ^
+   8 |   key: 'value'
+   9 | }
+  10 |"
+`;
+
+exports[`tuple-and-record.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+let object = // Comment
+{
+  key: 'value'
+}
+
+let record = // Comment
+#{
+  key: 'value'
+}
+
+let array = // Comment
+[
+  'value'
+]
+
+let tuple = // Comment
+#[
+  'value'
+]
+
+=====================================output=====================================
+let object =
+  // Comment
+  {
+    key: "value",
+  }
+
+let record =
+  // Comment
+  #{
+    key: "value",
+  }
+
+let array =
+  // Comment
+  ["value"]
+
+let tuple =
+  // Comment
+  #["value"]
+
+================================================================================
+`;
+
+exports[`tuple-and-record.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let object = // Comment
+{
+  key: 'value'
+}
+
+let record = // Comment
+#{
+  key: 'value'
+}
+
+let array = // Comment
+[
+  'value'
+]
+
+let tuple = // Comment
+#[
+  'value'
+]
+
+=====================================output=====================================
+let object =
+  // Comment
+  {
+    key: "value",
+  };
+
+let record =
+  // Comment
+  #{
+    key: "value",
+  };
+
+let array =
+  // Comment
+  ["value"];
+
+let tuple =
+  // Comment
+  #["value"];
 
 ================================================================================
 `;

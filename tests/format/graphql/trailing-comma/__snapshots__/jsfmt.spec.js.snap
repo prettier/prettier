@@ -60,11 +60,11 @@ query Query(
 ================================================================================
 `;
 
-exports[`trailing.graphql - {"trailingComma":"none"} format 1`] = `
+exports[`trailing.graphql - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 query Query(
@@ -120,10 +120,11 @@ query Query(
 ================================================================================
 `;
 
-exports[`trailing.graphql format 1`] = `
+exports[`trailing.graphql - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 query Query(

@@ -1,5 +1,3 @@
-"use strict";
-
 function visualizeEndOfLine(text) {
   return text.replace(/\r\n?|\n/g, (endOfLine) => {
     switch (endOfLine) {
@@ -15,4 +13,4 @@ function visualizeEndOfLine(text) {
   });
 }
 
-module.exports = visualizeEndOfLine;
+export default visualizeEndOfLine;

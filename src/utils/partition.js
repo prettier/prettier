@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * @template Element
  * @param {Array<Element>} array
@@ -17,4 +15,4 @@ function partition(array, predicate) {
   return result;
 }
 
-module.exports = partition;
+export default partition;

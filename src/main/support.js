@@ -1,16 +1,8 @@
-"use strict";
-
-const semver = {
-  compare: require("semver/functions/compare"),
-  lt: require("semver/functions/lt"),
-  gte: require("semver/functions/gte"),
-};
-const arrayify = require("../utils/arrayify.js");
-const currentVersion = require("../../package.json").version;
-const coreOptions = require("./core-options.js").options;
+import arrayify from "../utils/arrayify.js";
+import { options as coreOptions } from "./core-options.evaluate.js";
 
 /**
- * @typedef {import("./core-options").OptionInfo} OptionInfo
+ * @typedef {import("./core-options.evaluate.js").OptionInfo} OptionInfo
  * @typedef {{ name: string; pluginDefaults: Array<any> } & OptionInfo} NamedOptionInfo
  */
 
@@ -20,49 +12,35 @@ const coreOptions = require("./core-options.js").options;
  * @param {object} param0
  * @param {(string | object)[]=} param0.plugins Strings are resolved by `withPlugins`.
  * @param {string[]=} param0.pluginSearchDirs Added by `withPlugins`.
- * @param {boolean=} param0.showUnreleased
  * @param {boolean=} param0.showDeprecated
  * @param {boolean=} param0.showInternal
  * @return {{ languages: Array<any>, options: Array<NamedOptionInfo> }}
  */
 function getSupportInfo({
   plugins = [],
-  showUnreleased = false,
   showDeprecated = false,
   showInternal = false,
 } = {}) {
-  // pre-release version is smaller than the normal version in semver,
-  // we need to treat it as the normal one so as to test new features.
-  const version = currentVersion.split("-", 1)[0];
-
-  const languages = plugins
-    .flatMap((plugin) => plugin.languages || [])
-    .filter(filterSince);
+  const languages = plugins.flatMap((plugin) => plugin.languages || []);
 
   const options = arrayify(
     Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
     "name"
   )
-    .filter((option) => filterSince(option) && filterDeprecated(option))
+    .filter((option) => filterDeprecated(option))
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
     .map(mapInternal)
     .map((option) => {
       option = { ...option };
 
+      // This work this way because we used support `[{value: [], since: '0.0.0'}]`
       if (Array.isArray(option.default)) {
-        option.default =
-          option.default.length === 1
-            ? option.default[0].value
-            : option.default
-                .filter(filterSince)
-                .sort((info1, info2) =>
-                  semver.compare(info2.since, info1.since)
-                )[0].value;
+        option.default = option.default.at(-1).value;
       }
 
       if (Array.isArray(option.choices)) {
-        option.choices = option.choices.filter(
-          (option) => filterSince(option) && filterDeprecated(option)
+        option.choices = option.choices.filter((option) =>
+          filterDeprecated(option)
         );
 
         if (option.name === "parser") {
@@ -73,9 +51,7 @@ function getSupportInfo({
       const pluginDefaults = Object.fromEntries(
         plugins
           .filter(
-            (plugin) =>
-              plugin.defaultOptions &&
-              plugin.defaultOptions[option.name] !== undefined
+            (plugin) => plugin.defaultOptions?.[option.name] !== undefined
           )
           .map((plugin) => [plugin.name, plugin.defaultOptions[option.name]])
       );
@@ -85,20 +61,8 @@ function getSupportInfo({
 
   return { languages, options };
 
-  function filterSince(object) {
-    return (
-      showUnreleased ||
-      !("since" in object) ||
-      (object.since && semver.gte(version, object.since))
-    );
-  }
-
   function filterDeprecated(object) {
-    return (
-      showDeprecated ||
-      !("deprecated" in object) ||
-      (object.deprecated && semver.lt(version, object.deprecated))
-    );
+    return showDeprecated || !object.deprecated;
   }
 
   function mapInternal(object) {
@@ -117,11 +81,9 @@ function collectParsersFromLanguages(option, languages, plugins) {
       for (const value of language.parsers) {
         if (!existingValues.has(value)) {
           existingValues.add(value);
-          const plugin = plugins.find(
-            (plugin) => plugin.parsers && plugin.parsers[value]
-          );
+          const plugin = plugins.find((plugin) => plugin.parsers?.[value]);
           let description = language.name;
-          if (plugin && plugin.name) {
+          if (plugin?.name) {
             description += ` (plugin: ${plugin.name})`;
           }
           option.choices.push({ value, description });
@@ -131,6 +93,4 @@ function collectParsersFromLanguages(option, languages, plugins) {
   }
 }
 
-module.exports = {
-  getSupportInfo,
-};
+export { getSupportInfo };

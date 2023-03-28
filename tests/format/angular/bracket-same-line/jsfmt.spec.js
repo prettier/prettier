@@ -1,2 +1,2 @@
-run_spec(__dirname, ["angular"], { bracketSameLine: true });
-run_spec(__dirname, ["angular"], { bracketSameLine: false });
+run_spec(import.meta, ["angular"], { bracketSameLine: true });
+run_spec(import.meta, ["angular"], { bracketSameLine: false });

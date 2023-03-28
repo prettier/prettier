@@ -51,20 +51,16 @@ export class Bar {}
 export default class Baz {}
 
 const foo =
-  (
-    @deco
-    class {
-      //
-    }
-  );
+  @deco
+  class {
+    //
+  };
 
 const bar =
-  (
-    @deco
-    class {
-      //
-    }
-  );
+  @deco
+  class {
+    //
+  };
 
 ================================================================================
 `;
@@ -129,6 +125,11 @@ export class AppModule {}
 // C
 export class Bar{}
 
+class Something {
+    @Annotateme()
+    property;
+}
+
 =====================================output=====================================
 var x = 100;
 
@@ -158,6 +159,11 @@ export class AppModule {}
 @Bar()
 // C
 export class Bar {}
+
+class Something {
+  @Annotateme()
+  property;
+}
 
 ================================================================================
 `;
@@ -283,18 +289,14 @@ printWidth: 80
     @(decorators["first"])
     method() {}
   },
-  (
-    @(decorators[first])
-    class {
-      method() {}
-    }
-  ),
-  (
-    @(decorators[0])
-    class {
-      method() {}
-    }
-  ),
+  @(decorators[first])
+  class {
+    method() {}
+  },
+  @(decorators[0])
+  class {
+    method() {}
+  },
 ];
 
 ================================================================================
@@ -408,8 +410,8 @@ exports[`mobx.js [acorn] format 1`] = `
   2 |
 > 3 | @observer class OrderLine {
     | ^
-  4 |   @observable price:number = 0;
-  5 |   @observable amount:number = 1;
+  4 |   @observable price = 0;
+  5 |   @observable amount = 1;
   6 |"
 `;
 
@@ -419,20 +421,9 @@ exports[`mobx.js [espree] format 1`] = `
   2 |
 > 3 | @observer class OrderLine {
     | ^
-  4 |   @observable price:number = 0;
-  5 |   @observable amount:number = 1;
+  4 |   @observable price = 0;
+  5 |   @observable amount = 1;
   6 |"
-`;
-
-exports[`mobx.js [meriyah] format 1`] = `
-"Unexpected token: ':' (4:20)
-  2 |
-  3 | @observer class OrderLine {
-> 4 |   @observable price:number = 0;
-    |                    ^
-  5 |   @observable amount:number = 1;
-  6 |
-  7 |   constructor(price) {"
 `;
 
 exports[`mobx.js format 1`] = `
@@ -444,8 +435,8 @@ printWidth: 80
 import {observable} from "mobx";
 
 @observer class OrderLine {
-  @observable price:number = 0;
-  @observable amount:number = 1;
+  @observable price = 0;
+  @observable amount = 1;
 
   constructor(price) {
     this.price = price;
@@ -468,14 +459,14 @@ import {observable} from "mobx";
   setPrice(price) {
     this.price = price;
   }
-  
+
   @computed @computed @computed @computed @computed @computed @computed get total() {
     return this.price * this.amount;
   }
 
-  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) => this.count--;
-  
-  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) => doSomething();
+  @action handleDecrease = (event) => this.count--;
+
+  @action handleSomething = (event) => doSomething();
 }
 
 =====================================output=====================================
@@ -483,8 +474,8 @@ import { observable } from "mobx";
 
 @observer
 class OrderLine {
-  @observable price: number = 0;
-  @observable amount: number = 1;
+  @observable price = 0;
+  @observable amount = 1;
 
   constructor(price) {
     this.price = price;
@@ -519,11 +510,9 @@ class OrderLine {
     return this.price * this.amount;
   }
 
-  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) =>
-    this.count--;
+  @action handleDecrease = (event) => this.count--;
 
-  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
-    doSomething();
+  @action handleSomething = (event) => doSomething();
 }
 
 ================================================================================

@@ -1,1 +1,1 @@
-run_spec(__dirname, ["mdx"], { embeddedLanguageFormatting: "off" });
+run_spec(import.meta, ["mdx"], { embeddedLanguageFormatting: "off" });

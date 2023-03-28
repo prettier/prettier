@@ -1,7 +1,3 @@
-"use strict";
+import { voidMap } from "@glimmer/syntax/dist/commonjs/es2017/lib/generation/printer.js";
 
-const {
-  voidMap,
-} = require("@glimmer/syntax/dist/commonjs/es2017/lib/generation/printer.js");
-
-module.exports = Object.keys(voidMap);
+export default Object.keys(voidMap);

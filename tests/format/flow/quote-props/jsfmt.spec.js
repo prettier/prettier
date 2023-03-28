@@ -1,16 +1,16 @@
-run_spec(__dirname, ["flow", "babel-flow"], {
+run_spec(import.meta, ["flow"], {
   quoteProps: "as-needed",
 });
 
-run_spec(__dirname, ["flow", "babel-flow"], {
+run_spec(import.meta, ["flow"], {
   quoteProps: "preserve",
 });
 
-run_spec(__dirname, ["flow", "babel-flow"], {
+run_spec(import.meta, ["flow"], {
   quoteProps: "consistent",
 });
 
-run_spec(__dirname, ["flow", "babel-flow"], {
+run_spec(import.meta, ["flow"], {
   quoteProps: "consistent",
   singleQuote: true,
 });

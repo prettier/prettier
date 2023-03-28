@@ -1,14 +1,12 @@
-"use strict";
-
-const { getLast } = require("../common/util.js");
-const { locStart, locEnd } = require("./loc.js");
-const {
+import assert from "node:assert";
+import { locStart, locEnd } from "./loc.js";
+import {
   cjkPattern,
-  kPattern,
+  kRegex,
   punctuationPattern,
-} = require("./constants.evaluate.js");
+} from "./constants.evaluate.js";
 
-const INLINE_NODE_TYPES = [
+const INLINE_NODE_TYPES = new Set([
   "liquidNode",
   "inlineCode",
   "emphasis",
@@ -27,39 +25,50 @@ const INLINE_NODE_TYPES = [
   "word",
   "break",
   "inlineMath",
-];
+]);
 
-const INLINE_NODE_WRAPPER_TYPES = [
+const INLINE_NODE_WRAPPER_TYPES = new Set([
   ...INLINE_NODE_TYPES,
   "tableCell",
   "paragraph",
   "heading",
-];
+]);
 
-const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);
+
+const KIND_NON_CJK = "non-cjk";
+const KIND_CJ_LETTER = "cj-letter";
+const KIND_K_LETTER = "k-letter";
+const KIND_CJK_PUNCTUATION = "cjk-punctuation";
+
+/**
+ * @typedef {" " | "\n" | ""} WhitespaceValue
+ * @typedef { KIND_NON_CJK | KIND_CJ_LETTER | KIND_K_LETTER | KIND_CJK_PUNCTUATION } WordKind
+ * @typedef {{
+ *   type: "whitespace",
+ *   value: WhitespaceValue,
+ *   kind?: never
+ * }} WhitespaceNode
+ * @typedef {{
+ *   type: "word",
+ *   value: string,
+ *   kind: WordKind,
+ *   hasLeadingPunctuation: boolean,
+ *   hasTrailingPunctuation: boolean,
+ * }} WordNode
+ * Node for a single CJK character or a sequence of non-CJK characters
+ * @typedef {WhitespaceNode | WordNode} TextNode
+ */
 
 /**
  * split text into whitespaces and words
  * @param {string} text
  */
-function splitText(text, options) {
-  const KIND_NON_CJK = "non-cjk";
-  const KIND_CJ_LETTER = "cj-letter";
-  const KIND_K_LETTER = "k-letter";
-  const KIND_CJK_PUNCTUATION = "cjk-punctuation";
-
-  /** @type {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>} */
+function splitText(text) {
+  /** @type {Array<TextNode>} */
   const nodes = [];
 
-  const tokens = (
-    options.proseWrap === "preserve"
-      ? text
-      : text.replace(
-          new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"),
-          "$1$2"
-        )
-  ).split(/([\t\n ]+)/);
+  const tokens = text.split(/([\t\n ]+)/);
   for (const [index, token] of tokens.entries()) {
     // whitespace
     if (index % 2 === 1) {
@@ -93,7 +102,7 @@ function splitText(text, options) {
             value: innerToken,
             kind: KIND_NON_CJK,
             hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
-            hasTrailingPunctuation: punctuationRegex.test(getLast(innerToken)),
+            hasTrailingPunctuation: punctuationRegex.test(innerToken.at(-1)),
           });
         }
         continue;
@@ -112,6 +121,7 @@ function splitText(text, options) {
           : {
               type: "word",
               value: innerToken,
+              // Korean uses space to divide words, but Chinese & Japanese do not
               kind: kRegex.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
               hasLeadingPunctuation: false,
               hasTrailingPunctuation: false,
@@ -120,27 +130,27 @@ function splitText(text, options) {
     }
   }
 
+  // Check for `canBeConvertedToSpace` in ./print-whitespace.js etc.
+  if (process.env.NODE_ENV !== "production") {
+    for (let i = 1; i < nodes.length; i++) {
+      assert(
+        !(nodes[i - 1].type === "whitespace" && nodes[i].type === "whitespace"),
+        "splitText should not create consecutive whitespace nodes"
+      );
+    }
+  }
+
   return nodes;
 
   function appendNode(node) {
-    const lastNode = getLast(nodes);
-    if (lastNode && lastNode.type === "word") {
-      if (
-        (lastNode.kind === KIND_NON_CJK &&
-          node.kind === KIND_CJ_LETTER &&
-          !lastNode.hasTrailingPunctuation) ||
-        (lastNode.kind === KIND_CJ_LETTER &&
-          node.kind === KIND_NON_CJK &&
-          !node.hasLeadingPunctuation)
-      ) {
-        nodes.push({ type: "whitespace", value: " " });
-      } else if (
-        !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
-        // disallow leading/trailing full-width whitespace
-        ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
-      ) {
-        nodes.push({ type: "whitespace", value: "" });
-      }
+    const lastNode = nodes.at(-1);
+    if (
+      lastNode?.type === "word" &&
+      !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
+      // disallow leading/trailing full-width whitespace
+      ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
+    ) {
+      nodes.push({ type: "whitespace", value: "" });
     }
     nodes.push(node);
 
@@ -228,7 +238,7 @@ function isAutolink(node) {
   return locStart(node) === locStart(child) && locEnd(node) === locEnd(child);
 }
 
-module.exports = {
+export {
   mapAst,
   splitText,
   punctuationPattern,
@@ -238,4 +248,8 @@ module.exports = {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  KIND_NON_CJK,
+  KIND_CJ_LETTER,
+  KIND_K_LETTER,
+  KIND_CJK_PUNCTUATION,
 };

@@ -1,7 +1,4 @@
-"use strict";
-
-const prettier = require("prettier-local");
-const runPrettier = require("../run-prettier.js");
+import prettier from "../../config/prettier-entry.js";
 
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({
@@ -37,7 +34,7 @@ describe("show detailed usage with plugin options (manual resolution)", () => {
   runPrettier("cli", [
     "--help",
     "tab-width",
-    "--plugin=../plugins/automatic/node_modules/prettier-plugin-bar",
+    "--plugin=../plugins/automatic/node_modules/prettier-plugin-bar/index.js",
     "--parser=bar",
   ]).test({
     status: 0,

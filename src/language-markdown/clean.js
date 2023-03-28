@@ -1,8 +1,6 @@
-"use strict";
-
-const collapseWhiteSpace = require("collapse-white-space");
-const { isFrontMatterNode } = require("../common/util.js");
-const { startWithPragma } = require("./pragma.js");
+import collapseWhiteSpace from "collapse-white-space";
+import isFrontMatter from "../utils/front-matter/is-front-matter.js";
+import { startWithPragma } from "./pragma.js";
 
 const ignoredProperties = new Set([
   "position",
@@ -27,7 +25,6 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "list" || ast.type === "listItem") {
     delete newObj.spread;
-    delete newObj.loose;
   }
 
   // texts can be splitted or merged
@@ -36,11 +33,11 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
+    newObj.value = ast.value.replaceAll("\n", " ");
   }
 
   if (ast.type === "wikiLink") {
-    newObj.value = ast.value.trim().replace(/[\t\n]+/g, " ");
+    newObj.value = ast.value.trim().replaceAll(/[\t\n]+/g, " ");
   }
 
   if (
@@ -57,16 +54,15 @@ function clean(ast, newObj, parent) {
       ast.type === "image") &&
     ast.title
   ) {
-    newObj.title = ast.title.replace(/\\(["')])/g, "$1");
+    newObj.title = ast.title.replaceAll(/\\(?=["')])/g, "");
   }
 
   // for insert pragma
   if (
-    parent &&
-    parent.type === "root" &&
+    parent?.type === "root" &&
     parent.children.length > 0 &&
     (parent.children[0] === ast ||
-      (isFrontMatterNode(parent.children[0]) && parent.children[1] === ast)) &&
+      (isFrontMatter(parent.children[0]) && parent.children[1] === ast)) &&
     ast.type === "html" &&
     startWithPragma(ast.value)
   ) {
@@ -76,4 +72,4 @@ function clean(ast, newObj, parent) {
 
 clean.ignoredProperties = ignoredProperties;
 
-module.exports = clean;
+export default clean;
