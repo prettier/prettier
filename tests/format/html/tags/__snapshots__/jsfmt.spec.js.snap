@@ -2037,6 +2037,8 @@ printWidth: 80
       <button type="submit">Go!</button>
     </form>
   </search>
+
+  <SEARCH></SEARCH>
 </header>
 </body>
 </html>
@@ -2061,6 +2063,8 @@ printWidth: 80
           <button type="submit">Go!</button>
         </form>
       </search>
+
+      <search></search>
     </header>
   </body>
 </html>
@@ -2094,6 +2098,8 @@ printWidth: 80
       <button type="submit">Go!</button>
     </form>
   </search>
+
+  <SEARCH></SEARCH>
 </header>
 </body>
 </html>
@@ -2118,6 +2124,8 @@ printWidth: 80
           <button type="submit">Go!</button>
         </form>
       </search>
+
+      <search></search>
     </header>
   </body>
 </html>
@@ -2149,6 +2157,8 @@ printWidth: Infinity
       <button type="submit">Go!</button>
     </form>
   </search>
+
+  <SEARCH></SEARCH>
 </header>
 </body>
 </html>
@@ -2173,6 +2183,8 @@ printWidth: Infinity
           <button type="submit">Go!</button>
         </form>
       </search>
+
+      <search></search>
     </header>
   </body>
 </html>
@@ -2205,6 +2217,8 @@ printWidth: 1
       <button type="submit">Go!</button>
     </form>
   </search>
+
+  <SEARCH></SEARCH>
 </header>
 </body>
 </html>
@@ -2263,6 +2277,8 @@ printWidth: 1
           </button>
         </form>
       </search>
+
+      <search></search>
     </header>
   </body>
 </html>
@@ -2295,6 +2311,8 @@ printWidth: 80
       <button type="submit">Go!</button>
     </form>
   </search>
+
+  <SEARCH></SEARCH>
 </header>
 </body>
 </html>
@@ -2319,6 +2337,8 @@ printWidth: 80
           <button type="submit">Go!</button>
         </form>
       </search>
+
+      <search></search>
     </header>
   </body>
 </html>
