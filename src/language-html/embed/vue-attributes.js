@@ -19,19 +19,14 @@ function printVueAttribute(path, options) {
   const attributeName = node.fullName;
 
   if (attributeName === "v-for") {
-    return async (...args) =>
-      printAttribute(path, await printVueVForDirective(...args));
+    return printVueVForDirective;
   }
 
   const value = getUnescapedAttributeValue(node);
   const parseWithTs = isVueSfcWithTypescriptScript(path, options);
 
   if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-    return async (textToDoc) =>
-      printAttribute(
-        path,
-        await printVueBindings(value, textToDoc, { parseWithTs })
-      );
+    return (textToDoc) => printVueBindings(value, textToDoc, { parseWithTs });
   }
 
   /**
@@ -41,11 +36,8 @@ function printVueAttribute(path, options) {
    *     v-on:click="jsExpression"
    */
   if (attributeName.startsWith("@") || attributeName.startsWith("v-on:")) {
-    return async (textToDoc) =>
-      printAttribute(
-        path,
-        await printVueVOnDirective(value, textToDoc, { parseWithTs })
-      );
+    return (textToDoc) =>
+      printVueVOnDirective(value, textToDoc, { parseWithTs });
   }
 
   /**
@@ -53,22 +45,15 @@ function printVueAttribute(path, options) {
    *     v-bind:id="vueExpression"
    */
   if (attributeName.startsWith(":") || attributeName.startsWith("v-bind:")) {
-    return async (textToDoc) =>
-      printAttribute(
-        path,
-        await printVueVBindDirective(value, textToDoc, { parseWithTs })
-      );
+    return (textToDoc) =>
+      printVueVBindDirective(value, textToDoc, { parseWithTs });
   }
 
   /**
    *     v-if="jsExpression"
    */
   if (attributeName.startsWith("v-")) {
-    return async (textToDoc) =>
-      printAttribute(
-        path,
-        await printExpression(value, textToDoc, { parseWithTs })
-      );
+    return (textToDoc) => printExpression(value, textToDoc, { parseWithTs });
   }
 }
 

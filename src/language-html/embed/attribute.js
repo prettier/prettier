@@ -1,13 +1,11 @@
-import { group, indent, fill, softline } from "../../document/builders.js";
+import { group } from "../../document/builders.js";
 import { mapDoc } from "../../document/utils.js";
-import { getUnescapedAttributeValue } from "../utils/index.js";
-import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
 import printSrcset from "./srcset.js";
 import printClassNames from "./class-names.js";
 import { printStyleAttribute } from "./style.js";
-import { printAttributeValue } from "./utils.js";
 import printVueAttribute from "./vue-attributes.js";
 import printAngularAttribute from "./angular-attributes.js";
+import { printExpand } from "./utils.js";
 
 function printAttribute(path, options) {
   const { node } = path;
@@ -31,18 +29,44 @@ function printAttribute(path, options) {
     return [node.rawName, "=", node.value];
   }
 
-  for (const printValue of [
+  for (const getValuePrinter of [
     printSrcset,
     printStyleAttribute,
     printClassNames,
     printVueAttribute,
     printAngularAttribute,
   ]) {
-    const valuePrinter = printValue(path, options);
-    if (valuePrinter) {
-      return valuePrinter;
+    const printValue = getValuePrinter(path, options);
+    if (printValue) {
+      return printAttributeWithValuePrinter(printValue);
     }
   }
+}
+
+/**
+ * @param {AstPath} path
+ * @param {Doc} valueDoc
+ * @param {{expand: boolean}} [param2]
+ * @returns
+ */
+function printAttributeWithValuePrinter(printValue) {
+  return async (textToDoc, print, path, options) => {
+    let valueDoc = await printValue(textToDoc, print, path, options);
+
+    // if (!valueDoc) {
+    //   return;
+    // }
+
+    valueDoc = mapDoc(valueDoc, (doc) =>
+      typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
+    );
+
+    if (path.node.fullName === "srcset" || path.node.fullName === "style") {
+      valueDoc = printExpand(valueDoc);
+    }
+
+    return [path.node.rawName, '="', group(valueDoc), '"'];
+  };
 }
 
 export default printAttribute;

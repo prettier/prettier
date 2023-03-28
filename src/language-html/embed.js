@@ -4,10 +4,7 @@ import {
   hardline,
   indent,
   line,
-  fill,
-  softline,
 } from "../document/builders.js";
-import { mapDoc, replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import {
   printClosingTag,

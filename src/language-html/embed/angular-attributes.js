@@ -1,27 +1,26 @@
-import { getUnescapedAttributeValue } from "../utils/index.js";
-import { group, indent, fill, softline } from "../../document/builders.js";
-import { getTextValueParts } from "../utils/index.js";
-import { printAttribute, printAttributeValue, printExpand } from "./utils.js";
+import {
+  getUnescapedAttributeValue,
+  getTextValueParts,
+} from "../utils/index.js";
+import { fill } from "../../document/builders.js";
+import { printAttributeValue, printExpand } from "./utils.js";
 import {
   interpolationRegex as angularInterpolationRegex,
   printAngularInterpolation,
 } from "./angular-interpolation.js";
 
 function createAngularPrinter({ parser }) {
-  return async (textToDoc, print, path /*, options*/) => {
+  return (textToDoc, print, path /*, options*/) => {
     const { node } = path;
     const value = getUnescapedAttributeValue(node);
-    return printAttribute(
-      path,
-      await printAttributeValue(
-        value,
-        {
-          parser,
-          // angular does not allow trailing comma
-          trailingComma: "none",
-        },
-        textToDoc
-      )
+    return printAttributeValue(
+      value,
+      {
+        parser,
+        // angular does not allow trailing comma
+        trailingComma: "none",
+      },
+      textToDoc
     );
   };
 }
@@ -79,18 +78,14 @@ function printAngularAttribute(path, options) {
    */
   if (/^i18n(?:-.+)?$/.test(attributeName)) {
     return () =>
-      printAttribute(
-        path,
-        printExpand(
-          fill(getTextValueParts(node, value.trim())),
-          !value.includes("@@")
-        )
+      printExpand(
+        fill(getTextValueParts(node, value.trim())),
+        !value.includes("@@")
       );
   }
 
   if (angularInterpolationRegex.test(value)) {
-    return async (textToDoc) =>
-      printAttribute(path, await printAngularInterpolation(value, textToDoc));
+    return (textToDoc) => printAngularInterpolation(value, textToDoc);
   }
 }
 

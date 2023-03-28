@@ -1,5 +1,4 @@
 import { getUnescapedAttributeValue } from "../utils/index.js";
-import { printAttribute } from "./utils.js";
 
 function printClassNames(path, options) {
   const { node } = path;
@@ -9,7 +8,7 @@ function printClassNames(path, options) {
     !options.parentParser &&
     !value.includes("{{")
   ) {
-    return () => printAttribute(path, value.trim().split(/\s+/).join(" "));
+    return () => value.trim().split(/\s+/).join(" ");
   }
 }
 
