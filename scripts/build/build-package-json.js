@@ -93,11 +93,11 @@ async function buildPackageJson({ file, files }) {
           })
       ),
     },
+    files: files.map(({ output: { file } }) => file).sort(),
     scripts: {
       prepublishOnly:
         "node -e \"assert.equal(require('.').version, require('..').version)\"",
     },
-    files: files.map(({ output: { file } }) => file).sort(),
   };
 
   await writeJson(
