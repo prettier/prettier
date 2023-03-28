@@ -120,7 +120,10 @@ function printAttribute(path, options) {
     return [node.rawName, "=", node.value];
   }
 
-  const x = printSrcset(path, options) ?? printStyleAttribute(path, options);
+  const x =
+    printSrcset(path, options) ??
+    printStyleAttribute(path, options) ??
+    printClassNames(path, options);
   if (x) {
     return x;
   }

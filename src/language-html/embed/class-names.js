@@ -1,9 +1,16 @@
 import { getUnescapedAttributeValue } from "../utils/index.js";
-import { printAttributeDoc } from "./utils.js";
+import { printAttribute } from "./utils.js";
 
-function printClassNames(textToDoc, print, path /*, options*/) {
-  const value = getUnescapedAttributeValue(path.node);
-  return printAttributeDoc(path, value.trim().split(/\s+/).join(" "));
+function printClassNames(path, options) {
+  const { node } = path;
+  const value = getUnescapedAttributeValue(node);
+  if (
+    node.fullName === "class" &&
+    !options.parentParser &&
+    !value.includes("{{")
+  ) {
+    return () => printAttribute(path, value.trim().split(/\s+/).join(" "));
+  }
 }
 
 export default printClassNames;

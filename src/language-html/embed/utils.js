@@ -2,10 +2,7 @@ import { group, indent, softline } from "../../document/builders.js";
 import { mapDoc } from "../../document/utils.js";
 
 function printExpand(doc, canHaveTrailingWhitespace = true) {
-  return group([
-    indent([softline, doc]),
-    canHaveTrailingWhitespace ? softline : "",
-  ]);
+  return [indent([softline, doc]), canHaveTrailingWhitespace ? softline : ""];
 }
 
 function printMaybeHug(doc, shouldHug) {
@@ -62,36 +59,20 @@ function formatAttributeValue(code, options, textToDoc) {
   return textToDoc(code, options);
 }
 
-function printAttributeDoc(path, valueDoc) {
-  return valueDoc
-    ? [
-        path.node.rawName,
-        '="',
-        group(
-          mapDoc(valueDoc, (doc) =>
-            typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
-          )
-        ),
-        '"',
-      ]
-    : undefined;
-}
-
-function printAttribute(path, valueDoc) {
+function printAttribute(path, valueDoc, { expand } = {}) {
   if (!valueDoc) {
     return;
   }
 
-  return [
-    path.node.rawName,
-    '="',
-    group(
-      mapDoc(valueDoc, (doc) =>
-        typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
-      )
-    ),
-    '"',
-  ];
+  valueDoc = mapDoc(valueDoc, (doc) =>
+    typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
+  );
+
+  if (expand) {
+    valueDoc = printExpand(valueDoc);
+  }
+
+  return [path.node.rawName, '="', group(valueDoc), '"'];
 }
 
 export {
@@ -100,6 +81,5 @@ export {
   printMaybeHug,
   printAttributeValue,
   formatAttributeValue,
-  printAttributeDoc,
   printAttribute,
 };
