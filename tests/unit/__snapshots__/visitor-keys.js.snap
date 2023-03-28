@@ -446,6 +446,9 @@ exports[`visitor keys estree 1`] = `
   "JsonRoot": [
     "node",
   ],
+  "KeyofTypeAnnotation": [
+    "argument",
+  ],
   "LabeledStatement": [
     "label",
     "body",
@@ -562,6 +565,12 @@ exports[`visitor keys estree 1`] = `
     "optional",
     "static",
     "method",
+  ],
+  "ObjectTypeMappedTypeProperty": [
+    "keyTparam",
+    "propType",
+    "sourceType",
+    "variance",
   ],
   "ObjectTypeProperty": [
     "key",

@@ -4,7 +4,9 @@ import assert from "node:assert";
 import printString from "../../utils/print-string.js";
 import printNumber from "../../utils/print-number.js";
 import { replaceEndOfLine } from "../../document/utils.js";
+import { softline, indent } from "../../document/builders.js";
 import {
+  getFlowMappedTypeOptionalModifier,
   isFunctionNotation,
   isGetterOrSetter,
   rawText,
@@ -178,8 +180,27 @@ function printFlow(path, options, print) {
       assert.ok(kind === "plus" || kind === "minus");
       return kind === "plus" ? "+" : "-";
     }
+    case "KeyofTypeAnnotation":
+      return ["keyof ", print("argument")];
     case "ObjectTypeCallProperty":
       return [node.static ? "static " : "", print("value")];
+    case "ObjectTypeMappedTypeProperty":
+      return [
+        node.variance ? print("variance") : "",
+        "[",
+        indent([
+          softline,
+          print("keyTparam"),
+          " in ",
+          softline,
+          print("sourceType"),
+        ]),
+        softline,
+        "]",
+        getFlowMappedTypeOptionalModifier(node.optional),
+        ": ",
+        print("propType"),
+      ];
 
     case "ObjectTypeIndexer":
       return [

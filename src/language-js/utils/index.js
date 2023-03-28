@@ -499,6 +499,23 @@ function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
 }
 
 /**
+ * @param {string} tokenNode
+ * @returns {string}
+ */
+function getFlowMappedTypeOptionalModifier(optional) {
+  switch (optional) {
+    case null:
+      return "";
+    case "PlusOptional":
+      return "+?";
+    case "MinusOptional":
+      return "-?";
+    case "Optional":
+      return "?";
+  }
+}
+
+/**
  * @param {string} text
  * @param {Node} node
  * @returns {boolean}
@@ -1129,6 +1146,7 @@ export {
   iterateCallArgumentsPath,
   getCallArgumentSelector,
   hasRestParameter,
+  getFlowMappedTypeOptionalModifier,
   getLeftSide,
   getLeftSidePathName,
   getTypeScriptMappedTypeModifier,

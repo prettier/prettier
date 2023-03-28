@@ -42,6 +42,13 @@ const additionalVisitorKeys = {
   ],
   DeclareEnum: flowVisitorKeys.EnumDeclaration,
   InferTypeAnnotation: ["typeParameter"],
+  KeyofTypeAnnotation: ["argument"],
+  ObjectTypeMappedTypeProperty: [
+    "keyTparam",
+    "propType",
+    "sourceType",
+    "variance",
+  ],
   TupleTypeAnnotation: ["elementTypes"],
   TupleTypeSpreadElement: ["label", "typeAnnotation"],
   TupleTypeLabeledElement: ["label", "elementType", "variance"],
