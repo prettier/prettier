@@ -3,12 +3,12 @@ import url from "node:url";
 import fs from "node:fs";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
-import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.mjs";
+import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.js";
 import buildJavascriptModule from "./build-javascript-module.js";
 import buildPackageJson from "./build-package-json.js";
 import buildLicense from "./build-license.js";
 import buildTypes from "./build-types.js";
-import modifyTypescriptModule from "./modify-typescript-module.mjs";
+import modifyTypescriptModule from "./modify-typescript-module.js";
 import { getPackageFile } from "./utils.js";
 
 const {

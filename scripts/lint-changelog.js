@@ -5,7 +5,7 @@ import fs from "node:fs";
 import { outdent } from "outdent";
 import createEsmUtils from "esm-utils";
 import { LinesAndColumns } from "lines-and-columns";
-import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.mjs";
+import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 const CHANGELOG_DIR = "changelog_unreleased";

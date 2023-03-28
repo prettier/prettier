@@ -9,7 +9,7 @@ import {
   getEntries,
   printEntries,
   replaceVersions,
-} from "./utils/changelog.mjs";
+} from "./utils/changelog.js";
 
 const { previousVersion, newVersion } = parseArgv();
 

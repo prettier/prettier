@@ -1,10 +1,5 @@
 import path from "node:path";
-import {
-  PROJECT_ROOT,
-  DIST_DIR,
-  readJson,
-  writeJson,
-} from "../utils/index.mjs";
+import { PROJECT_ROOT, DIST_DIR, readJson, writeJson } from "../utils/index.js";
 
 const keysToKeep = [
   "name",

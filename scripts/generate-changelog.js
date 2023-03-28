@@ -13,7 +13,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import enquirer from "enquirer";
-import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.mjs";
+import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
