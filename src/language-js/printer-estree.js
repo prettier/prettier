@@ -744,7 +744,7 @@ export const experimentalFeatures = {
 };
 export { genericPrint as print };
 export * from "./comments/printer-methods.js";
-export { default as embed } from "./embed.js";
+export { default as embed } from "./embed/index.js";
 export { default as massageAstNode } from "./clean.js";
 export { insertPragma } from "./pragma.js";
 export { default as getVisitorKeys } from "./traverse/get-visitor-keys.js";
