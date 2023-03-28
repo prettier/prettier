@@ -4,6 +4,7 @@ import path from "node:path";
 import fs from "node:fs";
 import { outdent } from "outdent";
 import createEsmUtils from "esm-utils";
+import { LinesAndColumns } from "lines-and-columns";
 import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
 
 const { __dirname } = createEsmUtils(import.meta);
@@ -45,7 +46,7 @@ const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
   "utf8"
 );
-const [templateComment] = template.match(/<!--.*?-->/s);
+const templateComments = template.match(/<!--.*?-->/gs);
 const [templateAuthorLink] = template.match(authorRegex);
 const checkedFiles = new Map();
 
@@ -94,10 +95,15 @@ for (const category of CHANGELOG_CATEGORIES) {
     if (!authorRegex.test(content)) {
       showErrorMessage(`[${displayPath}]: Author link is missing.`);
     }
-    if (content.includes(templateComment)) {
-      showErrorMessage(
-        `[${displayPath}]: Please remove template comments at top.`
-      );
+    for (const comment of templateComments) {
+      if (comment !== "<!-- prettier-ignore -->" && content.includes(comment)) {
+        showErrorMessage(
+          `[${displayPath}]: Please remove ${getCommentDescription(
+            content,
+            comment
+          )}`
+        );
+      }
     }
     if (content.includes(templateAuthorLink)) {
       showErrorMessage(
@@ -134,4 +140,19 @@ for (const category of CHANGELOG_CATEGORIES) {
       );
     }
   }
+}
+
+function getCommentDescription(content, comment) {
+  const start = content.indexOf(comment);
+  const end = start + comment.length;
+  const linesAndColumns = new LinesAndColumns(content);
+  const [startLine, endLine] = [start, end].map(
+    (index) => linesAndColumns.locationForIndex(index).line + 1
+  );
+
+  if (startLine === endLine) {
+    return `template comment "${comment}" on line ${startLine}`;
+  }
+
+  return `template comment on line ${startLine}-${endLine}`;
 }
