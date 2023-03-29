@@ -47,3 +47,21 @@ describe("outputs files as-is if no --write", () => {
     write: [],
   });
 });
+
+describe("multiple `--ignore-path`", () => {
+  runPrettier("cli/ignore-path", [
+    "**/*.js",
+    "--debug-check",
+    "--ignore-path",
+    ".gitignore",
+    "--ignore-path",
+    ".prettierignore",
+    "--ignore-path",
+    ".non-exists-ignore-file",
+  ]).test({
+    status: 0,
+    stdout: "",
+    stderr: "",
+    write: [],
+  });
+});
