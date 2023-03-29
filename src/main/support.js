@@ -18,7 +18,7 @@ function getSupportInfo({ plugins = [], showDeprecated = false } = {}) {
   const languages = plugins.flatMap((plugin) => plugin.languages ?? []);
 
   const options = [];
-  for (const option of normalizeOptionsConfig(
+  for (const option of normalizeOptionSettings(
     Object.assign({}, ...plugins.map(({ options }) => options), coreOptions)
   )) {
     if (!showDeprecated && option.deprecated) {
@@ -70,9 +70,9 @@ function* collectParsersFromLanguages(parserChoices, languages, plugins) {
   }
 }
 
-function normalizeOptionsConfig(config) {
+function normalizeOptionSettings(settings) {
   const options = [];
-  for (const [name, originalOption] of Object.entries(config)) {
+  for (const [name, originalOption] of Object.entries(settings)) {
     const option = { name, ...originalOption };
 
     // This work this way because we used support `[{value: [], since: '0.0.0'}]`
@@ -86,4 +86,4 @@ function normalizeOptionsConfig(config) {
   return options;
 }
 
-export { getSupportInfo, normalizeOptionsConfig };
+export { getSupportInfo, normalizeOptionSettings };

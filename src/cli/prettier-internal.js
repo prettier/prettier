@@ -8,7 +8,7 @@ export const {
   formatOptionsHiddenDefaults,
   normalizeOptions,
   getSupportInfoWithoutPlugins,
-  normalizeOptionsConfig,
+  normalizeOptionSettings,
   vnopts,
   fastGlob,
 } = sharedWithCli;

@@ -3,11 +3,11 @@ import { getSupportInfo } from "../../index.js";
 import {
   optionCategories,
   getSupportInfoWithoutPlugins,
-  normalizeOptionsConfig,
+  normalizeOptionSettings,
 } from "../prettier-internal.js";
 import cliOptions from "../cli-options.evaluate.js";
 
-const detailedCliOptions = normalizeOptionsConfig(cliOptions).map((option) =>
+const detailedCliOptions = normalizeOptionSettings(cliOptions).map((option) =>
   normalizeDetailedOption(option)
 );
 
