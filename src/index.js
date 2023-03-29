@@ -1,7 +1,10 @@
 import vnopts from "vnopts";
 import fastGlob from "fast-glob";
 import * as core from "./main/core.js";
-import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
+import {
+  getSupportInfo as getSupportInfoWithoutPlugins,
+  normalizeOptionSettings,
+} from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import {
   loadBuiltinPlugins,
@@ -15,11 +18,10 @@ import {
   clearCache as clearConfigCache,
 } from "./config/resolve-config.js";
 import * as errors from "./common/errors.js";
-import * as coreOptions from "./main/core-options.evaluate.js";
+import * as optionCategories from "./main/option-categories.js";
 import { createIsIgnoredFunction } from "./utils/ignore.js";
 import { formatOptionsHiddenDefaults } from "./main/normalize-format-options.js";
 import normalizeOptions from "./main/normalize-options.js";
-import arrayify from "./utils/arrayify.js";
 import partition from "./utils/partition.js";
 import isNonEmptyArray from "./utils/is-non-empty-array.js";
 import omit from "./utils/object-omit.js";
@@ -84,15 +86,15 @@ const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 // Internal shared with cli
 const sharedWithCli = {
   errors,
-  coreOptions,
+  optionCategories,
   createIsIgnoredFunction,
   formatOptionsHiddenDefaults,
   normalizeOptions,
   getSupportInfoWithoutPlugins,
+  normalizeOptionSettings,
   vnopts,
   fastGlob,
   utils: {
-    arrayify,
     isNonEmptyArray,
     partition,
     omit,
