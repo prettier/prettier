@@ -26,15 +26,15 @@ function getSupportInfo({ plugins = [], showDeprecated = false } = {}) {
     }
 
     if (Array.isArray(option.choices)) {
-      let { choices } = option;
-      choices = showDeprecated
-        ? [...choices]
-        : choices.filter((choice) => !choice.deprecated);
+      if (!showDeprecated) {
+        option.choices = option.choices.filter((choice) => !choice.deprecated);
+      }
 
       if (option.name === "parser") {
-        choices.push(
-          ...collectParsersFromLanguages(choices, languages, plugins)
-        );
+        option.choices = [
+          ...option.choices,
+          ...collectParsersFromLanguages(option.choices, languages, plugins),
+        ];
       }
     }
 
@@ -55,15 +55,19 @@ function* collectParsersFromLanguages(parserChoices, languages, plugins) {
 
   for (const language of languages) {
     if (language.parsers) {
-      for (const value of language.parsers) {
-        if (!existingParsers.has(value)) {
-          existingParsers.add(value);
-          const plugin = plugins.find((plugin) => plugin.parsers?.[value]);
+      for (const parserName of language.parsers) {
+        if (!existingParsers.has(parserName)) {
+          existingParsers.add(parserName);
+          const plugin = plugins.find(
+            (plugin) =>
+              plugin.parsers && Object.hasOwn(plugin.parsers, parserName)
+          );
+
           let description = language.name;
           if (plugin?.name) {
             description += ` (plugin: ${plugin.name})`;
           }
-          yield { value, description };
+          yield { value: parserName, description };
         }
       }
     }
