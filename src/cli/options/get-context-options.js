@@ -8,31 +8,35 @@ import {
 import cliOptions from "../cli-options.evaluate.js";
 
 const detailedCliOptions = normalizeOptionsConfig(cliOptions).map((option) =>
-  normalizeDetailedOption({
-    cliCategory: option.category ?? optionCategories.CATEGORY_OTHER,
-    ...option,
-  })
+  normalizeDetailedOption(option)
 );
 
-function normalizeDetailedOption(option) {
+function apiOptionToCliOption(apiOption) {
   const cliOption = {
-    ...option,
-    name: option.cliName ?? dashify(option.name),
-    description: option.cliDescription ?? option.description,
-    category: option.cliCategory ?? optionCategories.CATEGORY_FORMAT,
-    forwardToApi: option.name,
+    ...apiOption,
+    description: apiOption.cliDescription ?? apiOption.description,
+    category: apiOption.cliCategory ?? optionCategories.CATEGORY_FORMAT,
+    forwardToApi: apiOption.name,
   };
 
   /* c8 ignore start */
-  if (option.deprecated) {
+  if (apiOption.deprecated) {
     delete cliOption.forwardToApi;
     delete cliOption.description;
     delete cliOption.oppositeDescription;
+    cliOption.deprecated = true;
   }
   /* c8 ignore stop */
 
-  if (Array.isArray(option.choices)) {
-    cliOption.choices = option.choices.map((choice) => {
+  return normalizeDetailedOption(cliOption);
+}
+
+function normalizeDetailedOption(option) {
+  return {
+    category: optionCategories.CATEGORY_OTHER,
+    ...option,
+    name: option.cliName ?? dashify(option.name),
+    choices: option.choices?.map((choice) => {
       const newChoice = {
         description: "",
         deprecated: false,
@@ -43,16 +47,14 @@ function normalizeDetailedOption(option) {
         newChoice.value = ""; // backward compatibility for original boolean option
       }
       return newChoice;
-    });
-  }
-
-  return cliOption;
+    }),
+  };
 }
 
 function supportInfoToContextOptions({ options: supportOptions, languages }) {
   const detailedOptions = [
     ...detailedCliOptions,
-    ...supportOptions.map((apiOption) => normalizeDetailedOption(apiOption)),
+    ...supportOptions.map((apiOption) => apiOptionToCliOption(apiOption)),
   ];
 
   return {
