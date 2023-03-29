@@ -26,10 +26,10 @@ async function getFileInfo(filePath, options) {
   let { ignorePath, withNodeModules } = options;
   // In API we allow single `ignorePath`
   if (!Array.isArray(ignorePath)) {
-    ignorePath = [ignorePath]
+    ignorePath = [ignorePath];
   }
 
-  const ignored = await isIgnored(filePath, {ignorePath, withNodeModules});
+  const ignored = await isIgnored(filePath, { ignorePath, withNodeModules });
 
   let inferredParser;
   if (!ignored) {
