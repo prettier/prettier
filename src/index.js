@@ -22,6 +22,7 @@ import normalizeOptions from "./main/normalize-options.js";
 import arrayify from "./utils/arrayify.js";
 import partition from "./utils/partition.js";
 import isNonEmptyArray from "./utils/is-non-empty-array.js";
+import omit from "./utils/object-omit.js"
 
 /**
  * @param {*} fn
@@ -94,6 +95,7 @@ const sharedWithCli = {
     arrayify,
     isNonEmptyArray,
     partition,
+    omit,
   },
 };
 

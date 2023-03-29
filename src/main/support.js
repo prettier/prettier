@@ -1,4 +1,3 @@
-import omit from "../utils/object-omit.js";
 import { options as coreOptions } from "./core-options.evaluate.js";
 
 /**
@@ -13,14 +12,9 @@ import { options as coreOptions } from "./core-options.evaluate.js";
  * @param {(string | object)[]=} param0.plugins Strings are resolved by `withPlugins`.
  * @param {string[]=} param0.pluginSearchDirs Added by `withPlugins`.
  * @param {boolean=} param0.showDeprecated
- * @param {boolean=} param0.showInternal
  * @return {{ languages: Array<any>, options: Array<NamedOptionInfo> }}
  */
-function getSupportInfo({
-  plugins = [],
-  showDeprecated = false,
-  showInternal = false,
-} = {}) {
+function getSupportInfo({ plugins = [], showDeprecated = false } = {}) {
   const languages = plugins.flatMap((plugin) => plugin.languages ?? []);
 
   const options = [];
@@ -32,11 +26,7 @@ function getSupportInfo({
       continue;
     }
 
-    const option = showInternal
-      ? { ...originalOption }
-      : omit(originalOption, ["cliName", "cliCategory", "cliDescription"]);
-
-    option.name = name;
+    const option = { name, ...originalOption };
 
     // This work this way because we used support `[{value: [], since: '0.0.0'}]`
     if (Array.isArray(option.default)) {
