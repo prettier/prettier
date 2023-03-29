@@ -25,7 +25,7 @@ async function createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules) {
   }
 
   if (!content) {
-    return () => false;
+    return;
   }
 
   const ignore = createIgnore({ allowRelativePaths: true }).add(content);
@@ -54,11 +54,13 @@ async function createIsIgnoredFunction(ignoreFilePaths, withNodeModules) {
     ignoreFilePaths = [undefined];
   }
 
-  const isIgnoredFunctions = await Promise.all(
-    ignoreFilePaths.map((ignoreFilePath) =>
-      createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules)
+  const isIgnoredFunctions = (
+    await Promise.all(
+      ignoreFilePaths.map((ignoreFilePath) =>
+        createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules)
+      )
     )
-  );
+  ).filter(Boolean);
 
   return (filepath) =>
     isIgnoredFunctions.some((isIgnored) => isIgnored(filepath));
