@@ -19,8 +19,7 @@ function getSupportInfo({ plugins = [], showDeprecated = false } = {}) {
 
   const options = [];
   for (const [name, originalOption] of Object.entries(
-    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
-    "name"
+    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions)
   )) {
     if (!showDeprecated && originalOption.deprecated) {
       continue;
