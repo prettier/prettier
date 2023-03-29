@@ -50,7 +50,7 @@ async function createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules) {
  */
 async function createIsIgnoredFunction(ignoreFilePaths, withNodeModules) {
   // If `ignoreFilePaths` is empty, we still want `withNodeModules` to work
-  if (ignoreFilePaths.length === 0) {
+  if (ignoreFilePaths.length === 0 && !withNodeModules) {
     ignoreFilePaths = [undefined];
   }
 
