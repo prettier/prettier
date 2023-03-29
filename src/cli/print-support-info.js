@@ -2,13 +2,13 @@ import stringify from "fast-json-stable-stringify";
 import { getSupportInfo, format } from "../index.js";
 import { printToScreen } from "./utils.js";
 
+const sortByName = (array) =>
+  array.sort((a, b) => a.name.localeCompare(b.name));
+
 async function printSupportInfo() {
   const supportInfo = await getSupportInfo();
-
-  supportInfo.languages.sort((languageA, languageB) =>
-    (languageA.name ?? "").toLowerCase().localeCompare(languageB.name ?? "")
-  );
-
+  sortByName(supportInfo.languages);
+  sortByName(supportInfo.options);
   printToScreen(await format(stringify(supportInfo), { parser: "json" }));
 }
 
