@@ -1,7 +1,10 @@
 import vnopts from "vnopts";
 import fastGlob from "fast-glob";
 import * as core from "./main/core.js";
-import { getSupportInfo as getSupportInfoWithoutPlugins, normalizeOptionsConfig } from "./main/support.js";
+import {
+  getSupportInfo as getSupportInfoWithoutPlugins,
+  normalizeOptionsConfig,
+} from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import {
   loadBuiltinPlugins,
