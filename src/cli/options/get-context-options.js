@@ -24,6 +24,7 @@ function apiOptionToCliOption(apiOption) {
     delete cliOption.forwardToApi;
     delete cliOption.description;
     delete cliOption.oppositeDescription;
+    cliOption.deprecated = true;
   }
   /* c8 ignore stop */
 
