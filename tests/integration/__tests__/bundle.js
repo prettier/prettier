@@ -13,9 +13,7 @@ const { require, importModule } = createEsmUtils(import.meta);
 
 expect.addSnapshotSerializer(jestPathSerializer);
 
-const parserNames = coreOptions.parser.choices.map(
-  ({ value }) => value
-);
+const parserNames = coreOptions.parser.choices.map(({ value }) => value);
 const distDirectory = path.join(projectRoot, "dist");
 
 // Files including U+FFEE can't load in Chrome Extension
