@@ -1,4 +1,3 @@
-import arrayify from "../utils/arrayify.js";
 import omit from "../utils/object-omit.js";
 import { options as coreOptions } from "./core-options.evaluate.js";
 
@@ -25,7 +24,7 @@ function getSupportInfo({
   const languages = plugins.flatMap((plugin) => plugin.languages ?? []);
 
   const options = [];
-  for (const originalOption of arrayify(
+  for (const [name, originalOption] of Object.entries(
     Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
     "name"
   )) {
@@ -36,6 +35,8 @@ function getSupportInfo({
     const option = showInternal
       ? { ...originalOption }
       : omit(originalOption, ["cliName", "cliCategory", "cliDescription"]);
+
+    option.name = name;
 
     // This work this way because we used support `[{value: [], since: '0.0.0'}]`
     if (Array.isArray(option.default)) {
