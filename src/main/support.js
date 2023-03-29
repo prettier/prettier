@@ -1,5 +1,3 @@
-import arrayify from "../utils/arrayify.js";
-import omit from "../utils/object-omit.js";
 import { options as coreOptions } from "./core-options.evaluate.js";
 
 /**
@@ -14,28 +12,20 @@ import { options as coreOptions } from "./core-options.evaluate.js";
  * @param {(string | object)[]=} param0.plugins Strings are resolved by `withPlugins`.
  * @param {string[]=} param0.pluginSearchDirs Added by `withPlugins`.
  * @param {boolean=} param0.showDeprecated
- * @param {boolean=} param0.showInternal
  * @return {{ languages: Array<any>, options: Array<NamedOptionInfo> }}
  */
-function getSupportInfo({
-  plugins = [],
-  showDeprecated = false,
-  showInternal = false,
-} = {}) {
+function getSupportInfo({ plugins = [], showDeprecated = false } = {}) {
   const languages = plugins.flatMap((plugin) => plugin.languages ?? []);
 
   const options = [];
-  for (const originalOption of arrayify(
-    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
-    "name"
+  for (const [name, originalOption] of Object.entries(
+    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions)
   )) {
     if (!showDeprecated && originalOption.deprecated) {
       continue;
     }
 
-    const option = showInternal
-      ? { ...originalOption }
-      : omit(originalOption, ["cliName", "cliCategory", "cliDescription"]);
+    const option = { name, ...originalOption };
 
     // This work this way because we used support `[{value: [], since: '0.0.0'}]`
     if (Array.isArray(option.default)) {

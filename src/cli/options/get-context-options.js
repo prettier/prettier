@@ -67,7 +67,6 @@ function supportInfoToContextOptions({ options: supportOptions, languages }) {
 async function getContextOptions(plugins, pluginSearchDirs) {
   const supportInfo = await getSupportInfo({
     showDeprecated: true,
-    showInternal: true,
     plugins,
     pluginSearchDirs,
   });
@@ -76,7 +75,7 @@ async function getContextOptions(plugins, pluginSearchDirs) {
 }
 
 function getContextOptionsWithoutPlugins() {
-  const supportInfo = getSupportInfoWithoutPlugins({ showInternal: true });
+  const supportInfo = getSupportInfoWithoutPlugins();
   return supportInfoToContextOptions(supportInfo);
 }
 
