@@ -1,17 +1,7 @@
-const CATEGORY_CONFIG = "Config";
-const CATEGORY_EDITOR = "Editor";
-const CATEGORY_FORMAT = "Format";
-const CATEGORY_OTHER = "Other";
-const CATEGORY_OUTPUT = "Output";
-const CATEGORY_GLOBAL = "Global";
-const CATEGORY_SPECIAL = "Special";
-
-export default {
-  CATEGORY_CONFIG,
-  CATEGORY_EDITOR,
-  CATEGORY_FORMAT,
-  CATEGORY_OTHER,
-  CATEGORY_OUTPUT,
-  CATEGORY_GLOBAL,
-  CATEGORY_SPECIAL,
-};
+export const CATEGORY_CONFIG = "Config";
+export const CATEGORY_EDITOR = "Editor";
+export const CATEGORY_FORMAT = "Format";
+export const CATEGORY_OTHER = "Other";
+export const CATEGORY_OUTPUT = "Output";
+export const CATEGORY_GLOBAL = "Global";
+export const CATEGORY_SPECIAL = "Special";

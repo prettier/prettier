@@ -18,7 +18,7 @@ import {
   clearCache as clearConfigCache,
 } from "./config/resolve-config.js";
 import * as errors from "./common/errors.js";
-import optionCategories from "./main/option-categories.js";
+import * as optionCategories from "./main/option-categories.js";
 import { createIsIgnoredFunction } from "./utils/ignore.js";
 import { formatOptionsHiddenDefaults } from "./main/normalize-format-options.js";
 import normalizeOptions from "./main/normalize-options.js";
