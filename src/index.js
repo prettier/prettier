@@ -18,7 +18,7 @@ import {
   clearCache as clearConfigCache,
 } from "./config/resolve-config.js";
 import * as errors from "./common/errors.js";
-import * as coreOptions from "./main/core-options.evaluate.js";
+import optionCategories from "./main/option-categories.js";
 import { createIsIgnoredFunction } from "./utils/ignore.js";
 import { formatOptionsHiddenDefaults } from "./main/normalize-format-options.js";
 import normalizeOptions from "./main/normalize-options.js";
@@ -86,7 +86,7 @@ const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 // Internal shared with cli
 const sharedWithCli = {
   errors,
-  coreOptions,
+  optionCategories,
   createIsIgnoredFunction,
   formatOptionsHiddenDefaults,
   normalizeOptions,

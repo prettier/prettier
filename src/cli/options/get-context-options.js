@@ -1,7 +1,7 @@
 import dashify from "dashify";
 import { getSupportInfo } from "../../index.js";
 import {
-  coreOptions,
+  optionCategories,
   getSupportInfoWithoutPlugins,
   normalizeOptionsConfig,
 } from "../prettier-internal.js";
@@ -9,7 +9,7 @@ import cliOptions from "../cli-options.evaluate.js";
 
 const detailedCliOptions = normalizeOptionsConfig(cliOptions).map((option) =>
   normalizeDetailedOption({
-    category: coreOptions.CATEGORY_OTHER,
+    category: optionCategories.CATEGORY_OTHER,
     ...option,
   })
 );
@@ -19,7 +19,7 @@ function normalizeDetailedOption(option) {
     ...option,
     name: option.cliName ?? dashify(option.name),
     description: option.cliDescription ?? option.description,
-    category: option.cliCategory ?? coreOptions.CATEGORY_FORMAT,
+    category: option.cliCategory ?? optionCategories.CATEGORY_FORMAT,
     forwardToApi: option.name,
   };
 

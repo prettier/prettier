@@ -3,7 +3,7 @@ import { __internal as sharedWithCli } from "../index.js";
 
 export const {
   errors,
-  coreOptions,
+  optionCategories,
   createIsIgnoredFunction,
   formatOptionsHiddenDefaults,
   normalizeOptions,

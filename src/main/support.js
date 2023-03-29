@@ -1,4 +1,4 @@
-import { options as coreOptions } from "./core-options.evaluate.js";
+import coreOptions from "./core-options.evaluate.js";
 
 /**
  * @typedef {import("./core-options.evaluate.js").OptionInfo} OptionInfo

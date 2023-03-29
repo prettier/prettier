@@ -1,5 +1,5 @@
 import { outdent } from "outdent";
-import { coreOptions } from "./prettier-internal.js";
+import { optionCategories } from "./prettier-internal.js";
 
 /**
  * {
@@ -86,7 +86,7 @@ const options = {
   },
   check: {
     alias: "c",
-    category: coreOptions.CATEGORY_OUTPUT,
+    category: optionCategories.CATEGORY_OUTPUT,
     description: outdent`
       Check if the given files are formatted, print a human-friendly summary
       message and paths to unformatted files (see also --list-different).
@@ -104,7 +104,7 @@ const options = {
     type: "boolean",
   },
   config: {
-    category: coreOptions.CATEGORY_CONFIG,
+    category: optionCategories.CATEGORY_CONFIG,
     description:
       "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
     exception: (value) => value === false,
@@ -112,7 +112,7 @@ const options = {
     type: "path",
   },
   configPrecedence: {
-    category: coreOptions.CATEGORY_CONFIG,
+    category: optionCategories.CATEGORY_CONFIG,
     choices: [
       {
         description: "CLI options take precedence over config file",
@@ -158,7 +158,7 @@ const options = {
     type: "int",
   },
   editorconfig: {
-    category: coreOptions.CATEGORY_CONFIG,
+    category: optionCategories.CATEGORY_CONFIG,
     default: true,
     description: "Take .editorconfig into account when parsing configuration.",
     oppositeDescription:
@@ -178,7 +178,7 @@ const options = {
     type: "path",
   },
   findConfigPath: {
-    category: coreOptions.CATEGORY_CONFIG,
+    category: optionCategories.CATEGORY_CONFIG,
     description:
       "Find and print the path to a configuration file for the given input file.",
     type: "path",
@@ -193,7 +193,7 @@ const options = {
     type: "flag",
   },
   ignorePath: {
-    category: coreOptions.CATEGORY_CONFIG,
+    category: optionCategories.CATEGORY_CONFIG,
     default: ".prettierignore",
     description: "Path to a file with patterns describing files to ignore.",
     type: "path",
@@ -205,7 +205,7 @@ const options = {
   },
   listDifferent: {
     alias: "l",
-    category: coreOptions.CATEGORY_OUTPUT,
+    category: optionCategories.CATEGORY_OUTPUT,
     description:
       "Print the names of files that are different from Prettier's formatting (see also --check).",
     type: "boolean",
@@ -230,13 +230,13 @@ const options = {
     type: "boolean",
   },
   withNodeModules: {
-    category: coreOptions.CATEGORY_CONFIG,
+    category: optionCategories.CATEGORY_CONFIG,
     description: "Process files inside 'node_modules' directory.",
     type: "boolean",
   },
   write: {
     alias: "w",
-    category: coreOptions.CATEGORY_OUTPUT,
+    category: optionCategories.CATEGORY_OUTPUT,
     description: "Edit files in-place. (Beware!)",
     type: "boolean",
   },
