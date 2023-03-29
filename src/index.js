@@ -1,7 +1,7 @@
 import vnopts from "vnopts";
 import fastGlob from "fast-glob";
 import * as core from "./main/core.js";
-import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
+import { getSupportInfo as getSupportInfoWithoutPlugins, normalizeOptionsConfig } from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import {
   loadBuiltinPlugins,
@@ -19,7 +19,6 @@ import * as coreOptions from "./main/core-options.evaluate.js";
 import { createIsIgnoredFunction } from "./utils/ignore.js";
 import { formatOptionsHiddenDefaults } from "./main/normalize-format-options.js";
 import normalizeOptions from "./main/normalize-options.js";
-import arrayify from "./utils/arrayify.js";
 import partition from "./utils/partition.js";
 import isNonEmptyArray from "./utils/is-non-empty-array.js";
 import omit from "./utils/object-omit.js";
@@ -89,10 +88,10 @@ const sharedWithCli = {
   formatOptionsHiddenDefaults,
   normalizeOptions,
   getSupportInfoWithoutPlugins,
+  normalizeOptionsConfig,
   vnopts,
   fastGlob,
   utils: {
-    arrayify,
     isNonEmptyArray,
     partition,
     omit,

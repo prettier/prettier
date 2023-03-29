@@ -3,11 +3,11 @@ import { getSupportInfo } from "../../index.js";
 import {
   coreOptions,
   getSupportInfoWithoutPlugins,
+  normalizeOptionsConfig,
 } from "../prettier-internal.js";
-import { options as cliOptionsMap } from "../constants.evaluate.js";
-import { arrayify } from "../utils.js";
+import cliOptions from "../cli-options.evaluate.js"
 
-const detailedCliOptions = arrayify(cliOptionsMap, "name").map((option) =>
+const detailedCliOptions = normalizeOptionsConfig(cliOptions).map((option) =>
   normalizeDetailedOption(option)
 );
 
@@ -25,7 +25,6 @@ function apiOptionToCliOption(apiOption) {
     delete cliOption.forwardToApi;
     delete cliOption.description;
     delete cliOption.oppositeDescription;
-    cliOption.deprecated = true;
   }
   /* c8 ignore stop */
 

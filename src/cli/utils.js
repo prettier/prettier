@@ -89,7 +89,7 @@ const normalizeToPosix =
     ? (filepath) => filepath.replaceAll("\\", "/")
     : (filepath) => filepath;
 
-export const { arrayify, isNonEmptyArray, partition, omit } =
+export const { isNonEmptyArray, partition, omit } =
   sharedWithCli.utils;
 export {
   printToScreen,
