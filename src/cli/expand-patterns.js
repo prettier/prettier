@@ -50,6 +50,7 @@ async function* expandPatternsInternal(context) {
   const globOptions = {
     dot: true,
     ignore: silentlyIgnoredDirs.map((dir) => "**/" + dir),
+    followSymbolicLinks: false,
   };
 
   let supportedFilesGlob;

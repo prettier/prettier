@@ -151,6 +151,26 @@ if (path.sep === "/") {
     testPatterns("", ["test-b\\?"], { stdout: "test-b\\?/test.js\n" });
     testPatterns("", ["test-b*/*"], { stdout: "test-b\\?/test.js\n" });
   });
+
+  describe("Ignore symlinks", () => {
+    beforeAll(() => {
+      fs.mkdirSync(path.resolve(base, "test-a"));
+      fs.writeFileSync(path.resolve(base, "test-a", "one.js"), "x");
+      fs.mkdirSync(path.resolve(base, "test-b"));
+      fs.writeFileSync(path.resolve(base, "test-b", "two.js"), "x");
+      fs.symlinkSync("../test-b", path.resolve(base, "test-b", "symlink"));
+    });
+
+    afterAll(() => {
+      fs.unlinkSync(path.resolve(base, "test-a", "one.js"));
+      fs.rmdirSync(path.resolve(base, "test-a"));
+      fs.unlinkSync(path.resolve(base, "test-b", "two.js"));
+      fs.unlinkSync(path.resolve(base, "test-b", "symlink"));
+      fs.rmdirSync(path.resolve(base, "test-b"));
+    });
+
+    testPatterns("", ["test-b"], { stdout: "test-b/two.js\n" });
+  });
 }
 
 function testPatterns(
