@@ -9,7 +9,7 @@ import cliOptions from "../cli-options.evaluate.js";
 
 const detailedCliOptions = normalizeOptionsConfig(cliOptions).map((option) =>
   normalizeDetailedOption({
-    category: optionCategories.CATEGORY_OTHER,
+    cliCategory: option.category ?? optionCategories.CATEGORY_OTHER,
     ...option,
   })
 );
@@ -31,18 +31,20 @@ function normalizeDetailedOption(option) {
   }
   /* c8 ignore stop */
 
-  cliOption.choices = option.choices?.map((choice) => {
-    const newChoice = {
-      description: "",
-      deprecated: false,
-      ...(typeof choice === "object" ? choice : { value: choice }),
-    };
-    /* c8 ignore next 3 */
-    if (newChoice.value === true) {
-      newChoice.value = ""; // backward compatibility for original boolean option
-    }
-    return newChoice;
-  });
+  if (Array.isArray(option.choices)) {
+    cliOption.choices = option.choices.map((choice) => {
+      const newChoice = {
+        description: "",
+        deprecated: false,
+        ...(typeof choice === "object" ? choice : { value: choice }),
+      };
+      /* c8 ignore next 3 */
+      if (newChoice.value === true) {
+        newChoice.value = ""; // backward compatibility for original boolean option
+      }
+      return newChoice;
+    });
+  }
 
   return cliOption;
 }
