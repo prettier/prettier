@@ -2,10 +2,7 @@
 
 exports[`ignore file when using --debug-check (stderr) 1`] = `""`;
 
-exports[`ignore file when using --debug-check (stdout) 1`] = `
-"cli-flag/other-regular-modules.js
-other-regular-modules.js"
-`;
+exports[`ignore file when using --debug-check (stdout) 1`] = `"other-regular-modules.js"`;
 
 exports[`ignore file when using --debug-check (write) 1`] = `[]`;
 
@@ -23,9 +20,6 @@ exports[`outputs files as-is if no --write (write) 1`] = `[]`;
 
 exports[`support .prettierignore (stderr) 1`] = `""`;
 
-exports[`support .prettierignore (stdout) 1`] = `
-"cli-flag/other-regular-modules.js
-other-regular-modules.js"
-`;
+exports[`support .prettierignore (stdout) 1`] = `"other-regular-modules.js"`;
 
 exports[`support .prettierignore (write) 1`] = `[]`;
