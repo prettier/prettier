@@ -2,17 +2,12 @@ import fs from "node:fs";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import runPrettier from "../run-prettier.js";
-import createPathSerializer from "../create-path-serializer.js";
+import jestPathSerializer from "../path-serializer.js";
 import { projectRoot } from "../env.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-expect.addSnapshotSerializer(createPathSerializer({
-  replacements: {
-    [path.join(__dirname, "../cli/patterns-dirs")]: "<cli/patterns-dirs>",
-    [path.join(__dirname, "../cli/dirs")]: "<cli/dirs>",
-  }
-}));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 // ESLint-like behavior
 // https://github.com/prettier/prettier/pull/6639#issuecomment-548949954

@@ -1,4 +1,7 @@
 import prettier from "../../config/prettier-entry.js";
+import jestPathSerializer from "../path-serializer.js";
+
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("stdin no path and no parser", () => {
   describe("logs error and exits with 2", () => {
