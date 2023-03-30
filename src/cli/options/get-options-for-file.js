@@ -77,7 +77,7 @@ async function getOptionsOrDie(context, filePath) {
     return options;
   } catch (error) {
     context.logger.error(
-      `Invalid configuration file \`${filePath}\`: ` + error.message
+      `Invalid configuration for file "${filePath}".\n` + error.message
     );
     process.exit(2);
   }
