@@ -155,28 +155,41 @@ if (path.sep === "/") {
 
 describe("Ignore symlinks", () => {
   const base = path.join(__dirname, "../cli/patterns-symlinks");
-  const directory = path.join(base, "test-a");
+  const directoryA = path.join(base, "test-a");
+  const directoryB = path.join(base, "test-b");
   const clean = () => {
-    fs.rmSync(directory, { force: true, recursive: true });
+    fs.rmSync(directoryA, { force: true, recursive: true });
+    fs.rmSync(directoryB, { force: true, recursive: true });
   };
   beforeAll(() => {
     clean();
-    fs.mkdirSync(directory);
-    fs.writeFileSync(path.join(directory, "a.js"), "x");
-    fs.symlinkSync(directory, path.join(directory, "symlink"));
+    fs.mkdirSync(directoryA);
+    fs.mkdirSync(directoryB);
+    fs.writeFileSync(path.join(directoryA, "a.js"), "x");
+    fs.writeFileSync(path.join(directoryB, "b.js"), "x");
+    fs.symlinkSync(directoryA, path.join(directoryA, "symlink-to-directory-a"));
+    fs.symlinkSync(directoryB, path.join(directoryA, "symlink-to-directory-b"));
+    fs.symlinkSync(
+      path.join(directoryA, "a.js"),
+      path.join(directoryA, "symlink-to-file-a")
+    );
+    fs.symlinkSync(
+      path.join(directoryB, "a.js"),
+      path.join(directoryA, "symlink-to-file-b")
+    );
   });
   afterAll(clean);
 
   test("file struct", async () => {
-    const files = (
-      await fs.promises.readdir(directory, { withFileTypes: true })
-    )
-      .map((dirent) => ({
-        name: dirent.name,
-        isSymbolicLink: dirent.isSymbolicLink(),
-      }))
-      .sort((a, b) => a.name.localeCompare(b.name));
-    expect(files).toMatchInlineSnapshot(`
+    const getFileStruct = async (directory) =>
+      (await fs.promises.readdir(directory, { withFileTypes: true }))
+        .map((dirent) => ({
+          name: dirent.name,
+          isSymbolicLink: dirent.isSymbolicLink(),
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+
+    expect(await getFileStruct(directoryA)).toMatchInlineSnapshot(`
       [
         {
           "isSymbolicLink": false,
@@ -184,13 +197,37 @@ describe("Ignore symlinks", () => {
         },
         {
           "isSymbolicLink": true,
-          "name": "symlink",
+          "name": "symlink-to-directory-a",
+        },
+        {
+          "isSymbolicLink": true,
+          "name": "symlink-to-directory-b",
+        },
+        {
+          "isSymbolicLink": true,
+          "name": "symlink-to-file-a",
+        },
+        {
+          "isSymbolicLink": true,
+          "name": "symlink-to-file-b",
+        },
+      ]
+    `);
+    expect(await getFileStruct(directoryB)).toMatchInlineSnapshot(`
+      [
+        {
+          "isSymbolicLink": false,
+          "name": "b.js",
         },
       ]
     `);
   });
 
   testPatterns("", ["test-a/**/*"], { stdout: "test-a/a.js\n" }, base);
+  testPatterns("", ["test-a/symlink-to-directory-a"], { stdout: "???" }, base);
+  testPatterns("", ["test-a/symlink-to-directory-b"], { stdout: "???" }, base);
+  testPatterns("", ["test-a/symlink-to-file-a"], { stdout: "???" }, base);
+  testPatterns("", ["test-a/symlink-to-file-b"], { stdout: "???" }, base);
 });
 
 function testPatterns(
