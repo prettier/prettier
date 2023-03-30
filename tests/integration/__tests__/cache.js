@@ -488,7 +488,9 @@ describe("--cache option", () => {
       await runPrettier(dir, cliArguments);
 
       // Update `a.js` to unformatted
-      await fs.writeFile(path.join(dir, "a.js"), "const a = `a`;    ");
+      // TODO[@fisker]: figure out how this works.
+      // await fs.writeFile(path.join(dir, "a.js"), "const a = `a`;    ");
+      await fs.writeFile(path.join(dir, "a.js"), "const a = `2`;    ");
 
       // Update `b.js` but still formatted
       const time = new Date();
