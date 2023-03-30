@@ -174,7 +174,7 @@ describe("Ignore symlinks", () => {
       path.join(directoryA, "symlink-to-file-a")
     );
     fs.symlinkSync(
-      path.join(directoryB, "a.js"),
+      path.join(directoryB, "b.js"),
       path.join(directoryA, "symlink-to-file-b")
     );
   });
