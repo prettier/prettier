@@ -5,12 +5,18 @@ import url from "node:url";
 import { cosmiconfig } from "cosmiconfig";
 import { prettierCli, thirdParty as thirdPartyModuleFile } from "./env.js";
 
+const normalizeToPosix =
+  path.sep === "\\"
+    ? (filepath) => filepath.replaceAll("\\", "/")
+    : (filepath) => filepath;
+
 async function run() {
   const { options } = workerData;
 
   Date.now = () => 0;
   // eslint-disable-next-line require-await
   fs.promises.writeFile = async (filename, content) => {
+    filename = normalizeToPosix(path.relative(process.cwd(), filename));
     const error = (options.mockWriteFileErrors || {})[filename];
     if (error) {
       throw new Error(error);
