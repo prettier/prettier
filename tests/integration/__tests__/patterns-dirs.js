@@ -223,11 +223,12 @@ describe("Ignore symlinks", () => {
     `);
   });
 
-  testPatterns("", ["test-a/**/*"], { stdout: "test-a/a.js\n" }, base);
+  testPatterns("", ["test-a/*"], { stdout: "test-a/a.js\n" }, base);
   testPatterns("", ["test-a/symlink-to-directory-a"], { stdout: "???" }, base);
   testPatterns("", ["test-a/symlink-to-directory-b"], { stdout: "???" }, base);
   testPatterns("", ["test-a/symlink-to-file-a"], { stdout: "???" }, base);
   testPatterns("", ["test-a/symlink-to-file-b"], { stdout: "???" }, base);
+  testPatterns("", ["test-a/symlink-*"], { stdout: "???" }, base);
 });
 
 function testPatterns(
