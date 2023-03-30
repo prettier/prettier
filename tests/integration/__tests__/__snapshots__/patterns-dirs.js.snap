@@ -36,7 +36,7 @@ dir1/nested1/an1.js
 dir1/nested1/bn1.js"
 `;
 
-exports[`2: prettier dir1 'dir2/**/*' (stderr) 1`] = `"[error] No parser could be inferred for file: dir2/a2.foo"`;
+exports[`2: prettier dir1 'dir2/**/*' (stderr) 1`] = `"[error] No parser could be inferred for file: "<cli/patterns-dirs>/dir2/a2.foo"."`;
 
 exports[`2: prettier dir1 'dir2/**/*' (stdout) 1`] = `
 "dir1/a1.js
@@ -53,7 +53,7 @@ dir2/node-shebang"
 
 exports[`3: prettier nonexistent-dir 'dir2/**/*' (stderr) 1`] = `
 "[error] No files matching the pattern were found: "nonexistent-dir".
-[error] No parser could be inferred for file: dir2/a2.foo"
+[error] No parser could be inferred for file: "<cli/patterns-dirs>/dir2/a2.foo"."
 `;
 
 exports[`3: prettier nonexistent-dir 'dir2/**/*' (stdout) 1`] = `
@@ -64,7 +64,7 @@ dir2/nested2/bn2.js
 dir2/node-shebang"
 `;
 
-exports[`4: prettier . 'dir2/**/*' (stderr) 1`] = `"[error] No parser could be inferred for file: dir2/a2.foo"`;
+exports[`4: prettier . 'dir2/**/*' (stderr) 1`] = `"[error] No parser could be inferred for file: "<cli/patterns-dirs>/dir2/a2.foo"."`;
 
 exports[`4: prettier . 'dir2/**/*' (stdout) 1`] = `
 "!dir/a.js
@@ -212,7 +212,7 @@ exports[`Trailing slash run in sub dir 4: prettier ../dir1/ (stdout) 1`] = `
 ../dir1/nested1/bn1.js"
 `;
 
-exports[`plugins \`*\` (stderr) 1`] = `"[error] No parser could be inferred for file: unknown.unknown"`;
+exports[`plugins \`*\` (stderr) 1`] = `"[error] No parser could be inferred for file: "<cli/dirs>/plugins/unknown.unknown"."`;
 
 exports[`plugins \`*\` (stdout) 1`] = `
 "javascript.js
