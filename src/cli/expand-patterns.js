@@ -106,9 +106,10 @@ async function* expandPatternsInternal(context) {
     try {
       result = await fastGlob(glob, globOptions);
     } catch ({ message }) {
-      /* c8 ignore next */
-      yield { error: `${errorMessages.globError[type]}: ${input}\n${message}` };
-      /* c8 ignore next */
+      /* c8 ignore next 4 */
+      yield {
+        error: `${errorMessages.globError[type]}: "${input}".\n${message}`,
+      };
       continue;
     }
 
