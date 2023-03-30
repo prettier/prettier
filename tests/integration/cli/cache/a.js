@@ -1,3 +1,1 @@
-function a() {
-  console.log("this is a.js")
-}
+const a = `a`;    
