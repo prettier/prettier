@@ -8,7 +8,8 @@ function createPathSerializer(options) {
     const path = fileURLToPath(url);
 
     for (const find of isWindows
-      ? [path.charAt(0).toLowerCase() + path.slice(1),
+      ? [
+          path.charAt(0).toLowerCase() + path.slice(1),
           path.charAt(0).toUpperCase() + path.slice(1),
         ]
       : [path]) {
