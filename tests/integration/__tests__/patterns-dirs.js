@@ -151,27 +151,47 @@ if (path.sep === "/") {
     testPatterns("", ["test-b\\?"], { stdout: "test-b\\?/test.js\n" });
     testPatterns("", ["test-b*/*"], { stdout: "test-b\\?/test.js\n" });
   });
-
-  describe("Ignore symlinks", () => {
-    beforeAll(() => {
-      fs.mkdirSync(path.resolve(base, "test-a"));
-      fs.writeFileSync(path.resolve(base, "test-a", "one.js"), "x");
-      fs.mkdirSync(path.resolve(base, "test-b"));
-      fs.writeFileSync(path.resolve(base, "test-b", "two.js"), "x");
-      fs.symlinkSync("../test-b", path.resolve(base, "test-b", "symlink"));
-    });
-
-    afterAll(() => {
-      fs.unlinkSync(path.resolve(base, "test-a", "one.js"));
-      fs.rmdirSync(path.resolve(base, "test-a"));
-      fs.unlinkSync(path.resolve(base, "test-b", "two.js"));
-      fs.unlinkSync(path.resolve(base, "test-b", "symlink"));
-      fs.rmdirSync(path.resolve(base, "test-b"));
-    });
-
-    testPatterns("", ["test-b"], { stdout: "test-b/two.js\n" });
-  });
 }
+
+describe("Ignore symlinks", () => {
+  const base = path.join(__dirname, "../cli/patterns-symlinks");
+  const directory = path.join(base, "test-a");
+  const clean = () => {
+    fs.rmSync(directory, { force: true, recursive: true });
+  };
+  beforeAll(() => {
+    clean();
+    fs.mkdirSync(directory);
+    fs.writeFileSync(path.join(directory, "a.js"), "x");
+    fs.symlinkSync(directory, path.join(directory, "symlink"));
+  });
+  afterAll(clean);
+
+  test("file struct", async () => {
+    const files = (
+      await fs.promises.readdir(directory, { withFileTypes: true })
+    )
+      .map((dirent) => ({
+        name: dirent.name,
+        isSymbolicLink: dirent.isSymbolicLink(),
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    expect(files).toMatchInlineSnapshot(`
+      [
+        {
+          "isSymbolicLink": false,
+          "name": "a.js",
+        },
+        {
+          "isSymbolicLink": true,
+          "name": "symlink",
+        },
+      ]
+    `);
+  });
+
+  testPatterns("", ["test-a/**/*"], { stdout: "test-a/a.js\n" }, base);
+});
 
 function testPatterns(
   namePrefix,
