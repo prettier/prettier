@@ -1092,7 +1092,6 @@ exports[`CLI --support-info (stdout) 1`] = `
     }
   ]
 }
-
 "
 `;
 

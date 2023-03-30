@@ -4,7 +4,7 @@ describe("json-stringify takes precedence over json for package.json", () => {
       '{ "a": "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" }',
   }).test({
     stdout:
-      '{\n  "a": "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"\n}\n',
+      '{\n  "a": "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"\n}',
     stderr: "",
     status: 0,
     write: [],
