@@ -274,9 +274,19 @@ function printArrowChain(
     signatures = [dedent(signatures[0]), ...signatures.slice(1)];
   }
 
-  // We handle sequence expressions as the body of arrows specially,
-  // so that the required parentheses end up on their own lines.
-  if (tailNode.body.type === "SequenceExpression") {
+  if (
+    // We handle sequence expressions as the body of arrows specially,
+    // so that the required parentheses end up on their own lines.
+    tailNode.body.type === "SequenceExpression" ||
+    // In order to avoid confusion between
+    // a => a ? a : a
+    // a <= a ? a : a
+    (tailNode.body.type === "ConditionalExpression" &&
+      !startsWithNoLookaheadToken(
+        tailNode.body,
+        (node) => node.type === "ObjectExpression"
+      ))
+  ) {
     bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
   }
 
