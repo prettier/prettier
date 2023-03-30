@@ -301,6 +301,17 @@ function isSymlinkSupported() {
   );
   testPatterns(
     "",
+    ["test-a/*", "test-a/symlink-to-file-b"],
+    {
+      status: 2,
+      stdout: "test-a/a.js\n",
+      stderr:
+        "[error] Explicitly specified test-a/symlink-to-file-b is a symbolic link.\n",
+    },
+    base
+  );
+  testPatterns(
+    "",
     ["test-a/symlink-to-directory-b/*"],
     { stdout: "test-a/symlink-to-directory-b/b.js\n" },
     base
