@@ -153,7 +153,27 @@ if (path.sep === "/") {
   });
 }
 
-describe("Ignore symlinks", () => {
+function isSymlinkSupported() {
+  if (process.platform !== "win32") {
+    return true;
+  }
+
+  const target = path.join(
+    __dirname,
+    "../cli/patterns-symlinks/test-symlink-feature-detect"
+  );
+  fs.rmSync(target, { force: true, recursive: true });
+  fs.mkdirSync(target);
+  const symlink = path.join(target, "symlink");
+  try {
+    fs.symlinkSync(target, symlink);
+  } catch {
+    return false;
+  }
+  return fs.lstatSync(symlink).isSymbolicLink();
+}
+
+(isSymlinkSupported() ? describe : describe.skip)("Ignore symlinks", () => {
   const base = path.join(__dirname, "../cli/patterns-symlinks");
   const directoryA = path.join(base, "test-a");
   const directoryB = path.join(base, "test-b");
