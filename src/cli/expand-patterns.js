@@ -19,15 +19,15 @@ async function* expandPatterns(context) {
       continue;
     }
 
-    const relativePath = path.relative(cwd, pathOrError);
+    const absolutePath = path.resolve(cwd, pathOrError);
 
     // filter out duplicates
-    if (seen.has(relativePath)) {
+    if (seen.has(absolutePath)) {
       continue;
     }
 
-    seen.add(relativePath);
-    yield relativePath;
+    seen.add(absolutePath);
+    yield absolutePath;
   }
 
   if (noResults && context.argv.errorOnUnmatchedPattern !== false) {
