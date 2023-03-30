@@ -42,8 +42,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   ]).test({
     stderr: assertStderr,
     status: 0,
-    stdout:
-      "'--debug-repeat' option found, skipped print code or write files.",
+    stdout: "'--debug-repeat' option found, skipped print code or write files.",
     write: [],
   });
 
@@ -57,8 +56,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   ]).test({
     stderr: assertStderr,
     status: 0,
-    stdout:
-      "'--debug-repeat' option found, skipped print code or write files.",
+    stdout: "'--debug-repeat' option found, skipped print code or write files.",
     write: [],
   });
 
@@ -72,8 +70,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   ]).test({
     stderr: assertStderr,
     status: 0,
-    stdout:
-      "'--debug-repeat' option found, skipped print code or write files.",
+    stdout: "'--debug-repeat' option found, skipped print code or write files.",
     write: [],
   });
 });
