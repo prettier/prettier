@@ -272,6 +272,32 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`nested-code.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`markdown
+This is markdown
+
+~~~json
+["json", "in", "markdown", "in", "markdown"]
+~~~
+\`\`\`
+=====================================output=====================================
+\`\`\`\`markdown
+This is markdown
+
+\`\`\`json
+["json", "in", "markdown", "in", "markdown"]
+\`\`\`
+\`\`\`\`
+
+================================================================================
+`;
+
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
