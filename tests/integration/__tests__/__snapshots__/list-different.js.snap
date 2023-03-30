@@ -4,15 +4,9 @@ exports[`--list-different works in CI just as in a non-TTY mode (stderr) 1`] = `
 
 exports[`--list-different works in CI just as in a non-TTY mode (stderr) 2`] = `""`;
 
-exports[`--list-different works in CI just as in a non-TTY mode (stdout) 1`] = `
-"unformatted.js
-"
-`;
+exports[`--list-different works in CI just as in a non-TTY mode (stdout) 1`] = `"unformatted.js"`;
 
-exports[`--list-different works in CI just as in a non-TTY mode (stdout) 2`] = `
-"unformatted.js
-"
-`;
+exports[`--list-different works in CI just as in a non-TTY mode (stdout) 2`] = `"unformatted.js"`;
 
 exports[`--list-different works in CI just as in a non-TTY mode (write) 1`] = `[]`;
 

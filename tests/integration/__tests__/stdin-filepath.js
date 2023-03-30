@@ -89,7 +89,7 @@ if (isCI) {
       input: code, // js
     }).test({
       status: 0,
-      stdout: code + "\n",
+      stdout: code ,
       stderr: "",
       write: [],
     });

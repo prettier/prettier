@@ -69,7 +69,7 @@ describe("formats files when executing in a subdirectory and using stdin", () =>
       input: "hello_world( );",
     }
   ).test({
-    stdout: "hello_world();\n",
+    stdout: "hello_world();",
     status: 0,
   });
 });

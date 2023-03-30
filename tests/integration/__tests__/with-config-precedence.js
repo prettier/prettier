@@ -5,13 +5,13 @@ const TAB_WIDTH_3_OUTPUT =
     function foo() {
     ${" ".repeat(3)}return bar;
     }
-  ` + "\n";
+  `;
 const TAB_WIDTH_5_OUTPUT =
   outdent`
     function foo() {
     ${" ".repeat(5)}return bar;
     }
-  ` + "\n";
+  `;
 
 test("CLI overrides take precedence --config-precedence", async () => {
   const withoutFlag = await runPrettier("cli/config-precedence/valid-config", [

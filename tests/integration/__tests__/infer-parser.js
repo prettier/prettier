@@ -109,7 +109,7 @@ describe("--list-different with unknown path and no parser", () => {
   describe("multiple files", () => {
     runPrettier("cli/infer-parser/", ["--list-different", "*"]).test({
       status: 1,
-      stdout: "foo.js\n",
+      stdout: "foo.js",
       write: [],
     });
   });

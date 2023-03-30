@@ -143,13 +143,13 @@ if (path.sep === "/") {
       fs.rmdirSync(path.resolve(base, "test-b\\?"));
     });
 
-    testPatterns("", ["test-a\\/test.js"], { stdout: "test-a\\/test.js\n" });
-    testPatterns("", ["test-a\\"], { stdout: "test-a\\/test.js\n" });
-    testPatterns("", ["test-a*/*"], { stdout: "test-a\\/test.js\n" });
+    testPatterns("", ["test-a\\/test.js"], { stdout: "test-a\\/test.js" });
+    testPatterns("", ["test-a\\"], { stdout: "test-a\\/test.js" });
+    testPatterns("", ["test-a*/*"], { stdout: "test-a\\/test.js" });
 
-    testPatterns("", ["test-b\\?/test.js"], { stdout: "test-b\\?/test.js\n" });
-    testPatterns("", ["test-b\\?"], { stdout: "test-b\\?/test.js\n" });
-    testPatterns("", ["test-b*/*"], { stdout: "test-b\\?/test.js\n" });
+    testPatterns("", ["test-b\\?/test.js"], { stdout: "test-b\\?/test.js" });
+    testPatterns("", ["test-b\\?"], { stdout: "test-b\\?/test.js" });
+    testPatterns("", ["test-b*/*"], { stdout: "test-b\\?/test.js" });
   });
 }
 
