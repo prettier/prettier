@@ -299,6 +299,12 @@ function isSymlinkSupported() {
     },
     base
   );
+  testPatterns(
+    "",
+    ["test-a/symlink-to-directory-b/*"],
+    { stdout: "test-a/symlink-to-directory-b/b.js\n" },
+    base
+  );
 });
 
 function testPatterns(
