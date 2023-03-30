@@ -224,11 +224,61 @@ describe("Ignore symlinks", () => {
   });
 
   testPatterns("", ["test-a/*"], { stdout: "test-a/a.js\n" }, base);
-  testPatterns("", ["test-a/symlink-to-directory-a"], { stdout: "???" }, base);
-  testPatterns("", ["test-a/symlink-to-directory-b"], { stdout: "???" }, base);
-  testPatterns("", ["test-a/symlink-to-file-a"], { stdout: "???" }, base);
-  testPatterns("", ["test-a/symlink-to-file-b"], { stdout: "???" }, base);
-  testPatterns("", ["test-a/symlink-*"], { stdout: "???" }, base);
+  testPatterns(
+    "",
+    ["test-a/symlink-to-directory-a"],
+    {
+      status: 2,
+      stdout: "",
+      stderr:
+        "[error] Explicitly specified test-a/symlink-to-directory-a is a symbolic link.\n",
+    },
+    base
+  );
+  testPatterns(
+    "",
+    ["test-a/symlink-to-directory-b"],
+    {
+      status: 2,
+      stdout: "",
+      stderr:
+        "[error] Explicitly specified test-a/symlink-to-directory-b is a symbolic link.\n",
+    },
+    base
+  );
+  testPatterns(
+    "",
+    ["test-a/symlink-to-file-a"],
+    {
+      status: 2,
+      stdout: "",
+      stderr:
+        "[error] Explicitly specified test-a/symlink-to-file-a is a symbolic link.\n",
+    },
+    base
+  );
+  testPatterns(
+    "",
+    ["test-a/symlink-to-file-b"],
+    {
+      status: 2,
+      stdout: "",
+      stderr:
+        "[error] Explicitly specified test-a/symlink-to-file-b is a symbolic link.\n",
+    },
+    base
+  );
+  testPatterns(
+    "",
+    ["test-a/symlink-*"],
+    {
+      status: 2,
+      stdout: "",
+      stderr:
+        '[error] No files matching the pattern were found: "test-a/symlink-*".\n',
+    },
+    base
+  );
 });
 
 function testPatterns(

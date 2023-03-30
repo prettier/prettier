@@ -67,6 +67,22 @@ async function statSafe(filePath) {
 }
 
 /**
+ * Get stats of a given path without following symbolic links.
+ * @param {string} filePath The path to target file.
+ * @returns {Promise<import('fs').Stats | undefined>} The stats.
+ */
+async function lstatSafe(filePath) {
+  try {
+    return await fs.lstat(filePath);
+  } catch (error) {
+    /* c8 ignore next 3 */
+    if (error.code !== "ENOENT") {
+      throw error;
+    }
+  }
+}
+
+/**
  * @param {string} value
  * @returns {boolean}
  */
@@ -96,6 +112,7 @@ export {
   pick,
   createHash,
   statSafe,
+  lstatSafe,
   isJson,
   normalizeToPosix,
 };

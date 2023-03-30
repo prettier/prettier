@@ -1,5 +1,5 @@
 import path from "node:path";
-import { statSafe, normalizeToPosix } from "./utils.js";
+import { lstatSafe, normalizeToPosix } from "./utils.js";
 import { fastGlob } from "./prettier-internal.js";
 
 /** @typedef {import('./context').Context} Context */
@@ -66,9 +66,13 @@ async function* expandPatternsInternal(context) {
       continue;
     }
 
-    const stat = await statSafe(absolutePath);
+    const stat = await lstatSafe(absolutePath);
     if (stat) {
-      if (stat.isFile()) {
+      if (stat.isSymbolicLink()) {
+        yield {
+          error: `Explicitly specified ${pattern} is a symbolic link.`,
+        };
+      } else if (stat.isFile()) {
         entries.push({
           type: "file",
           glob: escapePathForGlob(fixWindowsSlashes(pattern)),
