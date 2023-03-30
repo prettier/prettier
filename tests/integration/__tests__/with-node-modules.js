@@ -1,8 +1,3 @@
-import runPrettier from "../run-prettier.js";
-import jestPathSerializer from "../path-serializer.js";
-
-expect.addSnapshotSerializer(jestPathSerializer);
-
 describe("ignores node_modules by default", () => {
   runPrettier("cli/with-node-modules", ["**/*.js", "-l"]).test({
     status: 1,

@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import runPrettier from "../run-prettier.js";
 import jestPathSerializer from "../path-serializer.js";
 import { projectRoot } from "../env.js";
 

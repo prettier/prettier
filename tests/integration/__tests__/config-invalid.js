@@ -1,8 +1,4 @@
 import outdent from "outdent";
-import runPrettier from "../run-prettier.js";
-import jestPathSerializer from "../path-serializer.js";
-
-expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("throw error for unsupported extension", () => {
   runPrettier("cli/config/invalid", [

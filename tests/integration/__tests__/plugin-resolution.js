@@ -1,5 +1,3 @@
-import runPrettier from "../run-prettier.js";
-
 describe("automatically loads 'prettier-plugin-*'", () => {
   runPrettier("plugins/automatic", ["file.txt", "--parser=bar"]).test({
     stdout: "content from `prettier-plugin-bar` package + contents",

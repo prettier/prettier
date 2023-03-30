@@ -2,11 +2,8 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import createEsmUtils from "esm-utils";
 import { thirdParty } from "../env.js";
-import jestPathSerializer from "../path-serializer.js";
 
 const { __dirname } = createEsmUtils(import.meta);
-
-expect.addSnapshotSerializer(jestPathSerializer);
 
 // This don't has to be the same result as `prettier.resolveConfig`,
 // Because we are testing with default `cosmiconfigOptions`

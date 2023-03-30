@@ -1,8 +1,3 @@
-import runPrettier from "../run-prettier.js";
-import jestPathSerializer from "../path-serializer.js";
-
-expect.addSnapshotSerializer(jestPathSerializer);
-
 describe("ignores file name contains emoji", () => {
   runPrettier("cli/ignore-emoji", ["**/*.js", "-l"]).test({
     status: 1,
