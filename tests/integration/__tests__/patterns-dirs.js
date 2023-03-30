@@ -251,7 +251,7 @@ function isSymlinkSupported() {
       status: 2,
       stdout: "",
       stderr:
-        "[error] Explicitly specified test-a/symlink-to-directory-a is a symbolic link.\n",
+        '[error] Explicitly specified pattern "test-a/symlink-to-directory-a" is a symbolic link.\n',
     },
     base
   );
@@ -262,7 +262,7 @@ function isSymlinkSupported() {
       status: 2,
       stdout: "",
       stderr:
-        "[error] Explicitly specified test-a/symlink-to-directory-b is a symbolic link.\n",
+        '[error] Explicitly specified pattern "test-a/symlink-to-directory-b" is a symbolic link.\n',
     },
     base
   );
@@ -273,7 +273,7 @@ function isSymlinkSupported() {
       status: 2,
       stdout: "",
       stderr:
-        "[error] Explicitly specified test-a/symlink-to-file-a is a symbolic link.\n",
+        '[error] Explicitly specified pattern "test-a/symlink-to-file-a" is a symbolic link.\n',
     },
     base
   );
@@ -284,7 +284,7 @@ function isSymlinkSupported() {
       status: 2,
       stdout: "",
       stderr:
-        "[error] Explicitly specified test-a/symlink-to-file-b is a symbolic link.\n",
+        '[error] Explicitly specified pattern "test-a/symlink-to-file-b" is a symbolic link.\n',
     },
     base
   );
@@ -306,7 +306,7 @@ function isSymlinkSupported() {
       status: 2,
       stdout: "test-a/a.js\n",
       stderr:
-        "[error] Explicitly specified test-a/symlink-to-file-b is a symbolic link.\n",
+        '[error] Explicitly specified pattern "test-a/symlink-to-file-b" is a symbolic link.\n',
     },
     base
   );

@@ -70,7 +70,7 @@ async function* expandPatternsInternal(context) {
     if (stat) {
       if (stat.isSymbolicLink()) {
         yield {
-          error: `Explicitly specified ${pattern} is a symbolic link.`,
+          error: `Explicitly specified pattern "${pattern}" is a symbolic link.`,
         };
       } else if (stat.isFile()) {
         entries.push({
