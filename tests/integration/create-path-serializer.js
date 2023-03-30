@@ -1,6 +1,10 @@
 import { fileURLToPath } from "node:url";
 
 const isWindows = process.platform === "win32";
+const replaceAll = (text, find, replacement) =>
+  text.replaceAll
+    ? text.replaceAll(find, replacement)
+    : text.split(find).join(replacement);
 
 function createPathSerializer(options) {
   const replacements = [];
@@ -19,10 +23,10 @@ function createPathSerializer(options) {
 
   function replace(text) {
     for (const { find, replacement } of replacements) {
-      text = text.replaceAll(find, replacement);
+      text = replaceAll(text, find, replacement);
     }
 
-    return text.replaceAll("\\", "/");
+    return replaceAll(text, "\\", "/");
   }
 
   function test(value) {
