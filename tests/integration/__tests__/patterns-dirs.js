@@ -243,7 +243,7 @@ function isSymlinkSupported() {
     `);
   });
 
-  testPatterns("", ["test-a/*"], { stdout: "test-a/a.js\n" }, base);
+  testPatterns("", ["test-a/*"], { stdout: "test-a/a.js" }, base);
   testPatterns(
     "",
     ["test-a/symlink-to-directory-a"],
@@ -251,7 +251,7 @@ function isSymlinkSupported() {
       status: 2,
       stdout: "",
       stderr:
-        '[error] Explicitly specified pattern "test-a/symlink-to-directory-a" is a symbolic link.\n',
+        '[error] Explicitly specified pattern "test-a/symlink-to-directory-a" is a symbolic link.',
     },
     base
   );
@@ -262,7 +262,7 @@ function isSymlinkSupported() {
       status: 2,
       stdout: "",
       stderr:
-        '[error] Explicitly specified pattern "test-a/symlink-to-directory-b" is a symbolic link.\n',
+        '[error] Explicitly specified pattern "test-a/symlink-to-directory-b" is a symbolic link.',
     },
     base
   );
@@ -273,7 +273,7 @@ function isSymlinkSupported() {
       status: 2,
       stdout: "",
       stderr:
-        '[error] Explicitly specified pattern "test-a/symlink-to-file-a" is a symbolic link.\n',
+        '[error] Explicitly specified pattern "test-a/symlink-to-file-a" is a symbolic link.',
     },
     base
   );
@@ -284,7 +284,7 @@ function isSymlinkSupported() {
       status: 2,
       stdout: "",
       stderr:
-        '[error] Explicitly specified pattern "test-a/symlink-to-file-b" is a symbolic link.\n',
+        '[error] Explicitly specified pattern "test-a/symlink-to-file-b" is a symbolic link.',
     },
     base
   );
@@ -295,7 +295,7 @@ function isSymlinkSupported() {
       status: 2,
       stdout: "",
       stderr:
-        '[error] No files matching the pattern were found: "test-a/symlink-*".\n',
+        '[error] No files matching the pattern were found: "test-a/symlink-*".',
     },
     base
   );
@@ -304,16 +304,16 @@ function isSymlinkSupported() {
     ["test-a/*", "test-a/symlink-to-file-b"],
     {
       status: 2,
-      stdout: "test-a/a.js\n",
+      stdout: "test-a/a.js",
       stderr:
-        '[error] Explicitly specified pattern "test-a/symlink-to-file-b" is a symbolic link.\n',
+        '[error] Explicitly specified pattern "test-a/symlink-to-file-b" is a symbolic link.',
     },
     base
   );
   testPatterns(
     "",
     ["test-a/symlink-to-directory-b/*"],
-    { stdout: "test-a/symlink-to-directory-b/b.js\n" },
+    { stdout: "test-a/symlink-to-directory-b/b.js" },
     base
   );
 });
