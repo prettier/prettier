@@ -17,8 +17,13 @@ async function run() {
   // eslint-disable-next-line require-await
   fs.promises.writeFile = async (filename, content) => {
     filename = normalizeToPosix(path.relative(process.cwd(), filename));
-    if (options.mockWriteFileErrors && Object.hasOwn(options.mockWriteFileErrors, filename)) {
-      throw new Error(options.mockWriteFileErrors[filename] + " (mocked error)");
+    if (
+      options.mockWriteFileErrors &&
+      Object.hasOwn(options.mockWriteFileErrors, filename)
+    ) {
+      throw new Error(
+        options.mockWriteFileErrors[filename] + " (mocked error)"
+      );
     }
 
     parentPort.postMessage({
