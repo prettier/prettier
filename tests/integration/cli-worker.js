@@ -9,6 +9,11 @@ const normalizeToPosix =
   path.sep === "\\"
     ? (filepath) => filepath.replaceAll("\\", "/")
     : (filepath) => filepath;
+const hasOwn =
+  Object.hasOwn ??
+  ((object, property) =>
+    // eslint-disable-next-line prefer-object-has-own
+    Object.prototype.hasOwnProperty.call(object, property));
 
 async function run() {
   const { options } = workerData;
@@ -19,7 +24,7 @@ async function run() {
     filename = normalizeToPosix(path.relative(process.cwd(), filename));
     if (
       options.mockWriteFileErrors &&
-      Object.hasOwn(options.mockWriteFileErrors, filename)
+      hasOwn(options.mockWriteFileErrors, filename)
     ) {
       throw new Error(
         options.mockWriteFileErrors[filename] + " (mocked error)"
