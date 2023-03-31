@@ -22,7 +22,8 @@ const introFile = path.join(changelogUnreleasedDirPath, "blog-post-intro.md");
 if (!fs.existsSync(introFile)) {
   fs.copyFileSync(introTemplateFile, introFile);
 }
-const previousVersion = require("prettier/package.json").version;
+const previousVersion =
+  require("../node_modules/prettier/package.json").version;
 const version = require("../package.json").version.replace(/-.+/, "");
 const postGlob = path.join(blogDir, `????-??-??-${version}.md`);
 const postFile = path.join(
