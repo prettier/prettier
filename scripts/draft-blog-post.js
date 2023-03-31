@@ -32,7 +32,7 @@ function getVersions() {
 
   if (semver.compare(prevVersion, nextVersion) === 1) {
     throw new Error(
-      `[INVALID VERSION] Previous version(${prevVersion}) is greater thatn next version(${nextVersion}).`
+      `[INVALID VERSION] Previous version(${prevVersion}) is greater than next version(${nextVersion}).`
     );
   }
 
