@@ -35,12 +35,6 @@ type Type = {
 };
 
 type Type = {
-  + 
-  // comment
-  [T in number]: number;
-};
-
-type Type = {
   + // foo
   /* bar */ [T in number]: number;
 };
