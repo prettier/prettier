@@ -1,14 +1,10 @@
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
 import assert from "node:assert";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import printString from "../../utils/print-string.js";
 import printNumber from "../../utils/print-number.js";
-import { locStart, locEnd } from "../loc.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import { group, softline, indent, ifBreak } from "../../document/builders.js";
 import {
-  getFlowMappedTypeOptionalModifier,
   isFunctionNotation,
   isGetterOrSetter,
   rawText,
@@ -48,6 +44,7 @@ import {
   printDeclareToken,
 } from "./misc.js";
 import { printTernary } from "./ternary.js";
+import { printFlowMappedTypeProperty } from "./mapped-type.js";
 
 function printFlow(path, options, print) {
   const { node } = path;
@@ -186,32 +183,8 @@ function printFlow(path, options, print) {
       return ["keyof ", print("argument")];
     case "ObjectTypeCallProperty":
       return [node.static ? "static " : "", print("value")];
-    case "ObjectTypeMappedTypeProperty": {
-      const shouldBreak = hasNewlineInRange(
-        options.originalText,
-        locStart(node),
-        locEnd(node)
-      );
-      return group(
-        [
-          node.variance ? print("variance") : "",
-          "[",
-          indent([
-            ifBreak(softline),
-            print("keyTparam"),
-            " in ",
-            ifBreak(softline),
-            print("sourceType"),
-          ]),
-          ifBreak(softline),
-          "]",
-          getFlowMappedTypeOptionalModifier(node.optional),
-          ": ",
-          print("propType"),
-        ],
-        { shouldBreak }
-      );
-    }
+    case "ObjectTypeMappedTypeProperty":
+      return printFlowMappedTypeProperty(path, options, print);
     case "ObjectTypeIndexer":
       return [
         node.static ? "static " : "",
