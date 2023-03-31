@@ -290,7 +290,7 @@ describe("--cache option", () => {
       );
       expect(firstStatus).toBe(2);
       expect(firstStderr).toBe(
-        '[error] Unable to write file "a.js".\n' +
+        '[error] Unable to write file "a.js":\n' +
           "[error] EACCES: permission denied. (mocked error)"
       );
       expect(firstStdout.split("\n")).toEqual(
@@ -526,7 +526,7 @@ describe("--cache option", () => {
       );
       expect(firstStatus).toBe(2);
       expect(firstStderr).toBe(
-        '[error] Unable to write file "a.js".\n' +
+        '[error] Unable to write file "a.js":\n' +
           "[error] EACCES: permission denied. (mocked error)"
       );
       expect(firstStdout.split("\n")).toEqual(
