@@ -21,3 +21,35 @@ This is markdown
 unknown
 ~~~
 ```
+
+````markdown
+This is markdown
+
+```json
+{}
+```
+
+~~~~~~~~~~json
+{}
+~~~~~~~~~~
+````
+
+```````````markdown
+Outer start
+
+``````````markdown
+
+Middle start
+
+~~~~~~~~~~~~~~~~~json
+{}
+~~~~~~~~~~~~~~~~~
+
+
+Middle end
+
+``````````
+
+Outer end
+
+```````````
