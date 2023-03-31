@@ -1,7 +1,6 @@
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import { hardline, markAsRoot } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
-import { printDocToString } from "../document/printer.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import inferParser from "../utils/infer-parser.js";
 import { getFencedCodeBlockValue } from "./utils.js";
@@ -13,6 +12,14 @@ function embed(path, options) {
     const parser = inferParser(options, { language: node.lang });
     if (parser) {
       return async (textToDoc) => {
+        const styleUnit = options.__inJsTemplate ? "~" : "`";
+        const style = styleUnit.repeat(
+          Math.max(
+            2,
+            getMaxContinuousCount(node.value, "`"),
+            getMaxContinuousCount(node.value, "~")
+          ) + 1
+        );
         const newOptions = { parser };
         if (node.lang === "tsx") {
           newOptions.filepath = "dummy.tsx";
@@ -21,15 +28,6 @@ function embed(path, options) {
         const doc = await textToDoc(
           getFencedCodeBlockValue(node, options.originalText),
           newOptions
-        );
-        const styleUnit = options.__inJsTemplate ? "~" : "`";
-        // Use `printWidth: Number.POSITIVE_INFINITY`, so the printer will be faster
-        const valueString = printDocToString(doc, {
-          ...options,
-          printWidth: Number.POSITIVE_INFINITY,
-        }).formatted;
-        const style = styleUnit.repeat(
-          Math.max(3, getMaxContinuousCount(valueString, styleUnit) + 1)
         );
 
         return markAsRoot([
