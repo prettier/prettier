@@ -8,7 +8,6 @@ import { fastGlob } from "./prettier-internal.js";
  * @param {Context} context
  */
 async function* expandPatterns(context) {
-  const cwd = process.cwd();
   const seen = new Set();
   let noResults = true;
 
@@ -19,15 +18,15 @@ async function* expandPatterns(context) {
       continue;
     }
 
-    const relativePath = path.relative(cwd, pathOrError);
+    const fileName = path.resolve(pathOrError);
 
     // filter out duplicates
-    if (seen.has(relativePath)) {
+    if (seen.has(fileName)) {
       continue;
     }
 
-    seen.add(relativePath);
-    yield relativePath;
+    seen.add(fileName);
+    yield fileName;
   }
 
   if (noResults && context.argv.errorOnUnmatchedPattern !== false) {

@@ -3,12 +3,8 @@ import fs from "node:fs";
 import { temporaryDirectory as getTemporaryDirectory } from "tempy";
 import createEsmUtils from "esm-utils";
 import prettier from "../../config/prettier-entry.js";
-import runPrettier from "../run-prettier.js";
-import jestPathSerializer from "../path-serializer.js";
 
 const { __dirname } = createEsmUtils(import.meta);
-
-expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("extracts file-info for a js file", () => {
   runPrettier("cli/", ["--file-info", "something.js"]).test({
