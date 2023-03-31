@@ -7,11 +7,8 @@ import prettier from "../../config/prettier-entry.js";
 import createSandBox from "../../config/utils/create-sandbox.cjs";
 import coreOptions from "../../../src/main/core-options.evaluate.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
-import jestPathSerializer from "../path-serializer.js";
 
 const { require, importModule } = createEsmUtils(import.meta);
-
-expect.addSnapshotSerializer(jestPathSerializer);
 
 const parserNames = coreOptions.parser.choices.map(({ value }) => value);
 const distDirectory = path.join(projectRoot, "dist");

@@ -5,16 +5,36 @@ import url from "node:url";
 import { cosmiconfig } from "cosmiconfig";
 import { prettierCli, thirdParty as thirdPartyModuleFile } from "./env.js";
 
+const normalizeToPosix =
+  path.sep === "\\"
+    ? (filepath) => replaceAll(filepath, "\\", "/")
+    : (filepath) => filepath;
+const hasOwn =
+  Object.hasOwn ??
+  ((object, property) =>
+    // eslint-disable-next-line prefer-object-has-own
+    Object.prototype.hasOwnProperty.call(object, property));
+const replaceAll = (text, find, replacement) =>
+  text.replaceAll
+    ? text.replaceAll(find, replacement)
+    : text.split(find).join(replacement);
+
 async function run() {
   const { options } = workerData;
 
   Date.now = () => 0;
   // eslint-disable-next-line require-await
   fs.promises.writeFile = async (filename, content) => {
-    const error = (options.mockWriteFileErrors || {})[filename];
-    if (error) {
-      throw new Error(error);
+    filename = normalizeToPosix(path.relative(process.cwd(), filename));
+    if (
+      options.mockWriteFileErrors &&
+      hasOwn(options.mockWriteFileErrors, filename)
+    ) {
+      throw new Error(
+        options.mockWriteFileErrors[filename] + " (mocked error)"
+      );
     }
+
     parentPort.postMessage({
       action: "write-file",
       data: { filename, content },

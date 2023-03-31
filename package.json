@@ -14,8 +14,8 @@
   "unpkg": "./standalone.js",
   "exports": {
     ".": {
-      "require": "./src/index.cjs",
       "types": "./src/index.d.ts",
+      "require": "./src/index.cjs",
       "default": "./src/index.js"
     },
     "./*": "./*"

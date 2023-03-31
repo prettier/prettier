@@ -289,6 +289,7 @@ async function formatFiles(context) {
   // This will be used to filter file paths after the glob is checked,
   // before any files are actually written
   const isIgnored = await createIsIgnoredFromContextOrDie(context);
+  const cwd = process.cwd();
 
   let numberOfUnformattedFilesFound = 0;
   const { performanceTestFlag } = context;
@@ -345,9 +346,10 @@ async function formatFiles(context) {
       filepath: filename,
     };
 
+    const fileNameToDisplay = normalizeToPosix(path.relative(cwd, filename));
     let printedFilename;
     if (isTTY()) {
-      printedFilename = context.logger.log(normalizeToPosix(filename), {
+      printedFilename = context.logger.log(fileNameToDisplay, {
         newline: false,
         clearable: true,
       });
@@ -362,7 +364,7 @@ async function formatFiles(context) {
       context.logger.log("");
 
       context.logger.error(
-        `Unable to read file: ${filename}\n${error.message}`
+        `Unable to read file "${fileNameToDisplay}":\n${error.message}`
       );
 
       // Don't exit the process if one file failed
@@ -395,7 +397,7 @@ async function formatFiles(context) {
       }
       output = result.formatted;
     } catch (error) {
-      handleError(context, filename, error, printedFilename);
+      handleError(context, fileNameToDisplay, error, printedFilename);
       continue;
     }
 
@@ -419,9 +421,7 @@ async function formatFiles(context) {
       // mtime based caches.
       if (isDifferent) {
         if (!context.argv.check && !context.argv.listDifferent) {
-          context.logger.log(
-            `${normalizeToPosix(filename)} ${Date.now() - start}ms`
-          );
+          context.logger.log(`${fileNameToDisplay} ${Date.now() - start}ms`);
         }
 
         try {
@@ -431,14 +431,14 @@ async function formatFiles(context) {
           shouldSetCache = true;
         } catch (error) {
           context.logger.error(
-            `Unable to write file: ${filename}\n${error.message}`
+            `Unable to write file "${fileNameToDisplay}":\n${error.message}`
           );
 
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
-        const message = `${chalk.grey(normalizeToPosix(filename))} ${
+        const message = `${chalk.grey(fileNameToDisplay)} ${
           Date.now() - start
         }ms`;
         if (isCacheExists) {
@@ -449,7 +449,7 @@ async function formatFiles(context) {
       }
     } else if (context.argv.debugCheck) {
       if (result.filepath) {
-        context.logger.log(normalizeToPosix(result.filepath));
+        context.logger.log(fileNameToDisplay);
       } else {
         /* c8 ignore next */
         process.exitCode = 2;
@@ -466,9 +466,9 @@ async function formatFiles(context) {
 
     if (isDifferent) {
       if (context.argv.check) {
-        context.logger.warn(normalizeToPosix(filename));
+        context.logger.warn(fileNameToDisplay);
       } else if (context.argv.listDifferent) {
-        context.logger.log(normalizeToPosix(filename));
+        context.logger.log(fileNameToDisplay);
       }
       numberOfUnformattedFilesFound += 1;
     }

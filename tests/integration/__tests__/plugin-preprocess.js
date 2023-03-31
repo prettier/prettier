@@ -1,5 +1,3 @@
-import runPrettier from "../run-prettier.js";
-
 describe("parser preprocess function is used to reshape input text", () => {
   runPrettier("plugins/preprocess", ["*.foo", "--plugin=./plugin.cjs"], {
     ignoreLineEndings: true,
