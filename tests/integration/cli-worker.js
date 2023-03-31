@@ -15,11 +15,8 @@ const hasOwn =
     // eslint-disable-next-line prefer-object-has-own
     Object.prototype.hasOwnProperty.call(object, property));
 const replaceAll = (text, find, replacement) =>
-
   text.replaceAll
-
     ? text.replaceAll(find, replacement)
-
     : text.split(find).join(replacement);
 
 async function run() {
