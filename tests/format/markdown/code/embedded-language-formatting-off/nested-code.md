@@ -2,7 +2,8 @@
 This is markdown
 
 ~~~json
-["json", "in", "markdown", "in", "markdown"]
+["json",
+"in", "markdown", "in", "markdown"]
 ~~~
 ```
 
@@ -10,7 +11,8 @@ This is markdown
 text
 
 ~~~json
-["json", "in", "markdown", "in", "markdown"]
+["json",
+"in", "markdown", "in", "markdown"]
 ~~~
 ```
 
