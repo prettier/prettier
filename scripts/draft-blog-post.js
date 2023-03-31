@@ -24,7 +24,7 @@ if (!fs.existsSync(introFile)) {
   fs.copyFileSync(introTemplateFile, introFile);
 }
 
-const prevVersion = require("prettier/package.json").version;
+const prevVersion = require("../node_modules/prettier/package.json").version;
 const { version } = require("../package.json");
 const nextVersion = `${semver.major(version)}.${semver.minor(
   version
