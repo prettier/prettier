@@ -31,7 +31,7 @@ package-lock.json
 .node-version
 # When installing software on gitpod.io, `core.*` files are generated
 /core.*
-/tests/format/flow/mapped-types/*.swp
+*.swp
 
 # Temporarily ignore these files to avoid conflicts between next and main branch
 /vendors
