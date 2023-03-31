@@ -364,7 +364,7 @@ async function formatFiles(context) {
       context.logger.log("");
 
       context.logger.error(
-        `Unable to read file "${fileNameToDisplay}".\n${error.message}`
+        `Unable to read file "${fileNameToDisplay}":\n${error.message}`
       );
 
       // Don't exit the process if one file failed
@@ -431,7 +431,7 @@ async function formatFiles(context) {
           shouldSetCache = true;
         } catch (error) {
           context.logger.error(
-            `Unable to write file "${fileNameToDisplay}".\n${error.message}`
+            `Unable to write file "${fileNameToDisplay}":\n${error.message}`
           );
 
           // Don't exit the process if one file failed
