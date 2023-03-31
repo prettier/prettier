@@ -223,3 +223,42 @@ type MappedWithComments = {
 
 ================================================================================
 `;
+
+exports[`ts-compatibility.js [babel-flow] format 1`] = `
+"Unexpected token, expected "]" (3:19)
+  1 | // Tests that on single-line mapped types Flow and TS make the same formatting decisions
+  2 |
+> 3 | type Test = {[key in T]: number};
+    |                   ^
+  4 | type Test = {[key in keyof T]: number};
+  5 | type Test = {[otherKeyName     in keyof T]: number};
+  6 | type Test = {[key in T]:number};"
+`;
+
+exports[`ts-compatibility.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Tests that on single-line mapped types Flow and TS make the same formatting decisions
+
+type Test = {[key in T]: number};
+type Test = {[key in keyof T]: number};
+type Test = {[otherKeyName     in keyof T]: number};
+type Test = {[key in T]:number};
+type Test = {[key in T]+?:number};
+type Test = {[key in T]-?:                   number};
+
+=====================================output=====================================
+// Tests that on single-line mapped types Flow and TS make the same formatting decisions
+
+type Test = { [key in T]: number };
+type Test = { [key in keyof T]: number };
+type Test = { [otherKeyName in keyof T]: number };
+type Test = { [key in T]: number };
+type Test = { [key in T]+?: number };
+type Test = { [key in T]-?: number };
+
+================================================================================
+`;
