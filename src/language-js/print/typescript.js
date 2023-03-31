@@ -1,8 +1,5 @@
-import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import {
   join,
-  line,
   softline,
   group,
   indent,
@@ -12,7 +9,6 @@ import {
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   isStringLiteral,
-  getTypeScriptMappedTypeModifier,
   shouldPrintComma,
   isCallExpression,
   isMemberExpression,
@@ -20,7 +16,7 @@ import {
   isObjectOrRecordExpression,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
-import { locStart, locEnd } from "../loc.js";
+import { locStart } from "../loc.js";
 
 import {
   printOptionalToken,
@@ -58,6 +54,7 @@ import {
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printImportKind } from "./module.js";
+import { printTypescriptMappedType } from "./mapped-type.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
@@ -239,32 +236,10 @@ function printTypescript(path, options, print) {
 
     case "TSTypeOperator":
       return [node.operator, " ", print("typeAnnotation")];
-    case "TSMappedType": {
-      const shouldBreak = hasNewlineInRange(
-        options.originalText,
-        locStart(node),
-        locEnd(node)
-      );
-      return group(
-        [
-          "{",
-          indent([
-            options.bracketSpacing ? line : softline,
-            print("typeParameter"),
-            node.optional
-              ? getTypeScriptMappedTypeModifier(node.optional, "?")
-              : "",
-            node.typeAnnotation ? ": " : "",
-            print("typeAnnotation"),
-            ifBreak(semi),
-          ]),
-          printDanglingComments(path, options),
-          options.bracketSpacing ? line : softline,
-          "}",
-        ],
-        { shouldBreak }
-      );
-    }
+
+    case "TSMappedType":
+      return printTypescriptMappedType(path, options, print);
+
     case "TSMethodSignature": {
       const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";
       parts.push(
