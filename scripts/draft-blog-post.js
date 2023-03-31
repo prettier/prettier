@@ -23,23 +23,12 @@ const introFile = path.join(changelogUnreleasedDirPath, "blog-post-intro.md");
 if (!fs.existsSync(introFile)) {
   fs.copyFileSync(introTemplateFile, introFile);
 }
-function getVersions() {
-  const rawPrevVer = require("../node_modules/prettier/package.json").version;
-  const rawNextVer = require("../package.json").version.replace(/-.+/, "");
 
-  const prevVersion = semver.parse(rawPrevVer);
-  const nextVersion = semver.parse(rawNextVer);
-
-  if (semver.compare(prevVersion, nextVersion) === 1) {
-    throw new Error(
-      `[INVALID VERSION] Previous version(${prevVersion}) is greater than next version(${nextVersion}).`
-    );
-  }
-
-  return { prevVersion, nextVersion };
-}
-
-const { prevVersion, nextVersion } = getVersions();
+const prevVersion = require("prettier/package.json").version;
+const { version } = require("../package.json");
+const nextVersion = `${semver.major(version)}.${semver.minor(
+  version
+)}.${semver.patch(version)}`;
 
 const postGlob = path.join(blogDir, `????-??-??-${nextVersion}.md`);
 const postFile = path.join(

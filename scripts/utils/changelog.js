@@ -63,6 +63,12 @@ export function printEntries(entries) {
 }
 
 export function replaceVersions(data, prevVer, newVer, isPatch = false) {
+  if (semver.compare(prevVer, newVer) > 0) {
+    throw new Error(
+      `[INVALID VERSION] Previous version(${prevVer}) is greater than next version(${newVer}).`
+    );
+  }
+
   return data
     .replaceAll(
       /prettier stable/gi,
