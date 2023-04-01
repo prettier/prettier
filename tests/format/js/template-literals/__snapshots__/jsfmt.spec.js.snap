@@ -22,6 +22,54 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`chain-ending-with-single-argument.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo("long" + "set").bar("of" + "arguments").baz("will" + "break")
+.qux(\`
+    template literal
+\`)
+
+foo("long" + "set").bar("of" + "arguments").baz("will" + "break")
+.qux(\`
+    template literal
+\`).toString()
+
+foo().bar().baz().qux(\`
+  template literal
+  template literal
+\`)
+
+=====================================output=====================================
+foo("long" + "set")
+  .bar("of" + "arguments")
+  .baz("will" + "break")
+  .qux(\`
+    template literal
+\`);
+
+foo("long" + "set")
+  .bar("of" + "arguments")
+  .baz("will" + "break")
+  .qux(\`
+    template literal
+\`)
+  .toString();
+
+foo()
+  .bar()
+  .baz()
+  .qux(\`
+  template literal
+  template literal
+\`);
+
+================================================================================
+`;
+
 exports[`conditional-expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
