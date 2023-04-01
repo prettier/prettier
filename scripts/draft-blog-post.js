@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import fg from "fast-glob";
+import semver from "semver";
 import {
   getEntries,
   replaceVersions,
@@ -22,12 +23,17 @@ const introFile = path.join(changelogUnreleasedDirPath, "blog-post-intro.md");
 if (!fs.existsSync(introFile)) {
   fs.copyFileSync(introTemplateFile, introFile);
 }
-const previousVersion = require("prettier/package.json").version;
-const version = require("../package.json").version.replace(/-.+/, "");
-const postGlob = path.join(blogDir, `????-??-??-${version}.md`);
+
+const prevVersion = require("../node_modules/prettier/package.json").version;
+const { version } = require("../package.json");
+const nextVersion = `${semver.major(version)}.${semver.minor(
+  version
+)}.${semver.patch(version)}`;
+
+const postGlob = path.join(blogDir, `????-??-??-${nextVersion}.md`);
 const postFile = path.join(
   blogDir,
-  `${new Date().toISOString().replace(/T.+/, "")}-${version}.md`
+  `${new Date().toISOString().replace(/T.+/, "")}-${nextVersion}.md`
 );
 
 const categories = [
@@ -101,8 +107,8 @@ fs.writeFileSync(
     ]
       .filter(Boolean)
       .join("\n\n") + "\n",
-    previousVersion,
-    version
+    prevVersion,
+    nextVersion
   )
 );
 
