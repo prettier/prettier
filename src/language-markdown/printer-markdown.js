@@ -752,7 +752,7 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
     parent.type === "listItem" &&
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
-  const isPreveNodeSpecificComment = ((node) => {
+  const isPrevNodeSpecificComment = ((node) => {
     if (
       node.type === "html" &&
       node.value.startsWith("<!--") &&
@@ -770,7 +770,7 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
     isPrevNodePrettierIgnore ||
     isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
     isHtmlDirectAfterListItem ||
-    isPreveNodeSpecificComment
+    isPrevNodeSpecificComment
   );
 }
 
