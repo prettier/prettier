@@ -22,6 +22,7 @@ import {
   isTSTypeExpression,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
+  isTemplateOnItsOwnLine,
 } from "../utils/index.js";
 
 import {
@@ -160,13 +161,18 @@ function printCallArguments(path, options, print) {
     ]);
   }
 
-  const contents = [
-    "(",
-    indent([softline, ...printedArguments]),
-    ifBreak(maybeTrailingComma),
-    softline,
-    ")",
-  ];
+  const isTemplateLiteralSingleArg =
+    args.length === 1 && isTemplateOnItsOwnLine(args[0], options.originalText);
+  const inner = isTemplateLiteralSingleArg
+    ? [indent(printedArguments)]
+    : [
+        indent([softline, ...printedArguments]),
+        ifBreak(maybeTrailingComma),
+        softline,
+      ];
+
+  const contents = ["(", ...inner, ")"];
+
   if (isLongCurriedCallExpression(path)) {
     // By not wrapping the arguments in a group, the printer prioritizes
     // breaking up these arguments rather than the args of the parent call.
