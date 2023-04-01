@@ -753,9 +753,13 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
   const isPreveNodeSpecificComment = ((node) => {
-    if (node.type === "html" && node.value.startsWith("<!--") && node.value.endsWith("-->")) {
+    if (
+      node.type === "html" &&
+      node.value.startsWith("<!--") &&
+      node.value.endsWith("-->")
+    ) {
       const SpecificCommentString = ["markdownlint-disable-next-line"];
-      return SpecificCommentString.some((s)=>node.value.includes(s))
+      return SpecificCommentString.some((s) => node.value.includes(s));
     }
     return false;
   })(previous);
