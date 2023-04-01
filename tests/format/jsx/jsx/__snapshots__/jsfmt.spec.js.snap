@@ -332,6 +332,16 @@ singleQuote: false
 () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
 () => () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
 
+<Prettier>
+  {We => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => currying => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+
 =====================================output=====================================
 () => (
   <Component>
@@ -374,6 +384,26 @@ singleQuote: false
       text.
     </div>
   );
+
+<Prettier>
+  {(We) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."}
+</Prettier>;
+<Prettier>
+  {(We) => (love) => (currying) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."}
+</Prettier>;
 
 ================================================================================
 `;
@@ -398,6 +428,16 @@ singleQuote: false
 () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
 () => () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
 
+<Prettier>
+  {We => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => currying => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+
 =====================================output=====================================
 () => (
   <Component>
@@ -440,6 +480,26 @@ singleQuote: false
       text.
     </div>
   );
+
+<Prettier>
+  {(We) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."}
+</Prettier>;
+<Prettier>
+  {(We) => (love) => (currying) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."}
+</Prettier>;
 
 ================================================================================
 `;
@@ -464,6 +524,16 @@ singleQuote: true
 () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
 () => () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
 
+<Prettier>
+  {We => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => currying => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+
 =====================================output=====================================
 () => (
   <Component>
@@ -506,6 +576,26 @@ singleQuote: true
       text.
     </div>
   );
+
+<Prettier>
+  {(We) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {(We) => (love) => (currying) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
 
 ================================================================================
 `;
@@ -530,6 +620,16 @@ singleQuote: true
 () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
 () => () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
 
+<Prettier>
+  {We => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => currying => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+
 =====================================output=====================================
 () => (
   <Component>
@@ -572,6 +672,26 @@ singleQuote: true
       text.
     </div>
   );
+
+<Prettier>
+  {(We) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {(We) => (love) => (currying) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
 
 ================================================================================
 `;
