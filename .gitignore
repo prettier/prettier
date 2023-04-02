@@ -31,7 +31,3 @@ package-lock.json
 .node-version
 # When installing software on gitpod.io, `core.*` files are generated
 /core.*
-
-# Temporarily ignore these files to avoid conflicts between next and main branch
-/vendors
-/scripts/vendors
