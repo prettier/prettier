@@ -497,6 +497,16 @@ export interface Printer<T = any> {
   printComment?:
     | ((commentPath: AstPath<T>, options: ParserOptions<T>) => Doc)
     | undefined;
+  /**
+   * By default, Prettier searches all object properties (except for a few predefined ones) of each node recursively.
+   * This function can be provided to override that behavior.
+   * @param node The node whose children should be returned.
+   * @param options Current options.
+   * @returns `[]` if the node has no children or `undefined` to fall back on the default behavior.
+   */
+  getCommentChildNodes?:
+    | ((node: T, options: ParserOptions<T>) => T[] | undefined)
+    | undefined;
   handleComments?:
     | {
         ownLine?:
