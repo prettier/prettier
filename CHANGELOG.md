@@ -1,3 +1,40 @@
+# 2.8.8
+
+[diff](https://github.com/prettier/prettier/compare/2.8.7...2.8.8)
+
+#### Add support for nested Markdown code blocks with backticks and tildes ([#14634](https://github.com/prettier/prettier/pull/14634) by [@fisker](https://github.com/fisker) and [@KieranHunt](https://github.com/KieranHunt))
+
+<!-- prettier-ignore -->
+`````markdown
+<!-- Input -->
+```markdown
+This is markdown
+
+~~~json
+["json", "in", "markdown", "in", "markdown"]
+~~~
+```
+
+<!-- Prettier 2.8.7 -->
+```markdown
+This is markdown
+
+```json
+["json", "in", "markdown", "in", "markdown"]
+```
+```
+
+<!-- Prettier 2.8.8 -->
+````markdown
+This is markdown
+
+```json
+["json", "in", "markdown", "in", "markdown"]
+```
+````
+`````
+
+
 # 2.8.7
 
 [diff](https://github.com/prettier/prettier/compare/2.8.6...2.8.7)
