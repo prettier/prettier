@@ -477,11 +477,19 @@ export interface Printer<T = any> {
   ): Doc;
   embed?:
     | ((
-        path: AstPath<T>,
-        print: (path: AstPath<T>) => Doc,
-        textToDoc: (text: string, options: Options) => Doc,
-        options: ParserOptions<T>
-      ) => Doc | null)
+        path: AstPath,
+        options: Options
+      ) =>
+        | ((
+            textToDoc: (text: string, options: Options) => Promise<Doc>,
+            print: (
+              selector?: string | number | Array<string | number> | AstPath
+            ) => Doc,
+            path: AstPath,
+            options: Options
+          ) => Promise<Doc | undefined> | Doc | undefined)
+        | Doc
+        | null)
     | undefined;
   insertPragma?: (text: string) => string;
   /**
