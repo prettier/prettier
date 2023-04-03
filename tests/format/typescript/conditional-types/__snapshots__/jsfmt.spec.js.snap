@@ -203,13 +203,13 @@ export type DeepReadonly<T> = T extends any[]
   : T;
 
 type NonFunctionPropertyNames<T> = {
-  [K in keyof T]: T[K] extends Function ? never : K;
+  [K in keyof T]: T[K] extends Function ? never : K
 }[keyof T];
 
 interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
 
 type DeepReadonlyObject<T> = {
-  readonly [P in NonFunctionPropertyNames<T>]: DeepReadonly<T[P]>;
+  readonly [P in NonFunctionPropertyNames<T>]: DeepReadonly<T[P]>
 };
 
 type TypeName<T> = T extends string
@@ -379,7 +379,7 @@ type Unpacked<T> =
 =====================================output=====================================
 // TypeScript has the same behavior, including a line break after =, but no parens around "conditional":
 type KnownKeys<T> = {
-  [K in keyof T]: string extends K ? never : number extends K ? never : K;
+  [K in keyof T]: string extends K ? never : number extends K ? never : K
 } extends { [_ in keyof T]: infer U }
   ? {} extends U
     ? never
@@ -387,9 +387,9 @@ type KnownKeys<T> = {
   : never;
 
 type KnownKeysWithLongExtends<T> = {
-  [K in keyof T]: string extends K ? never : number extends K ? never : K;
+  [K in keyof T]: string extends K ? never : number extends K ? never : K
 } extends {
-  [_ in keyof T]: SomeReallyLongThingThatBreaksTheLine<infer U>;
+  [_ in keyof T]: SomeReallyLongThingThatBreaksTheLine<infer U>
 }
   ? U
   : never;
