@@ -17,14 +17,8 @@ describe("--cache option", () => {
   const directoryNameAsCacheFile = "directory-as-cache-file";
   const nonDefaultCacheFilePath = path.join(dir, nonDefaultCacheFileName);
 
-  const contentA = `function a() {
-  console.log("this is a.js")
-}
-`;
-  const contentB = `function b() {
-  console.log("this is b.js");
-}
-`;
+  const contentA = 'console.log( "this is a.js"   )';
+  const contentB = 'console.log( "this is b.js"   )';;
 
   const clean = async () => {
     await fs.rm(path.join(dir, directoryNameAsCacheFile), {
@@ -42,7 +36,6 @@ describe("--cache option", () => {
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
-
   afterEach(async () => {
     await fs.rm(path.join(dir, "node_modules"), {
       force: true,
