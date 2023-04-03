@@ -17,18 +17,26 @@ describe("--cache option", () => {
   const directoryNameAsCacheFile = "directory-as-cache-file";
   const nonDefaultCacheFilePath = path.join(dir, nonDefaultCacheFileName);
 
-  let contentA;
-  let contentB;
+  const contentA = `function a() {
+  console.log("this is a.js")
+}
+`;
+  const contentB = `function b() {
+  console.log("this is b.js");
+}
+`;
 
   beforeAll(async () => {
-    contentA = await fs.readFile(path.join(dir, "a.js"), "utf8");
-    contentB = await fs.readFile(path.join(dir, "b.js"), "utf8");
     await fs.rm(path.join(dir, directoryNameAsCacheFile), {
       force: true,
       recursive: true,
     });
     await fs.rm(nonDefaultCacheFilePath, { force: true });
+    await fs.rm(path.join(dir, "a.js"), { force: true });
+    await fs.rm(path.join(dir, "b.js"), { force: true });
     await fs.mkdir(path.join(dir, directoryNameAsCacheFile));
+    await fs.writeFile(path.join(dir, "a.js"), contentA);
+    await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
 
   afterEach(async () => {
@@ -46,6 +54,8 @@ describe("--cache option", () => {
       recursive: true,
     });
     await fs.rm(nonDefaultCacheFilePath, { force: true });
+    await fs.rm(path.join(dir, "a.js"), { force: true });
+    await fs.rm(path.join(dir, "b.js"), { force: true });
   });
 
   it("throw error when cache-strategy is invalid", async () => {
