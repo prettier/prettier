@@ -43,7 +43,7 @@ const unstableTests = new Map(
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
     "jsx/comments/in-attributes.js",
     ["js/ignore/semi/asi.js", (options) => options.semi === false],
-    "typescript/union/consistent-with-flow/single-type.ts"
+    "typescript/union/consistent-with-flow/single-type.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
