@@ -14,6 +14,7 @@ describe("--cache option", () => {
   );
 
   const nonDefaultCacheFileName = ".non-default-cache-file";
+  const directoryNameAsCacheFile = "directory-as-cache-file";
   const nonDefaultCacheFilePath = path.join(dir, nonDefaultCacheFileName);
 
   let contentA;
@@ -22,6 +23,11 @@ describe("--cache option", () => {
   beforeAll(async () => {
     contentA = await fs.readFile(path.join(dir, "a.js"), "utf8");
     contentB = await fs.readFile(path.join(dir, "b.js"), "utf8");
+    await fs.rm(path.join(dir, directoryNameAsCacheFile), {
+      force: true,
+      recursive: true,
+    });
+    await fs.mkdir(path.join(dir, directoryNameAsCacheFile));
   });
 
   afterEach(async () => {
@@ -32,6 +38,12 @@ describe("--cache option", () => {
     await fs.rm(nonDefaultCacheFilePath, { force: true });
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
+  });
+  afterAll(async () => {
+    await fs.rm(path.join(dir, directoryNameAsCacheFile), {
+      force: true,
+      recursive: true,
+    });
   });
 
   it("throw error when cache-strategy is invalid", async () => {
@@ -73,7 +85,7 @@ describe("--cache option", () => {
       "foo.js",
       "--cache",
       "--cache-location",
-      "dir",
+      directoryNameAsCacheFile,
     ]);
     expect(stderr.trim()).toEqual(
       expect.stringMatching(
