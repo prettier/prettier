@@ -26,7 +26,7 @@ describe("--cache option", () => {
 }
 `;
 
-  beforeAll(async () => {
+  const clean = async () => {
     await fs.rm(path.join(dir, directoryNameAsCacheFile), {
       force: true,
       recursive: true,
@@ -34,6 +34,10 @@ describe("--cache option", () => {
     await fs.rm(nonDefaultCacheFilePath, { force: true });
     await fs.rm(path.join(dir, "a.js"), { force: true });
     await fs.rm(path.join(dir, "b.js"), { force: true });
+  };
+
+  beforeAll(async () => {
+    await clean();
     await fs.mkdir(path.join(dir, directoryNameAsCacheFile));
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
@@ -48,15 +52,7 @@ describe("--cache option", () => {
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
-  afterAll(async () => {
-    await fs.rm(path.join(dir, directoryNameAsCacheFile), {
-      force: true,
-      recursive: true,
-    });
-    await fs.rm(nonDefaultCacheFilePath, { force: true });
-    await fs.rm(path.join(dir, "a.js"), { force: true });
-    await fs.rm(path.join(dir, "b.js"), { force: true });
-  });
+  afterAll(clean);
 
   it("throw error when cache-strategy is invalid", async () => {
     const { stderr } = await runPrettier(dir, [
