@@ -142,11 +142,11 @@ type a = {
   };
 
 type a = {
-  [A in /* prettier-ignore */ B]: C | D
+  [A in /* prettier-ignore */ B]: C | D;
 };
 
 type a = {
-  [A in B /* prettier-ignore */]: C | D
+  [A in B /* prettier-ignore */]: C | D;
 };
 
 type a = {

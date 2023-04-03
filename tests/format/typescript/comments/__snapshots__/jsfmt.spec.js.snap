@@ -456,27 +456,27 @@ type A = {
 };
 
 type B = {
-  /* commentB */ [b in B]: string
+  /* commentB */ [b in B]: string;
 };
 
 type C = {
-  [/* commentC */ c in C]: string
+  [/* commentC */ c in C]: string;
 };
 
 type D = {
-  [d /* commentD */ in D]: string
+  [d /* commentD */ in D]: string;
 };
 
 type E = {
-  [e in /* commentE */ E]: string
+  [e in /* commentE */ E]: string;
 };
 
 type F = {
-  [f in F /* commentF */]: string
+  [f in F /* commentF */]: string;
 };
 
 type G = {
-  [g in G /* commentG */]: string
+  [g in G /* commentG */]: string;
 };
 
 type H = { [/* commentH */ h in H]: string };
