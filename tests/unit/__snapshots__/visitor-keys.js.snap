@@ -673,7 +673,6 @@ exports[`visitor keys estree 1`] = `
   "TSAbstractMethodDefinition": [
     "key",
     "value",
-    "decorators",
   ],
   "TSAbstractPropertyDefinition": [
     "decorators",
