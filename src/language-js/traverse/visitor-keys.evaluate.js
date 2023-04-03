@@ -40,6 +40,7 @@ const additionalVisitorKeys = {
   ],
   DeclareEnum: flowVisitorKeys.EnumDeclaration,
   InferTypeAnnotation: ["typeParameter"],
+  QualifiedTypeofIdentifier: ["id", "qualification"],
   TupleTypeAnnotation: ["elementTypes"],
   TupleTypeSpreadElement: ["label", "typeAnnotation"],
   TupleTypeLabeledElement: ["label", "elementType", "variance"],
@@ -62,6 +63,8 @@ const excludeKeys = {
   // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
   // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab
   // TupleTypeAnnotation: ["types"],
+  DeclareInterface: ["mixins", "implements"],
+  InterfaceDeclaration: ["mixins", "implements"],
   PropertyDefinition: ["tsModifiers"],
 
   // TypeScript
