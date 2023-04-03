@@ -27,6 +27,7 @@ describe("--cache option", () => {
       force: true,
       recursive: true,
     });
+    await fs.rm(nonDefaultCacheFilePath, { force: true });
     await fs.mkdir(path.join(dir, directoryNameAsCacheFile));
   });
 
@@ -44,6 +45,7 @@ describe("--cache option", () => {
       force: true,
       recursive: true,
     });
+    await fs.rm(nonDefaultCacheFilePath, { force: true });
   });
 
   it("throw error when cache-strategy is invalid", async () => {
