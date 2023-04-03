@@ -240,23 +240,27 @@ function printTypescript(path, options, print) {
     case "TSTypeOperator":
       return [node.operator, " ", print("typeAnnotation")];
     case "TSMappedType": {
+      // Break after `{` like `printObject`
       const shouldBreak = hasNewlineInRange(
         options.originalText,
         locStart(node),
-        locEnd(node)
+        // Ideally, this should be the next token after `{`, but there is no node starts with it.
+        locStart(node.typeParameter)
       );
       return group(
         [
           "{",
           indent([
             options.bracketSpacing ? line : softline,
-            print("typeParameter"),
-            node.optional
-              ? getTypeScriptMappedTypeModifier(node.optional, "?")
-              : "",
-            node.typeAnnotation ? ": " : "",
-            print("typeAnnotation"),
-            ifBreak(semi),
+            group([
+              print("typeParameter"),
+              node.optional
+                ? getTypeScriptMappedTypeModifier(node.optional, "?")
+                : "",
+              node.typeAnnotation ? ": " : "",
+              print("typeAnnotation"),
+              ifBreak(semi),
+            ]),
           ]),
           printDanglingComments(path, options),
           options.bracketSpacing ? line : softline,
