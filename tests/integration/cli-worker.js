@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import { cosmiconfig } from "cosmiconfig";
-import { prettierCli, thirdParty as thirdPartyModuleFile } from "./env.js";
+import { prettierCli, mockable as mockableModuleFile } from "./env.js";
 
 const normalizeToPosix =
   path.sep === "\\"
@@ -43,24 +43,24 @@ async function run() {
   process.stdin.isTTY = Boolean(options.isTTY);
   process.stdout.isTTY = Boolean(options.stdoutIsTTY);
 
-  const { default: thirdParty } = await import(
-    url.pathToFileURL(thirdPartyModuleFile)
+  const { default: mockable } = await import(
+    url.pathToFileURL(mockableModuleFile)
   );
 
   // We cannot use `jest.setMock("get-stream", impl)` here, because in the
   // production build everything is bundled into one file so there is no
   // "get-stream" module to mock.
   // eslint-disable-next-line require-await
-  thirdParty.getStdin = async () => options.input || "";
-  thirdParty.isCI = () => Boolean(options.ci);
-  thirdParty.cosmiconfig = (moduleName, options) =>
+  mockable.getStdin = async () => options.input || "";
+  mockable.isCI = () => Boolean(options.ci);
+  mockable.cosmiconfig = (moduleName, options) =>
     cosmiconfig(moduleName, {
       ...options,
       stopDir: url.fileURLToPath(new URL("./cli", import.meta.url)),
     });
-  thirdParty.findParentDir = () => process.cwd();
+  mockable.findParentDir = () => process.cwd();
   // eslint-disable-next-line require-await
-  thirdParty.writeFormattedFile = async (filename, content) => {
+  mockable.writeFormattedFile = async (filename, content) => {
     filename = normalizeToPosix(path.relative(process.cwd(), filename));
     if (
       options.mockWriteFileErrors &&

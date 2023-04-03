@@ -3,13 +3,13 @@ import { fileURLToPath } from "node:url";
 import mem, { memClear } from "mem";
 import fastGlob from "fast-glob";
 import isDirectory from "../../utils/is-directory.js";
-import thirdParty from "../../common/third-party.js";
+import mockable from "../../common/mockable.js";
 import { loadPluginFromDirectory } from "./load-plugin.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const findNodeModules = mem((directory) =>
-  thirdParty.findParentDir(directory, "node_modules")
+  mockable.findParentDir(directory, "node_modules")
 );
 
 const findPluginsInNodeModules = mem(async (nodeModulesDir) => {

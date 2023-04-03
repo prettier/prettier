@@ -8,7 +8,7 @@ function writeFormattedFile(file, data) {
   return fs.writeFile(file, data);
 }
 
-const thirdParty = {
+const mockable = {
   cosmiconfig,
   findParentDir,
   getStdin,
@@ -16,4 +16,4 @@ const thirdParty = {
   writeFormattedFile,
 };
 
-export default thirdParty;
+export default mockable;
