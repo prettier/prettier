@@ -172,8 +172,7 @@ function postprocess(ast, options) {
           });
         }
         break;
-      // This is a workaround to strip complex nested typescript unions
-      // See https://github.com/prettier/prettier/pull/14280
+      // In Flow parser, it doesn't generate union/intersection types for single type
       case "TSUnionType":
       case "TSIntersectionType":
         if (node.types.length === 1) {
