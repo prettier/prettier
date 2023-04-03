@@ -26,8 +26,6 @@ const additionalVisitorKeys = {
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
-  // This one maybe invalid, need investigate
-  TSAbstractMethodDefinition: ["decorators"],
 
   // Flow
   ClassProperty: ["variance"],
