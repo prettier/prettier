@@ -23,23 +23,6 @@ async function run() {
   const { options } = workerData;
 
   Date.now = () => 0;
-  // eslint-disable-next-line require-await
-  fs.promises.writeFile = async (filename, content) => {
-    filename = normalizeToPosix(path.relative(process.cwd(), filename));
-    if (
-      options.mockWriteFileErrors &&
-      hasOwn(options.mockWriteFileErrors, filename)
-    ) {
-      throw new Error(
-        options.mockWriteFileErrors[filename] + " (mocked error)"
-      );
-    }
-
-    parentPort.postMessage({
-      action: "write-file",
-      data: { filename, content },
-    });
-  };
 
   /*
     A fake non-existing directory to test plugin search won't crash.
@@ -76,6 +59,23 @@ async function run() {
       stopDir: url.fileURLToPath(new URL("./cli", import.meta.url)),
     });
   thirdParty.findParentDir = () => process.cwd();
+  // eslint-disable-next-line require-await
+  thirdParty.writeFormattedFile = async (filename, content) => {
+    filename = normalizeToPosix(path.relative(process.cwd(), filename));
+    if (
+      options.mockWriteFileErrors &&
+      hasOwn(options.mockWriteFileErrors, filename)
+    ) {
+      throw new Error(
+        options.mockWriteFileErrors[filename] + " (mocked error)"
+      );
+    }
+
+    parentPort.postMessage({
+      action: "write-file",
+      data: { filename, content },
+    });
+  };
 
   const { promise } = await import(url.pathToFileURL(prettierCli));
   await promise;

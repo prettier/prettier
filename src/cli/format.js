@@ -12,7 +12,7 @@ import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
 import { statSafe, normalizeToPosix } from "./utils.js";
 
-const { getStdin } = thirdParty;
+const { getStdin, writeFormattedFile } = thirdParty;
 
 function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
@@ -425,7 +425,7 @@ async function formatFiles(context) {
         }
 
         try {
-          await fs.writeFile(filename, output, "utf8");
+          await writeFormattedFile(filename, output);
 
           // Set cache if format succeeds
           shouldSetCache = true;
