@@ -613,7 +613,6 @@ exports[`visitor keys estree 1`] = `
   "Property": [
     "key",
     "value",
-    "decorators",
   ],
   "PropertyDefinition": [
     "decorators",
