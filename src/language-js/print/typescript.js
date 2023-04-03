@@ -20,7 +20,7 @@ import {
   isObjectOrRecordExpression,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
-import { locStart, locEnd } from "../loc.js";
+import { locStart } from "../loc.js";
 
 import {
   printOptionalToken,
