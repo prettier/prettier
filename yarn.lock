@@ -4353,30 +4353,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-eslint@npm:0.10.0":
-  version: 0.10.0
-  resolution: "hermes-eslint@npm:0.10.0"
+"hermes-eslint@npm:0.10.1":
+  version: 0.10.1
+  resolution: "hermes-eslint@npm:0.10.1"
   dependencies:
     esrecurse: ^4.3.0
-    hermes-estree: 0.10.0
-    hermes-parser: 0.10.0
-  checksum: 461f67c1d823390567465abc46dd92c1c1cd6425d84eb2446764a354cf4cf920b7195916248a49b937dadc3fb5d613a011fb1f63a6f3135e183f63c69c81ad1c
+    hermes-estree: 0.10.1
+    hermes-parser: 0.10.1
+  checksum: e22b3937e53e4b605fa964ec7576dcd242787a4599ee749ccdb05569950cfd4d36962a80291c927d5fd6c662ad9b0657b580a04a45b10246cfd0349469083eb7
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.10.0":
-  version: 0.10.0
-  resolution: "hermes-estree@npm:0.10.0"
-  checksum: 7425fc9f642859fafed7b87a10b622e52ad0beb97c45dcd15123c1d9009fab4e607a7c0e7d5fadbb72bbe885791798b222469a9452bbf3e60c7f909fb2ea623f
+"hermes-estree@npm:0.10.1":
+  version: 0.10.1
+  resolution: "hermes-estree@npm:0.10.1"
+  checksum: f4ab40d49daf429941ed7a123577461a829d991046e05ed0b9a8151b9fb7abd71c537353a8bb96dd422bd019399527991b827e0fc5f25106284a7267084787b6
   languageName: node
   linkType: hard
 
-"hermes-parser@npm:0.10.0":
-  version: 0.10.0
-  resolution: "hermes-parser@npm:0.10.0"
+"hermes-parser@npm:0.10.1":
+  version: 0.10.1
+  resolution: "hermes-parser@npm:0.10.1"
   dependencies:
-    hermes-estree: 0.10.0
-  checksum: 309b39579ff764533b8955cf2064551963b3549a4480a373aa7bf89d9c1649184b1306dbebbbf4cf02f1134edad4d3cd3e4c6002865ccdb5d9d2fea7e53b609c
+    hermes-estree: 0.10.1
+  checksum: beec5f114a3438c89bd9160ff64052edbb7dc20c73f29e297cb997682a65f7e1fb710d0225313fba1c7ee8808348cafb179e182ccee2dc21a2a838096a09ac39
   languageName: node
   linkType: hard
 
@@ -6775,7 +6775,7 @@ __metadata:
     flow-parser: 0.202.1
     get-stdin: 9.0.0
     graphql: 16.6.0
-    hermes-eslint: 0.10.0
+    hermes-eslint: 0.10.1
     html-element-attributes: 3.1.0
     html-styles: 1.0.0
     html-tag-names: 2.1.0
