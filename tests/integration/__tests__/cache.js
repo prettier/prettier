@@ -14,14 +14,33 @@ describe("--cache option", () => {
   );
 
   const nonDefaultCacheFileName = ".non-default-cache-file";
+  const directoryNameAsCacheFile = "directory-as-cache-file";
   const nonDefaultCacheFilePath = path.join(dir, nonDefaultCacheFileName);
 
-  let contentA;
-  let contentB;
+  const contentA = `function a() {
+  console.log("this is a.js")
+}
+`;
+  const contentB = `function b() {
+  console.log("this is b.js");
+}
+`;
+
+  const clean = async () => {
+    await fs.rm(path.join(dir, directoryNameAsCacheFile), {
+      force: true,
+      recursive: true,
+    });
+    await fs.rm(nonDefaultCacheFilePath, { force: true });
+    await fs.rm(path.join(dir, "a.js"), { force: true });
+    await fs.rm(path.join(dir, "b.js"), { force: true });
+  };
 
   beforeAll(async () => {
-    contentA = await fs.readFile(path.join(dir, "a.js"), "utf8");
-    contentB = await fs.readFile(path.join(dir, "b.js"), "utf8");
+    await clean();
+    await fs.mkdir(path.join(dir, directoryNameAsCacheFile));
+    await fs.writeFile(path.join(dir, "a.js"), contentA);
+    await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
 
   afterEach(async () => {
@@ -33,6 +52,7 @@ describe("--cache option", () => {
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
+  afterAll(clean);
 
   it("throw error when cache-strategy is invalid", async () => {
     const { stderr } = await runPrettier(dir, [
@@ -73,7 +93,7 @@ describe("--cache option", () => {
       "foo.js",
       "--cache",
       "--cache-location",
-      "dir",
+      directoryNameAsCacheFile,
     ]);
     expect(stderr.trim()).toEqual(
       expect.stringMatching(
