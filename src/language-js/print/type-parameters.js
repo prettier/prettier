@@ -152,6 +152,10 @@ function printTypeParameter(path, options, print) {
   parts.push(name);
 
   if (node.bound) {
+    if (node.usesExtendsBound) {
+      parts.push(" extends ");
+    }
+
     parts.push(printTypeAnnotationProperty(path, print, "bound"));
   }
 

@@ -12,7 +12,7 @@ const EDIT_URL = `https://github.com/${SCHEMA_REPO}/edit/master/${SCHEMA_PATH}`;
 
 async function checkSchema() {
   const { stdout: schema } = await execa("node", [
-    "scripts/generate-schema.mjs",
+    "scripts/generate-schema.js",
   ]);
   const remoteSchema = await logPromise(
     "Checking current schema in SchemaStore",

@@ -465,6 +465,11 @@ function hasParent(node, fn) {
 }
 
 function getNodeCssStyleDisplay(node, options) {
+  // Every root block in Vue SFC is a block
+  if (isVueSfcBlock(node, options)) {
+    return "block";
+  }
+
   if (node.prev?.type === "comment") {
     // <!-- display: block -->
     const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
@@ -488,10 +493,6 @@ function getNodeCssStyleDisplay(node, options) {
     case "ignore":
       return "block";
     default:
-      // See https://github.com/prettier/prettier/issues/8151
-      if (options.parser === "vue" && node.parent?.type === "root") {
-        return "block";
-      }
       return (
         (node.type === "element" &&
           (!node.namespace ||
@@ -546,18 +547,12 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .join("\n");
 }
 
-function countChars(text, char) {
-  let counter = 0;
-  for (let i = 0; i < text.length; i++) {
-    if (text[i] === char) {
-      counter++;
-    }
-  }
-  return counter;
-}
-
 function unescapeQuoteEntities(text) {
   return text.replaceAll("&apos;", "'").replaceAll("&quot;", '"');
+}
+
+function getUnescapedAttributeValue(node) {
+  return unescapeQuoteEntities(node.value);
 }
 
 // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
@@ -629,7 +624,6 @@ export {
   htmlTrimPreserveIndentation,
   getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
-  countChars,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
@@ -660,4 +654,5 @@ export {
   unescapeQuoteEntities,
   getTextValueParts,
   htmlWhitespaceUtils,
+  getUnescapedAttributeValue,
 };

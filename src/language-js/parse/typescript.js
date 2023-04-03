@@ -37,7 +37,7 @@ function createParseError(error) {
   });
 }
 
-function parse(text, options = {}) {
+function parse(text) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 
@@ -58,11 +58,9 @@ function parse(text, options = {}) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
+  throwErrorForInvalidNodes(result, text);
 
-  throwErrorForInvalidNodes(result, options);
-
-  return postprocess(result.ast, options);
+  return postprocess(result.ast, { parser: "typescript", text });
 }
 
 /**
@@ -79,11 +77,4 @@ function isProbablyJsx(text) {
   ).test(text);
 }
 
-// Export as a plugin so we can reuse the same bundle for UMD loading
-const parser = {
-  parsers: {
-    typescript: createParser(parse),
-  },
-};
-
-export default parser;
+export const typescript = createParser(parse);

@@ -127,7 +127,7 @@ module.exports = {
       "error",
       {
         devDependencies: [
-          "jest.config.mjs",
+          "jest.config.js",
           "tests/**",
           "scripts/**",
           "website/**/*",
@@ -260,7 +260,7 @@ module.exports = {
       },
     },
     {
-      files: ["scripts/**/*.mjs"],
+      files: ["scripts/**/*.js"],
       rules: {
         "unicorn/prefer-top-level-await": "error",
       },
@@ -356,7 +356,7 @@ module.exports = {
       rules: {
         "prettier-internal-rules/flat-ast-path-call": "error",
         "prettier-internal-rules/no-conflicting-comment-check-flags": "error",
-        "prettier-internal-rules/no-doc-index-import": "error",
+        "prettier-internal-rules/no-doc-public-import": "error",
         "prettier-internal-rules/no-empty-flat-contents-for-if-break": "error",
         "prettier-internal-rules/no-unnecessary-ast-path-call": "error",
         "prettier-internal-rules/prefer-ast-path-each": "error",

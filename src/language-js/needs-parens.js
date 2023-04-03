@@ -133,6 +133,23 @@ function needsParens(path, options) {
     }
   }
 
+  if (node.type === "ObjectExpression") {
+    const arrowFunctionBody = path.findAncestor(
+      (node) => node.type === "ArrowFunctionExpression"
+    )?.body;
+    if (
+      arrowFunctionBody &&
+      arrowFunctionBody.type !== "SequenceExpression" && // these have parens added anyway
+      arrowFunctionBody.type !== "AssignmentExpression" &&
+      startsWithNoLookaheadToken(
+        arrowFunctionBody,
+        (leftmostNode) => leftmostNode === node
+      )
+    ) {
+      return true;
+    }
+  }
+
   switch (parent.type) {
     case "ParenthesizedExpression":
       return false;
@@ -155,7 +172,8 @@ function needsParens(path, options) {
           node.type === "UnaryExpression" ||
           node.type === "UpdateExpression" ||
           node.type === "YieldExpression" ||
-          node.type === "TSNonNullExpression")
+          node.type === "TSNonNullExpression" ||
+          (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)))
       ) {
         return true;
       }
@@ -206,19 +224,6 @@ function needsParens(path, options) {
               return true;
           }
         }
-        return true;
-      }
-      break;
-
-    case "ArrowFunctionExpression":
-      if (
-        key === "body" &&
-        node.type !== "SequenceExpression" && // these have parens added anyway
-        startsWithNoLookaheadToken(
-          node,
-          (node) => node.type === "ObjectExpression"
-        )
-      ) {
         return true;
       }
       break;
@@ -536,6 +541,14 @@ function needsParens(path, options) {
         (key === "objectType" && parent.type === "TSIndexedAccessType") ||
         (key === "elementType" && parent.type === "TSArrayType")
       );
+    // Same as `TSTypeQuery`, but for Flow syntax
+    case "TypeofTypeAnnotation":
+      return (
+        (key === "objectType" &&
+          (parent.type === "IndexedAccessType" ||
+            parent.type === "OptionalIndexedAccessType")) ||
+        (key === "elementType" && parent.type === "ArrayTypeAnnotation")
+      );
     case "ArrayTypeAnnotation":
       return parent.type === "NullableTypeAnnotation";
 
@@ -550,7 +563,7 @@ function needsParens(path, options) {
           (parent.type === "IndexedAccessType" ||
             parent.type === "OptionalIndexedAccessType"))
       );
-
+    case "InferTypeAnnotation":
     case "NullableTypeAnnotation":
       return (
         parent.type === "ArrayTypeAnnotation" ||
@@ -582,6 +595,11 @@ function needsParens(path, options) {
         (key === "objectType" &&
           (ancestor.type === "IndexedAccessType" ||
             ancestor.type === "OptionalIndexedAccessType")) ||
+        (key === "checkType" && parent.type === "ConditionalTypeAnnotation") ||
+        (key === "extendsType" &&
+          parent.type === "ConditionalTypeAnnotation" &&
+          node.returnType.type === "InferTypeAnnotation" &&
+          node.returnType.typeParameter.bound) ||
         // We should check ancestor's parent to know whether the parentheses
         // are really needed, but since ??T doesn't make sense this check
         // will almost never be true.
@@ -595,15 +613,22 @@ function needsParens(path, options) {
       );
     }
 
+    case "ConditionalTypeAnnotation":
+      if (
+        key === "extendsType" &&
+        parent.type === "ConditionalTypeAnnotation" &&
+        node.type === "ConditionalTypeAnnotation"
+      ) {
+        return true;
+      }
+
+      if (key === "checkType" && parent.type === "ConditionalTypeAnnotation") {
+        return true;
+      }
+
+    // fallthrough
     case "OptionalIndexedAccessType":
       return key === "objectType" && parent.type === "IndexedAccessType";
-
-    case "TypeofTypeAnnotation":
-      return (
-        key === "objectType" &&
-        (parent.type === "IndexedAccessType" ||
-          parent.type === "OptionalIndexedAccessType")
-      );
 
     case "StringLiteral":
     case "NumericLiteral":
@@ -766,10 +791,6 @@ function needsParens(path, options) {
       }
 
     case "ClassExpression":
-      if (isNonEmptyArray(node.decorators)) {
-        return true;
-      }
-
       switch (parent.type) {
         case "NewExpression":
           return key === "callee";
@@ -942,13 +963,9 @@ function isPathInForStatementInitializer(path) {
 function includesFunctionTypeInObjectType(node) {
   return hasNode(
     node,
-    (n1) =>
-      (n1.type === "ObjectTypeAnnotation" &&
-        hasNode(
-          n1,
-          (n2) => n2.type === "FunctionTypeAnnotation" || undefined
-        )) ||
-      undefined
+    (node) =>
+      node.type === "ObjectTypeAnnotation" &&
+      hasNode(node, (node) => node.type === "FunctionTypeAnnotation")
   );
 }
 

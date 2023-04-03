@@ -1,4 +1,4 @@
-import * as prettier from "../../../../src/index";
+import * as prettier from "../../../../src/index.js";
 
 prettier.format("foo ( );", { semi: false });
 prettier.check("foo ( );", { semi: false });

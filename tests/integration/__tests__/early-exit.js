@@ -2,7 +2,7 @@ import prettier from "../../config/prettier-entry.js";
 
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({
-    stdout: prettier.version + "\n",
+    stdout: prettier.version,
     status: 0,
   });
 });

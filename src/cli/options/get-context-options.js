@@ -1,22 +1,21 @@
 import dashify from "dashify";
 import { getSupportInfo } from "../../index.js";
 import {
-  coreOptions,
+  optionCategories,
   getSupportInfoWithoutPlugins,
+  normalizeOptionSettings,
 } from "../prettier-internal.js";
-import { options as cliOptionsMap } from "../constants.evaluate.js";
-import { arrayify } from "../utils.js";
+import cliOptions from "../cli-options.evaluate.js";
 
-const detailedCliOptions = arrayify(cliOptionsMap, "name").map((option) =>
+const detailedCliOptions = normalizeOptionSettings(cliOptions).map((option) =>
   normalizeDetailedOption(option)
 );
 
 function apiOptionToCliOption(apiOption) {
   const cliOption = {
     ...apiOption,
-    name: apiOption.cliName || dashify(apiOption.name),
-    description: apiOption.cliDescription || apiOption.description,
-    category: apiOption.cliCategory || coreOptions.CATEGORY_FORMAT,
+    description: apiOption.cliDescription ?? apiOption.description,
+    category: apiOption.cliCategory ?? optionCategories.CATEGORY_FORMAT,
     forwardToApi: apiOption.name,
   };
 
@@ -34,8 +33,9 @@ function apiOptionToCliOption(apiOption) {
 
 function normalizeDetailedOption(option) {
   return {
-    category: coreOptions.CATEGORY_OTHER,
+    category: optionCategories.CATEGORY_OTHER,
     ...option,
+    name: option.cliName ?? dashify(option.name),
     choices: option.choices?.map((choice) => {
       const newChoice = {
         description: "",
@@ -67,7 +67,6 @@ function supportInfoToContextOptions({ options: supportOptions, languages }) {
 async function getContextOptions(plugins, pluginSearchDirs) {
   const supportInfo = await getSupportInfo({
     showDeprecated: true,
-    showInternal: true,
     plugins,
     pluginSearchDirs,
   });
@@ -76,7 +75,7 @@ async function getContextOptions(plugins, pluginSearchDirs) {
 }
 
 function getContextOptionsWithoutPlugins() {
-  const supportInfo = getSupportInfoWithoutPlugins({ showInternal: true });
+  const supportInfo = getSupportInfoWithoutPlugins();
   return supportInfoToContextOptions(supportInfo);
 }
 

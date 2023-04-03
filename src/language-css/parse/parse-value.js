@@ -1,17 +1,11 @@
 import PostcssValuesParser from "postcss-values-parser/lib/parser.js";
+import getFunctionArgumentsText from "../utils/get-function-arguments-text.js";
+import getValueRoot from "../utils/get-value-root.js";
 import hasSCSSInterpolation from "../utils/has-scss-interpolation.js";
 import hasStringOrFunction from "../utils/has-string-or-function.js";
 import isSCSSVariable from "../utils/is-scss-variable.js";
-import stringifyNode from "../utils/stringify-node.js";
 import parseSelector from "./parse-selector.js";
 import { addTypePrefix } from "./utils.js";
-
-const getHighestAncestor = (node) => {
-  while (node.parent) {
-    node = node.parent;
-  }
-  return node;
-};
 
 function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
@@ -48,7 +42,7 @@ function parseValueNode(valueNode, options) {
     if (node.type === "func" && node.value === "selector") {
       node.group.groups = [
         parseSelector(
-          getHighestAncestor(valueNode).text.slice(
+          getValueRoot(valueNode).text.slice(
             node.group.open.sourceIndex + 1,
             node.group.close.sourceIndex
           )
@@ -76,10 +70,7 @@ function parseValueNode(valueNode, options) {
         (!hasStringOrFunction(groupList) &&
           !isSCSSVariable(groupList[0], options))
       ) {
-        const stringifiedContent = stringifyNode({
-          groups: node.group.groups,
-        });
-        node.group.groups = [stringifiedContent.trim()];
+        node.group.groups = [getFunctionArgumentsText(node)];
       }
     }
     if (node.type === "paren" && node.value === "(") {
@@ -162,7 +153,6 @@ function parseNestedValue(node, options) {
         }
       }
     }
-    delete node.parent;
   }
   return node;
 }

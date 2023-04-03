@@ -2,7 +2,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   const assertStderr = (message) => {
     expect(
       message.includes(
-        "'--debug-repeat' option found, running formatWithCursor 2 times"
+        "'--debug-repeat' found, running formatWithCursor 2 times"
       )
     ).toBe(true);
   };
@@ -15,7 +15,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   ).test({
     stderr: assertStderr,
     status: 0,
-    stdout: "'--debug-repeat' option found, skipped print code to screen.\n",
+    stdout: "'--debug-repeat' option found, skipped print code to screen.",
     write: [],
   });
 
@@ -28,7 +28,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
     ).test({
       stderr: assertStderr,
       status: 0,
-      stdout: "'--debug-repeat' option found, skipped print code to screen.\n",
+      stdout: "'--debug-repeat' option found, skipped print code to screen.",
       write: [],
     });
   }
@@ -42,8 +42,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   ]).test({
     stderr: assertStderr,
     status: 0,
-    stdout:
-      "'--debug-repeat' option found, skipped print code or write files.\n",
+    stdout: "'--debug-repeat' option found, skipped print code or write files.",
     write: [],
   });
 
@@ -57,8 +56,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   ]).test({
     stderr: assertStderr,
     status: 0,
-    stdout:
-      "'--debug-repeat' option found, skipped print code or write files.\n",
+    stdout: "'--debug-repeat' option found, skipped print code or write files.",
     write: [],
   });
 
@@ -72,8 +70,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   ]).test({
     stderr: assertStderr,
     status: 0,
-    stdout:
-      "'--debug-repeat' option found, skipped print code or write files.\n",
+    stdout: "'--debug-repeat' option found, skipped print code or write files.",
     write: [],
   });
 });

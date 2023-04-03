@@ -10,36 +10,28 @@ import {
   group,
   indent,
 } from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
+import { replaceEndOfLine, inheritLabel } from "../document/utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
-import embed from "./embed.js";
-import clean from "./clean.js";
-import { insertPragma } from "./pragma.js";
-import * as commentsRelatedPrinterMethods from "./comments/printer-methods.js";
+
 import pathNeedsParens from "./needs-parens.js";
 import {
   hasComment,
   CommentCheckFlags,
-  isTheOnlyJsxElementInMarkdown,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   isCallExpression,
   isMemberExpression,
-  markerForIfWithoutBlockAndSameLineComment,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   startsWithNoLookaheadToken,
+  createTypeCheckFunction,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
 import isIgnored from "./utils/is-ignored.js";
-import getVisitorKeys from "./traverse/get-visitor-keys.js";
 
-import {
-  printHtmlBinding,
-  isVueEventBindingExpression,
-} from "./print/html-binding.js";
+import { printHtmlBinding } from "./print/html-binding.js";
 import { printAngular } from "./print/angular.js";
 import { printJsx } from "./print/jsx.js";
 import { printFlow } from "./print/flow.js";
@@ -55,7 +47,6 @@ import {
 import {
   printImportDeclaration,
   printExportDeclaration,
-  printExportAllDeclaration,
   printModuleSpecifier,
 } from "./print/module.js";
 import { printTernary } from "./print/ternary.js";
@@ -92,11 +83,28 @@ import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 import { printTypeAnnotationProperty } from "./print/type-annotation.js";
 import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
+import { printExpressionStatement } from "./print/expression-statement.js";
 
 /**
  * @typedef {import("../common/ast-path.js").default} AstPath
  * @typedef {import("../document/builders.js").Doc} Doc
  */
+
+// Their decorators are handled themselves, and they don't need parentheses or leading semicolons
+const shouldPrintDirectly = createTypeCheckFunction([
+  "ClassMethod",
+  "ClassPrivateMethod",
+  "ClassProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "TSAbstractAccessorProperty",
+  "PropertyDefinition",
+  "TSAbstractPropertyDefinition",
+  "ClassPrivateProperty",
+  "MethodDefinition",
+  "TSAbstractMethodDefinition",
+  "TSDeclareMethod",
+]);
 
 /**
  * @param {AstPath} path
@@ -106,78 +114,39 @@ import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
  * @returns {Doc}
  */
 function genericPrint(path, options, print, args) {
-  const printed = printPathNoParens(path, options, print, args);
-  if (!printed) {
+  const doc = printPathNoParens(path, options, print, args);
+  if (!doc) {
     return "";
   }
 
   const { node } = path;
-  const { type } = node;
-  // Their decorators are handled themselves, and they can't have parentheses
-  if (
-    type === "ClassMethod" ||
-    type === "ClassPrivateMethod" ||
-    type === "ClassProperty" ||
-    type === "ClassAccessorProperty" ||
-    type === "AccessorProperty" ||
-    type === "TSAbstractAccessorProperty" ||
-    type === "PropertyDefinition" ||
-    type === "TSAbstractPropertyDefinition" ||
-    type === "ClassPrivateProperty" ||
-    type === "MethodDefinition" ||
-    type === "TSAbstractMethodDefinition" ||
-    type === "TSDeclareMethod"
-  ) {
-    return printed;
+  if (shouldPrintDirectly(node)) {
+    return doc;
   }
 
-  let parts = [printed];
-
-  const printedDecorators = printDecorators(path, options, print);
-  const isClassExpressionWithDecorators =
-    node.type === "ClassExpression" && isNonEmptyArray(node.decorators);
+  const hasDecorators = isNonEmptyArray(node.decorators);
+  const decoratorsDoc = printDecorators(path, options, print);
+  const isClassExpression = node.type === "ClassExpression";
   // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
-  if (printedDecorators) {
-    parts = [...printedDecorators, printed];
-
-    if (!isClassExpressionWithDecorators) {
-      return group(parts);
-    }
+  if (hasDecorators && !isClassExpression) {
+    return inheritLabel(doc, (doc) => group([decoratorsDoc, doc]));
   }
 
   const needsParens = pathNeedsParens(path, options);
   const needsSemi = shouldPrintLeadingSemicolon(path, options);
 
-  if (!needsParens) {
-    if (needsSemi) {
-      parts.unshift(";");
-    }
-
-    // In member-chain print, it add `label` to the doc, if we return array here it will be broken
-    if (parts.length === 1 && parts[0] === printed) {
-      return printed;
-    }
-
-    return parts;
+  if (!decoratorsDoc && !needsParens && !needsSemi) {
+    return doc;
   }
 
-  if (isClassExpressionWithDecorators) {
-    parts = [indent([line, ...parts])];
-  }
-
-  parts.unshift("(");
-
-  if (needsSemi) {
-    parts.unshift(";");
-  }
-
-  if (isClassExpressionWithDecorators) {
-    parts.push(line);
-  }
-
-  parts.push(")");
-
-  return parts;
+  return inheritLabel(doc, (doc) => [
+    needsSemi ? ";" : "",
+    needsParens ? "(" : "",
+    needsParens && isClassExpression && hasDecorators
+      ? [indent([line, decoratorsDoc, doc]), line]
+      : [decoratorsDoc, doc],
+    needsParens ? ")" : "",
+  ]);
 }
 
 /**
@@ -224,35 +193,8 @@ function printPathNoParens(path, options, print, args) {
     // Babel extension.
     case "EmptyStatement":
       return "";
-    case "ExpressionStatement": {
-      if (
-        options.parser === "__vue_event_binding" ||
-        options.parser === "__vue_ts_event_binding"
-      ) {
-        const { parent } = path;
-        if (
-          parent.type === "Program" &&
-          parent.body.length === 1 &&
-          parent.body[0] === node
-        ) {
-          return [
-            print("expression"),
-            isVueEventBindingExpression(node.expression) ? ";" : "",
-          ];
-        }
-      }
-
-      const danglingComment = printDanglingComments(path, options, {
-        marker: markerForIfWithoutBlockAndSameLineComment,
-      });
-
-      // Do not append semicolon after the only JSX element in a program
-      return [
-        print("expression"),
-        isTheOnlyJsxElementInMarkdown(options, path) ? "" : semi,
-        danglingComment ? [" ", danglingComment] : "",
-      ];
-    }
+    case "ExpressionStatement":
+      return printExpressionStatement(path, options, print);
 
     case "ChainExpression":
       return print("expression");
@@ -361,9 +303,8 @@ function printPathNoParens(path, options, print, args) {
 
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
-      return printExportDeclaration(path, options, print);
     case "ExportAllDeclaration":
-      return printExportAllDeclaration(path, options, print);
+      return printExportDeclaration(path, options, print);
     case "ImportDeclaration":
       return printImportDeclaration(path, options, print);
     case "ImportSpecifier":
@@ -797,13 +738,13 @@ function printPathNoParens(path, options, print, args) {
   }
 }
 
-const printer = {
-  print: genericPrint,
-  embed,
-  insertPragma,
-  massageAstNode: clean,
-  getVisitorKeys,
-  ...commentsRelatedPrinterMethods,
+export const experimentalFeatures = {
+  // TODO: Make this default behavior
+  avoidAstMutation: true,
 };
-
-export default printer;
+export { genericPrint as print };
+export * from "./comments/printer-methods.js";
+export { default as embed } from "./embed/index.js";
+export { default as massageAstNode } from "./clean.js";
+export { insertPragma } from "./pragma.js";
+export { default as getVisitorKeys } from "./traverse/get-visitor-keys.js";

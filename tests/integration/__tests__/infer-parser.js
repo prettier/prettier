@@ -1,4 +1,7 @@
 import prettier from "../../config/prettier-entry.js";
+import jestPathSerializer from "../path-serializer.js";
+
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("stdin no path and no parser", () => {
   describe("logs error and exits with 2", () => {
@@ -109,7 +112,7 @@ describe("--list-different with unknown path and no parser", () => {
   describe("multiple files", () => {
     runPrettier("cli/infer-parser/", ["--list-different", "*"]).test({
       status: 1,
-      stdout: "foo.js\n",
+      stdout: "foo.js",
       write: [],
     });
   });

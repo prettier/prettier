@@ -29,18 +29,10 @@ function parse(text) {
   }
 }
 
-const parser = {
+export const yaml = {
   astFormat: "yaml",
   parse,
   hasPragma,
   locStart,
   locEnd,
 };
-
-const yaml = {
-  parsers: {
-    yaml: parser,
-  },
-};
-
-export default yaml;

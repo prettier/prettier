@@ -10,10 +10,11 @@ import {
   printTemplateExpressions,
   uncookTemplateElementValue,
 } from "../print/template-literal.js";
+import { isAngularComponentTemplate, hasLanguageComment } from "./utils.js";
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
-async function embedHtmlLike(parser, textToDoc, print, path, options) {
+async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
   const { node } = path;
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
@@ -95,5 +96,35 @@ async function embedHtmlLike(parser, textToDoc, print, path, options) {
   );
 }
 
-export const embedHtml = embedHtmlLike.bind(undefined, "html");
-export const embedAngular = embedHtmlLike.bind(undefined, "angular");
+/**
+ *     - html`...`
+ *     - HTML comment block
+ */
+function isHtml(path) {
+  return (
+    hasLanguageComment(path.node, "HTML") ||
+    path.match(
+      (node) => node.type === "TemplateLiteral",
+      (node, name) =>
+        node.type === "TaggedTemplateExpression" &&
+        node.tag.type === "Identifier" &&
+        node.tag.name === "html" &&
+        name === "quasi"
+    )
+  );
+}
+
+const printEmbedHtml = printEmbedHtmlLike.bind(undefined, "html");
+const printEmbedAngular = printEmbedHtmlLike.bind(undefined, "angular");
+
+function printHtml(path /*, options*/) {
+  if (isHtml(path)) {
+    return printEmbedHtml;
+  }
+
+  if (isAngularComponentTemplate(path)) {
+    return printEmbedAngular;
+  }
+}
+
+export default printHtml;

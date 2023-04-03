@@ -20,7 +20,6 @@ import {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-  isEnabledHackPipeline,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
 } from "../utils/index.js";
@@ -37,7 +36,7 @@ function printBinaryishExpression(path, options, print) {
       parent.type === "SwitchStatement" ||
       parent.type === "DoWhileStatement");
   const isHackPipeline =
-    isEnabledHackPipeline(options) && node.operator === "|>";
+    node.operator === "|>" && path.root.extra?.__isUsingHackPipeline;
 
   const parts = printBinaryishExpressions(
     path,
@@ -230,7 +229,7 @@ function printBinaryishExpressions(
   const lineBeforeOperator =
     (node.operator === "|>" ||
       node.type === "NGPipeExpression" ||
-      (node.operator === "|" && options.parser === "__vue_expression")) &&
+      isVueFilterSequenceExpression(path, options)) &&
     !hasLeadingOwnLineComment(options.originalText, node.right);
 
   const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
@@ -253,7 +252,8 @@ function printBinaryishExpressions(
   if (shouldInline) {
     right = [operator, " ", print("right"), rightSuffix];
   } else {
-    const isHackPipeline = isEnabledHackPipeline(options) && operator === "|>";
+    const isHackPipeline =
+      operator === "|>" && path.root.extra?.__isUsingHackPipeline;
     const rightContent = isHackPipeline
       ? path.call(
           (left) =>
@@ -332,6 +332,20 @@ function shouldInlineLogicalExpression(node) {
   }
 
   return false;
+}
+
+const isBitwiseOrExpression = (node) =>
+  node.type === "BinaryExpression" && node.operator === "|";
+
+function isVueFilterSequenceExpression(path, options) {
+  return (
+    (options.parser === "__vue_expression" ||
+      options.parser === "__vue_ts_expression") &&
+    isBitwiseOrExpression(path.node) &&
+    !path.hasAncestor(
+      (node) => !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot"
+    )
+  );
 }
 
 export { printBinaryishExpression, shouldInlineLogicalExpression };

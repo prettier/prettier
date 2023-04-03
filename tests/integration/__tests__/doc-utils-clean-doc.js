@@ -1,9 +1,12 @@
-import prettier from "../../config/prettier-entry.js";
-const docBuilders = prettier.doc.builders;
-const docUtils = prettier.doc.utils;
-
-const { cleanDoc } = docUtils;
-const { group, align, indent, lineSuffix, ifBreak, fill } = docBuilders;
+import {
+  group,
+  align,
+  indent,
+  lineSuffix,
+  ifBreak,
+  fill,
+} from "../../../src/document/builders.js";
+import { cleanDoc } from "../../../src/document/utils.js";
 
 describe("cleanDoc", () => {
   test.each([

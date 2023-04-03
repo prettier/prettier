@@ -18,7 +18,7 @@ function writeChangelog(params) {
 
 async function getChangelogForPatch({ version, previousVersion }) {
   const { stdout: changelog } = await execa("node", [
-    "scripts/changelog-for-patch.mjs",
+    "scripts/changelog-for-patch.js",
     "--prev-version",
     previousVersion,
     "--new-version",

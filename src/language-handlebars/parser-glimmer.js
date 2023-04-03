@@ -146,15 +146,9 @@ function getErrorLocation(error) {
   }
 }
 
-const glimmerParser = {
-  parsers: {
-    glimmer: {
-      parse,
-      astFormat: "glimmer",
-      locStart,
-      locEnd,
-    },
-  },
+export const glimmer = {
+  parse,
+  astFormat: "glimmer",
+  locStart,
+  locEnd,
 };
-
-export default glimmerParser;

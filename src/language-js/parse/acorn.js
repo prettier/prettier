@@ -79,8 +79,7 @@ function parse(text, options = {}) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { text });
 }
 
-export default createParser(parse);
+export const acorn = createParser(parse);

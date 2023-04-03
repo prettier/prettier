@@ -103,47 +103,6 @@ await 0;
 ================================================================================
 `;
 
-exports[`decorator-auto-accessor-like-property-name.ts - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-class C {
-  accessor;
-  bar;
-}
-
-=====================================output=====================================
-class C {
-  accessor;
-  bar
-}
-
-================================================================================
-`;
-
-exports[`decorator-auto-accessor-like-property-name.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-class C {
-  accessor;
-  bar;
-}
-
-=====================================output=====================================
-class C {
-  accessor;
-  bar;
-}
-
-================================================================================
-`;
-
 exports[`decorator-auto-accessors-abstract-class.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -326,81 +285,6 @@ abstract class Foo {
   accessor aa!: any;
   abstract accessor #s;
   readonly accessor g;
-}
-
-================================================================================
-`;
-
-exports[`decorator-auto-accessors-new-line.ts - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-class Foo {
-  accessor
-  ["bar"];
-}
-
-class Foo {
-  static accessor
-  bar;
-}
-
-class Foo {
-  accessor
-  bar;
-}
-
-=====================================output=====================================
-class Foo {
-  accessor ["bar"]
-}
-
-class Foo {
-  static accessor bar
-}
-
-class Foo {
-  accessor bar
-}
-
-================================================================================
-`;
-
-exports[`decorator-auto-accessors-new-line.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-class Foo {
-  accessor
-  ["bar"];
-}
-
-class Foo {
-  static accessor
-  bar;
-}
-
-class Foo {
-  accessor
-  bar;
-}
-
-=====================================output=====================================
-class Foo {
-  accessor ["bar"];
-}
-
-class Foo {
-  static accessor bar;
-}
-
-class Foo {
-  accessor bar;
 }
 
 ================================================================================

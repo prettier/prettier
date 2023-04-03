@@ -8,4 +8,4 @@ updates:
       time: "01:00"
     labels:
       - scope:dependency
-    target-branch: "next"
+    target-branch: "main"

@@ -44,12 +44,11 @@ async function normalizeFormatOptions(options, opts = {}) {
       });
       if (!rawOptions.parser) {
         throw new UndefinedParserError(
-          `No parser could be inferred for file: ${rawOptions.filepath}`
+          `No parser could be inferred for file "${rawOptions.filepath}".`
         );
       }
     }
   }
-
   const parser = await resolveParser(
     // @ts-expect-error
     normalizeOptions(

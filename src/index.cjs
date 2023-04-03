@@ -40,7 +40,7 @@ prettier.__debug = debugApis;
 
 if (process.env.NODE_ENV === "production") {
   prettier.util = require("./utils/public.js");
-  prettier.doc = require("./document/index.js");
+  prettier.doc = require("./document/public.js");
 } else {
   Object.defineProperties(prettier, {
     util: {

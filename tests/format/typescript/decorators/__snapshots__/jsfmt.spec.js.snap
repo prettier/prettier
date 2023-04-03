@@ -1,5 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`abstract-method.ts [babel-ts] format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+    @decorator()
+    abstract method(): Array<string>
+}
+
+=====================================output=====================================
+class A {
+  @decorator()
+  abstract method(): Array<string>;
+}
+
+================================================================================
+`;
+
+exports[`abstract-method.ts [typescript] format 1`] = `
+"A decorator can only decorate a method implementation, not an overload. (2:5)
+  1 | class A {
+> 2 |     @decorator()
+    |     ^^^^^^^^^^^^
+  3 |     abstract method(): Array<string>
+  4 | }
+  5 |"
+`;
+
+exports[`accessor.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+    @foo()
+    get a() {return 1}
+    @bar()
+    set a(v) {}
+}
+
+=====================================output=====================================
+class A {
+  @foo()
+  get a() {
+    return 1;
+  }
+  @bar()
+  set a(v) {}
+}
+
+================================================================================
+`;
+
 exports[`argument-list-preserve-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -278,12 +334,6 @@ class Something2 {
     abstract property: Array<string>
 }
 
-class Something3 {
-    @foo()
-    // comment
-    abstract method(): Array<string>
-}
-
 =====================================output=====================================
 class Foo1 {
   @foo
@@ -319,12 +369,6 @@ class Something2 {
   @foo()
   // comment
   abstract property: Array<string>;
-}
-
-class Something3 {
-  @foo()
-  // comment
-  abstract method(): Array<string>;
 }
 
 ================================================================================
@@ -442,6 +486,44 @@ class MyContainerComponent {
 ================================================================================
 `;
 
+exports[`legacy.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  @decorator() class {},
+  @decorator() class A {},
+];
+
+class A {
+  @decorator() accessor #field;
+}
+
+class B {
+  @decorator() #field () {}
+}
+
+=====================================output=====================================
+[
+  @decorator()
+  class {},
+  @decorator()
+  class A {},
+];
+
+class A {
+  @decorator() accessor #field;
+}
+
+class B {
+  @decorator() #field() {}
+}
+
+================================================================================
+`;
+
 exports[`mobx.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -467,7 +549,7 @@ import {observable} from "mobx";
   }
 
   @computed
-  get total() {
+  get total2() {
     return this.price * this.amount;
   }
 
@@ -476,7 +558,7 @@ import {observable} from "mobx";
     this.price = price;
   }
 
-  @computed @computed @computed @computed @computed @computed @computed get total() {
+  @computed @computed @computed @computed @computed @computed @computed get total3() {
     return this.price * this.amount;
   }
 
@@ -506,7 +588,7 @@ class OrderLine {
   }
 
   @computed
-  get total() {
+  get total2() {
     return this.price * this.amount;
   }
 
@@ -522,7 +604,7 @@ class OrderLine {
   @computed
   @computed
   @computed
-  get total() {
+  get total3() {
     return this.price * this.amount;
   }
 

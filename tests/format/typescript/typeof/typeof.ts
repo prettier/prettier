@@ -1,4 +1,4 @@
-a as (typeof node.children)[number]
-a as (typeof node.children)[]
-a as ((typeof node.children)[number])[]
-a as number[(typeof node.children)]
+type A = (typeof node.children)[number];
+type B = (typeof node.children)[];
+type C = ((typeof node.children)[number])[];
+type D = number[(typeof node.children)];

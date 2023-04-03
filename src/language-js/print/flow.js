@@ -4,17 +4,18 @@ import assert from "node:assert";
 import printString from "../../utils/print-string.js";
 import printNumber from "../../utils/print-number.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   isFunctionNotation,
   isGetterOrSetter,
   rawText,
 } from "../utils/index.js";
+import isFlowKeywordType from "../utils/is-flow-keyword-type.js";
 import { printClass } from "./class.js";
 import {
   printOpaqueType,
   printTypeAlias,
   printIntersectionType,
+  printInferType,
   printUnionType,
   printFunctionType,
   printIndexedAccessType,
@@ -22,10 +23,12 @@ import {
   printNamedTupleMember,
   printTypeAnnotation,
   printTypeAnnotationProperty,
+  printArrayType,
+  printTypeQuery,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
-import { printExportDeclaration, printExportAllDeclaration } from "./module.js";
+import { printExportDeclaration } from "./module.js";
 import { printArray } from "./array.js";
 import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
@@ -40,9 +43,16 @@ import {
   printRestSpread,
   printDeclareToken,
 } from "./misc.js";
+import { printTernary } from "./ternary.js";
 
 function printFlow(path, options, print) {
   const { node } = path;
+
+  if (isFlowKeywordType(node)) {
+    // Flow keyword types ends with `TypeAnnotation`
+    return node.type.slice(0, -14).toLowerCase();
+  }
+
   const semi = options.semi ? ";" : "";
 
   switch (node.type) {
@@ -75,9 +85,8 @@ function printFlow(path, options, print) {
         semi,
       ];
     case "DeclareExportDeclaration":
-      return printExportDeclaration(path, options, print);
     case "DeclareExportAllDeclaration":
-      return printExportAllDeclaration(path, options, print);
+      return printExportDeclaration(path, options, print);
     case "DeclareOpaqueType":
     case "OpaqueType":
       return printOpaqueType(path, options, print);
@@ -90,6 +99,10 @@ function printFlow(path, options, print) {
       return printIntersectionType(path, options, print);
     case "UnionTypeAnnotation":
       return printUnionType(path, options, print);
+    case "ConditionalTypeAnnotation":
+      return printTernary(path, options, print);
+    case "InferTypeAnnotation":
+      return printInferType(path, options, print);
     case "FunctionTypeAnnotation":
       return printFunctionType(path, options, print);
     case "TupleTypeAnnotation":
@@ -113,17 +126,11 @@ function printFlow(path, options, print) {
     case "TypeParameter":
       return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
-      return ["typeof ", print("argument")];
+      return printTypeQuery(path, print);
     case "ExistsTypeAnnotation":
       return "*";
-    case "EmptyTypeAnnotation":
-      return "empty";
-    case "MixedTypeAnnotation":
-      return "mixed";
     case "ArrayTypeAnnotation":
-      return [print("elementType"), "[]"];
-    case "BooleanLiteralTypeAnnotation":
-      return String(node.value);
+      return printArrayType(print);
 
     case "DeclareEnum":
     case "EnumDeclaration":
@@ -223,6 +230,11 @@ function printFlow(path, options, print) {
     case "QualifiedTypeofIdentifier":
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
+
+    case "NullLiteralTypeAnnotation":
+      return "null";
+    case "BooleanLiteralTypeAnnotation":
+      return String(node.value);
     case "StringLiteralTypeAnnotation":
       return replaceEndOfLine(printString(rawText(node), options));
     case "NumberLiteralTypeAnnotation":
@@ -245,48 +257,6 @@ function printFlow(path, options, print) {
       return "%checks";
     case "DeclaredPredicate":
       return ["%checks(", print("value"), ")"];
-    case "AnyTypeAnnotation":
-      return "any";
-    case "BooleanTypeAnnotation":
-      return "boolean";
-    case "BigIntTypeAnnotation":
-      return "bigint";
-    case "NullLiteralTypeAnnotation":
-      return "null";
-    case "NumberTypeAnnotation":
-      return "number";
-    case "SymbolTypeAnnotation":
-      return "symbol";
-    case "StringTypeAnnotation":
-      return "string";
-    case "VoidTypeAnnotation":
-      return "void";
-    case "ThisTypeAnnotation":
-      return "this";
-    case "NeverTypeAnnotation":
-      return "never";
-    case "UndefinedTypeAnnotation":
-      return "undefined";
-    case "UnknownTypeAnnotation":
-      return "unknown";
-    // These types are unprintable because they serve as abstract
-    // supertypes for other (printable) types.
-    case "Node":
-    case "Printable":
-    case "SourceLocation":
-    case "Position":
-    case "Statement":
-    case "Function":
-    case "Pattern":
-    case "Expression":
-    case "Declaration":
-    case "Specifier":
-    case "NamedSpecifier":
-    case "Comment":
-    case "MemberTypeAnnotation": // Flow
-    case "Type":
-      /* c8 ignore next */
-      throw new UnexpectedNodeError(node, "Flow");
   }
 }
 
