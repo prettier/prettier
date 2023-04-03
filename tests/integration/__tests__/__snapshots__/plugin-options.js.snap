@@ -32,8 +32,7 @@ Valid options:
   html             HTML
   angular          Angular
   lwc              Lightning Web Components
-  foo-parser       foo (plugin: ./plugin.cjs)
-"
+  foo-parser       foo (plugin: ./plugin.cjs)"
 `;
 
 exports[`include plugin's parsers to the values of the \`parser\` option\` (write) 1`] = `[]`;
@@ -50,8 +49,7 @@ Valid options:
   bar   bar description
   baz   baz description
 
-Default: bar
-"
+Default: bar"
 `;
 
 exports[`show detailed external option with \`--help foo-option\` (write) 1`] = `[]`;

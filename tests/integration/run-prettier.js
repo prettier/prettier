@@ -24,6 +24,9 @@ const streamToString = (stream) =>
     });
   });
 
+const removeFinalNewLine = (string) =>
+  string.endsWith("\n") ? string.slice(0, -1) : string;
+
 function runCliWorker(dir, args, options) {
   const result = {
     status: undefined,
@@ -57,8 +60,8 @@ function runCliWorker(dir, args, options) {
   return new Promise((resolve, reject) => {
     worker.on("exit", async (code) => {
       result.status = code;
-      result.stdout = await streamToString(worker.stdout);
-      result.stderr = await streamToString(worker.stderr);
+      result.stdout = removeFinalNewLine(await streamToString(worker.stdout));
+      result.stderr = removeFinalNewLine(await streamToString(worker.stderr));
       resolve(result);
     });
 

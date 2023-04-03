@@ -28,7 +28,7 @@ describe("cursorOffset should not be affected by full-width character", () => {
      *   "中文"
      * ];
      */
-    stderr: "26\n",
+    stderr: "26",
     status: 0,
   });
 });
