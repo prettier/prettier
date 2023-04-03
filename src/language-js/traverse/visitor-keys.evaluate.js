@@ -40,7 +40,6 @@ const additionalVisitorKeys = {
   ],
   DeclareEnum: flowVisitorKeys.EnumDeclaration,
   InferTypeAnnotation: ["typeParameter"],
-<<<<<<< HEAD
   KeyofTypeAnnotation: ["argument"],
   ObjectTypeMappedTypeProperty: [
     "keyTparam",
@@ -48,9 +47,7 @@ const additionalVisitorKeys = {
     "sourceType",
     "variance",
   ],
-=======
   QualifiedTypeofIdentifier: ["id", "qualification"],
->>>>>>> main
   TupleTypeAnnotation: ["elementTypes"],
   TupleTypeSpreadElement: ["label", "typeAnnotation"],
   TupleTypeLabeledElement: ["label", "elementType", "variance"],
