@@ -1,7 +1,8 @@
 import { ConfigError } from "../common/errors.js";
 
+// TODO: Improve coverage
+
 function getParserPluginByParserName(plugins, parserName) {
-  // TODO: test this with plugins
   /* c8 ignore start */
   if (!parserName) {
     throw new Error("parserName is required.");
@@ -31,7 +32,6 @@ function getParserPluginByParserName(plugins, parserName) {
 }
 
 function getPrinterPluginByAstFormat(plugins, astFormat) {
-  // TODO: test this with plugins
   /* c8 ignore start */
   if (!astFormat) {
     throw new Error("astFormat is required.");
