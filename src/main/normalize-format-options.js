@@ -71,17 +71,13 @@ async function normalizeFormatOptions(options, opts = {}) {
 
   rawOptions.printer = printer;
 
-  const pluginDefaults = Object.fromEntries(
-    supportOptions
-      .filter(
-        (optionInfo) =>
-          optionInfo.pluginDefaults?.[printerPlugin.name] !== undefined
+  const pluginDefaults = printerPlugin.defaultOptions
+    ? Object.fromEntries(
+        Object.entries(printerPlugin.defaultOptions).filter(
+          ([, value]) => value !== undefined
+        )
       )
-      .map((optionInfo) => [
-        optionInfo.name,
-        optionInfo.pluginDefaults[printerPlugin.name],
-      ])
-  );
+    : {};
 
   const mixedDefaults = { ...defaults, ...pluginDefaults };
 
