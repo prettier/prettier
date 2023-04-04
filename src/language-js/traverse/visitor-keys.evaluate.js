@@ -26,8 +26,6 @@ const additionalVisitorKeys = {
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
-  // This one maybe invalid, need investigate
-  TSAbstractMethodDefinition: ["decorators"],
 
   // Flow
   ClassProperty: ["variance"],
@@ -52,6 +50,7 @@ const additionalVisitorKeys = {
 const excludeKeys = {
   // From `tsVisitorKeys`
   MethodDefinition: ["typeParameters"],
+  TSPropertySignature: ["initializer"],
 
   // From `flowVisitorKeys`
   ArrowFunctionExpression: ["id"],
@@ -65,9 +64,6 @@ const excludeKeys = {
   // From `babelVisitorKeys`
   DeclareInterface: ["mixins", "implements"],
   InterfaceDeclaration: ["mixins", "implements"],
-
-  // TypeScript
-  TSPropertySignature: ["initializer"],
 };
 
 const visitorKeys = Object.fromEntries(
