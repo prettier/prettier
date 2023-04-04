@@ -308,33 +308,41 @@ function printArrowChain(
 }
 
 function printArrowFunction(path, options, print, args) {
-  let { node } = path;
+  const { node } = path;
   /** @type {Doc[]} */
   const signatures = [];
-  const body = [];
+  const bodyDoc = [];
   let chainShouldBreak = false;
+  let tailNode = node;
 
   (function rec() {
+    const { node: currentNode } = path;
     const doc = printArrowFunctionSignature(path, options, print, args);
     if (signatures.length === 0) {
       signatures.push(doc);
     } else {
       const { leading, trailing } = printCommentsSeparately(path, options);
       signatures.push([leading, doc]);
-      body.unshift(trailing);
+      bodyDoc.unshift(trailing);
     }
 
     chainShouldBreak =
       chainShouldBreak ||
       // Always break the chain if:
-      (node.returnType && getFunctionParameters(node).length > 0) ||
-      node.typeParameters ||
-      getFunctionParameters(node).some((param) => param.type !== "Identifier");
+      (currentNode.returnType &&
+        getFunctionParameters(currentNode).length > 0) ||
+      currentNode.typeParameters ||
+      getFunctionParameters(currentNode).some(
+        (param) => param.type !== "Identifier"
+      );
 
-    if (node.body.type !== "ArrowFunctionExpression" || args?.expandLastArg) {
-      body.unshift(print("body", args));
+    if (
+      currentNode.body.type !== "ArrowFunctionExpression" ||
+      args?.expandLastArg
+    ) {
+      bodyDoc.unshift(print("body", args));
     } else {
-      node = node.body;
+      tailNode = currentNode.body;
       path.call(rec, "body");
     }
   })();
@@ -345,37 +353,39 @@ function printArrowFunction(path, options, print, args) {
       args,
       signatures,
       chainShouldBreak,
-      body,
-      node
+      bodyDoc,
+      tailNode
     );
   }
 
   const parts = signatures;
   parts.push(" =>");
 
+  const { body } = tailNode;
+
   // We want to always keep these types of nodes on the same line
   // as the arrow.
   if (
-    !hasLeadingOwnLineComment(options.originalText, node.body) &&
-    (isArrayOrTupleExpression(node.body) ||
-      isObjectOrRecordExpression(node.body) ||
-      node.body.type === "BlockStatement" ||
-      isJsxElement(node.body) ||
-      (body[0].label?.hug !== false &&
-        (body[0].label?.embed ||
-          isTemplateOnItsOwnLine(node.body, options.originalText))) ||
-      node.body.type === "ArrowFunctionExpression" ||
-      node.body.type === "DoExpression")
+    !hasLeadingOwnLineComment(options.originalText, body) &&
+    (isArrayOrTupleExpression(body) ||
+      isObjectOrRecordExpression(body) ||
+      body.type === "BlockStatement" ||
+      isJsxElement(body) ||
+      (bodyDoc[0].label?.hug !== false &&
+        (bodyDoc[0].label?.embed ||
+          isTemplateOnItsOwnLine(body, options.originalText))) ||
+      body.type === "ArrowFunctionExpression" ||
+      body.type === "DoExpression")
   ) {
-    return group([...parts, " ", body]);
+    return group([...parts, " ", bodyDoc]);
   }
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
-  if (node.body.type === "SequenceExpression") {
+  if (body.type === "SequenceExpression") {
     return group([
       ...parts,
-      group([" (", indent([softline, body]), softline, ")"]),
+      group([" (", indent([softline, bodyDoc]), softline, ")"]),
     ]);
   }
 
@@ -394,9 +404,9 @@ function printArrowFunction(path, options, print, args) {
   // a => a ? a : a
   // a <= a ? a : a
   const shouldAddParens =
-    node.body.type === "ConditionalExpression" &&
+    body.type === "ConditionalExpression" &&
     !startsWithNoLookaheadToken(
-      node.body,
+      body,
       (node) => node.type === "ObjectExpression"
     );
 
@@ -406,7 +416,7 @@ function printArrowFunction(path, options, print, args) {
       indent([
         line,
         shouldAddParens ? ifBreak("", "(") : "",
-        body,
+        bodyDoc,
         shouldAddParens ? ifBreak("", ")") : "",
       ]),
       shouldAddSoftLine
