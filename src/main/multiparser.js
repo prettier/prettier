@@ -1,6 +1,6 @@
 import { stripTrailingHardline } from "../document/utils.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
-import { parse } from "./parser-and-printer.js";
+import parse from "./parse.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 async function printEmbeddedLanguages(
