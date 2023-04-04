@@ -1,6 +1,13 @@
 import { ConfigError } from "../common/errors.js";
 
 function getParserPluginByParserName(plugins, parserName) {
+  // TODO: test this with plugins
+  /* c8 ignore start */
+  if (!parserName) {
+    throw new Error("parserName is required.");
+  }
+  /* c8 ignore stop */
+
   /*
   Loop from end to allow plugins override builtin plugins,
   this is how `resolveParser` works in v2.
@@ -30,7 +37,6 @@ function getPrinterPluginByAstFormat(plugins, astFormat) {
     throw new Error("astFormat is required.");
   }
   /* c8 ignore stop */
-  // TODO: test this with plugins
 
   // Loop from end to consistent with parser resolve logic
   for (let index = plugins.length - 1; index >= 0; index--) {
