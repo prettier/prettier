@@ -3,7 +3,7 @@ import path from "node:path";
 import chalk from "chalk";
 import { createTwoFilesPatch } from "diff";
 import * as prettier from "../index.js";
-import thirdParty from "../common/third-party.js";
+import mockable from "../common/mockable.js";
 import { createIsIgnoredFunction, errors } from "./prettier-internal.js";
 import { expandPatterns } from "./expand-patterns.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
@@ -12,7 +12,7 @@ import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
 import { statSafe, normalizeToPosix } from "./utils.js";
 
-const { getStdin } = thirdParty;
+const { getStdin, writeFormattedFile } = mockable;
 
 function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
@@ -425,7 +425,7 @@ async function formatFiles(context) {
         }
 
         try {
-          await fs.writeFile(filename, output, "utf8");
+          await writeFormattedFile(filename, output);
 
           // Set cache if format succeeds
           shouldSetCache = true;

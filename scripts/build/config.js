@@ -489,8 +489,8 @@ const nodejsFiles = [
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
   },
   {
-    input: "src/common/third-party.js",
-    outputBaseName: "internal/third-party",
+    input: "src/common/mockable.js",
+    outputBaseName: "internal/internal",
     replaceModule: [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {

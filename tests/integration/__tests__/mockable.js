@@ -1,7 +1,7 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import createEsmUtils from "esm-utils";
-import { thirdParty } from "../env.js";
+import { mockable } from "../env.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -12,7 +12,7 @@ describe("cosmiconfig", () => {
   beforeAll(async () => {
     ({
       default: { cosmiconfig },
-    } = await import(pathToFileURL(thirdParty)));
+    } = await import(pathToFileURL(mockable)));
   });
 
   const configs = [
@@ -57,6 +57,6 @@ describe("cosmiconfig", () => {
 test("isCI", async () => {
   const {
     default: { isCI },
-  } = await import(pathToFileURL(thirdParty));
+  } = await import(pathToFileURL(mockable));
   expect(typeof isCI()).toBe("boolean");
 });
