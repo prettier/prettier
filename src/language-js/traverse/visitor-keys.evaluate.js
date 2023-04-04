@@ -47,9 +47,6 @@ const additionalVisitorKeys = {
   NeverTypeAnnotation: [],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
-
-  // Unknown
-  Property: ["decorators"],
 };
 
 const excludeKeys = {
