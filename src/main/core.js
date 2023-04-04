@@ -12,7 +12,7 @@ import {
 } from "../common/end-of-line.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
 import massageAst from "./massage-ast.js";
-import { parse as parseText, resolveParser } from "./parser.js";
+import { parse as parseText, resolveParser } from "./parser-and-printer.js";
 import { printAstToDoc, prepareToPrint } from "./ast-to-doc.js";
 import { calculateRange } from "./range-util.js";
 import getCursorNode from "./get-cursor-node.js";
