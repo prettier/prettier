@@ -207,7 +207,7 @@ test("--no-plugin-search still allow use --plugin", async () => {
   const args = ["file.txt", "--parser=baz"];
   const { stdout: stdoutWithoutPlugin } = await runPrettier(
     "plugins/automatic",
-    args,
+    args
   );
   const argsWithPlugin = [...args, "--plugin=./prettier-plugin-baz.js"];
   const { stdout: stdoutWithPlugin } = await runPrettier(
@@ -223,10 +223,16 @@ test("--no-plugin-search still allow use --plugin", async () => {
     [...argsWithPlugin, "--no-plugin-search"]
   );
 
-  expect(stdoutWithoutPlugin).toBe("content from `prettier-plugin-baz.js` package + contents");
-  expect(stdoutWithPlugin).toBe("content from `prettier-plugin-baz.js` package + contents");
+  expect(stdoutWithoutPlugin).toBe(
+    "content from `prettier-plugin-baz.js` package + contents"
+  );
+  expect(stdoutWithPlugin).toBe(
+    "content from `prettier-plugin-baz.js` package + contents"
+  );
   expect(stdoutWithoutPluginAndNoPluginSearch).toBe("");
-  expect(stdoutWithPluginButNoPluginSearch).toBe("content from `prettier-plugin-baz.js` file + contents");
+  expect(stdoutWithPluginButNoPluginSearch).toBe(
+    "content from `prettier-plugin-baz.js` file + contents"
+  );
 });
 
 test("--no-plugin-search together with --plugin-search-dir", async () => {
