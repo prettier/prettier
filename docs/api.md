@@ -90,7 +90,7 @@ When Prettier loads configuration files and plugins, the file system structure i
 
 The promise will be rejected if the type of `filePath` is not `string`.
 
-Setting `options.ignorePath` (`string string[]`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
+Setting `options.ignorePath` (`string | string[]`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
 
 If the given `filePath` is ignored, the `inferredParser` is always `null`.
 
