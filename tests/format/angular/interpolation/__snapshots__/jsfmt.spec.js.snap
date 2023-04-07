@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`computed-optional-member-expression.ng - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["__ng_interpolation"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+[
+  a?.[0]
+]
+
+=====================================output=====================================
+[a?.[0]]
+================================================================================
+`;
+
 exports[`logical-expression.ng - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
