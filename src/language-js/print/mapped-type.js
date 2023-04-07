@@ -1,6 +1,6 @@
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import { locStart, locEnd } from "../loc.js";
+import { locStart } from "../loc.js";
 import {
   group,
   softline,
