@@ -1,8 +1,5 @@
-import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import {
   join,
-  line,
   softline,
   group,
   indent,
@@ -12,7 +9,6 @@ import {
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   isStringLiteral,
-  getTypeScriptMappedTypeModifier,
   shouldPrintComma,
   isCallExpression,
   isMemberExpression,
@@ -58,6 +54,7 @@ import {
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printImportKind } from "./module.js";
+import { printTypescriptMappedType } from "./mapped-type.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
@@ -239,36 +236,10 @@ function printTypescript(path, options, print) {
 
     case "TSTypeOperator":
       return [node.operator, " ", print("typeAnnotation")];
-    case "TSMappedType": {
-      // Break after `{` like `printObject`
-      const shouldBreak = hasNewlineInRange(
-        options.originalText,
-        locStart(node),
-        // Ideally, this should be the next token after `{`, but there is no node starts with it.
-        locStart(node.typeParameter)
-      );
-      return group(
-        [
-          "{",
-          indent([
-            options.bracketSpacing ? line : softline,
-            group([
-              print("typeParameter"),
-              node.optional
-                ? getTypeScriptMappedTypeModifier(node.optional, "?")
-                : "",
-              node.typeAnnotation ? ": " : "",
-              print("typeAnnotation"),
-            ]),
-            ifBreak(semi),
-          ]),
-          printDanglingComments(path, options),
-          options.bracketSpacing ? line : softline,
-          "}",
-        ],
-        { shouldBreak }
-      );
-    }
+
+    case "TSMappedType":
+      return printTypescriptMappedType(path, options, print);
+
     case "TSMethodSignature": {
       const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";
       parts.push(

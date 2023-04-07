@@ -1,10 +1,10 @@
 import { pathToFileURL } from "node:url";
 import parseToml from "@iarna/toml/parse-async.js";
 import parseJson5 from "json5/lib/parse.js";
-import thirdParty from "../common/third-party.js";
+import mockable from "../common/mockable.js";
 import loadExternalConfig from "./load-external-config.js";
 
-const { cosmiconfig } = thirdParty;
+const { cosmiconfig } = mockable;
 
 const searchPlaces = [
   "package.json",
