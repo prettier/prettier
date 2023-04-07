@@ -11,7 +11,6 @@ import {
   softline,
   group,
   indent,
-  dedent,
   ifBreak,
   hardline,
   join,
@@ -249,69 +248,33 @@ function printArrowFunctionSignature(path, options, print, args) {
   return parts;
 }
 
-function printArrowChain(
-  path,
-  args,
-  signatures,
-  shouldBreak,
-  bodyDoc,
-  tailNode
-) {
-  const { parent, key } = path;
-  const isCallee = isCallLikeExpression(parent) && key === "callee";
-  const isAssignmentRhs = Boolean(args?.assignmentLayout);
-  const shouldPutBodyOnSeparateLine =
-    tailNode.body.type !== "BlockStatement" &&
-    !isObjectOrRecordExpression(tailNode.body) &&
-    tailNode.body.type !== "SequenceExpression";
-  const shouldBreakBeforeChain =
-    (isCallee && shouldPutBodyOnSeparateLine) ||
-    args?.assignmentLayout === "chain-tail-arrow-chain";
-
-  const groupId = Symbol("arrow-chain");
-
-  if ((isCallLikeExpression(parent) && !isCallee) || isBinaryish(parent)) {
-    signatures = [dedent(signatures[0]), ...signatures.slice(1)];
-  }
-
-  if (
-    // We handle sequence expressions as the body of arrows specially,
-    // so that the required parentheses end up on their own lines.
-    tailNode.body.type === "SequenceExpression" ||
-    // In order to avoid confusion between
-    // a => a ? a : a
-    // a <= a ? a : a
-    (tailNode.body.type === "ConditionalExpression" &&
-      !startsWithNoLookaheadToken(
-        tailNode.body,
-        (node) => node.type === "ObjectExpression"
-      ))
-  ) {
-    bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
-  }
-
-  return group([
-    group(
-      indent([
-        isCallee || isAssignmentRhs ? softline : "",
-        group(join([" =>", line], signatures), { shouldBreak }),
-      ]),
-      { id: groupId, shouldBreak: shouldBreakBeforeChain }
-    ),
-    " =>",
-    indentIfBreak(
-      shouldPutBodyOnSeparateLine ? indent([line, bodyDoc]) : [" ", bodyDoc],
-      { groupId }
-    ),
-    isCallee ? ifBreak(softline, "", { groupId }) : "",
-  ]);
+/**
+ *
+ * @param {*} node
+ * @param {*[]} bodyDoc
+ * @param {*} options
+ * @returns {boolean}
+ */
+function mayBreakAfterShortPrefix(node, bodyDoc, options) {
+  return (
+    isArrayOrTupleExpression(node) ||
+    isObjectOrRecordExpression(node) ||
+    node.type === "BlockStatement" ||
+    isJsxElement(node) ||
+    (bodyDoc[0].label?.hug !== false &&
+      (bodyDoc[0].label?.embed ||
+        isTemplateOnItsOwnLine(node, options.originalText))) ||
+    node.type === "ArrowFunctionExpression" ||
+    node.type === "DoExpression"
+  );
 }
 
 function printArrowFunction(path, options, print, args) {
-  const { node } = path;
+  const { node, parent, key } = path;
   /** @type {Doc[]} */
   const signatures = [];
-  const bodyDoc = [];
+  /** @type {any[] | Doc} */
+  let bodyDoc = [];
   let chainShouldBreak = false;
   let tailNode = node;
 
@@ -347,47 +310,36 @@ function printArrowFunction(path, options, print, args) {
     }
   })();
 
-  if (signatures.length > 1) {
-    return printArrowChain(
-      path,
-      args,
-      signatures,
-      chainShouldBreak,
-      bodyDoc,
-      tailNode
-    );
-  }
-
-  const parts = signatures;
-  parts.push(" =>");
-
   const { body } = tailNode;
 
-  // We want to always keep these types of nodes on the same line
-  // as the arrow.
-  if (
-    !hasLeadingOwnLineComment(options.originalText, body) &&
-    (isArrayOrTupleExpression(body) ||
-      isObjectOrRecordExpression(body) ||
-      body.type === "BlockStatement" ||
-      isJsxElement(body) ||
-      (bodyDoc[0].label?.hug !== false &&
-        (bodyDoc[0].label?.embed ||
-          isTemplateOnItsOwnLine(body, options.originalText))) ||
-      body.type === "ArrowFunctionExpression" ||
-      body.type === "DoExpression")
-  ) {
-    return group([...parts, " ", bodyDoc]);
-  }
+  // In order to avoid confusion between
+  // a => a ? a : a
+  // a <= a ? a : a
+  const shouldAddParensIfBreak =
+    body.type === "ConditionalExpression" &&
+    !startsWithNoLookaheadToken(
+      body,
+      (node) => node.type === "ObjectExpression"
+    );
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
-  if (body.type === "SequenceExpression") {
-    return group([
-      ...parts,
-      group([" (", indent([softline, bodyDoc]), softline, ")"]),
-    ]);
-  }
+  const shouldAlwaysAddParens = body.type === "SequenceExpression";
+
+  const shouldAddParens = shouldAddParensIfBreak || shouldAlwaysAddParens;
+
+  // We want to always keep these types of nodes on the same line
+  // as the arrow.
+  const shouldPutBodyOnSameLine =
+    !hasLeadingOwnLineComment(options.originalText, body) &&
+    (mayBreakAfterShortPrefix(body, bodyDoc, options) || shouldAddParens);
+
+  const isCallee = isCallLikeExpression(parent) && key === "callee";
+  const shouldBreakBeforeChain =
+    (isCallee && !shouldPutBodyOnSameLine) ||
+    args?.assignmentLayout === "chain-tail-arrow-chain";
+
+  const isAssignmentRhs = Boolean(args?.assignmentLayout);
 
   // if the arrow function is expanded as last argument, we are adding a
   // level of indentation and need to add a softline to align the closing )
@@ -400,29 +352,82 @@ function printArrowFunction(path, options, print, args) {
   const printTrailingComma =
     args?.expandLastArg && shouldPrintComma(options, "all");
 
-  // In order to avoid confusion between
-  // a => a ? a : a
-  // a <= a ? a : a
-  const shouldAddParens =
-    body.type === "ConditionalExpression" &&
-    !startsWithNoLookaheadToken(
-      body,
-      (node) => node.type === "ObjectExpression"
-    );
+  const isChain = signatures.length > 1;
 
-  return group([
-    ...parts,
-    group([
-      indent([
-        line,
-        shouldAddParens ? ifBreak("", "(") : "",
-        bodyDoc,
-        shouldAddParens ? ifBreak("", ")") : "",
-      ]),
+  const chainGroupId = Symbol("arrow-chain");
+
+  if (shouldAddParensIfBreak) {
+    bodyDoc = group([
+      ifBreak("", "("),
+      indent([softline, bodyDoc]),
+      ifBreak("", ")"),
       shouldAddSoftLine
         ? [ifBreak(printTrailingComma ? "," : ""), softline]
         : "",
+    ]);
+  } else if (shouldAlwaysAddParens) {
+    bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
+  }
+
+  const maybeBreakFirst = (doc) => {
+    if ((isCallee || isAssignmentRhs) && isChain) {
+      return group(indent([softline, doc]), {
+        shouldBreak: shouldBreakBeforeChain,
+        id: chainGroupId,
+      });
+    }
+    return group(doc, { id: chainGroupId });
+  };
+
+  /** @type {Doc} */
+  let joinedSignatures = "";
+  if (!isChain) {
+    joinedSignatures = signatures[0];
+  } else if (
+    (isCallLikeExpression(parent) && !isCallee) ||
+    isBinaryish(parent)
+  ) {
+    joinedSignatures = group(
+      [
+        signatures[0],
+        " =>",
+        indent([line, join([" =>", line], signatures.slice(1))]),
+      ],
+      {
+        shouldBreak: chainShouldBreak,
+      }
+    );
+  } else if (isCallee || isAssignmentRhs) {
+    joinedSignatures = group(join([" =>", line], signatures), {
+      shouldBreak: chainShouldBreak,
+    });
+  } else {
+    joinedSignatures = group(indent(join([" =>", line], signatures)), {
+      shouldBreak: chainShouldBreak,
+    });
+  }
+
+  const indentIfChainBreaks = (doc) => {
+    if (!isChain) {
+      return group(doc);
+    }
+    return indentIfBreak(doc, { groupId: chainGroupId });
+  };
+
+  return group([
+    maybeBreakFirst(joinedSignatures),
+    " =>",
+    indentIfChainBreaks([
+      shouldPutBodyOnSameLine
+        ? [" ", bodyDoc]
+        : [
+            indent([line, bodyDoc]),
+            shouldAddSoftLine
+              ? [ifBreak(printTrailingComma ? "," : ""), softline]
+              : "",
+          ],
     ]),
+    isChain && isCallee ? ifBreak(softline, "", { groupId: chainGroupId }) : "",
   ]);
 }
 
