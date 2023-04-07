@@ -2,8 +2,8 @@ import url from "node:url";
 import path from "node:path";
 import { createRequire } from "node:module";
 import webpack from "webpack";
-import { DIST_DIR } from "../../utils/index.mjs";
-import files from "../../build/config.mjs";
+import { DIST_DIR } from "../../utils/index.js";
+import files from "../../build/config.js";
 
 function runWebpack(config) {
   return new Promise((resolve, reject) => {

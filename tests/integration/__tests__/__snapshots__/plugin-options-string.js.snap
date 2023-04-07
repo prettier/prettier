@@ -7,8 +7,7 @@ exports[`show detailed external option with \`--help foo-string\` (stdout) 1`] =
 
   foo description
 
-Default: bar
-"
+Default: bar"
 `;
 
 exports[`show detailed external option with \`--help foo-string\` (write) 1`] = `[]`;

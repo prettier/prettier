@@ -182,8 +182,8 @@ function shouldExtraIndentForConditionalExpression(path) {
 
 /**
  * The following is the shared logic for
- * ternary operators, namely ConditionalExpression
- * and TSConditionalType
+ * ternary operators, namely ConditionalExpression,
+ * ConditionalTypeAnnotation and TSConditionalType
  * @param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively

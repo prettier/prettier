@@ -934,8 +934,8 @@ exports[`CLI --support-info (stdout) 1`] = `
       "array": true,
       "category": "Global",
       "default": [],
-      "description": "Custom directory that contains prettier plugins in node_modules subdirectory.\\nOverrides default behavior when plugins are searched relatively to the location of Prettier.\\nMultiple values are accepted.",
-      "name": "pluginSearchDirs",
+      "description": "Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.",
+      "name": "plugins",
       "pluginDefaults": {},
       "type": "path"
     },
@@ -943,8 +943,8 @@ exports[`CLI --support-info (stdout) 1`] = `
       "array": true,
       "category": "Global",
       "default": [],
-      "description": "Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.",
-      "name": "plugins",
+      "description": "Custom directory that contains prettier plugins in node_modules subdirectory.\\nOverrides default behavior when plugins are searched relatively to the location of Prettier.\\nMultiple values are accepted.",
+      "name": "pluginSearchDirs",
       "pluginDefaults": {},
       "type": "path"
     },
@@ -1092,7 +1092,6 @@ exports[`CLI --support-info (stdout) 1`] = `
     }
   ]
 }
-
 "
 `;
 

@@ -486,19 +486,6 @@ function isSimpleTemplateLiteral(node) {
 }
 
 /**
- * @param {string} tokenNode
- * @param {string} keyword
- * @returns {string}
- */
-function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
-  if (tokenNode === "+" || tokenNode === "-") {
-    return tokenNode + keyword;
-  }
-
-  return keyword;
-}
-
-/**
  * @param {string} text
  * @param {Node} node
  * @returns {boolean}
@@ -1131,7 +1118,6 @@ export {
   hasRestParameter,
   getLeftSide,
   getLeftSidePathName,
-  getTypeScriptMappedTypeModifier,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNode,

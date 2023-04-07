@@ -14,14 +14,33 @@ describe("--cache option", () => {
   );
 
   const nonDefaultCacheFileName = ".non-default-cache-file";
+  const directoryNameAsCacheFile = "directory-as-cache-file";
   const nonDefaultCacheFilePath = path.join(dir, nonDefaultCacheFileName);
 
-  let contentA;
-  let contentB;
+  const contentA = `function a() {
+  console.log("this is a.js")
+}
+`;
+  const contentB = `function b() {
+  console.log("this is b.js");
+}
+`;
+
+  const clean = async () => {
+    await fs.rm(path.join(dir, directoryNameAsCacheFile), {
+      force: true,
+      recursive: true,
+    });
+    await fs.rm(nonDefaultCacheFilePath, { force: true });
+    await fs.rm(path.join(dir, "a.js"), { force: true });
+    await fs.rm(path.join(dir, "b.js"), { force: true });
+  };
 
   beforeAll(async () => {
-    contentA = await fs.readFile(path.join(dir, "a.js"), "utf8");
-    contentB = await fs.readFile(path.join(dir, "b.js"), "utf8");
+    await clean();
+    await fs.mkdir(path.join(dir, directoryNameAsCacheFile));
+    await fs.writeFile(path.join(dir, "a.js"), contentA);
+    await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
 
   afterEach(async () => {
@@ -33,13 +52,14 @@ describe("--cache option", () => {
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
+  afterAll(clean);
 
   it("throw error when cache-strategy is invalid", async () => {
     const { stderr } = await runPrettier(dir, [
       "--cache",
       "--cache-strategy",
       "invalid",
-      ".",
+      "*.js",
     ]);
     expect(stderr.trim()).toBe(
       '[error] Invalid --cache-strategy value. Expected "content" or "metadata", but received "invalid".'
@@ -73,7 +93,7 @@ describe("--cache option", () => {
       "foo.js",
       "--cache",
       "--cache-location",
-      "dir",
+      directoryNameAsCacheFile,
     ]);
     expect(stderr.trim()).toEqual(
       expect.stringMatching(
@@ -88,7 +108,12 @@ describe("--cache option", () => {
         "code",
         "ENOENT"
       );
-      await runPrettier(dir, ["--cache", "--cache-strategy", "metadata", "."]);
+      await runPrettier(dir, [
+        "--cache",
+        "--cache-strategy",
+        "metadata",
+        "*.js",
+      ]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
     });
 
@@ -98,9 +123,9 @@ describe("--cache option", () => {
         "--write",
         "--cache-strategy",
         "metadata",
-        ".",
+        "*.js",
       ]);
-      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -112,9 +137,9 @@ describe("--cache option", () => {
         "--write",
         "--cache-strategy",
         "metadata",
-        ".",
+        "*.js",
       ]);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(cached\)$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
@@ -128,10 +153,10 @@ describe("--cache option", () => {
         "--write",
         "--cache-strategy",
         "metadata",
-        ".",
+        "*.js",
       ];
       const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
-      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -142,7 +167,7 @@ describe("--cache option", () => {
       await fs.writeFile(path.join(dir, "a.js"), "const a = `a`;");
 
       const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -157,10 +182,10 @@ describe("--cache option", () => {
         "--write",
         "--cache-strategy",
         "metadata",
-        ".",
+        "*.js",
       ];
       const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
-      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -172,7 +197,7 @@ describe("--cache option", () => {
       await fs.utimes(path.join(dir, "a.js"), time, time);
 
       const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -187,9 +212,9 @@ describe("--cache option", () => {
         "--write",
         "--cache-strategy",
         "metadata",
-        ".",
+        "*.js",
       ]);
-      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -203,9 +228,9 @@ describe("--cache option", () => {
         "--write",
         "--trailing-comma",
         "all",
-        ".",
+        "*.js",
       ]);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -214,16 +239,21 @@ describe("--cache option", () => {
     });
 
     it("re-formats after execution without write.", async () => {
-      await runPrettier(dir, ["--cache", "--cache-strategy", "metadata", "."]);
+      await runPrettier(dir, [
+        "--cache",
+        "--cache-strategy",
+        "metadata",
+        "*.js",
+      ]);
 
       const { stdout: secondStdout } = await runPrettier(dir, [
         "--write",
         "--cache",
         "--cache-strategy",
         "metadata",
-        ".",
+        "*.js",
       ]);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
@@ -237,7 +267,7 @@ describe("--cache option", () => {
         "--cache",
         "--cache-strategy",
         "metadata",
-        ".",
+        "*.js",
       ];
       await runPrettier(dir, cliArguments);
 
@@ -248,10 +278,15 @@ describe("--cache option", () => {
       const time = new Date();
       await fs.utimes(path.join(dir, "b.js"), time, time);
 
-      await runPrettier(dir, ["--cache", "--cache-strategy", "metadata", "."]);
+      await runPrettier(dir, [
+        "--cache",
+        "--cache-strategy",
+        "metadata",
+        "*.js",
+      ]);
 
       const { stdout: thirdStdout } = await runPrettier(dir, cliArguments);
-      expect(thirdStdout.split("\n").filter(Boolean)).toEqual(
+      expect(thirdStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
@@ -266,19 +301,19 @@ describe("--cache option", () => {
         status: firstStatus,
       } = await runPrettier(
         dir,
-        ["--write", "--cache", "--cache-strategy", "metadata", "."],
+        ["--write", "--cache", "--cache-strategy", "metadata", "*.js"],
         {
           mockWriteFileErrors: {
-            "a.js": "EACCES: permission denied (mock error)",
+            "a.js": "EACCES: permission denied.",
           },
         }
       );
       expect(firstStatus).toBe(2);
-      expect(firstStderr.split("\n").filter(Boolean)).toEqual([
-        "[error] Unable to write file: a.js",
-        "[error] EACCES: permission denied (mock error)",
-      ]);
-      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
+      expect(firstStderr).toBe(
+        '[error] Unable to write file "a.js":\n' +
+          "[error] EACCES: permission denied. (mocked error)"
+      );
+      expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -290,9 +325,9 @@ describe("--cache option", () => {
         "--cache",
         "--cache-strategy",
         "metadata",
-        ".",
+        "*.js",
       ]);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(["a.js"]);
+      expect(secondStdout).toBe("a.js");
     });
 
     it("removes cache file when run Prettier without `--cache` option", async () => {
@@ -301,10 +336,10 @@ describe("--cache option", () => {
         "--write",
         "--cache-strategy",
         "metadata",
-        ".",
+        "*.js",
       ]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
-      await runPrettier(dir, ["--write", "."]);
+      await runPrettier(dir, ["--write", "*.js"]);
       await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
     });
   });
@@ -315,7 +350,12 @@ describe("--cache option", () => {
         "code",
         "ENOENT"
       );
-      await runPrettier(dir, ["--cache", "--cache-strategy", "content", "."]);
+      await runPrettier(dir, [
+        "--cache",
+        "--cache-strategy",
+        "content",
+        "*.js",
+      ]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
     });
 
@@ -325,10 +365,10 @@ describe("--cache option", () => {
         "--cache-strategy",
         "content",
         "--write",
-        ".",
+        "*.js",
       ];
       const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
-      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -336,7 +376,7 @@ describe("--cache option", () => {
       );
 
       const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(cached\)$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
@@ -350,10 +390,10 @@ describe("--cache option", () => {
         "--cache-strategy",
         "content",
         "--write",
-        ".",
+        "*.js",
       ];
       const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
-      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -364,7 +404,7 @@ describe("--cache option", () => {
       await fs.writeFile(path.join(dir, "a.js"), "const a = `a`;");
 
       const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -379,10 +419,10 @@ describe("--cache option", () => {
         "--cache-strategy",
         "content",
         "--write",
-        ".",
+        "*.js",
       ];
       const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
-      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -394,7 +434,7 @@ describe("--cache option", () => {
       await fs.utimes(path.join(dir, "a.js"), time, time);
 
       const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(cached\)$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
@@ -408,9 +448,9 @@ describe("--cache option", () => {
         "--cache-strategy",
         "content",
         "--write",
-        ".",
+        "*.js",
       ]);
-      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -424,9 +464,9 @@ describe("--cache option", () => {
         "content",
         "--trailing-comma",
         "all",
-        ".",
+        "*.js",
       ]);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -435,16 +475,21 @@ describe("--cache option", () => {
     });
 
     it("re-formats after execution without write.", async () => {
-      await runPrettier(dir, ["--cache", "--cache-strategy", "content", "."]);
+      await runPrettier(dir, [
+        "--cache",
+        "--cache-strategy",
+        "content",
+        "*.js",
+      ]);
 
       const { stdout: secondStdout } = await runPrettier(dir, [
         "--write",
         "--cache",
         "--cache-strategy",
         "content",
-        ".",
+        "*.js",
       ]);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
@@ -458,7 +503,7 @@ describe("--cache option", () => {
         "--cache",
         "--cache-strategy",
         "content",
-        ".",
+        "*.js",
       ];
       await runPrettier(dir, cliArguments);
 
@@ -469,10 +514,15 @@ describe("--cache option", () => {
       const time = new Date();
       await fs.utimes(path.join(dir, "b.js"), time, time);
 
-      await runPrettier(dir, ["--cache", "--cache-strategy", "content", "."]);
+      await runPrettier(dir, [
+        "--cache",
+        "--cache-strategy",
+        "content",
+        "*.js",
+      ]);
 
       const { stdout: thirdStdout } = await runPrettier(dir, cliArguments);
-      expect(thirdStdout.split("\n").filter(Boolean)).toEqual(
+      expect(thirdStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
@@ -487,19 +537,19 @@ describe("--cache option", () => {
         status: firstStatus,
       } = await runPrettier(
         dir,
-        ["--write", "--cache", "--cache-strategy", "content", "."],
+        ["--write", "--cache", "--cache-strategy", "content", "*.js"],
         {
           mockWriteFileErrors: {
-            "a.js": "EACCES: permission denied (mock error)",
+            "a.js": "EACCES: permission denied.",
           },
         }
       );
       expect(firstStatus).toBe(2);
-      expect(firstStderr.split("\n").filter(Boolean)).toEqual([
-        "[error] Unable to write file: a.js",
-        "[error] EACCES: permission denied (mock error)",
-      ]);
-      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
+      expect(firstStderr).toBe(
+        '[error] Unable to write file "a.js":\n' +
+          "[error] EACCES: permission denied. (mocked error)"
+      );
+      expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -511,15 +561,15 @@ describe("--cache option", () => {
         "--cache",
         "--cache-strategy",
         "content",
-        ".",
+        "*.js",
       ]);
-      expect(secondStdout.split("\n").filter(Boolean)).toEqual(["a.js"]);
+      expect(secondStdout).toBe("a.js");
     });
 
     it("removes cache file when run Prettier without `--cache` option", async () => {
-      await runPrettier(dir, ["--cache", "--write", "."]);
+      await runPrettier(dir, ["--cache", "--write", "*.js"]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
-      await runPrettier(dir, ["--write", "."]);
+      await runPrettier(dir, ["--write", "*.js"]);
       await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
     });
   });
@@ -534,7 +584,7 @@ describe("--cache option", () => {
         "--cache",
         "--cache-location",
         nonDefaultCacheFileName,
-        ".",
+        "*.js",
       ]);
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
         "code",
@@ -547,7 +597,7 @@ describe("--cache option", () => {
         "--cache",
         "--cache-location",
         "a.js",
-        ".",
+        "*.js",
       ]);
       expect(stderr.trim()).toEqual(
         expect.stringMatching(/\[error] '.+' isn't a valid JSON file/)
@@ -564,7 +614,7 @@ describe("--cache option", () => {
           "--cache",
           "--cache-location",
           nonDefaultCacheFileName,
-          ".",
+          "*.js",
         ]);
         await expect(
           fs.stat(nonDefaultCacheFilePath)
@@ -577,10 +627,10 @@ describe("--cache option", () => {
           "--write",
           "--cache-location",
           nonDefaultCacheFileName,
-          ".",
+          "*.js",
         ];
         const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
-        expect(firstStdout.split("\n").filter(Boolean)).toEqual(
+        expect(firstStdout.split("\n")).toEqual(
           expect.arrayContaining([
             expect.stringMatching(/^a\.js .+ms$/),
             expect.stringMatching(/^b\.js .+ms$/),
@@ -588,7 +638,7 @@ describe("--cache option", () => {
         );
 
         const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
-        expect(secondStdout.split("\n").filter(Boolean)).toEqual(
+        expect(secondStdout.split("\n")).toEqual(
           expect.arrayContaining([
             expect.stringMatching(/^a\.js .+ms \(cached\)$/),
             expect.stringMatching(/^b\.js .+ms \(cached\)$/),

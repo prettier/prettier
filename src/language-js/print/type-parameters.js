@@ -16,7 +16,6 @@ import {
   shouldPrintComma,
   getFunctionParameters,
   isObjectType,
-  getTypeScriptMappedTypeModifier,
 } from "../utils/index.js";
 import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
 import {
@@ -24,6 +23,7 @@ import {
   shouldHugType,
 } from "./type-annotation.js";
 import { isArrowFunctionVariableDeclarator } from "./assignment.js";
+import { printTypeScriptMappedTypeModifier } from "./mapped-type.js";
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
@@ -119,7 +119,7 @@ function printTypeParameter(path, options, print) {
   if (parent.type === "TSMappedType") {
     if (parent.readonly) {
       parts.push(
-        getTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
+        printTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
         " "
       );
     }
@@ -152,6 +152,10 @@ function printTypeParameter(path, options, print) {
   parts.push(name);
 
   if (node.bound) {
+    if (node.usesExtendsBound) {
+      parts.push(" extends ");
+    }
+
     parts.push(printTypeAnnotationProperty(path, print, "bound"));
   }
 

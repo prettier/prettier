@@ -127,7 +127,7 @@ module.exports = {
       "error",
       {
         devDependencies: [
-          "jest.config.mjs",
+          "jest.config.js",
           "tests/**",
           "scripts/**",
           "website/**/*",
@@ -260,7 +260,7 @@ module.exports = {
       },
     },
     {
-      files: ["scripts/**/*.mjs"],
+      files: ["scripts/**/*.js"],
       rules: {
         "unicorn/prefer-top-level-await": "error",
       },
@@ -325,7 +325,7 @@ module.exports = {
                 path.resolve(__dirname, "src/**"),
                 `!${path.resolve(__dirname, "src/cli/**")}`,
                 `!${path.resolve(__dirname, "src/index.js")}`,
-                `!${path.resolve(__dirname, "src/common/third-party.js")}`,
+                `!${path.resolve(__dirname, "src/common/mockable.js")}`,
               ],
               message: "Don't use code from other directory.",
             },

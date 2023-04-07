@@ -1,6 +1,6 @@
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
-import flowVisitorKeys from "hermes-eslint/dist/HermesESLintVisitorKeys.js";
+import { VisitorKeys as flowVisitorKeys } from "hermes-eslint";
 import unionVisitorKeys from "./union-visitor-keys.js";
 
 const angularVisitorKeys = {
@@ -26,8 +26,6 @@ const additionalVisitorKeys = {
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
-  // This one maybe invalid, need investigate
-  TSAbstractMethodDefinition: ["decorators"],
   // `@typescript-eslint/typescript-estree` v6 renamed `typeParameters` to `typeArguments`
   // Remove those when babel update AST
   JSXOpeningElement: ["typeParameters"],
@@ -35,25 +33,36 @@ const additionalVisitorKeys = {
   TSInterfaceHeritage: ["typeParameters"],
 
   // Flow
-  BigIntTypeAnnotation: [],
-  QualifiedTypeofIdentifier: ["id", "qualification"],
   ClassProperty: ["variance"],
   ClassPrivateProperty: ["variance"],
+  ConditionalTypeAnnotation: [
+    "checkType",
+    "extendsType",
+    "trueType",
+    "falseType",
+  ],
   DeclareEnum: flowVisitorKeys.EnumDeclaration,
+  InferTypeAnnotation: ["typeParameter"],
+  KeyofTypeAnnotation: ["argument"],
+  ObjectTypeMappedTypeProperty: [
+    "keyTparam",
+    "propType",
+    "sourceType",
+    "variance",
+  ],
+  QualifiedTypeofIdentifier: ["id", "qualification"],
   TupleTypeAnnotation: ["elementTypes"],
   TupleTypeSpreadElement: ["label", "typeAnnotation"],
   TupleTypeLabeledElement: ["label", "elementType", "variance"],
   NeverTypeAnnotation: [],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
-
-  // Unknown
-  Property: ["decorators"],
 };
 
 const excludeKeys = {
   // From `tsVisitorKeys`
   MethodDefinition: ["typeParameters"],
+  TSPropertySignature: ["initializer"],
 
   // From `flowVisitorKeys`
   ArrowFunctionExpression: ["id"],
@@ -62,12 +71,11 @@ const excludeKeys = {
   // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
   // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab
   // TupleTypeAnnotation: ["types"],
-  DeclareInterface: ["mixins", "implements"],
-  InterfaceDeclaration: ["mixins", "implements"],
   PropertyDefinition: ["tsModifiers"],
 
-  // TypeScript
-  TSPropertySignature: ["initializer"],
+  // From `babelVisitorKeys`
+  DeclareInterface: ["mixins", "implements"],
+  InterfaceDeclaration: ["mixins", "implements"],
 };
 
 const visitorKeys = Object.fromEntries(

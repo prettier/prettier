@@ -756,7 +756,7 @@ foo as unknown satisfies Bar;
 =====================================output=====================================
 ;({}) satisfies {}
 ;({}) satisfies X
-;() => ({} satisfies X)
+;() => ({}) satisfies X
 this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement)
 
 "current" in (props.pagination satisfies Object)
@@ -812,7 +812,7 @@ foo as unknown satisfies Bar;
 =====================================output=====================================
 ({}) satisfies {};
 ({}) satisfies X;
-() => ({} satisfies X);
+() => ({}) satisfies X;
 this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement);
 
 "current" in (props.pagination satisfies Object);

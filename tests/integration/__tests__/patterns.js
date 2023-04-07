@@ -1,8 +1,3 @@
-import runPrettier from "../run-prettier.js";
-import jestPathSerializer from "../path-serializer.js";
-
-expect.addSnapshotSerializer(jestPathSerializer);
-
 describe("multiple patterns", () => {
   runPrettier("cli/patterns", [
     "directory/**/*.js",

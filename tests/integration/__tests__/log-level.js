@@ -69,7 +69,7 @@ describe("log-level should not effect information print", () => {
     {
       argv: ["--find-config-path", "any-file"],
       assertOptions: {
-        stdout: ".prettierrc\n",
+        stdout: ".prettierrc",
       },
     },
     {
@@ -96,7 +96,7 @@ describe("log-level should not effect information print", () => {
     {
       argv: ["--parser", "babel"],
       runOptions: { input: "foo" },
-      assertOptions: { stdout: "foo;\n" },
+      assertOptions: { stdout: "foo;" },
     },
   ]) {
     runPrettier("cli/log-level", ["--log-level", "silent", ...argv], {

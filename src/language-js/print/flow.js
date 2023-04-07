@@ -15,6 +15,7 @@ import {
   printOpaqueType,
   printTypeAlias,
   printIntersectionType,
+  printInferType,
   printUnionType,
   printFunctionType,
   printIndexedAccessType,
@@ -42,6 +43,8 @@ import {
   printRestSpread,
   printDeclareToken,
 } from "./misc.js";
+import { printTernary } from "./ternary.js";
+import { printFlowMappedTypeProperty } from "./mapped-type.js";
 
 function printFlow(path, options, print) {
   const { node } = path;
@@ -97,6 +100,10 @@ function printFlow(path, options, print) {
       return printIntersectionType(path, options, print);
     case "UnionTypeAnnotation":
       return printUnionType(path, options, print);
+    case "ConditionalTypeAnnotation":
+      return printTernary(path, options, print);
+    case "InferTypeAnnotation":
+      return printInferType(path, options, print);
     case "FunctionTypeAnnotation":
       return printFunctionType(path, options, print);
     case "TupleTypeAnnotation":
@@ -172,9 +179,12 @@ function printFlow(path, options, print) {
       assert.ok(kind === "plus" || kind === "minus");
       return kind === "plus" ? "+" : "-";
     }
+    case "KeyofTypeAnnotation":
+      return ["keyof ", print("argument")];
     case "ObjectTypeCallProperty":
       return [node.static ? "static " : "", print("value")];
-
+    case "ObjectTypeMappedTypeProperty":
+      return printFlowMappedTypeProperty(path, options, print);
     case "ObjectTypeIndexer":
       return [
         node.static ? "static " : "",

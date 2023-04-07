@@ -1,7 +1,3 @@
-import jestPathSerializer from "../path-serializer.js";
-
-expect.addSnapshotSerializer(jestPathSerializer);
-
 describe("boolean flags do not swallow the next argument", () => {
   runPrettier("cli/arg-parsing", [
     "--end-of-line",
@@ -59,7 +55,7 @@ describe("allow overriding flags", () => {
     ["--tab-width=1", "--tab-width=3", "--parser=babel"],
     { input: "function a() { b }" }
   ).test({
-    stdout: "function a() {\n   b;\n}\n",
+    stdout: "function a() {\n   b;\n}",
     status: 0,
   });
 });
