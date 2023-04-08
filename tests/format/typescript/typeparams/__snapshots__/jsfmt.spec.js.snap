@@ -362,6 +362,54 @@ class _ {
 ================================================================================
 `;
 
+exports[`line-breaking-after-extends.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export type OuterType1<
+  LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerOtherType<OneMoreType>
+> = { a: 1 };
+
+export type OuterType2<
+  LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerLongerLongerLongerLongerOtherType
+> = { a: 1 };
+
+export type OuterType3<
+  LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType
+> = { a: 1 };
+
+export type OuterType4<
+  LongerLongerLongerLongerInnerType extends
+    | LongerLongerLongerLongerLongerLo
+    | ngerLongerLongerOtherType
+> = { a: 1 };
+
+=====================================output=====================================
+export type OuterType1<
+  LongerLongerLongerLongerInnerType extends
+    LongerLongerLongerLongerOtherType<OneMoreType>,
+> = { a: 1 };
+
+export type OuterType2<
+  LongerLongerLongerLongerInnerType extends
+    LongerLongerLongerLongerLongerLongerLongerLongerOtherType,
+> = { a: 1 };
+
+export type OuterType3<
+  LongerLongerLongerLongerInnerType extends
+    LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType,
+> = { a: 1 };
+
+export type OuterType4<
+  LongerLongerLongerLongerInnerType extends
+    LongerLongerLongerLongerLongerLo | ngerLongerLongerOtherType,
+> = { a: 1 };
+
+================================================================================
+`;
+
 exports[`long-function-arg.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
