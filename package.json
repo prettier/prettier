@@ -130,7 +130,7 @@
     "eslint-plugin-n": "15.7.0",
     "eslint-plugin-prettier-internal-rules": "2.0.1",
     "eslint-plugin-react": "7.32.2",
-    "eslint-plugin-regexp": "1.13.0",
+    "eslint-plugin-regexp": "1.14.0",
     "eslint-plugin-unicorn": "46.0.0",
     "esm-utils": "4.1.2",
     "execa": "7.1.1",
