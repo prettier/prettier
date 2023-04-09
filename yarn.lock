@@ -1479,17 +1479,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdn/browser-compat-data@npm:^3.3.14":
-  version: 3.3.14
-  resolution: "@mdn/browser-compat-data@npm:3.3.14"
-  checksum: 0363cc9cb3cef308b78b3ba82af0542ad928bacecc95ee1e849c134c3eb866f4771df9fb064fd4da42fdb28e2d6932e0abb6e47ed47fbc42a26a9b0a5aee1e9f
-  languageName: node
-  linkType: hard
-
-"@mdn/browser-compat-data@npm:^5.2.34":
-  version: 5.2.39
-  resolution: "@mdn/browser-compat-data@npm:5.2.39"
-  checksum: 80bf58e4355c468dce7f859e30064f7fa873971e6e40565b2e0f0cd5593ae29e611b3e341296fe6be1010179f440df4605d45547d846b1768e4e7510560c699b
+"@mdn/browser-compat-data@npm:^5.2.34, @mdn/browser-compat-data@npm:^5.2.47":
+  version: 5.2.49
+  resolution: "@mdn/browser-compat-data@npm:5.2.49"
+  checksum: ee8a66e8ac5d707ccdb407622f50893525b310ee0e1539907f2bffd770a43385be3a587ce482dff28202d41c3e83215fa7ba0f873e0e92ce87cc03efe9ebdf85
   languageName: node
   linkType: hard
 
@@ -1590,6 +1583,13 @@ __metadata:
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
   checksum: ad87447820dd3f24825d2d947ebc03072b20a42bfc96cbafec16bff8bbda6c1a81fcb0be56d5b21968560c5359a0af4038a68ba150c3e1694fe4c109a063bed8
+  languageName: node
+  linkType: hard
+
+"@tsconfig/node14@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@tsconfig/node14@npm:1.0.3"
+  checksum: 19275fe80c4c8d0ad0abed6a96dbf00642e88b220b090418609c4376e1cef81bf16237bf170ad1b341452feddb8115d8dd2e5acdfdea1b27422071163dc9ba9d
   languageName: node
   linkType: hard
 
@@ -2157,12 +2157,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ast-metadata-inferer@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "ast-metadata-inferer@npm:0.7.0"
+"ast-metadata-inferer@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "ast-metadata-inferer@npm:0.8.0"
   dependencies:
-    "@mdn/browser-compat-data": ^3.3.14
-  checksum: 9bb633b680d537cd6d5066e48ed6ae68d7ddae663a380bdba78d4f40b53d4c03845dc3a7307d55ecf1248b447ee28d62bb20ade8b880abc2df629cda9414e32e
+    "@mdn/browser-compat-data": ^5.2.34
+  checksum: 8b9f38b5c7d33e2fad80174bb2613fad962c6ef728175281dd7957548608c95d958190b5269b74f6e24d037f6e650b45eb39440c1e206e3f9799aedde27fa54a
   languageName: node
   linkType: hard
 
@@ -2442,10 +2442,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001449, caniuse-lite@npm:^1.0.30001451":
-  version: 1.0.30001458
-  resolution: "caniuse-lite@npm:1.0.30001458"
-  checksum: 258cc5a25babbbfe483bf788c6f321a19400ff80b2bf156b360bac09a6f9f4da44516350d187a30395667cb142c682d9ea96577ea0df236d35f76234b07ccb41
+"caniuse-lite@npm:^1.0.30001449, caniuse-lite@npm:^1.0.30001473":
+  version: 1.0.30001476
+  resolution: "caniuse-lite@npm:1.0.30001476"
+  checksum: 4e8b233b349330598ac8e4b77515901011ed687b0d0042b78b06cd520ba31953dbacca62348662e912f3b67892fb12406b928caed4233ab53b1603235802bc7c
   languageName: node
   linkType: hard
 
@@ -3419,20 +3419,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-compat@npm:4.1.2":
-  version: 4.1.2
-  resolution: "eslint-plugin-compat@npm:4.1.2"
+"eslint-plugin-compat@npm:4.1.4":
+  version: 4.1.4
+  resolution: "eslint-plugin-compat@npm:4.1.4"
   dependencies:
-    "@mdn/browser-compat-data": ^5.2.34
-    ast-metadata-inferer: ^0.7.0
+    "@mdn/browser-compat-data": ^5.2.47
+    "@tsconfig/node14": ^1.0.3
+    ast-metadata-inferer: ^0.8.0
     browserslist: ^4.21.5
-    caniuse-lite: ^1.0.30001451
+    caniuse-lite: ^1.0.30001473
     find-up: ^5.0.0
     lodash.memoize: 4.1.2
     semver: 7.3.8
   peerDependencies:
     eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
-  checksum: 385c29d7392ce161cf24bb118fa98f45a817106fbb131919be03c4b332c0e2baa4609e57ee182cb1c26a788d6030569a08a1598561014fe0a2fa648c11502de2
+  checksum: 25df48509996fd540839abf59aeb5257df3fd7826792c94aabd045ab11b94f7dfbba77ccebcce52be18ae2048b91a6d8f3cf8864b70fd0d3f798c76027f51925
   languageName: node
   linkType: hard
 
@@ -6756,7 +6757,7 @@ __metadata:
     eslint: 8.36.0
     eslint-config-prettier: 8.8.0
     eslint-formatter-friendly: 7.0.0
-    eslint-plugin-compat: 4.1.2
+    eslint-plugin-compat: 4.1.4
     eslint-plugin-import: 2.27.5
     eslint-plugin-jest: 27.2.1
     eslint-plugin-n: 15.6.1
