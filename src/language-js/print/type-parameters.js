@@ -112,6 +112,10 @@ function printDanglingCommentsForInline(path, options) {
 
 function printTypeParameter(path, options, print) {
   const { node, parent } = path;
+
+  /**
+   * @type {import("../../document/builders.js").Doc[]}
+   */
   const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
 
   const name = node.type === "TSTypeParameter" ? print("name") : node.name;
@@ -160,14 +164,14 @@ function printTypeParameter(path, options, print) {
   }
 
   if (node.constraint) {
-    parts.push(" extends ", print("constraint"));
+    parts.push(" extends", indent([line, print("constraint")]));
   }
 
   if (node.default) {
     parts.push(" = ", print("default"));
   }
 
-  return parts;
+  return group(parts);
 }
 
 export { printTypeParameter, printTypeParameters, getTypeParametersGroupId };
