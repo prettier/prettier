@@ -1,6 +1,6 @@
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import { locStart, locEnd } from "../loc.js";
+import { locStart } from "../loc.js";
 import {
   group,
   softline,
@@ -54,10 +54,12 @@ function printTypeScriptMappedTypeModifier(tokenNode, keyword) {
 
 function printTypescriptMappedType(path, options, print) {
   const { node } = path;
+  // Break after `{` like `printObject`
   const shouldBreak = hasNewlineInRange(
     options.originalText,
     locStart(node),
-    locEnd(node)
+    // Ideally, this should be the next token after `{`, but there is no node starts with it.
+    locStart(node.typeParameter)
   );
 
   return group(
@@ -65,12 +67,14 @@ function printTypescriptMappedType(path, options, print) {
       "{",
       indent([
         options.bracketSpacing ? line : softline,
-        print("typeParameter"),
-        node.optional
-          ? printTypeScriptMappedTypeModifier(node.optional, "?")
-          : "",
-        node.typeAnnotation ? ": " : "",
-        print("typeAnnotation"),
+        group([
+          print("typeParameter"),
+          node.optional
+            ? printTypeScriptMappedTypeModifier(node.optional, "?")
+            : "",
+          node.typeAnnotation ? ": " : "",
+          print("typeAnnotation"),
+        ]),
         options.semi ? ifBreak(";") : "",
       ]),
       printDanglingComments(path, options),
