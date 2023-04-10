@@ -16,8 +16,7 @@ module.exports = {
       url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/await-cli-tests.js",
     },
     messages: {
-      [MESSAGE_ID_CALL]:
-        "'runCli()' should be awaited or calling `.test()`.",
+      [MESSAGE_ID_CALL]: "'runCli()' should be awaited or calling `.test()`.",
       [MESSAGE_ID_GETTER]: "'runCli().{{property}}' should be awaited.",
     },
   },
