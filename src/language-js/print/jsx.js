@@ -13,6 +13,7 @@ import {
   ifBreak,
   lineSuffixBoundary,
   join,
+  cursor,
 } from "../../document/builders.js";
 import { willBreak, replaceEndOfLine } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
@@ -50,6 +51,7 @@ const isEmptyStringOrAnyLine = (doc) =>
  * @typedef {import("../../common/ast-path.js").default} AstPath
  * @typedef {import("../types/estree.js").Node} Node
  * @typedef {import("../types/estree.js").JSXElement} JSXElement
+ * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
 // JSX expands children from the inside-out, instead of the outside-in.
@@ -236,9 +238,21 @@ function printJsxElementInternal(path, options, print) {
   // If there is text we use `fill` to fit as much onto each line as possible.
   // When there is no text (just tags and expressions) we use `group`
   // to output each on a separate line.
-  const content = containsText
+  /** @type {Doc} */
+  let content = containsText
     ? fill(multilineChildren)
     : group(multilineChildren, { shouldBreak: true });
+
+  /*
+  `printJsxChildren` won't call `print` on `JSXText`
+  When the cursorNode is inside `cursor` won't get print.
+  */
+  if (
+    options.cursorNode?.type === "JSXText" &&
+    node.children.includes(options.cursorNode)
+  ) {
+    content = [cursor, content, cursor];
+  }
 
   if (isMdxBlock) {
     return content;
