@@ -7,7 +7,7 @@ const docBuilders = prettier.doc.builders;
 const { printDocToString } = docPrinter;
 const { line, trim, group, indent } = docBuilders;
 
-// These tests don't use `runPrettier` because `trim` is not used by any
+// These tests don't use `runCli` because `trim` is not used by any
 // bundled parser (only third-party plugins).
 
 describe("trim", () => {

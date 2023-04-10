@@ -1,5 +1,5 @@
 describe("automatically loads 'prettier-plugin-*'", () => {
-  runPrettier("plugins/automatic", ["file.txt", "--parser=bar"]).test({
+  runCli("plugins/automatic", ["file.txt", "--parser=bar"]).test({
     stdout: "content from `prettier-plugin-bar` package + contents",
     stderr: "",
     status: 0,
@@ -8,7 +8,7 @@ describe("automatically loads 'prettier-plugin-*'", () => {
 });
 
 describe("automatically loads '@prettier/plugin-*'", () => {
-  runPrettier("plugins/automatic", ["file.txt", "--parser=foo"]).test({
+  runCli("plugins/automatic", ["file.txt", "--parser=foo"]).test({
     stdout: "foo+contents",
     stderr: "",
     status: 0,
@@ -17,7 +17,7 @@ describe("automatically loads '@prettier/plugin-*'", () => {
 });
 
 describe("automatically loads '@<name>/prettier-plugin-*'", () => {
-  runPrettier("plugins/automatic", ["file.txt", "--parser=foobar"]).test({
+  runCli("plugins/automatic", ["file.txt", "--parser=foobar"]).test({
     stdout: "foobar+contents",
     stderr: "",
     status: 0,
@@ -26,7 +26,7 @@ describe("automatically loads '@<name>/prettier-plugin-*'", () => {
 });
 
 describe("automatically loads 'prettier-plugin-*' from --plugin-search-dir (same as autoload dir)", () => {
-  runPrettier("plugins/automatic", [
+  runCli("plugins/automatic", [
     "file.txt",
     "--parser=foo",
     "--plugin-search-dir=.",
@@ -39,7 +39,7 @@ describe("automatically loads 'prettier-plugin-*' from --plugin-search-dir (same
 });
 
 describe("automatically loads '@prettier/plugin-*' from --plugin-search-dir (same as autoload dir)", () => {
-  runPrettier("plugins/automatic", [
+  runCli("plugins/automatic", [
     "file.txt",
     "--parser=bar",
     "--plugin-search-dir=.",
@@ -52,7 +52,7 @@ describe("automatically loads '@prettier/plugin-*' from --plugin-search-dir (sam
 });
 
 describe("automatically loads '@<name>/prettier-plugin-*' from --plugin-search-dir (same as autoload dir)", () => {
-  runPrettier("plugins/automatic", [
+  runCli("plugins/automatic", [
     "file.txt",
     "--parser=foobar",
     "--plugin-search-dir=.",
@@ -65,7 +65,7 @@ describe("automatically loads '@<name>/prettier-plugin-*' from --plugin-search-d
 });
 
 describe("automatically loads 'prettier-plugin-*' from --plugin-search-dir (different to autoload dir)", () => {
-  runPrettier("plugins", [
+  runCli("plugins", [
     "automatic/file.txt",
     "--parser=foo",
     "--plugin-search-dir=automatic",
@@ -78,7 +78,7 @@ describe("automatically loads 'prettier-plugin-*' from --plugin-search-dir (diff
 });
 
 describe("automatically loads '@prettier/plugin-*' from --plugin-search-dir (different to autoload dir)", () => {
-  runPrettier("plugins", [
+  runCli("plugins", [
     "automatic/file.txt",
     "--parser=bar",
     "--plugin-search-dir=automatic",
@@ -91,7 +91,7 @@ describe("automatically loads '@prettier/plugin-*' from --plugin-search-dir (dif
 });
 
 describe("does not crash when --plugin-search-dir does not contain node_modules", () => {
-  runPrettier(
+  runCli(
     "plugins/extensions",
     [
       "file.foo",
@@ -110,7 +110,7 @@ describe("does not crash when --plugin-search-dir does not contain node_modules"
 });
 
 describe("crashes when one of --plugin-search-dir does not exist", () => {
-  runPrettier("plugins/automatic", [
+  runCli("plugins/automatic", [
     "file.txt",
     "--parser=foo",
     "--plugin-search-dir=non-existing-dir",
@@ -124,7 +124,7 @@ describe("crashes when one of --plugin-search-dir does not exist", () => {
 });
 
 describe("loads --plugin by its relative path", () => {
-  runPrettier("plugins", [
+  runCli("plugins", [
     "automatic/file.txt",
     "--parser=bar",
     "--plugin=./automatic/node_modules/prettier-plugin-bar/index.js",
@@ -137,7 +137,7 @@ describe("loads --plugin by its relative path", () => {
 });
 
 describe("loads --plugin by its relative path without leading ./", () => {
-  runPrettier("plugins", [
+  runCli("plugins", [
     "automatic/file.txt",
     "--parser=bar",
     "--plugin=automatic/node_modules/prettier-plugin-bar/index.js",
@@ -150,7 +150,7 @@ describe("loads --plugin by its relative path without leading ./", () => {
 });
 
 describe("loads --plugin by package name", () => {
-  runPrettier("plugins/automatic", [
+  runCli("plugins/automatic", [
     "file.txt",
     "--parser=foobar",
     "--plugin=@user/prettier-plugin-foobar",
@@ -163,7 +163,7 @@ describe("loads --plugin by package name", () => {
 });
 
 describe("loads --plugin by filename without leading ./, should resolve to file, not package", () => {
-  runPrettier("plugins/automatic", [
+  runCli("plugins/automatic", [
     "file.txt",
     "--parser=baz",
     "--plugin=prettier-plugin-baz.js",
@@ -177,7 +177,7 @@ describe("loads --plugin by filename without leading ./, should resolve to file,
 });
 
 describe("loads --plugin by bespoke plugin name (assuming it is installed in cwd)", () => {
-  runPrettier("plugins/bespoke", [
+  runCli("plugins/bespoke", [
     "../automatic/file.txt",
     "--parser=bespoke",
     "--plugin=@company/prettier-plugin-bespoke/main.js",
@@ -191,7 +191,7 @@ describe("loads --plugin by bespoke plugin name (assuming it is installed in cwd
 
 test("--no-plugin-search", async () => {
   async function getParser(args = []) {
-    const { stdout } = await runPrettier("plugins/automatic", [
+    const { stdout } = await runCli("plugins/automatic", [
       "--file-info=file.foo",
       ...args,
     ]);
@@ -205,20 +205,20 @@ test("--no-plugin-search", async () => {
 
 test("--no-plugin-search still allow use --plugin", async () => {
   const args = ["file.txt", "--parser=baz"];
-  const { stdout: stdoutWithoutPlugin } = await runPrettier(
+  const { stdout: stdoutWithoutPlugin } = await runCli(
     "plugins/automatic",
     args
   );
   const argsWithPlugin = [...args, "--plugin=./prettier-plugin-baz.js"];
-  const { stdout: stdoutWithPlugin } = await runPrettier(
+  const { stdout: stdoutWithPlugin } = await runCli(
     "plugins/automatic",
     argsWithPlugin
   );
-  const { stdout: stdoutWithoutPluginAndNoPluginSearch } = await runPrettier(
+  const { stdout: stdoutWithoutPluginAndNoPluginSearch } = await runCli(
     "plugins/automatic",
     [...args, "--no-plugin-search"]
   );
-  const { stdout: stdoutWithPluginButNoPluginSearch } = await runPrettier(
+  const { stdout: stdoutWithPluginButNoPluginSearch } = await runCli(
     "plugins/automatic",
     [...argsWithPlugin, "--no-plugin-search"]
   );
@@ -236,15 +236,15 @@ test("--no-plugin-search still allow use --plugin", async () => {
 });
 
 test("--no-plugin-search together with --plugin-search-dir", async () => {
-  const result1 = await runPrettier("plugins/automatic", [
+  const result1 = await runCli("plugins/automatic", [
     "--no-plugin-search",
     "--plugin-search-dir",
   ]);
-  const result2 = await runPrettier("plugins/automatic", [
+  const result2 = await runCli("plugins/automatic", [
     "--no-plugin-search",
     "--plugin-search-dir=foo",
   ]);
-  const result3 = await runPrettier("plugins/automatic", [
+  const result3 = await runCli("plugins/automatic", [
     "--no-plugin-search",
     "--plugin-search-dir=foo",
     "--plugin-search-dir=bar",

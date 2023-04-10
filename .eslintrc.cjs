@@ -311,7 +311,7 @@ module.exports = {
       },
       globals: {
         run_spec: "readonly",
-        runPrettier: "readonly",
+        runCli: "readonly",
       },
     },
     {

@@ -1,5 +1,5 @@
 describe("output with --check + unformatted differs when piped", () => {
-  const cli0 = runPrettier(
+  const cli0 = runCli(
     "cli/write",
     ["--write", "--check", "--no-color", "unformatted.js"],
     { stdoutIsTTY: true }
@@ -7,7 +7,7 @@ describe("output with --check + unformatted differs when piped", () => {
     status: 0,
   });
 
-  const cli1 = runPrettier(
+  const cli1 = runCli(
     "cli/write",
     ["--write", "--check", "--no-color", "unformatted.js"],
     { stdoutIsTTY: false }
@@ -25,7 +25,7 @@ describe("output with --check + unformatted differs when piped", () => {
 });
 
 describe("no file diffs with --check + formatted file", () => {
-  const cli0 = runPrettier(
+  const cli0 = runCli(
     "cli/write",
     ["--write", "--check", "--no-color", "formatted.js"],
     { stdoutIsTTY: true }
@@ -33,7 +33,7 @@ describe("no file diffs with --check + formatted file", () => {
     status: 0,
   });
 
-  const cli1 = runPrettier(
+  const cli1 = runCli(
     "cli/write",
     ["--write", "--check", "--no-color", "formatted.js"],
     { stdoutIsTTY: false }
@@ -52,7 +52,7 @@ describe("no file diffs with --check + formatted file", () => {
 });
 
 describe("output with --list-different + unformatted differs when piped", () => {
-  const cli0 = runPrettier(
+  const cli0 = runCli(
     "cli/write",
     ["--write", "--list-different", "--no-color", "unformatted.js"],
     { stdoutIsTTY: true }
@@ -60,7 +60,7 @@ describe("output with --list-different + unformatted differs when piped", () => 
     status: 0,
   });
 
-  const cli1 = runPrettier(
+  const cli1 = runCli(
     "cli/write",
     ["--write", "--list-different", "--no-color", "unformatted.js"],
     { stdoutIsTTY: false }
@@ -78,7 +78,7 @@ describe("output with --list-different + unformatted differs when piped", () => 
 });
 
 describe("no file diffs with --list-different + formatted file", () => {
-  const cli0 = runPrettier(
+  const cli0 = runCli(
     "cli/write",
     ["--write", "--list-different", "--no-color", "formatted.js"],
     { stdoutIsTTY: true }
@@ -86,7 +86,7 @@ describe("no file diffs with --list-different + formatted file", () => {
     status: 0,
   });
 
-  const cli1 = runPrettier(
+  const cli1 = runCli(
     "cli/write",
     ["--write", "--list-different", "--no-color", "formatted.js"],
     { stdoutIsTTY: false }

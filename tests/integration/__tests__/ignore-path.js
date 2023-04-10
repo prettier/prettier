@@ -10,7 +10,7 @@ fs.writeFileSync(
 );
 
 describe("ignore path", () => {
-  runPrettier("cli/ignore-path", [
+  runCli("cli/ignore-path", [
     "**/*.js",
     "--ignore-path",
     ".gitignore",
@@ -23,7 +23,7 @@ describe("ignore path", () => {
 });
 
 describe("support .prettierignore", () => {
-  runPrettier("cli/ignore-path", ["**/*.js", "-l"]).test({
+  runCli("cli/ignore-path", ["**/*.js", "-l"]).test({
     status: 1,
     stderr: "",
     write: [],
@@ -31,7 +31,7 @@ describe("support .prettierignore", () => {
 });
 
 describe("ignore file when using --debug-check", () => {
-  runPrettier("cli/ignore-path", ["**/*.js", "--debug-check"]).test({
+  runCli("cli/ignore-path", ["**/*.js", "--debug-check"]).test({
     status: 0,
     stderr: "",
     write: [],
@@ -39,7 +39,7 @@ describe("ignore file when using --debug-check", () => {
 });
 
 describe("outputs files as-is if no --write", () => {
-  runPrettier("cli/ignore-path", ["regular-module.js"], {
+  runCli("cli/ignore-path", ["regular-module.js"], {
     ignoreLineEndings: true,
   }).test({
     status: 0,
@@ -49,7 +49,7 @@ describe("outputs files as-is if no --write", () => {
 });
 
 describe("multiple `--ignore-path`", () => {
-  runPrettier("cli/ignore-path", [
+  runCli("cli/ignore-path", [
     "**/*.js",
     "--debug-check",
     "--ignore-path",

@@ -18,13 +18,13 @@ test("resolves configuration from external files and overrides by extname", asyn
 });
 
 describe("accepts configuration from --config", () => {
-  runPrettier("cli/config/", ["--config", ".prettierrc", "./js/file.js"]).test({
+  runCli("cli/config/", ["--config", ".prettierrc", "./js/file.js"]).test({
     status: 0,
   });
 });
 
 describe("resolves external configuration from package.json (cjs package)", () => {
-  runPrettier("cli/config/external-config/cjs-package", ["index.js"]).test({
+  runCli("cli/config/external-config/cjs-package", ["index.js"]).test({
     status: 0,
     stderr: "",
     write: [],
@@ -32,7 +32,7 @@ describe("resolves external configuration from package.json (cjs package)", () =
 });
 
 describe("resolves external configuration from package.json (esm package)", () => {
-  runPrettier("cli/config/external-config/esm-package", ["index.js"]).test({
+  runCli("cli/config/external-config/esm-package", ["index.js"]).test({
     status: 0,
     stderr: "",
     write: [],
@@ -40,7 +40,7 @@ describe("resolves external configuration from package.json (esm package)", () =
 });
 
 describe("resolves external configuration from package.json (esm file)", () => {
-  runPrettier("cli/config/external-config/esm-package", ["index.js"]).test({
+  runCli("cli/config/external-config/esm-package", ["index.js"]).test({
     status: 0,
     stderr: "",
     write: [],
@@ -48,31 +48,31 @@ describe("resolves external configuration from package.json (esm file)", () => {
 });
 
 describe("resolves configuration file with --find-config-path file", () => {
-  runPrettier("cli/config/", ["--find-config-path", "no-config/file.js"]).test({
+  runCli("cli/config/", ["--find-config-path", "no-config/file.js"]).test({
     status: 0,
   });
 });
 
 describe("resolves json configuration file with --find-config-path file", () => {
-  runPrettier("cli/config/", ["--find-config-path", "rc-json/file.js"]).test({
+  runCli("cli/config/", ["--find-config-path", "rc-json/file.js"]).test({
     status: 0,
   });
 });
 
 describe("resolves yaml configuration file with --find-config-path file", () => {
-  runPrettier("cli/config/", ["--find-config-path", "rc-yaml/file.js"]).test({
+  runCli("cli/config/", ["--find-config-path", "rc-yaml/file.js"]).test({
     status: 0,
   });
 });
 
 describe("resolves toml configuration file with --find-config-path file", () => {
-  runPrettier("cli/config/", ["--find-config-path", "rc-toml/file.js"]).test({
+  runCli("cli/config/", ["--find-config-path", "rc-toml/file.js"]).test({
     status: 0,
   });
 });
 
 describe("prints error message when no file found with --find-config-path", () => {
-  runPrettier("cli/config/", [
+  runCli("cli/config/", [
     "--end-of-line",
     "lf",
     "--find-config-path",

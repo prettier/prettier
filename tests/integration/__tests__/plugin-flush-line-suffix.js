@@ -1,5 +1,5 @@
 describe("flush all line-suffix content", () => {
-  runPrettier("plugins/flushLineSuffix", ["*.foo", "--plugin=./plugin.cjs"], {
+  runCli("plugins/flushLineSuffix", ["*.foo", "--plugin=./plugin.cjs"], {
     ignoreLineEndings: true,
   }).test({
     stdout: "contents",

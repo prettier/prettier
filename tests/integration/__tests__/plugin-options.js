@@ -1,8 +1,8 @@
 import snapshotDiff from "snapshot-diff";
 test("show external options with `--help`", async () => {
-  const originalStdout = await runPrettier("plugins/options", ["--help"])
+  const originalStdout = await runCli("plugins/options", ["--help"])
     .stdout;
-  const pluggedStdout = await runPrettier("plugins/options", [
+  const pluggedStdout = await runCli("plugins/options", [
     "--help",
     "--plugin=./plugin.cjs",
   ]).stdout;
@@ -11,7 +11,7 @@ test("show external options with `--help`", async () => {
 });
 
 describe("show detailed external option with `--help foo-option`", () => {
-  runPrettier("plugins/options", [
+  runCli("plugins/options", [
     "--plugin=./plugin.cjs",
     "--help",
     "foo-option",
@@ -21,7 +21,7 @@ describe("show detailed external option with `--help foo-option`", () => {
 });
 
 describe("include plugin's parsers to the values of the `parser` option`", () => {
-  runPrettier("plugins/options", [
+  runCli("plugins/options", [
     "--plugin=./plugin.cjs",
     "--help",
     "parser",
@@ -31,7 +31,7 @@ describe("include plugin's parsers to the values of the `parser` option`", () =>
 });
 
 describe("external options from CLI should work", () => {
-  runPrettier(
+  runCli(
     "plugins/options",
     [
       "--plugin=./plugin.cjs",
@@ -50,7 +50,7 @@ describe("external options from CLI should work", () => {
 });
 
 describe("external options from config file should work", () => {
-  runPrettier(
+  runCli(
     "plugins/options",
     ["--config=./config.json", "--stdin-filepath", "example.foo"],
     { input: "hello-world" }

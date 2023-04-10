@@ -1,5 +1,5 @@
 describe("prints information for debugging comment attachment with --debug-print-comments", () => {
-  runPrettier(
+  runCli(
     "cli/with-shebang",
     ["--debug-print-comments", "--parser", "babel"],
     { input: "/* 1 */\nconsole.log(foo /* 2 */); // 3" }

@@ -73,7 +73,7 @@ function runCliWorker(dir, args, options) {
   });
 }
 
-async function run(dir, args, options) {
+async function runPrettierCli(dir, args, options) {
   dir = path.resolve(INTEGRATION_TEST_DIRECTORY, dir);
   args = Array.isArray(args) ? args : [args];
 
@@ -89,36 +89,36 @@ async function run(dir, args, options) {
 }
 
 let runningCli;
-function runPrettier(dir, args = [], options = {}) {
+function runCli(dir, args = [], options = {}) {
   let promise;
   const getters = {
     get status() {
-      return runCli().then(({ status }) => status);
+      return run().then(({ status }) => status);
     },
     get stdout() {
-      return runCli().then(({ stdout }) => stdout);
+      return run().then(({ stdout }) => stdout);
     },
     get stderr() {
-      return runCli().then(({ stderr }) => stderr);
+      return run().then(({ stderr }) => stderr);
     },
     get write() {
-      return runCli().then(({ write }) => write);
+      return run().then(({ write }) => write);
     },
     test: testResult,
     then(onFulfilled, onRejected) {
-      return runCli().then(onFulfilled, onRejected);
+      return run().then(onFulfilled, onRejected);
     },
   };
 
   return getters;
 
-  function runCli() {
+  function run() {
     if (runningCli) {
       throw new Error("Please wait for previous CLI to exit.");
     }
 
     if (!promise) {
-      promise = run(dir, args, options).finally(() => {
+      promise = runPrettierCli(dir, args, options).finally(() => {
         runningCli = undefined;
       });
       runningCli = promise;
@@ -129,7 +129,7 @@ function runPrettier(dir, args = [], options = {}) {
   function testResult(testOptions) {
     for (const name of ["status", "stdout", "stderr", "write"]) {
       test(`${options.title || ""}(${name})`, async () => {
-        const result = await runCli();
+        const result = await run();
         let value = result[name];
         // \r is trimmed from jest snapshots by default;
         // manually replacing this character with /*CR*/ to test its true presence
@@ -159,4 +159,4 @@ function runPrettier(dir, args = [], options = {}) {
   }
 }
 
-export default runPrettier;
+export default runCli;
