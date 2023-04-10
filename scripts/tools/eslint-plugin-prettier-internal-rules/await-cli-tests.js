@@ -3,7 +3,7 @@
 const selector = [
   "CallExpression",
   '[callee.type="Identifier"]',
-  '[callee.name="runPrettier"]',
+  '[callee.name="runCli"]',
 ].join("");
 
 const MESSAGE_ID_CALL = "await-cli-tests/call";
@@ -17,8 +17,8 @@ module.exports = {
     },
     messages: {
       [MESSAGE_ID_CALL]:
-        "'runPrettier()' should be awaited or calling `.test()`.",
-      [MESSAGE_ID_GETTER]: "'runPrettier().{{property}}' should be awaited.",
+        "'runCli()' should be awaited or calling `.test()`.",
+      [MESSAGE_ID_GETTER]: "'runCli().{{property}}' should be awaited.",
     },
   },
   create(context) {

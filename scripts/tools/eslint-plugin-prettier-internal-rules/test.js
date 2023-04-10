@@ -16,26 +16,26 @@ const test = (ruleId, tests) => {
 
 test("await-cli-tests", {
   valid: [
-    "async () => await runPrettier()",
-    "runPrettier().test()",
-    "notRunPrettier()",
-    "async () => await runPrettier().stderr",
+    "async () => await runCli()",
+    "runCli().test()",
+    "notRunCli()",
+    "async () => await runCli().stderr",
     outdent`
       async () => {
-        const originalStdout = await runPrettier("plugins/options", ["--help"]).stdout;
+        const originalStdout = await runCli("plugins/options", ["--help"]).stdout;
       }
     `,
   ],
   invalid: [
     {
-      code: "runPrettier()",
+      code: "runCli()",
       errors: [
-        { message: "'runPrettier()' should be awaited or calling `.test()`." },
+        { message: "'runCli()' should be awaited or calling `.test()`." },
       ],
     },
     {
-      code: "runPrettier().stderr",
-      errors: [{ message: "'runPrettier().stderr' should be awaited." }],
+      code: "runCli().stderr",
+      errors: [{ message: "'runCli().stderr' should be awaited." }],
     },
   ],
 });
