@@ -6,7 +6,7 @@ export type a =
   // prettier-ignore
   | qux1&qux2;
 
-export type a =
+export type b =
   // foo
   | foo1&foo2
   // bar
@@ -16,7 +16,7 @@ export type a =
   // baz
   | baz1&baz2;
 
-export type a =
+export type c =
   // prettier-ignore
   | foo1&foo2
   // bar
