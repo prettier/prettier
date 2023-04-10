@@ -33,10 +33,10 @@ describe("gracefully handle stdin-filepath with nonexistent directory", () => {
 describe("apply editorconfig for stdin-filepath with nonexistent file", () => {
   runCli("cli", ["--stdin-filepath", "config/editorconfig/nonexistent.js"], {
     input: outdent`
-        function f() {
-          console.log("should be indented with a tab");
-        }
-      `, // js
+      function f() {
+        console.log("should be indented with a tab");
+      }
+    `, // js
   }).test({
     status: 0,
   });
