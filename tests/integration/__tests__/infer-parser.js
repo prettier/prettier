@@ -151,11 +151,7 @@ describe("--write and --check with unknown path and no parser", () => {
 
 describe("--write and --list-different with unknown path and no parser", () => {
   describe("specific file", () => {
-    runCli("cli/infer-parser/", [
-      "--list-different",
-      "--write",
-      "FOO",
-    ]).test({
+    runCli("cli/infer-parser/", ["--list-different", "--write", "FOO"]).test({
       status: 0,
       stdout: "",
       write: [],
@@ -163,9 +159,9 @@ describe("--write and --list-different with unknown path and no parser", () => {
   });
 
   describe("multiple files", () => {
-    runCli("cli/infer-parser/", ["--list-different", "--write", "*"]).test(
-      { status: 0 }
-    );
+    runCli("cli/infer-parser/", ["--list-different", "--write", "*"]).test({
+      status: 0,
+    });
   });
 });
 
@@ -215,10 +211,7 @@ describe("Known/Unknown", () => {
 });
 
 describe("Interpreters", () => {
-  runCli("cli/infer-parser/interpreters", [
-    "--file-info",
-    "zx-script",
-  ]).test({
+  runCli("cli/infer-parser/interpreters", ["--file-info", "zx-script"]).test({
     status: 0,
     stderr: "",
     write: [],

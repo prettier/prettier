@@ -108,12 +108,7 @@ describe("--cache option", () => {
         "code",
         "ENOENT"
       );
-      await runCli(dir, [
-        "--cache",
-        "--cache-strategy",
-        "metadata",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "metadata", "*.js"]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
     });
 
@@ -239,12 +234,7 @@ describe("--cache option", () => {
     });
 
     it("re-formats after execution without write.", async () => {
-      await runCli(dir, [
-        "--cache",
-        "--cache-strategy",
-        "metadata",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "metadata", "*.js"]);
 
       const { stdout: secondStdout } = await runCli(dir, [
         "--write",
@@ -278,12 +268,7 @@ describe("--cache option", () => {
       const time = new Date();
       await fs.utimes(path.join(dir, "b.js"), time, time);
 
-      await runCli(dir, [
-        "--cache",
-        "--cache-strategy",
-        "metadata",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "metadata", "*.js"]);
 
       const { stdout: thirdStdout } = await runCli(dir, cliArguments);
       expect(thirdStdout.split("\n")).toEqual(
@@ -350,12 +335,7 @@ describe("--cache option", () => {
         "code",
         "ENOENT"
       );
-      await runCli(dir, [
-        "--cache",
-        "--cache-strategy",
-        "content",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "content", "*.js"]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
     });
 
@@ -475,12 +455,7 @@ describe("--cache option", () => {
     });
 
     it("re-formats after execution without write.", async () => {
-      await runCli(dir, [
-        "--cache",
-        "--cache-strategy",
-        "content",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "content", "*.js"]);
 
       const { stdout: secondStdout } = await runCli(dir, [
         "--write",
@@ -514,12 +489,7 @@ describe("--cache option", () => {
       const time = new Date();
       await fs.utimes(path.join(dir, "b.js"), time, time);
 
-      await runCli(dir, [
-        "--cache",
-        "--cache-strategy",
-        "content",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "content", "*.js"]);
 
       const { stdout: thirdStdout } = await runCli(dir, cliArguments);
       expect(thirdStdout.split("\n")).toEqual(

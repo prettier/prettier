@@ -49,10 +49,7 @@ describe("ignore-unknown check", () => {
 });
 
 describe("None exist file", () => {
-  runCli("cli/ignore-unknown", [
-    "non-exist-file",
-    "--ignore-unknown",
-  ]).test({
+  runCli("cli/ignore-unknown", ["non-exist-file", "--ignore-unknown"]).test({
     status: 2,
   });
 });

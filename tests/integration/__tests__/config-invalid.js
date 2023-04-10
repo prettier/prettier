@@ -20,10 +20,7 @@ describe("throw error with invalid config format", () => {
 });
 
 describe("throw error with invalid config format", () => {
-  runCli("cli/config/invalid", [
-    "--config",
-    "type-error/.prettierrc",
-  ]).test({
+  runCli("cli/config/invalid", ["--config", "type-error/.prettierrc"]).test({
     status: "non-zero",
     stderr: expect.stringContaining(
       "Config is only allowed to be an object, but received number in"
@@ -62,9 +59,7 @@ describe("throw error with invalid config precedence option (configPrecedence)",
 });
 
 describe("resolves external configuration from package.json", () => {
-  runCli("cli/config-external-config-syntax-error", [
-    "syntax-error.js",
-  ]).test({
+  runCli("cli/config-external-config-syntax-error", ["syntax-error.js"]).test({
     status: 2,
   });
 });

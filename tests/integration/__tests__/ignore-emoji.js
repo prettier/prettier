@@ -5,11 +5,9 @@ describe("ignores file name contains emoji", () => {
 });
 
 describe("stdin", () => {
-  runCli(
-    "cli/ignore-emoji",
-    ["--stdin-filepath", "ignored/我的样式.css"],
-    { input: ".name {                         display: none; }" }
-  ).test({
+  runCli("cli/ignore-emoji", ["--stdin-filepath", "ignored/我的样式.css"], {
+    input: ".name {                         display: none; }",
+  }).test({
     status: 0,
   });
 });

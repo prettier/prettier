@@ -1,7 +1,6 @@
 import snapshotDiff from "snapshot-diff";
 test("show external options with `--help`", async () => {
-  const originalStdout = await runCli("plugins/options", ["--help"])
-    .stdout;
+  const originalStdout = await runCli("plugins/options", ["--help"]).stdout;
   const pluggedStdout = await runCli("plugins/options", [
     "--help",
     "--plugin=./plugin.cjs",
@@ -21,13 +20,11 @@ describe("show detailed external option with `--help foo-option`", () => {
 });
 
 describe("include plugin's parsers to the values of the `parser` option`", () => {
-  runCli("plugins/options", [
-    "--plugin=./plugin.cjs",
-    "--help",
-    "parser",
-  ]).test({
-    status: 0,
-  });
+  runCli("plugins/options", ["--plugin=./plugin.cjs", "--help", "parser"]).test(
+    {
+      status: 0,
+    }
+  );
 });
 
 describe("external options from CLI should work", () => {

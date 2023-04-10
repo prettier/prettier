@@ -15,13 +15,11 @@ test("show all logs with --log-level debug", async () => {
 });
 
 describe("--write with --log-level=silent doesn't log filenames", () => {
-  runCli("cli/write", [
-    "--write",
-    "unformatted.js",
-    "--log-level=silent",
-  ]).test({
-    status: 0,
-  });
+  runCli("cli/write", ["--write", "unformatted.js", "--log-level=silent"]).test(
+    {
+      status: 0,
+    }
+  );
 });
 
 describe("Should use default level logger to log `--log-level` error", () => {

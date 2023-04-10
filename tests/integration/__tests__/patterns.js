@@ -9,21 +9,13 @@ describe("multiple patterns", () => {
 });
 
 describe("multiple patterns with non exists pattern", () => {
-  runCli("cli/patterns", [
-    "directory/**/*.js",
-    "non-existent.js",
-    "-l",
-  ]).test({
+  runCli("cli/patterns", ["directory/**/*.js", "non-existent.js", "-l"]).test({
     status: 2,
   });
 });
 
 describe("multiple patterns with ignore nested directories pattern", () => {
-  runCli("cli/patterns", [
-    "**/*.js",
-    "!**/nested-directory/**",
-    "-l",
-  ]).test({
+  runCli("cli/patterns", ["**/*.js", "!**/nested-directory/**", "-l"]).test({
     status: 1,
   });
 });

@@ -30,13 +30,11 @@ describe("show diff for 2+ error files with --debug-check", () => {
 });
 
 describe("should not exit non-zero for already prettified code with --debug-check + --check", () => {
-  runCli("cli/debug-check", [
-    "issue-4599.js",
-    "--debug-check",
-    "--check",
-  ]).test({
-    status: 0,
-  });
+  runCli("cli/debug-check", ["issue-4599.js", "--debug-check", "--check"]).test(
+    {
+      status: 0,
+    }
+  );
 });
 
 describe("should not exit non-zero for already prettified code with --debug-check + --list-different", () => {
