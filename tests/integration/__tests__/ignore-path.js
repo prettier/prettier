@@ -17,18 +17,24 @@ describe("ignore path", () => {
     "-l",
   ]).test({
     status: 1,
+    stderr: "",
+    write: [],
   });
 });
 
 describe("support .prettierignore", () => {
   runPrettier("cli/ignore-path", ["**/*.js", "-l"]).test({
     status: 1,
+    stderr: "",
+    write: [],
   });
 });
 
 describe("ignore file when using --debug-check", () => {
   runPrettier("cli/ignore-path", ["**/*.js", "--debug-check"]).test({
     status: 0,
+    stderr: "",
+    write: [],
   });
 });
 
@@ -37,5 +43,25 @@ describe("outputs files as-is if no --write", () => {
     ignoreLineEndings: true,
   }).test({
     status: 0,
+    stderr: "",
+    write: [],
+  });
+});
+
+describe("multiple `--ignore-path`", () => {
+  runPrettier("cli/ignore-path", [
+    "**/*.js",
+    "--debug-check",
+    "--ignore-path",
+    ".gitignore",
+    "--ignore-path",
+    ".prettierignore",
+    "--ignore-path",
+    ".non-exists-ignore-file",
+  ]).test({
+    status: 0,
+    stdout: "",
+    stderr: "",
+    write: [],
   });
 });
