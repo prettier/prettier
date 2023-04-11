@@ -1,4 +1,5 @@
 import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree/dist/parser.js";
+import isTSXFile from "../utils/is-tsx-file.js";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
@@ -37,9 +38,9 @@ function createParseError(error) {
   });
 }
 
-function parse(text) {
+function parse(text, options) {
   const textToParse = replaceHashbang(text);
-  const jsx = isProbablyJsx(text);
+  const jsx = isTSXFile(options);
 
   let result;
   try {
@@ -61,20 +62,6 @@ function parse(text) {
   throwErrorForInvalidNodes(result, text);
 
   return postprocess(result.ast, { parser: "typescript", text });
-}
-
-/**
- * Use a naive regular expression to detect JSX
- */
-function isProbablyJsx(text) {
-  return new RegExp(
-    [
-      "(?:^[^\"'`]*</)", // Contains "</" when probably not in a string
-      "|",
-      "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
-    ].join(""),
-    "m"
-  ).test(text);
 }
 
 export const typescript = createParser(parse);

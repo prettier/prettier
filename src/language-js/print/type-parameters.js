@@ -12,11 +12,11 @@ import {
   isTestCall,
   hasComment,
   CommentCheckFlags,
-  isTSXFile,
   shouldPrintComma,
   getFunctionParameters,
   isObjectType,
 } from "../utils/index.js";
+import isTSXFile from "../utils/is-tsx-file.js";
 import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
 import {
   printTypeAnnotationProperty,
