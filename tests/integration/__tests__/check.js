@@ -1,5 +1,5 @@
 describe("checks stdin with --check", () => {
-  runPrettier("cli/with-shebang", ["--check", "--parser", "babel"], {
+  runCli("cli/with-shebang", ["--check", "--parser", "babel"], {
     input: "0",
   }).test({
     stdout: "(stdin)",
@@ -9,7 +9,7 @@ describe("checks stdin with --check", () => {
 });
 
 describe("checks stdin with -c (alias for --check)", () => {
-  runPrettier("cli/with-shebang", ["-c", "--parser", "babel"], {
+  runCli("cli/with-shebang", ["-c", "--parser", "babel"], {
     input: "0",
   }).test({
     stdout: "(stdin)",
@@ -19,7 +19,7 @@ describe("checks stdin with -c (alias for --check)", () => {
 });
 
 describe("--checks works in CI just as in a non-TTY mode", () => {
-  const result0 = runPrettier(
+  const result0 = runCli(
     "cli/write",
     ["--check", "formatted.js", "unformatted.js"],
     {
@@ -30,7 +30,7 @@ describe("--checks works in CI just as in a non-TTY mode", () => {
     status: 1,
   });
 
-  const result1 = runPrettier(
+  const result1 = runCli(
     "cli/write",
     ["--check", "formatted.js", "unformatted.js"],
     {
@@ -46,7 +46,7 @@ describe("--checks works in CI just as in a non-TTY mode", () => {
 });
 
 describe("--checks should print the number of files that need formatting", () => {
-  runPrettier("cli/write", ["--check", "unformatted.js", "unformatted2.js"], {
+  runCli("cli/write", ["--check", "unformatted.js", "unformatted2.js"], {
     input: "0",
   }).test({
     status: 1,

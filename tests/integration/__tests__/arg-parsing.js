@@ -1,5 +1,5 @@
 describe("boolean flags do not swallow the next argument", () => {
-  runPrettier("cli/arg-parsing", [
+  runCli("cli/arg-parsing", [
     "--end-of-line",
     "lf",
     "--single-quote",
@@ -10,7 +10,7 @@ describe("boolean flags do not swallow the next argument", () => {
 });
 
 describe("negated options work", () => {
-  runPrettier("cli/arg-parsing", [
+  runCli("cli/arg-parsing", [
     "--end-of-line",
     "lf",
     "--no-semi",
@@ -21,7 +21,7 @@ describe("negated options work", () => {
 });
 
 describe("unknown options are warned", () => {
-  runPrettier("cli/arg-parsing", [
+  runCli("cli/arg-parsing", [
     "--end-of-line",
     "lf",
     "file.js",
@@ -32,7 +32,7 @@ describe("unknown options are warned", () => {
 });
 
 describe("unknown negated options are warned", () => {
-  runPrettier("cli/arg-parsing", [
+  runCli("cli/arg-parsing", [
     "--end-of-line",
     "lf",
     "file.js",
@@ -43,14 +43,14 @@ describe("unknown negated options are warned", () => {
 });
 
 describe("unknown options not suggestion `_`", () => {
-  runPrettier("cli/arg-parsing", ["file.js", "-a"]).test({
+  runCli("cli/arg-parsing", ["file.js", "-a"]).test({
     status: 0,
     write: [],
   });
 });
 
 describe("allow overriding flags", () => {
-  runPrettier(
+  runCli(
     "cli/arg-parsing",
     ["--tab-width=1", "--tab-width=3", "--parser=babel"],
     { input: "function a() { b }" }
@@ -63,7 +63,7 @@ describe("allow overriding flags", () => {
 describe("number file/dir", () => {
   const patterns = ["1", "2.2", "3", "4.44"];
   for (const pattern of patterns) {
-    runPrettier("cli/arg-parsing/number", [
+    runCli("cli/arg-parsing/number", [
       "--parser=babel",
       "--list-different",
       pattern,
@@ -73,7 +73,7 @@ describe("number file/dir", () => {
       write: [],
     });
   }
-  runPrettier("cli/arg-parsing/number", [
+  runCli("cli/arg-parsing/number", [
     "--parser=babel",
     "--list-different",
     ...patterns,
@@ -85,7 +85,7 @@ describe("number file/dir", () => {
 });
 
 describe("deprecated option values are warned", () => {
-  runPrettier("cli/arg-parsing", ["file.js", "--jsx-bracket-same-line"]).test({
+  runCli("cli/arg-parsing", ["file.js", "--jsx-bracket-same-line"]).test({
     status: 0,
   });
 });
@@ -93,11 +93,11 @@ describe("deprecated option values are warned", () => {
 describe("options with `cliName` should not allow to pass directly", () => {
   // `filepath` can only pass through `--stdin-filepath`
   // `plugins` and `pluginSearchDirs` works the same
-  runPrettier("cli/arg-parsing", ["--stdin-filepath", "file.js"], {
+  runCli("cli/arg-parsing", ["--stdin-filepath", "file.js"], {
     isTTY: false,
     input: "prettier()",
   }).test({ status: 0, stderr: "", write: [] });
-  runPrettier("cli/arg-parsing", ["--filepath", "file.js"], {
+  runCli("cli/arg-parsing", ["--filepath", "file.js"], {
     isTTY: false,
     input: "prettier()",
   }).test({ status: 2, write: [] });

@@ -8,7 +8,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   };
 
   // Can't test `--debug-benchmark`, since it requires `benchmark` package
-  runPrettier(
+  runCli(
     "cli/performance-flags",
     ["--debug-repeat", "2", "--parser", "babel"],
     { input: "foo(    bar    )" }
@@ -21,7 +21,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
 
   // The log level is always `debug`
   for (const logLevel of ["warn", "error", "debug", "log"]) {
-    runPrettier(
+    runCli(
       "cli/performance-flags",
       ["--debug-repeat", "2", "--parser", "babel", "--log-level", logLevel],
       { input: "foo(    bar    )" }
@@ -33,7 +33,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
     });
   }
 
-  runPrettier("cli/performance-flags", [
+  runCli("cli/performance-flags", [
     "fixture.js",
     "--debug-repeat",
     "2",
@@ -46,7 +46,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
     write: [],
   });
 
-  runPrettier("cli/performance-flags", [
+  runCli("cli/performance-flags", [
     "fixture.js",
     "--debug-repeat",
     "2",
@@ -60,7 +60,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
     write: [],
   });
 
-  runPrettier("cli/performance-flags", [
+  runCli("cli/performance-flags", [
     "fixture.js",
     "--debug-repeat",
     "2",

@@ -5,7 +5,7 @@ import prettier from "../../config/prettier-entry.js";
 const { __dirname } = createEsmUtils(import.meta);
 
 describe("throw error with invalid ignore", () => {
-  runPrettier("cli/invalid-ignore", ["something.js"]).test({
+  runCli("cli/invalid-ignore", ["something.js"]).test({
     status: "non-zero",
   });
 

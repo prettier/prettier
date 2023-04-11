@@ -55,7 +55,7 @@ describe("--cache option", () => {
   afterAll(clean);
 
   it("throw error when cache-strategy is invalid", async () => {
-    const { stderr } = await runPrettier(dir, [
+    const { stderr } = await runCli(dir, [
       "--cache",
       "--cache-strategy",
       "invalid",
@@ -67,7 +67,7 @@ describe("--cache option", () => {
   });
 
   it("throws error when use with --stdin-filepath", async () => {
-    const { stderr } = await runPrettier(
+    const { stderr } = await runCli(
       dir,
       ["--cache", "--stdin-filepath", "foo.js"],
       { input: "const a = a;" }
@@ -76,7 +76,7 @@ describe("--cache option", () => {
   });
 
   it("throws error when use `--cache-strategy` without `--cache`.", async () => {
-    const { stderr } = await runPrettier(
+    const { stderr } = await runCli(
       dir,
       ["foo.js", "--cache-strategy", "content"],
       {
@@ -89,7 +89,7 @@ describe("--cache option", () => {
   });
 
   it("throws error when `--cache-location` is a directory.", async () => {
-    const { stderr } = await runPrettier(dir, [
+    const { stderr } = await runCli(dir, [
       "foo.js",
       "--cache",
       "--cache-location",
@@ -108,17 +108,12 @@ describe("--cache option", () => {
         "code",
         "ENOENT"
       );
-      await runPrettier(dir, [
-        "--cache",
-        "--cache-strategy",
-        "metadata",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "metadata", "*.js"]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
     });
 
     it("doesn't format when cache is available", async () => {
-      const { stdout: firstStdout } = await runPrettier(dir, [
+      const { stdout: firstStdout } = await runCli(dir, [
         "--cache",
         "--write",
         "--cache-strategy",
@@ -132,7 +127,7 @@ describe("--cache option", () => {
         ])
       );
 
-      const { stdout: secondStdout } = await runPrettier(dir, [
+      const { stdout: secondStdout } = await runCli(dir, [
         "--cache",
         "--write",
         "--cache-strategy",
@@ -155,7 +150,7 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ];
-      const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: firstStdout } = await runCli(dir, cliArguments);
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -166,7 +161,7 @@ describe("--cache option", () => {
       // Update `a.js`
       await fs.writeFile(path.join(dir, "a.js"), "const a = `a`;");
 
-      const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: secondStdout } = await runCli(dir, cliArguments);
       expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
@@ -184,7 +179,7 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ];
-      const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: firstStdout } = await runCli(dir, cliArguments);
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -196,7 +191,7 @@ describe("--cache option", () => {
       const time = new Date();
       await fs.utimes(path.join(dir, "a.js"), time, time);
 
-      const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: secondStdout } = await runCli(dir, cliArguments);
       expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
@@ -207,7 +202,7 @@ describe("--cache option", () => {
     });
 
     it("re-formats when options has been updated.", async () => {
-      const { stdout: firstStdout } = await runPrettier(dir, [
+      const { stdout: firstStdout } = await runCli(dir, [
         "--cache",
         "--write",
         "--cache-strategy",
@@ -221,7 +216,7 @@ describe("--cache option", () => {
         ])
       );
 
-      const { stdout: secondStdout } = await runPrettier(dir, [
+      const { stdout: secondStdout } = await runCli(dir, [
         "--cache",
         "--cache-strategy",
         "metadata",
@@ -239,14 +234,9 @@ describe("--cache option", () => {
     });
 
     it("re-formats after execution without write.", async () => {
-      await runPrettier(dir, [
-        "--cache",
-        "--cache-strategy",
-        "metadata",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "metadata", "*.js"]);
 
-      const { stdout: secondStdout } = await runPrettier(dir, [
+      const { stdout: secondStdout } = await runCli(dir, [
         "--write",
         "--cache",
         "--cache-strategy",
@@ -269,7 +259,7 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ];
-      await runPrettier(dir, cliArguments);
+      await runCli(dir, cliArguments);
 
       // Update `a.js` to unformatted
       await fs.writeFile(path.join(dir, "a.js"), "const a = `a`;    ");
@@ -278,14 +268,9 @@ describe("--cache option", () => {
       const time = new Date();
       await fs.utimes(path.join(dir, "b.js"), time, time);
 
-      await runPrettier(dir, [
-        "--cache",
-        "--cache-strategy",
-        "metadata",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "metadata", "*.js"]);
 
-      const { stdout: thirdStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: thirdStdout } = await runCli(dir, cliArguments);
       expect(thirdStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -299,7 +284,7 @@ describe("--cache option", () => {
         stdout: firstStdout,
         stderr: firstStderr,
         status: firstStatus,
-      } = await runPrettier(
+      } = await runCli(
         dir,
         ["--write", "--cache", "--cache-strategy", "metadata", "*.js"],
         {
@@ -320,7 +305,7 @@ describe("--cache option", () => {
         ])
       );
 
-      const { stdout: secondStdout } = await runPrettier(dir, [
+      const { stdout: secondStdout } = await runCli(dir, [
         "--list-different",
         "--cache",
         "--cache-strategy",
@@ -331,7 +316,7 @@ describe("--cache option", () => {
     });
 
     it("removes cache file when run Prettier without `--cache` option", async () => {
-      await runPrettier(dir, [
+      await runCli(dir, [
         "--cache",
         "--write",
         "--cache-strategy",
@@ -339,7 +324,7 @@ describe("--cache option", () => {
         "*.js",
       ]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
-      await runPrettier(dir, ["--write", "*.js"]);
+      await runCli(dir, ["--write", "*.js"]);
       await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
     });
   });
@@ -350,12 +335,7 @@ describe("--cache option", () => {
         "code",
         "ENOENT"
       );
-      await runPrettier(dir, [
-        "--cache",
-        "--cache-strategy",
-        "content",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "content", "*.js"]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
     });
 
@@ -367,7 +347,7 @@ describe("--cache option", () => {
         "--write",
         "*.js",
       ];
-      const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: firstStdout } = await runCli(dir, cliArguments);
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -375,7 +355,7 @@ describe("--cache option", () => {
         ])
       );
 
-      const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: secondStdout } = await runCli(dir, cliArguments);
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(cached\)$/),
@@ -392,7 +372,7 @@ describe("--cache option", () => {
         "--write",
         "*.js",
       ];
-      const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: firstStdout } = await runCli(dir, cliArguments);
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -403,7 +383,7 @@ describe("--cache option", () => {
       // Update `a.js`
       await fs.writeFile(path.join(dir, "a.js"), "const a = `a`;");
 
-      const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: secondStdout } = await runCli(dir, cliArguments);
       expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
@@ -421,7 +401,7 @@ describe("--cache option", () => {
         "--write",
         "*.js",
       ];
-      const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: firstStdout } = await runCli(dir, cliArguments);
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -433,7 +413,7 @@ describe("--cache option", () => {
       const time = new Date();
       await fs.utimes(path.join(dir, "a.js"), time, time);
 
-      const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: secondStdout } = await runCli(dir, cliArguments);
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(cached\)$/),
@@ -443,7 +423,7 @@ describe("--cache option", () => {
     });
 
     it("re-formats when options has been updated.", async () => {
-      const { stdout: firstStdout } = await runPrettier(dir, [
+      const { stdout: firstStdout } = await runCli(dir, [
         "--cache",
         "--cache-strategy",
         "content",
@@ -457,7 +437,7 @@ describe("--cache option", () => {
         ])
       );
 
-      const { stdout: secondStdout } = await runPrettier(dir, [
+      const { stdout: secondStdout } = await runCli(dir, [
         "--cache",
         "--write",
         "--cache-strategy",
@@ -475,14 +455,9 @@ describe("--cache option", () => {
     });
 
     it("re-formats after execution without write.", async () => {
-      await runPrettier(dir, [
-        "--cache",
-        "--cache-strategy",
-        "content",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "content", "*.js"]);
 
-      const { stdout: secondStdout } = await runPrettier(dir, [
+      const { stdout: secondStdout } = await runCli(dir, [
         "--write",
         "--cache",
         "--cache-strategy",
@@ -505,7 +480,7 @@ describe("--cache option", () => {
         "content",
         "*.js",
       ];
-      await runPrettier(dir, cliArguments);
+      await runCli(dir, cliArguments);
 
       // Update `a.js` to unformatted
       await fs.writeFile(path.join(dir, "a.js"), "const a = `a`;    ");
@@ -514,14 +489,9 @@ describe("--cache option", () => {
       const time = new Date();
       await fs.utimes(path.join(dir, "b.js"), time, time);
 
-      await runPrettier(dir, [
-        "--cache",
-        "--cache-strategy",
-        "content",
-        "*.js",
-      ]);
+      await runCli(dir, ["--cache", "--cache-strategy", "content", "*.js"]);
 
-      const { stdout: thirdStdout } = await runPrettier(dir, cliArguments);
+      const { stdout: thirdStdout } = await runCli(dir, cliArguments);
       expect(thirdStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -535,7 +505,7 @@ describe("--cache option", () => {
         stdout: firstStdout,
         stderr: firstStderr,
         status: firstStatus,
-      } = await runPrettier(
+      } = await runCli(
         dir,
         ["--write", "--cache", "--cache-strategy", "content", "*.js"],
         {
@@ -556,7 +526,7 @@ describe("--cache option", () => {
         ])
       );
 
-      const { stdout: secondStdout } = await runPrettier(dir, [
+      const { stdout: secondStdout } = await runCli(dir, [
         "--list-different",
         "--cache",
         "--cache-strategy",
@@ -567,9 +537,9 @@ describe("--cache option", () => {
     });
 
     it("removes cache file when run Prettier without `--cache` option", async () => {
-      await runPrettier(dir, ["--cache", "--write", "*.js"]);
+      await runCli(dir, ["--cache", "--write", "*.js"]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
-      await runPrettier(dir, ["--write", "*.js"]);
+      await runCli(dir, ["--write", "*.js"]);
       await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
     });
   });
@@ -580,7 +550,7 @@ describe("--cache option", () => {
         "code",
         "ENOENT"
       );
-      await runPrettier(dir, [
+      await runCli(dir, [
         "--cache",
         "--cache-location",
         nonDefaultCacheFileName,
@@ -593,7 +563,7 @@ describe("--cache option", () => {
     });
 
     it("throws error for invalid JSON file", async () => {
-      const { stderr } = await runPrettier(dir, [
+      const { stderr } = await runCli(dir, [
         "--cache",
         "--cache-location",
         "a.js",
@@ -610,7 +580,7 @@ describe("--cache option", () => {
           "code",
           "ENOENT"
         );
-        await runPrettier(dir, [
+        await runCli(dir, [
           "--cache",
           "--cache-location",
           nonDefaultCacheFileName,
@@ -629,7 +599,7 @@ describe("--cache option", () => {
           nonDefaultCacheFileName,
           "*.js",
         ];
-        const { stdout: firstStdout } = await runPrettier(dir, cliArguments);
+        const { stdout: firstStdout } = await runCli(dir, cliArguments);
         expect(firstStdout.split("\n")).toEqual(
           expect.arrayContaining([
             expect.stringMatching(/^a\.js .+ms$/),
@@ -637,7 +607,7 @@ describe("--cache option", () => {
           ])
         );
 
-        const { stdout: secondStdout } = await runPrettier(dir, cliArguments);
+        const { stdout: secondStdout } = await runCli(dir, cliArguments);
         expect(secondStdout.split("\n")).toEqual(
           expect.arrayContaining([
             expect.stringMatching(/^a\.js .+ms \(cached\)$/),

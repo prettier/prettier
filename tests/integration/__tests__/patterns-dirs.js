@@ -97,7 +97,7 @@ const uppercaseRocksPlugin = path.join(
   "tests/config/prettier-plugins/prettier-plugin-uppercase-rocks/index.js"
 );
 describe("plugins `.`", () => {
-  runPrettier("cli/dirs/plugins", [
+  runCli("cli/dirs/plugins", [
     ".",
     "-l",
     "--plugin",
@@ -109,7 +109,7 @@ describe("plugins `.`", () => {
   });
 });
 describe("plugins `*`", () => {
-  runPrettier("cli/dirs/plugins", [
+  runCli("cli/dirs/plugins", [
     "*",
     "-l",
     "--plugin",
@@ -166,7 +166,7 @@ function testPatterns(
       .join(" ");
 
   describe(testName, () => {
-    runPrettier(cwd, [...cliArgs, "-l"]).test({
+    runCli(cwd, [...cliArgs, "-l"]).test({
       write: [],
       ...(!("status" in expected) && { stderr: "", status: 1 }),
       ...expected,
