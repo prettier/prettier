@@ -16,7 +16,7 @@ import {
   getFunctionParameters,
   isObjectType,
 } from "../utils/index.js";
-import isTSXFile from "../utils/is-tsx-file.js";
+import isTsxFile from "../utils/is-tsx-file.js";
 import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
 import {
   printTypeAnnotationProperty,
@@ -75,7 +75,7 @@ function printTypeParameters(path, options, print, paramsKey) {
     node.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
       ? ""
       : getFunctionParameters(node).length === 1 &&
-        isTSXFile(options) &&
+        isTsxFile(options) &&
         !node[paramsKey][0].constraint &&
         path.parent.type === "ArrowFunctionExpression"
       ? ","

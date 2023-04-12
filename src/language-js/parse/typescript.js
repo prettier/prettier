@@ -1,5 +1,5 @@
 import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree/dist/parser.js";
-import isTSXFile from "../utils/is-tsx-file.js";
+import isTsxFile from "../utils/is-tsx-file.js";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
@@ -40,7 +40,7 @@ function createParseError(error) {
 
 function parse(text, options) {
   const textToParse = replaceHashbang(text);
-  const jsx = isTSXFile(options);
+  const jsx = isTsxFile(options);
 
   let result;
   try {
