@@ -40,7 +40,7 @@ function createParseError(error) {
 
 function parse(text, options) {
   const textToParse = replaceHashbang(text);
-  const jsx = isTsxFile(options);
+  const jsx = options ? isTsxFile(options) : false;
 
   let result;
   try {
