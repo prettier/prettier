@@ -2,7 +2,11 @@ import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
 import inferParser from "../utils/infer-parser.js";
 import normalizeOptions from "./normalize-options.js";
-import { resolveParser } from "./parser.js";
+import {
+  getParserPluginByParserName,
+  getPrinterPluginByAstFormat,
+  initParser,
+} from "./parser-and-printer.js";
 
 const formatOptionsHiddenDefaults = {
   astFormat: "estree",
@@ -44,36 +48,36 @@ async function normalizeFormatOptions(options, opts = {}) {
       });
       if (!rawOptions.parser) {
         throw new UndefinedParserError(
-          `No parser could be inferred for file: ${rawOptions.filepath}`
+          `No parser could be inferred for file "${rawOptions.filepath}".`
         );
       }
     }
   }
-  const parser = await resolveParser(
-    // @ts-expect-error
-    normalizeOptions(
-      rawOptions,
-      [supportOptions.find((x) => x.name === "parser")],
-      { passThrough: true, logger: false }
-    )
+
+  const parserPlugin = getParserPluginByParserName(
+    rawOptions.plugins,
+    rawOptions.parser
   );
+
+  const parser = await initParser(parserPlugin, rawOptions.parser);
   rawOptions.astFormat = parser.astFormat;
   rawOptions.locEnd = parser.locEnd;
   rawOptions.locStart = parser.locStart;
 
-  const plugin = getPlugin(rawOptions);
-  rawOptions.printer = plugin.printers[rawOptions.astFormat];
+  const printerPlugin = parserPlugin.printers?.[parser.astFormat]
+    ? parserPlugin
+    : getPrinterPluginByAstFormat(rawOptions.plugins, parser.astFormat);
+  const printer = printerPlugin.printers[parser.astFormat];
 
-  const pluginDefaults = Object.fromEntries(
-    supportOptions
-      .filter(
-        (optionInfo) => optionInfo.pluginDefaults?.[plugin.name] !== undefined
+  rawOptions.printer = printer;
+
+  const pluginDefaults = printerPlugin.defaultOptions
+    ? Object.fromEntries(
+        Object.entries(printerPlugin.defaultOptions).filter(
+          ([, value]) => value !== undefined
+        )
       )
-      .map((optionInfo) => [
-        optionInfo.name,
-        optionInfo.pluginDefaults[plugin.name],
-      ])
-  );
+    : {};
 
   const mixedDefaults = { ...defaults, ...pluginDefaults };
 
@@ -91,26 +95,6 @@ async function normalizeFormatOptions(options, opts = {}) {
     passThrough: Object.keys(formatOptionsHiddenDefaults),
     ...opts,
   });
-}
-
-function getPlugin(options) {
-  const { astFormat } = options;
-
-  // TODO: test this with plugins
-  /* c8 ignore next 3 */
-  if (!astFormat) {
-    throw new Error("getPlugin() requires astFormat to be set");
-  }
-  const printerPlugin = options.plugins.find(
-    (plugin) => plugin.printers?.[astFormat]
-  );
-  // TODO: test this with plugins
-  /* c8 ignore next 3 */
-  if (!printerPlugin) {
-    throw new Error(`Couldn't find plugin for AST format "${astFormat}"`);
-  }
-
-  return printerPlugin;
 }
 
 export default normalizeFormatOptions;

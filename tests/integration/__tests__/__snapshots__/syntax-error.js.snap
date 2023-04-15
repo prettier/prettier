@@ -3,8 +3,7 @@
 exports[`exits with non-zero code when input has a syntax error (stderr) 1`] = `
 "[error] stdin: SyntaxError: Missing semicolon. (1:2)
 [error] > 1 | a.2
-[error]     |  ^
-"
+[error]     |  ^"
 `;
 
 exports[`exits with non-zero code when input has a syntax error (stdout) 1`] = `""`;

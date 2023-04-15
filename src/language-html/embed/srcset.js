@@ -15,30 +15,28 @@ function printSrcset(path /*, options*/) {
 function printSrcsetValue(value) {
   const srcset = parseSrcset(value);
 
-  const hasW = srcset.some(({ w }) => w);
-  const hasH = srcset.some(({ h }) => h);
-  const hasX = srcset.some(({ d }) => d);
+  const hasW = srcset.some(({ width }) => width);
+  const hasH = srcset.some(({ height }) => height);
+  const hasX = srcset.some(({ density }) => density);
 
   if (hasW + hasH + hasX > 1) {
     throw new Error("Mixed descriptor in srcset is not supported");
   }
 
-  const key = hasW ? "w" : hasH ? "h" : "d";
+  const key = hasW ? "width" : hasH ? "height" : "density";
   const unit = hasW ? "w" : hasH ? "h" : "x";
 
-  const getMax = (values) => Math.max(...values);
+  const urls = srcset.map((src) => src.source.value);
+  const maxUrlLength = Math.max(...urls.map((url) => url.length));
 
-  const urls = srcset.map((src) => src.url);
-  const maxUrlLength = getMax(urls.map((url) => url.length));
-
-  const descriptors = srcset
-    .map((src) => src[key])
-    .map((descriptor) => (descriptor ? descriptor.toString() : ""));
+  const descriptors = srcset.map((src) =>
+    src[key] ? String(src[key].value) : ""
+  );
   const descriptorLeftLengths = descriptors.map((descriptor) => {
     const index = descriptor.indexOf(".");
     return index === -1 ? descriptor.length : index;
   });
-  const maxDescriptorLeftLength = getMax(descriptorLeftLengths);
+  const maxDescriptorLeftLength = Math.max(...descriptorLeftLengths);
 
   return printExpand(
     join(

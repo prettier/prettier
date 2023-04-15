@@ -1,4 +1,3 @@
-import runPrettier from "../run-prettier.js";
 import { getContextOptions } from "../../../src/cli/options/get-context-options.js";
 
 const { detailedOptions } = await getContextOptions();
@@ -11,7 +10,7 @@ for (const option of detailedOptions) {
 
   for (const optionName of optionNames) {
     describe(`show detailed usage with --help ${optionName}`, () => {
-      runPrettier("cli", ["--help", optionName]).test({
+      runCli("cli", ["--help", optionName]).test({
         status: 0,
       });
     });

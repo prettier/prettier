@@ -201,6 +201,10 @@ function fits(
   groupModeMap,
   mustBeFlat
 ) {
+  if (width === Number.POSITIVE_INFINITY) {
+    return true;
+  }
+
   let restIdx = restCommands.length;
   /** @type {Array<Omit<Command, 'ind'>>} */
   const cmds = [next];

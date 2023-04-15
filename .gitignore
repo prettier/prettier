@@ -31,7 +31,7 @@ package-lock.json
 .node-version
 # When installing software on gitpod.io, `core.*` files are generated
 /core.*
+*.swp
 
-# Temporarily ignore these files to avoid conflicts between next and main branch
-/vendors
-/scripts/vendors
+# For 0x flamegraph directory (https://github.com/davidmarkclements/0x)
+*.0x/

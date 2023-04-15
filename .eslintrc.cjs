@@ -311,7 +311,7 @@ module.exports = {
       },
       globals: {
         run_spec: "readonly",
-        runPrettier: "readonly",
+        runCli: "readonly",
       },
     },
     {
@@ -325,7 +325,7 @@ module.exports = {
                 path.resolve(__dirname, "src/**"),
                 `!${path.resolve(__dirname, "src/cli/**")}`,
                 `!${path.resolve(__dirname, "src/index.js")}`,
-                `!${path.resolve(__dirname, "src/common/third-party.js")}`,
+                `!${path.resolve(__dirname, "src/common/mockable.js")}`,
               ],
               message: "Don't use code from other directory.",
             },

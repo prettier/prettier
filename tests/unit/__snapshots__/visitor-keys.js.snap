@@ -446,6 +446,9 @@ exports[`visitor keys estree 1`] = `
   "JsonRoot": [
     "node",
   ],
+  "KeyofTypeAnnotation": [
+    "argument",
+  ],
   "LabeledStatement": [
     "label",
     "body",
@@ -563,6 +566,12 @@ exports[`visitor keys estree 1`] = `
     "static",
     "method",
   ],
+  "ObjectTypeMappedTypeProperty": [
+    "keyTparam",
+    "propType",
+    "sourceType",
+    "variance",
+  ],
   "ObjectTypeProperty": [
     "key",
     "value",
@@ -613,7 +622,6 @@ exports[`visitor keys estree 1`] = `
   "Property": [
     "key",
     "value",
-    "decorators",
   ],
   "PropertyDefinition": [
     "decorators",
@@ -673,7 +681,6 @@ exports[`visitor keys estree 1`] = `
   "TSAbstractMethodDefinition": [
     "key",
     "value",
-    "decorators",
   ],
   "TSAbstractPropertyDefinition": [
     "decorators",

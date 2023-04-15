@@ -1,11 +1,10 @@
 import outdent from "outdent";
-import runPrettier from "../run-prettier.js";
 import jestPathSerializer from "../path-serializer.js";
 
 expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("throw error for unsupported extension", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config",
     "file/.prettierrc.unsupported",
   ]).test({
@@ -14,17 +13,14 @@ describe("throw error for unsupported extension", () => {
 });
 
 describe("throw error with invalid config format", () => {
-  runPrettier("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
+  runCli("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
     status: "non-zero",
     stderr: expect.stringMatching(/Cannot find package '--invalid--'/),
   });
 });
 
 describe("throw error with invalid config format", () => {
-  runPrettier("cli/config/invalid", [
-    "--config",
-    "type-error/.prettierrc",
-  ]).test({
+  runCli("cli/config/invalid", ["--config", "type-error/.prettierrc"]).test({
     status: "non-zero",
     stderr: expect.stringContaining(
       "Config is only allowed to be an object, but received number in"
@@ -33,7 +29,7 @@ describe("throw error with invalid config format", () => {
 });
 
 describe("throw error with invalid config target (directory)", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config",
     "folder/.prettierrc", // this is a directory
   ]).test({
@@ -42,19 +38,19 @@ describe("throw error with invalid config target (directory)", () => {
 });
 
 describe("throw error with invalid config option (int)", () => {
-  runPrettier("cli/config/invalid", ["--config", "option/int"]).test({
+  runCli("cli/config/invalid", ["--config", "option/int"]).test({
     status: "non-zero",
   });
 });
 
 describe("throw error with invalid config option (trailingComma)", () => {
-  runPrettier("cli/config/invalid", ["--config", "option/trailingComma"]).test({
+  runCli("cli/config/invalid", ["--config", "option/trailingComma"]).test({
     status: "non-zero",
   });
 });
 
 describe("throw error with invalid config precedence option (configPrecedence)", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config-precedence",
     "option/configPrecedence",
   ]).test({
@@ -63,9 +59,7 @@ describe("throw error with invalid config precedence option (configPrecedence)",
 });
 
 describe("resolves external configuration from package.json", () => {
-  runPrettier("cli/config-external-config-syntax-error", [
-    "syntax-error.js",
-  ]).test({
+  runCli("cli/config-external-config-syntax-error", ["syntax-error.js"]).test({
     status: 2,
   });
 });
@@ -73,7 +67,7 @@ describe("resolves external configuration from package.json", () => {
 // Tests below require --parser to prevent an error (no parser/filepath specified)
 
 describe("show warning with unknown option", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config",
     "option/unknown",
     "--parser",
@@ -84,7 +78,7 @@ describe("show warning with unknown option", () => {
 });
 
 describe("show warning with kebab-case option key", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config",
     "option/kebab-case",
     "--parser",
@@ -96,7 +90,7 @@ describe("show warning with kebab-case option key", () => {
 
 // #8815, please make sure this error contains code frame
 describe("Invalid json file", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config",
     "broken-json/.prettierrc.json",
     "--parser",
@@ -119,7 +113,7 @@ describe("Invalid json file", () => {
 });
 
 describe("Invalid toml file", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config",
     "broken-toml/.prettierrc.toml",
     "--parser",

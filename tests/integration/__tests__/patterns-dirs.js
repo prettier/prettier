@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import runPrettier from "../run-prettier.js";
 import jestPathSerializer from "../path-serializer.js";
 import { projectRoot } from "../env.js";
 
@@ -98,7 +97,7 @@ const uppercaseRocksPlugin = path.join(
   "tests/config/prettier-plugins/prettier-plugin-uppercase-rocks/index.js"
 );
 describe("plugins `.`", () => {
-  runPrettier("cli/dirs/plugins", [
+  runCli("cli/dirs/plugins", [
     ".",
     "-l",
     "--plugin",
@@ -110,7 +109,7 @@ describe("plugins `.`", () => {
   });
 });
 describe("plugins `*`", () => {
-  runPrettier("cli/dirs/plugins", [
+  runCli("cli/dirs/plugins", [
     "*",
     "-l",
     "--plugin",
@@ -143,13 +142,13 @@ if (path.sep === "/") {
       fs.rmdirSync(path.resolve(base, "test-b\\?"));
     });
 
-    testPatterns("", ["test-a\\/test.js"], { stdout: "test-a\\/test.js\n" });
-    testPatterns("", ["test-a\\"], { stdout: "test-a\\/test.js\n" });
-    testPatterns("", ["test-a*/*"], { stdout: "test-a\\/test.js\n" });
+    testPatterns("", ["test-a\\/test.js"], { stdout: "test-a\\/test.js" });
+    testPatterns("", ["test-a\\"], { stdout: "test-a\\/test.js" });
+    testPatterns("", ["test-a*/*"], { stdout: "test-a\\/test.js" });
 
-    testPatterns("", ["test-b\\?/test.js"], { stdout: "test-b\\?/test.js\n" });
-    testPatterns("", ["test-b\\?"], { stdout: "test-b\\?/test.js\n" });
-    testPatterns("", ["test-b*/*"], { stdout: "test-b\\?/test.js\n" });
+    testPatterns("", ["test-b\\?/test.js"], { stdout: "test-b\\?/test.js" });
+    testPatterns("", ["test-b\\?"], { stdout: "test-b\\?/test.js" });
+    testPatterns("", ["test-b*/*"], { stdout: "test-b\\?/test.js" });
   });
 }
 
@@ -167,7 +166,7 @@ function testPatterns(
       .join(" ");
 
   describe(testName, () => {
-    runPrettier(cwd, [...cliArgs, "-l"]).test({
+    runCli(cwd, [...cliArgs, "-l"]).test({
       write: [],
       ...(!("status" in expected) && { stderr: "", status: 1 }),
       ...expected,

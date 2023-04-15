@@ -199,7 +199,6 @@ const allowedMessageCodes = new Set([
   "LineTerminatorBeforeArrow",
   "InvalidEscapeSequenceTemplate",
   "NonAbstractClassHasAbstractMethod",
-  "UnsupportedPropertyDecorator",
   "OptionalTypeBeforeRequired",
   "PatternIsOptional",
   "OptionalBindingPattern",

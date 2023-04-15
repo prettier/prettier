@@ -477,11 +477,19 @@ export interface Printer<T = any> {
   ): Doc;
   embed?:
     | ((
-        path: AstPath<T>,
-        print: (path: AstPath<T>) => Doc,
-        textToDoc: (text: string, options: Options) => Doc,
-        options: ParserOptions<T>
-      ) => Doc | null)
+        path: AstPath,
+        options: Options
+      ) =>
+        | ((
+            textToDoc: (text: string, options: Options) => Promise<Doc>,
+            print: (
+              selector?: string | number | Array<string | number> | AstPath
+            ) => Doc,
+            path: AstPath,
+            options: Options
+          ) => Promise<Doc | undefined> | Doc | undefined)
+        | Doc
+        | null)
     | undefined;
   insertPragma?: (text: string) => string;
   /**
@@ -496,6 +504,16 @@ export interface Printer<T = any> {
   willPrintOwnComments?: ((path: AstPath<T>) => boolean) | undefined;
   printComment?:
     | ((commentPath: AstPath<T>, options: ParserOptions<T>) => Doc)
+    | undefined;
+  /**
+   * By default, Prettier searches all object properties (except for a few predefined ones) of each node recursively.
+   * This function can be provided to override that behavior.
+   * @param node The node whose children should be returned.
+   * @param options Current options.
+   * @returns `[]` if the node has no children or `undefined` to fall back on the default behavior.
+   */
+  getCommentChildNodes?:
+    | ((node: T, options: ParserOptions<T>) => T[] | undefined)
     | undefined;
   handleComments?:
     | {
@@ -767,7 +785,7 @@ export interface SupportInfo {
 }
 
 export interface FileInfoOptions {
-  ignorePath?: string | undefined;
+  ignorePath?: string | string[] | undefined;
   withNodeModules?: boolean | undefined;
   plugins?: string[] | undefined;
   resolveConfig?: boolean | undefined;

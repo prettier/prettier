@@ -39,8 +39,8 @@ async function buildPackageJson({ file, files }) {
     },
     exports: {
       ".": {
-        require: "./index.cjs",
         types: "./index.d.ts",
+        require: "./index.cjs",
         default: "./index.mjs",
       },
       "./*": "./*",
@@ -52,8 +52,8 @@ async function buildPackageJson({ file, files }) {
             return [
               file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
               {
-                require: `./${file.output.file}`,
                 types: `./${file.output.file.replace(/\.js$/, ".d.ts")}`,
+                require: `./${file.output.file}`,
                 default: `./${file.output.file.replace(/\.js$/, ".mjs")}`,
               },
             ];

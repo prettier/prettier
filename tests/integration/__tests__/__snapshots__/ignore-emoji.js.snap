@@ -2,10 +2,7 @@
 
 exports[`ignores file name contains emoji (stderr) 1`] = `""`;
 
-exports[`ignores file name contains emoji (stdout) 1`] = `
-"not-ignored.js
-"
-`;
+exports[`ignores file name contains emoji (stdout) 1`] = `"not-ignored.js"`;
 
 exports[`ignores file name contains emoji (write) 1`] = `[]`;
 
