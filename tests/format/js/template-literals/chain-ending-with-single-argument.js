@@ -12,3 +12,19 @@ foo().bar().baz().qux(`
   template literal
   template literal
 `)
+
+foo()
+  .bar()
+  .baz()
+  .qux(
+    `
+    template literal
+`,
+  );
+
+foo()
+  .bar()
+  .baz()
+  .qux(`
+    template literal
+`);

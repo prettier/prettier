@@ -43,6 +43,22 @@ foo().bar().baz().qux(\`
   template literal
 \`)
 
+foo()
+  .bar()
+  .baz()
+  .qux(
+    \`
+    template literal
+\`,
+  );
+
+foo()
+  .bar()
+  .baz()
+  .qux(\`
+    template literal
+\`);
+
 =====================================output=====================================
 foo("long" + "set")
   .bar("of" + "arguments")
@@ -65,6 +81,20 @@ foo()
   .qux(\`
   template literal
   template literal
+\`);
+
+foo()
+  .bar()
+  .baz()
+  .qux(\`
+    template literal
+\`);
+
+foo()
+  .bar()
+  .baz()
+  .qux(\`
+    template literal
 \`);
 
 ================================================================================
