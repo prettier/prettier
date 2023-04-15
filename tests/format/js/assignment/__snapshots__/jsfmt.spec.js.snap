@@ -731,7 +731,8 @@ if (true) {
   );
 }
 
-const bifornCringerMoshedPerplexSawderGlyphsHb = someBigFunctionName(\`foo
+const bifornCringerMoshedPerplexSawderGlyphsHb = someBigFunctionName(
+  \`foo
 \`)("bar");
 
 ================================================================================

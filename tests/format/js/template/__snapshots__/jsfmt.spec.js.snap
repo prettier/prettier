@@ -46,7 +46,8 @@ new Error(formatErrorMessage\`
 \`);
 
 =====================================output=====================================
-insertRule(\`*, *:before, *:after {
+insertRule(
+  \`*, *:before, *:after {
   box-sizing: inherit;
 }\`);
 
