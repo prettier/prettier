@@ -251,7 +251,7 @@ function printArrowFunctionSignature(path, options, print, args) {
 /**
  *
  * @param {*} node
- * @param {*[]} bodyDoc
+ * @param {*} bodyDoc
  * @param {*} options
  * @returns {boolean}
  */
@@ -261,8 +261,8 @@ function mayBreakAfterShortPrefix(node, bodyDoc, options) {
     isObjectOrRecordExpression(node) ||
     node.type === "BlockStatement" ||
     isJsxElement(node) ||
-    (bodyDoc[0].label?.hug !== false &&
-      (bodyDoc[0].label?.embed ||
+    (bodyDoc.label?.hug !== false &&
+      (bodyDoc.label?.embed ||
         isTemplateOnItsOwnLine(node, options.originalText))) ||
     node.type === "ArrowFunctionExpression" ||
     node.type === "DoExpression"
@@ -273,8 +273,10 @@ function printArrowFunction(path, options, print, args) {
   const { node, parent, key } = path;
   /** @type {Doc[]} */
   const signatures = [];
-  /** @type {any[] | Doc} */
-  let bodyDoc = [];
+  /** @type {Doc} */
+  let bodyDoc;
+  /** @type {*[]} */
+  const bodyComments = [];
   let chainShouldBreak = false;
   let tailNode = node;
 
@@ -286,7 +288,7 @@ function printArrowFunction(path, options, print, args) {
     } else {
       const { leading, trailing } = printCommentsSeparately(path, options);
       signatures.push([leading, doc]);
-      bodyDoc.unshift(trailing);
+      bodyComments.unshift(trailing);
     }
 
     chainShouldBreak =
@@ -303,7 +305,7 @@ function printArrowFunction(path, options, print, args) {
       currentNode.body.type !== "ArrowFunctionExpression" ||
       args?.expandLastArg
     ) {
-      bodyDoc.unshift(print("body", args));
+      bodyDoc = print("body", args);
     } else {
       tailNode = currentNode.body;
       path.call(rec, "body");
@@ -419,9 +421,9 @@ function printArrowFunction(path, options, print, args) {
     " =>",
     indentIfChainBreaks([
       shouldPutBodyOnSameLine
-        ? [" ", bodyDoc]
+        ? [" ", bodyDoc, bodyComments]
         : [
-            indent([line, bodyDoc]),
+            indent([line, bodyDoc, bodyComments]),
             shouldAddSoftLine
               ? [ifBreak(printTrailingComma ? "," : ""), softline]
               : "",
