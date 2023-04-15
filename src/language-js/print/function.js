@@ -358,19 +358,6 @@ function printArrowFunction(path, options, print, args) {
 
   const chainGroupId = Symbol("arrow-chain");
 
-  if (shouldAddParensIfBreak) {
-    bodyDoc = group([
-      ifBreak("", "("),
-      indent([softline, bodyDoc]),
-      ifBreak("", ")"),
-      shouldAddSoftLine
-        ? [ifBreak(printTrailingComma ? "," : ""), softline]
-        : "",
-    ]);
-  } else if (shouldAlwaysAddParens) {
-    bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
-  }
-
   const maybeBreakFirst = (doc) => {
     if ((isCallee || isAssignmentRhs) && isChain) {
       return group(indent([softline, doc]), {
@@ -416,14 +403,31 @@ function printArrowFunction(path, options, print, args) {
     return indentIfBreak(doc, { groupId: chainGroupId });
   };
 
+  /** @type {Doc} */
+  let decoratedBodyDoc;
+  if (shouldAlwaysAddParens) {
+    decoratedBodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
+  } else if (shouldAddParensIfBreak && shouldPutBodyOnSameLine) {
+    decoratedBodyDoc = group([
+      ifBreak("", "("),
+      indent([softline, bodyDoc]),
+      ifBreak("", ")"),
+      shouldAddSoftLine
+        ? [ifBreak(printTrailingComma ? "," : ""), softline]
+        : "",
+    ]);
+  } else {
+    decoratedBodyDoc = bodyDoc;
+  }
+
   return group([
     maybeBreakFirst(joinedSignatures),
     " =>",
     indentIfChainBreaks([
       shouldPutBodyOnSameLine
-        ? [" ", bodyDoc, bodyComments]
+        ? [" ", decoratedBodyDoc, bodyComments]
         : [
-            indent([line, bodyDoc, bodyComments]),
+            indent([line, decoratedBodyDoc, bodyComments]),
             shouldAddSoftLine
               ? [ifBreak(printTrailingComma ? "," : ""), softline]
               : "",
