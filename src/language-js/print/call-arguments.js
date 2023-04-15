@@ -22,7 +22,6 @@ import {
   isTSTypeExpression,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
-  isTemplateOnItsOwnLine,
 } from "../utils/index.js";
 
 import {
@@ -161,15 +160,38 @@ function printCallArguments(path, options, print) {
     ]);
   }
 
-  const isTemplateLiteralSingleArg =
-    args.length === 1 && isTemplateOnItsOwnLine(args[0], options.originalText);
-  const inner = isTemplateLiteralSingleArg
-    ? [indent(printedArguments)]
-    : [
-        indent([softline, ...printedArguments]),
-        ifBreak(maybeTrailingComma),
-        softline,
-      ];
+  let inner;
+  if (
+    (args.length === 1 && args[0].type === "TemplateLiteral") ||
+    args[0].type === "TaggedTemplateExpression"
+  ) {
+    const quasis = (() => {
+      switch (args[0].type) {
+        case "TemplateLiteral":
+          return args[0].quasis;
+        case "TaggedTemplateExpression":
+          return args[0].quasi.quasis;
+      }
+    })();
+
+    const openingString = quasis.at(0).value.raw;
+    const closingString = quasis.at(-1).value.raw;
+    //if the string begins or ends with whitespace (and/or brackets), inline the respective delimiter
+    //by omitting newlines
+    const openingNewline = /^[({\[]*\s*?\n/.test(openingString)
+    const closingNewline = /\n\s*[)}\]]*$/.test(closingString);
+
+    inner = [
+      indent([openingNewline ? "" : ifBreak(softline), printedArguments]),
+      closingNewline ? "" : ifBreak([maybeTrailingComma, softline]),
+    ];
+  } else {
+    inner = [
+      indent([softline, ...printedArguments]),
+      ifBreak(maybeTrailingComma),
+      softline,
+    ];
+  }
 
   const contents = ["(", ...inner, ")"];
 
