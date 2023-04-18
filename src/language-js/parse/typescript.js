@@ -1,5 +1,5 @@
 import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree/dist/parser.js";
-import isTsxFile from "../utils/is-tsx-file.js";
+import { getJsxParseOptionCombinations } from "../utils/tsx-support.js";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
@@ -40,16 +40,14 @@ function createParseError(error) {
 
 function parse(text, options) {
   const textToParse = replaceHashbang(text);
-  const jsx = options ? isTsxFile(options) : false;
 
   let result;
   try {
-    result = tryCombinations([
-      // Try passing with our best guess first.
-      () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
-      // But if we get it wrong, try the opposite.
-      () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx: !jsx }),
-    ]);
+    result = tryCombinations(
+      getJsxParseOptionCombinations(text, options).map(
+        (jsx) => () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx })
+      )
+    );
   } catch ({
     errors: [
       // Suppose our guess is correct, throw the first error
