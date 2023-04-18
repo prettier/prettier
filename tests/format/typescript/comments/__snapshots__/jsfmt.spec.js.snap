@@ -62,68 +62,6 @@ abstract class AbstractFoo {
 ================================================================================
 `;
 
-exports[`after_jsx_generic.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-let comp = (
-  <>
-    <Component<number> /* comment1 */></Component>
-    <Component<number> foo /* comment2 */></Component>
-    <Component<number> /* comment3 */ bar></Component>
-    <Component<number> foo /* comment4 */ bar></Component>
-
-    <Component<number>
-      // comment5
-    ></Component>
-    <Component<number>
-      foo
-      // comment6
-    ></Component>
-    <Component<number>
-      // comment7
-      foo
-    ></Component>
-    <Component<number>
-      foo
-      // comment8
-      bar
-    ></Component>
-  </>
-);
-
-=====================================output=====================================
-let comp = (
-  <>
-    <Component<number> /* comment1 */></Component>
-    <Component<number> foo /* comment2 */></Component>
-    <Component<number> /* comment3 */ bar></Component>
-    <Component<number> foo /* comment4 */ bar></Component>
-
-    <Component<number>
-    // comment5
-    ></Component>
-    <Component<number>
-      foo
-      // comment6
-    ></Component>
-    <Component<number>
-      // comment7
-      foo
-    ></Component>
-    <Component<number>
-      foo
-      // comment8
-      bar
-    ></Component>
-  </>
-);
-
-================================================================================
-`;
-
 exports[`after_jsx_generic.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -351,28 +289,6 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
   stdin?: string;
   dontLogInNuclide?: boolean;
 };
-
-================================================================================
-`;
-
-exports[`jsx.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-var example1 = <div>
-	https://test
-</div>;
-
-var example2 = <div>
-	/*test*/
-</div>;
-
-=====================================output=====================================
-var example1 = <div>https://test</div>;
-
-var example2 = <div>/*test*/</div>;
 
 ================================================================================
 `;
