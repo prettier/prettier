@@ -61,17 +61,17 @@ jobs:
           - "14"
         include:
           - os: "ubuntu-latest"
-            node: "18"
+            node: "20"
             FULL_TEST: true
         exclude:
           - os: "macos-latest"
-            node: "16"
+            node: "18"
           - os: "windows-latest"
-            node: "16"
+            node: "18"
           - os: "macos-latest"
-            node: "20"
+            node: "16"
           - os: "windows-latest"
-            node: "20"
+            node: "16"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
