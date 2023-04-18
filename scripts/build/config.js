@@ -106,10 +106,16 @@ const pluginFiles = [
     replaceModule: [
       {
         module: require.resolve("flow-parser"),
-        process: (text) =>
-          text
+        process(text) {
+          const { fsModuleNameVariableName } = text.match(
+            /,(?<fsModuleNameVariableName>\w+)="fs",/
+          ).groups;
+
+          return text
+            .replaceAll(`require(${fsModuleNameVariableName})`, "{}")
             .replaceAll('require("fs")', "{}")
-            .replaceAll('require("constants")', "{}"),
+            .replaceAll('require("constants")', "{}");
+        },
       },
     ],
   },
