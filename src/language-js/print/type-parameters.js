@@ -75,6 +75,7 @@ function printTypeParameters(path, options, print, paramsKey) {
     node.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
       ? ""
       : getFunctionParameters(node).length === 1 &&
+        node.type.startsWith("TS") &&
         shouldForceTrailingCommaInTypeParameters(options) &&
         !node[paramsKey][0].constraint &&
         path.parent.type === "ArrowFunctionExpression"
