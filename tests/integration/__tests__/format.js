@@ -24,7 +24,7 @@ test("typescript parser should throw the first error when both JSX and non-JSX m
     label:
   `;
   await expect(
-    prettier.format(input, { parser: "typescript", filepath: "foo.tsx" })
+    prettier.format(input, { parser: "typescript", filepath: "foo.unknown" })
   ).rejects.toThrowErrorMatchingSnapshot();
 });
 
