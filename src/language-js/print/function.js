@@ -270,6 +270,45 @@ function mayBreakAfterShortPrefix(node, bodyDoc, options) {
 }
 
 /**
+ * @param {Doc[]} signatures
+ * @param {*} parent
+ * @param {Object} flags
+ * @param {boolean} flags.isCallee
+ * @param {boolean} flags.shouldBreak
+ * @param {boolean} flags.isAssignmentRhs
+ * @returns {Doc}
+ */
+function joinArrowFunctionSignatures(
+  signatures,
+  parent,
+  { isCallee, shouldBreak, isAssignmentRhs }
+) {
+  if (signatures.length === 1) {
+    return signatures[0];
+  }
+  if ((isCallLikeExpression(parent) && !isCallee) || isBinaryish(parent)) {
+    return group(
+      [
+        signatures[0],
+        " =>",
+        indent([line, join([" =>", line], signatures.slice(1))]),
+      ],
+      {
+        shouldBreak,
+      }
+    );
+  }
+  if (isCallee || isAssignmentRhs) {
+    return group(join([" =>", line], signatures), {
+      shouldBreak,
+    });
+  }
+  return group(indent(join([" =>", line], signatures)), {
+    shouldBreak,
+  });
+}
+
+/**
  * @param {Doc} bodyDoc
  * @param {Doc[]} bodyComments
  * @param {*} parent
@@ -414,34 +453,6 @@ function printArrowFunction(path, options, print, args) {
     return group(doc, { id: chainGroupId });
   };
 
-  /** @type {Doc} */
-  let joinedSignatures = "";
-  if (!isChain) {
-    joinedSignatures = signatures[0];
-  } else if (
-    (isCallLikeExpression(parent) && !isCallee) ||
-    isBinaryish(parent)
-  ) {
-    joinedSignatures = group(
-      [
-        signatures[0],
-        " =>",
-        indent([line, join([" =>", line], signatures.slice(1))]),
-      ],
-      {
-        shouldBreak: chainShouldBreak,
-      }
-    );
-  } else if (isCallee || isAssignmentRhs) {
-    joinedSignatures = group(join([" =>", line], signatures), {
-      shouldBreak: chainShouldBreak,
-    });
-  } else {
-    joinedSignatures = group(indent(join([" =>", line], signatures)), {
-      shouldBreak: chainShouldBreak,
-    });
-  }
-
   const indentIfChainBreaks = (doc) => {
     if (!isChain) {
       return group(doc);
@@ -450,7 +461,13 @@ function printArrowFunction(path, options, print, args) {
   };
 
   return group([
-    maybeBreakFirst(joinedSignatures),
+    maybeBreakFirst(
+      joinArrowFunctionSignatures(signatures, parent, {
+        isCallee,
+        isAssignmentRhs,
+        shouldBreak: chainShouldBreak,
+      })
+    ),
     " =>",
     indentIfChainBreaks(
       printArrowBody(
