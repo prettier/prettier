@@ -258,6 +258,7 @@ function printFlow(path, options, print) {
 
     case "InferredPredicate":
     case "DeclaredPredicate":
+      // Note: Leading comment print should be improved https://github.com/prettier/prettier/pull/14710#issuecomment-1512522282
       return [
         // The return type will already add the colon, but otherwise we
         // need to do it ourselves
