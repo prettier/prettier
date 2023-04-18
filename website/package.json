@@ -19,7 +19,7 @@
     "@babel/preset-env": "7.21.4",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "9.1.2",
-    "concurrently": "7.6.0",
+    "concurrently": "8.0.1",
     "docusaurus": "1.14.7",
     "js-yaml": "4.1.0",
     "webpack": "5.79.0",
