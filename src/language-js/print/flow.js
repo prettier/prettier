@@ -64,7 +64,6 @@ function printFlow(path, options, print) {
         printDeclareToken(path),
         "function ",
         print("id"),
-        node.predicate ? " " : "",
         print("predicate"),
         semi,
       ];
@@ -258,9 +257,20 @@ function printFlow(path, options, print) {
       return printTypeParameters(path, options, print, "params");
 
     case "InferredPredicate":
-      return "%checks";
     case "DeclaredPredicate":
-      return ["%checks(", print("value"), ")"];
+      return [
+        // The return type will already add the colon, but otherwise we
+        // need to do it ourselves
+        path.key === "predicate" &&
+        path.parent.type !== "DeclareFunction" &&
+        !path.parent.returnType
+          ? ": "
+          : " ",
+        "%checks",
+        ...(node.type === "DeclaredPredicate"
+          ? ["(", print("value"), ")"]
+          : []),
+      ];
   }
 }
 
