@@ -57,13 +57,13 @@ exports[`newline-before-arrow.ts [typescript] format 1`] = `
 `;
 
 exports[`snippet: #0 [typescript] format 1`] = `
-"Expression expected. (1:15)
+"Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`? (1:15)
 > 1 | let x1 = <div>}</div>;
     |               ^"
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
-"Expression expected. (1:15)
+"Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (1:15)
 > 1 | let x2 = <div>></div>;
     |               ^"
 `;
