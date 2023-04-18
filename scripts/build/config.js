@@ -185,7 +185,7 @@ const pluginFiles = [
         process: (text) =>
           text.replace(
             'require("path")',
-            "{extname: file => file.split('.').pop()}"
+            '{extname: file => "." + file.split('.').pop()}'
           ),
       },
       {
