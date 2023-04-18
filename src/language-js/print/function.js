@@ -269,6 +269,63 @@ function mayBreakAfterShortPrefix(node, bodyDoc, options) {
   );
 }
 
+/**
+ * @param {Doc} bodyDoc
+ * @param {Doc[]} bodyComments
+ * @param {*} parent
+ * @param {*} node
+ * @param {Object} flags
+ * @param {boolean} flags.shouldAddParensIfNotBreak
+ * @param {boolean} flags.shouldAlwaysAddParens
+ * @param {boolean} flags.shouldPutBodyOnSameLine
+ * @param {*} args
+ * @param {*} options
+ */
+function printArrowBody(
+  bodyDoc,
+  bodyComments,
+  parent,
+  node,
+  { shouldAddParensIfNotBreak, shouldAlwaysAddParens, shouldPutBodyOnSameLine },
+  args,
+  options
+) {
+  const printTrailingComma =
+    args?.expandLastArg && shouldPrintComma(options, "all");
+
+  // if the arrow function is expanded as last argument, we are adding a
+  // level of indentation and need to add a softline to align the closing )
+  // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
+  // we should align the expression's closing } with the line with the opening {.
+  const shouldAddSoftLine =
+    (args?.expandLastArg || parent.type === "JSXExpressionContainer") &&
+    !hasComment(node);
+
+  let decoratedBodyDoc;
+  if (shouldAlwaysAddParens) {
+    decoratedBodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
+  } else if (shouldAddParensIfNotBreak && shouldPutBodyOnSameLine) {
+    decoratedBodyDoc = group([
+      ifBreak("", "("),
+      indent([softline, bodyDoc]),
+      ifBreak("", ")"),
+      shouldAddSoftLine
+        ? [ifBreak(printTrailingComma ? "," : ""), softline]
+        : "",
+    ]);
+  } else {
+    decoratedBodyDoc = bodyDoc;
+  }
+  return shouldPutBodyOnSameLine
+    ? [" ", decoratedBodyDoc, bodyComments]
+    : [
+        indent([line, decoratedBodyDoc, bodyComments]),
+        shouldAddSoftLine
+          ? [ifBreak(printTrailingComma ? "," : ""), softline]
+          : "",
+      ];
+}
+
 function printArrowFunction(path, options, print, args) {
   const { node, parent, key } = path;
   /** @type {Doc[]} */
@@ -317,7 +374,7 @@ function printArrowFunction(path, options, print, args) {
   // In order to avoid confusion between
   // a => a ? a : a
   // a <= a ? a : a
-  const shouldAddParensIfBreak =
+  const shouldAddParensIfNotBreak =
     body.type === "ConditionalExpression" &&
     !startsWithNoLookaheadToken(
       body,
@@ -328,7 +385,7 @@ function printArrowFunction(path, options, print, args) {
   // so that the required parentheses end up on their own lines.
   const shouldAlwaysAddParens = body.type === "SequenceExpression";
 
-  const shouldAddParens = shouldAddParensIfBreak || shouldAlwaysAddParens;
+  const shouldAddParens = shouldAddParensIfNotBreak || shouldAlwaysAddParens;
 
   // We want to always keep these types of nodes on the same line
   // as the arrow.
@@ -342,17 +399,6 @@ function printArrowFunction(path, options, print, args) {
     args?.assignmentLayout === "chain-tail-arrow-chain";
 
   const isAssignmentRhs = Boolean(args?.assignmentLayout);
-
-  // if the arrow function is expanded as last argument, we are adding a
-  // level of indentation and need to add a softline to align the closing )
-  // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
-  // we should align the expression's closing } with the line with the opening {.
-  const shouldAddSoftLine =
-    (args?.expandLastArg || path.parent.type === "JSXExpressionContainer") &&
-    !hasComment(node);
-
-  const printTrailingComma =
-    args?.expandLastArg && shouldPrintComma(options, "all");
 
   const isChain = signatures.length > 1;
 
@@ -403,36 +449,24 @@ function printArrowFunction(path, options, print, args) {
     return indentIfBreak(doc, { groupId: chainGroupId });
   };
 
-  /** @type {Doc} */
-  let decoratedBodyDoc;
-  if (shouldAlwaysAddParens) {
-    decoratedBodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
-  } else if (shouldAddParensIfBreak && shouldPutBodyOnSameLine) {
-    decoratedBodyDoc = group([
-      ifBreak("", "("),
-      indent([softline, bodyDoc]),
-      ifBreak("", ")"),
-      shouldAddSoftLine
-        ? [ifBreak(printTrailingComma ? "," : ""), softline]
-        : "",
-    ]);
-  } else {
-    decoratedBodyDoc = bodyDoc;
-  }
-
   return group([
     maybeBreakFirst(joinedSignatures),
     " =>",
-    indentIfChainBreaks([
-      shouldPutBodyOnSameLine
-        ? [" ", decoratedBodyDoc, bodyComments]
-        : [
-            indent([line, decoratedBodyDoc, bodyComments]),
-            shouldAddSoftLine
-              ? [ifBreak(printTrailingComma ? "," : ""), softline]
-              : "",
-          ],
-    ]),
+    indentIfChainBreaks(
+      printArrowBody(
+        bodyDoc,
+        bodyComments,
+        parent,
+        node,
+        {
+          shouldAddParensIfNotBreak,
+          shouldAlwaysAddParens,
+          shouldPutBodyOnSameLine,
+        },
+        args,
+        options
+      )
+    ),
     isChain && isCallee ? ifBreak(softline, "", { groupId: chainGroupId }) : "",
   ]);
 }
