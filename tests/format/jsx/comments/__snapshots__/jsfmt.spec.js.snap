@@ -83,7 +83,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`in-end-tag.tsx - {"bracketSameLine":true} [meriyah] format 1`] = `
+exports[`in-end-tag.js - {"bracketSameLine":true} [meriyah] format 1`] = `
 "Expected '>' (2:11)
   1 | /* =========== before slash =========== */
 > 2 | <a><// line
@@ -93,7 +93,7 @@ exports[`in-end-tag.tsx - {"bracketSameLine":true} [meriyah] format 1`] = `
   5 | /a>;"
 `;
 
-exports[`in-end-tag.tsx - {"bracketSameLine":true} [typescript] format 1`] = `
+exports[`in-end-tag.js - {"bracketSameLine":true} [typescript] format 1`] = `
 "Identifier expected. (2:6)
   1 | /* =========== before slash =========== */
 > 2 | <a><// line
@@ -103,7 +103,7 @@ exports[`in-end-tag.tsx - {"bracketSameLine":true} [typescript] format 1`] = `
   5 | /a>;"
 `;
 
-exports[`in-end-tag.tsx - {"bracketSameLine":true} format 1`] = `
+exports[`in-end-tag.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["flow", "babel", "typescript"]
