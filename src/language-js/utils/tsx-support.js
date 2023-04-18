@@ -27,8 +27,9 @@ function isProbablyJsx(text) {
 }
 
 export const getJsxParseOptionCombinations = (text, options) => {
-  if (supportsTsx(options) === false) {
-    return [false];
+  const shouldEnableJsx = supportsTsx(options);
+  if (typeof shouldEnableJsx === "boolean") {
+    return [shouldEnableJsx];
   }
   return isProbablyJsx(text) ? [true, false] : [false, true];
 };
