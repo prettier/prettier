@@ -26,7 +26,7 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "19"
+          - "20"
           - "18"
           - "16"
         include:
@@ -38,9 +38,9 @@ jobs:
             CHECK_TEST_PARSERS: true
         exclude:
           - os: "macos-latest"
-            node: "19"
+            node: "20"
           - os: "windows-latest"
-            node: "19"
+            node: "20"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}
