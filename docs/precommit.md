@@ -11,11 +11,36 @@ You can use Prettier with a pre-commit tool. This can re-format your files that 
 
 _Make sure Prettier is installed and is in your [`devDependencies`](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file) before you proceed._
 
+Install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged):
+
+<!--DOCUSAURUS_CODE_TABS-->
+<!--npm-->
+
 ```bash
-npx mrm@2 lint-staged
+npx husky-init
+npm install --save-dev lint-staged
+npx husky set .husky/pre-commit "npx lint-staged"
 ```
 
-This will install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged), then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
+<!--yarn-->
+
+```bash
+npx husky-init # add --yarn2 for Yarn 2
+yarn add --dev lint-staged
+yarn husky set .husky/pre-commit "npx lint-staged"
+```
+
+<!--pnpm-->
+
+```bash
+pnpm exec husky-init
+pnpm add --save-dev lint-staged
+pnpm exec husky set .husky/pre-commit "npx lint-staged"
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
+
+Then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
 
 Read more at the [lint-staged](https://github.com/okonet/lint-staged#configuration) repo.
 
