@@ -61,13 +61,13 @@ jobs:
           - "14"
         include:
           - os: "ubuntu-latest"
-            # Latest even version
-            node: "20"
-            FULL_TEST: true
-          # Versions between minimal version and latest even version
-          # If latest version is an odd number, should be listed bellow too
-          - os: "ubuntu-latest"
+            # Pick a version that is fast (normally highest LTS version)
             node: "18"
+            FULL_TEST: true
+          # Versions not tested on linux, normally only even versions
+          # If latest version is an odd number, it can be listed bellow too
+          - os: "ubuntu-latest"
+            node: "20"
           - os: "ubuntu-latest"
             node: "16"
     env:

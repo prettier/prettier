@@ -31,16 +31,16 @@ jobs:
           # Minimal version for development
           - "16"
         include:
-          # only enable coverage on the fastest job
           - os: "ubuntu-latest"
-            node: "20"
+            # Pick a version that is fast (normally highest LTS version)
+            node: "18"
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
-          # Versions between minimal version and latest even version
-          # If latest version is an odd number, should be listed bellow too
+          # Versions not tested on linux, normally only even versions
+          # If latest version is an odd number, it can be listed bellow too
           - os: "ubuntu-latest"
-            node: "18"
+            node: "20"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}
