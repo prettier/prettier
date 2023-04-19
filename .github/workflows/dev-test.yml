@@ -26,8 +26,9 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
+          # Latest even version
           - "20"
-          - "18"
+          # Minimal version for development
           - "16"
         include:
           # only enable coverage on the fastest job
@@ -36,10 +37,9 @@ jobs:
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
-        exclude:
-          - os: "macos-latest"
-            node: "18"
-          - os: "windows-latest"
+          # Versions between minimal version and latest even version
+          # If latest version is an odd number, should be listed bellow too
+          - os: "ubuntu-latest"
             node: "18"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}

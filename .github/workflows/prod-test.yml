@@ -55,22 +55,20 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
+          # Latest even version
           - "20"
-          - "18"
-          - "16"
+          # Minimal version for production
           - "14"
         include:
           - os: "ubuntu-latest"
+            # Latest even version
             node: "20"
             FULL_TEST: true
-        exclude:
-          - os: "macos-latest"
+          # Versions between minimal version and latest even version
+          # If latest version is an odd number, should be listed bellow too
+          - os: "ubuntu-latest"
             node: "18"
-          - os: "windows-latest"
-            node: "18"
-          - os: "macos-latest"
-            node: "16"
-          - os: "windows-latest"
+          - os: "ubuntu-latest"
             node: "16"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
