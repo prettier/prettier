@@ -90,7 +90,7 @@ parentPort.on("message", async () => {
   process.exit = (code) => {
     process.stdout.end();
     process.stderr.end();
-    originalExit(code);
+    originalExit(code ?? process.exitCode ?? 0);
   };
 
   try {
