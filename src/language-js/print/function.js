@@ -320,7 +320,7 @@ function joinArrowFunctionSignatures(
  * @param {*} args
  * @param {*} options
  */
-function printArrowBody(
+function printArrowFunctionBody(
   bodyDoc,
   bodyComments,
   parent,
@@ -470,7 +470,7 @@ function printArrowFunction(path, options, print, args) {
     ),
     " =>",
     indentIfChainBreaks(
-      printArrowBody(
+      printArrowFunctionBody(
         bodyDoc,
         bodyComments,
         parent,
