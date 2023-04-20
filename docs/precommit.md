@@ -19,7 +19,7 @@ Install [husky](https://github.com/typicode/husky) and [lint-staged](https://git
 ```bash
 npx husky-init
 npm install --save-dev lint-staged
-npx husky set .husky/pre-commit "npx lint-staged"
+npx husky add .husky/pre-commit "npx lint-staged"
 ```
 
 <!--yarn-->
@@ -27,7 +27,7 @@ npx husky set .husky/pre-commit "npx lint-staged"
 ```bash
 npx husky-init # add --yarn2 for Yarn 2
 yarn add --dev lint-staged
-yarn husky set .husky/pre-commit "npx lint-staged"
+yarn husky add .husky/pre-commit "npx lint-staged"
 ```
 
 <!--pnpm-->
@@ -35,7 +35,7 @@ yarn husky set .husky/pre-commit "npx lint-staged"
 ```bash
 pnpm dlx husky-init && pnpm install 
 pnpm add --save-dev lint-staged
-pnpm exec husky set .husky/pre-commit "npx lint-staged"
+pnpm exec husky add .husky/pre-commit "npx lint-staged"
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
@@ -56,7 +56,7 @@ Install it along with [husky](https://github.com/typicode/husky):
 ```bash
 npx husky-init
 npm install --save-dev pretty-quick
-npx husky set .husky/pre-commit "npx pretty-quick --staged"
+npx husky add .husky/pre-commit "npx pretty-quick --staged"
 ```
 
 <!--yarn-->
@@ -64,15 +64,15 @@ npx husky set .husky/pre-commit "npx pretty-quick --staged"
 ```bash
 npx husky-init # add --yarn2 for Yarn 2
 yarn add --dev pretty-quick
-yarn husky set .husky/pre-commit "npx pretty-quick --staged"
+yarn husky add .husky/pre-commit "npx pretty-quick --staged"
 ```
 
 <!--pnpm-->
 
 ```bash
-pnpm exec husky-init
+pnpm dlx husky-init && pnpm install 
 pnpm add --save-dev pretty-quick
-pnpm exec husky set .husky/pre-commit "npx pretty-quick --staged"
+pnpm exec husky add .husky/pre-commit "npx pretty-quick --staged"
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
@@ -134,7 +134,7 @@ Git-format-staged requires Python v3 or v2.7. Python is usually pre-installed on
 ```bash
 npx husky-init
 npm install --save-dev git-format-staged
-npx husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+npx husky add .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
 ```
 
 <!--yarn-->
@@ -142,15 +142,15 @@ npx husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown
 ```bash
 npx husky-init # add --yarn2 for Yarn 2
 yarn add --dev git-format-staged
-yarn husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+yarn husky add .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
 ```
 
 <!--pnpm-->
 
 ```bash
-pnpm exec husky-init
+pnpm dlx husky-init && pnpm install 
 pnpm add --save-dev git-format-staged
-pnpm husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+pnpm husky add .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
