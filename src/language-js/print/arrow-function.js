@@ -54,6 +54,10 @@ function shouldAddParensIfNotBreak(node) {
   return shouldAddParensIfNotBreakCache.get(node);
 }
 
+// We handle sequence expressions as the body of arrows specially,
+// so that the required parentheses end up on their own lines.
+const shouldAlwaysAddParens = (node) => node.type === "SequenceExpression";
+
 const isArrowFunctionChain = (node) =>
   node.body.type === "ArrowFunctionExpression";
 
@@ -108,12 +112,9 @@ function printArrowFunction(path, options, print, args = {}) {
   const isChain = isArrowFunctionChain(node);
   const functionBody = getArrowChainFunctionBody(node);
 
-  // We handle sequence expressions as the body of arrows specially,
-  // so that the required parentheses end up on their own lines.
-  const shouldAlwaysAddParens = functionBody.type === "SequenceExpression";
-
   const shouldAddParens =
-    shouldAlwaysAddParens || shouldAddParensIfNotBreak(functionBody);
+    shouldAlwaysAddParens(functionBody) ||
+    shouldAddParensIfNotBreak(functionBody);
 
   // We want to always keep these types of nodes on the same line
   // as the arrow.
@@ -159,7 +160,6 @@ function printArrowFunction(path, options, print, args = {}) {
       printArrowFunctionBody(path, options, args, {
         bodyDoc,
         bodyComments,
-        shouldAlwaysAddParens,
         shouldPutBodyOnSameLine,
       })
     ),
@@ -285,16 +285,16 @@ function printArrowFunctionSignatures(path, args, { signatures, shouldBreak }) {
  * @param {Object} arrowFunctionBodyPrintOptions
  * @param {Doc} arrowFunctionBodyPrintOptions.bodyDoc
  * @param {Doc[]} arrowFunctionBodyPrintOptions.bodyComments
- * @param {boolean} arrowFunctionBodyPrintOptions.shouldAlwaysAddParens
  * @param {boolean} arrowFunctionBodyPrintOptions.shouldPutBodyOnSameLine
  */
 function printArrowFunctionBody(
   path,
   options,
   args,
-  { bodyDoc, bodyComments, shouldAlwaysAddParens, shouldPutBodyOnSameLine }
+  { bodyDoc, bodyComments, shouldPutBodyOnSameLine }
 ) {
   const { node, parent } = path;
+  const functionBody = getArrowChainFunctionBody(node);
 
   const trailingComma =
     args.expandLastArg && shouldPrintComma(options, "all") ? ifBreak(",") : "";
@@ -309,10 +309,7 @@ function printArrowFunctionBody(
       ? softline
       : "";
 
-  if (
-    shouldPutBodyOnSameLine &&
-    shouldAddParensIfNotBreak(getArrowChainFunctionBody(node))
-  ) {
+  if (shouldPutBodyOnSameLine && shouldAddParensIfNotBreak(functionBody)) {
     return [
       " ",
       group([
@@ -326,7 +323,7 @@ function printArrowFunctionBody(
     ];
   }
 
-  if (shouldAlwaysAddParens) {
+  if (shouldAlwaysAddParens(functionBody)) {
     bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
   }
 
