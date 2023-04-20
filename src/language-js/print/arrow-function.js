@@ -36,7 +36,7 @@ import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
  * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
-function printArrowFunction(path, options, print, args) {
+function printArrowFunction(path, options, print, args = {}) {
   const { node, parent, key } = path;
   /** @type {Doc[]} */
   const signatures = [];
@@ -69,7 +69,7 @@ function printArrowFunction(path, options, print, args) {
 
     if (
       currentNode.body.type !== "ArrowFunctionExpression" ||
-      args?.expandLastArg
+      args.expandLastArg
     ) {
       bodyDoc = print("body", args);
     } else {
@@ -105,9 +105,9 @@ function printArrowFunction(path, options, print, args) {
   const isCallee = isCallLikeExpression(parent) && key === "callee";
   const shouldBreakBeforeChain =
     (isCallee && !shouldPutBodyOnSameLine) ||
-    args?.assignmentLayout === "chain-tail-arrow-chain";
+    args.assignmentLayout === "chain-tail-arrow-chain";
 
-  const isAssignmentRhs = Boolean(args?.assignmentLayout);
+  const isAssignmentRhs = Boolean(args.assignmentLayout);
 
   const isChain = signatures.length > 1;
 
@@ -139,18 +139,14 @@ function printArrowFunction(path, options, print, args) {
     ),
     " =>",
     indentIfChainBreaks(
-      printArrowFunctionBody(
+      printArrowFunctionBody(path, options, {
         bodyDoc,
         bodyComments,
-        path,
-        {
-          shouldAddParensIfNotBreak,
-          shouldAlwaysAddParens,
-          shouldPutBodyOnSameLine,
-        },
-        args,
-        options
-      )
+        shouldAddParensIfNotBreak,
+        shouldAlwaysAddParens,
+        shouldPutBodyOnSameLine,
+        expandLastArg: Boolean(args.expandLastArg),
+      })
     ),
     isChain && isCallee ? ifBreak(softline, "", { groupId: chainGroupId }) : "",
   ]);
@@ -167,7 +163,7 @@ function printArrowFunctionSignature(path, options, print, args) {
   if (shouldPrintParamsWithoutParens(path, options)) {
     parts.push(print(["params", 0]));
   } else {
-    const expandArg = args?.expandLastArg || args?.expandFirstArg;
+    const expandArg = args.expandLastArg || args.expandFirstArg;
     let returnTypeDoc = printReturnType(path, print);
     if (expandArg) {
       if (willBreak(returnTypeDoc)) {
@@ -269,35 +265,39 @@ function joinArrowFunctionSignatures(
 }
 
 /**
- * @param {Doc} bodyDoc
- * @param {Doc[]} bodyComments
  * @param {AstPath} path
- * @param {Object} flags
- * @param {boolean} flags.shouldAddParensIfNotBreak
- * @param {boolean} flags.shouldAlwaysAddParens
- * @param {boolean} flags.shouldPutBodyOnSameLine
- * @param {*} args
  * @param {*} options
+ * @param {Object} arrowFunctionBodyPrintOptions
+ * @param {Doc} arrowFunctionBodyPrintOptions.bodyDoc
+ * @param {Doc[]} arrowFunctionBodyPrintOptions.bodyComments
+ * @param {boolean} arrowFunctionBodyPrintOptions.shouldAddParensIfNotBreak
+ * @param {boolean} arrowFunctionBodyPrintOptions.shouldAlwaysAddParens
+ * @param {boolean} arrowFunctionBodyPrintOptions.shouldPutBodyOnSameLine
+ * @param {boolean} arrowFunctionBodyPrintOptions.expandLastArg
  */
 function printArrowFunctionBody(
-  bodyDoc,
-  bodyComments,
   path,
-  { shouldAddParensIfNotBreak, shouldAlwaysAddParens, shouldPutBodyOnSameLine },
-  args,
-  options
+  options,
+  {
+    bodyDoc,
+    bodyComments,
+    shouldAddParensIfNotBreak,
+    shouldAlwaysAddParens,
+    shouldPutBodyOnSameLine,
+    expandLastArg,
+  }
 ) {
   const { node, parent } = path;
 
   const trailingComma =
-    args?.expandLastArg && shouldPrintComma(options, "all") ? ifBreak(",") : "";
+    expandLastArg && shouldPrintComma(options, "all") ? ifBreak(",") : "";
 
   // if the arrow function is expanded as last argument, we are adding a
   // level of indentation and need to add a softline to align the closing )
   // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
   // we should align the expression's closing } with the line with the opening {.
   const trailingSpace =
-    (args?.expandLastArg || parent.type === "JSXExpressionContainer") &&
+    (expandLastArg || parent.type === "JSXExpressionContainer") &&
     !hasComment(node)
       ? softline
       : "";
