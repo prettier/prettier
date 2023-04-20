@@ -132,21 +132,19 @@ function printArrowFunction(path, options, print, args = {}) {
 
   return group([
     maybeBreakFirst(
-      printArrowFunctionSignatures(path, {
+      printArrowFunctionSignatures(path, args, {
         signatures,
-        isAssignmentRhs,
         shouldBreak: shouldBreakChain,
       })
     ),
     " =>",
     indentIfChainBreaks(
-      printArrowFunctionBody(path, options, {
+      printArrowFunctionBody(path, options, args, {
         bodyDoc,
         bodyComments,
         shouldAddParensIfNotBreak,
         shouldAlwaysAddParens,
         shouldPutBodyOnSameLine,
-        expandLastArg: Boolean(args.expandLastArg),
       })
     ),
     isChain && isCallee ? ifBreak(softline, "", { groupId: chainGroupId }) : "",
@@ -227,19 +225,17 @@ function mayBreakAfterShortPrefix(node, bodyDoc, options) {
 
 /**
  * @param {AstPath} path
+ * @param {*} args
  * @param {Object} arrowFunctionSignaturesPrintOptions
  * @param {Doc[]} arrowFunctionSignaturesPrintOptions.signatures
  * @param {boolean} arrowFunctionSignaturesPrintOptions.shouldBreak
- * @param {boolean} arrowFunctionSignaturesPrintOptions.isAssignmentRhs
  * @returns {Doc}
  */
-function printArrowFunctionSignatures(
-  path,
-  { signatures, shouldBreak, isAssignmentRhs }
-) {
+function printArrowFunctionSignatures(path, args, { signatures, shouldBreak }) {
   if (signatures.length === 1) {
     return signatures[0];
   }
+
   const { parent, key } = path;
   if (
     (key !== "callee" && isCallLikeExpression(parent)) ||
@@ -254,46 +250,52 @@ function printArrowFunctionSignatures(
       { shouldBreak }
     );
   }
-  if ((key === "callee" && isCallLikeExpression(parent)) || isAssignmentRhs) {
+
+  if (
+    (key === "callee" && isCallLikeExpression(parent)) ||
+    // isAssignmentRhs
+    args.assignmentLayout
+  ) {
     return group(join([" =>", line], signatures), { shouldBreak });
   }
+
   return group(indent(join([" =>", line], signatures)), { shouldBreak });
 }
 
 /**
  * @param {AstPath} path
  * @param {*} options
+ * @param {*} args
  * @param {Object} arrowFunctionBodyPrintOptions
  * @param {Doc} arrowFunctionBodyPrintOptions.bodyDoc
  * @param {Doc[]} arrowFunctionBodyPrintOptions.bodyComments
  * @param {boolean} arrowFunctionBodyPrintOptions.shouldAddParensIfNotBreak
  * @param {boolean} arrowFunctionBodyPrintOptions.shouldAlwaysAddParens
  * @param {boolean} arrowFunctionBodyPrintOptions.shouldPutBodyOnSameLine
- * @param {boolean} arrowFunctionBodyPrintOptions.expandLastArg
  */
 function printArrowFunctionBody(
   path,
   options,
+  args,
   {
     bodyDoc,
     bodyComments,
     shouldAddParensIfNotBreak,
     shouldAlwaysAddParens,
     shouldPutBodyOnSameLine,
-    expandLastArg,
   }
 ) {
   const { node, parent } = path;
 
   const trailingComma =
-    expandLastArg && shouldPrintComma(options, "all") ? ifBreak(",") : "";
+    args.expandLastArg && shouldPrintComma(options, "all") ? ifBreak(",") : "";
 
   // if the arrow function is expanded as last argument, we are adding a
   // level of indentation and need to add a softline to align the closing )
   // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
   // we should align the expression's closing } with the line with the opening {.
   const trailingSpace =
-    (expandLastArg || parent.type === "JSXExpressionContainer") &&
+    (args.expandLastArg || parent.type === "JSXExpressionContainer") &&
     !hasComment(node)
       ? softline
       : "";
