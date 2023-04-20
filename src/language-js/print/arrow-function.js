@@ -78,29 +78,30 @@ function printArrowFunction(path, options, print, args = {}) {
     }
   })();
 
-  const { body } = tailNode;
+  const functionBody = tailNode.body;
 
   // In order to avoid confusion between
   // a => a ? a : a
   // a <= a ? a : a
   const shouldAddParensIfNotBreak =
-    body.type === "ConditionalExpression" &&
+    functionBody.type === "ConditionalExpression" &&
     !startsWithNoLookaheadToken(
-      body,
+      functionBody,
       (node) => node.type === "ObjectExpression"
     );
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
-  const shouldAlwaysAddParens = body.type === "SequenceExpression";
+  const shouldAlwaysAddParens = functionBody.type === "SequenceExpression";
 
   const shouldAddParens = shouldAddParensIfNotBreak || shouldAlwaysAddParens;
 
   // We want to always keep these types of nodes on the same line
   // as the arrow.
   const shouldPutBodyOnSameLine =
-    !hasLeadingOwnLineComment(options.originalText, body) &&
-    (mayBreakAfterShortPrefix(body, bodyDoc, options) || shouldAddParens);
+    !hasLeadingOwnLineComment(options.originalText, functionBody) &&
+    (mayBreakAfterShortPrefix(functionBody, bodyDoc, options) ||
+      shouldAddParens);
 
   const isCallee = isCallLikeExpression(parent) && key === "callee";
   const shouldBreakBeforeChain =
