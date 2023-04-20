@@ -70,7 +70,7 @@ jobs:
             node: "16"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
-    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
+    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}${{ matrix.FULL_TEST && ' (Full Test)' || '' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
