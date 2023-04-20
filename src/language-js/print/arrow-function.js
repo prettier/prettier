@@ -216,22 +216,22 @@ function printArrowFunctionSignature(path, options, print, args) {
 
 /**
  *
- * @param {*} node
+ * @param {*} functionBody
  * @param {*} bodyDoc
  * @param {*} options
  * @returns {boolean}
  */
-function mayBreakAfterShortPrefix(node, bodyDoc, options) {
+function mayBreakAfterShortPrefix(functionBody, bodyDoc, options) {
   return (
-    isArrayOrTupleExpression(node) ||
-    isObjectOrRecordExpression(node) ||
-    node.type === "BlockStatement" ||
-    isJsxElement(node) ||
+    isArrayOrTupleExpression(functionBody) ||
+    isObjectOrRecordExpression(functionBody) ||
+    functionBody.type === "ArrowFunctionExpression" ||
+    functionBody.type === "DoExpression" ||
+    functionBody.type === "BlockStatement" ||
+    isJsxElement(functionBody) ||
     (bodyDoc.label?.hug !== false &&
       (bodyDoc.label?.embed ||
-        isTemplateOnItsOwnLine(node, options.originalText))) ||
-    node.type === "ArrowFunctionExpression" ||
-    node.type === "DoExpression"
+        isTemplateOnItsOwnLine(functionBody, options.originalText)))
   );
 }
 
