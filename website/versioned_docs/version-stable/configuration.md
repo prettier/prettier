@@ -35,7 +35,6 @@ JS:
 
 ```js
 // prettier.config.js or .prettierrc.js
-
 module.exports = {
   trailingComma: "es5",
   tabWidth: 4,
@@ -43,8 +42,6 @@ module.exports = {
   singleQuote: true,
 };
 ```
-
-<!--END_DOCUSAURUS_CODE_TABS-->
 
 YAML:
 
