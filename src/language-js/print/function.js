@@ -343,6 +343,10 @@ function printArrowFunctionBody(
     (args?.expandLastArg || parent.type === "JSXExpressionContainer") &&
     !hasComment(node);
 
+  const trailingSoftline = shouldAddSoftLine
+    ? [ifBreak(trailingComma), softline]
+    : "";
+
   let decoratedBodyDoc;
   if (shouldAlwaysAddParens) {
     decoratedBodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
@@ -351,17 +355,14 @@ function printArrowFunctionBody(
       ifBreak("", "("),
       indent([softline, bodyDoc]),
       ifBreak("", ")"),
-      shouldAddSoftLine ? [ifBreak(trailingComma), softline] : "",
+      trailingSoftline,
     ]);
   } else {
     decoratedBodyDoc = bodyDoc;
   }
   return shouldPutBodyOnSameLine
     ? [" ", decoratedBodyDoc, bodyComments]
-    : [
-        indent([line, decoratedBodyDoc, bodyComments]),
-        shouldAddSoftLine ? [ifBreak(trailingComma), softline] : "",
-      ];
+    : [indent([line, decoratedBodyDoc, bodyComments]), trailingSoftline];
 }
 
 function printArrowFunction(path, options, print, args) {
