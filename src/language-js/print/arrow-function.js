@@ -120,7 +120,7 @@ function printArrowFunction(path, options, print, args = {}) {
       shouldAddParensIfNotBreak(functionBody) ||
       mayBreakAfterShortPrefix(functionBody, bodyDoc, options));
 
-  const isCallee = isCallLikeExpression(parent) && key === "callee";
+  const isCallee = key === "callee" && isCallLikeExpression(parent);
   const isAssignmentRhs = Boolean(args.assignmentLayout);
 
   const chainGroupId = Symbol("arrow-chain");
