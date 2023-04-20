@@ -159,7 +159,6 @@ function printArrowFunction(path, options, print, args = {}) {
       printArrowFunctionBody(path, options, args, {
         bodyDoc,
         bodyComments,
-        functionBody,
         shouldAlwaysAddParens,
         shouldPutBodyOnSameLine,
       })
@@ -286,7 +285,6 @@ function printArrowFunctionSignatures(path, args, { signatures, shouldBreak }) {
  * @param {Object} arrowFunctionBodyPrintOptions
  * @param {Doc} arrowFunctionBodyPrintOptions.bodyDoc
  * @param {Doc[]} arrowFunctionBodyPrintOptions.bodyComments
- * @param {*} arrowFunctionBodyPrintOptions.functionBody
  * @param {boolean} arrowFunctionBodyPrintOptions.shouldAlwaysAddParens
  * @param {boolean} arrowFunctionBodyPrintOptions.shouldPutBodyOnSameLine
  */
@@ -294,13 +292,7 @@ function printArrowFunctionBody(
   path,
   options,
   args,
-  {
-    bodyDoc,
-    bodyComments,
-    functionBody,
-    shouldAlwaysAddParens,
-    shouldPutBodyOnSameLine,
-  }
+  { bodyDoc, bodyComments, shouldAlwaysAddParens, shouldPutBodyOnSameLine }
 ) {
   const { node, parent } = path;
 
@@ -317,7 +309,10 @@ function printArrowFunctionBody(
       ? softline
       : "";
 
-  if (shouldPutBodyOnSameLine && shouldAddParensIfNotBreak(functionBody)) {
+  if (
+    shouldPutBodyOnSameLine &&
+    shouldAddParensIfNotBreak(getArrowChainFunctionBody(node))
+  ) {
     return [
       " ",
       group([
