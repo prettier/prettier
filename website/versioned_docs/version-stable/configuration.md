@@ -43,7 +43,7 @@ JS:
 
 Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and [install Prettier](install.md)
 
-```js	```js
+```js
 // prettier.config.js or .prettierrc.js	/** @type {import("prettier").Options} */
 export default {
   trailingComma: "es5",
@@ -69,9 +69,8 @@ module.exports = {	module.exports = {
   tabWidth: 4,	  tabWidth: 4,
   semi: false,	  semi: false,
   singleQuote: true,	  singleQuote: true,
-};	};
-```	```
-
+};
+```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
