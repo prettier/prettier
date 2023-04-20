@@ -114,6 +114,7 @@ function printTypeAlias(path, options, print) {
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
 function printIntersectionType(path, options, print) {
+  let wasIndented = false;
   return group(
     path.map(({ isFirst, previous, node, index }) => {
       const doc = print();
@@ -126,12 +127,16 @@ function printIntersectionType(path, options, print) {
 
       // If both are objects, don't indent
       if (previousIsObjectType && currentIsObjectType) {
-        return [" & ", index > 1 ? indent(doc) : doc];
+        return [" & ", wasIndented ? indent(doc) : doc];
       }
 
       // If no object is involved, go to the next line if it breaks
       if (!previousIsObjectType && !currentIsObjectType) {
         return indent([" &", line, doc]);
+      }
+
+      if (index > 1) {
+        wasIndented = true
       }
 
       // If you go from object to non-object or vis-versa, then inline it
