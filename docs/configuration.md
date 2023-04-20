@@ -34,19 +34,8 @@ JSON:
 
 JS(ESM):
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--ES Module-->
-
-<br>
-
-- `.prettierrc.js`
-- `.prettierrc.mjs`
-- `prettier.config.js`
-- `prettier.config.mjs`
-
-Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and [install Prettier](install.md)
-
 ```js
+// prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
 /** @type {import("prettier").Options} */
 const config = {
   trailingComma: "es5",
@@ -58,18 +47,10 @@ const config = {
 export default config;
 ```
 
-<!--CommonJS-->
-
-<br>
-
-- `.prettierrc.js`
-- `.prettierrc.cjs`
-- `prettier.config.js`
-- `prettier.config.cjs`
-
-Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and [install Prettier](install.md)
+JS(CommonJS):
 
 ```js
+// prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs
 /** @type {import("prettier").Options} */
 const config = {
   trailingComma: "es5",
@@ -80,8 +61,6 @@ const config = {
 
 module.exports = config;
 ```
-
-<!--END_DOCUSAURUS_CODE_TABS-->
 
 YAML:
 
