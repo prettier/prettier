@@ -45,7 +45,7 @@ jobs:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}
       CHECK_TEST_PARSERS: ${{ matrix.CHECK_TEST_PARSERS }}
-    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
+    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}${{ FULL_TEST && ' (Full Test)' || ''  }}
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
