@@ -296,28 +296,33 @@ function printArrowFunctionBody(
   // level of indentation and need to add a softline to align the closing )
   // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
   // we should align the expression's closing } with the line with the opening {.
-  const shouldAddSoftLine =
+  const trailingSpace =
     (args?.expandLastArg || parent.type === "JSXExpressionContainer") &&
-    !hasComment(node);
+    !hasComment(node)
+      ? softline
+      : "";
 
-  const trailingSoftline = shouldAddSoftLine ? [trailingComma, softline] : "";
-
-  let decoratedBodyDoc;
-  if (shouldAlwaysAddParens) {
-    decoratedBodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
-  } else if (shouldAddParensIfNotBreak && shouldPutBodyOnSameLine) {
-    decoratedBodyDoc = group([
-      ifBreak("", "("),
-      indent([softline, bodyDoc]),
-      ifBreak("", ")"),
-      trailingSoftline,
-    ]);
-  } else {
-    decoratedBodyDoc = bodyDoc;
+  if (shouldAddParensIfNotBreak && shouldPutBodyOnSameLine) {
+    return [
+      " ",
+      group([
+        ifBreak("", "("),
+        indent([softline, bodyDoc]),
+        ifBreak("", ")"),
+        trailingComma,
+        trailingSpace,
+      ]),
+      bodyComments,
+    ];
   }
+
+  if (shouldAlwaysAddParens) {
+    bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
+  }
+
   return shouldPutBodyOnSameLine
-    ? [" ", decoratedBodyDoc, bodyComments]
-    : [indent([line, decoratedBodyDoc, bodyComments]), trailingSoftline];
+    ? [" ", bodyDoc, bodyComments]
+    : [indent([line, bodyDoc, bodyComments]), trailingComma, trailingSpace];
 }
 
 export { printArrowFunction };
