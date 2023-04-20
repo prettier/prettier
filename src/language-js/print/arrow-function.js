@@ -36,6 +36,24 @@ import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
  * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
+// In order to avoid confusion between
+// a => a ? a : a
+// a <= a ? a : a
+const shouldAddParensIfNotBreakCache = new WeakMap();
+function shouldAddParensIfNotBreak(node) {
+  if (!shouldAddParensIfNotBreakCache.has(node)) {
+    shouldAddParensIfNotBreakCache.set(
+      node,
+      node.type === "ConditionalExpression" &&
+        !startsWithNoLookaheadToken(
+          node,
+          (node) => node.type === "ObjectExpression"
+        )
+    );
+  }
+  return shouldAddParensIfNotBreakCache.get(node);
+}
+
 function printArrowFunction(path, options, print, args = {}) {
   const { node, parent, key } = path;
   /** @type {Doc[]} */
@@ -80,21 +98,12 @@ function printArrowFunction(path, options, print, args = {}) {
 
   const functionBody = tailNode.body;
 
-  // In order to avoid confusion between
-  // a => a ? a : a
-  // a <= a ? a : a
-  const shouldAddParensIfNotBreak =
-    functionBody.type === "ConditionalExpression" &&
-    !startsWithNoLookaheadToken(
-      functionBody,
-      (node) => node.type === "ObjectExpression"
-    );
-
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
   const shouldAlwaysAddParens = functionBody.type === "SequenceExpression";
 
-  const shouldAddParens = shouldAddParensIfNotBreak || shouldAlwaysAddParens;
+  const shouldAddParens =
+    shouldAlwaysAddParens || shouldAddParensIfNotBreak(functionBody);
 
   // We want to always keep these types of nodes on the same line
   // as the arrow.
@@ -143,7 +152,7 @@ function printArrowFunction(path, options, print, args = {}) {
       printArrowFunctionBody(path, options, args, {
         bodyDoc,
         bodyComments,
-        shouldAddParensIfNotBreak,
+        functionBody,
         shouldAlwaysAddParens,
         shouldPutBodyOnSameLine,
       })
@@ -270,7 +279,7 @@ function printArrowFunctionSignatures(path, args, { signatures, shouldBreak }) {
  * @param {Object} arrowFunctionBodyPrintOptions
  * @param {Doc} arrowFunctionBodyPrintOptions.bodyDoc
  * @param {Doc[]} arrowFunctionBodyPrintOptions.bodyComments
- * @param {boolean} arrowFunctionBodyPrintOptions.shouldAddParensIfNotBreak
+ * @param {*} arrowFunctionBodyPrintOptions.functionBody
  * @param {boolean} arrowFunctionBodyPrintOptions.shouldAlwaysAddParens
  * @param {boolean} arrowFunctionBodyPrintOptions.shouldPutBodyOnSameLine
  */
@@ -281,7 +290,7 @@ function printArrowFunctionBody(
   {
     bodyDoc,
     bodyComments,
-    shouldAddParensIfNotBreak,
+    functionBody,
     shouldAlwaysAddParens,
     shouldPutBodyOnSameLine,
   }
@@ -301,7 +310,7 @@ function printArrowFunctionBody(
       ? softline
       : "";
 
-  if (shouldAddParensIfNotBreak && shouldPutBodyOnSameLine) {
+  if (shouldPutBodyOnSameLine && shouldAddParensIfNotBreak(functionBody)) {
     return [
       " ",
       group([
