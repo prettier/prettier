@@ -117,16 +117,20 @@ function printArrowFunction(path, options, print, args = {}) {
   const shouldPutBodyOnSameLine =
     !hasLeadingOwnLineComment(options.originalText, functionBody) &&
     (shouldAlwaysAddParens(functionBody) ||
-      shouldAddParensIfNotBreak(functionBody) ||
-      mayBreakAfterShortPrefix(functionBody, bodyDoc, options));
+      mayBreakAfterShortPrefix(functionBody, bodyDoc, options) ||
+      shouldAddParensIfNotBreak(functionBody));
 
   const isCallee = key === "callee" && isCallLikeExpression(parent);
-  const isAssignmentRhs = Boolean(args.assignmentLayout);
 
   const chainGroupId = Symbol("arrow-chain");
 
   const maybeBreakFirst = (doc) => {
-    if ((isCallee || isAssignmentRhs) && isChain) {
+    if (
+      (isCallee ||
+        // isAssignmentRhs
+        args.assignmentLayout) &&
+      isChain
+    ) {
       return group(indent([softline, doc]), {
         shouldBreak:
           args.assignmentLayout === "chain-tail-arrow-chain" ||
