@@ -72,21 +72,21 @@ function getArrowChainFunctionBody(node) {
 function printArrowFunction(path, options, print, args = {}) {
   const { node, parent, key } = path;
   /** @type {Doc[]} */
-  const signatures = [];
+  const signatureDocs = [];
   /** @type {Doc} */
   let bodyDoc;
-  /** @type {*[]} */
+  /** @type {Doc[]} */
   const bodyComments = [];
   let shouldBreakChain = false;
 
   (function rec() {
     const { node: currentNode } = path;
     const doc = printArrowFunctionSignature(path, options, print, args);
-    if (signatures.length === 0) {
-      signatures.push(doc);
+    if (signatureDocs.length === 0) {
+      signatureDocs.push(doc);
     } else {
       const { leading, trailing } = printCommentsSeparately(path, options);
-      signatures.push([leading, doc]);
+      signatureDocs.push([leading, doc]);
       bodyComments.unshift(trailing);
     }
 
@@ -124,45 +124,38 @@ function printArrowFunction(path, options, print, args = {}) {
 
   const chainGroupId = Symbol("arrow-chain");
 
-  const maybeBreakFirst = (doc) => {
-    if (
-      (isCallee ||
-        // isAssignmentRhs
-        args.assignmentLayout) &&
-      isChain
-    ) {
-      return group(indent([softline, doc]), {
-        shouldBreak:
-          args.assignmentLayout === "chain-tail-arrow-chain" ||
-          (isCallee && !shouldPutBodyOnSameLine),
-        id: chainGroupId,
-      });
-    }
-    return group(doc, { id: chainGroupId });
-  };
+  let signaturesDoc = printArrowFunctionSignatures(path, args, {
+    signatureDocs,
+    shouldBreak: shouldBreakChain,
+  });
+  if (
+    (isCallee ||
+      // isAssignmentRhs
+      args.assignmentLayout) &&
+    isChain
+  ) {
+    signaturesDoc = group(indent([softline, signaturesDoc]), {
+      shouldBreak:
+        args.assignmentLayout === "chain-tail-arrow-chain" ||
+        (isCallee && !shouldPutBodyOnSameLine),
+      id: chainGroupId,
+    });
+  }
+  signaturesDoc = group(signaturesDoc, { id: chainGroupId });
 
-  const indentIfChainBreaks = (doc) => {
-    if (!isChain) {
-      return group(doc);
-    }
-    return indentIfBreak(doc, { groupId: chainGroupId });
-  };
+  bodyDoc = printArrowFunctionBody(path, options, args, {
+    bodyDoc,
+    bodyComments,
+    shouldPutBodyOnSameLine,
+  });
+  bodyDoc = isChain
+    ? indentIfBreak(bodyDoc, { groupId: chainGroupId })
+    : group(bodyDoc);
 
   return group([
-    maybeBreakFirst(
-      printArrowFunctionSignatures(path, args, {
-        signatures,
-        shouldBreak: shouldBreakChain,
-      })
-    ),
+    signaturesDoc,
     " =>",
-    indentIfChainBreaks(
-      printArrowFunctionBody(path, options, args, {
-        bodyDoc,
-        bodyComments,
-        shouldPutBodyOnSameLine,
-      })
-    ),
+    bodyDoc,
     isChain && isCallee ? ifBreak(softline, "", { groupId: chainGroupId }) : "",
   ]);
 }
@@ -243,13 +236,17 @@ function mayBreakAfterShortPrefix(node, bodyDoc, options) {
  * @param {AstPath} path
  * @param {*} args
  * @param {Object} arrowFunctionSignaturesPrintOptions
- * @param {Doc[]} arrowFunctionSignaturesPrintOptions.signatures
+ * @param {Doc[]} arrowFunctionSignaturesPrintOptions.signatureDocs
  * @param {boolean} arrowFunctionSignaturesPrintOptions.shouldBreak
  * @returns {Doc}
  */
-function printArrowFunctionSignatures(path, args, { signatures, shouldBreak }) {
-  if (signatures.length === 1) {
-    return signatures[0];
+function printArrowFunctionSignatures(
+  path,
+  args,
+  { signatureDocs, shouldBreak }
+) {
+  if (signatureDocs.length === 1) {
+    return signatureDocs[0];
   }
 
   const { parent, key } = path;
@@ -259,9 +256,9 @@ function printArrowFunctionSignatures(path, args, { signatures, shouldBreak }) {
   ) {
     return group(
       [
-        signatures[0],
+        signatureDocs[0],
         " =>",
-        indent([line, join([" =>", line], signatures.slice(1))]),
+        indent([line, join([" =>", line], signatureDocs.slice(1))]),
       ],
       { shouldBreak }
     );
@@ -272,10 +269,10 @@ function printArrowFunctionSignatures(path, args, { signatures, shouldBreak }) {
     // isAssignmentRhs
     args.assignmentLayout
   ) {
-    return group(join([" =>", line], signatures), { shouldBreak });
+    return group(join([" =>", line], signatureDocs), { shouldBreak });
   }
 
-  return group(indent(join([" =>", line], signatures)), { shouldBreak });
+  return group(indent(join([" =>", line], signatureDocs)), { shouldBreak });
 }
 
 /**
