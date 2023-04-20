@@ -64,6 +64,21 @@ const config = {
 module.exports = config;
 ```
 
+
+
+<!--TEST DOCUSAURUS title support -->
+
+```js title="prettierrc.js"
+
+/** @type {import('prettier').Options} */
+export default {
+  trailingComma: "es5",
+  tabWidth: 4,
+  semi: false,
+  singleQuote: true,
+};
+```
+
 <!--END_DOCUSAURUS_CODE_TABS-->
 
 YAML:
