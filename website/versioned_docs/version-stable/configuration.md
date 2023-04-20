@@ -48,7 +48,7 @@ module.exports = {
 
 <!--JSDoc types-->
 
-Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and [install Prettier](install.md)
+<br />Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and [install Prettier](install.md)
 
 ```js
 // prettier.config.js or .prettierrc.js
