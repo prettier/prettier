@@ -36,6 +36,7 @@ JS(ESM):
 
 ```js
 // prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
+
 /** @type {import("prettier").Options} */
 const config = {
   trailingComma: "es5",
@@ -51,6 +52,7 @@ JS(CommonJS):
 
 ```js
 // prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs
+
 /** @type {import("prettier").Options} */
 const config = {
   trailingComma: "es5",
