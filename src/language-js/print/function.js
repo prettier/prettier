@@ -333,7 +333,7 @@ function printArrowFunctionBody(
   const { node, parent } = path;
 
   const trailingComma =
-    args?.expandLastArg && shouldPrintComma(options, "all") ? "," : "";
+    args?.expandLastArg && shouldPrintComma(options, "all") ? ifBreak(",") : "";
 
   // if the arrow function is expanded as last argument, we are adding a
   // level of indentation and need to add a softline to align the closing )
@@ -343,9 +343,7 @@ function printArrowFunctionBody(
     (args?.expandLastArg || parent.type === "JSXExpressionContainer") &&
     !hasComment(node);
 
-  const trailingSoftline = shouldAddSoftLine
-    ? [ifBreak(trailingComma), softline]
-    : "";
+  const trailingSoftline = shouldAddSoftLine ? [trailingComma, softline] : "";
 
   let decoratedBodyDoc;
   if (shouldAlwaysAddParens) {
