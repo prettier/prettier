@@ -33,7 +33,7 @@ yarn husky set .husky/pre-commit "npx lint-staged"
 <!--pnpm-->
 
 ```bash
-pnpm exec husky-init
+pnpm dlx husky-init && pnpm install 
 pnpm add --save-dev lint-staged
 pnpm exec husky set .husky/pre-commit "npx lint-staged"
 ```
