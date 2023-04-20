@@ -27,7 +27,6 @@ import {
   isJsxElement,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
-  startsWithNoLookaheadToken,
   isBinaryish,
   hasComment,
   CommentCheckFlags,
@@ -413,12 +412,7 @@ function printArrowFunction(path, options, print, args) {
   // In order to avoid confusion between
   // a => a ? a : a
   // a <= a ? a : a
-  const shouldAddParensIfNotBreak =
-    body.type === "ConditionalExpression" &&
-    !startsWithNoLookaheadToken(
-      body,
-      (node) => node.type === "ObjectExpression"
-    );
+  const shouldAddParensIfNotBreak = body.type === "ConditionalExpression";
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
