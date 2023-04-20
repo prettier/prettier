@@ -112,21 +112,15 @@ function printArrowFunction(path, options, print, args = {}) {
   const isChain = isArrowFunctionChain(node);
   const functionBody = getArrowChainFunctionBody(node);
 
-  const shouldAddParens =
-    shouldAlwaysAddParens(functionBody) ||
-    shouldAddParensIfNotBreak(functionBody);
-
   // We want to always keep these types of nodes on the same line
   // as the arrow.
   const shouldPutBodyOnSameLine =
     !hasLeadingOwnLineComment(options.originalText, functionBody) &&
-    (mayBreakAfterShortPrefix(functionBody, bodyDoc, options) ||
-      shouldAddParens);
+    (shouldAlwaysAddParens(functionBody) ||
+      shouldAddParensIfNotBreak(functionBody) ||
+      mayBreakAfterShortPrefix(functionBody, bodyDoc, options));
 
   const isCallee = isCallLikeExpression(parent) && key === "callee";
-  const shouldBreakBeforeChain =
-    args.assignmentLayout === "chain-tail-arrow-chain" ||
-    (isCallee && !shouldPutBodyOnSameLine);
   const isAssignmentRhs = Boolean(args.assignmentLayout);
 
   const chainGroupId = Symbol("arrow-chain");
@@ -134,7 +128,9 @@ function printArrowFunction(path, options, print, args = {}) {
   const maybeBreakFirst = (doc) => {
     if ((isCallee || isAssignmentRhs) && isChain) {
       return group(indent([softline, doc]), {
-        shouldBreak: shouldBreakBeforeChain,
+        shouldBreak:
+          args.assignmentLayout === "chain-tail-arrow-chain" ||
+          (isCallee && !shouldPutBodyOnSameLine),
         id: chainGroupId,
       });
     }
