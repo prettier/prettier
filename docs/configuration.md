@@ -35,6 +35,8 @@ JS:
 <!--DOCUSAURUS_CODE_TABS-->
 <!--ES Module-->
 
+<br>
+
 - `.prettierrc.js`
 - `.prettierrc.mjs`
 - `prettier.config.js`
@@ -44,15 +46,19 @@ Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and [install Pr
 
 ```js
 /** @type {import("prettier").Options} */
-export default {
+const config = {
   trailingComma: "es5",
   tabWidth: 4,
   semi: false,
   singleQuote: true,
 };
+
+export default config;
 ```
 
 <!--CommonJS-->
+
+<br>
 
 - `.prettierrc.js`
 - `.prettierrc.cjs`
@@ -63,12 +69,14 @@ Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and [install Pr
 
 ```js
 /** @type {import("prettier").Options} */
-module.exports = {
+const config = {
   trailingComma: "es5",
   tabWidth: 4,
   semi: false,
   singleQuote: true,
 };
+
+module.exports = config;
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
