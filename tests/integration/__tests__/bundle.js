@@ -1,17 +1,16 @@
-"use strict";
+import fs from "node:fs/promises";
+import path from "node:path";
+import createEsmUtils from "esm-utils";
+import fastGlob from "fast-glob";
+import { projectRoot } from "../env.js";
+import prettier from "../../config/prettier-entry.js";
+import createSandBox from "../../config/utils/create-sandbox.cjs";
+import coreOptions from "../../../src/main/core-options.evaluate.js";
+import codeSamples from "../../../website/playground/codeSamples.mjs";
 
-const path = require("path");
-const fs = require("fs");
-const fastGlob = require("fast-glob");
-const { projectRoot } = require("../env.js");
-const createSandBox = require("../../config/utils/create-sandbox.js");
-const coreOptions = require("../../../src/main/core-options.js");
-const codeSamples =
-  require("../../../website/playground/codeSamples.js").default;
+const { require, importModule } = createEsmUtils(import.meta);
 
-const parserNames = coreOptions.options.parser.choices.map(
-  ({ value }) => value
-);
+const parserNames = coreOptions.parser.choices.map(({ value }) => value);
 const distDirectory = path.join(projectRoot, "dist");
 
 // Files including U+FFEE can't load in Chrome Extension
@@ -24,7 +23,7 @@ test("code", async () => {
   });
 
   for (const file of files) {
-    const text = await fs.promises.readFile(file, "utf8");
+    const text = await fs.readFile(file, "utf8");
     expect(text.includes("\ufffe")).toBe(false);
   }
 });
@@ -32,21 +31,29 @@ test("code", async () => {
 describe("standalone", () => {
   const standalone = require(path.join(distDirectory, "standalone.js"));
   const plugins = fastGlob
-    .sync(["parser-*.js"], { cwd: distDirectory, absolute: true })
+    .sync(["plugins/*.js"], { cwd: distDirectory, absolute: true })
     .map((file) => require(file));
 
-  const esmStandalone = require(path.join(
-    distDirectory,
-    "esm/standalone.mjs"
-  )).default;
-  const esmPlugins = fastGlob
-    .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
-    .map((file) => require(file).default);
+  let esmStandalone;
+  let esmPlugins;
+  beforeAll(async () => {
+    esmStandalone = await importModule(
+      path.join(distDirectory, "standalone.mjs")
+    );
+    esmPlugins = await Promise.all(
+      fastGlob
+        .sync(["plugins/*.mjs"], { cwd: distDirectory, absolute: true })
+        .map(async (file) => {
+          const plugin = await importModule(file);
+          return plugin.default ?? plugin;
+        })
+    );
+  });
 
   for (const parser of parserNames) {
-    test(parser, () => {
+    test(parser, async () => {
       const input = codeSamples(parser);
-      const umdOutput = standalone.format(input, {
+      const umdOutput = await standalone.format(input, {
         parser,
         plugins,
       });
@@ -55,7 +62,7 @@ describe("standalone", () => {
       expect(typeof umdOutput).toBe("string");
       expect(umdOutput).not.toBe(input);
 
-      const esmOutput = esmStandalone.format(input, {
+      const esmOutput = await esmStandalone.format(input, {
         parser,
         plugins: esmPlugins,
       });
@@ -66,7 +73,7 @@ describe("standalone", () => {
 });
 
 test("global objects", async () => {
-  const files = await fastGlob(["standalone.js", "parser-*.js"], {
+  const files = await fastGlob(["standalone.js", "plugins/*.js"], {
     cwd: distDirectory,
     absolute: true,
   });
@@ -86,4 +93,35 @@ test("global objects", async () => {
 
     expect(globalObjects).toStrictEqual({});
   }
+});
+
+test("Commonjs version", () => {
+  const prettierCommonjsVersion = require(path.join(
+    distDirectory,
+    "index.cjs"
+  ));
+
+  expect(Object.keys(prettierCommonjsVersion).sort()).toEqual(
+    Object.keys(prettier)
+      .filter((key) => key !== "__internal")
+      .sort()
+  );
+  expect(typeof prettierCommonjsVersion.format).toBe("function");
+
+  expect(Object.keys(prettierCommonjsVersion.doc)).toEqual(
+    Object.keys(prettier.doc)
+  );
+  expect(typeof prettierCommonjsVersion.doc.builders.fill).toBe("function");
+
+  expect(Object.keys(prettierCommonjsVersion.util)).toEqual(
+    Object.keys(prettier.util)
+  );
+  expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
+
+  expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toEqual(
+    Object.keys(prettier.__debug).sort()
+  );
+  expect(typeof prettierCommonjsVersion.__debug.parse).toBe("function");
+
+  expect(prettierCommonjsVersion.version).toBe(prettier.version);
 });

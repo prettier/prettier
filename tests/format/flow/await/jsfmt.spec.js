@@ -1,1 +1,3 @@
-run_spec(__dirname, ["flow"]);
+run_spec(import.meta, ["flow"], {
+  errors: { "babel-flow": ["await-keywords.js"] },
+});

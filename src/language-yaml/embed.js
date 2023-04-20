@@ -1,7 +1,7 @@
-"use strict";
+import { hardline } from "../document/builders.js";
 
-function embed(path, print, textToDoc, options) {
-  const node = path.getValue();
+function embed(path, options) {
+  const { node } = path;
 
   // Try to format `.prettierrc`, `.stylelintrc`, and `.lintstagedrc` as `json` first
   if (
@@ -9,8 +9,15 @@ function embed(path, print, textToDoc, options) {
     options.filepath &&
     /(?:[/\\]|^)\.(?:prettier|stylelint|lintstaged)rc$/.test(options.filepath)
   ) {
-    return textToDoc(options.originalText, { ...options, parser: "json" });
+    return async (textToDoc) => {
+      const doc = await textToDoc(options.originalText, { parser: "json" });
+      return doc ? [doc, hardline] : undefined;
+    };
   }
 }
 
-module.exports = embed;
+// Only "root" allow print as JSON
+// Use `[]` to prevent `printEmbeddedLanguages` traverse deep
+embed.getVisitorKeys = () => [];
+
+export default embed;

@@ -1,10 +1,14 @@
-"use strict";
-
-const { printDanglingComments } = require("../../main/comments.js");
-const {
-  builders: { join, line, hardline, softline, group, indent, ifBreak },
-} = require("../../document/index.js");
-const {
+import { printDanglingComments } from "../../main/comments/print.js";
+import {
+  join,
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  ifBreak,
+} from "../../document/builders.js";
+import {
   isTestCall,
   hasComment,
   CommentCheckFlags,
@@ -12,15 +16,19 @@ const {
   shouldPrintComma,
   getFunctionParameters,
   isObjectType,
-} = require("../utils/index.js");
-const { createGroupIdMapper } = require("../../common/util.js");
-const { shouldHugType } = require("./type-annotation.js");
-const { isArrowFunctionVariableDeclarator } = require("./assignment.js");
+} from "../utils/index.js";
+import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
+import {
+  printTypeAnnotationProperty,
+  shouldHugType,
+} from "./type-annotation.js";
+import { isArrowFunctionVariableDeclarator } from "./assignment.js";
+import { printTypeScriptMappedTypeModifier } from "./mapped-type.js";
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 function printTypeParameters(path, options, print, paramsKey) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (!node[paramsKey]) {
     return "";
@@ -44,12 +52,12 @@ function printTypeParameters(path, options, print, paramsKey) {
   );
 
   const shouldInline =
-    !isArrowFunctionVariable &&
-    (isParameterInTestCall ||
-      node[paramsKey].length === 0 ||
-      (node[paramsKey].length === 1 &&
-        (node[paramsKey][0].type === "NullableTypeAnnotation" ||
-          shouldHugType(node[paramsKey][0]))));
+    node[paramsKey].length === 0 ||
+    (!isArrowFunctionVariable &&
+      (isParameterInTestCall ||
+        (node[paramsKey].length === 1 &&
+          (node[paramsKey][0].type === "NullableTypeAnnotation" ||
+            shouldHugType(node[paramsKey][0])))));
 
   if (shouldInline) {
     return [
@@ -69,9 +77,9 @@ function printTypeParameters(path, options, print, paramsKey) {
       : getFunctionParameters(node).length === 1 &&
         isTSXFile(options) &&
         !node[paramsKey][0].constraint &&
-        path.getParentNode().type === "ArrowFunctionExpression"
+        path.parent.type === "ArrowFunctionExpression"
       ? ","
-      : shouldPrintComma(options, "all")
+      : shouldPrintComma(options)
       ? ifBreak(",")
       : "";
 
@@ -88,16 +96,14 @@ function printTypeParameters(path, options, print, paramsKey) {
 }
 
 function printDanglingCommentsForInline(path, options) {
-  const node = path.getValue();
+  const { node } = path;
   if (!hasComment(node, CommentCheckFlags.Dangling)) {
     return "";
   }
   const hasOnlyBlockComments = !hasComment(node, CommentCheckFlags.Line);
-  const printed = printDanglingComments(
-    path,
-    options,
-    /* sameIndent */ hasOnlyBlockComments
-  );
+  const printed = printDanglingComments(path, options, {
+    indent: !hasOnlyBlockComments,
+  });
   if (hasOnlyBlockComments) {
     return printed;
   }
@@ -105,11 +111,23 @@ function printDanglingCommentsForInline(path, options) {
 }
 
 function printTypeParameter(path, options, print) {
-  const node = path.getValue();
-  const parts = [];
-  const parent = path.getParentNode();
+  const { node, parent } = path;
+
+  /**
+   * @type {import("../../document/builders.js").Doc[]}
+   */
+  const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
+
+  const name = node.type === "TSTypeParameter" ? print("name") : node.name;
+
   if (parent.type === "TSMappedType") {
-    parts.push("[", print("name"));
+    if (parent.readonly) {
+      parts.push(
+        printTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
+        " "
+      );
+    }
+    parts.push("[", name);
     if (node.constraint) {
       parts.push(" in ", print("constraint"));
     }
@@ -135,25 +153,25 @@ function printTypeParameter(path, options, print) {
     parts.push("out ");
   }
 
-  parts.push(print("name"));
+  parts.push(name);
 
   if (node.bound) {
-    parts.push(": ", print("bound"));
+    if (node.usesExtendsBound) {
+      parts.push(" extends ");
+    }
+
+    parts.push(printTypeAnnotationProperty(path, print, "bound"));
   }
 
   if (node.constraint) {
-    parts.push(" extends ", print("constraint"));
+    parts.push(" extends", indent([line, print("constraint")]));
   }
 
   if (node.default) {
     parts.push(" = ", print("default"));
   }
 
-  return parts;
+  return group(parts);
 }
 
-module.exports = {
-  printTypeParameter,
-  printTypeParameters,
-  getTypeParametersGroupId,
-};
+export { printTypeParameter, printTypeParameters, getTypeParametersGroupId };

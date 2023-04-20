@@ -7,6 +7,27 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 {{! prettier-ignore }}
+{{        ugly}}
+
+{{! prettier-ignore }}{{        ugly}}
+
+{{! prettier-ignore }}
+        ugly
+
+{{! prettier-ignore }}          ugly
+
+{{! prettier-ignore }}
+{{#        ugly}}
+{{/        ugly}}
+
+{{! prettier-ignore }}{{#        ugly}}{{/        ugly}}
+
+{{! prettier-ignore }}
+{{!        ugly}}
+
+{{! prettier-ignore }}{{!        ugly}}
+
+{{! prettier-ignore }}
 <div>
   "hello! my parent was ignored"
   {{#my-crazy-component     "shall"     be="preserved"}}
@@ -40,7 +61,30 @@ printWidth: 80
 
   {{/another-sibling}}
 </div>
+
 =====================================output=====================================
+{{! prettier-ignore }}
+{{        ugly}}
+
+{{! prettier-ignore }}{{ugly}}
+
+{{! prettier-ignore }}
+ugly
+
+{{! prettier-ignore }}
+ugly
+
+{{! prettier-ignore }}
+{{#        ugly}}
+{{/        ugly}}
+
+{{! prettier-ignore }}{{#ugly}}{{/ugly}}
+
+{{! prettier-ignore }}
+{{!        ugly}}
+
+{{! prettier-ignore }}{{!        ugly}}
+
 {{! prettier-ignore }}
 <div>
   "hello! my parent was ignored"

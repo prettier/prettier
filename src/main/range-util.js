@@ -1,7 +1,5 @@
-"use strict";
-
-const assert = require("assert");
-const comments = require("./comments.js");
+import assert from "node:assert";
+import { getSortedChildNodes } from "./comments/attach.js";
 
 const isJsonParser = ({ parser }) =>
   parser === "json" || parser === "json5" || parser === "json-stringify";
@@ -24,7 +22,7 @@ function dropRootParents(parents) {
   let lastParentIndex = parents.length - 1;
   for (;;) {
     const parent = parents[lastParentIndex];
-    if (parent && (parent.type === "Program" || parent.type === "File")) {
+    if (parent?.type === "Program" || parent?.type === "File") {
       lastParentIndex--;
     } else {
       break;
@@ -96,7 +94,7 @@ function findNodeAtOffset(
     return;
   }
 
-  for (const childNode of comments.getSortedChildNodes(node, options)) {
+  for (const childNode of getSortedChildNodes(node, options)) {
     const childResult = findNodeAtOffset(
       childNode,
       offset,
@@ -134,6 +132,7 @@ function isJsSourceElement(type, parentType) {
 }
 
 const jsonSourceElements = new Set([
+  "JsonRoot",
   "ObjectExpression",
   "ArrayExpression",
   "StringLiteral",
@@ -162,7 +161,7 @@ const graphqlSourceElements = new Set([
   "ScalarTypeDefinition",
 ]);
 function isSourceElement(opts, node, parentNode) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!node) {
     return false;
   }
@@ -176,7 +175,7 @@ function isSourceElement(opts, node, parentNode) {
     case "espree":
     case "meriyah":
     case "__babel_estree":
-      return isJsSourceElement(node.type, parentNode && parentNode.type);
+      return isJsSourceElement(node.type, parentNode?.type);
     case "json":
     case "json5":
     case "json-stringify":
@@ -255,7 +254,4 @@ function calculateRange(text, opts, ast) {
   };
 }
 
-module.exports = {
-  calculateRange,
-  findNodeAtOffset,
-};
+export { calculateRange, findNodeAtOffset };

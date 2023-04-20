@@ -1,1 +1,1 @@
-run_spec(__dirname, ["typescript", "babel-ts"]);
+run_spec(import.meta, ["typescript", "babel-ts"]);

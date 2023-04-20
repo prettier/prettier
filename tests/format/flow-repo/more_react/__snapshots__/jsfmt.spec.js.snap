@@ -231,7 +231,7 @@ checkPropTypes(
   { foo: PropTypes.string },
   { foo: "foo" },
   "value",
-  "TestComponent"
+  "TestComponent",
 ); // OK
 
 checkPropTypes({ foo: PropTypes.string }, { foo: "foo" }); // error: missing arguments
@@ -241,7 +241,7 @@ checkPropTypes(
   { bar: PropTypes.string },
   { foo: "foo" },
   "value",
-  "TestComponent"
+  "TestComponent",
 ); // error: property not found
 
 checkPropTypes(
@@ -249,21 +249,21 @@ checkPropTypes(
   { foo: "foo" },
   "value",
   "TestComponent",
-  () => 123
+  () => 123,
 ); // error: number ~> string
 checkPropTypes(
   { foo: PropTypes.string },
   { foo: "foo" },
   "value",
   "TestComponent",
-  () => null
+  () => null,
 ); // OK
 checkPropTypes(
   { foo: PropTypes.string },
   { foo: "foo" },
   "value",
   "TestComponent",
-  () => undefined
+  () => undefined,
 ); // OK
 
 ================================================================================

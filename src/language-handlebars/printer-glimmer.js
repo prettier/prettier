@@ -1,34 +1,27 @@
-"use strict";
+import {
+  dedent,
+  fill,
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  join,
+  line,
+  softline,
+} from "../document/builders.js";
+import { replaceEndOfLine } from "../document/utils.js";
+import getPreferredQuote from "../utils/get-preferred-quote.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import { locStart, locEnd } from "./loc.js";
+import clean from "./clean.js";
+import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
+import getVisitorKeys from "./get-visitor-keys.js";
 
-const {
-  builders: {
-    dedent,
-    fill,
-    group,
-    hardline,
-    ifBreak,
-    indent,
-    join,
-    line,
-    softline,
-  },
-  utils: { getDocParts, replaceTextEndOfLine },
-} = require("../document/index.js");
-const { getPreferredQuote, isNonEmptyArray } = require("../common/util.js");
-const { locStart, locEnd } = require("./loc.js");
-const clean = require("./clean.js");
-const {
-  getNextNode,
-  getPreviousNode,
-  hasPrettierIgnore,
-  isLastNodeOfSiblings,
-  isNextNodeOfSomeType,
-  isNodeOfSomeType,
-  isParentOfSomeType,
-  isPreviousNodeOfSomeType,
-  isVoid,
-  isWhitespaceNode,
-} = require("./utils.js");
+/**
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
@@ -36,36 +29,24 @@ const NEWLINES_TO_PRESERVE_MAX = 2;
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
 function print(path, options, print) {
-  const node = path.getValue();
-
-  /* istanbul ignore if*/
-  if (!node) {
-    return "";
-  }
-
-  if (hasPrettierIgnore(path)) {
-    return options.originalText.slice(locStart(node), locEnd(node));
-  }
-
-  const favoriteQuote = options.singleQuote ? "'" : '"';
+  const { node } = path;
 
   switch (node.type) {
     case "Block":
     case "Program":
-    case "Template": {
+    case "Template":
       return group(path.map(print, "body"));
-    }
 
     case "ElementNode": {
       const startingTag = group(printStartingTag(path, print));
 
       const escapeNextElementNode =
         options.htmlWhitespaceSensitivity === "ignore" &&
-        isNextNodeOfSomeType(path, ["ElementNode"])
+        path.next?.type === "ElementNode"
           ? softline
           : "";
 
-      if (isVoid(node)) {
+      if (isVoidElement(node)) {
         return [startingTag, escapeNextElementNode];
       }
 
@@ -93,19 +74,10 @@ function print(path, options, print) {
       ];
     }
 
-    case "BlockStatement": {
-      const pp = path.getParentNode(1);
-
-      const isElseIfLike =
-        pp &&
-        pp.inverse &&
-        pp.inverse.body.length === 1 &&
-        pp.inverse.body[0] === node &&
-        pp.inverse.body[0].path.parts[0] === pp.path.parts[0];
-
-      if (isElseIfLike) {
+    case "BlockStatement":
+      if (isElseIfLike(path)) {
         return [
-          printElseIfLikeBlock(path, print, pp.inverse.body[0].path.parts[0]),
+          printElseIfLikeBlock(path, print),
           printProgram(path, print, options),
           printInverse(path, print, options),
         ];
@@ -119,79 +91,75 @@ function print(path, options, print) {
           printCloseBlock(path, print, options),
         ]),
       ];
-    }
 
-    case "ElementModifierStatement": {
+    case "ElementModifierStatement":
       return group(["{{", printPathAndParams(path, print), "}}"]);
-    }
 
-    case "MustacheStatement": {
+    case "MustacheStatement":
       return group([
         printOpeningMustache(node),
         printPathAndParams(path, print),
         printClosingMustache(node),
       ]);
-    }
 
-    case "SubExpression": {
+    case "SubExpression":
       return group([
         "(",
         printSubExpressionPathAndParams(path, print),
         softline,
         ")",
       ]);
-    }
+
     case "AttrNode": {
-      const isText = node.value.type === "TextNode";
-      const isEmptyText = isText && node.value.chars === "";
+      const { name, value } = node;
+      const isText = value.type === "TextNode";
+      const isEmptyText = isText && value.chars === "";
 
       // If the text is empty and the value's loc start and end offsets are the
       // same, there is no value for this AttrNode and it should be printed
       // without the `=""`. Example: `<img data-test>` -> `<img data-test>`
-      if (isEmptyText && locStart(node.value) === locEnd(node.value)) {
-        return node.name;
+      if (isEmptyText && locStart(value) === locEnd(value)) {
+        return name;
       }
 
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
-        ? getPreferredQuote(node.value.chars, favoriteQuote).quote
-        : node.value.type === "ConcatStatement"
+        ? getPreferredQuote(value.chars, options.singleQuote)
+        : value.type === "ConcatStatement"
         ? getPreferredQuote(
-            node.value.parts
-              .filter((part) => part.type === "TextNode")
-              .map((part) => part.chars)
+            value.parts
+              .map((part) => (part.type === "TextNode" ? part.chars : ""))
               .join(""),
-            favoriteQuote
-          ).quote
+            options.singleQuote
+          )
         : "";
 
       const valueDoc = print("value");
 
       return [
-        node.name,
+        name,
         "=",
         quote,
-        node.name === "class" && quote ? group(indent(valueDoc)) : valueDoc,
+        name === "class" && quote ? group(indent(valueDoc)) : valueDoc,
         quote,
       ];
     }
 
-    case "ConcatStatement": {
+    case "ConcatStatement":
       return path.map(print, "parts");
-    }
 
-    case "Hash": {
+    case "Hash":
       return join(line, path.map(print, "pairs"));
-    }
-    case "HashPair": {
+
+    case "HashPair":
       return [node.key, "=", print("value")];
-    }
+
     case "TextNode": {
       /* if `{{my-component}}` (or any text containing "{{")
        * makes it to the TextNode, it means it was escaped,
        * so let's print it escaped, ie.; `\{{my-component}}` */
-      let text = node.chars.replace(/{{/g, "\\{{");
+      let text = node.chars.replaceAll("{{", "\\{{");
 
       const attrName = getCurrentAttributeName(path);
 
@@ -203,15 +171,15 @@ function print(path, options, print) {
           let leadingSpace = false;
           let trailingSpace = false;
 
-          if (isParentOfSomeType(path, ["ConcatStatement"])) {
+          if (path.parent.type === "ConcatStatement") {
             if (
-              isPreviousNodeOfSomeType(path, ["MustacheStatement"]) &&
+              path.previous?.type === "MustacheStatement" &&
               /^\s/.test(text)
             ) {
               leadingSpace = true;
             }
             if (
-              isNextNodeOfSomeType(path, ["MustacheStatement"]) &&
+              path.next?.type === "MustacheStatement" &&
               /\s$/.test(text) &&
               formattedClasses !== ""
             ) {
@@ -226,25 +194,19 @@ function print(path, options, print) {
           ];
         }
 
-        return replaceTextEndOfLine(text);
+        return replaceEndOfLine(text);
       }
 
-      const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
-      const isWhitespaceOnly = whitespacesOnlyRE.test(text);
-      const isFirstElement = !getPreviousNode(path);
-      const isLastElement = !getNextNode(path);
+      const isWhitespaceOnly = htmlWhitespaceUtils.isWhitespaceOnly(text);
+      const { isFirst, isLast } = path;
 
       if (options.htmlWhitespaceSensitivity !== "ignore") {
-        // https://infra.spec.whatwg.org/#ascii-whitespace
-        const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
-        const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
-
         // let's remove the file's final newline
         // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
         const shouldTrimTrailingNewlines =
-          isLastElement && isParentOfSomeType(path, ["Template"]);
+          isLast && path.parent.type === "Template";
         const shouldTrimLeadingNewlines =
-          isFirstElement && isParentOfSomeType(path, ["Template"]);
+          isFirst && path.parent.type === "Template";
 
         if (isWhitespaceOnly) {
           if (shouldTrimLeadingNewlines || shouldTrimTrailingNewlines) {
@@ -258,44 +220,46 @@ function print(path, options, print) {
             breaks = generateHardlines(newlines);
           }
 
-          if (isLastNodeOfSiblings(path)) {
+          if (isLast) {
             breaks = breaks.map((newline) => dedent(newline));
           }
 
           return breaks;
         }
 
-        const [lead] = text.match(leadingWhitespacesRE);
-        const [tail] = text.match(trailingWhitespacesRE);
+        const leadingWhitespace =
+          htmlWhitespaceUtils.getLeadingWhitespace(text);
 
         let leadBreaks = [];
-        if (lead) {
+        if (leadingWhitespace) {
           leadBreaks = [line];
 
-          const leadingNewlines = countNewLines(lead);
+          const leadingNewlines = countNewLines(leadingWhitespace);
           if (leadingNewlines) {
             leadBreaks = generateHardlines(leadingNewlines);
           }
 
-          text = text.replace(leadingWhitespacesRE, "");
+          text = text.slice(leadingWhitespace.length);
         }
 
+        const tailingWhitespace =
+          htmlWhitespaceUtils.getTrailingWhitespace(text);
         let trailBreaks = [];
-        if (tail) {
+        if (tailingWhitespace) {
           if (!shouldTrimTrailingNewlines) {
             trailBreaks = [line];
 
-            const trailingNewlines = countNewLines(tail);
+            const trailingNewlines = countNewLines(tailingWhitespace);
             if (trailingNewlines) {
               trailBreaks = generateHardlines(trailingNewlines);
             }
 
-            if (isLastNodeOfSiblings(path)) {
+            if (isLast) {
               trailBreaks = trailBreaks.map((hardline) => dedent(hardline));
             }
           }
 
-          text = text.replace(trailingWhitespacesRE, "");
+          text = text.slice(0, -tailingWhitespace.length);
         }
 
         return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
@@ -307,9 +271,11 @@ function print(path, options, print) {
       let trailingLineBreaksCount = countTrailingNewLines(text);
 
       if (
-        (isFirstElement || isLastElement) &&
+        (isFirst || isLast) &&
         isWhitespaceOnly &&
-        isParentOfSomeType(path, ["Block", "ElementNode", "Template"])
+        (path.parent.type === "Block" ||
+          path.parent.type === "ElementNode" ||
+          path.parent.type === "Template")
       ) {
         return "";
       }
@@ -321,11 +287,17 @@ function print(path, options, print) {
         );
         trailingLineBreaksCount = 0;
       } else {
-        if (isNextNodeOfSomeType(path, ["BlockStatement", "ElementNode"])) {
+        if (
+          path.next?.type === "BlockStatement" ||
+          path.next?.type === "ElementNode"
+        ) {
           trailingLineBreaksCount = Math.max(trailingLineBreaksCount, 1);
         }
 
-        if (isPreviousNodeOfSomeType(path, ["BlockStatement", "ElementNode"])) {
+        if (
+          path.previous?.type === "BlockStatement" ||
+          path.previous?.type === "ElementNode"
+        ) {
           leadingLineBreaksCount = Math.max(leadingLineBreaksCount, 1);
         }
       }
@@ -335,31 +307,35 @@ function print(path, options, print) {
 
       if (
         trailingLineBreaksCount === 0 &&
-        isNextNodeOfSomeType(path, ["MustacheStatement"])
+        path.next?.type === "MustacheStatement"
       ) {
         trailingSpace = " ";
       }
 
       if (
         leadingLineBreaksCount === 0 &&
-        isPreviousNodeOfSomeType(path, ["MustacheStatement"])
+        path.previous?.type === "MustacheStatement"
       ) {
         leadingSpace = " ";
       }
 
-      if (isFirstElement) {
+      if (isFirst) {
         leadingLineBreaksCount = 0;
         leadingSpace = "";
       }
 
-      if (isLastElement) {
+      if (isLast) {
         trailingLineBreaksCount = 0;
         trailingSpace = "";
       }
 
-      text = text
-        .replace(/^[\t\n\f\r ]+/g, leadingSpace)
-        .replace(/[\t\n\f\r ]+$/, trailingSpace);
+      if (htmlWhitespaceUtils.hasLeadingWhitespace(text)) {
+        text = leadingSpace + htmlWhitespaceUtils.trimStart(text);
+      }
+
+      if (htmlWhitespaceUtils.hasTrailingWhitespace(text)) {
+        text = htmlWhitespaceUtils.trimEnd(text) + trailingSpace;
+      }
 
       return [
         ...generateHardlines(leadingLineBreaksCount),
@@ -389,35 +365,30 @@ function print(path, options, print) {
         "}}",
       ];
     }
-    case "PathExpression": {
+    case "PathExpression":
       return node.original;
-    }
-    case "BooleanLiteral": {
-      return String(node.value);
-    }
-    case "CommentStatement": {
-      return ["<!--", node.value, "-->"];
-    }
-    case "StringLiteral": {
-      if (needsOppositeQuote(path)) {
-        const printFavoriteQuote = !options.singleQuote ? "'" : '"';
-        return printStringLiteral(node.value, printFavoriteQuote);
-      }
-      return printStringLiteral(node.value, favoriteQuote);
-    }
-    case "NumberLiteral": {
-      return String(node.value);
-    }
-    case "UndefinedLiteral": {
-      return "undefined";
-    }
-    case "NullLiteral": {
-      return "null";
-    }
 
-    /* istanbul ignore next */
+    case "BooleanLiteral":
+      return String(node.value);
+
+    case "CommentStatement":
+      return ["<!--", node.value, "-->"];
+
+    case "StringLiteral":
+      return printStringLiteral(path, options);
+
+    case "NumberLiteral":
+      return String(node.value);
+
+    case "UndefinedLiteral":
+      return "undefined";
+
+    case "NullLiteral":
+      return "null";
+
     default:
-      throw new Error("unknown glimmer type: " + JSON.stringify(node.type));
+      /* c8 ignore next */
+      throw new UnexpectedNodeError(node, "Handlebars");
   }
 }
 
@@ -428,7 +399,7 @@ function sortByLoc(a, b) {
 }
 
 function printStartingTag(path, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const types = ["attributes", "modifiers", "comments"].filter((property) =>
     isNonEmptyArray(node[property])
@@ -436,8 +407,8 @@ function printStartingTag(path, print) {
   const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
 
   for (const attributeType of types) {
-    path.each((attributePath) => {
-      const index = attributes.indexOf(attributePath.getValue());
+    path.each(({ node }) => {
+      const index = attributes.indexOf(node);
       attributes.splice(index, 1, [line, print()]);
     }, attributeType);
   }
@@ -450,16 +421,16 @@ function printStartingTag(path, print) {
 }
 
 function printChildren(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const isEmpty = node.children.every((node) => isWhitespaceNode(node));
   if (options.htmlWhitespaceSensitivity === "ignore" && isEmpty) {
     return "";
   }
 
-  return path.map((childPath, childIndex) => {
+  return path.map(({ isFirst }) => {
     const printedChild = print();
 
-    if (childIndex === 0 && options.htmlWhitespaceSensitivity === "ignore") {
+    if (isFirst && options.htmlWhitespaceSensitivity === "ignore") {
       return [softline, printedChild];
     }
 
@@ -468,7 +439,7 @@ function printChildren(path, options, print) {
 }
 
 function printStartingTagEndMarker(node) {
-  if (isVoid(node)) {
+  if (isVoidElement(node)) {
     return ifBreak([softline, "/>"], [" />", softline]);
   }
 
@@ -479,13 +450,13 @@ function printStartingTagEndMarker(node) {
 
 function printOpeningMustache(node) {
   const mustache = node.escaped === false ? "{{{" : "{{";
-  const strip = node.strip && node.strip.open ? "~" : "";
+  const strip = node.strip?.open ? "~" : "";
   return [mustache, strip];
 }
 
 function printClosingMustache(node) {
   const mustache = node.escaped === false ? "}}}" : "}}";
-  const strip = node.strip && node.strip.close ? "~" : "";
+  const strip = node.strip?.close ? "~" : "";
   return [strip, mustache];
 }
 
@@ -528,28 +499,25 @@ function printInverseBlockClosingMustache(node) {
 }
 
 function printOpenBlock(path, print) {
-  const node = path.getValue();
+  const { node } = path;
+  /** @type {Doc[]} */
+  const parts = [];
 
-  const openingMustache = printOpeningBlockOpeningMustache(node);
-  const closingMustache = printOpeningBlockClosingMustache(node);
-
-  const attributes = [printPath(path, print)];
-
-  const params = printParams(path, print);
-  if (params) {
-    attributes.push(line, params);
+  const paramsDoc = printParams(path, print);
+  if (paramsDoc) {
+    parts.push(group(paramsDoc));
   }
 
   if (isNonEmptyArray(node.program.blockParams)) {
-    const block = printBlockParams(node.program);
-    attributes.push(line, block);
+    parts.push(printBlockParams(node.program));
   }
 
   return group([
-    openingMustache,
-    indent(attributes),
+    printOpeningBlockOpeningMustache(node),
+    printPath(path, print),
+    parts.length > 0 ? indent([line, join(line, parts)]) : "",
     softline,
-    closingMustache,
+    printOpeningBlockClosingMustache(node),
   ]);
 }
 
@@ -562,33 +530,34 @@ function printElseBlock(node, options) {
   ];
 }
 
-function printElseIfLikeBlock(path, print, ifLikeKeyword) {
-  const node = path.getValue();
-  let blockParams = [];
+function isElseIfLike(path) {
+  const { grandparent, node } = path;
+  return (
+    grandparent?.inverse?.body.length === 1 &&
+    grandparent.inverse.body[0] === node &&
+    grandparent.inverse.body[0].path.parts[0] === grandparent.path.parts[0]
+  );
+}
 
-  if (isNonEmptyArray(node.program.blockParams)) {
-    blockParams = [line, printBlockParams(node.program)];
-  }
-
-  const parentNode = path.getParentNode(1);
-
+function printElseIfLikeBlock(path, print) {
+  const { node, grandparent } = path;
   return group([
-    printInverseBlockOpeningMustache(parentNode),
-    indent(
-      group([
-        group(["else", line, ifLikeKeyword]),
-        line,
-        printParams(path, print),
-      ])
-    ),
-    indent(blockParams),
+    printInverseBlockOpeningMustache(grandparent),
+    ["else", " ", grandparent.inverse.body[0].path.parts[0]],
+    indent([
+      line,
+      group(printParams(path, print)),
+      ...(isNonEmptyArray(node.program.blockParams)
+        ? [line, printBlockParams(node.program)]
+        : []),
+    ]),
     softline,
-    printInverseBlockClosingMustache(parentNode),
+    printInverseBlockClosingMustache(grandparent),
   ]);
 }
 
 function printCloseBlock(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (options.htmlWhitespaceSensitivity === "ignore") {
     const escape = blockStatementHasOnlyWhitespaceInProgram(node)
@@ -612,7 +581,7 @@ function printCloseBlock(path, print, options) {
 
 function blockStatementHasOnlyWhitespaceInProgram(node) {
   return (
-    isNodeOfSomeType(node, ["BlockStatement"]) &&
+    node.type === "BlockStatement" &&
     node.program.body.every((node) => isWhitespaceNode(node))
   );
 }
@@ -621,17 +590,17 @@ function blockStatementHasElseIfLike(node) {
   return (
     blockStatementHasElse(node) &&
     node.inverse.body.length === 1 &&
-    isNodeOfSomeType(node.inverse.body[0], ["BlockStatement"]) &&
+    node.inverse.body[0].type === "BlockStatement" &&
     node.inverse.body[0].path.parts[0] === node.path.parts[0]
   );
 }
 
 function blockStatementHasElse(node) {
-  return isNodeOfSomeType(node, ["BlockStatement"]) && node.inverse;
+  return node.type === "BlockStatement" && node.inverse;
 }
 
 function printProgram(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (blockStatementHasOnlyWhitespaceInProgram(node)) {
     return "";
@@ -647,7 +616,7 @@ function printProgram(path, print, options) {
 }
 
 function printInverse(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   const inverse = print("inverse");
   const printed =
@@ -669,37 +638,33 @@ function printInverse(path, print, options) {
 /* TextNode print helpers */
 
 function getTextValueParts(value) {
-  return getDocParts(join(line, splitByHtmlWhitespace(value)));
-}
-
-function splitByHtmlWhitespace(string) {
-  return string.split(/[\t\n\f\r ]+/);
+  return join(line, htmlWhitespaceUtils.split(value));
 }
 
 function getCurrentAttributeName(path) {
   for (let depth = 0; depth < 2; depth++) {
     const parentNode = path.getParentNode(depth);
-    if (parentNode && parentNode.type === "AttrNode") {
+    if (parentNode?.type === "AttrNode") {
       return parentNode.name.toLowerCase();
     }
   }
 }
 
 function countNewLines(string) {
-  /* istanbul ignore next */
+  /* c8 ignore next */
   string = typeof string === "string" ? string : "";
   return string.split("\n").length - 1;
 }
 
 function countLeadingNewLines(string) {
-  /* istanbul ignore next */
+  /* c8 ignore next */
   string = typeof string === "string" ? string : "";
   const newLines = (string.match(/^([^\S\n\r]*[\n\r])+/g) || [])[0] || "";
   return countNewLines(newLines);
 }
 
 function countTrailingNewLines(string) {
-  /* istanbul ignore next */
+  /* c8 ignore next */
   string = typeof string === "string" ? string : "";
   const newLines = (string.match(/([\n\r][^\S\n\r]*)+$/g) || [])[0] || "";
   return countNewLines(newLines);
@@ -713,7 +678,7 @@ function generateHardlines(number = 0) {
 
 /* StringLiteral print helpers */
 
-/** @typedef {import("../common/util").Quote} Quote */
+/** @typedef {import("../utils/get-preferred-quote.js").Quote} Quote */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on
@@ -721,29 +686,29 @@ function generateHardlines(number = 0) {
  * the string literal. This function is the glimmer equivalent of `printString`
  * in `common/util`, but has differences because of the way escaped characters
  * are treated in hbs string literals.
- * @param {string} stringLiteral - the string literal value
- * @param {Quote} favoriteQuote - the user's preferred quote: `'` or `"`
  */
-function printStringLiteral(stringLiteral, favoriteQuote) {
-  const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);
-  return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
+function printStringLiteral(path, options) {
+  const {
+    node: { value },
+  } = path;
+
+  const quote = getPreferredQuote(
+    value,
+    needsOppositeQuote(path) ? !options.singleQuote : options.singleQuote
+  );
+
+  return [quote, value.replaceAll(quote, `\\${quote}`), quote];
 }
 
 function needsOppositeQuote(path) {
-  let index = 0;
-  let parentNode = path.getParentNode(index);
-  while (parentNode && isNodeOfSomeType(parentNode, ["SubExpression"])) {
-    index++;
-    parentNode = path.getParentNode(index);
-  }
-  if (
-    parentNode &&
-    isNodeOfSomeType(path.getParentNode(index + 1), ["ConcatStatement"]) &&
-    isNodeOfSomeType(path.getParentNode(index + 2), ["AttrNode"])
-  ) {
-    return true;
-  }
-  return false;
+  const { ancestors } = path;
+  const level = ancestors.findIndex((node) => node.type !== "SubExpression");
+
+  return (
+    level !== -1 &&
+    ancestors[level + 1].type === "ConcatStatement" &&
+    ancestors[level + 2].type === "AttrNode"
+  );
 }
 
 /* SubExpression print helpers */
@@ -762,14 +727,14 @@ function printSubExpressionPathAndParams(path, print) {
 /* misc. print helpers */
 
 function printPathAndParams(path, print) {
-  const p = printPath(path, print);
-  const params = printParams(path, print);
+  const pathDoc = printPath(path, print);
+  const paramsDoc = printParams(path, print);
 
-  if (!params) {
-    return p;
+  if (!paramsDoc) {
+    return pathDoc;
   }
 
-  return [indent([p, line, params]), softline];
+  return [indent([pathDoc, line, paramsDoc]), softline];
 }
 
 function printPath(path, print) {
@@ -777,17 +742,15 @@ function printPath(path, print) {
 }
 
 function printParams(path, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   if (node.params.length > 0) {
-    const params = path.map(print, "params");
-    parts.push(...params);
+    parts.push(...path.map(print, "params"));
   }
 
-  if (node.hash && node.hash.pairs.length > 0) {
-    const hash = print("hash");
-    parts.push(hash);
+  if (node.hash?.pairs.length > 0) {
+    parts.push(print("hash"));
   }
 
   if (parts.length === 0) {
@@ -801,7 +764,11 @@ function printBlockParams(node) {
   return ["as |", node.blockParams.join(" "), "|"];
 }
 
-module.exports = {
+const printer = {
   print,
   massageAstNode: clean,
+  hasPrettierIgnore,
+  getVisitorKeys,
 };
+
+export default printer;

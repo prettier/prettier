@@ -3,24 +3,31 @@ name: Check Sizes
 on:
   pull_request:
 
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-sizes:
     name: Check Sizes
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.6.0
         with:
           cache: "yarn"
 
-      # This step calls `git reset`
-      # It should be the last step
       - name: Check Sizes
         uses: preactjs/compressed-size-action@2.5.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           pattern: "./dist/**/*"
           compression: none
+          build-script: "build --clean"

@@ -1,1 +1,1 @@
-run_spec(__dirname, ["html"], { requirePragma: true });
+run_spec(import.meta, ["html"], { requirePragma: true });

@@ -2,6 +2,10 @@ name: Internal_ESLint_Rules_Test
 
 on:
   push:
+    branches:
+      - main
+      - patch-release
+      - next
     paths:
       - "scripts/tools/eslint-plugin-prettier-internal-rules/**"
       # This workflow file
@@ -12,21 +16,28 @@ on:
       # This workflow file
       - ".github/workflows/eslint-rules.yml"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.6.0
         with:
           cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Test
         run: cd scripts/tools/eslint-plugin-prettier-internal-rules && yarn test-coverage

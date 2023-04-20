@@ -1,2 +1,2 @@
-run_spec(__dirname, ["scss"], { trailingComma: "none" });
-run_spec(__dirname, ["scss"]);
+run_spec(import.meta, ["scss"], { trailingComma: "none" });
+run_spec(import.meta, ["scss"]);

@@ -1,5 +1,3 @@
-"use strict";
-
 function stringifyOptions(options) {
   const string = JSON.stringify(options || {}, (key, value) =>
     key === "plugins" || key === "errors"
@@ -12,4 +10,4 @@ function stringifyOptions(options) {
   return string === "{}" ? "" : string;
 }
 
-module.exports = stringifyOptions;
+export default stringifyOptions;

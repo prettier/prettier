@@ -1,7 +1,7 @@
 import "angular-html-parser/lib/compiler/src/ml_parser/ast";
-import { HtmlTagDefinition } from "angular-html-parser/lib/compiler/src/ml_parser/html_tags";
+import { HtmlTagDefinition } from "angular-html-parser/lib/compiler/src/ml_parser/html_tags.js";
 
-declare module "angular-html-parser/lib/compiler/src/ml_parser/ast" {
+declare module "angular-html-parser/lib/compiler/src/ml_parser/ast.js" {
   interface Attribute {
     startSourceSpan: never;
     endSourceSpan: never;

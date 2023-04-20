@@ -1,92 +1,41 @@
-"use strict";
-
-const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
-const {
-  getLast,
-  hasNewline,
-  skipWhitespace,
-  isNonEmptyArray,
-  isNextLineEmptyAfterIndex,
-  getStringWidth,
-} = require("../../common/util.js");
-const { locStart, locEnd, hasSameLocStart } = require("../loc.js");
-const isBlockComment = require("./is-block-comment.js");
-const isNodeMatches = require("./is-node-matches.js");
+import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
+import { hasDescendant } from "../../utils/ast-utils.js";
+import hasNewline from "../../utils/has-newline.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import getStringWidth from "../../utils/get-string-width.js";
+import { locStart, locEnd, hasSameLocStart } from "../loc.js";
+import getVisitorKeys from "../traverse/get-visitor-keys.js";
+import createTypeCheckFunction from "./create-type-check-function.js";
+import isBlockComment from "./is-block-comment.js";
+import isNodeMatches from "./is-node-matches.js";
+import isFlowKeywordType from "./is-flow-keyword-type.js";
+import isTsKeywordType from "./is-ts-keyword-type.js";
 
 /**
- * @typedef {import("../types/estree").Node} Node
- * @typedef {import("../types/estree").TemplateLiteral} TemplateLiteral
- * @typedef {import("../types/estree").Comment} Comment
- * @typedef {import("../types/estree").MemberExpression} MemberExpression
- * @typedef {import("../types/estree").OptionalMemberExpression} OptionalMemberExpression
- * @typedef {import("../types/estree").CallExpression} CallExpression
- * @typedef {import("../types/estree").OptionalCallExpression} OptionalCallExpression
- * @typedef {import("../types/estree").Expression} Expression
- * @typedef {import("../types/estree").Property} Property
- * @typedef {import("../types/estree").ObjectTypeProperty} ObjectTypeProperty
- * @typedef {import("../types/estree").TaggedTemplateExpression} TaggedTemplateExpression
- * @typedef {import("../types/estree").Literal} Literal
+ * @typedef {import("../types/estree.js").Node} Node
+ * @typedef {import("../types/estree.js").TemplateLiteral} TemplateLiteral
+ * @typedef {import("../types/estree.js").Comment} Comment
+ * @typedef {import("../types/estree.js").MemberExpression} MemberExpression
+ * @typedef {import("../types/estree.js").OptionalMemberExpression} OptionalMemberExpression
+ * @typedef {import("../types/estree.js").CallExpression} CallExpression
+ * @typedef {import("../types/estree.js").OptionalCallExpression} OptionalCallExpression
+ * @typedef {import("../types/estree.js").Expression} Expression
+ * @typedef {import("../types/estree.js").Property} Property
+ * @typedef {import("../types/estree.js").ObjectTypeProperty} ObjectTypeProperty
+ * @typedef {import("../types/estree.js").TaggedTemplateExpression} TaggedTemplateExpression
+ * @typedef {import("../types/estree.js").Literal} Literal
  *
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../common/ast-path.js").default} AstPath
  */
-
-// We match any whitespace except line terminators because
-// Flow annotation comments cannot be split across lines. For example:
-//
-// (this /*
-// : any */).foo = 5;
-//
-// is not picked up by Flow (see https://github.com/facebook/flow/issues/7050), so
-// removing the newline would create a type annotation that the user did not intend
-// to create.
-const NON_LINE_TERMINATING_WHITE_SPACE = "(?:(?=.)\\s)";
-const FLOW_SHORTHAND_ANNOTATION = new RegExp(
-  `^${NON_LINE_TERMINATING_WHITE_SPACE}*:`
-);
-const FLOW_ANNOTATION = new RegExp(`^${NON_LINE_TERMINATING_WHITE_SPACE}*::`);
 
 /**
  * @param {Node} node
+ * @param {(Node) => boolean} predicate
  * @returns {boolean}
  */
-function hasFlowShorthandAnnotationComment(node) {
-  // https://flow.org/en/docs/types/comments/
-  // Syntax example: const r = new (window.Request /*: Class<Request> */)("");
-
-  return (
-    node.extra?.parenthesized &&
-    isBlockComment(node.trailingComments?.[0]) &&
-    FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
-  );
-}
-
-/**
- * @param {Comment[]} comments
- * @returns {boolean}
- */
-function hasFlowAnnotationComment(comments) {
-  const firstComment = comments?.[0];
-  return (
-    isBlockComment(firstComment) && FLOW_ANNOTATION.test(firstComment.value)
-  );
-}
-
-/**
- * @param {Node} node
- * @param {(Node) => boolean} fn
- * @returns {boolean}
- */
-function hasNode(node, fn) {
-  if (!node || typeof node !== "object") {
-    return false;
-  }
-  if (Array.isArray(node)) {
-    return node.some((value) => hasNode(value, fn));
-  }
-  const result = fn(node);
-  return typeof result === "boolean"
-    ? result
-    : Object.values(node).some((value) => hasNode(value, fn));
+function hasNode(node, predicate) {
+  return predicate(node) || hasDescendant(node, { getVisitorKeys, predicate });
 }
 
 /**
@@ -107,7 +56,8 @@ function hasNakedLeftSide(node) {
     node.type === "BindExpression" ||
     (node.type === "UpdateExpression" && !node.prefix) ||
     isTSTypeExpression(node) ||
-    node.type === "TSNonNullExpression"
+    node.type === "TSNonNullExpression" ||
+    node.type === "ChainExpression"
   );
 }
 
@@ -126,7 +76,7 @@ function getLeftSide(node) {
   );
 }
 
-function getLeftSidePathName(path, node) {
+function getLeftSidePathName(node) {
   if (node.expressions) {
     return ["expressions", 0];
   }
@@ -154,11 +104,6 @@ function getLeftSidePathName(path, node) {
   throw new Error("Unexpected node has no left side.");
 }
 
-function createTypeCheckFunction(types) {
-  types = new Set(types);
-  return (node) => types.has(node?.type);
-}
-
 /**
  * @param {Comment} comment
  * @returns {boolean}
@@ -171,6 +116,10 @@ const isLineComment = createTypeCheckFunction([
   "HashbangComment",
   "HTMLOpen",
   "HTMLClose",
+  // `espree`
+  "Hashbang",
+  // Babel hashbang
+  "InterpreterDirective",
 ]);
 
 /**
@@ -179,42 +128,28 @@ const isLineComment = createTypeCheckFunction([
  */
 const isExportDeclaration = createTypeCheckFunction([
   "ExportDefaultDeclaration",
-  "ExportDefaultSpecifier",
   "DeclareExportDeclaration",
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
+  "DeclareExportAllDeclaration",
 ]);
-
-/**
- * @param {AstPath} path
- * @returns {Node | null}
- */
-function getParentExportDeclaration(path) {
-  const parentNode = path.getParentNode();
-  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
-    return parentNode;
-  }
-
-  return null;
-}
 
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-const isLiteral = createTypeCheckFunction([
-  "BooleanLiteral",
-  "DirectiveLiteral",
-  "Literal",
-  "NullLiteral",
-  "NumericLiteral",
-  "BigIntLiteral",
-  "DecimalLiteral",
-  "RegExpLiteral",
-  "StringLiteral",
-  "TemplateLiteral",
-  "TSTypeLiteral",
-  "JSXText",
+const isArrayOrTupleExpression = createTypeCheckFunction([
+  "ArrayExpression",
+  "TupleExpression",
+]);
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isObjectOrRecordExpression = createTypeCheckFunction([
+  "ObjectExpression",
+  "RecordExpression",
 ]);
 
 /**
@@ -244,6 +179,13 @@ function isStringLiteral(node) {
   return (
     node.type === "StringLiteral" ||
     (node.type === "Literal" && typeof node.value === "string")
+  );
+}
+
+function isRegExpLiteral(node) {
+  return (
+    node.type === "RegExpLiteral" ||
+    (node.type === "Literal" && Boolean(node.regex))
   );
 }
 
@@ -300,23 +242,7 @@ function isAngularTestWrapper(node) {
  * @param {Node} node
  * @returns {boolean}
  */
-const isJsxNode = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
-
-function isTheOnlyJsxElementInMarkdown(options, path) {
-  if (options.parentParser !== "markdown" && options.parentParser !== "mdx") {
-    return false;
-  }
-
-  const node = path.getNode();
-
-  if (!node.expression || !isJsxNode(node.expression)) {
-    return false;
-  }
-
-  const parent = path.getParentNode();
-
-  return parent.type === "Program" && parent.body.length === 1;
-}
+const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
 function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
@@ -378,72 +304,30 @@ function isMemberish(node) {
   );
 }
 
-const simpleTypeAnnotations = new Set([
-  // `any`
-  "AnyTypeAnnotation",
-  "TSAnyKeyword",
-  // `null`
-  "NullLiteralTypeAnnotation",
-  "TSNullKeyword",
-  // `this`
-  "ThisTypeAnnotation",
+const isSimpleTypeAnnotation = createTypeCheckFunction([
   "TSThisType",
-  // `number`
-  "NumberTypeAnnotation",
-  "TSNumberKeyword",
-  // `void`
-  "VoidTypeAnnotation",
-  "TSVoidKeyword",
-  // `boolean`
-  "BooleanTypeAnnotation",
-  "TSBooleanKeyword",
-  // `bigint`
-  "BigIntTypeAnnotation",
-  "TSBigIntKeyword",
-  // `symbol`
-  "SymbolTypeAnnotation",
-  "TSSymbolKeyword",
-  // `string`
-  "StringTypeAnnotation",
-  "TSStringKeyword",
   // literals
+  "NullLiteralTypeAnnotation",
   "BooleanLiteralTypeAnnotation",
   "StringLiteralTypeAnnotation",
   "BigIntLiteralTypeAnnotation",
   "NumberLiteralTypeAnnotation",
   "TSLiteralType",
   "TSTemplateLiteralType",
-  // flow only, `empty`, `mixed`
-  "EmptyTypeAnnotation",
-  "MixedTypeAnnotation",
-  // typescript only, `never`, `object`, `undefined`, `unknown`
-  "TSNeverKeyword",
-  "TSObjectKeyword",
-  "TSUndefinedKeyword",
-  "TSUnknownKeyword",
 ]);
 /**
  * @param {Node} node
  * @returns {boolean}
  */
 function isSimpleType(node) {
-  if (!node) {
-    return false;
-  }
-
-  if (
-    (node.type === "GenericTypeAnnotation" ||
+  return (
+    isTsKeywordType(node) ||
+    isFlowKeywordType(node) ||
+    isSimpleTypeAnnotation(node) ||
+    ((node.type === "GenericTypeAnnotation" ||
       node.type === "TSTypeReference") &&
-    !node.typeParameters
-  ) {
-    return true;
-  }
-
-  if (simpleTypeAnnotations.has(node.type)) {
-    return true;
-  }
-
-  return false;
+      !node.typeParameters)
+  );
 }
 
 /**
@@ -454,8 +338,8 @@ function isUnitTestSetUp(node) {
   const unitTestSetUpRe = /^(?:before|after)(?:Each|All)$/;
   return (
     node.callee.type === "Identifier" &&
-    unitTestSetUpRe.test(node.callee.name) &&
-    node.arguments.length === 1
+    node.arguments.length === 1 &&
+    unitTestSetUpRe.test(node.callee.name)
   );
 }
 
@@ -502,24 +386,23 @@ function isTestCall(node, parent) {
     if (isUnitTestSetUp(node)) {
       return isAngularTestWrapper(node.arguments[0]);
     }
-  } else if (node.arguments.length === 2 || node.arguments.length === 3) {
-    if (
-      (node.arguments[0].type === "TemplateLiteral" ||
-        isStringLiteral(node.arguments[0])) &&
-      isTestCallCallee(node.callee)
-    ) {
-      // it("name", () => { ... }, 2500)
-      if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
-        return false;
-      }
-      return (
-        (node.arguments.length === 2
-          ? isFunctionOrArrowExpression(node.arguments[1])
-          : isFunctionOrArrowExpressionWithBody(node.arguments[1]) &&
-            getFunctionParameters(node.arguments[1]).length <= 1) ||
-        isAngularTestWrapper(node.arguments[1])
-      );
+  } else if (
+    (node.arguments.length === 2 || node.arguments.length === 3) &&
+    (node.arguments[0].type === "TemplateLiteral" ||
+      isStringLiteral(node.arguments[0])) &&
+    isTestCallCallee(node.callee)
+  ) {
+    // it("name", () => { ... }, 2500)
+    if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
+      return false;
     }
+    return (
+      (node.arguments.length === 2
+        ? isFunctionOrArrowExpression(node.arguments[1])
+        : isFunctionOrArrowExpressionWithBody(node.arguments[1]) &&
+          getFunctionParameters(node.arguments[1]).length <= 1) ||
+      isAngularTestWrapper(node.arguments[1])
+    );
   }
   return false;
 }
@@ -569,6 +452,10 @@ function isSimpleTemplateLiteral(node) {
       return true;
     }
 
+    if (expr.type === "ChainExpression") {
+      expr = expr.expression;
+    }
+
     // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
     if (isMemberExpression(expr)) {
       let head = expr;
@@ -599,40 +486,12 @@ function isSimpleTemplateLiteral(node) {
 }
 
 /**
- * @param {string} tokenNode
- * @param {string} keyword
- * @returns {string}
- */
-function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
-  if (tokenNode === "+" || tokenNode === "-") {
-    return tokenNode + keyword;
-  }
-
-  return keyword;
-}
-
-/**
- * @param {string} text
- * @param {Node} typeAnnotation
- * @returns {boolean}
- */
-function isFlowAnnotationComment(text, typeAnnotation) {
-  const start = locStart(typeAnnotation);
-  const end = skipWhitespace(text, locEnd(typeAnnotation));
-  return (
-    end !== false &&
-    text.slice(start, start + 2) === "/*" &&
-    text.slice(end, end + 2) === "*/"
-  );
-}
-
-/**
  * @param {string} text
  * @param {Node} node
  * @returns {boolean}
  */
 function hasLeadingOwnLineComment(text, node) {
-  if (isJsxNode(node)) {
+  if (isJsxElement(node)) {
     return hasNodeIgnoreComment(node);
   }
 
@@ -672,7 +531,7 @@ function isStringPropSafeToUnquote(node, options) {
     options.parser !== "json" &&
     isStringLiteral(node.key) &&
     rawText(node.key).slice(1, -1) === node.key.value &&
-    ((isIdentifierName(node.key.value) &&
+    ((isEs5IdentifierName(node.key.value) &&
       // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
       // See https://github.com/microsoft/TypeScript/pull/20075
       !(
@@ -692,40 +551,6 @@ function isStringPropSafeToUnquote(node, options) {
 // Matches “simple” numbers like `123` and `2.5` but not `1_000`, `1e+100` or `0b10`.
 function isSimpleNumber(numberString) {
   return /^(?:\d+|\d+\.\d+)$/.test(numberString);
-}
-
-/**
- * @param {Node} node
- * @param {Node} parentNode
- * @returns {boolean}
- */
-function isJestEachTemplateLiteral(node, parentNode) {
-  /**
-   * describe.each`table`(name, fn)
-   * describe.only.each`table`(name, fn)
-   * describe.skip.each`table`(name, fn)
-   * test.each`table`(name, fn)
-   * test.only.each`table`(name, fn)
-   * test.skip.each`table`(name, fn)
-   *
-   * Ref: https://github.com/facebook/jest/pull/6102
-   */
-  const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/;
-  return (
-    parentNode.type === "TaggedTemplateExpression" &&
-    parentNode.quasi === node &&
-    parentNode.tag.type === "MemberExpression" &&
-    parentNode.tag.property.type === "Identifier" &&
-    parentNode.tag.property.name === "each" &&
-    ((parentNode.tag.object.type === "Identifier" &&
-      jestEachTriggerRegex.test(parentNode.tag.object.name)) ||
-      (parentNode.tag.object.type === "MemberExpression" &&
-        parentNode.tag.object.property.type === "Identifier" &&
-        (parentNode.tag.object.property.name === "only" ||
-          parentNode.tag.object.property.name === "skip") &&
-        parentNode.tag.object.object.type === "Identifier" &&
-        jestEachTriggerRegex.test(parentNode.tag.object.object.name)))
-  );
 }
 
 /**
@@ -758,8 +583,8 @@ function needsHardlineAfterDanglingComment(node) {
   if (!hasComment(node)) {
     return false;
   }
-  const lastDanglingComment = getLast(
-    getComments(node, CommentCheckFlags.Dangling)
+  const lastDanglingComment = getComments(node, CommentCheckFlags.Dangling).at(
+    -1
   );
   return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
@@ -800,35 +625,32 @@ function isFunctionCompositionArgs(args) {
  * @returns {boolean}
  */
 function isLongCurriedCallExpression(path) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
+  const { node, parent, key } = path;
   return (
+    key === "callee" &&
     isCallExpression(node) &&
     isCallExpression(parent) &&
-    parent.callee === node &&
-    node.arguments.length > parent.arguments.length &&
-    parent.arguments.length > 0
+    parent.arguments.length > 0 &&
+    node.arguments.length > parent.arguments.length
   );
 }
+
+const simpleCallArgumentUnaryOperators = new Set(["!", "-", "+", "~"]);
 
 /**
  * @param {any} node
  * @param {number} depth
  * @returns {boolean}
  */
-function isSimpleCallArgument(node, depth) {
-  if (depth >= 2) {
+function isSimpleCallArgument(node, depth = 2) {
+  if (depth <= 0) {
     return false;
   }
 
-  const isChildSimple = (child) => isSimpleCallArgument(child, depth + 1);
+  const isChildSimple = (child) => isSimpleCallArgument(child, depth - 1);
 
-  const regexpPattern =
-    (node.type === "Literal" && "regex" in node && node.regex.pattern) ||
-    (node.type === "RegExpLiteral" && node.pattern);
-
-  if (regexpPattern && getStringWidth(regexpPattern) > 5) {
-    return false;
+  if (isRegExpLiteral(node)) {
+    return getStringWidth(node.pattern ?? node.regex.pattern) <= 5;
   }
 
   if (
@@ -838,7 +660,6 @@ function isSimpleCallArgument(node, depth) {
     node.type === "BooleanLiteral" ||
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
-    node.type === "RegExpLiteral" ||
     node.type === "StringLiteral" ||
     node.type === "Identifier" ||
     node.type === "ThisExpression" ||
@@ -858,22 +679,25 @@ function isSimpleCallArgument(node, depth) {
     );
   }
 
-  if (node.type === "ObjectExpression") {
+  if (isObjectOrRecordExpression(node)) {
     return node.properties.every(
       (p) => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
     );
   }
 
-  if (node.type === "ArrayExpression") {
+  if (isArrayOrTupleExpression(node)) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
   if (isCallLikeExpression(node)) {
-    return (
-      (node.type === "ImportExpression" ||
-        isSimpleCallArgument(node.callee, depth)) &&
-      getCallArguments(node).every(isChildSimple)
-    );
+    if (
+      node.type === "ImportExpression" ||
+      isSimpleCallArgument(node.callee, depth)
+    ) {
+      const args = getCallArguments(node);
+      return args.length <= depth && args.every(isChildSimple);
+    }
+    return false;
   }
 
   if (isMemberExpression(node)) {
@@ -883,26 +707,10 @@ function isSimpleCallArgument(node, depth) {
     );
   }
 
-  const targetUnaryExpressionOperators = {
-    "!": true,
-    "-": true,
-    "+": true,
-    "~": true,
-  };
   if (
-    node.type === "UnaryExpression" &&
-    targetUnaryExpressionOperators[node.operator]
-  ) {
-    return isSimpleCallArgument(node.argument, depth);
-  }
-
-  const targetUpdateExpressionOperators = {
-    "++": true,
-    "--": true,
-  };
-  if (
-    node.type === "UpdateExpression" &&
-    targetUpdateExpressionOperators[node.operator]
+    (node.type === "UnaryExpression" &&
+      simpleCallArgumentUnaryOperators.has(node.operator)) ||
+    node.type === "UpdateExpression"
   ) {
     return isSimpleCallArgument(node.argument, depth);
   }
@@ -986,6 +794,7 @@ function startsWithNoLookaheadToken(node, predicate) {
       return node.object && startsWithNoLookaheadToken(node.object, predicate);
     case "SequenceExpression":
       return startsWithNoLookaheadToken(node.expressions[0], predicate);
+    case "ChainExpression":
     case "TSSatisfiesExpression":
     case "TSAsExpression":
     case "TSNonNullExpression":
@@ -1091,7 +900,7 @@ function hasRestParameter(node) {
     return true;
   }
   const parameters = getFunctionParameters(node);
-  return getLast(parameters)?.type === "RestElement";
+  return parameters.at(-1)?.type === "RestElement";
 }
 
 const functionParametersCache = new WeakMap();
@@ -1117,7 +926,7 @@ function getFunctionParameters(node) {
 }
 
 function iterateFunctionParametersPath(path, iteratee) {
-  const node = path.getValue();
+  const { node } = path;
   let index = 0;
   const callback = (childPath) => iteratee(childPath, index++);
   if (node.this) {
@@ -1153,7 +962,7 @@ function getCallArguments(node) {
 }
 
 function iterateCallArgumentsPath(path, iteratee) {
-  const node = path.getValue();
+  const { node } = path;
   if (node.type === "ImportExpression") {
     path.call((sourcePath) => iteratee(sourcePath, 0), "source");
 
@@ -1165,22 +974,37 @@ function iterateCallArgumentsPath(path, iteratee) {
   }
 }
 
+function getCallArgumentSelector(node, index) {
+  if (node.type === "ImportExpression") {
+    if (index === 0 || index === (node.attributes ? -2 : -1)) {
+      return "source";
+    }
+    if (node.attributes && (index === 1 || index === -1)) {
+      return "attributes";
+    }
+    throw new RangeError("Invalid argument index");
+  }
+  if (index < 0) {
+    index = node.arguments.length + index;
+  }
+  /* c8 ignore next 3 */
+  if (index < 0 || index >= node.arguments.length) {
+    throw new RangeError("Invalid argument index");
+  }
+  return ["arguments", index];
+}
+
 function isPrettierIgnoreComment(comment) {
   return comment.value.trim() === "prettier-ignore" && !comment.unignore;
 }
 
 function hasNodeIgnoreComment(node) {
   return (
-    node &&
-    (node.prettierIgnore || hasComment(node, CommentCheckFlags.PrettierIgnore))
+    node?.prettierIgnore || hasComment(node, CommentCheckFlags.PrettierIgnore)
   );
 }
 
-function hasIgnoreComment(path) {
-  const node = path.getValue();
-  return hasNodeIgnoreComment(node);
-}
-
+/** @enum {number} */
 const CommentCheckFlags = {
   /** Check comment is a leading comment */
   Leading: 1 << 1,
@@ -1273,10 +1097,6 @@ function isObjectProperty(node) {
   );
 }
 
-function isEnabledHackPipeline(options) {
-  return Boolean(options.__isUsingHackPipeline);
-}
-
 /**
  * This is used as a marker for dangling comments.
  */
@@ -1284,46 +1104,37 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment"
 );
 
-function isTSTypeExpression(node) {
-  return (
-    node.type === "TSAsExpression" || node.type === "TSSatisfiesExpression"
-  );
-}
+const isTSTypeExpression = createTypeCheckFunction([
+  "TSAsExpression",
+  "TSSatisfiesExpression",
+]);
 
-module.exports = {
+export {
   getFunctionParameters,
   iterateFunctionParametersPath,
   getCallArguments,
   iterateCallArgumentsPath,
+  getCallArgumentSelector,
   hasRestParameter,
   getLeftSide,
   getLeftSidePathName,
-  getParentExportDeclaration,
-  getTypeScriptMappedTypeModifier,
-  hasFlowAnnotationComment,
-  hasFlowShorthandAnnotationComment,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNode,
-  hasIgnoreComment,
   hasNodeIgnoreComment,
   identity,
   isBinaryish,
   isCallLikeExpression,
-  isEnabledHackPipeline,
   isLineComment,
   isPrettierIgnoreComment,
   isCallExpression,
   isMemberExpression,
   isExportDeclaration,
-  isFlowAnnotationComment,
   isFunctionCompositionArgs,
   isFunctionNotation,
   isFunctionOrArrowExpression,
   isGetterOrSetter,
-  isJestEachTemplateLiteral,
-  isJsxNode,
-  isLiteral,
+  isJsxElement,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
   isMemberish,
@@ -1332,6 +1143,7 @@ module.exports = {
   isObjectProperty,
   isObjectType,
   isObjectTypePropertyAFunction,
+  isRegExpLiteral,
   isSimpleType,
   isSimpleNumber,
   isSimpleTemplateLiteral,
@@ -1339,7 +1151,6 @@ module.exports = {
   isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
-  isTheOnlyJsxElementInMarkdown,
   isTSXFile,
   isTypeAnnotationAFunction,
   isNextLineEmpty,
@@ -1355,4 +1166,7 @@ module.exports = {
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
   isTSTypeExpression,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
+  createTypeCheckFunction,
 };

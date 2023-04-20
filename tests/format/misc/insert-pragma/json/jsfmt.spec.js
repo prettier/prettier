@@ -1,1 +1,1 @@
-run_spec(__dirname, ["json"], { insertPragma: true });
+run_spec(import.meta, ["json"], { insertPragma: true });

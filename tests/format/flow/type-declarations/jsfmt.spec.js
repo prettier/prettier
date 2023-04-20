@@ -1,2 +1,2 @@
-run_spec(__dirname, ["flow", "babel"]);
-run_spec(__dirname, ["flow", "babel"], { semi: false });
+run_spec(import.meta, ["flow"]);
+run_spec(import.meta, ["flow"], { semi: false });

@@ -1,1 +1,1 @@
-run_spec(__dirname, ["markdown"], { proseWrap: "always", useTabs: true });
+run_spec(import.meta, ["markdown"], { proseWrap: "always", useTabs: true });

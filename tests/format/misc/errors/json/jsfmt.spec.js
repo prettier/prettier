@@ -1,6 +1,6 @@
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       "{foo}",
       '{["foo"]:"bar"}',
@@ -35,9 +35,69 @@ run_spec(
       "-false",
       "+'string'",
       "{key: +{}}",
+      '{"identifier": identifier}',
       // JSON6 allow this, but babel can't parse
       "----123",
     ],
   },
   ["json", "json5", "json-stringify"]
+);
+
+run_spec(
+  {
+    importMeta: import.meta,
+    snippets: [
+      // Invalid JS expressions
+      "[class {set foo() {}}]",
+      "[class {foo() {this.#bar}}]",
+      "[function(){ await 1 }]",
+      // Should not mention babel plugin in error message
+      // plugin `doExpressions`
+      "[do {}]",
+      // plugin `exportDefaultFrom`
+      "[function() {export a from 'a'}]",
+      "export a from 'a'",
+      // plugin `functionBind`
+      "[a::b]",
+      // plugin `functionSent`
+      "[function*() {function.sent}]",
+      // plugin `throwExpressions`
+      "[throw {}]",
+      // plugin `partialApplication`
+      "[foo(?)]",
+      // plugin `decorators`
+      "[@decorator class {}]",
+      // plugin `importAssertions`
+      "[import('a', {type:'json'})]",
+      // plugin `decimal`
+      "[1m]",
+      // plugin `moduleBlocks`
+      "[module {}]",
+      // plugin `asyncDoExpressions`
+      "[async do {}]",
+      // plugin `regexpUnicodeSets`
+      "[/a/v]",
+      // plugin `destructuringPrivate`
+      "[class {#foo;bar() {const {#foo: foo} = this;}}]",
+      // plugin `decoratorAutoAccessors`
+      "[class {accessor foo = 1}]",
+      // plugin `importReflection`
+      "[import('a', {reflect: 'module'})]",
+      "import module a from 'a'",
+      // plugin `explicitResourceManagement`
+      "[function() { {using a = b} }]",
+      "{using a = b}",
+      // plugin `recordAndTuple`
+      "[#[]]",
+      "[#{}]",
+      // plugin `v8intrinsic`
+      "[foo%bar()]",
+      // plugin `pipelineOperator`
+      "['foo' |> bar]",
+      "['foo' |> bar(%)]",
+      // plugin `jsx`
+      "[<foo></foo>]",
+    ],
+  },
+  ["json"]
 );

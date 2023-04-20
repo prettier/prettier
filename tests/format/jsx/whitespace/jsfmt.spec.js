@@ -1,9 +1,9 @@
 /* eslint-disable no-irregular-whitespace */
-const { outdent } = require("outdent");
+import { outdent } from "outdent";
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       {
         code: "spaces = <div>]   [</div>",

@@ -1,9 +1,6 @@
-"use strict";
-
-const path = require("path");
-const fastGlob = require("fast-glob");
-
-const { statSafe } = require("./utils.js");
+import path from "node:path";
+import { statSafe, normalizeToPosix } from "./utils.js";
+import { fastGlob } from "./prettier-internal.js";
 
 /** @typedef {import('./context').Context} Context */
 
@@ -11,7 +8,6 @@ const { statSafe } = require("./utils.js");
  * @param {Context} context
  */
 async function* expandPatterns(context) {
-  const cwd = process.cwd();
   const seen = new Set();
   let noResults = true;
 
@@ -22,15 +18,15 @@ async function* expandPatterns(context) {
       continue;
     }
 
-    const relativePath = path.relative(cwd, pathOrError);
+    const fileName = path.resolve(pathOrError);
 
     // filter out duplicates
-    if (seen.has(relativePath)) {
+    if (seen.has(fileName)) {
       continue;
     }
 
-    seen.add(relativePath);
-    yield relativePath;
+    seen.add(fileName);
+    yield fileName;
   }
 
   if (noResults && context.argv.errorOnUnmatchedPattern !== false) {
@@ -46,7 +42,7 @@ async function* expandPatterns(context) {
  */
 async function* expandPatternsInternal(context) {
   // Ignores files in version control systems directories and `node_modules`
-  const silentlyIgnoredDirs = [".git", ".svn", ".hg"];
+  const silentlyIgnoredDirs = [".git", ".sl", ".svn", ".hg"];
   if (context.argv.withNodeModules !== true) {
     silentlyIgnoredDirs.push("node_modules");
   }
@@ -110,9 +106,10 @@ async function* expandPatternsInternal(context) {
     try {
       result = await fastGlob(glob, globOptions);
     } catch ({ message }) {
-      /* istanbul ignore next */
-      yield { error: `${errorMessages.globError[type]}: ${input}\n${message}` };
-      /* istanbul ignore next */
+      /* c8 ignore next 4 */
+      yield {
+        error: `${errorMessages.globError[type]}: "${input}".\n${message}`,
+      };
       continue;
     }
 
@@ -183,26 +180,18 @@ function sortPaths(paths) {
 function escapePathForGlob(path) {
   return fastGlob
     .escapePath(
-      path.replace(/\\/g, "\0") // Workaround for fast-glob#262 (part 1)
+      path.replaceAll("\\", "\0") // Workaround for fast-glob#262 (part 1)
     )
-    .replace(/\\!/g, "@(!)") // Workaround for fast-glob#261
-    .replace(/\0/g, "@(\\\\)"); // Workaround for fast-glob#262 (part 2)
+    .replaceAll("\\!", "@(!)") // Workaround for fast-glob#261
+    .replaceAll("\0", "@(\\\\)"); // Workaround for fast-glob#262 (part 2)
 }
-
-const isWindows = path.sep === "\\";
 
 /**
  * Using backslashes in globs is probably not okay, but not accepting
  * backslashes as path separators on Windows is even more not okay.
  * https://github.com/prettier/prettier/pull/6776#discussion_r380723717
  * https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
- * @param {string} pattern
  */
-function fixWindowsSlashes(pattern) {
-  return isWindows ? pattern.replace(/\\/g, "/") : pattern;
-}
+const fixWindowsSlashes = normalizeToPosix;
 
-module.exports = {
-  expandPatterns,
-  fixWindowsSlashes,
-};
+export { expandPatterns };

@@ -1,7 +1,8 @@
-"use strict";
+import path from "node:path";
+import { outdent } from "outdent";
+import createEsmUtils from "esm-utils";
 
-const path = require("path");
-const { outdent } = require("outdent");
+const { __dirname, __filename } = createEsmUtils(import.meta);
 
 const TESTS_ROOT = path.join(__dirname, "../../format");
 
@@ -25,16 +26,16 @@ const categoryParsers = new Map([
     "flow",
     {
       parsers: ["flow", "babel-flow"],
-      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
-      extensions: [".js"],
+      verifyParsers: ["flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".js", ".cjs", ".mjs"],
     },
   ],
   [
     "flow-repo",
     {
       parsers: ["flow", "babel-flow"],
-      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
-      extensions: [".js"],
+      verifyParsers: ["flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".js", ".cjs", ".mjs"],
     },
   ],
   [
@@ -45,7 +46,10 @@ const categoryParsers = new Map([
     "handlebars",
     { parsers: ["glimmer"], verifyParsers: [], extensions: [".hbs"] },
   ],
-  ["html", { parsers: ["html"], verifyParsers: [], extensions: [".html"] }],
+  [
+    "html",
+    { parsers: ["html"], verifyParsers: [], extensions: [".html", ".svg"] },
+  ],
   ["mjml", { parsers: ["html"], verifyParsers: [], extensions: [".mjml"] }],
   [
     "js",
@@ -61,7 +65,7 @@ const categoryParsers = new Map([
         "typescript",
         "babel-ts",
       ],
-      extensions: [".js"],
+      extensions: [".js", ".cjs", ".mjs"],
     },
   ],
   [
@@ -75,9 +79,25 @@ const categoryParsers = new Map([
   [
     "jsx",
     {
-      parsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
-      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
-      extensions: [".js"],
+      parsers: [
+        "babel",
+        "meriyah",
+        "espree",
+        "flow",
+        "babel-flow",
+        "typescript",
+        "babel-ts",
+      ],
+      verifyParsers: [
+        "babel",
+        "meriyah",
+        "espree",
+        "flow",
+        "babel-flow",
+        "typescript",
+        "babel-ts",
+      ],
+      extensions: [".js", ".jsx"],
     },
   ],
   [
@@ -110,8 +130,8 @@ const categoryParsers = new Map([
     "typescript",
     {
       parsers: ["typescript", "babel-ts"],
-      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
-      extensions: [".ts", ".tsx"],
+      verifyParsers: ["typescript", "babel-ts", "flow", "babel-flow"],
+      extensions: [".ts", ".tsx", ".cts", ".mts"],
     },
   ],
   [
@@ -205,4 +225,4 @@ const checkParser = ({ dirname, files }, parsers = []) => {
   }
 };
 
-module.exports = checkParser;
+export default checkParser;

@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`computed-optional-member-expression.ng - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["__ng_interpolation"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+[
+  a?.[0]
+]
+
+=====================================output=====================================
+[a?.[0]]
+================================================================================
+`;
+
 exports[`logical-expression.ng - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
@@ -8,7 +24,8 @@ trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 [
-    advancedSearchService.patientInformationFieldsRow2 && advancedSearchService.patientInformationFieldsRow2.indexOf(advancedSearchService.formElementData.customFieldList[i].customFieldType) !== -1
+    advancedSearchService.patientInformationFieldsRow2 && advancedSearchService.patientInformationFieldsRow2.indexOf(advancedSearchService.formElementData.customFieldList[i].customFieldType) !== -1,
+  (x && y) ?? z
 ]
 
 =====================================output=====================================
@@ -16,7 +33,8 @@ trailingComma: "none"
   advancedSearchService.patientInformationFieldsRow2 &&
     advancedSearchService.patientInformationFieldsRow2.indexOf(
       advancedSearchService.formElementData.customFieldList[i].customFieldType
-    ) !== -1
+    ) !== -1,
+  (x && y) ?? z
 ]
 ================================================================================
 `;

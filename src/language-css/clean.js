@@ -1,7 +1,4 @@
-"use strict";
-
-const { isFrontMatterNode } = require("../common/util.js");
-const getLast = require("../utils/get-last.js");
+import isFrontMatter from "../utils/front-matter/is-front-matter.js";
 
 const ignoredProperties = new Set([
   "raw", // front-matter
@@ -11,10 +8,11 @@ const ignoredProperties = new Set([
   "before",
   "after",
   "trailingComma",
+  "spaces",
 ]);
 
 function clean(ast, newObj, parent) {
-  if (isFrontMatterNode(ast) && ast.lang === "yaml") {
+  if (isFrontMatter(ast) && ast.lang === "yaml") {
     delete newObj.value;
   }
 
@@ -27,7 +25,7 @@ function clean(ast, newObj, parent) {
     // first non-front-matter comment
     if (
       parent.nodes[0] === ast ||
-      (isFrontMatterNode(parent.nodes[0]) && parent.nodes[1] === ast)
+      (isFrontMatter(parent.nodes[0]) && parent.nodes[1] === ast)
     ) {
       /**
        * something
@@ -43,7 +41,7 @@ function clean(ast, newObj, parent) {
     }
 
     // Last comment is not parsed, when omitting semicolon, #8675
-    if (parent.type === "css-root" && getLast(parent.nodes) === ast) {
+    if (parent.type === "css-root" && parent.nodes.at(-1) === ast) {
       return null;
     }
   }
@@ -65,18 +63,18 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "selector-combinator") {
-    newObj.value = newObj.value.replace(/\s+/g, " ");
+    newObj.value = newObj.value.replaceAll(/\s+/g, " ");
   }
 
   if (ast.type === "media-feature") {
-    newObj.value = newObj.value.replace(/ /g, "");
+    newObj.value = newObj.value.replaceAll(" ", "");
   }
 
   if (
     (ast.type === "value-word" &&
       ((ast.isColor && ast.isHex) ||
         ["initial", "inherit", "unset", "revert"].includes(
-          newObj.value.replace().toLowerCase()
+          newObj.value.toLowerCase()
         ))) ||
     ast.type === "media-feature" ||
     ast.type === "selector-root-invalid" ||
@@ -92,6 +90,9 @@ function clean(ast, newObj, parent) {
   }
   if (ast.type === "value-number") {
     newObj.unit = newObj.unit.toLowerCase();
+  }
+  if (ast.type === "value-unknown") {
+    newObj.value = newObj.value.replaceAll(/;$/g, "");
   }
 
   if (
@@ -114,18 +115,16 @@ function clean(ast, newObj, parent) {
   if (ast.type === "selector-attribute") {
     newObj.attribute = newObj.attribute.trim();
 
-    if (newObj.namespace) {
-      if (typeof newObj.namespace === "string") {
-        newObj.namespace = newObj.namespace.trim();
+    if (newObj.namespace && typeof newObj.namespace === "string") {
+      newObj.namespace = newObj.namespace.trim();
 
-        if (newObj.namespace.length === 0) {
-          newObj.namespace = true;
-        }
+      if (newObj.namespace.length === 0) {
+        newObj.namespace = true;
       }
     }
 
     if (newObj.value) {
-      newObj.value = newObj.value.trim().replace(/^["']|["']$/g, "");
+      newObj.value = newObj.value.trim().replaceAll(/^["']|["']$/g, "");
       delete newObj.quoted;
     }
   }
@@ -140,7 +139,7 @@ function clean(ast, newObj, parent) {
       ast.type === "selector-tag") &&
     newObj.value
   ) {
-    newObj.value = newObj.value.replace(
+    newObj.value = newObj.value.replaceAll(
       /([\d+.Ee-]+)([A-Za-z]*)/g,
       (match, numStr, unit) => {
         const num = Number(numStr);
@@ -183,12 +182,33 @@ function clean(ast, newObj, parent) {
       });
     }
   }
+
+  // We parse `@var[ foo ]` and `@var[foo]` differently
+  if (
+    ast.type === "value-comma_group" &&
+    ast.groups.some(
+      (node) =>
+        (node.type === "value-atword" && node.value.endsWith("[")) ||
+        (node.type === "value-word" && node.value.startsWith("]"))
+    )
+  ) {
+    return {
+      type: "value-atword",
+      value: ast.groups.map((node) => node.value).join(""),
+      group: {
+        open: null,
+        close: null,
+        groups: [],
+        type: "value-paren_group",
+      },
+    };
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
-  return value.replace(/'/g, '"').replace(/\\([^\dA-Fa-f])/g, "$1");
+  return value.replaceAll("'", '"').replaceAll(/\\([^\dA-Fa-f])/g, "$1");
 }
 
-module.exports = clean;
+export default clean;

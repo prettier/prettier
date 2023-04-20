@@ -27,7 +27,7 @@ function is_string(x): %checks {
 
 declare function my_filter<T, P: $Pred<1>>(
   v: Array<T>,
-  cb: P
+  cb: P,
 ): Array<$Refine<T, P, 1>>;
 
 declare var arr: Array<mixed>;
@@ -72,7 +72,7 @@ declare var ab: Array<A|B|C>;
 
 declare function my_filter<T, P: $Pred<1>>(
   v: Array<T>,
-  cb: P
+  cb: P,
 ): Array<$Refine<T, P, 1>>;
 
 type A = { kind: "A", u: number };
@@ -169,7 +169,7 @@ var b = refine(a, is_string);
 declare function refine_fst<T, P: $Pred<2>>(
   v: T,
   w: T,
-  cb: P
+  cb: P,
 ): $Refine<T, P, 1>;
 // function refine_fst(v, w, cb)
 // { if (cb(v, w)) { return v; } else { throw new Error(); } }
@@ -230,7 +230,7 @@ function is_string_regular(x): boolean {
 
 declare function my_filter<T, P: $Pred<1>>(
   v: Array<T>,
-  cb: P
+  cb: P,
 ): Array<$Refine<T, P, 1>>;
 
 // Sanity check A: filtering the wrong type
@@ -285,7 +285,7 @@ declare var ab: Array<A|B|C>;
 
 declare function my_filter<T, P: $Pred<1>>(
   v: Array<T>,
-  cb: P
+  cb: P,
 ): Array<$Refine<T, P, 1>>;
 
 type A = { kind: "A", u: number };
@@ -373,7 +373,7 @@ declare function refine3<T, P: $Pred<3>>(
   u: T,
   v: T,
   w: T,
-  cb: P
+  cb: P,
 ): $Refine<T, P, 1>;
 
 var e = refine3(c, d, e, is_string_and_number);

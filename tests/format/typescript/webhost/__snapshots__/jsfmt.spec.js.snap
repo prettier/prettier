@@ -207,7 +207,7 @@ namespace TypeScript.WebTsc {
   export function prepareCompiler(
     currentDir: string,
     stdOut: ITextWriter,
-    stdErr: ITextWriter
+    stdErr: ITextWriter,
   ) {
     const shell = new RealActiveXObject("WScript.Shell");
     shell.CurrentDirectory = currentDir;

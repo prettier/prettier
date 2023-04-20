@@ -1,3 +1,7 @@
-run_spec(__dirname, ["babel", "flow", "typescript"], {
-  errors: { acorn: true, espree: true, meriyah: true },
-});
+run_spec(
+  {
+    importMeta: import.meta,
+    snippets: ["`\n   \n   \n` + `\n    \n    \n`;"],
+  },
+  ["babel", "flow", "typescript"]
+);

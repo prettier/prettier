@@ -580,7 +580,7 @@ var C = React.createClass({
       PropTypes.shape({
         label: PropTypes.string.isRequired,
         value: PropTypes.number,
-      })
+      }),
     ).isRequired,
   },
 });

@@ -38,11 +38,11 @@ semi: false
 ================================================================================
 `;
 
-exports[`attributes.html - {"trailingComma":"none"} format 1`] = `
+exports[`attributes.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["lwc"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -76,10 +76,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`attributes.html format 1`] = `
+exports[`attributes.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["lwc"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <template>

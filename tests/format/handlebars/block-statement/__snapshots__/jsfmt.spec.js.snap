@@ -17,6 +17,10 @@ printWidth: 80
   Hello
 {{/block}}
 
+{{#block param param param param param param param param param param param hashKey=hashValue as |blockParam|}}
+  Hello
+{{/block}}
+
 {{#block param param param param param param param hashKey=HashValue hashKey=hashValue}}
   Hello
 {{/block}}
@@ -71,6 +75,17 @@ printWidth: 80
 }}{{/block}}
 
 {{#block
+  param param param param param param param hashKey=hashValue
+  as |blockParam|
+}}
+  Hello
+{{/block}}
+
+{{#block
+  param
+  param
+  param
+  param
   param
   param
   param
@@ -85,33 +100,13 @@ printWidth: 80
 {{/block}}
 
 {{#block
-  param
-  param
-  param
-  param
-  param
-  param
-  param
-  hashKey=HashValue
-  hashKey=hashValue
+  param param param param param param param hashKey=HashValue hashKey=hashValue
 }}
   Hello
 {{/block}}
 
 {{#block
-  param
-  param
-  param
-  param
-  param
-  param
-  param
-  param
-  param
-  param
-  param
-  param
-  param
+  param param param param param param param param param param param param param
 }}
   Hello
 {{/block}}
@@ -294,6 +289,24 @@ printWidth: 80
   {{f}}
 {{/when}}
 
+{{#when abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy as |b|}}
+  {{b}}
+{{else when abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy as |d|}}
+  {{d}}
+{{/when}}
+
+{{#when abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz as |b|}}
+  {{b}}
+{{else when abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz as |d|}}
+  {{d}}
+{{/when}}
+
+{{#abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst param param param as |foo|}}
+  1
+{{else abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst param param param as |bar|}}
+  2
+{{/abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst}}
+
 =====================================output=====================================
 <h1>
   {{#when isAtWork}}
@@ -419,7 +432,8 @@ printWidth: 80
   as |b|
 }}
   {{b}}
-{{else when abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnop
+{{else when
+  abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnop
   as |d|
 }}
   {{d}}
@@ -429,6 +443,46 @@ printWidth: 80
 }}
   {{f}}
 {{/when}}
+
+{{#when
+  abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy
+  as |b|
+}}
+  {{b}}
+{{else when
+  abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy
+  as |d|
+}}
+  {{d}}
+{{/when}}
+
+{{#when
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijklmnopqrstuvwxyz
+  as |b|
+}}
+  {{b}}
+{{else when
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijklmnopqrstuvwxyz
+  as |d|
+}}
+  {{d}}
+{{/when}}
+
+{{#abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst
+  param param param
+  as |foo|
+}}
+  1
+{{else abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst
+  param param param
+  as |bar|
+}}
+  2
+{{/abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst}}
 ================================================================================
 `;
 

@@ -1,40 +1,35 @@
-"use strict";
+import { outdent } from "outdent";
+import prettier from "../../config/prettier-entry.js";
 
-const prettier = require("prettier-local");
-const { outdent } = require("outdent");
 const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;
 
 const { printDocToString } = docPrinter;
-const { concat, line, trim, group, indent } = docBuilders;
+const { line, trim, group, indent } = docBuilders;
 
-// These tests don't use `runPrettier` because `trim` is not used by any
+// These tests don't use `runCli` because `trim` is not used by any
 // bundled parser (only third-party plugins).
 
 describe("trim", () => {
   test.each([
-    ["trims the current line", group(concat(["hello    ", trim])), "hello"],
+    ["trims the current line", group(["hello    ", trim]), "hello"],
     [
       "trims existing indentation",
-      group(
-        concat([
-          "function()",
+      group([
+        "function()",
+        line,
+        "{",
+        indent([
           line,
-          "{",
-          indent(
-            concat([
-              line,
-              group(concat([trim, "#if DEBUG"])),
-              line,
-              "alert(42);",
-              line,
-              group(concat([trim, "#endif"])),
-            ])
-          ),
+          group([trim, "#if DEBUG"]),
           line,
-          "}",
-        ])
-      ),
+          "alert(42);",
+          line,
+          group([trim, "#endif"]),
+        ]),
+        line,
+        "}",
+      ]),
       outdent`
         function()
         {
@@ -46,7 +41,7 @@ describe("trim", () => {
     ],
     [
       "ignores trimmed characters when fitting the line",
-      group(concat(["hello  ", "  ", trim, line, "world!"])),
+      group(["hello  ", "  ", trim, line, "world!"]),
       "hello world!",
     ],
   ])("%s", (_, doc, expected) => {

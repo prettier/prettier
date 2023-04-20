@@ -1,1 +1,1 @@
-run_spec(__dirname, ["flow", "babel", "typescript"], { insertPragma: true });
+run_spec(import.meta, ["flow", "babel", "typescript"], { insertPragma: true });

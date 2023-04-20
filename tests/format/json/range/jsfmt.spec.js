@@ -1,1 +1,1 @@
-run_spec(__dirname, ["json"]);
+run_spec(import.meta, ["json"]);

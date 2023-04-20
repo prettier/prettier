@@ -348,17 +348,24 @@ class Thing3 extends Thing2 {
 type Constructor<T> = new (...args: any[]) => T;
 
 class Base {
-  constructor(public x: number, public y: number) {}
+  constructor(
+    public x: number,
+    public y: number,
+  ) {}
 }
 
 class Derived extends Base {
-  constructor(x: number, y: number, public z: number) {
+  constructor(
+    x: number,
+    y: number,
+    public z: number,
+  ) {
     super(x, y);
   }
 }
 
 const Printable = <T extends Constructor<Base>>(
-  superClass: T
+  superClass: T,
 ): Constructor<Printable> & { message: string } & T =>
   class extends superClass {
     static message = "hello";
@@ -368,7 +375,7 @@ const Printable = <T extends Constructor<Base>>(
   };
 
 function Tagged<T extends Constructor<{}>>(
-  superClass: T
+  superClass: T,
 ): Constructor<Tagged> & T {
   class C extends superClass {
     _tag: string;
@@ -485,11 +492,18 @@ const Timestamped = <CT extends Constructor<object>>(Base: CT) => {
 type Constructor<T> = new (...args: any[]) => T;
 
 class Base {
-  constructor(public x: number, public y: number) {}
+  constructor(
+    public x: number,
+    public y: number,
+  ) {}
 }
 
 class Derived extends Base {
-  constructor(x: number, y: number, public z: number) {
+  constructor(
+    x: number,
+    y: number,
+    public z: number,
+  ) {
     super(x, y);
   }
 }

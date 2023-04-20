@@ -9,6 +9,7 @@ const errors = {
     "static.js",
     "with-semicolon-1.js",
     "with-semicolon-2.js",
+    "comments.js",
   ],
   acorn: [
     "basic.js",
@@ -19,7 +20,8 @@ const errors = {
     "static.js",
     "with-semicolon-1.js",
     "with-semicolon-2.js",
+    "comments.js",
   ],
 };
-run_spec(__dirname, parsers, { errors });
-run_spec(__dirname, parsers, { errors, semi: false });
+run_spec(import.meta, parsers, { errors });
+run_spec(import.meta, parsers, { errors, semi: false });

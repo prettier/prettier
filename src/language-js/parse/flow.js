@@ -1,9 +1,8 @@
-"use strict";
-
-const createError = require("../../common/parser-create-error.js");
-const createParser = require("./utils/create-parser.js");
-const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess/index.js");
+import flowParser from "flow-parser";
+import createError from "../../common/parser-create-error.js";
+import createParser from "./utils/create-parser.js";
+import replaceHashbang from "./utils/replace-hashbang.js";
+import postprocess from "./postprocess/index.js";
 
 // https://github.com/facebook/flow/tree/main/packages/flow-parser#options
 // Keep this sync with `/scripts/sync-flow-test.js`
@@ -33,27 +32,22 @@ function createParseError(error) {
   } = error;
 
   return createError(message, {
-    start: { line: start.line, column: start.column + 1 },
-    end: { line: end.line, column: end.column + 1 },
+    loc: {
+      start: { line: start.line, column: start.column + 1 },
+      end: { line: end.line, column: end.column + 1 },
+    },
+    cause: error,
   });
 }
 
-function parse(text, parsers, options = {}) {
-  // Inline the require to avoid loading all the JS if we don't use it
-  const { parse } = require("flow-parser");
-  const ast = parse(replaceHashbang(text), parseOptions);
+function parse(text) {
+  const ast = flowParser.parse(replaceHashbang(text), parseOptions);
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { text });
 }
 
-// Export as a plugin so we can reuse the same bundle for UMD loading
-module.exports = {
-  parsers: {
-    flow: createParser(parse),
-  },
-};
+export const flow = createParser(parse);

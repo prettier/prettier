@@ -28,26 +28,32 @@ const bar5 = [1,2,3].reduce((carry, value) => {
 }, [] satisfies foo);
 
 =====================================output=====================================
-const bar1 = [1, 2, 3].reduce((carry, value) => {
-  return [...carry, value]
-}, [] satisfies unknown satisfies number[])
+const bar1 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return [...carry, value]
+  },
+  [] satisfies unknown satisfies number[],
+)
 
 const bar2 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value]
   },
-  [1, 2, 3] satisfies unknown satisfies number[]
+  [1, 2, 3] satisfies unknown satisfies number[],
 )
 
-const bar3 = [1, 2, 3].reduce((carry, value) => {
-  return { ...carry, [value]: true }
-}, {} satisfies unknown satisfies { [key: number]: boolean })
+const bar3 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return { ...carry, [value]: true }
+  },
+  {} satisfies unknown satisfies { [key: number]: boolean },
+)
 
 const bar4 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true }
   },
-  { 1: true } satisfies unknown satisfies { [key: number]: boolean }
+  { 1: true } satisfies unknown satisfies { [key: number]: boolean },
 )
 
 const bar5 = [1, 2, 3].reduce((carry, value) => {
@@ -84,26 +90,32 @@ const bar5 = [1,2,3].reduce((carry, value) => {
 }, [] satisfies foo);
 
 =====================================output=====================================
-const bar1 = [1, 2, 3].reduce((carry, value) => {
-  return [...carry, value];
-}, [] satisfies unknown satisfies number[]);
+const bar1 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return [...carry, value];
+  },
+  [] satisfies unknown satisfies number[],
+);
 
 const bar2 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value];
   },
-  [1, 2, 3] satisfies unknown satisfies number[]
+  [1, 2, 3] satisfies unknown satisfies number[],
 );
 
-const bar3 = [1, 2, 3].reduce((carry, value) => {
-  return { ...carry, [value]: true };
-}, {} satisfies unknown satisfies { [key: number]: boolean });
+const bar3 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return { ...carry, [value]: true };
+  },
+  {} satisfies unknown satisfies { [key: number]: boolean },
+);
 
 const bar4 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true };
   },
-  { 1: true } satisfies unknown satisfies { [key: number]: boolean }
+  { 1: true } satisfies unknown satisfies { [key: number]: boolean },
 );
 
 const bar5 = [1, 2, 3].reduce((carry, value) => {
@@ -148,7 +160,7 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   Object.create(null)) satisfies FieldService.RendererAttributes
 
 const annotate = (angular.injector satisfies any).$$annotate satisfies (
-  fn: Function
+  fn: Function,
 ) => string[]
 
 const originalPrototype = originalConstructor.prototype satisfies TComponent &
@@ -203,7 +215,7 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   Object.create(null)) satisfies FieldService.RendererAttributes;
 
 const annotate = (angular.injector satisfies any).$$annotate satisfies (
-  fn: Function
+  fn: Function,
 ) => string[];
 
 const originalPrototype = originalConstructor.prototype satisfies TComponent &
@@ -282,7 +294,7 @@ let obj: { f(s: string): void } & Record<string, unknown> = {
   g(s) {},
 } satisfies { g(s: string): void } & Record<string, unknown>
 
-;({ f(x) {} } satisfies { f(s: string): void })
+;({ f(x) {} }) satisfies { f(s: string): void }
 
 const car = {
   start() {},
@@ -354,7 +366,7 @@ let obj: { f(s: string): void } & Record<string, unknown> = {
   g(s) {},
 } satisfies { g(s: string): void } & Record<string, unknown>;
 
-({ f(x) {} } satisfies { f(s: string): void });
+({ f(x) {} }) satisfies { f(s: string): void };
 
 const car = {
   start() {},
@@ -742,9 +754,9 @@ foo satisfies unknown as Bar;
 foo as unknown satisfies Bar;
 
 =====================================output=====================================
-;({} satisfies {})
-;({} satisfies X)
-;() => ({} satisfies X)
+;({}) satisfies {}
+;({}) satisfies X
+;() => ({}) satisfies X
 this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement)
 
 "current" in (props.pagination satisfies Object)
@@ -798,9 +810,9 @@ foo satisfies unknown as Bar;
 foo as unknown satisfies Bar;
 
 =====================================output=====================================
-({} satisfies {});
-({} satisfies X);
-() => ({} satisfies X);
+({}) satisfies {};
+({}) satisfies X;
+() => ({}) satisfies X;
 this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement);
 
 "current" in (props.pagination satisfies Object);

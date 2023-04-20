@@ -92,7 +92,7 @@ exports[`setter-generator.js [espree] format 1`] = `
 `;
 
 exports[`setter-generator.js [meriyah] format 1`] = `
-"A getter cannot be a generator (2:9)
+"A setter cannot be a generator (2:9)
   1 | ({
 > 2 |     set *iterator(iter) { },
     |         ^

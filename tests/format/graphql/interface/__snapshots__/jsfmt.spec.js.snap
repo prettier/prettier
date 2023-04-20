@@ -46,7 +46,7 @@ Node & Named {
 
 # \`InterfaceTypeExtension\`
 extend interface Bar implements
-A, B & C {
+A& B & C {
   two(argument: InputType!): Type
 }
 
@@ -85,7 +85,7 @@ interface Named implements Node & Named {
 }
 
 # \`InterfaceTypeExtension\`
-extend interface Bar implements A, B & C {
+extend interface Bar implements A & B & C {
   two(argument: InputType!): Type
 }
 
@@ -153,7 +153,7 @@ parsers: ["graphql"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-type MixedArtist implements Node, Entity & Releasable {
+type MixedArtist implements Node& Entity & Releasable {
   # The ID of an object
   id: ID!
 
@@ -177,7 +177,7 @@ type MixedArtist implements Node, Entity & Releasable {
 }
 
 =====================================output=====================================
-type MixedArtist implements Node, Entity & Releasable {
+type MixedArtist implements Node & Entity & Releasable {
   # The ID of an object
   id: ID!
 
@@ -208,7 +208,7 @@ parsers: ["graphql"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-type OldArtist implements Node, Entity {
+type OldArtist implements Node& Entity {
   # The ID of an object
   id: ID!
 
@@ -232,7 +232,7 @@ type OldArtist implements Node, Entity {
 }
 
 =====================================output=====================================
-type OldArtist implements Node, Entity {
+type OldArtist implements Node & Entity {
   # The ID of an object
   id: ID!
 
@@ -263,66 +263,70 @@ parsers: ["graphql"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-type Type1 implements A, B, C, D
+# This file used to test legacy syntax of interfaces that already removed in \`graphql\` v16
+# Some comments are outdated
+type Type1 implements A& B& C& D
 # {&&&&&&&&
 # Should separate by \`,\` not \`&\`
 {a: a}
 
-type Type2 implements A, B, C, D
+type Type2 implements A& B& C& D
 # &&&&{}&&&&
 # Should separate by \`,\` not \`&\`
 {a: a}
 
-type Type3 implements A, 
+type Type3 implements A&
 # &&&&&&&& comment line 1
    # &&&&&&&& comment line 2
-B& C, D
+B& C& D
 {a: a}
 
 type Type4 implements A
 # &&&&&&&& comment line 1
-, 
+&
    # &&&&&&&& comment line 2
-B& C, D
+B& C& D
 {a: a}
 
-type Type5 implements A 
+type Type5 implements A
 # &&&&&&&& comment line 1
    # &&&&&&&& comment line 2
-,B& C, D
+&B& C& D
 {a: a}
 
 =====================================output=====================================
-type Type1 implements A, B, C, D {
+# This file used to test legacy syntax of interfaces that already removed in \`graphql\` v16
+# Some comments are outdated
+type Type1 implements A & B & C & D {
   # {&&&&&&&&
   # Should separate by \`,\` not \`&\`
   a: a
 }
 
-type Type2 implements A, B, C, D {
+type Type2 implements A & B & C & D {
   # &&&&{}&&&&
   # Should separate by \`,\` not \`&\`
   a: a
 }
 
-type Type3 implements A,
+type Type3 implements A &
 # &&&&&&&& comment line 1
 # &&&&&&&& comment line 2
-B & C, D {
+B & C & D {
   a: a
 }
 
-type Type4 implements A,
+type Type4 implements A &
 # &&&&&&&& comment line 1
 # &&&&&&&& comment line 2
-B & C, D {
+B & C & D {
   a: a
 }
 
-type Type5 implements A,
+type Type5 implements A &
 # &&&&&&&& comment line 1
 # &&&&&&&& comment line 2
-B & C, D {
+B & C & D {
   a: a
 }
 

@@ -1,30 +1,34 @@
-"use strict";
+import { locStart, locEnd } from "../../loc.js";
+import isTypeCastComment from "../../utils/is-type-cast-comment.js";
+import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
+import isBlockComment from "../../utils/is-block-comment.js";
+import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
+import visitNode from "./visit-node.js";
+import throwSyntaxError from "./throw-ts-syntax-error.js";
 
-const { locStart, locEnd } = require("../../loc.js");
-const isTsKeywordType = require("../../utils/is-ts-keyword-type.js");
-const isTypeCastComment = require("../../utils/is-type-cast-comment.js");
-const getLast = require("../../../utils/get-last.js");
-const visitNode = require("./visit-node.js");
-const { throwErrorForInvalidNodes } = require("./typescript.js");
-const throwSyntaxError = require("./throw-syntax-error.js");
-
+/**
+ * @param {{
+ *   text: string,
+ *   parser?: string,
+ * }} options
+ */
 function postprocess(ast, options) {
-  if (
-    options.parser === "typescript" &&
-    // decorators or abstract properties
-    /@|abstract/.test(options.originalText)
-  ) {
-    throwErrorForInvalidNodes(ast, options);
+  const { parser, text } = options;
+
+  // `InterpreterDirective` from babel parser
+  // Other parsers parse it as comment, babel treat it as comment too
+  // https://github.com/babel/babel/issues/15116
+  if (ast.type === "File" && ast.program.interpreter) {
+    const {
+      program: { interpreter },
+      comments,
+    } = ast;
+    delete ast.program.interpreter;
+    comments.unshift(interpreter);
   }
 
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
-  if (
-    options.parser !== "typescript" &&
-    options.parser !== "flow" &&
-    options.parser !== "acorn" &&
-    options.parser !== "espree" &&
-    options.parser !== "meriyah"
-  ) {
+  if (parser === "babel") {
     const startOffsetsOfTypeCastedNodes = new Set();
 
     // Comments might be attached not directly to ParenthesizedExpression but to its ancestor.
@@ -32,10 +36,7 @@ function postprocess(ast, options) {
     // Let's use the fact that those ancestors and ParenthesizedExpression have the same start offset.
 
     ast = visitNode(ast, (node) => {
-      if (
-        node.leadingComments &&
-        node.leadingComments.some(isTypeCastComment)
-      ) {
+      if (node.leadingComments?.some(isTypeCastComment)) {
         startOffsetsOfTypeCastedNodes.add(locStart(node));
       }
     });
@@ -61,37 +62,25 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
-      // Espree
-      case "ChainExpression": {
-        return transformChainExpression(node.expression);
-      }
-      case "LogicalExpression": {
+      case "LogicalExpression":
         // We remove unneeded parens around same-operator LogicalExpressions
         if (isUnbalancedLogicalTree(node)) {
           return rebalanceLogicalTree(node);
         }
         break;
-      }
+
       // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
-        const lastDeclaration = getLast(node.declarations);
-        if (lastDeclaration && lastDeclaration.init) {
+        const lastDeclaration = node.declarations.at(-1);
+        if (lastDeclaration?.init) {
           overrideLocEnd(node, lastDeclaration);
         }
         break;
       }
       // remove redundant TypeScript nodes
-      case "TSParenthesizedType": {
-        if (
-          !(
-            isTsKeywordType(node.typeAnnotation) ||
-            node.typeAnnotation.type === "TSThisType"
-          )
-        ) {
-          node.typeAnnotation.range = [locStart(node), locEnd(node)];
-        }
+      case "TSParenthesizedType":
         return node.typeAnnotation;
-      }
+
       case "TSTypeParameter":
         // babel-ts
         if (typeof node.name === "string") {
@@ -105,7 +94,7 @@ function postprocess(ast, options) {
         break;
       case "ObjectExpression":
         // #12963
-        if (options.parser === "typescript") {
+        if (parser === "typescript") {
           const invalidProperty = node.properties.find(
             (property) =>
               property.type === "Property" &&
@@ -116,32 +105,34 @@ function postprocess(ast, options) {
           }
         }
         break;
-
-      case "SequenceExpression": {
-        // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
-        const lastExpression = getLast(node.expressions);
-        node.range = [
-          locStart(node),
-          Math.min(locEnd(lastExpression), locEnd(node)),
-        ];
+      case "TSInterfaceDeclaration":
+        if (isNonEmptyArray(node.implements)) {
+          throwSyntaxError(
+            node.implements[0],
+            "Interface declaration cannot have 'implements' clause."
+          );
+        }
         break;
-      }
+
+      case "TSPropertySignature":
+        if (node.initializer) {
+          throwSyntaxError(
+            node.initializer,
+            "An interface property cannot have an initializer."
+          );
+        }
+        break;
+
       // For hack-style pipeline
       case "TopicReference":
-        options.__isUsingHackPipeline = true;
+        ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
         break;
+
       // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
       case "ExportAllDeclaration": {
         const { exported } = node;
-        if (
-          options.parser === "meriyah" &&
-          exported &&
-          exported.type === "Identifier"
-        ) {
-          const raw = options.originalText.slice(
-            locStart(exported),
-            locEnd(exported)
-          );
+        if (parser === "meriyah" && exported?.type === "Identifier") {
+          const raw = text.slice(locStart(exported), locEnd(exported));
           if (raw.startsWith('"') || raw.startsWith("'")) {
             node.exported = {
               ...node.exported,
@@ -153,29 +144,40 @@ function postprocess(ast, options) {
         }
         break;
       }
-      // TODO: Remove this when https://github.com/meriyah/meriyah/issues/231 get fixed
-      case "PropertyDefinition":
-        if (
-          options.parser === "meriyah" &&
-          node.static &&
-          !node.computed &&
-          !node.key
-        ) {
-          const name = "static";
-          const start = locStart(node);
-          Object.assign(node, {
-            static: false,
-            key: {
-              type: "Identifier",
-              name,
-              range: [start, start + name.length],
-            },
-          });
+      // In Flow parser, it doesn't generate union/intersection types for single type
+      case "TSUnionType":
+      case "TSIntersectionType":
+        if (node.types.length === 1) {
+          return node.types[0];
         }
         break;
     }
   });
 
+  if (isNonEmptyArray(ast.comments)) {
+    let followingComment = ast.comments.at(-1);
+    for (let i = ast.comments.length - 2; i >= 0; i--) {
+      const comment = ast.comments[i];
+      if (
+        locEnd(comment) === locStart(followingComment) &&
+        isBlockComment(comment) &&
+        isBlockComment(followingComment) &&
+        isIndentableBlockComment(comment) &&
+        isIndentableBlockComment(followingComment)
+      ) {
+        ast.comments.splice(i + 1, 1);
+        comment.value += "*//*" + followingComment.value;
+        comment.range = [locStart(comment), locEnd(followingComment)];
+      }
+      followingComment = comment;
+    }
+  }
+
+  // In `typescript`/`espree`/`flow`, `Program` doesn't count whitespace and comments
+  // See https://github.com/eslint/espree/issues/488
+  if (ast.type === "Program") {
+    ast.range = [0, text.length];
+  }
   return ast;
 
   /**
@@ -183,7 +185,7 @@ function postprocess(ast, options) {
    * - do nothing if there's a semicolon on `toOverrideNode.end` (no need to fix)
    */
   function overrideLocEnd(toBeOverriddenNode, toOverrideNode) {
-    if (options.originalText[locEnd(toOverrideNode)] === ";") {
+    if (text[locEnd(toOverrideNode)] === ";") {
       return;
     }
     toBeOverriddenNode.range = [
@@ -191,29 +193,6 @@ function postprocess(ast, options) {
       locEnd(toOverrideNode),
     ];
   }
-}
-
-// This is a workaround to transform `ChainExpression` from `acorn`, `espree`,
-// `meriyah`, and `typescript` into `babel` shape AST, we should do the opposite,
-// since `ChainExpression` is the standard `estree` AST for `optional chaining`
-// https://github.com/estree/estree/blob/master/es2020.md
-function transformChainExpression(node) {
-  switch (node.type) {
-    case "CallExpression":
-      node.type = "OptionalCallExpression";
-      node.callee = transformChainExpression(node.callee);
-      break;
-    case "MemberExpression":
-      node.type = "OptionalMemberExpression";
-      node.object = transformChainExpression(node.object);
-      break;
-    // typescript
-    case "TSNonNullExpression":
-      node.expression = transformChainExpression(node.expression);
-      break;
-    // No default
-  }
-  return node;
 }
 
 function isUnbalancedLogicalTree(node) {
@@ -244,4 +223,4 @@ function rebalanceLogicalTree(node) {
   });
 }
 
-module.exports = postprocess;
+export default postprocess;

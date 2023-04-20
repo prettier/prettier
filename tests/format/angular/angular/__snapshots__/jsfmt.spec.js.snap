@@ -153,11 +153,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`angularjs.html - {"trailingComma":"none"} format 1`] = `
+exports[`angularjs.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
@@ -194,10 +194,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`angularjs.html format 1`] = `
+exports[`angularjs.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
@@ -281,11 +282,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`attr-name.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`attr-name.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div someDirective itemType="x"></div>
@@ -296,10 +297,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`attr-name.component.html format 1`] = `
+exports[`attr-name.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div someDirective itemType="x"></div>
@@ -332,10 +334,10 @@ printWidth: 80
     [target]=" [ 1 ] "
     [target]=" { 'a' : 1 } "
     [target]=" { a : 1 } "
-    [target]=" { 
+    [target]=" {
       trailingComma : 'notAllowed'
     }"
-    [target]=" [ 
+    [target]=" [
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
     [target]=" true "
@@ -352,6 +354,8 @@ printWidth: 80
     [target]=" a "
     [target]=" a // hello "
     [target]=" a . b "
+    [target]=" a ?. b "
+    [target]=" a ?. [b] "
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
@@ -364,6 +368,8 @@ printWidth: 80
     (target)=" a ; b "
     (event)="  0  "
     (event)="  a.b  "
+    (event)="  a   ?.b  "
+    (event)="  a?.[  b]  "
     (event)="  hello  "
     (event)="  hello()  "
     (event)="  a && b  "
@@ -408,14 +414,14 @@ printWidth: 80
     test='{{ "test" | translate }}'
     test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
     test='foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
+             invalid       }}
+
+    bar
+
+          {{       valid       }}
+
     baz'
     i18n="Normal i18n text"
     i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
@@ -464,7 +470,9 @@ printWidth: 80
   [target]="a"
   [target]="a // hello"
   [target]="a.b"
-  [target]="javascript: 'hello world'"
+  [target]="a?.b"
+  [target]="a?.[b]"
+  [target]=" javascript : 'hello world' "
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
@@ -476,6 +484,8 @@ printWidth: 80
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
+  (event)="(a?.b)"
+  (event)="(a?.[b])"
   (event)="(hello)"
   (event)="hello()"
   (event)="(a && b)"
@@ -543,14 +553,14 @@ printWidth: 80
   test="{{ 'test' | translate }}"
   test="foo {{       invalid invalid       }} bar {{ valid }} baz"
   test="foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{ valid }} 
-    
+             invalid       }}
+
+    bar
+
+          {{ valid }}
+
     baz"
   i18n="Normal i18n text"
   i18n="
@@ -603,10 +613,10 @@ printWidth: 80
     [target]=" [ 1 ] "
     [target]=" { 'a' : 1 } "
     [target]=" { a : 1 } "
-    [target]=" { 
+    [target]=" {
       trailingComma : 'notAllowed'
     }"
-    [target]=" [ 
+    [target]=" [
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
     [target]=" true "
@@ -623,6 +633,8 @@ printWidth: 80
     [target]=" a "
     [target]=" a // hello "
     [target]=" a . b "
+    [target]=" a ?. b "
+    [target]=" a ?. [b] "
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
@@ -635,6 +647,8 @@ printWidth: 80
     (target)=" a ; b "
     (event)="  0  "
     (event)="  a.b  "
+    (event)="  a   ?.b  "
+    (event)="  a?.[  b]  "
     (event)="  hello  "
     (event)="  hello()  "
     (event)="  a && b  "
@@ -679,14 +693,14 @@ printWidth: 80
     test='{{ "test" | translate }}'
     test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
     test='foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
+             invalid       }}
+
+    bar
+
+          {{       valid       }}
+
     baz'
     i18n="Normal i18n text"
     i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
@@ -735,7 +749,9 @@ printWidth: 80
   [target]="a"
   [target]="a // hello"
   [target]="a.b"
-  [target]="javascript: 'hello world'"
+  [target]="a?.b"
+  [target]="a?.[b]"
+  [target]=" javascript : 'hello world' "
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
@@ -747,6 +763,8 @@ printWidth: 80
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
+  (event)="(a?.b)"
+  (event)="(a?.[b])"
   (event)="(hello)"
   (event)="hello()"
   (event)="(a && b)"
@@ -814,14 +832,14 @@ printWidth: 80
   test="{{ 'test' | translate }}"
   test="foo {{       invalid invalid       }} bar {{ valid }} baz"
   test="foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{ valid }} 
-    
+             invalid       }}
+
+    bar
+
+          {{ valid }}
+
     baz"
   i18n="Normal i18n text"
   i18n="
@@ -873,10 +891,10 @@ printWidth: 1
     [target]=" [ 1 ] "
     [target]=" { 'a' : 1 } "
     [target]=" { a : 1 } "
-    [target]=" { 
+    [target]=" {
       trailingComma : 'notAllowed'
     }"
-    [target]=" [ 
+    [target]=" [
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
     [target]=" true "
@@ -893,6 +911,8 @@ printWidth: 1
     [target]=" a "
     [target]=" a // hello "
     [target]=" a . b "
+    [target]=" a ?. b "
+    [target]=" a ?. [b] "
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
@@ -905,6 +925,8 @@ printWidth: 1
     (target)=" a ; b "
     (event)="  0  "
     (event)="  a.b  "
+    (event)="  a   ?.b  "
+    (event)="  a?.[  b]  "
     (event)="  hello  "
     (event)="  hello()  "
     (event)="  a && b  "
@@ -949,14 +971,14 @@ printWidth: 1
     test='{{ "test" | translate }}'
     test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
     test='foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
+             invalid       }}
+
+    bar
+
+          {{       valid       }}
+
     baz'
     i18n="Normal i18n text"
     i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
@@ -1087,8 +1109,14 @@ printWidth: 1
     a.b
   "
   [target]="
-    javascript: 'hello world'
+    a?.b
   "
+  [target]="
+    a?.[
+      b
+    ]
+  "
+  [target]=" javascript : 'hello world' "
   [target]="
     a?.b()
   "
@@ -1125,6 +1153,14 @@ printWidth: 1
   "
   (event)="
     (a.b)
+  "
+  (event)="
+    (a?.b)
+  "
+  (event)="
+    (a?.[
+      b
+    ])
   "
   (event)="
     (hello)
@@ -1323,16 +1359,16 @@ printWidth: 1
     valid
   }} baz"
   test="foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
+             invalid       }}
+
+    bar
+
           {{
     valid
-  }} 
-    
+  }}
+
     baz"
   i18n="
     Normal
@@ -1452,11 +1488,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`attributes.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`attributes.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -1474,10 +1510,10 @@ trailingComma: "none"
     [target]=" [ 1 ] "
     [target]=" { 'a' : 1 } "
     [target]=" { a : 1 } "
-    [target]=" { 
+    [target]=" {
       trailingComma : 'notAllowed'
     }"
-    [target]=" [ 
+    [target]=" [
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
     [target]=" true "
@@ -1494,6 +1530,8 @@ trailingComma: "none"
     [target]=" a "
     [target]=" a // hello "
     [target]=" a . b "
+    [target]=" a ?. b "
+    [target]=" a ?. [b] "
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
@@ -1506,6 +1544,8 @@ trailingComma: "none"
     (target)=" a ; b "
     (event)="  0  "
     (event)="  a.b  "
+    (event)="  a   ?.b  "
+    (event)="  a?.[  b]  "
     (event)="  hello  "
     (event)="  hello()  "
     (event)="  a && b  "
@@ -1550,14 +1590,14 @@ trailingComma: "none"
     test='{{ "test" | translate }}'
     test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
     test='foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
+             invalid       }}
+
+    bar
+
+          {{       valid       }}
+
     baz'
     i18n="Normal i18n text"
     i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
@@ -1606,7 +1646,9 @@ trailingComma: "none"
   [target]="a"
   [target]="a // hello"
   [target]="a.b"
-  [target]="javascript: 'hello world'"
+  [target]="a?.b"
+  [target]="a?.[b]"
+  [target]=" javascript : 'hello world' "
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
@@ -1618,6 +1660,8 @@ trailingComma: "none"
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
+  (event)="(a?.b)"
+  (event)="(a?.[b])"
   (event)="(hello)"
   (event)="hello()"
   (event)="(a && b)"
@@ -1685,14 +1729,14 @@ trailingComma: "none"
   test="{{ 'test' | translate }}"
   test="foo {{       invalid invalid       }} bar {{ valid }} baz"
   test="foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{ valid }} 
-    
+             invalid       }}
+
+    bar
+
+          {{ valid }}
+
     baz"
   i18n="Normal i18n text"
   i18n="
@@ -1723,10 +1767,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`attributes.component.html format 1`] = `
+exports[`attributes.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -1744,10 +1789,10 @@ printWidth: 80
     [target]=" [ 1 ] "
     [target]=" { 'a' : 1 } "
     [target]=" { a : 1 } "
-    [target]=" { 
+    [target]=" {
       trailingComma : 'notAllowed'
     }"
-    [target]=" [ 
+    [target]=" [
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
     [target]=" true "
@@ -1764,6 +1809,8 @@ printWidth: 80
     [target]=" a "
     [target]=" a // hello "
     [target]=" a . b "
+    [target]=" a ?. b "
+    [target]=" a ?. [b] "
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
@@ -1776,6 +1823,8 @@ printWidth: 80
     (target)=" a ; b "
     (event)="  0  "
     (event)="  a.b  "
+    (event)="  a   ?.b  "
+    (event)="  a?.[  b]  "
     (event)="  hello  "
     (event)="  hello()  "
     (event)="  a && b  "
@@ -1820,14 +1869,14 @@ printWidth: 80
     test='{{ "test" | translate }}'
     test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
     test='foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
+             invalid       }}
+
+    bar
+
+          {{       valid       }}
+
     baz'
     i18n="Normal i18n text"
     i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
@@ -1876,7 +1925,9 @@ printWidth: 80
   [target]="a"
   [target]="a // hello"
   [target]="a.b"
-  [target]="javascript: 'hello world'"
+  [target]="a?.b"
+  [target]="a?.[b]"
+  [target]=" javascript : 'hello world' "
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
@@ -1888,6 +1939,8 @@ printWidth: 80
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
+  (event)="(a?.b)"
+  (event)="(a?.[b])"
   (event)="(hello)"
   (event)="hello()"
   (event)="(a && b)"
@@ -1955,14 +2008,14 @@ printWidth: 80
   test="{{ 'test' | translate }}"
   test="foo {{       invalid invalid       }} bar {{ valid }} baz"
   test="foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{ valid }} 
-    
+             invalid       }}
+
+    bar
+
+          {{ valid }}
+
     baz"
   i18n="Normal i18n text"
   i18n="
@@ -2351,11 +2404,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`first-lf.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`first-lf.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
@@ -2444,10 +2497,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`first-lf.component.html format 1`] = `
+exports[`first-lf.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
@@ -2736,11 +2790,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`ignore-attribute.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -2795,10 +2849,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html format 1`] = `
+exports[`ignore-attribute.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -3564,11 +3619,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`interpolation.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`interpolation.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div>{{ a | b : c }}</div>
@@ -3731,10 +3786,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`interpolation.component.html format 1`] = `
+exports[`interpolation.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div>{{ a | b : c }}</div>
@@ -10512,11 +10568,11 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`real-world.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
@@ -12039,10 +12095,11 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html format 1`] = `
+exports[`real-world.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
@@ -13609,11 +13666,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`tag-name.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`tag-name.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <Table></Table>
@@ -13624,10 +13681,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`tag-name.component.html format 1`] = `
+exports[`tag-name.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <Table></Table>

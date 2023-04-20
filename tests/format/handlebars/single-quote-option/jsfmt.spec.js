@@ -1,2 +1,2 @@
-run_spec(__dirname, ["glimmer"], { singleQuote: false });
-run_spec(__dirname, ["glimmer"], { singleQuote: true });
+run_spec(import.meta, ["glimmer"], { singleQuote: false });
+run_spec(import.meta, ["glimmer"], { singleQuote: true });

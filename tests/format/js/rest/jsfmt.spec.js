@@ -1,4 +1,3 @@
-run_spec(__dirname, ["babel", "flow"], {
+run_spec(import.meta, ["babel", "flow", "typescript"], {
   trailingComma: "all",
-  errors: { acorn: true, espree: true, meriyah: true },
 });

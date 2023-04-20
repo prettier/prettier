@@ -52,11 +52,16 @@ const siteConfig = {
   },
   highlight: {
     theme: "default",
+    // eslint-disable-next-line import/no-extraneous-dependencies -- This is a docusaurus dependency
     version: require("highlight.js/package.json").version,
   },
   usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html", "css"],
   useEnglishUrl: true,
-  scripts: ["https://buttons.github.io/buttons.js"],
+  scripts: [
+    "https://buttons.github.io/buttons.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js",
+    "/js/code-block-buttons.js",
+  ],
   stylesheets: [
     "//unpkg.com/@sandhose/prettier-animated-logo@1.0.3/dist/wide.css",
   ],

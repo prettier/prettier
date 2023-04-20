@@ -73,6 +73,91 @@ class Foo {
 ================================================================================
 `;
 
+exports[`comments.js [acorn] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class A {
+> 2 |   @dec()
+    |   ^
+  3 |   // comment
+  4 |   accessor b;
+  5 | }"
+`;
+
+exports[`comments.js [espree] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class A {
+> 2 |   @dec()
+    |   ^
+  3 |   // comment
+  4 |   accessor b;
+  5 | }"
+`;
+
+exports[`comments.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class A {
+> 2 |   @dec()
+    |   ^
+  3 |   // comment
+  4 |   accessor b;
+  5 | }"
+`;
+
+exports[`comments.js - {"semi":false} [espree] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class A {
+> 2 |   @dec()
+    |   ^
+  3 |   // comment
+  4 |   accessor b;
+  5 | }"
+`;
+
+exports[`comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  @dec()
+  // comment
+  accessor b;
+}
+
+=====================================output=====================================
+class A {
+  @dec()
+  // comment
+  accessor b
+}
+
+================================================================================
+`;
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  @dec()
+  // comment
+  accessor b;
+}
+
+=====================================output=====================================
+class A {
+  @dec()
+  // comment
+  accessor b;
+}
+
+================================================================================
+`;
+
 exports[`computed.js [acorn] format 1`] = `
 "Unexpected token (2:12)
   1 | class Foo {

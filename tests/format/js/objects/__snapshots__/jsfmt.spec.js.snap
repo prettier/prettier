@@ -1,8 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`bigint-key.js [typescript] format 1`] = `
+"Property assignment expected. (1:6)
+> 1 | a = {1n: ""}
+    |      ^
+  2 | a = {1n() {}}
+  3 | a = {get 1n() {}}
+  4 |"
+`;
+
+exports[`bigint-key.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a = {1n: ""}
+a = {1n() {}}
+a = {get 1n() {}}
+
+=====================================output=====================================
+a = { 1n: "" };
+a = { 1n() {} };
+a = { get 1n() {} };
+
+================================================================================
+`;
+
 exports[`escape-sequence-key.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -30,7 +57,7 @@ const b = {
 
 exports[`expand.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -74,6 +101,17 @@ exports[`expression.js [espree] format 1`] = `
   8 | ({} = 0);"
 `;
 
+exports[`expression.js [flow] format 1`] = `
+"Unexpected token \`:\`, expected a type (5:5)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |     ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
 exports[`expression.js [meriyah] format 1`] = `
 "Expected ')' (5:4)
   3 | a = () => ({}).x;
@@ -98,7 +136,7 @@ exports[`expression.js [typescript] format 1`] = `
 
 exports[`expression.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -128,13 +166,13 @@ const a3 = {
 };
 
 =====================================output=====================================
-() => ({}\`\`);
-({}\`\`);
-a = () => ({}.x);
-({} && a, b);
-({}::b, 0);
-({}::b()\`\`[""].c++ && 0 ? 0 : 0, 0);
-({}(), 0);
+() => ({})\`\`;
+({})\`\`;
+a = () => ({}).x;
+({}) && a, b;
+({})::b, 0;
+({})::b()\`\`[""].c++ && 0 ? 0 : 0, 0;
+({})(), 0;
 ({} = 0);
 ({} = 0), 1;
 
@@ -159,7 +197,7 @@ const a3 = {
 
 exports[`getter-setter.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -183,7 +221,7 @@ printWidth: 80
 
 exports[`method.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -197,7 +235,7 @@ a = { f() {} };
 
 exports[`range.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -221,13 +259,13 @@ group(
     "(",
     indent(
       options.tabWidth,
-      concat([line, join(concat([",", line]), printed)])
+      concat([line, join(concat([",", line]), printed)]),
     ),
     options.trailingComma ? "," : "",
     line,
     ")",
   ]),
-  { shouldBreak: true }
+  { shouldBreak: true },
 );
 
 ================================================================================
@@ -235,7 +273,7 @@ group(
 
 exports[`right-break.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

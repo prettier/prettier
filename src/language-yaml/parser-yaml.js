@@ -1,14 +1,11 @@
-"use strict";
-
-const createError = require("../common/parser-create-error.js");
-const { hasPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
+import { parse as parseYaml } from "yaml-unist-parser/lib/parse.js";
+import createError from "../common/parser-create-error.js";
+import { hasPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
 
 function parse(text) {
-  const { parse } = require("yaml-unist-parser");
-
   try {
-    const root = parse(text);
+    const root = parseYaml(text);
 
     /**
      * suppress `comment not printed` error
@@ -21,24 +18,21 @@ function parse(text) {
     return root;
   } catch (error) {
     if (error?.position) {
-      throw createError(error.message, error.position);
+      throw createError(error.message, {
+        loc: error.position,
+        cause: error,
+      });
     }
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     throw error;
   }
 }
 
-const parser = {
+export const yaml = {
   astFormat: "yaml",
   parse,
   hasPragma,
   locStart,
   locEnd,
-};
-
-module.exports = {
-  parsers: {
-    yaml: parser,
-  },
 };

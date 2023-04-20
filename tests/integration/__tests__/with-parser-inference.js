@@ -1,55 +1,56 @@
-"use strict";
-
-const prettier = require("prettier-local");
-const { outdent } = require("outdent");
-const runPrettier = require("../run-prettier.js");
+import { outdent } from "outdent";
+import prettier from "../../config/prettier-entry.js";
 
 describe("infers postcss parser", () => {
-  runPrettier("cli/with-parser-inference", ["--end-of-line", "lf", "*"]).test({
+  runCli("cli/with-parser-inference", ["--end-of-line", "lf", "*"]).test({
     status: 0,
   });
 });
 
 describe("infers postcss parser with --check", () => {
-  runPrettier("cli/with-parser-inference", ["--check", "*"]).test({
+  runCli("cli/with-parser-inference", ["--check", "*"]).test({
     status: 0,
   });
 });
 
 describe("infers postcss parser with --list-different", () => {
-  runPrettier("cli/with-parser-inference", ["--list-different", "*"]).test({
+  runCli("cli/with-parser-inference", ["--list-different", "*"]).test({
     status: 0,
   });
 });
 
 describe("infers parser from filename", () => {
-  test("json from .prettierrc", () => {
-    expect(prettier.format("  {   }  ", { filepath: "x/y/.prettierrc" })).toBe(
-      "{}\n"
-    );
-  });
-
-  test("json from .stylelintrc", () => {
-    expect(prettier.format("  {   }  ", { filepath: "x/y/.stylelintrc" })).toBe(
-      "{}\n"
-    );
-  });
-
-  test("yaml from .stylelintrc", () => {
+  test("json from .prettierrc", async () => {
     expect(
-      prettier.format("  extends:    ''  ", { filepath: "x/y/.stylelintrc" })
+      await prettier.format("  {   }  ", { filepath: "x/y/.prettierrc" })
+    ).toBe("{}\n");
+  });
+
+  test("json from .stylelintrc", async () => {
+    expect(
+      await prettier.format("  {   }  ", { filepath: "x/y/.stylelintrc" })
+    ).toBe("{}\n");
+  });
+
+  test("yaml from .stylelintrc", async () => {
+    expect(
+      await prettier.format("  extends:    ''  ", {
+        filepath: "x/y/.stylelintrc",
+      })
     ).toBe('extends: ""\n');
   });
 
-  test("babel from Jakefile", () => {
+  test("babel from Jakefile", async () => {
     expect(
-      prettier.format("let foo = ( x = 1 ) => x", { filepath: "x/y/Jakefile" })
+      await prettier.format("let foo = ( x = 1 ) => x", {
+        filepath: "x/y/Jakefile",
+      })
     ).toBe("let foo = (x = 1) => x;\n");
   });
 
-  test("json from .swcrc", () => {
+  test("json from .swcrc", async () => {
     expect(
-      prettier.format(
+      await prettier.format(
         /* indent */ `
           {
                       "jsc": {
@@ -71,17 +72,17 @@ describe("infers parser from filename", () => {
     );
   });
 
-  test("json from .lintstagedrc", () => {
+  test("json from .lintstagedrc", async () => {
     expect(
-      prettier.format("  {  '*':   'your-cmd'  }  ", {
+      await prettier.format("  {  '*':   'your-cmd'  }  ", {
         filepath: "/path/to/.lintstagedrc",
       })
     ).toBe('{ "*": "your-cmd" }\n');
   });
 
-  test("yaml from .lintstagedrc", () => {
+  test("yaml from .lintstagedrc", async () => {
     expect(
-      prettier.format(
+      await prettier.format(
         /* indent */ `
           '*':
                  - your-cmd

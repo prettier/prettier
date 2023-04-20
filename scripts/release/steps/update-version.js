@@ -1,12 +1,6 @@
-import {
-  runYarn,
-  logPromise,
-  readJson,
-  writeJson,
-  processFile,
-} from "../utils.js";
+import { runYarn, readJson, writeJson, processFile } from "../utils.js";
 
-async function bump({ version }) {
+export default async function updateVersion({ version }) {
   const pkg = await readJson("package.json");
   pkg.version = version;
   await writeJson("package.json", pkg);
@@ -24,7 +18,7 @@ async function bump({ version }) {
 
   // Update unpkg link in docs
   processFile("docs/browser.md", (content) =>
-    content.replace(
+    content.replaceAll(
       /(\/\/unpkg\.com\/(?:browse\/)?prettier@).*?\//g,
       `$1${version}/`
     )
@@ -33,8 +27,4 @@ async function bump({ version }) {
   await runYarn(["update-stable-docs"], {
     cwd: "./website",
   });
-}
-
-export default async function updateVersion(params) {
-  await logPromise("Bumping version", bump(params));
 }

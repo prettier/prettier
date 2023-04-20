@@ -1,0 +1,63 @@
+/* "Copy" code block button, style from docusaurus v2 */
+
+.code-block-with-actions {
+  position: relative;
+}
+
+.code-block-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.code-block-copy-button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #dadde1;
+  border-radius: 6px;
+  display: flex;
+  transition: opacity 0.2s ease-in-out;
+  opacity: 0;
+  position: relative;
+  cursor: pointer;
+  color: #393a34;
+  background-color: #f6f8fa;
+}
+
+.code-block-with-actions:hover .code-block-copy-button {
+  opacity: 0.4;
+}
+
+.code-block-with-actions:hover .code-block-copy-button:hover {
+  opacity: 1;
+}
+
+.code-block-copy-button__icon {
+  fill: currentColor;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  transition: 0.15s;
+}
+
+.code-block-copy-button__icon--copied {
+  color: #00d600;
+  opacity: 0;
+  transform: scale(0.33);
+}
+
+.code-block-copy-button--copied .code-block-copy-button__icon--copy {
+  opacity: 0;
+  transform: scale(0.33);
+}
+
+.code-block-copy-button--copied .code-block-copy-button__icon--copied {
+  transition-delay: 75ms;
+  transform: scale(1);
+  opacity: 1;
+}

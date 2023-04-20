@@ -1,9 +1,9 @@
-import { fileURLToPath } from "node:url";
+import url from "node:url";
 import path from "node:path";
-import fs from "node:fs/promises";
 import { createRequire } from "node:module";
 import webpack from "webpack";
-import { DIST_DIR } from "../../../scripts/utils/index.mjs";
+import { DIST_DIR } from "../../utils/index.js";
+import files from "../../build/config.js";
 
 function runWebpack(config) {
   return new Promise((resolve, reject) => {
@@ -26,71 +26,56 @@ function runWebpack(config) {
   });
 }
 
-const TEMPORARY_DIRECTORY = fileURLToPath(new URL("./.tmp", import.meta.url));
+const TEMPORARY_DIRECTORY = url.fileURLToPath(
+  new URL("./.tmp", import.meta.url)
+);
 
 /* `require` in `parser-typescript.js`, #12338 */
-(async () => {
-  const esmFilesDirectory = path.join(DIST_DIR, "esm");
-
-  const files = [
-    (await fs.readdir(DIST_DIR))
-      .filter(
-        (name) =>
-          name.startsWith("parser-") ||
-          name === "standalone.js" ||
-          name === "doc.js"
-      )
-      .map((name) => ({
-        displayName: name,
-        name,
-        file: path.join(DIST_DIR, name),
-      })),
-    (await fs.readdir(esmFilesDirectory)).map((name) => ({
-      displayName: `esm/${name}`,
-      name,
-      file: path.join(esmFilesDirectory, name),
-    })),
-  ].flat();
-
-  for (const { displayName, name, file } of files) {
-    console.log(`${displayName}: `);
-    const isEsmModule = name.endsWith(".mjs");
-
-    const stats = await runWebpack({
-      mode: "production",
-      entry: file,
-      output: {
-        path: TEMPORARY_DIRECTORY,
-        filename: `${name}.[contenthash:7].${isEsmModule ? "mjs" : "cjs"}`,
-      },
-      performance: { hints: false },
-      optimization: { minimize: false },
-    });
-    const result = stats.toJson();
-    const { warnings, assets } = result;
-
-    if (warnings.length > 0) {
-      console.log(warnings);
-      throw new Error("Unexpected webpack warning.");
-    }
-
-    if (assets.length > 1) {
-      console.log(assets);
-      throw new Error("Unexpected assets.");
-    }
-
-    if (!isEsmModule) {
-      const outputFile = assets[0].name;
-      const require = createRequire(import.meta.url);
-
-      try {
-        require(path.join(TEMPORARY_DIRECTORY, assets[0].name));
-      } catch (error) {
-        console.log(`'${outputFile}' is not functional.`);
-        throw error;
-      }
-    }
-
-    console.log("  Passed.");
+for (const file of files) {
+  if (file.platform !== "universal") {
+    continue;
   }
-})();
+  console.log(`${file.output.file}: `);
+
+  const stats = await runWebpack({
+    mode: "production",
+    entry: path.join(DIST_DIR, file.output.file),
+    output: {
+      path: TEMPORARY_DIRECTORY,
+      filename: `${file.output.file}.[contenthash:7].${
+        file.output.format === "esm" ? "mjs" : "cjs"
+      }`,
+    },
+    performance: { hints: false },
+    optimization: { minimize: false },
+  });
+  const result = stats.toJson();
+  const { warnings, assets } = result;
+
+  if (warnings.length > 0) {
+    console.log(warnings);
+    throw new Error("Unexpected webpack warning.");
+  }
+
+  if (assets.length > 1) {
+    console.log(assets);
+    throw new Error("Unexpected assets.");
+  }
+
+  const outputFileName = assets[0].name;
+  const outputFile = path.join(TEMPORARY_DIRECTORY, outputFileName);
+  const require = createRequire(import.meta.url);
+
+  try {
+    if (file.output.format !== "esm") {
+      require(outputFile);
+    } else {
+      await import(url.pathToFileURL(outputFile));
+    }
+  } catch (error) {
+    console.log(`'${outputFileName}' is not functional.`);
+    throw error;
+  }
+
+  console.log("  Passed.");
+}

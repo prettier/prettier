@@ -1,6 +1,4 @@
-"use strict";
-
-const htmlStyles = require("html-styles");
+import htmlStyles from "html-styles";
 
 const getCssStyleTags = (property) =>
   Object.fromEntries(
@@ -43,12 +41,15 @@ const CSS_DISPLAY_TAGS = {
   select: "inline-block",
   option: "block",
   optgroup: "block",
+
+  // Missing
+  search: "block",
 };
 const CSS_DISPLAY_DEFAULT = "inline";
 const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");
 const CSS_WHITE_SPACE_DEFAULT = "normal";
 
-module.exports = {
+export {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,

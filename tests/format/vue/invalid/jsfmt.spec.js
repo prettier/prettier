@@ -1,1 +1,1 @@
-run_spec(__dirname, ["vue"]);
+run_spec(import.meta, ["vue"]);

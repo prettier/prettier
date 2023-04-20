@@ -6,14 +6,12 @@ exports[`no file diffs with --check + formatted file (stderr) 2`] = `""`;
 
 exports[`no file diffs with --check + formatted file (stdout) 1`] = `
 "Checking formatting...
-formatted.jsAll matched files use Prettier code style!
-"
+formatted.jsAll matched files use Prettier code style!"
 `;
 
 exports[`no file diffs with --check + formatted file (stdout) 2`] = `
 "Checking formatting...
-All matched files use Prettier code style!
-"
+All matched files use Prettier code style!"
 `;
 
 exports[`no file diffs with --check + formatted file (write) 1`] = `[]`;
@@ -34,14 +32,12 @@ exports[`no file diffs with --list-different + formatted file (write) 2`] = `[]`
 
 exports[`output with --check + unformatted differs when piped (stderr) 1`] = `
 "[warn] unformatted.js
-[warn] Code style issues fixed in the above file.
-"
+[warn] Code style issues fixed in the above file."
 `;
 
 exports[`output with --check + unformatted differs when piped (stderr) 2`] = `
 "[warn] unformatted.js
-[warn] Code style issues fixed in the above file.
-"
+[warn] Code style issues fixed in the above file."
 `;
 
 exports[`output with --check + unformatted differs when piped (stdout) 1`] = `
@@ -49,10 +45,7 @@ exports[`output with --check + unformatted differs when piped (stdout) 1`] = `
 unformatted.js"
 `;
 
-exports[`output with --check + unformatted differs when piped (stdout) 2`] = `
-"Checking formatting...
-"
-`;
+exports[`output with --check + unformatted differs when piped (stdout) 2`] = `"Checking formatting..."`;
 
 exports[`output with --check + unformatted differs when piped (write) 1`] = `
 [
@@ -78,15 +71,9 @@ exports[`output with --list-different + unformatted differs when piped (stderr) 
 
 exports[`output with --list-different + unformatted differs when piped (stderr) 2`] = `""`;
 
-exports[`output with --list-different + unformatted differs when piped (stdout) 1`] = `
-"unformatted.jsunformatted.js
-"
-`;
+exports[`output with --list-different + unformatted differs when piped (stdout) 1`] = `"unformatted.jsunformatted.js"`;
 
-exports[`output with --list-different + unformatted differs when piped (stdout) 2`] = `
-"unformatted.js
-"
-`;
+exports[`output with --list-different + unformatted differs when piped (stdout) 2`] = `"unformatted.js"`;
 
 exports[`output with --list-different + unformatted differs when piped (write) 1`] = `
 [

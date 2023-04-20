@@ -10,55 +10,46 @@ on:
       # This workflow file
       - ".github/workflows/bundler-friendly.yml"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
     name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          cache: "yarn"
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Build Package
-        run: yarn build
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: dist
+    uses: ./.github/workflows/_build.yml
 
   webpack:
     if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
     name: Bundle Prettier with webpack
     runs-on: ubuntu-latest
     needs: [build]
-    defaults:
-      run:
-        working-directory: scripts/tools/bundle-test
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.5.2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.5.1
+        uses: actions/setup-node@v3.6.0
+        with:
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3.0.2
         with:
           name: dist
           path: dist
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
+        working-directory: scripts/tools/bundle-test
 
       - name: Test
         run: yarn test
+        working-directory: scripts/tools/bundle-test

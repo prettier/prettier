@@ -178,8 +178,8 @@ tap.test("RecordImport.advance", (t) => {
       callback(
         null,
         batches.filter(
-          (batch) => batch.state !== "error" && batch.state !== "completed"
-        )
+          (batch) => batch.state !== "error" && batch.state !== "completed",
+        ),
       );
     });
   };

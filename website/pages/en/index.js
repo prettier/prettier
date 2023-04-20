@@ -90,7 +90,11 @@ const TldrSection = ({ language }) => (
             <li>An opinionated code formatter</li>
             <li>Supports many languages</li>
             <li>Integrates with most editors</li>
-            <li>Has few options</li>
+            <li>
+              <a href={"/docs/" + language + "/option-philosophy.html"}>
+                Has few options &raquo;
+              </a>
+            </li>
           </ul>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -100,10 +104,7 @@ const TldrSection = ({ language }) => (
             <li>No need to discuss style in code review</li>
             <li>Saves you time and energy</li>
             <li>
-              <a
-                style={{ color: "inherit !important", fontSize: "inherit" }}
-                href={"/docs/" + language + "/why-prettier.html"}
-              >
+              <a href={"/docs/" + language + "/why-prettier.html"}>
                 And more &raquo;
               </a>
             </li>
@@ -154,7 +155,7 @@ Language.propTypes = {
 const LanguagesSection = () => {
   const languageChunks = siteConfig.supportedLanguages.reduce(
     (acc, language) => {
-      const last = acc[acc.length - 1];
+      const last = acc.at(-1);
       if (
         last &&
         last.length < 2 &&
@@ -203,7 +204,7 @@ const Editor = ({ content = "", image, name }) => (
     <img className="editorImage" src={image} />
     <div className="editorInfo">
       <h3 className="editorName">{name}</h3>
-      <MarkdownBlock>{content.replace(/\n/g, "  \n")}</MarkdownBlock>
+      <MarkdownBlock>{content.replaceAll("\n", "  \n")}</MarkdownBlock>
     </div>
   </div>
 );
@@ -320,7 +321,7 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-github">5.1 million</strong>{" "}
+                <strong data-placeholder="dependent-github">5.2 million</strong>{" "}
                 dependent repositories on GitHub
               </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
@@ -335,8 +336,7 @@ const UsersSection = ({ language }) => {
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
-                More than{" "}
-                <strong data-placeholder="dependent-npm">12.8k</strong>{" "}
+                More than <strong data-placeholder="dependent-npm">13k</strong>{" "}
                 dependent packages on npm
               </p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">

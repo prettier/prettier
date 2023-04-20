@@ -1,11 +1,12 @@
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import createEsmUtils from "esm-utils";
+import jestPathSerializer from "../path-serializer.js";
+import { projectRoot } from "../env.js";
 
-const path = require("path");
-const fs = require("fs");
-const runPrettier = require("../run-prettier.js");
-const { projectRoot } = require("../env.js");
+const { __dirname } = createEsmUtils(import.meta);
 
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 // ESLint-like behavior
 // https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
@@ -31,7 +32,7 @@ testPatterns("1", ["dir1", "dir2"]);
 testPatterns("1a - with *.foo plugin", [
   "dir1",
   "dir2",
-  "--plugin=../../plugins/extensions/plugin",
+  "--plugin=../../plugins/extensions/plugin.cjs",
 ]);
 testPatterns("1b - special characters in dir name", ["dir1", "!dir"], {
   stdout: expect.stringMatching(/!dir[/\\]a\.js/),
@@ -93,10 +94,10 @@ testPatterns("Exclude yarn.lock when expanding directories", ["."], {
 
 const uppercaseRocksPlugin = path.join(
   projectRoot,
-  "tests/config/prettier-plugins/prettier-plugin-uppercase-rocks"
+  "tests/config/prettier-plugins/prettier-plugin-uppercase-rocks/index.js"
 );
 describe("plugins `.`", () => {
-  runPrettier("cli/dirs/plugins", [
+  runCli("cli/dirs/plugins", [
     ".",
     "-l",
     "--plugin",
@@ -108,7 +109,7 @@ describe("plugins `.`", () => {
   });
 });
 describe("plugins `*`", () => {
-  runPrettier("cli/dirs/plugins", [
+  runCli("cli/dirs/plugins", [
     "*",
     "-l",
     "--plugin",
@@ -141,13 +142,13 @@ if (path.sep === "/") {
       fs.rmdirSync(path.resolve(base, "test-b\\?"));
     });
 
-    testPatterns("", ["test-a\\/test.js"], { stdout: "test-a\\/test.js\n" });
-    testPatterns("", ["test-a\\"], { stdout: "test-a\\/test.js\n" });
-    testPatterns("", ["test-a*/*"], { stdout: "test-a\\/test.js\n" });
+    testPatterns("", ["test-a\\/test.js"], { stdout: "test-a\\/test.js" });
+    testPatterns("", ["test-a\\"], { stdout: "test-a\\/test.js" });
+    testPatterns("", ["test-a*/*"], { stdout: "test-a\\/test.js" });
 
-    testPatterns("", ["test-b\\?/test.js"], { stdout: "test-b\\?/test.js\n" });
-    testPatterns("", ["test-b\\?"], { stdout: "test-b\\?/test.js\n" });
-    testPatterns("", ["test-b*/*"], { stdout: "test-b\\?/test.js\n" });
+    testPatterns("", ["test-b\\?/test.js"], { stdout: "test-b\\?/test.js" });
+    testPatterns("", ["test-b\\?"], { stdout: "test-b\\?/test.js" });
+    testPatterns("", ["test-b*/*"], { stdout: "test-b\\?/test.js" });
   });
 }
 
@@ -165,7 +166,7 @@ function testPatterns(
       .join(" ");
 
   describe(testName, () => {
-    runPrettier(cwd, [...cliArgs, "-l"]).test({
+    runCli(cwd, [...cliArgs, "-l"]).test({
       write: [],
       ...(!("status" in expected) && { stderr: "", status: 1 }),
       ...expected,

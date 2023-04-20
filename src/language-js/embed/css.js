@@ -1,14 +1,11 @@
-"use strict";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { indent, hardline, softline } from "../../document/builders.js";
+import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
+import { printTemplateExpressions } from "../print/template-literal.js";
+import { isAngularComponentStyles } from "./utils.js";
 
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { indent, hardline, softline },
-  utils: { mapDoc, replaceEndOfLine, cleanDoc },
-} = require("../../document/index.js");
-const { printTemplateExpressions } = require("../print/template-literal.js");
-
-function format(path, print, textToDoc) {
-  const node = path.getValue();
+async function printEmbedCss(textToDoc, print, path /*, options*/) {
+  const { node } = path;
 
   // Get full template literal with expressions replaced by placeholders
   const rawQuasis = node.quasis.map((q) => q.value.raw);
@@ -24,24 +21,10 @@ function format(path, print, textToDoc) {
           currVal,
     ""
   );
-  const doc = textToDoc(
-    text,
-    { parser: "scss" },
-    { stripTrailingHardline: true }
-  );
+  const quasisDoc = await textToDoc(text, { parser: "scss" });
   const expressionDocs = printTemplateExpressions(path, print);
-  return transformCssDoc(doc, node, expressionDocs);
-}
-
-function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
-  const isEmpty =
-    parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
-  if (isEmpty) {
-    return "``";
-  }
-
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
-  /* istanbul ignore if */
+  /* c8 ignore next 3 */
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }
@@ -77,4 +60,109 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }
 
-module.exports = format;
+/**
+ * Template literal in these contexts:
+ * <style jsx>{`div{color:red}`}</style>
+ * css``
+ * css.global``
+ * css.resolve``
+ */
+function isStyledJsx({ node, parent, grandparent }) {
+  return (
+    (grandparent &&
+      node.quasis &&
+      parent.type === "JSXExpressionContainer" &&
+      grandparent.type === "JSXElement" &&
+      grandparent.openingElement.name.name === "style" &&
+      grandparent.openingElement.attributes.some(
+        (attribute) => attribute.name.name === "jsx"
+      )) ||
+    (parent?.type === "TaggedTemplateExpression" &&
+      parent.tag.type === "Identifier" &&
+      parent.tag.name === "css") ||
+    (parent?.type === "TaggedTemplateExpression" &&
+      parent.tag.type === "MemberExpression" &&
+      parent.tag.object.name === "css" &&
+      (parent.tag.property.name === "global" ||
+        parent.tag.property.name === "resolve"))
+  );
+}
+
+function isStyledIdentifier(node) {
+  return node.type === "Identifier" && node.name === "styled";
+}
+
+function isStyledExtend(node) {
+  return /^[A-Z]/.test(node.object.name) && node.property.name === "extend";
+}
+
+/**
+ * styled-components template literals
+ */
+function isStyledComponents({ parent }) {
+  if (!parent || parent.type !== "TaggedTemplateExpression") {
+    return false;
+  }
+
+  const tag =
+    parent.tag.type === "ParenthesizedExpression"
+      ? parent.tag.expression
+      : parent.tag;
+
+  switch (tag.type) {
+    case "MemberExpression":
+      return (
+        // styled.foo``
+        isStyledIdentifier(tag.object) ||
+        // Component.extend``
+        isStyledExtend(tag)
+      );
+
+    case "CallExpression":
+      return (
+        // styled(Component)``
+        isStyledIdentifier(tag.callee) ||
+        (tag.callee.type === "MemberExpression" &&
+          ((tag.callee.object.type === "MemberExpression" &&
+            // styled.foo.attrs({})``
+            (isStyledIdentifier(tag.callee.object.object) ||
+              // Component.extend.attrs({})``
+              isStyledExtend(tag.callee.object))) ||
+            // styled(Component).attrs({})``
+            (tag.callee.object.type === "CallExpression" &&
+              isStyledIdentifier(tag.callee.object.callee))))
+      );
+
+    case "Identifier":
+      // css``
+      return tag.name === "css";
+
+    default:
+      return false;
+  }
+}
+
+/**
+ * JSX element with CSS prop
+ */
+function isCssProp({ parent, grandparent }) {
+  return (
+    grandparent?.type === "JSXAttribute" &&
+    parent.type === "JSXExpressionContainer" &&
+    grandparent.name.type === "JSXIdentifier" &&
+    grandparent.name.name === "css"
+  );
+}
+
+function printCss(path /*, options*/) {
+  if (
+    isStyledJsx(path) ||
+    isStyledComponents(path) ||
+    isCssProp(path) ||
+    isAngularComponentStyles(path)
+  ) {
+    return printEmbedCss;
+  }
+}
+
+export default printCss;

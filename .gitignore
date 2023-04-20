@@ -11,7 +11,7 @@
 /errors
 /test*.*
 /.vscode
-/dist
+/dist*
 /website/build
 /website/i18n
 /website/static/playground.js
@@ -25,8 +25,13 @@ package-lock.json
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
-.pnp.*
+**/.pnp.*
 .nyc_output
 .devcontainer
+.node-version
 # When installing software on gitpod.io, `core.*` files are generated
 /core.*
+*.swp
+
+# For 0x flamegraph directory (https://github.com/davidmarkclements/0x)
+*.0x/

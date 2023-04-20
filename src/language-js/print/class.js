@@ -1,49 +1,68 @@
-"use strict";
-
-const {
-  isNonEmptyArray,
-  createGroupIdMapper,
-} = require("../../common/util.js");
-const {
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
+import {
   printComments,
   printDanglingComments,
-} = require("../../main/comments.js");
-const {
-  builders: { join, line, hardline, softline, group, indent, ifBreak },
-} = require("../../document/index.js");
-const { hasComment, CommentCheckFlags } = require("../utils/index.js");
-const { getTypeParametersGroupId } = require("./type-parameters.js");
-const { printMethod } = require("./function.js");
-const {
+} from "../../main/comments/print.js";
+import {
+  join,
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  ifBreak,
+} from "../../document/builders.js";
+import {
+  hasComment,
+  CommentCheckFlags,
+  createTypeCheckFunction,
+  isNextLineEmpty,
+} from "../utils/index.js";
+import { getTypeParametersGroupId } from "./type-parameters.js";
+import { printMethod } from "./function.js";
+import {
   printOptionalToken,
-  printTypeAnnotation,
   printDefiniteToken,
-} = require("./misc.js");
-const { printPropertyKey } = require("./property.js");
-const { printAssignment } = require("./assignment.js");
-const { printClassMemberDecorators } = require("./decorators.js");
+  printDeclareToken,
+  printAbstractToken,
+  printTypeScriptAccessibilityToken,
+} from "./misc.js";
+import { printPropertyKey } from "./property.js";
+import { printAssignment } from "./assignment.js";
+import { printClassMemberDecorators } from "./decorators.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
+
+const isClassProperty = createTypeCheckFunction([
+  "ClassProperty",
+  "PropertyDefinition",
+  "ClassPrivateProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
+
+/*
+- `ClassDeclaration`
+- `ClassExpression`
+- `DeclareClass`(flow)
+*/
 function printClass(path, options, print) {
-  const node = path.getValue();
-  const parts = [];
-
-  if (node.declare) {
-    parts.push("declare ");
-  }
-
-  if (node.abstract) {
-    parts.push("abstract ");
-  }
-
-  parts.push("class");
+  const { node } = path;
+  /** @type {Doc[]} */
+  const parts = [printDeclareToken(path), printAbstractToken(path), "class"];
 
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
   const groupMode =
-    (node.id && hasComment(node.id, CommentCheckFlags.Trailing)) ||
-    (node.typeParameters &&
-      hasComment(node.typeParameters, CommentCheckFlags.Trailing)) ||
-    (node.superClass && hasComment(node.superClass)) ||
+    hasComment(node.id, CommentCheckFlags.Trailing) ||
+    hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
+    hasComment(node.superClass) ||
     isNonEmptyArray(node.extends) || // DeclareClass
     isNonEmptyArray(node.mixins) ||
     isNonEmptyArray(node.implements);
@@ -72,12 +91,12 @@ function printClass(path, options, print) {
       extendsParts.push(" ", printedWithComments);
     }
   } else {
-    extendsParts.push(printList(path, options, print, "extends"));
+    extendsParts.push(printHeritageClauses(path, options, print, "extends"));
   }
 
   extendsParts.push(
-    printList(path, options, print, "mixins"),
-    printList(path, options, print, "implements")
+    printHeritageClauses(path, options, print, "mixins"),
+    printHeritageClauses(path, options, print, "implements")
   );
 
   if (groupMode) {
@@ -105,9 +124,10 @@ function printHardlineAfterHeritage(node) {
 
 function hasMultipleHeritage(node) {
   return (
-    ["superClass", "extends", "mixins", "implements"].filter((key) =>
-      Boolean(node[key])
-    ).length > 1
+    ["extends", "mixins", "implements"].reduce(
+      (count, key) => count + (Array.isArray(node[key]) ? node[key].length : 0),
+      node.superClass ? 1 : 0
+    ) > 1
   );
 }
 
@@ -122,18 +142,15 @@ function shouldIndentOnlyHeritageClauses(node) {
   );
 }
 
-function printList(path, options, print, listName) {
-  const node = path.getValue();
+function printHeritageClauses(path, options, print, listName) {
+  const { node } = path;
   if (!isNonEmptyArray(node[listName])) {
     return "";
   }
 
-  const printedLeadingComments = printDanglingComments(
-    path,
-    options,
-    /* sameIndent */ true,
-    ({ marker }) => marker === listName
-  );
+  const printedLeadingComments = printDanglingComments(path, options, {
+    marker: listName,
+  });
   return [
     shouldIndentOnlyHeritageClauses(node)
       ? ifBreak(" ", line, {
@@ -149,7 +166,7 @@ function printList(path, options, print, listName) {
 
 function printSuperClass(path, options, print) {
   const printed = print("superClass");
-  const parent = path.getParentNode();
+  const { parent } = path;
   if (parent.type === "AssignmentExpression") {
     return group(
       ifBreak(["(", indent([softline, printed]), softline, ")"], printed)
@@ -159,30 +176,21 @@ function printSuperClass(path, options, print) {
 }
 
 function printClassMethod(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
-  if (node.accessibility) {
-    parts.push(node.accessibility + " ");
-  }
-  // "readonly" and "declare" are supported by only "babel-ts"
-  // https://github.com/prettier/prettier/issues/9760
-  if (node.readonly) {
-    parts.push("readonly ");
-  }
-  if (node.declare) {
-    parts.push("declare ");
-  }
+
+  parts.push(printTypeScriptAccessibilityToken(node));
 
   if (node.static) {
     parts.push("static ");
   }
-  if (node.type === "TSAbstractMethodDefinition" || node.abstract) {
-    parts.push("abstract ");
-  }
+
+  parts.push(printAbstractToken(path));
+
   if (node.override) {
     parts.push("override ");
   }
@@ -193,29 +201,22 @@ function printClassMethod(path, options, print) {
 }
 
 function printClassProperty(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
   const semi = options.semi ? ";" : "";
 
   if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
-  if (node.accessibility) {
-    parts.push(node.accessibility + " ");
-  }
-  if (node.declare) {
-    parts.push("declare ");
-  }
+
+  parts.push(printTypeScriptAccessibilityToken(node), printDeclareToken(path));
+
   if (node.static) {
     parts.push("static ");
   }
-  if (
-    node.type === "TSAbstractPropertyDefinition" ||
-    node.type === "TSAbstractAccessorProperty" ||
-    node.abstract
-  ) {
-    parts.push("abstract ");
-  }
+
+  parts.push(printAbstractToken(path));
+
   if (node.override) {
     parts.push("override ");
   }
@@ -236,15 +237,143 @@ function printClassProperty(path, options, print) {
     printPropertyKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
-    printTypeAnnotation(path, options, print)
+    printTypeAnnotationProperty(path, print)
   );
 
-  return [printAssignment(path, options, print, parts, " =", "value"), semi];
+  const isAbstractProperty =
+    node.type === "TSAbstractPropertyDefinition" ||
+    node.type === "TSAbstractAccessorProperty";
+
+  return [
+    printAssignment(
+      path,
+      options,
+      print,
+      parts,
+      " =",
+      isAbstractProperty ? undefined : "value"
+    ),
+    semi,
+  ];
 }
 
-module.exports = {
+function printClassBody(path, options, print) {
+  const { node } = path;
+  const parts = [];
+
+  path.each(({ node, next, isLast }) => {
+    parts.push(print());
+
+    if (
+      !options.semi &&
+      isClassProperty(node) &&
+      shouldPrintSemicolonAfterClassProperty(node, next)
+    ) {
+      parts.push(";");
+    }
+
+    if (!isLast) {
+      parts.push(hardline);
+
+      if (isNextLineEmpty(node, options)) {
+        parts.push(hardline);
+      }
+    }
+  }, "body");
+
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
+    parts.push(printDanglingComments(path, options));
+  }
+
+  return [
+    isNonEmptyArray(node.body) ? printHardlineAfterHeritage(path.parent) : "",
+    "{",
+    parts.length > 0 ? [indent([hardline, parts]), hardline] : "",
+    "}",
+  ];
+}
+
+/**
+ * @returns {boolean}
+ */
+function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
+  const { type, name } = node.key;
+  if (
+    !node.computed &&
+    type === "Identifier" &&
+    (name === "static" || name === "get" || name === "set") &&
+    !node.value &&
+    !node.typeAnnotation
+  ) {
+    return true;
+  }
+
+  if (!nextNode) {
+    return false;
+  }
+
+  if (
+    nextNode.static ||
+    nextNode.accessibility // TypeScript
+  ) {
+    return false;
+  }
+
+  if (!nextNode.computed) {
+    const name = nextNode.key?.name;
+    if (name === "in" || name === "instanceof") {
+      return true;
+    }
+  }
+
+  // Flow variance sigil +/- requires semi if there's no
+  // "declare" or "static" keyword before it.
+  if (
+    isClassProperty(nextNode) &&
+    nextNode.variance &&
+    !nextNode.static &&
+    !nextNode.declare
+  ) {
+    return true;
+  }
+
+  switch (nextNode.type) {
+    case "ClassProperty":
+    case "PropertyDefinition":
+    case "TSAbstractPropertyDefinition":
+      return nextNode.computed;
+    case "MethodDefinition":
+    case "TSAbstractMethodDefinition":
+    case "ClassMethod":
+    case "ClassPrivateMethod": {
+      // Babel
+      const isAsync = nextNode.value ? nextNode.value.async : nextNode.async;
+      if (isAsync || nextNode.kind === "get" || nextNode.kind === "set") {
+        return false;
+      }
+
+      const isGenerator = nextNode.value
+        ? nextNode.value.generator
+        : nextNode.generator;
+      if (nextNode.computed || isGenerator) {
+        return true;
+      }
+
+      return false;
+    }
+
+    case "TSIndexSignature":
+      return true;
+  }
+
+  /* c8 ignore next */
+  return false;
+}
+
+export {
   printClass,
   printClassMethod,
   printClassProperty,
   printHardlineAfterHeritage,
+  printClassBody,
 };
