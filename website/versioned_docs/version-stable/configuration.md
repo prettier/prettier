@@ -34,43 +34,17 @@ JSON:
 JS:
 
 <!--DOCUSAURUS_CODE_TABS-->
-<!--Untyped-->
+<!--ES Module-->
 
-```js
-// prettier.config.js or .prettierrc.js
-module.exports = {
-  trailingComma: "es5",
-  tabWidth: 4,
-  semi: false,
-  singleQuote: true,
-};
-```
+- `.prettierrc.js`
+- `.prettierrc.mjs`
+- `prettier.config.js`
+- `prettier.config.mjs`
 
-<!--JSDoc types-->
+Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and [install Prettier](install.md)
 
-<br />Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and [install Prettier](install.md)
-
-```js
-// prettier.config.js or .prettierrc.js
-
-/** @type {import('prettier').Options} */
-const config = {
-  trailingComma: "es5",
-  tabWidth: 4,
-  semi: false,
-  singleQuote: true,
-};
-
-module.exports = config;
-```
-
-
-
-<!--TEST DOCUSAURUS title support -->
-
-```js title="prettierrc.js"
-
-/** @type {import('prettier').Options} */
+```js	```js
+// prettier.config.js or .prettierrc.js	/** @type {import("prettier").Options} */
 export default {
   trailingComma: "es5",
   tabWidth: 4,
@@ -78,6 +52,26 @@ export default {
   singleQuote: true,
 };
 ```
+
+<!--CommonJS-->
+
+- `.prettierrc.js`
+- `.prettierrc.cjs`
+- `prettier.config.js`
+- `prettier.config.cjs`
+
+Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and [install Prettier](install.md)
+
+```js
+/** @type {import("prettier").Options} */
+module.exports = {	module.exports = {
+  trailingComma: "es5",	  trailingComma: "es5",
+  tabWidth: 4,	  tabWidth: 4,
+  semi: false,	  semi: false,
+  singleQuote: true,	  singleQuote: true,
+};	};
+```	```
+
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
