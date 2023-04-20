@@ -371,7 +371,7 @@ function printArrowFunction(path, options, print, args) {
   let bodyDoc;
   /** @type {*[]} */
   const bodyComments = [];
-  let chainShouldBreak = false;
+  let shouldBreakChain = false;
   let tailNode = node;
 
   (function rec() {
@@ -385,8 +385,7 @@ function printArrowFunction(path, options, print, args) {
       bodyComments.unshift(trailing);
     }
 
-    chainShouldBreak =
-      chainShouldBreak ||
+    shouldBreakChain ||=
       // Always break the chain if:
       (currentNode.returnType &&
         getFunctionParameters(currentNode).length > 0) ||
@@ -463,7 +462,7 @@ function printArrowFunction(path, options, print, args) {
       joinArrowFunctionSignatures(signatures, parent, {
         isCallee,
         isAssignmentRhs,
-        shouldBreak: chainShouldBreak,
+        shouldBreak: shouldBreakChain,
       })
     ),
     " =>",
