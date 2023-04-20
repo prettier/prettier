@@ -124,38 +124,41 @@ function printArrowFunction(path, options, print, args = {}) {
 
   const chainGroupId = Symbol("arrow-chain");
 
-  let signaturesDoc = printArrowFunctionSignatures(path, args, {
+  const signaturesDoc = printArrowFunctionSignatures(path, args, {
     signatureDocs,
     shouldBreak: shouldBreakChain,
   });
+  let shouldBreakSignatures;
+  let shouldIndentSignatures = false;
   if (
+    isChain &&
     (isCallee ||
       // isAssignmentRhs
-      args.assignmentLayout) &&
-    isChain
+      args.assignmentLayout)
   ) {
-    signaturesDoc = group(indent([softline, signaturesDoc]), {
-      shouldBreak:
-        args.assignmentLayout === "chain-tail-arrow-chain" ||
-        (isCallee && !shouldPutBodyOnSameLine),
-      id: chainGroupId,
-    });
+    shouldIndentSignatures = true;
+    shouldBreakSignatures =
+      args.assignmentLayout === "chain-tail-arrow-chain" ||
+      (isCallee && !shouldPutBodyOnSameLine);
   }
-  signaturesDoc = group(signaturesDoc, { id: chainGroupId });
 
   bodyDoc = printArrowFunctionBody(path, options, args, {
     bodyDoc,
     bodyComments,
     shouldPutBodyOnSameLine,
   });
-  bodyDoc = isChain
-    ? indentIfBreak(bodyDoc, { groupId: chainGroupId })
-    : group(bodyDoc);
 
   return group([
-    signaturesDoc,
+    group(
+      shouldIndentSignatures
+        ? indent([softline, signaturesDoc])
+        : signaturesDoc,
+      { shouldBreak: shouldBreakSignatures, id: chainGroupId }
+    ),
     " =>",
-    bodyDoc,
+    isChain
+      ? indentIfBreak(bodyDoc, { groupId: chainGroupId })
+      : group(bodyDoc),
     isChain && isCallee ? ifBreak(softline, "", { groupId: chainGroupId }) : "",
   ]);
 }
