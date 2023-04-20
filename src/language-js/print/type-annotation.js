@@ -135,11 +135,11 @@ function printIntersectionType(path, options, print) {
         return indent([" &", line, doc]);
       }
 
+      // If you go from object to non-object or vis-versa, then inline it
       if (index > 1) {
-        wasIndented = true
+        wasIndented = true;
       }
 
-      // If you go from object to non-object or vis-versa, then inline it
       return [" & ", index > 1 ? indent(doc) : doc];
     }, "types")
   );
