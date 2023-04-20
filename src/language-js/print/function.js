@@ -274,34 +274,35 @@ function mayBreakAfterShortPrefix(node, bodyDoc, options) {
 
 /**
  * @param {Doc[]} signatures
- * @param {*} parent
+ * @param {AstPath} path
  * @param {Object} flags
- * @param {boolean} flags.isCallee
  * @param {boolean} flags.shouldBreak
  * @param {boolean} flags.isAssignmentRhs
  * @returns {Doc}
  */
 function joinArrowFunctionSignatures(
   signatures,
-  parent,
-  { isCallee, shouldBreak, isAssignmentRhs }
+  path,
+  { shouldBreak, isAssignmentRhs }
 ) {
   if (signatures.length === 1) {
     return signatures[0];
   }
-  if ((isCallLikeExpression(parent) && !isCallee) || isBinaryish(parent)) {
+  const { parent, key } = path;
+  if (
+    (key !== "callee" && isCallLikeExpression(parent)) ||
+    isBinaryish(parent)
+  ) {
     return group(
       [
         signatures[0],
         " =>",
         indent([line, join([" =>", line], signatures.slice(1))]),
       ],
-      {
-        shouldBreak,
-      }
+      { shouldBreak }
     );
   }
-  if (isCallee || isAssignmentRhs) {
+  if ((key === "callee" && isCallLikeExpression(parent)) || isAssignmentRhs) {
     return group(join([" =>", line], signatures), {
       shouldBreak,
     });
@@ -459,8 +460,7 @@ function printArrowFunction(path, options, print, args) {
 
   return group([
     maybeBreakFirst(
-      joinArrowFunctionSignatures(signatures, parent, {
-        isCallee,
+      joinArrowFunctionSignatures(signatures, path, {
         isAssignmentRhs,
         shouldBreak: shouldBreakChain,
       })
