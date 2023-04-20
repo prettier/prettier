@@ -132,7 +132,8 @@ function printArrowFunction(path, options, print, args = {}) {
 
   return group([
     maybeBreakFirst(
-      joinArrowFunctionSignatures(signatures, path, {
+      printArrowFunctionSignatures(path, {
+        signatures,
         isAssignmentRhs,
         shouldBreak: shouldBreakChain,
       })
@@ -225,17 +226,16 @@ function mayBreakAfterShortPrefix(node, bodyDoc, options) {
 }
 
 /**
- * @param {Doc[]} signatures
  * @param {AstPath} path
- * @param {Object} flags
- * @param {boolean} flags.shouldBreak
- * @param {boolean} flags.isAssignmentRhs
+ * @param {Object} arrowFunctionSignaturesPrintOptions
+ * @param {Doc[]} arrowFunctionSignaturesPrintOptions.signatures
+ * @param {boolean} arrowFunctionSignaturesPrintOptions.shouldBreak
+ * @param {boolean} arrowFunctionSignaturesPrintOptions.isAssignmentRhs
  * @returns {Doc}
  */
-function joinArrowFunctionSignatures(
-  signatures,
+function printArrowFunctionSignatures(
   path,
-  { shouldBreak, isAssignmentRhs }
+  { signatures, shouldBreak, isAssignmentRhs }
 ) {
   if (signatures.length === 1) {
     return signatures[0];
@@ -255,13 +255,9 @@ function joinArrowFunctionSignatures(
     );
   }
   if ((key === "callee" && isCallLikeExpression(parent)) || isAssignmentRhs) {
-    return group(join([" =>", line], signatures), {
-      shouldBreak,
-    });
+    return group(join([" =>", line], signatures), { shouldBreak });
   }
-  return group(indent(join([" =>", line], signatures)), {
-    shouldBreak,
-  });
+  return group(indent(join([" =>", line], signatures)), { shouldBreak });
 }
 
 /**
