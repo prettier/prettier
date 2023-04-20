@@ -31,6 +31,11 @@ import { locEnd } from "../loc.js";
 import { printFunctionParameters } from "./function-parameters.js";
 import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
 
+/**
+ * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
+
 function printArrowFunction(path, options, print, args) {
   const { node, parent, key } = path;
   /** @type {Doc[]} */
