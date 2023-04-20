@@ -65,11 +65,11 @@ import {
 import { printProperty } from "./print/property.js";
 import {
   printFunction,
-  printArrowFunction,
   printMethod,
   printReturnStatement,
   printThrowStatement,
 } from "./print/function.js";
+import { printArrowFunction } from "./print/arrow-function.js";
 import { printCallExpression } from "./print/call-expression.js";
 import {
   printVariableDeclarator,
