@@ -1,4 +1,7 @@
-/** @typedef {import("../../document/builders.js").Doc} Doc */
+/**
+ * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
 
 import assert from "node:assert";
 import {
@@ -311,8 +314,7 @@ function joinArrowFunctionSignatures(
 /**
  * @param {Doc} bodyDoc
  * @param {Doc[]} bodyComments
- * @param {*} parent
- * @param {*} node
+ * @param {AstPath} path
  * @param {Object} flags
  * @param {boolean} flags.shouldAddParensIfNotBreak
  * @param {boolean} flags.shouldAlwaysAddParens
@@ -323,14 +325,15 @@ function joinArrowFunctionSignatures(
 function printArrowFunctionBody(
   bodyDoc,
   bodyComments,
-  parent,
-  node,
+  path,
   { shouldAddParensIfNotBreak, shouldAlwaysAddParens, shouldPutBodyOnSameLine },
   args,
   options
 ) {
-  const printTrailingComma =
-    args?.expandLastArg && shouldPrintComma(options, "all");
+  const { node, parent } = path;
+
+  const trailingComma =
+    args?.expandLastArg && shouldPrintComma(options, "all") ? "," : "";
 
   // if the arrow function is expanded as last argument, we are adding a
   // level of indentation and need to add a softline to align the closing )
@@ -348,9 +351,7 @@ function printArrowFunctionBody(
       ifBreak("", "("),
       indent([softline, bodyDoc]),
       ifBreak("", ")"),
-      shouldAddSoftLine
-        ? [ifBreak(printTrailingComma ? "," : ""), softline]
-        : "",
+      shouldAddSoftLine ? [ifBreak(trailingComma), softline] : "",
     ]);
   } else {
     decoratedBodyDoc = bodyDoc;
@@ -359,9 +360,7 @@ function printArrowFunctionBody(
     ? [" ", decoratedBodyDoc, bodyComments]
     : [
         indent([line, decoratedBodyDoc, bodyComments]),
-        shouldAddSoftLine
-          ? [ifBreak(printTrailingComma ? "," : ""), softline]
-          : "",
+        shouldAddSoftLine ? [ifBreak(trailingComma), softline] : "",
       ];
 }
 
@@ -473,8 +472,7 @@ function printArrowFunction(path, options, print, args) {
       printArrowFunctionBody(
         bodyDoc,
         bodyComments,
-        parent,
-        node,
+        path,
         {
           shouldAddParensIfNotBreak,
           shouldAlwaysAddParens,
