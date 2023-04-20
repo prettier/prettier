@@ -54,6 +54,17 @@ function shouldAddParensIfNotBreak(node) {
   return shouldAddParensIfNotBreakCache.get(node);
 }
 
+const isArrowFunctionChain = (node) =>
+  node.body.type === "ArrowFunctionExpression";
+
+function getArrowChainFunctionBody(node) {
+  while (isArrowFunctionChain(node)) {
+    node = node.body;
+  }
+
+  return node.body;
+}
+
 function printArrowFunction(path, options, print, args = {}) {
   const { node, parent, key } = path;
   /** @type {Doc[]} */
@@ -63,7 +74,6 @@ function printArrowFunction(path, options, print, args = {}) {
   /** @type {*[]} */
   const bodyComments = [];
   let shouldBreakChain = false;
-  let tailNode = node;
 
   (function rec() {
     const { node: currentNode } = path;
@@ -91,12 +101,12 @@ function printArrowFunction(path, options, print, args = {}) {
     ) {
       bodyDoc = print("body", args);
     } else {
-      tailNode = currentNode.body;
       path.call(rec, "body");
     }
   })();
 
-  const functionBody = tailNode.body;
+  const isChain = isArrowFunctionChain(node);
+  const functionBody = getArrowChainFunctionBody(node);
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
@@ -114,12 +124,9 @@ function printArrowFunction(path, options, print, args = {}) {
 
   const isCallee = isCallLikeExpression(parent) && key === "callee";
   const shouldBreakBeforeChain =
-    (isCallee && !shouldPutBodyOnSameLine) ||
-    args.assignmentLayout === "chain-tail-arrow-chain";
-
+    args.assignmentLayout === "chain-tail-arrow-chain" ||
+    (isCallee && !shouldPutBodyOnSameLine);
   const isAssignmentRhs = Boolean(args.assignmentLayout);
-
-  const isChain = signatures.length > 1;
 
   const chainGroupId = Symbol("arrow-chain");
 
