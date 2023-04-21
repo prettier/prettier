@@ -26,7 +26,7 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
-function printEmptyArray(path, options, openBracket, closeBracket) {
+function printEmptyArrayElements(path, options, openBracket, closeBracket) {
   const { node } = path;
   if (!hasComment(node, CommentCheckFlags.Dangling)) {
     return [openBracket, closeBracket];
@@ -62,7 +62,9 @@ function printArray(path, options, print) {
       : "elements";
   const elements = node[elementsProperty];
   if (elements.length === 0) {
-    parts.push(printEmptyArray(path, options, openBracket, closeBracket));
+    parts.push(
+      printEmptyArrayElements(path, options, openBracket, closeBracket)
+    );
   } else {
     const lastElem = elements.at(-1);
     const canHaveTrailingComma = lastElem?.type !== "RestElement";
