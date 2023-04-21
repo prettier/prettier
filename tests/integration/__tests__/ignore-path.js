@@ -5,7 +5,10 @@ const files = [
   "ignored-by-customignore.js",
   "ignored-by-gitignore.js",
   "ignored-by-prettierignore.js",
-].map((file) => new URL(`../cli/ignore-path/${file}`, import.meta.url));
+].map(
+  (file) =>
+    new URL(`../cli/ignore-path/ignore-path-test/${file}`, import.meta.url)
+);
 const clean = () =>
   Promise.all(files.map((file) => fs.rm(file, { force: true })));
 const setup = () =>
@@ -18,7 +21,7 @@ beforeAll(async () => {
 afterAll(clean);
 
 const getUnformattedFiles = async (args) => {
-  const { stdout } = await runCli("cli/ignore-path", [
+  const { stdout } = await runCli("cli/ignore-path/ignore-path-test/", [
     "**/*.js",
     "-l",
     ...args,
@@ -44,7 +47,7 @@ test("ignore files by .prettierignore and .gitignore by default", async () => {
 });
 
 describe("ignore file when using --debug-check", () => {
-  runCli("cli/ignore-path", [
+  runCli("cli/ignore-path/ignore-path-test/", [
     "**/*.js",
     "--debug-check",
     "--ignore-path",
