@@ -8,6 +8,9 @@ const { __dirname } = createEsmUtils(import.meta);
 
 expect.addSnapshotSerializer(jestPathSerializer);
 
+const runCliWithoutGitignore = (dir, args, options) =>
+  runCli(dir, [...args, "--ignore-path", ".prettierignore"], options);
+
 // ESLint-like behavior
 // https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
 //
@@ -97,7 +100,7 @@ const uppercaseRocksPlugin = path.join(
   "tests/config/prettier-plugins/prettier-plugin-uppercase-rocks/index.js"
 );
 describe("plugins `.`", () => {
-  runCli("cli/dirs/plugins", [
+  runCliWithoutGitignore("cli/dirs/plugins", [
     ".",
     "-l",
     "--plugin",
@@ -109,7 +112,7 @@ describe("plugins `.`", () => {
   });
 });
 describe("plugins `*`", () => {
-  runCli("cli/dirs/plugins", [
+  runCliWithoutGitignore("cli/dirs/plugins", [
     "*",
     "-l",
     "--plugin",
@@ -331,7 +334,7 @@ function testPatterns(
       .join(" ");
 
   describe(testName, () => {
-    runCli(cwd, [...cliArgs, "-l"]).test({
+    runCliWithoutGitignore(cwd, [...cliArgs, "-l"]).test({
       write: [],
       ...(!("status" in expected) && { stderr: "", status: 1 }),
       ...expected,
