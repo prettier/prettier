@@ -23,7 +23,7 @@ const getUnformattedFiles = async (args) => {
     "-l",
     ...args,
   ]);
-  return stdout ? stdout.split("\n").sort() : "";
+  return stdout ? stdout.split("\n").sort() : [];
 };
 
 test("custom ignore path", async () => {
