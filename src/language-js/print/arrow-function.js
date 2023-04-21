@@ -58,19 +58,7 @@ function shouldAddParensIfNotBreak(node) {
 // so that the required parentheses end up on their own lines.
 const shouldAlwaysAddParens = (node) => node.type === "SequenceExpression";
 
-const isArrowFunctionChain = (node) =>
-  node.body.type === "ArrowFunctionExpression";
-
-function getArrowChainFunctionBody(node) {
-  while (isArrowFunctionChain(node)) {
-    node = node.body;
-  }
-
-  return node.body;
-}
-
 function printArrowFunction(path, options, print, args = {}) {
-  const { node, parent, key } = path;
   /** @type {Doc[]} */
   const signatureDocs = [];
   /** @type {Doc} */
@@ -78,39 +66,43 @@ function printArrowFunction(path, options, print, args = {}) {
   /** @type {Doc[]} */
   const bodyComments = [];
   let shouldBreakChain = false;
+  const shouldPrintAsChain =
+    !args.expandLastArg && path.node.body.type === "ArrowFunctionExpression";
+  let functionBody;
 
   (function rec() {
-    const { node: currentNode } = path;
-    const doc = printArrowFunctionSignature(path, options, print, args);
+    const { node } = path;
+    const signatureDoc = printArrowFunctionSignature(
+      path,
+      options,
+      print,
+      args
+    );
     if (signatureDocs.length === 0) {
-      signatureDocs.push(doc);
+      signatureDocs.push(signatureDoc);
     } else {
       const { leading, trailing } = printCommentsSeparately(path, options);
-      signatureDocs.push([leading, doc]);
+      signatureDocs.push([leading, signatureDoc]);
       bodyComments.unshift(trailing);
     }
 
-    shouldBreakChain ||=
-      // Always break the chain if:
-      (currentNode.returnType &&
-        getFunctionParameters(currentNode).length > 0) ||
-      currentNode.typeParameters ||
-      getFunctionParameters(currentNode).some(
-        (param) => param.type !== "Identifier"
-      );
+    if (shouldPrintAsChain) {
+      shouldBreakChain ||=
+        // Always break the chain if:
+        (node.returnType && getFunctionParameters(node).length > 0) ||
+        node.typeParameters ||
+        getFunctionParameters(node).some(
+          (param) => param.type !== "Identifier"
+        );
+    }
 
-    if (
-      currentNode.body.type !== "ArrowFunctionExpression" ||
-      args.expandLastArg
-    ) {
+    if (!shouldPrintAsChain || node.body.type !== "ArrowFunctionExpression") {
       bodyDoc = print("body", args);
+      functionBody = node.body;
     } else {
       path.call(rec, "body");
     }
   })();
-
-  const isChain = isArrowFunctionChain(node);
-  const functionBody = getArrowChainFunctionBody(node);
 
   // We want to always keep these types of nodes on the same line
   // as the arrow.
@@ -120,8 +112,7 @@ function printArrowFunction(path, options, print, args = {}) {
       mayBreakAfterShortPrefix(functionBody, bodyDoc, options) ||
       shouldAddParensIfNotBreak(functionBody));
 
-  const isCallee = key === "callee" && isCallLikeExpression(parent);
-
+  const isCallee = path.key === "callee" && isCallLikeExpression(path.parent);
   const chainGroupId = Symbol("arrow-chain");
 
   const signaturesDoc = printArrowFunctionSignatures(path, args, {
@@ -131,7 +122,7 @@ function printArrowFunction(path, options, print, args = {}) {
   let shouldBreakSignatures;
   let shouldIndentSignatures = false;
   if (
-    isChain &&
+    shouldPrintAsChain &&
     (isCallee ||
       // isAssignmentRhs
       args.assignmentLayout)
@@ -145,6 +136,7 @@ function printArrowFunction(path, options, print, args = {}) {
   bodyDoc = printArrowFunctionBody(path, options, args, {
     bodyDoc,
     bodyComments,
+    functionBody,
     shouldPutBodyOnSameLine,
   });
 
@@ -156,10 +148,12 @@ function printArrowFunction(path, options, print, args = {}) {
       { shouldBreak: shouldBreakSignatures, id: chainGroupId }
     ),
     " =>",
-    isChain
+    shouldPrintAsChain
       ? indentIfBreak(bodyDoc, { groupId: chainGroupId })
       : group(bodyDoc),
-    isChain && isCallee ? ifBreak(softline, "", { groupId: chainGroupId }) : "",
+    shouldPrintAsChain && isCallee
+      ? ifBreak(softline, "", { groupId: chainGroupId })
+      : "",
   ]);
 }
 
@@ -285,16 +279,16 @@ function printArrowFunctionSignatures(
  * @param {Object} arrowFunctionBodyPrintOptions
  * @param {Doc} arrowFunctionBodyPrintOptions.bodyDoc
  * @param {Doc[]} arrowFunctionBodyPrintOptions.bodyComments
+ * @param {*} arrowFunctionBodyPrintOptions.functionBody
  * @param {boolean} arrowFunctionBodyPrintOptions.shouldPutBodyOnSameLine
  */
 function printArrowFunctionBody(
   path,
   options,
   args,
-  { bodyDoc, bodyComments, shouldPutBodyOnSameLine }
+  { bodyDoc, bodyComments, functionBody, shouldPutBodyOnSameLine }
 ) {
   const { node, parent } = path;
-  const functionBody = getArrowChainFunctionBody(node);
 
   const trailingComma =
     args.expandLastArg && shouldPrintComma(options, "all") ? ifBreak(",") : "";
