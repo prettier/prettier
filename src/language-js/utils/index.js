@@ -730,10 +730,6 @@ function identity(x) {
   return x;
 }
 
-function isTSXFile(options) {
-  return options.filepath && /\.tsx$/i.test(options.filepath);
-}
-
 /**
  * @param {any} options
  * @param {("es5" | "all")} [level]
@@ -1151,7 +1147,6 @@ export {
   isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
-  isTSXFile,
   isTypeAnnotationAFunction,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
