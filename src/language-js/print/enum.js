@@ -1,4 +1,4 @@
-import { printTypeScriptModifiers, printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./misc.js";
 import { printObject } from "./object.js";
 
 function printEnumMembers(path, print, options) {
@@ -79,7 +79,6 @@ function printEnumDeclaration(path, print, options) {
   const { node } = path;
   return [
     printDeclareToken(path),
-    printTypeScriptModifiers(path, options, print),
     node.const ? "const " : "",
     "enum ",
     print("id"),

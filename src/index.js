@@ -1,48 +1,58 @@
 import vnopts from "vnopts";
 import fastGlob from "fast-glob";
-import core from "./main/core.js";
-import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
+import * as core from "./main/core.js";
+import {
+  getSupportInfo as getSupportInfoWithoutPlugins,
+  normalizeOptionSettings,
+} from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import {
+  loadBuiltinPlugins,
   loadPlugins,
+  searchPlugins,
   clearCache as clearPluginCache,
-} from "./common/load-plugins.js";
+} from "./main/plugins/index.js";
 import {
   resolveConfig,
   resolveConfigFile,
   clearCache as clearConfigCache,
 } from "./config/resolve-config.js";
-import * as languages from "./languages.js";
 import * as errors from "./common/errors.js";
-import * as coreOptions from "./main/core-options.evaluate.js";
-import createIgnorer from "./common/create-ignorer.js";
-import { hiddenDefaults as optionsHiddenDefaults } from "./main/options.js";
-import normalizeOptions from "./main/options-normalizer.js";
-import arrayify from "./utils/arrayify.js";
+import * as optionCategories from "./main/option-categories.js";
+import { createIsIgnoredFunction } from "./utils/ignore.js";
+import { formatOptionsHiddenDefaults } from "./main/normalize-format-options.js";
+import normalizeOptions from "./main/normalize-options.js";
 import partition from "./utils/partition.js";
-import { isNonEmptyArray } from "./common/util.js";
-
-const builtinPlugins = Object.values(languages);
+import isNonEmptyArray from "./utils/is-non-empty-array.js";
+import omit from "./utils/object-omit.js";
 
 /**
  * @param {*} fn
- * @param {*} optsArgIdx
+ * @param {number} [optionsArgumentIndex]
  * @returns {*}
  */
 function withPlugins(
   fn,
-  optsArgIdx = 1 // Usually `opts` is the 2nd argument
+  optionsArgumentIndex = 1 // Usually `options` is the 2nd argument
 ) {
   return async (...args) => {
-    const opts = args[optsArgIdx] || {};
+    const options = args[optionsArgumentIndex] ?? {};
+    const { plugins = [], pluginSearchDirs } = options;
 
-    args[optsArgIdx] = {
-      ...opts,
-      plugins: [
-        ...builtinPlugins,
-        ...(await loadPlugins(opts.plugins, opts.pluginSearchDirs)),
-      ],
+    args[optionsArgumentIndex] = {
+      ...options,
+      plugins: (
+        await Promise.all([
+          loadBuiltinPlugins(),
+          // TODO: standalone version allow `plugins` to be `prettierPlugins` which is an object, should allow that too
+          loadPlugins(plugins),
+          options.pluginSearchDirs === false
+            ? []
+            : searchPlugins(pluginSearchDirs),
+        ])
+      ).flat(),
     };
+
     return fn(...args);
   };
 }
@@ -76,23 +86,24 @@ const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 // Internal shared with cli
 const sharedWithCli = {
   errors,
-  coreOptions,
-  createIgnorer,
-  optionsHiddenDefaults,
+  optionCategories,
+  createIsIgnoredFunction,
+  formatOptionsHiddenDefaults,
   normalizeOptions,
   getSupportInfoWithoutPlugins,
+  normalizeOptionSettings,
   vnopts,
   fastGlob,
   utils: {
-    arrayify,
     isNonEmptyArray,
     partition,
+    omit,
   },
 };
 
 const debugApis = {
   parse: withPlugins(core.parse),
-  formatAST: withPlugins(core.formatAST),
+  formatAST: withPlugins(core.formatAst),
   formatDoc: withPlugins(core.formatDoc),
   printToDoc: withPlugins(core.printToDoc),
   printDocToString: withPlugins(core.printDocToString),
@@ -110,6 +121,6 @@ export {
   sharedWithCli as __internal,
   debugApis as __debug,
 };
-export * as util from "./common/util-shared.js";
-export * as doc from "./document/index.js";
+export * as util from "./utils/public.js";
+export * as doc from "./document/public.js";
 export { default as version } from "./main/version.evaluate.cjs";

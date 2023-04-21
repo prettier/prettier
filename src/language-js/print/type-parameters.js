@@ -1,4 +1,4 @@
-import { printDanglingComments } from "../../main/comments.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import {
   join,
   line,
@@ -12,20 +12,33 @@ import {
   isTestCall,
   hasComment,
   CommentCheckFlags,
-  isTSXFile,
   shouldPrintComma,
   getFunctionParameters,
   isObjectType,
-  getTypeScriptMappedTypeModifier,
 } from "../utils/index.js";
-import { createGroupIdMapper } from "../../common/util.js";
+import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
 import {
   printTypeAnnotationProperty,
   shouldHugType,
 } from "./type-annotation.js";
 import { isArrowFunctionVariableDeclarator } from "./assignment.js";
+import { printTypeScriptMappedTypeModifier } from "./mapped-type.js";
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
+
+// Keep comma if the file extension not `.ts` and
+// has one type parameter that isn't extend with any types.
+// Because, otherwise formatted result will be invalid as tsx.
+function shouldForceTrailingComma(path, options, paramsKey) {
+  const { node } = path;
+  return (
+    getFunctionParameters(node).length === 1 &&
+    node.type.startsWith("TS") &&
+    !node[paramsKey][0].constraint &&
+    path.parent.type === "ArrowFunctionExpression" &&
+    !(options.filepath && /\.ts$/.test(options.filepath))
+  );
+}
 
 function printTypeParameters(path, options, print, paramsKey) {
   const { node } = path;
@@ -68,18 +81,12 @@ function printTypeParameters(path, options, print, paramsKey) {
     ];
   }
 
-  // Keep comma if the file extension is .tsx and
-  // has one type parameter that isn't extend with any types.
-  // Because, otherwise formatted result will be invalid as tsx.
   const trailingComma =
     node.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
       ? ""
-      : getFunctionParameters(node).length === 1 &&
-        isTSXFile(options) &&
-        !node[paramsKey][0].constraint &&
-        path.parent.type === "ArrowFunctionExpression"
+      : shouldForceTrailingComma(path, options, paramsKey)
       ? ","
-      : shouldPrintComma(options, "all")
+      : shouldPrintComma(options)
       ? ifBreak(",")
       : "";
 
@@ -101,11 +108,9 @@ function printDanglingCommentsForInline(path, options) {
     return "";
   }
   const hasOnlyBlockComments = !hasComment(node, CommentCheckFlags.Line);
-  const printed = printDanglingComments(
-    path,
-    options,
-    /* sameIndent */ hasOnlyBlockComments
-  );
+  const printed = printDanglingComments(path, options, {
+    indent: !hasOnlyBlockComments,
+  });
   if (hasOnlyBlockComments) {
     return printed;
   }
@@ -113,16 +118,19 @@ function printDanglingCommentsForInline(path, options) {
 }
 
 function printTypeParameter(path, options, print) {
-  const { node } = path;
-  const parts = [];
-  const { parent } = path;
+  const { node, parent } = path;
+
+  /**
+   * @type {import("../../document/builders.js").Doc[]}
+   */
+  const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
 
   const name = node.type === "TSTypeParameter" ? print("name") : node.name;
 
   if (parent.type === "TSMappedType") {
     if (parent.readonly) {
       parts.push(
-        getTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
+        printTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
         " "
       );
     }
@@ -155,18 +163,22 @@ function printTypeParameter(path, options, print) {
   parts.push(name);
 
   if (node.bound) {
+    if (node.usesExtendsBound) {
+      parts.push(" extends ");
+    }
+
     parts.push(printTypeAnnotationProperty(path, print, "bound"));
   }
 
   if (node.constraint) {
-    parts.push(" extends ", print("constraint"));
+    parts.push(" extends", indent([line, print("constraint")]));
   }
 
   if (node.default) {
     parts.push(" = ", print("default"));
   }
 
-  return parts;
+  return group(parts);
 }
 
 export { printTypeParameter, printTypeParameters, getTypeParametersGroupId };

@@ -1,12 +1,14 @@
+// @ts-expect-error
 import { __internal as sharedWithCli } from "../index.js";
 
 export const {
   errors,
-  coreOptions,
-  createIgnorer,
-  optionsHiddenDefaults,
+  optionCategories,
+  createIsIgnoredFunction,
+  formatOptionsHiddenDefaults,
   normalizeOptions,
   getSupportInfoWithoutPlugins,
+  normalizeOptionSettings,
   vnopts,
   fastGlob,
 } = sharedWithCli;

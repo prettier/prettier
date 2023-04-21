@@ -1,4 +1,4 @@
-import { printComments } from "../../main/comments.js";
+import { printComments } from "../../main/comments/print.js";
 import { DOC_TYPE_FILL, DOC_TYPE_GROUP } from "../../document/constants.js";
 import {
   join,
@@ -13,14 +13,13 @@ import { cleanDoc, getDocParts } from "../../document/utils.js";
 import {
   hasLeadingOwnLineComment,
   isBinaryish,
-  isJsxNode,
+  isJsxElement,
   shouldFlatten,
   hasComment,
   CommentCheckFlags,
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-  isEnabledHackPipeline,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
 } from "../utils/index.js";
@@ -37,7 +36,7 @@ function printBinaryishExpression(path, options, print) {
       parent.type === "SwitchStatement" ||
       parent.type === "DoWhileStatement");
   const isHackPipeline =
-    isEnabledHackPipeline(options) && node.operator === "|>";
+    node.operator === "|>" && path.root.extra?.__isUsingHackPipeline;
 
   const parts = printBinaryishExpressions(
     path,
@@ -135,7 +134,7 @@ function printBinaryishExpression(path, options, print) {
   //     </Foo>
   //   )
 
-  const hasJsx = isJsxNode(node.right);
+  const hasJsx = isJsxElement(node.right);
 
   const firstGroupIndex = parts.findIndex(
     (part) =>
@@ -230,7 +229,7 @@ function printBinaryishExpressions(
   const lineBeforeOperator =
     (node.operator === "|>" ||
       node.type === "NGPipeExpression" ||
-      (node.operator === "|" && options.parser === "__vue_expression")) &&
+      isVueFilterSequenceExpression(path, options)) &&
     !hasLeadingOwnLineComment(options.originalText, node.right);
 
   const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
@@ -253,7 +252,8 @@ function printBinaryishExpressions(
   if (shouldInline) {
     right = [operator, " ", print("right"), rightSuffix];
   } else {
-    const isHackPipeline = isEnabledHackPipeline(options) && operator === "|>";
+    const isHackPipeline =
+      operator === "|>" && path.root.extra?.__isUsingHackPipeline;
     const rightContent = isHackPipeline
       ? path.call(
           (left) =>
@@ -327,11 +327,25 @@ function shouldInlineLogicalExpression(node) {
     return true;
   }
 
-  if (isJsxNode(node.right)) {
+  if (isJsxElement(node.right)) {
     return true;
   }
 
   return false;
+}
+
+const isBitwiseOrExpression = (node) =>
+  node.type === "BinaryExpression" && node.operator === "|";
+
+function isVueFilterSequenceExpression(path, options) {
+  return (
+    (options.parser === "__vue_expression" ||
+      options.parser === "__vue_ts_expression") &&
+    isBitwiseOrExpression(path.node) &&
+    !path.hasAncestor(
+      (node) => !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot"
+    )
+  );
 }
 
 export { printBinaryishExpression, shouldInlineLogicalExpression };

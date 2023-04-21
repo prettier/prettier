@@ -4,18 +4,18 @@ import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import browserslistToEsbuild from "browserslist-to-esbuild";
-import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
-import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
-import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
-import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
-import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
-import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
-import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
-import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.mjs";
-import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
-import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.mjs";
-import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.mjs";
+import { PROJECT_ROOT, DIST_DIR } from "../utils/index.js";
+import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
+import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.js";
+import esbuildPluginLicense from "./esbuild-plugins/license.js";
+import esbuildPluginUmd from "./esbuild-plugins/umd.js";
+import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.js";
+import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.js";
+import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.js";
+import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.js";
+import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
 import transform from "./transform/index.js";
+import { getPackageFile } from "./utils.js";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
@@ -63,10 +63,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     })),
     // https://github.com/evanw/esbuild/issues/2103
     {
-      module: path.join(
-        path.dirname(require.resolve("outdent/package.json")),
-        "lib-module/index.js"
-      ),
+      module: getPackageFile("outdent/lib-module/index.js"),
       process(text) {
         const index = text.indexOf('if (typeof module !== "undefined") {');
         if (index === -1) {
@@ -173,26 +170,13 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       {
         module: "module",
         text: "export const createRequire = () => {};",
+      },
+      // This module requires file access, should not include in universal bundle
+      {
+        module: path.join(PROJECT_ROOT, "src/utils/get-interpreter.js"),
+        text: "export default undefined;",
       }
     );
-
-    // Replace parser getters with `undefined`
-    for (const file of [
-      "src/language-css/parsers.js",
-      "src/language-graphql/parsers.js",
-      "src/language-html/parsers.js",
-      "src/language-handlebars/parsers.js",
-      "src/language-js/parse/parsers.js",
-      "src/language-markdown/parsers.js",
-      "src/language-yaml/parsers.js",
-      // This module requires file access, should not include in universal bundle
-      "src/utils/get-interpreter.js",
-    ]) {
-      replaceModule.push({
-        module: path.join(PROJECT_ROOT, file),
-        text: "export default undefined;",
-      });
-    }
   }
 
   const { buildOptions } = file;
@@ -248,17 +232,12 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       esbuildOptions.plugins.push(
         esbuildPluginUmd({
           name: file.output.umdVariableName,
-          interopDefault: buildOptions.interopDefault ?? true,
         })
       );
     }
   } else {
     esbuildOptions.platform = "node";
     esbuildOptions.external.push(...files.map((file) => file.output.file));
-
-    if (file.output.format !== "esm" && buildOptions.interopDefault) {
-      esbuildOptions.plugins.push(esbuildPluginInteropDefault());
-    }
 
     // https://github.com/evanw/esbuild/issues/1921
     if (file.output.format === "esm") {

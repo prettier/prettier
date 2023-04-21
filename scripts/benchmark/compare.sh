@@ -18,8 +18,8 @@ for commit in "${commits[@]}"; do
   rm -rf $commit
   git -C "$root" archive $commit --prefix $commit/ ':!tests*' ':!website' ':!docs' | tar -x
   (cd $commit; yarn; yarn build)
-  args+=("node ./bench.mjs $commit serial")
-  args+=("node ./bench.mjs $commit parallel")
+  args+=("node ./bench.js $commit serial")
+  args+=("node ./bench.js $commit parallel")
 done
 
 hyperfine --warmup 3 "${args[@]}"

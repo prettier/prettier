@@ -1,5 +1,6 @@
-import { isNonEmptyArray, createGroupIdMapper } from "../../common/util.js";
-import { printDanglingComments } from "../../main/comments.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import {
   join,
   line,
@@ -21,6 +22,8 @@ import {
   printOptionalToken,
   printDefiniteToken,
   printDeclareToken,
+  printAbstractToken,
+  printTypeScriptAccessibilityToken,
 } from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
@@ -49,11 +52,7 @@ const isClassProperty = createTypeCheckFunction([
 function printClass(path, options, print) {
   const { node } = path;
   /** @type {Doc[]} */
-  const parts = [
-    printDeclareToken(path),
-    node.abstract ? "abstract " : "",
-    "class",
-  ];
+  const parts = [printDeclareToken(path), printAbstractToken(path), "class"];
 
   const partsGroup = [
     ...(node.id ? [" ", print("id")] : []),
@@ -125,12 +124,9 @@ function printHeritageClauses(path, options, print, listName) {
       ? printSuperClass(path, options, print)
       : join([",", line], path.map(print, listName));
 
-  const printedLeadingComments = printDanglingComments(
-    path,
-    options,
-    /* sameIndent */ true,
-    ({ marker }) => marker === listName
-  );
+  const printedLeadingComments = printDanglingComments(path, options, {
+    marker: listName,
+  });
   return [
     shouldIndentOnlyHeritageClauses(node)
       ? ifBreak(" ", line, {
@@ -163,16 +159,15 @@ function printClassMethod(path, options, print) {
   if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
-  if (node.accessibility) {
-    parts.push(node.accessibility + " ");
-  }
+
+  parts.push(printTypeScriptAccessibilityToken(node));
 
   if (node.static) {
     parts.push("static ");
   }
-  if (node.type === "TSAbstractMethodDefinition" || node.abstract) {
-    parts.push("abstract ");
-  }
+
+  parts.push(printAbstractToken(path));
+
   if (node.override) {
     parts.push("override ");
   }
@@ -190,22 +185,15 @@ function printClassProperty(path, options, print) {
   if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
-  if (node.accessibility) {
-    parts.push(node.accessibility + " ");
-  }
 
-  parts.push(printDeclareToken(path));
+  parts.push(printTypeScriptAccessibilityToken(node), printDeclareToken(path));
 
   if (node.static) {
     parts.push("static ");
   }
-  if (
-    node.type === "TSAbstractPropertyDefinition" ||
-    node.type === "TSAbstractAccessorProperty" ||
-    node.abstract
-  ) {
-    parts.push("abstract ");
-  }
+
+  parts.push(printAbstractToken(path));
+
   if (node.override) {
     parts.push("override ");
   }
@@ -271,7 +259,7 @@ function printClassBody(path, options, print) {
   }, "body");
 
   if (hasComment(node, CommentCheckFlags.Dangling)) {
-    parts.push(printDanglingComments(path, options, /* sameIndent */ true));
+    parts.push(printDanglingComments(path, options));
   }
 
   return [
@@ -290,11 +278,7 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   if (
     !node.computed &&
     type === "Identifier" &&
-    (name === "static" ||
-      name === "get" ||
-      name === "set" ||
-      // TODO: Remove this https://github.com/microsoft/TypeScript/issues/51707 is fixed
-      name === "accessor") &&
+    (name === "static" || name === "get" || name === "set") &&
     !node.value &&
     !node.typeAnnotation
   ) {

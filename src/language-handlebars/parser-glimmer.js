@@ -1,3 +1,9 @@
+/*
+  The module version `@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js`
+  can't be be imported since it use `.js` extension, and don't have `type: module` in `package.json`
+  We'll replace it during build
+  */
+import { preprocess as parseGlimmer } from "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js";
 import { LinesAndColumns } from "lines-and-columns";
 import createError from "../common/parser-create-error.js";
 import { locStart, locEnd } from "./loc.js";
@@ -47,19 +53,10 @@ function createPlugin(text) {
   });
 }
 
-async function parse(text /*, options */) {
-  // Inline `import()` to avoid loading all the JS if we don't use it
-  /*
-  The module version `@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js`
-  can't be be imported since it use `.js` extension, and don't have `type: module` in `package.json`
-  We'll replace it during build
-  */
-  const { preprocess: glimmer } = await import(
-    "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js"
-  );
+function parse(text /*, options */) {
   let ast;
   try {
-    ast = glimmer(text, {
+    ast = parseGlimmer(text, {
       mode: "codemod",
       plugins: { ast: [createPlugin(text)] },
     });
@@ -149,15 +146,9 @@ function getErrorLocation(error) {
   }
 }
 
-const glimmerParser = {
-  parsers: {
-    glimmer: {
-      parse,
-      astFormat: "glimmer",
-      locStart,
-      locEnd,
-    },
-  },
+export const glimmer = {
+  parse,
+  astFormat: "glimmer",
+  locStart,
+  locEnd,
 };
-
-export default glimmerParser;

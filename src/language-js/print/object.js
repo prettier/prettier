@@ -1,4 +1,4 @@
-import { printDanglingComments } from "../../main/comments.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import {
   line,
   softline,
@@ -7,11 +7,9 @@ import {
   ifBreak,
   hardline,
 } from "../../document/builders.js";
-import {
-  hasNewlineInRange,
-  hasNewline,
-  isNonEmptyArray,
-} from "../../common/util.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import hasNewline from "../../utils/has-newline.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
   shouldPrintComma,
   hasComment,
@@ -135,11 +133,7 @@ function printObject(path, options, print) {
     let printed;
     if (hasComment(node, CommentCheckFlags.Dangling)) {
       const hasLineComments = hasComment(node, CommentCheckFlags.Line);
-      const printedDanglingComments = printDanglingComments(
-        path,
-        options,
-        /* sameIndent */ true
-      );
+      const printedDanglingComments = printDanglingComments(path, options);
       printed = [
         printedDanglingComments,
         hasLineComments ||
@@ -176,7 +170,7 @@ function printObject(path, options, print) {
 
     content = group([
       leftBrace,
-      printDanglingComments(path, options),
+      printDanglingComments(path, options, { indent: true }),
       softline,
       rightBrace,
       printOptionalToken(path),

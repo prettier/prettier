@@ -1,4 +1,4 @@
-import { printComments } from "../../main/comments.js";
+import { printComments } from "../../main/comments/print.js";
 import {
   group,
   join,
@@ -23,7 +23,15 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printOptionalToken, printDeclareToken } from "./misc.js";
+import {
+  printOptionalToken,
+  printDeclareToken,
+  printAbstractToken,
+} from "./misc.js";
+
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -106,31 +114,35 @@ function printTypeAlias(path, options, print) {
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
 function printIntersectionType(path, options, print) {
-  const { node } = path;
-  const types = path.map(print, "types");
-  const result = [];
   let wasIndented = false;
-  for (let i = 0; i < types.length; ++i) {
-    if (i === 0) {
-      result.push(types[i]);
-    } else if (isObjectType(node.types[i - 1]) && isObjectType(node.types[i])) {
+  return group(
+    path.map(({ isFirst, previous, node, index }) => {
+      const doc = print();
+      if (isFirst) {
+        return doc;
+      }
+
+      const currentIsObjectType = isObjectType(node);
+      const previousIsObjectType = isObjectType(previous);
+
       // If both are objects, don't indent
-      result.push([" & ", wasIndented ? indent(types[i]) : types[i]]);
-    } else if (
-      !isObjectType(node.types[i - 1]) &&
-      !isObjectType(node.types[i])
-    ) {
+      if (previousIsObjectType && currentIsObjectType) {
+        return [" & ", wasIndented ? indent(doc) : doc];
+      }
+
       // If no object is involved, go to the next line if it breaks
-      result.push(indent([" &", line, types[i]]));
-    } else {
+      if (!previousIsObjectType && !currentIsObjectType) {
+        return indent([" &", line, doc]);
+      }
+
       // If you go from object to non-object or vis-versa, then inline it
-      if (i > 1) {
+      if (index > 1) {
         wasIndented = true;
       }
-      result.push(" & ", i > 1 ? indent(types[i]) : types[i]);
-    }
-  }
-  return group(result);
+
+      return [" & ", index > 1 ? indent(doc) : doc];
+    }, "types")
+  );
 }
 
 // `TSUnionType` and `UnionTypeAnnotation`
@@ -253,11 +265,11 @@ function isFlowArrowFunctionTypeAnnotation(path) {
 */
 function printFunctionType(path, options, print) {
   const { node } = path;
-  const parts = [];
-
-  if (node.type === "TSConstructorType" && node.abstract) {
-    parts.push("abstract ");
-  }
+  /** @type {Doc[]} */
+  const parts = [
+    // `TSConstructorType` only
+    printAbstractToken(path),
+  ];
 
   if (
     node.type === "TSConstructorType" ||
@@ -316,6 +328,14 @@ function printIndexedAccessType(path, options, print) {
   ];
 }
 
+/*
+- `TSInferType`(TypeScript)
+- `InferTypeAnnotation`(flow)
+*/
+function printInferType(path, options, print) {
+  return ["infer ", print("typeParameter")];
+}
+
 // `TSJSDocNullableType`, `TSJSDocNonNullableType`
 function printJSDocType(path, print, token) {
   const { node } = path;
@@ -359,6 +379,11 @@ function printNamedTupleMember(path, options, print) {
   ];
 }
 
+/*
+Normally the `(TS)TypeAnnotation` node starts with `:` token.
+If we print `:` in parent node, `cursorNodeDiff` in `/src/main/core.js` will consider `:` is removed, cause cursor moves, see #12491.
+Token *before* `(TS)TypeAnnotation.typeAnnotation` should be printed in `getTypeAnnotationFirstToken` function.
+*/
 const typeAnnotationNodesCheckedLeadingComments = new WeakSet();
 function printTypeAnnotationProperty(
   path,
@@ -432,6 +457,21 @@ const getTypeAnnotationFirstToken = (path) => {
       (node) => node.type === "TypeAnnotation",
       (node, key) => key === "typeAnnotation" && node.type === "Identifier",
       (node, key) => key === "id" && node.type === "DeclareFunction"
+    ) ||
+    /*
+    Flow
+
+    ```js
+    type A = () => infer R extends string;
+                                   ^^^^^^ `TypeAnnotation`
+    ```
+    */
+    path.match(
+      (node) => node.type === "TypeAnnotation",
+      (node, key) =>
+        key === "bound" &&
+        node.type === "TypeParameter" &&
+        node.usesExtendsBound
     )
   ) {
     return "";
@@ -468,6 +508,27 @@ function printTypeAnnotation(path, options, print) {
     : print("typeAnnotation");
 }
 
+/*
+- `TSArrayType`
+- `ArrayTypeAnnotation`
+*/
+function printArrayType(print) {
+  return [print("elementType"), "[]"];
+}
+
+/*
+- `TSTypeQuery`
+- `TypeofTypeAnnotation`
+*/
+function printTypeQuery({ node }, print) {
+  return [
+    "typeof ",
+    ...(node.type === "TSTypeQuery"
+      ? [print("exprName"), print("typeParameters")]
+      : [print("argument")]),
+  ];
+}
+
 export {
   printOpaqueType,
   printTypeAlias,
@@ -475,10 +536,13 @@ export {
   printUnionType,
   printFunctionType,
   printIndexedAccessType,
+  printInferType,
   shouldHugType,
   printJSDocType,
   printRestType,
   printNamedTupleMember,
   printTypeAnnotationProperty,
   printTypeAnnotation,
+  printArrayType,
+  printTypeQuery,
 };

@@ -1,10 +1,10 @@
-import { printDanglingComments } from "../../main/comments.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import {
   getFunctionParameters,
   hasComment,
   CommentCheckFlags,
   isFunctionCompositionArgs,
-  isJsxNode,
+  isJsxElement,
   isLongCurriedCallExpression,
   shouldPrintComma,
   getCallArguments,
@@ -44,11 +44,7 @@ function printCallArguments(path, options, print) {
 
   const args = getCallArguments(node);
   if (args.length === 0) {
-    return [
-      "(",
-      printDanglingComments(path, options, /* sameIndent */ true),
-      ")",
-    ];
+    return ["(", printDanglingComments(path, options), ")"];
   }
 
   // useEffect(() => { ... }, [foo, bar, baz])
@@ -216,7 +212,7 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
         (!arrowChainRecursion &&
           (isCallExpression(arg.body) ||
             arg.body.type === "ConditionalExpression")) ||
-        isJsxNode(arg.body))) ||
+        isJsxElement(arg.body))) ||
     arg.type === "DoExpression" ||
     arg.type === "ModuleExpression"
   );

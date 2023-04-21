@@ -143,6 +143,12 @@ exports[`visitor keys estree 1`] = `
     "consequent",
     "alternate",
   ],
+  "ConditionalTypeAnnotation": [
+    "checkType",
+    "extendsType",
+    "trueType",
+    "falseType",
+  ],
   "ContinueStatement": [
     "label",
   ],
@@ -176,8 +182,6 @@ exports[`visitor keys estree 1`] = `
     "id",
     "typeParameters",
     "extends",
-    "mixins",
-    "implements",
     "body",
   ],
   "DeclareModule": [
@@ -370,13 +374,14 @@ exports[`visitor keys estree 1`] = `
     "objectType",
     "indexType",
   ],
+  "InferTypeAnnotation": [
+    "typeParameter",
+  ],
   "InferredPredicate": [],
   "InterfaceDeclaration": [
     "id",
     "typeParameters",
     "extends",
-    "mixins",
-    "implements",
     "body",
   ],
   "InterfaceExtends": [
@@ -441,6 +446,9 @@ exports[`visitor keys estree 1`] = `
   "JsonRoot": [
     "node",
   ],
+  "KeyofTypeAnnotation": [
+    "argument",
+  ],
   "LabeledStatement": [
     "label",
     "body",
@@ -462,7 +470,6 @@ exports[`visitor keys estree 1`] = `
     "decorators",
     "key",
     "value",
-    "typeParameters",
   ],
   "MixedTypeAnnotation": [],
   "ModuleExpression": [
@@ -559,6 +566,12 @@ exports[`visitor keys estree 1`] = `
     "static",
     "method",
   ],
+  "ObjectTypeMappedTypeProperty": [
+    "keyTparam",
+    "propType",
+    "sourceType",
+    "variance",
+  ],
   "ObjectTypeProperty": [
     "key",
     "value",
@@ -605,12 +618,10 @@ exports[`visitor keys estree 1`] = `
   "Program": [
     "directives",
     "body",
-    "interpreter",
   ],
   "Property": [
     "key",
     "value",
-    "decorators",
   ],
   "PropertyDefinition": [
     "decorators",
@@ -670,7 +681,6 @@ exports[`visitor keys estree 1`] = `
   "TSAbstractMethodDefinition": [
     "key",
     "value",
-    "decorators",
   ],
   "TSAbstractPropertyDefinition": [
     "decorators",
@@ -743,7 +753,6 @@ exports[`visitor keys estree 1`] = `
   "TSEnumDeclaration": [
     "id",
     "members",
-    "modifiers",
   ],
   "TSEnumMember": [
     "id",
@@ -839,7 +848,6 @@ exports[`visitor keys estree 1`] = `
   "TSModuleDeclaration": [
     "id",
     "body",
-    "modifiers",
   ],
   "TSNamedTupleMember": [
     "label",
@@ -869,7 +877,6 @@ exports[`visitor keys estree 1`] = `
   "TSPropertySignature": [
     "key",
     "typeAnnotation",
-    "initializer",
   ],
   "TSProtectedKeyword": [],
   "TSPublicKeyword": [],

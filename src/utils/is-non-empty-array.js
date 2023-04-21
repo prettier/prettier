@@ -1,5 +1,5 @@
 /**
- * @param {any} object
+ * @param {unknown} object
  * @returns {object is Array<any>}
  */
 function isNonEmptyArray(object) {

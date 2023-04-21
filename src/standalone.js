@@ -1,25 +1,19 @@
-import core from "./main/core.js";
+import * as core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
-import * as languages from "./languages.js";
-
-const builtinPlugins = Object.values(languages);
 
 function withPlugins(
   fn,
-  optsArgIdx = 1 // Usually `opts` is the 2nd argument
+  optionsArgumentIndex = 1 // Usually `options` is the 2nd argument
 ) {
   // Returns Promises to consistent with functions in `index.js`
   // eslint-disable-next-line require-await
   return async (...args) => {
-    const opts = args[optsArgIdx] || {};
-    const plugins = opts.plugins || [];
+    const options = args[optionsArgumentIndex] ?? {};
+    const plugins = options.plugins ?? [];
 
-    args[optsArgIdx] = {
-      ...opts,
-      plugins: [
-        ...builtinPlugins,
-        ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
-      ],
+    args[optionsArgumentIndex] = {
+      ...options,
+      plugins: Array.isArray(plugins) ? plugins : Object.values(plugins),
     };
 
     return fn(...args);
@@ -44,7 +38,7 @@ const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 
 const debugApis = {
   parse: withPlugins(core.parse),
-  formatAST: withPlugins(core.formatAST),
+  formatAST: withPlugins(core.formatAst),
   formatDoc: withPlugins(core.formatDoc),
   printToDoc: withPlugins(core.printToDoc),
   printDocToString: withPlugins(core.printDocToString),
@@ -57,6 +51,6 @@ export {
   getSupportInfo,
   debugApis as __debug,
 };
-export * as util from "./common/util-shared.js";
-export * as doc from "./document/index.js";
+export * as util from "./utils/public.js";
+export * as doc from "./document/public.js";
 export { default as version } from "./main/version.evaluate.cjs";

@@ -1,4 +1,5 @@
-import { isNonEmptyArray, getStringWidth } from "../../common/util.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import getStringWidth from "../../utils/get-string-width.js";
 import {
   line,
   group,
@@ -11,7 +12,6 @@ import {
   hasLeadingOwnLineComment,
   isBinaryish,
   isStringLiteral,
-  isLiteral,
   isNumericLiteral,
   isCallExpression,
   isMemberExpression,
@@ -24,6 +24,7 @@ import {
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
+import { isLiteral } from "./literal.js";
 
 function printAssignment(
   path,
@@ -331,7 +332,7 @@ function isPoorlyBreakableMemberOrCallChain(
   const goDeeper = () =>
     isPoorlyBreakableMemberOrCallChain(path, options, print, true);
 
-  if (node.type === "TSNonNullExpression") {
+  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
     return path.call(goDeeper, "expression");
   }
 

@@ -72,14 +72,14 @@ function parse(text, options = {}) {
     (sourceType) => () => parseWithOptions(text, sourceType)
   );
 
-  const { result: ast, error } = tryCombinations(combinations);
-
-  if (!ast) {
+  let ast;
+  try {
+    ast = tryCombinations(combinations);
+  } catch ({ errors: [error] }) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { text });
 }
 
-export default createParser(parse);
+export const acorn = createParser(parse);

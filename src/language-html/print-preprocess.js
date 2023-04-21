@@ -1,8 +1,7 @@
 import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import {
-  htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,
-  hasHtmlWhitespace,
   canHaveInterpolation,
   getNodeCssStyleDisplay,
   isDanglingSpaceSensitiveNode,
@@ -10,7 +9,6 @@ import {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-  isVueScriptTag,
 } from "./utils/index.js";
 
 const PREPROCESS_PIPELINE = [
@@ -24,7 +22,6 @@ const PREPROCESS_PIPELINE = [
   addHasHtmComponentClosingTag,
   addIsSpaceSensitive,
   mergeSimpleElementIntoText,
-  markTsScript,
 ];
 
 function preprocess(ast, options) {
@@ -145,7 +142,7 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.attrs.length === 0 &&
     node.children.length === 1 &&
     node.firstChild.type === "text" &&
-    !hasHtmlWhitespace(node.children[0].value) &&
+    !htmlWhitespaceUtils.hasWhitespaceCharacter(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
     node.isLeadingSpaceSensitive &&
@@ -264,7 +261,7 @@ function extractWhitespaces(ast /*, options*/) {
       node.children.length === 0 ||
       (node.children.length === 1 &&
         node.children[0].type === "text" &&
-        htmlTrim(node.children[0].value).length === 0)
+        htmlWhitespaceUtils.trim(node.children[0].value).length === 0)
     ) {
       node.hasDanglingSpaces = node.children.length > 0;
       node.children = [];
@@ -402,21 +399,6 @@ function addIsSpaceSensitive(ast, options) {
             child.isTrailingSpaceSensitive;
     }
   });
-}
-
-function markTsScript(ast, options) {
-  if (options.parser === "vue") {
-    const vueScriptTag = ast.children.find((child) =>
-      isVueScriptTag(child, options)
-    );
-    if (!vueScriptTag) {
-      return;
-    }
-    const { lang } = vueScriptTag.attrMap;
-    if (lang === "ts" || lang === "typescript") {
-      options.__should_parse_vue_template_with_ts = true;
-    }
-  }
 }
 
 export default preprocess;

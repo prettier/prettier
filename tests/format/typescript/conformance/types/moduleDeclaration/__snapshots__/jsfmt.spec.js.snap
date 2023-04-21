@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`kind-detection.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare /* module */ namespace A {}
+
+=====================================output=====================================
+declare namespace /* module */ A {}
+
+================================================================================
+`;
+
 exports[`moduleDeclaration.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

@@ -9,7 +9,6 @@ import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 import frontMatter from "./unified-plugins/front-matter.js";
 import liquid from "./unified-plugins/liquid.js";
 import wikiLink from "./unified-plugins/wiki-link.js";
-import looseItems from "./unified-plugins/loose-items.js";
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -38,8 +37,7 @@ function createParse({ isMDX }) {
       .use(isMDX ? esSyntax : identity)
       .use(liquid)
       .use(isMDX ? htmlToJsx : identity)
-      .use(wikiLink)
-      .use(looseItems);
+      .use(wikiLink);
     return processor.run(processor.parse(text));
   };
 }
@@ -55,16 +53,6 @@ const baseParser = {
   locEnd,
 };
 
-const markdownParser = { ...baseParser, parse: createParse({ isMDX: false }) };
-
-const mdxParser = { ...baseParser, parse: createParse({ isMDX: true }) };
-
-const markdown = {
-  parsers: {
-    remark: markdownParser,
-    markdown: markdownParser,
-    mdx: mdxParser,
-  },
-};
-
-export default markdown;
+export const markdown = { ...baseParser, parse: createParse({ isMDX: false }) };
+export const mdx = { ...baseParser, parse: createParse({ isMDX: true }) };
+export { markdown as remark };

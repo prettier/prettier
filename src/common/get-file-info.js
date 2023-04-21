@@ -1,7 +1,6 @@
-import path from "node:path";
-import { inferParser } from "../main/options.js";
+import inferParser from "../utils/infer-parser.js";
 import { resolveConfig } from "../config/resolve-config.js";
-import createIgnorer from "./create-ignorer.js";
+import { isIgnored } from "../utils/ignore.js";
 
 /**
  * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
@@ -24,7 +23,13 @@ async function getFileInfo(filePath, options) {
     );
   }
 
-  const ignored = await isIgnored(filePath, options);
+  let { ignorePath, withNodeModules } = options;
+  // In API we allow single `ignorePath`
+  if (!Array.isArray(ignorePath)) {
+    ignorePath = [ignorePath];
+  }
+
+  const ignored = await isIgnored(filePath, { ignorePath, withNodeModules });
 
   let inferredParser;
   if (!ignored) {
@@ -39,23 +44,11 @@ async function getFileInfo(filePath, options) {
 
 async function getParser(filePath, options) {
   let config;
-  if (options.resolveConfig) {
+  if (options.resolveConfig !== false) {
     config = await resolveConfig(filePath);
   }
 
-  return config?.parser ?? inferParser(filePath, options.plugins);
-}
-
-async function isIgnored(filePath, options) {
-  const { ignorePath, withNodeModules } = options;
-
-  const ignorer = await createIgnorer(ignorePath, withNodeModules);
-
-  const normalizedFilePath = ignorePath
-    ? path.relative(path.dirname(ignorePath), filePath)
-    : filePath;
-
-  return ignorer.ignores(normalizedFilePath);
+  return config?.parser ?? inferParser(options, { physicalFile: filePath });
 }
 
 export default getFileInfo;

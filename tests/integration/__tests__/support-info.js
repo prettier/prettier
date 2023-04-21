@@ -5,7 +5,7 @@ test("API getSupportInfo()", async () => {
 });
 
 describe("CLI --support-info", () => {
-  runPrettier("cli", "--support-info").test({ status: 0 });
+  runCli("cli", "--support-info").test({ status: 0 });
 });
 
 async function getCoreInfo() {

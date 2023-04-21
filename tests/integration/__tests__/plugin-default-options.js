@@ -1,5 +1,5 @@
 describe("plugin default options should work", () => {
-  runPrettier(
+  runCli(
     "plugins/defaultOptions",
     [
       "--stdin-filepath",
@@ -20,7 +20,7 @@ describe("plugin default options should work", () => {
 });
 
 describe("overriding plugin default options should work", () => {
-  runPrettier(
+  runCli(
     "plugins/defaultOptions",
     [
       "--stdin-filepath",

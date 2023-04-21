@@ -1,4 +1,4 @@
-import { printDanglingComments } from "../../main/comments.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import {
   line,
   softline,
@@ -8,7 +8,7 @@ import {
   ifBreak,
   fill,
 } from "../../document/builders.js";
-import { hasNewline } from "../../common/util.js";
+import hasNewline from "../../utils/has-newline.js";
 import {
   shouldPrintComma,
   hasComment,
@@ -33,7 +33,7 @@ function printEmptyArray(path, options, openBracket, closeBracket) {
   }
   return group([
     openBracket,
-    printDanglingComments(path, options),
+    printDanglingComments(path, options, { indent: true }),
     softline,
     closeBracket,
   ]);
@@ -129,7 +129,7 @@ function printArray(path, options, print) {
                   printArrayItems(path, options, elementsProperty, print),
                   trailingComma,
                 ],
-            printDanglingComments(path, options, /* sameIndent */ true),
+            printDanglingComments(path, options),
           ]),
           softline,
           closeBracket,

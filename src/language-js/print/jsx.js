@@ -1,4 +1,7 @@
-import { printComments, printDanglingComments } from "../../main/comments.js";
+import {
+  printComments,
+  printDanglingComments,
+} from "../../main/comments/print.js";
 import {
   line,
   hardline,
@@ -10,13 +13,14 @@ import {
   ifBreak,
   lineSuffixBoundary,
   join,
+  cursor,
 } from "../../document/builders.js";
 import { willBreak, replaceEndOfLine } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-
-import { getPreferredQuote } from "../../common/util.js";
+import getPreferredQuote from "../../utils/get-preferred-quote.js";
+import WhitespaceUtils from "../../utils/whitespace-utils.js";
 import {
-  isJsxNode,
+  isJsxElement,
   rawText,
   isCallExpression,
   isStringLiteral,
@@ -30,6 +34,16 @@ import {
 import pathNeedsParens from "../needs-parens.js";
 import { willPrintOwnComments } from "../comments/printer-methods.js";
 
+/*
+Only the following are treated as whitespace inside JSX.
+
+- U+0020 SPACE
+- U+000A LF
+- U+000D CR
+- U+0009 TAB
+*/
+const jsxWhitespaceUtils = new WhitespaceUtils(" \n\r\t");
+
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
 
@@ -37,6 +51,7 @@ const isEmptyStringOrAnyLine = (doc) =>
  * @typedef {import("../../common/ast-path.js").default} AstPath
  * @typedef {import("../types/estree.js").Node} Node
  * @typedef {import("../types/estree.js").JSXElement} JSXElement
+ * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
 // JSX expands children from the inside-out, instead of the outside-in.
@@ -93,7 +108,7 @@ function printJsxElementInternal(path, options, print) {
     return child;
   });
 
-  const containsTag = node.children.some(isJsxNode);
+  const containsTag = node.children.some(isJsxElement);
   const containsMultipleExpressions =
     node.children.filter((child) => child.type === "JSXExpressionContainer")
       .length > 1;
@@ -223,9 +238,21 @@ function printJsxElementInternal(path, options, print) {
   // If there is text we use `fill` to fit as much onto each line as possible.
   // When there is no text (just tags and expressions) we use `group`
   // to output each on a separate line.
-  const content = containsText
+  /** @type {Doc} */
+  let content = containsText
     ? fill(multilineChildren)
     : group(multilineChildren, { shouldBreak: true });
+
+  /*
+  `printJsxChildren` won't call `print` on `JSXText`
+  When the cursorNode is inside `cursor` won't get print.
+  */
+  if (
+    options.cursorNode?.type === "JSXText" &&
+    node.children.includes(options.cursorNode)
+  ) {
+    content = [cursor, content, cursor];
+  }
 
   if (isMdxBlock) {
     return content;
@@ -274,7 +301,10 @@ function printJsxChildren(
 
       // Contains a non-whitespace character
       if (isMeaningfulJsxText(node)) {
-        const words = text.split(matchJsxWhitespaceRegex);
+        const words = jsxWhitespaceUtils.split(
+          text,
+          /* captureWhitespace */ true
+        );
 
         // Starts with whitespace
         if (words[0] === "") {
@@ -354,9 +384,8 @@ function printJsxChildren(
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
-        const firstWord = trimJsxWhitespace(rawText(next)).split(
-          matchJsxWhitespaceRegex
-        )[0];
+        const trimmed = jsxWhitespaceUtils.trim(rawText(next));
+        const [firstWord] = jsxWhitespaceUtils.split(trimmed);
         parts.push(
           separatorNoWhitespace(isFacebookTranslationTag, firstWord, node, next)
         );
@@ -464,11 +493,11 @@ function printJsxAttribute(path, options, print) {
         .slice(1, -1)
         .replaceAll("&apos;", "'")
         .replaceAll("&quot;", '"');
-      const { escaped, quote, regex } = getPreferredQuote(
-        final,
-        options.jsxSingleQuote ? "'" : '"'
-      );
-      final = final.replace(regex, escaped);
+      const quote = getPreferredQuote(final, options.jsxSingleQuote);
+      final =
+        quote === '"'
+          ? final.replaceAll('"', "&quot;")
+          : final.replaceAll("'", "&apos;");
       res = path.call(
         () =>
           printComments(path, replaceEndOfLine(quote + final + quote), options),
@@ -496,11 +525,13 @@ function printJsxExpressionContainer(path, options, print) {
           (shouldInline(node.argument, node) ||
             node.argument.type === "JSXElement")) ||
         isCallExpression(node) ||
+        (node.type === "ChainExpression" &&
+          isCallExpression(node.expression)) ||
         node.type === "FunctionExpression" ||
         node.type === "TemplateLiteral" ||
         node.type === "TaggedTemplateExpression" ||
         node.type === "DoExpression" ||
-        (isJsxNode(parent) &&
+        (isJsxElement(parent) &&
           (node.type === "ConditionalExpression" || isBinaryish(node)))));
 
   if (shouldInline(node.expression, path.parent)) {
@@ -656,7 +687,7 @@ function printJsxOpeningClosingFragment(path, options /*, print*/) {
         : nodeHasComment && !isOpeningFragment
         ? " "
         : "",
-      printDanglingComments(path, options, true),
+      printDanglingComments(path, options),
     ]),
     hasOwnLineComment ? hardline : "",
     ">",
@@ -677,7 +708,7 @@ function printJsxEmptyExpression(path, options /*, print*/) {
   const requiresHardline = hasComment(node, CommentCheckFlags.Line);
 
   return [
-    printDanglingComments(path, options, /* sameIndent */ !requiresHardline),
+    printDanglingComments(path, options, { indent: requiresHardline }),
     requiresHardline ? hardline : "",
   ];
 }
@@ -747,25 +778,6 @@ function printJsx(path, options, print) {
   }
 }
 
-// Only space, newline, carriage return, and tab are treated as whitespace
-// inside JSX.
-const jsxWhitespaceChars = " \n\r\t";
-const matchJsxWhitespaceRegex = new RegExp("([" + jsxWhitespaceChars + "]+)");
-const containsNonJsxWhitespaceRegex = new RegExp(
-  "[^" + jsxWhitespaceChars + "]"
-);
-const trimJsxWhitespace = (text) =>
-  text.replace(
-    new RegExp(
-      "^" +
-        matchJsxWhitespaceRegex.source +
-        "|" +
-        matchJsxWhitespaceRegex.source +
-        "$"
-    ),
-    ""
-  );
-
 /**
  * @param {JSXElement} node
  * @returns {boolean}
@@ -793,7 +805,7 @@ function isEmptyJsxElement(node) {
 function isMeaningfulJsxText(node) {
   return (
     node.type === "JSXText" &&
-    (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
+    (jsxWhitespaceUtils.hasNonWhitespaceCharacter(rawText(node)) ||
       !/\n/.test(rawText(node)))
   );
 }
@@ -814,7 +826,7 @@ function isJsxWhitespaceExpression(node) {
  */
 function hasJsxIgnoreComment(path) {
   const { node, parent } = path;
-  if (!isJsxNode(node) || !isJsxNode(parent)) {
+  if (!isJsxElement(node) || !isJsxElement(parent)) {
     return false;
   }
 

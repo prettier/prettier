@@ -1,15 +1,15 @@
-import { getMaxContinuousCount } from "../common/util.js";
+import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import { hardline, markAsRoot } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
-import inferParserByLanguage from "../utils/infer-parser-by-language.js";
+import inferParser from "../utils/infer-parser.js";
 import { getFencedCodeBlockValue } from "./utils.js";
 
 function embed(path, options) {
   const { node } = path;
 
   if (node.type === "code" && node.lang !== null) {
-    const parser = inferParserByLanguage(node.lang, options);
+    const parser = inferParser(options, { language: node.lang });
     if (parser) {
       return async (textToDoc) => {
         const styleUnit = options.__inJsTemplate ? "~" : "`";

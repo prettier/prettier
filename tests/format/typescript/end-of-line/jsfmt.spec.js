@@ -1,3 +1,3 @@
-run_spec(import.meta, ["typescript", "babel"], { endOfLine: "lf" });
-run_spec(import.meta, ["typescript", "babel"], { endOfLine: "cr" });
-run_spec(import.meta, ["typescript", "babel"], { endOfLine: "crlf" });
+run_spec(import.meta, ["typescript", "flow"], { endOfLine: "lf" });
+run_spec(import.meta, ["typescript", "flow"], { endOfLine: "cr" });
+run_spec(import.meta, ["typescript", "flow"], { endOfLine: "crlf" });

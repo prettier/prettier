@@ -2,7 +2,7 @@
 
 exports[`trailing-comma.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -43,7 +43,7 @@ export interface ShopQueryResult {
 
 exports[`trailing-comma.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -84,7 +84,7 @@ export interface ShopQueryResult {
 
 exports[`trailing-comma.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth

@@ -1,8 +1,7 @@
-/** @typedef {import("../document/builders.js").Doc} Doc */
-
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
-import { printDanglingComments } from "../main/comments.js";
-import { hasNewline } from "../common/util.js";
+import { printDanglingComments } from "../main/comments/print.js";
+import printIgnored from "../main/print-ignored.js";
+import hasNewline from "../utils/has-newline.js";
 import {
   join,
   line,
@@ -11,34 +10,28 @@ import {
   group,
   indent,
 } from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
+import { replaceEndOfLine, inheritLabel } from "../document/utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
-import embed from "./embed.js";
-import clean from "./clean.js";
-import { insertPragma } from "./pragma.js";
-import * as commentsRelatedPrinterMethods from "./comments/printer-methods.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
+
 import pathNeedsParens from "./needs-parens.js";
 import {
   hasComment,
   CommentCheckFlags,
-  isTheOnlyJsxElementInMarkdown,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   isCallExpression,
   isMemberExpression,
-  markerForIfWithoutBlockAndSameLineComment,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   startsWithNoLookaheadToken,
+  createTypeCheckFunction,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
-import getVisitorKeys from "./traverse/get-visitor-keys.js";
+import isIgnored from "./utils/is-ignored.js";
 
-import {
-  printHtmlBinding,
-  isVueEventBindingExpression,
-} from "./print/html-binding.js";
+import { printHtmlBinding } from "./print/html-binding.js";
 import { printAngular } from "./print/angular.js";
 import { printJsx } from "./print/jsx.js";
 import { printFlow } from "./print/flow.js";
@@ -49,13 +42,11 @@ import {
   adjustClause,
   printRestSpread,
   printDefiniteToken,
-  printDirective,
   printDeclareToken,
 } from "./print/misc.js";
 import {
   printImportDeclaration,
   printExportDeclaration,
-  printExportAllDeclaration,
   printModuleSpecifier,
 } from "./print/module.js";
 import { printTernary } from "./print/ternary.js";
@@ -91,84 +82,85 @@ import { printBlock, printBlockBody } from "./print/block.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 import { printTypeAnnotationProperty } from "./print/type-annotation.js";
+import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
+import { printExpressionStatement } from "./print/expression-statement.js";
 
+/**
+ * @typedef {import("../common/ast-path.js").default} AstPath
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
+
+// Their decorators are handled themselves, and they don't need parentheses or leading semicolons
+const shouldPrintDirectly = createTypeCheckFunction([
+  "ClassMethod",
+  "ClassPrivateMethod",
+  "ClassProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "TSAbstractAccessorProperty",
+  "PropertyDefinition",
+  "TSAbstractPropertyDefinition",
+  "ClassPrivateProperty",
+  "MethodDefinition",
+  "TSAbstractMethodDefinition",
+  "TSDeclareMethod",
+]);
+
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @param {*} print
+ * @param {*} [args]
+ * @returns {Doc}
+ */
 function genericPrint(path, options, print, args) {
-  const { node } = path;
-
-  const printed = printPathNoParens(path, options, print, args);
-  if (!printed) {
+  const doc = printPathNoParens(path, options, print, args);
+  if (!doc) {
     return "";
   }
 
-  const { type } = node;
-  // Their decorators are handled themselves, and they can't have parentheses
-  if (
-    type === "ClassMethod" ||
-    type === "ClassPrivateMethod" ||
-    type === "ClassProperty" ||
-    type === "ClassAccessorProperty" ||
-    type === "AccessorProperty" ||
-    type === "TSAbstractAccessorProperty" ||
-    type === "PropertyDefinition" ||
-    type === "TSAbstractPropertyDefinition" ||
-    type === "ClassPrivateProperty" ||
-    type === "MethodDefinition" ||
-    type === "TSAbstractMethodDefinition" ||
-    type === "TSDeclareMethod"
-  ) {
-    return printed;
+  const { node } = path;
+  if (shouldPrintDirectly(node)) {
+    return doc;
   }
 
-  let parts = [printed];
-
-  const printedDecorators = printDecorators(path, options, print);
-  const isClassExpressionWithDecorators =
-    node.type === "ClassExpression" && printedDecorators;
+  const hasDecorators = isNonEmptyArray(node.decorators);
+  const decoratorsDoc = printDecorators(path, options, print);
+  const isClassExpression = node.type === "ClassExpression";
   // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
-  if (printedDecorators) {
-    parts = [...printedDecorators, printed];
-
-    if (!isClassExpressionWithDecorators) {
-      return group(parts);
-    }
+  if (hasDecorators && !isClassExpression) {
+    return inheritLabel(doc, (doc) => group([decoratorsDoc, doc]));
   }
 
   const needsParens = pathNeedsParens(path, options);
-  const needsSemi = args?.needsSemi;
+  const needsSemi = shouldPrintLeadingSemicolon(path, options);
 
-  if (!needsParens) {
-    if (needsSemi) {
-      parts.unshift(";");
-    }
-
-    // In member-chain print, it add `label` to the doc, if we return array here it will be broken
-    if (parts.length === 1 && parts[0] === printed) {
-      return printed;
-    }
-
-    return parts;
+  if (!decoratorsDoc && !needsParens && !needsSemi) {
+    return doc;
   }
 
-  if (isClassExpressionWithDecorators) {
-    parts = [indent([line, ...parts])];
-  }
-
-  parts.unshift("(");
-
-  if (needsSemi) {
-    parts.unshift(";");
-  }
-
-  if (isClassExpressionWithDecorators) {
-    parts.push(line);
-  }
-
-  parts.push(")");
-
-  return parts;
+  return inheritLabel(doc, (doc) => [
+    needsSemi ? ";" : "",
+    needsParens ? "(" : "",
+    needsParens && isClassExpression && hasDecorators
+      ? [indent([line, decoratorsDoc, doc]), line]
+      : [decoratorsDoc, doc],
+    needsParens ? ")" : "",
+  ]);
 }
 
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @param {*} print
+ * @param {*} [args]
+ * @returns {Doc}
+ */
 function printPathNoParens(path, options, print, args) {
+  if (isIgnored(path)) {
+    return printIgnored(path, options);
+  }
+
   for (const printer of [
     printLiteral,
     printHtmlBinding,
@@ -194,53 +186,19 @@ function printPathNoParens(path, options, print, args) {
     case "JsonRoot":
       return [print("node"), hardline];
     case "File":
-      // Print @babel/parser's InterpreterDirective here so that
-      // leading comments on the `Program` node get printed after the hashbang.
-      if (node.program.interpreter) {
-        parts.push(print(["program", "interpreter"]));
-      }
-
-      parts.push(print("program"));
-
-      return parts;
+      return print("program");
 
     case "Program":
       return printBlockBody(path, options, print);
     // Babel extension.
     case "EmptyStatement":
       return "";
-    case "ExpressionStatement": {
-      if (
-        options.parser === "__vue_event_binding" ||
-        options.parser === "__vue_ts_event_binding"
-      ) {
-        const { parent } = path;
-        if (
-          parent.type === "Program" &&
-          parent.body.length === 1 &&
-          parent.body[0] === node
-        ) {
-          return [
-            print("expression"),
-            isVueEventBindingExpression(node.expression) ? ";" : "",
-          ];
-        }
-      }
+    case "ExpressionStatement":
+      return printExpressionStatement(path, options, print);
 
-      const danglingComment = printDanglingComments(
-        path,
-        options,
-        /** sameIndent */ true,
-        ({ marker }) => marker === markerForIfWithoutBlockAndSameLineComment
-      );
+    case "ChainExpression":
+      return print("expression");
 
-      // Do not append semicolon after the only JSX element in a program
-      return [
-        print("expression"),
-        isTheOnlyJsxElementInMarkdown(options, path) ? "" : semi,
-        danglingComment ? [" ", danglingComment] : "",
-      ];
-    }
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
       const shouldHug =
@@ -345,9 +303,8 @@ function printPathNoParens(path, options, print, args) {
 
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
-      return printExportDeclaration(path, options, print);
     case "ExportAllDeclaration":
-      return printExportAllDeclaration(path, options, print);
+      return printExportDeclaration(path, options, print);
     case "ImportDeclaration":
       return printImportDeclaration(path, options, print);
     case "ImportSpecifier":
@@ -422,8 +379,6 @@ function printPathNoParens(path, options, print, args) {
       return "super";
     case "Directive":
       return [print("value"), semi]; // Babel 6
-    case "DirectiveLiteral":
-      return printDirective(node.extra.raw, options);
     case "UnaryExpression":
       parts.push(node.operator);
 
@@ -523,7 +478,7 @@ function printPathNoParens(path, options, print, args) {
 
         if (hasComment(node, CommentCheckFlags.Dangling)) {
           parts.push(
-            printDanglingComments(path, options, true),
+            printDanglingComments(path, options),
             commentOnOwnLine ? hardline : " "
           );
         }
@@ -548,11 +503,7 @@ function printPathNoParens(path, options, print, args) {
       // We want to keep dangling comments above the loop to stay consistent.
       // Any comment positioned between the for statement and the parentheses
       // is going to be printed before the statement.
-      const dangling = printDanglingComments(
-        path,
-        options,
-        /* sameLine */ true
-      );
+      const dangling = printDanglingComments(path, options);
       const printedComments = dangling ? [dangling, softline] : "";
 
       if (!node.init && !node.test && !node.update) {
@@ -716,7 +667,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       if (hasComment(node, CommentCheckFlags.Dangling)) {
-        parts.push(" ", printDanglingComments(path, options, true));
+        parts.push(" ", printDanglingComments(path, options));
       }
 
       const consequent = node.consequent.filter(
@@ -724,7 +675,7 @@ function printPathNoParens(path, options, print, args) {
       );
 
       if (consequent.length > 0) {
-        const cons = printStatementSequence(path, options, print);
+        const cons = printStatementSequence(path, options, print, "consequent");
 
         parts.push(
           consequent.length === 1 && consequent[0].type === "BlockStatement"
@@ -763,15 +714,6 @@ function printPathNoParens(path, options, print, args) {
     case "PrivateName":
       return ["#", print("id")];
 
-    case "InterpreterDirective":
-      parts.push("#!", node.value, hardline);
-
-      if (isNextLineEmpty(node, options)) {
-        parts.push(hardline);
-      }
-
-      return parts;
-
     // For hack-style pipeline
     case "TopicReference":
       return "%";
@@ -789,19 +731,20 @@ function printPathNoParens(path, options, print, args) {
       return parts;
     }
 
+    case "InterpreterDirective": // Printed as comment
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "ESTree");
   }
 }
 
-const printer = {
-  print: genericPrint,
-  embed,
-  insertPragma,
-  massageAstNode: clean,
-  getVisitorKeys,
-  ...commentsRelatedPrinterMethods,
+export const experimentalFeatures = {
+  // TODO: Make this default behavior
+  avoidAstMutation: true,
 };
-
-export default printer;
+export { genericPrint as print };
+export * from "./comments/printer-methods.js";
+export { default as embed } from "./embed/index.js";
+export { default as massageAstNode } from "./clean.js";
+export { insertPragma } from "./pragma.js";
+export { default as getVisitorKeys } from "./traverse/get-visitor-keys.js";

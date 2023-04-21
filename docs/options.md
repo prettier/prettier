@@ -51,7 +51,7 @@ Indent lines with tabs instead of spaces.
 
 Setting `indent_style` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab usage, unless overridden.
 
-(Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries.)
+(Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries. This behavior is known as [SmartTabs](https://www.emacswiki.org/emacs/SmartTabs).)
 
 ## Semicolons
 
@@ -268,7 +268,7 @@ Valid options:
 - `"acorn"` (via [acorn](https://github.com/acornjs/acorn)) _First available in v2.6.0_
 - `"css"` (via [postcss](https://github.com/postcss/postcss)) _First available in v1.7.1_
 - `"scss"` (via [postcss-scss](https://github.com/postcss/postcss-scss)) _First available in v1.7.1_
-- `"less"` (via [postcss-less](https://github.com/shellscape/postcss-less) _First available in v1.7.1_
+- `"less"` (via [postcss-less](https://github.com/shellscape/postcss-less)) _First available in v1.7.1_
 - `"json"` (via [@babel/parser parseExpression](https://babeljs.io/docs/en/next/babel-parser.html#babelparserparseexpressioncode-options)) _First available in v1.5.0_
 - `"json5"` (same parser as `"json"`, but outputs as [json5](https://json5.org/)) _First available in v1.13.0_
 - `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _First available in v1.13.0_
@@ -449,9 +449,9 @@ Valid options:
 - `"auto"` – Format embedded code if Prettier can automatically identify it.
 - `"off"` - Never automatically format embedded code.
 
-| Default  | CLI Override                         | API Override                        |
-| -------- | ------------------------------------ | ----------------------------------- |
-| `"auto"` | `--embedded-language-formatting=off` | `embeddedLanguageFormatting: "off"` |
+| Default  | CLI Override                                                | API Override                                               |
+| -------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
+| `"auto"` | <code>--embedded-language-formatting=<off&#124;auto></code> | <code>embeddedLanguageFormatting: "<off&#124;auto>"</code> |
 
 ## Single Attribute Per Line
 

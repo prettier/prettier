@@ -1,8 +1,99 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`class-expression-decorator.js [acorn] format 1`] = `
+"Unexpected character '@' (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |"
+`;
+
+exports[`class-expression-decorator.js [espree] format 1`] = `
+"Unexpected character '@' (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |"
+`;
+
+exports[`class-expression-decorator.js [flow] format 1`] = `
+"Unexpected token \`@\` (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |"
+`;
+
+exports[`class-expression-decorator.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(
+  // prettier-ignore
+  @decorator
+  class {}
+);
+
+=====================================output=====================================
+// prettier-ignore
+(
+  @decorator
+  class {}
+);
+
+================================================================================
+`;
+
+exports[`decorator.js [acorn] format 1`] = `
+"Unexpected character '@' (2:1)
+  1 | // prettier-ignore
+> 2 | @decorator
+    | ^
+  3 | class A {}
+  4 |"
+`;
+
+exports[`decorator.js [espree] format 1`] = `
+"Unexpected character '@' (2:1)
+  1 | // prettier-ignore
+> 2 | @decorator
+    | ^
+  3 | class A {}
+  4 |"
+`;
+
+exports[`decorator.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// prettier-ignore
+@decorator
+class A {}
+
+=====================================output=====================================
+// prettier-ignore
+@decorator
+class A {}
+
+================================================================================
+`;
+
 exports[`ignore.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -130,7 +221,7 @@ const response = {
 
 exports[`ignore-2.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -178,9 +269,61 @@ a = <div {...{} /* prettier-ignore */} />;
 ================================================================================
 `;
 
+exports[`issue-9335.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class foo extends
+  // prettier-ignore
+  f {}
+
+=====================================output=====================================
+class foo
+  // prettier-ignore
+  extends f {}
+
+================================================================================
+`;
+
+exports[`issue-9877.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export default function test() {
+  return {
+    matrix: // prettier-ignore
+      new Float32Array([
+      0, 0,
+      1, 0,
+      1, 1,
+      0, 1
+    ]),
+  };
+}
+
+=====================================output=====================================
+export default function test() {
+  return {
+    matrix: // prettier-ignore
+      new Float32Array([
+      0, 0,
+      1, 0,
+      1, 1,
+      0, 1
+    ]),
+  };
+}
+
+================================================================================
+`;
+
 exports[`issue-10661.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -238,6 +381,106 @@ because the prettier-ignore comment is attached as MemberExpression leading comm
     // prettier-ignore
     .c,
 );
+
+================================================================================
+`;
+
+exports[`issue-11077.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function HelloWorld(x) {
+
+  (
+    // prettier-ignore
+    // eslint-disable-next-line
+    x.a |
+    x.b
+  ).call(null)
+
+}
+
+function HelloWorld(x) {
+  // prettier-ignore
+  (
+    // eslint-disable-next-line
+    x.a |
+    x.b
+  ).call(null)
+
+}
+
+=====================================output=====================================
+function HelloWorld(x) {
+  // prettier-ignore
+  // eslint-disable-next-line
+  (x.a |
+    x.b).call(null);
+}
+
+function HelloWorld(x) {
+  // prettier-ignore
+  (
+    // eslint-disable-next-line
+    x.a |
+    x.b
+  ).call(null)
+}
+
+================================================================================
+`;
+
+exports[`issue-13737.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+oneArgument(
+ // prettier-ignore
+ (0, 1)
+)
+
+a=(
+ // prettier-ignore
+ (0, 1)
+)
+
+=====================================output=====================================
+oneArgument(
+  // prettier-ignore
+  (0, 1),
+);
+
+a =
+  // prettier-ignore
+  (0, 1);
+
+================================================================================
+`;
+
+exports[`issue-14404.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function foo() {
+(
+  	// prettier-ignore
+  	// b
+	await thing()
+).blah
+}
+
+=====================================output=====================================
+async function foo() {
+  // prettier-ignore
+  // b
+  (await thing()).blah;
+}
 
 ================================================================================
 `;

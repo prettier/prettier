@@ -7,7 +7,8 @@ import {
   indent,
   ifBreak,
 } from "../document/builders.js";
-import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
+import isNextLineEmpty from "../utils/is-next-line-empty.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
@@ -434,7 +435,7 @@ function printSequence(path, options, print, property) {
   return path.map(({ isLast, node }) => {
     const printed = print();
 
-    if (!isLast && isNextLineEmpty(options.originalText, node, locEnd)) {
+    if (!isLast && isNextLineEmpty(options.originalText, locEnd(node))) {
       return [printed, hardline];
     }
 

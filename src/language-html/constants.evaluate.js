@@ -41,6 +41,9 @@ const CSS_DISPLAY_TAGS = {
   select: "inline-block",
   option: "block",
   optgroup: "block",
+
+  // Missing
+  search: "block",
 };
 const CSS_DISPLAY_DEFAULT = "inline";
 const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");

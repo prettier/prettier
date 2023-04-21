@@ -1,9 +1,8 @@
 import collapseWhiteSpace from "collapse-white-space";
-import {
-  getMinNotPresentContinuousCount,
-  getMaxContinuousCount,
-  getStringWidth,
-} from "../common/util.js";
+import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
+import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
+import getStringWidth from "../utils/get-string-width.js";
+import getPreferredQuote from "../utils/get-preferred-quote.js";
 import {
   breakParent,
   join,
@@ -653,7 +652,7 @@ function printChildren(path, options, print, events = {}) {
         parts.push(hardline);
 
         if (
-          shouldPrePrintDoubleHardline(path) ||
+          shouldPrePrintDoubleHardline(path, options) ||
           shouldPrePrintTripleHardline(path)
         ) {
           parts.push(hardline);
@@ -722,37 +721,44 @@ function shouldPrePrintHardline({ node, parent }) {
   return !isInlineNode && !isInlineHTML;
 }
 
-function shouldPrePrintDoubleHardline({ node, previous, parent }) {
+function isLooseListItem(node, options) {
+  return (
+    node.type === "listItem" &&
+    (node.spread ||
+      // Check if `listItem` ends with `\n`
+      // since it can't be empty, so we only need check the last character
+      options.originalText.charAt(node.position.end.offset - 1) === "\n")
+  );
+}
+
+function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
+  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
+
+  if (isPrevNodeLooseListItem) {
+    return true;
+  }
+
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
-
-  const isInTightListItem = parent.type === "listItem" && !parent.loose;
-
-  const isPrevNodeLooseListItem =
-    previous.type === "listItem" && previous.loose;
-
+  const isInTightListItem =
+    parent.type === "listItem" && !isLooseListItem(parent, options);
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
-
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
     previous.type === "html" &&
     previous.position.end.line + 1 === node.position.start.line;
-
   const isHtmlDirectAfterListItem =
     node.type === "html" &&
     parent.type === "listItem" &&
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
 
-  return (
-    isPrevNodeLooseListItem ||
-    !(
-      isSiblingNode ||
-      isInTightListItem ||
-      isPrevNodePrettierIgnore ||
-      isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-      isHtmlDirectAfterListItem
-    )
+  return !(
+    isSiblingNode ||
+    isInTightListItem ||
+    isPrevNodePrettierIgnore ||
+    isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
+    isHtmlDirectAfterListItem
   );
 }
 
@@ -803,19 +809,9 @@ function printTitle(title, options, printSpace = true) {
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
   }
-  // faster than using RegExps: https://jsperf.com/performance-of-match-vs-split
-  const singleCount = title.split("'").length - 1;
-  const doubleCount = title.split('"').length - 1;
-  const quote =
-    singleCount > doubleCount
-      ? '"'
-      : doubleCount > singleCount
-      ? "'"
-      : options.singleQuote
-      ? "'"
-      : '"';
+  const quote = getPreferredQuote(title, options.singleQuote);
   title = title.replaceAll("\\", "\\\\");
-  title = title.replaceAll(new RegExp(`(${quote})`, "g"), "\\$1");
+  title = title.replaceAll(quote, `\\${quote}`);
   return `${quote}${title}${quote}`;
 }
 

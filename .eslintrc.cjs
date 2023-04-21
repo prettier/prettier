@@ -29,6 +29,7 @@ module.exports = {
     "logical-assignment-operators": "error",
     "no-console": isCI ? "error" : "warn",
     "no-constant-binary-expression": "error",
+    "no-duplicate-imports": "error",
     "no-else-return": [
       "error",
       {
@@ -126,7 +127,7 @@ module.exports = {
       "error",
       {
         devDependencies: [
-          "jest.config.mjs",
+          "jest.config.js",
           "tests/**",
           "scripts/**",
           "website/**/*",
@@ -259,7 +260,7 @@ module.exports = {
       },
     },
     {
-      files: ["scripts/**/*.mjs"],
+      files: ["scripts/**/*.js"],
       rules: {
         "unicorn/prefer-top-level-await": "error",
       },
@@ -270,6 +271,7 @@ module.exports = {
         "tests/format/**/jsfmt.spec.js",
         "tests/integration/**/*.js",
         "tests/unit/**/*.js",
+        "tests/dts/unit/**/*.js",
         "scripts/release/__tests__/**/*.spec.js",
       ],
       env: {
@@ -309,7 +311,7 @@ module.exports = {
       },
       globals: {
         run_spec: "readonly",
-        runPrettier: "readonly",
+        runCli: "readonly",
       },
     },
     {
@@ -323,7 +325,7 @@ module.exports = {
                 path.resolve(__dirname, "src/**"),
                 `!${path.resolve(__dirname, "src/cli/**")}`,
                 `!${path.resolve(__dirname, "src/index.js")}`,
-                `!${path.resolve(__dirname, "src/common/third-party.js")}`,
+                `!${path.resolve(__dirname, "src/common/mockable.js")}`,
               ],
               message: "Don't use code from other directory.",
             },
@@ -354,7 +356,7 @@ module.exports = {
       rules: {
         "prettier-internal-rules/flat-ast-path-call": "error",
         "prettier-internal-rules/no-conflicting-comment-check-flags": "error",
-        "prettier-internal-rules/no-doc-index-import": "error",
+        "prettier-internal-rules/no-doc-public-import": "error",
         "prettier-internal-rules/no-empty-flat-contents-for-if-break": "error",
         "prettier-internal-rules/no-unnecessary-ast-path-call": "error",
         "prettier-internal-rules/prefer-ast-path-each": "error",
