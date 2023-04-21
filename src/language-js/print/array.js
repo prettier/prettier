@@ -124,9 +124,9 @@ function printArray(path, options, print) {
           indent([
             softline,
             shouldUseConciseFormatting
-              ? printArrayItemsConcisely(path, options, print, trailingComma)
+              ? printArrayElementsConcisely(path, options, print, trailingComma)
               : [
-                  printArrayItems(path, options, elementsProperty, print),
+                  printArrayElements(path, options, elementsProperty, print),
                   trailingComma,
                 ],
             printDanglingComments(path, options),
@@ -168,7 +168,7 @@ function isConciselyPrintedArray(node, options) {
   );
 }
 
-function printArrayItems(path, options, elementsProperty, print) {
+function printArrayElements(path, options, elementsProperty, print) {
   const parts = [];
 
   path.each(({ node, isLast }) => {
@@ -186,7 +186,7 @@ function printArrayItems(path, options, elementsProperty, print) {
   return parts;
 }
 
-function printArrayItemsConcisely(path, options, print, trailingComma) {
+function printArrayElementsConcisely(path, options, print, trailingComma) {
   const parts = [];
 
   path.each(({ node, isLast, next }) => {
