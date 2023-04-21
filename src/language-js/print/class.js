@@ -91,7 +91,7 @@ function printHardlineAfterHeritage(node) {
 function hasMultipleHeritage(node) {
   return (
     ["extends", "mixins", "implements"].reduce(
-      (count, key) => count + (Array.isArray(node[key]) ? node[key].length : 0),
+      (count, key) => count + (Array.isArray(node[key]) ? 1 : 0),
       node.superClass ? 1 : 0
     ) > 1
   );
