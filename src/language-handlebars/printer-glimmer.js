@@ -42,7 +42,7 @@ function print(path, options, print) {
 
       const escapeNextElementNode =
         options.htmlWhitespaceSensitivity === "ignore" &&
-          path.next?.type === "ElementNode"
+        path.next?.type === "ElementNode"
           ? softline
           : "";
 
@@ -127,13 +127,13 @@ function print(path, options, print) {
       const quote = isText
         ? getPreferredQuote(value.chars, options.singleQuote)
         : value.type === "ConcatStatement"
-          ? getPreferredQuote(
+        ? getPreferredQuote(
             value.parts
               .map((part) => (part.type === "TextNode" ? part.chars : ""))
               .join(""),
             options.singleQuote
           )
-          : "";
+        : "";
 
       const valueDoc = print("value");
 
