@@ -42,7 +42,7 @@ function print(path, options, print) {
 
       const escapeNextElementNode =
         options.htmlWhitespaceSensitivity === "ignore" &&
-        path.next?.type === "ElementNode"
+          path.next?.type === "ElementNode"
           ? softline
           : "";
 
@@ -127,13 +127,13 @@ function print(path, options, print) {
       const quote = isText
         ? getPreferredQuote(value.chars, options.singleQuote)
         : value.type === "ConcatStatement"
-        ? getPreferredQuote(
+          ? getPreferredQuote(
             value.parts
               .map((part) => (part.type === "TextNode" ? part.chars : ""))
               .join(""),
             options.singleQuote
           )
-        : "";
+          : "";
 
       const valueDoc = print("value");
 
@@ -365,8 +365,66 @@ function print(path, options, print) {
         "}}",
       ];
     }
-    case "PathExpression":
-      return node.original;
+    case "PathExpression": {
+      const parts = [];
+      const onlyDigitsRegex = /^\d*$/;
+      const whitespaceRegex = /\s/;
+
+      if (node.data) {
+        return node.original;
+      }
+
+      const literalSegments = [
+        "!",
+        '"',
+        "#",
+        "%",
+        "&",
+        "'",
+        "(",
+        ")",
+        "*",
+        "+",
+        ",",
+        ".",
+        "/",
+        ";",
+        "<",
+        "=",
+        ">",
+        "@",
+        "[",
+        "\\",
+        "]",
+        "^",
+        "`",
+        "{",
+        "|",
+        "}",
+        "~",
+      ];
+
+      if (node.this) {
+        parts.push("this");
+      }
+
+      for (const [idx, part] of node.parts.entries()) {
+        // check if element contains literal segments, or
+        // check if element contains any whitespace, or
+        // check if last element is a number
+        if (
+          literalSegments.some((segment) => part.includes(segment)) ||
+          whitespaceRegex.test(part) ||
+          (idx === node.parts.length - 1 &&
+            part.match(onlyDigitsRegex) !== null)
+        ) {
+          parts.push("[" + part + "]");
+        } else {
+          parts.push(part);
+        }
+      }
+      return parts.join(".");
+    }
 
     case "BooleanLiteral":
       return String(node.value);
