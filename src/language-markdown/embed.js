@@ -14,7 +14,11 @@ function embed(path, options) {
       return async (textToDoc) => {
         const styleUnit = options.__inJsTemplate ? "~" : "`";
         const style = styleUnit.repeat(
-          Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
+          Math.max(
+            2,
+            getMaxContinuousCount(node.value, "`"),
+            getMaxContinuousCount(node.value, "~")
+          ) + 1
         );
         const newOptions = { parser };
         if (node.lang === "tsx") {
