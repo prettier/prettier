@@ -9,17 +9,18 @@ import {
   fill,
 } from "../../document/builders.js";
 import hasNewline from "../../utils/has-newline.js";
+import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import { skipInlineComment, skipTrailingComment } from "../../utils/public.js";
 import {
   shouldPrintComma,
   hasComment,
   CommentCheckFlags,
-  isNextLineEmpty,
   isNumericLiteral,
   isSignedNumericLiteral,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
 } from "../utils/index.js";
-import { locStart } from "../loc.js";
+import { locStart, locEnd } from "../loc.js";
 
 import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
@@ -170,6 +171,18 @@ function isConciselyPrintedArray(node, options) {
   );
 }
 
+function isLineAfterElementEmpty(path, { originalText: text }) {
+  const skipComment = (idx) =>
+    skipInlineComment(text, skipTrailingComment(text, idx));
+
+  const skipToComma = (currentIdx) =>
+    text[currentIdx] === ","
+      ? currentIdx
+      : skipToComma(skipComment(currentIdx + 1));
+
+  return isNextLineEmptyAfterIndex(text, skipToComma(locEnd(path.node)));
+}
+
 function printArrayElements(path, options, elementsProperty, print) {
   const parts = [];
 
@@ -180,7 +193,7 @@ function printArrayElements(path, options, elementsProperty, print) {
       parts.push([
         ",",
         line,
-        node && isNextLineEmpty(node, options) ? softline : "",
+        node && isLineAfterElementEmpty(path, options) ? softline : "",
       ]);
     }
   }, elementsProperty);
@@ -191,12 +204,12 @@ function printArrayElements(path, options, elementsProperty, print) {
 function printArrayElementsConcisely(path, options, print, trailingComma) {
   const parts = [];
 
-  path.each(({ node, isLast, next }) => {
+  path.each(({ isLast, next }) => {
     parts.push([print(), isLast ? trailingComma : ","]);
 
     if (!isLast) {
       parts.push(
-        isNextLineEmpty(node, options)
+        isLineAfterElementEmpty(path, options)
           ? [hardline, hardline]
           : hasComment(next, CommentCheckFlags.Leading | CommentCheckFlags.Line)
           ? hardline
