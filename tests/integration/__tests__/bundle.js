@@ -102,9 +102,7 @@ test("Commonjs version", () => {
   ));
 
   expect(Object.keys(prettierCommonjsVersion).sort()).toEqual(
-    Object.keys(prettier)
-      .filter((key) => key !== "__internal")
-      .sort()
+    Object.keys(prettier).sort()
   );
   expect(typeof prettierCommonjsVersion.format).toBe("function");
 

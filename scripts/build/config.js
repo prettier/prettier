@@ -472,9 +472,7 @@ const nodejsFiles = [
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
-  },
-  {
-    input: "src/index.cjs",
+    formats: ["esm", "cjs"],
   },
   {
     input: "bin/prettier.cjs",
@@ -504,15 +502,16 @@ const nodejsFiles = [
         path: path.join(dirname, "./shims/parent-module.cjs"),
       },
     ],
+    formats: ["esm", "cjs"],
   },
 ].flatMap((file) => {
-  let { input, output, outputBaseName, ...buildOptions } = file;
+  let { input, output, outputBaseName, formats, ...buildOptions } = file;
+  formats ??= [input.endsWith(".cjs") ? "cjs" : "esm"];
 
-  const format = input.endsWith(".cjs") ? "cjs" : "esm";
   outputBaseName ??= path.basename(input, path.extname(input));
 
   return [
-    {
+    ...formats.map((format) => ({
       input,
       output: {
         format,
@@ -522,7 +521,7 @@ const nodejsFiles = [
       buildOptions,
       build: buildJavascriptModule,
       kind: "javascript",
-    },
+    })),
     getTypesFileConfig({ input, outputBaseName }),
   ];
 });

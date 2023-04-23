@@ -29,6 +29,11 @@ const getRelativePath = (from, to) => {
 
   return relativePath;
 };
+const uniqueByProperty = (array, key) =>
+  array.filter(
+    (element, index) =>
+      index === array.findIndex((searching) => searching[key] === element[key])
+  );
 
 function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
   // Save dependencies to file
@@ -121,29 +126,39 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
   }
 
   if (file.platform === "node") {
-    // External other bundled files
-    replaceModule.push(
-      ...files
+    const { format } = file.output;
+    const replacements = uniqueByProperty(
+      files
         .filter(
           (bundle) =>
             bundle.input === "package.json" ||
-            (file.input !== bundle.input && bundle.output.format === "esm")
+            (bundle.kind === "javascript" && file.input !== bundle.input)
         )
         .map((bundle) => {
-          let output = bundle.output.file;
-          if (
-            file.output.file === "index.cjs" &&
-            bundle.output.file === "doc.mjs"
-          ) {
-            output = "doc.js";
+          let target = files.find(
+            (searching) =>
+              searching.input === bundle.input &&
+              searching.output.format === format
+          );
+          if (format === "cjs" && !target) {
+            target = files.find(
+              (searching) =>
+                searching.input === bundle.input &&
+                searching.output.format === "umd"
+            );
           }
+          target ??= bundle;
 
           return {
             module: path.join(PROJECT_ROOT, bundle.input),
-            external: getRelativePath(file.output.file, output),
+            external: getRelativePath(file.output.file, target.output.file),
           };
-        })
+        }),
+      "module"
     );
+    // External other bundled files
+    replaceModule.push(...replacements);
+    console.log(replacements);
   } else {
     replaceModule.push(
       // When running build script with `--no-minify`, `esbuildPluginNodeModulePolyfills` shim `module` module incorrectly

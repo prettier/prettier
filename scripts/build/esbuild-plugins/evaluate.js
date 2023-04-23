@@ -17,20 +17,17 @@ export default function esbuildPluginEvaluate() {
             value = serialize(value, { space: 2 });
 
             if (specifier === "default") {
-              return format === "cjs"
-                ? `module.exports = ${value};`
-                : `export default ${value};`;
+              return `export default ${value};`;
             }
 
             if (!isValidIdentifier(specifier)) {
               throw new Error(`${specifier} is not a valid specifier`);
             }
 
-            return format === "cjs"
-              ? `exports.${specifier} = ${value};`
-              : `export const ${specifier} = ${value};`;
+            return `export const ${specifier} = ${value};`;
           })
           .join("\n");
+
         return { contents: text };
       });
     },
