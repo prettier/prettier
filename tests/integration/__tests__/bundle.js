@@ -116,9 +116,11 @@ test("Commonjs version", () => {
   );
   expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
 
-  expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toEqual(
-    Object.keys(prettier.__debug).sort()
-  );
+  expect(
+    Object.keys(prettierCommonjsVersion.__debug)
+      .filter((key) => key !== "default")
+      .sort()
+  ).toEqual(Object.keys(prettier.__debug).sort());
   expect(typeof prettierCommonjsVersion.__debug.parse).toBe("function");
 
   expect(prettierCommonjsVersion.version).toBe(prettier.version);
