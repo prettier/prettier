@@ -110,7 +110,7 @@ function printArrowFunction(path, options, print, args = {}) {
     !hasLeadingOwnLineComment(options.originalText, functionBody) &&
     (shouldAlwaysAddParens(functionBody) ||
       mayBreakAfterShortPrefix(functionBody, bodyDoc, options) ||
-      shouldAddParensIfNotBreak(functionBody));
+      (!shouldBreakChain && shouldAddParensIfNotBreak(functionBody)));
 
   const isCallee = path.key === "callee" && isCallLikeExpression(path.parent);
   const chainGroupId = Symbol("arrow-chain");
