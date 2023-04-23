@@ -158,7 +158,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     );
     // External other bundled files
     replaceModule.push(...replacements);
-    console.log(replacements);
   } else {
     replaceModule.push(
       // When running build script with `--no-minify`, `esbuildPluginNodeModulePolyfills` shim `module` module incorrectly
