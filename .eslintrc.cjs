@@ -12,7 +12,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  extends: ["eslint:recommended", "prettier"],
+  extends: ["eslint:recommended", "prettier", "plugin:regexp/recommended"],
   plugins: [
     "prettier-internal-rules",
     "import",
@@ -163,16 +163,12 @@ module.exports = {
     /* cspell:disable-next-line */
     "regexp/no-extra-lookaround-assertions": "error",
     "regexp/no-missing-g-flag": "error",
-    "regexp/no-unused-capturing-group": "error",
-    "regexp/no-useless-assertions": "error",
     "regexp/no-useless-flag": [
       "error",
       {
         strictTypes: false,
       },
     ],
-    "regexp/no-useless-lazy": "error",
-    "regexp/no-useless-non-capturing-group": "error",
     /* cspell:disable-next-line */
     "regexp/prefer-lookaround": [
       "error",
@@ -180,6 +176,11 @@ module.exports = {
         strictTypes: false,
       },
     ],
+    // Conflicting with `unicorn/better-regex`
+    "regexp/strict": "off",
+    // Hard to fix
+    "regexp/no-empty-alternative": "off",
+    "regexp/no-super-linear-backtracking": "off",
 
     // eslint-plugin-unicorn
     "unicorn/better-regex": "error",

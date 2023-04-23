@@ -88,8 +88,8 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
             "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
             'const line = "\\n"'
           )
-          .replace(/\nfunction _os().*?\n}/s, "")
-          .replace(/\nfunction _detectNewline().*?\n}/s, ""),
+          .replace(/\nfunction _os\(\).*?\n}/s, "")
+          .replace(/\nfunction _detectNewline\(\).*?\n}/s, ""),
     },
   ];
 
