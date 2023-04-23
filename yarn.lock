@@ -6681,14 +6681,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.22":
-  version: 8.4.22
-  resolution: "postcss@npm:8.4.22"
+"postcss@npm:8.4.23":
+  version: 8.4.23
+  resolution: "postcss@npm:8.4.23"
   dependencies:
     nanoid: ^3.3.6
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
-  checksum: 7473dfb7ac5b4cb03576c39d687d7fc02c826ab08af97df15b5d3970662532d44a18a0994f392a9c3658ee17c292e7a55990e586b90ca0afcc9f36df13e07029
+  checksum: 8bb9d1b2ea6e694f8987d4f18c94617971b2b8d141602725fedcc2222fdc413b776a6e1b969a25d627d7b2681ca5aabb56f59e727ef94072e1b6ac8412105a2f
   languageName: node
   linkType: hard
 
@@ -6802,7 +6802,7 @@ __metadata:
     outdent: 0.8.0
     path-browserify: 1.0.1
     please-upgrade-node: 3.2.0
-    postcss: 8.4.22
+    postcss: 8.4.23
     postcss-less: 6.0.0
     postcss-media-query-parser: 0.2.3
     postcss-scss: 4.0.6
