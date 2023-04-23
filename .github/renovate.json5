@@ -4,6 +4,7 @@
   baseBranches: ["main"],
   schedule: ["after 01:00 on sunday"],
   postUpdateOptions: ["yarnDedupeHighest"],
+  prHourlyLimit: 2,
   packageRules: [
     {
       matchPackageNames: ["react", "react-dom"],
