@@ -108,7 +108,7 @@ async function textToDoc(
   parentOptions,
   printAstToDoc
 ) {
-  const options = normalizeFormatOptions(
+  const options = await normalizeFormatOptions(
     {
       ...parentOptions,
       ...partialNextOptions,

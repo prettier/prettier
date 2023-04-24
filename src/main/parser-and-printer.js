@@ -57,11 +57,28 @@ function getPrinterPluginByAstFormat(plugins, astFormat) {
 }
 
 function resolveParser({ plugins, parser }) {
-  return getParserPluginByParserName(plugins, parser)?.parsers[parser];
+  const plugin = getParserPluginByParserName(plugins, parser);
+  return initParser(plugin, parser);
+}
+
+function initParser(plugin, parserName) {
+  const parserOrParserInitFunction = plugin.parsers[parserName];
+  return typeof parserOrParserInitFunction === "function"
+    ? parserOrParserInitFunction()
+    : parserOrParserInitFunction;
+}
+
+function initPrinter(plugin, astFormat) {
+  const printerOrPrinterInitFunction = plugin.printers[astFormat];
+  return typeof printerOrPrinterInitFunction === "function"
+    ? printerOrPrinterInitFunction()
+    : printerOrPrinterInitFunction;
 }
 
 export {
   getParserPluginByParserName,
   getPrinterPluginByAstFormat,
   resolveParser,
+  initParser,
+  initPrinter,
 };
