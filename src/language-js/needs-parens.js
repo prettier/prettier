@@ -893,8 +893,9 @@ function needsParens(path, options) {
 
     case "TSInstantiationExpression":
       return (
-        isMemberExpression(parent) &&
-        node.typeParameters?.type === "TSTypeParameterInstantiation"
+        node.typeParameters?.type === "TSTypeParameterInstantiation" &&
+        parent.property?.type &&
+        parent.property.type !== "TSInstantiationExpression"
       );
   }
 
