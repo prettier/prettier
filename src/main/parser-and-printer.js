@@ -57,20 +57,11 @@ function getPrinterPluginByAstFormat(plugins, astFormat) {
 }
 
 function resolveParser({ plugins, parser }) {
-  const plugin = getParserPluginByParserName(plugins, parser);
-  return initParser(plugin, parser);
-}
-
-function initParser(plugin, parserName) {
-  const parserOrParserInitFunction = plugin.parsers[parserName];
-  return typeof parserOrParserInitFunction === "function"
-    ? parserOrParserInitFunction()
-    : parserOrParserInitFunction;
+  return getParserPluginByParserName(plugins, parser)?.parsers[parser];
 }
 
 export {
   getParserPluginByParserName,
   getPrinterPluginByAstFormat,
-  initParser,
   resolveParser,
 };

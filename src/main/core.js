@@ -268,7 +268,7 @@ async function hasPragma(text, options) {
 async function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
-    await normalizeFormatOptions(originalOptions)
+    normalizeFormatOptions(originalOptions)
   );
 
   if (

@@ -1,14 +1,4 @@
-import createParsers from "../utils/create-parsers.js";
+import * as parsers from "../language-js/parse/angular.js";
 
-export const parsers = createParsers([
-  {
-    importParsers: () => import("../language-js/parse/angular.js"),
-    parserNames: [
-      "__ng_action",
-      "__ng_binding",
-      "__ng_interpolation",
-      "__ng_directive",
-    ],
-  },
-]);
+export { parsers };
 export default { parsers };

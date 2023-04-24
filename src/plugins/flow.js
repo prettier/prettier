@@ -1,9 +1,4 @@
-import createParsers from "../utils/create-parsers.js";
+import * as parsers from "../language-js/parse/flow.js";
 
-export const parsers = createParsers([
-  {
-    importParsers: () => import("../language-js/parse/flow.js"),
-    parserNames: ["flow"],
-  },
-]);
+export { parsers };
 export default { parsers };
