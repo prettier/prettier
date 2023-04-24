@@ -136,4 +136,9 @@ export const { parsers, printers } = createParsersAndParsers([
     importPlugin: () => import("./typescript.js"),
     parsers: ["typescript"],
   },
+  {
+    importPlugin: () => import("./yaml.js"),
+    parsers: ["yaml"],
+    printers: ["yaml"],
+  },
 ]);
