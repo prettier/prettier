@@ -29,14 +29,21 @@ function createParsersAndParsers(modules) {
     parsers: parserNames = [],
     printers: printerNames = [],
   } of modules) {
+    const loadPlugin = async () => {
+      const plugin = await importPlugin();
+      Object.assign(parsers, plugin.parsers);
+      Object.assign(parsers, plugin.printers);
+      return plugin;
+    };
+
     for (const parserName of parserNames) {
       parsers[parserName] = async () =>
-        Object.assign(parsers, (await importPlugin()).parsers)[parserName];
+        (await loadPlugin()).parsers[parserName];
     }
 
     for (const printerName of printerNames) {
       printers[printerName] = async () =>
-        Object.assign(printers, (await importPlugin()).printers)[printerName];
+        (await loadPlugin()).printers[printerName];
     }
   }
 
@@ -63,6 +70,7 @@ export const languages = [
   ...yamlLanguages,
 ];
 
+// Lazy load the plugins
 export const { parsers, printers } = createParsersAndParsers([
   {
     importPlugin: () => import("./acorn.js"),

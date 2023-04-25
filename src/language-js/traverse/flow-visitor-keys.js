@@ -1,3 +1,7 @@
+// This data is generated from "hermes-eslint" package
+// `fs.writeFileSync("flow-visitor-keys.js", (await import("hermes-eslint")).VisitorKeys)`
+// Can't use "hermes-eslint" directly since it changes `process.exitCode`
+
 export default {
   AnyTypeAnnotation: [],
   ArrayExpression: ["elements"],
