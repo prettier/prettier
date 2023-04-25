@@ -4354,17 +4354,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-eslint@npm:0.10.1":
-  version: 0.10.1
-  resolution: "hermes-eslint@npm:0.10.1"
-  dependencies:
-    esrecurse: ^4.3.0
-    hermes-estree: 0.10.1
-    hermes-parser: 0.10.1
-  checksum: e22b3937e53e4b605fa964ec7576dcd242787a4599ee749ccdb05569950cfd4d36962a80291c927d5fd6c662ad9b0657b580a04a45b10246cfd0349469083eb7
-  languageName: node
-  linkType: hard
-
 "hermes-estree@npm:0.10.1":
   version: 0.10.1
   resolution: "hermes-estree@npm:0.10.1"
@@ -6776,7 +6765,7 @@ __metadata:
     flow-parser: 0.204.0
     get-stdin: 9.0.0
     graphql: 16.6.0
-    hermes-eslint: 0.10.1
+    hermes-parser: 0.10.1
     html-element-attributes: 3.2.0
     html-styles: 1.0.0
     html-tag-names: 2.1.0

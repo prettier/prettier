@@ -6,6 +6,7 @@ import {
   getParserPluginByParserName,
   getPrinterPluginByAstFormat,
   initParser,
+  initPrinter,
 } from "./parser-and-printer.js";
 
 const formatOptionsHiddenDefaults = {
@@ -64,7 +65,7 @@ async function normalizeFormatOptions(options, opts = {}) {
   const printerPlugin = parserPlugin.printers?.[parser.astFormat]
     ? parserPlugin
     : getPrinterPluginByAstFormat(rawOptions.plugins, parser.astFormat);
-  const printer = printerPlugin.printers[parser.astFormat];
+  const printer = await initPrinter(printerPlugin, parser.astFormat);
 
   rawOptions.printer = printer;
 
