@@ -65,6 +65,7 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
  * @property {"node" | "universal"} platform - ESBuild platform
  * @property {BuildOptions} buildOptions - ESBuild options
  * @property {boolean?} isPlugin - file is a plugin
+ * @property {boolean?} addDefaultExport - add default export to bundle
  */
 
 /*
@@ -434,7 +435,10 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
         input,
         output,
         platform: "universal",
-        buildOptions,
+        buildOptions: {
+          addDefaultExport: output.format === "esm",
+          ...buildOptions,
+        },
         isPlugin,
         build: buildJavascriptModule,
         kind: "javascript",
@@ -472,6 +476,7 @@ const nodejsFiles = [
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
+    addDefaultExport: true,
   },
   {
     input: "src/index.cjs",

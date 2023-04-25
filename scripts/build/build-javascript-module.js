@@ -14,6 +14,7 @@ import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protoco
 import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.js";
 import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.js";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
+import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import transform from "./transform/index.js";
 import { getPackageFile } from "./utils.js";
 
@@ -209,6 +210,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         allowDynamicRequire: file.platform === "node",
         allowDynamicImport: file.platform === "node",
       }),
+      buildOptions.addDefaultExport && esbuildPluginAddDefaultExport(),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
