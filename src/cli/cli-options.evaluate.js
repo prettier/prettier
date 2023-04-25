@@ -220,10 +220,6 @@ const options = {
     description: "What level of logs to report.",
     type: "choice",
   },
-  pluginSearch: {
-    oppositeDescription: "Disable plugin autoloading.",
-    type: "boolean",
-  },
   supportInfo: {
     description: "Print support information as JSON.",
     type: "boolean",

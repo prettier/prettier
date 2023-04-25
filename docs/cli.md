@@ -202,10 +202,6 @@ prettier "**/*" --write --ignore-unknown
 
 Prevent errors when pattern is unmatched.
 
-## `--no-plugin-search`
-
-Disable plugin autoloading.
-
 ## `--cache`
 
 If this option is enabled, the following values are used as cache keys and the file is formatted only if one of them is changed.
