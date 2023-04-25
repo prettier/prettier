@@ -1,4 +1,1 @@
-import * as parsers from "../language-js/parse/meriyah.js";
-
-export { parsers };
-export default { parsers };
+export * as parsers from "../language-js/parse/meriyah.js";
