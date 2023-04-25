@@ -11,3 +11,4 @@ a[(Array<string>).name];
 (Array<string>)?.["a"];
 (Array<string>)[`a`];
 (Array<string>)?.[`a`];
+(Array<string>)[(Array<string>)];

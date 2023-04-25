@@ -122,6 +122,7 @@ a[(Array<string>).name];
 (Array<string>)?.["a"];
 (Array<string>)[\`a\`];
 (Array<string>)?.[\`a\`];
+(Array<string>)[(Array<string>)];
 
 =====================================output=====================================
 (Array<string>).name;
@@ -137,6 +138,7 @@ a[(Array<string>).name];
 (Array<string>)?.["a"];
 (Array<string>)[\`a\`];
 (Array<string>)?.[\`a\`];
+(Array<string>)[Array<string>];
 
 ================================================================================
 `;
