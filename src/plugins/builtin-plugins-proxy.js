@@ -32,7 +32,7 @@ function createParsersAndParsers(modules) {
     const loadPlugin = async () => {
       const plugin = await importPlugin();
       Object.assign(parsers, plugin.parsers);
-      Object.assign(parsers, plugin.printers);
+      Object.assign(printers, plugin.printers);
       return plugin;
     };
 
