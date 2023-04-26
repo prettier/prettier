@@ -1,6 +1,6 @@
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
-import { VisitorKeys as flowVisitorKeys } from "hermes-eslint";
+import flowVisitorKeys from "hermes-parser/dist/generated/ESTreeVisitorKeys.js";
 import unionVisitorKeys from "./union-visitor-keys.js";
 
 const angularVisitorKeys = {

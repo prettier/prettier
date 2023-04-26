@@ -4,7 +4,7 @@ const [, , version, method, groupCountString = 100, groupSizeString = 10] =
   process.argv;
 const groupCount = Number(groupCountString);
 const groupSize = Number(groupSizeString);
-const { format } = await import(`./${version}/dist/index.js`);
+const { format } = await import(`./${version}/dist/index.mjs`);
 
 const sourceText = readFileSync(
   process.env.PRETTIER_PERF_FILENAME || "../../src/language-js/utils/index.js",

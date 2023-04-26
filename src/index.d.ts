@@ -449,9 +449,7 @@ export interface ParserOptions<T = any> extends RequiredOptions {
 
 export interface Plugin<T = any> {
   languages?: SupportLanguage[] | undefined;
-  parsers?:
-    | { [parserName: string]: Parser<T> | (() => Promise<Parser<T>>) }
-    | undefined;
+  parsers?: { [parserName: string]: Parser<T> } | undefined;
   printers?: { [astFormat: string]: Printer<T> } | undefined;
   options?: SupportOptions | undefined;
   defaultOptions?: Partial<RequiredOptions> | undefined;

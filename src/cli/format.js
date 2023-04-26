@@ -84,11 +84,6 @@ async function listDifferent(context, input, options, filename) {
   }
 
   try {
-    if (!options.filepath && !options.parser) {
-      throw new errors.UndefinedParserError(
-        "No parser and no file path given, couldn't infer a parser."
-      );
-    }
     if (!(await prettier.check(input, options)) && !context.argv.write) {
       context.logger.log(filename);
       process.exitCode = 1;
@@ -101,12 +96,6 @@ async function listDifferent(context, input, options, filename) {
 }
 
 async function format(context, input, opt) {
-  if (!opt.parser && !opt.filepath) {
-    throw new errors.UndefinedParserError(
-      "No parser and no file path given, couldn't infer a parser."
-    );
-  }
-
   if (context.argv.debugPrintDoc) {
     const doc = await prettier.__debug.printToDoc(input, opt);
     return { formatted: (await prettier.__debug.formatDoc(doc)) + "\n" };

@@ -68,9 +68,17 @@ function initParser(plugin, parserName) {
     : parserOrParserInitFunction;
 }
 
+function initPrinter(plugin, astFormat) {
+  const printerOrPrinterInitFunction = plugin.printers[astFormat];
+  return typeof printerOrPrinterInitFunction === "function"
+    ? printerOrPrinterInitFunction()
+    : printerOrPrinterInitFunction;
+}
+
 export {
   getParserPluginByParserName,
   getPrinterPluginByAstFormat,
-  initParser,
   resolveParser,
+  initParser,
+  initPrinter,
 };

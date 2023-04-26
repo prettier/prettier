@@ -1,120 +1,131 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare-module-exports.js format 1`] = `
+exports[`snippet: test.cjs format 1`] = `
 ====================================options=====================================
-cursorOffset: 22
-parsers: ["flow"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-declare module.exports<|>: A;
-
+const A = <T,>() => {}
 =====================================output=====================================
-declare module.exports<|>: A;
+const A = <T,>() => {};
 
 ================================================================================
 `;
 
-exports[`function-predicate.js format 1`] = `
+exports[`snippet: test.cts format 1`] = `
 ====================================options=====================================
-cursorOffset: 12
-parsers: ["flow"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function a()<|>: %checks(a) {}
-
+const A = <T,>() => {}
 =====================================output=====================================
-function a()<|>: %checks(a) {}
+const A = <T,>() => {};
 
 ================================================================================
 `;
 
-exports[`function-predicate-2.js format 1`] = `
+exports[`snippet: test.js format 1`] = `
 ====================================options=====================================
-cursorOffset: 12
-parsers: ["flow"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function a()<|>: %checks {}
-
+const A = <T,>() => {}
 =====================================output=====================================
-function a()<|>: %checks {}
+const A = <T,>() => {};
 
 ================================================================================
 `;
 
-exports[`function-return-type.js format 1`] = `
+exports[`snippet: test.jsx format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function a(): boolean {}
-
+const A = <T,>() => {}
 =====================================output=====================================
-function a(): boolean {}
+const A = <T,>() => {};
 
 ================================================================================
 `;
 
-exports[`function-return-type-and-predicate.js format 1`] = `
+exports[`snippet: test.mjs format 1`] = `
 ====================================options=====================================
-cursorOffset: 12
-parsers: ["flow"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function a()<|>: boolean %checks(a) {}
-
+const A = <T,>() => {}
 =====================================output=====================================
-function a()<|>: boolean %checks(a) {}
+const A = <T,>() => {};
 
 ================================================================================
 `;
 
-exports[`function-return-type-and-predicate-2.js format 1`] = `
+exports[`snippet: test.mts format 1`] = `
 ====================================options=====================================
-cursorOffset: 12
-parsers: ["flow"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function a()<|>: boolean %checks {}
-
+const A = <T,>() => {}
 =====================================output=====================================
-function a()<|>: boolean %checks {}
+const A = <T,>() => {};
 
 ================================================================================
 `;
 
-exports[`function-type-parameter-bound.js format 1`] = `
+exports[`snippet: test.ts format 1`] = `
 ====================================options=====================================
-cursorOffset: 12
-parsers: ["flow"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function a<T<|>: X>() {}
-
+const A = <T,>() => {}
 =====================================output=====================================
-function a<T<|>: X>() {}
+const A = <T>() => {};
 
 ================================================================================
 `;
 
-exports[`type-cast-expression.js format 1`] = `
+exports[`snippet: test.tsx format 1`] = `
 ====================================options=====================================
-cursorOffset: 2
-parsers: ["flow"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-(a<|>: A);
-
+const A = <T,>() => {}
 =====================================output=====================================
-(a<|>: A);
+const A = <T,>() => {};
+
+================================================================================
+`;
+
+exports[`snippet: test.unknown format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const A = <T,>() => {}
+=====================================output=====================================
+const A = <T,>() => {};
+
+================================================================================
+`;
+
+exports[`snippet: unnamed format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const A = <T,>() => {}
+=====================================output=====================================
+const A = <T,>() => {};
 
 ================================================================================
 `;

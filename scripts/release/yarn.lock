@@ -175,19 +175,19 @@ __metadata:
     enquirer: 2.3.6
     execa: 7.1.1
     outdent: 0.8.0
-    semver: 7.4.0
+    semver: 7.5.0
     string-width: 5.1.2
   languageName: unknown
   linkType: soft
 
-"semver@npm:7.4.0":
-  version: 7.4.0
-  resolution: "semver@npm:7.4.0"
+"semver@npm:7.5.0":
+  version: 7.5.0
+  resolution: "semver@npm:7.5.0"
   dependencies:
     lru-cache: ^6.0.0
   bin:
     semver: bin/semver.js
-  checksum: debf7f4d6fa36fdc5ef82bd7fc3603b6412165c8a3963a30be0c45a587be1a49e7681e80aa109da1875765741af24edc6e021cee1ba16ae96f649d06c5df296d
+  checksum: 2d266937756689a76f124ffb4c1ea3e1bbb2b263219f90ada8a11aebebe1280b13bb76cca2ca96bdee3dbc554cbc0b24752eb895b2a51577aa644427e9229f2b
   languageName: node
   linkType: hard
 
