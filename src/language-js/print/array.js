@@ -26,7 +26,7 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
-function printEmptyArray(path, options, openBracket, closeBracket) {
+function printEmptyArrayElements(path, options, openBracket, closeBracket) {
   const { node } = path;
   if (!hasComment(node, CommentCheckFlags.Dangling)) {
     return [openBracket, closeBracket];
@@ -62,7 +62,9 @@ function printArray(path, options, print) {
       : "elements";
   const elements = node[elementsProperty];
   if (elements.length === 0) {
-    parts.push(printEmptyArray(path, options, openBracket, closeBracket));
+    parts.push(
+      printEmptyArrayElements(path, options, openBracket, closeBracket)
+    );
   } else {
     const lastElem = elements.at(-1);
     const canHaveTrailingComma = lastElem?.type !== "RestElement";
@@ -124,9 +126,9 @@ function printArray(path, options, print) {
           indent([
             softline,
             shouldUseConciseFormatting
-              ? printArrayItemsConcisely(path, options, print, trailingComma)
+              ? printArrayElementsConcisely(path, options, print, trailingComma)
               : [
-                  printArrayItems(path, options, elementsProperty, print),
+                  printArrayElements(path, options, elementsProperty, print),
                   trailingComma,
                 ],
             printDanglingComments(path, options),
@@ -168,7 +170,7 @@ function isConciselyPrintedArray(node, options) {
   );
 }
 
-function printArrayItems(path, options, elementsProperty, print) {
+function printArrayElements(path, options, elementsProperty, print) {
   const parts = [];
 
   path.each(({ node, isLast }) => {
@@ -186,7 +188,7 @@ function printArrayItems(path, options, elementsProperty, print) {
   return parts;
 }
 
-function printArrayItemsConcisely(path, options, print, trailingComma) {
+function printArrayElementsConcisely(path, options, print, trailingComma) {
   const parts = [];
 
   path.each(({ node, isLast, next }) => {

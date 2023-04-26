@@ -166,34 +166,16 @@ describe("--write and --list-different with unknown path and no parser", () => {
 });
 
 describe("API with no path and no parser", () => {
-  const _console = global.console;
-  const result = { called: 0, arguments: [] };
-
-  beforeEach(() => {
-    global.console = {
-      warn(...args) {
-        result.called += 1;
-        result.arguments = args;
-      },
-    };
-  });
-
-  afterEach(() => {
-    result.called = 0;
-    result.arguments = [];
-    global.console = _console;
-  });
-
   test("prettier.format", async () => {
-    expect(await prettier.format(" foo  (  )")).toBe("foo();\n");
-    expect(result.called).toBe(1);
-    expect(result.arguments).toMatchSnapshot();
+    await expect(prettier.format(" foo  (  )")).rejects.toThrow(
+      /No parser and no file path given, couldn't infer a parser\./
+    );
   });
 
   test("prettier.check", async () => {
-    expect(await prettier.check(" foo (  )")).toBe(false);
-    expect(result.called).toBe(1);
-    expect(result.arguments).toMatchSnapshot();
+    await expect(prettier.check(" foo (  )")).rejects.toThrow(
+      /No parser and no file path given, couldn't infer a parser\./
+    );
   });
 });
 

@@ -114,31 +114,35 @@ function printTypeAlias(path, options, print) {
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
 function printIntersectionType(path, options, print) {
-  const { node } = path;
-  const types = path.map(print, "types");
-  const result = [];
   let wasIndented = false;
-  for (let i = 0; i < types.length; ++i) {
-    if (i === 0) {
-      result.push(types[i]);
-    } else if (isObjectType(node.types[i - 1]) && isObjectType(node.types[i])) {
+  return group(
+    path.map(({ isFirst, previous, node, index }) => {
+      const doc = print();
+      if (isFirst) {
+        return doc;
+      }
+
+      const currentIsObjectType = isObjectType(node);
+      const previousIsObjectType = isObjectType(previous);
+
       // If both are objects, don't indent
-      result.push([" & ", wasIndented ? indent(types[i]) : types[i]]);
-    } else if (
-      !isObjectType(node.types[i - 1]) &&
-      !isObjectType(node.types[i])
-    ) {
+      if (previousIsObjectType && currentIsObjectType) {
+        return [" & ", wasIndented ? indent(doc) : doc];
+      }
+
       // If no object is involved, go to the next line if it breaks
-      result.push(indent([" &", line, types[i]]));
-    } else {
+      if (!previousIsObjectType && !currentIsObjectType) {
+        return indent([" &", line, doc]);
+      }
+
       // If you go from object to non-object or vis-versa, then inline it
-      if (i > 1) {
+      if (index > 1) {
         wasIndented = true;
       }
-      result.push(" & ", i > 1 ? indent(types[i]) : types[i]);
-    }
-  }
-  return group(result);
+
+      return [" & ", index > 1 ? indent(doc) : doc];
+    }, "types")
+  );
 }
 
 // `TSUnionType` and `UnionTypeAnnotation`

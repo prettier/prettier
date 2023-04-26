@@ -150,7 +150,7 @@ format("lodash ( )", {
 
 ```js
 import { format } from "prettier";
-import pluginBabel from "prettier/plugins/babel";
+import * as pluginBabel from "prettier/plugins/babel";
 
 const myCustomPlugin = {
   parsers: {
