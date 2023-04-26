@@ -585,6 +585,27 @@ function needsParens(path, options) {
         return true;
       }
 
+      /* Matches the following case in Flow:
+         ```
+         const a = (x: any): x is (number => string) => true;
+         ```
+         This case is not necessary in TS since `number => string` is not a valid
+         arrow type there.
+      */
+      if (
+        path.match(
+          undefined,
+          (node, key) =>
+            key === "typeAnnotation" && node.type === "TypePredicate",
+          (node, key) =>
+            key === "typeAnnotation" && node.type === "TypeAnnotation",
+          (node, key) =>
+            key === "returnType" && node.type === "ArrowFunctionExpression"
+        )
+      ) {
+        return true;
+      }
+
       const ancestor =
         parent.type === "NullableTypeAnnotation" ? path.grandparent : parent;
 

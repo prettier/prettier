@@ -252,6 +252,15 @@ function printFlow(path, options, print) {
         ")",
       ];
 
+    case "TypePredicate":
+      return [
+        node.asserts ? "asserts " : "",
+        print("parameterName"),
+        node.typeAnnotation
+          ? [" is ", printTypeAnnotationProperty(path, print)]
+          : "",
+      ];
+
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
