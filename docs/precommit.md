@@ -33,7 +33,7 @@ yarn husky add .husky/pre-commit "npx lint-staged"
 <!--pnpm-->
 
 ```bash
-pnpm dlx husky-init && pnpm install 
+pnpm dlx husky-init && pnpm install
 pnpm add --save-dev lint-staged
 pnpm exec husky add .husky/pre-commit "npx lint-staged"
 ```
@@ -70,7 +70,7 @@ yarn husky add .husky/pre-commit "npx pretty-quick --staged"
 <!--pnpm-->
 
 ```bash
-pnpm dlx husky-init && pnpm install 
+pnpm dlx husky-init && pnpm install
 pnpm add --save-dev pretty-quick
 pnpm exec husky add .husky/pre-commit "npx pretty-quick --staged"
 ```
@@ -148,7 +148,7 @@ yarn husky add .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknow
 <!--pnpm-->
 
 ```bash
-pnpm dlx husky-init && pnpm install 
+pnpm dlx husky-init && pnpm install
 pnpm add --save-dev git-format-staged
 pnpm husky add .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
 ```
