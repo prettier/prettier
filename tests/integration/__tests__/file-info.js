@@ -102,23 +102,6 @@ describe("extracts file-info with inferredParser=null for file.foo", () => {
   });
 });
 
-describe("extracts file-info with inferredParser=foo when plugins are autoloaded", () => {
-  runCli("plugins/automatic/", ["--file-info", "file.foo"]).test({
-    status: 0,
-  });
-});
-
-describe("extracts file-info with inferredParser=foo when plugins are loaded with --plugin-search-dir", () => {
-  runCli("cli/", [
-    "--file-info",
-    "file.foo",
-    "--plugin-search-dir",
-    "../plugins/automatic",
-  ]).test({
-    status: 0,
-  });
-});
-
 describe("extracts file-info with inferredParser=foo when a plugin is hand-picked", () => {
   runCli("cli/", [
     "--file-info",
