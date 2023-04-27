@@ -890,6 +890,9 @@ function needsParens(path, options) {
           parent.type !== "VariableDeclarator" &&
           parent.type !== "YieldExpression")
       );
+
+    case "TSInstantiationExpression":
+      return key === "object" && isMemberExpression(parent);
   }
 
   return false;
