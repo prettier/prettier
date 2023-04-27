@@ -61,6 +61,10 @@ const shouldPrintDirectly = createTypeCheckFunction([
  * @returns {Doc}
  */
 function print(path, options, print, args) {
+  if (path.isRoot) {
+    options.__onHtmlBindingRoot?.(path.node, options);
+  }
+
   const doc = printWithoutParentheses(path, options, print, args);
   if (!doc) {
     return "";
