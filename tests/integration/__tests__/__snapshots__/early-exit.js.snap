@@ -10,9 +10,17 @@ exports[`show detailed usage with --help l (alias) (stdout) 1`] = `
 
 exports[`show detailed usage with --help l (alias) (write) 1`] = `[]`;
 
-exports[`show detailed usage with plugin options (manual resolution) (stderr) 1`] = `"[error] Cannot find module 'E:\\project\\@forks\\plugins\\automatic\\node_modules\\prettier-plugin-bar\\index.js' imported from E:\\project\\@forks\\prettier\\noop.js"`;
+exports[`show detailed usage with plugin options (manual resolution) (stderr) 1`] = `""`;
 
-exports[`show detailed usage with plugin options (manual resolution) (stdout) 1`] = `""`;
+exports[`show detailed usage with plugin options (manual resolution) (stdout) 1`] = `
+"--tab-width <int>
+
+  Number of spaces per indentation level.
+
+Default: 2
+Plugin defaults:
+* ../plugins/automatic/node_modules/prettier-plugin-bar/index.js: 4"
+`;
 
 exports[`show detailed usage with plugin options (manual resolution) (write) 1`] = `[]`;
 

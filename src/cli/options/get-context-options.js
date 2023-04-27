@@ -64,7 +64,7 @@ function supportInfoToContextOptions({ options: supportOptions, languages }) {
   };
 }
 
-async function getContextOptions(plugins, ) {
+async function getContextOptions(plugins) {
   const supportInfo = await getSupportInfo({
     showDeprecated: true,
     plugins,

@@ -1,30 +1,3 @@
-describe("automatically loads 'prettier-plugin-*'", () => {
-  runCli("plugins/automatic", ["file.txt", "--parser=bar"]).test({
-    stdout: "content from `prettier-plugin-bar` package + contents",
-    stderr: "",
-    status: 0,
-    write: [],
-  });
-});
-
-describe("automatically loads '@prettier/plugin-*'", () => {
-  runCli("plugins/automatic", ["file.txt", "--parser=foo"]).test({
-    stdout: "foo+contents",
-    stderr: "",
-    status: 0,
-    write: [],
-  });
-});
-
-describe("automatically loads '@<name>/prettier-plugin-*'", () => {
-  runCli("plugins/automatic", ["file.txt", "--parser=foobar"]).test({
-    stdout: "foobar+contents",
-    stderr: "",
-    status: 0,
-    write: [],
-  });
-});
-
 describe("loads --plugin by its relative path", () => {
   runCli("plugins", [
     "automatic/file.txt",
