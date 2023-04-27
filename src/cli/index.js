@@ -6,7 +6,7 @@ import { createDetailedUsage, createUsage } from "./usage.js";
 import { formatStdin, formatFiles } from "./format.js";
 import logFileInfoOrDie from "./file-info.js";
 import logResolvedConfigPathOrDie from "./find-config-path.js";
-import { printToScreen, isNonEmptyArray } from "./utils.js";
+import { printToScreen } from "./utils.js";
 import printSupportInfo from "./print-support-info.js";
 
 async function run(rawArguments) {
