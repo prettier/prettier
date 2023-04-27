@@ -25,6 +25,7 @@ import {
   printTypeAnnotationProperty,
   printArrayType,
   printTypeQuery,
+  printTypePredicate,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -253,13 +254,7 @@ function printFlow(path, options, print) {
       ];
 
     case "TypePredicate":
-      return [
-        node.asserts ? "asserts " : "",
-        print("parameterName"),
-        node.typeAnnotation
-          ? [" is ", printTypeAnnotationProperty(path, print)]
-          : "",
-      ];
+      return printTypePredicate(path, print);
 
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation":
