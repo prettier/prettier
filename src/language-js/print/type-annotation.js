@@ -529,6 +529,17 @@ function printTypeQuery({ node }, print) {
   ];
 }
 
+function printTypePredicate(path, print) {
+  const { node } = path;
+  return [
+    node.asserts ? "asserts " : "",
+    print("parameterName"),
+    node.typeAnnotation
+      ? [" is ", printTypeAnnotationProperty(path, print)]
+      : "",
+  ];
+}
+
 export {
   printOpaqueType,
   printTypeAlias,
@@ -545,4 +556,5 @@ export {
   printTypeAnnotation,
   printArrayType,
   printTypeQuery,
+  printTypePredicate,
 };
