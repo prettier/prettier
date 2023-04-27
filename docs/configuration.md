@@ -32,7 +32,7 @@ JSON:
 }
 ```
 
-JS (ES Module):
+JS (ES Modules):
 
 ```js
 // prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
