@@ -191,6 +191,7 @@ function trim(out) {
  * @param {boolean} hasLineSuffix
  * @param {GroupModeMap} groupModeMap
  * @param {boolean} [mustBeFlat]
+ * @param {boolean} [reversed]
  * @returns {boolean}
  */
 function fits(
@@ -199,7 +200,8 @@ function fits(
   width,
   hasLineSuffix,
   groupModeMap,
-  mustBeFlat
+  mustBeFlat,
+  reversed
 ) {
   if (width === Number.POSITIVE_INFINITY) {
     return true;
@@ -233,7 +235,8 @@ function fits(
       case DOC_TYPE_FILL: {
         const parts = getDocParts(doc);
         for (let i = parts.length - 1; i >= 0; i--) {
-          cmds.push({ mode, doc: parts[i] });
+          const idx = !reversed ? i : parts.length - 1 - i;
+          cmds.push({ mode, doc: parts[idx] });
         }
         break;
       }
@@ -506,18 +509,27 @@ function printDocToString(doc, options) {
         const remainingCmd = { ind, mode, doc: fill(parts) };
 
         const secondContent = parts[0];
+        const secondContentFits = fits(
+          { ind, mode: MODE_FLAT, doc: secondContent },
+          [],
+          rem,
+          lineSuffix.length > 0,
+          groupModeMap,
+          true,
+        );
 
         const firstAndSecondContentFlatCmd = {
           ind,
           mode: MODE_FLAT,
           doc: [content, whitespace, secondContent],
         };
-        const firstAndSecondContentFits = fits(
+        const firstAndSecondContentFits = secondContentFits && fits(
           firstAndSecondContentFlatCmd,
           [],
           rem,
           lineSuffix.length > 0,
           groupModeMap,
+          true,
           true
         );
 
