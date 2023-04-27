@@ -13,10 +13,6 @@ function printHtmlBinding(path, options, print) {
     options.__onHtmlBindingRoot?.(node, options);
   }
 
-  if (node.type !== "File") {
-    return;
-  }
-
   if (options.__isVueBindings || options.__isVueForBindingLeft) {
     const parameterDocs = path.map(print, "program", "body", 0, "params");
 
