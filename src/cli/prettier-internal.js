@@ -10,4 +10,5 @@ export const {
   getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
   vnopts,
+  fastGlob,
 } = sharedWithCli;

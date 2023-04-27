@@ -1,4 +1,6 @@
 import vnopts from "vnopts";
+// "fast-glob" is bundled here since the API uses `micromatch` too
+import fastGlob from "fast-glob";
 import * as core from "./main/core.js";
 import {
   getSupportInfo as getSupportInfoWithoutPlugins,
@@ -88,6 +90,7 @@ const sharedWithCli = {
   getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
   vnopts,
+  fastGlob,
   utils: {
     isNonEmptyArray,
     partition,
