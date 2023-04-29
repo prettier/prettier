@@ -67,6 +67,20 @@ Copy the following config into your `.pre-commit-config.yaml` file:
     - id: prettier
 ```
 
+Note that the pre-commit mirror for prettier does not support the concept of multiple npm dist-tags and as such only mirrors version numbers that increase monotonically. As a result the mirror will stop mirroring tags for stable releases if a higher versioned pre-release has been posted to npm in the meantime.
+This is important to keep in mind when using `pre-commit autoupdate` as this behaviour may lead to a pre-release version being selected if one is available.
+To install a version with a tag that is unavailable from the mirror you can use a `.pre-commit-config.yaml` file like this:
+
+```yaml
+- repo: https://github.com/pre-commit/mirrors-prettier
+  rev: "" # Can be ignored
+  hooks:
+    - id: prettier
+      additional_dependencies:
+        - prettier@2.8.8 # Set the version tag to your desired version number
+```
+
+This effectively disables auto updates for the prettier portion of your pre-commit config but also ensures that a selected stable version is not overwritten by a pre-release version from the mirror.
 Read more at [mirror of prettier package for pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
 
 ## Option 4. [Husky.Net](https://github.com/alirezanet/Husky.Net)
