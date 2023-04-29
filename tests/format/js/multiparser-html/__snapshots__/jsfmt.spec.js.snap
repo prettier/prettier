@@ -338,6 +338,17 @@ html\`<div style="   color : red;
             display    :inline ">
   </div>\`
 
+const staticTagName = 'static-tag-name';
+
+html\`
+  <div>
+    <\${staticTagName}
+    
+    x-attr="\${replace}" .prop="\${replace}">
+    </\${staticTagName}>
+</div>
+\`
+
 =====================================output=====================================
 import { LitElement, html } from "@polymer/lit-element";
 
@@ -473,6 +484,14 @@ html\`
   ></div>
 \`;
 
+const staticTagName = "static-tag-name";
+
+html\`
+  <div>
+    <\${staticTagName} x-attr="\${replace}" .prop="\${replace}"></\${staticTagName}>
+  </div>
+\`;
+
 ================================================================================
 `;
 
@@ -585,6 +604,17 @@ html\`<div style="   color : red;
             display    :inline ">
   </div>\`
 
+const staticTagName = 'static-tag-name';
+
+html\`
+  <div>
+    <\${staticTagName}
+    
+    x-attr="\${replace}" .prop="\${replace}">
+    </\${staticTagName}>
+</div>
+\`
+
 =====================================output=====================================
 import { LitElement, html } from "@polymer/lit-element";
 
@@ -679,6 +709,15 @@ html\`<div
 \${foo}:\${bar};
             display    :inline "
 ></div>\`;
+
+const staticTagName = "static-tag-name";
+
+html\`
+  <div>
+    <\${staticTagName} x-attr="\${replace}" .prop="\${replace}">
+    </\${staticTagName}>
+  </div>
+\`;
 
 ================================================================================
 `;

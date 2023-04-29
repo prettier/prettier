@@ -100,3 +100,14 @@ html`<div style="   color : red;
 ${ foo}:${bar};
             display    :inline ">
   </div>`
+
+const staticTagName = 'static-tag-name';
+
+html`
+  <div>
+    <${staticTagName}
+    
+    x-attr="${replace}" .prop="${replace}">
+    </${staticTagName}>
+</div>
+`

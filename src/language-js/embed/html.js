@@ -19,8 +19,21 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
 
-  const composePlaceholder = (index) =>
-    `PRETTIER_HTML_PLACEHOLDER_${index}_${counter}_IN_JS`;
+  const variableNameIndexLookup = {};
+  const composePlaceholder = (index) => {
+    let placeholder = index;
+
+    const nextExpression = node.expressions[index];
+    if (nextExpression && nextExpression.type === "Identifier") {
+      if (Object.hasOwn(variableNameIndexLookup, nextExpression.name)) {
+        placeholder = variableNameIndexLookup[nextExpression.name];
+      } else {
+        variableNameIndexLookup[nextExpression.name] = index;
+      }
+    }
+
+    return `PRETTIER_HTML_PLACEHOLDER_${placeholder}_${counter}_IN_JS`;
+  };
 
   const text = node.quasis
     .map((quasi, index, quasis) =>
