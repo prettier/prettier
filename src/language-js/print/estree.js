@@ -1,7 +1,5 @@
-// TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
-import { printDanglingComments } from "../main/comments/print.js";
-import printIgnored from "../main/print-ignored.js";
-import hasNewline from "../utils/has-newline.js";
+import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewline from "../../utils/has-newline.js";
 import {
   join,
   line,
@@ -9,12 +7,10 @@ import {
   softline,
   group,
   indent,
-} from "../document/builders.js";
-import { replaceEndOfLine, inheritLabel } from "../document/utils.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
+} from "../../document/builders.js";
+import { replaceEndOfLine } from "../../document/utils.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 
-import pathNeedsParens from "./needs-parens.js";
 import {
   hasComment,
   CommentCheckFlags,
@@ -25,17 +21,9 @@ import {
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   startsWithNoLookaheadToken,
-  createTypeCheckFunction,
-} from "./utils/index.js";
-import { locStart, locEnd } from "./loc.js";
-import isBlockComment from "./utils/is-block-comment.js";
-import isIgnored from "./utils/is-ignored.js";
-
-import { printHtmlBinding } from "./print/html-binding.js";
-import { printAngular } from "./print/angular.js";
-import { printJsx } from "./print/jsx.js";
-import { printFlow } from "./print/flow.js";
-import { printTypescript } from "./print/typescript.js";
+} from "../utils/index.js";
+import { locStart, locEnd } from "../loc.js";
+import isBlockComment from "../utils/is-block-comment.js";
 import {
   printOptionalToken,
   printBindExpressionCallee,
@@ -43,68 +31,51 @@ import {
   printRestSpread,
   printDefiniteToken,
   printDeclareToken,
-} from "./print/misc.js";
+} from "./misc.js";
 import {
   printImportDeclaration,
   printExportDeclaration,
   printModuleSpecifier,
-} from "./print/module.js";
-import { printTernary } from "./print/ternary.js";
+} from "./module.js";
+import { printTernary } from "./ternary.js";
 import {
   printTaggedTemplateLiteral,
   printTemplateLiteral,
-} from "./print/template-literal.js";
-import { printArray } from "./print/array.js";
-import { printObject } from "./print/object.js";
+} from "./template-literal.js";
+import { printArray } from "./array.js";
+import { printObject } from "./object.js";
 import {
   printClass,
   printClassMethod,
   printClassProperty,
   printClassBody,
-} from "./print/class.js";
-import { printProperty } from "./print/property.js";
+} from "./class.js";
+import { printProperty } from "./property.js";
 import {
   printFunction,
-  printArrowFunction,
   printMethod,
   printReturnStatement,
   printThrowStatement,
-} from "./print/function.js";
-import { printCallExpression } from "./print/call-expression.js";
+} from "./function.js";
+import { printArrowFunction } from "./arrow-function.js";
+import { printCallExpression } from "./call-expression.js";
 import {
   printVariableDeclarator,
   printAssignmentExpression,
-} from "./print/assignment.js";
-import { printBinaryishExpression } from "./print/binaryish.js";
-import { printStatementSequence } from "./print/statement.js";
-import { printMemberExpression } from "./print/member.js";
-import { printBlock, printBlockBody } from "./print/block.js";
-import { printLiteral } from "./print/literal.js";
-import { printDecorators } from "./print/decorators.js";
-import { printTypeAnnotationProperty } from "./print/type-annotation.js";
-import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
-import { printExpressionStatement } from "./print/expression-statement.js";
+} from "./assignment.js";
+import { printBinaryishExpression } from "./binaryish.js";
+import { printStatementSequence } from "./statement.js";
+import { printMemberExpression } from "./member.js";
+import { printBlock, printBlockBody } from "./block.js";
+import { printLiteral, isLiteral } from "./literal.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
+import { printExpressionStatement } from "./expression-statement.js";
+import { printHtmlBinding } from "./html-binding.js";
 
 /**
- * @typedef {import("../common/ast-path.js").default} AstPath
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
  */
-
-// Their decorators are handled themselves, and they don't need parentheses or leading semicolons
-const shouldPrintDirectly = createTypeCheckFunction([
-  "ClassMethod",
-  "ClassPrivateMethod",
-  "ClassProperty",
-  "ClassAccessorProperty",
-  "AccessorProperty",
-  "TSAbstractAccessorProperty",
-  "PropertyDefinition",
-  "TSAbstractPropertyDefinition",
-  "ClassPrivateProperty",
-  "MethodDefinition",
-  "TSAbstractMethodDefinition",
-  "TSDeclareMethod",
-]);
 
 /**
  * @param {AstPath} path
@@ -113,69 +84,13 @@ const shouldPrintDirectly = createTypeCheckFunction([
  * @param {*} [args]
  * @returns {Doc}
  */
-function genericPrint(path, options, print, args) {
-  const doc = printPathNoParens(path, options, print, args);
-  if (!doc) {
-    return "";
-  }
-
+function printEstree(path, options, print, args) {
   const { node } = path;
-  if (shouldPrintDirectly(node)) {
-    return doc;
+
+  if (isLiteral(node)) {
+    return printLiteral(path, options);
   }
 
-  const hasDecorators = isNonEmptyArray(node.decorators);
-  const decoratorsDoc = printDecorators(path, options, print);
-  const isClassExpression = node.type === "ClassExpression";
-  // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
-  if (hasDecorators && !isClassExpression) {
-    return inheritLabel(doc, (doc) => group([decoratorsDoc, doc]));
-  }
-
-  const needsParens = pathNeedsParens(path, options);
-  const needsSemi = shouldPrintLeadingSemicolon(path, options);
-
-  if (!decoratorsDoc && !needsParens && !needsSemi) {
-    return doc;
-  }
-
-  return inheritLabel(doc, (doc) => [
-    needsSemi ? ";" : "",
-    needsParens ? "(" : "",
-    needsParens && isClassExpression && hasDecorators
-      ? [indent([line, decoratorsDoc, doc]), line]
-      : [decoratorsDoc, doc],
-    needsParens ? ")" : "",
-  ]);
-}
-
-/**
- * @param {AstPath} path
- * @param {*} options
- * @param {*} print
- * @param {*} [args]
- * @returns {Doc}
- */
-function printPathNoParens(path, options, print, args) {
-  if (isIgnored(path)) {
-    return printIgnored(path, options);
-  }
-
-  for (const printer of [
-    printLiteral,
-    printHtmlBinding,
-    printAngular,
-    printJsx,
-    printFlow,
-    printTypescript,
-  ]) {
-    const printed = printer(path, options, print);
-    if (printed !== undefined) {
-      return printed;
-    }
-  }
-
-  const { node } = path;
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   let parts = [];
@@ -186,7 +101,7 @@ function printPathNoParens(path, options, print, args) {
     case "JsonRoot":
       return [print("node"), hardline];
     case "File":
-      return print("program");
+      return printHtmlBinding(path, options, print) ?? print("program");
 
     case "Program":
       return printBlockBody(path, options, print);
@@ -738,13 +653,4 @@ function printPathNoParens(path, options, print, args) {
   }
 }
 
-export const experimentalFeatures = {
-  // TODO: Make this default behavior
-  avoidAstMutation: true,
-};
-export { genericPrint as print };
-export * from "./comments/printer-methods.js";
-export { default as embed } from "./embed/index.js";
-export { default as massageAstNode } from "./clean.js";
-export { insertPragma } from "./pragma.js";
-export { default as getVisitorKeys } from "./traverse/get-visitor-keys.js";
+export { printEstree };

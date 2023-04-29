@@ -1010,6 +1010,11 @@ exports[`visitor keys estree 1`] = `
   "TypeParameterInstantiation": [
     "params",
   ],
+  "TypePredicate": [
+    "parameterName",
+    "typeAnnotation",
+    "asserts",
+  ],
   "TypeofTypeAnnotation": [
     "argument",
   ],

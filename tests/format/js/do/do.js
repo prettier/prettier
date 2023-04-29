@@ -52,3 +52,17 @@ function foo() {
     obj[key];
   }
 };
+
+() => (    ) => do {
+  var obj = { foo: "bar", bar: "foo" };
+  for (var key in obj) {
+    obj[key];
+  }
+};
+
+a =>b=>     c => do {
+  var obj = { foo: "bar", bar: "foo" };
+  for (var key in obj) {
+    obj[key];
+  }
+};

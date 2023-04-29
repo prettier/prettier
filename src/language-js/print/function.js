@@ -1,43 +1,23 @@
-/** @typedef {import("../../document/builders.js").Doc} Doc */
-
 import assert from "node:assert";
+import { printDanglingComments } from "../../main/comments/print.js";
 import {
-  printDanglingComments,
-  printCommentsSeparately,
-} from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import {
-  line,
   softline,
   group,
   indent,
-  dedent,
   ifBreak,
   hardline,
-  join,
-  indentIfBreak,
 } from "../../document/builders.js";
-import { removeLines, willBreak } from "../../document/utils.js";
-import { ArgExpansionBailout } from "../../common/errors.js";
 import {
   getFunctionParameters,
   hasLeadingOwnLineComment,
-  isJsxElement,
-  isTemplateOnItsOwnLine,
-  shouldPrintComma,
-  startsWithNoLookaheadToken,
   isBinaryish,
   hasComment,
   CommentCheckFlags,
-  isCallLikeExpression,
   isCallExpression,
   getCallArguments,
   hasNakedLeftSide,
   getLeftSide,
-  isArrayOrTupleExpression,
-  isObjectOrRecordExpression,
 } from "../utils/index.js";
-import { locEnd } from "../loc.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
@@ -46,6 +26,11 @@ import {
 import { printPropertyKey } from "./property.js";
 import { printFunctionTypeParameters, printDeclareToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
+
+/**
+ * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
 
 const isMethod = (node) =>
   node.type === "ObjectMethod" ||
@@ -198,214 +183,6 @@ function printMethodValue(path, options, print) {
   return parts;
 }
 
-function printArrowFunctionSignature(path, options, print, args) {
-  const { node } = path;
-  const parts = [];
-
-  if (node.async) {
-    parts.push("async ");
-  }
-
-  if (shouldPrintParamsWithoutParens(path, options)) {
-    parts.push(print(["params", 0]));
-  } else {
-    const expandArg = args?.expandLastArg || args?.expandFirstArg;
-    let returnTypeDoc = printReturnType(path, print);
-    if (expandArg) {
-      if (willBreak(returnTypeDoc)) {
-        throw new ArgExpansionBailout();
-      }
-      returnTypeDoc = group(removeLines(returnTypeDoc));
-    }
-    parts.push(
-      group([
-        printFunctionParameters(
-          path,
-          print,
-          options,
-          expandArg,
-          /* printTypeParams */ true
-        ),
-        returnTypeDoc,
-      ])
-    );
-  }
-
-  const dangling = printDanglingComments(path, options, {
-    filter(comment) {
-      const nextCharacter = getNextNonSpaceNonCommentCharacterIndex(
-        options.originalText,
-        locEnd(comment)
-      );
-      return (
-        nextCharacter !== false &&
-        options.originalText.slice(nextCharacter, nextCharacter + 2) === "=>"
-      );
-    },
-  });
-  if (dangling) {
-    parts.push(" ", dangling);
-  }
-  return parts;
-}
-
-function printArrowChain(
-  path,
-  args,
-  signatures,
-  shouldBreak,
-  bodyDoc,
-  tailNode
-) {
-  const { parent, key } = path;
-  const isCallee = isCallLikeExpression(parent) && key === "callee";
-  const isAssignmentRhs = Boolean(args?.assignmentLayout);
-  const shouldPutBodyOnSeparateLine =
-    tailNode.body.type !== "BlockStatement" &&
-    !isObjectOrRecordExpression(tailNode.body) &&
-    tailNode.body.type !== "SequenceExpression";
-  const shouldBreakBeforeChain =
-    (isCallee && shouldPutBodyOnSeparateLine) ||
-    args?.assignmentLayout === "chain-tail-arrow-chain";
-
-  const groupId = Symbol("arrow-chain");
-
-  if ((isCallLikeExpression(parent) && !isCallee) || isBinaryish(parent)) {
-    signatures = [dedent(signatures[0]), ...signatures.slice(1)];
-  }
-
-  // We handle sequence expressions as the body of arrows specially,
-  // so that the required parentheses end up on their own lines.
-  if (tailNode.body.type === "SequenceExpression") {
-    bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
-  }
-
-  return group([
-    group(
-      indent([
-        isCallee || isAssignmentRhs ? softline : "",
-        group(join([" =>", line], signatures), { shouldBreak }),
-      ]),
-      { id: groupId, shouldBreak: shouldBreakBeforeChain }
-    ),
-    " =>",
-    indentIfBreak(
-      shouldPutBodyOnSeparateLine ? indent([line, bodyDoc]) : [" ", bodyDoc],
-      { groupId }
-    ),
-    isCallee ? ifBreak(softline, "", { groupId }) : "",
-  ]);
-}
-
-function printArrowFunction(path, options, print, args) {
-  let { node } = path;
-  /** @type {Doc[]} */
-  const signatures = [];
-  const body = [];
-  let chainShouldBreak = false;
-
-  (function rec() {
-    const doc = printArrowFunctionSignature(path, options, print, args);
-    if (signatures.length === 0) {
-      signatures.push(doc);
-    } else {
-      const { leading, trailing } = printCommentsSeparately(path, options);
-      signatures.push([leading, doc]);
-      body.unshift(trailing);
-    }
-
-    chainShouldBreak =
-      chainShouldBreak ||
-      // Always break the chain if:
-      (node.returnType && getFunctionParameters(node).length > 0) ||
-      node.typeParameters ||
-      getFunctionParameters(node).some((param) => param.type !== "Identifier");
-
-    if (node.body.type !== "ArrowFunctionExpression" || args?.expandLastArg) {
-      body.unshift(print("body", args));
-    } else {
-      node = node.body;
-      path.call(rec, "body");
-    }
-  })();
-
-  if (signatures.length > 1) {
-    return printArrowChain(
-      path,
-      args,
-      signatures,
-      chainShouldBreak,
-      body,
-      node
-    );
-  }
-
-  const parts = signatures;
-  parts.push(" =>");
-
-  // We want to always keep these types of nodes on the same line
-  // as the arrow.
-  if (
-    !hasLeadingOwnLineComment(options.originalText, node.body) &&
-    (isArrayOrTupleExpression(node.body) ||
-      isObjectOrRecordExpression(node.body) ||
-      node.body.type === "BlockStatement" ||
-      isJsxElement(node.body) ||
-      (body[0].label?.hug !== false &&
-        (body[0].label?.embed ||
-          isTemplateOnItsOwnLine(node.body, options.originalText))) ||
-      node.body.type === "ArrowFunctionExpression" ||
-      node.body.type === "DoExpression")
-  ) {
-    return group([...parts, " ", body]);
-  }
-
-  // We handle sequence expressions as the body of arrows specially,
-  // so that the required parentheses end up on their own lines.
-  if (node.body.type === "SequenceExpression") {
-    return group([
-      ...parts,
-      group([" (", indent([softline, body]), softline, ")"]),
-    ]);
-  }
-
-  // if the arrow function is expanded as last argument, we are adding a
-  // level of indentation and need to add a softline to align the closing )
-  // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
-  // we should align the expression's closing } with the line with the opening {.
-  const shouldAddSoftLine =
-    (args?.expandLastArg || path.parent.type === "JSXExpressionContainer") &&
-    !hasComment(node);
-
-  const printTrailingComma =
-    args?.expandLastArg && shouldPrintComma(options, "all");
-
-  // In order to avoid confusion between
-  // a => a ? a : a
-  // a <= a ? a : a
-  const shouldAddParens =
-    node.body.type === "ConditionalExpression" &&
-    !startsWithNoLookaheadToken(
-      node.body,
-      (node) => node.type === "ObjectExpression"
-    );
-
-  return group([
-    ...parts,
-    group([
-      indent([
-        line,
-        shouldAddParens ? ifBreak("", "(") : "",
-        body,
-        shouldAddParens ? ifBreak("", ")") : "",
-      ]),
-      shouldAddSoftLine
-        ? [ifBreak(printTrailingComma ? "," : ""), softline]
-        : "",
-    ]),
-  ]);
-}
-
 function canPrintParamsWithoutParens(node) {
   const parameters = getFunctionParameters(node);
   return (
@@ -530,10 +307,10 @@ function returnArgumentHasLeadingComment(options, argument) {
 
 export {
   printFunction,
-  printArrowFunction,
   printMethod,
   printReturnStatement,
   printThrowStatement,
   printMethodValue,
+  printReturnType,
   shouldPrintParamsWithoutParens,
 };
