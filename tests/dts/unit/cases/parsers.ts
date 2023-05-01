@@ -13,6 +13,7 @@ import * as prettierPluginMarkdown from "../../../../dist/plugins/markdown.js";
 import * as prettierPluginGlimmer from "../../../../dist/plugins/glimmer.js";
 import * as prettierPluginHtml from "../../../../dist/plugins/html.js";
 import * as prettierPluginYaml from "../../../../dist/plugins/yaml.js";
+import * as prettierPluginIgnore from "../../../../dist/plugins/ignore.js";
 
 prettierPluginBabel.parsers.babel.parse("code");
 prettierPluginFlow.parsers.flow.parse("code");
@@ -34,6 +35,7 @@ prettierPluginHtml.parsers.vue.parse("code");
 prettierPluginHtml.parsers.lwc.parse("code");
 prettierPluginHtml.parsers.angular.parse("code");
 prettierPluginYaml.parsers.yaml.parse("code");
+prettierPluginIgnore.parsers.ignore.parse("code");
 
 prettier.format("hello world", {
   plugins: [
@@ -50,5 +52,6 @@ prettier.format("hello world", {
     prettierPluginGlimmer,
     prettierPluginHtml,
     prettierPluginYaml,
+    prettierPluginIgnore,
   ],
 });

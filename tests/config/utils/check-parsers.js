@@ -50,6 +50,7 @@ const categoryParsers = new Map([
     "html",
     { parsers: ["html"], verifyParsers: [], extensions: [".html", ".svg"] },
   ],
+  ["ignore", { parsers: ["ignore"], verifyParsers: [], extensions: [] }],
   ["mjml", { parsers: ["html"], verifyParsers: [], extensions: [".mjml"] }],
   [
     "js",

@@ -30,6 +30,7 @@ test("builtin parsers", async () => {
       "glimmer",
       "graphql",
       "html",
+      "ignore",
       "json",
       "json-stringify",
       "json5",

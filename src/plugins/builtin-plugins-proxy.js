@@ -127,6 +127,11 @@ export const { parsers, printers } = createParsersAndParsers([
     printers: ["html"],
   },
   {
+    importPlugin: () => import("./ignore.js"),
+    parsers: ["ignore"],
+    printers: ["passthrough"],
+  },
+  {
     importPlugin: () => import("./markdown.js"),
     parsers: ["markdown", "mdx", "remark"],
     printers: ["mdast"],
