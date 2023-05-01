@@ -1,1 +1,1 @@
-run_spec(import.meta, ["ignore"]);
+run_spec(import.meta, ["ignore"], { parser: "ignore" });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`file.txt format 1`] = `
+exports[`file.txt - {"parser":"ignore"} format 1`] = `
 ====================================options=====================================
 parsers: ["ignore"]
 printWidth: 80
