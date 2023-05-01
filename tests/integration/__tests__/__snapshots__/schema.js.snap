@@ -269,6 +269,12 @@ This option cannot be used with --range-start and --range-end.",
               ],
             },
             {
+              "description": "Leave file unchanged",
+              "enum": [
+                "ignore",
+              ],
+            },
+            {
               "description": "Custom parser",
               "type": "string",
             },

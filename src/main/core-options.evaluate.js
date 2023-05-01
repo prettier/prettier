@@ -131,6 +131,7 @@ const options = {
       { value: "html", description: "HTML" },
       { value: "angular", description: "Angular" },
       { value: "lwc", description: "Lightning Web Components" },
+      { value: "ignore", description: "Leave file unchanged" },
     ],
   },
   plugins: {
