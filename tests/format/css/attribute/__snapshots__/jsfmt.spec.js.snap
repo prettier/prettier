@@ -414,11 +414,9 @@ a[href*='example'] {
 }
 a[href*='example'] {
 }
-a[ href ^= 'http://example.com' ]
-{
+a[href^='http://example.com'] {
 }
-a[ href $= 'https://example.com' ]
-{
+a[href$='https://example.com'] {
 }
 a[href*='tel:0123456789'] {
 }
@@ -669,11 +667,9 @@ a[href*="example"] {
 }
 a[href*="example"] {
 }
-a[ href ^= 'http://example.com' ]
-{
+a[href^="http://example.com"] {
 }
-a[ href $= 'https://example.com' ]
-{
+a[href$="https://example.com"] {
 }
 a[href*="tel:0123456789"] {
 }
