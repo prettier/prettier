@@ -1,18 +1,10 @@
 import PostcssSelectorParser from "postcss-selector-parser/dist/processor.js";
 import { addTypePrefix } from "./utils.js";
 
-function parseSelector(selector) {
-  // If there's a comment inside of a selector, the parser tries to parse
-  // the content of the comment as selectors which turns it into complete
-  // garbage. Better to print the whole selector as-is and not try to parse
-  // and reformat it.
-  if (/^\/\/|[^:]\/\/|\/\*/.test(selector)) {
-    return {
-      type: "selector-unknown",
-      value: selector.trim(),
-    };
-  }
+const commentRegExp = /\/\/|\/\*/;
 
+function parseSelector(selector) {
+  /** @type {any} */
   let result;
 
   try {
@@ -30,6 +22,49 @@ function parseSelector(selector) {
       type: "selector-unknown",
       value: selector,
     };
+  }
+
+  if (result) {
+    // If there's a comment inside of a selector, the parser tries to parse
+    // the content of the comment as selectors which turns it into complete
+    // garbage. Better to print the whole selector as-is and not try to parse
+    // and reformat it.
+    let foundComments;
+    result.walk((x) => {
+      if (x.type === "comment") {
+        foundComments = true;
+        return false;
+      }
+
+      if (x.type === "tag" && x.value === "//") {
+        foundComments = true;
+        return false;
+      }
+
+      if (x.type === "attribute") {
+        if (commentRegExp.test(x.attribute)) {
+          foundComments = true;
+          return false;
+        }
+
+        if (commentRegExp.test(x.namespace)) {
+          foundComments = true;
+          return false;
+        }
+
+        if (x.quoted === false && commentRegExp.test(x.value)) {
+          foundComments = true;
+          return false;
+        }
+      }
+    });
+
+    if (foundComments) {
+      return {
+        type: "selector-unknown",
+        value: selector.trim(),
+      };
+    }
   }
 
   return addTypePrefix(result, "selector-");
