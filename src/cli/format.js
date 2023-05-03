@@ -38,7 +38,7 @@ function handleError(context, filename, error, printedFilename) {
     return;
   }
 
-  if (context.argv.write) {
+  if (printedFilename) {
     // Add newline to split errors from filename line.
     process.stdout.write("\n");
   }
