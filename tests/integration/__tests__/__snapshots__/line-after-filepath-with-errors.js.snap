@@ -45,14 +45,31 @@ exports[`Line breaking after filepath with errors (stderr) 3`] = `
 [error]   2 |"
 `;
 
+exports[`Line breaking after filepath with errors (stderr) 4`] = `
+"[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] invalid-2.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] valid-1.js: SyntaxError: Unexpected token (1:9)
+[error] > 1 | function() {}
+[error]     |         ^
+[error]   2 |"
+`;
+
 exports[`Line breaking after filepath with errors (stdout) 1`] = `"invalid-1.jsinvalid-2.jsvalid-1.js"`;
 
-exports[`Line breaking after filepath with errors (stdout) 2`] = `
+exports[`Line breaking after filepath with errors (stdout) 2`] = `"invalid-1.jsinvalid-2.jsvalid-1.js"`;
+
+exports[`Line breaking after filepath with errors (stdout) 3`] = `
 "Checking formatting...
 invalid-1.jsinvalid-2.jsvalid-1.jsAll matched files use Prettier code style!"
 `;
 
-exports[`Line breaking after filepath with errors (stdout) 3`] = `
+exports[`Line breaking after filepath with errors (stdout) 4`] = `
 "invalid-1.js
 invalid-2.js
 valid-1.js"
@@ -63,3 +80,5 @@ exports[`Line breaking after filepath with errors (write) 1`] = `[]`;
 exports[`Line breaking after filepath with errors (write) 2`] = `[]`;
 
 exports[`Line breaking after filepath with errors (write) 3`] = `[]`;
+
+exports[`Line breaking after filepath with errors (write) 4`] = `[]`;
