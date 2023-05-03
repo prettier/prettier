@@ -52,9 +52,34 @@ function parseSelector(selector) {
           return false;
         }
 
-        if (x.quoted === false && commentRegExp.test(x.value)) {
-          foundComments = true;
-          return false;
+        if (commentRegExp.test(x.value)) {
+          if (x.quoted === false) {
+            foundComments = true;
+            return false;
+          }
+
+          try {
+            // Re-parse the attribute value as a selector.
+            // It will either be an ident or a string, possibly interleaved with comments.
+            new PostcssSelectorParser((attributeBits) => {
+              attributeBits.walk((y) => {
+                if (y.type === "comment") {
+                  foundComments = true;
+                  return false;
+                }
+
+                if (y.type === "tag" && x.value === "//") {
+                  foundComments = true;
+                  return false;
+                }
+              });
+            }).process(x.value);
+          } catch {
+            return {
+              type: "selector-unknown",
+              value: selector,
+            };
+          }
         }
       }
     });
