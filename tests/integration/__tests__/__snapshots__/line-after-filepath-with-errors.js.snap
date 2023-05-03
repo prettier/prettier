@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Line breaking after filepath with errors (stderr) 1`] = `
+"[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] invalid-2.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] valid-1.js: SyntaxError: Unexpected token (1:9)
+[error] > 1 | function() {}
+[error]     |         ^
+[error]   2 |"
+`;
+
+exports[`Line breaking after filepath with errors (stderr) 2`] = `
+"[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] invalid-2.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] valid-1.js: SyntaxError: Unexpected token (1:9)
+[error] > 1 | function() {}
+[error]     |         ^
+[error]   2 |"
+`;
+
+exports[`Line breaking after filepath with errors (stderr) 3`] = `
+"[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] invalid-2.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] valid-1.js: SyntaxError: Unexpected token (1:9)
+[error] > 1 | function() {}
+[error]     |         ^
+[error]   2 |"
+`;
+
+exports[`Line breaking after filepath with errors (stdout) 1`] = `""`;
+
+exports[`Line breaking after filepath with errors (stdout) 2`] = `
+"Checking formatting...
+All matched files use Prettier code style!"
+`;
+
+exports[`Line breaking after filepath with errors (stdout) 3`] = `
+"
+
+"
+`;
+
+exports[`Line breaking after filepath with errors (write) 1`] = `[]`;
+
+exports[`Line breaking after filepath with errors (write) 2`] = `[]`;
+
+exports[`Line breaking after filepath with errors (write) 3`] = `[]`;
