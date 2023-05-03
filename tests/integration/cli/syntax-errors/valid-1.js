@@ -1,1 +1,1 @@
-function() {}
+function foo() {}
