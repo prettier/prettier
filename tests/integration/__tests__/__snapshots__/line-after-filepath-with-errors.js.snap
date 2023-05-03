@@ -45,17 +45,17 @@ exports[`Line breaking after filepath with errors (stderr) 3`] = `
 [error]   2 |"
 `;
 
-exports[`Line breaking after filepath with errors (stdout) 1`] = `""`;
+exports[`Line breaking after filepath with errors (stdout) 1`] = `"invalid-1.jsinvalid-2.jsvalid-1.js"`;
 
 exports[`Line breaking after filepath with errors (stdout) 2`] = `
 "Checking formatting...
-All matched files use Prettier code style!"
+invalid-1.jsinvalid-2.jsvalid-1.jsAll matched files use Prettier code style!"
 `;
 
 exports[`Line breaking after filepath with errors (stdout) 3`] = `
-"
-
-"
+"invalid-1.js
+invalid-2.js
+valid-1.js"
 `;
 
 exports[`Line breaking after filepath with errors (write) 1`] = `[]`;
