@@ -152,6 +152,171 @@ if (path.sep === "/") {
   });
 }
 
+function isSymlinkSupported() {
+  if (process.platform !== "win32") {
+    return true;
+  }
+
+  const target = path.join(
+    __dirname,
+    "../cli/patterns-symlinks/test-symlink-feature-detect"
+  );
+  fs.rmSync(target, { force: true, recursive: true });
+  fs.mkdirSync(target);
+  const symlink = path.join(target, "symlink");
+  try {
+    fs.symlinkSync(target, symlink);
+  } catch {
+    return false;
+  }
+  return fs.lstatSync(symlink).isSymbolicLink();
+}
+
+(isSymlinkSupported() ? describe : describe.skip)("Ignore symlinks", () => {
+  const base = path.join(__dirname, "../cli/patterns-symlinks");
+  const directoryA = path.join(base, "test-a");
+  const directoryB = path.join(base, "test-b");
+  const clean = () => {
+    fs.rmSync(directoryA, { force: true, recursive: true });
+    fs.rmSync(directoryB, { force: true, recursive: true });
+  };
+  beforeAll(() => {
+    clean();
+    fs.mkdirSync(directoryA);
+    fs.mkdirSync(directoryB);
+    fs.writeFileSync(path.join(directoryA, "a.js"), "x");
+    fs.writeFileSync(path.join(directoryB, "b.js"), "x");
+    fs.symlinkSync(directoryA, path.join(directoryA, "symlink-to-directory-a"));
+    fs.symlinkSync(directoryB, path.join(directoryA, "symlink-to-directory-b"));
+    fs.symlinkSync(
+      path.join(directoryA, "a.js"),
+      path.join(directoryA, "symlink-to-file-a")
+    );
+    fs.symlinkSync(
+      path.join(directoryB, "b.js"),
+      path.join(directoryA, "symlink-to-file-b")
+    );
+  });
+  afterAll(clean);
+
+  test("file struct", async () => {
+    const getFileStruct = async (directory) =>
+      (await fs.promises.readdir(directory, { withFileTypes: true }))
+        .map((dirent) => ({
+          name: dirent.name,
+          isSymbolicLink: dirent.isSymbolicLink(),
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+
+    expect(await getFileStruct(directoryA)).toMatchInlineSnapshot(`
+      [
+        {
+          "isSymbolicLink": false,
+          "name": "a.js",
+        },
+        {
+          "isSymbolicLink": true,
+          "name": "symlink-to-directory-a",
+        },
+        {
+          "isSymbolicLink": true,
+          "name": "symlink-to-directory-b",
+        },
+        {
+          "isSymbolicLink": true,
+          "name": "symlink-to-file-a",
+        },
+        {
+          "isSymbolicLink": true,
+          "name": "symlink-to-file-b",
+        },
+      ]
+    `);
+    expect(await getFileStruct(directoryB)).toMatchInlineSnapshot(`
+      [
+        {
+          "isSymbolicLink": false,
+          "name": "b.js",
+        },
+      ]
+    `);
+  });
+
+  testPatterns("", ["test-a/*"], { stdout: "test-a/a.js" }, base);
+  testPatterns(
+    "",
+    ["test-a/symlink-to-directory-a"],
+    {
+      status: 2,
+      stdout: "",
+      stderr:
+        '[error] Explicitly specified pattern "test-a/symlink-to-directory-a" is a symbolic link.',
+    },
+    base
+  );
+  testPatterns(
+    "",
+    ["test-a/symlink-to-directory-b"],
+    {
+      status: 2,
+      stdout: "",
+      stderr:
+        '[error] Explicitly specified pattern "test-a/symlink-to-directory-b" is a symbolic link.',
+    },
+    base
+  );
+  testPatterns(
+    "",
+    ["test-a/symlink-to-file-a"],
+    {
+      status: 2,
+      stdout: "",
+      stderr:
+        '[error] Explicitly specified pattern "test-a/symlink-to-file-a" is a symbolic link.',
+    },
+    base
+  );
+  testPatterns(
+    "",
+    ["test-a/symlink-to-file-b"],
+    {
+      status: 2,
+      stdout: "",
+      stderr:
+        '[error] Explicitly specified pattern "test-a/symlink-to-file-b" is a symbolic link.',
+    },
+    base
+  );
+  testPatterns(
+    "",
+    ["test-a/symlink-*"],
+    {
+      status: 2,
+      stdout: "",
+      stderr:
+        '[error] No files matching the pattern were found: "test-a/symlink-*".',
+    },
+    base
+  );
+  testPatterns(
+    "",
+    ["test-a/*", "test-a/symlink-to-file-b"],
+    {
+      status: 2,
+      stdout: "test-a/a.js",
+      stderr:
+        '[error] Explicitly specified pattern "test-a/symlink-to-file-b" is a symbolic link.',
+    },
+    base
+  );
+  testPatterns(
+    "",
+    ["test-a/symlink-to-directory-b/*"],
+    { stdout: "test-a/symlink-to-directory-b/b.js" },
+    base
+  );
+});
+
 function testPatterns(
   namePrefix,
   cliArgs,
