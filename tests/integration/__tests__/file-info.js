@@ -25,7 +25,10 @@ describe("extracts file-info for a known markdown file with no extension", () =>
 });
 
 describe("extracts file-info with ignored=true for a file in .prettierignore", () => {
-  runCli("cli/ignore-path/", ["--file-info", "regular-module.js"]).test({
+  runCli("cli/ignore-path/file-info-test/", [
+    "--file-info",
+    "ignored-by-prettierignore.js",
+  ]).test({
     status: 0,
   });
 });
@@ -48,11 +51,11 @@ describe("file-info should not try resolve config with --no-config", () => {
   });
 });
 
-describe("extracts file-info with ignored=true for a file in a hand-picked .prettierignore", () => {
+describe("extracts file-info with ignored=true for a file in a hand-picked ignore file", () => {
   runCli("cli/", [
     "--file-info",
-    "regular-module.js",
-    "--ignore-path=ignore-path/.prettierignore",
+    "ignored-by-customignore.js",
+    "--ignore-path=ignore-path/file-info-test/.customignore",
   ]).test({
     status: 0,
   });
@@ -62,7 +65,7 @@ describe("non-exists ignore path", () => {
   runCli("cli/", [
     "--file-info",
     "regular-module.js",
-    "--ignore-path=ignore-path/non-exists/.prettierignore",
+    "--ignore-path=ignore-path/file-info-test/.non-exists-ignore-file",
   ]).test({
     status: 0,
   });
@@ -216,10 +219,13 @@ describe("API getFileInfo resolveConfig when no config is present", () => {
 
 test("API getFileInfo with ignorePath", async () => {
   const file = path.resolve(
-    path.join(__dirname, "../cli/ignore-path/regular-module.js")
+    path.join(
+      __dirname,
+      "../cli/ignore-path/file-info-test/ignored-by-customignore.js"
+    )
   );
   const ignorePath = path.resolve(
-    path.join(__dirname, "../cli/ignore-path/.prettierignore")
+    path.join(__dirname, "../cli/ignore-path/file-info-test/.customignore")
   );
 
   await expect(prettier.getFileInfo(file)).resolves.toMatchObject({

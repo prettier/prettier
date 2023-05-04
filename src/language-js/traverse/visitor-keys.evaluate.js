@@ -27,30 +27,12 @@ const additionalVisitorKeys = {
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
 
-  // Flow
-  ClassProperty: ["variance"],
+  // Flow, missed in `flowVisitorKeys`
   ClassPrivateProperty: ["variance"],
-  ConditionalTypeAnnotation: [
-    "checkType",
-    "extendsType",
-    "trueType",
-    "falseType",
-  ],
-  DeclareEnum: flowVisitorKeys.EnumDeclaration,
-  InferTypeAnnotation: ["typeParameter"],
-  KeyofTypeAnnotation: ["argument"],
-  ObjectTypeMappedTypeProperty: [
-    "keyTparam",
-    "propType",
-    "sourceType",
-    "variance",
-  ],
-  QualifiedTypeofIdentifier: ["id", "qualification"],
-  TupleTypeAnnotation: ["elementTypes"],
-  TupleTypeSpreadElement: ["label", "typeAnnotation"],
-  TupleTypeLabeledElement: ["label", "elementType", "variance"],
-  TypePredicate: ["parameterName", "typeAnnotation", "asserts"],
+  ClassProperty: ["variance"],
   NeverTypeAnnotation: [],
+  TupleTypeAnnotation: ["elementTypes"],
+  TypePredicate: ["asserts"],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
 };
@@ -64,6 +46,7 @@ const excludeKeys = {
   ArrowFunctionExpression: ["id"],
   DeclareOpaqueType: ["impltype"],
   FunctionExpression: ["predicate"],
+  JSXOpeningElement: ["typeArguments"],
   // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
   // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab
   // TupleTypeAnnotation: ["types"],
@@ -90,5 +73,16 @@ const visitorKeys = Object.fromEntries(
       : keys,
   ])
 );
+
+// Unsupported
+for (const type of [
+  "ComponentDeclaration",
+  "ComponentParameter",
+  "ComponentTypeAnnotation",
+  "ComponentTypeParameter",
+  "DeclareComponent",
+]) {
+  delete visitorKeys[type];
+}
 
 export default visitorKeys;

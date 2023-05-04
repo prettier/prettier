@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ignore file when using --debug-check (stdout) 1`] = `"other-regular-modules.js"`;
-
-exports[`ignore path (stdout) 1`] = `"regular-module.js"`;
-
-exports[`outputs files as-is if no --write (stdout) 1`] = `"'use strict';"`;
-
-exports[`support .prettierignore (stdout) 1`] = `"other-regular-modules.js"`;
