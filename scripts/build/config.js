@@ -252,10 +252,10 @@ const pluginFiles = [
   {
     input: "src/plugins/angular.js",
     replaceModule: [
-      // We only use a small set of `@angular/compiler` from `esm2020/src/expression_parser/`
+      // We only use a small set of `@angular/compiler` from `esm2022/src/expression_parser/`
       // Those files can't be imported, they also not directly runnable, because `.mjs` extension is missing
       {
-        module: getPackageFile("@angular/compiler/fesm2020/compiler.mjs"),
+        module: getPackageFile("@angular/compiler/fesm2022/compiler.mjs"),
         text: /* indent */ `
           export * from '../esm2022/src/expression_parser/ast.mjs';
           export {Lexer} from '../esm2022/src/expression_parser/lexer.mjs';
