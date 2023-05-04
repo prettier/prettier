@@ -635,8 +635,8 @@ exports[`visitor keys estree 1`] = `
     "qualification",
   ],
   "QualifiedTypeofIdentifier": [
-    "id",
     "qualification",
+    "id",
   ],
   "RecordExpression": [
     "properties",
