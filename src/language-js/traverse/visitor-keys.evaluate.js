@@ -64,6 +64,7 @@ const excludeKeys = {
   ArrowFunctionExpression: ["id"],
   DeclareOpaqueType: ["impltype"],
   FunctionExpression: ["predicate"],
+  JSXOpeningElement: ["typeArguments"],
   // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
   // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab
   // TupleTypeAnnotation: ["types"],
@@ -90,5 +91,16 @@ const visitorKeys = Object.fromEntries(
       : keys,
   ])
 );
+
+// Unsupported
+for (const type of [
+  "ComponentDeclaration",
+  "ComponentParameter",
+  "ComponentTypeAnnotation",
+  "ComponentTypeParameter",
+  "DeclareComponent",
+]) {
+  delete visitorKeys[type];
+}
 
 export default visitorKeys;
