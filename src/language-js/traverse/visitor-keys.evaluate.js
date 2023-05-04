@@ -27,30 +27,12 @@ const additionalVisitorKeys = {
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
 
-  // Flow
-  ClassProperty: ["variance"],
+  // Flow, missed in `flowVisitorKeys`
   ClassPrivateProperty: ["variance"],
-  ConditionalTypeAnnotation: [
-    "checkType",
-    "extendsType",
-    "trueType",
-    "falseType",
-  ],
-  DeclareEnum: flowVisitorKeys.EnumDeclaration,
-  InferTypeAnnotation: ["typeParameter"],
-  KeyofTypeAnnotation: ["argument"],
-  ObjectTypeMappedTypeProperty: [
-    "keyTparam",
-    "propType",
-    "sourceType",
-    "variance",
-  ],
-  QualifiedTypeofIdentifier: ["id", "qualification"],
-  TupleTypeAnnotation: ["elementTypes"],
-  TupleTypeSpreadElement: ["label", "typeAnnotation"],
-  TupleTypeLabeledElement: ["label", "elementType", "variance"],
-  TypePredicate: ["parameterName", "typeAnnotation", "asserts"],
+  ClassProperty: ["variance"],
   NeverTypeAnnotation: [],
+  TupleTypeAnnotation: ["elementTypes"],
+  TypePredicate: ["asserts"],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
 };
