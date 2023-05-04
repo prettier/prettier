@@ -34,7 +34,7 @@ You can load plugins with:
   }
   ```
 
-Strings provided to `plugins` are ultimately passed to `import()`, so you can provide a module/package name, a path, or anything else `import()` takes.
+Strings provided to `plugins` are ultimately passed to [`import()` expression](https://nodejs.org/api/esm.html#import-expressions), so you can provide a module/package name, a path, or anything else `import()` takes.
 
 ## Official Plugins
 
