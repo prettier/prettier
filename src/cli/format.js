@@ -21,13 +21,24 @@ function diff(a, b) {
 class DebugError extends Error {}
 
 function handleError(context, filename, error, printedFilename) {
-  if (error instanceof errors.UndefinedParserError) {
+  const errorIsUndefinedParseError =
+    error instanceof errors.UndefinedParserError;
+
+  if (printedFilename) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
     /* c8 ignore next 3 */
-    if ((context.argv.write || context.argv.ignoreUnknown) && printedFilename) {
+    if (
+      (context.argv.write || context.argv.ignoreUnknown) &&
+      errorIsUndefinedParseError
+    ) {
       printedFilename.clear();
+    } else {
+      // Add newline to split errors from filename line.
+      process.stdout.write("\n");
     }
+  }
 
+  if (errorIsUndefinedParseError) {
     if (context.argv.ignoreUnknown) {
       return;
     }
@@ -36,11 +47,6 @@ function handleError(context, filename, error, printedFilename) {
     }
     context.logger.error(error.message);
     return;
-  }
-
-  if (context.argv.write) {
-    // Add newline to split errors from filename line.
-    process.stdout.write("\n");
   }
 
   const isParseError = Boolean(error?.loc);
