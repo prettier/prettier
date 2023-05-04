@@ -9,7 +9,7 @@ exports[`Line breaking after filepath with errors (stderr) 1`] = `
 [error] > 1 | foo (+-) bar
 [error]     |        ^
 [error]   2 |
-[error] No parser could be inferred for file "<cli>/syntax-errors/test.foo"."
+[error] No parser could be inferred for file "<cli>/syntax-errors/invalid-2.unknown"."
 `;
 
 exports[`Line breaking after filepath with errors (stderr) 2`] = `
@@ -21,7 +21,7 @@ exports[`Line breaking after filepath with errors (stderr) 2`] = `
 [error] > 1 | foo (+-) bar
 [error]     |        ^
 [error]   2 |
-[error] No parser could be inferred for file "<cli>/syntax-errors/test.foo"."
+[error] No parser could be inferred for file "<cli>/syntax-errors/invalid-2.unknown"."
 `;
 
 exports[`Line breaking after filepath with errors (stderr) 3`] = `
@@ -33,7 +33,7 @@ exports[`Line breaking after filepath with errors (stderr) 3`] = `
 [error] > 1 | foo (+-) bar
 [error]     |        ^
 [error]   2 |
-[error] No parser could be inferred for file "<cli>/syntax-errors/test.foo"."
+[error] No parser could be inferred for file "<cli>/syntax-errors/invalid-2.unknown"."
 `;
 
 exports[`Line breaking after filepath with errors (stderr) 4`] = `
@@ -45,20 +45,20 @@ exports[`Line breaking after filepath with errors (stderr) 4`] = `
 [error] > 1 | foo (+-) bar
 [error]     |        ^
 [error]   2 |
-[error] No parser could be inferred for file "<cli>/syntax-errors/test.foo"."
+[error] No parser could be inferred for file "<cli>/syntax-errors/invalid-2.unknown"."
 `;
 
 exports[`Line breaking after filepath with errors (stdout) 1`] = `
 "invalid-1.js
 invalid-2.js
-test.foo
+invalid-2.unknown
 valid-1.jsfunction foo() {}"
 `;
 
 exports[`Line breaking after filepath with errors (stdout) 2`] = `
 "invalid-1.js
 invalid-2.js
-test.foo
+invalid-2.unknown
 valid-1.js"
 `;
 
@@ -66,14 +66,14 @@ exports[`Line breaking after filepath with errors (stdout) 3`] = `
 "Checking formatting...
 invalid-1.js
 invalid-2.js
-test.foo
+invalid-2.unknown
 valid-1.jsAll matched files use Prettier code style!"
 `;
 
 exports[`Line breaking after filepath with errors (stdout) 4`] = `
 "invalid-1.js
 invalid-2.js
-test.foovalid-1.jsvalid-1.js 0ms"
+invalid-2.unknownvalid-1.jsvalid-1.js 0ms"
 `;
 
 exports[`Line breaking after filepath with errors (write) 1`] = `[]`;
