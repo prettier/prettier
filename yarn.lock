@@ -15,17 +15,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:15.2.8":
-  version: 15.2.8
-  resolution: "@angular/compiler@npm:15.2.8"
+"@angular/compiler@npm:16.0.0":
+  version: 16.0.0
+  resolution: "@angular/compiler@npm:16.0.0"
   dependencies:
     tslib: ^2.3.0
   peerDependencies:
-    "@angular/core": 15.2.8
+    "@angular/core": 16.0.0
   peerDependenciesMeta:
     "@angular/core":
       optional: true
-  checksum: 77e5331e3ab33de3871a91f5bfdbc51641300a53071cec049d3d59c75b2dd4864cb8040826948cc3c239dd077acca17e90c29f321022b2a5d7d3c4ca8c7ace78
+  checksum: 4aa431357582b46c269e313b79617b2a2ac5c14b90d9485abd79b7cc963d1332361e85def5bd8505cca7051ab0ff9665d7fea8ee7b9997647f44a2698fc3c710
   languageName: node
   linkType: hard
 
@@ -1944,15 +1944,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-estree-parser@npm:6.2.0":
-  version: 6.2.0
-  resolution: "angular-estree-parser@npm:6.2.0"
+"angular-estree-parser@npm:7.0.0":
+  version: 7.0.0
+  resolution: "angular-estree-parser@npm:7.0.0"
   dependencies:
     lines-and-columns: ^2.0.3
     tslib: ^2.5.0
   peerDependencies:
-    "@angular/compiler": ^15.2.5
-  checksum: 7c062ac8f73b753fdba62d274a6fb082da1360bbf551dfd06f2fd9d8a3c8e42b092a98d2fc8d03e647fd9d8acaa4d2d7f00c1c25d9e49c211a26c344db228410
+    "@angular/compiler": ^16.0.0
+  checksum: 1e030934767219803cefa997536206a2b163f4f0f3768cfcc09d14af7193ab67b51152e676a969a446a5fd6605c68e451b049d8c281eb8ea815cee2b8218561c
   languageName: node
   linkType: hard
 
@@ -6708,7 +6708,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": 15.2.8
+    "@angular/compiler": 16.0.0
     "@babel/code-frame": 7.21.4
     "@babel/generator": 7.21.4
     "@babel/parser": 7.21.8
@@ -6728,7 +6728,7 @@ __metadata:
     "@typescript-eslint/visitor-keys": 5.59.2
     acorn: 8.8.2
     acorn-jsx: 5.3.2
-    angular-estree-parser: 6.2.0
+    angular-estree-parser: 7.0.0
     angular-html-parser: 4.0.1
     benchmark: 2.1.4
     browserslist-to-esbuild: 1.2.0
