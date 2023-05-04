@@ -49,11 +49,6 @@ function handleError(context, filename, error, printedFilename) {
     return;
   }
 
-  if (printedFilename) {
-    // Add newline to split errors from filename line.
-    process.stdout.write("\n");
-  }
-
   const isParseError = Boolean(error?.loc);
   const isValidationError = /^Invalid \S+ value\./.test(error?.message);
 
