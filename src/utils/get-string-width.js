@@ -3,6 +3,7 @@ import eastAsianWidth from "eastasianwidth";
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 
+// Based on https://github.com/sindresorhus/string-width
 /**
  * @param {string} text
  * @returns {number}
@@ -17,7 +18,34 @@ function getStringWidth(text) {
     return text.length;
   }
 
-  return eastAsianWidth.length(text.replace(emojiRegex(), "  "));
+  text = text.replace(emojiRegex(), "  ");
+  let width = 0;
+
+  for (const character of text) {
+    const codePoint = character.codePointAt(0);
+
+    // Ignore control characters
+    if (codePoint <= 0x1f || (codePoint >= 0x7f && codePoint <= 0x9f)) {
+      continue;
+    }
+
+    // Ignore combining characters
+    if (codePoint >= 0x300 && codePoint <= 0x36f) {
+      continue;
+    }
+
+    const code = eastAsianWidth.eastAsianWidth(character);
+    switch (code) {
+      case "F":
+      case "W":
+        width += 2;
+        break;
+      default:
+        width += 1;
+    }
+  }
+
+  return width;
 }
 
 export default getStringWidth;
