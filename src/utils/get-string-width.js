@@ -21,6 +21,10 @@ function getStringWidth(text) {
 
   text = text.replace(emojiRegex(), "  ");
   let width = 0;
+
+  // Use `Intl.Segmenter` when we drop support for Node.js v14
+  // https://github.com/prettier/prettier/pull/14793/files#r1185840038
+  // https://github.com/sindresorhus/string-width/pull/47
   for (const character of text) {
     const codePoint = character.codePointAt(0);
 
