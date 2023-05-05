@@ -59,10 +59,11 @@ test("sharedUtil.getStringWidth", () => {
   expect(getStringWidth("你好")).toBe(4);
   expect(getStringWidth("안녕하세요")).toBe(10);
   expect(getStringWidth("A\uD83C\uDE00BC")).toBe(5);
-  expect(getStringWidth("\u001B[31m\u001B[39m")).toBe(0);
-  expect(
-    getStringWidth("\u001B]8;;https://github.com\u0007Click\u001B]8;;\u0007")
-  ).toBe(5);
+  // We don't strip ansi
+  // expect(getStringWidth("\u001B[31m\u001B[39m")).toBe(0);
+  // expect(
+  //   getStringWidth("\u001B]8;;https://github.com\u0007Click\u001B]8;;\u0007")
+  // ).toBe(5);
   expect(getStringWidth("\u{231A}")).toBe(2);
   expect(getStringWidth("\u{2194}\u{FE0F}")).toBe(2);
   expect(getStringWidth("\u{1F469}")).toBe(2);
