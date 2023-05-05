@@ -1,7 +1,6 @@
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import babelGenerator from "@babel/generator";
-import { outdent } from "outdent";
 
 const generate = babelGenerator.default;
 
@@ -58,7 +57,6 @@ function transformEastAsianWidthModule(original) {
       ],
     },
   });
-  console.log(code);
 
   return code;
 }
