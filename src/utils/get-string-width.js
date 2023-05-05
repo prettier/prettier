@@ -3,7 +3,8 @@ import eastAsianWidth from "eastasianwidth";
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 
-// Based on https://github.com/sindresorhus/string-width
+// Similar to https://github.com/sindresorhus/string-width
+// We don't strip ansi, always treat ambiguous width characters as having narrow width.
 /**
  * @param {string} text
  * @returns {number}
@@ -13,14 +14,13 @@ function getStringWidth(text) {
     return 0;
   }
 
-  // shortcut to avoid needless string `RegExp`s, replacements, and allocations within `string-width`
+  // shortcut to avoid needless string `RegExp`s, replacements, and allocations
   if (!notAsciiRegex.test(text)) {
     return text.length;
   }
 
   text = text.replace(emojiRegex(), "  ");
   let width = 0;
-
   for (const character of text) {
     const codePoint = character.codePointAt(0);
 
@@ -35,14 +35,7 @@ function getStringWidth(text) {
     }
 
     const code = eastAsianWidth.eastAsianWidth(character);
-    switch (code) {
-      case "F":
-      case "W":
-        width += 2;
-        break;
-      default:
-        width += 1;
-    }
+    width += code === "F" || code === "W" ? 2 : 1;
   }
 
   return width;
