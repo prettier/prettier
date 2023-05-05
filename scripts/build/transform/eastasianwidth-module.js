@@ -4,8 +4,6 @@ import babelGenerator from "@babel/generator";
 
 const generate = babelGenerator.default;
 
-/* Doesn't work for dependencies, optional call, computed property, and spread arguments */
-
 function transformEastAsianWidthModule(original) {
   let eastAsianWidthFunction;
   traverse(parse(original), (node) => {
@@ -43,21 +41,15 @@ function transformEastAsianWidthModule(original) {
 
   functionBody.splice(index, 1);
 
-  // `export default {eastAsianWidth: function() {}}`
-  const { code } = generate({
-    type: "ExportDefaultDeclaration",
-    declaration: {
-      type: "ObjectExpression",
-      properties: [
-        {
-          type: "ObjectProperty",
-          key: { type: "Identifier", name: "eastAsianWidth" },
-          value: eastAsianWidthFunction,
-        },
-      ],
-    },
+  const ast = parse("export default { eastAsianWidth() {} };", {
+    sourceType: "module",
+  });
+  Object.assign(ast.program.body[0].declaration.properties[0], {
+    params: eastAsianWidthFunction.params,
+    body: eastAsianWidthFunction.body,
   });
 
+  const { code } = generate(ast);
   return code;
 }
 
