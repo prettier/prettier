@@ -370,6 +370,11 @@ async function formatFiles(context) {
     }
 
     if (isFileIgnored) {
+      if (printedFilename) {
+        // Remove previously printed filename to log it with duration.
+        printedFilename.clear();
+      }
+
       writeOutput(context, { formatted: input }, options);
       continue;
     }
