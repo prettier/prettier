@@ -51,10 +51,12 @@ test("sharedUtil.getMaxContinuousCount", () => {
 test("sharedUtil.getStringWidth", () => {
   const { getStringWidth } = sharedUtil;
 
-  // From https://github.com/sindresorhus/string-width/blob/master/test.js
+  // From https://github.com/sindresorhus/string-width/blob/main/test.js
   expect(getStringWidth("abcde")).toBe(5);
   expect(getStringWidth("古池や")).toBe(6);
   expect(getStringWidth("あいうabc")).toBe(9);
+  expect(getStringWidth("あいう★")).toBe(7);
+  expect(getStringWidth("±")).toBe(1);
   expect(getStringWidth("ノード.js")).toBe(9);
   expect(getStringWidth("你好")).toBe(4);
   expect(getStringWidth("안녕하세요")).toBe(10);
@@ -74,7 +76,12 @@ test("sharedUtil.getStringWidth", () => {
   expect(getStringWidth(String.fromCharCode(134))).toBe(0);
   expect(getStringWidth(String.fromCharCode(159))).toBe(0);
   expect(getStringWidth("\u001B")).toBe(0);
-  // expect(getStringWidth("x\u0300"), 1); // Different with `string-width`
+  expect(getStringWidth("x\u0300")).toBe(1);
+
+  expect(getStringWidth("👶")).toBe(2);
+  expect(getStringWidth("👶🏽")).toBe(2);
+  expect(getStringWidth("👩‍👩‍👦‍👦")).toBe(2);
+  expect(getStringWidth("👨‍❤️‍💋‍👨")).toBe(2);
 });
 
 test("sharedUtil.getAlignmentSize", () => {
