@@ -171,7 +171,7 @@ function isConciselyPrintedArray(node, options) {
   );
 }
 
-function isLineAfterElementEmpty(path, { originalText: text }) {
+function isLineAfterElementEmpty({ node }, { originalText: text }) {
   const skipComment = (idx) =>
     skipInlineComment(text, skipTrailingComment(text, idx));
 
@@ -180,7 +180,7 @@ function isLineAfterElementEmpty(path, { originalText: text }) {
       ? currentIdx
       : skipToComma(skipComment(currentIdx + 1));
 
-  return isNextLineEmptyAfterIndex(text, skipToComma(locEnd(path.node)));
+  return isNextLineEmptyAfterIndex(text, skipToComma(locEnd(node)));
 }
 
 function printArrayElements(path, options, elementsProperty, print) {
