@@ -24,22 +24,23 @@ function transformEastAsianWidthModule(original) {
 
   const functionBody = eastAsianWidthFunction.body.body;
 
-  // We don't need `if (...) {return 'A';}`
-  const index = functionBody.findIndex(
-    (node) =>
+  // We only need `IfStatement`s returns `"F"` or `"W"`
+  for (let index = functionBody.length - 1; index >= 0; index--) {
+    const node = functionBody[index];
+
+    if (
       node.type === "IfStatement" &&
       node.consequent.type === "BlockStatement" &&
       node.consequent.body.length === 1 &&
       node.consequent.body[0].type === "ReturnStatement" &&
-      node.consequent.body[0].argument.type === "StringLiteral" &&
-      node.consequent.body[0].argument.value === "A"
-  );
-
-  if (index === -1) {
-    throw new Error("Unexpected code");
+      node.consequent.body[0].argument.type === "StringLiteral"
+    ) {
+      const { value } = node.consequent.body[0].argument;
+      if (value !== "F" && value !== "W") {
+        functionBody.splice(index, 1);
+      }
+    }
   }
-
-  functionBody.splice(index, 1);
 
   const ast = parse("export default { eastAsianWidth() {} };", {
     sourceType: "module",
