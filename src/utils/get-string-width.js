@@ -1,4 +1,5 @@
-import stringWidth from "string-width";
+import emojiRegex from "emoji-regex";
+import eastAsianWidth from "eastasianwidth";
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 
@@ -16,7 +17,7 @@ function getStringWidth(text) {
     return text.length;
   }
 
-  return stringWidth(text);
+  return eastAsianWidth.length(text.replace(emojiRegex(), "  "));
 }
 
 export default getStringWidth;
