@@ -6,11 +6,10 @@ import coreOptions from "./core-options.evaluate.js";
  */
 
 /**
- * Strings in `plugins` and `pluginSearchDirs` are handled by a wrapped version
+ * Strings in `plugins` are handled by a wrapped version
  * of this function created by `withPlugins`. Don't pass them here directly.
  * @param {object} param0
  * @param {(string | object)[]=} param0.plugins Strings are resolved by `withPlugins`.
- * @param {string[]=} param0.pluginSearchDirs Added by `withPlugins`.
  * @param {boolean=} param0.showDeprecated
  * @return {{ languages: Array<any>, options: Array<NamedOptionInfo> }}
  */

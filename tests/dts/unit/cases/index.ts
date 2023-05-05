@@ -34,27 +34,6 @@ prettier.doc.builders.cursor;
 prettier.doc.builders.cursor.type;
 prettier.doc.builders.cursor.placeholder;
 
-prettier.format("pluginSearchDir is empty", {
-  pluginSearchDirs: [],
-});
-
-prettier.format("pluginSearchDir is not empty", {
-  pluginSearchDirs: ["/a", "/b"],
-});
-
-prettier.format("pluginSearchDir is not empty and mixed with weird stuff", {
-  pluginSearchDirs: ["c", "d", ""],
-});
-
-prettier.format("pluginSearchDir is false", {
-  pluginSearchDirs: false,
-});
-
-prettier.format("pluginSearchDir can not be true", {
-  // @ts-expect-error
-  pluginSearchDirs: true,
-});
-
 prettier.format("singleAttributePerLine is available", {
   singleAttributePerLine: true,
 });

@@ -6,7 +6,7 @@ import { createDetailedUsage, createUsage } from "./usage.js";
 import { formatStdin, formatFiles } from "./format.js";
 import logFileInfoOrDie from "./file-info.js";
 import logResolvedConfigPathOrDie from "./find-config-path.js";
-import { printToScreen, isNonEmptyArray } from "./utils.js";
+import { printToScreen } from "./utils.js";
 import printSupportInfo from "./print-support-info.js";
 
 async function run(rawArguments) {
@@ -37,18 +37,6 @@ async function run(rawArguments) {
 
 async function main(context) {
   context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
-
-  if (context.argv.pluginSearch === false) {
-    const rawPluginSearchDirs = context.argv.__raw["plugin-search-dir"];
-    if (
-      typeof rawPluginSearchDirs === "string" ||
-      isNonEmptyArray(rawPluginSearchDirs)
-    ) {
-      throw new Error(
-        "Cannot use --no-plugin-search and --plugin-search-dir together."
-      );
-    }
-  }
 
   if (context.argv.check && context.argv.listDifferent) {
     throw new Error("Cannot use --check and --list-different together.");

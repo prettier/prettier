@@ -10,10 +10,6 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
   let argv = minimist(rawArguments, minimistOptions);
 
   if (keys) {
-    if (keys.includes("plugin-search-dir") && !keys.includes("plugin-search")) {
-      keys.push("plugin-search");
-    }
-
     detailedOptions = detailedOptions.filter((option) =>
       keys.includes(option.name)
     );
@@ -26,8 +22,7 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
     ...Object.fromEntries(
       Object.entries(normalized).map(([key, value]) => {
         const option = detailedOptions.find(({ name }) => name === key) || {};
-        // If the flag is a prettier option, use the option name
-        // `--plugin-search-dir` -> `pluginSearchDirs`
+        // If the flag is a prettier api option, use the option name
         // Otherwise use camel case for readability
         // `--ignore-unknown` -> `ignoreUnknown`
         return [option.forwardToApi || camelCase(key), value];

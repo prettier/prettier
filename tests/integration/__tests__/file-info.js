@@ -105,23 +105,6 @@ describe("extracts file-info with inferredParser=null for file.foo", () => {
   });
 });
 
-describe("extracts file-info with inferredParser=foo when plugins are autoloaded", () => {
-  runCli("plugins/automatic/", ["--file-info", "file.foo"]).test({
-    status: 0,
-  });
-});
-
-describe("extracts file-info with inferredParser=foo when plugins are loaded with --plugin-search-dir", () => {
-  runCli("cli/", [
-    "--file-info",
-    "file.foo",
-    "--plugin-search-dir",
-    "../plugins/automatic",
-  ]).test({
-    status: 0,
-  });
-});
-
 describe("extracts file-info with inferredParser=foo when a plugin is hand-picked", () => {
   runCli("cli/", [
     "--file-info",
@@ -358,25 +341,6 @@ test("returns null parser for unknown shebang", async () => {
   ).resolves.toMatchObject({
     ignored: false,
     inferredParser: null,
-  });
-});
-
-test("API getFileInfo with plugins loaded using pluginSearchDir", async () => {
-  const file = "file.foo";
-  const pluginsPath = path.resolve(
-    path.join(__dirname, "../plugins/automatic")
-  );
-  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: null,
-  });
-  await expect(
-    prettier.getFileInfo(file, {
-      pluginSearchDirs: [pluginsPath],
-    })
-  ).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: "foo",
   });
 });
 
