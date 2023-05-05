@@ -10,7 +10,8 @@ import {
 } from "../../document/builders.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
-import { skipInlineComment, skipTrailingComment } from "../../utils/public.js";
+import skipInlineComment from "../../utils/skip-inline-comment.js";
+import skipTrailingComment from "../../utils/skip-trailing-comment.js";
 import {
   shouldPrintComma,
   hasComment,
