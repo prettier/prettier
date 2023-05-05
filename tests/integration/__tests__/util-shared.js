@@ -71,7 +71,7 @@ test("sharedUtil.getStringWidth", () => {
   expect(getStringWidth("\u{1F469}")).toBe(2);
   expect(getStringWidth("\u{1F469}\u{1F3FF}")).toBe(2);
   // Ideally this should be `2`, switch to use `Intl.Segmenter` will fix it
-  // https://github.com/prettier/prettier/pull/14793/files#r1185840038
+  // https://github.com/prettier/prettier/pull/14793#discussion_r1185840038
   expect(getStringWidth("\u{845B}\u{E0100}")).toBe(3);
 
   expect(getStringWidth(String.fromCharCode(0))).toBe(0);
