@@ -10,7 +10,7 @@
     "execa": "7.1.1",
     "outdent": "0.8.0",
     "semver": "7.5.0",
-    "string-width": "5.1.2"
+    "string-width": "6.1.0"
   },
   "engines": {
     "node": ">=18"
