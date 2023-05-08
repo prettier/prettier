@@ -33,7 +33,7 @@ function quoteAttributeValue(value, options) {
 }
 
 function adjustNumbers(value) {
-  return value.replace(
+  return value.replaceAll(
     ADJUST_NUMBERS_REGEX,
     (match, quote, wordPart, number, unit) =>
       !wordPart && number
