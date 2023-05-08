@@ -83,6 +83,7 @@ function parse(text, options) {
  */
 function isProbablyJsx(text) {
   return new RegExp(
+    // eslint-disable-next-line regexp/no-useless-non-capturing-group -- possible bug
     [
       "(?:^[^\"'`]*</)", // Contains "</" when probably not in a string
       "|",
