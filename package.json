@@ -33,7 +33,7 @@
     "@angular/compiler": "16.0.0",
     "@babel/code-frame": "7.21.4",
     "@babel/parser": "7.21.8",
-    "@babel/types": "7.21.4",
+    "@babel/types": "7.21.5",
     "@glimmer/syntax": "0.84.3",
     "@iarna/toml": "2.2.5",
     "@prettier/is-es5-identifier-name": "0.1.0",
@@ -106,7 +106,7 @@
     "yaml-unist-parser": "2.0.1"
   },
   "devDependencies": {
-    "@babel/generator": "7.21.4",
+    "@babel/generator": "7.21.5",
     "@esbuild-plugins/node-modules-polyfill": "0.2.2",
     "@glimmer/reference": "0.84.3",
     "@types/estree": "1.0.1",
