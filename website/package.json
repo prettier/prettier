@@ -23,6 +23,6 @@
     "docusaurus": "1.14.7",
     "js-yaml": "4.1.0",
     "webpack": "5.82.1",
-    "webpack-cli": "5.1.0"
+    "webpack-cli": "5.1.1"
   }
 }
