@@ -9,6 +9,11 @@ type T = {
 };
 
 type T = {
+  (): void; // comment
+  second: string;
+};
+
+type T = {
   first: string;
   (): void;
 };
@@ -18,6 +23,11 @@ type T = {
   (): void; // prettier-ignore
 };
 
+type T = {
+  first: string;
+  (): void; // comment
+};
+
 interface I {
   (): void;
   second: string;
@@ -29,6 +39,11 @@ interface I {
 }
 
 interface I {
+  (): void; // comment
+  second: string;
+}
+
+interface I {
   first: string;
   (): void;
 }
@@ -36,4 +51,9 @@ interface I {
 interface I {
   first: string;
   (): void; // prettier-ignore
+}
+
+interface I {
+  first: string;
+  (): void; // comment
 }
