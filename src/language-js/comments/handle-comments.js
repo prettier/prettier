@@ -571,7 +571,10 @@ function handleLastFunctionArgComments({
   // Real functions and TypeScript function type definitions
   if (
     (precedingNode?.type === "Identifier" ||
-      precedingNode?.type === "AssignmentPattern") &&
+      precedingNode?.type === "AssignmentPattern" ||
+      precedingNode?.type === "ObjectPattern" ||
+      precedingNode?.type === "ArrayPattern" ||
+      precedingNode?.type === "RestElement") &&
     enclosingNode &&
     isRealFunctionLikeNode(enclosingNode) &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
