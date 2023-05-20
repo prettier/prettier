@@ -14,6 +14,7 @@ import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import printDescription from "./print/description.js";
+import { handleComments } from "./comments.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -524,6 +525,7 @@ const printer = {
   printComment,
   canAttachComment,
   getVisitorKeys,
+  handleComments,
 };
 
 export default printer;
