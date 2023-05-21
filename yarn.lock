@@ -15,17 +15,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:16.0.1":
-  version: 16.0.1
-  resolution: "@angular/compiler@npm:16.0.1"
+"@angular/compiler@npm:16.0.2":
+  version: 16.0.2
+  resolution: "@angular/compiler@npm:16.0.2"
   dependencies:
     tslib: ^2.3.0
   peerDependencies:
-    "@angular/core": 16.0.1
+    "@angular/core": 16.0.2
   peerDependenciesMeta:
     "@angular/core":
       optional: true
-  checksum: b05c362e7643be587f20f273bee2da3bb4667ca93ed50bec68d92287c8c915f91be5937f37d35ecf306defbdbff89c647b2f19db9105564a48879ec2bb799e42
+  checksum: 3fc722dc3f1f35ee8ca4104c1dad1b65a8c98c85c482e66be06da55b85239ec420a735f11e947c8f4c3652226960fd9da594f97c014355b76c5a8b2c1eb8c586
   languageName: node
   linkType: hard
 
@@ -1054,10 +1054,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.40.0":
-  version: 8.40.0
-  resolution: "@eslint/js@npm:8.40.0"
-  checksum: e84936b8ebd1c8fd90e860182e95d1404006da4cbca722b14950b298aeeca102b080aa9b62c8e69f90824ec54e19f1ba79b239046223624d1414ee82e8e628ac
+"@eslint/js@npm:8.41.0":
+  version: 8.41.0
+  resolution: "@eslint/js@npm:8.41.0"
+  checksum: af013d70fe8d0429cdf5cd8b5dcc6fc384ed026c1eccb0cfe30f5849b968ab91645111373fd1b83282b38955b1bdfbe667c1a7dbda3b06cae753521223cad775
   languageName: node
   linkType: hard
 
@@ -3582,9 +3582,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-regexp@npm:1.14.0":
-  version: 1.14.0
-  resolution: "eslint-plugin-regexp@npm:1.14.0"
+"eslint-plugin-regexp@npm:1.15.0":
+  version: 1.15.0
+  resolution: "eslint-plugin-regexp@npm:1.15.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.4.0
@@ -3596,7 +3596,7 @@ __metadata:
     scslre: ^0.2.0
   peerDependencies:
     eslint: ">=6.0.0"
-  checksum: a247a872c19389bee1bad6d58ddbfdfb2e2aece81bdb57b5e48718216984a466d341cac926be75ed2473d7cbb6cff001aac4aaf848114509df6a3ada4fcf38d8
+  checksum: 6f5c6588b4463e11999d2fc70c9348e7cf250867a4889bdfcdef10d867cc317ba159b2053f833d43cf1141bc9b4956504647a8e251a84e4d010ad72cecf4d68e
   languageName: node
   linkType: hard
 
@@ -3687,14 +3687,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.40.0":
-  version: 8.40.0
-  resolution: "eslint@npm:8.40.0"
+"eslint@npm:8.41.0":
+  version: 8.41.0
+  resolution: "eslint@npm:8.41.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.4.0
     "@eslint/eslintrc": ^2.0.3
-    "@eslint/js": 8.40.0
+    "@eslint/js": 8.41.0
     "@humanwhocodes/config-array": ^0.11.8
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
@@ -3714,13 +3714,12 @@ __metadata:
     find-up: ^5.0.0
     glob-parent: ^6.0.2
     globals: ^13.19.0
-    grapheme-splitter: ^1.0.4
+    graphemer: ^1.4.0
     ignore: ^5.2.0
     import-fresh: ^3.0.0
     imurmurhash: ^0.1.4
     is-glob: ^4.0.0
     is-path-inside: ^3.0.3
-    js-sdsl: ^4.1.4
     js-yaml: ^4.1.0
     json-stable-stringify-without-jsonify: ^1.0.1
     levn: ^0.4.1
@@ -3733,7 +3732,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: b79eba37f52f517a420eec99a80ae9f284d2cbe73afc0d4d3d4d5ed1cce0b06f21badc0374bfb7ac239efd2d49a1fd7c6111d6c3d52888521f377ba33de77e61
+  checksum: 09979a6f8451dcc508a7005b6670845c8a518376280b3fd96657a406b8b6ef29d0e480d1ba11b4eb48da93d607e0c55c9b877676fe089d09973ec152354e23b2
   languageName: node
   linkType: hard
 
@@ -4316,6 +4315,13 @@ __metadata:
   version: 1.0.4
   resolution: "grapheme-splitter@npm:1.0.4"
   checksum: 0c22ec54dee1b05cd480f78cf14f732cb5b108edc073572c4ec205df4cd63f30f8db8025afc5debc8835a8ddeacf648a1c7992fe3dcd6ad38f9a476d84906620
+  languageName: node
+  linkType: hard
+
+"graphemer@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "graphemer@npm:1.4.0"
+  checksum: bab8f0be9b568857c7bec9fda95a89f87b783546d02951c40c33f84d05bb7da3fd10f863a9beb901463669b6583173a8c8cc6d6b306ea2b9b9d5d3d943c3a673
   languageName: node
   linkType: hard
 
@@ -5504,13 +5510,6 @@ __metadata:
   bin:
     jest: bin/jest.js
   checksum: a8ff2eb0f421623412236e23cbe67c638127fffde466cba9606bc0c0553b4c1e5cb116d7e0ef990b5d1712851652c8ee461373b578df50857fe635b94ff455d5
-  languageName: node
-  linkType: hard
-
-"js-sdsl@npm:^4.1.4":
-  version: 4.4.0
-  resolution: "js-sdsl@npm:4.4.0"
-  checksum: 7bb08a2d746ab7ff742720339aa006c631afe05e77d11eda988c1c35fae8e03e492e4e347e883e786e3ce6170685d4780c125619111f0730c11fdb41b04059c7
   languageName: node
   linkType: hard
 
@@ -6816,7 +6815,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": 16.0.1
+    "@angular/compiler": 16.0.2
     "@babel/code-frame": 7.21.4
     "@babel/generator": 7.21.5
     "@babel/parser": 7.21.8
@@ -6860,7 +6859,7 @@ __metadata:
     esbuild: 0.17.19
     esbuild-visualizer: 0.4.0
     escape-string-regexp: 5.0.0
-    eslint: 8.40.0
+    eslint: 8.41.0
     eslint-config-prettier: 8.8.0
     eslint-formatter-friendly: 7.0.0
     eslint-plugin-compat: 4.1.4
@@ -6869,7 +6868,7 @@ __metadata:
     eslint-plugin-n: 15.7.0
     eslint-plugin-prettier-internal-rules: 2.0.1
     eslint-plugin-react: 7.32.2
-    eslint-plugin-regexp: 1.14.0
+    eslint-plugin-regexp: 1.15.0
     eslint-plugin-unicorn: 47.0.0
     esm-utils: 4.1.2
     espree: 9.5.2
