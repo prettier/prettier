@@ -1,5 +1,7 @@
 import path from "node:path";
+import fs from "node:fs/promises";
 import ignoreModule from "ignore";
+import git from "isomorphic-git";
 import readFile from "../utils/read-file.js";
 
 const createIgnore = ignoreModule.default;
@@ -54,13 +56,29 @@ async function createIsIgnoredFunction(ignoreFilePaths, withNodeModules) {
     ignoreFilePaths = [undefined];
   }
 
-  const isIgnoredFunctions = (
-    await Promise.all(
-      ignoreFilePaths.map((ignoreFilePath) =>
-        createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules)
-      )
-    )
-  ).filter(Boolean);
+  const ignoredPromises = [
+    ...ignoreFilePaths.map((ignoreFilePath) =>
+      createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules)
+    ),
+    isGitIgnored,
+  ];
+
+  async function isGitIgnored(filename) {
+    let gitRoot;
+    try {
+      gitRoot = await git.findRoot({ fs, filepath: path.resolve(".") });
+    } catch (e) {
+      if (e.code === "NotFoundError") {
+        return false;
+      }
+      throw e;
+    }
+    return git.isIgnored({ fs, dir: gitRoot, filepath: filename });
+  }
+
+  const isIgnoredFunctions = (await Promise.all(ignoredPromises)).filter(
+    Boolean
+  );
 
   return (filepath) =>
     isIgnoredFunctions.some((isIgnored) => isIgnored(filepath));
