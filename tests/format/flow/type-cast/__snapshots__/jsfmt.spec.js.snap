@@ -10,21 +10,10 @@ const bar1 = [1,2,3].reduce((carry, value) => {
   return [...carry, value];
 }, ([]: Array<string>));
 
-const bar1 = [1,2,3].reduce((carry, value) => {
-  return {};
-}, ({}: {foo?: string}));
-
 =====================================output=====================================
 const bar1 = [1, 2, 3].reduce((carry, value) => {
   return [...carry, value];
 }, ([]: Array<string>));
-
-const bar1 = [1, 2, 3].reduce(
-  (carry, value) => {
-    return {};
-  },
-  ({}: { foo?: string }),
-);
 
 ================================================================================
 `;
