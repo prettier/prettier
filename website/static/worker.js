@@ -97,16 +97,28 @@ async function handleFormatMessage(message) {
     },
   };
 
+  const isPrettier2 = prettier.version.startsWith("2.");
+
   for (const key of ["ast", "preprocessedAst"]) {
     if (!message.debug[key]) {
       continue;
     }
+
+    const preprocessForPrint = key === "preprocessedAst";
+
+    if (isPrettier2 && preprocessForPrint) {
+      response.debug[key] = "/* not supported for Prettier 2.x */";
+      continue;
+    }
+
     let ast;
     let errored = false;
     try {
-      const parsed = await prettier.__debug.parse(message.code, options, {
-        preprocessForPrint: key === "preprocessedAst",
-      });
+      const parsed = await prettier.__debug.parse(
+        message.code,
+        options,
+        isPrettier2 ? false : { preprocessForPrint }
+      );
       ast = serializeAst(parsed.ast);
     } catch (e) {
       errored = true;
