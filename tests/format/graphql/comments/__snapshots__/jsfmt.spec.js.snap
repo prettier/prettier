@@ -38,6 +38,7 @@ query (
     bar # info about bar
   }
 }
+
 =====================================output=====================================
 query (
   $string: String # Some variable comment
@@ -95,6 +96,7 @@ type Query { # comment
   # another field comment
   anotherField: Boolean!
 }
+
 =====================================output=====================================
 type Query { # comment
   someField: String # field comment
