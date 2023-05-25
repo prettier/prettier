@@ -23,3 +23,11 @@ function parseFunctionBodyAndFinish<
   T extends // comment
     N.Function | N.TSDeclareMethod | Baz
 >();
+
+function makeChainWalker<
+  ArgT extends {
+    options: ValidatedOptions;
+    dirname: string;
+    filepath?: string;
+  },
+>() {}
