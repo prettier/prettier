@@ -438,6 +438,11 @@ function parseFunctionBodyAndFinish<
     | Baz
 >();
 
+function parseFunctionBodyAndFinish<
+  T extends // comment
+    N.Function | N.TSDeclareMethod | Baz
+>();
+
 =====================================output=====================================
 a = {
   parseFunctionBodyAndFinish<
@@ -458,6 +463,11 @@ function parseFunctionBodyAndFinish<
     | Foo
     | Bar
     | Baz,
+>();
+
+function parseFunctionBodyAndFinish<
+  T extends // comment
+    N.Function | N.TSDeclareMethod | Baz,
 >();
 
 ================================================================================

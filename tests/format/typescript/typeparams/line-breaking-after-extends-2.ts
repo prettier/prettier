@@ -18,3 +18,8 @@ function parseFunctionBodyAndFinish<
     | Bar
     | Baz
 >();
+
+function parseFunctionBodyAndFinish<
+  T extends // comment
+    N.Function | N.TSDeclareMethod | Baz
+>();
