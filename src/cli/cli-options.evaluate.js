@@ -195,7 +195,7 @@ const options = {
   ignorePath: {
     array: true,
     category: optionCategories.CATEGORY_CONFIG,
-    default: [{ value: [".gitignore", ".prettierignore"] }],
+    default: [{ value: [".prettierignore"] }],
     description: outdent`
       Path to a file with patterns describing files to ignore.
       Multiple values are accepted.
