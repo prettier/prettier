@@ -265,6 +265,7 @@ exports[`visitor keys estree 1`] = `
     "source",
     "exported",
     "assertions",
+    "attributes",
   ],
   "ExportDefaultDeclaration": [
     "declaration",
@@ -277,6 +278,7 @@ exports[`visitor keys estree 1`] = `
     "specifiers",
     "source",
     "assertions",
+    "attributes",
   ],
   "ExportNamespaceSpecifier": [
     "exported",
@@ -355,6 +357,7 @@ exports[`visitor keys estree 1`] = `
     "specifiers",
     "source",
     "assertions",
+    "attributes",
   ],
   "ImportDefaultSpecifier": [
     "local",
