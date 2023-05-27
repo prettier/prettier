@@ -84,7 +84,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:7.22.0":
+"@babel/generator@npm:7.22.0, @babel/generator@npm:^7.21.5, @babel/generator@npm:^7.7.2":
   version: 7.22.0
   resolution: "@babel/generator@npm:7.22.0"
   dependencies:
@@ -93,18 +93,6 @@ __metadata:
     "@jridgewell/trace-mapping": ^0.3.17
     jsesc: ^2.5.1
   checksum: 48b96cb24d1ac90d5629324123f35fc241386359d39822d80e6db89f83d1444e802142d4e8b81b49ab4095362d71a7af648d3ee3735707e9b38ee69676712c12
-  languageName: node
-  linkType: hard
-
-"@babel/generator@npm:^7.21.5, @babel/generator@npm:^7.7.2":
-  version: 7.21.5
-  resolution: "@babel/generator@npm:7.21.5"
-  dependencies:
-    "@babel/types": ^7.21.5
-    "@jridgewell/gen-mapping": ^0.3.2
-    "@jridgewell/trace-mapping": ^0.3.17
-    jsesc: ^2.5.1
-  checksum: 78af737b9dd701d4c657f9731880430fa1c177767b562f4e8a330a7fe72a4abe857e3d24de4e6d9dafc1f6a11f894162d27e523d7e5948ff9e3925a0ce9867c4
   languageName: node
   linkType: hard
 
@@ -242,12 +230,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:7.22.0, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.21.5, @babel/parser@npm:^7.21.8":
-  version: 7.22.0
-  resolution: "@babel/parser@npm:7.22.0"
+"@babel/parser@npm:7.22.3, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.21.5, @babel/parser@npm:^7.21.8":
+  version: 7.22.3
+  resolution: "@babel/parser@npm:7.22.3"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 1b6528eca79c18e2186ef430ed2fe1144080bd84a995289c1f9ae61341057f2ad6ea60ccf947b0edde053b32e0c87d981911de6ef28ab7c16b8ed8537664e7c9
+  checksum: 016f2960212fd86817e15d90b9b3450d2b51af189b1c17a20ade5735d9ec69e76e29def317e09188ecd5fa6eab4f9ab72d88b8b829c1b2994400a6a2c2dc1958
   languageName: node
   linkType: hard
 
@@ -6796,7 +6784,7 @@ __metadata:
     "@angular/compiler": 16.0.2
     "@babel/code-frame": 7.21.4
     "@babel/generator": 7.22.0
-    "@babel/parser": 7.22.0
+    "@babel/parser": 7.22.3
     "@babel/types": 7.22.0
     "@esbuild-plugins/node-modules-polyfill": 0.2.2
     "@glimmer/reference": 0.84.3
