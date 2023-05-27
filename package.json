@@ -32,8 +32,8 @@
   "dependencies": {
     "@angular/compiler": "16.0.2",
     "@babel/code-frame": "7.21.4",
-    "@babel/parser": "7.21.8",
-    "@babel/types": "7.21.5",
+    "@babel/parser": "7.22.0",
+    "@babel/types": "7.22.0",
     "@glimmer/syntax": "0.84.3",
     "@iarna/toml": "2.2.5",
     "@prettier/is-es5-identifier-name": "0.1.0",
