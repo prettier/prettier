@@ -37,7 +37,7 @@ function printImportDeclaration(path, options, print) {
     printImportKind(node),
     printModuleSpecifiers(path, options, print),
     printModuleSource(path, options, print),
-    printImportAssertions(path, options, print),
+    printImportAttributes(path, options, print),
     options.semi ? ";" : "",
   ];
 }
@@ -93,7 +93,7 @@ function printExportDeclaration(path, options, print) {
 
     parts.push(
       printModuleSource(path, options, print),
-      printImportAssertions(path, options, print)
+      printImportAttributes(path, options, print)
     );
   }
 
@@ -246,16 +246,16 @@ function shouldNotPrintSpecifiers(node, options) {
   );
 }
 
-function printImportAssertions(path, options, print) {
+function printImportAttributes(path, options, print) {
   const { node } = path;
-  if (!isNonEmptyArray(node.assertions)) {
+  if (!isNonEmptyArray(node.attributes)) {
     return "";
   }
 
   return [
-    " assert {",
+    " with {",
     options.bracketSpacing ? " " : "",
-    join(", ", path.map(print, "assertions")),
+    join(", ", path.map(print, "attributes")),
     options.bracketSpacing ? " " : "",
     "}",
   ];

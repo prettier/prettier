@@ -36,7 +36,7 @@ const parseOptions = {
     "throwExpressions",
     "partialApplication",
     "decorators",
-    "importAssertions",
+    "importAttributes",
     "decimal",
     "moduleBlocks",
     "asyncDoExpressions",
