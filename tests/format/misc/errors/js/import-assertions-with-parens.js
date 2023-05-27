@@ -1,1 +1,1 @@
-import "x" assert ({type: 'json'});
+import "x" with ({type: 'json'});
