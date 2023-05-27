@@ -35,6 +35,11 @@ const additionalVisitorKeys = {
   TypePredicate: ["asserts"],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
+
+  // Import Attributes
+  ImportDeclaration: ["attributes"],
+  ExportAllDeclaration: ["attributes"],
+  ExportNamedDeclaration: ["attributes"],
 };
 
 const excludeKeys = {
