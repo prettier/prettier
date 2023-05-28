@@ -96,7 +96,7 @@
     "remark-math": "3.0.1",
     "remark-parse": "8.0.3",
     "sdbm": "2.0.0",
-    "strip-ansi": "7.0.1",
+    "strip-ansi": "7.1.0",
     "to-fast-properties": "4.0.0",
     "typescript": "5.0.4",
     "unicode-regex": "3.0.0",
