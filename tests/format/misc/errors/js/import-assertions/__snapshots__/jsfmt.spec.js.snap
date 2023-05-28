@@ -36,16 +36,16 @@ exports[`invalid-flow-type-import-2.mjs [babel] format 1`] = `
 `;
 
 exports[`invalid-flow-typeof-import-1.mjs [babel] format 1`] = `
-"Unexpected token, expected "{" (1:8)
+"Unexpected token, expected "from" (1:15)
 > 1 | import typeof module foo from "./module.wasm";
-    |        ^
+    |               ^
   2 |"
 `;
 
 exports[`invalid-flow-typeof-import-2.mjs [babel] format 1`] = `
-"Unexpected token, expected "{" (1:15)
+"Unexpected token, expected "from" (1:22)
 > 1 | import module typeof foo from "./module.wasm";
-    |               ^
+    |                      ^
   2 |"
 `;
 
