@@ -67,7 +67,7 @@
     "flow-parser": "0.206.0",
     "get-stdin": "9.0.0",
     "graphql": "16.6.0",
-    "hermes-parser": "0.11.1",
+    "hermes-parser": "0.12.0",
     "html-element-attributes": "3.2.0",
     "html-styles": "1.0.0",
     "html-tag-names": "2.1.0",
