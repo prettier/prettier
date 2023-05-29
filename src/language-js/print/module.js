@@ -254,8 +254,8 @@ function printImportAttributes(path, options, print) {
   const { node } = path;
 
   // For @babel/parser
-  const keyword = node.extra?.deprecatedAssertSyntax ? "assert" : "with";
   if (isNonEmptyArray(node.attributes)) {
+    const keyword = node.extra?.deprecatedAssertSyntax ? "assert" : "with";
     return [
       ` ${keyword} {`,
       options.bracketSpacing ? " " : "",
