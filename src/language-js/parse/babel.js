@@ -36,7 +36,6 @@ const parseOptions = {
     "throwExpressions",
     "partialApplication",
     "decorators",
-    "importAttributes",
     "decimal",
     "moduleBlocks",
     "asyncDoExpressions",
@@ -62,6 +61,14 @@ const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
+
+/**
+ * The proposal ImportAssertions is now ImportAttributes.
+ * Until a runtime that supports ImportAssertions comes to EoL, we will support it.
+ * @type {Array<ParserPlugin>}
+ */
+const importAttributesPlugins = ["importAttributes", "importAssertions"];
+
 const appendPlugins = (plugins, options = parseOptions) => ({
   ...options,
   plugins: [...options.plugins, ...plugins],
@@ -119,6 +126,12 @@ function createParse({ isExpression = false, optionsCombinations }) {
         sourceType: "script",
       }));
     }
+
+    combinations = importAttributesPlugins.flatMap((importAttributePlugin) =>
+      combinations.map((options) =>
+        appendPlugins([importAttributePlugin], options)
+      )
+    );
 
     if (/#[[{]/.test(text)) {
       combinations = combinations.map((options) =>
