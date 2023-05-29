@@ -261,7 +261,7 @@ function printImportAttributes(path, options, print) {
       "}",
     ];
   }
-  // We'll remove this when JS runtimes drop ImportAssertions.
+  // We'll remove this when JS engines drop ImportAssertions.
   if (isNonEmptyArray(node.assertions)) {
     return [
       " assert {",
