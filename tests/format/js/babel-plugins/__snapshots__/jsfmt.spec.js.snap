@@ -860,6 +860,10 @@ function * g() {
   const r = obj.next();
 } // calls finally blocks in \`g\`
 
+{
+  await using obj = g();
+}
+
 =====================================output=====================================
 function* g() {
   using handle = acquireFileHandle(); // block-scoped critical resource
@@ -869,6 +873,10 @@ function* g() {
   using obj = g(); // block-scoped declaration
   const r = obj.next();
 } // calls finally blocks in \`g\`
+
+{
+  await using obj = g();
+}
 
 ================================================================================
 `;
