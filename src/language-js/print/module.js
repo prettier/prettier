@@ -246,19 +246,32 @@ function shouldNotPrintSpecifiers(node, options) {
   );
 }
 
+/**
+ * Print Import Attributes syntax.
+ * If old ImportAssertions syntax is used, print them here.
+ */
 function printImportAttributes(path, options, print) {
   const { node } = path;
-  if (!isNonEmptyArray(node.attributes)) {
-    return "";
+  if (isNonEmptyArray(node.attributes)) {
+    return [
+      " with {",
+      options.bracketSpacing ? " " : "",
+      join(", ", path.map(print, "attributes")),
+      options.bracketSpacing ? " " : "",
+      "}",
+    ];
   }
-
-  return [
-    " with {",
-    options.bracketSpacing ? " " : "",
-    join(", ", path.map(print, "attributes")),
-    options.bracketSpacing ? " " : "",
-    "}",
-  ];
+  // We'll remove this when JS runtimes drop ImportAssertions.
+  if (isNonEmptyArray(node.assertions)) {
+    return [
+      " assert {",
+      options.bracketSpacing ? " " : "",
+      join(", ", path.map(print, "assertions")),
+      options.bracketSpacing ? " " : "",
+      "}",
+    ];
+  }
+  return "";
 }
 
 function printModuleSpecifier(path, options, print) {
