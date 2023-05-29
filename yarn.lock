@@ -84,15 +84,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:7.22.0, @babel/generator@npm:^7.21.5, @babel/generator@npm:^7.7.2":
-  version: 7.22.0
-  resolution: "@babel/generator@npm:7.22.0"
+"@babel/generator@npm:7.22.3, @babel/generator@npm:^7.21.5, @babel/generator@npm:^7.7.2":
+  version: 7.22.3
+  resolution: "@babel/generator@npm:7.22.3"
   dependencies:
-    "@babel/types": ^7.22.0
+    "@babel/types": ^7.22.3
     "@jridgewell/gen-mapping": ^0.3.2
     "@jridgewell/trace-mapping": ^0.3.17
     jsesc: ^2.5.1
-  checksum: 48b96cb24d1ac90d5629324123f35fc241386359d39822d80e6db89f83d1444e802142d4e8b81b49ab4095362d71a7af648d3ee3735707e9b38ee69676712c12
+  checksum: ccb6426ca5b5a38f0d47a3ac9628e223d2aaaa489cbf90ffab41468795c22afe86855f68a58667f0f2673949f1810d4d5a57b826c17984eab3e28fdb34a909e6
   languageName: node
   linkType: hard
 
@@ -422,14 +422,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:7.22.0, @babel/types@npm:^7.0.0, @babel/types@npm:^7.18.6, @babel/types@npm:^7.20.7, @babel/types@npm:^7.21.0, @babel/types@npm:^7.21.4, @babel/types@npm:^7.21.5, @babel/types@npm:^7.22.0, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
-  version: 7.22.0
-  resolution: "@babel/types@npm:7.22.0"
+"@babel/types@npm:7.22.3, @babel/types@npm:^7.0.0, @babel/types@npm:^7.18.6, @babel/types@npm:^7.20.7, @babel/types@npm:^7.21.0, @babel/types@npm:^7.21.4, @babel/types@npm:^7.21.5, @babel/types@npm:^7.22.3, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
+  version: 7.22.3
+  resolution: "@babel/types@npm:7.22.3"
   dependencies:
     "@babel/helper-string-parser": ^7.21.5
     "@babel/helper-validator-identifier": ^7.19.1
     to-fast-properties: ^2.0.0
-  checksum: 6ba43536f362170d1be58aa8f975210fc042729128e9db286c7a107a1ca3e096994ad741e1cda85b2ae10d02e363d189f826ceee6178a884cc638935c99e2003
+  checksum: 6111fa5990635dfba8812a84bb4889429feb41a2c03c89de2654724e88a85b5740d4795c64a480d188d2f7109e7b47f3f0ba3d56da1b697cd31c65922f4decf7
   languageName: node
   linkType: hard
 
@@ -6783,9 +6783,9 @@ __metadata:
   dependencies:
     "@angular/compiler": 16.0.3
     "@babel/code-frame": 7.21.4
-    "@babel/generator": 7.22.0
+    "@babel/generator": 7.22.3
     "@babel/parser": 7.22.3
-    "@babel/types": 7.22.0
+    "@babel/types": 7.22.3
     "@esbuild-plugins/node-modules-polyfill": 0.2.2
     "@glimmer/reference": 0.84.3
     "@glimmer/syntax": 0.84.3
