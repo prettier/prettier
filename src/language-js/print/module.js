@@ -252,16 +252,20 @@ function shouldNotPrintSpecifiers(node, options) {
  */
 function printImportAttributes(path, options, print) {
   const { node } = path;
+
+  // For @babel/parser
+  const keyword = node.extra?.deprecatedAssertSyntax ? "assert" : "with";
   if (isNonEmptyArray(node.attributes)) {
     return [
-      " with {",
+      ` ${keyword} {`,
       options.bracketSpacing ? " " : "",
       join(", ", path.map(print, "attributes")),
       options.bracketSpacing ? " " : "",
       "}",
     ];
   }
-  // We'll remove this when JS engines drop ImportAssertions.
+
+  // For typescript-eslint, flow
   if (isNonEmptyArray(node.assertions)) {
     return [
       " assert {",
