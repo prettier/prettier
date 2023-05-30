@@ -253,29 +253,27 @@ function shouldNotPrintSpecifiers(node, options) {
 function printImportAttributes(path, options, print) {
   const { node } = path;
 
-  // For @babel/parser
-  if (isNonEmptyArray(node.attributes)) {
-    const keyword = node.extra?.deprecatedAssertSyntax ? "assert" : "with";
-    return [
-      ` ${keyword} {`,
-      options.bracketSpacing ? " " : "",
-      join(", ", path.map(print, "attributes")),
-      options.bracketSpacing ? " " : "",
-      "}",
-    ];
+  const property = isNonEmptyArray(node.attributes)
+    ? "attributes"
+    : isNonEmptyArray(node.assertions)
+    ? "assertions"
+    : undefined;
+
+  if (!property) {
+    return "";
   }
 
-  // For typescript-eslint, flow
-  if (isNonEmptyArray(node.assertions)) {
-    return [
-      " assert {",
-      options.bracketSpacing ? " " : "",
-      join(", ", path.map(print, "assertions")),
-      options.bracketSpacing ? " " : "",
-      "}",
-    ];
-  }
-  return "";
+  const keyword =
+    property === "assertions" || node.extra?.deprecatedAssertSyntax
+      ? "assert"
+      : "with";
+  return [
+    ` ${keyword} {`,
+    options.bracketSpacing ? " " : "",
+    join(", ", path.map(print, property)),
+    options.bracketSpacing ? " " : "",
+    "}",
+  ];
 }
 
 function printModuleSpecifier(path, options, print) {
