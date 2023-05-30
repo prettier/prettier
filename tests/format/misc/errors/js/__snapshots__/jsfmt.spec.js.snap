@@ -25,6 +25,20 @@ exports[`import-assertions-with-parens.js [babel] format 1`] = `
   2 |"
 `;
 
+exports[`import-attributes-for-export-without-from.js [babel] format 1`] = `
+"Unexpected token, expected "(" (1:32)
+> 1 | export { default as foo } with { type: "json" };
+    |                                ^
+  2 |"
+`;
+
+exports[`import-attributes-with-parens.js [babel] format 1`] = `
+"Unexpected token, expected "{" (1:17)
+> 1 | import "x" with ({type: 'json'});
+    |                 ^
+  2 |"
+`;
+
 exports[`invalid-escape-in-identifier.js [babel] format 1`] = `
 "Invalid Unicode escape. (1:7)
 > 1 | const \\u{20} = 1
