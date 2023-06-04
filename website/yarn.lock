@@ -8810,7 +8810,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     webpack: 5.85.0
-    webpack-cli: 5.1.2
+    webpack-cli: 5.1.3
   languageName: unknown
   linkType: soft
 
@@ -10241,9 +10241,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-cli@npm:5.1.2":
-  version: 5.1.2
-  resolution: "webpack-cli@npm:5.1.2"
+"webpack-cli@npm:5.1.3":
+  version: 5.1.3
+  resolution: "webpack-cli@npm:5.1.3"
   dependencies:
     "@discoveryjs/json-ext": ^0.5.0
     "@webpack-cli/configtest": ^2.1.1
@@ -10269,7 +10269,7 @@ __metadata:
       optional: true
   bin:
     webpack-cli: bin/cli.js
-  checksum: 7bf33c82a6737dbf53294f467066395545884f648f44f961fbe16ed06d6c5fb3239ce51ad4b3af5b1ab038352a24861dbde8d92e0985a34c7bbd1893096b750e
+  checksum: 5bb8326bf8bdbc4118cb5dd17332429434a5ab6cde88d79c3d95abf23571c8213ce5e3ff2ca4e1e7145e6f16a4e78740f5d60f999b2e11a0ee37bb339d4da3e4
   languageName: node
   linkType: hard
 
