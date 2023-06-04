@@ -2791,6 +2791,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cosmiconfig@npm:8.2.0":
+  version: 8.2.0
+  resolution: "cosmiconfig@npm:8.2.0"
+  dependencies:
+    import-fresh: ^3.2.1
+    js-yaml: ^4.1.0
+    parse-json: ^5.0.0
+    path-type: ^4.0.0
+  checksum: 836d5d8efa750f3fb17b03d6ca74cd3154ed025dffd045304b3ef59637f662bde1e5dc88f8830080d180ec60841719cf4ea2ce73fb21ec694b16865c478ff297
+  languageName: node
+  linkType: hard
+
 "cross-env@npm:7.0.3":
   version: 7.0.3
   resolution: "cross-env@npm:7.0.3"
@@ -6812,7 +6824,7 @@ __metadata:
     ci-info: 3.8.0
     cjk-regex: 2.0.1
     collapse-white-space: 1.0.6
-    cosmiconfig: 8.0.0
+    cosmiconfig: 8.2.0
     cross-env: 7.0.3
     cspell: 6.31.1
     css-units-list: 2.0.1
