@@ -11,6 +11,7 @@ should.
 be.   well.formatted(
 
 );</script>
+
 =====================================output=====================================
 <script lang="">
 should.be.well.formatted();
