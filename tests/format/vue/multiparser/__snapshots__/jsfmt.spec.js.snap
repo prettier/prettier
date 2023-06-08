@@ -1,5 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`lang-empty.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script lang="">
+export default {
+  data: () =>({msg: 'script lang is set to empty'         })
+}
+</script>
+
+=====================================output=====================================
+<script lang="">
+export default {
+  data: () => ({ msg: "script lang is set to empty" }),
+};
+</script>
+
+================================================================================
+`;
+
+exports[`lang-js.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script lang="js">
+export default{
+  data:() =>    ({ msg:        "script lang is set to js"})
+}
+</script>
+
+=====================================output=====================================
+<script lang="js">
+export default {
+  data: () => ({ msg: "script lang is set to js" }),
+};
+</script>
+
+================================================================================
+`;
+
 exports[`lang-jsx.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
@@ -29,6 +73,28 @@ export default {
   render(h) {
     return <div>{this.message}</div>;
   },
+};
+</script>
+
+================================================================================
+`;
+
+exports[`lang-none.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script>
+export default {
+  data:()=>({msg:'no script lang set'})
+}
+</script>
+
+=====================================output=====================================
+<script>
+export default {
+  data: () => ({ msg: "no script lang set" }),
 };
 </script>
 
