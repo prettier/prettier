@@ -118,7 +118,8 @@ function printObject(path, options, print) {
     if (
       (prop.node.type === "TSPropertySignature" ||
         prop.node.type === "TSMethodSignature" ||
-        prop.node.type === "TSConstructSignatureDeclaration") &&
+        prop.node.type === "TSConstructSignatureDeclaration" ||
+        prop.node.type === "TSCallSignatureDeclaration") &&
       hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
     ) {
       separatorParts.shift();

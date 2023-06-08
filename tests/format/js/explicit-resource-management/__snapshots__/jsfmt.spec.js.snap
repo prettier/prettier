@@ -252,6 +252,441 @@ for (using /* 1 */ foo of bar());
 ================================================================================
 `;
 
+exports[`valid-await-expr-using.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  await using[x];
+  await using.x + await using(x) ? await using?.x : await using\`x\`;
+}
+
+=====================================output=====================================
+async function f() {
+  await using[x];
+  (await using.x) + (await using(x)) ? await using?.x : await using\`x\`;
+}
+
+================================================================================
+`;
+
+exports[`valid-await-expr-using-in.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  await using in foo;
+}
+
+=====================================output=====================================
+async function f() {
+  (await using) in foo;
+}
+
+================================================================================
+`;
+
+exports[`valid-await-expr-using-instanceof.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  await using instanceof foo;
+}
+
+=====================================output=====================================
+async function f() {
+  (await using) instanceof foo;
+}
+
+================================================================================
+`;
+
+exports[`valid-await-using-asi-assignment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  await using
+  using = h();
+}
+
+=====================================output=====================================
+async function f() {
+  await using;
+  using = h();
+}
+
+================================================================================
+`;
+
+exports[`valid-await-using-binding-basic.js [acorn] format 1`] = `
+"Unexpected token (2:15)
+  1 | async function f() {
+> 2 |   await using basic = getReader();
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-basic.js [espree] format 1`] = `
+"Unexpected token basic (2:15)
+  1 | async function f() {
+> 2 |   await using basic = getReader();
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-basic.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (2:15)
+  1 | async function f() {
+> 2 |   await using basic = getReader();
+    |               ^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-basic.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (2:19)
+  1 | async function f() {
+> 2 |   await using basic = getReader();
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-basic.js [typescript] format 1`] = `
+"';' expected. (2:15)
+  1 | async function f() {
+> 2 |   await using basic = getReader();
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-basic.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  await using basic = getReader();
+}
+
+=====================================output=====================================
+async function f() {
+  await using basic = getReader();
+}
+
+================================================================================
+`;
+
+exports[`valid-await-using-binding-escaped.js [acorn] format 1`] = `
+"Unexpected token (2:15)
+  1 | async function f() {
+> 2 |   await using \\u0061b = c;
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-escaped.js [espree] format 1`] = `
+"Unexpected token \\u0061b (2:15)
+  1 | async function f() {
+> 2 |   await using \\u0061b = c;
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-escaped.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (2:15)
+  1 | async function f() {
+> 2 |   await using \\u0061b = c;
+    |               ^^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-escaped.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (2:15)
+  1 | async function f() {
+> 2 |   await using \\u0061b = c;
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-escaped.js [typescript] format 1`] = `
+"';' expected. (2:15)
+  1 | async function f() {
+> 2 |   await using \\u0061b = c;
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-escaped.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  await using \\u0061b = c;
+}
+
+=====================================output=====================================
+async function f() {
+  await using ab = c;
+}
+
+================================================================================
+`;
+
+exports[`valid-await-using-binding-non-bmp.js [acorn] format 1`] = `
+"Unexpected token (2:15)
+  1 | async function f() {
+> 2 |   await using 𠮷 = foo();
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-non-bmp.js [espree] format 1`] = `
+"Unexpected token 𠮷 (2:15)
+  1 | async function f() {
+> 2 |   await using 𠮷 = foo();
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-non-bmp.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (2:15)
+  1 | async function f() {
+> 2 |   await using 𠮷 = foo();
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-non-bmp.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (2:17)
+  1 | async function f() {
+> 2 |   await using 𠮷 = foo();
+    |                 ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-non-bmp.js [typescript] format 1`] = `
+"';' expected. (2:15)
+  1 | async function f() {
+> 2 |   await using 𠮷 = foo();
+    |               ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-await-using-binding-non-bmp.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  await using 𠮷 = foo();
+}
+
+=====================================output=====================================
+async function f() {
+  await using 𠮷 = foo();
+}
+
+================================================================================
+`;
+
+exports[`valid-await-using-binding-using.js [acorn] format 1`] = `
+"Unexpected token (2:15)
+  1 | async function f() {
+> 2 |   await using using = of;
+    |               ^
+  3 |   for (await using using of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-await-using-binding-using.js [espree] format 1`] = `
+"Unexpected token using (2:15)
+  1 | async function f() {
+> 2 |   await using using = of;
+    |               ^
+  3 |   for (await using using of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-await-using-binding-using.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (2:15)
+  1 | async function f() {
+> 2 |   await using using = of;
+    |               ^^^^^
+  3 |   for (await using using of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-await-using-binding-using.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (2:19)
+  1 | async function f() {
+> 2 |   await using using = of;
+    |                   ^
+  3 |   for (await using using of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-await-using-binding-using.js [typescript] format 1`] = `
+"';' expected. (2:15)
+  1 | async function f() {
+> 2 |   await using using = of;
+    |               ^
+  3 |   for (await using using of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-await-using-binding-using.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  await using using = of;
+  for (await using using of of);
+}
+
+=====================================output=====================================
+async function f() {
+  await using using = of;
+  for (await using using of of);
+}
+
+================================================================================
+`;
+
+exports[`valid-await-using-comments.js [acorn] format 1`] = `
+"Unexpected token (3:28)
+  1 | async function f() {
+  2 | {
+> 3 |   /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
+    |                            ^
+  4 | }
+  5 | {
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`valid-await-using-comments.js [espree] format 1`] = `
+"Unexpected token b (3:28)
+  1 | async function f() {
+  2 | {
+> 3 |   /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
+    |                            ^
+  4 | }
+  5 | {
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`valid-await-using-comments.js [flow] format 1`] = `
+"Unexpected identifier, expected the end of an expression statement (\`;\`) (3:28)
+  1 | async function f() {
+  2 | {
+> 3 |   /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
+    |                            ^
+  4 | }
+  5 | {
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`valid-await-using-comments.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (3:28)
+  1 | async function f() {
+  2 | {
+> 3 |   /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
+    |                            ^
+  4 | }
+  5 | {
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`valid-await-using-comments.js [typescript] format 1`] = `
+"';' expected. (3:28)
+  1 | async function f() {
+  2 | {
+> 3 |   /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
+    |                            ^
+  4 | }
+  5 | {
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`valid-await-using-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+{
+  /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
+}
+{
+  /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
+}
+{
+  /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;
+}
+{
+  /*0*/for/*1*/await/*2*/(/*3*/await/*4*/using/*5*/b/*6*/of/*7*/x/*8*/)/*9*/;
+}
+}
+
+=====================================output=====================================
+async function f() {
+  {
+    /*0*/ await using /*1*/ /*2*/ b /*3*/ = /*4*/ f(); /*5*/
+  }
+  {
+    /*0*/ for (
+      /*1*/ /*2*/ await using /*3*/ /*4*/ b /*5*/ =
+          /*6*/ x /*7*/ /*8*/ /*9*/ /*10*/;
+      ;
+
+    );
+  }
+  {
+    /*0*/ for (/*1*/ /*2*/ await using /*3*/ /*4*/ b /*5*/ of /*6*/ x /*7*/ /*8*/);
+  }
+  {
+    /*0*/ for await (/*1*/ /*2*/ /*3*/ await using /*4*/ /*5*/ b /*6*/ of /*7*/ x /*8*/ /*9*/);
+  }
+}
+
+================================================================================
+`;
+
 exports[`valid-for-await-using-binding-escaped-of-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -280,6 +715,202 @@ printWidth: 80
 =====================================output=====================================
 // TODO: Fix this test
 // for (using o\\u0066 of of);
+
+================================================================================
+`;
+
+exports[`valid-for-using-binding-of-of.js [acorn] format 1`] = `
+"Assigning to rvalue (2:8)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |        ^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-for-using-binding-of-of.js [espree] format 1`] = `
+"Assigning to rvalue (2:8)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |        ^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-for-using-binding-of-of.js [flow] format 1`] = `
+"Invalid left-hand side in for-of (2:8)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |        ^^^^^^^^^^^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-for-using-binding-of-of.js [meriyah] format 1`] = `
+"Invalid left-hand side in for-of (2:21)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |                     ^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-for-using-binding-of-of.js [typescript] format 1`] = `
+"')' expected. (2:26)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |                          ^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-for-using-binding-of-of.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  for (await using of of of);
+  for await (await using of of of);
+}
+
+=====================================output=====================================
+async function f() {
+  for (await using of of of);
+  for await (await using of of of);
+}
+
+================================================================================
+`;
+
+exports[`valid-for-using-declaration.js [acorn] format 1`] = `
+"Unexpected token (2:20)
+  1 | async function f() {
+> 2 |   for (await using basic = reader();;);
+    |                    ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-for-using-declaration.js [espree] format 1`] = `
+"Unexpected token basic (2:20)
+  1 | async function f() {
+> 2 |   for (await using basic = reader();;);
+    |                    ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-for-using-declaration.js [flow] format 1`] = `
+"Unexpected identifier, expected the token \`;\` (2:20)
+  1 | async function f() {
+> 2 |   for (await using basic = reader();;);
+    |                    ^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-for-using-declaration.js [meriyah] format 1`] = `
+"Expected ';' (2:24)
+  1 | async function f() {
+> 2 |   for (await using basic = reader();;);
+    |                        ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-for-using-declaration.js [typescript] format 1`] = `
+"';' expected. (2:20)
+  1 | async function f() {
+> 2 |   for (await using basic = reader();;);
+    |                    ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-for-using-declaration.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  for (await using basic = reader();;);
+}
+
+=====================================output=====================================
+async function f() {
+  for (await using basic = reader(); ; );
+}
+
+================================================================================
+`;
+
+exports[`valid-module-block-top-level-await-using-binding.js [acorn] format 1`] = `
+"Unexpected token (1:18)
+> 1 | const m = module {
+    |                  ^
+  2 |   await using foo = bar();
+  3 | }
+  4 |"
+`;
+
+exports[`valid-module-block-top-level-await-using-binding.js [espree] format 1`] = `
+"Unexpected token { (1:18)
+> 1 | const m = module {
+    |                  ^
+  2 |   await using foo = bar();
+  3 | }
+  4 |"
+`;
+
+exports[`valid-module-block-top-level-await-using-binding.js [flow] format 1`] = `
+"Unexpected token \`{\`, expected the token \`;\` (1:18)
+> 1 | const m = module {
+    |                  ^
+  2 |   await using foo = bar();
+  3 | }
+  4 |"
+`;
+
+exports[`valid-module-block-top-level-await-using-binding.js [meriyah] format 1`] = `
+"Unexpected token: '{' (1:18)
+> 1 | const m = module {
+    |                  ^
+  2 |   await using foo = bar();
+  3 | }
+  4 |"
+`;
+
+exports[`valid-module-block-top-level-await-using-binding.js [typescript] format 1`] = `
+"',' expected. (1:18)
+> 1 | const m = module {
+    |                  ^
+  2 |   await using foo = bar();
+  3 | }
+  4 |"
+`;
+
+exports[`valid-module-block-top-level-await-using-binding.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const m = module {
+  await using foo = bar();
+}
+
+=====================================output=====================================
+const m = module {
+  await using foo = bar();
+};
 
 ================================================================================
 `;
