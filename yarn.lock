@@ -1284,7 +1284,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/fake-timers@npm:^29.5.0":
+"@jest/fake-timers@npm:^29.2.2, @jest/fake-timers@npm:^29.5.0":
   version: 29.5.0
   resolution: "@jest/fake-timers@npm:29.5.0"
   dependencies:
@@ -5177,11 +5177,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.4.1":
-  version: 0.4.1
-  resolution: "jest-light-runner@npm:0.4.1"
+"jest-light-runner@npm:0.5.0":
+  version: 0.5.0
+  resolution: "jest-light-runner@npm:0.5.0"
   dependencies:
     "@jest/expect": ^29.0.1
+    "@jest/fake-timers": ^29.2.2
     jest-circus: ^29.0.1
     jest-each: ^29.0.1
     jest-mock: ^29.0.1
@@ -5190,7 +5191,7 @@ __metadata:
     supports-color: ^9.2.1
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0
-  checksum: e1a3019e9d3cd03627f85e2a7cfd10f89c6b34e88f6fbd8496575fe995cad1e333a7aed476137612cbd2f2de0474c4bc6c5191a28c4db8b231c9ea957d09d07b
+  checksum: 9a572e175ccadaaa67073ea6e3caf02c20e937f4e6a1dc7c4f8ccafcbed47b475375694f1f87e980da85af79d120830ff133f73831f294439f3125f9eb5f93a7
   languageName: node
   linkType: hard
 
@@ -6855,7 +6856,7 @@ __metadata:
     import-meta-resolve: 3.0.0
     jest: 29.5.0
     jest-docblock: 29.4.3
-    jest-light-runner: 0.4.1
+    jest-light-runner: 0.5.0
     jest-snapshot-serializer-ansi: 1.0.0
     jest-snapshot-serializer-raw: 1.2.0
     jest-watch-typeahead: 2.2.2
