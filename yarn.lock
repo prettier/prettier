@@ -4401,19 +4401,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.12.0":
-  version: 0.12.0
-  resolution: "hermes-estree@npm:0.12.0"
-  checksum: 368fd60bd66a30d237d8a11f0958975b18e24ec8a045217b6200818c2fab9a57880f027c4688601a5a380996be9018cb5f8c16384cb3f14647650d64a03c4030
+"hermes-estree@npm:0.12.1":
+  version: 0.12.1
+  resolution: "hermes-estree@npm:0.12.1"
+  checksum: d3411ff047815243e0ce501cf982df5bf133910434b6c8b5cd767ab6831155881eff33b4d2b007d277a5eec631935683061bd37acbc3071261f18b71f865626e
   languageName: node
   linkType: hard
 
-"hermes-parser@npm:0.12.0":
-  version: 0.12.0
-  resolution: "hermes-parser@npm:0.12.0"
+"hermes-parser@npm:0.12.1":
+  version: 0.12.1
+  resolution: "hermes-parser@npm:0.12.1"
   dependencies:
-    hermes-estree: 0.12.0
-  checksum: 49c7bf721c9412bec7e447d625d73f79d1fb525f1e77032ae291b720bcff57ebdb5ab241a3e09e145640b4e00ae6caa0f4f2e594ad1d3fed67880fbd521ba142
+    hermes-estree: 0.12.1
+  checksum: 2f9adbf592bc1ce6c9f94552919fd47fe055b32d7934bd41d6bc50c9e3a796c9e42df284cc6a4787ce2aaf864f229106644763931f61d2cdf748e7294694c80f
   languageName: node
   linkType: hard
 
@@ -6847,7 +6847,7 @@ __metadata:
     flow-parser: 0.207.0
     get-stdin: 9.0.0
     graphql: 16.6.0
-    hermes-parser: 0.12.0
+    hermes-parser: 0.12.1
     html-element-attributes: 3.2.0
     html-styles: 1.0.0
     html-tag-names: 2.1.0
