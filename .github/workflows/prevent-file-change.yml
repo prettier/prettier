@@ -16,7 +16,7 @@ jobs:
   prevent-add-users:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v3.5.3
       - name: Prevent file change
         uses: xalvarez/prevent-file-change-action@v1.3.2
         with:
