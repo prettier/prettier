@@ -15,14 +15,14 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.22.1",
-    "@babel/preset-env": "7.22.2",
+    "@babel/core": "7.22.5",
+    "@babel/preset-env": "7.22.5",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "9.1.2",
-    "concurrently": "8.0.1",
+    "concurrently": "8.1.0",
     "docusaurus": "1.14.7",
     "js-yaml": "4.1.0",
-    "webpack": "5.84.1",
-    "webpack-cli": "5.1.1"
+    "webpack": "5.85.0",
+    "webpack-cli": "5.1.4"
   }
 }
