@@ -22,21 +22,9 @@ function getTsNodeLocation(nodeOrToken) {
   return { start, end };
 }
 
-function nodeCanBeDecorated(node) {
-  return [true, false].some((useLegacyDecorators) =>
-    // @ts-expect-error -- internal?
-    ts.nodeCanBeDecorated(
-      useLegacyDecorators,
-      node,
-      node.parent,
-      node.parent.parent
-    )
-  );
-}
-
 function throwErrorForInvalidModifier(node) {
   for (const modifier of node.modifiers ?? []) {
-    if (ts.isDecorator(modifier) && !nodeCanBeDecorated(node)) {
+    if (ts.isDecorator(modifier)) {
       if (
         node.kind === ts.SyntaxKind.MethodDeclaration &&
         // @ts-expect-error -- internal?
