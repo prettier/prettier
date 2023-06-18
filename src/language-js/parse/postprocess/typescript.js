@@ -22,20 +22,21 @@ function getTsNodeLocation(nodeOrToken) {
   return { start, end };
 }
 
+function nodeCanBeDecorated(node) {
+  return [true, false].some((useLegacyDecorators) =>
+    // @ts-expect-error -- internal?
+    ts.nodeCanBeDecorated(
+      useLegacyDecorators,
+      node,
+      node.parent,
+      node.parent.parent
+    )
+  );
+}
+
 function throwErrorForInvalidModifier(node) {
   for (const modifier of node.modifiers ?? []) {
-    if (ts.isDecorator(modifier)) {
-      if (
-        node.kind === ts.SyntaxKind.MethodDeclaration &&
-        // @ts-expect-error -- internal?
-        !ts.nodeIsPresent(node.body)
-      ) {
-        throwErrorOnTsNode(
-          modifier,
-          "A decorator can only decorate a method implementation, not an overload."
-        );
-      }
-
+    if (ts.isDecorator(modifier) && !nodeCanBeDecorated(node)) {
       throwErrorOnTsNode(modifier, "Decorators are not valid here.");
     }
   }
