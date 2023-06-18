@@ -1,3 +1,8 @@
+# 2.8.8
+
+This version is a republished version of v2.8.7.
+A bad version was accidentally published and [it can't be unpublished](https://github.com/npm/cli/issues/1686), apologies for the churn.
+
 # 2.8.7
 
 [diff](https://github.com/prettier/prettier/compare/2.8.6...2.8.7)
@@ -663,7 +668,7 @@ Error: Comment "comment" was not printed. Please report this error!
 <Same as input>
 ```
 
-#### Fix formatting for comments inside JSX attribute ([#14082](https://github.com/prettier/prettier/pull/14082) with by [@fisker](https://github.com/fisker))
+#### Fix formatting for comments inside JSX attribute ([#14082](https://github.com/prettier/prettier/pull/14082) by [@fisker](https://github.com/fisker))
 
 <!-- prettier-ignore -->
 ```jsx

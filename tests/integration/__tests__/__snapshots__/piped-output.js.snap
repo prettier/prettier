@@ -6,7 +6,9 @@ exports[`no file diffs with --check + formatted file (stderr) 2`] = `""`;
 
 exports[`no file diffs with --check + formatted file (stdout) 1`] = `
 "Checking formatting...
-formatted.jsAll matched files use Prettier code style!"
+formatted.js
+[[called readline.clearLine(process.stdout)]]
+All matched files use Prettier code style!"
 `;
 
 exports[`no file diffs with --check + formatted file (stdout) 2`] = `
@@ -22,7 +24,11 @@ exports[`no file diffs with --list-different + formatted file (stderr) 1`] = `""
 
 exports[`no file diffs with --list-different + formatted file (stderr) 2`] = `""`;
 
-exports[`no file diffs with --list-different + formatted file (stdout) 1`] = `"formatted.js"`;
+exports[`no file diffs with --list-different + formatted file (stdout) 1`] = `
+"formatted.js
+[[called readline.clearLine(process.stdout)]]
+"
+`;
 
 exports[`no file diffs with --list-different + formatted file (stdout) 2`] = `""`;
 
@@ -42,7 +48,9 @@ exports[`output with --check + unformatted differs when piped (stderr) 2`] = `
 
 exports[`output with --check + unformatted differs when piped (stdout) 1`] = `
 "Checking formatting...
-unformatted.js"
+unformatted.js
+[[called readline.clearLine(process.stdout)]]
+"
 `;
 
 exports[`output with --check + unformatted differs when piped (stdout) 2`] = `"Checking formatting..."`;
@@ -71,7 +79,11 @@ exports[`output with --list-different + unformatted differs when piped (stderr) 
 
 exports[`output with --list-different + unformatted differs when piped (stderr) 2`] = `""`;
 
-exports[`output with --list-different + unformatted differs when piped (stdout) 1`] = `"unformatted.jsunformatted.js"`;
+exports[`output with --list-different + unformatted differs when piped (stdout) 1`] = `
+"unformatted.js
+[[called readline.clearLine(process.stdout)]]
+unformatted.js"
+`;
 
 exports[`output with --list-different + unformatted differs when piped (stdout) 2`] = `"unformatted.js"`;
 

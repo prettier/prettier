@@ -38,7 +38,7 @@ export default class AddAssetHtmlPlugin {
 ================================================================================
 `;
 
-exports[`decorated-function.ts format 1`] = `
+exports[`decorated-function.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -198,7 +198,7 @@ var listener = DOM.listen(
 ================================================================================
 `;
 
-exports[`forward-ref.ts format 1`] = `
+exports[`forward-ref.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

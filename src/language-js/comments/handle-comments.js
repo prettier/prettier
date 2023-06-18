@@ -510,7 +510,7 @@ function handleFunctionNameComments({
 }
 
 function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
-  if (!(enclosingNode?.type === "ArrowFunctionExpression")) {
+  if (enclosingNode?.type !== "ArrowFunctionExpression") {
     return false;
   }
 

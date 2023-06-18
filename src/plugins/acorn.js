@@ -1,13 +1,4 @@
-import createParsers from "../utils/create-parsers.js";
+import { acorn } from "../language-js/parse/acorn.js";
+import { espree } from "../language-js/parse/espree.js";
 
-export const parsers = createParsers([
-  {
-    importParsers: () => import("../language-js/parse/acorn.js"),
-    parserNames: ["acorn"],
-  },
-  {
-    importParsers: () => import("../language-js/parse/espree.js"),
-    parserNames: ["espree"],
-  },
-]);
-export default { parsers };
+export const parsers = { acorn, espree };

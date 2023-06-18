@@ -265,8 +265,9 @@ exports[`visitor keys estree 1`] = `
   ],
   "ExportAllDeclaration": [
     "source",
-    "exported",
+    "attributes",
     "assertions",
+    "exported",
   ],
   "ExportDefaultDeclaration": [
     "declaration",
@@ -278,6 +279,7 @@ exports[`visitor keys estree 1`] = `
     "declaration",
     "specifiers",
     "source",
+    "attributes",
     "assertions",
   ],
   "ExportNamespaceSpecifier": [
@@ -356,6 +358,7 @@ exports[`visitor keys estree 1`] = `
   "ImportDeclaration": [
     "specifiers",
     "source",
+    "attributes",
     "assertions",
   ],
   "ImportDefaultSpecifier": [
@@ -638,8 +641,8 @@ exports[`visitor keys estree 1`] = `
     "qualification",
   ],
   "QualifiedTypeofIdentifier": [
-    "id",
     "qualification",
+    "id",
   ],
   "RecordExpression": [
     "properties",
@@ -1018,6 +1021,11 @@ exports[`visitor keys estree 1`] = `
   ],
   "TypeParameterInstantiation": [
     "params",
+  ],
+  "TypePredicate": [
+    "parameterName",
+    "typeAnnotation",
+    "asserts",
   ],
   "TypeofTypeAnnotation": [
     "argument",

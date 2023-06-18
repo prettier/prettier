@@ -25,6 +25,7 @@ import {
   printTypeAnnotationProperty,
   printArrayType,
   printTypeQuery,
+  printTypePredicate,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -64,7 +65,6 @@ function printFlow(path, options, print) {
         printDeclareToken(path),
         "function ",
         print("id"),
-        node.predicate ? " " : "",
         print("predicate"),
         semi,
       ];
@@ -253,14 +253,29 @@ function printFlow(path, options, print) {
         ")",
       ];
 
+    case "TypePredicate":
+      return printTypePredicate(path, print);
+
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
 
     case "InferredPredicate":
-      return "%checks";
     case "DeclaredPredicate":
-      return ["%checks(", print("value"), ")"];
+      // Note: Leading comment print should be improved https://github.com/prettier/prettier/pull/14710#issuecomment-1512522282
+      return [
+        // The return type will already add the colon, but otherwise we
+        // need to do it ourselves
+        path.key === "predicate" &&
+        path.parent.type !== "DeclareFunction" &&
+        !path.parent.returnType
+          ? ": "
+          : " ",
+        "%checks",
+        ...(node.type === "DeclaredPredicate"
+          ? ["(", print("value"), ")"]
+          : []),
+      ];
   }
 }
 

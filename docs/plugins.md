@@ -7,26 +7,21 @@ Plugins are ways of adding new languages or formatting rules to Prettier. Pretti
 
 ## Using Plugins
 
-Plugins are automatically loaded if you have them installed in the same `node_modules` directory where `prettier` is located. Plugin package names must start with `@prettier/plugin-` or `prettier-plugin-` or `@<scope>/prettier-plugin-` to be registered.
+You can load plugins with:
 
-> `<scope>` should be replaced by a name, read more about [NPM scope](https://docs.npmjs.com/misc/scope.html).
-
-When plugins cannot be found automatically, you can load them with:
-
-- The [CLI](cli.md), via `--plugin-search-dir` and `--plugin`:
+- The [CLI](cli.md), via `--plugin`:
 
   ```bash
-  prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=prettier-plugin-foo
+  prettier --write main.foo --plugin=prettier-plugin-foo
   ```
 
-  > Tip: You can set `--plugin-search-dir` or `--plugin` options multiple times.
+  > Tip: You can set `--plugin` options multiple times.
 
-- The [API](api.md), via the `pluginSearchDirs` and `plugins` options:
+- The [API](api.md), via the `plugins` options:
 
   ```js
   await prettier.format("code", {
     parser: "foo",
-    pluginSearchDirs: ["./dir-with-plugins"],
     plugins: ["prettier-plugin-foo"],
   });
   ```
@@ -35,18 +30,11 @@ When plugins cannot be found automatically, you can load them with:
 
   ```json
   {
-    "pluginSearchDirs": ["./dir-with-plugins"],
     "plugins": ["prettier-plugin-foo"]
   }
   ```
 
-`pluginSearchDirs` and `plugins` are independent and one does not require the other.
-
-The paths that are provided to `pluginSearchDirs` will be searched for `@prettier/plugin-*`, `prettier-plugin-*`, and `@*/prettier-plugin-*`. For instance, these can be your project directory, a `node_modules` directory, the location of global npm modules, or any arbitrary directory that contains plugins.
-
-Strings provided to `plugins` are ultimately passed to `require()`, so you can provide a module/package name, a path, or anything else `require()` takes. (`pluginSearchDirs` works the same way. That is, valid plugin paths that it finds are passed to `require()`.)
-
-To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI or add `{ pluginSearchDirs: false }` to options in `prettier.format()` or to the config file.
+Strings provided to `plugins` are ultimately passed to [`import()` expression](https://nodejs.org/api/esm.html#import-expressions), so you can provide a module/package name, a path, or anything else `import()` takes.
 
 ## Official Plugins
 
@@ -70,6 +58,7 @@ To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI
 - [`prettier-plugin-nginx`](https://github.com/joedeandev/prettier-plugin-nginx) by [**@joedeandev**](https://github.com/joedeandev)
 - [`prettier-plugin-prisma`](https://github.com/umidbekk/prettier-plugin-prisma) by [**@umidbekk**](https://github.com/umidbekk)
 - [`prettier-plugin-properties`](https://github.com/eemeli/prettier-plugin-properties) by [**@eemeli**](https://github.com/eemeli)
+- [`prettier-plugin-rust`](https://github.com/jinxdash/prettier-plugin-rust) by [**@jinxdash**](https://github.com/jinxdash)
 - [`prettier-plugin-sh`](https://github.com/un-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
 - [`prettier-plugin-sql`](https://github.com/un-ts/prettier/tree/master/packages/sql) by [**@JounQin**](https://github.com/JounQin)
 - [`prettier-plugin-sql-cst`](https://github.com/nene/prettier-plugin-sql-cst) by [**@nene**](https://github.com/nene)

@@ -49,14 +49,12 @@ async function resolveConfig(filePath, options) {
     ...mergeOverrides(result, filePath),
   };
 
-  for (const optionName of ["plugins", "pluginSearchDirs"]) {
-    if (Array.isArray(merged[optionName])) {
-      merged[optionName] = merged[optionName].map((value) =>
-        typeof value === "string" && value.startsWith(".") // relative path
-          ? path.resolve(path.dirname(result.filepath), value)
-          : value
-      );
-    }
+  if (Array.isArray(merged.plugins)) {
+    merged.plugins = merged.plugins.map((value) =>
+      typeof value === "string" && value.startsWith(".") // relative path
+        ? path.resolve(path.dirname(result.filepath), value)
+        : value
+    );
   }
 
   return merged;

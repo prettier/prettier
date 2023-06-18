@@ -1,5 +1,5 @@
 describe("json-stringify takes precedence over json for package.json", () => {
-  runPrettier("plugins", ["--stdin-filepath=package.json"], {
+  runCli("plugins", ["--stdin-filepath=package.json"], {
     input:
       '{ "a": "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" }',
   }).test({

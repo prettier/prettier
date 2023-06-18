@@ -7,37 +7,40 @@ import prettier from "../../config/prettier-entry.js";
 const { __dirname } = createEsmUtils(import.meta);
 
 describe("extracts file-info for a js file", () => {
-  runPrettier("cli/", ["--file-info", "something.js"]).test({
+  runCli("cli/", ["--file-info", "something.js"]).test({
     status: 0,
   });
 });
 
 describe("extracts file-info for a markdown file", () => {
-  runPrettier("cli/", ["--file-info", "README.md"]).test({
+  runCli("cli/", ["--file-info", "README.md"]).test({
     status: 0,
   });
 });
 
 describe("extracts file-info for a known markdown file with no extension", () => {
-  runPrettier("cli/", ["--file-info", "README"]).test({
+  runCli("cli/", ["--file-info", "README"]).test({
     status: 0,
   });
 });
 
 describe("extracts file-info with ignored=true for a file in .prettierignore", () => {
-  runPrettier("cli/ignore-path/", ["--file-info", "regular-module.js"]).test({
+  runCli("cli/ignore-path/file-info-test/", [
+    "--file-info",
+    "ignored-by-prettierignore.js",
+  ]).test({
     status: 0,
   });
 });
 
 describe("file-info should try resolve config", () => {
-  runPrettier("cli/with-resolve-config/", ["--file-info", "file.js"]).test({
+  runCli("cli/with-resolve-config/", ["--file-info", "file.js"]).test({
     status: 0,
   });
 });
 
 describe("file-info should not try resolve config with --no-config", () => {
-  runPrettier("cli/with-resolve-config/", [
+  runCli("cli/with-resolve-config/", [
     "--file-info",
     "file.js",
     "--no-config",
@@ -48,28 +51,28 @@ describe("file-info should not try resolve config with --no-config", () => {
   });
 });
 
-describe("extracts file-info with ignored=true for a file in a hand-picked .prettierignore", () => {
-  runPrettier("cli/", [
+describe("extracts file-info with ignored=true for a file in a hand-picked ignore file", () => {
+  runCli("cli/", [
     "--file-info",
-    "regular-module.js",
-    "--ignore-path=ignore-path/.prettierignore",
+    "ignored-by-customignore.js",
+    "--ignore-path=ignore-path/file-info-test/.customignore",
   ]).test({
     status: 0,
   });
 });
 
 describe("non-exists ignore path", () => {
-  runPrettier("cli/", [
+  runCli("cli/", [
     "--file-info",
     "regular-module.js",
-    "--ignore-path=ignore-path/non-exists/.prettierignore",
+    "--ignore-path=ignore-path/file-info-test/.non-exists-ignore-file",
   ]).test({
     status: 0,
   });
 });
 
 describe("extracts file-info for a file in not_node_modules", () => {
-  runPrettier("cli/with-node-modules/", [
+  runCli("cli/with-node-modules/", [
     "--file-info",
     "not_node_modules/file.js",
   ]).test({
@@ -78,7 +81,7 @@ describe("extracts file-info for a file in not_node_modules", () => {
 });
 
 describe("extracts file-info with with ignored=true for a file in node_modules", () => {
-  runPrettier("cli/with-node-modules/", [
+  runCli("cli/with-node-modules/", [
     "--file-info",
     "node_modules/file.js",
   ]).test({
@@ -87,7 +90,7 @@ describe("extracts file-info with with ignored=true for a file in node_modules",
 });
 
 describe("extracts file-info with ignored=false for a file in node_modules when --with-node-modules provided", () => {
-  runPrettier("cli/with-node-modules/", [
+  runCli("cli/with-node-modules/", [
     "--file-info",
     "node_modules/file.js",
     "--with-node-modules",
@@ -97,30 +100,13 @@ describe("extracts file-info with ignored=false for a file in node_modules when 
 });
 
 describe("extracts file-info with inferredParser=null for file.foo", () => {
-  runPrettier("cli/", ["--file-info", "file.foo"]).test({
-    status: 0,
-  });
-});
-
-describe("extracts file-info with inferredParser=foo when plugins are autoloaded", () => {
-  runPrettier("plugins/automatic/", ["--file-info", "file.foo"]).test({
-    status: 0,
-  });
-});
-
-describe("extracts file-info with inferredParser=foo when plugins are loaded with --plugin-search-dir", () => {
-  runPrettier("cli/", [
-    "--file-info",
-    "file.foo",
-    "--plugin-search-dir",
-    "../plugins/automatic",
-  ]).test({
+  runCli("cli/", ["--file-info", "file.foo"]).test({
     status: 0,
   });
 });
 
 describe("extracts file-info with inferredParser=foo when a plugin is hand-picked", () => {
-  runPrettier("cli/", [
+  runCli("cli/", [
     "--file-info",
     "file.foo",
     "--plugin",
@@ -233,10 +219,13 @@ describe("API getFileInfo resolveConfig when no config is present", () => {
 
 test("API getFileInfo with ignorePath", async () => {
   const file = path.resolve(
-    path.join(__dirname, "../cli/ignore-path/regular-module.js")
+    path.join(
+      __dirname,
+      "../cli/ignore-path/file-info-test/ignored-by-customignore.js"
+    )
   );
   const ignorePath = path.resolve(
-    path.join(__dirname, "../cli/ignore-path/.prettierignore")
+    path.join(__dirname, "../cli/ignore-path/file-info-test/.customignore")
   );
 
   await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
@@ -352,25 +341,6 @@ test("returns null parser for unknown shebang", async () => {
   ).resolves.toMatchObject({
     ignored: false,
     inferredParser: null,
-  });
-});
-
-test("API getFileInfo with plugins loaded using pluginSearchDir", async () => {
-  const file = "file.foo";
-  const pluginsPath = path.resolve(
-    path.join(__dirname, "../plugins/automatic")
-  );
-  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: null,
-  });
-  await expect(
-    prettier.getFileInfo(file, {
-      pluginSearchDirs: [pluginsPath],
-    })
-  ).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: "foo",
   });
 });
 

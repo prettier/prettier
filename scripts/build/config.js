@@ -65,6 +65,7 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
  * @property {"node" | "universal"} platform - ESBuild platform
  * @property {BuildOptions} buildOptions - ESBuild options
  * @property {boolean?} isPlugin - file is a plugin
+ * @property {boolean?} addDefaultExport - add default export to bundle
  */
 
 /*
@@ -106,10 +107,16 @@ const pluginFiles = [
     replaceModule: [
       {
         module: require.resolve("flow-parser"),
-        process: (text) =>
-          text
+        process(text) {
+          const { fsModuleNameVariableName } = text.match(
+            /,(?<fsModuleNameVariableName>\w+)="fs",/
+          ).groups;
+
+          return text
+            .replaceAll(`require(${fsModuleNameVariableName})`, "{}")
             .replaceAll('require("fs")', "{}")
-            .replaceAll('require("constants")', "{}"),
+            .replaceAll('require("constants")', "{}");
+        },
       },
     ],
   },
@@ -193,7 +200,7 @@ const pluginFiles = [
         process: (text) =>
           text.replace(
             'require("path")',
-            "{extname: file => file.split('.').pop()}"
+            '{extname: file => "." + file.split(".").pop()}'
           ),
       },
       {
@@ -253,14 +260,14 @@ const pluginFiles = [
   {
     input: "src/plugins/angular.js",
     replaceModule: [
-      // We only use a small set of `@angular/compiler` from `esm2020/src/expression_parser/`
+      // We only use a small set of `@angular/compiler` from `esm2022/src/expression_parser/`
       // Those files can't be imported, they also not directly runnable, because `.mjs` extension is missing
       {
-        module: getPackageFile("@angular/compiler/fesm2020/compiler.mjs"),
+        module: getPackageFile("@angular/compiler/fesm2022/compiler.mjs"),
         text: /* indent */ `
-          export * from '../esm2020/src/expression_parser/ast.mjs';
-          export {Lexer} from '../esm2020/src/expression_parser/lexer.mjs';
-          export {Parser} from '../esm2020/src/expression_parser/parser.mjs';
+          export * from '../esm2022/src/expression_parser/ast.mjs';
+          export {Lexer} from '../esm2022/src/expression_parser/lexer.mjs';
+          export {Parser} from '../esm2022/src/expression_parser/parser.mjs';
         `,
       },
       ...[
@@ -268,7 +275,7 @@ const pluginFiles = [
         "expression_parser/parser.mjs",
         "ml_parser/interpolation_config.mjs",
       ].map((file) => ({
-        module: getPackageFile(`@angular/compiler/esm2020/src/${file}`),
+        module: getPackageFile(`@angular/compiler/esm2022/src/${file}`),
         process: (text) =>
           text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/g, "'$1.mjs'"),
       })),
@@ -436,7 +443,10 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
         input,
         output,
         platform: "universal",
-        buildOptions,
+        buildOptions: {
+          addDefaultExport: output.format === "esm",
+          ...buildOptions,
+        },
         isPlugin,
         build: buildJavascriptModule,
         kind: "javascript",
@@ -474,6 +484,7 @@ const nodejsFiles = [
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
+    addDefaultExport: true,
   },
   {
     input: "src/index.cjs",

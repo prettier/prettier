@@ -43,6 +43,7 @@ const unstableTests = new Map(
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
     "jsx/comments/in-attributes.js",
     ["js/ignore/semi/asi.js", (options) => options.semi === false],
+    "typescript/union/consistent-with-flow/single-type.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -264,8 +265,6 @@ function runSpec(fixtures, parsers, options) {
     describe(title, () => {
       const formatOptions = {
         printWidth: 80,
-        // Should not search plugins by default
-        pluginSearchDirs: false,
         ...options,
         filepath: filename,
         parser,

@@ -1,4 +1,5 @@
 import vnopts from "vnopts";
+// "fast-glob" is bundled here since the API uses `micromatch` too
 import fastGlob from "fast-glob";
 import * as core from "./main/core.js";
 import {
@@ -9,7 +10,6 @@ import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import {
   loadBuiltinPlugins,
   loadPlugins,
-  searchPlugins,
   clearCache as clearPluginCache,
 } from "./main/plugins/index.js";
 import {
@@ -37,7 +37,7 @@ function withPlugins(
 ) {
   return async (...args) => {
     const options = args[optionsArgumentIndex] ?? {};
-    const { plugins = [], pluginSearchDirs } = options;
+    const { plugins = [] } = options;
 
     args[optionsArgumentIndex] = {
       ...options,
@@ -46,9 +46,6 @@ function withPlugins(
           loadBuiltinPlugins(),
           // TODO: standalone version allow `plugins` to be `prettierPlugins` which is an object, should allow that too
           loadPlugins(plugins),
-          options.pluginSearchDirs === false
-            ? []
-            : searchPlugins(pluginSearchDirs),
         ])
       ).flat(),
     };

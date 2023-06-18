@@ -2,6 +2,7 @@ import { workerData, parentPort } from "node:worker_threads";
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
+import readline from "node:readline";
 import { cosmiconfig } from "cosmiconfig";
 import { prettierCli, mockable as mockableModuleFile } from "./env.js";
 
@@ -39,6 +40,18 @@ async function run() {
         ? import.meta.url
         : filename
     );
+
+  readline.clearLine = (stream) => {
+    stream.write(
+      `\n[[called readline.clearLine(${
+        stream === process.stdout
+          ? "process.stdout"
+          : stream === process.stderr
+          ? "process.stderr"
+          : "unknown stream"
+      })]]\n`
+    );
+  };
 
   process.stdin.isTTY = Boolean(options.isTTY);
   process.stdout.isTTY = Boolean(options.stdoutIsTTY);
@@ -90,7 +103,7 @@ parentPort.on("message", async () => {
   process.exit = (code) => {
     process.stdout.end();
     process.stderr.end();
-    originalExit(code);
+    originalExit(code ?? process.exitCode ?? 0);
   };
 
   try {

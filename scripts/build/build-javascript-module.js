@@ -14,7 +14,9 @@ import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protoco
 import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.js";
 import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.js";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
+import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import transform from "./transform/index.js";
+import transformEastAsianWidthModule from "./transform/eastasianwidth-module.js";
 import { getPackageFile } from "./utils.js";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
@@ -88,8 +90,13 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
             "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
             'const line = "\\n"'
           )
-          .replace(/\nfunction _os().*?\n}/s, "")
-          .replace(/\nfunction _detectNewline().*?\n}/s, ""),
+          .replace(/\nfunction _os\(\).*?\n}/s, "")
+          .replace(/\nfunction _detectNewline\(\).*?\n}/s, ""),
+    },
+    // Reduce size
+    {
+      module: require.resolve("eastasianwidth"),
+      process: transformEastAsianWidthModule,
     },
   ];
 
@@ -209,12 +216,13 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         allowDynamicRequire: file.platform === "node",
         allowDynamicImport: file.platform === "node",
       }),
+      buildOptions.addDefaultExport && esbuildPluginAddDefaultExport(),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
     external: ["pnpapi", ...(buildOptions.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
-    tsconfig: path.join(dirname, "empty-tsconfig.json"),
+    tsconfigRaw: JSON.stringify({}),
     target: [...(buildOptions.target ?? ["node14"])],
     logLevel: "error",
     format: file.output.format,

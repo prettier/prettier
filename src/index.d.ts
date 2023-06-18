@@ -406,10 +406,6 @@ export interface RequiredOptions extends doc.printer.Options {
    */
   plugins: Array<string | Plugin>;
   /**
-   * Specify plugin directory paths to search for plugins if not installed in the same `node_modules` where prettier is located.
-   */
-  pluginSearchDirs: string[] | false;
-  /**
    * How to handle whitespaces in HTML.
    * @default "css"
    */
@@ -449,9 +445,7 @@ export interface ParserOptions<T = any> extends RequiredOptions {
 
 export interface Plugin<T = any> {
   languages?: SupportLanguage[] | undefined;
-  parsers?:
-    | { [parserName: string]: Parser<T> | (() => Promise<Parser<T>>) }
-    | undefined;
+  parsers?: { [parserName: string]: Parser<T> } | undefined;
   printers?: { [astFormat: string]: Printer<T> } | undefined;
   options?: SupportOptions | undefined;
   defaultOptions?: Partial<RequiredOptions> | undefined;
@@ -785,7 +779,7 @@ export interface SupportInfo {
 }
 
 export interface FileInfoOptions {
-  ignorePath?: string | undefined;
+  ignorePath?: string | string[] | undefined;
   withNodeModules?: boolean | undefined;
   plugins?: string[] | undefined;
   resolveConfig?: boolean | undefined;

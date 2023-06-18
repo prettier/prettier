@@ -51,6 +51,7 @@ import {
   printTypeAnnotationProperty,
   printArrayType,
   printTypeQuery,
+  printTypePredicate,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printImportKind } from "./module.js";
@@ -211,13 +212,7 @@ function printTypescript(path, options, print) {
       ];
     }
     case "TSTypePredicate":
-      return [
-        node.asserts ? "asserts " : "",
-        print("parameterName"),
-        node.typeAnnotation
-          ? [" is ", printTypeAnnotationProperty(path, print)]
-          : "",
-      ];
+      return printTypePredicate(path, print);
     case "TSNonNullExpression":
       return [print("expression"), "!"];
     case "TSImportType":

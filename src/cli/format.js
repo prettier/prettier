@@ -18,16 +18,29 @@ function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
 }
 
-class DebugError extends Error {}
+class DebugError extends Error {
+  name = "DebugError";
+}
 
 function handleError(context, filename, error, printedFilename) {
-  if (error instanceof errors.UndefinedParserError) {
+  const errorIsUndefinedParseError =
+    error instanceof errors.UndefinedParserError;
+
+  if (printedFilename) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
     /* c8 ignore next 3 */
-    if ((context.argv.write || context.argv.ignoreUnknown) && printedFilename) {
+    if (
+      (context.argv.write || context.argv.ignoreUnknown) &&
+      errorIsUndefinedParseError
+    ) {
       printedFilename.clear();
+    } else {
+      // Add newline to split errors from filename line.
+      process.stdout.write("\n");
     }
+  }
 
+  if (errorIsUndefinedParseError) {
     if (context.argv.ignoreUnknown) {
       return;
     }
@@ -36,11 +49,6 @@ function handleError(context, filename, error, printedFilename) {
     }
     context.logger.error(error.message);
     return;
-  }
-
-  if (context.argv.write) {
-    // Add newline to split errors from filename line.
-    process.stdout.write("\n");
   }
 
   const isParseError = Boolean(error?.loc);
@@ -84,11 +92,6 @@ async function listDifferent(context, input, options, filename) {
   }
 
   try {
-    if (!options.filepath && !options.parser) {
-      throw new errors.UndefinedParserError(
-        "No parser and no file path given, couldn't infer a parser."
-      );
-    }
     if (!(await prettier.check(input, options)) && !context.argv.write) {
       context.logger.log(filename);
       process.exitCode = 1;
@@ -101,12 +104,6 @@ async function listDifferent(context, input, options, filename) {
 }
 
 async function format(context, input, opt) {
-  if (!opt.parser && !opt.filepath) {
-    throw new errors.UndefinedParserError(
-      "No parser and no file path given, couldn't infer a parser."
-    );
-  }
-
   if (context.argv.debugPrintDoc) {
     const doc = await prettier.__debug.printToDoc(input, opt);
     return { formatted: (await prettier.__debug.formatDoc(doc)) + "\n" };
@@ -375,6 +372,7 @@ async function formatFiles(context) {
     }
 
     if (isFileIgnored) {
+      printedFilename?.clear();
       writeOutput(context, { formatted: input }, options);
       continue;
     }
@@ -404,10 +402,8 @@ async function formatFiles(context) {
     const isDifferent = output !== input;
     let shouldSetCache = !isDifferent;
 
-    if (printedFilename) {
-      // Remove previously printed filename to log it with duration.
-      printedFilename.clear();
-    }
+    // Remove previously printed filename to log it with duration.
+    printedFilename?.clear();
 
     if (performanceTestFlag) {
       context.logger.log(
