@@ -78,7 +78,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  throwErrorForInvalidNodes(result, text);
+  // throwErrorForInvalidNodes(result, text);
 
   return postprocess(result.ast, { parser: "typescript", text });
 }
