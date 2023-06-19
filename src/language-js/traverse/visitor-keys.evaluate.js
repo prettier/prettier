@@ -51,7 +51,8 @@ const excludeKeys = {
   ArrowFunctionExpression: ["id"],
   DeclareOpaqueType: ["impltype"],
   FunctionExpression: ["predicate"],
-  JSXOpeningElement: ["typeArguments"],
+  // This is not actually used, but `typescript-eslint` v6 used it for backward compatibility
+  // JSXOpeningElement: ["typeArguments"],
   // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
   // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab
   // TupleTypeAnnotation: ["types"],

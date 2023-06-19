@@ -435,6 +435,7 @@ exports[`visitor keys estree 1`] = `
   "JSXOpeningElement": [
     "name",
     "attributes",
+    "typeArguments",
     "typeParameters",
   ],
   "JSXOpeningFragment": [],
