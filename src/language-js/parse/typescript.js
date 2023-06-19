@@ -1,10 +1,9 @@
-import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree";
+import { parse as parseTypeScript } from "@typescript-eslint/typescript-estree";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 import postprocess from "./postprocess/index.js";
-import { throwErrorForInvalidNodes } from "./postprocess/typescript.js";
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const baseParseOptions = {
@@ -62,11 +61,11 @@ function parse(text, options) {
   const textToParse = replaceHashbang(text);
   const parseOptionsCombinations = getParseOptionsCombinations(text, options);
 
-  let result;
+  let ast;
   try {
-    result = tryCombinations(
+    ast = tryCombinations(
       parseOptionsCombinations.map(
-        (parseOptions) => () => parseWithNodeMaps(textToParse, parseOptions)
+        (parseOptions) => () => parseTypeScript(textToParse, parseOptions)
       )
     );
   } catch ({
@@ -78,9 +77,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  // throwErrorForInvalidNodes(result, text);
-
-  return postprocess(result.ast, { parser: "typescript", text });
+  return postprocess(ast, { text });
 }
 
 /**
