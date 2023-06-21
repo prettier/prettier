@@ -178,7 +178,7 @@ function isLineAfterElementEmpty({ node }, { originalText: text }) {
     return false;
   }
 
-  const length = text.length;
+  const { length } = text;
   while (currentIdx < length) {
     if (text[currentIdx] === ",") {
       break;
