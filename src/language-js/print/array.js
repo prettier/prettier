@@ -173,15 +173,24 @@ function isConciselyPrintedArray(node, options) {
 }
 
 function isLineAfterElementEmpty({ node }, { originalText: text }) {
-  const skipComment = (idx) =>
-    skipInlineComment(text, skipTrailingComment(text, idx));
+  let currentIdx = locEnd(node);
+  if (currentIdx === locStart(node)) {
+    return false;
+  }
 
-  const skipToComma = (currentIdx) =>
-    text[currentIdx] === ","
-      ? currentIdx
-      : skipToComma(skipComment(currentIdx + 1));
+  const length = text.length;
+  while (currentIdx < length) {
+    if (text[currentIdx] === ",") {
+      break;
+    }
 
-  return isNextLineEmptyAfterIndex(text, skipToComma(locEnd(node)));
+    currentIdx = skipInlineComment(
+      text,
+      skipTrailingComment(text, currentIdx + 1)
+    );
+  }
+
+  return isNextLineEmptyAfterIndex(text, currentIdx);
 }
 
 function printArrayElements(path, options, elementsProperty, print) {
