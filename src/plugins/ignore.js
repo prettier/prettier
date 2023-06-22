@@ -1,8 +1,8 @@
 export const parsers = {
   ignore: {
     astFormat: "passthrough",
-    parse(text) {
-      return { text };
+    parse() {
+      return {};
     },
     locStart() {},
     locEnd() {},
@@ -10,8 +10,11 @@ export const parsers = {
 };
 export const printers = {
   passthrough: {
-    print(path) {
-      return path.getValue().text;
+    hasPrettierIgnore() {
+      return true;
+    },
+    print() {
+      throw new Error("Not implemented");
     },
   },
 };
