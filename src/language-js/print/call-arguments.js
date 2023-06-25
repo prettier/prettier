@@ -178,8 +178,8 @@ function printCallArguments(path, options, print) {
     const closingString = quasis.at(-1).value.raw;
     //if the string begins or ends with whitespace (and/or brackets), inline the respective delimiter
     //by omitting newlines
-    const openingNewline = /^[({\[]*\s*?\n/.test(openingString)
-    const closingNewline = /\n\s*[)}\]]*$/.test(closingString);
+    const openingNewline = /^[([{]*\s*?\n/.test(openingString);
+    const closingNewline = /\n\s*[)\]}]*$/.test(closingString);
 
     inner = [
       indent([openingNewline ? "" : ifBreak(softline), printedArguments]),
