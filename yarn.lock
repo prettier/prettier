@@ -3289,15 +3289,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-visualizer@npm:0.4.0":
-  version: 0.4.0
-  resolution: "esbuild-visualizer@npm:0.4.0"
+"esbuild-visualizer@npm:0.4.1":
+  version: 0.4.1
+  resolution: "esbuild-visualizer@npm:0.4.1"
   dependencies:
     open: ^8.4.0
     yargs: ^17.6.2
   bin:
     esbuild-visualizer: dist/bin/cli.js
-  checksum: 115347f3d0a51eda47e5c525097932daff5d8ea64dd99944e7934757abebbad78ae825c554482d1079a1a4ef3991dada30395cb35bea7dec2e3a243a320899f5
+  checksum: 56453d4b1cc5d5e5f7e3db2131fbbad7249ff183a4a0af5582c391e05fed291cf5453413a3145f69bf01bbb02edef5af45273d6d05b27ea6c14091b3cf24d23e
   languageName: node
   linkType: hard
 
@@ -6824,7 +6824,7 @@ __metadata:
     emoji-regex: 10.2.1
     enquirer: 2.3.6
     esbuild: 0.18.8
-    esbuild-visualizer: 0.4.0
+    esbuild-visualizer: 0.4.1
     escape-string-regexp: 5.0.0
     eslint: 8.43.0
     eslint-config-prettier: 8.8.0
