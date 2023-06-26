@@ -58,7 +58,7 @@ function createHash(source) {
 async function statSafe(filePath) {
   try {
     return await fs.stat(filePath);
-  } catch (error) {
+  } catch (/** @type {any} */ error) {
     /* c8 ignore next 3 */
     if (error.code !== "ENOENT") {
       throw error;
@@ -74,7 +74,7 @@ async function statSafe(filePath) {
 async function lstatSafe(filePath) {
   try {
     return await fs.lstat(filePath);
-  } catch (error) {
+  } catch (/** @type {any} */ error) {
     /* c8 ignore next 3 */
     if (error.code !== "ENOENT") {
       throw error;
