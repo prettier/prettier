@@ -16,6 +16,7 @@ import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-ob
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import transform from "./transform/index.js";
+import transformEastAsianWidthModule from "./transform/eastasianwidth-module.js";
 import { getPackageFile } from "./utils.js";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
@@ -91,6 +92,11 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
           )
           .replace(/\nfunction _os\(\).*?\n}/s, "")
           .replace(/\nfunction _detectNewline\(\).*?\n}/s, ""),
+    },
+    // Reduce size
+    {
+      module: require.resolve("eastasianwidth"),
+      process: transformEastAsianWidthModule,
     },
   ];
 
@@ -216,7 +222,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     legalComments: "none",
     external: ["pnpapi", ...(buildOptions.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
-    tsconfig: path.join(dirname, "empty-tsconfig.json"),
+    tsconfigRaw: JSON.stringify({}),
     target: [...(buildOptions.target ?? ["node14"])],
     logLevel: "error",
     format: file.output.format,

@@ -92,7 +92,7 @@ describe("deprecated option values are warned", () => {
 
 describe("options with `cliName` should not allow to pass directly", () => {
   // `filepath` can only pass through `--stdin-filepath`
-  // `plugins` and `pluginSearchDirs` works the same
+  // `plugins` works the same
   runCli("cli/arg-parsing", ["--stdin-filepath", "file.js"], {
     isTTY: false,
     input: "prettier()",

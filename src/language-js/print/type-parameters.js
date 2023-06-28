@@ -7,6 +7,8 @@ import {
   group,
   indent,
   ifBreak,
+  lineSuffixBoundary,
+  indentIfBreak,
 } from "../../document/builders.js";
 import {
   isTestCall,
@@ -171,7 +173,13 @@ function printTypeParameter(path, options, print) {
   }
 
   if (node.constraint) {
-    parts.push(" extends", indent([line, print("constraint")]));
+    const groupId = Symbol("constraint");
+    parts.push(
+      " extends",
+      group(indent(line), { id: groupId }),
+      lineSuffixBoundary,
+      indentIfBreak(print("constraint"), { groupId })
+    );
   }
 
   if (node.default) {

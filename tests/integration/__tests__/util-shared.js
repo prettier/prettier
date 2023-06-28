@@ -51,29 +51,41 @@ test("sharedUtil.getMaxContinuousCount", () => {
 test("sharedUtil.getStringWidth", () => {
   const { getStringWidth } = sharedUtil;
 
-  // From https://github.com/sindresorhus/string-width/blob/master/test.js
+  // From https://github.com/sindresorhus/string-width/blob/main/test.js
   expect(getStringWidth("abcde")).toBe(5);
   expect(getStringWidth("古池や")).toBe(6);
   expect(getStringWidth("あいうabc")).toBe(9);
+  expect(getStringWidth("あいう★")).toBe(7);
+  expect(getStringWidth("±")).toBe(1);
   expect(getStringWidth("ノード.js")).toBe(9);
   expect(getStringWidth("你好")).toBe(4);
   expect(getStringWidth("안녕하세요")).toBe(10);
   expect(getStringWidth("A\uD83C\uDE00BC")).toBe(5);
-  expect(getStringWidth("\u001B[31m\u001B[39m")).toBe(0);
-  expect(
-    getStringWidth("\u001B]8;;https://github.com\u0007Click\u001B]8;;\u0007")
-  ).toBe(5);
+  // We don't strip ansi
+  // expect(getStringWidth("\u001B[31m\u001B[39m")).toBe(0);
+  // expect(
+  //   getStringWidth("\u001B]8;;https://github.com\u0007Click\u001B]8;;\u0007")
+  // ).toBe(5);
   expect(getStringWidth("\u{231A}")).toBe(2);
   expect(getStringWidth("\u{2194}\u{FE0F}")).toBe(2);
   expect(getStringWidth("\u{1F469}")).toBe(2);
   expect(getStringWidth("\u{1F469}\u{1F3FF}")).toBe(2);
+  // Ideally this should be `2`, switch to use `Intl.Segmenter` will fix it
+  // https://github.com/prettier/prettier/pull/14793#discussion_r1185840038
+  expect(getStringWidth("\u{845B}\u{E0100}")).toBe(3);
+
   expect(getStringWidth(String.fromCharCode(0))).toBe(0);
   expect(getStringWidth(String.fromCharCode(31))).toBe(0);
   // expect(getStringWidth(String.fromCharCode(127))).toBe(0); // Different with `string-width`
   expect(getStringWidth(String.fromCharCode(134))).toBe(0);
   expect(getStringWidth(String.fromCharCode(159))).toBe(0);
   expect(getStringWidth("\u001B")).toBe(0);
-  // expect(getStringWidth("x\u0300"), 1); // Different with `string-width`
+  expect(getStringWidth("x\u0300")).toBe(1);
+
+  expect(getStringWidth("👶")).toBe(2);
+  expect(getStringWidth("👶🏽")).toBe(2);
+  expect(getStringWidth("👩‍👩‍👦‍👦")).toBe(2);
+  expect(getStringWidth("👨‍❤️‍💋‍👨")).toBe(2);
 });
 
 test("sharedUtil.getAlignmentSize", () => {

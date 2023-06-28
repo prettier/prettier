@@ -72,10 +72,6 @@ function normalizeOptions(
     hasDeprecationWarned = normalizer._hasDeprecationWarned;
   }
 
-  if (isCLI && normalized["plugin-search"] === false) {
-    normalized["plugin-search-dir"] = false;
-  }
-
   return normalized;
 }
 
@@ -116,32 +112,6 @@ function optionInfosToSchemas(optionInfos, { isCLI, FlagSchema }) {
  */
 function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
   const { name } = optionInfo;
-
-  if (name === "plugin-search-dir" || name === "pluginSearchDirs") {
-    return vnopts.AnySchema.create({
-      // @ts-expect-error
-      name,
-      preprocess(value) {
-        if (value === false) {
-          return value;
-        }
-        value = Array.isArray(value) ? value : [value];
-        return value;
-      },
-      /**
-       * @param {Array<unknown> | false} value
-       */
-      validate(value) {
-        if (value === false) {
-          return true;
-        }
-        return value.every((dir) => typeof dir === "string");
-      },
-      expected() {
-        return "false or paths to plugin search dir";
-      },
-    });
-  }
 
   const parameters = { name };
   let SchemaConstructor;

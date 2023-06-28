@@ -265,8 +265,6 @@ function runSpec(fixtures, parsers, options) {
     describe(title, () => {
       const formatOptions = {
         printWidth: 80,
-        // Should not search plugins by default
-        pluginSearchDirs: false,
         ...options,
         filepath: filename,
         parser,
