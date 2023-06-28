@@ -4292,10 +4292,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:16.6.0":
-  version: 16.6.0
-  resolution: "graphql@npm:16.6.0"
-  checksum: bf1d9e3c1938ce3c1a81e909bd3ead1ae4707c577f91cff1ca2eca474bfbc7873d5d7b942e1e9777ff5a8304421dba57a4b76d7a29eb19de8711cb70e3c2415e
+"graphql@npm:16.7.1":
+  version: 16.7.1
+  resolution: "graphql@npm:16.7.1"
+  checksum: c924d8428daf0e96a5ea43e9bc3cd1b6802899907d284478ac8f705c8fd233a0a51eef915f7569fb5de8acb2e85b802ccc6c85c2b157ad805c1e9adba5a299bd
   languageName: node
   linkType: hard
 
@@ -6848,7 +6848,7 @@ __metadata:
     find-parent-dir: 0.3.1
     flow-parser: 0.209.1
     get-stdin: 9.0.0
-    graphql: 16.6.0
+    graphql: 16.7.1
     hermes-parser: 0.12.1
     html-element-attributes: 3.2.0
     html-styles: 1.0.0
