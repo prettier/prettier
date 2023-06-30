@@ -14,4 +14,4 @@ Another important change in this release is the significant overhaul of the plug
 
 This release also includes numerous formatting improvements and bug fixes.
 
-If you appreciate Prettier and would like to support our work, please consider sponsoring us directly via our OpenCollective or by sponsoring the projects we depend on, such as [typescript-eslint](https://opencollective.com/typescript-eslint), [remark](https://opencollective.com/unified), and [Babel](https://opencollective.com/babel). Thank you for your continued support!
+If you appreciate Prettier and would like to support our work, please consider sponsoring us directly via [our OpenCollective](https://opencollective.com/prettier) or by sponsoring the projects we depend on, such as [typescript-eslint](https://opencollective.com/typescript-eslint), [remark](https://opencollective.com/unified), and [Babel](https://opencollective.com/babel). Thank you for your continued support!
