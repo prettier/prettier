@@ -1,6 +1,7 @@
 class AstPath {
-  constructor(value) {
+  constructor(value, print) {
     this.stack = [value];
+    this.print = print;
   }
 
   /** @type {string | null} */
@@ -179,9 +180,16 @@ class AstPath {
   // the end of the iteration.
   map(callback, ...names) {
     const result = [];
-    this.each((path, index, value) => {
-      result[index] = callback(path, index, value);
-    }, ...names);
+    // Avoid pass `index` as `args` to `print` for this usage `path.map(print, ...)`
+    if (callback === this.print) {
+      this.each((path, index) => {
+        result[index] = callback();
+      }, ...names);
+    } else {
+      this.each((path, index, value) => {
+        result[index] = callback(path, index, value);
+      }, ...names);
+    }
     return result;
   }
 
