@@ -64,7 +64,7 @@ function parse(text, options) {
         (parseOptions) => () => parseWithNodeMaps(textToParse, parseOptions)
       )
     );
-  } catch ({
+  } catch (/** @type {any} */ {
     errors: [
       // Suppose our guess is correct, throw the first error
       error,

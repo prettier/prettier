@@ -75,7 +75,7 @@ function parse(text, options = {}) {
   let ast;
   try {
     ast = tryCombinations(combinations);
-  } catch ({ errors: [error] }) {
+  } catch (/** @type {any} */ { errors: [error] }) {
     throw createParseError(error);
   }
 

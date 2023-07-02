@@ -36,7 +36,6 @@ const parseOptions = {
     "throwExpressions",
     "partialApplication",
     "decorators",
-    "importAssertions",
     "decimal",
     "moduleBlocks",
     "asyncDoExpressions",
@@ -45,6 +44,7 @@ const parseOptions = {
     "decoratorAutoAccessors",
     "importReflection",
     "explicitResourceManagement",
+    ["importAttributes", { deprecatedAssertSyntax: true }],
   ],
   tokens: true,
   ranges: true,
@@ -62,6 +62,7 @@ const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
+
 const appendPlugins = (plugins, options = parseOptions) => ({
   ...options,
   plugins: [...options.plugins, ...plugins],
@@ -152,7 +153,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
           (options) => () => parseWithOptions(parseFunction, text, options)
         )
       );
-    } catch ({ errors: [error] }) {
+    } catch (/** @type {any} */ { errors: [error] }) {
       throw createBabelParseError(error);
     }
 

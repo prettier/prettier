@@ -1,4 +1,7 @@
-function wikiLink() {
+/**
+ * @type {import('unified').Plugin<[], import('unified').Settings>}
+ */
+const wikiLink = function () {
   const entityType = "wikiLink";
   const wikiLinkRegex = /^\[\[(?<linkContents>.+?)]]/s;
   const proto = this.Parser.prototype;
@@ -22,6 +25,6 @@ function wikiLink() {
   tokenizer.locator = function (value, fromIndex) {
     return value.indexOf("[", fromIndex);
   };
-}
+};
 
 export default wikiLink;
