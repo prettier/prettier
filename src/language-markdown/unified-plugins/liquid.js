@@ -1,4 +1,7 @@
-function liquid() {
+/**
+ * @type {import('unified').Plugin<[], import('unified').Settings>}
+ */
+const liquid = function () {
   const proto = this.Parser.prototype;
   const methods = proto.inlineMethods;
   methods.splice(methods.indexOf("text"), 0, "liquid");
@@ -17,6 +20,6 @@ function liquid() {
   tokenizer.locator = function (value, fromIndex) {
     return value.indexOf("{", fromIndex);
   };
-}
+};
 
 export default liquid;

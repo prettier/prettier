@@ -16,7 +16,7 @@ function parse(text) {
     delete root.comments;
 
     return root;
-  } catch (error) {
+  } catch (/** @type {any} */ error) {
     if (error?.position) {
       throw createError(error.message, {
         loc: error.position,

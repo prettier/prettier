@@ -153,7 +153,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
           (options) => () => parseWithOptions(parseFunction, text, options)
         )
       );
-    } catch ({ errors: [error] }) {
+    } catch (/** @type {any} */ { errors: [error] }) {
       throw createBabelParseError(error);
     }
 

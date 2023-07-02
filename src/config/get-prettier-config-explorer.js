@@ -31,7 +31,7 @@ const loaders = {
   async ".toml"(filePath, content) {
     try {
       return await parseToml(content);
-    } catch (error) {
+    } catch (/** @type {any} */ error) {
       error.message = `TOML Error in ${filePath}:\n${error.message}`;
       throw error;
     }
@@ -39,7 +39,7 @@ const loaders = {
   ".json5"(filePath, content) {
     try {
       return parseJson5(content);
-    } catch (error) {
+    } catch (/** @type {any} */ error) {
       error.message = `JSON5 Error in ${filePath}:\n${error.message}`;
       throw error;
     }
