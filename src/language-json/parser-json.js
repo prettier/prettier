@@ -15,7 +15,7 @@ function createJsonParse(options = {}) {
         tokens: true,
         ranges: true,
       });
-    } catch (error) {
+    } catch (/** @type {any} */ error) {
       if (
         error?.reasonCode === "MissingPlugin" ||
         error?.reasonCode === "MissingOneOfPlugins"

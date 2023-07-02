@@ -5,6 +5,7 @@
   schedule: ["after 01:00 on sunday"],
   postUpdateOptions: ["yarnDedupeHighest"],
   prHourlyLimit: 0,
+  prConcurrentLimit: 0,
   packageRules: [
     {
       matchPackageNames: ["react", "react-dom"],

@@ -18,7 +18,9 @@ function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
 }
 
-class DebugError extends Error {}
+class DebugError extends Error {
+  name = "DebugError";
+}
 
 function handleError(context, filename, error, printedFilename) {
   const errorIsUndefinedParseError =
