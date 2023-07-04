@@ -1,4 +1,3 @@
-import { pathToFileURL } from "node:url";
 import parseToml from "@iarna/toml/parse-async.js";
 import parseJson5 from "json5/lib/parse.js";
 import mockable from "../common/mockable.js";
@@ -22,11 +21,6 @@ const searchPlaces = [
   ".prettierrc.toml",
 ];
 
-async function loadJs(filepath /*, content*/) {
-  const module = await import(pathToFileURL(filepath).href);
-  return module.default;
-}
-
 const loaders = {
   async ".toml"(filePath, content) {
     try {
@@ -44,9 +38,6 @@ const loaders = {
       throw error;
     }
   },
-  ".js": loadJs,
-  ".mjs": loadJs,
-  ".cjs": loadJs,
 };
 
 async function transform(result) {
