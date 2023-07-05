@@ -37,19 +37,16 @@ async function bump({
 }
 
 export default async function bumpPrettier(params) {
-  const {
-    dry,
-    // version
-  } = params;
+  const { dry, version } = params;
 
   if (dry) {
     return;
   }
 
-  // await logPromise(
-  //   "Installing Prettier",
-  //   runYarn(["add", "--dev", `prettier@${version}`])
-  // );
+  await logPromise(
+    "Installing Prettier",
+    runYarn(["add", "--dev", `prettier@${version}`]),
+  );
 
   await logPromise("Updating files", format());
   await logPromise("Bump default branch version", bump(params));
