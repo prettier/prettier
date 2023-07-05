@@ -47,8 +47,8 @@ function shouldAddParensIfNotBreak(node) {
       node.type === "ConditionalExpression" &&
         !startsWithNoLookaheadToken(
           node,
-          (node) => node.type === "ObjectExpression"
-        )
+          (node) => node.type === "ObjectExpression",
+        ),
     );
   }
   return shouldAddParensIfNotBreakCache.get(node);
@@ -76,7 +76,7 @@ function printArrowFunction(path, options, print, args = {}) {
       path,
       options,
       print,
-      args
+      args,
     );
     if (signatureDocs.length === 0) {
       signatureDocs.push(signatureDoc);
@@ -92,7 +92,7 @@ function printArrowFunction(path, options, print, args = {}) {
         (node.returnType && getFunctionParameters(node).length > 0) ||
         node.typeParameters ||
         getFunctionParameters(node).some(
-          (param) => param.type !== "Identifier"
+          (param) => param.type !== "Identifier",
         );
     }
 
@@ -145,7 +145,7 @@ function printArrowFunction(path, options, print, args = {}) {
       shouldIndentSignatures
         ? indent([softline, signaturesDoc])
         : signaturesDoc,
-      { shouldBreak: shouldBreakSignatures, id: chainGroupId }
+      { shouldBreak: shouldBreakSignatures, id: chainGroupId },
     ),
     " =>",
     shouldPrintAsChain
@@ -183,10 +183,10 @@ function printArrowFunctionSignature(path, options, print, args) {
           print,
           options,
           expandArg,
-          /* printTypeParams */ true
+          /* printTypeParams */ true,
         ),
         returnTypeDoc,
-      ])
+      ]),
     );
   }
 
@@ -194,7 +194,7 @@ function printArrowFunctionSignature(path, options, print, args) {
     filter(comment) {
       const nextCharacter = getNextNonSpaceNonCommentCharacterIndex(
         options.originalText,
-        locEnd(comment)
+        locEnd(comment),
       );
       return (
         nextCharacter !== false &&
@@ -240,7 +240,7 @@ function mayBreakAfterShortPrefix(functionBody, bodyDoc, options) {
 function printArrowFunctionSignatures(
   path,
   args,
-  { signatureDocs, shouldBreak }
+  { signatureDocs, shouldBreak },
 ) {
   if (signatureDocs.length === 1) {
     return signatureDocs[0];
@@ -257,7 +257,7 @@ function printArrowFunctionSignatures(
         " =>",
         indent([line, join([" =>", line], signatureDocs.slice(1))]),
       ],
-      { shouldBreak }
+      { shouldBreak },
     );
   }
 
@@ -286,7 +286,7 @@ function printArrowFunctionBody(
   path,
   options,
   args,
-  { bodyDoc, bodyComments, functionBody, shouldPutBodyOnSameLine }
+  { bodyDoc, bodyComments, functionBody, shouldPutBodyOnSameLine },
 ) {
   const { node, parent } = path;
 

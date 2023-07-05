@@ -25,7 +25,7 @@ describe("--list-different works in CI just as in a non-TTY mode", () => {
     {
       stdoutIsTTY: true,
       ci: true,
-    }
+    },
   ).test({
     status: 1,
   });
@@ -35,7 +35,7 @@ describe("--list-different works in CI just as in a non-TTY mode", () => {
     ["--list-different", "formatted.js", "unformatted.js"],
     {
       stdoutIsTTY: false,
-    }
+    },
   ).test({
     status: 1,
   });

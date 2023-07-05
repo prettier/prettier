@@ -73,5 +73,5 @@ run_spec(
     importMeta: import.meta,
     snippets: cases.map((code) => ({ code, name: code })),
   },
-  ["markdown"]
+  ["markdown"],
 );

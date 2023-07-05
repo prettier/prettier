@@ -8,7 +8,7 @@ function createError(message, options) {
       options.loc.start.line +
       ":" +
       options.loc.start.column +
-      ")"
+      ")",
   );
 
   return Object.assign(error, options);

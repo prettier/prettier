@@ -6,7 +6,7 @@ const transformStringReplaceAll = createMethodCallTransform({
   functionName: "__stringReplaceAll",
   functionImplementationUrl: new URL(
     "../../shims/string-replace-all.js",
-    import.meta.url
+    import.meta.url,
   ),
 });
 

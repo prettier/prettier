@@ -31,7 +31,7 @@ test("options.filter", () => {
         getVisitorKeys,
         filter: (node) => node.id.includes("2"),
       }),
-    ].map((node) => node.id)
+    ].map((node) => node.id),
   ).toMatchInlineSnapshot(`
     [
       "tree.list.2",

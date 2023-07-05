@@ -17,5 +17,5 @@ run_spec(
       "export @decorator2 default class A {}",
     ],
   },
-  ["babel"]
+  ["babel"],
 );

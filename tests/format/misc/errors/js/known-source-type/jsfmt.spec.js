@@ -16,5 +16,5 @@ run_spec(
       },
     ],
   },
-  ["acorn", "espree", "meriyah"]
+  ["acorn", "espree", "meriyah"],
 );

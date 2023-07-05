@@ -11,7 +11,7 @@ export default async function installDependencies() {
   const { stdout: status } = await runGit(["ls-files", "-m"]);
   if (status) {
     throw new Error(
-      "The lockfile needs to be updated, commit it before making the release."
+      "The lockfile needs to be updated, commit it before making the release.",
     );
   }
 }

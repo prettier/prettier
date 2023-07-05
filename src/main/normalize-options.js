@@ -20,7 +20,7 @@ function normalizeOptions(
     passThrough = false,
     FlagSchema,
     descriptor,
-  } = {}
+  } = {},
 ) {
   // TODO: Move CLI related part into `/src/cli`
   if (isCLI) {
@@ -88,7 +88,7 @@ function optionInfosToSchemas(optionInfos, { isCLI, FlagSchema }) {
         isCLI,
         optionInfos,
         FlagSchema,
-      })
+      }),
     );
 
     if (optionInfo.alias && isCLI) {
@@ -97,7 +97,7 @@ function optionInfosToSchemas(optionInfos, { isCLI, FlagSchema }) {
           // @ts-expect-error
           name: optionInfo.alias,
           sourceName: optionInfo.name,
-        })
+        }),
       );
     }
   }
@@ -137,7 +137,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
                 to: { key: optionInfo.name, value: choiceInfo.redirect },
               },
             }
-          : choiceInfo
+          : choiceInfo,
       );
       break;
     case "boolean":
@@ -151,7 +151,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
           optionInfo.alias,
           optionInfo.description && optionInfo.name,
           optionInfo.oppositeDescription && `no-${optionInfo.name}`,
-        ].filter(Boolean)
+        ].filter(Boolean),
       );
       break;
     case "path":
@@ -195,7 +195,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
     parameters.preprocess = (value, schema, utils) =>
       schema.preprocess(
         originalPreprocess(Array.isArray(value) ? value.at(-1) : value),
-        utils
+        utils,
       );
   }
 

@@ -25,7 +25,7 @@ function* getModules(text) {
           "\\s*}",
           "\\s*}\\);",
         ].join("\\n"),
-        "s"
+        "s",
       );
       const match = code.match(esmRegExp);
 
@@ -69,7 +69,7 @@ class TypeScriptModuleSource {
     this.#source.overwrite(
       module.start,
       module.end,
-      moduleInitCode + replacement
+      moduleInitCode + replacement,
     );
     return this;
   }
@@ -94,7 +94,7 @@ class TypeScriptModuleSource {
         escapeStringRegexp(end),
         "(?=\n)",
       ].join(""),
-      "gsu"
+      "gsu",
     );
 
     this.#source.replaceAll(regexp, replacement);
@@ -188,7 +188,7 @@ function modifyTypescriptModule(text) {
             init_debug();
             scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);
           };
-        `
+        `,
       );
       continue;
     }
@@ -246,7 +246,7 @@ function modifyTypescriptModule(text) {
   // perfLogger
   source.replaceModule(
     "src/compiler/perfLogger.ts",
-    "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});"
+    "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});",
   );
 
   // performanceCore
@@ -255,7 +255,7 @@ function modifyTypescriptModule(text) {
     outdent`
       var tryGetNativePerformanceHooks = () => {};
       var timestamp = Date.now;
-    `
+    `,
   );
 
   // `factory`
@@ -265,7 +265,7 @@ function modifyTypescriptModule(text) {
     "src/compiler/factory/nodeConverters.ts",
     outdent`
       var createNodeConverters = () => new Proxy({}, {get: () => () => {}});
-    `
+    `,
   );
 
   /* spell-checker: disable */

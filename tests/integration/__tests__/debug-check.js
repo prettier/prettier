@@ -33,7 +33,7 @@ describe("should not exit non-zero for already prettified code with --debug-chec
   runCli("cli/debug-check", ["issue-4599.js", "--debug-check", "--check"]).test(
     {
       status: 0,
-    }
+    },
   );
 });
 

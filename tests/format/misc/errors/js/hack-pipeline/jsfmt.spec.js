@@ -14,5 +14,5 @@ run_spec(
       "yield",
     ].map((code) => `async function * a() { a |> foo(%) |> ${code}}`),
   },
-  ["babel"]
+  ["babel"],
 );

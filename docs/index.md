@@ -43,7 +43,7 @@ foo(
   reallyLongArg(),
   omgSoManyParameters(),
   IShouldRefactorThis(),
-  isThereSeriouslyAnotherOne()
+  isThereSeriouslyAnotherOne(),
 );
 ```
 

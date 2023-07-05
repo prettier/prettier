@@ -32,7 +32,7 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
       tsNode.initializer &&
       esTreeNode.value === null &&
       tsNode.modifiers?.some(
-        (modifier) => modifier.kind === ts.SyntaxKind.AbstractKeyword
+        (modifier) => modifier.kind === ts.SyntaxKind.AbstractKeyword,
       )
     )
   ) {
@@ -41,7 +41,7 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
 
   throwTsSyntaxError(
     esTreeNode,
-    "Abstract property cannot have an initializer"
+    "Abstract property cannot have an initializer",
   );
 }
 
@@ -52,8 +52,8 @@ function nodeCanBeDecorated(node) {
       useLegacyDecorators,
       node,
       node.parent,
-      node.parent.parent
-    )
+      node.parent.parent,
+    ),
   );
 }
 
@@ -75,7 +75,7 @@ function throwErrorForInvalidModifier(node) {
       ) {
         throwErrorOnTsNode(
           modifier,
-          "A decorator can only decorate a method implementation, not an overload."
+          "A decorator can only decorate a method implementation, not an overload.",
         );
       }
 
@@ -90,8 +90,8 @@ function throwErrorForInvalidModifier(node) {
         throwErrorOnTsNode(
           modifier,
           `'${ts.tokenToString(
-            modifier.kind
-          )}' modifier cannot appear on a type member`
+            modifier.kind,
+          )}' modifier cannot appear on a type member`,
         );
       }
 
@@ -103,8 +103,8 @@ function throwErrorForInvalidModifier(node) {
         throwErrorOnTsNode(
           modifier,
           `'${ts.tokenToString(
-            modifier.kind
-          )}' modifier cannot appear on an index signature`
+            modifier.kind,
+          )}' modifier cannot appear on an index signature`,
         );
       }
     }
@@ -118,8 +118,8 @@ function throwErrorForInvalidModifier(node) {
       throwErrorOnTsNode(
         modifier,
         `'${ts.tokenToString(
-          modifier.kind
-        )}' modifier cannot appear on a type parameter`
+          modifier.kind,
+        )}' modifier cannot appear on a type parameter`,
       );
     }
 
@@ -136,8 +136,8 @@ function throwErrorForInvalidModifier(node) {
       throwErrorOnTsNode(
         modifier,
         `'${ts.tokenToString(
-          modifier.kind
-        )}' modifier can only appear on a type parameter of a class, interface or type alias`
+          modifier.kind,
+        )}' modifier can only appear on a type parameter of a class, interface or type alias`,
       );
     }
 
@@ -150,7 +150,7 @@ function throwErrorForInvalidModifier(node) {
     ) {
       throwErrorOnTsNode(
         modifier,
-        "'readonly' modifier can only appear on a property declaration or index signature."
+        "'readonly' modifier can only appear on a property declaration or index signature.",
       );
     }
 
@@ -162,8 +162,8 @@ function throwErrorForInvalidModifier(node) {
       throwErrorOnTsNode(
         modifier,
         `'${ts.tokenToString(
-          modifier.kind
-        )}' modifier cannot appear on class elements of this kind.`
+          modifier.kind,
+        )}' modifier cannot appear on class elements of this kind.`,
       );
     }
 
@@ -179,8 +179,8 @@ function throwErrorForInvalidModifier(node) {
       throwErrorOnTsNode(
         modifier,
         `'${ts.tokenToString(
-          modifier.kind
-        )}' modifier can only appear on a class, method, or property declaration.`
+          modifier.kind,
+        )}' modifier can only appear on a class, method, or property declaration.`,
       );
     }
 
@@ -195,8 +195,8 @@ function throwErrorForInvalidModifier(node) {
       throwErrorOnTsNode(
         modifier,
         `'${ts.tokenToString(
-          modifier.kind
-        )}' modifier cannot appear on a module or namespace element.`
+          modifier.kind,
+        )}' modifier cannot appear on a module or namespace element.`,
       );
     }
 
@@ -206,7 +206,7 @@ function throwErrorForInvalidModifier(node) {
     ) {
       throwErrorOnTsNode(
         modifier,
-        "'accessor' modifier can only appear on a property declaration."
+        "'accessor' modifier can only appear on a property declaration.",
       );
     }
 
@@ -232,8 +232,8 @@ function throwErrorForInvalidModifier(node) {
       throwErrorOnTsNode(
         modifier,
         `'${ts.tokenToString(
-          modifier.kind
-        )}' modifier cannot appear on a parameter.`
+          modifier.kind,
+        )}' modifier cannot appear on a parameter.`,
       );
     }
 
@@ -255,7 +255,7 @@ function throwErrorForInvalidModifier(node) {
       ) {
         throwErrorOnTsNode(
           modifier,
-          "A parameter property is only allowed in a constructor implementation."
+          "A parameter property is only allowed in a constructor implementation.",
         );
       }
     }
@@ -297,7 +297,7 @@ const POSSIBLE_MODIFIERS = [
 ];
 
 const decoratorOrModifierRegExp = new RegExp(
-  ["@", ...POSSIBLE_MODIFIERS].join("|")
+  ["@", ...POSSIBLE_MODIFIERS].join("|"),
 );
 
 function throwErrorForInvalidNodes(tsParseResult, text) {

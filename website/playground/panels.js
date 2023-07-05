@@ -26,7 +26,7 @@ class CodeMirrorPanel extends React.Component {
 
     this._codeMirror = CodeMirror.fromTextArea(
       this._textareaRef.current,
-      options
+      options,
     );
     this._codeMirror.on("change", this.handleChange);
     this._codeMirror.on("focus", this.handleFocus);
@@ -52,7 +52,7 @@ class CodeMirrorPanel extends React.Component {
       !isEqualSelection(this.props.selection, prevProps.selection) &&
       !isEqualSelection(
         this.props.selection,
-        this._codeMirror.listSelections()[0]
+        this._codeMirror.listSelections()[0],
       )
     ) {
       this.updateSelection();
@@ -92,7 +92,7 @@ class CodeMirrorPanel extends React.Component {
   updateSelection() {
     this._codeMirror.setSelection(
       this.props.selection?.anchor ?? { line: 0, ch: 0 },
-      this.props.selection?.head
+      this.props.selection?.head,
     );
   }
 

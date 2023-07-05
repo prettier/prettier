@@ -130,10 +130,10 @@ async function* expandPatternsInternal(context) {
   function getSupportedFilesGlob() {
     if (!supportedFilesGlob) {
       const extensions = context.languages.flatMap(
-        (lang) => lang.extensions || []
+        (lang) => lang.extensions || [],
       );
       const filenames = context.languages.flatMap(
-        (lang) => lang.filenames || []
+        (lang) => lang.filenames || [],
       );
       supportedFilesGlob = `**/{${[
         ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
@@ -185,7 +185,7 @@ function sortPaths(paths) {
 function escapePathForGlob(path) {
   return fastGlob
     .escapePath(
-      path.replaceAll("\\", "\0") // Workaround for fast-glob#262 (part 1)
+      path.replaceAll("\\", "\0"), // Workaround for fast-glob#262 (part 1)
     )
     .replaceAll("\\!", "@(!)") // Workaround for fast-glob#261
     .replaceAll("\0", "@(\\\\)"); // Workaround for fast-glob#262 (part 2)

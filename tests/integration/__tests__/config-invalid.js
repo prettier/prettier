@@ -23,7 +23,7 @@ describe("throw error with invalid config format", () => {
   runCli("cli/config/invalid", ["--config", "type-error/.prettierrc"]).test({
     status: "non-zero",
     stderr: expect.stringContaining(
-      "Config is only allowed to be an object, but received number in"
+      "Config is only allowed to be an object, but received number in",
     ),
   });
 });
@@ -107,7 +107,7 @@ describe("Invalid json file", () => {
       `
         .split("\n")
         .map((line) => `[error] ${line}`)
-        .join("\n")
+        .join("\n"),
     ),
   });
 });
@@ -132,7 +132,7 @@ describe("Invalid toml file", () => {
       `
         .split("\n")
         .map((line) => `[error] ${line}`)
-        .join("\n")
+        .join("\n"),
       /* cSpell:enable */
     ),
   });

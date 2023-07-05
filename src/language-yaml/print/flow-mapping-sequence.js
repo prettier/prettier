@@ -54,7 +54,7 @@ function printChildren(path, print, options) {
               : "",
           ],
     ],
-    "children"
+    "children",
   );
 }
 

@@ -131,7 +131,7 @@ function print(path, options, print) {
             value.parts
               .map((part) => (part.type === "TextNode" ? part.chars : ""))
               .join(""),
-            options.singleQuote
+            options.singleQuote,
           )
         : "";
 
@@ -283,7 +283,7 @@ function print(path, options, print) {
       if (isWhitespaceOnly && lineBreaksCount) {
         leadingLineBreaksCount = Math.min(
           lineBreaksCount,
-          NEWLINES_TO_PRESERVE_MAX
+          NEWLINES_TO_PRESERVE_MAX,
         );
         trailingLineBreaksCount = 0;
       } else {
@@ -402,7 +402,7 @@ function printStartingTag(path, print) {
   const { node } = path;
 
   const types = ["attributes", "modifiers", "comments"].filter((property) =>
-    isNonEmptyArray(node[property])
+    isNonEmptyArray(node[property]),
   );
   const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
 
@@ -694,7 +694,7 @@ function printStringLiteral(path, options) {
 
   const quote = getPreferredQuote(
     value,
-    needsOppositeQuote(path) ? !options.singleQuote : options.singleQuote
+    needsOppositeQuote(path) ? !options.singleQuote : options.singleQuote,
   );
 
   return [quote, value.replaceAll(quote, `\\${quote}`), quote];

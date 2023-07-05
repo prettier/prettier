@@ -1,3 +1,9 @@
+# 3.0.0
+
+[diff](https://github.com/prettier/prettier/compare/3.0.0-alpha.6...3.0.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2023/07/05/3.0.0.html)
+
 # 2.8.8
 
 This version is a republished version of v2.8.7.
@@ -928,7 +934,7 @@ prettier --loglevel silent --help no-color
 
 Fixes two problems when bundling our UMD files with webpack:
 
-- A error `` "`....__exportStar` is not a function" `` throws when running the bundles.
+- A error ``"`....__exportStar` is not a function"`` throws when running the bundles.
 - Some files cause warning about `"Critical dependency: the request of a dependency is an expression"`.
 
 #### Fix non-idempotent formatting of function calls with complex type arguments ([#12508](https://github.com/prettier/prettier/pull/12508) by [@sosukesuzuki](https://github.com/sosukesuzuki))

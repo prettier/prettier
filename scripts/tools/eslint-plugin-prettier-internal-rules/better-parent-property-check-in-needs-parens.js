@@ -67,7 +67,7 @@ module.exports = {
       [parentPropertyCheckSelector](node) {
         const { operator, left, right } = node;
         const { property } = [left, right].find(
-          ({ type }) => type === "MemberExpression"
+          ({ type }) => type === "MemberExpression",
         );
         const propertyText =
           property.type === "Identifier"

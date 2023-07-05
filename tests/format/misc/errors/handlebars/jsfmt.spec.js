@@ -45,5 +45,5 @@ run_spec(
       ].map((tag) => ({ name: tag, code: `<${tag}>` })),
     ],
   },
-  ["glimmer"]
+  ["glimmer"],
 );

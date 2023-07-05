@@ -68,7 +68,7 @@ function printDecorators(path, options, print) {
 
 function hasNewlineBetweenOrAfterDecorators(node, options) {
   return node.decorators.some((decorator) =>
-    hasNewline(options.originalText, locEnd(decorator))
+    hasNewline(options.originalText, locEnd(decorator)),
   );
 }
 

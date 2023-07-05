@@ -20,7 +20,7 @@ async function typesFileBuilder({ file }) {
   for (const { from, to } of replacements) {
     text = text.replaceAll(
       new RegExp(` from "${from}";`, "g"),
-      ` from "${to}";`
+      ` from "${to}";`,
     );
   }
   await writeFile(path.join(DIST_DIR, file.output.file), text);
@@ -49,7 +49,7 @@ async function buildPluginTypes({ file: { input, output } }) {
         ${parserNames
           .map(
             (parserName) =>
-              `${" ".repeat(2)}${toPropertyKey(parserName)}: Parser;`
+              `${" ".repeat(2)}${toPropertyKey(parserName)}: Parser;`,
           )
           .join("\n")}
         };\n

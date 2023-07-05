@@ -23,8 +23,8 @@ console.log(
     printEntries(entries).join("\n\n"),
     previousVersion,
     newVersion,
-    /** isPatch */ true
-  )
+    /** isPatch */ true,
+  ),
 );
 
 function parseArgv() {
@@ -37,7 +37,7 @@ function parseArgv() {
     semver.compare(previousVersion, newVersion) !== -1
   ) {
     throw new Error(
-      `Invalid argv, prev-version: ${previousVersion}, new-version: ${newVersion}`
+      `Invalid argv, prev-version: ${previousVersion}, new-version: ${newVersion}`,
     );
   }
   return { previousVersion, newVersion };

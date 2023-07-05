@@ -46,7 +46,7 @@ async function printAstToDoc(ast, options) {
     options,
     mainPrint,
     undefined,
-    embeds
+    embeds,
   );
 
   ensureAllCommentsPrinted(options);

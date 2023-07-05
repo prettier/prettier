@@ -77,7 +77,7 @@ describe("embed API in plugins", () => {
       await format(input, {
         plugins: [makePlugin()],
         parser: "baz-parser",
-      })
+      }),
     ).toMatchSnapshot();
   });
 
@@ -86,7 +86,7 @@ describe("embed API in plugins", () => {
       format(input, {
         plugins: [makePlugin(true)],
         parser: "baz-parser-outdated",
-      })
+      }),
     ).rejects.toThrowErrorMatchingSnapshot();
   });
 });

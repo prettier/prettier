@@ -14,7 +14,7 @@ function hasSpaces(text, startIndex, options = {}) {
   const idx = skipSpaces(
     text,
     options.backwards ? startIndex - 1 : startIndex,
-    options
+    options,
   );
   return idx !== startIndex;
 }

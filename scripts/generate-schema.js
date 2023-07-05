@@ -7,5 +7,5 @@ import generateSchema from "./utils/generate-schema.mjs";
 console.log(
   await format(JSON.stringify(generateSchema(getSupportInfo().options)), {
     parser: "json",
-  })
+  }),
 );

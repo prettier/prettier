@@ -98,7 +98,7 @@ function postprocess(ast, options) {
           const invalidProperty = node.properties.find(
             (property) =>
               property.type === "Property" &&
-              property.value.type === "TSEmptyBodyFunctionExpression"
+              property.value.type === "TSEmptyBodyFunctionExpression",
           );
           if (invalidProperty) {
             throwSyntaxError(invalidProperty.value, "Unexpected token.");
@@ -109,7 +109,7 @@ function postprocess(ast, options) {
         if (isNonEmptyArray(node.implements)) {
           throwSyntaxError(
             node.implements[0],
-            "Interface declaration cannot have 'implements' clause."
+            "Interface declaration cannot have 'implements' clause.",
           );
         }
         break;
@@ -118,7 +118,7 @@ function postprocess(ast, options) {
         if (node.initializer) {
           throwSyntaxError(
             node.initializer,
-            "An interface property cannot have an initializer."
+            "An interface property cannot have an initializer.",
           );
         }
         break;

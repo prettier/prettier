@@ -83,7 +83,7 @@ function printClass(path, options, print) {
     ];
     const printedWithComments = path.call(
       (superClass) => ["extends ", printComments(superClass, printed, options)],
-      "superClass"
+      "superClass",
     );
     if (groupMode) {
       extendsParts.push(line, group(printedWithComments));
@@ -96,7 +96,7 @@ function printClass(path, options, print) {
 
   extendsParts.push(
     printHeritageClauses(path, options, print, "mixins"),
-    printHeritageClauses(path, options, print, "implements")
+    printHeritageClauses(path, options, print, "implements"),
   );
 
   if (groupMode) {
@@ -126,7 +126,7 @@ function hasMultipleHeritage(node) {
   return (
     ["extends", "mixins", "implements"].reduce(
       (count, key) => count + (Array.isArray(node[key]) ? node[key].length : 0),
-      node.superClass ? 1 : 0
+      node.superClass ? 1 : 0,
     ) > 1
   );
 }
@@ -136,7 +136,7 @@ function shouldIndentOnlyHeritageClauses(node) {
     node.typeParameters &&
     !hasComment(
       node.typeParameters,
-      CommentCheckFlags.Trailing | CommentCheckFlags.Line
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line,
     ) &&
     !hasMultipleHeritage(node)
   );
@@ -169,7 +169,7 @@ function printSuperClass(path, options, print) {
   const { parent } = path;
   if (parent.type === "AssignmentExpression") {
     return group(
-      ifBreak(["(", indent([softline, printed]), softline, ")"], printed)
+      ifBreak(["(", indent([softline, printed]), softline, ")"], printed),
     );
   }
   return printed;
@@ -237,7 +237,7 @@ function printClassProperty(path, options, print) {
     printPropertyKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
-    printTypeAnnotationProperty(path, print)
+    printTypeAnnotationProperty(path, print),
   );
 
   const isAbstractProperty =
@@ -251,7 +251,7 @@ function printClassProperty(path, options, print) {
       print,
       parts,
       " =",
-      isAbstractProperty ? undefined : "value"
+      isAbstractProperty ? undefined : "value",
     ),
     semi,
   ];

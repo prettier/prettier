@@ -10,7 +10,7 @@ async function printEmbedMarkdown(textToDoc, print, path /*, options*/) {
   const { node } = path;
   let text = node.quasis[0].value.raw.replaceAll(
     /((?:\\\\)*)\\`/g,
-    (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
+    (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`",
   );
   const indentation = getIndentation(text);
   const hasIndent = indentation !== "";
@@ -19,7 +19,7 @@ async function printEmbedMarkdown(textToDoc, print, path /*, options*/) {
   }
   const doc = escapeTemplateCharacters(
     await textToDoc(text, { parser: "markdown", __inJsTemplate: true }),
-    true
+    true,
   );
   return [
     "`",
