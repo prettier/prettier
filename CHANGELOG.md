@@ -1,3 +1,9 @@
+# 3.0.0
+
+[diff](https://github.com/prettier/prettier/compare/3.0.0-alpha.6...3.0.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2023/07/05/3.0.0.html)
+
 # 2.8.8
 
 This version is a republished version of v2.8.7.

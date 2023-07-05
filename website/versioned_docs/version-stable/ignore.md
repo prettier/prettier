@@ -14,13 +14,13 @@ To exclude files from formatting, create a `.prettierignore` file in the root of
 
 Example:
 
-```
+```text
 # Ignore artifacts:
 build
 coverage
 
 # Ignore all HTML files:
-*.html
+**/*.html
 ```
 
 It’s recommended to have a `.prettierignore` in your project! This way you can run `prettier --write .` to make sure that everything is formatted (without mangling files you don’t want, or choking on generated files). And – your editor will know which files _not_ to format!
@@ -29,7 +29,7 @@ By default prettier ignores files in version control systems directories (".git"
 
 So by default it will be
 
-```js
+```text
 **/.git
 **/.svn
 **/.hg
@@ -38,7 +38,7 @@ So by default it will be
 
 and
 
-```js
+```text
 **/.git
 **/.svn
 **/.hg
@@ -187,7 +187,7 @@ hello: world
 For one-off commands, when you want to exclude some files without adding them to `.prettierignore`, negative patterns can come in handy:
 
 ```bash
-prettier --write . '!**/*.{js,jsx,vue}'
+prettier . "!**/*.{js,jsx,vue}" --write
 ```
 
 See [fast-glob](https://prettier.io/docs/en/cli.html#file-patterns) to learn more about advanced glob syntax.
