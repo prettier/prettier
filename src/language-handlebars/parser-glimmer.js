@@ -22,7 +22,7 @@ function addBackslash(node) {
       ) {
         childrenOrBody[i].chars = childrenOrBody[i].chars.replace(
           /\\$/,
-          "\\\\"
+          "\\\\",
         );
       }
     }
@@ -115,7 +115,7 @@ function getErrorMessage(error) {
     lines.length >= 4 &&
     /:\s?$/.test(lines[0]) &&
     /^\(error occurred in '.*?' @ line \d+ : column \d+\)$/.test(
-      lines.at(-1)
+      lines.at(-1),
     ) &&
     lines[1] === "" &&
     lines.at(-2) === "" &&

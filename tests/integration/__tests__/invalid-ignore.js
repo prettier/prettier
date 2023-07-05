@@ -14,9 +14,9 @@ describe("throw error with invalid ignore", () => {
       prettier.getFileInfo("something.js", {
         ignorePath: path.join(
           __dirname,
-          "../cli/invalid-ignore/.prettierignore"
+          "../cli/invalid-ignore/.prettierignore",
         ),
-      })
+      }),
     ).rejects.toThrow(/EISDIR: illegal operation on a directory/);
   });
 });

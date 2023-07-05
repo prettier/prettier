@@ -180,7 +180,7 @@ function propagateBreaks(doc) {
     doc,
     propagateBreaksOnEnterFn,
     propagateBreaksOnExitFn,
-    /* shouldTraverseConditionalGroups */ true
+    /* shouldTraverseConditionalGroups */ true,
   );
 }
 
@@ -408,7 +408,7 @@ function replaceEndOfLine(doc, replacement = literalline) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string"
       ? join(replacement, currentDoc.split("\n"))
-      : currentDoc
+      : currentDoc,
   );
 }
 

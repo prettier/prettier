@@ -57,8 +57,8 @@ async function createIsIgnoredFunction(ignoreFilePaths, withNodeModules) {
   const isIgnoredFunctions = (
     await Promise.all(
       ignoreFilePaths.map((ignoreFilePath) =>
-        createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules)
-      )
+        createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules),
+      ),
     )
   ).filter(Boolean);
 

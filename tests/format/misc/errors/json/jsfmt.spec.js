@@ -40,7 +40,7 @@ run_spec(
       "----123",
     ],
   },
-  ["json", "json5", "json-stringify"]
+  ["json", "json5", "json-stringify"],
 );
 
 run_spec(
@@ -99,5 +99,5 @@ run_spec(
       "[<foo></foo>]",
     ],
   },
-  ["json"]
+  ["json"],
 );

@@ -63,7 +63,7 @@ function printTypeParameters(path, options, print, paramsKey) {
     undefined,
     (node, name) => name === "typeAnnotation",
     (node) => node.type === "Identifier",
-    isArrowFunctionVariableDeclarator
+    isArrowFunctionVariableDeclarator,
   );
 
   const shouldInline =
@@ -100,7 +100,7 @@ function printTypeParameters(path, options, print, paramsKey) {
       softline,
       ">",
     ],
-    { id: getTypeParametersGroupId(node) }
+    { id: getTypeParametersGroupId(node) },
   );
 }
 
@@ -133,7 +133,7 @@ function printTypeParameter(path, options, print) {
     if (parent.readonly) {
       parts.push(
         printTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
-        " "
+        " ",
       );
     }
     parts.push("[", name);
@@ -143,7 +143,7 @@ function printTypeParameter(path, options, print) {
     if (parent.nameType) {
       parts.push(
         " as ",
-        path.callParent(() => print("nameType"))
+        path.callParent(() => print("nameType")),
       );
     }
     parts.push("]");
@@ -178,7 +178,7 @@ function printTypeParameter(path, options, print) {
       " extends",
       group(indent(line), { id: groupId }),
       lineSuffixBoundary,
-      indentIfBreak(print("constraint"), { groupId })
+      indentIfBreak(print("constraint"), { groupId }),
     );
   }
 

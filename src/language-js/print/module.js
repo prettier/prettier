@@ -93,7 +93,7 @@ function printExportDeclaration(path, options, print) {
 
     parts.push(
       printModuleSource(path, options, print),
-      printImportAttributes(path, options, print)
+      printImportAttributes(path, options, print),
     );
   }
 
@@ -211,7 +211,7 @@ function printModuleSpecifiers(path, options, print) {
             ifBreak(shouldPrintComma(options) ? "," : ""),
             options.bracketSpacing ? line : softline,
             "}",
-          ])
+          ]),
         );
       } else {
         parts.push([
@@ -242,7 +242,7 @@ function shouldNotPrintSpecifiers(node, options) {
 
   // TODO: check tokens
   return !/{\s*}/.test(
-    options.originalText.slice(locStart(node), locStart(source))
+    options.originalText.slice(locStart(node), locStart(source)),
   );
 }
 
@@ -303,7 +303,7 @@ function printModuleSpecifier(path, options, print) {
   return [
     printImportOrExportKind(
       type === "ImportSpecifier" ? node.importKind : node.exportKind,
-      /* spaceBeforeKind */ false
+      /* spaceBeforeKind */ false,
     ),
     left,
     left && right ? " as " : "",

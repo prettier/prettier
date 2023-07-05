@@ -8,7 +8,7 @@ import {
 import cliOptions from "../cli-options.evaluate.js";
 
 const detailedCliOptions = normalizeOptionSettings(cliOptions).map((option) =>
-  normalizeDetailedOption(option)
+  normalizeDetailedOption(option),
 );
 
 function apiOptionToCliOption(apiOption) {

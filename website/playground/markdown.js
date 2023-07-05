@@ -68,13 +68,13 @@ function formatCLIOptions(cliOptions) {
 function codeBlock(content, syntax) {
   const backtickSequences = content.match(/`+/g) || [];
   const longestBacktickSequenceLength = Math.max(
-    ...backtickSequences.map(({ length }) => length)
+    ...backtickSequences.map(({ length }) => length),
   );
   const prettierIgnoreComment = "<!-- prettier-ignore -->";
   const fenceLength = Math.max(3, longestBacktickSequenceLength + 1);
   const fence = "`".repeat(fenceLength);
   return [prettierIgnoreComment, fence + (syntax || ""), content, fence].join(
-    "\n"
+    "\n",
   );
 }
 

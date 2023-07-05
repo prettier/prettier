@@ -40,8 +40,8 @@ function printChild(childPath, options, print) {
           locEnd(child) -
             (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
               ? printClosingTagEndMarker(child, options).length
-              : 0)
-        )
+              : 0),
+        ),
       ),
       printClosingTagSuffix(child, options),
     ];
@@ -176,7 +176,7 @@ function printChildren(path, options, print) {
         leadingParts.push(
           ifBreak("", softline, {
             groupId: groupIds[childIndex - 1],
-          })
+          }),
         );
       }
     }

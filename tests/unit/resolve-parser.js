@@ -17,12 +17,12 @@ test("resolveParser should not trigger the plugin.parsers getters", async () => 
             },
           },
         ];
-      })
+      }),
     );
   const creatParsers = (names) =>
     Object.defineProperties(
       Object.create(null),
-      createParserDescriptors(names)
+      createParserDescriptors(names),
     );
 
   const options = {

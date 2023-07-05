@@ -25,7 +25,7 @@ async function printVueVForDirective(textToDoc, print, path, options) {
       await formatAttributeValue(`function _(${left}) {}`, textToDoc, {
         parser: parseWithTs ? "babel-ts" : "babel",
         __isVueForBindingLeft: true,
-      })
+      }),
     ),
     " ",
     operator,
@@ -69,7 +69,7 @@ function parseVueVForDirective(value) {
   if (
     left.some(
       (part, index) =>
-        !part && (index === 0 || left.slice(index + 1).some(Boolean))
+        !part && (index === 0 || left.slice(index + 1).some(Boolean)),
     )
   ) {
     return;

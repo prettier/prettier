@@ -79,13 +79,13 @@ function installPrettier(packageDirectory) {
           at ${chalk.inverse(temporaryDirectory)}
           from ${chalk.inverse(packageDirectory)}
           with ${chalk.inverse(client)}.
-      `
-    )
+      `,
+    ),
   );
 
   fs.writeFileSync(
     path.join(temporaryDirectory, "index-proxy.mjs"),
-    "export * from 'prettier';"
+    "export * from 'prettier';",
   );
 
   return temporaryDirectory;

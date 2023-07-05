@@ -53,7 +53,7 @@ function fix(source, context) {
           property.type === "Property" &&
           !property.computed &&
           property.key.type === "Identifier" &&
-          docProperties.has(property.key.name)
+          docProperties.has(property.key.name),
       ) &&
       identifier.parent.parent.type === "VariableDeclaration" &&
       identifier.parent.parent.kind === "const" &&
@@ -71,10 +71,10 @@ function fix(source, context) {
         const propertyName = property.key.name;
 
         return `import ${sourceCode.getText(
-          property.value
+          property.value,
         )} from "${source.value.replace(
           "/document/public.js",
-          `/document/${propertyName}.js`
+          `/document/${propertyName}.js`,
         )}";`;
       })
       .join("\n");

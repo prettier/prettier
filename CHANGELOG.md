@@ -934,7 +934,7 @@ prettier --loglevel silent --help no-color
 
 Fixes two problems when bundling our UMD files with webpack:
 
-- A error `` "`....__exportStar` is not a function" `` throws when running the bundles.
+- A error ``"`....__exportStar` is not a function"`` throws when running the bundles.
 - Some files cause warning about `"Critical dependency: the request of a dependency is an expression"`.
 
 #### Fix non-idempotent formatting of function calls with complex type arguments ([#12508](https://github.com/prettier/prettier/pull/12508) by [@sosukesuzuki](https://github.com/sosukesuzuki))

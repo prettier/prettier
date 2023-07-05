@@ -4,7 +4,7 @@ function hasStringOrFunction(groupList) {
       group.type === "string" ||
       (group.type === "func" &&
         // workaround false-positive func
-        !group.value.endsWith("\\"))
+        !group.value.endsWith("\\")),
   );
 }
 

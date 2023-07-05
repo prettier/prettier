@@ -16,5 +16,5 @@ run_spec(
       undefined,
     ].map((filename) => ({ code, filename, name: filename ?? "unnamed" })),
   },
-  ["typescript"]
+  ["typescript"],
 );

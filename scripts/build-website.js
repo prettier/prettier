@@ -91,8 +91,8 @@ async function buildPlaygroundFiles() {
 
         const prettierPackageManifest = ${JSON.stringify(packageManifest)};
       `,
-      { parser: "meriyah" }
-    )
+      { parser: "meriyah" },
+    ),
   );
 }
 

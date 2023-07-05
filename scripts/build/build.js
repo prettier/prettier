@@ -109,7 +109,7 @@ async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
       const { size } = await fs.stat(path.join(DIST_DIR, result.file));
       const sizeDiff = size - stableSize;
       const message = chalk[sizeDiff > 0 ? "yellow" : "green"](
-        prettyBytes(sizeDiff)
+        prettyBytes(sizeDiff),
       );
 
       sizeMessages.push(`${message}`);
@@ -122,7 +122,7 @@ async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
     // Clear previous line
     clear();
     process.stdout.write(
-      fitTerminal(displayName, `${sizeMessages.join(", ")} `)
+      fitTerminal(displayName, `${sizeMessages.join(", ")} `),
     );
   }
 
@@ -183,13 +183,13 @@ async function run(cliOptions) {
   if (cliOptions.compareSize) {
     if (cliOptions.minify === false) {
       throw new Error(
-        "'--compare-size' can not use together with '--no-minify' flag"
+        "'--compare-size' can not use together with '--no-minify' flag",
       );
     }
 
     if (cliOptions.saveAs) {
       throw new Error(
-        "'--compare-size' can not use together with '--save-as' flag"
+        "'--compare-size' can not use together with '--save-as' flag",
       );
     }
   }
@@ -218,5 +218,5 @@ await run(
     unknown(flag) {
       throw new Error(`Unknown flag ${chalk.red(flag)}`);
     },
-  })
+  }),
 );

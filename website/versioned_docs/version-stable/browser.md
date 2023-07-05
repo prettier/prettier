@@ -113,7 +113,7 @@ If you want to format [embedded code](options.md#embedded-language-formatting), 
     await prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
       parser: "babel",
       plugins: [pluginBabel],
-    })
+    }),
   );
   // Output: const html = /* HTML */ `<DIV> </DIV>`;
 </script>
@@ -131,7 +131,7 @@ The HTML code embedded in JavaScript stays unformatted because the `html` parser
     await prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
       parser: "babel",
       plugins: [pluginBabel, pluginHtml],
-    })
+    }),
   );
   // Output: const html = /* HTML */ `<div></div>`;
 </script>

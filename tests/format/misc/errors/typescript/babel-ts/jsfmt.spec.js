@@ -7,5 +7,5 @@ run_spec(
       "<string>foo = '100';",
     ],
   },
-  ["babel-ts"]
+  ["babel-ts"],
 );

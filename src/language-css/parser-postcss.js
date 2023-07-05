@@ -47,13 +47,13 @@ function parseNestedCSS(node, options) {
       if (node.value.trimEnd().endsWith("}")) {
         const textBefore = options.originalText.slice(
           0,
-          node.source.start.offset
+          node.source.start.offset,
         );
         const nodeText =
           "a".repeat(node.prop.length) +
           options.originalText.slice(
             node.source.start.offset + node.prop.length,
-            node.source.end.offset + 1
+            node.source.end.offset + 1,
           );
         const fakeContent = textBefore.replaceAll(/[^\n]/g, " ") + nodeText;
         let parse;
@@ -234,7 +234,7 @@ function parseNestedCSS(node, options) {
         const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
         node.customSelector = customSelector;
         node.selector = parseSelector(
-          node.params.slice(customSelector.length).trim()
+          node.params.slice(customSelector.length).trim(),
         );
         delete node.params;
         return node;
@@ -421,7 +421,7 @@ function parseLess(text, options = {}) {
     // See comments for `replaceQuotesInInlineComments` in `loc.js`.
     (text) => postcssLess.parse(replaceQuotesInInlineComments(text)),
     text,
-    options
+    options,
   );
 }
 

@@ -6953,16 +6953,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.8":
-  version: 2.8.8
-  resolution: "prettier@npm:2.8.8"
-  bin:
-    prettier: bin-prettier.js
-  checksum: b49e409431bf129dd89238d64299ba80717b57ff5a6d1c1a8b1a28b590d998a34e083fa13573bc732bb8d2305becb4c9a4407f8486c81fa7d55100eb08263cf8
-  languageName: node
-  linkType: hard
-
-"prettier@workspace:.":
+"prettier@3.0.0, prettier@workspace:.":
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
@@ -7064,7 +7055,7 @@ __metadata:
     postcss-scss: 4.0.6
     postcss-selector-parser: 2.2.3
     postcss-values-parser: 2.0.1
-    prettier: 2.8.8
+    prettier: 3.0.0
     pretty-bytes: 6.1.0
     regexp-util: 1.2.2
     remark-footnotes: 2.0.0

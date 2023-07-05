@@ -23,8 +23,8 @@ function printAttribute(path, options) {
     /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(
       options.originalText.slice(
         node.valueSpan.start.offset,
-        node.valueSpan.end.offset
-      )
+        node.valueSpan.end.offset,
+      ),
     ) || // lwc: html`<my-element data-for={value}></my-element>`
     (options.parser === "lwc" &&
       node.value.startsWith("{") &&
@@ -60,7 +60,7 @@ function printAttributeWithValuePrinter(printValue) {
     }
 
     valueDoc = mapDoc(valueDoc, (doc) =>
-      typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
+      typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc,
     );
 
     return [path.node.rawName, '="', group(valueDoc), '"'];

@@ -64,7 +64,7 @@ async function transform(result) {
   if (typeof config !== "object") {
     throw new TypeError(
       "Config is only allowed to be an object, " +
-        `but received ${typeof config} in "${filepath}"`
+        `but received ${typeof config} in "${filepath}"`,
     );
   }
 

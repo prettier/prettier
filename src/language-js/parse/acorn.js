@@ -69,7 +69,7 @@ function parseWithOptions(text, sourceType) {
 function parse(text, options = {}) {
   const sourceType = getSourceType(options);
   const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () => parseWithOptions(text, sourceType)
+    (sourceType) => () => parseWithOptions(text, sourceType),
   );
 
   let ast;

@@ -27,7 +27,7 @@ function runWebpack(config) {
 }
 
 const TEMPORARY_DIRECTORY = url.fileURLToPath(
-  new URL("./.tmp", import.meta.url)
+  new URL("./.tmp", import.meta.url),
 );
 
 /* `require` in `parser-typescript.js`, #12338 */

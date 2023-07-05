@@ -25,7 +25,7 @@ describe("--checks works in CI just as in a non-TTY mode", () => {
     {
       stdoutIsTTY: true,
       ci: true,
-    }
+    },
   ).test({
     status: 1,
   });
@@ -35,7 +35,7 @@ describe("--checks works in CI just as in a non-TTY mode", () => {
     ["--check", "formatted.js", "unformatted.js"],
     {
       stdoutIsTTY: false,
-    }
+    },
   ).test({
     status: 1,
   });

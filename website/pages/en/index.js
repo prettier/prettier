@@ -169,7 +169,7 @@ const LanguagesSection = () => {
       }
       return acc;
     },
-    []
+    [],
   );
 
   return (
@@ -336,7 +336,8 @@ const UsersSection = ({ language }) => {
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
-                More than <strong data-placeholder="dependent-npm">14.8k</strong>{" "}
+                More than{" "}
+                <strong data-placeholder="dependent-npm">14.8k</strong>{" "}
                 dependent packages on npm
               </p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">

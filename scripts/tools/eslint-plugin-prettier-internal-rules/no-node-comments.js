@@ -65,7 +65,7 @@ module.exports = {
           path.join(__dirname, "../../..", file),
           functions ? new Set(functions) : true,
         ];
-      })
+      }),
     );
     // avoid report on `const {comments} = node` twice
     const reported = new Set();

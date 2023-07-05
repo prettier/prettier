@@ -30,7 +30,7 @@ function printInterface(path, options, print) {
     node.typeParameters &&
     !hasComment(
       node.typeParameters,
-      CommentCheckFlags.Trailing | CommentCheckFlags.Line
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line,
     );
 
   if (isNonEmptyArray(node.extends)) {
@@ -42,8 +42,8 @@ function printInterface(path, options, print) {
         : line,
       "extends ",
       (node.extends.length === 1 ? identity : indent)(
-        join([",", line], path.map(print, "extends"))
-      )
+        join([",", line], path.map(print, "extends")),
+      ),
     );
   }
 

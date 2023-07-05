@@ -61,8 +61,8 @@ function parse(text, options) {
   try {
     result = tryCombinations(
       parseOptionsCombinations.map(
-        (parseOptions) => () => parseWithNodeMaps(textToParse, parseOptions)
-      )
+        (parseOptions) => () => parseWithNodeMaps(textToParse, parseOptions),
+      ),
     );
   } catch (/** @type {any} */ {
     errors: [
@@ -89,7 +89,7 @@ function isProbablyJsx(text) {
       "|",
       "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
     ].join(""),
-    "m"
+    "m",
   ).test(text);
 }
 

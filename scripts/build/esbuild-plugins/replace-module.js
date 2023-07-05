@@ -25,7 +25,7 @@ function processReplacements(replacements) {
     }
 
     throw new Error(
-      `module: '${module}' already replaced with another content.`
+      `module: '${module}' already replaced with another content.`,
     );
   };
 
@@ -50,7 +50,7 @@ function processReplacements(replacements) {
         module,
         Object.hasOwn(replacement, "external")
           ? { external: true, path: replacement.external }
-          : { path: replacement.path }
+          : { path: replacement.path },
       );
 
       continue;
@@ -96,7 +96,7 @@ function processReplacements(replacements) {
       Object.hasOwn(replacement, "replacement")
     ) {
       processFunctions.push((text) =>
-        text.replaceAll(replacement.find, replacement.replacement)
+        text.replaceAll(replacement.find, replacement.replacement),
       );
       continue;
     }

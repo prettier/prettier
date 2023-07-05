@@ -240,10 +240,10 @@ function printAttributes(path, options, print) {
     ({ node: attribute }) =>
       hasPrettierIgnoreAttribute(attribute)
         ? replaceEndOfLine(
-            options.originalText.slice(locStart(attribute), locEnd(attribute))
+            options.originalText.slice(locStart(attribute), locEnd(attribute)),
           )
         : print(),
-    "attrs"
+    "attrs",
   );
 
   const forceNotToBreakAttrContent =
@@ -295,7 +295,7 @@ function printAttributes(path, options, print) {
           : ""
         : node.isSelfClosing
         ? line
-        : softline
+        : softline,
     );
   }
 

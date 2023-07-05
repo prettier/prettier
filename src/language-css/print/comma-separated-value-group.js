@@ -49,13 +49,13 @@ function printCommaSeparatedValueGroup(path, options, print) {
     (declAncestorProp === "grid" ||
       declAncestorProp.startsWith("grid-template"));
   const atRuleAncestorNode = path.findAncestor(
-    (node) => node.type === "css-atrule"
+    (node) => node.type === "css-atrule",
   );
   const isControlDirective =
     atRuleAncestorNode &&
     isSCSSControlDirectiveNode(atRuleAncestorNode, options);
   const hasInlineComment = node.groups.some((node) =>
-    isInlineValueCommentNode(node)
+    isInlineValueCommentNode(node),
   );
 
   const printed = path.map(print, "groups");

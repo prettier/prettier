@@ -11,7 +11,7 @@ describe("CLI --support-info", () => {
 async function getCoreInfo() {
   const supportInfo = await prettier.getSupportInfo();
   const languages = Object.fromEntries(
-    supportInfo.languages.map(({ name, parsers }) => [name, parsers])
+    supportInfo.languages.map(({ name, parsers }) => [name, parsers]),
   );
 
   const options = Object.fromEntries(
@@ -26,7 +26,7 @@ async function getCoreInfo() {
           ? { choices: option.choices.map((choice) => choice.value) }
           : null),
       },
-    ])
+    ]),
   );
 
   return { languages, options };

@@ -82,7 +82,7 @@ function genericPrint(path, options, print) {
       return [
         printOpeningTagPrefix(node, options),
         replaceEndOfLine(
-          options.originalText.slice(locStart(node), locEnd(node))
+          options.originalText.slice(locStart(node), locEnd(node)),
         ),
         printClosingTagSuffix(node, options),
       ];
@@ -100,7 +100,7 @@ function genericPrint(path, options, print) {
         replaceEndOfLine(
           quote === '"'
             ? value.replaceAll('"', "&quot;")
-            : value.replaceAll("'", "&apos;")
+            : value.replaceAll("'", "&apos;"),
         ),
         quote,
       ];

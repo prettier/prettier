@@ -20,7 +20,7 @@ import { alignWithSpaces } from "./misc.js";
 function printBlock(path, print, options) {
   const { node } = path;
   const parentIndent = path.ancestors.filter(
-    (node) => node.type === "sequence" || node.type === "mapping"
+    (node) => node.type === "sequence" || node.type === "mapping",
   ).length;
   const isLastDescendant = isLastDescendantNode(path);
   /** @type {Doc[]} */
@@ -51,11 +51,11 @@ function printBlock(path, print, options) {
     contentsParts.push(fill(join(line, lineWords)));
     if (index !== lineContents.length - 1) {
       contentsParts.push(
-        lineWords.length === 0 ? hardline : markAsRoot(literalline)
+        lineWords.length === 0 ? hardline : markAsRoot(literalline),
       );
     } else if (node.chomping === "keep" && isLastDescendant) {
       contentsParts.push(
-        dedentToRoot(lineWords.length === 0 ? hardline : literalline)
+        dedentToRoot(lineWords.length === 0 ? hardline : literalline),
       );
     }
   }
@@ -64,8 +64,8 @@ function printBlock(path, print, options) {
   } else {
     parts.push(
       dedentToRoot(
-        alignWithSpaces(node.indent - 1 + parentIndent, contentsParts)
-      )
+        alignWithSpaces(node.indent - 1 + parentIndent, contentsParts),
+      ),
     );
   }
 

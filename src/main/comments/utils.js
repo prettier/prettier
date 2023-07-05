@@ -7,7 +7,7 @@ function describeNodeForDebugging(node) {
       (node.value &&
         (typeof node.value === "object" ? "" : String(node.value))) ||
       node.operator ||
-      ""
+      "",
   );
   if (nodeName.length > 20) {
     nodeName = nodeName.slice(0, 19) + "…";

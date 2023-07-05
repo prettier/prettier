@@ -8,7 +8,7 @@ function createPrintPreCheckFunction(options) {
   // All core plugins have full list of keys for possible child nodes
   // Ensure we only pass node to `print`
   const getVisitorKeys = createGetVisitorKeysFunction(
-    options.printer.getVisitorKeys
+    options.printer.getVisitorKeys,
   );
 
   return function (path) {

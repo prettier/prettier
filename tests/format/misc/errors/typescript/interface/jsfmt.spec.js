@@ -9,5 +9,5 @@ run_spec(
       "interface A implements B {}",
     ],
   },
-  ["babel-ts", "typescript"]
+  ["babel-ts", "typescript"],
 );

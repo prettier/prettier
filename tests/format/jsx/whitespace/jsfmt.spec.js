@@ -84,5 +84,5 @@ run_spec(
       },
     ].map((test) => ({ ...test, output: test.output + "\n" })),
   },
-  ["flow", "typescript"]
+  ["flow", "typescript"],
 );

@@ -23,7 +23,7 @@ function createAngularPrinter({ parser }) {
         // angular does not allow trailing comma
         trailingComma: "none",
       },
-      shouldHugJsExpression
+      shouldHugJsExpression,
     );
 }
 
@@ -82,7 +82,7 @@ function printAngularAttribute(path, options) {
     return () =>
       printExpand(
         fill(getTextValueParts(node, value.trim())),
-        !value.includes("@@")
+        !value.includes("@@"),
       );
   }
 

@@ -62,7 +62,7 @@ function createParseError(error) {
   let { message, line, column } = error;
 
   const matches = message.match(
-    /^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/
+    /^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/,
   )?.groups;
 
   if (matches) {
@@ -89,7 +89,7 @@ function createParseError(error) {
 function parse(text, options = {}) {
   const sourceType = getSourceType(options);
   const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () => parseWithOptions(text, sourceType)
+    (sourceType) => () => parseWithOptions(text, sourceType),
   );
 
   let ast;

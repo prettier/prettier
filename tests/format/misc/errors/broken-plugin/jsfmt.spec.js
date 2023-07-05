@@ -11,5 +11,5 @@ run_spec(
   ["missing-comments"],
   {
     plugins,
-  }
+  },
 );

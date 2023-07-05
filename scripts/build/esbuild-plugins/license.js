@@ -17,7 +17,7 @@ export default function esbuildPluginLicense(options) {
         const files = Object.keys(result.metafile.inputs);
         const chunk = {
           modules: Object.fromEntries(
-            files.map((file) => [file, { renderedLength: 1 }])
+            files.map((file) => [file, { renderedLength: 1 }]),
           ),
         };
         plugin.renderChunk("", chunk);

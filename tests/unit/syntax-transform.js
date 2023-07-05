@@ -4,20 +4,20 @@ import path from "node:path";
 import transformCode from "../../scripts/build/transform/index.js";
 
 const file = url.fileURLToPath(
-  new URL("../../src/__dummy.js", import.meta.url)
+  new URL("../../src/__dummy.js", import.meta.url),
 );
 const shimsDirectory = url.fileURLToPath(
-  new URL("../../scripts/build/shims", import.meta.url)
+  new URL("../../scripts/build/shims", import.meta.url),
 );
 const transform = (code) =>
   transformCode(code, file).replaceAll(
     JSON.stringify(shimsDirectory + path.sep).slice(1, -1),
-    "<SHIMS>/"
+    "<SHIMS>/",
   );
 
 test("Object.hasOwn", () => {
   expect(transform("Object.hasOwn(foo, bar)")).toMatchInlineSnapshot(
-    `"Object.prototype.hasOwnProperty.call(foo, bar);"`
+    `"Object.prototype.hasOwnProperty.call(foo, bar);"`,
   );
 });
 

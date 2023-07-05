@@ -115,7 +115,7 @@ function handleRemainingComment(context) {
 function addBlockStatementFirstComment(node, comment) {
   // @ts-expect-error
   const firstNonEmptyNode = (node.body || node.properties).find(
-    ({ type }) => type !== "EmptyStatement"
+    ({ type }) => type !== "EmptyStatement",
   );
   if (firstNonEmptyNode) {
     addLeadingComment(firstNonEmptyNode, comment);
@@ -178,7 +178,7 @@ function handleIfStatementComments({
   // it is a ).
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
-    locEnd(comment)
+    locEnd(comment),
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
@@ -208,7 +208,7 @@ function handleIfStatementComments({
         addDanglingComment(
           precedingNode,
           comment,
-          markerForIfWithoutBlockAndSameLineComment
+          markerForIfWithoutBlockAndSameLineComment,
         );
       } else {
         addDanglingComment(enclosingNode, comment);
@@ -258,7 +258,7 @@ function handleWhileComments({
   // it is a ).
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
-    locEnd(comment)
+    locEnd(comment),
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
@@ -592,7 +592,7 @@ function handleLastFunctionArgComments({
       if (parameters.length > 0) {
         return getNextNonSpaceNonCommentCharacterIndex(
           text,
-          locEnd(parameters.at(-1))
+          locEnd(parameters.at(-1)),
         );
       }
       const functionParamLeftParenIndex =
@@ -601,7 +601,7 @@ function handleLastFunctionArgComments({
         functionParamLeftParenIndex !== false &&
         getNextNonSpaceNonCommentCharacterIndex(
           text,
-          functionParamLeftParenIndex + 1
+          functionParamLeftParenIndex + 1,
         )
       );
     })();

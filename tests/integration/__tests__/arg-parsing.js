@@ -53,7 +53,7 @@ describe("allow overriding flags", () => {
   runCli(
     "cli/arg-parsing",
     ["--tab-width=1", "--tab-width=3", "--parser=babel"],
-    { input: "function a() { b }" }
+    { input: "function a() { b }" },
   ).test({
     stdout: "function a() {\n   b;\n}",
     status: 0,
