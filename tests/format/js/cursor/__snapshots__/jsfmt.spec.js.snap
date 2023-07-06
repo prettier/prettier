@@ -320,6 +320,25 @@ haha()<|>;
 ================================================================================
 `;
 
+exports[`file-start-with-comment-3.js format 1`] = `
+====================================options=====================================
+cursorOffset: 127
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// All messages are represented in JSON.
+// So, the prettier.py controls a subprocess which spawns "node {this_file}".
+import {<|>  } from "fs"
+
+=====================================output=====================================
+// All messages are represented in JSON.
+// So, the prettier.py controls a subprocess which spawns "node {this_file}".
+import {<|>} from "fs";
+
+================================================================================
+`;
+
 exports[`range-0.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 56
