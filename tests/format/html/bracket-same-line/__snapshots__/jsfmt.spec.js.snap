@@ -246,10 +246,10 @@ printWidth: 80
 <img
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
   src="./1.jpg"
-/>
-<img src="./1.jpg" /><img src="./1.jpg" /><img src="./1.jpg" /><img
+>
+<img src="./1.jpg"><img src="./1.jpg"><img src="./1.jpg"><img src="./1.jpg"><img
   src="./1.jpg"
-/><img src="./1.jpg" />
+>
 
 ================================================================================
 `;
@@ -267,9 +267,9 @@ printWidth: 80
 =====================================output=====================================
 <img
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
-  src="./1.jpg" />
-<img src="./1.jpg" /><img src="./1.jpg" /><img src="./1.jpg" /><img
-  src="./1.jpg" /><img src="./1.jpg" />
+  src="./1.jpg">
+<img src="./1.jpg"><img src="./1.jpg"><img src="./1.jpg"><img src="./1.jpg"><img
+  src="./1.jpg">
 
 ================================================================================
 `;

@@ -32,6 +32,12 @@ const options = {
     default: false,
     description: "Indent script and style tags in Vue files.",
   },
+  stripVoidTagSelfClose: {
+    category: CATEGORY_HTML,
+    type: "boolean",
+    default: true,
+    description: "Strip trailing slashes from void elements",
+  },
 };
 
 export default options;

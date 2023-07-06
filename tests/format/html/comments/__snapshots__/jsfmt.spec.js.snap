@@ -256,23 +256,23 @@ printWidth: 80
   <body>
     <!--[if IE 5]>
       This is IE 5
-      <br />
+      <br>
     <![endif]-->
     <!--[if IE 6]>
       This is IE 6
-      <br />
+      <br>
     <![endif]-->
     <!--[if IE 7]>
       This is IE 7
-      <br />
+      <br>
     <![endif]-->
     <!--[if IE 8]>
       This is IE 8
-      <br />
+      <br>
     <![endif]-->
     <!--[if IE 9]>
       This is IE 9
-      <br />
+      <br>
     <![endif]-->
   </body>
 </html>
@@ -422,11 +422,11 @@ printWidth: 80
 <!doctype html>
 <html>
   <body>
-    <!--[if IE 5]>This is IE 5<br /><![endif]-->
-    <!--[if IE 6]>This is IE 6<br /><![endif]-->
-    <!--[if IE 7]>This is IE 7<br /><![endif]-->
-    <!--[if IE 8]>This is IE 8<br /><![endif]-->
-    <!--[if IE 9]>This is IE 9<br /><![endif]-->
+    <!--[if IE 5]>This is IE 5<br><![endif]-->
+    <!--[if IE 6]>This is IE 6<br><![endif]-->
+    <!--[if IE 7]>This is IE 7<br><![endif]-->
+    <!--[if IE 8]>This is IE 8<br><![endif]-->
+    <!--[if IE 9]>This is IE 9<br><![endif]-->
   </body>
 </html>
 
@@ -573,11 +573,11 @@ printWidth: Infinity
 <!doctype html>
 <html>
   <body>
-    <!--[if IE 5]>This is IE 5<br /><![endif]-->
-    <!--[if IE 6]>This is IE 6<br /><![endif]-->
-    <!--[if IE 7]>This is IE 7<br /><![endif]-->
-    <!--[if IE 8]>This is IE 8<br /><![endif]-->
-    <!--[if IE 9]>This is IE 9<br /><![endif]-->
+    <!--[if IE 5]>This is IE 5<br><![endif]-->
+    <!--[if IE 6]>This is IE 6<br><![endif]-->
+    <!--[if IE 7]>This is IE 7<br><![endif]-->
+    <!--[if IE 8]>This is IE 8<br><![endif]-->
+    <!--[if IE 9]>This is IE 9<br><![endif]-->
   </body>
 </html>
 
@@ -730,31 +730,31 @@ printWidth: 1
       is
       IE
       5<br
-    /><![endif]-->
+    ><![endif]-->
     <!--[if IE 6
       ]>This
       is
       IE
       6<br
-    /><![endif]-->
+    ><![endif]-->
     <!--[if IE 7
       ]>This
       is
       IE
       7<br
-    /><![endif]-->
+    ><![endif]-->
     <!--[if IE 8
       ]>This
       is
       IE
       8<br
-    /><![endif]-->
+    ><![endif]-->
     <!--[if IE 9
       ]>This
       is
       IE
       9<br
-    /><![endif]-->
+    ><![endif]-->
   </body>
 </html>
 
@@ -913,11 +913,11 @@ printWidth: 80
 <!doctype html>
 <html>
   <body>
-    <!--[if IE 5]>This is IE 5<br /><![endif]-->
-    <!--[if IE 6]>This is IE 6<br /><![endif]-->
-    <!--[if IE 7]>This is IE 7<br /><![endif]-->
-    <!--[if IE 8]>This is IE 8<br /><![endif]-->
-    <!--[if IE 9]>This is IE 9<br /><![endif]-->
+    <!--[if IE 5]>This is IE 5<br><![endif]-->
+    <!--[if IE 6]>This is IE 6<br><![endif]-->
+    <!--[if IE 7]>This is IE 7<br><![endif]-->
+    <!--[if IE 8]>This is IE 8<br><![endif]-->
+    <!--[if IE 9]>This is IE 9<br><![endif]-->
   </body>
 </html>
 
