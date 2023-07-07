@@ -24,6 +24,8 @@ export default async function updateVersion({ version }) {
     ),
   );
 
+  await runYarn(["install"], { cwd: "./website" });
+
   await runYarn(["update-stable-docs"], {
     cwd: "./website",
   });
