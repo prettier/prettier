@@ -38,11 +38,10 @@ async function buildPluginTypes({ file: { input, output } }) {
   const parserNames = Object.keys(plugin.parsers ?? {});
 
   // We only add `parsers` to types file, printers should not be used alone
-  // For `estree` plugin, we just export an empty object to ensure it treated
-  // as a module
+  // For `estree` plugin, we just export an empty object to ensure it treated as a module
   const code =
     parserNames.length === 0
-      ? "export {};\n"
+      ? "export {};"
       : outdent`
         import { Parser } from "../index.js";
 
@@ -53,10 +52,10 @@ async function buildPluginTypes({ file: { input, output } }) {
               `${" ".repeat(2)}${toPropertyKey(parserName)}: Parser;`,
           )
           .join("\n")}
-        };\n
+        };
       `;
 
-  await writeFile(path.join(DIST_DIR, output.file), code);
+  await writeFile(path.join(DIST_DIR, output.file), `${code}\n`);
 }
 
 function buildTypes(options) {
