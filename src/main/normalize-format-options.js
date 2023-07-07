@@ -24,7 +24,7 @@ async function normalizeFormatOptions(options, opts = {}) {
   if (!rawOptions.parser) {
     if (!rawOptions.filepath) {
       throw new UndefinedParserError(
-        "No parser and no file path given, couldn't infer a parser."
+        "No parser and no file path given, couldn't infer a parser.",
       );
     } else {
       rawOptions.parser = inferParser(rawOptions, {
@@ -32,7 +32,7 @@ async function normalizeFormatOptions(options, opts = {}) {
       });
       if (!rawOptions.parser) {
         throw new UndefinedParserError(
-          `No parser could be inferred for file "${rawOptions.filepath}".`
+          `No parser could be inferred for file "${rawOptions.filepath}".`,
         );
       }
     }
@@ -48,13 +48,13 @@ async function normalizeFormatOptions(options, opts = {}) {
     ...Object.fromEntries(
       supportOptions
         .filter((optionInfo) => optionInfo.default !== undefined)
-        .map((option) => [option.name, option.default])
+        .map((option) => [option.name, option.default]),
     ),
   };
 
   const parserPlugin = getParserPluginByParserName(
     rawOptions.plugins,
-    rawOptions.parser
+    rawOptions.parser,
   );
 
   const parser = await initParser(parserPlugin, rawOptions.parser);
@@ -72,8 +72,8 @@ async function normalizeFormatOptions(options, opts = {}) {
   const pluginDefaults = printerPlugin.defaultOptions
     ? Object.fromEntries(
         Object.entries(printerPlugin.defaultOptions).filter(
-          ([, value]) => value !== undefined
-        )
+          ([, value]) => value !== undefined,
+        ),
       )
     : {};
 

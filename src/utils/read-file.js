@@ -7,7 +7,7 @@ import fs from "node:fs/promises";
 async function readFile(filename) {
   try {
     return await fs.readFile(filename, "utf8");
-  } catch (error) {
+  } catch (/** @type {any} */ error) {
     if (error.code === "ENOENT") {
       return;
     }

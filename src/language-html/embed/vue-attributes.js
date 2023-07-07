@@ -74,7 +74,7 @@ function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
     text,
     textToDoc,
     { parser: parseWithTs ? "__vue_ts_event_binding" : "__vue_event_binding" },
-    shouldHugJsExpression
+    shouldHugJsExpression,
   );
 }
 
@@ -86,7 +86,7 @@ function printVueVBindDirective(text, textToDoc, { parseWithTs }) {
     text,
     textToDoc,
     { parser: parseWithTs ? "__vue_ts_expression" : "__vue_expression" },
-    shouldHugJsExpression
+    shouldHugJsExpression,
   );
 }
 
@@ -98,7 +98,7 @@ function printExpression(text, textToDoc, { parseWithTs }) {
     text,
     textToDoc,
     { parser: parseWithTs ? "__ts_expression" : "__js_expression" },
-    shouldHugJsExpression
+    shouldHugJsExpression,
   );
 }
 

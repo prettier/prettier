@@ -4,32 +4,32 @@ import { runGit, fetchText, logPromise, processFile } from "../utils.js";
 async function update() {
   const npmPage = await logPromise(
     "Fetching npm dependents count",
-    fetchText("https://www.npmjs.com/package/prettier")
+    fetchText("https://www.npmjs.com/package/prettier"),
   );
   const dependentsCountNpm = Number(
-    npmPage.match(/"dependentsCount":(\d+),/)[1]
+    npmPage.match(/"dependentsCount":(\d+),/)[1],
   );
   if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
-      "Invalid data from https://www.npmjs.com/package/prettier"
+      "Invalid data from https://www.npmjs.com/package/prettier",
     );
   }
 
   const githubPage = await logPromise(
     "Fetching github dependents count",
-    fetchText("https://github.com/prettier/prettier/network/dependents")
+    fetchText("https://github.com/prettier/prettier/network/dependents"),
   );
   const dependentsCountGithub = Number(
     githubPage
       .replaceAll("\n", "")
       .match(
-        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/
+        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/,
       )[1]
-      .replaceAll(",", "")
+      .replaceAll(",", ""),
   );
   if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
-      "Invalid data from https://github.com/prettier/prettier/network/dependents"
+      "Invalid data from https://github.com/prettier/prettier/network/dependents",
     );
   }
 
@@ -37,19 +37,19 @@ async function update() {
     content
       .replace(
         /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
-        `$1${formatNumber(dependentsCountNpm)}$3`
+        `$1${formatNumber(dependentsCountNpm)}$3`,
       )
       .replace(
         /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
-        `$1${formatNumber(dependentsCountGithub)}$3`
-      )
+        `$1${formatNumber(dependentsCountGithub)}$3`,
+      ),
   );
 
   const isUpdated = await logPromise(
     "Checking if dependents count has been updated",
     async () =>
       (await runGit(["diff", "--name-only"])).stdout ===
-      "website/pages/en/index.js"
+      "website/pages/en/index.js",
   );
 
   if (isUpdated) {

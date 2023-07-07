@@ -13,7 +13,7 @@ function hasNewline(text, startIndex, options = {}) {
   const idx = skipSpaces(
     text,
     options.backwards ? startIndex - 1 : startIndex,
-    options
+    options,
   );
   const idx2 = skipNewline(text, idx, options);
   return idx !== idx2;

@@ -29,10 +29,10 @@ test("Throw error on invalid doc", () => {
     { "without-type": true },
   ]) {
     expect(() =>
-      printDocToString(doc, printDocToStringOptions)
+      printDocToString(doc, printDocToStringOptions),
     ).toThrowErrorMatchingSnapshot();
     expect(() =>
-      printDocToString([doc], printDocToStringOptions)
+      printDocToString([doc], printDocToStringOptions),
     ).toThrowErrorMatchingSnapshot();
   }
 });

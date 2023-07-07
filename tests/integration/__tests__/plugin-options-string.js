@@ -29,7 +29,7 @@ describe("external options from CLI should work", () => {
       "--foo-string",
       "baz",
     ],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "foo:baz",
     stderr: "",
@@ -42,7 +42,7 @@ describe("external options from config file should work", () => {
   runCli(
     "plugins/options-string",
     ["--config=./config.json", "--stdin-filepath", "example.foo"],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "foo:baz",
     stderr: "",
@@ -55,7 +55,7 @@ describe("Non exists plugin", () => {
   runCli(
     "plugins/options-string",
     ["--plugin=--invalid--", "--stdin-filepath", "example.foo"],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "",
     stderr: expect.stringMatching(/Cannot find package '--invalid--'/),

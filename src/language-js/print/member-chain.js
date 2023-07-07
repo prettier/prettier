@@ -65,7 +65,7 @@ function printMemberChain(path, options, print) {
     const { originalText } = options;
     const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
-      locEnd(node)
+      locEnd(node),
     );
     const nextChar = originalText.charAt(nextCharIndex);
 
@@ -97,7 +97,7 @@ function printMemberChain(path, options, print) {
               printFunctionTypeParameters(path, options, print),
               printCallArguments(path, options, print),
             ],
-            options
+            options,
           ),
           shouldInsertEmptyLineAfter(node) ? hardline : "",
         ],
@@ -112,7 +112,7 @@ function printMemberChain(path, options, print) {
           isMemberExpression(node)
             ? printMemberLookup(path, options, print)
             : printBindExpressionCallee(path, options, print),
-          options
+          options,
         ),
       });
       path.call((object) => rec(object), "object");
@@ -380,7 +380,7 @@ function printMemberChain(path, options, print) {
     nodeHasComment ||
     (callExpressions.length > 2 &&
       callExpressions.some(
-        (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg))
+        (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg)),
       )) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     lastGroupWillBreakAndOtherCallsHaveFunctionArguments()

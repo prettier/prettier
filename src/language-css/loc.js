@@ -62,7 +62,7 @@ function calculateLoc(node, text) {
       calculateValueNodeLoc(
         child,
         getValueRootOffset(node),
-        child.text || child.value
+        child.text || child.value,
       );
     } else {
       calculateLoc(child, text);

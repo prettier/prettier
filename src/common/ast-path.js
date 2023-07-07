@@ -179,9 +179,12 @@ class AstPath {
   // the end of the iteration.
   map(callback, ...names) {
     const result = [];
-    this.each((path, index, value) => {
-      result[index] = callback(path, index, value);
-    }, ...names);
+    this.each(
+      (path, index, value) => {
+        result[index] = callback(path, index, value);
+      },
+      ...names,
+    );
     return result;
   }
 

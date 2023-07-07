@@ -4,8 +4,8 @@ class UnexpectedNodeError extends Error {
   constructor(node, language, typeProperty = "type") {
     super(
       `Unexpected ${language} node ${typeProperty}: ${JSON.stringify(
-        node[typeProperty]
-      )}.`
+        node[typeProperty],
+      )}.`,
     );
     this.node = node;
   }

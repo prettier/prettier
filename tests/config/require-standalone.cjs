@@ -25,7 +25,7 @@ module.exports = {
         };
         prettier.formatWithCursor($$$input, options);
       `,
-      { $$$input: input, $$$options: options, ...sandbox }
+      { $$$input: input, $$$options: options, ...sandbox },
     );
   },
 
@@ -41,7 +41,7 @@ module.exports = {
         };
         prettier.getSupportInfo(options);
       `,
-      { $$$options: options, ...sandbox }
+      { $$$options: options, ...sandbox },
     );
   },
 
@@ -63,7 +63,7 @@ module.exports = {
           $$$options: options,
           $$$devOptions: devOptions,
           ...sandbox,
-        }
+        },
       );
     },
   },

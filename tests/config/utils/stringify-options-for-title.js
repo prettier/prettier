@@ -4,7 +4,7 @@ function stringifyOptions(options) {
       ? undefined
       : value === Number.POSITIVE_INFINITY
       ? "Infinity"
-      : value
+      : value,
   );
 
   return string === "{}" ? "" : string;

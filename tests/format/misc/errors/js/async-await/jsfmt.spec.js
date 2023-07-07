@@ -19,7 +19,7 @@ run_spec(
       "async({ foo33 = 1 });",
     ],
   },
-  ["babel", "acorn", "espree", "meriyah", "flow"]
+  ["babel", "acorn", "espree", "meriyah", "flow"],
 );
 
 run_spec(
@@ -30,5 +30,5 @@ run_spec(
       "async (x = await (2)) => {};",
     ],
   },
-  ["babel", "acorn", "espree", "flow"]
+  ["babel", "acorn", "espree", "flow"],
 );

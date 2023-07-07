@@ -13,7 +13,7 @@ function genericPrint(path, options, print) {
 
       const printed = path.map(
         () => (path.node === null ? "null" : print()),
-        "elements"
+        "elements",
       );
 
       return [

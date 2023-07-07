@@ -34,14 +34,14 @@ test("parsers should allow omit optional arguments", async () => {
               name,
               parser,
             ])
-          : []
+          : [],
       )
       // Private parser should not be used by users
       .filter(([name]) => !name.startsWith("__"))
       .map(async ([name, parser]) => [
         name,
         typeof parser === "function" ? await parser() : parser,
-      ])
+      ]),
   );
 
   expect(typeof parsers[0][1].parse).toBe("function");
@@ -51,7 +51,7 @@ test("parsers should allow omit optional arguments", async () => {
   for (const [name, { parse }] of parsers) {
     await expect(
       // eslint-disable-next-line require-await
-      (async () => parse(code[name] ?? "{}"))()
+      (async () => parse(code[name] ?? "{}"))(),
     ).resolves.not.toThrow();
   }
 });

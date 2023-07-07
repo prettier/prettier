@@ -13,7 +13,7 @@ function getLanguageByFilename(languages, filename) {
   return languages.find(
     (language) =>
       language.extensions?.some((extension) => basename.endsWith(extension)) ||
-      language.filenames?.some((name) => name.toLowerCase() === basename)
+      language.filenames?.some((name) => name.toLowerCase() === basename),
   );
 }
 
@@ -44,8 +44,8 @@ function getLanguageByInterpreter(languages, file) {
     return;
   }
 
-  return languages.find((language) =>
-    language.interpreters?.includes(interpreter)
+  return languages.find(
+    (language) => language.interpreters?.includes(interpreter),
   );
 }
 
@@ -58,7 +58,7 @@ function inferParser(options, fileInfo) {
   const languages = options.plugins.flatMap(
     (plugin) =>
       // @ts-expect-error -- Safe
-      plugin.languages ?? []
+      plugin.languages ?? [],
   );
 
   // If the file has no extension, we can try to infer the language from the

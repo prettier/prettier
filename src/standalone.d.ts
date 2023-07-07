@@ -13,7 +13,7 @@ import { CursorOptions, CursorResult, Options, SupportInfo } from "./index.js";
  */
 export function formatWithCursor(
   source: string,
-  options: CursorOptions
+  options: CursorOptions,
 ): Promise<CursorResult>;
 
 /**

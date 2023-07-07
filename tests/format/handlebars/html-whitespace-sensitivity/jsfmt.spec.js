@@ -81,5 +81,5 @@ run_spec(
   {
     htmlWhitespaceSensitivity: "strict",
     printWidth: 40,
-  }
+  },
 );

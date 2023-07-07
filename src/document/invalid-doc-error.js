@@ -22,7 +22,7 @@ function getDocErrorMessage(doc) {
   }
 
   const EXPECTED_TYPE_VALUES = disjunctionListFormat(
-    [...VALID_OBJECT_DOC_TYPES].map((type) => `'${type}'`)
+    [...VALID_OBJECT_DOC_TYPES].map((type) => `'${type}'`),
   );
 
   return `Unexpected doc.type '${doc.type}'.\nExpected it to be ${EXPECTED_TYPE_VALUES}.`;

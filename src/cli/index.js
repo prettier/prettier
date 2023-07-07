@@ -17,7 +17,7 @@ async function run(rawArguments) {
     const { logLevel } = parseArgvWithoutPlugins(
       rawArguments,
       logger,
-      "log-level"
+      "log-level",
     );
     if (logLevel !== logger.logLevel) {
       logger = createLogger(logLevel);
@@ -63,7 +63,7 @@ async function main(context) {
     printToScreen(
       typeof context.argv.help === "string" && context.argv.help !== ""
         ? createDetailedUsage(context, context.argv.help)
-        : createUsage(context)
+        : createUsage(context),
     );
     return;
   }

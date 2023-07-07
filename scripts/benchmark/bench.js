@@ -8,7 +8,7 @@ const { format } = await import(`./${version}/dist/index.mjs`);
 
 const sourceText = readFileSync(
   process.env.PRETTIER_PERF_FILENAME || "../../src/language-js/utils/index.js",
-  "utf8"
+  "utf8",
 );
 
 for (let i = 0; i < groupCount; i++) {
@@ -21,8 +21,8 @@ for (let i = 0; i < groupCount; i++) {
   if (method === "parallel") {
     await Promise.allSettled(
       Array.from({ length: groupSize }, () =>
-        format(sourceText, { parser: "typescript" })
-      )
+        format(sourceText, { parser: "typescript" }),
+      ),
     );
   }
 }

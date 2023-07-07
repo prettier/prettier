@@ -32,7 +32,7 @@ const visualizeRange = (text, { rangeStart = 0, rangeEnd = text.length }) =>
     locationForRange(text, rangeStart, rangeEnd),
     rangeStart > rangeEnd
       ? { ...codeFrameColumnsOptions, message: "[Reversed range]" }
-      : codeFrameColumnsOptions
+      : codeFrameColumnsOptions,
   );
 
 export default visualizeRange;

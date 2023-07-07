@@ -59,7 +59,7 @@ function printTypescriptMappedType(path, options, print) {
     options.originalText,
     locStart(node),
     // Ideally, this should be the next token after `{`, but there is no node starts with it.
-    locStart(node.typeParameter)
+    locStart(node.typeParameter),
   );
 
   return group(
@@ -81,7 +81,7 @@ function printTypescriptMappedType(path, options, print) {
       options.bracketSpacing ? line : softline,
       "}",
     ],
-    { shouldBreak }
+    { shouldBreak },
   );
 }
 

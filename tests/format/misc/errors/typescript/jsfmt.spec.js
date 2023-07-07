@@ -10,5 +10,5 @@ run_spec(
       'let x6 = <div>>{"foo"}</div>;',
     ],
   },
-  ["typescript"]
+  ["typescript"],
 );

@@ -13,7 +13,7 @@ describe("formatAST", () => {
           },
         ],
       },
-      { parser: "meriyah" }
+      { parser: "meriyah" },
     );
 
     return formatted;
@@ -31,7 +31,7 @@ describe("formatAST", () => {
           type: "Identifier",
           name: "specifier2",
         },
-      })
+      }),
     ).toMatchSnapshot();
   });
 
@@ -49,7 +49,7 @@ describe("formatAST", () => {
           name: "specifier2",
           range: [0, 0],
         },
-      })
+      }),
     ).toMatchSnapshot();
   });
 
@@ -68,7 +68,7 @@ describe("formatAST", () => {
           name: "specifier",
           range: [0, 0],
         },
-      })
+      }),
     ).toMatchSnapshot();
   });
 
@@ -88,7 +88,7 @@ describe("formatAST", () => {
           raw: "'specifier'",
           range: [0, 0],
         },
-      })
+      }),
     ).toMatchSnapshot();
   });
 });

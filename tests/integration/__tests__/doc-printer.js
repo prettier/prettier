@@ -20,6 +20,6 @@ test("`ifBreak` inside `group`", () => {
   ];
 
   expect(
-    docs.map((doc) => docToString(doc, { printWidth: FLAT_TEXT.length }))
+    docs.map((doc) => docToString(doc, { printWidth: FLAT_TEXT.length })),
   ).toStrictEqual(Array.from({ length: docs.length }, () => FLAT_TEXT));
 });

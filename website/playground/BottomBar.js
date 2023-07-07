@@ -9,6 +9,6 @@ export default function BottomBar({ left, right }) {
       <div className="bottom-bar-buttons">{left}</div>
       <div className="bottom-bar-buttons bottom-bar-buttons-right">{right}</div>
     </React.Fragment>,
-    root
+    root,
   );
 }

@@ -28,7 +28,7 @@ export default function esbuildPluginShimCommonjsObjects() {
             const __dirname = __prettierDirname(__filename);
 
             ${text}
-          `
+          `,
         );
       });
     },

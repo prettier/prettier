@@ -7,7 +7,7 @@ const code = Array.from({ length: 6 })
       ...previousInputLines,
       `${base}${space}\n`,
     ],
-    []
+    [],
   )
   .join("");
 // (39 + 40 + 41) * 2 === 40 * 3 * 2 === 40 * 6
@@ -26,5 +26,5 @@ run_spec(
     ],
   },
   ["markdown"],
-  { proseWrap: "always" }
+  { proseWrap: "always" },
 );

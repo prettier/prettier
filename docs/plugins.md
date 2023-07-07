@@ -63,7 +63,7 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 - [`prettier-plugin-sql`](https://github.com/un-ts/prettier/tree/master/packages/sql) by [**@JounQin**](https://github.com/JounQin)
 - [`prettier-plugin-sql-cst`](https://github.com/nene/prettier-plugin-sql-cst) by [**@nene**](https://github.com/nene)
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
-- [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
+- [`prettier-plugin-svelte`](https://github.com/sveltejs/prettier-plugin-svelte) by [**@sveltejs**](https://github.com/sveltejs)
 - [`prettier-plugin-toml`](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml) by [**@bd82**](https://github.com/bd82)
 
 ## Developing Plugins
@@ -194,7 +194,7 @@ function print(
   path: AstPath,
   options: object,
   // Recursively print a child node
-  print: (selector?: string | number | Array<string | number> | AstPath) => Doc
+  print: (selector?: string | number | Array<string | number> | AstPath) => Doc,
 ): Doc;
 ```
 
@@ -250,7 +250,7 @@ function embed(
   // Path to the current AST node
   path: AstPath,
   // Current options
-  options: Options
+  options: Options,
 ):
   | ((
       // Parses and prints the passed text using a different parser.
@@ -258,12 +258,12 @@ function embed(
       textToDoc: (text: string, options: Options) => Promise<Doc>,
       // Prints the current node or its descendant node with the current printer
       print: (
-        selector?: string | number | Array<string | number> | AstPath
+        selector?: string | number | Array<string | number> | AstPath,
       ) => Doc,
       // The following two arguments are passed for convenience.
       // They're the same `path` and `options` that are passed to `embed`.
       path: AstPath,
-      options: Options
+      options: Options,
     ) => Promise<Doc | undefined> | Doc | undefined)
   | Doc
   | undefined;
@@ -346,7 +346,7 @@ const ignoredKeys = new Set(["prev", "next", "range"]);
 
 function getVisitorKeys(node, nonTraversableKeys) {
   return Object.keys(node).filter(
-    (key) => !nonTraversableKeys.has(key) && !ignoredKeys.has(key)
+    (key) => !nonTraversableKeys.has(key) && !ignoredKeys.has(key),
   );
 }
 ```
@@ -374,7 +374,7 @@ function getCommentChildNodes(
   // The node whose children should be returned.
   node: AST,
   // Current options
-  options: object
+  options: object,
 ): AST[] | undefined;
 ```
 
@@ -389,7 +389,7 @@ function printComment(
   // Path to the current comment node
   commentPath: AstPath,
   // Current options
-  options: object
+  options: object,
 ): Doc;
 ```
 
@@ -430,7 +430,7 @@ The `handleComments` object contains three optional functions, each with signatu
   // The AST
   ast: AST,
   // Whether this comment is the last comment
-  isLastComment: boolean
+  isLastComment: boolean,
 ) => boolean;
 ```
 
@@ -517,91 +517,91 @@ function getStringWidth(text: string): number;
 function getAlignmentSize(
   text: string,
   tabWidth: number,
-  startIndex?: number
+  startIndex?: number,
 ): number;
 
 function getIndentSize(value: string, tabWidth: number): number;
 
 function skip(
-  characters: string | RegExp
+  characters: string | RegExp,
 ): (
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ) => number | false;
 
 function skipWhitespace(
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): number | false;
 
 function skipSpaces(
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): number | false;
 
 function skipToLineEnd(
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): number | false;
 
 function skipEverythingButNewLine(
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): number | false;
 
 function skipInlineComment(
   text: string,
-  startIndex: number | false
+  startIndex: number | false,
 ): number | false;
 
 function skipTrailingComment(
   text: string,
-  startIndex: number | false
+  startIndex: number | false,
 ): number | false;
 
 function skipNewline(
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): number | false;
 
 function hasNewline(
   text: string,
   startIndex: number,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): boolean;
 
 function hasNewlineInRange(
   text: string,
   startIndex: number,
-  startIndex: number
+  startIndex: number,
 ): boolean;
 
 function hasSpaces(
   text: string,
   startIndex: number,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): boolean;
 
 function makeString(
   rawText: string,
   enclosingQuote: Quote,
-  unescapeUnnecessaryEscapes?: boolean
+  unescapeUnnecessaryEscapes?: boolean,
 ): string;
 
 function getNextNonSpaceNonCommentCharacter(
   text: string,
-  startIndex: number
+  startIndex: number,
 ): string;
 
 function getNextNonSpaceNonCommentCharacterIndex(
   text: string,
-  startIndex: number
+  startIndex: number,
 ): number | false;
 
 function isNextLineEmpty(text: string, startIndex: number): boolean;

@@ -56,7 +56,6 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
       "module-blocks.js",
       "async-do-expressions.js",
-      "regex-v-flag.js",
       "decorator-auto-accessors.js",
       "import-reflection.js",
       "explicit-resource-management.js",

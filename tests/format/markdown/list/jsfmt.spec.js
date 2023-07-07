@@ -9,7 +9,7 @@ const emptyListItemSnippets = [
 run_spec(
   { importMeta: import.meta, snippets: emptyListItemSnippets },
   ["markdown"],
-  { proseWrap: "always" }
+  { proseWrap: "always" },
 );
 run_spec(import.meta, ["markdown"], { proseWrap: "always", tabWidth: 4 });
 run_spec(import.meta, ["markdown"], { proseWrap: "always", tabWidth: 999 });

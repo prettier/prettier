@@ -18,5 +18,5 @@ run_spec(
       "nextid",
     ].map((tag) => ({ name: tag, code: `<${tag}> text </${tag}>` })),
   },
-  ["glimmer"]
+  ["glimmer"],
 );

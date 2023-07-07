@@ -57,7 +57,7 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
     sourceSpan: node.sourceSpan,
     startSourceSpan: new ParseSourceSpan(
       node.sourceSpan.start,
-      contentStartSpan
+      contentStartSpan,
     ),
     endSourceSpan: new ParseSourceSpan(contentEndSpan, node.sourceSpan.end),
   };

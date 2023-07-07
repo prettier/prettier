@@ -48,7 +48,7 @@ function printWidthIndicator(printWidth, offset) {
 
 function createSnapshot(
   formatResult,
-  { parsers, formatOptions, CURSOR_PLACEHOLDER }
+  { parsers, formatOptions, CURSOR_PLACEHOLDER },
 ) {
   let {
     inputWithCursor: input,
@@ -89,7 +89,7 @@ function createSnapshot(
       printSeparator("output"),
       output,
       printSeparator(),
-    ].join("\n")
+    ].join("\n"),
   );
 }
 

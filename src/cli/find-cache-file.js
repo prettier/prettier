@@ -21,7 +21,7 @@ async function findCacheFileFromOption(cacheLocation) {
   if (stat) {
     if (stat.isDirectory()) {
       throw new Error(
-        `Resolved --cache-location '${cacheFile}' is a directory`
+        `Resolved --cache-location '${cacheFile}' is a directory`,
       );
     }
 

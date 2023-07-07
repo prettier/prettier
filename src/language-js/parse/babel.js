@@ -94,7 +94,7 @@ function isFlowFile(text, options) {
 function parseWithOptions(parse, text, options) {
   const ast = parse(text, options);
   const error = ast.errors.find(
-    (error) => !allowedMessageCodes.has(error.reasonCode)
+    (error) => !allowedMessageCodes.has(error.reasonCode),
   );
   if (error) {
     throw error;
@@ -123,7 +123,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
 
     if (/#[[{]/.test(text)) {
       combinations = combinations.map((options) =>
-        appendPlugins([recordAndTuplePlugin], options)
+        appendPlugins([recordAndTuplePlugin], options),
       );
     }
 
@@ -134,12 +134,12 @@ function createParse({ isExpression = false, optionsCombinations }) {
         : pipelineOperatorPlugins;
       combinations = conflictsPlugins.flatMap((pipelineOperatorPlugin) =>
         combinations.map((options) =>
-          appendPlugins([pipelineOperatorPlugin], options)
-        )
+          appendPlugins([pipelineOperatorPlugin], options),
+        ),
       );
     } else if (shouldEnableV8intrinsicPlugin) {
       combinations = combinations.map((options) =>
-        appendPlugins([v8intrinsicPlugin], options)
+        appendPlugins([v8intrinsicPlugin], options),
       );
     }
 
@@ -150,10 +150,10 @@ function createParse({ isExpression = false, optionsCombinations }) {
     try {
       ast = tryCombinations(
         combinations.map(
-          (options) => () => parseWithOptions(parseFunction, text, options)
-        )
+          (options) => () => parseWithOptions(parseFunction, text, options),
+        ),
       );
-    } catch ({ errors: [error] }) {
+    } catch (/** @type {any} */ { errors: [error] }) {
       throw createBabelParseError(error);
     }
 
@@ -242,7 +242,7 @@ const babelFlow = createBabelParser({
 });
 const babelEstree = createBabelParser({
   optionsCombinations: babelParserOptionsCombinations.map((options) =>
-    appendPlugins(["estree"], options)
+    appendPlugins(["estree"], options),
   ),
 });
 

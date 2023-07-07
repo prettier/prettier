@@ -18,7 +18,7 @@ function getHashOfOptions(options) {
     return optionsHashCache.get(options);
   }
   const hash = createHash(
-    `${prettierVersion}_${nodeVersion}_${stringify(options)}`
+    `${prettierVersion}_${nodeVersion}_${stringify(options)}`,
   );
   optionsHashCache.set(options, hash);
   return hash;
@@ -48,7 +48,7 @@ class FormatResultsCache {
     this.#fileEntryCache = fileEntryCache.create(
       /* cacheId */ cacheFileLocation,
       /* directory */ undefined,
-      useChecksum
+      useChecksum,
     );
   }
 

@@ -41,7 +41,7 @@ run_spec(
       })),
     ],
   },
-  ["json", "json5"]
+  ["json", "json5"],
 );
 
 run_spec(
@@ -74,5 +74,5 @@ run_spec(
       })),
     ],
   },
-  ["json-stringify"]
+  ["json-stringify"],
 );

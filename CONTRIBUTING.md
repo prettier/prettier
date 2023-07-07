@@ -41,7 +41,7 @@ function run_spec(
   parsers: string[],
   options?: PrettierOptions & {
     errors: true | { [parserName: string]: true | string[] };
-  }
+  },
 ): void;
 ```
 

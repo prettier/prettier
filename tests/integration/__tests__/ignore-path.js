@@ -7,7 +7,7 @@ const files = [
   "ignored-by-prettierignore.js",
 ].map(
   (file) =>
-    new URL(`../cli/ignore-path/ignore-path-test/${file}`, import.meta.url)
+    new URL(`../cli/ignore-path/ignore-path-test/${file}`, import.meta.url),
 );
 const clean = () =>
   Promise.all(files.map((file) => fs.rm(file, { force: true })));
@@ -31,13 +31,13 @@ const getUnformattedFiles = async (args) => {
 
 test("custom ignore path", async () => {
   expect(await getUnformattedFiles(["--ignore-path", ".customignore"])).toEqual(
-    ["ignored-by-gitignore.js", "ignored-by-prettierignore.js"]
+    ["ignored-by-gitignore.js", "ignored-by-prettierignore.js"],
   );
 });
 
 test("ignore files by .prettierignore and .gitignore by default", async () => {
   expect(
-    await getUnformattedFiles(["--ignore-path", ".non-exists-ignore-file"])
+    await getUnformattedFiles(["--ignore-path", ".non-exists-ignore-file"]),
   ).toEqual([
     "ignored-by-customignore.js",
     "ignored-by-gitignore.js",
@@ -56,7 +56,7 @@ describe("ignore file when using --debug-check", () => {
     status: 0,
     stderr: "",
     stdout: ["ignored-by-customignore.js", "ignored-by-gitignore.js"].join(
-      "\n"
+      "\n",
     ),
     write: [],
   });
@@ -71,6 +71,6 @@ test("multiple `--ignore-path`", async () => {
       ".prettierignore",
       "--ignore-path",
       ".non-exists-ignore-file",
-    ])
+    ]),
   ).toEqual(["ignored-by-gitignore.js"]);
 });

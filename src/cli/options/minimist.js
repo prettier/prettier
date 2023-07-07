@@ -15,13 +15,13 @@ export default function minimistParse(args, options) {
   const newDefaults = {
     ...defaults,
     ...Object.fromEntries(
-      booleanWithoutDefault.map((key) => [key, PLACEHOLDER])
+      booleanWithoutDefault.map((key) => [key, PLACEHOLDER]),
     ),
   };
 
   const parsed = minimist(args, { ...options, default: newDefaults });
 
   return Object.fromEntries(
-    Object.entries(parsed).filter(([, value]) => value !== PLACEHOLDER)
+    Object.entries(parsed).filter(([, value]) => value !== PLACEHOLDER),
   );
 }

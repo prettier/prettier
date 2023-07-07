@@ -44,7 +44,7 @@ const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}])/;
 
 const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
-  "utf8"
+  "utf8",
 );
 const templateComments = template.match(/<!--.*?-->/gs);
 const [templateAuthorLink] = template.match(authorRegex);
@@ -54,7 +54,7 @@ for (const category of CHANGELOG_CATEGORIES) {
   const files = fs.readdirSync(path.join(CHANGELOG_ROOT, category));
   if (!files.includes(".gitkeep")) {
     showErrorMessage(
-      `Please don't remove ".gitkeep" from "${CHANGELOG_DIR}/${category}".`
+      `Please don't remove ".gitkeep" from "${CHANGELOG_DIR}/${category}".`,
     );
   }
 
@@ -68,7 +68,7 @@ for (const category of CHANGELOG_CATEGORIES) {
 
     if (!match) {
       showErrorMessage(
-        `[${displayPath}]: Filename is not in form of "{PR_NUMBER}.md".`
+        `[${displayPath}]: Filename is not in form of "{PR_NUMBER}.md".`,
       );
       continue;
     }
@@ -80,13 +80,13 @@ for (const category of CHANGELOG_CATEGORIES) {
           Duplicate files for ${prLink} found.
             - ${checkedFiles.get(prFile)}
             - ${displayPath}
-        `
+        `,
       );
     }
     checkedFiles.set(prFile, displayPath);
     const content = fs.readFileSync(
       path.join(CHANGELOG_DIR, category, prFile),
-      "utf8"
+      "utf8",
     );
 
     if (!content.includes(prLink)) {
@@ -100,14 +100,14 @@ for (const category of CHANGELOG_CATEGORIES) {
         showErrorMessage(
           `[${displayPath}]: Please remove ${getCommentDescription(
             content,
-            comment
-          )}`
+            comment,
+          )}`,
         );
       }
     }
     if (content.includes(templateAuthorLink)) {
       showErrorMessage(
-        `[${displayPath}]: Please change author link to your github account.`
+        `[${displayPath}]: Please change author link to your github account.`,
       );
     }
     if (!content.startsWith("#### ")) {
@@ -124,19 +124,19 @@ for (const category of CHANGELOG_CATEGORIES) {
       [...CHANGELOG_CATEGORIES, "js"].includes(categoryInTitle.toLowerCase())
     ) {
       showErrorMessage(
-        `[${displayPath}]: Please remove "${categoryInTitle}:" in title.`
+        `[${displayPath}]: Please remove "${categoryInTitle}:" in title.`,
       );
     }
 
     if (!title.endsWith(" ") || title.length - title.trimEnd().length !== 1) {
       showErrorMessage(
-        `[${displayPath}]: Please put one space between title and PR link.`
+        `[${displayPath}]: Please put one space between title and PR link.`,
       );
     }
 
     if (/prettier master/i.test(content)) {
       showErrorMessage(
-        `[${displayPath}]: Please use "main" instead of "master".`
+        `[${displayPath}]: Please use "main" instead of "master".`,
       );
     }
   }
@@ -147,7 +147,7 @@ function getCommentDescription(content, comment) {
   const end = start + comment.length;
   const linesAndColumns = new LinesAndColumns(content);
   const [startLine, endLine] = [start, end].map(
-    (index) => linesAndColumns.locationForIndex(index).line + 1
+    (index) => linesAndColumns.locationForIndex(index).line + 1,
   );
 
   if (startLine === endLine) {
