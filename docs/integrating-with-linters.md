@@ -8,7 +8,6 @@ Linters usually contain not only code quality rules, but also stylistic rules. M
 Luckily it’s easy to turn off rules that conflict or are unnecessary with Prettier, by using these pre-made configs:
 
 - [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
-- [stylelint-config-prettier](https://github.com/prettier/stylelint-config-prettier)
 
 Check out the above links for instructions on how to install and set things up.
 
