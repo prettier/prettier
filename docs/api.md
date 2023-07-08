@@ -150,13 +150,13 @@ format("lodash ( )", {
 
 ```js
 import { format } from "prettier";
-import * as pluginBabel from "prettier/plugins/babel";
+import * as prettierPluginBabel from "prettier/plugins/babel";
 
 const myCustomPlugin = {
   parsers: {
     "my-custom-parser": {
       async parse(text) {
-        const ast = await pluginBabel.parsers.babel.parse(text);
+        const ast = await prettierPluginBabel.parsers.babel.parse(text);
         ast.program.body[0].expression.callee.name = "_";
         return ast;
       },
