@@ -19,6 +19,8 @@ import {
   hasNakedLeftSide,
   getLeftSide,
 } from "../utils/index.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
@@ -290,7 +292,11 @@ function returnArgumentHasLeadingComment(options, argument) {
   if (
     hasLeadingOwnLineComment(options.originalText, argument) ||
     (hasComment(argument, CommentCheckFlags.Leading, (comment) =>
-      comment.value.includes("\n"),
+      hasNewlineInRange(
+        options.originalText,
+        locStart(comment),
+        locEnd(comment),
+      ),
     ) &&
       !isJsxElement(argument))
   ) {
