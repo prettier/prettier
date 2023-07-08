@@ -1550,17 +1550,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/is-es5-identifier-name@npm:0.1.0":
-  version: 0.1.0
-  resolution: "@prettier/is-es5-identifier-name@npm:0.1.0"
-  checksum: 20f0ef9b16d37ac0e6b80622b184037b59772da241897d71599b5b3dd9b68c065774f4b733d45d56abf729e637307f89bfaab781e60e2d7c12bd61781084e70d
+"@prettier/is-es5-identifier-name@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@prettier/is-es5-identifier-name@npm:0.2.0"
+  checksum: 3752dd93b9f0cf4e46c2e6ffb54f52ea3b5d49b3da3e8263eb6b481cdd369596cbbea8884d32d91dc33e4476ab8ca36b41ee60c27cf5570b361a4465bb243f36
   languageName: node
   linkType: hard
 
-"@prettier/parse-srcset@npm:3.0.0":
-  version: 3.0.0
-  resolution: "@prettier/parse-srcset@npm:3.0.0"
-  checksum: 18f988f2a1d2f6ea3f2dc3357587a3e7c64f3cbb68b8f25e8f6de390c7d42af5babc6651a621b45901bb35f62c8d72c364ad8c06802e729e1470672bce334094
+"@prettier/parse-srcset@npm:3.1.0":
+  version: 3.1.0
+  resolution: "@prettier/parse-srcset@npm:3.1.0"
+  checksum: c3394d20609a3da0c205551cf5406746fa7e51060b0adaa5cb343815e78262a16801a2cb2c273964c51842d7a95043c57d86b1a03e17988c0594432d7585f412
   languageName: node
   linkType: hard
 
@@ -1607,6 +1607,13 @@ __metadata:
   version: 1.0.3
   resolution: "@tsconfig/node14@npm:1.0.3"
   checksum: 19275fe80c4c8d0ad0abed6a96dbf00642e88b220b090418609c4376e1cef81bf16237bf170ad1b341452feddb8115d8dd2e5acdfdea1b27422071163dc9ba9d
+  languageName: node
+  linkType: hard
+
+"@types/babel__code-frame@npm:7.0.3":
+  version: 7.0.3
+  resolution: "@types/babel__code-frame@npm:7.0.3"
+  checksum: 543bd933e5ffdfbf75dfee0a36461c8a9d9283d5a95ceae0e021b2aef7fe774f1f251ea56f507faedf9d3574894b4774636f2b125f5cc5f6759503e1e56feb93
   languageName: node
   linkType: hard
 
@@ -1674,12 +1681,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/find-parent-dir@npm:0.3.0":
+  version: 0.3.0
+  resolution: "@types/find-parent-dir@npm:0.3.0"
+  checksum: 915653fdef8a6381add12d9b12744f96e2e5625e3c39b70bb73b01123d4ba76002f9df3a6293741084eb370afda4cfddfbde4c743a38c699bfd4db00602aee62
+  languageName: node
+  linkType: hard
+
 "@types/graceful-fs@npm:^4.1.3":
   version: 4.1.6
   resolution: "@types/graceful-fs@npm:4.1.6"
   dependencies:
     "@types/node": "*"
   checksum: c3070ccdc9ca0f40df747bced1c96c71a61992d6f7c767e8fd24bb6a3c2de26e8b84135ede000b7e79db530a23e7e88dcd9db60eee6395d0f4ce1dae91369dd4
+  languageName: node
+  linkType: hard
+
+"@types/iarna__toml@npm:2.0.2":
+  version: 2.0.2
+  resolution: "@types/iarna__toml@npm:2.0.2"
+  dependencies:
+    "@types/node": "*"
+  checksum: 43bb44e4e241f16cf6b4352328e4221dbc77893ed1c854ccc62f028a2ad7565a4499d5cdc8a98ef2456c3bf392b40191e2f796ca89abfe8d1e1444a7b9b983a6
   languageName: node
   linkType: hard
 
@@ -1732,6 +1755,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/minimist@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@types/minimist@npm:1.2.2"
+  checksum: b8da83c66eb4aac0440e64674b19564d9d86c80ae273144db9681e5eeff66f238ade9515f5006ffbfa955ceff8b89ad2bd8ec577d7caee74ba101431fb07045d
+  languageName: node
+  linkType: hard
+
+"@types/n-readlines@npm:1.0.3":
+  version: 1.0.3
+  resolution: "@types/n-readlines@npm:1.0.3"
+  dependencies:
+    "@types/node": "*"
+  checksum: 09d9157daa3ef44841655c7991a4114f6abbe990ce00b0f820203a92d761a5f8755d532e979ad9edd3ddc95bd3ea5dfd1a9f0d7c7d16949f66cd91498ac4450b
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 20.3.3
   resolution: "@types/node@npm:20.3.3"
@@ -1743,6 +1782,22 @@ __metadata:
   version: 2.4.1
   resolution: "@types/normalize-package-data@npm:2.4.1"
   checksum: e87bccbf11f95035c89a132b52b79ce69a1e3652fe55962363063c9c0dae0fe2477ebc585e03a9652adc6f381d24ba5589cc5e51849df4ced3d3e004a7d40ed5
+  languageName: node
+  linkType: hard
+
+"@types/postcss-less@npm:4.0.2":
+  version: 4.0.2
+  resolution: "@types/postcss-less@npm:4.0.2"
+  dependencies:
+    postcss: ^8.1.2
+  checksum: 83b47540287b411ab1c2d490dbebb37c5558289523d5c81721e52aaee70d68f8f2e4bf952b8aed3f9cc2569f614550d2db377944790d7c9d3112005ec58505e2
+  languageName: node
+  linkType: hard
+
+"@types/postcss-media-query-parser@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@types/postcss-media-query-parser@npm:0.2.0"
+  checksum: 722fd74a3c6ccf50d25c450cf7ae76457fe96f6c531129f77abaf2e53396d60d4233148053406706918fb63373464bd0c5e89024fd115679110f309c245a20ef
   languageName: node
   linkType: hard
 
@@ -1771,6 +1826,13 @@ __metadata:
   version: 2.0.6
   resolution: "@types/unist@npm:2.0.6"
   checksum: 25cb860ff10dde48b54622d58b23e66214211a61c84c0f15f88d38b61aa1b53d4d46e42b557924a93178c501c166aa37e28d7f6d994aba13d24685326272d5db
+  languageName: node
+  linkType: hard
+
+"@types/wcwidth@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@types/wcwidth@npm:1.0.0"
+  checksum: 0bb2f07dea6a403f3a2dad086e855ea725232ed228ee4ccb12a4b2183cb764842bbfabfdd396b6fad6e3cdaad7d20760b73955397c0c62f59795e836a0df8a5f
   languageName: node
   linkType: hard
 
@@ -6935,7 +6997,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.24":
+"postcss@npm:8.4.24, postcss@npm:^8.1.2":
   version: 8.4.24
   resolution: "postcss@npm:8.4.24"
   dependencies:
@@ -6975,12 +7037,20 @@ __metadata:
     "@glimmer/reference": 0.84.3
     "@glimmer/syntax": 0.84.3
     "@iarna/toml": 2.2.5
-    "@prettier/is-es5-identifier-name": 0.1.0
-    "@prettier/parse-srcset": 3.0.0
+    "@prettier/is-es5-identifier-name": 0.2.0
+    "@prettier/parse-srcset": 3.1.0
+    "@types/babel__code-frame": 7.0.3
     "@types/estree": 1.0.1
     "@types/file-entry-cache": 5.0.2
     "@types/find-cache-dir": 3.2.1
+    "@types/find-parent-dir": 0.3.0
+    "@types/iarna__toml": 2.0.2
     "@types/jest": 29.5.2
+    "@types/minimist": 1.2.2
+    "@types/n-readlines": 1.0.3
+    "@types/postcss-less": 4.0.2
+    "@types/postcss-media-query-parser": 0.2.0
+    "@types/wcwidth": 1.0.0
     "@typescript-eslint/eslint-plugin": 5.60.1
     "@typescript-eslint/typescript-estree": 5.60.1
     "@typescript-eslint/visitor-keys": 5.60.1

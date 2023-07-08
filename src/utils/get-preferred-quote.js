@@ -1,5 +1,5 @@
 /**
- * @typedef {SINGLE_QUOTE | DOUBLE_QUOTE} Quote
+ * @typedef {typeof SINGLE_QUOTE | typeof DOUBLE_QUOTE} Quote
  */
 
 const SINGLE_QUOTE = "'";

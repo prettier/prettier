@@ -18,6 +18,9 @@ function createPrintPreCheckFunction(options) {
 
     const { key, parent } = path;
 
+    /**
+     * @type {import('@typescript-eslint/visitor-keys').VisitorKeys}
+     */
     const visitorKeys = getVisitorKeys(parent);
     if (visitorKeys.includes(key)) {
       return;

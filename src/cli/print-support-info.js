@@ -1,7 +1,11 @@
 import stringify from "fast-json-stable-stringify";
 import { getSupportInfo, format } from "../index.js";
 import { printToScreen, omit } from "./utils.js";
-
+/**
+ * @template {{name?: string | undefined}} T
+ * @param {Array<T>} array
+ * @returns
+ */
 const sortByName = (array) =>
   array.sort((a, b) => a.name.localeCompare(b.name));
 

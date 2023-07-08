@@ -1,3 +1,9 @@
+/**
+ *
+ * @template T
+ * @param {ReadonlyArray<() => T>} combinations
+ * @returns {T}
+ */
 function tryCombinations(combinations) {
   const errors = [];
   for (const fn of combinations) {

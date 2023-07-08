@@ -3,6 +3,9 @@ import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
 import flowVisitorKeys from "hermes-parser/dist/generated/ESTreeVisitorKeys.js";
 import unionVisitorKeys from "./union-visitor-keys.js";
 
+/**
+ * @type {import('@typescript-eslint/visitor-keys').VisitorKeys}
+ */
 const angularVisitorKeys = {
   NGRoot: ["node"],
   NGPipeExpression: ["left", "right", "arguments"],
@@ -15,7 +18,9 @@ const angularVisitorKeys = {
   NGMicrosyntaxLet: ["key", "value"],
   NGMicrosyntaxAs: ["key", "alias"],
 };
-
+/**
+ * @type {import('@typescript-eslint/visitor-keys').VisitorKeys}
+ */
 const additionalVisitorKeys = {
   // Prettier
   JsExpressionRoot: ["node"],
@@ -36,7 +41,9 @@ const additionalVisitorKeys = {
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
 };
-
+/**
+ * @type {import('@typescript-eslint/visitor-keys').VisitorKeys}
+ */
 const excludeKeys = {
   // From `tsVisitorKeys`
   MethodDefinition: ["typeParameters"],

@@ -5,13 +5,13 @@ import readFile from "../utils/read-file.js";
 const createIgnore = ignoreModule.default;
 const slash =
   path.sep === "\\"
-    ? (filepath) => filepath.replaceAll("\\", "/")
-    : (filepath) => filepath;
+    ? (/** @type {string} */ filepath) => filepath.replaceAll("\\", "/")
+    : (/** @type {string} */ filepath) => filepath;
 
 /**
  * @param {string?} ignoreFilePath
  * @param {boolean?} withNodeModules
- * @returns {Promise<(string) => boolean>}
+ * @returns {Promise<(filepath:string) => boolean>}
  */
 async function createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules) {
   let content = "";
@@ -46,7 +46,7 @@ async function createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules) {
 /**
  * @param {string[]} ignoreFilePaths
  * @param {boolean?} withNodeModules
- * @returns {Promise<(string) => boolean>}
+ * @returns {Promise<(filepath: string) => boolean>}
  */
 async function createIsIgnoredFunction(ignoreFilePaths, withNodeModules) {
   // If `ignoreFilePaths` is empty, we still want `withNodeModules` to work
@@ -67,7 +67,7 @@ async function createIsIgnoredFunction(ignoreFilePaths, withNodeModules) {
 }
 
 /**
- * @param {string[]} filepath
+ * @param {string} filepath
  * @param {{ignorePath: string[], withNodeModules?: boolean}} options
  * @returns {Promise<boolean>}
  */

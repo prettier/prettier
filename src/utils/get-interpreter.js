@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import readlines from "n-readlines";
 
-function getInterpreter(filepath) {
+function getInterpreter(/** @type {string} */ filepath) {
   /* c8 ignore next 3 */
   if (typeof filepath !== "string") {
     return "";

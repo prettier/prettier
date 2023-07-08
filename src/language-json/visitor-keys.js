@@ -1,3 +1,6 @@
+/**
+ * @type {import('@typescript-eslint/visitor-keys').VisitorKeys}
+ */
 const visitorKeys = {
   JsonRoot: ["node"],
   ArrayExpression: ["elements"],

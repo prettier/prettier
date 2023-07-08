@@ -1,7 +1,11 @@
 class UnexpectedNodeError extends Error {
   name = "UnexpectedNodeError";
 
-  constructor(node, language, typeProperty = "type") {
+  constructor(
+    /** @type {any} */ node,
+    /** @type {string} */ language,
+    typeProperty = "type",
+  ) {
     super(
       `Unexpected ${language} node ${typeProperty}: ${JSON.stringify(
         node[typeProperty],

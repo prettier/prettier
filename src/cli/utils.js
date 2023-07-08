@@ -102,8 +102,8 @@ function isJson(value) {
  */
 const normalizeToPosix =
   path.sep === "\\"
-    ? (filepath) => filepath.replaceAll("\\", "/")
-    : (filepath) => filepath;
+    ? (/** @type {string} */ filepath) => filepath.replaceAll("\\", "/")
+    : (/** @type {string} */ filepath) => filepath;
 
 export const { isNonEmptyArray, partition, omit } = sharedWithCli.utils;
 export {

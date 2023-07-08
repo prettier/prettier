@@ -1,5 +1,6 @@
-const visitorKeys = Object.fromEntries(
-  Object.entries({
+// prettier-ignore
+const visitorKeys =  Object.fromEntries(
+  Object.entries(/** @type {import('@typescript-eslint/visitor-keys').VisitorKeys} */({
     root: ["children"],
     document: ["head", "body", "children"],
     documentHead: ["children"],
@@ -24,7 +25,7 @@ const visitorKeys = Object.fromEntries(
     comment: [],
     tag: [],
     anchor: [],
-  }).map(([type, keys]) => [
+  })).map(([type, keys]) => [
     type,
     [
       ...keys,

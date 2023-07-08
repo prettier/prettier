@@ -107,7 +107,7 @@ const options = {
     category: optionCategories.CATEGORY_CONFIG,
     description:
       "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
-    exception: (value) => value === false,
+    exception: (/** @type {any} */ value) => value === false,
     oppositeDescription: "Do not look for a configuration file.",
     type: "path",
   },
@@ -189,7 +189,7 @@ const options = {
       Show CLI usage, or details about the given flag.
       Example: --help write
     `,
-    exception: (value) => value === "",
+    exception: (/** @type {string} */ value) => value === "",
     type: "flag",
   },
   ignorePath: {

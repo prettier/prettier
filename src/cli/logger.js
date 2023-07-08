@@ -3,7 +3,12 @@ import chalk, { chalkStderr } from "chalk";
 import stripAnsi from "strip-ansi";
 import wcwidth from "wcwidth";
 
-const countLines = (stream, text) => {
+/** @typedef { "silent" | "debug" | "log" | "warn" | "error" } LogLevel */
+
+const countLines = (
+  /** @type {NodeJS.WriteStream} */ stream,
+  /** @type {string} */ text,
+) => {
   const columns = stream.columns || 80;
   let lineCount = 0;
   for (const line of stripAnsi(text).split("\n")) {
@@ -12,22 +17,24 @@ const countLines = (stream, text) => {
   return lineCount;
 };
 
-const clear = (stream, text) => () => {
-  const lineCount = countLines(stream, text);
+const clear =
+  (/** @type {NodeJS.WriteStream}} */ stream, /** @type {string} */ text) =>
+  () => {
+    const lineCount = countLines(stream, text);
 
-  for (let line = 0; line < lineCount; line++) {
-    /* c8 ignore next 3 */
-    if (line > 0) {
-      readline.moveCursor(stream, 0, -1);
+    for (let line = 0; line < lineCount; line++) {
+      /* c8 ignore next 3 */
+      if (line > 0) {
+        readline.moveCursor(stream, 0, -1);
+      }
+
+      readline.clearLine(stream, 0);
+      readline.cursorTo(stream, 0);
     }
-
-    readline.clearLine(stream, 0);
-    readline.cursorTo(stream, 0);
-  }
-};
+  };
 
 const emptyLogResult = { clear() {} };
-function createLogger(logLevel = "log") {
+function createLogger(/** @type {LogLevel} */ logLevel = "log") {
   return {
     logLevel,
     warn: createLogFunc("warn", "yellow"),
@@ -36,7 +43,10 @@ function createLogger(logLevel = "log") {
     log: createLogFunc("log"),
   };
 
-  function createLogFunc(loggerName, color) {
+  function createLogFunc(
+    /** @type {LogLevel} */ loggerName,
+    /** @type {import('chalk').ColorName} */ color,
+  ) {
     if (!shouldLog(loggerName)) {
       return () => emptyLogResult;
     }
@@ -45,7 +55,10 @@ function createLogger(logLevel = "log") {
     const chalkInstance = loggerName === "log" ? chalk : chalkStderr;
     const prefix = color ? `[${chalkInstance[color](loggerName)}] ` : "";
 
-    return (message, options) => {
+    return (
+      /** @type {string} */ message,
+      /** @type {{ newline: boolean; clearable: boolean; }} */ options,
+    ) => {
       options = {
         newline: true,
         clearable: false,
@@ -63,7 +76,7 @@ function createLogger(logLevel = "log") {
     };
   }
 
-  function shouldLog(loggerName) {
+  function shouldLog(/** @type {LogLevel} */ loggerName) {
     switch (logLevel) {
       case "silent":
         return false;
