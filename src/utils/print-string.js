@@ -3,9 +3,18 @@ import makeString from "./make-string.js";
 
 /** @typedef {import("./get-preferred-quote.js").Quote} Quote */
 
+/**
+ * Returns a string enclosed in quotes with the minimum amount of escaped quotes.
+ * @param {string} raw - The string exactly like it appeared in the input source code, without its enclosing quotes.
+ * @param {Object} options - The options object.
+ * @param {'json'|'json5'|'css'|'less'|'scss'|string} options.parser - The name of the parser that is being used.
+ * @param {boolean} options.singleQuote - Whether to use single quotes instead of double quotes.
+ * @param {boolean} options.__isInHtmlAttribute - Whether the string is in an HTML attribute.
+ * @param {boolean} options.__embeddedInHtml - Whether the string is embedded in HTML.
+ * @param {'preserve'|'single'|'double'} [options.quoteProps='preserve'] - How to handle quotes in object literals.
+ * @returns {string} - The string enclosed in quotes with the minimum amount of escaped quotes.
+ */
 function printString(raw, options) {
-  // `rawContent` is the string exactly like it appeared in the input source
-  // code, without its enclosing quotes.
   const rawContent = raw.slice(1, -1);
 
   /** @type {Quote} */
@@ -19,10 +28,6 @@ function printString(raw, options) {
       ? "'"
       : getPreferredQuote(rawContent, options.singleQuote);
 
-  // It might sound unnecessary to use `makeString` even if the string already
-  // is enclosed with `enclosingQuote`, but it isn't. The string could contain
-  // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
-  // sure that we consistently output the minimum amount of escaped quotes.
   return makeString(
     rawContent,
     enclosingQuote,

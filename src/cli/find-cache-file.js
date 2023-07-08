@@ -14,7 +14,7 @@ function findDefaultCacheFile() {
   return cacheFilePath;
 }
 
-async function findCacheFileFromOption(cacheLocation) {
+async function findCacheFileFromOption(/** @type {string} */ cacheLocation) {
   const cacheFile = path.resolve(cacheLocation);
 
   const stat = await statSafe(cacheFile);

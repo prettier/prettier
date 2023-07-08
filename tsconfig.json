@@ -8,7 +8,7 @@
     "resolveJsonModule": true,
     "strict": true,
     // TBD it is desired to enabled strict type checking at some point:
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "strictNullChecks": false,
 
     "typeRoots": ["./types", "./node_modules/@types"]

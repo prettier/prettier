@@ -11,6 +11,11 @@ const frontMatterRegex = new RegExp(
   "s",
 );
 
+/**
+ *
+ * @param {string} text
+ * @returns
+ */
 function parse(text) {
   const match = text.match(frontMatterRegex);
   if (!match) {

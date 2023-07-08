@@ -2,17 +2,18 @@ import isObject from "./is-object.js";
 
 /**
  * @typedef {NonNullable<object>} Node
- * @typedef {(unknown) => string[]} GetVisitorKeys
- * @typedef {(unknown) => boolean} Predicate
+ * @typedef {(node:unknown) => string[]} GetVisitorKeys
+ * @typedef {(node:unknown) => boolean} Predicate
  */
 
 /**
- * @param {Node} node
+ * @param {any} node
  * @param {{getVisitorKeys: GetVisitorKeys, filter?: Predicate}} options
  */
 function* getChildren(node, options) {
   const { getVisitorKeys, filter = () => true } = options;
-  const isMatchedNode = (node) => isObject(node) && filter(node);
+  const isMatchedNode = (/** @type {any} */ node) =>
+    isObject(node) && filter(node);
 
   for (const key of getVisitorKeys(node)) {
     const value = node[key];
@@ -46,7 +47,7 @@ function* getDescendants(node, options) {
 }
 
 /**
- * @param {Node} node
+ * @param {any} node
  * @param {{getVisitorKeys: GetVisitorKeys, predicate: Predicate}} options
  */
 function hasDescendant(node, { getVisitorKeys, predicate }) {

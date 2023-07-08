@@ -1,3 +1,8 @@
+/**
+ * Formats a raw number string.
+ * @param {string} rawNumber - The raw number string to format.
+ * @returns {string} The formatted number string.
+ */
 function printNumber(rawNumber) {
   return (
     rawNumber

@@ -1,8 +1,16 @@
 import getInterpreter from "./get-interpreter.js";
+/** @typedef {import("../index.js").SupportLanguage} SupportLanguage*/
 
 // Didn't use `path.basename` since this module need work in browsers too
-const getFileBasename = (file) => file.split(/[/\\]/).pop();
+const getFileBasename = (/** @type {string} */ file) =>
+  file.split(/[/\\]/).pop();
 
+/**
+ *
+ * @param {SupportLanguage[]} languages
+ * @param {string=} filename
+ * @returns {SupportLanguage|undefined}
+ */
 function getLanguageByFilename(languages, filename) {
   if (!filename) {
     return;
@@ -16,7 +24,12 @@ function getLanguageByFilename(languages, filename) {
       language.filenames?.some((name) => name.toLowerCase() === basename),
   );
 }
-
+/**
+ *
+ * @param {SupportLanguage[]} languages
+ * @param {string=} languageName
+ * @returns {SupportLanguage|undefined}
+ */
 function getLanguageByName(languages, languageName) {
   if (!languageName) {
     return;
@@ -29,6 +42,12 @@ function getLanguageByName(languages, languageName) {
   );
 }
 
+/**
+ *
+ * @param {SupportLanguage[]} languages
+ * @param {string=} file
+ * @returns {SupportLanguage|undefined}
+ */
 function getLanguageByInterpreter(languages, file) {
   if (
     process.env.PRETTIER_TARGET === "universal" ||
@@ -55,10 +74,8 @@ function getLanguageByInterpreter(languages, file) {
  * @returns {string | void} matched parser name if found
  */
 function inferParser(options, fileInfo) {
-  const languages = options.plugins.flatMap(
-    (plugin) =>
-      // @ts-expect-error -- Safe
-      plugin.languages ?? [],
+  const languages = options.plugins.flatMap((plugin) =>
+    typeof plugin === "object" ? plugin.languages ?? [] : [],
   );
 
   // If the file has no extension, we can try to infer the language from the

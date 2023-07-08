@@ -3,7 +3,9 @@ import escapeStringRegexp from "escape-string-regexp";
 class WhitespaceUtils {
   #whitespaceCharacters;
 
-  constructor(whitespaceCharacters) {
+  constructor(
+    /** @type {string|ReadonlyArray<string>} */ whitespaceCharacters,
+  ) {
     this.#whitespaceCharacters = new Set(whitespaceCharacters);
 
     if (
@@ -20,7 +22,7 @@ class WhitespaceUtils {
     }
   }
 
-  getLeadingWhitespaceCount(text) {
+  getLeadingWhitespaceCount(/** @type {string} */ text) {
     const whitespaceCharacters = this.#whitespaceCharacters;
     let count = 0;
 
@@ -35,7 +37,7 @@ class WhitespaceUtils {
     return count;
   }
 
-  getTrailingWhitespaceCount(text) {
+  getTrailingWhitespaceCount(/** @type {string} */ text) {
     const whitespaceCharacters = this.#whitespaceCharacters;
     let count = 0;
 
@@ -50,39 +52,39 @@ class WhitespaceUtils {
     return count;
   }
 
-  getLeadingWhitespace(text) {
+  getLeadingWhitespace(/** @type {string} */ text) {
     const count = this.getLeadingWhitespaceCount(text);
     return text.slice(0, count);
   }
 
-  getTrailingWhitespace(text) {
+  getTrailingWhitespace(/** @type {string} */ text) {
     const count = this.getTrailingWhitespaceCount(text);
     return text.slice(text.length - count);
   }
 
-  hasLeadingWhitespace(text) {
+  hasLeadingWhitespace(/** @type {string} */ text) {
     return this.#whitespaceCharacters.has(text.charAt(0));
   }
 
-  hasTrailingWhitespace(text) {
+  hasTrailingWhitespace(/** @type {string} */ text) {
     return this.#whitespaceCharacters.has(text.at(-1));
   }
 
-  trimStart(text) {
+  trimStart(/** @type {string} */ text) {
     const count = this.getLeadingWhitespaceCount(text);
     return text.slice(count);
   }
 
-  trimEnd(text) {
+  trimEnd(/** @type {string} */ text) {
     const count = this.getTrailingWhitespaceCount(text);
     return text.slice(0, text.length - count);
   }
 
-  trim(text) {
+  trim(/** @type {string} */ text) {
     return this.trimEnd(this.trimStart(text));
   }
 
-  split(text, captureWhitespace = false) {
+  split(/** @type {string} */ text, captureWhitespace = false) {
     const pattern = `[${escapeStringRegexp(
       [...this.#whitespaceCharacters].join(""),
     )}]+`;
@@ -90,14 +92,14 @@ class WhitespaceUtils {
     return text.split(regexp);
   }
 
-  hasWhitespaceCharacter(text) {
+  hasWhitespaceCharacter(/** @type {string} */ text) {
     const whitespaceCharacters = this.#whitespaceCharacters;
     return Array.prototype.some.call(text, (character) =>
       whitespaceCharacters.has(character),
     );
   }
 
-  hasNonWhitespaceCharacter(text) {
+  hasNonWhitespaceCharacter(/** @type {string} */ text) {
     const whitespaceCharacters = this.#whitespaceCharacters;
     return Array.prototype.some.call(
       text,
@@ -105,7 +107,7 @@ class WhitespaceUtils {
     );
   }
 
-  isWhitespaceOnly(text) {
+  isWhitespaceOnly(/** @type {string} */ text) {
     const whitespaceCharacters = this.#whitespaceCharacters;
     return Array.prototype.every.call(text, (character) =>
       whitespaceCharacters.has(character),

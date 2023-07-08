@@ -1,4 +1,4 @@
-import "angular-html-parser/lib/compiler/src/ml_parser/ast";
+import "angular-html-parser/lib/compiler/src/ml_parser/ast.js";
 import { HtmlTagDefinition } from "angular-html-parser/lib/compiler/src/ml_parser/html_tags.js";
 
 declare module "angular-html-parser/lib/compiler/src/ml_parser/ast.js" {

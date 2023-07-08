@@ -1,9 +1,12 @@
 import toFastProperties from "to-fast-properties";
 
-function createGetVisitorKeys(visitorKeys, typeProperty = "type") {
+function createGetVisitorKeys(
+  /** @type {any} */ visitorKeys,
+  typeProperty = "type",
+) {
   toFastProperties(visitorKeys);
 
-  function getVisitorKeys(node) {
+  function getVisitorKeys(/** @type {any} */ node) {
     const type = node[typeProperty];
 
     /* c8 ignore next 5 */
