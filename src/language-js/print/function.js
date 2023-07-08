@@ -11,6 +11,7 @@ import {
   getFunctionParameters,
   hasLeadingOwnLineComment,
   isBinaryish,
+  isJsxElement,
   hasComment,
   CommentCheckFlags,
   isCallExpression,
@@ -286,7 +287,13 @@ function printThrowStatement(path, options, print) {
 // (the leftmost leaf node) and, if it (or its parents) has any
 // leadingComments, returns true (so it can be wrapped in parens).
 function returnArgumentHasLeadingComment(options, argument) {
-  if (hasLeadingOwnLineComment(options.originalText, argument)) {
+  if (
+    hasLeadingOwnLineComment(options.originalText, argument) ||
+    (hasComment(argument, CommentCheckFlags.Leading, (comment) =>
+      comment.value.includes("\n"),
+    ) &&
+      !isJsxElement(argument))
+  ) {
     return true;
   }
 
