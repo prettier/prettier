@@ -26,6 +26,6 @@ extends string &
 
 <template>
   <!-- should not format it here -->
-  <scriptt setup lang="ts" generic="T extends Type1 & Type2 & (Type3 | Type4), U extends string | number | boolean"></scriptt>
+  <not-script setup lang="ts" generic="T extends Type1 & Type2 & (Type3 | Type4), U extends string | number | boolean"></not-script>
 </template>
 

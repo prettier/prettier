@@ -2,10 +2,11 @@ import {
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   getUnescapedAttributeValue,
+  isVueScriptTag,
 } from "../utils/index.js";
 import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
 import { printVueVForDirective } from "./vue-v-for-directive.js";
-import { printVueScriptGeneric } from "./vue-script-generic.js";
+import { printVueScriptGenericAttributeValue } from "./vue-script-generic.js";
 import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
 import {
   printVueBindings,
@@ -30,13 +31,9 @@ function printVueAttribute(path, options) {
 
   if (
     attributeName === "generic" &&
-    path.match(
-      undefined,
-      (node) => node.name === "script",
-      (node) => node.type === "root",
-    )
+    path.match(undefined, (node) => isVueScriptTag(node, options))
   ) {
-    return printVueScriptGeneric;
+    return printVueScriptGenericAttributeValue;
   }
 
   const value = getUnescapedAttributeValue(node);

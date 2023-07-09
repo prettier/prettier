@@ -1,5 +1,5 @@
 import { getUnescapedAttributeValue } from "../utils/index.js";
-import { formatAttributeValue } from "./utils.js";
+import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -8,15 +8,20 @@ import { formatAttributeValue } from "./utils.js";
 /**
  * @returns {Promise<Doc>}
  */
-function printVueScriptGeneric(textToDoc, print, path) {
+function printVueScriptGenericAttributeValue(textToDoc, print, path) {
   const { node } = path;
 
   const value = getUnescapedAttributeValue(node);
 
-  return formatAttributeValue(`type T<${value}> = any`, textToDoc, {
-    parser: "babel-ts",
-    __isVueScriptGeneric: true,
-  });
+  return formatAttributeValue(
+    `type T<${value}> = any`,
+    textToDoc,
+    {
+      parser: "babel-ts",
+      __isVueScriptGeneric: true,
+    },
+    shouldHugJsExpression,
+  );
 }
 
-export { printVueScriptGeneric };
+export { printVueScriptGenericAttributeValue };

@@ -189,29 +189,4 @@ function printTypeParameter(path, options, print) {
   return group(parts);
 }
 
-function printVueScriptGenericParameters(path, options, print) {
-  if (!options.__isVueScriptGeneric) {
-    return;
-  }
-
-  const parameterDocs = path.map(
-    print,
-    "program",
-    "body",
-    0,
-    "typeParameters",
-    "params",
-  );
-
-  return group([
-    indent([softline, join([",", line], parameterDocs)]),
-    softline,
-  ]);
-}
-
-export {
-  printTypeParameter,
-  printTypeParameters,
-  getTypeParametersGroupId,
-  printVueScriptGenericParameters,
-};
+export { printTypeParameter, printTypeParameters, getTypeParametersGroupId };
