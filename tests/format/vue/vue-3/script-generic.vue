@@ -4,8 +4,6 @@
 
 <script setup lang="ts" generic="T extends Type1 & Type2 & (Type3 | Type4), U extends string | number | boolean"></script>
 
-<script setup lang="ts" generic="T extends Type1 & Type2 & (Type3 | Type4), U extends string | number | boolean"></script>
-
 <script setup lang="ts" generic="T extends | 'loooooooooooooooooooooooooooooooooong' | 'looooooooooooooooooooooooooooooooooong', U extends LooooooooooooooooooooooooooooooooongType<AnotherLoooooooooooooooongType<NonNullable<Record<string, (Type1 & Type2 & (LoooooooooooooooooooooongType3 | LoooooooooooooooooooooongType4)) | null>[string]>>>, C" ></script>
 
 <script setup lang="ts" generic="
