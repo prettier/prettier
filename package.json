@@ -36,7 +36,7 @@
     "@babel/types": "7.22.5",
     "@glimmer/syntax": "0.84.3",
     "@iarna/toml": "2.2.5",
-    "@prettier/is-es5-identifier-name": "0.1.0",
+    "@prettier/is-es5-identifier-name": "0.2.0",
     "@prettier/parse-srcset": "3.0.0",
     "@typescript-eslint/typescript-estree": "5.60.1",
     "@typescript-eslint/visitor-keys": "5.60.1",
