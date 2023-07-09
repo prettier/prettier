@@ -99,7 +99,7 @@
     "strip-ansi": "7.1.0",
     "to-fast-properties": "4.0.0",
     "typescript": "5.1.6",
-    "unicode-regex": "3.0.0",
+    "unicode-regex": "4.0.0",
     "unified": "9.2.2",
     "vnopts": "1.0.2",
     "wcwidth": "1.0.1",
