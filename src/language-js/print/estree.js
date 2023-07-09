@@ -69,6 +69,7 @@ import { printMemberExpression } from "./member.js";
 import { printBlock, printBlockBody } from "./block.js";
 import { printLiteral, isLiteral } from "./literal.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
+import { printVueScriptGenericParameters } from "./type-parameters.js";
 import { printExpressionStatement } from "./expression-statement.js";
 import { printHtmlBinding } from "./html-binding.js";
 
@@ -101,7 +102,11 @@ function printEstree(path, options, print, args) {
     case "JsonRoot":
       return [print("node"), hardline];
     case "File":
-      return printHtmlBinding(path, options, print) ?? print("program");
+      return (
+        printHtmlBinding(path, options, print) ??
+        printVueScriptGenericParameters(path, options, print) ??
+        print("program")
+      );
 
     case "Program":
       return printBlockBody(path, options, print);
