@@ -1,12 +1,3 @@
-.tmp
-.cache/
-coverage/
-.nyc_output/
-**/.yarn/**
-**/.pnp.*
-/dist*/
-node_modules/
-
 /tests/format/**/*.*
 !/tests/format/**/jsfmt.spec.js
 /tests/integration/cli/
@@ -24,7 +15,3 @@ node_modules/
 !/tests/integration/plugins/options/plugin.cjs
 !/tests/integration/plugins/preprocess/plugin.cjs
 /tests/integration/custom-parsers/
-
-/website/build/
-/website/static/lib/
-/website/static/playground.js
