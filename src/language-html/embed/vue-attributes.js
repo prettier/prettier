@@ -6,7 +6,7 @@ import {
 } from "../utils/index.js";
 import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
 import { printVueVForDirective } from "./vue-v-for-directive.js";
-import { printVueScriptGenericAttributeValue } from "./vue-script-generic.js";
+import { printVueScriptGenericAttributeValue } from "./print-vue-script-generic-attribute-value.js";
 import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
 import {
   printVueBindings,
@@ -29,10 +29,7 @@ function printVueAttribute(path, options) {
     return printVueVForDirective;
   }
 
-  if (
-    attributeName === "generic" &&
-    path.match(undefined, (node) => isVueScriptTag(node, options))
-  ) {
+  if (attributeName === "generic" && isVueScriptTag(node.parent, options)) {
     return printVueScriptGenericAttributeValue;
   }
 
