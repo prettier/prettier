@@ -1,3 +1,5 @@
+**/.yarn/*
+
 /tests/format/**/*.*
 !/tests/format/**/jsfmt.spec.js
 /tests/integration/cli/
