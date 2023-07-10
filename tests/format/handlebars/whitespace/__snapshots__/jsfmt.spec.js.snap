@@ -330,6 +330,60 @@ printWidth: 40
 ================================================================================
 `;
 
+exports[`whitespace-sensitive-tags.hbs - {"printWidth":40} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<pre>
+  this
+
+  should not
+
+
+
+  be formatted - it should stay exactly as it is
+
+  .this-code-should-stay-as-it-is {
+    color: red;
+  }
+</pre>
+
+
+<style>
+  .this-code-should-also-stay-as-it-is {
+    color: red;
+  }
+
+  .should-not-change-this-either { color: red; }
+</style>
+
+=====================================output=====================================
+<pre>
+  this
+
+  should not
+
+
+
+  be formatted - it should stay exactly as it is
+
+  .this-code-should-stay-as-it-is {
+    color: red;
+  }
+</pre>
+
+<style>
+  .this-code-should-also-stay-as-it-is {
+    color: red;
+  }
+
+  .should-not-change-this-either { color: red; }
+</style>
+================================================================================
+`;
+
 exports[`preserved-spaces-and-breaks.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]

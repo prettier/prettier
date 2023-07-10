@@ -262,7 +262,11 @@ function print(path, options, print) {
           text = text.slice(0, -tailingWhitespace.length);
         }
 
-        return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
+        return [
+          ...leadBreaks,
+          fill(getTextValueParts(text, node, path.parent)),
+          ...trailBreaks,
+        ];
       }
 
       const lineBreaksCount = countNewLines(text);
@@ -637,8 +641,18 @@ function printInverse(path, print, options) {
 
 /* TextNode print helpers */
 
-function getTextValueParts(value) {
-  return join(line, htmlWhitespaceUtils.split(value));
+function getTextValueParts(text, node, parent) {
+  const shouldKeepWhiteSpace =
+    node &&
+    parent &&
+    parent.type === "ElementNode" &&
+    isWhitespaceSensitiveNode(parent);
+
+  if (shouldKeepWhiteSpace) {
+    return replaceEndOfLine(text);
+  }
+
+  return join(line, htmlWhitespaceUtils.split(text));
 }
 
 function getCurrentAttributeName(path) {
@@ -762,6 +776,17 @@ function printParams(path, print) {
 
 function printBlockParams(node) {
   return ["as |", node.blockParams.join(" "), "|"];
+}
+
+function isWhitespaceSensitiveNode(node) {
+  // We don't want to manipulate whitespace / new lines in <pre> tags - the contents should be preserved as-is.
+
+  // Additionally, we also want to leave the contents of <style> tags. With the introduction of glimmer-scoped-css
+  // (https://github.com/cardstack/glimmer-scoped-css) it is now possible to include a <style> tag in a <template>.
+  // The contents of this tag should also be preserved as-is for now. because this glimmer printer currently does not
+  // have support for formatting CSS code.
+
+  return node.tag === "pre" || node.tag === "style";
 }
 
 const printer = {
