@@ -19,7 +19,7 @@ const SRCSET_TYPES = Object.keys(SRCSET_UNITS);
 function printSrcsetValue(value) {
   const srcset = parseSrcset(value);
   const properties = srcset.map((candidate) =>
-    SRCSET_TYPES.find((type) => candidate[type]),
+    SRCSET_TYPES.find((type) => Object.hasOwn(candidate, type)),
   );
 
   if (new Set(properties).size > 1) {
