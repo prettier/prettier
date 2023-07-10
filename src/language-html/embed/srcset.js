@@ -14,11 +14,13 @@ function printSrcset(path /*, options*/) {
   }
 }
 
-const SRCSET_UNITS = {"width":"w",height: "h", density: "x"}
-const SRCSET_TYPES = Object.keys(SRCSET_UNITS)
+const SRCSET_UNITS = { width: "w", height: "h", density: "x" };
+const SRCSET_TYPES = Object.keys(SRCSET_UNITS);
 function printSrcsetValue(value) {
   const srcset = parseSrcset(value);
-  const properties = srcset.map(candidate => SRCSET_TYPES.find(type => candidate[type]))
+  const properties = srcset.map((candidate) =>
+    SRCSET_TYPES.find((type) => candidate[type]),
+  );
 
   if (new Set(properties).size > 1) {
     throw new Error("Mixed descriptor in srcset is not supported");
