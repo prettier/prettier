@@ -18,11 +18,11 @@ const SRCSET_UNITS = { width: "w", height: "h", density: "x" };
 const SRCSET_TYPES = Object.keys(SRCSET_UNITS);
 function printSrcsetValue(value) {
   const srcset = parseSrcset(value);
-  const types = srcset.flatMap((candidate) =>
-    SRCSET_TYPES.filter((type) => Object.hasOwn(candidate, type)),
+  const types = SRCSET_TYPES.filter((type) =>
+    srcset.some((candidate) => Object.hasOwn(candidate, type)),
   );
 
-  if (new Set(types).size > 1) {
+  if (types.length > 1) {
     throw new Error("Mixed descriptor in srcset is not supported");
   }
 
