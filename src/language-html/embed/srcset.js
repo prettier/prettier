@@ -18,15 +18,15 @@ const SRCSET_UNITS = { width: "w", height: "h", density: "x" };
 const SRCSET_TYPES = Object.keys(SRCSET_UNITS);
 function printSrcsetValue(value) {
   const srcset = parseSrcset(value);
-  const properties = srcset.map((candidate) =>
-    SRCSET_TYPES.find((type) => Object.hasOwn(candidate, type)),
+  const types = srcset.flatMap((candidate) =>
+    SRCSET_TYPES.filter((type) => Object.hasOwn(candidate, type)),
   );
 
-  if (new Set(properties).size > 1) {
+  if (new Set(types).size > 1) {
     throw new Error("Mixed descriptor in srcset is not supported");
   }
 
-  const [key] = properties;
+  const [key] = types;
   const unit = SRCSET_UNITS[key];
 
   const urls = srcset.map((src) => src.source.value);
