@@ -108,7 +108,7 @@ function printFunctionParameters(
   //   c
   // }) {}
   const hasNotParameterDecorator = parameters.every(
-    (node) => !isNonEmptyArray(node.decorators)
+    (node) => !isNonEmptyArray(node.decorators),
   );
   if (shouldHugParameters && hasNotParameterDecorator) {
     return [typeParams, "(", ...printed, ")"];

@@ -226,7 +226,7 @@ function printTypescript(path, options, print) {
           path,
           options,
           print,
-          node.typeArguments ? "typeArguments" : "typeParameters"
+          node.typeArguments ? "typeArguments" : "typeParameters",
         ),
       ];
     case "TSLiteralType":
