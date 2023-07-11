@@ -18,7 +18,11 @@ else if (a === 2) expr; /* comment C4 */
 else if (a === 1) looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong; // comment B5
 else if (a === 2) looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong; // comment C5
 
-     if (a) return; /* comment 6a */
-else if (a) return 1; /* comment 6b */
-else if (a) ; /* comment 6c */
-else if (a) throw e; /* comment 6d */
+function a() {
+  if (a) return; /* comment 6a */
+  if (a) return 1; /* comment 6b */
+  if (a) ; /* comment 6c */
+  if (a) throw e; /* comment 6d */
+  if (a) var a = 1; /* comment 6e */
+  if (a) if (b); /* comment 6e */
+}
