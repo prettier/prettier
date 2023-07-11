@@ -87,31 +87,47 @@ function f() {
 ================================================================================
 `;
 
+exports[`expr_and_same_line_comments.js [flow] format 1`] = `
+"Illegal return statement (21:13)
+  19 | else if (a === 2) looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong; // comment C5
+  20 |
+> 21 |      if (a) return; /* comment 6a */
+     |             ^^^^^^
+  22 | else if (a) return 1; /* comment 6b */
+  23 | else if (a) ; /* comment 6c */
+  24 | else if (a) throw e; /* comment 6d */"
+`;
+
 exports[`expr_and_same_line_comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-if (a === 0) doSomething(); // comment A1
+     if (a === 0) doSomething(); // comment A1
 else if (a === 1) doSomethingElse(); // comment B1
 else if (a === 2) doSomethingElse(); // comment C1
 
-if (a === 0) doSomething(); /* comment A2 */
+     if (a === 0) doSomething(); /* comment A2 */
 else if (a === 1) doSomethingElse(); /* comment B2 */
 else if (a === 2) doSomethingElse(); /* comment C2 */
 
-if (a === 0) expr; // comment A3
+     if (a === 0) expr; // comment A3
 else if (a === 1) expr; // comment B3
 else if (a === 2) expr; // comment C3
 
-if (a === 0) expr; /* comment A4 */
+     if (a === 0) expr; /* comment A4 */
 else if (a === 1) expr; /* comment B4 */
 else if (a === 2) expr; /* comment C4 */
 
-if (a === 0) looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong; // comment A5
+     if (a === 0) looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong; // comment A5
 else if (a === 1) looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong; // comment B5
 else if (a === 2) looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong; // comment C5
+
+     if (a) return; /* comment 6a */
+else if (a) return 1; /* comment 6b */
+else if (a) ; /* comment 6c */
+else if (a) throw e; /* comment 6d */
 
 =====================================output=====================================
 if (a === 0) doSomething(); // comment A1
@@ -136,6 +152,11 @@ else if (a === 1)
   looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong; // comment B5
 else if (a === 2)
   looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong; // comment C5
+
+if (a) return /* comment 6a */;
+else if (a) return 1 /* comment 6b */;
+else if (a);
+else if (a) /* comment 6c */ throw e; /* comment 6d */
 
 ================================================================================
 `;

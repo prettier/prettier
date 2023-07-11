@@ -208,7 +208,9 @@ function handleIfStatementComments({
         addDanglingComment(
           precedingNode,
           comment,
-          markerForIfWithoutBlockAndSameLineComment,
+          precedingNode.type === "ExpressionStatement"
+            ? markerForIfWithoutBlockAndSameLineComment
+            : undefined,
         );
       } else {
         addDanglingComment(enclosingNode, comment);
