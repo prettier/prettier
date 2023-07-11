@@ -20,9 +20,18 @@ else if (a === 2) looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
 function a() {
   if (a) return; /* comment 6a */
+  else return 2;
+
   if (a) return 1; /* comment 6b */
-  if (a) ; /* comment 6c */
+  else return 2;
+
   if (a) throw e; /* comment 6d */
-  if (a) var a = 1; /* comment 6e */
-  if (a) if (b); /* comment 6e */
+  else return 2;
+
+  // TODO[@fisker]: fix this
+  // if (a) var a = 1; /* comment 6e */
+  // else return 2;
+
+  if (a) if (b); /* comment 6f */
+  else return 2;
 }
