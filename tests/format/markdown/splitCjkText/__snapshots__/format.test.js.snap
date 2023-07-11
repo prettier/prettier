@@ -22,20 +22,25 @@ nasalカ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク
 かつてはワ行のワ、ヰ、ヱ、ヲに濁点を付して [v] 音を表現すること（ワ゛、ヰ゛、ヱ゛、ヲ゛）も行われたが、一般的にはならなかった。
 
 =====================================output=====================================
-這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
+這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長
+很長的段落
 
-全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
+全　　形　空白全　　形　空白
 
-空白全形空白全形空白全形空白　空白全形空白全形空白全形空白　空白全形空白全形空白全形空白　空白全形空白全形空白全形空白
+空白全形空白全形空白全形空白　空白全形空白全形空白全形空白　空白全形空白全形空白
+全形空白　空白全形空白全形空白全形空白
 
 何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。
 
 カ゚キ゚ク゚ケ゚コ゚でガギグゴ
 
-nasalカ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚
+nasalカ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚
+ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚
+ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚
 
-かつてはワ行のワ、ヰ、ヱ、ヲに濁点を付して [v]
-音を表現すること（ワ゛、ヰ゛、ヱ゛、ヲ゛）も行われたが、一般的にはならなかった。
+かつてはワ行のワ、ヰ、ヱ、ヲに濁点を付して [v] 音を表現すること（ワ゛、ヰ゛、ヱ
+゛、ヲ゛）も行われたが、一般的にはならなかった。
 
 ================================================================================
 `;
@@ -56,13 +61,53 @@ MarkdownフォーマッターPrettierはサイコー！Markdownフォーマッ�
 Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。
 
 =====================================output=====================================
-這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
+這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一
+段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文
+的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著
+中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混
+合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一
+個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這
+是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一
+段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文
+的一段Paragraph！這是一個English混合著中文的一段Paragraph！
 
-Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？
+Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語
+が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざっ
+たParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現
+れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierは
+どうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうす
+る？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日
+本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざっ
+たParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現
+れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierは
+どうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうす
+る？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日
+本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざっ
+たParagraphが現れた！Prettierはどうする？
 
-MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！
+MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイ
+コー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierは
+サイコー！MarkdownフォーマッターPrettierはサイコー！Markdownフォーマッ
+ターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！Markdownフォー
+マッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイ
+コー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierは
+サイコー！MarkdownフォーマッターPrettierはサイコー！Markdownフォーマッ
+ターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！
 
-Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。
+Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是
+在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われまし
+た。Prettier的第一次Commit是在2016年11月29日。Prettierの最初
+のCommitは2016年11月29日に行われました。Prettier的第一次Commit是
+在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われまし
+た。Prettier的第一次Commit是在2016年11月29日。Prettierの最初
+のCommitは2016年11月29日に行われました。Prettier的第一次Commit是
+在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われまし
+た。Prettier的第一次Commit是在2016年11月29日。Prettierの最初
+のCommitは2016年11月29日に行われました。Prettier的第一次Commit是
+在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われまし
+た。Prettier的第一次Commit是在2016年11月29日。Prettierの最初
+のCommitは2016年11月29日に行われました。Prettier的第一次Commit是
+在2016年11月29日。
 
 ================================================================================
 `;
@@ -163,10 +208,10 @@ NVIDIA의 RTX3000 시리즈는 삼성전자와 TSMC에 의해 제조된다.
 全斗煥 과 盧泰愚 과 金泳三 과 金大中 과 盧武鉉 과 李明博 과 朴槿惠 과 文在寅 과
 尹錫悅 과 음...
 
-역대 대통령은 李承晩과 許政과 尹潽善과 朴正熙과 崔圭夏과 朴忠勳과 全斗煥과
-盧泰愚과 金泳三과 金大中과 盧武鉉과 李明博과 朴槿惠과 文在寅과 尹錫悅과 음...
-역대 대통령은 李承晩과 許政과 尹潽善과 朴正熙과 崔圭夏과 朴忠勳과 全斗煥과
-盧泰愚과 金泳三과 金大中과 盧武鉉과 李明博과 朴槿惠과 文在寅과 尹錫悅과 음...
+역대 대통령은 李承晩과 許政과 尹潽善과 朴正熙과 崔圭夏과 朴忠勳과 全斗煥과 盧泰
+愚과 金泳三과 金大中과 盧武鉉과 李明博과 朴槿惠과 文在寅과 尹錫悅과 음... 역대
+대통령은 李承晩과 許政과 尹潽善과 朴正熙과 崔圭夏과 朴忠勳과 全斗煥과 盧泰愚과
+金泳三과 金大中과 盧武鉉과 李明博과 朴槿惠과 文在寅과 尹錫悅과 음...
 
 ================================================================================
 `;
@@ -196,7 +241,15 @@ proseWrap: "always"
 這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
 
 =====================================output=====================================
-這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
+這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一
+段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文
+的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著
+中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混
+合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一
+個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這
+是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一
+段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文
+的一段Paragraph！這是一個English混合著中文的一段Paragraph！
 
 ================================================================================
 `;
@@ -211,7 +264,16 @@ proseWrap: "always"
 這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！
 
 =====================================output=====================================
-這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！
+這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段
+Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著
+中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個
+English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段
+Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著
+中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個
+English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段
+Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著
+中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個
+English 混合著中文的一段 Paragraph！
 
 ================================================================================
 `;
@@ -294,20 +356,289 @@ Go
 Rust
 
 =====================================output=====================================
-日本語、にほんご。汉语, 中文. 日本語，にほんご．English
-words!? 漢字！汉字？「セリフ」(括弧) 文字（括弧）文字【括弧】日本語English
+日本語、にほんご。汉语, 中文. 日本語，にほんご． English words!? 漢字！汉字？
+「セリフ」 (括弧) 文字（括弧）文字【括弧】日本語 English
 
-「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）」「禁則（きんそく）処理（しょり）」「禁則（きんそく）処理（しょり）！！！！」「禁則（きんそく）処理（しょり）！！！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」
+「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則
+（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）」「禁則（きんそ
+く）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理
+（しょり）」「禁則（きんそく）処理（しょり）」「禁則（きんそく）処理（しょ
+り）！！！！」「禁則（きんそく）処理（しょり）！！！」「禁則（きんそく）処理
+（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょ
+り）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」
+「禁則（きんそく）処理（しょり）！」
 
-中点・中点
+中点 ・ 中点
 
-禁則処理にわざと違反した文章のテストを今から行います。準備はいいでしょうか？レディ、ゴー！
+禁則処理にわざと違反した文章のテストを今から行います。準備はいいでしょうか？レ
+ディ、ゴー！
 
 [ウ ィキペディア]
 
 [ウ ィキペディア]: https://ja.wikipedia.org/
 
 C言語・C++・Go・Rust
+
+================================================================================
+`;
+
+exports[`wpt.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Each number corresponds to a test number in <https://wpt.fyi/results/css/css-text/line-breaking?label=master&label=experimental&aligned&q=segment-break-transformation-rules->.
+
+001: NO space: ＦＵＬＬＷＩＤＴＨ
+ＦＵＬＬＷＩＤＴＨ
+
+002: NO space: ＦＵＬＬＷＩＤＴＨ
+ﾃｽﾄ
+
+003: NO space: ＦＵＬＬＷＩＤＴＨ
+測試
+
+004: ONE space: ＦＵＬＬＷＩＤＴＨ
+narrow
+
+005: ONE space: ＦＵＬＬＷＩＤＴＨ
+■
+
+006: ONE space: ＦＵＬＬＷＩＤＴＨ
+آزمون
+
+007: ONE space: ＦＵＬＬＷＩＤＴＨ
+테스트
+
+008: NO space: ﾃｽﾄ
+ＦＵＬＬＷＩＤＴＨ
+
+009: NO space: ﾃｽﾄ
+ﾃｽﾄ
+
+010: NO space: ﾃｽﾄ
+測試
+
+011: ONE space: ﾃｽﾄ
+narrow
+
+012: ONE space: ﾃｽﾄ
+■
+
+013: ONE space: ﾃｽﾄ
+آزمون
+
+014: ONE space: ﾃｽﾄ
+테스트
+
+015: NO space: 測試
+ＦＵＬＬＷＩＤＴＨ
+
+016: NO space: 測試
+ﾃｽﾄ
+
+017: NO space: 測試
+測試
+
+018: ONE space: 測試
+narrow
+
+019: ONE space: 測試
+■
+
+020: ONE space: 測試
+آزمون
+
+021: ONE space: 測試
+테스트
+
+022: ONE space: narrow
+ＦＵＬＬＷＩＤＴＨ
+
+023: ONE space: narrow
+ﾃｽﾄ
+
+024: ONE space: narrow
+測試
+
+025: ONE space: narrow
+narrow
+
+026: ONE space: narrow
+■
+
+027: ONE space: narrow
+آزمون
+
+028: ONE space: narrow
+테스트
+
+029: ONE space: ■
+ＦＵＬＬＷＩＤＴＨ
+
+030: ONE space: ■
+ﾃｽﾄ
+
+031: ONE space: ■
+測試
+
+032: ONE space: ■
+narrow
+
+033: ONE space: ■
+■
+
+034: ONE space: ■
+آزمون
+
+035: ONE space: ■
+테스트
+
+036: ONE space: آزمون
+ＦＵＬＬＷＩＤＴＨ
+
+037: ONE space: آزمون
+ﾃｽﾄ
+
+038: ONE space: آزمون
+測試
+
+039: ONE space: آزمون
+narrow
+
+040: ONE space: آزمون
+■
+
+041: ONE space: آزمون
+آزمون
+
+042: ONE space: آزمون
+테스트
+
+043: ONE space: 테스트
+ＦＵＬＬＷＩＤＴＨ
+
+044: ONE space: 테스트
+ﾃｽﾄ
+
+045: ONE space: 테스트
+測試
+
+046: ONE space: 테스트
+narrow
+
+047: ONE space: 테스트
+■
+
+048: ONE space: 테스트
+آزمون
+
+049: ONE space: 테스트
+테스트
+
+=====================================output=====================================
+Each number corresponds to a test number in
+<https://wpt.fyi/results/css/css-text/line-breaking?label=master&label=experimental&aligned&q=segment-break-transformation-rules->.
+
+001: NO space: ＦＵＬＬＷＩＤＴＨＦＵＬＬＷＩＤＴＨ
+
+002: NO space: ＦＵＬＬＷＩＤＴＨﾃｽﾄ
+
+003: NO space: ＦＵＬＬＷＩＤＴＨ測試
+
+004: ONE space: ＦＵＬＬＷＩＤＴＨ narrow
+
+005: ONE space: ＦＵＬＬＷＩＤＴＨ ■
+
+006: ONE space: ＦＵＬＬＷＩＤＴＨ آزمون
+
+007: ONE space: ＦＵＬＬＷＩＤＴＨ 테스트
+
+008: NO space: ﾃｽﾄＦＵＬＬＷＩＤＴＨ
+
+009: NO space: ﾃｽﾄﾃｽﾄ
+
+010: NO space: ﾃｽﾄ測試
+
+011: ONE space: ﾃｽﾄ narrow
+
+012: ONE space: ﾃｽﾄ ■
+
+013: ONE space: ﾃｽﾄ آزمون
+
+014: ONE space: ﾃｽﾄ 테스트
+
+015: NO space: 測試ＦＵＬＬＷＩＤＴＨ
+
+016: NO space: 測試ﾃｽﾄ
+
+017: NO space: 測試測試
+
+018: ONE space: 測試 narrow
+
+019: ONE space: 測試 ■
+
+020: ONE space: 測試 آزمون
+
+021: ONE space: 測試 테스트
+
+022: ONE space: narrow ＦＵＬＬＷＩＤＴＨ
+
+023: ONE space: narrow ﾃｽﾄ
+
+024: ONE space: narrow 測試
+
+025: ONE space: narrow narrow
+
+026: ONE space: narrow ■
+
+027: ONE space: narrow آزمون
+
+028: ONE space: narrow 테스트
+
+029: ONE space: ■ ＦＵＬＬＷＩＤＴＨ
+
+030: ONE space: ■ ﾃｽﾄ
+
+031: ONE space: ■ 測試
+
+032: ONE space: ■ narrow
+
+033: ONE space: ■ ■
+
+034: ONE space: ■ آزمون
+
+035: ONE space: ■ 테스트
+
+036: ONE space: آزمون ＦＵＬＬＷＩＤＴＨ
+
+037: ONE space: آزمون ﾃｽﾄ
+
+038: ONE space: آزمون 測試
+
+039: ONE space: آزمون narrow
+
+040: ONE space: آزمون ■
+
+041: ONE space: آزمون آزمون
+
+042: ONE space: آزمون 테스트
+
+043: ONE space: 테스트 ＦＵＬＬＷＩＤＴＨ
+
+044: ONE space: 테스트 ﾃｽﾄ
+
+045: ONE space: 테스트 測試
+
+046: ONE space: 테스트 narrow
+
+047: ONE space: 테스트 ■
+
+048: ONE space: 테스트 آزمون
+
+049: ONE space: 테스트 테스트
 
 ================================================================================
 `;
