@@ -18,7 +18,7 @@ function printVueScriptGenericAttributeValue(textToDoc, print, path) {
     textToDoc,
     {
       parser: "babel-ts",
-      __isVueScriptGeneric: true,
+      __isEmbeddedTypescriptGenericParameters: true,
     },
     shouldHugJsExpression,
   );

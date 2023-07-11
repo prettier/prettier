@@ -21,7 +21,7 @@ function printHtmlBinding(path, options, print) {
       : doc;
   }
 
-  if (options.__isVueScriptGeneric) {
+  if (options.__isEmbeddedTypescriptGenericParameters) {
     const parameterDocs = path.map(
       print,
       "program",
