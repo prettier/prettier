@@ -1,10 +1,5 @@
 import { hardline, line, softline } from "../document/builders.js";
-import {
-  KIND_CJK_PUNCTUATION,
-  KIND_CJ_LETTER,
-  KIND_K_LETTER,
-  KIND_NON_CJK,
-} from "./utils.js";
+import { KIND_K_LETTER } from "./utils.js";
 
 /**
  * @typedef {import("./utils.js").WordNode} WordNode
@@ -51,51 +46,6 @@ const noBreakBefore = new Set(
 );
 
 /**
- * A line break between a character from this set and CJ can be converted to a
- * space. Includes only ASCII punctuation marks for now.
- */
-const lineBreakBetweenTheseAndCJConvertsToSpace = new Set(
-  "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
-);
-
-/**
- * Determine the preferred style of spacing between Chinese or Japanese and non-CJK
- * characters in the parent `sentence` node.
- *
- * @param {AstPath} path
- * @returns {boolean} `true` if Space tends to be inserted between CJ and
- * non-CJK, `false` otherwise.
- */
-function isInSentenceWithCJSpaces({ parent: sentenceNode }) {
-  if (sentenceNode.usesCJSpaces === undefined) {
-    const stats = { " ": 0, "": 0 };
-    const { children } = sentenceNode;
-
-    for (let i = 1; i < children.length - 1; ++i) {
-      const node = children[i];
-      if (
-        node.type === "whitespace" &&
-        (node.value === " " || node.value === "")
-      ) {
-        const previousKind = children[i - 1].kind;
-        const nextKind = children[i + 1].kind;
-        if (
-          (previousKind === KIND_CJ_LETTER && nextKind === KIND_NON_CJK) ||
-          (previousKind === KIND_NON_CJK && nextKind === KIND_CJ_LETTER)
-        ) {
-          ++stats[node.value];
-        }
-      }
-    }
-
-    // Inject a property to cache the result.
-    sentenceNode.usesCJSpaces = stats[" "] > stats[""];
-  }
-
-  return sentenceNode.usesCJSpaces;
-}
-
-/**
  * Check whether the given `"\n"` node can be converted to a space.
  *
  * For example, if you would like to squash English text
@@ -128,87 +78,18 @@ function lineBreakCanBeConvertedToSpace(path, isLink) {
     return true;
   }
 
-  const previousKind = previous.kind;
-  const nextKind = next.kind;
-
-  if (
-    // "\n" between non-CJK or Korean characters always can be converted to a
-    // space. Korean Hangul simulates Latin words. See
-    // https://github.com/prettier/prettier/issues/6516
-    (isNonCJKOrKoreanLetter(previousKind) &&
-      isNonCJKOrKoreanLetter(nextKind)) ||
-    // Han & Hangul: same way preferred
-    (previousKind === KIND_K_LETTER && nextKind === KIND_CJ_LETTER) ||
-    (nextKind === KIND_K_LETTER && previousKind === KIND_CJ_LETTER)
-  ) {
-    return true;
-  }
-
-  // Do not convert \n to a space:
-  if (
-    // around CJK punctuation
-    previousKind === KIND_CJK_PUNCTUATION ||
-    nextKind === KIND_CJK_PUNCTUATION ||
-    // between CJ
-    (previousKind === KIND_CJ_LETTER && nextKind === KIND_CJ_LETTER)
-  ) {
-    return false;
-  }
-
-  // The rest of this function deals only with line breaks between CJ and
-  // non-CJK characters.
-
-  // Convert a line break between CJ and certain non-letter characters (e.g.
-  // ASCII punctuation) to a space.
-  //
-  // E.g. :::\n句子句子句子\n::: → ::: 句子句子句子 :::
-  //
-  // Note: line breaks like "(\n句子句子\n)" or "句子\n." are suppressed in
-  // `isBreakable(...)`.
-  if (
-    lineBreakBetweenTheseAndCJConvertsToSpace.has(next.value[0]) ||
-    lineBreakBetweenTheseAndCJConvertsToSpace.has(previous.value.at(-1))
-  ) {
-    return true;
-  }
-
-  // Converting a line break between CJ and non-ASCII punctuation to a space is
-  // undesired in many cases. PRs are welcome to fine-tune this logic.
-  //
-  // Examples where \n must not be converted to a space:
-  //
-  // 1. "〜" (U+301C, belongs to Pd) in
-  //
-  //     "ア〜\nエの中から1つ選べ。"
-  //
-  // 2. "…" (U+2026, belongs to Po) in
-  //
-  //     "これはひどい……\nなんと汚いコミットログなんだ……"
-  if (previous.hasTrailingPunctuation || next.hasLeadingPunctuation) {
+  // Do not convert \n to a space when it is surrounded only by Chinese or Japanese.
+  // We follow the rules of CSS (Text Module) & browsers.
+  // See 001-003, 008-010, 015-017 in https://wpt.fyi/results/css/css-text/line-breaking?label=master&label=experimental&aligned&q=segment-break-transformation-rules-
+  // See EXAMPLE 16 in https://drafts.csswg.org/css-text-4/#line-break-transform
+  // The following rules is (almost) the same as that adopted by Firefox.
+  if (previous.isCJ && next.isCJ) {
     return false;
   }
 
   // If the sentence uses the style with spaces between CJ and non-CJK, "\n" can
   // be converted to a space.
-  return isInSentenceWithCJSpaces(path);
-}
-
-/**
- * @param {WordKind | undefined} kind
- * @returns {boolean} `true` if `kind` is defined and not CJK punctuation
- */
-function isLetter(kind) {
-  return (
-    kind === KIND_NON_CJK || kind === KIND_CJ_LETTER || kind === KIND_K_LETTER
-  );
-}
-
-/**
- * @param {WordKind | undefined} kind
- * @returns {boolean} `true` if `kind` is Korean letter or non-CJK
- */
-function isNonCJKOrKoreanLetter(kind) {
-  return kind === KIND_NON_CJK || kind === KIND_K_LETTER;
+  return true;
 }
 
 /**
@@ -233,32 +114,38 @@ function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
     return value !== "";
   }
 
-  // Spaces are always breakable
-  if (value === " ") {
-    return true;
-  }
-
   /** @type {AdjacentNodes} */
   const { previous, next } = path;
 
+  if (value === " ") {
+    // Space between Chinese or Japanese characters must be kept.
+    // If converted to a newline, browsers may omit it.
+    // See 001-003, 008-010, 015-017 in https://wpt.fyi/results/css/css-text/line-breaking?label=master&label=experimental&aligned&q=segment-break-transformation-rules-
+    return !previous?.isCJ || !next?.isCJ;
+  }
+
   // Simulates Latin words; see https://github.com/prettier/prettier/issues/6516
-  // [Latin][""][Hangul] & vice versa => Don't break
-  // [Han & Kana][""][Hangul], either
+  // [printable][""][Hangul] & vice versa => Don't break
+  // Otherwise, [printable][\n][Hangul] is equivalent to [printable][" "][Hangul]
   if (
     value === "" &&
-    ((previous?.kind === KIND_K_LETTER && isLetter(next?.kind)) ||
-      (next?.kind === KIND_K_LETTER && isLetter(previous?.kind)))
+    (previous?.kind === KIND_K_LETTER || next?.kind === KIND_K_LETTER)
   ) {
     return false;
   }
 
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
+  // If violates this, the result will look ugly.
   const violatesCJKLineBreakingRules =
-    !canBeSpace &&
+    (value === "" || !canBeSpace) &&
     ((next && noBreakBefore.has(next.value[0])) ||
       (previous && noBreakAfter.has(previous.value.at(-1))));
 
   if (violatesCJKLineBreakingRules) {
+    return false;
+  }
+
+  if (value === "" && previous && next && previous.isCJ !== next.isCJ) {
     return false;
   }
 
