@@ -19,6 +19,12 @@ npm install --save-dev --save-exact prettier
 yarn add --dev --exact prettier
 ```
 
+<!--pnpm-->
+
+```bash
+pnpm add --save-dev --save-exact prettier
+```
+
 <!--END_DOCUSAURUS_CODE_TABS-->
 
 Then, create an empty config file to let editors and other tools know you are using Prettier:
@@ -31,7 +37,7 @@ echo {}> .prettierrc.json
 
 Next, create a [.prettierignore](ignore.md) file to let the Prettier CLI and editors know which files to _not_ format. Here’s an example:
 
-```
+```text
 # Ignore artifacts:
 build
 coverage
@@ -47,7 +53,7 @@ Now, format all files with Prettier:
 <!--npm-->
 
 ```bash
-npx prettier --write .
+npx prettier . --write
 ```
 
 > What is that `npx` thing? `npx` ships with `npm` and lets you run locally installed tools. We’ll leave off the `npx` part for brevity throughout the rest of this file!
@@ -57,10 +63,18 @@ npx prettier --write .
 <!--yarn-->
 
 ```bash
-yarn prettier --write .
+yarn prettier . --write
 ```
 
 > What is `yarn` doing at the start? `yarn prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn` part for brevity throughout the rest of this file!
+
+<!--pnpm-->
+
+```bash
+pnpm exec prettier . --write
+```
+
+> What is `pnpm` doing at the start? `pnpm prettier` runs the locally installed version of Prettier. We’ll leave off the `pnpm` part for brevity throughout the rest of this file!
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
@@ -69,7 +83,7 @@ yarn prettier --write .
 If you have a CI setup, run the following as part of it to make sure that everyone runs Prettier. This avoids merge conflicts and other collaboration issues!
 
 ```bash
-npx prettier --check .
+npx prettier . --check
 ```
 
 `--check` is like `--write`, but only checks that files are already formatted, rather than overwriting them. `prettier --write` and `prettier --check` are the most common ways to run Prettier.
@@ -118,6 +132,15 @@ For example, you can do the following to have Prettier run before each commit:
    ```
 
    > If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
+
+   <!--pnpm-->
+
+   ```bash
+   pnpm add --save-dev husky lint-staged
+   pnpm exec husky install
+   npm pkg set scripts.prepare="husky install"
+   pnpm exec husky add .husky/pre-commit "pnpm exec lint-staged"
+   ```
 
    <!--END_DOCUSAURUS_CODE_TABS-->
 

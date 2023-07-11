@@ -34,9 +34,9 @@ function printAngular(path, options, print) {
           [";", line],
           path.map(
             () => (hasNgSideEffect(path) ? print() : ["(", print(), ")"]),
-            "expressions"
-          )
-        )
+            "expressions",
+          ),
+        ),
       );
     case "NGEmptyExpression":
       return "";
@@ -46,7 +46,7 @@ function printAngular(path, options, print) {
           path.isFirst ? "" : isNgForOf(path) ? " " : [";", line],
           print(),
         ],
-        "body"
+        "body",
       );
     case "NGMicrosyntaxKey":
       return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/i.test(node.name)

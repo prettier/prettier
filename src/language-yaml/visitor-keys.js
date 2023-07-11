@@ -36,7 +36,7 @@ const visitorKeys = Object.fromEntries(
       "trailingComment",
       "endComments",
     ],
-  ])
+  ]),
 );
 
 export default visitorKeys;

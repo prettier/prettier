@@ -71,13 +71,13 @@ const visitorKeys = Object.fromEntries(
       flowVisitorKeys,
       angularVisitorKeys,
       additionalVisitorKeys,
-    ])
+    ]),
   ).map(([type, keys]) => [
     type,
     excludeKeys[type]
       ? keys.filter((key) => !excludeKeys[type].includes(key))
       : keys,
-  ])
+  ]),
 );
 
 // Unsupported

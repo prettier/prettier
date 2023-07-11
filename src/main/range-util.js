@@ -14,7 +14,8 @@ function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
     ...endNodeAndParents.parentNodes,
   ]);
   return startNodeAndAncestors.find(
-    (node) => jsonSourceElements.has(node.type) && endNodeAndAncestors.has(node)
+    (node) =>
+      jsonSourceElements.has(node.type) && endNodeAndAncestors.has(node),
   );
 }
 
@@ -34,7 +35,7 @@ function dropRootParents(parents) {
 function findSiblingAncestors(
   startNodeAndParents,
   endNodeAndParents,
-  { locStart, locEnd }
+  { locStart, locEnd },
 ) {
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
@@ -79,7 +80,7 @@ function findNodeAtOffset(
   options,
   predicate,
   parentNodes = [],
-  type
+  type,
 ) {
   const { locStart, locEnd } = options;
   const start = locStart(node);
@@ -101,7 +102,7 @@ function findNodeAtOffset(
       options,
       predicate,
       [node, ...parentNodes],
-      type
+      type,
     );
     if (childResult) {
       return childResult;
@@ -210,7 +211,7 @@ function calculateRange(text, opts, ast) {
     opts,
     (node, parentNode) => isSourceElement(opts, node, parentNode),
     [],
-    "rangeStart"
+    "rangeStart",
   );
   const endNodeAndParents =
     // No need find Node at `end`, it will be the same as `startNodeAndParents`
@@ -222,7 +223,7 @@ function calculateRange(text, opts, ast) {
           opts,
           (node) => isSourceElement(opts, node),
           [],
-          "rangeEnd"
+          "rangeEnd",
         );
   if (!startNodeAndParents || !endNodeAndParents) {
     return {
@@ -236,7 +237,7 @@ function calculateRange(text, opts, ast) {
   if (isJsonParser(opts)) {
     const commonAncestor = findCommonAncestor(
       startNodeAndParents,
-      endNodeAndParents
+      endNodeAndParents,
     );
     startNode = commonAncestor;
     endNode = commonAncestor;
@@ -244,7 +245,7 @@ function calculateRange(text, opts, ast) {
     ({ startNode, endNode } = findSiblingAncestors(
       startNodeAndParents,
       endNodeAndParents,
-      opts
+      opts,
     ));
   }
 

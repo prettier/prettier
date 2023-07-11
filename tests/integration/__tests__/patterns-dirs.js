@@ -58,25 +58,25 @@ describe("Trailing slash", () => {
     "run in sub dir 1",
     [".."],
     { status: 1, stderr: "" },
-    "cli/patterns-dirs/dir2"
+    "cli/patterns-dirs/dir2",
   );
   testPatterns(
     "run in sub dir 2",
     ["../"],
     { status: 1, stderr: "" },
-    "cli/patterns-dirs/dir2"
+    "cli/patterns-dirs/dir2",
   );
   testPatterns(
     "run in sub dir 3",
     ["../dir1"],
     { status: 1, stderr: "" },
-    "cli/patterns-dirs/dir2"
+    "cli/patterns-dirs/dir2",
   );
   testPatterns(
     "run in sub dir 4",
     ["../dir1/"],
     { status: 1, stderr: "" },
-    "cli/patterns-dirs/dir2"
+    "cli/patterns-dirs/dir2",
   );
 });
 
@@ -97,7 +97,7 @@ testPatterns("Exclude yarn.lock when expanding directories", ["."], {
 
 const uppercaseRocksPlugin = path.join(
   projectRoot,
-  "tests/config/prettier-plugins/prettier-plugin-uppercase-rocks/index.js"
+  "tests/config/prettier-plugins/prettier-plugin-uppercase-rocks/index.js",
 );
 describe("plugins `.`", () => {
   runCliWithoutGitignore("cli/dirs/plugins", [
@@ -162,7 +162,7 @@ function isSymlinkSupported() {
 
   const target = path.join(
     __dirname,
-    "../cli/patterns-symlinks/test-symlink-feature-detect"
+    "../cli/patterns-symlinks/test-symlink-feature-detect",
   );
   fs.rmSync(target, { force: true, recursive: true });
   fs.mkdirSync(target);
@@ -193,11 +193,11 @@ function isSymlinkSupported() {
     fs.symlinkSync(directoryB, path.join(directoryA, "symlink-to-directory-b"));
     fs.symlinkSync(
       path.join(directoryA, "a.js"),
-      path.join(directoryA, "symlink-to-file-a")
+      path.join(directoryA, "symlink-to-file-a"),
     );
     fs.symlinkSync(
       path.join(directoryB, "b.js"),
-      path.join(directoryA, "symlink-to-file-b")
+      path.join(directoryA, "symlink-to-file-b"),
     );
   });
   afterAll(clean);
@@ -255,7 +255,7 @@ function isSymlinkSupported() {
       stderr:
         '[error] Explicitly specified pattern "test-a/symlink-to-directory-a" is a symbolic link.',
     },
-    base
+    base,
   );
   testPatterns(
     "",
@@ -266,7 +266,7 @@ function isSymlinkSupported() {
       stderr:
         '[error] Explicitly specified pattern "test-a/symlink-to-directory-b" is a symbolic link.',
     },
-    base
+    base,
   );
   testPatterns(
     "",
@@ -277,7 +277,7 @@ function isSymlinkSupported() {
       stderr:
         '[error] Explicitly specified pattern "test-a/symlink-to-file-a" is a symbolic link.',
     },
-    base
+    base,
   );
   testPatterns(
     "",
@@ -288,7 +288,7 @@ function isSymlinkSupported() {
       stderr:
         '[error] Explicitly specified pattern "test-a/symlink-to-file-b" is a symbolic link.',
     },
-    base
+    base,
   );
   testPatterns(
     "",
@@ -299,7 +299,7 @@ function isSymlinkSupported() {
       stderr:
         '[error] No files matching the pattern were found: "test-a/symlink-*".',
     },
-    base
+    base,
   );
   testPatterns(
     "",
@@ -310,13 +310,13 @@ function isSymlinkSupported() {
       stderr:
         '[error] Explicitly specified pattern "test-a/symlink-to-file-b" is a symbolic link.',
     },
-    base
+    base,
   );
   testPatterns(
     "",
     ["test-a/symlink-to-directory-b/*"],
     { stdout: "test-a/symlink-to-directory-b/b.js" },
-    base
+    base,
   );
 });
 
@@ -324,7 +324,7 @@ function testPatterns(
   namePrefix,
   cliArgs,
   expected = {},
-  cwd = "cli/patterns-dirs"
+  cwd = "cli/patterns-dirs",
 ) {
   const testName =
     (namePrefix ? namePrefix + ": " : "") +

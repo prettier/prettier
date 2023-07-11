@@ -46,14 +46,14 @@ if (process.env.NODE_ENV === "production") {
     util: {
       get() {
         throw new Error(
-          "prettier.util is not available in development CommonJS version"
+          "prettier.util is not available in development CommonJS version",
         );
       },
     },
     doc: {
       get() {
         throw new Error(
-          "prettier.doc is not available in development CommonJS version"
+          "prettier.doc is not available in development CommonJS version",
         );
       },
     },

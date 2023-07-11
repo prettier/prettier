@@ -19,7 +19,7 @@ async function printEmbedCss(textToDoc, print, path /*, options*/) {
           placeholderID++ +
           "-id" +
           currVal,
-    ""
+    "",
   );
   const quasisDoc = await textToDoc(text, { parser: "scss" });
   const expressionDocs = printTemplateExpressions(path, print);
@@ -75,7 +75,7 @@ function isStyledJsx({ node, parent, grandparent }) {
       grandparent.type === "JSXElement" &&
       grandparent.openingElement.name.name === "style" &&
       grandparent.openingElement.attributes.some(
-        (attribute) => attribute.name.name === "jsx"
+        (attribute) => attribute.name.name === "jsx",
       )) ||
     (parent?.type === "TaggedTemplateExpression" &&
       parent.tag.type === "Identifier" &&

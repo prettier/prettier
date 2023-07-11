@@ -13,7 +13,7 @@ describe("--cache option", () => {
   const dir = resolveDir("cli/cache");
   const defaultCacheFile = path.join(
     dir,
-    "node_modules/.cache/prettier/.prettier-cache"
+    "node_modules/.cache/prettier/.prettier-cache",
   );
 
   const nonDefaultCacheFileName = ".non-default-cache-file";
@@ -65,7 +65,7 @@ describe("--cache option", () => {
       "*.js",
     ]);
     expect(stderr.trim()).toBe(
-      '[error] Invalid --cache-strategy value. Expected "content" or "metadata", but received "invalid".'
+      '[error] Invalid --cache-strategy value. Expected "content" or "metadata", but received "invalid".',
     );
   });
 
@@ -73,7 +73,7 @@ describe("--cache option", () => {
     const { stderr } = await runCliWithoutGitignore(
       dir,
       ["--cache", "--stdin-filepath", "foo.js"],
-      { input: "const a = a;" }
+      { input: "const a = a;" },
     );
     expect(stderr.trim()).toBe("[error] `--cache` cannot be used with stdin.");
   });
@@ -84,10 +84,10 @@ describe("--cache option", () => {
       ["foo.js", "--cache-strategy", "content"],
       {
         input: "const a = a;",
-      }
+      },
     );
     expect(stderr.trim()).toBe(
-      "[error] `--cache-strategy` cannot be used without `--cache`."
+      "[error] `--cache-strategy` cannot be used without `--cache`.",
     );
   });
 
@@ -100,8 +100,8 @@ describe("--cache option", () => {
     ]);
     expect(stderr.trim()).toEqual(
       expect.stringMatching(
-        /\[error] Resolved --cache-location '.+' is a directory/
-      )
+        /\[error] Resolved --cache-location '.+' is a directory/,
+      ),
     );
   });
 
@@ -109,7 +109,7 @@ describe("--cache option", () => {
     it("creates default cache file named `node_modules/.cache/prettier/.prettier-cache`", async () => {
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
         "code",
-        "ENOENT"
+        "ENOENT",
       );
       await runCliWithoutGitignore(dir, [
         "--cache",
@@ -132,7 +132,7 @@ describe("--cache option", () => {
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
 
       const { stdout: secondStdout } = await runCliWithoutGitignore(dir, [
@@ -146,7 +146,7 @@ describe("--cache option", () => {
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(cached\)$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-        ])
+        ]),
       );
     });
 
@@ -160,13 +160,13 @@ describe("--cache option", () => {
       ];
       const { stdout: firstStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
 
       // Update `a.js`
@@ -174,14 +174,14 @@ describe("--cache option", () => {
 
       const { stdout: secondStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-        ])
+        ]),
       );
     });
 
@@ -195,13 +195,13 @@ describe("--cache option", () => {
       ];
       const { stdout: firstStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
 
       // update timestamp
@@ -210,14 +210,14 @@ describe("--cache option", () => {
 
       const { stdout: secondStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-        ])
+        ]),
       );
     });
 
@@ -233,7 +233,7 @@ describe("--cache option", () => {
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
 
       const { stdout: secondStdout } = await runCliWithoutGitignore(dir, [
@@ -249,7 +249,7 @@ describe("--cache option", () => {
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
     });
 
@@ -272,7 +272,7 @@ describe("--cache option", () => {
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-        ])
+        ]),
       );
     });
 
@@ -302,13 +302,13 @@ describe("--cache option", () => {
 
       const { stdout: thirdStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(thirdStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-        ])
+        ]),
       );
     });
 
@@ -324,18 +324,18 @@ describe("--cache option", () => {
           mockWriteFileErrors: {
             "a.js": "EACCES: permission denied.",
           },
-        }
+        },
       );
       expect(firstStatus).toBe(2);
       expect(firstStderr).toBe(
         '[error] Unable to write file "a.js":\n' +
-          "[error] EACCES: permission denied. (mocked error)"
+          "[error] EACCES: permission denied. (mocked error)",
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
 
       const { stdout: secondStdout } = await runCliWithoutGitignore(dir, [
@@ -366,7 +366,7 @@ describe("--cache option", () => {
     it("creates default cache file named `node_modules/.cache/prettier/.prettier-cache`", async () => {
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
         "code",
-        "ENOENT"
+        "ENOENT",
       );
       await runCliWithoutGitignore(dir, [
         "--cache",
@@ -387,24 +387,24 @@ describe("--cache option", () => {
       ];
       const { stdout: firstStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
 
       const { stdout: secondStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(cached\)$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-        ])
+        ]),
       );
     });
 
@@ -418,13 +418,13 @@ describe("--cache option", () => {
       ];
       const { stdout: firstStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
 
       // Update `a.js`
@@ -432,14 +432,14 @@ describe("--cache option", () => {
 
       const { stdout: secondStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-        ])
+        ]),
       );
     });
 
@@ -453,13 +453,13 @@ describe("--cache option", () => {
       ];
       const { stdout: firstStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
 
       // update timestamp
@@ -468,13 +468,13 @@ describe("--cache option", () => {
 
       const { stdout: secondStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(cached\)$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-        ])
+        ]),
       );
     });
 
@@ -490,7 +490,7 @@ describe("--cache option", () => {
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
 
       const { stdout: secondStdout } = await runCliWithoutGitignore(dir, [
@@ -506,7 +506,7 @@ describe("--cache option", () => {
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
     });
 
@@ -529,7 +529,7 @@ describe("--cache option", () => {
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-        ])
+        ]),
       );
     });
 
@@ -559,13 +559,13 @@ describe("--cache option", () => {
 
       const { stdout: thirdStdout } = await runCliWithoutGitignore(
         dir,
-        cliArguments
+        cliArguments,
       );
       expect(thirdStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-        ])
+        ]),
       );
     });
 
@@ -581,18 +581,18 @@ describe("--cache option", () => {
           mockWriteFileErrors: {
             "a.js": "EACCES: permission denied.",
           },
-        }
+        },
       );
       expect(firstStatus).toBe(2);
       expect(firstStderr).toBe(
         '[error] Unable to write file "a.js":\n' +
-          "[error] EACCES: permission denied. (mocked error)"
+          "[error] EACCES: permission denied. (mocked error)",
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
-        ])
+        ]),
       );
 
       const { stdout: secondStdout } = await runCliWithoutGitignore(dir, [
@@ -617,7 +617,7 @@ describe("--cache option", () => {
     it("doesn't create default cache file when `--cache-location` exists", async () => {
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
         "code",
-        "ENOENT"
+        "ENOENT",
       );
       await runCliWithoutGitignore(dir, [
         "--cache",
@@ -627,7 +627,7 @@ describe("--cache option", () => {
       ]);
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
         "code",
-        "ENOENT"
+        "ENOENT",
       );
     });
 
@@ -639,7 +639,7 @@ describe("--cache option", () => {
         "*.js",
       ]);
       expect(stderr.trim()).toEqual(
-        expect.stringMatching(/\[error] '.+' isn't a valid JSON file/)
+        expect.stringMatching(/\[error] '.+' isn't a valid JSON file/),
       );
     });
 
@@ -647,7 +647,7 @@ describe("--cache option", () => {
       it("creates the cache file at location specified by `--cache-location`", async () => {
         await expect(fs.stat(nonDefaultCacheFilePath)).rejects.toHaveProperty(
           "code",
-          "ENOENT"
+          "ENOENT",
         );
         await runCliWithoutGitignore(dir, [
           "--cache",
@@ -656,7 +656,7 @@ describe("--cache option", () => {
           "*.js",
         ]);
         await expect(
-          fs.stat(nonDefaultCacheFilePath)
+          fs.stat(nonDefaultCacheFilePath),
         ).resolves.not.toThrowError();
       });
 
@@ -670,24 +670,24 @@ describe("--cache option", () => {
         ];
         const { stdout: firstStdout } = await runCliWithoutGitignore(
           dir,
-          cliArguments
+          cliArguments,
         );
         expect(firstStdout.split("\n")).toEqual(
           expect.arrayContaining([
             expect.stringMatching(/^a\.js .+ms$/),
             expect.stringMatching(/^b\.js .+ms$/),
-          ])
+          ]),
         );
 
         const { stdout: secondStdout } = await runCliWithoutGitignore(
           dir,
-          cliArguments
+          cliArguments,
         );
         expect(secondStdout.split("\n")).toEqual(
           expect.arrayContaining([
             expect.stringMatching(/^a\.js .+ms \(cached\)$/),
             expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-          ])
+          ]),
         );
       });
     });

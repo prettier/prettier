@@ -6,7 +6,7 @@ function generateSchema(options) {
       optionsDefinition: {
         type: "object",
         properties: Object.fromEntries(
-          options.map((option) => [option.name, optionToSchema(option)])
+          options.map((option) => [option.name, optionToSchema(option)]),
         ),
       },
       overridesDefinition: {
@@ -100,7 +100,7 @@ function optionTypeToSchemaType(optionType) {
       return optionType;
     case "choice":
       throw new Error(
-        "Please use `oneOf` instead of `enum` for better description support."
+        "Please use `oneOf` instead of `enum` for better description support.",
       );
     case "path":
       return "string";

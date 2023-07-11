@@ -38,7 +38,7 @@ async function run() {
     originalStat(
       path.basename(filename) === "virtualDirectory"
         ? import.meta.url
-        : filename
+        : filename,
     );
 
   readline.clearLine = (stream) => {
@@ -49,7 +49,7 @@ async function run() {
           : stream === process.stderr
           ? "process.stderr"
           : "unknown stream"
-      })]]\n`
+      })]]\n`,
     );
   };
 
@@ -80,7 +80,7 @@ async function run() {
       hasOwn(options.mockWriteFileErrors, filename)
     ) {
       throw new Error(
-        options.mockWriteFileErrors[filename] + " (mocked error)"
+        options.mockWriteFileErrors[filename] + " (mocked error)",
       );
     }
 

@@ -152,8 +152,8 @@ function printEstree(path, options, print, args) {
 
       parts.push(
         group(
-          indent([softline, printBindExpressionCallee(path, options, print)])
-        )
+          indent([softline, printBindExpressionCallee(path, options, print)]),
+        ),
       );
 
       return parts;
@@ -201,13 +201,13 @@ function printEstree(path, options, print, args) {
           // avoid printing `await (await` on one line
           const parentAwaitOrBlock = path.findAncestor(
             (node) =>
-              node.type === "AwaitExpression" || node.type === "BlockStatement"
+              node.type === "AwaitExpression" || node.type === "BlockStatement",
           );
           if (
             parentAwaitOrBlock?.type !== "AwaitExpression" ||
             !startsWithNoLookaheadToken(
               parentAwaitOrBlock.argument,
-              (leftmostNode) => leftmostNode === node
+              (leftmostNode) => leftmostNode === node,
             )
           ) {
             return group(parts);
@@ -303,7 +303,7 @@ function printEstree(path, options, print, args) {
 
       if (hasComment(node.argument)) {
         parts.push(
-          group(["(", indent([softline, print("argument")]), softline, ")"])
+          group(["(", indent([softline, print("argument")]), softline, ")"]),
         );
       } else {
         parts.push(print("argument"));
@@ -353,7 +353,7 @@ function printEstree(path, options, print, args) {
               ",",
               hasValue && !isParentForLoop ? hardline : line,
               p,
-            ])
+            ]),
         ),
       ];
 
@@ -385,7 +385,7 @@ function printEstree(path, options, print, args) {
         const commentOnOwnLine =
           hasComment(
             node.consequent,
-            CommentCheckFlags.Trailing | CommentCheckFlags.Line
+            CommentCheckFlags.Trailing | CommentCheckFlags.Line,
           ) || needsHardlineAfterDanglingComment(node);
         const elseOnSameLine =
           node.consequent.type === "BlockStatement" && !commentOnOwnLine;
@@ -394,7 +394,7 @@ function printEstree(path, options, print, args) {
         if (hasComment(node, CommentCheckFlags.Dangling)) {
           parts.push(
             printDanglingComments(path, options),
-            commentOnOwnLine ? hardline : " "
+            commentOnOwnLine ? hardline : " ",
           );
         }
 
@@ -404,9 +404,9 @@ function printEstree(path, options, print, args) {
             adjustClause(
               node.alternate,
               print("alternate"),
-              node.alternate.type === "IfStatement"
-            )
-          )
+              node.alternate.type === "IfStatement",
+            ),
+          ),
         );
       }
 
@@ -490,7 +490,7 @@ function printEstree(path, options, print, args) {
         "while (",
         group([indent([softline, print("test")]), softline]),
         ")",
-        semi
+        semi,
       );
 
       return parts;
@@ -532,7 +532,7 @@ function printEstree(path, options, print, args) {
             (comment.trailing &&
               hasNewline(options.originalText, locStart(comment), {
                 backwards: true,
-              }))
+              })),
         );
         const param = print("param");
 
@@ -566,8 +566,8 @@ function printEstree(path, options, print, args) {
                     print(),
                     !isLast && isNextLineEmpty(node, options) ? hardline : "",
                   ],
-                  "cases"
-                )
+                  "cases",
+                ),
               ),
             ])
           : "",
@@ -586,7 +586,7 @@ function printEstree(path, options, print, args) {
       }
 
       const consequent = node.consequent.filter(
-        (node) => node.type !== "EmptyStatement"
+        (node) => node.type !== "EmptyStatement",
       );
 
       if (consequent.length > 0) {
@@ -595,7 +595,7 @@ function printEstree(path, options, print, args) {
         parts.push(
           consequent.length === 1 && consequent[0].type === "BlockStatement"
             ? [" ", cons]
-            : indent([hardline, cons])
+            : indent([hardline, cons]),
         );
       }
 

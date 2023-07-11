@@ -65,7 +65,7 @@ function printArray(path, options, print) {
   const elements = node[elementsProperty];
   if (elements.length === 0) {
     parts.push(
-      printEmptyArrayElements(path, options, openBracket, closeBracket)
+      printEmptyArrayElements(path, options, openBracket, closeBracket),
     );
   } else {
     const lastElem = elements.at(-1);
@@ -138,14 +138,14 @@ function printArray(path, options, print) {
           softline,
           closeBracket,
         ],
-        { shouldBreak, id: groupId }
-      )
+        { shouldBreak, id: groupId },
+      ),
     );
   }
 
   parts.push(
     printOptionalToken(path),
-    printTypeAnnotationProperty(path, print)
+    printTypeAnnotationProperty(path, print),
   );
 
   return parts;
@@ -166,8 +166,8 @@ function isConciselyPrintedArray(node, options) {
           (comment) =>
             !hasNewline(options.originalText, locStart(comment), {
               backwards: true,
-            })
-        )
+            }),
+        ),
     )
   );
 }
@@ -214,7 +214,7 @@ function printArrayElementsConcisely(path, options, print, trailingComma) {
           ? [hardline, hardline]
           : hasComment(next, CommentCheckFlags.Leading | CommentCheckFlags.Line)
           ? hardline
-          : line
+          : line,
       );
     }
   }, "elements");

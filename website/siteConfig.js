@@ -83,7 +83,7 @@ const siteConfig = {
             return true;
           }
           return false;
-        }
+        },
       );
     },
   ],

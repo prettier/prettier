@@ -50,12 +50,7 @@ async function buildPrettier() {
 }
 
 async function buildPlaygroundFiles() {
-  const patterns = [
-    "standalone.js",
-    "plugins/*.js",
-    // TODO: Remove this after we release v3
-    "parser-*.js",
-  ];
+  const patterns = ["standalone.js", "plugins/*.js"];
 
   const files = await fastGlob(patterns, {
     cwd: PRETTIER_DIR,
@@ -91,8 +86,8 @@ async function buildPlaygroundFiles() {
 
         const prettierPackageManifest = ${JSON.stringify(packageManifest)};
       `,
-      { parser: "meriyah" }
-    )
+      { parser: "meriyah" },
+    ),
   );
 }
 

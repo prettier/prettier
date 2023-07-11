@@ -84,11 +84,11 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         text
           .replace(
             "const line = (0, _detectNewline().default)(docblock) ?? _os().EOL;",
-            'const line = "\\n"'
+            'const line = "\\n"',
           )
           .replace(
             "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
-            'const line = "\\n"'
+            'const line = "\\n"',
           )
           .replace(/\nfunction _os\(\).*?\n}/s, "")
           .replace(/\nfunction _detectNewline\(\).*?\n}/s, ""),
@@ -134,7 +134,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         .filter(
           (bundle) =>
             bundle.input === "package.json" ||
-            (file.input !== bundle.input && bundle.output.format === "esm")
+            (file.input !== bundle.input && bundle.output.format === "esm"),
         )
         .map((bundle) => {
           let output = bundle.output.file;
@@ -149,7 +149,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
             module: path.join(PROJECT_ROOT, bundle.input),
             external: getRelativePath(file.output.file, output),
           };
-        })
+        }),
     );
   } else {
     replaceModule.push(
@@ -165,7 +165,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         module: "*",
         find: ' from "node:assert";',
         replacement: ` from ${JSON.stringify(
-          path.join(dirname, "./shims/assert.js")
+          path.join(dirname, "./shims/assert.js"),
         )};`,
       },
       // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
@@ -182,7 +182,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       {
         module: path.join(PROJECT_ROOT, "src/utils/get-interpreter.js"),
         text: "export default undefined;",
-      }
+      },
     );
   }
 
@@ -240,7 +240,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       esbuildOptions.plugins.push(
         esbuildPluginUmd({
           name: file.output.umdVariableName,
-        })
+        }),
       );
     }
   } else {

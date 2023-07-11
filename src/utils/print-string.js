@@ -31,7 +31,7 @@ function printString(raw, options) {
       options.parser === "less" ||
       options.parser === "scss" ||
       options.__embeddedInHtml
-    )
+    ),
   );
 }
 

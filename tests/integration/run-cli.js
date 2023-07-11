@@ -4,7 +4,7 @@ import { Worker } from "node:worker_threads";
 
 const CLI_WORKER_FILE = new URL("./cli-worker.js", import.meta.url);
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
-  new URL("./", import.meta.url)
+  new URL("./", import.meta.url),
 );
 
 const streamToString = (stream) =>
@@ -137,7 +137,7 @@ function runCli(dir, args = [], options = {}) {
         if (name === "stdout" || name === "stderr") {
           value = result[name].replace(
             /\r/g,
-            options.ignoreLineEndings ? "" : "/*CR*/"
+            options.ignoreLineEndings ? "" : "/*CR*/",
           );
         }
 

@@ -496,7 +496,7 @@ function hasLeadingOwnLineComment(text, node) {
   }
 
   return hasComment(node, CommentCheckFlags.Leading, (comment) =>
-    hasNewline(text, locEnd(comment))
+    hasNewline(text, locEnd(comment)),
   );
 }
 
@@ -584,7 +584,7 @@ function needsHardlineAfterDanglingComment(node) {
     return false;
   }
   const lastDanglingComment = getComments(node, CommentCheckFlags.Dangling).at(
-    -1
+    -1,
   );
   return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
@@ -681,7 +681,8 @@ function isSimpleCallArgument(node, depth = 2) {
 
   if (isObjectOrRecordExpression(node)) {
     return node.properties.every(
-      (p) => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
+      (p) =>
+        !p.computed && (p.shorthand || (p.value && isChildSimple(p.value))),
     );
   }
 
@@ -875,8 +876,8 @@ const PRECEDENCE = new Map(
     ["*", "/", "%"],
     ["**"],
   ].flatMap((operators, index) =>
-    operators.map((operator) => [operator, index])
-  )
+    operators.map((operator) => [operator, index]),
+  ),
 );
 function getPrecedence(operator) {
   return PRECEDENCE.get(operator);
@@ -1097,7 +1098,7 @@ function isObjectProperty(node) {
  * This is used as a marker for dangling comments.
  */
 const markerForIfWithoutBlockAndSameLineComment = Symbol(
-  "ifWithoutBlockAndSameLineComment"
+  "ifWithoutBlockAndSameLineComment",
 );
 
 const isTSTypeExpression = createTypeCheckFunction([

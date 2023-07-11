@@ -69,13 +69,13 @@ function parseWithOptions(text, sourceType) {
 function parse(text, options = {}) {
   const sourceType = getSourceType(options);
   const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () => parseWithOptions(text, sourceType)
+    (sourceType) => () => parseWithOptions(text, sourceType),
   );
 
   let ast;
   try {
     ast = tryCombinations(combinations);
-  } catch ({ errors: [error] }) {
+  } catch (/** @type {any} */ { errors: [error] }) {
     throw createParseError(error);
   }
 

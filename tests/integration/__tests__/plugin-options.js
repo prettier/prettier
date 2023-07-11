@@ -23,7 +23,7 @@ describe("include plugin's parsers to the values of the `parser` option`", () =>
   runCli("plugins/options", ["--plugin=./plugin.cjs", "--help", "parser"]).test(
     {
       status: 0,
-    }
+    },
   );
 });
 
@@ -37,7 +37,7 @@ describe("external options from CLI should work", () => {
       "--foo-option",
       "baz",
     ],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "foo:baz",
     stderr: "",
@@ -50,7 +50,7 @@ describe("external options from config file should work", () => {
   runCli(
     "plugins/options",
     ["--config=./config.json", "--stdin-filepath", "example.foo"],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "foo:baz",
     stderr: "",

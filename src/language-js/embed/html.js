@@ -26,7 +26,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     .map((quasi, index, quasis) =>
       index === quasis.length - 1
         ? quasi.value.cooked
-        : quasi.value.cooked + composePlaceholder(index)
+        : quasi.value.cooked + composePlaceholder(index),
     )
     .join("");
 
@@ -92,7 +92,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
       topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
       trailingWhitespace,
       "`",
-    ])
+    ]),
   );
 }
 
@@ -109,7 +109,7 @@ function isHtml(path) {
         node.type === "TaggedTemplateExpression" &&
         node.tag.type === "Identifier" &&
         node.tag.name === "html" &&
-        name === "quasi"
+        name === "quasi",
     )
   );
 }

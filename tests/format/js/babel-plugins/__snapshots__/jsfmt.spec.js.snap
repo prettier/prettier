@@ -2405,13 +2405,6 @@ const tuple1 = #[1, 2, 3];
 ================================================================================
 `;
 
-exports[`regex-v-flag.js [espree] format 1`] = `
-"Invalid regular expression flag (1:2)
-> 1 | /a/v;
-    |  ^
-  2 |"
-`;
-
 exports[`regex-v-flag.js [meriyah] format 1`] = `
 "Unexpected regular expression flag (1:3)
 > 1 | /a/v;

@@ -59,8 +59,8 @@ function printObject(path, options, print) {
         printed: print(),
         loc: locStart(node),
       }),
-      field
-    )
+      field,
+    ),
   );
 
   if (fields.length > 1) {
@@ -91,14 +91,14 @@ function printObject(path, options, print) {
         (property) =>
           property.value &&
           (property.value.type === "ObjectPattern" ||
-            property.value.type === "ArrayPattern")
+            property.value.type === "ArrayPattern"),
       )) ||
     (node.type !== "ObjectPattern" &&
       propsAndLoc.length > 0 &&
       hasNewlineInRange(
         options.originalText,
         locStart(node),
-        propsAndLoc[0].loc
+        propsAndLoc[0].loc,
       ));
 
   const separator = isFlowInterfaceLikeBody
@@ -188,7 +188,7 @@ function printObject(path, options, print) {
         canHaveTrailingSeparator &&
           (separator !== "," || shouldPrintComma(options))
           ? separator
-          : ""
+          : "",
       ),
       options.bracketSpacing ? line : softline,
       rightBrace,
@@ -204,20 +204,20 @@ function printObject(path, options, print) {
     path.match(
       (node) =>
         node.type === "ObjectPattern" && !isNonEmptyArray(node.decorators),
-      shouldHugTheOnlyParameter
+      shouldHugTheOnlyParameter,
     ) ||
     (isObjectType(node) &&
       (path.match(
         undefined,
         (node, name) => name === "typeAnnotation",
         (node, name) => name === "typeAnnotation",
-        shouldHugTheOnlyParameter
+        shouldHugTheOnlyParameter,
       ) ||
         path.match(
           undefined,
           (node, name) =>
             node.type === "FunctionTypeParam" && name === "typeAnnotation",
-          shouldHugTheOnlyParameter
+          shouldHugTheOnlyParameter,
         ))) ||
     // Assignment printing logic (printAssignment) is responsible
     // for adding a group if needed
@@ -226,7 +226,7 @@ function printObject(path, options, print) {
         (node) => node.type === "ObjectPattern",
         (node) =>
           node.type === "AssignmentExpression" ||
-          node.type === "VariableDeclarator"
+          node.type === "VariableDeclarator",
       ))
   ) {
     return content;

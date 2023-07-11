@@ -19,7 +19,7 @@ import { isIgnored } from "../utils/ignore.js";
 async function getFileInfo(filePath, options) {
   if (typeof filePath !== "string") {
     throw new TypeError(
-      `expect \`filePath\` to be a string, got \`${typeof filePath}\``
+      `expect \`filePath\` to be a string, got \`${typeof filePath}\``,
     );
   }
 

@@ -25,6 +25,12 @@ Check out the [prettier-emacs](https://github.com/prettier/prettier-emacs) repo,
 
 For more details see [the Vim setup guide](vim.md).
 
+## Helix
+
+A formatter can be specified in your [Helix language configuration](https://docs.helix-editor.com/languages.html#language-configuration), which will take precedence over any language servers.
+
+For more details see the [Helix external binary formatter configuration for Prettier](https://github.com/helix-editor/helix/wiki/External-binary-formatter-configuration#prettier).
+
 ## Sublime Text
 
 Sublime Text support is available through Package Control and the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.

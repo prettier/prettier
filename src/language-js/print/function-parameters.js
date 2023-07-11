@@ -36,7 +36,7 @@ function printFunctionParameters(
   print,
   options,
   expandArg,
-  printTypeParams
+  printTypeParams,
 ) {
   const functionNode = path.node;
   const parameters = getFunctionParameters(functionNode);
@@ -52,7 +52,7 @@ function printFunctionParameters(
         filter: (comment) =>
           getNextNonSpaceNonCommentCharacter(
             options.originalText,
-            locEnd(comment)
+            locEnd(comment),
           ) === ")",
       }),
       ")",
@@ -151,7 +151,7 @@ function printFunctionParameters(
     ifBreak(
       !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
         ? ","
-        : ""
+        : "",
     ),
     softline,
     ")",
@@ -278,7 +278,7 @@ function isDecoratedFunction(path) {
         node.left.property.name === "exports"),
     (node) =>
       node.type !== "VariableDeclaration" ||
-      (node.kind === "const" && node.declarations.length === 1)
+      (node.kind === "const" && node.declarations.length === 1),
   );
 }
 

@@ -30,7 +30,7 @@ function printSrcsetValue(value) {
   const maxUrlLength = Math.max(...urls.map((url) => url.length));
 
   const descriptors = srcset.map((src) =>
-    src[key] ? String(src[key].value) : ""
+    src[key] ? String(src[key].value) : "",
   );
   const descriptorLeftLengths = descriptors.map((descriptor) => {
     const index = descriptor.indexOf(".");
@@ -55,8 +55,8 @@ function printSrcsetValue(value) {
         }
 
         return parts;
-      })
-    )
+      }),
+    ),
   );
 }
 

@@ -54,5 +54,5 @@ run_spec(
   ["babel", "flow", "typescript"],
   {
     semi: false,
-  }
+  },
 );

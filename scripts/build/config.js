@@ -21,7 +21,7 @@ const resolveEsmModulePath = async (specifier) =>
 const copyFileBuilder = ({ file }) =>
   copyFile(
     path.join(PROJECT_ROOT, file.input),
-    path.join(DIST_DIR, file.output.file)
+    path.join(DIST_DIR, file.output.file),
   );
 
 function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
@@ -97,7 +97,7 @@ const pluginFiles = [
         process: (text) =>
           text.replaceAll(
             "const entity = entities[desc];",
-            "const entity = undefined"
+            "const entity = undefined",
           ),
       },
     ],
@@ -109,7 +109,7 @@ const pluginFiles = [
         module: require.resolve("flow-parser"),
         process(text) {
           const { fsModuleNameVariableName } = text.match(
-            /,(?<fsModuleNameVariableName>\w+)="fs",/
+            /,(?<fsModuleNameVariableName>\w+)="fs",/,
           ).groups;
 
           return text
@@ -129,15 +129,15 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/index.js"
+          "@typescript-eslint/typescript-estree/dist/index.js",
         ),
         path: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parser.js"
+          "@typescript-eslint/typescript-estree/dist/parser.js",
         ),
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parser.js"
+          "@typescript-eslint/typescript-estree/dist/parser.js",
         ),
         process(text) {
           text = text
@@ -150,69 +150,69 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js"
+          "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js",
         ),
         process(text) {
           return text
             .replace('require("./resolveProjectList")', "{}")
             .replace(
               'require("../create-program/shared")',
-              "{ensureAbsolutePath: path => path}"
+              "{ensureAbsolutePath: path => path}",
             )
             .replace(
               "process.cwd()",
-              JSON.stringify("/prettier-security-dirname-placeholder")
+              JSON.stringify("/prettier-security-dirname-placeholder"),
             )
             .replace(
               "parseSettings.projects = ",
-              "parseSettings.projects = [] || "
+              "parseSettings.projects = [] || ",
             );
         },
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js"
+          "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js",
         ),
         text: "exports.inferSingleRun = () => false;",
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/ExpiringCache.js"
+          "@typescript-eslint/typescript-estree/dist/parseSettings/ExpiringCache.js",
         ),
         text: "exports.ExpiringCache = class {};",
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/getProjectConfigFiles.js"
+          "@typescript-eslint/typescript-estree/dist/parseSettings/getProjectConfigFiles.js",
         ),
         text: "exports.resolveProjectList = () => [];",
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js"
+          "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js",
         ),
         text: "exports.warnAboutTSVersion = () => {};",
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js"
+          "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js",
         ),
         process: (text) =>
           text.replace(
             'require("path")',
-            '{extname: file => "." + file.split(".").pop()}'
+            '{extname: file => "." + file.split(".").pop()}',
           ),
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/version-check.js"
+          "@typescript-eslint/typescript-estree/dist/version-check.js",
         ),
         text: "exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
       },
       // Only needed if `range`/`loc` in parse options is `false`
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/ast-converter.js"
+          "@typescript-eslint/typescript-estree/dist/ast-converter.js",
         ),
         process: (text) => text.replace('require("./simple-traverse")', "{}"),
       },
@@ -231,11 +231,11 @@ const pluginFiles = [
           text
             .replaceAll(
               /exports\.(?:Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions|tokenize|version) = .*?;/g,
-              ""
+              "",
             )
             .replaceAll(
               /const (Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions) = /g,
-              "const $1 = undefined && "
+              "const $1 = undefined && ",
             )
             .replace("require('eslint-visitor-keys')", "{}"),
       },
@@ -313,11 +313,11 @@ const pluginFiles = [
             .replace("require('util')", "{}")
             .replace(
               "let message = util.format('Unclosed %s at line: %d, column: %d, token: %d', what, line, pos - offset, pos);",
-              "let message = `Unclosed ${what} at line: ${line}, column: ${pos - offset}, token: ${pos}`;"
+              "let message = `Unclosed ${what} at line: ${line}, column: ${pos - offset}, token: ${pos}`;",
             )
             .replace(
               "let message = util.format('Syntax error at line: %d, column: %d, token: %d', line, pos - offset, pos);",
-              "let message = `Syntax error at line: ${line}, column: ${pos - offset}, token: ${pos}`;"
+              "let message = `Syntax error at line: ${line}, column: ${pos - offset}, token: ${pos}`;",
             ),
       },
     ],
@@ -338,16 +338,16 @@ const pluginFiles = [
       // See comment in `src/language-handlebars/parser-glimmer.js` file
       {
         module: getPackageFile(
-          "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js"
+          "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js",
         ),
         path: getPackageFile(
-          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
+          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js",
         ),
       },
       // This passed to plugins, our plugin don't need access to the options
       {
         module: getPackageFile(
-          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
+          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js",
         ),
         process: (text) =>
           text.replace(/\nconst syntax = \{.*?\n\};/su, "\nconst syntax = {};"),
@@ -453,7 +453,7 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
       })),
       getTypesFileConfig({ input, outputBaseName, isPlugin }),
     ];
-  }
+  },
 );
 
 const nodejsFiles = [
@@ -472,7 +472,7 @@ const nodejsFiles = [
         replacement: `
           var semver = {
             gte: require(${JSON.stringify(
-              require.resolve("semver/functions/gte")
+              require.resolve("semver/functions/gte"),
             )})
           };
         `,

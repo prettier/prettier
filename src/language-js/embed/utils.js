@@ -38,7 +38,7 @@ function isAngularComponentStyles(path) {
       node.key.type === "Identifier" &&
       node.key.name === "styles" &&
       name === "value",
-    ...angularComponentObjectExpressionPredicates
+    ...angularComponentObjectExpressionPredicates,
   );
 }
 function isAngularComponentTemplate(path) {
@@ -49,7 +49,7 @@ function isAngularComponentTemplate(path) {
       node.key.type === "Identifier" &&
       node.key.name === "template" &&
       name === "value",
-    ...angularComponentObjectExpressionPredicates
+    ...angularComponentObjectExpressionPredicates,
   );
 }
 
@@ -62,7 +62,7 @@ function hasLanguageComment(node, languageName) {
   return hasComment(
     node,
     CommentCheckFlags.Block | CommentCheckFlags.Leading,
-    ({ value }) => value === ` ${languageName} `
+    ({ value }) => value === ` ${languageName} `,
   );
 }
 

@@ -248,7 +248,7 @@ function printTypescript(path, options, print) {
         node.computed ? "[" : "",
         print("key"),
         node.computed ? "]" : "",
-        printOptionalToken(path)
+        printOptionalToken(path),
       );
 
       const parametersDoc = printFunctionParameters(
@@ -256,7 +256,7 @@ function printTypescript(path, options, print) {
         print,
         options,
         /* expandArg */ false,
-        /* printTypeParams */ true
+        /* printTypeParams */ true,
       );
 
       const returnTypePropertyName = node.returnType
@@ -268,7 +268,7 @@ function printTypescript(path, options, print) {
         : "";
       const shouldGroupParameters = shouldGroupFunctionParameters(
         node,
-        returnTypeDoc
+        returnTypeDoc,
       );
 
       parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
@@ -323,7 +323,7 @@ function printTypescript(path, options, print) {
             // TODO: Use `node.kind` when babel update AST
             (isStringLiteral(node.id) ||
             /(?:^|\s)module(?:\s|$)/.test(
-              options.originalText.slice(locStart(node), locStart(node.id))
+              options.originalText.slice(locStart(node), locStart(node.id)),
             )
               ? "module"
               : "namespace");

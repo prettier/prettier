@@ -9,8 +9,8 @@ const getCssStyleTags = (property) =>
           .split(",")
           .map((selector) => selector.trim())
           .filter((selector) => /^[\dA-Za-z]+$/.test(selector))
-          .map((tagName) => [tagName, htmlStyle.style[property]])
-      )
+          .map((tagName) => [tagName, htmlStyle.style[property]]),
+      ),
   );
 
 const CSS_DISPLAY_TAGS = {

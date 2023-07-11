@@ -79,7 +79,7 @@ function printCallArguments(path, options, print) {
   function allArgsBrokenOut() {
     return group(
       ["(", indent([line, ...printedArguments]), maybeTrailingComma, line, ")"],
-      { shouldBreak: true }
+      { shouldBreak: true },
     );
   }
 

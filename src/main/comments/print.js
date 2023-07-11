@@ -51,7 +51,7 @@ function printLeadingComment(path, options) {
 
   const index = skipNewline(
     originalText,
-    skipSpaces(originalText, locEnd(comment))
+    skipSpaces(originalText, locEnd(comment)),
   );
 
   if (index !== false && hasNewline(originalText, index)) {
@@ -86,7 +86,7 @@ function printTrailingComment(path, options, previousComment) {
 
     const isLineBeforeEmpty = isPreviousLineEmpty(
       originalText,
-      locStart(comment)
+      locStart(comment),
     );
 
     return {
@@ -119,7 +119,7 @@ function printTrailingComment(path, options, previousComment) {
 function printDanglingComments(
   path,
   options,
-  danglingCommentsPrintOptions = {}
+  danglingCommentsPrintOptions = {},
 ) {
   const { node } = path;
 
@@ -163,7 +163,7 @@ function printCommentsSeparately(path, options) {
 
   const ignored = options[Symbol.for("printedComments")];
   const comments = (value.comments || []).filter(
-    (comment) => !ignored.has(comment)
+    (comment) => !ignored.has(comment),
   );
 
   if (comments.length === 0) {
@@ -186,7 +186,7 @@ function printCommentsSeparately(path, options) {
       printedTrailingComment = printTrailingComment(
         path,
         options,
-        printedTrailingComment
+        printedTrailingComment,
       );
       trailingParts.push(printedTrailingComment.doc);
     }
@@ -214,7 +214,7 @@ function ensureAllCommentsPrinted(options) {
       throw new Error(
         'Comment "' +
           comment.value.trim() +
-          '" was not printed. Please report this error!'
+          '" was not printed. Please report this error!',
       );
     }
     delete comment.printed;

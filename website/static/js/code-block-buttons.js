@@ -42,7 +42,7 @@
           copyButton.setAttribute("aria-label", ARIA_LABEL);
           copyButton.disabled = false;
         }, 2000);
-      }
+      },
     );
 
     actionsContainer.appendChild(copyButton);

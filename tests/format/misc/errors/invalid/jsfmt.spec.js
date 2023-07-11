@@ -18,7 +18,7 @@ run_spec(
     "acorn",
     "espree",
     "meriyah",
-  ]
+  ],
 );
 
 run_spec(
@@ -41,5 +41,5 @@ run_spec(
     // https://github.com/eslint/espree/issues/470
     // "espree",
     "meriyah",
-  ]
+  ],
 );

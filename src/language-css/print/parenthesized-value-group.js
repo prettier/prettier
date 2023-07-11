@@ -29,7 +29,7 @@ function hasComma({ node, parent }, options) {
       options.originalText
         .slice(locStart(node), locStart(parent.close))
         .trimEnd()
-        .endsWith(",")
+        .endsWith(","),
   );
 }
 
@@ -53,7 +53,7 @@ function printParenthesizedValueGroup(path, options, print) {
   const { node, parent } = path;
   const groupDocs = path.map(
     ({ node }) => (typeof node === "string" ? node : print()),
-    "groups"
+    "groups",
   );
 
   if (
@@ -131,7 +131,7 @@ function printParenthesizedValueGroup(path, options, print) {
     ],
     {
       shouldBreak,
-    }
+    },
   );
 
   return shouldDedent ? dedent(doc) : doc;
@@ -148,7 +148,7 @@ function shouldBreakList(path) {
     (node, key) =>
       key === "value" &&
       ((node.type === "css-decl" && !node.prop.startsWith("--")) ||
-        (node.type === "css-atrule" && node.variable))
+        (node.type === "css-atrule" && node.variable)),
   );
 }
 

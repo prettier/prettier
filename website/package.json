@@ -8,21 +8,21 @@
   },
   "dependencies": {
     "clipboard": "2.0.11",
-    "codemirror-graphql": "2.0.8",
+    "codemirror-graphql": "2.0.9",
     "lz-string": "1.5.0",
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.22.5",
-    "@babel/preset-env": "7.22.5",
+    "@babel/core": "7.22.8",
+    "@babel/preset-env": "7.22.7",
     "@sandhose/prettier-animated-logo": "1.0.3",
-    "babel-loader": "9.1.2",
+    "babel-loader": "9.1.3",
     "concurrently": "8.2.0",
     "docusaurus": "1.14.7",
     "js-yaml": "4.1.0",
-    "webpack": "5.85.0",
+    "webpack": "5.88.1",
     "webpack-cli": "5.1.4"
   }
 }

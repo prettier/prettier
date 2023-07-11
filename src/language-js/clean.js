@@ -125,7 +125,7 @@ function clean(ast, newObj, parent) {
   ) {
     newObj.value.value = newObj.value.value.replaceAll(
       /["']|&quot;|&apos;/g,
-      '"'
+      '"',
     );
   }
 
@@ -182,8 +182,8 @@ function clean(ast, newObj, parent) {
       (comment) =>
         isBlockComment(comment) &&
         ["GraphQL", "HTML"].some(
-          (languageName) => comment.value === ` ${languageName} `
-        )
+          (languageName) => comment.value === ` ${languageName} `,
+        ),
     );
     if (
       hasLanguageComment ||

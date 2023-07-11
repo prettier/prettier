@@ -9,8 +9,8 @@ function isVueSfcWithTypescriptScript(path, options) {
       root.children.some(
         (child) =>
           isVueScriptTag(child, options) &&
-          ["ts", "typescript"].includes(child.attrMap.lang)
-      )
+          ["ts", "typescript"].includes(child.attrMap.lang),
+      ),
     );
   }
 

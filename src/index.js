@@ -33,7 +33,7 @@ import omit from "./utils/object-omit.js";
  */
 function withPlugins(
   fn,
-  optionsArgumentIndex = 1 // Usually `options` is the 2nd argument
+  optionsArgumentIndex = 1, // Usually `options` is the 2nd argument
 ) {
   return async (...args) => {
     const options = args[optionsArgumentIndex] ?? {};

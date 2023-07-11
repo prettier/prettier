@@ -55,7 +55,7 @@ This should be used as **last resort** as it triggers an exponential complexity 
 ```ts
 declare function conditionalGroup(
   alternatives: Doc[],
-  options?: GroupOptions
+  options?: GroupOptions,
 ): Doc;
 ```
 
@@ -85,7 +85,7 @@ Expects the `docs` argument to be an array of alternating content and line break
 declare function ifBreak(
   breakContents: Doc,
   flatContents?: Doc,
-  options?: { groupId?: symbol }
+  options?: { groupId?: symbol },
 ): Doc;
 ```
 
@@ -261,7 +261,7 @@ _Added in v2.3.0_
 ```ts
 declare function indentIfBreak(
   doc: Doc,
-  opts: { groupId: symbol; negate?: boolean }
+  opts: { groupId: symbol; negate?: boolean },
 ): Doc;
 ```
 

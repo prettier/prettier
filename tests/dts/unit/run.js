@@ -8,7 +8,7 @@ import { default as ts } from "typescript";
 describe("Unit tests for dts files", () => {
   test("no errors", () => {
     const testCasesDirPath = url.fileURLToPath(
-      new URL("cases", import.meta.url)
+      new URL("cases", import.meta.url),
     );
     const testCaseFiles = fs
       .readdirSync(testCasesDirPath)

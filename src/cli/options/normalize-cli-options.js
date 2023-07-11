@@ -34,7 +34,7 @@ class FlagSchema extends vnopts.ChoiceSchema {
           [
             `Unknown flag ${chalk.yellow(utils.descriptor.value(value))},`,
             `did you mean ${chalk.blue(utils.descriptor.value(suggestion))}?`,
-          ].join(" ")
+          ].join(" "),
         );
         return suggestion;
       }

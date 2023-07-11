@@ -32,7 +32,7 @@ module.exports = {
           JSON.stringify({
             ...ast,
             print: ast.print?.replace(/\s+/g, " ") ?? "",
-          })
+          }),
         );
       },
       massageAstNode() {
