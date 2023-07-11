@@ -69,6 +69,7 @@ function parse(text, options) {
       ),
     );
   } catch ({
+    // @ts-expect-error -- expected
     errors: [
       // Suppose our guess is correct, throw the first error
       error,
