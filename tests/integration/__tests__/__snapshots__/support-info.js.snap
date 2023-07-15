@@ -470,6 +470,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".yyp"
       ],
       "filenames": [
+        ".all-contributorsrc",
         ".arcconfig",
         ".auto-changelog",
         ".c8rc",
@@ -481,6 +482,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".watchmanconfig",
         "Pipfile.lock",
         "composer.lock",
+        "flake.lock",
         "mcmod.info"
       ],
       "linguistLanguageId": 174,
@@ -520,14 +522,14 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".jscsrc",
         ".jshintrc",
         ".jslintrc",
+        ".swcrc",
         "api-extractor.json",
         "devcontainer.json",
         "jsconfig.json",
         "language-configuration.json",
         "tsconfig.json",
         "tslint.json",
-        ".eslintrc",
-        ".swcrc"
+        ".eslintrc"
       ],
       "group": "JSON",
       "linguistLanguageId": 423,
@@ -617,7 +619,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       "aceMode": "markdown",
-      "aliases": ["pandoc"],
+      "aliases": ["md", "pandoc"],
       "codemirrorMimeType": "text/x-gfm",
       "codemirrorMode": "gfm",
       "color": "#083fa1",
@@ -638,14 +640,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       "linguistLanguageId": 222,
       "name": "Markdown",
       "parsers": ["markdown"],
-      "tmScope": "source.gfm",
+      "tmScope": "text.md",
       "type": "prose",
       "vscodeLanguageIds": ["markdown"],
       "wrap": true
     },
     {
       "aceMode": "markdown",
-      "aliases": ["pandoc"],
+      "aliases": ["md", "pandoc"],
       "codemirrorMimeType": "text/x-gfm",
       "codemirrorMode": "gfm",
       "color": "#083fa1",
@@ -654,7 +656,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "linguistLanguageId": 222,
       "name": "MDX",
       "parsers": ["mdx"],
-      "tmScope": "source.gfm",
+      "tmScope": "text.md",
       "type": "prose",
       "vscodeLanguageIds": ["mdx"],
       "wrap": true
