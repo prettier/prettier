@@ -6994,7 +6994,7 @@ __metadata:
     postcss-selector-parser: 2.2.3
     postcss-values-parser: 2.0.1
     prettier: 3.0.0
-    pretty-bytes: 6.1.0
+    pretty-bytes: 6.1.1
     regexp-util: 2.0.0
     remark-footnotes: 2.0.0
     remark-math: 3.0.1
@@ -7019,10 +7019,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"pretty-bytes@npm:6.1.0":
-  version: 6.1.0
-  resolution: "pretty-bytes@npm:6.1.0"
-  checksum: cca3be45a299a28d1d3d95056ac709b8aeb01540aae7d906ed674c076b5f4b48cb6bf118f172d486c17e47b092a00e827b7f69608bc731ca35ca6f8d93e130f1
+"pretty-bytes@npm:6.1.1":
+  version: 6.1.1
+  resolution: "pretty-bytes@npm:6.1.1"
+  checksum: 43d29d909d2d88072da2c3d72f8fd0f2d2523c516bfa640aff6e31f596ea1004b6601f4cabc50d14b2cf10e82635ebe5b7d9378f3d5bae1c0067131829421b8a
   languageName: node
   linkType: hard
 
