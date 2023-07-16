@@ -5439,10 +5439,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-snapshot-serializer-raw@npm:1.2.0":
-  version: 1.2.0
-  resolution: "jest-snapshot-serializer-raw@npm:1.2.0"
-  checksum: e100fb820a29f688da03169313bb83106eb9c00b31713ab3b0d26f9fb00d58e4f4ca9747b560fd3a5cbe1e9833be2523f26afed41e6278013561cda797bbda71
+"jest-snapshot-serializer-raw@npm:2.0.0":
+  version: 2.0.0
+  resolution: "jest-snapshot-serializer-raw@npm:2.0.0"
+  checksum: cc652c1ea1ac6125f9b533f44184b7c87e3f7cad88d99254ec98c09b837fd7c4677c143bcdbff214539462685eca39552577f660d649cf46fb5aa7de41c28949
   languageName: node
   linkType: hard
 
@@ -6971,7 +6971,7 @@ __metadata:
     jest-docblock: 29.4.3
     jest-light-runner: 0.5.0
     jest-snapshot-serializer-ansi: 1.0.0
-    jest-snapshot-serializer-raw: 1.2.0
+    jest-snapshot-serializer-raw: 2.0.0
     jest-watch-typeahead: 2.2.2
     json5: 2.2.3
     leven: 4.0.0
