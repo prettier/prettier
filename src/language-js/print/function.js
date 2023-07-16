@@ -11,6 +11,7 @@ import {
   getFunctionParameters,
   hasLeadingOwnLineComment,
   isBinaryish,
+  isJsxElement,
   hasComment,
   CommentCheckFlags,
   isCallExpression,
@@ -18,6 +19,8 @@ import {
   hasNakedLeftSide,
   getLeftSide,
 } from "../utils/index.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
@@ -286,7 +289,17 @@ function printThrowStatement(path, options, print) {
 // (the leftmost leaf node) and, if it (or its parents) has any
 // leadingComments, returns true (so it can be wrapped in parens).
 function returnArgumentHasLeadingComment(options, argument) {
-  if (hasLeadingOwnLineComment(options.originalText, argument)) {
+  if (
+    hasLeadingOwnLineComment(options.originalText, argument) ||
+    (hasComment(argument, CommentCheckFlags.Leading, (comment) =>
+      hasNewlineInRange(
+        options.originalText,
+        locStart(comment),
+        locEnd(comment),
+      ),
+    ) &&
+      !isJsxElement(argument))
+  ) {
     return true;
   }
 
