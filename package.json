@@ -112,7 +112,7 @@
     "@types/estree": "1.0.1",
     "@types/file-entry-cache": "5.0.2",
     "@types/find-cache-dir": "3.2.1",
-    "@types/jest": "29.5.2",
+    "@types/jest": "29.5.3",
     "@typescript-eslint/eslint-plugin": "5.61.0",
     "benchmark": "2.1.4",
     "browserslist-to-esbuild": "1.2.0",
