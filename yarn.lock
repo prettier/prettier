@@ -91,15 +91,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:7.22.7, @babel/generator@npm:^7.22.5, @babel/generator@npm:^7.7.2":
-  version: 7.22.7
-  resolution: "@babel/generator@npm:7.22.7"
+"@babel/generator@npm:7.22.9, @babel/generator@npm:^7.22.5, @babel/generator@npm:^7.7.2":
+  version: 7.22.9
+  resolution: "@babel/generator@npm:7.22.9"
   dependencies:
     "@babel/types": ^7.22.5
     "@jridgewell/gen-mapping": ^0.3.2
     "@jridgewell/trace-mapping": ^0.3.17
     jsesc: ^2.5.1
-  checksum: cee15558888bdf5564e19cfaf95101b2910fa425f30cc1a25ac9b8621bd62b63544eb1b36ad89c80b5e41915699219f78712cab128d1f7e3da6a21fbf4143927
+  checksum: 7c9d2c58b8d5ac5e047421a6ab03ec2ff5d9a5ff2c2212130a0055e063ac349e0b19d435537d6886c999771aef394832e4f54cd9fc810100a7f23d982f6af06b
   languageName: node
   linkType: hard
 
@@ -6897,7 +6897,7 @@ __metadata:
   dependencies:
     "@angular/compiler": 16.1.5
     "@babel/code-frame": 7.22.5
-    "@babel/generator": 7.22.7
+    "@babel/generator": 7.22.9
     "@babel/parser": 7.22.7
     "@babel/types": 7.22.5
     "@esbuild-plugins/node-modules-polyfill": 0.2.2
