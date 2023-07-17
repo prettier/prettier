@@ -2007,13 +2007,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-regex@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "ansi-regex@npm:3.0.1"
-  checksum: 09daf180c5f59af9850c7ac1bd7fda85ba596cc8cbeb210826e90755f06c818af86d9fa1e6e8322fab2c3b9e9b03f56c537b42241139f824dd75066a1e7257cc
-  languageName: node
-  linkType: hard
-
 "ansi-regex@npm:^4.1.0":
   version: 4.1.1
   resolution: "ansi-regex@npm:4.1.1"
@@ -4381,12 +4374,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"has-ansi@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "has-ansi@npm:3.0.0"
+"has-ansi@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "has-ansi@npm:5.0.1"
   dependencies:
-    ansi-regex: ^3.0.0
-  checksum: d52ff546c982fb8646e6aa6a4e3741c123a29dcd0342db0e98cd17561356fc47fb03cc0cab9ad2000887facc39b8e7ce385089bdce548e6ff5463858ed5c12c1
+    ansi-regex: ^6.0.1
+  checksum: 3edc00033f1b67191a8bf051ae7787bbe609ed08be27aaf58c03f77c68ce4b18c376b8a6901a7beead2d2e0e07358063c87aa4e3e1d47ac614ee940efec2e01a
   languageName: node
   linkType: hard
 
@@ -5429,13 +5422,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-snapshot-serializer-ansi@npm:1.0.0":
-  version: 1.0.0
-  resolution: "jest-snapshot-serializer-ansi@npm:1.0.0"
+"jest-snapshot-serializer-ansi@npm:2.1.0":
+  version: 2.1.0
+  resolution: "jest-snapshot-serializer-ansi@npm:2.1.0"
   dependencies:
-    has-ansi: ^3.0.0
-    strip-ansi: ^4.0.0
-  checksum: 5e27fd87c566c94a110508881e78d383035c2a56224c2d09fd1ec859631a1626cf2f513a134644f705c3ec3845692497a93a5d48956600c24ef6902dcecd6d30
+    has-ansi: ^5.0.1
+    strip-ansi: ^7.1.0
+  checksum: 6f67679c308662c83585bbc3cb443718cc85c1c837d60510dd08fdb21a9cc622be93fa46f72270c8f5583385e0334c6e228279ad1e4005f7341a3abdc2e1c0c7
   languageName: node
   linkType: hard
 
@@ -6970,7 +6963,7 @@ __metadata:
     jest: 29.6.1
     jest-docblock: 29.4.3
     jest-light-runner: 0.5.0
-    jest-snapshot-serializer-ansi: 1.0.0
+    jest-snapshot-serializer-ansi: 2.1.0
     jest-snapshot-serializer-raw: 2.0.0
     jest-watch-typeahead: 2.2.2
     json5: 2.2.3
@@ -7967,21 +7960,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-ansi@npm:7.1.0, strip-ansi@npm:^7.0.1":
+"strip-ansi@npm:7.1.0, strip-ansi@npm:^7.0.1, strip-ansi@npm:^7.1.0":
   version: 7.1.0
   resolution: "strip-ansi@npm:7.1.0"
   dependencies:
     ansi-regex: ^6.0.1
   checksum: 859c73fcf27869c22a4e4d8c6acfe690064659e84bef9458aa6d13719d09ca88dcfd40cbf31fd0be63518ea1a643fe070b4827d353e09533a5b0b9fd4553d64d
-  languageName: node
-  linkType: hard
-
-"strip-ansi@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "strip-ansi@npm:4.0.0"
-  dependencies:
-    ansi-regex: ^3.0.0
-  checksum: d9186e6c0cf78f25274f6750ee5e4a5725fb91b70fdd79aa5fe648eab092a0ec5b9621b22d69d4534a56319f75d8944efbd84e3afa8d4ad1b9a9491f12c84eca
   languageName: node
   linkType: hard
 
