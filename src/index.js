@@ -1,4 +1,4 @@
-import vnopts from "vnopts";
+import * as vnopts from "vnopts";
 // "fast-glob" is bundled here since the API uses `micromatch` too
 import fastGlob from "fast-glob";
 import * as core from "./main/core.js";
@@ -89,7 +89,10 @@ const sharedWithCli = {
   normalizeOptions,
   getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
-  vnopts,
+  vnopts: {
+    ChoiceSchema: vnopts.ChoiceSchema,
+    apiDescriptor: vnopts.apiDescriptor,
+  },
   fastGlob,
   utils: {
     isNonEmptyArray,

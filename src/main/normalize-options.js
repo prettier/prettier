@@ -1,4 +1,4 @@
-import vnopts from "vnopts";
+import * as vnopts from "vnopts";
 
 /**
  * @typedef {import("./support.js").NamedOptionInfo} NamedOptionInfo
