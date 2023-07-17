@@ -4,7 +4,7 @@
   "scripts": {
     "build": "webpack --mode=production && docusaurus-build",
     "start": "concurrently \"docusaurus-start\" \"webpack --mode=development --watch\"",
-    "update-stable-docs": "rm -rf ./versioned_docs ./versions.json && docusaurus-version stable"
+    "update-stable-docs": "rimraf ./versioned_docs ./versions.json && docusaurus-version stable"
   },
   "dependencies": {
     "clipboard": "2.0.11",
@@ -22,6 +22,7 @@
     "concurrently": "8.2.0",
     "docusaurus": "1.14.7",
     "js-yaml": "4.1.0",
+    "rimraf": "5.0.1",
     "webpack": "5.88.1",
     "webpack-cli": "5.1.4"
   }
