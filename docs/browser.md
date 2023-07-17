@@ -106,13 +106,13 @@ If you want to format [embedded code](options.md#embedded-language-formatting), 
 ```html
 <script type="module">
   import * as prettier from "https://unpkg.com/prettier@3.0.0/standalone.mjs";
-  import pluginBabel from "https://unpkg.com/prettier@3.0.0/plugins/babel.mjs";
-  import pluginEstree from "https://unpkg.com/prettier@3.0.0/plugins/estree.mjs";
+  import prettierPluginBabel from "https://unpkg.com/prettier@3.0.0/plugins/babel.mjs";
+  import prettierPluginEstree from "https://unpkg.com/prettier@3.0.0/plugins/estree.mjs";
 
   console.log(
     await prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
       parser: "babel",
-      plugins: [pluginBabel, pluginEstree],
+      plugins: [prettierPluginBabel, prettierPluginEstree],
     }),
   );
   // Output: const html = /* HTML */ `<DIV> </DIV>`;
@@ -124,14 +124,14 @@ The HTML code embedded in JavaScript stays unformatted because the `html` parser
 ```html
 <script type="module">
   import * as prettier from "https://unpkg.com/prettier@3.0.0/standalone.mjs";
-  import pluginBabel from "https://unpkg.com/prettier@3.0.0/plugins/babel.mjs";
-  import pluginEstree from "https://unpkg.com/prettier@3.0.0/plugins/estree.mjs";
-  import pluginHtml from "https://unpkg.com/prettier@3.0.0/plugins/html.mjs";
+  import prettierPluginBabel from "https://unpkg.com/prettier@3.0.0/plugins/babel.mjs";
+  import prettierPluginEstree from "https://unpkg.com/prettier@3.0.0/plugins/estree.mjs";
+  import prettierPluginHtml from "https://unpkg.com/prettier@3.0.0/plugins/html.mjs";
 
   console.log(
     await prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
       parser: "babel",
-      plugins: [pluginBabel, pluginEstree, pluginHtml],
+      plugins: [prettierPluginBabel, prettierPluginEstree, prettierPluginHtml],
     }),
   );
   // Output: const html = /* HTML */ `<div></div>`;
