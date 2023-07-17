@@ -58,7 +58,7 @@
     "editorconfig-to-prettier": "1.0.0",
     "emoji-regex": "10.2.1",
     "escape-string-regexp": "5.0.0",
-    "espree": "9.6.0",
+    "espree": "9.6.1",
     "fast-glob": "3.2.12",
     "fast-json-stable-stringify": "2.1.0",
     "file-entry-cache": "6.0.1",
