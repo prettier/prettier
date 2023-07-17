@@ -49,11 +49,11 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 ```html
 <script type="module">
   import * as prettier from "https://unpkg.com/prettier@3.0.0/standalone.mjs";
-  import pluginGraphql from "https://unpkg.com/prettier@3.0.0/plugins/graphql.mjs";
+  import prettierPluginGraphql from "https://unpkg.com/prettier@3.0.0/plugins/graphql.mjs";
 
   const formatted = await prettier.format("type Query { hello: String }", {
     parser: "graphql",
-    plugins: [pluginGraphql],
+    plugins: [prettierPluginGraphql],
   });
 </script>
 ```
@@ -77,6 +77,7 @@ define([
 ```js
 const prettier = require("prettier/standalone");
 const plugins = [require("prettier/plugins/graphql")];
+
 (async () => {
   const formatted = await prettier.format("type Query { hello: String }", {
     parser: "graphql",
@@ -92,6 +93,7 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 ```js
 importScripts("https://unpkg.com/prettier@3.0.0/standalone.js");
 importScripts("https://unpkg.com/prettier@3.0.0/plugins/graphql.js");
+
 (async () => {
   const formatted = await prettier.format("type Query { hello: String }", {
     parser: "graphql",
