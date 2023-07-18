@@ -458,7 +458,7 @@ export interface Parser<T = any> {
   locStart: (node: T) => number;
   locEnd: (node: T) => number;
   preprocess?:
-    | ((text: string, options: ParserOptions<T>) => string | Promise<string>)
+    | ((text: string, options: ParserOptions<T>) => string)
     | undefined;
 }
 
@@ -485,6 +485,7 @@ export interface Printer<T = any> {
         | Doc
         | null)
     | undefined;
+  preprocess?: ((ast: T, options: ParserOptions<T>) => T | Promise<T>) | undefined;
   insertPragma?: (text: string) => string;
   /**
    * @returns `null` if you want to remove this node
