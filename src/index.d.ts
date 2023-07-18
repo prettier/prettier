@@ -540,6 +540,9 @@ export interface Printer<T = any> {
           | undefined;
       }
     | undefined;
+  getVisitorKeys?:
+    | ((node: T, nonTraversableKeys: Set<string>) => string[])
+    | undefined;
 }
 
 export interface CursorOptions extends Options {
