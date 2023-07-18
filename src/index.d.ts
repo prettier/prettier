@@ -485,7 +485,9 @@ export interface Printer<T = any> {
         | Doc
         | null)
     | undefined;
-  preprocess?: ((ast: T, options: ParserOptions<T>) => T | Promise<T>) | undefined;
+  preprocess?:
+    | ((ast: T, options: ParserOptions<T>) => T | Promise<T>)
+    | undefined;
   insertPragma?: (text: string) => string;
   /**
    * @returns `null` if you want to remove this node
