@@ -42,7 +42,7 @@ build
 coverage
 ```
 
-> Tip! Base your .prettierignore on .gitignore and .eslintignore (if you have one).
+> Tip! Prettier will follow rules specified in .gitignore if it exists in the same directory from which it is run. You can also base your .prettierignore on .eslintignore (if you have one).
 
 > Another tip! If your project isn’t ready to format, say, HTML files yet, add `*.html`.
 
