@@ -33,7 +33,7 @@ type ArrayElement<T> = T extends Array<infer E> ? E : never;
 
 // A union of the properties of the given object that are arrays.
 type ArrayProperties<T> = {
-  [K in keyof T]: NonNullable<T[K]> extends any[] ? K : never;
+  [K in keyof T]: NonNullable<T[K]> extends readonly any[] ? K : never;
 }[keyof T];
 
 // A union of the properties of the given array T that can be used to index it.
