@@ -2495,7 +2495,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:5.3.0, chalk@npm:^5.2.0":
+"chalk@npm:5.3.0, chalk@npm:^5.2.0, chalk@npm:^5.3.0":
   version: 5.3.0
   resolution: "chalk@npm:5.3.0"
   checksum: 623922e077b7d1e9dedaea6f8b9e9352921f8ae3afe739132e0e00c275971bdd331268183b2628cf4ab1727c45ea1f28d7e24ac23ce1db1eb653c414ca8a5a80
@@ -5691,17 +5691,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leven@npm:4.0.0":
+"leven@npm:4.0.0, leven@npm:^4.0.0":
   version: 4.0.0
   resolution: "leven@npm:4.0.0"
   checksum: d70b9fef4cca487a38021bb173a5cae98d39b1c7f4a5b2439763bd89df8e389f178a3c941b6fc3fab1582f5052b5e8c91353d9607799a2ad3841e7ea22f9720f
-  languageName: node
-  linkType: hard
-
-"leven@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "leven@npm:2.1.0"
-  checksum: f7b4a01b15c0ee2f92a04c0367ea025d10992b044df6f0d4ee1a845d4a488b343e99799e2f31212d72a2b1dea67124f57c1bb1b4561540df45190e44b5b8b394
   languageName: node
   linkType: hard
 
@@ -7002,7 +6995,7 @@ __metadata:
     typescript: 5.1.6
     unicode-regex: 4.0.0
     unified: 9.2.2
-    vnopts: 1.0.2
+    vnopts: 2.0.0
     wcwidth: 1.0.1
     yaml-unist-parser: 2.0.1
   bin:
@@ -8171,7 +8164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.8.1, tslib@npm:^1.9.3":
+"tslib@npm:^1.8.1":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
@@ -8522,14 +8515,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vnopts@npm:1.0.2":
-  version: 1.0.2
-  resolution: "vnopts@npm:1.0.2"
+"vnopts@npm:2.0.0":
+  version: 2.0.0
+  resolution: "vnopts@npm:2.0.0"
   dependencies:
-    chalk: ^2.4.1
-    leven: ^2.1.0
-    tslib: ^1.9.3
-  checksum: a97865b852df90a755f2d18dcc12f08be185150b3961c7d5f4f952df392cdbbf97ac2ccc8939db744148feccb55ebfa5b6a5e83c88107500e3cae2d9e8ba7f68
+    chalk: ^5.3.0
+    leven: ^4.0.0
+    tslib: ^2.6.0
+  checksum: 3abf34620c6d5f99ed9e9b461feb7f263724f3ab09ac2066d55aa9eea8f13267f9f54205ed032a9a84bac49510370935db9f611b341587989969a8f25b543901
   languageName: node
   linkType: hard
 
