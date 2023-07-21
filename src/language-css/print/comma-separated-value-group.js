@@ -264,6 +264,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
       iPrevNode?.type === "value-func" ||
       (iPrevNode && isWordNode(iPrevNode));
 
+    // Space before unary minus followed by a function call.
+    if (
+      options.parser === "scss" &&
+      isMathOperator &&
+      iNode.value === "-" &&
+      iNextNode.type === "value-func"
+    ) {
+      parts.push(" ");
+      continue;
+    }
+
     // Formatting `/`, `+`, `-` sign
     if (
       !(isMultiplicationNode(iNextNode) || isMultiplicationNode(iNode)) &&

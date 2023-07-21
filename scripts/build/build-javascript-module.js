@@ -57,7 +57,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     ...[
       require.resolve("tslib"),
-      createRequire(require.resolve("vnopts")).resolve("tslib"),
       createRequire(require.resolve("tsutils")).resolve("tslib"),
     ].map((file) => ({
       module: file,

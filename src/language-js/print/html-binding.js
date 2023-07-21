@@ -20,6 +20,19 @@ function printHtmlBinding(path, options, print) {
       ? ["(", indent([softline, group(doc)]), softline, ")"]
       : doc;
   }
+
+  if (options.__isEmbeddedTypescriptGenericParameters) {
+    const parameterDocs = path.map(
+      print,
+      "program",
+      "body",
+      0,
+      "typeParameters",
+      "params",
+    );
+
+    return join([",", line], parameterDocs);
+  }
 }
 
 export { printHtmlBinding };

@@ -17,7 +17,7 @@ const languages = [
   createLanguage(linguistLanguages["JSON with Comments"], (data) => ({
     parsers: ["json"],
     vscodeLanguageIds: ["jsonc"],
-    filenames: [...data.filenames, ".eslintrc", ".swcrc"],
+    filenames: [...data.filenames, ".eslintrc"],
   })),
   createLanguage(linguistLanguages.JSON5, () => ({
     parsers: ["json5"],

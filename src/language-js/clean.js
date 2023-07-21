@@ -95,7 +95,9 @@ function clean(ast, newObj, parent) {
   if (
     ast.type === "JSXElement" &&
     ast.openingElement.name.name === "style" &&
-    ast.openingElement.attributes.some((attr) => attr.name.name === "jsx")
+    ast.openingElement.attributes.some(
+      (attr) => attr.type === "JSXAttribute" && attr.name.name === "jsx",
+    )
   ) {
     for (const { type, expression } of newObj.children) {
       if (
