@@ -129,6 +129,14 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/index.js",
+        ),
+        path: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parser.js",
+        ),
+      },
+      {
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parser.js",
         ),
         process(text) {

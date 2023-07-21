@@ -4,7 +4,6 @@ import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import isBlockComment from "../../utils/is-block-comment.js";
 import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
 import visitNode from "./visit-node.js";
-import throwSyntaxError from "./throw-ts-syntax-error.js";
 
 /**
  * @param {{
@@ -90,36 +89,6 @@ function postprocess(ast, options) {
             name: node.name,
             range: [start, start + node.name.length],
           };
-        }
-        break;
-      case "ObjectExpression":
-        // #12963
-        if (parser === "typescript") {
-          const invalidProperty = node.properties.find(
-            (property) =>
-              property.type === "Property" &&
-              property.value.type === "TSEmptyBodyFunctionExpression",
-          );
-          if (invalidProperty) {
-            throwSyntaxError(invalidProperty.value, "Unexpected token.");
-          }
-        }
-        break;
-      case "TSInterfaceDeclaration":
-        if (isNonEmptyArray(node.implements)) {
-          throwSyntaxError(
-            node.implements[0],
-            "Interface declaration cannot have 'implements' clause.",
-          );
-        }
-        break;
-
-      case "TSPropertySignature":
-        if (node.initializer) {
-          throwSyntaxError(
-            node.initializer,
-            "An interface property cannot have an initializer.",
-          );
         }
         break;
 

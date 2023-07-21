@@ -93,10 +93,10 @@ exports[`snippet: #5 [typescript] format 1`] = `
 `;
 
 exports[`value-of-abstract-property.ts [typescript] format 1`] = `
-"Abstract property cannot have an initializer (2:3)
+"Abstract property cannot have an initializer. (2:19)
   1 | abstract class Foo {
 > 2 |   abstract prop = 3;
-    |   ^^^^^^^^^^^^^^^^^^
+    |                   ^
   3 | }
   4 |"
 `;

@@ -26,6 +26,11 @@ const additionalVisitorKeys = {
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
+  // `@typescript-eslint/typescript-estree` v6 renamed `typeParameters` to `typeArguments`
+  // Remove those when babel update AST
+  JSXOpeningElement: ["typeParameters"],
+  TSClassImplements: ["typeParameters"],
+  TSInterfaceHeritage: ["typeParameters"],
 
   // Flow, missed in `flowVisitorKeys`
   ClassPrivateProperty: ["variance"],
@@ -46,7 +51,8 @@ const excludeKeys = {
   ArrowFunctionExpression: ["id"],
   DeclareOpaqueType: ["impltype"],
   FunctionExpression: ["predicate"],
-  JSXOpeningElement: ["typeArguments"],
+  // Flow don't use it, but `typescript-eslint` v6 switched to `typeArguments`
+  // JSXOpeningElement: ["typeArguments"],
   // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
   // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab
   // TupleTypeAnnotation: ["types"],
