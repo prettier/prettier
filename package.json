@@ -64,7 +64,7 @@
     "file-entry-cache": "6.0.1",
     "find-cache-dir": "4.0.0",
     "find-parent-dir": "0.3.1",
-    "flow-parser": "0.212.0",
+    "flow-parser": "0.213.0",
     "get-stdin": "9.0.0",
     "graphql": "16.7.1",
     "hermes-parser": "0.14.0",
