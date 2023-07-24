@@ -580,7 +580,6 @@ exports[`visitor keys estree 1`] = `
     "typeParameters",
     "typeArguments",
   ],
-  "Noop": [],
   "NullLiteral": [],
   "NullLiteralTypeAnnotation": [],
   "NullableTypeAnnotation": [
@@ -767,8 +766,6 @@ exports[`visitor keys estree 1`] = `
   "TSBooleanKeyword": [],
   "TSCallSignatureDeclaration": [
     "typeParameters",
-    "parameters",
-    "typeAnnotation",
     "params",
     "returnType",
   ],
@@ -785,15 +782,11 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSConstructSignatureDeclaration": [
     "typeParameters",
-    "parameters",
-    "typeAnnotation",
     "params",
     "returnType",
   ],
   "TSConstructorType": [
     "typeParameters",
-    "parameters",
-    "typeAnnotation",
     "params",
     "returnType",
   ],
@@ -842,8 +835,6 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSFunctionType": [
     "typeParameters",
-    "parameters",
-    "typeAnnotation",
     "params",
     "returnType",
   ],
@@ -910,8 +901,6 @@ exports[`visitor keys estree 1`] = `
   "TSMethodSignature": [
     "key",
     "typeParameters",
-    "parameters",
-    "typeAnnotation",
     "params",
     "returnType",
   ],

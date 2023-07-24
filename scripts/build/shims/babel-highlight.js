@@ -1,2 +1,3 @@
 export const shouldHighlight = () => false;
-export default String;
+const babelHighlight = (code) => code;
+export default babelHighlight;

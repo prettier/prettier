@@ -522,8 +522,16 @@ const nonPluginUniversalFiles = [
         path: path.join(dirname, "./shims/babel-highlight.js"),
       },
       {
-        module: require.resolve("chalk"),
-        path: path.join(dirname, "./shims/chalk.cjs"),
+        module: require.resolve("chalk", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
+        path: path.join(dirname, "./shims/chalk.js"),
+      },
+      {
+        module: require.resolve("chalk", {
+          paths: [require.resolve("vnopts")],
+        }),
+        path: path.join(dirname, "./shims/chalk.js"),
       },
     ],
   },
