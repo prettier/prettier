@@ -52,7 +52,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/code-frame@npm:7.22.5, @babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.22.5":
+"@babel/code-frame@npm:8.0.0-alpha.1":
+  version: 8.0.0-alpha.1
+  resolution: "@babel/code-frame@npm:8.0.0-alpha.1"
+  dependencies:
+    "@babel/highlight": ^8.0.0-alpha.1
+    chalk: ^2.4.2
+  checksum: 493fcedba27ca5e4a9a5d55b60521099bc27807b63bd8253fe950521b71ee69624c01e87dafed0d3cb76855a2cdb95c3d65493cf1caa080115f654c536fcb3d1
+  languageName: node
+  linkType: hard
+
+"@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.22.5":
   version: 7.22.5
   resolution: "@babel/code-frame@npm:7.22.5"
   dependencies:
@@ -91,7 +101,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:7.22.9, @babel/generator@npm:^7.22.5, @babel/generator@npm:^7.7.2":
+"@babel/generator@npm:8.0.0-alpha.1":
+  version: 8.0.0-alpha.1
+  resolution: "@babel/generator@npm:8.0.0-alpha.1"
+  dependencies:
+    "@babel/types": ^8.0.0-alpha.1
+    "@jridgewell/gen-mapping": ^0.3.2
+    "@jridgewell/trace-mapping": ^0.3.17
+    jsesc: ^3.0.2
+  checksum: 6786ffb1b632f70da8ff885b93e8ec6b2547492a6e1970e7a894e08edd1597ed30cbbf1a5f1be1af3ffddba9c3c255ec9b17fe331e7da8711adae10f1759b5ca
+  languageName: node
+  linkType: hard
+
+"@babel/generator@npm:^7.22.5, @babel/generator@npm:^7.7.2":
   version: 7.22.9
   resolution: "@babel/generator@npm:7.22.9"
   dependencies:
@@ -201,10 +223,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helper-string-parser@npm:^8.0.0-alpha.1":
+  version: 8.0.0-alpha.1
+  resolution: "@babel/helper-string-parser@npm:8.0.0-alpha.1"
+  checksum: d5bbd2f8c70bcb6c9c48d1f6e4a039a23f211f57b5ee0664a541e5584e0e722440624c9b8e27d4d0d977a5273ca2eecbcb64929470fc25f6cc1b374b0ae6041f
+  languageName: node
+  linkType: hard
+
 "@babel/helper-validator-identifier@npm:^7.22.5":
   version: 7.22.5
   resolution: "@babel/helper-validator-identifier@npm:7.22.5"
   checksum: 7f0f30113474a28298c12161763b49de5018732290ca4de13cdaefd4fd0d635a6fe3f6686c37a02905fb1e64f21a5ee2b55140cf7b070e729f1bd66866506aea
+  languageName: node
+  linkType: hard
+
+"@babel/helper-validator-identifier@npm:^8.0.0-alpha.1":
+  version: 8.0.0-alpha.1
+  resolution: "@babel/helper-validator-identifier@npm:8.0.0-alpha.1"
+  checksum: e4ca501b350baa0e460699c36e065f5904135e162264cde4115ae704db41751879afb6156a9d646218e625907c03a14bbd46bc6a7958a06acfcba97ea38b949e
   languageName: node
   linkType: hard
 
@@ -237,7 +273,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:7.22.7, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.5":
+"@babel/highlight@npm:^8.0.0-alpha.1":
+  version: 8.0.0-alpha.1
+  resolution: "@babel/highlight@npm:8.0.0-alpha.1"
+  dependencies:
+    "@babel/helper-validator-identifier": ^8.0.0-alpha.1
+    chalk: ^2.4.2
+    js-tokens: ^8.0.0
+  checksum: 12853105ec737ff223a172f05935c70b57534eaf749b8ec41d465e27a195fff9f4bf41391e91f86d406e0f3e65d9d727761af1508baf4b12b0db88aa2279aa8c
+  languageName: node
+  linkType: hard
+
+"@babel/parser@npm:8.0.0-alpha.1":
+  version: 8.0.0-alpha.1
+  resolution: "@babel/parser@npm:8.0.0-alpha.1"
+  bin:
+    parser: ./bin/babel-parser.js
+  checksum: 7985a2e094a6551f4579312a28e3742119f5eb4a012b463977f312506d5115b6ec84203aaa0cd33adac2d83cf8b61a6bdcdfc89c6ac8b40363ab4727fa14d67e
+  languageName: node
+  linkType: hard
+
+"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.5":
   version: 7.22.7
   resolution: "@babel/parser@npm:7.22.7"
   bin:
@@ -429,7 +485,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:7.22.5, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.5, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
+"@babel/types@npm:8.0.0-alpha.1, @babel/types@npm:^8.0.0-alpha.1":
+  version: 8.0.0-alpha.1
+  resolution: "@babel/types@npm:8.0.0-alpha.1"
+  dependencies:
+    "@babel/helper-string-parser": ^8.0.0-alpha.1
+    "@babel/helper-validator-identifier": ^8.0.0-alpha.1
+    to-fast-properties: ^3.0.0
+  checksum: f4c289893bac5eddbe06a859bcae40d1e2b28ca40606d3927850741b1d3c87091cb88067fbb3b39fe97ba3f15f8a6f21cf60c5b9610b341c4f0201cb72d13fc0
+  languageName: node
+  linkType: hard
+
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.5, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
   version: 7.22.5
   resolution: "@babel/types@npm:7.22.5"
   dependencies:
@@ -2568,7 +2635,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:2.4.2, chalk@npm:^2.0.0, chalk@npm:^2.4.1":
+"chalk@npm:2.4.2, chalk@npm:^2.0.0, chalk@npm:^2.4.1, chalk@npm:^2.4.2":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2"
   dependencies:
@@ -5657,6 +5724,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-tokens@npm:^8.0.0":
+  version: 8.0.1
+  resolution: "js-tokens@npm:8.0.1"
+  checksum: fb7bcd476c5b902ffb766382ca85aecb86ec66a607e419377026293b5877774e465f6cbe4229c8d85db3776ccc91c3aee518a0e04a005e260e57353f6f9278a8
+  languageName: node
+  linkType: hard
+
 "js-yaml@npm:^3.13.1":
   version: 3.14.1
   resolution: "js-yaml@npm:3.14.1"
@@ -6993,10 +7067,10 @@ __metadata:
   resolution: "prettier@workspace:."
   dependencies:
     "@angular/compiler": 16.1.7
-    "@babel/code-frame": 7.22.5
-    "@babel/generator": 7.22.9
-    "@babel/parser": 7.22.7
-    "@babel/types": 7.22.5
+    "@babel/code-frame": 8.0.0-alpha.1
+    "@babel/generator": 8.0.0-alpha.1
+    "@babel/parser": 8.0.0-alpha.1
+    "@babel/types": 8.0.0-alpha.1
     "@esbuild-plugins/node-modules-polyfill": 0.2.2
     "@glimmer/reference": 0.84.3
     "@glimmer/syntax": 0.84.3
@@ -8230,6 +8304,13 @@ __metadata:
   version: 2.0.0
   resolution: "to-fast-properties@npm:2.0.0"
   checksum: be2de62fe58ead94e3e592680052683b1ec986c72d589e7b21e5697f8744cdbf48c266fa72f6c15932894c10187b5f54573a3bcf7da0bfd964d5caf23d436168
+  languageName: node
+  linkType: hard
+
+"to-fast-properties@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "to-fast-properties@npm:3.0.1"
+  checksum: 66b79f2c0d420d116a4eeb781c87c8c6b2de426a15f16118759e706aa1111833b0c578355a1108514ada966c08f4dba0cb7994aca025d80a535a139f7a631e22
   languageName: node
   linkType: hard
 
