@@ -1,3 +1,5 @@
+import path from "node:path";
+import { resolveConfigFile, resolveConfig } from "../index.js";
 import { getContextOptions } from "./options/get-context-options.js";
 import {
   parseArgv,
@@ -29,15 +31,41 @@ class Context {
   async init() {
     const { rawArguments, logger } = this;
 
-    const { plugins } = parseArgvWithoutPlugins(rawArguments, logger, [
-      "plugin",
-    ]);
+    const { plugins, _: filePatterns } = parseArgvWithoutPlugins(
+      rawArguments,
+      logger,
+      ["plugin", "_"],
+    );
 
-    await this.pushContextPlugins(plugins);
+    const pluginsFromConfigFile = await this.#loadPluginsFromConfigFile(
+      filePatterns,
+    );
+
+    await this.pushContextPlugins([...plugins, ...pluginsFromConfigFile]);
 
     const argv = parseArgv(rawArguments, this.detailedOptions, logger);
     this.argv = argv;
     this.filePatterns = argv._;
+  }
+
+  async #loadPluginsFromConfigFile(filePatterns) {
+    const plugins = [];
+    const cwd = process.cwd();
+    const loadedConfigs = new Set();
+    for (const filePattern of filePatterns) {
+      const absolutePath = path.resolve(cwd, filePattern);
+      const configFile = await resolveConfigFile(absolutePath);
+      if (configFile && !loadedConfigs.has(configFile)) {
+        loadedConfigs.add(configFile);
+        const config = await resolveConfig(configFile);
+        if (Array.isArray(config?.plugins)) {
+          for (const plugin of config.plugins) {
+            plugins.push(plugin);
+          }
+        }
+      }
+    }
+    return plugins;
   }
 
   /**
