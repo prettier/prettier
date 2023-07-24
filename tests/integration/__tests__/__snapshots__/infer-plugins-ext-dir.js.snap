@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`infer plugins ext dir (stderr) 1`] = `""`;
+exports[`infer file ext that supported by only plugins (stderr) 1`] = `""`;
