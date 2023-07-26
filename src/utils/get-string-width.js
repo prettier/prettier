@@ -38,8 +38,7 @@ function getStringWidth(text) {
       continue;
     }
 
-    const code = eastAsianWidth.eastAsianWidth(character);
-    width += code === "F" || code === "W" ? 2 : 1;
+    width += eastAsianWidth.characterLength(character);
   }
 
   return width;
