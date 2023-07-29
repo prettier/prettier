@@ -24,10 +24,11 @@ import {
   conditionalGroup,
   breakParent,
   label,
+  softline,
 } from "../../document/builders.js";
 import { willBreak } from "../../document/utils.js";
 import printCallArguments from "./call-arguments.js";
-import { printMemberLookup } from "./member.js";
+import { printMemberLookup, shouldInlineMember } from "./member.js";
 import {
   printOptionalToken,
   printFunctionTypeParameters,
@@ -87,7 +88,8 @@ function printMemberChain(path, options, print) {
       isCallExpression(node) &&
       (isMemberish(node.callee) || isCallExpression(node.callee))
     ) {
-      printedNodes.unshift({
+      path.call((callee) => rec(callee), "callee");
+      printedNodes.push({
         node,
         printed: [
           printComments(
@@ -102,28 +104,30 @@ function printMemberChain(path, options, print) {
           shouldInsertEmptyLineAfter(node) ? hardline : "",
         ],
       });
-      path.call((callee) => rec(callee), "callee");
     } else if (isMemberish(node)) {
-      printedNodes.unshift({
+      path.call((object) => rec(object), "object");
+      let doc;
+      if (isMemberExpression(node)) {
+        const lookupDoc = printMemberLookup(path, options, print);
+        doc = shouldInlineMember(path, printedNodes.at(-1).printed)
+          ? lookupDoc
+          : group(indent([softline, lookupDoc]));
+      } else {
+        doc = printBindExpressionCallee(path, options, print);
+      }
+      printedNodes.push({
         node,
         needsParens: pathNeedsParens(path, options),
-        printed: printComments(
-          path,
-          isMemberExpression(node)
-            ? printMemberLookup(path, options, print)
-            : printBindExpressionCallee(path, options, print),
-          options,
-        ),
+        printed: printComments(path, doc, options),
       });
-      path.call((object) => rec(object), "object");
     } else if (node.type === "TSNonNullExpression") {
-      printedNodes.unshift({
+      path.call((expression) => rec(expression), "expression");
+      printedNodes.push({
         node,
         printed: printComments(path, "!", options),
       });
-      path.call((expression) => rec(expression), "expression");
     } else {
-      printedNodes.unshift({
+      printedNodes.push({
         node,
         printed: print(),
       });
@@ -133,7 +137,12 @@ function printMemberChain(path, options, print) {
   // need to extract this first call without printing them as they would
   // if handled inside of the recursive call.
   const { node } = path;
-  printedNodes.unshift({
+
+  if (node.callee) {
+    path.call((callee) => rec(callee), "callee");
+  }
+
+  printedNodes.push({
     node,
     printed: [
       printOptionalToken(path),
@@ -141,10 +150,6 @@ function printMemberChain(path, options, print) {
       printCallArguments(path, options, print),
     ],
   });
-
-  if (node.callee) {
-    path.call((callee) => rec(callee), "callee");
-  }
 
   // Once we have a linear list of printed nodes, we want to create groups out
   // of it.
