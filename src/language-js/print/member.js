@@ -22,7 +22,7 @@ function printMemberExpression(path, options, print) {
  * @param {AstPath} path
  * @param {*} options
  * @param {*} print
- * @param {Doc} objectDoc
+ * @param {Doc} [objectDoc]
  * @returns {Doc}
  */
 function printMemberLookup(path, options, print, objectDoc) {
@@ -54,7 +54,7 @@ function printMemberLookup(path, options, print, objectDoc) {
 
 /**
  * @param {AstPath} path
- * @param {*} objectDoc
+ * @param {*} [objectDoc]
  * @returns {boolean}
  */
 function shouldInlineMember(path, objectDoc) {
@@ -80,7 +80,7 @@ function shouldInlineMember(path, objectDoc) {
         (node.object.type === "TSNonNullExpression" &&
           isCallExpression(node.object.expression) &&
           node.object.expression.arguments.length > 0) ||
-        objectDoc.label?.memberChain))
+        objectDoc?.label?.memberChain))
   );
 }
 

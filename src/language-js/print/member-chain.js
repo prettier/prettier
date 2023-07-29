@@ -111,12 +111,7 @@ function printMemberChain(path, options, print) {
         printed: printComments(
           path,
           isMemberExpression(node)
-            ? printMemberLookup(
-                path,
-                options,
-                print,
-                printedNodes.at(-1)?.printed,
-              )
+            ? printMemberLookup(path, options, print)
             : printBindExpressionCallee(path, options, print),
           options,
         ),
