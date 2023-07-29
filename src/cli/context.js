@@ -50,10 +50,12 @@ class Context {
 
     const pluginsFromConfigFile = await this.#loadPluginsFromConfigFile(
       filePatterns,
-      config,
-      editorconfig,
-      ignorePath,
-      withNodeModules,
+      {
+        config,
+        editorconfig,
+        ignorePath,
+        withNodeModules,
+      },
     );
 
     await this.pushContextPlugins([...plugins, ...pluginsFromConfigFile]);
@@ -63,13 +65,8 @@ class Context {
     this.filePatterns = argv._;
   }
 
-  async #loadPluginsFromConfigFile(
-    filePatterns,
-    config,
-    editorconfig,
-    ignorePath,
-    withNodeModules,
-  ) {
+  async #loadPluginsFromConfigFile(filePatterns, argv) {
+    const { config, editorconfig, ignorePath, withNodeModules } = argv;
     const isIgnored = await createIsIgnoredFromContextOrDie({
       logger: this.logger,
       argv: { ignorePath, withNodeModules },
