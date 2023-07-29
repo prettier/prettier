@@ -118,6 +118,8 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     define["process.emitWarning"] = undefined;
     // postcss/lib/postcss.js
     define["process.env.LANG"] = "";
+    // @typescript-eslint/typescript-estree
+    define["process.env.TYPESCRIPT_ESLINT_EXPERIMENTAL_TSSERVER"] = "";
 
     // Replace `__dirname` and `__filename` with a fake value
     // So `parser-typescript.js` won't contain a path of working directory
