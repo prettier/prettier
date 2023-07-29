@@ -128,6 +128,10 @@ const pluginFiles = [
         process: modifyTypescriptModule,
       },
       {
+        module: require.resolve("typescript/lib/tsserverlibrary.js"),
+        text: "",
+      },
+      {
         module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/index.js",
         ),
