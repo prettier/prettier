@@ -1,10 +1,11 @@
 import path from "node:path";
-import { resolveConfigFile, resolveConfig } from "../index.js";
 import { getContextOptions } from "./options/get-context-options.js";
 import {
   parseArgv,
   parseArgvWithoutPlugins,
 } from "./options/parse-cli-arguments.js";
+import getOptionsOrDie from "./options/get-options-or-die.js";
+import { createIsIgnoredFromContextOrDie } from "./ignore.js";
 
 /**
  * @typedef {Object} Context
@@ -31,14 +32,28 @@ class Context {
   async init() {
     const { rawArguments, logger } = this;
 
-    const { plugins, _: filePatterns } = parseArgvWithoutPlugins(
-      rawArguments,
-      logger,
-      ["plugin", "_"],
-    );
+    const {
+      plugins,
+      ignorePath,
+      withNodeModules,
+      config,
+      editorconfig,
+      _: filePatterns,
+    } = parseArgvWithoutPlugins(rawArguments, logger, [
+      "plugin",
+      "ignore-path",
+      "with-node-modules",
+      // "config",
+      "editorconfig",
+      "_",
+    ]);
 
     const pluginsFromConfigFile = await this.#loadPluginsFromConfigFile(
       filePatterns,
+      config,
+      editorconfig,
+      ignorePath,
+      withNodeModules,
     );
 
     await this.pushContextPlugins([...plugins, ...pluginsFromConfigFile]);
@@ -48,20 +63,31 @@ class Context {
     this.filePatterns = argv._;
   }
 
-  async #loadPluginsFromConfigFile(filePatterns) {
+  async #loadPluginsFromConfigFile(
+    filePatterns,
+    config,
+    editorconfig,
+    ignorePath,
+    withNodeModules,
+  ) {
+    const isIgnored = await createIsIgnoredFromContextOrDie({
+      logger: this.logger,
+      argv: { ignorePath, withNodeModules },
+    });
     const plugins = [];
     const cwd = process.cwd();
-    const loadedConfigs = new Set();
     for (const filePattern of filePatterns) {
       const absolutePath = path.resolve(cwd, filePattern);
-      const configFile = await resolveConfigFile(absolutePath);
-      if (configFile && !loadedConfigs.has(configFile)) {
-        loadedConfigs.add(configFile);
-        const config = await resolveConfig(configFile);
-        if (Array.isArray(config?.plugins)) {
-          for (const plugin of config.plugins) {
-            plugins.push(plugin);
-          }
+      if (isIgnored(absolutePath)) {
+        continue;
+      }
+      const options = await getOptionsOrDie(
+        { logger: this.logger, argv: { config, editorconfig } },
+        absolutePath,
+      );
+      if (Array.isArray(options?.plugins)) {
+        for (const plugin of options.plugins) {
+          plugins.push(plugin);
         }
       }
     }
