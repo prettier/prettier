@@ -43,7 +43,7 @@ class Context {
       "plugin",
       "ignore-path",
       "with-node-modules",
-      // "config",
+      "config",
       "editorconfig",
       "_",
     ]);
