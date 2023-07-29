@@ -215,6 +215,31 @@ const pluginFiles = [
         ),
         text: "",
       },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/create-program/getWatchProgramsForProjects.js",
+        ),
+        text: "",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/create-program/describeFilePath.js",
+        ),
+        text: "",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/create-program/createProjectProgram.js",
+        ),
+        text: "",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/useProgramFromProjectService.js",
+        ),
+        text: "",
+      },
+
       // Only needed if `range`/`loc` in parse options is `false`
       {
         module: getPackageFile(
