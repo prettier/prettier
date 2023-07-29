@@ -6,37 +6,54 @@ import {
 } from "../utils/index.js";
 import { printOptionalToken } from "./misc.js";
 
+/**
+ * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
+
 function printMemberExpression(path, options, print) {
   const objectDoc = print("object");
-  const lookupDoc = printMemberLookup(path, options, print);
+  const lookupDoc = printMemberLookup(path, options, print, objectDoc);
 
-  return label(objectDoc.label, [
-    objectDoc,
-    shouldInlineMember(path, objectDoc)
-      ? lookupDoc
-      : group(indent([softline, lookupDoc])),
-  ]);
-}
-
-function printMemberLookup(path, options, print) {
-  const property = print("property");
-  const { node } = path;
-  const optional = printOptionalToken(path);
-
-  if (!node.computed) {
-    return [optional, ".", property];
-  }
-
-  if (!node.property || isNumericLiteral(node.property)) {
-    return [optional, "[", property, "]"];
-  }
-
-  return group([optional, "[", indent([softline, property]), softline, "]"]);
+  return label(objectDoc.label, [objectDoc, lookupDoc]);
 }
 
 /**
- *
- * @param {*} path
+ * @param {AstPath} path
+ * @param {*} options
+ * @param {*} print
+ * @param {Doc} objectDoc
+ * @returns {Doc}
+ */
+function printMemberLookup(path, options, print, objectDoc) {
+  const doc = lookupDoc();
+  if (shouldInlineMember(path, objectDoc)) {
+    return doc;
+  }
+  return group(indent([softline, doc]));
+
+  /**
+   * @returns {Doc}
+   */
+  function lookupDoc() {
+    const property = print("property");
+    const { node } = path;
+    const optional = printOptionalToken(path);
+
+    if (!node.computed) {
+      return [optional, ".", property];
+    }
+
+    if (!node.property || isNumericLiteral(node.property)) {
+      return [optional, "[", property, "]"];
+    }
+
+    return group([optional, "[", indent([softline, property]), softline, "]"]);
+  }
+}
+
+/**
+ * @param {AstPath} path
  * @param {*} objectDoc
  * @returns {boolean}
  */
@@ -67,4 +84,4 @@ function shouldInlineMember(path, objectDoc) {
   );
 }
 
-export { printMemberExpression, printMemberLookup, shouldInlineMember };
+export { printMemberExpression, printMemberLookup };

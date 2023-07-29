@@ -24,11 +24,10 @@ import {
   conditionalGroup,
   breakParent,
   label,
-  softline,
 } from "../../document/builders.js";
 import { willBreak } from "../../document/utils.js";
 import printCallArguments from "./call-arguments.js";
-import { printMemberLookup, shouldInlineMember } from "./member.js";
+import { printMemberLookup } from "./member.js";
 import {
   printOptionalToken,
   printFunctionTypeParameters,
@@ -106,19 +105,21 @@ function printMemberChain(path, options, print) {
       });
     } else if (isMemberish(node)) {
       path.call((object) => rec(object), "object");
-      let doc;
-      if (isMemberExpression(node)) {
-        const lookupDoc = printMemberLookup(path, options, print);
-        doc = shouldInlineMember(path, printedNodes.at(-1).printed)
-          ? lookupDoc
-          : group(indent([softline, lookupDoc]));
-      } else {
-        doc = printBindExpressionCallee(path, options, print);
-      }
       printedNodes.push({
         node,
         needsParens: pathNeedsParens(path, options),
-        printed: printComments(path, doc, options),
+        printed: printComments(
+          path,
+          isMemberExpression(node)
+            ? printMemberLookup(
+                path,
+                options,
+                print,
+                printedNodes.at(-1)?.printed,
+              )
+            : printBindExpressionCallee(path, options, print),
+          options,
+        ),
       });
     } else if (node.type === "TSNonNullExpression") {
       path.call((expression) => rec(expression), "expression");
