@@ -1,5 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`2548-long-long-member-chain.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+this.is.a.long.long.long.long.long.long.long.long.long.long.long.long.long.long.long.long.method();
+
+prettier.is.an.opinionated.code.formatter.with.support.for(
+  "JavaScript (including experimental features)",
+  "JSX",
+  "Angular",
+  "Vue",
+  "Flow",
+  "TypeScript",
+  "CSS, Less and SCSS",
+  "HTML",
+  "Ember/Handlebars",
+  "JSON",
+  "GraphQL",
+  "Markdown, including GFM and MDX",
+  "YAML")
+  .it.removes.all.original.styling.and.ensures.that.all.outputted
+  .code.conforms.to.a.consistent.style(see, this, blogpost);
+
+=====================================output=====================================
+this.is.a.long.long.long.long.long.long.long.long.long.long.long.long.long.long.long.long.method();
+
+prettier.is.an.opinionated.code.formatter.with.support
+  .for(
+    "JavaScript (including experimental features)",
+    "JSX",
+    "Angular",
+    "Vue",
+    "Flow",
+    "TypeScript",
+    "CSS, Less and SCSS",
+    "HTML",
+    "Ember/Handlebars",
+    "JSON",
+    "GraphQL",
+    "Markdown, including GFM and MDX",
+    "YAML",
+  )
+  .it.removes.all.original.styling.and.ensures.that.all.outputted.code.conforms.to.a.consistent.style(
+    see,
+    this,
+    blogpost,
+  );
+
+================================================================================
+`;
+
 exports[`13018.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
