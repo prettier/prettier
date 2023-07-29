@@ -128,10 +128,6 @@ const pluginFiles = [
         process: modifyTypescriptModule,
       },
       {
-        module: require.resolve("typescript/lib/tsserverlibrary.js"),
-        text: "",
-      },
-      {
         module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/index.js",
         ),
@@ -212,6 +208,12 @@ const pluginFiles = [
           "@typescript-eslint/typescript-estree/dist/version-check.js",
         ),
         text: "exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/create-program/createProjectService.js",
+        ),
+        text: "",
       },
       // Only needed if `range`/`loc` in parse options is `false`
       {
