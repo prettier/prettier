@@ -26,30 +26,30 @@ function printMemberExpression(path, options, print) {
  * @returns {Doc}
  */
 function printMemberLookup(path, options, print, objectDoc) {
-  const doc = lookupDoc();
+  const property = print("property");
+  const { node } = path;
+  const optional = printOptionalToken(path);
+
+  /** @type {Doc} */
+  let lookupDoc;
+  if (!node.computed) {
+    lookupDoc = [optional, ".", property];
+  } else if (!node.property || isNumericLiteral(node.property)) {
+    lookupDoc = [optional, "[", property, "]"];
+  } else {
+    lookupDoc = group([
+      optional,
+      "[",
+      indent([softline, property]),
+      softline,
+      "]",
+    ]);
+  }
+
   if (shouldInlineMember(path, objectDoc)) {
-    return doc;
+    return lookupDoc;
   }
-  return group(indent([softline, doc]));
-
-  /**
-   * @returns {Doc}
-   */
-  function lookupDoc() {
-    const property = print("property");
-    const { node } = path;
-    const optional = printOptionalToken(path);
-
-    if (!node.computed) {
-      return [optional, ".", property];
-    }
-
-    if (!node.property || isNumericLiteral(node.property)) {
-      return [optional, "[", property, "]"];
-    }
-
-    return group([optional, "[", indent([softline, property]), softline, "]"]);
-  }
+  return group(indent([softline, lookupDoc]));
 }
 
 /**
