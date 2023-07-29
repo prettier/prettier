@@ -87,8 +87,7 @@ function printMemberChain(path, options, print) {
       isCallExpression(node) &&
       (isMemberish(node.callee) || isCallExpression(node.callee))
     ) {
-      path.call((callee) => rec(callee), "callee");
-      printedNodes.push({
+      printedNodes.unshift({
         node,
         printed: [
           printComments(
@@ -103,9 +102,9 @@ function printMemberChain(path, options, print) {
           shouldInsertEmptyLineAfter(node) ? hardline : "",
         ],
       });
+      path.call((callee) => rec(callee), "callee");
     } else if (isMemberish(node)) {
-      path.call((object) => rec(object), "object");
-      printedNodes.push({
+      printedNodes.unshift({
         node,
         needsParens: pathNeedsParens(path, options),
         printed: printComments(
@@ -116,14 +115,15 @@ function printMemberChain(path, options, print) {
           options,
         ),
       });
+      path.call((object) => rec(object), "object");
     } else if (node.type === "TSNonNullExpression") {
-      path.call((expression) => rec(expression), "expression");
-      printedNodes.push({
+      printedNodes.unshift({
         node,
         printed: printComments(path, "!", options),
       });
+      path.call((expression) => rec(expression), "expression");
     } else {
-      printedNodes.push({
+      printedNodes.unshift({
         node,
         printed: print(),
       });
@@ -133,12 +133,7 @@ function printMemberChain(path, options, print) {
   // need to extract this first call without printing them as they would
   // if handled inside of the recursive call.
   const { node } = path;
-
-  if (node.callee) {
-    path.call((callee) => rec(callee), "callee");
-  }
-
-  printedNodes.push({
+  printedNodes.unshift({
     node,
     printed: [
       printOptionalToken(path),
@@ -146,6 +141,10 @@ function printMemberChain(path, options, print) {
       printCallArguments(path, options, print),
     ],
   });
+
+  if (node.callee) {
+    path.call((callee) => rec(callee), "callee");
+  }
 
   // Once we have a linear list of printed nodes, we want to create groups out
   // of it.
