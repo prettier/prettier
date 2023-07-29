@@ -30,7 +30,6 @@ async function run(rawArguments = process.argv.slice(2)) {
 
     await main(context);
   } catch (error) {
-    console.log(error);
     logger.error(error.message);
     process.exitCode = 1;
   }
