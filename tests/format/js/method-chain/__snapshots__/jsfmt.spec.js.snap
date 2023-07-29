@@ -26,7 +26,8 @@ prettier.is.an.opinionated.code.formatter.with.support.for(
   .code.conforms.to.a.consistent.style(see, this, blogpost);
 
 =====================================output=====================================
-this.is.a.long.long.long.long.long.long.long.long.long.long.long.long.long.long.long.long.method();
+this.is.a.long.long.long.long.long.long.long.long.long.long.long.long.long.long
+  .long.long.method();
 
 prettier.is.an.opinionated.code.formatter.with.support
   .for(
@@ -44,11 +45,8 @@ prettier.is.an.opinionated.code.formatter.with.support
     "Markdown, including GFM and MDX",
     "YAML",
   )
-  .it.removes.all.original.styling.and.ensures.that.all.outputted.code.conforms.to.a.consistent.style(
-    see,
-    this,
-    blogpost,
-  );
+  .it.removes.all.original.styling.and.ensures.that.all.outputted.code.conforms
+    .to.a.consistent.style(see, this, blogpost);
 
 ================================================================================
 `;

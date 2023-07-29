@@ -53,26 +53,23 @@ const testResults = results.testResults.map((testResult) =>
 );
 
 it("mocks regexp instances", () => {
-  expect(() =>
-    moduleMocker.generateFromMetadata(moduleMocker.getMetadata(/a/)),
-  ).not.toThrow();
+  expect(() => moduleMocker.generateFromMetadata(moduleMocker.getMetadata(/a/)))
+    .not.toThrow();
 });
 
 expect(() => asyncRequest({ url: "/test-endpoint" })).toThrowError(
   /Required parameter/,
 );
 
-expect(() =>
-  asyncRequest({ url: "/test-endpoint-but-with-a-long-url" }),
-).toThrowError(/Required parameter/);
+expect(() => asyncRequest({ url: "/test-endpoint-but-with-a-long-url" }))
+  .toThrowError(/Required parameter/);
 
 expect(() =>
   asyncRequest({ url: "/test-endpoint-but-with-a-suuuuuuuuper-long-url" }),
 ).toThrowError(/Required parameter/);
 
-expect(() =>
-  asyncRequest({ type: "foo", url: "/test-endpoint" }),
-).not.toThrowError();
+expect(() => asyncRequest({ type: "foo", url: "/test-endpoint" })).not
+  .toThrowError();
 
 expect(() =>
   asyncRequest({ type: "foo", url: "/test-endpoint-but-with-a-long-url" }),
@@ -154,26 +151,23 @@ const testResults = results.testResults.map((testResult) =>
 );
 
 it("mocks regexp instances", () => {
-  expect(() =>
-    moduleMocker.generateFromMetadata(moduleMocker.getMetadata(/a/)),
-  ).not.toThrow();
+  expect(() => moduleMocker.generateFromMetadata(moduleMocker.getMetadata(/a/)))
+    .not.toThrow();
 });
 
 expect(() => asyncRequest({ url: "/test-endpoint" })).toThrowError(
   /Required parameter/,
 );
 
-expect(() =>
-  asyncRequest({ url: "/test-endpoint-but-with-a-long-url" }),
-).toThrowError(/Required parameter/);
+expect(() => asyncRequest({ url: "/test-endpoint-but-with-a-long-url" }))
+  .toThrowError(/Required parameter/);
 
 expect(() =>
   asyncRequest({ url: "/test-endpoint-but-with-a-suuuuuuuuper-long-url" }),
 ).toThrowError(/Required parameter/);
 
-expect(() =>
-  asyncRequest({ type: "foo", url: "/test-endpoint" }),
-).not.toThrowError();
+expect(() => asyncRequest({ type: "foo", url: "/test-endpoint" })).not
+  .toThrowError();
 
 expect(() =>
   asyncRequest({ type: "foo", url: "/test-endpoint-but-with-a-long-url" }),
@@ -255,26 +249,23 @@ const testResults = results.testResults.map((testResult) =>
 );
 
 it("mocks regexp instances", () => {
-  expect(() =>
-    moduleMocker.generateFromMetadata(moduleMocker.getMetadata(/a/))
-  ).not.toThrow();
+  expect(() => moduleMocker.generateFromMetadata(moduleMocker.getMetadata(/a/)))
+    .not.toThrow();
 });
 
 expect(() => asyncRequest({ url: "/test-endpoint" })).toThrowError(
   /Required parameter/
 );
 
-expect(() =>
-  asyncRequest({ url: "/test-endpoint-but-with-a-long-url" })
-).toThrowError(/Required parameter/);
+expect(() => asyncRequest({ url: "/test-endpoint-but-with-a-long-url" }))
+  .toThrowError(/Required parameter/);
 
 expect(() =>
   asyncRequest({ url: "/test-endpoint-but-with-a-suuuuuuuuper-long-url" })
 ).toThrowError(/Required parameter/);
 
-expect(() =>
-  asyncRequest({ type: "foo", url: "/test-endpoint" })
-).not.toThrowError();
+expect(() => asyncRequest({ type: "foo", url: "/test-endpoint" })).not
+  .toThrowError();
 
 expect(() =>
   asyncRequest({ type: "foo", url: "/test-endpoint-but-with-a-long-url" })
