@@ -24,7 +24,6 @@ By.far.the.biggest.reason.for.adopting.Prettier.is.to.stop.all.the['on-going'].d
 So.why.choose.the.Prettier./* comment */style.guide/* comment */.over.any.other.random.style.guide?.()
 .Because.Prettier.is./* comment */the.only./* comment */style.guide.that.is.fully.automatic()
 // commment
-.Even
-// comment
+.Even // comment
 .if.Prettier.does.not.format.all.code['100%'].the.way['you’d'].like['it’s'].worth.the.sacrifice.given.the.unique.benefits.of.Prettier
 ['don’t'].you.think?.()
