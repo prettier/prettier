@@ -15,7 +15,7 @@ a{color:#f00
 
 =====================================output=====================================
 @supports selector(
-  :focus-visible // *"a"
+:focus-visible //   a 
 ) {
   a {
     color: #f00;

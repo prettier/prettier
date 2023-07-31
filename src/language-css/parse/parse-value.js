@@ -1,4 +1,4 @@
-import PostcssValuesParser from "postcss-values-parser/lib/parser.js";
+import PostcssValuesParser from "postcss-value-parser/lib/parse.js";
 import getFunctionArgumentsText from "../utils/get-function-arguments-text.js";
 import getValueRoot from "../utils/get-value-root.js";
 import hasSCSSInterpolation from "../utils/has-scss-interpolation.js";
@@ -34,7 +34,7 @@ function parseValueNode(valueNode, options) {
     ) {
       // Work around postcss bug parsing `50...` as `50.` with unit `..`
       // Set the unit to `...` to "accidentally" have arbitrary arguments work in the same way that cases where the node already had a unit work.
-      // For example, 50px... is parsed as `50` with unit `px...` already by postcss-values-parser.
+      // For example, 50px... is parsed as `50` with unit `px...` already by postcss-value-parser.
       node.value = node.value.slice(0, -1);
       node.unit = "...";
     }

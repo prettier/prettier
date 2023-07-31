@@ -56,7 +56,7 @@ a {
   content: url(https://example.com/\\ \\ .jpg);
   content: url(   https://example.com/\\)\\).jpg   );
   content: url(   https://example.com/\\(\\(.jpg   );
-  content: url(https://example.com/\\ \\ .jpg);
+  content: url(   https://example.com/\\ \\ .jpg   );
 
   background: no-repeat url(https://example.com/\\)\\).jpg),
     no-repeat url(https://example.com/\\(\\(.jpg),

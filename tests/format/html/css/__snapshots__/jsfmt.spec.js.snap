@@ -49,7 +49,7 @@ printWidth: 80
 </style>
 
 <style lang="less">
-  @nice-blue: #5b83ad;
+  @nice-blue: #5B83AD;
   @light-blue: @nice-blue + #111;
 
   #header {

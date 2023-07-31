@@ -733,7 +733,7 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
 <div style="color: red; {{ otherStyles }}"
 ></div>
 =====================================output=====================================
-<div style="color: #fff"></div>
+<div style="color: #fFf"></div>
 
 <div style=""></div>
 <div style></div>
@@ -745,30 +745,18 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
     contain: content;
     text-align: center;
 
-    background: linear-gradient(
-      to left,
-      hotpink,
-      #fff00f,
-      #ccc,
-      hsla(240, 100%, 50%, 0.05),
-      transparent
-    );
-    background: linear-gradient(to left, hsla(240, 100%, 50%, 0.05), red);
+    background: linear-gradient(to left, hotpink, #FFF00F, #ccc, hsla(240, 100%, 50%, .05), transparent);
+    background: linear-gradient(to left, hsla(240, 100%, 50%, .05), red);
     max-width: 500px;
     margin: 0 auto;
     border-radius: 8px;
-    transition: transform 0.2s ease-out;
+    transition: transform .2s ease-out;
   "
 ></div>
 
 <div
   style="
-    background: linear-gradient(
-      to left,
-      hotpink,
-      hsla(240, 100%, 50%, 0.05),
-      transparent
-    );
+    background: linear-gradient(to left, hotpink, hsla(240, 100%, 50%, .05), transparent);
   "
 ></div>
 

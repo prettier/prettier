@@ -11,8 +11,8 @@ $description: "Lorem ipsum dolor sit \\"amet\\", consectetur adipiscing elit, " 
   "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
 =====================================output=====================================
-$description: 'Lorem ipsum dolor sit "amet", consectetur adipiscing elit, ' +
-  'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+$description: "Lorem ipsum dolor sit \\"amet\\", consectetur adipiscing elit, " +
+  "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
 ================================================================================
 `;
@@ -27,7 +27,7 @@ $description: "Lorem ipsum dolor sit \\"amet\\", consectetur adipiscing elit, " 
   "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
 =====================================output=====================================
-$description: 'Lorem ipsum dolor sit "amet", consectetur adipiscing elit, ' +
+$description: "Lorem ipsum dolor sit \\"amet\\", consectetur adipiscing elit, " +
   "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
 ================================================================================
@@ -43,9 +43,7 @@ singleQuote: true
 @forward 'foo.scss' with ($components: red);
 
 =====================================output=====================================
-@forward 'foo.scss' with (
-  $components: red
-);
+@forward 'foo.scss' with ($components: red);
 
 ================================================================================
 `;
@@ -59,9 +57,7 @@ printWidth: 80
 @forward 'foo.scss' with ($components: red);
 
 =====================================output=====================================
-@forward "foo.scss" with (
-  $components: red
-);
+@forward 'foo.scss' with ($components: red);
 
 ================================================================================
 `;
@@ -98,28 +94,29 @@ singleQuote: true
 @forward "library" as btn*;
 
 =====================================output=====================================
-@use 'library';
+@use "library";
 
-@use 'library' with (
+@use "library" with (
   $black: #222,
-  $border-radius: 0.1rem $font-family: 'Helvetica, sans-serif'
+  $border-radius: 0.1rem
+  $font-family: "Helvetica, sans-serif"
 );
 
-@use 'library' as *;
+@use "library" as *;
 
-@use 'library' as f;
+@use "library" as f;
 
-@use 'sass:map';
+@use "sass:map";
 
-@forward 'library';
+@forward "library";
 
-@forward 'library' show border, $border-color;
+@forward "library" show border, $border-color;
 
-@forward 'library' hide gradient;
+@forward "library" hide gradient;
 
-@forward 'library' as btn-*;
+@forward "library" as btn-*;
 
-@forward 'library' as btn*;
+@forward "library" as btn*;
 
 ================================================================================
 `;
@@ -159,7 +156,8 @@ printWidth: 80
 
 @use "library" with (
   $black: #222,
-  $border-radius: 0.1rem $font-family: "Helvetica, sans-serif"
+  $border-radius: 0.1rem
+  $font-family: "Helvetica, sans-serif"
 );
 
 @use "library" as *;

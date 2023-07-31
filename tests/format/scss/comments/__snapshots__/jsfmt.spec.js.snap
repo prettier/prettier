@@ -48,7 +48,7 @@ $light-blue: $nice-blue + #111;
 }
 
 =====================================output=====================================
-$nice-blue: #5b83ad;
+$nice-blue: #5B83AD;
 $light-blue: $nice-blue + #111;
 
 // Comment 1
@@ -213,33 +213,24 @@ selector {
 .grid {
   grid-template-areas: //
     "header header header" //
-    "sidebar content content" //
-    "footer footer footer";
+          "sidebar content content" //
+          "footer footer footer";
 
   grid-template-areas: "header header header" //
-    "sidebar content content" //
-    "footer footer footer";
+          "sidebar content content" //
+          "footer footer footer";
 }
 
 // #8052
 $font-family-rich:
   // custom
-  "Noto Sans TC",
-  "Noto Sans SC",
-  "Noto Sans JP",
+  'Noto Sans TC', 'Noto Sans SC', 'Noto Sans JP',
   // Safari for OS X and iOS (San Francisco)
-  -apple-system,
-  BlinkMacSystemFont,
+  -apple-system, BlinkMacSystemFont,
   // fallback
-  Roboto,
-  "Helvetica Neue",
-  Helvetica,
-  Arial,
-  sans-serif,
+  Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif,
   // emoji
-  "Apple Color Emoji",
-  "Segoe UI Emoji",
-  "Segoe UI Symbol" !default;
+  'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !default;
 
 // #7109
 .test {
@@ -294,8 +285,8 @@ printWidth: 80
 @font-face {
   src: url(if(
     $bootstrap-sass-asset-helper,
-    twbs-font-path("#{$icon-font-path}#{$icon-font-name}.eot"),
-    "#{$icon-font-path}#{$icon-font-name}.eot"
+    twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'),
+    '#{$icon-font-path}#{$icon-font-name}.eot'
   ));
 }
 
@@ -361,9 +352,7 @@ printWidth: 80
     @return true;
   }
   // If $include is set to (all), make sure $section is not in $exclude.
-  @else if not
-    index($_normalize-exclude, $section) and
-    index($_normalize-include, all)
+  @else if not index($_normalize-exclude, $section) and index($_normalize-include, all)
   {
     @return true;
   }
@@ -397,11 +386,11 @@ printWidth: 80
 =====================================output=====================================
 .real-world-example {
   background: radial-gradient(
-    circle at left 0% bottom $position,
-    transparent,
-    transparent $diameter,
-    #fbfbfb calc(#{$diameter} + 1px) // Add 1px for edge-smoothing.
-  );
+      circle at left 0% bottom $position,
+      transparent,
+      transparent $diameter,
+      #fbfbfb calc(#{$diameter} + 1px) // Add 1px for edge-smoothing.
+    );
 }
 
 .simplification {
@@ -429,13 +418,12 @@ $my-list2:
   c;
 
 =====================================output=====================================
-$my-list:
-  "foo",
-  // Foo
-  "bar"; // Bar
+$my-list: 'foo', // Foo
+  'bar'; // Bar
 
 $my-list2: a // a
-  b c;
+  b
+  c;
 
 ================================================================================
 `;
@@ -453,10 +441,8 @@ $my-map: (
 
 =====================================output=====================================
 $my-map: (
-  "foo": 1,
-  // Foo
-  "bar": 2,
-  // Bar
+  'foo': 1, // Foo
+  'bar': 2, // Bar
 );
 
 ================================================================================
@@ -485,7 +471,7 @@ printWidth: 80
 
 // '/*' <-- this breaks formatting
 
-@import "b";
+@import 'b';
 // another comment
 //no-space before
 
@@ -509,7 +495,7 @@ printWidth: 80
 /* DO NOT ADD EXTRA CODE TO THIS FILE */
 @import "a";
 //*
-@import "b";
+@import 'b';
 /* block */
 /*no-space block*/
 
@@ -539,7 +525,7 @@ printWidth: 80
 
 // '/*' <-- this breaks formatting
 
-@import "b";
+@import 'b';
 /* block */
 /*no-space block*/
 

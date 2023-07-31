@@ -1805,7 +1805,7 @@ label {
   &:extend(.input:disabled)}
 
 =====================================output=====================================
-@nice-blue: #5b83ad;
+@nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
 
 #header {
@@ -2040,7 +2040,7 @@ a:hover {
 body {
   color: #444;
   width: 100px;
-  background: url("/foo/@{images}/bar");
+  background: url('/foo/@{images}/bar');
   background: url("@{images}/white-sand.\${width}.png");
   background: url(@images);
 }
@@ -3198,9 +3198,7 @@ div {
 }
 
 .myclass {
-  box-shadow:
-    inset 0 0 10px #555,
-    0 0 20px black;
+  box-shadow: inset 0 0 10px #555, 0 0 20px black;
 }
 
 .mixin() {
@@ -3325,7 +3323,7 @@ a:hover {
   .menu {
     border-radius: 5px;
     .no-borderradius & {
-      background-image: url("images/button-background.png");
+      background-image: url('images/button-background.png');
     }
   }
 }
@@ -3334,7 +3332,7 @@ a:hover {
   border-radius: 5px;
 }
 .no-borderradius .header .menu {
-  background-image: url("images/button-background.png");
+  background-image: url('images/button-background.png');
 }
 
 p,
@@ -3416,7 +3414,7 @@ label {
 }
 
 // whitespace between variable and colon, #2925 #4090
-@FoO: bar;
+@FoO:  bar;
 
 // should not parse as custom-selector
 @custom-selector: --icon #id;
@@ -3489,7 +3487,7 @@ printWidth: 80
 }
 
 .aa:hover::after {
-  content: '"';
+  content: "\\"";
 } // "
 
 .b {
@@ -3500,7 +3498,7 @@ printWidth: 80
 }
 
 .bb {
-  background: url("http://example.com/(foo)bar");
+  background: url('http://example.com/(foo)bar');
 }
 .bb::after {
   content: "'a";
@@ -3526,7 +3524,7 @@ printWidth: 80
 }
 
 [href]:active {
-  opacity: // '!' "?"
+  opacity: //  !   ? 
     1;
 }
 

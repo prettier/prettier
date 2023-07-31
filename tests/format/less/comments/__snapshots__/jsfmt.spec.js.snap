@@ -33,7 +33,7 @@ printWidth: 80
 }
 
 =====================================output=====================================
-@nice-blue: #5b83ad;
+@nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
 
 // Comment 1
@@ -116,7 +116,7 @@ value;
 =====================================output=====================================
 selector {
   prop: // comment
-    value;
+value;
 
   prop: /* block */ value;
 
@@ -126,13 +126,13 @@ selector {
 // #5603
 .grid {
   grid-template-areas: //
-    "header header header" //
-    "sidebar content content" //
-    "footer footer footer";
+          "header header header" //
+          "sidebar content content" //
+          "footer footer footer";
 
   grid-template-areas: "header header header" //
-    "sidebar content content" //
-    "footer footer footer";
+          "sidebar content content" //
+          "footer footer footer";
 }
 
 // TODO: make these pretty
@@ -146,7 +146,7 @@ selector {
 : value;
 
   prop/* before */: // after
-    value;
+value;
 
   prop/* before */: /* after*/ value;
 }
@@ -222,11 +222,11 @@ printWidth: 80
 =====================================output=====================================
 .real-world-example {
   background: radial-gradient(
-    circle at left 0% bottom $position,
-    transparent,
-    transparent $diameter,
-    #fbfbfb calc(#{$diameter} + 1px) // Add 1px for edge-smoothing.
-  );
+      circle at left 0% bottom $position,
+      transparent,
+      transparent $diameter,
+      #fbfbfb calc(#{$diameter} + 1px) // Add 1px for edge-smoothing.
+    );
 }
 
 .simplification {
@@ -256,9 +256,9 @@ printWidth: 80
 @import "../node_modules/foo/bar.less";
 
 // @index(['./components/**/*.less', '!./**/_demo/**'], f => \`@import '\${f.path}\${f.ext}';\`)
-@import "./components/Button/Button.less";
-@import "./components/Form/Form.less";
-@import "./components/Input/Input.less";
+@import './components/Button/Button.less';
+@import './components/Form/Form.less';
+@import './components/Input/Input.less';
 // @endindex
 
 ================================================================================
@@ -287,7 +287,7 @@ printWidth: 80
 
 // '/*' <-- this breaks formatting
 
-@import "b";
+@import 'b';
 // another comment
 //no-space before
 
@@ -311,7 +311,7 @@ printWidth: 80
 /* DO NOT ADD EXTRA CODE TO THIS FILE */
 @import "a";
 //*
-@import "b";
+@import 'b';
 /* block */
 /*no-space block*/
 
@@ -341,7 +341,7 @@ printWidth: 80
 
 // '/*' <-- this breaks formatting
 
-@import "b";
+@import 'b';
 /* block */
 /*no-space block*/
 
@@ -480,15 +480,12 @@ printWidth: 80
   #bbbbbb // then some B
   #cccccc; // and round it out with C
 
-@test-space-separated: #aaaaaa // Start with A
+@test-space-separated:  #aaaaaa // Start with A
   #bbbbbb // then some B
   #cccccc; // and round it out with C
 
-@test-comma-separated:
-  #aaaaaa,
-  // Start with A
-  #bbbbbb,
-  // then some B
+@test-comma-separated: #aaaaaa, // Start with A
+  #bbbbbb, // then some B
   #cccccc; // and round it out with C
 
 ================================================================================

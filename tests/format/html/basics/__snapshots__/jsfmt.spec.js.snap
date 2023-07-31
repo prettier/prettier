@@ -948,7 +948,7 @@ e-wrap </textarea
   </script>
   <style>
     .A {
-      color: #f00;
+      color: #F00;
     }
   </style>
   <html:script

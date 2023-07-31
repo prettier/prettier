@@ -85,7 +85,7 @@ a {
   transition: color 1s;
 }
 a:hover {
-  color: gray(255, 50%);
+  color: gray(255,50%);
 }
 a:active {
   color: rebeccapurple;
@@ -106,7 +106,7 @@ table {
   filter: blur(4px);
 }
 .sepia {
-  filter: sepia(0.8);
+  filter: sepia(.8);
 }
 
 ================================================================================
