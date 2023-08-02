@@ -121,10 +121,20 @@ jobs:
           path: dist
 
       - name: Run Tests
+        if: matrix.node != '14'
+        run: yarn test:dist
+
+      - name: Run Tests (Node.js 14)
+        if: matrix.node == '14'
         run: yarn test:dist
 
       - name: Run Format Tests (standalone)
+        if: matrix.node != '14'
         run: yarn test:dist-standalone
+
+      - name: Run Format Tests (standalone, Node.js 14)
+        if: matrix.node == '14'
+        run: yarn test:dist-standalone-node14
 
   cli:
     name: CLI
