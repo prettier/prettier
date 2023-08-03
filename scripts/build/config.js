@@ -1,7 +1,6 @@
 import path from "node:path";
 import url from "node:url";
 import fs from "node:fs";
-import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.js";
 import buildJavascriptModule from "./build-javascript-module.js";
@@ -426,11 +425,21 @@ const nonPluginUniversalFiles = [
     umdVariableName: "prettier",
     replaceModule: [
       {
-        module: require.resolve("@babel/highlight"),
+        module: require.resolve("@babel/highlight", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
         path: path.join(dirname, "./shims/babel-highlight.js"),
       },
       {
-        module: createRequire(require.resolve("vnopts")).resolve("chalk"),
+        module: require.resolve("chalk", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
+        path: path.join(dirname, "./shims/chalk.js"),
+      },
+      {
+        module: require.resolve("chalk", {
+          paths: [require.resolve("vnopts")],
+        }),
         path: path.join(dirname, "./shims/chalk.js"),
       },
       replaceDiffPackageEntry("lib/diff/array.js"),

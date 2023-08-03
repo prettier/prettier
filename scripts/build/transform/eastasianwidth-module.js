@@ -1,8 +1,6 @@
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
-import babelGenerator from "@babel/generator";
-
-const generate = babelGenerator.default;
+import generate from "@babel/generator";
 
 function transformEastAsianWidthModule(original) {
   let eastAsianWidthFunction;
