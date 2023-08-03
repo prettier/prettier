@@ -205,7 +205,7 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   let node = rightNode;
   const propertiesForPath = [];
   for (;;) {
-    if (node.type === "UnaryExpression") {
+    if (node.type === "UnaryExpression" || node.type === "AwaitExpression") {
       node = node.argument;
       propertiesForPath.push("argument");
     } else if (node.type === "TSNonNullExpression") {
