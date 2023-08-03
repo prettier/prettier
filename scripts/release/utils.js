@@ -58,7 +58,7 @@ async function runYarn(args, options) {
   args = Array.isArray(args) ? args : [args];
 
   try {
-    return await execa("yarn", ["--silent", "run", ...args], options);
+    return await execa("yarn", [...args], options);
   } catch (error) {
     throw new Error(`\`yarn ${args.join(" ")}\` failed\n${error.stdout}`);
   }
