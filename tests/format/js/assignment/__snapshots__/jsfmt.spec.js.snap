@@ -1,41 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`await-discussion-15196.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-async function f() {
-  const { section, rubric, authors, tags } = await utils.upsertCommonData(mainData);
-
-  const loooooooooooooooooooooooooong1 = await looooooooooooooong.looooooooooooooong.loooooong;
-  const loooooooooooooooooooooooooong2 = await looooooooooooooong.looooooooooooooong.loooooong();
-  const loooooooooooooooooooooooooong3 = await looooooooooooooooooooooooooooooooooooooooooooog();
-  const loooooooooooooooooooooooooong4 = !await looooooooooooooong.looooooooooooooong.loooooong;
-  const loooooooooooooooooooooooooong5 = void !!await looooooooooooooong.looooooooooooooong.loooooong;
-}
-
-=====================================output=====================================
-async function f() {
-  const { section, rubric, authors, tags } =
-    await utils.upsertCommonData(mainData);
-
-  const loooooooooooooooooooooooooong1 =
-    await looooooooooooooong.looooooooooooooong.loooooong;
-  const loooooooooooooooooooooooooong2 =
-    await looooooooooooooong.looooooooooooooong.loooooong();
-  const loooooooooooooooooooooooooong3 =
-    await looooooooooooooooooooooooooooooooooooooooooooog();
-  const loooooooooooooooooooooooooong4 =
-    !(await looooooooooooooong.looooooooooooooong.loooooong);
-  const loooooooooooooooooooooooooong5 =
-    void !!(await looooooooooooooong.looooooooooooooong.loooooong);
-}
-
-================================================================================
-`;
-
 exports[`binaryish.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -309,6 +273,42 @@ printWidth: 80
       methodId3,
     } = anodyneCondosMalateOverateRetinol.get(bifornCringerMoshedPerplexSawder);
   }
+}
+
+================================================================================
+`;
+
+exports[`discussion-15196.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  const { section, rubric, authors, tags } = await utils.upsertCommonData(mainData);
+
+  const loooooooooooooooooooooooooong1 = await looooooooooooooong.looooooooooooooong.loooooong;
+  const loooooooooooooooooooooooooong2 = await looooooooooooooong.looooooooooooooong.loooooong();
+  const loooooooooooooooooooooooooong3 = await looooooooooooooooooooooooooooooooooooooooooooog();
+  const loooooooooooooooooooooooooong4 = !await looooooooooooooong.looooooooooooooong.loooooong;
+  const loooooooooooooooooooooooooong5 = void !!await looooooooooooooong.looooooooooooooong.loooooong;
+}
+
+=====================================output=====================================
+async function f() {
+  const { section, rubric, authors, tags } =
+    await utils.upsertCommonData(mainData);
+
+  const loooooooooooooooooooooooooong1 =
+    await looooooooooooooong.looooooooooooooong.loooooong;
+  const loooooooooooooooooooooooooong2 =
+    await looooooooooooooong.looooooooooooooong.loooooong();
+  const loooooooooooooooooooooooooong3 =
+    await looooooooooooooooooooooooooooooooooooooooooooog();
+  const loooooooooooooooooooooooooong4 =
+    !(await looooooooooooooong.looooooooooooooong.loooooong);
+  const loooooooooooooooooooooooooong5 =
+    void !!(await looooooooooooooong.looooooooooooooong.loooooong);
 }
 
 ================================================================================
