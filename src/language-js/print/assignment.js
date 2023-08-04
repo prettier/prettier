@@ -208,7 +208,7 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     if (
       node.type === "UnaryExpression" ||
       node.type === "AwaitExpression" ||
-      node.type === "YieldExpression"
+      (node.type === "YieldExpression" && node.argument !== null)
     ) {
       node = node.argument;
       propertiesForPath.push("argument");

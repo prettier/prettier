@@ -22,4 +22,6 @@ function* g() {
 
   const longlonglonglonglonglonglong1 = yield qwertyuiop(asdfghjkl, zxcvbnm, qwertyuiop, asdfghjkl);
   const longlonglonglonglonglonglong2 = yield { qwertyuiop: 1234567890, asdfghjkl: 1234567890, zxcvbnm: 123456789 };
+
+  const x = yield;
 }
