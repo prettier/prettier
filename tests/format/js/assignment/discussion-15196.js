@@ -19,6 +19,7 @@ function* g() {
   const loooooooooooooooooooooooooong3 = yield looooooooooooooooooooooooooooooooooooooooooooog();
   const loooooooooooooooooooooooooong4 = !(yield looooooooooooooong.looooooooooooooong.loooooong);
   const loooooooooooooooooooooooooong5 = void !!(yield looooooooooooooong.looooooooooooooong.loooooong);
+  const loooooooooooooooooooooooooong6 = yield* looooooooooooooong.looooooooooooooong.loooooong;
 
   const longlonglonglonglonglonglong1 = yield qwertyuiop(asdfghjkl, zxcvbnm, qwertyuiop, asdfghjkl);
   const longlonglonglonglonglonglong2 = yield { qwertyuiop: 1234567890, asdfghjkl: 1234567890, zxcvbnm: 123456789 };
