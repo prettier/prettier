@@ -357,9 +357,7 @@ const Bar = styled.div\`
 
 =====================================output=====================================
 foo(
-  \`a long string \${
-    1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3
-  } with expr\`,
+  \`a long string \${1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3} with expr\`,
 );
 
 const x = \`a long string \${
@@ -413,9 +411,7 @@ foo(
 );
 
 pipe.write(
-  \`\\n  \${chalk.dim(
-    \`\\u203A and \${more} more \${more} more \${more} more \${more}\`,
-  )}\`,
+  \`\\n  \${chalk.dim(\`\\u203A and \${more} more \${more} more \${more} more \${more}\`)}\`,
 );
 
 // https://github.com/prettier/prettier/issues/1662#issue-230406820
@@ -541,9 +537,7 @@ const Bar = styled.div\`
 
 =====================================output=====================================
 foo(
-  \`a long string \${
-    1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3
-  } with expr\`
+  \`a long string \${1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3} with expr\`
 );
 
 const x = \`a long string \${
@@ -597,9 +591,7 @@ foo(
 );
 
 pipe.write(
-  \`\\n  \${chalk.dim(
-    \`\\u203A and \${more} more \${more} more \${more} more \${more}\`
-  )}\`
+  \`\\n  \${chalk.dim(\`\\u203A and \${more} more \${more} more \${more} more \${more}\`)}\`
 );
 
 // https://github.com/prettier/prettier/issues/1662#issue-230406820
