@@ -3295,12 +3295,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enquirer@npm:2.3.6":
-  version: 2.3.6
-  resolution: "enquirer@npm:2.3.6"
+"enquirer@npm:2.4.1":
+  version: 2.4.1
+  resolution: "enquirer@npm:2.4.1"
   dependencies:
     ansi-colors: ^4.1.1
-  checksum: 1c0911e14a6f8d26721c91e01db06092a5f7675159f0261d69c403396a385afd13dd76825e7678f66daffa930cfaa8d45f506fb35f818a2788463d022af1b884
+    strip-ansi: ^6.0.1
+  checksum: f080f11a74209647dbf347a7c6a83c8a47ae1ebf1e75073a808bc1088eb780aa54075bfecd1bcdb3e3c724520edb8e6ee05da031529436b421b71066fcc48cb5
   languageName: node
   linkType: hard
 
@@ -7032,7 +7033,7 @@ __metadata:
     editorconfig: 0.15.3
     editorconfig-to-prettier: 1.0.0
     emoji-regex: 10.2.1
-    enquirer: 2.3.6
+    enquirer: 2.4.1
     esbuild: 0.18.18
     esbuild-visualizer: 0.4.1
     escape-string-regexp: 5.0.0
