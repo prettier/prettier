@@ -1558,6 +1558,17 @@ label {
 div {
   margin: - pow(2, 2) * 100px;
 }
+
+$foo: (
+    'property1': (),
+    // comment 1
+    // comment 2
+
+    'property2': 1,
+    /** comment 1 */
+    /* comment 2 */
+);
+
 =====================================output=====================================
 @media #{$g-breakpoint-tiny} {
 }
@@ -2630,6 +2641,14 @@ label {
 div {
   margin: - pow(2, 2) * 100px;
 }
+
+$foo: (
+  "property1": (),
+  // comment 1
+  // comment 2
+  "property2": 1,
+  /** comment 1 */ /* comment 2 */
+);
 
 ================================================================================
 `;
@@ -3732,6 +3751,17 @@ label {
 div {
   margin: - pow(2, 2) * 100px;
 }
+
+$foo: (
+    'property1': (),
+    // comment 1
+    // comment 2
+
+    'property2': 1,
+    /** comment 1 */
+    /* comment 2 */
+);
+
 =====================================output=====================================
 @media #{$g-breakpoint-tiny} {
 }
@@ -4804,6 +4834,14 @@ label {
 div {
   margin: - pow(2, 2) * 100px;
 }
+
+$foo: (
+  "property1": (),
+  // comment 1
+  // comment 2
+  "property2": 1,
+  /** comment 1 */ /* comment 2 */
+);
 
 ================================================================================
 `;
