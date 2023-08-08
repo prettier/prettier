@@ -143,6 +143,14 @@ One final thing: TC39 has [not yet decided if decorators come before or after `e
 export @decorator class Foo {}
 ```
 
+### Template literals
+
+Template literals can contain interpolations. Deciding whether it's appropriate to insert a linebreak within an interpolation unfortunately depends on the semantic content of the template - for example, introducing a linebreak in the middle of a natural-language sentence is usually undesirable. Since prettier doesn't have enough information to make this decision itself, it uses a heuristic similar to that used for objects: it will only split an interpolation expression across multiple lines if there was already a linebreak within that interpolation.
+
+That is, if you want prettier to split up an interpolation, you'll need to ensure there's a linebreak somewhere within the `${...}`. Otherwise it will keep everything on a single line, no matter how long it is.
+
+The team would prefer not to depend on the original formatting in this way, but it's the best heuristic we have at the moment.
+
 ### Semicolons
 
 This is about using the [noSemi](options.md#semicolons) option.
