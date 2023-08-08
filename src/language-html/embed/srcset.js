@@ -3,6 +3,8 @@ import { ifBreak, join, line } from "../../document/builders.js";
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import { printExpand } from "./utils.js";
 
+/** @typedef {import("../../document/builders.js").Doc} Doc */
+
 function printSrcset(path /*, options*/) {
   if (
     path.node.fullName === "srcset" &&
@@ -12,19 +14,20 @@ function printSrcset(path /*, options*/) {
   }
 }
 
+const SRCSET_UNITS = { width: "w", height: "h", density: "x" };
+const SRCSET_TYPES = Object.keys(SRCSET_UNITS);
 function printSrcsetValue(value) {
   const srcset = parseSrcset(value);
+  const types = SRCSET_TYPES.filter((type) =>
+    srcset.some((candidate) => Object.hasOwn(candidate, type)),
+  );
 
-  const hasW = srcset.some(({ width }) => width);
-  const hasH = srcset.some(({ height }) => height);
-  const hasX = srcset.some(({ density }) => density);
-
-  if (hasW + hasH + hasX > 1) {
+  if (types.length > 1) {
     throw new Error("Mixed descriptor in srcset is not supported");
   }
 
-  const key = hasW ? "width" : hasH ? "height" : "density";
-  const unit = hasW ? "w" : hasH ? "h" : "x";
+  const [key] = types;
+  const unit = SRCSET_UNITS[key];
 
   const urls = srcset.map((src) => src.source.value);
   const maxUrlLength = Math.max(...urls.map((url) => url.length));
@@ -42,6 +45,7 @@ function printSrcsetValue(value) {
     join(
       [",", line],
       urls.map((url, index) => {
+        /** @type {Doc[]} */
         const parts = [url];
 
         const descriptor = descriptors[index];
