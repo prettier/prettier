@@ -14,4 +14,11 @@ exports[`--write with --log-level=silent doesn't log filenames (write) 1`] = `
 ]
 `;
 
-exports[`Should use default level logger to log \`--log-level\` error (stderr) 1`] = `"[error] Invalid --log-level value. Expected "debug", "error", "log", "silent" or "warn", but received "a-unknown-log-level"."`;
+exports[`Should use default level logger to log \`--log-level\` error (stderr) 1`] = `
+"[error] Invalid --log-level value. Expected one of the following values, but received "a-unknown-log-level".
+[error] - "debug"
+[error] - "error"
+[error] - "log"
+[error] - "silent"
+[error] - "warn""
+`;

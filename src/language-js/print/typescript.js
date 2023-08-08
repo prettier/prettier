@@ -219,10 +219,15 @@ function printTypescript(path, options, print) {
       return [
         !node.isTypeOf ? "" : "typeof ",
         "import(",
-        print(node.parameter ? "parameter" : "argument"),
+        print("argument"),
         ")",
         !node.qualifier ? "" : [".", print("qualifier")],
-        printTypeParameters(path, options, print, "typeParameters"),
+        printTypeParameters(
+          path,
+          options,
+          print,
+          node.typeArguments ? "typeArguments" : "typeParameters",
+        ),
       ];
     case "TSLiteralType":
       return print("literal");

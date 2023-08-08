@@ -46,3 +46,9 @@ describe("should not exit non-zero for already prettified code with --debug-chec
     status: 0,
   });
 });
+
+describe("should not exit non-zero for jsx style element with spread attribute", () => {
+  runCli("cli/debug-check", ["issue-15094.jsx", "--debug-check"]).test({
+    status: 0,
+  });
+});

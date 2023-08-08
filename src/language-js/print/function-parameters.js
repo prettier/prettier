@@ -26,6 +26,7 @@ import {
 } from "../utils/index.js";
 import { locEnd } from "../loc.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { printFunctionTypeParameters } from "./misc.js";
 
 /** @typedef {import("../../common/ast-path.js").default} AstPath */
@@ -106,7 +107,9 @@ function printFunctionParameters(
   //   b,
   //   c
   // }) {}
-  const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
+  const hasNotParameterDecorator = parameters.every(
+    (node) => !isNonEmptyArray(node.decorators),
+  );
   if (shouldHugParameters && hasNotParameterDecorator) {
     return [typeParams, "(", ...printed, ")"];
   }

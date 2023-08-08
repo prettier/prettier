@@ -57,7 +57,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     ...[
       require.resolve("tslib"),
-      createRequire(require.resolve("vnopts")).resolve("tslib"),
       createRequire(require.resolve("tsutils")).resolve("tslib"),
     ].map((file) => ({
       module: file,
@@ -119,6 +118,8 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     define["process.emitWarning"] = undefined;
     // postcss/lib/postcss.js
     define["process.env.LANG"] = "";
+    // @typescript-eslint/typescript-estree
+    define["process.env.TYPESCRIPT_ESLINT_EXPERIMENTAL_TSSERVER"] = "";
 
     // Replace `__dirname` and `__filename` with a fake value
     // So `parser-typescript.js` won't contain a path of working directory

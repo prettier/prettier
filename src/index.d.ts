@@ -33,7 +33,7 @@ type ArrayElement<T> = T extends Array<infer E> ? E : never;
 
 // A union of the properties of the given object that are arrays.
 type ArrayProperties<T> = {
-  [K in keyof T]: NonNullable<T[K]> extends any[] ? K : never;
+  [K in keyof T]: NonNullable<T[K]> extends readonly any[] ? K : never;
 }[keyof T];
 
 // A union of the properties of the given array T that can be used to index it.
@@ -485,6 +485,9 @@ export interface Printer<T = any> {
         | Doc
         | null)
     | undefined;
+  preprocess?:
+    | ((ast: T, options: ParserOptions<T>) => T | Promise<T>)
+    | undefined;
   insertPragma?: (text: string) => string;
   /**
    * @returns `null` if you want to remove this node
@@ -539,6 +542,9 @@ export interface Printer<T = any> {
             ) => boolean)
           | undefined;
       }
+    | undefined;
+  getVisitorKeys?:
+    | ((node: T, nonTraversableKeys: Set<string>) => string[])
     | undefined;
 }
 
