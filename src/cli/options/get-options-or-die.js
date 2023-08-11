@@ -3,6 +3,7 @@ import { resolveConfig } from "../../index.js";
 async function getOptionsOrDie(
   { logger, argv: { config, editorconfig } },
   filePath,
+  getAllOverrides = false,
 ) {
   try {
     if (config === false) {
@@ -19,6 +20,8 @@ async function getOptionsOrDie(
     const options = await resolveConfig(filePath, {
       editorconfig,
       config,
+      // @ts-expect-error -- internal option
+      getAllOverrides,
     });
 
     logger.debug("loaded options `" + JSON.stringify(options) + "`");

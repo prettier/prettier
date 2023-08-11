@@ -50,7 +50,7 @@ async function resolveConfig(fileUrlOrPath, options) {
 
   const merged = {
     ...editorConfigured,
-    ...mergeOverrides(result, filePath),
+    ...mergeOverrides(result, filePath, options.getAllOverrides),
   };
 
   if (Array.isArray(merged.plugins)) {
@@ -72,13 +72,14 @@ async function resolveConfigFile(fileUrlOrPath) {
   return result?.filepath ?? null;
 }
 
-function mergeOverrides(configResult, filePath) {
+function mergeOverrides(configResult, filePath, getAllOverrides = false) {
   const { config, filepath: configPath } = configResult || {};
   const { overrides, ...options } = config || {};
   if (filePath && overrides) {
     const relativeFilePath = path.relative(path.dirname(configPath), filePath);
     for (const override of overrides) {
       if (
+        getAllOverrides ||
         pathMatchesGlobs(
           relativeFilePath,
           override.files,
