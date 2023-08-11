@@ -59,7 +59,7 @@ const loaders = {
     try {
       return parseJson(content);
     } catch (/** @type {any} */ error) {
-      error.message = `JSON Error in ${filepath}:\n${error.message}`;
+      error.message = `JSON Error in ${filePath}:\n${error.message}`;
       throw error;
     }
   },
