@@ -361,3 +361,15 @@ test(".json5 config file(invalid)", async () => {
   const error = /JSON5: invalid end of input at 2:1/;
   await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
 });
+
+test("support external module with `module` only `exports`", async () => {
+  const directory = path.join(
+    __dirname,
+    "../cli/config/external-config/esm-package-forbids-require",
+  );
+  const file = path.join(directory, "index.js");
+
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
+    printWidth: 79,
+  });
+});
