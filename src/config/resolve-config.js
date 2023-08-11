@@ -33,6 +33,7 @@ function loadPrettierConfig(filePath, options) {
 }
 
 async function resolveConfig(filePath, options) {
+  filePath = path.resolve(filePath)
   options = { useCache: true, ...options };
 
   const [result, editorConfigured] = await Promise.all([
@@ -61,6 +62,7 @@ async function resolveConfig(filePath, options) {
 }
 
 async function resolveConfigFile(filePath) {
+  filePath = path.resolve(filePath)
   const { search } = getPrettierConfigExplorer({ cache: false });
   const result = await search(filePath);
   return result ? result.filepath : null;
