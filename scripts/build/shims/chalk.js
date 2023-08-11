@@ -1,3 +1,3 @@
-const chalk = new Proxy(String, {get: () => chalk})
+const chalk = new Proxy(String, { get: () => chalk });
 
 export default chalk;
