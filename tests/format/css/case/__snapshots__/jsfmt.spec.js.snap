@@ -73,7 +73,7 @@ x-panel {
 @custom-media --KeepName (min-width: 500px);
 
 .foo {
-  color: hsl(0.75turn, 60%, 70%);
+  color: hsl(0.75TURN, 60%, 70%);
 }
 
 p:first-child {
@@ -125,7 +125,7 @@ x-panel {
   max-width: 500px;
   margin: 0 auto;
   border-radius: 8px;
-  transition: transform 0.2s ease-out;
+  transition: transform .2s ease-out;
 }
 :host([hidden]) {
   display: none;

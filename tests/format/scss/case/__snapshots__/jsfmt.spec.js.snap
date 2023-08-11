@@ -167,17 +167,17 @@ HTML#KeepId.KeepClass,
 a[HREF="KeepAttrValue"]:hover::first-letter,
 svg[viewBox] linearGradient,
 :not(:nth-child(2n + 1)) {
-  color: #aabbcc;
+  color: #AAbbCC;
   background-image: URL("KeepString");
-  margin: 5px 0.2e10em;
+  margin: 5PX .2E10Em;
   --Keep-custom-Prop: red;
   background: Var(--Keep-custom-Prop);
   animation-name: KeepAnimationName;
   important: something !important;
-  font-family: initial;
-  padding: unset;
-  border: inherit;
-  all: revert;
+  font-family: INITIAL;
+  padding: UNSET;
+  border: INHERIT;
+  all: REVERT;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -215,7 +215,7 @@ svg[viewBox] linearGradient,
 $KeepTopLevelVar: val;
 @KeepLessVar: val;
 
-@mixin KeepMixinName($Keep: 15in, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
+@mixin KeepMixinName($Keep: 15IN, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
   $KeepVar: KeepFuncName();
   #{$KeepInterpolationVar}: val;
   #{$Keep + 15PX}: val;
@@ -235,7 +235,7 @@ $KeepTopLevelVar: val;
     color: RED;
   }
 
-  background: Keep 15px Keep15PX {
+  background: Keep 15PX Keep15PX {
     color: RED;
   }
 
@@ -249,7 +249,7 @@ $KeepTopLevelVar: val;
 
 @media (min-width: 700px) {
   @include Keep;
-  @include Keep(0.12e1ch);
+  @include Keep(.12e+01cH);
   @include Keep($Keep12E01cH);
 }
 
@@ -281,7 +281,7 @@ $KeepTopLevelVar: val;
 }
 
 .foo {
-  color: hsl(0.75turn, 60%, 70%);
+  color: hsl(0.75TURN, 60%, 70%);
 }
 
 p:first-child {

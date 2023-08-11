@@ -543,7 +543,7 @@ const header = css\`
     left: 0;
     width: 100%;
     text-align: center;
-    padding: 15px 0 0 1em;
+    padding: 15px  0  0  1em;
     z-index: 9999;
   }
 
@@ -689,7 +689,7 @@ const header = css\`
     left: 0;
     width: 100%;
     text-align: center;
-    padding: 15px 0 0 1em;
+    padding: 15px  0  0  1em;
     z-index: 9999;
   }
 
@@ -711,7 +711,7 @@ const headerResolve = css.resolve\`
     left: 0;
     width: 100%;
     text-align: center;
-    padding: 15px 0 0 1em;
+    padding: 15px  0  0  1em;
     z-index: 9999;
   }
 
@@ -733,7 +733,7 @@ const headerGlobal = css.global\`
     left: 0;
     width: 100%;
     text-align: center;
-    padding: 15px 0 0 1em;
+    padding: 15px  0  0  1em;
     z-index: 9999;
   }
 
@@ -836,8 +836,8 @@ printWidth: 80
 
 <style jsx>{\`
   div {
-    animation: 3s ease-in 1s \${(foo) => foo.getIterations()} reverse both paused
-      slidein;
+    animation: 3s ease-in 1s \${(foo) =>
+      foo.getIterations()} reverse both paused slidein;
   }
 \`}</style>;
 

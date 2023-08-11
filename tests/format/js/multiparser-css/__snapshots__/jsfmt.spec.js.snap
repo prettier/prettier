@@ -395,7 +395,7 @@ const style2 = css\`
 \`;
 
 const style3 = css\`
-  foo: \${foo}\${bar} \${baz};
+  foo: \${foo}\${bar}       \${baz};
 \`;
 
 ================================================================================
@@ -423,8 +423,8 @@ const paragraph3 = css\`
 =====================================output=====================================
 const paragraph1 = css\`
   font-size: 12px;
-  transform: \${vert ? "translateY" : "translateX"}
-    (\${translation + handleOffset}px);
+  transform: \${vert ? "translateY" : "translateX"}(\${translation +
+  handleOffset}px);
 \`;
 
 const paragraph2 = css\`

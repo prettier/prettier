@@ -417,7 +417,25 @@ red
   .page {
     width: 8in;
 
-    @at-root (with: media) {
+    @at-root (with:media) {
+      color: red;
+    }
+  }
+}
+@media print {
+  .page {
+    width: 8in;
+
+    @at-root ( with : media ) {
+      color: red;
+    }
+  }
+}
+@media print {
+  .page {
+    width: 8in;
+
+    @at-root (  with  :  media  ) {
       color: red;
     }
   }
@@ -434,8 +452,11 @@ red
 @media print {
   .page {
     width: 8in;
-
-    @at-root (with: media) {
+    @at-root (
+with
+:
+media
+) {
       color: red;
     }
   }
@@ -444,24 +465,15 @@ red
   .page {
     width: 8in;
 
-    @at-root (with: media) {
-      color: red;
-    }
-  }
-}
-@media print {
-  .page {
-    width: 8in;
-    @at-root (with: media) {
-      color: red;
-    }
-  }
-}
-@media print {
-  .page {
-    width: 8in;
+    @at-root (
 
-    @at-root (with: media) {
+with
+
+:
+
+media
+
+) {
       color: red;
     }
   }
@@ -909,12 +921,19 @@ printWidth: 80
 =====================================output=====================================
 @debug 10em + 12em;
 @debug 10em+12em;
-@debug 10em + 12em;
-@debug 10em + 12em;
-@debug 10em + 12em;
-@debug 10em + 12em;
-@debug $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var +
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var;
+@debug 10em  +  12em;
+@debug 10em
+    +
+    12em;
+@debug 10em
++
+12em;
+@debug 10em
+
++
+
+12em;
+@debug $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var + $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var;
 
 ================================================================================
 `;
@@ -1146,72 +1165,213 @@ h3
 =====================================output=====================================
 @each $animal in puma, sea-slug, egret, salamander {
 }
-@each $animal in puma, sea-slug, egret, salamander {
+@each $animal in puma,sea-slug,egret,salamander {
 }
-@each $animal in puma, sea-slug, egret, salamander {
+@each $animal  in  puma  ,  sea-slug  ,  egret  ,  salamander {
 }
-@each $animal in puma, sea-slug, egret, salamander {
+@each $animal in
+    puma, sea-slug, egret, salamander {
 }
-@each $animal in puma, sea-slug, egret, salamander {
+@each $animal
+    in
+    puma
+    ,
+    sea-slug
+    ,
+    egret
+    ,
+    salamander {
 }
-@each $animal in puma, sea-slug, egret, salamander {
+@each $animal
+in
+puma
+,
+sea-slug
+,
+egret
+,
+salamander {
 }
-@each $animal in puma, sea-slug, egret, salamander {
+@each $animal
+
+in
+
+puma
+
+,
+
+sea-slug
+
+,
+
+egret
+
+,
+
+salamander {
 }
 @each $animal in ((puma), (sea-slug), (egret), (salamander)) {
 }
-@each $animal in((puma), (sea-slug), (egret), (salamander)) {
+@each $animal in((puma),(sea-slug),(egret),(salamander)) {
 }
-@each $animal in ((puma), (sea-slug), (egret), (salamander)) {
+@each $animal  in  (  (  puma  )  ,  (  sea-slug  )  ,  (  egret  )  ,  (  salamander  )  ) {
 }
-@each $animal in ((puma), (sea-slug), (egret), (salamander)) {
+@each $animal
+    in ((puma), (sea-slug), (egret), (salamander)) {
 }
-@each $animal in ((puma), (sea-slug), (egret), (salamander)) {
+@each $animal
+    in (
+        (puma),
+        (sea-slug),
+        (egret),
+        (salamander)
+    ) {
 }
-@each $animal in ((puma), (sea-slug), (egret), (salamander)) {
+@each $animal
+    in
+    (
+    (
+    puma
+    )
+    ,
+    (
+    sea-slug
+    )
+    ,
+    (
+    egret
+    )
+    ,
+    (
+    salamander
+    )
+    ) {
 }
-@each $animal in ((puma), (sea-slug), (egret), (salamander)) {
+@each $animal
+
+    in
+
+    (
+
+    (
+
+    puma
+
+    )
+
+    ,
+
+    (
+
+    sea-slug
+
+    )
+
+    ,
+
+    (
+
+    egret
+
+    )
+
+    ,
+
+    (
+
+    salamander
+
+    )
+
+    ) {
 }
-@each $animal, $color, $cursor in (puma, black, default),
-  (sea-slug, blue, pointer), (egret, white, move) {
+@each $animal, $color, $cursor in (puma, black, default), (sea-slug, blue, pointer), (egret, white, move) {
 }
-@each $animal, $color, $cursor in (puma, black, default),
-  (sea-slug, blue, pointer), (egret, white, move) {
+@each $animal,$color,$cursor in (puma,black,default),(sea-slug,blue,pointer),(egret,white,move) {
 }
-@each $animal, $color, $cursor in (puma, black, default),
-  (sea-slug, blue, pointer), (egret, white, move) {
+@each $animal, $color, $cursor in
+    (puma, black, default),
+    (sea-slug, blue, pointer),
+    (egret, white, move) {
 }
-@each $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
-    in puma,
-  sea-slug, egret, salamander {
+@each $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var in puma, sea-slug, egret, salamander {
 }
-@each $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var,
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1,
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2
-    in (puma, black, default),
-  (sea-slug, blue, pointer), (egret, white, move) {
+@each $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 in (puma, black, default), (sea-slug, blue, pointer), (egret, white, move) {
 }
 @each $element, $size in (h1: 20px, h2: 16px, h3: 14px) {
 }
-@each $element, $size in(h1: 20px, h2: 16px, h3: 14px) {
+@each $element,$size in(h1:20px,h2:16px,h3:14px) {
 }
-@each $element, $size in (h1: 20px, h2: 16px, h3: 14px) {
-}
-@each $element, $size in (h1: 20px, h2: 16px, h3: 14px) {
-}
-@each $element, $size in (h1: 20px, h2: 16px, h3: 14px) {
-}
-@each $element, $size in (h1: 20px, h2: 16px, h3: 14px) {
+@each $element  ,  $size  in  (  h1  :  20px  ,  h2  :  16px  ,  h3  :  14px  ) {
 }
 @each $element,
-  $size in
+    $size in (h1: 20px, h2: 16px, h3: 14px) {
+}
+@each $element,
+    $size
+    in
     (
-      h1: 20px,
-
-      h2: 16px,
-
-      h3: 14px
+    h1
+    :
+    20px
+    ,
+    h2
+    :
+    16px
+    ,
+    h3
+    :
+    14px
     ) {
+}
+@each $element,
+$size
+in
+(
+h1
+:
+20px
+,
+h2
+:
+16px
+,
+h3
+:
+14px
+) {
+}
+@each $element,
+
+$size
+
+in
+
+(
+
+h1
+
+:
+
+20px
+
+,
+
+h2
+
+:
+
+16px
+
+,
+
+h3
+
+:
+
+14px
+
+) {
 }
 
 ================================================================================
@@ -1574,40 +1734,69 @@ format(
 =====================================output=====================================
 @font-face {
   font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+        url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
 }
 @font-face {
   font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
 }
 @font-face {
   font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+        url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
 }
 @font-face {
   font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+        url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
 }
 @font-face {
   font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  src: url(
+"/fonts/OpenSans-Regular-webfont.woff2"
+)
+format(
+"woff2"
+)
+,
+url(
+"/fonts/OpenSans-Regular-webfont.woff"
+)
+format(
+"woff"
+);
 }
 @font-face {
   font-family: "Open Sans";
 
-  src:
-    url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  src: url(
+
+"/fonts/OpenSans-Regular-webfont.woff2"
+
+)
+
+format(
+
+"woff2"
+
+)
+
+,
+
+url(
+
+"/fonts/OpenSans-Regular-webfont.woff"
+
+)
+
+format(
+
+
+"woff"
+
+);
 }
 
 ================================================================================
@@ -1763,52 +1952,49 @@ through
 }
 @for $i from 1 through 8 {
 }
-@for $i from 1 through 8 {
+@for $i  from  1  through  8 {
 }
-@for $i from 1 through 8 {
+@for $i
+from
+1
+through
+8 {
 }
-@for $i from 1 through 8 {
+@for $i
+from
+1
+through
+8 {
 }
-@for $i from 1 through 8 {
+@for $i
+from
+1
+through
+8 {
 }
-@for $i from 1 through 8 {
+@for $i
+
+from
+
+1
+
+through
+
+8 {
 }
-@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
-  from 1 through 5 {
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from 1 through 5 {
 }
-@for $i from
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1
-  through 5 {
+@for $i from $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 through 5 {
 }
-@for $i from 1 through
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 {
+@for $i from 1 through $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 {
 }
-@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
-  from
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1
-  through
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 {
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 through $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 {
 }
-@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
-  from
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1
-  end
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 {
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 end $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 {
 }
-@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
-  from ($var1 + $var1) through ($var-2 + $var-2) {
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from ($var1 + $var1) through ($var-2 + $var-2) {
 }
-@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
-  from
-  (
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 +
-      $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1
-  )
-  through
-  (
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 +
-      $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2
-  ) {
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 + $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1) through ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 + $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2) {
 }
 
 ================================================================================
@@ -1913,40 +2099,74 @@ $args
 @function func($arg, $arg1, $arg2: 10, $args...) {
   @return "Func";
 }
-@function func($arg, $arg1, $arg2: 10, $args...) {
+@function func($arg,$arg1,$arg2:10,$args...) {
   @return "Func";
 }
-@function func($arg, $arg1, $arg2: 10, $args...) {
+@function func(  $arg , $arg1 , $arg2 : 10 , $args...  ) {
   @return "Func";
 }
-@function func($arg, $arg1, $arg2: 10, $args...) {
-  @return "Func";
-}
-@function func($arg, $arg1, $arg2: 10, $args...) {
-  @return "Func";
-}
-@function func($arg, $arg1, $arg2: 10, $args...) {
-  @return "Func";
-}
-@function func($arg, $arg1, $arg2: 10, $args...) {
+@function func(    $arg  ,  $arg1  ,  $arg2  :  10  ,  $args...    ) {
   @return "Func";
 }
 @function func(
-  $arg,
-  $arg1,
-  $arg2: 10,
+    $arg,
+    $arg1,
+    $arg2: 10,
+    $args...
+) {
+  @return "Func";
+}
+@function func(
+        $arg,
+        $arg1,
+        $arg2: 10,
+        $args...
+    ) {
+  @return "Func";
+}
+@function func(
 
-  $args...
+$arg
+,
+$arg1
+,
+$arg2
+:
+10
+,
+$args...
+
 ) {
   @return "Func";
 }
 @function func(
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg,
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1,
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2:
-    10,
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...
+
+
+
+$arg
+
+,
+
+$arg1
+
+,
+
+$arg2
+
+:
+
+10
+
+,
+
+$args...
+
+
+
 ) {
+  @return "Func";
+}
+@function func($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...) {
   @return "Func";
 }
 
@@ -2107,36 +2327,68 @@ p {
 
 =====================================output=====================================
 @if $media == phonePortrait {
-  $k: 0.15625;
+  $k: .15625;
 } @else if $media == phoneLandscape {
-  $k: 0.08803;
+  $k: .08803;
 } @else if $media == tabletPortrait {
-  $k: 0.065106;
+  $k: .065106;
 }
 p {
   @if $type == ocean {
   }
   @if $type==ocean {
   }
-  @if $type == ocean {
+  @if $type  ==  ocean {
   }
-  @if $type == ocean {
+  @if $type
+        == ocean {
   }
-  @if $type == ocean {
+  @if $type
+    ==
+    ocean {
   }
-  @if $type == ocean {
-  }
-  @if (($type) == (ocean)) {
-  }
-  @if (($type) ==(ocean)) {
-  }
-  @if (($type) == (ocean)) {
-  }
-  @if (($type) == (ocean)) {
-  }
-  @if (($type) == (ocean)) {
+  @if $type
+
+    ==
+
+    ocean {
   }
   @if (($type) == (ocean)) {
+  }
+  @if (($type)==(ocean)) {
+  }
+  @if ((    $type  )  ==  (  ocean  )  ) {
+  }
+  @if (($type)
+        == (ocean)) {
+  }
+  @if ((
+    
+    $type
+    )
+    ==
+    (
+    ocean
+    )
+    ) {
+  }
+  @if ((
+
+    
+
+    $type
+
+    )
+
+    ==
+
+    (
+
+    ocean
+
+    )
+
+    ) {
   }
   @if $type == ocean {
     color: blue;
@@ -2153,51 +2405,53 @@ p {
   @if $type==ocean {
   } @else if $type==matador {
   }
-  @if $type == ocean {
-  } @else if $type == matador {
+  @if $type  ==  ocean {
+  } @else if  $type  ==  matador {
   }
   @if $type == ocean {
   } @else if $type == matador {
   }
   @if $type == ocean {
-  } @else if $type == matador {
+  } @else if
+        $type == matador {
   }
-  @if $type == ocean {
-  } @else if $type == matador {
+  @if $type
+        ==
+        ocean {
+  } @else if
+        $type
+        ==
+        matador {
   }
-  @if $type == ocean {
-  } @else if $type == matador {
+  @if $type
+
+        ==
+
+        ocean {
+  } @else if
+
+        $type
+
+        ==
+
+        matador {
   }
-  @if $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
-    ==
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables {
+  @if $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables == $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables {
     color: blue;
-  } @else if
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
-    ==
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables {
+  } @else if $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables == $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables {
     color: red;
-  } @else if
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
-    ==
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables {
+  } @else if $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables == $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables {
     color: green;
   } @else  {
     color: black;
   }
   @if $very-very-very-long-var == 0 and $very-very-very-long-var == 0 {
   }
-  @if $very-very-very-very-very-very-long-var == 0 and $very-very-very-long-var
-    == 0 {
+  @if $very-very-very-very-very-very-long-var == 0 and $very-very-very-long-var == 0 {
   }
-  @if $very-very-very-very-very-very-very-very-very-very-very-long-var == 0 and
-    $very-very-very-very-very-very-very-very-very-very-very-long-var == 0 {
+  @if $very-very-very-very-very-very-very-very-very-very-very-long-var == 0 and $very-very-very-very-very-very-very-very-very-very-very-long-var == 0 {
   }
-  @if $base-font-size != 16px or $base-line-height != 24px or $base-unit != "em"
-    or $h1-font-size != 2 * $base-font-size or $h2-font-size != 1.5 *
-    $base-font-size or $h3-font-size != 1.17 * $base-font-size or $h4-font-size
-    != 1 * $base-font-size or $h5-font-size != 0.83 * $base-font-size or
-    $h6-font-size != 0.67 * $base-font-size or $indent-amount != 40px {
+  @if $base-font-size != 16px or $base-line-height != 24px or $base-unit != 'em' or $h1-font-size != 2 * $base-font-size or $h2-font-size != 1.5 * $base-font-size or $h3-font-size != 1.17 * $base-font-size or $h4-font-size != 1 * $base-font-size or $h5-font-size != 0.83 * $base-font-size or $h6-font-size != 0.67 * $base-font-size or $indent-amount != 40px {
   }
   @if (str-slice($item, 0, 1) == ":") {
   }
@@ -2314,11 +2568,11 @@ $family: unquote("Droid+Sans");
 =====================================output=====================================
 @import url("fineprint.css") print;
 @import url("bluish.css") projection, tv;
-@import "custom.css";
+@import 'custom.css';
 @import url("chrome://communicator/skin/");
 @import "common.css" screen, projection;
 @import "common.css" screen projection;
-@import url("landscape.css") screen and (orientation: landscape);
+@import url('landscape.css') screen and (orientation:landscape);
 
 @import (multiple) "foo.less";
 
@@ -2355,43 +2609,47 @@ $family: unquote("Droid+Sans");
   c: d;
 }
 
-@import url("foo");
-$dir: "fonts";
+@import url('foo');
+$dir: 'fonts';
 
 @import url("foo.css");
+@import url('foo.css');
 @import url("foo.css");
 @import url("foo.css");
-@import url("foo.css");
+@import url("fineprint.css")print;
 @import url("fineprint.css") print;
-@import url("fineprint.css") print;
-@import url("fineprint.css") print;
-@import url("fineprint.css") print;
+@import url("fineprint.css")  print;
+@import url("fineprint.css")
+  print;
+@import url("bluish.css") projection,tv;
 @import url("bluish.css") projection, tv;
-@import url("bluish.css") projection, tv;
-@import url("bluish.css") projection, tv;
-@import url("bluish.css") projection, tv;
-@import url("bluish.css") projection, tv;
-@import url("bluish.css") projection, tv;
-@import url("very-very-very-very-very-very-very-very-very-very-long-name.css")
+@import url("bluish.css") projection ,tv;
+@import url("bluish.css") projection , tv;
+@import url("bluish.css") projection  ,  tv;
+@import url("bluish.css")
   projection,
   tv;
-@import url("very-very-very-very-very-very-very-very-very-very-long-name.css")
-  projection tv;
-@import url("landscape.css") screen and (orientation: landscape);
+@import url("very-very-very-very-very-very-very-very-very-very-long-name.css") projection,tv;
+@import url("very-very-very-very-very-very-very-very-very-very-long-name.css") projection tv;
+@import url('landscape.css') screen and (orientation:landscape);
 @import "rounded-corners", "text-shadow";
-@import "rounded-corners", "text-shadow";
+@import 'rounded-corners', 'text-shadow';
 $family: unquote("Droid+Sans");
 @import url("http://fonts.googleapis.com/css?family=#{$family}");
-@import url("foo.css");
-@import url("foo.css");
-@import url("foo.css");
-@import url("foo.css");
+@import url( "foo.css");
+@import url("foo.css" );
+@import url( "foo.css" );
+@import url(  "foo.css"  );
 @import url("foo bar baz.css");
-@import url("foo bar baz.css");
+@import url(  "foo bar baz.css"  );
 @import url("foo  bar  baz.css");
-@import url("foo.css");
-@import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600";
-@import url("foo.css,800");
+@import url(
+"foo.css"
+);
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600';
+@import url(
+"foo.css,800"
+);
 
 ================================================================================
 `;
@@ -2524,39 +2782,66 @@ border-color: $very-very-very-very-very-very-very-very-very-very-very-very-very-
 
 =====================================output=====================================
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
-@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
-@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
-@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
-@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
-@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
-@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
+@include mix(1px,2px,$arg2:10,2px 4px 6px);
+@include mix(  1px , 2px , $arg2 : 10 , 2px 4px 6px );
+@include mix(    1px  ,  2px  , $arg2  :  10  ,  2px  4px  6px  );
 @include mix(
-  1px,
-  2px,
-  $arg2: 10,
-
-  2px 4px 6px
-);
-@include mix(
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg:
     1px,
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1:
     2px,
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2:
-    10,
-  2px 4px 6px
+    $arg2: 10,
+    2px  4px  6px
 );
+@include mix(
+    1px,
+    2px,
+    $arg2: 10,
+    2px  4px  6px
+);
+@include mix(
+
+1px
+,
+2px
+,
+$arg2
+:
+10
+,
+2px
+4px
+6px
+);
+@include mix(
+
+
+
+1px
+
+,
+
+2px
+
+,
+
+$arg2
+
+:
+
+10
+
+,
+
+2px
+
+4px
+
+6px
+
+);
+@include mix($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg: 1px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1: 2px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, 2px 4px 6px);
 a {
   @include global-variable-overriding;
-  @include mix(
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg:
-      1px,
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1:
-      2px,
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2:
-      10,
-    2px 4px 6px
-  );
+  @include mix($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg: 1px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1: 2px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, 2px 4px 6px);
   @include apply-to-ie6-only {
   }
   @include apply-to-ie6-only {
@@ -2571,46 +2856,37 @@ a {
 
 a {
   @include section-type-1(
-    $header: (margin: 0 0 $margin-base, text-align: left),
-    $decoration: (
-      type: base,
-      margin: 0 auto -1px 0,
-      primary-color: $brand-primary,
-      secondary-color: $gray-light
-    ),
-    $title: (
-      margin: 0 0 $margin-small,
-      color: false,
-      font-size: $font-size-h3,
-      font-weight: false,
-      line-height: $line-height-h3
-    )
-  );
+$header: (margin: 0 0 $margin-base, text-align: left),
+$decoration: (type: base, margin: 0 auto -1px 0, primary-color: $brand-primary, secondary-color: $gray-light),
+$title: (margin: 0 0 $margin-small, color: false, font-size: $font-size-h3, font-weight: false, line-height: $line-height-h3)
+);
 }
 
 a {
   @include item-spotlight-properties-transition(
-    "-title",
-    (box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15))
-  );
+"-title",
+(box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15))
+);
 }
 
 a {
   @include item-spotlight-properties-transition(
-    "-title",
-    (box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15), border-color: $brand-primary)
-  );
+"-title",
+(
+box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
+border-color: $brand-primary
+)
+);
 }
 
 a {
   @include item-spotlight-properties-transition(
-    "-title",
-    (
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
-      border-color:
-        $very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
-    )
-  );
+"-title",
+(
+box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
+border-color: $very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+)
+);
 }
 
 ================================================================================
@@ -3462,47 +3738,91 @@ $background
 
 @mixin mix($arg, $arg1, $arg2: 10, $args...) {
 }
-@mixin mix($arg, $arg1, $arg2: 10, $args...) {
+@mixin mix($arg,$arg1,$arg2:10,$args...) {
 }
-@mixin mix($arg, $arg1, $arg2: 10, $args...) {
+@mixin mix(  $arg , $arg1 , $arg2 : 10 , $args...  ) {
 }
-@mixin mix($arg, $arg1, $arg2: 10, $args...) {
-}
-@mixin mix($arg, $arg1, $arg2: 10, $args...) {
-}
-@mixin mix($arg, $arg1, $arg2: 10, $args...) {
-}
-@mixin mix($arg, $arg1, $arg2: 10, $args...) {
+@mixin mix(    $arg  ,  $arg1  ,  $arg2  :  10  ,  $args...    ) {
 }
 @mixin mix(
-  $arg,
-  $arg1,
-  $arg2: 10,
+    $arg,
+    $arg1,
+    $arg2: 10,
+    $args...
+) {
+}
+@mixin mix(
+    $arg,
+    $arg1,
+    $arg2: 10,
+    $args...
+    ) {
+}
+@mixin mix(
 
-  $args...
+$arg
+,
+$arg1
+,
+$arg2
+:
+10
+,
+$args...
+
 ) {
 }
 @mixin mix(
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg,
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1,
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2:
-    10,
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...
+
+
+
+$arg
+
+,
+
+$arg1
+
+,
+
+$arg2
+
+:
+
+10
+
+,
+
+$args...
+
+
+
 ) {
 }
-@mixin component($conf: ()) {
+@mixin mix($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...) {
 }
-@mixin component($conf: ()) {
+@mixin component($conf:( )) {
 }
-@mixin button-variant($hover-background: darken($background, 7.5%)) {
-}
-@mixin button-variant($hover-background: darken($background, 7.5%)) {
+@mixin component($conf:(  )) {
 }
 @mixin button-variant($hover-background: darken($background, 7.5%)) {
 }
-@mixin button-variant($hover-background: darken($background, 7.5%)) {
+@mixin button-variant( $hover-background : darken( $background , 7.5% ) ) {
 }
-@mixin button-variant($hover-background: darken($background, 7.5%)) {
+@mixin button-variant($hover-background:darken($background,7.5%)) {
+}
+@mixin button-variant(
+    $hover-background: darken($background, 7.5%)
+) {
+}
+@mixin button-variant(
+$hover-background
+:
+darken(
+$background
+,
+7.5%
+)
+) {
 }
 @mixin button-variant($foo: "...") {
 }
@@ -3572,12 +3892,18 @@ url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/ve
 @namespace toto "http://toto.example.org";
 @namespace toto url("http://toto.example.org");
 @namespace toto "http://toto.example.org";
-@namespace toto "http://toto.example.org";
-@namespace toto "http://toto.example.org";
-@namespace toto "http://toto.example.org";
+@namespace toto  "http://toto.example.org";
+@namespace toto
+"http://toto.example.org";
+@namespace toto
+
+"http://toto.example.org";
 @namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace "http://toto.example.org";
-@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace "http://toto.example.org";
-@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace "http://toto.example.org";
+@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace
+"http://toto.example.org";
+@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace
+
+"http://toto.example.org";
 @namespace "http://example.com/foo";
 @namespace url("http://example.com/foo");
 @namespace url("http://example.com/foo");
@@ -3855,43 +4181,108 @@ $gutter-width
   @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n-1) * $gutter-width/10;
+  @return $n*$grid-width+($n-1)*$gutter-width/10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
+  @return $n * $grid-width + ( $n - 1 ) * $gutter-width / 10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
+  @return $n   *  $grid-width  +  (  $n  -  1  )  *  $gutter-width  /  10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
+  @return $n
+        *
+        $grid-width
+        + (
+            $n
+            -
+            1
+        )
+        *
+        $gutter-width
+        /
+        10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
+  @return $n
+        *
+        $grid-width
+        + (
+            $n
+            -
+            1
+        )
+        *
+        $gutter-width
+        /
+        10;
+}
+@function grid-width(
+$n
+) {
+  @return $n
+*
+$grid-width
++
+(
+$n
+-
+1
+)
+*
+$gutter-width
+/
+10;
+}
+@function grid-width(
+
+$n
+
+) {
+  @return $n
+
+*
+
+$grid-width
+
++
+
+(
+
+$n
+
+-
+
+1
+
+)
+
+*
+
+$gutter-width
+
+/
+
+10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
-}
-@function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
-}
-@function grid-width($n) {
-  @return $very-very-very-very-very-very-vey-long-var *
-    $very-very-very-very-very-very-vey-long-var +
-    ($very-very-very-very-very-very-vey-long-var - 1) *
-    $very-very-very-very-very-very-vey-long-var;
+  @return $very-very-very-very-very-very-vey-long-var * $very-very-very-very-very-very-vey-long-var + ($very-very-very-very-very-very-vey-long-var - 1) * $very-very-very-very-very-very-vey-long-var;
 }
 @function extend($obj, $ext-obj) {
   @return map-merge($obj, $ext-obj);
 }
 @function extend($obj, $ext-obj) {
-  @return map-merge($obj, $ext-obj);
+  @return map-merge( $obj , $ext-obj );
 }
 @function extend($obj, $ext-obj) {
-  @return map-merge($obj, $ext-obj);
+  @return map-merge($obj,$ext-obj);
 }
 @function extend($obj, $ext-obj) {
-  @return map-merge($obj, $ext-obj);
+  @return map-merge(
+    $obj
+    ,
+    $ext-obj
+    );
 }
 
 ================================================================================
@@ -4290,116 +4681,215 @@ B
 =====================================output=====================================
 @supports (transform-origin: 5% 5%) {
 }
-@supports (transform-origin: 5% 5%) {
+@supports (transform-origin:5% 5%) {
 }
-@supports (transform-origin: 5% 5%) {
+@supports ( transform-origin : 5% 5% ) {
 }
-@supports (transform-origin: 5% 5%) {
-}
-@supports (transform-origin: 5% 5%) {
-}
-@supports (transform-origin: 5% 5%) {
+@supports (  transform-origin  :  5%  5%  ) {
 }
 @supports (transform-origin: 5% 5%) {
 }
 @supports (transform-origin: 5% 5%) {
 }
 @supports (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+transform-origin
+:
+5%
+5%
 ) {
 }
 @supports (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+
+transform-origin
+
+:
+
+5%
+
+5%
+
+) {
+}
+@supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports (
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop
+:
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
 ) {
 }
 @supports (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop
+
+:
+
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+
 ) {
 }
-@supports (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+@supports not(transform-origin: 10em 10em 10em) {
+}
+@supports not( transform-origin: 10em 10em 10em) {
+}
+@supports not(   transform-origin : 10em 10em 10em ) {
+}
+@supports not(     transform-origin  :  10em  10em  10em  ) {
+}
+@supports not(
+  transform-origin: 10em 10em 10em) {
+}
+@supports not( transform-origin: 10em 10em 10em) {
+}
+@supports not(
+  transform-origin: 10em 10em 10em) {
+}
+@supports not(
+
+transform-origin
+:
+10em
+10em
+10em
 ) {
 }
-@supports not (transform-origin: 10em 10em 10em) {
-}
-@supports not (transform-origin: 10em 10em 10em) {
-}
-@supports not (transform-origin: 10em 10em 10em) {
-}
-@supports not (transform-origin: 10em 10em 10em) {
-}
-@supports not (transform-origin: 10em 10em 10em) {
-}
-@supports not (transform-origin: 10em 10em 10em) {
-}
-@supports not (transform-origin: 10em 10em 10em) {
-}
-@supports not (transform-origin: 10em 10em 10em) {
-}
-@supports not (transform-origin: 10em 10em 10em) {
-}
-@supports not (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+@supports not(
+
+
+
+transform-origin
+
+:
+
+10em
+
+10em
+
+10em
+
 ) {
 }
-@supports not (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+@supports not( very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports not( very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports not(
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports not(
+
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop
+:
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
 ) {
 }
-@supports not (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+@supports not(
+
+
+
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop
+
+:
+
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+
 ) {
 }
-@supports not (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+@supports not( not (transform-origin: 2px)) {
+}
+@supports not(not(transform-origin:2px)) {
+}
+@supports not(  not ( transform-origin : 2px ) ) {
+}
+@supports not(    not  (  transform-origin  :  2px  )  ) {
+}
+@supports not(
+  not (transform-origin: 2px)) {
+}
+@supports not(
+  
+    not (transform-origin: 2px)
+  ) {
+}
+@supports not(
+
+not
+(
+transform-origin
+:
+2px
+)
 ) {
 }
-@supports not (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+@supports not(
+
+
+
+not
+
+(
+
+transform-origin
+
+:
+
+2px
+
+)
+
 ) {
-}
-@supports not (not (transform-origin: 2px)) {
-}
-@supports not (not (transform-origin: 2px)) {
-}
-@supports not (not (transform-origin: 2px)) {
-}
-@supports not (not (transform-origin: 2px)) {
-}
-@supports not (not (transform-origin: 2px)) {
-}
-@supports not (not (transform-origin: 2px)) {
-}
-@supports not (not (transform-origin: 2px)) {
-}
-@supports not (not (transform-origin: 2px)) {
 }
 @supports (display: flexbox) and (not (display: inline-grid)) {
 }
 @supports (display: table-cell) and (display: list-item) {
 }
-@supports (display: table-cell) and (display: list-item) {
+@supports ( display : table-cell ) and ( display : list-item ) {
+}
+@supports (  display  :  table-cell  )  and  (  display  :  list-item  ) {
 }
 @supports (display: table-cell) and (display: list-item) {
 }
-@supports (display: table-cell) and (display: list-item) {
+@supports (display: table-cell) and
+  (display: list-item) {
 }
-@supports (display: table-cell) and (display: list-item) {
+@supports (display: table-cell)
+  and (display: list-item) {
 }
-@supports (display: table-cell) and (display: list-item) {
+@supports (
+display
+:
+table-cell
+)
+and
+(
+display
+:
+list-item
+) {
 }
-@supports (display: table-cell) and (display: list-item) {
-}
-@supports (display: table-cell) and (display: list-item) {
+@supports (
+
+display
+
+:
+
+table-cell
+
+)
+
+and
+
+(
+
+display
+
+:
+
+list-item
+
+) {
 }
 @supports (display: table-cell) and (display: list-item) and (display: run-in) {
 }
@@ -4407,33 +4897,83 @@ B
 }
 @supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
 }
-@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
+@supports (display: table-cell)
+  and ((display: list-item)
+  and (display: run-in)) {
 }
-@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
+@supports (display: table-cell) and
+  ((display: list-item) and
+  (display: run-in)) {
 }
-@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
+@supports (
+display
+:
+table-cell
+)
+and
+(
+(
+display
+:
+list-item
+)
+and
+(
+display
+:
+run-in
+)
+) {
 }
-@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
+@supports (
+
+display
+
+:
+
+table-cell
+
+)
+
+and
+
+(
+
+(
+
+display
+
+:
+
+list-item
+
+)
+
+and
+
+(
+
+display
+
+:
+
+run-in
+
+)
+
+) {
 }
 @supports (transform-style: preserve) or (-moz-transform-style: preserve) {
 }
-@supports (transform-style: preserve) or (-moz-transform-style: preserve) or
-  (-o-transform-style: preserve) or (-webkit-transform-style: preserve) {
+@supports (transform-style: preserve) or (-moz-transform-style: preserve) or (-o-transform-style: preserve) or (-webkit-transform-style: preserve) {
 }
-@supports (transform-style: preserve-3d) or
-  (
-    (-moz-transform-style: preserve-3d) or
-      (
-        (-o-transform-style: preserve-3d) or
-          (-webkit-transform-style: preserve-3d)
-      )
-  ) {
+@supports (transform-style: preserve-3d) or ((-moz-transform-style: preserve-3d) or ((-o-transform-style: preserve-3d) or (-webkit-transform-style: preserve-3d))) {
 }
-@supports not ((text-align-last: justify) or (-moz-text-align-last: justify)) {
+@supports not((text-align-last:justify)or(-moz-text-align-last:justify)) {
 }
-@supports not ((text-align-last: justify) and (-moz-text-align-last: justify)) {
+@supports not((text-align-last:justify)and(-moz-text-align-last:justify)) {
 }
-@supports (--foo: green) {
+@supports (--foo:green) {
 }
 
 @supports selector(:after) {
@@ -4442,15 +4982,23 @@ B
 }
 @supports selector(:focus-visible) {
 }
-@supports selector(A > B) {
+@supports selector(A>B) {
 }
-@supports selector(A > B) {
+@supports selector(A       >      B) {
 }
-@supports selector(A > B) {
+@supports selector(A       >
+     B) {
 }
-@supports selector(A > B) {
+@supports selector(A
+>
+B
+) {
 }
-@supports selector(A < B) {
+@supports selector(
+A
+<
+B
+) {
 }
 @supports selector(.a:not(.b)) {
 }
@@ -4458,16 +5006,13 @@ B
 }
 @supports not selector(:after) {
 }
-@supports (--foo: green) and selector(:after) {
+@supports (--foo:green) and selector(:after) {
 }
 @supports selector(:before) and selector(:focus-visible) {
 }
-@supports selector(:not(.a, .b)) and selector(:focus-visible) {
+@supports selector(:not(.a,.b)) and selector(:focus-visible) {
 }
-@supports selector(
-  .a,
-  .b
-) {
+@supports selector(.a,.b) {
 }
 @supports selector() {
 }
@@ -4482,55 +5027,47 @@ B
   }
 }
 
-@supports selector(:not(.a, .b)) {
+@supports selector(:not(.a,.b)) {
+}
+
+@supports selector(:not(.a,.b), :not(.b,.c)) {
+}
+@supports selector(:not(.a,.b), .b, .c) {
 }
 
 @supports selector(
-  :not(.a, .b),
-  :not(.b, .c)
-) {
+  :not(
+  .a,.b)
+  ) {
 }
 @supports selector(
-  :not(.a, .b),
-  .b,
-  .c
-) {
+  :not(
+  .a,.b
+  )
+  ) {
 }
-
-@supports selector(:not(.a, .b)) {
+@supports selector(.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas) {
 }
-@supports selector(:not(.a, .b)) {
-}
-@supports selector(
-  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
-    .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
-  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
-    .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
-) {
-}
-@supports selector(.parent > .child) {
+@supports selector(.parent>.child ) {
 }
 @supports selector(> .child-one) {
 }
-@supports selector(.parent ~ .child) {
+@supports selector(.parent  ~  .child) {
 }
-@supports selector(ns|*) {
+@supports selector(ns|* ) {
 }
-@supports selector(svg|a) {
+@supports selector(svg|a ) {
 }
-@supports selector(|B) {
+@supports selector(|B ) {
 }
 @supports selector(*|*) {
 }
 @supports selector(|*) {
 }
-@supports selector(
-  .a,
-  .b,
-  :not(asdasldaskdhjkashdahsdkjahskdjhakj, asdasldaskdhjkashdahsdkjahskdjhakj)
-) {
+@supports selector(.a,.b,:not(asdasldaskdhjkashdahsdkjahskdjhakj,asdasldaskdhjkashdahsdkjahskdjhakj)) {
 }
-@supports not (selector(:before) or not (not (selector(:before)))) {
+@supports not( selector(:before) or not (not (selector(:before)))) {
 }
 @supports selector(selector(:focus-visible)) {
 }
@@ -4538,30 +5075,24 @@ B
 }
 @supports selector(--selector(:focus-visible)) {
 }
-@supports not (transform-origin: 10em 10em 10em) {
+@supports not( transform-origin: 10em 10em 10em) {
 }
-@supports not (not (transform-origin: 2px)) {
+@supports not( not (transform-origin: 2px)) {
 }
 @supports (display: grid) and (not (display: inline-grid)) {
 }
-@supports (display: table-cell) and (display: list-item) and (display: run-in) {
+@supports (display: table-cell) and (display: list-item) and (display:run-in) {
 }
-@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
+@supports (display: table-cell) and ((display: list-item) and (display:run-in)) {
 }
 @supports (transform-style: preserve) or (-moz-transform-style: preserve) {
 }
 @supports (transform-style: preserve) or (-moz-transform-style: preserve) or
-  (-o-transform-style: preserve) or (-webkit-transform-style: preserve) {
+          (-o-transform-style: preserve) or (-webkit-transform-style: preserve) {
 }
 
-@supports (transform-style: preserve-3d) or
-  (
-    (-moz-transform-style: preserve-3d) or
-      (
-        (-o-transform-style: preserve-3d) or
-          (-webkit-transform-style: preserve-3d)
-      )
-  ) {
+@supports (transform-style: preserve-3d) or ((-moz-transform-style: preserve-3d) or
+          ((-o-transform-style: preserve-3d) or (-webkit-transform-style: preserve-3d))) {
 }
 
 ================================================================================
@@ -4784,73 +5315,108 @@ $i
 }
 @while $i>0 {
 }
-@while $i > 0 {
+@while $i  >  0 {
 }
-@while $i > 0 {
+@while $i
+    >
+    0 {
 }
-@while $i > 0 {
+@while $i
+    >
+    0 {
 }
-@while $i > 0 {
+@while $i
+>
+0 {
 }
-@while $i > 0 {
+@while $i
+
+>
+
+0 {
 }
 @while ($i > 0) {
 }
 @while ($i>0) {
 }
-@while ($i > 0) {
+@while ( $i > 0 ) {
 }
-@while ($i > 0) {
-}
-@while ($i > 0) {
-}
-@while ($i > 0) {
-}
-@while ($i > 0) {
-}
-@while ($i > 0) {
-}
-@while $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
-  > 1 {
-}
-@while 1 >
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var {
-}
-@while $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
-  >
-  $other-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var {
-}
-@while (($i) > (0)) {
-}
-@while (($i) >(0)) {
-}
-@while (($i) > (0)) {
-}
-@while (($i) > (0)) {
-}
-@while (($i) > (0)) {
-}
-@while (($i) > (0)) {
+@while (  $i  >  0  ) {
 }
 @while (
-  $very-very-very-very-very-very-very-very-very-very-very-very-long-var > 1
+    $i > 0
+) {
+}
+@while ($i > 0) {
+}
+@while (
+$i
+>
+0
 ) {
 }
 @while (
-  1 >
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+
+$i
+
+>
+
+0
+
 ) {
 }
-@while (
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
-    > 1
-) {
+@while $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var > 1 {
 }
-@while (
-  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+@while 1 > $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var {
+}
+@while $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var > $other-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var {
+}
+@while (($i) > (0)) {
+}
+@while (($i)>(0)) {
+}
+@while ((    $i  )  >  (  0  )  ) {
+}
+@while (($i)
     >
-    $other-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+    (0)
 ) {
+}
+@while ((
+
+$i
+)
+>
+(
+0
+)
+) {
+}
+@while ((
+
+
+
+$i
+
+)
+
+>
+
+(
+
+0
+
+)
+
+) {
+}
+@while ($very-very-very-very-very-very-very-very-very-very-very-very-long-var > 1) {
+}
+@while (1 > $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var) {
+}
+@while ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var > 1) {
+}
+@while ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var > $other-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var) {
 }
 
 ================================================================================

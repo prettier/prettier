@@ -120,7 +120,7 @@ singleQuote: true
 [att] {}
 
 =====================================output=====================================
-@namespace foo 'http://www.example.com';
+@namespace foo "http://www.example.com";
 [foo|att='val'] {
 }
 [*|att] {

@@ -107,11 +107,11 @@ https://github.com/postcss/postcss/releases/tag/8.0.0
 
 :root {
   --empty: ;
-  --JSON: [1, "2", {"three": {"a": 1}}, [4]];
-  --javascript: function(rule) {console.log(rule)};
+  --JSON: [1, "2", {"three": {"a":1}}, [4]];
+  --javascript: function(rule) { console.log(rule) };
 }
 
-@supports (--element(".minwidth", {"minWidth": 300})) {
+@supports (--element(".minwidth", { "minWidth": 300 })) {
   [--self] {
     background: greenyellow;
   }

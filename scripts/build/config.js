@@ -331,26 +331,26 @@ const pluginFiles = [
       },
       // `postcss-values-parser` uses constructor.name, it will be changed by bundler
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
-      {
-        module: getPackageFile("postcss-values-parser/lib/parser.js"),
-        find: "node.constructor.name === 'Word'",
-        replacement: "node.type === 'word'",
-      },
+      // {
+      //   module: getPackageFile("postcss-value-parser/lib/parse.js"),
+      //   find: "node.constructor.name === 'Word'",
+      //   replacement: "node.type === 'word'",
+      // },
       // Prevent `node:util`, `node:utl`, and `node:path` shim
-      {
-        module: getPackageFile("postcss-values-parser/lib/tokenize.js"),
-        process: (text) =>
-          text
-            .replace("require('util')", "{}")
-            .replace(
-              "let message = util.format('Unclosed %s at line: %d, column: %d, token: %d', what, line, pos - offset, pos);",
-              "let message = `Unclosed ${what} at line: ${line}, column: ${pos - offset}, token: ${pos}`;",
-            )
-            .replace(
-              "let message = util.format('Syntax error at line: %d, column: %d, token: %d', line, pos - offset, pos);",
-              "let message = `Syntax error at line: ${line}, column: ${pos - offset}, token: ${pos}`;",
-            ),
-      },
+      // {
+      //   module: getPackageFile("postcss-value-parser/lib/tokenize.js"),
+      //   process: (text) =>
+      //     text
+      //       .replace("require('util')", "{}")
+      //       .replace(
+      //         "let message = util.format('Unclosed %s at line: %d, column: %d, token: %d', what, line, pos - offset, pos);",
+      //         "let message = `Unclosed ${what} at line: ${line}, column: ${pos - offset}, token: ${pos}`;",
+      //       )
+      //       .replace(
+      //         "let message = util.format('Syntax error at line: %d, column: %d, token: %d', line, pos - offset, pos);",
+      //         "let message = `Syntax error at line: ${line}, column: ${pos - offset}, token: ${pos}`;",
+      //       ),
+      // },
     ],
   },
   "src/plugins/graphql.js",

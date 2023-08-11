@@ -78,20 +78,23 @@ printWidth: 80
 
 =====================================output=====================================
 .stringContentIsNotModifiedEvenIfInvalid {
-  background: url("@images");
+  background: url('@images');
   background: url("$images");
   background: url('/+0PX!/"\\a?~^[]{} $%#');
   background: url("/+0PX!/'\\a?~^[]{} $%#");
-  background: url("whitespace-around-string");
+  background: url(
+    "whitespace-around-string"
+  );
 }
 
 .validUnquotedUrls {
-  background: url(whitespace-around-string);
+  background: url(
+    whitespace-around-string
+  );
   background-image: url(/images/product/simple_product_manager/breadcrumb/chevron_right.png);
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO4/B8AAqgB0yr7dJgAAAAASUVORK5CYII=);
   background-image: url(data:application/font-woff;charset=utf-8;base64,ThisIsNormalBut/+0ThisIsLowerCased);
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO4/B8AAqgB0yr7dJgAAAAASUVORK5CYII=)
-    center center no-repeat;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO4/B8AAqgB0yr7dJgAAAAASUVORK5CYII=) center center no-repeat;
   background: url(data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%229%22%20height=%229%22%3E%3Cpath%20d=%22M0%203h3%22%20stroke=%22red%22/%3E%3C/svg%3E);
   offset-path: url(#path);
   background: url(data/+0ThisShouldNotBeLowerCased);
@@ -113,7 +116,7 @@ printWidth: 80
 }
 
 .invalidUnquotedUrlsButWeParseThemAnyway {
-  background: url(--var(foo-bar, #dadce0));
+  background: url(--var(foo-bar,#dadce0));
   -fb-sprite: url(fbglyph:cross-outline, fig-white);
 }
 

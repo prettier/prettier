@@ -168,17 +168,17 @@ HTML#KeepId.KeepClass,
 a[HREF="KeepAttrValue"]:hover::first-letter,
 svg[viewBox] linearGradient,
 :not(:nth-child(2n + 1)) {
-  color: #aabbcc;
+  color: #AAbbCC;
   background-image: URL("KeepString");
-  margin: 5px 0.2e10em;
+  margin: 5PX .2E10Em;
   --Keep-custom-Prop: red;
   background: Var(--Keep-custom-Prop);
   animation-name: KeepAnimationName;
   important: something !important;
-  font-family: initial;
-  padding: unset;
-  border: inherit;
-  all: revert;
+  font-family: INITIAL;
+  padding: UNSET;
+  border: INHERIT;
+  all: REVERT;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -286,7 +286,7 @@ $KeepScssVar: val;
 }
 
 .foo {
-  color: hsl(0.75turn, 60%, 70%);
+  color: hsl(0.75TURN, 60%, 70%);
 }
 
 p:first-child {
@@ -442,8 +442,7 @@ printWidth: 80
   preservecase: 5;
 }
 
-@var: // comment
-{
+@var: // comment{
   preserveCase: 5;
 };
 
@@ -460,17 +459,17 @@ printWidth: 80
 
 @not-var {
   canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[    @notVarNested][notVar];
+  canchangecase: @var[@notVarNested    ][notVar];
+  canchangecase: @var[    @notVarNested    ][notVar];
   canchangecase: @var[@notVarNested][notVar];
-  canchangecase: @var[@notVarNested][notVar];
-  canchangecase: @var[@notVarNested][notVar];
-  canchangecase: @var[@notVarNested][notVar];
-  canchangecase: @var[@notVarNested][notVar];
-  canchangecase: @var[@notVarNested][notVar];
-  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][    notVar];
+  canchangecase: @var[@notVarNested][notVar    ];
+  canchangecase: @var[@notVarNested][    notVar    ];
   canchangecase: @var[notVar];
-  canchangecase: @var[notVar];
-  canchangecase: @var[notVar];
-  canchangecase: @var[notVar];
+  canchangecase: @var[    notVar];
+  canchangecase: @var[notVar    ];
+  canchangecase: @var[    notVar    ];
 }
 
 ================================================================================

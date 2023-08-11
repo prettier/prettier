@@ -35,7 +35,7 @@ padding: 12px
 
 =====================================output=====================================
 // mixin for clearfix
-@mixin clearfix() {
+@mixin clearfix(    ) {
   &:before,
   &:after {
     content: " ";

@@ -145,7 +145,7 @@ printWidth: 80
   color: color(red red(- 20%));
   color: color(red red(- 128));
   color: color(red alpha(- 50%));
-  color: color(red alpha(- 0.75));
+  color: color(red alpha(- .75));
   color: color(red rgb(+ 0 255 0));
   color: color(red rgb(+ #0f0));
   color: color(red rgb(- 60% 0 0));
@@ -175,7 +175,7 @@ printWidth: 80
   color: color(beige whiteness(20%));
   color: color(beige whiteness(+ 1%));
   color: color(beige whiteness(- 20%));
-  color: color(beige whiteness(* 0.5%));
+  color: color(beige whiteness(* .5%));
   color: color(red);
   color: color(red tint(0%));
   color: color(red shade(0%));
@@ -237,10 +237,7 @@ printWidth: 80
   color: color(yellow contrast(50%));
   color: color(yellow contrast(75%));
   color: color(yellow contrast(100%));
-  color: color(
-    color-mod(0deg blue(10%)) rgb(+ 0 10 0) hue(+ 10deg) tint(10%)
-      lightness(+ 10%) saturation(+ 10%) blend(rebeccapurple 50%)
-  );
+  color: color(color-mod(0deg blue(10%)) rgb(+ 0 10 0) hue(+ 10deg) tint(10%) lightness(+ 10%) saturation(+ 10%) blend(rebeccapurple 50%));
   color: color(var(--color));
   color: color(var(--color) l(+ 20%));
   color: color(red l(+20%)); /* interpreted as part of the number */
@@ -249,8 +246,8 @@ printWidth: 80
   color: color(red hue(+20deg));
   color: color(red hue(-20));
   color: color(red hue(-20deg));
-  color: color(red hue(* 20));
-  color: color(red hue(* 20deg));
+  color: color(red hue(*20));
+  color: color(red hue(*20deg));
   color: color(var(--highlightColor) blackness(+ 20%));
 }
 
@@ -347,9 +344,9 @@ printWidth: 80
   color: rgb(255, 0, 153);
   color: rgb(100%, 0%, 60%);
   color: rgba(51, 170, 51, 0.1);
-  color: hsl(0.75turn, 60%, 70%);
-  color: hsl(270 60% 50% / 0.15);
-  color: hsla(240, 100%, 50%, 0.05);
+  color: hsl(.75turn, 60%, 70%);
+  color: hsl(270 60% 50% / .15);
+  color: hsla(240, 100%, 50%, .05);
 }
 
 ================================================================================
@@ -373,13 +370,13 @@ printWidth: 80
 
 =====================================output=====================================
 .foo {
-  color: #aaa;
+  color: #AAA;
   -o-color: #fabcd3;
   -webkit-color: #873;
   -moz-color: #6bcdef;
-  -ms-color: #aabbcc;
-  color: #f09f;
-  color: #ff0099ff;
+  -ms-color: #AAbbCC;
+  color: #F09F;
+  color: #FF0099FF;
 }
 
 ================================================================================
@@ -403,8 +400,8 @@ printWidth: 80
 .foo {
   color: rgba(51 170 51 / 0.4);
   color: rgba(51 170 51 / 40%);
-  color: hsl(270 60% 50% / 0.15);
-  color: hsla(240 100% 50% / 0.05);
+  color: hsl(270 60% 50% / .15);
+  color: hsla(240 100% 50% / .05);
   color: hsla(240 100% 50% / 5%);
 }
 

@@ -76,19 +76,19 @@ $form-selectors: "input.name", "input.address", "input.zip" !default;
   background-image: linear-gradient($direction, $gradients...);
 }
 $parameters: (
-  "c": "kittens",
-  "a": true,
-  "b": 42,
+  'c': 'kittens',
+  'a': true,
+  'b': 42
 );
 $value: dummy($parameters...);
 
 body {
   background-color: rgba(50, 50, 50, 50);
   background-color: rgba(50 50 50 50...);
-  background-color: rgba(50 50 0.5 50...);
-  background-color: rgba(50 50 50 0.5...);
+  background-color: rgba(50 50 .50 50...);
+  background-color: rgba(50 50 50. .50...);
   // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
-  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 50 50....);
   width: min(50px 20px 30px...);
 }
 
@@ -171,19 +171,19 @@ $form-selectors: "input.name", "input.address", "input.zip" !default;
   background-image: linear-gradient($direction, $gradients...);
 }
 $parameters: (
-  "c": "kittens",
-  "a": true,
-  "b": 42
+  'c': 'kittens',
+  'a': true,
+  'b': 42
 );
 $value: dummy($parameters...);
 
 body {
   background-color: rgba(50, 50, 50, 50);
   background-color: rgba(50 50 50 50...);
-  background-color: rgba(50 50 0.5 50...);
-  background-color: rgba(50 50 50 0.5...);
+  background-color: rgba(50 50 .50 50...);
+  background-color: rgba(50 50 50. .50...);
   // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
-  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 50 50....);
   width: min(50px 20px 30px...);
 }
 
@@ -208,9 +208,13 @@ trailingComma: "es5"
 )
 
 =====================================output=====================================
-@include bar(
-  rgba(
-    50 50 0.5 50... // comment
+@include bar( 
+    rgba(
+    50 
+    50 
+    .50 
+    50            ...
+    // comment
   )
 );
 
@@ -235,9 +239,13 @@ trailingComma: "none"
 )
 
 =====================================output=====================================
-@include bar(
-  rgba(
-    50 50 0.5 50... // comment
+@include bar( 
+    rgba(
+    50 
+    50 
+    .50 
+    50            ...
+    // comment
   )
 );
 
@@ -381,7 +389,7 @@ a {
 
 =====================================output=====================================
 @function concat($strings...) {
-  $result: "";
+  $result: '';
   @each $string in $strings {
     $sum: $result + $string;
   }
@@ -389,7 +397,7 @@ a {
 }
 
 a {
-  backround: url(concat("http://", "example.com", "/image.png"));
+  backround: url(concat('http://', 'example.com', '/image.png'));
 }
 
 ================================================================================
@@ -416,7 +424,7 @@ a {
 
 =====================================output=====================================
 @function concat($strings...) {
-  $result: "";
+  $result: '';
   @each $string in $strings {
     $sum: $result + $string;
   }
@@ -424,7 +432,7 @@ a {
 }
 
 a {
-  backround: url(concat("http://", "example.com", "/image.png"));
+  backround: url(concat('http://', 'example.com', '/image.png'));
 }
 
 ================================================================================
@@ -1604,283 +1612,296 @@ $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !gl
 $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
 $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
 
+$map: (key: value, other-key: other-value);
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: ( key : value , other-key : other-value);
+$map: (  key  :  value  ,  other-key  :  other-value  );
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 );
 $map: (
-  key: value,
-  other-key: other-value,
-) !default;
-$map: (
-  key: value,
-  other-key: other-value,
-) !default;
-$map: (
-  key: value,
-  other-key: other-value,
-) !default;
-$map: (
-  key: value,
-  other-key: other-value,
-) !default;
-$map: (
-  key: value,
-  other-key: other-value,
+key: value,
+other-key: other-value
 );
 $map: (
-  key: value,
-  other-key: other-value,
+key
+:
+value,
+other-key
+:
+other-value
 );
 $map: (
-  key: value,
-  other-key: other-value,
+key
+:
+value
+,
+other-key
+:
+other-value
+);
+$map: (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value, very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value);
+$map: ( very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key : very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value , very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key : very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value );
+$map: (  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key  :  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value  ,  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value  );
+$map: (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
-  key: value,
-  other-key: other-value,
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
-  key: value,
-  other-key: other-value,
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key
+:
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value
+,
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key
+:
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
-  key: value,
-  other-key: other-value,
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
 );
 $map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
+key: (#d82d2d, #666),
+other-key: (#52bf4a, #fff),
+other-other-key: (#c23435, #fff)
 );
 $map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
+  key : ( #d82d2d , #666 ),
+  other-key : ( #52bf4a , #fff ),
+  other-other-key : ( #c23435 , #fff )
 );
 $map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
+  key  : (  #d82d2d  ,  #666  )  ,
+  other-key  :  (  #52bf4a  ,  #fff  ),
+  other-other-key  :  (  #c23435  ,  #fff  )
 );
 $map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
+key
+:
+(
+#d82d2d,
+#666
+)
+,
+other-key
+:
+(
+#52bf4a,
+#fff
+)
+,
+other-other-key
+:
+(
+#c23435
+,
+#fff
+)
 );
-$map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
-);
-$map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666,
-  ),
-  other-key: (
-    #52bf4a,
-    #fff,
-  ),
-  other-other-key: (
-    #c23435,
-    #fff,
-  ),
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666,
-  ),
-  other-key: (
-    #52bf4a,
-    #fff,
-  ),
-  other-other-key: (
-    #c23435,
-    #fff,
-  ),
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666,
-  ),
-  other-key: (
-    #52bf4a,
-    #fff,
-  ),
-  other-other-key: (
-    #c23435,
-    #fff,
-  ),
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666,
-  ),
-  other-key: (
-    #52bf4a,
-    #fff,
-  ),
-  other-other-key: (
-    #c23435,
-    #fff,
-  ),
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666,
-  ),
-  other-key: (
-    #52bf4a,
-    #fff,
-  ),
-  other-other-key: (
-    #c23435,
-    #fff,
-  ),
-);
+$map: map-merge($map, ($key: $value));
+$map: map-merge( $map , ( $key : $value ) );
+$map: map-merge(  $map  ,  (  $key  :  $value  )  );
 $map: map-merge(
   $map,
-  (
-    $key: $value,
-  )
+  ($key:  $value)
 );
 $map: map-merge(
-  $map,
-  (
-    $key: $value,
-  )
+$map,
+($key:  $value)
 );
 $map: map-merge(
-  $map,
-  (
-    $key: $value,
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value,
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value,
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value,
-  )
+$map
+,
+(
+$key
+:
+$value
+)
 );
 
 $longVariable: (
-  (mobile $mobile) (tablet $tablet) (desktop $desktop) (wide $wide)
+(mobile $mobile) (tablet $tablet) (desktop $desktop) (wide $wide)
 );
 
 $list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
+$list-space: "item-1""item-2""item-3";
+$list-space: "item-1"  "item-2"  "item-3";
+$list-space: "item-1"
+  "item-2"
+  "item-3";
+$list-space: "item-1"
+"item-2"
+"item-3";
+$list-space: "item-1"
+
+"item-2"
+
+"item-3";
 $list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
+$list-comma: "item-1","item-2","item-3";
+$list-comma: "item-1"  ,  "item-2"  ,  "item-3";
+$list-comma: "item-1",
+  "item-2",
+  "item-3";
+$list-comma: "item-1"
+,
+"item-2"
+,
+"item-3";
+$list-comma: "item-1"
+
+,
+
+"item-2"
+
+,
+
+"item-3";
+$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3", "item-3.1" "item-3.2" "item-3.3";
+$list: "item-1.1""item-1.2""item-1.3","item-2.1""item-2.2""item-2.3","item-3.1""item-3.2""item-3.3";
+$list: "item-1.1"  "item-1.2"  "item-1.3"  ,  "item-2.1"  "item-2.2"  "item-2.3"  ,  "item-3.1"  "item-3.2"  "item-3.3";
+$list: "item-1.1" "item-1.2" "item-1.3",
   "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
-  "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
-  "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
-  "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
-  "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
-  "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
+$list: "item-1.1"
+"item-1.2"
+"item-1.3"
+,
+"item-2.1"
+"item-2.2"
+"item-2.3"
+,
+"item-3.1"
+"item-3.2"
+"item-3.3";
+$list: "item-1.1"
+
+"item-1.2"
+
+"item-1.3"
+
+,
+
+"item-2.1"
+
+"item-2.2"
+
+"item-2.3"
+
+,
+
+"item-3.1"
+
+"item-3.2"
+
+"item-3.3";
+$list: (("item-1.1", "item-1.2", "item-1.3"), ("item-2.1", "item-2.2", "item-2.3"), ("item-3.1", "item-3.2", "item-3.3"));
+$list: (("item-1.1","item-1.2","item-1.3"),("item-2.1","item-2.2","item-2.3"),("item-3.1","item-3.2","item-3.3"));
+$list: (  (  "item-1.1"  ,  "item-1.2"  ,  "item-1.3"  )  ,  (  "item-2.1"  ,  "item-2.2"  ,  "item-2.3"  )  ,  (  "item-3.1"  ,  "item-3.2"  ,  "item-3.3"  )  );
 $list: (
   ("item-1.1", "item-1.2", "item-1.3"),
   ("item-2.1", "item-2.2", "item-2.3"),
   ("item-3.1", "item-3.2", "item-3.3")
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+(
+"item-1.1"
+,
+"item-1.2"
+,
+"item-1.3"
+)
+,
+(
+"item-2.1"
+,
+"item-2.2"
+,
+"item-2.3"
+)
+,
+(
+"item-3.1"
+,
+"item-3.2"
+,
+"item-3.3"
+)
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
-);
-$list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
-);
-$list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
-);
-$list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+
+(
+
+"item-1.1"
+
+,
+
+"item-1.2"
+
+,
+
+"item-1.3"
+
+)
+
+,
+
+(
+
+"item-2.1"
+
+,
+
+"item-2.2"
+
+,
+
+"item-2.3"
+
+)
+
+,
+
+(
+
+"item-3.1"
+
+,
+
+"item-3.2"
+
+,
+
+"item-3.3"
+
+)
+
 );
 
-$var: (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0)
-  (0 0) (0 0);
-$space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1")
-  (1.25, "1-25") (1.5, "1-5") (1.75, "1-75") (2, "2") (2.25, "2-25")
-  (2.5, "2-5") (2.75, "2-75") (3, "3") (3.25, "3-25") (3.5, "3-5")
-  (3.75, "3-75") (4, "4");
+$var: (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0);
+$space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1") (1.25, "1-25") (1.5, "1-5") (1.75, "1-75") (2, "2") (2.25, "2-25") (2.5, "2-5") (2.75, "2-75") (3, "3") (3.25, "3-25") (3.5, "3-5") (3.75, "3-75") (4, "4");
 
 .card-column-simple {
-  @include breakpoint(getBp(md)) {
+  @include breakpoint( getBp( md ) ) {
     padding: $spacing_content-sm $spacing_content-md;
   }
 
-  @include breakpoint(getBp(md)) {
+  @include breakpoint( getBp(md)) {
     &:nth-child(2n + 3) {
       clear: both;
     }
   }
 
-  @include breakpoint(getBp(xl)) {
+  @include breakpoint( getBp(xl)) {
     &:nth-child(2n + 3) {
       clear: none;
     }
@@ -1903,10 +1924,7 @@ $space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1")
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 
-$buttonConfig:
-  "save" 50px,
-  "cancel" 50px,
-  "help" 100px;
+$buttonConfig: "save" 50px, 'cancel' 50px, "help" 100PX;
 
 $locale: "en_us";
 html[lang="#{$locale}"] {
@@ -2037,11 +2055,10 @@ p {
   }
 }
 
-@each $animal in puma, sea-slug, cheerfulDog, BigSalamander, "string",
-  "another-string", "camelCaseString", "PascalCaseString"
+@each $animal in puma, sea-slug, cheerfulDog, BigSalamander, "string", 'another-string', "camelCaseString", "PascalCaseString"
 {
   .#{$animal}-icon {
-    background-image: url("/images/#{$animal}.png");
+    background-image: url('/images/#{$animal}.png');
   }
 }
 
@@ -2053,7 +2070,7 @@ $i: 6;
   $i: $i - 2;
 }
 
-@mixin cool-border($width: 10px, $coolStyle: "solid", $AwesomeColor: "black") {
+@mixin cool-border($width: 10px, $coolStyle: 'solid', $AwesomeColor: "black") {
   border: $width $coolStyle $AwesomeColor;
 }
 
@@ -2061,7 +2078,7 @@ p {
   @include cool-border(1px, "solid", $fff);
 }
 p {
-  @include cool-border($width: 1px, $coolStyle: "solid", $AwesomeColor: #fff);
+  @include cool-border($width: 1px, $coolStyle: 'solid', $AwesomeColor: #fff);
 }
 p {
   @include coolBorder();
@@ -2135,7 +2152,7 @@ p {
   "save" green,
   "cancel" gray,
   "delete" red,
-  "wait" blue
+  'wait' blue
 );
 
 @function my-calculation-function($some-number, $anotherNumber, $BigNumber) {
@@ -2144,11 +2161,7 @@ p {
 @function myCalculationFunction($some-number, $anotherNumber, $BigNumber) {
   @return $some-number + $anotherNumber + $BigNumber;
 }
-@function AnotherMyCalculationFunction(
-  $some-number,
-  $anotherNumber,
-  $BigNumber: 100px
-) {
+@function AnotherMyCalculationFunction($some-number, $anotherNumber, $BigNumber: 100px) {
   @return $some-number + $anotherNumber + $BigNumber;
 }
 @function border($borders...) {
@@ -2156,17 +2169,13 @@ p {
 }
 .foo {
   padding: my-calculation-function(10px, 5px, 100px);
-  margin: myCalculationFunction(
-    $some-number: 10px,
-    $anotherNumber: 5px,
-    $BigNumber: 100px
-  );
+  margin: myCalculationFunction($some-number: 10px, $anotherNumber: 5px, $BigNumber: 100px);
   width: AnotherMyCalculationFunction(10px, 5px);
   border: border(25px, 35px);
 }
 
-$sm-only: "(min-width: 768px) and (max-width: 991px)";
-$lg-and-up: "(min-width: 1200px)";
+$sm-only: '(min-width: 768px) and (max-width: 991px)';
+$lg-and-up: '(min-width: 1200px)';
 
 @media screen and #{$sm-only, $lg-and-up} {
   color: #000;
@@ -2181,14 +2190,58 @@ $lg-and-up: "(min-width: 1200px)";
   line-height: #{strip-unit($line-height)}em;
   height: 1#{$var};
   width: calc(100% - #{$sidebar-width});
-  max-width: calc(#{$m * 100}vw #{$sign} #{$b});
+  max-width: calc(#{$m*100}vw #{$sign} #{$b});
   font: #{$font-size}/#{$line-height};
   content: "I have #{8 + 2} books on SASS!";
   border: #{$var} #{$var} #{$var};
   filter: #{$var}#{$var}#{$var};
-  prop: #{$var + $var} #{$var + $var} #{$var + $var};
-  prop2: #{$var + $var} #{$var + $var} #{$var + $var};
-  prop3: #{$var + $var} #{$var + $var} #{$var + $var};
+  prop: #{  $var  +  $var  }  #{  $var  +  $var  }  #{  $var  +  $var  };
+  prop2: #{
+      $var
+      +
+      $var
+      }
+
+      #{
+      $var
+      +
+      $var
+      }
+
+      #{
+      $var
+      +
+      $var
+      };
+  prop3: #{
+
+      $var
+
+      +
+
+      $var
+
+      }
+
+      #{
+
+      $var
+
+      +
+
+      $var
+
+      }
+
+      #{
+
+      $var
+
+      +
+
+      $var
+
+      };
   prop4: -#{$loader-icon-duration};
   prop5: +#{$loader-icon-duration};
   prop6: calc(-#{$loader-icon-duration} + 10);
@@ -2210,11 +2263,11 @@ $lg-and-up: "(min-width: 1200px)";
 @media #{$value} {
 }
 
-$foundation-dir: "foundation";
-@import url("#{$foundation-dir}/components/grid");
+$foundation-dir: 'foundation';
+@import url('#{$foundation-dir}/components/grid');
 @import url(#{$foundation-dir}/components/grid);
 @import url($foundation-dir/components/grid);
-@import url($foundation-dir + "/components/grid");
+@import url($foundation-dir+"/components/grid");
 
 @function get-font-family($family) {
   @return $family;
@@ -2232,18 +2285,11 @@ $foundation-dir: "foundation";
   }
 
   50% {
-    transform: translate3d(0, $bounce-height, 0)
-      scale(
-        $loader-bounce-horizontal-expansion,
-        $loader-bounce-vertical-compression
-      );
+    transform: translate3d(0, $bounce-height, 0) scale($loader-bounce-horizontal-expansion, $loader-bounce-vertical-compression);
   }
 }
 
-$icons:
-  wifi "\\600",
-  wifi-hotspot "\\601",
-  weather "\\602";
+$icons: wifi "\\600", wifi-hotspot "\\601", weather "\\602";
 
 @each $icon in $icons {
   .icon-#{nth($icon, 1)},
@@ -2254,7 +2300,7 @@ $icons:
 
 .foo {
   prop: -($grid-gutter-width / 2);
-  prop1: -($grid-gutter-width / 2);
+  prop1: -(  $grid-gutter-width  /  2  );
   prop2: -$grid-gutter-width / 2;
   prop3: +($grid-gutter-width / 2);
   prop4: 10px/8px; /* Plain CSS, no division */
@@ -2271,43 +2317,55 @@ $icons:
   prop15: sans- + "serif";
   prop16: 1em + (2em * 3);
   prop17: rotate(-2deg);
-  prop18: rotate(-2deg);
+  prop18: rotate(  -2deg  );
   _: _;
   prop19: 10 - ($grid-gutter-width / 2);
   prop20: 10 + -($grid-gutter-width / 2);
-  prop21: 10 + -($grid-gutter-width / 2);
-  prop22: -($grid-gutter-width / 2);
-  prop23: -($grid-gutter-width / 2);
+  prop21: 10  +  -  (  $grid-gutter-width  /  2  );
+  prop22: - ( $grid-gutter-width / 2 );
+  prop23: -  (  $grid-gutter-width  /  2  );
   prop24: -$grid-gutter-width;
-  prop25: +($grid-gutter-width / 2);
-  prop26: +($grid-gutter-width / 2);
+  prop25: + ( $grid-gutter-width / 2 );
+  prop26: +  (  $grid-gutter-width  /  2  );
   prop27: +$grid-gutter-width;
   prop28: --($grid-gutter-width / 2);
   prop28: ++($grid-gutter-width / 2);
-  prop29: rotate(-2deg);
+  prop29: rotate(  -  2deg  );
 }
 
-$last: nth($juggler, length($juggler));
-$x: if($last%2==0, 1/2, 3/2);
-$new: pow($last, $x);
-$sequence:
-  1,
-  1 1,
-  2 1,
-  1 2 1 1,
-  1 1 1 2 2 1;
+$last: nth($juggler,length($juggler));
+$x: if($last%2==0,1/2,3/2);
+$new: pow($last,$x);
+$sequence: 1,1 1,2 1,1 2 1 1, 1 1 1 2 2 1;
 $new-entry: ();
-$new-entry: ();
-$new-entry: ();
-$new-entry: ();
+$new-entry: ( );
+$new-entry: (  );
+$new-entry: (
+);
 
 body:before {
-  content: quote(to-string(fibonacci(100), " \\A "));
+  content: quote(to-string(fibonacci(100), ' \\A '));
   white-space: pre-wrap;
 }
 
 width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
-width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+width: (
+(
+100%
+-
+(
+(
+$numPerRow
+-
+1
+)
+*
+$margin
+)
+)
+/
+$numPerRow
+);
 
 a:nth-child(#{$numPerRow}n) {
   margin-right: 0;
@@ -2315,7 +2373,7 @@ a:nth-child(#{$numPerRow}n) {
 }
 
 @function em($pixels, $context: $browser-context) {
-  @return #{$pixels / $context}em;
+  @return #{ $pixels / $context }em;
 }
 
 .navigation {
@@ -2325,13 +2383,10 @@ a:nth-child(#{$numPerRow}n) {
 }
 
 .icon-#{$icon-name} {
-  background-image: "/images/#{$icon-name}.svg";
+  background-image: '/images/#{$icon-name}.svg';
 }
 
-$extmods: (
-  eot: "?",
-  svg: "#" + str-replace($name, " ", "_"),
-);
+$extmods: (eot:"?",svg:"#" + str-replace($name," ","_"));
 
 @mixin keyframes {
   @-moz-keyframes {
@@ -2342,31 +2397,31 @@ $extmods: (
   }
 }
 
-@function gcd($a, $b) {
+@function gcd($a,$b) {
   // From: http://rosettacode.org/wiki/Greatest_common_divisor#JavaScript
   @if ($b != 0) {
-    @return gcd($b, $a % $b);
+    @return gcd($b,$a % $b);
   } @else {
     @return abs($a);
   }
 }
 
 $colors: (
-  primary: (
-    base: #00abc9,
-    light: #daf1f6,
-    dark: #12799a,
-  ),
-  secondary: (
-    base: #424d55,
-    light: #ccc,
-    lightest: #efefef,
-    dark: #404247,
-  ),
-  success: (
-    base: #bbd33e,
-    light: #eaf0c6,
-  ),
+primary: (
+base: #00abc9,
+light: #daf1f6,
+dark: #12799a
+),
+secondary: (
+base: #424d55,
+light: #ccc,
+lightest: #efefef,
+dark: #404247
+),
+success: (
+base: #bbd33e,
+light: #eaf0c6
+)
 );
 
 @function color($color, $tone: "base") {
@@ -2381,85 +2436,68 @@ $widths-breakpoint-separator: \\@small;
 
 a {
   transition-timing-function: func1(
-    func2(
-      func3(
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue"
+      func2(
+          func3(
+              "veryVeryVeryVeryVeryLongValue",
+              "veryVeryVeryVeryVeryLongValue",
+              "veryVeryVeryVeryVeryLongValue",
+              "veryVeryVeryVeryVeryLongValue",
+          ),
+          "veryVeryVeryVeryVeryLongValue",
+          "veryVeryVeryVeryVeryLongValue",
+          "veryVeryVeryVeryVeryLongValue",
       ),
       "veryVeryVeryVeryVeryLongValue",
       "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue"
-    ),
-    "veryVeryVeryVeryVeryLongValue",
-    "veryVeryVeryVeryVeryLongValue",
-    func3(
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue"
-    )
+      func3(
+          "veryVeryVeryVeryVeryLongValue",
+          "veryVeryVeryVeryVeryLongValue",
+          "veryVeryVeryVeryVeryLongValue",
+          "veryVeryVeryVeryVeryLongValue"
+      )
   );
 }
 
 $empty-map: ();
 $empty-nested-map: (
-  nested-key: (
-    empty-key: (
-      color: red,
-    ),
-  ),
-  empty-key: (),
-  empty-key: (),
-  empty-key: (),
+nested-key: (empty-key: (color: red)),
+empty-key: (),
+empty-key: (),
+empty-key: ()
 );
 
 $o-grid-default-config: (
-  columns: 12,
-  gutter: 10px,
-  min-width: 240px,
-  max-width: 1330px,
-  layouts: (
-    S: 370px,
-    M: 610px,
-    L: 850px,
-    XL: 1090px,
-  ),
-  fluid: true,
-  debug: false,
-  fixed-layout: M,
-  enhanced-experience: true,
+columns: 12,
+gutter: 10px,
+min-width: 240px,
+max-width: 1330px,
+layouts: (
+S:  370px,
+M:  610px,
+L:  850px,
+XL: 1090px
+),
+fluid: true,
+debug: false,
+fixed-layout: M,
+enhanced-experience: true
 );
 
 $a: ();
-$b: unquote("");
+$b: unquote('');
 $c: null;
 $d: (null);
 
-$threads-properties: map-merge(
-  $threads-properties,
-  (
-    $border-label: (),
-  )
-);
-$o-grid-default-config: (
-  layouts: (
-    S: 370px,
-  ),
-);
+$threads-properties: map-merge($threads-properties,  ($border-label: ()));
+$o-grid-default-config: (layouts: (S:  370px));
 
 $map: (
-  key: (
-    value,
-  ),
-  other-key: (
-    key: other-other-value,
-  ),
+key: (value),
+other-key: (key: other-other-value)
 );
 
 a {
-  content: "#{"0.5"}";
+  content: "#{".5"}";
   content: my-fn("_");
   content: "#{my-fn("_")}";
   content: my-fn("-");
@@ -2479,7 +2517,7 @@ a {
   content: "#{my-fn(  "foo"  ,  "bar"  )}";
 
   content: '#{my-fn("foo")}';
-  content: "#{my-fn("foo")}";
+  content: '#{my-fn('foo')}';
   content: "#{my-fn('foo')}";
   content: "#{my-fn("foo")}";
 }
@@ -2511,20 +2549,14 @@ a {
   color: red; // Comment
 }
 
-$my-list:
-  "foo",
-  // Comment
-  "bar"; // Comment
+$my-list: 'foo', // Comment
+  'bar'; // Comment
 
 $my-map: (
-  "foo": 1,
-  // Comment
-  "bar": 2,
-  // Comment
-  "buz": calc(1 + 2),
-  // Buz
-  "baz": 4,
-  // Baz
+  'foo': 1, // Comment
+  'bar': 2, // Comment
+  'buz': calc(1 + 2), // Buz
+  'baz': 4, // Baz
 );
 
 [href]:hover &, // Comment
@@ -2536,14 +2568,15 @@ $my-map: (
 }
 
 @import // Comment
-  "mixins",
-  "variables",
+  'mixins',
+  'variables',
   // Comment
-  "reset",
-  "scaffolding", "type",
+  'reset',
+  'scaffolding',
+  'type',
   // Comment
-  "bar",
-  "tabs";
+  'bar',
+  'tabs';
 
 @mixin placeholder {
   &::placeholder {
@@ -2579,62 +2612,19 @@ label {
 }
 
 @function pow($base, $exponent) {
-  @return someVeryLongFunctionNameForJustAPow($base, $exponent);
+  @return someVeryLongFunctionNameForJustAPow($base,$exponent);
 }
 
 .foo {
-  width: someVeryLongFunctionNameForJustAPow(
-    2,
-    someVeryLongFunctionNameForJustAPow(
-      2,
-      someVeryLongFunctionNameForJustAPow(
-        2,
-        // This next pow is really powerful
-        someVeryLongFunctionNameForJustAPow(
-            2,
-            someVeryLongFunctionNameForJustAPow(
-              2,
-              someVeryLongFunctionNameForJustAPow(
-                2,
-                someVeryLongFunctionNameForJustAPow(
-                  2,
-                  someVeryLongFunctionNameForJustAPow(
-                    2,
-                    someVeryLongFunctionNameForJustAPow(
-                      2,
-                      someVeryLongFunctionNameForJustAPow(
-                        2,
-                        someVeryLongFunctionNameForJustAPow(
-                          2,
-                          someVeryLongFunctionNameForJustAPow(2, 2)
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          )
-      )
-    )
-  );
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2,
+  // This next pow is really powerful
+  someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))));
 }
 
 .bar {
-  width: pow(
-    2,
-    pow(
-      2,
-      pow(
-        2,
-        // This next pow is really powerful
-        pow(
-            2,
-            pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
-          )
-      )
-    )
-  );
+  width: pow(2, pow(2, pow(2,
+  // This next pow is really powerful
+  pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))));
 }
 
 // #5636
@@ -3797,283 +3787,296 @@ $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !gl
 $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
 $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
 
+$map: (key: value, other-key: other-value);
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value) !default;
+$map: ( key : value , other-key : other-value);
+$map: (  key  :  value  ,  other-key  :  other-value  );
 $map: (
   key: value,
   other-key: other-value
 );
 $map: (
-  key: value,
-  other-key: other-value
-) !default;
-$map: (
-  key: value,
-  other-key: other-value
-) !default;
-$map: (
-  key: value,
-  other-key: other-value
-) !default;
-$map: (
-  key: value,
-  other-key: other-value
-) !default;
-$map: (
-  key: value,
-  other-key: other-value
+key: value,
+other-key: other-value
 );
 $map: (
-  key: value,
-  other-key: other-value
+key
+:
+value,
+other-key
+:
+other-value
 );
 $map: (
-  key: value,
-  other-key: other-value
+key
+:
+value
+,
+other-key
+:
+other-value
+);
+$map: (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value, very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value);
+$map: ( very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key : very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value , very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key : very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value );
+$map: (  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key  :  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value  ,  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value  );
+$map: (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
-  key: value,
-  other-key: other-value
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
-  key: value,
-  other-key: other-value
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key
+:
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value
+,
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key
+:
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
-  key: value,
-  other-key: other-value
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
 );
 $map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+key: (#d82d2d, #666),
+other-key: (#52bf4a, #fff),
+other-other-key: (#c23435, #fff)
 );
 $map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+  key : ( #d82d2d , #666 ),
+  other-key : ( #52bf4a , #fff ),
+  other-other-key : ( #c23435 , #fff )
 );
 $map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+  key  : (  #d82d2d  ,  #666  )  ,
+  other-key  :  (  #52bf4a  ,  #fff  ),
+  other-other-key  :  (  #c23435  ,  #fff  )
 );
 $map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+key
+:
+(
+#d82d2d,
+#666
+)
+,
+other-key
+:
+(
+#52bf4a,
+#fff
+)
+,
+other-other-key
+:
+(
+#c23435
+,
+#fff
+)
 );
-$map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
-);
-$map: (
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666
-  ),
-  other-key: (
-    #52bf4a,
-    #fff
-  ),
-  other-other-key: (
-    #c23435,
-    #fff
-  )
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666
-  ),
-  other-key: (
-    #52bf4a,
-    #fff
-  ),
-  other-other-key: (
-    #c23435,
-    #fff
-  )
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666
-  ),
-  other-key: (
-    #52bf4a,
-    #fff
-  ),
-  other-other-key: (
-    #c23435,
-    #fff
-  )
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666
-  ),
-  other-key: (
-    #52bf4a,
-    #fff
-  ),
-  other-other-key: (
-    #c23435,
-    #fff
-  )
-);
-$map: (
-  key: (
-    #d82d2d,
-    #666
-  ),
-  other-key: (
-    #52bf4a,
-    #fff
-  ),
-  other-other-key: (
-    #c23435,
-    #fff
-  )
-);
+$map: map-merge($map, ($key: $value));
+$map: map-merge( $map , ( $key : $value ) );
+$map: map-merge(  $map  ,  (  $key  :  $value  )  );
 $map: map-merge(
   $map,
-  (
-    $key: $value
-  )
+  ($key:  $value)
 );
 $map: map-merge(
-  $map,
-  (
-    $key: $value
-  )
+$map,
+($key:  $value)
 );
 $map: map-merge(
-  $map,
-  (
-    $key: $value
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value
-  )
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value
-  )
+$map
+,
+(
+$key
+:
+$value
+)
 );
 
 $longVariable: (
-  (mobile $mobile) (tablet $tablet) (desktop $desktop) (wide $wide)
+(mobile $mobile) (tablet $tablet) (desktop $desktop) (wide $wide)
 );
 
 $list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
+$list-space: "item-1""item-2""item-3";
+$list-space: "item-1"  "item-2"  "item-3";
+$list-space: "item-1"
+  "item-2"
+  "item-3";
+$list-space: "item-1"
+"item-2"
+"item-3";
+$list-space: "item-1"
+
+"item-2"
+
+"item-3";
 $list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
+$list-comma: "item-1","item-2","item-3";
+$list-comma: "item-1"  ,  "item-2"  ,  "item-3";
+$list-comma: "item-1",
+  "item-2",
+  "item-3";
+$list-comma: "item-1"
+,
+"item-2"
+,
+"item-3";
+$list-comma: "item-1"
+
+,
+
+"item-2"
+
+,
+
+"item-3";
+$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3", "item-3.1" "item-3.2" "item-3.3";
+$list: "item-1.1""item-1.2""item-1.3","item-2.1""item-2.2""item-2.3","item-3.1""item-3.2""item-3.3";
+$list: "item-1.1"  "item-1.2"  "item-1.3"  ,  "item-2.1"  "item-2.2"  "item-2.3"  ,  "item-3.1"  "item-3.2"  "item-3.3";
+$list: "item-1.1" "item-1.2" "item-1.3",
   "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
-  "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
-  "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
-  "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
-  "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list:
-  "item-1.1" "item-1.2" "item-1.3",
-  "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
+$list: "item-1.1"
+"item-1.2"
+"item-1.3"
+,
+"item-2.1"
+"item-2.2"
+"item-2.3"
+,
+"item-3.1"
+"item-3.2"
+"item-3.3";
+$list: "item-1.1"
+
+"item-1.2"
+
+"item-1.3"
+
+,
+
+"item-2.1"
+
+"item-2.2"
+
+"item-2.3"
+
+,
+
+"item-3.1"
+
+"item-3.2"
+
+"item-3.3";
+$list: (("item-1.1", "item-1.2", "item-1.3"), ("item-2.1", "item-2.2", "item-2.3"), ("item-3.1", "item-3.2", "item-3.3"));
+$list: (("item-1.1","item-1.2","item-1.3"),("item-2.1","item-2.2","item-2.3"),("item-3.1","item-3.2","item-3.3"));
+$list: (  (  "item-1.1"  ,  "item-1.2"  ,  "item-1.3"  )  ,  (  "item-2.1"  ,  "item-2.2"  ,  "item-2.3"  )  ,  (  "item-3.1"  ,  "item-3.2"  ,  "item-3.3"  )  );
 $list: (
   ("item-1.1", "item-1.2", "item-1.3"),
   ("item-2.1", "item-2.2", "item-2.3"),
   ("item-3.1", "item-3.2", "item-3.3")
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+(
+"item-1.1"
+,
+"item-1.2"
+,
+"item-1.3"
+)
+,
+(
+"item-2.1"
+,
+"item-2.2"
+,
+"item-2.3"
+)
+,
+(
+"item-3.1"
+,
+"item-3.2"
+,
+"item-3.3"
+)
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
-);
-$list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
-);
-$list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
-);
-$list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+
+(
+
+"item-1.1"
+
+,
+
+"item-1.2"
+
+,
+
+"item-1.3"
+
+)
+
+,
+
+(
+
+"item-2.1"
+
+,
+
+"item-2.2"
+
+,
+
+"item-2.3"
+
+)
+
+,
+
+(
+
+"item-3.1"
+
+,
+
+"item-3.2"
+
+,
+
+"item-3.3"
+
+)
+
 );
 
-$var: (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0)
-  (0 0) (0 0);
-$space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1")
-  (1.25, "1-25") (1.5, "1-5") (1.75, "1-75") (2, "2") (2.25, "2-25")
-  (2.5, "2-5") (2.75, "2-75") (3, "3") (3.25, "3-25") (3.5, "3-5")
-  (3.75, "3-75") (4, "4");
+$var: (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0);
+$space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1") (1.25, "1-25") (1.5, "1-5") (1.75, "1-75") (2, "2") (2.25, "2-25") (2.5, "2-5") (2.75, "2-75") (3, "3") (3.25, "3-25") (3.5, "3-5") (3.75, "3-75") (4, "4");
 
 .card-column-simple {
-  @include breakpoint(getBp(md)) {
+  @include breakpoint( getBp( md ) ) {
     padding: $spacing_content-sm $spacing_content-md;
   }
 
-  @include breakpoint(getBp(md)) {
+  @include breakpoint( getBp(md)) {
     &:nth-child(2n + 3) {
       clear: both;
     }
   }
 
-  @include breakpoint(getBp(xl)) {
+  @include breakpoint( getBp(xl)) {
     &:nth-child(2n + 3) {
       clear: none;
     }
@@ -4096,10 +4099,7 @@ $space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1")
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 
-$buttonConfig:
-  "save" 50px,
-  "cancel" 50px,
-  "help" 100px;
+$buttonConfig: "save" 50px, 'cancel' 50px, "help" 100PX;
 
 $locale: "en_us";
 html[lang="#{$locale}"] {
@@ -4230,11 +4230,10 @@ p {
   }
 }
 
-@each $animal in puma, sea-slug, cheerfulDog, BigSalamander, "string",
-  "another-string", "camelCaseString", "PascalCaseString"
+@each $animal in puma, sea-slug, cheerfulDog, BigSalamander, "string", 'another-string', "camelCaseString", "PascalCaseString"
 {
   .#{$animal}-icon {
-    background-image: url("/images/#{$animal}.png");
+    background-image: url('/images/#{$animal}.png');
   }
 }
 
@@ -4246,7 +4245,7 @@ $i: 6;
   $i: $i - 2;
 }
 
-@mixin cool-border($width: 10px, $coolStyle: "solid", $AwesomeColor: "black") {
+@mixin cool-border($width: 10px, $coolStyle: 'solid', $AwesomeColor: "black") {
   border: $width $coolStyle $AwesomeColor;
 }
 
@@ -4254,7 +4253,7 @@ p {
   @include cool-border(1px, "solid", $fff);
 }
 p {
-  @include cool-border($width: 1px, $coolStyle: "solid", $AwesomeColor: #fff);
+  @include cool-border($width: 1px, $coolStyle: 'solid', $AwesomeColor: #fff);
 }
 p {
   @include coolBorder();
@@ -4328,7 +4327,7 @@ p {
   "save" green,
   "cancel" gray,
   "delete" red,
-  "wait" blue
+  'wait' blue
 );
 
 @function my-calculation-function($some-number, $anotherNumber, $BigNumber) {
@@ -4337,11 +4336,7 @@ p {
 @function myCalculationFunction($some-number, $anotherNumber, $BigNumber) {
   @return $some-number + $anotherNumber + $BigNumber;
 }
-@function AnotherMyCalculationFunction(
-  $some-number,
-  $anotherNumber,
-  $BigNumber: 100px
-) {
+@function AnotherMyCalculationFunction($some-number, $anotherNumber, $BigNumber: 100px) {
   @return $some-number + $anotherNumber + $BigNumber;
 }
 @function border($borders...) {
@@ -4349,17 +4344,13 @@ p {
 }
 .foo {
   padding: my-calculation-function(10px, 5px, 100px);
-  margin: myCalculationFunction(
-    $some-number: 10px,
-    $anotherNumber: 5px,
-    $BigNumber: 100px
-  );
+  margin: myCalculationFunction($some-number: 10px, $anotherNumber: 5px, $BigNumber: 100px);
   width: AnotherMyCalculationFunction(10px, 5px);
   border: border(25px, 35px);
 }
 
-$sm-only: "(min-width: 768px) and (max-width: 991px)";
-$lg-and-up: "(min-width: 1200px)";
+$sm-only: '(min-width: 768px) and (max-width: 991px)';
+$lg-and-up: '(min-width: 1200px)';
 
 @media screen and #{$sm-only, $lg-and-up} {
   color: #000;
@@ -4374,14 +4365,58 @@ $lg-and-up: "(min-width: 1200px)";
   line-height: #{strip-unit($line-height)}em;
   height: 1#{$var};
   width: calc(100% - #{$sidebar-width});
-  max-width: calc(#{$m * 100}vw #{$sign} #{$b});
+  max-width: calc(#{$m*100}vw #{$sign} #{$b});
   font: #{$font-size}/#{$line-height};
   content: "I have #{8 + 2} books on SASS!";
   border: #{$var} #{$var} #{$var};
   filter: #{$var}#{$var}#{$var};
-  prop: #{$var + $var} #{$var + $var} #{$var + $var};
-  prop2: #{$var + $var} #{$var + $var} #{$var + $var};
-  prop3: #{$var + $var} #{$var + $var} #{$var + $var};
+  prop: #{  $var  +  $var  }  #{  $var  +  $var  }  #{  $var  +  $var  };
+  prop2: #{
+      $var
+      +
+      $var
+      }
+
+      #{
+      $var
+      +
+      $var
+      }
+
+      #{
+      $var
+      +
+      $var
+      };
+  prop3: #{
+
+      $var
+
+      +
+
+      $var
+
+      }
+
+      #{
+
+      $var
+
+      +
+
+      $var
+
+      }
+
+      #{
+
+      $var
+
+      +
+
+      $var
+
+      };
   prop4: -#{$loader-icon-duration};
   prop5: +#{$loader-icon-duration};
   prop6: calc(-#{$loader-icon-duration} + 10);
@@ -4403,11 +4438,11 @@ $lg-and-up: "(min-width: 1200px)";
 @media #{$value} {
 }
 
-$foundation-dir: "foundation";
-@import url("#{$foundation-dir}/components/grid");
+$foundation-dir: 'foundation';
+@import url('#{$foundation-dir}/components/grid');
 @import url(#{$foundation-dir}/components/grid);
 @import url($foundation-dir/components/grid);
-@import url($foundation-dir + "/components/grid");
+@import url($foundation-dir+"/components/grid");
 
 @function get-font-family($family) {
   @return $family;
@@ -4425,18 +4460,11 @@ $foundation-dir: "foundation";
   }
 
   50% {
-    transform: translate3d(0, $bounce-height, 0)
-      scale(
-        $loader-bounce-horizontal-expansion,
-        $loader-bounce-vertical-compression
-      );
+    transform: translate3d(0, $bounce-height, 0) scale($loader-bounce-horizontal-expansion, $loader-bounce-vertical-compression);
   }
 }
 
-$icons:
-  wifi "\\600",
-  wifi-hotspot "\\601",
-  weather "\\602";
+$icons: wifi "\\600", wifi-hotspot "\\601", weather "\\602";
 
 @each $icon in $icons {
   .icon-#{nth($icon, 1)},
@@ -4447,7 +4475,7 @@ $icons:
 
 .foo {
   prop: -($grid-gutter-width / 2);
-  prop1: -($grid-gutter-width / 2);
+  prop1: -(  $grid-gutter-width  /  2  );
   prop2: -$grid-gutter-width / 2;
   prop3: +($grid-gutter-width / 2);
   prop4: 10px/8px; /* Plain CSS, no division */
@@ -4464,43 +4492,55 @@ $icons:
   prop15: sans- + "serif";
   prop16: 1em + (2em * 3);
   prop17: rotate(-2deg);
-  prop18: rotate(-2deg);
+  prop18: rotate(  -2deg  );
   _: _;
   prop19: 10 - ($grid-gutter-width / 2);
   prop20: 10 + -($grid-gutter-width / 2);
-  prop21: 10 + -($grid-gutter-width / 2);
-  prop22: -($grid-gutter-width / 2);
-  prop23: -($grid-gutter-width / 2);
+  prop21: 10  +  -  (  $grid-gutter-width  /  2  );
+  prop22: - ( $grid-gutter-width / 2 );
+  prop23: -  (  $grid-gutter-width  /  2  );
   prop24: -$grid-gutter-width;
-  prop25: +($grid-gutter-width / 2);
-  prop26: +($grid-gutter-width / 2);
+  prop25: + ( $grid-gutter-width / 2 );
+  prop26: +  (  $grid-gutter-width  /  2  );
   prop27: +$grid-gutter-width;
   prop28: --($grid-gutter-width / 2);
   prop28: ++($grid-gutter-width / 2);
-  prop29: rotate(-2deg);
+  prop29: rotate(  -  2deg  );
 }
 
-$last: nth($juggler, length($juggler));
-$x: if($last%2==0, 1/2, 3/2);
-$new: pow($last, $x);
-$sequence:
-  1,
-  1 1,
-  2 1,
-  1 2 1 1,
-  1 1 1 2 2 1;
+$last: nth($juggler,length($juggler));
+$x: if($last%2==0,1/2,3/2);
+$new: pow($last,$x);
+$sequence: 1,1 1,2 1,1 2 1 1, 1 1 1 2 2 1;
 $new-entry: ();
-$new-entry: ();
-$new-entry: ();
-$new-entry: ();
+$new-entry: ( );
+$new-entry: (  );
+$new-entry: (
+);
 
 body:before {
-  content: quote(to-string(fibonacci(100), " \\A "));
+  content: quote(to-string(fibonacci(100), ' \\A '));
   white-space: pre-wrap;
 }
 
 width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
-width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+width: (
+(
+100%
+-
+(
+(
+$numPerRow
+-
+1
+)
+*
+$margin
+)
+)
+/
+$numPerRow
+);
 
 a:nth-child(#{$numPerRow}n) {
   margin-right: 0;
@@ -4508,7 +4548,7 @@ a:nth-child(#{$numPerRow}n) {
 }
 
 @function em($pixels, $context: $browser-context) {
-  @return #{$pixels / $context}em;
+  @return #{ $pixels / $context }em;
 }
 
 .navigation {
@@ -4518,13 +4558,10 @@ a:nth-child(#{$numPerRow}n) {
 }
 
 .icon-#{$icon-name} {
-  background-image: "/images/#{$icon-name}.svg";
+  background-image: '/images/#{$icon-name}.svg';
 }
 
-$extmods: (
-  eot: "?",
-  svg: "#" + str-replace($name, " ", "_")
-);
+$extmods: (eot:"?",svg:"#" + str-replace($name," ","_"));
 
 @mixin keyframes {
   @-moz-keyframes {
@@ -4535,31 +4572,31 @@ $extmods: (
   }
 }
 
-@function gcd($a, $b) {
+@function gcd($a,$b) {
   // From: http://rosettacode.org/wiki/Greatest_common_divisor#JavaScript
   @if ($b != 0) {
-    @return gcd($b, $a % $b);
+    @return gcd($b,$a % $b);
   } @else {
     @return abs($a);
   }
 }
 
 $colors: (
-  primary: (
-    base: #00abc9,
-    light: #daf1f6,
-    dark: #12799a
-  ),
-  secondary: (
-    base: #424d55,
-    light: #ccc,
-    lightest: #efefef,
-    dark: #404247
-  ),
-  success: (
-    base: #bbd33e,
-    light: #eaf0c6
-  )
+primary: (
+base: #00abc9,
+light: #daf1f6,
+dark: #12799a
+),
+secondary: (
+base: #424d55,
+light: #ccc,
+lightest: #efefef,
+dark: #404247
+),
+success: (
+base: #bbd33e,
+light: #eaf0c6
+)
 );
 
 @function color($color, $tone: "base") {
@@ -4574,85 +4611,68 @@ $widths-breakpoint-separator: \\@small;
 
 a {
   transition-timing-function: func1(
-    func2(
-      func3(
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue"
+      func2(
+          func3(
+              "veryVeryVeryVeryVeryLongValue",
+              "veryVeryVeryVeryVeryLongValue",
+              "veryVeryVeryVeryVeryLongValue",
+              "veryVeryVeryVeryVeryLongValue",
+          ),
+          "veryVeryVeryVeryVeryLongValue",
+          "veryVeryVeryVeryVeryLongValue",
+          "veryVeryVeryVeryVeryLongValue",
       ),
       "veryVeryVeryVeryVeryLongValue",
       "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue"
-    ),
-    "veryVeryVeryVeryVeryLongValue",
-    "veryVeryVeryVeryVeryLongValue",
-    func3(
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue"
-    )
+      func3(
+          "veryVeryVeryVeryVeryLongValue",
+          "veryVeryVeryVeryVeryLongValue",
+          "veryVeryVeryVeryVeryLongValue",
+          "veryVeryVeryVeryVeryLongValue"
+      )
   );
 }
 
 $empty-map: ();
 $empty-nested-map: (
-  nested-key: (
-    empty-key: (
-      color: red
-    )
-  ),
-  empty-key: (),
-  empty-key: (),
-  empty-key: ()
+nested-key: (empty-key: (color: red)),
+empty-key: (),
+empty-key: (),
+empty-key: ()
 );
 
 $o-grid-default-config: (
-  columns: 12,
-  gutter: 10px,
-  min-width: 240px,
-  max-width: 1330px,
-  layouts: (
-    S: 370px,
-    M: 610px,
-    L: 850px,
-    XL: 1090px
-  ),
-  fluid: true,
-  debug: false,
-  fixed-layout: M,
-  enhanced-experience: true
+columns: 12,
+gutter: 10px,
+min-width: 240px,
+max-width: 1330px,
+layouts: (
+S:  370px,
+M:  610px,
+L:  850px,
+XL: 1090px
+),
+fluid: true,
+debug: false,
+fixed-layout: M,
+enhanced-experience: true
 );
 
 $a: ();
-$b: unquote("");
+$b: unquote('');
 $c: null;
 $d: (null);
 
-$threads-properties: map-merge(
-  $threads-properties,
-  (
-    $border-label: ()
-  )
-);
-$o-grid-default-config: (
-  layouts: (
-    S: 370px
-  )
-);
+$threads-properties: map-merge($threads-properties,  ($border-label: ()));
+$o-grid-default-config: (layouts: (S:  370px));
 
 $map: (
-  key: (
-    value
-  ),
-  other-key: (
-    key: other-other-value
-  )
+key: (value),
+other-key: (key: other-other-value)
 );
 
 a {
-  content: "#{"0.5"}";
+  content: "#{".5"}";
   content: my-fn("_");
   content: "#{my-fn("_")}";
   content: my-fn("-");
@@ -4672,7 +4692,7 @@ a {
   content: "#{my-fn(  "foo"  ,  "bar"  )}";
 
   content: '#{my-fn("foo")}';
-  content: "#{my-fn("foo")}";
+  content: '#{my-fn('foo')}';
   content: "#{my-fn('foo')}";
   content: "#{my-fn("foo")}";
 }
@@ -4704,20 +4724,14 @@ a {
   color: red; // Comment
 }
 
-$my-list:
-  "foo",
-  // Comment
-  "bar"; // Comment
+$my-list: 'foo', // Comment
+  'bar'; // Comment
 
 $my-map: (
-  "foo": 1,
-  // Comment
-  "bar": 2,
-  // Comment
-  "buz": calc(1 + 2),
-  // Buz
-  "baz": 4,
-  // Baz
+  'foo': 1, // Comment
+  'bar': 2, // Comment
+  'buz': calc(1 + 2), // Buz
+  'baz': 4, // Baz
 );
 
 [href]:hover &, // Comment
@@ -4729,14 +4743,15 @@ $my-map: (
 }
 
 @import // Comment
-  "mixins",
-  "variables",
+  'mixins',
+  'variables',
   // Comment
-  "reset",
-  "scaffolding", "type",
+  'reset',
+  'scaffolding',
+  'type',
   // Comment
-  "bar",
-  "tabs";
+  'bar',
+  'tabs';
 
 @mixin placeholder {
   &::placeholder {
@@ -4772,62 +4787,19 @@ label {
 }
 
 @function pow($base, $exponent) {
-  @return someVeryLongFunctionNameForJustAPow($base, $exponent);
+  @return someVeryLongFunctionNameForJustAPow($base,$exponent);
 }
 
 .foo {
-  width: someVeryLongFunctionNameForJustAPow(
-    2,
-    someVeryLongFunctionNameForJustAPow(
-      2,
-      someVeryLongFunctionNameForJustAPow(
-        2,
-        // This next pow is really powerful
-        someVeryLongFunctionNameForJustAPow(
-            2,
-            someVeryLongFunctionNameForJustAPow(
-              2,
-              someVeryLongFunctionNameForJustAPow(
-                2,
-                someVeryLongFunctionNameForJustAPow(
-                  2,
-                  someVeryLongFunctionNameForJustAPow(
-                    2,
-                    someVeryLongFunctionNameForJustAPow(
-                      2,
-                      someVeryLongFunctionNameForJustAPow(
-                        2,
-                        someVeryLongFunctionNameForJustAPow(
-                          2,
-                          someVeryLongFunctionNameForJustAPow(2, 2)
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          )
-      )
-    )
-  );
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2,
+  // This next pow is really powerful
+  someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))));
 }
 
 .bar {
-  width: pow(
-    2,
-    pow(
-      2,
-      pow(
-        2,
-        // This next pow is really powerful
-        pow(
-            2,
-            pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
-          )
-      )
-    )
-  );
+  width: pow(2, pow(2, pow(2,
+  // This next pow is really powerful
+  pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))));
 }
 
 // #5636
@@ -4864,10 +4836,10 @@ a {
 =====================================output=====================================
 a {
   background-image: url($test-path + $test-path);
-  background-image: url($test-path + "static/test.jpg");
-  background-image: url("../test/" + $test-path);
-  background-image: url("../test/" + "static/test.jpg");
-  background-image: url($test-path + $test-path);
+  background-image: url($test-path + 'static/test.jpg');
+  background-image: url('../test/' + $test-path);
+  background-image: url('../test/' + 'static/test.jpg');
+  background-image: url($test-path+$test-path);
 }
 
 ================================================================================
@@ -4891,10 +4863,10 @@ a {
 =====================================output=====================================
 a {
   background-image: url($test-path + $test-path);
-  background-image: url($test-path + "static/test.jpg");
-  background-image: url("../test/" + $test-path);
-  background-image: url("../test/" + "static/test.jpg");
-  background-image: url($test-path + $test-path);
+  background-image: url($test-path + 'static/test.jpg');
+  background-image: url('../test/' + $test-path);
+  background-image: url('../test/' + 'static/test.jpg');
+  background-image: url($test-path+$test-path);
 }
 
 ================================================================================
