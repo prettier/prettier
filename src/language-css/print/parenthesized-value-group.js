@@ -40,6 +40,10 @@ function printTrailingComma(path, options) {
 
   if (
     path.node.type !== "value-comment" &&
+    !(
+      path.node.type === "value-comma_group" &&
+      path.node.groups.every((group) => group.type === "value-comment")
+    ) &&
     shouldPrintTrailingComma(options) &&
     path.callParent(() => isSCSSMapItemNode(path, options))
   ) {
