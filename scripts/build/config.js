@@ -564,6 +564,7 @@ const nodejsFiles = [
     input: "src/common/mockable.js",
     outputBaseName: "internal/internal",
 <<<<<<< HEAD
+<<<<<<< HEAD
     replaceModule: [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {
@@ -582,6 +583,15 @@ const nodejsFiles = [
     ],
 =======
 >>>>>>> 12e5eafeb (Replace `cosmiconfig` with `lilconfig`)
+=======
+    replaceModule: [
+      {
+        module: require.resolve("lilconfig"),
+        find: "exports.lilconfigSync = lilconfigSync;",
+        replacement: "",
+      },
+    ],
+>>>>>>> f85e2e37f (Remove `lilconfigSync`)
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
