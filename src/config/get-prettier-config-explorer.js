@@ -2,6 +2,7 @@ import { pathToFileURL } from "node:url";
 import parseToml from "@iarna/toml/parse-async.js";
 import parseJson5 from "json5/lib/parse.js";
 import yaml from "js-yaml";
+import parseJson from "parse-json";
 import mockable from "../common/mockable.js";
 import loadExternalConfig from "./load-external-config.js";
 
@@ -51,6 +52,14 @@ const loaders = {
       return parseJson5(content);
     } catch (/** @type {any} */ error) {
       error.message = `JSON5 Error in ${filePath}:\n${error.message}`;
+      throw error;
+    }
+  },
+  ".json"(filePath, content) {
+    try {
+      return parseJson(content);
+    } catch (/** @type {any} */ error) {
+      error.message = `JSON Error in ${filepath}:\n${error.message}`;
       throw error;
     }
   },
