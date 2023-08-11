@@ -1,7 +1,7 @@
 import { pathToFileURL } from "node:url";
 import parseToml from "@iarna/toml/parse-async.js";
 import parseJson5 from "json5/lib/parse.js";
-import yaml from "js-yaml"
+import yaml from "js-yaml";
 import mockable from "../common/mockable.js";
 import loadExternalConfig from "./load-external-config.js";
 
@@ -22,7 +22,6 @@ const searchPlaces = [
   "prettier.config.cjs",
   ".prettierrc.toml",
 ];
-
 
 async function loadJs(filepath /*, content*/) {
   const module = await import(pathToFileURL(filepath).href);
