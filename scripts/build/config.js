@@ -532,6 +532,10 @@ const nodejsFiles = [
           paths: [require.resolve("@babel/code-frame")],
         }),
       },
+      // {
+      //   module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
+      //   path: getPackageFile("js-yaml/lib/loader.js"),
+      // },
     ],
     addDefaultExport: true,
   },
@@ -559,6 +563,7 @@ const nodejsFiles = [
   {
     input: "src/common/mockable.js",
     outputBaseName: "internal/internal",
+<<<<<<< HEAD
     replaceModule: [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {
@@ -575,6 +580,8 @@ const nodejsFiles = [
         }),
       },
     ],
+=======
+>>>>>>> 12e5eafeb (Replace `cosmiconfig` with `lilconfig`)
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
