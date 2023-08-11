@@ -532,10 +532,10 @@ const nodejsFiles = [
           paths: [require.resolve("@babel/code-frame")],
         }),
       },
-      // {
-      //   module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
-      //   path: getPackageFile("js-yaml/lib/loader.js"),
-      // },
+      {
+        module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
+        path: getPackageFile("js-yaml/lib/loader.js"),
+      },
     ],
     addDefaultExport: true,
   },
