@@ -36,8 +36,12 @@ describe("infer file ext that supported by only plugins", () => {
       "src",
     ]).test({
       status: 0,
-      stdout: "src/file.foo 0ms",
+      stdout: "src/file.bar 0ms\nsrc/file.foo 0ms",
       write: [
+        {
+          content: "!contents\n",
+          filename: "src/file.bar",
+        },
         {
           content: "!contents\n",
           filename: "src/file.foo",
