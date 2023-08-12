@@ -5,6 +5,12 @@ export default {
       options: {
         plugins: ["../../plugins/extensions/plugin.cjs"]
       }
+    },
+    {
+      files: ["*.bar"],
+      options: {
+        plugins: ["../../plugins/extensions2/plugin.cjs"]
+      }
     }
   ]
 };

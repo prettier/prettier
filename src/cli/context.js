@@ -81,7 +81,7 @@ class Context {
       const options = await getOptionsOrDie(
         { logger: this.logger, argv: { config, editorconfig } },
         absolutePath,
-        /* getAllOverrides */ true,
+        /* getAllOverridesPlugins */ true,
       );
       if (Array.isArray(options?.plugins)) {
         for (const plugin of options.plugins) {
