@@ -1,8 +1,0 @@
-{
-  "useTabs": false,
-  "tabWidth": 2,
-  "endOfLine": "lf",
-  "plugins": [
-    "/Users/sosuke.suzuki/ghq/github.com/sosukesuzuki/prettier/tests/integration/plugins/defaultOptions/plugin.cjs"
-  ]
-}

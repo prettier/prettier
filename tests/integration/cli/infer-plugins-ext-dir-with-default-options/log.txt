@@ -1,9 +1,0 @@
-{
-  "filepath": "/Users/sosuke.suzuki/ghq/github.com/sosukesuzuki/prettier/tests/integration/cli/infer-plugins-ext-dir-with-default-options/src/file.foo",
-  "endOfLine": "lf",
-  "plugins": [
-    "/Users/sosuke.suzuki/ghq/github.com/sosukesuzuki/prettier/tests/integration/plugins/defaultOptions/plugin.cjs"
-  ],
-  "tabWidth": 2,
-  "useTabs": false
-}
