@@ -72,7 +72,7 @@ async function resolveConfigFile(fileUrlOrPath) {
   return result?.filepath ?? null;
 }
 
-function mergeOverrides(configResult, filePath, getAllOverrides = false) {
+function mergeOverrides(configResult, filePath, getAllOverrides) {
   const { config, filepath: configPath } = configResult || {};
   const { overrides, ...options } = config || {};
   if (filePath && overrides) {
