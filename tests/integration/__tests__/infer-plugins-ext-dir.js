@@ -30,4 +30,15 @@ describe("infer file ext that supported by only plugins", () => {
       write: [],
     });
   });
+
+  describe("with defaultOptions", () => {
+    runCli("cli/infer-plugins-ext-dir-with-default-options/", [
+      "--write",
+      "src",
+    ]).test({
+      status: 0,
+      stdout: "src/file.foo 0ms",
+      write: [],
+    });
+  });
 });
