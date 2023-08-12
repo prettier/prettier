@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`infer file ext that supported by only plugins (stderr) 1`] = `""`;
+exports[`infer file ext that supported by only plugins basic (stderr) 1`] = `""`;
 
-exports[`infer file ext that supported by only plugins (stderr) 2`] = `""`;
+exports[`infer file ext that supported by only plugins with config option (stderr) 1`] = `""`;
+
+exports[`infer file ext that supported by only plugins with overrides options (stderr) 1`] = `""`;
