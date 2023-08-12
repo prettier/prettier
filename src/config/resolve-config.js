@@ -97,7 +97,7 @@ function mergeOverrides(configResult, filePath, getAllOverridesPlugins) {
   }
 
   if (isNonEmptyArray(plugins)) {
-    options.plugins = plugins;
+    options.plugins.push(...plugins);
   }
 
   return options;
