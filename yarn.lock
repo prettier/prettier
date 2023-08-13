@@ -237,12 +237,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:7.22.7, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.5":
-  version: 7.22.7
-  resolution: "@babel/parser@npm:7.22.7"
+"@babel/parser@npm:7.22.10, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.5":
+  version: 7.22.10
+  resolution: "@babel/parser@npm:7.22.10"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 02209ddbd445831ee8bf966fdf7c29d189ed4b14343a68eb2479d940e7e3846340d7cc6bd654a5f3d87d19dc84f49f50a58cf9363bee249dc5409ff3ba3dab54
+  checksum: af51567b7d3cdf523bc608eae057397486c7fa6c2e5753027c01fe5c36f0767b2d01ce3049b222841326cc5b8c7fda1d810ac1a01af0a97bb04679e2ef9f7049
   languageName: node
   linkType: hard
 
@@ -6996,7 +6996,7 @@ __metadata:
     "@angular/compiler": 16.1.8
     "@babel/code-frame": 7.22.5
     "@babel/generator": 7.22.9
-    "@babel/parser": 7.22.7
+    "@babel/parser": 7.22.10
     "@babel/types": 7.22.5
     "@esbuild-plugins/node-modules-polyfill": 0.2.2
     "@glimmer/reference": 0.84.3
