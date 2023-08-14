@@ -44,7 +44,7 @@
     "acorn-jsx": "5.3.2",
     "angular-estree-parser": "7.0.0",
     "angular-html-parser": "4.0.1",
-    "camelcase": "7.0.1",
+    "camelcase": "8.0.0",
     "chalk": "5.3.0",
     "ci-info": "3.8.0",
     "cjk-regex": "3.0.0",
