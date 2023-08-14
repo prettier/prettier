@@ -13,7 +13,7 @@ const generate = babelGenerator.default;
 function transform(original, file) {
   if (
     !file.startsWith(SOURCE_DIR) &&
-    !file.startsWith(path.join(PROJECT_ROOT, "../node_modules/camelcase/"))
+    !file.startsWith(path.join(PROJECT_ROOT, "node_modules/camelcase/"))
   ) {
     return original;
   }
