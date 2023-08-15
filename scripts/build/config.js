@@ -434,13 +434,13 @@ const nonPluginUniversalFiles = [
         module: require.resolve("chalk", {
           paths: [require.resolve("@babel/code-frame")],
         }),
-        path: path.join(dirname, "./shims/chalk.js"),
+        path: path.join(dirname, "./shims/chalk.cjs"),
       },
       {
         module: require.resolve("chalk", {
           paths: [require.resolve("vnopts")],
         }),
-        path: path.join(dirname, "./shims/chalk.js"),
+        path: path.join(dirname, "./shims/chalk.cjs"),
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
