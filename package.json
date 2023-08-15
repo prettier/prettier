@@ -113,7 +113,7 @@
     "@types/file-entry-cache": "5.0.2",
     "@types/find-cache-dir": "3.2.1",
     "@types/jest": "29.5.3",
-    "@typescript-eslint/eslint-plugin": "6.3.0",
+    "@typescript-eslint/eslint-plugin": "6.4.0",
     "benchmark": "2.1.4",
     "browserslist-to-esbuild": "1.2.0",
     "c8": "8.0.1",
