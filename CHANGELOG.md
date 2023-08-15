@@ -1,3 +1,67 @@
+# 3.0.2
+
+[diff](https://github.com/prettier/prettier/compare/3.0.1...3.0.2)
+
+#### Break after `=` of assignment if RHS is poorly breakable AwaitExpression or YieldExpression ([#15204](https://github.com/prettier/prettier/pull/15204) by [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```js
+// Input
+const { section, rubric, authors, tags } = await utils.upsertCommonData(mainData);
+
+// Prettier 3.0.1
+const { section, rubric, authors, tags } = await utils.upsertCommonData(
+  mainData,
+);
+
+// Prettier 3.0.2
+const { section, rubric, authors, tags } =
+  await utils.upsertCommonData(mainData);
+```
+
+#### Do not add trailing comma for grouped scss comments ([#15217](https://github.com/prettier/prettier/pull/15217) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```scss
+/* Input */
+$foo: (
+	'property': (),
+	// comment 1
+	// comment 2
+)
+
+/* Prettier 3.0.1 */
+$foo: (
+  "property": (),
+  // comment 1
+  // comment 2,
+);
+
+/* Prettier 3.0.2 */
+$foo: (
+  "property": (),
+  // comment 1
+  // comment 2
+);
+```
+
+#### Print `declare` and `export` keywords for nested namespace ([#15249](https://github.com/prettier/prettier/pull/15249) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+declare namespace abc1.def {}
+export namespace abc2.def {}
+
+// Prettier 3.0.1
+namespace abc1.def {}
+namespace abc2.def {}
+
+// Prettier 3.0.2
+declare namespace abc1.def {}
+export namespace abc2.def {}
+```
+
 # 3.0.1
 
 [diff](https://github.com/prettier/prettier/compare/3.0.0...3.0.1)
