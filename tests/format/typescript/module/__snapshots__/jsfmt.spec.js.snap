@@ -133,3 +133,45 @@ namespace X {
 
 ================================================================================
 `;
+
+exports[`namespace_nested.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare namespace abc1.def {}
+
+export declare namespace abc2.def {}
+
+export namespace abc3.def {}
+
+namespace abc4.def {}
+
+declare namespace abc5.def.ghi {}
+
+export declare namespace abc2.def.ghi {}
+
+export namespace abc3.def.ghi {}
+
+namespace abc4.def.ghi {}
+
+=====================================output=====================================
+declare namespace abc1.def {}
+
+export declare namespace abc2.def {}
+
+export namespace abc3.def {}
+
+namespace abc4.def {}
+
+declare namespace abc5.def.ghi {}
+
+export declare namespace abc2.def.ghi {}
+
+export namespace abc3.def.ghi {}
+
+namespace abc4.def.ghi {}
+
+================================================================================
+`;
