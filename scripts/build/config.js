@@ -1,7 +1,6 @@
 import path from "node:path";
 import url from "node:url";
 import fs from "node:fs";
-import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.js";
 import buildJavascriptModule from "./build-javascript-module.js";
@@ -426,12 +425,22 @@ const nonPluginUniversalFiles = [
     umdVariableName: "prettier",
     replaceModule: [
       {
-        module: require.resolve("@babel/highlight"),
+        module: require.resolve("@babel/highlight", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
         path: path.join(dirname, "./shims/babel-highlight.js"),
       },
       {
-        module: createRequire(require.resolve("vnopts")).resolve("chalk"),
-        path: path.join(dirname, "./shims/chalk.js"),
+        module: require.resolve("chalk", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
+        path: path.join(dirname, "./shims/chalk.cjs"),
+      },
+      {
+        module: require.resolve("chalk", {
+          paths: [require.resolve("vnopts")],
+        }),
+        path: path.join(dirname, "./shims/chalk.cjs"),
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
@@ -514,6 +523,15 @@ const nodejsFiles = [
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
+      // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
+      {
+        module: require.resolve("chalk", {
+          paths: [require.resolve("@babel/highlight")],
+        }),
+        path: require.resolve("chalk", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
+      },
     ],
     addDefaultExport: true,
   },
@@ -546,6 +564,15 @@ const nodejsFiles = [
       {
         module: require.resolve("parent-module"),
         path: path.join(dirname, "./shims/parent-module.cjs"),
+      },
+      // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
+      {
+        module: require.resolve("chalk", {
+          paths: [require.resolve("@babel/highlight")],
+        }),
+        path: require.resolve("chalk", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
       },
     ],
   },
