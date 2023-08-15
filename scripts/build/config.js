@@ -523,6 +523,15 @@ const nodejsFiles = [
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
+      // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
+      {
+        module: require.resolve("chalk", {
+          paths: [require.resolve("@babel/highlight")],
+        }),
+        path: require.resolve("chalk", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
+      },
     ],
     addDefaultExport: true,
   },
@@ -555,6 +564,15 @@ const nodejsFiles = [
       {
         module: require.resolve("parent-module"),
         path: path.join(dirname, "./shims/parent-module.cjs"),
+      },
+      // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
+      {
+        module: require.resolve("chalk", {
+          paths: [require.resolve("@babel/highlight")],
+        }),
+        path: require.resolve("chalk", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
       },
     ],
   },
