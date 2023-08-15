@@ -49,7 +49,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
       replacement: "",
     },
-    // Transform `.at` and `Object.hasOwn`
+    // Transform `.at`, `Object.hasOwn`, and `String#replaceAll`
     {
       module: "*",
       process: transform,
