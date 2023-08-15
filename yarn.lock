@@ -6983,7 +6983,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@3.0.2, prettier@workspace:.":
+"prettier@npm:3.0.2":
+  version: 3.0.2
+  resolution: "prettier@npm:3.0.2"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 118b59ddb6c80abe2315ab6d0f4dd1b253be5cfdb20622fa5b65bb1573dcd362e6dd3dcf2711dd3ebfe64aecf7bdc75de8a69dc2422dcd35bdde7610586b677a
+  languageName: node
+  linkType: hard
+
+"prettier@workspace:.":
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
