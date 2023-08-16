@@ -129,7 +129,9 @@ async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
   console.log(status.DONE);
 }
 
-async function run(cliOptions) {
+async function run() {
+  const cliOptions = parseArguments();
+
   if (cliOptions.clean) {
     let stat;
     try {
@@ -148,7 +150,9 @@ async function run(cliOptions) {
   }
 
   const shouldCollectLicenses =
-    !cliOptions.playground && !cliOptions.files && cliOptions.minify === null;
+    !cliOptions.playground &&
+    !cliOptions.files &&
+    typeof cliOptions.minify !== "boolean";
 
   console.log(chalk.inverse(" Building packages "));
 
@@ -157,4 +161,4 @@ async function run(cliOptions) {
   }
 }
 
-await run(parseArguments());
+await run();
