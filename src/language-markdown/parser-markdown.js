@@ -51,11 +51,5 @@ const parser = {
   parse: createParse(),
 };
 
-const markdown = {
-  parsers: {
-    remark: parser,
-    markdown: parser,
-  },
-};
-
-export default markdown;
+export const remark = parser;
+export const markdown = parser;

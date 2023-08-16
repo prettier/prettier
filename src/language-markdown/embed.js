@@ -2,7 +2,6 @@ import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import { hardline, markAsRoot } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
-import inferParserByLanguage from "../utils/infer-parser-by-language.js";
 import inferParser from "../utils/infer-parser.js";
 
 function embed(path, options) {

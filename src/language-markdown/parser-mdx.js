@@ -47,10 +47,5 @@ const mdxParser = {
   },
 };
 
-const mdx = {
-  parsers: {
-    mdx: mdxParser,
-  },
-};
 
-export default mdx;
+export const mdx = mdxParser;
