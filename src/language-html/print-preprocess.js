@@ -1,8 +1,7 @@
 import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import {
-  htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,
-  hasHtmlWhitespace,
   canHaveInterpolation,
   getNodeCssStyleDisplay,
   isDanglingSpaceSensitiveNode,
@@ -10,7 +9,6 @@ import {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-  isVueScriptTag,
 } from "./utils/index.js";
 
 const PREPROCESS_PIPELINE = [
@@ -24,7 +22,6 @@ const PREPROCESS_PIPELINE = [
   addHasHtmComponentClosingTag,
   addIsSpaceSensitive,
   mergeSimpleElementIntoText,
-  markTsScript,
 ];
 
 function preprocess(ast, options) {
@@ -54,7 +51,7 @@ function removeIgnorableFirstLf(ast /*, options */) {
 }
 
 function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
-  ast /*, options */
+  ast /*, options */,
 ) {
   /**
    *     <!--[if ...]><!--><target><!--<![endif]-->
@@ -82,11 +79,11 @@ function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
 
         const startSourceSpan = new ParseSourceSpan(
           ieConditionalStartComment.sourceSpan.start,
-          ieConditionalEndComment.sourceSpan.end
+          ieConditionalEndComment.sourceSpan.end,
         );
         const sourceSpan = new ParseSourceSpan(
           startSourceSpan.start,
-          child.sourceSpan.end
+          child.sourceSpan.end,
         );
 
         child.condition = ieConditionalStartComment.condition;
@@ -121,7 +118,7 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
         prevChild.value += child.value;
         prevChild.sourceSpan = new ParseSourceSpan(
           prevChild.sourceSpan.start,
-          child.sourceSpan.end
+          child.sourceSpan.end,
         );
 
         node.removeChild(child);
@@ -135,7 +132,7 @@ function mergeCdataIntoText(ast /*, options */) {
   return mergeNodeIntoText(
     ast,
     (node) => node.type === "cdata",
-    (node) => `<![CDATA[${node.value}]]>`
+    (node) => `<![CDATA[${node.value}]]>`,
   );
 }
 
@@ -145,7 +142,7 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.attrs.length === 0 &&
     node.children.length === 1 &&
     node.firstChild.type === "text" &&
-    !hasHtmlWhitespace(node.children[0].value) &&
+    !htmlWhitespaceUtils.hasWhitespaceCharacter(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
     node.isLeadingSpaceSensitive &&
@@ -171,7 +168,7 @@ function mergeSimpleElementIntoText(ast /*, options */) {
           nextChild.value;
         prevChild.sourceSpan = new ParseSourceSpan(
           prevChild.sourceSpan.start,
-          nextChild.sourceSpan.end
+          nextChild.sourceSpan.end,
         );
         prevChild.isTrailingSpaceSensitive = nextChild.isTrailingSpaceSensitive;
         prevChild.hasTrailingSpaces = nextChild.hasTrailingSpaces;
@@ -235,7 +232,7 @@ function extractInterpolation(ast, options) {
                     value,
                     sourceSpan: new ParseSourceSpan(
                       startSourceSpan.moveBy(2),
-                      endSourceSpan.moveBy(-2)
+                      endSourceSpan.moveBy(-2),
                     ),
                   },
                 ],
@@ -264,7 +261,7 @@ function extractWhitespaces(ast /*, options*/) {
       node.children.length === 0 ||
       (node.children.length === 1 &&
         node.children[0].type === "text" &&
-        htmlTrim(node.children[0].value).length === 0)
+        htmlWhitespaceUtils.trim(node.children[0].value).length === 0)
     ) {
       node.hasDanglingSpaces = node.children.length > 0;
       node.children = [];
@@ -303,7 +300,7 @@ function extractWhitespaces(ast /*, options*/) {
           child.value = text;
           child.sourceSpan = new ParseSourceSpan(
             child.sourceSpan.start.moveBy(leadingWhitespace.length),
-            child.sourceSpan.end.moveBy(-trailingWhitespace.length)
+            child.sourceSpan.end.moveBy(-trailingWhitespace.length),
           );
 
           if (leadingWhitespace) {
@@ -351,8 +348,8 @@ function addHasHtmComponentClosingTag(ast, options) {
       /^<\s*\/\s*\/\s*>$/.test(
         options.originalText.slice(
           node.endSourceSpan.start.offset,
-          node.endSourceSpan.end.offset
-        )
+          node.endSourceSpan.end.offset,
+        ),
       );
   });
 }
@@ -381,11 +378,11 @@ function addIsSpaceSensitive(ast, options) {
     for (const child of children) {
       child.isLeadingSpaceSensitive = isLeadingSpaceSensitiveNode(
         child,
-        options
+        options,
       );
       child.isTrailingSpaceSensitive = isTrailingSpaceSensitiveNode(
         child,
-        options
+        options,
       );
     }
     for (let index = 0; index < children.length; index++) {
@@ -402,21 +399,6 @@ function addIsSpaceSensitive(ast, options) {
             child.isTrailingSpaceSensitive;
     }
   });
-}
-
-function markTsScript(ast, options) {
-  if (options.parser === "vue") {
-    const vueScriptTag = ast.children.find((child) =>
-      isVueScriptTag(child, options)
-    );
-    if (!vueScriptTag) {
-      return;
-    }
-    const { lang } = vueScriptTag.attrMap;
-    if (lang === "ts" || lang === "typescript") {
-      options.__should_parse_vue_template_with_ts = true;
-    }
-  }
 }
 
 export default preprocess;

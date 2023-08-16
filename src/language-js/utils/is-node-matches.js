@@ -43,7 +43,7 @@ Check if node matches any object name or key path.
 */
 function isNodeMatches(node, nameOrPaths) {
   return nameOrPaths.some((nameOrPath) =>
-    isNodeMatchesNameOrPath(node, nameOrPath)
+    isNodeMatchesNameOrPath(node, nameOrPath),
   );
 }
 

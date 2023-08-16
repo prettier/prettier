@@ -35,18 +35,21 @@ const unstableTests = new Map(
     ["js/no-semi/comments.js", (options) => options.semi === false],
     ["flow/no-semi/comments.js", (options) => options.semi === false],
     "typescript/prettier-ignore/mapped-types.ts",
+    "typescript/prettier-ignore/issue-14238.ts",
     "js/comments/html-like/comment.js",
     "js/for/continue-and-break-comment-without-blocks.js",
     "js/sequence-expression/parenthesized.js",
     "typescript/satisfies-operators/comments-unstable.ts",
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
     "jsx/comments/in-attributes.js",
+    ["js/ignore/semi/asi.js", (options) => options.semi === false],
+    "typescript/union/consistent-with-flow/single-type.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
     return [path.join(__dirname, "../format/", file), isUnstable];
-  })
+  }),
 );
 
 const unstableAstTests = new Map();
@@ -55,7 +58,7 @@ const espreeDisabledTests = new Set(
   [
     // These tests only work for `babel`
     "comments-closure-typecast",
-  ].map((directory) => path.join(__dirname, "../format/js", directory))
+  ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
 const acornDisabledTests = espreeDisabledTests;
 const meriyahDisabledTests = new Set([
@@ -77,12 +80,14 @@ const meriyahDisabledTests = new Set([
     ].map((filename) => `js/decorator-auto-accessors/${filename}`),
     // https://github.com/meriyah/meriyah/issues/233
     "js/babel-plugins/decorator-auto-accessors.js",
-    // https://github.com/meriyah/meriyah/issues/235
-    "jsx/spread/child.js",
+    // Parsing to different ASTs
+    "js/decorators/member-expression.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const babelTsDisabledTest = new Set(
-  [].map((directory) => path.join(__dirname, "../format/typescript", directory))
+  ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
+    path.join(__dirname, "../format/typescript", file),
+  ),
 );
 
 const isUnstable = (filename, options) => {
@@ -122,7 +127,7 @@ const shouldThrowOnFormat = (filename, options) => {
 
 const isTestDirectory = (dirname, name) =>
   (dirname + path.sep).startsWith(
-    path.join(__dirname, "../format", name) + path.sep
+    path.join(__dirname, "../format", name) + path.sep,
   );
 
 const ensurePromise = (value) => {
@@ -147,7 +152,7 @@ function runSpec(fixtures, parsers, options) {
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
     dirname,
-    "misc/parser-inference"
+    "misc/parser-inference",
   );
 
   // `IS_ERROR_TESTS` mean to watch errors like:
@@ -160,7 +165,7 @@ function runSpec(fixtures, parsers, options) {
 
   const IS_TYPESCRIPT_ONLY_TEST = isTestDirectory(
     dirname,
-    "misc/typescript-only"
+    "misc/typescript-only",
   );
 
   if (IS_PARSER_INFERENCE_TESTS) {
@@ -236,8 +241,7 @@ function runSpec(fixtures, parsers, options) {
     if (
       parsers.includes("typescript") &&
       !parsers.includes("babel-ts") &&
-      !IS_TYPESCRIPT_ONLY_TEST &&
-      !babelTsDisabledTest.has(dirname)
+      !IS_TYPESCRIPT_ONLY_TEST
     ) {
       allParsers.push("babel-ts");
     }
@@ -261,15 +265,13 @@ function runSpec(fixtures, parsers, options) {
     describe(title, () => {
       const formatOptions = {
         printWidth: 80,
-        // Should not search plugins by default
-        pluginSearchDirs: false,
         ...options,
         filepath: filename,
         parser,
       };
       const shouldThrowOnMainParserFormat = shouldThrowOnFormat(
         name,
-        formatOptions
+        formatOptions,
       );
 
       let mainParserFormatResult;
@@ -285,7 +287,8 @@ function runSpec(fixtures, parsers, options) {
         if (
           (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
-          (currentParser === "acorn" && acornDisabledTests.has(filename))
+          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
+          (currentParser === "babel-ts" && babelTsDisabledTest.has(filename))
         ) {
           continue;
         }
@@ -347,13 +350,13 @@ async function runTest({
 
   // Make sure output has consistent EOL
   expect(formatResult.eolVisualizedOutput).toEqual(
-    visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor))
+    visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor)),
   );
 
   // The result is assert to equals to `output`
   if (typeof output === "string") {
     expect(formatResult.eolVisualizedOutput).toEqual(
-      visualizeEndOfLine(output)
+      visualizeEndOfLine(output),
     );
     return;
   }
@@ -364,7 +367,7 @@ async function runTest({
       parsers,
       formatOptions,
       CURSOR_PLACEHOLDER,
-    })
+    }),
   ).toMatchSnapshot();
 
   if (!FULL_TEST) {
@@ -380,7 +383,7 @@ async function runTest({
     const { eolVisualizedOutput: firstOutput, output } = formatResult;
     const { eolVisualizedOutput: secondOutput } = await format(
       output,
-      formatOptions
+      formatOptions,
     );
     if (isUnstableTest) {
       // To keep eye on failed tests, this assert never supposed to pass,
@@ -408,14 +411,14 @@ async function runTest({
     for (const eol of ["\r\n", "\r"]) {
       const { eolVisualizedOutput: output } = await format(
         code.replace(/\n/g, eol),
-        formatOptions
+        formatOptions,
       );
       // Only if `endOfLine: "auto"` the result will be different
       const expected =
         formatOptions.endOfLine === "auto"
           ? visualizeEndOfLine(
               // All `code` use `LF`, so the `eol` of result is always `LF`
-              formatResult.outputWithCursor.replace(/\n/g, eol)
+              formatResult.outputWithCursor.replace(/\n/g, eol),
             )
           : formatResult.eolVisualizedOutput;
       expect(output).toEqual(expected);
@@ -425,7 +428,7 @@ async function runTest({
   if (code.charAt(0) !== BOM) {
     const { eolVisualizedOutput: output } = await format(
       BOM + code,
-      formatOptions
+      formatOptions,
     );
     const expected = BOM + formatResult.eolVisualizedOutput;
     expect(output).toEqual(expected);
@@ -502,13 +505,13 @@ const insertCursor = (text, cursorOffset) =>
 async function format(originalText, originalOptions) {
   const { text: input, options } = replacePlaceholders(
     originalText,
-    originalOptions
+    originalOptions,
   );
   const inputWithCursor = insertCursor(input, options.cursorOffset);
   const prettier = await getPrettier();
 
   const { formatted: output, cursorOffset } = await ensurePromise(
-    prettier.formatWithCursor(input, options)
+    prettier.formatWithCursor(input, options),
   );
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);

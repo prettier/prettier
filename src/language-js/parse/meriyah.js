@@ -1,3 +1,4 @@
+import { parse as meriyahParse } from "meriyah";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
@@ -40,12 +41,12 @@ const parseOptions = {
   uniqueKeyInPattern: false,
 };
 
-function parseWithOptions(parse, text, sourceType) {
+function parseWithOptions(text, sourceType) {
   const comments = [];
   const tokens = [];
 
   /** @type {any} */
-  const ast = parse(text, {
+  const ast = meriyahParse(text, {
     ...parseOptions,
     module: sourceType === "module",
     onComment: comments,
@@ -61,7 +62,7 @@ function createParseError(error) {
   let { message, line, column } = error;
 
   const matches = message.match(
-    /^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/
+    /^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/,
   )?.groups;
 
   if (matches) {
@@ -85,27 +86,20 @@ function createParseError(error) {
   });
 }
 
-async function parse(text, options = {}) {
-  const { parse } = await import("meriyah");
-
+function parse(text, options = {}) {
   const sourceType = getSourceType(options);
   const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () => parseWithOptions(parse, text, sourceType)
+    (sourceType) => () => parseWithOptions(text, sourceType),
   );
-  const { result: ast, error } = tryCombinations(combinations);
 
-  if (!ast) {
+  let ast;
+  try {
+    ast = tryCombinations(combinations);
+  } catch (/** @type {any} */ { errors: [error] }) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { parser: "meriyah", text });
 }
 
-const parser = {
-  parsers: {
-    meriyah: createParser(parse),
-  },
-};
-
-export default parser;
+export const meriyah = createParser(parse);

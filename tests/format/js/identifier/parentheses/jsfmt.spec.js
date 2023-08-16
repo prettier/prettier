@@ -10,5 +10,5 @@ run_spec(
     // "flow",
     "typescript",
   ],
-  { semi: false }
+  { semi: false },
 );

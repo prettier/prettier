@@ -1,8 +1,6 @@
 import { stripTrailingHardline } from "../document/utils.js";
-import { normalize } from "./options.js";
-import { attach } from "./comments/attach.js";
-import { ensureAllCommentsPrinted } from "./comments/print.js";
-import { parse } from "./parser.js";
+import normalizeFormatOptions from "./normalize-format-options.js";
+import parse from "./parse.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 async function printEmbeddedLanguages(
@@ -10,7 +8,7 @@ async function printEmbeddedLanguages(
   genericPrint,
   options,
   printAstToDoc,
-  embeds
+  embeds,
 ) {
   const {
     embeddedLanguageFormatting,
@@ -27,12 +25,12 @@ async function printEmbeddedLanguages(
 
   if (embed.length > 2) {
     throw new Error(
-      "printer.embed has too many parameters. The API changed in Prettier v3. Please update your plugin. See https://prettier.io/docs/en/plugins.html#optional-embed"
+      "printer.embed has too many parameters. The API changed in Prettier v3. Please update your plugin. See https://prettier.io/docs/en/plugins.html#optional-embed",
     );
   }
 
   const getVisitorKeys = createGetVisitorKeysFunction(
-    embed.getVisitorKeys ?? printerGetVisitorKeys
+    embed.getVisitorKeys ?? printerGetVisitorKeys,
   );
   const embedCallResults = [];
 
@@ -96,7 +94,7 @@ async function printEmbeddedLanguages(
       typeof result.then === "function"
     ) {
       throw new Error(
-        "`embed` should return an async function instead of Promise."
+        "`embed` should return an async function instead of Promise.",
       );
     }
 
@@ -108,33 +106,20 @@ async function textToDoc(
   text,
   partialNextOptions,
   parentOptions,
-  printAstToDoc
+  printAstToDoc,
 ) {
-  const nextOptions = await normalize(
+  const options = await normalizeFormatOptions(
     {
       ...parentOptions,
       ...partialNextOptions,
       parentParser: parentOptions.parser,
       originalText: text,
     },
-    { passThrough: true }
+    { passThrough: true },
   );
 
-  const result = await parse(text, nextOptions);
-  const { ast } = result;
-
-  text = result.text;
-
-  const astComments = ast.comments;
-  delete ast.comments;
-  attach(astComments, ast, text, nextOptions);
-  // @ts-expect-error -- Casting to `unique symbol` isn't allowed in JSDoc comment
-  nextOptions[Symbol.for("comments")] = astComments || [];
-  // @ts-expect-error -- Casting to `unique symbol` isn't allowed in JSDoc comment
-  nextOptions[Symbol.for("tokens")] = ast.tokens || [];
-
-  const doc = await printAstToDoc(ast, nextOptions);
-  ensureAllCommentsPrinted(astComments);
+  const { ast } = await parse(text, options);
+  const doc = await printAstToDoc(ast, options);
 
   return stripTrailingHardline(doc);
 }

@@ -1,8 +1,7 @@
+import { parse as babelParse, parseExpression } from "@babel/parser";
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-// JSON parsers are bundled here so we can reduce package size
-import jsonParsers from "../../language-json/parser-json.js";
 import createParser from "./utils/create-parser.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import postprocess from "./postprocess/index.js";
@@ -22,6 +21,7 @@ const parseOptions = {
   sourceType: "module",
   allowImportExportEverywhere: true,
   allowReturnOutsideFunction: true,
+  allowNewTargetOutsideFunction: true,
   allowSuperOutsideMethod: true,
   allowUndeclaredExports: true,
   errorRecovery: true,
@@ -35,8 +35,7 @@ const parseOptions = {
     "functionSent",
     "throwExpressions",
     "partialApplication",
-    ["decorators", { decoratorsBeforeExport: false }],
-    "importAssertions",
+    "decorators",
     "decimal",
     "moduleBlocks",
     "asyncDoExpressions",
@@ -45,6 +44,7 @@ const parseOptions = {
     "decoratorAutoAccessors",
     "importReflection",
     "explicitResourceManagement",
+    ["importAttributes", { deprecatedAssertSyntax: true }],
   ],
   tokens: true,
   ranges: true,
@@ -62,6 +62,7 @@ const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
+
 const appendPlugins = (plugins, options = parseOptions) => ({
   ...options,
   plugins: [...options.plugins, ...plugins],
@@ -93,7 +94,7 @@ function isFlowFile(text, options) {
 function parseWithOptions(parse, text, options) {
   const ast = parse(text, options);
   const error = ast.errors.find(
-    (error) => !allowedMessageCodes.has(error.reasonCode)
+    (error) => !allowedMessageCodes.has(error.reasonCode),
   );
   if (error) {
     throw error;
@@ -102,17 +103,17 @@ function parseWithOptions(parse, text, options) {
 }
 
 function createParse({ isExpression = false, optionsCombinations }) {
-  return async (text, opts = {}) => {
+  return (text, options = {}) => {
     if (
-      (opts.parser === "babel" || opts.parser === "__babel_estree") &&
-      isFlowFile(text, opts)
+      (options.parser === "babel" || options.parser === "__babel_estree") &&
+      isFlowFile(text, options)
     ) {
-      opts.parser = "babel-flow";
-      return babelFlow.parse(text, opts);
+      options.parser = "babel-flow";
+      return babelFlow.parse(text, options);
     }
 
     let combinations = optionsCombinations;
-    const sourceType = opts.__babelSourceType ?? getSourceType(opts);
+    const sourceType = options.__babelSourceType ?? getSourceType(options);
     if (sourceType === "script") {
       combinations = combinations.map((options) => ({
         ...options,
@@ -122,7 +123,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
 
     if (/#[[{]/.test(text)) {
       combinations = combinations.map((options) =>
-        appendPlugins([recordAndTuplePlugin], options)
+        appendPlugins([recordAndTuplePlugin], options),
       );
     }
 
@@ -133,38 +134,34 @@ function createParse({ isExpression = false, optionsCombinations }) {
         : pipelineOperatorPlugins;
       combinations = conflictsPlugins.flatMap((pipelineOperatorPlugin) =>
         combinations.map((options) =>
-          appendPlugins([pipelineOperatorPlugin], options)
-        )
+          appendPlugins([pipelineOperatorPlugin], options),
+        ),
       );
     } else if (shouldEnableV8intrinsicPlugin) {
       combinations = combinations.map((options) =>
-        appendPlugins([v8intrinsicPlugin], options)
+        appendPlugins([v8intrinsicPlugin], options),
       );
     }
 
-    // Inline `import()` to avoid loading all the JS if we don't use it
-    const { parse: babelParse, parseExpression } = await import(
-      "@babel/parser"
-    );
     /** @type {Parse} */
     const parseFunction = isExpression ? parseExpression : babelParse;
-    let { result: ast, error } = tryCombinations(
-      combinations.map(
-        (options) => () => parseWithOptions(parseFunction, text, options)
-      )
-    );
 
-    if (!ast) {
+    let ast;
+    try {
+      ast = tryCombinations(
+        combinations.map(
+          (options) => () => parseWithOptions(parseFunction, text, options),
+        ),
+      );
+    } catch (/** @type {any} */ { errors: [error] }) {
       throw createBabelParseError(error);
     }
 
-    opts.originalText = text;
-
     if (isExpression) {
-      ast = wrapBabelExpression(ast, opts);
+      ast = wrapBabelExpression(ast, { text, rootMarker: options.rootMarker });
     }
 
-    return postprocess(ast, opts);
+    return postprocess(ast, { parser: "babel", text });
   };
 }
 
@@ -203,7 +200,6 @@ const allowedMessageCodes = new Set([
   "LineTerminatorBeforeArrow",
   "InvalidEscapeSequenceTemplate",
   "NonAbstractClassHasAbstractMethod",
-  "UnsupportedPropertyDecorator",
   "OptionalTypeBeforeRequired",
   "PatternIsOptional",
   "OptionalBindingPattern",
@@ -246,30 +242,25 @@ const babelFlow = createBabelParser({
 });
 const babelEstree = createBabelParser({
   optionsCombinations: babelParserOptionsCombinations.map((options) =>
-    appendPlugins(["estree"], options)
+    appendPlugins(["estree"], options),
   ),
 });
 
-// Export as a plugin so we can reuse the same bundle for UMD loading
-const parser = {
-  parsers: {
-    babel,
-    "babel-flow": babelFlow,
-    "babel-ts": babelTs,
-    ...jsonParsers,
-    /** @internal */
-    __js_expression: babelExpression,
-    /** for vue filter */
-    __vue_expression: babelExpression,
-    /** for vue filter written in TS */
-    __vue_ts_expression: babelTSExpression,
-    /** for vue event binding to handle semicolon */
-    __vue_event_binding: babel,
-    /** for vue event binding written in TS to handle semicolon */
-    __vue_ts_event_binding: babelTs,
-    /** verify that we can print this AST */
-    __babel_estree: babelEstree,
-  },
+export default {
+  babel,
+  "babel-flow": babelFlow,
+  "babel-ts": babelTs,
+  /** @internal */
+  __js_expression: babelExpression,
+  __ts_expression: babelTSExpression,
+  /** for vue filter */
+  __vue_expression: babelExpression,
+  /** for vue filter written in TS */
+  __vue_ts_expression: babelTSExpression,
+  /** for vue event binding to handle semicolon */
+  __vue_event_binding: babel,
+  /** for vue event binding written in TS to handle semicolon */
+  __vue_ts_event_binding: babelTs,
+  /** verify that we can print this AST */
+  __babel_estree: babelEstree,
 };
-
-export default parser;

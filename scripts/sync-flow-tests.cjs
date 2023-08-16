@@ -29,7 +29,7 @@ function tryParse(file, content) {
 
 function syncTests(syncDir) {
   const specFiles = fastGlob.sync(
-    path.join(FLOW_TESTS_DIR, "**", SPEC_FILE_NAME)
+    path.join(FLOW_TESTS_DIR, "**", SPEC_FILE_NAME),
   );
   const filesToCopy = fastGlob.sync(path.join(syncDir, "**/*.js"));
 
@@ -38,7 +38,7 @@ function syncTests(syncDir) {
       [
         "Couldn't find any files to copy.",
         `Please make sure that \`${syncDir}\` exists and contains the flow tests.`,
-      ].join("\n")
+      ].join("\n"),
     );
   }
 
@@ -79,7 +79,7 @@ function run(argv) {
       [
         "You must provide the path to a flow tests directory to sync from!",
         "Example: node scripts/sync-flow-tests.cjs ../flow/tests/",
-      ].join("\n")
+      ].join("\n"),
     );
     return 1;
   }
@@ -104,7 +104,7 @@ function run(argv) {
         "",
         ...skipped,
         "",
-      ].join("\n")
+      ].join("\n"),
     );
   }
 
@@ -116,7 +116,7 @@ function run(argv) {
       "2. Run `jest -u` to create snapshots.",
       "3. Run `git diff` to check how tests and snapshots have changed",
       "4. Take a look at new snapshots to see if they're OK.",
-    ].join("\n")
+    ].join("\n"),
   );
 
   return 0;

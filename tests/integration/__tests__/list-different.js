@@ -1,41 +1,41 @@
 describe("checks stdin with --list-different", () => {
-  runPrettier("cli/with-shebang", ["--list-different", "--parser", "babel"], {
+  runCli("cli/with-shebang", ["--list-different", "--parser", "babel"], {
     input: "0",
   }).test({
-    stdout: "(stdin)\n",
+    stdout: "(stdin)",
     stderr: "",
     status: "non-zero",
   });
 });
 
 describe("checks stdin with -l (alias for --list-different)", () => {
-  runPrettier("cli/with-shebang", ["-l", "--parser", "babel"], {
+  runCli("cli/with-shebang", ["-l", "--parser", "babel"], {
     input: "0",
   }).test({
-    stdout: "(stdin)\n",
+    stdout: "(stdin)",
     stderr: "",
     status: "non-zero",
   });
 });
 
 describe("--list-different works in CI just as in a non-TTY mode", () => {
-  const result0 = runPrettier(
+  const result0 = runCli(
     "cli/write",
     ["--list-different", "formatted.js", "unformatted.js"],
     {
       stdoutIsTTY: true,
       ci: true,
-    }
+    },
   ).test({
     status: 1,
   });
 
-  const result1 = runPrettier(
+  const result1 = runCli(
     "cli/write",
     ["--list-different", "formatted.js", "unformatted.js"],
     {
       stdoutIsTTY: false,
-    }
+    },
   ).test({
     status: 1,
   });

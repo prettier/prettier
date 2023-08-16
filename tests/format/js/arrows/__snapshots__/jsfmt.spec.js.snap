@@ -51,24 +51,24 @@ export default (() => {})();
 new (() => {})();
 if ((() => {}) ? 1 : 0) {
 }
-let f = () => ({}());
-let a = () => ({} instanceof a);
-a = () => ({} && a);
-a = () => ({}() && a);
-a = () => ({} && a && b);
-a = () => ({} + a);
-a = () => ({}()() && a);
-a = () => ({}.b && a);
-a = () => ({}[b] && a);
-a = () => ({}\`\` && a);
+let f = () => ({})();
+let a = () => ({}) instanceof a;
+a = () => ({}) && a;
+a = () => ({})() && a;
+a = () => ({}) && a && b;
+a = () => ({}) + a;
+a = () => ({})()() && a;
+a = () => ({}).b && a;
+a = () => ({})[b] && a;
+a = () => ({})\`\` && a;
 a = () => ({} = 0);
 a = () => ({}, a);
 (a) => a instanceof {};
-(a) => ({}().b && 0);
+(a) => ({})().b && 0;
 (a) => ({}().c = 0);
-(x) => ({}()());
-(x) => ({}()\`\`);
-(x) => ({}().b);
+(x) => ({})()();
+(x) => ({})()\`\`;
+(x) => ({})().b;
 a = (b) => c;
 (x) => (y = z);
 (x) => (y += z);
@@ -133,24 +133,24 @@ export default (() => {})();
 new (() => {})();
 if ((() => {}) ? 1 : 0) {
 }
-let f = () => ({}());
-let a = () => ({} instanceof a);
-a = () => ({} && a);
-a = () => ({}() && a);
-a = () => ({} && a && b);
-a = () => ({} + a);
-a = () => ({}()() && a);
-a = () => ({}.b && a);
-a = () => ({}[b] && a);
-a = () => ({}\`\` && a);
+let f = () => ({})();
+let a = () => ({}) instanceof a;
+a = () => ({}) && a;
+a = () => ({})() && a;
+a = () => ({}) && a && b;
+a = () => ({}) + a;
+a = () => ({})()() && a;
+a = () => ({}).b && a;
+a = () => ({})[b] && a;
+a = () => ({})\`\` && a;
 a = () => ({} = 0);
 a = () => ({}, a);
 a => a instanceof {};
-a => ({}().b && 0);
+a => ({})().b && 0;
 a => ({}().c = 0);
-x => ({}()());
-x => ({}()\`\`);
-x => ({}().b);
+x => ({})()();
+x => ({})()\`\`;
+x => ({})().b;
 a = b => c;
 x => (y = z);
 x => (y += z);
@@ -2334,6 +2334,27 @@ export const bem = block =>
   data={data}
 />
 
+func(() => // comment
+a);
+func(() => () => // comment
+a);
+func(() => () => () => // comment
+a);
+
+func(() => // comment
+a ? b : c);
+func(() => () => // comment
+a ? b : c);
+func(() => () => () => // comment
+a ? b : c);
+
+func(() => // comment
+(a , b , c))
+func(() => () => // comment
+(a , b , c))
+func(() => () => () => // comment
+(a , b , c))
+
 =====================================output=====================================
 /**
  * Curried function that ends with a BEM CSS Selector
@@ -2366,6 +2387,59 @@ export const bem =
   ) => <span>{info.item.widget.missingProp}</span>}
   data={data}
 />;
+
+func(
+  () =>
+    // comment
+    a,
+);
+func(
+  () => () =>
+    // comment
+    a,
+);
+func(
+  () => () => () =>
+    // comment
+    a,
+);
+
+func(() =>
+  // comment
+  a ? b : c,
+);
+func(
+  () => () =>
+    // comment
+    a ? b : c,
+);
+func(
+  () => () => () =>
+    // comment
+    a ? b : c,
+);
+
+func(
+  () =>
+    (
+      // comment
+      a, b, c
+    ),
+);
+func(
+  () => () =>
+    (
+      // comment
+      a, b, c
+    ),
+);
+func(
+  () => () => () =>
+    (
+      // comment
+      a, b, c
+    ),
+);
 
 ================================================================================
 `;
@@ -2408,6 +2482,27 @@ export const bem = block =>
   data={data}
 />
 
+func(() => // comment
+a);
+func(() => () => // comment
+a);
+func(() => () => () => // comment
+a);
+
+func(() => // comment
+a ? b : c);
+func(() => () => // comment
+a ? b : c);
+func(() => () => () => // comment
+a ? b : c);
+
+func(() => // comment
+(a , b , c))
+func(() => () => // comment
+(a , b , c))
+func(() => () => () => // comment
+(a , b , c))
+
 =====================================output=====================================
 /**
  * Curried function that ends with a BEM CSS Selector
@@ -2440,6 +2535,59 @@ export const bem =
   ) => <span>{info.item.widget.missingProp}</span>}
   data={data}
 />;
+
+func(
+  () =>
+    // comment
+    a,
+);
+func(
+  () => () =>
+    // comment
+    a,
+);
+func(
+  () => () => () =>
+    // comment
+    a,
+);
+
+func(() =>
+  // comment
+  a ? b : c,
+);
+func(
+  () => () =>
+    // comment
+    a ? b : c,
+);
+func(
+  () => () => () =>
+    // comment
+    a ? b : c,
+);
+
+func(
+  () =>
+    (
+      // comment
+      a, b, c
+    ),
+);
+func(
+  () => () =>
+    (
+      // comment
+      a, b, c
+    ),
+);
+func(
+  () => () => () =>
+    (
+      // comment
+      a, b, c
+    ),
+);
 
 ================================================================================
 `;
@@ -3666,6 +3814,370 @@ function f(
 ================================================================================
 `;
 
+exports[`currying-4.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Y(() => a ? b : c);
+
+Y(() => () => a ? b : c);
+
+Y(() => () => () => a ? b : c);
+
+Y(() => longlonglonglonglonglonglonglonglonglongCondition ? 'Prettier is an opinionated code formatter.' : 'Prettier takes your code and reprints it from scratch by taking the line length into account.')
+
+Y(() => () => longlonglonglonglonglonglonglonglonglongCondition ? 'Prettier is an opinionated code formatter.' : 'Prettier takes your code and reprints it from scratch by taking the line length into account.')
+
+Y(() => () => () => longlonglonglonglonglonglonglonglonglongCondition ? 'Prettier is an opinionated code formatter.' : 'Prettier takes your code and reprints it from scratch by taking the line length into account.')
+
+const x1 = (() => ['The', 'green', 'dragon', 'liked', 'to', 'knit', 'sweaters', 'for', 'the', 'fluffy', 'clouds', 'in', 'the', 'sky.'])
+
+const x2 = (() => () => ['The', 'green', 'dragon', 'liked', 'to', 'knit', 'sweaters', 'for', 'the', 'fluffy', 'clouds', 'in', 'the', 'sky.'])
+
+const x3 = (() => () => () => ['The', 'green', 'dragon', 'liked', 'to', 'knit', 'sweaters', 'for', 'the', 'fluffy', 'clouds', 'in', 'the', 'sky.'])
+
+f((a) => (1, 2, 3) /* a */);
+f((a) => (
+  (b) => (1, 2, 3) /* b */
+) /* a */);
+f((a) => (
+  (b) => (
+   (c) => (1, 2, 3) /* c */
+  ) /* b */
+) /* a */);
+
+f((a) => (1 ? 2 : 3) /* a */);
+f((a) => (
+  (b) => (1 ? 2 : 3) /* b */
+) /* a */);
+f((a) => (
+  (b) => (
+   (c) => (1 ? 2 : 3) /* c */
+  ) /* b */
+) /* a */);
+
+a(
+  "",
+  "",
+  ({}) =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () => test,
+);
+a(
+  "",
+  "",
+  ({}) =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () => (test ? 1 : 2),
+);
+
+=====================================output=====================================
+Y(() => (a ? b : c));
+
+Y(() => () => (a ? b : c));
+
+Y(() => () => () => (a ? b : c));
+
+Y(() =>
+  longlonglonglonglonglonglonglonglonglongCondition
+    ? "Prettier is an opinionated code formatter."
+    : "Prettier takes your code and reprints it from scratch by taking the line length into account.",
+);
+
+Y(
+  () => () =>
+    longlonglonglonglonglonglonglonglonglongCondition
+      ? "Prettier is an opinionated code formatter."
+      : "Prettier takes your code and reprints it from scratch by taking the line length into account.",
+);
+
+Y(
+  () => () => () =>
+    longlonglonglonglonglonglonglonglonglongCondition
+      ? "Prettier is an opinionated code formatter."
+      : "Prettier takes your code and reprints it from scratch by taking the line length into account.",
+);
+
+const x1 = () => [
+  "The",
+  "green",
+  "dragon",
+  "liked",
+  "to",
+  "knit",
+  "sweaters",
+  "for",
+  "the",
+  "fluffy",
+  "clouds",
+  "in",
+  "the",
+  "sky.",
+];
+
+const x2 = () => () => [
+  "The",
+  "green",
+  "dragon",
+  "liked",
+  "to",
+  "knit",
+  "sweaters",
+  "for",
+  "the",
+  "fluffy",
+  "clouds",
+  "in",
+  "the",
+  "sky.",
+];
+
+const x3 = () => () => () => [
+  "The",
+  "green",
+  "dragon",
+  "liked",
+  "to",
+  "knit",
+  "sweaters",
+  "for",
+  "the",
+  "fluffy",
+  "clouds",
+  "in",
+  "the",
+  "sky.",
+];
+
+f((a) => (1, 2, 3) /* a */);
+f((a) => (b) => (1, 2, 3) /* b */ /* a */);
+f((a) => (b) => (c) => (1, 2, 3) /* c */ /* b */ /* a */);
+
+f((a) => (1 ? 2 : 3) /* a */);
+f((a) => (b) => (1 ? 2 : 3) /* b */ /* a */);
+f((a) => (b) => (c) => (1 ? 2 : 3) /* c */ /* b */ /* a */);
+
+a(
+  "",
+  "",
+  ({}) =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+      test,
+);
+a(
+  "",
+  "",
+  ({}) =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+      test ? 1 : 2,
+);
+
+================================================================================
+`;
+
+exports[`currying-4.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Y(() => a ? b : c);
+
+Y(() => () => a ? b : c);
+
+Y(() => () => () => a ? b : c);
+
+Y(() => longlonglonglonglonglonglonglonglonglongCondition ? 'Prettier is an opinionated code formatter.' : 'Prettier takes your code and reprints it from scratch by taking the line length into account.')
+
+Y(() => () => longlonglonglonglonglonglonglonglonglongCondition ? 'Prettier is an opinionated code formatter.' : 'Prettier takes your code and reprints it from scratch by taking the line length into account.')
+
+Y(() => () => () => longlonglonglonglonglonglonglonglonglongCondition ? 'Prettier is an opinionated code formatter.' : 'Prettier takes your code and reprints it from scratch by taking the line length into account.')
+
+const x1 = (() => ['The', 'green', 'dragon', 'liked', 'to', 'knit', 'sweaters', 'for', 'the', 'fluffy', 'clouds', 'in', 'the', 'sky.'])
+
+const x2 = (() => () => ['The', 'green', 'dragon', 'liked', 'to', 'knit', 'sweaters', 'for', 'the', 'fluffy', 'clouds', 'in', 'the', 'sky.'])
+
+const x3 = (() => () => () => ['The', 'green', 'dragon', 'liked', 'to', 'knit', 'sweaters', 'for', 'the', 'fluffy', 'clouds', 'in', 'the', 'sky.'])
+
+f((a) => (1, 2, 3) /* a */);
+f((a) => (
+  (b) => (1, 2, 3) /* b */
+) /* a */);
+f((a) => (
+  (b) => (
+   (c) => (1, 2, 3) /* c */
+  ) /* b */
+) /* a */);
+
+f((a) => (1 ? 2 : 3) /* a */);
+f((a) => (
+  (b) => (1 ? 2 : 3) /* b */
+) /* a */);
+f((a) => (
+  (b) => (
+   (c) => (1 ? 2 : 3) /* c */
+  ) /* b */
+) /* a */);
+
+a(
+  "",
+  "",
+  ({}) =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () => test,
+);
+a(
+  "",
+  "",
+  ({}) =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () => (test ? 1 : 2),
+);
+
+=====================================output=====================================
+Y(() => (a ? b : c));
+
+Y(() => () => (a ? b : c));
+
+Y(() => () => () => (a ? b : c));
+
+Y(() =>
+  longlonglonglonglonglonglonglonglonglongCondition
+    ? "Prettier is an opinionated code formatter."
+    : "Prettier takes your code and reprints it from scratch by taking the line length into account.",
+);
+
+Y(
+  () => () =>
+    longlonglonglonglonglonglonglonglonglongCondition
+      ? "Prettier is an opinionated code formatter."
+      : "Prettier takes your code and reprints it from scratch by taking the line length into account.",
+);
+
+Y(
+  () => () => () =>
+    longlonglonglonglonglonglonglonglonglongCondition
+      ? "Prettier is an opinionated code formatter."
+      : "Prettier takes your code and reprints it from scratch by taking the line length into account.",
+);
+
+const x1 = () => [
+  "The",
+  "green",
+  "dragon",
+  "liked",
+  "to",
+  "knit",
+  "sweaters",
+  "for",
+  "the",
+  "fluffy",
+  "clouds",
+  "in",
+  "the",
+  "sky.",
+];
+
+const x2 = () => () => [
+  "The",
+  "green",
+  "dragon",
+  "liked",
+  "to",
+  "knit",
+  "sweaters",
+  "for",
+  "the",
+  "fluffy",
+  "clouds",
+  "in",
+  "the",
+  "sky.",
+];
+
+const x3 = () => () => () => [
+  "The",
+  "green",
+  "dragon",
+  "liked",
+  "to",
+  "knit",
+  "sweaters",
+  "for",
+  "the",
+  "fluffy",
+  "clouds",
+  "in",
+  "the",
+  "sky.",
+];
+
+f(a => (1, 2, 3) /* a */);
+f(a => b => (1, 2, 3) /* b */ /* a */);
+f(a => b => c => (1, 2, 3) /* c */ /* b */ /* a */);
+
+f(a => (1 ? 2 : 3) /* a */);
+f(a => b => (1 ? 2 : 3) /* b */ /* a */);
+f(a => b => c => (1 ? 2 : 3) /* c */ /* b */ /* a */);
+
+a(
+  "",
+  "",
+  ({}) =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+      test,
+);
+a(
+  "",
+  "",
+  ({}) =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+    () =>
+      test ? 1 : 2,
+);
+
+================================================================================
+`;
+
 exports[`issue-1389-curry.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
@@ -3928,6 +4440,9 @@ foo(a => b, d)
 foo(a => (0, 1));
 foo(a => b => (0, 1));
 
+() => ({} ? 1 : 2);
+() => () => ({} ? 1 : 2);
+
 =====================================output=====================================
 promise.then(
   (result) => result,
@@ -3955,6 +4470,9 @@ foo((a) => b, d);
 
 foo((a) => (0, 1));
 foo((a) => (b) => (0, 1));
+
+() => ({}) ? 1 : 2;
+() => () => ({}) ? 1 : 2;
 
 ================================================================================
 `;
@@ -3985,6 +4503,9 @@ foo(a => b, d)
 foo(a => (0, 1));
 foo(a => b => (0, 1));
 
+() => ({} ? 1 : 2);
+() => () => ({} ? 1 : 2);
+
 =====================================output=====================================
 promise.then(
   result => result,
@@ -4012,6 +4533,9 @@ foo(a => b, d);
 
 foo(a => (0, 1));
 foo(a => b => (0, 1));
+
+() => ({}) ? 1 : 2;
+() => () => ({}) ? 1 : 2;
 
 ================================================================================
 `;

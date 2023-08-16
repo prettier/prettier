@@ -1,30 +1,13 @@
-/* globals prettier prettierPlugins parsersLocation */
+/* globals prettier prettierPlugins prettierPackageManifest */
 
 "use strict";
 
-const imported = Object.create(null);
-function importScriptOnce(url) {
-  if (!imported[url]) {
-    imported[url] = true;
-    importScripts(url);
-  }
-}
-
-importScripts("lib/parsers-location.js");
+importScripts("lib/package-manifest.js");
 importScripts("lib/standalone.js");
 
-// this is required to only load parsers when we need them
-const parsers = Object.create(null);
-for (const [parser, file] of Object.entries(parsersLocation)) {
-  Object.defineProperty(parsers, parser, {
-    get() {
-      const url = `lib/${file}`;
-      importScriptOnce(url);
-      return Object.values(prettierPlugins).find((plugin) =>
-        Object.hasOwn(plugin.parsers, parser)
-      ).parsers[parser];
-    },
-  });
+// TODO[@fisker]: Lazy load plugins
+for (const { file } of prettierPackageManifest.builtinPlugins) {
+  importScripts(`lib/${file}`);
 }
 
 const docExplorerPlugin = {
@@ -33,7 +16,7 @@ const docExplorerPlugin = {
       parse: (text) =>
         new Function(
           `{ ${Object.keys(prettier.doc.builders)} }`,
-          `const result = (${text || "''"}\n); return result;`
+          `const result = (${text || "''"}\n); return result;`,
         )(prettier.doc.builders),
       astFormat: "doc-explorer",
     },
@@ -45,6 +28,8 @@ const docExplorerPlugin = {
   },
   languages: [{ name: "doc-explorer", parsers: ["doc-explorer"] }],
 };
+
+const plugins = [...Object.values(prettierPlugins), docExplorerPlugin];
 
 self.onmessage = async function (event) {
   self.postMessage({
@@ -64,7 +49,7 @@ function serializeAst(ast) {
         : typeof value === "symbol"
         ? String(value)
         : value,
-    2
+    2,
   );
 }
 
@@ -78,9 +63,7 @@ function handleMessage(message) {
 }
 
 async function handleMetaMessage() {
-  const supportInfo = await prettier.getSupportInfo({
-    plugins: [docExplorerPlugin],
-  });
+  const supportInfo = await prettier.getSupportInfo({ plugins });
 
   return {
     type: "meta",
@@ -90,7 +73,6 @@ async function handleMetaMessage() {
 }
 
 async function handleFormatMessage(message) {
-  const plugins = [{ parsers }, docExplorerPlugin];
   const options = { ...message.options, plugins };
 
   delete options.ast;
@@ -100,7 +82,7 @@ async function handleFormatMessage(message) {
   const formatResult = await formatCode(
     message.code,
     options,
-    message.debug.rethrowEmbedErrors
+    message.debug.rethrowEmbedErrors,
   );
 
   const response = {
@@ -115,16 +97,28 @@ async function handleFormatMessage(message) {
     },
   };
 
+  const isPrettier2 = prettier.version.startsWith("2.");
+
   for (const key of ["ast", "preprocessedAst"]) {
     if (!message.debug[key]) {
       continue;
     }
+
+    const preprocessForPrint = key === "preprocessedAst";
+
+    if (isPrettier2 && preprocessForPrint) {
+      response.debug[key] = "/* not supported for Prettier 2.x */";
+      continue;
+    }
+
     let ast;
     let errored = false;
     try {
-      const parsed = await prettier.__debug.parse(message.code, options, {
-        preprocessForPrint: key === "preprocessedAst",
-      });
+      const parsed = await prettier.__debug.parse(
+        message.code,
+        options,
+        isPrettier2 ? false : { preprocessForPrint },
+      );
       ast = serializeAst(parsed.ast);
     } catch (e) {
       errored = true;
@@ -145,7 +139,7 @@ async function handleFormatMessage(message) {
     try {
       response.debug.doc = await prettier.__debug.formatDoc(
         await prettier.__debug.printToDoc(message.code, options),
-        { plugins }
+        { plugins },
       );
     } catch {
       response.debug.doc = "";

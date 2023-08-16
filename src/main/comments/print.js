@@ -5,8 +5,8 @@ import {
   indent,
   lineSuffix,
   join,
-  label,
 } from "../../document/builders.js";
+import { inheritLabel } from "../../document/utils.js";
 import hasNewline from "../../utils/has-newline.js";
 import skipNewline from "../../utils/skip-newline.js";
 import { skipSpaces } from "../../utils/skip.js";
@@ -51,7 +51,7 @@ function printLeadingComment(path, options) {
 
   const index = skipNewline(
     originalText,
-    skipSpaces(originalText, locEnd(comment))
+    skipSpaces(originalText, locEnd(comment)),
   );
 
   if (index !== false && hasNewline(originalText, index)) {
@@ -86,7 +86,7 @@ function printTrailingComment(path, options, previousComment) {
 
     const isLineBeforeEmpty = isPreviousLineEmpty(
       originalText,
-      locStart(comment)
+      locStart(comment),
     );
 
     return {
@@ -119,7 +119,7 @@ function printTrailingComment(path, options, previousComment) {
 function printDanglingComments(
   path,
   options,
-  danglingCommentsPrintOptions = {}
+  danglingCommentsPrintOptions = {},
 ) {
   const { node } = path;
 
@@ -155,16 +155,16 @@ function printDanglingComments(
   return shouldIndent ? indent([hardline, doc]) : doc;
 }
 
-function printCommentsSeparately(path, options, ignored) {
+function printCommentsSeparately(path, options) {
   const value = path.node;
   if (!value) {
     return {};
   }
 
-  let comments = value.comments || [];
-  if (ignored) {
-    comments = comments.filter((comment) => !ignored.has(comment));
-  }
+  const ignored = options[Symbol.for("printedComments")];
+  const comments = (value.comments || []).filter(
+    (comment) => !ignored.has(comment),
+  );
 
   if (comments.length === 0) {
     return { leading: "", trailing: "" };
@@ -186,7 +186,7 @@ function printCommentsSeparately(path, options, ignored) {
       printedTrailingComment = printTrailingComment(
         path,
         options,
-        printedTrailingComment
+        printedTrailingComment,
       );
       trailingParts.push(printedTrailingComment.doc);
     }
@@ -195,30 +195,26 @@ function printCommentsSeparately(path, options, ignored) {
   return { leading: leadingParts, trailing: trailingParts };
 }
 
-function printComments(path, doc, options, ignored) {
-  const { leading, trailing } = printCommentsSeparately(path, options, ignored);
+function printComments(path, doc, options) {
+  const { leading, trailing } = printCommentsSeparately(path, options);
   if (!leading && !trailing) {
     return doc;
   }
-  return label(
-    // Propagate object labels so that the printing logic for ancestor nodes
-    // could easily check them.
-    typeof doc.label === "object" && { commented: true, ...doc.label },
-    [leading, doc, trailing]
-  );
+  return inheritLabel(doc, (doc) => [leading, doc, trailing]);
 }
 
-function ensureAllCommentsPrinted(astComments) {
-  if (!astComments) {
-    return;
-  }
+function ensureAllCommentsPrinted(options) {
+  const {
+    [Symbol.for("comments")]: comments,
+    [Symbol.for("printedComments")]: printedComments,
+  } = options;
 
-  for (const comment of astComments) {
-    if (!comment.printed) {
+  for (const comment of comments) {
+    if (!comment.printed && !printedComments.has(comment)) {
       throw new Error(
         'Comment "' +
           comment.value.trim() +
-          '" was not printed. Please report this error!'
+          '" was not printed. Please report this error!',
       );
     }
     delete comment.printed;

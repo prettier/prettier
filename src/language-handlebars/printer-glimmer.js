@@ -13,6 +13,7 @@ import { replaceEndOfLine } from "../document/utils.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
@@ -29,8 +30,6 @@ const NEWLINES_TO_PRESERVE_MAX = 2;
 
 function print(path, options, print) {
   const { node } = path;
-
-  const favoriteQuote = options.singleQuote ? "'" : '"';
 
   switch (node.type) {
     case "Block":
@@ -126,15 +125,14 @@ function print(path, options, print) {
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
-        ? getPreferredQuote(value.chars, favoriteQuote).quote
+        ? getPreferredQuote(value.chars, options.singleQuote)
         : value.type === "ConcatStatement"
         ? getPreferredQuote(
             value.parts
-              .filter((part) => part.type === "TextNode")
-              .map((part) => part.chars)
+              .map((part) => (part.type === "TextNode" ? part.chars : ""))
               .join(""),
-            favoriteQuote
-          ).quote
+            options.singleQuote,
+          )
         : "";
 
       const valueDoc = print("value");
@@ -199,15 +197,10 @@ function print(path, options, print) {
         return replaceEndOfLine(text);
       }
 
-      const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
-      const isWhitespaceOnly = whitespacesOnlyRE.test(text);
+      const isWhitespaceOnly = htmlWhitespaceUtils.isWhitespaceOnly(text);
       const { isFirst, isLast } = path;
 
       if (options.htmlWhitespaceSensitivity !== "ignore") {
-        // https://infra.spec.whatwg.org/#ascii-whitespace
-        const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
-        const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
-
         // let's remove the file's final newline
         // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
         const shouldTrimTrailingNewlines =
@@ -234,27 +227,29 @@ function print(path, options, print) {
           return breaks;
         }
 
-        const [lead] = text.match(leadingWhitespacesRE);
-        const [tail] = text.match(trailingWhitespacesRE);
+        const leadingWhitespace =
+          htmlWhitespaceUtils.getLeadingWhitespace(text);
 
         let leadBreaks = [];
-        if (lead) {
+        if (leadingWhitespace) {
           leadBreaks = [line];
 
-          const leadingNewlines = countNewLines(lead);
+          const leadingNewlines = countNewLines(leadingWhitespace);
           if (leadingNewlines) {
             leadBreaks = generateHardlines(leadingNewlines);
           }
 
-          text = text.replace(leadingWhitespacesRE, "");
+          text = text.slice(leadingWhitespace.length);
         }
 
+        const tailingWhitespace =
+          htmlWhitespaceUtils.getTrailingWhitespace(text);
         let trailBreaks = [];
-        if (tail) {
+        if (tailingWhitespace) {
           if (!shouldTrimTrailingNewlines) {
             trailBreaks = [line];
 
-            const trailingNewlines = countNewLines(tail);
+            const trailingNewlines = countNewLines(tailingWhitespace);
             if (trailingNewlines) {
               trailBreaks = generateHardlines(trailingNewlines);
             }
@@ -264,7 +259,7 @@ function print(path, options, print) {
             }
           }
 
-          text = text.replace(trailingWhitespacesRE, "");
+          text = text.slice(0, -tailingWhitespace.length);
         }
 
         return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
@@ -288,7 +283,7 @@ function print(path, options, print) {
       if (isWhitespaceOnly && lineBreaksCount) {
         leadingLineBreaksCount = Math.min(
           lineBreaksCount,
-          NEWLINES_TO_PRESERVE_MAX
+          NEWLINES_TO_PRESERVE_MAX,
         );
         trailingLineBreaksCount = 0;
       } else {
@@ -334,9 +329,13 @@ function print(path, options, print) {
         trailingSpace = "";
       }
 
-      text = text
-        .replaceAll(/^[\t\n\f\r ]+/g, leadingSpace)
-        .replace(/[\t\n\f\r ]+$/, trailingSpace);
+      if (htmlWhitespaceUtils.hasLeadingWhitespace(text)) {
+        text = leadingSpace + htmlWhitespaceUtils.trimStart(text);
+      }
+
+      if (htmlWhitespaceUtils.hasTrailingWhitespace(text)) {
+        text = htmlWhitespaceUtils.trimEnd(text) + trailingSpace;
+      }
 
       return [
         ...generateHardlines(leadingLineBreaksCount),
@@ -376,11 +375,7 @@ function print(path, options, print) {
       return ["<!--", node.value, "-->"];
 
     case "StringLiteral":
-      if (needsOppositeQuote(path)) {
-        const printFavoriteQuote = !options.singleQuote ? "'" : '"';
-        return printStringLiteral(node.value, printFavoriteQuote);
-      }
-      return printStringLiteral(node.value, favoriteQuote);
+      return printStringLiteral(path, options);
 
     case "NumberLiteral":
       return String(node.value);
@@ -407,7 +402,7 @@ function printStartingTag(path, print) {
   const { node } = path;
 
   const types = ["attributes", "modifiers", "comments"].filter((property) =>
-    isNonEmptyArray(node[property])
+    isNonEmptyArray(node[property]),
   );
   const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
 
@@ -643,11 +638,7 @@ function printInverse(path, print, options) {
 /* TextNode print helpers */
 
 function getTextValueParts(value) {
-  return join(line, splitByHtmlWhitespace(value));
-}
-
-function splitByHtmlWhitespace(string) {
-  return string.split(/[\t\n\f\r ]+/);
+  return join(line, htmlWhitespaceUtils.split(value));
 }
 
 function getCurrentAttributeName(path) {
@@ -695,12 +686,18 @@ function generateHardlines(number = 0) {
  * the string literal. This function is the glimmer equivalent of `printString`
  * in `common/util`, but has differences because of the way escaped characters
  * are treated in hbs string literals.
- * @param {string} stringLiteral - the string literal value
- * @param {Quote} favoriteQuote - the user's preferred quote: `'` or `"`
  */
-function printStringLiteral(stringLiteral, favoriteQuote) {
-  const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);
-  return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
+function printStringLiteral(path, options) {
+  const {
+    node: { value },
+  } = path;
+
+  const quote = getPreferredQuote(
+    value,
+    needsOppositeQuote(path) ? !options.singleQuote : options.singleQuote,
+  );
+
+  return [quote, value.replaceAll(quote, `\\${quote}`), quote];
 }
 
 function needsOppositeQuote(path) {

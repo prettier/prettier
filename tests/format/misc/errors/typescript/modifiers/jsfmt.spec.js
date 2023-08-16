@@ -1,5 +1,23 @@
 import { outdent } from "outdent";
-import { POSSIBLE_MODIFIERS } from "../../../../../../src/language-js/parse/postprocess/typescript.js";
+
+// `isModifierKind` in `typescript`
+const POSSIBLE_MODIFIERS = [
+  "abstract",
+  "accessor",
+  "async",
+  "const",
+  "declare",
+  "default",
+  "export",
+  "in",
+  "out",
+  "override",
+  "private",
+  "protected",
+  "public",
+  "readonly",
+  "static",
+];
 
 run_spec(
   {
@@ -7,7 +25,7 @@ run_spec(
     snippets: [
       // Only `readonly` allowed in some places
       ...POSSIBLE_MODIFIERS.filter(
-        (modifier) => modifier !== "readonly"
+        (modifier) => modifier !== "readonly",
       ).flatMap((modifier) => [
         outdent`
           interface Foo {
@@ -39,17 +57,18 @@ run_spec(
 
       // `TSInterfaceDeclaration`, only `declare` and `export` allowed
       ...POSSIBLE_MODIFIERS.filter(
-        (modifier) => modifier !== "declare" && modifier !== "export"
+        (modifier) => modifier !== "declare" && modifier !== "export",
       ).map(
         (modifier) =>
           outdent`
             ${modifier} interface Foo {}
-          `
+          `,
       ),
 
-      // `TSTypeParameter`, only `in` and `out` allowed in type parameter
+      // `TSTypeParameter`, only `in`, `out`, and `const` allowed in type parameter
       ...POSSIBLE_MODIFIERS.filter(
-        (modifier) => modifier !== "in" && modifier !== "out"
+        (modifier) =>
+          modifier !== "in" && modifier !== "out" && modifier !== "const",
       ).map((modifier) => `interface Foo<${modifier} T> {}`),
 
       ...["declare", "readonly"].map(
@@ -58,7 +77,7 @@ run_spec(
             class Foo {
               ${modifier} method() {}
             }
-          `
+          `,
       ),
       outdent`
         class Foo {
@@ -73,7 +92,7 @@ run_spec(
 
       // `TSModuleDeclaration`
       ...POSSIBLE_MODIFIERS.filter(
-        (modifier) => modifier !== "declare" && modifier !== "export"
+        (modifier) => modifier !== "declare" && modifier !== "export",
       ).flatMap((modifier) => [
         `${modifier} module Foo {}`,
         `${modifier} namespace Foo {}`,
@@ -84,7 +103,7 @@ run_spec(
         (modifier) =>
           modifier !== "declare" &&
           modifier !== "const" &&
-          modifier !== "export"
+          modifier !== "export",
       ).map((modifier) => `${modifier} enum Foo {}`),
 
       // `TSParameterProperty`
@@ -98,14 +117,19 @@ run_spec(
           modifier !== "private" &&
           modifier !== "protected" &&
           modifier !== "public" &&
-          modifier !== "readonly"
+          modifier !== "readonly",
       ).map(
-        (modifier) => `class Foo { constructor(${modifier} parameter) {} }`
+        (modifier) => `class Foo { constructor(${modifier} parameter) {} }`,
       ),
+      'class Foo {["constructor"](private parameter) {}}',
+      "class Foo {['constructor'](private parameter) {}}",
+      "class Foo {[`constructor`](private parameter) {}}",
+      // cspell:disable-next-line
+      "class Foo {['const' + 'ructor'](private parameter) {}}",
 
       // `TSPropertySignature`
       ...POSSIBLE_MODIFIERS.filter((modifier) => modifier !== "readonly").map(
-        (modifier) => `type Foo = {${modifier} bar};`
+        (modifier) => `type Foo = {${modifier} bar};`,
       ),
 
       // `TSIndexSignature`
@@ -116,5 +140,5 @@ run_spec(
       `,
     ],
   },
-  ["babel-ts", "typescript"]
+  ["babel-ts", "typescript"],
 );

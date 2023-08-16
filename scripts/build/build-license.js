@@ -1,7 +1,7 @@
 import path from "node:path";
 import fs from "node:fs/promises";
 import { outdent } from "outdent";
-import { DIST_DIR, PROJECT_ROOT } from "../utils/index.mjs";
+import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 
 const PROJECT_LICENSE_FILE = path.join(PROJECT_ROOT, "LICENSE");
 const LICENSE_FILE = path.join(DIST_DIR, "LICENSE");
@@ -26,14 +26,14 @@ async function getLicenseText(files) {
       index ===
         dependencies.findIndex(
           ({ name, version }) =>
-            dependency.name === name && dependency.version === version
-        )
+            dependency.name === name && dependency.version === version,
+        ),
   );
 
   dependencies.sort(
     (dependencyA, dependencyB) =>
       dependencyA.name.localeCompare(dependencyB.name) ||
-      dependencyA.version.localeCompare(dependencyB.version)
+      dependencyA.version.localeCompare(dependencyB.version),
   );
 
   const prettierLicense = await fs.readFile(PROJECT_LICENSE_FILE, "utf8");
@@ -42,7 +42,7 @@ async function getLicenseText(files) {
     ...new Set(
       dependencies
         .filter(({ license }) => license)
-        .map(({ license }) => license)
+        .map(({ license }) => license),
     ),
   ];
 
@@ -128,7 +128,7 @@ async function buildLicense({ file, files, shouldCollectLicenses }) {
     return;
   }
 
-  const javascriptFiles = files.filter((file) => !file.isMetaFile);
+  const javascriptFiles = files.filter((file) => file.kind === "javascript");
   if (javascriptFiles.some((file) => !Array.isArray(file.dependencies))) {
     return { skipped: true };
   }

@@ -182,8 +182,8 @@ function shouldExtraIndentForConditionalExpression(path) {
 
 /**
  * The following is the shared logic for
- * ternary operators, namely ConditionalExpression
- * and TSConditionalType
+ * ternary operators, namely ConditionalExpression,
+ * ConditionalTypeAnnotation and TSConditionalType
  * @param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
@@ -228,7 +228,7 @@ function printTernary(path, options, print) {
     currentParent &&
     currentParent.type === node.type &&
     testNodePropertyNames.every(
-      (prop) => currentParent[prop] !== previousParent
+      (prop) => currentParent[prop] !== previousParent,
     )
   );
   const firstNonConditionalParent = currentParent || parent;
@@ -271,7 +271,7 @@ function printTernary(path, options, print) {
       " : ",
       alternateNode.type === node.type || isNil(alternateNode)
         ? print(alternateNodePropertyName)
-        : wrap(print(alternateNodePropertyName))
+        : wrap(print(alternateNodePropertyName)),
     );
   } else {
     // normal mode
@@ -294,7 +294,7 @@ function printTernary(path, options, print) {
         ? part
         : options.useTabs
         ? dedent(indent(part))
-        : align(Math.max(0, options.tabWidth - 2), part)
+        : align(Math.max(0, options.tabWidth - 2), part),
     );
   }
 
@@ -313,9 +313,9 @@ function printTernary(path, options, print) {
         hasNewlineInRange(
           options.originalText,
           locStart(comment),
-          locEnd(comment)
-        )
-    )
+          locEnd(comment),
+        ),
+    ),
   );
   const maybeGroup = (doc) =>
     parent === firstNonConditionalParent

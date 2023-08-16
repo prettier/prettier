@@ -32,7 +32,7 @@ function printPropertyKey(path, options, print) {
         !prop.computed &&
         prop.key &&
         isStringLiteral(prop.key) &&
-        !isStringPropSafeToUnquote(prop, options)
+        !isStringPropSafeToUnquote(prop, options),
     );
     needsQuoteProps.set(parent, objectHasStringProp);
   }
@@ -54,9 +54,9 @@ function printPropertyKey(path, options, print) {
     // 1.5 -> "1.5"
     const prop = printString(
       JSON.stringify(
-        key.type === "Identifier" ? key.name : key.value.toString()
+        key.type === "Identifier" ? key.name : key.value.toString(),
       ),
-      options
+      options,
     );
     return path.call((keyPath) => printComments(keyPath, prop, options), "key");
   }
@@ -74,9 +74,9 @@ function printPropertyKey(path, options, print) {
         printComments(
           keyPath,
           /^\d/.test(key.value) ? printNumber(key.value) : key.value,
-          options
+          options,
         ),
-      "key"
+      "key",
     );
   }
 
@@ -95,7 +95,7 @@ function printProperty(path, options, print) {
     print,
     printPropertyKey(path, options, print),
     ":",
-    "value"
+    "value",
   );
 }
 

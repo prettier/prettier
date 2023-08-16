@@ -1,17 +1,17 @@
+import createTypeCheckFunction from "./create-type-check-function.js";
 /**
  * @typedef {import("../types/estree.js").Comment} Comment
  */
 
-const BLOCK_COMMENT_TYPES = new Set([
+/**
+ * @param {Comment} comment
+ * @returns {boolean}
+ */
+const isBlockComment = createTypeCheckFunction([
   "Block",
   "CommentBlock",
   // `meriyah`
   "MultiLine",
 ]);
-/**
- * @param {Comment} comment
- * @returns {boolean}
- */
-const isBlockComment = (comment) => BLOCK_COMMENT_TYPES.has(comment?.type);
 
 export default isBlockComment;

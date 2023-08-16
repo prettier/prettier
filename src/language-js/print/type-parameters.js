@@ -7,16 +7,16 @@ import {
   group,
   indent,
   ifBreak,
+  lineSuffixBoundary,
+  indentIfBreak,
 } from "../../document/builders.js";
 import {
   isTestCall,
   hasComment,
   CommentCheckFlags,
-  isTSXFile,
   shouldPrintComma,
   getFunctionParameters,
   isObjectType,
-  getTypeScriptMappedTypeModifier,
 } from "../utils/index.js";
 import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
 import {
@@ -24,8 +24,23 @@ import {
   shouldHugType,
 } from "./type-annotation.js";
 import { isArrowFunctionVariableDeclarator } from "./assignment.js";
+import { printTypeScriptMappedTypeModifier } from "./mapped-type.js";
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
+
+// Keep comma if the file extension not `.ts` and
+// has one type parameter that isn't extend with any types.
+// Because, otherwise formatted result will be invalid as tsx.
+function shouldForceTrailingComma(path, options, paramsKey) {
+  const { node } = path;
+  return (
+    getFunctionParameters(node).length === 1 &&
+    node.type.startsWith("TS") &&
+    !node[paramsKey][0].constraint &&
+    path.parent.type === "ArrowFunctionExpression" &&
+    !(options.filepath && /\.ts$/.test(options.filepath))
+  );
+}
 
 function printTypeParameters(path, options, print, paramsKey) {
   const { node } = path;
@@ -48,7 +63,7 @@ function printTypeParameters(path, options, print, paramsKey) {
     undefined,
     (node, name) => name === "typeAnnotation",
     (node) => node.type === "Identifier",
-    isArrowFunctionVariableDeclarator
+    isArrowFunctionVariableDeclarator,
   );
 
   const shouldInline =
@@ -68,16 +83,10 @@ function printTypeParameters(path, options, print, paramsKey) {
     ];
   }
 
-  // Keep comma if the file extension is .tsx and
-  // has one type parameter that isn't extend with any types.
-  // Because, otherwise formatted result will be invalid as tsx.
   const trailingComma =
     node.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
       ? ""
-      : getFunctionParameters(node).length === 1 &&
-        isTSXFile(options) &&
-        !node[paramsKey][0].constraint &&
-        path.parent.type === "ArrowFunctionExpression"
+      : shouldForceTrailingComma(path, options, paramsKey)
       ? ","
       : shouldPrintComma(options)
       ? ifBreak(",")
@@ -91,7 +100,7 @@ function printTypeParameters(path, options, print, paramsKey) {
       softline,
       ">",
     ],
-    { id: getTypeParametersGroupId(node) }
+    { id: getTypeParametersGroupId(node) },
   );
 }
 
@@ -111,17 +120,20 @@ function printDanglingCommentsForInline(path, options) {
 }
 
 function printTypeParameter(path, options, print) {
-  const { node } = path;
-  const parts = [];
-  const { parent } = path;
+  const { node, parent } = path;
+
+  /**
+   * @type {import("../../document/builders.js").Doc[]}
+   */
+  const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
 
   const name = node.type === "TSTypeParameter" ? print("name") : node.name;
 
   if (parent.type === "TSMappedType") {
     if (parent.readonly) {
       parts.push(
-        getTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
-        " "
+        printTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
+        " ",
       );
     }
     parts.push("[", name);
@@ -131,7 +143,7 @@ function printTypeParameter(path, options, print) {
     if (parent.nameType) {
       parts.push(
         " as ",
-        path.callParent(() => print("nameType"))
+        path.callParent(() => print("nameType")),
       );
     }
     parts.push("]");
@@ -153,18 +165,28 @@ function printTypeParameter(path, options, print) {
   parts.push(name);
 
   if (node.bound) {
+    if (node.usesExtendsBound) {
+      parts.push(" extends ");
+    }
+
     parts.push(printTypeAnnotationProperty(path, print, "bound"));
   }
 
   if (node.constraint) {
-    parts.push(" extends ", print("constraint"));
+    const groupId = Symbol("constraint");
+    parts.push(
+      " extends",
+      group(indent(line), { id: groupId }),
+      lineSuffixBoundary,
+      indentIfBreak(print("constraint"), { groupId }),
+    );
   }
 
   if (node.default) {
     parts.push(" = ", print("default"));
   }
 
-  return parts;
+  return group(parts);
 }
 
 export { printTypeParameter, printTypeParameters, getTypeParametersGroupId };

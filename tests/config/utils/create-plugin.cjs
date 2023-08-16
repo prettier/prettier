@@ -17,8 +17,10 @@ function createPlugin({ name, print, finalNewLine = true }) {
     },
     printers: {
       [name]: {
-        print(path) {
-          return print(path.getValue().value) + (finalNewLine ? "\n" : "");
+        print(path, options) {
+          return (
+            print(path.getValue().value, options) + (finalNewLine ? "\n" : "")
+          );
         },
       },
     },

@@ -32,7 +32,7 @@ function printAssignment(
   print,
   leftDoc,
   operator,
-  rightPropertyName
+  rightPropertyName,
 ) {
   const layout = chooseLayout(path, options, print, leftDoc, rightPropertyName);
 
@@ -88,7 +88,7 @@ function printAssignmentExpression(path, options, print) {
     print,
     print("left"),
     [" ", node.operator],
-    "right"
+    "right",
   );
 }
 
@@ -115,7 +115,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     (node) =>
       !isTail ||
       (node.type !== "ExpressionStatement" &&
-        node.type !== "VariableDeclaration")
+        node.type !== "VariableDeclaration"),
   );
   if (shouldUseChainFormatting) {
     return !isTail
@@ -159,7 +159,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   if (
     path.call(
       () => shouldBreakAfterOperator(path, options, print, hasShortKey),
-      rightPropertyName
+      rightPropertyName,
     )
   ) {
     return "break-after-operator";
@@ -205,7 +205,11 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   let node = rightNode;
   const propertiesForPath = [];
   for (;;) {
-    if (node.type === "UnaryExpression") {
+    if (
+      node.type === "UnaryExpression" ||
+      node.type === "AwaitExpression" ||
+      (node.type === "YieldExpression" && node.argument !== null)
+    ) {
       node = node.argument;
       propertiesForPath.push("argument");
     } else if (node.type === "TSNonNullExpression") {
@@ -219,7 +223,7 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     isStringLiteral(node) ||
     path.call(
       () => isPoorlyBreakableMemberOrCallChain(path, options, print),
-      ...propertiesForPath
+      ...propertiesForPath,
     )
   ) {
     return true;
@@ -239,7 +243,7 @@ function isComplexDestructuring(node) {
       leftNode.properties.some(
         (property) =>
           isObjectProperty(property) &&
-          (!property.shorthand || property.value?.type === "AssignmentPattern")
+          (!property.shorthand || property.value?.type === "AssignmentPattern"),
       )
     );
   }
@@ -288,7 +292,7 @@ function hasComplexTypeAnnotation(node) {
     return false;
   }
   const typeParams = getTypeParametersFromTypeReference(
-    typeAnnotation.typeAnnotation
+    typeAnnotation.typeAnnotation,
   );
   return (
     isNonEmptyArray(typeParams) &&
@@ -296,7 +300,7 @@ function hasComplexTypeAnnotation(node) {
     typeParams.some(
       (param) =>
         isNonEmptyArray(getTypeParametersFromTypeReference(param)) ||
-        param.type === "TSConditionalType"
+        param.type === "TSConditionalType",
     )
   );
 }
@@ -326,7 +330,7 @@ function isPoorlyBreakableMemberOrCallChain(
   path,
   options,
   print,
-  deep = false
+  deep = false,
 ) {
   const { node } = path;
   const goDeeper = () =>

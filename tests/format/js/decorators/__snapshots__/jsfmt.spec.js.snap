@@ -51,20 +51,16 @@ export class Bar {}
 export default class Baz {}
 
 const foo =
-  (
-    @deco
-    class {
-      //
-    }
-  );
+  @deco
+  class {
+    //
+  };
 
 const bar =
-  (
-    @deco
-    class {
-      //
-    }
-  );
+  @deco
+  class {
+    //
+  };
 
 ================================================================================
 `;
@@ -168,6 +164,140 @@ class Something {
   @Annotateme()
   property;
 }
+
+================================================================================
+`;
+
+exports[`member-expression.js [acorn] format 1`] = `
+"Unexpected character '@' (3:5)
+  1 | [
+  2 |   class {
+> 3 |     @(decorators[0])
+    |     ^
+  4 |     method() {}
+  5 |   },
+  6 |   class {"
+`;
+
+exports[`member-expression.js [espree] format 1`] = `
+"Unexpected character '@' (3:5)
+  1 | [
+  2 |   class {
+> 3 |     @(decorators[0])
+    |     ^
+  4 |     method() {}
+  5 |   },
+  6 |   class {"
+`;
+
+exports[`member-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  class {
+    @(decorators[0])
+    method() {}
+  },
+  class {
+    @decorators[0]
+    method() {}
+  },
+  class {
+    @(decorators?.[0])
+    method() {}
+  },
+  class {
+    @(decorators.at(0))
+    method() {}
+  },
+  class {
+    @(decorators?.at(0))
+    method() {}
+  },
+  class {
+    @(decorators.first)
+    method() {}
+  },
+  class {
+    @(decorators?.first)
+    method() {}
+  },
+  class {
+    @(decorators[first])
+    method() {}
+  },
+  class {
+    @decorators[first]
+    method() {}
+  },
+  class {
+    @(decorators["first"])
+    method() {}
+  },
+  @(decorators[first])
+  class {
+    method() {}
+  },
+  @(decorators[0])
+  class {
+    method() {}
+  },
+]
+
+=====================================output=====================================
+[
+  class {
+    @(decorators[0])
+    method() {}
+  },
+  class {
+    @decorators [0];
+    method() {}
+  },
+  class {
+    @(decorators?.[0])
+    method() {}
+  },
+  class {
+    @decorators.at(0)
+    method() {}
+  },
+  class {
+    @(decorators?.at(0))
+    method() {}
+  },
+  class {
+    @decorators.first
+    method() {}
+  },
+  class {
+    @(decorators?.first)
+    method() {}
+  },
+  class {
+    @(decorators[first])
+    method() {}
+  },
+  class {
+    @decorators [first];
+    method() {}
+  },
+  class {
+    @(decorators["first"])
+    method() {}
+  },
+  @(decorators[first])
+  class {
+    method() {}
+  },
+  @(decorators[0])
+  class {
+    method() {}
+  },
+];
 
 ================================================================================
 `;
@@ -449,32 +579,22 @@ class Foo {
 
 exports[`multiple.js [acorn] format 1`] = `
 "Unexpected character '@' (2:3)
-  1 | const dog = {
+  1 | const dog = class {
 > 2 |   @readonly
     |   ^
   3 |   @nonenumerable
   4 |   @doubledValue
-  5 |   legs: 4,"
+  5 |   legs = 4;"
 `;
 
 exports[`multiple.js [espree] format 1`] = `
 "Unexpected character '@' (2:3)
-  1 | const dog = {
+  1 | const dog = class {
 > 2 |   @readonly
     |   ^
   3 |   @nonenumerable
   4 |   @doubledValue
-  5 |   legs: 4,"
-`;
-
-exports[`multiple.js [meriyah] format 1`] = `
-"Unexpected token: '@' (2:3)
-  1 | const dog = {
-> 2 |   @readonly
-    |   ^
-  3 |   @nonenumerable
-  4 |   @doubledValue
-  5 |   legs: 4,"
+  5 |   legs = 4;"
 `;
 
 exports[`multiple.js format 1`] = `
@@ -483,40 +603,44 @@ parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-const dog = {
+const dog = class {
   @readonly
   @nonenumerable
   @doubledValue
-  legs: 4,
+  legs = 4;
 
   @readonly
   @nonenumerable
   @doubledValue
-  eyes: 2
+  eyes() {return 2}
 };
 
-const foo = {
-  @multipleDecorators @inline @theyWontAllFitInOneline aVeryLongPropName: "A very long string as value"
+const foo = class {
+  @multipleDecorators @inline @theyWontAllFitInOneline aVeryLongPropName = "A very long string as value"
+  @multipleDecorators @inline @theyWontAllFitInOneline aVeryLongPropName() { "A very long string as value"}
 };
 
 =====================================output=====================================
-const dog = {
+const dog = class {
   @readonly
   @nonenumerable
   @doubledValue
-  legs: 4,
+  legs = 4;
 
   @readonly
   @nonenumerable
   @doubledValue
-  eyes: 2,
+  eyes() {
+    return 2;
+  }
 };
 
-const foo = {
-  @multipleDecorators
-  @inline
-  @theyWontAllFitInOneline
-  aVeryLongPropName: "A very long string as value",
+const foo = class {
+  @multipleDecorators @inline @theyWontAllFitInOneline aVeryLongPropName =
+    "A very long string as value";
+  @multipleDecorators @inline @theyWontAllFitInOneline aVeryLongPropName() {
+    "A very long string as value";
+  }
 };
 
 ================================================================================

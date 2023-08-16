@@ -12,11 +12,11 @@ const EDIT_URL = `https://github.com/${SCHEMA_REPO}/edit/master/${SCHEMA_PATH}`;
 
 async function checkSchema() {
   const { stdout: schema } = await execa("node", [
-    "scripts/generate-schema.mjs",
+    "scripts/generate-schema.js",
   ]);
   const remoteSchema = await logPromise(
     "Checking current schema in SchemaStore",
-    fetchText(RAW_URL)
+    fetchText(RAW_URL),
   );
 
   if (schema === remoteSchema.trim()) {
@@ -25,11 +25,11 @@ async function checkSchema() {
 
   return outdent`
     ${chalk.bold.underline(
-      "The schema in {yellow SchemaStore"
+      "The schema in {yellow SchemaStore",
     )} needs an update.}
     - Open ${chalk.cyan.underline(EDIT_URL)}
     - Run ${chalk.yellow(
-      "node scripts/generate-schema.mjs"
+      "node scripts/generate-schema.mjs",
     )} and copy the new schema
     - Paste it on GitHub interface
     - Open a PR
@@ -59,10 +59,10 @@ export default async function postPublishSteps({ dry }) {
       ${chalk.yellow.bold(
         `The following ${
           steps.length === 1 ? "step is" : "steps are"
-        } optional.`
+        } optional.`,
       )}
 
       ${steps.join("\n\n")}
-    `
+    `,
   );
 }

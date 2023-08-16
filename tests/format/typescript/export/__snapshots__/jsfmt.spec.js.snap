@@ -93,3 +93,46 @@ export default abstract class D {}
 
 ================================================================================
 `;
+
+exports[`export-type-star-from.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export type * from './mod';
+export type * as ns from './mod';
+
+=====================================output=====================================
+export type * from "./mod";
+export type * as ns from "./mod";
+
+================================================================================
+`;
+
+exports[`export-type-star-from-2.ts [babel-ts] format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Note: TSC doesn't support string module specifiers yet,
+// but it's easier for us to support them than not.
+export type * as "ns2" from './mod';
+
+=====================================output=====================================
+// Note: TSC doesn't support string module specifiers yet,
+// but it's easier for us to support them than not.
+export type * as "ns2" from "./mod";
+
+================================================================================
+`;
+
+exports[`export-type-star-from-2.ts [typescript] format 1`] = `
+"Identifier expected. (3:18)
+  1 | // Note: TSC doesn't support string module specifiers yet,
+  2 | // but it's easier for us to support them than not.
+> 3 | export type * as "ns2" from './mod';
+    |                  ^
+  4 |"
+`;

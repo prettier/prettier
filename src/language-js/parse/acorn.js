@@ -69,17 +69,17 @@ function parseWithOptions(text, sourceType) {
 function parse(text, options = {}) {
   const sourceType = getSourceType(options);
   const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () => parseWithOptions(text, sourceType)
+    (sourceType) => () => parseWithOptions(text, sourceType),
   );
 
-  const { result: ast, error } = tryCombinations(combinations);
-
-  if (!ast) {
+  let ast;
+  try {
+    ast = tryCombinations(combinations);
+  } catch (/** @type {any} */ { errors: [error] }) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { text });
 }
 
-export default createParser(parse);
+export const acorn = createParser(parse);

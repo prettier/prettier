@@ -1,5 +1,5 @@
 import path from "node:path";
-import { statSafe } from "./utils.js";
+import { lstatSafe, normalizeToPosix } from "./utils.js";
 import { fastGlob } from "./prettier-internal.js";
 
 /** @typedef {import('./context').Context} Context */
@@ -8,7 +8,6 @@ import { fastGlob } from "./prettier-internal.js";
  * @param {Context} context
  */
 async function* expandPatterns(context) {
-  const cwd = process.cwd();
   const seen = new Set();
   let noResults = true;
 
@@ -19,15 +18,15 @@ async function* expandPatterns(context) {
       continue;
     }
 
-    const relativePath = path.relative(cwd, pathOrError);
+    const fileName = path.resolve(pathOrError);
 
     // filter out duplicates
-    if (seen.has(relativePath)) {
+    if (seen.has(fileName)) {
       continue;
     }
 
-    seen.add(relativePath);
-    yield relativePath;
+    seen.add(fileName);
+    yield fileName;
   }
 
   if (noResults && context.argv.errorOnUnmatchedPattern !== false) {
@@ -50,6 +49,7 @@ async function* expandPatternsInternal(context) {
   const globOptions = {
     dot: true,
     ignore: silentlyIgnoredDirs.map((dir) => "**/" + dir),
+    followSymbolicLinks: false,
   };
 
   let supportedFilesGlob;
@@ -65,9 +65,13 @@ async function* expandPatternsInternal(context) {
       continue;
     }
 
-    const stat = await statSafe(absolutePath);
+    const stat = await lstatSafe(absolutePath);
     if (stat) {
-      if (stat.isFile()) {
+      if (stat.isSymbolicLink()) {
+        yield {
+          error: `Explicitly specified pattern "${pattern}" is a symbolic link.`,
+        };
+      } else if (stat.isFile()) {
         entries.push({
           type: "file",
           glob: escapePathForGlob(fixWindowsSlashes(pattern)),
@@ -107,9 +111,10 @@ async function* expandPatternsInternal(context) {
     try {
       result = await fastGlob(glob, globOptions);
     } catch ({ message }) {
-      /* c8 ignore next */
-      yield { error: `${errorMessages.globError[type]}: ${input}\n${message}` };
-      /* c8 ignore next */
+      /* c8 ignore next 4 */
+      yield {
+        error: `${errorMessages.globError[type]}: "${input}".\n${message}`,
+      };
       continue;
     }
 
@@ -125,10 +130,10 @@ async function* expandPatternsInternal(context) {
   function getSupportedFilesGlob() {
     if (!supportedFilesGlob) {
       const extensions = context.languages.flatMap(
-        (lang) => lang.extensions || []
+        (lang) => lang.extensions || [],
       );
       const filenames = context.languages.flatMap(
-        (lang) => lang.filenames || []
+        (lang) => lang.filenames || [],
       );
       supportedFilesGlob = `**/{${[
         ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
@@ -180,23 +185,18 @@ function sortPaths(paths) {
 function escapePathForGlob(path) {
   return fastGlob
     .escapePath(
-      path.replaceAll("\\", "\0") // Workaround for fast-glob#262 (part 1)
+      path.replaceAll("\\", "\0"), // Workaround for fast-glob#262 (part 1)
     )
     .replaceAll("\\!", "@(!)") // Workaround for fast-glob#261
     .replaceAll("\0", "@(\\\\)"); // Workaround for fast-glob#262 (part 2)
 }
-
-const isWindows = path.sep === "\\";
 
 /**
  * Using backslashes in globs is probably not okay, but not accepting
  * backslashes as path separators on Windows is even more not okay.
  * https://github.com/prettier/prettier/pull/6776#discussion_r380723717
  * https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
- * @param {string} pattern
  */
-function fixWindowsSlashes(pattern) {
-  return isWindows ? pattern.replaceAll("\\", "/") : pattern;
-}
+const fixWindowsSlashes = normalizeToPosix;
 
 export { expandPatterns };

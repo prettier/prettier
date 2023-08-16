@@ -7,7 +7,31 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #0 [typescript] format 1`] = `
-"An interface property cannot have an initializer. (1:27)
+"A property signature cannot have an initializer. (1:27)
 > 1 | interface I { x: number = 1;}
     |                           ^"
+`;
+
+exports[`snippet: #1 [babel-ts] format 1`] = `
+"Unexpected token, expected "{" (1:13)
+> 1 | interface A mixins B {}
+    |             ^"
+`;
+
+exports[`snippet: #1 [typescript] format 1`] = `
+"'{' expected. (1:13)
+> 1 | interface A mixins B {}
+    |             ^"
+`;
+
+exports[`snippet: #2 [babel-ts] format 1`] = `
+"Unexpected token, expected "{" (1:13)
+> 1 | interface A implements B {}
+    |             ^"
+`;
+
+exports[`snippet: #2 [typescript] format 1`] = `
+"Interface declaration cannot have 'implements' clause. (1:13)
+> 1 | interface A implements B {}
+    |             ^^^^^^^^^^^^"
 `;

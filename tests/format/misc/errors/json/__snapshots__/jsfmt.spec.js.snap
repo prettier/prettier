@@ -6,6 +6,12 @@ exports[`snippet: #0 [json] format 1`] = `
     |  ^^^"
 `;
 
+exports[`snippet: #0 [json] format 2`] = `
+"A 'set' accessor must have exactly one formal parameter. (1:9)
+> 1 | [class {set foo() {}}]
+    |         ^"
+`;
+
 exports[`snippet: #0 [json-stringify] format 1`] = `
 "Shorthand property is not allowed in JSON. (1:2)
 > 1 | {foo}
@@ -22,6 +28,12 @@ exports[`snippet: #1 [json] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {["foo"]:"bar"}
     |   ^^^^^"
+`;
+
+exports[`snippet: #1 [json] format 2`] = `
+"Private name #bar is not defined. (1:21)
+> 1 | [class {foo() {this.#bar}}]
+    |                     ^"
 `;
 
 exports[`snippet: #1 [json-stringify] format 1`] = `
@@ -42,6 +54,12 @@ exports[`snippet: #2 [json] format 1`] = `
     |         ^^"
 `;
 
+exports[`snippet: #2 [json] format 2`] = `
+"'await' is only allowed within async functions and at the top levels of modules. (1:14)
+> 1 | [function(){ await 1 }]
+    |              ^"
+`;
+
 exports[`snippet: #2 [json-stringify] format 1`] = `
 "Operator '~' is not allowed in JSON. (1:9)
 > 1 | {"foo": ~1}
@@ -58,6 +76,12 @@ exports[`snippet: #3 [json] format 1`] = `
 "'LogicalExpression' is not allowed in JSON. (1:9)
 > 1 | {"foo": false || "bar"}
     |         ^^^^^^^^^^^^^^"
+`;
+
+exports[`snippet: #3 [json] format 2`] = `
+"Unexpected token (1:2)
+> 1 | [do {}]
+    |  ^"
 `;
 
 exports[`snippet: #3 [json-stringify] format 1`] = `
@@ -78,6 +102,12 @@ exports[`snippet: #4 [json] format 1`] = `
     |         ^^^^^^^^"
 `;
 
+exports[`snippet: #4 [json] format 2`] = `
+"'import' and 'export' may only appear at the top level. (1:14)
+> 1 | [function() {export a from 'a'}]
+    |              ^"
+`;
+
 exports[`snippet: #4 [json-stringify] format 1`] = `
 "'ArrowFunctionExpression' is not allowed in JSON. (1:9)
 > 1 | {"foo": () => {}}
@@ -94,6 +124,12 @@ exports[`snippet: #5 [json] format 1`] = `
 "Expecting Unicode escape sequence \\uXXXX. (1:10)
 > 1 | packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
     |          ^"
+`;
+
+exports[`snippet: #5 [json] format 2`] = `
+"Unexpected token (1:1)
+> 1 | export a from 'a'
+    | ^"
 `;
 
 exports[`snippet: #5 [json-stringify] format 1`] = `
@@ -114,6 +150,12 @@ exports[`snippet: #6 [json] format 1`] = `
     | ^^^"
 `;
 
+exports[`snippet: #6 [json] format 2`] = `
+"Unexpected token, expected "," (1:3)
+> 1 | [a::b]
+    |   ^"
+`;
+
 exports[`snippet: #6 [json-stringify] format 1`] = `
 "'BinaryExpression' is not allowed in JSON. (1:1)
 > 1 | 1+2
@@ -130,6 +172,12 @@ exports[`snippet: #7 [json] format 1`] = `
 "Shorthand property is not allowed in JSON. (1:2)
 > 1 | {Infinity}
     |  ^^^^^^^^"
+`;
+
+exports[`snippet: #7 [json] format 2`] = `
+"Unexpected token (1:24)
+> 1 | [function*() {function.sent}]
+    |                        ^"
 `;
 
 exports[`snippet: #7 [json-stringify] format 1`] = `
@@ -150,6 +198,12 @@ exports[`snippet: #8 [json] format 1`] = `
     |   ^^^"
 `;
 
+exports[`snippet: #8 [json] format 2`] = `
+"Unexpected token (1:2)
+> 1 | [throw {}]
+    |  ^"
+`;
+
 exports[`snippet: #8 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[key]: 1}
@@ -166,6 +220,12 @@ exports[`snippet: #9 [json] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[key()]: 1}
     |   ^^^^^"
+`;
+
+exports[`snippet: #9 [json] format 2`] = `
+"Unexpected token (1:6)
+> 1 | [foo(?)]
+    |      ^"
 `;
 
 exports[`snippet: #9 [json-stringify] format 1`] = `
@@ -186,6 +246,12 @@ exports[`snippet: #10 [json] format 1`] = `
     |   ^^^^^^^^^^^^^^^^"
 `;
 
+exports[`snippet: #10 [json] format 2`] = `
+"Unexpected token (1:2)
+> 1 | [@decorator class {}]
+    |  ^"
+`;
+
 exports[`snippet: #10 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {['CallExpression']: 1}
@@ -202,6 +268,12 @@ exports[`snippet: #11 [json] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {['StringLiteral']: 1}
     |   ^^^^^^^^^^^^^^^"
+`;
+
+exports[`snippet: #11 [json] format 2`] = `
+"Unexpected token (1:28)
+> 1 | [import('a', {type:'json'})]
+    |                            ^"
 `;
 
 exports[`snippet: #11 [json-stringify] format 1`] = `
@@ -222,6 +294,12 @@ exports[`snippet: #12 [json] format 1`] = `
     |   ^^^^^^^^"
 `;
 
+exports[`snippet: #12 [json] format 2`] = `
+"Unexpected token (1:3)
+> 1 | [1m]
+    |   ^"
+`;
+
 exports[`snippet: #12 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {['string']: 1}
@@ -238,6 +316,12 @@ exports[`snippet: #13 [json] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[1]: 1}
     |   ^"
+`;
+
+exports[`snippet: #13 [json] format 2`] = `
+"Unexpected token (1:2)
+> 1 | [module {}]
+    |  ^"
 `;
 
 exports[`snippet: #13 [json-stringify] format 1`] = `
@@ -258,6 +342,12 @@ exports[`snippet: #14 [json] format 1`] = `
     |   ^^^^^^^^"
 `;
 
+exports[`snippet: #14 [json] format 2`] = `
+"Unexpected token (1:8)
+> 1 | [async do {}]
+    |        ^"
+`;
+
 exports[`snippet: #14 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[Infinity]: 1}
@@ -274,6 +364,12 @@ exports[`snippet: #15 [json] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[-Infinity]: 1}
     |   ^^^^^^^^^"
+`;
+
+exports[`snippet: #15 [json] format 2`] = `
+"'RegExpLiteral' is not allowed in JSON. (1:2)
+> 1 | [/a/v]
+    |  ^^^^"
 `;
 
 exports[`snippet: #15 [json-stringify] format 1`] = `
@@ -294,6 +390,12 @@ exports[`snippet: #16 [json] format 1`] = `
     |   ^^^^^^^^^^^^^^"
 `;
 
+exports[`snippet: #16 [json] format 2`] = `
+"Unexpected token (1:28)
+> 1 | [class {#foo;bar() {const {#foo: foo} = this;}}]
+    |                            ^"
+`;
+
 exports[`snippet: #16 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[{key: 'value'}]: 1}
@@ -310,6 +412,12 @@ exports[`snippet: #17 [json] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[[]]: 1}
     |   ^^"
+`;
+
+exports[`snippet: #17 [json] format 2`] = `
+"Unexpected token (1:18)
+> 1 | [class {accessor foo = 1}]
+    |                  ^"
 `;
 
 exports[`snippet: #17 [json-stringify] format 1`] = `
@@ -330,6 +438,12 @@ exports[`snippet: #18 [json] format 1`] = `
     |   ^^^^"
 `;
 
+exports[`snippet: #18 [json] format 2`] = `
+"Unexpected token (1:34)
+> 1 | [import('a', {reflect: 'module'})]
+    |                                  ^"
+`;
+
 exports[`snippet: #18 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[null]: 1}
@@ -346,6 +460,12 @@ exports[`snippet: #19 [json] format 1`] = `
 "Operator '+' before 'CallExpression' is not allowed in JSON. (1:8)
 > 1 | {key: +foo()}
     |        ^^^^^"
+`;
+
+exports[`snippet: #19 [json] format 2`] = `
+"\`import\` can only be used in \`import()\` or \`import.meta\`. (1:1)
+> 1 | import module a from 'a'
+    | ^"
 `;
 
 exports[`snippet: #19 [json-stringify] format 1`] = `
@@ -366,6 +486,12 @@ exports[`snippet: #20 [json] format 1`] = `
     |       ^^^^^^^^^^"
 `;
 
+exports[`snippet: #20 [json] format 2`] = `
+"Unexpected token (1:16)
+> 1 | [function() { {using a = b} }]
+    |                ^"
+`;
+
 exports[`snippet: #20 [json-stringify] format 1`] = `
 "Operator 'void' is not allowed in JSON. (1:7)
 > 1 | {key: void foo()}
@@ -383,6 +509,12 @@ exports[`snippet: #21 [json] format 1`] = `
 > 1 | #!/usr/bin/env node
     | ^
   2 | {}"
+`;
+
+exports[`snippet: #21 [json] format 2`] = `
+"Unexpected token, expected "," (1:8)
+> 1 | {using a = b}
+    |        ^"
 `;
 
 exports[`snippet: #21 [json-stringify] format 1`] = `
@@ -406,6 +538,12 @@ exports[`snippet: #22 [json] format 1`] = `
     | ^"
 `;
 
+exports[`snippet: #22 [json] format 2`] = `
+"Unexpected token (1:2)
+> 1 | [#[]]
+    |  ^"
+`;
+
 exports[`snippet: #22 [json-stringify] format 1`] = `
 "Unexpected token (2:1)
   1 | "use strict"
@@ -426,6 +564,12 @@ exports[`snippet: #23 [json] format 1`] = `
     |              ^"
 `;
 
+exports[`snippet: #23 [json] format 2`] = `
+"Unexpected token (1:2)
+> 1 | [#{}]
+    |  ^"
+`;
+
 exports[`snippet: #23 [json-stringify] format 1`] = `
 "Unexpected token (1:14)
 > 1 | /* comment */
@@ -442,6 +586,12 @@ exports[`snippet: #24 [json] format 1`] = `
 "Unexpected token (1:11)
 > 1 | // comment
     |           ^"
+`;
+
+exports[`snippet: #24 [json] format 2`] = `
+"'BinaryExpression' is not allowed in JSON. (1:2)
+> 1 | [foo%bar()]
+    |  ^^^^^^^^^"
 `;
 
 exports[`snippet: #24 [json-stringify] format 1`] = `
@@ -462,6 +612,12 @@ exports[`snippet: #25 [json] format 1`] = `
     |       ^"
 `;
 
+exports[`snippet: #25 [json] format 2`] = `
+"Unexpected token (1:8)
+> 1 | ['foo' |> bar]
+    |        ^"
+`;
+
 exports[`snippet: #25 [json-stringify] format 1`] = `
 "'TemplateLiteral' with expression is not allowed in JSON. (1:7)
 > 1 | \`foo\${1}bar\`
@@ -480,6 +636,12 @@ exports[`snippet: #26 [json] format 1`] = `
     |  ^^"
 `;
 
+exports[`snippet: #26 [json] format 2`] = `
+"Unexpected token (1:8)
+> 1 | ['foo' |> bar(%)]
+    |        ^"
+`;
+
 exports[`snippet: #26 [json-stringify] format 1`] = `
 "Operator '-' before 'UnaryExpression' is not allowed in JSON. (1:2)
 > 1 | -+1
@@ -496,6 +658,12 @@ exports[`snippet: #27 [json] format 1`] = `
 "Operator '-' before 'UnaryExpression' is not allowed in JSON. (1:2)
 > 1 | -+Infinity
     |  ^^^^^^^^^"
+`;
+
+exports[`snippet: #27 [json] format 2`] = `
+"Unexpected token (1:2)
+> 1 | [<foo></foo>]
+    |  ^"
 `;
 
 exports[`snippet: #27 [json-stringify] format 1`] = `

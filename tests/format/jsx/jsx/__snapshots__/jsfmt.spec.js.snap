@@ -312,6 +312,374 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
+exports[`arrow.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: false
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+() => <Component><Children/></Component>;
+() => () => <Component><Children/></Component>;
+() => () => () => <Component><Children/></Component>;
+
+() => <div>Some text here</div>;
+() => () => <div>Some text here</div>;
+() => () => () => <div>Some text here</div>;
+
+() => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+() => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+() => () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+
+<Prettier>
+  {We => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => currying => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+
+=====================================output=====================================
+() => (
+  <Component>
+    <Children />
+  </Component>
+);
+() => () => (
+  <Component>
+    <Children />
+  </Component>
+);
+() => () => () => (
+  <Component>
+    <Children />
+  </Component>
+);
+
+() => <div>Some text here</div>;
+() => () => <div>Some text here</div>;
+() => () => () => <div>Some text here</div>;
+
+() => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+() => () => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+() => () => () => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+
+<Prettier>
+  {(We) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) => (currying) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."
+  }
+</Prettier>;
+
+================================================================================
+`;
+
+exports[`arrow.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+() => <Component><Children/></Component>;
+() => () => <Component><Children/></Component>;
+() => () => () => <Component><Children/></Component>;
+
+() => <div>Some text here</div>;
+() => () => <div>Some text here</div>;
+() => () => () => <div>Some text here</div>;
+
+() => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+() => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+() => () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+
+<Prettier>
+  {We => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => currying => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+
+=====================================output=====================================
+() => (
+  <Component>
+    <Children />
+  </Component>
+);
+() => () => (
+  <Component>
+    <Children />
+  </Component>
+);
+() => () => () => (
+  <Component>
+    <Children />
+  </Component>
+);
+
+() => <div>Some text here</div>;
+() => () => <div>Some text here</div>;
+() => () => () => <div>Some text here</div>;
+
+() => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+() => () => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+() => () => () => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+
+<Prettier>
+  {(We) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) => (currying) =>
+    "The purple monkey danced with a tambourine made of cheese." +
+    "The robot chef cooked a cake that tasted like rainbows." +
+    "The talking pineapple sang a lullaby to the sleepy giraffe."
+  }
+</Prettier>;
+
+================================================================================
+`;
+
+exports[`arrow.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: false
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+() => <Component><Children/></Component>;
+() => () => <Component><Children/></Component>;
+() => () => () => <Component><Children/></Component>;
+
+() => <div>Some text here</div>;
+() => () => <div>Some text here</div>;
+() => () => () => <div>Some text here</div>;
+
+() => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+() => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+() => () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+
+<Prettier>
+  {We => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => currying => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+
+=====================================output=====================================
+() => (
+  <Component>
+    <Children />
+  </Component>
+);
+() => () => (
+  <Component>
+    <Children />
+  </Component>
+);
+() => () => () => (
+  <Component>
+    <Children />
+  </Component>
+);
+
+() => <div>Some text here</div>;
+() => () => <div>Some text here</div>;
+() => () => () => <div>Some text here</div>;
+
+() => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+() => () => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+() => () => () => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+
+<Prettier>
+  {(We) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) => (currying) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'
+  }
+</Prettier>;
+
+================================================================================
+`;
+
+exports[`arrow.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+() => <Component><Children/></Component>;
+() => () => <Component><Children/></Component>;
+() => () => () => <Component><Children/></Component>;
+
+() => <div>Some text here</div>;
+() => () => <div>Some text here</div>;
+() => () => () => <div>Some text here</div>;
+
+() => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+() => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+() => () => () => <div>Long long long long long, very very long text. And more text. Another text.</div>;
+
+<Prettier>
+  {We => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+<Prettier>
+  {We => love => currying => 'The purple monkey danced with a tambourine made of cheese.' + 'The robot chef cooked a cake that tasted like rainbows.' + 'The talking pineapple sang a lullaby to the sleepy giraffe.'}
+</Prettier>;
+
+=====================================output=====================================
+() => (
+  <Component>
+    <Children />
+  </Component>
+);
+() => () => (
+  <Component>
+    <Children />
+  </Component>
+);
+() => () => () => (
+  <Component>
+    <Children />
+  </Component>
+);
+
+() => <div>Some text here</div>;
+() => () => <div>Some text here</div>;
+() => () => () => <div>Some text here</div>;
+
+() => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+() => () => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+() => () => () => (
+  <div>
+    Long long long long long, very very long text. And more text. Another text.
+  </div>
+);
+
+<Prettier>
+  {(We) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'
+  }
+</Prettier>;
+<Prettier>
+  {(We) => (love) => (currying) =>
+    'The purple monkey danced with a tambourine made of cheese.' +
+    'The robot chef cooked a cake that tasted like rainbows.' +
+    'The talking pineapple sang a lullaby to the sleepy giraffe.'
+  }
+</Prettier>;
+
+================================================================================
+`;
+
 exports[`attr-comments.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false

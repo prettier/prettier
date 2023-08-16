@@ -120,7 +120,10 @@ class C {
 
 class D<T, U> {
   constructor(x: T, y: U);
-  constructor(x: T = 1, public y: U = x) {
+  constructor(
+    x: T = 1,
+    public y: U = x,
+  ) {
     var z = x;
   }
 }
@@ -235,7 +238,10 @@ var r4 = d.z; // error
 =====================================output=====================================
 class C {
   y: string;
-  constructor(private x: string, protected z: string) {}
+  constructor(
+    private x: string,
+    protected z: string,
+  ) {}
 }
 
 var c: C;
@@ -245,7 +251,11 @@ var r3 = c.z; // error
 
 class D<T> {
   y: T;
-  constructor(a: T, private x: T, protected z: T) {}
+  constructor(
+    a: T,
+    private x: T,
+    protected z: T,
+  ) {}
 }
 
 var d: D<string>;

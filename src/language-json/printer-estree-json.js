@@ -1,6 +1,5 @@
 import { hardline, indent, join } from "../document/builders.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
-import getVisitorKeys from "./get-visitor-keys.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -14,7 +13,7 @@ function genericPrint(path, options, print) {
 
       const printed = path.map(
         () => (path.node === null ? "null" : print()),
-        "elements"
+        "elements",
       );
 
       return [
@@ -113,10 +112,5 @@ function clean(node, newNode /*, parent*/) {
 
 clean.ignoredProperties = ignoredProperties;
 
-const printer = {
-  print: genericPrint,
-  massageAstNode: clean,
-  getVisitorKeys,
-};
-
-export default printer;
+export { genericPrint as print, clean as massageAstNode };
+export { default as getVisitorKeys } from "./get-visitor-keys.js";

@@ -6,7 +6,7 @@ export default async function checkGitStatus() {
   if (status) {
     throw new Error(
       "Uncommitted local changes. " +
-        "Please revert or commit all local changes before making a release."
+        "Please revert or commit all local changes before making a release.",
     );
   }
 }

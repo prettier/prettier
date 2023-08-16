@@ -1,6 +1,5 @@
 const errors = {
   flow: true,
-  typescript: true,
   acorn: true,
   espree: true,
 };

@@ -46,5 +46,5 @@ run_spec(
       "0o16432m;",
     ],
   },
-  ["babel"]
+  ["babel"],
 );

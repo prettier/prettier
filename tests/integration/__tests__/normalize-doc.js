@@ -1,9 +1,5 @@
-import prettier from "../../config/prettier-entry.js";
-const docBuilders = prettier.doc.builders;
-const docUtils = prettier.doc.utils;
-
-const { normalizeDoc } = docUtils;
-const { group, fill } = docBuilders;
+import { normalizeDoc } from "../../../src/document/utils.js";
+import { group, fill } from "../../../src/document/builders.js";
 
 describe("normalizeDoc", () => {
   test.each([

@@ -484,7 +484,8 @@ printWidth: 80
   #bbbbbb // then some B
   #cccccc; // and round it out with C
 
-@test-comma-separated: #aaaaaa,
+@test-comma-separated:
+  #aaaaaa,
   // Start with A
   #bbbbbb,
   // then some B

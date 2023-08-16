@@ -18,12 +18,10 @@ import {
   needsHardlineAfterDanglingComment,
   isStringLiteral,
   rawText,
+  createTypeCheckFunction,
 } from "../utils/index.js";
 import { locStart, hasSameLoc } from "../loc.js";
-import {
-  hasDecoratorsBeforeExport,
-  printDecoratorsBeforeExport,
-} from "./decorators.js";
+import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./misc.js";
 
 /**
@@ -32,56 +30,41 @@ import { printDeclareToken } from "./misc.js";
 
 function printImportDeclaration(path, options, print) {
   const { node } = path;
-  const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
-  const parts = [];
-
-  const { importKind } = node;
-
-  parts.push("import");
-
-  if (node.module) {
-    parts.push(" module");
-  }
-
-  if (importKind && importKind !== "value") {
-    parts.push(" ", importKind);
-  }
-
-  parts.push(
+  return [
+    "import",
+    node.module ? " module" : "",
+    printImportKind(node),
     printModuleSpecifiers(path, options, print),
     printModuleSource(path, options, print),
-    printImportAssertions(path, options, print),
-    semi
-  );
-
-  return parts;
+    printImportAttributes(path, options, print),
+    options.semi ? ";" : "",
+  ];
 }
+
+const isDefaultExport = (node) =>
+  node.type === "ExportDefaultDeclaration" ||
+  (node.type === "DeclareExportDeclaration" && node.default);
 
 /*
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
 - `DeclareExportDeclaration`(flow)
+- `ExportAllDeclaration`
+- `DeclareExportAllDeclaration`(flow)
 */
 function printExportDeclaration(path, options, print) {
   const { node } = path;
+
   /** @type{Doc[]} */
-  const parts = [];
+  const parts = [
+    printDecoratorsBeforeExport(path, options, print),
+    printDeclareToken(path),
+    "export",
+    isDefaultExport(node) ? " default" : "",
+  ];
 
-  // Only print decorators here if they were written before the export,
-  // otherwise they are printed by the node.declaration
-  if (hasDecoratorsBeforeExport(node)) {
-    parts.push(printDecoratorsBeforeExport(path, options, print));
-  }
-
-  const { type, exportKind, declaration } = node;
-
-  parts.push(printDeclareToken(path), "export");
-
-  const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
-  if (isDefaultExport) {
-    parts.push(" default");
-  }
+  const { declaration, exported } = node;
 
   if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(" ", printDanglingComments(path, options));
@@ -94,77 +77,64 @@ function printExportDeclaration(path, options, print) {
   if (declaration) {
     parts.push(" ", print("declaration"));
   } else {
+    parts.push(printExportKind(node));
+
+    if (
+      node.type === "ExportAllDeclaration" ||
+      node.type === "DeclareExportAllDeclaration"
+    ) {
+      parts.push(" *");
+      if (exported) {
+        parts.push(" as ", print("exported"));
+      }
+    } else {
+      parts.push(printModuleSpecifiers(path, options, print));
+    }
+
     parts.push(
-      exportKind === "type" ? " type" : "",
-      printModuleSpecifiers(path, options, print),
       printModuleSource(path, options, print),
-      printImportAssertions(path, options, print)
+      printImportAttributes(path, options, print),
     );
   }
 
-  if (shouldExportDeclarationPrintSemi(node, options)) {
-    parts.push(";");
-  }
+  parts.push(printSemicolonAfterExportDeclaration(node, options));
 
   return parts;
 }
 
-/*
-- `ExportAllDeclaration`
-- `DeclareExportAllDeclaration`(flow)
-*/
-function printExportAllDeclaration(path, options, print) {
-  const { node } = path;
-  const semi = options.semi ? ";" : "";
-  /** @type{Doc[]} */
-  const parts = [printDeclareToken(path), "export"];
-
-  const { exportKind, exported } = node;
-
-  if (exportKind === "type") {
-    parts.push(" type");
-  }
-
-  parts.push(" *");
-
-  if (exported) {
-    parts.push(" as ", print("exported"));
-  }
-
-  parts.push(
-    printModuleSource(path, options, print),
-    printImportAssertions(path, options, print),
-    semi
-  );
-
-  return parts;
-}
-
-function shouldExportDeclarationPrintSemi(node, options) {
-  if (!options.semi) {
-    return false;
-  }
-
-  const { type, declaration } = node;
-  const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
-  if (!declaration) {
-    return true;
-  }
-
-  const { type: declarationType } = declaration;
+const shouldOmitSemicolon = createTypeCheckFunction([
+  "ClassDeclaration",
+  "FunctionDeclaration",
+  "TSInterfaceDeclaration",
+  "DeclareClass",
+  "DeclareFunction",
+  "TSDeclareFunction",
+  "EnumDeclaration",
+]);
+function printSemicolonAfterExportDeclaration(node, options) {
   if (
-    isDefaultExport &&
-    declarationType !== "ClassDeclaration" &&
-    declarationType !== "FunctionDeclaration" &&
-    declarationType !== "TSInterfaceDeclaration" &&
-    declarationType !== "DeclareClass" &&
-    declarationType !== "DeclareFunction" &&
-    declarationType !== "TSDeclareFunction" &&
-    declarationType !== "EnumDeclaration"
+    options.semi &&
+    (!node.declaration ||
+      (isDefaultExport(node) && !shouldOmitSemicolon(node.declaration)))
   ) {
-    return true;
+    return ";";
   }
-  return false;
+
+  return "";
+}
+
+function printImportOrExportKind(kind, spaceBeforeKind = true) {
+  return kind && kind !== "value"
+    ? `${spaceBeforeKind ? " " : ""}${kind}${spaceBeforeKind ? "" : " "}`
+    : "";
+}
+
+function printImportKind(node, spaceBeforeKind) {
+  return printImportOrExportKind(node.importKind, spaceBeforeKind);
+}
+
+function printExportKind(node) {
+  return printImportOrExportKind(node.exportKind);
 }
 
 function printModuleSource(path, options, print) {
@@ -241,7 +211,7 @@ function printModuleSpecifiers(path, options, print) {
             ifBreak(shouldPrintComma(options) ? "," : ""),
             options.bracketSpacing ? line : softline,
             "}",
-          ])
+          ]),
         );
       } else {
         parts.push([
@@ -272,42 +242,47 @@ function shouldNotPrintSpecifiers(node, options) {
 
   // TODO: check tokens
   return !/{\s*}/.test(
-    options.originalText.slice(locStart(node), locStart(source))
+    options.originalText.slice(locStart(node), locStart(source)),
   );
 }
 
-function printImportAssertions(path, options, print) {
+/**
+ * Print Import Attributes syntax.
+ * If old ImportAssertions syntax is used, print them here.
+ */
+function printImportAttributes(path, options, print) {
   const { node } = path;
-  if (isNonEmptyArray(node.assertions)) {
-    return [
-      " assert {",
-      options.bracketSpacing ? " " : "",
-      join(", ", path.map(print, "assertions")),
-      options.bracketSpacing ? " " : "",
-      "}",
-    ];
+
+  const property = isNonEmptyArray(node.attributes)
+    ? "attributes"
+    : isNonEmptyArray(node.assertions)
+    ? "assertions"
+    : undefined;
+
+  if (!property) {
+    return "";
   }
-  return "";
+
+  const keyword =
+    property === "assertions" || node.extra?.deprecatedAssertSyntax
+      ? "assert"
+      : "with";
+  return [
+    ` ${keyword} {`,
+    options.bracketSpacing ? " " : "",
+    join(", ", path.map(print, property)),
+    options.bracketSpacing ? " " : "",
+    "}",
+  ];
 }
 
 function printModuleSpecifier(path, options, print) {
   const { node } = path;
-
   const { type } = node;
 
-  /** @type {Doc[]} */
-  const parts = [];
-
-  /** @type {"type" | "typeof" | "value"} */
-  const kind = type === "ImportSpecifier" ? node.importKind : node.exportKind;
-
-  if (kind && kind !== "value") {
-    parts.push(kind, " ");
-  }
-
-  const isImport = type.startsWith("Import");
-  const leftSideProperty = isImport ? "imported" : "local";
-  const rightSideProperty = isImport ? "local" : "exported";
+  const isImportSpecifier = type.startsWith("Import");
+  const leftSideProperty = isImportSpecifier ? "imported" : "local";
+  const rightSideProperty = isImportSpecifier ? "local" : "exported";
   const leftSideNode = node[leftSideProperty];
   const rightSideNode = node[rightSideProperty];
   let left = "";
@@ -325,8 +300,15 @@ function printModuleSpecifier(path, options, print) {
     right = print(rightSideProperty);
   }
 
-  parts.push(left, left && right ? " as " : "", right);
-  return parts;
+  return [
+    printImportOrExportKind(
+      type === "ImportSpecifier" ? node.importKind : node.exportKind,
+      /* spaceBeforeKind */ false,
+    ),
+    left,
+    left && right ? " as " : "",
+    right,
+  ];
 }
 
 function isShorthandSpecifier(specifier) {
@@ -369,6 +351,6 @@ function isShorthandSpecifier(specifier) {
 export {
   printImportDeclaration,
   printExportDeclaration,
-  printExportAllDeclaration,
   printModuleSpecifier,
+  printImportKind,
 };

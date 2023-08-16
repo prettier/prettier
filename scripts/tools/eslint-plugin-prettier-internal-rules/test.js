@@ -4,38 +4,38 @@
 const path = require("path");
 const { outdent } = require("outdent");
 const { RuleTester } = require("eslint");
-const { rules } = require(".");
+const { rules } = require("./index.js");
 
 const test = (ruleId, tests) => {
   new RuleTester({ parserOptions: { ecmaVersion: 2021 } }).run(
     ruleId,
     rules[ruleId],
-    tests
+    tests,
   );
 };
 
 test("await-cli-tests", {
   valid: [
-    "async () => await runPrettier()",
-    "runPrettier().test()",
-    "notRunPrettier()",
-    "async () => await runPrettier().stderr",
+    "async () => await runCli()",
+    "runCli().test()",
+    "notRunCli()",
+    "async () => await runCli().stderr",
     outdent`
       async () => {
-        const originalStdout = await runPrettier("plugins/options", ["--help"]).stdout;
+        const originalStdout = await runCli("plugins/options", ["--help"]).stdout;
       }
     `,
   ],
   invalid: [
     {
-      code: "runPrettier()",
+      code: "runCli()",
       errors: [
-        { message: "'runPrettier()' should be awaited or calling `.test()`." },
+        { message: "'runCli()' should be awaited or calling `.test()`." },
       ],
     },
     {
-      code: "runPrettier().stderr",
-      errors: [{ message: "'runPrettier().stderr' should be awaited." }],
+      code: "runCli().stderr",
+      errors: [{ message: "'runCli().stderr' should be awaited." }],
     },
   ],
 });
@@ -388,11 +388,6 @@ test("prefer-create-type-check-function", {
     `,
     outdent`
       function isIdentifier(node){
-        return node.type === Identifier;
-      }
-    `,
-    outdent`
-      function isIdentifier(node){
         return node.type !== "Identifier";
       }
     `,
@@ -436,11 +431,7 @@ test("prefer-create-type-check-function", {
           return node.type === "Identifier";
         }
       `,
-      output: outdent`
-        const isIdentifier = createTypeCheckFunction([
-          "Identifier"
-        ]);
-      `,
+      output: 'const isIdentifier = createTypeCheckFunction(["Identifier"]);',
       errors: 1,
     },
     {
@@ -450,9 +441,7 @@ test("prefer-create-type-check-function", {
         }
       `,
       output: outdent`
-        const isIdentifier = createTypeCheckFunction([
-          "Identifier"
-        ]);
+        const isIdentifier = createTypeCheckFunction(["Identifier"]);
         export default isIdentifier;
       `,
       errors: 1,
@@ -464,9 +453,7 @@ test("prefer-create-type-check-function", {
         }
       `,
       output: outdent`
-        const __please_name_this_function = createTypeCheckFunction([
-          "Identifier"
-        ]);
+        const __please_name_this_function = createTypeCheckFunction(["Identifier"]);
         export default __please_name_this_function;
       `,
       errors: 1,
@@ -477,22 +464,14 @@ test("prefer-create-type-check-function", {
           return node.type === "Identifier";
         })
       `,
-      output: outdent`
-        use(createTypeCheckFunction([
-          "Identifier"
-        ]))
-      `,
+      output: 'use(createTypeCheckFunction(["Identifier"]))',
       errors: 1,
     },
     {
       code: outdent`
         const foo = node => node.type === "Identifier";
       `,
-      output: outdent`
-        const foo = createTypeCheckFunction([
-          "Identifier"
-        ]);
-      `,
+      output: 'const foo = createTypeCheckFunction(["Identifier"]);',
       errors: 1,
     },
     {
@@ -501,11 +480,7 @@ test("prefer-create-type-check-function", {
           return node.type === "Identifier";
         };
       `,
-      output: outdent`
-        const foo = createTypeCheckFunction([
-          "Identifier"
-        ]);
-      `,
+      output: 'const foo = createTypeCheckFunction(["Identifier"]);',
       errors: 1,
     },
     {
@@ -513,12 +488,8 @@ test("prefer-create-type-check-function", {
         const foo = node =>
           node.type === "Identifier" || node.type === "FunctionExpression";
       `,
-      output: outdent`
-        const foo = createTypeCheckFunction([
-          "Identifier",
-          "FunctionExpression"
-        ]);
-      `,
+      output:
+        'const foo = createTypeCheckFunction(["Identifier", "FunctionExpression"]);',
       errors: 1,
     },
     {
@@ -526,15 +497,55 @@ test("prefer-create-type-check-function", {
         const foo = node =>
           node.type === "Identifier" || node?.type === "FunctionExpression";
       `,
-      output: outdent`
-        const foo = createTypeCheckFunction([
-          "Identifier",
-          "FunctionExpression"
-        ]);
-      `,
+      output:
+        'const foo = createTypeCheckFunction(["Identifier", "FunctionExpression"]);',
       errors: 1,
     },
-    // Skip fix if comments inside
+    {
+      code: outdent`
+        const foo = node => node.type === a.complex.way.to.get.type();
+      `,
+      output:
+        "const foo = createTypeCheckFunction([a.complex.way.to.get.type()]);",
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = ({type}) => type === a.complex.way.to.get.type();
+      `,
+      output:
+        "const foo = createTypeCheckFunction([a.complex.way.to.get.type()]);",
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = ({type}) =>
+          a.complex.way.to.get.types().includes(type) ||
+          another.complex.way.to.get.types().has(type) ||
+          type === "Identifier";
+      `,
+      output:
+        'const foo = createTypeCheckFunction([...a.complex.way.to.get.types(), ...another.complex.way.to.get.types(), "Identifier"]);',
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = (node) =>
+          a.complex.way.to.get.types().includes(node.type) ||
+          another.complex.way.to.get.types().has(node.type) ||
+          node.type === "Identifier";
+      `,
+      output:
+        'const foo = createTypeCheckFunction([...a.complex.way.to.get.types(), ...another.complex.way.to.get.types(), "Identifier"]);',
+      errors: 1,
+    },
+    // Single set
+    {
+      code: "const foo = ({type}) => foo.has(type);",
+      output: "const foo = createTypeCheckFunction(foo);",
+      errors: 1,
+    },
+    // Skip fix if comments can't be kept
     {
       code: outdent`
         const foo = node =>
@@ -552,12 +563,8 @@ test("prefer-create-type-check-function", {
           type === "ClassProperty" ||
           type === "PropertyDefinition";
       `,
-      output: outdent`
-        const isClassProperty = createTypeCheckFunction([
-          "ClassProperty",
-          "PropertyDefinition"
-        ]);
-      `,
+      output:
+        'const isClassProperty = createTypeCheckFunction(["ClassProperty", "PropertyDefinition"]);',
       errors: 1,
     },
   ].map((testCase) => ({

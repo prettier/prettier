@@ -320,10 +320,10 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-    [target]=" a | b : c "
+    bindon-target=" a | b : c:d :e "
+    [(target)]=" a | b : c:d :e "
+    bind-target=" a | b : c:d :e "
+    [target]=" a | b : c:d :e "
     [target]=" a | pipe   "
     [target]=" 0 - 1 "
     [target]=" - 1 "
@@ -334,10 +334,10 @@ printWidth: 80
     [target]=" [ 1 ] "
     [target]=" { 'a' : 1 } "
     [target]=" { a : 1 } "
-    [target]=" { 
+    [target]=" {
       trailingComma : 'notAllowed'
     }"
-    [target]=" [ 
+    [target]=" [
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
     [target]=" true "
@@ -354,6 +354,8 @@ printWidth: 80
     [target]=" a "
     [target]=" a // hello "
     [target]=" a . b "
+    [target]=" a ?. b "
+    [target]=" a ?. [b] "
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
@@ -366,6 +368,8 @@ printWidth: 80
     (target)=" a ; b "
     (event)="  0  "
     (event)="  a.b  "
+    (event)="  a   ?.b  "
+    (event)="  a?.[  b]  "
     (event)="  hello  "
     (event)="  hello()  "
     (event)="  a && b  "
@@ -410,14 +414,14 @@ printWidth: 80
     test='{{ "test" | translate }}'
     test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
     test='foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
+             invalid       }}
+
+    bar
+
+          {{       valid       }}
+
     baz'
     i18n="Normal i18n text"
     i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
@@ -432,10 +436,10 @@ printWidth: 80
 
 =====================================output=====================================
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target="a | b : c"
-  [target]="a | b : c"
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target="a | b: c : d : e"
+  [target]="a | b: c : d : e"
   [target]="a | pipe"
   [target]="0 - 1"
   [target]="-1"
@@ -466,6 +470,8 @@ printWidth: 80
   [target]="a"
   [target]="a // hello"
   [target]="a.b"
+  [target]="a?.b"
+  [target]="a?.[b]"
   [target]=" javascript : 'hello world' "
   [target]="a?.b()"
   [target]="a?.b"
@@ -478,6 +484,8 @@ printWidth: 80
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
+  (event)="(a?.b)"
+  (event)="(a?.[b])"
   (event)="(hello)"
   (event)="hello()"
   (event)="(a && b)"
@@ -545,14 +553,14 @@ printWidth: 80
   test="{{ 'test' | translate }}"
   test="foo {{       invalid invalid       }} bar {{ valid }} baz"
   test="foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{ valid }} 
-    
+             invalid       }}
+
+    bar
+
+          {{ valid }}
+
     baz"
   i18n="Normal i18n text"
   i18n="
@@ -591,10 +599,10 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-    [target]=" a | b : c "
+    bindon-target=" a | b : c:d :e "
+    [(target)]=" a | b : c:d :e "
+    bind-target=" a | b : c:d :e "
+    [target]=" a | b : c:d :e "
     [target]=" a | pipe   "
     [target]=" 0 - 1 "
     [target]=" - 1 "
@@ -605,10 +613,10 @@ printWidth: 80
     [target]=" [ 1 ] "
     [target]=" { 'a' : 1 } "
     [target]=" { a : 1 } "
-    [target]=" { 
+    [target]=" {
       trailingComma : 'notAllowed'
     }"
-    [target]=" [ 
+    [target]=" [
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
     [target]=" true "
@@ -625,6 +633,8 @@ printWidth: 80
     [target]=" a "
     [target]=" a // hello "
     [target]=" a . b "
+    [target]=" a ?. b "
+    [target]=" a ?. [b] "
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
@@ -637,6 +647,8 @@ printWidth: 80
     (target)=" a ; b "
     (event)="  0  "
     (event)="  a.b  "
+    (event)="  a   ?.b  "
+    (event)="  a?.[  b]  "
     (event)="  hello  "
     (event)="  hello()  "
     (event)="  a && b  "
@@ -681,14 +693,14 @@ printWidth: 80
     test='{{ "test" | translate }}'
     test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
     test='foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
+             invalid       }}
+
+    bar
+
+          {{       valid       }}
+
     baz'
     i18n="Normal i18n text"
     i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
@@ -703,10 +715,10 @@ printWidth: 80
 
 =====================================output=====================================
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target="a | b : c"
-  [target]="a | b : c"
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target="a | b: c : d : e"
+  [target]="a | b: c : d : e"
   [target]="a | pipe"
   [target]="0 - 1"
   [target]="-1"
@@ -737,6 +749,8 @@ printWidth: 80
   [target]="a"
   [target]="a // hello"
   [target]="a.b"
+  [target]="a?.b"
+  [target]="a?.[b]"
   [target]=" javascript : 'hello world' "
   [target]="a?.b()"
   [target]="a?.b"
@@ -749,6 +763,8 @@ printWidth: 80
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
+  (event)="(a?.b)"
+  (event)="(a?.[b])"
   (event)="(hello)"
   (event)="hello()"
   (event)="(a && b)"
@@ -816,14 +832,14 @@ printWidth: 80
   test="{{ 'test' | translate }}"
   test="foo {{       invalid invalid       }} bar {{ valid }} baz"
   test="foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{ valid }} 
-    
+             invalid       }}
+
+    bar
+
+          {{ valid }}
+
     baz"
   i18n="Normal i18n text"
   i18n="
@@ -861,10 +877,10 @@ printWidth: 1
  | printWidth
 =====================================input======================================
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-    [target]=" a | b : c "
+    bindon-target=" a | b : c:d :e "
+    [(target)]=" a | b : c:d :e "
+    bind-target=" a | b : c:d :e "
+    [target]=" a | b : c:d :e "
     [target]=" a | pipe   "
     [target]=" 0 - 1 "
     [target]=" - 1 "
@@ -875,10 +891,10 @@ printWidth: 1
     [target]=" [ 1 ] "
     [target]=" { 'a' : 1 } "
     [target]=" { a : 1 } "
-    [target]=" { 
+    [target]=" {
       trailingComma : 'notAllowed'
     }"
-    [target]=" [ 
+    [target]=" [
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
     [target]=" true "
@@ -895,6 +911,8 @@ printWidth: 1
     [target]=" a "
     [target]=" a // hello "
     [target]=" a . b "
+    [target]=" a ?. b "
+    [target]=" a ?. [b] "
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
@@ -907,6 +925,8 @@ printWidth: 1
     (target)=" a ; b "
     (event)="  0  "
     (event)="  a.b  "
+    (event)="  a   ?.b  "
+    (event)="  a?.[  b]  "
     (event)="  hello  "
     (event)="  hello()  "
     (event)="  a && b  "
@@ -951,14 +971,14 @@ printWidth: 1
     test='{{ "test" | translate }}'
     test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
     test='foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
+             invalid       }}
+
+    bar
+
+          {{       valid       }}
+
     baz'
     i18n="Normal i18n text"
     i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
@@ -977,21 +997,29 @@ printWidth: 1
     a
       | b
         : c
+        : d
+        : e
   "
   [(target)]="
     a
       | b
         : c
+        : d
+        : e
   "
   bind-target="
     a
       | b
         : c
+        : d
+        : e
   "
   [target]="
     a
       | b
         : c
+        : d
+        : e
   "
   [target]="
     a
@@ -1088,6 +1116,14 @@ printWidth: 1
   [target]="
     a.b
   "
+  [target]="
+    a?.b
+  "
+  [target]="
+    a?.[
+      b
+    ]
+  "
   [target]=" javascript : 'hello world' "
   [target]="
     a?.b()
@@ -1125,6 +1161,14 @@ printWidth: 1
   "
   (event)="
     (a.b)
+  "
+  (event)="
+    (a?.b)
+  "
+  (event)="
+    (a?.[
+      b
+    ])
   "
   (event)="
     (hello)
@@ -1323,16 +1367,16 @@ printWidth: 1
     valid
   }} baz"
   test="foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
+             invalid       }}
+
+    bar
+
           {{
     valid
-  }} 
-    
+  }}
+
     baz"
   i18n="
     Normal
@@ -1460,10 +1504,10 @@ trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-    [target]=" a | b : c "
+    bindon-target=" a | b : c:d :e "
+    [(target)]=" a | b : c:d :e "
+    bind-target=" a | b : c:d :e "
+    [target]=" a | b : c:d :e "
     [target]=" a | pipe   "
     [target]=" 0 - 1 "
     [target]=" - 1 "
@@ -1474,10 +1518,10 @@ trailingComma: "es5"
     [target]=" [ 1 ] "
     [target]=" { 'a' : 1 } "
     [target]=" { a : 1 } "
-    [target]=" { 
+    [target]=" {
       trailingComma : 'notAllowed'
     }"
-    [target]=" [ 
+    [target]=" [
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
     [target]=" true "
@@ -1494,6 +1538,8 @@ trailingComma: "es5"
     [target]=" a "
     [target]=" a // hello "
     [target]=" a . b "
+    [target]=" a ?. b "
+    [target]=" a ?. [b] "
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
@@ -1506,6 +1552,8 @@ trailingComma: "es5"
     (target)=" a ; b "
     (event)="  0  "
     (event)="  a.b  "
+    (event)="  a   ?.b  "
+    (event)="  a?.[  b]  "
     (event)="  hello  "
     (event)="  hello()  "
     (event)="  a && b  "
@@ -1550,14 +1598,14 @@ trailingComma: "es5"
     test='{{ "test" | translate }}'
     test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
     test='foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
+             invalid       }}
+
+    bar
+
+          {{       valid       }}
+
     baz'
     i18n="Normal i18n text"
     i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
@@ -1572,10 +1620,10 @@ trailingComma: "es5"
 
 =====================================output=====================================
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target="a | b : c"
-  [target]="a | b : c"
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target="a | b: c : d : e"
+  [target]="a | b: c : d : e"
   [target]="a | pipe"
   [target]="0 - 1"
   [target]="-1"
@@ -1606,6 +1654,8 @@ trailingComma: "es5"
   [target]="a"
   [target]="a // hello"
   [target]="a.b"
+  [target]="a?.b"
+  [target]="a?.[b]"
   [target]=" javascript : 'hello world' "
   [target]="a?.b()"
   [target]="a?.b"
@@ -1618,6 +1668,8 @@ trailingComma: "es5"
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
+  (event)="(a?.b)"
+  (event)="(a?.[b])"
   (event)="(hello)"
   (event)="hello()"
   (event)="(a && b)"
@@ -1685,14 +1737,14 @@ trailingComma: "es5"
   test="{{ 'test' | translate }}"
   test="foo {{       invalid invalid       }} bar {{ valid }} baz"
   test="foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{ valid }} 
-    
+             invalid       }}
+
+    bar
+
+          {{ valid }}
+
     baz"
   i18n="Normal i18n text"
   i18n="
@@ -1731,10 +1783,10 @@ trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-    [target]=" a | b : c "
+    bindon-target=" a | b : c:d :e "
+    [(target)]=" a | b : c:d :e "
+    bind-target=" a | b : c:d :e "
+    [target]=" a | b : c:d :e "
     [target]=" a | pipe   "
     [target]=" 0 - 1 "
     [target]=" - 1 "
@@ -1745,10 +1797,10 @@ trailingComma: "none"
     [target]=" [ 1 ] "
     [target]=" { 'a' : 1 } "
     [target]=" { a : 1 } "
-    [target]=" { 
+    [target]=" {
       trailingComma : 'notAllowed'
     }"
-    [target]=" [ 
+    [target]=" [
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
     [target]=" true "
@@ -1765,6 +1817,8 @@ trailingComma: "none"
     [target]=" a "
     [target]=" a // hello "
     [target]=" a . b "
+    [target]=" a ?. b "
+    [target]=" a ?. [b] "
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
@@ -1777,6 +1831,8 @@ trailingComma: "none"
     (target)=" a ; b "
     (event)="  0  "
     (event)="  a.b  "
+    (event)="  a   ?.b  "
+    (event)="  a?.[  b]  "
     (event)="  hello  "
     (event)="  hello()  "
     (event)="  a && b  "
@@ -1821,14 +1877,14 @@ trailingComma: "none"
     test='{{ "test" | translate }}'
     test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
     test='foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
+             invalid       }}
+
+    bar
+
+          {{       valid       }}
+
     baz'
     i18n="Normal i18n text"
     i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
@@ -1843,10 +1899,10 @@ trailingComma: "none"
 
 =====================================output=====================================
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target="a | b : c"
-  [target]="a | b : c"
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target="a | b: c : d : e"
+  [target]="a | b: c : d : e"
   [target]="a | pipe"
   [target]="0 - 1"
   [target]="-1"
@@ -1877,6 +1933,8 @@ trailingComma: "none"
   [target]="a"
   [target]="a // hello"
   [target]="a.b"
+  [target]="a?.b"
+  [target]="a?.[b]"
   [target]=" javascript : 'hello world' "
   [target]="a?.b()"
   [target]="a?.b"
@@ -1889,6 +1947,8 @@ trailingComma: "none"
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
+  (event)="(a?.b)"
+  (event)="(a?.[b])"
   (event)="(hello)"
   (event)="hello()"
   (event)="(a && b)"
@@ -1956,14 +2016,14 @@ trailingComma: "none"
   test="{{ 'test' | translate }}"
   test="foo {{       invalid invalid       }} bar {{ valid }} baz"
   test="foo
-    
+
     {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{ valid }} 
-    
+             invalid       }}
+
+    bar
+
+          {{ valid }}
+
     baz"
   i18n="Normal i18n text"
   i18n="
@@ -2546,52 +2606,52 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 
 =====================================output=====================================
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target="a | b : c"
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target="a | b: c : d : e"
 ></div>
 <!--  prettier-ignore-attribute -->
 <div
-  bindon-target=" a | b : c "
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target=" a | b : c "
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
-  bindon-target="a | b : c"
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
+  bindon-target="a | b: c : d : e"
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 
 ================================================================================
@@ -2605,52 +2665,52 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 
 =====================================output=====================================
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target="a | b : c"
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target="a | b: c : d : e"
 ></div>
 <!--  prettier-ignore-attribute -->
 <div
-  bindon-target=" a | b : c "
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target=" a | b : c "
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
-  bindon-target="a | b : c"
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
+  bindon-target="a | b: c : d : e"
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 
 ================================================================================
@@ -2663,27 +2723,27 @@ printWidth: 1
  | printWidth
 =====================================input======================================
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 
 =====================================output=====================================
@@ -2692,23 +2752,29 @@ printWidth: 1
     a
       | b
         : c
+        : d
+        : e
   "
   [(target)]="
     a
       | b
         : c
+        : d
+        : e
   "
   bind-target="
     a
       | b
         : c
+        : d
+        : e
   "
 ></div>
 <!--  prettier-ignore-attribute -->
 <div
-  bindon-target=" a | b : c "
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
@@ -2716,13 +2782,17 @@ printWidth: 1
     a
       | b
         : c
+        : d
+        : e
   "
   [(target)]="
     a
       | b
         : c
+        : d
+        : e
   "
-  bind-target=" a | b : c "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
@@ -2730,9 +2800,11 @@ printWidth: 1
     a
       | b
         : c
+        : d
+        : e
   "
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 
 ================================================================================
@@ -2746,52 +2818,52 @@ trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 
 =====================================output=====================================
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target="a | b : c"
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target="a | b: c : d : e"
 ></div>
 <!--  prettier-ignore-attribute -->
 <div
-  bindon-target=" a | b : c "
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target=" a | b : c "
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
-  bindon-target="a | b : c"
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
+  bindon-target="a | b: c : d : e"
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 
 ================================================================================
@@ -2805,52 +2877,52 @@ trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 
 =====================================output=====================================
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target="a | b : c"
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target="a | b: c : d : e"
 ></div>
 <!--  prettier-ignore-attribute -->
 <div
-  bindon-target=" a | b : c "
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
+  bindon-target=" a | b : c:d :e "
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute bind-target -->
 <div
-  bindon-target="a | b : c"
-  [(target)]="a | b : c"
-  bind-target=" a | b : c "
+  bindon-target="a | b: c : d : e"
+  [(target)]="a | b: c : d : e"
+  bind-target=" a | b : c:d :e "
 ></div>
 <!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
-  bindon-target="a | b : c"
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
+  bindon-target="a | b: c : d : e"
+  [(target)]=" a | b : c:d :e "
+  bind-target=" a | b : c:d :e "
 ></div>
 
 ================================================================================
@@ -2863,7 +2935,7 @@ parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div>{{ a | b : c }}</div>
+<div>{{ a | b : c:d :e }}</div>
 <div>{{  a | pipe    }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ - 1 }}</div>
@@ -2932,7 +3004,7 @@ printWidth: 80
 <p>{{ {a:a?b:{} } }}</p>
 
 =====================================output=====================================
-<div>{{ a | b : c }}</div>
+<div>{{ a | b: c : d : e }}</div>
 <div>{{ a | pipe }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ -1 }}</div>
@@ -2961,31 +3033,31 @@ printWidth: 80
 <div>{{ a // hello }}</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton"
-    | localize : localizationSection
+    | localize: localizationSection
 }}</label>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton"
   >{{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}
 </label>
 <div class="Nemo possimus non voluptates dicta accusamus id quia">
@@ -3012,7 +3084,7 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate : {what: ("entities" | translate : ({count: array.length}))}
+      | translate: {what: ("entities" | translate: ({count: array.length}))}
   }}
 </p>
 <p>{{ {a: 1 + ({})} }}</p>
@@ -3030,7 +3102,7 @@ parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div>{{ a | b : c }}</div>
+<div>{{ a | b : c:d :e }}</div>
 <div>{{  a | pipe    }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ - 1 }}</div>
@@ -3099,7 +3171,7 @@ printWidth: 80
 <p>{{ {a:a?b:{} } }}</p>
 
 =====================================output=====================================
-<div>{{ a | b : c }}</div>
+<div>{{ a | b: c : d : e }}</div>
 <div>{{ a | pipe }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ -1 }}</div>
@@ -3129,7 +3201,7 @@ printWidth: 80
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}
 </label>
 <label
@@ -3137,25 +3209,25 @@ printWidth: 80
 >
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}
 </label>
 <div class="Nemo possimus non voluptates dicta accusamus id quia">
@@ -3184,7 +3256,7 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate : { what: ("entities" | translate : { count: array.length }) }
+      | translate: { what: ("entities" | translate: { count: array.length }) }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
@@ -3201,7 +3273,7 @@ parsers: ["angular"]
 printWidth: 1
  | printWidth
 =====================================input======================================
-<div>{{ a | b : c }}</div>
+<div>{{ a | b : c:d :e }}</div>
 <div>{{  a | pipe    }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ - 1 }}</div>
@@ -3275,6 +3347,8 @@ printWidth: 1
     a
       | b
         : c
+        : d
+        : e
   }}
 </div>
 <div>
@@ -3574,7 +3648,7 @@ printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
-<div>{{ a | b : c }}</div>
+<div>{{ a | b : c:d :e }}</div>
 <div>{{  a | pipe    }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ - 1 }}</div>
@@ -3643,7 +3717,7 @@ trailingComma: "es5"
 <p>{{ {a:a?b:{} } }}</p>
 
 =====================================output=====================================
-<div>{{ a | b : c }}</div>
+<div>{{ a | b: c : d : e }}</div>
 <div>{{ a | pipe }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ -1 }}</div>
@@ -3672,31 +3746,31 @@ trailingComma: "es5"
 <div>{{ a // hello }}</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton"
-    | localize : localizationSection
+    | localize: localizationSection
 }}</label>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton"
   >{{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}
 </label>
 <div class="Nemo possimus non voluptates dicta accusamus id quia">
@@ -3723,7 +3797,7 @@ trailingComma: "es5"
 <p>
   {{
     "delete"
-      | translate : { what: ("entities" | translate : { count: array.length }) }
+      | translate: { what: ("entities" | translate: { count: array.length }) }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
@@ -3741,7 +3815,7 @@ printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
-<div>{{ a | b : c }}</div>
+<div>{{ a | b : c:d :e }}</div>
 <div>{{  a | pipe    }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ - 1 }}</div>
@@ -3810,7 +3884,7 @@ trailingComma: "none"
 <p>{{ {a:a?b:{} } }}</p>
 
 =====================================output=====================================
-<div>{{ a | b : c }}</div>
+<div>{{ a | b: c : d : e }}</div>
 <div>{{ a | pipe }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ -1 }}</div>
@@ -3839,31 +3913,31 @@ trailingComma: "none"
 <div>{{ a // hello }}</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton"
-    | localize : localizationSection
+    | localize: localizationSection
 }}</label>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton"
   >{{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize : localizationSection
+      | localize: localizationSection
   }}
 </label>
 <div class="Nemo possimus non voluptates dicta accusamus id quia">
@@ -3890,7 +3964,7 @@ trailingComma: "none"
 <p>
   {{
     "delete"
-      | translate : { what: ("entities" | translate : { count: array.length }) }
+      | translate: { what: ("entities" | translate: { count: array.length }) }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
@@ -5307,17 +5381,17 @@ bindon-ngModel
 </div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{ currentHero?.birthdate | date : "longDate" }}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
 
 <div>{{ currentHero | json }}</div>
 
 <div>
-  Birthdate: {{ currentHero?.birthdate | date : "longDate" | uppercase }}
+  Birthdate: {{ currentHero?.birthdate | date: "longDate" | uppercase }}
 </div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price: </label>{{ product.price | currency : "USD" : true }}
+  <label>Price: </label>{{ product.price | currency: "USD" : true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -6959,18 +7033,18 @@ bindon-ngModel
 </div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{ currentHero?.birthdate | date : "longDate" }}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
 
 <div>{{ currentHero | json }}</div>
 
 <div>
-  Birthdate: {{ currentHero?.birthdate | date : "longDate" | uppercase }}
+  Birthdate: {{ currentHero?.birthdate | date: "longDate" | uppercase }}
 </div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
   <label>Price:</label>
-  {{ product.price | currency : "USD" : true }}
+  {{ product.price | currency: "USD" : true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -11922,17 +11996,17 @@ bindon-ngModel
 </div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{ currentHero?.birthdate | date : "longDate" }}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
 
 <div>{{ currentHero | json }}</div>
 
 <div>
-  Birthdate: {{ currentHero?.birthdate | date : "longDate" | uppercase }}
+  Birthdate: {{ currentHero?.birthdate | date: "longDate" | uppercase }}
 </div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price: </label>{{ product.price | currency : "USD" : true }}
+  <label>Price: </label>{{ product.price | currency: "USD" : true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -13449,17 +13523,17 @@ bindon-ngModel
 </div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{ currentHero?.birthdate | date : "longDate" }}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
 
 <div>{{ currentHero | json }}</div>
 
 <div>
-  Birthdate: {{ currentHero?.birthdate | date : "longDate" | uppercase }}
+  Birthdate: {{ currentHero?.birthdate | date: "longDate" | uppercase }}
 </div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price: </label>{{ product.price | currency : "USD" : true }}
+  <label>Price: </label>{{ product.price | currency: "USD" : true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>

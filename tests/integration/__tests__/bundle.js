@@ -5,17 +5,12 @@ import fastGlob from "fast-glob";
 import { projectRoot } from "../env.js";
 import prettier from "../../config/prettier-entry.js";
 import createSandBox from "../../config/utils/create-sandbox.cjs";
-import * as coreOptions from "../../../src/main/core-options.evaluate.js";
+import coreOptions from "../../../src/main/core-options.evaluate.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
-import jestPathSerializer from "../path-serializer.js";
 
 const { require, importModule } = createEsmUtils(import.meta);
 
-expect.addSnapshotSerializer(jestPathSerializer);
-
-const parserNames = coreOptions.options.parser.choices.map(
-  ({ value }) => value
-);
+const parserNames = coreOptions.parser.choices.map(({ value }) => value);
 const distDirectory = path.join(projectRoot, "dist");
 
 // Files including U+FFEE can't load in Chrome Extension
@@ -43,12 +38,15 @@ describe("standalone", () => {
   let esmPlugins;
   beforeAll(async () => {
     esmStandalone = await importModule(
-      path.join(distDirectory, "standalone.mjs")
+      path.join(distDirectory, "standalone.mjs"),
     );
     esmPlugins = await Promise.all(
       fastGlob
         .sync(["plugins/*.mjs"], { cwd: distDirectory, absolute: true })
-        .map(async (file) => (await importModule(file)).default)
+        .map(async (file) => {
+          const plugin = await importModule(file);
+          return plugin.default ?? plugin;
+        }),
     );
   });
 
@@ -85,8 +83,8 @@ test("global objects", async () => {
     const sandbox = createSandBox({ files: [file] });
     return Object.fromEntries(
       Object.entries(sandbox).filter(
-        ([property]) => !allowedGlobalObjects.has(property)
-      )
+        ([property]) => !allowedGlobalObjects.has(property),
+      ),
     );
   };
 
@@ -100,28 +98,28 @@ test("global objects", async () => {
 test("Commonjs version", () => {
   const prettierCommonjsVersion = require(path.join(
     distDirectory,
-    "index.cjs"
+    "index.cjs",
   ));
 
   expect(Object.keys(prettierCommonjsVersion).sort()).toEqual(
     Object.keys(prettier)
-      .filter((key) => key !== "__internal")
-      .sort()
+      .filter((key) => key !== "default" && key !== "__internal")
+      .sort(),
   );
   expect(typeof prettierCommonjsVersion.format).toBe("function");
 
   expect(Object.keys(prettierCommonjsVersion.doc)).toEqual(
-    Object.keys(prettier.doc)
+    Object.keys(prettier.doc).filter((key) => key !== "default"),
   );
   expect(typeof prettierCommonjsVersion.doc.builders.fill).toBe("function");
 
   expect(Object.keys(prettierCommonjsVersion.util)).toEqual(
-    Object.keys(prettier.util)
+    Object.keys(prettier.util),
   );
   expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
 
   expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toEqual(
-    Object.keys(prettier.__debug).sort()
+    Object.keys(prettier.__debug).sort(),
   );
   expect(typeof prettierCommonjsVersion.__debug.parse).toBe("function");
 

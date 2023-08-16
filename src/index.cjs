@@ -40,20 +40,20 @@ prettier.__debug = debugApis;
 
 if (process.env.NODE_ENV === "production") {
   prettier.util = require("./utils/public.js");
-  prettier.doc = require("./document/index.js");
+  prettier.doc = require("./document/public.js");
 } else {
   Object.defineProperties(prettier, {
     util: {
       get() {
         throw new Error(
-          "prettier.util is not available in development CommonJS version"
+          "prettier.util is not available in development CommonJS version",
         );
       },
     },
     doc: {
       get() {
         throw new Error(
-          "prettier.doc is not available in development CommonJS version"
+          "prettier.doc is not available in development CommonJS version",
         );
       },
     },

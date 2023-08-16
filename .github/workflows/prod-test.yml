@@ -26,10 +26,10 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.5.3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.6.0
+        uses: actions/setup-node@v3.7.0
         with:
           cache: "yarn"
 
@@ -55,34 +55,30 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "19"
-          - "18"
-          - "16"
+          # Latest even version
+          - "20"
+          # Minimal version for production
           - "14"
         include:
           - os: "ubuntu-latest"
+            # Pick a version that is fast (normally highest LTS version)
             node: "18"
             FULL_TEST: true
-        exclude:
-          - os: "macos-latest"
-            node: "19"
-          - os: "windows-latest"
-            node: "19"
-          - os: "macos-latest"
-            node: "16"
-          - os: "windows-latest"
+          # Versions not tested on linux, normally only even versions
+          # If latest version is an odd number, it can be listed bellow too
+          - os: "ubuntu-latest"
             node: "16"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
-    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
+    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}${{ matrix.FULL_TEST && ' (Full Test)' || '' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.5.3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.6.0
+        uses: actions/setup-node@v3.7.0
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
@@ -108,10 +104,10 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.5.3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.6.0
+        uses: actions/setup-node@v3.7.0
         with:
           node-version: "0.10.48"
 

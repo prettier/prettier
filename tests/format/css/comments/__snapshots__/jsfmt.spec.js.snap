@@ -435,7 +435,8 @@ a {
 
 @font-face {
   font-family: "Prettier";
-  src: /* comment 16 */ local(/* comment 17 */ "Prettier" /* comment 18 */),
+  src: /* comment 16 */
+    local(/* comment 17 */ "Prettier" /* comment 18 */),
     /* comment 19 */ /* comment 20 */ url("http://prettier.com/font.woff")
       /* comment 21 */; /* comment 22 */
 }

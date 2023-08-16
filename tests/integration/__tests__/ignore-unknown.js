@@ -1,5 +1,5 @@
 describe("ignore-unknown dir", () => {
-  runPrettier("cli/ignore-unknown", [
+  runCli("cli/ignore-unknown", [
     ".",
     "--ignore-unknown",
     "--list-different",
@@ -11,7 +11,7 @@ describe("ignore-unknown dir", () => {
 });
 
 describe("ignore-unknown alias", () => {
-  runPrettier("cli/ignore-unknown", [".", "-u", "--list-different"]).test({
+  runCli("cli/ignore-unknown", [".", "-u", "--list-different"]).test({
     status: "non-zero",
     stderr: "",
     write: [],
@@ -19,7 +19,7 @@ describe("ignore-unknown alias", () => {
 });
 
 describe("ignore-unknown pattern", () => {
-  runPrettier("cli/ignore-unknown", [
+  runCli("cli/ignore-unknown", [
     "*",
     "--ignore-unknown",
     "--list-different",
@@ -31,7 +31,7 @@ describe("ignore-unknown pattern", () => {
 });
 
 describe("ignore-unknown write", () => {
-  runPrettier("cli/ignore-unknown", [
+  runCli("cli/ignore-unknown", [
     ".",
     "--ignore-unknown",
     "--write",
@@ -43,22 +43,19 @@ describe("ignore-unknown write", () => {
 });
 
 describe("ignore-unknown check", () => {
-  runPrettier("cli/ignore-unknown", [".", "--ignore-unknown", "--check"]).test({
+  runCli("cli/ignore-unknown", [".", "--ignore-unknown", "--check"]).test({
     status: 1,
   });
 });
 
 describe("None exist file", () => {
-  runPrettier("cli/ignore-unknown", [
-    "non-exist-file",
-    "--ignore-unknown",
-  ]).test({
+  runCli("cli/ignore-unknown", ["non-exist-file", "--ignore-unknown"]).test({
     status: 2,
   });
 });
 
 describe("Not matching pattern", () => {
-  runPrettier("cli/ignore-unknown", [
+  runCli("cli/ignore-unknown", [
     "*.non-exist-pattern",
     "--ignore-unknown",
   ]).test({
@@ -67,7 +64,7 @@ describe("Not matching pattern", () => {
 });
 
 describe("Ignored file", () => {
-  runPrettier("cli/ignore-unknown", ["ignored.js", "--ignore-unknown"]).test({
+  runCli("cli/ignore-unknown", ["ignored.js", "--ignore-unknown"]).test({
     status: 0,
   });
 });

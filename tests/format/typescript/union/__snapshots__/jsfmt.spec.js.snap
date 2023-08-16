@@ -1,37 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-type A1 = a /* 1 */ | b;
-type A2 = a | /* 1 */ b;
-type A3 = (a /* 1 */) | b;
-type A4 = a | (/* 1 */ b);
-type A5 = (a) /* 1 */ | b;
-type A6 = a | /* 1 */ (b);
-
-type B1 = a /* 1 */ /* 2 */ | b;
-type B2 = a /* 1 */ | /* 2 */ b;
-type B3 = a | /* 1 */ /* 2 */ b;
-
-=====================================output=====================================
-type A1 = a /* 1 */ | b;
-type A2 = a | /* 1 */ b;
-type A3 = a /* 1 */ | b;
-type A4 = a | /* 1 */ b;
-type A5 = a /* 1 */ | b;
-type A6 = a | /* 1 */ b;
-
-type B1 = a /* 1 */ /* 2 */ | b;
-type B2 = a /* 1 */ | /* 2 */ b;
-type B3 = a | /* 1 */ /* 2 */ b;
-
-================================================================================
-`;
-
 exports[`inlining.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -177,68 +145,6 @@ type T5 = number | ((arg: any) => void);
 type T6 = number | ((arg: any) => void);
 type T7 = number | ((arg: any) => void);
 type T8 = number | ((arg: any) => void);
-
-================================================================================
-`;
-
-exports[`prettier-ignore.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-export type a =
-  // foo
-  | foo1&foo2
-  // bar
-  | bar1&bar2
-  // prettier-ignore
-  | qux1&qux2;
-
-export type a =
-  // foo
-  | foo1&foo2
-  // bar
-  | bar1&bar2
-  // prettier-ignore
-  | qux1&qux2
-  // baz
-  | baz1&baz2;
-
-export type a =
-  // prettier-ignore
-  | foo1&foo2
-  // bar
-  | bar1&bar2
-  // qux
-  | qux1&qux2;
-
-=====================================output=====================================
-export type a =
-  // foo
-  | (foo1 & foo2)
-  // bar
-  | (bar1 & bar2)
-  // prettier-ignore
-  | qux1&qux2;
-
-export type a =
-  // foo
-  | (foo1 & foo2)
-  // bar
-  | (bar1 & bar2)
-  // prettier-ignore
-  | qux1&qux2
-  // baz
-  | (baz1 & baz2);
-
-export type a =
-  // prettier-ignore
-  | foo1&foo2
-  // bar
-  | (bar1 & bar2)
-  // qux
-  | (qux1 & qux2);
 
 ================================================================================
 `;
@@ -449,13 +355,13 @@ type A2 = C;
 type A3 = C;
 type A4 = C;
 type A5 = C;
-type A6 = /*1*/ C;
-type A7 = /*1*/ C;
-type A8 = /*1*/ C;
-type A9 = /*1*/ C;
-type A10 = /*1*/ /*2*/ C;
-type A11 = /*1*/ /*2*/ C;
-type A12 = /*1*/ C;
+type A6 /*1*/ = C;
+type A7 /*1*/ = C;
+type A8 /*1*/ = C;
+type A9 /*1*/ = C;
+type A10 /*1*/ = /*2*/ C;
+type A11 /*1*/ = /*2*/ C;
+type A12 /*1*/ = C;
 type A13 = /*1*/ C;
 
 type Aa1 = /*1*/ /*2*/ C | D;
@@ -465,7 +371,7 @@ type Aa3 = /*1*/ /*2*/ C | /*3*/ D /*4*/;
 type C1 = /*1*/ a | b;
 type C2 = /*1*/ a | b;
 type C3 = /*1*/ a | b;
-type C4 = /*1*/ a | b;
+type C4 /*1*/ = a | b;
 type C5 = /*1*/ a | b;
 type C6 /*0*/ = /*1*/ a | b;
 
@@ -500,174 +406,6 @@ type GetChatsSagaEffects =
       | GetChatsStartedAction
     >
   | SelectEffect;
-
-================================================================================
-`;
-
-exports[`within-tuple.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-type A = [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
-
-type B = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
-]
-
-type B1 = [
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  )
-]
-
-type C = [
-  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
-  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
-]
-
-type D = [
-  (AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD),
-  (AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD)
-]
-
-type D1 = [
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  )
-]
-
-type D2 = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD,
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
-]
-
-type E = [ AA | BB, AA | BB ]
-
-type F = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD,
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-]
-
-=====================================output=====================================
-type A = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD,
-];
-
-type B = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD,
-];
-
-type B1 = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD,
-];
-
-type C = [
-  | [
-      | AAAAAAAAAAAAAAAAAAAAAA
-      | BBBBBBBBBBBBBBBBBBBBBB
-      | CCCCCCCCCCCCCCCCCCCCCC
-      | DDDDDDDDDDDDDDDDDDDDDD,
-    ]
-  | [
-      | AAAAAAAAAAAAAAAAAAAAAA
-      | BBBBBBBBBBBBBBBBBBBBBB
-      | CCCCCCCCCCCCCCCCCCCCCC
-      | DDDDDDDDDDDDDDDDDDDDDD,
-    ],
-];
-
-type D = [
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-];
-
-type D1 = [
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-];
-
-type D2 = [
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-];
-
-type E = [AA | BB, AA | BB];
-
-type F = [
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-  AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB,
-];
 
 ================================================================================
 `;

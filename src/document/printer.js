@@ -18,7 +18,7 @@ import {
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
 import { fill, indent, hardlineWithoutBreakParent } from "./builders.js";
-import { getDocParts, getDocType } from "./utils.js";
+import { getDocParts, getDocType, propagateBreaks } from "./utils.js";
 import InvalidDocError from "./invalid-doc-error.js";
 
 /** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
@@ -199,8 +199,12 @@ function fits(
   width,
   hasLineSuffix,
   groupModeMap,
-  mustBeFlat
+  mustBeFlat,
 ) {
+  if (width === Number.POSITIVE_INFINITY) {
+    return true;
+  }
+
   let restIdx = restCommands.length;
   /** @type {Array<Omit<Command, 'ind'>>} */
   const cmds = [next];
@@ -312,6 +316,8 @@ function printDocToString(doc, options) {
   /** @type Command[] */
   const lineSuffix = [];
   let printedCursorCount = 0;
+
+  propagateBreaks(doc);
 
   while (cmds.length > 0) {
     const { ind, mode, doc } = cmds.pop();
@@ -467,7 +473,7 @@ function printDocToString(doc, options) {
           rem,
           lineSuffix.length > 0,
           groupModeMap,
-          true
+          true,
         );
 
         if (parts.length === 1) {
@@ -512,7 +518,7 @@ function printDocToString(doc, options) {
           rem,
           lineSuffix.length > 0,
           groupModeMap,
-          true
+          true,
         );
 
         if (firstAndSecondContentFits) {
@@ -632,7 +638,7 @@ function printDocToString(doc, options) {
   if (cursorPlaceholderIndex !== -1) {
     const otherCursorPlaceholderIndex = out.indexOf(
       CURSOR_PLACEHOLDER,
-      cursorPlaceholderIndex + 1
+      cursorPlaceholderIndex + 1,
     );
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
     const aroundCursor = out

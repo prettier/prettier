@@ -1,80 +1,109 @@
 import path from "node:path";
-import {
-  PROJECT_ROOT,
-  DIST_DIR,
-  readJson,
-  writeJson,
-} from "../utils/index.mjs";
+import { PROJECT_ROOT, DIST_DIR, readJson, writeJson } from "../utils/index.js";
 
-async function buildPackageJson({ files }) {
-  const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
+const keysToKeep = [
+  "name",
+  "version",
+  "description",
+  "bin",
+  "repository",
+  "funding",
+  "homepage",
+  "author",
+  "license",
+  "main",
+  "browser",
+  "unpkg",
+  "exports",
+  "engines",
+  "files",
+];
+
+async function buildPackageJson({ file, files }) {
+  const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));
 
   const bin = files.find(
     (file) =>
       path.join(PROJECT_ROOT, packageJson.bin) ===
-      path.join(PROJECT_ROOT, file.input)
+      path.join(PROJECT_ROOT, file.input),
   ).output.file;
 
-  packageJson.bin = `./${bin}`;
-  packageJson.main = "./index.cjs";
-  packageJson.exports = {
-    ".": {
-      require: "./index.cjs",
-      default: "./index.mjs",
+  const overrides = {
+    bin: `./${bin}`,
+    main: "./index.cjs",
+    engines: {
+      ...packageJson.engines,
+      // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
+      // Don't delete, comment out if we don't want override
+      node: ">=14",
     },
-    "./*": "./*",
-    ...Object.fromEntries(
-      files
-        .filter((file) => file.output.format === "umd")
-        .map((file) => {
-          const basename = path.basename(file.output.file, ".js");
-          return [
-            file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
-            {
-              require: `./${file.output.file}`,
-              default: `./${file.output.file.replace(/\.js$/, ".mjs")}`,
-            },
-          ];
-        })
-    ),
-    // Legacy entries
-    // TODO: Remove bellow in v4
-    "./esm/standalone.mjs": "./standalone.mjs",
-    ...Object.fromEntries(
-      files
-        .filter((file) => file.isPlugin && file.output.format === "umd")
-        .flatMap((file) => {
-          let basename = path.basename(file.output.file, ".js");
-          if (basename === "acorn-and-espree") {
-            basename = "espree";
-          }
-          return [
-            [`./parser-${basename}`, `./${file.output.file}`],
-            [`./parser-${basename}.js`, `./${file.output.file}`],
-            [
-              `./esm/parser-${basename}.mjs`,
-              `./${file.output.file.replace(/\.js$/, ".mjs")}`,
-            ],
-          ];
-        })
-    ),
+    exports: {
+      ".": {
+        types: "./index.d.ts",
+        require: "./index.cjs",
+        default: "./index.mjs",
+      },
+      "./*": "./*",
+      ...Object.fromEntries(
+        files
+          .filter((file) => file.output.format === "umd")
+          .map((file) => {
+            const basename = path.basename(file.output.file, ".js");
+            return [
+              file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
+              {
+                types: `./${file.output.file.replace(/\.js$/, ".d.ts")}`,
+                require: `./${file.output.file}`,
+                default: `./${file.output.file.replace(/\.js$/, ".mjs")}`,
+              },
+            ];
+          }),
+      ),
+      // Legacy entries
+      // TODO: Remove bellow in v4
+      "./esm/standalone.mjs": "./standalone.mjs",
+      ...Object.fromEntries(
+        files
+          .filter(
+            (file) =>
+              file.isPlugin &&
+              file.output.format === "umd" &&
+              file.output.file !== "plugins/estree.js",
+          )
+          .flatMap((file) => {
+            let basename = path.basename(file.output.file, ".js");
+            if (basename === "acorn") {
+              basename = "espree";
+            }
+            return [
+              [`./parser-${basename}`, `./${file.output.file}`],
+              [`./parser-${basename}.js`, `./${file.output.file}`],
+              [
+                `./esm/parser-${basename}.mjs`,
+                `./${file.output.file.replace(/\.js$/, ".mjs")}`,
+              ],
+            ];
+          }),
+      ),
+    },
+    files: files.map(({ output: { file } }) => file).sort(),
+    scripts: {
+      prepublishOnly:
+        "node -e \"assert.equal(require('.').version, require('..').version)\"",
+    },
   };
-  // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
-  packageJson.engines.node = ">=14";
-  delete packageJson.dependencies;
-  delete packageJson.devDependencies;
-  delete packageJson.browserslist;
-  delete packageJson.type;
-  delete packageJson.c8;
-  delete packageJson.packageManager;
-  delete packageJson.resolutions;
-  packageJson.scripts = {
-    prepublishOnly:
-      "node -e \"assert.equal(require('.').version, require('..').version)\"",
-  };
-  packageJson.files = files.map(({ output: { file } }) => file).sort();
 
-  await writeJson(path.join(DIST_DIR, "package.json"), packageJson);
+  await writeJson(
+    path.join(DIST_DIR, file.output.file),
+    Object.assign(pick(packageJson, keysToKeep), overrides),
+  );
+}
+
+function pick(object, keys) {
+  keys = new Set(keys);
+  return Object.fromEntries(
+    Object.entries(object).filter(([key]) => keys.has(key)),
+  );
 }
 
 export default buildPackageJson;

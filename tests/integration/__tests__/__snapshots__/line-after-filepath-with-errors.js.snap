@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Line breaking after filepath with errors (stderr) 1`] = `
+"[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] invalid-2.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] No parser could be inferred for file "<cli>/syntax-errors/invalid-2.unknown"."
+`;
+
+exports[`Line breaking after filepath with errors (stderr) 2`] = `
+"[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] invalid-2.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] No parser could be inferred for file "<cli>/syntax-errors/invalid-2.unknown"."
+`;
+
+exports[`Line breaking after filepath with errors (stderr) 3`] = `
+"[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] invalid-2.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] No parser could be inferred for file "<cli>/syntax-errors/invalid-2.unknown"."
+`;
+
+exports[`Line breaking after filepath with errors (stderr) 4`] = `
+"[error] invalid-1.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] invalid-2.js: SyntaxError: Unexpected token (1:8)
+[error] > 1 | foo (+-) bar
+[error]     |        ^
+[error]   2 |
+[error] No parser could be inferred for file "<cli>/syntax-errors/invalid-2.unknown"."
+`;
+
+exports[`Line breaking after filepath with errors (stdout) 1`] = `
+"invalid-1.js
+invalid-2.js
+invalid-2.unknown
+valid-1.js
+[[called readline.clearLine(process.stdout)]]
+function foo() {}"
+`;
+
+exports[`Line breaking after filepath with errors (stdout) 2`] = `
+"invalid-1.js
+invalid-2.js
+invalid-2.unknown
+valid-1.js
+[[called readline.clearLine(process.stdout)]]
+"
+`;
+
+exports[`Line breaking after filepath with errors (stdout) 3`] = `
+"Checking formatting...
+invalid-1.js
+invalid-2.js
+invalid-2.unknown
+valid-1.js
+[[called readline.clearLine(process.stdout)]]
+All matched files use Prettier code style!"
+`;
+
+exports[`Line breaking after filepath with errors (stdout) 4`] = `
+"invalid-1.js
+invalid-2.js
+invalid-2.unknown
+[[called readline.clearLine(process.stdout)]]
+valid-1.js
+[[called readline.clearLine(process.stdout)]]
+valid-1.js 0ms"
+`;
+
+exports[`Line breaking after filepath with errors (write) 1`] = `[]`;
+
+exports[`Line breaking after filepath with errors (write) 2`] = `[]`;
+
+exports[`Line breaking after filepath with errors (write) 3`] = `[]`;
+
+exports[`Line breaking after filepath with errors (write) 4`] = `[]`;

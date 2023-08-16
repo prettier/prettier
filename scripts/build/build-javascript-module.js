@@ -4,17 +4,20 @@ import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import browserslistToEsbuild from "browserslist-to-esbuild";
-import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
-import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
-import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
-import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
-import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
-import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
-import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.mjs";
-import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
-import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.mjs";
-import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.mjs";
+import { PROJECT_ROOT, DIST_DIR } from "../utils/index.js";
+import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
+import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.js";
+import esbuildPluginLicense from "./esbuild-plugins/license.js";
+import esbuildPluginUmd from "./esbuild-plugins/umd.js";
+import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.js";
+import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.js";
+import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.js";
+import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.js";
+import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
+import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import transform from "./transform/index.js";
+import transformEastAsianWidthModule from "./transform/eastasianwidth-module.js";
+import { getPackageFile } from "./utils.js";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
@@ -46,7 +49,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
       replacement: "",
     },
-    // Transform `.at` and `Object.hasOwn`
+    // Transform `.at`, `Object.hasOwn`, and `String#replaceAll`
     {
       module: "*",
       process: transform,
@@ -54,7 +57,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     ...[
       require.resolve("tslib"),
-      createRequire(require.resolve("vnopts")).resolve("tslib"),
       createRequire(require.resolve("tsutils")).resolve("tslib"),
     ].map((file) => ({
       module: file,
@@ -62,10 +64,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     })),
     // https://github.com/evanw/esbuild/issues/2103
     {
-      module: path.join(
-        path.dirname(require.resolve("outdent/package.json")),
-        "lib-module/index.js"
-      ),
+      module: getPackageFile("outdent/lib-module/index.js"),
       process(text) {
         const index = text.indexOf('if (typeof module !== "undefined") {');
         if (index === -1) {
@@ -84,14 +83,19 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         text
           .replace(
             "const line = (0, _detectNewline().default)(docblock) ?? _os().EOL;",
-            'const line = "\\n"'
+            'const line = "\\n"',
           )
           .replace(
             "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
-            'const line = "\\n"'
+            'const line = "\\n"',
           )
-          .replace(/\nfunction _os().*?\n}/s, "")
-          .replace(/\nfunction _detectNewline().*?\n}/s, ""),
+          .replace(/\nfunction _os\(\).*?\n}/s, "")
+          .replace(/\nfunction _detectNewline\(\).*?\n}/s, ""),
+    },
+    // Reduce size
+    {
+      module: require.resolve("eastasianwidth"),
+      process: transformEastAsianWidthModule,
     },
   ];
 
@@ -114,6 +118,8 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     define["process.emitWarning"] = undefined;
     // postcss/lib/postcss.js
     define["process.env.LANG"] = "";
+    // @typescript-eslint/typescript-estree
+    define["process.env.TYPESCRIPT_ESLINT_EXPERIMENTAL_TSSERVER"] = "";
 
     // Replace `__dirname` and `__filename` with a fake value
     // So `parser-typescript.js` won't contain a path of working directory
@@ -129,7 +135,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         .filter(
           (bundle) =>
             bundle.input === "package.json" ||
-            (file.input !== bundle.input && bundle.output.format === "esm")
+            (file.input !== bundle.input && bundle.output.format === "esm"),
         )
         .map((bundle) => {
           let output = bundle.output.file;
@@ -144,7 +150,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
             module: path.join(PROJECT_ROOT, bundle.input),
             external: getRelativePath(file.output.file, output),
           };
-        })
+        }),
     );
   } else {
     replaceModule.push(
@@ -160,7 +166,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         module: "*",
         find: ' from "node:assert";',
         replacement: ` from ${JSON.stringify(
-          path.join(dirname, "./shims/assert.js")
+          path.join(dirname, "./shims/assert.js"),
         )};`,
       },
       // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
@@ -172,26 +178,13 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       {
         module: "module",
         text: "export const createRequire = () => {};",
-      }
-    );
-
-    // Replace parser getters with `undefined`
-    for (const file of [
-      "src/language-css/parsers.js",
-      "src/language-graphql/parsers.js",
-      "src/language-html/parsers.js",
-      "src/language-handlebars/parsers.js",
-      "src/language-js/parse/parsers.js",
-      "src/language-markdown/parsers.js",
-      "src/language-yaml/parsers.js",
+      },
       // This module requires file access, should not include in universal bundle
-      "src/utils/get-interpreter.js",
-    ]) {
-      replaceModule.push({
-        module: path.join(PROJECT_ROOT, file),
+      {
+        module: path.join(PROJECT_ROOT, "src/utils/get-interpreter.js"),
         text: "export default undefined;",
-      });
-    }
+      },
+    );
   }
 
   const { buildOptions } = file;
@@ -224,12 +217,13 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         allowDynamicRequire: file.platform === "node",
         allowDynamicImport: file.platform === "node",
       }),
+      buildOptions.addDefaultExport && esbuildPluginAddDefaultExport(),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
     external: ["pnpapi", ...(buildOptions.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
-    tsconfig: path.join(dirname, "empty-tsconfig.json"),
+    tsconfigRaw: JSON.stringify({}),
     target: [...(buildOptions.target ?? ["node14"])],
     logLevel: "error",
     format: file.output.format,
@@ -247,7 +241,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       esbuildOptions.plugins.push(
         esbuildPluginUmd({
           name: file.output.umdVariableName,
-        })
+        }),
       );
     }
   } else {

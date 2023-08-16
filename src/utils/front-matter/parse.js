@@ -8,7 +8,7 @@ const frontMatterRegex = new RegExp(
     // Adding `\.{3}` make the regex matches `+++\n...`, but we'll exclude it later
     "(?<endDelimiter>\\k<startDelimiter>|\\.{3})" +
     "[^\\S\\n]*(?:\\n|$)",
-  "s"
+  "s",
 );
 
 function parse(text) {

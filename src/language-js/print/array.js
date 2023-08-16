@@ -9,24 +9,26 @@ import {
   fill,
 } from "../../document/builders.js";
 import hasNewline from "../../utils/has-newline.js";
+import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import skipInlineComment from "../../utils/skip-inline-comment.js";
+import skipTrailingComment from "../../utils/skip-trailing-comment.js";
 import {
   shouldPrintComma,
   hasComment,
   CommentCheckFlags,
-  isNextLineEmpty,
   isNumericLiteral,
   isSignedNumericLiteral,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
 } from "../utils/index.js";
-import { locStart } from "../loc.js";
+import { locStart, locEnd } from "../loc.js";
 
 import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
-function printEmptyArray(path, options, openBracket, closeBracket) {
+function printEmptyArrayElements(path, options, openBracket, closeBracket) {
   const { node } = path;
   if (!hasComment(node, CommentCheckFlags.Dangling)) {
     return [openBracket, closeBracket];
@@ -62,7 +64,9 @@ function printArray(path, options, print) {
       : "elements";
   const elements = node[elementsProperty];
   if (elements.length === 0) {
-    parts.push(printEmptyArray(path, options, openBracket, closeBracket));
+    parts.push(
+      printEmptyArrayElements(path, options, openBracket, closeBracket),
+    );
   } else {
     const lastElem = elements.at(-1);
     const canHaveTrailingComma = lastElem?.type !== "RestElement";
@@ -124,9 +128,9 @@ function printArray(path, options, print) {
           indent([
             softline,
             shouldUseConciseFormatting
-              ? printArrayItemsConcisely(path, options, print, trailingComma)
+              ? printArrayElementsConcisely(path, options, print, trailingComma)
               : [
-                  printArrayItems(path, options, elementsProperty, print),
+                  printArrayElements(path, options, elementsProperty, print),
                   trailingComma,
                 ],
             printDanglingComments(path, options),
@@ -134,14 +138,14 @@ function printArray(path, options, print) {
           softline,
           closeBracket,
         ],
-        { shouldBreak, id: groupId }
-      )
+        { shouldBreak, id: groupId },
+      ),
     );
   }
 
   parts.push(
     printOptionalToken(path),
-    printTypeAnnotationProperty(path, print)
+    printTypeAnnotationProperty(path, print),
   );
 
   return parts;
@@ -162,13 +166,25 @@ function isConciselyPrintedArray(node, options) {
           (comment) =>
             !hasNewline(options.originalText, locStart(comment), {
               backwards: true,
-            })
-        )
+            }),
+        ),
     )
   );
 }
 
-function printArrayItems(path, options, elementsProperty, print) {
+function isLineAfterElementEmpty({ node }, { originalText: text }) {
+  const skipComment = (idx) =>
+    skipInlineComment(text, skipTrailingComment(text, idx));
+
+  const skipToComma = (currentIdx) =>
+    text[currentIdx] === ","
+      ? currentIdx
+      : skipToComma(skipComment(currentIdx + 1));
+
+  return isNextLineEmptyAfterIndex(text, skipToComma(locEnd(node)));
+}
+
+function printArrayElements(path, options, elementsProperty, print) {
   const parts = [];
 
   path.each(({ node, isLast }) => {
@@ -178,7 +194,7 @@ function printArrayItems(path, options, elementsProperty, print) {
       parts.push([
         ",",
         line,
-        node && isNextLineEmpty(node, options) ? softline : "",
+        node && isLineAfterElementEmpty(path, options) ? softline : "",
       ]);
     }
   }, elementsProperty);
@@ -186,19 +202,19 @@ function printArrayItems(path, options, elementsProperty, print) {
   return parts;
 }
 
-function printArrayItemsConcisely(path, options, print, trailingComma) {
+function printArrayElementsConcisely(path, options, print, trailingComma) {
   const parts = [];
 
-  path.each(({ node, isLast, next }) => {
+  path.each(({ isLast, next }) => {
     parts.push([print(), isLast ? trailingComma : ","]);
 
     if (!isLast) {
       parts.push(
-        isNextLineEmpty(node, options)
+        isLineAfterElementEmpty(path, options)
           ? [hardline, hardline]
           : hasComment(next, CommentCheckFlags.Leading | CommentCheckFlags.Line)
           ? hardline
-          : line
+          : line,
       );
     }
   }, "elements");

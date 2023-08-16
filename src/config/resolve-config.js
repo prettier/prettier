@@ -49,14 +49,12 @@ async function resolveConfig(filePath, options) {
     ...mergeOverrides(result, filePath),
   };
 
-  for (const optionName of ["plugins", "pluginSearchDirs"]) {
-    if (Array.isArray(merged[optionName])) {
-      merged[optionName] = merged[optionName].map((value) =>
-        typeof value === "string" && value.startsWith(".") // relative path
-          ? path.resolve(path.dirname(result.filepath), value)
-          : value
-      );
-    }
+  if (Array.isArray(merged.plugins)) {
+    merged.plugins = merged.plugins.map((value) =>
+      typeof value === "string" && value.startsWith(".") // relative path
+        ? path.resolve(path.dirname(result.filepath), value)
+        : value,
+    );
   }
 
   return merged;
@@ -78,7 +76,7 @@ function mergeOverrides(configResult, filePath) {
         pathMatchesGlobs(
           relativeFilePath,
           override.files,
-          override.excludeFiles
+          override.excludeFiles,
         )
       ) {
         Object.assign(options, override.options);
@@ -95,7 +93,7 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   // micromatch always matches against basename when the option is enabled
   // use only patterns without slashes with it to match minimatch behavior
   const [withSlashes, withoutSlashes] = partition(patternList, (pattern) =>
-    pattern.includes("/")
+    pattern.includes("/"),
   );
 
   return (

@@ -3,10 +3,7 @@ import prettier from "../../config/prettier-entry.js";
 
 const {
   __debug: { parse, formatAST, formatDoc, printToDoc, printDocToString },
-  doc: {
-    builders,
-    utils: { cleanDoc },
-  },
+  doc: { builders },
 } = prettier;
 
 const code = outdent`
@@ -43,7 +40,7 @@ describe("API", () => {
 
     const doc2 = new Function(
       `{ ${Object.keys(builders)} }`,
-      `return ${formatResultFromDoc}`
+      `return ${formatResultFromDoc}`,
     )(builders);
 
     const { formatted: stringFromDoc2 } = await printDocToString(doc2, options);
@@ -67,30 +64,35 @@ describe("API", () => {
     } = builders;
 
     expect(await formatDoc([indent(hardline), indent(literalline)])).toBe(
-      "[indent(hardline), indent(literalline)]"
+      "[indent(hardline), indent(literalline)]",
     );
 
     expect(
-      await formatDoc(fill(["foo", hardline, "bar", literalline, "baz"]))
+      await formatDoc(fill(["foo", hardline, "bar", literalline, "baz"])),
     ).toBe('fill(["foo", hardline, "bar", literalline, "baz"])');
 
+    /*
+    This is not really `cleanDoc` from `src/document/utils.js`
+    But if we pass array to it, it will flat array
+    */
+    const cleanDoc = (parts) => parts.flat();
     expect(
       await formatDoc(
         // The argument of fill must not be passed to cleanDoc because it's not a doc
-        fill(cleanDoc(["foo", literalline, "bar"])) // invalid fill
-      )
+        fill(cleanDoc(["foo", literalline, "bar"])), // invalid fill
+      ),
     ).toBe('fill(["foo", literallineWithoutBreakParent, breakParent, "bar"])');
 
     expect(
-      await formatDoc(indentIfBreak(group(["1", line, "2"]), { groupId: "Q" }))
+      await formatDoc(indentIfBreak(group(["1", line, "2"]), { groupId: "Q" })),
     ).toBe('indentIfBreak(group(["1", line, "2"]), { groupId: "Q" })');
 
     expect(await formatDoc(label("foo", group(["1", line, "2"])))).toBe(
-      'label("foo", group(["1", line, "2"]))'
+      'label("foo", group(["1", line, "2"]))',
     );
 
     expect(
-      await formatDoc([ifBreak("a", "b"), ifBreak("a"), ifBreak("", "b")])
+      await formatDoc([ifBreak("a", "b"), ifBreak("a"), ifBreak("", "b")]),
     ).toBe('[ifBreak("a", "b"), ifBreak("a"), ifBreak("", "b")]');
   });
 });

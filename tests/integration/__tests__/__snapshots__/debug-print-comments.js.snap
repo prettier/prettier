@@ -44,8 +44,7 @@ exports[`prints information for debugging comment attachment with --debug-print-
     "trailing": true,
     "nodeDescription": "ExpressionStatement"
   }
-]
-"
+]"
 `;
 
 exports[`prints information for debugging comment attachment with --debug-print-comments (write) 1`] = `[]`;

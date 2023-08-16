@@ -1,5 +1,6 @@
 import { diffArrays } from "diff";
 
+import { hardline, addAlignmentToDoc } from "../document/builders.js";
 import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer.js";
 import { printDocToDebug } from "../document/debug.js";
 import getAlignmentSize from "../utils/get-alignment-size.js";
@@ -9,29 +10,17 @@ import {
   countEndOfLineChars,
   normalizeEndOfLine,
 } from "../common/end-of-line.js";
-import { normalize as normalizeOptions } from "./options.js";
+import normalizeFormatOptions from "./normalize-format-options.js";
 import massageAst from "./massage-ast.js";
-import { attach } from "./comments/attach.js";
-import { ensureAllCommentsPrinted } from "./comments/print.js";
-import { parse as parseText, resolveParser } from "./parser.js";
-import printAstToDoc from "./ast-to-doc.js";
-import { calculateRange, findNodeAtOffset } from "./range-util.js";
+import { resolveParser } from "./parser-and-printer.js";
+import parseText from "./parse.js";
+import { printAstToDoc, prepareToPrint } from "./ast-to-doc.js";
+import { calculateRange } from "./range-util.js";
+import getCursorNode from "./get-cursor-node.js";
 
 const BOM = "\uFEFF";
 
 const CURSOR = Symbol("cursor");
-
-function attachComments(text, ast, opts) {
-  const astComments = ast.comments;
-  if (astComments) {
-    delete ast.comments;
-    attach(astComments, ast, text, opts);
-  }
-  opts[Symbol.for("comments")] = astComments || [];
-  opts[Symbol.for("tokens")] = ast.tokens || [];
-  opts.originalText = text;
-  return astComments;
-}
 
 async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
@@ -41,18 +30,18 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   const { ast, text } = await parseText(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
-    const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
-    if (nodeResult?.node) {
-      opts.cursorNode = nodeResult.node;
-    }
+    opts.cursorNode = getCursorNode(ast, opts);
   }
 
-  const astComments = attachComments(text, ast, opts);
-  const doc = await printAstToDoc(ast, opts, addAlignmentSize);
+  let doc = await printAstToDoc(ast, opts, addAlignmentSize);
+
+  if (addAlignmentSize > 0) {
+    // Add a hardline to make the indents take effect, it will be removed later
+    doc = addAlignmentToDoc([hardline, doc], addAlignmentSize, opts.tabWidth);
+  }
 
   const result = printDocToStringWithoutNormalizeOptions(doc, opts);
 
-  ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
     const trimmed = result.formatted.trim();
@@ -63,6 +52,8 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
     result.formatted = trimmed + convertEndOfLineToChars(opts.endOfLine);
   }
+
+  const comments = opts[Symbol.for("comments")];
 
   if (opts.cursorOffset >= 0) {
     let oldCursorNodeStart;
@@ -77,7 +68,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
       oldCursorNodeStart = opts.locStart(opts.cursorNode);
       oldCursorNodeText = text.slice(
         oldCursorNodeStart,
-        opts.locEnd(opts.cursorNode)
+        opts.locEnd(opts.cursorNode),
       );
 
       cursorOffsetRelativeToOldCursorNode =
@@ -99,7 +90,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
       return {
         formatted: result.formatted,
         cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode,
-        comments: astComments,
+        comments,
       };
     }
 
@@ -111,7 +102,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
     oldCursorNodeCharArray.splice(
       cursorOffsetRelativeToOldCursorNode,
       0,
-      CURSOR
+      CURSOR,
     );
 
     // eslint-disable-next-line unicorn/prefer-spread
@@ -119,7 +110,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
     const cursorNodeDiff = diffArrays(
       oldCursorNodeCharArray,
-      newCursorNodeCharArray
+      newCursorNodeCharArray,
     );
 
     let cursorOffset = newCursorNodeStart;
@@ -133,14 +124,10 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
       }
     }
 
-    return { formatted: result.formatted, cursorOffset, comments: astComments };
+    return { formatted: result.formatted, cursorOffset, comments };
   }
 
-  return {
-    formatted: result.formatted,
-    cursorOffset: -1,
-    comments: astComments,
-  };
+  return { formatted: result.formatted, cursorOffset: -1, comments };
 }
 
 async function formatRange(originalText, opts) {
@@ -153,7 +140,7 @@ async function formatRange(originalText, opts) {
   // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
   const rangeStart2 = Math.min(
     rangeStart,
-    text.lastIndexOf("\n", rangeStart) + 1
+    text.lastIndexOf("\n", rangeStart) + 1,
   );
   const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
 
@@ -173,7 +160,7 @@ async function formatRange(originalText, opts) {
       // Always use `lf` to format, we'll replace it later
       endOfLine: "lf",
     },
-    alignmentSize
+    alignmentSize,
   );
 
   // Since the range contracts to avoid trailing whitespace,
@@ -197,7 +184,7 @@ async function formatRange(originalText, opts) {
     if (cursorOffset >= 0 && eol === "\r\n") {
       cursorOffset += countEndOfLineChars(
         formatted.slice(0, cursorOffset),
-        "\n"
+        "\n",
       );
     }
 
@@ -232,7 +219,7 @@ function normalizeIndexes(text, options) {
 function normalizeInputAndOptions(text, options) {
   let { cursorOffset, rangeStart, rangeEnd, endOfLine } = normalizeIndexes(
     text,
-    options
+    options,
   );
 
   const hasBOM = text.charAt(0) === BOM;
@@ -281,7 +268,7 @@ async function hasPragma(text, options) {
 async function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
-    await normalizeOptions(originalOptions)
+    await normalizeFormatOptions(originalOptions),
   );
 
   if (
@@ -325,25 +312,22 @@ async function formatWithCursor(originalText, originalOptions) {
 async function parse(originalText, originalOptions, devOptions) {
   const { text, options } = normalizeInputAndOptions(
     originalText,
-    await normalizeOptions(originalOptions)
+    await normalizeFormatOptions(originalOptions),
   );
   const parsed = await parseText(text, options);
   if (devOptions) {
+    if (devOptions.preprocessForPrint) {
+      parsed.ast = await prepareToPrint(parsed.ast, options);
+    }
     if (devOptions.massage) {
       parsed.ast = massageAst(parsed.ast, options);
-    }
-    if (devOptions.preprocessForPrint) {
-      attachComments(parsed.text, parsed.ast, options);
-      if (options.printer.preprocess) {
-        parsed.ast = await options.printer.preprocess(parsed.ast, options);
-      }
     }
   }
   return parsed;
 }
 
 async function formatAst(ast, options) {
-  options = await normalizeOptions(options);
+  options = await normalizeFormatOptions(options);
   const doc = await printAstToDoc(ast, options);
   return printDocToStringWithoutNormalizeOptions(doc, options);
 }
@@ -360,16 +344,15 @@ async function formatDoc(doc, options) {
 }
 
 async function printToDoc(originalText, options) {
-  options = await normalizeOptions(options);
-  const { ast, text } = await parseText(originalText, options);
-  attachComments(text, ast, options);
+  options = await normalizeFormatOptions(options);
+  const { ast } = await parseText(originalText, options);
   return printAstToDoc(ast, options);
 }
 
 async function printDocToString(doc, options) {
   return printDocToStringWithoutNormalizeOptions(
     doc,
-    await normalizeOptions(options)
+    await normalizeFormatOptions(options),
   );
 }
 

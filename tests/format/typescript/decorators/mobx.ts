@@ -17,7 +17,7 @@ import {observable} from "mobx";
   }
 
   @computed
-  get total() {
+  get total2() {
     return this.price * this.amount;
   }
 
@@ -26,7 +26,7 @@ import {observable} from "mobx";
     this.price = price;
   }
 
-  @computed @computed @computed @computed @computed @computed @computed get total() {
+  @computed @computed @computed @computed @computed @computed @computed get total3() {
     return this.price * this.amount;
   }
 

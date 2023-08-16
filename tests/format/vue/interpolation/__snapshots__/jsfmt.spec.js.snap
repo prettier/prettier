@@ -1,5 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`bitwise-or-operator.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div>
+    {{
+      fn(
+        bitwise | or | operator | a_long_long_long_long_long_long_long_long_long_long_variable
+      )
+      | filter1
+      | filter2
+      | filter3
+      | filter4
+    }}
+  </div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    {{
+      fn(
+        bitwise |
+          or |
+          operator |
+          a_long_long_long_long_long_long_long_long_long_long_variable,
+      )
+        | filter1
+        | filter2
+        | filter3
+        | filter4
+    }}
+  </div>
+</template>
+
+================================================================================
+`;
+
 exports[`parenthesized.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]

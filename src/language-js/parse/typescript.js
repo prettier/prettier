@@ -1,12 +1,12 @@
+import { parse as parseTypeScript } from "@typescript-eslint/typescript-estree";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 import postprocess from "./postprocess/index.js";
-import { throwErrorForInvalidNodes } from "./postprocess/typescript.js";
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
-const parseOptions = {
+const baseParseOptions = {
   // `jest@<=26.4.2` rely on `loc`
   // https://github.com/facebook/jest/issues/10444
   // Set `loc` and `range` to `true` also prevent AST traverse
@@ -14,52 +14,71 @@ const parseOptions = {
   loc: true,
   range: true,
   comment: true,
-  jsx: true,
   tokens: true,
   loggerFn: false,
   project: [],
+  // TODO: Use new properties when update printer
+  suppressDeprecatedPropertyWarnings: true,
 };
 
 function createParseError(error) {
-  const { message, lineNumber, column } = error;
+  const { message, location } = error;
 
   /* c8 ignore next 3 */
-  if (typeof lineNumber !== "number") {
+  if (!location) {
     return error;
   }
 
+  const { start, end } = location;
+
   return createError(message, {
     loc: {
-      start: { line: lineNumber, column: column + 1 },
+      start: { line: start.line, column: start.column + 1 },
+      end: { line: end.line, column: end.column + 1 },
     },
     cause: error,
   });
 }
 
-async function parse(text, options = {}) {
+// https://typescript-eslint.io/architecture/parser/#jsx
+const isKnownFileType = (filepath) =>
+  /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/i.test(filepath);
+
+function getParseOptionsCombinations(text, options) {
+  const filepath = options?.filepath;
+  if (filepath && isKnownFileType(filepath)) {
+    return [{ ...baseParseOptions, filePath: filepath }];
+  }
+
+  const shouldEnableJsx = isProbablyJsx(text);
+  return [
+    { ...baseParseOptions, jsx: shouldEnableJsx },
+    { ...baseParseOptions, jsx: !shouldEnableJsx },
+  ];
+}
+
+function parse(text, options) {
   const textToParse = replaceHashbang(text);
-  const jsx = isProbablyJsx(text);
+  const parseOptionsCombinations = getParseOptionsCombinations(text, options);
 
-  const { parseWithNodeMaps } = await import(
-    "@typescript-eslint/typescript-estree/dist/parser.js"
-  );
-  const { result, error } = tryCombinations([
-    // Try passing with our best guess first.
-    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
-    // But if we get it wrong, try the opposite.
-    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx: !jsx }),
-  ]);
-
-  if (!result) {
-    // Suppose our guess is correct, throw the first error
+  let ast;
+  try {
+    ast = tryCombinations(
+      parseOptionsCombinations.map(
+        (parseOptions) => () => parseTypeScript(textToParse, parseOptions),
+      ),
+    );
+  } catch ({
+    // @ts-expect-error -- expected
+    errors: [
+      // Suppose our guess is correct, throw the first error
+      error,
+    ],
+  }) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
-
-  await throwErrorForInvalidNodes(result, options);
-
-  return postprocess(result.ast, options);
+  return postprocess(ast, { text });
 }
 
 /**
@@ -67,20 +86,14 @@ async function parse(text, options = {}) {
  */
 function isProbablyJsx(text) {
   return new RegExp(
+    // eslint-disable-next-line regexp/no-useless-non-capturing-group -- possible bug
     [
       "(?:^[^\"'`]*</)", // Contains "</" when probably not in a string
       "|",
       "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
     ].join(""),
-    "m"
+    "m",
   ).test(text);
 }
 
-// Export as a plugin so we can reuse the same bundle for UMD loading
-const parser = {
-  parsers: {
-    typescript: createParser(parse),
-  },
-};
-
-export default parser;
+export const typescript = createParser(parse);

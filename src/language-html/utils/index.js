@@ -3,7 +3,7 @@
  */
 
 import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
-import inferParserByLanguage from "../../utils/infer-parser-by-language.js";
+import inferParser from "../../utils/infer-parser.js";
 import { line, hardline, join } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import {
@@ -12,30 +12,30 @@ import {
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
 } from "../constants.evaluate.js";
+import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import isUnknownNamespace from "./is-unknown-namespace.js";
 
-// https://infra.spec.whatwg.org/#ascii-whitespace
-const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
-const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");
-const htmlTrimEnd = (string) => string.replace(/[\t\n\f\r ]+$/, "");
-const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
 const htmlTrimLeadingBlankLines = (string) =>
   string.replaceAll(/^[\t\f\r ]*\n/g, "");
 const htmlTrimPreserveIndentation = (string) =>
-  htmlTrimLeadingBlankLines(htmlTrimEnd(string));
-const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
-const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
+  htmlTrimLeadingBlankLines(htmlWhitespaceUtils.trimEnd(string));
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
-  const [, leadingWhitespace, text, trailingWhitespace] = string.match(
-    /^([\t\n\f\r ]*)(.*?)([\t\n\f\r ]*)$/s
-  );
+  let text = string;
+  const leadingWhitespace = htmlWhitespaceUtils.getLeadingWhitespace(text);
+  if (leadingWhitespace) {
+    text = text.slice(leadingWhitespace.length);
+  }
+  const trailingWhitespace = htmlWhitespaceUtils.getTrailingWhitespace(text);
+  if (trailingWhitespace) {
+    text = text.slice(0, -trailingWhitespace.length);
+  }
+
   return {
     leadingWhitespace,
     trailingWhitespace,
     text,
   };
 };
-const hasHtmlWhitespace = (string) => /[\t\n\f\r ]/.test(string);
 
 function shouldPreserveContent(node, options) {
   // unterminated node in ie conditional comment
@@ -59,7 +59,7 @@ function shouldPreserveContent(node, options) {
   if (
     isPreLikeNode(node) &&
     node.children.some(
-      (child) => child.type !== "text" && child.type !== "interpolation"
+      (child) => child.type !== "text" && child.type !== "interpolation",
     )
   ) {
     return true;
@@ -109,6 +109,7 @@ function isScriptLikeTag(node) {
     (node.fullName === "script" ||
       node.fullName === "style" ||
       node.fullName === "svg:style" ||
+      node.fullName === "svg:script" ||
       (isUnknownNamespace(node) &&
         (node.name === "script" || node.name === "style")))
   );
@@ -332,83 +333,90 @@ function hasNonTextChild(node) {
   return node.children?.some((child) => child.type !== "text");
 }
 
-function _inferScriptParser(node) {
-  const { type, lang } = node.attrMap;
-  if (
-    type === "module" ||
-    type === "text/javascript" ||
-    type === "text/babel" ||
-    type === "application/javascript" ||
-    lang === "jsx"
-  ) {
-    return "babel";
+function inferParserByTypeAttribute(type) {
+  if (!type) {
+    return;
   }
 
-  if (type === "application/x-typescript" || lang === "ts" || lang === "tsx") {
-    return "typescript";
-  }
+  switch (type) {
+    case "module":
+    case "text/javascript":
+    case "text/babel":
+    case "application/javascript":
+      return "babel";
 
-  if (type === "text/markdown") {
-    return "markdown";
-  }
+    case "application/x-typescript":
+      return "typescript";
 
-  if (type === "text/html") {
-    return "html";
-  }
+    case "text/markdown":
+      return "markdown";
 
-  if (
-    (type && (type.endsWith("json") || type.endsWith("importmap"))) ||
-    type === "speculationrules"
-  ) {
-    return "json";
-  }
+    case "text/html":
+      return "html";
 
-  if (type === "text/x-handlebars-template") {
-    return "glimmer";
-  }
-}
+    case "text/x-handlebars-template":
+      return "glimmer";
 
-function inferStyleParser(node, options) {
-  const { lang } = node.attrMap;
-  if (!lang || lang === "postcss" || lang === "css") {
-    return "css";
-  }
-
-  if (lang === "scss") {
-    return "scss";
-  }
-
-  if (lang === "less") {
-    return "less";
-  }
-
-  // Prettier does not officially support stylus.
-  // But, we need to handle `"stylus"` here for printing a style block in Vue SFC as stylus code by external plugin.
-  // https://github.com/prettier/prettier/pull/12707
-  if (lang === "stylus") {
-    return inferParserByLanguage("stylus", options);
+    default:
+      if (
+        type.endsWith("json") ||
+        type.endsWith("importmap") ||
+        type === "speculationrules"
+      ) {
+        return "json";
+      }
   }
 }
 
 function inferScriptParser(node, options) {
-  if (node.name === "script" && !node.attrMap.src) {
-    if (!node.attrMap.lang && !node.attrMap.type) {
-      return "babel";
-    }
-    return _inferScriptParser(node);
+  const { name, attrMap } = node;
+
+  if (name !== "script" || Object.hasOwn(attrMap, "src")) {
+    return;
   }
 
-  if (node.name === "style") {
-    return inferStyleParser(node, options);
+  const { type, lang } = node.attrMap;
+
+  if (!lang && !type) {
+    return "babel";
   }
 
-  if (options && isVueNonHtmlBlock(node, options)) {
-    return (
-      _inferScriptParser(node) ||
-      (!("src" in node.attrMap) &&
-        inferParserByLanguage(node.attrMap.lang, options))
-    );
+  return (
+    inferParser(options, { language: lang }) ?? inferParserByTypeAttribute(type)
+  );
+}
+
+function inferVueSfcBlockParser(node, options) {
+  if (!isVueNonHtmlBlock(node, options)) {
+    return;
   }
+  const { attrMap } = node;
+
+  if (Object.hasOwn(attrMap, "src")) {
+    return;
+  }
+
+  const { type, lang } = attrMap;
+
+  return (
+    inferParser(options, { language: lang }) ?? inferParserByTypeAttribute(type)
+  );
+}
+
+function inferStyleParser(node, options) {
+  if (node.name !== "style") {
+    return;
+  }
+  const { lang } = node.attrMap;
+  return lang ? inferParser(options, { language: lang }) : "css";
+}
+
+function inferElementParser(node, options) {
+  return (
+    inferScriptParser(node, options) ??
+    inferStyleParser(node, options) ??
+    inferVueSfcBlockParser(node, options)
+  );
 }
 
 function isBlockLikeCssDisplay(cssDisplay) {
@@ -458,6 +466,11 @@ function hasParent(node, fn) {
 }
 
 function getNodeCssStyleDisplay(node, options) {
+  // Every root block in Vue SFC is a block
+  if (isVueSfcBlock(node, options)) {
+    return "block";
+  }
+
   if (node.prev?.type === "comment") {
     // <!-- display: block -->
     const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
@@ -481,10 +494,6 @@ function getNodeCssStyleDisplay(node, options) {
     case "ignore":
       return "block";
     default:
-      // See https://github.com/prettier/prettier/issues/8151
-      if (options.parser === "vue" && node.parent?.type === "root") {
-        return "block";
-      }
       return (
         (node.type === "element" &&
           (!node.namespace ||
@@ -513,11 +522,10 @@ function getMinIndentation(text) {
       continue;
     }
 
-    if (!HTML_WHITESPACE.has(lineText[0])) {
+    const indentation = htmlWhitespaceUtils.getLeadingWhitespaceCount(lineText);
+    if (indentation === 0) {
       return 0;
     }
-
-    const indentation = getLeadingHtmlWhitespace(lineText).length;
 
     if (lineText.length === indentation) {
       continue;
@@ -540,18 +548,12 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .join("\n");
 }
 
-function countChars(text, char) {
-  let counter = 0;
-  for (let i = 0; i < text.length; i++) {
-    if (text[i] === char) {
-      counter++;
-    }
-  }
-  return counter;
-}
-
 function unescapeQuoteEntities(text) {
   return text.replaceAll("&apos;", "'").replaceAll("&quot;", '"');
+}
+
+function getUnescapedAttributeValue(node) {
+  return unescapeQuoteEntities(node.value);
 }
 
 // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
@@ -610,9 +612,9 @@ function getTextValueParts(node, value = node.value) {
       ? replaceEndOfLine(value)
       : replaceEndOfLine(
           dedentString(htmlTrimPreserveIndentation(value)),
-          hardline
+          hardline,
         )
-    : join(line, splitByHtmlWhitespace(value));
+    : join(line, htmlWhitespaceUtils.split(value));
 }
 
 function isVueScriptTag(node, options) {
@@ -620,12 +622,9 @@ function isVueScriptTag(node, options) {
 }
 
 export {
-  htmlTrim,
   htmlTrimPreserveIndentation,
-  hasHtmlWhitespace,
   getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
-  countChars,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
@@ -634,7 +633,7 @@ export {
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
   hasPrettierIgnore,
-  inferScriptParser,
+  inferElementParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
   isVueScriptTag,
@@ -655,4 +654,6 @@ export {
   shouldPreserveContent,
   unescapeQuoteEntities,
   getTextValueParts,
+  htmlWhitespaceUtils,
+  getUnescapedAttributeValue,
 };

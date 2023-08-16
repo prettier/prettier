@@ -180,7 +180,7 @@ function propagateBreaks(doc) {
     doc,
     propagateBreaksOnEnterFn,
     propagateBreaksOnExitFn,
-    /* shouldTraverseConditionalGroups */ true
+    /* shouldTraverseConditionalGroups */ true,
   );
 }
 
@@ -408,7 +408,7 @@ function replaceEndOfLine(doc, replacement = literalline) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string"
       ? join(replacement, currentDoc.split("\n"))
-      : currentDoc
+      : currentDoc,
   );
 }
 
@@ -420,6 +420,12 @@ function canBreakFn(doc) {
 
 function canBreak(doc) {
   return findInDoc(doc, canBreakFn, false);
+}
+
+function inheritLabel(doc, fn) {
+  return doc.type === DOC_TYPE_LABEL
+    ? { ...doc, contents: fn(doc.contents) }
+    : fn(doc);
 }
 
 export {
@@ -437,4 +443,5 @@ export {
   replaceEndOfLine,
   canBreak,
   getDocType,
+  inheritLabel,
 };

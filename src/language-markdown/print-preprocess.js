@@ -50,7 +50,7 @@ function mergeContinuousTexts(ast) {
         start: prevNode.position.start,
         end: node.position.end,
       },
-    })
+    }),
   );
 }
 
@@ -91,8 +91,8 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
       const isIndented = /^\n?(?: {4,}|\t)/.test(
         options.originalText.slice(
           node.position.start.offset,
-          node.position.end.offset
-        )
+          node.position.end.offset,
+        ),
       );
 
       node.isIndented = isIndented;

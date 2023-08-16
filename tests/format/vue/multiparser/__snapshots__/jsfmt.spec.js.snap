@@ -1,5 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`lang-empty.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script lang="">
+should.
+be.   well.formatted(
+
+);</script>
+
+=====================================output=====================================
+<script lang="">
+should.be.well.formatted();
+</script>
+
+================================================================================
+`;
+
+exports[`lang-js.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script lang="js">
+should.
+be.   well.formatted(
+
+);</script>
+
+=====================================output=====================================
+<script lang="js">
+should.be.well.formatted();
+</script>
+
+================================================================================
+`;
+
 exports[`lang-jsx.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
@@ -30,6 +70,26 @@ export default {
     return <div>{this.message}</div>;
   },
 };
+</script>
+
+================================================================================
+`;
+
+exports[`lang-none.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script>
+should.
+be.   well.formatted(
+
+);</script>
+
+=====================================output=====================================
+<script>
+should.be.well.formatted();
 </script>
 
 ================================================================================
@@ -66,6 +126,60 @@ export default {
   },
 };
 </script>
+
+================================================================================
+`;
+
+exports[`lang-ts-multiple-script-tags.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script></script>
+<script></script>
+<script></script>
+<script></script>
+<script></script>
+<script></script>
+<script setup lang="ts">
+let x:      string |         number = 1
+</script>
+<script></script>
+<script></script>
+<script></script>
+<template>
+  <span
+  v-if=" (x    as string).length  >     0"
+  v-for="a in [1,2,  3,4,5].map(   (x  :    number) => x *   x)"
+  :foo="  (x    as number).toFixed(   2) "
+  >
+  {{ (x      as      number).toFixed(2) }}
+  </span>
+</template>
+
+=====================================output=====================================
+<script></script>
+<script></script>
+<script></script>
+<script></script>
+<script></script>
+<script></script>
+<script setup lang="ts">
+let x: string | number = 1;
+</script>
+<script></script>
+<script></script>
+<script></script>
+<template>
+  <span
+    v-if="(x as string).length > 0"
+    v-for="a in [1, 2, 3, 4, 5].map((x: number) => x * x)"
+    :foo="(x as number).toFixed(2)"
+  >
+    {{ (x as number).toFixed(2) }}
+  </span>
+</template>
 
 ================================================================================
 `;

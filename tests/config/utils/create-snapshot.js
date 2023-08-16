@@ -23,14 +23,9 @@ function printOptions(options) {
     filepath,
     errors,
     parser,
-    pluginSearchDirs,
 
     ...snapshotOptions
   } = options;
-
-  if (pluginSearchDirs !== false) {
-    snapshotOptions.pluginSearchDirs = pluginSearchDirs;
-  }
 
   const keys = Object.keys(snapshotOptions).sort();
   return keys
@@ -53,7 +48,7 @@ function printWidthIndicator(printWidth, offset) {
 
 function createSnapshot(
   formatResult,
-  { parsers, formatOptions, CURSOR_PLACEHOLDER }
+  { parsers, formatOptions, CURSOR_PLACEHOLDER },
 ) {
   let {
     inputWithCursor: input,
@@ -94,7 +89,7 @@ function createSnapshot(
       printSeparator("output"),
       output,
       printSeparator(),
-    ].join("\n")
+    ].join("\n"),
   );
 }
 

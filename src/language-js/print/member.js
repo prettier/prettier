@@ -11,7 +11,8 @@ function printMemberExpression(path, options, print) {
   const lookupDoc = printMemberLookup(path, options, print);
   const { node, parent } = path;
   const firstNonMemberParent = path.findAncestor(
-    (node) => !(isMemberExpression(node) || node.type === "TSNonNullExpression")
+    (node) =>
+      !(isMemberExpression(node) || node.type === "TSNonNullExpression"),
   );
 
   const shouldInline =

@@ -6,8 +6,7 @@ exports[`multiple patterns (stdout) 1`] = `
 "directory/file.js
 directory/nested-directory/nested-directory-file.js
 other-directory/file.js
-other-directory/nested-directory/nested-directory-file.js
-"
+other-directory/nested-directory/nested-directory-file.js"
 `;
 
 exports[`multiple patterns (write) 1`] = `[]`;
@@ -19,8 +18,7 @@ exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules w
 other-directory/file.js
 other-directory/nested-directory/nested-directory-file.js
 other-regular-modules.js
-regular-module.js
-"
+regular-module.js"
 `;
 
 exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag (write) 1`] = `[]`;
@@ -31,8 +29,7 @@ exports[`multiple patterns by with ignore pattern, ignores node_modules by defau
 "other-directory/file.js
 other-directory/nested-directory/nested-directory-file.js
 other-regular-modules.js
-regular-module.js
-"
+regular-module.js"
 `;
 
 exports[`multiple patterns by with ignore pattern, ignores node_modules by default (write) 1`] = `[]`;
@@ -43,8 +40,7 @@ exports[`multiple patterns by with ignore pattern, ignores node_modules by with 
 "other-directory/file.js
 other-directory/nested-directory/nested-directory-file.js
 other-regular-modules.js
-regular-module.js
-"
+regular-module.js"
 `;
 
 exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (write) 1`] = `[]`;
@@ -55,29 +51,23 @@ exports[`multiple patterns with ignore nested directories pattern (stdout) 1`] =
 "directory/file.js
 other-directory/file.js
 other-regular-modules.js
-regular-module.js
-"
+regular-module.js"
 `;
 
 exports[`multiple patterns with ignore nested directories pattern (write) 1`] = `[]`;
 
-exports[`multiple patterns with non exists pattern (stderr) 1`] = `
-"[error] No files matching the pattern were found: "non-existent.js".
-"
-`;
+exports[`multiple patterns with non exists pattern (stderr) 1`] = `"[error] No files matching the pattern were found: "non-existent.js"."`;
 
 exports[`multiple patterns with non exists pattern (stdout) 1`] = `
 "directory/file.js
-directory/nested-directory/nested-directory-file.js
-"
+directory/nested-directory/nested-directory-file.js"
 `;
 
 exports[`multiple patterns with non exists pattern (write) 1`] = `[]`;
 
 exports[`multiple patterns, throw error and exit with non zero code on non existing files (stderr) 1`] = `
 "[error] No files matching the pattern were found: "non-existent.js".
-[error] No files matching the pattern were found: "other-non-existent.js".
-"
+[error] No files matching the pattern were found: "other-non-existent.js"."
 `;
 
 exports[`multiple patterns, throw error and exit with non zero code on non existing files (stdout) 1`] = `""`;

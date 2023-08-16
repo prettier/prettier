@@ -1,3 +1,5 @@
+import { ParseSourceSpan } from "angular-html-parser";
+
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
 const parseFunctions = [
@@ -18,29 +20,23 @@ const parseFunctions = [
   },
 ];
 
-function parseIeConditionalComment(angularHtmlParser, node, parseHtml) {
+function parseIeConditionalComment(node, parseHtml) {
   if (node.value) {
     for (const { regex, parse } of parseFunctions) {
       const match = node.value.match(regex);
       if (match) {
-        return parse(angularHtmlParser, node, parseHtml, match);
+        return parse(node, parseHtml, match);
       }
     }
   }
   return null;
 }
 
-function parseIeConditionalStartEndComment(
-  angularHtmlParser,
-  node,
-  parseHtml,
-  match
-) {
+function parseIeConditionalStartEndComment(node, parseHtml, match) {
   const [, openingTagSuffix, condition, data] = match;
   const offset = "<!--".length + openingTagSuffix.length;
   const contentStartSpan = node.sourceSpan.start.moveBy(offset);
   const contentEndSpan = contentStartSpan.moveBy(data.length);
-  const { ParseSourceSpan } = angularHtmlParser;
   const [complete, children] = (() => {
     try {
       return [true, parseHtml(data, contentStartSpan).children];
@@ -61,18 +57,13 @@ function parseIeConditionalStartEndComment(
     sourceSpan: node.sourceSpan,
     startSourceSpan: new ParseSourceSpan(
       node.sourceSpan.start,
-      contentStartSpan
+      contentStartSpan,
     ),
     endSourceSpan: new ParseSourceSpan(contentEndSpan, node.sourceSpan.end),
   };
 }
 
-function parseIeConditionalStartComment(
-  angularHtmlParser,
-  node,
-  parseHtml,
-  match
-) {
+function parseIeConditionalStartComment(node, parseHtml, match) {
   const [, condition] = match;
   return {
     type: "ieConditionalStartComment",
@@ -81,10 +72,7 @@ function parseIeConditionalStartComment(
   };
 }
 
-function parseIeConditionalEndComment(
-  angularHtmlParser,
-  node /*, parseHtml, match */
-) {
+function parseIeConditionalEndComment(node /*, parseHtml, match */) {
   return {
     type: "ieConditionalEndComment",
     sourceSpan: node.sourceSpan,

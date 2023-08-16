@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -18,12 +18,12 @@
     <script>
       const match =
         /^https:\/\/github\.com\/prettier\/prettier\/pull\/(\d+)/.exec(
-          document.referrer
+          document.referrer,
         );
       if (match != null) {
         const [, /* url */ pr] = match;
         location.replace(
-          `https://deploy-preview-${pr}--prettier.netlify.app/playground`
+          `https://deploy-preview-${pr}--prettier.netlify.app/playground`,
         );
       } else {
         const el = document.createElement("p");

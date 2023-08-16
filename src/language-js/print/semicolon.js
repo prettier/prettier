@@ -3,12 +3,15 @@ import {
   getLeftSidePathName,
   hasNakedLeftSide,
   isJsxElement,
-  isTheOnlyJsxElementInMarkdown,
 } from "../utils/index.js";
 import { shouldPrintParamsWithoutParens } from "./function.js";
 
 function shouldPrintLeadingSemicolon(path, options) {
-  if (options.semi || isTheOnlyJsxElementInMarkdown(options, path)) {
+  if (
+    options.semi ||
+    isSingleJsxExpressionStatementInMarkdown(path, options) ||
+    isSingleVueEventBindingExpressionStatement(path, options)
+  ) {
     return false;
   }
 
@@ -82,8 +85,51 @@ function expressionNeedsASIProtection(path, options) {
 
   return path.call(
     () => expressionNeedsASIProtection(path, options),
-    ...getLeftSidePathName(node)
+    ...getLeftSidePathName(node),
   );
 }
 
-export { shouldPrintLeadingSemicolon };
+function isSingleJsxExpressionStatementInMarkdown({ node, parent }, options) {
+  return (
+    (options.parentParser === "markdown" || options.parentParser === "mdx") &&
+    node.type === "ExpressionStatement" &&
+    isJsxElement(node.expression) &&
+    parent.type === "Program" &&
+    parent.body.length === 1
+  );
+}
+
+// based on /src/language-html/syntax-vue.js isVueEventBindingExpression()
+function isVueEventBindingExpression(node) {
+  switch (node.type) {
+    case "MemberExpression":
+      switch (node.property.type) {
+        case "Identifier":
+        case "NumericLiteral":
+        case "StringLiteral":
+          return isVueEventBindingExpression(node.object);
+      }
+      return false;
+    case "Identifier":
+      return true;
+    default:
+      return false;
+  }
+}
+
+function isSingleVueEventBindingExpressionStatement({ node, parent }, options) {
+  return (
+    (options.parser === "__vue_event_binding" ||
+      options.parser === "__vue_ts_event_binding") &&
+    node.type === "ExpressionStatement" &&
+    parent.type === "Program" &&
+    parent.body.length === 1
+  );
+}
+
+export {
+  shouldPrintLeadingSemicolon,
+  isSingleJsxExpressionStatementInMarkdown,
+  isSingleVueEventBindingExpressionStatement,
+  isVueEventBindingExpression,
+};

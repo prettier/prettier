@@ -1,15 +1,24 @@
-function wrapBabelExpression(node, options, type = "JsExpressionRoot") {
-  const { tokens, comments } = node;
-  delete node.tokens;
-  delete node.comments;
+/**
+ * @param {{
+ *   text: string,
+ *   type?: string,
+ *   rootMarker?: string,
+ * }} options
+ */
+function wrapBabelExpression(expression, options) {
+  const { type = "JsExpressionRoot", rootMarker, text } = options;
+
+  const { tokens, comments } = expression;
+  delete expression.tokens;
+  delete expression.comments;
 
   return {
     tokens,
     comments,
     type,
-    node,
-    range: [0, options.originalText.length],
-    rootMarker: options.rootMarker,
+    node: expression,
+    range: [0, text.length],
+    rootMarker,
   };
 }
 

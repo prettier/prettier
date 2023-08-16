@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`issue-7542.ts - {"printWidth":120} format 1`] = `
+exports[`issue-7542.tsx - {"printWidth":120} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 120

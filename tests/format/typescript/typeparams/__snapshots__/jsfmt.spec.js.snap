@@ -286,6 +286,209 @@ const appIDs = createSelector(
 ================================================================================
 `;
 
+exports[`const.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function a<const T>() {}
+function b<const T extends U>() {}
+function c<T, const U>() {}
+declare function d<const T>();
+<const T>() => {};
+<const T extends U>() => {};
+(function <const T>() {});
+(function <const T extends U>() {});
+(function <T, const U>() {});
+
+class A<const T> {}
+class B<const T extends U> {}
+class C<T, const U> {}
+class D<in const T> {}
+class E<const in T> {}
+(class <const T> {});
+(class <const T extends U> {});
+(class <T, const U> {});
+(class <in const T> {});
+(class <const in T> {});
+
+interface I<const T> {}
+interface J<const T extends U> {}
+interface K<T, const U> {}
+interface L<in const T> {}
+interface M<const in T> {}
+
+class _ {
+  method<const T>() {}
+  method<const T extends U>() {}
+  method<T, const U>() {}
+}
+
+=====================================output=====================================
+function a<const T>() {}
+function b<const T extends U>() {}
+function c<T, const U>() {}
+declare function d<const T>();
+<const T>() => {};
+<const T extends U>() => {};
+(function <const T>() {});
+(function <const T extends U>() {});
+(function <T, const U>() {});
+
+class A<const T> {}
+class B<const T extends U> {}
+class C<T, const U> {}
+class D<const in T> {}
+class E<const in T> {}
+(class<const T> {});
+(class<const T extends U> {});
+(class<T, const U> {});
+(class<const in T> {});
+(class<const in T> {});
+
+interface I<const T> {}
+interface J<const T extends U> {}
+interface K<T, const U> {}
+interface L<const in T> {}
+interface M<const in T> {}
+
+class _ {
+  method<const T>() {}
+  method<const T extends U>() {}
+  method<T, const U>() {}
+}
+
+================================================================================
+`;
+
+exports[`line-breaking-after-extends.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export type OuterType1<
+  LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerOtherType<OneMoreType>
+> = { a: 1 };
+
+export type OuterType2<
+  LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerLongerLongerLongerLongerOtherType
+> = { a: 1 };
+
+export type OuterType3<
+  LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType
+> = { a: 1 };
+
+export type OuterType4<
+  LongerLongerLongerLongerInnerType extends
+    | LongerLongerLongerLongerLongerLo
+    | ngerLongerLongerOtherType
+> = { a: 1 };
+
+=====================================output=====================================
+export type OuterType1<
+  LongerLongerLongerLongerInnerType extends
+    LongerLongerLongerLongerOtherType<OneMoreType>,
+> = { a: 1 };
+
+export type OuterType2<
+  LongerLongerLongerLongerInnerType extends
+    LongerLongerLongerLongerLongerLongerLongerLongerOtherType,
+> = { a: 1 };
+
+export type OuterType3<
+  LongerLongerLongerLongerInnerType extends
+    LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType,
+> = { a: 1 };
+
+export type OuterType4<
+  LongerLongerLongerLongerInnerType extends
+    | LongerLongerLongerLongerLongerLo
+    | ngerLongerLongerOtherType,
+> = { a: 1 };
+
+================================================================================
+`;
+
+exports[`line-breaking-after-extends-2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a = {
+  parseFunctionBodyAndFinish<
+    T extends
+      | N.Function
+      | N.TSDeclareMethod
+      | N.TSDeclareFunction
+      | N.ClassPrivateMethod,
+  >() {}
+}
+
+function parseFunctionBodyAndFinish<
+  T extends
+    | N.Function
+    | N.TSDeclareMethod
+    | N.TSDeclareFunction
+    | N.ClassPrivateMethod
+    | Foo
+    | Bar
+    | Baz
+>();
+
+function parseFunctionBodyAndFinish<
+  T extends // comment
+    N.Function | N.TSDeclareMethod | Baz
+>();
+
+function makeChainWalker<
+  ArgT extends {
+    options: ValidatedOptions;
+    dirname: string;
+    filepath?: string;
+  },
+>() {}
+
+=====================================output=====================================
+a = {
+  parseFunctionBodyAndFinish<
+    T extends
+      | N.Function
+      | N.TSDeclareMethod
+      | N.TSDeclareFunction
+      | N.ClassPrivateMethod,
+  >() {},
+};
+
+function parseFunctionBodyAndFinish<
+  T extends
+    | N.Function
+    | N.TSDeclareMethod
+    | N.TSDeclareFunction
+    | N.ClassPrivateMethod
+    | Foo
+    | Bar
+    | Baz,
+>();
+
+function parseFunctionBodyAndFinish<
+  T extends // comment
+    N.Function | N.TSDeclareMethod | Baz,
+>();
+
+function makeChainWalker<
+  ArgT extends {
+    options: ValidatedOptions;
+    dirname: string;
+    filepath?: string;
+  },
+>() {}
+
+================================================================================
+`;
+
 exports[`long-function-arg.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

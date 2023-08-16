@@ -1,12 +1,11 @@
 import { outdent } from "outdent";
-
-const CATEGORY_CONFIG = "Config";
-const CATEGORY_EDITOR = "Editor";
-const CATEGORY_FORMAT = "Format";
-const CATEGORY_OTHER = "Other";
-const CATEGORY_OUTPUT = "Output";
-const CATEGORY_GLOBAL = "Global";
-const CATEGORY_SPECIAL = "Special";
+import {
+  CATEGORY_CONFIG,
+  CATEGORY_EDITOR,
+  CATEGORY_OTHER,
+  CATEGORY_GLOBAL,
+  CATEGORY_SPECIAL,
+} from "./option-categories.js";
 
 /**
  * @typedef {Object} OptionInfo
@@ -146,21 +145,6 @@ const options = {
     cliName: "plugin",
     cliCategory: CATEGORY_CONFIG,
   },
-  pluginSearchDirs: {
-    type: "path",
-    array: true,
-    default: [{ value: [] }],
-    category: CATEGORY_GLOBAL,
-    description: outdent`
-      Custom directory that contains prettier plugins in node_modules subdirectory.
-      Overrides default behavior when plugins are searched relatively to the location of Prettier.
-      Multiple values are accepted.
-    `,
-    exception: (value) =>
-      typeof value === "string" || typeof value === "object",
-    cliName: "plugin-search-dir",
-    cliCategory: CATEGORY_CONFIG,
-  },
   printWidth: {
     category: CATEGORY_GLOBAL,
     type: "int",
@@ -235,13 +219,4 @@ const options = {
   },
 };
 
-export {
-  CATEGORY_CONFIG,
-  CATEGORY_EDITOR,
-  CATEGORY_FORMAT,
-  CATEGORY_OTHER,
-  CATEGORY_OUTPUT,
-  CATEGORY_GLOBAL,
-  CATEGORY_SPECIAL,
-  options,
-};
+export default options;

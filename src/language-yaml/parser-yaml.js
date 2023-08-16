@@ -1,10 +1,9 @@
+import { parse as parseYaml } from "yaml-unist-parser/lib/parse.js";
 import createError from "../common/parser-create-error.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 
-async function parse(text) {
-  const { parse: parseYaml } = await import("yaml-unist-parser/lib/parse.js");
-
+function parse(text) {
   try {
     const root = parseYaml(text);
 
@@ -17,7 +16,7 @@ async function parse(text) {
     delete root.comments;
 
     return root;
-  } catch (error) {
+  } catch (/** @type {any} */ error) {
     if (error?.position) {
       throw createError(error.message, {
         loc: error.position,
@@ -30,18 +29,10 @@ async function parse(text) {
   }
 }
 
-const parser = {
+export const yaml = {
   astFormat: "yaml",
   parse,
   hasPragma,
   locStart,
   locEnd,
 };
-
-const yaml = {
-  parsers: {
-    yaml: parser,
-  },
-};
-
-export default yaml;

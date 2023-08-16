@@ -18,22 +18,37 @@ const isTypeAccess = (node, parameterName) => {
 };
 
 const isEqualCheck = (node) =>
-  node.type === "BinaryExpression" &&
-  node.operator === "===" &&
-  node.right.type === "Literal" &&
-  typeof node.right.value === "string";
+  node.type === "BinaryExpression" && node.operator === "===";
+
+const isTypeIdentifier = (node) =>
+  node.type === "Identifier" && node.name === "type";
 
 const isTypeIdentifierCheck = (node) =>
-  isEqualCheck(node) &&
-  node.left.type === "Identifier" &&
-  node.left.name === "type";
-
+  isEqualCheck(node) && isTypeIdentifier(node.left);
 const isTypeAccessCheck = (node, parameterName) =>
   isEqualCheck(node) && isTypeAccess(node.left, parameterName);
 
+const isSetHasOrArrayIncludesCall = (node) =>
+  node.type === "CallExpression" &&
+  node.arguments.length === 1 &&
+  node.callee.type === "MemberExpression" &&
+  node.callee.property.type === "Identifier" &&
+  (node.callee.property.name === "has" ||
+    node.callee.property.name === "includes");
+
+const isMultipleTypeAccessCheck = (node, parameterName) =>
+  isSetHasOrArrayIncludesCall(node) &&
+  isTypeAccess(node.arguments[0], parameterName);
+
+const isMultipleTypeIdentifierCheck = (node) =>
+  isSetHasOrArrayIncludesCall(node) && isTypeIdentifier(node.arguments[0]);
+
 function getTypesFromNodeParameter(node, parameterName) {
   if (isTypeAccessCheck(node, parameterName)) {
-    return [node.right.value];
+    return [{ type: "single", node: node.right }];
+  }
+  if (isMultipleTypeAccessCheck(node, parameterName)) {
+    return [{ type: "multiple", node: node.callee.object }];
   }
 
   if (node.type === "LogicalExpression" && node.operator === "||") {
@@ -54,7 +69,10 @@ function getTypesFromNodeParameter(node, parameterName) {
 
 function getTypesFromTypeParameter(node) {
   if (isTypeIdentifierCheck(node)) {
-    return [node.right.value];
+    return [{ type: "single", node: node.right }];
+  }
+  if (isMultipleTypeIdentifierCheck(node)) {
+    return [{ type: "multiple", node: node.callee.object }];
   }
 
   if (node.type === "LogicalExpression" && node.operator === "||") {
@@ -151,6 +169,7 @@ module.exports = {
       onlyTopLevelFunctions: false,
       ...context.options[0],
     };
+    const sourceCode = context.getSourceCode();
 
     return {
       [selector](functionNode) {
@@ -178,7 +197,11 @@ module.exports = {
           return;
         }
 
-        if (ignoreSingleType && types.length === 1) {
+        if (
+          ignoreSingleType &&
+          types.length === 1 &&
+          types[0].type === "single"
+        ) {
           return;
         }
 
@@ -187,15 +210,33 @@ module.exports = {
           messageId: MESSAGE_ID,
         };
 
-        if (
-          context.getSourceCode().getCommentsInside(functionNode).length === 0
-        ) {
+        const commentsInFunction =
+          sourceCode.getCommentsInside(functionNode).length;
+        const commentsInTypes =
+          commentsInFunction === 0
+            ? 0
+            : types.reduce(
+                (count, { node }) =>
+                  count + sourceCode.getCommentsInside(node).length,
+                0,
+              );
+
+        if (commentsInFunction === commentsInTypes) {
           problem.fix = (fixer) => {
-            let text = `createTypeCheckFunction(${JSON.stringify(
-              types,
-              undefined,
-              2
-            )})`;
+            const typesText =
+              types.length === 1 && types[0].type === "multiple"
+                ? sourceCode.getText(types[0].node)
+                : `[${types
+                    .map(
+                      ({ type, node }) =>
+                        `${type === "single" ? "" : "..."}${sourceCode.getText(
+                          node,
+                        )}`,
+                    )
+                    .join(", ")}]`;
+
+            let text = `createTypeCheckFunction(${typesText})`;
+
             if (functionNode.type === "FunctionDeclaration") {
               const functionName =
                 functionNode.id?.name ?? "__please_name_this_function";
@@ -207,7 +248,7 @@ module.exports = {
               ) {
                 return fixer.replaceText(
                   functionNode.parent,
-                  `${text}\nexport default ${functionName};`
+                  `${text}\nexport default ${functionName};`,
                 );
               }
             }

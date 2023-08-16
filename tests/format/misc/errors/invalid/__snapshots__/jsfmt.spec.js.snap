@@ -229,9 +229,9 @@ exports[`snippet: #2 [meriyah] format 2`] = `
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
-"Unexpected token. (1:10)
+"'{' expected. (1:11)
 > 1 | ({ method() })
-    |          ^^"
+    |           ^"
 `;
 
 exports[`snippet: #3 [acorn] format 1`] = `
@@ -307,9 +307,9 @@ exports[`snippet: #3 [meriyah] format 2`] = `
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `
-"Unexpected token. (1:10)
+"'{' expected. (1:13)
 > 1 | ({ method({}) })
-    |          ^^^^"
+    |             ^"
 `;
 
 exports[`snippet: #4 [acorn] format 1`] = `
@@ -385,7 +385,7 @@ exports[`snippet: #4 [meriyah] format 2`] = `
 `;
 
 exports[`snippet: #4 [typescript] format 1`] = `
-"Unexpected token. (1:10)
+"'{' expected. (1:21)
 > 1 | ({ method(parameter,) })
-    |          ^^^^^^^^^^^^"
+    |                     ^"
 `;

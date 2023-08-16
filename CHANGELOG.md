@@ -1,3 +1,394 @@
+# 3.0.2
+
+[diff](https://github.com/prettier/prettier/compare/3.0.1...3.0.2)
+
+#### Break after `=` of assignment if RHS is poorly breakable AwaitExpression or YieldExpression ([#15204](https://github.com/prettier/prettier/pull/15204) by [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```js
+// Input
+const { section, rubric, authors, tags } = await utils.upsertCommonData(mainData);
+
+// Prettier 3.0.1
+const { section, rubric, authors, tags } = await utils.upsertCommonData(
+  mainData,
+);
+
+// Prettier 3.0.2
+const { section, rubric, authors, tags } =
+  await utils.upsertCommonData(mainData);
+```
+
+#### Do not add trailing comma for grouped scss comments ([#15217](https://github.com/prettier/prettier/pull/15217) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```scss
+/* Input */
+$foo: (
+	'property': (),
+	// comment 1
+	// comment 2
+)
+
+/* Prettier 3.0.1 */
+$foo: (
+  "property": (),
+  // comment 1
+  // comment 2,
+);
+
+/* Prettier 3.0.2 */
+$foo: (
+  "property": (),
+  // comment 1
+  // comment 2
+);
+```
+
+#### Print `declare` and `export` keywords for nested namespace ([#15249](https://github.com/prettier/prettier/pull/15249) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+declare namespace abc1.def {}
+export namespace abc2.def {}
+
+// Prettier 3.0.1
+namespace abc1.def {}
+namespace abc2.def {}
+
+// Prettier 3.0.2
+declare namespace abc1.def {}
+export namespace abc2.def {}
+```
+
+# 3.0.1
+
+[diff](https://github.com/prettier/prettier/compare/3.0.0...3.0.1)
+
+#### Fix cursor positioning for a special case ([#14812](https://github.com/prettier/prettier/pull/14812) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```js
+// <|> is the cursor position
+
+/* Input */
+// All messages are represented in JSON.
+// So, the prettier.py controls a subprocess which spawns "node {this_file}".
+import {<|>  } from "fs"
+
+/* Prettier 3.0.0 */
+// All messages are represented in JSON.
+// So, the prettier.py <|>controls a subprocess which spawns "node {this_file}".
+import {} from "fs"
+
+/* Prettier 3.0.1 */
+// All messages are represented in JSON.
+// So, the prettier.py controls a subprocess which spawns "node {this_file}".
+import {<|>} from "fs"
+```
+
+#### Fix plugins/estree.d.ts to make it a module ([#15018](https://github.com/prettier/prettier/pull/15018) by [@kingyue737](https://github.com/kingyue737))
+
+Add `export {}` in `plugins/estree.d.ts` to fix the "File is not a module" error
+
+#### Add parenthesis around leading multiline comment in return statement ([#15037](https://github.com/prettier/prettier/pull/15037) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+function fn() {
+  return (
+    /**
+     * @type {...}
+     */ expresssion
+  )
+}
+
+// Prettier 3.0.0
+function fn() {
+  return /**
+   * @type {...}
+   */ expresssion;
+}
+
+// Prettier 3.0.1
+function fn() {
+  return (
+    /**
+     * @type {...}
+     */ expresssion
+  );
+}
+```
+
+#### Add support for Vue "Generic Components" ([#15066](https://github.com/prettier/prettier/pull/15066) by [@auvred](https://github.com/auvred))
+
+https://blog.vuejs.org/posts/vue-3-3#generic-components
+
+<!-- prettier-ignore -->
+```vue
+<!-- Input -->
+<script setup lang="ts" generic="T extends Type1 & Type2 & (Type3 | Type4), U extends string | number | boolean"></script>
+
+<!-- Prettier 3.0.0 -->
+<script
+  setup
+  lang="ts"
+  generic="T extends Type1 & Type2 & (Type3 | Type4), U extends string | number | boolean"
+></script>
+
+<!-- Prettier 3.0.1 -->
+<script
+  setup
+  lang="ts"
+  generic="
+    T extends Type1 & Type2 & (Type3 | Type4),
+    U extends string | number | boolean
+  "
+></script>
+```
+
+#### Fix comments print in `IfStatement` ([#15076](https://github.com/prettier/prettier/pull/15076) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```js
+function a(b) {
+  if (b) return 1; // comment
+  else return 2;
+}
+
+/* Prettier 3.0.0 */
+Error: Comment "comment" was not printed. Please report this error!
+
+/* Prettier 3.0.1 */
+function a(b) {
+  if (b) return 1; // comment
+  else return 2;
+}
+```
+
+#### Add missing type definition for `printer.preprocess` ([#15123](https://github.com/prettier/prettier/pull/15123) by [@so1ve](https://github.com/so1ve))
+
+```diff
+export interface Printer<T = any> {
+  // ...
++ preprocess?:
++   | ((ast: T, options: ParserOptions<T>) => T | Promise<T>)
++   | undefined;
+}
+```
+
+#### Add missing `getVisitorKeys` method type definition for `Printer` ([#15125](https://github.com/prettier/prettier/pull/15125) by [@auvred](https://github.com/auvred))
+
+```tsx
+const printer: Printer = {
+  print: () => [],
+  getVisitorKeys(node, nonTraversableKeys) {
+    return ["body"];
+  },
+};
+```
+
+#### Add typing to support `readonly` array properties of AST Node ([#15127](https://github.com/prettier/prettier/pull/15127) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+interface TestNode {
+  readonlyArray: readonly string[];
+}
+
+declare const path: AstPath<TestNode>;
+
+path.map(() => "", "readonlyArray");
+
+// Prettier 3.0.0
+interface TestNode {
+  readonlyArray: readonly string[];
+}
+
+declare const path: AstPath<TestNode>;
+
+path.map(() => "", "readonlyArray");
+//                  ^ Argument of type '"readonlyArray"' is not assignable to parameter of type '"regularArray"'. ts(2345)
+
+// Prettier 3.0.1
+interface TestNode {
+  readonlyArray: readonly string[];
+}
+
+declare const path: AstPath<TestNode>;
+
+path.map(() => "", "readonlyArray");
+```
+
+#### Add space before unary minus followed by a function call ([#15129](https://github.com/prettier/prettier/pull/15129) by [@pamelalozano](https://github.com/pamelalozano))
+
+<!-- prettier-ignore -->
+```less
+// Input
+div {
+  margin: - func();
+}
+
+// Prettier 3.0.0
+div {
+  margin: -func();
+}
+
+// Prettier 3.0.1
+div {
+  margin: - func();
+}
+```
+
+# 3.0.0
+
+[diff](https://github.com/prettier/prettier/compare/3.0.0-alpha.6...3.0.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2023/07/05/3.0.0.html)
+
+# 2.8.8
+
+This version is a republished version of v2.8.7.
+A bad version was accidentally published and [it can't be unpublished](https://github.com/npm/cli/issues/1686), apologies for the churn.
+
+# 2.8.7
+
+[diff](https://github.com/prettier/prettier/compare/2.8.6...2.8.7)
+
+#### Allow multiple decorators on same getter/setter ([#14584](https://github.com/prettier/prettier/pull/14584) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class A {
+  @decorator()
+  get foo () {}
+  
+  @decorator()
+  set foo (value) {}
+}
+
+// Prettier 2.8.6
+SyntaxError: Decorators cannot be applied to multiple get/set accessors of the same name. (5:3)
+  3 |   get foo () {}
+  4 |   
+> 5 |   @decorator()
+    |   ^^^^^^^^^^^^
+  6 |   set foo (value) {}
+  7 | }
+
+// Prettier 2.8.7
+class A {
+  @decorator()
+  get foo() {}
+
+  @decorator()
+  set foo(value) {}
+}
+```
+
+# 2.8.6
+
+[diff](https://github.com/prettier/prettier/compare/2.8.5...2.8.6)
+
+#### Allow decorators on private members and class expressions ([#14548](https://github.com/prettier/prettier/pull/14548) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class A {
+  @decorator()
+  #privateMethod () {}
+}
+
+// Prettier 2.8.5
+SyntaxError: Decorators are not valid here. (2:3)
+  1 | class A {
+> 2 |   @decorator()
+    |   ^^^^^^^^^^^^
+  3 |   #privateMethod () {}
+  4 | }
+
+// Prettier 2.8.6
+class A {
+  @decorator()
+  #privateMethod() {}
+}
+```
+
+# 2.8.5
+
+[diff](https://github.com/prettier/prettier/compare/2.8.4...2.8.5)
+
+#### Support TypeScript 5.0 ([#14391](https://github.com/prettier/prettier/pull/14391) by [@fisker](https://github.com/fisker), [#13819](https://github.com/prettier/prettier/pull/13819) by [@fisker](https://github.com/fisker), [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+TypeScript 5.0 introduces two new syntactic features:
+
+- `const` modifiers for type parameters
+- `export type *` declarations
+
+#### Add missing parentheses for decorator ([#14393](https://github.com/prettier/prettier/pull/14393) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+class Person {
+  @(myDecoratorArray[0])
+  greet() {}
+}
+
+// Prettier 2.8.4
+class Person {
+  @myDecoratorArray[0]
+  greet() {}
+}
+
+// Prettier 2.8.5
+class Person {
+  @(myDecoratorArray[0])
+  greet() {}
+}
+```
+
+#### Add parentheses for `TypeofTypeAnnotation` to improve readability ([#14458](https://github.com/prettier/prettier/pull/14458) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type A = (typeof node.children)[];
+
+// Prettier 2.8.4
+type A = typeof node.children[];
+
+// Prettier 2.8.5
+type A = (typeof node.children)[];
+```
+
+#### Support `max_line_length=off` when parsing `.editorconfig` ([#14516](https://github.com/prettier/prettier/pull/14516) by [@josephfrazier](https://github.com/josephfrazier))
+
+If an .editorconfig file is in your project and it sets `max_line_length=off` for the file you're formatting,
+it will be interpreted as a `printWidth` of `Infinity` rather than being ignored
+(which previously resulted in the default `printWidth` of 80 being applied, if not overridden by Prettier-specific configuration).
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<div className='HelloWorld' title={`You are visitor number ${ num }`} onMouseOver={onMouseOver}/>
+
+<!-- Prettier 2.8.4 -->
+<div
+  className="HelloWorld"
+  title={`You are visitor number ${num}`}
+  onMouseOver={onMouseOver}
+/>;
+
+<!-- Prettier 2.8.5 -->
+<div className="HelloWorld" title={`You are visitor number ${num}`} onMouseOver={onMouseOver} />;
+```
+
 # 2.8.4
 
 [diff](https://github.com/prettier/prettier/compare/2.8.3...2.8.4)
@@ -528,7 +919,7 @@ Error: Comment "comment" was not printed. Please report this error!
 <Same as input>
 ```
 
-#### Fix formatting for comments inside JSX attribute ([#14082](https://github.com/prettier/prettier/pull/14082) with by [@fisker](https://github.com/fisker))
+#### Fix formatting for comments inside JSX attribute ([#14082](https://github.com/prettier/prettier/pull/14082) by [@fisker](https://github.com/fisker))
 
 <!-- prettier-ignore -->
 ```jsx
@@ -788,7 +1179,7 @@ prettier --loglevel silent --help no-color
 
 Fixes two problems when bundling our UMD files with webpack:
 
-- A error `` "`....__exportStar` is not a function" `` throws when running the bundles.
+- A error ``"`....__exportStar` is not a function"`` throws when running the bundles.
 - Some files cause warning about `"Critical dependency: the request of a dependency is an expression"`.
 
 #### Fix non-idempotent formatting of function calls with complex type arguments ([#12508](https://github.com/prettier/prettier/pull/12508) by [@sosukesuzuki](https://github.com/sosukesuzuki))

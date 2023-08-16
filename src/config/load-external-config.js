@@ -11,7 +11,7 @@ async function loadExternalConfig(config, filepath) {
   */
   try {
     return requireFromFile(config, filepath);
-  } catch (error) {
+  } catch (/** @type {any} */ error) {
     if (
       error?.code !== "MODULE_NOT_FOUND" &&
       error?.code !== "ERR_REQUIRE_ESM"

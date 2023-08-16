@@ -29,7 +29,7 @@ jobs:
         os:
           - "ubuntu-latest"
         node:
-          # Run tests on minimal version we support
+          # Minimal version for development
           - "16"
         NPM_CLIENT:
           - "yarn"
@@ -43,10 +43,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.5.3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.6.0
+        uses: actions/setup-node@v3.7.0
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"

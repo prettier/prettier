@@ -12,7 +12,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  extends: ["eslint:recommended", "prettier"],
+  extends: ["eslint:recommended", "prettier", "plugin:regexp/recommended"],
   plugins: [
     "prettier-internal-rules",
     "import",
@@ -127,7 +127,7 @@ module.exports = {
       "error",
       {
         devDependencies: [
-          "jest.config.mjs",
+          "jest.config.js",
           "tests/**",
           "scripts/**",
           "website/**/*",
@@ -163,16 +163,12 @@ module.exports = {
     /* cspell:disable-next-line */
     "regexp/no-extra-lookaround-assertions": "error",
     "regexp/no-missing-g-flag": "error",
-    "regexp/no-unused-capturing-group": "error",
-    "regexp/no-useless-assertions": "error",
     "regexp/no-useless-flag": [
       "error",
       {
         strictTypes: false,
       },
     ],
-    "regexp/no-useless-lazy": "error",
-    "regexp/no-useless-non-capturing-group": "error",
     /* cspell:disable-next-line */
     "regexp/prefer-lookaround": [
       "error",
@@ -180,6 +176,11 @@ module.exports = {
         strictTypes: false,
       },
     ],
+    // Conflicting with `unicorn/better-regex`
+    "regexp/strict": "off",
+    // Hard to fix
+    "regexp/no-empty-alternative": "off",
+    "regexp/no-super-linear-backtracking": "off",
 
     // eslint-plugin-unicorn
     "unicorn/better-regex": "error",
@@ -260,7 +261,7 @@ module.exports = {
       },
     },
     {
-      files: ["scripts/**/*.mjs"],
+      files: ["scripts/**/*.js"],
       rules: {
         "unicorn/prefer-top-level-await": "error",
       },
@@ -271,6 +272,7 @@ module.exports = {
         "tests/format/**/jsfmt.spec.js",
         "tests/integration/**/*.js",
         "tests/unit/**/*.js",
+        "tests/dts/unit/**/*.js",
         "scripts/release/__tests__/**/*.spec.js",
       ],
       env: {
@@ -310,7 +312,7 @@ module.exports = {
       },
       globals: {
         run_spec: "readonly",
-        runPrettier: "readonly",
+        runCli: "readonly",
       },
     },
     {
@@ -324,7 +326,7 @@ module.exports = {
                 path.resolve(__dirname, "src/**"),
                 `!${path.resolve(__dirname, "src/cli/**")}`,
                 `!${path.resolve(__dirname, "src/index.js")}`,
-                `!${path.resolve(__dirname, "src/common/third-party.js")}`,
+                `!${path.resolve(__dirname, "src/common/mockable.js")}`,
               ],
               message: "Don't use code from other directory.",
             },
@@ -355,7 +357,7 @@ module.exports = {
       rules: {
         "prettier-internal-rules/flat-ast-path-call": "error",
         "prettier-internal-rules/no-conflicting-comment-check-flags": "error",
-        "prettier-internal-rules/no-doc-index-import": "error",
+        "prettier-internal-rules/no-doc-public-import": "error",
         "prettier-internal-rules/no-empty-flat-contents-for-if-break": "error",
         "prettier-internal-rules/no-unnecessary-ast-path-call": "error",
         "prettier-internal-rules/prefer-ast-path-each": "error",

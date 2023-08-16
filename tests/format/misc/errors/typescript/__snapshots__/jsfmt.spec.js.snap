@@ -32,7 +32,7 @@ exports[`export-declare.ts [typescript] format 1`] = `
   2 |"
 `;
 
-exports[`invalid-jsx-1.ts [typescript] format 1`] = `
+exports[`invalid-jsx-1.tsx [typescript] format 1`] = `
 "Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (3:45)
   1 | // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-and--are-now-invalid-jsx-text-characters
   2 |
@@ -93,10 +93,10 @@ exports[`snippet: #5 [typescript] format 1`] = `
 `;
 
 exports[`value-of-abstract-property.ts [typescript] format 1`] = `
-"Abstract property cannot have an initializer (2:3)
+"Abstract property cannot have an initializer. (2:19)
   1 | abstract class Foo {
 > 2 |   abstract prop = 3;
-    |   ^^^^^^^^^^^^^^^^^^
+    |                   ^
   3 | }
   4 |"
 `;

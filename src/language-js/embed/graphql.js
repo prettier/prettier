@@ -3,8 +3,9 @@ import {
   escapeTemplateCharacters,
   printTemplateExpressions,
 } from "../print/template-literal.js";
+import { hasLanguageComment } from "./utils.js";
 
-async function embedGraphQL(textToDoc, print, path /*, options*/) {
+async function printEmbedGraphQL(textToDoc, print, path /*, options*/) {
   const { node } = path;
 
   const numQuasis = node.quasis.length;
@@ -30,7 +31,7 @@ async function embedGraphQL(textToDoc, print, path /*, options*/) {
       lines[numLines - 2].trim() === "";
 
     const commentsAndWhitespaceOnly = lines.every((line) =>
-      /^\s*(?:#[^\n\r]*)?$/.test(line)
+      /^\s*(?:#[^\n\r]*)?$/.test(line),
     );
 
     // Bail out if an interpolation occurs within a comment.
@@ -94,4 +95,36 @@ function printGraphqlComments(lines) {
   return parts.length === 0 ? null : join(hardline, parts);
 }
 
-export default embedGraphQL;
+/*
+ * react-relay and graphql-tag
+ * graphql`...`
+ * graphql.experimental`...`
+ * gql`...`
+ * GraphQL comment block
+ *
+ * This intentionally excludes Relay Classic tags, as Prettier does not
+ * support Relay Classic formatting.
+ */
+function isGraphQL({ node, parent }) {
+  return (
+    hasLanguageComment(node, "GraphQL") ||
+    (parent &&
+      ((parent.type === "TaggedTemplateExpression" &&
+        ((parent.tag.type === "MemberExpression" &&
+          parent.tag.object.name === "graphql" &&
+          parent.tag.property.name === "experimental") ||
+          (parent.tag.type === "Identifier" &&
+            (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
+        (parent.type === "CallExpression" &&
+          parent.callee.type === "Identifier" &&
+          parent.callee.name === "graphql")))
+  );
+}
+
+function printGraphql(path /*, options*/) {
+  if (isGraphQL(path)) {
+    return printEmbedGraphQL;
+  }
+}
+
+export default printGraphql;

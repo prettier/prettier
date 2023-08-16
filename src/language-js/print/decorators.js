@@ -1,5 +1,6 @@
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import hasNewline from "../../utils/has-newline.js";
+import isIgnored from "../utils/is-ignored.js";
 import {
   line,
   hardline,
@@ -19,6 +20,12 @@ function printClassMemberDecorators(path, options, print) {
 }
 
 function printDecoratorsBeforeExport(path, options, print) {
+  // Only print decorators here if they were written before the export,
+  // otherwise they are printed by the node.declaration
+  if (!hasDecoratorsBeforeExport(path.node)) {
+    return "";
+  }
+
   // Export declarations are responsible for printing any decorators
   // that logically apply to node.declaration.
   return [
@@ -36,9 +43,11 @@ function printDecorators(path, options, print) {
     // If the parent node is an export declaration and the decorator
     // was written before the export, the export will be responsible
     // for printing the decorators.
-    hasDecoratorsBeforeExport(parent)
+    hasDecoratorsBeforeExport(parent) ||
+    // Decorators already printed in ignored node
+    isIgnored(path)
   ) {
-    return;
+    return "";
   }
 
   const shouldBreak =
@@ -59,7 +68,7 @@ function printDecorators(path, options, print) {
 
 function hasNewlineBetweenOrAfterDecorators(node, options) {
   return node.decorators.some((decorator) =>
-    hasNewline(options.originalText, locEnd(decorator))
+    hasNewline(options.originalText, locEnd(decorator)),
   );
 }
 

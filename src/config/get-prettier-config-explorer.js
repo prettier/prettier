@@ -1,10 +1,9 @@
-import { pathToFileURL } from "node:url";
 import parseToml from "@iarna/toml/parse-async.js";
 import parseJson5 from "json5/lib/parse.js";
-import thirdParty from "../common/third-party.js";
+import mockable from "../common/mockable.js";
 import loadExternalConfig from "./load-external-config.js";
 
-const { cosmiconfig } = thirdParty;
+const { cosmiconfig } = mockable;
 
 const searchPlaces = [
   "package.json",
@@ -22,16 +21,11 @@ const searchPlaces = [
   ".prettierrc.toml",
 ];
 
-async function loadJs(filepath /*, content*/) {
-  const module = await import(pathToFileURL(filepath).href);
-  return module.default;
-}
-
 const loaders = {
   async ".toml"(filePath, content) {
     try {
       return await parseToml(content);
-    } catch (error) {
+    } catch (/** @type {any} */ error) {
       error.message = `TOML Error in ${filePath}:\n${error.message}`;
       throw error;
     }
@@ -39,14 +33,11 @@ const loaders = {
   ".json5"(filePath, content) {
     try {
       return parseJson5(content);
-    } catch (error) {
+    } catch (/** @type {any} */ error) {
       error.message = `JSON5 Error in ${filePath}:\n${error.message}`;
       throw error;
     }
   },
-  ".js": loadJs,
-  ".mjs": loadJs,
-  ".cjs": loadJs,
 };
 
 async function transform(result) {
@@ -73,7 +64,7 @@ async function transform(result) {
   if (typeof config !== "object") {
     throw new TypeError(
       "Config is only allowed to be an object, " +
-        `but received ${typeof config} in "${filepath}"`
+        `but received ${typeof config} in "${filepath}"`,
     );
   }
 

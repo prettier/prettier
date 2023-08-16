@@ -90,7 +90,7 @@ When Prettier loads configuration files and plugins, the file system structure i
 
 The promise will be rejected if the type of `filePath` is not `string`.
 
-Setting `options.ignorePath` (`string`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
+Setting `options.ignorePath` (`string | string[]`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
 
 If the given `filePath` is ignored, the `inferredParser` is always `null`.
 
@@ -150,13 +150,13 @@ format("lodash ( )", {
 
 ```js
 import { format } from "prettier";
-import pluginBabel from "prettier/plugins/babel";
+import * as prettierPluginBabel from "prettier/plugins/babel";
 
 const myCustomPlugin = {
   parsers: {
     "my-custom-parser": {
       async parse(text) {
-        const ast = await pluginBabel.parsers.babel.parse(text);
+        const ast = await prettierPluginBabel.parsers.babel.parse(text);
         ast.program.body[0].expression.callee.name = "_";
         return ast;
       },

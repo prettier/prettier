@@ -1,4 +1,4 @@
-import commonOptions from "../common/common-options.js";
+import commonOptions from "../common/common-options.evaluate.js";
 
 const CATEGORY_JAVASCRIPT = "JavaScript";
 

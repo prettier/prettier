@@ -188,6 +188,24 @@ With a semicolon in front of that `[` such issues never happen. It makes the lin
 
 This practice is also common in [standard] which uses a semicolon-free style.
 
+Note that if your program currently has a semicolon-related bug in it, Prettier _will not_ auto-fix the bug for you. Remember, Prettier only reformats code, it does not change the behavior of the code. Take this buggy piece of code as an example, where the developer forgot to place a semicolon before the `(`:
+
+<!-- prettier-ignore -->
+```js
+console.log('Running a background task')
+(async () => {
+  await doBackgroundWork()
+})()
+```
+
+If you feed this into Prettier, it will not alter the behavior of this code, instead, it will reformat it in a way that shows how this code will actually behave when ran.
+
+```js
+console.log("Running a background task")(async () => {
+  await doBackgroundWork();
+})();
+```
+
 [standard]: https://standardjs.com/rules.html#semicolons
 
 ### Print width

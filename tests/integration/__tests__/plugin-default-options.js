@@ -1,5 +1,5 @@
 describe("plugin default options should work", () => {
-  runPrettier(
+  runCli(
     "plugins/defaultOptions",
     [
       "--stdin-filepath",
@@ -7,7 +7,7 @@ describe("plugin default options should work", () => {
       "--plugin=./plugin.cjs",
       "--no-editorconfig",
     ],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: JSON.stringify({
       tabWidth: 8,
@@ -20,7 +20,7 @@ describe("plugin default options should work", () => {
 });
 
 describe("overriding plugin default options should work", () => {
-  runPrettier(
+  runCli(
     "plugins/defaultOptions",
     [
       "--stdin-filepath",
@@ -28,7 +28,7 @@ describe("overriding plugin default options should work", () => {
       "--plugin=./plugin.cjs",
       "--tab-width=4",
     ],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: JSON.stringify({
       tabWidth: 4,

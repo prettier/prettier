@@ -7,15 +7,13 @@ exports[`apply editorconfig for stdin-filepath with a deep path (stderr) 2`] = `
 exports[`apply editorconfig for stdin-filepath with a deep path (stdout) 1`] = `
 "function f() {
 	console.log("should be indented with a tab")
-}
-"
+}"
 `;
 
 exports[`apply editorconfig for stdin-filepath with a deep path (stdout) 2`] = `
 "function f() {
 	console.log("should be indented with a tab")
-}
-"
+}"
 `;
 
 exports[`apply editorconfig for stdin-filepath with a deep path (write) 1`] = `[]`;
@@ -27,8 +25,7 @@ exports[`apply editorconfig for stdin-filepath with nonexistent directory (stder
 exports[`apply editorconfig for stdin-filepath with nonexistent directory (stdout) 1`] = `
 "function f() {
 	console.log("should be indented with a tab")
-}
-"
+}"
 `;
 
 exports[`apply editorconfig for stdin-filepath with nonexistent directory (write) 1`] = `[]`;
@@ -38,8 +35,7 @@ exports[`apply editorconfig for stdin-filepath with nonexistent file (stderr) 1`
 exports[`apply editorconfig for stdin-filepath with nonexistent file (stdout) 1`] = `
 "function f() {
 	console.log("should be indented with a tab")
-}
-"
+}"
 `;
 
 exports[`apply editorconfig for stdin-filepath with nonexistent file (write) 1`] = `[]`;
@@ -49,8 +45,7 @@ exports[`don’t apply editorconfig outside project for stdin-filepath with none
 exports[`don’t apply editorconfig outside project for stdin-filepath with nonexistent directory (stdout) 1`] = `
 "function f() {
   console.log("should be indented with 2 spaces")
-}
-"
+}"
 `;
 
 exports[`don’t apply editorconfig outside project for stdin-filepath with nonexistent directory (write) 1`] = `[]`;
@@ -60,8 +55,7 @@ exports[`format correctly if stdin content compatible with stdin-filepath (stder
 exports[`format correctly if stdin content compatible with stdin-filepath (stdout) 1`] = `
 ".name {
   display: none;
-}
-"
+}"
 `;
 
 exports[`format correctly if stdin content compatible with stdin-filepath (write) 1`] = `[]`;
@@ -71,8 +65,7 @@ exports[`gracefully handle stdin-filepath with nonexistent directory (stderr) 1`
 exports[`gracefully handle stdin-filepath with nonexistent directory (stdout) 1`] = `
 ".name {
   display: none;
-}
-"
+}"
 `;
 
 exports[`gracefully handle stdin-filepath with nonexistent directory (write) 1`] = `[]`;
@@ -84,8 +77,7 @@ exports[`output file as-is if stdin-filepath matched patterns in ignore-path (wr
 exports[`throw error if stdin content incompatible with stdin-filepath (stderr) 1`] = `
 "[error] abc.js: SyntaxError: Unexpected token (1:1)
 [error] > 1 | .name { display: none; }
-[error]     | ^
-"
+[error]     | ^"
 `;
 
 exports[`throw error if stdin content incompatible with stdin-filepath (stdout) 1`] = `""`;

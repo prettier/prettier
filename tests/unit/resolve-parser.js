@@ -1,4 +1,4 @@
-import { resolveParser } from "../../src/main/parser.js";
+import { resolveParser } from "../../src/main/parser-and-printer.js";
 
 test("resolveParser should not trigger the plugin.parsers getters", async () => {
   const gettersCalledTimes = {};
@@ -17,12 +17,12 @@ test("resolveParser should not trigger the plugin.parsers getters", async () => 
             },
           },
         ];
-      })
+      }),
     );
   const creatParsers = (names) =>
     Object.defineProperties(
       Object.create(null),
-      createParserDescriptors(names)
+      createParserDescriptors(names),
     );
 
   const options = {

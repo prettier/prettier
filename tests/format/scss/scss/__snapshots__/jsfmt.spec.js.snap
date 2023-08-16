@@ -1554,6 +1554,21 @@ label {
   pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
 }
 
+// #5636
+div {
+  margin: - pow(2, 2) * 100px;
+}
+
+$foo: (
+    'property1': (),
+    // comment 1
+    // comment 2
+
+    'property2': 1,
+    /** comment 1 */
+    /* comment 2 */
+);
+
 =====================================output=====================================
 @media #{$g-breakpoint-tiny} {
 }
@@ -1792,17 +1807,29 @@ $list-comma: "item-1", "item-2", "item-3";
 $list-comma: "item-1", "item-2", "item-3";
 $list-comma: "item-1", "item-2", "item-3";
 $list-comma: "item-1", "item-2", "item-3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
 $list: (
   ("item-1.1", "item-1.2", "item-1.3"),
@@ -1876,7 +1903,10 @@ $space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1")
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 
-$buttonConfig: "save" 50px, "cancel" 50px, "help" 100px;
+$buttonConfig:
+  "save" 50px,
+  "cancel" 50px,
+  "help" 100px;
 
 $locale: "en_us";
 html[lang="#{$locale}"] {
@@ -2210,7 +2240,10 @@ $foundation-dir: "foundation";
   }
 }
 
-$icons: wifi "\\600", wifi-hotspot "\\601", weather "\\602";
+$icons:
+  wifi "\\600",
+  wifi-hotspot "\\601",
+  weather "\\602";
 
 @each $icon in $icons {
   .icon-#{nth($icon, 1)},
@@ -2257,7 +2290,12 @@ $icons: wifi "\\600", wifi-hotspot "\\601", weather "\\602";
 $last: nth($juggler, length($juggler));
 $x: if($last%2==0, 1/2, 3/2);
 $new: pow($last, $x);
-$sequence: 1, 1 1, 2 1, 1 2 1 1, 1 1 1 2 2 1;
+$sequence:
+  1,
+  1 1,
+  2 1,
+  1 2 1 1,
+  1 1 1 2 2 1;
 $new-entry: ();
 $new-entry: ();
 $new-entry: ();
@@ -2473,7 +2511,8 @@ a {
   color: red; // Comment
 }
 
-$my-list: "foo",
+$my-list:
+  "foo",
   // Comment
   "bar"; // Comment
 
@@ -2597,6 +2636,19 @@ label {
     )
   );
 }
+
+// #5636
+div {
+  margin: - pow(2, 2) * 100px;
+}
+
+$foo: (
+  "property1": (),
+  // comment 1
+  // comment 2
+  "property2": 1,
+  /** comment 1 */ /* comment 2 */
+);
 
 ================================================================================
 `;
@@ -3695,6 +3747,21 @@ label {
   pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
 }
 
+// #5636
+div {
+  margin: - pow(2, 2) * 100px;
+}
+
+$foo: (
+    'property1': (),
+    // comment 1
+    // comment 2
+
+    'property2': 1,
+    /** comment 1 */
+    /* comment 2 */
+);
+
 =====================================output=====================================
 @media #{$g-breakpoint-tiny} {
 }
@@ -3933,17 +4000,29 @@ $list-comma: "item-1", "item-2", "item-3";
 $list-comma: "item-1", "item-2", "item-3";
 $list-comma: "item-1", "item-2", "item-3";
 $list-comma: "item-1", "item-2", "item-3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
+$list:
+  "item-1.1" "item-1.2" "item-1.3",
+  "item-2.1" "item-2.2" "item-2.3",
   "item-3.1" "item-3.2" "item-3.3";
 $list: (
   ("item-1.1", "item-1.2", "item-1.3"),
@@ -4017,7 +4096,10 @@ $space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1")
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 
-$buttonConfig: "save" 50px, "cancel" 50px, "help" 100px;
+$buttonConfig:
+  "save" 50px,
+  "cancel" 50px,
+  "help" 100px;
 
 $locale: "en_us";
 html[lang="#{$locale}"] {
@@ -4351,7 +4433,10 @@ $foundation-dir: "foundation";
   }
 }
 
-$icons: wifi "\\600", wifi-hotspot "\\601", weather "\\602";
+$icons:
+  wifi "\\600",
+  wifi-hotspot "\\601",
+  weather "\\602";
 
 @each $icon in $icons {
   .icon-#{nth($icon, 1)},
@@ -4398,7 +4483,12 @@ $icons: wifi "\\600", wifi-hotspot "\\601", weather "\\602";
 $last: nth($juggler, length($juggler));
 $x: if($last%2==0, 1/2, 3/2);
 $new: pow($last, $x);
-$sequence: 1, 1 1, 2 1, 1 2 1 1, 1 1 1 2 2 1;
+$sequence:
+  1,
+  1 1,
+  2 1,
+  1 2 1 1,
+  1 1 1 2 2 1;
 $new-entry: ();
 $new-entry: ();
 $new-entry: ();
@@ -4614,7 +4704,8 @@ a {
   color: red; // Comment
 }
 
-$my-list: "foo",
+$my-list:
+  "foo",
   // Comment
   "bar"; // Comment
 
@@ -4738,6 +4829,19 @@ label {
     )
   );
 }
+
+// #5636
+div {
+  margin: - pow(2, 2) * 100px;
+}
+
+$foo: (
+  "property1": (),
+  // comment 1
+  // comment 2
+  "property2": 1,
+  /** comment 1 */ /* comment 2 */
+);
 
 ================================================================================
 `;

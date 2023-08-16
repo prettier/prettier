@@ -1,8 +1,8 @@
 import snapshotDiff from "snapshot-diff";
 test("show external options with `--help`", async () => {
-  const originalStdout = await runPrettier("plugins/options-string", ["--help"])
+  const originalStdout = await runCli("plugins/options-string", ["--help"])
     .stdout;
-  const pluggedStdout = await runPrettier("plugins/options-string", [
+  const pluggedStdout = await runCli("plugins/options-string", [
     "--help",
     "--plugin=./plugin.cjs",
   ]).stdout;
@@ -10,7 +10,7 @@ test("show external options with `--help`", async () => {
 });
 
 describe("show detailed external option with `--help foo-string`", () => {
-  runPrettier("plugins/options-string", [
+  runCli("plugins/options-string", [
     "--plugin=./plugin.cjs",
     "--help",
     "foo-string",
@@ -20,7 +20,7 @@ describe("show detailed external option with `--help foo-string`", () => {
 });
 
 describe("external options from CLI should work", () => {
-  runPrettier(
+  runCli(
     "plugins/options-string",
     [
       "--plugin=./plugin.cjs",
@@ -29,7 +29,7 @@ describe("external options from CLI should work", () => {
       "--foo-string",
       "baz",
     ],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "foo:baz",
     stderr: "",
@@ -39,10 +39,10 @@ describe("external options from CLI should work", () => {
 });
 
 describe("external options from config file should work", () => {
-  runPrettier(
+  runCli(
     "plugins/options-string",
     ["--config=./config.json", "--stdin-filepath", "example.foo"],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "foo:baz",
     stderr: "",
@@ -52,10 +52,10 @@ describe("external options from config file should work", () => {
 });
 
 describe("Non exists plugin", () => {
-  runPrettier(
+  runCli(
     "plugins/options-string",
     ["--plugin=--invalid--", "--stdin-filepath", "example.foo"],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "",
     stderr: expect.stringMatching(/Cannot find package '--invalid--'/),

@@ -5,27 +5,10 @@ exports[`show detailed usage with --help l (alias) (stderr) 1`] = `""`;
 exports[`show detailed usage with --help l (alias) (stdout) 1`] = `
 "-l, --list-different
 
-  Print the names of files that are different from Prettier's formatting (see also --check).
-"
+  Print the names of files that are different from Prettier's formatting (see also --check)."
 `;
 
 exports[`show detailed usage with --help l (alias) (write) 1`] = `[]`;
-
-exports[`show detailed usage with plugin options (automatic resolution) (stderr) 1`] = `""`;
-
-exports[`show detailed usage with plugin options (automatic resolution) (stdout) 1`] = `
-"--tab-width <int>
-
-  Number of spaces per indentation level.
-
-Default: 2
-Plugin defaults:
-* prettier-plugin-bar: 4
-* prettier-plugin-baz.js: 4
-"
-`;
-
-exports[`show detailed usage with plugin options (automatic resolution) (write) 1`] = `[]`;
 
 exports[`show detailed usage with plugin options (manual resolution) (stderr) 1`] = `""`;
 
@@ -36,8 +19,7 @@ exports[`show detailed usage with plugin options (manual resolution) (stdout) 1`
 
 Default: 2
 Plugin defaults:
-* ../plugins/automatic/node_modules/prettier-plugin-bar/index.js: 4
-"
+* ../plugins/automatic/node_modules/prettier-plugin-bar/index.js: 4"
 `;
 
 exports[`show detailed usage with plugin options (manual resolution) (write) 1`] = `[]`;
@@ -114,13 +96,9 @@ Config options:
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
-                           Defaults to .prettierignore.
-  --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
-                           Defaults to [].
-  --plugin-search-dir <path>
-                           Custom directory that contains prettier plugins in node_modules subdirectory.
-                           Overrides default behavior when plugins are searched relatively to the location of Prettier.
                            Multiple values are accepted.
+                           Defaults to [.gitignore, .prettierignore].
+  --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
                            Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
@@ -159,14 +137,12 @@ Other options:
   --log-level <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
-  --no-plugin-search       Disable plugin autoloading.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   --support-info           Print support information as JSON.
   -v, --version            Print Prettier version.
-
 
 "
 `;
@@ -177,10 +153,7 @@ exports[`show version with --version (stderr) 1`] = `""`;
 
 exports[`show version with --version (write) 1`] = `[]`;
 
-exports[`show warning with --help not-found (typo) (stderr) 1`] = `
-"[warn] Unknown flag "parserr", did you mean "parser"?
-"
-`;
+exports[`show warning with --help not-found (typo) (stderr) 1`] = `"[warn] Unknown flag "parserr", did you mean "parser"?"`;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
 "--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
@@ -211,8 +184,7 @@ Valid options:
   glimmer          Ember / Handlebars
   html             HTML
   angular          Angular
-  lwc              Lightning Web Components
-"
+  lwc              Lightning Web Components"
 `;
 
 exports[`show warning with --help not-found (typo) (write) 1`] = `[]`;
@@ -289,13 +261,9 @@ Config options:
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
-                           Defaults to .prettierignore.
-  --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
-                           Defaults to [].
-  --plugin-search-dir <path>
-                           Custom directory that contains prettier plugins in node_modules subdirectory.
-                           Overrides default behavior when plugins are searched relatively to the location of Prettier.
                            Multiple values are accepted.
+                           Defaults to [.gitignore, .prettierignore].
+  --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
                            Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
@@ -334,7 +302,6 @@ Other options:
   --log-level <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
-  --no-plugin-search       Disable plugin autoloading.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -342,52 +309,36 @@ Other options:
   --support-info           Print support information as JSON.
   -v, --version            Print Prettier version.
 
-
 "
 `;
 
 exports[`throw error and show usage with something unexpected (write) 1`] = `[]`;
 
-exports[`throw error with --check + --list-different (stderr) 1`] = `
-"[error] Cannot use --check and --list-different together.
-"
-`;
+exports[`throw error with --check + --list-different (stderr) 1`] = `"[error] Cannot use --check and --list-different together."`;
 
 exports[`throw error with --check + --list-different (stdout) 1`] = `""`;
 
 exports[`throw error with --check + --list-different (write) 1`] = `[]`;
 
-exports[`throw error with --file-info + multiple files (stderr) 1`] = `
-"[error] Cannot use --file-info with multiple files
-"
-`;
+exports[`throw error with --file-info + multiple files (stderr) 1`] = `"[error] Cannot use --file-info with multiple files"`;
 
 exports[`throw error with --file-info + multiple files (stdout) 1`] = `""`;
 
 exports[`throw error with --file-info + multiple files (write) 1`] = `[]`;
 
-exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
-"[error] Cannot use --find-config-path with multiple files
-"
-`;
+exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `"[error] Cannot use --find-config-path with multiple files"`;
 
 exports[`throw error with --find-config-path + multiple files (stdout) 1`] = `""`;
 
 exports[`throw error with --find-config-path + multiple files (write) 1`] = `[]`;
 
-exports[`throw error with --help not-found (stderr) 1`] = `
-"[error] Invalid --help value. Expected a flag, but received "not-found".
-"
-`;
+exports[`throw error with --help not-found (stderr) 1`] = `"[error] Invalid --help value. Expected a flag, but received "not-found"."`;
 
 exports[`throw error with --help not-found (stdout) 1`] = `""`;
 
 exports[`throw error with --help not-found (write) 1`] = `[]`;
 
-exports[`throw error with --write + --debug-check (stderr) 1`] = `
-"[error] Cannot use --write and --debug-check together.
-"
-`;
+exports[`throw error with --write + --debug-check (stderr) 1`] = `"[error] Cannot use --write and --debug-check together."`;
 
 exports[`throw error with --write + --debug-check (stdout) 1`] = `""`;
 

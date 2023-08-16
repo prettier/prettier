@@ -1,41 +1,76 @@
-import path from "node:path";
-import fs from "node:fs";
-import createEsmUtils from "esm-utils";
-const { __dirname } = createEsmUtils(import.meta);
+import fs from "node:fs/promises";
 
-fs.writeFileSync(
-  // This file is in `.gitignore`, just copy from `regular-module.js`
-  path.join(__dirname, "../cli/ignore-path/other-regular-modules.js"),
-  fs.readFileSync(path.join(__dirname, "../cli/ignore-path/regular-module.js"))
+// `.js` files are ignored in `.gitignore`
+const files = [
+  "ignored-by-customignore.js",
+  "ignored-by-gitignore.js",
+  "ignored-by-prettierignore.js",
+].map(
+  (file) =>
+    new URL(`../cli/ignore-path/ignore-path-test/${file}`, import.meta.url),
 );
+const clean = () =>
+  Promise.all(files.map((file) => fs.rm(file, { force: true })));
+const setup = () =>
+  Promise.all(files.map((file) => fs.writeFile(file, "   a+   b")));
 
-describe("ignore path", () => {
-  runPrettier("cli/ignore-path", [
+beforeAll(async () => {
+  await clean();
+  await setup();
+});
+afterAll(clean);
+
+const getUnformattedFiles = async (args) => {
+  const { stdout } = await runCli("cli/ignore-path/ignore-path-test/", [
     "**/*.js",
-    "--ignore-path",
-    ".gitignore",
     "-l",
-  ]).test({
-    status: 1,
-  });
+    ...args,
+  ]);
+  return stdout ? stdout.split("\n").sort() : [];
+};
+
+test("custom ignore path", async () => {
+  expect(await getUnformattedFiles(["--ignore-path", ".customignore"])).toEqual(
+    ["ignored-by-gitignore.js", "ignored-by-prettierignore.js"],
+  );
 });
 
-describe("support .prettierignore", () => {
-  runPrettier("cli/ignore-path", ["**/*.js", "-l"]).test({
-    status: 1,
-  });
+test("ignore files by .prettierignore and .gitignore by default", async () => {
+  expect(
+    await getUnformattedFiles(["--ignore-path", ".non-exists-ignore-file"]),
+  ).toEqual([
+    "ignored-by-customignore.js",
+    "ignored-by-gitignore.js",
+    "ignored-by-prettierignore.js",
+  ]);
+  expect(await getUnformattedFiles([])).toEqual([]);
 });
 
 describe("ignore file when using --debug-check", () => {
-  runPrettier("cli/ignore-path", ["**/*.js", "--debug-check"]).test({
+  runCli("cli/ignore-path/ignore-path-test/", [
+    "**/*.js",
+    "--debug-check",
+    "--ignore-path",
+    ".prettierignore",
+  ]).test({
     status: 0,
+    stderr: "",
+    stdout: ["ignored-by-customignore.js", "ignored-by-gitignore.js"].join(
+      "\n",
+    ),
+    write: [],
   });
 });
 
-describe("outputs files as-is if no --write", () => {
-  runPrettier("cli/ignore-path", ["regular-module.js"], {
-    ignoreLineEndings: true,
-  }).test({
-    status: 0,
-  });
+test("multiple `--ignore-path`", async () => {
+  expect(
+    await getUnformattedFiles([
+      "--ignore-path",
+      ".customignore",
+      "--ignore-path",
+      ".prettierignore",
+      "--ignore-path",
+      ".non-exists-ignore-file",
+    ]),
+  ).toEqual(["ignored-by-gitignore.js"]);
 });

@@ -1,28 +1,8 @@
-const replaceCWD = (text) => {
-  const cwd = process.cwd();
+import createPathSerializer from "./create-path-serializer.js";
 
-  const variants = /^[a-z]:\\/i.test(cwd)
-    ? [
-        cwd.charAt(0).toLowerCase() + cwd.slice(1),
-        cwd.charAt(0).toUpperCase() + cwd.slice(1),
-      ]
-    : [cwd];
-
-  for (const variant of variants) {
-    while (text.includes(variant)) {
-      text = text.replace(variant, "<cwd>");
-    }
-  }
-
-  return text;
-};
-
-const pathSerializer = {
-  test: (value) =>
-    typeof value === "string" &&
-    (value.includes("\\") || value.includes(process.cwd())),
-  print: (value, serializer) =>
-    serializer(replaceCWD(value).replace(/\\/g, "/")),
-};
-
-export default pathSerializer;
+export default createPathSerializer({
+  replacements: new Map([
+    [new URL("./cli/", import.meta.url), "<cli>/"],
+    [new URL("./plugins/", import.meta.url), "<plugins>/"],
+  ]),
+});

@@ -115,7 +115,7 @@ function handleRemainingComment(context) {
 function addBlockStatementFirstComment(node, comment) {
   // @ts-expect-error
   const firstNonEmptyNode = (node.body || node.properties).find(
-    ({ type }) => type !== "EmptyStatement"
+    ({ type }) => type !== "EmptyStatement",
   );
   if (firstNonEmptyNode) {
     addLeadingComment(firstNonEmptyNode, comment);
@@ -178,7 +178,7 @@ function handleIfStatementComments({
   // it is a ).
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
-    locEnd(comment)
+    locEnd(comment),
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
@@ -208,7 +208,9 @@ function handleIfStatementComments({
         addDanglingComment(
           precedingNode,
           comment,
-          markerForIfWithoutBlockAndSameLineComment
+          precedingNode.type === "ExpressionStatement"
+            ? markerForIfWithoutBlockAndSameLineComment
+            : undefined,
         );
       } else {
         addDanglingComment(enclosingNode, comment);
@@ -258,7 +260,7 @@ function handleWhileComments({
   // it is a ).
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
-    locEnd(comment)
+    locEnd(comment),
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
@@ -510,7 +512,7 @@ function handleFunctionNameComments({
 }
 
 function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
-  if (!(enclosingNode?.type === "ArrowFunctionExpression")) {
+  if (enclosingNode?.type !== "ArrowFunctionExpression") {
     return false;
   }
 
@@ -571,7 +573,10 @@ function handleLastFunctionArgComments({
   // Real functions and TypeScript function type definitions
   if (
     (precedingNode?.type === "Identifier" ||
-      precedingNode?.type === "AssignmentPattern") &&
+      precedingNode?.type === "AssignmentPattern" ||
+      precedingNode?.type === "ObjectPattern" ||
+      precedingNode?.type === "ArrayPattern" ||
+      precedingNode?.type === "RestElement") &&
     enclosingNode &&
     isRealFunctionLikeNode(enclosingNode) &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
@@ -589,7 +594,7 @@ function handleLastFunctionArgComments({
       if (parameters.length > 0) {
         return getNextNonSpaceNonCommentCharacterIndex(
           text,
-          locEnd(parameters.at(-1))
+          locEnd(parameters.at(-1)),
         );
       }
       const functionParamLeftParenIndex =
@@ -598,7 +603,7 @@ function handleLastFunctionArgComments({
         functionParamLeftParenIndex !== false &&
         getNextNonSpaceNonCommentCharacterIndex(
           text,
-          functionParamLeftParenIndex + 1
+          functionParamLeftParenIndex + 1,
         )
       );
     })();
@@ -910,12 +915,8 @@ const isRealFunctionLikeNode = createTypeCheckFunction([
   "TSDeclareMethod",
 ]);
 
-// TODO: Make this default behavior
-const avoidAstMutation = true;
-
 export {
   handleOwnLineComment as ownLine,
   handleEndOfLineComment as endOfLine,
   handleRemainingComment as remaining,
-  avoidAstMutation,
 };

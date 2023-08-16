@@ -35,7 +35,7 @@ function transformMethodCallToFunctionCall(node, functionName) {
       value: node.callee.type === "OptionalMemberExpression",
       leadingComments: [{ type: "CommentBlock", value: " isOptionalObject" }],
     },
-    node.callee.object
+    node.callee.object,
   );
 
   node.callee = { type: "Identifier", name: functionName };
@@ -55,7 +55,7 @@ function createMethodCallTransform({
     test: (node) => isMethodCall(node, { methodName, argumentsLength }),
     transform: (node) => transformMethodCallToFunctionCall(node, functionName),
     inject: `import ${functionName} from ${JSON.stringify(
-      functionImplementationPath
+      functionImplementationPath,
     )};`,
   };
 }

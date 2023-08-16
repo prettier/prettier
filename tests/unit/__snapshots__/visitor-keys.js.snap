@@ -93,6 +93,7 @@ exports[`visitor keys estree 1`] = `
     "superTypeParameters",
     "implements",
     "decorators",
+    "superTypeArguments",
   ],
   "ClassExpression": [
     "id",
@@ -103,6 +104,7 @@ exports[`visitor keys estree 1`] = `
     "superTypeParameters",
     "implements",
     "decorators",
+    "superTypeArguments",
   ],
   "ClassImplements": [
     "id",
@@ -143,6 +145,12 @@ exports[`visitor keys estree 1`] = `
     "consequent",
     "alternate",
   ],
+  "ConditionalTypeAnnotation": [
+    "checkType",
+    "extendsType",
+    "trueType",
+    "falseType",
+  ],
   "ContinueStatement": [
     "label",
   ],
@@ -176,8 +184,6 @@ exports[`visitor keys estree 1`] = `
     "id",
     "typeParameters",
     "extends",
-    "mixins",
-    "implements",
     "body",
   ],
   "DeclareModule": [
@@ -259,8 +265,9 @@ exports[`visitor keys estree 1`] = `
   ],
   "ExportAllDeclaration": [
     "source",
-    "exported",
+    "attributes",
     "assertions",
+    "exported",
   ],
   "ExportDefaultDeclaration": [
     "declaration",
@@ -272,6 +279,7 @@ exports[`visitor keys estree 1`] = `
     "declaration",
     "specifiers",
     "source",
+    "attributes",
     "assertions",
   ],
   "ExportNamespaceSpecifier": [
@@ -350,6 +358,7 @@ exports[`visitor keys estree 1`] = `
   "ImportDeclaration": [
     "specifiers",
     "source",
+    "attributes",
     "assertions",
   ],
   "ImportDefaultSpecifier": [
@@ -370,13 +379,14 @@ exports[`visitor keys estree 1`] = `
     "objectType",
     "indexType",
   ],
+  "InferTypeAnnotation": [
+    "typeParameter",
+  ],
   "InferredPredicate": [],
   "InterfaceDeclaration": [
     "id",
     "typeParameters",
     "extends",
-    "mixins",
-    "implements",
     "body",
   ],
   "InterfaceExtends": [
@@ -425,6 +435,7 @@ exports[`visitor keys estree 1`] = `
   "JSXOpeningElement": [
     "name",
     "attributes",
+    "typeArguments",
     "typeParameters",
   ],
   "JSXOpeningFragment": [],
@@ -440,6 +451,9 @@ exports[`visitor keys estree 1`] = `
   ],
   "JsonRoot": [
     "node",
+  ],
+  "KeyofTypeAnnotation": [
+    "argument",
   ],
   "LabeledStatement": [
     "label",
@@ -558,6 +572,12 @@ exports[`visitor keys estree 1`] = `
     "static",
     "method",
   ],
+  "ObjectTypeMappedTypeProperty": [
+    "keyTparam",
+    "propType",
+    "sourceType",
+    "variance",
+  ],
   "ObjectTypeProperty": [
     "key",
     "value",
@@ -608,7 +628,6 @@ exports[`visitor keys estree 1`] = `
   "Property": [
     "key",
     "value",
-    "decorators",
   ],
   "PropertyDefinition": [
     "decorators",
@@ -622,8 +641,8 @@ exports[`visitor keys estree 1`] = `
     "qualification",
   ],
   "QualifiedTypeofIdentifier": [
-    "id",
     "qualification",
+    "id",
   ],
   "RecordExpression": [
     "properties",
@@ -668,7 +687,6 @@ exports[`visitor keys estree 1`] = `
   "TSAbstractMethodDefinition": [
     "key",
     "value",
-    "decorators",
   ],
   "TSAbstractPropertyDefinition": [
     "decorators",
@@ -695,6 +713,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSClassImplements": [
     "expression",
+    "typeArguments",
     "typeParameters",
   ],
   "TSConditionalType": [
@@ -772,7 +791,7 @@ exports[`visitor keys estree 1`] = `
     "argument",
     "qualifier",
     "typeParameters",
-    "parameter",
+    "typeArguments",
   ],
   "TSIndexSignature": [
     "parameters",
@@ -788,6 +807,7 @@ exports[`visitor keys estree 1`] = `
   "TSInstantiationExpression": [
     "expression",
     "typeParameters",
+    "typeArguments",
   ],
   "TSInterfaceBody": [
     "body",
@@ -800,6 +820,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSInterfaceHeritage": [
     "expression",
+    "typeArguments",
     "typeParameters",
   ],
   "TSIntersectionType": [
@@ -927,10 +948,12 @@ exports[`visitor keys estree 1`] = `
   "TSTypeQuery": [
     "exprName",
     "typeParameters",
+    "typeArguments",
   ],
   "TSTypeReference": [
     "typeName",
     "typeParameters",
+    "typeArguments",
   ],
   "TSUndefinedKeyword": [],
   "TSUnionType": [
@@ -942,6 +965,7 @@ exports[`visitor keys estree 1`] = `
     "tag",
     "quasi",
     "typeParameters",
+    "typeArguments",
   ],
   "TemplateElement": [],
   "TemplateLiteral": [
@@ -997,6 +1021,11 @@ exports[`visitor keys estree 1`] = `
   ],
   "TypeParameterInstantiation": [
     "params",
+  ],
+  "TypePredicate": [
+    "parameterName",
+    "typeAnnotation",
+    "asserts",
   ],
   "TypeofTypeAnnotation": [
     "argument",

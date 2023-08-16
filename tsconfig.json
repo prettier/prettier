@@ -6,14 +6,17 @@
     "target": "esnext",
     "module": "NodeNext",
     "resolveJsonModule": true,
+    "strict": true,
     // TBD it is desired to enabled strict type checking at some point:
-    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+
     "typeRoots": ["./types", "./node_modules/@types"]
   },
   "exclude": [
     "coverage/",
     "test*.*",
-    "jest.config.mjs",
+    "jest.config.js",
     // [TBD] JavaScript sources *not* affected by src/language-*:
     "src/main/ast-to-doc.js",
     "src/main/core.js",

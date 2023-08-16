@@ -62,7 +62,7 @@ abstract class AbstractFoo {
 ================================================================================
 `;
 
-exports[`after_jsx_generic.ts format 1`] = `
+exports[`after_jsx_generic.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -293,7 +293,7 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 ================================================================================
 `;
 
-exports[`jsx.ts format 1`] = `
+exports[`jsx.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

@@ -40,19 +40,23 @@ function parse(text, options = {}) {
   const { parse: espreeParse } = require("espree");
 
   const sourceType = getSourceType(options);
-  const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (/** @type {"module"|"script"} */ sourceType) => () =>
-      espreeParse(text, { ...parseOptions, sourceType })
+  // prettier-ignore
+  const combinations = (
+    sourceType
+      ? /** @type {const} */([sourceType])
+      : /** @type {const} */(["module", "script"])
+  ).map(
+    (sourceType) => () => espreeParse(text, { ...parseOptions, sourceType })
   );
 
-  const { result: ast, error } = tryCombinations(combinations);
-
-  if (!ast) {
+  let ast;
+  try {
+    ast = tryCombinations(combinations);
+  } catch (/** @type {any} */ { errors: [error] }) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { text });
 }
 
-export default createParser(parse);
+export const espree = createParser(parse);

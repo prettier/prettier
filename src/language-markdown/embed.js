@@ -3,17 +3,18 @@ import { hardline, markAsRoot } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import inferParserByLanguage from "../utils/infer-parser-by-language.js";
+import inferParser from "../utils/infer-parser.js";
 
 function embed(path, options) {
   const { node } = path;
 
   if (node.type === "code" && node.lang !== null) {
-    const parser = inferParserByLanguage(node.lang, options);
+    const parser = inferParser(options, { language: node.lang });
     if (parser) {
       return async (textToDoc) => {
         const styleUnit = options.__inJsTemplate ? "~" : "`";
         const style = styleUnit.repeat(
-          Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
+          Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
         );
         const newOptions = { parser };
         if (node.lang === "tsx") {

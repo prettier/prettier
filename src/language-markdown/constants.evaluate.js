@@ -1,8 +1,9 @@
-import cjkRegex from "cjk-regex";
-import regexpUtil from "regexp-util";
+import * as cjkRegex from "cjk-regex";
+import * as regexpUtil from "regexp-util";
 import unicodeRegex from "unicode-regex";
 
-const cjkPattern = `(?:${cjkRegex()
+const cjkPattern = `(?:${cjkRegex
+  .all()
   .union(
     unicodeRegex({
       Script_Extensions: ["Han", "Katakana", "Hiragana", "Hangul", "Bopomofo"],
@@ -14,7 +15,7 @@ const cjkPattern = `(?:${cjkRegex()
         "Modifier_Symbol",
         "Nonspacing_Mark",
       ],
-    })
+    }),
   )
   .toString()})(?:${unicodeRegex({
   Block: ["Variation_Selectors", "Variation_Selectors_Supplement"],

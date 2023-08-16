@@ -1,6 +1,11 @@
 import { join, line, group } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import { hasNode, hasComment, getComments } from "../utils/index.js";
+import {
+  hasNode,
+  hasComment,
+  getComments,
+  createTypeCheckFunction,
+} from "../utils/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
 /** @typedef {import("../../common/ast-path.js").default} AstPath */
@@ -29,9 +34,9 @@ function printAngular(path, options, print) {
           [";", line],
           path.map(
             () => (hasNgSideEffect(path) ? print() : ["(", print(), ")"]),
-            "expressions"
-          )
-        )
+            "expressions",
+          ),
+        ),
       );
     case "NGEmptyExpression":
       return "";
@@ -41,7 +46,7 @@ function printAngular(path, options, print) {
           path.isFirst ? "" : isNgForOf(path) ? " " : [";", line],
           print(),
         ],
-        "body"
+        "body",
       );
     case "NGMicrosyntaxKey":
       return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/i.test(node.name)
@@ -93,20 +98,18 @@ function isNgForOf({ node, index, parent }) {
   );
 }
 
+const hasSideEffect = createTypeCheckFunction([
+  "CallExpression",
+  "OptionalCallExpression",
+  "AssignmentExpression",
+]);
 /** identify if an angular expression seems to have side effects */
 /**
  * @param {AstPath} path
  * @returns {boolean}
  */
-function hasNgSideEffect(path) {
-  return hasNode(path.node, (node) => {
-    switch (node.type) {
-      case "CallExpression":
-      case "OptionalCallExpression":
-      case "AssignmentExpression":
-        return true;
-    }
-  });
+function hasNgSideEffect({ node }) {
+  return hasNode(node, hasSideEffect);
 }
 
 export { printAngular };

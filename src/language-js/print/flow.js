@@ -4,17 +4,18 @@ import assert from "node:assert";
 import printString from "../../utils/print-string.js";
 import printNumber from "../../utils/print-number.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   isFunctionNotation,
   isGetterOrSetter,
   rawText,
 } from "../utils/index.js";
+import isFlowKeywordType from "../utils/is-flow-keyword-type.js";
 import { printClass } from "./class.js";
 import {
   printOpaqueType,
   printTypeAlias,
   printIntersectionType,
+  printInferType,
   printUnionType,
   printFunctionType,
   printIndexedAccessType,
@@ -22,10 +23,13 @@ import {
   printNamedTupleMember,
   printTypeAnnotation,
   printTypeAnnotationProperty,
+  printArrayType,
+  printTypeQuery,
+  printTypePredicate,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
-import { printExportDeclaration, printExportAllDeclaration } from "./module.js";
+import { printExportDeclaration } from "./module.js";
 import { printArray } from "./array.js";
 import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
@@ -40,9 +44,17 @@ import {
   printRestSpread,
   printDeclareToken,
 } from "./misc.js";
+import { printTernary } from "./ternary.js";
+import { printFlowMappedTypeProperty } from "./mapped-type.js";
 
 function printFlow(path, options, print) {
   const { node } = path;
+
+  if (isFlowKeywordType(node)) {
+    // Flow keyword types ends with `TypeAnnotation`
+    return node.type.slice(0, -14).toLowerCase();
+  }
+
   const semi = options.semi ? ";" : "";
 
   switch (node.type) {
@@ -53,7 +65,6 @@ function printFlow(path, options, print) {
         printDeclareToken(path),
         "function ",
         print("id"),
-        node.predicate ? " " : "",
         print("predicate"),
         semi,
       ];
@@ -75,9 +86,8 @@ function printFlow(path, options, print) {
         semi,
       ];
     case "DeclareExportDeclaration":
-      return printExportDeclaration(path, options, print);
     case "DeclareExportAllDeclaration":
-      return printExportAllDeclaration(path, options, print);
+      return printExportDeclaration(path, options, print);
     case "DeclareOpaqueType":
     case "OpaqueType":
       return printOpaqueType(path, options, print);
@@ -90,6 +100,10 @@ function printFlow(path, options, print) {
       return printIntersectionType(path, options, print);
     case "UnionTypeAnnotation":
       return printUnionType(path, options, print);
+    case "ConditionalTypeAnnotation":
+      return printTernary(path, options, print);
+    case "InferTypeAnnotation":
+      return printInferType(path, options, print);
     case "FunctionTypeAnnotation":
       return printFunctionType(path, options, print);
     case "TupleTypeAnnotation":
@@ -113,17 +127,11 @@ function printFlow(path, options, print) {
     case "TypeParameter":
       return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
-      return ["typeof ", print("argument")];
+      return printTypeQuery(path, print);
     case "ExistsTypeAnnotation":
       return "*";
-    case "EmptyTypeAnnotation":
-      return "empty";
-    case "MixedTypeAnnotation":
-      return "mixed";
     case "ArrayTypeAnnotation":
-      return [print("elementType"), "[]"];
-    case "BooleanLiteralTypeAnnotation":
-      return String(node.value);
+      return printArrayType(print);
 
     case "DeclareEnum":
     case "EnumDeclaration":
@@ -171,9 +179,12 @@ function printFlow(path, options, print) {
       assert.ok(kind === "plus" || kind === "minus");
       return kind === "plus" ? "+" : "-";
     }
+    case "KeyofTypeAnnotation":
+      return ["keyof ", print("argument")];
     case "ObjectTypeCallProperty":
       return [node.static ? "static " : "", print("value")];
-
+    case "ObjectTypeMappedTypeProperty":
+      return printFlowMappedTypeProperty(path, options, print);
     case "ObjectTypeIndexer":
       return [
         node.static ? "static " : "",
@@ -223,6 +234,11 @@ function printFlow(path, options, print) {
     case "QualifiedTypeofIdentifier":
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
+
+    case "NullLiteralTypeAnnotation":
+      return "null";
+    case "BooleanLiteralTypeAnnotation":
+      return String(node.value);
     case "StringLiteralTypeAnnotation":
       return replaceEndOfLine(printString(rawText(node), options));
     case "NumberLiteralTypeAnnotation":
@@ -237,56 +253,29 @@ function printFlow(path, options, print) {
         ")",
       ];
 
+    case "TypePredicate":
+      return printTypePredicate(path, print);
+
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
 
     case "InferredPredicate":
-      return "%checks";
     case "DeclaredPredicate":
-      return ["%checks(", print("value"), ")"];
-    case "AnyTypeAnnotation":
-      return "any";
-    case "BooleanTypeAnnotation":
-      return "boolean";
-    case "BigIntTypeAnnotation":
-      return "bigint";
-    case "NullLiteralTypeAnnotation":
-      return "null";
-    case "NumberTypeAnnotation":
-      return "number";
-    case "SymbolTypeAnnotation":
-      return "symbol";
-    case "StringTypeAnnotation":
-      return "string";
-    case "VoidTypeAnnotation":
-      return "void";
-    case "ThisTypeAnnotation":
-      return "this";
-    case "NeverTypeAnnotation":
-      return "never";
-    case "UndefinedTypeAnnotation":
-      return "undefined";
-    case "UnknownTypeAnnotation":
-      return "unknown";
-    // These types are unprintable because they serve as abstract
-    // supertypes for other (printable) types.
-    case "Node":
-    case "Printable":
-    case "SourceLocation":
-    case "Position":
-    case "Statement":
-    case "Function":
-    case "Pattern":
-    case "Expression":
-    case "Declaration":
-    case "Specifier":
-    case "NamedSpecifier":
-    case "Comment":
-    case "MemberTypeAnnotation": // Flow
-    case "Type":
-      /* c8 ignore next */
-      throw new UnexpectedNodeError(node, "Flow");
+      // Note: Leading comment print should be improved https://github.com/prettier/prettier/pull/14710#issuecomment-1512522282
+      return [
+        // The return type will already add the colon, but otherwise we
+        // need to do it ourselves
+        path.key === "predicate" &&
+        path.parent.type !== "DeclareFunction" &&
+        !path.parent.returnType
+          ? ": "
+          : " ",
+        "%checks",
+        ...(node.type === "DeclaredPredicate"
+          ? ["(", print("value"), ")"]
+          : []),
+      ];
   }
 }
 

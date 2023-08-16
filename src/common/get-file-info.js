@@ -1,4 +1,4 @@
-import { inferParser } from "../main/options.js";
+import inferParser from "../utils/infer-parser.js";
 import { resolveConfig } from "../config/resolve-config.js";
 import { isIgnored } from "../utils/ignore.js";
 
@@ -19,11 +19,17 @@ import { isIgnored } from "../utils/ignore.js";
 async function getFileInfo(filePath, options) {
   if (typeof filePath !== "string") {
     throw new TypeError(
-      `expect \`filePath\` to be a string, got \`${typeof filePath}\``
+      `expect \`filePath\` to be a string, got \`${typeof filePath}\``,
     );
   }
 
-  const ignored = await isIgnored(filePath, options);
+  let { ignorePath, withNodeModules } = options;
+  // In API we allow single `ignorePath`
+  if (!Array.isArray(ignorePath)) {
+    ignorePath = [ignorePath];
+  }
+
+  const ignored = await isIgnored(filePath, { ignorePath, withNodeModules });
 
   let inferredParser;
   if (!ignored) {
@@ -42,7 +48,7 @@ async function getParser(filePath, options) {
     config = await resolveConfig(filePath);
   }
 
-  return config?.parser ?? inferParser(filePath, options.plugins);
+  return config?.parser ?? inferParser(options, { physicalFile: filePath });
 }
 
 export default getFileInfo;

@@ -1,12 +1,16 @@
 import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
+import { hasDescendant } from "../../utils/ast-utils.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
+import createTypeCheckFunction from "./create-type-check-function.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
+import isFlowKeywordType from "./is-flow-keyword-type.js";
+import isTsKeywordType from "./is-ts-keyword-type.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
@@ -27,20 +31,11 @@ import isNodeMatches from "./is-node-matches.js";
 
 /**
  * @param {Node} node
- * @param {(Node) => boolean} fn
+ * @param {(Node) => boolean} predicate
  * @returns {boolean}
  */
-function hasNode(node, fn) {
-  if (node === null || typeof node !== "object") {
-    return false;
-  }
-  if (Array.isArray(node)) {
-    return node.some((value) => hasNode(value, fn));
-  }
-  const result = fn(node);
-  return typeof result === "boolean"
-    ? result
-    : getVisitorKeys(node).some((key) => hasNode(node[key], fn));
+function hasNode(node, predicate) {
+  return predicate(node) || hasDescendant(node, { getVisitorKeys, predicate });
 }
 
 /**
@@ -107,11 +102,6 @@ function getLeftSidePathName(node) {
     return ["expression"];
   }
   throw new Error("Unexpected node has no left side.");
-}
-
-function createTypeCheckFunction(types) {
-  types = new Set(types);
-  return (node) => types.has(node?.type);
 }
 
 /**
@@ -254,22 +244,6 @@ function isAngularTestWrapper(node) {
  */
 const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
-function isTheOnlyJsxElementInMarkdown(options, path) {
-  if (options.parentParser !== "markdown" && options.parentParser !== "mdx") {
-    return false;
-  }
-
-  const { node } = path;
-
-  if (!node.expression || !isJsxElement(node.expression)) {
-    return false;
-  }
-
-  const { parent } = path;
-
-  return parent.type === "Program" && parent.body.length === 1;
-}
-
 function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }
@@ -330,78 +304,30 @@ function isMemberish(node) {
   );
 }
 
-const simpleTypeAnnotations = new Set([
-  // `any`
-  "AnyTypeAnnotation",
-  "TSAnyKeyword",
-  // `null`
-  "NullLiteralTypeAnnotation",
-  "TSNullKeyword",
-  // `this`
-  "ThisTypeAnnotation",
+const isSimpleTypeAnnotation = createTypeCheckFunction([
   "TSThisType",
-  // `number`
-  "NumberTypeAnnotation",
-  "TSNumberKeyword",
-  // `void`
-  "VoidTypeAnnotation",
-  "TSVoidKeyword",
-  // `boolean`
-  "BooleanTypeAnnotation",
-  "TSBooleanKeyword",
-  // `bigint`
-  "BigIntTypeAnnotation",
-  "TSBigIntKeyword",
-  // `symbol`
-  "SymbolTypeAnnotation",
-  "TSSymbolKeyword",
-  // `string`
-  "StringTypeAnnotation",
-  "TSStringKeyword",
-  // `never`
-  "NeverTypeAnnotation",
-  "TSNeverKeyword",
-  // `undefined`
-  "UndefinedTypeAnnotation",
-  "TSUndefinedKeyword",
-  // `unknown`
-  "UnknownTypeAnnotation",
-  "TSUnknownKeyword",
   // literals
+  "NullLiteralTypeAnnotation",
   "BooleanLiteralTypeAnnotation",
   "StringLiteralTypeAnnotation",
   "BigIntLiteralTypeAnnotation",
   "NumberLiteralTypeAnnotation",
   "TSLiteralType",
   "TSTemplateLiteralType",
-  // flow only, `empty`, `mixed`
-  "EmptyTypeAnnotation",
-  "MixedTypeAnnotation",
-  // typescript only `object`
-  "TSObjectKeyword",
 ]);
 /**
  * @param {Node} node
  * @returns {boolean}
  */
 function isSimpleType(node) {
-  if (!node) {
-    return false;
-  }
-
-  if (
-    (node.type === "GenericTypeAnnotation" ||
+  return (
+    isTsKeywordType(node) ||
+    isFlowKeywordType(node) ||
+    isSimpleTypeAnnotation(node) ||
+    ((node.type === "GenericTypeAnnotation" ||
       node.type === "TSTypeReference") &&
-    !node.typeParameters
-  ) {
-    return true;
-  }
-
-  if (simpleTypeAnnotations.has(node.type)) {
-    return true;
-  }
-
-  return false;
+      !node.typeParameters)
+  );
 }
 
 /**
@@ -560,19 +486,6 @@ function isSimpleTemplateLiteral(node) {
 }
 
 /**
- * @param {string} tokenNode
- * @param {string} keyword
- * @returns {string}
- */
-function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
-  if (tokenNode === "+" || tokenNode === "-") {
-    return tokenNode + keyword;
-  }
-
-  return keyword;
-}
-
-/**
  * @param {string} text
  * @param {Node} node
  * @returns {boolean}
@@ -583,7 +496,7 @@ function hasLeadingOwnLineComment(text, node) {
   }
 
   return hasComment(node, CommentCheckFlags.Leading, (comment) =>
-    hasNewline(text, locEnd(comment))
+    hasNewline(text, locEnd(comment)),
   );
 }
 
@@ -671,7 +584,7 @@ function needsHardlineAfterDanglingComment(node) {
     return false;
   }
   const lastDanglingComment = getComments(node, CommentCheckFlags.Dangling).at(
-    -1
+    -1,
   );
   return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
@@ -768,7 +681,8 @@ function isSimpleCallArgument(node, depth = 2) {
 
   if (isObjectOrRecordExpression(node)) {
     return node.properties.every(
-      (p) => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
+      (p) =>
+        !p.computed && (p.shorthand || (p.value && isChildSimple(p.value))),
     );
   }
 
@@ -815,10 +729,6 @@ function rawText(node) {
 
 function identity(x) {
   return x;
-}
-
-function isTSXFile(options) {
-  return options.filepath && /\.tsx$/i.test(options.filepath);
 }
 
 /**
@@ -966,8 +876,8 @@ const PRECEDENCE = new Map(
     ["*", "/", "%"],
     ["**"],
   ].flatMap((operators, index) =>
-    operators.map((operator) => [operator, index])
-  )
+    operators.map((operator) => [operator, index]),
+  ),
 );
 function getPrecedence(operator) {
   return PRECEDENCE.get(operator);
@@ -1184,15 +1094,11 @@ function isObjectProperty(node) {
   );
 }
 
-function isEnabledHackPipeline(options) {
-  return Boolean(options.__isUsingHackPipeline);
-}
-
 /**
  * This is used as a marker for dangling comments.
  */
 const markerForIfWithoutBlockAndSameLineComment = Symbol(
-  "ifWithoutBlockAndSameLineComment"
+  "ifWithoutBlockAndSameLineComment",
 );
 
 const isTSTypeExpression = createTypeCheckFunction([
@@ -1209,7 +1115,6 @@ export {
   hasRestParameter,
   getLeftSide,
   getLeftSidePathName,
-  getTypeScriptMappedTypeModifier,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNode,
@@ -1217,7 +1122,6 @@ export {
   identity,
   isBinaryish,
   isCallLikeExpression,
-  isEnabledHackPipeline,
   isLineComment,
   isPrettierIgnoreComment,
   isCallExpression,
@@ -1244,8 +1148,6 @@ export {
   isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
-  isTheOnlyJsxElementInMarkdown,
-  isTSXFile,
   isTypeAnnotationAFunction,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,

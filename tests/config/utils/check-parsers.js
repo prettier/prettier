@@ -46,7 +46,10 @@ const categoryParsers = new Map([
     "handlebars",
     { parsers: ["glimmer"], verifyParsers: [], extensions: [".hbs"] },
   ],
-  ["html", { parsers: ["html"], verifyParsers: [], extensions: [".html"] }],
+  [
+    "html",
+    { parsers: ["html"], verifyParsers: [], extensions: [".html", ".svg"] },
+  ],
   ["mjml", { parsers: ["html"], verifyParsers: [], extensions: [".mjml"] }],
   [
     "js",
@@ -168,8 +171,8 @@ const checkParser = ({ dirname, files }, parsers = []) => {
   if (verifyParsers.includes(parser)) {
     throw new Error(
       `verifyParsers ${JSON.stringify(
-        verifyParsers
-      )} should not include parser "${parser}".`
+        verifyParsers,
+      )} should not include parser "${parser}".`,
     );
   }
 
@@ -191,7 +194,7 @@ const checkParser = ({ dirname, files }, parsers = []) => {
     throw new Error(
       `Parser "${parser}" should not used in "${dirname}".${
         suggestion ? `\n\n${suggestion}` : ""
-      }`
+      }`,
     );
   }
 
@@ -202,7 +205,7 @@ const checkParser = ({ dirname, files }, parsers = []) => {
           outdent`
             Parser "${verifyParser}" should not used to verify in "${dirname}".
             Please remove it or config to allow use this parser in "${__filename}".
-          `
+          `,
         );
       }
     }
@@ -216,7 +219,7 @@ const checkParser = ({ dirname, files }, parsers = []) => {
           File "${name}" should not tested in "${dirname}".
           Allowed extensions: ${extensions.join(",")}.
           Please rename it or config to allow test "${ext}" file in "${__filename}".
-        `
+        `,
       );
     }
   }

@@ -224,16 +224,22 @@ selector {
 // #8052
 $font-family-rich:
   // custom
-  "Noto Sans TC", "Noto Sans SC", "Noto Sans JP",
+  "Noto Sans TC",
+  "Noto Sans SC",
+  "Noto Sans JP",
   // Safari for OS X and iOS (San Francisco)
   -apple-system,
   BlinkMacSystemFont,
   // fallback
   Roboto,
-  "Helvetica Neue", Helvetica, Arial, sans-serif,
+  "Helvetica Neue",
+  Helvetica,
+  Arial,
+  sans-serif,
   // emoji
   "Apple Color Emoji",
-  "Segoe UI Emoji", "Segoe UI Symbol" !default;
+  "Segoe UI Emoji",
+  "Segoe UI Symbol" !default;
 
 // #7109
 .test {
@@ -423,7 +429,8 @@ $my-list2:
   c;
 
 =====================================output=====================================
-$my-list: "foo",
+$my-list:
+  "foo",
   // Foo
   "bar"; // Bar
 

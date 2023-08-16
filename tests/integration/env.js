@@ -8,13 +8,13 @@ const { PRETTIER_DIR } = process.env;
 const { bin } = require(path.join(PRETTIER_DIR, "package.json"));
 const prettierCli = path.join(
   PRETTIER_DIR,
-  typeof bin === "object" ? bin.prettier : bin
+  typeof bin === "object" ? bin.prettier : bin,
 );
 
-const thirdParty = isProduction
-  ? path.join(PRETTIER_DIR, "./internal/third-party.mjs")
-  : path.join(PRETTIER_DIR, "./src/common/third-party.js");
+const mockable = isProduction
+  ? path.join(PRETTIER_DIR, "./internal/internal.mjs")
+  : path.join(PRETTIER_DIR, "./src/common/mockable.js");
 
 const projectRoot = path.join(__dirname, "../..");
 
-export { isProduction, thirdParty, prettierCli, projectRoot };
+export { isProduction, mockable, prettierCli, projectRoot };

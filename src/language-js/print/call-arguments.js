@@ -79,7 +79,7 @@ function printCallArguments(path, options, print) {
   function allArgsBrokenOut() {
     return group(
       ["(", indent([line, ...printedArguments]), maybeTrailingComma, line, ")"],
-      { shouldBreak: true }
+      { shouldBreak: true },
     );
   }
 
@@ -281,8 +281,12 @@ function isHopefullyShortCallArgument(node) {
     return isHopefullyShortCallArgument(node.expression);
   }
 
-  if (isTSTypeExpression(node)) {
+  if (isTSTypeExpression(node) || node.type === "TypeCastExpression") {
     let { typeAnnotation } = node;
+    if (typeAnnotation.type === "TypeAnnotation") {
+      typeAnnotation = typeAnnotation.typeAnnotation;
+    }
+
     if (typeAnnotation.type === "TSArrayType") {
       typeAnnotation = typeAnnotation.elementType;
       if (typeAnnotation.type === "TSArrayType") {

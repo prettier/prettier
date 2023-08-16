@@ -5,12 +5,9 @@
 import { fill, group, hardline } from "../document/builders.js";
 import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import getPreferredQuote from "../utils/get-preferred-quote.js";
 import clean from "./clean.js";
-import {
-  countChars,
-  unescapeQuoteEntities,
-  getTextValueParts,
-} from "./utils/index.js";
+import { unescapeQuoteEntities, getTextValueParts } from "./utils/index.js";
 import preprocess from "./print-preprocess.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
@@ -85,7 +82,7 @@ function genericPrint(path, options, print) {
       return [
         printOpeningTagPrefix(node, options),
         replaceEndOfLine(
-          options.originalText.slice(locStart(node), locEnd(node))
+          options.originalText.slice(locStart(node), locEnd(node)),
         ),
         printClosingTagSuffix(node, options),
       ];
@@ -95,9 +92,7 @@ function genericPrint(path, options, print) {
         return node.rawName;
       }
       const value = unescapeQuoteEntities(node.value);
-      const singleQuoteCount = countChars(value, "'");
-      const doubleQuoteCount = countChars(value, '"');
-      const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
+      const quote = getPreferredQuote(value, '"');
       return [
         node.rawName,
         "=",
@@ -105,7 +100,7 @@ function genericPrint(path, options, print) {
         replaceEndOfLine(
           quote === '"'
             ? value.replaceAll('"', "&quot;")
-            : value.replaceAll("'", "&apos;")
+            : value.replaceAll("'", "&apos;"),
         ),
         quote,
       ];

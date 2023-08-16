@@ -1,3 +1,5 @@
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+
 function clean(ast, newNode /*, parent*/) {
   // (Glimmer/HTML) ignore TextNode
   if (ast.type === "TextNode") {
@@ -5,7 +7,7 @@ function clean(ast, newNode /*, parent*/) {
     if (!trimmed) {
       return null;
     }
-    newNode.chars = trimmed.replaceAll(/[\t\n\f\r ]+/g, " ");
+    newNode.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
   }
 
   // `class` is reformatted

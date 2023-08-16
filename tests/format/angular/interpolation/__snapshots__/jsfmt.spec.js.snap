@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`computed-optional-member-expression.ng - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["__ng_interpolation"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+[
+  a?.[0]
+]
+
+=====================================output=====================================
+[a?.[0]]
+================================================================================
+`;
+
 exports[`logical-expression.ng - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
@@ -72,10 +88,10 @@ trailingComma: "none"
 
 =====================================output=====================================
 [
-  a ? (b | c : d) : (e | f : g),
+  a ? (b | c: d) : (e | f: g),
   a | b | c | d,
   a | b | c | d,
-  a | b : (c | d),
+  a | b: (c | d),
   { a: b | c },
   a + b | c,
   (a | b) + c,
@@ -84,22 +100,22 @@ trailingComma: "none"
   a[b | c],
   ($students | async).items,
   ($students | async)(),
-  myData | myPipe : "arg1" : "arg2" : "arg3",
+  myData | myPipe: "arg1" : "arg2" : "arg3",
   value
     | pipeA
       : {
           keyA: reallySuperLongValue,
-          keyB: shortValue | pipeB | pipeC : valueToPipeC
+          keyB: shortValue | pipeB | pipeC: valueToPipeC
         }
       : {
           keyA: reallySuperLongValue,
-          keyB: shortValue | pipeB | pipeC : valueToPipeC
+          keyB: shortValue | pipeB | pipeC: valueToPipeC
         }
     | aaa,
   (hideLinqPanel
     ? "ReportSelection.HideShowLabel_Show.String"
     : "ReportSelection.HideShowLabel_Hide.String"
-  ) | localize : localizationSection
+  ) | localize: localizationSection
 ]
 ================================================================================
 `;

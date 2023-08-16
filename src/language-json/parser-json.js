@@ -1,3 +1,4 @@
+import { parseExpression } from "@babel/parser";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import createError from "../common/parser-create-error.js";
 import createParser from "../language-js/parse/utils/create-parser.js";
@@ -7,15 +8,24 @@ import wrapBabelExpression from "../language-js/parse/utils/wrap-babel-expressio
 function createJsonParse(options = {}) {
   const { allowComments = true } = options;
 
-  return async function parse(text, options = {}) {
-    const { parseExpression } = await import("@babel/parser");
+  return function parse(text) {
     let ast;
     try {
       ast = parseExpression(text, {
         tokens: true,
         ranges: true,
       });
-    } catch (error) {
+    } catch (/** @type {any} */ error) {
+      if (
+        error?.reasonCode === "MissingPlugin" ||
+        error?.reasonCode === "MissingOneOfPlugins"
+      ) {
+        throw createBabelParseError({
+          message: "Unexpected token",
+          loc: error.loc,
+        });
+      }
+
       throw createBabelParseError(error);
     }
 
@@ -27,8 +37,7 @@ function createJsonParse(options = {}) {
 
     assertJsonNode(ast);
 
-    options.originalText = text;
-    return wrapBabelExpression(ast, options, "JsonRoot");
+    return wrapBabelExpression(ast, { type: "JsonRoot", text });
   };
 }
 
@@ -37,7 +46,7 @@ function createJsonError(node, description) {
     ({ line, column }) => ({
       line,
       column: column + 1,
-    })
+    }),
   );
   return createError(`${description} is not allowed in JSON.`, {
     loc: { start, end },
@@ -92,7 +101,7 @@ function assertJsonNode(node) {
 
       throw createJsonError(
         argument,
-        `Operator '${operator}' before '${argument.type}'`
+        `Operator '${operator}' before '${argument.type}'`,
       );
     }
     case "Identifier":
@@ -111,7 +120,7 @@ function assertJsonNode(node) {
       if (isNonEmptyArray(node.expressions)) {
         throw createJsonError(
           node.expressions[0],
-          "'TemplateLiteral' with expression"
+          "'TemplateLiteral' with expression",
         );
       }
 

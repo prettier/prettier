@@ -2011,6 +2011,341 @@ ___________________________
 ================================================================================
 `;
 
+exports[`seach.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<header>
+  <h1><a href="/">My fancy blog</a></h1>
+  ...
+  <search>
+    <form action="search.php">
+      <label for="query">Find an article</label>
+      <input id="query" name="q" type="search">
+      <button type="submit">Go!</button>
+    </form>
+  </search>
+
+  <SEARCH></SEARCH>
+</header>
+</body>
+</html>
+
+=====================================output=====================================
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">My fancy blog</a></h1>
+      ...
+      <search>
+        <form action="search.php">
+          <label for="query">Find an article</label>
+          <input id="query" name="q" type="search" />
+          <button type="submit">Go!</button>
+        </form>
+      </search>
+
+      <search></search>
+    </header>
+  </body>
+</html>
+
+================================================================================
+`;
+
+exports[`seach.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<header>
+  <h1><a href="/">My fancy blog</a></h1>
+  ...
+  <search>
+    <form action="search.php">
+      <label for="query">Find an article</label>
+      <input id="query" name="q" type="search">
+      <button type="submit">Go!</button>
+    </form>
+  </search>
+
+  <SEARCH></SEARCH>
+</header>
+</body>
+</html>
+
+=====================================output=====================================
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">My fancy blog</a></h1>
+      ...
+      <search>
+        <form action="search.php">
+          <label for="query">Find an article</label>
+          <input id="query" name="q" type="search" />
+          <button type="submit">Go!</button>
+        </form>
+      </search>
+
+      <search></search>
+    </header>
+  </body>
+</html>
+
+================================================================================
+`;
+
+exports[`seach.html - {"printWidth":"Infinity"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<header>
+  <h1><a href="/">My fancy blog</a></h1>
+  ...
+  <search>
+    <form action="search.php">
+      <label for="query">Find an article</label>
+      <input id="query" name="q" type="search">
+      <button type="submit">Go!</button>
+    </form>
+  </search>
+
+  <SEARCH></SEARCH>
+</header>
+</body>
+</html>
+
+=====================================output=====================================
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">My fancy blog</a></h1>
+      ...
+      <search>
+        <form action="search.php">
+          <label for="query">Find an article</label>
+          <input id="query" name="q" type="search" />
+          <button type="submit">Go!</button>
+        </form>
+      </search>
+
+      <search></search>
+    </header>
+  </body>
+</html>
+
+================================================================================
+`;
+
+exports[`seach.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<header>
+  <h1><a href="/">My fancy blog</a></h1>
+  ...
+  <search>
+    <form action="search.php">
+      <label for="query">Find an article</label>
+      <input id="query" name="q" type="search">
+      <button type="submit">Go!</button>
+    </form>
+  </search>
+
+  <SEARCH></SEARCH>
+</header>
+</body>
+</html>
+
+=====================================output=====================================
+<!doctype html>
+<html
+  lang="en"
+>
+  <head>
+    <meta
+      charset="UTF-8"
+    />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>
+      Document
+    </title>
+  </head>
+  <body>
+    <header>
+      <h1>
+        <a
+          href="/"
+          >My
+          fancy
+          blog</a
+        >
+      </h1>
+      ...
+      <search>
+        <form
+          action="search.php"
+        >
+          <label
+            for="query"
+            >Find
+            an
+            article</label
+          >
+          <input
+            id="query"
+            name="q"
+            type="search"
+          />
+          <button
+            type="submit"
+          >
+            Go!
+          </button>
+        </form>
+      </search>
+
+      <search></search>
+    </header>
+  </body>
+</html>
+
+================================================================================
+`;
+
+exports[`seach.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<header>
+  <h1><a href="/">My fancy blog</a></h1>
+  ...
+  <search>
+    <form action="search.php">
+      <label for="query">Find an article</label>
+      <input id="query" name="q" type="search">
+      <button type="submit">Go!</button>
+    </form>
+  </search>
+
+  <SEARCH></SEARCH>
+</header>
+</body>
+</html>
+
+=====================================output=====================================
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">My fancy blog</a></h1>
+      ...
+      <search>
+        <form action="search.php">
+          <label for="query">Find an article</label>
+          <input id="query" name="q" type="search" />
+          <button type="submit">Go!</button>
+        </form>
+      </search>
+
+      <search></search>
+    </header>
+  </body>
+</html>
+
+================================================================================
+`;
+
 exports[`tags.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"

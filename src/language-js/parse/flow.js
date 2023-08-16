@@ -1,3 +1,4 @@
+import flowParser from "flow-parser";
 import createError from "../../common/parser-create-error.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
@@ -39,26 +40,14 @@ function createParseError(error) {
   });
 }
 
-async function parse(text, options = {}) {
-  // Inline `import()` to avoid loading all the JS if we don't use it
-  const {
-    default: { parse },
-  } = await import("flow-parser");
-  const ast = parse(replaceHashbang(text), parseOptions);
+function parse(text) {
+  const ast = flowParser.parse(replaceHashbang(text), parseOptions);
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { text });
 }
 
-// Export as a plugin so we can reuse the same bundle for UMD loading
-const parser = {
-  parsers: {
-    flow: createParser(parse),
-  },
-};
-
-export default parser;
+export const flow = createParser(parse);
