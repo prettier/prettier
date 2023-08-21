@@ -120,7 +120,7 @@
     "cross-env": "7.0.3",
     "cspell": "7.0.0",
     "enquirer": "2.4.1",
-    "esbuild": "0.19.1",
+    "esbuild": "0.19.2",
     "esbuild-visualizer": "0.4.1",
     "eslint": "8.47.0",
     "eslint-config-prettier": "9.0.0",
