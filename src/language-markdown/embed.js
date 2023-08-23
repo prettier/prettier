@@ -17,8 +17,13 @@ function embed(path, options) {
           Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
         );
         const newOptions = { parser };
-        if (node.lang === "tsx") {
-          newOptions.filepath = "dummy.tsx";
+
+        // Override the filepath option.
+        // This is because whether the trailing comma of type parameters
+        // should be printed depends on whether it is `*.ts` or `*.tsx`.
+        // https://github.com/prettier/prettier/issues/15282
+        if (node.lang === "ts" || node.lang === "tsx") {
+          newOptions.filepath = `dummy.${node.lang}`;
         }
 
         const doc = await textToDoc(
