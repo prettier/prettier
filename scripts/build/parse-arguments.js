@@ -1,0 +1,75 @@
+import { parseArgs } from "node:util";
+import path from "node:path";
+import { DIST_DIR } from "../utils/index.js";
+
+function parseArguments() {
+  const { values } = parseArgs({
+    options: {
+      playground: { type: "boolean", default: false },
+      "print-size": { type: "boolean", default: false },
+      "compare-size": { type: "boolean", default: false },
+      minify: { type: "boolean" },
+      "no-minify": { type: "boolean" },
+      clean: { type: "boolean", default: false },
+      file: { type: "string", multiple: true },
+      "save-as": { type: "string" },
+      report: { type: "string", multiple: true },
+    },
+    strict: true,
+  });
+
+  if (values.minify && values.noMinify) {
+    throw new Error("'--minify' and '--no-minify' can't be used together.");
+  }
+
+  const result = {
+    files: Array.isArray(values.file) ? new Set(values.file) : undefined,
+    playground: values.playground,
+    printSize: values["print-size"],
+    compareSize: values["compare-size"],
+    minify: values.minify ? true : values["no-minify"] ? false : undefined,
+    clean: values.clean,
+    saveAs: values["save-as"],
+    report: values.report,
+  };
+
+  if (result.saveAs) {
+    if (result.files?.size !== 1) {
+      throw new Error(
+        "'--save-as' can only use together with one '--file' flag",
+      );
+    }
+
+    if (!path.join(DIST_DIR, result.saveAs).startsWith(DIST_DIR)) {
+      throw new Error("'--save-as' can only relative path");
+    }
+  }
+
+  if (result.compareSize) {
+    if (result.minify === false) {
+      throw new Error(
+        "'--compare-size' can not use together with '--no-minify' flag",
+      );
+    }
+
+    if (result.saveAs) {
+      throw new Error(
+        "'--compare-size' can not use together with '--save-as' flag",
+      );
+    }
+  }
+
+  if (Array.isArray(result.report) && result.report.includes("all")) {
+    if (result.report.length !== 1) {
+      throw new Error(
+        "'--report=all' can not use with another '--report' flag",
+      );
+    }
+
+    result.report = ["html", "text", "stdin"];
+  }
+
+  return result;
+}
+
+export default parseArguments;
