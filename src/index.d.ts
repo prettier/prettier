@@ -870,10 +870,19 @@ export namespace util {
     options?: SkipOptions | undefined,
   ): boolean;
 
+  function getNextNonSpaceNonCommentCharacterIndex(
+    text: string,
+    startIndex: number,
+  ): number | false;
+
   function getNextNonSpaceNonCommentCharacter(
     text: string,
     startIndex: number,
   ): string;
+
+  function isNextLineEmpty(text: string, startIndex: number): boolean;
+
+  function isPreviousLineEmpty(text: string, startIndex: number): boolean;
 
   function makeString(
     rawText: string,
