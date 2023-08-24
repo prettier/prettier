@@ -107,7 +107,6 @@
   },
   "devDependencies": {
     "@babel/generator": "7.22.10",
-    "@esbuild-plugins/node-modules-polyfill": "0.2.2",
     "@glimmer/reference": "0.84.3",
     "@types/estree": "1.0.1",
     "@types/file-entry-cache": "5.0.2",
@@ -121,6 +120,7 @@
     "cspell": "7.0.0",
     "enquirer": "2.4.1",
     "esbuild": "0.19.2",
+    "esbuild-plugins-node-modules-polyfill": "1.5.0",
     "esbuild-visualizer": "0.4.1",
     "eslint": "8.47.0",
     "eslint-config-prettier": "9.0.0",
