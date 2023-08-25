@@ -37,11 +37,13 @@ if (true) {
 text1
 
 - 123
+
   - 456
 
 text2
 
 - 123
+
   - 456
 
 text3
@@ -172,11 +174,13 @@ if (true) {
 text1
 
 - 123
+
   - 456
 
 text2
 
 - 123
+
   - 456
 
 text3
@@ -191,11 +195,13 @@ if (true) {
 text1
 
 - 123
+
   - 456
 
 text2
 
 - 123
+
   - 456
 
 text3

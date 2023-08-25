@@ -48,14 +48,14 @@ function clean(ast, newObj, parent) {
     newObj.label = collapseWhiteSpace(ast.label);
   }
 
-  if (
-    (ast.type === "definition" ||
-      ast.type === "link" ||
-      ast.type === "image") &&
-    ast.title
-  ) {
-    newObj.title = ast.title.replaceAll(/\\(?=["')])/g, "");
-  }
+  // if (
+  //   (ast.type === "definition" ||
+  //     ast.type === "link" ||
+  //     ast.type === "image") &&
+  //   ast.title
+  // ) {
+  //   newObj.title = ast.title.replaceAll(/\\(?=["')])/g, "");
+  // }
 
   // for insert pragma
   if (

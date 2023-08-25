@@ -644,7 +644,6 @@ tabWidth: 0
    \`\`\`
 
 2. ol02
-
    \`\`\`js
    const a = 1;
 
@@ -660,7 +659,6 @@ tabWidth: 0
   \`\`\`
 
 - ul02
-
   \`\`\`js
   const a = 1;
 
@@ -724,7 +722,6 @@ tabWidth: 4
     \`\`\`
 
 2. ol02
-
     \`\`\`js
     const a = 1;
 
@@ -740,7 +737,6 @@ tabWidth: 4
     \`\`\`
 
 -   ul02
-
     \`\`\`js
     const a = 1;
 
@@ -804,7 +800,6 @@ tabWidth: 999
       \`\`\`
 
 2. ol02
-
       \`\`\`js
       const a = 1;
 
@@ -820,7 +815,6 @@ tabWidth: 999
      \`\`\`
 
 - ul02
-
      \`\`\`js
      const a = 1;
 
@@ -883,7 +877,6 @@ proseWrap: "always"
    \`\`\`
 
 2. ol02
-
    \`\`\`js
    const a = 1;
 
@@ -899,7 +892,6 @@ proseWrap: "always"
   \`\`\`
 
 - ul02
-
   \`\`\`js
   const a = 1;
 
@@ -1232,7 +1224,6 @@ tabWidth: 0
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
   - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a
 
@@ -1241,10 +1232,8 @@ tabWidth: 0
 
   - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a
-
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
     b b b b b b b b b b b b b b
-
   1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
 
@@ -1253,28 +1242,21 @@ tabWidth: 0
 
   1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
   12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b
-
   12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b
-
   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
   a a a a a a a a a a a a a a
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
 
@@ -1283,10 +1265,8 @@ tabWidth: 0
 
    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
@@ -1295,31 +1275,23 @@ tabWidth: 0
 
    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
-
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
       b b b b b b b b b b b b b b b
-
    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b
-
    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b
-
    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
    a a a a a a a a a a a a a a
 
 12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
-
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
 
@@ -1328,10 +1300,8 @@ tabWidth: 0
 
           - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b
-
           1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a
 
@@ -1340,22 +1310,16 @@ tabWidth: 0
 
           1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b
-
           12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                         a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
 
@@ -1459,7 +1423,6 @@ tabWidth: 4
 =====================================output=====================================
 -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
-
     -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
@@ -1468,10 +1431,8 @@ tabWidth: 4
 
     -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
-
     1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
 
@@ -1480,28 +1441,21 @@ tabWidth: 4
 
     1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
            a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
-
     12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b
-
     12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                   a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b
-
     a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a a
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
     - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
@@ -1510,10 +1464,8 @@ tabWidth: 4
 
     - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
-
     1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
 
@@ -1522,31 +1474,23 @@ tabWidth: 4
 
     1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
            a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
-
     12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b
-
     12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                   a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b
-
     a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a a
 
 12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
-
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
 
@@ -1555,10 +1499,8 @@ tabWidth: 4
 
           - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b b
-
           1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a
 
@@ -1567,22 +1509,16 @@ tabWidth: 4
 
           1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b b
-
           12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                         a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
 
@@ -1686,7 +1622,6 @@ tabWidth: 999
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
      - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
 
@@ -1695,10 +1630,8 @@ tabWidth: 999
 
      - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
            a a a a a a a a a a a a a a a
-
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b b b
-
      1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
@@ -1707,28 +1640,21 @@ tabWidth: 999
 
      1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a a
-
            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
            b b b b b b b b b b b b b b b b b
-
      12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                a a a a a a a a a a a a a a a
-
                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                   b b b b b b b b b b b b b b b b b
-
      12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                    a a a a a a a a a a a a a a a
-
                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                   b b b b b b b b b b b b b b b b b
-
      a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a a
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
       - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
@@ -1737,10 +1663,8 @@ tabWidth: 999
 
       - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a a
-
            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
            b b b b b b b b b b b b b b b b b
-
       1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a a a
 
@@ -1749,31 +1673,23 @@ tabWidth: 999
 
       1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b b b b
-
       12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a a
-
                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                    b b b b b b b b b b b b b b b b b
-
       12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a a
-
                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                    b b b b b b b b b b b b b b b b b
-
       a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a a
 
 12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b b
-
              - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                a a a a a a a a a a a a a a a a
 
@@ -1782,10 +1698,8 @@ tabWidth: 999
 
              - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                    a a a a a a a a a a a a a a a a
-
                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                   b b b b b b b b b b b b b b b b b b
-
              1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a a a
 
@@ -1794,22 +1708,16 @@ tabWidth: 999
 
              1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a a a
-
                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                    b b b b b b b b b b b b b b b b b b
-
              12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                        a a a a a a a a a a a a a a a a
-
                           b b b b b b b b b b b b b b b b b b b b b b b b b b b
                           b b b b b b b b b b b b b b b b b b b
-
              12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a
                            a a a a a a a a a a a a a a a a
-
                           b b b b b b b b b b b b b b b b b b b b b b b b b b b
                           b b b b b b b b b b b b b b b b b b b
-
              a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a a
 
@@ -1912,7 +1820,6 @@ proseWrap: "always"
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
   - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a
 
@@ -1921,10 +1828,8 @@ proseWrap: "always"
 
   - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a
-
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
     b b b b b b b b b b b b b b
-
   1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
 
@@ -1933,28 +1838,21 @@ proseWrap: "always"
 
   1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
   12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b
-
   12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b
-
   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
   a a a a a a a a a a a a a a
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
 
@@ -1963,10 +1861,8 @@ proseWrap: "always"
 
    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
@@ -1975,31 +1871,23 @@ proseWrap: "always"
 
    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
-
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
       b b b b b b b b b b b b b b b
-
    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b
-
    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b
-
    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
    a a a a a a a a a a a a a a
 
 12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
-
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
 
@@ -2008,10 +1896,8 @@ proseWrap: "always"
 
           - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b
-
           1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a
 
@@ -2020,22 +1906,16 @@ proseWrap: "always"
 
           1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b
-
           12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                         a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
 
@@ -2138,16 +2018,16 @@ tabWidth: 0
     e e e
 =====================================output=====================================
 - a a  
-   b b  
-   c c  
-   d d  
+  b b  
+  c c  
+  d d  
   e e
 
 1. a a a  
-    b b b  
+   b b b  
    c c c  
-    d d d  
-    e e e
+   d d d  
+   e e e
 
 ================================================================================
 `;
@@ -2173,16 +2053,16 @@ tabWidth: 4
     e e e
 =====================================output=====================================
 -   a a  
-     b b  
-     c c  
-     d d  
+    b b  
+    c c  
+    d d  
     e e
 
 1.  a a a  
-     b b b  
+    b b b  
     c c c  
-     d d d  
-     e e e
+    d d d  
+    e e e
 
 ================================================================================
 `;
@@ -2208,16 +2088,16 @@ tabWidth: 999
     e e e
 =====================================output=====================================
 - a a  
-   b b  
-   c c  
-   d d  
+  b b  
+  c c  
+  d d  
   e e
 
 1. a a a  
-    b b b  
+   b b b  
    c c c  
-    d d d  
-    e e e
+   d d d  
+   e e e
 
 ================================================================================
 `;
@@ -2242,16 +2122,16 @@ proseWrap: "always"
     e e e
 =====================================output=====================================
 - a a  
-   b b  
-   c c  
-   d d  
+  b b  
+  c c  
+  d d  
   e e
 
 1.  a a a  
-     b b b  
+    b b b  
     c c c  
-     d d d  
-     e e e
+    d d d  
+    e e e
 
 ================================================================================
 `;
@@ -2353,7 +2233,6 @@ tabWidth: 0
   - def
 
 - 789
-
   - ghi
 
 ================================================================================
@@ -2389,7 +2268,6 @@ tabWidth: 4
     -   def
 
 -   789
-
     -   ghi
 
 ================================================================================
@@ -2425,7 +2303,6 @@ tabWidth: 999
      - def
 
 - 789
-
      - ghi
 
 ================================================================================
@@ -2460,7 +2337,6 @@ proseWrap: "always"
   - def
 
 - 789
-
   - ghi
 
 ================================================================================
@@ -2648,10 +2524,8 @@ tabWidth: 0
 
 - [x] parent task list item parent task list item parent task list item parent
       task list item
-
   - [x] child task list item child task list item child task list item child
         task list item
-
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
   paragraph paragraph
 
@@ -2690,10 +2564,8 @@ tabWidth: 4
 
 -   [x] parent task list item parent task list item parent task list item parent
         task list item
-
     -   [x] child task list item child task list item child task list item child
             task list item
-
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
 
@@ -2732,10 +2604,8 @@ tabWidth: 999
 
 - [x] parent task list item parent task list item parent task list item parent
       task list item
-
      - [x] child task list item child task list item child task list item child
            task list item
-
      paragraph paragraph paragraph paragraph paragraph paragraph paragraph
      paragraph paragraph
 
@@ -2773,10 +2643,8 @@ proseWrap: "always"
 
 - [x] parent task list item parent task list item parent task list item parent
       task list item
-
   - [x] child task list item child task list item child task list item child
         task list item
-
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
   paragraph paragraph
 
@@ -2822,7 +2690,9 @@ tabWidth: 0
 - Top level list item 1
 - Top level list item 2
   - Nested List item 1
-  - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+  - Nested List item 2
+    - Sub-Nested List item 1
+    - Sub-Nested List item 2
 
 ================================================================================
 `;
@@ -2866,7 +2736,9 @@ tabWidth: 4
 -   Top level list item 1
 -   Top level list item 2
     -   Nested List item 1
-    -   Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+    -   Nested List item 2
+        -   Sub-Nested List item 1
+        -   Sub-Nested List item 2
 
 ================================================================================
 `;
@@ -2910,7 +2782,9 @@ tabWidth: 999
 - Top level list item 1
 - Top level list item 2
      - Nested List item 1
-     - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+     - Nested List item 2
+          - Sub-Nested List item 1
+          - Sub-Nested List item 2
 
 ================================================================================
 `;
@@ -2953,7 +2827,9 @@ proseWrap: "always"
 - Top level list item 1
 - Top level list item 2
   - Nested List item 1
-  - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+  - Nested List item 2
+    - Sub-Nested List item 1
+    - Sub-Nested List item 2
 
 ================================================================================
 `;
@@ -4156,7 +4032,6 @@ tabWidth: 0
   \`\`\`
 
 - Text
-
   \`foo\`
 
 ================================================================================
@@ -4216,7 +4091,6 @@ tabWidth: 4
     \`\`\`
 
 -   Text
-
     \`foo\`
 
 ================================================================================
@@ -4276,7 +4150,6 @@ tabWidth: 999
      \`\`\`
 
 - Text
-
      \`foo\`
 
 ================================================================================
@@ -4335,7 +4208,6 @@ proseWrap: "always"
   \`\`\`
 
 - Text
-
   \`foo\`
 
 ================================================================================

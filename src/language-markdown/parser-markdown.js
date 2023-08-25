@@ -1,14 +1,12 @@
 import remarkParse from "remark-parse";
-import unified from "unified";
+import { unified } from "unified";
 import remarkMath from "remark-math";
-import footnotes from "remark-footnotes";
+import parseFrontMatter from "../utils/front-matter/parse.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
-import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
-import htmlToJsx from "./unified-plugins/html-to-jsx.js";
-import frontMatter from "./unified-plugins/front-matter.js";
-import liquid from "./unified-plugins/liquid.js";
-import wikiLink from "./unified-plugins/wiki-link.js";
+import gfm from "./unified-plugins/gfm.js";
+import liquid from "./unified-plugins/liquid-for-micromark.js";
+import wikiLink from "./unified-plugins/wiki-link-for-micromark.js";
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -24,33 +22,34 @@ import wikiLink from "./unified-plugins/wiki-link.js";
  * interface Sentence { children: Array<Word | Whitespace> }
  * interface InlineCode { children: Array<Sentence> }
  */
-function createParse({ isMDX }) {
-  return (text) => {
-    const processor = unified()
-      .use(remarkParse, {
-        commonmark: true,
-        ...(isMDX && { blocks: [BLOCKS_REGEX] }),
-      })
-      .use(footnotes)
-      .use(frontMatter)
-      .use(remarkMath)
-      .use(isMDX ? esSyntax : noop)
-      .use(liquid)
-      .use(isMDX ? htmlToJsx : noop)
-      .use(wikiLink);
-    return processor.run(processor.parse(text));
+function createParse() {
+  const processor = unified()
+    .use(remarkParse)
+    .use(remarkMath)
+    .use(gfm)
+    .use(liquid)
+    .use(wikiLink);
+
+  return async (text, options) => {
+    const { frontMatter, content } = parseFrontMatter(text);
+    const ast = await processor.run(processor.parse(content));
+// {console.log(JSON.stringify(ast.children, 0, 2))}
+
+    if (frontMatter) {
+      ast.children.unshift(frontMatter);
+    }
+
+    return ast;
   };
 }
 
-function noop() {}
-
-const baseParser = {
+const parser = {
   astFormat: "mdast",
   hasPragma,
   locStart,
   locEnd,
+  parse: createParse(),
 };
 
-export const markdown = { ...baseParser, parse: createParse({ isMDX: false }) };
-export const mdx = { ...baseParser, parse: createParse({ isMDX: true }) };
-export { markdown as remark };
+export const remark = parser;
+export const markdown = parser;

@@ -3,7 +3,6 @@ import { hardline, markAsRoot } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import inferParser from "../utils/infer-parser.js";
-import { getFencedCodeBlockValue } from "./utils.js";
 
 function embed(path, options) {
   const { node } = path;
@@ -29,8 +28,8 @@ function embed(path, options) {
         }
 
         const doc = await textToDoc(
-          getFencedCodeBlockValue(node, options.originalText),
-          newOptions,
+          node.value,
+          newOptions
         );
 
         return markAsRoot([

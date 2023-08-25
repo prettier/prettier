@@ -202,21 +202,6 @@ function hasGitDiffFriendlyOrderedList(node, options) {
   return secondNumber === 1;
 }
 
-// The final new line should not include in value
-// https://github.com/remarkjs/remark/issues/512
-function getFencedCodeBlockValue(node, originalText) {
-  const { value } = node;
-  if (
-    node.position.end.offset === originalText.length &&
-    value.endsWith("\n") &&
-    // Code block has no end mark
-    originalText.endsWith("\n")
-  ) {
-    return value.slice(0, -1);
-  }
-  return value;
-}
-
 function mapAst(ast, handler) {
   return (function preorder(node, index, parentStack) {
     const newNode = { ...handler(node, index, parentStack) };
@@ -242,7 +227,6 @@ export {
   mapAst,
   splitText,
   punctuationPattern,
-  getFencedCodeBlockValue,
   getOrderedListItemInfo,
   hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,

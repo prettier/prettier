@@ -1,10 +1,7 @@
 import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
-// 0x0 ~ 0x10ffff
-const isSingleCharRegex = /^.$/su;
-
 function preprocess(ast, options) {
-  ast = restoreUnescapedCharacter(ast, options);
+  ast = addRawToText(ast, options);
   ast = mergeContinuousTexts(ast);
   ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
   ast = markAlignedList(ast, options);
@@ -12,22 +9,16 @@ function preprocess(ast, options) {
   return ast;
 }
 
-function restoreUnescapedCharacter(ast, options) {
-  return mapAst(ast, (node) =>
-    node.type !== "text" ||
-    node.value === "*" ||
-    node.value === "_" || // handle these cases in printer
-    !isSingleCharRegex.test(node.value) ||
-    node.position.end.offset - node.position.start.offset === node.value.length
-      ? node
-      : {
-          ...node,
-          value: options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset,
-          ),
-        },
-  );
+function addRawToText(ast, options) {
+  return mapAst(ast, (node) => {
+    if (node.type === "text") {
+      node.raw = options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset
+      );
+    }
+    return node;
+  });
 }
 
 function mergeChildren(ast, shouldMerge, mergeNode) {
@@ -64,26 +55,31 @@ function mergeContinuousTexts(ast) {
 }
 
 function splitTextIntoSentences(ast) {
-  return mapAst(ast, (node, index, [parentNode]) => {
+  return mapAst(ast, (node, index, [parentNode, grandparentNode]) => {
     if (node.type !== "text") {
       return node;
     }
 
-    let { value } = node;
+    let text = node.raw;
 
     if (parentNode.type === "paragraph") {
-      if (index === 0) {
-        value = value.trimStart();
+      if (grandparentNode.type === "blockquote") {
+        text = text.replaceAll("\n> ", "\n")
       }
+
+      if (index === 0) {
+        text = text.trimStart();
+      }
+
       if (index === parentNode.children.length - 1) {
-        value = value.trimEnd();
+        text = text.trimEnd();
       }
     }
 
     return {
       type: "sentence",
       position: node.position,
-      children: splitText(value),
+      children: splitText(text),
     };
   });
 }

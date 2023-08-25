@@ -2,6 +2,7 @@ import collapseWhiteSpace from "collapse-white-space";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getStringWidth from "../utils/get-string-width.js";
+import isNextLineEmpty from "../utils/is-next-line-empty.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import {
   breakParent,
@@ -27,7 +28,6 @@ import { locStart, locEnd } from "./loc.js";
 import preprocess from "./print-preprocess.js";
 import clean from "./clean.js";
 import {
-  getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
   splitText,
   punctuationPattern,
@@ -66,9 +66,12 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset,
+      return (
+        node.raw ??
+        options.originalText.slice(
+          node.position.start.offset,
+          node.position.end.offset
+        )
       );
     case "root":
       /* c8 ignore next 3 */
@@ -83,6 +86,10 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printChildren(path, options, print);
     case "word": {
+      if (options.parser !== "mdx") {
+        return node.value;
+      }
+
       let escapedValue = node.value
         .replaceAll("*", "\\*") // escape all `*`
         .replaceAll(
@@ -175,10 +182,8 @@ function genericPrint(path, options, print) {
       return [backtickString, padding, code, padding, backtickString];
     }
     case "wikiLink": {
-      let contents = "";
-      if (options.proseWrap === "preserve") {
-        contents = node.value;
-      } else {
+      let contents = node.value;
+      if (options.proseWrap !== "preserve") {
         contents = node.value.replaceAll(/[\t\n]+/g, " ");
       }
 
@@ -251,8 +256,8 @@ function genericPrint(path, options, print) {
         node.meta ? " " + node.meta : "",
         hardline,
         replaceEndOfLine(
-          getFencedCodeBlockValue(node, options.originalText),
-          hardline,
+          node.value,
+          hardline
         ),
         hardline,
         style,
@@ -349,9 +354,8 @@ function genericPrint(path, options, print) {
           return ["![", node.alt || "", "]", printLinkReference(node)];
         default:
           return [
-            "![",
-            node.alt,
-            "]",
+            "!",
+            printLinkReference(node),
             node.referenceType === "collapsed" ? "[]" : "",
           ];
       }
@@ -410,6 +414,7 @@ function genericPrint(path, options, print) {
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
+    case "liquidBlock":
       return replaceEndOfLine(node.value, hardline);
     // MDX
     // fallback to the original text if multiparser failed
@@ -423,6 +428,7 @@ function genericPrint(path, options, print) {
     case "math":
       return [
         "$$",
+        node.meta ? " " + node.meta : "",
         hardline,
         node.value ? [replaceEndOfLine(node.value, hardline), hardline] : "",
         "$$",
@@ -722,17 +728,28 @@ function shouldPrePrintHardline({ node, parent }) {
 }
 
 function isLooseListItem(node, options) {
-  return (
-    node.type === "listItem" &&
-    (node.spread ||
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
-  );
+  if (node.type !== "listItem") {
+    return false;
+  }
+
+  if (node.spread) {
+    return true;
+  }
+
+  // remark v8
+  if (options.parser === "mdx") {
+    // Check if `listItem` ends with `\n`
+    // since it can't be empty, so we only need check the last character
+    return options.originalText.charAt(node.position.end.offset - 1) === "\n";
+  }
+
+  return isNextLineEmpty(options.originalText, node.position.end.offset);
 }
 
-function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
+function shouldPrePrintDoubleHardline(path, options) {
+  const { node, previous, parent } = path;
   const isPrevNodeLooseListItem = isLooseListItem(previous, options);
+
 
   if (isPrevNodeLooseListItem) {
     return true;
@@ -741,7 +758,9 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
-    parent.type === "listItem" && !isLooseListItem(parent, options);
+    parent.type === "listItem" && !path.callParent(({node, isLast}) => !isLast && isLooseListItem(node, options))
+
+
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
@@ -803,8 +822,9 @@ function printTitle(title, options, printSpace = true) {
     return " " + printTitle(title, options, false);
   }
 
-  // title is escaped after `remark-parse` v7
-  title = title.replaceAll(/\\(?=["')])/g, "");
+  // title is escaped before `remark-parse` v10
+  if (options.parser === "mdx")
+  {title = title.replaceAll(/\\(?=["')])/g, "");}
 
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
