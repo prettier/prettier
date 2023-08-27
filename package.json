@@ -205,5 +205,5 @@
     "not safari 5.1",
     "not op_mini all"
   ],
-  "packageManager": "yarn@3.6.2"
+  "packageManager": "yarn@3.6.3"
 }
