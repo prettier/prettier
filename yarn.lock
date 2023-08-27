@@ -3702,9 +3702,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-n@npm:16.0.1":
-  version: 16.0.1
-  resolution: "eslint-plugin-n@npm:16.0.1"
+"eslint-plugin-n@npm:16.0.2":
+  version: 16.0.2
+  resolution: "eslint-plugin-n@npm:16.0.2"
   dependencies:
     "@eslint-community/eslint-utils": ^4.4.0
     builtins: ^5.0.1
@@ -3716,7 +3716,7 @@ __metadata:
     semver: ^7.5.3
   peerDependencies:
     eslint: ">=7.0.0"
-  checksum: 407002bb06c2e4cefd5b1fb582a5e000ed190a47144edc7d7910afc32b4b0e76e4a72773207837ab73b0797f4a84f9ea83f8979d0bcab0225bfe672cd7e0e295
+  checksum: 44cffe32a3a3cd2a706e82f45fedf79e0af7cae20e7c5f3185707233d941de1058373a27b90e86a8f0e5f9830b02c90116deaa05f139a67556954de72bc4935d
   languageName: node
   linkType: hard
 
@@ -7148,7 +7148,7 @@ __metadata:
     eslint-plugin-compat: 4.1.4
     eslint-plugin-import: 2.28.1
     eslint-plugin-jest: 27.2.3
-    eslint-plugin-n: 16.0.1
+    eslint-plugin-n: 16.0.2
     eslint-plugin-prettier-internal-rules: 2.0.1
     eslint-plugin-react: 7.33.2
     eslint-plugin-regexp: 1.15.0
