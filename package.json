@@ -32,7 +32,7 @@
   "dependencies": {
     "@angular/compiler": "16.2.1",
     "@babel/code-frame": "7.22.10",
-    "@babel/parser": "7.22.10",
+    "@babel/parser": "7.22.11",
     "@babel/types": "7.22.11",
     "@glimmer/syntax": "0.84.3",
     "@iarna/toml": "2.2.5",
