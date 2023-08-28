@@ -87,7 +87,9 @@ async function* expandPatternsInternal(context) {
         const prefix = escapePathForGlob(fixWindowsSlashes(relativePath));
         entries.push({
           type: "dir",
-          glob: getSupportedFilesGlob().map((pattern) => `${prefix}/**/${pattern}`),
+          glob: getSupportedFilesGlob().map(
+            (pattern) => `${prefix}/**/${pattern}`,
+          ),
           input: pattern,
         });
       }
