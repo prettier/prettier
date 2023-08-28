@@ -84,12 +84,10 @@ async function* expandPatternsInternal(context) {
           it returns files like 'src/../index.js'
         */
         const relativePath = path.relative(cwd, absolutePath) || ".";
+        const prefix = escapePathForGlob(fixWindowsSlashes(relativePath));
         entries.push({
           type: "dir",
-          glob:
-            escapePathForGlob(fixWindowsSlashes(relativePath)) +
-            "/" +
-            getSupportedFilesGlob(),
+          glob: getSupportedFilesGlob().map((pattern) => `${prefix}/**/${pattern}`),
           input: pattern,
         });
       }
@@ -135,10 +133,10 @@ async function* expandPatternsInternal(context) {
       const filenames = context.languages.flatMap(
         (lang) => lang.filenames || [],
       );
-      supportedFilesGlob = `**/{${[
+      supportedFilesGlob = [
         ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
         ...filenames,
-      ]}}`;
+      ];
     }
     return supportedFilesGlob;
   }
