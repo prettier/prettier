@@ -8,5 +8,6 @@
   },
   "scripts": {
     "test": "node ./index.js"
-  }
+  },
+  "packageManager": "yarn@3.6.3"
 }
