@@ -563,27 +563,6 @@ const nodejsFiles = [
   {
     input: "src/common/mockable.js",
     outputBaseName: "internal/internal",
-<<<<<<< HEAD
-<<<<<<< HEAD
-    replaceModule: [
-      // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
-      {
-        module: require.resolve("parent-module"),
-        path: path.join(dirname, "./shims/parent-module.cjs"),
-      },
-      // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
-      {
-        module: require.resolve("chalk", {
-          paths: [require.resolve("@babel/highlight")],
-        }),
-        path: require.resolve("chalk", {
-          paths: [require.resolve("@babel/code-frame")],
-        }),
-      },
-    ],
-=======
->>>>>>> 12e5eafeb (Replace `cosmiconfig` with `lilconfig`)
-=======
     replaceModule: [
       {
         module: require.resolve("lilconfig"),
@@ -591,7 +570,6 @@ const nodejsFiles = [
         replacement: "",
       },
     ],
->>>>>>> f85e2e37f (Remove `lilconfigSync`)
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
