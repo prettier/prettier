@@ -89,7 +89,8 @@ function isCommonsJsOrAmdCall(node, parentNode) {
   }
 
   if (node.callee.name === "require") {
-    return true;
+    const args = getCallArguments(node);
+    return (args.length === 1 && isStringLiteral(args[0])) || args.length > 1;
   }
 
   if (node.callee.name === "define") {

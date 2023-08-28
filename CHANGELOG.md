@@ -1,3 +1,248 @@
+# 3.0.2
+
+[diff](https://github.com/prettier/prettier/compare/3.0.1...3.0.2)
+
+#### Break after `=` of assignment if RHS is poorly breakable AwaitExpression or YieldExpression ([#15204](https://github.com/prettier/prettier/pull/15204) by [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```js
+// Input
+const { section, rubric, authors, tags } = await utils.upsertCommonData(mainData);
+
+// Prettier 3.0.1
+const { section, rubric, authors, tags } = await utils.upsertCommonData(
+  mainData,
+);
+
+// Prettier 3.0.2
+const { section, rubric, authors, tags } =
+  await utils.upsertCommonData(mainData);
+```
+
+#### Do not add trailing comma for grouped scss comments ([#15217](https://github.com/prettier/prettier/pull/15217) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```scss
+/* Input */
+$foo: (
+	'property': (),
+	// comment 1
+	// comment 2
+)
+
+/* Prettier 3.0.1 */
+$foo: (
+  "property": (),
+  // comment 1
+  // comment 2,
+);
+
+/* Prettier 3.0.2 */
+$foo: (
+  "property": (),
+  // comment 1
+  // comment 2
+);
+```
+
+#### Print `declare` and `export` keywords for nested namespace ([#15249](https://github.com/prettier/prettier/pull/15249) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+declare namespace abc1.def {}
+export namespace abc2.def {}
+
+// Prettier 3.0.1
+namespace abc1.def {}
+namespace abc2.def {}
+
+// Prettier 3.0.2
+declare namespace abc1.def {}
+export namespace abc2.def {}
+```
+
+# 3.0.1
+
+[diff](https://github.com/prettier/prettier/compare/3.0.0...3.0.1)
+
+#### Fix cursor positioning for a special case ([#14812](https://github.com/prettier/prettier/pull/14812) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```js
+// <|> is the cursor position
+
+/* Input */
+// All messages are represented in JSON.
+// So, the prettier.py controls a subprocess which spawns "node {this_file}".
+import {<|>  } from "fs"
+
+/* Prettier 3.0.0 */
+// All messages are represented in JSON.
+// So, the prettier.py <|>controls a subprocess which spawns "node {this_file}".
+import {} from "fs"
+
+/* Prettier 3.0.1 */
+// All messages are represented in JSON.
+// So, the prettier.py controls a subprocess which spawns "node {this_file}".
+import {<|>} from "fs"
+```
+
+#### Fix plugins/estree.d.ts to make it a module ([#15018](https://github.com/prettier/prettier/pull/15018) by [@kingyue737](https://github.com/kingyue737))
+
+Add `export {}` in `plugins/estree.d.ts` to fix the "File is not a module" error
+
+#### Add parenthesis around leading multiline comment in return statement ([#15037](https://github.com/prettier/prettier/pull/15037) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+function fn() {
+  return (
+    /**
+     * @type {...}
+     */ expresssion
+  )
+}
+
+// Prettier 3.0.0
+function fn() {
+  return /**
+   * @type {...}
+   */ expresssion;
+}
+
+// Prettier 3.0.1
+function fn() {
+  return (
+    /**
+     * @type {...}
+     */ expresssion
+  );
+}
+```
+
+#### Add support for Vue "Generic Components" ([#15066](https://github.com/prettier/prettier/pull/15066) by [@auvred](https://github.com/auvred))
+
+https://blog.vuejs.org/posts/vue-3-3#generic-components
+
+<!-- prettier-ignore -->
+```vue
+<!-- Input -->
+<script setup lang="ts" generic="T extends Type1 & Type2 & (Type3 | Type4), U extends string | number | boolean"></script>
+
+<!-- Prettier 3.0.0 -->
+<script
+  setup
+  lang="ts"
+  generic="T extends Type1 & Type2 & (Type3 | Type4), U extends string | number | boolean"
+></script>
+
+<!-- Prettier 3.0.1 -->
+<script
+  setup
+  lang="ts"
+  generic="
+    T extends Type1 & Type2 & (Type3 | Type4),
+    U extends string | number | boolean
+  "
+></script>
+```
+
+#### Fix comments print in `IfStatement` ([#15076](https://github.com/prettier/prettier/pull/15076) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```js
+function a(b) {
+  if (b) return 1; // comment
+  else return 2;
+}
+
+/* Prettier 3.0.0 */
+Error: Comment "comment" was not printed. Please report this error!
+
+/* Prettier 3.0.1 */
+function a(b) {
+  if (b) return 1; // comment
+  else return 2;
+}
+```
+
+#### Add missing type definition for `printer.preprocess` ([#15123](https://github.com/prettier/prettier/pull/15123) by [@so1ve](https://github.com/so1ve))
+
+```diff
+export interface Printer<T = any> {
+  // ...
++ preprocess?:
++   | ((ast: T, options: ParserOptions<T>) => T | Promise<T>)
++   | undefined;
+}
+```
+
+#### Add missing `getVisitorKeys` method type definition for `Printer` ([#15125](https://github.com/prettier/prettier/pull/15125) by [@auvred](https://github.com/auvred))
+
+```tsx
+const printer: Printer = {
+  print: () => [],
+  getVisitorKeys(node, nonTraversableKeys) {
+    return ["body"];
+  },
+};
+```
+
+#### Add typing to support `readonly` array properties of AST Node ([#15127](https://github.com/prettier/prettier/pull/15127) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+interface TestNode {
+  readonlyArray: readonly string[];
+}
+
+declare const path: AstPath<TestNode>;
+
+path.map(() => "", "readonlyArray");
+
+// Prettier 3.0.0
+interface TestNode {
+  readonlyArray: readonly string[];
+}
+
+declare const path: AstPath<TestNode>;
+
+path.map(() => "", "readonlyArray");
+//                  ^ Argument of type '"readonlyArray"' is not assignable to parameter of type '"regularArray"'. ts(2345)
+
+// Prettier 3.0.1
+interface TestNode {
+  readonlyArray: readonly string[];
+}
+
+declare const path: AstPath<TestNode>;
+
+path.map(() => "", "readonlyArray");
+```
+
+#### Add space before unary minus followed by a function call ([#15129](https://github.com/prettier/prettier/pull/15129) by [@pamelalozano](https://github.com/pamelalozano))
+
+<!-- prettier-ignore -->
+```less
+// Input
+div {
+  margin: - func();
+}
+
+// Prettier 3.0.0
+div {
+  margin: -func();
+}
+
+// Prettier 3.0.1
+div {
+  margin: - func();
+}
+```
+
 # 3.0.0
 
 [diff](https://github.com/prettier/prettier/compare/3.0.0-alpha.6...3.0.0)

@@ -45,9 +45,8 @@ describe("cosmiconfig", () => {
 
   for (const { title, dirname, file, value } of configs) {
     test(`async version ${title}`, async () => {
-      const { config, filepath } = await cosmiconfig("prettier").search(
-        dirname,
-      );
+      const { config, filepath } =
+        await cosmiconfig("prettier").search(dirname);
       expect(config).toEqual(value);
       expect(filepath).toBe(file);
     });
