@@ -2,7 +2,7 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
-import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
+import { nodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "esbuild-plugins-node-modules-polyfill";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
