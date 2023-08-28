@@ -205,5 +205,6 @@
     "not safari 5.1",
     "not op_mini all"
   ],
+  "preferUnplugged": true,
   "packageManager": "yarn@3.6.3"
 }
