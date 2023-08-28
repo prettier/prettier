@@ -62,7 +62,7 @@
     "fast-glob": "3.2.12",
     "fast-json-stable-stringify": "2.1.0",
     "file-entry-cache": "7.0.0",
-    "find-cache-dir": "4.0.0",
+    "find-cache-dir": "5.0.0",
     "find-parent-dir": "0.3.1",
     "flow-parser": "0.215.1",
     "get-stdin": "9.0.0",
