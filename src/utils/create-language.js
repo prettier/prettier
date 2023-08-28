@@ -3,6 +3,7 @@ function assertUniqueArray(array, message) {
     return;
   }
 
+  /* c8 ignore next */
   throw new Error(message);
 }
 
