@@ -59,7 +59,7 @@ function parseArguments() {
     }
   }
 
-  if (Array.isArray(result.reports) && result.report.includes("all")) {
+  if (Array.isArray(result.reports) && result.reports.includes("all")) {
     if (result.reports.length !== 1) {
       throw new Error(
         "'--report=all' can not use with another '--report' flag",
