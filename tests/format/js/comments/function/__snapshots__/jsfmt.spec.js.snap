@@ -33,24 +33,24 @@ export default function ()
 }
 
 =====================================output=====================================
-function function_declaration() {
-  // this is a function
+function function_declaration() // this is a function
+{
   return 42;
 }
 
-(function named() {
-  // this is a function
+(function named() // this is a function
+{
   return 42;
 })();
 
-(function () {
-  // this is a function
+(function () // this is a function
+{
   return 42;
 })();
 
 /* anonymous declaration */
-export default function () {
-  // this is a function
+export default function () // this is a function
+{
   return 42;
 }
 

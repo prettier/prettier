@@ -585,23 +585,6 @@ function handleLastFunctionArgComments({
     return true;
   }
 
-  // Comment between function parameters parentheses and function body
-  if (
-    (enclosingNode?.type === "FunctionDeclaration" ||
-      enclosingNode?.type === "FunctionExpression") &&
-    followingNode?.type === "BlockStatement" &&
-    enclosingNode.body === followingNode
-  ) {
-    const characterAfterCommentIndex = getNextNonSpaceNonCommentCharacterIndex(
-      text,
-      locEnd(comment),
-    );
-    if (characterAfterCommentIndex === locStart(followingNode)) {
-      addBlockStatementFirstComment(followingNode, comment);
-      return true;
-    }
-  }
-
   return false;
 }
 

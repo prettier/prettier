@@ -1986,13 +1986,12 @@ class C4 {
   f /* f */(/* args */) /* returns */ {}
 }
 
-function foo1() {
-  // this is a function
+function foo1() // this is a function
+{
   return 42
 }
 
-function foo2() {
-  // this is a function
+function foo2() { // this is a function
   return 42
 }
 
@@ -2122,13 +2121,12 @@ class C4 {
   f /* f */(/* args */) /* returns */ {}
 }
 
-function foo1() {
-  // this is a function
+function foo1() // this is a function
+{
   return 42;
 }
 
-function foo2() {
-  // this is a function
+function foo2() { // this is a function
   return 42;
 }
 
