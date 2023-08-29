@@ -4,22 +4,20 @@ function function_declaration()
   return 42
 }
 
-function_expression =
-function named()
+(function named()
 // this is a function
 {
   return 42
-}
+})();
 
 
-function_expression =
-function  ()
+(function ()
 // this is a function
 {
   return 42
-}
+})();
 
-/* anonymous export */
+/* anonymous declaration */
 export default function ()
 // this is a function
 {
