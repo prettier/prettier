@@ -119,76 +119,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`invalid-for-using-binding-of-of.js [acorn] format 1`] = `
-"Assigning to rvalue (2:8)
-  1 | async function f() {
-> 2 |   for (await using of of of);
-    |        ^
-  3 |   for await (await using of of of);
-  4 | }
-  5 |"
-`;
-
-exports[`invalid-for-using-binding-of-of.js [espree] format 1`] = `
-"Assigning to rvalue (2:8)
-  1 | async function f() {
-> 2 |   for (await using of of of);
-    |        ^
-  3 |   for await (await using of of of);
-  4 | }
-  5 |"
-`;
-
-exports[`invalid-for-using-binding-of-of.js [flow] format 1`] = `
-"Invalid left-hand side in for-of (2:8)
-  1 | async function f() {
-> 2 |   for (await using of of of);
-    |        ^^^^^^^^^^^
-  3 |   for await (await using of of of);
-  4 | }
-  5 |"
-`;
-
-exports[`invalid-for-using-binding-of-of.js [meriyah] format 1`] = `
-"Invalid left-hand side in for-of (2:21)
-  1 | async function f() {
-> 2 |   for (await using of of of);
-    |                     ^
-  3 |   for await (await using of of of);
-  4 | }
-  5 |"
-`;
-
-exports[`invalid-for-using-binding-of-of.js [typescript] format 1`] = `
-"')' expected. (2:26)
-  1 | async function f() {
-> 2 |   for (await using of of of);
-    |                          ^
-  3 |   for await (await using of of of);
-  4 | }
-  5 |"
-`;
-
-exports[`invalid-for-using-binding-of-of.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-async function f() {
-  for (await using of of of);
-  for await (await using of of of);
-}
-
-=====================================output=====================================
-async function f() {
-  for (await using of of of);
-  for await (await using of of of);
-}
-
-================================================================================
-`;
-
 exports[`invalid-for-using-declaration.js [acorn] format 1`] = `
 "Unexpected token (2:20)
   1 | async function f() {
@@ -833,6 +763,76 @@ printWidth: 80
 =====================================output=====================================
 // TODO: Fix this test
 // for (using o\\u0066 of of);
+
+================================================================================
+`;
+
+exports[`valid-for-using-binding-of-of.js [acorn] format 1`] = `
+"Assigning to rvalue (2:8)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |        ^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-for-using-binding-of-of.js [espree] format 1`] = `
+"Assigning to rvalue (2:8)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |        ^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-for-using-binding-of-of.js [flow] format 1`] = `
+"Invalid left-hand side in for-of (2:8)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |        ^^^^^^^^^^^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-for-using-binding-of-of.js [meriyah] format 1`] = `
+"Invalid left-hand side in for-of (2:21)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |                     ^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-for-using-binding-of-of.js [typescript] format 1`] = `
+"')' expected. (2:26)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |                          ^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |"
+`;
+
+exports[`valid-for-using-binding-of-of.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  for (await using of of of);
+  for await (await using of of of);
+}
+
+=====================================output=====================================
+async function f() {
+  for (await using of of of);
+  for await (await using of of of);
+}
 
 ================================================================================
 `;

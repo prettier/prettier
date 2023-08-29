@@ -21,15 +21,17 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "valid-await-using-binding-using.js",
       "valid-await-using-comments.js",
       "valid-for-lhs-await-as-identifier.js",
-      "invalid-for-using-binding-of-of.js",
+      "valid-for-using-binding-of-of.js",
       "invalid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
     typescript: [
       "invalid-duplicate-using-bindings.js",
       "invalid-using-declaration-in-for.js",
-      "invalid-for-using-binding-of-of.js",
       "invalid-for-using-declaration.js",
+
+      // https://github.com/microsoft/TypeScript/issues/55555
+      "valid-for-using-binding-of-of.js",
 
       // TypeScript does not support module expr
       "valid-module-block-top-level-using-binding.js",
@@ -55,7 +57,7 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "valid-await-using-binding-using.js",
       "valid-await-using-comments.js",
       "valid-for-lhs-await-as-identifier.js",
-      "invalid-for-using-binding-of-of.js",
+      "valid-for-using-binding-of-of.js",
       "invalid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
@@ -79,7 +81,7 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "valid-await-using-binding-using.js",
       "valid-await-using-comments.js",
       "valid-for-lhs-await-as-identifier.js",
-      "invalid-for-using-binding-of-of.js",
+      "valid-for-using-binding-of-of.js",
       "invalid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
@@ -103,7 +105,7 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "valid-await-using-binding-using.js",
       "valid-await-using-comments.js",
       "valid-for-lhs-await-as-identifier.js",
-      "invalid-for-using-binding-of-of.js",
+      "valid-for-using-binding-of-of.js",
       "invalid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
