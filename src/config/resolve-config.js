@@ -79,7 +79,10 @@ function mergeOverrides(configResult, filePath) {
           override.excludeFiles,
         )
       ) {
-        Object.assign(options, override.options);
+        Object.assign(options, {
+          __ignore: override.ignore === true,
+          ...override.options,
+        });
       }
     }
   }

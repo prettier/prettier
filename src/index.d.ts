@@ -311,10 +311,12 @@ export type CustomParser = (
  * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettierrc.mjs`, `prettier.config.js`, `prettier.config.cjs`, `prettier.config.mjs`
  */
 export interface Config extends Options {
+  ignore?: boolean;
   overrides?: Array<{
     files: string | string[];
     excludeFiles?: string | string[];
     options?: Options;
+    ignore?: boolean;
   }>;
 }
 
