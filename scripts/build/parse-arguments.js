@@ -30,7 +30,7 @@ function parseArguments() {
     minify: values.minify ? true : values["no-minify"] ? false : undefined,
     clean: values.clean,
     saveAs: values["save-as"],
-    report: values.report,
+    reports: values.report,
   };
 
   if (result.saveAs) {
@@ -59,14 +59,14 @@ function parseArguments() {
     }
   }
 
-  if (Array.isArray(result.report) && result.report.includes("all")) {
-    if (result.report.length !== 1) {
+  if (Array.isArray(result.reports) && result.reports.includes("all")) {
+    if (result.reports.length !== 1) {
       throw new Error(
         "'--report=all' can not use with another '--report' flag",
       );
     }
 
-    result.report = ["html", "text", "stdin"];
+    result.reports = ["html", "text", "stdout"];
   }
 
   return result;

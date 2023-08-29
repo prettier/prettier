@@ -79,8 +79,6 @@ yarn build --report=all
 yarn build --report=stdout --report=text --report=html
 ```
 
-**`--report` equals to `--report=html`**
-
 ### `--minify` and `--no-minify`
 
 By default, the file minification is controlled by `config.mjs` and `bundler.mjs`, these flags are added to override that behavior.
