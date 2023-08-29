@@ -66,7 +66,7 @@ function parseArguments() {
       );
     }
 
-    result.reports = ["html", "text", "stdin"];
+    result.reports = ["html", "text", "stdout"];
   }
 
   return result;
