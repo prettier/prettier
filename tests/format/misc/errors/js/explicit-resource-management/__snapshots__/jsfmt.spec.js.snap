@@ -14,14 +14,14 @@ exports[`invalid-for-await-using-binding-of-of.js [flow] format 1`] = `
   2 |"
 `;
 
-exports[`invalid-for-using-binding-in.js.js [babel] format 1`] = `
+exports[`invalid-for-using-binding-in.js [babel] format 1`] = `
 "For-in loop may not start with 'using' declaration. (1:6)
 > 1 | for (using foo in {});
     |      ^
   2 |"
 `;
 
-exports[`invalid-for-using-binding-in.js.js [flow] format 1`] = `
+exports[`invalid-for-using-binding-in.js [flow] format 1`] = `
 "Unexpected identifier, expected the token \`;\` (1:12)
 > 1 | for (using foo in {});
     |            ^^^
@@ -56,6 +56,24 @@ exports[`invalid-for-using-binding-of-of.js [flow] format 1`] = `
   2 |"
 `;
 
+exports[`invalid-using-binding-let.js [babel] format 1`] = `
+"'let' is not allowed to be used as a name in 'let' or 'const' declarations. (2:9)
+  1 | {
+> 2 |   using let = h();
+    |         ^
+  3 | }
+  4 |"
+`;
+
+exports[`invalid-using-binding-let.js [flow] format 1`] = `
+"Unexpected token \`let\`, expected the end of an expression statement (\`;\`) (2:9)
+  1 | {
+> 2 |   using let = h();
+    |         ^^^
+  3 | }
+  4 |"
+`;
+
 exports[`invalid-using-binding-pattern.js [babel] format 1`] = `
 "Unexpected token (2:17)
   1 | {
@@ -74,22 +92,4 @@ exports[`invalid-using-binding-pattern.js [flow] format 1`] = `
   3 |   using [ bar ] = g();
   4 |   for (using { qux } of h());
   5 |   for (using [ quux ] of i());"
-`;
-
-exports[`invlid-using-binding-let.js [babel] format 1`] = `
-"'let' is not allowed to be used as a name in 'let' or 'const' declarations. (2:9)
-  1 | {
-> 2 |   using let = h();
-    |         ^
-  3 | }
-  4 |"
-`;
-
-exports[`invlid-using-binding-let.js [flow] format 1`] = `
-"Unexpected token \`let\`, expected the end of an expression statement (\`;\`) (2:9)
-  1 | {
-> 2 |   using let = h();
-    |         ^^^
-  3 | }
-  4 |"
 `;
