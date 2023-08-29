@@ -82,8 +82,9 @@ async function main(context) {
     await logFileInfoOrDie(context);
   } else if (useStdin) {
     if (context.argv.cache) {
+      process.exitCode = 2;
       context.logger.error("`--cache` cannot be used with stdin.");
-      process.exit(2);
+      return;
     }
     await formatStdin(context);
   } else if (hasFilePatterns) {
