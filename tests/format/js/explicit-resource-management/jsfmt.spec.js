@@ -7,7 +7,6 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "using-declarations.js",
       // "valid-for-await-using-binding-escaped-of-of.js",
       // "valid-for-using-binding-escaped-of-of.js",
-      "invalid-using-declaration-in-for.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-using-as-identifier-for-await-of.js",
       "valid-using-binding-basic.js",
@@ -27,7 +26,6 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
     ],
     typescript: [
       "invalid-duplicate-using-bindings.js",
-      "invalid-using-declaration-in-for.js",
 
       // https://github.com/typescript-eslint/typescript-eslint/blob/4f34d0ba34474926ba1eed623704b583a037f886/packages/typescript-estree/src/convert.ts#L1035-L1050
       "valid-for-using-declaration.js",
@@ -48,7 +46,6 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "using-declarations.js",
       // "valid-for-await-using-binding-escaped-of-of.js",
       // "valid-for-using-binding-escaped-of-of.js",
-      "invalid-using-declaration-in-for.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-using-binding-basic.js",
       "valid-using-binding-escaped.js",
@@ -72,7 +69,6 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "using-declarations.js",
       // "valid-for-await-using-binding-escaped-of-of.js",
       // "valid-for-using-binding-escaped-of-of.js",
-      "invalid-using-declaration-in-for.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-using-binding-basic.js",
       "valid-using-binding-escaped.js",
@@ -96,7 +92,6 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "using-declarations.js",
       // "valid-for-await-using-binding-escaped-of-of.js",
       // "valid-for-using-binding-escaped-of-of.js",
-      "invalid-using-declaration-in-for.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-using-binding-basic.js",
       "valid-using-binding-escaped.js",
