@@ -28,13 +28,6 @@ exports[`for-await-using-of-comments.js [meriyah] format 1`] = `
   2 |"
 `;
 
-exports[`for-await-using-of-comments.js [typescript] format 1`] = `
-"'of' expected. (1:51)
-> 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
-    |                                                   ^
-  2 |"
-`;
-
 exports[`for-await-using-of-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -90,10 +83,10 @@ exports[`invalid-duplicate-using-bindings.js [meriyah] format 1`] = `
 `;
 
 exports[`invalid-duplicate-using-bindings.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (2:3)
+"'using' declarations must be initialized. (2:9)
   1 | {
 > 2 |   using f, f = foo();
-    |   ^
+    |         ^
   3 | }
   4 | {
   5 |   using g = foo();"
@@ -154,13 +147,6 @@ exports[`invalid-script-top-level-using-binding.js [meriyah] format 1`] = `
   2 |"
 `;
 
-exports[`invalid-script-top-level-using-binding.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (1:1)
-> 1 | using x = bar();
-    | ^
-  2 |"
-`;
-
 exports[`invalid-script-top-level-using-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -175,6 +161,78 @@ using x = bar();
 ================================================================================
 `;
 
+exports[`invalid-using-declaration-in-for.js [acorn] format 1`] = `
+"Unexpected token (1:19)
+> 1 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+    |                   ^
+  2 |
+  3 | {
+  4 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`invalid-using-declaration-in-for.js [espree] format 1`] = `
+"Unexpected token a (1:19)
+> 1 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+    |                   ^
+  2 |
+  3 | {
+  4 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`invalid-using-declaration-in-for.js [flow] format 1`] = `
+"Unexpected identifier, expected the token \`;\` (1:19)
+> 1 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+    |                   ^
+  2 |
+  3 | {
+  4 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`invalid-using-declaration-in-for.js [meriyah] format 1`] = `
+"Expected ';' (1:19)
+> 1 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+    |                   ^
+  2 |
+  3 | {
+  4 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`invalid-using-declaration-in-for.js [typescript] format 1`] = `
+"'using' declarations may not be initialized in for statement. (1:19)
+> 1 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+    |                   ^^^^^^^^^
+  2 |
+  3 | {
+  4 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`invalid-using-declaration-in-for.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+
+{
+  /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
+}
+
+=====================================output=====================================
+for (using /* 1 */ a = foo(), /* 2 */ b = foo(); ; );
+
+{
+  /*0*/ for (
+    /*1*/ /*2*/ await using /*3*/ /*4*/ b /*5*/ =
+        /*6*/ x /*7*/ /*8*/ /*9*/ /*10*/;
+    ;
+
+  );
+}
+
+================================================================================
+`;
+
 exports[`using-declarations.js [acorn] format 1`] = `
 "Unexpected token (2:17)
   1 | {
@@ -182,7 +240,7 @@ exports[`using-declarations.js [acorn] format 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+  5 | for(using /* 1 */ foo of bar());"
 `;
 
 exports[`using-declarations.js [espree] format 1`] = `
@@ -192,7 +250,7 @@ exports[`using-declarations.js [espree] format 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+  5 | for(using /* 1 */ foo of bar());"
 `;
 
 exports[`using-declarations.js [flow] format 1`] = `
@@ -202,7 +260,7 @@ exports[`using-declarations.js [flow] format 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+  5 | for(using /* 1 */ foo of bar());"
 `;
 
 exports[`using-declarations.js [meriyah] format 1`] = `
@@ -212,17 +270,7 @@ exports[`using-declarations.js [meriyah] format 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
-`;
-
-exports[`using-declarations.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (2:3)
-  1 | {
-> 2 |   using /* 1 */ a = foo(), /* 2 */ b = foo()
-    |   ^
-  3 | }
-  4 |
-  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+  5 | for(using /* 1 */ foo of bar());"
 `;
 
 exports[`using-declarations.js format 1`] = `
@@ -235,8 +283,6 @@ printWidth: 80
   using /* 1 */ a = foo(), /* 2 */ b = foo()
 }
 
-for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
-
 for(using /* 1 */ foo of bar());
 
 =====================================output=====================================
@@ -244,8 +290,6 @@ for(using /* 1 */ foo of bar());
   using /* 1 */ a = foo(),
     /* 2 */ b = foo();
 }
-
-for (using /* 1 */ a = foo(), /* 2 */ b = foo(); ; );
 
 for (using /* 1 */ foo of bar());
 
@@ -364,15 +408,6 @@ exports[`valid-await-using-binding-basic.js [meriyah] format 1`] = `
   4 |"
 `;
 
-exports[`valid-await-using-binding-basic.js [typescript] format 1`] = `
-"';' expected. (2:15)
-  1 | async function f() {
-> 2 |   await using basic = getReader();
-    |               ^
-  3 | }
-  4 |"
-`;
-
 exports[`valid-await-using-binding-basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -420,15 +455,6 @@ exports[`valid-await-using-binding-escaped.js [flow] format 1`] = `
 
 exports[`valid-await-using-binding-escaped.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (2:15)
-  1 | async function f() {
-> 2 |   await using \\u0061b = c;
-    |               ^
-  3 | }
-  4 |"
-`;
-
-exports[`valid-await-using-binding-escaped.js [typescript] format 1`] = `
-"';' expected. (2:15)
   1 | async function f() {
 > 2 |   await using \\u0061b = c;
     |               ^
@@ -486,15 +512,6 @@ exports[`valid-await-using-binding-non-bmp.js [meriyah] format 1`] = `
   1 | async function f() {
 > 2 |   await using 𠮷 = foo();
     |                 ^
-  3 | }
-  4 |"
-`;
-
-exports[`valid-await-using-binding-non-bmp.js [typescript] format 1`] = `
-"';' expected. (2:15)
-  1 | async function f() {
-> 2 |   await using 𠮷 = foo();
-    |               ^
   3 | }
   4 |"
 `;
@@ -557,16 +574,6 @@ exports[`valid-await-using-binding-using.js [meriyah] format 1`] = `
   5 |"
 `;
 
-exports[`valid-await-using-binding-using.js [typescript] format 1`] = `
-"';' expected. (2:15)
-  1 | async function f() {
-> 2 |   await using using = of;
-    |               ^
-  3 |   for (await using using of of);
-  4 | }
-  5 |"
-`;
-
 exports[`valid-await-using-binding-using.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -595,7 +602,7 @@ exports[`valid-await-using-comments.js [acorn] format 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;"
 `;
 
 exports[`valid-await-using-comments.js [espree] format 1`] = `
@@ -606,7 +613,7 @@ exports[`valid-await-using-comments.js [espree] format 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;"
 `;
 
 exports[`valid-await-using-comments.js [flow] format 1`] = `
@@ -617,7 +624,7 @@ exports[`valid-await-using-comments.js [flow] format 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;"
 `;
 
 exports[`valid-await-using-comments.js [meriyah] format 1`] = `
@@ -628,18 +635,7 @@ exports[`valid-await-using-comments.js [meriyah] format 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
-`;
-
-exports[`valid-await-using-comments.js [typescript] format 1`] = `
-"';' expected. (3:28)
-  1 | async function f() {
-  2 | {
-> 3 |   /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
-    |                            ^
-  4 | }
-  5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;"
 `;
 
 exports[`valid-await-using-comments.js format 1`] = `
@@ -653,9 +649,6 @@ async function f() {
   /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
 }
 {
-  /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
-}
-{
   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;
 }
 {
@@ -667,14 +660,6 @@ async function f() {
 async function f() {
   {
     /*0*/ await using /*1*/ /*2*/ b /*3*/ = /*4*/ f(); /*5*/
-  }
-  {
-    /*0*/ for (
-      /*1*/ /*2*/ await using /*3*/ /*4*/ b /*5*/ =
-          /*6*/ x /*7*/ /*8*/ /*9*/ /*10*/;
-      ;
-
-    );
   }
   {
     /*0*/ for (/*1*/ /*2*/ await using /*3*/ /*4*/ b /*5*/ of /*6*/ x /*7*/ /*8*/);
@@ -826,10 +811,10 @@ exports[`valid-for-using-declaration.js [meriyah] format 1`] = `
 `;
 
 exports[`valid-for-using-declaration.js [typescript] format 1`] = `
-"';' expected. (2:20)
+"'await using' declarations may not be initialized in for statement. (2:20)
   1 | async function f() {
 > 2 |   for (await using basic = reader();;);
-    |                    ^
+    |                    ^^^^^^^^^^^^^^^^
   3 | }
   4 |"
 `;
@@ -1137,15 +1122,6 @@ exports[`valid-using-binding-basic.js [meriyah] format 1`] = `
   4 |"
 `;
 
-exports[`valid-using-binding-basic.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (2:3)
-  1 | {
-> 2 |   using basic = getReader();
-    |   ^
-  3 | }
-  4 |"
-`;
-
 exports[`valid-using-binding-basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1192,13 +1168,6 @@ exports[`valid-using-binding-escaped.js [meriyah] format 1`] = `
   2 |"
 `;
 
-exports[`valid-using-binding-escaped.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (1:3)
-> 1 | { using \\u0061b = c; }
-    |   ^
-  2 |"
-`;
-
 exports[`valid-using-binding-escaped.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1240,13 +1209,6 @@ exports[`valid-using-binding-non-bmp.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (1:11)
 > 1 | { using 𠮷 = foo(); }
     |           ^
-  2 |"
-`;
-
-exports[`valid-using-binding-non-bmp.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (1:3)
-> 1 | { using 𠮷 = foo(); }
-    |   ^
   2 |"
 `;
 
@@ -1301,16 +1263,6 @@ exports[`valid-using-binding-using.js [meriyah] format 1`] = `
   1 | {
 > 2 |   using using = of;
     |             ^
-  3 |   for (using using of of);
-  4 | }
-  5 |"
-`;
-
-exports[`valid-using-binding-using.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (2:3)
-  1 | {
-> 2 |   using using = of;
-    |   ^
   3 |   for (using using of of);
   4 | }
   5 |"
