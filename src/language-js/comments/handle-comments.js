@@ -589,7 +589,8 @@ function handleLastFunctionArgComments({
   if (
     !isBlockComment(comment) &&
     (enclosingNode?.type === "FunctionDeclaration" ||
-      enclosingNode?.type === "FunctionExpression") &&
+      enclosingNode?.type === "FunctionExpression" ||
+      enclosingNode?.type === "ObjectMethod") &&
     followingNode?.type === "BlockStatement" &&
     enclosingNode.body === followingNode
   ) {

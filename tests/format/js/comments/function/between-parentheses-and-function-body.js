@@ -23,3 +23,13 @@ export default function ()
 {
   return 42
 }
+
+a = {
+  foo()
+  // this is a function
+  {},
+
+  bar: function()
+  // this is a function
+  {},
+}
