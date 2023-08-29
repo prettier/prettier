@@ -170,14 +170,15 @@
     "lint:typecheck": "tsc",
     "lint:eslint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint:changelog": "node ./scripts/lint-changelog.js",
-    "lint:prettier": "prettier . \"!test*\" --check",
+    "lint:prettier": "prettier . \"!test*\" --check --cache",
     "lint:spellcheck": "cspell --no-progress --relative --dot --gitignore",
     "lint:deps": "node ./scripts/check-deps.js",
     "fix": "run-s fix:eslint fix:prettier",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
     "build": "node ./scripts/build/build.js",
-    "build:website": "node ./scripts/build-website.js"
+    "build:website": "node ./scripts/build-website.js",
+    "debug": "node bin/prettier.js --ignore-path=.prettierignore"
   },
   "c8": {
     "reporter": [

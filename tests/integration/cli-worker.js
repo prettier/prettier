@@ -90,7 +90,7 @@ async function run() {
     });
   };
 
-  const { promise } = await import(url.pathToFileURL(prettierCli));
+  const { __promise: promise } = await import(url.pathToFileURL(prettierCli));
   await promise;
 }
 

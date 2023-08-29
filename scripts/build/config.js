@@ -546,7 +546,7 @@ const nodejsFiles = [
       {
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
         process: (text) =>
-          text.replace('"../src/cli/index.js"', '"../internal/cli.mjs"'),
+          text.replace("../src/cli/index.js", "../internal/cli.mjs"),
       },
     ],
   },
