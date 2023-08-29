@@ -576,8 +576,8 @@ function handleLastFunctionArgComments({
       precedingNode?.type === "AssignmentPattern" ||
       precedingNode?.type === "ObjectPattern" ||
       precedingNode?.type === "ArrayPattern" ||
-      precedingNode?.type === "RestElement") &&
-    enclosingNode &&
+      precedingNode?.type === "RestElement" ||
+      precedingNode?.type === "TSParameterProperty") &&
     isRealFunctionLikeNode(enclosingNode) &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
