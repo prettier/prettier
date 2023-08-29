@@ -1,3 +1,77 @@
+# 3.0.3
+
+[diff](https://github.com/prettier/prettier/compare/3.0.2...3.0.3)
+
+#### Add `preferUnplugged: true` to `package.json` ([#15169](https://github.com/prettier/prettier/pull/15169) by [@fisker](https://github.com/fisker) and [@so1ve](https://github.com/so1ve))
+
+Prettier v3 uses dynamic imports, user [will need to unplug Prettier](https://github.com/yarnpkg/berry/pull/5411#issuecomment-1523502224) when Yarn's PnP mode is enabled, add [`preferUnplugged: true`](https://yarnpkg.com/configuration/manifest#preferUnplugged) to `package.json`, so Yarn will install Prettier as unplug by default.
+
+#### Support shared config that forbids `require()` ([#15233](https://github.com/prettier/prettier/pull/15233) by [@fisker](https://github.com/fisker))
+
+If an external shared config package is used, and the package `exports` don't have `require` or `default` export.
+
+In Prettier 3.0.2 Prettier fails when attempt to `require()` the package, and throws an error.
+
+```text
+Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: No "exports" main defined in <packageName>/package.json
+```
+
+#### Allow argument of `require()` to break ([#15256](https://github.com/prettier/prettier/pull/15256) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+const plugin = require(
+  global.STANDALONE
+    ? path.join(__dirname, "../standalone.js")
+    : path.join(__dirname, "..")
+);
+
+// Prettier 3.0.2
+const plugin = require(global.STANDALONE
+  ? path.join(__dirname, "../standalone.js")
+  : path.join(__dirname, ".."));
+
+// Prettier 3.0.3
+const plugin = require(
+  global.STANDALONE
+    ? path.join(__dirname, "../standalone.js")
+    : path.join(__dirname, "..")
+);
+```
+
+#### Do not print trailing commas in arrow function type parameter lists in `ts` code blocks ([#15286](https://github.com/prettier/prettier/pull/15286) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+````md
+<!-- Input -->
+```ts
+const foo = <T>() => {}
+```
+
+<!-- Prettier 3.0.2 -->
+```ts
+const foo = <T,>() => {}
+```
+
+<!-- Prettier 3.0.3 -->
+```ts
+const foo = <T>() => {}
+```
+````
+
+#### Support TypeScript 5.2 `using` / `await using` declaration ([#15321](https://github.com/prettier/prettier/pull/15321) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Support for the upcoming Explicit Resource Management feature in ECMAScript. [`using` / `await using` declaration](https://devblogs.microsoft.com/typescript/announcing-typescript-5-2/#using-declarations-and-explicit-resource-management)
+
+<!-- prettier-ignore -->
+```tsx
+{
+   using foo = new Foo();
+   await using bar = new Bar();
+}
+```
+
 # 3.0.2
 
 [diff](https://github.com/prettier/prettier/compare/3.0.1...3.0.2)
