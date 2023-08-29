@@ -120,3 +120,21 @@ test
 
 test ? test /* c
 c */? foo : bar : bar;
+
+test ?
+  foo : // comment
+  bar
+
+test ?
+  // comment 1
+  foo /** comment 2 */ : /** comment 3 */
+  /** comment 4 */
+  bar
+
+test ?
+  `
+         template string 1
+  `: // comment
+  `
+         template string 2
+  `

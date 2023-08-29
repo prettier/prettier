@@ -345,8 +345,16 @@ function handleConditionalExpressionComments({
     precedingNode &&
     !hasNewlineInRange(text, locEnd(precedingNode), locStart(comment));
 
+  const nextCharacterAfterPrecedingIndex =
+    precedingNode &&
+    getNextNonSpaceNonCommentCharacterIndex(text, locEnd(precedingNode));
+  const isAfterColon =
+    nextCharacterAfterPrecedingIndex !== false &&
+    text.charAt(nextCharacterAfterPrecedingIndex) === ":" &&
+    nextCharacterAfterPrecedingIndex < locStart(comment);
+
   if (
-    (!precedingNode || !isSameLineAsPrecedingNode) &&
+    (!precedingNode || !isSameLineAsPrecedingNode || isAfterColon) &&
     (enclosingNode?.type === "ConditionalExpression" ||
       enclosingNode?.type === "TSConditionalType") &&
     followingNode

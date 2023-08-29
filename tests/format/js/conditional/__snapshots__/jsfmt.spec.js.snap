@@ -129,6 +129,24 @@ test
 test ? test /* c
 c */? foo : bar : bar;
 
+test ?
+  foo : // comment
+  bar
+
+test ?
+  // comment 1
+  foo /** comment 2 */ : /** comment 3 */
+  /** comment 4 */
+  bar
+
+test ?
+  \`
+         template string 1
+  \`: // comment
+  \`
+         template string 2
+  \`
+
 =====================================output=====================================
 var inspect =
   4 === util.inspect.length
@@ -231,12 +249,13 @@ test
 // It is at least possible to delete the extra newline that was
 // unfortunately added before the second condition above:
 test
-  ? foo /* comment
+  ? foo
+  : /* comment
          comment
      comment
            comment
     */
-  : test
+  test
   ? foo
   : /* comment
   comment
@@ -252,6 +271,27 @@ c */
     ? foo
     : bar
   : bar;
+
+test
+  ? foo
+  : // comment
+    bar;
+
+test
+  ? // comment 1
+    foo /** comment 2 */
+  : /** comment 3 */
+    /** comment 4 */
+    bar;
+
+test
+  ? \`
+         template string 1
+  \`
+  : // comment
+    \`
+         template string 2
+  \`;
 
 ================================================================================
 `;
