@@ -31,6 +31,8 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
 
       // https://github.com/typescript-eslint/typescript-eslint/blob/4f34d0ba34474926ba1eed623704b583a037f886/packages/typescript-estree/src/convert.ts#L1035-L1050
       "valid-for-using-declaration.js",
+      "valid-await-using-comments.js",
+      "using-declarations.js",
 
       // https://github.com/microsoft/TypeScript/issues/55555
       "valid-for-using-binding-of-of.js",

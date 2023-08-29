@@ -161,78 +161,6 @@ using x = bar();
 ================================================================================
 `;
 
-exports[`invalid-using-declaration-in-for.js [acorn] format 1`] = `
-"Unexpected token (1:19)
-> 1 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
-    |                   ^
-  2 |
-  3 | {
-  4 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
-`;
-
-exports[`invalid-using-declaration-in-for.js [espree] format 1`] = `
-"Unexpected token a (1:19)
-> 1 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
-    |                   ^
-  2 |
-  3 | {
-  4 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
-`;
-
-exports[`invalid-using-declaration-in-for.js [flow] format 1`] = `
-"Unexpected identifier, expected the token \`;\` (1:19)
-> 1 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
-    |                   ^
-  2 |
-  3 | {
-  4 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
-`;
-
-exports[`invalid-using-declaration-in-for.js [meriyah] format 1`] = `
-"Expected ';' (1:19)
-> 1 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
-    |                   ^
-  2 |
-  3 | {
-  4 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
-`;
-
-exports[`invalid-using-declaration-in-for.js [typescript] format 1`] = `
-"'using' declarations may not be initialized in for statement. (1:19)
-> 1 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
-    |                   ^^^^^^^^^
-  2 |
-  3 | {
-  4 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
-`;
-
-exports[`invalid-using-declaration-in-for.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
-
-{
-  /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
-}
-
-=====================================output=====================================
-for (using /* 1 */ a = foo(), /* 2 */ b = foo(); ; );
-
-{
-  /*0*/ for (
-    /*1*/ /*2*/ await using /*3*/ /*4*/ b /*5*/ =
-        /*6*/ x /*7*/ /*8*/ /*9*/ /*10*/;
-    ;
-
-  );
-}
-
-================================================================================
-`;
-
 exports[`using-declarations.js [acorn] format 1`] = `
 "Unexpected token (2:17)
   1 | {
@@ -240,7 +168,7 @@ exports[`using-declarations.js [acorn] format 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ foo of bar());"
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
 `;
 
 exports[`using-declarations.js [espree] format 1`] = `
@@ -250,7 +178,7 @@ exports[`using-declarations.js [espree] format 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ foo of bar());"
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
 `;
 
 exports[`using-declarations.js [flow] format 1`] = `
@@ -260,7 +188,7 @@ exports[`using-declarations.js [flow] format 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ foo of bar());"
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
 `;
 
 exports[`using-declarations.js [meriyah] format 1`] = `
@@ -270,7 +198,18 @@ exports[`using-declarations.js [meriyah] format 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ foo of bar());"
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+`;
+
+exports[`using-declarations.js [typescript] format 1`] = `
+"'using' declarations may not be initialized in for statement. (5:19)
+  3 | }
+  4 |
+> 5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+    |                   ^^^^^^^^^
+  6 |
+  7 | for(using /* 1 */ foo of bar());
+  8 |"
 `;
 
 exports[`using-declarations.js format 1`] = `
@@ -283,6 +222,8 @@ printWidth: 80
   using /* 1 */ a = foo(), /* 2 */ b = foo()
 }
 
+for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+
 for(using /* 1 */ foo of bar());
 
 =====================================output=====================================
@@ -290,6 +231,8 @@ for(using /* 1 */ foo of bar());
   using /* 1 */ a = foo(),
     /* 2 */ b = foo();
 }
+
+for (using /* 1 */ a = foo(), /* 2 */ b = foo(); ; );
 
 for (using /* 1 */ foo of bar());
 
@@ -602,7 +545,7 @@ exports[`valid-await-using-comments.js [acorn] format 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
 `;
 
 exports[`valid-await-using-comments.js [espree] format 1`] = `
@@ -613,7 +556,7 @@ exports[`valid-await-using-comments.js [espree] format 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
 `;
 
 exports[`valid-await-using-comments.js [flow] format 1`] = `
@@ -624,7 +567,7 @@ exports[`valid-await-using-comments.js [flow] format 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
 `;
 
 exports[`valid-await-using-comments.js [meriyah] format 1`] = `
@@ -635,7 +578,18 @@ exports[`valid-await-using-comments.js [meriyah] format 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`valid-await-using-comments.js [typescript] format 1`] = `
+"'await using' declarations may not be initialized in for statement. (6:42)
+  4 | }
+  5 | {
+> 6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
+    |                                          ^^^^^^^^^^^^^
+  7 | }
+  8 | {
+  9 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;"
 `;
 
 exports[`valid-await-using-comments.js format 1`] = `
@@ -649,6 +603,9 @@ async function f() {
   /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
 }
 {
+  /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
+}
+{
   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;
 }
 {
@@ -660,6 +617,14 @@ async function f() {
 async function f() {
   {
     /*0*/ await using /*1*/ /*2*/ b /*3*/ = /*4*/ f(); /*5*/
+  }
+  {
+    /*0*/ for (
+      /*1*/ /*2*/ await using /*3*/ /*4*/ b /*5*/ =
+          /*6*/ x /*7*/ /*8*/ /*9*/ /*10*/;
+      ;
+
+    );
   }
   {
     /*0*/ for (/*1*/ /*2*/ await using /*3*/ /*4*/ b /*5*/ of /*6*/ x /*7*/ /*8*/);
