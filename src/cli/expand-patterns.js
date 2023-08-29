@@ -128,19 +128,18 @@ async function* expandPatternsInternal(context) {
   }
 
   function getSupportedFilesGlob() {
-    if (!supportedFilesGlob) {
-      const extensions = context.languages.flatMap(
-        (lang) => lang.extensions || [],
-      );
-      const filenames = context.languages.flatMap(
-        (lang) => lang.filenames || [],
-      );
-      supportedFilesGlob = [
-        ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
-        ...filenames,
-      ];
-    }
+    supportedFilesGlob ??= [...getSupportedFilesGlobWithoutCache()];
     return supportedFilesGlob;
+  }
+
+  function* getSupportedFilesGlobWithoutCache() {
+    for (const { extensions = [], filenames = [] } of context.languages) {
+      yield* filenames;
+
+      for (const extension of extensions) {
+        yield `*${extension.startsWith(".") ? extension : `.${extension}`}`;
+      }
+    }
   }
 }
 
