@@ -119,69 +119,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`invalid-for-using-declaration.js [acorn] format 1`] = `
-"Unexpected token (2:20)
-  1 | async function f() {
-> 2 |   for (await using basic = reader();;);
-    |                    ^
-  3 | }
-  4 |"
-`;
-
-exports[`invalid-for-using-declaration.js [espree] format 1`] = `
-"Unexpected token basic (2:20)
-  1 | async function f() {
-> 2 |   for (await using basic = reader();;);
-    |                    ^
-  3 | }
-  4 |"
-`;
-
-exports[`invalid-for-using-declaration.js [flow] format 1`] = `
-"Unexpected identifier, expected the token \`;\` (2:20)
-  1 | async function f() {
-> 2 |   for (await using basic = reader();;);
-    |                    ^^^^^
-  3 | }
-  4 |"
-`;
-
-exports[`invalid-for-using-declaration.js [meriyah] format 1`] = `
-"Expected ';' (2:24)
-  1 | async function f() {
-> 2 |   for (await using basic = reader();;);
-    |                        ^
-  3 | }
-  4 |"
-`;
-
-exports[`invalid-for-using-declaration.js [typescript] format 1`] = `
-"'await using' declarations may not be initialized in for statement. (2:20)
-  1 | async function f() {
-> 2 |   for (await using basic = reader();;);
-    |                    ^^^^^^^^^^^^^^^^
-  3 | }
-  4 |"
-`;
-
-exports[`invalid-for-using-declaration.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-async function f() {
-  for (await using basic = reader();;);
-}
-
-=====================================output=====================================
-async function f() {
-  for (await using basic = reader(); ; );
-}
-
-================================================================================
-`;
-
 exports[`invalid-script-top-level-using-binding.js [acorn] format 1`] = `
 "Unexpected token (1:7)
 > 1 | using x = bar();
@@ -832,6 +769,69 @@ async function f() {
 async function f() {
   for (await using of of of);
   for await (await using of of of);
+}
+
+================================================================================
+`;
+
+exports[`valid-for-using-declaration.js [acorn] format 1`] = `
+"Unexpected token (2:20)
+  1 | async function f() {
+> 2 |   for (await using basic = reader();;);
+    |                    ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-for-using-declaration.js [espree] format 1`] = `
+"Unexpected token basic (2:20)
+  1 | async function f() {
+> 2 |   for (await using basic = reader();;);
+    |                    ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-for-using-declaration.js [flow] format 1`] = `
+"Unexpected identifier, expected the token \`;\` (2:20)
+  1 | async function f() {
+> 2 |   for (await using basic = reader();;);
+    |                    ^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-for-using-declaration.js [meriyah] format 1`] = `
+"Expected ';' (2:24)
+  1 | async function f() {
+> 2 |   for (await using basic = reader();;);
+    |                        ^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-for-using-declaration.js [typescript] format 1`] = `
+"'await using' declarations may not be initialized in for statement. (2:20)
+  1 | async function f() {
+> 2 |   for (await using basic = reader();;);
+    |                    ^^^^^^^^^^^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`valid-for-using-declaration.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  for (await using basic = reader();;);
+}
+
+=====================================output=====================================
+async function f() {
+  for (await using basic = reader(); ; );
 }
 
 ================================================================================

@@ -22,13 +22,15 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "valid-await-using-comments.js",
       "valid-for-lhs-await-as-identifier.js",
       "valid-for-using-binding-of-of.js",
-      "invalid-for-using-declaration.js",
+      "valid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
     typescript: [
       "invalid-duplicate-using-bindings.js",
       "invalid-using-declaration-in-for.js",
-      "invalid-for-using-declaration.js",
+
+      // https://github.com/typescript-eslint/typescript-eslint/blob/4f34d0ba34474926ba1eed623704b583a037f886/packages/typescript-estree/src/convert.ts#L1035-L1050
+      "valid-for-using-declaration.js",
 
       // https://github.com/microsoft/TypeScript/issues/55555
       "valid-for-using-binding-of-of.js",
@@ -58,7 +60,7 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "valid-await-using-comments.js",
       "valid-for-lhs-await-as-identifier.js",
       "valid-for-using-binding-of-of.js",
-      "invalid-for-using-declaration.js",
+      "valid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
     meriyah: [
@@ -82,7 +84,7 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "valid-await-using-comments.js",
       "valid-for-lhs-await-as-identifier.js",
       "valid-for-using-binding-of-of.js",
-      "invalid-for-using-declaration.js",
+      "valid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
     acorn: [
@@ -106,7 +108,7 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "valid-await-using-comments.js",
       "valid-for-lhs-await-as-identifier.js",
       "valid-for-using-binding-of-of.js",
-      "invalid-for-using-declaration.js",
+      "valid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
   },
