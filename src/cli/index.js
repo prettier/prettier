@@ -54,6 +54,10 @@ async function main(context) {
     throw new Error("Cannot use --file-info with multiple files");
   }
 
+  if (!context.argv.cache && context.argv.cacheStrategy) {
+    throw new Error("`--cache-strategy` cannot be used without `--cache`.");
+  }
+
   if (context.argv.version) {
     printToScreen(prettier.version);
     return;

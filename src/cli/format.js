@@ -306,18 +306,10 @@ async function formatFiles(context) {
       cacheFilePath,
       context.argv.cacheStrategy || "content",
     );
-  } else {
-    if (context.argv.cacheStrategy) {
-      context.logger.error(
-        "`--cache-strategy` cannot be used without `--cache`.",
-      );
-      process.exit(2);
-    }
-    if (!context.argv.cacheLocation) {
-      const stat = await statSafe(cacheFilePath);
-      if (stat) {
-        await fs.unlink(cacheFilePath);
-      }
+  } else if (!context.argv.cacheLocation) {
+    const stat = await statSafe(cacheFilePath);
+    if (stat) {
+      await fs.unlink(cacheFilePath);
     }
   }
 
