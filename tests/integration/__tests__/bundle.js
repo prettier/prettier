@@ -96,10 +96,9 @@ test("global objects", async () => {
 });
 
 test("Commonjs version", () => {
-  const prettierCommonjsVersion = require(path.join(
-    distDirectory,
-    "index.cjs",
-  ));
+  const prettierCommonjsVersion = require(
+    path.join(distDirectory, "index.cjs"),
+  );
 
   expect(Object.keys(prettierCommonjsVersion).sort()).toEqual(
     Object.keys(prettier)
