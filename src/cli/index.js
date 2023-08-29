@@ -74,7 +74,7 @@ async function main(context) {
 
   const hasFilePatterns = context.filePatterns.length > 0;
   const useStdin =
-    !hasFilePatterns && (!process.stdin.isTTY || context.argv.filePath);
+    !hasFilePatterns && (!process.stdin.isTTY || context.argv.filepath);
 
   if (context.argv.findConfigPath) {
     await logResolvedConfigPathOrDie(context);
