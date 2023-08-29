@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`between-parentheses-and-function-body.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function function_declaration()
+// this is a function
+{
+  return 42
+}
+
+function_expression =
+function named()
+// this is a function
+{
+  return 42
+}
+
+
+function_expression =
+function  ()
+// this is a function
+{
+  return 42
+}
+
+/* anonymous export */
+export default function ()
+// this is a function
+{
+  return 42
+}
+
+=====================================output=====================================
+function function_declaration() {
+  // this is a function
+  return 42;
+}
+
+function_expression = function named() {
+  // this is a function
+  return 42;
+};
+
+function_expression = function () {
+  // this is a function
+  return 42;
+};
+
+/* anonymous export */
+export default function () {
+  // this is a function
+  return 42;
+}
+
+================================================================================
+`;

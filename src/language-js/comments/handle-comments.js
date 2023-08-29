@@ -585,29 +585,18 @@ function handleLastFunctionArgComments({
     return true;
   }
 
+  // Comment between function parameters parentheses and function body
   if (
-    enclosingNode?.type === "FunctionDeclaration" &&
-    followingNode?.type === "BlockStatement"
+    (enclosingNode?.type === "FunctionDeclaration" ||
+      enclosingNode?.type === "FunctionExpression") &&
+    followingNode?.type === "BlockStatement" &&
+    enclosingNode.body === followingNode
   ) {
-    const functionParamRightParenIndex = (() => {
-      const parameters = getFunctionParameters(enclosingNode);
-      if (parameters.length > 0) {
-        return getNextNonSpaceNonCommentCharacterIndex(
-          text,
-          locEnd(parameters.at(-1)),
-        );
-      }
-      const functionParamLeftParenIndex =
-        getNextNonSpaceNonCommentCharacterIndex(text, locEnd(enclosingNode.id));
-      return (
-        functionParamLeftParenIndex !== false &&
-        getNextNonSpaceNonCommentCharacterIndex(
-          text,
-          functionParamLeftParenIndex + 1,
-        )
-      );
-    })();
-    if (locStart(comment) > functionParamRightParenIndex) {
+    const characterAfterCommentIndex = getNextNonSpaceNonCommentCharacterIndex(
+      text,
+      locEnd(comment),
+    );
+    if (characterAfterCommentIndex === locStart(followingNode)) {
       addBlockStatementFirstComment(followingNode, comment);
       return true;
     }
