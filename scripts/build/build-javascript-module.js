@@ -211,8 +211,8 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
             output: (dependencies) => file.dependencies.push(...dependencies),
           },
         }),
-      cliOptions.report &&
-        esbuildPluginVisualizer({ formats: cliOptions.report }),
+      cliOptions.reports &&
+        esbuildPluginVisualizer({ formats: cliOptions.reports }),
       esbuildPluginThrowWarnings({
         allowDynamicRequire: file.platform === "node",
         allowDynamicImport: file.platform === "node",
