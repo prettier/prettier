@@ -101,6 +101,7 @@
     "typescript": "5.2.2",
     "unicode-regex": "4.0.0",
     "unified": "9.2.2",
+    "url-or-path": "2.1.0",
     "vnopts": "2.0.0",
     "wcwidth": "1.0.1",
     "yaml-unist-parser": "2.0.1"

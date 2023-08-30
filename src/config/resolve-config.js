@@ -1,6 +1,7 @@
 import path from "node:path";
 import micromatch from "micromatch";
 import mem, { memClear } from "mem";
+import { toPath } from "url-or-path";
 import partition from "../utils/partition.js";
 import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
 import getPrettierConfigExplorerWithoutCache from "./get-prettier-config-explorer.js";
@@ -60,10 +61,10 @@ async function resolveConfig(filePath, options) {
   return merged;
 }
 
-async function resolveConfigFile(filePath) {
+async function resolveConfigFile(fileUrlOrPath) {
   const { search } = getPrettierConfigExplorer({ cache: false });
-  const result = await search(filePath);
-  return result ? result.filepath : null;
+  const result = await search(toPath(fileUrlOrPath));
+  return result?.filepath ?? null;
 }
 
 function mergeOverrides(configResult, filePath) {
