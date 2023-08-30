@@ -274,6 +274,11 @@ const pluginFiles = [
         module: getPackageFile("acorn-jsx/xhtml.js"),
         text: "module.exports = {};",
       },
+      {
+        module: getPackageFile("acorn-jsx/index.js"),
+        find: 'require("acorn")',
+        replacement: "undefined",
+      },
     ],
   },
   {
