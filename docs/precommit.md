@@ -19,7 +19,9 @@ This will install [husky](https://github.com/typicode/husky) and [lint-staged](h
 
 Read more at the [lint-staged](https://github.com/okonet/lint-staged#configuration) repo.
 
-## Option 2. [pretty-quick](https://github.com/azz/pretty-quick)
+## Option 2. [pretty-quick](https://github.com/azz/pretty-quick) **(Not actively maintained)**
+
+> This project is **not actively maintained** and its latest version ([`v3.1.3`](https://github.com/azz/pretty-quick/releases/tag/v3.1.3)) does not work with prettier `v3` and above. Please use **[lint-staged](#option-1-lint-staged)** instead.
 
 **Use Case:** Great for when you want an entire file formatting on your changed/staged files.
 
