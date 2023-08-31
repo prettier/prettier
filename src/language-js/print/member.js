@@ -13,43 +13,33 @@ import { printOptionalToken } from "./misc.js";
 
 function printMemberExpression(path, options, print) {
   const objectDoc = print("object");
-  const lookupDoc = printMemberLookup(path, options, print, objectDoc);
-
-  return label(objectDoc.label, [objectDoc, lookupDoc]);
+  const lookupDoc = printMemberLookup(path, options, print);
+  return label(objectDoc.label, [
+    objectDoc,
+    shouldInlineMember(path, objectDoc)
+      ? lookupDoc
+      : group(indent([softline, lookupDoc])),
+  ]);
 }
 
 /**
  * @param {AstPath} path
  * @param {*} options
  * @param {*} print
- * @param {Doc} [objectDoc]
  * @returns {Doc}
  */
-function printMemberLookup(path, options, print, objectDoc) {
+function printMemberLookup(path, options, print) {
   const property = print("property");
   const { node } = path;
   const optional = printOptionalToken(path);
 
-  /** @type {Doc} */
-  let lookupDoc;
   if (!node.computed) {
-    lookupDoc = [optional, ".", property];
-  } else if (!node.property || isNumericLiteral(node.property)) {
-    lookupDoc = [optional, "[", property, "]"];
-  } else {
-    lookupDoc = group([
-      optional,
-      "[",
-      indent([softline, property]),
-      softline,
-      "]",
-    ]);
+    return [optional, ".", property];
   }
-
-  if (shouldInlineMember(path, objectDoc)) {
-    return lookupDoc;
+  if (!node.property || isNumericLiteral(node.property)) {
+    return [optional, "[", property, "]"];
   }
-  return group(indent([softline, lookupDoc]));
+  return group([optional, "[", indent([softline, property]), softline, "]"]);
 }
 
 /**

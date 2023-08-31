@@ -24,6 +24,7 @@ import {
   conditionalGroup,
   breakParent,
   label,
+  softline,
 } from "../../document/builders.js";
 import { willBreak } from "../../document/utils.js";
 import printCallArguments from "./call-arguments.js";
@@ -106,6 +107,7 @@ function printMemberChain(path, options, print) {
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node,
+        path,
         needsParens: pathNeedsParens(path, options),
         printed: printComments(
           path,
@@ -295,8 +297,16 @@ function printMemberChain(path, options, print) {
     !hasComment(groups[1][0].node) &&
     shouldNotWrap(groups);
 
-  function printGroup(printedGroup) {
-    const printed = printedGroup.map((tuple) => tuple.printed);
+  function printGroup(printedGroup, isFirstGroup = false) {
+    const printed = printedGroup.map((tuple, i) => {
+      if (!isMemberish(tuple.node) || i === 0 || tuple.node.computed) {
+        return tuple.printed;
+      }
+      if (isFirstGroup === true) {
+        return group(indent([softline, tuple.printed]));
+      }
+      return group([softline, tuple.printed]);
+    });
     // Checks if the last node (i.e. the parent node) needs parens and print
     // accordingly
     if (printedGroup.length > 0 && printedGroup.at(-1).needsParens) {
@@ -313,7 +323,7 @@ function printMemberChain(path, options, print) {
     return indent(group([hardline, join(hardline, groups.map(printGroup))]));
   }
 
-  const printedGroups = groups.map(printGroup);
+  const printedGroups = groups.map((doc, i) => printGroup(doc, i === 0));
   const oneLine = printedGroups;
 
   const cutoff = shouldMerge ? 3 : 2;
@@ -346,8 +356,8 @@ function printMemberChain(path, options, print) {
     shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
 
   const expanded = [
-    printGroup(groups[0]),
-    shouldMerge ? groups.slice(1, 2).map(printGroup) : "",
+    printGroup(groups[0], true),
+    shouldMerge ? groups.slice(1, 2).map((doc) => printGroup(doc)) : "",
     shouldHaveEmptyLineBeforeIndent ? hardline : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1)),
   ];
