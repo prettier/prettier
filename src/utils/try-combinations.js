@@ -1,3 +1,8 @@
+/**
+ * @template {function} T
+ * @param {T[]} combinations
+ * @returns {ReturnType<T>}
+ */
 function tryCombinations(combinations) {
   const errors = [];
   for (const fn of combinations) {

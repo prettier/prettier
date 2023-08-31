@@ -256,23 +256,45 @@ const pluginFiles = [
     input: "src/plugins/acorn.js",
     replaceModule: [
       {
-        module: require.resolve("espree"),
-        process: (text) =>
-          text
-            .replaceAll(
-              /exports\.(?:Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions|tokenize|version) = .*?;/g,
-              "",
-            )
-            .replaceAll(
-              /const (Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions) = /g,
-              "const $1 = undefined && ",
-            )
-            .replace("require('eslint-visitor-keys')", "{}"),
+        module: await resolveEsmModulePath("espree"),
+        process(text) {
+          const lines = text.split("\n");
+
+          let lineIndex;
+
+          // Remove `eslint-visitor-keys`
+          lineIndex = lines.findIndex((line) =>
+            line.endsWith(' from "eslint-visitor-keys";'),
+          );
+          lines.splice(lineIndex, 1);
+
+          // Remove code after `// Public`
+          lineIndex = lines.indexOf("// Public") - 1;
+          lines.length = lineIndex;
+
+          // Save code after `// Parser`
+          lineIndex = lines.indexOf("// Parser") - 1;
+          const parserCodeLines = lines.slice(lineIndex);
+          lines.length = lineIndex;
+
+          // Remove code after `// Tokenizer`
+          lineIndex = lines.indexOf("// Tokenizer") - 1;
+          lines.length = lineIndex;
+
+          text = [...lines, ...parserCodeLines].join("\n");
+
+          return text;
+        },
       },
       {
         // We don't use value of JSXText
         module: getPackageFile("acorn-jsx/xhtml.js"),
         text: "module.exports = {};",
+      },
+      {
+        module: getPackageFile("acorn-jsx/index.js"),
+        find: 'require("acorn")',
+        replacement: "undefined",
       },
     ],
   },
