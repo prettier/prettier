@@ -554,6 +554,10 @@ const nodejsFiles = [
           paths: [require.resolve("@babel/code-frame")],
         }),
       },
+      {
+        module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
+        path: getPackageFile("js-yaml/lib/loader.js"),
+      },
     ],
     addDefaultExport: true,
   },
@@ -582,19 +586,10 @@ const nodejsFiles = [
     input: "src/common/mockable.js",
     outputBaseName: "internal/internal",
     replaceModule: [
-      // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {
-        module: require.resolve("parent-module"),
-        path: path.join(dirname, "./shims/parent-module.cjs"),
-      },
-      // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
-      {
-        module: require.resolve("chalk", {
-          paths: [require.resolve("@babel/highlight")],
-        }),
-        path: require.resolve("chalk", {
-          paths: [require.resolve("@babel/code-frame")],
-        }),
+        module: require.resolve("lilconfig"),
+        find: "exports.lilconfigSync = lilconfigSync;",
+        replacement: "",
       },
     ],
   },

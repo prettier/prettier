@@ -52,7 +52,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/code-frame@npm:7.22.10, @babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.22.5":
+"@babel/code-frame@npm:7.22.10, @babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.21.4, @babel/code-frame@npm:^7.22.5":
   version: 7.22.10
   resolution: "@babel/code-frame@npm:7.22.10"
   dependencies:
@@ -592,9 +592,9 @@ __metadata:
   linkType: hard
 
 "@cspell/dict-css@npm:^4.0.6":
-  version: 4.0.6
-  resolution: "@cspell/dict-css@npm:4.0.6"
-  checksum: fc816014e4dfd78d4a00cd311c8f96657d899e10767766cdcdfbaf61beac8dd4d23e903dc40b679f31da7df03e7d4eb593a81810c50eeddbbb190b0d605160f0
+  version: 4.0.7
+  resolution: "@cspell/dict-css@npm:4.0.7"
+  checksum: 17a628450665f77a7b87edf98d12aa9f406b6805ca4a7e25ff1a9a58e9a0ae190583fd030b8143af5964f85dabfd1d510021f9072c2bbd478b547ac419689451
   languageName: node
   linkType: hard
 
@@ -2915,18 +2915,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:8.2.0":
-  version: 8.2.0
-  resolution: "cosmiconfig@npm:8.2.0"
-  dependencies:
-    import-fresh: ^3.2.1
-    js-yaml: ^4.1.0
-    parse-json: ^5.0.0
-    path-type: ^4.0.0
-  checksum: 836d5d8efa750f3fb17b03d6ca74cd3154ed025dffd045304b3ef59637f662bde1e5dc88f8830080d180ec60841719cf4ea2ce73fb21ec694b16865c478ff297
-  languageName: node
-  linkType: hard
-
 "cross-env@npm:7.0.3":
   version: 7.0.3
   resolution: "cross-env@npm:7.0.3"
@@ -3351,7 +3339,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"error-ex@npm:^1.3.1":
+"error-ex@npm:^1.3.1, error-ex@npm:^1.3.2":
   version: 1.3.2
   resolution: "error-ex@npm:1.3.2"
   dependencies:
@@ -3360,7 +3348,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-abstract@npm:^1.19.0, es-abstract@npm:^1.20.4, es-abstract@npm:^1.21.2, es-abstract@npm:^1.21.3":
+"es-abstract@npm:^1.19.0, es-abstract@npm:^1.20.4, es-abstract@npm:^1.21.2, es-abstract@npm:^1.22.1":
   version: 1.22.1
   resolution: "es-abstract@npm:1.22.1"
   dependencies:
@@ -3408,13 +3396,13 @@ __metadata:
   linkType: hard
 
 "es-iterator-helpers@npm:^1.0.12":
-  version: 1.0.13
-  resolution: "es-iterator-helpers@npm:1.0.13"
+  version: 1.0.14
+  resolution: "es-iterator-helpers@npm:1.0.14"
   dependencies:
     asynciterator.prototype: ^1.0.0
     call-bind: ^1.0.2
     define-properties: ^1.2.0
-    es-abstract: ^1.21.3
+    es-abstract: ^1.22.1
     es-set-tostringtag: ^2.0.1
     function-bind: ^1.1.1
     get-intrinsic: ^1.2.1
@@ -3425,7 +3413,7 @@ __metadata:
     internal-slot: ^1.0.5
     iterator.prototype: ^1.1.0
     safe-array-concat: ^1.0.0
-  checksum: 1b08ae7388439121fee1129cb23497abd7bf23dd440f7fa44d119c9f92f38f9b7d75b7d98453fcd15948a7eb58abb2a48c673c7250d2e15871abe3641f567ed7
+  checksum: 484ca398389d5e259855e2d848573233985a7e7a4126c5de62c8a554174495aea47320ae1d2b55b757ece62ac1cb8455532aa61fd123fe4e01d0567eb2d7adfa
   languageName: node
   linkType: hard
 
@@ -5799,6 +5787,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-yaml@npm:4.1.0, js-yaml@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "js-yaml@npm:4.1.0"
+  dependencies:
+    argparse: ^2.0.1
+  bin:
+    js-yaml: bin/js-yaml.js
+  checksum: c7830dfd456c3ef2c6e355cc5a92e6700ceafa1d14bba54497b34a99f0376cecbb3e9ac14d3e5849b426d5a5140709a66237a8c991c675431271c4ce5504151a
+  languageName: node
+  linkType: hard
+
 "js-yaml@npm:^3.13.1":
   version: 3.14.1
   resolution: "js-yaml@npm:3.14.1"
@@ -5808,17 +5807,6 @@ __metadata:
   bin:
     js-yaml: bin/js-yaml.js
   checksum: bef146085f472d44dee30ec34e5cf36bf89164f5d585435a3d3da89e52622dff0b188a580e4ad091c3341889e14cb88cac6e4deb16dc5b1e9623bb0601fc255c
-  languageName: node
-  linkType: hard
-
-"js-yaml@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "js-yaml@npm:4.1.0"
-  dependencies:
-    argparse: ^2.0.1
-  bin:
-    js-yaml: bin/js-yaml.js
-  checksum: c7830dfd456c3ef2c6e355cc5a92e6700ceafa1d14bba54497b34a99f0376cecbb3e9ac14d3e5849b426d5a5140709a66237a8c991c675431271c4ce5504151a
   languageName: node
   linkType: hard
 
@@ -5876,6 +5864,13 @@ __metadata:
   version: 2.3.1
   resolution: "json-parse-even-better-errors@npm:2.3.1"
   checksum: 798ed4cf3354a2d9ccd78e86d2169515a0097a5c133337807cdf7f1fc32e1391d207ccfc276518cc1d7d8d4db93288b8a50ba4293d212ad1336e52a8ec0a941f
+  languageName: node
+  linkType: hard
+
+"json-parse-even-better-errors@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "json-parse-even-better-errors@npm:3.0.0"
+  checksum: f1970b5220c7fa23d888565510752c3d5e863f93668a202fcaa719739fa41485dfc6a1db212f702ebd3c873851cc067aebc2917e3f79763cae2fdb95046f38f3
   languageName: node
   linkType: hard
 
@@ -5962,6 +5957,13 @@ __metadata:
     prelude-ls: ^1.2.1
     type-check: ~0.4.0
   checksum: 12c5021c859bd0f5248561bf139121f0358285ec545ebf48bb3d346820d5c61a4309535c7f387ed7d84361cf821e124ce346c6b7cef8ee09a67c1473b46d0fc4
+  languageName: node
+  linkType: hard
+
+"lilconfig@npm:2.1.0":
+  version: 2.1.0
+  resolution: "lilconfig@npm:2.1.0"
+  checksum: 8549bb352b8192375fed4a74694cd61ad293904eee33f9d4866c2192865c44c4eb35d10782966242634e0cbc1e91fe62b1247f148dc5514918e3a966da7ea117
   languageName: node
   linkType: hard
 
@@ -6857,6 +6859,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"parse-json@npm:7.0.0":
+  version: 7.0.0
+  resolution: "parse-json@npm:7.0.0"
+  dependencies:
+    "@babel/code-frame": ^7.21.4
+    error-ex: ^1.3.2
+    json-parse-even-better-errors: ^3.0.0
+    lines-and-columns: ^2.0.3
+    type-fest: ^3.8.0
+  checksum: de6c756f65af568439a7ac87c830e5a8b98bd25160a8832872183588a139f9c8fd8bab96c8bc49788f5a957a59d8de7b5a3fa8a01027248b3079433f81dd5590
+  languageName: node
+  linkType: hard
+
 "parse-json@npm:^4.0.0":
   version: 4.0.0
   resolution: "parse-json@npm:4.0.0"
@@ -7161,7 +7176,6 @@ __metadata:
     ci-info: 3.8.0
     cjk-regex: 3.0.0
     collapse-white-space: 1.0.6
-    cosmiconfig: 8.2.0
     cross-env: 7.0.3
     cspell: 7.0.1
     css-units-list: 2.0.1
@@ -7210,8 +7224,10 @@ __metadata:
     jest-snapshot-serializer-ansi: 2.1.0
     jest-snapshot-serializer-raw: 2.0.0
     jest-watch-typeahead: 2.2.2
+    js-yaml: 4.1.0
     json5: 2.2.3
     leven: 4.0.0
+    lilconfig: 2.1.0
     lines-and-columns: 2.0.3
     linguist-languages: 7.26.1
     magic-string: 0.30.3
@@ -7222,6 +7238,7 @@ __metadata:
     n-readlines: 1.0.1
     npm-run-all: 4.1.5
     outdent: 0.8.0
+    parse-json: 7.0.0
     path-browserify: 1.0.1
     please-upgrade-node: 3.2.0
     postcss: 8.4.28
@@ -8497,10 +8514,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^3.0.0":
-  version: 3.12.0
-  resolution: "type-fest@npm:3.12.0"
-  checksum: 11cb6f40e42f92c462a13677eafedf5c48353eaefa8e489a146e55fe0ae5cecd59a2ba03cd6b294345b5ea304361891a6313c23ed959fa0117f63fb71ee6cbab
+"type-fest@npm:^3.0.0, type-fest@npm:^3.8.0":
+  version: 3.13.1
+  resolution: "type-fest@npm:3.13.1"
+  checksum: c06b0901d54391dc46de3802375f5579868949d71f93b425ce564e19a428a0d411ae8d8cb0e300d330071d86152c3ea86e744c3f2860a42a79585b6ec2fdae8e
   languageName: node
   linkType: hard
 
