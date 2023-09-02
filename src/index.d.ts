@@ -637,7 +637,7 @@ export function resolveConfig(
  * The promise will be rejected if there was an error parsing the configuration file.
  */
 export function resolveConfigFile(
-  filePath?: string | URL,
+  fileUrlOrPath?: string | URL,
 ): Promise<string | null>;
 
 /**
