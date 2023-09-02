@@ -4113,13 +4113,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-cache-dir@npm:4.0.0":
-  version: 4.0.0
-  resolution: "find-cache-dir@npm:4.0.0"
+"find-cache-dir@npm:5.0.0":
+  version: 5.0.0
+  resolution: "find-cache-dir@npm:5.0.0"
   dependencies:
     common-path-prefix: ^3.0.0
     pkg-dir: ^7.0.0
-  checksum: 52a456a80deeb27daa3af6e06059b63bdb9cc4af4d845fc6d6229887e505ba913cd56000349caa60bc3aa59dacdb5b4c37903d4ba34c75102d83cab330b70d2f
+  checksum: 1be046a2d6d98698d181352139bdd2f3e45cad4a0b3c9f06a611124ca52d823b0b327f5a629d7c5268b7fad54a202104765e572f8415b89ac35f76818fb3b75e
   languageName: node
   linkType: hard
 
@@ -7207,7 +7207,7 @@ __metadata:
     fast-glob: 3.3.1
     fast-json-stable-stringify: 2.1.0
     file-entry-cache: 7.0.0
-    find-cache-dir: 4.0.0
+    find-cache-dir: 5.0.0
     find-parent-dir: 0.3.1
     flow-parser: 0.215.1
     get-stdin: 9.0.0
