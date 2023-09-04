@@ -281,7 +281,7 @@ test(".js config file", async () => {
     await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
   }
 
-  const cjsError = /require\(\) of ES (?:Module|module)/;
+  const cjsError = /module is not defined in ES module scope/;
   for (const directoryName of [
     "cjs-prettier-config-js-in-type-module",
     "cjs-prettierrc-js-in-type-module",

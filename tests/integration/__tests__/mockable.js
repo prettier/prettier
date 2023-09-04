@@ -6,12 +6,12 @@ import { mockable } from "../env.js";
 const { __dirname } = createEsmUtils(import.meta);
 
 // This don't has to be the same result as `prettier.resolveConfig`,
-// Because we are testing with default `cosmiconfigOptions`
-describe("cosmiconfig", () => {
-  let cosmiconfig;
+// Because we are testing with default `lilconfigOptions`
+describe("lilconfig", () => {
+  let lilconfig;
   beforeAll(async () => {
     ({
-      default: { cosmiconfig },
+      default: { lilconfig },
     } = await import(pathToFileURL(mockable)));
   });
 
@@ -45,8 +45,7 @@ describe("cosmiconfig", () => {
 
   for (const { title, dirname, file, value } of configs) {
     test(`async version ${title}`, async () => {
-      const { config, filepath } =
-        await cosmiconfig("prettier").search(dirname);
+      const { config, filepath } = await lilconfig("prettier").search(dirname);
       expect(config).toEqual(value);
       expect(filepath).toBe(file);
     });

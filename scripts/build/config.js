@@ -256,23 +256,45 @@ const pluginFiles = [
     input: "src/plugins/acorn.js",
     replaceModule: [
       {
-        module: require.resolve("espree"),
-        process: (text) =>
-          text
-            .replaceAll(
-              /exports\.(?:Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions|tokenize|version) = .*?;/g,
-              "",
-            )
-            .replaceAll(
-              /const (Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions) = /g,
-              "const $1 = undefined && ",
-            )
-            .replace("require('eslint-visitor-keys')", "{}"),
+        module: await resolveEsmModulePath("espree"),
+        process(text) {
+          const lines = text.split("\n");
+
+          let lineIndex;
+
+          // Remove `eslint-visitor-keys`
+          lineIndex = lines.findIndex((line) =>
+            line.endsWith(' from "eslint-visitor-keys";'),
+          );
+          lines.splice(lineIndex, 1);
+
+          // Remove code after `// Public`
+          lineIndex = lines.indexOf("// Public") - 1;
+          lines.length = lineIndex;
+
+          // Save code after `// Parser`
+          lineIndex = lines.indexOf("// Parser") - 1;
+          const parserCodeLines = lines.slice(lineIndex);
+          lines.length = lineIndex;
+
+          // Remove code after `// Tokenizer`
+          lineIndex = lines.indexOf("// Tokenizer") - 1;
+          lines.length = lineIndex;
+
+          text = [...lines, ...parserCodeLines].join("\n");
+
+          return text;
+        },
       },
       {
         // We don't use value of JSXText
         module: getPackageFile("acorn-jsx/xhtml.js"),
         text: "module.exports = {};",
+      },
+      {
+        module: getPackageFile("acorn-jsx/index.js"),
+        find: 'require("acorn")',
+        replacement: "undefined",
       },
     ],
   },
@@ -532,6 +554,10 @@ const nodejsFiles = [
           paths: [require.resolve("@babel/code-frame")],
         }),
       },
+      {
+        module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
+        path: getPackageFile("js-yaml/lib/loader.js"),
+      },
     ],
     addDefaultExport: true,
   },
@@ -560,19 +586,10 @@ const nodejsFiles = [
     input: "src/common/mockable.js",
     outputBaseName: "internal/internal",
     replaceModule: [
-      // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {
-        module: require.resolve("parent-module"),
-        path: path.join(dirname, "./shims/parent-module.cjs"),
-      },
-      // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
-      {
-        module: require.resolve("chalk", {
-          paths: [require.resolve("@babel/highlight")],
-        }),
-        path: require.resolve("chalk", {
-          paths: [require.resolve("@babel/code-frame")],
-        }),
+        module: require.resolve("lilconfig"),
+        find: "exports.lilconfigSync = lilconfigSync;",
+        replacement: "",
       },
     ],
   },

@@ -30,7 +30,9 @@ function loadPrettierConfig(filePath, options) {
   const { load, search } = getPrettierConfigExplorer({
     cache: Boolean(useCache),
   });
-  return configPath ? load(configPath) : search(filePath);
+  return configPath
+    ? load(configPath)
+    : search(filePath ? path.resolve(filePath) : undefined);
 }
 
 async function resolveConfig(filePath, options) {
@@ -63,7 +65,7 @@ async function resolveConfig(filePath, options) {
 
 async function resolveConfigFile(fileUrlOrPath) {
   const { search } = getPrettierConfigExplorer({ cache: false });
-  const result = await search(toPath(fileUrlOrPath));
+  const result = await search(fileUrlOrPath ? toPath(fileUrlOrPath) : undefined);
   return result?.filepath ?? null;
 }
 
