@@ -9,7 +9,7 @@ import logResolvedConfigPathOrDie from "./find-config-path.js";
 import { printToScreen } from "./utils.js";
 import printSupportInfo from "./print-support-info.js";
 
-async function run(rawArguments) {
+async function run(rawArguments = process.argv.slice(2)) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
   let logger = createLogger();
 
