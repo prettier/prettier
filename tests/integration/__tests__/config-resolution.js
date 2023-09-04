@@ -1,4 +1,5 @@
 import path from "node:path";
+import * as urlOrPath from "url-or-path";
 import createEsmUtils from "esm-utils";
 import prettier from "../../config/prettier-entry.js";
 
@@ -372,4 +373,20 @@ test("support external module with `module` only `exports`", async () => {
   await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
     printWidth: 79,
   });
+});
+
+test("API resolveConfig accepts path or URL", async () => {
+  const fileUrl = new URL("../cli/config/js/file.js", import.meta.url);
+  const expectedResult = { tabWidth: 8 };
+
+  const resultByUrl = await prettier.resolveConfig(fileUrl);
+  const resultByUrlHref = await prettier.resolveConfig(fileUrl.href);
+  const resultByPath = await prettier.resolveConfig(urlOrPath.toPath(fileUrl));
+  const resultByRelativePath = await prettier.resolveConfig(
+    path.relative(process.cwd(), urlOrPath.toPath(fileUrl)),
+  );
+  expect(resultByUrl).toMatchObject(expectedResult);
+  expect(resultByUrlHref).toMatchObject(expectedResult);
+  expect(resultByPath).toMatchObject(expectedResult);
+  expect(resultByRelativePath).toMatchObject(expectedResult);
 });
