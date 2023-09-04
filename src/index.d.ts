@@ -636,7 +636,9 @@ export function resolveConfig(
  *
  * The promise will be rejected if there was an error parsing the configuration file.
  */
-export function resolveConfigFile(filePath?: string): Promise<string | null>;
+export function resolveConfigFile(
+  fileUrlOrPath?: string | URL,
+): Promise<string | null>;
 
 /**
  * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.

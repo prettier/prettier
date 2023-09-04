@@ -57,7 +57,7 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editor
 - `indent_size`/`tab_width`
 - `max_line_length`
 
-## `prettier.resolveConfigFile([filePath])`
+## `prettier.resolveConfigFile([fileUrlOrPath])`
 
 `resolveConfigFile` can be used to find the path of the Prettier configuration file that will be used when resolving the config (i.e. when calling `resolveConfig`). A promise is returned which will resolve to:
 
@@ -66,7 +66,7 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editor
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-The search starts at `process.cwd()`, or at `filePath` if provided. Please see the [lilconfig docs](https://github.com/antonk52/lilconfig) for details on how the resolving works.
+The search starts at `process.cwd()`, or at `fileUrlOrPath` if provided. Please see the [lilconfig docs](https://github.com/antonk52/lilconfig) for details on how the resolving works.
 
 ```js
 const configFile = await prettier.resolveConfigFile(filePath);
