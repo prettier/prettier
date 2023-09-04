@@ -35,8 +35,9 @@ function loadPrettierConfig(filePath, options) {
     : search(filePath ? path.resolve(filePath) : undefined);
 }
 
-async function resolveConfig(filePath, options) {
+async function resolveConfig(fileUrlOrPath, options) {
   options = { useCache: true, ...options };
+  const filePath = toPath(fileUrlOrPath);
 
   const [result, editorConfigured] = await Promise.all([
     loadPrettierConfig(filePath, options),
@@ -75,7 +76,10 @@ function mergeOverrides(configResult, filePath) {
   const { config, filepath: configPath } = configResult || {};
   const { overrides, ...options } = config || {};
   if (filePath && overrides) {
-    const relativeFilePath = path.relative(path.dirname(configPath), filePath);
+    const relativeFilePath = path.relative(
+      path.dirname(configPath),
+      toPath(filePath),
+    );
     for (const override of overrides) {
       if (
         pathMatchesGlobs(
