@@ -3441,16 +3441,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-plugins-node-modules-polyfill@npm:1.5.0":
-  version: 1.5.0
-  resolution: "esbuild-plugins-node-modules-polyfill@npm:1.5.0"
+"esbuild-plugins-node-modules-polyfill@npm:1.6.1":
+  version: 1.6.1
+  resolution: "esbuild-plugins-node-modules-polyfill@npm:1.6.1"
   dependencies:
     "@jspm/core": ^2.0.1
     local-pkg: ^0.4.3
     resolve.exports: ^2.0.2
   peerDependencies:
     esbuild: ^0.14.0 || ^0.15.0 || ^0.16.0 || ^0.17.0 || ^0.18.0 || ^0.19.0
-  checksum: c90ca1e4aeb26e9cb2352d19244d58cf22f99482dcbba9b5d691cc2cfa941f0f03b68a4e83b4ea7bb2c646f0a23e0de654bc210e6088bffd7a70c61f84a5263a
+  checksum: 5275f6515084f0f10f004e16c8a2f07fa02a85707ce7fe27f23365865b9541b0225a0b526b9b5f931667ac19070b8764cab8d6d3672bce6ddb154d807a10f61b
   languageName: node
   linkType: hard
 
@@ -7179,7 +7179,7 @@ __metadata:
     emoji-regex: 10.2.1
     enquirer: 2.4.1
     esbuild: 0.19.2
-    esbuild-plugins-node-modules-polyfill: 1.5.0
+    esbuild-plugins-node-modules-polyfill: 1.6.1
     esbuild-visualizer: 0.4.1
     escape-string-regexp: 5.0.0
     eslint: 8.48.0
