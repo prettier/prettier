@@ -217,6 +217,12 @@ const options = {
       },
     ],
   },
+  // Hidden option from config file
+  __ignore: {
+    category: CATEGORY_GLOBAL,
+    type: "boolean",
+    default: false,
+  },
 };
 
 export default options;

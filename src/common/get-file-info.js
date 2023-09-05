@@ -30,25 +30,26 @@ async function getFileInfo(filePath, options) {
   }
 
   const ignored = await isIgnored(filePath, { ignorePath, withNodeModules });
-
-  let inferredParser;
-  if (!ignored) {
-    inferredParser = await getParser(filePath, options);
+  if (ignored) {
+    return { ignored: true, inferredParser: null };
   }
 
-  return {
-    ignored,
-    inferredParser: inferredParser ?? null,
-  };
-}
-
-async function getParser(filePath, options) {
   let config;
   if (options.resolveConfig !== false) {
     config = await resolveConfig(filePath);
   }
 
-  return config?.parser ?? inferParser(options, { physicalFile: filePath });
+  if (config.__ignore) {
+    return { ignored: true, inferredParser: null };
+  }
+
+  return {
+    ignored,
+    inferredParser:
+      config?.parser ??
+      inferParser(options, { physicalFile: filePath }) ??
+      null,
+  };
 }
 
 export default getFileInfo;

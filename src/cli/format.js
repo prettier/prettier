@@ -339,6 +339,10 @@ async function formatFiles(context) {
       filepath: filename,
     };
 
+    if (options.__ignore) {
+      continue;
+    }
+
     const fileNameToDisplay = normalizeToPosix(path.relative(cwd, filename));
     let printedFilename;
     if (isTTY()) {
