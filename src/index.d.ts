@@ -441,6 +441,8 @@ export interface ParserOptions<T = any> extends RequiredOptions {
   locStart: (node: T) => number;
   locEnd: (node: T) => number;
   originalText: string;
+  astFormat: string;
+  printer: Printer<T>;
 }
 
 export interface Plugin<T = any> {
