@@ -76,10 +76,7 @@ function mergeOverrides(configResult, filePath) {
   const { config, filepath: configPath } = configResult || {};
   const { overrides, ...options } = config || {};
   if (filePath && overrides) {
-    const relativeFilePath = path.relative(
-      path.dirname(configPath),
-      toPath(filePath),
-    );
+    const relativeFilePath = path.relative(path.dirname(configPath), filePath);
     for (const override of overrides) {
       if (
         pathMatchesGlobs(
