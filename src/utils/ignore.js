@@ -13,7 +13,7 @@ const slash =
 /**
  * @param {string?} ignoreFilePath
  * @param {boolean?} withNodeModules
- * @returns {Promise<(string | URL) => boolean>}
+ * @returns {Promise<(file: string | URL) => boolean>}
  */
 async function createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules) {
   let content = "";
@@ -48,7 +48,7 @@ async function createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules) {
 /**
  * @param {string[]} ignoreFilePaths
  * @param {boolean?} withNodeModules
- * @returns {Promise<(string | URL) => boolean>}
+ * @returns {Promise<(file: string | URL) => boolean>}
  */
 async function createIsIgnoredFunction(ignoreFilePaths, withNodeModules) {
   // If `ignoreFilePaths` is empty, we still want `withNodeModules` to work
