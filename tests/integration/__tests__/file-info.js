@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "node:fs";
+import url from "node:url";
 import { temporaryDirectory as getTemporaryDirectory } from "tempy";
 import createEsmUtils from "esm-utils";
 import prettier from "../../config/prettier-entry.js";
@@ -381,4 +382,20 @@ test("API getFileInfo with ignorePath and resolveConfig should infer parser with
     ignored: false,
     inferredParser: "parser-for-config-dir",
   });
+});
+
+test("API getFileInfo accepts path or URL", async () => {
+  const fileUrl = new URL("../../../README.md", import.meta.url);
+  const expectedResult = { ignored: false, inferredParser: "markdown" };
+
+  const resultByUrl = await prettier.getFileInfo(fileUrl);
+  const resultByUrlHref = await prettier.getFileInfo(fileUrl.href);
+  const resultByPath = await prettier.getFileInfo(url.fileURLToPath(fileUrl));
+  const resultByRelativePath = await prettier.getFileInfo(
+    path.relative(process.cwd(), url.fileURLToPath(fileUrl)),
+  );
+  expect(resultByUrl).toEqual(expectedResult);
+  expect(resultByUrlHref).toEqual(expectedResult);
+  expect(resultByPath).toEqual(expectedResult);
+  expect(resultByRelativePath).toEqual(expectedResult);
 });
