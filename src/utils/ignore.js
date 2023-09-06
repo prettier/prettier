@@ -5,10 +5,11 @@ import ignoreModule from "ignore";
 import readFile from "../utils/read-file.js";
 
 const createIgnore = ignoreModule.default;
+/** @type {(filePath: string) => string} */
 const slash =
   path.sep === "\\"
-    ? (filepath) => filepath.replaceAll("\\", "/")
-    : (filepath) => filepath;
+    ? (filePath) => filePath.replaceAll("\\", "/")
+    : (filePath) => filePath;
 
 /**
  * @param {string?} ignoreFilePath
@@ -33,7 +34,10 @@ async function createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules) {
   const ignore = createIgnore({ allowRelativePaths: true }).add(content);
 
   return (file) => {
-    const filePath = isUrl(file) ? url.fileURLToPath(file) : path.resolve(file);
+    const filePath = isUrl(file)
+      ? url.fileURLToPath(file)
+      : // @ts-expect-error -- URLs handled by `isUrl`
+        path.resolve(file);
 
     // If there's an ignore-path set, the filename must be relative to the
     // ignore path, not the current working directory.
