@@ -77,7 +77,7 @@ const configFile = await prettier.resolveConfigFile(filePath);
 
 When Prettier loads configuration files and plugins, the file system structure is cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
 
-## `prettier.getFileInfo(filePath [, options])`
+## `prettier.getFileInfo(fileUrlOrPath [, options])`
 
 `getFileInfo` can be used by editor extensions to decide if a particular file needs to be formatted. This method returns a promise, which resolves to an object with the following properties:
 
@@ -88,11 +88,11 @@ When Prettier loads configuration files and plugins, the file system structure i
 }
 ```
 
-The promise will be rejected if the type of `filePath` is not `string`.
+The promise will be rejected if the type of `fileUrlOrPath` is not `string` or `URL`.
 
 Setting `options.ignorePath` (`string | string[]`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
 
-If the given `filePath` is ignored, the `inferredParser` is always `null`.
+If the given `fileUrlOrPath` is ignored, the `inferredParser` is always `null`.
 
 Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
 
