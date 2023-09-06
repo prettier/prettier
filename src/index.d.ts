@@ -609,8 +609,8 @@ export interface ResolveConfigOptions {
 
 /**
  * `resolveConfig` can be used to resolve configuration for a given source file,
- * passing its path as the first argument. The config search will start at the
- * file path and continue to search up the directory.
+ * passing its path or url as the first argument. The config search will start at
+ * the file location and continue to search up the directory.
  * (You can use `process.cwd()` to start searching from the current directory).
  *
  * A promise is returned which will resolve to:
@@ -621,7 +621,7 @@ export interface ResolveConfigOptions {
  * The promise will be rejected if there was an error parsing the configuration file.
  */
 export function resolveConfig(
-  filePath: string,
+  fileUrlOrPath: string | URL,
   options?: ResolveConfigOptions,
 ): Promise<Options | null>;
 

@@ -35,8 +35,9 @@ function loadPrettierConfig(filePath, options) {
     : search(filePath ? path.resolve(filePath) : undefined);
 }
 
-async function resolveConfig(filePath, options) {
+async function resolveConfig(fileUrlOrPath, options) {
   options = { useCache: true, ...options };
+  const filePath = toPath(fileUrlOrPath);
 
   const [result, editorConfigured] = await Promise.all([
     loadPrettierConfig(filePath, options),
