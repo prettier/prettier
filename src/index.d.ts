@@ -799,7 +799,7 @@ export interface FileInfoResult {
 }
 
 export function getFileInfo(
-  filePath: string,
+  fileUrlOrPath: string,
   options?: FileInfoOptions,
 ): Promise<FileInfoResult>;
 

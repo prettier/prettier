@@ -1,3 +1,4 @@
+import { toPath } from "url-or-path";
 import inferParser from "../utils/infer-parser.js";
 import { resolveConfig } from "../config/resolve-config.js";
 import { isIgnored } from "../utils/ignore.js";
@@ -8,7 +9,7 @@ import { isIgnored } from "../utils/ignore.js";
  */
 
 /**
- * @param {string} filePath
+ * @param {string | URL} fileUrlOrPath
  * @param {FileInfoOptions} options
  * @returns {Promise<FileInfoResult>}
  *
@@ -16,10 +17,10 @@ import { isIgnored } from "../utils/ignore.js";
  * not an object. A transformation from this array to an object is automatically done
  * internally by the method wrapper. See withPlugins() in index.js.
  */
-async function getFileInfo(filePath, options) {
-  if (typeof filePath !== "string") {
+async function getFileInfo(fileUrlOrPath, options) {
+  if (typeof fileUrlOrPath !== "string" && !(fileUrlOrPath instanceof URL)) {
     throw new TypeError(
-      `expect \`filePath\` to be a string, got \`${typeof filePath}\``,
+      `expect \`fileUrlOrPath\` to be a string or URL, got \`${typeof fileUrlOrPath}\``,
     );
   }
 
@@ -29,6 +30,7 @@ async function getFileInfo(filePath, options) {
     ignorePath = [ignorePath];
   }
 
+  const filePath = toPath(fileUrlOrPath);
   const ignored = await isIgnored(filePath, { ignorePath, withNodeModules });
 
   let inferredParser;
