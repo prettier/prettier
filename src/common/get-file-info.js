@@ -46,8 +46,7 @@ async function getFileInfo(file, options) {
 async function getParser(file, options) {
   let config;
   if (options.resolveConfig !== false) {
-    // TODO[@fisker]: Use `file` directly
-    config = await resolveConfig(toPath(file));
+    config = await resolveConfig(file);
   }
 
   return config?.parser ?? inferParser(options, { physicalFile: file });
