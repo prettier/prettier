@@ -1,4 +1,6 @@
 import path from "node:path";
+import url from "node:url";
+import { isUrl } from "url-or-path";
 import ignoreModule from "ignore";
 import readFile from "../utils/read-file.js";
 
@@ -11,7 +13,7 @@ const slash =
 /**
  * @param {string?} ignoreFilePath
  * @param {boolean?} withNodeModules
- * @returns {Promise<(string) => boolean>}
+ * @returns {Promise<(string | URL) => boolean>}
  */
 async function createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules) {
   let content = "";
@@ -30,14 +32,14 @@ async function createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules) {
 
   const ignore = createIgnore({ allowRelativePaths: true }).add(content);
 
-  return (filepath) => {
-    filepath = path.resolve(filepath);
+  return (file) => {
+    const filePath = isUrl(file) ? url.fileURLToPath(file) : path.resolve(file);
 
     // If there's an ignore-path set, the filename must be relative to the
     // ignore path, not the current working directory.
     const relativePath = ignoreFilePath
-      ? path.relative(path.dirname(ignoreFilePath), filepath)
-      : path.relative(process.cwd(), filepath);
+      ? path.relative(path.dirname(ignoreFilePath), filePath)
+      : path.relative(process.cwd(), filePath);
 
     return ignore.ignores(slash(relativePath));
   };
@@ -46,7 +48,7 @@ async function createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules) {
 /**
  * @param {string[]} ignoreFilePaths
  * @param {boolean?} withNodeModules
- * @returns {Promise<(string) => boolean>}
+ * @returns {Promise<(string | URL) => boolean>}
  */
 async function createIsIgnoredFunction(ignoreFilePaths, withNodeModules) {
   // If `ignoreFilePaths` is empty, we still want `withNodeModules` to work
@@ -62,19 +64,18 @@ async function createIsIgnoredFunction(ignoreFilePaths, withNodeModules) {
     )
   ).filter(Boolean);
 
-  return (filepath) =>
-    isIgnoredFunctions.some((isIgnored) => isIgnored(filepath));
+  return (file) => isIgnoredFunctions.some((isIgnored) => isIgnored(file));
 }
 
 /**
- * @param {string[]} filepath
+ * @param {string | URL} file
  * @param {{ignorePath: string[], withNodeModules?: boolean}} options
  * @returns {Promise<boolean>}
  */
-async function isIgnored(filepath, options) {
+async function isIgnored(file, options) {
   const { ignorePath, withNodeModules } = options;
   const isIgnored = await createIsIgnoredFunction(ignorePath, withNodeModules);
-  return isIgnored(filepath);
+  return isIgnored(file);
 }
 
 export { createIsIgnoredFunction, isIgnored };
