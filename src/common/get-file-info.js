@@ -1,4 +1,3 @@
-import { toPath } from "url-or-path";
 import inferParser from "../utils/infer-parser.js";
 import { resolveConfig } from "../config/resolve-config.js";
 import { isIgnored } from "../utils/ignore.js";
