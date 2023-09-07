@@ -65,7 +65,7 @@ async function resolveConfig(fileUrlOrPath, options) {
 }
 
 async function resolveConfigFile(fileUrlOrPath) {
-  const { search } = getPrettierConfigExplorer({ cache: false });
+  const { search } = getPrettierConfigExplorerWithoutCache();
   const result = await search(
     fileUrlOrPath
       ? path.dirname(path.resolve(toPath(fileUrlOrPath)))
