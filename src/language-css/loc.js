@@ -26,12 +26,6 @@ function calculateLocEnd(node, text) {
     return skipEverythingButNewLine(text, node.source.startOffset);
   }
 
-  // `postcss>=8`
-  if (typeof node.source?.end?.offset === "number") {
-    // https://github.com/postcss/postcss/issues/1450
-    return node.source.end.offset + 1;
-  }
-
   if (node.source) {
     if (node.source.end) {
       return lineColumnToIndex(node.source.end, text);
