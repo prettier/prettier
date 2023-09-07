@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 
 /**
- * @param {string} filename
+ * @param {string | URL} filename
  * @returns {Promise<undefined | string>}
  */
 async function readFile(filename) {
