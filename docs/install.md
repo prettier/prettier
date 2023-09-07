@@ -28,6 +28,13 @@ pnpm add --save-dev --save-exact prettier
 
 Then, create an empty config file to let editors and other tools know you are using Prettier:
 
+<!--
+Note:
+- `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows.
+- `echo {}> .prettierrc.json` would result `.prettierrc.json` file in UTF-16LE encoding.
+The below version works in cmd.exe, bash, zsh, fish, powershell.exe.
+-->
+
 ```bash
 node -e "fs.writeFileSync('.prettierrc.json','{}\n')"
 ```
