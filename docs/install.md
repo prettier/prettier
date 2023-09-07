@@ -29,7 +29,7 @@ pnpm add --save-dev --save-exact prettier
 Then, create an empty config file to let editors and other tools know you are using Prettier:
 
 ```bash
-node -e "fs.writeFileSync('.prettierrc.json', '{}\n')"
+node -e "fs.writeFileSync('.prettierrc.json','{}\n')"
 ```
 
 Next, create a [.prettierignore](ignore.md) file to let the Prettier CLI and editors know which files to _not_ format. Here’s an example:
