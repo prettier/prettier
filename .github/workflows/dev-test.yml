@@ -27,7 +27,7 @@ jobs:
           - "windows-latest"
         node:
           # Latest even version
-          - "20"
+          - "20.5" # https://github.com/nodejs/node/issues/49497
           # Minimal version for development
           - "16"
         include:
