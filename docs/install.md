@@ -36,7 +36,7 @@ The below version works in cmd.exe, bash, zsh, fish, powershell.exe.
 -->
 
 ```bash
-node -e "fs.writeFileSync('.prettierrc.json','{}\n')"
+node --eval "fs.writeFileSync('.prettierrc','{}\n')"
 ```
 
 Next, create a [.prettierignore](ignore.md) file to let the Prettier CLI and editors know which files to _not_ format. Here’s an example:
