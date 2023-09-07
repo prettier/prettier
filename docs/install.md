@@ -30,8 +30,8 @@ Then, create an empty config file to let editors and other tools know you are us
 
 <!--
 Note:
-- `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows.
-- `echo {}> .prettierrc.json` would result `.prettierrc.json` file in UTF-16LE encoding.
+- `echo "{}" > .prettierrc` would result in `"{}"<SPACE>` on Windows.
+- `echo {}> .prettierrc` would result `.prettierrc.json` file in UTF-16LE encoding.
 The below version works in cmd.exe, bash, zsh, fish, powershell.exe.
 -->
 
