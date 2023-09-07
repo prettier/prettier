@@ -76,27 +76,36 @@ async function main(context) {
     return printSupportInfo();
   }
 
+  if (context.argv.findConfigPath) {
+    await logResolvedConfigPathOrDie(context);
+    return;
+  }
+
+  if (context.argv.fileInfo) {
+    await logFileInfoOrDie(context);
+    return;
+  }
+
   const hasFilePatterns = context.filePatterns.length > 0;
   const useStdin =
     !hasFilePatterns && (!process.stdin.isTTY || context.argv.filepath);
 
-  if (context.argv.findConfigPath) {
-    await logResolvedConfigPathOrDie(context);
-  } else if (context.argv.fileInfo) {
-    await logFileInfoOrDie(context);
-  } else if (useStdin) {
+  if (useStdin) {
     if (context.argv.cache) {
-      process.exitCode = 2;
-      context.logger.error("`--cache` cannot be used with stdin.");
-      return;
+      throw new Error("`--cache` cannot be used when formatting stdin.");
     }
+
     await formatStdin(context);
-  } else if (hasFilePatterns) {
-    await formatFiles(context);
-  } else {
-    process.exitCode = 1;
-    printToScreen(createUsage(context));
+    return;
   }
+
+  if (hasFilePatterns) {
+    await formatFiles(context);
+    return;
+  }
+
+  process.exitCode = 1;
+  printToScreen(createUsage(context));
 }
 
 export { run };

@@ -75,7 +75,9 @@ describe("--cache option", () => {
       ["--cache", "--stdin-filepath", "foo.js"],
       { input: "const a = a;" },
     );
-    expect(stderr.trim()).toBe("[error] `--cache` cannot be used with stdin.");
+    expect(stderr.trim()).toBe(
+      "[error] `--cache` cannot be used when formatting stdin.",
+    );
   });
 
   it("throws error when use `--cache-strategy` without `--cache`.", async () => {
