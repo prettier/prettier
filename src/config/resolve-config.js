@@ -32,7 +32,7 @@ function loadPrettierConfig(filePath, options) {
   });
   return configPath
     ? load(configPath)
-    : search(filePath ? path.resolve(filePath) : undefined);
+    : search(filePath ? path.dirname(path.resolve(filePath)) : process.cwd());
 }
 
 async function resolveConfig(fileUrlOrPath, options) {
@@ -67,7 +67,9 @@ async function resolveConfig(fileUrlOrPath, options) {
 async function resolveConfigFile(fileUrlOrPath) {
   const { search } = getPrettierConfigExplorer({ cache: false });
   const result = await search(
-    fileUrlOrPath ? path.resolve(toPath(fileUrlOrPath)) : undefined,
+    fileUrlOrPath
+      ? path.dirname(path.resolve(toPath(fileUrlOrPath)))
+      : process.cwd(),
   );
   return result?.filepath ?? null;
 }
