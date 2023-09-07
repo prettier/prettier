@@ -28,10 +28,8 @@ pnpm add --save-dev --save-exact prettier
 
 Then, create an empty config file to let editors and other tools know you are using Prettier:
 
-<!-- Note: `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows. The below version works in cmd.exe, bash, zsh, fish. -->
-
 ```bash
-echo {}> .prettierrc.json
+node -e "require('fs').writeFileSync('.prettierrc.json', '{}\n')"
 ```
 
 Next, create a [.prettierignore](ignore.md) file to let the Prettier CLI and editors know which files to _not_ format. Here’s an example:
