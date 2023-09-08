@@ -270,7 +270,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
       isMathOperator &&
       iNode.value === "-" &&
       iNextNode.type === "value-func" &&
-      (options.parser !== "scss" || locEnd(iNode) !== locStart(iNextNode))
+      locEnd(iNode) !== locStart(iNextNode)
     ) {
       parts.push(" ");
       continue;
