@@ -1096,8 +1096,8 @@ div {
   margin: - double(-double(1em));
 }
 
-@function asdf() {
-  @return width: -double(1em);
+@function -double($value) {
+  @return $value * 2;
 }
 
 $foo: (
