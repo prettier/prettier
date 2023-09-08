@@ -1090,6 +1090,16 @@ div {
   margin: - pow(2, 2) * 100px;
 }
 
+div {
+  margin: -double(-double(1em));
+}
+
+@function asdf() {
+  @return (
+    width: -double(1em);
+  )
+}
+
 $foo: (
     'property1': (),
     // comment 1

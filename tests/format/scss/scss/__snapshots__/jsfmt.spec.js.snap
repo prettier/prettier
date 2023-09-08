@@ -1559,6 +1559,16 @@ div {
   margin: - pow(2, 2) * 100px;
 }
 
+div {
+  margin: -double(-double(1em));
+}
+
+@function asdf() {
+  @return (
+    width: -double(1em);
+  )
+}
+
 $foo: (
     'property1': (),
     // comment 1
@@ -2640,6 +2650,14 @@ label {
 // #5636
 div {
   margin: - pow(2, 2) * 100px;
+}
+
+div {
+  margin: -double(-double(1em));
+}
+
+@function asdf() {
+  @return (width: -double(1em) ;);
 }
 
 $foo: (
@@ -3752,6 +3770,16 @@ div {
   margin: - pow(2, 2) * 100px;
 }
 
+div {
+  margin: -double(-double(1em));
+}
+
+@function asdf() {
+  @return (
+    width: -double(1em);
+  )
+}
+
 $foo: (
     'property1': (),
     // comment 1
@@ -4833,6 +4861,14 @@ label {
 // #5636
 div {
   margin: - pow(2, 2) * 100px;
+}
+
+div {
+  margin: -double(-double(1em));
+}
+
+@function asdf() {
+  @return (width: -double(1em) ;);
 }
 
 $foo: (
