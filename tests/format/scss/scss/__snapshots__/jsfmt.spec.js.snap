@@ -1561,6 +1561,8 @@ div {
 
 div {
   margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
 }
 
 @function asdf() {
@@ -2654,6 +2656,8 @@ div {
 
 div {
   margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
 }
 
 @function asdf() {
@@ -3772,6 +3776,8 @@ div {
 
 div {
   margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
 }
 
 @function asdf() {
@@ -4865,6 +4871,8 @@ div {
 
 div {
   margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
 }
 
 @function asdf() {
