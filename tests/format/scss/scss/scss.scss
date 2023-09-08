@@ -1097,9 +1097,7 @@ div {
 }
 
 @function asdf() {
-  @return (
-    width: -double(1em);
-  )
+  @return width: -double(1em);
 }
 
 $foo: (
