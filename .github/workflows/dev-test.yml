@@ -56,7 +56,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
-          check-latest: true
 
       - name: Install Dependencies
         run: yarn install --immutable
