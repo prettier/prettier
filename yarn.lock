@@ -7078,12 +7078,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-scss@npm:4.0.7":
-  version: 4.0.7
-  resolution: "postcss-scss@npm:4.0.7"
+"postcss-scss@npm:4.0.8":
+  version: 4.0.8
+  resolution: "postcss-scss@npm:4.0.8"
   peerDependencies:
-    postcss: ^8.4.19
-  checksum: 579aa6807bf4934dd9bd3f8a257736c1121e189f2aa23853512e2a1be1005bac0136020d08e626998bcd3537080a1403f7a03a8cae277f3e0e314eb3c779db9c
+    postcss: ^8.4.29
+  checksum: 7d3fa94faa0b3987e5ee6e9fd0d8d4004ea5e6823ef740d7a1d5331c52c4f9a19584df16b3581561870ed70b9fc27222e098eafb3bb296ac355ad26fd22d16da
   languageName: node
   linkType: hard
 
@@ -7237,7 +7237,7 @@ __metadata:
     postcss: 8.4.29
     postcss-less: 6.0.0
     postcss-media-query-parser: 0.2.3
-    postcss-scss: 4.0.7
+    postcss-scss: 4.0.8
     postcss-selector-parser: 2.2.3
     postcss-values-parser: 2.0.1
     prettier: 3.0.3
