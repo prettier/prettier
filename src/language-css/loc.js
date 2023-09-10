@@ -26,6 +26,11 @@ function calculateLocEnd(node, text) {
     return skipEverythingButNewLine(text, node.source.startOffset);
   }
 
+  // `postcss>=8`
+  if (typeof node.source?.end?.offset === "number") {
+    return node.source.end.offset;
+  }
+
   if (node.source) {
     if (node.source.end) {
       return lineColumnToIndex(node.source.end, text);
