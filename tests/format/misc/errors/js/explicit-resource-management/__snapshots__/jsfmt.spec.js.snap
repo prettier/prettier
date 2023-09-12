@@ -57,7 +57,7 @@ exports[`invalid-for-using-binding-of-of.js [flow] format 1`] = `
 `;
 
 exports[`invalid-using-binding-let.js [babel] format 1`] = `
-"'let' is not allowed to be used as a name in 'let' or 'const' declarations. (2:9)
+"'let' is disallowed as a lexically bound name. (2:9)
   1 | {
 > 2 |   using let = h();
     |         ^
