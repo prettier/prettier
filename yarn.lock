@@ -238,12 +238,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:7.22.14, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.5":
-  version: 7.22.14
-  resolution: "@babel/parser@npm:7.22.14"
+"@babel/parser@npm:7.22.16, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.5":
+  version: 7.22.16
+  resolution: "@babel/parser@npm:7.22.16"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: a2293971f0889726a3d5a35fcceedc71d2fa4c8d97f438fc348fe0cf7e739affc6e2665e4c6ddd4900714772e19bfd5d6feb967ca1f623b894c0099ecb148b52
+  checksum: 944c756b5bdeb07b9fec16ecef6b3c61aff9d4c4b924abadcf01afa1840a740b8e2357ae00482b5b37daad6d2bfd848c947f27ad65138d687b6fdc924bc59edd
   languageName: node
   linkType: hard
 
@@ -7143,7 +7143,7 @@ __metadata:
     "@angular/compiler": 16.2.4
     "@babel/code-frame": 7.22.13
     "@babel/generator": 7.22.10
-    "@babel/parser": 7.22.14
+    "@babel/parser": 7.22.16
     "@babel/types": 7.22.11
     "@glimmer/reference": 0.84.3
     "@glimmer/syntax": 0.84.3
