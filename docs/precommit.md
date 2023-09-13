@@ -69,6 +69,8 @@ Copy the following config into your `.pre-commit-config.yaml` file:
 
 Read more at [mirror of prettier package for pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
 
+If you use Prettier 3.0 or later with plugins, you need to write the path to plugins in `.prettierrc.js`. See https://github.com/sosukesuzuki/prettier-precommit-with-plugins-example for details.
+
 ## Option 4. [Husky.Net](https://github.com/alirezanet/Husky.Net)
 
 **Use Case:** A dotnet solution to use Prettier along with other code quality tools (e.g. dotnet-format, ESLint, Stylelint, etc.). It supports multiple file states (staged - last-commit, git-files etc.)
