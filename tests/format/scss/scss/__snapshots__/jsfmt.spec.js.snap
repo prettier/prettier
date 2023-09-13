@@ -1559,6 +1559,16 @@ div {
   margin: - pow(2, 2) * 100px;
 }
 
+div {
+  margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
+}
+
+@function -double($value) {
+  @return $value * 2;
+}
+
 $foo: (
     'property1': (),
     // comment 1
@@ -2640,6 +2650,16 @@ label {
 // #5636
 div {
   margin: - pow(2, 2) * 100px;
+}
+
+div {
+  margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
+}
+
+@function -double($value) {
+  @return $value * 2;
 }
 
 $foo: (
@@ -3752,6 +3772,16 @@ div {
   margin: - pow(2, 2) * 100px;
 }
 
+div {
+  margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
+}
+
+@function -double($value) {
+  @return $value * 2;
+}
+
 $foo: (
     'property1': (),
     // comment 1
@@ -4833,6 +4863,16 @@ label {
 // #5636
 div {
   margin: - pow(2, 2) * 100px;
+}
+
+div {
+  margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
+}
+
+@function -double($value) {
+  @return $value * 2;
 }
 
 $foo: (

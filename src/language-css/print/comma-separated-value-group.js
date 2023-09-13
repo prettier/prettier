@@ -269,7 +269,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
       options.parser === "scss" &&
       isMathOperator &&
       iNode.value === "-" &&
-      iNextNode.type === "value-func"
+      iNextNode.type === "value-func" &&
+      locEnd(iNode) !== locStart(iNextNode)
     ) {
       parts.push(" ");
       continue;
