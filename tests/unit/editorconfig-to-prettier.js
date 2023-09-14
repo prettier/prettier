@@ -29,7 +29,7 @@ test('editorconfigToPrettier', () => {
 
   expect(
     editorconfigToPrettier({
-      // indent_style: "space",
+      indent_style: "space",
       tab_width: 8,
       indent_size: 8,
       max_line_length: 100,
