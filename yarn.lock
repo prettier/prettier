@@ -4636,17 +4636,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-styles@npm:1.0.0":
-  version: 1.0.0
-  resolution: "html-styles@npm:1.0.0"
-  checksum: e53ac1e3a9f70fbf9ca0c046a71de1dbb262f0e10aeb426df886ffc091a290b276a9e813f5b6a3695edf7eaa5426b2cefa2706f314ab4b2dd476549af774583a
-  languageName: node
-  linkType: hard
-
 "html-tag-names@npm:2.1.0":
   version: 2.1.0
   resolution: "html-tag-names@npm:2.1.0"
   checksum: 96c045ea2afb6c580249fd155275a6d3d362bbc4d2cc0eb6b53cdb7cdc9bf7595aba73cf3dba51ff49ef1b856264feace4b4e941dbffad58e77a87f6f48bdc4b
+  languageName: node
+  linkType: hard
+
+"html-ua-styles@npm:0.0.1":
+  version: 0.0.1
+  resolution: "html-ua-styles@npm:0.0.1"
+  checksum: afd371483fd503d37e462415c0838780e7d4e9fdf285afd619dc486b9ae0c122a6abfb8176f693ed78602741f524f33194ad28d04dcd2eb970befb2eef866374
   languageName: node
   linkType: hard
 
@@ -7207,8 +7207,8 @@ __metadata:
     graphql: 16.8.0
     hermes-parser: 0.15.1
     html-element-attributes: 3.2.0
-    html-styles: 1.0.0
     html-tag-names: 2.1.0
+    html-ua-styles: 0.0.1
     ignore: 5.2.4
     import-meta-resolve: 3.0.0
     jest: 29.6.4
