@@ -113,7 +113,8 @@ printWidth: 1
   class="common--error-message"
   test-hook="upper-error-message"
   ng-if="
-    !$ctrl.showsFormBelowPlain() &&
+    !$ctrl
+      .showsFormBelowPlain() &&
     !!$ctrl
       .error
       .message &&
@@ -1093,7 +1094,8 @@ printWidth: 1
     )
   "
   [target]="
-    a.b(
+    a
+      .b(
       1,
       2
     )
@@ -1126,7 +1128,8 @@ printWidth: 1
   "
   [target]=" javascript : 'hello world' "
   [target]="
-    a?.b()
+    a
+      ?.b()
   "
   [target]="
     a?.b
@@ -3452,7 +3455,8 @@ printWidth: 1
 </div>
 <div>
   {{
-    a.b(
+    a
+      .b(
       1,
       2
     )
@@ -3490,7 +3494,8 @@ printWidth: 1
 </div>
 <div>
   {{
-    a?.b()
+    a
+      ?.b()
   }}
 </div>
 <div>
