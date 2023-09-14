@@ -10,11 +10,6 @@ async function loadEditorConfig(filePath) {
 
   const config = editorConfigToPrettier(editorConfig);
 
-  if (config) {
-    // We are not using this option
-    delete config.insertFinalNewline;
-  }
-
   return config;
 }
 
