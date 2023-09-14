@@ -1,160 +1,145 @@
-import assert from "node:assert/strict";
 import editorconfigToPrettier from "../../src/config/editorconfig-to-prettier.js";
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     indent_style: "tab",
     tab_width: 8,
     indent_size: 2,
     max_line_length: 100,
   }),
-  {
-    useTabs: true,
-    tabWidth: 8,
-    printWidth: 100,
-  },
-);
+).toStrictEqual({
+  useTabs: true,
+  tabWidth: 8,
+  printWidth: 100,
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     indent_style: "space",
     tab_width: 8,
     indent_size: 2,
     max_line_length: 100,
   }),
-  {
-    useTabs: false,
-    tabWidth: 2,
-    printWidth: 100,
-  },
-);
+).toStrictEqual({
+  useTabs: false,
+  tabWidth: 2,
+  printWidth: 100,
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     indent_style: "space",
     tab_width: 8,
     indent_size: 8,
     max_line_length: 100,
   }),
-  {
-    useTabs: false,
-    tabWidth: 8,
-    printWidth: 100,
-  },
-);
+).toStrictEqual({
+  useTabs: false,
+  tabWidth: 8,
+  printWidth: 100,
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     tab_width: 4,
     indent_size: "tab",
   }),
-  {
-    tabWidth: 4,
-    useTabs: true,
-  },
-);
+).toStrictEqual({
+  tabWidth: 4,
+  useTabs: true,
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     indent_size: "tab",
   }),
-  {
-    useTabs: true,
-  },
-);
+).toStrictEqual({
+  useTabs: true,
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     tab_width: 0,
     indent_size: 0,
   }),
-  {
-    tabWidth: 0,
-  },
-);
+).toStrictEqual({
+  tabWidth: 0,
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     quote_type: "single",
   }),
-  {
-    singleQuote: true,
-  },
-);
+).toStrictEqual({
+  singleQuote: true,
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     quote_type: "double",
   }),
-  {
-    singleQuote: false,
-  },
-);
+).toStrictEqual({
+  singleQuote: false,
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     quote_type: "double",
     max_line_length: "off",
   }),
-  {
-    printWidth: Number.POSITIVE_INFINITY,
-    singleQuote: false,
-  },
-);
+).toStrictEqual({
+  printWidth: Number.POSITIVE_INFINITY,
+  singleQuote: false,
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     end_of_line: "cr",
   }),
-  {
-    endOfLine: "cr",
-  },
-);
+).toStrictEqual({
+  endOfLine: "cr",
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     end_of_line: "crlf",
   }),
-  {
-    endOfLine: "crlf",
-  },
-);
+).toStrictEqual({
+  endOfLine: "crlf",
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     end_of_line: "lf",
   }),
-  {
-    endOfLine: "lf",
-  },
-);
+).toStrictEqual({
+  endOfLine: "lf",
+});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     endOfLine: 123,
   }),
-  {},
-);
+).toStrictEqual({});
 
-assert.deepEqual(
+expect(
   editorconfigToPrettier({
     indent_style: "space",
     indent_size: 2,
     max_line_length: "unset",
   }),
-  {
-    useTabs: false,
-    tabWidth: 2,
-  },
-);
+).toStrictEqual({
+  useTabs: false,
+  tabWidth: 2,
+});
 
-assert.deepEqual(editorconfigToPrettier({ insert_final_newline: false }), {
+expect(editorconfigToPrettier({ insert_final_newline: false })).toStrictEqual({
   insertFinalNewline: false,
 });
 
-assert.deepEqual(editorconfigToPrettier({ insert_final_newline: true }), {
+expect(editorconfigToPrettier({ insert_final_newline: true })).toStrictEqual({
   insertFinalNewline: true,
 });
 
-assert.deepEqual(editorconfigToPrettier({}), null);
-assert.deepEqual(editorconfigToPrettier(null), null);
+expect(editorconfigToPrettier({})).toBeNull();
+expect(editorconfigToPrettier(null)).toBeNull();
