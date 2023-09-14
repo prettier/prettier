@@ -1,6 +1,6 @@
 import path from "node:path";
 import editorconfig from "editorconfig";
-const editorConfigToPrettier = require("./editorconfig-to-prettier.js");
+import editorConfigToPrettier from "./editorconfig-to-prettier.js";
 import findProjectRoot from "./find-project-root.js";
 
 async function loadEditorConfig(filePath) {
