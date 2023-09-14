@@ -58,7 +58,7 @@ function editorConfigToPrettier(editorConfig) {
     result.singleQuote = false;
   }
 
-  if (["cr", "crlf", "lf"].indexOf(editorConfig.end_of_line) !== -1) {
+  if (["cr", "crlf", "lf"].includes(editorConfig.end_of_line)) {
     result.endOfLine = editorConfig.end_of_line;
   }
 
