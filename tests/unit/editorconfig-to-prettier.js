@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import editorconfigToPrettier from "./index.js";
+import editorconfigToPrettier from "../../src/config/editorconfig-to-prettier.js";
 
 assert.deepEqual(
   editorconfigToPrettier({
