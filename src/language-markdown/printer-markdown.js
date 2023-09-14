@@ -200,11 +200,14 @@ function genericPrint(path, options, print) {
           return ["<", url, ">"];
         }
         case "[":
+          const encodedString = node.url
+            .replace(/</g, "%3C")
+            .replace(/>/g, "%3E");
           return [
             "[",
             printChildren(path, options, print),
             "](",
-            printUrl(node.url, ")"),
+            printUrl(encodedString, ")"),
             printTitle(node.title, options),
             ")",
           ];
