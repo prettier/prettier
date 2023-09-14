@@ -787,7 +787,7 @@ export interface SupportInfo {
 }
 
 export interface FileInfoOptions {
-  ignorePath?: string | string[] | undefined;
+  ignorePath?: string | URL | (string | URL)[] | undefined;
   withNodeModules?: boolean | undefined;
   plugins?: string[] | undefined;
   resolveConfig?: boolean | undefined;

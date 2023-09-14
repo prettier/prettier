@@ -221,8 +221,9 @@ test("API getFileInfo with ignorePath", async () => {
     "../cli/ignore-path/file-info-test/ignored-by-customignore.js",
     import.meta.url,
   );
-  const ignorePath = path.resolve(
-    path.join(__dirname, "../cli/ignore-path/file-info-test/.customignore"),
+  const ignorePath = new URL(
+    "../cli/ignore-path/file-info-test/.customignore",
+    import.meta.url,
   );
 
   await expect(prettier.getFileInfo(file)).resolves.toEqual({
@@ -241,8 +242,9 @@ test("API getFileInfo with ignorePath containing relative paths", async () => {
     "../cli/ignore-relative-path/level1-glob/level2-glob/level3-glob/shouldNotBeFormat.js",
     import.meta.url,
   );
-  const ignorePath = path.resolve(
-    path.join(__dirname, "../cli/ignore-relative-path/.prettierignore"),
+  const ignorePath = new URL(
+    "../cli/ignore-relative-path/.prettierignore",
+    import.meta.url,
   );
 
   await expect(prettier.getFileInfo(file)).resolves.toEqual({
@@ -359,15 +361,15 @@ test("API getFileInfo with hand-picked plugins", async () => {
 });
 
 test("API getFileInfo with ignorePath and resolveConfig should infer parser with correct filepath", async () => {
-  const dir = path.join(__dirname, "../cli/ignore-and-config/");
-  const filePath = path.join(dir, "config-dir/foo");
-  const ignorePath = path.join(dir, "ignore-path-dir/.prettierignore");
+  const directory = new URL("../cli/ignore-and-config/", import.meta.url);
+  const file = new URL("./config-dir/foo", directory);
+  const ignorePath = new URL("./ignore-path-dir/.prettierignore", directory);
   const options = {
     resolveConfig: true,
     ignorePath,
   };
 
-  await expect(prettier.getFileInfo(filePath, options)).resolves.toEqual({
+  await expect(prettier.getFileInfo(file, options)).resolves.toEqual({
     ignored: false,
     inferredParser: "parser-for-config-dir",
   });
@@ -387,4 +389,41 @@ test("API getFileInfo accepts path or URL", async () => {
   expect(resultByUrlHref).toEqual(expectedResult);
   expect(resultByPath).toEqual(expectedResult);
   expect(resultByRelativePath).toEqual(expectedResult);
+});
+
+test("API getFileInfo accepts path or URL as ignorePath", async () => {
+  const file = new URL(
+    "../cli/ignore-path/file-info-test/ignored-by-customignore.js",
+    import.meta.url,
+  );
+  const ignoreFileUrl = new URL(
+    "../cli/ignore-path/file-info-test/.customignore",
+    import.meta.url,
+  );
+  const expectedResult = { ignored: true, inferredParser: null };
+
+  const resultByUrl = await prettier.getFileInfo(file, {
+    ignorePath: ignoreFileUrl,
+  });
+  const resultByUrlArray = await prettier.getFileInfo(file, {
+    ignorePath: [ignoreFileUrl],
+  });
+  const resultByUrlHref = await prettier.getFileInfo(file, {
+    ignorePath: ignoreFileUrl.href,
+  });
+  const resultByUrlHrefArray = await prettier.getFileInfo(file, {
+    ignorePath: [ignoreFileUrl.href],
+  });
+  const resultByPath = await prettier.getFileInfo(file, {
+    ignorePath: url.fileURLToPath(ignoreFileUrl),
+  });
+  const resultByPathArray = await prettier.getFileInfo(file, {
+    ignorePath: [url.fileURLToPath(ignoreFileUrl)],
+  });
+  expect(resultByUrl).toEqual(expectedResult);
+  expect(resultByUrlArray).toEqual(expectedResult);
+  expect(resultByUrlHref).toEqual(expectedResult);
+  expect(resultByUrlHrefArray).toEqual(expectedResult);
+  expect(resultByPath).toEqual(expectedResult);
+  expect(resultByPathArray).toEqual(expectedResult);
 });

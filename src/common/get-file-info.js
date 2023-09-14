@@ -3,7 +3,7 @@ import { resolveConfig } from "../config/resolve-config.js";
 import { isIgnored } from "../utils/ignore.js";
 
 /**
- * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
+ * @typedef {{ ignorePath?: string | URL | (string | URL)[], withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
  * @typedef {{ ignored: boolean, inferredParser: string | null }} FileInfoResult
  */
 
