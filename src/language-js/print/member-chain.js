@@ -297,12 +297,20 @@ function printMemberChain(path, options, print) {
     !hasComment(groups[1][0].node) &&
     shouldNotWrap(groups);
 
-  function printGroup(printedGroup, isFirstGroup = false) {
+  function printGroup(
+    printedGroup,
+    /** @type {{isFirstGroup?: boolean, isOneLine?: boolean}} */
+    { isFirstGroup, isOneLine } = { isFirstGroup: false, isOneLine: false },
+  ) {
     const printed = printedGroup.map((tuple, i) => {
-      if (!isMemberish(tuple.node) || i === 0 || tuple.node.computed) {
+      if (
+        !isMemberish(tuple.node) ||
+        (!isOneLine && i === 0) ||
+        tuple.node.computed
+      ) {
         return tuple.printed;
       }
-      if (isFirstGroup === true) {
+      if (isFirstGroup === true || isOneLine) {
         return group(indent([softline, tuple.printed]));
       }
       return group([softline, tuple.printed]);
@@ -323,8 +331,12 @@ function printMemberChain(path, options, print) {
     return indent(group([hardline, join(hardline, groups.map(printGroup))]));
   }
 
-  const printedGroups = groups.map((doc, i) => printGroup(doc, i === 0));
-  const oneLine = printedGroups;
+  const printedGroups = groups.map((doc, i) =>
+    printGroup(doc, { isFirstGroup: i === 0 }),
+  );
+  const oneLine = groups.map((doc, i) =>
+    printGroup(doc, { isFirstGroup: i === 0, isOneLine: true }),
+  );
 
   const cutoff = shouldMerge ? 3 : 2;
   const flatGroups = groups.flat();
@@ -356,7 +368,7 @@ function printMemberChain(path, options, print) {
     shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
 
   const expanded = [
-    printGroup(groups[0], true),
+    printGroup(groups[0], { isFirstGroup: true }),
     shouldMerge ? groups.slice(1, 2).map((doc) => printGroup(doc)) : "",
     shouldHaveEmptyLineBeforeIndent ? hardline : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1)),
