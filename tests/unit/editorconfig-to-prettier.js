@@ -134,16 +134,6 @@ test("editorconfigToPrettier", () => {
     tabWidth: 2,
   });
 
-  expect(editorconfigToPrettier({ insert_final_newline: false })).toStrictEqual(
-    {
-      insertFinalNewline: false,
-    },
-  );
-
-  expect(editorconfigToPrettier({ insert_final_newline: true })).toStrictEqual({
-    insertFinalNewline: true,
-  });
-
   expect(editorconfigToPrettier({})).toBeNull();
   expect(editorconfigToPrettier(null)).toBeNull();
 });

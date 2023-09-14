@@ -62,13 +62,6 @@ function editorConfigToPrettier(editorConfig) {
     result.endOfLine = editorConfig.end_of_line;
   }
 
-  if (
-    editorConfig.insert_final_newline === false ||
-    editorConfig.insert_final_newline === true
-  ) {
-    result.insertFinalNewline = editorConfig.insert_final_newline;
-  }
-
   return result;
 }
 
