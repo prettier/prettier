@@ -1,6 +1,6 @@
 import editorconfigToPrettier from "../../src/config/editorconfig-to-prettier.js";
 
-test('editorconfigToPrettier', () => {
+test("editorconfigToPrettier", () => {
   expect(
     editorconfigToPrettier({
       indent_style: "tab",
@@ -134,9 +134,11 @@ test('editorconfigToPrettier', () => {
     tabWidth: 2,
   });
 
-  expect(editorconfigToPrettier({ insert_final_newline: false })).toStrictEqual({
-    insertFinalNewline: false,
-  });
+  expect(editorconfigToPrettier({ insert_final_newline: false })).toStrictEqual(
+    {
+      insertFinalNewline: false,
+    },
+  );
 
   expect(editorconfigToPrettier({ insert_final_newline: true })).toStrictEqual({
     insertFinalNewline: true,
