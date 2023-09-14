@@ -1,5 +1,3 @@
-module.exports = editorConfigToPrettier;
-
 function removeUnset(editorConfig) {
   const result = {};
   const keys = Object.keys(editorConfig);
@@ -73,3 +71,5 @@ function editorConfigToPrettier(editorConfig) {
 
   return result;
 }
+
+export default editorConfigToPrettier;
