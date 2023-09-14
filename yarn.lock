@@ -3244,13 +3244,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"editorconfig-to-prettier@npm:1.0.0":
-  version: 1.0.0
-  resolution: "editorconfig-to-prettier@npm:1.0.0"
-  checksum: 8054f8593c2f93abca9f3c6db91030fbd80a15fd36b076a5f3fbeb246267173e290817adfb3389d9066026bcc85822e72b7635596e9dda6e74927ae110cbc474
-  languageName: node
-  linkType: hard
-
 "editorconfig@npm:0.15.3":
   version: 0.15.3
   resolution: "editorconfig@npm:0.15.3"
@@ -7176,7 +7169,6 @@ __metadata:
     diff: 5.1.0
     eastasianwidth: 0.2.0
     editorconfig: 0.15.3
-    editorconfig-to-prettier: 1.0.0
     emoji-regex: 10.2.1
     enquirer: 2.4.1
     esbuild: 0.19.2
