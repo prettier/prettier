@@ -1,0 +1,1 @@
+[link](https://www.google.fr/()foo->bar)

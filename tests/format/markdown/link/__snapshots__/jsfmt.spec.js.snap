@@ -47,6 +47,35 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`encodedLink.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+[link](https://www.google.fr/()foo->bar)
+=====================================output=====================================
+[link](<https://www.google.fr/()foo-%3Ebar>)
+
+================================================================================
+`;
+
+exports[`encodedLink.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+[link](https://www.google.fr/()foo->bar)
+=====================================output=====================================
+[link](<https://www.google.fr/()foo-%3Ebar>)
+
+================================================================================
+`;
+
 exports[`entity.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
