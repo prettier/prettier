@@ -40,6 +40,9 @@ const additionalVisitorKeys = {
   TypePredicate: ["asserts"],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
+  AsExpression: ["expression", "typeAnnotation"],
+  AsConstExpression: ["expression"],
+  SatisfiesExpression: ["expression", "typeAnnotation"],
 };
 
 const excludeKeys = {

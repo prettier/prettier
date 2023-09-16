@@ -19,7 +19,7 @@ import {
   isRegExpLiteral,
   isSimpleType,
   isCallLikeExpression,
-  isTSTypeExpression,
+  isBinaryCastExpression,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
 } from "../utils/index.js";
@@ -185,7 +185,7 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
     (isArrayOrTupleExpression(arg) &&
       (arg.elements.length > 0 || hasComment(arg))) ||
     (arg.type === "TSTypeAssertion" && couldExpandArg(arg.expression)) ||
-    (isTSTypeExpression(arg) && couldExpandArg(arg.expression)) ||
+    (isBinaryCastExpression(arg) && couldExpandArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
       // we want to avoid breaking inside composite return types but not simple keywords
@@ -281,7 +281,7 @@ function isHopefullyShortCallArgument(node) {
     return isHopefullyShortCallArgument(node.expression);
   }
 
-  if (isTSTypeExpression(node) || node.type === "TypeCastExpression") {
+  if (isBinaryCastExpression(node) || node.type === "TypeCastExpression") {
     let { typeAnnotation } = node;
     if (typeAnnotation.type === "TypeAnnotation") {
       typeAnnotation = typeAnnotation.typeAnnotation;

@@ -55,7 +55,7 @@ function hasNakedLeftSide(node) {
     node.type === "TaggedTemplateExpression" ||
     node.type === "BindExpression" ||
     (node.type === "UpdateExpression" && !node.prefix) ||
-    isTSTypeExpression(node) ||
+    isBinaryCastExpression(node) ||
     node.type === "TSNonNullExpression" ||
     node.type === "ChainExpression"
   );
@@ -795,6 +795,9 @@ function startsWithNoLookaheadToken(node, predicate) {
     case "TSSatisfiesExpression":
     case "TSAsExpression":
     case "TSNonNullExpression":
+    case "AsExpression":
+    case "AsConstExpression":
+    case "SatisfiesExpression":
       return startsWithNoLookaheadToken(node.expression, predicate);
     default:
       return predicate(node);
@@ -1101,9 +1104,14 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment",
 );
 
-const isTSTypeExpression = createTypeCheckFunction([
+const isBinaryCastExpression = createTypeCheckFunction([
+  // TS
   "TSAsExpression",
   "TSSatisfiesExpression",
+  // Flow
+  "AsExpression",
+  "AsConstExpression",
+  "SatisfiesExpression",
 ]);
 
 export {
@@ -1161,7 +1169,7 @@ export {
   getComments,
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
-  isTSTypeExpression,
+  isBinaryCastExpression,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   createTypeCheckFunction,
