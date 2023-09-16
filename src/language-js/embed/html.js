@@ -10,11 +10,7 @@ import {
   printTemplateExpressions,
   uncookTemplateElementValue,
 } from "../print/template-literal.js";
-import {
-  isAngularComponentTemplate,
-  hasLanguageComment,
-  isAsConstExpression,
-} from "./utils.js";
+import { isAngularComponentTemplate, hasLanguageComment } from "./utils.js";
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
@@ -106,10 +102,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
  */
 function isHtml(path) {
   return (
-    hasLanguageComment(path.node, "HTML") ||
-    (path.parent &&
-      isAsConstExpression(path.parent) &&
-      hasLanguageComment(path.parent, "HTML")) ||
+    hasLanguageComment(path, "HTML") ||
     path.match(
       (node) => node.type === "TemplateLiteral",
       (node, name) =>

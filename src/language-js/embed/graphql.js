@@ -3,7 +3,7 @@ import {
   escapeTemplateCharacters,
   printTemplateExpressions,
 } from "../print/template-literal.js";
-import { hasLanguageComment, isAsConstExpression } from "./utils.js";
+import { hasLanguageComment } from "./utils.js";
 
 async function printEmbedGraphQL(textToDoc, print, path /*, options*/) {
   const { node } = path;
@@ -107,10 +107,7 @@ function printGraphqlComments(lines) {
  */
 function isGraphQL({ node, parent }) {
   return (
-    hasLanguageComment(node, "GraphQL") ||
-    (parent &&
-      isAsConstExpression(parent) &&
-      hasLanguageComment(parent, "GraphQL")) ||
+    hasLanguageComment({ node, parent }, "GraphQL") ||
     (parent &&
       ((parent.type === "TaggedTemplateExpression" &&
         ((parent.tag.type === "MemberExpression" &&

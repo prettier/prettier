@@ -53,7 +53,7 @@ function isAngularComponentTemplate(path) {
   );
 }
 
-function hasLanguageComment(node, languageName) {
+function hasLeadingBlockCommentWithName(node, languageName) {
   // This checks for a leading comment that is exactly `/* GraphQL */`
   // In order to be in line with other implementations of this comment tag
   // we will not trim the comment value and we will expect exactly one space on
@@ -63,6 +63,13 @@ function hasLanguageComment(node, languageName) {
     node,
     CommentCheckFlags.Block | CommentCheckFlags.Leading,
     ({ value }) => value === ` ${languageName} `,
+  );
+}
+function hasLanguageComment({ node, parent }, languageName) {
+  return (
+    hasLeadingBlockCommentWithName(node, languageName) ||
+    (isAsConstExpression(parent) &&
+      hasLeadingBlockCommentWithName(parent, languageName))
   );
 }
 
