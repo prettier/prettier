@@ -66,8 +66,18 @@ function hasLanguageComment(node, languageName) {
   );
 }
 
+function isAsConstExpression(node) {
+  return (
+    node.type === "TSAsExpression" &&
+    node.typeAnnotation.type === "TSTypeReference" &&
+    node.typeAnnotation.typeName.type === "Identifier" &&
+    node.typeAnnotation.typeName.name === "const"
+  );
+}
+
 export {
   isAngularComponentStyles,
   isAngularComponentTemplate,
   hasLanguageComment,
+  isAsConstExpression,
 };
