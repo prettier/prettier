@@ -16,6 +16,9 @@ const cjkPattern = `(?:${cjkRegex
         "Nonspacing_Mark",
       ],
     }),
+    // They are in Katakana Unicode Block and not used outside of Japanese and Chinese
+    // Firefox treats them as CJK
+    regexpUtil.charset("゠", "・"),
   )
   .toString()})(?:${unicodeRegex({
   Block: ["Variation_Selectors", "Variation_Selectors_Supplement"],
