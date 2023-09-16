@@ -28,7 +28,7 @@ import {
 } from "../../document/builders.js";
 import { willBreak } from "../../document/utils.js";
 import printCallArguments from "./call-arguments.js";
-import { printMemberLookup } from "./member.js";
+import { printMemberLookup, shouldInlineMember } from "./member.js";
 import {
   printOptionalToken,
   printFunctionTypeParameters,
@@ -109,6 +109,7 @@ function printMemberChain(path, options, print) {
         node,
         path,
         needsParens: pathNeedsParens(path, options),
+        shouldInline: isMemberExpression(node) && shouldInlineMember(path),
         printed: printComments(
           path,
           isMemberExpression(node)
@@ -300,20 +301,22 @@ function printMemberChain(path, options, print) {
   function printGroup(
     printedGroup,
     /** @type {{isFirstGroup?: boolean, isOneLine?: boolean}} */
-    { isFirstGroup, isOneLine } = { isFirstGroup: false, isOneLine: false },
+    opts = {},
   ) {
-    const printed = printedGroup.map((tuple, i) => {
+    const { isFirstGroup = false, isOneLine = false } = opts;
+    const printed = printedGroup.map((printedNode, i) => {
       if (
-        !isMemberish(tuple.node) ||
+        !isMemberish(printedNode.node) ||
         (!isOneLine && i === 0) ||
-        tuple.node.computed
+        printedNode.node.computed ||
+        printedNode.shouldInline
       ) {
-        return tuple.printed;
+        return printedNode.printed;
       }
       if (isFirstGroup === true || isOneLine) {
-        return group(indent([softline, tuple.printed]));
+        return group(indent([softline, printedNode.printed]));
       }
-      return group([softline, tuple.printed]);
+      return group([softline, printedNode.printed]);
     });
     // Checks if the last node (i.e. the parent node) needs parens and print
     // accordingly

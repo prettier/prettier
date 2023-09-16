@@ -74,4 +74,4 @@ function shouldInlineMember(path, objectDoc) {
   );
 }
 
-export { printMemberExpression, printMemberLookup };
+export { printMemberExpression, printMemberLookup, shouldInlineMember };

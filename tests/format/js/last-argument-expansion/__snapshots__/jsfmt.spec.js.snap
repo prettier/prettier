@@ -253,12 +253,13 @@ exports.examples = [
   },
 ];
 
-someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReally
-  .a([
-  [],
-  // comment
-  [],
-]);
+someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReally.a(
+  [
+    [],
+    // comment
+    [],
+  ],
+);
 
 (function webpackUniversalModuleDefinition() {})(
   this,
