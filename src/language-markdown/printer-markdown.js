@@ -200,14 +200,11 @@ function genericPrint(path, options, print) {
           return ["<", url, ">"];
         }
         case "[":
-          const encodedString = node.url
-            .replace(/</g, "%3C")
-            .replace(/>/g, "%3E");
           return [
             "[",
             printChildren(path, options, print),
             "](",
-            printUrl(encodedString, ")"),
+            printUrl(node.url, ")"),
             printTitle(node.title, options),
             ")",
           ];
@@ -793,9 +790,11 @@ function printUrl(url, dangerousCharOrChars = []) {
       ? dangerousCharOrChars
       : [dangerousCharOrChars]),
   ];
-  return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(url)
-    ? `<${url}>`
-    : url;
+
+  const newUrl = url.replaceAll("<", "%3C").replaceAll(">", "%3E");
+  return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(newUrl)
+    ? `<${newUrl}>`
+    : newUrl;
 }
 
 function printTitle(title, options, printSpace = true) {
