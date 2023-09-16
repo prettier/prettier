@@ -11,7 +11,7 @@ import {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-  isTSTypeExpression,
+  isBinaryCastExpression,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   createTypeCheckFunction,
@@ -310,19 +310,25 @@ function needsParens(path, options) {
     case "TSTypeAssertion":
     case "TSAsExpression":
     case "TSSatisfiesExpression":
+    case "AsExpression":
+    case "AsConstExpression":
+    case "SatisfiesExpression":
     case "LogicalExpression":
       switch (parent.type) {
         case "TSAsExpression":
         case "TSSatisfiesExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
           // examples:
           //   foo as unknown as Bar
           //   foo satisfies unknown satisfies Bar
           //   foo satisfies unknown as Bar
           //   foo as unknown satisfies Bar
-          return !isTSTypeExpression(node);
+          return !isBinaryCastExpression(node);
 
         case "ConditionalExpression":
-          return isTSTypeExpression(node);
+          return isBinaryCastExpression(node);
 
         case "CallExpression":
         case "NewExpression":
@@ -352,7 +358,7 @@ function needsParens(path, options) {
         case "AssignmentPattern":
           return (
             key === "left" &&
-            (node.type === "TSTypeAssertion" || isTSTypeExpression(node))
+            (node.type === "TSTypeAssertion" || isBinaryCastExpression(node))
           );
 
         case "LogicalExpression":
@@ -443,6 +449,9 @@ function needsParens(path, options) {
         case "TSAsExpression":
         case "TSSatisfiesExpression":
         case "TSNonNullExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
         case "BindExpression":
           return true;
 
@@ -747,6 +756,9 @@ function needsParens(path, options) {
         case "TypeCastExpression":
         case "TSAsExpression":
         case "TSSatisfiesExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
         case "TSNonNullExpression":
           return true;
 
@@ -795,6 +807,9 @@ function needsParens(path, options) {
 
         case "TSAsExpression":
         case "TSSatisfiesExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
         case "TSNonNullExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":

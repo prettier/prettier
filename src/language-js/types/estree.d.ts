@@ -25,7 +25,18 @@ export type Comment = (
   leading?: boolean;
 };
 
-export type Node = (ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode) &
+type FlowAdditionalNode =
+  | { type: "AsExpression"; expression: Node; typeAnnotation: Node }
+  | { type: "AsConstExpression"; expression: Node }
+  | { type: "SatisfiesExpression"; expression: Node; typeAnnotation: Node };
+
+export type Node = (
+  | ESTree.Node
+  | Babel.Node
+  | TSESTree.Node
+  | NGTree.NGNode
+  | FlowAdditionalNode
+) &
   AdditionalFields;
 
 export type TemplateLiteral = (

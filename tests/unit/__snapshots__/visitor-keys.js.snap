@@ -28,6 +28,13 @@ exports[`visitor keys estree 1`] = `
     "typeParameters",
     "predicate",
   ],
+  "AsConstExpression": [
+    "expression",
+  ],
+  "AsExpression": [
+    "expression",
+    "typeAnnotation",
+  ],
   "AssignmentExpression": [
     "left",
     "right",
@@ -655,6 +662,10 @@ exports[`visitor keys estree 1`] = `
   ],
   "ReturnStatement": [
     "argument",
+  ],
+  "SatisfiesExpression": [
+    "expression",
+    "typeAnnotation",
   ],
   "SequenceExpression": [
     "expressions",
