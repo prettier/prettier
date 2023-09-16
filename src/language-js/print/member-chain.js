@@ -308,7 +308,6 @@ function printMemberChain(path, options, print) {
       if (
         !isMemberish(printedNode.node) ||
         (!isOneLine && i === 0) ||
-        printedNode.node.computed ||
         printedNode.shouldInline
       ) {
         return printedNode.printed;
