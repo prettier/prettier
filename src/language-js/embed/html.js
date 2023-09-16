@@ -102,7 +102,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
  */
 function isHtml(path) {
   return (
-    hasLanguageComment(path.node, "HTML") ||
+    hasLanguageComment(path, "HTML") ||
     path.match(
       (node) => node.type === "TemplateLiteral",
       (node, name) =>

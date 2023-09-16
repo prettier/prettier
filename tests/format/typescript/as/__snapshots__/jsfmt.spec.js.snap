@@ -133,6 +133,40 @@ const iter2 = createIterator(
 ================================================================================
 `;
 
+exports[`as-const-embedded.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const GQL_QUERY_WITH_CONST = /* GraphQL */ \`
+  query S { shop }
+\` as const;
+
+const HTML_WITH_CONST = /* HTML */ \`
+<div>
+<h1>foo</h1>
+  <p>foo</p>
+</div>
+\` as const;
+
+=====================================output=====================================
+const GQL_QUERY_WITH_CONST = /* GraphQL */ \`
+  query S {
+    shop
+  }
+\` as const;
+
+const HTML_WITH_CONST = /* HTML */ \`
+  <div>
+    <h1>foo</h1>
+    <p>foo</p>
+  </div>
+\` as const;
+
+================================================================================
+`;
+
 exports[`assignment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
