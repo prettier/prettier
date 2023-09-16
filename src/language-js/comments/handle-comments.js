@@ -84,6 +84,7 @@ function handleEndOfLineComment(context) {
     handleVariableDeclaratorComments,
     handleBreakAndContinueStatementComments,
     handleSwitchDefaultCaseComments,
+    handleLastUnionElementInExpression,
   ].some((fn) => fn(context));
 }
 
@@ -885,6 +886,44 @@ function handleSwitchDefaultCaseComments({
   }
 
   return true;
+}
+
+/**
+ * Handle `Comment2` and `Comment4`.
+ *
+ *   type Foo = (
+ *     | "thing1" // Comment1
+ *     | "thing2" // Comment2
+ *   )[];
+ *
+ *   type Foo = (
+ *     | "thing1" // Comment3
+ *     | "thing2" // Comment4
+ *   ) & Bar;
+ *
+ * @param {CommentContext} context
+ * @returns {boolean}
+ */
+function handleLastUnionElementInExpression({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+}) {
+  if (
+    precedingNode &&
+    (precedingNode.type === "TSUnionType" ||
+      precedingNode.type === "UnionTypeAnnotation") &&
+    (((enclosingNode.type === "TSArrayType" ||
+      enclosingNode.type === "ArrayTypeAnnotation") &&
+      followingNode === undefined) ||
+      enclosingNode.type === "TSIntersectionType" ||
+      enclosingNode.type === "IntersectionTypeAnnotation")
+  ) {
+    addTrailingComment(precedingNode.types.at(-1), comment);
+    return true;
+  }
+  return false;
 }
 
 /**
