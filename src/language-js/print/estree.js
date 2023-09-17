@@ -19,6 +19,7 @@ import {
   isCallExpression,
   isMemberExpression,
   isArrayOrTupleExpression,
+  isLiteral,
   isObjectOrRecordExpression,
   startsWithNoLookaheadToken,
 } from "../utils/index.js";
@@ -67,7 +68,7 @@ import { printBinaryishExpression } from "./binaryish.js";
 import { printStatementSequence } from "./statement.js";
 import { printMemberExpression } from "./member.js";
 import { printBlock, printBlockBody } from "./block.js";
-import { printLiteral, isLiteral } from "./literal.js";
+import { printLiteral } from "./literal.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 import { printExpressionStatement } from "./expression-statement.js";
 import { printHtmlBinding } from "./html-binding.js";
