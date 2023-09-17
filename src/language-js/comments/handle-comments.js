@@ -340,7 +340,12 @@ function handleNestedConditionalExpressionComments({
   comment,
   enclosingNode,
   followingNode,
+  options,
 }) {
+  if (!options.experimentalTernaries) {
+    return false;
+  }
+
   const enclosingIsCond =
     enclosingNode?.type === "ConditionalExpression" ||
     enclosingNode?.type === "ConditionalTypeAnnotation" ||

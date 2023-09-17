@@ -89,6 +89,11 @@ This option cannot be used with --range-start and --range-end.",
             },
           ],
         },
+        "experimentalTernaries": {
+          "default": true,
+          "description": "Use curious ternaries, with the question mark after the condition.",
+          "type": "boolean",
+        },
         "filepath": {
           "default": undefined,
           "description": "Specify the input filepath. This will be used to do parser inference.",

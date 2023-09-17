@@ -25,6 +25,8 @@ import {
 import pathNeedsParens from "../needs-parens.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 
+import { printTernaryOld } from "./ternary-old.js";
+
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
  * @typedef {import("../../common/ast-path.js").default} AstPath
@@ -145,6 +147,10 @@ const wrapInParens = (doc) => [
  * @returns {Doc}
  */
 function printTernary(path, options, print, args) {
+  if (!options.experimentalTernaries) {
+    return printTernaryOld(path, options, print);
+  }
+
   const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
   const isTSConditional =
