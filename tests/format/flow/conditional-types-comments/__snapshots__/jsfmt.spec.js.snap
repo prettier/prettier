@@ -94,25 +94,20 @@ c */? foo : bar : bar;
 =====================================output=====================================
 // @flow
 
-type A =
-  B extends T ?
-    // comment
+type A = B extends T
+  ? // comment
     foo
   : bar;
 
-type A =
-  B extends (
-    test /* comment
+type A = B extends test /* comment
   comment
       comment
 */
-  ) ?
-    foo
+  ? foo
   : bar;
 
-type T =
-  test extends B ?
-    /* comment
+type T = test extends B
+  ? /* comment
           comment
     comment
           comment
@@ -120,16 +115,15 @@ type T =
     foo
   : bar;
 
-type T =
-  test extends B ?
-    /* comment
+type T = test extends B
+  ? /* comment
        comment
        comment
        comment
     */
     foo
-  : test extends B ?
-    /* comment
+  : test extends B
+  ? /* comment
   comment
     comment */
     foo
@@ -137,8 +131,8 @@ type T =
 
 type T = test extends B ? /* comment */ foo : bar;
 
-type T =
-  test extends B ? foo
+type T = test extends B
+  ? foo
   : /* comment
          comment
      comment
@@ -146,14 +140,15 @@ type T =
     */
     bar;
 
-type T =
-  test extends B ? foo
+type T = test extends B
+  ? foo
   : /* comment
          comment
      comment
            comment
     */
-  test extends B ? foo
+  test extends B
+  ? foo
   : /* comment
   comment
     comment
@@ -162,13 +157,10 @@ type T =
 
 type T = test extends B ? foo : /* comment */ bar;
 
-type T =
-  test extends B ?
-    test extends (
-      B /* c
+type T = test extends B
+  ? test extends B /* c
 c */
-    ) ?
-      foo
+    ? foo
     : bar
   : bar;
 

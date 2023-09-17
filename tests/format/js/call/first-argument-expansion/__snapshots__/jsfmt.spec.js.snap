@@ -449,25 +449,23 @@ func(
   () => {
     thing();
   },
-  something(longArgumentName, anotherLongArgumentName) ? someOtherThing() : (
-    somethingElse(true, 0)
-  ),
+  something(longArgumentName, anotherLongArgumentName)
+    ? someOtherThing()
+    : somethingElse(true, 0),
 );
 
 func(
   () => {
     thing();
   },
-  (
-    something(
-      longArgumentName,
-      anotherLongArgumentName,
-      anotherLongArgumentName,
-      anotherLongArgumentName,
-    )
-  ) ?
-    someOtherThing()
-  : somethingElse(true, 0),
+  something(
+    longArgumentName,
+    anotherLongArgumentName,
+    anotherLongArgumentName,
+    anotherLongArgumentName,
+  )
+    ? someOtherThing()
+    : somethingElse(true, 0),
 );
 
 compose(

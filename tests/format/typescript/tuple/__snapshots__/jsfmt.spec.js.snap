@@ -336,8 +336,9 @@ type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong =
   [];
 
 type Foo =
-  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [] ? Foo3
-  : Foo4;
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
 
 ================================================================================
 `;
@@ -357,8 +358,9 @@ type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong =
   [];
 
 type Foo =
-  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [] ? Foo3
-  : Foo4;
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
 
 ================================================================================
 `;
@@ -378,8 +380,9 @@ type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong =
   [];
 
 type Foo =
-  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [] ? Foo3
-  : Foo4;
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
 
 ================================================================================
 `;
