@@ -33,7 +33,7 @@
     "@angular/compiler": "16.2.5",
     "@babel/code-frame": "7.22.13",
     "@babel/parser": "7.22.16",
-    "@babel/types": "7.22.11",
+    "@babel/types": "7.22.19",
     "@glimmer/syntax": "0.84.3",
     "@iarna/toml": "2.2.5",
     "@prettier/is-es5-identifier-name": "0.2.0",
@@ -108,7 +108,7 @@
     "yaml-unist-parser": "2.0.1"
   },
   "devDependencies": {
-    "@babel/generator": "7.22.10",
+    "@babel/generator": "7.22.15",
     "@glimmer/reference": "0.84.3",
     "@types/estree": "1.0.1",
     "@types/file-entry-cache": "5.0.2",
