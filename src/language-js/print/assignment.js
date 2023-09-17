@@ -186,10 +186,18 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   switch (rightNode.type) {
     case "StringLiteralTypeAnnotation":
     case "SequenceExpression":
+      return true;
     case "TSConditionalType":
     case "ConditionalTypeAnnotation":
+      if (!options.experimentalTernaries) {
+        break;
+      }
       return true;
     case "ConditionalExpression": {
+      if (!options.experimentalTernaries) {
+        const { test } = rightNode;
+        return isBinaryish(test) && !shouldInlineLogicalExpression(test);
+      }
       const { consequent, alternate } = rightNode;
       return (
         consequent.type === "ConditionalExpression" ||
