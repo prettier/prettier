@@ -131,7 +131,7 @@ exports[`API getSupportInfo() 1`] = `
       "type": "choice",
     },
     "experimentalTernaries": {
-      "default": true,
+      "default": false,
       "type": "boolean",
     },
     "filepath": {
@@ -857,7 +857,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       "category": "JavaScript",
-      "default": true,
+      "default": false,
       "description": "Use curious ternaries, with the question mark after the condition.",
       "name": "experimentalTernaries",
       "oppositeDescription": "Default behavior of ternaries; keep question marks on the same line as the consequent.",

@@ -199,7 +199,7 @@ exports[`show detailed usage with --help experimental-ternaries (stdout) 1`] = `
 
   Use curious ternaries, with the question mark after the condition.
 
-Default: true"
+Default: false"
 `;
 
 exports[`show detailed usage with --help experimental-ternaries (write) 1`] = `[]`;

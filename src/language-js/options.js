@@ -39,7 +39,7 @@ const options = {
   experimentalTernaries: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
-    default: true,
+    default: false,
     description:
       "Use curious ternaries, with the question mark after the condition.",
     oppositeDescription:

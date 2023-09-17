@@ -154,13 +154,11 @@ namespace TypeScript.WebTsc {
             fileStream.Position = 0;
             // [0xFF,0xFE] and [0xFE,0xFF] mean utf-16 (little or big endian), otherwise default to utf-8
             fileStream.Charset =
-              (
-                bom.length >= 2 &&
-                ((bom.charCodeAt(0) === 0xff && bom.charCodeAt(1) === 0xfe) ||
-                  (bom.charCodeAt(0) === 0xfe && bom.charCodeAt(1) === 0xff))
-              ) ?
-                "unicode"
-              : "utf-8";
+              bom.length >= 2 &&
+              ((bom.charCodeAt(0) === 0xff && bom.charCodeAt(1) === 0xfe) ||
+                (bom.charCodeAt(0) === 0xfe && bom.charCodeAt(1) === 0xff))
+                ? "unicode"
+                : "utf-8";
           }
           // ReadText method always strips byte order mark from resulting string
           return fileStream.ReadText();

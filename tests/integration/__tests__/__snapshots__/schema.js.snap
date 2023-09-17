@@ -90,7 +90,7 @@ This option cannot be used with --range-start and --range-end.",
           ],
         },
         "experimentalTernaries": {
-          "default": true,
+          "default": false,
           "description": "Use curious ternaries, with the question mark after the condition.",
           "type": "boolean",
         },

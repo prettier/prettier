@@ -13,8 +13,9 @@ const foo = {
 
 =====================================output=====================================
 const foo = {
-  bar:
-    props.bar ? props.bar : noop,
+  bar: props.bar
+    ? props.bar
+    : noop,
   baz: props.baz,
 };
 
