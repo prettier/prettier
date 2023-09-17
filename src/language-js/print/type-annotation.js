@@ -162,6 +162,7 @@ function printUnionType(path, options, print) {
   const shouldIndent =
     parent.type !== "TypeParameterInstantiation" &&
     parent.type !== "TSConditionalType" &&
+    parent.type !== "ConditionalTypeAnnotation" &&
     parent.type !== "TSTypeParameterInstantiation" &&
     parent.type !== "GenericTypeAnnotation" &&
     parent.type !== "TSTypeReference" &&

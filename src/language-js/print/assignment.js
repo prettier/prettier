@@ -22,7 +22,6 @@ import {
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
-import { isLiteral } from "./literal.js";
 
 function printAssignment(
   path,
@@ -188,6 +187,7 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     case "StringLiteralTypeAnnotation":
     case "SequenceExpression":
     case "TSConditionalType":
+    case "ConditionalTypeAnnotation":
       return true;
     case "ConditionalExpression": {
       const { consequent, alternate } = rightNode;

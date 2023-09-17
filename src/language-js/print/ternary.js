@@ -49,7 +49,7 @@ function hasMultilineBlockComments(
   testNodes,
   consequentNode,
   alternateNode,
-  options
+  options,
 ) {
   const comments = [
     ...testNodes.map((node) => getComments(node)),
@@ -62,8 +62,8 @@ function hasMultilineBlockComments(
       hasNewlineInRange(
         options.originalText,
         locStart(comment),
-        locEnd(comment)
-      )
+        locEnd(comment),
+      ),
   );
 }
 
@@ -147,7 +147,9 @@ const wrapInParens = (doc) => [
 function printTernary(path, options, print, args) {
   const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
-  const isTSConditional = node.type === "TSConditionalType";
+  const isTSConditional =
+    node.type === "TSConditionalType" ||
+    node.type === "ConditionalTypeAnnotation"; // For Flow.
   const consequentNodePropertyName = isConditionalExpression
     ? "consequent"
     : "trueType";
@@ -230,7 +232,7 @@ function printTernary(path, options, print, args) {
       testNodes,
       consequentNode,
       alternateNode,
-      options
+      options,
     ) ||
     isConsequentTernary ||
     isAlternateTernary;
@@ -298,6 +300,7 @@ function printTernary(path, options, print, args) {
         "extends",
         " ",
         node.extendsType.type === "TSConditionalType" ||
+        node.extendsType.type === "ConditionalTypeAnnotation" ||
         node.extendsType.type === "TSMappedType"
           ? print("extendsType")
           : group(wrapInParens(print("extendsType"))),
@@ -327,7 +330,7 @@ function printTernary(path, options, print, args) {
                 groupId: testId,
               }),
         ],
-        { id: testAndConsequentId }
+        { id: testAndConsequentId },
       )
     : [printedTestWithQuestionMark, consequentComments, consequent];
 
@@ -357,7 +360,7 @@ function printTernary(path, options, print, args) {
       ? ifBreak(
           fillTab,
           ifBreak(isInChain || tryToParenthesizeAlternate ? " " : fillTab, " "),
-          { groupId: testAndConsequentId }
+          { groupId: testAndConsequentId },
         )
       : ifBreak(fillTab, " "),
 

@@ -343,6 +343,7 @@ function handleNestedConditionalExpressionComments({
 }) {
   const enclosingIsCond =
     enclosingNode?.type === "ConditionalExpression" ||
+    enclosingNode?.type === "ConditionalTypeAnnotation" ||
     enclosingNode?.type === "TSConditionalType";
 
   if (!enclosingIsCond) {
@@ -351,6 +352,7 @@ function handleNestedConditionalExpressionComments({
 
   const followingIsCond =
     followingNode?.type === "ConditionalExpression" ||
+    followingNode?.type === "ConditionalTypeAnnotation" ||
     followingNode?.type === "TSConditionalType";
 
   if (followingIsCond) {
@@ -374,6 +376,7 @@ function handleConditionalExpressionComments({
   if (
     (!precedingNode || !isSameLineAsPrecedingNode) &&
     (enclosingNode?.type === "ConditionalExpression" ||
+      enclosingNode?.type === "ConditionalTypeAnnotation" ||
       enclosingNode?.type === "TSConditionalType") &&
     followingNode
   ) {

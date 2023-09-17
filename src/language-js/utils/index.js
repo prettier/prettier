@@ -6,12 +6,12 @@ import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
+import { isLiteral } from "../print/literal.js";
 import createTypeCheckFunction from "./create-type-check-function.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
 import isFlowKeywordType from "./is-flow-keyword-type.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
-import { isLiteral } from "../print/literal.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
@@ -459,7 +459,7 @@ function isSimpleAtomicExpression(node) {
 
 function isSimpleMemberExpression(
   node,
-  { maxDepth = Number.POSITIVE_INFINITY } = {}
+  { maxDepth = Number.POSITIVE_INFINITY } = {},
 ) {
   if (!isMemberExpression(node)) {
     return false;
@@ -498,7 +498,7 @@ function isSimpleTemplateLiteral(node) {
   }
 
   return expressions.every(
-    (expr) => isSimpleAtomicExpression(expr) || isSimpleMemberExpression(expr)
+    (expr) => isSimpleAtomicExpression(expr) || isSimpleMemberExpression(expr),
   );
 }
 
