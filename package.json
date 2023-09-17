@@ -180,6 +180,7 @@
     "fix:prettier": "yarn lint:prettier --write",
     "build": "node ./scripts/build/build.js",
     "build:website": "node ./scripts/build-website.js",
+    "gen:changelog": "node ./scripts/generate-changelog.js",
     "debug": "node bin/prettier.js --ignore-path=.prettierignore"
   },
   "c8": {
