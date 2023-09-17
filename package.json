@@ -68,7 +68,7 @@
     "hermes-parser": "0.15.1",
     "html-element-attributes": "3.2.0",
     "html-tag-names": "2.1.0",
-    "html-ua-styles": "0.0.1",
+    "html-ua-styles": "0.0.2",
     "ignore": "5.2.4",
     "import-meta-resolve": "3.0.0",
     "jest-docblock": "29.6.3",
