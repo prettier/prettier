@@ -461,12 +461,16 @@ function isSimpleMemberExpression(
   node,
   { maxDepth = Number.POSITIVE_INFINITY } = {},
 ) {
-  if (!isMemberExpression(node)) {
-    return false;
-  }
   if (hasComment(node)) {
     return false;
   }
+  if (node.type === "ChainExpression") {
+    return isSimpleMemberExpression(node.expression, { maxDepth });
+  }
+  if (!isMemberExpression(node)) {
+    return false;
+  }
+
   let head = node;
   let depth = 0;
   while (isMemberExpression(head) && depth++ <= maxDepth) {
