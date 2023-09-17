@@ -195,11 +195,11 @@ test
     */
     foo
   : test
-  ? /* comment
+    ? /* comment
   comment
     comment */
-    foo
-  : bar;
+      foo
+    : bar;
 
 test ? /* comment */ foo : bar;
 
@@ -220,13 +220,13 @@ test
            comment
       A newline will be added after this comment, unfortunately – but it can be removed manually, see next statement.
     */
-  test
-  ? foo
-  : /* comment
+    test
+    ? foo
+    : /* comment
   comment
     comment
    */
-    bar;
+      bar;
 
 // It is at least possible to delete the extra newline that was
 // unfortunately added before the second condition above:
@@ -237,12 +237,12 @@ test
            comment
     */
   : test
-  ? foo
-  : /* comment
+    ? foo
+    : /* comment
   comment
     comment
    */
-    bar;
+      bar;
 
 test ? foo : /* comment */ bar;
 
@@ -425,46 +425,46 @@ const message =
   i % 3 === 0 && i % 5 === 0
     ? "fizzbuzz"
     : i % 3 === 0
-    ? "fizz"
-    : i % 5 === 0
-    ? "buzz"
-    : String(i);
+      ? "fizz"
+      : i % 5 === 0
+        ? "buzz"
+        : String(i);
 
 const paymentMessageShort =
   state == "success"
     ? "Payment completed successfully"
     : state == "processing"
-    ? "Payment processing"
-    : state == "invalid_cvc"
-    ? "There was an issue with your CVC number"
-    : state == "invalid_expiry"
-    ? "Expiry must be sometime in the past."
-    : "There was an issue with the payment.  Please contact support.";
+      ? "Payment processing"
+      : state == "invalid_cvc"
+        ? "There was an issue with your CVC number"
+        : state == "invalid_expiry"
+          ? "Expiry must be sometime in the past."
+          : "There was an issue with the payment.  Please contact support.";
 
 const paymentMessageWithABreak =
   state == "success"
     ? "Payment completed successfully"
     : state == "processing"
-    ? "Payment processing"
-    : state == "invalid_cvc"
-    ? "There was an issue with your CVC number, and you need to take a prompt action on it."
-    : state == "invalid_expiry"
-    ? "Expiry must be sometime in the past."
-    : "There was an issue with the payment.  Please contact support.";
+      ? "Payment processing"
+      : state == "invalid_cvc"
+        ? "There was an issue with your CVC number, and you need to take a prompt action on it."
+        : state == "invalid_expiry"
+          ? "Expiry must be sometime in the past."
+          : "There was an issue with the payment.  Please contact support.";
 
 const typeofExample = definition.encode
   ? definition.encode(
       typeof row[field] !== "undefined"
         ? row[field]
         : typeof definition.default !== "undefined"
-        ? definition.default
-        : null,
+          ? definition.default
+          : null,
     )
   : typeof row[field] !== "undefined"
-  ? row[field]
-  : typeof definition.default !== "undefined"
-  ? definition.default
-  : null;
+    ? row[field]
+    : typeof definition.default !== "undefined"
+      ? definition.default
+      : null;
 
 // (the following is semantically equivalent to the above, but written in a more-confusing style – it'd be hard to grok no matter the formatting)
 const typeofExampleFlipped = definition.encode
@@ -476,10 +476,10 @@ const typeofExampleFlipped = definition.encode
         : row[field],
     )
   : typeof row[field] === "undefined"
-  ? typeof definition.default === "undefined"
-    ? null
-    : definition.default
-  : row[field];
+    ? typeof definition.default === "undefined"
+      ? null
+      : definition.default
+    : row[field];
 
 // JSX Examples:
 
@@ -500,12 +500,12 @@ const reactRouterExampleJSX = (
     {children && !isEmptyChildren(children)
       ? children
       : props.match
-      ? component
-        ? React.createElement(component, props)
-        : render
-        ? render(props)
-        : null
-      : null}
+        ? component
+          ? React.createElement(component, props)
+          : render
+            ? render(props)
+            : null
+        : null}
   </div>
 );
 
@@ -513,20 +513,20 @@ const reactRouterExampleNonJSX =
   children && !isEmptyChildren(children)
     ? children
     : props.match
-    ? component
-      ? React.createElement(component, props)
-      : render
-      ? render(props)
-      : null
-    : null;
+      ? component
+        ? React.createElement(component, props)
+        : render
+          ? render(props)
+          : null
+      : null;
 
 inJSXExpressionContainer.withLongConditionals.example = (
   <div>
     {isACat() && (someReallyLongCondition || moreInThisLongCondition)
       ? someReallyLargeExpression.toMakeMeowNoise().willCauseParens()
       : someReallyLongCondition || moreInThisLongCondition
-      ? bark()
-      : someReallyLargeExpression.toMakeMeowNoise().willCauseParens()}
+        ? bark()
+        : someReallyLargeExpression.toMakeMeowNoise().willCauseParens()}
   </div>
 );
 
@@ -802,8 +802,8 @@ const chainedWithLongConsequent = isCat()
       .thatWouldCauseALineBreak()
       .willCauseAnIndentButNotParens()
   : isDog()
-  ? bark()
-  : silent();
+    ? bark()
+    : silent();
 
 // nested ternary in consequent always breaks:
 const chainedWithTernaryConsequent = isCat()
@@ -811,8 +811,8 @@ const chainedWithTernaryConsequent = isCat()
     ? theResult()
     : theAlternate()
   : isDog()
-  ? bark()
-  : silent();
+    ? bark()
+    : silent();
 
 // consequent and terminal alternate break:
 const consequentAndTerminalAlternateBreak = isCat()
@@ -820,10 +820,10 @@ const consequentAndTerminalAlternateBreak = isCat()
       .thatWouldCauseALineBreak()
       .willCauseAnIndentButNotParens()
   : isDog()
-  ? bark()
-  : someReallyLargeExpression
-      .thatWouldCauseALineBreak()
-      .willCauseAnIndentButNotParens();
+    ? bark()
+    : someReallyLargeExpression
+        .thatWouldCauseALineBreak()
+        .willCauseAnIndentButNotParens();
 
 // multiline conditions and consequents/alternates:
 const multilineConditionsConsequentsAndAlternates =
@@ -832,29 +832,29 @@ const multilineConditionsConsequentsAndAlternates =
         .thatWouldCauseALineBreak()
         .willCauseAnIndentButNotParens()
     : isNotAnAdorableKittyCat() &&
-      (someReallyLongCondition || moreInThisLongCondition)
-    ? bark()
-    : shortCondition()
-    ? shortConsequent()
-    : someReallyLargeExpression
-        .thatWouldCauseALineBreak()
-        .willCauseAnIndentButNotParens();
+        (someReallyLongCondition || moreInThisLongCondition)
+      ? bark()
+      : shortCondition()
+        ? shortConsequent()
+        : someReallyLargeExpression
+            .thatWouldCauseALineBreak()
+            .willCauseAnIndentButNotParens();
 
 // illustrating case of mostly short conditionals
 const mostlyShort =
   x === 1
     ? "one"
     : x === 2
-    ? "two"
-    : x === 3
-    ? "three"
-    : x === 5 &&
-      y === 7 &&
-      someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
-    ? "four"
-    : x === 6
-    ? "six"
-    : "idk";
+      ? "two"
+      : x === 3
+        ? "three"
+        : x === 5 &&
+            y === 7 &&
+            someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
+          ? "four"
+          : x === 6
+            ? "six"
+            : "idk";
 
 // long conditional, short consequent/alternate, not chained - do indent after ?
 const longConditional =
@@ -872,16 +872,16 @@ const longConditionalChained =
     averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
     ? "foo"
     : anotherCondition
-    ? "bar"
-    : "baz";
+      ? "bar"
+      : "baz";
 
 // As a function parameter, don't add an extra indent:
 definition.encode(
   typeof row[field] !== "undefined"
     ? row[field]
     : typeof definition.default !== "undefined"
-    ? definition.default
-    : null,
+      ? definition.default
+      : null,
   typeof row[field] === "undefined"
     ? typeof definition.default === "undefined"
       ? null
@@ -1197,15 +1197,15 @@ function foo() {
   return !linkTo
     ? false
     : typeof linkTo === "function"
-    ? linkTo(record, reference)
-    : linkToRecord(rootPath, sourceId, linkTo_as_string);
+      ? linkTo(record, reference)
+      : linkToRecord(rootPath, sourceId, linkTo_as_string);
 }
 function foo2() {
   return React.isValidElement(emptyText)
     ? React.cloneElement(emptyText)
     : emptyText === ""
-    ? " " // em space, forces the display of an empty line of normal height
-    : translate(emptyText, { _: emptyText });
+      ? " " // em space, forces the display of an empty line of normal height
+      : translate(emptyText, { _: emptyText });
 }
 
 // Function call ideally wouldnt break break
@@ -1252,13 +1252,13 @@ resolveRedirectTo(
   payload
     ? payload.id || (payload.data ? payload.data.id : null)
     : requestPayload
-    ? requestPayload.id
-    : null,
+      ? requestPayload.id
+      : null,
   payload && payload.data
     ? payload.data
     : requestPayload && requestPayload.data
-    ? requestPayload.data
-    : null,
+      ? requestPayload.data
+      : null,
 );
 
 const delayedDataProvider = new Proxy(restProvider, {
@@ -1301,9 +1301,9 @@ function foo7() {
 const badComments = schema.model
   ? schema
   : // If model is an array where the items schema is a referred model then we need to use that
-  schema.type === "array"
-  ? schema.items
-  : schema;
+    schema.type === "array"
+    ? schema.items
+    : schema;
 
 const anotherBadComment = refModel
   ? // If we're in a shared params file then reference the model name directly
