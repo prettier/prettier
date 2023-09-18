@@ -1,3 +1,5 @@
+import { outdent } from "outdent";
+
 describe("infer file ext that supported by only plugins", () => {
   describe("basic", () => {
     runCli("cli/infer-plugins-ext-dir/", ["--write", "src"]).test({
@@ -57,11 +59,20 @@ describe("infer file ext that supported by only plugins", () => {
       "src",
     ]).test({
       status: 0,
-      stdout: "src/file.foo 0ms",
+      stdout: "src/file.foo 0ms\nsrc/index.js 0ms",
       write: [
         {
           content: '{"tabWidth":8,"bracketSpacing":false}',
           filename: "src/file.foo",
+        },
+        {
+          // formatted with `tabWidth: 2`
+          content: outdent`
+            function main() {
+              console.log("Hello, World!");
+            }\n
+          `,
+          filename: "src/index.js",
         },
       ],
     });
