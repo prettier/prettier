@@ -52,6 +52,32 @@ describe("infer file ext that supported by only plugins", () => {
     });
   });
 
+  describe("with defaultOptions", () => {
+    runCli("cli/infer-plugins-ext-dir-with-default-options/", [
+      "--write",
+      "--no-editorconfig",
+      "src",
+    ]).test({
+      status: 0,
+      stdout: "src/file.foo 0ms\nsrc/index.js 0ms",
+      write: [
+        {
+          content: '{"tabWidth":8,"bracketSpacing":false}',
+          filename: "src/file.foo",
+        },
+        {
+          // formatted with `tabWidth: 2`
+          content: outdent`
+            function main() {
+              console.log("Hello, World!");
+            }\n
+          `,
+          filename: "src/index.js",
+        },
+      ],
+    });
+  });
+
   describe("with overrides and defaultOptions", () => {
     runCli("cli/infer-plugins-ext-dir-with-overrides-and-default-options/", [
       "--write",
