@@ -1,5 +1,5 @@
-run_spec(import.meta, ["typescript", "flow"], {
+run_spec(import.meta, ["flow"], {
   errors: {
-    "babel-flow": ["generic-component.tsx"],
+    "babel-flow": ["generic-component.js"],
   },
 });

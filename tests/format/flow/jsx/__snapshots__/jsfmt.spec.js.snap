@@ -2,7 +2,7 @@
 
 exports[`func_inside_attr.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`generic-component.tsx [babel-flow] format 1`] = `
+exports[`generic-component.js [babel-flow] format 1`] = `
 "Unexpected token (1:24)
 > 1 | const c1 = <MyComponent<number> data={12} />
     |                        ^
@@ -23,9 +23,9 @@ exports[`generic-component.tsx [babel-flow] format 1`] = `
   4 |"
 `;
 
-exports[`generic-component.tsx format 1`] = `
+exports[`generic-component.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -47,7 +47,7 @@ const c3 = <MyComponent<number> attr="value" />;
 
 exports[`return_type.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

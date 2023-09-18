@@ -97,7 +97,7 @@ const categoryParsers = new Map([
         "typescript",
         "babel-ts",
       ],
-      extensions: [".js", ".jsx"],
+      extensions: [".js", ".jsx", ".tsx"],
     },
   ],
   [
