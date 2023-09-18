@@ -556,11 +556,18 @@ function printJsxOpeningElement(path, options, print) {
   const { node } = path;
 
   const nameHasComments =
-    hasComment(node.name) || hasComment(node.typeParameters);
+    hasComment(node.name) ||
+    hasComment(node.typeParameters) ||
+    hasComment(node.typeArguments);
 
   // Don't break self-closing elements with no attributes and no comments
   if (node.selfClosing && node.attributes.length === 0 && !nameHasComments) {
-    return ["<", print("name"), print("typeParameters"), " />"];
+    return [
+      "<",
+      print("name"),
+      node.typeArguments ? print("typeArguments") : print("typeParameters"),
+      " />",
+    ];
   }
 
   // don't break up opening elements with a single long text attribute
@@ -584,7 +591,7 @@ function printJsxOpeningElement(path, options, print) {
     return group([
       "<",
       print("name"),
-      print("typeParameters"),
+      node.typeArguments ? print("typeArguments") : print("typeParameters"),
       " ",
       ...path.map(print, "attributes"),
       node.selfClosing ? " />" : ">",
@@ -609,7 +616,7 @@ function printJsxOpeningElement(path, options, print) {
     [
       "<",
       print("name"),
-      print("typeParameters"),
+      node.typeArguments ? print("typeArguments") : print("typeParameters"),
       indent(path.map(() => [attributeLine, print()], "attributes")),
       ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
