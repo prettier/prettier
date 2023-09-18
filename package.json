@@ -205,8 +205,7 @@
   },
   "browserslist": [
     ">0.5%",
-    "not ie 11",
-    "not safari 5.1",
+    "not dead",
     "not op_mini all"
   ],
   "preferUnplugged": true,
