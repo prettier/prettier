@@ -312,10 +312,14 @@ function printMemberChain(path, options, print) {
       ) {
         return printedNode.printed;
       }
+      const shouldBreak =
+        i !== 0 &&
+        hasComment(printedGroup[i - 1].node, CommentCheckFlags.Trailing);
+      const maybeBreakParent = shouldBreak ? breakParent : "";
       if (isFirstGroup === true || isOneLine) {
-        return group(indent([softline, printedNode.printed]));
+        return group(indent([maybeBreakParent, softline, printedNode.printed]));
       }
-      return group([softline, printedNode.printed]);
+      return group([maybeBreakParent, softline, printedNode.printed]);
     });
     // Checks if the last node (i.e. the parent node) needs parens and print
     // accordingly

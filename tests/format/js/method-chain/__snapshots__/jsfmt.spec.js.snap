@@ -36,7 +36,8 @@ this.is.a.longlonglonglonglonglonglonglonglonglonglong[
   .property.access;
 
 this.is.a./* comment */ method /* comment */
-  .chain.with.some // comment
+  .chain // comment
+  .with.some
   .comments();
 
 ================================================================================
