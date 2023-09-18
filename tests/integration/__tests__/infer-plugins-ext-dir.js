@@ -52,8 +52,8 @@ describe("infer file ext that supported by only plugins", () => {
     });
   });
 
-  describe("with defaultOptions", () => {
-    runCli("cli/infer-plugins-ext-dir-with-default-options/", [
+  describe("with overrides and defaultOptions", () => {
+    runCli("cli/infer-plugins-ext-dir-with-overrides-and-default-options/", [
       "--write",
       "--no-editorconfig",
       "src",
