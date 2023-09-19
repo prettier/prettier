@@ -4,14 +4,13 @@ import chalk from "chalk";
 import { createTwoFilesPatch } from "diff";
 import * as prettier from "../index.js";
 import mockable from "../common/mockable.js";
-import { errors } from "./prettier-internal.js";
+import { createIsIgnoredFunction, errors } from "./prettier-internal.js";
 import { expandPatterns } from "./expand-patterns.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import isTTY from "./is-tty.js";
 import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
 import { statSafe, normalizeToPosix } from "./utils.js";
-import { createIsIgnoredFromContextOrDie } from "./ignore.js";
 
 const { getStdin, writeFormattedFile } = mockable;
 
@@ -231,6 +230,18 @@ async function format(context, input, opt) {
   }
 
   return prettier.formatWithCursor(input, opt);
+}
+
+async function createIsIgnoredFromContextOrDie(context) {
+  try {
+    return await createIsIgnoredFunction(
+      context.argv.ignorePath,
+      context.argv.withNodeModules,
+    );
+  } catch (e) {
+    context.logger.error(e.message);
+    process.exit(2);
+  }
 }
 
 async function formatStdin(context) {

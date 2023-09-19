@@ -3,7 +3,6 @@ import micromatch from "micromatch";
 import mem, { memClear } from "mem";
 import { toPath } from "url-or-path";
 import partition from "../utils/partition.js";
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
 import getPrettierConfigExplorerWithoutCache from "./get-prettier-config-explorer.js";
 
@@ -51,7 +50,7 @@ async function resolveConfig(fileUrlOrPath, options) {
 
   const merged = {
     ...editorConfigured,
-    ...mergeOverrides(result, filePath, options.getAllOverridesPlugins),
+    ...mergeOverrides(result, filePath),
   };
 
   if (Array.isArray(merged.plugins)) {
@@ -73,17 +72,12 @@ async function resolveConfigFile(fileUrlOrPath) {
   return result?.filepath ?? null;
 }
 
-function mergeOverrides(configResult, filePath, getAllOverridesPlugins) {
+function mergeOverrides(configResult, filePath) {
   const { config, filepath: configPath } = configResult || {};
   const { overrides, ...options } = config || {};
-  const plugins = [];
-
   if (filePath && overrides) {
     const relativeFilePath = path.relative(path.dirname(configPath), filePath);
     for (const override of overrides) {
-      if (getAllOverridesPlugins && Array.isArray(override.options?.plugins)) {
-        plugins.push(...override.options.plugins);
-      }
       if (
         pathMatchesGlobs(
           relativeFilePath,
@@ -93,14 +87,6 @@ function mergeOverrides(configResult, filePath, getAllOverridesPlugins) {
       ) {
         Object.assign(options, override.options);
       }
-    }
-  }
-
-  if (isNonEmptyArray(plugins)) {
-    if (Array.isArray(options.plugins)) {
-      options.plugins.push(...plugins);
-    } else {
-      options.plugins = plugins;
     }
   }
 

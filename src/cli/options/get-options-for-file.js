@@ -1,9 +1,9 @@
 import dashify from "dashify";
+import { resolveConfig } from "../../index.js";
 import { normalizeOptions as normalizeApiOptions } from "../prettier-internal.js";
 import minimist from "./minimist.js";
 import createMinimistOptions from "./create-minimist-options.js";
 import normalizeCliOptions from "./normalize-cli-options.js";
-import getOptionsOrDie from "./get-options-or-die.js";
 
 function getOptions(argv, detailedOptions) {
   return Object.fromEntries(
@@ -51,6 +51,36 @@ function parseArgsToOptions(context, overrideDefaults) {
     ),
     context.detailedOptions,
   );
+}
+
+async function getOptionsOrDie(context, filePath) {
+  try {
+    if (context.argv.config === false) {
+      context.logger.debug(
+        "'--no-config' option found, skip loading config file.",
+      );
+      return null;
+    }
+
+    context.logger.debug(
+      context.argv.config
+        ? `load config file from '${context.argv.config}'`
+        : `resolve config from '${filePath}'`,
+    );
+
+    const options = await resolveConfig(filePath, {
+      editorconfig: context.argv.editorconfig,
+      config: context.argv.config,
+    });
+
+    context.logger.debug("loaded options `" + JSON.stringify(options) + "`");
+    return options;
+  } catch (error) {
+    context.logger.error(
+      `Invalid configuration for file "${filePath}":\n` + error.message,
+    );
+    process.exit(2);
+  }
 }
 
 function applyConfigPrecedence(context, options) {
