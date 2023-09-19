@@ -5,7 +5,7 @@ import { createTwoFilesPatch } from "diff";
 import * as prettier from "../index.js";
 import mockable from "../common/mockable.js";
 import { createIsIgnoredFunction, errors } from "./prettier-internal.js";
-import { expandPatterns } from "./expand-patterns.js";
+import { expandPatterns, isError } from "./expand-patterns.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import isTTY from "./is-tty.js";
 import findCacheFile from "./find-cache-file.js";
@@ -22,17 +22,16 @@ class DebugError extends Error {
   name = "DebugError";
 }
 
-function handleError(context, filename, error, printedFilename) {
+function handleError(context, filename, error, printedFilename, ignoreUnknown) {
+  ignoreUnknown = context.argv.ignoreUnknown || ignoreUnknown;
+
   const errorIsUndefinedParseError =
     error instanceof errors.UndefinedParserError;
 
   if (printedFilename) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
     /* c8 ignore next 3 */
-    if (
-      (context.argv.write || context.argv.ignoreUnknown) &&
-      errorIsUndefinedParseError
-    ) {
+    if ((context.argv.write || ignoreUnknown) && errorIsUndefinedParseError) {
       printedFilename.clear();
     } else {
       // Add newline to split errors from filename line.
@@ -41,7 +40,7 @@ function handleError(context, filename, error, printedFilename) {
   }
 
   if (errorIsUndefinedParseError) {
-    if (context.argv.ignoreUnknown) {
+    if (ignoreUnknown) {
       return;
     }
     if (!context.argv.check && !context.argv.listDifferent) {
@@ -314,16 +313,16 @@ async function formatFiles(context) {
   }
 
   for await (const pathOrError of expandPatterns(context)) {
-    if (typeof pathOrError === "object") {
+    if (isError(pathOrError)) {
       context.logger.error(pathOrError.error);
       // Don't exit, but set the exit code to 2
       process.exitCode = 2;
       continue;
     }
 
-    const filename = pathOrError;
+    const { fileName, ignoreUnknown } = pathOrError;
 
-    const isFileIgnored = isIgnored(filename);
+    const isFileIgnored = isIgnored(fileName);
     if (
       isFileIgnored &&
       (context.argv.debugCheck ||
@@ -335,11 +334,11 @@ async function formatFiles(context) {
     }
 
     const options = {
-      ...(await getOptionsForFile(context, filename)),
-      filepath: filename,
+      ...(await getOptionsForFile(context, fileName)),
+      filepath: fileName,
     };
 
-    const fileNameToDisplay = normalizeToPosix(path.relative(cwd, filename));
+    const fileNameToDisplay = normalizeToPosix(path.relative(cwd, fileName));
     let printedFilename;
     if (isTTY()) {
       printedFilename = context.logger.log(fileNameToDisplay, {
@@ -350,7 +349,7 @@ async function formatFiles(context) {
 
     let input;
     try {
-      input = await fs.readFile(filename, "utf8");
+      input = await fs.readFile(fileName, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
       /* c8 ignore start */
@@ -376,7 +375,7 @@ async function formatFiles(context) {
     const start = Date.now();
 
     const isCacheExists = formatResultsCache?.existsAvailableFormatResultsCache(
-      filename,
+      fileName,
       options,
     );
 
@@ -391,7 +390,13 @@ async function formatFiles(context) {
       }
       output = result.formatted;
     } catch (error) {
-      handleError(context, fileNameToDisplay, error, printedFilename);
+      handleError(
+        context,
+        fileNameToDisplay,
+        error,
+        printedFilename,
+        ignoreUnknown,
+      );
       continue;
     }
 
@@ -417,7 +422,7 @@ async function formatFiles(context) {
         }
 
         try {
-          await writeFormattedFile(filename, output);
+          await writeFormattedFile(fileName, output);
 
           // Set cache if format succeeds
           shouldSetCache = true;
@@ -451,9 +456,9 @@ async function formatFiles(context) {
     }
 
     if (shouldSetCache) {
-      formatResultsCache?.setFormatResultsCache(filename, options);
+      formatResultsCache?.setFormatResultsCache(fileName, options);
     } else {
-      formatResultsCache?.removeFormatResultsCache(filename);
+      formatResultsCache?.removeFormatResultsCache(fileName);
     }
 
     if (isDifferent) {

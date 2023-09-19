@@ -4,6 +4,10 @@ import { fastGlob } from "./prettier-internal.js";
 
 /** @typedef {import('./context').Context} Context */
 
+function isError(pathOrError) {
+  return Object.hasOwn(pathOrError, "error");
+}
+
 /**
  * @param {Context} context
  */
@@ -13,12 +17,14 @@ async function* expandPatterns(context) {
 
   for await (const pathOrError of expandPatternsInternal(context)) {
     noResults = false;
-    if (typeof pathOrError !== "string") {
+    if (isError(pathOrError)) {
       yield pathOrError;
       continue;
     }
 
-    const fileName = path.resolve(pathOrError);
+    const { filePath, ignoreUnknown } = pathOrError;
+
+    const fileName = path.resolve(filePath);
 
     // filter out duplicates
     if (seen.has(fileName)) {
@@ -26,7 +32,7 @@ async function* expandPatterns(context) {
     }
 
     seen.add(fileName);
-    yield fileName;
+    yield { fileName, ignoreUnknown };
   }
 
   if (noResults && context.argv.errorOnUnmatchedPattern !== false) {
@@ -52,7 +58,6 @@ async function* expandPatternsInternal(context) {
     followSymbolicLinks: false,
   };
 
-  let supportedFilesGlob;
   const cwd = process.cwd();
 
   /** @type {Array<{ type: 'file' | 'dir' | 'glob'; glob: string; input: string; }>} */
@@ -87,10 +92,9 @@ async function* expandPatternsInternal(context) {
         const prefix = escapePathForGlob(fixWindowsSlashes(relativePath));
         entries.push({
           type: "dir",
-          glob: getSupportedFilesGlob().map(
-            (pattern) => `${prefix}/**/${pattern}`,
-          ),
+          glob: `${prefix}/**/*`,
           input: pattern,
+          ignoreUnknown: true,
         });
       }
     } else if (pattern[0] === "!") {
@@ -105,7 +109,7 @@ async function* expandPatternsInternal(context) {
     }
   }
 
-  for (const { type, glob, input } of entries) {
+  for (const { type, glob, input, ignoreUnknown } of entries) {
     let result;
 
     try {
@@ -123,22 +127,7 @@ async function* expandPatternsInternal(context) {
         yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
       }
     } else {
-      yield* sortPaths(result);
-    }
-  }
-
-  function getSupportedFilesGlob() {
-    supportedFilesGlob ??= [...getSupportedFilesGlobWithoutCache()];
-    return supportedFilesGlob;
-  }
-
-  function* getSupportedFilesGlobWithoutCache() {
-    for (const { extensions = [], filenames = [] } of context.languages) {
-      yield* filenames;
-
-      for (const extension of extensions) {
-        yield `*${extension.startsWith(".") ? extension : `.${extension}`}`;
-      }
+      yield* sortPaths(result).map((filePath) => ({ filePath, ignoreUnknown }));
     }
   }
 }
@@ -198,4 +187,4 @@ function escapePathForGlob(path) {
  */
 const fixWindowsSlashes = normalizeToPosix;
 
-export { expandPatterns };
+export { expandPatterns, isError };
