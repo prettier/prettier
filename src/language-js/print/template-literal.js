@@ -18,7 +18,7 @@ import {
   isSimpleTemplateLiteral,
   hasComment,
   isMemberExpression,
-  isTSTypeExpression,
+  isBinaryCastExpression,
 } from "../utils/index.js";
 
 function printTemplateLiteral(path, print, options) {
@@ -46,7 +46,7 @@ function printTemplateLiteral(path, print, options) {
         printDocToString(doc, {
           ...options,
           printWidth: Number.POSITIVE_INFINITY,
-        }).formatted
+        }).formatted,
     );
   }
 
@@ -89,7 +89,7 @@ function printTemplateLiteral(path, print, options) {
         isMemberExpression(expression) ||
         expression.type === "ConditionalExpression" ||
         expression.type === "SequenceExpression" ||
-        isTSTypeExpression(expression) ||
+        isBinaryCastExpression(expression) ||
         isBinaryish(expression)
       ) {
         expressionDoc = [indent([softline, expressionDoc]), softline];
@@ -144,7 +144,7 @@ function printJestEachTemplateLiteral(path, options, print) {
           printWidth: Number.POSITIVE_INFINITY,
           endOfLine: "lf",
         }).formatted +
-        "}"
+        "}",
     );
 
     const tableBody = [{ hasLineBreak: false, cells: [] }];
@@ -164,7 +164,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 
     const maxColumnCount = Math.max(
       headerNames.length,
-      ...tableBody.map((row) => row.cells.length)
+      ...tableBody.map((row) => row.cells.length),
     );
 
     const maxColumnWidths = Array.from({ length: maxColumnCount }).fill(0);
@@ -176,7 +176,7 @@ function printJestEachTemplateLiteral(path, options, print) {
       for (const [index, cell] of cells.entries()) {
         maxColumnWidths[index] = Math.max(
           maxColumnWidths[index],
-          getStringWidth(cell)
+          getStringWidth(cell),
         );
       }
     }
@@ -195,14 +195,14 @@ function printJestEachTemplateLiteral(path, options, print) {
                 row.hasLineBreak
                   ? cell
                   : cell +
-                    " ".repeat(maxColumnWidths[index] - getStringWidth(cell))
-              )
-            )
-          )
+                    " ".repeat(maxColumnWidths[index] - getStringWidth(cell)),
+              ),
+            ),
+          ),
         ),
       ]),
       hardline,
-      "`"
+      "`",
     );
     return parts;
   }
@@ -220,7 +220,7 @@ function printTemplateExpression(path, print) {
 function printTemplateExpressions(path, print) {
   return path.map(
     (path) => printTemplateExpression(path, print),
-    "expressions"
+    "expressions",
   );
 }
 

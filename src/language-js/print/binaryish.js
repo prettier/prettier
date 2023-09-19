@@ -43,7 +43,7 @@ function printBinaryishExpression(path, options, print) {
     print,
     options,
     /* isNested */ false,
-    isInsideParenthesis
+    isInsideParenthesis,
   );
 
   //   if (
@@ -140,13 +140,13 @@ function printBinaryishExpression(path, options, print) {
     (part) =>
       typeof part !== "string" &&
       !Array.isArray(part) &&
-      part.type === DOC_TYPE_GROUP
+      part.type === DOC_TYPE_GROUP,
   );
 
   // Separate the leftmost expression, possibly with its leading comments.
   const headParts = parts.slice(
     0,
-    firstGroupIndex === -1 ? 1 : firstGroupIndex + 1
+    firstGroupIndex === -1 ? 1 : firstGroupIndex + 1,
   );
 
   const rest = parts.slice(headParts.length, hasJsx ? -1 : undefined);
@@ -161,7 +161,7 @@ function printBinaryishExpression(path, options, print) {
       ...headParts,
       indent(rest),
     ],
-    { id: groupId }
+    { id: groupId },
   );
 
   if (!hasJsx) {
@@ -185,7 +185,7 @@ function printBinaryishExpressions(
   print,
   options,
   isNested,
-  isInsideParenthesis
+  isInsideParenthesis,
 ) {
   const { node } = path;
 
@@ -217,9 +217,9 @@ function printBinaryishExpressions(
           print,
           options,
           /* isNested */ true,
-          isInsideParenthesis
+          isInsideParenthesis,
         ),
-      "left"
+      "left",
     );
   } else {
     parts.push(group(print("left")));
@@ -237,13 +237,13 @@ function printBinaryishExpressions(
     node.type === "NGPipeExpression" && node.arguments.length > 0
       ? group(
           indent([
-            line,
+            softline,
             ": ",
             join(
               [line, ": "],
-              path.map(() => align(2, group(print())), "arguments")
+              path.map(() => align(2, group(print())), "arguments"),
             ),
-          ])
+          ]),
         )
       : "";
 
@@ -262,9 +262,9 @@ function printBinaryishExpressions(
               print,
               options,
               /* isNested */ true,
-              isInsideParenthesis
+              isInsideParenthesis,
             ),
-          "right"
+          "right",
         )
       : print("right");
     right = [
@@ -281,7 +281,7 @@ function printBinaryishExpressions(
   const { parent } = path;
   const shouldBreak = hasComment(
     node.left,
-    CommentCheckFlags.Trailing | CommentCheckFlags.Line
+    CommentCheckFlags.Trailing | CommentCheckFlags.Line,
   );
   const shouldGroup =
     shouldBreak ||
@@ -292,7 +292,7 @@ function printBinaryishExpressions(
 
   parts.push(
     lineBeforeOperator ? "" : " ",
-    shouldGroup ? group(right, { shouldBreak }) : right
+    shouldGroup ? group(right, { shouldBreak }) : right,
   );
 
   // The root comments are already printed, but we need to manually print
@@ -343,7 +343,8 @@ function isVueFilterSequenceExpression(path, options) {
       options.parser === "__vue_ts_expression") &&
     isBitwiseOrExpression(path.node) &&
     !path.hasAncestor(
-      (node) => !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot"
+      (node) =>
+        !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot",
     )
   );
 }

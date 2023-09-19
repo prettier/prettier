@@ -1,11 +1,10 @@
-import { createRequire } from "node:module";
+import { Parser as AcornParser } from "acorn";
+import acornJsx from "acorn-jsx";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
 import getSourceType from "./utils/get-source-type.js";
-
-const require = createRequire(import.meta.url);
 
 /** @type {import("acorn").Options} */
 const parseOptions = {
@@ -36,13 +35,10 @@ function createParseError(error) {
   });
 }
 
+/** @type {ReturnType<AcornParser.extend> | undefined} */
 let parser;
 const getParser = () => {
-  if (!parser) {
-    const { Parser: AcornParser } = require("acorn");
-    const acornJsx = require("acorn-jsx");
-    parser = AcornParser.extend(acornJsx());
-  }
+  parser ??= AcornParser.extend(acornJsx());
   return parser;
 };
 
@@ -52,7 +48,6 @@ function parseWithOptions(text, sourceType) {
   const comments = [];
   const tokens = [];
 
-  /** @type {any} */
   const ast = parser.parse(text, {
     ...parseOptions,
     sourceType,
@@ -60,7 +55,10 @@ function parseWithOptions(text, sourceType) {
     onComment: comments,
     onToken: tokens,
   });
+
+  // @ts-expect-error -- expected
   ast.comments = comments;
+  // @ts-expect-error -- expected
   ast.tokens = tokens;
 
   return ast;
@@ -69,13 +67,13 @@ function parseWithOptions(text, sourceType) {
 function parse(text, options = {}) {
   const sourceType = getSourceType(options);
   const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () => parseWithOptions(text, sourceType)
+    (sourceType) => () => parseWithOptions(text, sourceType),
   );
 
   let ast;
   try {
     ast = tryCombinations(combinations);
-  } catch ({ errors: [error] }) {
+  } catch (/** @type {any} */ { errors: [error] }) {
     throw createParseError(error);
   }
 

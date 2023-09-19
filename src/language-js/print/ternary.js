@@ -3,7 +3,7 @@ import {
   isJsxElement,
   isCallExpression,
   isMemberExpression,
-  isTSTypeExpression,
+  isBinaryCastExpression,
   hasComment,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
@@ -163,7 +163,7 @@ function shouldExtraIndentForConditionalExpression(path) {
 
     if (
       (node.type === "NewExpression" && node.callee === child) ||
-      (isTSTypeExpression(node) && node.expression === child)
+      (isBinaryCastExpression(node) && node.expression === child)
     ) {
       parent = path.getParentNode(ancestorCount + 1);
       child = node;
@@ -228,7 +228,7 @@ function printTernary(path, options, print) {
     currentParent &&
     currentParent.type === node.type &&
     testNodePropertyNames.every(
-      (prop) => currentParent[prop] !== previousParent
+      (prop) => currentParent[prop] !== previousParent,
     )
   );
   const firstNonConditionalParent = currentParent || parent;
@@ -271,7 +271,7 @@ function printTernary(path, options, print) {
       " : ",
       alternateNode.type === node.type || isNil(alternateNode)
         ? print(alternateNodePropertyName)
-        : wrap(print(alternateNodePropertyName))
+        : wrap(print(alternateNodePropertyName)),
     );
   } else {
     // normal mode
@@ -294,7 +294,7 @@ function printTernary(path, options, print) {
         ? part
         : options.useTabs
         ? dedent(indent(part))
-        : align(Math.max(0, options.tabWidth - 2), part)
+        : align(Math.max(0, options.tabWidth - 2), part),
     );
   }
 
@@ -313,9 +313,9 @@ function printTernary(path, options, print) {
         hasNewlineInRange(
           options.originalText,
           locStart(comment),
-          locEnd(comment)
-        )
-    )
+          locEnd(comment),
+        ),
+    ),
   );
   const maybeGroup = (doc) =>
     parent === firstNonConditionalParent

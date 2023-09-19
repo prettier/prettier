@@ -11,6 +11,7 @@ import {
   getFunctionParameters,
   hasLeadingOwnLineComment,
   isBinaryish,
+  isJsxElement,
   hasComment,
   CommentCheckFlags,
   isCallExpression,
@@ -18,6 +19,8 @@ import {
   hasNakedLeftSide,
   getLeftSide,
 } from "../utils/index.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
@@ -70,7 +73,7 @@ function printFunction(path, print, options, args) {
       isCallExpression(parent) &&
       (getCallArguments(parent).length > 1 ||
         getFunctionParameters(node).every(
-          (param) => param.type === "Identifier" && !param.typeAnnotation
+          (param) => param.type === "Identifier" && !param.typeAnnotation,
         ))
     ) {
       expandArg = true;
@@ -88,12 +91,12 @@ function printFunction(path, print, options, args) {
     path,
     print,
     options,
-    expandArg
+    expandArg,
   );
   const returnTypeDoc = printReturnType(path, print);
   const shouldGroupParameters = shouldGroupFunctionParameters(
     node,
-    returnTypeDoc
+    returnTypeDoc,
   );
 
   parts.push(
@@ -103,7 +106,7 @@ function printFunction(path, print, options, args) {
       returnTypeDoc,
     ]),
     node.body ? " " : "",
-    print("body")
+    print("body"),
   );
 
   if (options.semi && (node.declare || !node.body)) {
@@ -147,7 +150,7 @@ function printMethod(path, options, print) {
   parts.push(
     printPropertyKey(path, options, print),
     node.optional || node.key.optional ? "?" : "",
-    node === value ? printMethodValue(path, options, print) : print("value")
+    node === value ? printMethodValue(path, options, print) : print("value"),
   );
 
   return parts;
@@ -160,7 +163,7 @@ function printMethodValue(path, options, print) {
   const shouldBreakParameters = shouldBreakFunctionParameters(node);
   const shouldGroupParameters = shouldGroupFunctionParameters(
     node,
-    returnTypeDoc
+    returnTypeDoc,
   );
   const parts = [
     printFunctionTypeParameters(path, options, print),
@@ -286,7 +289,17 @@ function printThrowStatement(path, options, print) {
 // (the leftmost leaf node) and, if it (or its parents) has any
 // leadingComments, returns true (so it can be wrapped in parens).
 function returnArgumentHasLeadingComment(options, argument) {
-  if (hasLeadingOwnLineComment(options.originalText, argument)) {
+  if (
+    hasLeadingOwnLineComment(options.originalText, argument) ||
+    (hasComment(argument, CommentCheckFlags.Leading, (comment) =>
+      hasNewlineInRange(
+        options.originalText,
+        locStart(comment),
+        locEnd(comment),
+      ),
+    ) &&
+      !isJsxElement(argument))
+  ) {
     return true;
   }
 

@@ -85,7 +85,7 @@ function expressionNeedsASIProtection(path, options) {
 
   return path.call(
     () => expressionNeedsASIProtection(path, options),
-    ...getLeftSidePathName(node)
+    ...getLeftSidePathName(node),
   );
 }
 

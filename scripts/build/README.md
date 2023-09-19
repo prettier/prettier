@@ -75,11 +75,9 @@ Available reporter formats:
 - `stdout` Log report information in console.
 
 ```sh
-yarn build --report
+yarn build --report=all
 yarn build --report=stdout --report=text --report=html
 ```
-
-**`--report` equals to `--report=html`**
 
 ### `--minify` and `--no-minify`
 

@@ -38,7 +38,7 @@ function isAngularComponentStyles(path) {
       node.key.type === "Identifier" &&
       node.key.name === "styles" &&
       name === "value",
-    ...angularComponentObjectExpressionPredicates
+    ...angularComponentObjectExpressionPredicates,
   );
 }
 function isAngularComponentTemplate(path) {
@@ -49,11 +49,11 @@ function isAngularComponentTemplate(path) {
       node.key.type === "Identifier" &&
       node.key.name === "template" &&
       name === "value",
-    ...angularComponentObjectExpressionPredicates
+    ...angularComponentObjectExpressionPredicates,
   );
 }
 
-function hasLanguageComment(node, languageName) {
+function hasLeadingBlockCommentWithName(node, languageName) {
   // This checks for a leading comment that is exactly `/* GraphQL */`
   // In order to be in line with other implementations of this comment tag
   // we will not trim the comment value and we will expect exactly one space on
@@ -62,7 +62,24 @@ function hasLanguageComment(node, languageName) {
   return hasComment(
     node,
     CommentCheckFlags.Block | CommentCheckFlags.Leading,
-    ({ value }) => value === ` ${languageName} `
+    ({ value }) => value === ` ${languageName} `,
+  );
+}
+function hasLanguageComment({ node, parent }, languageName) {
+  return (
+    hasLeadingBlockCommentWithName(node, languageName) ||
+    (isAsConstExpression(parent) &&
+      hasLeadingBlockCommentWithName(parent, languageName))
+  );
+}
+
+function isAsConstExpression(node) {
+  return (
+    node.type === "AsConstExpression" ||
+    (node.type === "TSAsExpression" &&
+      node.typeAnnotation.type === "TSTypeReference" &&
+      node.typeAnnotation.typeName.type === "Identifier" &&
+      node.typeAnnotation.typeName.name === "const")
   );
 }
 
@@ -70,4 +87,5 @@ export {
   isAngularComponentStyles,
   isAngularComponentTemplate,
   hasLanguageComment,
+  isAsConstExpression,
 };

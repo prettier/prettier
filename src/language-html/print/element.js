@@ -138,7 +138,7 @@ function printElement(path, options, print) {
           node.isWhitespaceSensitive &&
           node.isIndentationSensitive)) &&
       new RegExp(
-        `\\n[\\t ]{${options.tabWidth * (path.ancestors.length - 1)}}$`
+        `\\n[\\t ]{${options.tabWidth * (path.ancestors.length - 1)}}$`,
       ).test(node.lastChild.value)
     ) {
       return "";
@@ -148,7 +148,7 @@ function printElement(path, options, print) {
 
   if (node.children.length === 0) {
     return printTag(
-      node.hasDanglingSpaces && node.isDanglingSpaceSensitive ? line : ""
+      node.hasDanglingSpaces && node.isDanglingSpaceSensitive ? line : "",
     );
   }
 

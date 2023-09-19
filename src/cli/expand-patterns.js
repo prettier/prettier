@@ -84,12 +84,12 @@ async function* expandPatternsInternal(context) {
           it returns files like 'src/../index.js'
         */
         const relativePath = path.relative(cwd, absolutePath) || ".";
+        const prefix = escapePathForGlob(fixWindowsSlashes(relativePath));
         entries.push({
           type: "dir",
-          glob:
-            escapePathForGlob(fixWindowsSlashes(relativePath)) +
-            "/" +
-            getSupportedFilesGlob(),
+          glob: getSupportedFilesGlob().map(
+            (pattern) => `${prefix}/**/${pattern}`,
+          ),
           input: pattern,
         });
       }
@@ -128,19 +128,18 @@ async function* expandPatternsInternal(context) {
   }
 
   function getSupportedFilesGlob() {
-    if (!supportedFilesGlob) {
-      const extensions = context.languages.flatMap(
-        (lang) => lang.extensions || []
-      );
-      const filenames = context.languages.flatMap(
-        (lang) => lang.filenames || []
-      );
-      supportedFilesGlob = `**/{${[
-        ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
-        ...filenames,
-      ]}}`;
-    }
+    supportedFilesGlob ??= [...getSupportedFilesGlobWithoutCache()];
     return supportedFilesGlob;
+  }
+
+  function* getSupportedFilesGlobWithoutCache() {
+    for (const { extensions = [], filenames = [] } of context.languages) {
+      yield* filenames;
+
+      for (const extension of extensions) {
+        yield `*${extension.startsWith(".") ? extension : `.${extension}`}`;
+      }
+    }
   }
 }
 
@@ -185,7 +184,7 @@ function sortPaths(paths) {
 function escapePathForGlob(path) {
   return fastGlob
     .escapePath(
-      path.replaceAll("\\", "\0") // Workaround for fast-glob#262 (part 1)
+      path.replaceAll("\\", "\0"), // Workaround for fast-glob#262 (part 1)
     )
     .replaceAll("\\!", "@(!)") // Workaround for fast-glob#261
     .replaceAll("\0", "@(\\\\)"); // Workaround for fast-glob#262 (part 2)

@@ -16,15 +16,12 @@ import {
   isCallExpression,
   isMemberExpression,
   getCallArguments,
-  rawText,
-  hasComment,
-  isSignedNumericLiteral,
+  isLoneShortArgument,
   isObjectProperty,
   createTypeCheckFunction,
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
-import { isLiteral } from "./literal.js";
 
 function printAssignment(
   path,
@@ -32,7 +29,7 @@ function printAssignment(
   print,
   leftDoc,
   operator,
-  rightPropertyName
+  rightPropertyName,
 ) {
   const layout = chooseLayout(path, options, print, leftDoc, rightPropertyName);
 
@@ -88,7 +85,7 @@ function printAssignmentExpression(path, options, print) {
     print,
     print("left"),
     [" ", node.operator],
-    "right"
+    "right",
   );
 }
 
@@ -115,7 +112,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     (node) =>
       !isTail ||
       (node.type !== "ExpressionStatement" &&
-        node.type !== "VariableDeclaration")
+        node.type !== "VariableDeclaration"),
   );
   if (shouldUseChainFormatting) {
     return !isTail
@@ -159,7 +156,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   if (
     path.call(
       () => shouldBreakAfterOperator(path, options, print, hasShortKey),
-      rightPropertyName
+      rightPropertyName,
     )
   ) {
     return "break-after-operator";
@@ -205,7 +202,11 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   let node = rightNode;
   const propertiesForPath = [];
   for (;;) {
-    if (node.type === "UnaryExpression") {
+    if (
+      node.type === "UnaryExpression" ||
+      node.type === "AwaitExpression" ||
+      (node.type === "YieldExpression" && node.argument !== null)
+    ) {
       node = node.argument;
       propertiesForPath.push("argument");
     } else if (node.type === "TSNonNullExpression") {
@@ -219,7 +220,7 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     isStringLiteral(node) ||
     path.call(
       () => isPoorlyBreakableMemberOrCallChain(path, options, print),
-      ...propertiesForPath
+      ...propertiesForPath,
     )
   ) {
     return true;
@@ -239,7 +240,7 @@ function isComplexDestructuring(node) {
       leftNode.properties.some(
         (property) =>
           isObjectProperty(property) &&
-          (!property.shorthand || property.value?.type === "AssignmentPattern")
+          (!property.shorthand || property.value?.type === "AssignmentPattern"),
       )
     );
   }
@@ -288,7 +289,7 @@ function hasComplexTypeAnnotation(node) {
     return false;
   }
   const typeParams = getTypeParametersFromTypeReference(
-    typeAnnotation.typeAnnotation
+    typeAnnotation.typeAnnotation,
   );
   return (
     isNonEmptyArray(typeParams) &&
@@ -296,7 +297,7 @@ function hasComplexTypeAnnotation(node) {
     typeParams.some(
       (param) =>
         isNonEmptyArray(getTypeParametersFromTypeReference(param)) ||
-        param.type === "TSConditionalType"
+        param.type === "TSConditionalType",
     )
   );
 }
@@ -326,7 +327,7 @@ function isPoorlyBreakableMemberOrCallChain(
   path,
   options,
   print,
-  deep = false
+  deep = false,
 ) {
   const { node } = path;
   const goDeeper = () =>
@@ -363,46 +364,6 @@ function isPoorlyBreakableMemberOrCallChain(
   }
 
   return deep && (node.type === "Identifier" || node.type === "ThisExpression");
-}
-
-const LONE_SHORT_ARGUMENT_THRESHOLD_RATE = 0.25;
-
-function isLoneShortArgument(node, { printWidth }) {
-  if (hasComment(node)) {
-    return false;
-  }
-
-  const threshold = printWidth * LONE_SHORT_ARGUMENT_THRESHOLD_RATE;
-
-  if (
-    node.type === "ThisExpression" ||
-    (node.type === "Identifier" && node.name.length <= threshold) ||
-    (isSignedNumericLiteral(node) && !hasComment(node.argument))
-  ) {
-    return true;
-  }
-
-  const regexpPattern =
-    (node.type === "Literal" && "regex" in node && node.regex.pattern) ||
-    (node.type === "RegExpLiteral" && node.pattern);
-
-  if (regexpPattern) {
-    return regexpPattern.length <= threshold;
-  }
-
-  if (isStringLiteral(node)) {
-    return rawText(node).length <= threshold;
-  }
-
-  if (node.type === "TemplateLiteral") {
-    return (
-      node.expressions.length === 0 &&
-      node.quasis[0].value.raw.length <= threshold &&
-      !node.quasis[0].value.raw.includes("\n")
-    );
-  }
-
-  return isLiteral(node);
 }
 
 function isObjectPropertyWithShortKey(node, keyDoc, options) {

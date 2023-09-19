@@ -39,7 +39,7 @@ function isWideKeywords(value) {
 
 function isKeyframeAtRuleKeywords(path, value) {
   const atRuleAncestorNode = path.findAncestor(
-    (node) => node.type === "css-atrule"
+    (node) => node.type === "css-atrule",
   );
   return (
     atRuleAncestorNode?.name?.toLowerCase().endsWith("keyframes") &&
@@ -61,14 +61,14 @@ function maybeToLowerCase(value) {
 
 function insideValueFunctionNode(path, functionName) {
   const funcAncestorNode = path.findAncestor(
-    (node) => node.type === "value-func"
+    (node) => node.type === "value-func",
   );
   return funcAncestorNode?.value?.toLowerCase() === functionName;
 }
 
 function insideICSSRuleNode(path) {
   const ruleAncestorNode = path.findAncestor(
-    (node) => node.type === "css-rule"
+    (node) => node.type === "css-rule",
   );
   const selector = ruleAncestorNode?.raws?.selector;
 
@@ -83,7 +83,7 @@ function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
     ? atRuleNameOrAtRuleNames
     : [atRuleNameOrAtRuleNames];
   const atRuleAncestorNode = path.findAncestor(
-    (node) => node.type === "css-atrule"
+    (node) => node.type === "css-atrule",
   );
 
   return (

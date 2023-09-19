@@ -15,7 +15,7 @@ function createJsonParse(options = {}) {
         tokens: true,
         ranges: true,
       });
-    } catch (error) {
+    } catch (/** @type {any} */ error) {
       if (
         error?.reasonCode === "MissingPlugin" ||
         error?.reasonCode === "MissingOneOfPlugins"
@@ -46,7 +46,7 @@ function createJsonError(node, description) {
     ({ line, column }) => ({
       line,
       column: column + 1,
-    })
+    }),
   );
   return createError(`${description} is not allowed in JSON.`, {
     loc: { start, end },
@@ -101,7 +101,7 @@ function assertJsonNode(node) {
 
       throw createJsonError(
         argument,
-        `Operator '${operator}' before '${argument.type}'`
+        `Operator '${operator}' before '${argument.type}'`,
       );
     }
     case "Identifier":
@@ -120,7 +120,7 @@ function assertJsonNode(node) {
       if (isNonEmptyArray(node.expressions)) {
         throw createJsonError(
           node.expressions[0],
-          "'TemplateLiteral' with expression"
+          "'TemplateLiteral' with expression",
         );
       }
 

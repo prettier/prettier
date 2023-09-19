@@ -1,4 +1,3 @@
-const assert = () => {};
-assert.ok = assert;
-assert.strictEqual = assert;
+const assert = new Proxy(() => {}, { get: () => assert });
+
 export default assert;

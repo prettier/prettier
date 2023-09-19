@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import readline from "node:readline";
-import { cosmiconfig } from "cosmiconfig";
+import { lilconfig } from "lilconfig";
 import { prettierCli, mockable as mockableModuleFile } from "./env.js";
 
 const normalizeToPosix =
@@ -38,7 +38,7 @@ async function run() {
     originalStat(
       path.basename(filename) === "virtualDirectory"
         ? import.meta.url
-        : filename
+        : filename,
     );
 
   readline.clearLine = (stream) => {
@@ -49,7 +49,7 @@ async function run() {
           : stream === process.stderr
           ? "process.stderr"
           : "unknown stream"
-      })]]\n`
+      })]]\n`,
     );
   };
 
@@ -66,8 +66,8 @@ async function run() {
   // eslint-disable-next-line require-await
   mockable.getStdin = async () => options.input || "";
   mockable.isCI = () => Boolean(options.ci);
-  mockable.cosmiconfig = (moduleName, options) =>
-    cosmiconfig(moduleName, {
+  mockable.lilconfig = (moduleName, options) =>
+    lilconfig(moduleName, {
       ...options,
       stopDir: url.fileURLToPath(new URL("./cli", import.meta.url)),
     });
@@ -80,7 +80,7 @@ async function run() {
       hasOwn(options.mockWriteFileErrors, filename)
     ) {
       throw new Error(
-        options.mockWriteFileErrors[filename] + " (mocked error)"
+        options.mockWriteFileErrors[filename] + " (mocked error)",
       );
     }
 
@@ -90,7 +90,7 @@ async function run() {
     });
   };
 
-  const { promise } = await import(url.pathToFileURL(prettierCli));
+  const { __promise: promise } = await import(url.pathToFileURL(prettierCli));
   await promise;
 }
 

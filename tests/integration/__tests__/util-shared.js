@@ -23,7 +23,7 @@ test("shared util has correct structure", () => {
   expect(typeof sharedUtil.isPreviousLineEmpty).toBe("function");
   expect(typeof sharedUtil.getNextNonSpaceNonCommentCharacter).toBe("function");
   expect(typeof sharedUtil.getNextNonSpaceNonCommentCharacterIndex).toBe(
-    "function"
+    "function",
   );
   expect(typeof sharedUtil.makeString).toBe("function");
 });
@@ -95,7 +95,7 @@ test("sharedUtil.getAlignmentSize", () => {
   expect(getAlignmentSize("\t\t", /* tabWidth */ 2)).toBe(4);
   expect(getAlignmentSize("\t\t", /* tabWidth */ 3)).toBe(6);
   expect(getAlignmentSize("\t\t", /* tabWidth */ 3, /* startIndex */ 1)).toBe(
-    3
+    3,
   );
 });
 
@@ -124,13 +124,13 @@ test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpa
     const locEnd = () => endOfIdentifierA;
 
     expect(getNextNonSpaceNonCommentCharacter(text, endOfIdentifierA)).toBe(
-      "b"
+      "b",
     );
     expect(
-      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA)
+      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA),
     ).toBe(indexOfIdentifierB);
     expect(
-      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd),
     ).toBe(indexOfIdentifierB);
   }
 
@@ -141,10 +141,10 @@ test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpa
 
     expect(getNextNonSpaceNonCommentCharacter(text, endOfIdentifierA)).toBe("");
     expect(
-      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA)
+      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA),
     ).toBe(text.length);
     expect(
-      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd),
     ).toBe(text.length);
   }
 
@@ -155,10 +155,10 @@ test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpa
 
     expect(getNextNonSpaceNonCommentCharacter(text, startIndex)).toBe("");
     expect(getNextNonSpaceNonCommentCharacterIndex(text, startIndex)).toBe(
-      false
+      false,
     );
     expect(
-      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd),
     ).toBe(false);
   }
 });
@@ -176,12 +176,12 @@ test("sharedUtil.isPreviousLineEmpty, sharedUtil.isNextLineEmpty and sharedUtil.
 
     expect(isPreviousLineEmpty(text, startOfIdentifierB)).toBe(true);
     expect(
-      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB)
+      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB),
     ).toBe(true);
     expect(isNextLineEmpty(text, endOfIdentifierA)).toBe(true);
     expect(isNextLineEmptyAfterIndex(text, endOfIdentifierA)).toBe(true);
     expect(isNextLineEmpty(text, FAKE_NODE_A, () => endOfIdentifierA)).toBe(
-      true
+      true,
     );
   }
 
@@ -192,12 +192,12 @@ test("sharedUtil.isPreviousLineEmpty, sharedUtil.isNextLineEmpty and sharedUtil.
 
     expect(isPreviousLineEmpty(text, startOfIdentifierB)).toBe(false);
     expect(
-      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB)
+      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB),
     ).toBe(false);
     expect(isNextLineEmpty(text, endOfIdentifierA)).toBe(false);
     expect(isNextLineEmptyAfterIndex(text, endOfIdentifierA)).toBe(false);
     expect(isNextLineEmpty(text, FAKE_NODE_A, () => endOfIdentifierA)).toBe(
-      false
+      false,
     );
   }
 
@@ -216,12 +216,12 @@ test("sharedUtil.makeString", () => {
   expect(makeString("a", DOUBLE_QUOTE)).toBe(`${DOUBLE_QUOTE}a${DOUBLE_QUOTE}`);
   expect(makeString("a", SINGLE_QUOTE)).toBe(`${SINGLE_QUOTE}a${SINGLE_QUOTE}`);
   expect(makeString(`a${DOUBLE_QUOTE}`, DOUBLE_QUOTE)).toBe(
-    `${DOUBLE_QUOTE}a\\${DOUBLE_QUOTE}${DOUBLE_QUOTE}`
+    `${DOUBLE_QUOTE}a\\${DOUBLE_QUOTE}${DOUBLE_QUOTE}`,
   );
   expect(makeString(`a${DOUBLE_QUOTE}`, SINGLE_QUOTE)).toBe(
-    `${SINGLE_QUOTE}a${DOUBLE_QUOTE}${SINGLE_QUOTE}`
+    `${SINGLE_QUOTE}a${DOUBLE_QUOTE}${SINGLE_QUOTE}`,
   );
   expect(
-    makeString("\\a", SINGLE_QUOTE, /* unescapeUnnecessaryEscapes */ true)
+    makeString("\\a", SINGLE_QUOTE, /* unescapeUnnecessaryEscapes */ true),
   ).toBe(`${SINGLE_QUOTE}a${SINGLE_QUOTE}`);
 });

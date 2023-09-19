@@ -89,7 +89,7 @@ module.exports = {
         const useGetter = (getter) => (fixer) =>
           fixer.replaceTextRange(
             [callExpression.callee.property.range[0], callExpression.range[1]],
-            getter
+            getter,
           );
 
         if (replacement.getter) {

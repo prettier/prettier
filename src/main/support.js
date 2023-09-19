@@ -18,7 +18,7 @@ function getSupportInfo({ plugins = [], showDeprecated = false } = {}) {
 
   const options = [];
   for (const option of normalizeOptionSettings(
-    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions)
+    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
   )) {
     if (!showDeprecated && option.deprecated) {
       continue;
@@ -40,7 +40,7 @@ function getSupportInfo({ plugins = [], showDeprecated = false } = {}) {
     option.pluginDefaults = Object.fromEntries(
       plugins
         .filter((plugin) => plugin.defaultOptions?.[option.name] !== undefined)
-        .map((plugin) => [plugin.name, plugin.defaultOptions[option.name]])
+        .map((plugin) => [plugin.name, plugin.defaultOptions[option.name]]),
     );
 
     options.push(option);
@@ -59,7 +59,7 @@ function* collectParsersFromLanguages(parserChoices, languages, plugins) {
           existingParsers.add(parserName);
           const plugin = plugins.find(
             (plugin) =>
-              plugin.parsers && Object.hasOwn(plugin.parsers, parserName)
+              plugin.parsers && Object.hasOwn(plugin.parsers, parserName),
           );
 
           let description = language.name;

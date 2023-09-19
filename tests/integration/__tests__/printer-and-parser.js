@@ -21,7 +21,7 @@ test("Should use printer and parser from the same plugin", async () => {
   const pluginB = createPlugin("plugin B");
 
   const result = JSON.parse(
-    await prettier.format("_", { plugins: [pluginA, pluginB], parser: "foo" })
+    await prettier.format("_", { plugins: [pluginA, pluginB], parser: "foo" }),
   );
   expect(result).toEqual({ parsedBy: "plugin B", printedBy: "plugin B" });
 });
@@ -39,7 +39,7 @@ test("Should not apply default options from unused plugin", async () => {
   };
 
   const result = JSON.parse(
-    await prettier.format("_", { plugins: [pluginA, pluginB], parser: "foo" })
+    await prettier.format("_", { plugins: [pluginA, pluginB], parser: "foo" }),
   );
   expect(result).toEqual({ tabWidth: 2 });
 });

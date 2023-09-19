@@ -1,12 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-assertions.mjs [babel] format 1`] = `
-"\`import module x\` cannot have assertions. (1:15)
-> 1 | import module foo from "./module.json" assert { type: "json" }
-    |               ^
-  2 |"
-`;
-
 exports[`invalid-default-named-import.mjs [babel] format 1`] = `
 "Only \`import module x from "./module"\` is valid. (1:15)
 > 1 | import module foo, {bar} from "./module.wasm";

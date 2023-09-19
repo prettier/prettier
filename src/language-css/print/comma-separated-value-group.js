@@ -49,13 +49,13 @@ function printCommaSeparatedValueGroup(path, options, print) {
     (declAncestorProp === "grid" ||
       declAncestorProp.startsWith("grid-template"));
   const atRuleAncestorNode = path.findAncestor(
-    (node) => node.type === "css-atrule"
+    (node) => node.type === "css-atrule",
   );
   const isControlDirective =
     atRuleAncestorNode &&
     isSCSSControlDirectiveNode(atRuleAncestorNode, options);
   const hasInlineComment = node.groups.some((node) =>
-    isInlineValueCommentNode(node)
+    isInlineValueCommentNode(node),
   );
 
   const printed = path.map(print, "groups");
@@ -263,6 +263,18 @@ function printCommaSeparatedValueGroup(path, options, print) {
       isWordNode(iNextNode) ||
       iPrevNode?.type === "value-func" ||
       (iPrevNode && isWordNode(iPrevNode));
+
+    // Space before unary minus followed by a function call.
+    if (
+      options.parser === "scss" &&
+      isMathOperator &&
+      iNode.value === "-" &&
+      iNextNode.type === "value-func" &&
+      locEnd(iNode) !== locStart(iNextNode)
+    ) {
+      parts.push(" ");
+      continue;
+    }
 
     // Formatting `/`, `+`, `-` sign
     if (

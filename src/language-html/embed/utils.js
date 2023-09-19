@@ -41,7 +41,7 @@ async function formatAttributeValue(
   code,
   textToDoc,
   options,
-  shouldHugJsExpression
+  shouldHugJsExpression,
 ) {
   options = {
     // strictly prefer single quote to avoid unnecessary html entity escape

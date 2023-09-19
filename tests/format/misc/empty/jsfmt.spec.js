@@ -39,5 +39,5 @@ run_spec(
       " \r \r\n \n ",
     ].map((code) => ({ code, output: "" })),
   },
-  parsers
+  parsers,
 );

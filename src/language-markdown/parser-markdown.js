@@ -34,17 +34,15 @@ function createParse({ isMDX }) {
       .use(footnotes)
       .use(frontMatter)
       .use(remarkMath)
-      .use(isMDX ? esSyntax : identity)
+      .use(isMDX ? esSyntax : noop)
       .use(liquid)
-      .use(isMDX ? htmlToJsx : identity)
+      .use(isMDX ? htmlToJsx : noop)
       .use(wikiLink);
     return processor.run(processor.parse(text));
   };
 }
 
-function identity(x) {
-  return x;
-}
+function noop() {}
 
 const baseParser = {
   astFormat: "mdast",

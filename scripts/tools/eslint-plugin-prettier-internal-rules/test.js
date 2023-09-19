@@ -4,13 +4,13 @@
 const path = require("path");
 const { outdent } = require("outdent");
 const { RuleTester } = require("eslint");
-const { rules } = require(".");
+const { rules } = require("./index.js");
 
 const test = (ruleId, tests) => {
   new RuleTester({ parserOptions: { ecmaVersion: 2021 } }).run(
     ruleId,
     rules[ruleId],
-    tests
+    tests,
   );
 };
 

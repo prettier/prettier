@@ -8,7 +8,7 @@ const { PRETTIER_DIR } = process.env;
 const { bin } = require(path.join(PRETTIER_DIR, "package.json"));
 const prettierCli = path.join(
   PRETTIER_DIR,
-  typeof bin === "object" ? bin.prettier : bin
+  typeof bin === "object" ? bin.prettier : bin,
 );
 
 const mockable = isProduction

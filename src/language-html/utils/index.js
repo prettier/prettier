@@ -59,7 +59,7 @@ function shouldPreserveContent(node, options) {
   if (
     isPreLikeNode(node) &&
     node.children.some(
-      (child) => child.type !== "text" && child.type !== "interpolation"
+      (child) => child.type !== "text" && child.type !== "interpolation",
     )
   ) {
     return true;
@@ -612,7 +612,7 @@ function getTextValueParts(node, value = node.value) {
       ? replaceEndOfLine(value)
       : replaceEndOfLine(
           dedentString(htmlTrimPreserveIndentation(value)),
-          hardline
+          hardline,
         )
     : join(line, htmlWhitespaceUtils.split(value));
 }
