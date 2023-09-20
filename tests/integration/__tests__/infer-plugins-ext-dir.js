@@ -103,4 +103,71 @@ describe("infer file ext that supported by only plugins", () => {
       ],
     });
   });
+
+  describe("with multiple config for nested dir", () => {
+    runCli("cli/infer-plugins-with-multiple-config", [
+      "--write",
+      "--no-editorconfig",
+      ".",
+    ]).test({
+      status: 0,
+      stdout: outdent`
+        dir/.prettierrc.mjs 0ms
+        dir/subdir/.prettierrc.mjs 0ms
+        dir/subdir/2.foo 0ms
+      `,
+      write: [
+        {
+          content: "export default {};\n",
+          filename: "dir/.prettierrc.mjs",
+        },
+        {
+          content: outdent`
+            export default {
+              plugins: ["../../../../plugins/defaultOptions/plugin.cjs"],
+            };\n
+          `,
+          filename: "dir/subdir/.prettierrc.mjs",
+        },
+        {
+          content: '{"tabWidth":8,"bracketSpacing":false}',
+          filename: "dir/subdir/2.foo",
+        },
+      ],
+    });
+  });
+
+  describe("with multiple config for nested dir 2", () => {
+    runCli("cli/infer-plugins-with-multiple-config", [
+      "--write",
+      "--no-editorconfig",
+      "dir",
+      "dir/subdir",
+    ]).test({
+      status: 0,
+      stdout: outdent`
+        dir/.prettierrc.mjs 0ms
+        dir/subdir/.prettierrc.mjs 0ms
+        dir/subdir/2.foo 0ms
+      `,
+      write: [
+        {
+          content: "export default {};\n",
+          filename: "dir/.prettierrc.mjs",
+        },
+        {
+          content: outdent`
+            export default {
+              plugins: ["../../../../plugins/defaultOptions/plugin.cjs"],
+            };\n
+          `,
+          filename: "dir/subdir/.prettierrc.mjs",
+        },
+        {
+          content: '{"tabWidth":8,"bracketSpacing":false}',
+          filename: "dir/subdir/2.foo",
+        },
+      ],
+    });
+  });
 });
