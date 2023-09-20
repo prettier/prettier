@@ -4,10 +4,6 @@ import { fastGlob } from "./prettier-internal.js";
 
 /** @typedef {import('./context').Context} Context */
 
-function isError(pathOrError) {
-  return "error" in pathOrError;
-}
-
 /**
  * @param {Context} context
  */
@@ -15,14 +11,14 @@ async function* expandPatterns(context) {
   const seen = new Set();
   let noResults = true;
 
-  for await (const pathOrError of expandPatternsInternal(context)) {
+  for await (const { filePath, ignoreUnknown, error } of expandPatternsInternal(
+    context,
+  )) {
     noResults = false;
-    if (isError(pathOrError)) {
-      yield pathOrError;
+    if (error) {
+      yield { error };
       continue;
     }
-
-    const { filePath, ignoreUnknown } = pathOrError;
 
     const fileName = path.resolve(filePath);
 
