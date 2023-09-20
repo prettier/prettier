@@ -5,7 +5,7 @@ import { createTwoFilesPatch } from "diff";
 import * as prettier from "../index.js";
 import mockable from "../common/mockable.js";
 import { createIsIgnoredFunction, errors } from "./prettier-internal.js";
-import { expandPatterns, isError } from "./expand-patterns.js";
+import { expandPatterns } from "./expand-patterns.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import isTTY from "./is-tty.js";
 import findCacheFile from "./find-cache-file.js";
@@ -312,15 +312,15 @@ async function formatFiles(context) {
     }
   }
 
-  for await (const pathOrError of expandPatterns(context)) {
-    if (isError(pathOrError)) {
-      context.logger.error(pathOrError.error);
+  for await (const { error, fileName, ignoreUnknown } of expandPatterns(
+    context,
+  )) {
+    if (error) {
+      context.logger.error(error);
       // Don't exit, but set the exit code to 2
       process.exitCode = 2;
       continue;
     }
-
-    const { fileName, ignoreUnknown } = pathOrError;
 
     const isFileIgnored = isIgnored(fileName);
     if (

@@ -187,4 +187,4 @@ function escapePathForGlob(path) {
  */
 const fixWindowsSlashes = normalizeToPosix;
 
-export { expandPatterns, isError };
+export { expandPatterns };
