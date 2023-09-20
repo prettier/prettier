@@ -5,7 +5,7 @@ import { fastGlob } from "./prettier-internal.js";
 /** @typedef {import('./context').Context} Context */
 
 function isError(pathOrError) {
-  return Object.hasOwn(pathOrError, "error");
+  return "error" in pathOrError;
 }
 
 /**
