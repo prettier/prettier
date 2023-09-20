@@ -23,7 +23,7 @@ class DebugError extends Error {
 }
 
 function handleError(context, filename, error, printedFilename, ignoreUnknown) {
-  ignoreUnknown = context.argv.ignoreUnknown || ignoreUnknown;
+  ignoreUnknown ||= context.argv.ignoreUnknown;
 
   const errorIsUndefinedParseError =
     error instanceof errors.UndefinedParserError;
