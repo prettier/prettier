@@ -16,15 +16,12 @@ import {
   isCallExpression,
   isMemberExpression,
   getCallArguments,
-  rawText,
-  hasComment,
-  isSignedNumericLiteral,
+  isLoneShortArgument,
   isObjectProperty,
   createTypeCheckFunction,
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
-import { isLiteral } from "./literal.js";
 
 function printAssignment(
   path,
@@ -205,7 +202,11 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   let node = rightNode;
   const propertiesForPath = [];
   for (;;) {
-    if (node.type === "UnaryExpression") {
+    if (
+      node.type === "UnaryExpression" ||
+      node.type === "AwaitExpression" ||
+      (node.type === "YieldExpression" && node.argument !== null)
+    ) {
       node = node.argument;
       propertiesForPath.push("argument");
     } else if (node.type === "TSNonNullExpression") {
@@ -363,46 +364,6 @@ function isPoorlyBreakableMemberOrCallChain(
   }
 
   return deep && (node.type === "Identifier" || node.type === "ThisExpression");
-}
-
-const LONE_SHORT_ARGUMENT_THRESHOLD_RATE = 0.25;
-
-function isLoneShortArgument(node, { printWidth }) {
-  if (hasComment(node)) {
-    return false;
-  }
-
-  const threshold = printWidth * LONE_SHORT_ARGUMENT_THRESHOLD_RATE;
-
-  if (
-    node.type === "ThisExpression" ||
-    (node.type === "Identifier" && node.name.length <= threshold) ||
-    (isSignedNumericLiteral(node) && !hasComment(node.argument))
-  ) {
-    return true;
-  }
-
-  const regexpPattern =
-    (node.type === "Literal" && "regex" in node && node.regex.pattern) ||
-    (node.type === "RegExpLiteral" && node.pattern);
-
-  if (regexpPattern) {
-    return regexpPattern.length <= threshold;
-  }
-
-  if (isStringLiteral(node)) {
-    return rawText(node).length <= threshold;
-  }
-
-  if (node.type === "TemplateLiteral") {
-    return (
-      node.expressions.length === 0 &&
-      node.quasis[0].value.raw.length <= threshold &&
-      !node.quasis[0].value.raw.includes("\n")
-    );
-  }
-
-  return isLiteral(node);
 }
 
 function isObjectPropertyWithShortKey(node, keyDoc, options) {

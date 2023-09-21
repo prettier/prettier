@@ -84,6 +84,7 @@ function handleEndOfLineComment(context) {
     handleVariableDeclaratorComments,
     handleBreakAndContinueStatementComments,
     handleSwitchDefaultCaseComments,
+    handleLastUnionElementInExpression,
   ].some((fn) => fn(context));
 }
 
@@ -576,8 +577,8 @@ function handleLastFunctionArgComments({
       precedingNode?.type === "AssignmentPattern" ||
       precedingNode?.type === "ObjectPattern" ||
       precedingNode?.type === "ArrayPattern" ||
-      precedingNode?.type === "RestElement") &&
-    enclosingNode &&
+      precedingNode?.type === "RestElement" ||
+      precedingNode?.type === "TSParameterProperty") &&
     isRealFunctionLikeNode(enclosingNode) &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
@@ -585,29 +586,20 @@ function handleLastFunctionArgComments({
     return true;
   }
 
+  // Comment between function parameters parentheses and function body
   if (
-    enclosingNode?.type === "FunctionDeclaration" &&
-    followingNode?.type === "BlockStatement"
+    !isBlockComment(comment) &&
+    (enclosingNode?.type === "FunctionDeclaration" ||
+      enclosingNode?.type === "FunctionExpression" ||
+      enclosingNode?.type === "ObjectMethod") &&
+    followingNode?.type === "BlockStatement" &&
+    enclosingNode.body === followingNode
   ) {
-    const functionParamRightParenIndex = (() => {
-      const parameters = getFunctionParameters(enclosingNode);
-      if (parameters.length > 0) {
-        return getNextNonSpaceNonCommentCharacterIndex(
-          text,
-          locEnd(parameters.at(-1)),
-        );
-      }
-      const functionParamLeftParenIndex =
-        getNextNonSpaceNonCommentCharacterIndex(text, locEnd(enclosingNode.id));
-      return (
-        functionParamLeftParenIndex !== false &&
-        getNextNonSpaceNonCommentCharacterIndex(
-          text,
-          functionParamLeftParenIndex + 1,
-        )
-      );
-    })();
-    if (locStart(comment) > functionParamRightParenIndex) {
+    const characterAfterCommentIndex = getNextNonSpaceNonCommentCharacterIndex(
+      text,
+      locEnd(comment),
+    );
+    if (characterAfterCommentIndex === locStart(followingNode)) {
       addBlockStatementFirstComment(followingNode, comment);
       return true;
     }
@@ -894,6 +886,44 @@ function handleSwitchDefaultCaseComments({
   }
 
   return true;
+}
+
+/**
+ * Handle `Comment2` and `Comment4`.
+ *
+ *   type Foo = (
+ *     | "thing1" // Comment1
+ *     | "thing2" // Comment2
+ *   )[];
+ *
+ *   type Foo = (
+ *     | "thing1" // Comment3
+ *     | "thing2" // Comment4
+ *   ) & Bar;
+ *
+ * @param {CommentContext} context
+ * @returns {boolean}
+ */
+function handleLastUnionElementInExpression({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+}) {
+  if (
+    precedingNode &&
+    (precedingNode.type === "TSUnionType" ||
+      precedingNode.type === "UnionTypeAnnotation") &&
+    (((enclosingNode.type === "TSArrayType" ||
+      enclosingNode.type === "ArrayTypeAnnotation") &&
+      followingNode === undefined) ||
+      enclosingNode.type === "TSIntersectionType" ||
+      enclosingNode.type === "IntersectionTypeAnnotation")
+  ) {
+    addTrailingComment(precedingNode.types.at(-1), comment);
+    return true;
+  }
+  return false;
 }
 
 /**

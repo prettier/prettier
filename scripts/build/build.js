@@ -4,11 +4,11 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import readline from "node:readline";
 import chalk from "chalk";
-import minimist from "minimist";
 import prettyBytes from "pretty-bytes";
 import createEsmUtils from "esm-utils";
 import { DIST_DIR } from "../utils/index.js";
 import files from "./config.js";
+import parseArguments from "./parse-arguments.js";
 
 const { require } = createEsmUtils(import.meta);
 
@@ -129,39 +129,8 @@ async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
   console.log(status.DONE);
 }
 
-async function run(cliOptions) {
-  cliOptions.files = cliOptions.file
-    ? new Set([cliOptions.file].flat())
-    : cliOptions.file;
-  delete cliOptions.file;
-
-  cliOptions.saveAs = cliOptions["save-as"];
-  delete cliOptions["save-as"];
-
-  cliOptions.printSize = cliOptions["print-size"];
-  delete cliOptions["print-size"];
-
-  cliOptions.compareSize = cliOptions["compare-size"];
-  delete cliOptions["compare-size"];
-
-  if (cliOptions.report === "") {
-    cliOptions.report = ["html"];
-  }
-  cliOptions.reports = cliOptions.report
-    ? [cliOptions.report].flat()
-    : cliOptions.report;
-  delete cliOptions.report;
-
-  if (cliOptions.saveAs && !(cliOptions.files && cliOptions.files.size === 1)) {
-    throw new Error("'--save-as' can only use together with one '--file' flag");
-  }
-
-  if (
-    cliOptions.saveAs &&
-    !path.join(DIST_DIR, cliOptions.saveAs).startsWith(DIST_DIR)
-  ) {
-    throw new Error("'--save-as' can only relative path");
-  }
+async function run() {
+  const cliOptions = parseArguments();
 
   if (cliOptions.clean) {
     let stat;
@@ -180,22 +149,10 @@ async function run(cliOptions) {
     }
   }
 
-  if (cliOptions.compareSize) {
-    if (cliOptions.minify === false) {
-      throw new Error(
-        "'--compare-size' can not use together with '--no-minify' flag",
-      );
-    }
-
-    if (cliOptions.saveAs) {
-      throw new Error(
-        "'--compare-size' can not use together with '--save-as' flag",
-      );
-    }
-  }
-
   const shouldCollectLicenses =
-    !cliOptions.playground && !cliOptions.files && cliOptions.minify === null;
+    !cliOptions.playground &&
+    !cliOptions.files &&
+    typeof cliOptions.minify !== "boolean";
 
   console.log(chalk.inverse(" Building packages "));
 
@@ -204,19 +161,4 @@ async function run(cliOptions) {
   }
 }
 
-await run(
-  minimist(process.argv.slice(2), {
-    boolean: ["playground", "print-size", "compare-size", "minify", "clean"],
-    string: ["file", "save-as", "report"],
-    default: {
-      clean: false,
-      playground: false,
-      printSize: false,
-      compareSize: false,
-      minify: null,
-    },
-    unknown(flag) {
-      throw new Error(`Unknown flag ${chalk.red(flag)}`);
-    },
-  }),
-);
+await run();

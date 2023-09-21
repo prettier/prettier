@@ -107,7 +107,7 @@ function printGraphqlComments(lines) {
  */
 function isGraphQL({ node, parent }) {
   return (
-    hasLanguageComment(node, "GraphQL") ||
+    hasLanguageComment({ node, parent }, "GraphQL") ||
     (parent &&
       ((parent.type === "TaggedTemplateExpression" &&
         ((parent.tag.type === "MemberExpression" &&

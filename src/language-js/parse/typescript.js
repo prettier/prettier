@@ -40,7 +40,7 @@ function createParseError(error) {
   });
 }
 
-// https://typescript-eslint.io/architecture/parser/#jsx
+// https://typescript-eslint.io/packages/parser/#jsx
 const isKnownFileType = (filepath) =>
   /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/i.test(filepath);
 

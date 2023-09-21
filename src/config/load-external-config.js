@@ -1,6 +1,11 @@
 import requireFromFile from "../utils/require-from-file.js";
 import importFromFile from "../utils/import-from-file.js";
 
+const requireErrorCodesShouldBeIgnored = new Set([
+  "MODULE_NOT_FOUND",
+  "ERR_REQUIRE_ESM",
+  "ERR_PACKAGE_PATH_NOT_EXPORTED",
+]);
 async function loadExternalConfig(config, filepath) {
   /*
   Try `require()` first, this is how it works in Prettier v2.
@@ -12,10 +17,7 @@ async function loadExternalConfig(config, filepath) {
   try {
     return requireFromFile(config, filepath);
   } catch (/** @type {any} */ error) {
-    if (
-      error?.code !== "MODULE_NOT_FOUND" &&
-      error?.code !== "ERR_REQUIRE_ESM"
-    ) {
+    if (!requireErrorCodesShouldBeIgnored.has(error?.code)) {
       throw error;
     }
   }

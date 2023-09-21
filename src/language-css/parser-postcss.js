@@ -53,7 +53,7 @@ function parseNestedCSS(node, options) {
           "a".repeat(node.prop.length) +
           options.originalText.slice(
             node.source.start.offset + node.prop.length,
-            node.source.end.offset + 1,
+            node.source.end.offset,
           );
         const fakeContent = textBefore.replaceAll(/[^\n]/g, " ") + nodeText;
         let parse;

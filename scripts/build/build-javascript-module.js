@@ -2,7 +2,7 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
-import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
+import { nodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "esbuild-plugins-node-modules-polyfill";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
@@ -49,7 +49,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
       replacement: "",
     },
-    // Transform `.at` and `Object.hasOwn`
+    // Transform `.at`, `Object.hasOwn`, and `String#replaceAll`
     {
       module: "*",
       process: transform,
@@ -118,6 +118,8 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     define["process.emitWarning"] = undefined;
     // postcss/lib/postcss.js
     define["process.env.LANG"] = "";
+    // @typescript-eslint/typescript-estree
+    define["process.env.TYPESCRIPT_ESLINT_EXPERIMENTAL_TSSERVER"] = "";
 
     // Replace `__dirname` and `__filename` with a fake value
     // So `parser-typescript.js` won't contain a path of working directory

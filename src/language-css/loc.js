@@ -28,8 +28,7 @@ function calculateLocEnd(node, text) {
 
   // `postcss>=8`
   if (typeof node.source?.end?.offset === "number") {
-    // https://github.com/postcss/postcss/issues/1450
-    return node.source.end.offset + 1;
+    return node.source.end.offset;
   }
 
   if (node.source) {

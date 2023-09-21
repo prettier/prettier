@@ -55,7 +55,7 @@ function hasNakedLeftSide(node) {
     node.type === "TaggedTemplateExpression" ||
     node.type === "BindExpression" ||
     (node.type === "UpdateExpression" && !node.prefix) ||
-    isTSTypeExpression(node) ||
+    isBinaryCastExpression(node) ||
     node.type === "TSNonNullExpression" ||
     node.type === "ChainExpression"
   );
@@ -188,6 +188,35 @@ function isRegExpLiteral(node) {
     (node.type === "Literal" && Boolean(node.regex))
   );
 }
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isLiteral = createTypeCheckFunction([
+  "Literal",
+  "BooleanLiteral",
+  "BigIntLiteral", // Babel, flow use `BigIntLiteral` too
+  "DecimalLiteral",
+  "DirectiveLiteral",
+  "NullLiteral",
+  "NumericLiteral",
+  "RegExpLiteral",
+  "StringLiteral",
+]);
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isSingleWordType = createTypeCheckFunction([
+  "Identifier",
+  "ThisExpression",
+  "Super",
+  "PrivateName",
+  "PrivateIdentifier",
+  "Import",
+]);
 
 /**
  * @param {Node} node
@@ -442,47 +471,127 @@ function isSimpleTemplateLiteral(node) {
   }
 
   return expressions.every((expr) => {
-    // Disallow comments since printDocToString can't print them here
-    if (hasComment(expr)) {
-      return false;
-    }
-
-    // Allow `x` and `this`
-    if (expr.type === "Identifier" || expr.type === "ThisExpression") {
+    if (isSimpleAtomicExpression(expr) || isSimpleMemberExpression(expr)) {
       return true;
     }
+  });
+}
 
-    if (expr.type === "ChainExpression") {
-      expr = expr.expression;
-    }
+function isSimpleMemberExpression(
+  node,
+  { maxDepth = Number.POSITIVE_INFINITY } = {},
+) {
+  if (hasComment(node)) {
+    return false;
+  }
+  if (node.type === "ChainExpression") {
+    return isSimpleMemberExpression(node.expression, { maxDepth });
+  }
+  if (!isMemberExpression(node)) {
+    return false;
+  }
 
-    // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
-    if (isMemberExpression(expr)) {
-      let head = expr;
-      while (isMemberExpression(head)) {
-        if (
-          head.property.type !== "Identifier" &&
-          head.property.type !== "Literal" &&
-          head.property.type !== "StringLiteral" &&
-          head.property.type !== "NumericLiteral"
-        ) {
-          return false;
-        }
-        head = head.object;
-        if (hasComment(head)) {
-          return false;
-        }
-      }
-
-      if (head.type === "Identifier" || head.type === "ThisExpression") {
-        return true;
-      }
-
+  let head = node;
+  let depth = 0;
+  while (isMemberExpression(head) && depth++ <= maxDepth) {
+    if (!isSimpleAtomicExpression(head.property)) {
       return false;
     }
+    head = head.object;
+    if (hasComment(head)) {
+      return false;
+    }
+  }
+  return isSimpleAtomicExpression(head);
+}
 
+/**
+ * This is intended to return true for small expressions
+ * which cannot be broken.
+ */
+function isSimpleAtomicExpression(node) {
+  if (hasComment(node)) {
     return false;
-  });
+  }
+  return isLiteral(node) || isSingleWordType(node);
+}
+
+/**
+ * Attempts to gauge the rough complexity of a node, for example
+ * to detect deeply-nested booleans, call expressions with lots of arguments, etc.
+ */
+function isSimpleExpressionByNodeCount(node, maxInnerNodeCount = 5) {
+  const count = getExpressionInnerNodeCount(node, maxInnerNodeCount);
+  return count <= maxInnerNodeCount;
+}
+
+function getExpressionInnerNodeCount(node, maxCount) {
+  let count = 0;
+  for (const k in node) {
+    const prop = node[k];
+
+    if (prop && typeof prop === "object" && typeof prop.type === "string") {
+      count++;
+      count += getExpressionInnerNodeCount(prop, maxCount - count);
+    }
+
+    // Bail early to protect against bad performance.
+    if (count > maxCount) {
+      return count;
+    }
+  }
+  return count;
+}
+
+const LONE_SHORT_ARGUMENT_THRESHOLD_RATE = 0.25;
+function isLoneShortArgument(node, { printWidth }) {
+  if (hasComment(node)) {
+    return false;
+  }
+
+  const threshold = printWidth * LONE_SHORT_ARGUMENT_THRESHOLD_RATE;
+
+  if (
+    node.type === "ThisExpression" ||
+    (node.type === "Identifier" && node.name.length <= threshold) ||
+    (isSignedNumericLiteral(node) && !hasComment(node.argument))
+  ) {
+    return true;
+  }
+
+  const regexpPattern =
+    (node.type === "Literal" && "regex" in node && node.regex.pattern) ||
+    (node.type === "RegExpLiteral" && node.pattern);
+
+  if (regexpPattern) {
+    return regexpPattern.length <= threshold;
+  }
+
+  if (isStringLiteral(node)) {
+    return rawText(node).length <= threshold;
+  }
+
+  if (node.type === "TemplateLiteral") {
+    return (
+      node.expressions.length === 0 &&
+      node.quasis[0].value.raw.length <= threshold &&
+      !node.quasis[0].value.raw.includes("\n")
+    );
+  }
+
+  if (node.type === "UnaryExpression") {
+    return isLoneShortArgument(node.argument, { printWidth });
+  }
+
+  if (
+    node.type === "CallExpression" &&
+    node.arguments.length === 0 &&
+    node.callee.type === "Identifier"
+  ) {
+    return node.callee.name.length <= threshold - 2;
+  }
+
+  return isLiteral(node);
 }
 
 /**
@@ -654,20 +763,9 @@ function isSimpleCallArgument(node, depth = 2) {
   }
 
   if (
-    node.type === "Literal" ||
-    node.type === "BigIntLiteral" ||
-    node.type === "DecimalLiteral" ||
-    node.type === "BooleanLiteral" ||
-    node.type === "NullLiteral" ||
-    node.type === "NumericLiteral" ||
-    node.type === "StringLiteral" ||
-    node.type === "Identifier" ||
-    node.type === "ThisExpression" ||
-    node.type === "Super" ||
-    node.type === "PrivateName" ||
-    node.type === "PrivateIdentifier" ||
-    node.type === "ArgumentPlaceholder" ||
-    node.type === "Import"
+    isLiteral(node) ||
+    isSingleWordType(node) ||
+    node.type === "ArgumentPlaceholder"
   ) {
     return true;
   }
@@ -795,6 +893,9 @@ function startsWithNoLookaheadToken(node, predicate) {
     case "TSSatisfiesExpression":
     case "TSAsExpression":
     case "TSNonNullExpression":
+    case "AsExpression":
+    case "AsConstExpression":
+    case "SatisfiesExpression":
       return startsWithNoLookaheadToken(node.expression, predicate);
     default:
       return predicate(node);
@@ -1101,9 +1202,14 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment",
 );
 
-const isTSTypeExpression = createTypeCheckFunction([
+const isBinaryCastExpression = createTypeCheckFunction([
+  // TS
   "TSAsExpression",
   "TSSatisfiesExpression",
+  // Flow
+  "AsExpression",
+  "AsConstExpression",
+  "SatisfiesExpression",
 ]);
 
 export {
@@ -1143,8 +1249,13 @@ export {
   isRegExpLiteral,
   isSimpleType,
   isSimpleNumber,
+  isSimpleAtomicExpression,
+  isSimpleMemberExpression,
   isSimpleTemplateLiteral,
+  isSimpleExpressionByNodeCount,
+  isLoneShortArgument,
   isStringLiteral,
+  isLiteral,
   isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
@@ -1161,7 +1272,7 @@ export {
   getComments,
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
-  isTSTypeExpression,
+  isBinaryCastExpression,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   createTypeCheckFunction,

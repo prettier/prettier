@@ -3,7 +3,7 @@ import {
   isJsxElement,
   isCallExpression,
   isMemberExpression,
-  isTSTypeExpression,
+  isBinaryCastExpression,
   hasComment,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
@@ -163,7 +163,7 @@ function shouldExtraIndentForConditionalExpression(path) {
 
     if (
       (node.type === "NewExpression" && node.callee === child) ||
-      (isTSTypeExpression(node) && node.expression === child)
+      (isBinaryCastExpression(node) && node.expression === child)
     ) {
       parent = path.getParentNode(ancestorCount + 1);
       child = node;
