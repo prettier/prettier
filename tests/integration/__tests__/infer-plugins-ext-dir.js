@@ -170,4 +170,39 @@ describe("infer file ext that supported by only plugins", () => {
       ],
     });
   });
+
+  describe("with multiple config for nested dir 2", () => {
+    runCli("cli/infer-plugins-ext-dir-with-complex-overrides", [
+      "--write",
+      "--no-editorconfig",
+      ".",
+    ]).test({
+      status: 0,
+      stdout: outdent`
+        .prettierrc.mjs 0ms
+        dir/2.foo 0ms
+      `,
+      write: [
+        {
+          content: outdent`
+            export default {
+              overrides: [
+                {
+                  files: ["dir/*.foo"],
+                  options: {
+                    plugins: ["../../plugins/extensions/plugin.cjs"],
+                  },
+                },
+              ],
+            };\n
+          `,
+          filename: ".prettierrc.mjs",
+        },
+        {
+          content: "!2.foo\n",
+          filename: "dir/2.foo",
+        },
+      ],
+    });
+  });
 });
