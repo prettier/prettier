@@ -9,6 +9,35 @@ Prettier ships with a handful of format options.
 
 If you change any options, it’s recommended to do it via a [configuration file](configuration.md). This way the Prettier CLI, [editor integrations](editors.md) and other tooling knows what options you use.
 
+## Summary
+
+| Option                                                                        | Context    | Default       | CLI Override                                                             | API Override                                                            |
+| ----------------------------------------------------------------------------- | ---------- | ------------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| [Print Width](#print-width)                                                   | All        | `80`          | `--print-width <int>`                                                    | `printWidth: <int>`                                                     |
+| [Tab Width](#tab-width)                                                       | All        | `2`           | `--tab-width <int>`                                                      | `tabWidth: <int>`                                                       |
+| [Tabs](#tabs)                                                                 | All        | `false`       | `--use-tabs`                                                             | `useTabs: <bool>`                                                       |
+| [Semicolons](#semicolons)                                                     | All        | `true`        | `--no-semi`                                                              | `semi: <bool>`                                                          |
+| [Single Quotes](#single-quotes)                                               | All        | `false`       | `--single-quote`                                                         | `singleQuote: <bool>`                                                   |
+| [Prose Wrap](#prose-wrap)                                                     | All        | `"preserve"`  | <code>--prose-wrap <always&#124;never&#124;preserve></code>              | <code>proseWrap: "<always&#124;never&#124;preserve>"</code>             |
+| [End of Line](#end-of-line)                                                   | All        | `"lf"`        | <code>--end-of-line <lf&#124;crlf&#124;cr&#124;auto></code>              | <code>endOfLine: "<lf&#124;crlf&#124;cr&#124;auto>"</code>              |
+| [Embedded Language Formatting](#embedded-language-formatting)                 | All        | `"auto"`      | <code>--embedded-language-formatting=<off&#124;auto></code>              | <code>embeddedLanguageFormatting: "<off&#124;auto>"</code>              |
+| [Quote Props](#quote-props)                                                   | TypeScript | `"as-needed"` | <code>--quote-props <as-needed&#124;consistent&#124;preserve></code>     | <code>quoteProps: "<as-needed&#124;consistent&#124;preserve>"</code>    |
+| [Trailing Commas](#trailing-commas)                                           | TypeScript | `"all"`       | <code>--trailing-comma <all&#124;es5&#124;none></code>                   | <code>trailingComma: "<all&#124;es5&#124;none>"</code>                  |
+| [Bracket Spacing](#bracket-spacing)                                           | TypeScript | `true`        | `--no-bracket-spacing`                                                   | `bracketSpacing: <bool>`                                                |
+| [Arrow Function Parentheses](#arrow-function-parentheses)                     | TypeScript | `"always"`    | <code>--arrow-parens <always&#124;avoid></code>                          | <code>arrowParens: "<always&#124;avoid>"</code>                         |
+| [Bracket Line](#bracket-line)                                                 | HTML       | `false`       | `--bracket-same-line`                                                    | `bracketSameLine: <bool>`                                               |
+| [HTML Whitespace Sensitivity](#html-whitespace-sensitivity)                   | HTML       | `"css"`       | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
+| [Single Attribute Per Line](#single-attribute-per-line)                       | HTML       | `false`       | `--single-attribute-per-line`                                            | `singleAttributePerLine: <bool>`                                        |
+| [JSX Quotes](#jsx-quotes)                                                     | JSX        | `false`       | `--jsx-single-quote`                                                     | `jsxSingleQuote: <bool>`                                                |
+| [JSX Brackets (deprecated!)](#deprecated-jsx-brackets)                        | JSX        | `false`       | `--jsx-bracket-same-line`                                                | `jsxBracketSameLine: <bool>`                                            |
+| [Vue-specific tags indentation](#vue-files-script-and-style-tags-indentation) | Vue        | `false`       | `--vue-indent-script-and-style`                                          | `vueIndentScriptAndStyle: <bool>`                                       |
+| [Range Start](#range)                                                         | Config     | `0`           | `--range-start <int>`                                                    | `rangeStart: <int>`                                                     |
+| [Range End](#range)                                                           | Config     | `Infinity`    | `--range-end <int>`                                                      | `rangeEnd: <int>`                                                       |
+| [Parser](#parser)                                                             | Config     | None          | `--parser <string>`                                                      | `parser: "<string>"`                                                    |
+| [File Path](#file-path)                                                       | Config     | None          | `--stdin-filepath <string>`                                              | `filepath: "<string>"`                                                  |
+| [Require Pragma](#require-pragma)                                             | Config     | `false`       | `--require-pragma`                                                       | `requirePragma: <bool>`                                                 |
+| [Insert Pragma](#insert-pragma)                                               | Config     | `false`       | `--insert-pragma`                                                        | `insertPragma: <bool>`                                                  |
+
 ## Print Width
 
 Specify the line length that the printer will wrap on.
