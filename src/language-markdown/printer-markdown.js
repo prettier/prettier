@@ -791,10 +791,9 @@ function printUrl(url, dangerousCharOrChars = []) {
       : [dangerousCharOrChars]),
   ];
 
-  const newUrl = url.replaceAll("<", "%3C").replaceAll(">", "%3E");
-  return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(newUrl)
-    ? `<${newUrl}>`
-    : newUrl;
+  return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(url)
+    ? `<${url.replaceAll("<", "%3C").replaceAll(">", "%3E")}>`
+    : url;
 }
 
 function printTitle(title, options, printSpace = true) {

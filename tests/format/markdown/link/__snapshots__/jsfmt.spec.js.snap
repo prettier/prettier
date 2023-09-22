@@ -56,13 +56,17 @@ singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
 [link](https://www.google.fr/()foo->bar)
+[link](https://www.google.fr/foo->bar)
 ![link](https://www.google.fr/()foo->bar)
-- [link]: https://www.google.fr/()foo->bar
+![link](https://www.google.fr/foo->bar)
+[link]: https://www.google.fr/()foo->bar
+[link]: https://www.google.fr/foo->bar
 =====================================output=====================================
 [link](<https://www.google.fr/()foo-%3Ebar>)
+[link](https://www.google.fr/foo->bar)
 ![link](<https://www.google.fr/()foo-%3Ebar>)
-
-- [link]: https://www.google.fr/()foo-%3Ebar
+![link](https://www.google.fr/foo->bar) [link]: https://www.google.fr/()foo->bar
+[link]: https://www.google.fr/foo->bar
 
 ================================================================================
 `;
@@ -75,13 +79,17 @@ proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
 [link](https://www.google.fr/()foo->bar)
+[link](https://www.google.fr/foo->bar)
 ![link](https://www.google.fr/()foo->bar)
-- [link]: https://www.google.fr/()foo->bar
+![link](https://www.google.fr/foo->bar)
+[link]: https://www.google.fr/()foo->bar
+[link]: https://www.google.fr/foo->bar
 =====================================output=====================================
 [link](<https://www.google.fr/()foo-%3Ebar>)
+[link](https://www.google.fr/foo->bar)
 ![link](<https://www.google.fr/()foo-%3Ebar>)
-
-- [link]: https://www.google.fr/()foo-%3Ebar
+![link](https://www.google.fr/foo->bar) [link]: https://www.google.fr/()foo->bar
+[link]: https://www.google.fr/foo->bar
 
 ================================================================================
 `;
