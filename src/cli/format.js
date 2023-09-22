@@ -312,7 +312,7 @@ async function formatFiles(context) {
     }
   }
 
-  for await (const { error, fileName, ignoreUnknown } of expandPatterns(
+  for await (const { error, filename, ignoreUnknown } of expandPatterns(
     context,
   )) {
     if (error) {
@@ -322,7 +322,7 @@ async function formatFiles(context) {
       continue;
     }
 
-    const isFileIgnored = isIgnored(fileName);
+    const isFileIgnored = isIgnored(filename);
     if (
       isFileIgnored &&
       (context.argv.debugCheck ||
@@ -334,11 +334,11 @@ async function formatFiles(context) {
     }
 
     const options = {
-      ...(await getOptionsForFile(context, fileName)),
-      filepath: fileName,
+      ...(await getOptionsForFile(context, filename)),
+      filepath: filename,
     };
 
-    const fileNameToDisplay = normalizeToPosix(path.relative(cwd, fileName));
+    const fileNameToDisplay = normalizeToPosix(path.relative(cwd, filename));
     let printedFilename;
     if (isTTY()) {
       printedFilename = context.logger.log(fileNameToDisplay, {
@@ -349,7 +349,7 @@ async function formatFiles(context) {
 
     let input;
     try {
-      input = await fs.readFile(fileName, "utf8");
+      input = await fs.readFile(filename, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
       /* c8 ignore start */
@@ -375,7 +375,7 @@ async function formatFiles(context) {
     const start = Date.now();
 
     const isCacheExists = formatResultsCache?.existsAvailableFormatResultsCache(
-      fileName,
+      filename,
       options,
     );
 
@@ -422,7 +422,7 @@ async function formatFiles(context) {
         }
 
         try {
-          await writeFormattedFile(fileName, output);
+          await writeFormattedFile(filename, output);
 
           // Set cache if format succeeds
           shouldSetCache = true;
@@ -456,9 +456,9 @@ async function formatFiles(context) {
     }
 
     if (shouldSetCache) {
-      formatResultsCache?.setFormatResultsCache(fileName, options);
+      formatResultsCache?.setFormatResultsCache(filename, options);
     } else {
-      formatResultsCache?.removeFormatResultsCache(fileName);
+      formatResultsCache?.removeFormatResultsCache(filename);
     }
 
     if (isDifferent) {

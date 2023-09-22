@@ -20,15 +20,15 @@ async function* expandPatterns(context) {
       continue;
     }
 
-    const fileName = path.resolve(filePath);
+    const filename = path.resolve(filePath);
 
     // filter out duplicates
-    if (seen.has(fileName)) {
+    if (seen.has(filename)) {
       continue;
     }
 
-    seen.add(fileName);
-    yield { fileName, ignoreUnknown };
+    seen.add(filename);
+    yield { filename, ignoreUnknown };
   }
 
   if (noResults && context.argv.errorOnUnmatchedPattern !== false) {
