@@ -146,21 +146,6 @@ const options = {
     cliName: "plugin",
     cliCategory: CATEGORY_CONFIG,
   },
-  pluginSearchDirs: {
-    type: "path",
-    array: true,
-    default: [{ value: [] }],
-    category: CATEGORY_GLOBAL,
-    description: outdent`
-      Custom directory that contains prettier plugins in node_modules subdirectory.
-      Overrides default behavior when plugins are searched relatively to the location of Prettier.
-      Multiple values are accepted.
-    `,
-    exception: (value) =>
-      typeof value === "string" || typeof value === "object",
-    cliName: "plugin-search-dir",
-    cliCategory: CATEGORY_CONFIG,
-  },
   printWidth: {
     category: CATEGORY_GLOBAL,
     type: "int",

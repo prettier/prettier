@@ -367,9 +367,9 @@ exports[`snippet: #15 [json] format 1`] = `
 `;
 
 exports[`snippet: #15 [json] format 2`] = `
-"Unexpected token (1:6)
+"'RegExpLiteral' is not allowed in JSON. (1:2)
 > 1 | [/a/v]
-    |      ^"
+    |  ^^^^"
 `;
 
 exports[`snippet: #15 [json-stringify] format 1`] = `

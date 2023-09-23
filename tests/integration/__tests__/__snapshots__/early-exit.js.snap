@@ -10,21 +10,6 @@ exports[`show detailed usage with --help l (alias) (stdout) 1`] = `
 
 exports[`show detailed usage with --help l (alias) (write) 1`] = `[]`;
 
-exports[`show detailed usage with plugin options (automatic resolution) (stderr) 1`] = `""`;
-
-exports[`show detailed usage with plugin options (automatic resolution) (stdout) 1`] = `
-"--tab-width <int>
-
-  Number of spaces per indentation level.
-
-Default: 2
-Plugin defaults:
-* prettier-plugin-bar: 4
-* prettier-plugin-baz.js: 4"
-`;
-
-exports[`show detailed usage with plugin options (automatic resolution) (write) 1`] = `[]`;
-
 exports[`show detailed usage with plugin options (manual resolution) (stderr) 1`] = `""`;
 
 exports[`show detailed usage with plugin options (manual resolution) (stdout) 1`] = `
@@ -115,11 +100,6 @@ Config options:
                            Defaults to [.gitignore, .prettierignore].
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
                            Defaults to [].
-  --plugin-search-dir <path>
-                           Custom directory that contains prettier plugins in node_modules subdirectory.
-                           Overrides default behavior when plugins are searched relatively to the location of Prettier.
-                           Multiple values are accepted.
-                           Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -157,7 +137,6 @@ Other options:
   --log-level <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
-  --no-plugin-search       Disable plugin autoloading.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -287,11 +266,6 @@ Config options:
                            Defaults to [.gitignore, .prettierignore].
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
                            Defaults to [].
-  --plugin-search-dir <path>
-                           Custom directory that contains prettier plugins in node_modules subdirectory.
-                           Overrides default behavior when plugins are searched relatively to the location of Prettier.
-                           Multiple values are accepted.
-                           Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -329,7 +303,6 @@ Other options:
   --log-level <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
-  --no-plugin-search       Disable plugin autoloading.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.

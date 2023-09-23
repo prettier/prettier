@@ -1,4 +1,5 @@
-import vnopts from "vnopts";
+import * as vnopts from "vnopts";
+// "fast-glob" is bundled here since the API uses `micromatch` too
 import fastGlob from "fast-glob";
 import * as core from "./main/core.js";
 import {
@@ -9,7 +10,6 @@ import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import {
   loadBuiltinPlugins,
   loadPlugins,
-  searchPlugins,
   clearCache as clearPluginCache,
 } from "./main/plugins/index.js";
 import {
@@ -33,11 +33,11 @@ import omit from "./utils/object-omit.js";
  */
 function withPlugins(
   fn,
-  optionsArgumentIndex = 1 // Usually `options` is the 2nd argument
+  optionsArgumentIndex = 1, // Usually `options` is the 2nd argument
 ) {
   return async (...args) => {
     const options = args[optionsArgumentIndex] ?? {};
-    const { plugins = [], pluginSearchDirs } = options;
+    const { plugins = [] } = options;
 
     args[optionsArgumentIndex] = {
       ...options,
@@ -46,9 +46,6 @@ function withPlugins(
           loadBuiltinPlugins(),
           // TODO: standalone version allow `plugins` to be `prettierPlugins` which is an object, should allow that too
           loadPlugins(plugins),
-          options.pluginSearchDirs === false
-            ? []
-            : searchPlugins(pluginSearchDirs),
         ])
       ).flat(),
     };
@@ -92,7 +89,10 @@ const sharedWithCli = {
   normalizeOptions,
   getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
-  vnopts,
+  vnopts: {
+    ChoiceSchema: vnopts.ChoiceSchema,
+    apiDescriptor: vnopts.apiDescriptor,
+  },
   fastGlob,
   utils: {
     isNonEmptyArray,

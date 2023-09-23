@@ -12,5 +12,5 @@ run_spec(
       },
     ],
   },
-  ["babel", "flow", "typescript"]
+  ["babel", "flow", "typescript"],
 );

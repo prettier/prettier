@@ -33,7 +33,7 @@
   variants:
     - "[CommonMark](https://commonmark.org)"
     - "[GitHub-Flavored Markdown](https://github.github.com/gfm/)"
-    - "[MDX](https://mdxjs.com)"
+    - "[MDX v1](https://mdxjs.com)"
 - name: YAML
   nameLink: https://yaml.org
   showName: true

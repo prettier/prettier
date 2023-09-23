@@ -40,12 +40,12 @@ function getSortedChildNodes(node, options) {
       }),
     ]
   ).flatMap((node) =>
-    canAttachComment(node) ? [node] : getSortedChildNodes(node, options)
+    canAttachComment(node) ? [node] : getSortedChildNodes(node, options),
   );
   // Sort by `start` location first, then `end` location
   childNodes.sort(
     (nodeA, nodeB) =>
-      locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB)
+      locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB),
   );
 
   childNodesCache.set(node, childNodes);
@@ -109,7 +109,7 @@ function decorateComment(node, comment, options, enclosingNode) {
     const commentIndex = findExpressionIndexForComment(
       quasis,
       comment,
-      options
+      options,
     );
 
     if (

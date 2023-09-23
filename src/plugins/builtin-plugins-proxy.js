@@ -20,7 +20,7 @@ import markdownLanguages from "../language-markdown/languages.evaluate.js";
 import yamlOptions from "../language-yaml/options.js";
 import yamlLanguages from "../language-yaml/languages.evaluate.js";
 
-function createParsersAndParsers(modules) {
+function createParsersAndPrinters(modules) {
   const parsers = Object.create(null);
   const printers = Object.create(null);
 
@@ -71,7 +71,7 @@ export const languages = [
 ];
 
 // Lazy load the plugins
-export const { parsers, printers } = createParsersAndParsers([
+export const { parsers, printers } = createParsersAndPrinters([
   {
     importPlugin: () => import("./acorn.js"),
     parsers: ["acorn", "espree"],

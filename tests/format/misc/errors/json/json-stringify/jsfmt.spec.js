@@ -7,5 +7,5 @@ run_spec(
       '{"foo": /* comment */ 1}',
     ],
   },
-  ["json-stringify"]
+  ["json-stringify"],
 );

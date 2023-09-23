@@ -27,5 +27,5 @@ run_spec(
       "\n;/* comment */\n",
     ],
   },
-  ["babel", "flow", "typescript"]
+  ["babel", "flow", "typescript"],
 );

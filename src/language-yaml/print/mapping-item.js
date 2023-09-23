@@ -116,7 +116,7 @@ function printMappingItem(path, print, options) {
   implicitMappingValueParts.push(printedValue);
   const implicitMappingValue = alignWithSpaces(
     options.tabWidth,
-    implicitMappingValueParts
+    implicitMappingValueParts,
   );
 
   // If a key is definitely single-line, forcibly use implicit style to avoid edge cases (very long
@@ -166,8 +166,8 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
     /\\$/m.test(
       options.originalText.slice(
         node.position.start.offset,
-        node.position.end.offset
-      )
+        node.position.end.offset,
+      ),
     )
   ) {
     return false;

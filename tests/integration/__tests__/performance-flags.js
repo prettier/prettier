@@ -2,8 +2,8 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   const assertStderr = (message) => {
     expect(
       message.includes(
-        "'--debug-repeat' found, running formatWithCursor 2 times"
-      )
+        "'--debug-repeat' found, running formatWithCursor 2 times",
+      ),
     ).toBe(true);
   };
 
@@ -11,7 +11,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   runCli(
     "cli/performance-flags",
     ["--debug-repeat", "2", "--parser", "babel"],
-    { input: "foo(    bar    )" }
+    { input: "foo(    bar    )" },
   ).test({
     stderr: assertStderr,
     status: 0,
@@ -24,7 +24,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
     runCli(
       "cli/performance-flags",
       ["--debug-repeat", "2", "--parser", "babel", "--log-level", logLevel],
-      { input: "foo(    bar    )" }
+      { input: "foo(    bar    )" },
     ).test({
       stderr: assertStderr,
       status: 0,

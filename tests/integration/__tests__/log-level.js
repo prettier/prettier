@@ -18,7 +18,7 @@ describe("--write with --log-level=silent doesn't log filenames", () => {
   runCli("cli/write", ["--write", "unformatted.js", "--log-level=silent"]).test(
     {
       status: 0,
-    }
+    },
   );
 });
 

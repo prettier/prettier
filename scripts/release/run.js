@@ -39,11 +39,6 @@ for (let step of [
     skip: params.dry,
   },
   {
-    name: "Running tests",
-    process: steps.runTests,
-    skip: params.dry || !params.manual,
-  },
-  {
     name: "Bumping version",
     process: steps.updateVersion,
     skip: params.dry,

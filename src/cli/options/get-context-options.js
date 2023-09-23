@@ -8,7 +8,7 @@ import {
 import cliOptions from "../cli-options.evaluate.js";
 
 const detailedCliOptions = normalizeOptionSettings(cliOptions).map((option) =>
-  normalizeDetailedOption(option)
+  normalizeDetailedOption(option),
 );
 
 function apiOptionToCliOption(apiOption) {
@@ -64,11 +64,10 @@ function supportInfoToContextOptions({ options: supportOptions, languages }) {
   };
 }
 
-async function getContextOptions(plugins, pluginSearchDirs) {
+async function getContextOptions(plugins) {
   const supportInfo = await getSupportInfo({
     showDeprecated: true,
     plugins,
-    pluginSearchDirs,
   });
 
   return supportInfoToContextOptions(supportInfo);

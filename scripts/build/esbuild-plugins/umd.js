@@ -138,7 +138,7 @@ export default function esbuildPluginUmd(options) {
             text
               .slice(expectedOutput.start.length, -expectedOutput.end.length)
               .trimEnd() +
-            outro
+            outro,
         );
       });
     },

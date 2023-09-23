@@ -1,10 +1,9 @@
-import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree/dist/parser.js";
+import { parse as parseTypeScript } from "@typescript-eslint/typescript-estree";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 import postprocess from "./postprocess/index.js";
-import { throwErrorForInvalidNodes } from "./postprocess/typescript.js";
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const baseParseOptions = {
@@ -18,25 +17,30 @@ const baseParseOptions = {
   tokens: true,
   loggerFn: false,
   project: [],
+  // TODO: Use new properties when update printer
+  suppressDeprecatedPropertyWarnings: true,
 };
 
 function createParseError(error) {
-  const { message, lineNumber, column } = error;
+  const { message, location } = error;
 
   /* c8 ignore next 3 */
-  if (typeof lineNumber !== "number") {
+  if (!location) {
     return error;
   }
 
+  const { start, end } = location;
+
   return createError(message, {
     loc: {
-      start: { line: lineNumber, column: column + 1 },
+      start: { line: start.line, column: start.column + 1 },
+      end: { line: end.line, column: end.column + 1 },
     },
     cause: error,
   });
 }
 
-// https://typescript-eslint.io/architecture/parser/#jsx
+// https://typescript-eslint.io/packages/parser/#jsx
 const isKnownFileType = (filepath) =>
   /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/i.test(filepath);
 
@@ -57,14 +61,15 @@ function parse(text, options) {
   const textToParse = replaceHashbang(text);
   const parseOptionsCombinations = getParseOptionsCombinations(text, options);
 
-  let result;
+  let ast;
   try {
-    result = tryCombinations(
+    ast = tryCombinations(
       parseOptionsCombinations.map(
-        (parseOptions) => () => parseWithNodeMaps(textToParse, parseOptions)
-      )
+        (parseOptions) => () => parseTypeScript(textToParse, parseOptions),
+      ),
     );
   } catch ({
+    // @ts-expect-error -- expected
     errors: [
       // Suppose our guess is correct, throw the first error
       error,
@@ -73,9 +78,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  throwErrorForInvalidNodes(result, text);
-
-  return postprocess(result.ast, { parser: "typescript", text });
+  return postprocess(ast, { text });
 }
 
 /**
@@ -83,12 +86,13 @@ function parse(text, options) {
  */
 function isProbablyJsx(text) {
   return new RegExp(
+    // eslint-disable-next-line regexp/no-useless-non-capturing-group -- possible bug
     [
       "(?:^[^\"'`]*</)", // Contains "</" when probably not in a string
       "|",
       "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
     ].join(""),
-    "m"
+    "m",
   ).test(text);
 }
 

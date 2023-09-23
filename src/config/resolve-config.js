@@ -1,6 +1,7 @@
 import path from "node:path";
 import micromatch from "micromatch";
 import mem, { memClear } from "mem";
+import { toPath } from "url-or-path";
 import partition from "../utils/partition.js";
 import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
 import getPrettierConfigExplorerWithoutCache from "./get-prettier-config-explorer.js";
@@ -29,11 +30,14 @@ function loadPrettierConfig(filePath, options) {
   const { load, search } = getPrettierConfigExplorer({
     cache: Boolean(useCache),
   });
-  return configPath ? load(configPath) : search(filePath);
+  return configPath
+    ? load(configPath)
+    : search(filePath ? path.resolve(filePath) : undefined);
 }
 
-async function resolveConfig(filePath, options) {
+async function resolveConfig(fileUrlOrPath, options) {
   options = { useCache: true, ...options };
+  const filePath = toPath(fileUrlOrPath);
 
   const [result, editorConfigured] = await Promise.all([
     loadPrettierConfig(filePath, options),
@@ -49,23 +53,23 @@ async function resolveConfig(filePath, options) {
     ...mergeOverrides(result, filePath),
   };
 
-  for (const optionName of ["plugins", "pluginSearchDirs"]) {
-    if (Array.isArray(merged[optionName])) {
-      merged[optionName] = merged[optionName].map((value) =>
-        typeof value === "string" && value.startsWith(".") // relative path
-          ? path.resolve(path.dirname(result.filepath), value)
-          : value
-      );
-    }
+  if (Array.isArray(merged.plugins)) {
+    merged.plugins = merged.plugins.map((value) =>
+      typeof value === "string" && value.startsWith(".") // relative path
+        ? path.resolve(path.dirname(result.filepath), value)
+        : value,
+    );
   }
 
   return merged;
 }
 
-async function resolveConfigFile(filePath) {
+async function resolveConfigFile(fileUrlOrPath) {
   const { search } = getPrettierConfigExplorer({ cache: false });
-  const result = await search(filePath);
-  return result ? result.filepath : null;
+  const result = await search(
+    fileUrlOrPath ? path.resolve(toPath(fileUrlOrPath)) : undefined,
+  );
+  return result?.filepath ?? null;
 }
 
 function mergeOverrides(configResult, filePath) {
@@ -78,7 +82,7 @@ function mergeOverrides(configResult, filePath) {
         pathMatchesGlobs(
           relativeFilePath,
           override.files,
-          override.excludeFiles
+          override.excludeFiles,
         )
       ) {
         Object.assign(options, override.options);
@@ -95,7 +99,7 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   // micromatch always matches against basename when the option is enabled
   // use only patterns without slashes with it to match minimatch behavior
   const [withSlashes, withoutSlashes] = partition(patternList, (pattern) =>
-    pattern.includes("/")
+    pattern.includes("/"),
   );
 
   return (

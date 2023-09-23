@@ -315,7 +315,7 @@ function genericPrint(path, options, print) {
 
     case "media-feature":
       return maybeToLowerCase(
-        adjustStrings(node.value.replaceAll(/ +/g, " "), options)
+        adjustStrings(node.value.replaceAll(/ +/g, " "), options),
       );
 
     case "media-colon":
@@ -330,7 +330,7 @@ function genericPrint(path, options, print) {
     case "media-url":
       return adjustStrings(
         node.value.replaceAll(/^url\(\s+/gi, "url(").replaceAll(/\s+\)$/g, ")"),
-        options
+        options,
       );
 
     case "media-unknown":
@@ -353,7 +353,7 @@ function genericPrint(path, options, print) {
               ? line
               : hardline,
           ],
-          path.map(print, "nodes")
+          path.map(print, "nodes"),
         ),
       ]);
 
@@ -376,7 +376,7 @@ function genericPrint(path, options, print) {
           : adjustNumbers(
               isKeyframeAtRuleKeywords(path, node.value)
                 ? node.value.toLowerCase()
-                : node.value
+                : node.value,
             ),
       ];
 
@@ -397,7 +397,7 @@ function genericPrint(path, options, print) {
         node.value
           ? quoteAttributeValue(
               adjustStrings(node.value.trim(), options),
-              options
+              options,
             )
           : "",
         node.insensitive ? " i" : "",
@@ -453,13 +453,13 @@ function genericPrint(path, options, print) {
 
     case "selector-unknown": {
       const ruleAncestorNode = path.findAncestor(
-        (node) => node.type === "css-rule"
+        (node) => node.type === "css-rule",
       );
 
       // Nested SCSS property
       if (ruleAncestorNode?.isSCSSNesterProperty) {
         return adjustNumbers(
-          adjustStrings(maybeToLowerCase(node.value), options)
+          adjustStrings(maybeToLowerCase(node.value), options),
         );
       }
 
@@ -544,7 +544,7 @@ function genericPrint(path, options, print) {
     case "value-string":
       return printString(
         node.raws.quote + node.value + node.raws.quote,
-        options
+        options,
       );
 
     case "value-atword":

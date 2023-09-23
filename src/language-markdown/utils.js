@@ -125,7 +125,7 @@ function splitText(text) {
               kind: kRegex.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
               hasLeadingPunctuation: false,
               hasTrailingPunctuation: false,
-            }
+            },
       );
     }
   }
@@ -135,7 +135,7 @@ function splitText(text) {
     for (let i = 1; i < nodes.length; i++) {
       assert(
         !(nodes[i - 1].type === "whitespace" && nodes[i].type === "whitespace"),
-        "splitText should not create consecutive whitespace nodes"
+        "splitText should not create consecutive whitespace nodes",
       );
     }
   }
@@ -167,7 +167,7 @@ function getOrderedListItemInfo(orderListItem, originalText) {
   const [, numberText, marker, leadingSpaces] = originalText
     .slice(
       orderListItem.position.start.offset,
-      orderListItem.position.end.offset
+      orderListItem.position.end.offset,
     )
     .match(/^\s*(\d+)(\.|\))(\s*)/);
 
@@ -184,16 +184,16 @@ function hasGitDiffFriendlyOrderedList(node, options) {
   }
 
   const firstNumber = Number(
-    getOrderedListItemInfo(node.children[0], options.originalText).numberText
+    getOrderedListItemInfo(node.children[0], options.originalText).numberText,
   );
 
   const secondNumber = Number(
-    getOrderedListItemInfo(node.children[1], options.originalText).numberText
+    getOrderedListItemInfo(node.children[1], options.originalText).numberText,
   );
 
   if (firstNumber === 0 && node.children.length > 2) {
     const thirdNumber = Number(
-      getOrderedListItemInfo(node.children[2], options.originalText).numberText
+      getOrderedListItemInfo(node.children[2], options.originalText).numberText,
     );
 
     return secondNumber === 1 && thirdNumber === 1;
@@ -222,7 +222,7 @@ function mapAst(ast, handler) {
     const newNode = { ...handler(node, index, parentStack) };
     if (newNode.children) {
       newNode.children = newNode.children.map((child, index) =>
-        preorder(child, index, [newNode, ...parentStack])
+        preorder(child, index, [newNode, ...parentStack]),
       );
     }
 

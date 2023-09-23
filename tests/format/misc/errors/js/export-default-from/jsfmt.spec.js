@@ -8,5 +8,5 @@ run_spec(
       'export * as foo, {bar} from "foo";',
     ],
   },
-  ["babel"]
+  ["babel"],
 );

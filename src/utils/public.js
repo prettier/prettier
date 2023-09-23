@@ -13,7 +13,7 @@ import isNextLineEmptyAfterIndex from "./is-next-line-empty.js";
 function legacyGetNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
     text,
-    locEnd(node)
+    locEnd(node),
   );
 }
 

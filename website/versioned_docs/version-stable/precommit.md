@@ -20,34 +20,7 @@ This will install [husky](https://github.com/typicode/husky) and [lint-staged](h
 
 Read more at the [lint-staged](https://github.com/okonet/lint-staged#configuration) repo.
 
-## Option 2. [pretty-quick](https://github.com/azz/pretty-quick)
-
-**Use Case:** Great for when you want an entire file formatting on your changed/staged files.
-
-Install it along with [husky](https://github.com/typicode/husky):
-
-<!--DOCUSAURUS_CODE_TABS-->
-<!--npm-->
-
-```bash
-npx husky-init
-npm install --save-dev pretty-quick
-npx husky set .husky/pre-commit "npx pretty-quick --staged"
-```
-
-<!--yarn-->
-
-```bash
-npx husky-init # add --yarn2 for Yarn 2
-yarn add --dev pretty-quick
-yarn husky set .husky/pre-commit "npx pretty-quick --staged"
-```
-
-<!--END_DOCUSAURUS_CODE_TABS-->
-
-Read more at the [pretty-quick](https://github.com/azz/pretty-quick) repo.
-
-## Option 3. [pre-commit](https://github.com/pre-commit/pre-commit)
+## Option 2. [pre-commit](https://github.com/pre-commit/pre-commit)
 
 **Use Case:** Great when working with multi-language projects.
 
@@ -62,7 +35,7 @@ Copy the following config into your `.pre-commit-config.yaml` file:
 
 Read more at [mirror of prettier package for pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
 
-## Option 4. [Husky.Net](https://github.com/alirezanet/Husky.Net)
+## Option 3. [Husky.Net](https://github.com/alirezanet/Husky.Net)
 
 **Use Case:** A dotnet solution to use Prettier along with other code quality tools (e.g. dotnet-format, ESLint, Stylelint, etc.). It supports multiple file states (staged - last-commit, git-files etc.)
 
@@ -83,7 +56,7 @@ after installation you can add prettier task to the `task-runner.json`.
 }
 ```
 
-## Option 5. [git-format-staged](https://github.com/hallettj/git-format-staged)
+## Option 4. [git-format-staged](https://github.com/hallettj/git-format-staged)
 
 **Use Case:** Great for when you want to format partially-staged files, and other options do not provide a good fit for your project.
 
@@ -113,13 +86,21 @@ yarn add --dev git-format-staged
 yarn husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
 ```
 
+<!--pnpm-->
+
+```bash
+pnpm exec husky-init
+pnpm add --save-dev git-format-staged
+pnpm husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+```
+
 <!--END_DOCUSAURUS_CODE_TABS-->
 
 Add or remove file extensions to suit your project. Note that regardless of which extensions you list formatting will respect any `.prettierignore` files in your project.
 
 To read about how git-format-staged works see [Automatic Code Formatting for Partially-Staged Files](https://www.olioapps.com/blog/automatic-code-formatting/).
 
-## Option 6. Shell script
+## Option 5. Shell script
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 

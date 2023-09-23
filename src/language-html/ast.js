@@ -99,7 +99,7 @@ class Node {
       // @ts-expect-error
       this.children.indexOf(target),
       0,
-      this.createChild(node)
+      this.createChild(node),
     );
   }
 
@@ -158,7 +158,7 @@ class Node {
   get attrMap() {
     return Object.fromEntries(
       // @ts-expect-error
-      this.attrs.map((attr) => [attr.fullName, attr.value])
+      this.attrs.map((attr) => [attr.fullName, attr.value]),
     );
   }
 }

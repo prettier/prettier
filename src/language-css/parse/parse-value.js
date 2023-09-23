@@ -44,8 +44,8 @@ function parseValueNode(valueNode, options) {
         parseSelector(
           getValueRoot(valueNode).text.slice(
             node.group.open.sourceIndex + 1,
-            node.group.close.sourceIndex
-          )
+            node.group.close.sourceIndex,
+          ),
         ),
       ];
     }

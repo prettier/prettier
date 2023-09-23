@@ -52,14 +52,18 @@ exports[`Line breaking after filepath with errors (stdout) 1`] = `
 "invalid-1.js
 invalid-2.js
 invalid-2.unknown
-valid-1.jsfunction foo() {}"
+valid-1.js
+[[called readline.clearLine(process.stdout)]]
+function foo() {}"
 `;
 
 exports[`Line breaking after filepath with errors (stdout) 2`] = `
 "invalid-1.js
 invalid-2.js
 invalid-2.unknown
-valid-1.js"
+valid-1.js
+[[called readline.clearLine(process.stdout)]]
+"
 `;
 
 exports[`Line breaking after filepath with errors (stdout) 3`] = `
@@ -67,13 +71,19 @@ exports[`Line breaking after filepath with errors (stdout) 3`] = `
 invalid-1.js
 invalid-2.js
 invalid-2.unknown
-valid-1.jsAll matched files use Prettier code style!"
+valid-1.js
+[[called readline.clearLine(process.stdout)]]
+All matched files use Prettier code style!"
 `;
 
 exports[`Line breaking after filepath with errors (stdout) 4`] = `
 "invalid-1.js
 invalid-2.js
-invalid-2.unknownvalid-1.jsvalid-1.js 0ms"
+invalid-2.unknown
+[[called readline.clearLine(process.stdout)]]
+valid-1.js
+[[called readline.clearLine(process.stdout)]]
+valid-1.js 0ms"
 `;
 
 exports[`Line breaking after filepath with errors (write) 1`] = `[]`;

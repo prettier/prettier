@@ -27,14 +27,14 @@ function printExpressionStatement(path, options, print) {
     hasComment(
       path.node,
       CommentCheckFlags.Dangling,
-      ({ marker }) => marker === markerForIfWithoutBlockAndSameLineComment
+      ({ marker }) => marker === markerForIfWithoutBlockAndSameLineComment,
     )
   ) {
     parts.push(
       " ",
       printDanglingComments(path, options, {
         marker: markerForIfWithoutBlockAndSameLineComment,
-      })
+      }),
     );
   }
 

@@ -370,16 +370,6 @@ exports[`show detailed usage with --help no-error-on-unmatched-pattern (stdout) 
 
 exports[`show detailed usage with --help no-error-on-unmatched-pattern (write) 1`] = `[]`;
 
-exports[`show detailed usage with --help no-plugin-search (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help no-plugin-search (stdout) 1`] = `
-"--no-plugin-search
-
-  Disable plugin autoloading."
-`;
-
-exports[`show detailed usage with --help no-plugin-search (write) 1`] = `[]`;
-
 exports[`show detailed usage with --help no-semi (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-semi (stdout) 1`] = `
@@ -438,20 +428,6 @@ Default: []"
 `;
 
 exports[`show detailed usage with --help plugin (write) 1`] = `[]`;
-
-exports[`show detailed usage with --help plugin-search-dir (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help plugin-search-dir (stdout) 1`] = `
-"--plugin-search-dir <path>
-
-  Custom directory that contains prettier plugins in node_modules subdirectory.
-  Overrides default behavior when plugins are searched relatively to the location of Prettier.
-  Multiple values are accepted.
-
-Default: []"
-`;
-
-exports[`show detailed usage with --help plugin-search-dir (write) 1`] = `[]`;
 
 exports[`show detailed usage with --help print-width (stderr) 1`] = `""`;
 

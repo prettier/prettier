@@ -13,9 +13,7 @@ export default function createMinimistOptions(detailedOptions) {
 
     if (
       !option.deprecated &&
-      (!option.forwardToApi ||
-        name === "plugin" ||
-        name === "plugin-search-dir") &&
+      (!option.forwardToApi || name === "plugin") &&
       option.default !== undefined
     ) {
       defaultValues[option.name] = option.default;

@@ -694,6 +694,31 @@ export class Point {
 ================================================================================
 `;
 
+exports[`ts-parameter-proerty.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  constructor(
+      private readonly paramProp: Type,
+    // comment
+  ) {
+  }
+}
+
+=====================================output=====================================
+class A {
+  constructor(
+    private readonly paramProp: Type,
+    // comment
+  ) {}
+}
+
+================================================================================
+`;
+
 exports[`type_literals.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

@@ -18,7 +18,7 @@ const ADJUST_NUMBERS_REGEX = new RegExp(
     `(${WORD_PART_REGEX.source})?` +
     `(${NUMBER_REGEX.source})` +
     `(${STANDARD_UNIT_REGEX.source})?`,
-  "g"
+  "g",
 );
 
 function adjustStrings(value, options) {
@@ -33,12 +33,12 @@ function quoteAttributeValue(value, options) {
 }
 
 function adjustNumbers(value) {
-  return value.replace(
+  return value.replaceAll(
     ADJUST_NUMBERS_REGEX,
     (match, quote, wordPart, number, unit) =>
       !wordPart && number
         ? printCssNumber(number) + maybeToLowerCase(unit || "")
-        : match
+        : match,
   );
 }
 

@@ -23,7 +23,7 @@ test("shared util has correct structure", () => {
   expect(typeof sharedUtil.isPreviousLineEmpty).toBe("function");
   expect(typeof sharedUtil.getNextNonSpaceNonCommentCharacter).toBe("function");
   expect(typeof sharedUtil.getNextNonSpaceNonCommentCharacterIndex).toBe(
-    "function"
+    "function",
   );
   expect(typeof sharedUtil.makeString).toBe("function");
 });
@@ -51,29 +51,41 @@ test("sharedUtil.getMaxContinuousCount", () => {
 test("sharedUtil.getStringWidth", () => {
   const { getStringWidth } = sharedUtil;
 
-  // From https://github.com/sindresorhus/string-width/blob/master/test.js
+  // From https://github.com/sindresorhus/string-width/blob/main/test.js
   expect(getStringWidth("abcde")).toBe(5);
   expect(getStringWidth("古池や")).toBe(6);
   expect(getStringWidth("あいうabc")).toBe(9);
+  expect(getStringWidth("あいう★")).toBe(7);
+  expect(getStringWidth("±")).toBe(1);
   expect(getStringWidth("ノード.js")).toBe(9);
   expect(getStringWidth("你好")).toBe(4);
   expect(getStringWidth("안녕하세요")).toBe(10);
   expect(getStringWidth("A\uD83C\uDE00BC")).toBe(5);
-  expect(getStringWidth("\u001B[31m\u001B[39m")).toBe(0);
-  expect(
-    getStringWidth("\u001B]8;;https://github.com\u0007Click\u001B]8;;\u0007")
-  ).toBe(5);
+  // We don't strip ansi
+  // expect(getStringWidth("\u001B[31m\u001B[39m")).toBe(0);
+  // expect(
+  //   getStringWidth("\u001B]8;;https://github.com\u0007Click\u001B]8;;\u0007")
+  // ).toBe(5);
   expect(getStringWidth("\u{231A}")).toBe(2);
   expect(getStringWidth("\u{2194}\u{FE0F}")).toBe(2);
   expect(getStringWidth("\u{1F469}")).toBe(2);
   expect(getStringWidth("\u{1F469}\u{1F3FF}")).toBe(2);
+  // Ideally this should be `2`, switch to use `Intl.Segmenter` will fix it
+  // https://github.com/prettier/prettier/pull/14793#discussion_r1185840038
+  expect(getStringWidth("\u{845B}\u{E0100}")).toBe(3);
+
   expect(getStringWidth(String.fromCharCode(0))).toBe(0);
   expect(getStringWidth(String.fromCharCode(31))).toBe(0);
   // expect(getStringWidth(String.fromCharCode(127))).toBe(0); // Different with `string-width`
   expect(getStringWidth(String.fromCharCode(134))).toBe(0);
   expect(getStringWidth(String.fromCharCode(159))).toBe(0);
   expect(getStringWidth("\u001B")).toBe(0);
-  // expect(getStringWidth("x\u0300"), 1); // Different with `string-width`
+  expect(getStringWidth("x\u0300")).toBe(1);
+
+  expect(getStringWidth("👶")).toBe(2);
+  expect(getStringWidth("👶🏽")).toBe(2);
+  expect(getStringWidth("👩‍👩‍👦‍👦")).toBe(2);
+  expect(getStringWidth("👨‍❤️‍💋‍👨")).toBe(2);
 });
 
 test("sharedUtil.getAlignmentSize", () => {
@@ -83,7 +95,7 @@ test("sharedUtil.getAlignmentSize", () => {
   expect(getAlignmentSize("\t\t", /* tabWidth */ 2)).toBe(4);
   expect(getAlignmentSize("\t\t", /* tabWidth */ 3)).toBe(6);
   expect(getAlignmentSize("\t\t", /* tabWidth */ 3, /* startIndex */ 1)).toBe(
-    3
+    3,
   );
 });
 
@@ -112,13 +124,13 @@ test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpa
     const locEnd = () => endOfIdentifierA;
 
     expect(getNextNonSpaceNonCommentCharacter(text, endOfIdentifierA)).toBe(
-      "b"
+      "b",
     );
     expect(
-      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA)
+      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA),
     ).toBe(indexOfIdentifierB);
     expect(
-      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd),
     ).toBe(indexOfIdentifierB);
   }
 
@@ -129,10 +141,10 @@ test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpa
 
     expect(getNextNonSpaceNonCommentCharacter(text, endOfIdentifierA)).toBe("");
     expect(
-      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA)
+      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA),
     ).toBe(text.length);
     expect(
-      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd),
     ).toBe(text.length);
   }
 
@@ -143,10 +155,10 @@ test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpa
 
     expect(getNextNonSpaceNonCommentCharacter(text, startIndex)).toBe("");
     expect(getNextNonSpaceNonCommentCharacterIndex(text, startIndex)).toBe(
-      false
+      false,
     );
     expect(
-      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd),
     ).toBe(false);
   }
 });
@@ -164,12 +176,12 @@ test("sharedUtil.isPreviousLineEmpty, sharedUtil.isNextLineEmpty and sharedUtil.
 
     expect(isPreviousLineEmpty(text, startOfIdentifierB)).toBe(true);
     expect(
-      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB)
+      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB),
     ).toBe(true);
     expect(isNextLineEmpty(text, endOfIdentifierA)).toBe(true);
     expect(isNextLineEmptyAfterIndex(text, endOfIdentifierA)).toBe(true);
     expect(isNextLineEmpty(text, FAKE_NODE_A, () => endOfIdentifierA)).toBe(
-      true
+      true,
     );
   }
 
@@ -180,12 +192,12 @@ test("sharedUtil.isPreviousLineEmpty, sharedUtil.isNextLineEmpty and sharedUtil.
 
     expect(isPreviousLineEmpty(text, startOfIdentifierB)).toBe(false);
     expect(
-      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB)
+      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB),
     ).toBe(false);
     expect(isNextLineEmpty(text, endOfIdentifierA)).toBe(false);
     expect(isNextLineEmptyAfterIndex(text, endOfIdentifierA)).toBe(false);
     expect(isNextLineEmpty(text, FAKE_NODE_A, () => endOfIdentifierA)).toBe(
-      false
+      false,
     );
   }
 
@@ -204,12 +216,12 @@ test("sharedUtil.makeString", () => {
   expect(makeString("a", DOUBLE_QUOTE)).toBe(`${DOUBLE_QUOTE}a${DOUBLE_QUOTE}`);
   expect(makeString("a", SINGLE_QUOTE)).toBe(`${SINGLE_QUOTE}a${SINGLE_QUOTE}`);
   expect(makeString(`a${DOUBLE_QUOTE}`, DOUBLE_QUOTE)).toBe(
-    `${DOUBLE_QUOTE}a\\${DOUBLE_QUOTE}${DOUBLE_QUOTE}`
+    `${DOUBLE_QUOTE}a\\${DOUBLE_QUOTE}${DOUBLE_QUOTE}`,
   );
   expect(makeString(`a${DOUBLE_QUOTE}`, SINGLE_QUOTE)).toBe(
-    `${SINGLE_QUOTE}a${DOUBLE_QUOTE}${SINGLE_QUOTE}`
+    `${SINGLE_QUOTE}a${DOUBLE_QUOTE}${SINGLE_QUOTE}`,
   );
   expect(
-    makeString("\\a", SINGLE_QUOTE, /* unescapeUnnecessaryEscapes */ true)
+    makeString("\\a", SINGLE_QUOTE, /* unescapeUnnecessaryEscapes */ true),
   ).toBe(`${SINGLE_QUOTE}a${SINGLE_QUOTE}`);
 });

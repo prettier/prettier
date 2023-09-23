@@ -111,7 +111,7 @@ function embed(path, options) {
           } else if (options.parser === "vue") {
             textToDocOptions.parser = isVueSfcWithTypescriptScript(
               path,
-              options
+              options,
             )
               ? "__vue_ts_expression"
               : "__vue_expression";

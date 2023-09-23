@@ -19,17 +19,6 @@ describe("show detailed usage with --help l (alias)", () => {
   });
 });
 
-describe("show detailed usage with plugin options (automatic resolution)", () => {
-  runCli("plugins/automatic", [
-    "--help",
-    "tab-width",
-    "--parser=bar",
-    "--plugin-search-dir=.",
-  ]).test({
-    status: 0,
-  });
-});
-
 describe("show detailed usage with plugin options (manual resolution)", () => {
   runCli("cli", [
     "--help",

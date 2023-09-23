@@ -54,7 +54,7 @@ const ESBUILD_MESSAGE_IDS = [
   "tsconfig.json",
 ];
 const logOverride = Object.fromEntries(
-  ESBUILD_MESSAGE_IDS.map((id) => [id, "warning"])
+  ESBUILD_MESSAGE_IDS.map((id) => [id, "warning"]),
 );
 
 export default function esbuildPluginThrowWarnings({
@@ -79,7 +79,7 @@ export default function esbuildPluginThrowWarnings({
           if (
             allowDynamicRequire &&
             ["unsupported-require-call", "indirect-require"].includes(
-              warning.id
+              warning.id,
             )
           ) {
             continue;

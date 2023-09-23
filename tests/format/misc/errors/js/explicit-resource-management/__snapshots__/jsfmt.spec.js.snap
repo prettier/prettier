@@ -14,13 +14,6 @@ exports[`invalid-for-await-using-binding-of-of.js [flow] format 1`] = `
   2 |"
 `;
 
-exports[`invalid-for-await-using-binding-of-of.js [typescript] format 1`] = `
-"')' expected. (1:24)
-> 1 | for await (using of of of);
-    |                        ^
-  2 |"
-`;
-
 exports[`invalid-for-using-binding-in.js [babel] format 1`] = `
 "For-in loop may not start with 'using' declaration. (1:6)
 > 1 | for (using foo in {});
@@ -32,13 +25,6 @@ exports[`invalid-for-using-binding-in.js [flow] format 1`] = `
 "Unexpected identifier, expected the token \`;\` (1:12)
 > 1 | for (using foo in {});
     |            ^^^
-  2 |"
-`;
-
-exports[`invalid-for-using-binding-in.js [typescript] format 1`] = `
-"';' expected. (1:12)
-> 1 | for (using foo in {});
-    |            ^
   2 |"
 `;
 
@@ -56,13 +42,6 @@ exports[`invalid-for-using-binding-of-in.js [flow] format 1`] = `
   2 |"
 `;
 
-exports[`invalid-for-using-binding-of-in.js [typescript] format 1`] = `
-"Expression expected. (1:15)
-> 1 | for (using of in []);
-    |               ^
-  2 |"
-`;
-
 exports[`invalid-for-using-binding-of-of.js [babel] format 1`] = `
 "Unexpected token, expected ")" (1:18)
 > 1 | for (using of of of);
@@ -77,15 +56,8 @@ exports[`invalid-for-using-binding-of-of.js [flow] format 1`] = `
   2 |"
 `;
 
-exports[`invalid-for-using-binding-of-of.js [typescript] format 1`] = `
-"')' expected. (1:18)
-> 1 | for (using of of of);
-    |                  ^
-  2 |"
-`;
-
 exports[`invalid-using-binding-let.js [babel] format 1`] = `
-"'let' is not allowed to be used as a name in 'let' or 'const' declarations. (2:9)
+"'let' is disallowed as a lexically bound name. (2:9)
   1 | {
 > 2 |   using let = h();
     |         ^
@@ -98,15 +70,6 @@ exports[`invalid-using-binding-let.js [flow] format 1`] = `
   1 | {
 > 2 |   using let = h();
     |         ^^^
-  3 | }
-  4 |"
-`;
-
-exports[`invalid-using-binding-let.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (2:3)
-  1 | {
-> 2 |   using let = h();
-    |   ^
   3 | }
   4 |"
 `;
@@ -126,16 +89,6 @@ exports[`invalid-using-binding-pattern.js [flow] format 1`] = `
   1 | {
 > 2 |   using { foo } = f();
     |         ^
-  3 |   using [ bar ] = g();
-  4 |   for (using { qux } of h());
-  5 |   for (using [ quux ] of i());"
-`;
-
-exports[`invalid-using-binding-pattern.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (2:3)
-  1 | {
-> 2 |   using { foo } = f();
-    |   ^
   3 |   using [ bar ] = g();
   4 |   for (using { qux } of h());
   5 |   for (using [ quux ] of i());"

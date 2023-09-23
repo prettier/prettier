@@ -136,11 +136,11 @@ function printJsxElementInternal(path, options, print) {
     options,
     print,
     jsxWhitespace,
-    isFacebookTranslationTag
+    isFacebookTranslationTag,
   );
 
   const containsText = node.children.some((child) =>
-    isMeaningfulJsxText(child)
+    isMeaningfulJsxText(child),
   );
 
   // We can end up we multiple whitespace elements with empty string
@@ -292,7 +292,7 @@ function printJsxChildren(
   options,
   print,
   jsxWhitespace,
-  isFacebookTranslationTag
+  isFacebookTranslationTag,
 ) {
   const parts = [];
   path.each(({ node, next }) => {
@@ -303,7 +303,7 @@ function printJsxChildren(
       if (isMeaningfulJsxText(node)) {
         const words = jsxWhitespaceUtils.split(
           text,
-          /* captureWhitespace */ true
+          /* captureWhitespace */ true,
         );
 
         // Starts with whitespace
@@ -316,8 +316,8 @@ function printJsxChildren(
                 isFacebookTranslationTag,
                 words[1],
                 node,
-                next
-              )
+                next,
+              ),
             );
           } else {
             parts.push(jsxWhitespace);
@@ -352,8 +352,8 @@ function printJsxChildren(
                 isFacebookTranslationTag,
                 parts.at(-1),
                 node,
-                next
-              )
+                next,
+              ),
             );
           } else {
             parts.push(jsxWhitespace);
@@ -364,8 +364,8 @@ function printJsxChildren(
               isFacebookTranslationTag,
               parts.at(-1),
               node,
-              next
-            )
+              next,
+            ),
           );
         }
       } else if (/\n/.test(text)) {
@@ -387,7 +387,12 @@ function printJsxChildren(
         const trimmed = jsxWhitespaceUtils.trim(rawText(next));
         const [firstWord] = jsxWhitespaceUtils.split(trimmed);
         parts.push(
-          separatorNoWhitespace(isFacebookTranslationTag, firstWord, node, next)
+          separatorNoWhitespace(
+            isFacebookTranslationTag,
+            firstWord,
+            node,
+            next,
+          ),
         );
       } else {
         parts.push(hardline);
@@ -402,7 +407,7 @@ function separatorNoWhitespace(
   isFacebookTranslationTag,
   child,
   childNode,
-  nextNode
+  nextNode,
 ) {
   if (isFacebookTranslationTag) {
     return "";
@@ -422,7 +427,7 @@ function separatorWithWhitespace(
   isFacebookTranslationTag,
   child,
   childNode,
-  nextNode
+  nextNode,
 ) {
   if (isFacebookTranslationTag) {
     return hardline;
@@ -462,7 +467,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
     undefined,
     (node) => node.type === "ArrowFunctionExpression",
     isCallExpression,
-    (node) => node.type === "JSXExpressionContainer"
+    (node) => node.type === "JSXExpressionContainer",
   );
 
   const needsParens = pathNeedsParens(path, options);
@@ -474,7 +479,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
       softline,
       needsParens ? "" : ifBreak(")"),
     ],
-    { shouldBreak }
+    { shouldBreak },
   );
 }
 
@@ -501,7 +506,7 @@ function printJsxAttribute(path, options, print) {
       res = path.call(
         () =>
           printComments(path, replaceEndOfLine(quote + final + quote), options),
-        "value"
+        "value",
       );
     } else {
       res = print("value");
@@ -551,11 +556,18 @@ function printJsxOpeningElement(path, options, print) {
   const { node } = path;
 
   const nameHasComments =
-    hasComment(node.name) || hasComment(node.typeParameters);
+    hasComment(node.name) ||
+    hasComment(node.typeParameters) ||
+    hasComment(node.typeArguments);
 
   // Don't break self-closing elements with no attributes and no comments
   if (node.selfClosing && node.attributes.length === 0 && !nameHasComments) {
-    return ["<", print("name"), print("typeParameters"), " />"];
+    return [
+      "<",
+      print("name"),
+      node.typeArguments ? print("typeArguments") : print("typeParameters"),
+      " />",
+    ];
   }
 
   // don't break up opening elements with a single long text attribute
@@ -579,7 +591,7 @@ function printJsxOpeningElement(path, options, print) {
     return group([
       "<",
       print("name"),
-      print("typeParameters"),
+      node.typeArguments ? print("typeArguments") : print("typeParameters"),
       " ",
       ...path.map(print, "attributes"),
       node.selfClosing ? " />" : ">",
@@ -592,7 +604,7 @@ function printJsxOpeningElement(path, options, print) {
     (attr) =>
       attr.value &&
       isStringLiteral(attr.value) &&
-      attr.value.value.includes("\n")
+      attr.value.value.includes("\n"),
   );
 
   const attributeLine =
@@ -604,11 +616,11 @@ function printJsxOpeningElement(path, options, print) {
     [
       "<",
       print("name"),
-      print("typeParameters"),
+      node.typeArguments ? print("typeArguments") : print("typeParameters"),
       indent(path.map(() => [attributeLine, print()], "attributes")),
       ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
-    { shouldBreak }
+    { shouldBreak },
   );
 }
 
@@ -619,7 +631,7 @@ function printEndOfOpeningTag(node, options, nameHasComments) {
   const bracketSameLine = shouldPrintBracketSameLine(
     node,
     options,
-    nameHasComments
+    nameHasComments,
   );
   if (bracketSameLine) {
     return [">"];
@@ -698,7 +710,7 @@ function printJsxElement(path, options, print) {
   const elem = printComments(
     path,
     printJsxElementInternal(path, options, print),
-    options
+    options,
   );
   return maybeWrapJsxElementInParens(path, elem, options);
 }
@@ -729,7 +741,7 @@ function printJsxSpreadAttributeOrChild(path, options, print) {
           softline,
         ];
       },
-      node.type === "JSXSpreadAttribute" ? "argument" : "expression"
+      node.type === "JSXSpreadAttribute" ? "argument" : "expression",
     ),
     "}",
   ];

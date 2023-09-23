@@ -7,26 +7,21 @@ Plugins are ways of adding new languages or formatting rules to Prettier. Pretti
 
 ## Using Plugins
 
-Plugins are automatically loaded if you have them installed in the same `node_modules` directory where `prettier` is located. Plugin package names must start with `@prettier/plugin-` or `prettier-plugin-` or `@<scope>/prettier-plugin-` to be registered.
+You can load plugins with:
 
-> `<scope>` should be replaced by a name, read more about [NPM scope](https://docs.npmjs.com/misc/scope.html).
-
-When plugins cannot be found automatically, you can load them with:
-
-- The [CLI](cli.md), via `--plugin-search-dir` and `--plugin`:
+- The [CLI](cli.md), via `--plugin`:
 
   ```bash
-  prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=prettier-plugin-foo
+  prettier --write main.foo --plugin=prettier-plugin-foo
   ```
 
-  > Tip: You can set `--plugin-search-dir` or `--plugin` options multiple times.
+  > Tip: You can set `--plugin` options multiple times.
 
-- The [API](api.md), via the `pluginSearchDirs` and `plugins` options:
+- The [API](api.md), via the `plugins` options:
 
   ```js
   await prettier.format("code", {
     parser: "foo",
-    pluginSearchDirs: ["./dir-with-plugins"],
     plugins: ["prettier-plugin-foo"],
   });
   ```
@@ -35,18 +30,11 @@ When plugins cannot be found automatically, you can load them with:
 
   ```json
   {
-    "pluginSearchDirs": ["./dir-with-plugins"],
     "plugins": ["prettier-plugin-foo"]
   }
   ```
 
-`pluginSearchDirs` and `plugins` are independent and one does not require the other.
-
-The paths that are provided to `pluginSearchDirs` will be searched for `@prettier/plugin-*`, `prettier-plugin-*`, and `@*/prettier-plugin-*`. For instance, these can be your project directory, a `node_modules` directory, the location of global npm modules, or any arbitrary directory that contains plugins.
-
-Strings provided to `plugins` are ultimately passed to `require()`, so you can provide a module/package name, a path, or anything else `require()` takes. (`pluginSearchDirs` works the same way. That is, valid plugin paths that it finds are passed to `require()`.)
-
-To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI or add `{ pluginSearchDirs: false }` to options in `prettier.format()` or to the config file.
+Strings provided to `plugins` are ultimately passed to [`import()` expression](https://nodejs.org/api/esm.html#import-expressions), so you can provide a module/package name, a path, or anything else `import()` takes.
 
 ## Official Plugins
 
@@ -70,11 +58,12 @@ To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI
 - [`prettier-plugin-nginx`](https://github.com/joedeandev/prettier-plugin-nginx) by [**@joedeandev**](https://github.com/joedeandev)
 - [`prettier-plugin-prisma`](https://github.com/umidbekk/prettier-plugin-prisma) by [**@umidbekk**](https://github.com/umidbekk)
 - [`prettier-plugin-properties`](https://github.com/eemeli/prettier-plugin-properties) by [**@eemeli**](https://github.com/eemeli)
+- [`prettier-plugin-rust`](https://github.com/jinxdash/prettier-plugin-rust) by [**@jinxdash**](https://github.com/jinxdash)
 - [`prettier-plugin-sh`](https://github.com/un-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
 - [`prettier-plugin-sql`](https://github.com/un-ts/prettier/tree/master/packages/sql) by [**@JounQin**](https://github.com/JounQin)
 - [`prettier-plugin-sql-cst`](https://github.com/nene/prettier-plugin-sql-cst) by [**@nene**](https://github.com/nene)
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
-- [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
+- [`prettier-plugin-svelte`](https://github.com/sveltejs/prettier-plugin-svelte) by [**@sveltejs**](https://github.com/sveltejs)
 - [`prettier-plugin-toml`](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml) by [**@bd82**](https://github.com/bd82)
 
 ## Developing Plugins
@@ -205,7 +194,7 @@ function print(
   path: AstPath,
   options: object,
   // Recursively print a child node
-  print: (selector?: string | number | Array<string | number> | AstPath) => Doc
+  print: (selector?: string | number | Array<string | number> | AstPath) => Doc,
 ): Doc;
 ```
 
@@ -261,7 +250,7 @@ function embed(
   // Path to the current AST node
   path: AstPath,
   // Current options
-  options: Options
+  options: Options,
 ):
   | ((
       // Parses and prints the passed text using a different parser.
@@ -269,12 +258,12 @@ function embed(
       textToDoc: (text: string, options: Options) => Promise<Doc>,
       // Prints the current node or its descendant node with the current printer
       print: (
-        selector?: string | number | Array<string | number> | AstPath
+        selector?: string | number | Array<string | number> | AstPath,
       ) => Doc,
       // The following two arguments are passed for convenience.
       // They're the same `path` and `options` that are passed to `embed`.
       path: AstPath,
-      options: Options
+      options: Options,
     ) => Promise<Doc | undefined> | Doc | undefined)
   | Doc
   | undefined;
@@ -357,7 +346,7 @@ const ignoredKeys = new Set(["prev", "next", "range"]);
 
 function getVisitorKeys(node, nonTraversableKeys) {
   return Object.keys(node).filter(
-    (key) => !nonTraversableKeys.has(key) && !ignoredKeys.has(key)
+    (key) => !nonTraversableKeys.has(key) && !ignoredKeys.has(key),
   );
 }
 ```
@@ -385,7 +374,7 @@ function getCommentChildNodes(
   // The node whose children should be returned.
   node: AST,
   // Current options
-  options: object
+  options: object,
 ): AST[] | undefined;
 ```
 
@@ -400,7 +389,7 @@ function printComment(
   // Path to the current comment node
   commentPath: AstPath,
   // Current options
-  options: object
+  options: object,
 ): Doc;
 ```
 
@@ -441,7 +430,7 @@ The `handleComments` object contains three optional functions, each with signatu
   // The AST
   ast: AST,
   // Whether this comment is the last comment
-  isLastComment: boolean
+  isLastComment: boolean,
 ) => boolean;
 ```
 
@@ -528,91 +517,91 @@ function getStringWidth(text: string): number;
 function getAlignmentSize(
   text: string,
   tabWidth: number,
-  startIndex?: number
+  startIndex?: number,
 ): number;
 
 function getIndentSize(value: string, tabWidth: number): number;
 
 function skip(
-  characters: string | RegExp
+  characters: string | RegExp,
 ): (
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ) => number | false;
 
 function skipWhitespace(
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): number | false;
 
 function skipSpaces(
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): number | false;
 
 function skipToLineEnd(
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): number | false;
 
 function skipEverythingButNewLine(
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): number | false;
 
 function skipInlineComment(
   text: string,
-  startIndex: number | false
+  startIndex: number | false,
 ): number | false;
 
 function skipTrailingComment(
   text: string,
-  startIndex: number | false
+  startIndex: number | false,
 ): number | false;
 
 function skipNewline(
   text: string,
   startIndex: number | false,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): number | false;
 
 function hasNewline(
   text: string,
   startIndex: number,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): boolean;
 
 function hasNewlineInRange(
   text: string,
   startIndex: number,
-  startIndex: number
+  startIndex: number,
 ): boolean;
 
 function hasSpaces(
   text: string,
   startIndex: number,
-  options?: SkipOptions
+  options?: SkipOptions,
 ): boolean;
 
 function makeString(
   rawText: string,
   enclosingQuote: Quote,
-  unescapeUnnecessaryEscapes?: boolean
+  unescapeUnnecessaryEscapes?: boolean,
 ): string;
 
 function getNextNonSpaceNonCommentCharacter(
   text: string,
-  startIndex: number
+  startIndex: number,
 ): string;
 
 function getNextNonSpaceNonCommentCharacterIndex(
   text: string,
-  startIndex: number
+  startIndex: number,
 ): number | false;
 
 function isNextLineEmpty(text: string, startIndex: number): boolean;

@@ -31,7 +31,7 @@ async function printEmbedGraphQL(textToDoc, print, path /*, options*/) {
       lines[numLines - 2].trim() === "";
 
     const commentsAndWhitespaceOnly = lines.every((line) =>
-      /^\s*(?:#[^\n\r]*)?$/.test(line)
+      /^\s*(?:#[^\n\r]*)?$/.test(line),
     );
 
     // Bail out if an interpolation occurs within a comment.
@@ -107,7 +107,7 @@ function printGraphqlComments(lines) {
  */
 function isGraphQL({ node, parent }) {
   return (
-    hasLanguageComment(node, "GraphQL") ||
+    hasLanguageComment({ node, parent }, "GraphQL") ||
     (parent &&
       ((parent.type === "TaggedTemplateExpression" &&
         ((parent.tag.type === "MemberExpression" &&

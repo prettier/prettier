@@ -860,6 +860,10 @@ function * g() {
   const r = obj.next();
 } // calls finally blocks in \`g\`
 
+{
+  await using obj = g();
+}
+
 =====================================output=====================================
 function* g() {
   using handle = acquireFileHandle(); // block-scoped critical resource
@@ -869,6 +873,10 @@ function* g() {
   using obj = g(); // block-scoped declaration
   const r = obj.next();
 } // calls finally blocks in \`g\`
+
+{
+  await using obj = g();
+}
 
 ================================================================================
 `;
@@ -1227,6 +1235,76 @@ import json from "./foo.json" assert { type: "json" };
 
 =====================================output=====================================
 import json from "./foo.json" assert { type: "json" };
+
+================================================================================
+`;
+
+exports[`import-attributes-dynamic.js [acorn] format 1`] = `
+"Unexpected token (1:20)
+> 1 | import("./foo.json", { with: { type: "json" } });
+    |                    ^
+  2 |"
+`;
+
+exports[`import-attributes-dynamic.js [espree] format 1`] = `
+"Unexpected token , (1:20)
+> 1 | import("./foo.json", { with: { type: "json" } });
+    |                    ^
+  2 |"
+`;
+
+exports[`import-attributes-dynamic.js [meriyah] format 1`] = `
+"Expected ')' (1:20)
+> 1 | import("./foo.json", { with: { type: "json" } });
+    |                    ^
+  2 |"
+`;
+
+exports[`import-attributes-dynamic.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("./foo.json", { with: { type: "json" } });
+
+=====================================output=====================================
+import("./foo.json", { with: { type: "json" } });
+
+================================================================================
+`;
+
+exports[`import-attributes-static.js [acorn] format 1`] = `
+"Unexpected token (1:31)
+> 1 | import json from "./foo.json" with { type: "json" };
+    |                               ^
+  2 |"
+`;
+
+exports[`import-attributes-static.js [espree] format 1`] = `
+"Unexpected token with (1:31)
+> 1 | import json from "./foo.json" with { type: "json" };
+    |                               ^
+  2 |"
+`;
+
+exports[`import-attributes-static.js [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:34)
+> 1 | import json from "./foo.json" with { type: "json" };
+    |                                  ^
+  2 |"
+`;
+
+exports[`import-attributes-static.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import json from "./foo.json" with { type: "json" };
+
+=====================================output=====================================
+import json from "./foo.json" with { type: "json" };
 
 ================================================================================
 `;
@@ -2325,20 +2403,6 @@ const tuple1 = #[1, 2, 3];
 const tuple1 = #[1, 2, 3];
 
 ================================================================================
-`;
-
-exports[`regex-v-flag.js [acorn] format 1`] = `
-"Invalid regular expression flag (1:2)
-> 1 | /a/v;
-    |  ^
-  2 |"
-`;
-
-exports[`regex-v-flag.js [espree] format 1`] = `
-"Invalid regular expression flag (1:2)
-> 1 | /a/v;
-    |  ^
-  2 |"
 `;
 
 exports[`regex-v-flag.js [meriyah] format 1`] = `

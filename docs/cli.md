@@ -114,7 +114,7 @@ If you don’t have a configuration file, or want to ignore it if it does exist,
 
 ## `--ignore-path`
 
-Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.prettierignore`.\
+Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.gitignore` and `./.prettierignore`.\
 Multiple values are accepted.
 
 ## `--list-different`
@@ -203,10 +203,6 @@ prettier "**/*" --write --ignore-unknown
 ## `--no-error-on-unmatched-pattern`
 
 Prevent errors when pattern is unmatched.
-
-## `--no-plugin-search`
-
-Disable plugin autoloading.
 
 ## `--cache`
 

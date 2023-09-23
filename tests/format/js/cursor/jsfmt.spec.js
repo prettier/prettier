@@ -10,7 +10,7 @@ beforeAll(async () => {
 
 test("translates cursor correctly in basic case", async () => {
   expect(
-    await prettier.formatWithCursor(" 1", { parser: "babel", cursorOffset: 2 })
+    await prettier.formatWithCursor(" 1", { parser: "babel", cursorOffset: 2 }),
   ).toMatchObject({
     formatted: "1;\n",
     cursorOffset: 1,
@@ -20,7 +20,10 @@ test("translates cursor correctly in basic case", async () => {
 test("positions cursor relative to closest node, not SourceElement", async () => {
   const code = "return         15";
   expect(
-    await prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 15 })
+    await prettier.formatWithCursor(code, {
+      parser: "babel",
+      cursorOffset: 15,
+    }),
   ).toMatchObject({
     formatted: "return 15;\n",
     cursorOffset: 7,
@@ -30,7 +33,10 @@ test("positions cursor relative to closest node, not SourceElement", async () =>
 test("keeps cursor inside formatted node", async () => {
   const code = "return         15";
   expect(
-    await prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 14 })
+    await prettier.formatWithCursor(code, {
+      parser: "babel",
+      cursorOffset: 14,
+    }),
   ).toMatchObject({
     formatted: "return 15;\n",
     cursorOffset: 7,
@@ -46,7 +52,10 @@ test("doesn't insert second placeholder for nonexistent TypeAnnotation", async (
       })
     `;
   expect(
-    await prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
+    await prettier.formatWithCursor(code, {
+      parser: "babel",
+      cursorOffset: 24,
+    }),
   ).toMatchObject({
     formatted:
       outdent`
@@ -67,7 +76,7 @@ test("cursorOffset === rangeStart", async () => {
       cursorOffset: 7,
       rangeStart: 7,
       rangeEnd: 8,
-    })
+    }),
   ).toMatchObject({
     formatted: "1.0000\n2.0;\n3.0000",
     cursorOffset: 7,

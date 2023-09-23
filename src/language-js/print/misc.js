@@ -40,7 +40,7 @@ function printDefiniteToken(path) {
     path.match(
       undefined,
       (node, name) =>
-        name === "id" && node.type === "VariableDeclarator" && node.definite
+        name === "id" && node.type === "VariableDeclarator" && node.definite,
     )
     ? "!"
     : "";

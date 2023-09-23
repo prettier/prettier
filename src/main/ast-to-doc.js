@@ -46,7 +46,7 @@ async function printAstToDoc(ast, options) {
     options,
     mainPrint,
     undefined,
-    embeds
+    embeds,
   );
 
   ensureAllCommentsPrinted(options);
@@ -106,6 +106,10 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
     doc = printer.print(path, options, printPath, args);
   }
 
+  if (node === options.cursorNode) {
+    doc = inheritLabel(doc, (doc) => [cursor, doc, cursor]);
+  }
+
   // We let JSXElement print its comments itself because it adds () around
   // UnionTypeAnnotation has to align the child without the comments
   if (
@@ -116,10 +120,6 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
     // printComments will call the plugin print function and check for
     // comments to print
     doc = printComments(path, doc, options);
-  }
-
-  if (node === options.cursorNode) {
-    doc = inheritLabel(doc, (doc) => [cursor, doc, cursor]);
   }
 
   return doc;

@@ -138,7 +138,7 @@ describe("CLI --stdin-filepath works with --config-precedence prefer-file", () =
   runCli(
     "cli/config-precedence/overrides",
     ["--stdin-filepath=abc.ts", "--no-semi", "--config-precedence=prefer-file"],
-    { input: "let x: keyof Y = foo<typeof X>()" } // typescript
+    { input: "let x: keyof Y = foo<typeof X>()" }, // typescript
   ).test({
     stderr: "",
     status: 0,
@@ -153,7 +153,7 @@ describe("CLI --stdin-filepath works with --config-precedence file-override", ()
       "--no-semi",
       "--config-precedence=file-override",
     ],
-    { input: "let x: keyof Y = foo<typeof X>()" } // typescript
+    { input: "let x: keyof Y = foo<typeof X>()" }, // typescript
   ).test({
     stderr: "",
     status: 0,
@@ -168,7 +168,7 @@ describe("CLI --stdin-filepath works with --config-precedence cli-override", () 
       "--no-semi",
       "--config-precedence=cli-override",
     ],
-    { input: "let x: keyof Y = foo<typeof X>()" } // typescript
+    { input: "let x: keyof Y = foo<typeof X>()" }, // typescript
   ).test({
     stderr: "",
     status: 0,

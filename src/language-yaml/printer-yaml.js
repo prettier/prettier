@@ -100,8 +100,8 @@ function genericPrint(path, options, print) {
       replaceEndOfLine(
         options.originalText
           .slice(node.position.start.offset, node.position.end.offset)
-          .trimEnd()
-      )
+          .trimEnd(),
+      ),
     );
   } else {
     parts.push(group(printNode(path, options, print)));
@@ -117,7 +117,7 @@ function genericPrint(path, options, print) {
           ? ""
           : breakParent,
         print("trailingComment"),
-      ])
+      ]),
     );
   }
 
@@ -134,10 +134,10 @@ function genericPrint(path, options, print) {
                 : "",
               print(),
             ],
-            "endComments"
-          )
+            "endComments",
+          ),
         ),
-      ])
+      ]),
     );
   }
   parts.push(nextEmptyLine);
@@ -230,7 +230,7 @@ function printNode(path, options, print) {
     case "tag":
       return options.originalText.slice(
         node.position.start.offset,
-        node.position.end.offset
+        node.position.end.offset,
       );
     case "anchor":
       return ["&", node.value];
@@ -239,9 +239,9 @@ function printNode(path, options, print) {
         node.type,
         options.originalText.slice(
           node.position.start.offset,
-          node.position.end.offset
+          node.position.end.offset,
         ),
-        options
+        options,
       );
     case "quoteDouble":
     case "quoteSingle": {
@@ -250,7 +250,7 @@ function printNode(path, options, print) {
 
       const raw = options.originalText.slice(
         node.position.start.offset + 1,
-        node.position.end.offset - 1
+        node.position.end.offset - 1,
       );
 
       if (
@@ -279,7 +279,7 @@ function printNode(path, options, print) {
                   .replaceAll('\\"', doubleQuote)
                   .replaceAll("'", singleQuote.repeat(2))
               : raw,
-            options
+            options,
           ),
           singleQuote,
         ];
@@ -294,7 +294,7 @@ function printNode(path, options, print) {
               ? // single quote needs to be escaped by 2 single quotes in quoteSingle
                 raw.replaceAll("''", singleQuote)
               : raw,
-            options
+            options,
           ),
           doubleQuote,
         ];
@@ -366,7 +366,7 @@ function shouldPrintDocumentHeadEndMarker(path, options) {
      */
     (path.isFirst &&
       /---(?:\s|$)/.test(
-        options.originalText.slice(locStart(document), locStart(document) + 4)
+        options.originalText.slice(locStart(document), locStart(document) + 4),
       )) ||
     /**
      * %DIRECTIVE
@@ -398,7 +398,7 @@ function printFlowScalarContent(nodeType, content, options) {
   const lineContents = getFlowScalarLineContents(nodeType, content, options);
   return join(
     hardline,
-    lineContents.map((lineContentWords) => fill(join(line, lineContentWords)))
+    lineContents.map((lineContentWords) => fill(join(line, lineContentWords))),
   );
 }
 

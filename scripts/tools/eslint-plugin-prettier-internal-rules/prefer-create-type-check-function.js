@@ -218,7 +218,7 @@ module.exports = {
             : types.reduce(
                 (count, { node }) =>
                   count + sourceCode.getCommentsInside(node).length,
-                0
+                0,
               );
 
         if (commentsInFunction === commentsInTypes) {
@@ -230,8 +230,8 @@ module.exports = {
                     .map(
                       ({ type, node }) =>
                         `${type === "single" ? "" : "..."}${sourceCode.getText(
-                          node
-                        )}`
+                          node,
+                        )}`,
                     )
                     .join(", ")}]`;
 
@@ -248,7 +248,7 @@ module.exports = {
               ) {
                 return fixer.replaceText(
                   functionNode.parent,
-                  `${text}\nexport default ${functionName};`
+                  `${text}\nexport default ${functionName};`,
                 );
               }
             }
