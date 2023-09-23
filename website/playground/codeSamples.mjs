@@ -326,6 +326,14 @@ export default function getCodeSamples(parser) {
         '  "*)",',
         "])",
       ].join("\n");
+    case "ignore":
+      return String.raw`
+      ___          __  __  _
+     / _ \_______ / /_/ /_(_)__ ____
+    / ___/ __/ -_) __/ __/ / -_) __/
+   /_/  /_/  \__/\__/\__/_/\__/_/
+
+`;
     default:
       return "";
   }
