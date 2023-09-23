@@ -2,6 +2,7 @@
 id: ignore
 title: Ignoring Code
 ---
+
 Use `.prettierignore` to ignore (i.e. not reformat) certain files and folders completely.
 
 Use “prettier-ignore” comments to ignore parts of files.
@@ -52,12 +53,12 @@ You can also assign the `"parser": "ignore"` to specify file patterns that shoul
 
 ```json
 {
-    "overrides": [
-      {
-        "files": "dist/**/*",
-        "options": { "parser": "ignore" }
-      }
-    ]
+  "overrides": [
+    {
+      "files": "dist/**/*",
+      "options": { "parser": "ignore" }
+    }
+  ]
 }
 ```
 
@@ -68,7 +69,6 @@ A JavaScript comment of `// prettier-ignore` will exclude the next node in the a
 For example:
 
 <!-- prettier-ignore -->
-
 ```js
 matrix(
   1, 0, 0,
@@ -184,7 +184,6 @@ hello: world
 ## Handlebars
 
 <!-- prettier-ignore -->
-
 ```hbs
 {{! prettier-ignore }}
 <div>
