@@ -95,7 +95,7 @@
     "regexp-util": "2.0.0",
     "remark-footnotes": "2.0.0",
     "remark-math": "3.0.1",
-    "remark-parse": "8.0.3",
+    "remark-parse": "11.0.0",
     "sdbm": "2.0.0",
     "strip-ansi": "7.1.0",
     "to-fast-properties": "4.0.0",
