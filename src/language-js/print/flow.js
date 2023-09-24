@@ -10,6 +10,7 @@ import {
   rawText,
 } from "../utils/index.js";
 import isFlowKeywordType from "../utils/is-flow-keyword-type.js";
+import { group } from "../../document/builders.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
 import { printClass } from "./class.js";
 import {
@@ -47,7 +48,6 @@ import {
 } from "./misc.js";
 import { printTernary } from "./ternary.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
-import { group } from "../../document/builders.js";
 
 function printFlow(path, options, print) {
   const { node } = path;
