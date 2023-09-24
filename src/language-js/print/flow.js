@@ -47,6 +47,7 @@ import {
 } from "./misc.js";
 import { printTernary } from "./ternary.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
+import { group } from "../../document/builders.js";
 
 function printFlow(path, options, print) {
   const { node } = path;
@@ -207,7 +208,7 @@ function printFlow(path, options, print) {
         modifier = "static ";
       }
 
-      return [
+      const parts = [
         modifier,
         isGetterOrSetter(node) ? node.kind + " " : "",
         node.variance ? print("variance") : "",
@@ -216,6 +217,12 @@ function printFlow(path, options, print) {
         isFunctionNotation(node) ? "" : ": ",
         print("value"),
       ];
+
+      if (isGetterOrSetter(node)) {
+        return group(parts);
+      }
+
+      return parts;
     }
     case "ObjectTypeAnnotation":
       return printObject(path, options, print);

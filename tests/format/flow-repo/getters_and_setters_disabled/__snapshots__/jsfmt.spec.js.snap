@@ -44,16 +44,10 @@ class Bar {
  */
 
 var f = {
-  get a() {
-    return 4;
-  },
-  set b(x: number) {
-    this.c = x;
-  },
+  get a() { return 4; },
+  set b(x: number) { this.c = x; },
   c: 10,
-  get ["d"]() {
-    return "foo";
-  },
+  get ["d"]() { return "foo"; },
   set ["d"](x: number) {},
 };
 
@@ -70,16 +64,10 @@ declare class Foo {
 }
 
 class Bar {
-  get a() {
-    return 4;
-  }
-  set b(x: number) {
-    this.c = x;
-  }
+  get a() { return 4; }
+  set b(x: number) { this.c = x; }
   c: number;
-  get ["d"]() {
-    return "foo";
-  }
+  get ["d"]() { return "foo"; }
   set ["d"](x: number) {}
 }
 

@@ -273,6 +273,13 @@ function isAngularTestWrapper(node) {
  */
 const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
+/**
+ * Returns true for methods/properties which are getters or setters;
+ *
+ * Note that this returns `false` for FunctionExpression nodes
+ * that are within get/set ObjectProperty's in the flow parser,
+ * so you may need to check the parent node too.
+ */
 function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }

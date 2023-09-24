@@ -177,19 +177,11 @@ class Point {
     this.#y = +y
   }
 
-  get x() {
-    return this.#x
-  }
-  set x(value) {
-    this.#x = +value
-  }
+  get x() { return this.#x }
+  set x(value) { this.#x = +value }
 
-  get y() {
-    return this.#y
-  }
-  set y(value) {
-    this.#y = +value
-  }
+  get y() { return this.#y }
+  set y(value) { this.#y = +value }
 
   equals(p) {
     return this.#x === p.#x && this.#y === p.#y
@@ -305,19 +297,11 @@ class Point {
     this.#y = +y;
   }
 
-  get x() {
-    return this.#x;
-  }
-  set x(value) {
-    this.#x = +value;
-  }
+  get x() { return this.#x; }
+  set x(value) { this.#x = +value; }
 
-  get y() {
-    return this.#y;
-  }
-  set y(value) {
-    this.#y = +value;
-  }
+  get y() { return this.#y; }
+  set y(value) { this.#y = +value; }
 
   equals(p) {
     return this.#x === p.#x && this.#y === p.#y;

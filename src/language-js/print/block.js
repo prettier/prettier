@@ -1,10 +1,11 @@
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { hardline, indent } from "../../document/builders.js";
+import { hardline, indent, line } from "../../document/builders.js";
 import {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
+  isGetterOrSetter,
 } from "../utils/index.js";
 import { printStatementSequence } from "./statement.js";
 
@@ -26,10 +27,19 @@ function printBlock(path, options, print) {
   parts.push("{");
   const printed = printBlockBody(path, options, print);
   if (printed) {
-    parts.push(indent([hardline, printed]), hardline);
+    if (
+      isGetterOrSetter(path.parent) ||
+      // Flow nests the function inside a property
+      (path.parent.type === "FunctionExpression" &&
+        isGetterOrSetter(path.grandparent))
+    ) {
+      // Allow getters & setters to print on one line.
+      parts.push(indent([line, printed]), line);
+    } else {
+      parts.push(indent([hardline, printed]), hardline);
+    }
   } else {
     const { parent } = path;
-    const parentParent = path.grandparent;
     if (
       !(
         parent.type === "ArrowFunctionExpression" ||
@@ -42,7 +52,7 @@ function printBlock(path, options, print) {
         parent.type === "WhileStatement" ||
         parent.type === "DoWhileStatement" ||
         parent.type === "DoExpression" ||
-        (parent.type === "CatchClause" && !parentParent.finalizer) ||
+        (parent.type === "CatchClause" && !path.grandparent.finalizer) ||
         parent.type === "TSModuleDeclaration" ||
         parent.type === "TSDeclareFunction" ||
         node.type === "StaticBlock"

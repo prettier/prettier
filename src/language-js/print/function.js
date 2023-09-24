@@ -18,6 +18,7 @@ import {
   getCallArguments,
   hasNakedLeftSide,
   getLeftSide,
+  isGetterOrSetter,
 } from "../utils/index.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
@@ -137,7 +138,7 @@ function printMethod(path, options, print) {
       parts.push("async ");
     }
   } else {
-    assert.ok(kind === "get" || kind === "set");
+    assert.ok(isGetterOrSetter(node));
 
     parts.push(kind, " ");
   }
@@ -152,6 +153,11 @@ function printMethod(path, options, print) {
     node.optional || node.key.optional ? "?" : "",
     node === value ? printMethodValue(path, options, print) : print("value"),
   );
+
+  // Allow getters & setters to print on one line.
+  if (isGetterOrSetter(node)) {
+    return group(parts);
+  }
 
   return parts;
 }
