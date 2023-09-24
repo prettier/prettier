@@ -22,17 +22,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:16.2.5":
-  version: 16.2.5
-  resolution: "@angular/compiler@npm:16.2.5"
+"@angular/compiler@npm:16.2.6":
+  version: 16.2.6
+  resolution: "@angular/compiler@npm:16.2.6"
   dependencies:
     tslib: ^2.3.0
   peerDependencies:
-    "@angular/core": 16.2.5
+    "@angular/core": 16.2.6
   peerDependenciesMeta:
     "@angular/core":
       optional: true
-  checksum: ca1541b5c31abae4510b6565d263b2162e0485692ca7dde44dd5839a61d6874936c56b7ae8e8f5b247cf1f217e8bbb438a774e8badb79eeb64b5b9a98639fd44
+  checksum: ad8e483cd29eca4bae4971116fc5d7d7e17a9128a396e8d309aeb8021e93ab28a8855264779aba8a676f7d9ca6ec3c0148a0d8c8f549b5dead7a8ad545c98ef1
   languageName: node
   linkType: hard
 
@@ -7159,7 +7159,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": 16.2.5
+    "@angular/compiler": 16.2.6
     "@babel/code-frame": 7.22.13
     "@babel/generator": 7.22.15
     "@babel/parser": 7.22.16
