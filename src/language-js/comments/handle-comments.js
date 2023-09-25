@@ -46,6 +46,7 @@ import isTypeCastComment from "../utils/is-type-cast-comment.js";
 function handleOwnLineComment(context) {
   return [
     handleIgnoreComments,
+    handleConditionalExpressionComments,
     handleLastFunctionArgComments,
     handleMemberExpressionComments,
     handleIfStatementComments,
@@ -361,7 +362,7 @@ function handleNestedConditionalExpressionComments({
     followingNode?.type === "TSConditionalType";
 
   if (followingIsCond) {
-    addDanglingComment(followingNode, comment);
+    addDanglingComment(enclosingNode, comment);
     return true;
   }
   return false;
@@ -373,6 +374,7 @@ function handleConditionalExpressionComments({
   enclosingNode,
   followingNode,
   text,
+  options,
 }) {
   const isSameLineAsPrecedingNode =
     precedingNode &&
@@ -385,6 +387,21 @@ function handleConditionalExpressionComments({
       enclosingNode?.type === "TSConditionalType") &&
     followingNode
   ) {
+    if (
+      options.experimentalTernaries &&
+      enclosingNode.alternate === followingNode &&
+      !(
+        isBlockComment(comment) &&
+        !hasNewlineInRange(
+          options.originalText,
+          locStart(comment),
+          locEnd(comment),
+        )
+      )
+    ) {
+      addDanglingComment(enclosingNode, comment);
+      return true;
+    }
     addLeadingComment(followingNode, comment);
     return true;
   }

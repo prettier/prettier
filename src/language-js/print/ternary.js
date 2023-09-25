@@ -279,16 +279,33 @@ function printTernary(path, options, print, args) {
     tryToParenthesizeAlternate;
 
   const consequentComments = [];
-  if (hasComment(consequentNode, CommentCheckFlags.Dangling)) {
+  if (
+    !isConsequentTernary &&
+    hasComment(consequentNode, CommentCheckFlags.Dangling)
+  ) {
     path.call((childPath) => {
-      consequentComments.push(printDanglingComments(childPath, options));
+      consequentComments.push(
+        printDanglingComments(childPath, options),
+        hardline,
+      );
     }, "consequent");
   }
   const alternateComments = [];
-  if (hasComment(alternateNode, CommentCheckFlags.Dangling)) {
+  if (hasComment(node.test, CommentCheckFlags.Dangling)) {
+    path.call((childPath) => {
+      alternateComments.push(printDanglingComments(childPath, options));
+    }, "test");
+  }
+  if (
+    !isAlternateTernary &&
+    hasComment(alternateNode, CommentCheckFlags.Dangling)
+  ) {
     path.call((childPath) => {
       alternateComments.push(printDanglingComments(childPath, options));
     }, "alternate");
+  }
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
+    alternateComments.push(printDanglingComments(path, options));
   }
 
   const testId = Symbol("test");
@@ -321,6 +338,7 @@ function printTernary(path, options, print, args) {
     (isInJsx && (isJsxElement(consequentNode) || isParentTernary || isInChain))
       ? hardline
       : line,
+    consequentComments,
     printedConsequent,
   ]);
 
@@ -338,7 +356,7 @@ function printTernary(path, options, print, args) {
         ],
         { id: testAndConsequentId },
       )
-    : [printedTestWithQuestionMark, consequentComments, consequent];
+    : [printedTestWithQuestionMark, consequent];
 
   const printedAlternate = print(alternateNodePropertyName);
   const printedAlternateWithParens = tryToParenthesizeAlternate
@@ -350,14 +368,16 @@ function printTernary(path, options, print, args) {
   const parts = [
     printedTestAndConsequent,
 
-    ...alternateComments,
-
-    isAlternateTernary
+    alternateComments.length > 0
+      ? [indent([hardline, alternateComments]), hardline]
+      : isAlternateTernary
       ? hardline
       : tryToParenthesizeAlternate
       ? ifBreak(line, " ", { groupId: testAndConsequentId })
       : line,
+
     ":",
+
     isAlternateTernary
       ? " "
       : !isBigTabs

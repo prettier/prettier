@@ -137,8 +137,8 @@ var inspect =
     function (v, colors) {
       return util.inspect(v, void 0, void 0, colors);
     }
-  : // node > 0.8.x
-    function (v, colors) {
+    // node > 0.8.x
+  : function (v, colors) {
       return util.inspect(v, { colors: colors });
     };
 
@@ -148,8 +148,8 @@ var inspect =
     function (v, colors) {
       return util.inspect(v, void 0, void 0, colors);
     }
-  : // node > 0.8.x
-    function (v, colors) {
+    // node > 0.8.x
+  : function (v, colors) {
       return util.inspect(v, { colors: colors });
     };
 
@@ -211,28 +211,27 @@ test ?
 
 test ? /* comment */ foo : bar;
 
-test ? foo : (
+test ? foo
   /* comment
          comment
      comment
            comment
     */
-  bar
-);
+: bar;
 
 test ? foo
-: /* comment
+  /* comment
          comment
      comment
            comment
       A newline will be added after this comment, unfortunately – but it can be removed manually, see next statement.
     */
-test ? foo
-: /* comment
+: test ? foo
+  /* comment
   comment
     comment
    */
-  bar;
+: bar;
 
 // It is at least possible to delete the extra newline that was
 // unfortunately added before the second condition above:
@@ -243,11 +242,11 @@ test ?
            comment
     */
 : test ? foo
-: /* comment
+  /* comment
   comment
     comment
    */
-  bar;
+: bar;
 
 test ? foo : /* comment */ bar;
 
@@ -2285,20 +2284,19 @@ function foo7() {
 }
 
 const badComments =
-  schema.model ?
-    schema// If model is an array where the items schema is a referred model then we need to use that
+  schema.model ? schema
+    // If model is an array where the items schema is a referred model then we need to use that
   : schema.type === "array" ? schema.items
   : schema;
 
 const anotherBadComment =
-  (
-    refModel
-  ) ?// If we're in a shared params file then reference the model name directly
+  refModel ?
+    // If we're in a shared params file then reference the model name directly
     inSharedParamsFile ? refModel
-    : // If we're not in a shared params file then reference the in-file type
-      classRef()
-  : // We don't have a model name, use the in-file name
-    classRef();
+      // If we're not in a shared params file then reference the in-file type
+    : classRef()
+    // We don't have a model name, use the in-file name
+  : classRef();
 
 ================================================================================
 `;
