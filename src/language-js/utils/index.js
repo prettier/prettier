@@ -537,7 +537,12 @@ function getExpressionInnerNodeCount(node, maxCount) {
   for (const k in node) {
     const prop = node[k];
 
-    if (prop && typeof prop === "object" && typeof prop.type === "string") {
+    if (
+      prop &&
+      typeof prop === "object" &&
+      typeof prop.type === "string" &&
+      prop.type !== "EmptyStatement"
+    ) {
       count++;
       count += getExpressionInnerNodeCount(prop, maxCount - count);
     }

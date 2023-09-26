@@ -362,7 +362,9 @@ class AstPath {
   }
 
   /** @type {number | null} */
-  get index() { return this.siblings === null ? null : this.stack.at(-2); }
+  get index() {
+    return this.siblings === null ? null : this.stack.at(-2);
+  }
 
   /** @type {object} */
   get node() { return this.stack.at(-1); }

@@ -6,6 +6,7 @@ import {
   CommentCheckFlags,
   isNextLineEmpty,
   isGetterOrSetter,
+  isSimpleExpressionByNodeCount,
 } from "../utils/index.js";
 import { printStatementSequence } from "./statement.js";
 
@@ -28,10 +29,12 @@ function printBlock(path, options, print) {
   const printed = printBlockBody(path, options, print);
   if (printed) {
     if (
-      isGetterOrSetter(path.parent) ||
-      // Flow nests the function inside a property
-      (path.parent.type === "FunctionExpression" &&
-        isGetterOrSetter(path.grandparent))
+      (isGetterOrSetter(path.parent) ||
+        // Flow nests the function inside a property
+        (path.parent.type === "FunctionExpression" &&
+          isGetterOrSetter(path.grandparent))) &&
+      node.body.length === 1 &&
+      isSimpleExpressionByNodeCount(node.body[0], 8)
     ) {
       // Allow getters & setters to print on one line.
       parts.push(indent([line, printed]), line);
