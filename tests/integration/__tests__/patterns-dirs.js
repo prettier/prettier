@@ -12,22 +12,25 @@ const runCliWithoutGitignore = (dir, args, options) =>
   runCli(dir, [...args, "--ignore-path", ".prettierignore"], options);
 
 // ESLint-like behavior
+//
 // https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
+//
+// Since 3.0: https://github.com/prettier/prettier/pull/15155#issuecomment-1723654981
 //
 // 1. `prettier dir1 dir2` – prettify all files with supported extensions inside `dir1` and `dir2`.
 //
 // 2. `prettier dir1 "dir2/**/*"` – prettify all files with supported extensions inside `dir1`
 //     as well as all files matched by the `dir2/**/*` glob.
-//     If any of the latter files have unknown extensions – log an error for them. (*)
+//     Unsupported files are ignored as with `--ignore-unknown`.
 //
 // 3. `prettier non-exists-dir "dir2/**/*""` – log an error that `non-exists-dir` resulted in 0 files
 //     and prettify all files matched by the `dir2/**/*` glob.
-//     If any of the latter files have unknown extensions – log an error for them. (*)
+//     Unsupported files are ignored as with `--ignore-unknown`.
 //     (Note: ESLint just prints an error and doesn't process anything.)
 //
 // 4. `prettier . "dir2/**/*"` – prettify all files with supported extensions in `.`
 //     and all files matched by the `dir2/**/*` glob.
-//     If any of the latter files have unknown extensions – log an error for them. (*)
+//     Unsupported files are ignored as with `--ignore-unknown`.
 //
 // (*) That error ("No parser could be inferred for file") doesn't affect the error code.
 
@@ -40,7 +43,7 @@ testPatterns("1a - with *.foo plugin", [
 testPatterns("1b - special characters in dir name", ["dir1", "!dir"], {
   stdout: expect.stringMatching(/!dir[/\\]a\.js/),
 });
-testPatterns("1c", ["dir1", "empty"], { status: 2 });
+testPatterns("1c", ["dir1", "empty"], { status: 1 });
 
 testPatterns("2", ["dir1", "dir2/**/*"], { status: 1 });
 

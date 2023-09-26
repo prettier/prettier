@@ -1022,6 +1022,9 @@ exports[`visitor keys estree 1`] = `
     "expression",
     "typeAnnotation",
   ],
+  "TypeOperator": [
+    "typeAnnotation",
+  ],
   "TypeParameter": [
     "bound",
     "default",

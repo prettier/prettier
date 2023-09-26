@@ -122,3 +122,13 @@ showNotification(
         undoable: false,
     }
 )
+
+const result = children && !isEmptyChildren(children)
+  ? children
+  : props.match
+    ? component
+      ? React.createElement(component, props)
+      : render
+        ? render(props)
+        : null
+    : null;

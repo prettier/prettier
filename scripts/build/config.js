@@ -108,7 +108,7 @@ const pluginFiles = [
         module: require.resolve("flow-parser"),
         process(text) {
           const { fsModuleNameVariableName } = text.match(
-            /,(?<fsModuleNameVariableName>\w+)="fs",/,
+            /,(?<fsModuleNameVariableName>[\p{ID_Start}_$][\p{ID_Continue}$]*)="fs",/u,
           ).groups;
 
           return text
