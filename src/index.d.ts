@@ -302,11 +302,6 @@ export type BuiltInParserName =
   | "yaml";
 export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
-export type CustomParser = (
-  text: string,
-  options: Options,
-) => AST | Promise<AST>;
-
 /**
  * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettierrc.mjs`, `prettier.config.js`, `prettier.config.cjs`, `prettier.config.mjs`
  */
@@ -371,7 +366,7 @@ export interface RequiredOptions extends doc.printer.Options {
   /**
    * Specify which parser to use.
    */
-  parser: LiteralUnion<BuiltInParserName> | CustomParser;
+  parser: LiteralUnion<BuiltInParserName>;
   /**
    * Specify the input filepath. This will be used to do parser inference.
    */
@@ -583,8 +578,6 @@ export function formatWithCursor(
   source: string,
   options: CursorOptions,
 ): Promise<CursorResult>;
-
-export function formatAST(ast: any, options?: Options): Promise<string>;
 
 export interface ResolveConfigOptions {
   /**
