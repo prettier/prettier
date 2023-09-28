@@ -241,6 +241,19 @@ function needsParens(path, options) {
         return true;
       }
       break;
+
+    // A user typing `!foo instanceof Bar` probably intended
+    // `!(foo instanceof Bar)`, so format to `(!foo) instance Bar` to what is
+    // really happening
+    case "BinaryExpression":
+      if (
+        key === "left" &&
+        (parent.operator === "in" || parent.operator === "instanceof") &&
+        node.type === "UnaryExpression"
+      ) {
+        return true;
+      }
+      break;
   }
 
   switch (node.type) {
