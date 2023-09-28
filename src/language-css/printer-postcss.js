@@ -224,7 +224,7 @@ function genericPrint(path, options, print) {
         // If a Less file ends up being parsed with the SCSS parser, Less
         // variable declarations will be parsed as at-rules with names ending
         // with a colon, so keep the original case then.
-        isDetachedRulesetCallNode(node) || node.name.endsWith(":")
+        isDetachedRulesetCallNode(node) || node.name.endsWith(":") || isTemplatePlaceholderNode(node)
           ? node.name
           : maybeToLowerCase(node.name),
         node.params
