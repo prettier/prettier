@@ -22,17 +22,16 @@ class DebugError extends Error {
   name = "DebugError";
 }
 
-function handleError(context, filename, error, printedFilename) {
+function handleError(context, filename, error, printedFilename, ignoreUnknown) {
+  ignoreUnknown ||= context.argv.ignoreUnknown;
+
   const errorIsUndefinedParseError =
     error instanceof errors.UndefinedParserError;
 
   if (printedFilename) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
     /* c8 ignore next 3 */
-    if (
-      (context.argv.write || context.argv.ignoreUnknown) &&
-      errorIsUndefinedParseError
-    ) {
+    if ((context.argv.write || ignoreUnknown) && errorIsUndefinedParseError) {
       printedFilename.clear();
     } else {
       // Add newline to split errors from filename line.
@@ -41,7 +40,7 @@ function handleError(context, filename, error, printedFilename) {
   }
 
   if (errorIsUndefinedParseError) {
-    if (context.argv.ignoreUnknown) {
+    if (ignoreUnknown) {
       return;
     }
     if (!context.argv.check && !context.argv.listDifferent) {
@@ -313,15 +312,15 @@ async function formatFiles(context) {
     }
   }
 
-  for await (const pathOrError of expandPatterns(context)) {
-    if (typeof pathOrError === "object") {
-      context.logger.error(pathOrError.error);
+  for await (const { error, filename, ignoreUnknown } of expandPatterns(
+    context,
+  )) {
+    if (error) {
+      context.logger.error(error);
       // Don't exit, but set the exit code to 2
       process.exitCode = 2;
       continue;
     }
-
-    const filename = pathOrError;
 
     const isFileIgnored = isIgnored(filename);
     if (
@@ -391,7 +390,13 @@ async function formatFiles(context) {
       }
       output = result.formatted;
     } catch (error) {
-      handleError(context, fileNameToDisplay, error, printedFilename);
+      handleError(
+        context,
+        fileNameToDisplay,
+        error,
+        printedFilename,
+        ignoreUnknown,
+      );
       continue;
     }
 
