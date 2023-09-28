@@ -435,11 +435,14 @@ async function formatFiles(context) {
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
-        context.logger.debug(
-          `${chalk.grey(fileNameToDisplay)} ${
-            Date.now() - start
-          }ms (unchanged)${isCacheExists ? " (cached)" : ""}`,
-        );
+        const message = `${chalk.grey(fileNameToDisplay)} ${
+          Date.now() - start
+        }ms (unchanged)`;
+        if (isCacheExists) {
+          context.logger.debug(`${message} (cached)`);
+        } else {
+          context.logger.debug(message);
+        }
       }
     } else if (context.argv.debugCheck) {
       if (result.filepath) {
