@@ -521,12 +521,11 @@ function printArrayType(print) {
 - `TypeofTypeAnnotation`
 */
 function printTypeQuery({ node }, print) {
-  return [
-    "typeof ",
-    ...(node.type === "TSTypeQuery"
-      ? [print("exprName"), print("typeParameters")]
-      : [print("argument")]),
-  ];
+  const argumentPropertyName =
+    node.type === "TSTypeQuery" ? "exprName" : "argument";
+  const typeArgsPropertyName =
+    node.type === "TSTypeQuery" ? "typeParameters" : "typeArguments";
+  return ["typeof ", print(argumentPropertyName), print(typeArgsPropertyName)];
 }
 
 function printTypePredicate(path, print) {

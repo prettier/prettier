@@ -97,7 +97,7 @@ let tests = [
   // bogus stuff on LHS
   function () {
     null in {}; // error
-    void 0 in {}; // error
+    (void 0) in {}; // error
     ({}) in {}; // error
     [] in {}; // error
     false in []; // error
@@ -107,7 +107,7 @@ let tests = [
   function () {
     if ("foo" in 123) {
     } // error
-    if (!"foo" in {}) {
+    if ((!"foo") in {}) {
     } // error, !'foo' is a boolean
     if (!("foo" in {})) {
     }
