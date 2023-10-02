@@ -47,6 +47,83 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`encodedLink.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+[link](https://www.google.fr/()foo->bar)
+[link](https://www.google.fr/foo->bar)
+[link](https://www.google.fr/foo-%3Ebar)
+[link](https://www.google.fr/foo-<bar)
+[link](https://www.google.fr/foo-%3Cbar)
+![link](https://www.google.fr/()foo->bar)
+![link](https://www.google.fr/foo->bar)
+![link](https://www.google.fr/foo-%3Ebar)
+![link](https://www.google.fr/foo-<bar)
+![link](https://www.google.fr/foo-%3Cbar)
+[link]: https://www.google.fr/()foo->bar
+[link]: https://www.google.fr/foo->bar
+[link]: https://www.google.fr/foo-%3Ebar
+[link]: https://www.google.fr/foo-<bar
+[link]: https://www.google.fr/foo-%3Cbar
+=====================================output=====================================
+[link](<https://www.google.fr/()foo-%3Ebar>)
+[link](https://www.google.fr/foo->bar) [link](https://www.google.fr/foo-%3Ebar)
+[link](https://www.google.fr/foo-<bar) [link](https://www.google.fr/foo-%3Cbar)
+![link](<https://www.google.fr/()foo-%3Ebar>)
+![link](https://www.google.fr/foo->bar)
+![link](https://www.google.fr/foo-%3Ebar)
+![link](https://www.google.fr/foo-<bar)
+![link](https://www.google.fr/foo-%3Cbar) [link]:
+https://www.google.fr/()foo->bar [link]: https://www.google.fr/foo->bar [link]:
+https://www.google.fr/foo-%3Ebar [link]: https://www.google.fr/foo-<bar [link]:
+https://www.google.fr/foo-%3Cbar
+
+================================================================================
+`;
+
+exports[`encodedLink.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+[link](https://www.google.fr/()foo->bar)
+[link](https://www.google.fr/foo->bar)
+[link](https://www.google.fr/foo-%3Ebar)
+[link](https://www.google.fr/foo-<bar)
+[link](https://www.google.fr/foo-%3Cbar)
+![link](https://www.google.fr/()foo->bar)
+![link](https://www.google.fr/foo->bar)
+![link](https://www.google.fr/foo-%3Ebar)
+![link](https://www.google.fr/foo-<bar)
+![link](https://www.google.fr/foo-%3Cbar)
+[link]: https://www.google.fr/()foo->bar
+[link]: https://www.google.fr/foo->bar
+[link]: https://www.google.fr/foo-%3Ebar
+[link]: https://www.google.fr/foo-<bar
+[link]: https://www.google.fr/foo-%3Cbar
+=====================================output=====================================
+[link](<https://www.google.fr/()foo-%3Ebar>)
+[link](https://www.google.fr/foo->bar) [link](https://www.google.fr/foo-%3Ebar)
+[link](https://www.google.fr/foo-<bar) [link](https://www.google.fr/foo-%3Cbar)
+![link](<https://www.google.fr/()foo-%3Ebar>)
+![link](https://www.google.fr/foo->bar)
+![link](https://www.google.fr/foo-%3Ebar)
+![link](https://www.google.fr/foo-<bar)
+![link](https://www.google.fr/foo-%3Cbar) [link]:
+https://www.google.fr/()foo->bar [link]: https://www.google.fr/foo->bar [link]:
+https://www.google.fr/foo-%3Ebar [link]: https://www.google.fr/foo-<bar [link]:
+https://www.google.fr/foo-%3Cbar
+
+================================================================================
+`;
+
 exports[`entity.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
