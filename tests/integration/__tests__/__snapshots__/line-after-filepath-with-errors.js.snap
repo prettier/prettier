@@ -83,7 +83,7 @@ invalid-2.unknown
 [[called readline.clearLine(process.stdout)]]
 valid-1.js
 [[called readline.clearLine(process.stdout)]]
-valid-1.js 0ms"
+valid-1.js 0ms (unchanged)"
 `;
 
 exports[`Line breaking after filepath with errors (write) 1`] = `[]`;
