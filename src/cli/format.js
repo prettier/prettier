@@ -439,9 +439,9 @@ async function formatFiles(context) {
           Date.now() - start
         }ms (unchanged)`;
         if (isCacheExists) {
-          context.logger.debug(`${message} (cached)`);
+          context.logger.log(`${message} (cached)`);
         } else {
-          context.logger.debug(message);
+          context.logger.log(message);
         }
       }
     } else if (context.argv.debugCheck) {
