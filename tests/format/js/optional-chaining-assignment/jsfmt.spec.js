@@ -15,6 +15,7 @@ const optionalChainingAssignTests = [
   "valid-lhs-eq.js",
   "valid-lhs-plus-eq.js",
   "valid-parenthesized.js",
+  "valid-complex-case.js",
 ];
 
 // meriyah can parse these files
