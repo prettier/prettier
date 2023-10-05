@@ -2465,21 +2465,24 @@ exports[`source-phase-imports.js [acorn] format 1`] = `
 "Unexpected token (1:15)
 > 1 | import source fooSource from "foo";
     |               ^
-  2 |"
+  2 | import.source("x");
+  3 |"
 `;
 
 exports[`source-phase-imports.js [espree] format 1`] = `
 "Unexpected token fooSource (1:15)
 > 1 | import source fooSource from "foo";
     |               ^
-  2 |"
+  2 | import.source("x");
+  3 |"
 `;
 
 exports[`source-phase-imports.js [meriyah] format 1`] = `
 "Import source must be string (1:23)
 > 1 | import source fooSource from "foo";
     |                       ^
-  2 |"
+  2 | import.source("x");
+  3 |"
 `;
 
 exports[`source-phase-imports.js format 1`] = `
@@ -2489,9 +2492,11 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 import source fooSource from "foo";
+import.source("x");
 
 =====================================output=====================================
 import source fooSource from "foo";
+import.source("x");
 
 ================================================================================
 `;
