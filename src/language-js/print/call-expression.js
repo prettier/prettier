@@ -68,7 +68,7 @@ function printCallExpression(path, options, print) {
 
   const contents = [
     isNew ? "new " : "",
-    isDynamicImport ? "import" : print("callee"),
+    isDynamicImport ? printDynamicImportCallee(node) : print("callee"),
     optional,
     printFunctionTypeParameters(path, options, print),
     printCallArguments(path, options, print),
@@ -81,6 +81,13 @@ function printCallExpression(path, options, print) {
   }
 
   return contents;
+}
+
+function printDynamicImportCallee(node) {
+  if (!node.phase) {
+    return "import";
+  }
+  return `import.${node.phase}`;
 }
 
 function isCommonsJsOrAmdCall(node, parentNode) {
