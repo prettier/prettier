@@ -45,6 +45,7 @@ const parseOptions = {
     "importReflection",
     "explicitResourceManagement",
     ["importAttributes", { deprecatedAssertSyntax: true }],
+    ["optionalChainingAssign", { version: "2023-07" }],
   ],
   tokens: true,
   ranges: true,
