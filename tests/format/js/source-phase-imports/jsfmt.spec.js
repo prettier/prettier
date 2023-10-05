@@ -1,7 +1,9 @@
 const importSourceTests = [
   "import-source-attributes-declaration.js",
+  "import-source-attributes-expression.js",
   "import-source-binding-from.js",
   "import-source-binding-source.js",
+  "import-source-dynami-import.js",
   "import-source.js",
 ];
 const invalidSyntaxTests = ["no-namespace.js", "no-named.js"];

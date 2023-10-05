@@ -84,6 +84,41 @@ import source s from "x" with { attr: "val" };
 ================================================================================
 `;
 
+exports[`import-source-attributes-expression.js [acorn] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source("x", { with: { attr: "val" } });
+    |        ^
+  2 |"
+`;
+
+exports[`import-source-attributes-expression.js [espree] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source("x", { with: { attr: "val" } });
+    |        ^
+  2 |"
+`;
+
+exports[`import-source-attributes-expression.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (1:13)
+> 1 | import.source("x", { with: { attr: "val" } });
+    |             ^
+  2 |"
+`;
+
+exports[`import-source-attributes-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import.source("x", { with: { attr: "val" } });
+
+=====================================output=====================================
+import.source("x", { with: { attr: "val" } });
+
+================================================================================
+`;
+
 exports[`import-source-binding-from.js [acorn] format 1`] = `
 "Unexpected token (1:20)
 > 1 | import source from from "x";
@@ -150,6 +185,41 @@ import source source from "x";
 
 =====================================output=====================================
 import source source from "x";
+
+================================================================================
+`;
+
+exports[`import-source-dynami-import.js [acorn] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source("foo");
+    |        ^
+  2 |"
+`;
+
+exports[`import-source-dynami-import.js [espree] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source("foo");
+    |        ^
+  2 |"
+`;
+
+exports[`import-source-dynami-import.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (1:13)
+> 1 | import.source("foo");
+    |             ^
+  2 |"
+`;
+
+exports[`import-source-dynami-import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import.source("foo");
+
+=====================================output=====================================
+import.source("foo");
 
 ================================================================================
 `;
