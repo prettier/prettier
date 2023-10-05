@@ -2461,6 +2461,41 @@ const re = /^(?i:[a-z])[a-z]$/;
 ================================================================================
 `;
 
+exports[`source-phase-imports.js [acorn] format 1`] = `
+"Unexpected token (1:15)
+> 1 | import source fooSource from "foo";
+    |               ^
+  2 |"
+`;
+
+exports[`source-phase-imports.js [espree] format 1`] = `
+"Unexpected token fooSource (1:15)
+> 1 | import source fooSource from "foo";
+    |               ^
+  2 |"
+`;
+
+exports[`source-phase-imports.js [meriyah] format 1`] = `
+"Import source must be string (1:23)
+> 1 | import source fooSource from "foo";
+    |                       ^
+  2 |"
+`;
+
+exports[`source-phase-imports.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import source fooSource from "foo";
+
+=====================================output=====================================
+import source fooSource from "foo";
+
+================================================================================
+`;
+
 exports[`throw-expressions.js [acorn] format 1`] = `
 "Unexpected token (3:23)
   1 | // https://babeljs.io/docs/en/babel-plugin-proposal-throw-expressions

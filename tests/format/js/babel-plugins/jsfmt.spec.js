@@ -31,6 +31,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "import-reflection.js",
       "explicit-resource-management.js",
       "regexp-modifiers.js",
+      "source-phase-imports.js",
     ],
     espree: [
       "decimal.js",
@@ -60,6 +61,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "import-reflection.js",
       "explicit-resource-management.js",
       "regexp-modifiers.js",
+      "source-phase-imports.js",
     ],
     meriyah: [
       "decimal.js",
@@ -91,6 +93,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "import-reflection.js",
       "explicit-resource-management.js",
       "regexp-modifiers.js",
+      "source-phase-imports.js",
     ],
     babel: ["flow.js", "typescript.js"],
     __babel_estree: ["flow.js", "typescript.js"],
