@@ -45,6 +45,7 @@ const parseOptions = {
     "importReflection",
     "explicitResourceManagement",
     ["importAttributes", { deprecatedAssertSyntax: true }],
+    "sourcePhaseImports",
   ],
   tokens: true,
   ranges: true,
