@@ -31,6 +31,8 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "import-reflection.js",
       "explicit-resource-management.js",
       "regexp-modifiers.js",
+      "source-phase-imports.js",
+      "deferred-import-evaluation.js",
       "optional-chaining-assignment.js",
     ],
     espree: [
@@ -61,6 +63,8 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "import-reflection.js",
       "explicit-resource-management.js",
       "regexp-modifiers.js",
+      "source-phase-imports.js",
+      "deferred-import-evaluation.js",
       "optional-chaining-assignment.js",
     ],
     meriyah: [
@@ -93,6 +97,8 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "import-reflection.js",
       "explicit-resource-management.js",
       "regexp-modifiers.js",
+      "source-phase-imports.js",
+      "deferred-import-evaluation.js",
       "optional-chaining-assignment.js",
     ],
     babel: ["flow.js", "typescript.js"],

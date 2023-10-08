@@ -26,6 +26,7 @@ const parseOptions = {
   allowUndeclaredExports: true,
   errorRecovery: true,
   createParenthesizedExpressions: true,
+  createImportExpressions: true,
   plugins: [
     // When adding a plugin, please add a test in `tests/format/js/babel-plugins`,
     // To remove plugins, remove it here and run `yarn test tests/format/js/babel-plugins` to verify
@@ -45,6 +46,8 @@ const parseOptions = {
     "importReflection",
     "explicitResourceManagement",
     ["importAttributes", { deprecatedAssertSyntax: true }],
+    "sourcePhaseImports",
+    "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],
   ],
   tokens: true,
