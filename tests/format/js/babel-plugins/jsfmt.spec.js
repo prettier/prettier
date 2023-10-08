@@ -33,6 +33,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "regexp-modifiers.js",
       "source-phase-imports.js",
       "deferred-import-evaluation.js",
+      "optional-chaining-assignment.js",
     ],
     espree: [
       "decimal.js",
@@ -64,6 +65,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "regexp-modifiers.js",
       "source-phase-imports.js",
       "deferred-import-evaluation.js",
+      "optional-chaining-assignment.js",
     ],
     meriyah: [
       "decimal.js",
@@ -97,6 +99,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "regexp-modifiers.js",
       "source-phase-imports.js",
       "deferred-import-evaluation.js",
+      "optional-chaining-assignment.js",
     ],
     babel: ["flow.js", "typescript.js"],
     __babel_estree: ["flow.js", "typescript.js"],

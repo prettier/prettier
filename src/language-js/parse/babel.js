@@ -48,6 +48,7 @@ const parseOptions = {
     ["importAttributes", { deprecatedAssertSyntax: true }],
     "sourcePhaseImports",
     "deferredImportEvaluation",
+    ["optionalChainingAssign", { version: "2023-07" }],
   ],
   tokens: true,
   ranges: true,

@@ -1859,6 +1859,41 @@ const ret = delete obj?.foo?.bar?.baz; // true
 ================================================================================
 `;
 
+exports[`optional-chaining-assignment.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | maybeAnObj?.prop = theValue;
+    | ^
+  2 |"
+`;
+
+exports[`optional-chaining-assignment.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | maybeAnObj?.prop = theValue;
+    | ^
+  2 |"
+`;
+
+exports[`optional-chaining-assignment.js [meriyah] format 1`] = `
+"Invalid left-hand side in assignment (1:18)
+> 1 | maybeAnObj?.prop = theValue;
+    |                  ^
+  2 |"
+`;
+
+exports[`optional-chaining-assignment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+maybeAnObj?.prop = theValue;
+
+=====================================output=====================================
+maybeAnObj?.prop = theValue;
+
+================================================================================
+`;
+
 exports[`partial-application.js [acorn] format 1`] = `
 "Unexpected token (5:23)
   3 | function add(x, y) { return x + y; }
