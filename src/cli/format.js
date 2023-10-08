@@ -437,7 +437,7 @@ async function formatFiles(context) {
       } else if (!context.argv.check && !context.argv.listDifferent) {
         const message = `${chalk.grey(fileNameToDisplay)} ${
           Date.now() - start
-        }ms`;
+        }ms (unchanged)`;
         if (isCacheExists) {
           context.logger.log(`${message} (cached)`);
         } else {
