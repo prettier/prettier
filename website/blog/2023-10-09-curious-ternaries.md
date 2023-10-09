@@ -10,6 +10,8 @@ _For a quick tl;dr, [see the release post](/blog/2023/10/01/3.1.0)._
 
 <!-- truncate -->
 
+## Introduction
+
 Printing nested ternaries nicely in a wide variety of scenarios is a surprisingly tricky challenge.
 
 Prettier's original, naïve approach – just add indentation to each level of a nested ternary – worked fine in simple cases, but didn't scale to deeply nested ternaries and [had other problems](https://github.com/prettier/prettier/issues/737).
@@ -39,6 +41,8 @@ Another developer had this to say:
 So we felt we had a winning formula, but it could be a jarring introduction to the community.
 
 As a result, we decided to put this new formatting behind a temporary `--experimental-ternaries` option for a few months, and in the meantime go ahead and ship what the community has been clammering for: [indented ternaries](https://github.com/prettier/prettier/pull/9559).
+
+## Overview
 
 So what does this new style look like, anyway?
 
