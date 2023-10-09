@@ -40,7 +40,7 @@ So what does this new style look like, anyway?
 
 Here's a quick, contrived example to show the thinking behind "curious" ternaries:
 
-<!--prettier-ignore-->
+<!-- prettier-ignore -->
 ```ts
 const animalName =
   pet.canBark() ?
@@ -62,7 +62,7 @@ const animalName =
 
 And here's the code rewritten to show "case-style" ternaries:
 
-<!--prettier-ignore-->
+<!-- prettier-ignore -->
 ```ts
 const animalName =
   pet.isScary() ? 'wolf'
@@ -77,7 +77,7 @@ Our new formatting is a fluid blend of "curious" ternaries (where the question m
 
 For example:
 
-<!--prettier-ignore-->
+<!-- prettier-ignore -->
 ```ts
 const animalName =
   pet.canSqueak() ? 'mouse'
