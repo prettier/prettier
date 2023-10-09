@@ -4,6 +4,8 @@ authorURL: "https://github.com/rattrayalex"
 title: "A curious case of the ternaries"
 ---
 
+Ternary formatting has always been a topic of debate, and we've taken strides to address it in v3.1. With the introduction of a new formatting style, we're eager for you to experience it firsthand. Before diving deep, we want to share our journey and the motivation behind this change. Please read on and don't miss trying out our `--experimental-ternaries` option!
+
 _For a quick tl;dr, [see the release post](/blog/2023/10/01/3.1.0)._
 
 <!-- truncate -->
