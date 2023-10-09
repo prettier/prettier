@@ -92,4 +92,8 @@ const animalName =
   : 'probably a bunny';
 ```
 
-We hope you like the more readable new default, and we **really** hope you give the new `--experimental-ternaries` option a try for a few weeks and [let us know what you think](https://forms.gle/vwEuboCobTVhEkt66).
+## Give us your feedback!
+
+We hope you like the more readable new default, and we **really** hope you give the new `--experimental-ternaries` option a try for a few weeks and let us know what you think.
+
+Please give us feedback via Google Forms: https://forms.gle/vwEuboCobTVhEkt66
