@@ -781,7 +781,11 @@ function needsParens(path, options) {
           return key === "callee";
 
         case "ConditionalExpression":
-          return key === "test";
+          // TODO remove this case entirely once we've removed this flag.
+          if (!options.experimentalTernaries) {
+            return key === "test";
+          }
+          return false;
 
         case "MemberExpression":
         case "OptionalMemberExpression":

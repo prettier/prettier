@@ -10,13 +10,16 @@ const lessShort =
   isLoudReallyLoud() ? makeNoiseReallyLoudly.omgSoLoud() : silent();
 
 // next, indent the consequent:
-const andIndented = isLoudReallyReallyReallyReallyLoud() ?
+const andIndented =
+  isLoudReallyReallyReallyReallyLoud() ?
     makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
   : silent();
 
 // unless the consequent is short (less than ten characters long):
-const shortSoCase = isLoudReallyReallyReallyReallyLoud() ? silent()
-  : makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud();
+const shortSoCase =
+  isLoudReallyReallyReallyReallyLoud() ? silent() : (
+    makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
+  );
 
 // if chained, always break and put after the =
 const chainedShort =
@@ -86,7 +89,8 @@ const mostlyShort =
   : "idk";
 
 // long conditional, short consequent/alternate, not chained - do indent after ?
-const longConditional = (
+const longConditional =
+  (
     bifornCringerMoshedPerplexSawder === 2 / askTrovenaBeenaDependsRowans &&
     glimseGlyphsHazardNoopsTieTie >=
       averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
@@ -112,9 +116,10 @@ definition.encode(
   : typeof definition.default !== "undefined" ? definition.default
   : null,
   typeof row[field] === "undefined" ?
-    typeof definition.default === "undefined" ? null
+    typeof definition.default === "undefined" ?
+      null
     : definition.default
-  : row[field]
+  : row[field],
 );
 
 // In a return, break and over-indent:
