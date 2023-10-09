@@ -6,6 +6,8 @@ title: "A curious case of the ternaries"
 
 _For a quick tl;dr, [see the release post](/blog/2023/10/01/3.1.0)._
 
+<!-- truncate -->
+
 Printing nested ternaries nicely in a wide variety of scenarios is a surprisingly tricky challenge.
 
 Prettier's original, naïve approach – just add indentation to each level of a nested ternary – worked fine in simple cases, but didn't scale to deeply nested ternaries and [had other problems](https://github.com/prettier/prettier/issues/737).
