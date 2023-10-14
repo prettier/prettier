@@ -556,18 +556,18 @@ const _ = () => {
       return 2
     default:
       // exhaustiveness check idiom
-      type satisfies never
+      ;(type) satisfies never
       throw new Error("unreachable")
   }
 }
 
 function needParens() {
-  let satisfies unknown
-  interface satisfies unknown
-  module satisfies unknown
-  using satisfies unknown
-  yield satisfies unknown
-  await satisfies unknown
+  ;(let) satisfies unknown
+  ;(interface) satisfies unknown
+  ;(module) satisfies unknown
+  ;(using) satisfies unknown
+  ;(yield) satisfies unknown
+  ;(await) satisfies unknown
 }
 
 function noNeedParens() {
@@ -642,18 +642,18 @@ const _ = () => {
       return 2;
     default:
       // exhaustiveness check idiom
-      type satisfies never;
+      (type) satisfies never;
       throw new Error("unreachable");
   }
 };
 
 function needParens() {
-  let satisfies unknown;
-  interface satisfies unknown;
-  module satisfies unknown;
-  using satisfies unknown;
-  yield satisfies unknown;
-  await satisfies unknown;
+  (let) satisfies unknown;
+  (interface) satisfies unknown;
+  (module) satisfies unknown;
+  (using) satisfies unknown;
+  (yield) satisfies unknown;
+  (await) satisfies unknown;
 }
 
 function noNeedParens() {

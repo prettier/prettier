@@ -110,6 +110,25 @@ function needsParens(path, options) {
       }
     }
 
+    // `(type) satisfies never;` and similar cases
+    if (
+      key === "expression" &&
+      (parent.type === "TSSatisfiesExpression" ||
+        parent.type === "TSAsExpression") &&
+      path.grandparent?.type === "ExpressionStatement" &&
+      [
+        "await",
+        "interface",
+        "module",
+        "using",
+        "yield",
+        "let",
+        "type",
+      ].includes(node.name)
+    ) {
+      return true;
+    }
+
     return false;
   }
 
