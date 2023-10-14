@@ -498,6 +498,179 @@ export default (function log() {} satisfies typeof console.log);
 ================================================================================
 `;
 
+exports[`expression-statement.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+
+let type: 'foo' | 'bar' = 'foo';
+
+// demonstrating how "satisfies" expression can be practically used as expression statement.
+const _ = () => {
+switch (type) {
+  case 'foo':
+    return 1;
+  case 'bar':
+    return 2;
+  default:
+    // exhaustiveness check idiom
+    (type) satisfies never;
+    throw new Error('unreachable');
+}
+}
+
+function needParens() {
+(let) satisfies unknown;
+(interface) satisfies unknown;
+(module) satisfies unknown;
+(using) satisfies unknown;
+(yield) satisfies unknown;
+(await) satisfies unknown;
+}
+
+function noNeedParens() {
+async satisfies unknown;
+satisfies satisfies unknown;
+as satisfies unknown;
+
+abc satisfies unknown; // not a keyword
+}
+
+function satisfiesChain() {
+satisfies satisfies satisfies satisfies satisfies;
+}
+
+
+=====================================output=====================================
+let type: "foo" | "bar" = "foo"
+
+// demonstrating how "satisfies" expression can be practically used as expression statement.
+const _ = () => {
+  switch (type) {
+    case "foo":
+      return 1
+    case "bar":
+      return 2
+    default:
+      // exhaustiveness check idiom
+      type satisfies never
+      throw new Error("unreachable")
+  }
+}
+
+function needParens() {
+  let satisfies unknown
+  interface satisfies unknown
+  module satisfies unknown
+  using satisfies unknown
+  yield satisfies unknown
+  await satisfies unknown
+}
+
+function noNeedParens() {
+  async satisfies unknown
+  satisfies satisfies unknown
+  as satisfies unknown
+
+  abc satisfies unknown // not a keyword
+}
+
+function satisfiesChain() {
+  satisfies satisfies satisfies satisfies satisfies
+}
+
+================================================================================
+`;
+
+exports[`expression-statement.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+let type: 'foo' | 'bar' = 'foo';
+
+// demonstrating how "satisfies" expression can be practically used as expression statement.
+const _ = () => {
+switch (type) {
+  case 'foo':
+    return 1;
+  case 'bar':
+    return 2;
+  default:
+    // exhaustiveness check idiom
+    (type) satisfies never;
+    throw new Error('unreachable');
+}
+}
+
+function needParens() {
+(let) satisfies unknown;
+(interface) satisfies unknown;
+(module) satisfies unknown;
+(using) satisfies unknown;
+(yield) satisfies unknown;
+(await) satisfies unknown;
+}
+
+function noNeedParens() {
+async satisfies unknown;
+satisfies satisfies unknown;
+as satisfies unknown;
+
+abc satisfies unknown; // not a keyword
+}
+
+function satisfiesChain() {
+satisfies satisfies satisfies satisfies satisfies;
+}
+
+
+=====================================output=====================================
+let type: "foo" | "bar" = "foo";
+
+// demonstrating how "satisfies" expression can be practically used as expression statement.
+const _ = () => {
+  switch (type) {
+    case "foo":
+      return 1;
+    case "bar":
+      return 2;
+    default:
+      // exhaustiveness check idiom
+      type satisfies never;
+      throw new Error("unreachable");
+  }
+};
+
+function needParens() {
+  let satisfies unknown;
+  interface satisfies unknown;
+  module satisfies unknown;
+  using satisfies unknown;
+  yield satisfies unknown;
+  await satisfies unknown;
+}
+
+function noNeedParens() {
+  async satisfies unknown;
+  satisfies satisfies unknown;
+  as satisfies unknown;
+
+  abc satisfies unknown; // not a keyword
+}
+
+function satisfiesChain() {
+  satisfies satisfies satisfies satisfies satisfies;
+}
+
+================================================================================
+`;
+
 exports[`gt-lt.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
