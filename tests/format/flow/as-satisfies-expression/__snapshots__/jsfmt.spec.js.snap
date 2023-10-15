@@ -56,6 +56,8 @@ const iter2 = createIterator(self.controller, child, self.tag as BlahFunctionCom
 
 x as any as T;
 
+(type) as T;
+
 =====================================output=====================================
 // @flow
 
@@ -122,6 +124,8 @@ const iter2 = createIterator(
 );
 
 x as any as T;
+
+(type) as T;
 
 ================================================================================
 `;
@@ -400,12 +404,14 @@ function foo() {
 `;
 
 exports[`satisfies.js [babel-flow] format 1`] = `
-"Missing semicolon. (3:12)
-  1 | // @flow
-  2 |
-> 3 | const x = y satisfies T;
-    |            ^
-  4 |"
+"Unexpected token, expected "type" (32:8)
+  30 | satisfies satisfies mixed;
+  31 | as satisfies mixed;
+> 32 | opaque satisfies mixed;
+     |        ^
+  33 |
+  34 | abc satisfies mixed; // not a keyword
+  35 | }"
 `;
 
 exports[`satisfies.js format 1`] = `
@@ -418,10 +424,83 @@ printWidth: 80
 
 const x = y satisfies T;
 
+// demonstrating how "satisfies" expression can be practically used as expression statement.
+const _ = (type: 'foo' | 'bar') => {
+switch (type) {
+  case 'foo':
+    return 1;
+  case 'bar':
+    return 2;
+  default:
+    // exhaustiveness check idiom
+    (type) satisfies empty;
+    throw new Error('unreachable');
+}
+}
+
+function needParens() {
+(let) satisfies mixed;
+(interface) satisfies mixed;
+(module) satisfies mixed;
+(using) satisfies mixed;
+(yield) satisfies mixed;
+(await) satisfies mixed;
+}
+
+function noNeedParens() {
+async satisfies mixed;
+satisfies satisfies mixed;
+as satisfies mixed;
+opaque satisfies mixed;
+
+abc satisfies mixed; // not a keyword
+}
+
+function satisfiesChain() {
+satisfies satisfies satisfies satisfies satisfies;
+}
+
+
 =====================================output=====================================
 // @flow
 
 const x = y satisfies T;
+
+// demonstrating how "satisfies" expression can be practically used as expression statement.
+const _ = (type: "foo" | "bar") => {
+  switch (type) {
+    case "foo":
+      return 1;
+    case "bar":
+      return 2;
+    default:
+      // exhaustiveness check idiom
+      (type) satisfies empty;
+      throw new Error("unreachable");
+  }
+};
+
+function needParens() {
+  (let) satisfies mixed;
+  (interface) satisfies mixed;
+  (module) satisfies mixed;
+  (using) satisfies mixed;
+  (yield) satisfies mixed;
+  (await) satisfies mixed;
+}
+
+function noNeedParens() {
+  async satisfies mixed;
+  satisfies satisfies mixed;
+  as satisfies mixed;
+  opaque satisfies mixed;
+
+  abc satisfies mixed; // not a keyword
+}
+
+function satisfiesChain() {
+  satisfies satisfies satisfies satisfies satisfies;
+}
 
 ================================================================================
 `;

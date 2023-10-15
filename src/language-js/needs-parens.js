@@ -114,7 +114,9 @@ function needsParens(path, options) {
     if (
       key === "expression" &&
       (parent.type === "TSSatisfiesExpression" ||
-        parent.type === "TSAsExpression") &&
+        parent.type === "SatisfiesExpression" ||
+        parent.type === "TSAsExpression" ||
+        parent.type === "AsExpression") &&
       path.grandparent?.type === "ExpressionStatement" &&
       [
         "await",
