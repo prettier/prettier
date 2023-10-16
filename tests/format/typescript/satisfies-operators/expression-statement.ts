@@ -36,4 +36,3 @@ function satisfiesChain() {
 satisfies satisfies satisfies satisfies satisfies;
 (type) satisfies never satisfies unknown;
 }
-
