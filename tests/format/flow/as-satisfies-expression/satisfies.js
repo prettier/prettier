@@ -36,5 +36,6 @@ abc satisfies mixed; // not a keyword
 
 function satisfiesChain() {
 satisfies satisfies satisfies satisfies satisfies;
+(type) satisfies empty satisfies mixed;
 }
 

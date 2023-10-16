@@ -111,25 +111,32 @@ function needsParens(path, options) {
     }
 
     // `(type) satisfies never;` and similar cases
-    if (
-      key === "expression" &&
-      path.grandparent?.type === "ExpressionStatement"
-    ) {
-      switch (parent.type) {
-        case "TSSatisfiesExpression":
-        case "SatisfiesExpression":
-        case "TSAsExpression":
-        case "AsExpression":
-          switch (node.name) {
-            case "await":
-            case "interface":
-            case "module":
-            case "using":
-            case "yield":
-            case "let":
-            case "type":
-              return true;
-          }
+    if (key === "expression") {
+      const ancestorNeitherAsNorSatisfies = path.findAncestor((node) => {
+        switch (node.type) {
+          case "TSSatisfiesExpression":
+          case "SatisfiesExpression":
+          case "TSAsExpression":
+          case "AsExpression":
+            return false;
+          default:
+            return true;
+        }
+      });
+      if (
+        ancestorNeitherAsNorSatisfies !== parent &&
+        ancestorNeitherAsNorSatisfies.type === "ExpressionStatement"
+      ) {
+        switch (node.name) {
+          case "await":
+          case "interface":
+          case "module":
+          case "using":
+          case "yield":
+          case "let":
+          case "type":
+            return true;
+        }
       }
     }
 
