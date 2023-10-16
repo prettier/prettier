@@ -110,6 +110,29 @@ function needsParens(path, options) {
       }
     }
 
+    // `(type) satisfies never;` and similar cases
+    if (key === "expression") {
+      switch (node.name) {
+        case "await":
+        case "interface":
+        case "module":
+        case "using":
+        case "yield":
+        case "let":
+        case "type": {
+          const ancestorNeitherAsNorSatisfies = path.findAncestor(
+            (node) => !isBinaryCastExpression(node),
+          );
+          if (
+            ancestorNeitherAsNorSatisfies !== parent &&
+            ancestorNeitherAsNorSatisfies.type === "ExpressionStatement"
+          ) {
+            return true;
+          }
+        }
+      }
+    }
+
     return false;
   }
 

@@ -10,3 +10,5 @@ export const LOG_LEVEL = {
     INFO: 6,
     DEBUG: 7,
 } as const;
+
+(type) as const;
