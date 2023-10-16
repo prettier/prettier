@@ -136,7 +136,9 @@ exports[`as-const.js [babel-flow] format 1`] = `
   11 |     DEBUG: 7,
 > 12 | } as const;
      |           ^
-  13 |"
+  13 |
+  14 | (type) as const;
+  15 |"
 `;
 
 exports[`as-const.js format 1`] = `
@@ -158,6 +160,8 @@ export const LOG_LEVEL = {
     DEBUG: 7,
 } as const;
 
+(type) as const;
+
 =====================================output=====================================
 // @flow
 
@@ -171,6 +175,8 @@ export const LOG_LEVEL = {
   INFO: 6,
   DEBUG: 7,
 } as const;
+
+(type) as const;
 
 ================================================================================
 `;

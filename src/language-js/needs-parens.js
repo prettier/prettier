@@ -118,6 +118,7 @@ function needsParens(path, options) {
           case "SatisfiesExpression":
           case "TSAsExpression":
           case "AsExpression":
+          case "AsConstExpression":
             return false;
           default:
             return true;
