@@ -107,7 +107,6 @@ function printMemberChain(path, options, print) {
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node,
-        path,
         needsParens: pathNeedsParens(path, options),
         shouldInline: isMemberExpression(node) && shouldInlineMember(path),
         printed: printComments(
