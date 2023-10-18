@@ -59,12 +59,12 @@ exports[`show external options with \`--help\` 1`] = `
 - First value
 + Second value
 
-@@ -22,16 +22,18 @@
-                             Control how Prettier formats quoted code embedded in the file.
-                             Defaults to auto.
+@@ -24,16 +24,18 @@
     --end-of-line <lf|crlf|cr|auto>
                              Which end of line characters to apply.
                              Defaults to lf.
+    --no-experimental-ternaries
+                             Default behavior of ternaries; keep question marks on the same line as the consequent.
 +   --foo-option <bar|baz>   foo description
 +                            Defaults to bar.
     --html-whitespace-sensitivity <css|strict|ignore>

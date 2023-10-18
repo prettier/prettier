@@ -72,22 +72,22 @@ type T2 = (() => void) extends T ? U : V;
 export type DeepReadonly<T> = T extends any[]
   ? DeepReadonlyArray<T[number]>
   : T extends object
-  ? DeepReadonlyObject<T>
-  : T;
+    ? DeepReadonlyObject<T>
+    : T;
 
 interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
 
 type TypeName<T> = T extends string
   ? "string"
   : T extends number
-  ? "number"
-  : T extends boolean
-  ? "boolean"
-  : T extends undefined
-  ? "undefined"
-  : T extends Function
-  ? "function"
-  : "object";
+    ? "number"
+    : T extends boolean
+      ? "boolean"
+      : T extends undefined
+        ? "undefined"
+        : T extends Function
+          ? "function"
+          : "object";
 
 type Type01 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
 type Type02 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
@@ -167,10 +167,10 @@ type TestReturnType<T extends (...args: any[]) => any> = T extends (
 type Unpacked<T> = T extends (infer U)[]
   ? U
   : T extends (...args: any[]) => infer U
-  ? U
-  : T extends Promise<infer U>
-  ? U
-  : T;
+    ? U
+    : T extends Promise<infer U>
+      ? U
+      : T;
 
 ================================================================================
 `;
@@ -288,22 +288,22 @@ type Unpacked<T> =
 type TypeName<T> = T extends string
   ? "string"
   : T extends number
-  ? "number"
-  : T extends boolean
-  ? "boolean"
-  : T extends undefined
-  ? "undefined"
-  : T extends Function
-  ? "function"
-  : "object";
+    ? "number"
+    : T extends boolean
+      ? "boolean"
+      : T extends undefined
+        ? "undefined"
+        : T extends Function
+          ? "function"
+          : "object";
 
 type Unpacked<T> = T extends (infer U)[]
   ? U
   : T extends (...args: any[]) => infer U
-  ? SomeReallyLongThingThatBreaksTheLine<U>
-  : T extends Promise<infer U>
-  ? U
-  : T;
+    ? SomeReallyLongThingThatBreaksTheLine<U>
+    : T extends Promise<infer U>
+      ? U
+      : T;
 
 ================================================================================
 `;

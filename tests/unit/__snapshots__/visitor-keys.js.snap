@@ -373,6 +373,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "ImportExpression": [
     "source",
+    "options",
     "attributes",
   ],
   "ImportNamespaceSpecifier": [
@@ -1022,6 +1023,9 @@ exports[`visitor keys estree 1`] = `
     "expression",
     "typeAnnotation",
   ],
+  "TypeOperator": [
+    "typeAnnotation",
+  ],
   "TypeParameter": [
     "bound",
     "default",
@@ -1040,6 +1044,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "TypeofTypeAnnotation": [
     "argument",
+    "typeArguments",
   ],
   "UnaryExpression": [
     "argument",

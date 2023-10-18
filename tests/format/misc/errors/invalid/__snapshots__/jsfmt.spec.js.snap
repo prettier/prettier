@@ -325,7 +325,7 @@ exports[`snippet: #4 [babel] format 1`] = `
 `;
 
 exports[`snippet: #4 [babel] format 2`] = `
-"Invalid left-hand side in parenthesized expression. (1:2)
+"Invalid left-hand side in assignment expression. (1:2)
 > 1 | (a = b) += 1
     |  ^"
 `;
@@ -337,7 +337,7 @@ exports[`snippet: #4 [babel-flow] format 1`] = `
 `;
 
 exports[`snippet: #4 [babel-flow] format 2`] = `
-"Invalid left-hand side in parenthesized expression. (1:2)
+"Invalid left-hand side in assignment expression. (1:2)
 > 1 | (a = b) += 1
     |  ^"
 `;
@@ -349,7 +349,7 @@ exports[`snippet: #4 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #4 [babel-ts] format 2`] = `
-"Invalid left-hand side in parenthesized expression. (1:2)
+"Invalid left-hand side in assignment expression. (1:2)
 > 1 | (a = b) += 1
     |  ^"
 `;
