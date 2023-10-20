@@ -58,6 +58,10 @@ const sel = this.connections
   .concat(this.activities.concat(this.operators))
   .filter(x => x.selected);
 
-Foo.a()
+Object.entries(obj)
 
-.b();
+.forEach((e) => console.log(e));
+
+this.fetch("/foo")
+
+	.then(response => response.json());
