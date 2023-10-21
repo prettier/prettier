@@ -2044,12 +2044,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-html-parser@npm:4.0.1":
+"angular-html-parser@file:/Users/sosuke.suzuki/ghq/github.com/sosukesuzuki/angular-html-parser/packages/angular-html-parser::locator=prettier%40workspace%3A.":
   version: 4.0.1
-  resolution: "angular-html-parser@npm:4.0.1"
+  resolution: "angular-html-parser@file:/Users/sosuke.suzuki/ghq/github.com/sosukesuzuki/angular-html-parser/packages/angular-html-parser#/Users/sosuke.suzuki/ghq/github.com/sosukesuzuki/angular-html-parser/packages/angular-html-parser::hash=67d56f&locator=prettier%40workspace%3A."
   dependencies:
     tslib: ^2.5.0
-  checksum: d6d1c695413fdde3c855da4e2eaa5bc331cd7d159bf1199d5835b88c68e53d1112385095f6f9a52716dfab763440d1a2a91a948ddc3840293557f1f24f5f784a
+  checksum: 1d2a4cf1a46dafdbdf3fe7154ee5f6b8c2f81a5760db3c42dd483649f3dc7495fc1cd57eeeea7967bf6fd9cdcd6f0335ed2d2cdef66b081e0c7421013fdf158e
   languageName: node
   linkType: hard
 
@@ -7179,7 +7179,7 @@ __metadata:
     acorn: 8.10.0
     acorn-jsx: 5.3.2
     angular-estree-parser: 7.0.0
-    angular-html-parser: 4.0.1
+    angular-html-parser: "file:/Users/sosuke.suzuki/ghq/github.com/sosukesuzuki/angular-html-parser/packages/angular-html-parser"
     benchmark: 2.1.4
     browserslist-to-esbuild: 1.2.0
     c8: 8.0.1
