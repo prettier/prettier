@@ -134,6 +134,16 @@ test("editorconfigToPrettier", () => {
     tabWidth: 2,
   });
 
+  expect(
+    editorconfigToPrettier({
+      "prettier/prose_wrap": "always",
+      something_unrecognized: 1000,
+      "another_prefix/a_different_setting": false,
+    }),
+  ).toStrictEqual({
+    proseWrap: "always",
+  });
+
   expect(editorconfigToPrettier({})).toBeNull();
   expect(editorconfigToPrettier(null)).toBeNull();
 });

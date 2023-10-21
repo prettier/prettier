@@ -1,3 +1,10 @@
+// Matches numbers with digits before or after the decimal point (or both) and
+// numbers without a decimal point. A leading sign is recognized, as are leading
+// and trailing zeroes.
+const NUMBER_PATTERN = /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/;
+
+const PREFIX = "prettier/";
+
 function removeUnset(editorConfig) {
   const result = {};
   const keys = Object.keys(editorConfig);
@@ -60,6 +67,27 @@ function editorConfigToPrettier(editorConfig) {
 
   if (["cr", "crlf", "lf"].includes(editorConfig.end_of_line)) {
     result.endOfLine = editorConfig.end_of_line;
+  }
+
+  const prefixed = Object.entries(editorConfig).filter(([key]) =>
+    key.startsWith(PREFIX),
+  );
+
+  for (const [rawKey, rawValue] of prefixed) {
+    const key = rawKey
+      .slice(PREFIX.length)
+      .replace(/_([a-z])/, (match) => match[1].toUpperCase());
+
+    const value =
+      rawValue === "true"
+        ? true
+        : rawValue === "false"
+        ? false
+        : NUMBER_PATTERN.test(rawValue)
+        ? Number.parseInt(rawValue, 10)
+        : rawValue;
+
+    result[key] = value;
   }
 
   return result;
