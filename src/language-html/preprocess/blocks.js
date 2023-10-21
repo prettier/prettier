@@ -94,30 +94,49 @@ function transformIfConnectedBlocks(connectedBlocks) {
   return transformed;
 }
 
-function transformIfBlockNode(ast) {
+function transformIfBlock(node) {
+  const connectedBlocks = findConnectedBlocks(
+    node.index,
+    node.siblings,
+    isConnectedIfLoopBlock,
+  );
+  const transformedIfBlock = transformIfConnectedBlocks(connectedBlocks);
+  const children = [];
+  for (const child of node.parent.children) {
+    if (child === node) {
+      children.push(transformedIfBlock);
+      continue;
+    }
+    if (connectedBlocks.includes(child)) {
+      continue;
+    }
+    children.push(child);
+  }
+  node.parent.children = children;
+}
+
+function transformControlFlowBlockNode(ast) {
   ast.walk((node) => {
-    if (node.type !== "block" || node.name !== "if") {
-      return;
-    }
-    const connectedBlocks = findConnectedBlocks(
-      node.index,
-      node.siblings,
-      isConnectedIfLoopBlock,
-    );
-    const transformedIfBlock = transformIfConnectedBlocks(connectedBlocks);
-    const children = [];
-    for (const child of node.parent.children) {
-      if (child === node) {
-        children.push(transformedIfBlock);
-        continue;
+    if (node.type === "block") {
+      switch (node.name) {
+        case "if":
+          transformIfBlock(node);
+          break;
+        case "defer":
+          // TODO: implement
+          break;
+        case "swtich":
+          // TODO: implement
+          break;
+        case "for":
+          // TODO: implement
+          break;
+        default:
+          // TODO: throw error
+          break;
       }
-      if (connectedBlocks.includes(child)) {
-        continue;
-      }
-      children.push(child);
     }
-    node.parent.children = children;
   });
 }
 
-export { transformIfBlockNode };
+export { transformControlFlowBlockNode };

@@ -10,7 +10,7 @@ import {
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
 } from "../utils/index.js";
-import { transformIfBlockNode } from "./blocks.js";
+import { transformControlFlowBlockNode } from "./blocks.js";
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,
@@ -23,7 +23,7 @@ const PREPROCESS_PIPELINE = [
   addHasHtmComponentClosingTag,
   addIsSpaceSensitive,
   mergeSimpleElementIntoText,
-  transformIfBlockNode,
+  transformControlFlowBlockNode,
 ];
 
 function preprocess(ast, options) {
