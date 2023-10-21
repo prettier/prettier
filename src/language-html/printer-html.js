@@ -20,6 +20,7 @@ import {
 } from "./print/tag.js";
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
+import { printBlock } from "./print/block.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 
 function genericPrint(path, options, print) {
@@ -105,6 +106,10 @@ function genericPrint(path, options, print) {
         quote,
       ];
     }
+    case "block":
+      return printBlock(path, options, print);
+    case "blockParameter":
+      return node.expression;
     case "cdata": // Transformed into `text`
     default:
       /* c8 ignore next */

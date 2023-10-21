@@ -52,6 +52,7 @@ function ngHtmlParser(input, parseOptions, options) {
     allowHtmComponentClosingTags = false,
     isTagNameCaseSensitive = false,
     shouldParseAsRawText,
+    tokenizeBlocks = false,
   } = parseOptions;
 
   let { rootNodes, errors } = parseHtml(input, {
@@ -62,6 +63,7 @@ function ngHtmlParser(input, parseOptions, options) {
       ? (...args) =>
           shouldParseAsRawText(...args) ? TagContentType.RAW_TEXT : undefined
       : undefined,
+    tokenizeBlocks,
   });
 
   if (name === "vue") {
@@ -371,7 +373,7 @@ const HTML_PARSE_OPTIONS = {
 // HTML
 export const html = createParser(HTML_PARSE_OPTIONS);
 // Angular
-export const angular = createParser({ name: "angular" });
+export const angular = createParser({ name: "angular", tokenizeBlocks: true });
 // Vue
 export const vue = createParser({
   name: "vue",
