@@ -8,7 +8,7 @@ import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import clean from "./clean.js";
 import { unescapeQuoteEntities, getTextValueParts } from "./utils/index.js";
-import preprocess from "./print-preprocess.js";
+import preprocess from "./preprocess/print-preprocess.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import embed from "./embed.js";
