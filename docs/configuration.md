@@ -200,7 +200,9 @@ If you’d like a JSON schema to validate your configuration, one is available h
 
 ## EditorConfig
 
-If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc.
+If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. Prettier supports several common EditorConfig properties, as well as custom ones — prefixed with `prettier/` and converted to snake case — for all Prettier options. This can prevent the need for separate `.editorconfig` and `.prettierrc`, etc. files.
+
+If the EditorConfig property corresponding to a Prettier option and the prefixed version of that option are both present (e.g. both `quote_type = single` and `prettier/single_quote = true`), the prefixed version will take precedence in the case of a conflict. Similarly, any options present in `.prettierrc`, etc. override anything set via `.editorconfig`. To avoid confusion and accidental conflicts, it is best to ensure that each Prettier option is only set once.
 
 Here’s an annotated description of how different properties map to Prettier’s behavior:
 
@@ -209,18 +211,24 @@ Here’s an annotated description of how different properties map to Prettier’
 # root = true
 
 [*]
-# Non-configurable Prettier behaviors
+# Common properties corresponding to Prettier behaviors which can't be changed
 charset = utf-8
 insert_final_newline = true
 # Caveat: Prettier won’t trim trailing whitespace inside template strings, but your editor might.
 # trim_trailing_whitespace = true
 
-# Configurable Prettier behaviors
+# Common properties corresponding to Prettier options
 # (change these if your Prettier config differs)
 end_of_line = lf
 indent_style = space
 indent_size = 2
 max_line_length = 80
+
+# Custom properties for Prettier options
+prettier/semi = false
+prettier/trailing_comma = none
+# Don't do this; use max_line_length instead, so other tools understand it, too.
+# prettier/print_width = 80
 ```
 
 Here’s a copy+paste-ready `.editorconfig` file if you use the default options:
