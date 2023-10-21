@@ -139,6 +139,16 @@ class Node {
     return this.parent?.children[this.parent.children.indexOf(this) - 1];
   }
 
+  get index() {
+    // @ts-expect-error
+    return this.parent?.children.indexOf(this);
+  }
+
+  get siblings() {
+    // @ts-expect-error
+    return this.parent?.children;
+  }
+
   get next() {
     // @ts-expect-error
     return this.parent?.children[this.parent.children.indexOf(this) + 1];

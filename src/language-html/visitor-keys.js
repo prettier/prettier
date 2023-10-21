@@ -11,6 +11,7 @@ const visitorKeys = {
   comment: [],
   attribute: [],
   cdata: [],
+  ifBlock: ["test", "consequent", "alternate"],
   block: ["parameters", "children"],
   blockParameter: ["expression"],
 };
