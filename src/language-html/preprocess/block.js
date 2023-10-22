@@ -209,11 +209,6 @@ function transformControlFlowBlockNode(ast) {
         case "for":
           transoformForLoopBlock(node);
           break;
-        case "switch":
-          // Do nothing
-          break;
-        default:
-          break;
       }
     }
   });
