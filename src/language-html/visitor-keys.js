@@ -12,6 +12,7 @@ const visitorKeys = {
   attribute: [],
   cdata: [],
   ifBlock: ["test", "consequent", "alternate"],
+  forBlock: ["parameters", "children", "empty"],
   block: ["parameters", "children"],
   blockParameter: ["expression"],
 };

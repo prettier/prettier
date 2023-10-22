@@ -3,8 +3,7 @@ import { hardline, indent } from "../../document/builders.js";
 
 function printIfBlock(path, options, print) {
   const { node } = path;
-  const parts = [];
-  parts.push(
+  return [
     "@",
     node.name,
     isNonEmptyArray(node.test) ? [" (", ...path.map(print, "test"), ")"] : "",
@@ -12,13 +11,24 @@ function printIfBlock(path, options, print) {
     indent([hardline, ...path.map(print, "consequent")]),
     hardline,
     "}",
-  );
-  if (node.alternate) {
-    parts.push(" ", print("alternate"));
-  } else {
-    parts.push(hardline);
-  }
-  return parts;
+    node.alternate ? [" ", print("alternate")] : hardline,
+  ];
+}
+
+function printForBlock(path, options, print) {
+  const { node } = path;
+  return [
+    "@",
+    node.name,
+    isNonEmptyArray(node.parameters)
+      ? [" (", ...path.map(print, "parameters"), ")"]
+      : "",
+    " {",
+    indent([hardline, ...path.map(print, "children")]),
+    hardline,
+    "}",
+    node.empty ? [" ", print("empty")] : hardline,
+  ];
 }
 
 function printBasicBlock(path, options, print) {
@@ -44,6 +54,9 @@ function printBlock(path, options, print) {
   const { node } = path;
   if (node.type === "ifBlock") {
     return printIfBlock(path, options, print);
+  }
+  if (node.type === "forBlock") {
+    return printForBlock(path, options, print);
   }
   return printBasicBlock(path, options, print);
 }

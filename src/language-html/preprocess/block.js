@@ -22,6 +22,16 @@ function isConnectedIfLoopBlock(name) {
 }
 
 /**
+ * Predicate function that determines if a block with
+ * a specific name cam be connected to a `for` block.
+ *
+ * https://github.com/angular/angular/blob/master/packages/compiler/src/render3/r3_control_flow.ts#L39
+ */
+function isConnectedForLoopBlock(name) {
+  return name === "empty";
+}
+
+/**
  * Normalize ambiguous block names.
  *
  * @param {string} name
@@ -115,6 +125,52 @@ function transformIfBlock(node) {
   node.parent.children = children;
 }
 
+function transformForLoopConnectedBlocks(connectedBlocks) {
+  const [primaryBlock, ...blocks] = connectedBlocks;
+  const transformed = {
+    ...primaryBlock,
+    type: "forBlock",
+    name: "for",
+    empty: null,
+  };
+  for (const block of blocks) {
+    if (block.name === "empty") {
+      if (transformed.empty !== null) {
+        // TODO: throw error ('@for loop can only have one @empty block')
+      } else if (block.parameters.length > 0) {
+        // TODO: throw error ('@empty block cannot have parameters')
+      } else {
+        transformed.empty = block;
+      }
+    } else {
+      // TODO: throw error (`Unrecognized @for loop block "${block.name}"`)
+    }
+  }
+  return transformed;
+}
+
+function transoformForLoopBlock(node) {
+  const connectedBlocks = findConnectedBlocks(
+    node.index,
+    node.siblings,
+    isConnectedForLoopBlock,
+  );
+  const transformedForLoopBlock =
+    transformForLoopConnectedBlocks(connectedBlocks);
+  const children = [];
+  for (const child of node.parent.children) {
+    if (child === node) {
+      children.push(transformedForLoopBlock);
+      continue;
+    }
+    if (connectedBlocks.includes(child)) {
+      continue;
+    }
+    children.push(child);
+  }
+  node.parent.children = children;
+}
+
 function transformControlFlowBlockNode(ast) {
   ast.walk((node) => {
     if (node.type === "block") {
@@ -123,7 +179,9 @@ function transformControlFlowBlockNode(ast) {
           transformIfBlock(node);
           break;
         case "defer":
+          break;
         case "for":
+          transoformForLoopBlock(node);
           break;
         case "switch":
           // Do nothing
