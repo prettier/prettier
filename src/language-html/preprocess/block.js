@@ -1,13 +1,6 @@
 import { ParseSourceSpan } from "angular-html-parser";
+import { ELSE_IF_PATTERN } from "../utils/else-if-pattern.js";
 import throwSyntaxError from "./throw-syntax-error.js";
-
-/**
- * Pattern used to identify an `else if` block.
- *
- * https://github.com/angular/angular/blob/327896606832bf6fbfc8f23989755123028136a8/packages/compiler/src/render3/r3_control_flow.ts#L26
- *
- * */
-const ELSE_IF_PATTERN = /^else[^\S\n\r]+if/;
 
 /**
  * Predicate function that determines if a block with
@@ -30,19 +23,6 @@ function isConnectedIfLoopBlock(name) {
  */
 function isConnectedForLoopBlock(name) {
   return name === "empty";
-}
-
-/**
- * Normalize ambiguous block names.
- *
- * @param {string} name
- * @returns {string}
- */
-function normalizeBlockName(name) {
-  if (ELSE_IF_PATTERN.test(name)) {
-    return "else if";
-  }
-  return name;
 }
 
 /**
@@ -81,14 +61,9 @@ function transformIfConnectedBlocks(connectedBlocks) {
     return null;
   }
   const [primaryBlock, ...blocks] = connectedBlocks;
-  const { children, paramters, name, ...rest } = primaryBlock;
   const transformed = {
-    ...rest,
-    type: "ifBlock",
-    name: normalizeBlockName(primaryBlock.name),
-    test: primaryBlock.parameters,
-    consequent: primaryBlock.children,
-    alternate: null,
+    ...primaryBlock,
+    successorBlock: null,
   };
 
   if (blocks.length > 0) {
@@ -100,7 +75,7 @@ function transformIfConnectedBlocks(connectedBlocks) {
   }
 
   if (blocks.length > 0) {
-    transformed.alternate = transformIfConnectedBlocks(blocks);
+    transformed.successorBlock = transformIfConnectedBlocks(blocks);
   }
   return transformed;
 }
@@ -130,18 +105,16 @@ function transformForLoopConnectedBlocks(connectedBlocks) {
   const [primaryBlock, ...blocks] = connectedBlocks;
   const transformed = {
     ...primaryBlock,
-    type: "forBlock",
-    name: "for",
-    empty: null,
+    successorBlock: null,
   };
   for (const block of blocks) {
     if (block.name === "empty") {
-      if (transformed.empty !== null) {
+      if (transformed.successorBlock !== null) {
         throwSyntaxError(block, "@for loop can only have one @empty block");
       } else if (block.parameters.length > 0) {
         throwSyntaxError(block, "@empty block cannot have parameters");
       } else {
-        transformed.empty = block;
+        transformed.successorBlock = block;
       }
     } else {
       throwSyntaxError(block, `Unrecognized @for loop block "${block.name}"`);
