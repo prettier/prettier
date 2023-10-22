@@ -9,6 +9,19 @@ Prettier ships with a handful of format options.
 
 If you change any options, it’s recommended to do it via a [configuration file](configuration.md). This way the Prettier CLI, [editor integrations](editors.md) and other tooling knows what options you use.
 
+## Experimental Ternaries
+
+Try prettier's [new ternary formatting](https://github.com/prettier/prettier/pull/13183) before it becomes the default behavior.
+
+Valid options:
+
+- `true` - Use curious ternaries, with the question mark after the condition.
+- `false` - Retain the default behavior of ternaries; keep question marks on the same line as the consequent.
+
+| Default | CLI Override               | API Override                    |
+| ------- | -------------------------- | ------------------------------- |
+| `false` | `--experimental-ternaries` | `experimentalTernaries: <bool>` |
+
 ## Print Width
 
 Specify the line length that the printer will wrap on.

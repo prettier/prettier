@@ -187,9 +187,22 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     case "StringLiteralTypeAnnotation":
     case "SequenceExpression":
       return true;
+    case "TSConditionalType":
+    case "ConditionalTypeAnnotation":
+      if (!options.experimentalTernaries) {
+        break;
+      }
+      return true;
     case "ConditionalExpression": {
-      const { test } = rightNode;
-      return isBinaryish(test) && !shouldInlineLogicalExpression(test);
+      if (!options.experimentalTernaries) {
+        const { test } = rightNode;
+        return isBinaryish(test) && !shouldInlineLogicalExpression(test);
+      }
+      const { consequent, alternate } = rightNode;
+      return (
+        consequent.type === "ConditionalExpression" ||
+        alternate.type === "ConditionalExpression"
+      );
     }
     case "ClassExpression":
       return isNonEmptyArray(rightNode.decorators);

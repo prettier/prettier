@@ -130,6 +130,10 @@ exports[`API getSupportInfo() 1`] = `
       "default": "lf",
       "type": "choice",
     },
+    "experimentalTernaries": {
+      "default": false,
+      "type": "boolean",
+    },
     "filepath": {
       "default": undefined,
       "type": "path",
@@ -851,6 +855,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       "name": "endOfLine",
       "pluginDefaults": {},
       "type": "choice"
+    },
+    {
+      "category": "JavaScript",
+      "default": false,
+      "description": "Use curious ternaries, with the question mark after the condition.",
+      "name": "experimentalTernaries",
+      "oppositeDescription": "Default behavior of ternaries; keep question marks on the same line as the consequent.",
+      "pluginDefaults": {},
+      "type": "boolean"
     },
     {
       "category": "Special",

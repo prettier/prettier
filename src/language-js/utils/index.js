@@ -1050,8 +1050,14 @@ function getCallArguments(node) {
   if (node.type === "ImportExpression") {
     args = [node.source];
 
+    // import attributes
     if (node.attributes) {
       args.push(node.attributes);
+    }
+
+    // deprecated import assertions
+    if (node.options) {
+      args.push(node.options);
     }
   }
 
@@ -1064,8 +1070,14 @@ function iterateCallArgumentsPath(path, iteratee) {
   if (node.type === "ImportExpression") {
     path.call((sourcePath) => iteratee(sourcePath, 0), "source");
 
+    // import attributes
     if (node.attributes) {
       path.call((sourcePath) => iteratee(sourcePath, 1), "attributes");
+    }
+
+    // deprecated import assertions
+    if (node.options) {
+      path.call((sourcePath) => iteratee(sourcePath, 1), "options");
     }
   } else {
     path.each(iteratee, "arguments");
@@ -1074,11 +1086,16 @@ function iterateCallArgumentsPath(path, iteratee) {
 
 function getCallArgumentSelector(node, index) {
   if (node.type === "ImportExpression") {
-    if (index === 0 || index === (node.attributes ? -2 : -1)) {
+    if (index === 0 || index === (node.attributes || node.options ? -2 : -1)) {
       return "source";
     }
+    // import attributes
     if (node.attributes && (index === 1 || index === -1)) {
       return "attributes";
+    }
+    // deprecated import assertions
+    if (node.options && (index === 1 || index === -1)) {
+      return "options";
     }
     throw new RangeError("Invalid argument index");
   }

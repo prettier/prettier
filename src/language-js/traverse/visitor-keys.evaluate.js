@@ -43,6 +43,7 @@ const additionalVisitorKeys = {
   AsExpression: ["expression", "typeAnnotation"],
   AsConstExpression: ["expression"],
   SatisfiesExpression: ["expression", "typeAnnotation"],
+  TypeofTypeAnnotation: ["argument", "typeArguments"],
 };
 
 const excludeKeys = {

@@ -110,6 +110,29 @@ function needsParens(path, options) {
       }
     }
 
+    // `(type) satisfies never;` and similar cases
+    if (key === "expression") {
+      switch (node.name) {
+        case "await":
+        case "interface":
+        case "module":
+        case "using":
+        case "yield":
+        case "let":
+        case "type": {
+          const ancestorNeitherAsNorSatisfies = path.findAncestor(
+            (node) => !isBinaryCastExpression(node),
+          );
+          if (
+            ancestorNeitherAsNorSatisfies !== parent &&
+            ancestorNeitherAsNorSatisfies.type === "ExpressionStatement"
+          ) {
+            return true;
+          }
+        }
+      }
+    }
+
     return false;
   }
 
@@ -237,6 +260,19 @@ function needsParens(path, options) {
             key === "returnType" && node.type === "ArrowFunctionExpression",
         ) &&
         includesFunctionTypeInObjectType(node)
+      ) {
+        return true;
+      }
+      break;
+
+    // A user typing `!foo instanceof Bar` probably intended
+    // `!(foo instanceof Bar)`, so format to `(!foo) instance Bar` to what is
+    // really happening
+    case "BinaryExpression":
+      if (
+        key === "left" &&
+        (parent.operator === "in" || parent.operator === "instanceof") &&
+        node.type === "UnaryExpression"
       ) {
         return true;
       }
@@ -768,7 +804,11 @@ function needsParens(path, options) {
           return key === "callee";
 
         case "ConditionalExpression":
-          return key === "test";
+          // TODO remove this case entirely once we've removed this flag.
+          if (!options.experimentalTernaries) {
+            return key === "test";
+          }
+          return false;
 
         case "MemberExpression":
         case "OptionalMemberExpression":

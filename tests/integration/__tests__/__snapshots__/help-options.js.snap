@@ -192,6 +192,18 @@ Default: lf"
 
 exports[`show detailed usage with --help end-of-line (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help experimental-ternaries (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help experimental-ternaries (stdout) 1`] = `
+"--experimental-ternaries
+
+  Use curious ternaries, with the question mark after the condition.
+
+Default: false"
+`;
+
+exports[`show detailed usage with --help experimental-ternaries (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help file-info (stdout) 1`] = `
@@ -369,6 +381,16 @@ exports[`show detailed usage with --help no-error-on-unmatched-pattern (stdout) 
 `;
 
 exports[`show detailed usage with --help no-error-on-unmatched-pattern (write) 1`] = `[]`;
+
+exports[`show detailed usage with --help no-experimental-ternaries (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-experimental-ternaries (stdout) 1`] = `
+"--no-experimental-ternaries
+
+  Default behavior of ternaries; keep question marks on the same line as the consequent."
+`;
+
+exports[`show detailed usage with --help no-experimental-ternaries (write) 1`] = `[]`;
 
 exports[`show detailed usage with --help no-semi (stderr) 1`] = `""`;
 

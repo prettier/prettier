@@ -651,6 +651,41 @@ function enumerable(value) {
 ================================================================================
 `;
 
+exports[`deferred-import-evaluation.js [acorn] format 1`] = `
+"Unexpected token (1:14)
+> 1 | import defer * as ns from "x";
+    |              ^
+  2 |"
+`;
+
+exports[`deferred-import-evaluation.js [espree] format 1`] = `
+"Unexpected token * (1:14)
+> 1 | import defer * as ns from "x";
+    |              ^
+  2 |"
+`;
+
+exports[`deferred-import-evaluation.js [meriyah] format 1`] = `
+"Import source must be string (1:14)
+> 1 | import defer * as ns from "x";
+    |              ^
+  2 |"
+`;
+
+exports[`deferred-import-evaluation.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import defer * as ns from "x";
+
+=====================================output=====================================
+import defer * as ns from "x";
+
+================================================================================
+`;
+
 exports[`destructuring-private.js [acorn] format 1`] = `
 "Unexpected token (5:13)
   3 |   constructor() {
@@ -1824,6 +1859,41 @@ const ret = delete obj?.foo?.bar?.baz; // true
 ================================================================================
 `;
 
+exports[`optional-chaining-assignment.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | maybeAnObj?.prop = theValue;
+    | ^
+  2 |"
+`;
+
+exports[`optional-chaining-assignment.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | maybeAnObj?.prop = theValue;
+    | ^
+  2 |"
+`;
+
+exports[`optional-chaining-assignment.js [meriyah] format 1`] = `
+"Invalid left-hand side in assignment (1:18)
+> 1 | maybeAnObj?.prop = theValue;
+    |                  ^
+  2 |"
+`;
+
+exports[`optional-chaining-assignment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+maybeAnObj?.prop = theValue;
+
+=====================================output=====================================
+maybeAnObj?.prop = theValue;
+
+================================================================================
+`;
+
 exports[`partial-application.js [acorn] format 1`] = `
 "Unexpected token (5:23)
   3 | function add(x, y) { return x + y; }
@@ -2457,6 +2527,46 @@ const re = /^(?i:[a-z])[a-z]$/;
 
 =====================================output=====================================
 const re = /^(?i:[a-z])[a-z]$/;
+
+================================================================================
+`;
+
+exports[`source-phase-imports.js [acorn] format 1`] = `
+"Unexpected token (1:15)
+> 1 | import source fooSource from "foo";
+    |               ^
+  2 | import.source("x");
+  3 |"
+`;
+
+exports[`source-phase-imports.js [espree] format 1`] = `
+"Unexpected token fooSource (1:15)
+> 1 | import source fooSource from "foo";
+    |               ^
+  2 | import.source("x");
+  3 |"
+`;
+
+exports[`source-phase-imports.js [meriyah] format 1`] = `
+"Import source must be string (1:23)
+> 1 | import source fooSource from "foo";
+    |                       ^
+  2 | import.source("x");
+  3 |"
+`;
+
+exports[`source-phase-imports.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import source fooSource from "foo";
+import.source("x");
+
+=====================================output=====================================
+import source fooSource from "foo";
+import.source("x");
 
 ================================================================================
 `;
