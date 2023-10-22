@@ -1,4 +1,5 @@
 import { ParseSourceSpan } from "angular-html-parser";
+import throwSyntaxError from "./throw-syntax-error.js";
 
 /**
  * Pattern used to identify an `else if` block.
@@ -136,14 +137,14 @@ function transformForLoopConnectedBlocks(connectedBlocks) {
   for (const block of blocks) {
     if (block.name === "empty") {
       if (transformed.empty !== null) {
-        // TODO: throw error ('@for loop can only have one @empty block')
+        throwSyntaxError(block, "@for loop can only have one @empty block");
       } else if (block.parameters.length > 0) {
-        // TODO: throw error ('@empty block cannot have parameters')
+        throwSyntaxError(block, "@empty block cannot have parameters");
       } else {
         transformed.empty = block;
       }
     } else {
-      // TODO: throw error (`Unrecognized @for loop block "${block.name}"`)
+      throwSyntaxError(block, `Unrecognized @for loop block "${block.name}"`);
     }
   }
   return transformed;
