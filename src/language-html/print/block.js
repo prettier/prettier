@@ -21,6 +21,22 @@ function printIfBlock(path, options, print) {
   return parts;
 }
 
+function printBasicBlock(path, options, print) {
+  const { node } = path;
+  return [
+    "@",
+    node.name,
+    isNonEmptyArray(node.parameters)
+      ? [" (", ...path.map(print, "parameters"), ")"]
+      : "",
+    " {",
+    indent([hardline, ...path.map(print, "children")]),
+    hardline,
+    "}",
+    hardline,
+  ];
+}
+
 /**
  * Print Angular's control flow syntax block
  */
@@ -29,7 +45,7 @@ function printBlock(path, options, print) {
   if (node.type === "ifBlock") {
     return printIfBlock(path, options, print);
   }
-  throw new Error(`Not implemented block type: ${node.type}`);
+  return printBasicBlock(path, options, print);
 }
 
 export { printBlock };

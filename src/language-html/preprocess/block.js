@@ -115,6 +115,10 @@ function transformIfBlock(node) {
   node.parent.children = children;
 }
 
+function transformSwitchBlock(node) {
+  console.log(node.children);
+}
+
 function transformControlFlowBlockNode(ast) {
   ast.walk((node) => {
     if (node.type === "block") {
@@ -122,14 +126,11 @@ function transformControlFlowBlockNode(ast) {
         case "if":
           transformIfBlock(node);
           break;
+        case "switch":
+          transformSwitchBlock(node);
+          break;
         case "defer":
-          // TODO: implement
-          break;
-        case "swtich":
-          // TODO: implement
-          break;
         case "for":
-          // TODO: implement
           break;
         default:
           // TODO: throw error
