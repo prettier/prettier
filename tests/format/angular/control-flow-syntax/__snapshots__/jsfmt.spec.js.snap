@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`for.html - {"bracketSameLine":false} format 1`] = `
+====================================options=====================================
+bracketSameLine: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@for (item of items; track item) {
+  <p>{{item.name}}</p>
+} @empty {
+  <p>No Items</p>
+}
+
+=====================================output=====================================
+@for (item of itemstrack item) {
+  <p>{{ item.name }}</p>
+} @empty {
+  <p>No Items</p>
+}
+
+
+================================================================================
+`;
+
+exports[`for.html - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@for (item of items; track item) {
+  <p>{{item.name}}</p>
+} @empty {
+  <p>No Items</p>
+}
+
+=====================================output=====================================
+@for (item of itemstrack item) {
+  <p>{{ item.name }}</p>
+} @empty {
+  <p>No Items</p>
+}
+
+
+================================================================================
+`;
+
+exports[`if.html - {"bracketSameLine":false} format 1`] = `
+====================================options=====================================
+bracketSameLine: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@if (user.isHuman) {
+    <human-profile [data]="user" />
+} @else     if    (user.isRobot)    {   <robot-profile [data]="user" />
+} @else   {
+  <p>The profile is unknown!</p>
+}
+
+=====================================output=====================================
+@if (user.isHuman) {
+  <human-profile [data]="user" />
+} @else if (user.isRobot) {
+  <robot-profile [data]="user" />
+} @else {
+  <p>The profile is unknown!</p>
+}
+
+
+================================================================================
+`;
+
+exports[`if.html - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@if (user.isHuman) {
+    <human-profile [data]="user" />
+} @else     if    (user.isRobot)    {   <robot-profile [data]="user" />
+} @else   {
+  <p>The profile is unknown!</p>
+}
+
+=====================================output=====================================
+@if (user.isHuman) {
+  <human-profile [data]="user" />
+} @else if (user.isRobot) {
+  <robot-profile [data]="user" />
+} @else {
+  <p>The profile is unknown!</p>
+}
+
+
+================================================================================
+`;
+
+exports[`switch.html - {"bracketSameLine":false} format 1`] = `
+====================================options=====================================
+bracketSameLine: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@switch    (value) {
+  @case     (1) {
+    <p>One</p>
+    }
+      @case (2) {
+    <p>Two</p>
+}
+@default {
+    <p>Default</p>
+     }
+}
+
+=====================================output=====================================
+@switch (value) {
+  @case (1) {
+    <p>One</p>
+  }
+  @case (2) {
+    <p>Two</p>
+  }
+  @default {
+    <p>Default</p>
+  }
+
+}
+
+
+================================================================================
+`;
+
+exports[`switch.html - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@switch    (value) {
+  @case     (1) {
+    <p>One</p>
+    }
+      @case (2) {
+    <p>Two</p>
+}
+@default {
+    <p>Default</p>
+     }
+}
+
+=====================================output=====================================
+@switch (value) {
+  @case (1) {
+    <p>One</p>
+  }
+  @case (2) {
+    <p>Two</p>
+  }
+  @default {
+    <p>Default</p>
+  }
+
+}
+
+
+================================================================================
+`;

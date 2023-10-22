@@ -1,0 +1,6 @@
+@if (user.isHuman) {
+    <human-profile [data]="user" />
+} @else     if    (user.isRobot)    {   <robot-profile [data]="user" />
+} @else   {
+  <p>The profile is unknown!</p>
+}
