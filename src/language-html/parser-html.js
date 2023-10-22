@@ -89,11 +89,13 @@ function ngHtmlParser(input, parseOptions, options) {
 
     const getNodeWithSameLocation = (node) =>
       getHtmlParseResult().rootNodes.find(
+        // @ts-expect-error
         ({ startSourceSpan }) =>
           startSourceSpan &&
           startSourceSpan.start.offset === node.startSourceSpan.start.offset,
       ) ?? node;
     for (const [index, node] of rootNodes.entries()) {
+      // @ts-expect-error
       const { endSourceSpan, startSourceSpan } = node;
       const isVoidElement = endSourceSpan === null;
       if (isVoidElement) {
