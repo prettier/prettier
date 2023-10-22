@@ -26,6 +26,16 @@ function isConnectedForLoopBlock(name) {
 }
 
 /**
+ * Predicate function that determines if a block with
+ * a specific name cam be connected to a `defer` block.
+ *
+ * https://github.com/angular/angular/blob/master/packages/compiler/src/render3/r3_deferred_blocks.ts#L38
+ */
+export function isConnectedDeferLoopBlock(name) {
+  return name === "placeholder" || name === "loading" || name === "error";
+}
+
+/**
  * Find all connected blocks starting from a primary block.
  *
  * https://github.com/angular/angular/blob/327896606832bf6fbfc8f23989755123028136a8/packages/compiler/src/render3/r3_template_transform.ts#L396
@@ -48,6 +58,21 @@ function findConnectedBlocks(primaryBlockIndex, siblings, predicate) {
     relatedBlocks.push(node);
   }
   return relatedBlocks;
+}
+
+function replaceChildrenByConnectedBlocks(node, replacement, connectedBlocks) {
+  const children = [];
+  for (const child of node.parent.children) {
+    if (child === node) {
+      children.push(replacement);
+      continue;
+    }
+    if (connectedBlocks.includes(child)) {
+      continue;
+    }
+    children.push(child);
+  }
+  node.parent.children = children;
 }
 
 /**
@@ -87,18 +112,7 @@ function transformIfBlock(node) {
     isConnectedIfLoopBlock,
   );
   const transformedIfBlock = transformIfConnectedBlocks(connectedBlocks);
-  const children = [];
-  for (const child of node.parent.children) {
-    if (child === node) {
-      children.push(transformedIfBlock);
-      continue;
-    }
-    if (connectedBlocks.includes(child)) {
-      continue;
-    }
-    children.push(child);
-  }
-  node.parent.children = children;
+  replaceChildrenByConnectedBlocks(node, transformedIfBlock, connectedBlocks);
 }
 
 function transformForLoopConnectedBlocks(connectedBlocks) {
@@ -131,18 +145,89 @@ function transoformForLoopBlock(node) {
   );
   const transformedForLoopBlock =
     transformForLoopConnectedBlocks(connectedBlocks);
-  const children = [];
-  for (const child of node.parent.children) {
-    if (child === node) {
-      children.push(transformedForLoopBlock);
-      continue;
+  replaceChildrenByConnectedBlocks(
+    node,
+    transformedForLoopBlock,
+    connectedBlocks,
+  );
+}
+
+function validateDeferredBlocks(connectedBlocks) {
+  const [, ...blocks] = connectedBlocks;
+  let hasPlaceholder = false;
+  let hasLoading = false;
+  let hasError = false;
+  for (const block of blocks) {
+    switch (block.name) {
+      case "placeholder":
+        if (hasPlaceholder) {
+          throwSyntaxError(
+            block,
+            "@defer block can only have one @placeholder block",
+          );
+        }
+        hasPlaceholder = true;
+        break;
+      case "loading":
+        if (hasLoading) {
+          throwSyntaxError(
+            block,
+            "@defer block can only have one @loading block",
+          );
+        }
+        hasLoading = true;
+        break;
+      case "error":
+        if (hasError) {
+          throwSyntaxError(
+            block,
+            "@defer block can only have one @error block",
+          );
+        }
+        hasError = true;
+        break;
+      default:
+        throwSyntaxError(block, `Unrecognized @defer block "${block.name}"`);
     }
-    if (connectedBlocks.includes(child)) {
-      continue;
-    }
-    children.push(child);
   }
-  node.parent.children = children;
+}
+
+function transformDeferredConnectedBlocks(connectedBlocks) {
+  const [primaryBlock, ...blocks] = connectedBlocks;
+  const transformed = {
+    ...primaryBlock,
+    successorBlock: null,
+  };
+
+  let lastEndSourceSpan = primaryBlock.endSourceSpan;
+  let endOfLastSourceSpan = primaryBlock.sourceSpan.end;
+  if (blocks.length > 0) {
+    const lastConnectedBlock = blocks.at(-1);
+    lastEndSourceSpan = lastConnectedBlock.endSourceSpan;
+    endOfLastSourceSpan = lastConnectedBlock.sourceSpan.end;
+  }
+  const mainDeferredSourceSpan = new ParseSourceSpan(
+    primaryBlock.sourceSpan.start,
+    endOfLastSourceSpan,
+  );
+  transformed.sourceSpan = mainDeferredSourceSpan;
+  transformed.endSourceSpan = lastEndSourceSpan;
+
+  if (blocks.length > 0) {
+    transformed.successorBlock = transformDeferredConnectedBlocks(blocks);
+  }
+  return transformed;
+}
+
+function transformDeferredBlock(node) {
+  const connectedBlocks = findConnectedBlocks(
+    node.index,
+    node.siblings,
+    isConnectedDeferLoopBlock,
+  );
+  validateDeferredBlocks(connectedBlocks);
+  const transformedDeferred = transformDeferredConnectedBlocks(connectedBlocks);
+  replaceChildrenByConnectedBlocks(node, transformedDeferred, connectedBlocks);
 }
 
 function transformControlFlowBlockNode(ast) {
@@ -153,6 +238,7 @@ function transformControlFlowBlockNode(ast) {
           transformIfBlock(node);
           break;
         case "defer":
+          transformDeferredBlock(node);
           break;
         case "for":
           transoformForLoopBlock(node);
@@ -161,7 +247,7 @@ function transformControlFlowBlockNode(ast) {
           // Do nothing
           break;
         default:
-          // TODO: throw error
+          throwSyntaxError(node, `Unrecognized block "${node.name}"`);
           break;
       }
     }
