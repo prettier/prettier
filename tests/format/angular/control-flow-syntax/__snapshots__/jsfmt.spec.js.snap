@@ -1,5 +1,67 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`deferred.html - {"bracketSameLine":false} format 1`] = `
+====================================options=====================================
+bracketSameLine: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@defer (when isLoaded) {
+    <p>Main content</p>
+  }     @loading {
+    <p>Loading...</p>
+  }     @placeholder {
+    <p>pending</p>
+} @error    {
+             <p>Failed to load</p>
+  }
+
+=====================================output=====================================
+@defer (when isLoaded) {
+  <p>Main content</p>
+} @loading {
+  <p>Loading...</p>
+} @placeholder {
+  <p>pending</p>
+} @error {
+  <p>Failed to load</p>
+}
+
+================================================================================
+`;
+
+exports[`deferred.html - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@defer (when isLoaded) {
+    <p>Main content</p>
+  }     @loading {
+    <p>Loading...</p>
+  }     @placeholder {
+    <p>pending</p>
+} @error    {
+             <p>Failed to load</p>
+  }
+
+=====================================output=====================================
+@defer (when isLoaded) {
+  <p>Main content</p>
+} @loading {
+  <p>Loading...</p>
+} @placeholder {
+  <p>pending</p>
+} @error {
+  <p>Failed to load</p>
+}
+
+================================================================================
+`;
+
 exports[`for.html - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
 bracketSameLine: false
@@ -19,7 +81,6 @@ printWidth: 80
 } @empty {
   <p>No Items</p>
 }
-
 
 ================================================================================
 `;
@@ -43,7 +104,6 @@ printWidth: 80
 } @empty {
   <p>No Items</p>
 }
-
 
 ================================================================================
 `;
@@ -71,7 +131,6 @@ printWidth: 80
   <p>The profile is unknown!</p>
 }
 
-
 ================================================================================
 `;
 
@@ -97,7 +156,6 @@ printWidth: 80
 } @else {
   <p>The profile is unknown!</p>
 }
-
 
 ================================================================================
 `;

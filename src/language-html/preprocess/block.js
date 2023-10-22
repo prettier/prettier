@@ -247,7 +247,6 @@ function transformControlFlowBlockNode(ast) {
           // Do nothing
           break;
         default:
-          throwSyntaxError(node, `Unrecognized block "${node.name}"`);
           break;
       }
     }

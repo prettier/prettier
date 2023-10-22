@@ -1,0 +1,9 @@
+@defer (when isLoaded) {
+    <p>Main content</p>
+  }     @loading {
+    <p>Loading...</p>
+  }     @placeholder {
+    <p>pending</p>
+} @error    {
+             <p>Failed to load</p>
+  }

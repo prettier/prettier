@@ -9,6 +9,20 @@ function normalizeBlockName(name) {
   return name;
 }
 
+function shouldPrintHardline(path) {
+  const { node, isLast } = path;
+  if (node.successorBlock) {
+    return false;
+  }
+  if (path.key === "successorBlock") {
+    return false;
+  }
+  if (isLast) {
+    return false;
+  }
+  return true;
+}
+
 /**
  * Print Angular's control flow syntax block
  */
@@ -24,11 +38,8 @@ function printBlock(path, options, print) {
     indent([hardline, ...path.map(print, "children")]),
     hardline,
     "}",
-    node.successorBlock
-      ? [" ", print("successorBlock")]
-      : path.isLast
-      ? ""
-      : hardline,
+    node.successorBlock ? [" ", print("successorBlock")] : "",
+    shouldPrintHardline(path) ? hardline : "",
   ];
 }
 
