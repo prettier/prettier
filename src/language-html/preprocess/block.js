@@ -196,6 +196,11 @@ function transformDeferredBlock(node) {
   replaceChildrenByConnectedBlocks(node, transformedDeferred, connectedBlocks);
 }
 
+/**
+ * The angular-html-parser parses nested blocks as arrays.
+ * In Prettier's print logic, handling such ASTs is annoying.
+ * Therefore, converts the arrays into nested blocks.
+ */
 function transformControlFlowBlockNode(ast) {
   ast.walk((node) => {
     if (node.type === "block") {
