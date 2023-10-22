@@ -1,4 +1,3 @@
-import { ParseSourceSpan } from "angular-html-parser";
 import { ELSE_IF_PATTERN } from "../utils/else-if-pattern.js";
 import throwSyntaxError from "./throw-syntax-error.js";
 
@@ -86,19 +85,7 @@ function transformIfConnectedBlocks(connectedBlocks) {
     return null;
   }
   const [primaryBlock, ...blocks] = connectedBlocks;
-  const transformed = {
-    ...primaryBlock,
-    successorBlock: null,
-  };
-
-  if (blocks.length > 0) {
-    transformed.sourceSpan = new ParseSourceSpan(
-      primaryBlock.startSourceSpan.start,
-      blocks.at(-1).sourceSpan.end,
-    );
-    transformed.endSourceSpan = blocks.at(-1).endSourceSpan;
-  }
-
+  const transformed = { ...primaryBlock, successorBlock: null };
   if (blocks.length > 0) {
     transformed.successorBlock = transformIfConnectedBlocks(blocks);
   }
@@ -117,10 +104,7 @@ function transformIfBlock(node) {
 
 function transformForLoopConnectedBlocks(connectedBlocks) {
   const [primaryBlock, ...blocks] = connectedBlocks;
-  const transformed = {
-    ...primaryBlock,
-    successorBlock: null,
-  };
+  const transformed = { ...primaryBlock, successorBlock: null };
   for (const block of blocks) {
     if (block.name === "empty") {
       if (transformed.successorBlock !== null) {
@@ -194,25 +178,7 @@ function validateDeferredBlocks(connectedBlocks) {
 
 function transformDeferredConnectedBlocks(connectedBlocks) {
   const [primaryBlock, ...blocks] = connectedBlocks;
-  const transformed = {
-    ...primaryBlock,
-    successorBlock: null,
-  };
-
-  let lastEndSourceSpan = primaryBlock.endSourceSpan;
-  let endOfLastSourceSpan = primaryBlock.sourceSpan.end;
-  if (blocks.length > 0) {
-    const lastConnectedBlock = blocks.at(-1);
-    lastEndSourceSpan = lastConnectedBlock.endSourceSpan;
-    endOfLastSourceSpan = lastConnectedBlock.sourceSpan.end;
-  }
-  const mainDeferredSourceSpan = new ParseSourceSpan(
-    primaryBlock.sourceSpan.start,
-    endOfLastSourceSpan,
-  );
-  transformed.sourceSpan = mainDeferredSourceSpan;
-  transformed.endSourceSpan = lastEndSourceSpan;
-
+  const transformed = { ...primaryBlock, successorBlock: null };
   if (blocks.length > 0) {
     transformed.successorBlock = transformDeferredConnectedBlocks(blocks);
   }
