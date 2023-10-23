@@ -69,9 +69,9 @@ async function* expandPatternsInternal(context) {
     const stat = await lstatSafe(absolutePath);
     if (stat) {
       if (stat.isSymbolicLink()) {
-        yield {
-          error: `Explicitly specified pattern "${pattern}" is a symbolic link.`,
-        };
+        context.logger.debug(
+          `Skipping pattern "${pattern}", as it points to a symbolic link.`,
+        );
       } else if (stat.isFile()) {
         entries.push({
           type: "file",
