@@ -156,9 +156,9 @@ async function run() {
 
   console.log(chalk.inverse(" Building packages "));
 
-  for (const file of files) {
-    await buildFile({ file, files, shouldCollectLicenses, cliOptions });
-  }
+  await Promise.all(files.map((file) => {
+    return buildFile({ file, files, shouldCollectLicenses, cliOptions });
+  }));
 }
 
 await run();
