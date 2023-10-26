@@ -346,6 +346,11 @@ html\`
     
     x-attr="\${replace}" .prop="\${replace}">
     </\${staticTagName}>
+    <\${this.staticTagName}
+    >
+    <\${this.a.staticTagName}></\${this.a.staticTagName}>
+    </\${this.staticTagName}
+    >
 </div>
 \`
 
@@ -489,6 +494,9 @@ const staticTagName = "static-tag-name";
 html\`
   <div>
     <\${staticTagName} x-attr="\${replace}" .prop="\${replace}"></\${staticTagName}>
+    <\${this.staticTagName}>
+      <\${this.a.staticTagName}></\${this.a.staticTagName}>
+    </\${this.staticTagName}>
   </div>
 \`;
 
@@ -612,6 +620,11 @@ html\`
     
     x-attr="\${replace}" .prop="\${replace}">
     </\${staticTagName}>
+    <\${this.staticTagName}
+    >
+    <\${this.a.staticTagName}></\${this.a.staticTagName}>
+    </\${this.staticTagName}
+    >
 </div>
 \`
 
@@ -716,6 +729,9 @@ html\`
   <div>
     <\${staticTagName} x-attr="\${replace}" .prop="\${replace}">
     </\${staticTagName}>
+    <\${this.staticTagName}>
+      <\${this.a.staticTagName}></\${this.a.staticTagName}>
+    </\${this.staticTagName}>
   </div>
 \`;
 

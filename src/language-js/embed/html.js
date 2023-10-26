@@ -12,6 +12,21 @@ import {
 } from "../print/template-literal.js";
 import { isAngularComponentTemplate, hasLanguageComment } from "./utils.js";
 
+function getVariableName(expression) {
+  switch (expression.type) {
+    case "Identifier":
+      return expression.name;
+    case "MemberExpression":
+      return (
+        getVariableName(expression.object) +
+        "." +
+        getVariableName(expression.property)
+      );
+    case "ThisExpression":
+      return "this";
+  }
+}
+
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
 async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
@@ -24,11 +39,14 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     let placeholder = index;
 
     const nextExpression = node.expressions[index];
-    if (nextExpression && nextExpression.type === "Identifier") {
-      if (Object.hasOwn(variableNameIndexLookup, nextExpression.name)) {
-        placeholder = variableNameIndexLookup[nextExpression.name];
-      } else {
-        variableNameIndexLookup[nextExpression.name] = index;
+    if (nextExpression) {
+      const variableName = getVariableName(nextExpression);
+      if (variableName) {
+        if (Object.hasOwn(variableNameIndexLookup, variableName)) {
+          placeholder = variableNameIndexLookup[variableName];
+        } else {
+          variableNameIndexLookup[variableName] = index;
+        }
       }
     }
 

@@ -109,5 +109,10 @@ html`
     
     x-attr="${replace}" .prop="${replace}">
     </${staticTagName}>
+    <${this.staticTagName}
+    >
+    <${this.a.staticTagName}></${this.a.staticTagName}>
+    </${this.staticTagName}
+    >
 </div>
 `
