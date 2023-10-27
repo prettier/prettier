@@ -5993,10 +5993,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"linguist-languages@npm:7.26.1":
-  version: 7.26.1
-  resolution: "linguist-languages@npm:7.26.1"
-  checksum: 9908854810366e74c70d8e3b68ad0c5cd76372cb305b436e0d7cc7f9d14b3e25e5eead6ab89bf2f762c61482fddc2c95ed0b842d93eba9ee754091f0ce060b70
+"linguist-languages@npm:7.27.0":
+  version: 7.27.0
+  resolution: "linguist-languages@npm:7.27.0"
+  checksum: 8fd24e486867ff166e4c96bb5e60dcf36ab995aa5b8d5b88ee06f9b752a153c135a5e55f6a7306adcdeac8e117cd5d2505c0315e4db011f3ad7e0f90a885245c
   languageName: node
   linkType: hard
 
@@ -7240,7 +7240,7 @@ __metadata:
     leven: 4.0.0
     lilconfig: 2.1.0
     lines-and-columns: 2.0.3
-    linguist-languages: 7.26.1
+    linguist-languages: 7.27.0
     magic-string: 0.30.3
     mem: 9.0.2
     meriyah: 4.3.7
