@@ -49,10 +49,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
@@ -69,7 +69,7 @@ jobs:
         run: yarn c8 yarn test
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@v3.1.4
+        uses: codecov/codecov-action@v3
         if: ${{ matrix.ENABLE_CODE_COVERAGE }}
         with:
           fail_ci_if_error: true
