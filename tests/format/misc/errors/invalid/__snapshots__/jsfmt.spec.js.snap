@@ -229,9 +229,9 @@ exports[`snippet: #2 [meriyah] format 2`] = `
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
-"Unexpected token. (1:10)
+"'{' expected. (1:11)
 > 1 | ({ method() })
-    |          ^^"
+    |           ^"
 `;
 
 exports[`snippet: #3 [acorn] format 1`] = `
@@ -307,9 +307,9 @@ exports[`snippet: #3 [meriyah] format 2`] = `
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `
-"Unexpected token. (1:10)
+"'{' expected. (1:13)
 > 1 | ({ method({}) })
-    |          ^^^^"
+    |             ^"
 `;
 
 exports[`snippet: #4 [acorn] format 1`] = `
@@ -325,7 +325,7 @@ exports[`snippet: #4 [babel] format 1`] = `
 `;
 
 exports[`snippet: #4 [babel] format 2`] = `
-"Invalid left-hand side in parenthesized expression. (1:2)
+"Invalid left-hand side in assignment expression. (1:2)
 > 1 | (a = b) += 1
     |  ^"
 `;
@@ -337,7 +337,7 @@ exports[`snippet: #4 [babel-flow] format 1`] = `
 `;
 
 exports[`snippet: #4 [babel-flow] format 2`] = `
-"Invalid left-hand side in parenthesized expression. (1:2)
+"Invalid left-hand side in assignment expression. (1:2)
 > 1 | (a = b) += 1
     |  ^"
 `;
@@ -349,7 +349,7 @@ exports[`snippet: #4 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #4 [babel-ts] format 2`] = `
-"Invalid left-hand side in parenthesized expression. (1:2)
+"Invalid left-hand side in assignment expression. (1:2)
 > 1 | (a = b) += 1
     |  ^"
 `;
@@ -385,7 +385,7 @@ exports[`snippet: #4 [meriyah] format 2`] = `
 `;
 
 exports[`snippet: #4 [typescript] format 1`] = `
-"Unexpected token. (1:10)
+"'{' expected. (1:21)
 > 1 | ({ method(parameter,) })
-    |          ^^^^^^^^^^^^"
+    |                     ^"
 `;

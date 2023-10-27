@@ -2,7 +2,7 @@
 
 exports[`do not write file with --write + formatted file (stderr) 1`] = `""`;
 
-exports[`do not write file with --write + formatted file (stdout) 1`] = `"formatted.js 0ms"`;
+exports[`do not write file with --write + formatted file (stdout) 1`] = `"formatted.js 0ms (unchanged)"`;
 
 exports[`do not write file with --write + invalid file (stderr) 1`] = `
 "[error] invalid.js: SyntaxError: Unexpected token (1:17)

@@ -17,6 +17,7 @@ const keysToKeep = [
   "exports",
   "engines",
   "files",
+  "preferUnplugged",
 ];
 
 async function buildPackageJson({ file, files }) {

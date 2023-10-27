@@ -11,22 +11,24 @@ async function* expandPatterns(context) {
   const seen = new Set();
   let noResults = true;
 
-  for await (const pathOrError of expandPatternsInternal(context)) {
+  for await (const { filePath, ignoreUnknown, error } of expandPatternsInternal(
+    context,
+  )) {
     noResults = false;
-    if (typeof pathOrError !== "string") {
-      yield pathOrError;
+    if (error) {
+      yield { error };
       continue;
     }
 
-    const fileName = path.resolve(pathOrError);
+    const filename = path.resolve(filePath);
 
     // filter out duplicates
-    if (seen.has(fileName)) {
+    if (seen.has(filename)) {
       continue;
     }
 
-    seen.add(fileName);
-    yield fileName;
+    seen.add(filename);
+    yield { filename, ignoreUnknown };
   }
 
   if (noResults && context.argv.errorOnUnmatchedPattern !== false) {
@@ -52,7 +54,6 @@ async function* expandPatternsInternal(context) {
     followSymbolicLinks: false,
   };
 
-  let supportedFilesGlob;
   const cwd = process.cwd();
 
   /** @type {Array<{ type: 'file' | 'dir' | 'glob'; glob: string; input: string; }>} */
@@ -84,13 +85,12 @@ async function* expandPatternsInternal(context) {
           it returns files like 'src/../index.js'
         */
         const relativePath = path.relative(cwd, absolutePath) || ".";
+        const prefix = escapePathForGlob(fixWindowsSlashes(relativePath));
         entries.push({
           type: "dir",
-          glob:
-            escapePathForGlob(fixWindowsSlashes(relativePath)) +
-            "/" +
-            getSupportedFilesGlob(),
+          glob: `${prefix}/**/*`,
           input: pattern,
+          ignoreUnknown: true,
         });
       }
     } else if (pattern[0] === "!") {
@@ -105,7 +105,7 @@ async function* expandPatternsInternal(context) {
     }
   }
 
-  for (const { type, glob, input } of entries) {
+  for (const { type, glob, input, ignoreUnknown } of entries) {
     let result;
 
     try {
@@ -123,24 +123,8 @@ async function* expandPatternsInternal(context) {
         yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
       }
     } else {
-      yield* sortPaths(result);
+      yield* sortPaths(result).map((filePath) => ({ filePath, ignoreUnknown }));
     }
-  }
-
-  function getSupportedFilesGlob() {
-    if (!supportedFilesGlob) {
-      const extensions = context.languages.flatMap(
-        (lang) => lang.extensions || [],
-      );
-      const filenames = context.languages.flatMap(
-        (lang) => lang.filenames || [],
-      );
-      supportedFilesGlob = `**/{${[
-        ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
-        ...filenames,
-      ]}}`;
-    }
-    return supportedFilesGlob;
   }
 }
 

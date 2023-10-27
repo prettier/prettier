@@ -778,6 +778,13 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
+const encodeUrl = (url, characters) => {
+  for (const character of characters) {
+    url = url.replaceAll(character, encodeURIComponent(character));
+  }
+  return url;
+};
+
 /**
  * @param {string} url
  * @param {string[] | string} [dangerousCharOrChars]
@@ -790,8 +797,9 @@ function printUrl(url, dangerousCharOrChars = []) {
       ? dangerousCharOrChars
       : [dangerousCharOrChars]),
   ];
+
   return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(url)
-    ? `<${url}>`
+    ? `<${encodeUrl(url, "<>")}>`
     : url;
 }
 

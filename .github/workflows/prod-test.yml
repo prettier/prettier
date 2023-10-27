@@ -26,10 +26,10 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v4
         with:
           cache: "yarn"
 
@@ -37,7 +37,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist
@@ -75,10 +75,10 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
@@ -87,7 +87,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist
@@ -104,15 +104,15 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v4
         with:
           node-version: "0.10.48"
 
       - name: Download Artifact
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist

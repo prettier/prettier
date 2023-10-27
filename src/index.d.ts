@@ -33,7 +33,7 @@ type ArrayElement<T> = T extends Array<infer E> ? E : never;
 
 // A union of the properties of the given object that are arrays.
 type ArrayProperties<T> = {
-  [K in keyof T]: NonNullable<T[K]> extends any[] ? K : never;
+  [K in keyof T]: NonNullable<T[K]> extends readonly any[] ? K : never;
 }[keyof T];
 
 // A union of the properties of the given array T that can be used to index it.
@@ -302,11 +302,6 @@ export type BuiltInParserName =
   | "yaml";
 export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
-export type CustomParser = (
-  text: string,
-  options: Options,
-) => AST | Promise<AST>;
-
 /**
  * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettierrc.mjs`, `prettier.config.js`, `prettier.config.cjs`, `prettier.config.mjs`
  */
@@ -371,7 +366,7 @@ export interface RequiredOptions extends doc.printer.Options {
   /**
    * Specify which parser to use.
    */
-  parser: LiteralUnion<BuiltInParserName> | CustomParser;
+  parser: LiteralUnion<BuiltInParserName>;
   /**
    * Specify the input filepath. This will be used to do parser inference.
    */
@@ -485,6 +480,9 @@ export interface Printer<T = any> {
         | Doc
         | null)
     | undefined;
+  preprocess?:
+    | ((ast: T, options: ParserOptions<T>) => T | Promise<T>)
+    | undefined;
   insertPragma?: (text: string) => string;
   /**
    * @returns `null` if you want to remove this node
@@ -540,6 +538,9 @@ export interface Printer<T = any> {
           | undefined;
       }
     | undefined;
+  getVisitorKeys?:
+    | ((node: T, nonTraversableKeys: Set<string>) => string[])
+    | undefined;
 }
 
 export interface CursorOptions extends Options {
@@ -578,8 +579,6 @@ export function formatWithCursor(
   options: CursorOptions,
 ): Promise<CursorResult>;
 
-export function formatAST(ast: any, options?: Options): Promise<string>;
-
 export interface ResolveConfigOptions {
   /**
    * If set to `false`, all caching will be bypassed.
@@ -603,8 +602,8 @@ export interface ResolveConfigOptions {
 
 /**
  * `resolveConfig` can be used to resolve configuration for a given source file,
- * passing its path as the first argument. The config search will start at the
- * file path and continue to search up the directory.
+ * passing its path or url as the first argument. The config search will start at
+ * the file location and continue to search up the directory.
  * (You can use `process.cwd()` to start searching from the current directory).
  *
  * A promise is returned which will resolve to:
@@ -615,7 +614,7 @@ export interface ResolveConfigOptions {
  * The promise will be rejected if there was an error parsing the configuration file.
  */
 export function resolveConfig(
-  filePath: string,
+  fileUrlOrPath: string | URL,
   options?: ResolveConfigOptions,
 ): Promise<Options | null>;
 
@@ -630,7 +629,9 @@ export function resolveConfig(
  *
  * The promise will be rejected if there was an error parsing the configuration file.
  */
-export function resolveConfigFile(filePath?: string): Promise<string | null>;
+export function resolveConfigFile(
+  fileUrlOrPath?: string | URL,
+): Promise<string | null>;
 
 /**
  * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.
@@ -779,7 +780,7 @@ export interface SupportInfo {
 }
 
 export interface FileInfoOptions {
-  ignorePath?: string | string[] | undefined;
+  ignorePath?: string | URL | (string | URL)[] | undefined;
   withNodeModules?: boolean | undefined;
   plugins?: string[] | undefined;
   resolveConfig?: boolean | undefined;
@@ -791,7 +792,7 @@ export interface FileInfoResult {
 }
 
 export function getFileInfo(
-  filePath: string,
+  file: string | URL,
   options?: FileInfoOptions,
 ): Promise<FileInfoResult>;
 
@@ -864,10 +865,19 @@ export namespace util {
     options?: SkipOptions | undefined,
   ): boolean;
 
+  function getNextNonSpaceNonCommentCharacterIndex(
+    text: string,
+    startIndex: number,
+  ): number | false;
+
   function getNextNonSpaceNonCommentCharacter(
     text: string,
     startIndex: number,
   ): string;
+
+  function isNextLineEmpty(text: string, startIndex: number): boolean;
+
+  function isPreviousLineEmpty(text: string, startIndex: number): boolean;
 
   function makeString(
     rawText: string,

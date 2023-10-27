@@ -364,6 +364,344 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`marquee.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<marquee>This text will scroll from right to left</marquee>
+
+<marquee direction="up">This text will scroll from bottom to top</marquee>
+
+<marquee
+  direction="down"
+  width="250"
+  height="200"
+  behavior="alternate"
+  style="border:solid">
+  <marquee behavior="alternate"> This text will bounce </marquee>
+</marquee>
+
+=====================================output=====================================
+<marquee>This text will scroll from right to left</marquee>
+
+<marquee direction="up">This text will scroll from bottom to top</marquee>
+
+<marquee
+  direction="down"
+  width="250"
+  height="200"
+  behavior="alternate"
+  style="border: solid"
+>
+  <marquee behavior="alternate">This text will bounce</marquee>
+</marquee>
+
+================================================================================
+`;
+
+exports[`marquee.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<marquee>This text will scroll from right to left</marquee>
+
+<marquee direction="up">This text will scroll from bottom to top</marquee>
+
+<marquee
+  direction="down"
+  width="250"
+  height="200"
+  behavior="alternate"
+  style="border:solid">
+  <marquee behavior="alternate"> This text will bounce </marquee>
+</marquee>
+
+=====================================output=====================================
+<marquee>This text will scroll from right to left</marquee>
+
+<marquee direction="up">This text will scroll from bottom to top</marquee>
+
+<marquee
+  direction="down"
+  width="250"
+  height="200"
+  behavior="alternate"
+  style="border: solid"
+>
+  <marquee behavior="alternate"> This text will bounce </marquee>
+</marquee>
+
+================================================================================
+`;
+
+exports[`marquee.html - {"printWidth":"Infinity"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
+<marquee>This text will scroll from right to left</marquee>
+
+<marquee direction="up">This text will scroll from bottom to top</marquee>
+
+<marquee
+  direction="down"
+  width="250"
+  height="200"
+  behavior="alternate"
+  style="border:solid">
+  <marquee behavior="alternate"> This text will bounce </marquee>
+</marquee>
+
+=====================================output=====================================
+<marquee>This text will scroll from right to left</marquee>
+
+<marquee direction="up">This text will scroll from bottom to top</marquee>
+
+<marquee direction="down" width="250" height="200" behavior="alternate" style="border: solid">
+  <marquee behavior="alternate">This text will bounce</marquee>
+</marquee>
+
+================================================================================
+`;
+
+exports[`marquee.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<marquee>This text will scroll from right to left</marquee>
+
+<marquee direction="up">This text will scroll from bottom to top</marquee>
+
+<marquee
+  direction="down"
+  width="250"
+  height="200"
+  behavior="alternate"
+  style="border:solid">
+  <marquee behavior="alternate"> This text will bounce </marquee>
+</marquee>
+
+=====================================output=====================================
+<marquee>
+  This
+  text
+  will
+  scroll
+  from
+  right
+  to
+  left
+</marquee>
+
+<marquee
+  direction="up"
+>
+  This
+  text
+  will
+  scroll
+  from
+  bottom
+  to
+  top
+</marquee>
+
+<marquee
+  direction="down"
+  width="250"
+  height="200"
+  behavior="alternate"
+  style="
+    border: solid;
+  "
+>
+  <marquee
+    behavior="alternate"
+  >
+    This
+    text
+    will
+    bounce
+  </marquee>
+</marquee>
+
+================================================================================
+`;
+
+exports[`marquee.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<marquee>This text will scroll from right to left</marquee>
+
+<marquee direction="up">This text will scroll from bottom to top</marquee>
+
+<marquee
+  direction="down"
+  width="250"
+  height="200"
+  behavior="alternate"
+  style="border:solid">
+  <marquee behavior="alternate"> This text will bounce </marquee>
+</marquee>
+
+=====================================output=====================================
+<marquee>This text will scroll from right to left</marquee>
+
+<marquee direction="up">This text will scroll from bottom to top</marquee>
+
+<marquee
+  direction="down"
+  width="250"
+  height="200"
+  behavior="alternate"
+  style="border: solid"
+>
+  <marquee behavior="alternate">This text will bounce</marquee>
+</marquee>
+
+================================================================================
+`;
+
+exports[`menu.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<menu>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
+</menu>
+
+=====================================output=====================================
+<menu>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
+</menu>
+
+================================================================================
+`;
+
+exports[`menu.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<menu>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
+</menu>
+
+=====================================output=====================================
+<menu>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
+</menu>
+
+================================================================================
+`;
+
+exports[`menu.html - {"printWidth":"Infinity"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
+<menu>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
+</menu>
+
+=====================================output=====================================
+<menu>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
+</menu>
+
+================================================================================
+`;
+
+exports[`menu.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<menu>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
+</menu>
+
+=====================================output=====================================
+<menu>
+  <li>
+    <button
+      onclick="copy()"
+    >
+      Copy
+    </button>
+  </li>
+  <li>
+    <button
+      onclick="cut()"
+    >
+      Cut
+    </button>
+  </li>
+  <li>
+    <button
+      onclick="paste()"
+    >
+      Paste
+    </button>
+  </li>
+</menu>
+
+================================================================================
+`;
+
+exports[`menu.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<menu>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
+</menu>
+
+=====================================output=====================================
+<menu>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
+</menu>
+
+================================================================================
+`;
+
 exports[`openging-at-end.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"

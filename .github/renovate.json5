@@ -1,5 +1,6 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  dependencyDashboardApproval: true,
   labels: ["dependency"],
   baseBranches: ["main"],
   schedule: ["after 01:00 on sunday"],

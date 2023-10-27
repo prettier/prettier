@@ -36,6 +36,15 @@ const options = {
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them.",
   },
+  experimentalTernaries: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Use curious ternaries, with the question mark after the condition.",
+    oppositeDescription:
+      "Default behavior of ternaries; keep question marks on the same line as the consequent.",
+  },
   singleQuote: commonOptions.singleQuote,
   jsxSingleQuote: {
     category: CATEGORY_JAVASCRIPT,

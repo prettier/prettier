@@ -10,8 +10,6 @@ import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   isStringLiteral,
   shouldPrintComma,
-  isCallExpression,
-  isMemberExpression,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
 } from "../utils/index.js";
@@ -37,6 +35,7 @@ import { printPropertyKey } from "./property.js";
 import { printFunction, printMethodValue } from "./function.js";
 import { printInterface } from "./interface.js";
 import { printBlock } from "./block.js";
+import { printBinaryCastExpression } from "./cast-expression.js";
 import {
   printTypeAlias,
   printIntersectionType,
@@ -145,18 +144,9 @@ function printTypescript(path, options, print) {
     case "TSTypeParameter":
       return printTypeParameter(path, options, print);
     case "TSAsExpression":
-    case "TSSatisfiesExpression": {
-      const operator = node.type === "TSAsExpression" ? "as" : "satisfies";
-      parts.push(print("expression"), ` ${operator} `, print("typeAnnotation"));
-      const { parent } = path;
-      if (
-        (isCallExpression(parent) && parent.callee === node) ||
-        (isMemberExpression(parent) && parent.object === node)
-      ) {
-        return group([indent([softline, ...parts]), softline]);
-      }
-      return parts;
-    }
+    case "TSSatisfiesExpression":
+      return printBinaryCastExpression(path, options, print);
+
     case "TSArrayType":
       return printArrayType(print);
     case "TSPropertySignature":
@@ -219,10 +209,15 @@ function printTypescript(path, options, print) {
       return [
         !node.isTypeOf ? "" : "typeof ",
         "import(",
-        print(node.parameter ? "parameter" : "argument"),
+        print("argument"),
         ")",
         !node.qualifier ? "" : [".", print("qualifier")],
-        printTypeParameters(path, options, print, "typeParameters"),
+        printTypeParameters(
+          path,
+          options,
+          print,
+          node.typeArguments ? "typeArguments" : "typeParameters",
+        ),
       ];
     case "TSLiteralType":
       return print("literal");

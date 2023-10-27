@@ -3,12 +3,12 @@ import { resolveConfig } from "../config/resolve-config.js";
 import { isIgnored } from "../utils/ignore.js";
 
 /**
- * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
+ * @typedef {{ ignorePath?: string | URL | (string | URL)[], withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
  * @typedef {{ ignored: boolean, inferredParser: string | null }} FileInfoResult
  */
 
 /**
- * @param {string} filePath
+ * @param {string | URL} file
  * @param {FileInfoOptions} options
  * @returns {Promise<FileInfoResult>}
  *
@@ -16,10 +16,10 @@ import { isIgnored } from "../utils/ignore.js";
  * not an object. A transformation from this array to an object is automatically done
  * internally by the method wrapper. See withPlugins() in index.js.
  */
-async function getFileInfo(filePath, options) {
-  if (typeof filePath !== "string") {
+async function getFileInfo(file, options) {
+  if (typeof file !== "string" && !(file instanceof URL)) {
     throw new TypeError(
-      `expect \`filePath\` to be a string, got \`${typeof filePath}\``,
+      `expect \`file\` to be a string or URL, got \`${typeof file}\``,
     );
   }
 
@@ -29,11 +29,11 @@ async function getFileInfo(filePath, options) {
     ignorePath = [ignorePath];
   }
 
-  const ignored = await isIgnored(filePath, { ignorePath, withNodeModules });
+  const ignored = await isIgnored(file, { ignorePath, withNodeModules });
 
   let inferredParser;
   if (!ignored) {
-    inferredParser = await getParser(filePath, options);
+    inferredParser = await getParser(file, options);
   }
 
   return {
@@ -42,13 +42,13 @@ async function getFileInfo(filePath, options) {
   };
 }
 
-async function getParser(filePath, options) {
+async function getParser(file, options) {
   let config;
   if (options.resolveConfig !== false) {
-    config = await resolveConfig(filePath);
+    config = await resolveConfig(file);
   }
 
-  return config?.parser ?? inferParser(options, { physicalFile: filePath });
+  return config?.parser ?? inferParser(options, { physicalFile: file });
 }
 
 export default getFileInfo;

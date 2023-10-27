@@ -12,6 +12,7 @@ interface Nested2 {
   kind: "2";
   item3: Nested3;
   list3: Nested3[];
+  list5: readonly Nested3[];
 }
 interface Nested3 {
   kind: "3";
@@ -154,6 +155,8 @@ function print(
   path.map(print, "item2");
   // @ts-expect-error
   path.map(print, "item2", "item3");
+
+  path.map(print, "item2", "list5");
 
   return "";
 }

@@ -38,6 +38,7 @@ export namespace builders {
 
   interface Group {
     type: "group";
+    id?: symbol;
     contents: Doc;
     break: boolean;
     expandedStates: Doc[];
@@ -64,6 +65,8 @@ export namespace builders {
 
   interface Label {
     type: "label";
+    label: any;
+    contents: Doc;
   }
 
   interface Line {

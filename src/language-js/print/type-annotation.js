@@ -161,6 +161,9 @@ function printUnionType(path, options, print) {
   // If there's a leading comment, the parent is doing the indentation
   const shouldIndent =
     parent.type !== "TypeParameterInstantiation" &&
+    (parent.type !== "TSConditionalType" || !options.experimentalTernaries) &&
+    (parent.type !== "ConditionalTypeAnnotation" ||
+      !options.experimentalTernaries) &&
     parent.type !== "TSTypeParameterInstantiation" &&
     parent.type !== "GenericTypeAnnotation" &&
     parent.type !== "TSTypeReference" &&
@@ -521,12 +524,11 @@ function printArrayType(print) {
 - `TypeofTypeAnnotation`
 */
 function printTypeQuery({ node }, print) {
-  return [
-    "typeof ",
-    ...(node.type === "TSTypeQuery"
-      ? [print("exprName"), print("typeParameters")]
-      : [print("argument")]),
-  ];
+  const argumentPropertyName =
+    node.type === "TSTypeQuery" ? "exprName" : "argument";
+  const typeArgsPropertyName =
+    node.type === "TSTypeQuery" ? "typeParameters" : "typeArguments";
+  return ["typeof ", print(argumentPropertyName), print(typeArgsPropertyName)];
 }
 
 function printTypePredicate(path, print) {

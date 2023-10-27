@@ -34,6 +34,7 @@ function printImportDeclaration(path, options, print) {
   return [
     "import",
     node.module ? " module" : "",
+    node.phase ? ` ${node.phase}` : "",
     printImportKind(node),
     printModuleSpecifiers(path, options, print),
     printModuleSource(path, options, print),

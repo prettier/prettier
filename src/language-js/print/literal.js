@@ -1,7 +1,6 @@
 import printString from "../../utils/print-string.js";
 import printNumber from "../../utils/print-number.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import { createTypeCheckFunction } from "../utils/index.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
@@ -92,21 +91,4 @@ function printDirective(rawText, options) {
   return enclosingQuote + rawContent + enclosingQuote;
 }
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-const isLiteral = createTypeCheckFunction([
-  "Literal",
-  // Babel, flow uses `BigIntLiteral` too
-  "BigIntLiteral",
-  "BooleanLiteral",
-  "DecimalLiteral",
-  "DirectiveLiteral",
-  "NullLiteral",
-  "NumericLiteral",
-  "RegExpLiteral",
-  "StringLiteral",
-]);
-
-export { printLiteral, printBigInt, isLiteral };
+export { printLiteral, printBigInt };

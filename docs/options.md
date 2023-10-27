@@ -9,6 +9,19 @@ Prettier ships with a handful of format options.
 
 If you change any options, it’s recommended to do it via a [configuration file](configuration.md). This way the Prettier CLI, [editor integrations](editors.md) and other tooling knows what options you use.
 
+## Experimental Ternaries
+
+Try prettier's [new ternary formatting](https://github.com/prettier/prettier/pull/13183) before it becomes the default behavior.
+
+Valid options:
+
+- `true` - Use curious ternaries, with the question mark after the condition.
+- `false` - Retain the default behavior of ternaries; keep question marks on the same line as the consequent.
+
+| Default | CLI Override               | API Override                    |
+| ------- | -------------------------- | ------------------------------- |
+| `false` | `--experimental-ternaries` | `experimentalTernaries: <bool>` |
+
 ## Print Width
 
 Specify the line length that the printer will wrap on.
@@ -121,7 +134,7 @@ Print trailing commas wherever possible in multi-line comma-separated syntactic 
 Valid options:
 
 - `"all"` - Trailing commas wherever possible (including [function parameters and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). To run, JavaScript code formatted this way needs an engine that supports ES2017 (Node.js 8+ or a modern browser) or [downlevel compilation](https://babeljs.io/docs/en/index). This also enables trailing commas in type parameters in TypeScript (supported since TypeScript 2.7 released in January 2018).
-- `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.). No trailing commas in type parameters in TypeScript.
+- `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.). Trailing commas in type parameters in TypeScript and Flow.
 - `"none"` - No trailing commas.
 
 | Default | CLI Override                                           | API Override                                           |

@@ -11,7 +11,7 @@ import {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-  isTSTypeExpression,
+  isBinaryCastExpression,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   createTypeCheckFunction,
@@ -107,6 +107,29 @@ function needsParens(path, options) {
         )
       ) {
         return true;
+      }
+    }
+
+    // `(type) satisfies never;` and similar cases
+    if (key === "expression") {
+      switch (node.name) {
+        case "await":
+        case "interface":
+        case "module":
+        case "using":
+        case "yield":
+        case "let":
+        case "type": {
+          const ancestorNeitherAsNorSatisfies = path.findAncestor(
+            (node) => !isBinaryCastExpression(node),
+          );
+          if (
+            ancestorNeitherAsNorSatisfies !== parent &&
+            ancestorNeitherAsNorSatisfies.type === "ExpressionStatement"
+          ) {
+            return true;
+          }
+        }
       }
     }
 
@@ -241,6 +264,19 @@ function needsParens(path, options) {
         return true;
       }
       break;
+
+    // A user typing `!foo instanceof Bar` probably intended
+    // `!(foo instanceof Bar)`, so format to `(!foo) instance Bar` to what is
+    // really happening
+    case "BinaryExpression":
+      if (
+        key === "left" &&
+        (parent.operator === "in" || parent.operator === "instanceof") &&
+        node.type === "UnaryExpression"
+      ) {
+        return true;
+      }
+      break;
   }
 
   switch (node.type) {
@@ -310,19 +346,25 @@ function needsParens(path, options) {
     case "TSTypeAssertion":
     case "TSAsExpression":
     case "TSSatisfiesExpression":
+    case "AsExpression":
+    case "AsConstExpression":
+    case "SatisfiesExpression":
     case "LogicalExpression":
       switch (parent.type) {
         case "TSAsExpression":
         case "TSSatisfiesExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
           // examples:
           //   foo as unknown as Bar
           //   foo satisfies unknown satisfies Bar
           //   foo satisfies unknown as Bar
           //   foo as unknown satisfies Bar
-          return !isTSTypeExpression(node);
+          return !isBinaryCastExpression(node);
 
         case "ConditionalExpression":
-          return isTSTypeExpression(node);
+          return isBinaryCastExpression(node);
 
         case "CallExpression":
         case "NewExpression":
@@ -352,7 +394,7 @@ function needsParens(path, options) {
         case "AssignmentPattern":
           return (
             key === "left" &&
-            (node.type === "TSTypeAssertion" || isTSTypeExpression(node))
+            (node.type === "TSTypeAssertion" || isBinaryCastExpression(node))
           );
 
         case "LogicalExpression":
@@ -443,6 +485,9 @@ function needsParens(path, options) {
         case "TSAsExpression":
         case "TSSatisfiesExpression":
         case "TSNonNullExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
         case "BindExpression":
           return true;
 
@@ -747,6 +792,9 @@ function needsParens(path, options) {
         case "TypeCastExpression":
         case "TSAsExpression":
         case "TSSatisfiesExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
         case "TSNonNullExpression":
           return true;
 
@@ -756,7 +804,11 @@ function needsParens(path, options) {
           return key === "callee";
 
         case "ConditionalExpression":
-          return key === "test";
+          // TODO remove this case entirely once we've removed this flag.
+          if (!options.experimentalTernaries) {
+            return key === "test";
+          }
+          return false;
 
         case "MemberExpression":
         case "OptionalMemberExpression":
@@ -795,6 +847,9 @@ function needsParens(path, options) {
 
         case "TSAsExpression":
         case "TSSatisfiesExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
         case "TSNonNullExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":
