@@ -784,6 +784,21 @@ const { _id: id3 } =
 ================================================================================
 `;
 
+exports[`issue-15534.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+params["redirectTo"] = \`\${window.location.pathname}\${window.location.search}\${window.location.hash}\`;
+
+=====================================output=====================================
+params["redirectTo"] =
+  \`\${window.location.pathname}\${window.location.search}\${window.location.hash}\`;
+
+================================================================================
+`;
+
 exports[`lone-arg.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
