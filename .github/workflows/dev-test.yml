@@ -33,7 +33,7 @@ jobs:
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
-            node: "18"
+            node: "20"
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
