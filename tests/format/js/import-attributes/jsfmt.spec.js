@@ -8,6 +8,7 @@ run_spec(import.meta, ["babel", "typescript"], {
       "re-export.js",
       "without-from.js",
       "non-type.js",
+      "quoted-keys.js",
     ],
     espree: [
       "dynamic-import.js",
@@ -17,6 +18,7 @@ run_spec(import.meta, ["babel", "typescript"], {
       "re-export.js",
       "without-from.js",
       "non-type.js",
+      "quoted-keys.js",
     ],
     meriyah: [
       "dynamic-import.js",
@@ -26,6 +28,7 @@ run_spec(import.meta, ["babel", "typescript"], {
       "re-export.js",
       "without-from.js",
       "non-type.js",
+      "quoted-keys.js",
     ],
     typescript: [
       "empty.js",
@@ -34,6 +37,7 @@ run_spec(import.meta, ["babel", "typescript"], {
       "re-export.js",
       "without-from.js",
       "non-type.js",
+      "quoted-keys.js",
     ],
   },
 });
