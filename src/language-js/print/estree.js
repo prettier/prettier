@@ -37,6 +37,7 @@ import {
   printImportDeclaration,
   printExportDeclaration,
   printModuleSpecifier,
+  printImportAttribute,
 } from "./module.js";
 import { printTernary } from "./ternary.js";
 import {
@@ -231,7 +232,7 @@ function printEstree(path, options, print, args) {
     case "ExportDefaultSpecifier":
       return printModuleSpecifier(path, options, print);
     case "ImportAttribute":
-      return [print("key"), ": ", print("value")];
+      return printImportAttribute(path, options, print);
     case "Import":
       return "import";
     case "BlockStatement":

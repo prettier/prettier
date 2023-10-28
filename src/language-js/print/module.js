@@ -23,6 +23,7 @@ import {
 import { locStart, hasSameLoc } from "../loc.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./misc.js";
+import { printPropertyKey } from "./property.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -349,9 +350,14 @@ function isShorthandSpecifier(specifier) {
   }
 }
 
+function printImportAttribute(path, options, print) {
+  return [printPropertyKey(path, options, print), ": ", print("value")];
+}
+
 export {
   printImportDeclaration,
   printExportDeclaration,
   printModuleSpecifier,
   printImportKind,
+  printImportAttribute,
 };
