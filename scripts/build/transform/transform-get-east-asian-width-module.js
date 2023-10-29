@@ -15,7 +15,7 @@ function transformGetEastAsianWidthModule(original) {
 
   const functionBody = lookupFunction.body.body;
 
-  // We only need `IfStatement`s returns `"F"` or `"W"`
+  // We only need `IfStatement`s returns `"fullwidth"` or `"wide"`
   for (let index = functionBody.length - 1; index >= 0; index--) {
     const node = functionBody[index];
 
@@ -27,7 +27,7 @@ function transformGetEastAsianWidthModule(original) {
       node.consequent.body[0].argument.type === "StringLiteral"
     ) {
       const { value } = node.consequent.body[0].argument;
-      if (value !== "F" && value !== "W") {
+      if (value !== "fullwidth" && value !== "wide") {
         functionBody.splice(index, 1);
       }
     }
