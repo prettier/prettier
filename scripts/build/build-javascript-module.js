@@ -16,7 +16,7 @@ import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-ob
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import transform from "./transform/index.js";
-import transformEastAsianWidthModule from "./transform/eastasianwidth-module.js";
+import transformGetEastAsianWidthModule from "./transform/transform-get-east-asian-width-module.js";
 import { getPackageFile } from "./utils.js";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
@@ -94,8 +94,8 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     },
     // Reduce size
     {
-      module: require.resolve("eastasianwidth"),
-      process: transformEastAsianWidthModule,
+      module: getPackageFile("get-east-asian-width/lookup.js"),
+      process: transformGetEastAsianWidthModule,
     },
   ];
 
