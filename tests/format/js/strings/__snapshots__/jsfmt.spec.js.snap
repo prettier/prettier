@@ -1,5 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`escaped.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
+  goog.getMsg("That's all we know");
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
+  goog.getMsg("That\\'s all we know");
+
+=====================================output=====================================
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
+  goog.getMsg("That's all we know");
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
+  goog.getMsg("That's all we know");
+
+================================================================================
+`;
+
+exports[`escaped.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
+  goog.getMsg("That's all we know");
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
+  goog.getMsg("That\\'s all we know");
+
+=====================================output=====================================
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
+  goog.getMsg("That's all we know");
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
+  goog.getMsg("That's all we know");
+
+================================================================================
+`;
+
 exports[`multiline-literal.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
