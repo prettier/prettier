@@ -1,5 +1,5 @@
 import emojiRegex from "emoji-regex";
-// @ts-expect-error -- it's private, https://github.com/sindresorhus/get-east-asian-width/pull/6
+// @ts-expect-error -- Special export for us, https://github.com/sindresorhus/get-east-asian-width/pull/6
 import { _isNarrowWidth as isNarrowWidth } from "get-east-asian-width";
 
 const notAsciiRegex = /[^\x20-\x7F]/;
