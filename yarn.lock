@@ -4319,10 +4319,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-east-asian-width@npm:1.1.0":
-  version: 1.1.0
-  resolution: "get-east-asian-width@npm:1.1.0"
-  checksum: bf84fc682f7c1346927555d9291c6969dd5159429c0533bff75b338d5d0bf7cc26fdfdecbc7eab87d418c86ab0de0a9fd40404699f7c624bf85641a468d7e1b7
+"get-east-asian-width@npm:1.2.0":
+  version: 1.2.0
+  resolution: "get-east-asian-width@npm:1.2.0"
+  checksum: ea55f4d4a42c4b00d3d9be3111bc17eb0161f60ed23fc257c1390323bb780a592d7a8bdd550260fd4627dabee9a118cdfa3475ae54edca35ebcd3bdae04179e3
   languageName: node
   linkType: hard
 
@@ -7184,7 +7184,7 @@ __metadata:
     find-cache-dir: 5.0.0
     find-parent-dir: 0.3.1
     flow-parser: 0.217.0
-    get-east-asian-width: 1.1.0
+    get-east-asian-width: 1.2.0
     get-stdin: 9.0.0
     graphql: 16.8.1
     hermes-parser: 0.16.0

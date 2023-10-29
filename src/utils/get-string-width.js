@@ -1,5 +1,5 @@
 import emojiRegex from "emoji-regex";
-import { eastAsianWidth as getEastAsianWidth } from "get-east-asian-width";
+import { _isNarrowWidth as isNarrowWidth } from "get-east-asian-width";
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 
@@ -38,7 +38,7 @@ function getStringWidth(text) {
       continue;
     }
 
-    width += getEastAsianWidth(codePoint);
+    width += isNarrowWidth(codePoint) ? 1 : 2;
   }
 
   return width;
