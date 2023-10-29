@@ -3248,7 +3248,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eastasianwidth@npm:0.2.0, eastasianwidth@npm:^0.2.0":
+"eastasianwidth@npm:^0.2.0":
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
   checksum: 7d00d7cd8e49b9afa762a813faac332dee781932d6f2c848dc348939c4253f1d4564341b7af1d041853bc3f32c2ef141b58e0a4d9862c17a7f08f68df1e0f1ed
@@ -4323,6 +4323,13 @@ __metadata:
   version: 2.0.5
   resolution: "get-caller-file@npm:2.0.5"
   checksum: b9769a836d2a98c3ee734a88ba712e62703f1df31b94b784762c433c27a386dd6029ff55c2a920c392e33657d80191edbf18c61487e198844844516f843496b9
+  languageName: node
+  linkType: hard
+
+"get-east-asian-width@npm:1.2.0":
+  version: 1.2.0
+  resolution: "get-east-asian-width@npm:1.2.0"
+  checksum: ea55f4d4a42c4b00d3d9be3111bc17eb0161f60ed23fc257c1390323bb780a592d7a8bdd550260fd4627dabee9a118cdfa3475ae54edca35ebcd3bdae04179e3
   languageName: node
   linkType: hard
 
@@ -7157,7 +7164,6 @@ __metadata:
     css-units-list: 2.0.1
     dashify: 2.0.0
     diff: 5.1.0
-    eastasianwidth: 0.2.0
     editorconfig: 0.15.3
     emoji-regex: 10.3.0
     enquirer: 2.4.1
@@ -7185,6 +7191,7 @@ __metadata:
     find-cache-dir: 5.0.0
     find-parent-dir: 0.3.1
     flow-parser: 0.217.0
+    get-east-asian-width: 1.2.0
     get-stdin: 9.0.0
     graphql: 16.8.1
     hermes-parser: 0.16.0
