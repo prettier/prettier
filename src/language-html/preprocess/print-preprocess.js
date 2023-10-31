@@ -10,7 +10,7 @@ import {
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
 } from "../utils/index.js";
-import { transformControlFlowBlockNode } from "./block.js";
+import { transformControlFlowBlockNode } from "./block/transform-block.js";
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,
