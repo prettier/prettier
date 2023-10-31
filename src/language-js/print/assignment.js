@@ -141,11 +141,13 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     return "never-break-after-operator";
   }
 
+  const canBreakLeftDoc = canBreak(leftDoc);
+
   if (
     isComplexDestructuring(node) ||
     isComplexTypeAliasParams(node) ||
     hasComplexTypeAnnotation(node) ||
-    (isArrowFunctionVariableDeclarator(node) && canBreak(leftDoc))
+    (isArrowFunctionVariableDeclarator(node) && canBreakLeftDoc)
   ) {
     return "break-lhs";
   }
@@ -163,12 +165,13 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   }
 
   if (
-    hasShortKey ||
-    rightNode.type === "TemplateLiteral" ||
-    rightNode.type === "TaggedTemplateExpression" ||
-    rightNode.type === "BooleanLiteral" ||
-    isNumericLiteral(rightNode) ||
-    rightNode.type === "ClassExpression"
+    !canBreakLeftDoc &&
+    (hasShortKey ||
+      rightNode.type === "TemplateLiteral" ||
+      rightNode.type === "TaggedTemplateExpression" ||
+      rightNode.type === "BooleanLiteral" ||
+      isNumericLiteral(rightNode) ||
+      rightNode.type === "ClassExpression")
   ) {
     return "never-break-after-operator";
   }
