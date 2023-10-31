@@ -52,7 +52,7 @@ function ngHtmlParser(input, parseOptions, options) {
     allowHtmComponentClosingTags = false,
     isTagNameCaseSensitive = false,
     shouldParseAsRawText,
-    tokenizeBlocks = false,
+    tokenizeAngularBlocks = false,
   } = parseOptions;
 
   let { rootNodes, errors } = parseHtml(input, {
@@ -63,7 +63,7 @@ function ngHtmlParser(input, parseOptions, options) {
       ? (...args) =>
           shouldParseAsRawText(...args) ? TagContentType.RAW_TEXT : undefined
       : undefined,
-    tokenizeBlocks,
+    tokenizeAngularBlocks,
   });
 
   if (name === "vue") {
@@ -89,13 +89,11 @@ function ngHtmlParser(input, parseOptions, options) {
 
     const getNodeWithSameLocation = (node) =>
       getHtmlParseResult().rootNodes.find(
-        // @ts-expect-error
         ({ startSourceSpan }) =>
           startSourceSpan &&
           startSourceSpan.start.offset === node.startSourceSpan.start.offset,
       ) ?? node;
     for (const [index, node] of rootNodes.entries()) {
-      // @ts-expect-error
       const { endSourceSpan, startSourceSpan } = node;
       const isVoidElement = endSourceSpan === null;
       if (isVoidElement) {
@@ -375,7 +373,10 @@ const HTML_PARSE_OPTIONS = {
 // HTML
 export const html = createParser(HTML_PARSE_OPTIONS);
 // Angular
-export const angular = createParser({ name: "angular", tokenizeBlocks: true });
+export const angular = createParser({
+  name: "angular",
+  tokenizeAngularBlocks: true,
+});
 // Vue
 export const vue = createParser({
   name: "vue",

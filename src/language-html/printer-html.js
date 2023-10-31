@@ -107,8 +107,6 @@ function genericPrint(path, options, print) {
       ];
     }
     case "block":
-    case "ifBlock":
-    case "forBlock":
       return printBlock(path, options, print);
     case "blockParameter":
       return node.expression;
