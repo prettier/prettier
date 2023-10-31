@@ -72,7 +72,7 @@ jobs:
             node: "21"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
-    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}${{ matrix.FULL_TEST && ' (Full Test)' || '' }}
+    name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Node.js ${{ matrix.node }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
