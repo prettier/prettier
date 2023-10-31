@@ -33,7 +33,7 @@ function transformForLoopConnectedBlocks(connectedBlocks) {
   return transformed;
 }
 
-export function transoformForLoopBlock(node) {
+export function transformForLoopBlock(node) {
   const connectedBlocks = findConnectedBlocks(
     node.index,
     node.siblings,

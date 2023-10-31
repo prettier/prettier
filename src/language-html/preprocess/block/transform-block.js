@@ -1,5 +1,5 @@
 import { transformIfBlock } from "./transform-if-block.js";
-import { transoformForLoopBlock } from "./transform-for-block.js";
+import { transformForLoopBlock } from "./transform-for-block.js";
 import { transformDeferredBlock } from "./transform-defer-block.js";
 
 /**
@@ -18,7 +18,7 @@ function transformControlFlowBlockNode(ast) {
           transformDeferredBlock(node);
           break;
         case "for":
-          transoformForLoopBlock(node);
+          transformForLoopBlock(node);
           break;
       }
     }
