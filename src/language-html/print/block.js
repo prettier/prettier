@@ -1,5 +1,5 @@
-import { isNonEmptyArray } from "../../cli/utils.js";
 import { hardline, indent } from "../../document/builders.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { ELSE_IF_PATTERN } from "../utils/else-if-pattern.js";
 
 function normalizeBlockName(name) {
