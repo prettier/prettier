@@ -1390,6 +1390,14 @@ exports[`visitor keys graphql 1`] = `
 exports[`visitor keys html 1`] = `
 {
   "attribute": [],
+  "block": [
+    "parameters",
+    "children",
+    "successorBlock",
+  ],
+  "blockParameter": [
+    "expression",
+  ],
   "cdata": [],
   "comment": [],
   "docType": [],
