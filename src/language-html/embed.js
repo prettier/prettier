@@ -135,6 +135,21 @@ function embed(path, options) {
 
     case "front-matter":
       return (textToDoc) => printFrontMatter(node, textToDoc);
+
+    case "blockParameter": {
+      const { parent } = path;
+      if (parent.type === "block") {
+        return (textToDoc) => {
+          const textToDocOptions = {
+            __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+            __embeddedInHtml: true,
+          };
+          textToDocOptions.parser = "__ng_binding";
+          textToDocOptions.trailingComma = "none";
+          return textToDoc(node.expression, textToDocOptions);
+        };
+      }
+    }
   }
 }
 

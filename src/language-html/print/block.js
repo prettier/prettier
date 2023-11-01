@@ -1,4 +1,11 @@
-import { hardline, indent } from "../../document/builders.js";
+import {
+  hardline,
+  indent,
+  join,
+  line,
+  softline,
+  group,
+} from "../../document/builders.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { ELSE_IF_PATTERN } from "../utils/else-if-pattern.js";
 
@@ -32,7 +39,17 @@ function printBlock(path, options, print) {
     "@",
     normalizeBlockName(node.name),
     isNonEmptyArray(node.parameters)
-      ? [" (", ...path.map(print, "parameters"), ")"]
+      ? [
+          " (",
+          group([
+            indent([
+              softline,
+              ...join([";", line], path.map(print, "parameters")),
+            ]),
+            softline,
+          ]),
+          ")",
+        ]
       : "",
     " {",
     indent([hardline, ...path.map(print, "children")]),
