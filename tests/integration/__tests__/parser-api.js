@@ -51,7 +51,12 @@ test("parsers should allow omit optional arguments", async () => {
   for (const [name, { parse }] of parsers) {
     await expect(
       // eslint-disable-next-line require-await
-      (async () => parse(code[name] ?? "{}"))(),
+      (async () =>
+        parse(
+          code[name] ??
+            // angular parser cannot parser `{}`
+            (name === "angular" ? "foo" : "{}"),
+        ))(),
     ).resolves.not.toThrow();
   }
 });
