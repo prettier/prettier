@@ -414,6 +414,11 @@ const pluginFiles = [
             "const ARGUMENT_RESOLUTION = undefined &&",
           );
 
+          text = text.replace(
+            "const HTML_RESOLUTION = ",
+            "const HTML_RESOLUTION = undefined &&",
+          );
+
           text = text.replace(/(?<=\n)export .*?;/, "export { preprocess };");
 
           return text;
