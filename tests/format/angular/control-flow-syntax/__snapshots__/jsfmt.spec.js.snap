@@ -1,5 +1,271 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`complex-deferred.html - {"bracketSameLine":false} format 1`] = `
+====================================options=====================================
+bracketSameLine: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@defer (when isVisible() && foo; on hover(button), timer(10s), idle, immediate, interaction(button), viewport(container); prefetch on immediate; prefetch when isDataLoaded()) {
+    <calendar-cmp [date]="current"/>
+}
+@loading (minimum 1s; after 100ms) {
+    Loading...
+}
+@placeholder (minimum 500) {
+    Placeholder content!
+}
+@error {
+    Loading failed :(
+}
+
+=====================================output=====================================
+@defer (
+  when isVisible() && foo;
+  on hover(button), timer(10s), idle, immediate, interaction(button), viewport(container);
+  prefetch on immediate;
+  prefetch when isDataLoaded()
+) {
+  <calendar-cmp [date]="current" />
+} @loading (minimum 1s; after 100ms) {
+  Loading...
+} @placeholder (minimum 500) {
+  Placeholder content!
+} @error {
+  Loading failed :(
+}
+
+================================================================================
+`;
+
+exports[`complex-deferred.html - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@defer (when isVisible() && foo; on hover(button), timer(10s), idle, immediate, interaction(button), viewport(container); prefetch on immediate; prefetch when isDataLoaded()) {
+    <calendar-cmp [date]="current"/>
+}
+@loading (minimum 1s; after 100ms) {
+    Loading...
+}
+@placeholder (minimum 500) {
+    Placeholder content!
+}
+@error {
+    Loading failed :(
+}
+
+=====================================output=====================================
+@defer (
+  when isVisible() && foo;
+  on hover(button), timer(10s), idle, immediate, interaction(button), viewport(container);
+  prefetch on immediate;
+  prefetch when isDataLoaded()
+) {
+  <calendar-cmp [date]="current" />
+} @loading (minimum 1s; after 100ms) {
+  Loading...
+} @placeholder (minimum 500) {
+  Placeholder content!
+} @error {
+  Loading failed :(
+}
+
+================================================================================
+`;
+
+exports[`complex-for.html - {"bracketSameLine":false} format 1`] = `
+====================================options=====================================
+bracketSameLine: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@for (item of items.foo.bar; track item.id) {
+    <h1>{{ item }}</h1>
+}
+@empty {
+    There were no items in the list.
+}
+
+=====================================output=====================================
+@for (item of items.foo.bar; track item.id) {
+  <h1>{{ item }}</h1>
+} @empty {
+  There were no items in the list.
+}
+
+================================================================================
+`;
+
+exports[`complex-for.html - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@for (item of items.foo.bar; track item.id) {
+    <h1>{{ item }}</h1>
+}
+@empty {
+    There were no items in the list.
+}
+
+=====================================output=====================================
+@for (item of items.foo.bar; track item.id) {
+  <h1>{{ item }}</h1>
+} @empty {
+  There were no items in the list.
+}
+
+================================================================================
+`;
+
+exports[`complex-if.html - {"bracketSameLine":false} format 1`] = `
+====================================options=====================================
+bracketSameLine: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@if (cond.expr; as foo) {
+    Main case was true!
+}
+@else if (other.expr) {
+    Extra case was true!
+}
+@else {
+    False case!
+}
+
+=====================================output=====================================
+@if (cond.expr; as foo) {
+  Main case was true!
+} @else if (other.expr) {
+  Extra case was true!
+} @else {
+  False case!
+}
+
+================================================================================
+`;
+
+exports[`complex-if.html - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@if (cond.expr; as foo) {
+    Main case was true!
+}
+@else if (other.expr) {
+    Extra case was true!
+}
+@else {
+    False case!
+}
+
+=====================================output=====================================
+@if (cond.expr; as foo) {
+  Main case was true!
+} @else if (other.expr) {
+  Extra case was true!
+} @else {
+  False case!
+}
+
+================================================================================
+`;
+
+exports[`complex-switch.html - {"bracketSameLine":false} format 1`] = `
+====================================options=====================================
+bracketSameLine: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@switch (cond.kind) {
+@case (x()) {
+    X case
+}
+@case ('hello') {
+    Y case
+}
+@case (42) {
+    Z case
+}
+@default {
+    No case matched
+}
+}
+
+=====================================output=====================================
+@switch (cond.kind) {
+  @case (x()) {
+    X case
+  }
+  @case ("hello") {
+    Y case
+  }
+  @case (42) {
+    Z case
+  }
+  @default {
+    No case matched
+  }
+}
+
+================================================================================
+`;
+
+exports[`complex-switch.html - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@switch (cond.kind) {
+@case (x()) {
+    X case
+}
+@case ('hello') {
+    Y case
+}
+@case (42) {
+    Z case
+}
+@default {
+    No case matched
+}
+}
+
+=====================================output=====================================
+@switch (cond.kind) {
+  @case (x()) {
+    X case
+  }
+  @case ("hello") {
+    Y case
+  }
+  @case (42) {
+    Z case
+  }
+  @default {
+    No case matched
+  }
+}
+
+================================================================================
+`;
+
 exports[`deferred.html - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
 bracketSameLine: false
@@ -76,7 +342,7 @@ printWidth: 80
 }
 
 =====================================output=====================================
-@for (item of itemstrack item) {
+@for (item of items; track item) {
   <p>{{ item.name }}</p>
 } @empty {
   <p>No Items</p>
@@ -99,7 +365,7 @@ printWidth: 80
 }
 
 =====================================output=====================================
-@for (item of itemstrack item) {
+@for (item of items; track item) {
   <p>{{ item.name }}</p>
 } @empty {
   <p>No Items</p>

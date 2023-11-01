@@ -1,0 +1,12 @@
+@defer (when isVisible() && foo; on hover(button), timer(10s), idle, immediate, interaction(button), viewport(container); prefetch on immediate; prefetch when isDataLoaded()) {
+    <calendar-cmp [date]="current"/>
+}
+@loading (minimum 1s; after 100ms) {
+    Loading...
+}
+@placeholder (minimum 500) {
+    Placeholder content!
+}
+@error {
+    Loading failed :(
+}
