@@ -1,3 +1,5 @@
-import { voidMap } from "@glimmer/syntax/dist/commonjs/es2017/lib/generation/printer.js";
+import { getVoidTags } from "@glimmer/syntax";
 
-export default Object.keys(voidMap);
+const htmlVoidElements = new Set(getVoidTags());
+
+export default htmlVoidElements;
