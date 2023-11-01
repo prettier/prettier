@@ -144,7 +144,6 @@
     "jest-watch-typeahead": "2.2.2",
     "magic-string": "0.30.3",
     "npm-run-all2": "6.1.1",
-    "path-browserify": "1.0.1",
     "prettier": "3.0.3",
     "pretty-bytes": "6.1.1",
     "rollup-plugin-license": "3.1.0",
