@@ -79,7 +79,8 @@ exports[`child.js [acorn] format 1`] = `
     |       ^
   2 |
   3 | <div>{...a /* comment */}</div>;
-  4 |"
+  4 |
+Cause: Unexpected token (1:6)"
 `;
 
 exports[`child.js [espree] format 1`] = `
@@ -88,7 +89,8 @@ exports[`child.js [espree] format 1`] = `
     |       ^
   2 |
   3 | <div>{...a /* comment */}</div>;
-  4 |"
+  4 |
+Cause: Unexpected token ..."
 `;
 
 exports[`child.js format 1`] = `

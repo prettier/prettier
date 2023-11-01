@@ -6,7 +6,8 @@ exports[`null-arguments-item.js [__babel_estree] format 1`] = `
     |            ^
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
   3 | foo("a",
-  4 |     //1"
+  4 |     //1
+Cause: Unexpected token ','. (1:11)"
 `;
 
 exports[`null-arguments-item.js [acorn] format 1`] = `
@@ -15,7 +16,8 @@ exports[`null-arguments-item.js [acorn] format 1`] = `
     |           ^
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
   3 | foo("a",
-  4 |     //1"
+  4 |     //1
+Cause: Unexpected token (1:10)"
 `;
 
 exports[`null-arguments-item.js [babel] format 1`] = `
@@ -24,7 +26,8 @@ exports[`null-arguments-item.js [babel] format 1`] = `
     |            ^
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
   3 | foo("a",
-  4 |     //1"
+  4 |     //1
+Cause: Unexpected token ','. (1:11)"
 `;
 
 exports[`null-arguments-item.js [espree] format 1`] = `
@@ -33,7 +36,8 @@ exports[`null-arguments-item.js [espree] format 1`] = `
     |           ^
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
   3 | foo("a",
-  4 |     //1"
+  4 |     //1
+Cause: Unexpected token ,"
 `;
 
 exports[`null-arguments-item.js [meriyah] format 1`] = `
@@ -42,5 +46,6 @@ exports[`null-arguments-item.js [meriyah] format 1`] = `
     |           ^
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
   3 | foo("a",
-  4 |     //1"
+  4 |     //1
+Cause: [1:11]: Unexpected token: ','"
 `;

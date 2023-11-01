@@ -8,7 +8,8 @@ exports[`as.js [babel-flow] format 1`] = `
     |                           ^
   4 | this.isTabActionBar((e.target || e.srcElement) as HTMLElement);
   5 | (originalError ? wrappedError(errMsg, originalError) : Error(errMsg)) as InjectionError;
-  6 | 'current' in (props.pagination as {...});"
+  6 | 'current' in (props.pagination as {...});
+Cause: Unexpected token, expected "," (3:26)"
 `;
 
 exports[`as.js format 1`] = `
@@ -138,7 +139,8 @@ exports[`as-const.js [babel-flow] format 1`] = `
      |           ^
   13 |
   14 | (type) as const;
-  15 |"
+  15 |
+Cause: Unexpected token (12:10)"
 `;
 
 exports[`as-const.js format 1`] = `
@@ -189,7 +191,8 @@ exports[`assignment.js [babel-flow] format 1`] = `
      |                       ^
   18 |
   19 | this.intervalID = (setInterval(() => {
-  20 |   self.step();"
+  20 |   self.step();
+Cause: Unexpected token, expected "," (17:22)"
 `;
 
 exports[`assignment.js format 1`] = `
@@ -252,7 +255,8 @@ exports[`export_default_as.js [babel-flow] format 1`] = `
   2 |
 > 3 | export default (function log() {} as typeof console.log)
     |                                   ^
-  4 |"
+  4 |
+Cause: Unexpected token, expected "," (3:34)"
 `;
 
 exports[`export_default_as.js format 1`] = `
@@ -281,7 +285,8 @@ exports[`long-identifiers.js [babel-flow] format 1`] = `
      |                                     ^
   12 | };
   13 |
-  14 | averredBathersBoxroomBuggyNurl("
+  14 | averredBathersBoxroomBuggyNurl(
+Cause: Unexpected token, expected "," (11:36)"
 `;
 
 exports[`long-identifiers.js format 1`] = `
@@ -337,7 +342,8 @@ exports[`nested-await-and-as.js [babel-flow] format 1`] = `
      |                                 ^
    8 |   ).getChildren()
    9 |   ).length
-  10 |"
+  10 |
+Cause: Unexpected token, expected "," (7:32)"
 `;
 
 exports[`nested-await-and-as.js format 1`] = `
@@ -378,7 +384,8 @@ exports[`return.js [babel-flow] format 1`] = `
 > 7 |   } as Foo;
     |    ^
   8 | }
-  9 |"
+  9 |
+Cause: Missing semicolon. (7:3)"
 `;
 
 exports[`return.js format 1`] = `
@@ -417,7 +424,8 @@ exports[`satisfies.js [babel-flow] format 1`] = `
      |        ^
   33 |
   34 | abc satisfies mixed; // not a keyword
-  35 | }"
+  35 | }
+Cause: Unexpected token, expected "type" (32:7)"
 `;
 
 exports[`satisfies.js format 1`] = `
@@ -520,7 +528,8 @@ exports[`ternary.js [babel-flow] format 1`] = `
      |                                ^
   29 | }
   30 |
-  31 | bifornCringerMoshedPerplexSawder ="
+  31 | bifornCringerMoshedPerplexSawder =
+Cause: Unexpected token, expected "," (28:31)"
 `;
 
 exports[`ternary.js format 1`] = `

@@ -243,7 +243,8 @@ exports[`tuple-and-record.js [acorn] format 1`] = `
      |      ^
   23 | }
   24 |
-  25 | function StatelessFunctionalComponent3(["
+  25 | function StatelessFunctionalComponent3([
+Cause: Unexpected character '{' (22:5)"
 `;
 
 exports[`tuple-and-record.js [espree] format 1`] = `
@@ -254,7 +255,8 @@ exports[`tuple-and-record.js [espree] format 1`] = `
      |      ^
   23 | }
   24 |
-  25 | function StatelessFunctionalComponent3(["
+  25 | function StatelessFunctionalComponent3([
+Cause: Unexpected character '{'"
 `;
 
 exports[`tuple-and-record.js [flow] format 1`] = `
@@ -276,7 +278,8 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
      |     ^
   23 | }
   24 |
-  25 | function StatelessFunctionalComponent3(["
+  25 | function StatelessFunctionalComponent3([
+Cause: [22:5]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js format 1`] = `

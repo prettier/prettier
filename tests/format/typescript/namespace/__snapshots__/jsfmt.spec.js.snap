@@ -6,7 +6,8 @@ exports[`invalid-await.ts [babel-ts] format 1`] = `
 > 2 |   const x = await 42;
     |             ^
   3 | }
-  4 |"
+  4 |
+Cause: 'await' is only allowed within async functions and at the top levels of modules. (2:12)"
 `;
 
 exports[`invalid-await.ts format 1`] = `
