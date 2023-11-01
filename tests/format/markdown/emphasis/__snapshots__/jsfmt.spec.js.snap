@@ -80,7 +80,7 @@ proseWrap: "always"
 
 0*1*!
 
-!_1_!
+!*1*!
 
 0*1*2
 
@@ -88,7 +88,7 @@ proseWrap: "always"
 
 0*1*！
 
-！_1_！
+！*1*！
 
 0_1_2
 
@@ -96,7 +96,7 @@ proseWrap: "always"
 
 0*1*! <!-- remark-misparsing, should be formatted as \`0_1\\_!\` -->
 
-!_1_!
+!*1*!
 
 0_1_2
 
@@ -104,7 +104,7 @@ proseWrap: "always"
 
 0*1*！ <!-- remark-misparsing, should be formatted as \`0_1\\_！\` -->
 
-！_1_！
+！*1*！
 
 ================================================================================
 `;

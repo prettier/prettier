@@ -34,7 +34,7 @@ const INLINE_NODE_WRAPPER_TYPES = new Set([
   "heading",
 ]);
 
-const punctuationRegex = new RegExp(punctuationPattern);
+const punctuationRegex = new RegExp(punctuationPattern, "g");
 
 const KIND_NON_CJK = "non-cjk";
 const KIND_CJ_LETTER = "cj-letter";
