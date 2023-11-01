@@ -419,6 +419,11 @@ const pluginFiles = [
             "const HTML_RESOLUTION = undefined &&",
           );
 
+          text = text.replace(
+            "const LOCAL_DEBUG = ",
+            "const LOCAL_DEBUG = false &&",
+          );
+
           text = text.replace(/(?<=\n)export .*?;/, "export { preprocess };");
 
           return text;
