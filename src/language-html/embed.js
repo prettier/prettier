@@ -139,14 +139,18 @@ function embed(path, options) {
     case "blockParameter": {
       const { parent } = path;
       if (parent.type === "block") {
-        return (textToDoc) => {
+        return async (textToDoc) => {
           const textToDocOptions = {
             __isInHtmlInterpolation: true, // to avoid unexpected `}}`
             __embeddedInHtml: true,
+            parser: "__ng_binding",
+            trailingComma: "none",
           };
-          textToDocOptions.parser = "__ng_binding";
-          textToDocOptions.trailingComma = "none";
-          return textToDoc(node.expression, textToDocOptions);
+          try {
+            return await textToDoc(node.expression.trim(), textToDocOptions);
+          } catch {
+            return node.expression.trim();
+          }
         };
       }
     }
