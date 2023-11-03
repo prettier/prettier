@@ -7,22 +7,24 @@ import { transformDeferredBlock } from "./transform-defer-block.js";
  * In Prettier's print logic, handling such ASTs is annoying.
  * Therefore, converts the arrays into nested blocks.
  */
-function transformControlFlowBlockNode(ast) {
-  ast.walk((node) => {
-    if (node.type === "block") {
-      switch (node.name) {
-        case "if":
-          transformIfBlock(node);
-          break;
-        case "defer":
-          transformDeferredBlock(node);
-          break;
-        case "for":
-          transformForLoopBlock(node);
-          break;
+function transformControlFlowBlockNode(ast, options) {
+  if (options.parser === "angular") {
+    ast.walk((node) => {
+      if (node.type === "block") {
+        switch (node.name) {
+          case "if":
+            transformIfBlock(node);
+            break;
+          case "defer":
+            transformDeferredBlock(node);
+            break;
+          case "for":
+            transformForLoopBlock(node);
+            break;
+        }
       }
-    }
-  });
+    });
+  }
 }
 
 export { transformControlFlowBlockNode };
