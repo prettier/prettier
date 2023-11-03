@@ -84,7 +84,7 @@
     "minimist": "1.2.8",
     "n-readlines": "1.0.1",
     "outdent": "0.8.0",
-    "parse-json": "7.1.1",
+    "parse-json": "8.0.0",
     "please-upgrade-node": "3.2.0",
     "postcss": "8.4.31",
     "postcss-less": "6.0.0",
