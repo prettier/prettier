@@ -426,6 +426,14 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`invalid-empty-with-param-in-for.html - {"bracketSameLine":false} [angular] format 1`] = `"@empty block cannot have parameters (2:3)"`;
+
+exports[`invalid-empty-with-param-in-for.html - {"bracketSameLine":true} [angular] format 1`] = `"@empty block cannot have parameters (2:3)"`;
+
+exports[`invalid-multiple-empty-blocks-in-for.html - {"bracketSameLine":false} [angular] format 1`] = `"@for loop can only have one @empty block (4:3)"`;
+
+exports[`invalid-multiple-empty-blocks-in-for.html - {"bracketSameLine":true} [angular] format 1`] = `"@for loop can only have one @empty block (4:3)"`;
+
 exports[`no-space-blocks.html - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
 bracketSameLine: false

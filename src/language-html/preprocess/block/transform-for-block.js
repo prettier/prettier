@@ -26,8 +26,6 @@ function transformForLoopConnectedBlocks(connectedBlocks) {
       } else {
         transformed.successorBlock = block;
       }
-    } else {
-      throwSyntaxError(block, `Unrecognized @for loop block "${block.name}"`);
     }
   }
   return transformed;
