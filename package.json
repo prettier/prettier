@@ -16,6 +16,7 @@
     ".": {
       "types": "./src/index.d.ts",
       "require": "./src/index.cjs",
+      "browser": "./standalone.js",
       "default": "./src/index.js"
     },
     "./*": "./*"
