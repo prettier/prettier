@@ -426,6 +426,48 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`no-space-blocks.html - {"bracketSameLine":false} format 1`] = `
+====================================options=====================================
+bracketSameLine: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@if (cond.expr; as foo){Main case was true!}@else if (other.expr) {Extra case was true!}@else {False case!}
+
+=====================================output=====================================
+@if (cond.expr; as foo) {
+  Main case was true!
+} @else if (other.expr) {
+  Extra case was true!
+} @else {
+  False case!
+}
+
+================================================================================
+`;
+
+exports[`no-space-blocks.html - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@if (cond.expr; as foo){Main case was true!}@else if (other.expr) {Extra case was true!}@else {False case!}
+
+=====================================output=====================================
+@if (cond.expr; as foo) {
+  Main case was true!
+} @else if (other.expr) {
+  Extra case was true!
+} @else {
+  False case!
+}
+
+================================================================================
+`;
+
 exports[`switch.html - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
 bracketSameLine: false
