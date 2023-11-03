@@ -387,22 +387,47 @@ const pluginFiles = [
   {
     input: "src/plugins/glimmer.js",
     replaceModule: [
-      // See comment in `src/language-handlebars/parser-glimmer.js` file
+      ...["@glimmer/util", "@glimmer/wire-format", "@glimmer/syntax"].map(
+        (packageName) => ({
+          module: getPackageFile(`${packageName}/dist/prod/index.js`),
+          path: getPackageFile(`${packageName}/dist/dev/index.js`),
+        }),
+      ),
       {
-        module: getPackageFile(
-          "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js",
-        ),
-        path: getPackageFile(
-          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js",
-        ),
-      },
-      // This passed to plugins, our plugin don't need access to the options
-      {
-        module: getPackageFile(
-          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js",
-        ),
-        process: (text) =>
-          text.replace(/\nconst syntax = \{.*?\n\};/su, "\nconst syntax = {};"),
+        module: getPackageFile("@glimmer/syntax/dist/dev/index.js"),
+        process(text) {
+          // This passed to plugins, our plugin don't need access to the options
+          text = text.replace(/(?<=\nconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
+
+          text = text.replaceAll(
+            /\nclass \S+ extends node\(.*?\).*?\{.*?\n\}/gsu,
+            "",
+          );
+
+          text = text.replaceAll(
+            /\nvar api\S* = \/\*#__PURE__\*\/Object\.freeze\(\{.*?\n\}\);/gsu,
+            "",
+          );
+
+          text = text.replace(
+            "const ARGUMENT_RESOLUTION = ",
+            "const ARGUMENT_RESOLUTION = undefined &&",
+          );
+
+          text = text.replace(
+            "const HTML_RESOLUTION = ",
+            "const HTML_RESOLUTION = undefined &&",
+          );
+
+          text = text.replace(
+            "const LOCAL_DEBUG = ",
+            "const LOCAL_DEBUG = false &&",
+          );
+
+          text = text.replace(/(?<=\n)export .*?;/, "export { preprocess };");
+
+          return text;
+        },
       },
       {
         module: getPackageFile("@handlebars/parser/dist/esm/index.js"),

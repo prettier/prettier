@@ -29,30 +29,30 @@ jobs:
           # Latest even version
           - "20"
           # Minimal version for development
-          - "16"
+          - "18"
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
-            node: "18"
+            node: "20"
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
           # Versions not tested on linux, normally only even versions
           # If latest version is an odd number, it can be listed bellow too
-          # - os: "ubuntu-latest"
-          #   node: "20"
+          - os: "ubuntu-latest"
+            node: "21"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}
       CHECK_TEST_PARSERS: ${{ matrix.CHECK_TEST_PARSERS }}
-    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}${{ matrix.FULL_TEST && ' (Full Test)' || '' }}
+    name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Node.js ${{ matrix.node }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
@@ -69,7 +69,7 @@ jobs:
         run: yarn c8 yarn test
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@v3.1.4
+        uses: codecov/codecov-action@v3
         if: ${{ matrix.ENABLE_CODE_COVERAGE }}
         with:
           fail_ci_if_error: true
