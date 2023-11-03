@@ -426,25 +426,25 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`invalid-empty-with-param-in-for.html - {"bracketSameLine":false} [angular] format 1`] = `"@empty block cannot have parameters (2:3)"`;
+exports[`invalid-defer-block-multiple-error-blocks.html - {"bracketSameLine":false} [angular] format 1`] = `"@defer block can only have one @error block (4:3)"`;
 
-exports[`invalid-empty-with-param-in-for.html - {"bracketSameLine":true} [angular] format 1`] = `"@empty block cannot have parameters (2:3)"`;
+exports[`invalid-defer-block-multiple-error-blocks.html - {"bracketSameLine":true} [angular] format 1`] = `"@defer block can only have one @error block (4:3)"`;
 
-exports[`invalid-multiple-empty-blocks-in-for.html - {"bracketSameLine":false} [angular] format 1`] = `"@for loop can only have one @empty block (4:3)"`;
+exports[`invalid-defer-block-multiple-loading-blocks.html - {"bracketSameLine":false} [angular] format 1`] = `"@defer block can only have one @loading block (4:3)"`;
 
-exports[`invalid-multiple-empty-blocks-in-for.html - {"bracketSameLine":true} [angular] format 1`] = `"@for loop can only have one @empty block (4:3)"`;
+exports[`invalid-defer-block-multiple-loading-blocks.html - {"bracketSameLine":true} [angular] format 1`] = `"@defer block can only have one @loading block (4:3)"`;
 
-exports[`invalid-multiple-error-blocks-in-defer.html - {"bracketSameLine":false} [angular] format 1`] = `"@defer block can only have one @error block (4:3)"`;
+exports[`invalid-defer-block-multiple-placeholder-blocks.html - {"bracketSameLine":false} [angular] format 1`] = `"@defer block can only have one @placeholder block (4:3)"`;
 
-exports[`invalid-multiple-error-blocks-in-defer.html - {"bracketSameLine":true} [angular] format 1`] = `"@defer block can only have one @error block (4:3)"`;
+exports[`invalid-defer-block-multiple-placeholder-blocks.html - {"bracketSameLine":true} [angular] format 1`] = `"@defer block can only have one @placeholder block (4:3)"`;
 
-exports[`invalid-multiple-loading-blocks-in-defer.html - {"bracketSameLine":false} [angular] format 1`] = `"@defer block can only have one @loading block (4:3)"`;
+exports[`invalid-for-block-empty-with-param.html - {"bracketSameLine":false} [angular] format 1`] = `"@empty block cannot have parameters (2:3)"`;
 
-exports[`invalid-multiple-loading-blocks-in-defer.html - {"bracketSameLine":true} [angular] format 1`] = `"@defer block can only have one @loading block (4:3)"`;
+exports[`invalid-for-block-empty-with-param.html - {"bracketSameLine":true} [angular] format 1`] = `"@empty block cannot have parameters (2:3)"`;
 
-exports[`invalid-multiple-placeholder-blocks-in-defer.html - {"bracketSameLine":false} [angular] format 1`] = `"@defer block can only have one @placeholder block (4:3)"`;
+exports[`invalid-for-block-multiple-empty-blocks.html - {"bracketSameLine":false} [angular] format 1`] = `"@for loop can only have one @empty block (4:3)"`;
 
-exports[`invalid-multiple-placeholder-blocks-in-defer.html - {"bracketSameLine":true} [angular] format 1`] = `"@defer block can only have one @placeholder block (4:3)"`;
+exports[`invalid-for-block-multiple-empty-blocks.html - {"bracketSameLine":true} [angular] format 1`] = `"@for loop can only have one @empty block (4:3)"`;
 
 exports[`no-space-blocks.html - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
