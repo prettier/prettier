@@ -6900,13 +6900,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-browserify@npm:1.0.1":
-  version: 1.0.1
-  resolution: "path-browserify@npm:1.0.1"
-  checksum: c6d7fa376423fe35b95b2d67990060c3ee304fc815ff0a2dc1c6c3cfaff2bd0d572ee67e18f19d0ea3bbe32e8add2a05021132ac40509416459fffee35200699
-  languageName: node
-  linkType: hard
-
 "path-exists@npm:^4.0.0":
   version: 4.0.0
   resolution: "path-exists@npm:4.0.0"
@@ -7221,7 +7214,6 @@ __metadata:
     npm-run-all2: 6.1.1
     outdent: 0.8.0
     parse-json: 7.1.1
-    path-browserify: 1.0.1
     please-upgrade-node: 3.2.0
     postcss: 8.4.31
     postcss-less: 6.0.0
