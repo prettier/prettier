@@ -166,7 +166,10 @@ function needsToBorrowParentClosingTagStartMarker(node) {
     !node.next &&
     !node.hasTrailingSpaces &&
     node.isTrailingSpaceSensitive &&
-    isTextLikeNode(getLastDescendant(node))
+    isTextLikeNode(getLastDescendant(node)) &&
+    // for `@if (foo) {bar}`
+    //                   ^
+    node.parent.type !== "block"
   );
 }
 
@@ -209,7 +212,14 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
    *       ><a
    *       ^
    */
-  return !node.prev && node.isLeadingSpaceSensitive && !node.hasLeadingSpaces;
+  return (
+    !node.prev &&
+    node.isLeadingSpaceSensitive &&
+    !node.hasLeadingSpaces &&
+    // for `@if (foo) {bar}`
+    //                 ^
+    node.parent.type !== "block"
+  );
 }
 
 function printAttributes(path, options, print) {
