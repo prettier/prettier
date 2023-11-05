@@ -68,7 +68,7 @@ const animalName =
 3. Every line without `:` or `?` is a **"then"**.
    - If you just see `foo`, that means, "then foo".
 
-And here's the code rewritten to show "case-style" ternaries:
+And here's the code rewritten to demonstrate "case-style" ternaries:
 
 <!-- prettier-ignore -->
 ```ts
