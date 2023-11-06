@@ -70,4 +70,13 @@ describe("file names with special characters", () => {
     stderr: "",
     stdout: "[with-square-brackets].js",
   });
+  runCli("cli/patterns-special-characters/dots/", [
+    "[...with-square-and-dots-brackets].js",
+    "-l",
+  ]).test({
+    status: 1,
+    write: [],
+    stderr: "",
+    stdout: "[...with-square-and-dots-brackets].js",
+  });
 });
