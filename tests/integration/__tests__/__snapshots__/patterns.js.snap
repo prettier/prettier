@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`file names with special characters (stderr) 1`] = `"[error] Explicitly specified file was ignored due to negative glob patterns: "[with-square-brackets].js"."`;
+exports[`file names with special characters (stderr) 1`] = `""`;
 
-exports[`file names with special characters (stdout) 1`] = `""`;
+exports[`file names with special characters (stdout) 1`] = `"[with-square-brackets].js"`;
 
 exports[`file names with special characters (write) 1`] = `[]`;
 
