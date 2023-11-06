@@ -66,5 +66,8 @@ describe("file names with special characters", () => {
     "-l",
   ]).test({
     status: 1,
+    write: [],
+    stderr: "",
+    stdout: "[with-square-brackets].js",
   });
 });
