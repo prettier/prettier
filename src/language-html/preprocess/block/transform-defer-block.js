@@ -55,12 +55,16 @@ function validateDeferredBlocks(connectedBlocks) {
 }
 
 function transformDeferredConnectedBlocks(connectedBlocks) {
-  const [primaryBlock, ...blocks] = connectedBlocks;
-  const transformed = { ...primaryBlock, successorBlock: null };
-  if (blocks.length > 0) {
-    transformed.successorBlock = transformDeferredConnectedBlocks(blocks);
+  if (connectedBlocks.length === 0) {
+    return;
   }
-  return transformed;
+  let currentBlock = connectedBlocks[0];
+  currentBlock.successorBlock = null;
+  for (const nextBlock of connectedBlocks) {
+    nextBlock.successorBlock = null;
+    currentBlock.successorBlock = nextBlock;
+    currentBlock = nextBlock;
+  }
 }
 
 export function transformDeferredBlock(node) {
@@ -70,6 +74,6 @@ export function transformDeferredBlock(node) {
     isConnectedDeferLoopBlock,
   );
   validateDeferredBlocks(connectedBlocks);
-  const transformedDeferred = transformDeferredConnectedBlocks(connectedBlocks);
-  replaceChildrenByConnectedBlocks(node, transformedDeferred, connectedBlocks);
+  transformDeferredConnectedBlocks(connectedBlocks);
+  replaceChildrenByConnectedBlocks(connectedBlocks);
 }

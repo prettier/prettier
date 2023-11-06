@@ -18,22 +18,17 @@ function isConnectedIfLoopBlock(name) {
   return name === "else" || ELSE_IF_PATTERN.test(name);
 }
 
-/**
- * Transform a list of connected blocks into an nested `if` block.
- *
- * @param {Array<any>} connectedBlocks
- * @returns {any}
- */
 function transformIfConnectedBlocks(connectedBlocks) {
   if (connectedBlocks.length === 0) {
-    return null;
+    return;
   }
-  const [primaryBlock, ...blocks] = connectedBlocks;
-  const transformed = { ...primaryBlock, successorBlock: null };
-  if (blocks.length > 0) {
-    transformed.successorBlock = transformIfConnectedBlocks(blocks);
+  let currentBlock = connectedBlocks[0];
+  currentBlock.successorBlock = null;
+  for (const nextBlock of connectedBlocks) {
+    nextBlock.successorBlock = null;
+    currentBlock.successorBlock = nextBlock;
+    currentBlock = nextBlock;
   }
-  return transformed;
 }
 
 export function transformIfBlock(node) {
@@ -42,8 +37,7 @@ export function transformIfBlock(node) {
     node.siblings,
     isConnectedIfLoopBlock,
   );
-  const transformedIfBlock = transformIfConnectedBlocks(connectedBlocks);
-  replaceChildrenByConnectedBlocks(node, transformedIfBlock, connectedBlocks);
-
-  transformedIfBlock.sourceSpan = createSourceSpanForBlocks(connectedBlocks);
+  transformIfConnectedBlocks(connectedBlocks);
+  replaceChildrenByConnectedBlocks(connectedBlocks);
+  node.sourceSpan = createSourceSpanForBlocks(connectedBlocks);
 }

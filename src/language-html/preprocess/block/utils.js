@@ -35,15 +35,12 @@ export function createSourceSpanForBlocks(connectedBlocks) {
  * Replace children of node's parent from array-from to
  * transformed nested-form AST
  */
-export function replaceChildrenByConnectedBlocks(
-  node,
-  replacement,
-  connectedBlocks,
-) {
+export function replaceChildrenByConnectedBlocks(connectedBlocks) {
+  const [node] = connectedBlocks;
   const children = [];
   for (const child of node.parent.children) {
     if (child === node) {
-      children.push(replacement);
+      children.push(node);
       continue;
     }
     if (connectedBlocks.includes(child)) {

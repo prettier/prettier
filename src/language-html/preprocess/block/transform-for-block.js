@@ -16,19 +16,18 @@ function isConnectedForLoopBlock(name) {
 
 function transformForLoopConnectedBlocks(connectedBlocks) {
   const [primaryBlock, ...blocks] = connectedBlocks;
-  const transformed = { ...primaryBlock, successorBlock: null };
+  primaryBlock.successorBlock = null;
   for (const block of blocks) {
     if (block.name === "empty") {
-      if (transformed.successorBlock !== null) {
+      if (primaryBlock.successorBlock !== null) {
         throwSyntaxError(block, "@for loop can only have one @empty block");
       } else if (block.parameters.length > 0) {
         throwSyntaxError(block, "@empty block cannot have parameters");
       } else {
-        transformed.successorBlock = block;
+        primaryBlock.successorBlock = block;
       }
     }
   }
-  return transformed;
 }
 
 export function transformForLoopBlock(node) {
@@ -37,11 +36,6 @@ export function transformForLoopBlock(node) {
     node.siblings,
     isConnectedForLoopBlock,
   );
-  const transformedForLoopBlock =
-    transformForLoopConnectedBlocks(connectedBlocks);
-  replaceChildrenByConnectedBlocks(
-    node,
-    transformedForLoopBlock,
-    connectedBlocks,
-  );
+  transformForLoopConnectedBlocks(connectedBlocks);
+  replaceChildrenByConnectedBlocks(connectedBlocks);
 }

@@ -426,6 +426,68 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`if-else-nested.html - {"bracketSameLine":false} format 1`] = `
+====================================options=====================================
+bracketSameLine: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@if (1) {
+  <p>foo</p>
+} @else if (2) {
+  @if (3) {
+    <p>bar</p>
+  } @else if (4){
+    <p>baz</p>
+  }
+}
+
+=====================================output=====================================
+@if (1) {
+  <p>foo</p>
+} @else if (2) {
+  @if (3) {
+    <p>bar</p>
+  } @else if (4) {
+    <p>baz</p>
+  }
+}
+
+================================================================================
+`;
+
+exports[`if-else-nested.html - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@if (1) {
+  <p>foo</p>
+} @else if (2) {
+  @if (3) {
+    <p>bar</p>
+  } @else if (4){
+    <p>baz</p>
+  }
+}
+
+=====================================output=====================================
+@if (1) {
+  <p>foo</p>
+} @else if (2) {
+  @if (3) {
+    <p>bar</p>
+  } @else if (4) {
+    <p>baz</p>
+  }
+}
+
+================================================================================
+`;
+
 exports[`invalid-defer-block-multiple-error-blocks.html - {"bracketSameLine":false} [angular] format 1`] = `"@defer block can only have one @error block (4:3)"`;
 
 exports[`invalid-defer-block-multiple-error-blocks.html - {"bracketSameLine":true} [angular] format 1`] = `"@defer block can only have one @error block (4:3)"`;
