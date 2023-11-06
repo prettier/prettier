@@ -3883,13 +3883,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-utils@npm:4.1.2":
-  version: 4.1.2
-  resolution: "esm-utils@npm:4.1.2"
+"esm-utils@npm:4.2.0":
+  version: 4.2.0
+  resolution: "esm-utils@npm:4.2.0"
   dependencies:
-    import-meta-resolve: 2.2.2
+    import-meta-resolve: 4.0.0
     url-or-path: 2.1.0
-  checksum: a78f977d18cf3e07f352ce465fd3b083a7e33942980430eb4769c79d67fc5679a272b3e11666405c2dc9eeaebf2de949ffdf7f49976974b4d5683688f5c1708c
+  checksum: b514a47602c0b90a37d0cfff52a76769a8c2084d954177b117b9bace55537288c5f743c1960f32d444a66fcd6c7ee4fb7769e4102724853f11873bc47a893974
   languageName: node
   linkType: hard
 
@@ -4785,13 +4785,6 @@ __metadata:
   bin:
     import-local-fixture: fixtures/cli.js
   checksum: bfcdb63b5e3c0e245e347f3107564035b128a414c4da1172a20dc67db2504e05ede4ac2eee1252359f78b0bfd7b19ef180aec427c2fce6493ae782d73a04cddd
-  languageName: node
-  linkType: hard
-
-"import-meta-resolve@npm:2.2.2":
-  version: 2.2.2
-  resolution: "import-meta-resolve@npm:2.2.2"
-  checksum: 3a5910a6f914b5f06b307d7d1c25710bc56f12e21e923d5b2180dd0d53c6c2d51e7b55df26f168b63f5670babcaca9422b7a9429e877bbb8c1997d79bd65882b
   languageName: node
   linkType: hard
 
@@ -7211,7 +7204,7 @@ __metadata:
     eslint-plugin-react: 7.33.2
     eslint-plugin-regexp: 1.15.0
     eslint-plugin-unicorn: 48.0.1
-    esm-utils: 4.1.2
+    esm-utils: 4.2.0
     espree: 9.6.1
     execa: 7.2.0
     fast-glob: 3.3.1
