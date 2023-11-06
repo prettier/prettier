@@ -24,7 +24,8 @@ function transformIfConnectedBlocks(connectedBlocks) {
   }
   let currentBlock = connectedBlocks[0];
   currentBlock.successorBlock = null;
-  for (const nextBlock of connectedBlocks) {
+  for (let i = 1; i < connectedBlocks.length; i++) {
+    const nextBlock = connectedBlocks[i];
     nextBlock.successorBlock = null;
     currentBlock.successorBlock = nextBlock;
     currentBlock = nextBlock;
