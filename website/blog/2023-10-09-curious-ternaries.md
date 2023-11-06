@@ -4,7 +4,11 @@ authorURL: "https://github.com/rattrayalex"
 title: "A curious case of the ternaries"
 ---
 
-Ternary formatting has always been a topic of debate, and we've taken strides to address it in v3.1. With the introduction of a new formatting style, we're eager for you to experience it firsthand. Before diving deeper, we want to share our journey and the motivation behind this change. Please read on and don't miss trying out our `--experimental-ternaries` option!
+Ternary formatting has always been a challenge, and we're finally addressing it in v3.1.0 with the introduction of a novel formatting style.
+
+Read on for our journey and the motivation behind this change, along with early developer feedback and an overview of the "curious ternaries" style.
+
+Please give the `--experimental-ternaries` option a try and let us know what you think!
 
 _For a quick tl;dr, [see the release post](/blog/2023/10/01/3.1.0)._
 
@@ -12,17 +16,38 @@ _For a quick tl;dr, [see the release post](/blog/2023/10/01/3.1.0)._
 
 ## Introduction
 
-Printing nested ternaries nicely in a wide variety of scenarios is a surprisingly tricky challenge.
+Formatting nested ternaries nicely in a wide variety of scenarios is a surprisingly tricky challenge.
 
-Prettier's original, naïve approach – just add indentation to each level of a nested ternary – worked fine in simple cases, but didn't scale to deeply nested ternaries and [had other problems](https://github.com/prettier/prettier/issues/737).
+Developers have long found them so confusing to read that they end up just refactoring their code to an ugly series of `if`-`else` statements, often with a `let` declaration, an iife, or a separate function entirely.
 
-So in 2018, we [replaced that with flat ternaries](https://github.com/prettier/prettier/pull/5039), which [seemed](https://github.com/prettier/prettier/pull/4767#issuecomment-401764876) like a good idea at the time, but was [not received well](https://github.com/prettier/prettier/issues/5814) – the issue asking it to be reverted has well over 500 upvotes.
+According to beta testers, the new formatting style we've developed can take some getting used to, but ultimately allows ternaries to be practically used as a concise form of `if`-`else`-expressions in modern codebases.
 
-Over the last few years, we [explored](https://github.com/prettier/prettier/issues/9561) and experimented with many, many possible solutions which would be as readable as nested ternaries in common cases, but also scale to work well in a wider variety of situations.
+## Historical background
 
-Ideally, we'd find one scheme that would fluidly flow from a single ternary, to a chain of 2, to a long chain of simple cases, to something more complex with a few nested conditions. The syntax in JSX, TypeScript conditional expressions (which cannot be expressed with `if`), and normal JS should all look and feel the same. And in all cases, it should be easy to follow what's the "if", what's the "then", and what's the "else" – and what they map to.
+Prettier's original, naïve approach – just add indentation to each level of a nested ternary – worked fine in simple cases, but obviously doesn't scale to long chains of nested ternaries and [had other problems](https://github.com/prettier/prettier/issues/737).
 
-The good news is that we found it. The bad news is that it's novel, and thus unfamiliar to most developers.
+So in 2018, we [replaced that with flat ternaries](https://github.com/prettier/prettier/pull/5039), which [seemed](https://github.com/prettier/prettier/pull/4767#issuecomment-401764876) like a good idea at the time, but was [not received well](https://github.com/prettier/prettier/issues/5814) – the issue asking it to be reverted had well over 500 upvotes.
+
+While we did ultimately [revert back to indented ternaries](https://github.com/prettier/prettier/pull/9559), we wanted to find a better way.
+
+Over the last few years, we [explored](https://github.com/prettier/prettier/issues/9561) and experimented with many, many possible solutions which would be as readable as indented ternaries in common cases, but also scale to work well in a wider variety of situations.
+
+## Challenging criteria
+
+Ideally, we'd find one scheme that would meet our criteria:
+
+1. In all cases, it should be easy to follow "what's the `if`", "what's the `then`", and "what's the `else`" – and what they map to.
+2. The code should fluidly flow from a single ternary, to a chain of 2, to a long chain of simple cases, to something more complex with a few nested conditions. (Most alternatives we explored failed this test).
+3. The syntax in JSX, TypeScript conditional expressions (which cannot be expressed with `if`), and normal JS should all look and feel the same.
+4. It should scale to nested ternary chains of arbitrary length (imagine a TypeScript conditional type with dozens of alternative cases).
+
+Indented ternaries clearly [failed (4)](https://github.com/prettier/prettier/pull/9559#issuecomment-720736156), arguably (1), and even (3) – we have almost always printed JSX ternaries in a flat-but-readable format that unfortunately [felt unnatural](https://github.com/prettier/prettier/pull/9552) outside of JSX.
+
+Many people in the community were excited about a "case-style", drawing inspiration from the `match` syntax from languages like Rust or OCaml, but it did not meet (2) and [other goals](https://github.com/prettier/prettier/issues/9561#goals:~:text=on%20that%20below.-,Goals,-I%27d%20like%20to).
+
+## A surprising solution
+
+The good news is that we found a formatting algorithm that met our criteria. The bad news is that it's novel, and thus unfamiliar to most developers.
 
 In beta testing this feature, we found developers were quite skeptical when they first saw it:
 
@@ -34,15 +59,15 @@ But then, after using it for a bit, they didn't want to go back:
 
 Another developer had this to say:
 
-> My first hour with the rule on, it felt a little odd. But by hour two, I’d used it a few times to solve problems that otherwise would have been ugly refactors to if statements. I’m not going back.
+> My first hour with the rule on, it felt a little odd. But by hour two, I’d used it a few times to solve problems that otherwise would have been ugly refactors to `if` statements. I’m not going back.
 
-> I used to hate nested ternaries, but I also hate restructuring a nice line of code into if-else statements. The new rule adds an understandable, linear if-else if-else expression to the language and is much nicer than multiple ternaries as nested branches.
+> I used to hate nested ternaries, but I also hate restructuring a nice line of code into `if-else` statements. The new rule adds an understandable, linear `if-else`, `if-else` expression to the language and is much nicer than multiple ternaries as nested branches.
 
-So we felt we had a winning formula, but it could be a jarring introduction to the community.
+So we felt we had a winning formula, but we knew it could be a jarring introduction to the community.
 
 As a result, we decided to put this new formatting behind a temporary `--experimental-ternaries` option for a few months, and in the meantime go ahead and ship what the community has been clammering for: [indented ternaries](https://github.com/prettier/prettier/pull/9559).
 
-## Overview
+## Styling Overview
 
 So what does this new style look like, anyway?
 
