@@ -59,3 +59,12 @@ describe("multiple patterns, throw error and exit with non zero code on non exis
     status: 2,
   });
 });
+
+describe("file names with special characters", () => {
+  runCli("cli/patterns-special-characters/square-brackets/", [
+    "[with-square-brackets].js",
+    "-l",
+  ]).test({
+    status: 1,
+  });
+});
