@@ -15,8 +15,8 @@ const {
   dirname,
   resolve: importMetaResolve,
 } = createEsmUtils(import.meta);
-const resolveEsmModulePath = async (specifier) =>
-  url.fileURLToPath(await importMetaResolve(specifier));
+const resolveEsmModulePath = (specifier) =>
+  url.fileURLToPath(importMetaResolve(specifier));
 const copyFileBuilder = ({ file }) =>
   copyFile(
     path.join(PROJECT_ROOT, file.input),
@@ -256,7 +256,7 @@ const pluginFiles = [
     input: "src/plugins/acorn.js",
     replaceModule: [
       {
-        module: await resolveEsmModulePath("espree"),
+        module: resolveEsmModulePath("espree"),
         process(text) {
           const lines = text.split("\n");
 
@@ -303,7 +303,7 @@ const pluginFiles = [
     replaceModule: [
       {
         // We don't use value of JSXText
-        module: await resolveEsmModulePath("meriyah"),
+        module: resolveEsmModulePath("meriyah"),
         find: "parser.tokenValue = decodeHTMLStrict(raw);",
         replacement: "parser.tokenValue = raw;",
       },
