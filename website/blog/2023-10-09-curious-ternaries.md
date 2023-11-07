@@ -2,6 +2,7 @@
 author: "Alex Rattray (@rattrayalex)"
 authorURL: "https://github.com/rattrayalex"
 title: "A curious case of the ternaries"
+draft: true
 ---
 
 Ternary formatting has always been a challenge, and we're finally addressing it in v3.1.0 with the introduction of a novel formatting style.
