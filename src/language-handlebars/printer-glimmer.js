@@ -365,9 +365,63 @@ function print(path, options, print) {
         "}}",
       ];
     }
-    case "PathExpression":
-      return node.original;
+    case "PathExpression": {
+      const onlyDigitsRegex = /^\d*$/;
+      const whitespaceRegex = /\s/;
 
+      if (
+        node.data ||
+        (node.parts.length === 1 && node.original.includes("/"))
+      ) {
+        // check if node has data, or
+        // check if node is a legacy path expression (and leave it alone)
+        return node.original;
+      }
+
+      const literalSegments = [
+        "!",
+        '"',
+        "#",
+        "%",
+        "&",
+        "'",
+        "(",
+        ")",
+        "*",
+        "+",
+        ",",
+        ".",
+        "/",
+        ";",
+        "<",
+        "=",
+        ">",
+        "@",
+        "[",
+        "\\",
+        "]",
+        "^",
+        "`",
+        "{",
+        "|",
+        "}",
+        "~",
+      ];
+
+      return [...(node.this ? ["this"] : []), ...node.parts.map((part, idx) => {
+        // check if element contains literal segments, or
+        // check if element contains any whitespace, or
+        // check if element is a number (and not the first element)
+        if (
+          literalSegments.some((segment) => part.includes(segment)) ||
+          whitespaceRegex.test(part) ||
+          (idx > 0 && part.match(onlyDigitsRegex) !== null)
+        ) {
+          return ("[" + part + "]");
+        }
+        return part;
+      })].join(".");
+    }
     case "BooleanLiteral":
       return String(node.value);
 

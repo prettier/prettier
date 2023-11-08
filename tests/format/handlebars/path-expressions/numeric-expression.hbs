@@ -1,0 +1,21 @@
+<div>
+  {{people.[1].name}}
+  {{people.[1]}}
+  {{array.[1].barray.[13]}}
+  {{array.[1234]}}
+  {{array.[123].[item-class]}}
+  {{array.[12].item}}
+</div>
+
+<ul class="people_list">
+  {{#each people}}
+  <li>{{array.[2]}}</li>
+  {{/each}}
+</ul>
+
+<div>
+  {{#if @foo}}
+  {{bar.[1]}}
+  {{bar.1.name}}
+  {{/if}}
+</div> 
