@@ -79,7 +79,11 @@ function printBlock(path, options, print) {
     throw new Error("Unknown block name: " + node.name);
   }
 
-  if (setting.isFollowingBlock) {
+  if (
+    setting.isFollowingBlock &&
+    path.previous &&
+    path.previous.type === "block"
+  ) {
     contents.push("} ");
   }
 
