@@ -80,7 +80,7 @@ function printBlock(path, options, print) {
   }
 
   if (setting.isFollowingBlock) {
-    contents.push('} ');
+    contents.push("} ");
   }
 
   contents.push(`@${node.name}`);
@@ -90,7 +90,7 @@ function printBlock(path, options, print) {
     contents.push(` (${expression})`);
   }
 
-  contents.push(' {');
+  contents.push(" {");
 
   const children = printChildren(path, options, print);
   contents.push(indent([hardline, children]));
