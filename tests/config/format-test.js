@@ -400,9 +400,6 @@ async function runTest({
     const originalAst = await parse(input, formatOptions);
     const formattedAst = await parse(output, formatOptions);
 
-    removeAngularBlockInfo(originalAst);
-    removeAngularBlockInfo(formattedAst);
-
     if (isAstUnstableTest) {
       expect(formattedAst).not.toEqual(originalAst);
     } else {
@@ -533,14 +530,3 @@ async function format(originalText, originalOptions) {
 }
 
 export default runSpec;
-
-export function removeAngularBlockInfo(ast, deleted = []) {
-  for (let key in ast) {
-    if (["line", "offset", "col", "content"].includes(key)) {
-      delete ast[key];
-      deleted.push(key);
-    } else if (typeof ast[key] === "object") {
-      removeAngularBlockInfo(ast[key], deleted);
-    }
-  }
-}
