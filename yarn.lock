@@ -4816,10 +4816,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"index-to-position@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "index-to-position@npm:0.1.0"
-  checksum: d72a0694e001998008615d3dd662a49ebfdbdc18a78163e69c284a66553e46e5c5129f1a7fbde561ccef9429ac77a7fa8d577e4e3c99879ce4876a8f776dc0d5
+"index-to-position@npm:^0.1.1":
+  version: 0.1.2
+  resolution: "index-to-position@npm:0.1.2"
+  checksum: ce0ab15544b154d6821b4f8b3fdb5dc410d560d20e43bcb0fb8ea2ccc5f93dc04caeee6b3ebd4abc7091e437156db4caaaef934ce20f05f079a1dbc73755f7e7
   languageName: node
   linkType: hard
 
@@ -6892,15 +6892,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse-json@npm:8.0.0":
-  version: 8.0.0
-  resolution: "parse-json@npm:8.0.0"
+"parse-json@npm:8.0.1":
+  version: 8.0.1
+  resolution: "parse-json@npm:8.0.1"
   dependencies:
     "@babel/code-frame": ^7.22.13
-    index-to-position: ^0.1.0
+    index-to-position: ^0.1.1
     json-parse-even-better-errors: ^3.0.0
-    type-fest: ^4.6.0
-  checksum: 273d32b15a0ef5c2cc4278025b3b2ef8984755e3208c484d05571682880c2255d661ca0bd83aa6d0b5b7f944e7a156f6ffed5525ff0a43a5716b78a54d637feb
+    type-fest: ^4.7.1
+  checksum: 59e070cfcf85031443e7d14455ff583c255e465fb70f97cb1913bc99d3a6c0bea376e90d04ab73d26523f2d6b0b20e4c3a3a0ee14075e4f3ac1fd650fee4d08f
   languageName: node
   linkType: hard
 
@@ -7242,7 +7242,7 @@ __metadata:
     n-readlines: 1.0.1
     npm-run-all2: 6.1.1
     outdent: 0.8.0
-    parse-json: 8.0.0
+    parse-json: 8.0.1
     please-upgrade-node: 3.2.0
     postcss: 8.4.31
     postcss-less: 6.0.0
@@ -8488,10 +8488,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.2.0, type-fest@npm:^4.6.0":
-  version: 4.6.0
-  resolution: "type-fest@npm:4.6.0"
-  checksum: e38f2b4b35e912bf60dbe7d4350653fb76b241a456e849fab85002ba08e938a26a7c44a330dd5620dd48ce57566be7c97e997064dc0d5066d5b6949b8c444430
+"type-fest@npm:^4.2.0, type-fest@npm:^4.7.1":
+  version: 4.7.1
+  resolution: "type-fest@npm:4.7.1"
+  checksum: 95d31b2421955e8e3d58508515e02061fa7fe05d7097b20feb33fa7ee392959a5a38b302957485895a7a287556d14c8d6721b66bebb71391be151ce128755413
   languageName: node
   linkType: hard
 
