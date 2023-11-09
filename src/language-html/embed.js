@@ -23,6 +23,7 @@ import {
 import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
 import getNodeContent from "./get-node-content.js";
 import printAttribute from "./embed/attribute.js";
+import printBlock from "./embed/block.js";
 
 function embed(path, options) {
   const { node } = path;
@@ -135,6 +136,9 @@ function embed(path, options) {
 
     case "front-matter":
       return (textToDoc) => printFrontMatter(node, textToDoc);
+
+    case "block":
+      return printBlock(path, options);
   }
 }
 

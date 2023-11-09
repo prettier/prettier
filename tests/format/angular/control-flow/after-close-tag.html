@@ -1,0 +1,25 @@
+<ion-list class="timeline" appScrollItem>
+  @for (t of timeline[areaId]; track t.orderId; let i = $index) {
+    <app-tweet-item></app-tweet-item>@if (
+      areaId &&
+      canTweet
+    ) {
+      <ion-item class="recommend-trust-up" lines="full"></ion-item>
+    }
+  }
+</ion-list>
+
+<ng-container *ngIf="
+      areaId &&
+      canTweet
+">
+<ion-item class="recommend-trust-up" lines="full"></ion-item>
+</ng-container>
+
+
+@if (
+      areaId &&
+      canTweet
+    ) {
+      <ion-item class="recommend-trust-up" lines="full"></ion-item>
+    }

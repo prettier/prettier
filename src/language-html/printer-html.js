@@ -20,7 +20,6 @@ import {
 } from "./print/tag.js";
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
-import { printBlock } from "./print/block.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 
 function genericPrint(path, options, print) {
@@ -39,7 +38,11 @@ function genericPrint(path, options, print) {
       return printElement(path, options, print);
 
     case "block":
-      return printBlock(path, options, print);
+      const span = path.node.sourceSpan;
+      return span.start.file.content.substring(
+        span.start.offset,
+        span.end.offset,
+      );
 
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":

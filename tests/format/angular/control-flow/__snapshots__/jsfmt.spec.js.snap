@@ -1,5 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`after-close-tag.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<ion-list class="timeline" appScrollItem>
+  @for (t of timeline[areaId]; track t.orderId; let i = $index) {
+    <app-tweet-item></app-tweet-item>@if (
+      areaId &&
+      canTweet
+    ) {
+      <ion-item class="recommend-trust-up" lines="full"></ion-item>
+    }
+  }
+</ion-list>
+
+<ng-container *ngIf="
+      areaId &&
+      canTweet
+">
+<ion-item class="recommend-trust-up" lines="full"></ion-item>
+</ng-container>
+
+
+@if (
+      areaId &&
+      canTweet
+    ) {
+      <ion-item class="recommend-trust-up" lines="full"></ion-item>
+    }
+
+=====================================output=====================================
+<ion-list class="timeline" appScrollItem>
+  @for (t of timeline[areaId]; track t.orderId; let i = $index) {
+    <app-tweet-item></app-tweet-item>
+    @if (areaId && canTweet) {
+      <ion-item class="recommend-trust-up" lines="full"></ion-item>
+    }
+  }
+</ion-list>
+
+<ng-container *ngIf="areaId && canTweet">
+  <ion-item class="recommend-trust-up" lines="full"></ion-item>
+</ng-container>
+
+@if (areaId && canTweet) {
+  <ion-item class="recommend-trust-up" lines="full"></ion-item>
+}
+
+================================================================================
+`;
+
 exports[`defer.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
@@ -67,6 +120,14 @@ printWidth: 80
 <span>Placeholder (hover it, then click on it!)</span>
 }
 
+
+@defer (on interaction; prefetch on hover) {
+<app-c3/>
+}
+@placeholder {
+<span>Placeholder (hover it, then click on it!)</span>
+}
+
 =====================================output=====================================
 @defer (when isCheckedDefer()) {
   <app-c1 />
@@ -114,6 +175,12 @@ printWidth: 80
   <span>Placeholder (hover it, then click on it!)</span>
 }
 
+@defer (on interaction; prefetch on hover) {
+  <app-c3 />
+} @placeholder {
+  <span>Placeholder (hover it, then click on it!)</span>
+}
+
 ================================================================================
 `;
 
@@ -134,6 +201,12 @@ printWidth: 80
 
 
 <ul>
+  <ng-container *ngIf="item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count">
+  <li><strong>{{item.name}}</strong> index={{index}} first={{first}} last={{last}} even={{even}} odd={{odd}} count={{count}}</li>
+</ng-container>
+  </ul>
+
+<ul>
 @for (item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count) {
 <li><strong>{{item.name}}</strong> index={{index}} first={{first}} last={{last}} even={{even}} odd={{odd}} count={{count}}</li>
 }
@@ -148,6 +221,19 @@ printWidth: 80
   } @empty {
     <span>The collection is empty</span>
   }
+</ul>
+
+<ul>
+  <ng-container
+    *ngIf="item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count"
+  >
+    <li>
+      <strong>{{ item.name }}</strong> index={{ index }} first={{
+        first
+      }}
+      last={{ last }} even={{ even }} odd={{ odd }} count={{ count }}
+    </li>
+  </ng-container>
 </ul>
 
 <ul>
@@ -183,6 +269,16 @@ printWidth: 80
 }
 </div>
 
+@if (users$   |   async;   as   users) { {{   users.length   }} }
+
+<div *ngIf="users$   |   async;   as   users">{{   users.length   }}</div>
+
+@else if () {}
+
+
+@if (isDev) {}
+@else             if (test) {}
+
 =====================================output=====================================
 <h3>&#64;if and &#64;else</h3>
 <div>
@@ -201,6 +297,22 @@ printWidth: 80
     <span>Not checked</span>
   }
 </div>
+
+@if (users$ | async; as: users) {
+  {{ users.length }}
+}
+
+<div *ngIf="users$ | async; as: users">{{ users.length }}</div>
+
+@else if () {
+
+}
+
+@if (isDev) {
+
+} @else if (test) {
+
+}
 
 ================================================================================
 `;
@@ -227,7 +339,7 @@ printWidth: 80
   <human-profile [data]="user" />
 } @else if (user.isRobot) {
   <!-- robot users are rare, so load their profiles lazily -->
-  @defer () {
+  @defer {
     <robot-profile [data]="user" />
   }
 } @else {
@@ -303,10 +415,10 @@ printWidth: 80
 
 <!-- comment -->
 @if (isChecked()) {
-  <span>
-    Checked
-    <!-- comment -->
-  </span>
+<span>
+  Checked
+  <!-- comment -->
+</span>
 }
 <!-- comment -->
 @else {

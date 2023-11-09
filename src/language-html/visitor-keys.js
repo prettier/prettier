@@ -11,8 +11,8 @@ const visitorKeys = {
   comment: [],
   attribute: [],
   cdata: [],
-  block: ["children", "parameters"],
-  blockParameter: [],
+  block: ["children", "parameters", "successorBlock"],
+  blockParameter: ["expression"],
 };
 
 export default visitorKeys;

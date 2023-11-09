@@ -10,3 +10,13 @@
 <span>Not checked</span>
 }
 </div>
+
+@if (users$   |   async;   as   users) { {{   users.length   }} }
+
+<div *ngIf="users$   |   async;   as   users">{{   users.length   }}</div>
+
+@else if () {}
+
+
+@if (isDev) {}
+@else             if (test) {}
