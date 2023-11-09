@@ -22,17 +22,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:16.2.6":
-  version: 16.2.6
-  resolution: "@angular/compiler@npm:16.2.6"
+"@angular/compiler@npm:17.0.1":
+  version: 17.0.1
+  resolution: "@angular/compiler@npm:17.0.1"
   dependencies:
     tslib: ^2.3.0
   peerDependencies:
-    "@angular/core": 16.2.6
+    "@angular/core": 17.0.1
   peerDependenciesMeta:
     "@angular/core":
       optional: true
-  checksum: ad8e483cd29eca4bae4971116fc5d7d7e17a9128a396e8d309aeb8021e93ab28a8855264779aba8a676f7d9ca6ec3c0148a0d8c8f549b5dead7a8ad545c98ef1
+  checksum: 9ae0e385f6e6f6881215c9e944be4c9eeb57effa54bcea054d2a8281d611b4ec391b477e6b893f02fcaa15a0e52edd6967ead563f1f3396648f2c9ce5e8a1cac
   languageName: node
   linkType: hard
 
@@ -2042,15 +2042,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-estree-parser@npm:7.0.0":
-  version: 7.0.0
-  resolution: "angular-estree-parser@npm:7.0.0"
+"angular-estree-parser@npm:8.0.2":
+  version: 8.0.2
+  resolution: "angular-estree-parser@npm:8.0.2"
   dependencies:
-    lines-and-columns: ^2.0.3
-    tslib: ^2.5.0
+    lines-and-columns: ^2.0.4
+    tslib: ^2.6.2
   peerDependencies:
-    "@angular/compiler": ^16.0.0
-  checksum: 1e030934767219803cefa997536206a2b163f4f0f3768cfcc09d14af7193ab67b51152e676a969a446a5fd6605c68e451b049d8c281eb8ea815cee2b8218561c
+    "@angular/compiler": ^17.0.0
+  checksum: 130c90eb3ed825387da4f9931531fb3284648445da141711fddfab3b25600457671940b24500eb586518851114804e6010a0c8ca4f8d5e59c455fe40a12217b7
   languageName: node
   linkType: hard
 
@@ -6008,10 +6008,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lines-and-columns@npm:2.0.3, lines-and-columns@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "lines-and-columns@npm:2.0.3"
-  checksum: 5955363dfd7d3d7c476d002eb47944dbe0310d57959e2112dce004c0dc76cecfd479cf8c098fd479ff344acdf04ee0e82b455462a26492231ac152f6c48d17a1
+"lines-and-columns@npm:2.0.4, lines-and-columns@npm:^2.0.3, lines-and-columns@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "lines-and-columns@npm:2.0.4"
+  checksum: f5e3e207467d3e722280c962b786dc20ebceb191821dcd771d14ab3146b6744cae28cf305ee4638805bec524ac54800e15698c853fcc53243821f88df37e4975
   languageName: node
   linkType: hard
 
@@ -7152,7 +7152,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": 16.2.6
+    "@angular/compiler": 17.0.1
     "@babel/code-frame": 7.22.13
     "@babel/generator": 7.22.15
     "@babel/parser": 7.23.0
@@ -7171,7 +7171,7 @@ __metadata:
     "@typescript-eslint/visitor-keys": 6.7.2
     acorn: 8.11.2
     acorn-jsx: 5.3.2
-    angular-estree-parser: 7.0.0
+    angular-estree-parser: 8.0.2
     angular-html-parser: 5.0.2
     benchmark: 2.1.4
     browserslist-to-esbuild: 1.2.0
@@ -7232,7 +7232,7 @@ __metadata:
     json5: 2.2.3
     leven: 4.0.0
     lilconfig: 2.1.0
-    lines-and-columns: 2.0.3
+    lines-and-columns: 2.0.4
     linguist-languages: 7.27.0
     magic-string: 0.30.3
     mem: 9.0.2
@@ -8405,7 +8405,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.5.0, tslib@npm:^2.6.0, tslib@npm:^2.6.2":
+"tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.6.0, tslib@npm:^2.6.2":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 329ea56123005922f39642318e3d1f0f8265d1e7fcb92c633e0809521da75eeaca28d2cf96d7248229deb40e5c19adf408259f4b9640afd20d13aecc1430f3ad
