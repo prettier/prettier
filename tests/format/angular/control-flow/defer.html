@@ -1,0 +1,60 @@
+@defer (when isCheckedDefer()) {
+<app-c1/>
+}
+@placeholder {
+<span>Placeholder</span>
+}
+@error {
+<span>Error</span>
+}
+@loading(minimum 1s) {
+<span>Loading...</span>
+}
+
+
+@defer (on interaction) {
+  <span>Clicked</span>
+}
+@placeholder {
+  <span>Placeholder (click on it!)</span>
+}
+
+
+@defer (on hover) {
+  <span>Hovered</span>
+}
+@placeholder {
+  <span>Placeholder (hover it!)</span>
+}
+
+
+@defer (on idle) {
+  <span>Browser has reached an idle state</span>
+}
+@placeholder {
+  <span>Placeholder</span>
+}
+
+
+@defer (on timer(5s)) {
+  <span>Visible after 5s</span>
+}
+@placeholder {
+  <span>Placeholder</span>
+}
+
+
+@defer (on viewport) {
+  <app-c2 text="The block entered the viewport"/>
+}
+@placeholder {
+  <span>Placeholder</span>
+}
+
+
+@defer (on interaction; prefetch on hover) {
+  <app-c3/>
+}
+@placeholder {
+  <span>Placeholder (hover it, then click on it!)</span>
+}

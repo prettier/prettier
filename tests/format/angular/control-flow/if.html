@@ -1,0 +1,12 @@
+<h3>&#64;if and &#64;else</h3>
+<div>
+  <input #checkbox type="checkbox" [checked]="isChecked()" (change)="isChecked.set(checkbox.checked)" id="checkbox"/>
+</div>
+<div>
+@if (isChecked()) {
+  <span>Checked</span>
+}
+@else {
+  <span>Not checked</span>
+}
+</div>

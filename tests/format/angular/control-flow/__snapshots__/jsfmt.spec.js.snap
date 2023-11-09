@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defer.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@defer (when isCheckedDefer()) {
+<app-c1/>
+}
+@placeholder {
+<span>Placeholder</span>
+}
+@error {
+<span>Error</span>
+}
+@loading(minimum 1s) {
+<span>Loading...</span>
+}
+
+
+@defer (on interaction) {
+  <span>Clicked</span>
+}
+@placeholder {
+  <span>Placeholder (click on it!)</span>
+}
+
+
+@defer (on hover) {
+  <span>Hovered</span>
+}
+@placeholder {
+  <span>Placeholder (hover it!)</span>
+}
+
+
+@defer (on idle) {
+  <span>Browser has reached an idle state</span>
+}
+@placeholder {
+  <span>Placeholder</span>
+}
+
+
+@defer (on timer(5s)) {
+  <span>Visible after 5s</span>
+}
+@placeholder {
+  <span>Placeholder</span>
+}
+
+
+@defer (on viewport) {
+  <app-c2 text="The block entered the viewport"/>
+}
+@placeholder {
+  <span>Placeholder</span>
+}
+
+
+@defer (on interaction; prefetch on hover) {
+  <app-c3/>
+}
+@placeholder {
+  <span>Placeholder (hover it, then click on it!)</span>
+}
+
+=====================================output=====================================
+@defer (when isCheckedDefer()) {
+  <app-c1 />
+} @placeholder {
+  <span>Placeholder</span>
+} @error {
+  <span>Error</span>
+} @loading (minimum 1s) {
+  <span>Loading...</span>
+}
+
+@defer (on interaction) {
+  <span>Clicked</span>
+} @placeholder {
+  <span>Placeholder (click on it!)</span>
+}
+
+@defer (on hover) {
+  <span>Hovered</span>
+} @placeholder {
+  <span>Placeholder (hover it!)</span>
+}
+
+@defer (on idle) {
+  <span>Browser has reached an idle state</span>
+} @placeholder {
+  <span>Placeholder</span>
+}
+
+@defer (on timer(5s)) {
+  <span>Visible after 5s</span>
+} @placeholder {
+  <span>Placeholder</span>
+}
+
+@defer (on viewport) {
+  <app-c2 text="The block entered the viewport" />
+} @placeholder {
+  <span>Placeholder</span>
+}
+
+@defer (on interaction; prefetch on hover) {
+  <app-c3 />
+} @placeholder {
+  <span>Placeholder (hover it, then click on it!)</span>
+}
+
+================================================================================
+`;
+
+exports[`for.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<ul>
+@for (item of emptyCollection; track item.id;) {
+<li><strong>{{item.name}}</strong></li>
+}
+@empty {
+<span>The collection is empty</span>
+}
+</ul>
+
+
+<ul>
+@for (item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count) {
+<li><strong>{{item.name}}</strong> index={{index}} first={{first}} last={{last}} even={{even}} odd={{odd}} count={{count}}</li>
+}
+</ul>
+
+=====================================output=====================================
+<ul>
+  @for (item of emptyCollection; track item.id) {
+    <li>
+      <strong>{{ item.name }}</strong>
+    </li>
+  } @empty {
+    <span>The collection is empty</span>
+  }
+</ul>
+
+<ul>
+  @for (item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count) {
+    <li>
+      <strong>{{ item.name }}</strong> index={{ index }} first={{
+        first
+      }}
+      last={{ last }} even={{ even }} odd={{ odd }} count={{ count }}
+    </li>
+  }
+</ul>
+
+================================================================================
+`;
+
+exports[`if.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<h3>&#64;if and &#64;else</h3>
+<div>
+  <input #checkbox type="checkbox" [checked]="isChecked()" (change)="isChecked.set(checkbox.checked)" id="checkbox"/>
+</div>
+<div>
+@if (isChecked()) {
+  <span>Checked</span>
+}
+@else {
+  <span>Not checked</span>
+}
+</div>
+
+=====================================output=====================================
+<h3>&#64;if and &#64;else</h3>
+<div>
+  <input
+    #checkbox
+    type="checkbox"
+    [checked]="isChecked()"
+    (change)="isChecked.set(checkbox.checked)"
+    id="checkbox"
+  />
+</div>
+<div>
+  @if (isChecked()) {
+    <span>Checked</span>
+  } @else {
+    <span>Not checked</span>
+  }
+</div>
+
+================================================================================
+`;
+
+exports[`switch.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@switch (radioValue()) {
+@case (1) {
+<span>Case 1</span>
+}
+@case (2) {
+<span>Case 2</span>
+}
+@default {
+<span>Default case (Not 1 or 2)</span>
+}
+}
+
+=====================================output=====================================
+@switch (radioValue()) {
+  @case (1) {
+    <span>Case 1</span>
+  }
+  @case (2) {
+    <span>Case 2</span>
+  }
+  @default {
+    <span>Default case (Not 1 or 2)</span>
+  }
+}
+
+================================================================================
+`;
