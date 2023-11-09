@@ -70,29 +70,29 @@ const settings = {
 };
 
 function printBlock(path, options, print) {
-  const node = path.node;
+  const { node } = path;
 
   const setting = settings[node.name];
-  let contents = [];
+  const contents = [];
 
   if (!setting) {
     throw new Error("Unknown block name: " + node.name);
   }
 
   if (setting.isFollowingBlock) {
-    contents.push(`} `);
+    contents.push('} ');
   }
 
   contents.push(`@${node.name}`);
 
   if (setting.withExpression) {
-    let expression = fetchExpression(node);
+    const expression = fetchExpression(node);
     contents.push(` (${expression})`);
   }
 
-  contents.push(` {`);
+  contents.push(' {');
 
-  let children = printChildren(path, options, print);
+  const children = printChildren(path, options, print);
   contents.push(indent([hardline, children]));
 
   if (shouldCloseBlock(node, setting.followingBlocks)) {
@@ -108,7 +108,7 @@ function printBlock(path, options, print) {
 export { printBlock };
 
 function shouldCloseBlock(node, names) {
-  return names.length == 0 || !node.next || !names.includes(node.next.name);
+  return names.length === 0 || !node.next || !names.includes(node.next.name);
 }
 
 function fetchExpression(node) {
