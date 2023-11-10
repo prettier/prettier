@@ -316,21 +316,13 @@ printWidth: 80
 
 <div *ngIf="users$ | async; as: users">{{ users.length }}</div>
 
-@else {
-
-}
+@else {}
 
 @if (isDev) {
-
-} @else if (test) {
-
-}
+} @else if (test) {}
 
 @if (foo("quotes")) {
-
-} @else if (foo("quotes")) {
-
-}
+} @else if (foo("quotes")) {}
 
 ================================================================================
 `;
@@ -412,12 +404,8 @@ printWidth: 80
 }
 
 =====================================output=====================================
-@unknown (foo) {
-
-}
-@unknown (foo) {
-
-}
+@unknown (foo) {}
+@unknown (foo) {}
 
 ================================================================================
 `;

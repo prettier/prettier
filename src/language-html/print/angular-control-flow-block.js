@@ -28,7 +28,6 @@ function printAngularControlFlowBlock(path, options, print) {
   docs.push("@", node.name);
 
   if (node.parameters.length > 0) {
-    const groupId = Symbol("angular-control-flow-block");
     const parametersDoc = group(
       node.__embed_parameters_doc ?? [
         indent([softline, join([";", line], path.map(print, "parameters"))]),
@@ -40,12 +39,18 @@ function printAngularControlFlowBlock(path, options, print) {
   }
 
   docs.push(" {");
+  const shouldPrintCloseBracket = shouldCloseBlock(
+    node,
+    setting.followingBlocks,
+  );
 
-  const children = printChildren(path, options, print);
-  docs.push(indent([hardline, children]));
-
-  if (shouldCloseBlock(node, setting.followingBlocks)) {
-    docs.push(hardline, "}");
+  if (node.children.length > 0) {
+    docs.push(indent([hardline, printChildren(path, options, print)]));
+    if (shouldPrintCloseBracket) {
+      docs.push(hardline, "}");
+    }
+  } else if (shouldPrintCloseBracket) {
+    docs.push("}");
   }
 
   return group(docs, { shouldBreak: true });
