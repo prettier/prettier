@@ -7,7 +7,6 @@ const settings = new Map([
   [
     "if",
     {
-      shouldExpression: true,
       isFollowingBlock: false,
       followingBlocks: ["else if", "else"],
     },
@@ -15,7 +14,6 @@ const settings = new Map([
   [
     "else if",
     {
-      shouldExpression: true,
       isFollowingBlock: true,
       followingBlocks: ["else if", "else"],
     },
@@ -38,7 +36,6 @@ const settings = new Map([
   [
     "case",
     {
-      shouldExpression: true,
       isFollowingBlock: false,
       followingBlocks: [],
     },
@@ -54,7 +51,6 @@ const settings = new Map([
   [
     "for",
     {
-      shouldExpression: true,
       isFollowingBlock: false,
       followingBlocks: ["empty"],
     },
@@ -116,7 +112,7 @@ function printAngularControlFlowBlock(path, options, print) {
 
   docs.push("@", node.name);
 
-  if (node.parameters.length > 0 || setting.shouldExpression) {
+  if (node.parameters.length > 0) {
     const parametersDoc =
       node.__embed_parameters_doc ??
       group(join("; ", path.map(print, "parameters")));

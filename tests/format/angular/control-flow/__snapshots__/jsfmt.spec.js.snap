@@ -273,7 +273,7 @@ printWidth: 80
 
 <div *ngIf="users$   |   async;   as   users">{{   users.length   }}</div>
 
-@else if () {}
+@else {}
 
 
 @if (isDev) {}
@@ -304,7 +304,7 @@ printWidth: 80
 
 <div *ngIf="users$ | async; as: users">{{ users.length }}</div>
 
-@else if () {
+@else {
 
 }
 
