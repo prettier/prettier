@@ -1,106 +1,15 @@
 import { group, hardline, indent, join } from "../../document/builders.js";
 import { printChildren } from "./children.js";
+import settings from "./angular-control-flow-block-settings.evaluate.js";
 
 let uid = 0;
 
-const settings = new Map([
-  [
-    "if",
-    {
-      isFollowingBlock: false,
-      followingBlocks: ["else if", "else"],
-    },
-  ],
-  [
-    "else if",
-    {
-      isFollowingBlock: true,
-      followingBlocks: ["else if", "else"],
-    },
-  ],
-  [
-    "else",
-    {
-      isFollowingBlock: true,
-      followingBlocks: [],
-    },
-  ],
-
-  [
-    "switch",
-    {
-      isFollowingBlock: false,
-      followingBlocks: [],
-    },
-  ],
-  [
-    "case",
-    {
-      isFollowingBlock: false,
-      followingBlocks: [],
-    },
-  ],
-  [
-    "default",
-    {
-      isFollowingBlock: false,
-      followingBlocks: [],
-    },
-  ],
-
-  [
-    "for",
-    {
-      isFollowingBlock: false,
-      followingBlocks: ["empty"],
-    },
-  ],
-  [
-    "empty",
-    {
-      isFollowingBlock: true,
-      followingBlocks: [],
-    },
-  ],
-
-  [
-    "defer",
-    {
-      isFollowingBlock: false,
-      followingBlocks: ["placeholder", "error", "loading"],
-    },
-  ],
-  [
-    "placeholder",
-    {
-      isFollowingBlock: true,
-      followingBlocks: ["placeholder", "error", "loading"],
-    },
-  ],
-  [
-    "error",
-    {
-      isFollowingBlock: true,
-      followingBlocks: ["placeholder", "error", "loading"],
-    },
-  ],
-  [
-    "loading",
-    {
-      isFollowingBlock: true,
-      followingBlocks: ["placeholder", "error", "loading"],
-    },
-  ],
-]);
-
 function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
-  const setting = settings.get(node.name);
+  const setting =
+    settings.ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name) ??
+    settings.DEFAULT_ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS;
   const docs = [];
-
-  if (!setting) {
-    throw new Error("Unknown block name: " + node.name);
-  }
 
   if (
     setting.isFollowingBlock &&
@@ -137,9 +46,9 @@ function printAngularControlFlowBlock(path, options, print) {
 
 function shouldCloseBlock(node, names) {
   return !(
-    names.length > 0 &&
+    names.size > 0 &&
     node.next?.type === "block" &&
-    names.includes(node.next.name)
+    names.has(node.next.name)
   );
 }
 
