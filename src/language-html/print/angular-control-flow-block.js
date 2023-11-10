@@ -42,6 +42,8 @@ function printAngularControlFlowBlock(path, options, print) {
   );
 
   if (node.children.length > 0) {
+    node.firstChild.hasLeadingSpaces = true;
+    node.lastChild.hasTrailingSpaces = true;
     docs.push(indent([hardline, printChildren(path, options, print)]));
     if (shouldPrintCloseBracket) {
       docs.push(hardline, "}");
