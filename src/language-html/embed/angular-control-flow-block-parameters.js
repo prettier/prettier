@@ -11,8 +11,7 @@ async function printAngularControlFlowBlockParameter(
 
   const doc = await formatAttributeValue(code, textToDoc, {
     parser: "__ng_directive",
-    __isInHtmlAttribute: true,
-    __embeddedInHtml: true,
+    __isInHtmlAttribute: false,
     trailingComma: "none",
   });
 
