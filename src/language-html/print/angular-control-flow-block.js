@@ -105,8 +105,7 @@ const settings = new Map([
 
 function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
-  const name = normalizeBlockName(node.name);
-  const setting = settings.get(name);
+  const setting = settings.get(node.name);
   const docs = [];
 
   if (!setting) {
@@ -121,7 +120,7 @@ function printAngularControlFlowBlock(path, options, print) {
     docs.push("} ");
   }
 
-  docs.push("@", name);
+  docs.push("@", node.name);
 
   if (node.parameters.length > 0 || setting.shouldExpression) {
     const parametersDoc =
@@ -150,12 +149,8 @@ function shouldCloseBlock(node, names) {
   return !(
     names.length > 0 &&
     node.next?.type === "block" &&
-    names.includes(normalizeBlockName(node.next.name))
+    names.includes(node.next.name)
   );
-}
-
-function normalizeBlockName(name) {
-  return name.toLowerCase().replaceAll(/\s+/g, " ").trim();
 }
 
 export { printAngularControlFlowBlock };
