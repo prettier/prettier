@@ -237,7 +237,13 @@ printWidth: 80
 </ul>
 
 <ul>
-  @for (item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count) {
+  @for (
+    item of collection;
+    track item.id;
+    let index = $index, first = $first;
+    let last = $last, even = $even, odd = $odd;
+    let count = $count
+  ) {
     <li>
       <strong>{{ item.name }}</strong> index={{ index }} first={{
         first

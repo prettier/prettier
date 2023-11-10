@@ -1,8 +1,14 @@
-import { group, hardline, indent, join } from "../../document/builders.js";
+import {
+  group,
+  hardline,
+  softline,
+  line,
+  indent,
+  join,
+  ifBreak,
+} from "../../document/builders.js";
 import { printChildren } from "./children.js";
 import settings from "./angular-control-flow-block-settings.evaluate.js";
-
-let uid = 0;
 
 function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
@@ -22,9 +28,13 @@ function printAngularControlFlowBlock(path, options, print) {
   docs.push("@", node.name);
 
   if (node.parameters.length > 0) {
-    const parametersDoc =
-      node.__embed_parameters_doc ??
-      group(join("; ", path.map(print, "parameters")));
+    const groupId = Symbol("angular-control-flow-block");
+    const parametersDoc = group(
+      node.__embed_parameters_doc ?? [
+        indent([softline, join([";", line], path.map(print, "parameters"))]),
+        softline,
+      ],
+    );
 
     docs.push(" (", parametersDoc, ")");
   }
@@ -38,10 +48,7 @@ function printAngularControlFlowBlock(path, options, print) {
     docs.push(hardline, "}");
   }
 
-  return group(docs, {
-    id: Symbol("block-" + ++uid),
-    shouldBreak: true,
-  });
+  return group(docs, { shouldBreak: true });
 }
 
 function shouldCloseBlock(node, names) {
