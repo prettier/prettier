@@ -30,9 +30,14 @@ function clean(ast, newNode) {
     delete newNode.value;
   }
 
-  if (ast.type === "block" && (ast.name === "if" || ast.name === "else if")) {
+  if (ast.type === "block") {
+    const isEmbed = ast.name === "if" || ast.name === "else if";
     for (const parameter of newNode.parameters) {
-      delete parameter.expression;
+      if (isEmbed) {
+        delete parameter.expression;
+      } else {
+        parameter.expression = parameter.expression.trim();
+      }
     }
   }
 }
