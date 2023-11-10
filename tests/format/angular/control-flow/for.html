@@ -1,5 +1,11 @@
 <ul>
-@for (item of emptyCollection; track item.id;) {
+@for (
+            let
+
+            item of items;index as
+i;
+            trackBy: trackByFn
+) {
 <li><strong>{{item.name}}</strong></li>
 }
 @empty {
@@ -8,14 +14,11 @@
 </ul>
 
 
-<ul>
-  <ng-container *ngIf="item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count">
-  <li><strong>{{item.name}}</strong> index={{index}} first={{first}} last={{last}} even={{even}} odd={{odd}} count={{count}}</li>
-</ng-container>
-  </ul>
+<li *ngFor="
+            let
 
-<ul>
-@for (item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count) {
-<li><strong>{{item.name}}</strong> index={{index}} first={{first}} last={{last}} even={{even}} odd={{odd}} count={{count}}</li>
-}
-</ul>
+            item of items;index as
+i;
+            trackBy: trackByFn
+"></li>
+

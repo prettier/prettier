@@ -1,5 +1,5 @@
 <ion-list class="timeline" appScrollItem>
-  @for (t of timeline[areaId]; track t.orderId; let i = $index) {
+  @for (let item of items; index as i; trackBy: trackByFn) {
     <app-tweet-item></app-tweet-item>@if (
       areaId &&
       canTweet

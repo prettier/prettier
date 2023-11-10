@@ -7,7 +7,7 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <ion-list class="timeline" appScrollItem>
-  @for (t of timeline[areaId]; track t.orderId; let i = $index) {
+  @for (let item of items; index as i; trackBy: trackByFn) {
     <app-tweet-item></app-tweet-item>@if (
       areaId &&
       canTweet
@@ -34,7 +34,7 @@ printWidth: 80
 
 =====================================output=====================================
 <ion-list class="timeline" appScrollItem>
-  @for (t of timeline[areaId]; track t.orderId; let i = $index) {
+  @for (let item of items; index as i; trackBy: trackByFn) {
     <app-tweet-item></app-tweet-item>
     @if (areaId && canTweet) {
       <ion-item class="recommend-trust-up" lines="full"></ion-item>
@@ -191,7 +191,13 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <ul>
-@for (item of emptyCollection; track item.id;) {
+@for (
+            let
+
+            item of items;index as
+i;
+            trackBy: trackByFn
+) {
 <li><strong>{{item.name}}</strong></li>
 }
 @empty {
@@ -200,21 +206,18 @@ printWidth: 80
 </ul>
 
 
-<ul>
-  <ng-container *ngIf="item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count">
-  <li><strong>{{item.name}}</strong> index={{index}} first={{first}} last={{last}} even={{even}} odd={{odd}} count={{count}}</li>
-</ng-container>
-  </ul>
+<li *ngFor="
+            let
 
-<ul>
-@for (item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count) {
-<li><strong>{{item.name}}</strong> index={{index}} first={{first}} last={{last}} even={{even}} odd={{odd}} count={{count}}</li>
-}
-</ul>
+            item of items;index as
+i;
+            trackBy: trackByFn
+"></li>
+
 
 =====================================output=====================================
 <ul>
-  @for (item of emptyCollection; track item.id) {
+  @for (let item of items; index as i; trackBy: trackByFn) {
     <li>
       <strong>{{ item.name }}</strong>
     </li>
@@ -223,35 +226,7 @@ printWidth: 80
   }
 </ul>
 
-<ul>
-  <ng-container
-    *ngIf="item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count"
-  >
-    <li>
-      <strong>{{ item.name }}</strong> index={{ index }} first={{
-        first
-      }}
-      last={{ last }} even={{ even }} odd={{ odd }} count={{ count }}
-    </li>
-  </ng-container>
-</ul>
-
-<ul>
-  @for (
-    item of collection;
-    track item.id;
-    let index = $index, first = $first;
-    let last = $last, even = $even, odd = $odd;
-    let count = $count
-  ) {
-    <li>
-      <strong>{{ item.name }}</strong> index={{ index }} first={{
-        first
-      }}
-      last={{ last }} even={{ even }} odd={{ odd }} count={{ count }}
-    </li>
-  }
-</ul>
+<li *ngFor="let item of items; index as i; trackBy: trackByFn"></li>
 
 ================================================================================
 `;
