@@ -11,7 +11,7 @@ const visitorKeys = {
   comment: [],
   attribute: [],
   cdata: [],
-  block: ["children", "parameters", "successorBlock"],
+  block: ["children", "parameters"],
   blockParameter: [],
 };
 

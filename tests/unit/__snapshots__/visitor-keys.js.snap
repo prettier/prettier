@@ -1393,7 +1393,6 @@ exports[`visitor keys html 1`] = `
   "block": [
     "children",
     "parameters",
-    "successorBlock",
   ],
   "blockParameter": [],
   "cdata": [],
