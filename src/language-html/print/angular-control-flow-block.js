@@ -1,10 +1,4 @@
-import {
-  group,
-  hardline,
-  indent,
-  softline,
-  join,
-} from "../../document/builders.js";
+import { group, hardline, indent, join } from "../../document/builders.js";
 import { printChildren } from "./children.js";
 
 let uid = 0;
