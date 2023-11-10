@@ -16,11 +16,9 @@ function printAngularControlFlowBlock(path, options, print) {
     settings.DEFAULT_ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS;
   const docs = [];
 
-  if (
-    setting.isFollowingBlock &&
-    path.previous &&
-    path.previous.type === "block"
-  ) {
+  const prevBlock = findPreviousBlock(path);
+
+  if (setting.isFollowingBlock && !prevBlock.__control_flow_block_closed) {
     docs.push("} ");
   }
 
@@ -52,6 +50,8 @@ function printAngularControlFlowBlock(path, options, print) {
     docs.push("}");
   }
 
+  node.__control_flow_block_closed = shouldPrintCloseBracket;
+
   return group(docs, { shouldBreak: true });
 }
 
@@ -61,6 +61,20 @@ function shouldCloseBlock(node, names) {
     node.next?.type === "block" &&
     names.has(node.next.name)
   );
+}
+
+function findPreviousBlock(path) {
+  const siblings = path.siblings;
+  const node = path.node;
+  const index = siblings.indexOf(node);
+
+  for (let i = index - 1; i >= 0; i--) {
+    const sibling = siblings[i];
+
+    if (sibling.type === "block") {
+      return sibling;
+    }
+  }
 }
 
 export { printAngularControlFlowBlock };
