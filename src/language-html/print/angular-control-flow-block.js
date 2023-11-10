@@ -5,7 +5,6 @@ import {
   line,
   indent,
   join,
-  ifBreak,
 } from "../../document/builders.js";
 import { printChildren } from "./children.js";
 import settings from "./angular-control-flow-block-settings.evaluate.js";
