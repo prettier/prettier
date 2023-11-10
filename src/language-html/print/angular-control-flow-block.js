@@ -1,10 +1,11 @@
-import { group, hardline, indent, softline } from "../../document/builders.js";
-import { printChildren } from "../print/children.js";
 import {
-  formatAttributeValue,
-  printExpand,
-  shouldHugJsExpression,
-} from "./utils.js";
+  group,
+  hardline,
+  indent,
+  softline,
+  join,
+} from "../../document/builders.js";
+import { printChildren } from "./children.js";
 
 let uid = 0;
 
@@ -102,15 +103,11 @@ const settings = new Map([
   ],
 ]);
 
-function printBlock(path, options, print) {
-  return asyncPrintBlock;
-}
-
-async function asyncPrintBlock(textToDoc, print, path, options) {
-  const node = path.node;
-  const name = normalizeName(node.name);
+function printAngularControlFlowBlock(path, options, print) {
+  const { node } = path;
+  const name = normalizeBlockName(node.name);
   const setting = settings.get(name);
-  const contents = [];
+  const docs = [];
 
   if (!setting) {
     throw new Error("Unknown block name: " + node.name);
@@ -121,74 +118,44 @@ async function asyncPrintBlock(textToDoc, print, path, options) {
     path.previous &&
     path.previous.type === "block"
   ) {
-    contents.push("} ");
+    docs.push("} ");
   }
 
-  contents.push("@", name);
+  docs.push("@", name);
 
-  if (node.parameters.length || setting.shouldExpression) {
-    const expression = await fetchExpression(name, textToDoc, node, path);
-    contents.push(` (`, group(expression), `)`);
+  if (node.parameters.length > 0 || setting.shouldExpression) {
+    const parametersDoc =
+      node.__embed_parameters_doc ??
+      group(join("; ", path.map(print, "parameters")));
+
+    docs.push(" (", parametersDoc, ")");
   }
 
-  contents.push(" {");
+  docs.push(" {");
 
   const children = printChildren(path, options, print);
-  contents.push(indent([hardline, children]));
+  docs.push(indent([hardline, children]));
 
   if (shouldCloseBlock(node, setting.followingBlocks)) {
-    contents.push(hardline, "}");
+    docs.push(hardline, "}");
   }
 
-  return group(contents, {
+  return group(docs, {
     id: Symbol("block-" + ++uid),
     shouldBreak: true,
   });
 }
 
 function shouldCloseBlock(node, names) {
-  return (
-    names.length === 0 ||
-    !node.next ||
-    !names.includes(normalizeName(node.next.name))
+  return !(
+    names.length > 0 &&
+    node.next?.type === "block" &&
+    names.includes(normalizeBlockName(node.next.name))
   );
 }
 
-async function fetchExpression(type, textToDoc, node, path) {
-  const expressions = [];
-
-  for (let param of path.node.parameters) {
-    const expression = param.expression;
-    expressions.push(expression, "; ");
-  }
-
-  // Remove the last ;
-  if (expressions[expressions.length - 1] === "; ") {
-    expressions.pop();
-  }
-
-  let value = expressions.join("");
-
-  // defer / placeholder / loading is not angular expression
-  if (["defer", "placeholder", "loading"].includes(type)) {
-    return value;
-  }
-
-  try {
-    value = await formatAttributeValue(value, textToDoc, {
-      parser: "__ng_directive",
-      __isInHtmlAttribute: true,
-      __embeddedInHtml: true,
-      trailingComma: "none",
-    });
-    return value;
-  } catch (error) {}
-
-  return value;
+function normalizeBlockName(name) {
+  return name.toLowerCase().replaceAll(/\s+/g, " ").trim();
 }
 
-function normalizeName(name) {
-  return name.toLowerCase().replace(/\s+/gi, " ").trim();
-}
-
-export default printBlock;
+export { printAngularControlFlowBlock };

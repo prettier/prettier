@@ -23,7 +23,7 @@ import {
 import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
 import getNodeContent from "./get-node-content.js";
 import printAttribute from "./embed/attribute.js";
-import printBlock from "./embed/block.js";
+import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 
 function embed(path, options) {
   const { node } = path;
@@ -137,8 +137,13 @@ function embed(path, options) {
     case "front-matter":
       return (textToDoc) => printFrontMatter(node, textToDoc);
 
+    // TODO: This should work on `blockParameter`, but currently we don't have a parser for it.
     case "block":
-      return printBlock(path, options);
+      if (!["if"].includes(node.name) || node.parameters.length === 0) {
+        return;
+      }
+
+      return printAngularControlFlowBlockParameters;
   }
 }
 
