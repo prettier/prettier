@@ -29,6 +29,12 @@ function clean(ast, newNode) {
   if (ast.type === "docType") {
     delete newNode.value;
   }
+
+  if (ast.type === "block" && (ast.name === "if" || ast.name === "else if")) {
+    for (const parameter of newNode.parameters) {
+      delete parameter.expression;
+    }
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;
