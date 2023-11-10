@@ -21,6 +21,7 @@ import {
   shouldPreserveContent,
   isVueSfcBlock,
 } from "../utils/index.js";
+import isHtmlVoidElement from "../utils/is-void-element.js"
 
 function printClosingTag(node, options) {
   return [
@@ -99,7 +100,7 @@ function printClosingTagEndMarker(node, options) {
       return "}}";
     case "element":
       if (node.isSelfClosing) {
-        return "/>";
+        return isHtmlVoidElement(node, options) ? ">" : "/>";
       }
     // fall through
     default:
@@ -216,7 +217,7 @@ function printAttributes(path, options, print) {
   const { node } = path;
 
   if (!isNonEmptyArray(node.attrs)) {
-    return node.isSelfClosing
+    return node.isSelfClosing && !isHtmlVoidElement(node, options)
       ? /**
          *     <br />
          *        ^
@@ -290,10 +291,10 @@ function printAttributes(path, options, print) {
   } else {
     parts.push(
       options.bracketSameLine
-        ? node.isSelfClosing
+        ? node.isSelfClosing && !isHtmlVoidElement(node, options)
           ? " "
           : ""
-        : node.isSelfClosing
+        : node.isSelfClosing && !isHtmlVoidElement(node, options)
         ? line
         : softline,
     );

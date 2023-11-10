@@ -409,6 +409,14 @@ Valid options:
 | ------- | ------------------------------- | --------------------------------- |
 | `false` | `--vue-indent-script-and-style` | `vueIndentScriptAndStyle: <bool>` |
 
+## Strip void tags of self closing
+
+Whether or not to strip trailing slashes that self close known void elements.
+
+| Default | CLI Override                    | API Override                      |
+| ------- | ------------------------------- | --------------------------------- |
+| `true`  | `--stripVoidTagSelfClose`       | `stripVoidTagSelfClose: <bool>`   |
+
 ## End of Line
 
 _First available in v1.15.0, default value changed from `auto` to `lf` in v2.0.0_

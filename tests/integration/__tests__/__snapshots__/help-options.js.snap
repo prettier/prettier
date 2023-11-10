@@ -585,6 +585,18 @@ exports[`show detailed usage with --help stdin-filepath (stdout) 1`] = `
 
 exports[`show detailed usage with --help stdin-filepath (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help strip-void-tag-self-close (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help strip-void-tag-self-close (stdout) 1`] = `
+"--strip-void-tag-self-close
+
+  Strip trailing slashes from void elements
+
+Default: true"
+`;
+
+exports[`show detailed usage with --help strip-void-tag-self-close (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help support-info (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help support-info (stdout) 1`] = `

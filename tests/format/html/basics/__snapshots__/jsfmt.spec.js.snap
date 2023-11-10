@@ -167,7 +167,7 @@ printWidth: 80
       id="exampleInputEmail1"
       aria-describedby="emailHelp"
       placeholder="Enter email"
-    />
+    >
     <small id="emailHelp" class="form-text text-muted"
       >We'll never share your email with anyone else.</small
     >
@@ -179,7 +179,7 @@ printWidth: 80
       class="form-control"
       id="exampleInputPassword1"
       placeholder="Password"
-    />
+    >
   </div>
   <div class="form-group">
     <label for="exampleSelect1">Example select</label>
@@ -212,7 +212,7 @@ printWidth: 80
       class="form-control-file"
       id="exampleInputFile"
       aria-describedby="fileHelp"
-    />
+    >
     <small id="fileHelp" class="form-text text-muted"
       >This is some placeholder block-level help text for the above input. It's
       a bit lighter and easily wraps to a new line.</small
@@ -229,7 +229,7 @@ printWidth: 80
           id="optionsRadios1"
           value="option1"
           checked
-        />
+        >
         Option one is this and that&mdash;be sure to include why it's great
       </label>
     </div>
@@ -241,7 +241,7 @@ printWidth: 80
           name="optionsRadios"
           id="optionsRadios2"
           value="option2"
-        />
+        >
         Option two can be something else and selecting it will deselect option
         one
       </label>
@@ -255,14 +255,14 @@ printWidth: 80
           id="optionsRadios3"
           value="option3"
           disabled
-        />
+        >
         Option three is disabled
       </label>
     </div>
   </fieldset>
   <div class="form-check">
     <label class="form-check-label">
-      <input type="checkbox" class="form-check-input" />
+      <input type="checkbox" class="form-check-input">
       Check me out
     </label>
   </div>
@@ -297,9 +297,9 @@ printWidth: 80
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
   </head>
   <body>
@@ -388,21 +388,21 @@ printWidth: 80
 <!doctype html>
 <html class="no-js" lang="">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title></title>
-    <meta name="description" content="" />
+    <meta name="description" content="">
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    >
 
-    <link rel="manifest" href="site.webmanifest" />
-    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
   </head>
 
   <body>
@@ -537,8 +537,8 @@ printWidth: 80
 =====================================output=====================================
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="code-guide.css" />
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="code-guide.css">
   </head>
   <body></body>
 </html>
@@ -570,17 +570,17 @@ printWidth: 80
 
 =====================================output=====================================
 <video controls width="250">
-  <source src="/media/examples/flower.webm" type="video/webm" />
-  <source src="/media/examples/flower.mp4" type="video/mp4" /></video
+  <source src="/media/examples/flower.webm" type="video/webm">
+  <source src="/media/examples/flower.mp4" type="video/mp4"></video
 >text after
 
 <!-- #8626 -->
 <object data="horse.wav">
-  <param name="autoplay" value="true" />
-  <param name="autoplay" value="true" /></object
+  <param name="autoplay" value="true">
+  <param name="autoplay" value="true"></object
 >1
 
-<span><img src="1.png" /><img src="1.png" /></span>1
+<span><img src="1.png" ><img src="1.png" ></span>1
 
 ================================================================================
 `;

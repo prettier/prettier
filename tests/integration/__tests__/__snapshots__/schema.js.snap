@@ -377,6 +377,11 @@ in order for it to be formatted.",
           "description": "Use single quotes instead of double quotes.",
           "type": "boolean",
         },
+        "stripVoidTagSelfClose": {
+          "default": true,
+          "description": "Strip trailing slashes from void elements",
+          "type": "boolean",
+        },
         "tabWidth": {
           "default": 2,
           "description": "Number of spaces per indentation level.",

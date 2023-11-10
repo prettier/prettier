@@ -62,8 +62,8 @@ Click here! Click here! Click here! Click here! Click here! Click here!
   </button>
 </div>
 <video src="brave.webm">
-  <track kind="subtitles" src="brave.en.vtt" srclang="en" label="English" />
-  <track kind="subtitles" src="brave.en.vtt" srclang="en" label="English" />
+  <track kind="subtitles" src="brave.en.vtt" srclang="en" label="English">
+  <track kind="subtitles" src="brave.en.vtt" srclang="en" label="English">
 </video>
 
 ================================================================================
@@ -81,9 +81,9 @@ printWidth: 80
 <!doctype html>
 <html class="no-js mY-ClAsS">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <title>My tITlE</title>
-    <meta name="description" content="My CoNtEnT" />
+    <meta name="description" content="My CoNtEnT">
   </head>
 </html>
 
@@ -114,7 +114,7 @@ printWidth: 80
     src="/images/pansies.jpg"
     alt="about fedco bottom image"
     style="float: left"
-  /><strong>We are a cooperative</strong>, one of the few seed companies so
+  ><strong>We are a cooperative</strong>, one of the few seed companies so
   organized in the United States. Because we do not have an individual owner or
   beneficiary, profit is not our primary goal. Consumers own 60% of the
   cooperative and worker members 40%. Consumer and worker members share
@@ -378,7 +378,7 @@ printWidth: 80
 =====================================input======================================
 <img/> <img/>
 =====================================output=====================================
-<img /> <img />
+<img> <img>
 
 ================================================================================
 `;
@@ -391,7 +391,7 @@ printWidth: 80
 =====================================input======================================
 <img/>          <img/>
 =====================================output=====================================
-<img />   <img />
+<img>   <img>
 
 ================================================================================
 `;
@@ -404,7 +404,7 @@ printWidth: 80
 =====================================input======================================
 <img/>           <img/>
 =====================================output=====================================
-<img />    <img />
+<img>    <img>
 
 ================================================================================
 `;
@@ -417,7 +417,7 @@ printWidth: 80
 =====================================input======================================
 <img/>                   <img/>
 =====================================output=====================================
-<img />     <img />
+<img>     <img>
 
 ================================================================================
 `;

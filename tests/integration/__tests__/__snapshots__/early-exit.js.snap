@@ -76,6 +76,9 @@ Format options:
                            Defaults to false.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
+  --strip-void-tag-self-close
+                           Strip trailing slashes from void elements
+                           Defaults to true.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
   --trailing-comma <all|es5|none>
@@ -243,6 +246,9 @@ Format options:
                            Defaults to false.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
+  --strip-void-tag-self-close
+                           Strip trailing slashes from void elements
+                           Defaults to true.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
   --trailing-comma <all|es5|none>

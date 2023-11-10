@@ -27,13 +27,13 @@ printWidth: 80
 <!doctype html>
 <html class="no-js mY-ClAsS">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <title>My tITlE</title>
-    <meta name="description" content="My CoNtEnT" />
+    <meta name="description" content="My CoNtEnT">
   </head>
   <body>
     <p>
-      Hello world!<br />
+      Hello world!<br>
       This is HTML5 Boilerplate.
     </p>
     <script>

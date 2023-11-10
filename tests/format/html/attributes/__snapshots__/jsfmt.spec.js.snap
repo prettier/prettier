@@ -84,9 +84,9 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
 </p>
 
 =====================================output=====================================
-<input name="address" maxlength="200" />
-<input name="address" maxlength="200" />
-<input name="address" maxlength="200" />
+<input name="address" maxlength="200">
+<input name="address" maxlength="200">
+<input name="address" maxlength="200">
 <div class="foo"></div>
 <div class="foo"></div>
 <div class="foo bar"></div>
@@ -99,7 +99,7 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
   content="The Mozilla Developer Network (MDN) provides
 information about Open Web technologies including HTML, CSS, and APIs for both Web sites
 and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
-/>
+>
 <div attribute>String</div>
 <div attribute="">String</div>
 <div attribute="">String</div>
@@ -212,9 +212,9 @@ printWidth: 80
 <button type="submit" disabled="hahah">
   This is valid. This will be disabled.
 </button>
-<input type="checkbox" checked disabled name="cheese" />
-<input type="checkbox" checked="checked" disabled="disabled" name="cheese" />
-<input type="checkbox" checked="" disabled="" name="cheese" />
+<input type="checkbox" checked disabled name="cheese">
+<input type="checkbox" checked="checked" disabled="disabled" name="cheese">
+<input type="checkbox" checked="" disabled="" name="cheese">
 <div lang=""></div>
 
 ================================================================================
@@ -446,21 +446,21 @@ src="https://s.yimg.com/rz/p/yahoo_frontpage_en-US_s_f_p_205x58_frontpage_2x.png
 width="205px" alt="Yahoo"/></a></h1></div></div>
 
 =====================================output=====================================
-<img class="foo bar" />
+<img class="foo bar">
 
-<img class="  " />
-<img class />
+<img class="  ">
+<img class>
 
 <img
   class="looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong a-long-long-long-long-long-class-name another-long-long-long-class-name foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar"
-/>
+>
 
-<img class="{{ ...classes }}" />
-<img class="foo bar {{ otherClass }}" />
+<img class="{{ ...classes }}">
+<img class="foo bar {{ otherClass }}">
 
 <!-- escaped -->
 <!-- from: https://developer.mozilla.org/en-US/docs/Web/API/CSS/escape#Basic_results -->
-<img class="\\.foo\\#bar \\(\\)\\[\\]\\{\\} --a \\30 \\ufffd" />
+<img class="\\.foo\\#bar \\(\\)\\[\\]\\{\\} --a \\30 \\ufffd">
 
 <!-- from yahoo website -->
 <div
@@ -483,7 +483,7 @@ width="205px" alt="Yahoo"/></a></h1></div></div>
           height="58px"
           width="205px"
           alt="Yahoo"
-      /></a>
+      ></a>
     </h1>
   </div>
 </div>
@@ -518,7 +518,7 @@ printWidth: 80
 <img src="test.png" alt="John 'ShotGun' Nelson">
 
 =====================================output=====================================
-<img src="test.png" alt="John 'ShotGun' Nelson" />
+<img src="test.png" alt="John 'ShotGun' Nelson">
 
 ================================================================================
 `;
@@ -546,7 +546,7 @@ printWidth: 80
 <img src="test.png" alt='John "ShotGun" Nelson'>
 
 =====================================output=====================================
-<img src="test.png" alt='John "ShotGun" Nelson' />
+<img src="test.png" alt='John "ShotGun" Nelson'>
 
 ================================================================================
 `;
@@ -621,7 +621,7 @@ alt="">
   srcset="/assets/visual@0.5.png 400w, /assets/visual.png 805w"
   sizes="(max-width: 66rem) 100vw, 66rem"
   alt=""
-/>
+>
 <img
   src="/assets/visual.png"
   srcset="
@@ -632,7 +632,7 @@ alt="">
   "
   sizes="(max-width: 66rem) 100vw, 66rem"
   alt=""
-/>
+>
 <img
   src="/assets/visual.png"
   srcset="
@@ -643,8 +643,8 @@ alt="">
   "
   sizes="(max-width: 66rem) 100vw, 66rem"
   alt=""
-/>
-<img srcset="/media/examples/surfer-240-200.jpg" />
+>
+<img srcset="/media/examples/surfer-240-200.jpg">
 <!-- #8150 -->
 <img
   sizes="(max-width: 1400px) 100vw, 1400px"
@@ -667,7 +667,7 @@ alt="">
   "
   src="_20200401_145009_szrhju_c_scale,w_1400.jpg"
   alt=""
-/>
+>
 
 ================================================================================
 `;
