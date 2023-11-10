@@ -410,6 +410,16 @@ printWidth: 80
 }
 }
 
+
+@switch(
+  should
+.be.formatted
+) {
+  @case(
+  should
+.be.formatted) {}
+}
+
 =====================================output=====================================
 @switch (radioValue()) {
   @case (1) {
@@ -421,6 +431,10 @@ printWidth: 80
   @default {
     <span>Default case (Not 1 or 2)</span>
   }
+}
+
+@switch (should.be.formatted) {
+  @case (should.be.formatted) {}
 }
 
 ================================================================================

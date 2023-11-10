@@ -140,7 +140,7 @@ function embed(path, options) {
     // TODO: This should work on `blockParameter`, but currently we don't have a parser for it.
     case "block":
       if (
-        !["if", "else if", "for"].includes(node.name) ||
+        !["if", "else if", "for", "switch", "case"].includes(node.name) ||
         node.parameters.length === 0
       ) {
         return;

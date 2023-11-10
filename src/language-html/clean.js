@@ -31,8 +31,9 @@ function clean(ast, newNode) {
   }
 
   if (ast.type === "block") {
-    const isEmbed =
-      ast.name === "if" || ast.name === "else if" || ast.name === "for";
+    const isEmbed = ["if", "else if", "for", "switch", "case"].includes(
+      ast.name,
+    );
     for (const parameter of newNode.parameters) {
       if (isEmbed) {
         delete parameter.expression;
