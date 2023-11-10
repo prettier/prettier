@@ -12,6 +12,7 @@
 </div>
 
 @if (users$   |   async;   as   users) { {{   users.length   }} }
+@else if (users$   |   async;   as   users) { {{   users.length   }} }
 
 <div *ngIf="users$   |   async;   as   users">{{   users.length   }}</div>
 
