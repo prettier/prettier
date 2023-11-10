@@ -1,6 +1,6 @@
 import { formatAttributeValue } from "./utils.js";
 
-async function printAngularControlFlowBlockParameter(
+async function printAngularControlFlowBlockParameters(
   textToDoc,
   print,
   path,
@@ -19,4 +19,4 @@ async function printAngularControlFlowBlockParameter(
   node.__embed_parameters_doc = doc;
 }
 
-export default printAngularControlFlowBlockParameter;
+export default printAngularControlFlowBlockParameters;
