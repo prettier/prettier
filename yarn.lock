@@ -92,15 +92,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:7.22.15, @babel/generator@npm:^7.22.5, @babel/generator@npm:^7.7.2":
-  version: 7.22.15
-  resolution: "@babel/generator@npm:7.22.15"
+"@babel/generator@npm:7.23.3, @babel/generator@npm:^7.22.5, @babel/generator@npm:^7.7.2":
+  version: 7.23.3
+  resolution: "@babel/generator@npm:7.23.3"
   dependencies:
-    "@babel/types": ^7.22.15
+    "@babel/types": ^7.23.3
     "@jridgewell/gen-mapping": ^0.3.2
     "@jridgewell/trace-mapping": ^0.3.17
     jsesc: ^2.5.1
-  checksum: 5b2a3ccdc3634f6ea86e0a442722bcd430238369432d31f15b428a4ee8013c2f4f917b5b135bf4fc1d0a3e2f87f10fd4ce5d07955ecc2d3b9400a05c2a481374
+  checksum: b6e71cca852d4e1aa01a28a30b8c74ffc3b8d56ccb7ae3ee783028ee015f63ad861a2e386c3eb490a9a8634db485a503a33521680f4af510151e90346c46da17
   languageName: node
   linkType: hard
 
@@ -430,14 +430,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:7.23.0, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.5, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
-  version: 7.23.0
-  resolution: "@babel/types@npm:7.23.0"
+"@babel/types@npm:7.23.3, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.3, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
+  version: 7.23.3
+  resolution: "@babel/types@npm:7.23.3"
   dependencies:
     "@babel/helper-string-parser": ^7.22.5
     "@babel/helper-validator-identifier": ^7.22.20
     to-fast-properties: ^2.0.0
-  checksum: 215fe04bd7feef79eeb4d33374b39909ce9cad1611c4135a4f7fdf41fe3280594105af6d7094354751514625ea92d0875aba355f53e86a92600f290e77b0e604
+  checksum: b96f1ec495351aeb2a5f98dd494aafa17df02a351548ae96999460f35c933261c839002a34c1e83552ff0d9f5e94d0b5b8e105d38131c7c9b0f5a6588676f35d
   languageName: node
   linkType: hard
 
@@ -7147,9 +7147,9 @@ __metadata:
   dependencies:
     "@angular/compiler": 17.0.1
     "@babel/code-frame": 7.22.13
-    "@babel/generator": 7.22.15
+    "@babel/generator": 7.23.3
     "@babel/parser": 7.23.0
-    "@babel/types": 7.23.0
+    "@babel/types": 7.23.3
     "@glimmer/reference": 0.85.12
     "@glimmer/syntax": 0.85.12
     "@iarna/toml": 2.2.5
