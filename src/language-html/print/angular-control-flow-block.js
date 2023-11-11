@@ -66,8 +66,7 @@ function shouldCloseBlock(node, names) {
 }
 
 function findPreviousBlock(path) {
-  const siblings = path.siblings;
-  const node = path.node;
+  const { siblings, node } = path;
   const index = siblings.indexOf(node);
 
   for (let i = index - 1; i >= 0; i--) {
