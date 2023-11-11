@@ -36,7 +36,8 @@ printWidth: 80
 <ion-list class="timeline" appScrollItem>
   @for (let item of items; index as i; trackBy: trackByFn) {
     <app-tweet-item></app-tweet-item>
-    @if (areaId && canTweet) {
+    @if (areaId &&
+      canTweet) {
       <ion-item class="recommend-trust-up" lines="full"></ion-item>
     }
   }
@@ -46,7 +47,8 @@ printWidth: 80
   <ion-item class="recommend-trust-up" lines="full"></ion-item>
 </ng-container>
 
-@if (areaId && canTweet) {
+@if (areaId &&
+      canTweet) {
   <ion-item class="recommend-trust-up" lines="full"></ion-item>
 }
 
@@ -242,7 +244,10 @@ item of
 
 =====================================output=====================================
 <ul>
-  @for (let item of items; index as i; trackBy: trackByFn) {
+  @for (let
+
+            item of items; index as
+i; trackBy: trackByFn) {
     <li>
       <strong>{{ item.name }}</strong>
     </li>
@@ -341,9 +346,9 @@ printWidth: 80
   }
 </div>
 
-@if (users$ | async; as: users) {
+@if (users$   |   async; as   users) {
   {{ users.length }}
-} @else if (users$ | async; as: users) {
+} @else if (users$   |   async; as   users) {
   {{ users.length }}
 }
 
@@ -354,8 +359,8 @@ printWidth: 80
 @if (isDev) {
 } @else if (test) {}
 
-@if (foo("quotes")) {
-} @else if (foo("quotes")) {}
+@if (foo(     "quotes")) {
+} @else if (foo(     'quotes')) {}
 
 ================================================================================
 `;
@@ -433,8 +438,10 @@ printWidth: 80
   }
 }
 
-@switch (should.be.formatted) {
-  @case (should.be.formatted) {}
+@switch (should
+.be.formatted) {
+  @case (should
+.be.formatted) {}
 }
 
 ================================================================================

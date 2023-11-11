@@ -25,12 +25,10 @@ function printAngularControlFlowBlock(path, options, print) {
   docs.push("@", node.name);
 
   if (node.parameters.length > 0) {
-    const parametersDoc = group(
-      node.__embed_parameters_doc ?? [
-        indent([softline, join([";", line], path.map(print, "parameters"))]),
-        softline,
-      ],
-    );
+    const parametersDoc = group([
+      indent([softline, join([";", line], path.map(print, "parameters"))]),
+      softline,
+    ]);
 
     docs.push(" (", parametersDoc, ")");
   }
