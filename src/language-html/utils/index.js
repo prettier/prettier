@@ -145,7 +145,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
   return isLeadingSpaceSensitive;
 
   function _isLeadingSpaceSensitiveNode() {
-    if (isFrontMatter(node)) {
+    if (isFrontMatter(node) || node.type === "block") {
       return false;
     }
 
@@ -188,7 +188,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
 }
 
 function isTrailingSpaceSensitiveNode(node, options) {
-  if (isFrontMatter(node)) {
+  if (isFrontMatter(node) || node.type === "block") {
     return false;
   }
 
