@@ -22,7 +22,7 @@
     "concurrently": "8.2.1",
     "docusaurus": "1.14.7",
     "js-yaml": "4.1.0",
-    "rimraf": "5.0.1",
+    "rimraf": "5.0.5",
     "webpack": "5.88.2",
     "webpack-cli": "5.1.4"
   },
