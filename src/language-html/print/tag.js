@@ -128,7 +128,7 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
   return (
     node.prev &&
     node.prev.type !== "docType" &&
-    node.type !== "block" &&
+    node.type !== "angularControlFlowBlock" &&
     !isTextLikeNode(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces

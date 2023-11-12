@@ -11,6 +11,7 @@ import {
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParser from "../utils/infer-parser.js";
 import createError from "../common/parser-create-error.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
 import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
@@ -39,10 +40,40 @@ import { locStart, locEnd } from "./loc.js";
  */
 
 // `@else    if`
-function normalizeAngularControlFlowBlockName(node) {
-  if (node.type === "block") {
-    node.name = node.name.toLowerCase().replaceAll(/\s+/g, " ").trim();
+function normalizeAngularControlFlowBlock(node, text, options) {
+  if (node.type !== "block") {
+    return;
   }
+
+  node.name = node.name.toLowerCase().replaceAll(/\s+/g, " ").trim();
+  node.type = "angularControlFlowBlock";
+
+  if (!isNonEmptyArray(node.parameters)) {
+    delete node.parameters;
+    return;
+  }
+
+  for (const parameter of node.parameters) {
+    parameter.type = "angularControlFlowBlockParameter";
+  }
+
+  const file = new ParseSourceFile(text, options.filepath);
+  const location = new ParseLocation(file, 0, 0, 0);
+
+  const start = location.moveBy(node.parameters[0].sourceSpan.start.offset);
+  const end = location.moveBy(node.parameters.at(-1).sourceSpan.end.offset);
+
+  const raw = text.slice(start.offset, end.offset);
+
+  node.parameters = {
+    type: "angularControlFlowBlockParameters",
+    raw,
+    children: node.parameters,
+    sourceSpan: new ParseSourceSpan(
+      node.sourceSpan.start,
+      node.endSourceSpan.end,
+    ),
+  };
 }
 
 /**
@@ -244,7 +275,6 @@ function ngHtmlParser(input, parseOptions, options) {
         addTagDefinition(node);
         normalizeName(node);
         fixSourceSpan(node);
-        normalizeAngularControlFlowBlockName(node);
       }
     })(),
     rootNodes,
@@ -351,6 +381,8 @@ function parse(
         node.parent.replaceChild(node, ieConditionalComment);
       }
     }
+
+    normalizeAngularControlFlowBlock(node, text, options);
   });
 
   return ast;

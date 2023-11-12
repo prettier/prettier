@@ -145,11 +145,10 @@ function embed(path, options) {
     case "front-matter":
       return (textToDoc) => printFrontMatter(node, textToDoc);
 
-    // TODO: This should work on `blockParameter`, but currently we don't have a parser for it.
-    case "block":
+    case "angularControlFlowBlockParameters":
       if (
-        !embeddedAngularControlFlowBlocks.has(node.name) ||
-        node.parameters.length === 0
+        !embeddedAngularControlFlowBlocks.has(path.parent.name) ||
+        /^\s*$/.test(node.raw)
       ) {
         return;
       }
