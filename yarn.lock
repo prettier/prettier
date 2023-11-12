@@ -6152,12 +6152,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:0.30.3, magic-string@npm:~0.30.0":
-  version: 0.30.3
-  resolution: "magic-string@npm:0.30.3"
+"magic-string@npm:0.30.5, magic-string@npm:~0.30.0":
+  version: 0.30.5
+  resolution: "magic-string@npm:0.30.5"
   dependencies:
     "@jridgewell/sourcemap-codec": ^1.4.15
-  checksum: a5a9ddf9bd3bf49a2de1048bf358464f1bda7b3cc1311550f4a0ba8f81a4070e25445d53a5ee28850161336f1bff3cf28aa3320c6b4aeff45ce3e689f300b2f3
+  checksum: da10fecff0c0a7d3faf756913ce62bd6d5e7b0402be48c3b27bfd651b90e29677e279069a63b764bcdc1b8ecdcdb898f29a5c5ec510f2323e8d62ee057a6eb18
   languageName: node
   linkType: hard
 
@@ -7235,7 +7235,7 @@ __metadata:
     lilconfig: 2.1.0
     lines-and-columns: 2.0.4
     linguist-languages: 7.27.0
-    magic-string: 0.30.3
+    magic-string: 0.30.5
     mem: 9.0.2
     meriyah: 4.3.8
     micromatch: 4.0.5
