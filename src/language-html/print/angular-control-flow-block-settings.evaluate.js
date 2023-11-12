@@ -8,7 +8,7 @@ const ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS = new Map(
     {
       name: "if",
       isFollowingBlock: false,
-      followingBlocks: [],
+      followingBlocks: ["else if", "else"],
     },
     {
       name: "else if",
