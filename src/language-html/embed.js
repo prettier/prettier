@@ -146,10 +146,7 @@ function embed(path, options) {
       return (textToDoc) => printFrontMatter(node, textToDoc);
 
     case "angularControlFlowBlockParameters":
-      if (
-        !embeddedAngularControlFlowBlocks.has(path.parent.name) ||
-        /^\s*$/.test(node.raw)
-      ) {
+      if (!embeddedAngularControlFlowBlocks.has(path.parent.name)) {
         return;
       }
 
