@@ -480,3 +480,21 @@ Valid options:
 | Default | CLI Override                  | API Override                     |
 | ------- | ----------------------------- | -------------------------------- |
 | `false` | `--single-attribute-per-line` | `singleAttributePerLine: <bool>` |
+
+
+## Align Property Values
+
+_First available in v3.1.0_
+
+Vertically align object literal property values.
+
+Valid options:
+
+- `group` - Reset property alignment on empty lines.
+- `same` - Align all properties to the same column.
+- `none` - Do not align properties.
+
+| Default | CLI Override              | API Override                             |
+|---------|---------------------------|------------------------------------------|
+| `none`  | `--align-property-values` | `alignPropertyValues: <same,group,none>` |
+
