@@ -37,8 +37,7 @@ const KIND_CJ_LETTER = "cj-letter";
 const KIND_K_LETTER = "k-letter";
 const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
-const K_REGEXP = /^\p{Script_Extensions=Hangul}$/gu;
-const isKLetter = (character) => K_REGEXP.test(character);
+const K_REGEXP = /p{Script_Extensions=Hangul}/g;
 
 /**
  * @typedef {" " | "\n" | ""} WhitespaceValue
@@ -121,7 +120,7 @@ function splitText(text) {
               type: "word",
               value: innerToken,
               // Korean uses space to divide words, but Chinese & Japanese do not
-              kind: isKLetter(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
+              kind: K_REGEXP.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
               hasLeadingPunctuation: false,
               hasTrailingPunctuation: false,
             },
