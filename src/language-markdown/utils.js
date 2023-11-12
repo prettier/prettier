@@ -37,7 +37,7 @@ const KIND_CJ_LETTER = "cj-letter";
 const KIND_K_LETTER = "k-letter";
 const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
-const K_REGEXP = /p{Script_Extensions=Hangul}/g;
+const K_REGEXP = /\p{Script_Extensions=Hangul}/u;
 
 /**
  * @typedef {" " | "\n" | ""} WhitespaceValue
