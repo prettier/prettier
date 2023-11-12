@@ -7,23 +7,13 @@ import {
   join,
 } from "../../document/builders.js";
 import { printChildren } from "./children.js";
-import {
-  ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS,
-  ANGULAR_CONTROL_FLOW_BLOCK_DEFAULT_SETTINGS,
-} from "./angular-control-flow-block-settings.evaluate.js";
-
-const unClosedBlocks = new WeakSet();
+import ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS from "./angular-control-flow-block-settings.evaluate.js";
 
 function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
-  const setting =
-    ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name) ??
-    ANGULAR_CONTROL_FLOW_BLOCK_DEFAULT_SETTINGS;
   const docs = [];
 
-  const previousBlock = findPreviousBlock(path);
-
-  if (setting.isFollowingBlock && unClosedBlocks.has(previousBlock)) {
+  if (isPreviousBlockUnClosed(path)) {
     docs.push("} ");
   }
 
@@ -34,15 +24,8 @@ function printAngularControlFlowBlock(path, options, print) {
   }
 
   docs.push(" {");
-  const shouldPrintCloseBracket = shouldCloseBlock(
-    node,
-    setting.followingBlocks,
-  );
 
-  if (!shouldPrintCloseBracket) {
-    unClosedBlocks.add(node);
-  }
-
+  const shouldPrintCloseBracket = shouldCloseBlock(node);
   if (node.children.length > 0) {
     node.firstChild.hasLeadingSpaces = true;
     node.lastChild.hasTrailingSpaces = true;
@@ -57,24 +40,19 @@ function printAngularControlFlowBlock(path, options, print) {
   return group(docs, { shouldBreak: true });
 }
 
-function shouldCloseBlock(node, names) {
+function shouldCloseBlock(node) {
   return !(
-    names.size > 0 &&
     node.next?.type === "angularControlFlowBlock" &&
-    names.has(node.next.name)
+    ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name)?.has(node.next.name)
   );
 }
 
-function findPreviousBlock(path) {
-  const { siblings, index } = path;
-
-  for (let i = index - 1; i >= 0; i--) {
-    const sibling = siblings[i];
-
-    if (sibling.type === "angularControlFlowBlock") {
-      return sibling;
-    }
-  }
+function isPreviousBlockUnClosed(path) {
+  const { previous } = path;
+  return (
+    previous?.type === "angularControlFlowBlock" &&
+    !shouldCloseBlock(path.previous)
+  );
 }
 
 function printAngularControlFlowBlockParameters(path, options, print) {
