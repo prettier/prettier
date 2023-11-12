@@ -21,6 +21,10 @@ const cjkPattern = `(?:${cjkRegex
   Block: ["Variation_Selectors", "Variation_Selectors_Supplement"],
 }).toString()})?`;
 
+const kRegex = unicodeRegex({ Script: ["Hangul"] })
+  .union(unicodeRegex({ Script_Extensions: ["Hangul"] }))
+  .toRegExp();
+
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
 const asciiPunctuationCharset =
   /* prettier-ignore */ regexpUtil.charset(
@@ -46,4 +50,4 @@ const punctuationCharset = unicodeRegex({
 
 const punctuationPattern = punctuationCharset.toString();
 
-export { cjkPattern, punctuationPattern };
+export { cjkPattern, kRegex, punctuationPattern };
