@@ -40,7 +40,7 @@ import { locStart, locEnd } from "./loc.js";
  */
 
 // `@else    if`
-function normalizeAngularControlFlowBlock(node, text, options) {
+function normalizeAngularControlFlowBlock(node) {
   if (node.type !== "block") {
     return;
   }
@@ -57,21 +57,12 @@ function normalizeAngularControlFlowBlock(node, text, options) {
     parameter.type = "angularControlFlowBlockParameter";
   }
 
-  const file = new ParseSourceFile(text, options.filepath);
-  const location = new ParseLocation(file, 0, 0, 0);
-
-  const start = location.moveBy(node.parameters[0].sourceSpan.start.offset);
-  const end = location.moveBy(node.parameters.at(-1).sourceSpan.end.offset);
-
-  const raw = text.slice(start.offset, end.offset);
-
   node.parameters = {
     type: "angularControlFlowBlockParameters",
-    raw,
     children: node.parameters,
     sourceSpan: new ParseSourceSpan(
-      node.sourceSpan.start,
-      node.endSourceSpan.end,
+      node.parameters[0].sourceSpan.start,
+      node.parameters.at(-1).sourceSpan.end,
     ),
   };
 }
@@ -382,7 +373,7 @@ function parse(
       }
     }
 
-    normalizeAngularControlFlowBlock(node, text, options);
+    normalizeAngularControlFlowBlock(node);
   });
 
   return ast;

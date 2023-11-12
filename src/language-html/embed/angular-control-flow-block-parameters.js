@@ -4,10 +4,22 @@ function printAngularControlFlowBlockParameters(
   textToDoc,
   print,
   path,
-  /* options,*/
+  options,
 ) {
+  const { node } = path;
+
+  const content = options.originalText.slice(
+    node.sourceSpan.start.offset,
+    node.sourceSpan.end.offset,
+  );
+  const isEmpty = /^\s*$/.test(content);
+
+  if (isEmpty) {
+    return "";
+  }
+
   return formatAttributeValue(
-    path.node.raw,
+    content,
     textToDoc,
     {
       parser: "__ng_directive",
