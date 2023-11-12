@@ -1691,12 +1691,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/file-entry-cache@npm:5.0.2":
-  version: 5.0.2
-  resolution: "@types/file-entry-cache@npm:5.0.2"
+"@types/file-entry-cache@npm:5.0.4":
+  version: 5.0.4
+  resolution: "@types/file-entry-cache@npm:5.0.4"
   dependencies:
     "@types/node": "*"
-  checksum: 4d0b5f13de2dfece7ad03ce2be6314cea0dd98488202568493c5c3cd0c6f5d7c618beb0c03f4251dbb6d846f60c5a2b04cdca9f23583c47953bbcaedd88f043e
+  checksum: 8c602c10fb7d52038f7e74006a6e48e8e5c885070e663ae87e69e87ce5d58dbf3dae28b307309cd87b772604845dff5d708542bdbdf24f66da31b0606bdf71ae
   languageName: node
   linkType: hard
 
@@ -7164,7 +7164,7 @@ __metadata:
     "@prettier/is-es5-identifier-name": 0.2.0
     "@prettier/parse-srcset": 3.1.0
     "@types/estree": 1.0.2
-    "@types/file-entry-cache": 5.0.2
+    "@types/file-entry-cache": 5.0.4
     "@types/find-cache-dir": 3.2.1
     "@types/jest": 29.5.8
     "@typescript-eslint/eslint-plugin": 6.7.2
