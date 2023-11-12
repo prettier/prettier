@@ -9,6 +9,8 @@ import {
 import { printChildren } from "./children.js";
 import settings from "./angular-control-flow-block-settings.evaluate.js";
 
+const unClosedBlocks = new WeakSet();
+
 function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
   const setting =
@@ -16,9 +18,9 @@ function printAngularControlFlowBlock(path, options, print) {
     settings.DEFAULT_ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS;
   const docs = [];
 
-  const prevBlock = findPreviousBlock(path);
+  const previousBlock = findPreviousBlock(path);
 
-  if (setting.isFollowingBlock && !prevBlock.__control_flow_block_closed) {
+  if (setting.isFollowingBlock && unClosedBlocks.has(previousBlock)) {
     docs.push("} ");
   }
 
@@ -41,6 +43,10 @@ function printAngularControlFlowBlock(path, options, print) {
     setting.followingBlocks,
   );
 
+  if (!shouldPrintCloseBracket) {
+    unClosedBlocks.add(node);
+  }
+
   if (node.children.length > 0) {
     node.firstChild.hasLeadingSpaces = true;
     node.lastChild.hasTrailingSpaces = true;
@@ -51,8 +57,6 @@ function printAngularControlFlowBlock(path, options, print) {
   } else if (shouldPrintCloseBracket) {
     docs.push("}");
   }
-
-  node.__control_flow_block_closed = shouldPrintCloseBracket;
 
   return group(docs, { shouldBreak: true });
 }
