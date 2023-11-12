@@ -20,7 +20,7 @@ function isVueEventBindingExpression(eventBindingValue) {
   const fnExpRE = /^(?:[\w$]+|\([^)]*\))\s*=>|^function\s*\(/;
   // simple member expression chain (a, a.b, a['b'], a["b"], a[0], a[b])
   const simplePathRE =
-    /^[$A-Z_a-z][\w$]*(?:\.[$A-Z_a-z][\w$]*|\['[^']*']|\["[^"]*"]|\[\d+]|\[[$A-Z_a-z][\w$]*])*$/;
+    /^[$_a-z][\w$]*(?:\.[$_a-z][\w$]*|\['[^']*']|\["[^"]*"]|\[\d+]|\[[$_a-z][\w$]*])*$/i;
 
   // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/helpers.js#L104
   const value = eventBindingValue.trim();
