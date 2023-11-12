@@ -1,6 +1,10 @@
 import assert from "node:assert";
 import { locStart, locEnd } from "./loc.js";
-import { cjkPattern, punctuationPattern } from "./constants.evaluate.js";
+import {
+  cjkPattern,
+  kRegex,
+  punctuationPattern,
+} from "./constants.evaluate.js";
 
 const INLINE_NODE_TYPES = new Set([
   "liquidNode",
@@ -36,8 +40,6 @@ const KIND_NON_CJK = "non-cjk";
 const KIND_CJ_LETTER = "cj-letter";
 const KIND_K_LETTER = "k-letter";
 const KIND_CJK_PUNCTUATION = "cjk-punctuation";
-
-const K_REGEXP = /\p{Script_Extensions=Hangul}/u;
 
 /**
  * @typedef {" " | "\n" | ""} WhitespaceValue
@@ -120,7 +122,7 @@ function splitText(text) {
               type: "word",
               value: innerToken,
               // Korean uses space to divide words, but Chinese & Japanese do not
-              kind: K_REGEXP.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
+              kind: kRegex.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
               hasLeadingPunctuation: false,
               hasTrailingPunctuation: false,
             },
