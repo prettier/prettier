@@ -71,6 +71,7 @@ function groupProperties(path, options, print, fields) {
     }, field),
   );
 
+  //Detect single-line object literals.
   let propsHaveBreak = false;
   for (let i = 0; i < propNodes.length - 1; i++) {
     propsHaveBreak ||= hasNewlineInRange(
@@ -80,6 +81,7 @@ function groupProperties(path, options, print, fields) {
     );
   }
 
+  //Map of property nodes to padding widths.
   if (!options.propAligns) {
     options.propAligns = new Map();
   }
