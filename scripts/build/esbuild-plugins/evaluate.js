@@ -14,7 +14,10 @@ export default function esbuildPluginEvaluate() {
         const module = await importModule(path);
         const text = Object.entries(module)
           .map(([specifier, value]) => {
-            value = serialize(value, { space: 2 });
+            value =
+              value instanceof RegExp
+                ? `/${value.source}/${value.flags}`
+                : serialize(value, { space: 2 });
 
             if (specifier === "default") {
               return format === "cjs"

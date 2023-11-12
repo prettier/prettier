@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import { locStart, locEnd } from "./loc.js";
-import { cjkPattern, punctuationPattern } from "./constants.evaluate.js";
+import { cjkPattern, PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 
 const INLINE_NODE_TYPES = new Set([
   "liquidNode",
@@ -29,8 +29,6 @@ const INLINE_NODE_WRAPPER_TYPES = new Set([
   "paragraph",
   "heading",
 ]);
-
-const punctuationRegex = new RegExp(punctuationPattern);
 
 const KIND_NON_CJK = "non-cjk";
 const KIND_CJ_LETTER = "cj-letter";
@@ -99,8 +97,8 @@ function splitText(text) {
             type: "word",
             value: innerToken,
             kind: KIND_NON_CJK,
-            hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
-            hasTrailingPunctuation: punctuationRegex.test(innerToken.at(-1)),
+            hasLeadingPunctuation: PUNCTUATION_REGEXP.test(innerToken[0]),
+            hasTrailingPunctuation: PUNCTUATION_REGEXP.test(innerToken.at(-1)),
           });
         }
         continue;
@@ -108,7 +106,7 @@ function splitText(text) {
 
       // CJK character
       appendNode(
-        punctuationRegex.test(innerToken)
+        PUNCTUATION_REGEXP.test(innerToken)
           ? {
               type: "word",
               value: innerToken,
@@ -239,7 +237,6 @@ function isAutolink(node) {
 export {
   mapAst,
   splitText,
-  punctuationPattern,
   getFencedCodeBlockValue,
   getOrderedListItemInfo,
   hasGitDiffFriendlyOrderedList,
