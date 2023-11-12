@@ -278,6 +278,13 @@ item of
  emptyCollection; track item.id;
 "></li>
 
+<div>
+  @for ( item of items; track item){
+  }
+
+  <div *ngFor="item of items; track item"></div>
+</div>
+
 =====================================output=====================================
 <ul>
   @for (let item of items; index as i; trackBy: trackByFn) {
@@ -309,7 +316,7 @@ item of
 </ul>
 
 <ul>
-  @for (item of emptyCollection; track: item.id) {
+  @for (item of emptyCollection; track item.id) {
     <li>
       <strong>{{ item.name }}</strong>
     </li>
@@ -317,7 +324,13 @@ item of
     <span>The collection is empty</span>
   }
 </ul>
-<li *ngFor="item of emptyCollection; track: item.id"></li>
+<li *ngFor="item of emptyCollection; track item.id"></li>
+
+<div>
+  @for (item of items; track item) {}
+
+  <div *ngFor="item of items; track item"></div>
+</div>
 
 ================================================================================
 `;

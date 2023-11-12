@@ -59,6 +59,7 @@ function printAngular(path, options, print) {
       ];
     case "NGMicrosyntaxKeyedExpression": {
       const { index, parent } = path;
+      // https://github.com/prettier/angular-estree-parser/issues/267
       const shouldNotPrintColon =
         isNgForOf(path) ||
         (((index === 1 &&
@@ -66,9 +67,10 @@ function printAngular(path, options, print) {
             node.key.name === "else" ||
             node.key.name === "as")) ||
           (index === 2 &&
-            node.key.name === "else" &&
-            parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
-            parent.body[index - 1].key.name === "then")) &&
+            ((node.key.name === "else" &&
+              parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
+              parent.body[index - 1].key.name === "then") ||
+              node.key.name === "track"))) &&
           parent.body[0].type === "NGMicrosyntaxExpression");
       return [
         print("key"),
