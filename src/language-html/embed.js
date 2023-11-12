@@ -25,6 +25,14 @@ import getNodeContent from "./get-node-content.js";
 import printAttribute from "./embed/attribute.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 
+const embeddedAngularControlFlowBlocks = new Set([
+  "if",
+  "else if",
+  "for",
+  "switch",
+  "case",
+]);
+
 function embed(path, options) {
   const { node } = path;
 
@@ -140,7 +148,7 @@ function embed(path, options) {
     // TODO: This should work on `blockParameter`, but currently we don't have a parser for it.
     case "block":
       if (
-        !["if", "else if", "for", "switch", "case"].includes(node.name) ||
+        !embeddedAngularControlFlowBlocks.has(node.name) ||
         node.parameters.length === 0
       ) {
         return;
