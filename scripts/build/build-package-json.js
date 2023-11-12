@@ -42,6 +42,10 @@ async function buildPackageJson({ file, files }) {
       ".": {
         types: "./index.d.ts",
         require: "./index.cjs",
+        browser: {
+          import: "./standalone.mjs",
+          default: "./standalone.js",
+        },
         default: "./index.mjs",
       },
       "./*": "./*",
