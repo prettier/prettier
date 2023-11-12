@@ -95,7 +95,7 @@ function genericPrint(path, options, print) {
               `(^|${PUNCTUATION_REGEXP.source})(_+)`,
               `(_+)(${PUNCTUATION_REGEXP.source}|$)`,
             ].join("|"),
-            "g",
+            "gu",
           ),
           (_, text1, underscore1, underscore2, text2) =>
             (underscore1
