@@ -87,7 +87,7 @@ exports[`API getSupportInfo() 1`] = `
     ],
   },
   "options": {
-    "alignPropertyKeys": {
+    "alignPropertyValues": {
       "choices": [
         "group",
         "same",
@@ -788,11 +788,11 @@ exports[`CLI --support-info (stdout) 1`] = `
           "description": "Align all properties to the same column.",
           "value": "same"
         },
-        { "description": "Do not align object literal keys", "value": "none" }
+        { "description": "Do not align properties.", "value": "none" }
       ],
       "default": "none",
-      "description": "Align object literal property keys to the same column.",
-      "name": "alignPropertyKeys",
+      "description": "Vertically align object literal property values.",
+      "name": "alignPropertyValues",
       "pluginDefaults": {},
       "type": "choice"
     },

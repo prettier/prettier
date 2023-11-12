@@ -109,7 +109,7 @@ const options = {
       },
       {
         value: "none",
-        description: "Do not align properties",
+        description: "Do not align properties.",
       },
     ],
   },

@@ -6,9 +6,9 @@ exports[`schema 1`] = `
   "definitions": {
     "optionsDefinition": {
       "properties": {
-        "alignPropertyKeys": {
+        "alignPropertyValues": {
           "default": "none",
-          "description": "Align object literal property keys to the same column.",
+          "description": "Vertically align object literal property values.",
           "oneOf": [
             {
               "description": "Reset property alignment on empty lines.",
@@ -23,7 +23,7 @@ exports[`schema 1`] = `
               ],
             },
             {
-              "description": "Do not align object literal keys",
+              "description": "Do not align properties.",
               "enum": [
                 "none",
               ],
