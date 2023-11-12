@@ -93,11 +93,11 @@ const options = {
     ],
   },
   singleAttributePerLine: commonOptions.singleAttributePerLine,
-  alignPropertyKeys: {
+  alignPropertyValues: {
     category: CATEGORY_JAVASCRIPT,
     type: "choice",
     default: "none",
-    description: "Align object literal property keys to the same column.",
+    description: "Vertically align object literal property values.",
     choices: [
       {
         value: "group",
@@ -109,7 +109,7 @@ const options = {
       },
       {
         value: "none",
-        description: "Do not align object literal keys",
+        description: "Do not align properties",
       },
     ],
   },

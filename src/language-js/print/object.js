@@ -1,4 +1,4 @@
-import { printDanglingComments } from "../../main/comments/print.js";
+import {printDanglingComments} from "../../main/comments/print.js";
 import {
   line,
   softline,
@@ -18,18 +18,18 @@ import {
   isNextLineEmpty,
   isObjectType,
 } from "../utils/index.js";
-import { locStart, locEnd } from "../loc.js";
+import {locStart, locEnd} from "../loc.js";
 
-import { printDocToString } from "../../document/printer.js";
-import { printOptionalToken } from "./misc.js";
-import { shouldHugTheOnlyFunctionParameter } from "./function-parameters.js";
-import { printHardlineAfterHeritage } from "./class.js";
-import { printTypeAnnotationProperty } from "./type-annotation.js";
+import {printDocToString} from "../../document/printer.js";
+import {printOptionalToken} from "./misc.js";
+import {shouldHugTheOnlyFunctionParameter} from "./function-parameters.js";
+import {printHardlineAfterHeritage} from "./class.js";
+import {printTypeAnnotationProperty} from "./type-annotation.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
 function groupProperties(path, options, print, fields) {
-  const groupKeysByBlock = options.alignPropertyKeys === "group";
+  const groupKeysByBlock = options.alignPropertyValues === "group";
 
   // Build key alignment groups.
   const keyNodeGroups = new Map();
@@ -44,12 +44,12 @@ function groupProperties(path, options, print, fields) {
   };
 
   let propNodes = fields.flatMap((field) =>
-    path.map(({ node }) => {
+    path.map(({node}) => {
       if (
-        node.type !== "Property" ||
-        node.kind !== "init" ||
+        (node.type !== "Property" && node.type !== "ObjectProperty") ||
         node.method ||
-        node.shorthand
+        node.shorthand ||
+        (node.kind !== undefined && node.kind !== "init") //Acorn
       ) {
         newKeyGroup();
         return node;
@@ -98,28 +98,28 @@ function groupProperties(path, options, print, fields) {
 
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
-  const { node } = path;
+  const {node} = path;
 
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const isEnumBody =
-    node.type === "TSEnumDeclaration" ||
-    node.type === "EnumBooleanBody" ||
-    node.type === "EnumNumberBody" ||
-    node.type === "EnumStringBody" ||
-    node.type === "EnumSymbolBody";
+          node.type === "TSEnumDeclaration" ||
+          node.type === "EnumBooleanBody" ||
+          node.type === "EnumNumberBody" ||
+          node.type === "EnumStringBody" ||
+          node.type === "EnumSymbolBody";
   const fields = [
     node.type === "TSTypeLiteral" || isEnumBody
-      ? "members"
-      : node.type === "TSInterfaceBody"
-        ? "body"
-        : "properties",
+    ? "members"
+    : node.type === "TSInterfaceBody"
+      ? "body"
+      : "properties",
   ];
   if (isTypeAnnotation) {
     fields.push("indexers", "callProperties", "internalSlots");
   }
 
   if (
-    options.alignPropertyKeys !== "none" &&
+    options.alignPropertyValues !== "none" &&
     node.type === "ObjectExpression"
   ) {
     groupProperties(path, options, print, fields);
@@ -130,10 +130,10 @@ function printObject(path, options, print) {
   // printing them.
   const propsAndLoc = fields.flatMap((field) =>
     path.map(
-      ({ node }) => ({
+      ({node}) => ({
         node,
         printed: print(path, options),
-        loc: locStart(node),
+        loc    : locStart(node),
       }),
       field,
     ),
@@ -143,47 +143,47 @@ function printObject(path, options, print) {
     propsAndLoc.sort((a, b) => a.loc - b.loc);
   }
 
-  const { parent, key } = path;
+  const {parent, key} = path;
   const isFlowInterfaceLikeBody =
-    isTypeAnnotation &&
-    key === "body" &&
-    (parent.type === "InterfaceDeclaration" ||
-      parent.type === "DeclareInterface" ||
-      parent.type === "DeclareClass");
+          isTypeAnnotation &&
+          key === "body" &&
+          (parent.type === "InterfaceDeclaration" ||
+            parent.type === "DeclareInterface" ||
+            parent.type === "DeclareClass");
   const shouldBreak =
-    node.type === "TSInterfaceBody" ||
-    isEnumBody ||
-    isFlowInterfaceLikeBody ||
-    (node.type === "ObjectPattern" &&
-      parent.type !== "FunctionDeclaration" &&
-      parent.type !== "FunctionExpression" &&
-      parent.type !== "ArrowFunctionExpression" &&
-      parent.type !== "ObjectMethod" &&
-      parent.type !== "ClassMethod" &&
-      parent.type !== "ClassPrivateMethod" &&
-      parent.type !== "AssignmentPattern" &&
-      parent.type !== "CatchClause" &&
-      node.properties.some(
-        (property) =>
-          property.value &&
-          (property.value.type === "ObjectPattern" ||
-            property.value.type === "ArrayPattern"),
-      )) ||
-    (node.type !== "ObjectPattern" &&
-      propsAndLoc.length > 0 &&
-      hasNewlineInRange(
-        options.originalText,
-        locStart(node),
-        propsAndLoc[0].loc,
-      ));
+          node.type === "TSInterfaceBody" ||
+          isEnumBody ||
+          isFlowInterfaceLikeBody ||
+          (node.type === "ObjectPattern" &&
+            parent.type !== "FunctionDeclaration" &&
+            parent.type !== "FunctionExpression" &&
+            parent.type !== "ArrowFunctionExpression" &&
+            parent.type !== "ObjectMethod" &&
+            parent.type !== "ClassMethod" &&
+            parent.type !== "ClassPrivateMethod" &&
+            parent.type !== "AssignmentPattern" &&
+            parent.type !== "CatchClause" &&
+            node.properties.some(
+              (property) =>
+                property.value &&
+                (property.value.type === "ObjectPattern" ||
+                  property.value.type === "ArrayPattern"),
+            )) ||
+          (node.type !== "ObjectPattern" &&
+            propsAndLoc.length > 0 &&
+            hasNewlineInRange(
+              options.originalText,
+              locStart(node),
+              propsAndLoc[0].loc,
+            ));
 
   const separator = isFlowInterfaceLikeBody
-    ? ";"
-    : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
-      ? ifBreak(semi, ";")
-      : ",";
+                    ? ";"
+                    : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
+                      ? ifBreak(semi, ";")
+                      : ",";
   const leftBrace =
-    node.type === "RecordExpression" ? "#{" : node.exact ? "{|" : "{";
+          node.type === "RecordExpression" ? "#{" : node.exact ? "{|" : "{";
   const rightBrace = node.exact ? "|}" : "}";
 
   /** @type {Doc[]} */
@@ -215,8 +215,8 @@ function printObject(path, options, print) {
         printedDanglingComments,
         hasLineComments ||
         hasNewline(options.originalText, locEnd(getComments(node).at(-1)))
-          ? hardline
-          : line,
+        ? hardline
+        : line,
         "...",
       ];
     } else {
@@ -233,9 +233,9 @@ function printObject(path, options, print) {
     (lastElem &&
       (lastElem.type === "RestElement" ||
         ((lastElem.type === "TSPropertySignature" ||
-          lastElem.type === "TSCallSignatureDeclaration" ||
-          lastElem.type === "TSMethodSignature" ||
-          lastElem.type === "TSConstructSignatureDeclaration") &&
+            lastElem.type === "TSCallSignatureDeclaration" ||
+            lastElem.type === "TSMethodSignature" ||
+            lastElem.type === "TSConstructSignatureDeclaration") &&
           hasComment(lastElem, CommentCheckFlags.PrettierIgnore))))
   );
 
@@ -247,7 +247,7 @@ function printObject(path, options, print) {
 
     content = group([
       leftBrace,
-      printDanglingComments(path, options, { indent: true }),
+      printDanglingComments(path, options, {indent: true}),
       softline,
       rightBrace,
       printOptionalToken(path),
@@ -256,15 +256,15 @@ function printObject(path, options, print) {
   } else {
     content = [
       isFlowInterfaceLikeBody && isNonEmptyArray(node.properties)
-        ? printHardlineAfterHeritage(parent)
-        : "",
+      ? printHardlineAfterHeritage(parent)
+      : "",
       leftBrace,
       indent([options.bracketSpacing ? line : softline, ...props]),
       ifBreak(
         canHaveTrailingSeparator &&
-          (separator !== "," || shouldPrintComma(options))
-          ? separator
-          : "",
+        (separator !== "," || shouldPrintComma(options))
+        ? separator
+        : "",
       ),
       options.bracketSpacing ? line : softline,
       rightBrace,
@@ -284,11 +284,11 @@ function printObject(path, options, print) {
     ) ||
     (isObjectType(node) &&
       (path.match(
-        undefined,
-        (node, name) => name === "typeAnnotation",
-        (node, name) => name === "typeAnnotation",
-        shouldHugTheOnlyParameter,
-      ) ||
+          undefined,
+          (node, name) => name === "typeAnnotation",
+          (node, name) => name === "typeAnnotation",
+          shouldHugTheOnlyParameter,
+        ) ||
         path.match(
           undefined,
           (node, name) =>
@@ -308,7 +308,7 @@ function printObject(path, options, print) {
     return content;
   }
 
-  return group(content, { shouldBreak });
+  return group(content, {shouldBreak});
 }
 
 function shouldHugTheOnlyParameter(node, name) {
@@ -321,4 +321,4 @@ function shouldHugTheOnlyParameter(node, name) {
   );
 }
 
-export { printObject };
+export {printObject};
