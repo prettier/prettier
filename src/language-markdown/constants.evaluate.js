@@ -1,4 +1,5 @@
 import { all as getCjkCharset } from "cjk-regex";
+import escapeStringRegexp from "escape-string-regexp";
 import { Charset } from "regexp-util";
 import unicodeRegex from "unicode-regex";
 
@@ -24,32 +25,61 @@ const CJK_REGEXP = new RegExp(
   `(?:${cjkCharset.toString()})(?:${variationSelectorsCharset.toString()})?`,
 );
 
-// http://spec.commonmark.org/0.25/#ascii-punctuation-character
-const asciiPunctuationCharset =
-  /* prettier-ignore */ new Charset(
-  "!", '"', "#",  "$", "%", "&", "'", "(", ")", "*",
-  "+", ",", "-",  ".", "/", ":", ";", "<", "=", ">",
-  "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|",
-  "}", "~"
-);
+const asciiPunctuationCharacters = [
+  "!",
+  '"',
+  "#",
+  "$",
+  "%",
+  "&",
+  "'",
+  "(",
+  ")",
+  "*",
+  "+",
+  ",",
+  "-",
+  ".",
+  "/",
+  ":",
+  ";",
+  "<",
+  "=",
+  ">",
+  "?",
+  "@",
+  "[",
+  "\\",
+  "]",
+  "^",
+  "_",
+  "`",
+  "{",
+  "|",
+  "}",
+  "~",
+];
 
 // http://spec.commonmark.org/0.25/#punctuation-character
-const unicodePunctuationCharset = unicodeRegex({
-  // http://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
-  General_Category: [
-    /* Pc */ "Connector_Punctuation",
-    /* Pd */ "Dash_Punctuation",
-    /* Pe */ "Close_Punctuation",
-    /* Pf */ "Final_Punctuation",
-    /* Pi */ "Initial_Punctuation",
-    /* Po */ "Other_Punctuation",
-    /* Ps */ "Open_Punctuation",
-  ],
-});
+// http://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
+const unicodePunctuationClasses = [
+  /* Pc */ "Connector_Punctuation",
+  /* Pd */ "Dash_Punctuation",
+  /* Pe */ "Close_Punctuation",
+  /* Pf */ "Final_Punctuation",
+  /* Pi */ "Initial_Punctuation",
+  /* Po */ "Other_Punctuation",
+  /* Ps */ "Open_Punctuation",
+];
 
-const PUNCTUATION_REGEXP = new Charset(
-  asciiPunctuationCharset,
-  unicodePunctuationCharset,
-).toRegExp();
+const PUNCTUATION_REGEXP = new RegExp(
+  [
+    ...asciiPunctuationCharacters.map((character) =>
+      escapeStringRegexp(character),
+    ),
+    ...unicodePunctuationClasses.map((charset) => `\\p{${charset}}`),
+  ].join("|"),
+  "u",
+);
 
 export { CJK_REGEXP, PUNCTUATION_REGEXP };

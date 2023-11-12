@@ -236,11 +236,8 @@ function isAutolink(node) {
 }
 
 export {
-  getFencedCodeBlockValue,
-  getOrderedListItemInfo,
   hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,
-  INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
   KIND_CJ_LETTER,
   KIND_CJK_PUNCTUATION,
