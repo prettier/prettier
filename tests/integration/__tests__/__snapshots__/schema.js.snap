@@ -6,6 +6,30 @@ exports[`schema 1`] = `
   "definitions": {
     "optionsDefinition": {
       "properties": {
+        "alignPropertyKeys": {
+          "default": "none",
+          "description": "Align object literal property keys to the same column.",
+          "oneOf": [
+            {
+              "description": "Reset property alignment on empty lines.",
+              "enum": [
+                "group",
+              ],
+            },
+            {
+              "description": "Align all properties to the same column.",
+              "enum": [
+                "same",
+              ],
+            },
+            {
+              "description": "Do not align object literal keys",
+              "enum": [
+                "none",
+              ],
+            },
+          ],
+        },
         "arrowParens": {
           "default": "always",
           "description": "Include parentheses around a sole arrow function parameter.",

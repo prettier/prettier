@@ -59,7 +59,7 @@ exports[`show external options with \`--help\` 1`] = `
 - First value
 + Second value
 
-@@ -24,16 +24,18 @@
+@@ -27,16 +27,18 @@
     --end-of-line <lf|crlf|cr|auto>
                              Which end of line characters to apply.
                              Defaults to lf.

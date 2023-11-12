@@ -87,6 +87,15 @@ exports[`API getSupportInfo() 1`] = `
     ],
   },
   "options": {
+    "alignPropertyKeys": {
+      "choices": [
+        "group",
+        "same",
+        "none",
+      ],
+      "default": "none",
+      "type": "choice",
+    },
     "arrowParens": {
       "choices": [
         "always",
@@ -768,6 +777,25 @@ exports[`CLI --support-info (stdout) 1`] = `
     }
   ],
   "options": [
+    {
+      "category": "JavaScript",
+      "choices": [
+        {
+          "description": "Reset property alignment on empty lines.",
+          "value": "group"
+        },
+        {
+          "description": "Align all properties to the same column.",
+          "value": "same"
+        },
+        { "description": "Do not align object literal keys", "value": "none" }
+      ],
+      "default": "none",
+      "description": "Align object literal property keys to the same column.",
+      "name": "alignPropertyKeys",
+      "pluginDefaults": {},
+      "type": "choice"
+    },
     {
       "category": "JavaScript",
       "choices": [

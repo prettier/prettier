@@ -41,6 +41,9 @@ Output options:
 
 Format options:
 
+  --align-property-keys <group|same|none>
+                           Align object literal property keys to the same column.
+                           Defaults to none.
   --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
@@ -208,6 +211,9 @@ Output options:
 
 Format options:
 
+  --align-property-keys <group|same|none>
+                           Align object literal property keys to the same column.
+                           Defaults to none.
   --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.

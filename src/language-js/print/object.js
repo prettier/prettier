@@ -20,12 +20,81 @@ import {
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 
+import { printDocToString } from "../../document/printer.js";
 import { printOptionalToken } from "./misc.js";
 import { shouldHugTheOnlyFunctionParameter } from "./function-parameters.js";
 import { printHardlineAfterHeritage } from "./class.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
+
+function groupProperties(path, options, print, fields) {
+  const groupKeysByBlock = options.alignPropertyKeys === "group";
+
+  // Build key alignment groups.
+  const keyNodeGroups = new Map();
+  const keyGroups = [0];
+  let curKeyGroup = 0;
+
+  const newKeyGroup = () => {
+    if (groupKeysByBlock) {
+      keyGroups.push(0);
+      curKeyGroup++;
+    }
+  };
+
+  let propNodes = fields.flatMap((field) =>
+    path.map(({ node }) => {
+      if (
+        node.type !== "Property" ||
+        node.kind !== "init" ||
+        node.method ||
+        node.shorthand
+      ) {
+        newKeyGroup();
+        return node;
+      }
+
+      const keyDoc = path.call(() => print(), "key");
+      const key = printDocToString(keyDoc, {}).formatted;
+
+      keyNodeGroups.set(node, {
+        group: curKeyGroup,
+        key,
+      });
+      keyGroups[curKeyGroup] = Math.max(keyGroups[curKeyGroup], key.length);
+
+      if (isNextLineEmpty(node, options)) {
+        newKeyGroup();
+      }
+      return node;
+    }, field),
+  );
+
+  let propsHaveBreak = false;
+  for (let i = 0; i < propNodes.length - 1; i++) {
+    propsHaveBreak ||= hasNewlineInRange(
+      options.originalText,
+      locStart(propNodes[i]),
+      locStart(propNodes[i + 1]),
+    );
+  }
+
+  if (!options.propAligns) {
+    options.propAligns = new Map();
+  }
+
+  propNodes = propNodes.filter((node) => keyNodeGroups.has(node));
+  for (const node of propNodes) {
+    const keyGroup = keyNodeGroups.get(node);
+
+    const pad = keyGroups[keyGroup.group] - keyGroup.key.length;
+    options.propAligns.set(node, {
+      pad,
+      haveBreak: propsHaveBreak,
+    });
+  }
+}
 
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
@@ -42,11 +111,18 @@ function printObject(path, options, print) {
     node.type === "TSTypeLiteral" || isEnumBody
       ? "members"
       : node.type === "TSInterfaceBody"
-      ? "body"
-      : "properties",
+        ? "body"
+        : "properties",
   ];
   if (isTypeAnnotation) {
     fields.push("indexers", "callProperties", "internalSlots");
+  }
+
+  if (
+    options.alignPropertyKeys !== "none" &&
+    node.type === "ObjectExpression"
+  ) {
+    groupProperties(path, options, print, fields);
   }
 
   // Unfortunately, things grouped together in the ast can be
@@ -56,7 +132,7 @@ function printObject(path, options, print) {
     path.map(
       ({ node }) => ({
         node,
-        printed: print(),
+        printed: print(path, options),
         loc: locStart(node),
       }),
       field,
@@ -104,8 +180,8 @@ function printObject(path, options, print) {
   const separator = isFlowInterfaceLikeBody
     ? ";"
     : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
-    ? ifBreak(semi, ";")
-    : ",";
+      ? ifBreak(semi, ";")
+      : ",";
   const leftBrace =
     node.type === "RecordExpression" ? "#{" : node.exact ? "{|" : "{";
   const rightBrace = node.exact ? "|}" : "}";

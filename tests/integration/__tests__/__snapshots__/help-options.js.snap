@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`show detailed usage with --help align-property-keys (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help align-property-keys (stdout) 1`] = `
+"--align-property-keys <group|same|none>
+
+  Align object literal property keys to the same column.
+
+Valid options:
+
+  group   Reset property alignment on empty lines.
+  same    Align all properties to the same column.
+  none    Do not align object literal keys
+
+Default: none"
+`;
+
+exports[`show detailed usage with --help align-property-keys (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help arrow-parens (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help arrow-parens (stdout) 1`] = `

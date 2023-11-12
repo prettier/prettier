@@ -93,6 +93,26 @@ const options = {
     ],
   },
   singleAttributePerLine: commonOptions.singleAttributePerLine,
+  alignPropertyKeys: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "choice",
+    default: "none",
+    description: "Align object literal property keys to the same column.",
+    choices: [
+      {
+        value: "group",
+        description: "Reset property alignment on empty lines.",
+      },
+      {
+        value: "same",
+        description: "Align all properties to the same column.",
+      },
+      {
+        value: "none",
+        description: "Do not align object literal keys",
+      },
+    ],
+  },
 };
 
 export default options;

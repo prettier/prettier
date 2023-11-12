@@ -8,9 +8,40 @@ import {
   isStringPropSafeToUnquote,
   rawText,
 } from "../utils/index.js";
+import { ifBreak, group } from "../../document/builders.js";
 import { printAssignment } from "./assignment.js";
 
 const needsQuoteProps = new WeakMap();
+
+export function padPropertyKey(node, options, ...extra) {
+  if (options.propAligns && options.propAligns.has(node)) {
+    let { pad, haveBreak } = options.propAligns.get(node);
+
+    pad = group(" ".repeat(pad));
+
+    /* Do not pad properties declared inline.
+
+    There are two cases here.  The first is
+    a non-inline property that needs to break.
+    In that case the padding should not be applied.
+    This works.
+
+    The second is inlined properties that need
+    to break. Padding should be applied. This
+    *doesn't* work.
+    */
+    let doc;
+    if (haveBreak) {
+      doc = ifBreak([], pad);
+    } else {
+      doc = ifBreak(pad, []);
+    }
+
+    return [doc, ...extra];
+  }
+
+  return extra;
+}
 
 function printPropertyKey(path, options, print) {
   const { node } = path;
@@ -94,7 +125,7 @@ function printProperty(path, options, print) {
     options,
     print,
     printPropertyKey(path, options, print),
-    ":",
+    padPropertyKey(node, options, ":"),
     "value",
   );
 }
