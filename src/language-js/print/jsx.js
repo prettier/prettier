@@ -15,7 +15,7 @@ import {
   join,
   cursor,
 } from "../../document/builders.js";
-import { willBreak, replaceEndOfLine } from "../../document/utils.js";
+import { willBreak, replaceTextEndOfLine } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import getPreferredQuote from "../../utils/get-preferred-quote.js";
 import WhitespaceUtils from "../../utils/whitespace-utils.js";
@@ -505,7 +505,11 @@ function printJsxAttribute(path, options, print) {
           : final.replaceAll("'", "&apos;");
       res = path.call(
         () =>
-          printComments(path, replaceEndOfLine(quote + final + quote), options),
+          printComments(
+            path,
+            replaceTextEndOfLine(quote + final + quote),
+            options,
+          ),
         "value",
       );
     } else {

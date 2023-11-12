@@ -8,7 +8,7 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 import getNodeContent from "../get-node-content.js";
 import {
   shouldPreserveContent,
@@ -33,7 +33,7 @@ function printElement(path, options, print) {
     return [
       printOpeningTagPrefix(node, options),
       group(printOpeningTag(path, options, print)),
-      replaceEndOfLine(getNodeContent(node, options)),
+      replaceTextEndOfLine(getNodeContent(node, options)),
       ...printClosingTag(node, options),
       printClosingTagSuffix(node, options),
     ];

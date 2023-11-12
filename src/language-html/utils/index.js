@@ -5,7 +5,7 @@
 import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
 import inferParser from "../../utils/infer-parser.js";
 import { line, hardline, join } from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 import {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
@@ -609,8 +609,8 @@ function isVueSfcBindingsAttribute(attribute, options) {
 function getTextValueParts(node, value = node.value) {
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
-      ? replaceEndOfLine(value)
-      : replaceEndOfLine(
+      ? replaceTextEndOfLine(value)
+      : replaceTextEndOfLine(
           dedentString(htmlTrimPreserveIndentation(value)),
           hardline,
         )

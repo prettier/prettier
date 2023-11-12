@@ -407,9 +407,14 @@ function normalizeDoc(doc) {
 function replaceEndOfLine(doc, replacement = literalline) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string"
-      ? join(replacement, currentDoc.split("\n"))
+      ? replaceTextEndOfLine(currentDoc, replacement)
       : currentDoc,
   );
+}
+
+// Strings are docs too, but use it can avoid bundling `mapDoc`
+function replaceTextEndOfLine(text, replacement = literalline) {
+  return join(replacement, text.split("\n"));
 }
 
 function canBreakFn(doc) {
@@ -441,6 +446,7 @@ export {
   normalizeDoc,
   cleanDoc,
   replaceEndOfLine,
+  replaceTextEndOfLine,
   canBreak,
   getDocType,
   inheritLabel,

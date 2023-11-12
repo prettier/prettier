@@ -3,7 +3,7 @@
  */
 
 import { fill, group, hardline } from "../document/builders.js";
-import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
+import { cleanDoc, replaceTextEndOfLine } from "../document/utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
@@ -32,7 +32,7 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return replaceEndOfLine(node.raw);
+      return replaceTextEndOfLine(node.raw);
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -66,7 +66,10 @@ function genericPrint(path, options, print) {
         const value = hasTrailingNewline
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
-        return [replaceEndOfLine(value), hasTrailingNewline ? hardline : ""];
+        return [
+          replaceTextEndOfLine(value),
+          hasTrailingNewline ? hardline : "",
+        ];
       }
 
       const printed = cleanDoc([
@@ -93,7 +96,7 @@ function genericPrint(path, options, print) {
     case "comment":
       return [
         printOpeningTagPrefix(node, options),
-        replaceEndOfLine(
+        replaceTextEndOfLine(
           options.originalText.slice(locStart(node), locEnd(node)),
         ),
         printClosingTagSuffix(node, options),
@@ -109,7 +112,7 @@ function genericPrint(path, options, print) {
         node.rawName,
         "=",
         quote,
-        replaceEndOfLine(
+        replaceTextEndOfLine(
           quote === '"'
             ? value.replaceAll('"', "&quot;")
             : value.replaceAll("'", "&apos;"),

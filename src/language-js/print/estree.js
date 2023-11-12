@@ -8,7 +8,7 @@ import {
   group,
   indent,
 } from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 
 import {
@@ -620,7 +620,7 @@ function printEstree(path, options, print, args) {
     case "AccessorProperty":
       return printClassProperty(path, options, print);
     case "TemplateElement":
-      return replaceEndOfLine(node.value.raw);
+      return replaceTextEndOfLine(node.value.raw);
     case "TemplateLiteral":
       return printTemplateLiteral(path, print, options);
     case "TaggedTemplateExpression":

@@ -1,5 +1,5 @@
 import { join, hardline } from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 
 import { isLineComment } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
@@ -21,7 +21,7 @@ function printComment(commentPath, options) {
       return printIndentableBlockComment(comment);
     }
 
-    return ["/*", replaceEndOfLine(comment.value), "*/"];
+    return ["/*", replaceTextEndOfLine(comment.value), "*/"];
   }
 
   /* c8 ignore next */

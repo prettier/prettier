@@ -1,6 +1,10 @@
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { indent, hardline, softline } from "../../document/builders.js";
-import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
+import {
+  mapDoc,
+  replaceTextEndOfLine,
+  cleanDoc,
+} from "../../document/utils.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
 import { isAngularComponentStyles } from "./utils.js";
 
@@ -49,7 +53,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     return doc.split(/@prettier-placeholder-(\d+)-id/).map((component, idx) => {
       // The placeholder is always at odd indices
       if (idx % 2 === 0) {
-        return replaceEndOfLine(component);
+        return replaceTextEndOfLine(component);
       }
 
       // The component will always be a number at odd index

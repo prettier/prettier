@@ -1,6 +1,6 @@
 import printString from "../../utils/print-string.js";
 import printNumber from "../../utils/print-number.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
@@ -17,7 +17,7 @@ function printLiteral(path, options /*, print*/) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(node.extra.raw);
     case "StringLiteral": // Babel 6 Literal split
-      return replaceEndOfLine(printString(node.extra.raw, options));
+      return replaceTextEndOfLine(printString(node.extra.raw, options));
     case "NullLiteral": // Babel 6 Literal split
       return "null";
     case "BooleanLiteral": // Babel 6 Literal split
@@ -48,7 +48,7 @@ function printLiteral(path, options /*, print*/) {
       if (typeof value === "string") {
         return isDirective(path)
           ? printDirective(node.raw, options)
-          : replaceEndOfLine(printString(node.raw, options));
+          : replaceTextEndOfLine(printString(node.raw, options));
       }
       return String(value);
     }

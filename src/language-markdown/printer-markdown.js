@@ -18,7 +18,7 @@ import {
   group,
   hardlineWithoutBreakParent,
 } from "../document/builders.js";
-import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
+import { normalizeDoc, replaceTextEndOfLine } from "../document/utils.js";
 import { printDocToString } from "../document/printer.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import embed from "./embed.js";
@@ -236,7 +236,7 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(alignment, [
           alignment,
-          replaceEndOfLine(node.value, hardline),
+          replaceTextEndOfLine(node.value, hardline),
         ]);
       }
 
@@ -250,7 +250,7 @@ function genericPrint(path, options, print) {
         node.lang || "",
         node.meta ? " " + node.meta : "",
         hardline,
-        replaceEndOfLine(
+        replaceTextEndOfLine(
           getFencedCodeBlockValue(node, options.originalText),
           hardline,
         ),
@@ -264,7 +264,7 @@ function genericPrint(path, options, print) {
         parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
       const isHtmlComment = /^<!--.*-->$/s.test(value);
 
-      return replaceEndOfLine(
+      return replaceTextEndOfLine(
         value,
         // @ts-expect-error
         isHtmlComment ? hardline : markAsRoot(literalline),
@@ -410,7 +410,7 @@ function genericPrint(path, options, print) {
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
-      return replaceEndOfLine(node.value, hardline);
+      return replaceTextEndOfLine(node.value, hardline);
     // MDX
     // fallback to the original text if multiparser failed
     // or `embeddedLanguageFormatting: "off"`
@@ -424,7 +424,9 @@ function genericPrint(path, options, print) {
       return [
         "$$",
         hardline,
-        node.value ? [replaceEndOfLine(node.value, hardline), hardline] : "",
+        node.value
+          ? [replaceTextEndOfLine(node.value, hardline), hardline]
+          : "",
         "$$",
       ];
     case "inlineMath":

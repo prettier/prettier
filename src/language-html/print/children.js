@@ -6,7 +6,7 @@ import {
   softline,
   hardline,
 } from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 import { locStart, locEnd } from "../loc.js";
 import {
   forceBreakChildren,
@@ -31,7 +31,7 @@ function printChild(childPath, options, print) {
   if (hasPrettierIgnore(child)) {
     return [
       printOpeningTagPrefix(child, options),
-      replaceEndOfLine(
+      replaceTextEndOfLine(
         options.originalText.slice(
           locStart(child) +
             (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)

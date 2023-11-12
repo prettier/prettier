@@ -3,7 +3,7 @@
 import assert from "node:assert";
 import printString from "../../utils/print-string.js";
 import printNumber from "../../utils/print-number.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 import {
   isFunctionNotation,
   isGetterOrSetter,
@@ -241,7 +241,7 @@ function printFlow(path, options, print) {
     case "BooleanLiteralTypeAnnotation":
       return String(node.value);
     case "StringLiteralTypeAnnotation":
-      return replaceEndOfLine(printString(rawText(node), options));
+      return replaceTextEndOfLine(printString(rawText(node), options));
     case "NumberLiteralTypeAnnotation":
       return printNumber(node.raw ?? node.extra.raw);
     case "BigIntLiteralTypeAnnotation":

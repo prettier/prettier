@@ -9,7 +9,7 @@ import {
   line,
   softline,
 } from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
+import { replaceTextEndOfLine } from "../document/utils.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
@@ -194,7 +194,7 @@ function print(path, options, print) {
           ];
         }
 
-        return replaceEndOfLine(text);
+        return replaceTextEndOfLine(text);
       }
 
       const isWhitespaceOnly = htmlWhitespaceUtils.isWhitespaceOnly(text);
