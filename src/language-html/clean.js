@@ -38,8 +38,8 @@ function clean(ast, newNode) {
     delete newNode.value;
   }
 
-  if (ast.type === "block") {
-    for (const parameter of newNode.parameters) {
+  if (ast.type === "angularControlFlowBlock" && newNode.parameters?.children) {
+    for (const parameter of newNode.parameters.children) {
       if (embeddedAngularControlFlowBlocks.has(ast.name)) {
         delete parameter.expression;
       } else {

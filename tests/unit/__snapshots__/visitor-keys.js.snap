@@ -1389,12 +1389,15 @@ exports[`visitor keys graphql 1`] = `
 
 exports[`visitor keys html 1`] = `
 {
-  "attribute": [],
-  "block": [
+  "angularControlFlowBlock": [
     "children",
     "parameters",
   ],
-  "blockParameter": [],
+  "angularControlFlowBlockParameter": [],
+  "angularControlFlowBlockParameters": [
+    "children",
+  ],
+  "attribute": [],
   "cdata": [],
   "comment": [],
   "docType": [],

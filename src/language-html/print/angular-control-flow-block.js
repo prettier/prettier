@@ -29,15 +29,8 @@ function printAngularControlFlowBlock(path, options, print) {
 
   docs.push("@", node.name);
 
-  if (node.parameters.length > 0) {
-    const parametersDoc = group(
-      node.__embed_parameters_doc ?? [
-        indent([softline, join([";", line], path.map(print, "parameters"))]),
-        softline,
-      ],
-    );
-
-    docs.push(" (", parametersDoc, ")");
+  if (node.parameters) {
+    docs.push(" (", group(print("parameters")), ")");
   }
 
   docs.push(" {");
@@ -67,7 +60,7 @@ function printAngularControlFlowBlock(path, options, print) {
 function shouldCloseBlock(node, names) {
   return !(
     names.size > 0 &&
-    node.next?.type === "block" &&
+    node.next?.type === "angularControlFlowBlock" &&
     names.has(node.next.name)
   );
 }
@@ -78,10 +71,17 @@ function findPreviousBlock(path) {
   for (let i = index - 1; i >= 0; i--) {
     const sibling = siblings[i];
 
-    if (sibling.type === "block") {
+    if (sibling.type === "angularControlFlowBlock") {
       return sibling;
     }
   }
 }
 
-export { printAngularControlFlowBlock };
+function printAngularControlFlowBlockParameters(path, options, print) {
+  return [
+    indent([softline, join([";", line], path.map(print, "children"))]),
+    softline,
+  ];
+}
+
+export { printAngularControlFlowBlock, printAngularControlFlowBlockParameters };

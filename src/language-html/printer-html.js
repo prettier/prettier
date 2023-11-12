@@ -21,7 +21,10 @@ import {
 } from "./print/tag.js";
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
-import { printAngularControlFlowBlock } from "./print/angular-control-flow-block.js";
+import {
+  printAngularControlFlowBlock,
+  printAngularControlFlowBlockParameters,
+} from "./print/angular-control-flow-block.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 
 function genericPrint(path, options, print) {
@@ -39,9 +42,11 @@ function genericPrint(path, options, print) {
     case "ieConditionalComment":
       return printElement(path, options, print);
 
-    case "block":
+    case "angularControlFlowBlock":
       return printAngularControlFlowBlock(path, options, print);
-    case "blockParameter":
+    case "angularControlFlowBlockParameters":
+      return printAngularControlFlowBlockParameters(path, options, print);
+    case "angularControlFlowBlockParameter":
       return htmlWhitespaceUtils.trim(node.expression);
 
     case "ieConditionalStartComment":

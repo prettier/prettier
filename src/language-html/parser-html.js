@@ -11,6 +11,7 @@ import {
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParser from "../utils/infer-parser.js";
 import createError from "../common/parser-create-error.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
 import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
@@ -39,10 +40,31 @@ import { locStart, locEnd } from "./loc.js";
  */
 
 // `@else    if`
-function normalizeAngularControlFlowBlockName(node) {
-  if (node.type === "block") {
-    node.name = node.name.toLowerCase().replaceAll(/\s+/g, " ").trim();
+function normalizeAngularControlFlowBlock(node) {
+  if (node.type !== "block") {
+    return;
   }
+
+  node.name = node.name.toLowerCase().replaceAll(/\s+/g, " ").trim();
+  node.type = "angularControlFlowBlock";
+
+  if (!isNonEmptyArray(node.parameters)) {
+    delete node.parameters;
+    return;
+  }
+
+  for (const parameter of node.parameters) {
+    parameter.type = "angularControlFlowBlockParameter";
+  }
+
+  node.parameters = {
+    type: "angularControlFlowBlockParameters",
+    children: node.parameters,
+    sourceSpan: new ParseSourceSpan(
+      node.parameters[0].sourceSpan.start,
+      node.parameters.at(-1).sourceSpan.end,
+    ),
+  };
 }
 
 /**
@@ -244,7 +266,6 @@ function ngHtmlParser(input, parseOptions, options) {
         addTagDefinition(node);
         normalizeName(node);
         fixSourceSpan(node);
-        normalizeAngularControlFlowBlockName(node);
       }
     })(),
     rootNodes,
@@ -351,6 +372,8 @@ function parse(
         node.parent.replaceChild(node, ieConditionalComment);
       }
     }
+
+    normalizeAngularControlFlowBlock(node);
   });
 
   return ast;

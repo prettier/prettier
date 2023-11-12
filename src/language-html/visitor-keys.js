@@ -11,8 +11,9 @@ const visitorKeys = {
   comment: [],
   attribute: [],
   cdata: [],
-  block: ["children", "parameters"],
-  blockParameter: [],
+  angularControlFlowBlock: ["children", "parameters"],
+  angularControlFlowBlockParameters: ["children"],
+  angularControlFlowBlockParameter: [],
 };
 
 export default visitorKeys;

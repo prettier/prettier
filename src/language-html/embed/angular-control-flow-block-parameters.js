@@ -1,16 +1,25 @@
 import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
 
-async function printAngularControlFlowBlockParameters(
+function printAngularControlFlowBlockParameters(
   textToDoc,
   print,
   path,
-  /* options,*/
+  options,
 ) {
   const { node } = path;
-  const code = node.parameters.map(({ expression }) => expression).join("; ");
 
-  const doc = await formatAttributeValue(
-    code,
+  const content = options.originalText.slice(
+    node.sourceSpan.start.offset,
+    node.sourceSpan.end.offset,
+  );
+  const isEmpty = /^\s*$/.test(content);
+
+  if (isEmpty) {
+    return "";
+  }
+
+  return formatAttributeValue(
+    content,
     textToDoc,
     {
       parser: "__ng_directive",
@@ -19,9 +28,6 @@ async function printAngularControlFlowBlockParameters(
     },
     shouldHugJsExpression,
   );
-
-  // We have to put the doc on the node, since `node.parameters` is not a valid "node"
-  node.__embed_parameters_doc = doc;
 }
 
 export default printAngularControlFlowBlockParameters;
