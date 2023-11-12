@@ -15,7 +15,7 @@ const needsQuoteProps = new WeakMap();
 
 export function padPropertyKey(node, options, ...extra) {
   if (options.propAligns && options.propAligns.has(node)) {
-    let { pad, haveBreak } = options.propAligns.get(node);
+    let { pad, singleLineProp } = options.propAligns.get(node);
 
     pad = group(" ".repeat(pad));
 
@@ -31,7 +31,7 @@ export function padPropertyKey(node, options, ...extra) {
     *doesn't* work.
     */
     let doc;
-    if (haveBreak) {
+    if (singleLineProp) {
       doc = ifBreak([], pad);
     } else {
       doc = ifBreak(pad, []);

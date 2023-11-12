@@ -93,7 +93,7 @@ function groupProperties(path, options, print, fields) {
     const pad = keyGroups[keyGroup.group] - keyGroup.key.length;
     options.propAligns.set(node, {
       pad,
-      haveBreak: propsHaveBreak,
+      singleLineProp: propsHaveBreak,
     });
   }
 }
