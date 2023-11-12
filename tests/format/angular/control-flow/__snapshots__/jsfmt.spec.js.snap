@@ -336,6 +336,11 @@ topStartToSideStartMaxSize) {
 <app-component />
 }
 
+@if ( widthCategory; as item) {
+}
+
+<div *ngIf="widthCategory; as item"></div>
+
 =====================================output=====================================
 <h3>&#64;if and &#64;else</h3>
 <div>
@@ -355,13 +360,13 @@ topStartToSideStartMaxSize) {
   }
 </div>
 
-@if (users$ | async; as: users) {
+@if (users$ | async; as users) {
   {{ users.length }}
-} @else if (users$ | async; as: users) {
+} @else if (users$ | async; as users) {
   {{ users.length }}
 }
 
-<div *ngIf="users$ | async; as: users">{{ users.length }}</div>
+<div *ngIf="users$ | async; as users">{{ users.length }}</div>
 
 @else {}
 
@@ -376,6 +381,10 @@ topStartToSideStartMaxSize) {
 ) {
   <app-component />
 }
+
+@if (widthCategory; as item) {}
+
+<div *ngIf="widthCategory; as item"></div>
 
 ================================================================================
 `;
