@@ -60,8 +60,8 @@ const asciiPunctuationCharacters = [
   "~",
 ];
 
-// http://spec.commonmark.org/0.25/#punctuation-character
-// http://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
+// https://spec.commonmark.org/0.25/#punctuation-character
+// https://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
 const unicodePunctuationClasses = [
   /* Pc */ "Connector_Punctuation",
   /* Pd */ "Dash_Punctuation",
@@ -77,7 +77,9 @@ const PUNCTUATION_REGEXP = new RegExp(
     ...asciiPunctuationCharacters.map((character) =>
       escapeStringRegexp(character),
     ),
-    ...unicodePunctuationClasses.map((charset) => `\\p{${charset}}`),
+    ...unicodePunctuationClasses.map(
+      (charset) => `\\p{General_Category=${charset}}`,
+    ),
   ].join("|"),
   "u",
 );
