@@ -1,5 +1,5 @@
 ---
-author: "Sosuke Suzuki"
+author: "Sosuke Suzuki (@sosukesuzuki)"
 authorURL: "https://github.com/sosukesuzuki"
 title: "Prettier 3.1: New experimental ternaries formatting and Angular control flow syntax!"
 ---
