@@ -72,7 +72,7 @@ function postprocess(ast, options) {
       case "VariableDeclaration": {
         const lastDeclaration = node.declarations.at(-1);
         if (lastDeclaration?.init && text[locEnd(lastDeclaration)] !== ";") {
-          node.range = [locStart(node), locEnd(locEnd(lastDeclaration))];
+          node.range = [locStart(node), locEnd(lastDeclaration)];
         }
         break;
       }
