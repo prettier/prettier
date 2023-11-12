@@ -1684,10 +1684,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:1.0.2":
-  version: 1.0.2
-  resolution: "@types/estree@npm:1.0.2"
-  checksum: aeedb1b2fe20cbe06f44b99b562bf9703e360bfcdf5bb3d61d248182ee1dd63500f2474e12f098ffe1f5ac3202b43b3e18ec99902d9328d5374f5512fa077e45
+"@types/estree@npm:1.0.5":
+  version: 1.0.5
+  resolution: "@types/estree@npm:1.0.5"
+  checksum: dd8b5bed28e6213b7acd0fb665a84e693554d850b0df423ac8076cc3ad5823a6bc26b0251d080bdc545af83179ede51dd3f6fa78cad2c46ed1f29624ddf3e41a
   languageName: node
   linkType: hard
 
@@ -7163,7 +7163,7 @@ __metadata:
     "@iarna/toml": 2.2.5
     "@prettier/is-es5-identifier-name": 0.2.0
     "@prettier/parse-srcset": 3.1.0
-    "@types/estree": 1.0.2
+    "@types/estree": 1.0.5
     "@types/file-entry-cache": 5.0.4
     "@types/find-cache-dir": 3.2.1
     "@types/jest": 29.5.8
