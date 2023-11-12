@@ -7,15 +7,18 @@ import {
   join,
 } from "../../document/builders.js";
 import { printChildren } from "./children.js";
-import settings from "./angular-control-flow-block-settings.evaluate.js";
+import {
+  ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS,
+  ANGULAR_CONTROL_FLOW_BLOCK_DEFAULT_SETTINGS,
+} from "./angular-control-flow-block-settings.evaluate.js";
 
 const unClosedBlocks = new WeakSet();
 
 function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
   const setting =
-    settings.ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name) ??
-    settings.DEFAULT_ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS;
+    ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name) ??
+    ANGULAR_CONTROL_FLOW_BLOCK_DEFAULT_SETTINGS;
   const docs = [];
 
   const previousBlock = findPreviousBlock(path);

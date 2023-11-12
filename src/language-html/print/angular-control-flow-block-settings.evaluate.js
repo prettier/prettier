@@ -1,4 +1,4 @@
-const DEFAULT_ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS = {
+const ANGULAR_CONTROL_FLOW_BLOCK_DEFAULT_SETTINGS = {
   isFollowingBlock: false,
   followingBlocks: new Set(),
 };
@@ -8,7 +8,7 @@ const ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS = new Map(
     {
       name: "if",
       isFollowingBlock: false,
-      followingBlocks: ["else if", "else"],
+      followingBlocks: [],
     },
     {
       name: "else if",
@@ -50,16 +50,16 @@ const ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS = new Map(
   ].map((settings) => [
     settings.name,
     {
-      DEFAULT_ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS,
+      ANGULAR_CONTROL_FLOW_BLOCK_DEFAULT_SETTINGS,
       ...settings,
       followingBlocks: settings.followingBlocks
         ? new Set(settings.followingBlocks)
-        : DEFAULT_ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.followingBlocks,
+        : ANGULAR_CONTROL_FLOW_BLOCK_DEFAULT_SETTINGS.followingBlocks,
     },
   ]),
 );
 
-export default {
-  DEFAULT_ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS,
+export {
+  ANGULAR_CONTROL_FLOW_BLOCK_DEFAULT_SETTINGS,
   ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS,
 };
