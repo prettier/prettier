@@ -6,6 +6,7 @@ import { fill, group, hardline } from "../document/builders.js";
 import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import clean from "./clean.js";
 import { unescapeQuoteEntities, getTextValueParts } from "./utils/index.js";
 import preprocess from "./print-preprocess.js";
@@ -20,6 +21,7 @@ import {
 } from "./print/tag.js";
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
+import { printAngularControlFlowBlock } from "./print/angular-control-flow-block.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 
 function genericPrint(path, options, print) {
@@ -36,6 +38,11 @@ function genericPrint(path, options, print) {
     case "element":
     case "ieConditionalComment":
       return printElement(path, options, print);
+
+    case "block":
+      return printAngularControlFlowBlock(path, options, print);
+    case "blockParameter":
+      return htmlWhitespaceUtils.trim(node.expression);
 
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":

@@ -38,6 +38,13 @@ import { locStart, locEnd } from "./loc.js";
  * @typedef {{filepath?: string}} Options
  */
 
+// `@else    if`
+function normalizeAngularControlFlowBlockName(node) {
+  if (node.type === "block") {
+    node.name = node.name.toLowerCase().replaceAll(/\s+/g, " ").trim();
+  }
+}
+
 /**
  * @param {string} input
  * @param {ParseOptions} parseOptions
@@ -62,6 +69,7 @@ function ngHtmlParser(input, parseOptions, options) {
       ? (...args) =>
           shouldParseAsRawText(...args) ? TagContentType.RAW_TEXT : undefined
       : undefined,
+    tokenizeAngularBlocks: name === "angular" ? true : undefined,
   });
 
   if (name === "vue") {
@@ -236,6 +244,7 @@ function ngHtmlParser(input, parseOptions, options) {
         addTagDefinition(node);
         normalizeName(node);
         fixSourceSpan(node);
+        normalizeAngularControlFlowBlockName(node);
       }
     })(),
     rootNodes,

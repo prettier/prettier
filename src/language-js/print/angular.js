@@ -62,7 +62,9 @@ function printAngular(path, options, print) {
       const shouldNotPrintColon =
         isNgForOf(path) ||
         (((index === 1 &&
-          (node.key.name === "then" || node.key.name === "else")) ||
+          (node.key.name === "then" ||
+            node.key.name === "else" ||
+            node.key.name === "as")) ||
           (index === 2 &&
             node.key.name === "else" &&
             parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
@@ -88,13 +90,11 @@ function printAngular(path, options, print) {
   }
 }
 
-function isNgForOf({ node, index, parent }) {
+function isNgForOf({ node, index }) {
   return (
     node.type === "NGMicrosyntaxKeyedExpression" &&
     node.key.name === "of" &&
-    index === 1 &&
-    parent.body[0].type === "NGMicrosyntaxLet" &&
-    parent.body[0].value === null
+    index === 1
   );
 }
 

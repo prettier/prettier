@@ -12,6 +12,14 @@ const ignoredProperties = new Set([
   "valueTokens",
 ]);
 
+const embeddedAngularControlFlowBlocks = new Set([
+  "if",
+  "else if",
+  "for",
+  "switch",
+  "case",
+]);
+
 function clean(ast, newNode) {
   if (ast.type === "text" || ast.type === "comment") {
     return null;
@@ -28,6 +36,16 @@ function clean(ast, newNode) {
 
   if (ast.type === "docType") {
     delete newNode.value;
+  }
+
+  if (ast.type === "block") {
+    for (const parameter of newNode.parameters) {
+      if (embeddedAngularControlFlowBlocks.has(ast.name)) {
+        delete parameter.expression;
+      } else {
+        parameter.expression = parameter.expression.trim();
+      }
+    }
   }
 }
 
