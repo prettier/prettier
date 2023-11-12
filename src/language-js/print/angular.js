@@ -68,7 +68,8 @@ function printAngular(path, options, print) {
           (index === 2 &&
             node.key.name === "else" &&
             parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
-            parent.body[index - 1].key.name === "then")) &&
+            parent.body[index - 1].key.name === "then") ||
+          node.key.name == "track") &&
           parent.body[0].type === "NGMicrosyntaxExpression");
       return [
         print("key"),
