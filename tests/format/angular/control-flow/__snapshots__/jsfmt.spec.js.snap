@@ -224,7 +224,6 @@ i;
 }
 </ul>
 
-<!-- TODO: FIX THIS
 <ul>
 @for (item of
  emptyCollection; track item.id;) {
@@ -238,7 +237,6 @@ i;
 item of
  emptyCollection; track item.id;
 "></li>
--->
 
 =====================================output=====================================
 <ul>
@@ -270,21 +268,16 @@ item of
   }
 </ul>
 
-<!-- TODO: FIX THIS
 <ul>
-@for (item of
- emptyCollection; track item.id;) {
-<li><strong>{{item.name}}</strong></li>
-}
-@empty {
-  <span>The collection is empty</span>
-}
+  @for (item of emptyCollection; track: item.id) {
+    <li>
+      <strong>{{ item.name }}</strong>
+    </li>
+  } @empty {
+    <span>The collection is empty</span>
+  }
 </ul>
-<li *ngFor="
-item of
- emptyCollection; track item.id;
-"></li>
--->
+<li *ngFor="item of emptyCollection; track: item.id"></li>
 
 ================================================================================
 `;
