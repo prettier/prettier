@@ -31,16 +31,8 @@ function clean(ast, newNode) {
   }
 
   if (ast.type === "block") {
-    // Block names that can have parameters
-    const isEmbed = ["if", "else if", "for", "switch", "case"].includes(
-      ast.name,
-    );
     for (const parameter of newNode.parameters) {
-      if (isEmbed) {
-        delete parameter.expression;
-      } else {
-        parameter.expression = parameter.expression.trim();
-      }
+      parameter.expression = parameter.expression.trim();
     }
   }
 }
