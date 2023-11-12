@@ -399,7 +399,6 @@ async function runTest({
     const { input, output } = formatResult;
     const originalAst = await parse(input, formatOptions);
     const formattedAst = await parse(output, formatOptions);
-
     if (isAstUnstableTest) {
       expect(formattedAst).not.toEqual(originalAst);
     } else {
