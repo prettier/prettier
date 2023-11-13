@@ -7,7 +7,7 @@ function createGetVisitorKeys(visitorKeys, typeProperty = "type") {
     const type = node[typeProperty];
 
     /* c8 ignore next 5 */
-    if (process.env.NODE_ENV !== "production" && type === undefined) {
+    if (type === undefined && process.env.NODE_ENV !== "production") {
       throw new Error(
         `Can't get node type, you must pass the wrong typeProperty '${typeProperty}'`,
       );
