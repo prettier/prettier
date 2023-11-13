@@ -71,7 +71,6 @@ async function run() {
       ...options,
       stopDir: url.fileURLToPath(new URL("./cli", import.meta.url)),
     });
-  mockable.findParentDir = () => process.cwd();
   // eslint-disable-next-line require-await
   mockable.writeFormattedFile = async (filename, content) => {
     filename = normalizeToPosix(path.relative(process.cwd(), filename));

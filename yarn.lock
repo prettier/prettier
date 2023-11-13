@@ -4145,13 +4145,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-parent-dir@npm:0.3.1":
-  version: 0.3.1
-  resolution: "find-parent-dir@npm:0.3.1"
-  checksum: 55e722584760cfbc6611901c7ced5081345cf629e2ecd6a4f6704b13b5a1876c8d9d9db5fd4965ba23e1ecbc24a8b62af40379cfef1ffa0231719b9d924eebdd
-  languageName: node
-  linkType: hard
-
 "find-up@npm:^4.0.0, find-up@npm:^4.1.0":
   version: 4.1.0
   resolution: "find-up@npm:4.1.0"
@@ -7202,7 +7195,6 @@ __metadata:
     fast-json-stable-stringify: 2.1.0
     file-entry-cache: 7.0.1
     find-cache-dir: 5.0.0
-    find-parent-dir: 0.3.1
     flow-parser: 0.221.0
     get-east-asian-width: 1.2.0
     get-stdin: 9.0.0
