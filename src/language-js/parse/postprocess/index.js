@@ -46,7 +46,7 @@ function postprocess(ast, options) {
 
         // Align range with `flow`
         if (expression.type === "TypeCastExpression") {
-          expression.range = node.range;
+          expression.range = [...node.range];
           return expression;
         }
 
@@ -71,8 +71,8 @@ function postprocess(ast, options) {
       // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
         const lastDeclaration = node.declarations.at(-1);
-        if (lastDeclaration?.init) {
-          overrideLocEnd(node, lastDeclaration);
+        if (lastDeclaration?.init && text[locEnd(lastDeclaration)] !== ";") {
+          node.range = [locStart(node), locEnd(lastDeclaration)];
         }
         break;
       }
@@ -148,20 +148,6 @@ function postprocess(ast, options) {
     ast.range = [0, text.length];
   }
   return ast;
-
-  /**
-   * - `toOverrideNode` must be the last thing in `toBeOverriddenNode`
-   * - do nothing if there's a semicolon on `toOverrideNode.end` (no need to fix)
-   */
-  function overrideLocEnd(toBeOverriddenNode, toOverrideNode) {
-    if (text[locEnd(toOverrideNode)] === ";") {
-      return;
-    }
-    toBeOverriddenNode.range = [
-      locStart(toBeOverriddenNode),
-      locEnd(toOverrideNode),
-    ];
-  }
 }
 
 function isUnbalancedLogicalTree(node) {
