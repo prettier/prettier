@@ -305,12 +305,12 @@ function genericPrint(path, options, print) {
               ? (childPath.isFirst
                   ? node.start
                   : isGitDiffFriendlyOrderedList
-                  ? 1
-                  : node.start + childPath.index) +
+                    ? 1
+                    : node.start + childPath.index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
-              ? "- "
-              : "* ";
+                ? "- "
+                : "* ";
 
             return node.isAligned ||
               /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
@@ -340,8 +340,8 @@ function genericPrint(path, options, print) {
         node.referenceType === "full"
           ? printLinkReference(node)
           : node.referenceType === "collapsed"
-          ? "[]"
-          : "",
+            ? "[]"
+            : "",
       ];
     case "imageReference":
       switch (node.referenceType) {

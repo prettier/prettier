@@ -47,8 +47,8 @@ async function run() {
         stream === process.stdout
           ? "process.stdout"
           : stream === process.stderr
-          ? "process.stderr"
-          : "unknown stream"
+            ? "process.stderr"
+            : "unknown stream"
       })]]\n`,
     );
   };

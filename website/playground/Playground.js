@@ -514,8 +514,8 @@ function getSecondFormat(formatted, reformatted) {
   return formatted === ""
     ? ""
     : formatted === reformatted
-    ? "✓ Second format is unchanged."
-    : reformatted;
+      ? "✓ Second format is unchanged."
+      : reformatted;
 }
 
 export default Playground;
