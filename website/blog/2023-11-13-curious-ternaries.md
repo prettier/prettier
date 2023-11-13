@@ -10,7 +10,7 @@ Read on for our journey and the motivation behind this change, along with early 
 
 Please give the `--experimental-ternaries` option a try and let us know what you think!
 
-_For a quick tl;dr, [see the release post](/blog/2023/11/12/3.1.0)._
+_For a quick tl;dr, [see the release post](/blog/2023/11/13/3.1.0)._
 
 <!-- truncate -->
 
