@@ -1,13 +1,11 @@
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 
 /**
- * @param {any} value
+ * @param {import("yaml-unist-parser").Node} node
  * @param {string[]=} types
  */
-function isNode(value, types) {
-  return (
-    typeof value?.type === "string" && (!types || types.includes(value.type))
-  );
+function isNode(node, types) {
+  return  types.includes(node?.type)
 }
 
 function mapNode(node, callback, parent) {
@@ -22,13 +20,6 @@ function mapNode(node, callback, parent) {
       : node,
     parent,
   );
-}
-
-function defineShortcut(x, key, getter) {
-  Object.defineProperty(x, key, {
-    get: getter,
-    enumerable: false,
-  });
 }
 
 function isNextLineEmpty(node, text) {
@@ -337,7 +328,6 @@ export {
   isEmptyNode,
   isInlineNode,
   mapNode,
-  defineShortcut,
   isNextLineEmpty,
   isLastDescendantNode,
   getBlockValueLineContents,
