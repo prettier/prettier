@@ -65,7 +65,7 @@ Another developer had this to say:
 
 So we felt we had a winning formula, but we knew it could be a jarring introduction to the community.
 
-As a result, we decided to put this new formatting behind a temporary `--experimental-ternaries` option for a few months, and in the meantime go ahead and ship what the community has been clammering for: [indented ternaries](https://github.com/prettier/prettier/pull/9559).
+As a result, we decided to put this new formatting behind a temporary `--experimental-ternaries` option for a few months, and in the meantime go ahead and ship what the community has been clamoring for: [indented ternaries](https://github.com/prettier/prettier/pull/9559).
 
 ## Styling Overview
 
