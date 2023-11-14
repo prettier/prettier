@@ -408,19 +408,22 @@ function print(path, options, print) {
         "~",
       ];
 
-      return [...(node.this ? ["this"] : []), ...node.parts.map((part, idx) => {
-        // check if element contains literal segments, or
-        // check if element contains any whitespace, or
-        // check if element is a number (and not the first element)
-        if (
-          literalSegments.some((segment) => part.includes(segment)) ||
-          whitespaceRegex.test(part) ||
-          (idx > 0 && part.match(onlyDigitsRegex) !== null)
-        ) {
-          return ("[" + part + "]");
-        }
-        return part;
-      })].join(".");
+      return [
+        ...(node.this ? ["this"] : []),
+        ...node.parts.map((part, idx) => {
+          // check if element contains literal segments, or
+          // check if element contains any whitespace, or
+          // check if element is a number (and not the first element)
+          if (
+            literalSegments.some((segment) => part.includes(segment)) ||
+            whitespaceRegex.test(part) ||
+            (idx > 0 && part.match(onlyDigitsRegex) !== null)
+          ) {
+            return "[" + part + "]";
+          }
+          return part;
+        }),
+      ].join(".");
     }
     case "BooleanLiteral":
       return String(node.value);
