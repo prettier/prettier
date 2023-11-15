@@ -3,15 +3,15 @@ import micromatch from "micromatch";
 import mem, { memClear } from "mem";
 import { toPath } from "url-or-path";
 import partition from "../utils/partition.js";
+import mockable from "../common/mockable.js";
 import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
-import getPrettierConfigExplorerWithoutCache from "./get-prettier-config-explorer.js";
+import { clearCache as clearConfigExplorerCache } from "./prettier-config-explorer/index.js";
 
-const getPrettierConfigExplorer = mem(getPrettierConfigExplorerWithoutCache, {
-  cacheKey: ([options]) => options.cache,
-});
+const { createConfigExplorer } = mockable;
+
 const memoizedLoadEditorConfig = mem(loadEditorConfigWithoutCache);
 function clearCache() {
-  memClear(getPrettierConfigExplorer);
+  clearConfigExplorerCache();
   memClear(memoizedLoadEditorConfig);
 }
 
@@ -27,20 +27,18 @@ function loadEditorConfig(filePath, options) {
 
 function loadPrettierConfig(filePath, options) {
   const { useCache, config: configPath } = options;
-  const { load, search } = getPrettierConfigExplorer({
-    cache: Boolean(useCache),
-  });
+  const explorer = createConfigExplorer({ cache: useCache });
 
   if (configPath) {
-    return load(configPath);
+    return explorer.load(configPath);
   }
 
   if (!filePath) {
-    return search();
+    return explorer.search();
   }
 
   const dirname = path.dirname(path.resolve(filePath));
-  return search(dirname);
+  return explorer.search(dirname);
 }
 
 async function resolveConfig(fileUrlOrPath, options) {
@@ -64,7 +62,7 @@ async function resolveConfig(fileUrlOrPath, options) {
   if (Array.isArray(merged.plugins)) {
     merged.plugins = merged.plugins.map((value) =>
       typeof value === "string" && value.startsWith(".") // relative path
-        ? path.resolve(path.dirname(result.filepath), value)
+        ? path.resolve(path.dirname(result.configFile), value)
         : value,
     );
   }
@@ -73,19 +71,18 @@ async function resolveConfig(fileUrlOrPath, options) {
 }
 
 async function resolveConfigFile(fileUrlOrPath) {
-  const { search } = getPrettierConfigExplorerWithoutCache();
-  const dirname = fileUrlOrPath
+  const directory = fileUrlOrPath
     ? path.dirname(path.resolve(toPath(fileUrlOrPath)))
     : undefined;
-  const result = await search(dirname);
-  return result?.filepath ?? null;
+  const result = await createConfigExplorer({ cache: false }).search(directory);
+  return result?.configFile ?? null;
 }
 
 function mergeOverrides(configResult, filePath) {
-  const { config, filepath: configPath } = configResult || {};
+  const { config, configFile } = configResult || {};
   const { overrides, ...options } = config || {};
   if (filePath && overrides) {
-    const relativeFilePath = path.relative(path.dirname(configPath), filePath);
+    const relativeFilePath = path.relative(path.dirname(configFile), filePath);
     for (const override of overrides) {
       if (
         pathMatchesGlobs(

@@ -1,14 +1,14 @@
 import fs from "node:fs/promises";
-import { lilconfig } from "lilconfig";
 import getStdin from "get-stdin";
 import { isCI } from "ci-info";
+import createConfigExplorer from "../config/prettier-config-explorer/index.js";
 
 function writeFormattedFile(file, data) {
   return fs.writeFile(file, data);
 }
 
 const mockable = {
-  lilconfig,
+  createConfigExplorer,
   getStdin,
   isCI: () => isCI,
   writeFormattedFile,
