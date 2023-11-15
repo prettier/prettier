@@ -248,6 +248,8 @@ async function formatStdin(context) {
 
   try {
     const input = await getStdin();
+    // TODO[@fisker]: Exit if no input.
+    // `prettier --config-precedence cli-override`
 
     let isFileIgnored = false;
     if (filepath) {
@@ -262,7 +264,7 @@ async function formatStdin(context) {
 
     const options = await getOptionsForFile(
       context,
-      filepath ? path.resolve(process.cwd(), filepath) : process.cwd(),
+      filepath ? path.resolve(filepath) : undefined,
     );
 
     if (await listDifferent(context, input, options, "(stdin)")) {
