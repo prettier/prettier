@@ -74,7 +74,7 @@ describe("prints error message when no file found with --find-config-path", () =
     "--end-of-line",
     "lf",
     "--find-config-path",
-    "..",
+    "../--non-exits-filename--",
   ]).test({
     stdout: "",
     status: 1,
