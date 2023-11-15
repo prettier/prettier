@@ -283,7 +283,9 @@ function printTernaryOld(path, options, print) {
       consequentNode.type === node.type ? ifBreak("", ")") : "",
       line,
       ": ",
-      align(2, print(alternateNodePropertyName)),
+      options.useTabs
+        ? indent(print(alternateNodePropertyName))
+        : align(2, print(alternateNodePropertyName)),
     ];
     parts.push(
       parent.type !== node.type ||
