@@ -389,3 +389,32 @@ test("API resolveConfig accepts path or URL", async () => {
   expect(resultByPath).toMatchObject(expectedResult);
   expect(resultByRelativePath).toMatchObject(expectedResult);
 });
+
+test("Search from directory, not treat file as directory", async () => {
+  // CLI
+  const getConfigFileByCli = async (file) => {
+    const { stdout: configFile } = await runCli("cli/config/config-position/", [
+      "--find-config-path",
+      file,
+    ]);
+    return configFile;
+  };
+
+  expect(await getConfigFileByCli("file.js")).toBe(".prettierrc");
+  expect(await getConfigFileByCli("directory/file-in-child-directory.js")).toBe(
+    "directory/.prettierrc",
+  );
+
+  // Api
+  const directory = new URL("../cli/config/config-position/", import.meta.url);
+  const getConfigFileByApi = async (file) => {
+    const configFile = await prettier.resolveConfigFile(
+      new URL(file, directory),
+    );
+    return url.pathToFileURL(configFile).href.slice(directory.href.length);
+  };
+  expect(await getConfigFileByApi("file.js")).toBe(".prettierrc");
+  expect(await getConfigFileByApi("directory/file-in-child-directory.js")).toBe(
+    "directory/.prettierrc",
+  );
+});
