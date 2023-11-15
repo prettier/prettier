@@ -30,9 +30,17 @@ function loadPrettierConfig(filePath, options) {
   const { load, search } = getPrettierConfigExplorer({
     cache: Boolean(useCache),
   });
-  return configPath
-    ? load(configPath)
-    : search(filePath ? path.dirname(path.resolve(filePath)) : process.cwd());
+
+  if (configPath) {
+    return load(configPath);
+  }
+
+  if (!filePath) {
+    return search();
+  }
+
+  const dirname = path.dirname(path.resolve(filePath));
+  return search(dirname);
 }
 
 async function resolveConfig(fileUrlOrPath, options) {
@@ -66,11 +74,10 @@ async function resolveConfig(fileUrlOrPath, options) {
 
 async function resolveConfigFile(fileUrlOrPath) {
   const { search } = getPrettierConfigExplorerWithoutCache();
-  const result = await search(
-    fileUrlOrPath
-      ? path.dirname(path.resolve(toPath(fileUrlOrPath)))
-      : process.cwd(),
-  );
+  const dirname = fileUrlOrPath
+    ? path.dirname(path.resolve(toPath(fileUrlOrPath)))
+    : undefined;
+  const result = await search(dirname);
   return result?.filepath ?? null;
 }
 
