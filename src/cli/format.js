@@ -263,7 +263,7 @@ async function formatStdin(context) {
 
     const options = await getOptionsForFile(
       context,
-      path.resolve(process.cwd(), filepath ?? "<stdin>"),
+      path.resolve(filepath ?? "<stdin>"),
     );
 
     if (await listDifferent(context, input, options, "(stdin)")) {
