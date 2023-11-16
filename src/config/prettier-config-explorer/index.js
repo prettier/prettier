@@ -4,6 +4,9 @@ import loadConfigWithoutCache from "./load-config.js";
 import Searcher from "./search-config.js";
 
 const EXPLORER_CACHE = new Map();
+function clearCache() {
+  EXPLORER_CACHE.clear();
+}
 
 /**
  * @typedef { {config?: any, configFile: string} } Result
@@ -52,7 +55,4 @@ function createExplorer({ cache = true, stopDirectory } = {}) {
   return explorer;
 }
 
-export default createExplorer;
-export function clearCache() {
-  EXPLORER_CACHE.clear();
-}
+export { createExplorer, clearCache };

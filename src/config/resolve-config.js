@@ -5,9 +5,8 @@ import { toPath } from "url-or-path";
 import partition from "../utils/partition.js";
 import mockable from "../common/mockable.js";
 import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
-import { clearCache as clearConfigExplorerCache } from "./prettier-config-explorer/index.js";
 
-const { createConfigExplorer } = mockable;
+const { createConfigExplorer, clearConfigExplorerCache } = mockable;
 
 const memoizedLoadEditorConfig = mem(loadEditorConfigWithoutCache);
 function clearCache() {
