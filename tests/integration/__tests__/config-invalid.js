@@ -181,7 +181,7 @@ describe("Invalid config value", () => {
 });
 
 // Can't put a invalid json in the test dir
-test.only("Invalid package.json", async () => {
+test("Invalid package.json", async () => {
   const packageJsonFile = new URL(
     "../cli/config/invalid/broken-package-json/package.json",
     import.meta.url,
