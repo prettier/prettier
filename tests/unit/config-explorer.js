@@ -9,7 +9,7 @@ describe("getParentDirectories", () => {
       expect([...getParentDirectories("/a", "/b")]).toEqual(["/a", "/"]);
     });
   } else {
-    test.only("win32", () => {
+    test("win32", () => {
       expect([...getParentDirectories(String.raw`P:\\a\b`)]).toEqual([
         String.raw`P:\\a\b`,
         String.raw`P:\\a`,

@@ -5998,13 +5998,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lilconfig@npm:2.1.0":
-  version: 2.1.0
-  resolution: "lilconfig@npm:2.1.0"
-  checksum: 8549bb352b8192375fed4a74694cd61ad293904eee33f9d4866c2192865c44c4eb35d10782966242634e0cbc1e91fe62b1247f148dc5514918e3a966da7ea117
-  languageName: node
-  linkType: hard
-
 "lines-and-columns@npm:2.0.4, lines-and-columns@npm:^2.0.3":
   version: 2.0.4
   resolution: "lines-and-columns@npm:2.0.4"
@@ -7213,7 +7206,6 @@ __metadata:
     js-yaml: 4.1.0
     json5: 2.2.3
     leven: 4.0.0
-    lilconfig: 2.1.0
     lines-and-columns: 2.0.4
     linguist-languages: 7.27.0
     magic-string: 0.30.5
