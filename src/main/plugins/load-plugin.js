@@ -22,9 +22,7 @@ const importPlugin = mem(async (name) => {
 
   try {
     // try local files
-    return await import(
-      pathToFileURL(path.isAbsolute(name) ? name : path.resolve(name)).href
-    );
+    return await import(pathToFileURL(path.resolve(name)).href);
   } catch {
     // try node modules
     return importFromDirectory(name, process.cwd());
