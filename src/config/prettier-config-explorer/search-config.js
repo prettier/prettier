@@ -7,11 +7,11 @@ import {
 } from "./common.js";
 import { readJson } from "./loaders.js";
 
-async function isPackageJsonFileWithPrettierConfig(filePath) {
+async function isPackageJsonFileWithPrettierConfig(file) {
   let packageJson;
 
   try {
-    packageJson = await readJson(filePath);
+    packageJson = await readJson(file);
   } catch {
     // No op
   }
