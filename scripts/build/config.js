@@ -543,15 +543,20 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
   },
 );
 
+// `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
+const oneChalk = {
+  module: require.resolve("chalk", {
+    paths: [require.resolve("@babel/highlight")],
+  }),
+  path: require.resolve("chalk", {
+    paths: [require.resolve("@babel/code-frame")],
+  }),
+};
+
 const nodejsFiles = [
   {
     input: "src/index.js",
     replaceModule: [
-      {
-        module: require.resolve("@iarna/toml/lib/toml-parser.js"),
-        find: "const utilInspect = eval(\"require('util').inspect\")",
-        replacement: "const utilInspect = require('util').inspect",
-      },
       // `editorconfig` use a older version of `semver` and only uses `semver.gte`
       {
         module: require.resolve("editorconfig"),
@@ -571,18 +576,7 @@ const nodejsFiles = [
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
       // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
-      {
-        module: require.resolve("chalk", {
-          paths: [require.resolve("@babel/highlight")],
-        }),
-        path: require.resolve("chalk", {
-          paths: [require.resolve("@babel/code-frame")],
-        }),
-      },
-      {
-        module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
-        path: getPackageFile("js-yaml/lib/loader.js"),
-      },
+      oneChalk,
     ],
     addDefaultExport: true,
   },
@@ -610,6 +604,18 @@ const nodejsFiles = [
   {
     input: "src/common/mockable.js",
     outputBaseName: "internal/internal",
+    replaceModule: [
+      {
+        module: require.resolve("@iarna/toml/lib/toml-parser.js"),
+        find: "const utilInspect = eval(\"require('util').inspect\")",
+        replacement: "const utilInspect = require('util').inspect",
+      },
+      {
+        module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
+        path: getPackageFile("js-yaml/lib/loader.js"),
+      },
+      oneChalk,
+    ],
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
