@@ -164,3 +164,17 @@ describe("Invalid yaml file", () => {
     ),
   });
 });
+
+describe("Invalid config value", () => {
+  runCli("cli/config/invalid", [
+    "--config",
+    "invalid-config-value/prettier.config.mjs",
+    "--parser",
+    "babel",
+  ]).test({
+    status: 0,
+    stdout: "",
+    write: [],
+    stderr: "",
+  });
+});
