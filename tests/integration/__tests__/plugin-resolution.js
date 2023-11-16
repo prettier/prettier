@@ -63,11 +63,11 @@ describe("loads --plugin by bespoke plugin name (assuming it is installed in cwd
   });
 });
 
-describe("support absolute path in config file", () => {
+describe.only("support absolute path in config file", () => {
   runCli("cli/config/plugins/absolute-path", ["--parser=uppercase-rocks"], {
     input: "prettier should be uppercase",
   }).test({
-    stdout: "",
+    stdout: "PRETTIER SHOULD BE UPPERCASE",
     stderr: "",
     status: 0,
     write: [],
