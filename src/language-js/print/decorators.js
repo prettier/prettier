@@ -59,8 +59,8 @@ function printDecorators(path, options, print) {
     path.key === "declaration" && isExportDeclaration(parent)
       ? hardline
       : shouldBreak
-      ? breakParent
-      : "",
+        ? breakParent
+        : "",
     join(line, path.map(print, "decorators")),
     line,
   ];

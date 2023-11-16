@@ -7,6 +7,7 @@
     "module": "NodeNext",
     "resolveJsonModule": true,
     "strict": true,
+    "skipLibCheck": true,
     // TBD it is desired to enabled strict type checking at some point:
     "noImplicitAny": false,
     "strictNullChecks": false,

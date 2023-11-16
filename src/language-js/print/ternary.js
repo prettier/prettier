@@ -227,8 +227,8 @@ function printTernary(path, options, print, args) {
   const fillTab = !isBigTabs
     ? ""
     : options.useTabs
-    ? "\t"
-    : " ".repeat(options.tabWidth - 1);
+      ? "\t"
+      : " ".repeat(options.tabWidth - 1);
 
   // We want a whole chain of ConditionalExpressions to all
   // break if any of them break. That means we should only group around the
@@ -371,24 +371,27 @@ function printTernary(path, options, print, args) {
     alternateComments.length > 0
       ? [indent([hardline, alternateComments]), hardline]
       : isAlternateTernary
-      ? hardline
-      : tryToParenthesizeAlternate
-      ? ifBreak(line, " ", { groupId: testAndConsequentId })
-      : line,
+        ? hardline
+        : tryToParenthesizeAlternate
+          ? ifBreak(line, " ", { groupId: testAndConsequentId })
+          : line,
 
     ":",
 
     isAlternateTernary
       ? " "
       : !isBigTabs
-      ? " "
-      : shouldGroupTestAndConsequent
-      ? ifBreak(
-          fillTab,
-          ifBreak(isInChain || tryToParenthesizeAlternate ? " " : fillTab, " "),
-          { groupId: testAndConsequentId },
-        )
-      : ifBreak(fillTab, " "),
+        ? " "
+        : shouldGroupTestAndConsequent
+          ? ifBreak(
+              fillTab,
+              ifBreak(
+                isInChain || tryToParenthesizeAlternate ? " " : fillTab,
+                " ",
+              ),
+              { groupId: testAndConsequentId },
+            )
+          : ifBreak(fillTab, " "),
 
     isAlternateTernary
       ? printedAlternateWithParens
@@ -412,12 +415,15 @@ function printTernary(path, options, print, args) {
         // which I'm ambivalent about but some people like keeping on the same line as the assignment.
         group(indent([softline, group(parts)]))
       : isOnSameLineAsAssignment || isOnSameLineAsReturn
-      ? group(indent(parts))
-      : shouldExtraIndent || (isTSConditional && isInTest)
-      ? group([indent([softline, parts]), breakTSClosingParen ? softline : ""])
-      : parent === firstNonConditionalParent
-      ? group(parts)
-      : parts;
+        ? group(indent(parts))
+        : shouldExtraIndent || (isTSConditional && isInTest)
+          ? group([
+              indent([softline, parts]),
+              breakTSClosingParen ? softline : "",
+            ])
+          : parent === firstNonConditionalParent
+            ? group(parts)
+            : parts;
 
   return result;
 }

@@ -62,8 +62,8 @@ function printClosingTagSuffix(node, options) {
   return needsToBorrowParentClosingTagStartMarker(node)
     ? printClosingTagStartMarker(node.parent, options)
     : needsToBorrowNextOpeningTagStartMarker(node)
-    ? printOpeningTagStartMarker(node.next)
-    : "";
+      ? printOpeningTagStartMarker(node.next)
+      : "";
 }
 
 function printClosingTagStartMarker(node, options) {
@@ -128,6 +128,7 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
   return (
     node.prev &&
     node.prev.type !== "docType" &&
+    node.type !== "angularControlFlowBlock" &&
     !isTextLikeNode(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
@@ -233,8 +234,8 @@ function printAttributes(path, options, print) {
     typeof ignoreAttributeData === "boolean"
       ? () => ignoreAttributeData
       : Array.isArray(ignoreAttributeData)
-      ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
-      : () => false;
+        ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
+        : () => false;
 
   const printedAttributes = path.map(
     ({ node: attribute }) =>
@@ -294,8 +295,8 @@ function printAttributes(path, options, print) {
           ? " "
           : ""
         : node.isSelfClosing
-        ? line
-        : softline,
+          ? line
+          : softline,
     );
   }
 
@@ -329,8 +330,8 @@ function printOpeningTagPrefix(node, options) {
   return needsToBorrowParentOpeningTagEndMarker(node)
     ? printOpeningTagEndMarker(node.parent)
     : needsToBorrowPrevClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.prev, options)
-    : "";
+      ? printClosingTagEndMarker(node.prev, options)
+      : "";
 }
 
 function printOpeningTagStartMarker(node) {

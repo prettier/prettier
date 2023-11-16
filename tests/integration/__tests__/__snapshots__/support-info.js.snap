@@ -506,6 +506,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "extensions": [
         ".jsonc",
         ".code-snippets",
+        ".code-workspace",
         ".sublime-build",
         ".sublime-commands",
         ".sublime-completions",

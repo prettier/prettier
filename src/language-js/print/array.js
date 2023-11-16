@@ -60,8 +60,8 @@ function printArray(path, options, print) {
     node.type === "TupleTypeAnnotation" && node.types
       ? "types"
       : node.type === "TSTupleType" || node.type === "TupleTypeAnnotation"
-      ? "elementTypes"
-      : "elements";
+        ? "elementTypes"
+        : "elements";
   const elements = node[elementsProperty];
   if (elements.length === 0) {
     parts.push(
@@ -114,12 +114,12 @@ function printArray(path, options, print) {
     const trailingComma = !canHaveTrailingComma
       ? ""
       : needsForcedTrailingComma
-      ? ","
-      : !shouldPrintComma(options)
-      ? ""
-      : shouldUseConciseFormatting
-      ? ifBreak(",", "", { groupId })
-      : ifBreak(",");
+        ? ","
+        : !shouldPrintComma(options)
+          ? ""
+          : shouldUseConciseFormatting
+            ? ifBreak(",", "", { groupId })
+            : ifBreak(",");
 
     parts.push(
       group(
@@ -213,8 +213,8 @@ function printArrayElementsConcisely(path, options, print, trailingComma) {
         isLineAfterElementEmpty(path, options)
           ? [hardline, hardline]
           : hasComment(next, CommentCheckFlags.Leading | CommentCheckFlags.Line)
-          ? hardline
-          : line,
+            ? hardline
+            : line,
       );
     }
   }, "elements");

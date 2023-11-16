@@ -257,8 +257,8 @@ function printImportAttributes(path, options, print) {
   const property = isNonEmptyArray(node.attributes)
     ? "attributes"
     : isNonEmptyArray(node.assertions)
-    ? "assertions"
-    : undefined;
+      ? "assertions"
+      : undefined;
 
   if (!property) {
     return "";

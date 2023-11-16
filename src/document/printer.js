@@ -538,8 +538,8 @@ function printDocToString(doc, options) {
             doc.type === DOC_TYPE_IF_BREAK
               ? doc.breakContents
               : doc.negate
-              ? doc.contents
-              : indent(doc.contents);
+                ? doc.contents
+                : indent(doc.contents);
           if (breakContents) {
             cmds.push({ ind, mode, doc: breakContents });
           }
@@ -549,8 +549,8 @@ function printDocToString(doc, options) {
             doc.type === DOC_TYPE_IF_BREAK
               ? doc.flatContents
               : doc.negate
-              ? indent(doc.contents)
-              : doc.contents;
+                ? indent(doc.contents)
+                : doc.contents;
           if (flatContents) {
             cmds.push({ ind, mode, doc: flatContents });
           }

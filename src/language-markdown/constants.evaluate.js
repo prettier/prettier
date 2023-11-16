@@ -1,33 +1,37 @@
-import * as cjkRegex from "cjk-regex";
-import * as regexpUtil from "regexp-util";
+import { all as getCjkCharset } from "cjk-regex";
+import { Charset } from "regexp-util";
 import unicodeRegex from "unicode-regex";
 
-const cjkPattern = `(?:${cjkRegex
-  .all()
-  .union(
-    unicodeRegex({
-      Script_Extensions: ["Han", "Katakana", "Hiragana", "Hangul", "Bopomofo"],
-      General_Category: [
-        "Other_Letter",
-        "Letter_Number",
-        "Other_Symbol",
-        "Modifier_Letter",
-        "Modifier_Symbol",
-        "Nonspacing_Mark",
-      ],
-    }),
-  )
-  .toString()})(?:${unicodeRegex({
+const cjkCharset = new Charset(
+  getCjkCharset(),
+  unicodeRegex({
+    Script_Extensions: ["Han", "Katakana", "Hiragana", "Hangul", "Bopomofo"],
+    General_Category: [
+      "Other_Letter",
+      "Letter_Number",
+      "Other_Symbol",
+      "Modifier_Letter",
+      "Modifier_Symbol",
+      "Nonspacing_Mark",
+    ],
+  }),
+);
+const variationSelectorsCharset = unicodeRegex({
   Block: ["Variation_Selectors", "Variation_Selectors_Supplement"],
-}).toString()})?`;
+});
 
-const kRegex = unicodeRegex({ Script: ["Hangul"] })
-  .union(unicodeRegex({ Script_Extensions: ["Hangul"] }))
-  .toRegExp();
+const CJK_REGEXP = new RegExp(
+  `(?:${cjkCharset.toString()})(?:${variationSelectorsCharset.toString()})?`,
+);
+
+const K_REGEXP = new Charset(
+  unicodeRegex({ Script: ["Hangul"] }),
+  unicodeRegex({ Script_Extensions: ["Hangul"] }),
+).toRegExp();
 
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
 const asciiPunctuationCharset =
-  /* prettier-ignore */ regexpUtil.charset(
+  /* prettier-ignore */ new Charset(
   "!", '"', "#",  "$", "%", "&", "'", "(", ")", "*",
   "+", ",", "-",  ".", "/", ":", ";", "<", "=", ">",
   "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|",
@@ -35,7 +39,7 @@ const asciiPunctuationCharset =
 );
 
 // http://spec.commonmark.org/0.25/#punctuation-character
-const punctuationCharset = unicodeRegex({
+const unicodePunctuationCharset = unicodeRegex({
   // http://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
   General_Category: [
     /* Pc */ "Connector_Punctuation",
@@ -46,8 +50,11 @@ const punctuationCharset = unicodeRegex({
     /* Po */ "Other_Punctuation",
     /* Ps */ "Open_Punctuation",
   ],
-}).union(asciiPunctuationCharset);
+});
 
-const punctuationPattern = punctuationCharset.toString();
+const PUNCTUATION_REGEXP = new Charset(
+  asciiPunctuationCharset,
+  unicodePunctuationCharset,
+).toRegExp();
 
-export { cjkPattern, kRegex, punctuationPattern };
+export { CJK_REGEXP, K_REGEXP, PUNCTUATION_REGEXP };
