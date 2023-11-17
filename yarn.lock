@@ -5310,6 +5310,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"iterate-directory-up@npm:1.0.1":
+  version: 1.0.1
+  resolution: "iterate-directory-up@npm:1.0.1"
+  dependencies:
+    url-or-path: ^2.2.0
+  checksum: 82a81601c98a5c669bab95e2c928dba28758993f93a132c486755b4299683be07a7de95d2a46257ebc552c84704aa39b34f9853c119078ab0f63a6a2aeaa5150
+  languageName: node
+  linkType: hard
+
 "iterator.prototype@npm:^1.1.0":
   version: 1.1.0
   resolution: "iterator.prototype@npm:1.1.0"
@@ -7204,6 +7213,7 @@ __metadata:
     html-ua-styles: 0.0.2
     ignore: 5.2.4
     import-meta-resolve: 4.0.0
+    iterate-directory-up: 1.0.1
     jest: 29.7.0
     jest-docblock: 29.7.0
     jest-light-runner: 0.5.1
@@ -8698,6 +8708,13 @@ __metadata:
   version: 2.1.0
   resolution: "url-or-path@npm:2.1.0"
   checksum: 8bbc00439fe7bc4ce8c3cb92d80a5b8b4925d4709a210116c6996cf17135e361b97233f7abbd7dd09ea00684fc0043c8ae9abfd62fc20b648419bc2cd01bc219
+  languageName: node
+  linkType: hard
+
+"url-or-path@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "url-or-path@npm:2.2.0"
+  checksum: 20fc2c78dd695f751075b8dab7e199890d3dc1aa2c3ee57e8e40aa20e89943dcdba8e9a69427b5edf9b5ea9677df8e4bb3887ee7b2c5ed41c3bebe9204b6e6c0
   languageName: node
   linkType: hard
 
