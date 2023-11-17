@@ -10,7 +10,7 @@ const MARKERS = [".git", ".hg"];
 /**
  * Find the directory contains a version control system directory
  * @param {string} startDirectory
- * @returns {Promise<string | void>}
+ * @returns {Promise<string | undefined>}
  */
 async function findProjectRoot(startDirectory) {
   for (const directory of iterateDirectoryUp(startDirectory)) {

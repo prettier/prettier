@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import { toPath } from "url-or-path";
 
 /**
- * @param {string | URL} file
+ * @param {string | URL} directory
  * @param {{allowSymlinks: boolean}} [options]
  * @returns {Promise<boolean>}
  */
