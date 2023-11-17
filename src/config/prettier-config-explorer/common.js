@@ -28,17 +28,6 @@ async function fileExists(file) {
   return stats.isFile();
 }
 
-function* getParentDirectories(from, to) {
-  const { root } = path.parse(from);
-  for (let directory = from; ; directory = path.dirname(directory)) {
-    yield directory;
-
-    if (directory === to || directory === root) {
-      return;
-    }
-  }
-}
-
 function createCachedFunction(function_) {
   const cache = new Map();
 
@@ -55,9 +44,4 @@ function createCachedFunction(function_) {
   };
 }
 
-export {
-  CONFIG_FILE_NAMES,
-  fileExists,
-  getParentDirectories,
-  createCachedFunction,
-};
+export { CONFIG_FILE_NAMES, fileExists, createCachedFunction };

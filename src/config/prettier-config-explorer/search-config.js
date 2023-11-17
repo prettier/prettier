@@ -1,9 +1,9 @@
 import path from "node:path";
+import iterateDirectoryUp from "iterate-directory-up";
 import {
   CONFIG_FILE_NAMES,
   createCachedFunction,
   fileExists,
-  getParentDirectories,
 } from "./common.js";
 import { readJson } from "./loaders.js";
 
@@ -52,7 +52,7 @@ class Searcher {
 
   async #searchConfigInDirectories(startDirectory) {
     const store = this.#store;
-    for (const directory of getParentDirectories(
+    for (const directory of iterateDirectoryUp(
       startDirectory,
       this.#stopDirectory,
     )) {
@@ -77,7 +77,7 @@ class Searcher {
     const configFile = await this.#searchConfigInDirectories(startDirectory);
 
     // Directories between startDirectory and configFile directory should has the same result
-    for (const directory of getParentDirectories(
+    for (const directory of iterateDirectoryUp(
       startDirectory,
       configFile ? path.dirname(configFile) : startDirectory,
     )) {
