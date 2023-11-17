@@ -44,7 +44,7 @@ exports[`don’t apply editorconfig outside project for stdin-filepath with none
 
 exports[`don’t apply editorconfig outside project for stdin-filepath with nonexistent directory (stdout) 1`] = `
 "function f() {
-  console.log("should be indented with 2 spaces")
+	console.log("should be indented with 2 spaces")
 }"
 `;
 
