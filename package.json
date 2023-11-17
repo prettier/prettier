@@ -70,6 +70,7 @@
     "html-ua-styles": "0.0.2",
     "ignore": "5.2.4",
     "import-meta-resolve": "4.0.0",
+    "iterate-directory-up": "1.0.1",
     "jest-docblock": "29.7.0",
     "js-yaml": "4.1.0",
     "json5": "2.2.3",
@@ -100,7 +101,7 @@
     "typescript": "5.2.2",
     "unicode-regex": "4.0.0",
     "unified": "9.2.2",
-    "url-or-path": "2.1.0",
+    "url-or-path": "2.2.0",
     "vnopts": "2.0.0",
     "wcwidth": "1.0.1",
     "yaml-unist-parser": "2.0.1"
