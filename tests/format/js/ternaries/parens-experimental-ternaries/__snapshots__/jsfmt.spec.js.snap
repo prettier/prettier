@@ -120,10 +120,12 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+// Callee
 projectRootFinder = new (
   useCache ? MemoizedProjectRoot_longer_longer_longer_longer : ProjectRootFinder_longer_longer_longer_longer
 )();
 
+// Arguments
 projectRootFinder = new (
   ProjectRootFinder
 )(useCache
@@ -131,11 +133,13 @@ projectRootFinder = new (
     : findProjectRootWithoutCache_longer_longer_longer_longer);
 
 =====================================output=====================================
+// Callee
 projectRootFinder = new (
   useCache ?
     MemoizedProjectRoot_longer_longer_longer_longer
   : ProjectRootFinder_longer_longer_longer_longer)();
 
+// Arguments
 projectRootFinder = new ProjectRootFinder(
   useCache ?
     memoizedFindProjectRoot_longer_longer_longer_longer
