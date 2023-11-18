@@ -1,3 +1,4 @@
+import { isNewExpression } from "@babel/types";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import {
   isJsxElement,
@@ -9,6 +10,7 @@ import {
   isSimpleExpressionByNodeCount,
   hasComment,
   CommentCheckFlags,
+  isCallOrNewExpression,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
@@ -39,11 +41,11 @@ import { printTernaryOld } from "./ternary-old.js";
 //   ? b
 //   : c
 // ).call()
-function shouldBreakClosingParen(node, parent) {
+function shouldBreakClosingParen({ key, parent }) {
   return (
-    (isMemberExpression(parent) ||
-      (parent.type === "NGPipeExpression" && parent.left === node)) &&
-    !parent.computed
+    (key === "object" && isMemberExpression(parent) && !parent.computed) ||
+    (key === "callee" && isCallOrNewExpression(parent)) ||
+    (key === "left" && parent.type === "NGPipeExpression")
   );
 }
 
@@ -221,7 +223,7 @@ function printTernary(path, options, print, args) {
     path.grandparent.type !== "JSXAttribute";
 
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
-  const breakClosingParen = shouldBreakClosingParen(node, parent);
+  const breakClosingParen = shouldBreakClosingParen(path);
   const breakTSClosingParen = isTSConditional && pathNeedsParens(path, options);
 
   const fillTab = !isBigTabs
@@ -428,4 +430,4 @@ function printTernary(path, options, print, args) {
   return result;
 }
 
-export { printTernary };
+export { printTernary, shouldBreakClosingParen };

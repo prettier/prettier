@@ -356,6 +356,314 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
+exports[`callee.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+const stopDirectory = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = (
+  new (useCache ? MemoizedProjectRootFinder : ProjectRootFinder)
+)({stopDirectory});
+
+=====================================output=====================================
+const stopDirectory = await (useCache ?
+    memoizedFindProjectRoot
+:   findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache ?
+    memoizedFindProjectRoot
+:   findProjectRootWithoutCache
+)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (useCache ?
+    MemoizedProjectRootFinder
+:   ProjectRootFinder
+)()({ stopDirectory });
+
+================================================================================
+`;
+
+exports[`callee.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+const stopDirectory = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = (
+  new (useCache ? MemoizedProjectRootFinder : ProjectRootFinder)
+)({stopDirectory});
+
+=====================================output=====================================
+const stopDirectory = await (useCache ?
+	memoizedFindProjectRoot
+:	findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache ?
+	memoizedFindProjectRoot
+:	findProjectRootWithoutCache
+)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (useCache ?
+	MemoizedProjectRootFinder
+:	ProjectRootFinder
+)()({ stopDirectory });
+
+================================================================================
+`;
+
+exports[`callee.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+const stopDirectory = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = (
+  new (useCache ? MemoizedProjectRootFinder : ProjectRootFinder)
+)({stopDirectory});
+
+=====================================output=====================================
+const stopDirectory = await (useCache ?
+	memoizedFindProjectRoot
+:	findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache ?
+	memoizedFindProjectRoot
+:	findProjectRootWithoutCache
+)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (useCache ?
+	MemoizedProjectRootFinder
+:	ProjectRootFinder
+)()({ stopDirectory });
+
+================================================================================
+`;
+
+exports[`callee.js - {"experimentalTernaries":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const stopDirectory = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = (
+  new (useCache ? MemoizedProjectRootFinder : ProjectRootFinder)
+)({stopDirectory});
+
+=====================================output=====================================
+const stopDirectory = await (useCache ?
+  memoizedFindProjectRoot
+: findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache ?
+  memoizedFindProjectRoot
+: findProjectRootWithoutCache
+)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (useCache ?
+  MemoizedProjectRootFinder
+: ProjectRootFinder
+)()({ stopDirectory });
+
+================================================================================
+`;
+
+exports[`callee.js - {"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+const stopDirectory = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = (
+  new (useCache ? MemoizedProjectRootFinder : ProjectRootFinder)
+)({stopDirectory});
+
+=====================================output=====================================
+const stopDirectory = await (useCache
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache
+)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (useCache
+    ? MemoizedProjectRootFinder
+    : ProjectRootFinder
+)()({ stopDirectory });
+
+================================================================================
+`;
+
+exports[`callee.js - {"useTabs":true,"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+const stopDirectory = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = (
+  new (useCache ? MemoizedProjectRootFinder : ProjectRootFinder)
+)({stopDirectory});
+
+=====================================output=====================================
+const stopDirectory = await (useCache
+	? memoizedFindProjectRoot
+	: findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache
+	? memoizedFindProjectRoot
+	: findProjectRootWithoutCache
+)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (useCache
+	? MemoizedProjectRootFinder
+	: ProjectRootFinder
+)()({ stopDirectory });
+
+================================================================================
+`;
+
+exports[`callee.js - {"useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+const stopDirectory = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = (
+  new (useCache ? MemoizedProjectRootFinder : ProjectRootFinder)
+)({stopDirectory});
+
+=====================================output=====================================
+const stopDirectory = await (useCache
+	? memoizedFindProjectRoot
+	: findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache
+	? memoizedFindProjectRoot
+	: findProjectRootWithoutCache
+)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (useCache
+	? MemoizedProjectRootFinder
+	: ProjectRootFinder
+)()({ stopDirectory });
+
+================================================================================
+`;
+
+exports[`callee.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const stopDirectory = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await
+(useCache? memoizedFindProjectRoot: findProjectRootWithoutCache)
+?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = (
+  new (useCache ? MemoizedProjectRootFinder : ProjectRootFinder)
+)({stopDirectory});
+
+=====================================output=====================================
+const stopDirectory = await (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache
+)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (useCache
+  ? MemoizedProjectRootFinder
+  : ProjectRootFinder
+)()({ stopDirectory });
+
+================================================================================
+`;
+
 exports[`func-call.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
@@ -3797,7 +4105,8 @@ bifornCringerMoshedPerplexSawder =
     askTrovenaBeenaDependsRowans +
     (glimseGlyphsHazardNoopsTieTie === 0 ?
         averredBathersBoxroomBuggyNurl
-    :   anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+    :   anodyneCondosMalateOverateRetinol
+    )(Fooooooooooo.Fooooooooooo);
 
 bifornCringerMoshedPerplexSawder =
     askTrovenaBeenaDependsRowans +
@@ -3806,7 +4115,8 @@ bifornCringerMoshedPerplexSawder =
             kochabCooieGameOnOboleUnweave === Math.PI
     ) ?
         averredBathersBoxroomBuggyNurl
-    :   anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+    :   anodyneCondosMalateOverateRetinol
+    )(Fooooooooooo.Fooooooooooo);
 // TODO(rattrayalex): try to fix this case
 
 bifornCringerMoshedPerplexSawder = (
@@ -4429,7 +4739,8 @@ bifornCringerMoshedPerplexSawder =
 	askTrovenaBeenaDependsRowans +
 	(glimseGlyphsHazardNoopsTieTie === 0 ?
 		averredBathersBoxroomBuggyNurl
-	:	anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+	:	anodyneCondosMalateOverateRetinol
+	)(Fooooooooooo.Fooooooooooo);
 
 bifornCringerMoshedPerplexSawder =
 	askTrovenaBeenaDependsRowans +
@@ -4438,7 +4749,8 @@ bifornCringerMoshedPerplexSawder =
 			kochabCooieGameOnOboleUnweave === Math.PI
 	) ?
 		averredBathersBoxroomBuggyNurl
-	:	anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+	:	anodyneCondosMalateOverateRetinol
+	)(Fooooooooooo.Fooooooooooo);
 // TODO(rattrayalex): try to fix this case
 
 bifornCringerMoshedPerplexSawder = (
@@ -5060,7 +5372,8 @@ bifornCringerMoshedPerplexSawder =
 	askTrovenaBeenaDependsRowans +
 	(glimseGlyphsHazardNoopsTieTie === 0 ?
 		averredBathersBoxroomBuggyNurl
-	:	anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+	:	anodyneCondosMalateOverateRetinol
+	)(Fooooooooooo.Fooooooooooo);
 
 bifornCringerMoshedPerplexSawder =
 	askTrovenaBeenaDependsRowans +
@@ -5069,7 +5382,8 @@ bifornCringerMoshedPerplexSawder =
 			kochabCooieGameOnOboleUnweave === Math.PI
 	) ?
 		averredBathersBoxroomBuggyNurl
-	:	anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+	:	anodyneCondosMalateOverateRetinol
+	)(Fooooooooooo.Fooooooooooo);
 // TODO(rattrayalex): try to fix this case
 
 bifornCringerMoshedPerplexSawder = (
@@ -5690,7 +6004,8 @@ bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   (glimseGlyphsHazardNoopsTieTie === 0 ?
     averredBathersBoxroomBuggyNurl
-  : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+  : anodyneCondosMalateOverateRetinol
+  )(Fooooooooooo.Fooooooooooo);
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
@@ -5699,7 +6014,8 @@ bifornCringerMoshedPerplexSawder =
       kochabCooieGameOnOboleUnweave === Math.PI
   ) ?
     averredBathersBoxroomBuggyNurl
-  : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+  : anodyneCondosMalateOverateRetinol
+  )(Fooooooooooo.Fooooooooooo);
 // TODO(rattrayalex): try to fix this case
 
 bifornCringerMoshedPerplexSawder = (

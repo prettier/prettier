@@ -19,6 +19,7 @@ import {
   dedent,
   breakParent,
 } from "../../document/builders.js";
+import { shouldBreakClosingParen } from "./ternary.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -323,6 +324,8 @@ function printTernaryOld(path, options, print) {
         ? [doc, breakParent]
         : doc;
 
+  const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
+
   // Break the closing paren to keep the chain right after it:
   // (a
   //   ? b
@@ -332,12 +335,7 @@ function printTernaryOld(path, options, print) {
     isConditionalExpression &&
     !shouldExtraIndent &&
     !jsxMode &&
-    (isMemberExpression(parent) ||
-      (path.key === "left" && parent.type === "NGPipeExpression") ||
-      (path.key === "callee" && isCallOrNewExpression(parent))) &&
-    !parent.computed;
-
-  const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
+    shouldBreakClosingParen(path);
 
   const result = maybeGroup([
     printTernaryTest(path, options, print),
