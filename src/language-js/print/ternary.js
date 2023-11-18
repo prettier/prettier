@@ -1,4 +1,3 @@
-import { isNewExpression } from "@babel/types";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import {
   isJsxElement,
