@@ -223,7 +223,7 @@ function printTernary(path, options, print, args) {
     path.grandparent.type !== "JSXAttribute";
 
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
-  const breakClosingParen = shouldBreakClosingParen(path);
+  const breakClosingParen = !shouldExtraIndent && shouldBreakClosingParen(path);
   const breakTSClosingParen = isTSConditional && pathNeedsParens(path, options);
 
   const fillTab = !isBigTabs
@@ -402,7 +402,7 @@ function printTernary(path, options, print, args) {
           isInJsx && !tryToParenthesizeAlternate ? softline : "",
         ]),
 
-    breakClosingParen && !shouldExtraIndent ? softline : "",
+    breakClosingParen ? softline : "",
     shouldBreak ? breakParent : "",
   ];
 

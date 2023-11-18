@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`callee.js - {"experimentalTernaries":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const stopDirectory = await (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (
+  useCache ? MemoizedProjectRoot : ProjectRootFinder
+)();
+
+=====================================output=====================================
+const stopDirectory = await (useCache ?
+  memoizedFindProjectRoot
+: findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache ?
+  memoizedFindProjectRoot
+: findProjectRootWithoutCache
+)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (
+  useCache ? MemoizedProjectRoot : ProjectRootFinder)();
+
+================================================================================
+`;
+
+exports[`callee.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const stopDirectory = await (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (
+  useCache ? MemoizedProjectRoot : ProjectRootFinder
+)();
+
+=====================================output=====================================
+const stopDirectory = await (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
+
+const stopDirectory2 = await (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache
+)?.(path.dirname(path.resolve(filePath)));
+
+const projectRootFinder = new (
+  useCache ? MemoizedProjectRoot : ProjectRootFinder
+)();
+
+================================================================================
+`;
