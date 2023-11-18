@@ -1,85 +1,270 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`callee.js - {"experimentalTernaries":true} format 1`] = `
+exports[`call-expression.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// Wrapped in async function since flow and typescript not parsing TLA correctly
-async function foo() {
-  const stopDirectory = await (useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+// Callee
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
-  const stopDirectory2 = await (useCache
+stopDirectory = (useCache
     ? memoizedFindProjectRoot
     : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
 
-  const projectRootFinder = new (
-    useCache ? MemoizedProjectRoot : ProjectRootFinder
-  )();
-}
+// Arguments
+stopDirectory = findProjectRootWithoutCache(useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)();
+
+stopDirectory = findProjectRootWithoutCache?.(useCache
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache);
 
 =====================================output=====================================
-// Wrapped in async function since flow and typescript not parsing TLA correctly
-async function foo() {
-  const stopDirectory = await (useCache ?
+// Callee
+stopDirectory = (
+  useCache ?
     memoizedFindProjectRoot
-  : findProjectRootWithoutCache
-  )(path.dirname(path.resolve(filePath)));
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
-  const stopDirectory2 = await (useCache ?
+stopDirectory = (
+  useCache ?
     memoizedFindProjectRoot
-  : findProjectRootWithoutCache
-  )?.(path.dirname(path.resolve(filePath)));
+  : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
 
-  const projectRootFinder = new (
-    useCache ? MemoizedProjectRoot : ProjectRootFinder)();
-}
+// Arguments
+stopDirectory = findProjectRootWithoutCache(
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+)();
+
+stopDirectory = findProjectRootWithoutCache?.(
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+);
 
 ================================================================================
 `;
 
-exports[`callee.js format 1`] = `
+exports[`call-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// Wrapped in async function since flow and typescript not parsing TLA correctly
-async function foo() {
-  const stopDirectory = await (useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+// Callee
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
-  const stopDirectory2 = await (useCache
+stopDirectory = (useCache
     ? memoizedFindProjectRoot
     : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
 
-  const projectRootFinder = new (
-    useCache ? MemoizedProjectRoot : ProjectRootFinder
-  )();
-}
+// Arguments
+stopDirectory = findProjectRootWithoutCache(useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)();
+
+stopDirectory = findProjectRootWithoutCache?.(useCache
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache);
 
 =====================================output=====================================
-// Wrapped in async function since flow and typescript not parsing TLA correctly
-async function foo() {
-  const stopDirectory = await (useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache
-  )(path.dirname(path.resolve(filePath)));
+// Callee
+stopDirectory = (
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
 
-  const stopDirectory2 = await (useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache
-  )?.(path.dirname(path.resolve(filePath)));
+stopDirectory = (
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+)?.(path.dirname(path.resolve(filePath)));
 
-  const projectRootFinder = new (
-    useCache ? MemoizedProjectRoot : ProjectRootFinder
-  )();
-}
+// Arguments
+stopDirectory = findProjectRootWithoutCache(
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+)();
+
+stopDirectory = findProjectRootWithoutCache?.(
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+);
+
+================================================================================
+`;
+
+exports[`member-expression.js - {"experimentalTernaries":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Object
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache).directory;
+
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.directory;
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)[directory];
+
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.[directory];
+
+// Property
+stopDirectory = directories[(useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)];
+
+stopDirectory = directories[(useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)];
+
+=====================================output=====================================
+// Object
+stopDirectory = (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache).directory;
+
+stopDirectory = (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.directory;
+stopDirectory = (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)[directory];
+
+stopDirectory = (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.[directory];
+
+// Property
+stopDirectory =
+  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
+
+stopDirectory =
+  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
+
+================================================================================
+`;
+
+exports[`member-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Object
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache).directory;
+
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.directory;
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)[directory];
+
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.[directory];
+
+// Property
+stopDirectory = directories[(useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)];
+
+stopDirectory = directories[(useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)];
+
+=====================================output=====================================
+// Object
+stopDirectory = (
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+).directory;
+
+stopDirectory = (
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+)?.directory;
+stopDirectory = (
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+)[directory];
+
+stopDirectory = (
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+)?.[directory];
+
+// Property
+stopDirectory =
+  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
+
+stopDirectory =
+  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
+
+================================================================================
+`;
+
+exports[`new-expression.js - {"experimentalTernaries":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+projectRootFinder = new (
+  useCache ? MemoizedProjectRoot : ProjectRootFinder
+)();
+
+projectRootFinder = new (
+  ProjectRootFinder
+)(useCache
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache);
+
+=====================================output=====================================
+projectRootFinder = new (useCache ? MemoizedProjectRoot : ProjectRootFinder)();
+
+projectRootFinder = new ProjectRootFinder(
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+);
+
+================================================================================
+`;
+
+exports[`new-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+projectRootFinder = new (
+  useCache ? MemoizedProjectRoot : ProjectRootFinder
+)();
+
+projectRootFinder = new (
+  ProjectRootFinder
+)(useCache
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache);
+
+=====================================output=====================================
+projectRootFinder = new (useCache ? MemoizedProjectRoot : ProjectRootFinder)();
+
+projectRootFinder = new ProjectRootFinder(
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+);
 
 ================================================================================
 `;
