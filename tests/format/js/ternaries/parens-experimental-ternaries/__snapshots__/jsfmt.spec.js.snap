@@ -9,74 +9,43 @@ printWidth: 80
 =====================================input======================================
 // Callee
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)(path.dirname(path.resolve(filePath)));
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
 stopDirectory = (useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer)?.(path.dirname(path.resolve(filePath)));
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
 
 // Arguments
 stopDirectory = findProjectRootWithoutCache(useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)();
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)();
 
 stopDirectory = findProjectRootWithoutCache?.(useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer);
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache);
 
-// Shortter
-async function f() {
-const stopDirectory2 = await (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
-}
-
-stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
 =====================================output=====================================
 // Callee
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)(
-  path.dirname(path.resolve(filePath)),
-);
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)?.(
-  path.dirname(path.resolve(filePath)),
-);
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
 
 // Arguments
 stopDirectory = findProjectRootWithoutCache(
-  useCache ?
-    memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer,
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
 )();
 
 stopDirectory = findProjectRootWithoutCache?.(
-  useCache ?
-    memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer,
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
 );
-
-// Shortter
-async function f() {
-  const stopDirectory2 = await (useCache ?
-    memoizedFindProjectRoot
-  : findProjectRootWithoutCache
-  )(path.dirname(path.resolve(filePath)));
-}
-
-stopDirectory = (
-  useCache ?
-    memoizedFindProjectRoot
-  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
 ================================================================================
 `;
@@ -90,64 +59,56 @@ printWidth: 80
 =====================================input======================================
 // Object
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer).directory;
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache).directory;
 
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)?.directory;
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.directory;
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)[directory];
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)[directory];
 
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)?.[directory];
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.[directory];
 
 // Property
 stopDirectory = directories[(useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)];
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)];
 
 stopDirectory = directories[(useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)];
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)];
 
 =====================================output=====================================
 // Object
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer).directory;
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache).directory;
 
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)?.directory;
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.directory;
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)[directory];
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)[directory];
 
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)?.[directory];
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.[directory];
 
 // Property
 stopDirectory =
-  directories[
-    useCache ?
-      memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer
-  ];
+  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
 
 stopDirectory =
-  directories[
-    useCache ?
-      memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer
-  ];
+  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
 
 ================================================================================
 `;

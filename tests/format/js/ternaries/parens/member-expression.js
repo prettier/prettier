@@ -1,24 +1,24 @@
 // Object
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer).directory;
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache).directory;
 
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)?.directory;
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.directory;
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)[directory];
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)[directory];
 
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)?.[directory];
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.[directory];
 
 // Property
 stopDirectory = directories[(useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)];
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)];
 
 stopDirectory = directories[(useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)];
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)];

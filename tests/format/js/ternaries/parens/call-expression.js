@@ -1,28 +1,18 @@
 // Callee
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)(path.dirname(path.resolve(filePath)));
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
 stopDirectory = (useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer)?.(path.dirname(path.resolve(filePath)));
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
 
 // Arguments
 stopDirectory = findProjectRootWithoutCache(useCache
-  ? memoizedFindProjectRoot_longer_longer_longer_longer
-  : findProjectRootWithoutCache_longer_longer_longer_longer)();
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)();
 
 stopDirectory = findProjectRootWithoutCache?.(useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer);
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache);
 
-// Shortter
-async function f() {
-const stopDirectory2 = await (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
-}
-
-stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
