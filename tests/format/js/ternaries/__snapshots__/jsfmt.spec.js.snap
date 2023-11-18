@@ -2478,21 +2478,21 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 a
 	? {
 			a: 0,
-	  }
+		}
 	: {
 			a: {
 				a: 0,
 			}
 				? {
 						a: 0,
-				  }
+					}
 				: {
 						y: {
 							a: 0,
 						}
 							? {
 									a: 0,
-							  }
+								}
 							: {
 									a: 0,
 								},
@@ -2509,7 +2509,7 @@ a
 									? {
 											a: 0,
 											b: [a ? [0, 1] : []],
-									  }
+										}
 									: [
 											[
 												0,
@@ -2522,7 +2522,7 @@ a
 												return a
 													? {
 															a: 0,
-													  }
+														}
 													: [
 															{
 																a: 0,
@@ -2532,7 +2532,7 @@ a
 											},
 										],
 							],
-					  }
+						}
 					: [
 							a
 								? function () {
@@ -2543,7 +2543,7 @@ a
 																a: a({
 																	a: 0,
 																}),
-														  }
+															}
 														: [
 																0,
 																a(),
@@ -2562,15 +2562,15 @@ a
 																	? {
 																			a: a(),
 																			b: [],
-																	  }
+																		}
 																	: {},
 															],
-											  )
+												)
 											: a(
 													a()
 														? {
 																a: 0,
-														  }
+															}
 														: (function (a) {
 																return a()
 																	? [
@@ -2578,12 +2578,12 @@ a
 																				a: 0,
 																				b: a(),
 																			},
-																	  ]
+																		]
 																	: a([
 																			a
 																				? {
 																						a: 0,
-																				  }
+																					}
 																				: {},
 																			{
 																				a: 0,
@@ -2593,11 +2593,11 @@ a
 																a
 																	? function (
 																			a,
-																	  ) {
+																		) {
 																			return function () {
 																				return 0;
 																			};
-																	  }
+																		}
 																	: function (
 																			a,
 																		) {
@@ -2607,11 +2607,11 @@ a
 																		},
 															),
 												);
-								  }
+									}
 								: function () {},
 						];
 			},
-	  }
+		}
 	: a;
 
 ================================================================================
@@ -2812,21 +2812,21 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 a
 	? {
 			a: 0,
-	  }
+		}
 	: {
 			a: {
 				a: 0,
 			}
 				? {
 						a: 0,
-				  }
+					}
 				: {
 						y: {
 							a: 0,
 						}
 							? {
 									a: 0,
-							  }
+								}
 							: {
 									a: 0,
 								},
@@ -2843,7 +2843,7 @@ a
 									? {
 											a: 0,
 											b: [a ? [0, 1] : []],
-									  }
+										}
 									: [
 											[
 												0,
@@ -2856,7 +2856,7 @@ a
 												return a
 													? {
 															a: 0,
-													  }
+														}
 													: [
 															{
 																a: 0,
@@ -2866,7 +2866,7 @@ a
 											},
 										],
 							],
-					  }
+						}
 					: [
 							a
 								? function () {
@@ -2877,7 +2877,7 @@ a
 																a: a({
 																	a: 0,
 																}),
-														  }
+															}
 														: [
 																0,
 																a(),
@@ -2896,15 +2896,15 @@ a
 																	? {
 																			a: a(),
 																			b: [],
-																	  }
+																		}
 																	: {},
 															],
-											  )
+												)
 											: a(
 													a()
 														? {
 																a: 0,
-														  }
+															}
 														: (function (a) {
 																return a()
 																	? [
@@ -2912,12 +2912,12 @@ a
 																				a: 0,
 																				b: a(),
 																			},
-																	  ]
+																		]
 																	: a([
 																			a
 																				? {
 																						a: 0,
-																				  }
+																					}
 																				: {},
 																			{
 																				a: 0,
@@ -2929,7 +2929,7 @@ a
 																			return function () {
 																				return 0;
 																			};
-																	  }
+																		}
 																	: function (a) {
 																			return function () {
 																				return 1;
@@ -2937,11 +2937,11 @@ a
 																		},
 															),
 												);
-								  }
+									}
 								: function () {},
 						];
 			},
-	  }
+		}
 	: a;
 
 ================================================================================
@@ -11556,7 +11556,7 @@ debug
 	a
 		? () => {
 				a;
-		  }
+			}
 		: () => {
 				a;
 			};
@@ -11593,7 +11593,7 @@ debug
 	a
 		? () => {
 				a;
-		  }
+			}
 		: () => {
 				a;
 			};
@@ -12001,7 +12001,7 @@ const obj3 = conditionIsTruthy
 			object: "with",
 			lots: "of",
 			stuff,
-	  }
+		}
 	: shortThing;
 
 const obj4 = conditionIsTruthy
@@ -12061,7 +12061,7 @@ const obj3 = conditionIsTruthy
 			object: "with",
 			lots: "of",
 			stuff,
-	  }
+		}
 	: shortThing;
 
 const obj4 = conditionIsTruthy
