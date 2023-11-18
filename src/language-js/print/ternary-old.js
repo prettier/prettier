@@ -274,8 +274,8 @@ function printTernaryOld(path, options, print) {
         : wrap(print(alternateNodePropertyName)),
     );
   } else {
-    // To prevent expression from becoming too wide,
-    // we align it with width=2 instead of tabWidth.
+    // To prevent the expression from becoming too wide,
+    // we align its branches to width=2 instead of tabWidth.
     const printBranch = (nodePropertyName) =>
       options.useTabs
         ? indent(print(nodePropertyName))
