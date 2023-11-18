@@ -17,9 +17,11 @@ stopDirectory = findProjectRootWithoutCache?.(useCache
     : findProjectRootWithoutCache_longer_longer_longer_longer);
 
 // Shortter
+async function f() {
 const stopDirectory2 = await (useCache
   ? memoizedFindProjectRoot
   : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+}
 
 stopDirectory = (useCache
   ? memoizedFindProjectRoot

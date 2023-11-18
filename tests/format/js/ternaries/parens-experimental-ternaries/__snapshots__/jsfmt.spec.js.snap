@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`call-expression.js format 1`] = `
+exports[`call-expression.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
+experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -38,47 +39,51 @@ stopDirectory = (useCache
 =====================================output=====================================
 // Callee
 stopDirectory = (
-  useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer
-)(path.dirname(path.resolve(filePath)));
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)(
+  path.dirname(path.resolve(filePath)),
+);
 
 stopDirectory = (
-  useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer
-)?.(path.dirname(path.resolve(filePath)));
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)?.(
+  path.dirname(path.resolve(filePath)),
+);
 
 // Arguments
 stopDirectory = findProjectRootWithoutCache(
-  useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer,
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer,
 )();
 
 stopDirectory = findProjectRootWithoutCache?.(
-  useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer,
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer,
 );
 
 // Shortter
 async function f() {
-  const stopDirectory2 = await (useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache
+  const stopDirectory2 = await (useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache
   )(path.dirname(path.resolve(filePath)));
 }
 
 stopDirectory = (
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
-)(path.dirname(path.resolve(filePath)));
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
 ================================================================================
 `;
 
-exports[`member-expression.js format 1`] = `
+exports[`member-expression.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
+experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -111,48 +116,45 @@ stopDirectory = directories[(useCache
 =====================================output=====================================
 // Object
 stopDirectory = (
-  useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer
-).directory;
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer).directory;
 
 stopDirectory = (
-  useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer
-)?.directory;
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)?.directory;
 stopDirectory = (
-  useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer
-)[directory];
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)[directory];
 
 stopDirectory = (
-  useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer
-)?.[directory];
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)?.[directory];
 
 // Property
 stopDirectory =
   directories[
-    useCache
-      ? memoizedFindProjectRoot_longer_longer_longer_longer
-      : findProjectRootWithoutCache_longer_longer_longer_longer
+    useCache ?
+      memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer
   ];
 
 stopDirectory =
   directories[
-    useCache
-      ? memoizedFindProjectRoot_longer_longer_longer_longer
-      : findProjectRootWithoutCache_longer_longer_longer_longer
+    useCache ?
+      memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer
   ];
 
 ================================================================================
 `;
 
-exports[`new-expression.js format 1`] = `
+exports[`new-expression.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
+experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -169,15 +171,14 @@ projectRootFinder = new (
 
 =====================================output=====================================
 projectRootFinder = new (
-  useCache
-    ? MemoizedProjectRoot_longer_longer_longer_longer
-    : ProjectRootFinder_longer_longer_longer_longer
-)();
+  useCache ?
+    MemoizedProjectRoot_longer_longer_longer_longer
+  : ProjectRootFinder_longer_longer_longer_longer)();
 
 projectRootFinder = new ProjectRootFinder(
-  useCache
-    ? memoizedFindProjectRoot_longer_longer_longer_longer
-    : findProjectRootWithoutCache_longer_longer_longer_longer,
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer,
 );
 
 ================================================================================
