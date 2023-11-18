@@ -274,20 +274,22 @@ function printTernaryOld(path, options, print) {
         : wrap(print(alternateNodePropertyName)),
     );
   } else {
+    // To prevent expression from becoming too wide,
+    // we align it with width=2 instead of tabWidth.
+    const printBranch = (nodePropertyName) =>
+      options.useTabs
+        ? indent(print(nodePropertyName))
+        : align(2, print(nodePropertyName));
     // normal mode
     const part = [
       line,
       "? ",
       consequentNode.type === node.type ? ifBreak("", "(") : "",
-      options.useTabs
-        ? indent(print(consequentNodePropertyName))
-        : align(2, print(consequentNodePropertyName)),
+      printBranch(consequentNodePropertyName),
       consequentNode.type === node.type ? ifBreak("", ")") : "",
       line,
       ": ",
-      options.useTabs
-        ? indent(print(alternateNodePropertyName))
-        : align(2, print(alternateNodePropertyName)),
+      printBranch(alternateNodePropertyName),
     ];
     parts.push(
       parent.type !== node.type ||
