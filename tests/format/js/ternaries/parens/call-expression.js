@@ -10,7 +10,7 @@ stopDirectory = (useCache
 // Arguments
 stopDirectory = findProjectRootWithoutCache(useCache
   ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)();
+  : findProjectRootWithoutCache);
 
 stopDirectory = findProjectRootWithoutCache?.(useCache
     ? memoizedFindProjectRoot
