@@ -1,17 +1,17 @@
 // Callee
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)(path.dirname(path.resolve(filePath)));
 
 stopDirectory = (useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer)?.(path.dirname(path.resolve(filePath)));
 
 // Arguments
 stopDirectory = findProjectRootWithoutCache(useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)();
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)();
 
 stopDirectory = findProjectRootWithoutCache?.(useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache);
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer);

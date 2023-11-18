@@ -9,41 +9,49 @@ printWidth: 80
 =====================================input======================================
 // Callee
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)(path.dirname(path.resolve(filePath)));
 
 stopDirectory = (useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer)?.(path.dirname(path.resolve(filePath)));
 
 // Arguments
 stopDirectory = findProjectRootWithoutCache(useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)();
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)();
 
 stopDirectory = findProjectRootWithoutCache?.(useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache);
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer);
 
 =====================================output=====================================
 // Callee
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot
-  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)(
+  path.dirname(path.resolve(filePath)),
+);
 
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot
-  : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)?.(
+  path.dirname(path.resolve(filePath)),
+);
 
 // Arguments
 stopDirectory = findProjectRootWithoutCache(
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer,
 )();
 
 stopDirectory = findProjectRootWithoutCache?.(
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer,
 );
 
 ================================================================================
@@ -57,39 +65,47 @@ printWidth: 80
 =====================================input======================================
 // Callee
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)(path.dirname(path.resolve(filePath)));
 
 stopDirectory = (useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer)?.(path.dirname(path.resolve(filePath)));
 
 // Arguments
 stopDirectory = findProjectRootWithoutCache(useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)();
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)();
 
 stopDirectory = findProjectRootWithoutCache?.(useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache);
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer);
 
 =====================================output=====================================
 // Callee
 stopDirectory = (
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+  useCache
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer
 )(path.dirname(path.resolve(filePath)));
 
 stopDirectory = (
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+  useCache
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer
 )?.(path.dirname(path.resolve(filePath)));
 
 // Arguments
 stopDirectory = findProjectRootWithoutCache(
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+  useCache
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer,
 )();
 
 stopDirectory = findProjectRootWithoutCache?.(
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+  useCache
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer,
 );
 
 ================================================================================
@@ -104,56 +120,64 @@ printWidth: 80
 =====================================input======================================
 // Object
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache).directory;
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer).directory;
 
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)?.directory;
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)?.directory;
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)[directory];
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)[directory];
 
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)?.[directory];
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)?.[directory];
 
 // Property
 stopDirectory = directories[(useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)];
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)];
 
 stopDirectory = directories[(useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)];
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)];
 
 =====================================output=====================================
 // Object
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot
-  : findProjectRootWithoutCache).directory;
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer).directory;
 
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot
-  : findProjectRootWithoutCache)?.directory;
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)?.directory;
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot
-  : findProjectRootWithoutCache)[directory];
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)[directory];
 
 stopDirectory = (
   useCache ?
-    memoizedFindProjectRoot
-  : findProjectRootWithoutCache)?.[directory];
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)?.[directory];
 
 // Property
 stopDirectory =
-  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
+  directories[
+    useCache ?
+      memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer
+  ];
 
 stopDirectory =
-  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
+  directories[
+    useCache ?
+      memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer
+  ];
 
 ================================================================================
 `;
@@ -166,52 +190,68 @@ printWidth: 80
 =====================================input======================================
 // Object
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache).directory;
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer).directory;
 
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)?.directory;
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)?.directory;
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)[directory];
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)[directory];
 
 stopDirectory = (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)?.[directory];
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)?.[directory];
 
 // Property
 stopDirectory = directories[(useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)];
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)];
 
 stopDirectory = directories[(useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)];
+  ? memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer)];
 
 =====================================output=====================================
 // Object
 stopDirectory = (
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+  useCache
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer
 ).directory;
 
 stopDirectory = (
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+  useCache
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer
 )?.directory;
 stopDirectory = (
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+  useCache
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer
 )[directory];
 
 stopDirectory = (
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+  useCache
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer
 )?.[directory];
 
 // Property
 stopDirectory =
-  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
+  directories[
+    useCache
+      ? memoizedFindProjectRoot_longer_longer_longer_longer
+      : findProjectRootWithoutCache_longer_longer_longer_longer
+  ];
 
 stopDirectory =
-  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
+  directories[
+    useCache
+      ? memoizedFindProjectRoot_longer_longer_longer_longer
+      : findProjectRootWithoutCache_longer_longer_longer_longer
+  ];
 
 ================================================================================
 `;
@@ -224,20 +264,25 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 projectRootFinder = new (
-  useCache ? MemoizedProjectRoot : ProjectRootFinder
+  useCache ? MemoizedProjectRoot_longer_longer_longer_longer : ProjectRootFinder_longer_longer_longer_longer
 )();
 
 projectRootFinder = new (
   ProjectRootFinder
 )(useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache);
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer);
 
 =====================================output=====================================
-projectRootFinder = new (useCache ? MemoizedProjectRoot : ProjectRootFinder)();
+projectRootFinder = new (
+  useCache ?
+    MemoizedProjectRoot_longer_longer_longer_longer
+  : ProjectRootFinder_longer_longer_longer_longer)();
 
 projectRootFinder = new ProjectRootFinder(
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer,
 );
 
 ================================================================================
@@ -250,20 +295,26 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 projectRootFinder = new (
-  useCache ? MemoizedProjectRoot : ProjectRootFinder
+  useCache ? MemoizedProjectRoot_longer_longer_longer_longer : ProjectRootFinder_longer_longer_longer_longer
 )();
 
 projectRootFinder = new (
   ProjectRootFinder
 )(useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache);
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer);
 
 =====================================output=====================================
-projectRootFinder = new (useCache ? MemoizedProjectRoot : ProjectRootFinder)();
+projectRootFinder = new (
+  useCache
+    ? MemoizedProjectRoot_longer_longer_longer_longer
+    : ProjectRootFinder_longer_longer_longer_longer
+)();
 
 projectRootFinder = new ProjectRootFinder(
-  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+  useCache
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer,
 );
 
 ================================================================================
