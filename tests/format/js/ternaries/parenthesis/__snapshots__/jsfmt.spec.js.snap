@@ -12,9 +12,10 @@ stopDirectory = await (useCache
   : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
 =====================================output=====================================
-stopDirectory = await (useCache ?
-  memoizedFindProjectRoot
-: findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+stopDirectory = await (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
 ================================================================================
 `;
@@ -30,9 +31,9 @@ stopDirectory = await (useCache
   : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
 
 =====================================output=====================================
-stopDirectory = await (useCache
-  ? memoizedFindProjectRoot
-  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+stopDirectory = await (
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
 
 ================================================================================
 `;
