@@ -10,7 +10,6 @@ import {
   isSimpleExpressionByNodeCount,
   hasComment,
   CommentCheckFlags,
-  isCallOrNewExpression,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
@@ -27,7 +26,7 @@ import {
 import pathNeedsParens from "../needs-parens.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 
-import { printTernaryOld } from "./ternary-old.js";
+import { printTernaryOld, shouldBreakClosingParen } from "./ternary-old.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -35,19 +34,6 @@ import { printTernaryOld } from "./ternary-old.js";
  *
  * @typedef {any} Options - Prettier options (TBD ...)
  */
-
-// Break the closing paren to keep the chain right after it:
-// (a
-//   ? b
-//   : c
-// ).call()
-function shouldBreakClosingParen({ key, parent }) {
-  return (
-    (key === "object" && isMemberExpression(parent) && !parent.computed) ||
-    (key === "callee" && isCallOrNewExpression(parent)) ||
-    (key === "left" && parent.type === "NGPipeExpression")
-  );
-}
 
 function hasMultilineBlockComments(
   testNodes,

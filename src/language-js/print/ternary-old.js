@@ -19,7 +19,6 @@ import {
   dedent,
   breakParent,
 } from "../../document/builders.js";
-import { shouldBreakClosingParen } from "./ternary.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -348,4 +347,17 @@ function printTernaryOld(path, options, print) {
     : result;
 }
 
-export { printTernaryOld };
+// Break the closing paren to keep the chain right after it:
+// (a
+//   ? b
+//   : c
+// ).call()
+function shouldBreakClosingParen({ key, parent }) {
+  return (
+    (key === "object" && isMemberExpression(parent) && !parent.computed) ||
+    (key === "callee" && isCallOrNewExpression(parent)) ||
+    (key === "left" && parent.type === "NGPipeExpression")
+  );
+}
+
+export { printTernaryOld, shouldBreakClosingParen };
