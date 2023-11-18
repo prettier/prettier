@@ -66,11 +66,11 @@ async function run() {
   // eslint-disable-next-line require-await
   mockable.getStdin = async () => options.input || "";
   mockable.isCI = () => Boolean(options.ci);
-  mockable.lilconfig = (moduleName, options) =>
-    lilconfig(moduleName, {
-      ...options,
-      stopDir: url.fileURLToPath(new URL("./cli", import.meta.url)),
-    });
+  mockable.lilconfig = (moduleName, options) => {
+    options.stopDir ??= url.fileURLToPath(new URL("./cli", import.meta.url));
+    return lilconfig(moduleName, options);
+  };
+
   // eslint-disable-next-line require-await
   mockable.writeFormattedFile = async (filename, content) => {
     filename = normalizeToPosix(path.relative(process.cwd(), filename));
