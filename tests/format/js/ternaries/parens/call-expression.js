@@ -15,3 +15,8 @@ stopDirectory = findProjectRootWithoutCache(useCache
 stopDirectory = findProjectRootWithoutCache?.(useCache
     ? memoizedFindProjectRoot_longer_longer_longer_longer
     : findProjectRootWithoutCache_longer_longer_longer_longer);
+
+// Shortter
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));

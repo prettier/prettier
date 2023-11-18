@@ -25,6 +25,11 @@ stopDirectory = findProjectRootWithoutCache?.(useCache
     ? memoizedFindProjectRoot_longer_longer_longer_longer
     : findProjectRootWithoutCache_longer_longer_longer_longer);
 
+// Shortter
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+
 =====================================output=====================================
 // Callee
 stopDirectory = (
@@ -54,6 +59,12 @@ stopDirectory = findProjectRootWithoutCache?.(
   : findProjectRootWithoutCache_longer_longer_longer_longer,
 );
 
+// Shortter
+stopDirectory = (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+
 ================================================================================
 `;
 
@@ -81,6 +92,11 @@ stopDirectory = findProjectRootWithoutCache?.(useCache
     ? memoizedFindProjectRoot_longer_longer_longer_longer
     : findProjectRootWithoutCache_longer_longer_longer_longer);
 
+// Shortter
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+
 =====================================output=====================================
 // Callee
 stopDirectory = (
@@ -107,6 +123,11 @@ stopDirectory = findProjectRootWithoutCache?.(
     ? memoizedFindProjectRoot_longer_longer_longer_longer
     : findProjectRootWithoutCache_longer_longer_longer_longer,
 );
+
+// Shortter
+stopDirectory = (
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache
+)(path.dirname(path.resolve(filePath)));
 
 ================================================================================
 `;
