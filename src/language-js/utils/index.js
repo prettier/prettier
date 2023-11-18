@@ -1200,11 +1200,11 @@ const isNextLineEmpty = (node, { originalText }) =>
   isNextLineEmptyAfterIndex(originalText, locEnd(node));
 
 function isCallLikeExpression(node) {
-  return (
-    isCallExpression(node) ||
-    node.type === "NewExpression" ||
-    node.type === "ImportExpression"
-  );
+  return isCallOrNewExpression(node) || node.type === "ImportExpression";
+}
+
+function isCallOrNewExpression(node) {
+  return isCallExpression(node) || node.type === "NewExpression";
 }
 
 function isObjectProperty(node) {
@@ -1248,6 +1248,7 @@ export {
   identity,
   isBinaryish,
   isCallLikeExpression,
+  isCallOrNewExpression,
   isLineComment,
   isPrettierIgnoreComment,
   isCallExpression,

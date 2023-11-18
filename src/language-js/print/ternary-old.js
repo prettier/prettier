@@ -4,6 +4,7 @@ import {
   isCallExpression,
   isMemberExpression,
   isBinaryCastExpression,
+  isCallOrNewExpression,
   hasComment,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
@@ -328,9 +329,12 @@ function printTernaryOld(path, options, print) {
   //   : c
   // ).call()
   const breakClosingParen =
+    isConditionalExpression &&
+    !shouldExtraIndent &&
     !jsxMode &&
     (isMemberExpression(parent) ||
-      (parent.type === "NGPipeExpression" && parent.left === node)) &&
+      (path.key === "left" && parent.type === "NGPipeExpression") ||
+      (path.key === "callee" && isCallOrNewExpression(parent))) &&
     !parent.computed;
 
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
@@ -338,9 +342,7 @@ function printTernaryOld(path, options, print) {
   const result = maybeGroup([
     printTernaryTest(path, options, print),
     forceNoIndent ? parts : indent(parts),
-    isConditionalExpression && breakClosingParen && !shouldExtraIndent
-      ? softline
-      : "",
+    breakClosingParen ? softline : "",
   ]);
 
   return isParentTest || shouldExtraIndent
