@@ -1,74 +1,228 @@
-# Contributor Covenant Code of Conduct
+<!DOCTYPE html>
+<html lang="ar-SA">
 
-## Our Pledge
+<head>
+	<title></title>
+	<meta content="summary_large_image" name="twitter:card" />
+	<meta content="website" property="og:type" />
+	<meta content="" property="og:description" />
+	<meta content="https://uh07imxqku.preview-postedstuff.com/V2-ZyLRo-bduj-IY3b-Vti6/" property="og:url" />
+	<meta content="https://pro-bee-beepro-thumbnail.getbee.io/messages/1094619/1080013/2043066/10230402_large.jpg" property="og:image" />
+	<meta content="" property="og:title" />
+	<meta content="" name="description" />
+	<meta charset="utf-8" />
+	<meta content="width=device-width" name="viewport" />
+	<style>
+		.bee-row,
+		.bee-row-content {
+			position: relative
+		}
 
-In the interest of fostering an open and welcoming environment, we as
-contributors and maintainers pledge to making participation in our project and
-our community a harassment-free experience for everyone, regardless of age, body
-size, disability, ethnicity, sex characteristics, gender identity and expression,
-level of experience, education, socio-economic status, nationality, personal
-appearance, race, religion, or sexual identity and orientation.
+		.bee-row-1,
+		body {
+			background-color: #000
+		}
 
-## Our Standards
+		.bee-row-1 .bee-col-1,
+		.bee-row-1 .bee-col-2,
+		.bee-row-1 .bee-col-3,
+		.bee-row-10 .bee-col-1,
+		.bee-row-10 .bee-col-2,
+		.bee-row-10 .bee-col-3,
+		.bee-row-10 .bee-col-4,
+		.bee-row-11 .bee-col-1,
+		.bee-row-12 .bee-col-1,
+		.bee-row-12 .bee-col-2,
+		.bee-row-12 .bee-col-3,
+		.bee-row-12 .bee-col-4,
+		.bee-row-13 .bee-col-1,
+		.bee-row-14 .bee-col-1,
+		.bee-row-14 .bee-col-2,
+		.bee-row-14 .bee-col-3,
+		.bee-row-14 .bee-col-4,
+		.bee-row-19 .bee-col-1,
+		.bee-row-19 .bee-col-2,
+		.bee-row-19 .bee-col-3,
+		.bee-row-2 .bee-col-1,
+		.bee-row-2 .bee-col-2,
+		.bee-row-2 .bee-col-3,
+		.bee-row-2 .bee-col-4,
+		.bee-row-21 .bee-col-1,
+		.bee-row-3 .bee-col-1,
+		.bee-row-4 .bee-col-1,
+		.bee-row-4 .bee-col-2,
+		.bee-row-4 .bee-col-3,
+		.bee-row-4 .bee-col-4,
+		.bee-row-4 .bee-col-5,
+		.bee-row-4 .bee-col-6,
+		.bee-row-5 .bee-col-1,
+		.bee-row-5 .bee-col-2,
+		.bee-row-5 .bee-col-3,
+		.bee-row-5 .bee-col-4,
+		.bee-row-5 .bee-col-5,
+		.bee-row-5 .bee-col-6,
+		.bee-row-6 .bee-col-1,
+		.bee-row-6 .bee-col-2,
+		.bee-row-6 .bee-col-3,
+		.bee-row-6 .bee-col-4,
+		.bee-row-6 .bee-col-5,
+		.bee-row-6 .bee-col-6,
+		.bee-row-7 .bee-col-1,
+		.bee-row-8 .bee-col-2,
+		.bee-row-9 .bee-col-1 {
+			padding-bottom: 5px;
+			padding-top: 5px
+		}
 
-Examples of behavior that contributes to creating a positive environment
-include:
+		.bee-row-16 .bee-col-1,
+		.bee-row-16 .bee-col-2 {
+			padding-left: 20px;
+			padding-right: 20px
+		}
 
-- Using welcoming and inclusive language
-- Being respectful of differing viewpoints and experiences
-- Gracefully accepting constructive criticism
-- Focusing on what is best for the community
-- Showing empathy towards other community members
+		.bee-row-1,
+		.bee-row-10,
+		.bee-row-11,
+		.bee-row-12,
+		.bee-row-13,
+		.bee-row-14,
+		.bee-row-15,
+		.bee-row-16,
+		.bee-row-17,
+		.bee-row-18,
+		.bee-row-19,
+		.bee-row-2,
+		.bee-row-20,
+		.bee-row-21,
+		.bee-row-21 .bee-row-content,
+		.bee-row-3,
+		.bee-row-4,
+		.bee-row-5,
+		.bee-row-6,
+		.bee-row-7,
+		.bee-row-8,
+		.bee-row-9 {
+			background-repeat: no-repeat
+		}
 
-Examples of unacceptable behavior by participants include:
+		body {
+			color: #000;
+			font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif
+		}
 
-- The use of sexualized language or imagery and unwelcome sexual attention or
-  advances
-- Trolling, insulting/derogatory comments, and personal or political attacks
-- Public or private harassment
-- Publishing others' private information, such as a physical or electronic
-  address, without explicit permission
-- Other conduct which could reasonably be considered inappropriate in a
-  professional setting
+		.bee-row-11 .bee-col-1 .bee-block-2 a,
+		.bee-row-12 .bee-col-3 .bee-block-2 a,
+		.bee-row-12 .bee-col-3 .bee-block-4 a,
+		.bee-row-12 .bee-col-3 .bee-block-6 a,
+		.bee-row-13 .bee-col-1 .bee-block-2 a,
+		.bee-row-14 .bee-col-1 .bee-block-1 a,
+		.bee-row-14 .bee-col-1 .bee-block-3 a,
+		.bee-row-14 .bee-col-2 .bee-block-1 a,
+		.bee-row-14 .bee-col-2 .bee-block-3 a,
+		.bee-row-14 .bee-col-3 .bee-block-1 a,
+		.bee-row-14 .bee-col-3 .bee-block-3 a,
+		.bee-row-14 .bee-col-4 .bee-block-1 a,
+		.bee-row-14 .bee-col-4 .bee-block-3 a,
+		.bee-row-15 .bee-col-1 .bee-block-2 a,
+		.bee-row-15 .bee-col-1 .bee-block-4 a,
+		.bee-row-2 .bee-col-3 .bee-block-2 a,
+		.bee-row-2 .bee-col-3 .bee-block-4 a,
+		.bee-row-7 .bee-col-1 .bee-block-2 a,
+		.bee-row-7 .bee-col-1 .bee-block-4 a,
+		.bee-row-8 .bee-col-1 .bee-block-1 a,
+		.bee-row-8 .bee-col-2 .bee-block-2 a,
+		.bee-row-8 .bee-col-3 .bee-block-2 a,
+		.bee-row-9 .bee-col-1 .bee-block-2 a,
+		a {
+			color: #fff
+		}
 
-## Our Responsibilities
+		* {
+			box-sizing: border-box
+		}
 
-Project maintainers are responsible for clarifying the standards of acceptable
-behavior and are expected to take appropriate and fair corrective action in
-response to any instances of unacceptable behavior.
+		body,
+		h3,
+		p {
+			margin: 0
+		}
 
-Project maintainers have the right and responsibility to remove, edit, or
-reject comments, commits, code, wiki edits, issues, and other contributions
-that are not aligned to this Code of Conduct, or to ban temporarily or
-permanently any contributor for other behaviors that they deem inappropriate,
-threatening, offensive, or harmful.
+		.bee-row-content {
+			max-width: 1440px;
+			margin: 0 auto;
+			display: flex
+		}
 
-## Scope
+		.bee-row-content .bee-col-w2 {
+			flex-basis: 17%
+		}
 
-This Code of Conduct applies both within project spaces and in public spaces
-when an individual is representing the project or its community. Examples of
-representing a project or community include using an official project e-mail
-address, posting via an official social media account, or acting as an appointed
-representative at an online or offline event. Representation of a project may be
-further defined and clarified by project maintainers.
+		.bee-row-content .bee-col-w3 {
+			flex-basis: 25%
+		}
 
-## Enforcement
+		.bee-row-content .bee-col-w4 {
+			flex-basis: 33%
+		}
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at prettier-contact@googlegroups.com. All
-complaints will be reviewed and investigated and will result in a response that
-is deemed necessary and appropriate to the circumstances. The project team is
-obligated to maintain confidentiality with regard to the reporter of an incident.
-Further details of specific enforcement policies may be posted separately.
+		.bee-row-content .bee-col-w5 {
+			flex-basis: 42%
+		}
 
-Project maintainers who do not follow or enforce the Code of Conduct in good
-faith may face temporary or permanent repercussions as determined by other
-members of the project's leadership.
+		.bee-row-content .bee-col-w7 {
+			flex-basis: 58%
+		}
 
-## Attribution
+		.bee-row-content .bee-col-w12 {
+			flex-basis: 100%
+		}
 
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 1.4,
-available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
+		.bee-button .content {
+			text-align: center
+		}
 
-For answers to common questions about this code of conduct, see
-https://www.contributor-covenant.org/faq
+		.bee-button a,
+		.bee-icon .bee-icon-label-right a {
+			text-decoration: none
+		}
+
+		.bee-divider,
+		.bee-image {
+			overflow: auto
+		}
+
+		.bee-divider .center,
+		.bee-image .bee-center {
+			margin: 0 auto
+		}
+
+		.bee-row-1 .bee-col-1 .bee-block-2,
+		.bee-row-11 .bee-col-1 .bee-block-5,
+		.bee-row-12 .bee-col-2 .bee-block-2,
+		.bee-row-12 .bee-col-3 .bee-block-7,
+		.bee-row-12 .bee-col-3 .bee-block-8,
+		.bee-row-14 .bee-col-1 .bee-block-2,
+		.bee-row-14 .bee-col-2 .bee-block-2,
+		.bee-row-14 .bee-col-3 .bee-block-2,
+		.bee-row-14 .bee-col-4 .bee-block-2,
+		.bee-row-16 .bee-col-1 .bee-block-1,
+		.bee-row-2 .bee-col-2 .bee-block-2 {
+			width: 100%
+		}
+
+		.bee-icon {
+			display: inline-block;
+			vertical-align: middle
+		}
+
+		.bee-icon .bee-content {
+			display: flex;
+			align-items: center
+		}
+
+		.bee-image img {
+			display: block;
+			width: 100%
+		}
+
+		.bee-paragraph
