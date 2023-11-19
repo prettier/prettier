@@ -421,3 +421,40 @@ test("Search from directory, not treat file as directory", async () => {
     "directory/.prettierrc",
   );
 });
+
+describe("Do not look for config outside the 'projectRoot'", () => {
+  const file = fileURLToPath(
+    new URL("../cli/config/editorconfig/repo-root/file.js", import.meta.url),
+  );
+
+  runCli(
+    "cli/config/editorconfig/repo-root",
+    ["--find-config-path", "file.js"],
+    {
+      mockProjectRoot: fileURLToPath(
+        new URL("../cli/config/editorconfig/repo-root/", import.meta.url),
+      ),
+    },
+  ).test({
+    stdout: "",
+    write: [],
+    status: 1,
+  });
+
+  runCli(
+    "cli/config/editorconfig/repo-root",
+    ["--find-config-path", "file.js"],
+    {
+      mockProjectRoot: fileURLToPath(new URL("../../", import.meta.url)),
+    },
+  ).test({
+    stdout: "../../.prettierrc",
+    stderr: "",
+    write: [],
+    status: 0,
+  });
+
+  test("API", async () => {
+    expect(await prettier.resolveConfigFile(file)).toBeNull();
+  });
+});
