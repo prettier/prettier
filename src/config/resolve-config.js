@@ -100,6 +100,7 @@ async function resolveConfigFile(fileUrlOrPath) {
   const stopDirectory = startDirectory
     ? await findProjectRootWithoutCache(startDirectory)
     : undefined;
+
   const { search } = getPrettierConfigExplorerWithoutCache({ stopDirectory });
   const result = await search(startDirectory);
   return result?.filepath ?? null;
