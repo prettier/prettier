@@ -30,13 +30,13 @@ Then, create an empty config file to let editors and other tools know you are us
 
 <!--
 Note:
-- `echo "{}" > .prettierrc` would result in `"{}"<SPACE>` on Windows.
-- `echo {}> .prettierrc` would result the file in UTF-16LE encoding in PowerShell.
+- `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows.
+- `echo {}> .prettierrc.json` would result the file in UTF-16LE encoding in PowerShell.
 The below version works in cmd.exe, bash, zsh, fish, PowerShell.
 -->
 
 ```bash
-node --eval "fs.writeFileSync('.prettierrc','{}\n')"
+node --eval "fs.writeFileSync('.prettierrc.json','{}\n')"
 ```
 
 Next, create a [.prettierignore](ignore.md) file to let the Prettier CLI and editors know which files to _not_ format. Here’s an example:
