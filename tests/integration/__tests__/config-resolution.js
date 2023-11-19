@@ -181,7 +181,7 @@ test("API resolveConfig overrides work with dotfiles", async () => {
 
 test("API resolveConfig overrides work with absolute paths", async () => {
   // Absolute path
-  const file = url.url.fileURLToPath(
+  const file = url.fileURLToPath(
     new URL("../cli/config/filepath/subfolder/file.js", import.meta.url),
   );
   await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
@@ -230,7 +230,7 @@ test("API resolveConfig resolves relative path values based on config filepath",
     "../cli/config/resolve-relative/",
     import.meta.url,
   );
-  const parentDir = path.resolve(url.url.fileURLToPath(currentDir), "..");
+  const parentDir = path.resolve(url.fileURLToPath(currentDir), "..");
   await expect(
     prettier.resolveConfig(new URL("index.js", currentDir)),
   ).resolves.toMatchObject({
@@ -383,11 +383,9 @@ test("API resolveConfig accepts path or URL", async () => {
 
   const resultByUrl = await prettier.resolveConfig(fileUrl);
   const resultByUrlHref = await prettier.resolveConfig(fileUrl.href);
-  const resultByPath = await prettier.resolveConfig(
-    url.url.fileURLToPath(fileUrl),
-  );
+  const resultByPath = await prettier.resolveConfig(url.fileURLToPath(fileUrl));
   const resultByRelativePath = await prettier.resolveConfig(
-    path.relative(process.cwd(), url.url.fileURLToPath(fileUrl)),
+    path.relative(process.cwd(), url.fileURLToPath(fileUrl)),
   );
   expect(resultByUrl).toMatchObject(expectedResult);
   expect(resultByUrlHref).toMatchObject(expectedResult);
@@ -446,9 +444,7 @@ describe("Do not look for config outside the 'projectRoot'", () => {
   runCli(
     "cli/config/editorconfig/repo-root",
     ["--find-config-path", "file.js"],
-    {
-      mockProjectRoot: url.fileURLToPath(new URL("../../", import.meta.url)),
-    },
+    { mockProjectRoot: url.fileURLToPath(new URL("../../", import.meta.url)) },
   ).test({
     stdout: "../../.prettierrc",
     stderr: "",
