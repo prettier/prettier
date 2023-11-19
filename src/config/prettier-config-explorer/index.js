@@ -10,17 +10,6 @@ function clearCache() {
 }
 
 /**
- * @typedef { {config?: any, configFile: string} } Result
- * @typedef {(configFile: string) => Promise<Result>} Load
- * @typedef {(directory: string) => Promise<Result | void>} Search
- */
-
-/**
- * @param {{cache?: boolean, stopDirectory?: string}} param0
- * @returns {{load: Load, search: Search}}
- */
-
-/**
  * @param {string} configFile
  * @param {{cache?: boolean}} param0
  * @returns {Promise<ReturnType<loadConfigWithoutCache>}
