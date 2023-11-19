@@ -69,8 +69,8 @@ async function run() {
   mockable.lilconfig = (moduleName, lilconfigOptions) => {
     if (options.projectRoot) {
       lilconfigOptions.stopDir = options.projectRoot;
-    } else {
-      lilconfigOptions.stopDir ??= url.fileURLToPath(
+    } else if (!lilconfigOptions.stopDir) {
+      lilconfigOptions.stopDir = url.fileURLToPath(
         new URL("./cli", import.meta.url),
       );
     }
