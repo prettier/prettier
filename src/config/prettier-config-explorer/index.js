@@ -1,11 +1,12 @@
 import path from "node:path";
-import { createCachedFunction } from "./common.js";
 import loadConfigWithoutCache from "./load-config.js";
 import Searcher from "./search-config.js";
 
-const EXPLORER_CACHE = new Map();
+const loadCache = new Map();
+const searcherCache = new Map();
 function clearCache() {
-  EXPLORER_CACHE.clear();
+  loadCache.clear();
+  searcherCache.clear();
 }
 
 /**
@@ -18,36 +19,45 @@ function clearCache() {
  * @param {{cache?: boolean, stopDirectory?: string}} param0
  * @returns {{load: Load, search: Search}}
  */
-function createExplorer({ cache = true, stopDirectory } = {}) {
-  stopDirectory = stopDirectory ? path.resolve(stopDirectory) : undefined;
 
-  const explorerCacheKey = JSON.stringify({ cache, stopDirectory });
-  if (EXPLORER_CACHE.has(explorerCacheKey)) {
-    return EXPLORER_CACHE.get(explorerCacheKey);
+/**
+ * @param {string} configFile
+ * @param {{cache?: boolean}} param0
+ * @returns {Promise<ReturnType<loadConfigWithoutCache>}
+ */
+function loadConfig(configFile, { cache }) {
+  configFile = path.resolve(configFile);
+  if (!cache || !loadCache.has(configFile)) {
+    const promise = loadConfigWithoutCache(configFile);
+    // Even if cache is false, we still cache it, so we can use it later
+    loadCache.set(configFile, promise);
+    return promise;
   }
 
-  const loadConfig = cache
-    ? createCachedFunction(loadConfigWithoutCache)
-    : loadConfigWithoutCache;
-  const searcher = new Searcher({ stopDirectory, cache });
-
-  const explorer = {
-    async load(configFile) {
-      configFile = path.resolve(configFile);
-      const config = await loadConfig(configFile);
-      return config;
-    },
-    async search(directory) {
-      directory = directory ? path.resolve(directory) : process.cwd();
-      const configFile = await searcher.search(directory);
-
-      return configFile;
-    },
-  };
-
-  EXPLORER_CACHE.set(explorerCacheKey, explorer);
-
-  return explorer;
+  return loadCache.get(configFile);
 }
 
-export { createExplorer, clearCache };
+/**
+ * @param {string} startDirectory
+ * @param {{cache?: boolean, stopDirectory?: string}} param0
+ * @returns {Promise<string>}
+ */
+function searchConfig(startDirectory, { cache, stopDirectory }) {
+  stopDirectory = stopDirectory ? path.resolve(stopDirectory) : undefined;
+  const searcherCacheKey = JSON.stringify({ cache, stopDirectory });
+
+  startDirectory = startDirectory
+    ? path.resolve(startDirectory)
+    : process.cwd();
+
+  if (searcherCache.has(searcherCacheKey)) {
+    return searcherCache.get(searcherCacheKey).search(startDirectory);
+  }
+
+  const searcher = new Searcher({ cache, stopDirectory });
+  searcherCache.set(searcherCacheKey, searcher);
+
+  return searcher.search(startDirectory);
+}
+
+export { searchConfig, loadConfig, clearCache };

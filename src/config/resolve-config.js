@@ -6,11 +6,15 @@ import partition from "../utils/partition.js";
 import mockable from "../common/mockable.js";
 import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
 
-const { createConfigExplorer, clearConfigExplorerCache } = mockable;
+const {
+  searchPrettierConfig,
+  loadPrettierConfig: loadPrettierConfigFile,
+  clearPrettierConfigCache,
+} = mockable;
 
 const memoizedLoadEditorConfig = mem(loadEditorConfigWithoutCache);
 function clearCache() {
-  clearConfigExplorerCache();
+  clearPrettierConfigCache();
   memClear(memoizedLoadEditorConfig);
 }
 
@@ -25,22 +29,21 @@ function loadEditorConfig(filePath, options) {
 }
 
 async function loadPrettierConfig(filePath, options) {
-  const { useCache } = options;
+  const cache = options.useCache;
   let configFile = options.config;
 
-  const explorer = createConfigExplorer({ cache: useCache });
   if (!configFile) {
     const directory = filePath
       ? path.dirname(path.resolve(filePath))
       : undefined;
-    configFile = await explorer.search(directory);
+    configFile = await searchPrettierConfig(directory, { cache });
   }
 
   if (!configFile) {
     return;
   }
 
-  const config = await explorer.load(configFile);
+  const config = await loadPrettierConfigFile(configFile, { cache });
 
   return { config, configFile };
 }
@@ -78,7 +81,7 @@ async function resolveConfigFile(fileUrlOrPath) {
   const directory = fileUrlOrPath
     ? path.dirname(path.resolve(toPath(fileUrlOrPath)))
     : undefined;
-  const result = await createConfigExplorer({ cache: false }).search(directory);
+  const result = await searchPrettierConfig(directory, { cache: false });
   return result ?? null;
 }
 

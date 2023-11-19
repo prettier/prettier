@@ -39,10 +39,12 @@ async function searchConfigInDirectory(directory) {
 /** @type {Map} */ // @ts-expect-error -- intentionally not add the `get` method
 const noopMap = { has: () => false, set() {} };
 class Searcher {
+  #cache;
   #stopDirectory;
   #store;
   #searchConfigInDirectory;
   constructor({ stopDirectory, cache }) {
+    this.#cache = cache;
     this.#stopDirectory = stopDirectory;
     this.#searchConfigInDirectory = cache
       ? createCachedFunction(searchConfigInDirectory)
@@ -77,11 +79,13 @@ class Searcher {
     const configFile = await this.#searchConfigInDirectories(startDirectory);
 
     // Directories between startDirectory and configFile directory should has the same result
-    for (const directory of iterateDirectoryUp(
-      startDirectory,
-      configFile ? path.dirname(configFile) : startDirectory,
-    )) {
-      store.set(directory, configFile);
+    if (this.#cache) {
+      for (const directory of iterateDirectoryUp(
+        startDirectory,
+        configFile ? path.dirname(configFile) : startDirectory,
+      )) {
+        store.set(directory, configFile);
+      }
     }
 
     return configFile;
