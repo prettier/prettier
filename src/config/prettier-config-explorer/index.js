@@ -12,7 +12,7 @@ function clearCache() {
 /**
  * @param {string} configFile
  * @param {{cache?: boolean}} param0
- * @returns {Promise<ReturnType<loadConfigWithoutCache>}
+ * @returns {Promise<ReturnType<loadConfigWithoutCache>>}
  */
 function loadConfig(configFile, { cache }) {
   configFile = path.resolve(configFile);
@@ -42,7 +42,7 @@ function getSearchFunction({ cache, stopDirectory }) {
 
 /**
  * @param {string} startDirectory
- * @param {{cache?: boolean, stopDirectory?: string}} param0
+ * @param {{cache?: boolean, stopDirectory?: string}} options
  * @returns {Promise<string>}
  */
 function searchConfig(startDirectory, options) {
