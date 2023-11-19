@@ -4758,10 +4758,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:5.2.4, ignore@npm:^5.2.0, ignore@npm:^5.2.4":
-  version: 5.2.4
-  resolution: "ignore@npm:5.2.4"
-  checksum: 3d4c309c6006e2621659311783eaea7ebcd41fe4ca1d78c91c473157ad6666a57a2df790fe0d07a12300d9aac2888204d7be8d59f9aaf665b1c7fcdb432517ef
+"ignore@npm:5.3.0, ignore@npm:^5.2.0, ignore@npm:^5.2.4":
+  version: 5.3.0
+  resolution: "ignore@npm:5.3.0"
+  checksum: 2736da6621f14ced652785cb05d86301a66d70248597537176612bd0c8630893564bd5f6421f8806b09e8472e75c591ef01672ab8059c07c6eb2c09cefe04bf9
   languageName: node
   linkType: hard
 
@@ -7211,7 +7211,7 @@ __metadata:
     html-element-attributes: 3.3.0
     html-tag-names: 2.1.0
     html-ua-styles: 0.0.2
-    ignore: 5.2.4
+    ignore: 5.3.0
     import-meta-resolve: 4.0.0
     iterate-directory-up: 1.0.1
     jest: 29.7.0
