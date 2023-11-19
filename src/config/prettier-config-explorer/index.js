@@ -35,18 +35,13 @@ function createExplorer({ cache = true, stopDirectory } = {}) {
     async load(configFile) {
       configFile = path.resolve(configFile);
       const config = await loadConfig(configFile);
-      return { config, configFile };
+      return config;
     },
     async search(directory) {
       directory = directory ? path.resolve(directory) : process.cwd();
       const configFile = await searcher.search(directory);
 
-      if (!configFile) {
-        return;
-      }
-
-      const config = await loadConfig(configFile);
-      return { config, configFile };
+      return configFile;
     },
   };
 

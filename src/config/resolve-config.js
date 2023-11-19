@@ -24,20 +24,25 @@ function loadEditorConfig(filePath, options) {
   )(filePath);
 }
 
-function loadPrettierConfig(filePath, options) {
-  const { useCache, config: configPath } = options;
+async function loadPrettierConfig(filePath, options) {
+  const { useCache } = options;
+  let configFile = options.config;
+
   const explorer = createConfigExplorer({ cache: useCache });
-
-  if (configPath) {
-    return explorer.load(configPath);
+  if (!configFile) {
+    const directory = filePath
+      ? path.dirname(path.resolve(filePath))
+      : undefined;
+    configFile = await explorer.search(directory);
   }
 
-  if (!filePath) {
-    return explorer.search();
+  if (!configFile) {
+    return;
   }
 
-  const dirname = path.dirname(path.resolve(filePath));
-  return explorer.search(dirname);
+  const config = await explorer.load(configFile);
+
+  return { config, configFile };
 }
 
 async function resolveConfig(fileUrlOrPath, options) {
@@ -74,7 +79,7 @@ async function resolveConfigFile(fileUrlOrPath) {
     ? path.dirname(path.resolve(toPath(fileUrlOrPath)))
     : undefined;
   const result = await createConfigExplorer({ cache: false }).search(directory);
-  return result?.configFile ?? null;
+  return result ?? null;
 }
 
 function mergeOverrides(configResult, filePath) {
