@@ -67,7 +67,7 @@ async function run() {
   mockable.isCI = () => Boolean(options.ci);
   const { searchPrettierConfig } = mockable;
   mockable.searchPrettierConfig = (startDirectory, options) =>
-    searchPrettierConfig({
+    searchPrettierConfig(startDirectory, {
       ...options,
       stopDirectory: url.fileURLToPath(new URL("./cli", import.meta.url)),
     });
