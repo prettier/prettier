@@ -67,8 +67,8 @@ async function run() {
   mockable.isCI = () => Boolean(options.ci);
   const { lilconfig } = mockable;
   mockable.lilconfig = (moduleName, lilconfigOptions) => {
-    if (options.projectRoot) {
-      lilconfigOptions.stopDir = options.projectRoot;
+    if (options.mockProjectRoot) {
+      lilconfigOptions.stopDir = options.mockProjectRoot;
     } else if (!lilconfigOptions.stopDir) {
       lilconfigOptions.stopDir = url.fileURLToPath(
         new URL("./cli", import.meta.url),

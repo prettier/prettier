@@ -74,7 +74,7 @@ describe("prints error message when no file found with --find-config-path", () =
     "cli/config/no-config",
     ["--end-of-line", "lf", "--find-config-path", "file.js"],
     {
-      projectRoot: fileURLToPath(
+      mockProjectRoot: fileURLToPath(
         new URL("../cli/config/no-config/", import.meta.url),
       ),
     },
