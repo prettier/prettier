@@ -42,9 +42,11 @@ async function loadEditorConfig(filePath, options) {
 
 async function loadPrettierConfig(filePath, options) {
   const { useCache, config: configPath } = options;
-  const stopDirectory = await (useCache
-    ? memoizedFindProjectRoot
-    : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+  const stopDirectory = filePath
+    ? await (useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache)(
+        path.dirname(path.resolve(filePath)),
+      )
+    : undefined;
   const { load, search } = getPrettierConfigExplorer({
     cache: Boolean(useCache),
     stopDirectory,
