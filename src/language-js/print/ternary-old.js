@@ -274,8 +274,28 @@ function printTernaryOld(path, options, print) {
         : wrap(print(alternateNodePropertyName)),
     );
   } else {
-    // To prevent the expression from becoming too wide,
-    // we align its branches to width=2 instead of tabWidth.
+    /*
+    This does not mean to indent, but make the doc aligned with the first character after `? ` or `: `,
+    so we use `2` instead of `options.tabWidth` here.
+    
+    ```js
+    test
+     ? {
+         consequent
+       }
+     : alternate
+    ```
+
+    instead of
+    
+    ```js
+    test
+     ? {
+       consequent
+     }
+     : alternate
+    ```
+    */
     const printBranch = (nodePropertyName) =>
       options.useTabs
         ? indent(print(nodePropertyName))
