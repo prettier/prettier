@@ -8,6 +8,7 @@ function writeFormattedFile(file, data) {
 }
 
 const mockable = {
+  // TODO[@fisker]: Mock `findProjectRoot` instead.
   lilconfig,
   getStdin,
   isCI: () => isCI,

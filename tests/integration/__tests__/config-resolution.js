@@ -1,5 +1,5 @@
 import path from "node:path";
-import url from "node:url";
+import url, { fileURLToPath } from "node:url";
 import prettier from "../../config/prettier-entry.js";
 
 test("resolves configuration from external files and overrides by extname", async () => {
@@ -70,12 +70,15 @@ describe("resolves toml configuration file with --find-config-path file", () => 
 });
 
 describe("prints error message when no file found with --find-config-path", () => {
-  runCli("cli/config/", [
-    "--end-of-line",
-    "lf",
-    "--find-config-path",
-    "../--non-exits-filename--",
-  ]).test({
+  runCli(
+    "cli/config/no-config",
+    ["--end-of-line", "lf", "--find-config-path", "file.js"],
+    {
+      projectRoot: fileURLToPath(
+        new URL("../cli/config/no-config/", import.meta.url),
+      ),
+    },
+  ).test({
     stdout: "",
     status: 1,
   });

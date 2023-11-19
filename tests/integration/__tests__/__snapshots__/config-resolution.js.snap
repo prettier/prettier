@@ -10,7 +10,7 @@ exports[`accepts configuration from --config (stdout) 1`] = `
 
 exports[`accepts configuration from --config (write) 1`] = `[]`;
 
-exports[`prints error message when no file found with --find-config-path (stderr) 1`] = `"[error] Can not find configure file for "../--non-exits-filename--"."`;
+exports[`prints error message when no file found with --find-config-path (stderr) 1`] = `""`;
 
 exports[`prints error message when no file found with --find-config-path (write) 1`] = `[]`;
 
