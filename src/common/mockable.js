@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import path from "node:path";
 import { lilconfig } from "lilconfig";
 import getStdin from "get-stdin";
 import { isCI } from "ci-info";
@@ -14,8 +15,8 @@ const mockable = {
 
     // Bug in lilconfig
     // `getSearchPaths('/a/b', '/a/b/')` in that package searches up to root.
-    if (stopDir?.endsWith("/") || stopDir?.endsWith("\\")) {
-      lilconfigOptions.stopDir = stopDir.slice(0, -1);
+    if (stopDir) {
+      lilconfigOptions.stopDir = path.resolve(stopDir);
     }
 
     // Note: lilconfig also set `stopDir` default to `os.homedir`, but it won't
