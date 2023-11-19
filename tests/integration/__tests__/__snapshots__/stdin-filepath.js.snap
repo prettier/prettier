@@ -40,15 +40,12 @@ exports[`apply editorconfig for stdin-filepath with nonexistent file (stdout) 1`
 
 exports[`apply editorconfig for stdin-filepath with nonexistent file (write) 1`] = `[]`;
 
-exports[`don’t apply editorconfig outside project for stdin-filepath with nonexistent directory (stderr) 1`] = `""`;
-
 exports[`don’t apply editorconfig outside project for stdin-filepath with nonexistent directory (stdout) 1`] = `
 "function f() {
-  console.log("should be indented with 2 spaces")
+  console.log("should be indented with 2 spaces");
+  console.log("should add semi, (not reading .prettierrc outside) -->");
 }"
 `;
-
-exports[`don’t apply editorconfig outside project for stdin-filepath with nonexistent directory (write) 1`] = `[]`;
 
 exports[`format correctly if stdin content compatible with stdin-filepath (stderr) 1`] = `""`;
 
