@@ -5,18 +5,14 @@ import {
   createCachedFunction,
   fileExists,
 } from "./common.js";
-import { readJson } from "./loaders.js";
+import { loadConfigFromPackageJson } from "./loaders.js";
 
 async function isPackageJsonFileWithPrettierConfig(file) {
-  let packageJson;
-
   try {
-    packageJson = await readJson(file);
+    return Boolean(await loadConfigFromPackageJson(file));
   } catch {
-    // No op
+    return false;
   }
-
-  return Boolean(packageJson?.prettier);
 }
 
 async function searchConfigInDirectory(directory) {
