@@ -583,6 +583,11 @@ const nodejsFiles = [
         module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
         path: getPackageFile("js-yaml/lib/loader.js"),
       },
+      {
+        module: require.resolve("lilconfig"),
+        find: "exports.lilconfigSync = lilconfigSync;",
+        replacement: "",
+      },
     ],
     addDefaultExport: true,
   },
@@ -610,13 +615,6 @@ const nodejsFiles = [
   {
     input: "src/common/mockable.js",
     outputBaseName: "internal/internal",
-    replaceModule: [
-      {
-        module: require.resolve("lilconfig"),
-        find: "exports.lilconfigSync = lilconfigSync;",
-        replacement: "",
-      },
-    ],
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
