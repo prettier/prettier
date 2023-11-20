@@ -547,6 +547,11 @@ const nodejsFiles = [
   {
     input: "src/index.js",
     replaceModule: [
+      {
+        module: require.resolve("@iarna/toml/lib/toml-parser.js"),
+        find: "const utilInspect = eval(\"require('util').inspect\")",
+        replacement: "const utilInspect = require('util').inspect",
+      },
       // `editorconfig` use a older version of `semver` and only uses `semver.gte`
       {
         module: require.resolve("editorconfig"),
@@ -573,11 +578,6 @@ const nodejsFiles = [
         path: require.resolve("chalk", {
           paths: [require.resolve("@babel/code-frame")],
         }),
-      },
-      {
-        module: require.resolve("@iarna/toml/lib/toml-parser.js"),
-        find: "const utilInspect = eval(\"require('util').inspect\")",
-        replacement: "const utilInspect = require('util').inspect",
       },
       {
         module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
