@@ -303,6 +303,93 @@ promise.then((result) =>
 ================================================================================
 `;
 
+exports[`call-like.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+myFunction((someArgument) => looooooooooooooooooooooooooooooooooongFunctionCall())
+
+myFunction((someArgument) => new loooooooooooooooooooooooooooooongNewExpression())
+
+myFunction((someArgument) => import('looooooooooooooo/oooooooooooooooong/import'))
+
+=====================================output=====================================
+myFunction((someArgument) =>
+  looooooooooooooooooooooooooooooooooongFunctionCall(),
+);
+
+myFunction((someArgument) =>
+  new loooooooooooooooooooooooooooooongNewExpression(),
+);
+
+myFunction((someArgument) =>
+  import("looooooooooooooo/oooooooooooooooong/import"),
+);
+
+================================================================================
+`;
+
+exports[`call-like.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+myFunction((someArgument) => looooooooooooooooooooooooooooooooooongFunctionCall())
+
+myFunction((someArgument) => new loooooooooooooooooooooooooooooongNewExpression())
+
+myFunction((someArgument) => import('looooooooooooooo/oooooooooooooooong/import'))
+
+=====================================output=====================================
+myFunction((someArgument) =>
+  looooooooooooooooooooooooooooooooooongFunctionCall(),
+);
+
+myFunction((someArgument) =>
+  new loooooooooooooooooooooooooooooongNewExpression(),
+);
+
+myFunction((someArgument) =>
+  import("looooooooooooooo/oooooooooooooooong/import"),
+);
+
+================================================================================
+`;
+
+exports[`call-like.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+myFunction((someArgument) => looooooooooooooooooooooooooooooooooongFunctionCall())
+
+myFunction((someArgument) => new loooooooooooooooooooooooooooooongNewExpression())
+
+myFunction((someArgument) => import('looooooooooooooo/oooooooooooooooong/import'))
+
+=====================================output=====================================
+myFunction((someArgument) =>
+  looooooooooooooooooooooooooooooooooongFunctionCall()
+);
+
+myFunction((someArgument) =>
+  new loooooooooooooooooooooooooooooongNewExpression()
+);
+
+myFunction((someArgument) =>
+  import("looooooooooooooo/oooooooooooooooong/import")
+);
+
+================================================================================
+`;
+
 exports[`class-property.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"

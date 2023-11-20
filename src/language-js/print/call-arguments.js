@@ -10,7 +10,6 @@ import {
   getCallArguments,
   iterateCallArgumentsPath,
   isNextLineEmpty,
-  isCallExpression,
   isStringLiteral,
   isObjectProperty,
   getCallArgumentSelector,
@@ -210,7 +209,7 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
         isObjectOrRecordExpression(arg.body) ||
         isArrayOrTupleExpression(arg.body) ||
         (!arrowChainRecursion &&
-          (isCallExpression(arg.body) ||
+          (isCallLikeExpression(arg.body) ||
             arg.body.type === "ConditionalExpression")) ||
         isJsxElement(arg.body))) ||
     arg.type === "DoExpression" ||
