@@ -1,6 +1,7 @@
 import path from "node:path";
 import loadConfigWithoutCache from "./load-config.js";
 import ConfigSearcher from "./config-searcher.js";
+import Searcher from "./config-searcher.js";
 
 const loadCache = new Map();
 const searchCache = new Map();
@@ -11,7 +12,7 @@ function clearCache() {
 
 /**
  * @param {string} configFile
- * @param {{cache?: boolean}} param0
+ * @param {{cache?: boolean}} param1
  * @returns {Promise<ReturnType<loadConfigWithoutCache>>}
  */
 function loadConfig(configFile, { cache }) {
@@ -26,6 +27,9 @@ function loadConfig(configFile, { cache }) {
   return loadCache.get(configFile);
 }
 
+/**
+ * @param {{cache?: boolean, stopDirectory?: string}} param0
+ */
 function getSearchFunction({ cache, stopDirectory }) {
   stopDirectory = stopDirectory ? path.resolve(stopDirectory) : undefined;
   const searchCacheKey = JSON.stringify({ cache, stopDirectory });
