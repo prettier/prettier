@@ -7,7 +7,8 @@ function writeFormattedFile(file, data) {
 }
 
 const mockable = {
-  getLilconfigStopDirectory() {},
+  // eslint-disable-next-line unicorn/no-useless-undefined
+  getLilconfigStopDirectory: () => undefined,
   getStdin,
   isCI: () => isCI,
   writeFormattedFile,
