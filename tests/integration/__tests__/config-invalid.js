@@ -180,7 +180,7 @@ describe("Invalid config value", () => {
   });
 });
 
-// Can't put a invalid json in the test dir
+// Can't put a invalid `package.json` file in the test dir
 test("Invalid package.json", async () => {
   const packageJsonFile = new URL(
     "../cli/config/invalid/broken-package-json/package.json",
