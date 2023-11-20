@@ -1,7 +1,7 @@
 import path from "node:path";
+import mockable from "../../common/mockable.js";
 import loadConfigWithoutCache from "./load-config.js";
 import ConfigSearcher from "./config-searcher.js";
-import mockable from "../../common/mockable.js";
 
 const loadCache = new Map();
 const searchCache = new Map();
