@@ -49,6 +49,7 @@ const ENABLED_OPTIONS = [
   "embeddedLanguageFormatting",
   "bracketSameLine",
   "singleAttributePerLine",
+  "experimentalTernaries",
 ];
 
 class Playground extends React.Component {
