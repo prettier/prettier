@@ -1,7 +1,7 @@
 import path from "node:path";
 import loadConfigWithoutCache from "./load-config.js";
 import ConfigSearcher from "./config-searcher.js";
-import Searcher from "./config-searcher.js";
+import mockable from "../../common/mockable.js";
 
 const loadCache = new Map();
 const searchCache = new Map();
@@ -49,10 +49,12 @@ function getSearchFunction({ cache, stopDirectory }) {
  * @param {{cache?: boolean, stopDirectory?: string}} options
  * @returns {Promise<string>}
  */
-function searchConfig(startDirectory, options) {
+function searchConfig(startDirectory, options = {}) {
   startDirectory = startDirectory
     ? path.resolve(startDirectory)
     : process.cwd();
+
+  options.stopDirectory = mockable.getPrettierConfigSearchStopDirectory();
 
   const search = getSearchFunction(options);
 

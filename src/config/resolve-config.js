@@ -3,14 +3,12 @@ import micromatch from "micromatch";
 import mem, { memClear } from "mem";
 import { toPath } from "url-or-path";
 import partition from "../utils/partition.js";
-import mockable from "../common/mockable.js";
+import {
+  searchConfig as searchPrettierConfig,
+  loadConfig as loadPrettierConfigFile,
+  clearCache as clearPrettierConfigCache,
+} from "./prettier-config-explorer/index.js";
 import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
-
-const {
-  searchPrettierConfig,
-  loadPrettierConfig: loadPrettierConfigFile,
-  clearPrettierConfigCache,
-} = mockable;
 
 const memoizedLoadEditorConfig = mem(loadEditorConfigWithoutCache);
 function clearCache() {
