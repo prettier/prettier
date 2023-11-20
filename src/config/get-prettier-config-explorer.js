@@ -1,12 +1,11 @@
 import { pathToFileURL } from "node:url";
+import { lilconfig } from "lilconfig";
 import parseToml from "@iarna/toml/parse-async.js";
 import parseJson5 from "json5/lib/parse.js";
 import yaml from "js-yaml";
 import parseJson from "parse-json";
 import mockable from "../common/mockable.js";
 import loadExternalConfig from "./load-external-config.js";
-
-const { lilconfig } = mockable;
 
 const searchPlaces = [
   "package.json",
@@ -106,7 +105,8 @@ async function transform(result) {
  * @return {ReturnType<import("lilconfig").lilconfig>}
  */
 function getExplorer() {
-  return lilconfig("prettier", { searchPlaces, loaders, transform });
+  const stopDir = mockable.getLilconfigStopDirectory();
+  return lilconfig("prettier", { searchPlaces, loaders, transform, stopDir });
 }
 
 export default getExplorer;

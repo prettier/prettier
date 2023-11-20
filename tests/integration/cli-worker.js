@@ -3,7 +3,6 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import readline from "node:readline";
-import { lilconfig } from "lilconfig";
 import { prettierCli, mockable as mockableModuleFile } from "./env.js";
 
 const normalizeToPosix =
@@ -66,11 +65,8 @@ async function run() {
   // eslint-disable-next-line require-await
   mockable.getStdin = async () => options.input || "";
   mockable.isCI = () => Boolean(options.ci);
-  mockable.lilconfig = (moduleName, options) =>
-    lilconfig(moduleName, {
-      ...options,
-      stopDir: url.fileURLToPath(new URL("./cli", import.meta.url)),
-    });
+  mockable.getLilconfigStopDirectory = () =>
+    url.fileURLToPath(new URL("./cli", import.meta.url));
   // eslint-disable-next-line require-await
   mockable.writeFormattedFile = async (filename, content) => {
     filename = normalizeToPosix(path.relative(process.cwd(), filename));

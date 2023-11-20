@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-import { lilconfig } from "lilconfig";
 import getStdin from "get-stdin";
 import { isCI } from "ci-info";
 
@@ -8,7 +7,7 @@ function writeFormattedFile(file, data) {
 }
 
 const mockable = {
-  lilconfig,
+  getLilconfigStopDirectory() {},
   getStdin,
   isCI: () => isCI,
   writeFormattedFile,
