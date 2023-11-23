@@ -137,3 +137,44 @@ describe("Invalid toml file", () => {
     ),
   });
 });
+
+describe("Invalid yaml file", () => {
+  runCli("cli/config/invalid", [
+    "--config",
+    "broken-yaml/.prettierrc.yaml",
+    "--parser",
+    "babel",
+  ]).test({
+    status: 2,
+    stdout: "",
+    write: [],
+    stderr: expect.stringContaining(
+      /* cSpell:disable */
+      outdent`
+        end of the stream or a document separator is expected (2:1)
+
+         1 |   a
+         2 | -b
+        -----^
+      `
+        .split("\n")
+        .map((line) => `[error] ${line}`)
+        .join("\n"),
+      /* cSpell:enable */
+    ),
+  });
+});
+
+describe("Invalid config value", () => {
+  runCli("cli/config/invalid", [
+    "--config",
+    "invalid-config-value/prettier.config.mjs",
+    "--parser",
+    "babel",
+  ]).test({
+    status: 0,
+    stdout: "",
+    write: [],
+    stderr: "",
+  });
+});

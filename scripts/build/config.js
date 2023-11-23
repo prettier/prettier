@@ -583,6 +583,13 @@ const nodejsFiles = [
         module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
         path: getPackageFile("js-yaml/lib/loader.js"),
       },
+      // `parse-json` use another copy of `@babel/code-frame`
+      {
+        module: require.resolve("@babel/code-frame", {
+          paths: [require.resolve("parse-json")],
+        }),
+        path: require.resolve("@babel/code-frame"),
+      },
     ],
     addDefaultExport: true,
   },

@@ -780,7 +780,7 @@ For more information on how to use the CLI to locate a file, see the [CLI](#cli)
 
 ### Configuration Schema
 
-If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
+If you'd like a JSON schema to validate your configuration, one is available here: https://json.schemastore.org/prettierrc.
 
 ## Editor Integration
 
