@@ -277,7 +277,7 @@ function printTernaryOld(path, options, print) {
     /*
     This does not mean to indent, but make the doc aligned with the first character after `? ` or `: `,
     so we use `2` instead of `options.tabWidth` here.
-
+    
     ```js
     test
      ? {
@@ -287,7 +287,7 @@ function printTernaryOld(path, options, print) {
     ```
 
     instead of
-
+    
     ```js
     test
      ? {
@@ -300,18 +300,15 @@ function printTernaryOld(path, options, print) {
       options.useTabs
         ? indent(print(nodePropertyName))
         : align(2, print(nodePropertyName));
-    const fillTab = options.useTabs ? "\t" : " ";
     // normal mode
     const part = [
       line,
-      "?",
-      fillTab,
+      "? ",
       consequentNode.type === node.type ? ifBreak("", "(") : "",
       printBranch(consequentNodePropertyName),
       consequentNode.type === node.type ? ifBreak("", ")") : "",
       line,
-      ":",
-      fillTab,
+      ": ",
       printBranch(alternateNodePropertyName),
     ];
     parts.push(
