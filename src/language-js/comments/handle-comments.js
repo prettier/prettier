@@ -62,7 +62,7 @@ function handleOwnLineComment(context) {
     handleLabeledStatementComments,
     handleBreakAndContinueStatementComments,
     handleNestedConditionalExpressionComments,
-    handleCommentsInPattern,
+    handleCommentsInDestructuringPattern,
   ].some((fn) => fn(context));
 }
 
@@ -991,7 +991,7 @@ function handleLastUnionElementInExpression({
  * }: Foo = foo();
  *
  */
-function handleCommentsInPattern({
+function handleCommentsInDestructuringPattern({
   comment,
   enclosingNode,
   precedingNode,
