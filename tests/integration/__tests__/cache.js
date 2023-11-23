@@ -349,19 +349,6 @@ describe("--cache option", () => {
       ]);
       expect(secondStdout).toBe("a.js");
     });
-
-    it("removes cache file when run Prettier without `--cache` option", async () => {
-      await runCliWithoutGitignore(dir, [
-        "--cache",
-        "--write",
-        "--cache-strategy",
-        "metadata",
-        "*.js",
-      ]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
-      await runCliWithoutGitignore(dir, ["--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
-    });
   });
 
   describe("--cache-strategy content", () => {
@@ -605,13 +592,6 @@ describe("--cache option", () => {
         "*.js",
       ]);
       expect(secondStdout).toBe("a.js");
-    });
-
-    it("removes cache file when run Prettier without `--cache` option", async () => {
-      await runCliWithoutGitignore(dir, ["--cache", "--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
-      await runCliWithoutGitignore(dir, ["--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
     });
   });
 

@@ -10,7 +10,7 @@ import getOptionsForFile from "./options/get-options-for-file.js";
 import isTTY from "./is-tty.js";
 import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
-import { statSafe, normalizeToPosix } from "./utils.js";
+import { normalizeToPosix } from "./utils.js";
 
 const { getStdin, writeFormattedFile } = mockable;
 
@@ -307,11 +307,6 @@ async function formatFiles(context) {
       cacheFilePath,
       context.argv.cacheStrategy || "content",
     );
-  } else if (!context.argv.cacheLocation) {
-    const stat = await statSafe(cacheFilePath);
-    if (stat) {
-      await fs.unlink(cacheFilePath);
-    }
   }
 
   for await (const { error, filename, ignoreUnknown } of expandPatterns(
