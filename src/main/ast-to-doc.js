@@ -51,6 +51,19 @@ async function printAstToDoc(ast, options) {
 
   ensureAllCommentsPrinted(options);
 
+  if (
+    options.cursorLocation?.nodeAfterCursor &&
+    !options.cursorLocation.nodeBeforeCursor
+  ) {
+    return [cursor, doc];
+  }
+  if (
+    options.cursorLocation?.nodeBeforeCursor &&
+    !options.cursorLocation.nodeAfterCursor
+  ) {
+    return [doc, cursor];
+  }
+
   return doc;
 
   function mainPrint(selector, args) {
@@ -106,8 +119,20 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
     doc = printer.print(path, options, printPath, args);
   }
 
-  if (node === options.cursorNode) {
-    doc = inheritLabel(doc, (doc) => [cursor, doc, cursor]);
+  if (options.cursorLocation) {
+    const { cursorNode, nodeBeforeCursor, nodeAfterCursor } =
+      options.cursorLocation;
+    switch (node) {
+      case cursorNode:
+        doc = inheritLabel(doc, (doc) => [cursor, doc, cursor]);
+        break;
+      case nodeBeforeCursor:
+        doc = inheritLabel(doc, (doc) => [doc, cursor]);
+        break;
+      case nodeAfterCursor:
+        doc = inheritLabel(doc, (doc) => [cursor, doc]);
+        break;
+    }
   }
 
   // We let JSXElement print its comments itself because it adds () around

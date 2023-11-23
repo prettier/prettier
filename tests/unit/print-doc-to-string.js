@@ -24,7 +24,7 @@ test("Should properly trim with cursor", () => {
     ),
   ).toEqual({
     formatted: "Prettier\n",
-    cursorNodeStart: 0,
-    cursorNodeText: "Prettier",
+    cursorRegionStart: 0,
+    cursorRegionText: "Prettier",
   });
 });

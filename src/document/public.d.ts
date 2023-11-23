@@ -192,8 +192,8 @@ export namespace printer {
     options: Options,
   ): {
     formatted: string;
-    cursorNodeStart?: number | undefined;
-    cursorNodeText?: string | undefined;
+    cursorRegionStart?: number | undefined;
+    cursorRegionText?: string | undefined;
   };
   interface Options {
     /**

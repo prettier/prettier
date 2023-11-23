@@ -16,7 +16,7 @@ import { resolveParser } from "./parser-and-printer.js";
 import parseText from "./parse.js";
 import { printAstToDoc, prepareToPrint } from "./ast-to-doc.js";
 import { calculateRange } from "./range-util.js";
-import getCursorNode from "./get-cursor-node.js";
+import getCursorLocation from "./get-cursor-node.js";
 
 const BOM = "\uFEFF";
 
@@ -30,7 +30,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   const { ast, text } = await parseText(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
-    opts.cursorNode = getCursorNode(ast, opts);
+    opts.cursorLocation = getCursorLocation(ast, opts);
   }
 
   let doc = await printAstToDoc(ast, opts, addAlignmentSize);
@@ -46,8 +46,8 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (addAlignmentSize > 0) {
     const trimmed = result.formatted.trim();
 
-    if (result.cursorNodeStart !== undefined) {
-      result.cursorNodeStart -= result.formatted.indexOf(trimmed);
+    if (result.cursorRegionStart !== undefined) {
+      result.cursorRegionStart -= result.formatted.indexOf(trimmed);
     }
 
     result.formatted = trimmed + convertEndOfLineToChars(opts.endOfLine);
@@ -56,40 +56,75 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   const comments = opts[Symbol.for("comments")];
 
   if (opts.cursorOffset >= 0) {
-    let oldCursorNodeStart;
-    let oldCursorNodeText;
+    // Roughly, our logic for preserving the user's cursor position is as
+    // follows:
+    // 1. Before formatting, identify from the AST the smallest possible region
+    //    of the document that contains the cursor. (This will either be a leaf
+    //    node, a range between two nodes, or a range between a node and the
+    //    start or end of the document.)
+    // 2. During formatting, record where this cursor-containing region gets
+    //    written.
+    // 3. Run a diff (with only insertions and deletions allowed) of the
+    //    original vs formatted version of the region, with the cursor included
+    //    as a character in the original version. By undoing the deletion of
+    //    the cursor from the diff, we add the cursor to the appropriate point
+    //    in the formatted version.
+    //
+    // Steps 1 and 2 have already happened; now we implement step 3.
 
-    let cursorOffsetRelativeToOldCursorNode;
+    let oldCursorRegionStart;
+    let oldCursorRegionText;
 
-    let newCursorNodeStart;
-    let newCursorNodeText;
+    let newCursorRegionStart;
+    let newCursorRegionText;
 
-    if (opts.cursorNode && result.cursorNodeText) {
-      oldCursorNodeStart = opts.locStart(opts.cursorNode);
-      oldCursorNodeText = text.slice(
-        oldCursorNodeStart,
-        opts.locEnd(opts.cursorNode),
-      );
+    if (opts.cursorLocation && result.cursorRegionText) {
+      newCursorRegionStart = result.cursorRegionStart;
+      newCursorRegionText = result.cursorRegionText;
 
-      cursorOffsetRelativeToOldCursorNode =
-        opts.cursorOffset - oldCursorNodeStart;
+      if (opts.cursorLocation.cursorNode) {
+        oldCursorRegionStart = opts.locStart(opts.cursorLocation.cursorNode);
+        oldCursorRegionText = text.slice(
+          oldCursorRegionStart,
+          opts.locEnd(opts.cursorLocation.cursorNode),
+        );
+      } else {
+        if (
+          !opts.cursorLocation.nodeBeforeCursor &&
+          !opts.cursorLocation.nodeAfterCursor
+        ) {
+          throw new Error(
+            "Cursor location must contain at least one of cursorNode, nodeBeforeCursor, nodeAfterCursor",
+          );
+        }
+        oldCursorRegionStart = opts.cursorLocation.nodeBeforeCursor
+          ? opts.locEnd(opts.cursorLocation.nodeBeforeCursor)
+          : 0;
+        const oldCursorRegionEnd = opts.cursorLocation.nodeAfterCursor
+          ? opts.locStart(opts.cursorLocation.nodeAfterCursor)
+          : text.length;
 
-      newCursorNodeStart = result.cursorNodeStart;
-      newCursorNodeText = result.cursorNodeText;
+        oldCursorRegionText = text.slice(
+          oldCursorRegionStart,
+          oldCursorRegionEnd,
+        );
+      }
     } else {
-      oldCursorNodeStart = 0;
-      oldCursorNodeText = text;
+      oldCursorRegionStart = 0;
+      oldCursorRegionText = text;
 
-      cursorOffsetRelativeToOldCursorNode = opts.cursorOffset;
-
-      newCursorNodeStart = 0;
-      newCursorNodeText = result.formatted;
+      newCursorRegionStart = 0;
+      newCursorRegionText = result.formatted;
     }
 
-    if (oldCursorNodeText === newCursorNodeText) {
+    const cursorOffsetRelativeToOldCursorRegionStart =
+      opts.cursorOffset - oldCursorRegionStart;
+
+    if (oldCursorRegionText === newCursorRegionText) {
       return {
         formatted: result.formatted,
-        cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode,
+        cursorOffset:
+          newCursorRegionStart + cursorOffsetRelativeToOldCursorRegionStart,
         comments,
       };
     }
@@ -98,22 +133,21 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
     // symbol inserted to find out where it moves to
 
     // eslint-disable-next-line unicorn/prefer-spread
-    const oldCursorNodeCharArray = oldCursorNodeText.split("");
+    const oldCursorNodeCharArray = oldCursorRegionText.split("");
     oldCursorNodeCharArray.splice(
-      cursorOffsetRelativeToOldCursorNode,
+      cursorOffsetRelativeToOldCursorRegionStart,
       0,
       CURSOR,
     );
 
     // eslint-disable-next-line unicorn/prefer-spread
-    const newCursorNodeCharArray = newCursorNodeText.split("");
-
+    const newCursorNodeCharArray = newCursorRegionText.split("");
     const cursorNodeDiff = diffArrays(
       oldCursorNodeCharArray,
       newCursorNodeCharArray,
     );
 
-    let cursorOffset = newCursorNodeStart;
+    let cursorOffset = newCursorRegionStart;
     for (const entry of cursorNodeDiff) {
       if (entry.removed) {
         if (entry.value.includes(CURSOR)) {

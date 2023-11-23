@@ -648,8 +648,8 @@ function printDocToString(doc, options) {
 
     return {
       formatted: beforeCursor + aroundCursor + afterCursor,
-      cursorNodeStart: beforeCursor.length,
-      cursorNodeText: aroundCursor,
+      cursorRegionStart: beforeCursor.length,
+      cursorRegionText: aroundCursor,
     };
   }
 
