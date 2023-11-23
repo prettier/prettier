@@ -1002,7 +1002,15 @@ function handleCommentsInDestructuringPattern({
       enclosingNode?.type === "ArrayPattern") &&
     followingNode?.type === "TSTypeAnnotation"
   ) {
-    addTrailingComment(precedingNode, comment);
+    if (precedingNode) {
+      addTrailingComment(precedingNode, comment);
+    } else {
+      // const {
+      //   // bar
+      //   // baz
+      // }: Foo = expr;
+      addDanglingComment(enclosingNode, comment);
+    }
     return true;
   }
 }

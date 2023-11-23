@@ -43,3 +43,13 @@ function method([
   foo2
   // bazz = "bazz",
 ]: Foo) {}
+
+const {
+  // bar
+  // baz
+}: Foo = expr;
+
+const [
+  // bar
+  // baz
+]: Foo = expr;
