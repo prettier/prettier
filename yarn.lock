@@ -4772,7 +4772,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"index-to-position@npm:^0.1.1":
+"index-to-position@npm:^0.1.2":
   version: 0.1.2
   resolution: "index-to-position@npm:0.1.2"
   checksum: ce0ab15544b154d6821b4f8b3fdb5dc410d560d20e43bcb0fb8ea2ccc5f93dc04caeee6b3ebd4abc7091e437156db4caaaef934ce20f05f079a1dbc73755f7e7
@@ -6820,15 +6820,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse-json@npm:8.0.1":
-  version: 8.0.1
-  resolution: "parse-json@npm:8.0.1"
+"parse-json@npm:8.1.0":
+  version: 8.1.0
+  resolution: "parse-json@npm:8.1.0"
   dependencies:
     "@babel/code-frame": ^7.22.13
-    index-to-position: ^0.1.1
-    json-parse-even-better-errors: ^3.0.0
+    index-to-position: ^0.1.2
     type-fest: ^4.7.1
-  checksum: 59e070cfcf85031443e7d14455ff583c255e465fb70f97cb1913bc99d3a6c0bea376e90d04ab73d26523f2d6b0b20e4c3a3a0ee14075e4f3ac1fd650fee4d08f
+  checksum: efc4256c91e835b1340e2b4f535272247f174fcba85eead15ff938be23b3ca2d521a04c76e564d1dc2f61c0c9ebcb6157d5433d459c7e736c81d014b49577b31
   languageName: node
   linkType: hard
 
@@ -7170,7 +7169,7 @@ __metadata:
     n-readlines: 1.0.1
     npm-run-all2: 6.1.1
     outdent: 0.8.0
-    parse-json: 8.0.1
+    parse-json: 8.1.0
     please-upgrade-node: 3.2.0
     postcss: 8.4.31
     postcss-less: 6.0.0
