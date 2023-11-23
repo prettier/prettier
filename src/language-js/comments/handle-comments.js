@@ -62,6 +62,7 @@ function handleOwnLineComment(context) {
     handleLabeledStatementComments,
     handleBreakAndContinueStatementComments,
     handleNestedConditionalExpressionComments,
+    handleCommentsInPattern,
   ].some((fn) => fn(context));
 }
 
@@ -974,6 +975,36 @@ function handleLastUnionElementInExpression({
     return true;
   }
   return false;
+}
+
+/**
+ * const [
+ *   foo,
+ *   // bar
+ *   // baz
+ * ]: Foo = foo();
+ *
+ * const {
+ *   foo,
+ *   // bar
+ *   // baz
+ * }: Foo = foo();
+ *
+ */
+function handleCommentsInPattern({
+  comment,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+}) {
+  if (
+    (enclosingNode?.type === "ObjectPattern" ||
+      enclosingNode?.type === "ArrayPattern") &&
+    followingNode?.type === "TSTypeAnnotation"
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
 }
 
 /**
