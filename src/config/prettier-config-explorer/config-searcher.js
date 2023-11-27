@@ -1,8 +1,23 @@
 import path from "node:path";
 import iterateDirectoryUp from "iterate-directory-up";
 import isFile from "../../utils/is-file.js";
-import { CONFIG_FILE_NAMES } from "./common.js";
 import { loadConfigFromPackageJson } from "./loaders.js";
+
+const CONFIG_FILE_NAMES = [
+  "package.json",
+  ".prettierrc",
+  ".prettierrc.json",
+  ".prettierrc.yaml",
+  ".prettierrc.yml",
+  ".prettierrc.json5",
+  ".prettierrc.js",
+  ".prettierrc.mjs",
+  ".prettierrc.cjs",
+  "prettier.config.js",
+  "prettier.config.mjs",
+  "prettier.config.cjs",
+  ".prettierrc.toml",
+];
 
 async function isPackageJsonFileWithPrettierConfig(file) {
   try {
