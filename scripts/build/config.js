@@ -251,6 +251,14 @@ const pluginFiles = [
         path: path.join(dirname, "./shims/debug.js"),
       },
       {
+        module: require.resolve("ts-api-utils"),
+        process() {
+          throw new Error(
+            `Please replace the CJS version of 'ts-api-utils' with ESM version.`,
+          );
+        },
+      },
+      {
         module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/convert-comments.js",
         ),
