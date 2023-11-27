@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`keyword-expressions.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>
+  {{true.foo}}
+  {{foo.[true]}}
+  {{false.foo}}
+  {{foo.[false]}}
+  {{null.foo}}
+  {{foo.[null]}}
+  {{undefined.foo}}
+  {{foo.[undefined]}}
+</div>
+
+=====================================output=====================================
+<div>
+  {{true.foo}}
+  {{foo.[true]}}
+  {{false.foo}}
+  {{foo.[false]}}
+  {{null.foo}}
+  {{foo.[null]}}
+  {{undefined.foo}}
+  {{foo.[undefined]}}
+</div>
+================================================================================
+`;
+
 exports[`literal-expressions.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
@@ -17,9 +48,10 @@ printWidth: 80
   <!-- legacy path format, which glimmer does not parse - we don't want to wrap with brackets -->
   {{foo/bar/baz ab=cd}}
 </div>
+
 =====================================output=====================================
 <div>
-  {{array.true}}
+  {{array.[true]}}
   {{[dot.]}}
   {{array.[2].[@#].[1]}}
   {{array.[2].[a b]}}
@@ -31,7 +63,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`numeric-expression.hbs format 1`] = `
+exports[`numeric-expressions.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -44,6 +76,7 @@ printWidth: 80
   {{array.[1234]}}
   {{array.[123].[item-class]}}
   {{array.[12].item}}
+  {{people.[1a]}}
 </div>
 
 <ul class="people_list">
@@ -57,7 +90,8 @@ printWidth: 80
   {{bar.[1]}}
   {{bar.1.name}}
   {{/if}}
-</div> 
+</div>
+
 =====================================output=====================================
 <div>
   {{people.[1].name}}
@@ -66,6 +100,7 @@ printWidth: 80
   {{array.[1234]}}
   {{array.[123].item-class}}
   {{array.[12].item}}
+  {{people.[1a]}}
 </div>
 
 <ul class="people_list">

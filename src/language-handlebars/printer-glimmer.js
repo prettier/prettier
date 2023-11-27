@@ -365,66 +365,9 @@ function print(path, options, print) {
         "}}",
       ];
     }
-    case "PathExpression": {
-      const onlyDigitsRegex = /^\d*$/;
-      const whitespaceRegex = /\s/;
+    case "PathExpression":
+      return printPathExpression(node);
 
-      if (
-        node.data ||
-        (node.parts.length === 1 && node.original.includes("/"))
-      ) {
-        // check if node has data, or
-        // check if node is a legacy path expression (and leave it alone)
-        return node.original;
-      }
-
-      const literalSegments = [
-        "!",
-        '"',
-        "#",
-        "%",
-        "&",
-        "'",
-        "(",
-        ")",
-        "*",
-        "+",
-        ",",
-        ".",
-        "/",
-        ";",
-        "<",
-        "=",
-        ">",
-        "@",
-        "[",
-        "\\",
-        "]",
-        "^",
-        "`",
-        "{",
-        "|",
-        "}",
-        "~",
-      ];
-
-      return [
-        ...(node.this ? ["this"] : []),
-        ...node.parts.map((part, idx) => {
-          // check if element contains literal segments, or
-          // check if element contains any whitespace, or
-          // check if element is a number (and not the first element)
-          if (
-            literalSegments.some((segment) => part.includes(segment)) ||
-            whitespaceRegex.test(part) ||
-            (idx > 0 && part.match(onlyDigitsRegex) !== null)
-          ) {
-            return "[" + part + "]";
-          }
-          return part;
-        }),
-      ].join(".");
-    }
     case "BooleanLiteral":
       return String(node.value);
 
@@ -819,6 +762,42 @@ function printParams(path, print) {
 
 function printBlockParams(node) {
   return ["as |", node.blockParams.join(" "), "|"];
+}
+
+// https://handlebarsjs.com/guide/expressions.html#literal-segments
+const PATH_EXPRESSION_FORBIDDEN_CHARACTERS = new Set(
+  "!\"#%&'()*+,./;<=>@[\\]^`{|}~",
+);
+const PATH_EXPRESSION_FORBIDDEN_IN_FIRST_PART = new Set([
+  "true",
+  "false",
+  "null",
+  "undefined",
+]);
+const isPathExpressionPartNeedBrackets = (part, index) =>
+  (index !== 0 && PATH_EXPRESSION_FORBIDDEN_IN_FIRST_PART.has(part)) ||
+  /\s/.test(part) ||
+  /^\d/.test(part) ||
+  Array.prototype.some.call(part, (character) =>
+    PATH_EXPRESSION_FORBIDDEN_CHARACTERS.has(character),
+  );
+function printPathExpression(node) {
+  if (node.data || (node.parts.length === 1 && node.original.includes("/"))) {
+    // check if node has data, or
+    // check if node is a legacy path expression (and leave it alone)
+    return node.original;
+  }
+
+  let { parts } = node;
+  if (node.this) {
+    parts = ["this", ...parts];
+  }
+
+  return parts
+    .map((part, index) =>
+      isPathExpressionPartNeedBrackets(part, index) ? `[${part}]` : part,
+    )
+    .join(".");
 }
 
 const printer = {
