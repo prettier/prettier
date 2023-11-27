@@ -250,6 +250,18 @@ const pluginFiles = [
         module: getPackageFile("debug/src/browser.js"),
         path: path.join(dirname, "./shims/debug.js"),
       },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/convert-comments.js",
+        ),
+        process(text) {
+          text = text.replace(
+            'const tsutils = __importStar(require("ts-api-utils"));',
+            'import * as tsutils from "ts-api-utils";',
+          );
+          return text;
+        },
+      },
     ],
   },
   {
