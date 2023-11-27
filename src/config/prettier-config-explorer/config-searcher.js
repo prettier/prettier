@@ -34,7 +34,7 @@ async function searchConfigInDirectory(directory) {
 
 /** @type {Map} */ // @ts-expect-error -- intentionally not add the `get` method
 const noopMap = { has: () => false, set() {} };
-class Searcher {
+class ConfigSearcher {
   #cache;
   #stopDirectory;
   #store;
@@ -88,4 +88,4 @@ class Searcher {
   }
 }
 
-export default Searcher;
+export default ConfigSearcher;
