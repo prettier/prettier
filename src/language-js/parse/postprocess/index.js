@@ -97,10 +97,26 @@ function postprocess(ast, options) {
         ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
         break;
 
-      // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
+      // In Flow parser, it doesn't generate union/intersection types for single type
+      case "TSUnionType":
+      case "TSIntersectionType":
+        if (node.types.length === 1) {
+          return node.types[0];
+        }
+        break;
+
+      // In TypeScript, we can't distinguish `with`/`assert`
+      case "ImportDeclaration":
+      case "ExportDefaultDeclaration":
+      case "ExportNamedDeclaration":
       case "ExportAllDeclaration": {
+        // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
         const { exported } = node;
-        if (parser === "meriyah" && exported?.type === "Identifier") {
+        if (
+          parser === "meriyah" &&
+          node.type === "ExportAllDeclaration" &&
+          exported?.type === "Identifier"
+        ) {
           const raw = text.slice(locStart(exported), locEnd(exported));
           if (raw.startsWith('"') || raw.startsWith("'")) {
             node.exported = {
@@ -111,15 +127,20 @@ function postprocess(ast, options) {
             };
           }
         }
-        break;
-      }
-      // In Flow parser, it doesn't generate union/intersection types for single type
-      case "TSUnionType":
-      case "TSIntersectionType":
-        if (node.types.length === 1) {
-          return node.types[0];
+
+        if (parser === "typescript" && isNonEmptyArray(node.attributes)) {
+          const textBetweenSourceAndAttributes = text.slice(
+            node.source.range[0],
+            node.attributes[0].range[0],
+          );
+          // TODO: Skip comments
+
+          if (textBetweenSourceAndAttributes.includes("assert")) {
+            node.extra = { ...node.extra, deprecatedAssertSyntax: true };
+          }
         }
         break;
+      }
     }
   });
 

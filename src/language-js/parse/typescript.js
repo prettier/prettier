@@ -78,7 +78,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { text });
+  return postprocess(ast, { text, parser: "typescript" });
 }
 
 /**
