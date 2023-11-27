@@ -97,14 +97,6 @@ function postprocess(ast, options) {
         ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
         break;
 
-      // In Flow parser, it doesn't generate union/intersection types for single type
-      case "TSUnionType":
-      case "TSIntersectionType":
-        if (node.types.length === 1) {
-          return node.types[0];
-        }
-        break;
-
       // In TypeScript, we can't distinguish `with`/`assert`
       case "ImportDeclaration":
       case "ExportNamedDeclaration":
@@ -141,6 +133,14 @@ function postprocess(ast, options) {
         }
         break;
       }
+
+      // In Flow parser, it doesn't generate union/intersection types for single type
+      case "TSUnionType":
+      case "TSIntersectionType":
+        if (node.types.length === 1) {
+          return node.types[0];
+        }
+        break;
     }
   });
 
