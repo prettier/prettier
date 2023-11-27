@@ -27,20 +27,4 @@ async function fileExists(file) {
   return stats.isFile();
 }
 
-function createCachedFunction(function_) {
-  const cache = new Map();
-
-  return async function (fileOrDirectory) {
-    if (cache.has(fileOrDirectory)) {
-      return cache.get(fileOrDirectory);
-    }
-
-    const promise = function_(fileOrDirectory);
-    cache.set(fileOrDirectory, promise);
-    const result = await promise;
-    cache.set(fileOrDirectory, result);
-    return result;
-  };
-}
-
-export { CONFIG_FILE_NAMES, fileExists, createCachedFunction };
+export { CONFIG_FILE_NAMES, fileExists };

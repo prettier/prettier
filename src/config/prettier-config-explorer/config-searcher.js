@@ -32,6 +32,23 @@ async function searchConfigInDirectory(directory) {
   }
 }
 
+
+function createCachedSearchConfigInDirectory() {
+  const cache = new Map();
+
+  return async function (fileOrDirectory) {
+    if (cache.has(fileOrDirectory)) {
+      return cache.get(fileOrDirectory);
+    }
+
+    const promise = searchConfigInDirectory(fileOrDirectory);
+    cache.set(fileOrDirectory, promise);
+    const result = await promise;
+    cache.set(fileOrDirectory, result);
+    return result;
+  };
+}
+
 /** @type {Map} */ // @ts-expect-error -- intentionally not add the `get` method
 const noopMap = { has: () => false, set() {} };
 class ConfigSearcher {
@@ -43,7 +60,7 @@ class ConfigSearcher {
     this.#shouldCache = shouldCache;
     this.#stopDirectory = stopDirectory;
     this.#searchConfigInDirectory = shouldCache
-      ? createCachedFunction(searchConfigInDirectory)
+      ? createCachedSearchConfigInDirectory()
       : searchConfigInDirectory;
     this.#searchedFilesStore = shouldCache ? new Map() : noopMap;
   }
