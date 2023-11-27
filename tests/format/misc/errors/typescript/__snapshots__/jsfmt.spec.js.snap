@@ -42,9 +42,9 @@ exports[`invalid-jsx-1.tsx [typescript] format 1`] = `
 `;
 
 exports[`module-attributes-static.ts [typescript] format 1`] = `
-"';' expected. (1:28)
+"'{' expected. (1:33)
 > 1 | import foo from "foo.json" with type: "json";
-    |                            ^
+    |                                 ^
   2 |"
 `;
 
