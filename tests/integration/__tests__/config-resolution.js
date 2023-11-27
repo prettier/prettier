@@ -163,7 +163,7 @@ test("API resolveConfig with nested file arg and .editorconfig and indent_size =
 });
 
 test("API clearConfigCache", () => {
-  expect(() => prettier.clearConfigCache()).not.toError();
+  expect(() => prettier.clearConfigCache()).not.toThrow();
 });
 
 test("API resolveConfig overrides work with dotfiles", async () => {
