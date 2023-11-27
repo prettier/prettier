@@ -99,7 +99,7 @@ function postprocess(ast, options) {
 
       case "ImportDeclaration":
       case "ExportNamedDeclaration":
-      case "ExportAllDeclaration": {
+      case "ExportAllDeclaration":
         // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
         if (
           parser === "meriyah" &&
@@ -132,7 +132,6 @@ function postprocess(ast, options) {
           }
         }
         break;
-      }
 
       // In Flow parser, it doesn't generate union/intersection types for single type
       case "TSUnionType":
