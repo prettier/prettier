@@ -198,6 +198,13 @@ function modifyTypescriptModule(text) {
     }
   }
 
+  // server
+  for (const module of source.modules) {
+    if (module.path.startsWith("src/server/")) {
+      source.removeModule(module);
+    }
+  }
+
   // `transformers`
   source.removeModule("src/compiler/transformer.ts");
   for (const module of source.modules) {
@@ -269,7 +276,7 @@ function modifyTypescriptModule(text) {
   );
 
   // `pnp`
-  source.removeModule("src/compiler/pnp.ts", "var init_pnp = () => {};");
+  source.removeModule("src/compiler/pnp.ts");
 
   /* spell-checker: disable */
   // `ts.createParenthesizerRules`
