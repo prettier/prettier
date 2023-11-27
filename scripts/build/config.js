@@ -254,7 +254,7 @@ const pluginFiles = [
         module: require.resolve("ts-api-utils"),
         process() {
           throw new Error(
-            `Please replace the CJS version of 'ts-api-utils' with ESM version.`,
+            "Please replace the CJS version of 'ts-api-utils' with ESM version.",
           );
         },
       },
