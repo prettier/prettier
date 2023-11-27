@@ -107,7 +107,6 @@ function postprocess(ast, options) {
 
       // In TypeScript, we can't distinguish `with`/`assert`
       case "ImportDeclaration":
-      case "ExportDefaultDeclaration":
       case "ExportNamedDeclaration":
       case "ExportAllDeclaration": {
         // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
@@ -129,13 +128,14 @@ function postprocess(ast, options) {
         }
 
         if (parser === "typescript" && isNonEmptyArray(node.attributes)) {
-          const textBetweenSourceAndAttributes = text.slice(
-            node.source.range[0],
+          const textBetweenSourceAndAttributes = getTextWithoutComments(
+            ast,
+            text,
+            node.source.range[1],
             node.attributes[0].range[0],
-          );
-          // TODO: Skip comments
+          ).trim();
 
-          if (textBetweenSourceAndAttributes.includes("assert")) {
+          if (textBetweenSourceAndAttributes.startsWith("assert")) {
             node.extra = { ...node.extra, deprecatedAssertSyntax: true };
           }
         }
@@ -197,6 +197,32 @@ function rebalanceLogicalTree(node) {
     right: node.right.right,
     range: [locStart(node), locEnd(node)],
   });
+}
+
+function getTextWithoutComments(ast, fullText, start, end) {
+  const text = fullText.slice(start, end);
+
+  const { comments } = ast;
+  if (comments.length === 0) {
+    return text;
+  }
+
+  const characters = [...text];
+  for (const comment of comments) {
+    const commentStart = locStart(comment);
+    const commentEnd = locEnd(comment);
+
+    if (commentStart >= start && commentEnd <= end) {
+      const commentLength = commentEnd - commentStart;
+      characters.splice(
+        commentStart - start,
+        commentLength,
+        ..." ".repeat(commentLength),
+      );
+    }
+  }
+
+  return characters.join("");
 }
 
 export default postprocess;
