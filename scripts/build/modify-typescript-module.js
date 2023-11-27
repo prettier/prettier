@@ -268,6 +268,9 @@ function modifyTypescriptModule(text) {
     `,
   );
 
+  // `pnp`
+  source.removeModule("src/compiler/pnp.ts", "var init_pnp = () => {};");
+
   /* spell-checker: disable */
   // `ts.createParenthesizerRules`
   source.replaceAlignedCode({
