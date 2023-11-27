@@ -27,21 +27,21 @@ function loadEditorConfig(filePath, options) {
 }
 
 async function loadPrettierConfig(filePath, options) {
-  const cache = options.useCache;
+  const shouldCache = options.useCache;
   let configFile = options.config;
 
   if (!configFile) {
     const directory = filePath
       ? path.dirname(path.resolve(filePath))
       : undefined;
-    configFile = await searchPrettierConfig(directory, { cache });
+    configFile = await searchPrettierConfig(directory, { shouldCache });
   }
 
   if (!configFile) {
     return;
   }
 
-  const config = await loadPrettierConfigFile(configFile, { cache });
+  const config = await loadPrettierConfigFile(configFile, { shouldCache });
 
   return { config, configFile };
 }
@@ -79,7 +79,7 @@ async function resolveConfigFile(fileUrlOrPath) {
   const directory = fileUrlOrPath
     ? path.dirname(path.resolve(toPath(fileUrlOrPath)))
     : undefined;
-  const result = await searchPrettierConfig(directory, { cache: false });
+  const result = await searchPrettierConfig(directory, { shouldCache: false });
   return result ?? null;
 }
 

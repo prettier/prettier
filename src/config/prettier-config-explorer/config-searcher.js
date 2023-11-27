@@ -35,21 +35,21 @@ async function searchConfigInDirectory(directory) {
 /** @type {Map} */ // @ts-expect-error -- intentionally not add the `get` method
 const noopMap = { has: () => false, set() {} };
 class ConfigSearcher {
-  #cache;
+  #shouldCache;
   #stopDirectory;
-  #store;
+  #searchedFilesStore;
   #searchConfigInDirectory;
-  constructor({ stopDirectory, cache }) {
-    this.#cache = cache;
+  constructor({ stopDirectory, shouldCache }) {
+    this.#shouldCache = shouldCache;
     this.#stopDirectory = stopDirectory;
-    this.#searchConfigInDirectory = cache
+    this.#searchConfigInDirectory = shouldCache
       ? createCachedFunction(searchConfigInDirectory)
       : searchConfigInDirectory;
-    this.#store = cache ? new Map() : noopMap;
+    this.#searchedFilesStore = shouldCache ? new Map() : noopMap;
   }
 
   async #searchConfigInDirectories(startDirectory) {
-    const store = this.#store;
+    const store = this.#searchedFilesStore;
     for (const directory of iterateDirectoryUp(
       startDirectory,
       this.#stopDirectory,
@@ -67,7 +67,7 @@ class ConfigSearcher {
   }
 
   async search(startDirectory) {
-    const store = this.#store;
+    const store = this.#searchedFilesStore;
     if (store.has(startDirectory)) {
       return store.get(startDirectory);
     }
@@ -75,7 +75,7 @@ class ConfigSearcher {
     const configFile = await this.#searchConfigInDirectories(startDirectory);
 
     // Directories between startDirectory and configFile directory should has the same result
-    if (this.#cache) {
+    if (this.#shouldCache) {
       for (const directory of iterateDirectoryUp(
         startDirectory,
         configFile ? path.dirname(configFile) : startDirectory,

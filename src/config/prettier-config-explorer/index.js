@@ -12,14 +12,14 @@ function clearCache() {
 
 /**
  * @param {string} configFile
- * @param {{cache?: boolean}} param1
+ * @param {{shouldCache?: boolean}} param1
  * @returns {Promise<ReturnType<loadConfigWithoutCache>>}
  */
-function loadConfig(configFile, { cache }) {
+function loadConfig(configFile, { shouldCache }) {
   configFile = path.resolve(configFile);
-  if (!cache || !loadCache.has(configFile)) {
+  if (!shouldCache || !loadCache.has(configFile)) {
     const promise = loadConfigWithoutCache(configFile);
-    // Even if cache is false, we still cache it, so we can use it later
+    // Even if `shouldCache` is false, we still cache it, so we can use it later
     loadCache.set(configFile, promise);
     return promise;
   }
@@ -28,14 +28,14 @@ function loadConfig(configFile, { cache }) {
 }
 
 /**
- * @param {{cache?: boolean, stopDirectory?: string}} param0
+ * @param {{shouldCache?: boolean, stopDirectory?: string}} param0
  */
-function getSearchFunction({ cache, stopDirectory }) {
+function getSearchFunction({ shouldCache, stopDirectory }) {
   stopDirectory = stopDirectory ? path.resolve(stopDirectory) : undefined;
-  const searchCacheKey = JSON.stringify({ cache, stopDirectory });
+  const searchCacheKey = JSON.stringify({ shouldCache, stopDirectory });
 
   if (!searchCache.has(searchCacheKey)) {
-    const searcher = new ConfigSearcher({ cache, stopDirectory });
+    const searcher = new ConfigSearcher({ shouldCache, stopDirectory });
     const searchFunction = searcher.search.bind(searcher);
 
     searchCache.set(searchCacheKey, searchFunction);
@@ -46,7 +46,7 @@ function getSearchFunction({ cache, stopDirectory }) {
 
 /**
  * @param {string} startDirectory
- * @param {{cache?: boolean, stopDirectory?: string}} options
+ * @param {{shouldCache?: boolean, stopDirectory?: string}} options
  * @returns {Promise<string>}
  */
 function searchConfig(startDirectory, options = {}) {
