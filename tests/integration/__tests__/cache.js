@@ -119,7 +119,7 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toError();
     });
 
     it("doesn't format when cache is available", async () => {
@@ -358,9 +358,9 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toError();
       await runCliWithoutGitignore(dir, ["--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).rejects.toError();
     });
   });
 
@@ -376,7 +376,7 @@ describe("--cache option", () => {
         "content",
         "*.js",
       ]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toError();
     });
 
     it("doesn't format when cache is available", async () => {
@@ -609,9 +609,9 @@ describe("--cache option", () => {
 
     it("removes cache file when run Prettier without `--cache` option", async () => {
       await runCliWithoutGitignore(dir, ["--cache", "--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toError();
       await runCliWithoutGitignore(dir, ["--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).rejects.toError();
     });
   });
 
@@ -659,7 +659,7 @@ describe("--cache option", () => {
         ]);
         await expect(
           fs.stat(nonDefaultCacheFilePath),
-        ).resolves.not.toThrowError();
+        ).resolves.not.toError();
       });
 
       it("does'nt format when cache is available", async () => {
