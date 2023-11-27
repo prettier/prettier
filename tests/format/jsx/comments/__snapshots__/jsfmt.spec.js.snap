@@ -90,7 +90,8 @@ exports[`in-end-tag.js - {"bracketSameLine":true} [meriyah] format 1`] = `
     |           ^
   3 | /a>;
   4 | <a></* block */
-  5 | /a>;"
+  5 | /a>;
+Cause: [2:11]: Expected '>'"
 `;
 
 exports[`in-end-tag.js - {"bracketSameLine":true} [typescript] format 1`] = `
@@ -100,7 +101,8 @@ exports[`in-end-tag.js - {"bracketSameLine":true} [typescript] format 1`] = `
     |      ^
   3 | /a>;
   4 | <a></* block */
-  5 | /a>;"
+  5 | /a>;
+Cause: Identifier expected."
 `;
 
 exports[`in-end-tag.js - {"bracketSameLine":true} format 1`] = `

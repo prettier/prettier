@@ -5,7 +5,8 @@ exports[`arguments.js [acorn] format 1`] = `
 > 1 | console.log(@deco class Foo {})
     |             ^
   2 | console.log(@deco class {})
-  3 |"
+  3 |
+Cause: Unexpected character '@' (1:12)"
 `;
 
 exports[`arguments.js [espree] format 1`] = `
@@ -13,7 +14,8 @@ exports[`arguments.js [espree] format 1`] = `
 > 1 | console.log(@deco class Foo {})
     |             ^
   2 | console.log(@deco class {})
-  3 |"
+  3 |
+Cause: Unexpected character '@'"
 `;
 
 exports[`arguments.js [flow] format 1`] = `
@@ -29,7 +31,8 @@ exports[`arguments.js - {"semi":false} [acorn] format 1`] = `
 > 1 | console.log(@deco class Foo {})
     |             ^
   2 | console.log(@deco class {})
-  3 |"
+  3 |
+Cause: Unexpected character '@' (1:12)"
 `;
 
 exports[`arguments.js - {"semi":false} [espree] format 1`] = `
@@ -37,7 +40,8 @@ exports[`arguments.js - {"semi":false} [espree] format 1`] = `
 > 1 | console.log(@deco class Foo {})
     |             ^
   2 | console.log(@deco class {})
-  3 |"
+  3 |
+Cause: Unexpected character '@'"
 `;
 
 exports[`arguments.js - {"semi":false} [flow] format 1`] = `
@@ -99,7 +103,8 @@ exports[`class-expression.js [acorn] format 1`] = `
     |             ^
   2 | const a2 = (@deco class {});
   3 |
-  4 | (@deco class Foo {});"
+  4 | (@deco class Foo {});
+Cause: Unexpected character '@' (1:12)"
 `;
 
 exports[`class-expression.js [espree] format 1`] = `
@@ -108,7 +113,8 @@ exports[`class-expression.js [espree] format 1`] = `
     |             ^
   2 | const a2 = (@deco class {});
   3 |
-  4 | (@deco class Foo {});"
+  4 | (@deco class Foo {});
+Cause: Unexpected character '@'"
 `;
 
 exports[`class-expression.js [flow] format 1`] = `
@@ -126,7 +132,8 @@ exports[`class-expression.js - {"semi":false} [acorn] format 1`] = `
     |             ^
   2 | const a2 = (@deco class {});
   3 |
-  4 | (@deco class Foo {});"
+  4 | (@deco class Foo {});
+Cause: Unexpected character '@' (1:12)"
 `;
 
 exports[`class-expression.js - {"semi":false} [espree] format 1`] = `
@@ -135,7 +142,8 @@ exports[`class-expression.js - {"semi":false} [espree] format 1`] = `
     |             ^
   2 | const a2 = (@deco class {});
   3 |
-  4 | (@deco class Foo {});"
+  4 | (@deco class Foo {});
+Cause: Unexpected character '@'"
 `;
 
 exports[`class-expression.js - {"semi":false} [flow] format 1`] = `
@@ -267,7 +275,8 @@ exports[`member-expression.js [acorn] format 1`] = `
 > 1 | (@deco class Foo {}).name;
     |  ^
   2 | (@deco class {}).name;
-  3 |"
+  3 |
+Cause: Unexpected character '@' (1:1)"
 `;
 
 exports[`member-expression.js [espree] format 1`] = `
@@ -275,7 +284,8 @@ exports[`member-expression.js [espree] format 1`] = `
 > 1 | (@deco class Foo {}).name;
     |  ^
   2 | (@deco class {}).name;
-  3 |"
+  3 |
+Cause: Unexpected character '@'"
 `;
 
 exports[`member-expression.js [flow] format 1`] = `
@@ -291,7 +301,8 @@ exports[`member-expression.js - {"semi":false} [acorn] format 1`] = `
 > 1 | (@deco class Foo {}).name;
     |  ^
   2 | (@deco class {}).name;
-  3 |"
+  3 |
+Cause: Unexpected character '@' (1:1)"
 `;
 
 exports[`member-expression.js - {"semi":false} [espree] format 1`] = `
@@ -299,7 +310,8 @@ exports[`member-expression.js - {"semi":false} [espree] format 1`] = `
 > 1 | (@deco class Foo {}).name;
     |  ^
   2 | (@deco class {}).name;
-  3 |"
+  3 |
+Cause: Unexpected character '@'"
 `;
 
 exports[`member-expression.js - {"semi":false} [flow] format 1`] = `
@@ -361,7 +373,8 @@ exports[`super-class.js [acorn] format 1`] = `
     |                    ^
   2 |
   3 | class Foo extends (@deco class {}){}
-  4 |"
+  4 |
+Cause: Unexpected character '@' (1:19)"
 `;
 
 exports[`super-class.js [espree] format 1`] = `
@@ -370,7 +383,8 @@ exports[`super-class.js [espree] format 1`] = `
     |                    ^
   2 |
   3 | class Foo extends (@deco class {}){}
-  4 |"
+  4 |
+Cause: Unexpected character '@'"
 `;
 
 exports[`super-class.js [flow] format 1`] = `
@@ -388,7 +402,8 @@ exports[`super-class.js - {"semi":false} [acorn] format 1`] = `
     |                    ^
   2 |
   3 | class Foo extends (@deco class {}){}
-  4 |"
+  4 |
+Cause: Unexpected character '@' (1:19)"
 `;
 
 exports[`super-class.js - {"semi":false} [espree] format 1`] = `
@@ -397,7 +412,8 @@ exports[`super-class.js - {"semi":false} [espree] format 1`] = `
     |                    ^
   2 |
   3 | class Foo extends (@deco class {}){}
-  4 |"
+  4 |
+Cause: Unexpected character '@'"
 `;
 
 exports[`super-class.js - {"semi":false} [flow] format 1`] = `

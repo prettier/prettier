@@ -6,7 +6,8 @@ exports[`private-in.js [acorn] format 1`] = `
     |     ^
   2 | }
   3 |
-  4 | #prop in     obj;"
+  4 | #prop in     obj;
+Cause: Unexpected token (1:4)"
 `;
 
 exports[`private-in.js [espree] format 1`] = `
@@ -15,7 +16,8 @@ exports[`private-in.js [espree] format 1`] = `
     |     ^
   2 | }
   3 |
-  4 | #prop in     obj;"
+  4 | #prop in     obj;
+Cause: Unexpected token #prop"
 `;
 
 exports[`private-in.js format 1`] = `

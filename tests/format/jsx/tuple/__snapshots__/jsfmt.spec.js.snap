@@ -8,7 +8,8 @@ exports[`tuple.js [acorn] format 1`] = `
     |      ^
   7 |   <div/>,
   8 |   <div/>,
-  9 | ]"
+  9 | ]
+Cause: Unexpected character '[' (6:5)"
 `;
 
 exports[`tuple.js [espree] format 1`] = `
@@ -19,7 +20,8 @@ exports[`tuple.js [espree] format 1`] = `
     |      ^
   7 |   <div/>,
   8 |   <div/>,
-  9 | ]"
+  9 | ]
+Cause: Unexpected character '['"
 `;
 
 exports[`tuple.js [meriyah] format 1`] = `
@@ -30,7 +32,8 @@ exports[`tuple.js [meriyah] format 1`] = `
     |     ^
   7 |   <div/>,
   8 |   <div/>,
-  9 | ]"
+  9 | ]
+Cause: [6:5]: '#' not followed by identifier"
 `;
 
 exports[`tuple.js format 1`] = `
