@@ -72,6 +72,5 @@ jobs:
         uses: codecov/codecov-action@v3
         if: ${{ matrix.ENABLE_CODE_COVERAGE }}
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
           files: coverage/lcov.info
