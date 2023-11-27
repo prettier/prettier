@@ -79,7 +79,8 @@ function clean(ast, newObj, parent) {
       ast.type === "PropertyDefinition" ||
       ast.type === "TSDeclareMethod" ||
       ast.type === "TSPropertySignature" ||
-      ast.type === "ObjectTypeProperty") &&
+      ast.type === "ObjectTypeProperty" ||
+      ast.type === "ImportAttribute") &&
     typeof ast.key === "object" &&
     ast.key &&
     (ast.key.type === "Literal" ||
