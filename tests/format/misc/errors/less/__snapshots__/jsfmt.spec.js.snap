@@ -8,7 +8,8 @@ exports[`inline-comment.less [less] format 1`] = `
     |    ^
   6 | :
   7 | value;
-  8 | }"
+  8 | }
+Cause: <css input>:5:4: Unknown word"
 `;
 
 exports[`open-double-quote.less [less] format 1`] = `
@@ -17,7 +18,8 @@ exports[`open-double-quote.less [less] format 1`] = `
 > 2 | background: url("
     |                 ^
   3 | }
-  4 |"
+  4 |
+Cause: <css input>:2:17: Unclosed string"
 `;
 
 exports[`open-sigle-quote.less [less] format 1`] = `
@@ -26,12 +28,14 @@ exports[`open-sigle-quote.less [less] format 1`] = `
 > 2 | background: url('
     |                 ^
   3 | }
-  4 |"
+  4 |
+Cause: <css input>:2:17: Unclosed string"
 `;
 
 exports[`scss-syntax.scss [less] format 1`] = `
 "CssSyntaxError: Unknown word (1:15)
 > 1 | a {content: #{$foo}}
     |               ^
-  2 |"
+  2 |
+Cause: <css input>:1:15: Unknown word"
 `;

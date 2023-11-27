@@ -599,7 +599,8 @@ exports[`functionOverloadErrorsSyntax.ts [babel-ts] format 1`] = `
 >  9 | function fn5(x: string, ...y: any[], z: string);
      |                                    ^
   10 | function fn5() { }
-  11 |"
+  11 |
+Cause: Rest element must be last element. (9:35)"
 `;
 
 exports[`functionOverloadErrorsSyntax.ts format 1`] = `
