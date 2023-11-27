@@ -1,7 +1,7 @@
 import path from "node:path";
 import iterateDirectoryUp from "iterate-directory-up";
-import { CONFIG_FILE_NAMES } from "./common.js";
 import isFile from "../../utils/is-file.js";
+import { CONFIG_FILE_NAMES } from "./common.js";
 import { loadConfigFromPackageJson } from "./loaders.js";
 
 async function isPackageJsonFileWithPrettierConfig(file) {
