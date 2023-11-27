@@ -206,7 +206,8 @@ exports[`quoted-keys.js [acorn] format 1`] = `
     |                             ^
   2 | import json from './mod.js' with { "type-foo" :"json" };
   3 | import json from './mod.js' with { "333foo" :"json" };
-  4 |"
+  4 |
+Cause: Unexpected token (1:28)"
 `;
 
 exports[`quoted-keys.js [espree] format 1`] = `
@@ -215,7 +216,8 @@ exports[`quoted-keys.js [espree] format 1`] = `
     |                             ^
   2 | import json from './mod.js' with { "type-foo" :"json" };
   3 | import json from './mod.js' with { "333foo" :"json" };
-  4 |"
+  4 |
+Cause: Unexpected token with"
 `;
 
 exports[`quoted-keys.js [meriyah] format 1`] = `
@@ -224,7 +226,8 @@ exports[`quoted-keys.js [meriyah] format 1`] = `
     |                                ^
   2 | import json from './mod.js' with { "type-foo" :"json" };
   3 | import json from './mod.js' with { "333foo" :"json" };
-  4 |"
+  4 |
+Cause: [1:32]: Unexpected token: 'with'"
 `;
 
 exports[`quoted-keys.js [typescript] format 1`] = `
@@ -233,7 +236,8 @@ exports[`quoted-keys.js [typescript] format 1`] = `
     |                             ^
   2 | import json from './mod.js' with { "type-foo" :"json" };
   3 | import json from './mod.js' with { "333foo" :"json" };
-  4 |"
+  4 |
+Cause: ';' expected."
 `;
 
 exports[`quoted-keys.js format 1`] = `
