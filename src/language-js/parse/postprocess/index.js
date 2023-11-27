@@ -97,17 +97,16 @@ function postprocess(ast, options) {
         ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
         break;
 
-      // In TypeScript, we can't distinguish `with`/`assert`
       case "ImportDeclaration":
       case "ExportNamedDeclaration":
       case "ExportAllDeclaration": {
         // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
-        const { exported } = node;
         if (
           parser === "meriyah" &&
           node.type === "ExportAllDeclaration" &&
-          exported?.type === "Identifier"
+          node.exported?.type === "Identifier"
         ) {
+          const { exported } = node;
           const raw = text.slice(locStart(exported), locEnd(exported));
           if (raw.startsWith('"') || raw.startsWith("'")) {
             node.exported = {
@@ -119,6 +118,7 @@ function postprocess(ast, options) {
           }
         }
 
+        // In TypeScript, we can't distinguish `with`/`assert`
         if (parser === "typescript" && isNonEmptyArray(node.attributes)) {
           const textBetweenSourceAndAttributes = getTextWithoutComments(
             ast,
