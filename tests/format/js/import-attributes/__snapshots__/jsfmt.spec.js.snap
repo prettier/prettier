@@ -65,16 +65,6 @@ exports[`empty.js [meriyah] format 1`] = `
   5 | import * as foo from "foo.json""
 `;
 
-exports[`empty.js [typescript] format 1`] = `
-"';' expected. (2:33)
-  1 | export * as foo from "foo.json"
-> 2 | export * as bar from "bar.json" with { }
-    |                                 ^
-  3 | export * as baz from "baz.json" with { /* comment */ }
-  4 |
-  5 | import * as foo from "foo.json""
-`;
-
 exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -122,13 +112,6 @@ exports[`multi-types.js [meriyah] format 1`] = `
   2 |"
 `;
 
-exports[`multi-types.js [typescript] format 1`] = `
-"';' expected. (1:31)
-> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
-    |                               ^
-  2 |"
-`;
-
 exports[`multi-types.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -161,13 +144,6 @@ exports[`non-type.js [meriyah] format 1`] = `
 "Unexpected token: 'with' (1:31)
 > 1 | import foo from "foo.json" with { lazy: "true" };
     |                               ^
-  2 |"
-`;
-
-exports[`non-type.js [typescript] format 1`] = `
-"';' expected. (1:28)
-> 1 | import foo from "foo.json" with { lazy: "true" };
-    |                            ^
   2 |"
 `;
 
@@ -212,15 +188,6 @@ exports[`re-export.js [meriyah] format 1`] = `
   4 |"
 `;
 
-exports[`re-export.js [typescript] format 1`] = `
-"';' expected. (1:44)
-> 1 | export { default as foo2 } from "foo.json" with { type: "json" };
-    |                                            ^
-  2 | export * from "foo.json" with { type: "json" };
-  3 | export * as foo3 from "foo.json" with { type: "json" };
-  4 |"
-`;
-
 exports[`re-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -260,13 +227,6 @@ exports[`static-import.js [meriyah] format 1`] = `
   2 |"
 `;
 
-exports[`static-import.js [typescript] format 1`] = `
-"';' expected. (1:31)
-> 1 | import json from "./foo.json" with { type: "json" };
-    |                               ^
-  2 |"
-`;
-
 exports[`static-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -299,13 +259,6 @@ exports[`without-from.js [meriyah] format 1`] = `
 "Unexpected token: 'with' (1:17)
 > 1 | import "foo" with { type: "json" }
     |                 ^
-  2 |"
-`;
-
-exports[`without-from.js [typescript] format 1`] = `
-"';' expected. (1:14)
-> 1 | import "foo" with { type: "json" }
-    |              ^
   2 |"
 `;
 
