@@ -1,5 +1,3 @@
-import fs from "node:fs/promises";
-
 const CONFIG_FILE_NAMES = [
   "package.json",
   ".prettierrc",
@@ -16,15 +14,4 @@ const CONFIG_FILE_NAMES = [
   ".prettierrc.toml",
 ];
 
-async function fileExists(file) {
-  let stats;
-  try {
-    stats = await fs.stat(file);
-  } catch {
-    return false;
-  }
-
-  return stats.isFile();
-}
-
-export { CONFIG_FILE_NAMES, fileExists };
+export { CONFIG_FILE_NAMES };

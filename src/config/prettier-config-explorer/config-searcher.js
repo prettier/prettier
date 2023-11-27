@@ -1,10 +1,7 @@
 import path from "node:path";
 import iterateDirectoryUp from "iterate-directory-up";
-import {
-  CONFIG_FILE_NAMES,
-  createCachedFunction,
-  fileExists,
-} from "./common.js";
+import { CONFIG_FILE_NAMES } from "./common.js";
+import isFile from "../../utils/is-file.js";
 import { loadConfigFromPackageJson } from "./loaders.js";
 
 async function isPackageJsonFileWithPrettierConfig(file) {
@@ -19,7 +16,7 @@ async function searchConfigInDirectory(directory) {
   for (const fileName of CONFIG_FILE_NAMES) {
     const file = path.join(directory, fileName);
 
-    if (!(await fileExists(file))) {
+    if (!(await isFile(file))) {
       continue;
     }
 
@@ -31,7 +28,6 @@ async function searchConfigInDirectory(directory) {
     }
   }
 }
-
 
 function createCachedSearchConfigInDirectory() {
   const cache = new Map();
