@@ -17,6 +17,8 @@ const baseParseOptions = {
   tokens: true,
   loggerFn: false,
   project: [],
+  // @ts-expect-error -- Will be added in next version (>6.13.0) https://github.com/typescript-eslint/typescript-eslint/pull/7999
+  jsDocParsingMode: "none",
   // TODO: Use new properties when update printer
   suppressDeprecatedPropertyWarnings: true,
 };
