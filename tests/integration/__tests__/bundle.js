@@ -102,10 +102,7 @@ test("Commonjs version", () => {
 
   expect(Object.keys(prettierCommonjsVersion).sort()).toEqual(
     Object.keys(prettier)
-      .filter(
-        (key) =>
-          key !== "default" && key !== "__internal" && key !== "mockable",
-      )
+      .filter((key) => key !== "default" && key !== "__internal")
       .sort(),
   );
   expect(typeof prettierCommonjsVersion.format).toBe("function");
@@ -121,7 +118,9 @@ test("Commonjs version", () => {
   expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
 
   expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toEqual(
-    Object.keys(prettier.__debug).sort(),
+    Object.keys(prettier.__debug)
+      .sort()
+      .filter((key) => key !== "mockable"),
   );
   expect(typeof prettierCommonjsVersion.__debug.parse).toBe("function");
 
