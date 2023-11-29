@@ -56,9 +56,7 @@ async function run() {
   process.stdin.isTTY = Boolean(options.isTTY);
   process.stdout.isTTY = Boolean(options.stdoutIsTTY);
 
-  const { default: prettier } = await import(
-    url.pathToFileURL(prettierMainEntry)
-  );
+  const prettier = await import(url.pathToFileURL(prettierMainEntry));
   const { mockable } = prettier.__debug;
 
   // We cannot use `jest.setMock("get-stream", impl)` here, because in the
