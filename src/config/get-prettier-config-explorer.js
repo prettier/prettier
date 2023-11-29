@@ -6,8 +6,6 @@ import parseJson from "parse-json";
 import mockable from "../common/mockable.js";
 import loadExternalConfig from "./load-external-config.js";
 
-const { lilconfig } = mockable;
-
 const searchPlaces = [
   "package.json",
   ".prettierrc",
@@ -106,7 +104,7 @@ async function transform(result) {
  * @return {ReturnType<import("lilconfig").lilconfig>}
  */
 function getExplorer() {
-  return lilconfig("prettier", { searchPlaces, loaders, transform });
+  return mockable.lilconfig("prettier", { searchPlaces, loaders, transform });
 }
 
 export default getExplorer;
