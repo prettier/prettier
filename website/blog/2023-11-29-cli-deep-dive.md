@@ -150,7 +150,7 @@ For Prettier-specific configurations, like the `.prettierrc` file, we are also a
 
 It's basically an identical situation to what we had for EditorConfig-specific configurations, so we'll basically do the same, this time hard-coding the logic for merging the configurations inside the CLI itself, as making a standalone package for it seems of basically no utility to the ecosystem.
 
-The main aspects to consider here for the future are, imo:
+The main aspects to consider here for the future are, in my opinion:
 
 1. A large number of [different configuration files](https://prettier.io/docs/en/configuration) are supported. In Babel's monorepo this translates to ~150k lookups in the object of known paths we created in the first step, which while not super expensive it's not free either. If this number could be reduced by a lot it would speed things up a bit.
 2. Also some of the parsers required to parse those configuration files are relatively expensive, the [`json5`](https://npmjs.com/package/json5) parser requires ~100x as much code as the smallest [JSONC](https://code.visualstudio.com/docs/languages/json) (JSON with Comments) parser that I know of for JavaScript, while being in some cases ~50x slower at parsing also. If fewer formats could be supported the CLI would be leaner as a result.
