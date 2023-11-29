@@ -1,3 +1,4 @@
+import assert from "node:assert";
 import { locStart, locEnd } from "../../loc.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
@@ -118,7 +119,7 @@ function postprocess(ast, options) {
           }
         }
 
-        // In TypeScript, we can't distinguish `with`/`assert`
+        // In TypeScript, we can't distinguish `with` or `assert` keyword was used.
         if (parser === "typescript" && isNonEmptyArray(node.attributes)) {
           const textBetweenSourceAndAttributes = getTextWithoutComments(
             ast,
@@ -199,29 +200,32 @@ function rebalanceLogicalTree(node) {
 }
 
 function getTextWithoutComments(ast, fullText, start, end) {
-  const text = fullText.slice(start, end);
+  let text = fullText.slice(start, end);
 
-  const { comments } = ast;
-  if (comments.length === 0) {
-    return text;
-  }
-
-  const characters = [...text];
-  for (const comment of comments) {
+  for (const comment of ast.comments) {
     const commentStart = locStart(comment);
-    const commentEnd = locEnd(comment);
-
-    if (commentStart >= start && commentEnd <= end) {
-      const commentLength = commentEnd - commentStart;
-      characters.splice(
-        commentStart - start,
-        commentLength,
-        ..." ".repeat(commentLength),
-      );
+    // Comments are sorted, we can escape if the comment is after the range
+    if (commentStart > end) {
+      break;
     }
+
+    const commentEnd = locEnd(comment);
+    if (commentEnd < start) {
+      continue;
+    }
+
+    const commentLength = commentEnd - commentStart;
+    text =
+      text.slice(0, commentStart - start) +
+      " ".repeat(commentLength) +
+      text.slice(commentEnd - start);
   }
 
-  return characters.join("");
+  if (process.env.NODE_ENV !== "production") {
+    assert(text.length === end - start);
+  }
+
+  return text;
 }
 
 export default postprocess;
