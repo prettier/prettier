@@ -1,6 +1,6 @@
 /** @import {Doc} from "../../document/builders.js" */
 
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { replaceEndOfLine } from "../../document/utils.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";

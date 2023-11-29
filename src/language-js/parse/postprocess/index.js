@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../../loc.js";
 import createTypeCheckFunction from "../../utils/create-type-check-function.js";
