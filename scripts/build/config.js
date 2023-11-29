@@ -610,6 +610,11 @@ const nodejsFiles = [
         }),
         path: require.resolve("@babel/code-frame"),
       },
+      {
+        module: require.resolve("lilconfig"),
+        find: "exports.lilconfigSync = lilconfigSync;",
+        replacement: "",
+      },
     ],
     addDefaultExport: true,
   },
@@ -633,17 +638,6 @@ const nodejsFiles = [
     outputBaseName: "internal/cli",
     external: ["benchmark"],
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
-  },
-  {
-    input: "src/common/mockable.js",
-    outputBaseName: "internal/internal",
-    replaceModule: [
-      {
-        module: require.resolve("lilconfig"),
-        find: "exports.lilconfigSync = lilconfigSync;",
-        replacement: "",
-      },
-    ],
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;

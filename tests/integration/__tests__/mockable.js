@@ -1,19 +1,14 @@
 import path from "node:path";
-import { pathToFileURL } from "node:url";
 import createEsmUtils from "esm-utils";
-import { mockable } from "../env.js";
+import prettier from "../../config/prettier-entry.js";
 
 const { __dirname } = createEsmUtils(import.meta);
+const { mockable } = prettier.debugApis;
 
 // This don't has to be the same result as `prettier.resolveConfig`,
 // Because we are testing with default `lilconfigOptions`
 describe("lilconfig", () => {
-  let lilconfig;
-  beforeAll(async () => {
-    ({
-      default: { lilconfig },
-    } = await import(pathToFileURL(mockable)));
-  });
+  const { lilconfig } = mockable;
 
   const configs = [
     {
@@ -52,9 +47,6 @@ describe("lilconfig", () => {
   }
 });
 
-test("isCI", async () => {
-  const {
-    default: { isCI },
-  } = await import(pathToFileURL(mockable));
-  expect(typeof isCI()).toBe("boolean");
+test("isCI", () => {
+  expect(mockable.isCI()).toBe("boolean");
 });
