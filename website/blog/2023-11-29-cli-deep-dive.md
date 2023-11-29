@@ -245,7 +245,7 @@ prettier-next packages --check # 1.3s
 
 By default times for the same command go from ~29s to ~1.3s, for a ~22x speedup. This requires the cache file to be remembered between executions. We can probably get much closer to a 50x speedup in the future also.
 
-If the cache file is not remembered, or if you explicitly turn caching off, or if this is the first run, the times go from ~29s to ~5.5s with parallelization, on my computer, for a ~5x speedup, which should still be pretty significant.
+If the cache file is not remembered, or if you explicitly turn caching off, or if this is the first run, then times go from ~29s to ~5.5s with parallelization, on my computer, for a ~5x speedup, which should still be pretty significant.
 
 Worth noting again that this improvement is achieved without changing anything in Prettier's `format` function itself.
 
