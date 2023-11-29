@@ -63,7 +63,7 @@ First of all we need to find our target files. Prettier's current CLI uses [`fas
 import fastGlob from "fast-glob";
 
 const files = await fastGlob("packages/**/*.{js,cjs,mjs}", {
-	ignore: ["**/.git", "**/.sl", "**/.svn", "**/.hg", "**/node_mdules"],
+	ignore: ["**/.git", "**/.sl", "**/.svn", "**/.hg", "**/node_modules"],
 	absolute: true,
 	dot: true,
 	followSymbolicLinks: false,
