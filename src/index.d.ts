@@ -430,6 +430,10 @@ export interface RequiredOptions extends doc.printer.Options {
    * @default false
    */
   singleAttributePerLine: boolean;
+  /**
+   * Control whether Prettier formats Angular's control flow syntax.
+   */
+  angularControlFlowSyntax: boolean;
 }
 
 export interface ParserOptions<T = any> extends RequiredOptions {

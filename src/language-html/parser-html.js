@@ -91,7 +91,7 @@ function ngHtmlParser(input, parseOptions, options) {
       ? (...args) =>
           shouldParseAsRawText(...args) ? TagContentType.RAW_TEXT : undefined
       : undefined,
-    tokenizeAngularBlocks: name === "angular" ? true : undefined,
+    tokenizeAngularBlocks: name === "angular" ? options.angularControlFlowSyntax : undefined,
   });
 
   if (name === "vue") {

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`icu.component.html - {"angularControlFlowSyntax":false} format 1`] = `
+====================================options=====================================
+angularControlFlowSyntax: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span i18n>Updated {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago}}</span>
+<span i18n>The author is {gender, select, male {male} female {female} other {other}}</span>
+<span i18n>Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago by {gender, select, male {male} female {female} other {other}}}}</span>
+
+=====================================output=====================================
+<span i18n
+  >Updated {minutes, plural, =0 {just now} =1 {one minute ago} other
+  {{{minutes}} minutes ago}}</span
+>
+<span i18n
+  >The author is {gender, select, male {male} female {female} other
+  {other}}</span
+>
+<span i18n
+  >Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other
+  {{{minutes}} minutes ago by {gender, select, male {male} female {female} other
+  {other}}}}</span
+>
+
+================================================================================
+`;
