@@ -59,7 +59,7 @@ async function run() {
   const { default: prettier } = await import(
     url.pathToFileURL(prettierMainEntry)
   );
-  const {mockable} = prettier.__debug;
+  const { mockable } = prettier.__debug;
 
   // We cannot use `jest.setMock("get-stream", impl)` here, because in the
   // production build everything is bundled into one file so there is no
