@@ -171,7 +171,7 @@ The nice thing about `.gitignore` and `.prettierignore` files though is that the
 Guesses on how to speed this up further:
 
 1. Maybe most of those globs could be sort of merged together into a single more complicated glob, and matched all together in one go by the engine, since we are not interested in knowing which exact glob matched, only if any of them did.
-2. Maybe globs could be executed in a different order, perhaps executing cheaper and broader globs first allows us to speed less time matching globs, on average. This wouldn't make a difference if most found files are not ignored though.
+2. Maybe globs could be executed in a different order, perhaps executing cheaper and broader globs first allows us to spend less time matching globs, on average. This wouldn't make a difference if most found files are not ignored though.
 3. Perhaps we could just remember which file paths matched or not with a cache, but it feels like this could be sped up a lot without caching too.
 
 ## Caching
