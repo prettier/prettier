@@ -86,7 +86,7 @@ That got me thinking: our ignore globs are basically the same, but the static pa
 import readdir from "tiny-readdir-glob";
 
 const {files} = await readdir("packages/**/*.{js,cjs,mjs}", {
-	ignore: "**/{.git,.sl,.svn,.hg,node_mdules}",
+	ignore: "**/{.git,.sl,.svn,.hg,node_modules}",
 	followSymlinks: false,
 });
 ```
