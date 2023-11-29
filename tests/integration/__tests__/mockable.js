@@ -48,5 +48,5 @@ describe("lilconfig", () => {
 });
 
 test("isCI", () => {
-  expect(mockable.isCI()).toBe("boolean");
+  expect(typeof mockable.isCI()).toBe("boolean");
 });
