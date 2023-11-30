@@ -12,6 +12,8 @@ On November 9th, we put up a [$10k bounty](https://twitter.com/Vjeux/status/1722
 
 [![](https://console.algora.io/prettier/og.png)](https://console.algora.io/challenges/prettier)
 
+<!--truncate-->
+
 ## Winner Winner Chicken Dinner
 
 **I'm so excited to report that the [Biome project](https://biomejs.dev/) claimed the bounty!** It has been so epic to see a dozen people come together to improve compatibility in only a short 3 weeks. You can read their [full report](https://biomejs.dev/blog/biome-wins-prettier-challenge) for the details.
