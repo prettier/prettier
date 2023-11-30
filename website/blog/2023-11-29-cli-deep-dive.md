@@ -11,8 +11,7 @@ Hey, I'm [Fabio](https://twitter.com/fabiospampinato) and I've been contracted b
 The new work-in-progress CLI for Prettier has just been [released](https://github.com/prettier/prettier-cli), and you can install it now:
 
 ```sh
-npm uninstall prettier
-npm install @prettier/next
+npm install prettier@next
 ```
 
 It should be largely backwards compatible:
@@ -24,7 +23,7 @@ prettier src --check # Like before, but faster
 You can also try it via `npx`, though `npx` itself is pretty slow:
 
 ```sh
-npx prettier-next src --check
+npx prettier@next src --check
 ```
 
 The goal is to make it close to ~100% backwards compatible, and then just ship it in a future stable release of the `prettier` package, replacing the current CLI.
@@ -238,9 +237,9 @@ Before we wrap up, here are some numbers I see when checking files in Babel's mo
 prettier packages --check # 29s
 prettier packages --check --cache # 20s
 
-prettier-next packages --check --no-cache # 7.3s
-prettier-next packages --check --no-cache --parallel # 5.5s
-prettier-next packages --check # 1.3s
+prettier@next packages --check --no-cache # 7.3s
+prettier@next packages --check --no-cache --parallel # 5.5s
+prettier@next packages --check # 1.3s
 ```
 
 By default times for the same command go from ~29s to ~1.3s, for a ~22x speedup. This requires the cache file to be remembered between executions. We can probably get much closer to a 50x speedup in the future also.
@@ -265,7 +264,7 @@ Here Biome is checking the formatting for ~11k more files compared to our CLI, s
 Manually patching our CLI to disable support for ignore files, to try to more closely mimic Biome's behavior, gives us the following number:
 
 ```sh
-prettier-next packages --check --no-cache --parallel # 15s
+prettier@next packages --check --no-cache --parallel # 15s
 ```
 
 Comparison to take with a pinch of salt because the two tools aren't doing exactly the same thing, but it's interesting to see the speed at which Biome is able to check the formatting of many files. Speed that we probably need a cache file to match.
