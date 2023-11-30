@@ -53,7 +53,7 @@ Prettier's CLI works roughly like in the diagram above:
 After this high-level look at the CLI's architecture I think there are mainly 3 observations to make:
 
 1. The amount of work to do scales with the number of target files, but most files are completely unchanged between runs of the CLI, because for example a commit in a large-enough repository generally only touches a fraction of the files, so if we could only remember work done in the previous run most of the work on the current run could be skipped.
-2. There are potentially a huge number of configuration files to resolve, since our repository could have thousands of folders and each folder could have some configuration files in it, moreover if for example we find 10 different `.editorconfig` files, each of them could define different settings for files matching specific [globs](https://en.wikipedia.org/wiki/Glob_(programming)), so they all need to be combined together in a file-specific way, for each target file. But, in almost every case a repository is only going to contain just one or a handful of `.editorconfig` files, even if the repo has thousands of folders, so somehow this shouldn't be _that_ expensive.
+2. There are potentially a huge number of configuration files to resolve, since our repository could have thousands of folders and each folder could have some configuration files in it, moreover if for example we find 10 different `.editorconfig` files, each of them could define different settings for files matching specific [globs](<https://en.wikipedia.org/wiki/Glob_(programming)>), so they all need to be combined together in a file-specific way, for each target file. But, in almost every case a repository is only going to contain just one or a handful of `.editorconfig` files, even if the repo has thousands of folders, so somehow this shouldn't be _that_ expensive.
 3. This isn't a particularly insightful observation, but if everything a program is doing is necessary, and everything done is done efficiently, then the program itself must execute efficiently as a result, so we are generally just going to try to skip unnecessary work as much as possible, and what we can't skip we'll try to make efficient.
 
 From these observations I started writing a new CLI for Prettier from scratch, as it's often easier to rewrite things with performance in mind from the start than to patch them to be performant.
@@ -68,12 +68,12 @@ First of all we need to find our target files. Prettier's current CLI uses [`fas
 import fastGlob from "fast-glob";
 
 const files = await fastGlob("packages/**/*.{js,cjs,mjs}", {
-	ignore: ["**/.git", "**/.sl", "**/.svn", "**/.hg", "**/node_modules"],
-	absolute: true,
-	dot: true,
-	followSymbolicLinks: false,
-	onlyFiles: true,
-	unique: true,
+  ignore: ["**/.git", "**/.sl", "**/.svn", "**/.hg", "**/node_modules"],
+  absolute: true,
+  dot: true,
+  followSymbolicLinks: false,
+  onlyFiles: true,
+  unique: true,
 });
 ```
 
@@ -90,9 +90,9 @@ That got me thinking: our ignore globs are basically the same, but the static pa
 ```js
 import readdir from "tiny-readdir-glob";
 
-const {files} = await readdir("packages/**/*.{js,cjs,mjs}", {
-	ignore: "**/{.git,.sl,.svn,.hg,node_modules}",
-	followSymlinks: false,
+const { files } = await readdir("packages/**/*.{js,cjs,mjs}", {
+  ignore: "**/{.git,.sl,.svn,.hg,node_modules}",
+  followSymlinks: false,
 });
 ```
 
@@ -127,7 +127,7 @@ A major problem behind the current CLI is that it caches resolved configurations
 This problem got largely solved in two steps:
 
 1. Resolved configuration files are cached by folder path, so it doesn't matter anymore how many files each folder contains, or how deep they are into folders.
-2. The found folders are now being asked basically 0 times if they contain each of the ~15 supported configuration files, because we know from the previous section every single file in the repo, so we can just do a lookup in there, which ends up being a lot faster than asking the filesystem. This wouldn't matter much in most small repos, but Babel's for example has ~13k folders, and 13k * 15 checks with the filesystem ~~added~~ multiplied up quickly enough.
+2. The found folders are now being asked basically 0 times if they contain each of the ~15 supported configuration files, because we know from the previous section every single file in the repo, so we can just do a lookup in there, which ends up being a lot faster than asking the filesystem. This wouldn't matter much in most small repos, but Babel's for example has ~13k folders, and 13k \* 15 checks with the filesystem ~~added~~ multiplied up quickly enough.
 
 Let's now take a deeper look into how each specific supported type of configuration is resolved.
 
