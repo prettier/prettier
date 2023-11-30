@@ -321,6 +321,25 @@ function isSymlinkSupported() {
     { stdout: "test-a/symlink-to-directory-b/b.js" },
     base,
   );
+
+  testPatterns(
+    "",
+    [
+      "test-a/symlink-to-file-b",
+      "--no-error-on-unmatched-pattern",
+      "--log-level",
+      "debug",
+    ],
+    {
+      status: 0,
+      stdout: "",
+      stderr:
+        '[debug] normalized argv: {"":["test-a/symlink-to-file-b"],"cache":false,"color":true,"editorconfig":true,"errorOnUnmatchedPattern":false,"logLevel":"debug","ignorePath":[".prettierignore"],"configPrecedence":"cli-override","debugRepeat":0,"plugins":[],"listDifferent":true,"_":["test-a/symlink-to-file-b"],"__raw":{"_":["test-a/symlink-to-file-b"],"cache":false,"color":true,"editorconfig":true,"error-on-unmatched-pattern":false,"l":true,"log-level":"debug","ignore-path":".prettierignore","config-precedence":"cli-override","debug-repeat":0,"plugin":[]}}' +
+        "\n" +
+        '[debug] Skipping pattern "test-a/symlink-to-file-b", as it points to a symbolic link.',
+    },
+    base,
+  );
 });
 
 function testPatterns(
