@@ -218,7 +218,7 @@ Lastly I tried quickly replacing Prettier's format function with [`@wasm-fmt/bio
 Guesses on how to speed this up further:
 
 1. I haven't done much work on the core formatting, which seems roughly at least 2x slower than optimal, but the work required to get there may be major, we'll see. There's definitely some room for improvement though.
-2. The `--parallel` flag, whie being enabled by default, has one minor issue: if you don't have many files to format, but you have many cores to feed, you could end up feeding few files to each core, which can actually slow things down a bit. This can probably be addressed by dynamically sizing the pool depending on some heuristics. It's currently enabled by default because it slows things down a bit only in scenarios where things are pretty fast anyway, while providing a significant improvement in scenarios that would be much slower otherwise.
+2. The `--parallel` flag, while enabled by default, has one minor issue: if you don't have many files to format, but you have many cores to feed, you could end up feeding few files to each core, which can actually slow things down a bit. This can probably be addressed by dynamically sizing the pool depending on some heuristics. It's currently enabled by default because it slows things down a bit only in scenarios where things are pretty fast anyway, while providing a significant improvement in scenarios that would be much slower otherwise.
 
 ## Outputting to the terminal
 
