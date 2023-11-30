@@ -627,7 +627,7 @@ const nodejsFiles = [
           text.replace("../src/cli/index.js", "../internal/cli.mjs"),
       },
     ],
-    external: ["@prettier/next"],
+    external: ["@prettier/cli"],
   },
   {
     input: "src/cli/index.js",

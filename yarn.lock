@@ -1721,16 +1721,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/is-es5-identifier-name@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@prettier/is-es5-identifier-name@npm:0.2.0"
-  checksum: 3752dd93b9f0cf4e46c2e6ffb54f52ea3b5d49b3da3e8263eb6b481cdd369596cbbea8884d32d91dc33e4476ab8ca36b41ee60c27cf5570b361a4465bb243f36
-  languageName: node
-  linkType: hard
-
-"@prettier/next@npm:0.1.2":
+"@prettier/cli@npm:0.1.2":
   version: 0.1.2
-  resolution: "@prettier/next@npm:0.1.2"
+  resolution: "@prettier/cli@npm:0.1.2"
   dependencies:
     atomically: ^2.0.2
     ignore: ^5.3.0
@@ -1747,7 +1740,14 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0
   bin:
     prettier-next: dist/bin.js
-  checksum: 1538b29d4c60a3111e61fff29b7af33754b871b92562b0e062826578f537f52ed8690214810d4665fc647405bf192601db6cb210e6b1e2593d2a701401b7b2ef
+  checksum: 6f8ab7d89ec696934d39acc969f574e63e2b88469bf6003856bfd89ca9ec9b3d3584f60bcc08d3786e247f05a844dc6fc4d9d6ea9f2106a8f0323ccc18f6b388
+  languageName: node
+  linkType: hard
+
+"@prettier/is-es5-identifier-name@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@prettier/is-es5-identifier-name@npm:0.2.0"
+  checksum: 3752dd93b9f0cf4e46c2e6ffb54f52ea3b5d49b3da3e8263eb6b481cdd369596cbbea8884d32d91dc33e4476ab8ca36b41ee60c27cf5570b361a4465bb243f36
   languageName: node
   linkType: hard
 
@@ -7526,8 +7526,8 @@ __metadata:
     "@glimmer/reference": 0.85.13
     "@glimmer/syntax": 0.85.13
     "@iarna/toml": 2.2.5
+    "@prettier/cli": 0.1.2
     "@prettier/is-es5-identifier-name": 0.2.0
-    "@prettier/next": 0.1.2
     "@prettier/parse-srcset": 3.1.0
     "@types/estree": 1.0.5
     "@types/file-entry-cache": 5.0.4

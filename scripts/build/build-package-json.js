@@ -97,8 +97,8 @@ async function buildPackageJson({ file, files }) {
         "node -e \"assert.equal(require('.').version, require('..').version)\"",
     },
     dependencies: {
-      "@prettier/next": `^${packageJson.dependencies["@prettier/next"]}`
-    }
+      "@prettier/cli": `^${packageJson.dependencies["@prettier/cli"]}`,
+    },
   };
 
   await writeJson(

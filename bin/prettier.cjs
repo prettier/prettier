@@ -14,5 +14,5 @@ if (process.env.PRETTIER_LEGACY_CLI) {
   });
   module.exports.__promise = promise;
 } else {
-  dynamicImport("@prettier/next/bin");
+  dynamicImport("@prettier/cli/bin");
 }
