@@ -20,6 +20,12 @@ It should be largely backwards compatible:
 prettier . --check # Like before, but faster
 ```
 
+If you find any issues you can temporarily use the old CLI using an environment variable:
+
+```sh
+PRETTIER_LEGACY_CLI=1 prettier . --check
+```
+
 You can also try it via `npx`, though `npx` itself is pretty slow:
 
 ```sh
