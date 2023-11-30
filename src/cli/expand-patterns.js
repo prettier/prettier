@@ -75,7 +75,7 @@ async function* expandPatternsInternal(context) {
           };
         } else {
           context.logger.debug(
-            `Skipping pattern "${pattern}", as it points to a symbolic link.`,
+            `Skipping pattern "${pattern}", as it is a symbolic link.`,
           );
         }
       } else if (stat.isFile()) {
