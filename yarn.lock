@@ -1728,26 +1728,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/next@npm:0.1.1":
-  version: 0.1.1
-  resolution: "@prettier/next@npm:0.1.1"
+"@prettier/next@npm:0.1.2":
+  version: 0.1.2
+  resolution: "@prettier/next@npm:0.1.2"
   dependencies:
     atomically: ^2.0.2
     ignore: ^5.3.0
     js-yaml: ^4.1.0
     json-sorted-stringify: ^1.0.0
     pioppo: ^1.1.0
-    prettier: 3.1.0
     specialist: ^1.3.0
     tiny-editorconfig: ^1.0.0
     tiny-jsonc: ^1.0.1
-    tiny-readdir-glob: ^1.0.3
+    tiny-readdir-glob: ^1.0.4
     worktank: ^2.5.2
     zeptomatch: ^1.2.2
+  peerDependencies:
+    prettier: ^3.1.0 || ^4.0.0
   bin:
-    prettier: dist/bin.js
     prettier-next: dist/bin.js
-  checksum: 329d6635bac3ad078f3a3e6ad5d66f64658ec611138c51b504990b236d26e5f8e492a5890afc482287a50ad4dc156479844f2881d56ad2756f312a187f5e256a
+  checksum: 1538b29d4c60a3111e61fff29b7af33754b871b92562b0e062826578f537f52ed8690214810d4665fc647405bf192601db6cb210e6b1e2593d2a701401b7b2ef
   languageName: node
   linkType: hard
 
@@ -7527,7 +7527,7 @@ __metadata:
     "@glimmer/syntax": 0.85.13
     "@iarna/toml": 2.2.5
     "@prettier/is-es5-identifier-name": 0.2.0
-    "@prettier/next": 0.1.1
+    "@prettier/next": 0.1.2
     "@prettier/parse-srcset": 3.1.0
     "@types/estree": 1.0.5
     "@types/file-entry-cache": 5.0.4
@@ -8774,7 +8774,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-readdir-glob@npm:^1.0.3":
+"tiny-readdir-glob@npm:^1.0.4":
   version: 1.0.4
   resolution: "tiny-readdir-glob@npm:1.0.4"
   dependencies:

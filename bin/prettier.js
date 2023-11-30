@@ -7,4 +7,4 @@ instead of `node bin/prettier.cjs`.
 This file should only used for development.
 */
 
-import "./prettier.cjs"
+import "./prettier.cjs";
