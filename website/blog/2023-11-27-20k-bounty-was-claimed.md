@@ -12,7 +12,7 @@ On November 9th, we put up a [$10k bounty](https://twitter.com/Vjeux/status/1722
 
 [![](https://console.algora.io/prettier/og.png)](https://console.algora.io/challenges/prettier)
 
-<!--truncate-->
+<!-- truncate -->
 
 ## Winner Winner Chicken Dinner
 
