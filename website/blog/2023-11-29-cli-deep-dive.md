@@ -193,7 +193,7 @@ The main trick here is that we don't want to have the cache for each file to be 
 
 What the new CLI is doing instead is just parsing all found configurations files, and then just serializing and hashing them, which takes a constant amount of time to do no matter how many files we need to format later, and it only requires a single hash to be remembered in the cache file to account _indirectly_ for configuration files. This is safe to do because if the paths to configuration files _and_ their contents don't change, then any file with the same path from the previous run will necessarily be formatted with the same resolved formatting configuration object. The only potential issue is if any dependency used to parse those configuration files is actually buggy, but worst case scenario Prettier's own version can be bumped along with the buggy dependency's.
 
-To give some numbers the current CLI checks Babel's monorepo without a cache in around ~29 seconds, the new CLI needs ~7.5s to do the same without a cache. If the cache file is enabled and it exists though the current CLI still needs ~22 seconds, while the new CLI needs ~1.3 seconds, and this number can probably be cut in half with more optimizations in the future.
+To give some numbers the current CLI checks Babel's monorepo without a cache in around ~29 seconds, the new CLI needs ~7.5s to do the same without a cache and without parallelization. If the cache file is enabled and it exists though the current CLI still needs ~22 seconds, while the new CLI needs ~1.3 seconds, and this number can probably be cut in half with more optimizations in the future.
 
 If there's anything to remember from this long post is that if you want the CLI to go as fast as it can, you need to **remember the cache file**. The cache file is stored under `./node_modules/.cache/prettier` by default, and its location can be customized by passing the `--cache-location <path>` flag. I'll say it again: if performance matters for your scenario the single biggest thing to do to speed things up here is to remember the cache file between runs.
 
@@ -211,14 +211,14 @@ I haven't looked into optimizing the core formatting function itself much, since
 
 I've tried a couple of other things though.
 
-First of all work can be parallelized, there's now a new `--parallel` flag to format files in parallel using all your cores. And a `--parallel-workers <int>` flag to set a custom number of workers to use, for some manual fine-tuning. On my 10 core computer with the `--parallel` flag set the time needed to check Babel's monorepo goes down from ~7.5s to ~5.5s, which doesn't seem particularly impressive, I'm not sure why I'm not getting better scaling than that, I'd like to look deeper into this eventually. There are much larger repos and CI machines with hundreds of cores though, give it a go, it may make a significant difference for your use case, on top of all the other optimizations.
+First of all multiple files can be formatted in parallel, that's the default now and a `--no-parallel` flag is supported to opt-out of it. The `--parallel-workers <int>` flag can also be used to set a custom number of workers to use, for some manual fine-tuning. On my 10 core computer with parallelization the time needed to check Babel's monorepo goes down from ~7.5s to ~5.5s, which doesn't seem particularly impressive, I'm not sure why I'm not getting better scaling than that, I'd like to look deeper into this eventually. There are much larger repos and CI machines with hundreds of cores though, it may make a much bigger difference for your use case, on top of all the other optimizations.
 
-Lastly I tried quickly replacing Prettier's format function with [`@wasm-fmt/biome_fmt`](https://www.npmjs.com/package/@wasm-fmt/biome_fmt), which is [Biome](https://biomejs.dev)'s format function compiled to WASM, and I see ~3.5s for checking Babel's monorepo, and ~2.2s with parallelization. So roughly 2x better numbers than I'm seeing with Prettier's own formatter. Potentially the improvement could be even larger if Biome's format function was compiled to a native Node module, I'm not sure.
+Lastly I tried quickly replacing Prettier's format function with [`@wasm-fmt/biome_fmt`](https://www.npmjs.com/package/@wasm-fmt/biome_fmt), which is [Biome](https://biomejs.dev)'s format function compiled to WASM, and I see ~3.5s for checking Babel's monorepo without parallelization, and ~2.2s with parallelization. So roughly 2x better numbers than I'm seeing with Prettier's own formatter. Potentially the improvement could be even larger if Biome's format function was compiled to a native Node module, I'm not sure.
 
 Guesses on how to speed this up further:
 
 1. I haven't done much work on the core formatting, which seems roughly at least 2x slower than optimal, but the work required to get there may be major, we'll see. There's definitely some room for improvement though.
-2. The `--parallel` flag should probably be enabled by default in the future, there's one minor issue with it though, if you don't have many files to format, but you have many cores to feed, you could end up feeding few files to each core, which can actually slow things down a bit. This can probably be addressed by dynamically sizing the pool depending on some heuristics.
+2. The `--parallel` flag, whie being enabled by default, has one minor issue: if you don't have many files to format, but you have many cores to feed, you could end up feeding few files to each core, which can actually slow things down a bit. This can probably be addressed by dynamically sizing the pool depending on some heuristics. It's currently enabled by default because it slows things down a bit only in scenarios where things are pretty fast anyway, while providing a significant improvement in scenarios that would be much slower otherwise.
 
 ## Outputting to the terminal
 
@@ -243,8 +243,8 @@ Before we wrap up, here are some numbers I see when checking files in Babel's mo
 prettier packages --check # 29s
 prettier packages --check --cache # 20s
 
-prettier@next packages --check --no-cache # 7.3s
-prettier@next packages --check --no-cache --parallel # 5.5s
+prettier@next packages --check --no-cache --no-parallel # 7.3s
+prettier@next packages --check --no-cache # 5.5s
 prettier@next packages --check # 1.3s
 ```
 
@@ -270,7 +270,7 @@ Here Biome is checking the formatting for ~11k more files compared to our CLI, s
 Manually patching our CLI to disable support for ignore files, to try to more closely mimic Biome's behavior, gives us the following number:
 
 ```sh
-prettier@next packages --check --no-cache --parallel # 15s
+prettier@next packages --check --no-cache # 15s
 ```
 
 Comparison to take with a pinch of salt because the two tools aren't doing exactly the same thing, but it's interesting to see the speed at which Biome is able to check the formatting of many files. Speed that we probably need a cache file to match.
