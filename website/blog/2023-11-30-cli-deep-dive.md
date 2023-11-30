@@ -6,6 +6,8 @@ title: "Prettier's CLI: A Performance Deep Dive"
 
 Hey, I'm [Fabio](https://twitter.com/fabiospampinato) and I've been contracted by the Prettier team to speed up Prettier's command line interface (CLI). In this post we'll take a look at the optimizations I've discovered, the process that lead to finding them, some exciting numbers comparing the current CLI with the new one, and some guesses about what could be optimized next.
 
+<!--truncate-->
+
 ## Installation
 
 The new work-in-progress CLI for Prettier has just been [released](https://github.com/prettier/prettier-cli), and you can install it now:
