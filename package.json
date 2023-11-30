@@ -37,6 +37,7 @@
     "@glimmer/syntax": "0.85.13",
     "@iarna/toml": "2.2.5",
     "@prettier/is-es5-identifier-name": "0.2.0",
+    "@prettier/next": "0.1.1",
     "@prettier/parse-srcset": "3.1.0",
     "@typescript-eslint/typescript-estree": "6.10.0",
     "@typescript-eslint/visitor-keys": "6.10.0",

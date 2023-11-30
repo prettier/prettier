@@ -12,7 +12,7 @@ function runCli(cli) {
 }
 
 var dynamicImport = new Function("module", "return import(module)");
-var promise = dynamicImport("../src/cli/index.js").then(runCli);
+var promise = dynamicImport("../node_modules/@prettier/next/dist/bin.js").then(runCli);
 
 // Exported for test
 module.exports.__promise = promise;
