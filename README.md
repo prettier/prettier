@@ -1,3 +1,10 @@
+This fork hacks in marinally better Handlebars support.
+
+- clone
+- `yarn`
+- `yarn build` produces `dist/bin/prettier.mjs`
+- `node dist/bin/prettier.mjs --write <your glob>`
+
 [![Prettier Banner](https://unpkg.com/prettier-logo@1.0.3/images/prettier-banner-light.svg)](https://prettier.io)
 
 <h2 align="center">Opinionated Code Formatter</h2>
