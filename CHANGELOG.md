@@ -1,3 +1,9 @@
+# 4.0.0-alpha.3
+
+[diff](https://github.com/prettier/prettier/compare/4.0.0-alpha.2...4.0.0-alpha.3)
+
+🔗 [Release Notes](https://prettier.io/blog/2023/12/01/4.0.0-alpha.3.html)
+
 # 3.1.0
 
 [diff](https://github.com/prettier/prettier/compare/3.0.3...3.1.0)
