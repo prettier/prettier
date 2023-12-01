@@ -1714,12 +1714,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.1.3":
-  version: 0.1.3
-  resolution: "@prettier/cli@npm:0.1.3"
+"@prettier/cli@npm:0.1.5":
+  version: 0.1.5
+  resolution: "@prettier/cli@npm:0.1.5"
   dependencies:
     atomically: ^2.0.2
     ignore: ^5.3.0
+    is-binary-path: ^2.1.0
     js-yaml: ^4.1.0
     json-sorted-stringify: ^1.0.0
     pioppo: ^1.1.0
@@ -1727,13 +1728,14 @@ __metadata:
     tiny-editorconfig: ^1.0.0
     tiny-jsonc: ^1.0.1
     tiny-readdir-glob: ^1.0.4
+    tiny-spinner: ^2.0.3
     worktank: ^2.5.2
     zeptomatch: ^1.2.2
   peerDependencies:
     prettier: ^3.1.0 || ^4.0.0
   bin:
     prettier-next: dist/bin.js
-  checksum: 4ad63b4a1186fe260a03e0dc0464e7be99d3404c6c6f9eb011697daf0801b815fed1aac5d01febda9ed8d12b236eac22761efa7f46697bc2d21b3e9b803e1b8c
+  checksum: e49f327dc137f1d313aa05ee34fd843ab412ca7ebdc5f1c0736124cfcda5609969b6eaac5a7ebfb185abcba67caab41cf814acf0c5af192ff78461be0c1361ae
   languageName: node
   linkType: hard
 
@@ -2300,6 +2302,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ansi-truncate@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "ansi-truncate@npm:1.0.1"
+  checksum: 05bdced9eba7f40e74cc939c384ce34afbf35b4e6e7ca0263109427451189d61da80780bcdd45236287061e958cb9c264d4aebd6db0b9f1c45fed6d753de53c7
+  languageName: node
+  linkType: hard
+
 "anymatch@npm:^3.0.3":
   version: 3.1.3
   resolution: "anymatch@npm:3.1.3"
@@ -2574,6 +2583,13 @@ __metadata:
   version: 1.6.52
   resolution: "big-integer@npm:1.6.52"
   checksum: 6e86885787a20fed96521958ae9086960e4e4b5e74d04f3ef7513d4d0ad631a9f3bde2730fc8aaa4b00419fc865f6ec573e5320234531ef37505da7da192c40b
+  languageName: node
+  linkType: hard
+
+"binary-extensions@npm:^2.0.0":
+  version: 2.2.0
+  resolution: "binary-extensions@npm:2.2.0"
+  checksum: ccd267956c58d2315f5d3ea6757cf09863c5fc703e50fbeb13a7dc849b812ef76e3cf9ca8f35a0c48498776a7478d7b4a0418e1e2b8cb9cb9731f2922aaad7f8
   languageName: node
   linkType: hard
 
@@ -5076,6 +5092,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-binary-path@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "is-binary-path@npm:2.1.0"
+  dependencies:
+    binary-extensions: ^2.0.0
+  checksum: 84192eb88cff70d320426f35ecd63c3d6d495da9d805b19bc65b518984b7c0760280e57dbf119b7e9be6b161784a5a673ab2c6abe83abb5198a432232ad5b35c
+  languageName: node
+  linkType: hard
+
 "is-boolean-object@npm:^1.1.0":
   version: 1.1.2
   resolution: "is-boolean-object@npm:1.1.2"
@@ -7434,7 +7459,7 @@ __metadata:
     "@glimmer/reference": 0.85.13
     "@glimmer/syntax": 0.85.13
     "@iarna/toml": 2.2.5
-    "@prettier/cli": 0.1.3
+    "@prettier/cli": 0.1.5
     "@prettier/is-es5-identifier-name": 0.2.0
     "@prettier/parse-srcset": 3.1.0
     "@types/estree": 1.0.5
@@ -8358,6 +8383,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"stdin-blocker@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "stdin-blocker@npm:2.0.0"
+  checksum: 6beeea973550bb633b8defb40cfb2a68770b6ea78be026bea3a7cd02ef9f0baaafa1f19315bc06f14671972edec4ec202e41cefb4eb276125185d316bfbc4f27
+  languageName: node
+  linkType: hard
+
 "string-length@npm:^4.0.1":
   version: 4.0.2
   resolution: "string-length@npm:4.0.2"
@@ -8651,6 +8683,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tiny-cursor@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "tiny-cursor@npm:2.0.0"
+  dependencies:
+    when-exit: ^2.0.0
+  checksum: 2603469e165a11ea896f9129054971a8722525a7920acf0dc8a6527ed07242391d0535f44ba8e165c6a39cc285350e0649f05d6c0c98a12b132f20282874c3b4
+  languageName: node
+  linkType: hard
+
 "tiny-editorconfig@npm:^1.0.0":
   version: 1.0.0
   resolution: "tiny-editorconfig@npm:1.0.0"
@@ -8698,6 +8739,27 @@ __metadata:
   dependencies:
     promise-make-naked: ^2.1.1
   checksum: 36ed97b7c3d818cb3490244ce205038c05643ef5df102a6b86d0015c5034e422eff6126f2d68eae8a9b0b5b0119fb7766fa9e6c1cc0477a151adb59f413ad6bc
+  languageName: node
+  linkType: hard
+
+"tiny-spinner@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "tiny-spinner@npm:2.0.3"
+  dependencies:
+    stdin-blocker: ^2.0.0
+    tiny-colors: ^2.1.2
+    tiny-cursor: ^2.0.0
+    tiny-truncate: ^1.0.2
+  checksum: f757d564bd5c3a9090686bf0cb2843ed9e4d9cd0f1414f760aaf5696a7f2241216961c41a72a853c103a7a38e4a7b6e81ce3df9d9b959fd27a463f43831f442b
+  languageName: node
+  linkType: hard
+
+"tiny-truncate@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "tiny-truncate@npm:1.0.2"
+  dependencies:
+    ansi-truncate: ^1.0.1
+  checksum: 5582ff0f516b61ad2df60014b2794c8228e1c5a2ce49bd0293de94ed5690d048c794d713b8b64015c16f22bc65026520823c42f3fb1fe2baa3e0208754f68678
   languageName: node
   linkType: hard
 
