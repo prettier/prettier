@@ -424,7 +424,7 @@ async function formatFiles(context) {
         }
 
         try {
-          await writeFormattedFile(filename, output);
+          await writeFormattedFile(filename, output + "\n");
 
           // Set cache if format succeeds
           shouldSetCache = true;

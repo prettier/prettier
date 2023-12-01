@@ -159,7 +159,10 @@ function print(path, options, print) {
       /* if `{{my-component}}` (or any text containing "{{")
        * makes it to the TextNode, it means it was escaped,
        * so let's print it escaped, ie.; `\{{my-component}}` */
-      let text = node.chars.replaceAll("{{", "\\{{");
+
+      // let text = node.chars.replaceAll("{{", "\\{{");
+      // let's not!
+      let text = node.chars;
 
       const attrName = getCurrentAttributeName(path);
 
@@ -173,13 +176,15 @@ function print(path, options, print) {
 
           if (path.parent.type === "ConcatStatement") {
             if (
-              path.previous?.type === "MustacheStatement" &&
+              (path.previous?.type === "MustacheStatement" ||
+                path.previous?.type === "TextNode") &&
               /^\s/.test(text)
             ) {
               leadingSpace = true;
             }
             if (
-              path.next?.type === "MustacheStatement" &&
+              (path.next?.type === "MustacheStatement" ||
+                path.next?.type === "TextNode") &&
               /\s$/.test(text) &&
               formattedClasses !== ""
             ) {
@@ -344,6 +349,13 @@ function print(path, options, print) {
       ];
     }
     case "MustacheCommentStatement": {
+      const uncomment =
+        /^__uncomment__/.test(node.value) && /__uncomment__$/.test(node.value);
+
+      if (uncomment) {
+        return [node.value.replace(/__uncomment__/g, "")];
+      }
+
       const start = locStart(node);
       const end = locEnd(node);
       // Starts with `{{~`
@@ -439,10 +451,6 @@ function printChildren(path, options, print) {
 }
 
 function printStartingTagEndMarker(node) {
-  if (isVoidElement(node)) {
-    return ifBreak([softline, "/>"], [" />", softline]);
-  }
-
   return ifBreak([softline, ">"], ">");
 }
 
