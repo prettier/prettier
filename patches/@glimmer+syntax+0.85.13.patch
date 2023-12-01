@@ -1,0 +1,64 @@
+diff --git a/node_modules/@glimmer/syntax/.DS_Store b/node_modules/@glimmer/syntax/.DS_Store
+new file mode 100644
+index 0000000..c88a062
+Binary files /dev/null and b/node_modules/@glimmer/syntax/.DS_Store differ
+diff --git a/node_modules/@glimmer/syntax/dist/.DS_Store b/node_modules/@glimmer/syntax/dist/.DS_Store
+new file mode 100644
+index 0000000..b90206a
+Binary files /dev/null and b/node_modules/@glimmer/syntax/dist/.DS_Store differ
+diff --git a/node_modules/@glimmer/syntax/dist/dev/index.js b/node_modules/@glimmer/syntax/dist/dev/index.js
+index 227883d..a0272f3 100644
+--- a/node_modules/@glimmer/syntax/dist/dev/index.js
++++ b/node_modules/@glimmer/syntax/dist/dev/index.js
+@@ -2969,11 +2969,30 @@ class HandlebarsNodeVisitors extends Parser {
+     return node;
+   }
+   BlockStatement(block) {
++    const sourceStr = this.sourceForNode(block)
++
+     if (this.tokenizer.state === 'comment') {
+-      this.appendToCommentData(this.sourceForNode(block));
++      this.appendToCommentData(sourceStr);
+       return;
+     }
+-    if (this.tokenizer.state !== 'data' && this.tokenizer.state !== 'beforeData') {
++
++    if (this.tokenizer.state === 'attributeValueDoubleQuoted') {
++      const sourceText = b.text({
++        chars: sourceStr,
++        loc: this.source.spanFor(block.loc)
++      });
++
++      this.appendDynamicAttributeValuePart(sourceText)
++      return
++    }
++
++    if (this.tokenizer.state === 'beforeAttributeName' || this.tokenizer.state === 'afterAttributeName') {
++      const sourceComment = b.mustacheComment(`__uncomment__${sourceStr}__uncomment__`, this.source.spanFor(block.loc));
++      this.currentStartTag.comments.push(sourceComment)
++      return
++    }
++
++    if (!['data', 'beforeData', 'attributeValueDoubleQuoted', 'beforeAttributeName', 'afterAttributeName'].includes(this.tokenizer.state)) {
+       throw generateSyntaxError('A block may only be used inside an HTML element or another block.', this.source.spanFor(block.loc));
+     }
+     const {
+@@ -3002,6 +3021,7 @@ class HandlebarsNodeVisitors extends Parser {
+       inverseStrip: block.inverseStrip,
+       closeStrip: block.closeStrip
+     });
++
+     const parentProgram = this.currentElement();
+     appendChild(parentProgram, node);
+   }
+@@ -3132,7 +3152,9 @@ class HandlebarsNodeVisitors extends Parser {
+     return comment;
+   }
+   PartialStatement(partial) {
+-    throw generateSyntaxError(`Handlebars partials are not supported`, this.source.spanFor(partial.loc));
++    const source = this.sourceForNode(partial)
++    const comment = b.mustacheComment(`__uncomment__${source}__uncomment__`, this.source.spanFor(partial.loc))
++    appendChild(this.currentElement(), comment);
+   }
+   PartialBlockStatement(partialBlock) {
+     throw generateSyntaxError(`Handlebars partial blocks are not supported`, this.source.spanFor(partialBlock.loc));
