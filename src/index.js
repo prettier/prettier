@@ -6,6 +6,7 @@ import {
   getSupportInfo as getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
 } from "./main/support.js";
+import inferParserWithoutPlugins from "./utils/infer-parser.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import {
   loadBuiltinPlugins,
@@ -89,6 +90,11 @@ const sharedWithCli = {
   normalizeOptions,
   getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
+  inferParser: withPlugins(
+    (file, options) =>
+      options?.parser ??
+      inferParserWithoutPlugins(options, { physicalFile: file }),
+  ),
   vnopts: {
     ChoiceSchema: vnopts.ChoiceSchema,
     apiDescriptor: vnopts.apiDescriptor,
