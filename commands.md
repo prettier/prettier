@@ -97,6 +97,10 @@ ifBreak(";", " ");
 
 `groupId` can be used to check another _already printed_ group instead of the current group.
 
+If a [`hardline`](#hardline) is present within the possible contents, the group containing the `ifBreak` command will be broken regardless of said content being printed, which might not be desireable. This behaviour is a design limitation and probably hints that the same printed result could be achieved in a different way.
+
+In the rare case that `hardline` is definitely needed, consider using [`hardlineWithoutBreakParent`](#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) instead to avoid an unwanted group break propagation.
+
 ### `breakParent`
 
 ```ts
