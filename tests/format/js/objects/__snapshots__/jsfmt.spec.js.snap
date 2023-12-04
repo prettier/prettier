@@ -6,7 +6,8 @@ exports[`bigint-key.js [typescript] format 1`] = `
     |      ^
   2 | a = {1n() {}}
   3 | a = {get 1n() {}}
-  4 |"
+  4 |
+Cause: Property assignment expected."
 `;
 
 exports[`bigint-key.js format 1`] = `
@@ -87,7 +88,8 @@ exports[`expression.js [acorn] format 1`] = `
     |    ^
   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
   7 | ({}(), 0);
-  8 | ({} = 0);"
+  8 | ({} = 0);
+Cause: Unexpected token (5:3)"
 `;
 
 exports[`expression.js [espree] format 1`] = `
@@ -98,7 +100,8 @@ exports[`expression.js [espree] format 1`] = `
     |    ^
   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
   7 | ({}(), 0);
-  8 | ({} = 0);"
+  8 | ({} = 0);
+Cause: Unexpected token :"
 `;
 
 exports[`expression.js [flow] format 1`] = `
@@ -120,7 +123,8 @@ exports[`expression.js [meriyah] format 1`] = `
     |    ^
   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
   7 | ({}(), 0);
-  8 | ({} = 0);"
+  8 | ({} = 0);
+Cause: [5:4]: Expected ')'"
 `;
 
 exports[`expression.js [typescript] format 1`] = `
@@ -131,7 +135,8 @@ exports[`expression.js [typescript] format 1`] = `
     |    ^
   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
   7 | ({}(), 0);
-  8 | ({} = 0);"
+  8 | ({} = 0);
+Cause: ')' expected."
 `;
 
 exports[`expression.js format 1`] = `

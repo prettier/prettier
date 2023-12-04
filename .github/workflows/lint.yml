@@ -49,6 +49,9 @@ jobs:
       - name: Lint Changelog
         run: yarn lint:changelog
 
+      - name: Lint blog post
+        run: yarn lint:blog
+
       - name: Lint docs code block
         # TODO: Lint files in `website/versioned_docs/version-stable` too
         run: yarn "docs/**/*.md"

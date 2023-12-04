@@ -250,6 +250,26 @@ const pluginFiles = [
         module: getPackageFile("debug/src/browser.js"),
         path: path.join(dirname, "./shims/debug.js"),
       },
+      {
+        module: require.resolve("ts-api-utils"),
+        process() {
+          throw new Error(
+            "Please replace the CJS version of 'ts-api-utils' with ESM version.",
+          );
+        },
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/convert-comments.js",
+        ),
+        process(text) {
+          text = text.replace(
+            'const tsutils = __importStar(require("ts-api-utils"));',
+            'import * as tsutils from "ts-api-utils";',
+          );
+          return text;
+        },
+      },
     ],
   },
   {
@@ -582,6 +602,13 @@ const nodejsFiles = [
       {
         module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
         path: getPackageFile("js-yaml/lib/loader.js"),
+      },
+      // `parse-json` use another copy of `@babel/code-frame`
+      {
+        module: require.resolve("@babel/code-frame", {
+          paths: [require.resolve("parse-json")],
+        }),
+        path: require.resolve("@babel/code-frame"),
       },
     ],
     addDefaultExport: true,
