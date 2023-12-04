@@ -25,38 +25,45 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install --immutable
+        continue-on-error: true
 
       - name: Run fix scripts
         run: yarn fix
+        continue-on-error: true
 
       - name: Run yarn (/)
         run: |
           yarn
           yarn dedupe
+        continue-on-error: true
 
       - name: Run yarn (/website)
         run: |
           yarn
           yarn dedupe
         working-directory: website
+        continue-on-error: true
 
       - name: Run yarn (/scripts/release)
         run: |
           yarn
           yarn dedupe
         working-directory: scripts/release
+        continue-on-error: true
 
       - name: Run yarn (/scripts/tools/bundle-test)
         run: |
           yarn
           yarn dedupe
         working-directory: scripts/tools/bundle-test
+        continue-on-error: true
 
       - name: Run yarn (/scripts/tools/eslint-plugin-prettier-internal-rules)
         run: |
           yarn
           yarn dedupe
         working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
+        continue-on-error: true
 
       - uses: autofix-ci/action@d3e591514b99d0fca6779455ff8338516663f7cc
         with:
