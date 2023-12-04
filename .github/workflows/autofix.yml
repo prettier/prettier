@@ -14,6 +14,8 @@ jobs:
   fix:
     name: Fix
     runs-on: ubuntu-latest
+    env:
+      YARN_ENABLE_IMMUTABLE_INSTALLS: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,8 +29,6 @@ jobs:
         run: |
           yarn
           yarn dedupe
-        env:
-          YARN_ENABLE_IMMUTABLE_INSTALLS: false
 
       - name: Run fix scripts
         run: yarn fix
@@ -38,32 +38,24 @@ jobs:
           yarn
           yarn dedupe
         working-directory: website
-        env:
-          YARN_ENABLE_IMMUTABLE_INSTALLS: false
 
       - name: Run yarn (/scripts/release)
         run: |
           yarn
           yarn dedupe
         working-directory: scripts/release
-        env:
-          YARN_ENABLE_IMMUTABLE_INSTALLS: false
 
       - name: Run yarn (/scripts/tools/bundle-test)
         run: |
           yarn
           yarn dedupe
         working-directory: scripts/tools/bundle-test
-        env:
-          YARN_ENABLE_IMMUTABLE_INSTALLS: false
 
       - name: Run yarn (/scripts/tools/eslint-plugin-prettier-internal-rules)
         run: |
           yarn
           yarn dedupe
         working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
-        env:
-          YARN_ENABLE_IMMUTABLE_INSTALLS: false
 
       - uses: autofix-ci/action@d3e591514b99d0fca6779455ff8338516663f7cc
         with:
