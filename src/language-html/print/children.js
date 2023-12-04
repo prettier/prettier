@@ -26,9 +26,10 @@ import {
   needsToBorrowParentClosingTagStartMarker,
 } from "./tag.js";
 
-function getIgnoredElementEndLocation(node) {
+function getEndLocation(node) {
   const endLocation = locEnd(node);
 
+  // Element can be unclosed
   if (
     node.type === "element" &&
     !node.endSourceSpan &&
@@ -36,7 +37,7 @@ function getIgnoredElementEndLocation(node) {
   ) {
     return Math.max(
       endLocation,
-      ...node.children.map((child) => getIgnoredElementEndLocation(child)),
+      ...node.children.map((child) => getEndLocation(child)),
     );
   }
 
@@ -47,7 +48,7 @@ function printChild(childPath, options, print) {
   const child = childPath.node;
 
   if (hasPrettierIgnore(child)) {
-    const endLocation = getIgnoredElementEndLocation(child);
+    const endLocation = getEndLocation(child);
 
     return [
       printOpeningTagPrefix(child, options),
