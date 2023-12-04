@@ -28,7 +28,7 @@ function insertPragma(originalText) {
       format: "",
       ...pragmas,
     },
-    comments: comments.trimStart(),
+    comments: comments.trimLeft(),
   });
 
   // normalise newlines (mitigate use of os.EOL by jest-docblock)
