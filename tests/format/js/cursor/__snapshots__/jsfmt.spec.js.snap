@@ -271,6 +271,44 @@ const y = 5;
 ================================================================================
 `;
 
+exports[`cursor-11.js format 1`] = `
+====================================options=====================================
+cursorOffset: 57
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  [
+    [
+      [
+        1,
+        2,
+               <|> 3, "looooooooooooooooooooooooooooooooooooooooooooooooooong",
+        "looooooooooooooooooooooooooooooooooooooooooooooooooong",
+      ]
+    ]
+  ]
+]
+
+=====================================output=====================================
+[
+  [
+    [
+      [
+        1,
+        2,
+        <|>3,
+        "looooooooooooooooooooooooooooooooooooooooooooooooooong",
+        "looooooooooooooooooooooooooooooooooooooooooooooooooong",
+      ],
+    ],
+  ],
+];
+
+================================================================================
+`;
+
 exports[`cursor-emoji.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 9
