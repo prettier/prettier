@@ -1,0 +1,68 @@
+name: autofix.ci # needed to securely identify the workflow
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  fix:
+    name: Fix
+    runs-on: ubuntu-latest
+    if: github.repository == 'prettier/prettier'
+    env:
+      YARN_ENABLE_IMMUTABLE_INSTALLS: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: |
+          touch yarn.lock
+          yarn
+          yarn dedupe
+
+      - name: Run fix scripts
+        run: yarn fix
+
+      - name: Run yarn (/website)
+        run: |
+          touch yarn.lock
+          yarn
+          yarn dedupe
+        working-directory: website
+
+      - name: Run yarn (/scripts/release)
+        run: |
+          touch yarn.lock
+          yarn
+          yarn dedupe
+        working-directory: scripts/release
+
+      - name: Run yarn (/scripts/tools/bundle-test)
+        run: |
+          touch yarn.lock
+          yarn
+          yarn dedupe
+        working-directory: scripts/tools/bundle-test
+
+      - name: Run yarn (/scripts/tools/eslint-plugin-prettier-internal-rules)
+        run: |
+          touch yarn.lock
+          yarn
+          yarn dedupe
+        working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
+
+      - uses: autofix-ci/action@d3e591514b99d0fca6779455ff8338516663f7cc
+        with:
+          commit-message: "Apply automated changes"
