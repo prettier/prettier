@@ -7,7 +7,8 @@ exports[`no-semi.js [acorn] format 1`] = `
     |  ^
   3 |
   4 | class A {
-  5 |   a = b;"
+  5 |   a = b;
+Cause: Unexpected token (2:1)"
 `;
 
 exports[`no-semi.js [espree] format 1`] = `
@@ -17,7 +18,8 @@ exports[`no-semi.js [espree] format 1`] = `
     |  ^
   3 |
   4 | class A {
-  5 |   a = b;"
+  5 |   a = b;
+Cause: Unexpected token :"
 `;
 
 exports[`no-semi.js [meriyah] format 1`] = `
@@ -27,7 +29,8 @@ exports[`no-semi.js [meriyah] format 1`] = `
     |  ^
   3 |
   4 | class A {
-  5 |   a = b;"
+  5 |   a = b;
+Cause: [2:2]: Unexpected token: ':'"
 `;
 
 exports[`no-semi.js - {"semi":false} [acorn] format 1`] = `
@@ -37,7 +40,8 @@ exports[`no-semi.js - {"semi":false} [acorn] format 1`] = `
     |  ^
   3 |
   4 | class A {
-  5 |   a = b;"
+  5 |   a = b;
+Cause: Unexpected token (2:1)"
 `;
 
 exports[`no-semi.js - {"semi":false} [espree] format 1`] = `
@@ -47,7 +51,8 @@ exports[`no-semi.js - {"semi":false} [espree] format 1`] = `
     |  ^
   3 |
   4 | class A {
-  5 |   a = b;"
+  5 |   a = b;
+Cause: Unexpected token :"
 `;
 
 exports[`no-semi.js - {"semi":false} [meriyah] format 1`] = `
@@ -57,7 +62,8 @@ exports[`no-semi.js - {"semi":false} [meriyah] format 1`] = `
     |  ^
   3 |
   4 | class A {
-  5 |   a = b;"
+  5 |   a = b;
+Cause: [2:2]: Unexpected token: ':'"
 `;
 
 exports[`no-semi.js - {"semi":false} format 1`] = `

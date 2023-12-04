@@ -7,7 +7,8 @@ exports[`arrow-params.js [acorn] format 1`] = `
 > 3 |   #p = ({ #x: x }) => {}
     |           ^
   4 | }
-  5 |"
+  5 |
+Cause: Unexpected token (3:10)"
 `;
 
 exports[`arrow-params.js [espree] format 1`] = `
@@ -17,7 +18,8 @@ exports[`arrow-params.js [espree] format 1`] = `
 > 3 |   #p = ({ #x: x }) => {}
     |           ^
   4 | }
-  5 |"
+  5 |
+Cause: Unexpected token #x"
 `;
 
 exports[`arrow-params.js [meriyah] format 1`] = `
@@ -27,7 +29,8 @@ exports[`arrow-params.js [meriyah] format 1`] = `
 > 3 |   #p = ({ #x: x }) => {}
     |           ^
   4 | }
-  5 |"
+  5 |
+Cause: [3:11]: Unexpected token: 'PrivateField'"
 `;
 
 exports[`arrow-params.js format 1`] = `
@@ -58,7 +61,8 @@ exports[`assignment.js [acorn] format 1`] = `
     |        ^
   6 |   }
   7 | }
-  8 |"
+  8 |
+Cause: Unexpected token (5:7)"
 `;
 
 exports[`assignment.js [espree] format 1`] = `
@@ -69,7 +73,8 @@ exports[`assignment.js [espree] format 1`] = `
     |        ^
   6 |   }
   7 | }
-  8 |"
+  8 |
+Cause: Unexpected token #x"
 `;
 
 exports[`assignment.js [meriyah] format 1`] = `
@@ -80,7 +85,8 @@ exports[`assignment.js [meriyah] format 1`] = `
     |        ^
   6 |   }
   7 | }
-  8 |"
+  8 |
+Cause: [5:8]: Unexpected token: 'PrivateField'"
 `;
 
 exports[`assignment.js format 1`] = `
@@ -116,7 +122,8 @@ exports[`async-arrow-params.js [acorn] format 1`] = `
 > 3 |   #p = async ({ #x: x }) => {}
     |                 ^
   4 | }
-  5 |"
+  5 |
+Cause: Unexpected token (3:16)"
 `;
 
 exports[`async-arrow-params.js [espree] format 1`] = `
@@ -126,7 +133,8 @@ exports[`async-arrow-params.js [espree] format 1`] = `
 > 3 |   #p = async ({ #x: x }) => {}
     |                 ^
   4 | }
-  5 |"
+  5 |
+Cause: Unexpected token #x"
 `;
 
 exports[`async-arrow-params.js [meriyah] format 1`] = `
@@ -136,7 +144,8 @@ exports[`async-arrow-params.js [meriyah] format 1`] = `
 > 3 |   #p = async ({ #x: x }) => {}
     |                 ^
   4 | }
-  5 |"
+  5 |
+Cause: [3:17]: Unexpected token: 'PrivateField'"
 `;
 
 exports[`async-arrow-params.js format 1`] = `
@@ -167,7 +176,8 @@ exports[`bindings.js [acorn] format 1`] = `
     |            ^
   5 |   }
   6 | }
-  7 |"
+  7 |
+Cause: Unexpected token (4:11)"
 `;
 
 exports[`bindings.js [espree] format 1`] = `
@@ -178,7 +188,8 @@ exports[`bindings.js [espree] format 1`] = `
     |            ^
   5 |   }
   6 | }
-  7 |"
+  7 |
+Cause: Unexpected token #x"
 `;
 
 exports[`bindings.js [meriyah] format 1`] = `
@@ -189,7 +200,8 @@ exports[`bindings.js [meriyah] format 1`] = `
     |            ^
   5 |   }
   6 | }
-  7 |"
+  7 |
+Cause: [4:12]: Unexpected token: 'PrivateField'"
 `;
 
 exports[`bindings.js format 1`] = `
@@ -224,7 +236,8 @@ exports[`for-lhs.js [acorn] format 1`] = `
     |           ^
   6 |   }
   7 | }
-  8 |"
+  8 |
+Cause: Unexpected token (5:10)"
 `;
 
 exports[`for-lhs.js [espree] format 1`] = `
@@ -235,7 +248,8 @@ exports[`for-lhs.js [espree] format 1`] = `
     |           ^
   6 |   }
   7 | }
-  8 |"
+  8 |
+Cause: Unexpected token #x"
 `;
 
 exports[`for-lhs.js [meriyah] format 1`] = `
@@ -246,7 +260,8 @@ exports[`for-lhs.js [meriyah] format 1`] = `
     |           ^
   6 |   }
   7 | }
-  8 |"
+  8 |
+Cause: [5:11]: Unexpected token: 'PrivateField'"
 `;
 
 exports[`for-lhs.js format 1`] = `
@@ -283,7 +298,8 @@ exports[`nested-bindings.js [acorn] format 1`] = `
     |                 ^
   5 |   }
   6 | }
-  7 |"
+  7 |
+Cause: Unexpected token (4:16)"
 `;
 
 exports[`nested-bindings.js [espree] format 1`] = `
@@ -294,7 +310,8 @@ exports[`nested-bindings.js [espree] format 1`] = `
     |                 ^
   5 |   }
   6 | }
-  7 |"
+  7 |
+Cause: Unexpected token #x"
 `;
 
 exports[`nested-bindings.js [meriyah] format 1`] = `
@@ -305,7 +322,8 @@ exports[`nested-bindings.js [meriyah] format 1`] = `
     |                 ^
   5 |   }
   6 | }
-  7 |"
+  7 |
+Cause: [4:17]: Unexpected token: 'PrivateField'"
 `;
 
 exports[`nested-bindings.js format 1`] = `
@@ -345,7 +363,8 @@ exports[`valid-multiple-bindings.js [acorn] format 1`] = `
     |            ^
   5 |   }
   6 | }
-  7 |"
+  7 |
+Cause: Unexpected token (4:11)"
 `;
 
 exports[`valid-multiple-bindings.js [espree] format 1`] = `
@@ -356,7 +375,8 @@ exports[`valid-multiple-bindings.js [espree] format 1`] = `
     |            ^
   5 |   }
   6 | }
-  7 |"
+  7 |
+Cause: Unexpected token #x"
 `;
 
 exports[`valid-multiple-bindings.js [meriyah] format 1`] = `
@@ -367,7 +387,8 @@ exports[`valid-multiple-bindings.js [meriyah] format 1`] = `
     |            ^
   5 |   }
   6 | }
-  7 |"
+  7 |
+Cause: [4:12]: Unexpected token: 'PrivateField'"
 `;
 
 exports[`valid-multiple-bindings.js format 1`] = `
