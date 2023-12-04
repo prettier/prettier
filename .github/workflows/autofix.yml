@@ -27,6 +27,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          touch yarn.lock
           yarn
           yarn dedupe
 
@@ -35,24 +36,28 @@ jobs:
 
       - name: Run yarn (/website)
         run: |
+          touch yarn.lock
           yarn
           yarn dedupe
         working-directory: website
 
       - name: Run yarn (/scripts/release)
         run: |
+          touch yarn.lock
           yarn
           yarn dedupe
         working-directory: scripts/release
 
       - name: Run yarn (/scripts/tools/bundle-test)
         run: |
+          touch yarn.lock
           yarn
           yarn dedupe
         working-directory: scripts/tools/bundle-test
 
       - name: Run yarn (/scripts/tools/eslint-plugin-prettier-internal-rules)
         run: |
+          touch yarn.lock
           yarn
           yarn dedupe
         working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
