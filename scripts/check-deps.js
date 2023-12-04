@@ -28,7 +28,7 @@ async function checkDependencies(shouldFix) {
 
       if (shouldFix) {
         packageJson[kind][name] = version.slice(1);
-        changed ||= true;
+        changed = true;
       } else {
         console.error(
           chalk.red("error"),
@@ -37,16 +37,15 @@ async function checkDependencies(shouldFix) {
         process.exitCode = 1;
       }
     }
+  }
 
-    if (shouldFix && changed) {
-      await fs.writeFile(
-        PACKAGE_JSON_FILE,
-        JSON.stringify(packageJson, undefined, 2),
-      );
-      await execa("yarn");
-
-      return checkDependencies(/* shouldFix */ false);
-    }
+  if (shouldFix && changed) {
+    await fs.writeFile(
+      PACKAGE_JSON_FILE,
+      JSON.stringify(packageJson, undefined, 2) + "\n",
+    );
+    await execa("yarn");
+    await checkDependencies(/* shouldFix */ false);
   }
 }
 
