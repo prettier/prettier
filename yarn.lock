@@ -1714,7 +1714,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/is-es5-identifier-name@npm:0.2.0":
+"@prettier/is-es5-identifier-name@npm:^0.2.0":
   version: 0.2.0
   resolution: "@prettier/is-es5-identifier-name@npm:0.2.0"
   checksum: 3752dd93b9f0cf4e46c2e6ffb54f52ea3b5d49b3da3e8263eb6b481cdd369596cbbea8884d32d91dc33e4476ab8ca36b41ee60c27cf5570b361a4465bb243f36
@@ -7333,7 +7333,7 @@ __metadata:
     "@glimmer/reference": 0.85.13
     "@glimmer/syntax": 0.85.13
     "@iarna/toml": 2.2.5
-    "@prettier/is-es5-identifier-name": 0.2.0
+    "@prettier/is-es5-identifier-name": ^0.2.0
     "@prettier/parse-srcset": 3.1.0
     "@types/estree": 1.0.5
     "@types/file-entry-cache": 5.0.4
