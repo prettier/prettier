@@ -326,14 +326,13 @@ class Playground extends React.Component {
                           <Checkbox
                             label="track"
                             checked={Boolean(this.state.trackCursorOffset)}
-                            true
                             onChange={() =>
                               this.setState((state) => ({
                                 trackCursorOffset: !state.trackCursorOffset,
                               }))
                             }
                           />
-                          {cursorOffset !== -1 && (
+                          {options.cursorOffset !== -1 && (
                             <>
                               <Button
                                 onClick={() => {
