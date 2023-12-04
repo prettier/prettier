@@ -40,7 +40,6 @@ async function fixDependencies() {
       JSON.stringify(packageJson, undefined, 2) + "\n",
     );
     await execa("yarn");
-    await checkDependencies(/* shouldFix */ false);
   }
 }
 
