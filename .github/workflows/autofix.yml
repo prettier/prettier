@@ -12,8 +12,8 @@ concurrency:
 
 jobs:
   fix:
+    name: Fix
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
