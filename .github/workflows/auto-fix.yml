@@ -1,4 +1,4 @@
-name: Auto-Fix
+name: autofix.ci # needed to securely identify the workflow
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
-      - name: Check Dependencies
+      - name: Run fix scripts
         run: yarn fix
 
       - name: Run yarn (/)
