@@ -8,6 +8,7 @@ import {
 } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import { locStart, locEnd } from "../loc.js";
 import {
   forceBreakChildren,
@@ -53,15 +54,17 @@ function printChild(childPath, options, print) {
     return [
       printOpeningTagPrefix(child, options),
       replaceEndOfLine(
-        options.originalText.slice(
-          locStart(child) +
-            (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
-              ? printOpeningTagStartMarker(child).length
-              : 0),
-          endLocation -
-            (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
-              ? printClosingTagEndMarker(child, options).length
-              : 0),
+        htmlWhitespaceUtils.trimEnd(
+          options.originalText.slice(
+            locStart(child) +
+              (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
+                ? printOpeningTagStartMarker(child).length
+                : 0),
+            endLocation -
+              (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
+                ? printClosingTagEndMarker(child, options).length
+                : 0),
+          ),
         ),
       ),
       printClosingTagSuffix(child, options),

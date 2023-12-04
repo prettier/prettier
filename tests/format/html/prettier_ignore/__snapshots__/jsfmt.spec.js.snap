@@ -168,7 +168,6 @@ But this HTML is <mark>actually parsed</mark> just like **normal**.
 
 > <em>Markdown</em> lets you include <strong>arbitrary</strong> <abbr>HTML</abbr> in it.
 
-
 ================================================================================
 `;
 
