@@ -117,6 +117,61 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`issue-15738.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<head></head>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+/>
+<style>marked-md:not(:defined) { display: none }</style>
+<script type="module" src="../auto.js"></script>
+<!-- prettier-ignore -->
+<marked-md display="block"><plaintext>
+# Hello world!
+
+\`\`\`html
+<p>Look at these <span id="html">HTML tags</span></p>
+<div class="box">They aren't being <code>interpreted</code> as actual HTML</div>
+\`\`\`
+
+But this HTML is <mark>actually parsed</mark> just like **normal**.
+
+> <em>Markdown</em> lets you include <strong>arbitrary</strong> <abbr>HTML</abbr> in it.
+
+=====================================output=====================================
+<head></head>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+/>
+<style>
+  marked-md:not(:defined) {
+    display: none;
+  }
+</style>
+<script type="module" src="../auto.js"></script>
+<!-- prettier-ignore -->
+<marked-md display="block"><plaintext>
+# Hello world!
+
+\`\`\`html
+<p>Look at these <span id="html">HTML tags</span></p>
+<div class="box">They aren't being <code>interpreted</code> as actual HTML</div>
+\`\`\`
+
+But this HTML is <mark>actually parsed</mark> just like **normal**.
+
+> <em>Markdown</em> lets you include <strong>arbitrary</strong> <abbr>HTML</abbr> in it.
+
+
+================================================================================
+`;
+
 exports[`long_lines.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
