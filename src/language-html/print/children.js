@@ -7,6 +7,7 @@ import {
   hardline,
 } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locStart, locEnd } from "../loc.js";
 import {
   forceBreakChildren,
@@ -25,10 +26,31 @@ import {
   needsToBorrowParentClosingTagStartMarker,
 } from "./tag.js";
 
+function getIgnoredElementEndLocation(path) {
+  const { node, isLast } = path;
+  const endLocation = locEnd(node);
+
+  if (
+    isLast &&
+    node.type === "element" &&
+    !node.endSourceSpan &&
+    isNonEmptyArray(node.children)
+  ) {
+    return Math.max(
+      endLocation,
+      ...path.map(() => getIgnoredElementEndLocation(path), "children"),
+    );
+  }
+
+  return endLocation;
+}
+
 function printChild(childPath, options, print) {
   const child = childPath.node;
 
   if (hasPrettierIgnore(child)) {
+    const endLocation = getIgnoredElementEndLocation(childPath);
+
     return [
       printOpeningTagPrefix(child, options),
       replaceEndOfLine(
@@ -37,7 +59,7 @@ function printChild(childPath, options, print) {
             (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
               ? printOpeningTagStartMarker(child).length
               : 0),
-          locEnd(child) -
+          endLocation -
             (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
               ? printClosingTagEndMarker(child, options).length
               : 0),

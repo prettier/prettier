@@ -160,3 +160,23 @@ A super long string that has been marked as ignore because it was probably gener
 
 ================================================================================
 `;
+
+exports[`unclosed.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- prettier-ignore -->
+<div>
+# Hello world!
+<span>
+
+=====================================output=====================================
+<!-- prettier-ignore -->
+<div>
+# Hello world!
+<span>
+
+================================================================================
+`;
