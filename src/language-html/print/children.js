@@ -26,19 +26,17 @@ import {
   needsToBorrowParentClosingTagStartMarker,
 } from "./tag.js";
 
-function getIgnoredElementEndLocation(path) {
-  const { node, isLast } = path;
+function getIgnoredElementEndLocation(node) {
   const endLocation = locEnd(node);
 
   if (
-    isLast &&
     node.type === "element" &&
     !node.endSourceSpan &&
     isNonEmptyArray(node.children)
   ) {
     return Math.max(
       endLocation,
-      ...path.map(() => getIgnoredElementEndLocation(path), "children"),
+      ...node.children.map((child) => getIgnoredElementEndLocation(child)),
     );
   }
 
@@ -49,7 +47,7 @@ function printChild(childPath, options, print) {
   const child = childPath.node;
 
   if (hasPrettierIgnore(child)) {
-    const endLocation = getIgnoredElementEndLocation(childPath);
+    const endLocation = getIgnoredElementEndLocation(child);
 
     return [
       printOpeningTagPrefix(child, options),
