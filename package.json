@@ -178,6 +178,7 @@
     "fix": "run-s fix:eslint fix:prettier",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
+    "fix:deps": "yarn lint:deps --fix",
     "build": "node ./scripts/build/build.js",
     "build:website": "node ./scripts/build-website.js",
     "gen:changelog": "node ./scripts/generate-changelog.js",
