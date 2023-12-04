@@ -806,7 +806,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "category": "Special",
       "default": -1,
-      "description": "Print (to stderr) where a cursor at the given position would move to after formatting.\\nThis option cannot be used with --range-start and --range-end.",
+      "description": "Print (to stderr) where a cursor at the given position would move to after formatting.",
       "name": "cursorOffset",
       "pluginDefaults": {},
       "range": { "end": null, "start": -1, "step": 1 },
@@ -1001,7 +1001,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "category": "Special",
       "default": null,
-      "description": "Format code ending at a given character offset (exclusive).\\nThe range will extend forwards to the end of the selected statement.\\nThis option cannot be used with --cursor-offset.",
+      "description": "Format code ending at a given character offset (exclusive).\\nThe range will extend forwards to the end of the selected statement.",
       "name": "rangeEnd",
       "pluginDefaults": {},
       "range": { "end": null, "start": 0, "step": 1 },
@@ -1010,7 +1010,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "category": "Special",
       "default": 0,
-      "description": "Format code starting at a given character offset.\\nThe range will extend backwards to the start of the first line containing the selected statement.\\nThis option cannot be used with --cursor-offset.",
+      "description": "Format code starting at a given character offset.\\nThe range will extend backwards to the start of the first line containing the selected statement.",
       "name": "rangeStart",
       "pluginDefaults": {},
       "range": { "end": null, "start": 0, "step": 1 },
