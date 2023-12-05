@@ -87,12 +87,12 @@ import * as baz from "baz.json" with { /* comment */ }
 
 =====================================output=====================================
 export * as foo from "foo.json";
-export * as bar from "bar.json" assert {};
-export * as baz from "baz.json" /* comment */ assert {};
+export * as bar from "bar.json" with {};
+export * as baz from "baz.json" /* comment */ with {};
 
 import * as foo from "foo.json";
-import * as bar from "bar.json" assert {};
-import * as baz from "baz.json" /* comment */ assert {};
+import * as bar from "bar.json" with {};
+import * as baz from "baz.json" /* comment */ with {};
 
 ================================================================================
 `;

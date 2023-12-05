@@ -297,18 +297,17 @@ function getTextWithoutComments(options, start, end) {
 }
 
 function getImportAttributesOrAssertionsKeyword(node, options) {
-  if (
-    // Babel parser add this property to indicate the keyword is `assert`
-    node.extra?.deprecatedAssertSyntax ||
-    !isNonEmptyArray(node.attributes)
-  ) {
+  // Babel parser add this property to indicate the keyword is `assert`
+  if (node.extra?.deprecatedAssertSyntax) {
     return "assert";
   }
+
+  const firstAttribute = node.attributes?.[0] ?? node.assertions?.[0];
 
   const textBetweenSourceAndAttributes = getTextWithoutComments(
     options,
     locEnd(node.source),
-    node.attributes?.[0] ? locStart(node.attributes[0]) : locEnd(node),
+    firstAttribute ? locStart(firstAttribute) : locEnd(node),
   );
 
   if (textBetweenSourceAndAttributes.trimStart().startsWith("assert")) {
