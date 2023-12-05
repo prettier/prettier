@@ -1,4 +1,4 @@
-import { CursorResult, Options, SupportInfo } from "./index.js";
+import { CursorOptions, CursorResult, Options, SupportInfo } from "./index.js";
 
 /**
  * formatWithCursor both formats the code, and translates a cursor position from unformatted code to formatted code.
@@ -13,7 +13,7 @@ import { CursorResult, Options, SupportInfo } from "./index.js";
  */
 export function formatWithCursor(
   source: string,
-  options: Options,
+  options: CursorOptions,
 ): Promise<CursorResult>;
 
 /**
