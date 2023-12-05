@@ -331,14 +331,14 @@ function printImportAttributes(path, options, print) {
   }
 
   const keyword = getImportAttributesOrAssertionsKeyword(node, options);
+  /** @type{Doc[]} */
+  const parts = [` ${keyword} {`];
+
   const property = isNonEmptyArray(node.attributes)
     ? "attributes"
     : isNonEmptyArray(node.assertions)
       ? "assertions"
       : undefined;
-
-  /** @type{Doc[]} */
-  const parts = [` ${keyword} {`];
   if (property) {
     if (options.bracketSpacing) {
       parts.push(" ");
