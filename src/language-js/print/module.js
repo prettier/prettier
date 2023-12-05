@@ -254,7 +254,7 @@ function shouldPrintAttributes(node, options) {
     return false;
   }
 
-  if (isNonEmptyArray(node.attributes) || isNonEmptyArray(node.assertions)) {
+  if (isNonEmptyArray(node.attributes)) {
     return true;
   }
 
@@ -296,24 +296,16 @@ function getTextWithoutComments(options, start, end) {
   return text;
 }
 
-function getImportAttributesOrAssertionsKeyword(node, options) {
-  if (
-    // Babel parser add this property to indicate the keyword is `assert`
-    node.extra?.deprecatedAssertSyntax ||
-    (isNonEmptyArray(node.assertions) && !isNonEmptyArray(node.attributes))
-  ) {
+function getImportAttributesKeyword(node, options) {
+  // Babel parser add this property to indicate the keyword is `assert`
+  if (node.extra?.deprecatedAssertSyntax) {
     return "assert";
   }
 
-  if (!isNonEmptyArray(node.assertions) && isNonEmptyArray(node.attributes)) {
-    return "with";
-  }
-
-  const firstAttribute = node.attributes?.[0] ?? node.assertions?.[0];
   const textBetweenSourceAndAttributes = getTextWithoutComments(
     options,
     locEnd(node.source),
-    firstAttribute ? locStart(firstAttribute) : locEnd(node),
+    node.attributes?.[0] ? locStart(node.attributes[0]) : locEnd(node),
   );
 
   if (textBetweenSourceAndAttributes.trimStart().startsWith("assert")) {
@@ -323,10 +315,6 @@ function getImportAttributesOrAssertionsKeyword(node, options) {
   return "with";
 }
 
-/**
- * Print Import Attributes syntax.
- * If old ImportAssertions syntax is used, print them here.
- */
 function printImportAttributes(path, options, print) {
   const { node } = path;
 
@@ -334,21 +322,16 @@ function printImportAttributes(path, options, print) {
     return "";
   }
 
-  const keyword = getImportAttributesOrAssertionsKeyword(node, options);
+  const keyword = getImportAttributesKeyword(node, options);
   /** @type{Doc[]} */
   const parts = [` ${keyword} {`];
 
-  const property = isNonEmptyArray(node.attributes)
-    ? "attributes"
-    : isNonEmptyArray(node.assertions)
-      ? "assertions"
-      : undefined;
-  if (property) {
+  if (isNonEmptyArray(node.attributes)) {
     if (options.bracketSpacing) {
       parts.push(" ");
     }
 
-    parts.push(join(", ", path.map(print, property)));
+    parts.push(join(", ", path.map(print, "attributes")));
 
     if (options.bracketSpacing) {
       parts.push(" ");
