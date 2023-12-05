@@ -300,7 +300,7 @@ function getImportAttributesOrAssertionsKeyword(node, options) {
   if (
     // Babel parser add this property to indicate the keyword is `assert`
     node.extra?.deprecatedAssertSyntax ||
-    !isNonEmptyArray(node.attributes)
+    (isNonEmptyArray(node.assertions) && !isNonEmptyArray(node.attributes))
   ) {
     return "assert";
   }
