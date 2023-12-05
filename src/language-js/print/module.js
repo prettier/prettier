@@ -250,12 +250,12 @@ function shouldPrintSpecifiers(node, options) {
 }
 
 function shouldPrintAttributes(node, options) {
-  if (isNonEmptyArray(node.attributes) || isNonEmptyArray(node.assertions)) {
-    return true;
+  if (!node.source) {
+    return false;
   }
 
-  if (!node.source) {
-    return "";
+  if (isNonEmptyArray(node.attributes) || isNonEmptyArray(node.assertions)) {
+    return true;
   }
 
   const text = getTextWithoutComments(
