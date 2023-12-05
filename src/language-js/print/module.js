@@ -249,6 +249,24 @@ function shouldPrintSpecifiers(node, options) {
   return text.trimEnd().endsWith("from");
 }
 
+function shouldPrintAttributes(node, options) {
+  if (isNonEmptyArray(node.attributes) || isNonEmptyArray(node.assertions)) {
+    return true;
+  }
+
+  if (!node.source) {
+    return "";
+  }
+
+  const text = getTextWithoutComments(
+    options,
+    locEnd(node.source),
+    locEnd(node),
+  ).trimStart();
+
+  return text.startsWith("with") || text.startsWith("assert");
+}
+
 function getTextWithoutComments(options, start, end) {
   let text = options.originalText.slice(start, end);
 
@@ -290,7 +308,7 @@ function getImportAttributesOrAssertionsKeyword(node, options) {
   const textBetweenSourceAndAttributes = getTextWithoutComments(
     options,
     locEnd(node.source),
-    locStart(node.attributes[0]),
+    node.attributes?.[0] ? locStart(node.attributes[0]) : locEnd(node),
   );
 
   if (textBetweenSourceAndAttributes.trimStart().startsWith("assert")) {
@@ -307,24 +325,33 @@ function getImportAttributesOrAssertionsKeyword(node, options) {
 function printImportAttributes(path, options, print) {
   const { node } = path;
 
+  if (!shouldPrintAttributes(node, options)) {
+    return "";
+  }
+
+  const keyword = getImportAttributesOrAssertionsKeyword(node, options);
   const property = isNonEmptyArray(node.attributes)
     ? "attributes"
     : isNonEmptyArray(node.assertions)
       ? "assertions"
       : undefined;
 
-  if (!property) {
-    return "";
-  }
+  /** @type{Doc[]} */
+  const parts = [` ${keyword} {`];
+  if (property) {
+    if (options.bracketSpacing) {
+      parts.push(" ");
+    }
 
-  const keyword = getImportAttributesOrAssertionsKeyword(node, options);
-  return [
-    ` ${keyword} {`,
-    options.bracketSpacing ? " " : "",
-    join(", ", path.map(print, property)),
-    options.bracketSpacing ? " " : "",
-    "}",
-  ];
+    parts.push(join(", ", path.map(print, property)));
+
+    if (options.bracketSpacing) {
+      parts.push(" ");
+    }
+  }
+  parts.push("}");
+
+  return parts;
 }
 
 function printModuleSpecifier(path, options, print) {
