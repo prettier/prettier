@@ -98,15 +98,9 @@ function postprocess(ast, options) {
         ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
         break;
 
-      case "ImportDeclaration":
-      case "ExportNamedDeclaration":
       case "ExportAllDeclaration":
         // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
-        if (
-          parser === "meriyah" &&
-          node.type === "ExportAllDeclaration" &&
-          node.exported?.type === "Identifier"
-        ) {
+        if (parser === "meriyah" && node.exported?.type === "Identifier") {
           const { exported } = node;
           const raw = text.slice(locStart(exported), locEnd(exported));
           if (raw.startsWith('"') || raw.startsWith("'")) {
@@ -116,20 +110,6 @@ function postprocess(ast, options) {
               value: node.exported.name,
               raw,
             };
-          }
-        }
-
-        // In TypeScript, we can't distinguish `with` or `assert` keyword was used.
-        if (parser === "typescript" && isNonEmptyArray(node.attributes)) {
-          const textBetweenSourceAndAttributes = getTextWithoutComments(
-            ast,
-            text,
-            node.source.range[1],
-            node.attributes[0].range[0],
-          ).trim();
-
-          if (textBetweenSourceAndAttributes.startsWith("assert")) {
-            node.extra = { ...node.extra, deprecatedAssertSyntax: true };
           }
         }
         break;
@@ -197,35 +177,6 @@ function rebalanceLogicalTree(node) {
     right: node.right.right,
     range: [locStart(node), locEnd(node)],
   });
-}
-
-function getTextWithoutComments(ast, fullText, start, end) {
-  let text = fullText.slice(start, end);
-
-  for (const comment of ast.comments) {
-    const commentStart = locStart(comment);
-    // Comments are sorted, we can escape if the comment is after the range
-    if (commentStart > end) {
-      break;
-    }
-
-    const commentEnd = locEnd(comment);
-    if (commentEnd < start) {
-      continue;
-    }
-
-    const commentLength = commentEnd - commentStart;
-    text =
-      text.slice(0, commentStart - start) +
-      " ".repeat(commentLength) +
-      text.slice(commentEnd - start);
-  }
-
-  if (process.env.NODE_ENV !== "production") {
-    assert(text.length === end - start);
-  }
-
-  return text;
 }
 
 export default postprocess;

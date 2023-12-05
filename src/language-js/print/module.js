@@ -1,3 +1,4 @@
+import assert from "node:assert";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
@@ -20,7 +21,7 @@ import {
   rawText,
   createTypeCheckFunction,
 } from "../utils/index.js";
-import { locStart, hasSameLoc } from "../loc.js";
+import { locStart, hasSameLoc, locEnd } from "../loc.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./misc.js";
 
@@ -247,6 +248,57 @@ function shouldNotPrintSpecifiers(node, options) {
   );
 }
 
+function getTextWithoutComments(options, start, end) {
+  let text = options.originalText.slice(start, end);
+
+  for (const comment of options[Symbol.for("comments")]) {
+    const commentStart = locStart(comment);
+    // Comments are sorted, we can escape if the comment is after the range
+    if (commentStart > end) {
+      break;
+    }
+
+    const commentEnd = locEnd(comment);
+    if (commentEnd < start) {
+      continue;
+    }
+
+    const commentLength = commentEnd - commentStart;
+    text =
+      text.slice(0, commentStart - start) +
+      " ".repeat(commentLength) +
+      text.slice(commentEnd - start);
+  }
+
+  if (process.env.NODE_ENV !== "production") {
+    assert(text.length === end - start);
+  }
+
+  return text;
+}
+
+function getImportAttributesOrAssertionsKeyword(node, options) {
+  if (
+    // Babel parser add this property to
+    node.extra?.deprecatedAssertSyntax ||
+    !isNonEmptyArray(node.attributes)
+  ) {
+    return "assert";
+  }
+
+  const textBetweenSourceAndAttributes = getTextWithoutComments(
+    options,
+    node.source.range[1],
+    node.attributes[0].range[0],
+  ).trim();
+
+  if (textBetweenSourceAndAttributes.startsWith("assert")) {
+    return "assert";
+  }
+
+  return "with";
+}
+
 /**
  * Print Import Attributes syntax.
  * If old ImportAssertions syntax is used, print them here.
@@ -264,10 +316,7 @@ function printImportAttributes(path, options, print) {
     return "";
   }
 
-  const keyword =
-    property === "assertions" || node.extra?.deprecatedAssertSyntax
-      ? "assert"
-      : "with";
+  const keyword = getImportAttributesOrAssertionsKeyword(node, options);
   return [
     ` ${keyword} {`,
     options.bracketSpacing ? " " : "",
