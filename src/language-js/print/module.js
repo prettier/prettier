@@ -148,7 +148,7 @@ function printModuleSource(path, options, print) {
 
   /** @type{Doc[]} */
   const parts = [];
-  if (!shouldNotPrintSpecifiers(node, options)) {
+  if (shouldPrintSpecifiers(node, options)) {
     parts.push(" from");
   }
   parts.push(" ", print("source"));
@@ -159,7 +159,7 @@ function printModuleSource(path, options, print) {
 function printModuleSpecifiers(path, options, print) {
   const { node } = path;
 
-  if (shouldNotPrintSpecifiers(node, options)) {
+  if (!shouldPrintSpecifiers(node, options)) {
     return "";
   }
 
@@ -231,21 +231,22 @@ function printModuleSpecifiers(path, options, print) {
   return parts;
 }
 
-function shouldNotPrintSpecifiers(node, options) {
-  const { type, importKind, source, specifiers } = node;
-
+function shouldPrintSpecifiers(node, options) {
   if (
-    type !== "ImportDeclaration" ||
-    isNonEmptyArray(specifiers) ||
-    importKind === "type"
+    node.type !== "ImportDeclaration" ||
+    isNonEmptyArray(node.specifiers) ||
+    node.importKind === "type"
   ) {
-    return false;
+    return true;
   }
 
-  // TODO: check tokens
-  return !/{\s*}/.test(
-    options.originalText.slice(locStart(node), locStart(source)),
+  const text = getTextWithoutComments(
+    options,
+    locStart(node),
+    locStart(node.source),
   );
+
+  return text.trimEnd().endsWith("from");
 }
 
 function getTextWithoutComments(options, start, end) {
@@ -288,8 +289,8 @@ function getImportAttributesOrAssertionsKeyword(node, options) {
 
   const textBetweenSourceAndAttributes = getTextWithoutComments(
     options,
-    node.source.range[1],
-    node.attributes[0].range[0],
+    locEnd(node.source),
+    locStart(node.attributes[0]),
   );
 
   if (textBetweenSourceAndAttributes.trimStart().startsWith("assert")) {
