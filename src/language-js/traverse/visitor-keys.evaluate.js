@@ -61,10 +61,6 @@ const excludeKeys = {
   // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab
   // TupleTypeAnnotation: ["types"],
   PropertyDefinition: ["tsModifiers"],
-
-  // From `babelVisitorKeys`
-  DeclareInterface: ["mixins", "implements"],
-  InterfaceDeclaration: ["mixins", "implements"],
 };
 
 const visitorKeys = Object.fromEntries(
