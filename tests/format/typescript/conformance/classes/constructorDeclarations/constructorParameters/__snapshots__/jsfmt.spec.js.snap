@@ -458,7 +458,8 @@ exports[`readonlyInConstructorParameters.ts [babel-ts] format 1`] = `
      |                          ^
    8 | }
    9 |
-  10 | class F {"
+  10 | class F {
+Cause: 'public' modifier must precede 'readonly' modifier. (7:25)"
 `;
 
 exports[`readonlyInConstructorParameters.ts format 1`] = `
@@ -504,7 +505,8 @@ exports[`readonlyReadonly.ts [babel-ts] format 1`] = `
 > 2 |     readonly readonly x: number;
     |              ^
   3 |     constructor(readonly readonly y: number) {}
-  4 | }"
+  4 | }
+Cause: Duplicate modifier: 'readonly'. (2:13)"
 `;
 
 exports[`readonlyReadonly.ts format 1`] = `

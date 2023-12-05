@@ -6,7 +6,8 @@ exports[`comments.js [acorn] format 1`] = `
     |                                ^
   2 |   /*A4*/
   3 |   export const foo = "foo";
-  4 |   export { foo }; /*A5*/"
+  4 |   export { foo }; /*A5*/
+Cause: Unexpected token (1:31)"
 `;
 
 exports[`comments.js [espree] format 1`] = `
@@ -15,7 +16,8 @@ exports[`comments.js [espree] format 1`] = `
     |                                ^
   2 |   /*A4*/
   3 |   export const foo = "foo";
-  4 |   export { foo }; /*A5*/"
+  4 |   export { foo }; /*A5*/
+Cause: Unexpected token {"
 `;
 
 exports[`comments.js [meriyah] format 1`] = `
@@ -24,7 +26,8 @@ exports[`comments.js [meriyah] format 1`] = `
     |                                ^
   2 |   /*A4*/
   3 |   export const foo = "foo";
-  4 |   export { foo }; /*A5*/"
+  4 |   export { foo }; /*A5*/
+Cause: [1:32]: Unexpected token: '{'"
 `;
 
 exports[`comments.js format 1`] = `
@@ -67,7 +70,8 @@ exports[`module-blocks.js [acorn] format 1`] = `
     |        ^
   2 |
   3 | class B {
-  4 |   #p() {"
+  4 |   #p() {
+Cause: Unexpected token (1:7)"
 `;
 
 exports[`module-blocks.js [espree] format 1`] = `
@@ -76,7 +80,8 @@ exports[`module-blocks.js [espree] format 1`] = `
     |        ^
   2 |
   3 | class B {
-  4 |   #p() {"
+  4 |   #p() {
+Cause: Unexpected token {"
 `;
 
 exports[`module-blocks.js [meriyah] format 1`] = `
@@ -85,7 +90,8 @@ exports[`module-blocks.js [meriyah] format 1`] = `
     |        ^
   2 |
   3 | class B {
-  4 |   #p() {"
+  4 |   #p() {
+Cause: [1:8]: Unexpected token: '{'"
 `;
 
 exports[`module-blocks.js format 1`] = `
@@ -211,7 +217,8 @@ exports[`range.js [acorn] format 1`] = `
     |                          ^
   2 | };
   3 |
-  4 | foo(module { export let foo = "foo"; })"
+  4 | foo(module { export let foo = "foo"; })
+Cause: Unexpected token (1:25)"
 `;
 
 exports[`range.js [espree] format 1`] = `
@@ -220,7 +227,8 @@ exports[`range.js [espree] format 1`] = `
     |                          ^
   2 | };
   3 |
-  4 | foo(module { export let foo = "foo"; })"
+  4 | foo(module { export let foo = "foo"; })
+Cause: Unexpected token {"
 `;
 
 exports[`range.js [meriyah] format 1`] = `
@@ -229,7 +237,8 @@ exports[`range.js [meriyah] format 1`] = `
     |                          ^
   2 | };
   3 |
-  4 | foo(module { export let foo = "foo"; })"
+  4 | foo(module { export let foo = "foo"; })
+Cause: [1:26]: Unexpected token: '{'"
 `;
 
 exports[`range.js format 1`] = `
@@ -267,7 +276,8 @@ exports[`worker.js [acorn] format 1`] = `
     |                                ^
   2 |   onmessage = function({data}) {
   3 |     let mod = import(data);
-  4 |     postMessage(mod.fn());"
+  4 |     postMessage(mod.fn());
+Cause: Unexpected token (1:31)"
 `;
 
 exports[`worker.js [espree] format 1`] = `
@@ -276,7 +286,8 @@ exports[`worker.js [espree] format 1`] = `
     |                                ^
   2 |   onmessage = function({data}) {
   3 |     let mod = import(data);
-  4 |     postMessage(mod.fn());"
+  4 |     postMessage(mod.fn());
+Cause: Unexpected token {"
 `;
 
 exports[`worker.js [meriyah] format 1`] = `
@@ -285,7 +296,8 @@ exports[`worker.js [meriyah] format 1`] = `
     |                                ^
   2 |   onmessage = function({data}) {
   3 |     let mod = import(data);
-  4 |     postMessage(mod.fn());"
+  4 |     postMessage(mod.fn());
+Cause: [1:32]: Expected ')'"
 `;
 
 exports[`worker.js format 1`] = `

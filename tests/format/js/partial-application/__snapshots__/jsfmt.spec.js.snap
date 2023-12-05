@@ -6,7 +6,8 @@ exports[`test.js [acorn] format 1`] = `
     |                       ^
   2 | addOne(2); // 3
   3 |
-  4 | const addTen = add(?, 10); // apply from the right"
+  4 | const addTen = add(?, 10); // apply from the right
+Cause: Unexpected token (1:22)"
 `;
 
 exports[`test.js [espree] format 1`] = `
@@ -15,7 +16,8 @@ exports[`test.js [espree] format 1`] = `
     |                       ^
   2 | addOne(2); // 3
   3 |
-  4 | const addTen = add(?, 10); // apply from the right"
+  4 | const addTen = add(?, 10); // apply from the right
+Cause: Unexpected token ?"
 `;
 
 exports[`test.js [meriyah] format 1`] = `
@@ -24,7 +26,8 @@ exports[`test.js [meriyah] format 1`] = `
     |                       ^
   2 | addOne(2); // 3
   3 |
-  4 | const addTen = add(?, 10); // apply from the right"
+  4 | const addTen = add(?, 10); // apply from the right
+Cause: [1:23]: Unexpected token: '?'"
 `;
 
 exports[`test.js format 1`] = `

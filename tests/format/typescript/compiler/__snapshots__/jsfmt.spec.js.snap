@@ -333,7 +333,8 @@ exports[`decrementAndIncrementOperators.ts [babel-ts] format 1`] = `
     | ^
   5 |
   6 | (1)++;
-  7 | (1)--;"
+  7 | (1)--;
+Cause: Invalid left-hand side in postfix operation. (4:0)"
 `;
 
 exports[`decrementAndIncrementOperators.ts format 1`] = `

@@ -8,7 +8,8 @@ exports[`call-arguments.js [acorn] format 1`] = `
     |   ^
   4 |     var bar = "foo";
   5 |     if (!bar) throw new Error(
-  6 |       "unreachable""
+  6 |       "unreachable"
+Cause: Unexpected token (3:2)"
 `;
 
 exports[`call-arguments.js [espree] format 1`] = `
@@ -19,7 +20,8 @@ exports[`call-arguments.js [espree] format 1`] = `
     |   ^
   4 |     var bar = "foo";
   5 |     if (!bar) throw new Error(
-  6 |       "unreachable""
+  6 |       "unreachable"
+Cause: Unexpected token do"
 `;
 
 exports[`call-arguments.js [meriyah] format 1`] = `
@@ -30,7 +32,8 @@ exports[`call-arguments.js [meriyah] format 1`] = `
     |    ^
   4 |     var bar = "foo";
   5 |     if (!bar) throw new Error(
-  6 |       "unreachable""
+  6 |       "unreachable"
+Cause: [3:4]: Unexpected token: 'do'"
 `;
 
 exports[`call-arguments.js format 1`] = `
@@ -127,7 +130,8 @@ exports[`do.js [acorn] format 1`] = `
     |     ^
   4 |       if(env === 'production') 'https://abc.mno.com/';
   5 |       else if(env === 'development') 'http://localhost:4000';
-  6 |     }"
+  6 |     }
+Cause: Unexpected token (3:4)"
 `;
 
 exports[`do.js [espree] format 1`] = `
@@ -138,7 +142,8 @@ exports[`do.js [espree] format 1`] = `
     |     ^
   4 |       if(env === 'production') 'https://abc.mno.com/';
   5 |       else if(env === 'development') 'http://localhost:4000';
-  6 |     }"
+  6 |     }
+Cause: Unexpected token do"
 `;
 
 exports[`do.js [meriyah] format 1`] = `
@@ -149,7 +154,8 @@ exports[`do.js [meriyah] format 1`] = `
     |      ^
   4 |       if(env === 'production') 'https://abc.mno.com/';
   5 |       else if(env === 'development') 'http://localhost:4000';
-  6 |     }"
+  6 |     }
+Cause: [3:6]: Unexpected token: 'do'"
 `;
 
 exports[`do.js format 1`] = `

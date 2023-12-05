@@ -11,4 +11,5 @@ export const {
   normalizeOptionSettings,
   vnopts,
   fastGlob,
+  mockable,
 } = sharedWithCli;

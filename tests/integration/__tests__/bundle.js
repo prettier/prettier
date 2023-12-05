@@ -118,7 +118,9 @@ test("Commonjs version", () => {
   expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
 
   expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toEqual(
-    Object.keys(prettier.__debug).sort(),
+    Object.keys(prettier.__debug)
+      .filter((key) => key !== "mockable")
+      .sort(),
   );
   expect(typeof prettierCommonjsVersion.__debug.parse).toBe("function");
 

@@ -8,5 +8,6 @@ exports[`type-interfaces.graphql [graphql] format 1`] = `
     |                     ^
   6 |   a: a
   7 | }
-  8 |"
+  8 |
+Cause: Syntax Error: Unexpected "|"."
 `;

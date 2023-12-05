@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import readline from "node:readline";
-import { prettierCli, mockable as mockableModuleFile } from "./env.js";
+import { prettierCli, prettierMainEntry } from "./env.js";
 
 const normalizeToPosix =
   path.sep === "\\"
@@ -55,9 +55,8 @@ async function run() {
   process.stdin.isTTY = Boolean(options.isTTY);
   process.stdout.isTTY = Boolean(options.stdoutIsTTY);
 
-  const { default: mockable } = await import(
-    url.pathToFileURL(mockableModuleFile)
-  );
+  const prettier = await import(url.pathToFileURL(prettierMainEntry));
+  const { mockable } = prettier.__debug;
 
   // We cannot use `jest.setMock("get-stream", impl)` here, because in the
   // production build everything is bundled into one file so there is no

@@ -1,9 +1,7 @@
-import { pathToFileURL } from "node:url";
-import { mockable } from "../env.js";
+import prettier from "../../config/prettier-entry.js";
 
-test("isCI", async () => {
-  const {
-    default: { isCI },
-  } = await import(pathToFileURL(mockable));
-  expect(typeof isCI()).toBe("boolean");
+const { mockable } = prettier.__debug;
+
+test("isCI", () => {
+  expect(typeof mockable.isCI()).toBe("boolean");
 });
