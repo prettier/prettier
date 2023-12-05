@@ -120,7 +120,8 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [acorn] format 1`
     |   ^
   4 | () => {
   5 |   "use strict";
-  6 |   "\\8", "\\9";"
+  6 |   "\\8", "\\9";
+Cause: Invalid escape sequence (3:2)"
 `;
 
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [espree] format 1`] = `
@@ -131,7 +132,8 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [espree] format 1
     |   ^
   4 | () => {
   5 |   "use strict";
-  6 |   "\\8", "\\9";"
+  6 |   "\\8", "\\9";
+Cause: Invalid escape sequence"
 `;
 
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format 1`] = `
@@ -169,7 +171,8 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [acorn] format 1`
     |   ^
   4 | () => {
   5 |   "use strict";
-  6 |   "\\8", "\\9";"
+  6 |   "\\8", "\\9";
+Cause: Invalid escape sequence (3:2)"
 `;
 
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [espree] format 1`] = `
@@ -180,7 +183,8 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [espree] format 1
     |   ^
   4 | () => {
   5 |   "use strict";
-  6 |   "\\8", "\\9";"
+  6 |   "\\8", "\\9";
+Cause: Invalid escape sequence"
 `;
 
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} format 1`] = `

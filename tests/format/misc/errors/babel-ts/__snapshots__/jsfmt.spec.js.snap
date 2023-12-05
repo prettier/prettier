@@ -4,7 +4,8 @@ exports[`export-declare.ts [babel-ts] format 1`] = `
 "'export declare' must be followed by an ambient declaration. (1:16)
 > 1 | export declare foo;
     |                ^
-  2 |"
+  2 |
+Cause: 'export declare' must be followed by an ambient declaration. (1:15)"
 `;
 
 exports[`multiline-declaration-abstract-class.ts [babel-ts] format 1`] = `
@@ -12,7 +13,8 @@ exports[`multiline-declaration-abstract-class.ts [babel-ts] format 1`] = `
 > 1 | declare abstract
     |        ^
   2 | class A {}
-  3 |"
+  3 |
+Cause: Missing semicolon. (1:7)"
 `;
 
 exports[`multiline-declaration-interface.ts [babel-ts] format 1`] = `
@@ -21,7 +23,8 @@ exports[`multiline-declaration-interface.ts [babel-ts] format 1`] = `
     |        ^
   2 | I
   3 | {}
-  4 |"
+  4 |
+Cause: Missing semicolon. (1:7)"
 `;
 
 exports[`multiline-declaration-module.ts [babel-ts] format 1`] = `
@@ -30,7 +33,8 @@ exports[`multiline-declaration-module.ts [babel-ts] format 1`] = `
     |        ^
   2 | 'bar'
   3 | {}
-  4 |"
+  4 |
+Cause: Missing semicolon. (1:7)"
 `;
 
 exports[`multiline-declaration-type.ts [babel-ts] format 1`] = `
@@ -38,7 +42,8 @@ exports[`multiline-declaration-type.ts [babel-ts] format 1`] = `
 > 1 | declare type
     |        ^
   2 | T = number
-  3 |"
+  3 |
+Cause: Missing semicolon. (1:7)"
 `;
 
 exports[`parenthesized-decorators-tagged-template.ts [babel-ts] format 1`] = `
@@ -48,21 +53,24 @@ exports[`parenthesized-decorators-tagged-template.ts [babel-ts] format 1`] = `
     |       ^
   3 |   text: string = "text"
   4 | }
-  5 |"
+  5 |
+Cause: Unexpected token (2:6)"
 `;
 
 exports[`type-annotation-expr-statement.ts [babel-ts] format 1`] = `
 "Did not expect a type annotation here. (1:3)
 > 1 | (a: T);
     |   ^
-  2 |"
+  2 |
+Cause: Did not expect a type annotation here. (1:2)"
 `;
 
 exports[`type-annotation-func.ts [babel-ts] format 1`] = `
 "Did not expect a type annotation here. (1:10)
 > 1 | func<T>(a: T);
     |          ^
-  2 |"
+  2 |
+Cause: Did not expect a type annotation here. (1:9)"
 `;
 
 exports[`type-annotation-in-jsx.tsx [babel-ts] format 1`] = `
@@ -73,5 +81,6 @@ exports[`type-annotation-in-jsx.tsx [babel-ts] format 1`] = `
     |                      ^
   4 |   );
   5 | }
-  6 |"
+  6 |
+Cause: Did not expect a type annotation here. (3:21)"
 `;
