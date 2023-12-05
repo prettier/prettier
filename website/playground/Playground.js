@@ -310,9 +310,10 @@ class Playground extends React.Component {
                         <Option
                           option={this.cursorOffsetOption}
                           value={
-                            typeof options.cursorOffset === "number"
+                            typeof options.cursorOffset === "number" &&
+                            options.cursorOffset !== -1
                               ? options.cursorOffset
-                              : -1
+                              : ""
                           }
                           onChange={this.handleOptionValueChange}
                         />
