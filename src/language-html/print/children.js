@@ -36,10 +36,7 @@ function getEndLocation(node) {
     !node.endSourceSpan &&
     isNonEmptyArray(node.children)
   ) {
-    return Math.max(
-      endLocation,
-      ...node.children.map((child) => getEndLocation(child)),
-    );
+    return Math.max(endLocation, getEndLocation(node.children.at(-1)));
   }
 
   return endLocation;
