@@ -305,6 +305,10 @@ function getImportAttributesOrAssertionsKeyword(node, options) {
     return "assert";
   }
 
+  if (!isNonEmptyArray(node.assertions) && isNonEmptyArray(node.attributes)) {
+    return "with";
+  }
+
   const firstAttribute = node.attributes?.[0] ?? node.assertions?.[0];
   const textBetweenSourceAndAttributes = getTextWithoutComments(
     options,
