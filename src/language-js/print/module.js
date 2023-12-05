@@ -290,9 +290,9 @@ function getImportAttributesOrAssertionsKeyword(node, options) {
     options,
     node.source.range[1],
     node.attributes[0].range[0],
-  ).trim();
+  );
 
-  if (textBetweenSourceAndAttributes.startsWith("assert")) {
+  if (textBetweenSourceAndAttributes.trim().startsWith("assert")) {
     return "assert";
   }
 
