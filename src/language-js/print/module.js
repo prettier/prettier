@@ -279,7 +279,7 @@ function getTextWithoutComments(options, start, end) {
 
 function getImportAttributesOrAssertionsKeyword(node, options) {
   if (
-    // Babel parser add this property to
+    // Babel parser add this property to indicate the keyword is `assert`
     node.extra?.deprecatedAssertSyntax ||
     !isNonEmptyArray(node.attributes)
   ) {
