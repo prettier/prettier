@@ -47,11 +47,11 @@ Cause: Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`?"
 `;
 
 exports[`module-attributes-static.ts [typescript] format 1`] = `
-"';' expected. (1:28)
+"'{' expected. (1:33)
 > 1 | import foo from "foo.json" with type: "json";
-    |                            ^
+    |                                 ^
   2 |
-Cause: ';' expected."
+Cause: '{' expected."
 `;
 
 exports[`newline-before-arrow.ts [typescript] format 1`] = `

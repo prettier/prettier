@@ -1,3 +1,4 @@
+import assert from "node:assert";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
@@ -20,7 +21,7 @@ import {
   rawText,
   createTypeCheckFunction,
 } from "../utils/index.js";
-import { locStart, hasSameLoc } from "../loc.js";
+import { locStart, hasSameLoc, locEnd } from "../loc.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./misc.js";
 
@@ -147,7 +148,7 @@ function printModuleSource(path, options, print) {
 
   /** @type{Doc[]} */
   const parts = [];
-  if (!shouldNotPrintSpecifiers(node, options)) {
+  if (shouldPrintSpecifiers(node, options)) {
     parts.push(" from");
   }
   parts.push(" ", print("source"));
@@ -158,7 +159,7 @@ function printModuleSource(path, options, print) {
 function printModuleSpecifiers(path, options, print) {
   const { node } = path;
 
-  if (shouldNotPrintSpecifiers(node, options)) {
+  if (!shouldPrintSpecifiers(node, options)) {
     return "";
   }
 
@@ -230,21 +231,96 @@ function printModuleSpecifiers(path, options, print) {
   return parts;
 }
 
-function shouldNotPrintSpecifiers(node, options) {
-  const { type, importKind, source, specifiers } = node;
-
+function shouldPrintSpecifiers(node, options) {
   if (
-    type !== "ImportDeclaration" ||
-    isNonEmptyArray(specifiers) ||
-    importKind === "type"
+    node.type !== "ImportDeclaration" ||
+    isNonEmptyArray(node.specifiers) ||
+    node.importKind === "type"
   ) {
+    return true;
+  }
+
+  const text = getTextWithoutComments(
+    options,
+    locStart(node),
+    locStart(node.source),
+  );
+
+  return text.trimEnd().endsWith("from");
+}
+
+function shouldPrintAttributes(node, options) {
+  if (!node.source) {
     return false;
   }
 
-  // TODO: check tokens
-  return !/{\s*}/.test(
-    options.originalText.slice(locStart(node), locStart(source)),
+  if (isNonEmptyArray(node.attributes) || isNonEmptyArray(node.assertions)) {
+    return true;
+  }
+
+  const text = getTextWithoutComments(
+    options,
+    locEnd(node.source),
+    locEnd(node),
+  ).trimStart();
+
+  return text.startsWith("with") || text.startsWith("assert");
+}
+
+function getTextWithoutComments(options, start, end) {
+  let text = options.originalText.slice(start, end);
+
+  for (const comment of options[Symbol.for("comments")]) {
+    const commentStart = locStart(comment);
+    // Comments are sorted, we can escape if the comment is after the range
+    if (commentStart > end) {
+      break;
+    }
+
+    const commentEnd = locEnd(comment);
+    if (commentEnd < start) {
+      continue;
+    }
+
+    const commentLength = commentEnd - commentStart;
+    text =
+      text.slice(0, commentStart - start) +
+      " ".repeat(commentLength) +
+      text.slice(commentEnd - start);
+  }
+
+  if (process.env.NODE_ENV !== "production") {
+    assert(text.length === end - start);
+  }
+
+  return text;
+}
+
+function getImportAttributesOrAssertionsKeyword(node, options) {
+  if (
+    // Babel parser add this property to indicate the keyword is `assert`
+    node.extra?.deprecatedAssertSyntax ||
+    (isNonEmptyArray(node.assertions) && !isNonEmptyArray(node.attributes))
+  ) {
+    return "assert";
+  }
+
+  if (!isNonEmptyArray(node.assertions) && isNonEmptyArray(node.attributes)) {
+    return "with";
+  }
+
+  const firstAttribute = node.attributes?.[0] ?? node.assertions?.[0];
+  const textBetweenSourceAndAttributes = getTextWithoutComments(
+    options,
+    locEnd(node.source),
+    firstAttribute ? locStart(firstAttribute) : locEnd(node),
   );
+
+  if (textBetweenSourceAndAttributes.trimStart().startsWith("assert")) {
+    return "assert";
+  }
+
+  return "with";
 }
 
 /**
@@ -254,27 +330,33 @@ function shouldNotPrintSpecifiers(node, options) {
 function printImportAttributes(path, options, print) {
   const { node } = path;
 
+  if (!shouldPrintAttributes(node, options)) {
+    return "";
+  }
+
+  const keyword = getImportAttributesOrAssertionsKeyword(node, options);
+  /** @type{Doc[]} */
+  const parts = [` ${keyword} {`];
+
   const property = isNonEmptyArray(node.attributes)
     ? "attributes"
     : isNonEmptyArray(node.assertions)
       ? "assertions"
       : undefined;
+  if (property) {
+    if (options.bracketSpacing) {
+      parts.push(" ");
+    }
 
-  if (!property) {
-    return "";
+    parts.push(join(", ", path.map(print, property)));
+
+    if (options.bracketSpacing) {
+      parts.push(" ");
+    }
   }
+  parts.push("}");
 
-  const keyword =
-    property === "assertions" || node.extra?.deprecatedAssertSyntax
-      ? "assert"
-      : "with";
-  return [
-    ` ${keyword} {`,
-    options.bracketSpacing ? " " : "",
-    join(", ", path.map(print, property)),
-    options.bracketSpacing ? " " : "",
-    "}",
-  ];
+  return parts;
 }
 
 function printModuleSpecifier(path, options, print) {
