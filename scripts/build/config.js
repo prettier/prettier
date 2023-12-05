@@ -634,17 +634,6 @@ const nodejsFiles = [
     external: ["benchmark"],
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
   },
-  {
-    input: "src/common/mockable.js",
-    outputBaseName: "internal/internal",
-    replaceModule: [
-      {
-        module: require.resolve("lilconfig"),
-        find: "exports.lilconfigSync = lilconfigSync;",
-        replacement: "",
-      },
-    ],
-  },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
 

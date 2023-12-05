@@ -325,7 +325,6 @@ module.exports = {
                 path.resolve(__dirname, "src/**"),
                 `!${path.resolve(__dirname, "src/cli/**")}`,
                 `!${path.resolve(__dirname, "src/index.js")}`,
-                `!${path.resolve(__dirname, "src/common/mockable.js")}`,
               ],
               message: "Don't use code from other directory.",
             },
