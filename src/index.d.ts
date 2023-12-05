@@ -354,6 +354,11 @@ export interface RequiredOptions extends doc.printer.Options {
    */
   jsxBracketSameLine: boolean;
   /**
+   * Specify where the cursor is.
+   * @default -1
+   */
+  cursorOffset: number;
+  /**
    * Format only a segment of a file.
    * @default 0
    */
@@ -543,13 +548,6 @@ export interface Printer<T = any> {
     | undefined;
 }
 
-export interface CursorOptions extends Options {
-  /**
-   * Specify where the cursor is.
-   */
-  cursorOffset: number;
-}
-
 export interface CursorResult {
   formatted: string;
   cursorOffset: number;
@@ -574,7 +572,7 @@ export function check(source: string, options?: Options): Promise<boolean>;
  */
 export function formatWithCursor(
   source: string,
-  options: CursorOptions,
+  options: Options,
 ): Promise<CursorResult>;
 
 export interface ResolveConfigOptions {
