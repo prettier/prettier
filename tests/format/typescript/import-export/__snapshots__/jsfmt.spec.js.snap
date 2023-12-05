@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty-import.js format 1`] = `
+exports[`empty-import.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
