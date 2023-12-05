@@ -105,8 +105,13 @@ async function transform(result) {
 /**
  * @return {ReturnType<import("lilconfig").lilconfig>}
  */
-function getExplorer() {
-  return lilconfig("prettier", { searchPlaces, loaders, transform });
+function getExplorer({ stopDirectory }) {
+  return lilconfig("prettier", {
+    searchPlaces,
+    loaders,
+    transform,
+    stopDir: stopDirectory,
+  });
 }
 
 export default getExplorer;

@@ -70,12 +70,15 @@ describe("resolves toml configuration file with --find-config-path file", () => 
 });
 
 describe("prints error message when no file found with --find-config-path", () => {
-  runCli("cli/config/", [
-    "--end-of-line",
-    "lf",
-    "--find-config-path",
-    "../--non-exits-filename--",
-  ]).test({
+  runCli(
+    "cli/config/no-config",
+    ["--end-of-line", "lf", "--find-config-path", "file.js"],
+    {
+      mockProjectRoot: url.fileURLToPath(
+        new URL("../cli/config/no-config/", import.meta.url),
+      ),
+    },
+  ).test({
     stdout: "",
     status: 1,
   });
@@ -417,4 +420,39 @@ test("Search from directory, not treat file as directory", async () => {
   expect(await getConfigFileByApi("directory/file-in-child-directory.js")).toBe(
     "directory/.prettierrc",
   );
+});
+
+describe("Do not look for config outside the 'projectRoot'", () => {
+  const file = url.fileURLToPath(
+    new URL("../cli/config/editorconfig/repo-root/file.js", import.meta.url),
+  );
+
+  runCli(
+    "cli/config/editorconfig/repo-root",
+    ["--find-config-path", "file.js"],
+    {
+      mockProjectRoot: url.fileURLToPath(
+        new URL("../cli/config/editorconfig/repo-root/", import.meta.url),
+      ),
+    },
+  ).test({
+    stdout: "",
+    write: [],
+    status: 1,
+  });
+
+  runCli(
+    "cli/config/editorconfig/repo-root",
+    ["--find-config-path", "file.js"],
+    { mockProjectRoot: url.fileURLToPath(new URL("../../", import.meta.url)) },
+  ).test({
+    stdout: "../../.prettierrc",
+    stderr: "",
+    write: [],
+    status: 0,
+  });
+
+  test("API", async () => {
+    expect(await prettier.resolveConfigFile(file)).toBeNull();
+  });
 });

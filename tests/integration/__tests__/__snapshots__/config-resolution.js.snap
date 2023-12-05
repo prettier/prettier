@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Do not look for config outside the 'projectRoot' (stderr) 1`] = `"[error] Can not find configure file for "file.js"."`;
+
 exports[`accepts configuration from --config (stderr) 1`] = `""`;
 
 exports[`accepts configuration from --config (stdout) 1`] = `
@@ -10,7 +12,7 @@ exports[`accepts configuration from --config (stdout) 1`] = `
 
 exports[`accepts configuration from --config (write) 1`] = `[]`;
 
-exports[`prints error message when no file found with --find-config-path (stderr) 1`] = `"[error] Can not find configure file for "../--non-exits-filename--"."`;
+exports[`prints error message when no file found with --find-config-path (stderr) 1`] = `"[error] Can not find configure file for "file.js"."`;
 
 exports[`prints error message when no file found with --find-config-path (write) 1`] = `[]`;
 

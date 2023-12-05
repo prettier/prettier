@@ -5,30 +5,51 @@ import { toPath } from "url-or-path";
 import partition from "../utils/partition.js";
 import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
 import getPrettierConfigExplorerWithoutCache from "./get-prettier-config-explorer.js";
+import findProjectRootWithoutCache from "./find-project-root.js";
 
 const getPrettierConfigExplorer = mem(getPrettierConfigExplorerWithoutCache, {
-  cacheKey: ([options]) => options.cache,
+  cacheKey: ([options]) =>
+    JSON.stringify({
+      cache: options.cache,
+      stopDirectory: options.stopDirectory,
+    }),
 });
-const memoizedLoadEditorConfig = mem(loadEditorConfigWithoutCache);
+const memoizedLoadEditorConfig = mem(loadEditorConfigWithoutCache, {
+  cacheKey: ([filePath, stopDirectory]) =>
+    JSON.stringify({ filePath, stopDirectory }),
+});
+const memoizedFindProjectRoot = mem(findProjectRootWithoutCache);
 function clearCache() {
+  memClear(memoizedFindProjectRoot);
   memClear(getPrettierConfigExplorer);
   memClear(memoizedLoadEditorConfig);
 }
 
-function loadEditorConfig(filePath, options) {
+async function loadEditorConfig(filePath, options) {
   if (!filePath || !options.editorconfig) {
     return;
   }
 
+  const { useCache } = options;
+  const stopDirectory = await (useCache
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+
   return (
     options.useCache ? memoizedLoadEditorConfig : loadEditorConfigWithoutCache
-  )(filePath);
+  )(filePath, stopDirectory);
 }
 
-function loadPrettierConfig(filePath, options) {
+async function loadPrettierConfig(filePath, options) {
   const { useCache, config: configPath } = options;
+  const stopDirectory = filePath
+    ? await (useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache)(
+        path.dirname(path.resolve(filePath)),
+      )
+    : undefined;
   const { load, search } = getPrettierConfigExplorer({
     cache: Boolean(useCache),
+    stopDirectory,
   });
 
   if (configPath) {
@@ -73,11 +94,15 @@ async function resolveConfig(fileUrlOrPath, options) {
 }
 
 async function resolveConfigFile(fileUrlOrPath) {
-  const { search } = getPrettierConfigExplorerWithoutCache();
-  const dirname = fileUrlOrPath
+  const startDirectory = fileUrlOrPath
     ? path.dirname(path.resolve(toPath(fileUrlOrPath)))
     : undefined;
-  const result = await search(dirname);
+  const stopDirectory = startDirectory
+    ? await findProjectRootWithoutCache(startDirectory)
+    : undefined;
+
+  const { search } = getPrettierConfigExplorerWithoutCache({ stopDirectory });
+  const result = await search(startDirectory);
   return result?.filepath ?? null;
 }
 

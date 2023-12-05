@@ -120,10 +120,13 @@ describe("don’t apply editorconfig outside project for stdin-filepath with non
       input: outdent`
         function f() {
           console.log("should be indented with 2 spaces");
+          console.log("should add semi, (not reading .prettierrc outside) -->");
         }
       `, // js
     },
   ).test({
+    write: [],
+    stderr: "",
     status: 0,
   });
 });
