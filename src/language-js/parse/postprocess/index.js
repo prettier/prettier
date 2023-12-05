@@ -1,4 +1,3 @@
-import assert from "node:assert";
 import { locStart, locEnd } from "../../loc.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
