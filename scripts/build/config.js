@@ -610,11 +610,6 @@ const nodejsFiles = [
         }),
         path: require.resolve("@babel/code-frame"),
       },
-      {
-        module: require.resolve("lilconfig"),
-        find: "exports.lilconfigSync = lilconfigSync;",
-        replacement: "",
-      },
     ],
     addDefaultExport: true,
   },
