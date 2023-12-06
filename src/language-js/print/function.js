@@ -171,8 +171,8 @@ function printMethodValue(path, options, print) {
       shouldBreakParameters
         ? group(parametersDoc, { shouldBreak: true })
         : shouldGroupParameters
-        ? group(parametersDoc)
-        : parametersDoc,
+          ? group(parametersDoc)
+          : parametersDoc,
       returnTypeDoc,
     ]),
   ];

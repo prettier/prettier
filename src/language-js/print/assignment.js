@@ -118,9 +118,9 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     return !isTail
       ? "chain"
       : rightNode.type === "ArrowFunctionExpression" &&
-        rightNode.body.type === "ArrowFunctionExpression"
-      ? "chain-tail-arrow-chain"
-      : "chain-tail";
+          rightNode.body.type === "ArrowFunctionExpression"
+        ? "chain-tail-arrow-chain"
+        : "chain-tail";
   }
   const isHeadOfLongChain = !isTail && isAssignment(rightNode.right);
 

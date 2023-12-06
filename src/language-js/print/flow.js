@@ -154,8 +154,8 @@ function printFlow(path, options, print) {
       const name = node.name
         ? print("name")
         : path.parent.this === node
-        ? "this"
-        : "";
+          ? "this"
+          : "";
       return [
         name,
         printOptionalToken(path),

@@ -3,8 +3,8 @@ function stringifyOptions(options) {
     key === "plugins" || key === "errors"
       ? undefined
       : value === Number.POSITIVE_INFINITY
-      ? "Infinity"
-      : value,
+        ? "Infinity"
+        : value,
   );
 
   return string === "{}" ? "" : string;

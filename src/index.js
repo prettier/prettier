@@ -25,6 +25,7 @@ import normalizeOptions from "./main/normalize-options.js";
 import partition from "./utils/partition.js";
 import isNonEmptyArray from "./utils/is-non-empty-array.js";
 import omit from "./utils/object-omit.js";
+import mockable from "./common/mockable.js";
 
 /**
  * @param {*} fn
@@ -99,6 +100,7 @@ const sharedWithCli = {
     partition,
     omit,
   },
+  mockable,
 };
 
 const debugApis = {
@@ -107,6 +109,7 @@ const debugApis = {
   formatDoc: withPlugins(core.formatDoc),
   printToDoc: withPlugins(core.printToDoc),
   printDocToString: withPlugins(core.printDocToString),
+  mockable,
 };
 
 export {

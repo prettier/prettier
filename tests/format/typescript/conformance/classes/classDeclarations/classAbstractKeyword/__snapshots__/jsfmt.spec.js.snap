@@ -610,7 +610,8 @@ exports[`classAbstractMixedWithModifiers.ts [babel-ts] format 1`] = `
      |              ^
   13 |     
   14 |     static abstract foo_e();
-  15 | }"
+  15 | }
+Cause: 'static' modifier cannot be used with 'abstract' modifier. (12:13)"
 `;
 
 exports[`classAbstractMixedWithModifiers.ts format 1`] = `

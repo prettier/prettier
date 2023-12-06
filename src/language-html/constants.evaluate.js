@@ -13,7 +13,7 @@ const getCssStyleTags = (property) =>
       }
 
       const tagNames = selectors.filter((selector) =>
-        /^[\dA-Za-z]+$/.test(selector),
+        /^[\da-z]+$/i.test(selector),
       );
 
       return tagNames.map((tagName) => [tagName, style.value]);

@@ -11,6 +11,7 @@ import {
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParser from "../utils/infer-parser.js";
 import createError from "../common/parser-create-error.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
 import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
@@ -38,6 +39,34 @@ import { locStart, locEnd } from "./loc.js";
  * @typedef {{filepath?: string}} Options
  */
 
+// `@else    if`
+function normalizeAngularControlFlowBlock(node) {
+  if (node.type !== "block") {
+    return;
+  }
+
+  node.name = node.name.toLowerCase().replaceAll(/\s+/g, " ").trim();
+  node.type = "angularControlFlowBlock";
+
+  if (!isNonEmptyArray(node.parameters)) {
+    delete node.parameters;
+    return;
+  }
+
+  for (const parameter of node.parameters) {
+    parameter.type = "angularControlFlowBlockParameter";
+  }
+
+  node.parameters = {
+    type: "angularControlFlowBlockParameters",
+    children: node.parameters,
+    sourceSpan: new ParseSourceSpan(
+      node.parameters[0].sourceSpan.start,
+      node.parameters.at(-1).sourceSpan.end,
+    ),
+  };
+}
+
 /**
  * @param {string} input
  * @param {ParseOptions} parseOptions
@@ -62,6 +91,7 @@ function ngHtmlParser(input, parseOptions, options) {
       ? (...args) =>
           shouldParseAsRawText(...args) ? TagContentType.RAW_TEXT : undefined
       : undefined,
+    tokenizeAngularBlocks: name === "angular" ? true : undefined,
   });
 
   if (name === "vue") {
@@ -342,6 +372,8 @@ function parse(
         node.parent.replaceChild(node, ieConditionalComment);
       }
     }
+
+    normalizeAngularControlFlowBlock(node);
   });
 
   return ast;

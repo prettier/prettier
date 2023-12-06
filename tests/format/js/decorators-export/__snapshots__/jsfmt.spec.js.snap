@@ -6,7 +6,8 @@ exports[`after_export.js [acorn] format 1`] = `
     |        ^
   2 |
   3 | export default @decorator class {}
-  4 |"
+  4 |
+Cause: Unexpected character '@' (1:7)"
 `;
 
 exports[`after_export.js [espree] format 1`] = `
@@ -15,7 +16,8 @@ exports[`after_export.js [espree] format 1`] = `
     |        ^
   2 |
   3 | export default @decorator class {}
-  4 |"
+  4 |
+Cause: Unexpected character '@'"
 `;
 
 exports[`after_export.js [meriyah] format 1`] = `
@@ -24,7 +26,8 @@ exports[`after_export.js [meriyah] format 1`] = `
     |        ^
   2 |
   3 | export default @decorator class {}
-  4 |"
+  4 |
+Cause: [1:8]: Unexpected token: '@'"
 `;
 
 exports[`after_export.js format 1`] = `
@@ -55,7 +58,8 @@ exports[`before_export.js [acorn] format 1`] = `
     | ^
   2 | export class Foo {}
   3 |
-  4 | @decorator"
+  4 | @decorator
+Cause: Unexpected character '@' (1:0)"
 `;
 
 exports[`before_export.js [espree] format 1`] = `
@@ -64,7 +68,8 @@ exports[`before_export.js [espree] format 1`] = `
     | ^
   2 | export class Foo {}
   3 |
-  4 | @decorator"
+  4 | @decorator
+Cause: Unexpected character '@'"
 `;
 
 exports[`before_export.js format 1`] = `

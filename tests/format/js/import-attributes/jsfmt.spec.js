@@ -8,6 +8,7 @@ run_spec(import.meta, ["babel", "typescript"], {
       "re-export.js",
       "without-from.js",
       "non-type.js",
+      "keyword-detect.js",
     ],
     espree: [
       "dynamic-import.js",
@@ -17,6 +18,7 @@ run_spec(import.meta, ["babel", "typescript"], {
       "re-export.js",
       "without-from.js",
       "non-type.js",
+      "keyword-detect.js",
     ],
     meriyah: [
       "dynamic-import.js",
@@ -26,14 +28,7 @@ run_spec(import.meta, ["babel", "typescript"], {
       "re-export.js",
       "without-from.js",
       "non-type.js",
-    ],
-    typescript: [
-      "empty.js",
-      "multi-types.js",
-      "static-import.js",
-      "re-export.js",
-      "without-from.js",
-      "non-type.js",
+      "keyword-detect.js",
     ],
   },
 });

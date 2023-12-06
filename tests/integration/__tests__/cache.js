@@ -119,7 +119,7 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrow();
     });
 
     it("doesn't format when cache is available", async () => {
@@ -358,9 +358,9 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrow();
       await runCliWithoutGitignore(dir, ["--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).rejects.toThrow();
     });
   });
 
@@ -376,7 +376,7 @@ describe("--cache option", () => {
         "content",
         "*.js",
       ]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrow();
     });
 
     it("doesn't format when cache is available", async () => {
@@ -609,9 +609,9 @@ describe("--cache option", () => {
 
     it("removes cache file when run Prettier without `--cache` option", async () => {
       await runCliWithoutGitignore(dir, ["--cache", "--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrow();
       await runCliWithoutGitignore(dir, ["--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).rejects.toThrow();
     });
   });
 
@@ -657,9 +657,7 @@ describe("--cache option", () => {
           nonDefaultCacheFileName,
           "*.js",
         ]);
-        await expect(
-          fs.stat(nonDefaultCacheFilePath),
-        ).resolves.not.toThrowError();
+        await expect(fs.stat(nonDefaultCacheFilePath)).resolves.not.toThrow();
       });
 
       it("does'nt format when cache is available", async () => {

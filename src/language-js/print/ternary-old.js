@@ -291,8 +291,8 @@ function printTernaryOld(path, options, print) {
         isParentTest
         ? part
         : options.useTabs
-        ? dedent(indent(part))
-        : align(Math.max(0, options.tabWidth - 2), part),
+          ? dedent(indent(part))
+          : align(Math.max(0, options.tabWidth - 2), part),
     );
   }
 
@@ -319,8 +319,8 @@ function printTernaryOld(path, options, print) {
     parent === firstNonConditionalParent
       ? group(doc, { shouldBreak })
       : shouldBreak
-      ? [doc, breakParent]
-      : doc;
+        ? [doc, breakParent]
+        : doc;
 
   // Break the closing paren to keep the chain right after it:
   // (a

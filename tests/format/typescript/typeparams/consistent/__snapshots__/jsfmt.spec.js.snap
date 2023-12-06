@@ -88,7 +88,8 @@ exports[`template-literal-types.ts [babel-flow] format 1`] = `
 "Unexpected token (1:84)
 > 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
     |                                                                                    ^
-  2 |"
+  2 |
+Cause: Unexpected token (1:83)"
 `;
 
 exports[`template-literal-types.ts [flow] format 1`] = `

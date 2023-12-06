@@ -50,8 +50,8 @@ type IndexValue<T, P> = T extends any[]
     ? T[P]
     : never
   : P extends keyof T
-  ? T[P]
-  : never;
+    ? T[P]
+    : never;
 
 // Determines if an object T is an array like string[] (in which case this
 // evaluates to false) or a tuple like [string] (in which case this evaluates to
@@ -60,8 +60,8 @@ type IndexValue<T, P> = T extends any[]
 type IsTuple<T> = T extends []
   ? true
   : T extends [infer First, ...infer Remain]
-  ? IsTuple<Remain>
-  : false;
+    ? IsTuple<Remain>
+    : false;
 
 type CallProperties<T> = T extends any[] ? IndexProperties<T> : keyof T;
 type IterProperties<T> = T extends any[]

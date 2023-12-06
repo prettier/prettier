@@ -1012,7 +1012,8 @@ exports[`tuple-and-record.js [acorn] format 1`] = `
      |    ^
    8 |   #[1,2],
    9 | ]
-  10 |"
+  10 |
+Cause: Unexpected character '[' (7:3)"
 `;
 
 exports[`tuple-and-record.js [espree] format 1`] = `
@@ -1023,7 +1024,8 @@ exports[`tuple-and-record.js [espree] format 1`] = `
      |    ^
    8 |   #[1,2],
    9 | ]
-  10 |"
+  10 |
+Cause: Unexpected character '['"
 `;
 
 exports[`tuple-and-record.js [flow] format 1`] = `
@@ -1045,7 +1047,8 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
      |   ^
    8 |   #[1,2],
    9 | ]
-  10 |"
+  10 |
+Cause: [7:3]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js [typescript] format 1`] = `
@@ -1056,7 +1059,8 @@ exports[`tuple-and-record.js [typescript] format 1`] = `
      |   ^
    8 |   #[1,2],
    9 | ]
-  10 |"
+  10 |
+Cause: Invalid character."
 `;
 
 exports[`tuple-and-record.js format 1`] = `

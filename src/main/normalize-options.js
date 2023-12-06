@@ -47,9 +47,9 @@ function normalizeOptions(
         });
       }
     : Array.isArray(passThrough)
-    ? (key, value) =>
-        !passThrough.includes(key) ? undefined : { [key]: value }
-    : (key, value) => ({ [key]: value });
+      ? (key, value) =>
+          !passThrough.includes(key) ? undefined : { [key]: value }
+      : (key, value) => ({ [key]: value });
 
   const schemas = optionInfosToSchemas(optionInfos, { isCLI, FlagSchema });
   const normalizer = new vnopts.Normalizer(schemas, {

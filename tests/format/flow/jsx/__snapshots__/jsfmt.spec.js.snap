@@ -20,7 +20,8 @@ exports[`generic-component.js [babel-flow] format 1`] = `
     |                        ^
   2 |
   3 | const c2 = <MyComponent<number> />
-  4 |"
+  4 |
+Cause: Unexpected token (1:23)"
 `;
 
 exports[`generic-component.js format 1`] = `

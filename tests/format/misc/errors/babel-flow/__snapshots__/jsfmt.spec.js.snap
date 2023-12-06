@@ -6,7 +6,8 @@ exports[`async-arrow-invalid.js [babel] format 1`] = `
   2 |
 > 3 | <T> async () => {}
     |                   ^
-  4 |"
+  4 |
+Cause: Unterminated JSX contents. (3:18)"
 `;
 
 exports[`async-arrow-invalid.js [babel-flow] format 1`] = `
@@ -15,19 +16,22 @@ exports[`async-arrow-invalid.js [babel-flow] format 1`] = `
   2 |
 > 3 | <T> async () => {}
     | ^
-  4 |"
+  4 |
+Cause: Type parameters must come after the async keyword, e.g. instead of \`<T> async () => {}\`, use \`async <T>() => {}\`. (3:0)"
 `;
 
 exports[`wrong-arrow-no-parens-jsx.js [babel] format 1`] = `
 "Unterminated JSX contents. (1:4)
 > 1 | <T>(a => b);
     |    ^
-  2 |"
+  2 |
+Cause: Unterminated JSX contents. (1:3)"
 `;
 
 exports[`wrong-arrow-no-parens-jsx.js [babel-flow] format 1`] = `
 "Unterminated JSX contents. (1:4)
 > 1 | <T>(a => b);
     |    ^
-  2 |"
+  2 |
+Cause: Unterminated JSX contents. (1:3)"
 `;
