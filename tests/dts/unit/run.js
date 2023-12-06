@@ -3,8 +3,6 @@ import path from "node:path";
 import url from "node:url";
 import { default as ts } from "typescript";
 
-// const isProduction = process.env.NODE_ENV === "production";
-
 describe("Unit tests for dts files", () => {
   test("no errors", () => {
     const testCasesDirPath = url.fileURLToPath(
@@ -13,8 +11,6 @@ describe("Unit tests for dts files", () => {
     const testCaseFiles = fs
       .readdirSync(testCasesDirPath)
       // Disabled due to OOM issue
-      // .filter((file) => (isProduction ? true : file !== "parsers.ts"))
-      .filter((file) => file !== "parsers.ts")
       .map((file) => path.join(testCasesDirPath, file));
 
     /** @type {import("typescript").CompilerOptions} */
