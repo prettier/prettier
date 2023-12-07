@@ -10,20 +10,29 @@ import {
   printTemplateExpressions,
   uncookTemplateElementValue,
 } from "../print/template-literal.js";
+import createTypeCheckFunction from "../utils/create-type-check-function.js";
 import { isAngularComponentTemplate, hasLanguageComment } from "./utils.js";
+
+const isPrintable = createTypeCheckFunction([
+  "Identifier",
+  "MemberExpression",
+  "ThisExpression",
+]);
 
 function getVariableName(expression) {
   switch (expression.type) {
     case "Identifier":
       return expression.name;
-    case "MemberExpression":
-      return (
-        getVariableName(expression.object) +
-        "." +
-        getVariableName(expression.property)
-      );
     case "ThisExpression":
       return "this";
+    case "MemberExpression":
+      if (isPrintable(expression.object)) {
+        return (
+          getVariableName(expression.object) +
+          "." +
+          getVariableName(expression.property)
+        );
+      }
   }
 }
 
