@@ -46,7 +46,7 @@ const isKnownFileType = (filepath) =>
   /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/i.test(filepath);
 
 function getParseOptionsCombinations(text, options) {
-  const filepath = options?.filepath;
+  const { filepath } = options;
   if (filepath && isKnownFileType(filepath)) {
     return [{ ...baseParseOptions, filePath: filepath }];
   }
@@ -58,7 +58,7 @@ function getParseOptionsCombinations(text, options) {
   ];
 }
 
-function parse(text, options) {
+function parse(text, options = {}) {
   const textToParse = replaceHashbang(text);
   const parseOptionsCombinations = getParseOptionsCombinations(text, options);
 

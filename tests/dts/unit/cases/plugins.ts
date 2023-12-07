@@ -16,7 +16,7 @@ const plugin: prettier.Plugin<PluginAST> = {
   ],
   parsers: {
     lines: {
-      parse(text, options) {
+      parse(text, options = {}) {
         return { kind: "line", value: "This is a line" };
       },
       astFormat: "lines",
