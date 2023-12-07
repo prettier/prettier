@@ -118,6 +118,7 @@ export const parsers = {
 The signature of the `parse` function is:
 
 ```ts
+function parse(text: string): Promise<AST> | AST;
 function parse(text: string, options: object): Promise<AST> | AST;
 ```
 
