@@ -11,10 +11,10 @@ const prettierCli = path.join(
   typeof bin === "object" ? bin.prettier : bin,
 );
 
-const mockable = isProduction
-  ? path.join(PRETTIER_DIR, "./internal/internal.mjs")
-  : path.join(PRETTIER_DIR, "./src/common/mockable.js");
+const prettierMainEntry = isProduction
+  ? path.join(PRETTIER_DIR, "./index.mjs")
+  : path.join(PRETTIER_DIR, "./src/index.js");
 
 const projectRoot = path.join(__dirname, "../..");
 
-export { isProduction, mockable, prettierCli, projectRoot };
+export { isProduction, prettierMainEntry, prettierCli, projectRoot };

@@ -46,7 +46,8 @@ exports[`3.ts [typescript] format 1`] = `
 "',' expected. (1:17)
 > 1 | (class extends f<<T>(v: T) => void> {});
     |                 ^
-  2 |"
+  2 |
+Cause: ',' expected."
 `;
 
 exports[`4.ts format 1`] = `
@@ -84,7 +85,8 @@ exports[`5.tsx [typescript] format 1`] = `
 "Identifier expected. (1:11)
 > 1 | <Component<<T>(v: T) => void> />
     |           ^
-  2 |"
+  2 |
+Cause: Identifier expected."
 `;
 
 exports[`6.ts format 1`] = `

@@ -4,14 +4,16 @@ exports[`outside-functions.js [acorn] format 1`] = `
 "'new.target' can only be used in functions and class static block (1:11)
 > 1 | const x = new.target;
     |           ^
-  2 |"
+  2 |
+Cause: 'new.target' can only be used in functions and class static block (1:10)"
 `;
 
 exports[`outside-functions.js [espree] format 1`] = `
 "'new.target' can only be used in functions and class static block (1:11)
 > 1 | const x = new.target;
     |           ^
-  2 |"
+  2 |
+Cause: 'new.target' can only be used in functions and class static block"
 `;
 
 exports[`outside-functions.js [flow] format 1`] = `
@@ -25,7 +27,8 @@ exports[`outside-functions.js [meriyah] format 1`] = `
 "new.target only allowed within functions (1:20)
 > 1 | const x = new.target;
     |                    ^
-  2 |"
+  2 |
+Cause: [1:20]: new.target only allowed within functions"
 `;
 
 exports[`outside-functions.js format 1`] = `
@@ -46,14 +49,16 @@ exports[`range.js [acorn] format 1`] = `
 "'new.target' can only be used in functions and class static block (2:1)
   1 | const x =
 > 2 | new.target;
-    | ^"
+    | ^
+Cause: 'new.target' can only be used in functions and class static block (2:0)"
 `;
 
 exports[`range.js [espree] format 1`] = `
 "'new.target' can only be used in functions and class static block (2:1)
   1 | const x =
 > 2 | new.target;
-    | ^"
+    | ^
+Cause: 'new.target' can only be used in functions and class static block"
 `;
 
 exports[`range.js [flow] format 1`] = `
@@ -67,7 +72,8 @@ exports[`range.js [meriyah] format 1`] = `
 "new.target only allowed within functions (2:10)
   1 | const x =
 > 2 | new.target;
-    |          ^"
+    |          ^
+Cause: [2:10]: new.target only allowed within functions"
 `;
 
 exports[`range.js format 1`] = `

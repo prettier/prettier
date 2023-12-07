@@ -48,7 +48,8 @@ exports[`octal-number.js [typescript] format 1`] = `
 "Octal literals are not allowed. Use the syntax '0o777'. (1:1)
 > 1 | 0777
     | ^
-  2 |"
+  2 |
+Cause: Octal literals are not allowed. Use the syntax '0o777'."
 `;
 
 exports[`octal-number.js format 1`] = `

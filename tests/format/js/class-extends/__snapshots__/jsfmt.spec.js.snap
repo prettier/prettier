@@ -181,7 +181,8 @@ exports[`tuple-and-record.js [acorn] format 1`] = `
     |                  ^
   3 |
   4 | class C extends [] {}
-  5 | class D extends #[] {}"
+  5 | class D extends #[] {}
+Cause: Unexpected character '{' (2:17)"
 `;
 
 exports[`tuple-and-record.js [espree] format 1`] = `
@@ -191,7 +192,8 @@ exports[`tuple-and-record.js [espree] format 1`] = `
     |                  ^
   3 |
   4 | class C extends [] {}
-  5 | class D extends #[] {}"
+  5 | class D extends #[] {}
+Cause: Unexpected character '{'"
 `;
 
 exports[`tuple-and-record.js [flow] format 1`] = `
@@ -211,7 +213,8 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
     |                 ^
   3 |
   4 | class C extends [] {}
-  5 | class D extends #[] {}"
+  5 | class D extends #[] {}
+Cause: [2:17]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js [typescript] format 1`] = `
@@ -221,7 +224,8 @@ exports[`tuple-and-record.js [typescript] format 1`] = `
     |                 ^
   3 |
   4 | class C extends [] {}
-  5 | class D extends #[] {}"
+  5 | class D extends #[] {}
+Cause: Invalid character."
 `;
 
 exports[`tuple-and-record.js format 1`] = `

@@ -6,7 +6,8 @@ exports[`extends-bound.js [babel-flow] format 1`] = `
   2 |
 > 3 | type F = <T extends string>(t: T) => T;
     |             ^
-  4 |"
+  4 |
+Cause: Unexpected token, expected "," (3:12)"
 `;
 
 exports[`extends-bound.js format 1`] = `

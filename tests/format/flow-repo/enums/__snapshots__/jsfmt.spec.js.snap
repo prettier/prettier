@@ -8,7 +8,8 @@ exports[`declared.js [babel-flow] format 1`] = `
     |         ^
   4 |   A,
   5 |   B,
-  6 | }"
+  6 | }
+Cause: Unexpected token (3:8)"
 `;
 
 exports[`declared.js format 1`] = `
@@ -65,7 +66,8 @@ exports[`lib.js [babel-flow] format 1`] = `
     |           ^
   5 |     J,
   6 |     K,
-  7 |   }"
+  7 |   }
+Cause: Unexpected token (4:10)"
 `;
 
 exports[`lib.js format 1`] = `

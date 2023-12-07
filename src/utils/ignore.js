@@ -18,10 +18,7 @@ const slash =
  */
 function getRelativePath(file, ignoreFile) {
   const ignoreFilePath = toPath(ignoreFile);
-  const filePath = isUrl(file)
-    ? url.fileURLToPath(file)
-    : // @ts-expect-error -- URLs handled by `isUrl`
-      path.resolve(file);
+  const filePath = isUrl(file) ? url.fileURLToPath(file) : path.resolve(file);
 
   return path.relative(
     // If there's an ignore-path set, the filename must be relative to the
