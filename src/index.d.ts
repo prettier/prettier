@@ -549,8 +549,6 @@ export interface CursorOptions extends Options {
    * Specify where the cursor is.
    */
   cursorOffset: number;
-  rangeStart?: never;
-  rangeEnd?: never;
 }
 
 export interface CursorResult {
@@ -573,7 +571,7 @@ export function check(source: string, options?: Options): Promise<boolean>;
  * `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
  * This is useful for editor integrations, to prevent the cursor from moving when code is formatted.
  *
- * The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
+ * The `cursorOffset` option should be provided, to specify where the cursor is.
  */
 export function formatWithCursor(
   source: string,
