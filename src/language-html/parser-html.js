@@ -68,6 +68,19 @@ function normalizeAngularControlFlowBlock(node) {
 }
 
 /**
+ * Converts an angular ICU expression to a text node so it can be printed as text.
+ */
+function convertAngularIcuExpressionToTextNode(node) {
+  if (node.type === "plural" || node.type === "select") {
+    node.type = "text";
+    node.value = node.sourceSpan.start.file.content.slice(
+      node.sourceSpan.start.offset,
+      node.sourceSpan.end.offset,
+    );
+  }
+}
+
+/**
  * @param {string} input
  * @param {ParseOptions} parseOptions
  * @param {Options} options
@@ -374,6 +387,7 @@ function parse(
     }
 
     normalizeAngularControlFlowBlock(node);
+    convertAngularIcuExpressionToTextNode(node);
   });
 
   return ast;

@@ -2599,6 +2599,245 @@ trailingComma: "none"
 ================================================================================
 `;
 
+exports[`icu.html - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span i18n>Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago}}</span>
+<span i18n>The author is {gender, select, male {male} female {female} other {other}}</span>
+
+@if (condition) {
+    <span i18n>Updated: {minutes, plural,
+      =0 {just now}
+      =1 {one minute ago}
+      other {{{minutes}} minutes ago by {gender, select, male {male} female {female} other {other}}}}
+    </span>
+}
+
+=====================================output=====================================
+<span i18n
+  >Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other
+  {{{minutes}} minutes ago}}</span
+>
+<span i18n
+  >The author is {gender, select, male {male} female {female} other
+  {other}}</span
+>
+
+@if (condition) {
+  <span i18n
+    >Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other
+    {{{minutes}} minutes ago by {gender, select, male {male} female {female}
+    other {other}}}}
+  </span>
+}
+
+================================================================================
+`;
+
+exports[`icu.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span i18n>Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago}}</span>
+<span i18n>The author is {gender, select, male {male} female {female} other {other}}</span>
+
+@if (condition) {
+    <span i18n>Updated: {minutes, plural,
+      =0 {just now}
+      =1 {one minute ago}
+      other {{{minutes}} minutes ago by {gender, select, male {male} female {female} other {other}}}}
+    </span>
+}
+
+=====================================output=====================================
+<span i18n>
+  Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other
+  {{{minutes}} minutes ago}}
+</span>
+<span i18n>
+  The author is {gender, select, male {male} female {female} other {other}}
+</span>
+
+@if (condition) {
+  <span i18n>
+    Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other
+    {{{minutes}} minutes ago by {gender, select, male {male} female {female}
+    other {other}}}}
+  </span>
+}
+
+================================================================================
+`;
+
+exports[`icu.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<span i18n>Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago}}</span>
+<span i18n>The author is {gender, select, male {male} female {female} other {other}}</span>
+
+@if (condition) {
+    <span i18n>Updated: {minutes, plural,
+      =0 {just now}
+      =1 {one minute ago}
+      other {{{minutes}} minutes ago by {gender, select, male {male} female {female} other {other}}}}
+    </span>
+}
+
+=====================================output=====================================
+<span
+  i18n
+  >Updated:
+  {minutes,
+  plural,
+  =0
+  {just
+  now}
+  =1
+  {one
+  minute
+  ago}
+  other
+  {{{minutes}}
+  minutes
+  ago}}</span
+>
+<span
+  i18n
+  >The
+  author
+  is
+  {gender,
+  select,
+  male
+  {male}
+  female
+  {female}
+  other
+  {other}}</span
+>
+
+@if (
+  condition
+) {
+  <span
+    i18n
+    >Updated:
+    {minutes,
+    plural,
+    =0
+    {just
+    now}
+    =1
+    {one
+    minute
+    ago}
+    other
+    {{{minutes}}
+    minutes
+    ago
+    by
+    {gender,
+    select,
+    male
+    {male}
+    female
+    {female}
+    other
+    {other}}}}
+  </span>
+}
+
+================================================================================
+`;
+
+exports[`icu.html - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<span i18n>Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago}}</span>
+<span i18n>The author is {gender, select, male {male} female {female} other {other}}</span>
+
+@if (condition) {
+    <span i18n>Updated: {minutes, plural,
+      =0 {just now}
+      =1 {one minute ago}
+      other {{{minutes}} minutes ago by {gender, select, male {male} female {female} other {other}}}}
+    </span>
+}
+
+=====================================output=====================================
+<span i18n
+  >Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other
+  {{{minutes}} minutes ago}}</span
+>
+<span i18n
+  >The author is {gender, select, male {male} female {female} other
+  {other}}</span
+>
+
+@if (condition) {
+  <span i18n
+    >Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other
+    {{{minutes}} minutes ago by {gender, select, male {male} female {female}
+    other {other}}}}
+  </span>
+}
+
+================================================================================
+`;
+
+exports[`icu.html - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<span i18n>Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago}}</span>
+<span i18n>The author is {gender, select, male {male} female {female} other {other}}</span>
+
+@if (condition) {
+    <span i18n>Updated: {minutes, plural,
+      =0 {just now}
+      =1 {one minute ago}
+      other {{{minutes}} minutes ago by {gender, select, male {male} female {female} other {other}}}}
+    </span>
+}
+
+=====================================output=====================================
+<span i18n
+  >Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other
+  {{{minutes}} minutes ago}}</span
+>
+<span i18n
+  >The author is {gender, select, male {male} female {female} other
+  {other}}</span
+>
+
+@if (condition) {
+  <span i18n
+    >Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other
+    {{{minutes}} minutes ago by {gender, select, male {male} female {female}
+    other {other}}}}
+  </span>
+}
+
+================================================================================
+`;
+
 exports[`ignore-attribute.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
