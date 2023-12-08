@@ -38,6 +38,7 @@ export namespace builders {
 
   interface Group {
     type: "group";
+    id?: symbol;
     contents: Doc;
     break: boolean;
     expandedStates: Doc[];
@@ -64,6 +65,8 @@ export namespace builders {
 
   interface Label {
     type: "label";
+    label: any;
+    contents: Doc;
   }
 
   interface Line {
@@ -137,7 +140,7 @@ export namespace builders {
   function ifBreak(
     ifBreak: Doc,
     noBreak?: Doc,
-    options?: { groupId?: symbol | undefined }
+    options?: { groupId?: symbol | undefined },
   ): IfBreak;
 
   /** @see [indent](https://github.com/prettier/prettier/blob/main/commands.md#indent) */
@@ -146,7 +149,7 @@ export namespace builders {
   /** @see [indentIfBreak](https://github.com/prettier/prettier/blob/main/commands.md#indentifbreak) */
   function indentIfBreak(
     doc: Doc,
-    opts: { groupId: symbol; negate?: boolean | undefined }
+    opts: { groupId: symbol; negate?: boolean | undefined },
   ): IndentIfBreak;
 
   /** @see [join](https://github.com/prettier/prettier/blob/main/commands.md#join) */
@@ -186,7 +189,7 @@ export namespace builders {
 export namespace printer {
   function printDocToString(
     doc: builders.Doc,
-    options: Options
+    options: Options,
   ): {
     formatted: string;
     cursorNodeStart?: number | undefined;
@@ -219,22 +222,22 @@ export namespace utils {
     doc: builders.Doc,
     onEnter?: (doc: builders.Doc) => void | boolean,
     onExit?: (doc: builders.Doc) => void,
-    shouldTraverseConditionalGroups?: boolean
+    shouldTraverseConditionalGroups?: boolean,
   ): void;
   function findInDoc<T = builders.Doc>(
     doc: builders.Doc,
     callback: (doc: builders.Doc) => T,
-    defaultValue: T
+    defaultValue: T,
   ): T;
   function mapDoc<T = builders.Doc>(
     doc: builders.Doc,
-    callback: (doc: builders.Doc) => T
+    callback: (doc: builders.Doc) => T,
   ): T;
   function removeLines(doc: builders.Doc): builders.Doc;
   function stripTrailingHardline(doc: builders.Doc): builders.Doc;
   function replaceEndOfLine(
     doc: builders.Doc,
-    replacement?: builders.Doc
+    replacement?: builders.Doc,
   ): builders.Doc;
   function canBreak(doc: builders.Doc): boolean;
 }

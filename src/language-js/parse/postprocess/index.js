@@ -4,7 +4,6 @@ import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import isBlockComment from "../../utils/is-block-comment.js";
 import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
 import visitNode from "./visit-node.js";
-import throwSyntaxError from "./throw-ts-syntax-error.js";
 
 /**
  * @param {{
@@ -47,7 +46,7 @@ function postprocess(ast, options) {
 
         // Align range with `flow`
         if (expression.type === "TypeCastExpression") {
-          expression.range = node.range;
+          expression.range = [...node.range];
           return expression;
         }
 
@@ -72,8 +71,8 @@ function postprocess(ast, options) {
       // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
         const lastDeclaration = node.declarations.at(-1);
-        if (lastDeclaration?.init) {
-          overrideLocEnd(node, lastDeclaration);
+        if (lastDeclaration?.init && text[locEnd(lastDeclaration)] !== ";") {
+          node.range = [locStart(node), locEnd(lastDeclaration)];
         }
         break;
       }
@@ -92,46 +91,16 @@ function postprocess(ast, options) {
           };
         }
         break;
-      case "ObjectExpression":
-        // #12963
-        if (parser === "typescript") {
-          const invalidProperty = node.properties.find(
-            (property) =>
-              property.type === "Property" &&
-              property.value.type === "TSEmptyBodyFunctionExpression"
-          );
-          if (invalidProperty) {
-            throwSyntaxError(invalidProperty.value, "Unexpected token.");
-          }
-        }
-        break;
-      case "TSInterfaceDeclaration":
-        if (isNonEmptyArray(node.implements)) {
-          throwSyntaxError(
-            node.implements[0],
-            "Interface declaration cannot have 'implements' clause."
-          );
-        }
-        break;
-
-      case "TSPropertySignature":
-        if (node.initializer) {
-          throwSyntaxError(
-            node.initializer,
-            "An interface property cannot have an initializer."
-          );
-        }
-        break;
 
       // For hack-style pipeline
       case "TopicReference":
         ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
         break;
 
-      // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
-      case "ExportAllDeclaration": {
-        const { exported } = node;
-        if (parser === "meriyah" && exported?.type === "Identifier") {
+      case "ExportAllDeclaration":
+        // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
+        if (parser === "meriyah" && node.exported?.type === "Identifier") {
+          const { exported } = node;
           const raw = text.slice(locStart(exported), locEnd(exported));
           if (raw.startsWith('"') || raw.startsWith("'")) {
             node.exported = {
@@ -143,7 +112,7 @@ function postprocess(ast, options) {
           }
         }
         break;
-      }
+
       // In Flow parser, it doesn't generate union/intersection types for single type
       case "TSUnionType":
       case "TSIntersectionType":
@@ -179,20 +148,6 @@ function postprocess(ast, options) {
     ast.range = [0, text.length];
   }
   return ast;
-
-  /**
-   * - `toOverrideNode` must be the last thing in `toBeOverriddenNode`
-   * - do nothing if there's a semicolon on `toOverrideNode.end` (no need to fix)
-   */
-  function overrideLocEnd(toBeOverriddenNode, toOverrideNode) {
-    if (text[locEnd(toOverrideNode)] === ";") {
-      return;
-    }
-    toBeOverriddenNode.range = [
-      locStart(toBeOverriddenNode),
-      locEnd(toOverrideNode),
-    ];
-  }
 }
 
 function isUnbalancedLogicalTree(node) {

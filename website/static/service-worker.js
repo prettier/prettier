@@ -4,11 +4,11 @@
 
 importScripts("lib/package-manifest.js");
 importScripts(
-  "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js"
+  "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
 );
 
 const plugins = prettierPackageManifest.builtinPlugins.map(
-  ({ file }) => `lib/${file}`
+  ({ file }) => `lib/${file}`,
 );
 
 toolbox.precache([

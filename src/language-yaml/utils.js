@@ -16,11 +16,11 @@ function mapNode(node, callback, parent) {
       ? {
           ...node,
           children: node.children.map((childNode) =>
-            mapNode(childNode, callback, node)
+            mapNode(childNode, callback, node),
           ),
         }
       : node,
-    parent
+    parent,
   );
 }
 
@@ -182,21 +182,21 @@ function getFlowScalarLineContents(nodeType, content, options) {
       index === 0 && index === lineContents.length - 1
         ? lineContent
         : index !== 0 && index !== lineContents.length - 1
-        ? lineContent.trim()
-        : index === 0
-        ? lineContent.trimEnd()
-        : lineContent.trimStart()
+          ? lineContent.trim()
+          : index === 0
+            ? lineContent.trimEnd()
+            : lineContent.trimStart(),
     );
 
   if (options.proseWrap === "preserve") {
     return rawLineContents.map((lineContent) =>
-      lineContent.length === 0 ? [] : [lineContent]
+      lineContent.length === 0 ? [] : [lineContent],
     );
   }
 
   return rawLineContents
     .map((lineContent) =>
-      lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
+      lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent),
     )
     .reduce(
       (reduced, lineContentWords, index) =>
@@ -209,18 +209,18 @@ function getFlowScalarLineContents(nodeType, content, options) {
         )
           ? [...reduced.slice(0, -1), [...reduced.at(-1), ...lineContentWords]]
           : [...reduced, lineContentWords],
-      []
+      [],
     )
     .map((lineContentWords) =>
       options.proseWrap === "never"
         ? [lineContentWords.join(" ")]
-        : lineContentWords
+        : lineContentWords,
     );
 }
 
 function getBlockValueLineContents(
   node,
-  { parentIndent, isLastDescendant, options }
+  { parentIndent, isLastDescendant, options },
 ) {
   const content =
     node.position.start.line === node.position.end.line
@@ -247,15 +247,15 @@ function getBlockValueLineContents(
   if (options.proseWrap === "preserve" || node.type === "blockLiteral") {
     return removeUnnecessaryTrailingNewlines(
       rawLineContents.map((lineContent) =>
-        lineContent.length === 0 ? [] : [lineContent]
-      )
+        lineContent.length === 0 ? [] : [lineContent],
+      ),
     );
   }
 
   return removeUnnecessaryTrailingNewlines(
     rawLineContents
       .map((lineContent) =>
-        lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
+        lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent),
       )
       .reduce(
         (reduced, lineContentWords, index) =>
@@ -269,7 +269,7 @@ function getBlockValueLineContents(
                 [...reduced.at(-1), ...lineContentWords],
               ]
             : [...reduced, lineContentWords],
-        []
+        [],
       )
       .map((lineContentWords) =>
         lineContentWords.reduce(
@@ -278,14 +278,14 @@ function getBlockValueLineContents(
             reduced.length > 0 && /\s$/.test(reduced.at(-1))
               ? [...reduced.slice(0, -1), reduced.at(-1) + " " + word]
               : [...reduced, word],
-          []
-        )
+          [],
+        ),
       )
       .map((lineContentWords) =>
         options.proseWrap === "never"
           ? [lineContentWords.join(" ")]
-          : lineContentWords
-      )
+          : lineContentWords,
+      ),
   );
 
   function removeUnnecessaryTrailingNewlines(lineContents) {
@@ -307,9 +307,9 @@ function getBlockValueLineContents(
     return trailingNewlineCount === 0
       ? lineContents
       : trailingNewlineCount >= 2 && !isLastDescendant
-      ? // next empty line
-        lineContents.slice(0, -(trailingNewlineCount - 1))
-      : lineContents.slice(0, -trailingNewlineCount);
+        ? // next empty line
+          lineContents.slice(0, -(trailingNewlineCount - 1))
+        : lineContents.slice(0, -trailingNewlineCount);
   }
 }
 

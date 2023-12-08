@@ -11,7 +11,7 @@ import {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-  isTSTypeExpression,
+  isBinaryCastExpression,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   createTypeCheckFunction,
@@ -65,13 +65,13 @@ function needsParens(path, options) {
     // `for ((let.a) of []);`
     if (node.name === "let") {
       const expression = path.findAncestor(
-        (node) => node.type === "ForOfStatement"
+        (node) => node.type === "ForOfStatement",
       )?.left;
       if (
         expression &&
         startsWithNoLookaheadToken(
           expression,
-          (leftmostNode) => leftmostNode === node
+          (leftmostNode) => leftmostNode === node,
         )
       ) {
         return true;
@@ -90,23 +90,46 @@ function needsParens(path, options) {
         (node) =>
           node.type === "ExpressionStatement" ||
           node.type === "ForStatement" ||
-          node.type === "ForInStatement"
+          node.type === "ForInStatement",
       );
       const expression = !statement
         ? undefined
         : statement.type === "ExpressionStatement"
-        ? statement.expression
-        : statement.type === "ForStatement"
-        ? statement.init
-        : statement.left;
+          ? statement.expression
+          : statement.type === "ForStatement"
+            ? statement.init
+            : statement.left;
       if (
         expression &&
         startsWithNoLookaheadToken(
           expression,
-          (leftmostNode) => leftmostNode === node
+          (leftmostNode) => leftmostNode === node,
         )
       ) {
         return true;
+      }
+    }
+
+    // `(type) satisfies never;` and similar cases
+    if (key === "expression") {
+      switch (node.name) {
+        case "await":
+        case "interface":
+        case "module":
+        case "using":
+        case "yield":
+        case "let":
+        case "type": {
+          const ancestorNeitherAsNorSatisfies = path.findAncestor(
+            (node) => !isBinaryCastExpression(node),
+          );
+          if (
+            ancestorNeitherAsNorSatisfies !== parent &&
+            ancestorNeitherAsNorSatisfies.type === "ExpressionStatement"
+          ) {
+            return true;
+          }
+        }
       }
     }
 
@@ -120,13 +143,13 @@ function needsParens(path, options) {
     node.type === "DoExpression"
   ) {
     const expression = path.findAncestor(
-      (node) => node.type === "ExpressionStatement"
+      (node) => node.type === "ExpressionStatement",
     )?.expression;
     if (
       expression &&
       startsWithNoLookaheadToken(
         expression,
-        (leftmostNode) => leftmostNode === node
+        (leftmostNode) => leftmostNode === node,
       )
     ) {
       return true;
@@ -135,7 +158,7 @@ function needsParens(path, options) {
 
   if (node.type === "ObjectExpression") {
     const arrowFunctionBody = path.findAncestor(
-      (node) => node.type === "ArrowFunctionExpression"
+      (node) => node.type === "ArrowFunctionExpression",
     )?.body;
     if (
       arrowFunctionBody &&
@@ -143,7 +166,7 @@ function needsParens(path, options) {
       arrowFunctionBody.type !== "AssignmentExpression" &&
       startsWithNoLookaheadToken(
         arrowFunctionBody,
-        (leftmostNode) => leftmostNode === node
+        (leftmostNode) => leftmostNode === node,
       )
     ) {
       return true;
@@ -234,9 +257,22 @@ function needsParens(path, options) {
           undefined,
           undefined,
           (node, key) =>
-            key === "returnType" && node.type === "ArrowFunctionExpression"
+            key === "returnType" && node.type === "ArrowFunctionExpression",
         ) &&
         includesFunctionTypeInObjectType(node)
+      ) {
+        return true;
+      }
+      break;
+
+    // A user typing `!foo instanceof Bar` probably intended
+    // `!(foo instanceof Bar)`, so format to `(!foo) instance Bar` to what is
+    // really happening
+    case "BinaryExpression":
+      if (
+        key === "left" &&
+        (parent.operator === "in" || parent.operator === "instanceof") &&
+        node.type === "UnaryExpression"
       ) {
         return true;
       }
@@ -310,19 +346,25 @@ function needsParens(path, options) {
     case "TSTypeAssertion":
     case "TSAsExpression":
     case "TSSatisfiesExpression":
+    case "AsExpression":
+    case "AsConstExpression":
+    case "SatisfiesExpression":
     case "LogicalExpression":
       switch (parent.type) {
         case "TSAsExpression":
         case "TSSatisfiesExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
           // examples:
           //   foo as unknown as Bar
           //   foo satisfies unknown satisfies Bar
           //   foo satisfies unknown as Bar
           //   foo as unknown satisfies Bar
-          return !isTSTypeExpression(node);
+          return !isBinaryCastExpression(node);
 
         case "ConditionalExpression":
-          return isTSTypeExpression(node);
+          return isBinaryCastExpression(node);
 
         case "CallExpression":
         case "NewExpression":
@@ -352,7 +394,7 @@ function needsParens(path, options) {
         case "AssignmentPattern":
           return (
             key === "left" &&
-            (node.type === "TSTypeAssertion" || isTSTypeExpression(node))
+            (node.type === "TSTypeAssertion" || isBinaryCastExpression(node))
           );
 
         case "LogicalExpression":
@@ -443,6 +485,9 @@ function needsParens(path, options) {
         case "TSAsExpression":
         case "TSSatisfiesExpression":
         case "TSNonNullExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
         case "BindExpression":
           return true;
 
@@ -476,7 +521,7 @@ function needsParens(path, options) {
           (node, key) =>
             key === "typeAnnotation" && node.type === "TSTypeAnnotation",
           (node, key) =>
-            key === "returnType" && node.type === "ArrowFunctionExpression"
+            key === "returnType" && node.type === "ArrowFunctionExpression",
         )
       ) {
         return true;
@@ -579,7 +624,7 @@ function needsParens(path, options) {
           (node, key) =>
             key === "typeAnnotation" && node.type === "TypeAnnotation",
           (node, key) =>
-            key === "returnType" && node.type === "ArrowFunctionExpression"
+            key === "returnType" && node.type === "ArrowFunctionExpression",
         )
       ) {
         return true;
@@ -600,7 +645,7 @@ function needsParens(path, options) {
           (node, key) =>
             key === "typeAnnotation" && node.type === "TypeAnnotation",
           (node, key) =>
-            key === "returnType" && node.type === "ArrowFunctionExpression"
+            key === "returnType" && node.type === "ArrowFunctionExpression",
         )
       ) {
         return true;
@@ -629,7 +674,7 @@ function needsParens(path, options) {
         (parent.type === "FunctionTypeParam" &&
           parent.name === null &&
           getFunctionParameters(node).some(
-            (param) => param.typeAnnotation?.type === "NullableTypeAnnotation"
+            (param) => param.typeAnnotation?.type === "NullableTypeAnnotation",
           ))
       );
     }
@@ -747,6 +792,9 @@ function needsParens(path, options) {
         case "TypeCastExpression":
         case "TSAsExpression":
         case "TSSatisfiesExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
         case "TSNonNullExpression":
           return true;
 
@@ -756,7 +804,11 @@ function needsParens(path, options) {
           return key === "callee";
 
         case "ConditionalExpression":
-          return key === "test";
+          // TODO remove this case entirely once we've removed this flag.
+          if (!options.experimentalTernaries) {
+            return key === "test";
+          }
+          return false;
 
         case "MemberExpression":
         case "OptionalMemberExpression":
@@ -795,6 +847,9 @@ function needsParens(path, options) {
 
         case "TSAsExpression":
         case "TSSatisfiesExpression":
+        case "AsExpression":
+        case "AsConstExpression":
+        case "SatisfiesExpression":
         case "TSNonNullExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":
@@ -989,7 +1044,7 @@ function includesFunctionTypeInObjectType(node) {
     node,
     (node) =>
       node.type === "ObjectTypeAnnotation" &&
-      hasNode(node, (node) => node.type === "FunctionTypeAnnotation")
+      hasNode(node, (node) => node.type === "FunctionTypeAnnotation"),
   );
 }
 
@@ -1052,7 +1107,7 @@ function shouldWrapFunctionForExportDefault(path, options) {
 
   return path.call(
     () => shouldWrapFunctionForExportDefault(path, options),
-    ...getLeftSidePathName(node)
+    ...getLeftSidePathName(node),
   );
 }
 
@@ -1095,7 +1150,7 @@ function shouldAddParenthesesToChainElement(path) {
   if (
     path.match(
       () => node.type === "CallExpression" || node.type === "MemberExpression",
-      (node, name) => name === "expression" && node.type === "ChainExpression"
+      (node, name) => name === "expression" && node.type === "ChainExpression",
     ) &&
     (path.match(
       undefined,
@@ -1106,14 +1161,14 @@ function shouldAddParenthesesToChainElement(path) {
             node.type === "NewExpression")) ||
         (name === "object" &&
           node.type === "MemberExpression" &&
-          !node.optional)
+          !node.optional),
     ) ||
       path.match(
         undefined,
         undefined,
         (node, name) =>
           name === "expression" && node.type === "TSNonNullExpression",
-        (node, name) => name === "object" && node.type === "MemberExpression"
+        (node, name) => name === "object" && node.type === "MemberExpression",
       ))
   ) {
     return true;
@@ -1127,7 +1182,7 @@ function shouldAddParenthesesToChainElement(path) {
       (node, name) =>
         name === "expression" && node.type === "TSNonNullExpression",
       (node, name) => name === "expression" && node.type === "ChainExpression",
-      (node, name) => name === "object" && node.type === "MemberExpression"
+      (node, name) => name === "object" && node.type === "MemberExpression",
     )
   ) {
     return true;

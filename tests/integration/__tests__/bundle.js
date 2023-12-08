@@ -38,7 +38,7 @@ describe("standalone", () => {
   let esmPlugins;
   beforeAll(async () => {
     esmStandalone = await importModule(
-      path.join(distDirectory, "standalone.mjs")
+      path.join(distDirectory, "standalone.mjs"),
     );
     esmPlugins = await Promise.all(
       fastGlob
@@ -46,7 +46,7 @@ describe("standalone", () => {
         .map(async (file) => {
           const plugin = await importModule(file);
           return plugin.default ?? plugin;
-        })
+        }),
     );
   });
 
@@ -83,8 +83,8 @@ test("global objects", async () => {
     const sandbox = createSandBox({ files: [file] });
     return Object.fromEntries(
       Object.entries(sandbox).filter(
-        ([property]) => !allowedGlobalObjects.has(property)
-      )
+        ([property]) => !allowedGlobalObjects.has(property),
+      ),
     );
   };
 
@@ -96,30 +96,31 @@ test("global objects", async () => {
 });
 
 test("Commonjs version", () => {
-  const prettierCommonjsVersion = require(path.join(
-    distDirectory,
-    "index.cjs"
-  ));
+  const prettierCommonjsVersion = require(
+    path.join(distDirectory, "index.cjs"),
+  );
 
   expect(Object.keys(prettierCommonjsVersion).sort()).toEqual(
     Object.keys(prettier)
       .filter((key) => key !== "default" && key !== "__internal")
-      .sort()
+      .sort(),
   );
   expect(typeof prettierCommonjsVersion.format).toBe("function");
 
   expect(Object.keys(prettierCommonjsVersion.doc)).toEqual(
-    Object.keys(prettier.doc).filter((key) => key !== "default")
+    Object.keys(prettier.doc).filter((key) => key !== "default"),
   );
   expect(typeof prettierCommonjsVersion.doc.builders.fill).toBe("function");
 
   expect(Object.keys(prettierCommonjsVersion.util)).toEqual(
-    Object.keys(prettier.util)
+    Object.keys(prettier.util),
   );
   expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
 
   expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toEqual(
-    Object.keys(prettier.__debug).sort()
+    Object.keys(prettier.__debug)
+      .filter((key) => key !== "mockable")
+      .sort(),
   );
   expect(typeof prettierCommonjsVersion.__debug.parse).toBe("function");
 

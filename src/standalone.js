@@ -3,7 +3,7 @@ import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.j
 
 function withPlugins(
   fn,
-  optionsArgumentIndex = 1 // Usually `options` is the 2nd argument
+  optionsArgumentIndex = 1, // Usually `options` is the 2nd argument
 ) {
   // Returns Promises to consistent with functions in `index.js`
   // eslint-disable-next-line require-await

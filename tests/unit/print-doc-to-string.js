@@ -11,7 +11,8 @@ test("Should reject if too many cursor in doc", () => {
 
 test("Should trim blank first line", () => {
   expect(
-    printDocToString(["   ", hardline, "Prettier", hardline], options).formatted
+    printDocToString(["   ", hardline, "Prettier", hardline], options)
+      .formatted,
   ).toBe("\nPrettier\n");
 });
 
@@ -19,8 +20,8 @@ test("Should properly trim with cursor", () => {
   expect(
     printDocToString(
       [cursor, "Prettier  \t", cursor, "\t \t", hardline],
-      options
-    )
+      options,
+    ),
   ).toEqual({
     formatted: "Prettier\n",
     cursorNodeStart: 0,

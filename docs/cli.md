@@ -45,6 +45,8 @@ Given a list of paths/patterns, the Prettier CLI first treats every entry in it 
 
 Prettier CLI will ignore files located in `node_modules` directory. To opt out from this behavior, use `--with-node-modules` flag.
 
+Prettier CLI will not follow symbolic links when expanding arguments.
+
 To escape special characters in globs, one of the two escaping syntaxes can be used: `prettier "\[my-dir]/*.js"` or `prettier "[[]my-dir]/*.js"`. Both match all JS files in a directory named `[my-dir]`, however the latter syntax is preferable as the former doesn’t work on Windows, where backslashes are treated as path separators.
 
 ## `--check`
@@ -112,7 +114,7 @@ If you don’t have a configuration file, or want to ignore it if it does exist,
 
 ## `--ignore-path`
 
-Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.prettierignore`.\
+Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.gitignore` and `./.prettierignore`.\
 Multiple values are accepted.
 
 ## `--list-different`
@@ -201,10 +203,6 @@ prettier "**/*" --write --ignore-unknown
 ## `--no-error-on-unmatched-pattern`
 
 Prevent errors when pattern is unmatched.
-
-## `--no-plugin-search`
-
-Disable plugin autoloading.
 
 ## `--cache`
 

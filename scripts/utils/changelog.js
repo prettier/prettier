@@ -7,7 +7,7 @@ const { __dirname } = createEsmUtils(import.meta);
 
 export const changelogUnreleasedDirPath = path.join(
   __dirname,
-  "../../changelog_unreleased"
+  "../../changelog_unreleased",
 );
 
 export const changelogUnreleasedDirs = fs
@@ -31,10 +31,10 @@ export function getEntries(dirPath) {
     const section = title.includes("[HIGHLIGHT]")
       ? "highlight"
       : title.includes("[BREAKING]")
-      ? "breaking"
-      : improvement
-      ? "improvement"
-      : undefined;
+        ? "breaking"
+        : improvement
+          ? "improvement"
+          : undefined;
 
     const order =
       section === "improvement" && improvement[2] !== undefined
@@ -65,18 +65,18 @@ export function printEntries(entries) {
 export function replaceVersions(data, prevVer, newVer, isPatch = false) {
   if (semver.compare(prevVer, newVer) >= 0) {
     throw new Error(
-      `[INVALID VERSION] Next version(${newVer}) should be greater than previous version(${prevVer}).`
+      `[INVALID VERSION] Next version(${newVer}) should be greater than previous version(${prevVer}).`,
     );
   }
 
   return data
     .replaceAll(
       /prettier stable/gi,
-      `Prettier ${isPatch ? prevVer : formatVersion(prevVer)}`
+      `Prettier ${isPatch ? prevVer : formatVersion(prevVer)}`,
     )
     .replaceAll(
       /prettier main/gi,
-      `Prettier ${isPatch ? newVer : formatVersion(newVer)}`
+      `Prettier ${isPatch ? newVer : formatVersion(newVer)}`,
     );
 }
 
@@ -92,6 +92,6 @@ function processTitle(title) {
     .replaceAll(/(?<![[`])@([\w-]+)/g, "[@$1](https://github.com/$1)")
     .replaceAll(
       /(?<![[`])#(\d{4,})/g,
-      "[#$1](https://github.com/prettier/prettier/pull/$1)"
+      "[#$1](https://github.com/prettier/prettier/pull/$1)",
     );
 }

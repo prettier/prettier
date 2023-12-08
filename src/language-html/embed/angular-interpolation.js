@@ -24,7 +24,7 @@ async function printAngularInterpolation(text, textToDoc) {
             ]),
             line,
             "}}",
-          ])
+          ]),
         );
       } catch {
         parts.push("{{", replaceEndOfLine(part), "}}");

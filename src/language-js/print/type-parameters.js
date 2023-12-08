@@ -7,6 +7,8 @@ import {
   group,
   indent,
   ifBreak,
+  lineSuffixBoundary,
+  indentIfBreak,
 } from "../../document/builders.js";
 import {
   isTestCall,
@@ -61,7 +63,7 @@ function printTypeParameters(path, options, print, paramsKey) {
     undefined,
     (node, name) => name === "typeAnnotation",
     (node) => node.type === "Identifier",
-    isArrowFunctionVariableDeclarator
+    isArrowFunctionVariableDeclarator,
   );
 
   const shouldInline =
@@ -85,10 +87,10 @@ function printTypeParameters(path, options, print, paramsKey) {
     node.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
       ? ""
       : shouldForceTrailingComma(path, options, paramsKey)
-      ? ","
-      : shouldPrintComma(options)
-      ? ifBreak(",")
-      : "";
+        ? ","
+        : shouldPrintComma(options)
+          ? ifBreak(",")
+          : "";
 
   return group(
     [
@@ -98,7 +100,7 @@ function printTypeParameters(path, options, print, paramsKey) {
       softline,
       ">",
     ],
-    { id: getTypeParametersGroupId(node) }
+    { id: getTypeParametersGroupId(node) },
   );
 }
 
@@ -131,7 +133,7 @@ function printTypeParameter(path, options, print) {
     if (parent.readonly) {
       parts.push(
         printTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
-        " "
+        " ",
       );
     }
     parts.push("[", name);
@@ -141,7 +143,7 @@ function printTypeParameter(path, options, print) {
     if (parent.nameType) {
       parts.push(
         " as ",
-        path.callParent(() => print("nameType"))
+        path.callParent(() => print("nameType")),
       );
     }
     parts.push("]");
@@ -171,7 +173,13 @@ function printTypeParameter(path, options, print) {
   }
 
   if (node.constraint) {
-    parts.push(" extends", indent([line, print("constraint")]));
+    const groupId = Symbol("constraint");
+    parts.push(
+      " extends",
+      group(indent(line), { id: groupId }),
+      lineSuffixBoundary,
+      indentIfBreak(print("constraint"), { groupId }),
+    );
   }
 
   if (node.default) {

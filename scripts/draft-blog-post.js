@@ -17,7 +17,7 @@ const { __dirname, require } = createEsmUtils(import.meta);
 const blogDir = path.join(__dirname, "../website/blog");
 const introTemplateFile = path.join(
   changelogUnreleasedDirPath,
-  "BLOG_POST_INTRO_TEMPLATE.md"
+  "BLOG_POST_INTRO_TEMPLATE.md",
 );
 const introFile = path.join(changelogUnreleasedDirPath, "blog-post-intro.md");
 if (!fs.existsSync(introFile)) {
@@ -27,13 +27,13 @@ if (!fs.existsSync(introFile)) {
 const prevVersion = require("../node_modules/prettier/package.json").version;
 const { version } = require("../package.json");
 const nextVersion = `${semver.major(version)}.${semver.minor(
-  version
+  version,
 )}.${semver.patch(version)}`;
 
 const postGlob = path.join(blogDir, `????-??-??-${nextVersion}.md`);
 const postFile = path.join(
   blogDir,
-  `${new Date().toISOString().replace(/T.+/, "")}-${nextVersion}.md`
+  `${new Date().toISOString().replace(/T.+/, "")}-${nextVersion}.md`,
 );
 
 const categories = [
@@ -59,7 +59,7 @@ const categories = [
 ];
 
 const categoriesByDir = new Map(
-  categories.map((category) => [category.dir, category])
+  categories.map((category) => [category.dir, category]),
 );
 
 for (const dir of changelogUnreleasedDirs) {
@@ -79,7 +79,7 @@ for (const filePath of fg.sync(postGlob)) {
 
 const introFileData = fs.readFileSync(introFile, "utf8").trim();
 
-const TRUNCATE_COMMENT = "<!--truncate-->";
+const TRUNCATE_COMMENT = "<!-- truncate -->";
 const shouldPrintTruncate = !introFileData.includes(TRUNCATE_COMMENT);
 
 fs.writeFileSync(
@@ -108,8 +108,8 @@ fs.writeFileSync(
       .filter(Boolean)
       .join("\n\n") + "\n",
     prevVersion,
-    nextVersion
-  )
+    nextVersion,
+  ),
 );
 
 function printEntriesWithTitle({ title, filter }) {

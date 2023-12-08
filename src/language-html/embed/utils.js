@@ -17,8 +17,8 @@ function shouldHugJsExpression(ast, options) {
         ? ast.node.body[0].expression
         : ast.node
       : ast.type === "JsExpressionRoot"
-      ? ast.node
-      : ast;
+        ? ast.node
+        : ast;
   return (
     rootNode &&
     (rootNode.type === "ObjectExpression" ||
@@ -41,7 +41,7 @@ async function formatAttributeValue(
   code,
   textToDoc,
   options,
-  shouldHugJsExpression
+  shouldHugJsExpression,
 ) {
   options = {
     // strictly prefer single quote to avoid unnecessary html entity escape

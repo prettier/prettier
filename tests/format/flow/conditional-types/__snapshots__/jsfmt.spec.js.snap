@@ -4,7 +4,8 @@ exports[`comments-in-type-annotation.js [babel-flow] format 1`] = `
 "Unexpected token (1:24)
 > 1 | type A = () => infer R extends/* comment */ string
     |                        ^
-  2 |"
+  2 |
+Cause: Unexpected token (1:23)"
 `;
 
 exports[`comments-in-type-annotation.js format 1`] = `
@@ -29,7 +30,8 @@ exports[`conditional-types.js [babel-flow] format 1`] = `
     |                                 ^
   4 |
   5 | interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
-  6 |"
+  6 |
+Cause: Unexpected token (3:32)"
 `;
 
 exports[`conditional-types.js format 1`] = `
@@ -72,22 +74,22 @@ type T2 = (() => void) extends T ? U : V;
 export type DeepReadonly<T> = T extends any[]
   ? DeepReadonlyArray<T[number]>
   : T extends object
-  ? DeepReadonlyObject<T>
-  : T;
+    ? DeepReadonlyObject<T>
+    : T;
 
 interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
 
 type TypeName<T> = T extends string
   ? "string"
   : T extends number
-  ? "number"
-  : T extends boolean
-  ? "boolean"
-  : T extends undefined
-  ? "undefined"
-  : T extends Function
-  ? "function"
-  : "object";
+    ? "number"
+    : T extends boolean
+      ? "boolean"
+      : T extends undefined
+        ? "undefined"
+        : T extends Function
+          ? "function"
+          : "object";
 
 type Type01 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
 type Type02 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
@@ -110,7 +112,8 @@ exports[`cursor.js [babel-flow] format 1`] = `
 "Unexpected token (1:24)
 > 1 | type A = () => infer R extends string
     |                        ^
-  2 |"
+  2 |
+Cause: Unexpected token (1:23)"
 `;
 
 exports[`cursor.js format 1`] = `
@@ -136,7 +139,8 @@ exports[`infer-type.js [babel-flow] format 1`] = `
     |                       ^
   4 |
   5 | type Unpacked<T> =
-  6 |   T extends (infer U)[] ? U :"
+  6 |   T extends (infer U)[] ? U :
+Cause: Unexpected token, expected "," (3:22)"
 `;
 
 exports[`infer-type.js format 1`] = `
@@ -167,10 +171,10 @@ type TestReturnType<T extends (...args: any[]) => any> = T extends (
 type Unpacked<T> = T extends (infer U)[]
   ? U
   : T extends (...args: any[]) => infer U
-  ? U
-  : T extends Promise<infer U>
-  ? U
-  : T;
+    ? U
+    : T extends Promise<infer U>
+      ? U
+      : T;
 
 ================================================================================
 `;
@@ -183,7 +187,8 @@ exports[`nested-in-condition.js [babel-flow] format 1`] = `
     |                          ^
   5 |   DoubleGobbledygookProvider
   6 |     ? UniqueDalgametreService
-  7 |     : CompositeZamazingoResolver;"
+  7 |     : CompositeZamazingoResolver;
+Cause: Unexpected token, expected ")" (4:25)"
 `;
 
 exports[`nested-in-condition.js format 1`] = `
@@ -254,7 +259,8 @@ exports[`new-ternary-spec.js [babel-flow] format 1`] = `
     |     ^
   6 |   : T extends number ? "number"
   7 |   : T extends boolean ? "boolean"
-  8 |   : T extends undefined ? "undefined""
+  8 |   : T extends undefined ? "undefined"
+Cause: Unexpected token (5:4)"
 `;
 
 exports[`new-ternary-spec.js format 1`] = `
@@ -288,22 +294,22 @@ type Unpacked<T> =
 type TypeName<T> = T extends string
   ? "string"
   : T extends number
-  ? "number"
-  : T extends boolean
-  ? "boolean"
-  : T extends undefined
-  ? "undefined"
-  : T extends Function
-  ? "function"
-  : "object";
+    ? "number"
+    : T extends boolean
+      ? "boolean"
+      : T extends undefined
+        ? "undefined"
+        : T extends Function
+          ? "function"
+          : "object";
 
 type Unpacked<T> = T extends (infer U)[]
   ? U
   : T extends (...args: any[]) => infer U
-  ? SomeReallyLongThingThatBreaksTheLine<U>
-  : T extends Promise<infer U>
-  ? U
-  : T;
+    ? SomeReallyLongThingThatBreaksTheLine<U>
+    : T extends Promise<infer U>
+      ? U
+      : T;
 
 ================================================================================
 `;
@@ -314,7 +320,8 @@ exports[`parentheses.js [babel-flow] format 1`] = `
   3 | // #13275
 > 4 | type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
     |                 ^
-  5 |"
+  5 |
+Cause: Unexpected token (4:16)"
 `;
 
 exports[`parentheses.js format 1`] = `

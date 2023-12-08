@@ -9,10 +9,10 @@ const descriptor = {
     value === false
       ? `--no-${key}`
       : value === true
-      ? descriptor.key(key)
-      : value === ""
-      ? `${descriptor.key(key)} without an argument`
-      : `${descriptor.key(key)}=${value}`,
+        ? descriptor.key(key)
+        : value === ""
+          ? `${descriptor.key(key)} without an argument`
+          : `${descriptor.key(key)}=${value}`,
 };
 
 class FlagSchema extends vnopts.ChoiceSchema {
@@ -34,7 +34,7 @@ class FlagSchema extends vnopts.ChoiceSchema {
           [
             `Unknown flag ${chalk.yellow(utils.descriptor.value(value))},`,
             `did you mean ${chalk.blue(utils.descriptor.value(suggestion))}?`,
-          ].join(" ")
+          ].join(" "),
         );
         return suggestion;
       }

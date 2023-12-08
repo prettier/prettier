@@ -25,7 +25,7 @@ function* getModules(text) {
           "\\s*}",
           "\\s*}\\);",
         ].join("\\n"),
-        "s"
+        "s",
       );
       const match = code.match(esmRegExp);
 
@@ -69,7 +69,7 @@ class TypeScriptModuleSource {
     this.#source.overwrite(
       module.start,
       module.end,
-      moduleInitCode + replacement
+      moduleInitCode + replacement,
     );
     return this;
   }
@@ -94,7 +94,7 @@ class TypeScriptModuleSource {
         escapeStringRegexp(end),
         "(?=\n)",
       ].join(""),
-      "gsu"
+      "gsu",
     );
 
     this.#source.replaceAll(regexp, replacement);
@@ -188,12 +188,19 @@ function modifyTypescriptModule(text) {
             init_debug();
             scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);
           };
-        `
+        `,
       );
       continue;
     }
 
     if (module.path.startsWith("src/services/")) {
+      source.removeModule(module);
+    }
+  }
+
+  // server
+  for (const module of source.modules) {
+    if (module.path.startsWith("src/server/")) {
       source.removeModule(module);
     }
   }
@@ -246,7 +253,7 @@ function modifyTypescriptModule(text) {
   // perfLogger
   source.replaceModule(
     "src/compiler/perfLogger.ts",
-    "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});"
+    "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});",
   );
 
   // performanceCore
@@ -255,7 +262,7 @@ function modifyTypescriptModule(text) {
     outdent`
       var tryGetNativePerformanceHooks = () => {};
       var timestamp = Date.now;
-    `
+    `,
   );
 
   // `factory`
@@ -265,8 +272,11 @@ function modifyTypescriptModule(text) {
     "src/compiler/factory/nodeConverters.ts",
     outdent`
       var createNodeConverters = () => new Proxy({}, {get: () => () => {}});
-    `
+    `,
   );
+
+  // `pnp`
+  source.removeModule("src/compiler/pnp.ts");
 
   /* spell-checker: disable */
   // `ts.createParenthesizerRules`

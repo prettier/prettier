@@ -34,9 +34,9 @@ function printAngular(path, options, print) {
           [";", line],
           path.map(
             () => (hasNgSideEffect(path) ? print() : ["(", print(), ")"]),
-            "expressions"
-          )
-        )
+            "expressions",
+          ),
+        ),
       );
     case "NGEmptyExpression":
       return "";
@@ -46,7 +46,7 @@ function printAngular(path, options, print) {
           path.isFirst ? "" : isNgForOf(path) ? " " : [";", line],
           print(),
         ],
-        "body"
+        "body",
       );
     case "NGMicrosyntaxKey":
       return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/i.test(node.name)
@@ -59,14 +59,18 @@ function printAngular(path, options, print) {
       ];
     case "NGMicrosyntaxKeyedExpression": {
       const { index, parent } = path;
+      // https://github.com/prettier/angular-estree-parser/issues/267
       const shouldNotPrintColon =
         isNgForOf(path) ||
         (((index === 1 &&
-          (node.key.name === "then" || node.key.name === "else")) ||
+          (node.key.name === "then" ||
+            node.key.name === "else" ||
+            node.key.name === "as")) ||
           (index === 2 &&
-            node.key.name === "else" &&
-            parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
-            parent.body[index - 1].key.name === "then")) &&
+            ((node.key.name === "else" &&
+              parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
+              parent.body[index - 1].key.name === "then") ||
+              node.key.name === "track"))) &&
           parent.body[0].type === "NGMicrosyntaxExpression");
       return [
         print("key"),
@@ -88,13 +92,11 @@ function printAngular(path, options, print) {
   }
 }
 
-function isNgForOf({ node, index, parent }) {
+function isNgForOf({ node, index }) {
   return (
     node.type === "NGMicrosyntaxKeyedExpression" &&
     node.key.name === "of" &&
-    index === 1 &&
-    parent.body[0].type === "NGMicrosyntaxLet" &&
-    parent.body[0].value === null
+    index === 1
   );
 }
 

@@ -6,10 +6,10 @@ import { createDetailedUsage, createUsage } from "./usage.js";
 import { formatStdin, formatFiles } from "./format.js";
 import logFileInfoOrDie from "./file-info.js";
 import logResolvedConfigPathOrDie from "./find-config-path.js";
-import { printToScreen, isNonEmptyArray } from "./utils.js";
+import { printToScreen } from "./utils.js";
 import printSupportInfo from "./print-support-info.js";
 
-async function run(rawArguments) {
+async function run(rawArguments = process.argv.slice(2)) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
   let logger = createLogger();
 
@@ -17,7 +17,7 @@ async function run(rawArguments) {
     const { logLevel } = parseArgvWithoutPlugins(
       rawArguments,
       logger,
-      "log-level"
+      "log-level",
     );
     if (logLevel !== logger.logLevel) {
       logger = createLogger(logLevel);
@@ -38,18 +38,6 @@ async function run(rawArguments) {
 async function main(context) {
   context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
-  if (context.argv.pluginSearch === false) {
-    const rawPluginSearchDirs = context.argv.__raw["plugin-search-dir"];
-    if (
-      typeof rawPluginSearchDirs === "string" ||
-      isNonEmptyArray(rawPluginSearchDirs)
-    ) {
-      throw new Error(
-        "Cannot use --no-plugin-search and --plugin-search-dir together."
-      );
-    }
-  }
-
   if (context.argv.check && context.argv.listDifferent) {
     throw new Error("Cannot use --check and --list-different together.");
   }
@@ -66,6 +54,10 @@ async function main(context) {
     throw new Error("Cannot use --file-info with multiple files");
   }
 
+  if (!context.argv.cache && context.argv.cacheStrategy) {
+    throw new Error("`--cache-strategy` cannot be used without `--cache`.");
+  }
+
   if (context.argv.version) {
     printToScreen(prettier.version);
     return;
@@ -75,7 +67,7 @@ async function main(context) {
     printToScreen(
       typeof context.argv.help === "string" && context.argv.help !== ""
         ? createDetailedUsage(context, context.argv.help)
-        : createUsage(context)
+        : createUsage(context),
     );
     return;
   }
@@ -84,26 +76,36 @@ async function main(context) {
     return printSupportInfo();
   }
 
-  const hasFilePatterns = context.filePatterns.length > 0;
-  const useStdin =
-    !hasFilePatterns && (!process.stdin.isTTY || context.argv.filePath);
-
   if (context.argv.findConfigPath) {
     await logResolvedConfigPathOrDie(context);
-  } else if (context.argv.fileInfo) {
-    await logFileInfoOrDie(context);
-  } else if (useStdin) {
-    if (context.argv.cache) {
-      context.logger.error("`--cache` cannot be used with stdin.");
-      process.exit(2);
-    }
-    await formatStdin(context);
-  } else if (hasFilePatterns) {
-    await formatFiles(context);
-  } else {
-    process.exitCode = 1;
-    printToScreen(createUsage(context));
+    return;
   }
+
+  if (context.argv.fileInfo) {
+    await logFileInfoOrDie(context);
+    return;
+  }
+
+  const hasFilePatterns = context.filePatterns.length > 0;
+  const useStdin =
+    !hasFilePatterns && (!process.stdin.isTTY || context.argv.filepath);
+
+  if (useStdin) {
+    if (context.argv.cache) {
+      throw new Error("`--cache` cannot be used when formatting stdin.");
+    }
+
+    await formatStdin(context);
+    return;
+  }
+
+  if (hasFilePatterns) {
+    await formatFiles(context);
+    return;
+  }
+
+  process.exitCode = 1;
+  printToScreen(createUsage(context));
 }
 
 export { run };

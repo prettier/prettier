@@ -1,5 +1,127 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`15707.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const {
+  foo,
+  // bar
+  // baz
+}: Foo = expr;
+
+const {
+  foo1,
+  // bar
+  foo2,
+  // baz
+}: Foo = expr;
+
+const [
+  foo,
+  // bar
+  // baz
+]: Foo = expr;
+
+const [
+  foo1,
+  // bar
+  foo2,
+  // baz
+]: Foo = expr;
+
+function method({
+  foo,
+  // bar = "bar",
+  // bazz = "bazz",
+}: Foo) {}
+
+function method({
+  foo1,
+  // bar = "bar",
+  foo2
+  // bazz = "bazz",
+}: Foo) {}
+
+function method([
+  foo,
+  // bar = "bar",
+  foo2
+  // bazz = "bazz",
+]: Foo) {}
+
+const {
+  // bar
+  // baz
+}: Foo = expr;
+
+const [
+  // bar
+  // baz
+]: Foo = expr;
+
+=====================================output=====================================
+const {
+  foo,
+  // bar
+  // baz
+}: Foo = expr;
+
+const {
+  foo1,
+  // bar
+  foo2,
+  // baz
+}: Foo = expr;
+
+const [
+  foo,
+  // bar
+  // baz
+]: Foo = expr;
+
+const [
+  foo1,
+  // bar
+  foo2,
+  // baz
+]: Foo = expr;
+
+function method({
+  foo,
+  // bar = "bar",
+  // bazz = "bazz",
+}: Foo) {}
+
+function method({
+  foo1,
+  // bar = "bar",
+  foo2,
+  // bazz = "bazz",
+}: Foo) {}
+
+function method([
+  foo,
+  // bar = "bar",
+  foo2,
+  // bazz = "bazz",
+]: Foo) {}
+
+const {
+  // bar
+  // baz
+}: Foo = expr;
+
+const [
+  // bar
+  // baz
+]: Foo = expr;
+
+================================================================================
+`;
+
 exports[`abstract_class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -689,6 +811,31 @@ export class Point {
   inline /* foo*/(/* bar */) /* baz */ {}
 
   noBody(/* comment */ arg);
+}
+
+================================================================================
+`;
+
+exports[`ts-parameter-proerty.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  constructor(
+      private readonly paramProp: Type,
+    // comment
+  ) {
+  }
+}
+
+=====================================output=====================================
+class A {
+  constructor(
+    private readonly paramProp: Type,
+    // comment
+  ) {}
 }
 
 ================================================================================

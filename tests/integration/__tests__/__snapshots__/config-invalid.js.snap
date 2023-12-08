@@ -22,7 +22,7 @@ exports[`show warning with unknown option (stdout) 1`] = `""`;
 exports[`show warning with unknown option (write) 1`] = `[]`;
 
 exports[`throw error for unsupported extension (stderr) 1`] = `
-"[error] Invalid configuration for file "<cli>/config/invalid":
+"[error] Invalid configuration:
 [error] No loader specified for extension ".unsupported""
 `;
 
@@ -50,15 +50,20 @@ exports[`throw error with invalid config option (trailingComma) (stdout) 1`] = `
 
 exports[`throw error with invalid config option (trailingComma) (write) 1`] = `[]`;
 
-exports[`throw error with invalid config precedence option (configPrecedence) (stderr) 1`] = `"[error] Invalid --config-precedence value. Expected "cli-override", "file-override" or "prefer-file", but received "option/configPrecedence"."`;
+exports[`throw error with invalid config precedence option (configPrecedence) (stderr) 1`] = `
+"[error] Invalid --config-precedence value. Expected one of the following values, but received "option/configPrecedence".
+[error] - "cli-override"
+[error] - "file-override"
+[error] - "prefer-file""
+`;
 
 exports[`throw error with invalid config precedence option (configPrecedence) (stdout) 1`] = `""`;
 
 exports[`throw error with invalid config precedence option (configPrecedence) (write) 1`] = `[]`;
 
 exports[`throw error with invalid config target (directory) (stderr) 1`] = `
-"[error] Invalid configuration for file "<cli>/config/invalid":
-[error] EISDIR: illegal operation on a directory, read"
+"[error] Invalid configuration:
+[error] Unable to read '<cli>/config/invalid/folder/.prettierrc': EISDIR: illegal operation on a directory, read"
 `;
 
 exports[`throw error with invalid config target (directory) (stdout) 1`] = `""`;

@@ -6,7 +6,8 @@ exports[`throw_expression.js [acorn] format 1`] = `
     |                          ^
   2 |
   3 | lint(ast, {
-  4 |   with: () => throw new Error("avoid using 'with' statements.")"
+  4 |   with: () => throw new Error("avoid using 'with' statements.")
+Cause: Unexpected token (1:25)"
 `;
 
 exports[`throw_expression.js [espree] format 1`] = `
@@ -15,7 +16,8 @@ exports[`throw_expression.js [espree] format 1`] = `
     |                          ^
   2 |
   3 | lint(ast, {
-  4 |   with: () => throw new Error("avoid using 'with' statements.")"
+  4 |   with: () => throw new Error("avoid using 'with' statements.")
+Cause: Unexpected token throw"
 `;
 
 exports[`throw_expression.js [meriyah] format 1`] = `
@@ -24,7 +26,8 @@ exports[`throw_expression.js [meriyah] format 1`] = `
     |                              ^
   2 |
   3 | lint(ast, {
-  4 |   with: () => throw new Error("avoid using 'with' statements.")"
+  4 |   with: () => throw new Error("avoid using 'with' statements.")
+Cause: [1:30]: Unexpected token: 'throw'"
 `;
 
 exports[`throw_expression.js format 1`] = `
@@ -63,10 +66,10 @@ function getEncoder(encoding) {
     encoding === "utf8"
       ? new UTF8Encoder()
       : encoding === "utf16le"
-      ? new UTF16Encoder(false)
-      : encoding === "utf16be"
-      ? new UTF16Encoder(true)
-      : throw new Error("Unsupported encoding");
+        ? new UTF16Encoder(false)
+        : encoding === "utf16be"
+          ? new UTF16Encoder(true)
+          : throw new Error("Unsupported encoding");
 }
 
 class Product {

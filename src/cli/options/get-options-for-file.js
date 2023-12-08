@@ -9,7 +9,7 @@ function getOptions(argv, detailedOptions) {
   return Object.fromEntries(
     detailedOptions
       .filter(({ forwardToApi }) => forwardToApi)
-      .map(({ forwardToApi, name }) => [forwardToApi, argv[name]])
+      .map(({ forwardToApi, name }) => [forwardToApi, argv[name]]),
   );
 }
 
@@ -20,7 +20,7 @@ function cliifyOptions(object, apiDetailedOptionMap) {
       const cliKey = apiOption ? apiOption.name : key;
 
       return [dashify(cliKey), value];
-    })
+    }),
   );
 }
 
@@ -28,16 +28,16 @@ function createApiDetailedOptionMap(detailedOptions) {
   return Object.fromEntries(
     detailedOptions
       .filter(
-        (option) => option.forwardToApi && option.forwardToApi !== option.name
+        (option) => option.forwardToApi && option.forwardToApi !== option.name,
       )
-      .map((option) => [option.forwardToApi, option])
+      .map((option) => [option.forwardToApi, option]),
   );
 }
 
 function parseArgsToOptions(context, overrideDefaults) {
   const minimistOptions = createMinimistOptions(context.detailedOptions);
   const apiDetailedOptionMap = createApiDetailedOptionMap(
-    context.detailedOptions
+    context.detailedOptions,
   );
   return getOptions(
     normalizeCliOptions(
@@ -47,9 +47,9 @@ function parseArgsToOptions(context, overrideDefaults) {
         default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
       }),
       context.detailedOptions,
-      { logger: false }
+      { logger: false },
     ),
-    context.detailedOptions
+    context.detailedOptions,
   );
 }
 
@@ -57,7 +57,7 @@ async function getOptionsOrDie(context, filePath) {
   try {
     if (context.argv.config === false) {
       context.logger.debug(
-        "'--no-config' option found, skip loading config file."
+        "'--no-config' option found, skip loading config file.",
       );
       return null;
     }
@@ -65,7 +65,7 @@ async function getOptionsOrDie(context, filePath) {
     context.logger.debug(
       context.argv.config
         ? `load config file from '${context.argv.config}'`
-        : `resolve config from '${filePath}'`
+        : `resolve config from '${filePath}'`,
     );
 
     const options = await resolveConfig(filePath, {
@@ -77,7 +77,8 @@ async function getOptionsOrDie(context, filePath) {
     return options;
   } catch (error) {
     context.logger.error(
-      `Invalid configuration for file "${filePath}":\n` + error.message
+      `Invalid configuration${filePath ? ` for file "${filePath}"` : ""}:\n` +
+        error.message,
     );
     process.exit(2);
   }
@@ -103,7 +104,6 @@ function applyConfigPrecedence(context, options) {
 
 async function getOptionsForFile(context, filepath) {
   const options = await getOptionsOrDie(context, filepath);
-
   const hasPlugins = options?.plugins;
   if (hasPlugins) {
     await context.pushContextPlugins(options.plugins);
@@ -116,13 +116,13 @@ async function getOptionsForFile(context, filepath) {
       options &&
         normalizeApiOptions(options, context.supportOptions, {
           logger: context.logger,
-        })
+        }),
     ),
   };
 
   context.logger.debug(
     `applied config-precedence (${context.argv.configPrecedence}): ` +
-      `${JSON.stringify(appliedOptions)}`
+      `${JSON.stringify(appliedOptions)}`,
   );
 
   if (hasPlugins) {

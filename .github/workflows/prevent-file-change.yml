@@ -16,9 +16,9 @@ jobs:
   prevent-add-users:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v4
       - name: Prevent file change
-        uses: xalvarez/prevent-file-change-action@v1.3.1
+        uses: xalvarez/prevent-file-change-action@v1.5.1
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           pattern: website/data/users.yml

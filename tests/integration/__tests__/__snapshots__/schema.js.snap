@@ -89,6 +89,11 @@ This option cannot be used with --range-start and --range-end.",
             },
           ],
         },
+        "experimentalTernaries": {
+          "default": false,
+          "description": "Use curious ternaries, with the question mark after the condition.",
+          "type": "boolean",
+        },
         "filepath": {
           "default": undefined,
           "description": "Specify the input filepath. This will be used to do parser inference.",
@@ -275,26 +280,6 @@ This option cannot be used with --range-start and --range-end.",
           ],
           "default": undefined,
           "description": "Which parser to use.",
-        },
-        "pluginSearchDirs": {
-          "default": [],
-          "description": "Custom directory that contains prettier plugins in node_modules subdirectory.
-Overrides default behavior when plugins are searched relatively to the location of Prettier.
-Multiple values are accepted.",
-          "oneOf": [
-            {
-              "items": {
-                "type": "string",
-              },
-              "type": "array",
-            },
-            {
-              "description": "Disable plugin autoloading.",
-              "enum": [
-                false,
-              ],
-            },
-          ],
         },
         "plugins": {
           "default": [],

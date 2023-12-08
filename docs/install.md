@@ -28,10 +28,15 @@ pnpm add --save-dev --save-exact prettier
 
 Then, create an empty config file to let editors and other tools know you are using Prettier:
 
-<!-- Note: `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows. The below version works in cmd.exe, bash, zsh, fish. -->
+<!--
+Note:
+- `echo "{}" > .prettierrc` would result in `"{}"<SPACE>` on Windows.
+- `echo {}> .prettierrc` would result the file in UTF-16LE encoding in PowerShell.
+The below version works in cmd.exe, bash, zsh, fish, PowerShell.
+-->
 
 ```bash
-echo {}> .prettierrc.json
+node --eval "fs.writeFileSync('.prettierrc','{}\n')"
 ```
 
 Next, create a [.prettierignore](ignore.md) file to let the Prettier CLI and editors know which files to _not_ format. Here’s an example:
@@ -42,7 +47,7 @@ build
 coverage
 ```
 
-> Tip! Base your .prettierignore on .gitignore and .eslintignore (if you have one).
+> Tip! Prettier will follow rules specified in .gitignore if it exists in the same directory from which it is run. You can also base your .prettierignore on .eslintignore (if you have one).
 
 > Another tip! If your project isn’t ready to format, say, HTML files yet, add `*.html`.
 

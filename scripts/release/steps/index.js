@@ -2,7 +2,6 @@ export { default as validateNewVersion } from "./validate-new-version.js";
 export { default as checkGitStatus } from "./check-git-status.js";
 export { default as installDependencies } from "./install-dependencies.js";
 export { default as lintFiles } from "./lint-files.js";
-export { default as runTests } from "./run-tests.js";
 export { default as updateVersion } from "./update-version.js";
 export { default as generateBundles } from "./generate-bundles.js";
 export { default as updateChangelog } from "./update-changelog.js";

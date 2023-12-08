@@ -1,7 +1,6 @@
 import path from "node:path";
 import url from "node:url";
 import fs from "node:fs";
-import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.js";
 import buildJavascriptModule from "./build-javascript-module.js";
@@ -16,12 +15,12 @@ const {
   dirname,
   resolve: importMetaResolve,
 } = createEsmUtils(import.meta);
-const resolveEsmModulePath = async (specifier) =>
-  url.fileURLToPath(await importMetaResolve(specifier));
+const resolveEsmModulePath = (specifier) =>
+  url.fileURLToPath(importMetaResolve(specifier));
 const copyFileBuilder = ({ file }) =>
   copyFile(
     path.join(PROJECT_ROOT, file.input),
-    path.join(DIST_DIR, file.output.file)
+    path.join(DIST_DIR, file.output.file),
   );
 
 function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
@@ -97,7 +96,7 @@ const pluginFiles = [
         process: (text) =>
           text.replaceAll(
             "const entity = entities[desc];",
-            "const entity = undefined"
+            "const entity = undefined",
           ),
       },
     ],
@@ -109,7 +108,7 @@ const pluginFiles = [
         module: require.resolve("flow-parser"),
         process(text) {
           const { fsModuleNameVariableName } = text.match(
-            /,(?<fsModuleNameVariableName>\w+)="fs",/
+            /,(?<fsModuleNameVariableName>[\p{ID_Start}_$][\p{ID_Continue}$]*)="fs",/u,
           ).groups;
 
           return text
@@ -129,7 +128,15 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parser.js"
+          "@typescript-eslint/typescript-estree/dist/index.js",
+        ),
+        path: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parser.js",
+        ),
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parser.js",
         ),
         process(text) {
           text = text
@@ -142,69 +149,100 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js"
+          "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js",
         ),
         process(text) {
           return text
             .replace('require("./resolveProjectList")', "{}")
             .replace(
               'require("../create-program/shared")',
-              "{ensureAbsolutePath: path => path}"
+              "{ensureAbsolutePath: path => path}",
             )
             .replace(
               "process.cwd()",
-              JSON.stringify("/prettier-security-dirname-placeholder")
+              JSON.stringify("/prettier-security-dirname-placeholder"),
             )
             .replace(
               "parseSettings.projects = ",
-              "parseSettings.projects = [] || "
+              "parseSettings.projects = [] || ",
             );
         },
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js"
+          "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js",
         ),
         text: "exports.inferSingleRun = () => false;",
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/ExpiringCache.js"
+          "@typescript-eslint/typescript-estree/dist/parseSettings/ExpiringCache.js",
         ),
         text: "exports.ExpiringCache = class {};",
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/getProjectConfigFiles.js"
+          "@typescript-eslint/typescript-estree/dist/parseSettings/getProjectConfigFiles.js",
         ),
         text: "exports.resolveProjectList = () => [];",
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js"
+          "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js",
         ),
         text: "exports.warnAboutTSVersion = () => {};",
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js"
+          "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js",
         ),
         process: (text) =>
           text.replace(
             'require("path")',
-            '{extname: file => "." + file.split(".").pop()}'
+            '{extname: file => "." + file.split(".").pop()}',
           ),
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/version-check.js"
+          "@typescript-eslint/typescript-estree/dist/version-check.js",
         ),
         text: "exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
       },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/create-program/createProjectService.js",
+        ),
+        text: "",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/create-program/getWatchProgramsForProjects.js",
+        ),
+        text: "",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/create-program/describeFilePath.js",
+        ),
+        text: "",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/create-program/createProjectProgram.js",
+        ),
+        text: "",
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/useProgramFromProjectService.js",
+        ),
+        text: "",
+      },
+
       // Only needed if `range`/`loc` in parse options is `false`
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/ast-converter.js"
+          "@typescript-eslint/typescript-estree/dist/ast-converter.js",
         ),
         process: (text) => text.replace('require("./simple-traverse")', "{}"),
       },
@@ -212,29 +250,71 @@ const pluginFiles = [
         module: getPackageFile("debug/src/browser.js"),
         path: path.join(dirname, "./shims/debug.js"),
       },
+      {
+        module: require.resolve("ts-api-utils"),
+        process() {
+          throw new Error(
+            "Please replace the CJS version of 'ts-api-utils' with ESM version.",
+          );
+        },
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/convert-comments.js",
+        ),
+        process(text) {
+          text = text.replace(
+            'const tsutils = __importStar(require("ts-api-utils"));',
+            'import * as tsutils from "ts-api-utils";',
+          );
+          return text;
+        },
+      },
     ],
   },
   {
     input: "src/plugins/acorn.js",
     replaceModule: [
       {
-        module: require.resolve("espree"),
-        process: (text) =>
-          text
-            .replaceAll(
-              /exports\.(?:Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions|tokenize|version) = .*?;/g,
-              ""
-            )
-            .replaceAll(
-              /const (Syntax|VisitorKeys|latestEcmaVersion|supportedEcmaVersions) = /g,
-              "const $1 = undefined && "
-            )
-            .replace("require('eslint-visitor-keys')", "{}"),
+        module: resolveEsmModulePath("espree"),
+        process(text) {
+          const lines = text.split("\n");
+
+          let lineIndex;
+
+          // Remove `eslint-visitor-keys`
+          lineIndex = lines.findIndex((line) =>
+            line.endsWith(' from "eslint-visitor-keys";'),
+          );
+          lines.splice(lineIndex, 1);
+
+          // Remove code after `// Public`
+          lineIndex = lines.indexOf("// Public") - 1;
+          lines.length = lineIndex;
+
+          // Save code after `// Parser`
+          lineIndex = lines.indexOf("// Parser") - 1;
+          const parserCodeLines = lines.slice(lineIndex);
+          lines.length = lineIndex;
+
+          // Remove code after `// Tokenizer`
+          lineIndex = lines.indexOf("// Tokenizer") - 1;
+          lines.length = lineIndex;
+
+          text = [...lines, ...parserCodeLines].join("\n");
+
+          return text;
+        },
       },
       {
         // We don't use value of JSXText
         module: getPackageFile("acorn-jsx/xhtml.js"),
         text: "module.exports = {};",
+      },
+      {
+        module: getPackageFile("acorn-jsx/index.js"),
+        find: 'require("acorn")',
+        replacement: "undefined",
       },
     ],
   },
@@ -243,7 +323,7 @@ const pluginFiles = [
     replaceModule: [
       {
         // We don't use value of JSXText
-        module: await resolveEsmModulePath("meriyah"),
+        module: resolveEsmModulePath("meriyah"),
         find: "parser.tokenValue = decodeHTMLStrict(raw);",
         replacement: "parser.tokenValue = raw;",
       },
@@ -252,14 +332,14 @@ const pluginFiles = [
   {
     input: "src/plugins/angular.js",
     replaceModule: [
-      // We only use a small set of `@angular/compiler` from `esm2020/src/expression_parser/`
+      // We only use a small set of `@angular/compiler` from `esm2022/src/expression_parser/`
       // Those files can't be imported, they also not directly runnable, because `.mjs` extension is missing
       {
-        module: getPackageFile("@angular/compiler/fesm2020/compiler.mjs"),
+        module: getPackageFile("@angular/compiler/fesm2022/compiler.mjs"),
         text: /* indent */ `
-          export * from '../esm2020/src/expression_parser/ast.mjs';
-          export {Lexer} from '../esm2020/src/expression_parser/lexer.mjs';
-          export {Parser} from '../esm2020/src/expression_parser/parser.mjs';
+          export * from '../esm2022/src/expression_parser/ast.mjs';
+          export {Lexer} from '../esm2022/src/expression_parser/lexer.mjs';
+          export {Parser} from '../esm2022/src/expression_parser/parser.mjs';
         `,
       },
       ...[
@@ -267,7 +347,7 @@ const pluginFiles = [
         "expression_parser/parser.mjs",
         "ml_parser/interpolation_config.mjs",
       ].map((file) => ({
-        module: getPackageFile(`@angular/compiler/esm2020/src/${file}`),
+        module: getPackageFile(`@angular/compiler/esm2022/src/${file}`),
         process: (text) =>
           text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/g, "'$1.mjs'"),
       })),
@@ -305,11 +385,11 @@ const pluginFiles = [
             .replace("require('util')", "{}")
             .replace(
               "let message = util.format('Unclosed %s at line: %d, column: %d, token: %d', what, line, pos - offset, pos);",
-              "let message = `Unclosed ${what} at line: ${line}, column: ${pos - offset}, token: ${pos}`;"
+              "let message = `Unclosed ${what} at line: ${line}, column: ${pos - offset}, token: ${pos}`;",
             )
             .replace(
               "let message = util.format('Syntax error at line: %d, column: %d, token: %d', line, pos - offset, pos);",
-              "let message = `Syntax error at line: ${line}, column: ${pos - offset}, token: ${pos}`;"
+              "let message = `Syntax error at line: ${line}, column: ${pos - offset}, token: ${pos}`;",
             ),
       },
     ],
@@ -327,22 +407,47 @@ const pluginFiles = [
   {
     input: "src/plugins/glimmer.js",
     replaceModule: [
-      // See comment in `src/language-handlebars/parser-glimmer.js` file
+      ...["@glimmer/util", "@glimmer/wire-format", "@glimmer/syntax"].map(
+        (packageName) => ({
+          module: getPackageFile(`${packageName}/dist/prod/index.js`),
+          path: getPackageFile(`${packageName}/dist/dev/index.js`),
+        }),
+      ),
       {
-        module: getPackageFile(
-          "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js"
-        ),
-        path: getPackageFile(
-          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
-        ),
-      },
-      // This passed to plugins, our plugin don't need access to the options
-      {
-        module: getPackageFile(
-          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
-        ),
-        process: (text) =>
-          text.replace(/\nconst syntax = \{.*?\n\};/su, "\nconst syntax = {};"),
+        module: getPackageFile("@glimmer/syntax/dist/dev/index.js"),
+        process(text) {
+          // This passed to plugins, our plugin don't need access to the options
+          text = text.replace(/(?<=\nconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
+
+          text = text.replaceAll(
+            /\nclass \S+ extends node\(.*?\).*?\{.*?\n\}/gsu,
+            "",
+          );
+
+          text = text.replaceAll(
+            /\nvar api\S* = \/\*#__PURE__\*\/Object\.freeze\(\{.*?\n\}\);/gsu,
+            "",
+          );
+
+          text = text.replace(
+            "const ARGUMENT_RESOLUTION = ",
+            "const ARGUMENT_RESOLUTION = undefined &&",
+          );
+
+          text = text.replace(
+            "const HTML_RESOLUTION = ",
+            "const HTML_RESOLUTION = undefined &&",
+          );
+
+          text = text.replace(
+            "const LOCAL_DEBUG = ",
+            "const LOCAL_DEBUG = false &&",
+          );
+
+          text = text.replace(/(?<=\n)export .*?;/, "export { preprocess };");
+
+          return text;
+        },
       },
       {
         module: getPackageFile("@handlebars/parser/dist/esm/index.js"),
@@ -387,12 +492,22 @@ const nonPluginUniversalFiles = [
     umdVariableName: "prettier",
     replaceModule: [
       {
-        module: require.resolve("@babel/highlight"),
+        module: require.resolve("@babel/highlight", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
         path: path.join(dirname, "./shims/babel-highlight.js"),
       },
       {
-        module: createRequire(require.resolve("vnopts")).resolve("chalk"),
-        path: path.join(dirname, "./shims/chalk.js"),
+        module: require.resolve("chalk", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
+        path: path.join(dirname, "./shims/chalk.cjs"),
+      },
+      {
+        module: require.resolve("chalk", {
+          paths: [require.resolve("vnopts")],
+        }),
+        path: path.join(dirname, "./shims/chalk.cjs"),
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
@@ -445,7 +560,7 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
       })),
       getTypesFileConfig({ input, outputBaseName, isPlugin }),
     ];
-  }
+  },
 );
 
 const nodejsFiles = [
@@ -464,7 +579,7 @@ const nodejsFiles = [
         replacement: `
           var semver = {
             gte: require(${JSON.stringify(
-              require.resolve("semver/functions/gte")
+              require.resolve("semver/functions/gte"),
             )})
           };
         `,
@@ -475,6 +590,26 @@ const nodejsFiles = [
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
+      // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
+      {
+        module: require.resolve("chalk", {
+          paths: [require.resolve("@babel/highlight")],
+        }),
+        path: require.resolve("chalk", {
+          paths: [require.resolve("@babel/code-frame")],
+        }),
+      },
+      {
+        module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
+        path: getPackageFile("js-yaml/lib/loader.js"),
+      },
+      // `parse-json` use another copy of `@babel/code-frame`
+      {
+        module: require.resolve("@babel/code-frame", {
+          paths: [require.resolve("parse-json")],
+        }),
+        path: require.resolve("@babel/code-frame"),
+      },
     ],
     addDefaultExport: true,
   },
@@ -489,7 +624,7 @@ const nodejsFiles = [
       {
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
         process: (text) =>
-          text.replace('"../src/cli/index.js"', '"../internal/cli.mjs"'),
+          text.replace("../src/cli/index.js", "../internal/cli.mjs"),
       },
     ],
   },
@@ -498,17 +633,6 @@ const nodejsFiles = [
     outputBaseName: "internal/cli",
     external: ["benchmark"],
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
-  },
-  {
-    input: "src/common/mockable.js",
-    outputBaseName: "internal/internal",
-    replaceModule: [
-      // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
-      {
-        module: require.resolve("parent-module"),
-        path: path.join(dirname, "./shims/parent-module.cjs"),
-      },
-    ],
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;

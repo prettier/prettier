@@ -55,6 +55,6 @@ export default function generateDummyId() {
   return camelCase(
     [dummyAdjectives, dummyNouns, dummyFinalNouns]
       .map(getRandomElement)
-      .join("_")
+      .join("_"),
   );
 }

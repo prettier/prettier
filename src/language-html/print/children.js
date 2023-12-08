@@ -40,8 +40,8 @@ function printChild(childPath, options, print) {
           locEnd(child) -
             (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
               ? printClosingTagEndMarker(child, options).length
-              : 0)
-        )
+              : 0),
+        ),
       ),
       printClosingTagSuffix(child, options),
     ];
@@ -59,55 +59,57 @@ function printBetweenLine(prevNode, nextNode) {
           : line
         : ""
       : preferHardlineAsLeadingSpaces(nextNode)
-      ? hardline
-      : softline
+        ? hardline
+        : softline
     : (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
-        (hasPrettierIgnore(nextNode) ||
+          (hasPrettierIgnore(nextNode) ||
+            /**
+             *     123<a
+             *          ~
+             *       ><b>
+             */
+            nextNode.firstChild ||
+            /**
+             *     123<!--
+             *            ~
+             *     -->
+             */
+            nextNode.isSelfClosing ||
+            /**
+             *     123<span
+             *             ~
+             *       attr
+             */
+            (nextNode.type === "element" && nextNode.attrs.length > 0))) ||
+        /**
+         *     <img
+         *       src="long"
+         *                 ~
+         *     />123
+         */
+        (prevNode.type === "element" &&
+          prevNode.isSelfClosing &&
+          needsToBorrowPrevClosingTagEndMarker(nextNode))
+      ? ""
+      : !nextNode.isLeadingSpaceSensitive ||
+          preferHardlineAsLeadingSpaces(nextNode) ||
           /**
-           *     123<a
-           *          ~
-           *       ><b>
+           *       Want to write us a letter? Use our<a
+           *         ><b><a>mailing address</a></b></a
+           *                                          ~
+           *       >.
            */
-          nextNode.firstChild ||
-          /**
-           *     123<!--
-           *            ~
-           *     -->
-           */
-          nextNode.isSelfClosing ||
-          /**
-           *     123<span
-           *             ~
-           *       attr
-           */
-          (nextNode.type === "element" && nextNode.attrs.length > 0))) ||
-      /**
-       *     <img
-       *       src="long"
-       *                 ~
-       *     />123
-       */
-      (prevNode.type === "element" &&
-        prevNode.isSelfClosing &&
-        needsToBorrowPrevClosingTagEndMarker(nextNode))
-    ? ""
-    : !nextNode.isLeadingSpaceSensitive ||
-      preferHardlineAsLeadingSpaces(nextNode) ||
-      /**
-       *       Want to write us a letter? Use our<a
-       *         ><b><a>mailing address</a></b></a
-       *                                          ~
-       *       >.
-       */
-      (needsToBorrowPrevClosingTagEndMarker(nextNode) &&
-        prevNode.lastChild &&
-        needsToBorrowParentClosingTagStartMarker(prevNode.lastChild) &&
-        prevNode.lastChild.lastChild &&
-        needsToBorrowParentClosingTagStartMarker(prevNode.lastChild.lastChild))
-    ? hardline
-    : nextNode.hasLeadingSpaces
-    ? line
-    : softline;
+          (needsToBorrowPrevClosingTagEndMarker(nextNode) &&
+            prevNode.lastChild &&
+            needsToBorrowParentClosingTagStartMarker(prevNode.lastChild) &&
+            prevNode.lastChild.lastChild &&
+            needsToBorrowParentClosingTagStartMarker(
+              prevNode.lastChild.lastChild,
+            ))
+        ? hardline
+        : nextNode.hasLeadingSpaces
+          ? line
+          : softline;
 }
 
 function printChildren(path, options, print) {
@@ -176,7 +178,7 @@ function printChildren(path, options, print) {
         leadingParts.push(
           ifBreak("", softline, {
             groupId: groupIds[childIndex - 1],
-          })
+          }),
         );
       }
     }

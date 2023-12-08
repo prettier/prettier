@@ -74,7 +74,7 @@ function clean(ast, newObj, parent) {
     (ast.type === "value-word" &&
       ((ast.isColor && ast.isHex) ||
         ["initial", "inherit", "unset", "revert"].includes(
-          newObj.value.toLowerCase()
+          newObj.value.toLowerCase(),
         ))) ||
     ast.type === "media-feature" ||
     ast.type === "selector-root-invalid" ||
@@ -140,11 +140,11 @@ function clean(ast, newObj, parent) {
     newObj.value
   ) {
     newObj.value = newObj.value.replaceAll(
-      /([\d+.Ee-]+)([A-Za-z]*)/g,
+      /([\d+.e-]+)([a-z]*)/gi,
       (match, numStr, unit) => {
         const num = Number(numStr);
         return Number.isNaN(num) ? match : num + unit.toLowerCase();
-      }
+      },
     );
   }
 
@@ -169,7 +169,7 @@ function clean(ast, newObj, parent) {
   // Workaround for SCSS arbitrary arguments
   if (ast.type === "value-comma_group") {
     const index = ast.groups.findIndex(
-      (node) => node.type === "value-number" && node.unit === "..."
+      (node) => node.type === "value-number" && node.unit === "...",
     );
 
     if (index !== -1) {
@@ -189,7 +189,7 @@ function clean(ast, newObj, parent) {
     ast.groups.some(
       (node) =>
         (node.type === "value-atword" && node.value.endsWith("[")) ||
-        (node.type === "value-word" && node.value.startsWith("]"))
+        (node.type === "value-word" && node.value.startsWith("]")),
     )
   ) {
     return {
@@ -208,7 +208,7 @@ function clean(ast, newObj, parent) {
 clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
-  return value.replaceAll("'", '"').replaceAll(/\\([^\dA-Fa-f])/g, "$1");
+  return value.replaceAll("'", '"').replaceAll(/\\([^\da-f])/gi, "$1");
 }
 
 export default clean;

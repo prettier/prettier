@@ -424,6 +424,164 @@ if (
 ================================================================================
 `;
 
+exports[`in_instanceof.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+!foo in bar;
+(!foo in bar); 
+!(foo in bar);
+(!foo) in bar;
+
+!foo instanceof Bar;
+(!foo instanceof Bar);
+!(foo instanceof Bar);
+(!foo) instanceof Bar;
+
+~foo in bar;
+(~foo in bar); 
+~(foo in bar);
+(~foo) in bar;
+
+~foo instanceof Bar;
+(~foo instanceof Bar);
+~(foo instanceof Bar);
+(~foo) instanceof Bar;
+
++foo in bar;
+(+foo in bar); 
++(foo in bar);
+(+foo) in bar;
+
++foo instanceof Bar;
+(+foo instanceof Bar);
++(foo instanceof Bar);
+(+foo) instanceof Bar;
+
+-foo in bar;
+(-foo in bar); 
+-(foo in bar);
+(-foo) in bar;
+
+-foo instanceof Bar;
+(-foo instanceof Bar);
+-(foo instanceof Bar);
+(-foo) instanceof Bar;
+
+void 0 in bar;
+(void 0 in bar);
+void (0 in bar);
+(void 0) in bar;
+
+void 0 instanceof bar;
+(void 0 instanceof bar);
+void (0 instanceof bar);
+(void 0) instanceof bar;
+
+delete 0 in bar;
+(delete 0 in bar);
+delete (0 in bar);
+(delete 0) in bar;
+
+delete 0 instanceof bar;
+(delete 0 instanceof bar);
+delete (0 instanceof bar);
+(delete 0) instanceof bar;
+
+typeof 0 in bar;
+(typeof 0 in bar);
+typeof (0 in bar);
+(typeof 0) in bar;
+
+typeof 0 instanceof bar;
+(typeof 0 instanceof bar);
+typeof (0 instanceof bar);
+(typeof 0) instanceof bar;
+
+++x instanceof bar; // not ambiguous, because ++(x instanceof bar) is obviously invalid
+
+!!foo instanceof Bar;
+
+=====================================output=====================================
+(!foo) in bar;
+(!foo) in bar;
+!(foo in bar);
+(!foo) in bar;
+
+(!foo) instanceof Bar;
+(!foo) instanceof Bar;
+!(foo instanceof Bar);
+(!foo) instanceof Bar;
+
+(~foo) in bar;
+(~foo) in bar;
+~(foo in bar);
+(~foo) in bar;
+
+(~foo) instanceof Bar;
+(~foo) instanceof Bar;
+~(foo instanceof Bar);
+(~foo) instanceof Bar;
+
+(+foo) in bar;
+(+foo) in bar;
++(foo in bar);
+(+foo) in bar;
+
+(+foo) instanceof Bar;
+(+foo) instanceof Bar;
++(foo instanceof Bar);
+(+foo) instanceof Bar;
+
+(-foo) in bar;
+(-foo) in bar;
+-(foo in bar);
+(-foo) in bar;
+
+(-foo) instanceof Bar;
+(-foo) instanceof Bar;
+-(foo instanceof Bar);
+(-foo) instanceof Bar;
+
+(void 0) in bar;
+(void 0) in bar;
+void (0 in bar);
+(void 0) in bar;
+
+(void 0) instanceof bar;
+(void 0) instanceof bar;
+void (0 instanceof bar);
+(void 0) instanceof bar;
+
+(delete 0) in bar;
+(delete 0) in bar;
+delete (0 in bar);
+(delete 0) in bar;
+
+(delete 0) instanceof bar;
+(delete 0) instanceof bar;
+delete (0 instanceof bar);
+(delete 0) instanceof bar;
+
+(typeof 0) in bar;
+(typeof 0) in bar;
+typeof (0 in bar);
+(typeof 0) in bar;
+
+(typeof 0) instanceof bar;
+(typeof 0) instanceof bar;
+typeof (0 instanceof bar);
+(typeof 0) instanceof bar;
+
+++x instanceof bar; // not ambiguous, because ++(x instanceof bar) is obviously invalid
+
+(!!foo) instanceof Bar;
+
+================================================================================
+`;
+
 exports[`inline-jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1001,7 +1159,8 @@ exports[`tuple-and-record.js [acorn] format 1`] = `
     |               ^
   7 |   // comment
   8 |   a,
-  9 | ]"
+  9 | ]
+Cause: Unexpected character '[' (6:14)"
 `;
 
 exports[`tuple-and-record.js [espree] format 1`] = `
@@ -1012,7 +1171,8 @@ exports[`tuple-and-record.js [espree] format 1`] = `
     |               ^
   7 |   // comment
   8 |   a,
-  9 | ]"
+  9 | ]
+Cause: Unexpected character '['"
 `;
 
 exports[`tuple-and-record.js [flow] format 1`] = `
@@ -1034,7 +1194,8 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
     |              ^
   7 |   // comment
   8 |   a,
-  9 | ]"
+  9 | ]
+Cause: [6:14]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js [typescript] format 1`] = `
@@ -1045,7 +1206,8 @@ exports[`tuple-and-record.js [typescript] format 1`] = `
     |              ^
   7 |   // comment
   8 |   a,
-  9 | ]"
+  9 | ]
+Cause: Invalid character."
 `;
 
 exports[`tuple-and-record.js format 1`] = `

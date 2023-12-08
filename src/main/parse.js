@@ -15,7 +15,7 @@ async function parse(originalText, options) {
       options,
       // TODO: remove the third argument in v4
       // The duplicated argument is passed as intended, see #10156
-      options
+      options,
     );
   } catch (error) {
     handleParseError(error, originalText);

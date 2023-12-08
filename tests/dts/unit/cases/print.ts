@@ -12,6 +12,7 @@ interface Nested2 {
   kind: "2";
   item3: Nested3;
   list3: Nested3[];
+  list5: readonly Nested3[];
 }
 interface Nested3 {
   kind: "3";
@@ -34,7 +35,7 @@ function print(
   // functions.
   path: prettier.AstPath<Nested1>,
   options: prettier.ParserOptions<NestedAst>,
-  print: (path: prettier.AstPath<NestedAst>) => prettier.doc.builders.Doc
+  print: (path: prettier.AstPath<NestedAst>) => prettier.doc.builders.Doc,
 ): prettier.doc.builders.Doc {
   path.call((child) => {
     expectType<prettier.AstPath<Nested1>>(child);
@@ -49,7 +50,7 @@ function print(
       expectType<prettier.AstPath<Nested3>>(child);
     },
     "item2",
-    "item3"
+    "item3",
   );
 
   path.call(
@@ -58,7 +59,7 @@ function print(
     },
     "item2",
     "item3",
-    "item1"
+    "item1",
   );
 
   path.call(
@@ -68,7 +69,7 @@ function print(
     "item2",
     "item3",
     "item1",
-    "item2"
+    "item2",
   );
 
   path.call(
@@ -79,7 +80,7 @@ function print(
     "item3",
     "item1",
     "item2",
-    "item3"
+    "item3",
   );
 
   path.each((child) => {
@@ -96,7 +97,7 @@ function print(
     },
     "list2",
     0,
-    "list3"
+    "list3",
   );
 
   path.each(
@@ -107,7 +108,7 @@ function print(
     0,
     "list3",
     0,
-    "list1"
+    "list1",
   );
 
   path.map((child) => {
@@ -124,7 +125,7 @@ function print(
     },
     "list2",
     0,
-    "list3"
+    "list3",
   );
 
   path.map(
@@ -135,7 +136,7 @@ function print(
     0,
     "list3",
     0,
-    "list1"
+    "list1",
   );
 
   // @ts-expect-error
@@ -154,6 +155,8 @@ function print(
   path.map(print, "item2");
   // @ts-expect-error
   path.map(print, "item2", "item3");
+
+  path.map(print, "item2", "list5");
 
   return "";
 }

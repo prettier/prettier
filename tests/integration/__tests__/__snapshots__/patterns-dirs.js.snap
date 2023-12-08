@@ -9,7 +9,8 @@ dir1/nested1/bn1.js
 dir2/a2.js
 dir2/b2.js
 dir2/nested2/an2.js
-dir2/nested2/bn2.js"
+dir2/nested2/bn2.js
+dir2/node-shebang"
 `;
 
 exports[`1a - with *.foo plugin: prettier dir1 dir2 --plugin=../../plugins/extensions/plugin.cjs (stdout) 1`] = `
@@ -23,10 +24,11 @@ dir2/a2.foo
 dir2/a2.js
 dir2/b2.js
 dir2/nested2/an2.js
-dir2/nested2/bn2.js"
+dir2/nested2/bn2.js
+dir2/node-shebang"
 `;
 
-exports[`1c: prettier dir1 empty (stderr) 1`] = `"[error] No supported files were found in the directory: "empty"."`;
+exports[`1c: prettier dir1 empty (stderr) 1`] = `""`;
 
 exports[`1c: prettier dir1 empty (stdout) 1`] = `
 "dir1/a1.js
@@ -64,7 +66,7 @@ dir2/nested2/bn2.js
 dir2/node-shebang"
 `;
 
-exports[`4: prettier . 'dir2/**/*' (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/patterns-dirs/dir2/a2.foo"."`;
+exports[`4: prettier . 'dir2/**/*' (stderr) 1`] = `""`;
 
 exports[`4: prettier . 'dir2/**/*' (stdout) 1`] = `
 "!dir/a.js
@@ -97,7 +99,8 @@ dir1/b1.js
 dir2/a2.js
 dir2/b2.js
 dir2/nested2/an2.js
-dir2/nested2/bn2.js"
+dir2/nested2/bn2.js
+dir2/node-shebang"
 `;
 
 exports[`Negative patterns 3: prettier . '!dir1/nested1/an1.js' (stdout) 1`] = `
@@ -109,7 +112,8 @@ dir1/nested1/bn1.js
 dir2/a2.js
 dir2/b2.js
 dir2/nested2/an2.js
-dir2/nested2/bn2.js"
+dir2/nested2/bn2.js
+dir2/node-shebang"
 `;
 
 exports[`Negative patterns 4: prettier '!nonexistent-dir1 !nonexistent-dir2' (stderr) 1`] = `"[error] No matching files. Patterns: !nonexistent-dir1 !nonexistent-dir2"`;
@@ -130,7 +134,8 @@ dir1/nested1/bn1.js
 dir2/a2.js
 dir2/b2.js
 dir2/nested2/an2.js
-dir2/nested2/bn2.js"
+dir2/nested2/bn2.js
+dir2/node-shebang"
 `;
 
 exports[`Trailing slash 2: prettier .// (stdout) 1`] = `
@@ -143,7 +148,8 @@ dir1/nested1/bn1.js
 dir2/a2.js
 dir2/b2.js
 dir2/nested2/an2.js
-dir2/nested2/bn2.js"
+dir2/nested2/bn2.js
+dir2/node-shebang"
 `;
 
 exports[`Trailing slash 3: prettier dir1/ (stdout) 1`] = `
@@ -180,7 +186,8 @@ exports[`Trailing slash run in sub dir 1: prettier .. (stdout) 1`] = `
 a2.js
 b2.js
 nested2/an2.js
-nested2/bn2.js"
+nested2/bn2.js
+node-shebang"
 `;
 
 exports[`Trailing slash run in sub dir 2: prettier ../ (stdout) 1`] = `
@@ -193,7 +200,8 @@ exports[`Trailing slash run in sub dir 2: prettier ../ (stdout) 1`] = `
 a2.js
 b2.js
 nested2/an2.js
-nested2/bn2.js"
+nested2/bn2.js
+node-shebang"
 `;
 
 exports[`Trailing slash run in sub dir 3: prettier ../dir1 (stdout) 1`] = `

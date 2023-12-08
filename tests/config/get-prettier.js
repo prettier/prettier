@@ -18,8 +18,8 @@ function getPrettierInternal() {
   const entry = pathToFileURL(
     path.join(
       process.env.PRETTIER_DIR,
-      process.env.NODE_ENV === "production" ? "index.mjs" : "index.js"
-    )
+      process.env.NODE_ENV === "production" ? "index.mjs" : "index.js",
+    ),
   );
   return import(entry);
 }

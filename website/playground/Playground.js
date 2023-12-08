@@ -49,6 +49,7 @@ const ENABLED_OPTIONS = [
   "embeddedLanguageFormatting",
   "bracketSameLine",
   "singleAttributePerLine",
+  "experimentalTernaries",
 ];
 
 class Playground extends React.Component {
@@ -59,7 +60,7 @@ class Playground extends React.Component {
 
     const defaultOptions = util.getDefaults(
       props.availableOptions,
-      ENABLED_OPTIONS
+      ENABLED_OPTIONS,
     );
 
     const options = Object.assign(defaultOptions, original.options);
@@ -108,7 +109,7 @@ class Playground extends React.Component {
       const { selection, content, options } = this.state;
       const [rangeStart, rangeEnd] = util.convertSelectionToRange(
         selection,
-        content
+        content,
       );
       const updatedOptions = { ...options, rangeStart, rangeEnd };
       if (rangeStart === rangeEnd) {
@@ -120,10 +121,10 @@ class Playground extends React.Component {
 
     this.enabledOptions = orderOptions(props.availableOptions, ENABLED_OPTIONS);
     this.rangeStartOption = props.availableOptions.find(
-      (opt) => opt.name === "rangeStart"
+      (opt) => opt.name === "rangeStart",
     );
     this.rangeEndOption = props.availableOptions.find(
-      (opt) => opt.name === "rangeEnd"
+      (opt) => opt.name === "rangeEnd",
     );
 
     this.formatInput = this.formatInput.bind(this);
@@ -222,7 +223,7 @@ class Playground extends React.Component {
       content: modifiedContent,
       selection: util.convertOffsetToSelection(
         range[0] + dummyId.length,
-        modifiedContent
+        modifiedContent,
       ),
     });
   }
@@ -445,7 +446,7 @@ class Playground extends React.Component {
                           // `undefined`.
                           { ...options, parser: undefined },
                           null,
-                          2
+                          2,
                         )}
                       >
                         Copy config JSON
@@ -474,7 +475,7 @@ class Playground extends React.Component {
                       </ClipboardButton>
                       <a
                         href={getReportLink(
-                          showFullReport ? fullReport : COPY_MESSAGE
+                          showFullReport ? fullReport : COPY_MESSAGE,
                         )}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -514,8 +515,8 @@ function getSecondFormat(formatted, reformatted) {
   return formatted === ""
     ? ""
     : formatted === reformatted
-    ? "✓ Second format is unchanged."
-    : reformatted;
+      ? "✓ Second format is unchanged."
+      : reformatted;
 }
 
 export default Playground;

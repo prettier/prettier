@@ -1,10 +1,12 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  dependencyDashboardApproval: true,
   labels: ["dependency"],
   baseBranches: ["main"],
   schedule: ["after 01:00 on sunday"],
   postUpdateOptions: ["yarnDedupeHighest"],
   prHourlyLimit: 0,
+  prConcurrentLimit: 0,
   packageRules: [
     {
       matchPackageNames: ["react", "react-dom"],

@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import fastGlob from "fast-glob";
 
 const changelogUnreleasedDir = fileURLToPath(
-  new URL("../changelog_unreleased", import.meta.url)
+  new URL("../changelog_unreleased", import.meta.url),
 );
 
 const files = fastGlob.sync(["blog-post-intro.md", "*/*.md"], {

@@ -10,6 +10,7 @@ import {
   rawText,
 } from "../utils/index.js";
 import isFlowKeywordType from "../utils/is-flow-keyword-type.js";
+import { printBinaryCastExpression } from "./cast-expression.js";
 import { printClass } from "./class.js";
 import {
   printOpaqueType,
@@ -153,8 +154,8 @@ function printFlow(path, options, print) {
       const name = node.name
         ? print("name")
         : path.parent.this === node
-        ? "this"
-        : "";
+          ? "this"
+          : "";
       return [
         name,
         printOptionalToken(path),
@@ -276,6 +277,11 @@ function printFlow(path, options, print) {
           ? ["(", print("value"), ")"]
           : []),
       ];
+
+    case "AsExpression":
+    case "AsConstExpression":
+    case "SatisfiesExpression":
+      return printBinaryCastExpression(path, options, print);
   }
 }
 

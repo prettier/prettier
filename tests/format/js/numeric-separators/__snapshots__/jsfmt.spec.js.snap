@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`number.js [typescript] format 1`] = `
+"Decimals with leading zeros are not allowed. (3:5)
+  1 | // https://github.com/babel/babel/pull/11854
+  2 |
+> 3 | a = 09e1_1;
+    |     ^
+  4 | a = 09.1_1;
+  5 |
+Cause: Decimals with leading zeros are not allowed."
+`;
+
 exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]

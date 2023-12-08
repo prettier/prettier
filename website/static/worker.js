@@ -16,7 +16,7 @@ const docExplorerPlugin = {
       parse: (text) =>
         new Function(
           `{ ${Object.keys(prettier.doc.builders)} }`,
-          `const result = (${text || "''"}\n); return result;`
+          `const result = (${text || "''"}\n); return result;`,
         )(prettier.doc.builders),
       astFormat: "doc-explorer",
     },
@@ -45,11 +45,11 @@ function serializeAst(ast) {
       value instanceof Error
         ? { name: value.name, message: value.message, ...value }
         : typeof value === "bigint"
-        ? `BigInt('${String(value)}')`
-        : typeof value === "symbol"
-        ? String(value)
-        : value,
-    2
+          ? `BigInt('${String(value)}')`
+          : typeof value === "symbol"
+            ? String(value)
+            : value,
+    2,
   );
 }
 
@@ -82,7 +82,7 @@ async function handleFormatMessage(message) {
   const formatResult = await formatCode(
     message.code,
     options,
-    message.debug.rethrowEmbedErrors
+    message.debug.rethrowEmbedErrors,
   );
 
   const response = {
@@ -97,16 +97,28 @@ async function handleFormatMessage(message) {
     },
   };
 
+  const isPrettier2 = prettier.version.startsWith("2.");
+
   for (const key of ["ast", "preprocessedAst"]) {
     if (!message.debug[key]) {
       continue;
     }
+
+    const preprocessForPrint = key === "preprocessedAst";
+
+    if (isPrettier2 && preprocessForPrint) {
+      response.debug[key] = "/* not supported for Prettier 2.x */";
+      continue;
+    }
+
     let ast;
     let errored = false;
     try {
-      const parsed = await prettier.__debug.parse(message.code, options, {
-        preprocessForPrint: key === "preprocessedAst",
-      });
+      const parsed = await prettier.__debug.parse(
+        message.code,
+        options,
+        isPrettier2 ? false : { preprocessForPrint },
+      );
       ast = serializeAst(parsed.ast);
     } catch (e) {
       errored = true;
@@ -127,7 +139,7 @@ async function handleFormatMessage(message) {
     try {
       response.debug.doc = await prettier.__debug.formatDoc(
         await prettier.__debug.printToDoc(message.code, options),
-        { plugins }
+        { plugins },
       );
     } catch {
       response.debug.doc = "";

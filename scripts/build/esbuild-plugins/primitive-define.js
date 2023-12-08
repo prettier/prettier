@@ -20,12 +20,12 @@ export default function esbuildPluginPrimitiveDefine(define) {
       const esbuildConfig = build.initialOptions;
       if (esbuildConfig.define) {
         throw new Error(
-          "Use `esbuildPluginPrimitiveDefine(define)` instead of 'define' option"
+          "Use `esbuildPluginPrimitiveDefine(define)` instead of 'define' option",
         );
       }
 
       esbuildConfig.define = Object.fromEntries(
-        Object.entries(define).map(([key, value]) => [key, stringify(value)])
+        Object.entries(define).map(([key, value]) => [key, stringify(value)]),
       );
     },
   };

@@ -10,7 +10,7 @@ async function printSupportInfo() {
   const supportInfo = {
     languages: sortByName(languages),
     options: sortByName(options).map((option) =>
-      omit(option, ["cliName", "cliCategory", "cliDescription"])
+      omit(option, ["cliName", "cliCategory", "cliDescription"]),
     ),
   };
 

@@ -33,7 +33,7 @@ type ArrayElement<T> = T extends Array<infer E> ? E : never;
 
 // A union of the properties of the given object that are arrays.
 type ArrayProperties<T> = {
-  [K in keyof T]: NonNullable<T[K]> extends any[] ? K : never;
+  [K in keyof T]: NonNullable<T[K]> extends readonly any[] ? K : never;
 }[keyof T];
 
 // A union of the properties of the given array T that can be used to index it.
@@ -50,8 +50,8 @@ type IndexValue<T, P> = T extends any[]
     ? T[P]
     : never
   : P extends keyof T
-  ? T[P]
-  : never;
+    ? T[P]
+    : never;
 
 // Determines if an object T is an array like string[] (in which case this
 // evaluates to false) or a tuple like [string] (in which case this evaluates to
@@ -60,8 +60,8 @@ type IndexValue<T, P> = T extends any[]
 type IsTuple<T> = T extends []
   ? true
   : T extends [infer First, ...infer Remain]
-  ? IsTuple<Remain>
-  : false;
+    ? IsTuple<Remain>
+    : false;
 
 type CallProperties<T> = T extends any[] ? IndexProperties<T> : keyof T;
 type IterProperties<T> = T extends any[]
@@ -72,12 +72,12 @@ type CallCallback<T, U> = (path: AstPath<T>, index: number, value: any) => U;
 type EachCallback<T> = (
   path: AstPath<ArrayElement<T>>,
   index: number,
-  value: any
+  value: any,
 ) => void;
 type MapCallback<T, U> = (
   path: AstPath<ArrayElement<T>>,
   index: number,
-  value: any
+  value: any,
 ) => U;
 
 // https://github.com/prettier/prettier/blob/next/src/common/ast-path.js
@@ -136,18 +136,18 @@ export class AstPath<T = any> {
   call<U>(callback: CallCallback<T, U>): U;
   call<U, P1 extends CallProperties<T>>(
     callback: CallCallback<IndexValue<T, P1>, U>,
-    prop1: P1
+    prop1: P1,
   ): U;
   call<U, P1 extends keyof T, P2 extends CallProperties<T[P1]>>(
     callback: CallCallback<IndexValue<IndexValue<T, P1>, P2>, U>,
     prop1: P1,
-    prop2: P2
+    prop2: P2,
   ): U;
   call<
     U,
     P1 extends keyof T,
     P2 extends CallProperties<T[P1]>,
-    P3 extends CallProperties<IndexValue<T[P1], P2>>
+    P3 extends CallProperties<IndexValue<T[P1], P2>>,
   >(
     callback: CallCallback<
       IndexValue<IndexValue<IndexValue<T, P1>, P2>, P3>,
@@ -155,14 +155,14 @@ export class AstPath<T = any> {
     >,
     prop1: P1,
     prop2: P2,
-    prop3: P3
+    prop3: P3,
   ): U;
   call<
     U,
     P1 extends keyof T,
     P2 extends CallProperties<T[P1]>,
     P3 extends CallProperties<IndexValue<T[P1], P2>>,
-    P4 extends CallProperties<IndexValue<IndexValue<T[P1], P2>, P3>>
+    P4 extends CallProperties<IndexValue<IndexValue<T[P1], P2>, P3>>,
   >(
     callback: CallCallback<
       IndexValue<IndexValue<IndexValue<IndexValue<T, P1>, P2>, P3>, P4>,
@@ -171,7 +171,7 @@ export class AstPath<T = any> {
     prop1: P1,
     prop2: P2,
     prop3: P3,
-    prop4: P4
+    prop4: P4,
   ): U;
   call<U, P extends PropertyKey>(
     callback: CallCallback<any, U>,
@@ -185,28 +185,28 @@ export class AstPath<T = any> {
   each(callback: EachCallback<T>): void;
   each<P1 extends IterProperties<T>>(
     callback: EachCallback<IndexValue<T, P1>>,
-    prop1: P1
+    prop1: P1,
   ): void;
   each<P1 extends keyof T, P2 extends IterProperties<T[P1]>>(
     callback: EachCallback<IndexValue<IndexValue<T, P1>, P2>>,
     prop1: P1,
-    prop2: P2
-  ): void;
-  each<
-    P1 extends keyof T,
-    P2 extends IterProperties<T[P1]>,
-    P3 extends IterProperties<IndexValue<T[P1], P2>>
-  >(
-    callback: EachCallback<IndexValue<IndexValue<IndexValue<T, P1>, P2>, P3>>,
-    prop1: P1,
     prop2: P2,
-    prop3: P3
   ): void;
   each<
     P1 extends keyof T,
     P2 extends IterProperties<T[P1]>,
     P3 extends IterProperties<IndexValue<T[P1], P2>>,
-    P4 extends IterProperties<IndexValue<IndexValue<T[P1], P2>, P3>>
+  >(
+    callback: EachCallback<IndexValue<IndexValue<IndexValue<T, P1>, P2>, P3>>,
+    prop1: P1,
+    prop2: P2,
+    prop3: P3,
+  ): void;
+  each<
+    P1 extends keyof T,
+    P2 extends IterProperties<T[P1]>,
+    P3 extends IterProperties<IndexValue<T[P1], P2>>,
+    P4 extends IterProperties<IndexValue<IndexValue<T[P1], P2>, P3>>,
   >(
     callback: EachCallback<
       IndexValue<IndexValue<IndexValue<IndexValue<T, P1>, P2>, P3>, P4>
@@ -214,7 +214,7 @@ export class AstPath<T = any> {
     prop1: P1,
     prop2: P2,
     prop3: P3,
-    prop4: P4
+    prop4: P4,
   ): void;
   each(
     callback: EachCallback<any[]>,
@@ -228,30 +228,30 @@ export class AstPath<T = any> {
   map<U>(callback: MapCallback<T, U>): U[];
   map<U, P1 extends IterProperties<T>>(
     callback: MapCallback<IndexValue<T, P1>, U>,
-    prop1: P1
+    prop1: P1,
   ): U[];
   map<U, P1 extends keyof T, P2 extends IterProperties<T[P1]>>(
     callback: MapCallback<IndexValue<IndexValue<T, P1>, P2>, U>,
     prop1: P1,
-    prop2: P2
-  ): U[];
-  map<
-    U,
-    P1 extends keyof T,
-    P2 extends IterProperties<T[P1]>,
-    P3 extends IterProperties<IndexValue<T[P1], P2>>
-  >(
-    callback: MapCallback<IndexValue<IndexValue<IndexValue<T, P1>, P2>, P3>, U>,
-    prop1: P1,
     prop2: P2,
-    prop3: P3
   ): U[];
   map<
     U,
     P1 extends keyof T,
     P2 extends IterProperties<T[P1]>,
     P3 extends IterProperties<IndexValue<T[P1], P2>>,
-    P4 extends IterProperties<IndexValue<IndexValue<T[P1], P2>, P3>>
+  >(
+    callback: MapCallback<IndexValue<IndexValue<IndexValue<T, P1>, P2>, P3>, U>,
+    prop1: P1,
+    prop2: P2,
+    prop3: P3,
+  ): U[];
+  map<
+    U,
+    P1 extends keyof T,
+    P2 extends IterProperties<T[P1]>,
+    P3 extends IterProperties<IndexValue<T[P1], P2>>,
+    P4 extends IterProperties<IndexValue<IndexValue<T[P1], P2>, P3>>,
   >(
     callback: MapCallback<
       IndexValue<IndexValue<IndexValue<IndexValue<T, P1>, P2>, P3>, P4>,
@@ -260,7 +260,7 @@ export class AstPath<T = any> {
     prop1: P1,
     prop2: P2,
     prop3: P3,
-    prop4: P4
+    prop4: P4,
   ): U[];
   map<U>(
     callback: MapCallback<any[], U>,
@@ -301,11 +301,6 @@ export type BuiltInParserName =
   | "vue"
   | "yaml";
 export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
-
-export type CustomParser = (
-  text: string,
-  options: Options
-) => AST | Promise<AST>;
 
 /**
  * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettierrc.mjs`, `prettier.config.js`, `prettier.config.cjs`, `prettier.config.mjs`
@@ -371,7 +366,7 @@ export interface RequiredOptions extends doc.printer.Options {
   /**
    * Specify which parser to use.
    */
-  parser: LiteralUnion<BuiltInParserName> | CustomParser;
+  parser: LiteralUnion<BuiltInParserName>;
   /**
    * Specify the input filepath. This will be used to do parser inference.
    */
@@ -405,10 +400,6 @@ export interface RequiredOptions extends doc.printer.Options {
    * Provide ability to support new languages to prettier.
    */
   plugins: Array<string | Plugin>;
-  /**
-   * Specify plugin directory paths to search for plugins if not installed in the same `node_modules` where prettier is located.
-   */
-  pluginSearchDirs: string[] | false;
   /**
    * How to handle whitespaces in HTML.
    * @default "css"
@@ -471,23 +462,26 @@ export interface Printer<T = any> {
     path: AstPath<T>,
     options: ParserOptions<T>,
     print: (path: AstPath<T>) => Doc,
-    args?: unknown
+    args?: unknown,
   ): Doc;
   embed?:
     | ((
         path: AstPath,
-        options: Options
+        options: Options,
       ) =>
         | ((
             textToDoc: (text: string, options: Options) => Promise<Doc>,
             print: (
-              selector?: string | number | Array<string | number> | AstPath
+              selector?: string | number | Array<string | number> | AstPath,
             ) => Doc,
             path: AstPath,
-            options: Options
+            options: Options,
           ) => Promise<Doc | undefined> | Doc | undefined)
         | Doc
         | null)
+    | undefined;
+  preprocess?:
+    | ((ast: T, options: ParserOptions<T>) => T | Promise<T>)
     | undefined;
   insertPragma?: (text: string) => string;
   /**
@@ -521,7 +515,7 @@ export interface Printer<T = any> {
               text: string,
               options: ParserOptions<T>,
               ast: T,
-              isLastComment: boolean
+              isLastComment: boolean,
             ) => boolean)
           | undefined;
         endOfLine?:
@@ -530,7 +524,7 @@ export interface Printer<T = any> {
               text: string,
               options: ParserOptions<T>,
               ast: T,
-              isLastComment: boolean
+              isLastComment: boolean,
             ) => boolean)
           | undefined;
         remaining?:
@@ -539,10 +533,13 @@ export interface Printer<T = any> {
               text: string,
               options: ParserOptions<T>,
               ast: T,
-              isLastComment: boolean
+              isLastComment: boolean,
             ) => boolean)
           | undefined;
       }
+    | undefined;
+  getVisitorKeys?:
+    | ((node: T, nonTraversableKeys: Set<string>) => string[])
     | undefined;
 }
 
@@ -579,10 +576,8 @@ export function check(source: string, options?: Options): Promise<boolean>;
  */
 export function formatWithCursor(
   source: string,
-  options: CursorOptions
+  options: CursorOptions,
 ): Promise<CursorResult>;
-
-export function formatAST(ast: any, options?: Options): Promise<string>;
 
 export interface ResolveConfigOptions {
   /**
@@ -607,8 +602,8 @@ export interface ResolveConfigOptions {
 
 /**
  * `resolveConfig` can be used to resolve configuration for a given source file,
- * passing its path as the first argument. The config search will start at the
- * file path and continue to search up the directory.
+ * passing its path or url as the first argument. The config search will start at
+ * the file location and continue to search up the directory.
  * (You can use `process.cwd()` to start searching from the current directory).
  *
  * A promise is returned which will resolve to:
@@ -619,8 +614,8 @@ export interface ResolveConfigOptions {
  * The promise will be rejected if there was an error parsing the configuration file.
  */
 export function resolveConfig(
-  filePath: string,
-  options?: ResolveConfigOptions
+  fileUrlOrPath: string | URL,
+  options?: ResolveConfigOptions,
 ): Promise<Options | null>;
 
 /**
@@ -634,7 +629,9 @@ export function resolveConfig(
  *
  * The promise will be rejected if there was an error parsing the configuration file.
  */
-export function resolveConfigFile(filePath?: string): Promise<string | null>;
+export function resolveConfigFile(
+  fileUrlOrPath?: string | URL,
+): Promise<string | null>;
 
 /**
  * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.
@@ -783,7 +780,7 @@ export interface SupportInfo {
 }
 
 export interface FileInfoOptions {
-  ignorePath?: string | string[] | undefined;
+  ignorePath?: string | URL | (string | URL)[] | undefined;
   withNodeModules?: boolean | undefined;
   plugins?: string[] | undefined;
   resolveConfig?: boolean | undefined;
@@ -795,8 +792,8 @@ export interface FileInfoResult {
 }
 
 export function getFileInfo(
-  filePath: string,
-  options?: FileInfoOptions
+  file: string | URL,
+  options?: FileInfoOptions,
 ): Promise<FileInfoResult>;
 
 /**
@@ -824,7 +821,7 @@ export namespace util {
   function getAlignmentSize(
     text: string,
     tabWidth: number,
-    startIndex?: number | undefined
+    startIndex?: number | undefined,
   ): number;
 
   function getIndentSize(value: string, tabWidth: number): number;
@@ -832,83 +829,92 @@ export namespace util {
   function skipNewline(
     text: string,
     startIndex: number | false,
-    options?: SkipOptions | undefined
+    options?: SkipOptions | undefined,
   ): number | false;
 
   function skipInlineComment(
     text: string,
-    startIndex: number | false
+    startIndex: number | false,
   ): number | false;
 
   function skipTrailingComment(
     text: string,
-    startIndex: number | false
+    startIndex: number | false,
   ): number | false;
 
   function skipTrailingComment(
     text: string,
-    startIndex: number | false
+    startIndex: number | false,
   ): number | false;
 
   function hasNewline(
     text: string,
     startIndex: number,
-    options?: SkipOptions | undefined
+    options?: SkipOptions | undefined,
   ): boolean;
 
   function hasNewlineInRange(
     text: string,
     startIndex: number,
-    endIndex: number
+    endIndex: number,
   ): boolean;
 
   function hasSpaces(
     text: string,
     startIndex: number,
-    options?: SkipOptions | undefined
+    options?: SkipOptions | undefined,
   ): boolean;
+
+  function getNextNonSpaceNonCommentCharacterIndex(
+    text: string,
+    startIndex: number,
+  ): number | false;
 
   function getNextNonSpaceNonCommentCharacter(
     text: string,
-    startIndex: number
+    startIndex: number,
   ): string;
+
+  function isNextLineEmpty(text: string, startIndex: number): boolean;
+
+  function isPreviousLineEmpty(text: string, startIndex: number): boolean;
 
   function makeString(
     rawText: string,
     enclosingQuote: Quote,
-    unescapeUnnecessaryEscapes?: boolean | undefined
+    unescapeUnnecessaryEscapes?: boolean | undefined,
   ): string;
 
   function skip(
-    characters: string | RegExp
+    characters: string | RegExp,
   ): (
     text: string,
     startIndex: number | false,
-    options?: SkipOptions
+    options?: SkipOptions,
   ) => number | false;
 
   const skipWhitespace: (
     text: string,
     startIndex: number | false,
-    options?: SkipOptions
+    options?: SkipOptions,
   ) => number | false;
 
   const skipSpaces: (
     text: string,
     startIndex: number | false,
-    options?: SkipOptions
+    options?: SkipOptions,
   ) => number | false;
 
   const skipToLineEnd: (
     text: string,
     startIndex: number | false,
-    options?: SkipOptions
+    options?: SkipOptions,
   ) => number | false;
 
   const skipEverythingButNewLine: (
     text: string,
     startIndex: number | false,
-    options?: SkipOptions
+    options?: SkipOptions,
   ) => number | false;
 
   function addLeadingComment(node: any, comment: any): void;

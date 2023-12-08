@@ -1,8 +1,9 @@
+import path from "node:path";
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import babelGenerator from "@babel/generator";
 import { outdent } from "outdent";
-import { SOURCE_DIR } from "../../utils/index.js";
+import { SOURCE_DIR, PROJECT_ROOT } from "../../utils/index.js";
 import allTransforms from "./transforms/index.js";
 
 const generate = babelGenerator.default;
@@ -10,12 +11,20 @@ const generate = babelGenerator.default;
 /* Doesn't work for dependencies, optional call, computed property, and spread arguments */
 
 function transform(original, file) {
-  if (!file.startsWith(SOURCE_DIR)) {
+  if (
+    !(
+      file.startsWith(SOURCE_DIR) ||
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/camelcase/")) ||
+      file.startsWith(
+        path.join(PROJECT_ROOT, "node_modules/angular-estree-parser/"),
+      )
+    )
+  ) {
     return original;
   }
 
   const transforms = allTransforms.filter(
-    (transform) => !transform.shouldSkip(original, file)
+    (transform) => !transform.shouldSkip(original, file),
   );
 
   if (transforms.length === 0) {

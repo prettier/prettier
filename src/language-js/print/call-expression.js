@@ -68,7 +68,7 @@ function printCallExpression(path, options, print) {
 
   const contents = [
     isNew ? "new " : "",
-    isDynamicImport ? "import" : print("callee"),
+    isDynamicImport ? printDynamicImportCallee(node) : print("callee"),
     optional,
     printFunctionTypeParameters(path, options, print),
     printCallArguments(path, options, print),
@@ -83,13 +83,21 @@ function printCallExpression(path, options, print) {
   return contents;
 }
 
+function printDynamicImportCallee(node) {
+  if (!node.phase) {
+    return "import";
+  }
+  return `import.${node.phase}`;
+}
+
 function isCommonsJsOrAmdCall(node, parentNode) {
   if (node.callee.type !== "Identifier") {
     return false;
   }
 
   if (node.callee.name === "require") {
-    return true;
+    const args = getCallArguments(node);
+    return (args.length === 1 && isStringLiteral(args[0])) || args.length > 1;
   }
 
   if (node.callee.name === "define") {

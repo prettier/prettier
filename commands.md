@@ -55,7 +55,7 @@ This should be used as **last resort** as it triggers an exponential complexity 
 ```ts
 declare function conditionalGroup(
   alternatives: Doc[],
-  options?: GroupOptions
+  options?: GroupOptions,
 ): Doc;
 ```
 
@@ -85,7 +85,7 @@ Expects the `docs` argument to be an array of alternating content and line break
 declare function ifBreak(
   breakContents: Doc,
   flatContents?: Doc,
-  options?: { groupId?: symbol }
+  options?: { groupId?: symbol },
 ): Doc;
 ```
 
@@ -96,6 +96,10 @@ ifBreak(";", " ");
 ```
 
 `groupId` can be used to check another _already printed_ group instead of the current group.
+
+If a [`hardline`](#hardline) or [`breakParent`](#breakParent) is present within the possible contents, the parent groups will be broken regardless of said content being printed, which might not be desireable. This behaviour is a design limitation. Usually the desired result can be achieved in a different way.
+
+In the rare case that `hardline` is definitely needed, consider using [`hardlineWithoutBreakParent`](#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) instead to avoid an unwanted group break propagation.
 
 ### `breakParent`
 
@@ -261,7 +265,7 @@ _Added in v2.3.0_
 ```ts
 declare function indentIfBreak(
   doc: Doc,
-  opts: { groupId: symbol; negate?: boolean }
+  opts: { groupId: symbol; negate?: boolean },
 ): Doc;
 ```
 

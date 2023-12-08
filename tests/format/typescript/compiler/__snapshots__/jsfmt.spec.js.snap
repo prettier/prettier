@@ -333,7 +333,8 @@ exports[`decrementAndIncrementOperators.ts [babel-ts] format 1`] = `
     | ^
   5 |
   6 | (1)++;
-  7 | (1)--;"
+  7 | (1)--;
+Cause: Invalid left-hand side in postfix operation. (4:0)"
 `;
 
 exports[`decrementAndIncrementOperators.ts format 1`] = `
@@ -418,25 +419,6 @@ x++;
 x--;
 
 x[x++]++;
-
-================================================================================
-`;
-
-exports[`downlevelLetConst1.ts [babel-ts] format 1`] = `
-"Unexpected token (1:6)
-> 1 | const
-    |      ^"
-`;
-
-exports[`downlevelLetConst1.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-const
-=====================================output=====================================
-const;
 
 ================================================================================
 `;

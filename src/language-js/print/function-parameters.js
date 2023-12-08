@@ -26,6 +26,7 @@ import {
 } from "../utils/index.js";
 import { locEnd } from "../loc.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { printFunctionTypeParameters } from "./misc.js";
 
 /** @typedef {import("../../common/ast-path.js").default} AstPath */
@@ -35,7 +36,7 @@ function printFunctionParameters(
   print,
   options,
   expandArg,
-  printTypeParams
+  printTypeParams,
 ) {
   const functionNode = path.node;
   const parameters = getFunctionParameters(functionNode);
@@ -51,7 +52,7 @@ function printFunctionParameters(
         filter: (comment) =>
           getNextNonSpaceNonCommentCharacter(
             options.originalText,
-            locEnd(comment)
+            locEnd(comment),
           ) === ")",
       }),
       ")",
@@ -106,7 +107,9 @@ function printFunctionParameters(
   //   b,
   //   c
   // }) {}
-  const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
+  const hasNotParameterDecorator = parameters.every(
+    (node) => !isNonEmptyArray(node.decorators),
+  );
   if (shouldHugParameters && hasNotParameterDecorator) {
     return [typeParams, "(", ...printed, ")"];
   }
@@ -148,7 +151,7 @@ function printFunctionParameters(
     ifBreak(
       !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
         ? ","
-        : ""
+        : "",
     ),
     softline,
     ")",
@@ -275,7 +278,7 @@ function isDecoratedFunction(path) {
         node.left.property.name === "exports"),
     (node) =>
       node.type !== "VariableDeclaration" ||
-      (node.kind === "const" && node.declarations.length === 1)
+      (node.kind === "const" && node.declarations.length === 1),
   );
 }
 

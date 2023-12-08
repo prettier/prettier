@@ -49,7 +49,7 @@ describe("ignore files when executing in a subdirectory and using stdin", () => 
     ],
     {
       input: "hello_world( );",
-    }
+    },
   ).test({
     stdout: "hello_world( );",
     status: 0,
@@ -62,7 +62,7 @@ describe("formats files when executing in a subdirectory and using stdin", () =>
     ["--ignore-path", "../.prettierignore", "--stdin-filepath", "example.js"],
     {
       input: "hello_world( );",
-    }
+    },
   ).test({
     stdout: "hello_world();",
     status: 0,

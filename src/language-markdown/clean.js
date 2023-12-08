@@ -49,6 +49,16 @@ function clean(ast, newObj, parent) {
   }
 
   if (
+    (ast.type === "link" || ast.type === "image") &&
+    ast.url &&
+    ast.url.includes("(")
+  ) {
+    for (const character of "<>") {
+      newObj.url = ast.url.replaceAll(character, encodeURIComponent(character));
+    }
+  }
+
+  if (
     (ast.type === "definition" ||
       ast.type === "link" ||
       ast.type === "image") &&

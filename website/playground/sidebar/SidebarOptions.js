@@ -38,6 +38,6 @@ export default function SidebarOptions({
           />
         ))}
       </SidebarCategory>
-    ) : null
+    ) : null,
   );
 }

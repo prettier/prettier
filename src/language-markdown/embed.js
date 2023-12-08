@@ -14,16 +14,23 @@ function embed(path, options) {
       return async (textToDoc) => {
         const styleUnit = options.__inJsTemplate ? "~" : "`";
         const style = styleUnit.repeat(
-          Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
+          Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
         );
         const newOptions = { parser };
-        if (node.lang === "tsx") {
+
+        // Override the filepath option.
+        // This is because whether the trailing comma of type parameters
+        // should be printed depends on whether it is `*.ts` or `*.tsx`.
+        // https://github.com/prettier/prettier/issues/15282
+        if (node.lang === "ts" || node.lang === "typescript") {
+          newOptions.filepath = "dummy.ts";
+        } else if (node.lang === "tsx") {
           newOptions.filepath = "dummy.tsx";
         }
 
         const doc = await textToDoc(
           getFencedCodeBlockValue(node, options.originalText),
-          newOptions
+          newOptions,
         );
 
         return markAsRoot([

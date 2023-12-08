@@ -11,11 +11,11 @@ class WhitespaceUtils {
       (this.#whitespaceCharacters.size === 0 ||
         Array.prototype.some.call(
           whitespaceCharacters,
-          (character) => !/^\s$/.test(character)
+          (character) => !/^\s$/.test(character),
         ))
     ) {
       throw new TypeError(
-        `Invalid characters: ${JSON.stringify(whitespaceCharacters)}`
+        `Invalid characters: ${JSON.stringify(whitespaceCharacters)}`,
       );
     }
   }
@@ -84,7 +84,7 @@ class WhitespaceUtils {
 
   split(text, captureWhitespace = false) {
     const pattern = `[${escapeStringRegexp(
-      [...this.#whitespaceCharacters].join("")
+      [...this.#whitespaceCharacters].join(""),
     )}]+`;
     const regexp = new RegExp(captureWhitespace ? `(${pattern})` : pattern);
     return text.split(regexp);
@@ -93,7 +93,7 @@ class WhitespaceUtils {
   hasWhitespaceCharacter(text) {
     const whitespaceCharacters = this.#whitespaceCharacters;
     return Array.prototype.some.call(text, (character) =>
-      whitespaceCharacters.has(character)
+      whitespaceCharacters.has(character),
     );
   }
 
@@ -101,14 +101,14 @@ class WhitespaceUtils {
     const whitespaceCharacters = this.#whitespaceCharacters;
     return Array.prototype.some.call(
       text,
-      (character) => !whitespaceCharacters.has(character)
+      (character) => !whitespaceCharacters.has(character),
     );
   }
 
   isWhitespaceOnly(text) {
     const whitespaceCharacters = this.#whitespaceCharacters;
     return Array.prototype.every.call(text, (character) =>
-      whitespaceCharacters.has(character)
+      whitespaceCharacters.has(character),
     );
   }
 }

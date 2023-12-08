@@ -12,7 +12,7 @@ function normalizePlugin(pluginInstanceOfPluginModule, name) {
 const loadPluginFromDirectory = mem(
   async (name, directory) =>
     normalizePlugin(await importFromDirectory(name, directory), name),
-  { cacheKey: JSON.stringify }
+  { cacheKey: JSON.stringify },
 );
 
 const importPlugin = mem(async (name) => {

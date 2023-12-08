@@ -363,6 +363,48 @@ export const Group = styled.div\`
 ================================================================================
 `;
 
+exports[`issue-8352.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const StyledComponent = styled.div\`
+  margin-right: -4px;
+
+  \${Container}.isExpanded & {
+    transform: rotate(-180deg);
+  }
+\`;
+
+const StyledComponent2 = styled.div\`
+  margin-right: -4px;
+
+  \${abc}.camelCase + \${def}.camelCase & {
+    transform: rotate(-180deg);
+  }
+\`;
+
+=====================================output=====================================
+const StyledComponent = styled.div\`
+  margin-right: -4px;
+
+  \${Container}.isExpanded & {
+    transform: rotate(-180deg);
+  }
+\`;
+
+const StyledComponent2 = styled.div\`
+  margin-right: -4px;
+
+  \${abc}.camelCase + \${def}.camelCase & {
+    transform: rotate(-180deg);
+  }
+\`;
+
+================================================================================
+`;
+
 exports[`issue-9072.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]

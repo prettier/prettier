@@ -28,6 +28,13 @@ exports[`visitor keys estree 1`] = `
     "typeParameters",
     "predicate",
   ],
+  "AsConstExpression": [
+    "expression",
+  ],
+  "AsExpression": [
+    "expression",
+    "typeAnnotation",
+  ],
   "AssignmentExpression": [
     "left",
     "right",
@@ -93,6 +100,7 @@ exports[`visitor keys estree 1`] = `
     "superTypeParameters",
     "implements",
     "decorators",
+    "superTypeArguments",
   ],
   "ClassExpression": [
     "id",
@@ -103,6 +111,7 @@ exports[`visitor keys estree 1`] = `
     "superTypeParameters",
     "implements",
     "decorators",
+    "superTypeArguments",
   ],
   "ClassImplements": [
     "id",
@@ -263,8 +272,9 @@ exports[`visitor keys estree 1`] = `
   ],
   "ExportAllDeclaration": [
     "source",
-    "exported",
+    "attributes",
     "assertions",
+    "exported",
   ],
   "ExportDefaultDeclaration": [
     "declaration",
@@ -276,6 +286,7 @@ exports[`visitor keys estree 1`] = `
     "declaration",
     "specifiers",
     "source",
+    "attributes",
     "assertions",
   ],
   "ExportNamespaceSpecifier": [
@@ -354,6 +365,7 @@ exports[`visitor keys estree 1`] = `
   "ImportDeclaration": [
     "specifiers",
     "source",
+    "attributes",
     "assertions",
   ],
   "ImportDefaultSpecifier": [
@@ -361,6 +373,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "ImportExpression": [
     "source",
+    "options",
     "attributes",
   ],
   "ImportNamespaceSpecifier": [
@@ -430,6 +443,7 @@ exports[`visitor keys estree 1`] = `
   "JSXOpeningElement": [
     "name",
     "attributes",
+    "typeArguments",
     "typeParameters",
   ],
   "JSXOpeningFragment": [],
@@ -635,8 +649,8 @@ exports[`visitor keys estree 1`] = `
     "qualification",
   ],
   "QualifiedTypeofIdentifier": [
-    "id",
     "qualification",
+    "id",
   ],
   "RecordExpression": [
     "properties",
@@ -649,6 +663,10 @@ exports[`visitor keys estree 1`] = `
   ],
   "ReturnStatement": [
     "argument",
+  ],
+  "SatisfiesExpression": [
+    "expression",
+    "typeAnnotation",
   ],
   "SequenceExpression": [
     "expressions",
@@ -707,6 +725,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSClassImplements": [
     "expression",
+    "typeArguments",
     "typeParameters",
   ],
   "TSConditionalType": [
@@ -784,7 +803,7 @@ exports[`visitor keys estree 1`] = `
     "argument",
     "qualifier",
     "typeParameters",
-    "parameter",
+    "typeArguments",
   ],
   "TSIndexSignature": [
     "parameters",
@@ -800,6 +819,7 @@ exports[`visitor keys estree 1`] = `
   "TSInstantiationExpression": [
     "expression",
     "typeParameters",
+    "typeArguments",
   ],
   "TSInterfaceBody": [
     "body",
@@ -812,6 +832,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSInterfaceHeritage": [
     "expression",
+    "typeArguments",
     "typeParameters",
   ],
   "TSIntersectionType": [
@@ -939,10 +960,12 @@ exports[`visitor keys estree 1`] = `
   "TSTypeQuery": [
     "exprName",
     "typeParameters",
+    "typeArguments",
   ],
   "TSTypeReference": [
     "typeName",
     "typeParameters",
+    "typeArguments",
   ],
   "TSUndefinedKeyword": [],
   "TSUnionType": [
@@ -954,6 +977,7 @@ exports[`visitor keys estree 1`] = `
     "tag",
     "quasi",
     "typeParameters",
+    "typeArguments",
   ],
   "TemplateElement": [],
   "TemplateLiteral": [
@@ -999,6 +1023,9 @@ exports[`visitor keys estree 1`] = `
     "expression",
     "typeAnnotation",
   ],
+  "TypeOperator": [
+    "typeAnnotation",
+  ],
   "TypeParameter": [
     "bound",
     "default",
@@ -1017,6 +1044,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "TypeofTypeAnnotation": [
     "argument",
+    "typeArguments",
   ],
   "UnaryExpression": [
     "argument",
@@ -1361,6 +1389,14 @@ exports[`visitor keys graphql 1`] = `
 
 exports[`visitor keys html 1`] = `
 {
+  "angularControlFlowBlock": [
+    "children",
+    "parameters",
+  ],
+  "angularControlFlowBlockParameter": [],
+  "angularControlFlowBlockParameters": [
+    "children",
+  ],
   "attribute": [],
   "cdata": [],
   "comment": [],

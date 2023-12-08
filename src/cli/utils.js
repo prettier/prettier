@@ -58,7 +58,23 @@ function createHash(source) {
 async function statSafe(filePath) {
   try {
     return await fs.stat(filePath);
-  } catch (error) {
+  } catch (/** @type {any} */ error) {
+    /* c8 ignore next 3 */
+    if (error.code !== "ENOENT") {
+      throw error;
+    }
+  }
+}
+
+/**
+ * Get stats of a given path without following symbolic links.
+ * @param {string} filePath The path to target file.
+ * @returns {Promise<import('fs').Stats | undefined>} The stats.
+ */
+async function lstatSafe(filePath) {
+  try {
+    return await fs.lstat(filePath);
+  } catch (/** @type {any} */ error) {
     /* c8 ignore next 3 */
     if (error.code !== "ENOENT") {
       throw error;
@@ -96,6 +112,7 @@ export {
   pick,
   createHash,
   statSafe,
+  lstatSafe,
   isJson,
   normalizeToPosix,
 };

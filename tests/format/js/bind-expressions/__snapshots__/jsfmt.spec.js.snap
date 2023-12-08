@@ -7,7 +7,8 @@ exports[`await.js [acorn] format 1`] = `
 > 3 |     return (await request)::doSyncThing();
     |                           ^
   4 | };
-  5 |"
+  5 |
+Cause: Unexpected token (3:26)"
 `;
 
 exports[`await.js [espree] format 1`] = `
@@ -17,7 +18,8 @@ exports[`await.js [espree] format 1`] = `
 > 3 |     return (await request)::doSyncThing();
     |                           ^
   4 | };
-  5 |"
+  5 |
+Cause: Unexpected token :"
 `;
 
 exports[`await.js [meriyah] format 1`] = `
@@ -27,7 +29,8 @@ exports[`await.js [meriyah] format 1`] = `
 > 3 |     return (await request)::doSyncThing();
     |                           ^
   4 | };
-  5 |"
+  5 |
+Cause: [3:27]: Unexpected token: ':'"
 `;
 
 exports[`await.js - {"semi":false} [acorn] format 1`] = `
@@ -37,7 +40,8 @@ exports[`await.js - {"semi":false} [acorn] format 1`] = `
 > 3 |     return (await request)::doSyncThing();
     |                           ^
   4 | };
-  5 |"
+  5 |
+Cause: Unexpected token (3:26)"
 `;
 
 exports[`await.js - {"semi":false} [espree] format 1`] = `
@@ -47,7 +51,8 @@ exports[`await.js - {"semi":false} [espree] format 1`] = `
 > 3 |     return (await request)::doSyncThing();
     |                           ^
   4 | };
-  5 |"
+  5 |
+Cause: Unexpected token :"
 `;
 
 exports[`await.js - {"semi":false} [meriyah] format 1`] = `
@@ -57,7 +62,8 @@ exports[`await.js - {"semi":false} [meriyah] format 1`] = `
 > 3 |     return (await request)::doSyncThing();
     |                           ^
   4 | };
-  5 |"
+  5 |
+Cause: [3:27]: Unexpected token: ':'"
 `;
 
 exports[`await.js - {"semi":false} format 1`] = `
@@ -107,7 +113,8 @@ exports[`bind_parens.js [acorn] format 1`] = `
     |         ^
   2 | a || (b::c);
   3 | ::obj.prop;
-  4 | (void 0)::func();"
+  4 | (void 0)::func();
+Cause: Unexpected token (1:8)"
 `;
 
 exports[`bind_parens.js [espree] format 1`] = `
@@ -116,7 +123,8 @@ exports[`bind_parens.js [espree] format 1`] = `
     |         ^
   2 | a || (b::c);
   3 | ::obj.prop;
-  4 | (void 0)::func();"
+  4 | (void 0)::func();
+Cause: Unexpected token :"
 `;
 
 exports[`bind_parens.js [meriyah] format 1`] = `
@@ -125,7 +133,8 @@ exports[`bind_parens.js [meriyah] format 1`] = `
     |         ^
   2 | a || (b::c);
   3 | ::obj.prop;
-  4 | (void 0)::func();"
+  4 | (void 0)::func();
+Cause: [1:9]: Unexpected token: ':'"
 `;
 
 exports[`bind_parens.js - {"semi":false} [acorn] format 1`] = `
@@ -134,7 +143,8 @@ exports[`bind_parens.js - {"semi":false} [acorn] format 1`] = `
     |         ^
   2 | a || (b::c);
   3 | ::obj.prop;
-  4 | (void 0)::func();"
+  4 | (void 0)::func();
+Cause: Unexpected token (1:8)"
 `;
 
 exports[`bind_parens.js - {"semi":false} [espree] format 1`] = `
@@ -143,7 +153,8 @@ exports[`bind_parens.js - {"semi":false} [espree] format 1`] = `
     |         ^
   2 | a || (b::c);
   3 | ::obj.prop;
-  4 | (void 0)::func();"
+  4 | (void 0)::func();
+Cause: Unexpected token :"
 `;
 
 exports[`bind_parens.js - {"semi":false} [meriyah] format 1`] = `
@@ -152,7 +163,8 @@ exports[`bind_parens.js - {"semi":false} [meriyah] format 1`] = `
     |         ^
   2 | a || (b::c);
   3 | ::obj.prop;
-  4 | (void 0)::func();"
+  4 | (void 0)::func();
+Cause: [1:9]: Unexpected token: ':'"
 `;
 
 exports[`bind_parens.js - {"semi":false} format 1`] = `
@@ -324,7 +336,8 @@ exports[`long_name_method.js [acorn] format 1`] = `
     |                                                      ^
   4 |   }
   5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {"
+  6 |   testLongNameMethodAndSomethingElseLallala() {
+Cause: Unexpected token (3:53)"
 `;
 
 exports[`long_name_method.js [espree] format 1`] = `
@@ -335,7 +348,8 @@ exports[`long_name_method.js [espree] format 1`] = `
     |                                                      ^
   4 |   }
   5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {"
+  6 |   testLongNameMethodAndSomethingElseLallala() {
+Cause: Unexpected token :"
 `;
 
 exports[`long_name_method.js [meriyah] format 1`] = `
@@ -346,7 +360,8 @@ exports[`long_name_method.js [meriyah] format 1`] = `
     |                                                      ^
   4 |   }
   5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {"
+  6 |   testLongNameMethodAndSomethingElseLallala() {
+Cause: [3:54]: Unexpected token: ':'"
 `;
 
 exports[`long_name_method.js - {"semi":false} [acorn] format 1`] = `
@@ -357,7 +372,8 @@ exports[`long_name_method.js - {"semi":false} [acorn] format 1`] = `
     |                                                      ^
   4 |   }
   5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {"
+  6 |   testLongNameMethodAndSomethingElseLallala() {
+Cause: Unexpected token (3:53)"
 `;
 
 exports[`long_name_method.js - {"semi":false} [espree] format 1`] = `
@@ -368,7 +384,8 @@ exports[`long_name_method.js - {"semi":false} [espree] format 1`] = `
     |                                                      ^
   4 |   }
   5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {"
+  6 |   testLongNameMethodAndSomethingElseLallala() {
+Cause: Unexpected token :"
 `;
 
 exports[`long_name_method.js - {"semi":false} [meriyah] format 1`] = `
@@ -379,7 +396,8 @@ exports[`long_name_method.js - {"semi":false} [meriyah] format 1`] = `
     |                                                      ^
   4 |   }
   5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {"
+  6 |   testLongNameMethodAndSomethingElseLallala() {
+Cause: [3:54]: Unexpected token: ':'"
 `;
 
 exports[`long_name_method.js - {"semi":false} format 1`] = `
@@ -451,7 +469,8 @@ exports[`method_chain.js [acorn] format 1`] = `
      |         ^
   11 |         ::throttle(() =>
   12 |             interval(10)
-  13 |                 ::take(1)"
+  13 |                 ::take(1)
+Cause: Unexpected token (10:8)"
 `;
 
 exports[`method_chain.js [espree] format 1`] = `
@@ -462,7 +481,8 @@ exports[`method_chain.js [espree] format 1`] = `
      |         ^
   11 |         ::throttle(() =>
   12 |             interval(10)
-  13 |                 ::take(1)"
+  13 |                 ::take(1)
+Cause: Unexpected token :"
 `;
 
 exports[`method_chain.js [meriyah] format 1`] = `
@@ -473,7 +493,8 @@ exports[`method_chain.js [meriyah] format 1`] = `
      |         ^
   11 |         ::throttle(() =>
   12 |             interval(10)
-  13 |                 ::take(1)"
+  13 |                 ::take(1)
+Cause: [10:9]: Unexpected token: ':'"
 `;
 
 exports[`method_chain.js - {"semi":false} [acorn] format 1`] = `
@@ -484,7 +505,8 @@ exports[`method_chain.js - {"semi":false} [acorn] format 1`] = `
      |         ^
   11 |         ::throttle(() =>
   12 |             interval(10)
-  13 |                 ::take(1)"
+  13 |                 ::take(1)
+Cause: Unexpected token (10:8)"
 `;
 
 exports[`method_chain.js - {"semi":false} [espree] format 1`] = `
@@ -495,7 +517,8 @@ exports[`method_chain.js - {"semi":false} [espree] format 1`] = `
      |         ^
   11 |         ::throttle(() =>
   12 |             interval(10)
-  13 |                 ::take(1)"
+  13 |                 ::take(1)
+Cause: Unexpected token :"
 `;
 
 exports[`method_chain.js - {"semi":false} [meriyah] format 1`] = `
@@ -506,7 +529,8 @@ exports[`method_chain.js - {"semi":false} [meriyah] format 1`] = `
      |         ^
   11 |         ::throttle(() =>
   12 |             interval(10)
-  13 |                 ::take(1)"
+  13 |                 ::take(1)
+Cause: [10:9]: Unexpected token: ':'"
 `;
 
 exports[`method_chain.js - {"semi":false} format 1`] = `
@@ -610,7 +634,8 @@ exports[`short_name_method.js [acorn] format 1`] = `
     |                        ^
   4 |   }
   5 |   
-  6 |   shortMethod() {"
+  6 |   shortMethod() {
+Cause: Unexpected token (3:23)"
 `;
 
 exports[`short_name_method.js [espree] format 1`] = `
@@ -621,7 +646,8 @@ exports[`short_name_method.js [espree] format 1`] = `
     |                        ^
   4 |   }
   5 |   
-  6 |   shortMethod() {"
+  6 |   shortMethod() {
+Cause: Unexpected token :"
 `;
 
 exports[`short_name_method.js [meriyah] format 1`] = `
@@ -632,7 +658,8 @@ exports[`short_name_method.js [meriyah] format 1`] = `
     |                        ^
   4 |   }
   5 |   
-  6 |   shortMethod() {"
+  6 |   shortMethod() {
+Cause: [3:24]: Unexpected token: ':'"
 `;
 
 exports[`short_name_method.js - {"semi":false} [acorn] format 1`] = `
@@ -643,7 +670,8 @@ exports[`short_name_method.js - {"semi":false} [acorn] format 1`] = `
     |                        ^
   4 |   }
   5 |   
-  6 |   shortMethod() {"
+  6 |   shortMethod() {
+Cause: Unexpected token (3:23)"
 `;
 
 exports[`short_name_method.js - {"semi":false} [espree] format 1`] = `
@@ -654,7 +682,8 @@ exports[`short_name_method.js - {"semi":false} [espree] format 1`] = `
     |                        ^
   4 |   }
   5 |   
-  6 |   shortMethod() {"
+  6 |   shortMethod() {
+Cause: Unexpected token :"
 `;
 
 exports[`short_name_method.js - {"semi":false} [meriyah] format 1`] = `
@@ -665,7 +694,8 @@ exports[`short_name_method.js - {"semi":false} [meriyah] format 1`] = `
     |                        ^
   4 |   }
   5 |   
-  6 |   shortMethod() {"
+  6 |   shortMethod() {
+Cause: [3:24]: Unexpected token: ':'"
 `;
 
 exports[`short_name_method.js - {"semi":false} format 1`] = `
@@ -733,7 +763,8 @@ exports[`unary.js [acorn] format 1`] = `
     |   ^
   2 | !(x::y /* foo */);
   3 | !(/* foo */ x::y);
-  4 | !("
+  4 | !(
+Cause: Unexpected token (1:2)"
 `;
 
 exports[`unary.js [espree] format 1`] = `
@@ -742,7 +773,8 @@ exports[`unary.js [espree] format 1`] = `
     |   ^
   2 | !(x::y /* foo */);
   3 | !(/* foo */ x::y);
-  4 | !("
+  4 | !(
+Cause: Unexpected token :"
 `;
 
 exports[`unary.js [meriyah] format 1`] = `
@@ -751,7 +783,8 @@ exports[`unary.js [meriyah] format 1`] = `
     |   ^
   2 | !(x::y /* foo */);
   3 | !(/* foo */ x::y);
-  4 | !("
+  4 | !(
+Cause: [1:3]: Unexpected token: ':'"
 `;
 
 exports[`unary.js - {"semi":false} [acorn] format 1`] = `
@@ -760,7 +793,8 @@ exports[`unary.js - {"semi":false} [acorn] format 1`] = `
     |   ^
   2 | !(x::y /* foo */);
   3 | !(/* foo */ x::y);
-  4 | !("
+  4 | !(
+Cause: Unexpected token (1:2)"
 `;
 
 exports[`unary.js - {"semi":false} [espree] format 1`] = `
@@ -769,7 +803,8 @@ exports[`unary.js - {"semi":false} [espree] format 1`] = `
     |   ^
   2 | !(x::y /* foo */);
   3 | !(/* foo */ x::y);
-  4 | !("
+  4 | !(
+Cause: Unexpected token :"
 `;
 
 exports[`unary.js - {"semi":false} [meriyah] format 1`] = `
@@ -778,7 +813,8 @@ exports[`unary.js - {"semi":false} [meriyah] format 1`] = `
     |   ^
   2 | !(x::y /* foo */);
   3 | !(/* foo */ x::y);
-  4 | !("
+  4 | !(
+Cause: [1:3]: Unexpected token: ':'"
 `;
 
 exports[`unary.js - {"semi":false} format 1`] = `

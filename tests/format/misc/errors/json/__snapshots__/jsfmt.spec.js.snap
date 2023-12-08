@@ -9,7 +9,8 @@ exports[`snippet: #0 [json] format 1`] = `
 exports[`snippet: #0 [json] format 2`] = `
 "A 'set' accessor must have exactly one formal parameter. (1:9)
 > 1 | [class {set foo() {}}]
-    |         ^"
+    |         ^
+Cause: A 'set' accessor must have exactly one formal parameter. (1:8)"
 `;
 
 exports[`snippet: #0 [json-stringify] format 1`] = `
@@ -33,7 +34,8 @@ exports[`snippet: #1 [json] format 1`] = `
 exports[`snippet: #1 [json] format 2`] = `
 "Private name #bar is not defined. (1:21)
 > 1 | [class {foo() {this.#bar}}]
-    |                     ^"
+    |                     ^
+Cause: Private name #bar is not defined. (1:20)"
 `;
 
 exports[`snippet: #1 [json-stringify] format 1`] = `
@@ -57,7 +59,8 @@ exports[`snippet: #2 [json] format 1`] = `
 exports[`snippet: #2 [json] format 2`] = `
 "'await' is only allowed within async functions and at the top levels of modules. (1:14)
 > 1 | [function(){ await 1 }]
-    |              ^"
+    |              ^
+Cause: 'await' is only allowed within async functions and at the top levels of modules. (1:13)"
 `;
 
 exports[`snippet: #2 [json-stringify] format 1`] = `
@@ -105,7 +108,8 @@ exports[`snippet: #4 [json] format 1`] = `
 exports[`snippet: #4 [json] format 2`] = `
 "'import' and 'export' may only appear at the top level. (1:14)
 > 1 | [function() {export a from 'a'}]
-    |              ^"
+    |              ^
+Cause: 'import' and 'export' may only appear at the top level. (1:13)"
 `;
 
 exports[`snippet: #4 [json-stringify] format 1`] = `
@@ -123,25 +127,29 @@ exports[`snippet: #4 [json5] format 1`] = `
 exports[`snippet: #5 [json] format 1`] = `
 "Expecting Unicode escape sequence \\uXXXX. (1:10)
 > 1 | packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
-    |          ^"
+    |          ^
+Cause: Expecting Unicode escape sequence \\uXXXX. (1:9)"
 `;
 
 exports[`snippet: #5 [json] format 2`] = `
 "Unexpected token (1:1)
 > 1 | export a from 'a'
-    | ^"
+    | ^
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #5 [json-stringify] format 1`] = `
 "Expecting Unicode escape sequence \\uXXXX. (1:10)
 > 1 | packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
-    |          ^"
+    |          ^
+Cause: Expecting Unicode escape sequence \\uXXXX. (1:9)"
 `;
 
 exports[`snippet: #5 [json5] format 1`] = `
 "Expecting Unicode escape sequence \\uXXXX. (1:10)
 > 1 | packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
-    |          ^"
+    |          ^
+Cause: Expecting Unicode escape sequence \\uXXXX. (1:9)"
 `;
 
 exports[`snippet: #6 [json] format 1`] = `
@@ -153,7 +161,8 @@ exports[`snippet: #6 [json] format 1`] = `
 exports[`snippet: #6 [json] format 2`] = `
 "Unexpected token, expected "," (1:3)
 > 1 | [a::b]
-    |   ^"
+    |   ^
+Cause: Unexpected token, expected "," (1:2)"
 `;
 
 exports[`snippet: #6 [json-stringify] format 1`] = `
@@ -367,9 +376,9 @@ exports[`snippet: #15 [json] format 1`] = `
 `;
 
 exports[`snippet: #15 [json] format 2`] = `
-"Unexpected token (1:6)
+"'RegExpLiteral' is not allowed in JSON. (1:2)
 > 1 | [/a/v]
-    |      ^"
+    |  ^^^^"
 `;
 
 exports[`snippet: #15 [json-stringify] format 1`] = `
@@ -465,7 +474,8 @@ exports[`snippet: #19 [json] format 1`] = `
 exports[`snippet: #19 [json] format 2`] = `
 "\`import\` can only be used in \`import()\` or \`import.meta\`. (1:1)
 > 1 | import module a from 'a'
-    | ^"
+    | ^
+Cause: \`import\` can only be used in \`import()\` or \`import.meta\`. (1:0)"
 `;
 
 exports[`snippet: #19 [json-stringify] format 1`] = `
@@ -508,60 +518,69 @@ exports[`snippet: #21 [json] format 1`] = `
 "Unexpected token (1:1)
 > 1 | #!/usr/bin/env node
     | ^
-  2 | {}"
+  2 | {}
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #21 [json] format 2`] = `
 "Unexpected token, expected "," (1:8)
 > 1 | {using a = b}
-    |        ^"
+    |        ^
+Cause: Unexpected token, expected "," (1:7)"
 `;
 
 exports[`snippet: #21 [json-stringify] format 1`] = `
 "Unexpected token (1:1)
 > 1 | #!/usr/bin/env node
     | ^
-  2 | {}"
+  2 | {}
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #21 [json5] format 1`] = `
 "Unexpected token (1:1)
 > 1 | #!/usr/bin/env node
     | ^
-  2 | {}"
+  2 | {}
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #22 [json] format 1`] = `
 "Unexpected token (2:1)
   1 | "use strict"
 > 2 | {}
-    | ^"
+    | ^
+Cause: Unexpected token (2:0)"
 `;
 
 exports[`snippet: #22 [json] format 2`] = `
 "Unexpected token (1:2)
 > 1 | [#[]]
-    |  ^"
+    |  ^
+Cause: Unexpected token (1:1)"
 `;
 
 exports[`snippet: #22 [json-stringify] format 1`] = `
 "Unexpected token (2:1)
   1 | "use strict"
 > 2 | {}
-    | ^"
+    | ^
+Cause: Unexpected token (2:0)"
 `;
 
 exports[`snippet: #22 [json5] format 1`] = `
 "Unexpected token (2:1)
   1 | "use strict"
 > 2 | {}
-    | ^"
+    | ^
+Cause: Unexpected token (2:0)"
 `;
 
 exports[`snippet: #23 [json] format 1`] = `
 "Unexpected token (1:14)
 > 1 | /* comment */
-    |              ^"
+    |              ^
+Cause: Unexpected token (1:13)"
 `;
 
 exports[`snippet: #23 [json] format 2`] = `
@@ -573,19 +592,22 @@ exports[`snippet: #23 [json] format 2`] = `
 exports[`snippet: #23 [json-stringify] format 1`] = `
 "Unexpected token (1:14)
 > 1 | /* comment */
-    |              ^"
+    |              ^
+Cause: Unexpected token (1:13)"
 `;
 
 exports[`snippet: #23 [json5] format 1`] = `
 "Unexpected token (1:14)
 > 1 | /* comment */
-    |              ^"
+    |              ^
+Cause: Unexpected token (1:13)"
 `;
 
 exports[`snippet: #24 [json] format 1`] = `
 "Unexpected token (1:11)
 > 1 | // comment
-    |           ^"
+    |           ^
+Cause: Unexpected token (1:10)"
 `;
 
 exports[`snippet: #24 [json] format 2`] = `
@@ -597,13 +619,15 @@ exports[`snippet: #24 [json] format 2`] = `
 exports[`snippet: #24 [json-stringify] format 1`] = `
 "Unexpected token (1:11)
 > 1 | // comment
-    |           ^"
+    |           ^
+Cause: Unexpected token (1:10)"
 `;
 
 exports[`snippet: #24 [json5] format 1`] = `
 "Unexpected token (1:11)
 > 1 | // comment
-    |           ^"
+    |           ^
+Cause: Unexpected token (1:10)"
 `;
 
 exports[`snippet: #25 [json] format 1`] = `
@@ -789,17 +813,20 @@ exports[`snippet: #33 [json5] format 1`] = `
 exports[`snippet: #34 [json] format 1`] = `
 "Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
-    |     ^"
+    |     ^
+Cause: Invalid left-hand side in prefix operation. (1:4)"
 `;
 
 exports[`snippet: #34 [json-stringify] format 1`] = `
 "Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
-    |     ^"
+    |     ^
+Cause: Invalid left-hand side in prefix operation. (1:4)"
 `;
 
 exports[`snippet: #34 [json5] format 1`] = `
 "Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
-    |     ^"
+    |     ^
+Cause: Invalid left-hand side in prefix operation. (1:4)"
 `;

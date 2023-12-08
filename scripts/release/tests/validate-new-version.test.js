@@ -9,7 +9,7 @@ describe("validate-new-version", () => {
       () => {
         validateNewVersion({});
       },
-      { message: "'--version' is required" }
+      { message: "'--version' is required" },
     );
   });
   it("throws error for invalid semver", () => {
@@ -17,7 +17,7 @@ describe("validate-new-version", () => {
       () => {
         validateNewVersion({ version: "foo" });
       },
-      { message: `Invalid version '${chalk.red.underline("foo")}' specified` }
+      { message: `Invalid version '${chalk.red.underline("foo")}' specified` },
     );
   });
   it("throws error when version isn't greater than prev version", () => {
@@ -27,9 +27,9 @@ describe("validate-new-version", () => {
       },
       {
         message: `Version '${chalk.yellow(
-          "0.0.1"
+          "0.0.1",
         )}' has already been published`,
-      }
+      },
     );
   });
 });

@@ -844,6 +844,87 @@ a = [
 
 ]
 
+b = [
+  100,
+
+  (200)
+  ,
+
+  300
+  ,
+
+  1
+  ,
+  2, 3
+]
+
+c = [
+  "apple",
+  "banana",
+  "blueberry",
+
+  "red",
+  "blue"
+  ,
+  "yellow",
+
+  "broccoli",
+  "celery",
+  "lettuce"
+  ,
+
+  "green"
+  ,
+  "green",
+  "green",
+
+  //an egg
+  "egg",
+  //a bigger egg
+  "big egg"
+  //the biggest egg
+  ,
+  "huge egg"
+  ,
+
+  //not an egg
+  "lasagna"
+
+]
+
+_ = [
+  a,
+
+  b //
+]
+
+_ = [
+  (a),
+
+  b, //
+];
+
+_ = [
+  (((((
+    a = b/* comment */))/* comment */))),
+
+  c //
+]
+
+_ = [
+  (((((
+    (a = b)/* comment */))/* comment */))),
+
+  c //
+]
+
+_ = [
+  (a=b
+
+  ),
+  b, //
+];
+
 =====================================output=====================================
 a = [
   1, 2,
@@ -851,6 +932,73 @@ a = [
   3,
 
   4,
+];
+
+b = [
+  100,
+
+  200,
+
+  300,
+
+  1, 2, 3,
+];
+
+c = [
+  "apple",
+  "banana",
+  "blueberry",
+
+  "red",
+  "blue",
+  "yellow",
+
+  "broccoli",
+  "celery",
+  "lettuce",
+
+  "green",
+  "green",
+  "green",
+
+  //an egg
+  "egg",
+  //a bigger egg
+  "big egg",
+  //the biggest egg
+  "huge egg",
+
+  //not an egg
+  "lasagna",
+];
+
+_ = [
+  a,
+
+  b, //
+];
+
+_ = [
+  a,
+
+  b, //
+];
+
+_ = [
+  (a = b) /* comment */ /* comment */,
+
+  c, //
+];
+
+_ = [
+  (a = b) /* comment */ /* comment */,
+
+  c, //
+];
+
+_ = [
+  (a = b),
+  b, //
 ];
 
 ================================================================================
@@ -864,7 +1012,8 @@ exports[`tuple-and-record.js [acorn] format 1`] = `
      |    ^
    8 |   #[1,2],
    9 | ]
-  10 |"
+  10 |
+Cause: Unexpected character '[' (7:3)"
 `;
 
 exports[`tuple-and-record.js [espree] format 1`] = `
@@ -875,7 +1024,8 @@ exports[`tuple-and-record.js [espree] format 1`] = `
      |    ^
    8 |   #[1,2],
    9 | ]
-  10 |"
+  10 |
+Cause: Unexpected character '['"
 `;
 
 exports[`tuple-and-record.js [flow] format 1`] = `
@@ -897,7 +1047,8 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
      |   ^
    8 |   #[1,2],
    9 | ]
-  10 |"
+  10 |
+Cause: [7:3]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js [typescript] format 1`] = `
@@ -908,7 +1059,8 @@ exports[`tuple-and-record.js [typescript] format 1`] = `
      |   ^
    8 |   #[1,2],
    9 | ]
-  10 |"
+  10 |
+Cause: Invalid character."
 `;
 
 exports[`tuple-and-record.js format 1`] = `

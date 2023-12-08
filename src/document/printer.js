@@ -199,7 +199,7 @@ function fits(
   width,
   hasLineSuffix,
   groupModeMap,
-  mustBeFlat
+  mustBeFlat,
 ) {
   if (width === Number.POSITIVE_INFINITY) {
     return true;
@@ -473,7 +473,7 @@ function printDocToString(doc, options) {
           rem,
           lineSuffix.length > 0,
           groupModeMap,
-          true
+          true,
         );
 
         if (parts.length === 1) {
@@ -518,7 +518,7 @@ function printDocToString(doc, options) {
           rem,
           lineSuffix.length > 0,
           groupModeMap,
-          true
+          true,
         );
 
         if (firstAndSecondContentFits) {
@@ -538,8 +538,8 @@ function printDocToString(doc, options) {
             doc.type === DOC_TYPE_IF_BREAK
               ? doc.breakContents
               : doc.negate
-              ? doc.contents
-              : indent(doc.contents);
+                ? doc.contents
+                : indent(doc.contents);
           if (breakContents) {
             cmds.push({ ind, mode, doc: breakContents });
           }
@@ -549,8 +549,8 @@ function printDocToString(doc, options) {
             doc.type === DOC_TYPE_IF_BREAK
               ? doc.flatContents
               : doc.negate
-              ? indent(doc.contents)
-              : doc.contents;
+                ? indent(doc.contents)
+                : doc.contents;
           if (flatContents) {
             cmds.push({ ind, mode, doc: flatContents });
           }
@@ -638,7 +638,7 @@ function printDocToString(doc, options) {
   if (cursorPlaceholderIndex !== -1) {
     const otherCursorPlaceholderIndex = out.indexOf(
       CURSOR_PLACEHOLDER,
-      cursorPlaceholderIndex + 1
+      cursorPlaceholderIndex + 1,
     );
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
     const aroundCursor = out

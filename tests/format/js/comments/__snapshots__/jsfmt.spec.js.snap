@@ -4733,6 +4733,53 @@ function inlineComment() {
   ) || 42
 }
 
+function multilineBlockSameLine() {
+  return (
+    /**
+    * @type {string}
+    */ 'result'
+  )
+}
+
+function multilineBlockNextLine() {
+  return (
+    /**
+    * @type {string}
+    */ 
+    'result'
+  )
+}
+
+function multilineBlockSameLineJsx() {
+  return (
+    /**
+    * JSX Same line
+    */ <div></div>
+  )
+}
+
+function multilineBlockNextLineJsx() {
+  return (
+    /**
+    * JSX Next line
+    */
+    <div></div>
+  )
+}
+
+function singleLineBlockSameLine() {
+  return (
+    /** Result -> */ 'result'
+  )
+}
+
+function singleLineBlockNextLine() {
+  return (
+    /** Result below */ 
+    'result'
+  )
+}
+
 =====================================output=====================================
 function jsx() {
   return (
@@ -4862,6 +4909,51 @@ function taggedTemplate() {
 
 function inlineComment() {
   return /* hi */ 42 || 42
+}
+
+function multilineBlockSameLine() {
+  return (
+    /**
+     * @type {string}
+     */ "result"
+  )
+}
+
+function multilineBlockNextLine() {
+  return (
+    /**
+     * @type {string}
+     */
+    "result"
+  )
+}
+
+function multilineBlockSameLineJsx() {
+  return (
+    /**
+     * JSX Same line
+     */ <div></div>
+  )
+}
+
+function multilineBlockNextLineJsx() {
+  return (
+    /**
+     * JSX Next line
+     */
+    <div></div>
+  )
+}
+
+function singleLineBlockSameLine() {
+  return /** Result -> */ "result"
+}
+
+function singleLineBlockNextLine() {
+  return (
+    /** Result below */
+    "result"
+  )
 }
 
 ================================================================================
@@ -4995,6 +5087,53 @@ function inlineComment() {
   ) || 42
 }
 
+function multilineBlockSameLine() {
+  return (
+    /**
+    * @type {string}
+    */ 'result'
+  )
+}
+
+function multilineBlockNextLine() {
+  return (
+    /**
+    * @type {string}
+    */ 
+    'result'
+  )
+}
+
+function multilineBlockSameLineJsx() {
+  return (
+    /**
+    * JSX Same line
+    */ <div></div>
+  )
+}
+
+function multilineBlockNextLineJsx() {
+  return (
+    /**
+    * JSX Next line
+    */
+    <div></div>
+  )
+}
+
+function singleLineBlockSameLine() {
+  return (
+    /** Result -> */ 'result'
+  )
+}
+
+function singleLineBlockNextLine() {
+  return (
+    /** Result below */ 
+    'result'
+  )
+}
+
 =====================================output=====================================
 function jsx() {
   return (
@@ -5124,6 +5263,51 @@ function taggedTemplate() {
 
 function inlineComment() {
   return /* hi */ 42 || 42;
+}
+
+function multilineBlockSameLine() {
+  return (
+    /**
+     * @type {string}
+     */ "result"
+  );
+}
+
+function multilineBlockNextLine() {
+  return (
+    /**
+     * @type {string}
+     */
+    "result"
+  );
+}
+
+function multilineBlockSameLineJsx() {
+  return (
+    /**
+     * JSX Same line
+     */ <div></div>
+  );
+}
+
+function multilineBlockNextLineJsx() {
+  return (
+    /**
+     * JSX Next line
+     */
+    <div></div>
+  );
+}
+
+function singleLineBlockSameLine() {
+  return /** Result -> */ "result";
+}
+
+function singleLineBlockNextLine() {
+  return (
+    /** Result below */
+    "result"
+  );
 }
 
 ================================================================================
@@ -5922,7 +6106,8 @@ exports[`tuple-and-record.js [acorn] format 1`] = `
      |  ^
    8 |   key: 'value'
    9 | }
-  10 |"
+  10 |
+Cause: Unexpected character '{' (7:1)"
 `;
 
 exports[`tuple-and-record.js [espree] format 1`] = `
@@ -5933,7 +6118,8 @@ exports[`tuple-and-record.js [espree] format 1`] = `
      |  ^
    8 |   key: 'value'
    9 | }
-  10 |"
+  10 |
+Cause: Unexpected character '{'"
 `;
 
 exports[`tuple-and-record.js [flow] format 1`] = `
@@ -5955,7 +6141,8 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
      | ^
    8 |   key: 'value'
    9 | }
-  10 |"
+  10 |
+Cause: [7:1]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js [typescript] format 1`] = `
@@ -5966,7 +6153,8 @@ exports[`tuple-and-record.js [typescript] format 1`] = `
      | ^
    8 |   key: 'value'
    9 | }
-  10 |"
+  10 |
+Cause: Invalid character."
 `;
 
 exports[`tuple-and-record.js - {"semi":false} [acorn] format 1`] = `
@@ -5977,7 +6165,8 @@ exports[`tuple-and-record.js - {"semi":false} [acorn] format 1`] = `
      |  ^
    8 |   key: 'value'
    9 | }
-  10 |"
+  10 |
+Cause: Unexpected character '{' (7:1)"
 `;
 
 exports[`tuple-and-record.js - {"semi":false} [espree] format 1`] = `
@@ -5988,7 +6177,8 @@ exports[`tuple-and-record.js - {"semi":false} [espree] format 1`] = `
      |  ^
    8 |   key: 'value'
    9 | }
-  10 |"
+  10 |
+Cause: Unexpected character '{'"
 `;
 
 exports[`tuple-and-record.js - {"semi":false} [flow] format 1`] = `
@@ -6010,7 +6200,8 @@ exports[`tuple-and-record.js - {"semi":false} [meriyah] format 1`] = `
      | ^
    8 |   key: 'value'
    9 | }
-  10 |"
+  10 |
+Cause: [7:1]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js - {"semi":false} [typescript] format 1`] = `
@@ -6021,7 +6212,8 @@ exports[`tuple-and-record.js - {"semi":false} [typescript] format 1`] = `
      | ^
    8 |   key: 'value'
    9 | }
-  10 |"
+  10 |
+Cause: Invalid character."
 `;
 
 exports[`tuple-and-record.js - {"semi":false} format 1`] = `

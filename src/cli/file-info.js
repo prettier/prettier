@@ -8,7 +8,6 @@ async function logFileInfoOrDie(context) {
     ignorePath,
     withNodeModules,
     plugins,
-    pluginSearchDirs,
     config,
   } = context.argv;
 
@@ -16,7 +15,6 @@ async function logFileInfoOrDie(context) {
     ignorePath,
     withNodeModules,
     plugins,
-    pluginSearchDirs,
     resolveConfig: config !== false,
   });
 

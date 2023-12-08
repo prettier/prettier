@@ -195,7 +195,7 @@ const options = {
   ignorePath: {
     array: true,
     category: optionCategories.CATEGORY_CONFIG,
-    default: [{ value: [".prettierignore"] }],
+    default: [{ value: [".gitignore", ".prettierignore"] }],
     description: outdent`
       Path to a file with patterns describing files to ignore.
       Multiple values are accepted.
@@ -219,10 +219,6 @@ const options = {
     default: "log",
     description: "What level of logs to report.",
     type: "choice",
-  },
-  pluginSearch: {
-    oppositeDescription: "Disable plugin autoloading.",
-    type: "boolean",
   },
   supportInfo: {
     description: "Print support information as JSON.",

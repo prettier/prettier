@@ -100,7 +100,7 @@ export function convertSelectionToRange({ head, anchor }, content) {
   return [head, anchor]
     .map(
       ({ ch, line }) =>
-        lines.slice(0, line).join("\n").length + ch + (line ? 1 : 0)
+        lines.slice(0, line).join("\n").length + ch + (line ? 1 : 0),
     )
     .sort((a, b) => a - b);
 }

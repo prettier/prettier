@@ -130,6 +130,10 @@ exports[`API getSupportInfo() 1`] = `
       "default": "lf",
       "type": "choice",
     },
+    "experimentalTernaries": {
+      "default": false,
+      "type": "boolean",
+    },
     "filepath": {
       "default": undefined,
       "type": "path",
@@ -179,10 +183,6 @@ exports[`API getSupportInfo() 1`] = `
       ],
       "default": undefined,
       "type": "choice",
-    },
-    "pluginSearchDirs": {
-      "default": [],
-      "type": "path",
     },
     "plugins": {
       "default": [],
@@ -474,6 +474,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".yyp"
       ],
       "filenames": [
+        ".all-contributorsrc",
         ".arcconfig",
         ".auto-changelog",
         ".c8rc",
@@ -485,6 +486,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".watchmanconfig",
         "Pipfile.lock",
         "composer.lock",
+        "flake.lock",
         "mcmod.info"
       ],
       "linguistLanguageId": 174,
@@ -503,6 +505,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "extensions": [
         ".jsonc",
         ".code-snippets",
+        ".code-workspace",
         ".sublime-build",
         ".sublime-commands",
         ".sublime-completions",
@@ -524,14 +527,14 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".jscsrc",
         ".jshintrc",
         ".jslintrc",
+        ".swcrc",
         "api-extractor.json",
         "devcontainer.json",
         "jsconfig.json",
         "language-configuration.json",
         "tsconfig.json",
         "tslint.json",
-        ".eslintrc",
-        ".swcrc"
+        ".eslintrc"
       ],
       "group": "JSON",
       "linguistLanguageId": 423,
@@ -621,7 +624,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       "aceMode": "markdown",
-      "aliases": ["pandoc"],
+      "aliases": ["md", "pandoc"],
       "codemirrorMimeType": "text/x-gfm",
       "codemirrorMode": "gfm",
       "color": "#083fa1",
@@ -642,14 +645,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       "linguistLanguageId": 222,
       "name": "Markdown",
       "parsers": ["markdown"],
-      "tmScope": "source.gfm",
+      "tmScope": "text.md",
       "type": "prose",
       "vscodeLanguageIds": ["markdown"],
       "wrap": true
     },
     {
       "aceMode": "markdown",
-      "aliases": ["pandoc"],
+      "aliases": ["md", "pandoc"],
       "codemirrorMimeType": "text/x-gfm",
       "codemirrorMode": "gfm",
       "color": "#083fa1",
@@ -658,7 +661,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "linguistLanguageId": 222,
       "name": "MDX",
       "parsers": ["mdx"],
-      "tmScope": "source.gfm",
+      "tmScope": "text.md",
       "type": "prose",
       "vscodeLanguageIds": ["mdx"],
       "wrap": true
@@ -854,6 +857,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "choice"
     },
     {
+      "category": "JavaScript",
+      "default": false,
+      "description": "Use curious ternaries, with the question mark after the condition.",
+      "name": "experimentalTernaries",
+      "oppositeDescription": "Default behavior of ternaries; keep question marks on the same line as the consequent.",
+      "pluginDefaults": {},
+      "type": "boolean"
+    },
+    {
       "category": "Special",
       "description": "Specify the input filepath. This will be used to do parser inference.",
       "name": "filepath",
@@ -936,15 +948,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "default": [],
       "description": "Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.",
       "name": "plugins",
-      "pluginDefaults": {},
-      "type": "path"
-    },
-    {
-      "array": true,
-      "category": "Global",
-      "default": [],
-      "description": "Custom directory that contains prettier plugins in node_modules subdirectory.\\nOverrides default behavior when plugins are searched relatively to the location of Prettier.\\nMultiple values are accepted.",
-      "name": "pluginSearchDirs",
       "pluginDefaults": {},
       "type": "path"
     },

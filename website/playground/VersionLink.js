@@ -28,6 +28,6 @@ export default function VersionLink({ version }) {
     >
       {formattedVersion}
     </a>,
-    root
+    root,
   );
 }

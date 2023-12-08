@@ -5,7 +5,8 @@ exports[`newline-before-arrow.js [acorn] format 1`] = `
   1 | async x
 > 2 | => x
     | ^
-  3 |"
+  3 |
+Cause: Unexpected token (2:0)"
 `;
 
 exports[`newline-before-arrow.js [espree] format 1`] = `
@@ -13,7 +14,8 @@ exports[`newline-before-arrow.js [espree] format 1`] = `
   1 | async x
 > 2 | => x
     | ^
-  3 |"
+  3 |
+Cause: Unexpected token =>"
 `;
 
 exports[`newline-before-arrow.js [meriyah] format 1`] = `
@@ -21,7 +23,8 @@ exports[`newline-before-arrow.js [meriyah] format 1`] = `
   1 | async x
 > 2 | => x
     |  ^
-  3 |"
+  3 |
+Cause: [2:2]: No line break is allowed after '=>'"
 `;
 
 exports[`newline-before-arrow.js format 1`] = `

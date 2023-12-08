@@ -2,7 +2,7 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
-import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
+import { nodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "esbuild-plugins-node-modules-polyfill";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
@@ -48,7 +48,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
       replacement: "",
     },
-    // Transform `.at` and `Object.hasOwn`
+    // Transform `.at`, `Object.hasOwn`, and `String#replaceAll`
     {
       module: "*",
       process: transform,
@@ -56,7 +56,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     ...[
       require.resolve("tslib"),
-      createRequire(require.resolve("vnopts")).resolve("tslib"),
       createRequire(require.resolve("tsutils")).resolve("tslib"),
     ].map((file) => ({
       module: file,
@@ -83,11 +82,11 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         text
           .replace(
             "const line = (0, _detectNewline().default)(docblock) ?? _os().EOL;",
-            'const line = "\\n"'
+            'const line = "\\n"',
           )
           .replace(
             "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
-            'const line = "\\n"'
+            'const line = "\\n"',
           )
           .replace(/\nfunction _os\(\).*?\n}/s, "")
           .replace(/\nfunction _detectNewline\(\).*?\n}/s, ""),
@@ -113,6 +112,8 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     define["process.emitWarning"] = undefined;
     // postcss/lib/postcss.js
     define["process.env.LANG"] = "";
+    // @typescript-eslint/typescript-estree
+    define["process.env.TYPESCRIPT_ESLINT_EXPERIMENTAL_TSSERVER"] = "";
 
     // Replace `__dirname` and `__filename` with a fake value
     // So `parser-typescript.js` won't contain a path of working directory
@@ -128,7 +129,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         .filter(
           (bundle) =>
             bundle.input === "package.json" ||
-            (file.input !== bundle.input && bundle.output.format === "esm")
+            (file.input !== bundle.input && bundle.output.format === "esm"),
         )
         .map((bundle) => {
           let output = bundle.output.file;
@@ -143,7 +144,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
             module: path.join(PROJECT_ROOT, bundle.input),
             external: getRelativePath(file.output.file, output),
           };
-        })
+        }),
     );
   } else {
     replaceModule.push(
@@ -159,7 +160,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         module: "*",
         find: ' from "node:assert";',
         replacement: ` from ${JSON.stringify(
-          path.join(dirname, "./shims/assert.js")
+          path.join(dirname, "./shims/assert.js"),
         )};`,
       },
       // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
@@ -176,7 +177,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       {
         module: path.join(PROJECT_ROOT, "src/utils/get-interpreter.js"),
         text: "export default undefined;",
-      }
+      },
     );
   }
 
@@ -216,7 +217,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     legalComments: "none",
     external: ["pnpapi", ...(buildOptions.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
-    tsconfig: path.join(dirname, "empty-tsconfig.json"),
+    tsconfigRaw: JSON.stringify({}),
     target: [...(buildOptions.target ?? ["node14"])],
     logLevel: "error",
     format: file.output.format,
@@ -234,7 +235,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       esbuildOptions.plugins.push(
         esbuildPluginUmd({
           name: file.output.umdVariableName,
-        })
+        }),
       );
     }
   } else {

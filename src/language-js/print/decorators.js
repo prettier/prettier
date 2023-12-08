@@ -59,8 +59,8 @@ function printDecorators(path, options, print) {
     path.key === "declaration" && isExportDeclaration(parent)
       ? hardline
       : shouldBreak
-      ? breakParent
-      : "",
+        ? breakParent
+        : "",
     join(line, path.map(print, "decorators")),
     line,
   ];
@@ -68,7 +68,7 @@ function printDecorators(path, options, print) {
 
 function hasNewlineBetweenOrAfterDecorators(node, options) {
   return node.decorators.some((decorator) =>
-    hasNewline(options.originalText, locEnd(decorator))
+    hasNewline(options.originalText, locEnd(decorator)),
   );
 }
 

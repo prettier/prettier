@@ -59,7 +59,7 @@ function shouldPreserveContent(node, options) {
   if (
     isPreLikeNode(node) &&
     node.children.some(
-      (child) => child.type !== "text" && child.type !== "interpolation"
+      (child) => child.type !== "text" && child.type !== "interpolation",
     )
   ) {
     return true;
@@ -145,7 +145,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
   return isLeadingSpaceSensitive;
 
   function _isLeadingSpaceSensitiveNode() {
-    if (isFrontMatter(node)) {
+    if (isFrontMatter(node) || node.type === "angularControlFlowBlock") {
       return false;
     }
 
@@ -188,7 +188,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
 }
 
 function isTrailingSpaceSensitiveNode(node, options) {
-  if (isFrontMatter(node)) {
+  if (isFrontMatter(node) || node.type === "angularControlFlowBlock") {
     return false;
   }
 
@@ -612,7 +612,7 @@ function getTextValueParts(node, value = node.value) {
       ? replaceEndOfLine(value)
       : replaceEndOfLine(
           dedentString(htmlTrimPreserveIndentation(value)),
-          hardline
+          hardline,
         )
     : join(line, htmlWhitespaceUtils.split(value));
 }

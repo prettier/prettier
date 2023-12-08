@@ -31,6 +31,18 @@ module.exports = {
           return;
         }
 
+        // wrapped
+        // `const runCliWithoutGitignore = () => runCli()`
+        // `const runCliWithoutGitignore = () => { return runCli() }`
+        if (
+          (parent.type === "ArrowFunctionExpression" &&
+            parent.body === callExpression) ||
+          (parent.type === "ReturnStatement" &&
+            parent.argument === callExpression)
+        ) {
+          return;
+        }
+
         if (
           parent.type === "MemberExpression" &&
           parent.object === callExpression &&
