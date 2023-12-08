@@ -47,7 +47,7 @@ function* getDescendants(node, options) {
 
 /**
  * @param {Node} node
- * @param {{getVisitorKeys: GetVisitorKeys}}
+ * @param {{getVisitorKeys: GetVisitorKeys}} options
  */
 function isLeaf(node, options) {
   for (const _ of getChildren(node, options)) {
