@@ -310,8 +310,7 @@ class Playground extends React.Component {
                         <Option
                           option={this.cursorOffsetOption}
                           value={
-                            typeof options.cursorOffset === "number" &&
-                            options.cursorOffset !== -1
+                            options.cursorOffset >= 0
                               ? options.cursorOffset
                               : ""
                           }
@@ -333,7 +332,7 @@ class Playground extends React.Component {
                               }))
                             }
                           />
-                          {options.cursorOffset !== -1 && (
+                          {options.cursorOffset >= 0 && (
                             <>
                               <Button
                                 onClick={() => {
