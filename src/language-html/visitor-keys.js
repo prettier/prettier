@@ -14,8 +14,8 @@ const visitorKeys = {
   angularControlFlowBlock: ["children", "parameters"],
   angularControlFlowBlockParameters: ["children"],
   angularControlFlowBlockParameter: [],
-  plural: ["cases"],
-  expansionCase: ["expression"],
+  angularICUExpression: ["cases"],
+  angularExpansionCase: ["expression"],
 };
 
 export default visitorKeys;

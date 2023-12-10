@@ -53,6 +53,11 @@ function genericPrint(path, options, print) {
     case "angularControlFlowBlockParameter":
       return htmlWhitespaceUtils.trim(node.expression);
 
+    case "angularICUExpression":
+      return printAngularICUExpression(path, options, print);
+    case "angularExpansionCase":
+      return printAngularExpansionCase(path, options, print);
+
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":
       return [printOpeningTagStart(node), printClosingTagEnd(node)];
@@ -122,10 +127,6 @@ function genericPrint(path, options, print) {
       ];
     }
     case "cdata": // Transformed into `text`
-    case "plural":
-      return printAngularICUExpression(path, options, print);
-    case "expansionCase":
-      return printAngularExpansionCase(path, options, print);
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "HTML");

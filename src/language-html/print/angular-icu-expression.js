@@ -12,12 +12,11 @@ import { softline, line, indent, join } from "../../document/builders.js";
 
 function printAngularICUExpression(path, options, print) {
   const { node } = path;
-  const icuClause = node.type; // plural or select
   return [
     "{",
     node.switchValue,
     ", ",
-    icuClause,
+    node.clause,
     node.cases.length > 0
       ? [",", indent([line, join(line, path.map(print, "cases"))])]
       : "",

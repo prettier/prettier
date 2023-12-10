@@ -67,6 +67,16 @@ function normalizeAngularControlFlowBlock(node) {
   };
 }
 
+function normalizeAngularICUExpression(node) {
+  if (node.type === "plural" || node.type === "select") {
+    node.clause = node.type;
+    node.type = "angularICUExpression";
+  }
+  if (node.type === "expansionCase") {
+    node.type = "angularExpansionCase";
+  }
+}
+
 /**
  * @param {string} input
  * @param {ParseOptions} parseOptions
@@ -374,6 +384,7 @@ function parse(
     }
 
     normalizeAngularControlFlowBlock(node);
+    normalizeAngularICUExpression(node);
   });
 
   return ast;
