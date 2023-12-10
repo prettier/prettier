@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic-plural-01.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span i18n>Updated {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago}}</span>
+
+=====================================output=====================================
+<span i18n
+  >Updated
+  {minutes, plural,
+    =0 {just now}
+    =1 {one minute ago}
+    other {{{minutes}} minutes ago}
+  }
+></span>
+
+================================================================================
+`;
+
+exports[`basic-select-01.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span i18n>The author is {gender, select, male {male} female {female} other {other}}</span>
+
+=====================================output=====================================
+<span i18n
+  >The author is {gender, select, male {male} female {female} other {other}}
+></span>
+
+================================================================================
+`;
+
+exports[`combination-01.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span i18n>Updated: {minutes, plural,
+    =0 {just now}
+    =1 {one minute ago}
+    other {{{minutes}} minutes ago by {gender, select, male {male} female {female} other {other}}}}
+  </span>
+
+=====================================output=====================================
+<span i18n
+  >Updated:
+  {minutes, plural,
+    =0 {just now}
+    =1 {one minute ago}
+    other {{{minutes}} minutes ago by  {gender, select,
+      male {male}
+      female {female}
+      other {other}
+    }}
+  }
+</span>
+
+================================================================================
+`;
