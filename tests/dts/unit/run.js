@@ -29,6 +29,18 @@ describe("Unit tests for dts files", () => {
     /** @type {import("typescript").Diagnostic[]} */
     const diagnostics = ts.getPreEmitDiagnostics(program);
 
-    expect(diagnostics).toEqual([]);
+    expect(diagnostics.map(formatDiagnostic)).toEqual([]);
   });
 });
+
+/**
+ * @param {import("typescript").Diagnostic} diagnostic
+ */
+function formatDiagnostic({ file, start, code, messageText }) {
+  let location = "";
+  if (file) {
+    const { line, character } = ts.getLineAndCharacterOfPosition(file, start);
+    location = `${file.fileName}:${line + 1}:${character + 1} `;
+  }
+  return `${location}TS${code}: ${messageText}`;
+}

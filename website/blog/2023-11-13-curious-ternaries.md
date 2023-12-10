@@ -80,8 +80,7 @@ const animalName =
     pet.isScary() ?
       'wolf'
     : 'dog'
-  : pet.canMeow() ?
-    'cat'
+  : pet.canMeow() ? 'cat'
   : 'probably a bunny';
 ```
 

@@ -4294,10 +4294,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.222.0":
-  version: 0.222.0
-  resolution: "flow-parser@npm:0.222.0"
-  checksum: 286fbd397e86eca7c2aaf7d280e2385670d261f986b24122471b153d8c646d924b3679807103aacb6e60282ad7ed8fb0f4112ecff89f6d0995b59021f73c0c40
+"flow-parser@npm:0.223.3":
+  version: 0.223.3
+  resolution: "flow-parser@npm:0.223.3"
+  checksum: 4c0df178ff2e9140f57b5e7321b11e1cb827e00fbad6f342742c5834bd313f1bb0fe84d919d36e0c593e916c4ae5c8a93fcdb42c4328d6c5d77d75c8eed12090
   languageName: node
   linkType: hard
 
@@ -4683,19 +4683,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.17.1":
-  version: 0.17.1
-  resolution: "hermes-estree@npm:0.17.1"
-  checksum: ffa6f997ad0b2a0dfe8ec782fc8cc5224a0d943b330944e62fe58c93c1f590afb67ba064d5a308c51a824b0db6e1bdc1654bfaf6bdfb4b0de4fb8f9cd8cf1050
+"hermes-estree@npm:0.18.0":
+  version: 0.18.0
+  resolution: "hermes-estree@npm:0.18.0"
+  checksum: c99ef2daf0e838bd738aa53e037e66b04c6e2bdc5426c460743a63fa55113d16a91045f2706e3ea99977e2291dd1a23746aeb0c9fe1bfe8d2fbced1a513e2740
   languageName: node
   linkType: hard
 
-"hermes-parser@npm:0.17.1":
-  version: 0.17.1
-  resolution: "hermes-parser@npm:0.17.1"
+"hermes-parser@npm:0.18.0":
+  version: 0.18.0
+  resolution: "hermes-parser@npm:0.18.0"
   dependencies:
-    hermes-estree: 0.17.1
-  checksum: 0a8fd611c708ec076654e9b7aed4b8c5b4302bdef87402a66e9c09ec3f925aa3c12718c80ebc52154ec5712a348ad375a69838f243c9bc2189ec6459415d6760
+    hermes-estree: 0.18.0
+  checksum: 163202f1916f1df34a560148d626eb9a82eb2b9738882cff350853051f4ebf5c56472c64029f17408ce1b1ea88309108970687dd586630febb57fea9af7e1b56
   languageName: node
   linkType: hard
 
@@ -7344,11 +7344,11 @@ __metadata:
     fast-json-stable-stringify: 2.1.0
     file-entry-cache: 7.0.2
     find-cache-dir: 5.0.0
-    flow-parser: 0.222.0
+    flow-parser: 0.223.3
     get-east-asian-width: 1.2.0
     get-stdin: 9.0.0
     graphql: 16.8.1
-    hermes-parser: 0.17.1
+    hermes-parser: 0.18.0
     html-element-attributes: 3.3.0
     html-tag-names: 2.1.0
     html-ua-styles: 0.0.3
