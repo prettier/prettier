@@ -8,7 +8,8 @@ exports[`comments.js [babel-flow] format 1`] = `
     |            ^
   4 |   ? // comment
   5 |     foo
-  6 |   : bar;"
+  6 |   : bar;
+Cause: Unexpected token (3:11)"
 `;
 
 exports[`comments.js format 1`] = `

@@ -6,7 +6,8 @@ exports[`module-string-names-export.js [meriyah] format 1`] = `
     |                          ^
   2 | export { "smile" as smile2 } from "./emojis.js";
   3 | export { "smile" as "smile3" } from "./emojis.js";
-  4 | export { foo1, bar as "foo2" } from "./emojis.js";"
+  4 | export { foo1, bar as "foo2" } from "./emojis.js";
+Cause: [1:26]: Only a identifier can be used to indicate alias"
 `;
 
 exports[`module-string-names-export.js format 1`] = `
@@ -42,7 +43,8 @@ exports[`module-string-names-import.js [meriyah] format 1`] = `
     |                  ^
   2 | import { "foo" as bar, "default" as qux } from "module-a";
   3 | import { "學而時習之，不亦說乎？" as quotation2 } from "Confucius";
-  4 |"
+  4 |
+Cause: [1:18]: Expected '}'"
 `;
 
 exports[`module-string-names-import.js format 1`] = `

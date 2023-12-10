@@ -8,7 +8,8 @@ exports[`await-keywords.js [babel-flow] format 1`] = `
      |       ^
   13 | }
   14 |
-  15 | function foo(promise) { await (promise); }"
+  15 | function foo(promise) { await (promise); }
+Cause: 'await' is only allowed within async functions and at the top levels of modules. (12:6)"
 `;
 
 exports[`await-keywords.js format 1`] = `

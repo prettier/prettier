@@ -255,8 +255,6 @@ These two options can be used to format code starting and ending at a given char
 - Backwards to the start of the first line containing the selected statement.
 - Forwards to the end of the selected statement.
 
-These options cannot be used with `cursorOffset`.
-
 | Default    | CLI Override          | API Override        |
 | ---------- | --------------------- | ------------------- |
 | `0`        | `--range-start <int>` | `rangeStart: <int>` |

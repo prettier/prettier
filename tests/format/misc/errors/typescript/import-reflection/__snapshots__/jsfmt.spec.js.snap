@@ -5,7 +5,8 @@ exports[`valid-flow-default-import.mts [typescript] format 1`] = `
 > 1 | import module foo from "./module.wasm";
     |               ^
   2 | import bar from "./module.wasm";
-  3 |"
+  3 |
+Cause: '=' expected."
 `;
 
 exports[`valid-ts-default-import.mts [typescript] format 1`] = `
@@ -13,5 +14,6 @@ exports[`valid-ts-default-import.mts [typescript] format 1`] = `
 > 1 | import module foo from "./module.wasm";
     |               ^
   2 | import bar from "./module.wasm";
-  3 |"
+  3 |
+Cause: '=' expected."
 `;

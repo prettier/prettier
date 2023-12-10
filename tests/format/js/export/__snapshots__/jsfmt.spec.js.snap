@@ -349,28 +349,32 @@ exports[`undefined.js [acorn] format 1`] = `
 "Export 'undefinedExport' is not defined (1:10)
 > 1 | export { undefinedExport };
     |          ^
-  2 |"
+  2 |
+Cause: Export 'undefinedExport' is not defined (1:9)"
 `;
 
 exports[`undefined.js [espree] format 1`] = `
 "Export 'undefinedExport' is not defined (1:10)
 > 1 | export { undefinedExport };
     |          ^
-  2 |"
+  2 |
+Cause: Export 'undefinedExport' is not defined"
 `;
 
 exports[`undefined.js - {"bracketSpacing":false} [acorn] format 1`] = `
 "Export 'undefinedExport' is not defined (1:10)
 > 1 | export { undefinedExport };
     |          ^
-  2 |"
+  2 |
+Cause: Export 'undefinedExport' is not defined (1:9)"
 `;
 
 exports[`undefined.js - {"bracketSpacing":false} [espree] format 1`] = `
 "Export 'undefinedExport' is not defined (1:10)
 > 1 | export { undefinedExport };
     |          ^
-  2 |"
+  2 |
+Cause: Export 'undefinedExport' is not defined"
 `;
 
 exports[`undefined.js - {"bracketSpacing":false} format 1`] = `

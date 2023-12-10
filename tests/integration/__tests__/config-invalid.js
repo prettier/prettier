@@ -1,3 +1,4 @@
+import fs from "node:fs/promises";
 import outdent from "outdent";
 import jestPathSerializer from "../path-serializer.js";
 
@@ -177,4 +178,32 @@ describe("Invalid config value", () => {
     write: [],
     stderr: "",
   });
+});
+
+// Can't put a invalid `package.json` file in the test dir
+test("Invalid package.json", async () => {
+  const packageJsonFile = new URL(
+    "../cli/config/invalid/broken-package-json/package.json",
+    import.meta.url,
+  );
+
+  try {
+    await fs.writeFile(packageJsonFile, '{"prettier":{}}');
+    const { stdout: configFileForValidPackageJson } = await runCli(
+      "cli/config/invalid/broken-package-json",
+      ["--find-config-path", "foo.js"],
+    );
+
+    expect(configFileForValidPackageJson).toBe("package.json");
+
+    await fs.writeFile(packageJsonFile, '{"prettier":{');
+    const { stdout: configFileForInvalidPackageJson } = await runCli(
+      "cli/config/invalid/broken-package-json",
+      ["--find-config-path", "foo.js"],
+    );
+
+    expect(configFileForInvalidPackageJson).toBe(".prettierrc");
+  } finally {
+    await fs.rm(packageJsonFile, { force: true });
+  }
 });
