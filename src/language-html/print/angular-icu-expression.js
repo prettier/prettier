@@ -31,7 +31,7 @@ function printAngularICUExpression(path, options, print) {
   ]);
 }
 
-function printAngularExpansionCase(path, options, print) {
+function printAngularIcuCase(path, options, print) {
   const { node } = path;
   return [
     node.value,
@@ -41,4 +41,4 @@ function printAngularExpansionCase(path, options, print) {
   ];
 }
 
-export { printAngularICUExpression, printAngularExpansionCase };
+export { printAngularICUExpression, printAngularIcuCase };

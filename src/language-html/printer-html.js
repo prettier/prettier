@@ -27,8 +27,8 @@ import {
 } from "./print/angular-control-flow-block.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import {
-  printAngularExpansionCase,
   printAngularICUExpression,
+  printAngularIcuCase,
 } from "./print/angular-icu-expression.js";
 
 function genericPrint(path, options, print) {
@@ -55,8 +55,8 @@ function genericPrint(path, options, print) {
 
     case "angularICUExpression":
       return printAngularICUExpression(path, options, print);
-    case "angularExpansionCase":
-      return printAngularExpansionCase(path, options, print);
+    case "angularIcuCase":
+      return printAngularIcuCase(path, options, print);
 
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":

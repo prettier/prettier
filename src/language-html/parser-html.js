@@ -73,7 +73,7 @@ function normalizeAngularICUExpression(node) {
     node.type = "angularICUExpression";
   }
   if (node.type === "expansionCase") {
-    node.type = "angularExpansionCase";
+    node.type = "angularIcuCase";
   }
 }
 
