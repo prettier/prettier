@@ -64,7 +64,7 @@ To debug Prettier locally, you can either debug it in Node (recommended) or the 
 
 ## No New Options
 
-Prettier is an opinionated styler and is not accepting pull requests that add new formatting options. You can [read more about our options philosophy here](docs/option-philosophy.md).
+Prettier is an opinionated formatter and is not accepting pull requests that add new formatting options. You can [read more about our options philosophy here](docs/option-philosophy.md).
 
 ## Pull requests
 
