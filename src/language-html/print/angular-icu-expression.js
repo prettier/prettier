@@ -16,7 +16,7 @@ import {
   </span>
 */
 
-function printAngularICUExpression(path, options, print) {
+function printAngularIcuExpression(path, options, print) {
   const { node } = path;
   return group([
     "{",
@@ -41,4 +41,4 @@ function printAngularIcuCase(path, options, print) {
   ];
 }
 
-export { printAngularICUExpression, printAngularIcuCase };
+export { printAngularIcuExpression, printAngularIcuCase };

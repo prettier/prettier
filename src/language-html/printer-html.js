@@ -27,7 +27,7 @@ import {
 } from "./print/angular-control-flow-block.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import {
-  printAngularICUExpression,
+  printAngularIcuExpression,
   printAngularIcuCase,
 } from "./print/angular-icu-expression.js";
 
@@ -53,8 +53,8 @@ function genericPrint(path, options, print) {
     case "angularControlFlowBlockParameter":
       return htmlWhitespaceUtils.trim(node.expression);
 
-    case "angularICUExpression":
-      return printAngularICUExpression(path, options, print);
+    case "angularIcuExpression":
+      return printAngularIcuExpression(path, options, print);
     case "angularIcuCase":
       return printAngularIcuCase(path, options, print);
 

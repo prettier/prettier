@@ -67,10 +67,10 @@ function normalizeAngularControlFlowBlock(node) {
   };
 }
 
-function normalizeAngularICUExpression(node) {
+function normalizeAngularIcuExpression(node) {
   if (node.type === "plural" || node.type === "select") {
     node.clause = node.type;
-    node.type = "angularICUExpression";
+    node.type = "angularIcuExpression";
   }
   if (node.type === "expansionCase") {
     node.type = "angularIcuCase";
@@ -394,7 +394,7 @@ function parse(
     }
 
     normalizeAngularControlFlowBlock(node);
-    normalizeAngularICUExpression(node);
+    normalizeAngularIcuExpression(node);
   });
 
   return ast;
