@@ -36,9 +36,7 @@ printWidth: 80
 
 =====================================output=====================================
 { count, plural,
-  =0 {{ sex, select,
-    other {<p>deeply nested</p>}
-  }}
+  =0 {{ sex, select, other {<p>deeply nested</p>}}}
   =other {a lot}
 }
 
@@ -63,15 +61,17 @@ printWidth: 80
       =0 {zero}
       =1 {un}
       =2 {deux}
-      other {<pc
-        id="0"
-        equivStart="START_BOLD_TEXT"
-        equivEnd="CLOSE_BOLD_TEXT"
-        type="fmt"
-        dispStart="&lt;b&gt;"
-        dispEnd="&lt;/b&gt;"
-        >beaucoup</pc
-      >}
+      other {
+        <pc
+          id="0"
+          equivStart="START_BOLD_TEXT"
+          equivEnd="CLOSE_BOLD_TEXT"
+          type="fmt"
+          dispStart="&lt;b&gt;"
+          dispEnd="&lt;/b&gt;"
+          >beaucoup</pc
+        >
+      }
     }
   ></bar>
   <baz
@@ -79,15 +79,17 @@ printWidth: 80
       =0 {zero}
       =1 {one}
       =2 {two}
-      other {<pc
-        id="0"
-        equivStart="START_BOLD_TEXT"
-        equivEnd="CLOSE_BOLD_TEXT"
-        type="fmt"
-        dispStart="&lt;b&gt;"
-        dispEnd="&lt;/b&gt;"
-        >many</pc
-      >}
+      other {
+        <pc
+          id="0"
+          equivStart="START_BOLD_TEXT"
+          equivEnd="CLOSE_BOLD_TEXT"
+          type="fmt"
+          dispStart="&lt;b&gt;"
+          dispEnd="&lt;/b&gt;"
+          >many</pc
+        >
+      }
     }
   ></baz>
 </foo>
@@ -147,11 +149,13 @@ printWidth: 80
   {minutes, plural,
     =0 {just now}
     =1 {one minute ago}
-    other {{{minutes}} minutes ago by  {gender, select,
-      male {male}
-      female {female}
-      other {other}
-    }}
+    other {
+      {{minutes}} minutes ago by  {gender, select,
+        male {male}
+        female {female}
+        other {other}
+      }
+    }
   }
 </span>
 

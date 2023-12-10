@@ -1,4 +1,10 @@
-import { softline, line, indent, join } from "../../document/builders.js";
+import {
+  softline,
+  line,
+  indent,
+  join,
+  group,
+} from "../../document/builders.js";
 
 /*
   <span i18n>
@@ -27,7 +33,15 @@ function printAngularICUExpression(path, options, print) {
 
 function printAngularExpansionCase(path, options, print) {
   const { node } = path;
-  return [node.value, " {", join(" ", path.map(print, "expression")), "}"];
+  return [
+    node.value,
+    " {",
+    group([
+      indent([softline, join(" ", path.map(print, "expression"))]),
+      softline,
+    ]),
+    "}",
+  ];
 }
 
 export { printAngularICUExpression, printAngularExpansionCase };
