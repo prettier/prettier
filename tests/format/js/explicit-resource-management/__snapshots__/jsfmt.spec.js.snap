@@ -742,17 +742,6 @@ exports[`valid-for-using-binding-of-of.js [meriyah] format 1`] = `
 Cause: [2:21]: Invalid left-hand side in for-of"
 `;
 
-exports[`valid-for-using-binding-of-of.js [typescript] format 1`] = `
-"')' expected. (2:26)
-  1 | async function f() {
-> 2 |   for (await using of of of);
-    |                          ^
-  3 |   for await (await using of of of);
-  4 | }
-  5 |
-Cause: ')' expected."
-`;
-
 exports[`valid-for-using-binding-of-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

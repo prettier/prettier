@@ -3,8 +3,11 @@ import path from "node:path";
 import chalk from "chalk";
 import { createTwoFilesPatch } from "diff";
 import * as prettier from "../index.js";
-import mockable from "../common/mockable.js";
-import { createIsIgnoredFunction, errors } from "./prettier-internal.js";
+import {
+  createIsIgnoredFunction,
+  errors,
+  mockable,
+} from "./prettier-internal.js";
 import { expandPatterns } from "./expand-patterns.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import isTTY from "./is-tty.js";
