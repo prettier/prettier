@@ -37,6 +37,24 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`basic-select-02.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<ng-template>{gender, select, male {male} female {female} other {other}}</ng-template>
+<ng-container>{age, select, 10 {ten} 20 {twenty} other {other}}</ng-container>
+
+=====================================output=====================================
+<ng-template
+  {gender, select, male {male} female {female} other {other}}
+></ng-template>
+<ng-container{age, select, 10 {ten} 20 {twenty} other {other}}></ng-container>
+
+================================================================================
+`;
+
 exports[`combination-01.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]

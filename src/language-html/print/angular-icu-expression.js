@@ -27,12 +27,7 @@ function printAngularICUExpression(path, options, print) {
 
 function printAngularExpansionCase(path, options, print) {
   const { node } = path;
-  return [
-    node.value,
-    " {",
-    indent([line, join(" ", path.map(print, "expression"))]),
-    "}",
-  ];
+  return [node.value, " {", join(" ", path.map(print, "expression")), "}"];
 }
 
 export { printAngularICUExpression, printAngularExpansionCase };
