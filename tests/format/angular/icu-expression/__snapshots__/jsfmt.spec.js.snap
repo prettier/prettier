@@ -97,6 +97,36 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`basic-plural-04.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<foo>
+  <bar>{VAR_PLURAL, plural, =0 {Found no results} =1 {Found one result} other {Found <ph id="0" equiv="INTERPOLATION" disp="{{response.getItemsList().length}}"/> results} }</bar>
+</foo>
+
+=====================================output=====================================
+<foo>
+  <bar
+    {VAR_PLURAL, plural,
+      =0 {Found no results}
+      =1 {Found one result}
+      other {
+        Found <ph
+          id="0"
+          equiv="INTERPOLATION"
+          disp="{{ response.getItemsList().length }}"
+        /> results
+      }
+    }
+  ></bar>
+</foo>
+
+================================================================================
+`;
+
 exports[`basic-select-01.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
@@ -150,7 +180,7 @@ printWidth: 80
     =0 {just now}
     =1 {one minute ago}
     other {
-      {{minutes}} minutes ago by  {gender, select,
+      {{minutes}} minutes ago by {gender, select,
         male {male}
         female {female}
         other {other}

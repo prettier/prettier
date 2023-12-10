@@ -36,10 +36,7 @@ function printAngularExpansionCase(path, options, print) {
   return [
     node.value,
     " {",
-    group([
-      indent([softline, join(" ", path.map(print, "expression"))]),
-      softline,
-    ]),
+    group([indent([softline, path.map(print, "expression")]), softline]),
     "}",
   ];
 }
