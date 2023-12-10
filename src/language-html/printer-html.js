@@ -26,6 +26,10 @@ import {
   printAngularControlFlowBlockParameters,
 } from "./print/angular-control-flow-block.js";
 import getVisitorKeys from "./get-visitor-keys.js";
+import {
+  printAngularExpansionCase,
+  printAngularICUExpression,
+} from "./print/angular-icu-expression.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -118,6 +122,10 @@ function genericPrint(path, options, print) {
       ];
     }
     case "cdata": // Transformed into `text`
+    case "plural":
+      return printAngularICUExpression(path, options, print);
+    case "expansionCase":
+      return printAngularExpansionCase(path, options, print);
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "HTML");
