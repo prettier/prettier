@@ -18,7 +18,7 @@ import {
 
 function printAngularICUExpression(path, options, print) {
   const { node } = path;
-  return [
+  return group([
     "{",
     node.switchValue,
     ", ",
@@ -28,7 +28,7 @@ function printAngularICUExpression(path, options, print) {
       : "",
     softline,
     "}",
-  ];
+  ]);
 }
 
 function printAngularExpansionCase(path, options, print) {
