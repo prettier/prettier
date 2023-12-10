@@ -2150,12 +2150,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-html-parser@npm:5.0.2":
-  version: 5.0.2
-  resolution: "angular-html-parser@npm:5.0.2"
+"angular-html-parser@npm:5.1.0":
+  version: 5.1.0
+  resolution: "angular-html-parser@npm:5.1.0"
   dependencies:
     tslib: ^2.6.2
-  checksum: 86f8fc123e696b10878759c516d1876e4eff3d7cccf06cd22c2f572f44950e721480b44e2367802005f2638f3a84c7d7b826cd1fa0751387787f255097a5b401
+  checksum: f1e99940a4a4e48c4567827b80aaf1ef6a4ff8a5631f68748be66e21a109c32e083e806e6b1c9de2cdba4d0c6036b8be6bac46e90d7ad7c1f691c6ae7a0f3fee
   languageName: node
   linkType: hard
 
@@ -7305,7 +7305,7 @@ __metadata:
     acorn: 8.11.2
     acorn-jsx: 5.3.2
     angular-estree-parser: 9.0.0
-    angular-html-parser: 5.0.2
+    angular-html-parser: 5.1.0
     benchmark: 2.1.4
     browserslist-to-esbuild: 1.2.0
     c8: 8.0.1
