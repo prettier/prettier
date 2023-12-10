@@ -28,7 +28,9 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 { count, plural,
-    =0 {{ sex, select, other {<p>deeply nested</p>}} }
+    =0 {{ sex, select,
+      other {<p>deeply nested</p>}
+    }}
     =other {a lot}
 }
 
@@ -36,8 +38,7 @@ printWidth: 80
 { count, plural,
   =0 {{ sex, select,
     other {<p>deeply nested</p>}
-  }
-  }
+  }}
   =other {a lot}
 }
 
