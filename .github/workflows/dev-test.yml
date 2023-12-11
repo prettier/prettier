@@ -60,9 +60,6 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
-      - name: Build Package
-        run: yarn build --clean
-
       - name: Run Tests
         if: ${{ !matrix.ENABLE_CODE_COVERAGE }}
         run: yarn test

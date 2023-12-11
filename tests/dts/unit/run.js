@@ -3,7 +3,7 @@ import path from "node:path";
 import url from "node:url";
 import { default as ts } from "typescript";
 
-const isFullTest = Boolean(process.env.FULL_TEST);
+const isProduction = process.env.NODE_ENV === "production";
 
 describe("Unit tests for dts files", () => {
   test("no errors", () => {
@@ -12,10 +12,9 @@ describe("Unit tests for dts files", () => {
     );
     const testCaseFiles = fs
       .readdirSync(testCasesDirPath)
-      // The parsers.ts case requires that `yarn build` has been run, so
-      // we exclude it by default from test runs to avoid confusing failures
-      // when people run the tests locally without running `yarn build`:
-      .filter((file) => isFullTest || file !== "parsers.ts")
+      // The parsers.ts case uses generated types and therefore requires that
+      // `yarn build` has run, so we only include it for production test runs
+      .filter((file) => isProduction || file !== "parsers.ts")
       .map((file) => path.join(testCasesDirPath, file));
 
     /** @type {import("typescript").CompilerOptions} */
