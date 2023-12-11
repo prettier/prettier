@@ -22,7 +22,7 @@ function getCursorLocation(ast, options) {
   const getVisitorKeys = createGetVisitorKeysFunction(
     options.printer.getVisitorKeys,
   );
-  
+
   const nodeContainsCursor = (node) =>
     locStart(node) <= cursorOffset && locEnd(node) >= cursorOffset;
 
@@ -37,8 +37,8 @@ function getCursorLocation(ast, options) {
     cursorNode = node;
   }
 
-  if (isLeaf(cursorNode, {getVisitorKeys})) {
-    return { cursorNode }
+  if (isLeaf(cursorNode, { getVisitorKeys })) {
+    return { cursorNode };
   }
 
   // We've established that the cursor is NOT contained in a leaf node of the
@@ -50,21 +50,27 @@ function getCursorLocation(ast, options) {
   let nodeBeforeCursorEndIndex = -1;
   let nodeAfterCursorStartIndex = Number.POSITIVE_INFINITY;
 
-  while (nodesContainingCursor.length > 0 && (nodeBeforeCursor === undefined || nodeAfterCursor === undefined)) {
+  while (
+    nodesContainingCursor.length > 0 &&
+    (nodeBeforeCursor === undefined || nodeAfterCursor === undefined)
+  ) {
     cursorNode = nodesContainingCursor.pop();
     const foundBeforeNode = nodeBeforeCursor !== undefined;
     const foundAfterNode = nodeAfterCursor !== undefined;
-    for (const node of getChildren(cursorNode, {getVisitorKeys})) {
+    for (const node of getChildren(cursorNode, { getVisitorKeys })) {
       if (!foundBeforeNode) {
-        const nodeEnd = locEnd(node)
+        const nodeEnd = locEnd(node);
         if (nodeEnd <= cursorOffset && nodeEnd > nodeBeforeCursorEndIndex) {
           nodeBeforeCursor = node;
           nodeBeforeCursorEndIndex = nodeEnd;
         }
       }
       if (!foundAfterNode) {
-        const nodeStart = locStart(node)
-        if (nodeStart >= cursorOffset && nodeStart < nodeAfterCursorStartIndex) {
+        const nodeStart = locStart(node);
+        if (
+          nodeStart >= cursorOffset &&
+          nodeStart < nodeAfterCursorStartIndex
+        ) {
           nodeAfterCursor = node;
           nodeAfterCursorStartIndex = nodeStart;
         }
@@ -74,8 +80,8 @@ function getCursorLocation(ast, options) {
 
   return {
     nodeBeforeCursor,
-    nodeAfterCursor
-  }
+    nodeAfterCursor,
+  };
 }
 
 export default getCursorLocation;

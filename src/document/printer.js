@@ -668,7 +668,9 @@ function printDocToString(doc, options) {
       // although that logic is unavoidably slower (and has more potential to
       // return a perverse result) than the happy path where we help out
       // coreFormat by returning a cursorRegionStart and cursorRegionText here.
-      return { formatted: out.filter(char => char !== CURSOR_PLACEHOLDER).join("") }
+      return {
+        formatted: out.filter((char) => char !== CURSOR_PLACEHOLDER).join(""),
+      };
     }
 
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");

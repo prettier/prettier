@@ -50,9 +50,12 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
       result.cursorRegionStart -= result.formatted.indexOf(trimmed);
       if (result.cursorRegionStart < 0) {
         result.cursorRegionStart = 0;
-        result.cursorRegionText = result.cursorRegionText.trimStart()
+        result.cursorRegionText = result.cursorRegionText.trimStart();
       }
-      if (result.cursorRegionStart + result.cursorRegionText.length > trimmed.length) {
+      if (
+        result.cursorRegionStart + result.cursorRegionText.length >
+        trimmed.length
+      ) {
         result.cursorRegionText = result.cursorRegionText.trimEnd();
       }
     }
