@@ -27,7 +27,7 @@ await prettier.format("foo ( );", { semi: false, parser: "babel" });
 
 `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code. This is useful for editor integrations, to prevent the cursor from moving when code is formatted.
 
-The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
+The `cursorOffset` option should be provided, to specify where the cursor is.
 
 ```js
 await prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
@@ -67,7 +67,7 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editor
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-The search starts at `process.cwd()`, or at `fileUrlOrPath` if provided. Please see the [lilconfig docs](https://github.com/antonk52/lilconfig) for details on how the resolving works.
+The search starts at `process.cwd()`, or at the directory of `fileUrlOrPath` if provided.
 
 ```js
 const configFile = await prettier.resolveConfigFile(filePath);

@@ -49,10 +49,8 @@ const options = {
     type: "int",
     default: -1,
     range: { start: -1, end: Number.POSITIVE_INFINITY, step: 1 },
-    description: outdent`
-      Print (to stderr) where a cursor at the given position would move to after formatting.
-      This option cannot be used with --range-start and --range-end.
-    `,
+    description:
+      "Print (to stderr) where a cursor at the given position would move to after formatting.",
     cliCategory: CATEGORY_EDITOR,
   },
   endOfLine: {
@@ -160,7 +158,6 @@ const options = {
     description: outdent`
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
-      This option cannot be used with --cursor-offset.
     `,
     cliCategory: CATEGORY_EDITOR,
   },
@@ -172,7 +169,6 @@ const options = {
     description: outdent`
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
-      This option cannot be used with --cursor-offset.
     `,
     cliCategory: CATEGORY_EDITOR,
   },
