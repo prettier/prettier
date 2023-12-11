@@ -4548,7 +4548,8 @@ exports[`tuple-and-record.js - {"arrowParens":"always"} [acorn] format 1`] = `
     |       ^
   5 |   (#{ foo: bar, bar: baz, baz: foo });
   6 |
-  7 | map(() => (["
+  7 | map(() => ([
+Cause: Identifier 'fn12' has already been declared (4:6)"
 `;
 
 exports[`tuple-and-record.js - {"arrowParens":"always"} [espree] format 1`] = `
@@ -4559,7 +4560,8 @@ exports[`tuple-and-record.js - {"arrowParens":"always"} [espree] format 1`] = `
     |       ^
   5 |   (#{ foo: bar, bar: baz, baz: foo });
   6 |
-  7 | map(() => (["
+  7 | map(() => ([
+Cause: Identifier 'fn12' has already been declared"
 `;
 
 exports[`tuple-and-record.js - {"arrowParens":"always"} [meriyah] format 1`] = `
@@ -4570,7 +4572,8 @@ exports[`tuple-and-record.js - {"arrowParens":"always"} [meriyah] format 1`] = `
     |    ^
   6 |
   7 | map(() => ([
-  8 |   // comment"
+  8 |   // comment
+Cause: [5:4]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js - {"arrowParens":"always"} [typescript] format 1`] = `
@@ -4581,7 +4584,8 @@ exports[`tuple-and-record.js - {"arrowParens":"always"} [typescript] format 1`] 
     |    ^
   6 |
   7 | map(() => ([
-  8 |   // comment"
+  8 |   // comment
+Cause: Invalid character."
 `;
 
 exports[`tuple-and-record.js - {"arrowParens":"always"} format 1`] = `
@@ -4661,7 +4665,8 @@ exports[`tuple-and-record.js - {"arrowParens":"avoid"} [acorn] format 1`] = `
     |       ^
   5 |   (#{ foo: bar, bar: baz, baz: foo });
   6 |
-  7 | map(() => (["
+  7 | map(() => ([
+Cause: Identifier 'fn12' has already been declared (4:6)"
 `;
 
 exports[`tuple-and-record.js - {"arrowParens":"avoid"} [espree] format 1`] = `
@@ -4672,7 +4677,8 @@ exports[`tuple-and-record.js - {"arrowParens":"avoid"} [espree] format 1`] = `
     |       ^
   5 |   (#{ foo: bar, bar: baz, baz: foo });
   6 |
-  7 | map(() => (["
+  7 | map(() => ([
+Cause: Identifier 'fn12' has already been declared"
 `;
 
 exports[`tuple-and-record.js - {"arrowParens":"avoid"} [meriyah] format 1`] = `
@@ -4683,7 +4689,8 @@ exports[`tuple-and-record.js - {"arrowParens":"avoid"} [meriyah] format 1`] = `
     |    ^
   6 |
   7 | map(() => ([
-  8 |   // comment"
+  8 |   // comment
+Cause: [5:4]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js - {"arrowParens":"avoid"} [typescript] format 1`] = `
@@ -4694,7 +4701,8 @@ exports[`tuple-and-record.js - {"arrowParens":"avoid"} [typescript] format 1`] =
     |    ^
   6 |
   7 | map(() => ([
-  8 |   // comment"
+  8 |   // comment
+Cause: Invalid character."
 `;
 
 exports[`tuple-and-record.js - {"arrowParens":"avoid"} format 1`] = `

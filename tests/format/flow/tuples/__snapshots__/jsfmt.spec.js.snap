@@ -4,7 +4,8 @@ exports[`labeled.js [babel-flow] format 1`] = `
 "Unexpected token, expected "," (1:12)
 > 1 | type T = [a: string, b: number];
     |            ^
-  2 |"
+  2 |
+Cause: Unexpected token, expected "," (1:11)"
 `;
 
 exports[`labeled.js format 1`] = `
@@ -27,7 +28,8 @@ exports[`optional.js [babel-flow] format 1`] = `
     |            ^
   2 |
   3 | // Unaffected
-  4 | type B = [?string, [?string], (?string) => boolean];"
+  4 | type B = [?string, [?string], (?string) => boolean];
+Cause: Unexpected token, expected "," (1:11)"
 `;
 
 exports[`optional.js format 1`] = `
@@ -54,7 +56,8 @@ exports[`variance.js [babel-flow] format 1`] = `
 "Unexpected token, expected "," (1:12)
 > 1 | type T = [a: string, +b: number, -c: boolean];
     |            ^
-  2 |"
+  2 |
+Cause: Unexpected token, expected "," (1:11)"
 `;
 
 exports[`variance.js format 1`] = `

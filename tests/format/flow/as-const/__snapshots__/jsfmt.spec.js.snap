@@ -8,7 +8,8 @@ exports[`embedded.js [babel-flow] format 1`] = `
     |           ^
   4 |
   5 | const HTML_WITH_CONST = /* HTML */ \`
-  6 | <div>"
+  6 | <div>
+Cause: Unexpected token (3:10)"
 `;
 
 exports[`embedded.js format 1`] = `

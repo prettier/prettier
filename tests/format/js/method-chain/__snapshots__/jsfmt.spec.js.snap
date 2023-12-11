@@ -1575,7 +1575,8 @@ exports[`tuple-and-record.js [acorn] format 1`] = `
     |                ^
   3 |
   4 | foo.a().b().c({n, o})
-  5 | foo.a().b().c(#{n, o})"
+  5 | foo.a().b().c(#{n, o})
+Cause: Unexpected character '[' (2:15)"
 `;
 
 exports[`tuple-and-record.js [espree] format 1`] = `
@@ -1585,7 +1586,8 @@ exports[`tuple-and-record.js [espree] format 1`] = `
     |                ^
   3 |
   4 | foo.a().b().c({n, o})
-  5 | foo.a().b().c(#{n, o})"
+  5 | foo.a().b().c(#{n, o})
+Cause: Unexpected character '['"
 `;
 
 exports[`tuple-and-record.js [flow] format 1`] = `
@@ -1605,7 +1607,8 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
     |               ^
   3 |
   4 | foo.a().b().c({n, o})
-  5 | foo.a().b().c(#{n, o})"
+  5 | foo.a().b().c(#{n, o})
+Cause: [2:15]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js [typescript] format 1`] = `
@@ -1615,7 +1618,8 @@ exports[`tuple-and-record.js [typescript] format 1`] = `
     |               ^
   3 |
   4 | foo.a().b().c({n, o})
-  5 | foo.a().b().c(#{n, o})"
+  5 | foo.a().b().c(#{n, o})
+Cause: Invalid character."
 `;
 
 exports[`tuple-and-record.js format 1`] = `

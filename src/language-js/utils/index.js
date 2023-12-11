@@ -6,6 +6,7 @@ import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
+import printString from "../../utils/print-string.js";
 import createTypeCheckFunction from "./create-type-check-function.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
@@ -544,7 +545,9 @@ function getExpressionInnerNodeCount(node, maxCount) {
 }
 
 const LONE_SHORT_ARGUMENT_THRESHOLD_RATE = 0.25;
-function isLoneShortArgument(node, { printWidth }) {
+function isLoneShortArgument(node, options) {
+  const { printWidth } = options;
+
   if (hasComment(node)) {
     return false;
   }
@@ -568,7 +571,7 @@ function isLoneShortArgument(node, { printWidth }) {
   }
 
   if (isStringLiteral(node)) {
-    return rawText(node).length <= threshold;
+    return printString(rawText(node), options).length <= threshold;
   }
 
   if (node.type === "TemplateLiteral") {

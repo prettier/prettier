@@ -47,6 +47,7 @@ test("parsers should allow omit optional arguments", async () => {
   expect(typeof parsers[0][1].parse).toBe("function");
   const code = {
     graphql: "type A {hero: Character}",
+    angular: "<div></div>",
   };
   for (const [name, { parse }] of parsers) {
     await expect(

@@ -134,5 +134,6 @@ exports[`export-type-star-from-2.ts [typescript] format 1`] = `
   2 | // but it's easier for us to support them than not.
 > 3 | export type * as "ns2" from './mod';
     |                  ^
-  4 |"
+  4 |
+Cause: Identifier expected."
 `;

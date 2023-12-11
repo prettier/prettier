@@ -31,10 +31,10 @@ export function getEntries(dirPath) {
     const section = title.includes("[HIGHLIGHT]")
       ? "highlight"
       : title.includes("[BREAKING]")
-      ? "breaking"
-      : improvement
-      ? "improvement"
-      : undefined;
+        ? "breaking"
+        : improvement
+          ? "improvement"
+          : undefined;
 
     const order =
       section === "improvement" && improvement[2] !== undefined

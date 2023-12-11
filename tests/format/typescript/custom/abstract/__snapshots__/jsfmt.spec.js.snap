@@ -46,7 +46,8 @@ exports[`abstractProperties.ts [babel-ts] format 1`] = `
     |            ^
   5 |     abstract private ['g'];
   6 |     private abstract ['h'];
-  7 |     static abstract ['i'];"
+  7 |     static abstract ['i'];
+Cause: 'static' modifier cannot be used with 'abstract' modifier. (4:11)"
 `;
 
 exports[`abstractProperties.ts format 1`] = `

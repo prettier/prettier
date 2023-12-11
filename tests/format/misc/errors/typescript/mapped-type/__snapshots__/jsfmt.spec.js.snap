@@ -7,7 +7,8 @@ exports[`mapped-type.ts [babel-ts] format 1`] = `
 > 3 |   extra_member: should_not_allowed
     |   ^
   4 | };
-  5 |"
+  5 |
+Cause: Unexpected token, expected "}" (3:2)"
 `;
 
 exports[`mapped-type.ts [typescript] format 1`] = `
@@ -17,5 +18,6 @@ exports[`mapped-type.ts [typescript] format 1`] = `
 > 3 |   extra_member: should_not_allowed
     |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   4 | };
-  5 |"
+  5 |
+Cause: A mapped type may not declare properties or methods."
 `;

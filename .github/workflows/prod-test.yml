@@ -26,10 +26,10 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.8.1
+        uses: actions/setup-node@v4
         with:
           cache: "yarn"
 
@@ -37,7 +37,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist
@@ -62,23 +62,25 @@ jobs:
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
-            node: "18"
+            node: "20"
             FULL_TEST: true
           # Versions not tested on linux, normally only even versions
           # If latest version is an odd number, it can be listed bellow too
           - os: "ubuntu-latest"
             node: "16"
+          - os: "ubuntu-latest"
+            node: "21"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
-    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}${{ matrix.FULL_TEST && ' (Full Test)' || '' }}
+    name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Node.js ${{ matrix.node }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.8.1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
@@ -87,7 +89,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist
@@ -104,15 +106,15 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.8.1
+        uses: actions/setup-node@v4
         with:
           node-version: "0.10.48"
 
       - name: Download Artifact
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist

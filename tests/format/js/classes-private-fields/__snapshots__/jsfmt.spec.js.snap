@@ -6,7 +6,8 @@ exports[`optional-chaining.js [acorn] format 1`] = `
   2 |
 > 3 | delete obj?.#x.a
     |             ^
-  4 |"
+  4 |
+Cause: Private field '#x' must be declared in an enclosing class (3:12)"
 `;
 
 exports[`optional-chaining.js [espree] format 1`] = `
@@ -15,7 +16,8 @@ exports[`optional-chaining.js [espree] format 1`] = `
   2 |
 > 3 | delete obj?.#x.a
     |             ^
-  4 |"
+  4 |
+Cause: Private field '#x' must be declared in an enclosing class"
 `;
 
 exports[`optional-chaining.js [meriyah] format 1`] = `
@@ -24,7 +26,8 @@ exports[`optional-chaining.js [meriyah] format 1`] = `
   2 |
 > 3 | delete obj?.#x.a
     |             ^
-  4 |"
+  4 |
+Cause: [3:13]: Dot property must be an identifier"
 `;
 
 exports[`optional-chaining.js - {"semi":false} [acorn] format 1`] = `
@@ -33,7 +36,8 @@ exports[`optional-chaining.js - {"semi":false} [acorn] format 1`] = `
   2 |
 > 3 | delete obj?.#x.a
     |             ^
-  4 |"
+  4 |
+Cause: Private field '#x' must be declared in an enclosing class (3:12)"
 `;
 
 exports[`optional-chaining.js - {"semi":false} [espree] format 1`] = `
@@ -42,7 +46,8 @@ exports[`optional-chaining.js - {"semi":false} [espree] format 1`] = `
   2 |
 > 3 | delete obj?.#x.a
     |             ^
-  4 |"
+  4 |
+Cause: Private field '#x' must be declared in an enclosing class"
 `;
 
 exports[`optional-chaining.js - {"semi":false} [meriyah] format 1`] = `
@@ -51,7 +56,8 @@ exports[`optional-chaining.js - {"semi":false} [meriyah] format 1`] = `
   2 |
 > 3 | delete obj?.#x.a
     |             ^
-  4 |"
+  4 |
+Cause: [3:13]: Dot property must be an identifier"
 `;
 
 exports[`optional-chaining.js - {"semi":false} format 1`] = `

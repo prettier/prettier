@@ -49,6 +49,7 @@ const ENABLED_OPTIONS = [
   "embeddedLanguageFormatting",
   "bracketSameLine",
   "singleAttributePerLine",
+  "experimentalTernaries",
 ];
 
 class Playground extends React.Component {
@@ -103,7 +104,15 @@ class Playground extends React.Component {
     this.setContent = (content) => this.setState({ content });
     this.clearContent = this.setContent.bind(this, "");
     this.resetOptions = () => this.setState({ options: defaultOptions });
-    this.setSelection = (selection) => this.setState({ selection });
+    this.setSelection = (selection) => {
+      this.setState({ selection });
+      if (this.state.trackCursorOffset) {
+        this.handleOptionValueChange(
+          this.cursorOffsetOption,
+          util.convertSelectionToRange(selection, this.state.content)[0],
+        );
+      }
+    };
     this.setSelectionAsRange = () => {
       const { selection, content, options } = this.state;
       const [rangeStart, rangeEnd] = util.convertSelectionToRange(
@@ -124,6 +133,9 @@ class Playground extends React.Component {
     );
     this.rangeEndOption = props.availableOptions.find(
       (opt) => opt.name === "rangeEnd",
+    );
+    this.cursorOffsetOption = props.availableOptions.find(
+      (opt) => opt.name === "cursorOffset",
     );
 
     this.formatInput = this.formatInput.bind(this);
@@ -171,6 +183,7 @@ class Playground extends React.Component {
       ...ENABLED_OPTIONS,
       "rangeStart",
       "rangeEnd",
+      "cursorOffset",
     ]);
     const cliOptions = util.buildCliArgs(orderedOptions, options);
 
@@ -246,7 +259,7 @@ class Playground extends React.Component {
             reformat={editorState.showSecondFormat}
             rethrowEmbedErrors={editorState.rethrowEmbedErrors}
           >
-            {({ formatted, debug }) => {
+            {({ formatted, debug, cursorOffset }) => {
               const fullReport = this.getMarkdown({
                 formatted,
                 reformatted: debug.reformatted,
@@ -292,6 +305,49 @@ class Playground extends React.Component {
                         <Button onClick={this.setSelectionAsRange}>
                           Set selected text as range
                         </Button>
+                      </SidebarCategory>
+                      <SidebarCategory title="Cursor">
+                        <Option
+                          option={this.cursorOffsetOption}
+                          value={
+                            options.cursorOffset >= 0
+                              ? options.cursorOffset
+                              : ""
+                          }
+                          onChange={this.handleOptionValueChange}
+                        />
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "baseline",
+                            gap: "10px",
+                          }}
+                        >
+                          <Checkbox
+                            label="track"
+                            checked={Boolean(this.state.trackCursorOffset)}
+                            onChange={() =>
+                              this.setState((state) => ({
+                                trackCursorOffset: !state.trackCursorOffset,
+                              }))
+                            }
+                          />
+                          {options.cursorOffset >= 0 && (
+                            <>
+                              <Button
+                                onClick={() => {
+                                  this.handleOptionValueChange(
+                                    this.cursorOffsetOption,
+                                    -1,
+                                  );
+                                }}
+                              >
+                                Reset
+                              </Button>
+                              <label>Result: {cursorOffset}</label>
+                            </>
+                          )}
+                        </div>
                       </SidebarCategory>
                       <SidebarCategory title="Debug">
                         <Checkbox
@@ -418,6 +474,12 @@ class Playground extends React.Component {
                             mode={util.getCodemirrorMode(options.parser)}
                             value={formatted}
                             ruler={options.printWidth}
+                            overlayStart={
+                              cursorOffset === -1 ? undefined : cursorOffset
+                            }
+                            overlayEnd={
+                              cursorOffset === -1 ? undefined : cursorOffset + 1
+                            }
                           />
                         )
                       ) : null}
@@ -514,8 +576,8 @@ function getSecondFormat(formatted, reformatted) {
   return formatted === ""
     ? ""
     : formatted === reformatted
-    ? "✓ Second format is unchanged."
-    : reformatted;
+      ? "✓ Second format is unchanged."
+      : reformatted;
 }
 
 export default Playground;

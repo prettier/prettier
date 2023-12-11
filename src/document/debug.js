@@ -114,14 +114,14 @@ function printDocToDebug(doc) {
       return doc.n === Number.NEGATIVE_INFINITY
         ? "dedentToRoot(" + printDoc(doc.contents) + ")"
         : doc.n < 0
-        ? "dedent(" + printDoc(doc.contents) + ")"
-        : doc.n.type === "root"
-        ? "markAsRoot(" + printDoc(doc.contents) + ")"
-        : "align(" +
-          JSON.stringify(doc.n) +
-          ", " +
-          printDoc(doc.contents) +
-          ")";
+          ? "dedent(" + printDoc(doc.contents) + ")"
+          : doc.n.type === "root"
+            ? "markAsRoot(" + printDoc(doc.contents) + ")"
+            : "align(" +
+              JSON.stringify(doc.n) +
+              ", " +
+              printDoc(doc.contents) +
+              ")";
     }
 
     if (doc.type === DOC_TYPE_IF_BREAK) {

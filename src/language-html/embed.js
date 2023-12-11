@@ -23,6 +23,15 @@ import {
 import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
 import getNodeContent from "./get-node-content.js";
 import printAttribute from "./embed/attribute.js";
+import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
+
+const embeddedAngularControlFlowBlocks = new Set([
+  "if",
+  "else if",
+  "for",
+  "switch",
+  "case",
+]);
 
 function embed(path, options) {
   const { node } = path;
@@ -135,6 +144,13 @@ function embed(path, options) {
 
     case "front-matter":
       return (textToDoc) => printFrontMatter(node, textToDoc);
+
+    case "angularControlFlowBlockParameters":
+      if (!embeddedAngularControlFlowBlocks.has(path.parent.name)) {
+        return;
+      }
+
+      return printAngularControlFlowBlockParameters;
   }
 }
 

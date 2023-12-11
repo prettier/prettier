@@ -140,7 +140,7 @@ function clean(ast, newObj, parent) {
     newObj.value
   ) {
     newObj.value = newObj.value.replaceAll(
-      /([\d+.Ee-]+)([A-Za-z]*)/g,
+      /([\d+.e-]+)([a-z]*)/gi,
       (match, numStr, unit) => {
         const num = Number(numStr);
         return Number.isNaN(num) ? match : num + unit.toLowerCase();
@@ -208,7 +208,7 @@ function clean(ast, newObj, parent) {
 clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
-  return value.replaceAll("'", '"').replaceAll(/\\([^\dA-Fa-f])/g, "$1");
+  return value.replaceAll("'", '"').replaceAll(/\\([^\da-f])/gi, "$1");
 }
 
 export default clean;

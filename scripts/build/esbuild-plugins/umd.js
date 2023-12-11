@@ -37,13 +37,13 @@ function getUmdWrapper({ name }, build) {
           typeof globalThis !== "undefined"
             ? globalThis
             : typeof global !== "undefined"
-            ? global
-            : typeof self !== "undefined"
-            ? self
-            : this || {};
+              ? global
+              : typeof self !== "undefined"
+                ? self
+                : this || {};
         ${globalObjectText.trimStart()} = interopModuleDefault();
       }
-    })(function() {
+    })(function () {
       "use strict";${PLACEHOLDER}
     });
   `;

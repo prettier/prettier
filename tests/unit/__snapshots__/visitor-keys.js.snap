@@ -273,7 +273,6 @@ exports[`visitor keys estree 1`] = `
   "ExportAllDeclaration": [
     "source",
     "attributes",
-    "assertions",
     "exported",
   ],
   "ExportDefaultDeclaration": [
@@ -287,7 +286,6 @@ exports[`visitor keys estree 1`] = `
     "specifiers",
     "source",
     "attributes",
-    "assertions",
   ],
   "ExportNamespaceSpecifier": [
     "exported",
@@ -366,7 +364,6 @@ exports[`visitor keys estree 1`] = `
     "specifiers",
     "source",
     "attributes",
-    "assertions",
   ],
   "ImportDefaultSpecifier": [
     "local",
@@ -1389,6 +1386,14 @@ exports[`visitor keys graphql 1`] = `
 
 exports[`visitor keys html 1`] = `
 {
+  "angularControlFlowBlock": [
+    "children",
+    "parameters",
+  ],
+  "angularControlFlowBlockParameter": [],
+  "angularControlFlowBlockParameters": [
+    "children",
+  ],
   "attribute": [],
   "cdata": [],
   "comment": [],

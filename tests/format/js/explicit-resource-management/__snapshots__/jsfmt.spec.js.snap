@@ -4,14 +4,16 @@ exports[`for-await-using-of-comments.js [acorn] format 1`] = `
 "Unexpected token (1:19)
 > 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
     |                   ^
-  2 |"
+  2 |
+Cause: Unexpected token (1:18)"
 `;
 
 exports[`for-await-using-of-comments.js [espree] format 1`] = `
 "Unexpected token await (1:19)
 > 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
     |                   ^
-  2 |"
+  2 |
+Cause: Unexpected token await"
 `;
 
 exports[`for-await-using-of-comments.js [flow] format 1`] = `
@@ -25,7 +27,8 @@ exports[`for-await-using-of-comments.js [meriyah] format 1`] = `
 "for await (... of ...) is only valid in async functions and async generators (1:52)
 > 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
     |                                                    ^
-  2 |"
+  2 |
+Cause: [1:52]: for await (... of ...) is only valid in async functions and async generators"
 `;
 
 exports[`for-await-using-of-comments.js format 1`] = `
@@ -49,7 +52,8 @@ exports[`invalid-duplicate-using-bindings.js [acorn] format 1`] = `
     |         ^
   3 | }
   4 | {
-  5 |   using g = foo();"
+  5 |   using g = foo();
+Cause: Unexpected token (2:8)"
 `;
 
 exports[`invalid-duplicate-using-bindings.js [espree] format 1`] = `
@@ -59,7 +63,8 @@ exports[`invalid-duplicate-using-bindings.js [espree] format 1`] = `
     |         ^
   3 | }
   4 | {
-  5 |   using g = foo();"
+  5 |   using g = foo();
+Cause: Unexpected token f"
 `;
 
 exports[`invalid-duplicate-using-bindings.js [flow] format 1`] = `
@@ -79,7 +84,8 @@ exports[`invalid-duplicate-using-bindings.js [meriyah] format 1`] = `
     |         ^
   3 | }
   4 | {
-  5 |   using g = foo();"
+  5 |   using g = foo();
+Cause: [2:9]: Unexpected token: 'identifier'"
 `;
 
 exports[`invalid-duplicate-using-bindings.js [typescript] format 1`] = `
@@ -89,7 +95,8 @@ exports[`invalid-duplicate-using-bindings.js [typescript] format 1`] = `
     |         ^
   3 | }
   4 | {
-  5 |   using g = foo();"
+  5 |   using g = foo();
+Cause: 'using' declarations must be initialized."
 `;
 
 exports[`invalid-duplicate-using-bindings.js format 1`] = `
@@ -123,14 +130,16 @@ exports[`invalid-script-top-level-using-binding.js [acorn] format 1`] = `
 "Unexpected token (1:7)
 > 1 | using x = bar();
     |       ^
-  2 |"
+  2 |
+Cause: Unexpected token (1:6)"
 `;
 
 exports[`invalid-script-top-level-using-binding.js [espree] format 1`] = `
 "Unexpected token x (1:7)
 > 1 | using x = bar();
     |       ^
-  2 |"
+  2 |
+Cause: Unexpected token x"
 `;
 
 exports[`invalid-script-top-level-using-binding.js [flow] format 1`] = `
@@ -144,7 +153,8 @@ exports[`invalid-script-top-level-using-binding.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (1:7)
 > 1 | using x = bar();
     |       ^
-  2 |"
+  2 |
+Cause: [1:7]: Unexpected token: 'identifier'"
 `;
 
 exports[`invalid-script-top-level-using-binding.js format 1`] = `
@@ -168,7 +178,8 @@ exports[`using-declarations.js [acorn] format 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+Cause: Unexpected token (2:16)"
 `;
 
 exports[`using-declarations.js [espree] format 1`] = `
@@ -178,7 +189,8 @@ exports[`using-declarations.js [espree] format 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+Cause: Unexpected token a"
 `;
 
 exports[`using-declarations.js [flow] format 1`] = `
@@ -198,7 +210,8 @@ exports[`using-declarations.js [meriyah] format 1`] = `
     |                 ^
   3 | }
   4 |
-  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+Cause: [2:17]: Unexpected token: 'identifier'"
 `;
 
 exports[`using-declarations.js [typescript] format 1`] = `
@@ -209,7 +222,8 @@ exports[`using-declarations.js [typescript] format 1`] = `
     |                   ^^^^^^^^^
   6 |
   7 | for(using /* 1 */ foo of bar());
-  8 |"
+  8 |
+Cause: 'using' declarations may not be initialized in for statement."
 `;
 
 exports[`using-declarations.js format 1`] = `
@@ -321,7 +335,8 @@ exports[`valid-await-using-binding-basic.js [acorn] format 1`] = `
 > 2 |   await using basic = getReader();
     |               ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token (2:14)"
 `;
 
 exports[`valid-await-using-binding-basic.js [espree] format 1`] = `
@@ -330,7 +345,8 @@ exports[`valid-await-using-binding-basic.js [espree] format 1`] = `
 > 2 |   await using basic = getReader();
     |               ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token basic"
 `;
 
 exports[`valid-await-using-binding-basic.js [flow] format 1`] = `
@@ -348,7 +364,8 @@ exports[`valid-await-using-binding-basic.js [meriyah] format 1`] = `
 > 2 |   await using basic = getReader();
     |                   ^
   3 | }
-  4 |"
+  4 |
+Cause: [2:19]: Unexpected token: 'identifier'"
 `;
 
 exports[`valid-await-using-binding-basic.js format 1`] = `
@@ -375,7 +392,8 @@ exports[`valid-await-using-binding-escaped.js [acorn] format 1`] = `
 > 2 |   await using \\u0061b = c;
     |               ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token (2:14)"
 `;
 
 exports[`valid-await-using-binding-escaped.js [espree] format 1`] = `
@@ -384,7 +402,8 @@ exports[`valid-await-using-binding-escaped.js [espree] format 1`] = `
 > 2 |   await using \\u0061b = c;
     |               ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token \\u0061b"
 `;
 
 exports[`valid-await-using-binding-escaped.js [flow] format 1`] = `
@@ -402,7 +421,8 @@ exports[`valid-await-using-binding-escaped.js [meriyah] format 1`] = `
 > 2 |   await using \\u0061b = c;
     |               ^
   3 | }
-  4 |"
+  4 |
+Cause: [2:15]: Unexpected token: 'identifier'"
 `;
 
 exports[`valid-await-using-binding-escaped.js format 1`] = `
@@ -429,7 +449,8 @@ exports[`valid-await-using-binding-non-bmp.js [acorn] format 1`] = `
 > 2 |   await using 𠮷 = foo();
     |               ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token (2:14)"
 `;
 
 exports[`valid-await-using-binding-non-bmp.js [espree] format 1`] = `
@@ -438,7 +459,8 @@ exports[`valid-await-using-binding-non-bmp.js [espree] format 1`] = `
 > 2 |   await using 𠮷 = foo();
     |               ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token 𠮷"
 `;
 
 exports[`valid-await-using-binding-non-bmp.js [flow] format 1`] = `
@@ -456,7 +478,8 @@ exports[`valid-await-using-binding-non-bmp.js [meriyah] format 1`] = `
 > 2 |   await using 𠮷 = foo();
     |                 ^
   3 | }
-  4 |"
+  4 |
+Cause: [2:17]: Unexpected token: 'identifier'"
 `;
 
 exports[`valid-await-using-binding-non-bmp.js format 1`] = `
@@ -484,7 +507,8 @@ exports[`valid-await-using-binding-using.js [acorn] format 1`] = `
     |               ^
   3 |   for (await using using of of);
   4 | }
-  5 |"
+  5 |
+Cause: Unexpected token (2:14)"
 `;
 
 exports[`valid-await-using-binding-using.js [espree] format 1`] = `
@@ -494,7 +518,8 @@ exports[`valid-await-using-binding-using.js [espree] format 1`] = `
     |               ^
   3 |   for (await using using of of);
   4 | }
-  5 |"
+  5 |
+Cause: Unexpected token using"
 `;
 
 exports[`valid-await-using-binding-using.js [flow] format 1`] = `
@@ -514,7 +539,8 @@ exports[`valid-await-using-binding-using.js [meriyah] format 1`] = `
     |                   ^
   3 |   for (await using using of of);
   4 | }
-  5 |"
+  5 |
+Cause: [2:19]: Unexpected token: 'identifier'"
 `;
 
 exports[`valid-await-using-binding-using.js format 1`] = `
@@ -545,7 +571,8 @@ exports[`valid-await-using-comments.js [acorn] format 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
+Cause: Unexpected token (3:27)"
 `;
 
 exports[`valid-await-using-comments.js [espree] format 1`] = `
@@ -556,7 +583,8 @@ exports[`valid-await-using-comments.js [espree] format 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
+Cause: Unexpected token b"
 `;
 
 exports[`valid-await-using-comments.js [flow] format 1`] = `
@@ -578,7 +606,8 @@ exports[`valid-await-using-comments.js [meriyah] format 1`] = `
     |                            ^
   4 | }
   5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
+Cause: [3:28]: Unexpected token: 'identifier'"
 `;
 
 exports[`valid-await-using-comments.js [typescript] format 1`] = `
@@ -589,7 +618,8 @@ exports[`valid-await-using-comments.js [typescript] format 1`] = `
     |                                          ^^^^^^^^^^^^^
   7 | }
   8 | {
-  9 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;"
+  9 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/of/*6*/x/*7*/)/*8*/;
+Cause: 'await using' declarations may not be initialized in for statement."
 `;
 
 exports[`valid-await-using-comments.js format 1`] = `
@@ -676,7 +706,8 @@ exports[`valid-for-using-binding-of-of.js [acorn] format 1`] = `
     |        ^
   3 |   for await (await using of of of);
   4 | }
-  5 |"
+  5 |
+Cause: Assigning to rvalue (2:7)"
 `;
 
 exports[`valid-for-using-binding-of-of.js [espree] format 1`] = `
@@ -686,7 +717,8 @@ exports[`valid-for-using-binding-of-of.js [espree] format 1`] = `
     |        ^
   3 |   for await (await using of of of);
   4 | }
-  5 |"
+  5 |
+Cause: Assigning to rvalue"
 `;
 
 exports[`valid-for-using-binding-of-of.js [flow] format 1`] = `
@@ -706,17 +738,8 @@ exports[`valid-for-using-binding-of-of.js [meriyah] format 1`] = `
     |                     ^
   3 |   for await (await using of of of);
   4 | }
-  5 |"
-`;
-
-exports[`valid-for-using-binding-of-of.js [typescript] format 1`] = `
-"')' expected. (2:26)
-  1 | async function f() {
-> 2 |   for (await using of of of);
-    |                          ^
-  3 |   for await (await using of of of);
-  4 | }
-  5 |"
+  5 |
+Cause: [2:21]: Invalid left-hand side in for-of"
 `;
 
 exports[`valid-for-using-binding-of-of.js format 1`] = `
@@ -745,7 +768,8 @@ exports[`valid-for-using-declaration.js [acorn] format 1`] = `
 > 2 |   for (await using basic = reader();;);
     |                    ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token (2:19)"
 `;
 
 exports[`valid-for-using-declaration.js [espree] format 1`] = `
@@ -754,7 +778,8 @@ exports[`valid-for-using-declaration.js [espree] format 1`] = `
 > 2 |   for (await using basic = reader();;);
     |                    ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token basic"
 `;
 
 exports[`valid-for-using-declaration.js [flow] format 1`] = `
@@ -772,7 +797,8 @@ exports[`valid-for-using-declaration.js [meriyah] format 1`] = `
 > 2 |   for (await using basic = reader();;);
     |                        ^
   3 | }
-  4 |"
+  4 |
+Cause: [2:24]: Expected ';'"
 `;
 
 exports[`valid-for-using-declaration.js [typescript] format 1`] = `
@@ -781,7 +807,8 @@ exports[`valid-for-using-declaration.js [typescript] format 1`] = `
 > 2 |   for (await using basic = reader();;);
     |                    ^^^^^^^^^^^^^^^^
   3 | }
-  4 |"
+  4 |
+Cause: 'await using' declarations may not be initialized in for statement."
 `;
 
 exports[`valid-for-using-declaration.js format 1`] = `
@@ -808,7 +835,8 @@ exports[`valid-module-block-top-level-await-using-binding.js [acorn] format 1`] 
     |                  ^
   2 |   await using foo = bar();
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token (1:17)"
 `;
 
 exports[`valid-module-block-top-level-await-using-binding.js [espree] format 1`] = `
@@ -817,7 +845,8 @@ exports[`valid-module-block-top-level-await-using-binding.js [espree] format 1`]
     |                  ^
   2 |   await using foo = bar();
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token {"
 `;
 
 exports[`valid-module-block-top-level-await-using-binding.js [flow] format 1`] = `
@@ -835,7 +864,8 @@ exports[`valid-module-block-top-level-await-using-binding.js [meriyah] format 1`
     |                  ^
   2 |   await using foo = bar();
   3 | }
-  4 |"
+  4 |
+Cause: [1:18]: Unexpected token: '{'"
 `;
 
 exports[`valid-module-block-top-level-await-using-binding.js [typescript] format 1`] = `
@@ -844,7 +874,8 @@ exports[`valid-module-block-top-level-await-using-binding.js [typescript] format
     |                  ^
   2 |   await using foo = bar();
   3 | }
-  4 |"
+  4 |
+Cause: ',' expected."
 `;
 
 exports[`valid-module-block-top-level-await-using-binding.js format 1`] = `
@@ -871,7 +902,8 @@ exports[`valid-module-block-top-level-using-binding.js [acorn] format 1`] = `
     |        ^
   2 |   using foo = bar();
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token (1:7)"
 `;
 
 exports[`valid-module-block-top-level-using-binding.js [espree] format 1`] = `
@@ -880,7 +912,8 @@ exports[`valid-module-block-top-level-using-binding.js [espree] format 1`] = `
     |        ^
   2 |   using foo = bar();
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token {"
 `;
 
 exports[`valid-module-block-top-level-using-binding.js [flow] format 1`] = `
@@ -898,7 +931,8 @@ exports[`valid-module-block-top-level-using-binding.js [meriyah] format 1`] = `
     |        ^
   2 |   using foo = bar();
   3 | }
-  4 |"
+  4 |
+Cause: [1:8]: Unexpected token: '{'"
 `;
 
 exports[`valid-module-block-top-level-using-binding.js [typescript] format 1`] = `
@@ -907,7 +941,8 @@ exports[`valid-module-block-top-level-using-binding.js [typescript] format 1`] =
     |        ^
   2 |   using foo = bar();
   3 | }
-  4 |"
+  4 |
+Cause: Namespace must be given a name."
 `;
 
 exports[`valid-module-block-top-level-using-binding.js format 1`] = `
@@ -1057,7 +1092,8 @@ exports[`valid-using-binding-basic.js [acorn] format 1`] = `
 > 2 |   using basic = getReader();
     |         ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token (2:8)"
 `;
 
 exports[`valid-using-binding-basic.js [espree] format 1`] = `
@@ -1066,7 +1102,8 @@ exports[`valid-using-binding-basic.js [espree] format 1`] = `
 > 2 |   using basic = getReader();
     |         ^
   3 | }
-  4 |"
+  4 |
+Cause: Unexpected token basic"
 `;
 
 exports[`valid-using-binding-basic.js [flow] format 1`] = `
@@ -1084,7 +1121,8 @@ exports[`valid-using-binding-basic.js [meriyah] format 1`] = `
 > 2 |   using basic = getReader();
     |             ^
   3 | }
-  4 |"
+  4 |
+Cause: [2:13]: Unexpected token: 'identifier'"
 `;
 
 exports[`valid-using-binding-basic.js format 1`] = `
@@ -1109,14 +1147,16 @@ exports[`valid-using-binding-escaped.js [acorn] format 1`] = `
 "Unexpected token (1:9)
 > 1 | { using \\u0061b = c; }
     |         ^
-  2 |"
+  2 |
+Cause: Unexpected token (1:8)"
 `;
 
 exports[`valid-using-binding-escaped.js [espree] format 1`] = `
 "Unexpected token \\u0061b (1:9)
 > 1 | { using \\u0061b = c; }
     |         ^
-  2 |"
+  2 |
+Cause: Unexpected token \\u0061b"
 `;
 
 exports[`valid-using-binding-escaped.js [flow] format 1`] = `
@@ -1130,7 +1170,8 @@ exports[`valid-using-binding-escaped.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (1:9)
 > 1 | { using \\u0061b = c; }
     |         ^
-  2 |"
+  2 |
+Cause: [1:9]: Unexpected token: 'identifier'"
 `;
 
 exports[`valid-using-binding-escaped.js format 1`] = `
@@ -1153,14 +1194,16 @@ exports[`valid-using-binding-non-bmp.js [acorn] format 1`] = `
 "Unexpected token (1:9)
 > 1 | { using 𠮷 = foo(); }
     |         ^
-  2 |"
+  2 |
+Cause: Unexpected token (1:8)"
 `;
 
 exports[`valid-using-binding-non-bmp.js [espree] format 1`] = `
 "Unexpected token 𠮷 (1:9)
 > 1 | { using 𠮷 = foo(); }
     |         ^
-  2 |"
+  2 |
+Cause: Unexpected token 𠮷"
 `;
 
 exports[`valid-using-binding-non-bmp.js [flow] format 1`] = `
@@ -1174,7 +1217,8 @@ exports[`valid-using-binding-non-bmp.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (1:11)
 > 1 | { using 𠮷 = foo(); }
     |           ^
-  2 |"
+  2 |
+Cause: [1:11]: Unexpected token: 'identifier'"
 `;
 
 exports[`valid-using-binding-non-bmp.js format 1`] = `
@@ -1200,7 +1244,8 @@ exports[`valid-using-binding-using.js [acorn] format 1`] = `
     |         ^
   3 |   for (using using of of);
   4 | }
-  5 |"
+  5 |
+Cause: Unexpected token (2:8)"
 `;
 
 exports[`valid-using-binding-using.js [espree] format 1`] = `
@@ -1210,7 +1255,8 @@ exports[`valid-using-binding-using.js [espree] format 1`] = `
     |         ^
   3 |   for (using using of of);
   4 | }
-  5 |"
+  5 |
+Cause: Unexpected token using"
 `;
 
 exports[`valid-using-binding-using.js [flow] format 1`] = `
@@ -1230,7 +1276,8 @@ exports[`valid-using-binding-using.js [meriyah] format 1`] = `
     |             ^
   3 |   for (using using of of);
   4 | }
-  5 |"
+  5 |
+Cause: [2:13]: Unexpected token: 'identifier'"
 `;
 
 exports[`valid-using-binding-using.js format 1`] = `

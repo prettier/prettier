@@ -1,5 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`escaped.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
+  goog.getMsg("That's all we know");
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
+  goog.getMsg("That\\'s all we know");
+
+=====================================output=====================================
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
+  goog.getMsg("That's all we know");
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
+  goog.getMsg("That's all we know");
+
+================================================================================
+`;
+
+exports[`escaped.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
+  goog.getMsg("That's all we know");
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
+  goog.getMsg("That\\'s all we know");
+
+=====================================output=====================================
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
+  goog.getMsg("That's all we know");
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
+  goog.getMsg("That's all we know");
+
+================================================================================
+`;
+
 exports[`multiline-literal.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
@@ -74,7 +120,8 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [acorn] format 1`
     |   ^
   4 | () => {
   5 |   "use strict";
-  6 |   "\\8", "\\9";"
+  6 |   "\\8", "\\9";
+Cause: Invalid escape sequence (3:2)"
 `;
 
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [espree] format 1`] = `
@@ -85,7 +132,8 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [espree] format 1
     |   ^
   4 | () => {
   5 |   "use strict";
-  6 |   "\\8", "\\9";"
+  6 |   "\\8", "\\9";
+Cause: Invalid escape sequence"
 `;
 
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format 1`] = `
@@ -123,7 +171,8 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [acorn] format 1`
     |   ^
   4 | () => {
   5 |   "use strict";
-  6 |   "\\8", "\\9";"
+  6 |   "\\8", "\\9";
+Cause: Invalid escape sequence (3:2)"
 `;
 
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [espree] format 1`] = `
@@ -134,7 +183,8 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [espree] format 1
     |   ^
   4 | () => {
   5 |   "use strict";
-  6 |   "\\8", "\\9";"
+  6 |   "\\8", "\\9";
+Cause: Invalid escape sequence"
 `;
 
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} format 1`] = `

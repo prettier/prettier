@@ -95,10 +95,10 @@ function needsParens(path, options) {
       const expression = !statement
         ? undefined
         : statement.type === "ExpressionStatement"
-        ? statement.expression
-        : statement.type === "ForStatement"
-        ? statement.init
-        : statement.left;
+          ? statement.expression
+          : statement.type === "ForStatement"
+            ? statement.init
+            : statement.left;
       if (
         expression &&
         startsWithNoLookaheadToken(
