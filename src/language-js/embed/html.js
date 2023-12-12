@@ -10,29 +10,23 @@ import {
   printTemplateExpressions,
   uncookTemplateElementValue,
 } from "../print/template-literal.js";
-import createTypeCheckFunction from "../utils/create-type-check-function.js";
 import { isAngularComponentTemplate, hasLanguageComment } from "./utils.js";
 
-const isPrintable = createTypeCheckFunction([
-  "Identifier",
-  "MemberExpression",
-  "ThisExpression",
-]);
-
 function getVariableName(expression) {
-  switch (expression.type) {
-    case "Identifier":
-      return expression.name;
-    case "ThisExpression":
-      return "this";
-    case "MemberExpression":
-      if (isPrintable(expression.object)) {
-        return (
-          getVariableName(expression.object) +
-          "." +
-          getVariableName(expression.property)
-        );
-      }
+  if (expression.type === "Identifier") {
+    return expression.name;
+  }
+
+  if (expression.type === "ThisExpression") {
+    return "this";
+  }
+
+  if (expression.type === "MemberExpression") {
+    const objectName = getVariableName(expression.object);
+    const propertyName = getVariableName(expression.property);
+    if (objectName && propertyName) {
+      return objectName + "." + propertyName;
+    }
   }
 }
 
@@ -50,6 +44,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     const nextExpression = node.expressions[index];
     if (nextExpression) {
       const variableName = getVariableName(nextExpression);
+
       if (variableName) {
         if (Object.hasOwn(variableNameIndexLookup, variableName)) {
           placeholder = variableNameIndexLookup[variableName];

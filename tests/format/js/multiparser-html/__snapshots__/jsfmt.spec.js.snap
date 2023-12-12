@@ -353,6 +353,17 @@ html\`
     >
 </div>
 \`
+// Should not format
+html\`
+  <\${a().c}>
+
+</\${b().c}>
+\`
+html\`
+  <\${a().x.b}>
+
+</\${a().x.b}>
+\`
 
 =====================================output=====================================
 import { LitElement, html } from "@polymer/lit-element";
@@ -499,6 +510,17 @@ html\`
     </\${this.staticTagName}>
   </div>
 \`;
+// Should not format
+html\`
+  <\${a().c}>
+
+</\${b().c}>
+\`;
+html\`
+  <\${a().x.b}>
+
+</\${a().x.b}>
+\`;
 
 ================================================================================
 `;
@@ -627,6 +649,17 @@ html\`
     >
 </div>
 \`
+// Should not format
+html\`
+  <\${a().c}>
+
+</\${b().c}>
+\`
+html\`
+  <\${a().x.b}>
+
+</\${a().x.b}>
+\`
 
 =====================================output=====================================
 import { LitElement, html } from "@polymer/lit-element";
@@ -733,6 +766,17 @@ html\`
       <\${this.a.staticTagName}></\${this.a.staticTagName}>
     </\${this.staticTagName}>
   </div>
+\`;
+// Should not format
+html\`
+  <\${a().c}>
+
+</\${b().c}>
+\`;
+html\`
+  <\${a().x.b}>
+
+</\${a().x.b}>
 \`;
 
 ================================================================================

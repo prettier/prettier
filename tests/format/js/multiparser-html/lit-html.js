@@ -116,3 +116,14 @@ html`
     >
 </div>
 `
+// Should not format
+html`
+  <${a().c}>
+
+</${b().c}>
+`
+html`
+  <${a().x.b}>
+
+</${a().x.b}>
+`
