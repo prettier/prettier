@@ -23,7 +23,7 @@ function printAngularIcuExpression(path, options, print) {
   return [
     printOpeningTagStart(node, options),
     group([
-      node.switchValue,
+      node.switchValue.trim(),
       ", ",
       node.clause,
       node.cases.length > 0
