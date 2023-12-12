@@ -5,6 +5,7 @@ import {
   join,
   group,
 } from "../../document/builders.js";
+import { printClosingTagEnd, printOpeningTagStart } from "./tag.js";
 
 /*
   <span i18n>
@@ -18,17 +19,19 @@ import {
 
 function printAngularIcuExpression(path, options, print) {
   const { node } = path;
-  return group([
-    "{",
-    node.switchValue,
-    ", ",
-    node.clause,
-    node.cases.length > 0
-      ? [",", indent([line, join(line, path.map(print, "cases"))])]
-      : "",
-    softline,
-    "}",
-  ]);
+  return [
+    printOpeningTagStart(node, options),
+    group([
+      node.switchValue,
+      ", ",
+      node.clause,
+      node.cases.length > 0
+        ? [",", indent([line, join(line, path.map(print, "cases"))])]
+        : "",
+      softline,
+    ]),
+    printClosingTagEnd(node, options),
+  ];
 }
 
 function printAngularIcuCase(path, options, print) {
