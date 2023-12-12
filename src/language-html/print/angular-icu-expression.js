@@ -5,6 +5,7 @@ import {
   join,
   group,
 } from "../../document/builders.js";
+import { getLeadingAndTrailingHtmlWhitespace } from "../utils/index.js";
 import { printClosingTagEnd, printOpeningTagStart } from "./tag.js";
 
 /*
@@ -39,7 +40,21 @@ function printAngularIcuCase(path, options, print) {
   return [
     node.value,
     " {",
-    group([indent([softline, path.map(print, "expression")]), softline]),
+    group([
+      indent([
+        softline,
+        path.map(({ node }) => {
+          // FIXME: We need a fundamental solution.
+          // Like this: https://github.com/prettier/prettier/blob/c1ebae2e8303841e59bc02e9e719a93e964ab0e9/src/language-html/print-preprocess.js#L254
+          if (node.type === "text") {
+            const { text } = getLeadingAndTrailingHtmlWhitespace(node.value);
+            return text ? print() : "";
+          }
+          return print();
+        }, "expression"),
+      ]),
+      softline,
+    ]),
     "}",
   ];
 }

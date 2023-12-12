@@ -58,7 +58,9 @@ const unstableAstTests = new Map(
     ["angular/icu-expression/basic-select-02.html", () => true],
     ["angular/icu-expression/basic-plural-01.html", () => true],
     ["angular/icu-expression/basic-plural-02.html", () => true],
+    ["angular/icu-expression/basic-plural-03.html", () => true],
     ["angular/icu-expression/basic-plural-04.html", () => true],
+    ["angular/icu-expression/combination-01.html", () => true],
   ].map(([fixture, testFn]) => [
     path.join(__dirname, "../format/", fixture),
     testFn,
