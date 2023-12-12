@@ -15,8 +15,8 @@ printWidth: 80
     =0 {just now}
     =1 {one minute ago}
     other {{{minutes}} minutes ago}
-  }
-></span>
+
+}</span>
 
 ================================================================================
 `;
@@ -56,42 +56,38 @@ printWidth: 80
 
 =====================================output=====================================
 <foo>
-  <bar
-    {VAR_PLURAL, plural,
-      =0 {zero}
-      =1 {un}
-      =2 {deux}
-      other {
-        <pc
-          id="0"
-          equivStart="START_BOLD_TEXT"
-          equivEnd="CLOSE_BOLD_TEXT"
-          type="fmt"
-          dispStart="&lt;b&gt;"
-          dispEnd="&lt;/b&gt;"
-          >beaucoup</pc
-        >
-      }
+  <bar>{VAR_PLURAL, plural,
+    =0 {zero}
+    =1 {un}
+    =2 {deux}
+    other {
+      <pc
+        id="0"
+        equivStart="START_BOLD_TEXT"
+        equivEnd="CLOSE_BOLD_TEXT"
+        type="fmt"
+        dispStart="&lt;b&gt;"
+        dispEnd="&lt;/b&gt;"
+        >beaucoup</pc
+      >
     }
-  ></bar>
-  <baz
-    {VAR_PLURAL, plural,
-      =0 {zero}
-      =1 {one}
-      =2 {two}
-      other {
-        <pc
-          id="0"
-          equivStart="START_BOLD_TEXT"
-          equivEnd="CLOSE_BOLD_TEXT"
-          type="fmt"
-          dispStart="&lt;b&gt;"
-          dispEnd="&lt;/b&gt;"
-          >many</pc
-        >
-      }
+  }</bar>
+  <baz>{VAR_PLURAL, plural,
+    =0 {zero}
+    =1 {one}
+    =2 {two}
+    other {
+      <pc
+        id="0"
+        equivStart="START_BOLD_TEXT"
+        equivEnd="CLOSE_BOLD_TEXT"
+        type="fmt"
+        dispStart="&lt;b&gt;"
+        dispEnd="&lt;/b&gt;"
+        >many</pc
+      >
     }
-  ></baz>
+  }</baz>
 </foo>
 
 ================================================================================
@@ -109,19 +105,17 @@ printWidth: 80
 
 =====================================output=====================================
 <foo>
-  <bar
-    {VAR_PLURAL, plural,
-      =0 {Found no results}
-      =1 {Found one result}
-      other {
-        Found <ph
-          id="0"
-          equiv="INTERPOLATION"
-          disp="{{ response.getItemsList().length }}"
-        /> results
-      }
+  <bar>{VAR_PLURAL, plural,
+    =0 {Found no results}
+    =1 {Found one result}
+    other {
+      Found <ph
+        id="0"
+        equiv="INTERPOLATION"
+        disp="{{ response.getItemsList().length }}"
+      /> results
     }
-  ></bar>
+  }</bar>
 </foo>
 
 ================================================================================
@@ -137,8 +131,8 @@ printWidth: 80
 
 =====================================output=====================================
 <span i18n
-  >The author is {gender, select, male {male} female {female} other {other}}
-></span>
+  >The author is {gender, select, male {male} female {female} other {other}
+}</span>
 
 ================================================================================
 `;
@@ -153,10 +147,12 @@ printWidth: 80
 <ng-container>{age, select, 10 {ten} 20 {twenty} other {other}}</ng-container>
 
 =====================================output=====================================
-<ng-template
-  {gender, select, male {male} female {female} other {other}}
-></ng-template>
-<ng-container{age, select, 10 {ten} 20 {twenty} other {other}}></ng-container>
+<ng-template>{gender, select,
+  male {male}
+  female {female}
+  other {other}
+}</ng-template>
+<ng-container>{age, select, 10 {ten} 20 {twenty} other {other}}</ng-container>
 
 ================================================================================
 `;
