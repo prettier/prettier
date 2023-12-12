@@ -16,6 +16,7 @@ import {
   DOC_TYPE_LINE,
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
+  CURSOR_EDGE_RIGHT,
 } from "./constants.js";
 import { fill, indent, hardlineWithoutBreakParent } from "./builders.js";
 import { getDocParts, getDocType, propagateBreaks } from "./utils.js";
@@ -315,7 +316,21 @@ function printDocToString(doc, options) {
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
-  let printedCursorCount = 0;
+  let cursorCommandCount = 0;
+
+  // This gets set to true if in the original AST, the cursor was between two
+  // nodes A and B (where A appeared before B), but in the doc, B appears
+  // before A. This can only happen if a third-party plugin changes the order
+  // of AST elements from how they appear in the original document.
+  //
+  // Builtin plugins never do this - Prettier has an explicit philosophy of not
+  // making changes to documents that modify the underlying AST, documented a
+  // https://prettier.io/docs/en/rationale#what-prettier-is-_not_-concerned-about
+  //
+  // Nonetheless, popular third party plugins exist that DO modify the AST,
+  // such as https://github.com/trivago/prettier-plugin-sort-imports, and so
+  // we need to account for the possibility of such reordering having happened.
+  let cursorBoundaryNodesFlipped = false;
 
   propagateBreaks(doc);
 
@@ -340,11 +355,22 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_CURSOR:
-        if (printedCursorCount >= 2) {
+        if (cursorCommandCount >= 2) {
           throw new Error("There are too many 'cursor' in doc.");
         }
-        out.push(CURSOR_PLACEHOLDER);
-        printedCursorCount++;
+        if (doc.edge === CURSOR_EDGE_RIGHT && cursorCommandCount === 0) {
+          cursorBoundaryNodesFlipped = true;
+          // The cursor was originally between nodes A and B, but now B appears
+          // before A in the doc. Our choice of where to put the cursor is thus
+          // fairly arbitrary since there's no meaningful way to preserve its
+          // position in this circumstance. Let's simply put it immediately
+          // after B and be done with it:
+          out.push(CURSOR_PLACEHOLDER, CURSOR_PLACEHOLDER);
+          break;
+        } else if (!cursorBoundaryNodesFlipped) {
+          out.push(CURSOR_PLACEHOLDER);
+        }
+        cursorCommandCount++;
         break;
 
       case DOC_TYPE_INDENT:

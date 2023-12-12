@@ -12,6 +12,8 @@ import {
   DOC_TYPE_LINE,
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
+  CURSOR_EDGE_LEFT,
+  CURSOR_EDGE_RIGHT,
 } from "./constants.js";
 import { assertDoc, assertDocArray } from "./utils/assert-doc.js";
 
@@ -175,6 +177,8 @@ const hardline = [hardlineWithoutBreakParent, breakParent];
 const literalline = [literallineWithoutBreakParent, breakParent];
 
 const cursor = { type: DOC_TYPE_CURSOR };
+const cursorLeft = { ...cursor, edge: CURSOR_EDGE_LEFT };
+const cursorRight = { ...cursor, edge: CURSOR_EDGE_RIGHT };
 
 /**
  * @param {Doc} separator
@@ -244,6 +248,8 @@ export {
   lineSuffix,
   lineSuffixBoundary,
   cursor,
+  cursorLeft,
+  cursorRight,
   breakParent,
   ifBreak,
   trim,
