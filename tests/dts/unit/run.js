@@ -42,5 +42,29 @@ function formatDiagnostic({ file, start, code, messageText }) {
     const { line, character } = ts.getLineAndCharacterOfPosition(file, start);
     location = `${file.fileName}:${line + 1}:${character + 1} `;
   }
-  return `${location}TS${code}: ${messageText}`;
+  return `${location}TS${code}: ${formatMessageText(messageText)}`;
+}
+
+/**
+ * @param {import("typescript").Diagnostic.messageText} messageText
+ * @param Number indent
+ *
+ * Format the messageText property of a Diagnostic object. This may either
+ * simply be a string, or may be a tree of objects each containing a
+ * `messageText` string and a `next` property pointing to an array of child
+ * nodes. (The tree format gets used when an error is caused by another error.)
+ */
+function formatMessageText(messageText) {
+  if (typeof messageText === "string") {
+    return messageText;
+  }
+  if (messageText.next) {
+    return (
+      messageText.messageText +
+      " (" +
+      messageText.next.map(formatMessageText).join("; ") +
+      ")"
+    );
+  }
+  return messageText.messageText;
 }
