@@ -16,6 +16,10 @@ const loadPluginFromDirectory = mem(
 );
 
 const importPlugin = mem(async (name) => {
+  if (path.isAbsolute(name)) {
+    return import(pathToFileURL(name).href);
+  }
+
   try {
     // try local files
     return await import(pathToFileURL(path.resolve(name)).href);

@@ -28,6 +28,26 @@ foo(a--).bar().leet();
 ================================================================================
 `;
 
+exports[`assignment-lhs.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+document.querySelector("#output-abcdef").textContent = \`metaKey pressed? \${e.metaKey}\`;
+
+document.querySelector("p").textContent = \`Shader program did not link successfully. Error log: \${linkErrLog}\`;
+
+=====================================output=====================================
+document.querySelector("#output-abcdef").textContent =
+  \`metaKey pressed? \${e.metaKey}\`;
+
+document.querySelector("p").textContent =
+  \`Shader program did not link successfully. Error log: \${linkErrLog}\`;
+
+================================================================================
+`;
+
 exports[`bracket_0.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
