@@ -52,7 +52,7 @@ function clean(ast, newNode) {
   }
 
   if (ast.type === "angularIcuExpression") {
-    newNode.switchValue = newNode.switchValue.trim();
+    newNode.switchValue = ast.switchValue.trim();
   }
 }
 
