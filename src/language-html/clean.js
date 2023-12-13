@@ -10,6 +10,9 @@ const ignoredProperties = new Set([
   "tagDefinition",
   "tokens",
   "valueTokens",
+  "switchValueSourceSpan",
+  "expSourceSpan",
+  "valueSourceSpan",
 ]);
 
 const embeddedAngularControlFlowBlocks = new Set([
@@ -46,6 +49,10 @@ function clean(ast, newNode) {
         parameter.expression = parameter.expression.trim();
       }
     }
+  }
+
+  if (ast.type === "angularIcuExpression") {
+    newNode.switchValue = newNode.switchValue.trim();
   }
 }
 
