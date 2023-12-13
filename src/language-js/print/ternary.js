@@ -76,6 +76,7 @@ const ancestorNameMap = new Map([
   ["ThrowStatement", "argument"],
   ["UnaryExpression", "argument"],
   ["YieldExpression", "argument"],
+  ["AwaitExpression", "argument"],
 ]);
 /**
  * Do we want to wrap the entire ternary in its own indent?
