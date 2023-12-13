@@ -1,6 +1,5 @@
 import { printDanglingComments } from "../../main/comments/print.js";
 import {
-  getFunctionParameters,
   hasComment,
   CommentCheckFlags,
   isFunctionCompositionArgs,
@@ -48,7 +47,7 @@ function printCallArguments(path, options, print) {
   }
 
   // useEffect(() => { ... }, [foo, bar, baz])
-  if (isReactHookCallWithDepsArray(args)) {
+  if (isReactHookCallWithDepsArray(node)) {
     return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
   }
 
@@ -318,11 +317,40 @@ function isHopefullyShortCallArgument(node) {
   return isRegExpLiteral(node) || isSimpleCallArgument(node);
 }
 
-function isReactHookCallWithDepsArray(args) {
+/**
+ * Gets `"foo"` from `foo()`.
+ * Gets `"foo"` from `bar.foo()`
+ * Gets `"foo"` from `bar.baz.foo()`
+ * @param {any} callExpression
+ * @returns {(string | null)}
+ */
+function getCallName(callExpression) {
+  const { callee } = callExpression;
+  switch (callee.type) {
+    case "Identifier":
+      return callee.name;
+    case "MemberExpression": {
+      const { property } = callee;
+      if (property.type === "Identifier") {
+        return property.name;
+      }
+    }
+  }
+  return null;
+}
+
+function isReactHookCallWithDepsArray(node) {
+  const callName = node.type === "CallExpression" && getCallName(node);
+  // The name of React Hooks is starts with "use"
+  // https://reactjs.org/docs/hooks-custom.html#extracting-a-custom-hook
+  //   > A custom Hook is a JavaScript function whose name starts with
+  //   > ”use” and that may call other Hooks.
+  const isHookCall = Boolean(callName && callName.startsWith("use"));
+  const args = getCallArguments(node);
   return (
+    isHookCall &&
     args.length === 2 &&
     args[0].type === "ArrowFunctionExpression" &&
-    getFunctionParameters(args[0]).length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))

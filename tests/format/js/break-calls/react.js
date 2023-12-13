@@ -62,3 +62,35 @@ function Comp4() {
 function Comp5() {
   const { firstName, lastName } = useMemo(() => func(), [foo]);
 }
+
+function Comp6() {
+  const { firstName, lastName } = React.useMemo(
+    () => parseFullName(fullName),
+    [fullName],
+  );
+}
+
+function Comp7() {
+  const { firstName, lastName } = React.useMemo(
+    () => func(),
+    [props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value]
+  )
+}
+
+function Comp8() {
+  const { firstName, lastName } = React.useMemo(
+    (aaa, bbb, ccc, ddd, eee, fff, ggg, hhh, iii, jjj, kkk) => func(aaa, bbb, ccc, ddd, eee, fff, ggg, hhh, iii, jjj, kkk),
+    [foo, bar, baz]
+  );
+}
+
+function Comp9() {
+  const { firstName, lastName } = React.useMemo(
+    () => foo && bar && baz || baz || foo && baz(foo) + bar(foo) + foo && bar && baz || baz || foo && baz(foo) + bar(foo),
+    [foo, bar, baz]
+  )
+}
+
+function Comp10() {
+  const { firstName, lastName } = React.useMemo(() => func(), [foo]);
+}
