@@ -60,7 +60,8 @@ function printElement(path, options, print) {
    */
   const shouldHugContent =
     node.children.length === 1 &&
-    node.firstChild.type === "interpolation" &&
+    (node.firstChild.type === "interpolation" ||
+      node.firstChild.type === "angularIcuExpression") &&
     node.firstChild.isLeadingSpaceSensitive &&
     !node.firstChild.hasLeadingSpaces &&
     node.lastChild.isTrailingSpaceSensitive &&

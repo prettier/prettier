@@ -97,6 +97,8 @@ function printClosingTagEndMarker(node, options) {
       return "]><!-->";
     case "interpolation":
       return "}}";
+    case "angularIcuExpression":
+      return "}";
     case "element":
       if (node.isSelfClosing) {
         return "/>";
@@ -345,6 +347,8 @@ function printOpeningTagStartMarker(node) {
       return "{{";
     case "docType":
       return node.value === "html" ? "<!doctype" : "<!DOCTYPE";
+    case "angularIcuExpression":
+      return "{";
     case "element":
       if (node.condition) {
         return `<!--[if ${node.condition}]><!--><${node.rawName}`;
