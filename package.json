@@ -103,7 +103,7 @@
     "unified": "9.2.2",
     "url-or-path": "2.3.0",
     "vnopts": "2.0.0",
-    "wcwidth": "1.0.1",
+    "wcwidth.js": "1.1.2",
     "yaml-unist-parser": "2.0.1"
   },
   "devDependencies": {
