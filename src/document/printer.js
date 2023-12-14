@@ -673,13 +673,12 @@ function printDocToString(doc, options) {
       // returned by printAstToDoc, then the only ways this can have happened
       // are if:
       // 1. a plugin added a cursor command itself, or
-      // 2. one (but not both) of options.cursorLocation.nodeAfterCursor and
-      //    options.cursorLocation.nodeAfterCursor pointed to a node within a
-      //    subtree of the AST that the printer plugin used in printAstToDoc
-      //    simply omits from the doc, or that it prints without recursively
-      //    calling mainPrint, with the consequence that the logic for adding a
-      //    cursor command in callPluginPrintFunction was never called for that
-      //    node.
+      // 2. one (but not both) of options.nodeAfterCursor and
+      //    options.nodeAfterCursor pointed to a node within a subtree of the
+      //    AST that the printer plugin used in printAstToDoc simply omits from
+      //    the doc, or that it prints without recursively calling mainPrint,
+      //    with the consequence that the logic for adding a cursor command in
+      //    callPluginPrintFunction was never called for that node.
       // These are both weird scenarios that should be considered a bug if they
       // ever occur with one of Prettier's built-in plugins. If a third-party
       // plugin was used when printing the AST to a doc, the possibility of

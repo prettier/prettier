@@ -248,24 +248,21 @@ function printJsxElementInternal(path, options, print) {
   nodeBeforeCursor, or nodeAfterCursor is inside, `cursor` won't get printed.
   This logic fixes that:
   */
-  if (options.cursorLocation) {
-    const { cursorNode, nodeBeforeCursor, nodeAfterCursor } =
-      options.cursorLocation;
-    if (cursorNode?.type === "JSXText" && node.children.includes(cursorNode)) {
-      content = [cursor, content, cursor];
-    }
-    if (
-      nodeBeforeCursor?.type === "JSXText" &&
-      node.children.includes(nodeBeforeCursor)
-    ) {
-      content = [cursor, content];
-    }
-    if (
-      nodeAfterCursor?.type === "JSXText" &&
-      node.children.includes(nodeAfterCursor)
-    ) {
-      content = [content, cursor];
-    }
+  if (
+    options.cursorNode?.type === "JSXText" &&
+    node.children.includes(options.cursorNode)
+  ) {
+    content = [cursor, content, cursor];
+  } else if (
+    options.nodeBeforeCursor?.type === "JSXText" &&
+    node.children.includes(options.nodeBeforeCursor)
+  ) {
+    content = [cursor, content];
+  } else if (
+    options.nodeAfterCursor?.type === "JSXText" &&
+    node.children.includes(options.nodeAfterCursor)
+  ) {
+    content = [content, cursor];
   }
 
   if (isMdxBlock) {

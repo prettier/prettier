@@ -51,16 +51,10 @@ async function printAstToDoc(ast, options) {
 
   ensureAllCommentsPrinted(options);
 
-  if (
-    options.cursorLocation?.nodeAfterCursor &&
-    !options.cursorLocation.nodeBeforeCursor
-  ) {
+  if (options.nodeAfterCursor && !options.nodeBeforeCursor) {
     return [cursorLeft, doc];
   }
-  if (
-    options.cursorLocation?.nodeBeforeCursor &&
-    !options.cursorLocation.nodeAfterCursor
-  ) {
+  if (options.nodeBeforeCursor && !options.nodeAfterCursor) {
     return [doc, cursorRight];
   }
 
@@ -119,20 +113,16 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
     doc = printer.print(path, options, printPath, args);
   }
 
-  if (options.cursorLocation) {
-    const { cursorNode, nodeBeforeCursor, nodeAfterCursor } =
-      options.cursorLocation;
-    switch (node) {
-      case cursorNode:
-        doc = inheritLabel(doc, (doc) => [cursorLeft, doc, cursorRight]);
-        break;
-      case nodeBeforeCursor:
-        doc = inheritLabel(doc, (doc) => [doc, cursorLeft]);
-        break;
-      case nodeAfterCursor:
-        doc = inheritLabel(doc, (doc) => [cursorRight, doc]);
-        break;
-    }
+  switch (node) {
+    case options.cursorNode:
+      doc = inheritLabel(doc, (doc) => [cursorLeft, doc, cursorRight]);
+      break;
+    case options.nodeBeforeCursor:
+      doc = inheritLabel(doc, (doc) => [doc, cursorLeft]);
+      break;
+    case options.nodeAfterCursor:
+      doc = inheritLabel(doc, (doc) => [cursorRight, doc]);
+      break;
   }
 
   // We let JSXElement print its comments itself because it adds () around

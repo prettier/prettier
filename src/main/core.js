@@ -30,7 +30,10 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   const { ast, text } = await parseText(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
-    opts.cursorLocation = getCursorLocation(ast, opts);
+    opts = {
+      ...opts,
+      ...getCursorLocation(ast, opts),
+    };
   }
 
   let doc = await printAstToDoc(ast, opts, addAlignmentSize);
@@ -88,30 +91,30 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
     let newCursorRegionStart;
     let newCursorRegionText;
 
-    if (opts.cursorLocation && result.cursorRegionText) {
+    if (
+      (opts.cursorNode || opts.nodeBeforeCursor || opts.nodeAfterCursor) &&
+      result.cursorRegionText
+    ) {
       newCursorRegionStart = result.cursorRegionStart;
       newCursorRegionText = result.cursorRegionText;
 
-      if (opts.cursorLocation.cursorNode) {
-        oldCursorRegionStart = opts.locStart(opts.cursorLocation.cursorNode);
+      if (opts.cursorNode) {
+        oldCursorRegionStart = opts.locStart(opts.cursorNode);
         oldCursorRegionText = text.slice(
           oldCursorRegionStart,
-          opts.locEnd(opts.cursorLocation.cursorNode),
+          opts.locEnd(opts.cursorNode),
         );
       } else {
-        if (
-          !opts.cursorLocation.nodeBeforeCursor &&
-          !opts.cursorLocation.nodeAfterCursor
-        ) {
+        if (!opts.nodeBeforeCursor && !opts.nodeAfterCursor) {
           throw new Error(
             "Cursor location must contain at least one of cursorNode, nodeBeforeCursor, nodeAfterCursor",
           );
         }
-        oldCursorRegionStart = opts.cursorLocation.nodeBeforeCursor
-          ? opts.locEnd(opts.cursorLocation.nodeBeforeCursor)
+        oldCursorRegionStart = opts.nodeBeforeCursor
+          ? opts.locEnd(opts.nodeBeforeCursor)
           : 0;
-        const oldCursorRegionEnd = opts.cursorLocation.nodeAfterCursor
-          ? opts.locStart(opts.cursorLocation.nodeAfterCursor)
+        const oldCursorRegionEnd = opts.nodeAfterCursor
+          ? opts.locStart(opts.nodeAfterCursor)
           : text.length;
 
         oldCursorRegionText = text.slice(
