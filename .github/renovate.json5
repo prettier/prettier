@@ -39,6 +39,10 @@
       ],
       labels: ["dependency:tools"],
     },
+    {
+      matchManagers: ["github-actions"],
+      groupName: "GitHub Actions",
+    },
   ],
   ignoreDeps: [
     // It's a dependency of `remark-parse`, use same version to reduce size
