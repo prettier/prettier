@@ -40,8 +40,8 @@
       labels: ["dependency:tools"],
     },
     {
-      "groupName": "GitHub Actions",
-      "matchManagers": ["github-actions"]
+      matchManagers: ["github-actions"],
+      groupName: "GitHub Actions",
     },
   ],
   ignoreDeps: [
