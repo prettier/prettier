@@ -67,7 +67,7 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editor
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-The search starts at `process.cwd()`, or at `fileUrlOrPath` if provided. Please see the [lilconfig docs](https://github.com/antonk52/lilconfig) for details on how the resolving works.
+The search starts at `process.cwd()`, or at the directory of `fileUrlOrPath` if provided.
 
 ```js
 const configFile = await prettier.resolveConfigFile(filePath);

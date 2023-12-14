@@ -1,8 +1,146 @@
-# 4.0.0-alpha.3
+# 3.1.1
 
-[diff](https://github.com/prettier/prettier/compare/4.0.0-alpha.2...4.0.0-alpha.3)
+[diff](https://github.com/prettier/prettier/compare/3.1.0...3.1.1)
 
-🔗 [Release Notes](https://prettier.io/blog/2023/12/01/4.0.0-alpha.3.html)
+#### Fix config file search ([#15363](https://github.com/prettier/prettier/pull/15363) by [@fisker](https://github.com/fisker))
+
+Previously, we start search for config files from the filePath as a directory, if it happened to be a directory and contains config file, it will be used by mistake.
+
+```text
+├─ .prettierrc
+└─ test.js         (A directory)
+  └─ .prettierrc
+```
+
+```js
+// Prettier 3.1.0
+await prettier.resolveConfigFile(new URL("./test.js", import.meta.url));
+// <CWD>/test.js/.prettierrc
+
+// Prettier 3.1.1
+await prettier.resolveConfigFile(new URL("./test.js", import.meta.url));
+// <CWD>/.prettierrc
+```
+
+#### Skip explicitly passed symbolic links with `--no-error-on-unmatched-pattern` ([#15533](https://github.com/prettier/prettier/pull/15533) by [@sanmai-NL](https://github.com/sanmai-NL))
+
+Since Prettier v3, we stopped following symbolic links, however in some use cases, the symbolic link patterns can't be filtered out, and there is no way to prevent Prettier from throwing errors.
+
+In Prettier 3.1.1, you can use `--no-error-on-unmatched-pattern` to simply skip symbolic links.
+
+#### Consistently use tabs in ternaries when `useTabs` is `true` ([#15662](https://github.com/prettier/prettier/pull/15662) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+aaaaaaaaaaaaaaa
+	? bbbbbbbbbbbbbbbbbb
+	: ccccccccccccccc
+	  ? ddddddddddddddd
+	  : eeeeeeeeeeeeeee
+	    ? fffffffffffffff
+	    : gggggggggggggggg;
+
+// Prettier 3.1.0
+aaaaaaaaaaaaaaa
+	? bbbbbbbbbbbbbbbbbb
+	: ccccccccccccccc
+	  ? ddddddddddddddd
+	  : eeeeeeeeeeeeeee
+	    ? fffffffffffffff
+	    : gggggggggggggggg;
+
+// Prettier 3.1.1
+aaaaaaaaaaaaaaa
+	? bbbbbbbbbbbbbbbbbb
+	: ccccccccccccccc
+		? ddddddddddddddd
+		: eeeeeeeeeeeeeee
+			? fffffffffffffff
+			: gggggggggggggggg;
+```
+
+#### Improve config file search ([#15663](https://github.com/prettier/prettier/pull/15663) by [@fisker](https://github.com/fisker))
+
+The Prettier config file search performance has been improved by more effective cache strategy.
+
+#### Fix unstable and ugly formatting for comments in destructuring patterns ([#15708](https://github.com/prettier/prettier/pull/15708) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+const {
+  foo,
+  // bar
+  // baz
+}: Foo = expr;
+
+// Prettier 3.1.0
+const {
+  foo1,
+} // bar
+// baz
+: Foo = expr;
+
+// Prettier 3.1.0 second output
+const {
+  foo1, // bar
+} // baz
+: Foo = expr;
+
+// Prettier 3.1.1
+const {
+  foo1,
+  // bar
+  // baz
+}: Foo = expr;
+```
+
+#### Support "Import Attributes" ([#15718](https://github.com/prettier/prettier/pull/15718) by [@fisker](https://github.com/fisker))
+
+[TypeScript 5.3](https://devblogs.microsoft.com/typescript/announcing-typescript-5-3/#import-attributes) supports the latest updates to the [import attributes](https://github.com/tc39/proposal-import-attributes) proposal.
+
+```tsx
+import something from "./something.json" with { type: "json" };
+```
+
+#### Fix false claim in docs that cursorOffset is incompatible with rangeStart/rangeEnd ([#15750](https://github.com/prettier/prettier/pull/15750) by [@ExplodingCabbage](https://github.com/ExplodingCabbage))
+
+The cursorOffset option has in fact been compatible with rangeStart/rangeEnd for over 5 years, thanks to work by @ds300. However, Prettier's documentation (including the CLI `--help` text) continued to claim otherwise, falsely. The documentation is now fixed.
+
+#### Keep curly braces and `from` keyword in empty `import` statements ([#15756](https://github.com/prettier/prettier/pull/15756) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```js
+// Input
+import { } from 'foo';
+import { /* comment */ } from 'bar';
+
+// Prettier 3.1.0
+import {} from "foo";
+import /* comment */ "bar";
+
+// Prettier 3.1.1
+import {} from "foo";
+import {} from /* comment */ "bar";
+```
+
+#### Keep empty import attributes and assertions ([#15757](https://github.com/prettier/prettier/pull/15757) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```js
+// Input
+import foo from "foo" with {};
+import bar from "bar" assert {};
+
+// Prettier 3.1.0
+import foo from "foo";
+import bar from "bar";
+
+// Prettier 3.1.1
+import foo from "foo" with {};
+import bar from "bar" assert {};
+```
 
 # 3.1.0
 

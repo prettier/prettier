@@ -34,6 +34,11 @@ import {
   printBindExpressionCallee,
 } from "./misc.js";
 
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ * @typedef {{ node: any, printed: Doc, needsParens?: boolean, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
+ */
+
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
 //
@@ -57,6 +62,7 @@ function printMemberChain(path, options, print) {
   //   CallExpression(MemberExpression(CallExpression(Identifier)))
   // and we transform it into
   //   [Identifier, CallExpression, MemberExpression, CallExpression]
+  /** @type {PrintedNode[]}} */
   const printedNodes = [];
 
   // Here we try to retain one typed empty line after each call expression or
@@ -87,8 +93,10 @@ function printMemberChain(path, options, print) {
       isCallExpression(node) &&
       (isMemberish(node.callee) || isCallExpression(node.callee))
     ) {
+      const hasTrailingEmptyLine = shouldInsertEmptyLineAfter(node);
       printedNodes.unshift({
         node,
+        hasTrailingEmptyLine,
         printed: [
           printComments(
             path,
@@ -99,7 +107,7 @@ function printMemberChain(path, options, print) {
             ],
             options,
           ),
-          shouldInsertEmptyLineAfter(node) ? hardline : "",
+          hasTrailingEmptyLine ? hardline : "",
         ],
       });
       path.call((callee) => rec(callee), "callee");
@@ -170,6 +178,7 @@ function printMemberChain(path, options, print) {
   //       < fn()[0][1][2] >.something()
   //   - then, as many MemberExpression as possible but the last one
   //       < this.items >.something()
+  /** @type {PrintedNode[][]} */
   const groups = [];
   let currentGroup = [printedNodes[0]];
   let i = 1;
@@ -331,7 +340,11 @@ function printMemberChain(path, options, print) {
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= cutoff && !nodeHasComment) {
+  if (
+    groups.length <= cutoff &&
+    !nodeHasComment &&
+    !groups.some((g) => g.at(-1).hasTrailingEmptyLine)
+  ) {
     if (isLongCurriedCallExpression(path)) {
       return oneLine;
     }
