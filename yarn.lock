@@ -8694,14 +8694,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-parse-argv@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "tiny-parse-argv@npm:2.3.0"
-  checksum: cca735e9554dbbcf5bb54a82f50997b2497e7d10dbc9730914595d66714b72706edc77774ee076ec0451840d54a0ecd66771d9d598dc0cec7bd71d18a27fc951
-  languageName: node
-  linkType: hard
-
-"tiny-parse-argv@npm:^2.4.0":
+"tiny-parse-argv@npm:^2.3.0, tiny-parse-argv@npm:^2.4.0":
   version: 2.4.0
   resolution: "tiny-parse-argv@npm:2.4.0"
   checksum: 255f3d4f39308f4eaf44cc00c8da03a4426ed04c86b602b1765f63b85f47a3f302e316a7596155961dd8ab35aead721b5b56f6ff79a638687089c2d09d0446ad
