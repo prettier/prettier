@@ -5,7 +5,8 @@ exports[`avoid-conflicts-to-pipeline.js [acorn] format 1`] = `
   1 | // |>
 > 2 | const status = %GetOptimizationStatus(fn);
     |                ^
-  3 |"
+  3 |
+Cause: Unexpected token (2:15)"
 `;
 
 exports[`avoid-conflicts-to-pipeline.js [espree] format 1`] = `
@@ -13,7 +14,8 @@ exports[`avoid-conflicts-to-pipeline.js [espree] format 1`] = `
   1 | // |>
 > 2 | const status = %GetOptimizationStatus(fn);
     |                ^
-  3 |"
+  3 |
+Cause: Unexpected token %"
 `;
 
 exports[`avoid-conflicts-to-pipeline.js [meriyah] format 1`] = `
@@ -21,7 +23,8 @@ exports[`avoid-conflicts-to-pipeline.js [meriyah] format 1`] = `
   1 | // |>
 > 2 | const status = %GetOptimizationStatus(fn);
     |                ^
-  3 |"
+  3 |
+Cause: [2:16]: Unexpected token: '%'"
 `;
 
 exports[`avoid-conflicts-to-pipeline.js format 1`] = `
@@ -47,7 +50,8 @@ exports[`intrinsic_call.js [acorn] format 1`] = `
     |             ^
   3 |         (
   4 |                 foo )
-  5 |   }"
+  5 |   }
+Cause: Unexpected token (2:12)"
 `;
 
 exports[`intrinsic_call.js [espree] format 1`] = `
@@ -57,7 +61,8 @@ exports[`intrinsic_call.js [espree] format 1`] = `
     |             ^
   3 |         (
   4 |                 foo )
-  5 |   }"
+  5 |   }
+Cause: Unexpected token %"
 `;
 
 exports[`intrinsic_call.js [meriyah] format 1`] = `
@@ -67,7 +72,8 @@ exports[`intrinsic_call.js [meriyah] format 1`] = `
     |             ^
   3 |         (
   4 |                 foo )
-  5 |   }"
+  5 |   }
+Cause: [2:13]: Unexpected token: '%'"
 `;
 
 exports[`intrinsic_call.js format 1`] = `

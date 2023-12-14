@@ -72,7 +72,7 @@ authorURL: http://github.com/author # (or some other link)
 ---
 ```
 
-In the blog post, you should include a line `<!--truncate-->`. This determines under which point text will be ignored when generating the preview of your blog post. Blog posts should have the file name format: `yyyy-mm-dd-your-file-name.md`.
+In the blog post, you should include a line `<!-- truncate -->`. This determines under which point text will be ignored when generating the preview of your blog post. Blog posts should have the file name format: `yyyy-mm-dd-your-file-name.md`.
 
 ## Static Build
 

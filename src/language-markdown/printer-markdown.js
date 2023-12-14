@@ -26,11 +26,11 @@ import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import preprocess from "./print-preprocess.js";
 import clean from "./clean.js";
+import { PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 import {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
   splitText,
-  punctuationPattern,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
@@ -88,8 +88,8 @@ function genericPrint(path, options, print) {
         .replaceAll(
           new RegExp(
             [
-              `(^|${punctuationPattern})(_+)`,
-              `(_+)(${punctuationPattern}|$)`,
+              `(^|${PUNCTUATION_REGEXP.source})(_+)`,
+              `(_+)(${PUNCTUATION_REGEXP.source}|$)`,
             ].join("|"),
             "g",
           ),
@@ -305,12 +305,12 @@ function genericPrint(path, options, print) {
               ? (childPath.isFirst
                   ? node.start
                   : isGitDiffFriendlyOrderedList
-                  ? 1
-                  : node.start + childPath.index) +
+                    ? 1
+                    : node.start + childPath.index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
-              ? "- "
-              : "* ";
+                ? "- "
+                : "* ";
 
             return node.isAligned ||
               /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
@@ -340,8 +340,8 @@ function genericPrint(path, options, print) {
         node.referenceType === "full"
           ? printLinkReference(node)
           : node.referenceType === "collapsed"
-          ? "[]"
-          : "",
+            ? "[]"
+            : "",
       ];
     case "imageReference":
       switch (node.referenceType) {

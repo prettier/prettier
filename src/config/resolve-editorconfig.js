@@ -5,7 +5,7 @@ import findProjectRoot from "./find-project-root.js";
 
 async function loadEditorConfig(filePath) {
   const editorConfig = await editorconfig.parse(filePath, {
-    root: findProjectRoot(path.dirname(path.resolve(filePath))),
+    root: await findProjectRoot(path.dirname(path.resolve(filePath))),
   });
 
   const config = editorConfigToPrettier(editorConfig);

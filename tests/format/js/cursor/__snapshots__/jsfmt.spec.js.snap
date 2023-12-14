@@ -271,6 +271,123 @@ const y = 5;
 ================================================================================
 `;
 
+exports[`cursor-11.js format 1`] = `
+====================================options=====================================
+cursorOffset: 334
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// At the time of adding this test, the cursor positioning we end up with
+// here seems clearly wrong.
+// I'm adding the test case anyway to demonstrate the brokenness and ensure
+// that if a future changes fixes it, it'll be obvious from the PR diff that
+// the fix happened.
+[
+  [
+    [
+      [
+        1,
+        2,
+               <|> 3, "looooooooooooooooooooooooooooooooooooooooooooooooooong",
+        "looooooooooooooooooooooooooooooooooooooooooooooooooong",
+      ]
+    ]
+  ]
+]
+
+=====================================output=====================================
+// At the time of adding this test, the cursor positioning we end up with
+// here seems clearly wrong.
+// I'm adding the test case anyway to demonstrate the brokenness and ensure
+// that if a future changes fixes it, it'll be obvious from the PR diff that
+// the fix happened.
+[
+  [
+    [
+      [
+        1,
+        2,
+        3,
+       <|> "looooooooooooooooooooooooooooooooooooooooooooooooooong",
+        "looooooooooooooooooooooooooooooooooooooooooooooooooong",
+      ],
+    ],
+  ],
+];
+
+================================================================================
+`;
+
+exports[`cursor-12.js format 1`] = `
+====================================options=====================================
+cursorOffset: 330
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// At the time of adding this test, the cursor positioning we end up with
+// here seems clearly wrong.
+// I'm adding the test case anyway to demonstrate the brokenness and ensure
+// that if a future changes fixes it, it'll be obvious from the PR diff that
+// the fix happened.
+[
+  [
+    [
+      [
+        1,
+        2,
+        3  <|>      ,"looooooooooooooooooooooooooooooooooooooooooooooooooong",
+        "looooooooooooooooooooooooooooooooooooooooooooooooooong",
+      ]
+    ]
+  ]
+]
+
+=====================================output=====================================
+// At the time of adding this test, the cursor positioning we end up with
+// here seems clearly wrong.
+// I'm adding the test case anyway to demonstrate the brokenness and ensure
+// that if a future changes fixes it, it'll be obvious from the PR diff that
+// the fix happened.
+[
+  [
+    [
+      [
+        1,
+        2,
+        3,
+  <|>      "looooooooooooooooooooooooooooooooooooooooooooooooooong",
+        "looooooooooooooooooooooooooooooooooooooooooooooooooong",
+      ],
+    ],
+  ],
+];
+
+================================================================================
+`;
+
+exports[`cursor-13.js format 1`] = `
+====================================options=====================================
+cursorOffset: 84
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+      import lib from './lib.js';
+  
+        function myFunction() { return 'foo'; }<|>
+
+=====================================output=====================================
+import lib from "./lib.js";
+
+function myFunction() {
+  return "foo";
+}<|>
+
+================================================================================
+`;
+
 exports[`cursor-emoji.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 9

@@ -7,7 +7,8 @@ exports[`export.js [acorn] format 1`] = `
     |        ^
   3 | export a, * as b from 'mod';
   4 | export c, { foo } from 'mod';
-  5 | export * as d from 'mod';"
+  5 | export * as d from 'mod';
+Cause: Unexpected token (2:7)"
 `;
 
 exports[`export.js [espree] format 1`] = `
@@ -17,7 +18,8 @@ exports[`export.js [espree] format 1`] = `
     |        ^
   3 | export a, * as b from 'mod';
   4 | export c, { foo } from 'mod';
-  5 | export * as d from 'mod';"
+  5 | export * as d from 'mod';
+Cause: Unexpected token v"
 `;
 
 exports[`export.js [meriyah] format 1`] = `
@@ -27,7 +29,8 @@ exports[`export.js [meriyah] format 1`] = `
     |        ^
   3 | export a, * as b from 'mod';
   4 | export c, { foo } from 'mod';
-  5 | export * as d from 'mod';"
+  5 | export * as d from 'mod';
+Cause: [2:8]: Unexpected token: 'identifier'"
 `;
 
 exports[`export.js format 1`] = `

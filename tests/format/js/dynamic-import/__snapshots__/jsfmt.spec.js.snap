@@ -4,14 +4,16 @@ exports[`assertions.js [acorn] format 1`] = `
 "Unexpected token (1:20)
 > 1 | import("./foo.json", { assert: { type: "json" } });
     |                    ^
-  2 |"
+  2 |
+Cause: Unexpected token (1:19)"
 `;
 
 exports[`assertions.js [espree] format 1`] = `
 "Unexpected token , (1:20)
 > 1 | import("./foo.json", { assert: { type: "json" } });
     |                    ^
-  2 |"
+  2 |
+Cause: Unexpected token ,"
 `;
 
 exports[`assertions.js [flow] format 1`] = `
@@ -25,7 +27,8 @@ exports[`assertions.js [meriyah] format 1`] = `
 "Expected ')' (1:20)
 > 1 | import("./foo.json", { assert: { type: "json" } });
     |                    ^
-  2 |"
+  2 |
+Cause: [1:20]: Expected ')'"
 `;
 
 exports[`assertions.js format 1`] = `

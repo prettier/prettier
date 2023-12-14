@@ -1,9 +1,9 @@
 import assert from "node:assert";
 import { locStart, locEnd } from "./loc.js";
 import {
-  cjkPattern,
-  kRegex,
-  punctuationPattern,
+  CJK_REGEXP,
+  K_REGEXP,
+  PUNCTUATION_REGEXP,
 } from "./constants.evaluate.js";
 
 const INLINE_NODE_TYPES = new Set([
@@ -33,8 +33,6 @@ const INLINE_NODE_WRAPPER_TYPES = new Set([
   "paragraph",
   "heading",
 ]);
-
-const punctuationRegex = new RegExp(punctuationPattern);
 
 const KIND_NON_CJK = "non-cjk";
 const KIND_CJ_LETTER = "cj-letter";
@@ -85,7 +83,7 @@ function splitText(text) {
       continue;
     }
 
-    const innerTokens = token.split(new RegExp(`(${cjkPattern})`));
+    const innerTokens = token.split(new RegExp(`(${CJK_REGEXP.source})`));
     for (const [innerIndex, innerToken] of innerTokens.entries()) {
       if (
         (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&
@@ -101,8 +99,8 @@ function splitText(text) {
             type: "word",
             value: innerToken,
             kind: KIND_NON_CJK,
-            hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
-            hasTrailingPunctuation: punctuationRegex.test(innerToken.at(-1)),
+            hasLeadingPunctuation: PUNCTUATION_REGEXP.test(innerToken[0]),
+            hasTrailingPunctuation: PUNCTUATION_REGEXP.test(innerToken.at(-1)),
           });
         }
         continue;
@@ -110,7 +108,7 @@ function splitText(text) {
 
       // CJK character
       appendNode(
-        punctuationRegex.test(innerToken)
+        PUNCTUATION_REGEXP.test(innerToken)
           ? {
               type: "word",
               value: innerToken,
@@ -122,7 +120,7 @@ function splitText(text) {
               type: "word",
               value: innerToken,
               // Korean uses space to divide words, but Chinese & Japanese do not
-              kind: kRegex.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
+              kind: K_REGEXP.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
               hasLeadingPunctuation: false,
               hasTrailingPunctuation: false,
             },
@@ -241,7 +239,6 @@ function isAutolink(node) {
 export {
   mapAst,
   splitText,
-  punctuationPattern,
   getFencedCodeBlockValue,
   getOrderedListItemInfo,
   hasGitDiffFriendlyOrderedList,

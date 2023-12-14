@@ -1,24 +1,27 @@
 // Simple version of `find-project-root`
 // https://github.com/kirstein/find-project-root/blob/master/index.js
 
-import fs from "node:fs";
 import path from "node:path";
+import iterateDirectoryUp from "iterate-directory-up";
+import isDirectory from "../utils/is-directory.js";
 
 const MARKERS = [".git", ".hg"];
 
-const markerExists = (directory) =>
-  MARKERS.some((mark) => fs.existsSync(path.join(directory, mark)));
+/**
+ * Find the directory contains a version control system directory
+ * @param {string} startDirectory
+ * @returns {Promise<string | undefined>}
+ */
+async function findProjectRoot(startDirectory) {
+  for (const directory of iterateDirectoryUp(startDirectory)) {
+    for (const name of MARKERS) {
+      const directoryPath = path.join(directory, name);
 
-function findProjectRoot(directory) {
-  while (!markerExists(directory)) {
-    const parentDirectory = path.resolve(directory, "..");
-    if (parentDirectory === directory) {
-      break;
+      if (await isDirectory(directoryPath, { allowSymlinks: false })) {
+        return directory;
+      }
     }
-    directory = parentDirectory;
   }
-
-  return directory;
 }
 
 export default findProjectRoot;

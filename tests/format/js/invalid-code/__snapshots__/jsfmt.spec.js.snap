@@ -4,14 +4,16 @@ exports[`duplicate_bindings.js [acorn] format 1`] = `
 "Identifier 'A' has already been declared (1:19)
 > 1 | class A{}   class A{}
     |                   ^
-  2 |"
+  2 |
+Cause: Identifier 'A' has already been declared (1:18)"
 `;
 
 exports[`duplicate_bindings.js [espree] format 1`] = `
 "Identifier 'A' has already been declared (1:19)
 > 1 | class A{}   class A{}
     |                   ^
-  2 |"
+  2 |
+Cause: Identifier 'A' has already been declared"
 `;
 
 exports[`duplicate_bindings.js format 1`] = `

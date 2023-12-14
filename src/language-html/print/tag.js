@@ -62,8 +62,8 @@ function printClosingTagSuffix(node, options) {
   return needsToBorrowParentClosingTagStartMarker(node)
     ? printClosingTagStartMarker(node.parent, options)
     : needsToBorrowNextOpeningTagStartMarker(node)
-    ? printOpeningTagStartMarker(node.next)
-    : "";
+      ? printOpeningTagStartMarker(node.next)
+      : "";
 }
 
 function printClosingTagStartMarker(node, options) {
@@ -97,6 +97,8 @@ function printClosingTagEndMarker(node, options) {
       return "]><!-->";
     case "interpolation":
       return "}}";
+    case "angularIcuExpression":
+      return "}";
     case "element":
       if (node.isSelfClosing) {
         return "/>";
@@ -128,6 +130,7 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
   return (
     node.prev &&
     node.prev.type !== "docType" &&
+    node.type !== "angularControlFlowBlock" &&
     !isTextLikeNode(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
@@ -233,8 +236,8 @@ function printAttributes(path, options, print) {
     typeof ignoreAttributeData === "boolean"
       ? () => ignoreAttributeData
       : Array.isArray(ignoreAttributeData)
-      ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
-      : () => false;
+        ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
+        : () => false;
 
   const printedAttributes = path.map(
     ({ node: attribute }) =>
@@ -294,8 +297,8 @@ function printAttributes(path, options, print) {
           ? " "
           : ""
         : node.isSelfClosing
-        ? line
-        : softline,
+          ? line
+          : softline,
     );
   }
 
@@ -329,8 +332,8 @@ function printOpeningTagPrefix(node, options) {
   return needsToBorrowParentOpeningTagEndMarker(node)
     ? printOpeningTagEndMarker(node.parent)
     : needsToBorrowPrevClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.prev, options)
-    : "";
+      ? printClosingTagEndMarker(node.prev, options)
+      : "";
 }
 
 function printOpeningTagStartMarker(node) {
@@ -344,6 +347,8 @@ function printOpeningTagStartMarker(node) {
       return "{{";
     case "docType":
       return node.value === "html" ? "<!doctype" : "<!DOCTYPE";
+    case "angularIcuExpression":
+      return "{";
     case "element":
       if (node.condition) {
         return `<!--[if ${node.condition}]><!--><${node.rawName}`;

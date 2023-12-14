@@ -8,7 +8,8 @@ exports[`comments-in-type-annotations.js [babel-flow] format 1`] = `
     |                                                   ^
   4 |
   5 | const arrow = (x: any): /* C1 */ x is (number /* C2 */ => /* C3 */ x /* C4 */ is /* C5 */ string /* C6 */ => /* C7 */ x /* C8 */ is /* C9 */ boolean) => true;
-  6 |"
+  6 |
+Cause: Unexpected token, expected "{" (3:50)"
 `;
 
 exports[`comments-in-type-annotations.js format 1`] = `
@@ -49,7 +50,8 @@ exports[`passing.js [babel-flow] format 1`] = `
     |                    ^
   6 |
   7 | const arrow0 = (x: any): x is A => true;
-  8 | const arrow1 = (x: any): x is (y: A) => B => true;"
+  8 | const arrow1 = (x: any): x is (y: A) => B => true;
+Cause: Unexpected token, expected "{" (5:19)"
 `;
 
 exports[`passing.js format 1`] = `

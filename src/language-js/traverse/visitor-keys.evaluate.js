@@ -62,9 +62,10 @@ const excludeKeys = {
   // TupleTypeAnnotation: ["types"],
   PropertyDefinition: ["tsModifiers"],
 
-  // From `babelVisitorKeys`
-  DeclareInterface: ["mixins", "implements"],
-  InterfaceDeclaration: ["mixins", "implements"],
+  // Legacy property
+  ExportAllDeclaration: ["assertions"],
+  ExportNamedDeclaration: ["assertions"],
+  ImportDeclaration: ["assertions"],
 };
 
 const visitorKeys = Object.fromEntries(

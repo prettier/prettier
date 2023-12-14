@@ -15,8 +15,8 @@ const {
   dirname,
   resolve: importMetaResolve,
 } = createEsmUtils(import.meta);
-const resolveEsmModulePath = async (specifier) =>
-  url.fileURLToPath(await importMetaResolve(specifier));
+const resolveEsmModulePath = (specifier) =>
+  url.fileURLToPath(importMetaResolve(specifier));
 const copyFileBuilder = ({ file }) =>
   copyFile(
     path.join(PROJECT_ROOT, file.input),
@@ -250,13 +250,33 @@ const pluginFiles = [
         module: getPackageFile("debug/src/browser.js"),
         path: path.join(dirname, "./shims/debug.js"),
       },
+      {
+        module: require.resolve("ts-api-utils"),
+        process() {
+          throw new Error(
+            "Please replace the CJS version of 'ts-api-utils' with ESM version.",
+          );
+        },
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/convert-comments.js",
+        ),
+        process(text) {
+          text = text.replace(
+            'const tsutils = __importStar(require("ts-api-utils"));',
+            'import * as tsutils from "ts-api-utils";',
+          );
+          return text;
+        },
+      },
     ],
   },
   {
     input: "src/plugins/acorn.js",
     replaceModule: [
       {
-        module: await resolveEsmModulePath("espree"),
+        module: resolveEsmModulePath("espree"),
         process(text) {
           const lines = text.split("\n");
 
@@ -303,7 +323,7 @@ const pluginFiles = [
     replaceModule: [
       {
         // We don't use value of JSXText
-        module: await resolveEsmModulePath("meriyah"),
+        module: resolveEsmModulePath("meriyah"),
         find: "parser.tokenValue = decodeHTMLStrict(raw);",
         replacement: "parser.tokenValue = raw;",
       },
@@ -387,22 +407,47 @@ const pluginFiles = [
   {
     input: "src/plugins/glimmer.js",
     replaceModule: [
-      // See comment in `src/language-handlebars/parser-glimmer.js` file
+      ...["@glimmer/util", "@glimmer/wire-format", "@glimmer/syntax"].map(
+        (packageName) => ({
+          module: getPackageFile(`${packageName}/dist/prod/index.js`),
+          path: getPackageFile(`${packageName}/dist/dev/index.js`),
+        }),
+      ),
       {
-        module: getPackageFile(
-          "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js",
-        ),
-        path: getPackageFile(
-          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js",
-        ),
-      },
-      // This passed to plugins, our plugin don't need access to the options
-      {
-        module: getPackageFile(
-          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js",
-        ),
-        process: (text) =>
-          text.replace(/\nconst syntax = \{.*?\n\};/su, "\nconst syntax = {};"),
+        module: getPackageFile("@glimmer/syntax/dist/dev/index.js"),
+        process(text) {
+          // This passed to plugins, our plugin don't need access to the options
+          text = text.replace(/(?<=\nconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
+
+          text = text.replaceAll(
+            /\nclass \S+ extends node\(.*?\).*?\{.*?\n\}/gsu,
+            "",
+          );
+
+          text = text.replaceAll(
+            /\nvar api\S* = \/\*#__PURE__\*\/Object\.freeze\(\{.*?\n\}\);/gsu,
+            "",
+          );
+
+          text = text.replace(
+            "const ARGUMENT_RESOLUTION = ",
+            "const ARGUMENT_RESOLUTION = undefined &&",
+          );
+
+          text = text.replace(
+            "const HTML_RESOLUTION = ",
+            "const HTML_RESOLUTION = undefined &&",
+          );
+
+          text = text.replace(
+            "const LOCAL_DEBUG = ",
+            "const LOCAL_DEBUG = false &&",
+          );
+
+          text = text.replace(/(?<=\n)export .*?;/, "export { preprocess };");
+
+          return text;
+        },
       },
       {
         module: getPackageFile("@handlebars/parser/dist/esm/index.js"),
@@ -558,6 +603,13 @@ const nodejsFiles = [
         module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
         path: getPackageFile("js-yaml/lib/loader.js"),
       },
+      // `parse-json` use another copy of `@babel/code-frame`
+      {
+        module: require.resolve("@babel/code-frame", {
+          paths: [require.resolve("parse-json")],
+        }),
+        path: require.resolve("@babel/code-frame"),
+      },
     ],
     addDefaultExport: true,
   },
@@ -581,17 +633,6 @@ const nodejsFiles = [
     outputBaseName: "internal/cli",
     external: ["benchmark"],
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
-  },
-  {
-    input: "src/common/mockable.js",
-    outputBaseName: "internal/internal",
-    replaceModule: [
-      {
-        module: require.resolve("lilconfig"),
-        find: "exports.lilconfigSync = lilconfigSync;",
-        replacement: "",
-      },
-    ],
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;

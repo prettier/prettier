@@ -9,16 +9,17 @@ function printUnit(unit) {
 }
 
 const STRING_REGEX = /(["'])(?:(?!\1)[^\\]|\\.)*\1/gs;
-const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[Ee][+-]?\d+)?/g;
-const STANDARD_UNIT_REGEX = /[A-Za-z]+/g;
-const WORD_PART_REGEX = /[$@]?[A-Z_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/g;
+const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:e[+-]?\d+)?/gi;
+const STANDARD_UNIT_REGEX = /[a-z]+/gi;
+const WORD_PART_REGEX = /[$@]?[_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/gi;
 const ADJUST_NUMBERS_REGEX = new RegExp(
   STRING_REGEX.source +
     "|" +
+    // eslint-disable-next-line regexp/no-misleading-capturing-group
     `(${WORD_PART_REGEX.source})?` +
     `(${NUMBER_REGEX.source})` +
     `(${STANDARD_UNIT_REGEX.source})?`,
-  "g",
+  "gi",
 );
 
 function adjustStrings(value, options) {
