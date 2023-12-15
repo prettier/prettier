@@ -84,7 +84,7 @@ jobs:
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: |
-          corepack install yarn@3.7.0
+          corepack prepare yarn@3.7.0 --activate
           yarn
 
       - name: Setup Node.js
