@@ -1,5 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`issue-15785-1.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function someFunctionName(
+  someLongBreakingParameterName,
+  anotherLongParameterName,
+) {
+  return isEqual(a?.map(([t, _]) => t?.id), b?.map(([t, _]) => t?.id));
+}
+
+=====================================output=====================================
+function someFunctionName(
+  someLongBreakingParameterName,
+  anotherLongParameterName,
+) {
+  return isEqual(
+    a?.map(([t, _]) => t?.id),
+    b?.map(([t, _]) => t?.id),
+  );
+}
+
+================================================================================
+`;
+
+exports[`issue-15785-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const theValue = Object.entries(someLongObjectName).filter(
+  ([listingId]) => someListToCompareToHere?.includes(listingId),
+);
+
+=====================================output=====================================
+const theValue = Object.entries(someLongObjectName).filter(([listingId]) =>
+  someListToCompareToHere?.includes(listingId),
+);
+
+================================================================================
+`;
+
+exports[`issue-15785-3.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+logger.log(
+  \`A long template string with a conditional: \${channel?.id}, and then some more content that continues until \${JSON.stringify(location)}\`
+);
+
+=====================================output=====================================
+logger.log(
+  \`A long template string with a conditional: \${
+    channel?.id
+  }, and then some more content that continues until \${JSON.stringify(
+    location,
+  )}\`,
+);
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
