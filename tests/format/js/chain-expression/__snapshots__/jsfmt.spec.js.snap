@@ -94,3 +94,87 @@ new (a?.())();
 
 ================================================================================
 `;
+
+exports[`test-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{{{{
+        const [lastCommittedX, lastCommittedY] =
+          multiElement?.lastCommittedPoint ?? [0, 0];
+}}}}
+
+=====================================output=====================================
+{
+  {
+    {
+      {
+        const [lastCommittedX, lastCommittedY] =
+          multiElement?.lastCommittedPoint ?? [0, 0];
+      }
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`test-3.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function a() {
+  return languages.find(
+    (language) => language.interpreters?.includes(interpreter),
+   );
+}
+
+=====================================output=====================================
+function a() {
+  return languages.find((language) =>
+    language.interpreters?.includes(interpreter),
+  );
+}
+
+================================================================================
+`;
+
+exports[`test-4.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{{{{{{{{
+                const indexes = params.ids.map(
+                    id => data[resource]?.findIndex(record => record.id == id)
+                 );
+}}}}}}}}
+
+=====================================output=====================================
+{
+  {
+    {
+      {
+        {
+          {
+            {
+              {
+                const indexes = params.ids.map((id) =>
+                  data[resource]?.findIndex((record) => record.id == id),
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+================================================================================
+`;
