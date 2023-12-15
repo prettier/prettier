@@ -84,6 +84,7 @@ jobs:
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: |
+          node -e "fs.writeFileSync('./package.json', JSON.stringify({...JSON.parse(fs.readFileSync('./package.json')), packageManager: undefined}))"
           rm -rf yarn.lock
           rm -rf .yarn
           rm -rf .yarnrc.yml
