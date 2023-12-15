@@ -2,8 +2,10 @@ import fs from "node:fs/promises";
 import { visualizer as esbuildVisualizer } from "esbuild-visualizer/dist/plugin/index.js";
 import { renderTemplate as esbuildVisualizerRenderTemplate } from "esbuild-visualizer/dist/plugin/render-template.js";
 
-/** @param {import("esbuild-visualizer").Metadata} metafile */
-/** @param {{title: string, template: import("esbuild-visualizer").TemplateType}} options */
+/**
+ * @param {import("esbuild-visualizer").Metadata} metafile
+ * @param {{title: string, template: import("esbuild-visualizer").TemplateType}} options
+ */
 const getReport = async (metafile, options) => {
   const data = await esbuildVisualizer(metafile);
   const report = esbuildVisualizerRenderTemplate(options.template, {
