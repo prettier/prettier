@@ -85,7 +85,18 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "yarn"
 
+      - name: Install yarn@3
+        if: ${{ matrix.node == '14' }}
+        run: |
+          rm -rf .yarn
+          rm -rf .yarnrc.yml
+          yarn set version 3.7.0
+          yarn config set enableGlobalCache true
+          yarn config set nodeLinker node-modules
+          yarn
+
       - name: Install Dependencies
+        if: ${{ matrix.node != '14' }}
         run: yarn install --immutable
 
       - name: Download Artifact
