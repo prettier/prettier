@@ -80,14 +80,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install yarn@3
-        if: ${{ matrix.node == '14' }}
+        if: ${{ matrix.node == '14' || matrix.node == '16' }}
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: |
           node -e "fs.writeFileSync('./package.json', JSON.stringify({...JSON.parse(fs.readFileSync('./package.json')), packageManager: undefined},null,2))"
-          rm -rf yarn.lock
-          rm -rf .yarn
-          rm -rf .yarnrc.yml
+          rm yarn.lock
+          rm -rf .yarn || rmdir /s /q .yarn
+          rm .yarnrc.yml
           yarn set version 3.7.0
           yarn config set enableGlobalCache true
           yarn config set nodeLinker node-modules
@@ -100,7 +100,7 @@ jobs:
           cache: "yarn"
 
       - name: Install Dependencies
-        if: ${{ matrix.node != '14' }}
+        if: ${{ matrix.node != '14' && matrix.node != '16' }}
         run: yarn install --immutable
 
       - name: Download Artifact
