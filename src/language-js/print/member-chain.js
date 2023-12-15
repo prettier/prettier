@@ -51,6 +51,7 @@ import {
 // MemberExpression and CallExpression. We need to traverse the AST
 // and make groups out of it to print it in the desired way.
 function printMemberChain(path, options, print) {
+  /* c8 ignore next 6 */
   if (path.node.type === "ChainExpression") {
     return path.call(
       () => printMemberChain(path, options, print),
