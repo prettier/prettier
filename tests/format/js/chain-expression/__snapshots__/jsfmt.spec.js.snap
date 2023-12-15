@@ -11,7 +11,9 @@ function someFunctionName(
   anotherLongParameterName,
 ) {
   return isEqual(a?.map(([t, _]) => t?.id), b?.map(([t, _]) => t?.id));
+  return isEqual(a.map(([t, _]) => t?.id), b.map(([t, _]) => t?.id));
 }
+
 
 =====================================output=====================================
 function someFunctionName(
@@ -21,6 +23,10 @@ function someFunctionName(
   return isEqual(
     a?.map(([t, _]) => t?.id),
     b?.map(([t, _]) => t?.id),
+  );
+  return isEqual(
+    a.map(([t, _]) => t?.id),
+    b.map(([t, _]) => t?.id),
   );
 }
 
@@ -36,10 +42,16 @@ printWidth: 80
 const theValue = Object.entries(someLongObjectName).filter(
   ([listingId]) => someListToCompareToHere?.includes(listingId),
 );
+const theValue2 = Object.entries(someLongObjectName).filter(
+  ([listingId]) => someListToCompareToHere.includes(listingId),
+);
 
 =====================================output=====================================
 const theValue = Object.entries(someLongObjectName).filter(([listingId]) =>
   someListToCompareToHere?.includes(listingId),
+);
+const theValue2 = Object.entries(someLongObjectName).filter(([listingId]) =>
+  someListToCompareToHere.includes(listingId),
 );
 
 ================================================================================
@@ -54,11 +66,21 @@ printWidth: 80
 logger.log(
   \`A long template string with a conditional: \${channel?.id}, and then some more content that continues until \${JSON.stringify(location)}\`
 );
+logger.log(
+  \`A long template string with a conditional: \${channel.id}, and then some more content that continues until \${JSON.stringify(location)}\`
+);
 
 =====================================output=====================================
 logger.log(
   \`A long template string with a conditional: \${
     channel?.id
+  }, and then some more content that continues until \${JSON.stringify(
+    location,
+  )}\`,
+);
+logger.log(
+  \`A long template string with a conditional: \${
+    channel.id
   }, and then some more content that continues until \${JSON.stringify(
     location,
   )}\`,
@@ -128,8 +150,9 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 function getLanguageByInterpreter(languages, file) {
-  return languages.find(
-    (language) => language.interpreters?.includes(interpreter),
+  return languages.find((language) => language.interpreters?.includes(interpreter),
+  );
+  return languages.find((language) =>language.interpreters.includes(interpreter),
   );
 }
 
@@ -137,6 +160,9 @@ function getLanguageByInterpreter(languages, file) {
 function getLanguageByInterpreter(languages, file) {
   return languages.find((language) =>
     language.interpreters?.includes(interpreter),
+  );
+  return languages.find((language) =>
+    language.interpreters.includes(interpreter),
   );
 }
 
@@ -155,7 +181,10 @@ export default (params) => {
         updateMany: (resource, params) => {
             updateLocalStorage(() => {
                 params.ids.forEach(id => {
-                    const index = data[resource]?.findIndex(
+                    const index = data.data.data.data.data[resource]?.findIndex(
+                        record => record.id == id
+                    );
+                    const index2 = data.data.data.data.data[resource].findIndex(
                         record => record.id == id
                     );
                     data[resource][index] = {
@@ -176,7 +205,12 @@ export default (params) => {
     updateMany: (resource, params) => {
       updateLocalStorage(() => {
         params.ids.forEach((id) => {
-          const index = data[resource]?.findIndex((record) => record.id == id);
+          const index = data.data.data.data.data[resource]?.findIndex(
+            (record) => record.id == id,
+          );
+          const index2 = data.data.data.data.data[resource].findIndex(
+            (record) => record.id == id,
+          );
           data[resource][index] = {
             ...data[resource][index],
             ...params.data,

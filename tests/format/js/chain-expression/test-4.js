@@ -4,7 +4,10 @@ export default (params) => {
         updateMany: (resource, params) => {
             updateLocalStorage(() => {
                 params.ids.forEach(id => {
-                    const index = data[resource]?.findIndex(
+                    const index = data.data.data.data.data[resource]?.findIndex(
+                        record => record.id == id
+                    );
+                    const index2 = data.data.data.data.data[resource].findIndex(
                         record => record.id == id
                     );
                     data[resource][index] = {
