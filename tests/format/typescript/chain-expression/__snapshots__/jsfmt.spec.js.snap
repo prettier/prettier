@@ -19,3 +19,42 @@ printWidth: 80
 
 ================================================================================
 `;
+
+exports[`test2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{{
+    const rotation1 = getTransformHandles(arrow, h.state.zoom, 'mouse')
+      .rotation!;
+    const rotation2 = getTransformHandles(arrow, h.state.zoom, 'mouse')
+      .rotation;
+    const rotation3 = getTransformHandles(arrow, h.state.zoom, 'mouse')
+      ?.rotation;
+}}
+
+=====================================output=====================================
+{
+  {
+    const rotation1 = getTransformHandles(
+      arrow,
+      h.state.zoom,
+      "mouse",
+    ).rotation!;
+    const rotation2 = getTransformHandles(
+      arrow,
+      h.state.zoom,
+      "mouse",
+    ).rotation;
+    const rotation3 = getTransformHandles(
+      arrow,
+      h.state.zoom,
+      "mouse",
+    )?.rotation;
+  }
+}
+
+================================================================================
+`;
