@@ -493,18 +493,14 @@ class OrderLine {
     this.price = price;
   }
 
-  @computed get total() {
-    return this.price * this.amount;
-  }
+  @computed get total() { return this.price * this.amount; }
 
   @action.bound setPrice(price) {
     this.price = price;
   }
 
   @computed
-  get total() {
-    return this.price * this.amount;
-  }
+  get total() { return this.price * this.amount; }
 
   @action.bound
   setPrice(price) {
@@ -518,9 +514,7 @@ class OrderLine {
   @computed
   @computed
   @computed
-  get total() {
-    return this.price * this.amount;
-  }
+  get total() { return this.price * this.amount; }
 
   @action handleDecrease = (event) => this.count--;
 

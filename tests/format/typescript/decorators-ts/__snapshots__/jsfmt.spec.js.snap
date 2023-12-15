@@ -35,14 +35,10 @@ class Point {
   }
 
   @configurable(false)
-  get x() {
-    return this._x;
-  }
+  get x() { return this._x; }
 
   @configurable(false)
-  get y() {
-    return this._y;
-  }
+  get y() { return this._y; }
 }
 
 ================================================================================
@@ -162,9 +158,7 @@ class X {
   @deco x() {
     return this.count * 2;
   }
-  @deco get x() {
-    return this.count * 2;
-  }
+  @deco get x() { return this.count * 2; }
 }
 
 ================================================================================

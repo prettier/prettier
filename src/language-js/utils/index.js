@@ -274,6 +274,13 @@ function isAngularTestWrapper(node) {
  */
 const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
+/**
+ * Returns true for methods/properties which are getters or setters;
+ *
+ * Note that this returns `false` for FunctionExpression nodes
+ * that are within get/set ObjectProperty's in the flow parser,
+ * so you may need to check the parent node too.
+ */
 function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }
@@ -531,7 +538,12 @@ function getExpressionInnerNodeCount(node, maxCount) {
   for (const k in node) {
     const prop = node[k];
 
-    if (prop && typeof prop === "object" && typeof prop.type === "string") {
+    if (
+      prop &&
+      typeof prop === "object" &&
+      typeof prop.type === "string" &&
+      prop.type !== "EmptyStatement"
+    ) {
       count++;
       count += getExpressionInnerNodeCount(prop, maxCount - count);
     }

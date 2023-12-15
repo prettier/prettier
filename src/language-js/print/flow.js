@@ -10,6 +10,7 @@ import {
   rawText,
 } from "../utils/index.js";
 import isFlowKeywordType from "../utils/is-flow-keyword-type.js";
+import { group } from "../../document/builders.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
 import { printClass } from "./class.js";
 import {
@@ -207,7 +208,7 @@ function printFlow(path, options, print) {
         modifier = "static ";
       }
 
-      return [
+      const parts = [
         modifier,
         isGetterOrSetter(node) ? node.kind + " " : "",
         node.variance ? print("variance") : "",
@@ -216,6 +217,12 @@ function printFlow(path, options, print) {
         isFunctionNotation(node) ? "" : ": ",
         print("value"),
       ];
+
+      if (isGetterOrSetter(node)) {
+        return group(parts);
+      }
+
+      return parts;
     }
     case "ObjectTypeAnnotation":
       return printObject(path, options, print);

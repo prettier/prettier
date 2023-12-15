@@ -37,21 +37,29 @@ parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-class A {
+class A extends Base {
     @foo()
     get a() {return 1}
     @bar()
     set a(v) {}
+
+    @foo()
+    public override get b() {return 1}
+    @bar()
+    public override set b(v) {this._b = v}
 }
 
 =====================================output=====================================
-class A {
+class A extends Base {
   @foo()
-  get a() {
-    return 1;
-  }
+  get a() { return 1; }
   @bar()
   set a(v) {}
+
+  @foo()
+  public override get b() { return 1; }
+  @bar()
+  public override set b(v) { this._b = v; }
 }
 
 ================================================================================
@@ -580,18 +588,14 @@ class OrderLine {
     this.price = price;
   }
 
-  @computed get total() {
-    return this.price * this.amount;
-  }
+  @computed get total() { return this.price * this.amount; }
 
   @action.bound setPrice(price) {
     this.price = price;
   }
 
   @computed
-  get total2() {
-    return this.price * this.amount;
-  }
+  get total2() { return this.price * this.amount; }
 
   @action.bound
   setPrice(price) {
@@ -605,9 +609,7 @@ class OrderLine {
   @computed
   @computed
   @computed
-  get total3() {
-    return this.price * this.amount;
-  }
+  get total3() { return this.price * this.amount; }
 
   @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) =>
     this.count--;
