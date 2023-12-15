@@ -401,11 +401,7 @@ function isTestCall(node, parent) {
   return false;
 }
 
-/**
-@template {(node: Node) => Boolean} T
-@param {T} fn
-@return {T}
-*/
+/** @return {(node: Node) => boolean} */
 const skipChainExpression = (fn) => (node) => {
   if (node?.type === "ChainExpression") {
     node = node.expression;

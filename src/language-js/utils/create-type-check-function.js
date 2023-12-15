@@ -1,11 +1,12 @@
 /** @typedef {import("../types/estree.js").Node} Node */
+/** @typedef {import("../types/estree.js").Comment} Comment */
 
 /**
- * @param {Node["type"][]} types
- * @returns {(node: Node) => Boolean}
+ * @param {string[]} typesArray
+ * @returns {(node: Node | Comment) => Boolean}
  */
-function createTypeCheckFunction(types) {
-  types = new Set(types);
+function createTypeCheckFunction(typesArray) {
+  const types = new Set(typesArray);
   return (node) => types.has(node?.type);
 }
 
