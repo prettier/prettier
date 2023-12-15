@@ -81,8 +81,6 @@ jobs:
 
       - name: Install yarn@3
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
-        env:
-          YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: |
           yarn set version 3
           cat .yarnrc.yml
