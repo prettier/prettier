@@ -15,7 +15,7 @@ function getParserPluginByParserName(plugins, parserName) {
   This is a temporarily solution, see #13729
   */
   const plugin = plugins.findLast(
-    (plugin) => plugin.parsers && Object.hasOwn(plugin.printers, parserName),
+    (plugin) => plugin.parsers && Object.hasOwn(plugin.parsers, parserName),
   );
   if (plugin) {
     return plugin;
