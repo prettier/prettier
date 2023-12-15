@@ -101,9 +101,7 @@ function embed(path, options) {
             return [
               breakParent,
               printOpeningTagPrefix(node, options),
-              await textToDoc(value, textToDocOptions, {
-                stripTrailingHardline: true,
-              }),
+              await textToDoc(value, textToDocOptions),
               printClosingTagSuffix(node, options),
             ];
           };
