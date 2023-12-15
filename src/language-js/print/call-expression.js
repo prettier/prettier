@@ -61,7 +61,9 @@ function printCallExpression(path, options, print) {
     !isDynamicImport &&
     !isNew &&
     isMemberish(node.callee) &&
-    !path.call((path) => pathNeedsParens(path, options), "callee")
+    !path.call((path) => pathNeedsParens(path, options), "callee") &&
+    // TODO
+    node.callee.type !== "ChainExpression"
   ) {
     return printMemberChain(path, options, print);
   }

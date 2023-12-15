@@ -123,10 +123,6 @@ const isLineComment = createTypeCheckFunction([
   "InterpreterDirective",
 ]);
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isExportDeclaration = createTypeCheckFunction([
   "ExportDefaultDeclaration",
   "DeclareExportDeclaration",
@@ -135,19 +131,11 @@ const isExportDeclaration = createTypeCheckFunction([
   "DeclareExportAllDeclaration",
 ]);
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isArrayOrTupleExpression = createTypeCheckFunction([
   "ArrayExpression",
   "TupleExpression",
 ]);
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isObjectOrRecordExpression = createTypeCheckFunction([
   "ObjectExpression",
   "RecordExpression",
@@ -190,10 +178,6 @@ function isRegExpLiteral(node) {
   );
 }
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isLiteral = createTypeCheckFunction([
   "Literal",
   "BooleanLiteral",
@@ -206,10 +190,6 @@ const isLiteral = createTypeCheckFunction([
   "StringLiteral",
 ]);
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isSingleWordType = createTypeCheckFunction([
   "Identifier",
   "ThisExpression",
@@ -219,20 +199,12 @@ const isSingleWordType = createTypeCheckFunction([
   "Import",
 ]);
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isObjectType = createTypeCheckFunction([
   "ObjectTypeAnnotation",
   "TSTypeLiteral",
   "TSMappedType",
 ]);
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isFunctionOrArrowExpression = createTypeCheckFunction([
   "FunctionExpression",
   "ArrowFunctionExpression",
@@ -268,10 +240,6 @@ function isAngularTestWrapper(node) {
   );
 }
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
 function isGetterOrSetter(node) {
@@ -313,10 +281,6 @@ function isTypeAnnotationAFunction(node) {
   );
 }
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isBinaryish = createTypeCheckFunction([
   "BinaryExpression",
   "LogicalExpression",
@@ -438,22 +402,25 @@ function isTestCall(node, parent) {
 }
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
-const isCallExpression = createTypeCheckFunction([
-  "CallExpression",
-  "OptionalCallExpression",
-]);
+@template {(node: Node) => Boolean} T
+@param {T} fn
+@return {T}
+*/
+const skipChainExpression = (fn) => (node) => {
+  if (node?.type === "ChainExpression") {
+    node = node.expression;
+  }
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-const isMemberExpression = createTypeCheckFunction([
-  "MemberExpression",
-  "OptionalMemberExpression",
-]);
+  return fn(node);
+};
+
+const isCallExpression = skipChainExpression(
+  createTypeCheckFunction(["CallExpression", "OptionalCallExpression"]),
+);
+
+const isMemberExpression = skipChainExpression(
+  createTypeCheckFunction(["MemberExpression", "OptionalMemberExpression"]),
+);
 
 /**
  *
@@ -716,7 +683,7 @@ function isFunctionCompositionArgs(args) {
         return true;
       }
     } else if (isCallExpression(arg)) {
-      for (const childArg of arg.arguments) {
+      for (const childArg of getCallArguments(arg)) {
         if (isFunctionOrArrowExpression(childArg)) {
           return true;
         }
@@ -1049,6 +1016,10 @@ function getCallArguments(node) {
     return callArgumentsCache.get(node);
   }
 
+  if (node.type === "ChainExpression") {
+    return getCallArguments(node.expression);
+  }
+
   let args = node.arguments;
   if (node.type === "ImportExpression") {
     args = [node.source];
@@ -1070,6 +1041,14 @@ function getCallArguments(node) {
 
 function iterateCallArgumentsPath(path, iteratee) {
   const { node } = path;
+
+  if (node.type === "ChainExpression") {
+    return path.call(
+      () => iterateCallArgumentsPath(path, iteratee),
+      "expression",
+    );
+  }
+
   if (node.type === "ImportExpression") {
     path.call((sourcePath) => iteratee(sourcePath, 0), "source");
 
@@ -1088,17 +1067,22 @@ function iterateCallArgumentsPath(path, iteratee) {
 }
 
 function getCallArgumentSelector(node, index) {
+  const selectors = [];
+  if (node.type === "ChainExpression") {
+    selectors.push("expression");
+  }
+
   if (node.type === "ImportExpression") {
     if (index === 0 || index === (node.attributes || node.options ? -2 : -1)) {
-      return "source";
+      return [...selectors, "source"];
     }
     // import attributes
     if (node.attributes && (index === 1 || index === -1)) {
-      return "attributes";
+      return [...selectors, "attributes"];
     }
     // deprecated import assertions
     if (node.options && (index === 1 || index === -1)) {
-      return "options";
+      return [...selectors, "options"];
     }
     throw new RangeError("Invalid argument index");
   }
@@ -1109,7 +1093,7 @@ function getCallArgumentSelector(node, index) {
   if (index < 0 || index >= node.arguments.length) {
     throw new RangeError("Invalid argument index");
   }
-  return ["arguments", index];
+  return [...selectors, "arguments", index];
 }
 
 function isPrettierIgnoreComment(comment) {
