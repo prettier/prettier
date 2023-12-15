@@ -84,7 +84,7 @@ jobs:
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: |
-          yarn set version 3.7.0
+          yarn set version 3
           cat .yarnrc.yml
           yarn
 
