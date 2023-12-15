@@ -84,7 +84,6 @@ jobs:
         run: |
           yarn set version 3
           cat .yarnrc.yml
-          yarn
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -92,8 +91,13 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "yarn"
 
+      - name: Install Dependencies (yarn@3)
+        env:
+          YARN_ENABLE_IMMUTABLE_INSTALLS: false
+        if: ${{ matrix.node == '14' || matrix.node == '16' }}
+        run: yarn install
+
       - name: Install Dependencies
-        if: ${{ matrix.node != '14' && matrix.node != '16' }}
         run: yarn install --immutable
 
       - name: Download Artifact
