@@ -86,11 +86,7 @@ jobs:
         run: |
           node -e "fs.writeFileSync('./package.json', JSON.stringify({...JSON.parse(fs.readFileSync('./package.json')), packageManager: undefined},null,2))"
           node -e "fs.rmSync('./yarn', {recursive: true, force: true})"
-          rm yarn.lock
-          rm .yarnrc.yml
           yarn set version 3.7.0
-          yarn config set enableGlobalCache true
-          yarn config set nodeLinker node-modules
           yarn
 
       - name: Setup Node.js
