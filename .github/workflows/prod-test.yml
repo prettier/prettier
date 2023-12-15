@@ -84,7 +84,8 @@ jobs:
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: |
-          corepack prepare yarn@3.7.0 --activate
+          node -e "fs.writeFileSync('./package.json', JSON.stringify({...JSON.parse(fs.readFileSync('./package.json')), packageManager: undefined},null,2))"
+          yarn set version 3.7.0
           yarn
 
       - name: Setup Node.js
