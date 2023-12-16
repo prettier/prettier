@@ -963,6 +963,7 @@ function handleLastUnionElementInExpression({
       !followingNode) ||
       isIntersectionType(enclosingNode))
   ) {
+    // @ts-expect-error -- types exits in TSUnionType and UnionTypeAnnotation
     addTrailingComment(precedingNode.types.at(-1), comment);
     return true;
   }
