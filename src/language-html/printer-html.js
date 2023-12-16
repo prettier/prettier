@@ -26,6 +26,10 @@ import {
   printAngularControlFlowBlockParameters,
 } from "./print/angular-control-flow-block.js";
 import getVisitorKeys from "./get-visitor-keys.js";
+import {
+  printAngularIcuExpression,
+  printAngularIcuCase,
+} from "./print/angular-icu-expression.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -48,6 +52,11 @@ function genericPrint(path, options, print) {
       return printAngularControlFlowBlockParameters(path, options, print);
     case "angularControlFlowBlockParameter":
       return htmlWhitespaceUtils.trim(node.expression);
+
+    case "angularIcuExpression":
+      return printAngularIcuExpression(path, options, print);
+    case "angularIcuCase":
+      return printAngularIcuCase(path, options, print);
 
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":
