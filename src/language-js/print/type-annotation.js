@@ -41,7 +41,7 @@ const isVoidType = createTypeCheckFunction([
   "TSNullKeyword",
 ]);
 
-const isGenericType = createTypeCheckFunction([
+const isObjectLikeType = createTypeCheckFunction([
   "ObjectTypeAnnotation",
   "TSTypeLiteral",
   // This is a bit aggressive but captures Array<{x}>
@@ -55,12 +55,12 @@ function shouldHugUnionType(node) {
     return false;
   }
 
-  const genericType = types.find((node) => isGenericType(node));
-  if (!genericType) {
+  const objectType = types.find((node) => isObjectLikeType(node));
+  if (!objectType) {
     return false;
   }
 
-  return types.every((node) => node === genericType || isVoidType(node));
+  return types.every((node) => node === objectType || isVoidType(node));
 }
 
 function shouldHugType(node) {
