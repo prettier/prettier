@@ -1681,9 +1681,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@prettier/cli@npm:0.2.0"
+"@prettier/cli@npm:0.2.1":
+  version: 0.2.1
+  resolution: "@prettier/cli@npm:0.2.1"
   dependencies:
     atomically: "npm:^2.0.2"
     fast-ignore: "npm:^1.1.1"
@@ -1697,7 +1697,7 @@ __metadata:
     specialist: "npm:^1.4.0"
     tiny-editorconfig: "npm:^1.0.0"
     tiny-jsonc: "npm:^1.0.1"
-    tiny-readdir-glob: "npm:^1.1.0"
+    tiny-readdir-glob: "npm:^1.2.1"
     tiny-spinner: "npm:^2.0.3"
     worktank: "npm:^2.6.0"
     zeptomatch: "npm:^1.2.2"
@@ -1705,7 +1705,7 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0
   bin:
     prettier-next: dist/bin.js
-  checksum: a7a2bf15cc265423d858f1d1e97fe0adef6a353f6e40331b0672ccc4f0c89339294518f0b6c5a205adfa3b8e1dc8d7c3bb519becefe876823e1a169fb3b310e8
+  checksum: 1b2e01398db640c7739c5242c56e30a9e3e567e0f23f268ab22f71a157db88f5ff3bed9c66c6047e0baa9e45c422ef280109b2c6455bd9e4b7c5e37b2a44ff9f
   languageName: node
   linkType: hard
 
@@ -7423,7 +7423,7 @@ __metadata:
     "@glimmer/reference": "npm:0.85.13"
     "@glimmer/syntax": "npm:0.85.13"
     "@iarna/toml": "npm:2.2.5"
-    "@prettier/cli": "npm:0.2.0"
+    "@prettier/cli": "npm:0.2.1"
     "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@types/estree": "npm:1.0.5"
@@ -8686,22 +8686,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-readdir-glob@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "tiny-readdir-glob@npm:1.1.0"
+"tiny-readdir-glob@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "tiny-readdir-glob@npm:1.2.1"
   dependencies:
-    tiny-readdir: "npm:^2.3.0"
+    tiny-readdir: "npm:^2.4.0"
     zeptomatch: "npm:^1.2.2"
-  checksum: b7219eb1d2523d0748d722a6eb6954ac67f2aa99c17465221a3bbf6114bd2ca109f479dad50ae8796b2a3ecc5152864c7d0128f3c6d4bbce7867a2423966412c
+  checksum: 971e29d7d21545482bbae63a6e79ca9ed1bedac6b2f881c341eaf6c0d6b09f4dbe661216e769d02c715338e699c0155fd339cae939ad338bb34b9fbbb4e4d1fc
   languageName: node
   linkType: hard
 
-"tiny-readdir@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "tiny-readdir@npm:2.3.0"
+"tiny-readdir@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "tiny-readdir@npm:2.4.0"
   dependencies:
     promise-make-naked: "npm:^2.1.1"
-  checksum: 5e20dbf8205d296e96921f945627e787af6f9b145e1da4dbc0daf60bc022b2ca94ba3e8bcb2d70450a19ed1f0b75daa56182da959c6a5616829cd9bb18e41036
+  checksum: ae797cc88e34a8dca813d65bea8677498044adfc911530998e7a82a94627b98a905962426fc92d7f8e9759bd000b2946909c906c18009f8e193067ae22422b75
   languageName: node
   linkType: hard
 
