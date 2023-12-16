@@ -23,12 +23,10 @@ type FallbackFlags<F: Flags | void> =
     : NonNullableFlag<F>["flags"];
 
 =====================================output=====================================
-type FallbackFlags<F: Flags | void> = Equals<
-  NonNullableFlag<F>["flags"],
-  {},
-> extends true
-  ? Dict<any>
-  : NonNullableFlag<F>["flags"];
+type FallbackFlags<F: Flags | void> =
+  Equals<NonNullableFlag<F>["flags"], {}> extends true
+    ? Dict<any>
+    : NonNullableFlag<F>["flags"];
 
 ================================================================================
 `;
