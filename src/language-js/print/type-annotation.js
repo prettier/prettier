@@ -17,6 +17,7 @@ import {
   isObjectTypePropertyAFunction,
   hasComment,
   CommentCheckFlags,
+  isUnionType,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import {
@@ -38,7 +39,7 @@ function shouldHugType(node) {
     return true;
   }
 
-  if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
+  if (isUnionType(node)) {
     const voidCount = node.types.filter(
       (node) =>
         node.type === "VoidTypeAnnotation" ||
