@@ -66,13 +66,8 @@ export type Equals<X, Y> =
     ? true
     : false;
 
-export type _Repeat<A: any, N: number, L: List = []> = __Repeat<
-  N,
-  A,
-  L,
-> extends infer X
-  ? Cast<X, List>
-  : empty;
+export type _Repeat<A: any, N: number, L: List = []> =
+  __Repeat<N, A, L> extends infer X ? Cast<X, List> : empty;
 
 export type Repeat<A: any, N: number, L: List = []> = N extends mixed
   ? L extends mixed

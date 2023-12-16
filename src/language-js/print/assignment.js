@@ -149,7 +149,6 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
 
   if (
     isComplexDestructuring(node) ||
-    isComplexTypeAliasParams(node) ||
     hasComplexTypeAnnotation(node) ||
     (isArrowFunctionVariableDeclarator(node) && canBreakLeftDoc)
   ) {
@@ -166,6 +165,10 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     )
   ) {
     return "break-after-operator";
+  }
+
+  if (isComplexTypeAliasParams(node)) {
+    return "break-lhs";
   }
 
   if (

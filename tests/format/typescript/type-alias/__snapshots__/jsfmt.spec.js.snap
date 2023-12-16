@@ -55,11 +55,8 @@ export type Equals<X, Y> =
     ? true
     : false;
 
-export type _Repeat<
-  A extends any,
-  N extends number,
-  L extends List = [],
-> = __Repeat<N, A, L> extends infer X ? Cast<X, List> : never;
+export type _Repeat<A extends any, N extends number, L extends List = []> =
+  __Repeat<N, A, L> extends infer X ? Cast<X, List> : never;
 
 export type Repeat<
   A extends any,
