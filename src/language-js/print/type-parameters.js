@@ -87,10 +87,10 @@ function printTypeParameters(path, options, print, paramsKey) {
     node.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
       ? ""
       : shouldForceTrailingComma(path, options, paramsKey)
-      ? ","
-      : shouldPrintComma(options)
-      ? ifBreak(",")
-      : "";
+        ? ","
+        : shouldPrintComma(options)
+          ? ifBreak(",")
+          : "";
 
   return group(
     [

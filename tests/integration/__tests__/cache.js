@@ -119,7 +119,7 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrow();
     });
 
     it("doesn't format when cache is available", async () => {
@@ -133,7 +133,7 @@ describe("--cache option", () => {
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -146,8 +146,8 @@ describe("--cache option", () => {
       ]);
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms \(cached\)$/),
-          expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -167,7 +167,7 @@ describe("--cache option", () => {
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -182,7 +182,7 @@ describe("--cache option", () => {
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -202,7 +202,7 @@ describe("--cache option", () => {
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -218,7 +218,7 @@ describe("--cache option", () => {
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -234,7 +234,7 @@ describe("--cache option", () => {
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -250,7 +250,7 @@ describe("--cache option", () => {
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
     });
@@ -273,7 +273,7 @@ describe("--cache option", () => {
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -309,7 +309,7 @@ describe("--cache option", () => {
       expect(thirdStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -336,7 +336,7 @@ describe("--cache option", () => {
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -358,9 +358,9 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrow();
       await runCliWithoutGitignore(dir, ["--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).rejects.toThrow();
     });
   });
 
@@ -376,7 +376,7 @@ describe("--cache option", () => {
         "content",
         "*.js",
       ]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrow();
     });
 
     it("doesn't format when cache is available", async () => {
@@ -394,7 +394,7 @@ describe("--cache option", () => {
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -404,8 +404,8 @@ describe("--cache option", () => {
       );
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms \(cached\)$/),
-          expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -425,7 +425,7 @@ describe("--cache option", () => {
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -440,7 +440,7 @@ describe("--cache option", () => {
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -460,7 +460,7 @@ describe("--cache option", () => {
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -474,8 +474,8 @@ describe("--cache option", () => {
       );
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms \(cached\)$/),
-          expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -491,7 +491,7 @@ describe("--cache option", () => {
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -507,7 +507,7 @@ describe("--cache option", () => {
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
     });
@@ -530,7 +530,7 @@ describe("--cache option", () => {
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -566,7 +566,7 @@ describe("--cache option", () => {
       expect(thirdStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -593,7 +593,7 @@ describe("--cache option", () => {
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
-          expect.stringMatching(/^b\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -609,9 +609,9 @@ describe("--cache option", () => {
 
     it("removes cache file when run Prettier without `--cache` option", async () => {
       await runCliWithoutGitignore(dir, ["--cache", "--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrow();
       await runCliWithoutGitignore(dir, ["--write", "*.js"]);
-      await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
+      await expect(fs.stat(defaultCacheFile)).rejects.toThrow();
     });
   });
 
@@ -657,9 +657,7 @@ describe("--cache option", () => {
           nonDefaultCacheFileName,
           "*.js",
         ]);
-        await expect(
-          fs.stat(nonDefaultCacheFilePath),
-        ).resolves.not.toThrowError();
+        await expect(fs.stat(nonDefaultCacheFilePath)).resolves.not.toThrow();
       });
 
       it("does'nt format when cache is available", async () => {
@@ -677,7 +675,7 @@ describe("--cache option", () => {
         expect(firstStdout.split("\n")).toEqual(
           expect.arrayContaining([
             expect.stringMatching(/^a\.js .+ms$/),
-            expect.stringMatching(/^b\.js .+ms$/),
+            expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
           ]),
         );
 
@@ -687,8 +685,8 @@ describe("--cache option", () => {
         );
         expect(secondStdout.split("\n")).toEqual(
           expect.arrayContaining([
-            expect.stringMatching(/^a\.js .+ms \(cached\)$/),
-            expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+            expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+            expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
           ]),
         );
       });

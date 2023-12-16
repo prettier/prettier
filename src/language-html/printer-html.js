@@ -6,6 +6,7 @@ import { fill, group, hardline } from "../document/builders.js";
 import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import clean from "./clean.js";
 import { unescapeQuoteEntities, getTextValueParts } from "./utils/index.js";
 import preprocess from "./print-preprocess.js";
@@ -20,7 +21,15 @@ import {
 } from "./print/tag.js";
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
+import {
+  printAngularControlFlowBlock,
+  printAngularControlFlowBlockParameters,
+} from "./print/angular-control-flow-block.js";
 import getVisitorKeys from "./get-visitor-keys.js";
+import {
+  printAngularIcuExpression,
+  printAngularIcuCase,
+} from "./print/angular-icu-expression.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -36,6 +45,18 @@ function genericPrint(path, options, print) {
     case "element":
     case "ieConditionalComment":
       return printElement(path, options, print);
+
+    case "angularControlFlowBlock":
+      return printAngularControlFlowBlock(path, options, print);
+    case "angularControlFlowBlockParameters":
+      return printAngularControlFlowBlockParameters(path, options, print);
+    case "angularControlFlowBlockParameter":
+      return htmlWhitespaceUtils.trim(node.expression);
+
+    case "angularIcuExpression":
+      return printAngularIcuExpression(path, options, print);
+    case "angularIcuCase":
+      return printAngularIcuCase(path, options, print);
 
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":

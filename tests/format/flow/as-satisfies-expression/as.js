@@ -36,3 +36,5 @@ const iter1 = createIterator(this.controller, child, this.tag as BlahFunctionCom
 const iter2 = createIterator(self.controller, child, self.tag as BlahFunctionComponent);
 
 x as any as T;
+
+(type) as T;

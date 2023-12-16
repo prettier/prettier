@@ -3,8 +3,11 @@ import path from "node:path";
 import chalk from "chalk";
 import { createTwoFilesPatch } from "diff";
 import * as prettier from "../index.js";
-import mockable from "../common/mockable.js";
-import { createIsIgnoredFunction, errors } from "./prettier-internal.js";
+import {
+  createIsIgnoredFunction,
+  errors,
+  mockable,
+} from "./prettier-internal.js";
 import { expandPatterns } from "./expand-patterns.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import isTTY from "./is-tty.js";
@@ -248,6 +251,8 @@ async function formatStdin(context) {
 
   try {
     const input = await getStdin();
+    // TODO[@fisker]: Exit if no input.
+    // `prettier --config-precedence cli-override`
 
     let isFileIgnored = false;
     if (filepath) {
@@ -262,7 +267,7 @@ async function formatStdin(context) {
 
     const options = await getOptionsForFile(
       context,
-      filepath ? path.resolve(process.cwd(), filepath) : process.cwd(),
+      filepath ? path.resolve(filepath) : undefined,
     );
 
     if (await listDifferent(context, input, options, "(stdin)")) {
@@ -437,7 +442,7 @@ async function formatFiles(context) {
       } else if (!context.argv.check && !context.argv.listDifferent) {
         const message = `${chalk.grey(fileNameToDisplay)} ${
           Date.now() - start
-        }ms`;
+        }ms (unchanged)`;
         if (isCacheExists) {
           context.logger.log(`${message} (cached)`);
         } else {

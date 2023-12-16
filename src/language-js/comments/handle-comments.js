@@ -46,6 +46,7 @@ import isTypeCastComment from "../utils/is-type-cast-comment.js";
 function handleOwnLineComment(context) {
   return [
     handleIgnoreComments,
+    handleConditionalExpressionComments,
     handleLastFunctionArgComments,
     handleMemberExpressionComments,
     handleIfStatementComments,
@@ -60,6 +61,8 @@ function handleOwnLineComment(context) {
     handleMethodNameComments,
     handleLabeledStatementComments,
     handleBreakAndContinueStatementComments,
+    handleNestedConditionalExpressionComments,
+    handleCommentsInDestructuringPattern,
   ].some((fn) => fn(context));
 }
 
@@ -335,12 +338,44 @@ function handleMemberExpressionComments({
   return false;
 }
 
+function handleNestedConditionalExpressionComments({
+  comment,
+  enclosingNode,
+  followingNode,
+  options,
+}) {
+  if (!options.experimentalTernaries) {
+    return false;
+  }
+
+  const enclosingIsCond =
+    enclosingNode?.type === "ConditionalExpression" ||
+    enclosingNode?.type === "ConditionalTypeAnnotation" ||
+    enclosingNode?.type === "TSConditionalType";
+
+  if (!enclosingIsCond) {
+    return false;
+  }
+
+  const followingIsCond =
+    followingNode?.type === "ConditionalExpression" ||
+    followingNode?.type === "ConditionalTypeAnnotation" ||
+    followingNode?.type === "TSConditionalType";
+
+  if (followingIsCond) {
+    addDanglingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
 function handleConditionalExpressionComments({
   comment,
   precedingNode,
   enclosingNode,
   followingNode,
   text,
+  options,
 }) {
   const isSameLineAsPrecedingNode =
     precedingNode &&
@@ -349,9 +384,25 @@ function handleConditionalExpressionComments({
   if (
     (!precedingNode || !isSameLineAsPrecedingNode) &&
     (enclosingNode?.type === "ConditionalExpression" ||
+      enclosingNode?.type === "ConditionalTypeAnnotation" ||
       enclosingNode?.type === "TSConditionalType") &&
     followingNode
   ) {
+    if (
+      options.experimentalTernaries &&
+      enclosingNode.alternate === followingNode &&
+      !(
+        isBlockComment(comment) &&
+        !hasNewlineInRange(
+          options.originalText,
+          locStart(comment),
+          locEnd(comment),
+        )
+      )
+    ) {
+      addDanglingComment(enclosingNode, comment);
+      return true;
+    }
     addLeadingComment(followingNode, comment);
     return true;
   }
@@ -924,6 +975,44 @@ function handleLastUnionElementInExpression({
     return true;
   }
   return false;
+}
+
+/**
+ * const [
+ *   foo,
+ *   // bar
+ *   // baz
+ * ]: Foo = foo();
+ *
+ * const {
+ *   foo,
+ *   // bar
+ *   // baz
+ * }: Foo = foo();
+ *
+ */
+function handleCommentsInDestructuringPattern({
+  comment,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+}) {
+  if (
+    (enclosingNode?.type === "ObjectPattern" ||
+      enclosingNode?.type === "ArrayPattern") &&
+    followingNode?.type === "TSTypeAnnotation"
+  ) {
+    if (precedingNode) {
+      addTrailingComment(precedingNode, comment);
+    } else {
+      // const {
+      //   // bar
+      //   // baz
+      // }: Foo = expr;
+      addDanglingComment(enclosingNode, comment);
+    }
+    return true;
+  }
 }
 
 /**

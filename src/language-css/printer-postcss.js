@@ -87,8 +87,8 @@ function genericPrint(path, options, print) {
               lastLineHasInlineComment(node.selector.value)
                 ? line
                 : node.selector
-                ? " "
-                : "",
+                  ? " "
+                  : "",
               "{",
               node.nodes.length > 0
                 ? indent([hardline, printSequence(path, options, print)])
@@ -140,18 +140,18 @@ function genericPrint(path, options, print) {
         node.raws.important
           ? node.raws.important.replace(/\s*!\s*important/i, " !important")
           : node.important
-          ? " !important"
-          : "",
+            ? " !important"
+            : "",
         node.raws.scssDefault
           ? node.raws.scssDefault.replace(/\s*!default/i, " !default")
           : node.scssDefault
-          ? " !default"
-          : "",
+            ? " !default"
+            : "",
         node.raws.scssGlobal
           ? node.raws.scssGlobal.replace(/\s*!global/i, " !global")
           : node.scssGlobal
-          ? " !global"
-          : "",
+            ? " !global"
+            : "",
         node.nodes
           ? [
               " {",
@@ -160,12 +160,12 @@ function genericPrint(path, options, print) {
               "}",
             ]
           : isTemplatePropNode(node) &&
-            !parentNode.raws.semicolon &&
-            options.originalText[locEnd(node) - 1] !== ";"
-          ? ""
-          : options.__isHTMLStyleAttribute && isLastNode(path, node)
-          ? ifBreak(";")
-          : ";",
+              !parentNode.raws.semicolon &&
+              options.originalText[locEnd(node) - 1] !== ";"
+            ? ""
+            : options.__isHTMLStyleAttribute && isLastNode(path, node)
+              ? ifBreak(";")
+              : ";",
       ];
     }
     case "css-atrule": {
@@ -234,16 +234,16 @@ function genericPrint(path, options, print) {
               isDetachedRulesetCallNode(node)
                 ? ""
                 : isTemplatePlaceholderNode(node)
-                ? node.raws.afterName === ""
-                  ? ""
-                  : node.name.endsWith(":")
-                  ? " "
-                  : /^\s*\n\s*\n/.test(node.raws.afterName)
-                  ? [hardline, hardline]
-                  : /^\s*\n/.test(node.raws.afterName)
-                  ? hardline
-                  : " "
-                : " ",
+                  ? node.raws.afterName === ""
+                    ? ""
+                    : node.name.endsWith(":")
+                      ? " "
+                      : /^\s*\n\s*\n/.test(node.raws.afterName)
+                        ? [hardline, hardline]
+                        : /^\s*\n/.test(node.raws.afterName)
+                          ? hardline
+                          : " "
+                  : " ",
               typeof node.params === "string" ? node.params : print("params"),
             ]
           : "",
@@ -259,21 +259,21 @@ function genericPrint(path, options, print) {
                 : "",
             ])
           : node.name === "else"
-          ? " "
-          : "",
+            ? " "
+            : "",
         node.nodes
           ? [
               isSCSSControlDirectiveNode(node, options)
                 ? ""
                 : (node.selector &&
-                    !node.selector.nodes &&
-                    typeof node.selector.value === "string" &&
-                    lastLineHasInlineComment(node.selector.value)) ||
-                  (!node.selector &&
-                    typeof node.params === "string" &&
-                    lastLineHasInlineComment(node.params))
-                ? line
-                : " ",
+                      !node.selector.nodes &&
+                      typeof node.selector.value === "string" &&
+                      lastLineHasInlineComment(node.selector.value)) ||
+                    (!node.selector &&
+                      typeof node.params === "string" &&
+                      lastLineHasInlineComment(node.params))
+                  ? line
+                  : " ",
               "{",
               indent([
                 node.nodes.length > 0 ? softline : "",
@@ -283,9 +283,9 @@ function genericPrint(path, options, print) {
               "}",
             ]
           : isTemplatePlaceholderNodeWithoutSemiColon ||
-            isImportUnknownValueEndsWithSemiColon
-          ? ""
-          : ";",
+              isImportUnknownValueEndsWithSemiColon
+            ? ""
+            : ";",
       ];
     }
     // postcss-media-query-parser

@@ -1159,7 +1159,8 @@ exports[`tuple-and-record.js [acorn] format 1`] = `
     |               ^
   7 |   // comment
   8 |   a,
-  9 | ]"
+  9 | ]
+Cause: Unexpected character '[' (6:14)"
 `;
 
 exports[`tuple-and-record.js [espree] format 1`] = `
@@ -1170,7 +1171,8 @@ exports[`tuple-and-record.js [espree] format 1`] = `
     |               ^
   7 |   // comment
   8 |   a,
-  9 | ]"
+  9 | ]
+Cause: Unexpected character '['"
 `;
 
 exports[`tuple-and-record.js [flow] format 1`] = `
@@ -1192,7 +1194,8 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
     |              ^
   7 |   // comment
   8 |   a,
-  9 | ]"
+  9 | ]
+Cause: [6:14]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js [typescript] format 1`] = `
@@ -1203,7 +1206,8 @@ exports[`tuple-and-record.js [typescript] format 1`] = `
     |              ^
   7 |   // comment
   8 |   a,
-  9 | ]"
+  9 | ]
+Cause: Invalid character."
 `;
 
 exports[`tuple-and-record.js format 1`] = `

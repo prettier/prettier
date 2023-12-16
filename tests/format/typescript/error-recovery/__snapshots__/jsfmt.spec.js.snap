@@ -160,7 +160,8 @@ exports[`index-signature.ts [babel-ts] format 1`] = `
     |             ^
   5 | };
   6 | type ThreeParams = {
-  7 |   [a: string, b: string, c: string]: string;"
+  7 |   [a: string, b: string, c: string]: string;
+Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts - {"trailingComma":"all"} [babel-ts] format 1`] = `
@@ -171,7 +172,8 @@ exports[`index-signature.ts - {"trailingComma":"all"} [babel-ts] format 1`] = `
     |             ^
   5 | };
   6 | type ThreeParams = {
-  7 |   [a: string, b: string, c: string]: string;"
+  7 |   [a: string, b: string, c: string]: string;
+Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts - {"trailingComma":"all"} format 1`] = `
@@ -245,7 +247,8 @@ exports[`index-signature.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
     |             ^
   5 | };
   6 | type ThreeParams = {
-  7 |   [a: string, b: string, c: string]: string;"
+  7 |   [a: string, b: string, c: string]: string;
+Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts - {"trailingComma":"es5"} format 1`] = `
@@ -379,7 +382,8 @@ exports[`jsdoc_only_types.ts [babel-ts] format 1`] = `
     |        ^
   2 | function b(x: ?) {}
   3 | let c: ?string;
-  4 | let d: string?;"
+  4 | let d: string?;
+Cause: Unexpected token (1:7)"
 `;
 
 exports[`jsdoc_only_types.ts - {"trailingComma":"all"} [babel-ts] format 1`] = `
@@ -388,7 +392,8 @@ exports[`jsdoc_only_types.ts - {"trailingComma":"all"} [babel-ts] format 1`] = `
     |        ^
   2 | function b(x: ?) {}
   3 | let c: ?string;
-  4 | let d: string?;"
+  4 | let d: string?;
+Cause: Unexpected token (1:7)"
 `;
 
 exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format 1`] = `
@@ -426,7 +431,8 @@ exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
     |        ^
   2 | function b(x: ?) {}
   3 | let c: ?string;
-  4 | let d: string?;"
+  4 | let d: string?;
+Cause: Unexpected token (1:7)"
 `;
 
 exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format 1`] = `

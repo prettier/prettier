@@ -28,6 +28,26 @@ foo(a--).bar().leet();
 ================================================================================
 `;
 
+exports[`assignment-lhs.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+document.querySelector("#output-abcdef").textContent = \`metaKey pressed? \${e.metaKey}\`;
+
+document.querySelector("p").textContent = \`Shader program did not link successfully. Error log: \${linkErrLog}\`;
+
+=====================================output=====================================
+document.querySelector("#output-abcdef").textContent =
+  \`metaKey pressed? \${e.metaKey}\`;
+
+document.querySelector("p").textContent =
+  \`Shader program did not link successfully. Error log: \${linkErrLog}\`;
+
+================================================================================
+`;
+
 exports[`bracket_0.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1553,7 +1573,8 @@ exports[`tuple-and-record.js [acorn] format 1`] = `
     |                ^
   3 |
   4 | foo.a().b().c({n, o})
-  5 | foo.a().b().c(#{n, o})"
+  5 | foo.a().b().c(#{n, o})
+Cause: Unexpected character '[' (2:15)"
 `;
 
 exports[`tuple-and-record.js [espree] format 1`] = `
@@ -1563,7 +1584,8 @@ exports[`tuple-and-record.js [espree] format 1`] = `
     |                ^
   3 |
   4 | foo.a().b().c({n, o})
-  5 | foo.a().b().c(#{n, o})"
+  5 | foo.a().b().c(#{n, o})
+Cause: Unexpected character '['"
 `;
 
 exports[`tuple-and-record.js [flow] format 1`] = `
@@ -1583,7 +1605,8 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
     |               ^
   3 |
   4 | foo.a().b().c({n, o})
-  5 | foo.a().b().c(#{n, o})"
+  5 | foo.a().b().c(#{n, o})
+Cause: [2:15]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js [typescript] format 1`] = `
@@ -1593,7 +1616,8 @@ exports[`tuple-and-record.js [typescript] format 1`] = `
     |               ^
   3 |
   4 | foo.a().b().c({n, o})
-  5 | foo.a().b().c(#{n, o})"
+  5 | foo.a().b().c(#{n, o})
+Cause: Invalid character."
 `;
 
 exports[`tuple-and-record.js format 1`] = `

@@ -1,9 +1,4 @@
-/*
-  The module version `@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js`
-  can't be be imported since it use `.js` extension, and don't have `type: module` in `package.json`
-  We'll replace it during build
-  */
-import { preprocess as parseGlimmer } from "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js";
+import { preprocess as parseGlimmer } from "@glimmer/syntax";
 import { LinesAndColumns } from "lines-and-columns";
 import createError from "../common/parser-create-error.js";
 import { locStart, locEnd } from "./loc.js";

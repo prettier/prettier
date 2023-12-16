@@ -30,7 +30,7 @@ jobs:
           - "ubuntu-latest"
         node:
           # Minimal version for development
-          - "16"
+          - "18"
         NPM_CLIENT:
           - "yarn"
           # Disabled temporarily #13151
@@ -43,10 +43,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.8.1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"

@@ -7,7 +7,8 @@ exports[`decare.js [babel-flow] format 1`] = `
     |         ^
   3 | declare const c: string;
   4 | declare export var a: string;
-  5 | declare export let b: string;"
+  5 | declare export let b: string;
+Cause: Unexpected token (2:8)"
 `;
 
 exports[`decare.js format 1`] = `

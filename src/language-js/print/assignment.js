@@ -118,9 +118,9 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     return !isTail
       ? "chain"
       : rightNode.type === "ArrowFunctionExpression" &&
-        rightNode.body.type === "ArrowFunctionExpression"
-      ? "chain-tail-arrow-chain"
-      : "chain-tail";
+          rightNode.body.type === "ArrowFunctionExpression"
+        ? "chain-tail-arrow-chain"
+        : "chain-tail";
   }
   const isHeadOfLongChain = !isTail && isAssignment(rightNode.right);
 
@@ -141,11 +141,13 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     return "never-break-after-operator";
   }
 
+  const canBreakLeftDoc = canBreak(leftDoc);
+
   if (
     isComplexDestructuring(node) ||
     isComplexTypeAliasParams(node) ||
     hasComplexTypeAnnotation(node) ||
-    (isArrowFunctionVariableDeclarator(node) && canBreak(leftDoc))
+    (isArrowFunctionVariableDeclarator(node) && canBreakLeftDoc)
   ) {
     return "break-lhs";
   }
@@ -163,12 +165,13 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   }
 
   if (
-    hasShortKey ||
-    rightNode.type === "TemplateLiteral" ||
-    rightNode.type === "TaggedTemplateExpression" ||
-    rightNode.type === "BooleanLiteral" ||
-    isNumericLiteral(rightNode) ||
-    rightNode.type === "ClassExpression"
+    !canBreakLeftDoc &&
+    (hasShortKey ||
+      rightNode.type === "TemplateLiteral" ||
+      rightNode.type === "TaggedTemplateExpression" ||
+      rightNode.type === "BooleanLiteral" ||
+      isNumericLiteral(rightNode) ||
+      rightNode.type === "ClassExpression")
   ) {
     return "never-break-after-operator";
   }
@@ -187,9 +190,22 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     case "StringLiteralTypeAnnotation":
     case "SequenceExpression":
       return true;
+    case "TSConditionalType":
+    case "ConditionalTypeAnnotation":
+      if (!options.experimentalTernaries) {
+        break;
+      }
+      return true;
     case "ConditionalExpression": {
-      const { test } = rightNode;
-      return isBinaryish(test) && !shouldInlineLogicalExpression(test);
+      if (!options.experimentalTernaries) {
+        const { test } = rightNode;
+        return isBinaryish(test) && !shouldInlineLogicalExpression(test);
+      }
+      const { consequent, alternate } = rightNode;
+      return (
+        consequent.type === "ConditionalExpression" ||
+        alternate.type === "ConditionalExpression"
+      );
     }
     case "ClassExpression":
       return isNonEmptyArray(rightNode.decorators);

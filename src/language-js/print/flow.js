@@ -154,8 +154,8 @@ function printFlow(path, options, print) {
       const name = node.name
         ? print("name")
         : path.parent.this === node
-        ? "this"
-        : "";
+          ? "this"
+          : "";
       return [
         name,
         printOptionalToken(path),
@@ -261,6 +261,7 @@ function printFlow(path, options, print) {
     case "TypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
 
+    // Deprecated https://github.com/facebook/flow/commit/b98ae5528d9a073ddc62fc8ce418bbb1f2f80a82
     case "InferredPredicate":
     case "DeclaredPredicate":
       // Note: Leading comment print should be improved https://github.com/prettier/prettier/pull/14710#issuecomment-1512522282

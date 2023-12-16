@@ -14,5 +14,5 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "yarn@3.6.3"
+  "packageManager": "yarn@4.0.2"
 }

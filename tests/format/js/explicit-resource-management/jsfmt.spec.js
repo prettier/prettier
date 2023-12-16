@@ -32,9 +32,6 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
       "valid-await-using-comments.js",
       "using-declarations.js",
 
-      // https://github.com/microsoft/TypeScript/issues/55555
-      "valid-for-using-binding-of-of.js",
-
       // TypeScript does not support module expr
       "valid-module-block-top-level-using-binding.js",
       "valid-module-block-top-level-await-using-binding.js",

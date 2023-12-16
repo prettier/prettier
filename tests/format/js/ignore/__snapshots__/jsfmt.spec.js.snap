@@ -8,7 +8,8 @@ exports[`class-expression-decorator.js [acorn] format 1`] = `
     |   ^
   4 |   class {}
   5 | );
-  6 |"
+  6 |
+Cause: Unexpected character '@' (3:2)"
 `;
 
 exports[`class-expression-decorator.js [espree] format 1`] = `
@@ -19,7 +20,8 @@ exports[`class-expression-decorator.js [espree] format 1`] = `
     |   ^
   4 |   class {}
   5 | );
-  6 |"
+  6 |
+Cause: Unexpected character '@'"
 `;
 
 exports[`class-expression-decorator.js [flow] format 1`] = `
@@ -61,7 +63,8 @@ exports[`decorator.js [acorn] format 1`] = `
 > 2 | @decorator
     | ^
   3 | class A {}
-  4 |"
+  4 |
+Cause: Unexpected character '@' (2:0)"
 `;
 
 exports[`decorator.js [espree] format 1`] = `
@@ -70,7 +73,8 @@ exports[`decorator.js [espree] format 1`] = `
 > 2 | @decorator
     | ^
   3 | class A {}
-  4 |"
+  4 |
+Cause: Unexpected character '@'"
 `;
 
 exports[`decorator.js format 1`] = `

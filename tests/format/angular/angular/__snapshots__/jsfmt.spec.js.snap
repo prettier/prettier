@@ -1147,7 +1147,8 @@ printWidth: 1
   (target)="
     a[
       b
-    ] = 1
+    ] =
+      1
   "
   (target)="
     (a) // hello

@@ -53,6 +53,8 @@ Format options:
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
+  --no-experimental-ternaries
+                           Default behavior of ternaries; keep question marks on the same line as the consequent.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -105,15 +107,12 @@ Config options:
 Editor options:
 
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
-                           This option cannot be used with --range-start and --range-end.
                            Defaults to -1.
   --range-end <int>        Format code ending at a given character offset (exclusive).
                            The range will extend forwards to the end of the selected statement.
-                           This option cannot be used with --cursor-offset.
                            Defaults to Infinity.
   --range-start <int>      Format code starting at a given character offset.
                            The range will extend backwards to the start of the first line containing the selected statement.
-                           This option cannot be used with --cursor-offset.
                            Defaults to 0.
 
 Other options:
@@ -218,6 +217,8 @@ Format options:
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
+  --no-experimental-ternaries
+                           Default behavior of ternaries; keep question marks on the same line as the consequent.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -270,15 +271,12 @@ Config options:
 Editor options:
 
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
-                           This option cannot be used with --range-start and --range-end.
                            Defaults to -1.
   --range-end <int>        Format code ending at a given character offset (exclusive).
                            The range will extend forwards to the end of the selected statement.
-                           This option cannot be used with --cursor-offset.
                            Defaults to Infinity.
   --range-start <int>      Format code starting at a given character offset.
                            The range will extend backwards to the start of the first line containing the selected statement.
-                           This option cannot be used with --cursor-offset.
                            Defaults to 0.
 
 Other options:

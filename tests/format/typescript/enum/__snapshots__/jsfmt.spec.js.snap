@@ -7,7 +7,8 @@ exports[`computed-members.ts [babel-ts] format 1`] = `
     |   ^
   3 | }
   4 |
-  5 | const bar = "bar""
+  5 | const bar = "bar"
+Cause: Unexpected token (2:2)"
 `;
 
 exports[`computed-members.ts format 1`] = `
