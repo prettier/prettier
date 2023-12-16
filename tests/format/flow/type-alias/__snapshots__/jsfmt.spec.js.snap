@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`conditional.js [babel-flow] format 1`] = `
+"Unexpected token (2:43)
+  1 | type FallbackFlags<F: Flags | void> =
+> 2 |   Equals<NonNullableFlag<F>["flags"], {}> extends true
+    |                                           ^
+  3 |     ? Dict<any>
+  4 |     : NonNullableFlag<F>["flags"];
+  5 |
+Cause: Unexpected token (2:42)"
+`;
+
+exports[`conditional.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type FallbackFlags<F: Flags | void> =
+  Equals<NonNullableFlag<F>["flags"], {}> extends true
+    ? Dict<any>
+    : NonNullableFlag<F>["flags"];
+
+=====================================output=====================================
+type FallbackFlags<F: Flags | void> = Equals<
+  NonNullableFlag<F>["flags"],
+  {},
+> extends true
+  ? Dict<any>
+  : NonNullableFlag<F>["flags"];
+
+================================================================================
+`;
+
 exports[`issue-100857.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

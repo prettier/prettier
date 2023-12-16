@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`conditional.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type FallbackFlags<F extends Flags | undefined> =
+  Equals<NonNullableFlag<F>["flags"], {}>    extends   true
+    ? Dict<any>
+    : NonNullableFlag<F>["flags"];
+
+=====================================output=====================================
+type FallbackFlags<F extends Flags | undefined> = Equals<
+  NonNullableFlag<F>["flags"],
+  {}
+> extends true
+  ? Dict<any>
+  : NonNullableFlag<F>["flags"];
+
+================================================================================
+`;
+
 exports[`issue-9874.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
