@@ -47,17 +47,13 @@ type FallbackFlags<F extends Flags | undefined> =
     ? Dict<any>
     : NonNullableFlag<F>["flags"];
 
-export type UnPromise<Type extends Promise<unknown>> = Type extends Promise<
-  infer Generic
->
-  ? Generic
-  : never;
+export type UnPromise<Type extends Promise<unknown>> =
+  Type extends Promise<infer Generic> ? Generic : never;
 
-export type Equals<X, Y> = (<T>() => T extends X ? 1 : 2) extends <
-  T,
->() => T extends Y ? 1 : 2
-  ? true
-  : false;
+export type Equals<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
+    ? true
+    : false;
 
 export type _Repeat<
   A extends any,

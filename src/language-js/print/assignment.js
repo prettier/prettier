@@ -443,12 +443,19 @@ function getTypeArgumentsFromCallExpression(node) {
 }
 
 function shouldBreakBeforeConditionalType(node) {
-  const { checkType } = node;
-  return (
-    (checkType.type === "GenericTypeAnnotation" ||
-      checkType.type === "TSTypeReference") &&
-    checkType.typeParameters
-  );
+  function isGeneric(subNode) {
+    switch (subNode.type) {
+      case "FunctionTypeAnnotation":
+      case "GenericTypeAnnotation":
+      case "TSFunctionType":
+      case "TSTypeReference":
+        return Boolean(subNode.typeParameters);
+      default:
+        return false;
+    }
+  }
+
+  return isGeneric(node.checkType) || isGeneric(node.extendsType);
 }
 
 export {
