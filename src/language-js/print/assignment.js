@@ -19,10 +19,7 @@ import {
   isLoneShortArgument,
   isObjectProperty,
   createTypeCheckFunction,
-  isSimpleType,
-  isObjectType,
 } from "../utils/index.js";
-import needsParens from "../needs-parens.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 
@@ -201,7 +198,7 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     case "ConditionalTypeAnnotation":
       if (
         !options.experimentalTernaries &&
-        shouldInlineTypeCondition(path, options)
+        !shouldBreakBeforeConditionalType(rightNode)
       ) {
         break;
       }
@@ -445,21 +442,13 @@ function getTypeArgumentsFromCallExpression(node) {
   return (node.typeParameters ?? node.typeArguments)?.params;
 }
 
-/**
- * @param {AstPath} path path of TSConditionalType or ConditionalTypeAnnotation
- * @param {*} options
- * @returns {boolean}
- */
-function shouldInlineTypeCondition(path, options) {
-  const { node } = path;
+function shouldBreakBeforeConditionalType(node) {
   const { checkType } = node;
-  if (isSimpleType(checkType)) {
-    return true;
-  }
-  if (isObjectType(checkType)) {
-    return true;
-  }
-  return path.call(() => needsParens(path, options), "checkType");
+  return (
+    (checkType.type === "GenericTypeAnnotation" ||
+      checkType.type === "TSTypeReference") &&
+    checkType.typeParameters
+  );
 }
 
 export {
