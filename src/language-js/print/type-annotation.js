@@ -18,6 +18,7 @@ import {
   hasComment,
   CommentCheckFlags,
   createTypeCheckFunction,
+  isUnionType,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import {
@@ -68,7 +69,7 @@ function shouldHugType(node) {
     return true;
   }
 
-  if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
+  if (isUnionType(node)) {
     return shouldHugUnionType(node);
   }
 

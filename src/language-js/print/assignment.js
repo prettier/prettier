@@ -19,6 +19,8 @@ import {
   isLoneShortArgument,
   isObjectProperty,
   createTypeCheckFunction,
+  isUnionType,
+  isIntersectionType,
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
@@ -411,10 +413,8 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
     if (typeArgs.length === 1) {
       const firstArg = typeArgs[0];
       if (
-        firstArg.type === "TSUnionType" ||
-        firstArg.type === "UnionTypeAnnotation" ||
-        firstArg.type === "TSIntersectionType" ||
-        firstArg.type === "IntersectionTypeAnnotation" ||
+        isUnionType(firstArg) ||
+        isIntersectionType(firstArg) ||
         firstArg.type === "TSTypeLiteral" ||
         firstArg.type === "ObjectTypeAnnotation"
       ) {

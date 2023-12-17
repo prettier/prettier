@@ -1232,6 +1232,16 @@ const isBinaryCastExpression = createTypeCheckFunction([
   "SatisfiesExpression",
 ]);
 
+const isUnionType = createTypeCheckFunction([
+  "UnionTypeAnnotation",
+  "TSUnionType",
+]);
+
+const isIntersectionType = createTypeCheckFunction([
+  "IntersectionTypeAnnotation",
+  "TSIntersectionType",
+]);
+
 export {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1296,4 +1306,6 @@ export {
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
   createTypeCheckFunction,
+  isUnionType,
+  isIntersectionType,
 };
