@@ -26,7 +26,7 @@ const sleep = () =>
     setTimeout(resolve, 30_000);
   });
 
-export default async function waitForBotRelease({ dry, version }) {
+export default async function waitForBotRelease({ dry, version, next }) {
   if (dry) {
     return;
   }
@@ -68,9 +68,9 @@ export default async function waitForBotRelease({ dry, version }) {
         "Run workflow",
       )}" button, type "${chalk.yellow.underline(
         version,
-      )}" in "Version to release", uncheck all checkboxes, hit the "${chalk.bgGreen(
-        "Run workflow",
-      )}" button.
+      )}" in "Version to release", ${
+        next ? 'check only "Unstable version"' : "uncheck all checkboxes"
+      }, hit the "${chalk.bgGreen("Run workflow")}" button.
     `,
   );
 

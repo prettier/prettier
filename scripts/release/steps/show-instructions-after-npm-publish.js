@@ -36,9 +36,15 @@ export function getReleaseUrl(version, previousVersion) {
 export default async function showInstructionsAfterNpmPublish({
   version,
   previousVersion,
+  next,
 }) {
-  const releaseUrl = getReleaseUrl(version, previousVersion);
+  if (next) {
+    console.log(`${chalk.green.bold(`Prettier ${version} published!`)}`);
+    await waitForEnter();
+    return;
+  }
 
+  const releaseUrl = getReleaseUrl(version, previousVersion);
   console.log(
     outdent`
       ${chalk.green.bold(`Prettier ${version} published!`)}

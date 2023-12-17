@@ -1,9 +1,14 @@
 import { runYarn, readJson, writeJson, processFile } from "../utils.js";
 
-export default async function updateVersion({ version }) {
+export default async function updateVersion({ version, next }) {
   const pkg = await readJson("package.json");
   pkg.version = version;
   await writeJson("package.json", pkg);
+
+  // For pre-release, just update package.json
+  if (next) {
+    return;
+  }
 
   // Update github issue templates
   processFile(".github/ISSUE_TEMPLATE/formatting.md", (content) =>
