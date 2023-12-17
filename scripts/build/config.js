@@ -612,6 +612,11 @@ const nodejsFiles = [
         }),
         path: require.resolve("@babel/code-frame"),
       },
+      {
+        module: getPackageFile("json5/dist/index.mjs"),
+        find: "export default lib;",
+        replacement: "export default { parse };",
+      },
     ],
     addDefaultExport: true,
   },
