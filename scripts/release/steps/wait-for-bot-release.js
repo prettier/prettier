@@ -26,7 +26,7 @@ const sleep = () =>
     setTimeout(resolve, 30_000);
   });
 
-export default async function waitForBotRelease({ dry, version }) {
+export default async function waitForBotRelease({ dry, version, next }) {
   if (dry) {
     return;
   }
@@ -59,20 +59,37 @@ export default async function waitForBotRelease({ dry, version }) {
 
   await waitForEnter();
 
-  console.log(
-    outdent`
-      1. Go to ${chalk.green.underline(
-        "https://github.com/prettier/release-workflow/actions/workflows/release.yml",
-      )}
-      2. Click "${chalk.green(
-        "Run workflow",
-      )}" button, type "${chalk.yellow.underline(
-        version,
-      )}" in "Version to release", uncheck all checkboxes, hit the "${chalk.bgGreen(
-        "Run workflow",
-      )}" button.
-    `,
-  );
+  if (next) {
+    console.log(
+      outdent`
+        1. Go to ${chalk.green.underline(
+          "https://github.com/prettier/release-workflow/actions/workflows/release.yml",
+        )}
+        2. Click "${chalk.green(
+          "Run workflow",
+        )}" button, type "${chalk.yellow.underline(
+          version,
+        )}" in "Version to release", check only "Unstable version", hit the "${chalk.bgGreen(
+          "Run workflow",
+        )}" button.
+      `,
+    );
+  } else {
+    console.log(
+      outdent`
+        1. Go to ${chalk.green.underline(
+          "https://github.com/prettier/release-workflow/actions/workflows/release.yml",
+        )}
+        2. Click "${chalk.green(
+          "Run workflow",
+        )}" button, type "${chalk.yellow.underline(
+          version,
+        )}" in "Version to release", uncheck all checkboxes, hit the "${chalk.bgGreen(
+          "Run workflow",
+        )}" button.
+      `,
+    );
+  }
 
   await waitForEnter();
 

@@ -31,8 +31,9 @@ export default async function updateChangelog({
   dry,
   version,
   previousVersion,
+  next,
 }) {
-  if (dry) {
+  if (dry || next) {
     return;
   }
 
