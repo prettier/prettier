@@ -1,6 +1,7 @@
 import path from "node:path";
-import { outdent } from "outdent";
+
 import createEsmUtils from "esm-utils";
+import { outdent } from "outdent";
 
 const { __dirname, __filename } = createEsmUtils(import.meta);
 

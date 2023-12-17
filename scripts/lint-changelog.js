@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
-import path from "node:path";
 import fs from "node:fs";
-import { outdent } from "outdent";
+import path from "node:path";
+
 import createEsmUtils from "esm-utils";
 import { LinesAndColumns } from "lines-and-columns";
+import { outdent } from "outdent";
+
 import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
 
 const { __dirname } = createEsmUtils(import.meta);

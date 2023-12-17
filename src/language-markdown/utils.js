@@ -1,10 +1,11 @@
 import assert from "node:assert";
-import { locStart, locEnd } from "./loc.js";
+
 import {
   CJK_REGEXP,
   K_REGEXP,
   PUNCTUATION_REGEXP,
 } from "./constants.evaluate.js";
+import { locEnd, locStart } from "./loc.js";
 
 const INLINE_NODE_TYPES = new Set([
   "liquidNode",
@@ -237,16 +238,16 @@ function isAutolink(node) {
 }
 
 export {
-  mapAst,
-  splitText,
   getFencedCodeBlockValue,
   getOrderedListItemInfo,
   hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
-  KIND_NON_CJK,
   KIND_CJ_LETTER,
-  KIND_K_LETTER,
   KIND_CJK_PUNCTUATION,
+  KIND_K_LETTER,
+  KIND_NON_CJK,
+  mapAst,
+  splitText,
 };

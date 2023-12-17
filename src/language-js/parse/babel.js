@@ -1,10 +1,11 @@
 import { parse as babelParse, parseExpression } from "@babel/parser";
+
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import createParser from "./utils/create-parser.js";
-import createBabelParseError from "./utils/create-babel-parse-error.js";
 import postprocess from "./postprocess/index.js";
+import createBabelParseError from "./utils/create-babel-parse-error.js";
+import createParser from "./utils/create-parser.js";
 import getSourceType from "./utils/get-source-type.js";
 import wrapBabelExpression from "./utils/wrap-babel-expression.js";
 

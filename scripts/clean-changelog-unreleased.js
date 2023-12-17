@@ -2,6 +2,7 @@
 
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
+
 import fastGlob from "fast-glob";
 
 const changelogUnreleasedDir = fileURLToPath(

@@ -1,8 +1,10 @@
 import { pathToFileURL } from "node:url";
+
 import parseToml from "@iarna/toml/parse-async.js";
-import parseJson5 from "json5/lib/parse.js";
 import jsYaml from "js-yaml";
+import parseJson5 from "json5/lib/parse.js";
 import parseJson from "parse-json";
+
 import readFile from "../../utils/read-file.js";
 
 async function readJson(file) {
@@ -65,4 +67,4 @@ const loaders = {
 };
 
 export default loaders;
-export { readJson, loadConfigFromPackageJson };
+export { loadConfigFromPackageJson, readJson };

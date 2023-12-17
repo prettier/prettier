@@ -1,5 +1,6 @@
-import { parseArgs } from "node:util";
 import path from "node:path";
+import { parseArgs } from "node:util";
+
 import { DIST_DIR } from "../utils/index.js";
 
 function parseArguments() {

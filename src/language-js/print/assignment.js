@@ -1,26 +1,26 @@
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import getStringWidth from "../../utils/get-string-width.js";
 import {
-  line,
   group,
   indent,
   indentIfBreak,
+  line,
   lineSuffixBoundary,
 } from "../../document/builders.js";
-import { cleanDoc, willBreak, canBreak } from "../../document/utils.js";
+import { canBreak, cleanDoc, willBreak } from "../../document/utils.js";
+import getStringWidth from "../../utils/get-string-width.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
+  createTypeCheckFunction,
+  getCallArguments,
   hasLeadingOwnLineComment,
   isBinaryish,
-  isStringLiteral,
-  isNumericLiteral,
   isCallExpression,
-  isMemberExpression,
-  getCallArguments,
-  isLoneShortArgument,
-  isObjectProperty,
-  createTypeCheckFunction,
-  isUnionType,
   isIntersectionType,
+  isLoneShortArgument,
+  isMemberExpression,
+  isNumericLiteral,
+  isObjectProperty,
+  isStringLiteral,
+  isUnionType,
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
@@ -436,8 +436,8 @@ function getTypeArgumentsFromCallExpression(node) {
 }
 
 export {
-  printVariableDeclarator,
-  printAssignmentExpression,
-  printAssignment,
   isArrowFunctionVariableDeclarator,
+  printAssignment,
+  printAssignmentExpression,
+  printVariableDeclarator,
 };

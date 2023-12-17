@@ -1,6 +1,6 @@
+import { isValidIdentifier } from "@babel/types";
 import createEsmUtils from "esm-utils";
 import serialize from "serialize-javascript";
-import { isValidIdentifier } from "@babel/types";
 
 const { importModule } = createEsmUtils(import.meta);
 

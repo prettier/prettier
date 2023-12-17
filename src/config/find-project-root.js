@@ -2,7 +2,9 @@
 // https://github.com/kirstein/find-project-root/blob/master/index.js
 
 import path from "node:path";
+
 import iterateDirectoryUp from "iterate-directory-up";
+
 import isDirectory from "../utils/is-directory.js";
 
 const MARKERS = [".git", ".hg"];

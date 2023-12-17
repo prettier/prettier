@@ -44,8 +44,8 @@ function normalizeEndOfLine(text) {
 }
 
 export {
-  guessEndOfLine,
   convertEndOfLineToChars,
   countEndOfLineChars,
+  guessEndOfLine,
   normalizeEndOfLine,
 };

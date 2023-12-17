@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import leven from "leven";
+
 import { normalizeOptions, vnopts } from "../prettier-internal.js";
 
 const descriptor = {

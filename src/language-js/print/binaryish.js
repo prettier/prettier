@@ -1,27 +1,27 @@
-import { printComments } from "../../main/comments/print.js";
-import { DOC_TYPE_FILL, DOC_TYPE_GROUP } from "../../document/constants.js";
 import {
+  align,
+  group,
+  indent,
+  indentIfBreak,
   join,
   line,
   softline,
-  group,
-  indent,
-  align,
-  indentIfBreak,
 } from "../../document/builders.js";
+import { DOC_TYPE_FILL, DOC_TYPE_GROUP } from "../../document/constants.js";
 import { cleanDoc, getDocParts } from "../../document/utils.js";
+import { printComments } from "../../main/comments/print.js";
 import {
-  hasLeadingOwnLineComment,
-  isBinaryish,
-  isJsxElement,
-  shouldFlatten,
-  hasComment,
   CommentCheckFlags,
-  isCallExpression,
-  isMemberExpression,
-  isObjectProperty,
+  hasComment,
+  hasLeadingOwnLineComment,
   isArrayOrTupleExpression,
+  isBinaryish,
+  isCallExpression,
+  isJsxElement,
+  isMemberExpression,
   isObjectOrRecordExpression,
+  isObjectProperty,
+  shouldFlatten,
 } from "../utils/index.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */

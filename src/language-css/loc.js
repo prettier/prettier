@@ -1,6 +1,6 @@
-import { skipEverythingButNewLine } from "../utils/skip.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import lineColumnToIndex from "../utils/line-column-to-index.js";
+import { skipEverythingButNewLine } from "../utils/skip.js";
 
 function calculateLocStart(node, text) {
   // `postcss>=8`
@@ -238,4 +238,4 @@ function locEnd(node) {
   return node.source?.endOffset;
 }
 
-export { locStart, locEnd, calculateLoc, replaceQuotesInInlineComments };
+export { calculateLoc, locEnd, locStart, replaceQuotesInInlineComments };

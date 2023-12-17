@@ -1,8 +1,8 @@
 import {
-  hasComment,
   CommentCheckFlags,
-  isObjectProperty,
+  hasComment,
   isArrayOrTupleExpression,
+  isObjectProperty,
 } from "../utils/index.js";
 
 const angularComponentObjectExpressionPredicates = [
@@ -84,8 +84,8 @@ function isAsConstExpression(node) {
 }
 
 export {
+  hasLanguageComment,
   isAngularComponentStyles,
   isAngularComponentTemplate,
-  hasLanguageComment,
   isAsConstExpression,
 };

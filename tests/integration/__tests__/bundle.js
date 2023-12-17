@@ -1,12 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+
 import createEsmUtils from "esm-utils";
 import fastGlob from "fast-glob";
-import { projectRoot } from "../env.js";
-import prettier from "../../config/prettier-entry.js";
-import createSandBox from "../../config/utils/create-sandbox.cjs";
+
 import coreOptions from "../../../src/main/core-options.evaluate.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
+import prettier from "../../config/prettier-entry.js";
+import createSandBox from "../../config/utils/create-sandbox.cjs";
+import { projectRoot } from "../env.js";
 
 const { require, importModule } = createEsmUtils(import.meta);
 

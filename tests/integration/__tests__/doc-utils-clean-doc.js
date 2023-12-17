@@ -1,10 +1,10 @@
 import {
-  group,
   align,
+  fill,
+  group,
+  ifBreak,
   indent,
   lineSuffix,
-  ifBreak,
-  fill,
 } from "../../../src/document/builders.js";
 import { cleanDoc } from "../../../src/document/utils.js";
 

@@ -1,12 +1,14 @@
 import path from "node:path";
-import micromatch from "micromatch";
+
 import mem, { memClear } from "mem";
+import micromatch from "micromatch";
 import { toPath } from "url-or-path";
+
 import partition from "../utils/partition.js";
 import {
-  searchConfig as searchPrettierConfig,
-  loadConfig as loadPrettierConfigFile,
   clearCache as clearPrettierConfigCache,
+  loadConfig as loadPrettierConfigFile,
+  searchConfig as searchPrettierConfig,
 } from "./prettier-config-explorer/index.js";
 import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
 
@@ -127,4 +129,4 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   );
 }
 
-export { resolveConfig, resolveConfigFile, clearCache };
+export { clearCache, resolveConfig, resolveConfigFile };

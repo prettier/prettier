@@ -1,32 +1,32 @@
-import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
-import { printDanglingComments } from "../../main/comments/print.js";
+import { ArgExpansionBailout } from "../../common/errors.js";
 import {
-  line,
-  hardline,
-  softline,
   group,
-  indent,
+  hardline,
   ifBreak,
+  indent,
+  line,
+  softline,
 } from "../../document/builders.js";
 import { removeLines, willBreak } from "../../document/utils.js";
+import { printDanglingComments } from "../../main/comments/print.js";
+import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locEnd } from "../loc.js";
 import {
   getFunctionParameters,
-  iterateFunctionParametersPath,
+  hasComment,
+  hasRestParameter,
+  isArrayOrTupleExpression,
+  isNextLineEmpty,
+  isObjectOrRecordExpression,
+  isObjectType,
+  isObjectTypePropertyAFunction,
   isSimpleType,
   isTestCall,
   isTypeAnnotationAFunction,
-  isObjectType,
-  isObjectTypePropertyAFunction,
-  hasRestParameter,
+  iterateFunctionParametersPath,
   shouldPrintComma,
-  hasComment,
-  isNextLineEmpty,
-  isArrayOrTupleExpression,
-  isObjectOrRecordExpression,
 } from "../utils/index.js";
-import { locEnd } from "../loc.js";
-import { ArgExpansionBailout } from "../../common/errors.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { printFunctionTypeParameters } from "./misc.js";
 
 /** @typedef {import("../../common/ast-path.js").default} AstPath */
@@ -291,7 +291,7 @@ function shouldBreakFunctionParameters(functionNode) {
 
 export {
   printFunctionParameters,
-  shouldHugTheOnlyFunctionParameter,
-  shouldGroupFunctionParameters,
   shouldBreakFunctionParameters,
+  shouldGroupFunctionParameters,
+  shouldHugTheOnlyFunctionParameter,
 };

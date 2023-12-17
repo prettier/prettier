@@ -1,9 +1,10 @@
-import path from "node:path";
 import fs from "node:fs";
-import { outdent } from "outdent";
-import { execaSync } from "execa";
-import { temporaryDirectory as createTemporaryDirectory } from "tempy";
+import path from "node:path";
+
 import chalk from "chalk";
+import { execaSync } from "execa";
+import { outdent } from "outdent";
+import { temporaryDirectory as createTemporaryDirectory } from "tempy";
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
 
