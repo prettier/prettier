@@ -20,6 +20,8 @@ import {
   isMemberExpression,
   isBinaryCastExpression,
 } from "../utils/index.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import { locStart, locEnd } from "../loc.js";
 
 function printTemplateLiteral(path, print, options) {
   const { node } = path;
@@ -82,15 +84,39 @@ function printTemplateLiteral(path, print, options) {
 
     if (!isSimple) {
       const expression = node[expressionsKey][index];
+
+      let interpolationHasNewline = hasNewlineInRange(
+        options.originalText,
+        locEnd(quasi),
+        locStart(node.quasis[index + 1]),
+      );
+
+      if (!interpolationHasNewline) {
+        // Never add a newline to an interpolation which didn't already have one...
+        const renderedExpression = printDocToString(expressionDoc, {
+          ...options,
+          printWidth: Number.POSITIVE_INFINITY,
+        }).formatted;
+
+        // ... unless one will be introduced anyway, e.g. by a nested function.
+        // This case is rare, so we can pay the cost of re-rendering.
+        if (renderedExpression.includes("\n")) {
+          interpolationHasNewline = true;
+        } else {
+          expressionDoc = renderedExpression;
+        }
+      }
+
       // Breaks at the template element boundaries (${ and }) are preferred to breaking
       // in the middle of a MemberExpression
       if (
-        hasComment(expression) ||
-        isMemberExpression(expression) ||
-        expression.type === "ConditionalExpression" ||
-        expression.type === "SequenceExpression" ||
-        isBinaryCastExpression(expression) ||
-        isBinaryish(expression)
+        interpolationHasNewline &&
+        (hasComment(expression) ||
+          isMemberExpression(expression) ||
+          expression.type === "ConditionalExpression" ||
+          expression.type === "SequenceExpression" ||
+          isBinaryCastExpression(expression) ||
+          isBinaryish(expression))
       ) {
         expressionDoc = [indent([softline, expressionDoc]), softline];
       }
