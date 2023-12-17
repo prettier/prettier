@@ -1,6 +1,7 @@
 import path from "node:path";
+
 import { resolveConfigFile } from "../index.js";
-import { printToScreen, normalizeToPosix } from "./utils.js";
+import { normalizeToPosix,printToScreen } from "./utils.js";
 
 async function logResolvedConfigPathOrDie(context) {
   const file = context.argv.findConfigPath;

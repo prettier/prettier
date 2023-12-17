@@ -1,13 +1,15 @@
 import fs from "node:fs";
-import { execa } from "execa";
+
 import chalk from "chalk";
+import { execa } from "execa";
 import semver from "semver";
+
 import {
-  waitForEnter,
-  runYarn,
-  logPromise,
   getBlogPostInfo,
   getChangelogContent,
+  logPromise,
+  runYarn,
+  waitForEnter,
 } from "../utils.js";
 
 function writeChangelog(params) {

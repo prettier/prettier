@@ -1,24 +1,24 @@
+import { join,literalline } from "./builders.js";
 import {
-  DOC_TYPE_STRING,
-  DOC_TYPE_ARRAY,
-  DOC_TYPE_CURSOR,
-  DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
-  DOC_TYPE_TRIM,
-  DOC_TYPE_GROUP,
+  DOC_TYPE_ARRAY,
+  DOC_TYPE_BREAK_PARENT,
+  DOC_TYPE_CURSOR,
   DOC_TYPE_FILL,
+  DOC_TYPE_GROUP,
   DOC_TYPE_IF_BREAK,
+  DOC_TYPE_INDENT,
   DOC_TYPE_INDENT_IF_BREAK,
+  DOC_TYPE_LABEL,
+  DOC_TYPE_LINE,
   DOC_TYPE_LINE_SUFFIX,
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
-  DOC_TYPE_LINE,
-  DOC_TYPE_LABEL,
-  DOC_TYPE_BREAK_PARENT,
+  DOC_TYPE_STRING,
+  DOC_TYPE_TRIM,
 } from "./constants.js";
-import { literalline, join } from "./builders.js";
+import InvalidDocError from "./invalid-doc-error.js";
 import getDocType from "./utils/get-doc-type.js";
 import traverseDoc from "./utils/traverse-doc.js";
-import InvalidDocError from "./invalid-doc-error.js";
 
 const getDocParts = (doc) => {
   if (Array.isArray(doc)) {
@@ -429,19 +429,19 @@ function inheritLabel(doc, fn) {
 }
 
 export {
-  getDocParts,
-  willBreak,
-  traverseDoc,
-  findInDoc,
-  mapDoc,
-  propagateBreaks,
-  removeLines,
-  stripTrailingHardline,
-  normalizeParts,
-  normalizeDoc,
-  cleanDoc,
-  replaceEndOfLine,
   canBreak,
+  cleanDoc,
+  findInDoc,
+  getDocParts,
   getDocType,
   inheritLabel,
+  mapDoc,
+  normalizeDoc,
+  normalizeParts,
+  propagateBreaks,
+  removeLines,
+  replaceEndOfLine,
+  stripTrailingHardline,
+  traverseDoc,
+  willBreak,
 };

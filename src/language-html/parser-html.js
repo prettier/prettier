@@ -1,24 +1,25 @@
 import {
-  ParseSourceFile,
-  ParseLocation,
-  ParseSourceSpan,
-  parse as parseHtml,
-  RecursiveVisitor,
-  visitAll,
   getHtmlTagDefinition,
+  parse as parseHtml,
+  ParseLocation,
+  ParseSourceFile,
+  ParseSourceSpan,
+  RecursiveVisitor,
   TagContentType,
+  visitAll,
 } from "angular-html-parser";
+
+import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParser from "../utils/infer-parser.js";
-import createError from "../common/parser-create-error.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
-import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
-import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
-import isUnknownNamespace from "./utils/is-unknown-namespace.js";
-import { hasPragma } from "./pragma.js";
 import { Node } from "./ast.js";
 import { parseIeConditionalComment } from "./conditional-comment.js";
-import { locStart, locEnd } from "./loc.js";
+import { locEnd,locStart } from "./loc.js";
+import { hasPragma } from "./pragma.js";
+import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
+import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
+import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 /**
  * @typedef {import('angular-html-parser')} AngularHtmlParser

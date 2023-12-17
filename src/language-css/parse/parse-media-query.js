@@ -1,5 +1,6 @@
 import postcssMediaQueryParser from "postcss-media-query-parser";
-import { addTypePrefix, addMissingType } from "./utils.js";
+
+import { addMissingType,addTypePrefix } from "./utils.js";
 
 const parse = postcssMediaQueryParser.default;
 

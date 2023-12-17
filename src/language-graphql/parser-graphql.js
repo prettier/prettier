@@ -1,7 +1,8 @@
 import { parse as parseGraphql } from "graphql/language/parser.mjs";
+
 import createError from "../common/parser-create-error.js";
+import { locEnd,locStart } from "./loc.js";
 import { hasPragma } from "./pragma.js";
-import { locStart, locEnd } from "./loc.js";
 
 function parseComments(ast) {
   const comments = [];

@@ -1,16 +1,16 @@
 import {
-  indent,
-  line,
-  hardline,
   group,
+  hardline,
+  indent,
   label,
+  line,
 } from "../../document/builders.js";
 import { mapDoc } from "../../document/utils.js";
 import {
   printTemplateExpressions,
   uncookTemplateElementValue,
 } from "../print/template-literal.js";
-import { isAngularComponentTemplate, hasLanguageComment } from "./utils.js";
+import { hasLanguageComment,isAngularComponentTemplate } from "./utils.js";
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;

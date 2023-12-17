@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import outdent from "outdent";
-import { waitForEnter, logPromise } from "../utils.js";
+
+import { logPromise,waitForEnter } from "../utils.js";
 
 export async function isVersionReleased(version) {
   const response = await fetch("https://registry.npmjs.org/prettier/");

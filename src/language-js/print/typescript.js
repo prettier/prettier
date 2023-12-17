@@ -1,60 +1,59 @@
 import {
+  conditionalGroup,
+  group,
+  ifBreak,
+  indent,
   join,
   softline,
-  group,
-  indent,
-  conditionalGroup,
-  ifBreak,
 } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
+import { locStart } from "../loc.js";
 import {
-  isStringLiteral,
-  shouldPrintComma,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
+  isStringLiteral,
+  shouldPrintComma,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
-import { locStart } from "../loc.js";
-
-import {
-  printOptionalToken,
-  printDeclareToken,
-  printTypeScriptAccessibilityToken,
-} from "./misc.js";
-import { printTernary } from "./ternary.js";
+import { printArray } from "./array.js";
+import { printBlock } from "./block.js";
+import { printBinaryCastExpression } from "./cast-expression.js";
+import { printClassMethod,printClassProperty } from "./class.js";
+import { printEnumDeclaration, printEnumMember } from "./enum.js";
+import { printFunction, printMethodValue } from "./function.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printTemplateLiteral } from "./template-literal.js";
-import { printArray } from "./array.js";
-import { printObject } from "./object.js";
-import { printClassProperty, printClassMethod } from "./class.js";
-import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
-import { printPropertyKey } from "./property.js";
-import { printFunction, printMethodValue } from "./function.js";
 import { printInterface } from "./interface.js";
-import { printBlock } from "./block.js";
-import { printBinaryCastExpression } from "./cast-expression.js";
+import { printTypescriptMappedType } from "./mapped-type.js";
 import {
-  printTypeAlias,
-  printIntersectionType,
-  printUnionType,
+  printDeclareToken,
+  printOptionalToken,
+  printTypeScriptAccessibilityToken,
+} from "./misc.js";
+import { printImportKind } from "./module.js";
+import { printObject } from "./object.js";
+import { printPropertyKey } from "./property.js";
+import { printTemplateLiteral } from "./template-literal.js";
+import { printTernary } from "./ternary.js";
+import {
+  printArrayType,
   printFunctionType,
   printIndexedAccessType,
   printInferType,
+  printIntersectionType,
   printJSDocType,
-  printRestType,
   printNamedTupleMember,
+  printRestType,
+  printTypeAlias,
   printTypeAnnotation,
   printTypeAnnotationProperty,
-  printArrayType,
-  printTypeQuery,
   printTypePredicate,
+  printTypeQuery,
+  printUnionType,
 } from "./type-annotation.js";
-import { printEnumDeclaration, printEnumMember } from "./enum.js";
-import { printImportKind } from "./module.js";
-import { printTypescriptMappedType } from "./mapped-type.js";
+import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;

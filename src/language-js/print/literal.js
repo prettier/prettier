@@ -1,6 +1,6 @@
-import printString from "../../utils/print-string.js";
-import printNumber from "../../utils/print-number.js";
 import { replaceEndOfLine } from "../../document/utils.js";
+import printNumber from "../../utils/print-number.js";
+import printString from "../../utils/print-string.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
@@ -91,4 +91,4 @@ function printDirective(rawText, options) {
   return enclosingQuote + rawContent + enclosingQuote;
 }
 
-export { printLiteral, printBigInt };
+export { printBigInt,printLiteral };

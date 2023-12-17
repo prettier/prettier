@@ -1,21 +1,22 @@
 import postcssParse from "postcss/lib/parse";
 import postcssLess from "postcss-less";
 import postcssScssParse from "postcss-scss/lib/scss-parse";
+
 import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
-import { hasPragma } from "./pragma.js";
 import {
-  locStart,
-  locEnd,
   calculateLoc,
+  locEnd,
+  locStart,
   replaceQuotesInInlineComments,
 } from "./loc.js";
-import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
-import isModuleRuleName from "./utils/is-module-rule-name.js";
-import parseValue from "./parse/parse-value.js";
-import parseSelector from "./parse/parse-selector.js";
 import parseMediaQuery from "./parse/parse-media-query.js";
+import parseSelector from "./parse/parse-selector.js";
+import parseValue from "./parse/parse-value.js";
 import { addTypePrefix } from "./parse/utils.js";
+import { hasPragma } from "./pragma.js";
+import isModuleRuleName from "./utils/is-module-rule-name.js";
+import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
 
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;

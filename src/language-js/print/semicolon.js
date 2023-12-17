@@ -128,8 +128,8 @@ function isSingleVueEventBindingExpressionStatement({ node, parent }, options) {
 }
 
 export {
-  shouldPrintLeadingSemicolon,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
   isVueEventBindingExpression,
+  shouldPrintLeadingSemicolon,
 };

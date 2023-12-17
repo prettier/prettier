@@ -1,38 +1,38 @@
 import {
+  conditionalGroup,
+  cursor,
+  fill,
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  join,
+  line,
+  lineSuffixBoundary,
+  softline,
+} from "../../document/builders.js";
+import { replaceEndOfLine,willBreak } from "../../document/utils.js";
+import {
   printComments,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import {
-  line,
-  hardline,
-  softline,
-  group,
-  indent,
-  conditionalGroup,
-  fill,
-  ifBreak,
-  lineSuffixBoundary,
-  join,
-  cursor,
-} from "../../document/builders.js";
-import { willBreak, replaceEndOfLine } from "../../document/utils.js";
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import getPreferredQuote from "../../utils/get-preferred-quote.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import WhitespaceUtils from "../../utils/whitespace-utils.js";
+import { willPrintOwnComments } from "../comments/printer-methods.js";
+import pathNeedsParens from "../needs-parens.js";
 import {
-  isJsxElement,
-  rawText,
-  isCallExpression,
-  isStringLiteral,
-  isBinaryish,
-  hasComment,
   CommentCheckFlags,
+  hasComment,
   hasNodeIgnoreComment,
   isArrayOrTupleExpression,
+  isBinaryish,
+  isCallExpression,
+  isJsxElement,
   isObjectOrRecordExpression,
+  isStringLiteral,
+  rawText,
 } from "../utils/index.js";
-import pathNeedsParens from "../needs-parens.js";
-import { willPrintOwnComments } from "../comments/printer-methods.js";
 
 /*
 Only the following are treated as whitespace inside JSX.

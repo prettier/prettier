@@ -1,11 +1,12 @@
 import assert from "node:assert";
+
+import { getChildren } from "../../utils/ast-utils.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { getChildren } from "../../utils/ast-utils.js";
 import createGetVisitorKeysFunction from "../create-get-visitor-keys-function.js";
 import {
-  addLeadingComment,
   addDanglingComment,
+  addLeadingComment,
   addTrailingComment,
 } from "./utils.js";
 

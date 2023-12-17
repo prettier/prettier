@@ -1,19 +1,21 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+
 import chalk from "chalk";
 import { createTwoFilesPatch } from "diff";
+
 import * as prettier from "../index.js";
+import { expandPatterns } from "./expand-patterns.js";
+import findCacheFile from "./find-cache-file.js";
+import FormatResultsCache from "./format-results-cache.js";
+import isTTY from "./is-tty.js";
+import getOptionsForFile from "./options/get-options-for-file.js";
 import {
   createIsIgnoredFunction,
   errors,
   mockable,
 } from "./prettier-internal.js";
-import { expandPatterns } from "./expand-patterns.js";
-import getOptionsForFile from "./options/get-options-for-file.js";
-import isTTY from "./is-tty.js";
-import findCacheFile from "./find-cache-file.js";
-import FormatResultsCache from "./format-results-cache.js";
-import { statSafe, normalizeToPosix } from "./utils.js";
+import { normalizeToPosix,statSafe } from "./utils.js";
 
 const { getStdin, writeFormattedFile } = mockable;
 
@@ -506,4 +508,4 @@ async function formatFiles(context) {
   }
 }
 
-export { formatStdin, formatFiles };
+export { formatFiles,formatStdin };

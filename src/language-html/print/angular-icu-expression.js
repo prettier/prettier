@@ -1,9 +1,9 @@
 import {
-  softline,
-  line,
+  group,
   indent,
   join,
-  group,
+  line,
+  softline,
 } from "../../document/builders.js";
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import { printClosingTagEnd, printOpeningTagStart } from "./tag.js";
@@ -59,4 +59,4 @@ function printAngularIcuCase(path, options, print) {
   ];
 }
 
-export { printAngularIcuExpression, printAngularIcuCase };
+export { printAngularIcuCase,printAngularIcuExpression };

@@ -1,5 +1,5 @@
-import isBlockComment from "./utils/is-block-comment.js";
 import { isArrayOrTupleExpression } from "./utils/index.js";
+import isBlockComment from "./utils/is-block-comment.js";
 
 const ignoredProperties = new Set([
   "range",

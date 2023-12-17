@@ -49,4 +49,4 @@ function hasSameLoc(nodeA, nodeB) {
   return hasSameLocStart(nodeA, nodeB) && hasSameLocEnd(nodeA, nodeB);
 }
 
-export { locStart, locEnd, hasSameLocStart, hasSameLoc };
+export { hasSameLoc,hasSameLocStart, locEnd, locStart };

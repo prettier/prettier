@@ -1,7 +1,8 @@
 import path from "node:path";
+
 import mockable from "../../common/mockable.js";
-import loadConfigWithoutCache from "./load-config.js";
 import ConfigSearcher from "./config-searcher.js";
+import loadConfigWithoutCache from "./load-config.js";
 
 const loadCache = new Map();
 const searchCache = new Map();
@@ -61,4 +62,4 @@ function searchConfig(startDirectory, options = {}) {
   return search(startDirectory);
 }
 
-export { searchConfig, loadConfig, clearCache };
+export { clearCache,loadConfig, searchConfig };

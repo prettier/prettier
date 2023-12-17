@@ -1,4 +1,5 @@
 import assert from "node:assert";
+
 import { getSortedChildNodes } from "./comments/attach.js";
 
 const isJsonParser = ({ parser }) =>

@@ -1,4 +1,4 @@
-import { hardline, fill } from "../../src/document/builders.js";
+import { fill,hardline } from "../../src/document/builders.js";
 import { stripTrailingHardline } from "../../src/document/utils.js";
 
 test("Should not mutate doc", () => {

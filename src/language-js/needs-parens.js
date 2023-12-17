@@ -1,20 +1,20 @@
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import {
+  createTypeCheckFunction,
   getFunctionParameters,
   getLeftSidePathName,
+  getPrecedence,
   hasNakedLeftSide,
   hasNode,
+  isArrayOrTupleExpression,
+  isBinaryCastExpression,
   isBitwiseOperator,
-  startsWithNoLookaheadToken,
-  shouldFlatten,
-  getPrecedence,
   isCallExpression,
   isMemberExpression,
-  isObjectProperty,
-  isBinaryCastExpression,
-  isArrayOrTupleExpression,
   isObjectOrRecordExpression,
-  createTypeCheckFunction,
+  isObjectProperty,
+  shouldFlatten,
+  startsWithNoLookaheadToken,
 } from "./utils/index.js";
 
 function needsParens(path, options) {

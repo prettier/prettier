@@ -1,5 +1,5 @@
+import { fill,group } from "../../../src/document/builders.js";
 import { normalizeDoc } from "../../../src/document/utils.js";
-import { group, fill } from "../../../src/document/builders.js";
 
 describe("normalizeDoc", () => {
   test.each([

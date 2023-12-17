@@ -1,5 +1,7 @@
 import path from "node:path";
+
 import iterateDirectoryUp from "iterate-directory-up";
+
 import isFile from "../../utils/is-file.js";
 import { loadConfigFromPackageJson } from "./loaders.js";
 

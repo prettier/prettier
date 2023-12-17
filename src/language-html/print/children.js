@@ -1,30 +1,30 @@
 import {
   breakParent,
   group,
+  hardline,
   ifBreak,
   line,
   softline,
-  hardline,
 } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
-import { locStart, locEnd } from "../loc.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locEnd,locStart } from "../loc.js";
 import {
   forceBreakChildren,
   forceNextEmptyLine,
-  isTextLikeNode,
   hasPrettierIgnore,
+  isTextLikeNode,
   preferHardlineAsLeadingSpaces,
 } from "../utils/index.js";
 import {
-  printOpeningTagPrefix,
   needsToBorrowNextOpeningTagStartMarker,
-  printOpeningTagStartMarker,
+  needsToBorrowParentClosingTagStartMarker,
   needsToBorrowPrevClosingTagEndMarker,
   printClosingTagEndMarker,
   printClosingTagSuffix,
-  needsToBorrowParentClosingTagStartMarker,
+  printOpeningTagPrefix,
+  printOpeningTagStartMarker,
 } from "./tag.js";
 
 function getEndLocation(node) {

@@ -1,42 +1,43 @@
 import collapseWhiteSpace from "collapse-white-space";
-import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
-import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
-import getStringWidth from "../utils/get-string-width.js";
-import getPreferredQuote from "../utils/get-preferred-quote.js";
+
 import {
+  align,
   breakParent,
+  fill,
+  group,
+  hardline,
+  hardlineWithoutBreakParent,
+  ifBreak,
+  indent,
   join,
   line,
   literalline,
   markAsRoot,
-  hardline,
   softline,
-  ifBreak,
-  fill,
-  align,
-  indent,
-  group,
-  hardlineWithoutBreakParent,
 } from "../document/builders.js";
-import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
 import { printDocToString } from "../document/printer.js";
+import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
+import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
+import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
+import getPreferredQuote from "../utils/get-preferred-quote.js";
+import getStringWidth from "../utils/get-string-width.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
-import embed from "./embed.js";
-import { insertPragma } from "./pragma.js";
-import { locStart, locEnd } from "./loc.js";
-import preprocess from "./print-preprocess.js";
 import clean from "./clean.js";
 import { PUNCTUATION_REGEXP } from "./constants.evaluate.js";
+import embed from "./embed.js";
+import getVisitorKeys from "./get-visitor-keys.js";
+import { locEnd,locStart } from "./loc.js";
+import { insertPragma } from "./pragma.js";
+import preprocess from "./print-preprocess.js";
+import { printWhitespace } from "./print-whitespace.js";
 import {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
-  splitText,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  splitText,
 } from "./utils.js";
-import getVisitorKeys from "./get-visitor-keys.js";
-import { printWhitespace } from "./print-whitespace.js";
 
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
