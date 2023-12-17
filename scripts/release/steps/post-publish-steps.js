@@ -46,10 +46,10 @@ function twitterAnnouncement() {
   `;
 }
 
-export default async function postPublishSteps({ dry }) {
+export default async function postPublishSteps({ dry, next }) {
   console.log(chalk.bold.green("The script has finished!\n"));
 
-  if (dry) {
+  if (dry || next) {
     return;
   }
 

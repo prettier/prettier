@@ -39,9 +39,9 @@ async function bump({
 }
 
 export default async function bumpPrettier(params) {
-  const { dry, version } = params;
+  const { dry, version, next } = params;
 
-  if (dry) {
+  if (dry || next) {
     return;
   }
 
