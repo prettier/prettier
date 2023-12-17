@@ -1,4 +1,4 @@
-import { join,literalline } from "./builders.js";
+import { join, literalline } from "./builders.js";
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,

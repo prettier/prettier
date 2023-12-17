@@ -1,4 +1,4 @@
-import { hardline,indent, join } from "../../document/builders.js";
+import { hardline, indent, join } from "../../document/builders.js";
 import {
   escapeTemplateCharacters,
   printTemplateExpressions,

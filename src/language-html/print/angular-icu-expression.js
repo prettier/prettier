@@ -59,4 +59,4 @@ function printAngularIcuCase(path, options, print) {
   ];
 }
 
-export { printAngularIcuCase,printAngularIcuExpression };
+export { printAngularIcuCase, printAngularIcuExpression };

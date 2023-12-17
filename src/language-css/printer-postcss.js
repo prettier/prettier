@@ -16,7 +16,7 @@ import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-import { locEnd,locStart } from "./loc.js";
+import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
 import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
 import {

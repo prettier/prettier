@@ -28,4 +28,4 @@ const insertPragma = (text) => {
     : `${pragma}\n\n${extracted.content}`;
 };
 
-export { hasPragma, insertPragma,startWithPragma };
+export { hasPragma, insertPragma, startWithPragma };

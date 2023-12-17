@@ -10,4 +10,4 @@ class ArgExpansionBailout extends Error {
   name = "ArgExpansionBailout";
 }
 
-export { ArgExpansionBailout,ConfigError, UndefinedParserError };
+export { ArgExpansionBailout, ConfigError, UndefinedParserError };

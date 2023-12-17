@@ -13,7 +13,7 @@ import {
 } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { locEnd,locStart } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   getLastDescendant,
   hasPrettierIgnore,

@@ -1,6 +1,6 @@
 import { convertEndOfLineToChars } from "../common/end-of-line.js";
 import getStringWidth from "../utils/get-string-width.js";
-import { fill, hardlineWithoutBreakParent,indent } from "./builders.js";
+import { fill, hardlineWithoutBreakParent, indent } from "./builders.js";
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,

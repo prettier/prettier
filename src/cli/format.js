@@ -15,7 +15,7 @@ import {
   errors,
   mockable,
 } from "./prettier-internal.js";
-import { normalizeToPosix,statSafe } from "./utils.js";
+import { normalizeToPosix, statSafe } from "./utils.js";
 
 const { getStdin, writeFormattedFile } = mockable;
 
@@ -508,4 +508,4 @@ async function formatFiles(context) {
   }
 }
 
-export { formatFiles,formatStdin };
+export { formatFiles, formatStdin };

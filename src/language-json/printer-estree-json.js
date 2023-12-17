@@ -112,5 +112,5 @@ function clean(node, newNode /*, parent*/) {
 
 clean.ignoredProperties = ignoredProperties;
 
-export { clean as massageAstNode,genericPrint as print };
+export { clean as massageAstNode, genericPrint as print };
 export { default as getVisitorKeys } from "./get-visitor-keys.js";

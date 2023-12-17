@@ -9,7 +9,7 @@ import {
   softline,
 } from "../../document/builders.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import { locEnd,locStart } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   hasComment,
   isBinaryCastExpression,

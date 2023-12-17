@@ -62,4 +62,4 @@ function searchConfig(startDirectory, options = {}) {
   return search(startDirectory);
 }
 
-export { clearCache,loadConfig, searchConfig };
+export { clearCache, loadConfig, searchConfig };

@@ -16,7 +16,7 @@ import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-import { locEnd,locStart } from "./loc.js";
+import { locEnd, locStart } from "./loc.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 
 /**

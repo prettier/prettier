@@ -18,7 +18,7 @@ import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { printArray } from "./array.js";
 import { printBlock } from "./block.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
-import { printClassMethod,printClassProperty } from "./class.js";
+import { printClassMethod, printClassProperty } from "./class.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printFunction, printMethodValue } from "./function.js";
 import {

@@ -6,7 +6,7 @@ import esbuild from "esbuild";
 import { nodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "esbuild-plugins-node-modules-polyfill";
 import createEsmUtils from "esm-utils";
 
-import { DIST_DIR,PROJECT_ROOT } from "../utils/index.js";
+import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
 import esbuildPluginLicense from "./esbuild-plugins/license.js";

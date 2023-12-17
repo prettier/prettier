@@ -1,4 +1,4 @@
-import { fill,group } from "../../../src/document/builders.js";
+import { fill, group } from "../../../src/document/builders.js";
 import { normalizeDoc } from "../../../src/document/utils.js";
 
 describe("normalizeDoc", () => {

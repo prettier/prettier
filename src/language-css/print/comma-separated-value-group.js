@@ -8,7 +8,7 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
-import { locEnd,locStart } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   getPropOfDeclNode,
   hasEmptyRawBefore,

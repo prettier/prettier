@@ -8,4 +8,4 @@ function locEnd(nodeOrToken) {
   return nodeOrToken.kind === "Comment" ? nodeOrToken.end : nodeOrToken.loc.end;
 }
 
-export { locEnd,locStart };
+export { locEnd, locStart };

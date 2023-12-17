@@ -1,5 +1,5 @@
 import { hardline, indent, softline } from "../../document/builders.js";
-import { cleanDoc,mapDoc, replaceEndOfLine } from "../../document/utils.js";
+import { cleanDoc, mapDoc, replaceEndOfLine } from "../../document/utils.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
 import { isAngularComponentStyles } from "./utils.js";

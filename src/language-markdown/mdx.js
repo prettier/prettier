@@ -76,4 +76,4 @@ const esSyntax = function () {
   inlineMethods.splice(inlineMethods.indexOf("text"), 0, "esComment");
 };
 
-export { BLOCKS_REGEX, COMMENT_REGEX,esSyntax };
+export { BLOCKS_REGEX, COMMENT_REGEX, esSyntax };

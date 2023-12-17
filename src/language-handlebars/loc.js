@@ -6,4 +6,4 @@ function locEnd(node) {
   return node.loc.end.offset;
 }
 
-export { locEnd,locStart };
+export { locEnd, locStart };

@@ -189,4 +189,4 @@ function printTypeParameter(path, options, print) {
   return group(parts);
 }
 
-export { getTypeParametersGroupId,printTypeParameter, printTypeParameters };
+export { getTypeParametersGroupId, printTypeParameter, printTypeParameters };

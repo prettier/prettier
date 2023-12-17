@@ -91,4 +91,4 @@ function printDirective(rawText, options) {
   return enclosingQuote + rawContent + enclosingQuote;
 }
 
-export { printBigInt,printLiteral };
+export { printBigInt, printLiteral };

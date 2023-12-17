@@ -44,4 +44,4 @@ function clearCache() {
   memClear(importPlugin);
 }
 
-export { clearCache,loadPlugin, loadPluginFromDirectory };
+export { clearCache, loadPlugin, loadPluginFromDirectory };

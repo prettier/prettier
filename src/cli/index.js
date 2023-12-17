@@ -2,7 +2,7 @@ import * as prettier from "../index.js";
 import Context from "./context.js";
 import logFileInfoOrDie from "./file-info.js";
 import logResolvedConfigPathOrDie from "./find-config-path.js";
-import { formatFiles,formatStdin } from "./format.js";
+import { formatFiles, formatStdin } from "./format.js";
 import createLogger from "./logger.js";
 import { parseArgvWithoutPlugins } from "./options/parse-cli-arguments.js";
 import printSupportInfo from "./print-support-info.js";

@@ -4,7 +4,7 @@ import escapeStringRegexp from "escape-string-regexp";
 import MagicString from "magic-string";
 import { outdent } from "outdent";
 
-import { PROJECT_ROOT,writeFile } from "../utils/index.js";
+import { PROJECT_ROOT, writeFile } from "../utils/index.js";
 
 function* getModules(text) {
   const parts = text.split(/(?<=\n)( {2}\/\/ src\/\S+\n)/);

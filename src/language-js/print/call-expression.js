@@ -1,4 +1,4 @@
-import { group,join } from "../../document/builders.js";
+import { group, join } from "../../document/builders.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
   getCallArguments,
@@ -11,7 +11,7 @@ import {
 } from "../utils/index.js";
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
-import { printFunctionTypeParameters,printOptionalToken } from "./misc.js";
+import { printFunctionTypeParameters, printOptionalToken } from "./misc.js";
 
 function printCallExpression(path, options, print) {
   const { node, parent } = path;

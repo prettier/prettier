@@ -12,7 +12,7 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import { hasSameLoc, locEnd,locStart } from "../loc.js";
+import { hasSameLoc, locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,

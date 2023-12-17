@@ -1,4 +1,4 @@
-import { group, indent,line } from "../../document/builders.js";
+import { group, indent, line } from "../../document/builders.js";
 import { inheritLabel } from "../../document/utils.js";
 import printIgnored from "../../main/print-ignored.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";

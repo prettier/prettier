@@ -1,4 +1,4 @@
-import { group,join, line } from "../../document/builders.js";
+import { group, join, line } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   createTypeCheckFunction,

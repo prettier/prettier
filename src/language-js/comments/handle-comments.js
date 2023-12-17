@@ -8,7 +8,7 @@ import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-sp
 import hasNewline from "../../utils/has-newline.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { locEnd,locStart } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   createTypeCheckFunction,
   getCallArguments,

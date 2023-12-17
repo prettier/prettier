@@ -29,4 +29,4 @@ function addMissingType(node) {
   return node;
 }
 
-export { addMissingType,addTypePrefix };
+export { addMissingType, addTypePrefix };

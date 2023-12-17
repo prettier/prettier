@@ -2,7 +2,7 @@
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 
-import { hardline, join,line } from "../../document/builders.js";
+import { hardline, join, line } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";

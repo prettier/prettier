@@ -10,7 +10,7 @@ import { replaceEndOfLine } from "../../document/utils.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utils/has-newline.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import { locEnd,locStart } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,

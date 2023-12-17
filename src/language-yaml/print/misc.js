@@ -1,4 +1,4 @@
-import { align,softline } from "../../document/builders.js";
+import { align, softline } from "../../document/builders.js";
 import { hasEndComments, isNextLineEmpty, isNode } from "../utils.js";
 
 const printedEmptyLineCache = new WeakMap();
@@ -42,4 +42,4 @@ function alignWithSpaces(width, doc) {
   return align(" ".repeat(width), doc);
 }
 
-export { alignWithSpaces, printNextEmptyLine,shouldPrintEndComments };
+export { alignWithSpaces, printNextEmptyLine, shouldPrintEndComments };

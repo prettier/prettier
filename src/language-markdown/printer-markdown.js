@@ -26,7 +26,7 @@ import clean from "./clean.js";
 import { PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-import { locEnd,locStart } from "./loc.js";
+import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
 import preprocess from "./print-preprocess.js";
 import { printWhitespace } from "./print-whitespace.js";

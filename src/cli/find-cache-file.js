@@ -4,7 +4,7 @@ import path from "node:path";
 
 import findCacheDir from "find-cache-dir";
 
-import { isJson,statSafe } from "./utils.js";
+import { isJson, statSafe } from "./utils.js";
 
 /**
  * Find default cache file (`./node_modules/.cache/prettier/.prettier-cache`) using https://github.com/avajs/find-cache-dir

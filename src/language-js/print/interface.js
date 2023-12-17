@@ -1,6 +1,6 @@
-import { group, ifBreak,indent, join, line } from "../../document/builders.js";
+import { group, ifBreak, indent, join, line } from "../../document/builders.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { CommentCheckFlags,hasComment, identity } from "../utils/index.js";
+import { CommentCheckFlags, hasComment, identity } from "../utils/index.js";
 import { printDeclareToken } from "./misc.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
 

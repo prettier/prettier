@@ -10,7 +10,7 @@ import {
   printTemplateExpressions,
   uncookTemplateElementValue,
 } from "../print/template-literal.js";
-import { hasLanguageComment,isAngularComponentTemplate } from "./utils.js";
+import { hasLanguageComment, isAngularComponentTemplate } from "./utils.js";
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;

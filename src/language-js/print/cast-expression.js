@@ -1,4 +1,4 @@
-import { group, indent,softline } from "../../document/builders.js";
+import { group, indent, softline } from "../../document/builders.js";
 import { isCallExpression, isMemberExpression } from "../utils/index.js";
 
 function printBinaryCastExpression(path, options, print) {

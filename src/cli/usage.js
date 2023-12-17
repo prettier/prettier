@@ -194,4 +194,4 @@ function createDetailedUsage(context, flag) {
   return `${header}${description}${choices}${defaults}${pluginDefaults}`;
 }
 
-export { createDetailedUsage,createUsage };
+export { createDetailedUsage, createUsage };

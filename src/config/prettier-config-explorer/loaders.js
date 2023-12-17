@@ -67,4 +67,4 @@ const loaders = {
 };
 
 export default loaders;
-export { loadConfigFromPackageJson,readJson };
+export { loadConfigFromPackageJson, readJson };

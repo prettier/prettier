@@ -6,11 +6,11 @@ import {
   guessEndOfLine,
   normalizeEndOfLine,
 } from "../common/end-of-line.js";
-import { addAlignmentToDoc,hardline } from "../document/builders.js";
+import { addAlignmentToDoc, hardline } from "../document/builders.js";
 import { printDocToDebug } from "../document/debug.js";
 import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer.js";
 import getAlignmentSize from "../utils/get-alignment-size.js";
-import { prepareToPrint,printAstToDoc } from "./ast-to-doc.js";
+import { prepareToPrint, printAstToDoc } from "./ast-to-doc.js";
 import getCursorNode from "./get-cursor-node.js";
 import massageAst from "./massage-ast.js";
 import normalizeFormatOptions from "./normalize-format-options.js";

@@ -10,7 +10,7 @@ import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-import { locEnd,locStart } from "./loc.js";
+import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
 import {
   printAngularControlFlowBlock,
@@ -29,7 +29,7 @@ import {
   printOpeningTagStart,
 } from "./print/tag.js";
 import preprocess from "./print-preprocess.js";
-import { getTextValueParts,unescapeQuoteEntities } from "./utils/index.js";
+import { getTextValueParts, unescapeQuoteEntities } from "./utils/index.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;

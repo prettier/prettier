@@ -4,7 +4,7 @@ import url from "node:url";
 
 import createEsmUtils from "esm-utils";
 
-import { copyFile,DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
+import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import buildJavascriptModule from "./build-javascript-module.js";
 import buildLicense from "./build-license.js";
 import buildPackageJson from "./build-package-json.js";

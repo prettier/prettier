@@ -14,7 +14,7 @@ import { mapDoc } from "../../document/utils.js";
 import getIndentSize from "../../utils/get-indent-size.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import { locEnd,locStart } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   hasComment,
   isBinaryCastExpression,

@@ -6,7 +6,7 @@ import hasNewline from "../../utils/has-newline.js";
 import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import printString from "../../utils/print-string.js";
-import { hasSameLocStart,locEnd, locStart } from "../loc.js";
+import { hasSameLocStart, locEnd, locStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import createTypeCheckFunction from "./create-type-check-function.js";
 import isBlockComment from "./is-block-comment.js";

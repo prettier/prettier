@@ -10,4 +10,4 @@ function insertPragma(text) {
   return `# @format\n\n${text}`;
 }
 
-export { hasPragma, insertPragma,isPragma };
+export { hasPragma, insertPragma, isPragma };

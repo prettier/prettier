@@ -1,8 +1,8 @@
-import { hardline,line } from "../../document/builders.js";
+import { hardline, line } from "../../document/builders.js";
 import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNextLineEmpty from "../../utils/is-next-line-empty.js";
-import { locEnd,locStart } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 
 function printSequence(path, options, print) {
   const parts = [];

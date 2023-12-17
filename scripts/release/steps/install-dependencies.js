@@ -1,6 +1,6 @@
 import { execa } from "execa";
 
-import { runGit,runYarn } from "../utils.js";
+import { runGit, runYarn } from "../utils.js";
 
 export default async function installDependencies() {
   await execa("rm", ["-rf", "node_modules"]);

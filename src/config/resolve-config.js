@@ -129,4 +129,4 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   );
 }
 
-export { clearCache,resolveConfig, resolveConfigFile };
+export { clearCache, resolveConfig, resolveConfigFile };

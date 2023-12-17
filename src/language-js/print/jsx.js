@@ -11,7 +11,7 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/builders.js";
-import { replaceEndOfLine,willBreak } from "../../document/utils.js";
+import { replaceEndOfLine, willBreak } from "../../document/utils.js";
 import {
   printComments,
   printDanglingComments,

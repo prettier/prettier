@@ -59,4 +59,4 @@ function hasDescendant(node, { getVisitorKeys, predicate }) {
   return false;
 }
 
-export { getChildren,getDescendants, hasDescendant };
+export { getChildren, getDescendants, hasDescendant };

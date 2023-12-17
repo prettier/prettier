@@ -5,7 +5,7 @@ import {
   K_REGEXP,
   PUNCTUATION_REGEXP,
 } from "./constants.evaluate.js";
-import { locEnd,locStart } from "./loc.js";
+import { locEnd, locStart } from "./loc.js";
 
 const INLINE_NODE_TYPES = new Set([
   "liquidNode",

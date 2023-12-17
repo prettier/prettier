@@ -12,7 +12,7 @@ import hasNewline from "../../utils/has-newline.js";
 import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
 import skipInlineComment from "../../utils/skip-inline-comment.js";
 import skipTrailingComment from "../../utils/skip-trailing-comment.js";
-import { locEnd,locStart } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
@@ -221,4 +221,4 @@ function printArrayElementsConcisely(path, options, print, trailingComma) {
   return fill(parts);
 }
 
-export { isConciselyPrintedArray,printArray };
+export { isConciselyPrintedArray, printArray };
