@@ -25,7 +25,7 @@ import {
 import pathNeedsParens from "../needs-parens.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 
-import { printTernaryOld } from "./ternary-old.js";
+import { printTernaryOld, shouldBreakClosingParen } from "./ternary-old.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -33,19 +33,6 @@ import { printTernaryOld } from "./ternary-old.js";
  *
  * @typedef {any} Options - Prettier options (TBD ...)
  */
-
-// Break the closing paren to keep the chain right after it:
-// (a
-//   ? b
-//   : c
-// ).call()
-function shouldBreakClosingParen(node, parent) {
-  return (
-    (isMemberExpression(parent) ||
-      (parent.type === "NGPipeExpression" && parent.left === node)) &&
-    !parent.computed
-  );
-}
 
 function hasMultilineBlockComments(
   testNodes,
@@ -222,7 +209,7 @@ function printTernary(path, options, print, args) {
     path.grandparent.type !== "JSXAttribute";
 
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
-  const breakClosingParen = shouldBreakClosingParen(node, parent);
+  const breakClosingParen = !shouldExtraIndent && shouldBreakClosingParen(path);
   const breakTSClosingParen = isTSConditional && pathNeedsParens(path, options);
 
   const fillTab = !isBigTabs
@@ -401,7 +388,7 @@ function printTernary(path, options, print, args) {
           isInJsx && !tryToParenthesizeAlternate ? softline : "",
         ]),
 
-    breakClosingParen && !shouldExtraIndent ? softline : "",
+    breakClosingParen ? softline : "",
     shouldBreak ? breakParent : "",
   ];
 
@@ -429,4 +416,4 @@ function printTernary(path, options, print, args) {
   return result;
 }
 
-export { printTernary };
+export { printTernary, shouldBreakClosingParen };

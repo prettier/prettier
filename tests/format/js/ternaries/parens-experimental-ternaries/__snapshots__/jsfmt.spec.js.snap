@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`call-expression.js - {"experimentalTernaries":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Callee
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+
+stopDirectory = (useCache
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
+
+// Arguments
+stopDirectory = findProjectRootWithoutCache(useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache);
+
+stopDirectory = findProjectRootWithoutCache?.(useCache
+    ? memoizedFindProjectRoot
+    : findProjectRootWithoutCache);
+
+
+=====================================output=====================================
+// Callee
+stopDirectory = (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)(path.dirname(path.resolve(filePath)));
+
+stopDirectory = (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.(path.dirname(path.resolve(filePath)));
+
+// Arguments
+stopDirectory = findProjectRootWithoutCache(
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+);
+
+stopDirectory = findProjectRootWithoutCache?.(
+  useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache,
+);
+
+================================================================================
+`;
+
+exports[`member-expression.js - {"experimentalTernaries":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Object
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache).directory;
+
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.directory;
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)[directory];
+
+stopDirectory = (useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.[directory];
+
+// Property
+stopDirectory = directories[(useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)];
+
+stopDirectory = directories[(useCache
+  ? memoizedFindProjectRoot
+  : findProjectRootWithoutCache)];
+
+=====================================output=====================================
+// Object
+stopDirectory = (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache).directory;
+
+stopDirectory = (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.directory;
+stopDirectory = (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)[directory];
+
+stopDirectory = (
+  useCache ?
+    memoizedFindProjectRoot
+  : findProjectRootWithoutCache)?.[directory];
+
+// Property
+stopDirectory =
+  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
+
+stopDirectory =
+  directories[useCache ? memoizedFindProjectRoot : findProjectRootWithoutCache];
+
+================================================================================
+`;
+
+exports[`new-expression.js - {"experimentalTernaries":true} format 1`] = `
+====================================options=====================================
+experimentalTernaries: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Callee
+projectRootFinder = new (
+  useCache ? MemoizedProjectRoot_longer_longer_longer_longer : ProjectRootFinder_longer_longer_longer_longer
+)();
+
+// Arguments
+projectRootFinder = new (
+  ProjectRootFinder
+)(useCache
+    ? memoizedFindProjectRoot_longer_longer_longer_longer
+    : findProjectRootWithoutCache_longer_longer_longer_longer);
+
+=====================================output=====================================
+// Callee
+projectRootFinder = new (
+  useCache ?
+    MemoizedProjectRoot_longer_longer_longer_longer
+  : ProjectRootFinder_longer_longer_longer_longer)();
+
+// Arguments
+projectRootFinder = new ProjectRootFinder(
+  useCache ?
+    memoizedFindProjectRoot_longer_longer_longer_longer
+  : findProjectRootWithoutCache_longer_longer_longer_longer,
+);
+
+================================================================================
+`;
