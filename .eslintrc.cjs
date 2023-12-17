@@ -25,6 +25,7 @@ module.exports = {
     "regexp",
     "unicorn",
     "@typescript-eslint",
+    "simple-import-sort",
   ],
   rules: {
     "arrow-body-style": ["error", "as-needed"],
@@ -186,6 +187,9 @@ module.exports = {
     // Hard to fix
     "regexp/no-empty-alternative": "off",
     "regexp/no-super-linear-backtracking": "off",
+
+    "simple-import-sort/imports": isCI ? "error" : "warn",
+    "simple-import-sort/exports": isCI ? "error" : "warn",
 
     // eslint-plugin-unicorn
     "unicorn/escape-case": "off",
