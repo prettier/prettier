@@ -249,24 +249,6 @@ function shouldPrintSpecifiers(node, options) {
   return text.trimEnd().endsWith("from");
 }
 
-function shouldPrintAttributes(node, options) {
-  if (!node.source) {
-    return false;
-  }
-
-  if (isNonEmptyArray(node.attributes)) {
-    return true;
-  }
-
-  const text = getTextWithoutComments(
-    options,
-    locEnd(node.source),
-    locEnd(node),
-  ).trimStart();
-
-  return text.startsWith("with") || text.startsWith("assert");
-}
-
 function getTextWithoutComments(options, start, end) {
   let text = options.originalText.slice(start, end);
 
@@ -306,23 +288,31 @@ function getImportAttributesKeyword(node, options) {
     options,
     locEnd(node.source),
     node.attributes?.[0] ? locStart(node.attributes[0]) : locEnd(node),
-  );
+  ).trimStart();
 
-  if (textBetweenSourceAndAttributes.trimStart().startsWith("assert")) {
+  if (textBetweenSourceAndAttributes.startsWith("assert")) {
     return "assert";
   }
 
-  return "with";
+  if (textBetweenSourceAndAttributes.startsWith("with")) {
+    return "with";
+  }
+
+  return isNonEmptyArray(node.attributes) ? "with" : undefined;
 }
 
 function printImportAttributes(path, options, print) {
   const { node } = path;
 
-  if (!shouldPrintAttributes(node, options)) {
+  if (!node.source) {
     return "";
   }
 
   const keyword = getImportAttributesKeyword(node, options);
+  if (!keyword) {
+    return "";
+  }
+
   /** @type{Doc[]} */
   const parts = [` ${keyword} {`];
 

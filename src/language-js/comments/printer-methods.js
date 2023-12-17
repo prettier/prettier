@@ -3,6 +3,7 @@ import {
   getFunctionParameters,
   hasNodeIgnoreComment,
   isJsxElement,
+  isUnionType,
 } from "../utils/index.js";
 
 /**
@@ -71,14 +72,11 @@ function willPrintOwnComments(path) {
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||
-          parent.type === "UnionTypeAnnotation" ||
-          parent.type === "TSUnionType" ||
+          isUnionType(parent) ||
           ((parent.type === "ClassDeclaration" ||
             parent.type === "ClassExpression") &&
             parent.superClass === node)))) &&
-    (!hasNodeIgnoreComment(node) ||
-      parent.type === "UnionTypeAnnotation" ||
-      parent.type === "TSUnionType")
+    (!hasNodeIgnoreComment(node) || isUnionType(parent))
   );
 }
 

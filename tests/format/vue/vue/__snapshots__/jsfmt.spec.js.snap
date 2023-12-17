@@ -1772,9 +1772,7 @@ semi: false
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
-      foo + bar
-    } template literal value\`"
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
     :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
@@ -1818,9 +1816,7 @@ trailingComma: "es5"
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
-      foo + bar
-    } template literal value\`"
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
     :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
@@ -1864,9 +1860,7 @@ trailingComma: "none"
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
-      foo + bar
-    } template literal value\`"
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
     :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
@@ -1911,9 +1905,7 @@ semi: false
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
-      foo + bar
-    } template literal value\`"
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
     :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
@@ -1959,9 +1951,7 @@ trailingComma: "es5"
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
-      foo + bar
-    } template literal value\`"
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
     :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
@@ -2007,9 +1997,7 @@ trailingComma: "none"
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
-      foo + bar
-    } template literal value\`"
+    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
     :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
     :add="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +

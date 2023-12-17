@@ -19,6 +19,8 @@ import {
   isLineComment,
   markerForIfWithoutBlockAndSameLineComment,
   createTypeCheckFunction,
+  isUnionType,
+  isIntersectionType,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
@@ -702,10 +704,7 @@ function handleUnionTypeComments({
   enclosingNode,
   followingNode,
 }) {
-  if (
-    enclosingNode?.type === "UnionTypeAnnotation" ||
-    enclosingNode?.type === "TSUnionType"
-  ) {
+  if (isUnionType(enclosingNode)) {
     if (isPrettierIgnoreComment(comment)) {
       followingNode.prettierIgnore = true;
       comment.unignore = true;
@@ -717,11 +716,7 @@ function handleUnionTypeComments({
     return false;
   }
 
-  if (
-    (followingNode?.type === "UnionTypeAnnotation" ||
-      followingNode?.type === "TSUnionType") &&
-    isPrettierIgnoreComment(comment)
-  ) {
+  if (isUnionType(followingNode) && isPrettierIgnoreComment(comment)) {
     followingNode.types[0].prettierIgnore = true;
     comment.unignore = true;
   }
@@ -962,15 +957,13 @@ function handleLastUnionElementInExpression({
   followingNode,
 }) {
   if (
-    precedingNode &&
-    (precedingNode.type === "TSUnionType" ||
-      precedingNode.type === "UnionTypeAnnotation") &&
+    isUnionType(precedingNode) &&
     (((enclosingNode.type === "TSArrayType" ||
       enclosingNode.type === "ArrayTypeAnnotation") &&
-      followingNode === undefined) ||
-      enclosingNode.type === "TSIntersectionType" ||
-      enclosingNode.type === "IntersectionTypeAnnotation")
+      !followingNode) ||
+      isIntersectionType(enclosingNode))
   ) {
+    // @ts-expect-error -- types exits in TSUnionType and UnionTypeAnnotation
     addTrailingComment(precedingNode.types.at(-1), comment);
     return true;
   }
