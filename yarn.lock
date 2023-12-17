@@ -1681,9 +1681,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.2.1":
-  version: 0.2.1
-  resolution: "@prettier/cli@npm:0.2.1"
+"@prettier/cli@npm:0.2.2":
+  version: 0.2.2
+  resolution: "@prettier/cli@npm:0.2.2"
   dependencies:
     atomically: "npm:^2.0.2"
     fast-ignore: "npm:^1.1.1"
@@ -1692,6 +1692,7 @@ __metadata:
     is-binary-path: "npm:^2.1.0"
     js-yaml: "npm:^4.1.0"
     json-sorted-stringify: "npm:^1.0.0"
+    json5: "npm:^2.2.3"
     kasi: "npm:^1.1.0"
     pioppo: "npm:^1.1.0"
     specialist: "npm:^1.4.0"
@@ -1705,7 +1706,7 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0
   bin:
     prettier-next: dist/bin.js
-  checksum: 1b2e01398db640c7739c5242c56e30a9e3e567e0f23f268ab22f71a157db88f5ff3bed9c66c6047e0baa9e45c422ef280109b2c6455bd9e4b7c5e37b2a44ff9f
+  checksum: 15413ca4d78f2764a42d3af8d65cae35c2818639f04c7f92b21a46c73557cad2de5e25ac165ca44adaf380b3845f55cf85e08370f98ebc6b266fb41b3e9ab4d3
   languageName: node
   linkType: hard
 
@@ -7423,7 +7424,7 @@ __metadata:
     "@glimmer/reference": "npm:0.85.13"
     "@glimmer/syntax": "npm:0.85.13"
     "@iarna/toml": "npm:2.2.5"
-    "@prettier/cli": "npm:0.2.1"
+    "@prettier/cli": "npm:0.2.2"
     "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@types/estree": "npm:1.0.5"
