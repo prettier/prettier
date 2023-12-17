@@ -1026,19 +1026,10 @@ const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVe
 
 =====================================output=====================================
 const a = \`\${(foo + bar) satisfies baz}\`
-const b = \`\${
-  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies baz
-}\`
-const b = \`\${
-  (foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies baz
-}\`
-const b = \`\${
-  (foo + bar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
-}\`
-const b = \`\${
-  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
-    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
-}\`
+const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies baz}\`
+const b = \`\${(foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies baz}\`
+const b = \`\${(foo + bar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`
+const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`
 
 ================================================================================
 `;
@@ -1057,19 +1048,10 @@ const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVe
 
 =====================================output=====================================
 const a = \`\${(foo + bar) satisfies baz}\`;
-const b = \`\${
-  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies baz
-}\`;
-const b = \`\${
-  (foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies baz
-}\`;
-const b = \`\${
-  (foo + bar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
-}\`;
-const b = \`\${
-  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
-    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
-}\`;
+const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies baz}\`;
+const b = \`\${(foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies baz}\`;
+const b = \`\${(foo + bar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`;
+const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`;
 
 ================================================================================
 `;
