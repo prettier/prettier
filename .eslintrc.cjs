@@ -187,8 +187,8 @@ module.exports = {
     "regexp/no-empty-alternative": "off",
     "regexp/no-super-linear-backtracking": "off",
 
-    "simple-import-sort/imports": isCI ? "error" : "warn",
-    "simple-import-sort/exports": isCI ? "error" : "warn",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
 
     // eslint-plugin-unicorn
     "unicorn/escape-case": "off",
