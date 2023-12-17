@@ -50,7 +50,7 @@ const loaders = {
   async ".json5"(file) {
     const content = await readFile(file);
     try {
-      return json5.load(content);
+      return json5.parse(content);
     } catch (/** @type {any} */ error) {
       error.message = `JSON5 Error in ${file}:\n${error.message}`;
       throw error;
