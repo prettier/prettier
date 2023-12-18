@@ -1,7 +1,7 @@
 import {
   cursor,
-  cursorLeft,
-  cursorRight,
+  cursorStart,
+  cursorEnd,
   hardline,
 } from "../../src/document/builders.js";
 import { printDocToString } from "../../src/document/printer.js";
@@ -14,11 +14,11 @@ test("Should reject if too many cursor in doc", () => {
   }).toThrow({ message: "There are too many 'cursor' in doc." });
 
   expect(() => {
-    printDocToString([cursorLeft, cursor, cursor], options);
+    printDocToString([cursorStart, cursor, cursor], options);
   }).toThrow({ message: "There are too many 'cursor' in doc." });
 
   expect(() => {
-    printDocToString([cursorLeft, cursorRight, cursorRight], options);
+    printDocToString([cursorStart, cursorEnd, cursorEnd], options);
   }).toThrow({ message: "There are too many 'cursor' in doc." });
 });
 
@@ -43,7 +43,7 @@ test("Should properly trim with cursor", () => {
 
   expect(
     printDocToString(
-      ["123", cursorLeft, "Prettier  \t", cursorRight, "\t \t", hardline],
+      ["123", cursorStart, "Prettier  \t", cursorEnd, "\t \t", hardline],
       options,
     ),
   ).toEqual({
@@ -53,10 +53,10 @@ test("Should properly trim with cursor", () => {
   });
 });
 
-test("Should put cursor exactly after cursorRight if it appears before cursorLeft", () => {
+test("Should put cursor exactly after cursorEnd if it appears before cursorStart", () => {
   expect(
     printDocToString(
-      ["123", cursorRight, "Prettier  \t", cursorLeft, "\t \t", hardline],
+      ["123", cursorEnd, "Prettier  \t", cursorStart, "\t \t", hardline],
       options,
     ),
   ).toEqual({

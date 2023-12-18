@@ -30,5 +30,5 @@ export const VALID_OBJECT_DOC_TYPES = new Set([
   DOC_TYPE_BREAK_PARENT,
 ]);
 
-export const CURSOR_EDGE_LEFT = "left";
-export const CURSOR_EDGE_RIGHT = "right";
+export const CURSOR_START = "start";
+export const CURSOR_END = "end";

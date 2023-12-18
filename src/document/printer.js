@@ -2,7 +2,7 @@ import { convertEndOfLineToChars } from "../common/end-of-line.js";
 import getStringWidth from "../utils/get-string-width.js";
 import { fill, hardlineWithoutBreakParent, indent } from "./builders.js";
 import {
-  CURSOR_EDGE_RIGHT,
+  CURSOR_END,
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,
   DOC_TYPE_BREAK_PARENT,
@@ -358,7 +358,7 @@ function printDocToString(doc, options) {
         if (cursorCommandCount >= 2) {
           throw new Error("There are too many 'cursor' in doc.");
         }
-        if (doc.edge === CURSOR_EDGE_RIGHT && cursorCommandCount === 0) {
+        if (doc.edge === CURSOR_END && cursorCommandCount === 0) {
           cursorBoundaryNodesFlipped = true;
           // The cursor was originally between nodes A and B, but now B appears
           // before A in the doc. Our choice of where to put the cursor is thus
