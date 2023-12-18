@@ -2,6 +2,7 @@ import path from "node:path";
 
 import babelGenerator from "@babel/generator";
 import { parse } from "@babel/parser";
+import { traverseFast as traverse } from "@babel/types";
 import MagicString from "magic-string";
 import { outdent } from "outdent";
 
@@ -75,26 +76,19 @@ function formatCode(input) {
   return code;
 }
 
-function* getClassesWithRequireCall(ast, text) {
-  for (const node of ast.program.body) {
-    if (node.type === "FunctionDeclaration") {
-      const nodeText = text.slice(node.start, node.end);
-
-      if (!nodeText.includes("require(")) {
-        continue;
-      }
-
-      const className = node.id.name;
-
-      yield {
-        classNode: node,
-        className,
-        prototypeNodes: ast.program.body.filter((node) =>
-          text.slice(node.start, node.end).startsWith(`${className}.prototype`),
-        ),
-      };
+function getRequireCalls(ast) {
+  const requireCalls = [];
+  traverse(ast, (node) => {
+    if (
+      node.type === "CallExpression" &&
+      node.callee.type === "Identifier" &&
+      node.callee.name === "require"
+    ) {
+      requireCalls.push(node);
     }
-  }
+  });
+
+  return requireCalls;
 }
 
 function modifyFlowParser(text) {
@@ -102,21 +96,25 @@ function modifyFlowParser(text) {
 
   const source = new MagicString(text);
   const ast = parse(text, { sourceType: "module" });
-  for (const {
-    className,
-    classNode,
-    prototypeNodes,
-  } of getClassesWithRequireCall(ast, text)) {
-    source.overwrite(
-      classNode.start,
-      classNode.end,
-      `function ${className} () {}`,
-    );
-
-    for (const prototypeNode of prototypeNodes) {
-      source.remove(prototypeNode.start, prototypeNode.end);
-    }
+  for (const node of getRequireCalls(ast)) {
+    source.overwrite(node.start, node.end, "{}");
   }
+
+  // for (const {
+  //   className,
+  //   classNode,
+  //   prototypeNodes,
+  // } of getClassesWithRequireCall(ast, text)) {
+  //   source.overwrite(
+  //     classNode.start,
+  //     classNode.end,
+  //     `function ${className} () {}`,
+  //   );
+
+  //   for (const prototypeNode of prototypeNodes) {
+  //     source.remove(prototypeNode.start, prototypeNode.end);
+  //   }
+  // }
 
   return source.toString();
 }
