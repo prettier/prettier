@@ -6376,29 +6376,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"map-age-cleaner@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "map-age-cleaner@npm:0.1.3"
-  dependencies:
-    p-defer: "npm:^1.0.0"
-  checksum: cb2804a5bcb3cbdfe4b59066ea6d19f5e7c8c196cd55795ea4c28f792b192e4c442426ae52524e5e1acbccf393d3bddacefc3d41f803e66453f6c4eda3650bc1
-  languageName: node
-  linkType: hard
-
 "markdown-escapes@npm:^1.0.0":
   version: 1.0.4
   resolution: "markdown-escapes@npm:1.0.4"
   checksum: 6833a93d72d3f70a500658872312c6fa8015c20cc835a85ae6901fa232683fbc6ed7118ebe920fea7c80039a560f339c026597d96eee0e9de602a36921804997
-  languageName: node
-  linkType: hard
-
-"mem@npm:9.0.2":
-  version: 9.0.2
-  resolution: "mem@npm:9.0.2"
-  dependencies:
-    map-age-cleaner: "npm:^0.1.3"
-    mimic-fn: "npm:^4.0.0"
-  checksum: 82f899e73212509c8bccb26399f03c61193e15b796c9e8e10332db6a3eb1cad65edbe4ab144554e88a0db3dc53af3b9e960a2576cb3521fa968ba1ca5a0b6719
   languageName: node
   linkType: hard
 
@@ -6912,13 +6893,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-defer@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "p-defer@npm:1.0.0"
-  checksum: 1d8fb7138a0ccebb65479160fd93f245303c06c977c976105d75838f7f504a9a6ef11b7e058f98b4c957a6a8df268c616da1ee339285d565f9e5ba00304e027b
-  languageName: node
-  linkType: hard
-
 "p-limit@npm:^2.2.0":
   version: 2.3.0
   resolution: "p-limit@npm:2.3.0"
@@ -7362,7 +7336,6 @@ __metadata:
     lines-and-columns: "npm:2.0.4"
     linguist-languages: "npm:7.27.0"
     magic-string: "npm:0.30.5"
-    mem: "npm:9.0.2"
     meriyah: "npm:4.3.9"
     micromatch: "npm:4.0.5"
     minimist: "npm:1.2.8"
