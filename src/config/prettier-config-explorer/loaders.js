@@ -1,7 +1,7 @@
 import { pathToFileURL } from "node:url";
 
 import parseToml from "@iarna/toml/parse-async.js";
-import jsYaml from "js-yaml";
+import { load as parseYaml } from "js-yaml";
 import json5 from "json5";
 import parseJson from "parse-json";
 
@@ -30,7 +30,7 @@ async function loadConfigFromPackageJson(file) {
 async function loadYaml(file) {
   const content = await readFile(file);
   try {
-    return jsYaml.load(content);
+    return parseYaml(content);
   } catch (/** @type {any} */ error) {
     error.message = `YAML Error in ${file}:\n${error.message}`;
     throw error;

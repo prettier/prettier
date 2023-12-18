@@ -603,7 +603,8 @@ const nodejsFiles = [
       },
       {
         module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
-        path: getPackageFile("js-yaml/lib/loader.js"),
+        find: "var dump                = dumper.dump;",
+        replacement: "var dump;",
       },
       // `parse-json` use another copy of `@babel/code-frame`
       {
