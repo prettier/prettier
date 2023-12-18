@@ -1,6 +1,8 @@
 import fs from "node:fs";
+
 import semver from "semver";
-import { runYarn, runGit, logPromise, readJson, writeJson } from "../utils.js";
+
+import { logPromise, readJson, runGit, runYarn, writeJson } from "../utils.js";
 
 async function format() {
   await runYarn(["lint:eslint", "--fix"]);
@@ -37,9 +39,9 @@ async function bump({
 }
 
 export default async function bumpPrettier(params) {
-  const { dry, version } = params;
+  const { dry, version, next } = params;
 
-  if (dry) {
+  if (dry || next) {
     return;
   }
 

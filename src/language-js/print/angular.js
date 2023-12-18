@@ -1,10 +1,10 @@
-import { join, line, group } from "../../document/builders.js";
+import { group, join, line } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
-  hasNode,
-  hasComment,
-  getComments,
   createTypeCheckFunction,
+  getComments,
+  hasComment,
+  hasNode,
 } from "../utils/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 

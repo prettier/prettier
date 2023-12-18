@@ -1,77 +1,76 @@
-import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewline from "../../utils/has-newline.js";
 import {
+  group,
+  hardline,
+  indent,
   join,
   line,
-  hardline,
   softline,
-  group,
-  indent,
 } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
+import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewline from "../../utils/has-newline.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-
+import { locEnd, locStart } from "../loc.js";
 import {
-  hasComment,
   CommentCheckFlags,
-  isNextLineEmpty,
-  needsHardlineAfterDanglingComment,
-  isCallExpression,
-  isMemberExpression,
+  hasComment,
   isArrayOrTupleExpression,
+  isCallExpression,
   isLiteral,
+  isMemberExpression,
+  isNextLineEmpty,
   isObjectOrRecordExpression,
+  needsHardlineAfterDanglingComment,
   startsWithNoLookaheadToken,
 } from "../utils/index.js";
-import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
-import {
-  printOptionalToken,
-  printBindExpressionCallee,
-  adjustClause,
-  printRestSpread,
-  printDefiniteToken,
-  printDeclareToken,
-} from "./misc.js";
-import {
-  printImportDeclaration,
-  printExportDeclaration,
-  printModuleSpecifier,
-} from "./module.js";
-import { printTernary } from "./ternary.js";
-import {
-  printTaggedTemplateLiteral,
-  printTemplateLiteral,
-} from "./template-literal.js";
 import { printArray } from "./array.js";
-import { printObject } from "./object.js";
+import { printArrowFunction } from "./arrow-function.js";
+import {
+  printAssignmentExpression,
+  printVariableDeclarator,
+} from "./assignment.js";
+import { printBinaryishExpression } from "./binaryish.js";
+import { printBlock, printBlockBody } from "./block.js";
+import { printCallExpression } from "./call-expression.js";
 import {
   printClass,
+  printClassBody,
   printClassMethod,
   printClassProperty,
-  printClassBody,
 } from "./class.js";
-import { printProperty } from "./property.js";
+import { printExpressionStatement } from "./expression-statement.js";
 import {
   printFunction,
   printMethod,
   printReturnStatement,
   printThrowStatement,
 } from "./function.js";
-import { printArrowFunction } from "./arrow-function.js";
-import { printCallExpression } from "./call-expression.js";
-import {
-  printVariableDeclarator,
-  printAssignmentExpression,
-} from "./assignment.js";
-import { printBinaryishExpression } from "./binaryish.js";
-import { printStatementSequence } from "./statement.js";
-import { printMemberExpression } from "./member.js";
-import { printBlock, printBlockBody } from "./block.js";
-import { printLiteral } from "./literal.js";
-import { printTypeAnnotationProperty } from "./type-annotation.js";
-import { printExpressionStatement } from "./expression-statement.js";
 import { printHtmlBinding } from "./html-binding.js";
+import { printLiteral } from "./literal.js";
+import { printMemberExpression } from "./member.js";
+import {
+  adjustClause,
+  printBindExpressionCallee,
+  printDeclareToken,
+  printDefiniteToken,
+  printOptionalToken,
+  printRestSpread,
+} from "./misc.js";
+import {
+  printExportDeclaration,
+  printImportDeclaration,
+  printModuleSpecifier,
+} from "./module.js";
+import { printObject } from "./object.js";
+import { printProperty } from "./property.js";
+import { printStatementSequence } from "./statement.js";
+import {
+  printTaggedTemplateLiteral,
+  printTemplateLiteral,
+} from "./template-literal.js";
+import { printTernary } from "./ternary.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
  * @typedef {import("../../common/ast-path.js").default} AstPath

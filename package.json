@@ -77,7 +77,6 @@
     "leven": "4.0.0",
     "lines-and-columns": "2.0.4",
     "linguist-languages": "7.27.0",
-    "mem": "9.0.2",
     "meriyah": "4.3.9",
     "micromatch": "4.0.5",
     "minimist": "1.2.8",
@@ -120,7 +119,7 @@
     "cross-env": "7.0.3",
     "cspell": "8.0.0",
     "enquirer": "2.4.1",
-    "esbuild": "0.19.5",
+    "esbuild": "0.19.9",
     "esbuild-plugins-node-modules-polyfill": "1.6.1",
     "esbuild-visualizer": "0.5.0",
     "eslint": "8.53.0",
@@ -133,6 +132,7 @@
     "eslint-plugin-prettier-internal-rules": "2.0.1",
     "eslint-plugin-react": "7.33.2",
     "eslint-plugin-regexp": "2.1.1",
+    "eslint-plugin-simple-import-sort": "10.0.0",
     "eslint-plugin-unicorn": "49.0.0",
     "esm-utils": "4.2.1",
     "execa": "7.2.0",
@@ -208,5 +208,5 @@
     "not op_mini all"
   ],
   "preferUnplugged": true,
-  "packageManager": "yarn@3.7.0"
+  "packageManager": "yarn@4.0.2"
 }

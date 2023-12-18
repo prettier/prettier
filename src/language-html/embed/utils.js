@@ -62,4 +62,4 @@ async function formatAttributeValue(
   return shouldHug ? group(doc) : printExpand(doc);
 }
 
-export { printExpand, formatAttributeValue, shouldHugJsExpression };
+export { formatAttributeValue, printExpand, shouldHugJsExpression };

@@ -2,17 +2,17 @@
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 
-import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
-import inferParser from "../../utils/infer-parser.js";
-import { line, hardline, join } from "../../document/builders.js";
+import { hardline, join, line } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import {
-  CSS_DISPLAY_TAGS,
-  CSS_DISPLAY_DEFAULT,
-  CSS_WHITE_SPACE_TAGS,
-  CSS_WHITE_SPACE_DEFAULT,
-} from "../constants.evaluate.js";
+import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
+import inferParser from "../../utils/infer-parser.js";
+import {
+  CSS_DISPLAY_DEFAULT,
+  CSS_DISPLAY_TAGS,
+  CSS_WHITE_SPACE_DEFAULT,
+  CSS_WHITE_SPACE_TAGS,
+} from "../constants.evaluate.js";
 import isUnknownNamespace from "./is-unknown-namespace.js";
 
 const htmlTrimLeadingBlankLines = (string) =>
@@ -622,24 +622,21 @@ function isVueScriptTag(node, options) {
 }
 
 export {
-  htmlTrimPreserveIndentation,
-  getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,
   getLastDescendant,
+  getLeadingAndTrailingHtmlWhitespace,
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
+  getTextValueParts,
+  getUnescapedAttributeValue,
   hasPrettierIgnore,
+  htmlTrimPreserveIndentation,
+  htmlWhitespaceUtils,
   inferElementParser,
-  isVueCustomBlock,
-  isVueNonHtmlBlock,
-  isVueScriptTag,
-  isVueSlotAttribute,
-  isVueSfcBindingsAttribute,
-  isVueSfcBlock,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
@@ -647,13 +644,16 @@ export {
   isScriptLikeTag,
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
-  isWhitespaceSensitiveNode,
   isUnknownNamespace,
+  isVueCustomBlock,
+  isVueNonHtmlBlock,
+  isVueScriptTag,
+  isVueSfcBindingsAttribute,
+  isVueSfcBlock,
+  isVueSlotAttribute,
+  isWhitespaceSensitiveNode,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,
   shouldPreserveContent,
   unescapeQuoteEntities,
-  getTextValueParts,
-  htmlWhitespaceUtils,
-  getUnescapedAttributeValue,
 };

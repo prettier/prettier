@@ -1,19 +1,21 @@
 #!/usr/bin/env node
 
-import path from "node:path";
 import fs from "node:fs/promises";
+import path from "node:path";
 import url from "node:url";
-import fastGlob from "fast-glob";
+
 import createEsmUtils from "esm-utils";
 import { execa } from "execa";
+import fastGlob from "fast-glob";
+
 import { format } from "../src/index.js";
 import {
-  PROJECT_ROOT,
-  DIST_DIR,
-  WEBSITE_DIR,
-  writeJson,
   copyFile,
+  DIST_DIR,
+  PROJECT_ROOT,
+  WEBSITE_DIR,
   writeFile,
+  writeJson,
 } from "./utils/index.js";
 
 const { require } = createEsmUtils(import.meta);

@@ -56,10 +56,10 @@ function shouldPrintTrailingComma(options) {
 }
 
 export {
-  adjustStrings,
   adjustNumbers,
+  adjustStrings,
+  printCssNumber,
+  printUnit,
   quoteAttributeValue,
   shouldPrintTrailingComma,
-  printUnit,
-  printCssNumber,
 };

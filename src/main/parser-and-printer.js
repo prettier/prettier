@@ -78,7 +78,7 @@ function initPrinter(plugin, astFormat) {
 export {
   getParserPluginByParserName,
   getPrinterPluginByAstFormat,
-  resolveParser,
   initParser,
   initPrinter,
+  resolveParser,
 };

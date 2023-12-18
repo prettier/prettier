@@ -1,9 +1,9 @@
-import { softline, group, indent, label } from "../../document/builders.js";
+import { group, indent, label, softline } from "../../document/builders.js";
 import {
-  isNumericLiteral,
-  isMemberExpression,
-  isCallExpression,
   getCallArguments,
+  isCallExpression,
+  isMemberExpression,
+  isNumericLiteral,
 } from "../utils/index.js";
 import { printOptionalToken } from "./misc.js";
 
