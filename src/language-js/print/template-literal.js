@@ -1,27 +1,27 @@
-import getStringWidth from "../../utils/get-string-width.js";
-import getIndentSize from "../../utils/get-indent-size.js";
 import {
-  join,
-  hardline,
-  softline,
-  group,
-  indent,
-  align,
-  lineSuffixBoundary,
   addAlignmentToDoc,
+  align,
+  group,
+  hardline,
+  indent,
+  join,
   label,
+  lineSuffixBoundary,
+  softline,
 } from "../../document/builders.js";
 import { printDocToString } from "../../document/printer.js";
 import { mapDoc } from "../../document/utils.js";
-import {
-  isBinaryish,
-  isSimpleTemplateLiteral,
-  hasComment,
-  isMemberExpression,
-  isBinaryCastExpression,
-} from "../utils/index.js";
+import getIndentSize from "../../utils/get-indent-size.js";
+import getStringWidth from "../../utils/get-string-width.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import { locStart, locEnd } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
+import {
+  hasComment,
+  isBinaryCastExpression,
+  isBinaryish,
+  isMemberExpression,
+  isSimpleTemplateLiteral,
+} from "../utils/index.js";
 
 function printTemplateLiteral(path, print, options) {
   const { node } = path;
@@ -296,9 +296,9 @@ function isJestEachTemplateLiteral({ node, parent }) {
 }
 
 export {
-  printTemplateLiteral,
+  escapeTemplateCharacters,
   printTaggedTemplateLiteral,
   printTemplateExpressions,
-  escapeTemplateCharacters,
+  printTemplateLiteral,
   uncookTemplateElementValue,
 };

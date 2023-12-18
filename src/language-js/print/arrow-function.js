@@ -1,35 +1,35 @@
-import {
-  printDanglingComments,
-  printCommentsSeparately,
-} from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import {
-  line,
-  softline,
-  group,
-  indent,
-  ifBreak,
-  join,
-  indentIfBreak,
-} from "../../document/builders.js";
-import { removeLines, willBreak } from "../../document/utils.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
 import {
+  group,
+  ifBreak,
+  indent,
+  indentIfBreak,
+  join,
+  line,
+  softline,
+} from "../../document/builders.js";
+import { removeLines, willBreak } from "../../document/utils.js";
+import {
+  printCommentsSeparately,
+  printDanglingComments,
+} from "../../main/comments/print.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
+import { locEnd } from "../loc.js";
+import {
   getFunctionParameters,
+  hasComment,
   hasLeadingOwnLineComment,
+  isArrayOrTupleExpression,
+  isBinaryish,
+  isCallLikeExpression,
   isJsxElement,
+  isObjectOrRecordExpression,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
-  isBinaryish,
-  hasComment,
-  isCallLikeExpression,
-  isArrayOrTupleExpression,
-  isObjectOrRecordExpression,
 } from "../utils/index.js";
-import { locEnd } from "../loc.js";
-import { printFunctionParameters } from "./function-parameters.js";
 import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
+import { printFunctionParameters } from "./function-parameters.js";
 
 /**
  * @typedef {import("../../common/ast-path.js").default} AstPath

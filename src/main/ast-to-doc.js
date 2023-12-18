@@ -2,9 +2,9 @@ import AstPath from "../common/ast-path.js";
 import { cursorLeft, cursorRight } from "../document/builders.js";
 import { inheritLabel } from "../document/utils.js";
 import { attachComments } from "./comments/attach.js";
-import { printComments, ensureAllCommentsPrinted } from "./comments/print.js";
-import { printEmbeddedLanguages } from "./multiparser.js";
+import { ensureAllCommentsPrinted, printComments } from "./comments/print.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
+import { printEmbeddedLanguages } from "./multiparser.js";
 import printIgnored from "./print-ignored.js";
 
 /**
@@ -158,4 +158,4 @@ async function prepareToPrint(ast, options) {
   return { ast, comments };
 }
 
-export { printAstToDoc, prepareToPrint };
+export { prepareToPrint, printAstToDoc };

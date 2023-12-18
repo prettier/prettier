@@ -1,24 +1,17 @@
-import cssOptions from "../language-css/options.js";
 import cssLanguages from "../language-css/languages.evaluate.js";
-
-import graphqlOptions from "../language-graphql/options.js";
+import cssOptions from "../language-css/options.js";
 import graphqlLanguages from "../language-graphql/languages.evaluate.js";
-
+import graphqlOptions from "../language-graphql/options.js";
 import handlebarsLanguages from "../language-handlebars/languages.evaluate.js";
-
-import htmlOptions from "../language-html/options.js";
 import htmlLanguages from "../language-html/languages.evaluate.js";
-
-import jsOptions from "../language-js/options.js";
+import htmlOptions from "../language-html/options.js";
 import jsLanguages from "../language-js/languages.evaluate.js";
-
+import jsOptions from "../language-js/options.js";
 import jsonLanguages from "../language-json/languages.evaluate.js";
-
-import markdownOptions from "../language-markdown/options.js";
 import markdownLanguages from "../language-markdown/languages.evaluate.js";
-
-import yamlOptions from "../language-yaml/options.js";
+import markdownOptions from "../language-markdown/options.js";
 import yamlLanguages from "../language-yaml/languages.evaluate.js";
+import yamlOptions from "../language-yaml/options.js";
 
 function createParsersAndPrinters(modules) {
   const parsers = Object.create(null);

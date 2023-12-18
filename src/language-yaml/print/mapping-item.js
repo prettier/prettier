@@ -8,13 +8,13 @@ import {
   line,
 } from "../../document/builders.js";
 import {
+  hasEndComments,
   hasLeadingComments,
   hasMiddleComments,
   hasTrailingComment,
-  hasEndComments,
-  isNode,
   isEmptyNode,
   isInlineNode,
+  isNode,
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
 

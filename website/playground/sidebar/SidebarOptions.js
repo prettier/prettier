@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { SidebarCategory } from "./components.js";
 import Option from "./options.js";
 

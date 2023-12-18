@@ -1,4 +1,5 @@
 import { outdent } from "outdent";
+
 import getPrettier from "../../../config/get-prettier.js";
 
 run_spec(import.meta, ["babel", "typescript", "flow"]);

@@ -1,16 +1,17 @@
 import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
+
 import { hasDescendant } from "../../utils/ast-utils.js";
-import hasNewline from "../../utils/has-newline.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
 import getStringWidth from "../../utils/get-string-width.js";
-import { locStart, locEnd, hasSameLocStart } from "../loc.js";
-import getVisitorKeys from "../traverse/get-visitor-keys.js";
+import hasNewline from "../../utils/has-newline.js";
+import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import printString from "../../utils/print-string.js";
+import { hasSameLocStart, locEnd, locStart } from "../loc.js";
+import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import createTypeCheckFunction from "./create-type-check-function.js";
 import isBlockComment from "./is-block-comment.js";
-import isNodeMatches from "./is-node-matches.js";
 import isFlowKeywordType from "./is-flow-keyword-type.js";
+import isNodeMatches from "./is-node-matches.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
 
 /**
@@ -1243,69 +1244,69 @@ const isIntersectionType = createTypeCheckFunction([
 ]);
 
 export {
-  getFunctionParameters,
-  iterateFunctionParametersPath,
+  CommentCheckFlags,
+  createTypeCheckFunction,
   getCallArguments,
-  iterateCallArgumentsPath,
   getCallArgumentSelector,
-  hasRestParameter,
+  getComments,
+  getFunctionParameters,
   getLeftSide,
   getLeftSidePathName,
+  getPrecedence,
+  hasComment,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNode,
   hasNodeIgnoreComment,
+  hasRestParameter,
   identity,
+  isArrayOrTupleExpression,
+  isBinaryCastExpression,
   isBinaryish,
-  isCallLikeExpression,
-  isLineComment,
-  isPrettierIgnoreComment,
+  isBitwiseOperator,
   isCallExpression,
-  isMemberExpression,
+  isCallLikeExpression,
   isExportDeclaration,
   isFunctionCompositionArgs,
   isFunctionNotation,
   isFunctionOrArrowExpression,
   isGetterOrSetter,
+  isIntersectionType,
   isJsxElement,
+  isLineComment,
+  isLiteral,
+  isLoneShortArgument,
   isLongCurriedCallExpression,
-  isSimpleCallArgument,
+  isMemberExpression,
   isMemberish,
+  isNextLineEmpty,
   isNumericLiteral,
-  isSignedNumericLiteral,
+  isObjectOrRecordExpression,
   isObjectProperty,
   isObjectType,
   isObjectTypePropertyAFunction,
+  isPrettierIgnoreComment,
   isRegExpLiteral,
-  isSimpleType,
-  isSimpleNumber,
+  isSignedNumericLiteral,
   isSimpleAtomicExpression,
-  isSimpleMemberExpression,
-  isSimpleTemplateLiteral,
+  isSimpleCallArgument,
   isSimpleExpressionByNodeCount,
-  isLoneShortArgument,
+  isSimpleMemberExpression,
+  isSimpleNumber,
+  isSimpleTemplateLiteral,
+  isSimpleType,
   isStringLiteral,
-  isLiteral,
   isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
   isTypeAnnotationAFunction,
-  isNextLineEmpty,
+  isUnionType,
+  iterateCallArgumentsPath,
+  iterateFunctionParametersPath,
+  markerForIfWithoutBlockAndSameLineComment,
   needsHardlineAfterDanglingComment,
   rawText,
-  shouldPrintComma,
-  isBitwiseOperator,
   shouldFlatten,
+  shouldPrintComma,
   startsWithNoLookaheadToken,
-  getPrecedence,
-  hasComment,
-  getComments,
-  CommentCheckFlags,
-  markerForIfWithoutBlockAndSameLineComment,
-  isBinaryCastExpression,
-  isArrayOrTupleExpression,
-  isObjectOrRecordExpression,
-  createTypeCheckFunction,
-  isUnionType,
-  isIntersectionType,
 };

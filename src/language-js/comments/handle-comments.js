@@ -1,28 +1,28 @@
-import hasNewline from "../../utils/has-newline.js";
-import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
+  addDanglingComment,
   addLeadingComment,
   addTrailingComment,
-  addDanglingComment,
 } from "../../main/comments/utils.js";
+import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
+import hasNewline from "../../utils/has-newline.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locEnd, locStart } from "../loc.js";
 import {
-  getFunctionParameters,
-  isPrettierIgnoreComment,
-  isCallLikeExpression,
+  createTypeCheckFunction,
   getCallArguments,
+  getFunctionParameters,
   isCallExpression,
+  isCallLikeExpression,
+  isIntersectionType,
+  isLineComment,
   isMemberExpression,
   isObjectProperty,
-  isLineComment,
-  markerForIfWithoutBlockAndSameLineComment,
-  createTypeCheckFunction,
+  isPrettierIgnoreComment,
   isUnionType,
-  isIntersectionType,
+  markerForIfWithoutBlockAndSameLineComment,
 } from "../utils/index.js";
-import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
 
@@ -1028,7 +1028,7 @@ const isRealFunctionLikeNode = createTypeCheckFunction([
 ]);
 
 export {
-  handleOwnLineComment as ownLine,
   handleEndOfLineComment as endOfLine,
+  handleOwnLineComment as ownLine,
   handleRemainingComment as remaining,
 };

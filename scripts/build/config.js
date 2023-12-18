@@ -1,11 +1,13 @@
+import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-import fs from "node:fs";
+
 import createEsmUtils from "esm-utils";
-import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.js";
+
+import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import buildJavascriptModule from "./build-javascript-module.js";
-import buildPackageJson from "./build-package-json.js";
 import buildLicense from "./build-license.js";
+import buildPackageJson from "./build-package-json.js";
 import buildTypes from "./build-types.js";
 import modifyTypescriptModule from "./modify-typescript-module.js";
 import { getPackageFile } from "./utils.js";

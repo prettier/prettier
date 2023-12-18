@@ -89,4 +89,4 @@ function printEnumDeclaration(path, print, options) {
   ];
 }
 
-export { printEnumDeclaration, printEnumMember, printEnumBody };
+export { printEnumBody, printEnumDeclaration, printEnumMember };

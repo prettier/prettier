@@ -1,13 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
+
 import createEsmUtils from "esm-utils";
+
 import getPrettier from "./get-prettier.js";
 import checkParsers from "./utils/check-parsers.js";
-import createSnapshot from "./utils/create-snapshot.js";
-import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
+import createSnapshot from "./utils/create-snapshot.js";
 import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
+import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 

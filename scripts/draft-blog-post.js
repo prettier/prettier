@@ -2,15 +2,17 @@
 
 import fs from "node:fs";
 import path from "node:path";
+
 import createEsmUtils from "esm-utils";
 import fg from "fast-glob";
 import semver from "semver";
+
 import {
-  getEntries,
-  replaceVersions,
   changelogUnreleasedDirPath,
   changelogUnreleasedDirs,
+  getEntries,
   printEntries,
+  replaceVersions,
 } from "./utils/changelog.js";
 
 const { __dirname, require } = createEsmUtils(import.meta);

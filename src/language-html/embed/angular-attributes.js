@@ -1,17 +1,17 @@
-import {
-  getUnescapedAttributeValue,
-  getTextValueParts,
-} from "../utils/index.js";
 import { fill } from "../../document/builders.js";
+import {
+  getTextValueParts,
+  getUnescapedAttributeValue,
+} from "../utils/index.js";
+import {
+  interpolationRegex as angularInterpolationRegex,
+  printAngularInterpolation,
+} from "./angular-interpolation.js";
 import {
   formatAttributeValue,
   printExpand,
   shouldHugJsExpression,
 } from "./utils.js";
-import {
-  interpolationRegex as angularInterpolationRegex,
-  printAngularInterpolation,
-} from "./angular-interpolation.js";
 
 function createAngularPrinter({ parser }) {
   return (textToDoc, print, path /*, options*/) =>

@@ -6,24 +6,24 @@ import {
   line,
 } from "../document/builders.js";
 import printFrontMatter from "../utils/front-matter/print.js";
+import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
+import printAttribute from "./embed/attribute.js";
+import getNodeContent from "./get-node-content.js";
 import {
+  needsToBorrowPrevClosingTagEndMarker,
   printClosingTag,
   printClosingTagSuffix,
-  needsToBorrowPrevClosingTagEndMarker,
-  printOpeningTagPrefix,
   printOpeningTag,
+  printOpeningTagPrefix,
 } from "./print/tag.js";
 import {
+  dedentString,
+  htmlTrimPreserveIndentation,
+  inferElementParser,
   isScriptLikeTag,
   isVueNonHtmlBlock,
-  inferElementParser,
-  htmlTrimPreserveIndentation,
-  dedentString,
 } from "./utils/index.js";
 import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
-import getNodeContent from "./get-node-content.js";
-import printAttribute from "./embed/attribute.js";
-import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 
 const embeddedAngularControlFlowBlocks = new Set([
   "if",

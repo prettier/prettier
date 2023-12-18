@@ -1,6 +1,8 @@
-import { pathToFileURL } from "node:url";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
+
 import mem, { memClear } from "mem";
+
 import importFromDirectory from "../../utils/import-from-directory.js";
 
 function normalizePlugin(pluginInstanceOfPluginModule, name) {
@@ -42,4 +44,4 @@ function clearCache() {
   memClear(importPlugin);
 }
 
-export { loadPlugin, loadPluginFromDirectory, clearCache };
+export { clearCache, loadPlugin, loadPluginFromDirectory };

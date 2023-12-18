@@ -1,4 +1,5 @@
 import { outdent } from "outdent";
+
 import { optionCategories } from "./prettier-internal.js";
 
 const categoryOrder = [

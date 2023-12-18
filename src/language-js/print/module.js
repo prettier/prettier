@@ -1,27 +1,27 @@
 import assert from "node:assert";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
+
 import {
-  softline,
   group,
+  hardline,
+  ifBreak,
   indent,
   join,
   line,
-  ifBreak,
-  hardline,
+  softline,
 } from "../../document/builders.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
+import { hasSameLoc, locEnd, locStart } from "../loc.js";
 import {
-  hasComment,
   CommentCheckFlags,
-  shouldPrintComma,
-  needsHardlineAfterDanglingComment,
-  isStringLiteral,
-  rawText,
   createTypeCheckFunction,
+  hasComment,
+  isStringLiteral,
+  needsHardlineAfterDanglingComment,
+  rawText,
+  shouldPrintComma,
 } from "../utils/index.js";
-import { locStart, hasSameLoc, locEnd } from "../loc.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./misc.js";
 
@@ -405,8 +405,8 @@ function isShorthandSpecifier(specifier) {
 }
 
 export {
-  printImportDeclaration,
   printExportDeclaration,
-  printModuleSpecifier,
+  printImportDeclaration,
   printImportKind,
+  printModuleSpecifier,
 };
