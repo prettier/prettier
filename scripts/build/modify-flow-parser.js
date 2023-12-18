@@ -2,6 +2,7 @@ import path from "node:path";
 
 import babelGenerator from "@babel/generator";
 import { parse } from "@babel/parser";
+import MagicString from "magic-string";
 import { outdent } from "outdent";
 
 import { PROJECT_ROOT, writeFile } from "../utils/index.js";
@@ -74,22 +75,50 @@ function formatCode(input) {
   return code;
 }
 
-function removeRequire(text) {
-  const { fsModuleNameVariableName } = text.match(
-    /,(?<fsModuleNameVariableName>[\p{ID_Start}_$][\p{ID_Continue}$]*)="fs",/u,
-  ).groups;
+function* getClassesWithRequireCall(ast, text) {
+  for (const node of ast.program.body) {
+    if (node.type === "FunctionDeclaration") {
+      const nodeText = text.slice(node.start, node.end);
 
-  return text
-    .replaceAll(`require(${fsModuleNameVariableName})`, "{}")
-    .replaceAll('require("fs")', "{}")
-    .replaceAll('require("constants")', "{}");
+      if (!nodeText.includes("require(")) {
+        continue;
+      }
+
+      const className = node.id.name;
+
+      yield {
+        classNode: node,
+        className,
+        prototypeNodes: ast.program.body.filter((node) =>
+          text.slice(node.start, node.end).startsWith(`${className}.prototype`),
+        ),
+      };
+    }
+  }
 }
 
 function modifyFlowParser(text) {
-  text = removeRequire(text);
   text = formatCode(text);
 
-  return text;
+  const source = new MagicString(text);
+  const ast = parse(text, { sourceType: "module" });
+  for (const {
+    className,
+    classNode,
+    prototypeNodes,
+  } of getClassesWithRequireCall(ast, text)) {
+    source.overwrite(
+      classNode.start,
+      classNode.end,
+      `function ${className} () {}`,
+    );
+
+    for (const prototypeNode of prototypeNodes) {
+      source.remove(prototypeNode.start, prototypeNode.end);
+    }
+  }
+
+  return source.toString();
 }
 
 // Save modified code to `{PROJECT_ROOT}/.tmp/modified-flow-parser.js` for debug
