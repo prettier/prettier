@@ -17,6 +17,8 @@ import {
   isObjectTypePropertyAFunction,
   hasComment,
   CommentCheckFlags,
+  createTypeCheckFunction,
+  isUnionType,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import {
@@ -33,34 +35,42 @@ import {
  * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
+const isVoidType = createTypeCheckFunction([
+  "VoidTypeAnnotation",
+  "TSVoidKeyword",
+  "NullLiteralTypeAnnotation",
+  "TSNullKeyword",
+]);
+
+const isObjectLikeType = createTypeCheckFunction([
+  "ObjectTypeAnnotation",
+  "TSTypeLiteral",
+  // This is a bit aggressive but captures Array<{x}>
+  "GenericTypeAnnotation",
+  "TSTypeReference",
+]);
+
+function shouldHugUnionType(node) {
+  const { types } = node;
+  if (types.some((node) => hasComment(node))) {
+    return false;
+  }
+
+  const objectType = types.find((node) => isObjectLikeType(node));
+  if (!objectType) {
+    return false;
+  }
+
+  return types.every((node) => node === objectType || isVoidType(node));
+}
+
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
     return true;
   }
 
-  if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
-    const voidCount = node.types.filter(
-      (node) =>
-        node.type === "VoidTypeAnnotation" ||
-        node.type === "TSVoidKeyword" ||
-        node.type === "NullLiteralTypeAnnotation" ||
-        node.type === "TSNullKeyword",
-    ).length;
-
-    const hasObject = node.types.some(
-      (node) =>
-        node.type === "ObjectTypeAnnotation" ||
-        node.type === "TSTypeLiteral" ||
-        // This is a bit aggressive but captures Array<{x}>
-        node.type === "GenericTypeAnnotation" ||
-        node.type === "TSTypeReference",
-    );
-
-    const hasComments = node.types.some((node) => hasComment(node));
-
-    if (node.types.length - 1 === voidCount && hasObject && !hasComments) {
-      return true;
-    }
+  if (isUnionType(node)) {
+    return shouldHugUnionType(node);
   }
 
   return false;
