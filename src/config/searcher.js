@@ -21,9 +21,9 @@ class Searcher {
     this.#stopDirectory = stopDirectory;
   }
 
-  async #searchInDirectory(directory, useCache) {
+  async #searchInDirectory(directory, shouldCache) {
     const cache = this.#cache;
-    if (useCache && cache.has(directory)) {
+    if (shouldCache && cache.has(directory)) {
       return cache.get(directory);
     }
 
@@ -36,9 +36,9 @@ class Searcher {
     }
   }
 
-  async search(startDirectory, { useCache }) {
+  async search(startDirectory, { shouldCache }) {
     const cache = this.#cache;
-    if (useCache && cache.has(startDirectory)) {
+    if (shouldCache && cache.has(startDirectory)) {
       return cache.get(startDirectory);
     }
 
