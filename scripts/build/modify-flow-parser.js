@@ -76,29 +76,60 @@ function formatCode(input) {
   return code;
 }
 
-function getRequireCalls(ast) {
-  const requireCalls = [];
+function modifyFlowParser(text) {
+  text = formatCode(text);
+
+  const source = new MagicString(text);
+  const ast = parse(text, { sourceType: "module" });
+
+  // There is a function detects platform
+  const platformDetectFunction = ast.program.body.find(
+    (node) =>
+      node.type === "FunctionDeclaration" &&
+      node.body.type === "BlockStatement" &&
+      node.body.body.length === 1 &&
+      node.body.body[0].type === "ReturnStatement" &&
+      text
+        .slice(node.body.body[0].start, node.body.body[0].end)
+        .endsWith(
+          '.process.versions !== "undefined" && typeof al.process.versions.node !== "undefined";',
+        ),
+  );
+  source.overwrite(
+    platformDetectFunction.start,
+    platformDetectFunction.end,
+    ` /* Original: ${text.slice(
+      platformDetectFunction.start,
+      platformDetectFunction.end,
+    )} */`,
+  );
+
   traverse(ast, (node) => {
     if (
       node.type === "CallExpression" &&
       node.callee.type === "Identifier" &&
       node.callee.name === "require"
     ) {
-      requireCalls.push(node);
+      source.overwrite(
+        node.start,
+        node.end,
+        `{} /* Original: ${text.slice(node.start, node.end)} */`,
+      );
+    }
+
+    if (
+      node.type === "CallExpression" &&
+      node.callee.type === "Identifier" &&
+      node.callee.name === platformDetectFunction.id.name &&
+      node.arguments.length === 0
+    ) {
+      source.overwrite(
+        node.start,
+        node.end,
+        `false  /* Original: ${text.slice(node.start, node.end)} */`,
+      );
     }
   });
-
-  return requireCalls;
-}
-
-function modifyFlowParser(text) {
-  text = formatCode(text);
-
-  const source = new MagicString(text);
-  const ast = parse(text, { sourceType: "module" });
-  for (const node of getRequireCalls(ast)) {
-    source.overwrite(node.start, node.end, "{}");
-  }
 
   // for (const {
   //   className,
