@@ -29,6 +29,10 @@ async function loadEditorconfigInternal(file, { shouldCache }) {
   return config;
 }
 
+/**
+ * @param {string} file
+ * @param {{shouldCache?: boolean}} options
+ */
 function loadEditorconfig(file, { shouldCache }) {
   file = path.resolve(file);
 
