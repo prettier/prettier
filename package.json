@@ -120,7 +120,7 @@
     "cross-env": "7.0.3",
     "cspell": "8.0.0",
     "enquirer": "2.4.1",
-    "esbuild": "0.19.5",
+    "esbuild": "0.19.9",
     "esbuild-plugins-node-modules-polyfill": "1.6.1",
     "esbuild-visualizer": "0.5.0",
     "eslint": "8.53.0",
@@ -208,5 +208,5 @@
     "not op_mini all"
   ],
   "preferUnplugged": true,
-  "packageManager": "yarn@3.7.0"
+  "packageManager": "yarn@4.0.2"
 }
