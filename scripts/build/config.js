@@ -9,6 +9,7 @@ import buildJavascriptModule from "./build-javascript-module.js";
 import buildLicense from "./build-license.js";
 import buildPackageJson from "./build-package-json.js";
 import buildTypes from "./build-types.js";
+import modifyFlowParser from "./modify-flow-parser.js";
 import modifyTypescriptModule from "./modify-typescript-module.js";
 import { getPackageFile } from "./utils.js";
 
@@ -108,16 +109,7 @@ const pluginFiles = [
     replaceModule: [
       {
         module: require.resolve("flow-parser"),
-        process(text) {
-          const { fsModuleNameVariableName } = text.match(
-            /,(?<fsModuleNameVariableName>[\p{ID_Start}_$][\p{ID_Continue}$]*)="fs",/u,
-          ).groups;
-
-          return text
-            .replaceAll(`require(${fsModuleNameVariableName})`, "{}")
-            .replaceAll('require("fs")', "{}")
-            .replaceAll('require("constants")', "{}");
-        },
+        process: modifyFlowParser,
       },
     ],
   },
