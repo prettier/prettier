@@ -335,6 +335,32 @@ for (const division of collidingDivisions) {
 ================================================================================
 `;
 
+exports[`non-block.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (foo) for (i = 2; i > 0; i--) console.log(i); // foo
+else bar();
+
+if (foo) do { console.log(i) } while(i--) // foo
+else bar();
+
+=====================================output=====================================
+if (foo)
+  for (i = 2; i > 0; i--) console.log(i); // foo
+else bar();
+
+if (foo)
+  do {
+    console.log(i);
+  } while (i--); // foo
+else bar();
+
+================================================================================
+`;
+
 exports[`trailing_comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
