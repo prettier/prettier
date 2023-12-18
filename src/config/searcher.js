@@ -9,10 +9,9 @@ class Searcher {
   #cache = new Map();
 
   /**
-   *
    * @param {{
    *   names: string[],
-   *   filter: ({name: string, path: string}) => Promise<boolean>,
+   *   filter: (fileOrDirectory: {name: string, path: string}) => Promise<boolean>,
    *   stopDirectory?: string,
    * }} param0
    */
