@@ -1,8 +1,10 @@
 import fs from "node:fs";
 import readline from "node:readline";
+
 import chalk from "chalk";
 import { execa } from "execa";
 import outdent from "outdent";
+
 import getFormattedDate from "./get-formatted-date.js";
 
 readline.emitKeypressEvents(process.stdin);
@@ -128,14 +130,14 @@ function getChangelogContent({ version, previousVersion, body }) {
 }
 
 export {
-  runYarn,
-  runGit,
   fetchText,
+  getBlogPostInfo,
+  getChangelogContent,
   logPromise,
   processFile,
   readJson,
-  writeJson,
+  runGit,
+  runYarn,
   waitForEnter,
-  getBlogPostInfo,
-  getChangelogContent,
+  writeJson,
 };

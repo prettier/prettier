@@ -1,17 +1,17 @@
 import {
-  isVueSlotAttribute,
-  isVueSfcBindingsAttribute,
   getUnescapedAttributeValue,
   isVueScriptTag,
+  isVueSfcBindingsAttribute,
+  isVueSlotAttribute,
 } from "../utils/index.js";
 import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
-import { printVueVForDirective } from "./vue-v-for-directive.js";
 import { printVueScriptGenericAttributeValue } from "./print-vue-script-generic-attribute-value.js";
 import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
 import {
-  printVueBindings,
   isVueEventBindingExpression,
+  printVueBindings,
 } from "./vue-bindings.js";
+import { printVueVForDirective } from "./vue-v-for-directive.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc

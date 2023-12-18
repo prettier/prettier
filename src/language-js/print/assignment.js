@@ -1,24 +1,26 @@
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import getStringWidth from "../../utils/get-string-width.js";
 import {
-  line,
   group,
   indent,
   indentIfBreak,
+  line,
   lineSuffixBoundary,
 } from "../../document/builders.js";
-import { cleanDoc, willBreak, canBreak } from "../../document/utils.js";
+import { canBreak, cleanDoc, willBreak } from "../../document/utils.js";
+import getStringWidth from "../../utils/get-string-width.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
+  createTypeCheckFunction,
+  getCallArguments,
   hasLeadingOwnLineComment,
   isBinaryish,
-  isStringLiteral,
-  isNumericLiteral,
   isCallExpression,
-  isMemberExpression,
-  getCallArguments,
+  isIntersectionType,
   isLoneShortArgument,
+  isMemberExpression,
+  isNumericLiteral,
   isObjectProperty,
-  createTypeCheckFunction,
+  isStringLiteral,
+  isUnionType,
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
@@ -421,10 +423,8 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
     if (typeArgs.length === 1) {
       const firstArg = typeArgs[0];
       if (
-        firstArg.type === "TSUnionType" ||
-        firstArg.type === "UnionTypeAnnotation" ||
-        firstArg.type === "TSIntersectionType" ||
-        firstArg.type === "IntersectionTypeAnnotation" ||
+        isUnionType(firstArg) ||
+        isIntersectionType(firstArg) ||
         firstArg.type === "TSTypeLiteral" ||
         firstArg.type === "ObjectTypeAnnotation"
       ) {
@@ -462,8 +462,8 @@ function shouldBreakBeforeConditionalType(node) {
 }
 
 export {
-  printVariableDeclarator,
-  printAssignmentExpression,
-  printAssignment,
   isArrowFunctionVariableDeclarator,
+  printAssignment,
+  printAssignmentExpression,
+  printVariableDeclarator,
 };

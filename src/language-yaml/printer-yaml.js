@@ -12,34 +12,34 @@ import {
 import { replaceEndOfLine } from "../document/utils.js";
 import isPreviousLineEmpty from "../utils/is-previous-line-empty.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
-import { insertPragma, isPragma } from "./pragma.js";
-import { locStart } from "./loc.js";
 import embed from "./embed.js";
-import {
-  getFlowScalarLineContents,
-  getLastDescendantNode,
-  hasLeadingComments,
-  hasMiddleComments,
-  hasTrailingComment,
-  hasEndComments,
-  hasPrettierIgnore,
-  isLastDescendantNode,
-  isNode,
-  isInlineNode,
-} from "./utils.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-import preprocess from "./print-preprocess.js";
-import {
-  alignWithSpaces,
-  printNextEmptyLine,
-  shouldPrintEndComments,
-} from "./print/misc.js";
+import { locStart } from "./loc.js";
+import { insertPragma, isPragma } from "./pragma.js";
+import printBlock from "./print/block.js";
 import {
   printFlowMapping,
   printFlowSequence,
 } from "./print/flow-mapping-sequence.js";
 import printMappingItem from "./print/mapping-item.js";
-import printBlock from "./print/block.js";
+import {
+  alignWithSpaces,
+  printNextEmptyLine,
+  shouldPrintEndComments,
+} from "./print/misc.js";
+import preprocess from "./print-preprocess.js";
+import {
+  getFlowScalarLineContents,
+  getLastDescendantNode,
+  hasEndComments,
+  hasLeadingComments,
+  hasMiddleComments,
+  hasPrettierIgnore,
+  hasTrailingComment,
+  isInlineNode,
+  isLastDescendantNode,
+  isNode,
+} from "./utils.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;

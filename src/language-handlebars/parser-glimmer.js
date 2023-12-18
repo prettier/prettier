@@ -1,7 +1,8 @@
 import { preprocess as parseGlimmer } from "@glimmer/syntax";
 import { LinesAndColumns } from "lines-and-columns";
+
 import createError from "../common/parser-create-error.js";
-import { locStart, locEnd } from "./loc.js";
+import { locEnd, locStart } from "./loc.js";
 
 /* from the following template: `non-escaped mustache \\{{helper}}`
  * glimmer parser will produce an AST missing a backslash

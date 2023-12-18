@@ -1,37 +1,36 @@
-import { printComments } from "../../main/comments/print.js";
-import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import pathNeedsParens from "../needs-parens.js";
 import {
-  isCallExpression,
-  isMemberExpression,
-  isFunctionOrArrowExpression,
-  isLongCurriedCallExpression,
-  isMemberish,
-  isNumericLiteral,
-  isSimpleCallArgument,
-  hasComment,
-  CommentCheckFlags,
-  isNextLineEmpty,
-} from "../utils/index.js";
-import { locEnd } from "../loc.js";
-
-import {
-  join,
-  hardline,
-  group,
-  indent,
-  conditionalGroup,
   breakParent,
+  conditionalGroup,
+  group,
+  hardline,
+  indent,
+  join,
   label,
 } from "../../document/builders.js";
 import { willBreak } from "../../document/utils.js";
+import { printComments } from "../../main/comments/print.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
+import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import { locEnd } from "../loc.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
+  CommentCheckFlags,
+  hasComment,
+  isCallExpression,
+  isFunctionOrArrowExpression,
+  isLongCurriedCallExpression,
+  isMemberExpression,
+  isMemberish,
+  isNextLineEmpty,
+  isNumericLiteral,
+  isSimpleCallArgument,
+} from "../utils/index.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";
 import {
-  printOptionalToken,
-  printFunctionTypeParameters,
   printBindExpressionCallee,
+  printFunctionTypeParameters,
+  printOptionalToken,
 } from "./misc.js";
 
 /**
@@ -319,7 +318,7 @@ function printMemberChain(path, options, print) {
     if (groups.length === 0) {
       return "";
     }
-    return indent(group([hardline, join(hardline, groups.map(printGroup))]));
+    return indent([hardline, join(hardline, groups.map(printGroup))]);
   }
 
   const printedGroups = groups.map(printGroup);

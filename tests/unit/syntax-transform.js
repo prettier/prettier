@@ -1,6 +1,7 @@
 /* eslint-disable quotes -- `toMatchInlineSnapshot` uses template literal */
-import url from "node:url";
 import path from "node:path";
+import url from "node:url";
+
 import transformCode from "../../scripts/build/transform/index.js";
 
 const file = url.fileURLToPath(

@@ -1,8 +1,9 @@
 import { parse as meriyahParse } from "meriyah";
+
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
-import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
+import createParser from "./utils/create-parser.js";
 import getSourceType from "./utils/get-source-type.js";
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185

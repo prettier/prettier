@@ -1,37 +1,37 @@
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
+import {
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  join,
+  line,
+  softline,
+} from "../../document/builders.js";
 import {
   printComments,
   printDanglingComments,
 } from "../../main/comments/print.js";
+import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
-  join,
-  line,
-  hardline,
-  softline,
-  group,
-  indent,
-  ifBreak,
-} from "../../document/builders.js";
-import {
-  hasComment,
   CommentCheckFlags,
   createTypeCheckFunction,
+  hasComment,
   isNextLineEmpty,
 } from "../utils/index.js";
-import { getTypeParametersGroupId } from "./type-parameters.js";
+import { printAssignment } from "./assignment.js";
+import { printClassMemberDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
 import {
-  printOptionalToken,
-  printDefiniteToken,
-  printDeclareToken,
   printAbstractToken,
+  printDeclareToken,
+  printDefiniteToken,
+  printOptionalToken,
   printTypeScriptAccessibilityToken,
 } from "./misc.js";
 import { printPropertyKey } from "./property.js";
-import { printAssignment } from "./assignment.js";
-import { printClassMemberDecorators } from "./decorators.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
+import { getTypeParametersGroupId } from "./type-parameters.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -372,8 +372,8 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
 
 export {
   printClass,
+  printClassBody,
   printClassMethod,
   printClassProperty,
   printHardlineAfterHeritage,
-  printClassBody,
 };

@@ -1,6 +1,7 @@
 import { wrap as raw } from "jest-snapshot-serializer-raw";
-import visualizeRange from "./visualize-range.js";
+
 import visualizeEndOfLine from "./visualize-end-of-line.js";
+import visualizeRange from "./visualize-range.js";
 
 const SEPARATOR_WIDTH = 80;
 function printSeparator(description = "") {

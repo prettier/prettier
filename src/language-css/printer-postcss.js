@@ -1,54 +1,54 @@
-import printString from "../utils/print-string.js";
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import {
+  breakParent,
+  dedent,
+  group,
+  hardline,
+  ifBreak,
+  indent,
   join,
   line,
-  hardline,
   softline,
-  group,
-  indent,
-  dedent,
-  ifBreak,
-  breakParent,
 } from "../document/builders.js";
 import { removeLines } from "../document/utils.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import printString from "../utils/print-string.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
-import { insertPragma } from "./pragma.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-import {
-  maybeToLowerCase,
-  insideValueFunctionNode,
-  insideICSSRuleNode,
-  insideAtRuleNode,
-  isKeyframeAtRuleKeywords,
-  isWideKeywords,
-  isLastNode,
-  isSCSSControlDirectiveNode,
-  isDetachedRulesetDeclarationNode,
-  hasComposesNode,
-  hasParensAroundNode,
-  isDetachedRulesetCallNode,
-  isTemplatePlaceholderNode,
-  isTemplatePropNode,
-  isMediaAndSupportsKeywords,
-  lastLineHasInlineComment,
-} from "./utils/index.js";
-import { locStart, locEnd } from "./loc.js";
-import {
-  adjustStrings,
-  adjustNumbers,
-  quoteAttributeValue,
-  printUnit,
-  printCssNumber,
-} from "./print/misc.js";
+import { locEnd, locStart } from "./loc.js";
+import { insertPragma } from "./pragma.js";
 import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
+import {
+  adjustNumbers,
+  adjustStrings,
+  printCssNumber,
+  printUnit,
+  quoteAttributeValue,
+} from "./print/misc.js";
 import {
   printParenthesizedValueGroup,
   shouldBreakList,
 } from "./print/parenthesized-value-group.js";
 import printSequence from "./print/sequence.js";
+import {
+  hasComposesNode,
+  hasParensAroundNode,
+  insideAtRuleNode,
+  insideICSSRuleNode,
+  insideValueFunctionNode,
+  isDetachedRulesetCallNode,
+  isDetachedRulesetDeclarationNode,
+  isKeyframeAtRuleKeywords,
+  isLastNode,
+  isMediaAndSupportsKeywords,
+  isSCSSControlDirectiveNode,
+  isTemplatePlaceholderNode,
+  isTemplatePropNode,
+  isWideKeywords,
+  lastLineHasInlineComment,
+  maybeToLowerCase,
+} from "./utils/index.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;

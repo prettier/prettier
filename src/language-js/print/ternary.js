@@ -1,30 +1,29 @@
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import {
-  isJsxElement,
-  isCallExpression,
-  isMemberExpression,
-  isBinaryCastExpression,
-  getComments,
-  isLoneShortArgument,
-  isSimpleExpressionByNodeCount,
-  hasComment,
-  CommentCheckFlags,
-} from "../utils/index.js";
-import { locStart, locEnd } from "../loc.js";
-import isBlockComment from "../utils/is-block-comment.js";
-import {
+  breakParent,
+  dedent,
+  group,
+  hardline,
+  ifBreak,
+  indent,
   line,
   softline,
-  hardline,
-  group,
-  indent,
-  dedent,
-  ifBreak,
-  breakParent,
 } from "../../document/builders.js";
-import pathNeedsParens from "../needs-parens.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import { locEnd, locStart } from "../loc.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
+  CommentCheckFlags,
+  getComments,
+  hasComment,
+  isBinaryCastExpression,
+  isCallExpression,
+  isJsxElement,
+  isLoneShortArgument,
+  isMemberExpression,
+  isSimpleExpressionByNodeCount,
+} from "../utils/index.js";
+import isBlockComment from "../utils/is-block-comment.js";
 import { printTernaryOld } from "./ternary-old.js";
 
 /**

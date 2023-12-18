@@ -1,26 +1,28 @@
-import hasNewline from "../../utils/has-newline.js";
-import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
+  addDanglingComment,
   addLeadingComment,
   addTrailingComment,
-  addDanglingComment,
 } from "../../main/comments/utils.js";
+import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
+import hasNewline from "../../utils/has-newline.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locEnd, locStart } from "../loc.js";
 import {
-  getFunctionParameters,
-  isPrettierIgnoreComment,
-  isCallLikeExpression,
+  createTypeCheckFunction,
   getCallArguments,
+  getFunctionParameters,
   isCallExpression,
+  isCallLikeExpression,
+  isIntersectionType,
+  isLineComment,
   isMemberExpression,
   isObjectProperty,
-  isLineComment,
+  isPrettierIgnoreComment,
+  isUnionType,
   markerForIfWithoutBlockAndSameLineComment,
-  createTypeCheckFunction,
 } from "../utils/index.js";
-import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
 
@@ -702,10 +704,7 @@ function handleUnionTypeComments({
   enclosingNode,
   followingNode,
 }) {
-  if (
-    enclosingNode?.type === "UnionTypeAnnotation" ||
-    enclosingNode?.type === "TSUnionType"
-  ) {
+  if (isUnionType(enclosingNode)) {
     if (isPrettierIgnoreComment(comment)) {
       followingNode.prettierIgnore = true;
       comment.unignore = true;
@@ -717,11 +716,7 @@ function handleUnionTypeComments({
     return false;
   }
 
-  if (
-    (followingNode?.type === "UnionTypeAnnotation" ||
-      followingNode?.type === "TSUnionType") &&
-    isPrettierIgnoreComment(comment)
-  ) {
+  if (isUnionType(followingNode) && isPrettierIgnoreComment(comment)) {
     followingNode.types[0].prettierIgnore = true;
     comment.unignore = true;
   }
@@ -962,15 +957,13 @@ function handleLastUnionElementInExpression({
   followingNode,
 }) {
   if (
-    precedingNode &&
-    (precedingNode.type === "TSUnionType" ||
-      precedingNode.type === "UnionTypeAnnotation") &&
+    isUnionType(precedingNode) &&
     (((enclosingNode.type === "TSArrayType" ||
       enclosingNode.type === "ArrayTypeAnnotation") &&
-      followingNode === undefined) ||
-      enclosingNode.type === "TSIntersectionType" ||
-      enclosingNode.type === "IntersectionTypeAnnotation")
+      !followingNode) ||
+      isIntersectionType(enclosingNode))
   ) {
+    // @ts-expect-error -- types exits in TSUnionType and UnionTypeAnnotation
     addTrailingComment(precedingNode.types.at(-1), comment);
     return true;
   }
@@ -1035,7 +1028,7 @@ const isRealFunctionLikeNode = createTypeCheckFunction([
 ]);
 
 export {
-  handleOwnLineComment as ownLine,
   handleEndOfLineComment as endOfLine,
+  handleOwnLineComment as ownLine,
   handleRemainingComment as remaining,
 };

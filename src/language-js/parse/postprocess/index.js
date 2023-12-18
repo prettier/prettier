@@ -1,8 +1,8 @@
-import { locStart, locEnd } from "../../loc.js";
-import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
+import { locEnd, locStart } from "../../loc.js";
 import isBlockComment from "../../utils/is-block-comment.js";
 import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
+import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import visitNode from "./visit-node.js";
 
 /**

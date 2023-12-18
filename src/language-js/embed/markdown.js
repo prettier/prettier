@@ -1,8 +1,8 @@
 import {
-  indent,
-  softline,
-  literalline,
   dedentToRoot,
+  indent,
+  literalline,
+  softline,
 } from "../../document/builders.js";
 import { escapeTemplateCharacters } from "../print/template-literal.js";
 

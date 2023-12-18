@@ -1,5 +1,5 @@
-import skipNewline from "./skip-newline.js";
 import { skipSpaces } from "./skip.js";
+import skipNewline from "./skip-newline.js";
 
 // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
 /**
