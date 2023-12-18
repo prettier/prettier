@@ -24,6 +24,7 @@ const copyFileBuilder = ({ file }) =>
     path.join(PROJECT_ROOT, file.input),
     path.join(DIST_DIR, file.output.file),
   );
+const PACKAGE_NAME = "prettier";
 
 function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
   let input = jsFileInput;
@@ -38,7 +39,7 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
   return {
     input,
     output: {
-      file: outputBaseName + ".d.ts",
+      file: `${PACKAGE_NAME}/${outputBaseName}.d.ts`,
     },
     kind: "types",
     isPlugin,
@@ -715,11 +716,11 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
       ...[
         {
           format: "esm",
-          file: `${outputBaseName}${extensions.esm}`,
+          file: `${PACKAGE_NAME}/${outputBaseName}${extensions.esm}`,
         },
         {
           format: "umd",
-          file: `${outputBaseName}${extensions.umd}`,
+          file: `${PACKAGE_NAME}/${outputBaseName}${extensions.umd}`,
           umdVariableName,
         },
       ].map((output) => ({
@@ -834,7 +835,7 @@ const nodejsFiles = [
       input,
       output: {
         format,
-        file: `${outputBaseName}${extensions[format]}`,
+        file: `${PACKAGE_NAME}/${outputBaseName}${extensions[format]}`,
       },
       platform: "node",
       buildOptions,
@@ -869,7 +870,7 @@ const metaFiles = [
   },
 ].map((file) => ({
   ...file,
-  output: { file: file.input, ...file.output },
+  output: { file: `${PACKAGE_NAME}/${file.input}`, ...file.output },
   kind: "meta",
 }));
 
