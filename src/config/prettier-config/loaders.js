@@ -1,8 +1,8 @@
 import { pathToFileURL } from "node:url";
 
 import parseToml from "@iarna/toml/parse-async.js";
-import jsYaml from "js-yaml";
-import parseJson5 from "json5/lib/parse.js";
+import { load as parseYaml } from "js-yaml";
+import json5 from "json5";
 import parseJson from "parse-json";
 
 import readFile from "../../utils/read-file.js";
@@ -30,7 +30,7 @@ async function loadConfigFromPackageJson(file) {
 async function loadYaml(file) {
   const content = await readFile(file);
   try {
-    return jsYaml.load(content);
+    return parseYaml(content);
   } catch (/** @type {any} */ error) {
     error.message = `YAML Error in ${file}:\n${error.message}`;
     throw error;
@@ -50,7 +50,7 @@ const loaders = {
   async ".json5"(file) {
     const content = await readFile(file);
     try {
-      return parseJson5(content);
+      return json5.parse(content);
     } catch (/** @type {any} */ error) {
       error.message = `JSON5 Error in ${file}:\n${error.message}`;
       throw error;

@@ -212,6 +212,12 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/jsx/xhtml-entities.js",
+        ),
+        text: "exports.xhtmlEntities = {};",
+      },
+      {
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/create-program/createProjectService.js",
         ),
         text: "",
@@ -603,7 +609,8 @@ const nodejsFiles = [
       },
       {
         module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
-        path: getPackageFile("js-yaml/lib/loader.js"),
+        find: "var dump                = dumper.dump;",
+        replacement: "var dump;",
       },
       // `parse-json` use another copy of `@babel/code-frame`
       {
@@ -611,6 +618,11 @@ const nodejsFiles = [
           paths: [require.resolve("parse-json")],
         }),
         path: require.resolve("@babel/code-frame"),
+      },
+      {
+        module: getPackageFile("json5/dist/index.mjs"),
+        find: "export default lib;",
+        replacement: "export default { parse };",
       },
     ],
     addDefaultExport: true,
