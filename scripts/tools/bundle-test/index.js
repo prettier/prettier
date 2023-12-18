@@ -39,7 +39,7 @@ for (const file of files) {
 
   const stats = await runWebpack({
     mode: "production",
-    entry: path.join(DIST_DIR, file.output.file),
+    entry: path.join(DIST_DIR, `prettier/${file.output.file}`),
     output: {
       path: TEMPORARY_DIRECTORY,
       filename: `${file.output.file}.[contenthash:7].${
