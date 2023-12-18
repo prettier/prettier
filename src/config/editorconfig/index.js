@@ -13,6 +13,7 @@ function clearEditorconfigCache() {
   editorconfigCache.clear();
 }
 
+// TODO: Improve this cache
 function findProjectRoot(directory, { shouldCache }) {
   if (!shouldCache || !projectRootCache.has(directory)) {
     // Even if `shouldCache` is false, we still cache the result, so we can use it when `shouldCache` is true
