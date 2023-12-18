@@ -212,6 +212,12 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/jsx/xhtml-entities.js",
+        ),
+        text: "exports.xhtmlEntities = {};",
+      },
+      {
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/create-program/createProjectService.js",
         ),
         text: "",
