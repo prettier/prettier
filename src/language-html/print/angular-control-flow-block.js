@@ -6,6 +6,7 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
+import { hasPrettierIgnore } from "../utils/index.js";
 import ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS from "./angular-control-flow-block-settings.evaluate.js";
 import { printChildren } from "./children.js";
 
@@ -42,6 +43,7 @@ function printAngularControlFlowBlock(path, options, print) {
 
 function shouldCloseBlock(node) {
   return !(
+    !hasPrettierIgnore(node) &&
     node.next?.type === "angularControlFlowBlock" &&
     ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name)?.has(node.next.name)
   );
