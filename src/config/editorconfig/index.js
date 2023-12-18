@@ -44,7 +44,7 @@ function loadEditorconfig(file, { shouldCache }) {
     );
   }
 
-  return file.get(file);
+  return editorconfigCache.get(file);
 }
 
 export { clearEditorconfigCache, loadEditorconfig };
