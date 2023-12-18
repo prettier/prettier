@@ -1216,13 +1216,6 @@ function isObjectProperty(node) {
   );
 }
 
-/**
- * This is used as a marker for dangling comments.
- */
-const markerForIfWithoutBlockAndSameLineComment = Symbol(
-  "ifWithoutBlockAndSameLineComment",
-);
-
 const isBinaryCastExpression = createTypeCheckFunction([
   // TS
   "TSAsExpression",
@@ -1303,7 +1296,6 @@ export {
   isUnionType,
   iterateCallArgumentsPath,
   iterateFunctionParametersPath,
-  markerForIfWithoutBlockAndSameLineComment,
   needsHardlineAfterDanglingComment,
   rawText,
   shouldFlatten,

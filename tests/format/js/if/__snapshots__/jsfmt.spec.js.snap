@@ -123,25 +123,28 @@ function a() {
   if (a) throw e; /* comment 6d */
   else return 2;
 
-  // TODO[@fisker]: fix this
-  // if (a) var a = 1; /* comment 6e */
-  // else return 2;
+  if (a) var a = 1; /* comment 6e */
+  else return 2;
 
   if (a) if (b); /* comment 6f */
   else return 2;
 }
 
 =====================================output=====================================
-if (a === 0) doSomething(); // comment A1
-else if (a === 1) doSomethingElse(); // comment B1
+if (a === 0)
+  doSomething(); // comment A1
+else if (a === 1)
+  doSomethingElse(); // comment B1
 else if (a === 2) doSomethingElse(); // comment C1
 
 if (a === 0) doSomething(); /* comment A2 */
 else if (a === 1) doSomethingElse(); /* comment B2 */
 else if (a === 2) doSomethingElse(); /* comment C2 */
 
-if (a === 0) expr; // comment A3
-else if (a === 1) expr; // comment B3
+if (a === 0)
+  expr; // comment A3
+else if (a === 1)
+  expr; // comment B3
 else if (a === 2) expr; // comment C3
 
 if (a === 0) expr; /* comment A4 */
@@ -156,18 +159,17 @@ else if (a === 2)
   looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong; // comment C5
 
 function a() {
-  if (a) return /* comment 6a */;
+  if (a) return; /* comment 6a */
   else return 2;
 
-  if (a) return 1 /* comment 6b */;
+  if (a) return 1; /* comment 6b */
   else return 2;
 
-  if (a) throw e /* comment 6d */;
+  if (a) throw e; /* comment 6d */
   else return 2;
 
-  // TODO[@fisker]: fix this
-  // if (a) var a = 1; /* comment 6e */
-  // else return 2;
+  if (a) var a = 1; /* comment 6e */
+  else return 2;
 
   if (a)
     if (b /* comment 6f */);
@@ -288,6 +290,50 @@ async function f5() {
     shouldAmend = true;
   } else if (untrackedChoice === 2) {
     /* Allow Untracked */ allowUntracked = true;
+  }
+}
+
+================================================================================
+`;
+
+exports[`issue-15168.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for (const division of collidingDivisions) {
+	if (!division.properties.canRemove) {
+		if (division.canContainSingleParagraph(startParagraph)) continue; // selection starting in r/o div: always OK to delete
+		else if (endParagraph !== division.endParagraph && division.canContainSingleParagraph(endParagraph)) continue; // selection ending in r/o div: OK to delete IF it is NOT last paragraph (which would get absorbed)
+		else { // selection over whole r/o div OR ending in last paragraph (which would get absorbed) -> FAIL
+			console.warn('deleteSelectedTextAndJoinRemainingNodes(): cannot delete because of must-keep division: ' + division.properties.name);
+			return { success: false, reason: DeleteAndJoinErrorReason.READONLY_DIVISION };
+		}
+	}
+}
+
+=====================================output=====================================
+for (const division of collidingDivisions) {
+  if (!division.properties.canRemove) {
+    if (division.canContainSingleParagraph(startParagraph))
+      continue; // selection starting in r/o div: always OK to delete
+    else if (
+      endParagraph !== division.endParagraph &&
+      division.canContainSingleParagraph(endParagraph)
+    )
+      continue; // selection ending in r/o div: OK to delete IF it is NOT last paragraph (which would get absorbed)
+    else {
+      // selection over whole r/o div OR ending in last paragraph (which would get absorbed) -> FAIL
+      console.warn(
+        "deleteSelectedTextAndJoinRemainingNodes(): cannot delete because of must-keep division: " +
+          division.properties.name,
+      );
+      return {
+        success: false,
+        reason: DeleteAndJoinErrorReason.READONLY_DIVISION,
+      };
+    }
   }
 }
 
