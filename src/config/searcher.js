@@ -58,7 +58,7 @@ class Searcher {
 
     // Always cache the result, so we can use it when `useCache` is set to true
     for (const directory of searchedDirectories) {
-      this.#cache.set(directory, result);
+      cache.set(directory, result);
     }
 
     return result;
