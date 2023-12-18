@@ -10,7 +10,7 @@ import {
 } from "./editorconfig/index.js";
 import {
   clearPrettierConfigCache,
-  loadPrettierConfig as loadPrettierConfigForFile,
+  loadPrettierConfig as loadPrettierConfigFile,
   searchPrettierConfig,
 } from "./prettier-config/index.js";
 
@@ -41,7 +41,7 @@ async function loadPrettierConfig(file, options) {
     return;
   }
 
-  const config = await loadPrettierConfigForFile(configFile, { shouldCache });
+  const config = await loadPrettierConfigFile(configFile, { shouldCache });
 
   return { config, configFile };
 }
