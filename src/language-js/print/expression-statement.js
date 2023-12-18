@@ -1,5 +1,3 @@
-import { printDanglingComments } from "../../main/comments/print.js";
-import { CommentCheckFlags, hasComment } from "../utils/index.js";
 import {
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
