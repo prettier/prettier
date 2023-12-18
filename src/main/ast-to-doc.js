@@ -1,5 +1,5 @@
 import AstPath from "../common/ast-path.js";
-import { cursorStart, cursorEnd } from "../document/builders.js";
+import { cursorEnd,cursorStart } from "../document/builders.js";
 import { inheritLabel } from "../document/utils.js";
 import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted, printComments } from "./comments/print.js";

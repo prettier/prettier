@@ -1,6 +1,6 @@
 import {
-  CURSOR_START,
   CURSOR_END,
+  CURSOR_START,
   DOC_TYPE_ALIGN,
   DOC_TYPE_BREAK_PARENT,
   DOC_TYPE_CURSOR,
@@ -242,8 +242,8 @@ export {
   breakParent,
   conditionalGroup,
   cursor,
-  cursorStart,
   cursorEnd,
+  cursorStart,
   dedent,
   dedentToRoot,
   fill,
