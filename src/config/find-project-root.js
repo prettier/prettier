@@ -23,7 +23,7 @@ function findProjectRoot(startDirectory, options) {
   return searcher.search(startDirectory, options);
 }
 
-function clearCache() {
+function clearFindProjectRootCache() {
   searcher?.clearCache();
 }
 
