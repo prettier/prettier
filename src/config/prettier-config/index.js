@@ -32,15 +32,14 @@ function loadPrettierConfig(configFile, { shouldCache }) {
  */
 function getSearchFunction(stopDirectory) {
   stopDirectory = stopDirectory ? path.resolve(stopDirectory) : undefined;
-  const searchCacheKey = JSON.stringify({ stopDirectory });
 
-  if (!searchCache.has(searchCacheKey)) {
+  if (!searchCache.has(stopDirectory)) {
     const searcher = getConfigSearcher(stopDirectory);
     const searchFunction = searcher.search.bind(searcher);
-    searchCache.set(searchCacheKey, searchFunction);
+    searchCache.set(stopDirectory, searchFunction);
   }
 
-  return searchCache.get(searchCacheKey);
+  return searchCache.get(stopDirectory);
 }
 
 /**
