@@ -24,7 +24,7 @@ async function findProjectRoot(startDirectory, options) {
   searcher ??= new Searcher(searchOptions);
   const mark = await searcher.search(startDirectory, options);
 
-  return path.dirname(mark);
+  return mark ? path.dirname(mark) : undefined;
 }
 
 function clearFindProjectRootCache() {
