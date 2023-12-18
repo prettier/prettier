@@ -2,11 +2,11 @@ import path from "node:path";
 
 import mockable from "../../common/mockable.js";
 import ConfigSearcher from "./config-searcher.js";
-import loadConfigWithoutCache from "./load-config.js";
+import loadConfig from "./load-config.js";
 
 const loadCache = new Map();
 const searchCache = new Map();
-function clearCache() {
+function clearPrettierConfigCache() {
   loadCache.clear();
   searchCache.clear();
 }
@@ -14,15 +14,14 @@ function clearCache() {
 /**
  * @param {string} configFile
  * @param {{shouldCache?: boolean}} param1
- * @returns {Promise<ReturnType<loadConfigWithoutCache>>}
+ * @returns {Promise<ReturnType<loadConfig>>}
  */
-function loadConfig(configFile, { shouldCache }) {
+function loadPrettierConfig(configFile, { shouldCache }) {
   configFile = path.resolve(configFile);
+
   if (!shouldCache || !loadCache.has(configFile)) {
-    const promise = loadConfigWithoutCache(configFile);
-    // Even if `shouldCache` is false, we still cache it, so we can use it later
-    loadCache.set(configFile, promise);
-    return promise;
+    // Even if `shouldCache` is false, we still cache the result, so we can use it when `shouldCache` is true
+    loadCache.set(configFile, loadConfig(configFile));
   }
 
   return loadCache.get(configFile);
@@ -50,7 +49,7 @@ function getSearchFunction({ shouldCache, stopDirectory }) {
  * @param {{shouldCache?: boolean, stopDirectory?: string}} options
  * @returns {Promise<string>}
  */
-function searchConfig(startDirectory, options = {}) {
+function searchPrettierConfig(startDirectory, options = {}) {
   startDirectory = startDirectory
     ? path.resolve(startDirectory)
     : process.cwd();
@@ -62,4 +61,4 @@ function searchConfig(startDirectory, options = {}) {
   return search(startDirectory);
 }
 
-export { clearCache, loadConfig, searchConfig };
+export { clearPrettierConfigCache, loadPrettierConfig, searchPrettierConfig };

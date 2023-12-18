@@ -1,41 +1,39 @@
 import path from "node:path";
 
-import mem, { memClear } from "mem";
 import micromatch from "micromatch";
 import { toPath } from "url-or-path";
 
 import partition from "../utils/partition.js";
 import {
-  clearCache as clearPrettierConfigCache,
-  loadConfig as loadPrettierConfigFile,
-  searchConfig as searchPrettierConfig,
-} from "./prettier-config-explorer/index.js";
-import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
+  clearEditorconfigCache,
+  loadEditorconfig as loadEditorconfigForFile,
+} from "./editorconfig/index.js";
+import {
+  clearPrettierConfigCache,
+  loadPrettierConfig as loadPrettierConfigForFile,
+  searchPrettierConfig,
+} from "./prettier-config/index.js";
 
-const memoizedLoadEditorConfig = mem(loadEditorConfigWithoutCache);
 function clearCache() {
   clearPrettierConfigCache();
-  memClear(memoizedLoadEditorConfig);
+  clearEditorconfigCache();
 }
 
-function loadEditorConfig(filePath, options) {
-  if (!filePath || !options.editorconfig) {
+function loadEditorconfig(file, options) {
+  if (!file || !options.editorconfig) {
     return;
   }
 
-  return (
-    options.useCache ? memoizedLoadEditorConfig : loadEditorConfigWithoutCache
-  )(filePath);
+  const shouldCache = options.useCache;
+  return loadEditorconfigForFile(file, { shouldCache });
 }
 
-async function loadPrettierConfig(filePath, options) {
+async function loadPrettierConfig(file, options) {
   const shouldCache = options.useCache;
   let configFile = options.config;
 
   if (!configFile) {
-    const directory = filePath
-      ? path.dirname(path.resolve(filePath))
-      : undefined;
+    const directory = file ? path.dirname(path.resolve(file)) : undefined;
     configFile = await searchPrettierConfig(directory, { shouldCache });
   }
 
@@ -43,7 +41,7 @@ async function loadPrettierConfig(filePath, options) {
     return;
   }
 
-  const config = await loadPrettierConfigFile(configFile, { shouldCache });
+  const config = await loadPrettierConfigForFile(configFile, { shouldCache });
 
   return { config, configFile };
 }
@@ -54,7 +52,7 @@ async function resolveConfig(fileUrlOrPath, options) {
 
   const [result, editorConfigured] = await Promise.all([
     loadPrettierConfig(filePath, options),
-    loadEditorConfig(filePath, options),
+    loadEditorconfig(filePath, options),
   ]);
 
   if (!result && !editorConfigured) {
