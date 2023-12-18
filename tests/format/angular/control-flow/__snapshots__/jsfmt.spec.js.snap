@@ -426,6 +426,95 @@ topStartToSideStartMaxSize) {
 ================================================================================
 `;
 
+exports[`ignore-comment.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- prettier-ignore -->
+@if (condition) {
+  Foo
+} @else {
+  Bar
+}
+
+<!-- prettier-ignore -->
+@for ( item of items; track item) {
+  {{ item }}
+} @empty {
+  No items
+}
+
+<!-- prettier-ignore -->
+@switch (condition) {
+  @case (caseA) {
+    Case A.
+  }
+  @case (caseB) {
+    Case B.
+  }
+  @default {
+    Default case.
+  }
+}
+
+<!-- prettier-ignore -->
+@defer {
+  <large-component />
+} @loading {
+  Loading
+} @placeholder {
+  Placeholder
+} @error {
+  Error
+}
+
+=====================================output=====================================
+<!-- prettier-ignore -->
+@if (condition) {
+  Foo
+}
+@else {
+  Bar
+}
+
+<!-- prettier-ignore -->
+@for ( item of items; track item) {
+  {{ item }}
+}
+@empty {
+  No items
+}
+
+<!-- prettier-ignore -->
+@switch (condition) {
+  @case (caseA) {
+    Case A.
+  }
+  @case (caseB) {
+    Case B.
+  }
+  @default {
+    Default case.
+  }
+}
+
+<!-- prettier-ignore -->
+@defer {
+  <large-component />
+}
+@loading {
+  Loading
+} @placeholder {
+  Placeholder
+} @error {
+  Error
+}
+
+================================================================================
+`;
+
 exports[`mix.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]

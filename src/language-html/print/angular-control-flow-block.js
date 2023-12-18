@@ -8,6 +8,7 @@ import {
 } from "../../document/builders.js";
 import ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS from "./angular-control-flow-block-settings.evaluate.js";
 import { printChildren } from "./children.js";
+import { hasPrettierIgnore } from "../utils/index.js";
 
 function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
@@ -51,7 +52,8 @@ function isPreviousBlockUnClosed(path) {
   const { previous } = path;
   return (
     previous?.type === "angularControlFlowBlock" &&
-    !shouldCloseBlock(path.previous)
+    !shouldCloseBlock(path.previous) &&
+    !hasPrettierIgnore(previous)
   );
 }
 
