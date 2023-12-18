@@ -1,7 +1,7 @@
 import path from "node:path";
 
 import mockable from "../../common/mockable.js";
-import ConfigSearcher from "./config-searcher.js";
+import getConfigSearcher from "./config-searcher.js";
 import loadConfig from "./load-config.js";
 
 const loadCache = new Map();
@@ -28,16 +28,15 @@ function loadPrettierConfig(configFile, { shouldCache }) {
 }
 
 /**
- * @param {{shouldCache?: boolean, stopDirectory?: string}} param0
+ * @param {string} stopDirectory
  */
-function getSearchFunction({ shouldCache, stopDirectory }) {
+function getSearchFunction(stopDirectory) {
   stopDirectory = stopDirectory ? path.resolve(stopDirectory) : undefined;
-  const searchCacheKey = JSON.stringify({ shouldCache, stopDirectory });
+  const searchCacheKey = JSON.stringify({ stopDirectory });
 
   if (!searchCache.has(searchCacheKey)) {
-    const searcher = new ConfigSearcher({ shouldCache, stopDirectory });
+    const searcher = getConfigSearcher(stopDirectory);
     const searchFunction = searcher.search.bind(searcher);
-
     searchCache.set(searchCacheKey, searchFunction);
   }
 
@@ -46,7 +45,7 @@ function getSearchFunction({ shouldCache, stopDirectory }) {
 
 /**
  * @param {string} startDirectory
- * @param {{shouldCache?: boolean, stopDirectory?: string}} options
+ * @param {{shouldCache?: boolean}} options
  * @returns {Promise<string>}
  */
 function searchPrettierConfig(startDirectory, options = {}) {
@@ -54,11 +53,11 @@ function searchPrettierConfig(startDirectory, options = {}) {
     ? path.resolve(startDirectory)
     : process.cwd();
 
-  options.stopDirectory = mockable.getPrettierConfigSearchStopDirectory();
+  const stopDirectory = mockable.getPrettierConfigSearchStopDirectory();
 
-  const search = getSearchFunction(options);
+  const search = getSearchFunction(stopDirectory);
 
-  return search(startDirectory);
+  return search(startDirectory, { shouldCache: options.shouldCache });
 }
 
 export { clearPrettierConfigCache, loadPrettierConfig, searchPrettierConfig };

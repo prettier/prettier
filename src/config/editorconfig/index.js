@@ -2,24 +2,17 @@ import path from "node:path";
 
 import editorconfig from "editorconfig";
 
-import findProjectRootWithoutCache from "../find-project-root.js";
+import {
+  clearFindProjectRootCache,
+  findProjectRoot,
+} from "../find-project-root.js";
 import editorConfigToPrettier from "./editorconfig-to-prettier.js";
 
-const projectRootCache = new Map();
 const editorconfigCache = new Map();
 
 function clearEditorconfigCache() {
-  projectRootCache.clear();
+  clearFindProjectRootCache();
   editorconfigCache.clear();
-}
-
-// TODO: Improve this cache
-function findProjectRoot(directory, { shouldCache }) {
-  if (!shouldCache || !projectRootCache.has(directory)) {
-    // Even if `shouldCache` is false, we still cache the result, so we can use it when `shouldCache` is true
-    projectRootCache.set(directory, findProjectRootWithoutCache(directory));
-  }
-  return projectRootCache.get(directory);
 }
 
 async function loadEditorconfigInternal(file, { shouldCache }) {
