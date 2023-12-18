@@ -49,7 +49,7 @@ class Searcher {
       this.#stopDirectory,
     )) {
       searchedDirectories.push(directory);
-      result = await this.#searchInDirectory(directory, useCache);
+      result = await this.#searchInDirectory(directory, shouldCache);
 
       if (result) {
         break;
