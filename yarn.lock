@@ -85,15 +85,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:7.23.5, @babel/generator@npm:^7.23.3, @babel/generator@npm:^7.23.4, @babel/generator@npm:^7.7.2":
-  version: 7.23.5
-  resolution: "@babel/generator@npm:7.23.5"
+"@babel/generator@npm:7.23.6, @babel/generator@npm:^7.23.3, @babel/generator@npm:^7.23.4, @babel/generator@npm:^7.7.2":
+  version: 7.23.6
+  resolution: "@babel/generator@npm:7.23.6"
   dependencies:
-    "@babel/types": ^7.23.5
+    "@babel/types": ^7.23.6
     "@jridgewell/gen-mapping": ^0.3.2
     "@jridgewell/trace-mapping": ^0.3.17
     jsesc: ^2.5.1
-  checksum: 845ddda7cf38a3edf4be221cc8a439dee9ea6031355146a1a74047aa8007bc030305b27d8c68ec9e311722c910610bde38c0e13a9ce55225251e7cb7e7f3edc8
+  checksum: 1a1a1c4eac210f174cd108d479464d053930a812798e09fee069377de39a893422df5b5b146199ead7239ae6d3a04697b45fc9ac6e38e0f6b76374390f91fc6c
   languageName: node
   linkType: hard
 
@@ -228,12 +228,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:7.23.5, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.15, @babel/parser@npm:^7.23.3, @babel/parser@npm:^7.23.4":
-  version: 7.23.5
-  resolution: "@babel/parser@npm:7.23.5"
+"@babel/parser@npm:7.23.6, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.15, @babel/parser@npm:^7.23.3, @babel/parser@npm:^7.23.4":
+  version: 7.23.6
+  resolution: "@babel/parser@npm:7.23.6"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: ea763629310f71580c4a3ea9d3705195b7ba994ada2cc98f9a584ebfdacf54e92b2735d351672824c2c2b03c7f19206899f4d95650d85ce514a822b19a8734c7
+  checksum: 140801c43731a6c41fd193f5c02bc71fd647a0360ca616b23d2db8be4b9739b9f951a03fc7c2db4f9b9214f4b27c1074db0f18bc3fa653783082d5af7c8860d5
   languageName: node
   linkType: hard
 
@@ -420,14 +420,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:7.23.5, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.0, @babel/types@npm:^7.23.3, @babel/types@npm:^7.23.4, @babel/types@npm:^7.23.5, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
-  version: 7.23.5
-  resolution: "@babel/types@npm:7.23.5"
+"@babel/types@npm:7.23.6, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.0, @babel/types@npm:^7.23.3, @babel/types@npm:^7.23.4, @babel/types@npm:^7.23.6, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
+  version: 7.23.6
+  resolution: "@babel/types@npm:7.23.6"
   dependencies:
     "@babel/helper-string-parser": ^7.23.4
     "@babel/helper-validator-identifier": ^7.22.20
     to-fast-properties: ^2.0.0
-  checksum: 3d21774480a459ef13b41c2e32700d927af649e04b70c5d164814d8e04ab584af66a93330602c2925e1a6925c2b829cc153418a613a4e7d79d011be1f29ad4b2
+  checksum: 68187dbec0d637f79bc96263ac95ec8b06d424396678e7e225492be866414ce28ebc918a75354d4c28659be6efe30020b4f0f6df81cc418a2d30645b690a8de0
   languageName: node
   linkType: hard
 
@@ -2847,13 +2847,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clone@npm:^1.0.2":
-  version: 1.0.4
-  resolution: "clone@npm:1.0.4"
-  checksum: d06418b7335897209e77bdd430d04f882189582e67bd1f75a04565f3f07f5b3f119a9d670c943b6697d0afb100f03b866b3b8a1f91d4d02d72c4ecf2bb64b5dd
-  languageName: node
-  linkType: hard
-
 "co@npm:^4.6.0":
   version: 4.6.0
   resolution: "co@npm:4.6.0"
@@ -3241,15 +3234,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"defaults@npm:^1.0.3":
-  version: 1.0.4
-  resolution: "defaults@npm:1.0.4"
-  dependencies:
-    clone: ^1.0.2
-  checksum: 3a88b7a587fc076b84e60affad8b85245c01f60f38fc1d259e7ac1d89eb9ce6abb19e27215de46b98568dd5bc48471730b327637e6f20b0f1bc85cf00440c80a
-  languageName: node
-  linkType: hard
-
 "define-data-property@npm:^1.0.1, define-data-property@npm:^1.1.1":
   version: 1.1.1
   resolution: "define-data-property@npm:1.1.1"
@@ -3561,15 +3545,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-visualizer@npm:0.4.1":
-  version: 0.4.1
-  resolution: "esbuild-visualizer@npm:0.4.1"
+"esbuild-visualizer@npm:0.5.0":
+  version: 0.5.0
+  resolution: "esbuild-visualizer@npm:0.5.0"
   dependencies:
     open: ^8.4.0
+    picomatch: ^2.3.1
     yargs: ^17.6.2
   bin:
     esbuild-visualizer: dist/bin/cli.js
-  checksum: 56453d4b1cc5d5e5f7e3db2131fbbad7249ff183a4a0af5582c391e05fed291cf5453413a3145f69bf01bbb02edef5af45273d6d05b27ea6c14091b3cf24d23e
+  checksum: e659da92e20efbad3cfedff3e6a8084a5083e0e659f9ab3f1bad111aafcd2a7e4d995fa30353d8342f9a84499d7d802d8fb6a40c7d0d1e448b805ec2f3a9e2c8
   languageName: node
   linkType: hard
 
@@ -4294,10 +4279,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.223.3":
-  version: 0.223.3
-  resolution: "flow-parser@npm:0.223.3"
-  checksum: 4c0df178ff2e9140f57b5e7321b11e1cb827e00fbad6f342742c5834bd313f1bb0fe84d919d36e0c593e916c4ae5c8a93fcdb42c4328d6c5d77d75c8eed12090
+"flow-parser@npm:0.224.0":
+  version: 0.224.0
+  resolution: "flow-parser@npm:0.224.0"
+  checksum: 93ddcfa8ac648b63d08aac1028dc89d26c816e11809dee0e0ee1e89adbc602b4cdf8c8b37942899bc8140337e428a587b393d2a054a3ada3e9a88a8295972df4
   languageName: node
   linkType: hard
 
@@ -7287,9 +7272,9 @@ __metadata:
   dependencies:
     "@angular/compiler": 17.0.2
     "@babel/code-frame": 7.23.5
-    "@babel/generator": 7.23.5
-    "@babel/parser": 7.23.5
-    "@babel/types": 7.23.5
+    "@babel/generator": 7.23.6
+    "@babel/parser": 7.23.6
+    "@babel/types": 7.23.6
     "@glimmer/reference": 0.85.13
     "@glimmer/syntax": 0.85.13
     "@iarna/toml": 2.2.5
@@ -7324,7 +7309,7 @@ __metadata:
     enquirer: 2.4.1
     esbuild: 0.19.5
     esbuild-plugins-node-modules-polyfill: 1.6.1
-    esbuild-visualizer: 0.4.1
+    esbuild-visualizer: 0.5.0
     escape-string-regexp: 5.0.0
     eslint: 8.53.0
     eslint-config-prettier: 9.1.0
@@ -7344,7 +7329,7 @@ __metadata:
     fast-json-stable-stringify: 2.1.0
     file-entry-cache: 7.0.2
     find-cache-dir: 5.0.0
-    flow-parser: 0.223.3
+    flow-parser: 0.224.0
     get-east-asian-width: 1.2.0
     get-stdin: 9.0.0
     graphql: 16.8.1
@@ -7402,7 +7387,7 @@ __metadata:
     unified: 9.2.2
     url-or-path: 2.3.0
     vnopts: 2.0.0
-    wcwidth: 1.0.1
+    wcwidth.js: 1.1.2
     yaml-unist-parser: 2.0.1
   bin:
     prettier: ./bin/prettier.cjs
@@ -8980,12 +8965,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wcwidth@npm:1.0.1":
-  version: 1.0.1
-  resolution: "wcwidth@npm:1.0.1"
-  dependencies:
-    defaults: ^1.0.3
-  checksum: 814e9d1ddcc9798f7377ffa448a5a3892232b9275ebb30a41b529607691c0491de47cba426e917a4d08ded3ee7e9ba2f3fe32e62ee3cd9c7d3bafb7754bd553c
+"wcwidth.js@npm:1.1.2":
+  version: 1.1.2
+  resolution: "wcwidth.js@npm:1.1.2"
+  checksum: df4e385feed6dbf4a4d35d089190cf0cf1209d7c8ed961bb21f813c65c3ab051d9e5f94caa588904adc96e016c30957e0cd4f53b44d8759b281d58a02d679030
   languageName: node
   linkType: hard
 
