@@ -37,6 +37,11 @@ class Searcher {
   }
 
   async search(startDirectory, { useCache }) {
+    const cache = this.#cache;
+    if (useCache && cache.has(startDirectory)) {
+      return cache.get(startDirectory);
+    }
+
     const searchedDirectories = [];
     let result;
     for (const directory of iterateDirectoryUp(

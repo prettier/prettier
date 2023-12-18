@@ -1,6 +1,8 @@
 // Simple version of `find-project-root`
 // https://github.com/kirstein/find-project-root/blob/master/index.js
 
+import * as path from "node:path";
+
 import isDirectory from "../utils/is-directory.js";
 import Searcher from "./searcher.js";
 
@@ -18,9 +20,11 @@ const searchOptions = {
  * @param {{shouldCache?: boolean}} options
  * @returns {Promise<string | undefined>}
  */
-function findProjectRoot(startDirectory, options) {
+async function findProjectRoot(startDirectory, options) {
   searcher ??= new Searcher(searchOptions);
-  return searcher.search(startDirectory, options);
+  const mark = await searcher.search(startDirectory, options);
+
+  return path.dirname(mark);
 }
 
 function clearFindProjectRootCache() {
