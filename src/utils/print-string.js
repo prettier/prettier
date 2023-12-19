@@ -11,6 +11,7 @@ function printString(raw, options) {
   /** @type {Quote} */
   const enclosingQuote =
     options.parser === "json" ||
+    options.parser === "jsonc" ||
     (options.parser === "json5" &&
       options.quoteProps === "preserve" &&
       !options.singleQuote)

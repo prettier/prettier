@@ -3,7 +3,10 @@ import assert from "node:assert";
 import { getSortedChildNodes } from "./comments/attach.js";
 
 const isJsonParser = ({ parser }) =>
-  parser === "json" || parser === "json5" || parser === "json-stringify";
+  parser === "json" ||
+  parser === "json5" ||
+  parser === "jsonc" ||
+  parser === "json-stringify";
 
 function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
   const startNodeAndAncestors = [
