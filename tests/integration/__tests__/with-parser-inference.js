@@ -66,7 +66,7 @@ describe("infers parser from filename", () => {
         {
           "jsc": {
             // Requires v1.2.50 or upper and requires target to be es2016 or upper.
-            "keepClassNames": false
+            "keepClassNames": false,
           }
         }
       ` + "\n",
