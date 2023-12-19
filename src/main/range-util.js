@@ -183,6 +183,7 @@ function isSourceElement(opts, node, parentNode) {
       return isJsSourceElement(node.type, parentNode?.type);
     case "json":
     case "json5":
+    case "jsonc":
     case "json-stringify":
       return jsonSourceElements.has(node.type);
     case "graphql":

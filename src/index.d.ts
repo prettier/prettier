@@ -291,6 +291,7 @@ export type BuiltInParserName =
   | "json-stringify"
   | "json"
   | "json5"
+  | "jsonc"
   | "less"
   | "lwc"
   | "markdown"
