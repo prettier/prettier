@@ -14,7 +14,7 @@ function printString(raw, options) {
     options.parser === "jsonc" ||
     // This was added before we have the `jsonc` parser
     // If `{quoteProps: "preserve"}` and `{singleQuote: false}` (default value),
-    // and `parser` to `json5`, double quotes are always used for strings.
+    // and `{parser: "json5"}`, double quotes are always used for strings.
     // This effectively allows using the `json5` parser for “JSON with comments and trailing commas”.
     // See https://github.com/prettier/prettier/pull/10323
     // See https://github.com/prettier/prettier/pull/15831#discussion_r1431010636
