@@ -273,6 +273,12 @@ exports[`schema 1`] = `
               ],
             },
             {
+              "description": "JSON with Comments",
+              "enum": [
+                "jsonc",
+              ],
+            },
+            {
               "description": "Custom parser",
               "type": "string",
             },
