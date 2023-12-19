@@ -213,6 +213,12 @@ exports[`schema 1`] = `
               ],
             },
             {
+              "description": "JSON with Comments",
+              "enum": [
+                "jsonc",
+              ],
+            },
+            {
               "description": "JSON.stringify",
               "enum": [
                 "json-stringify",
@@ -270,12 +276,6 @@ exports[`schema 1`] = `
               "description": "Lightning Web Components",
               "enum": [
                 "lwc",
-              ],
-            },
-            {
-              "description": "JSON with Comments",
-              "enum": [
-                "jsonc",
               ],
             },
             {
