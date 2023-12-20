@@ -1,26 +1,26 @@
-import isNextLineEmpty from "../../utils/is-next-line-empty.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
+  dedent,
+  fill,
+  group,
+  hardline,
+  ifBreak,
+  indent,
   join,
   line,
-  hardline,
   softline,
-  group,
-  fill,
-  indent,
-  dedent,
-  ifBreak,
 } from "../../document/builders.js";
 import { getDocParts } from "../../document/utils.js";
+import isNextLineEmpty from "../../utils/is-next-line-empty.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locEnd, locStart } from "../loc.js";
 import {
-  isURLFunctionNode,
-  isKeyValuePairNode,
-  isKeyInValuePairNode,
-  isSCSSMapItemNode,
   isConfigurationNode,
+  isKeyInValuePairNode,
+  isKeyValuePairNode,
+  isSCSSMapItemNode,
+  isURLFunctionNode,
   isVarFunctionNode,
 } from "../utils/index.js";
-import { locStart, locEnd } from "../loc.js";
 import { shouldPrintTrailingComma } from "./misc.js";
 
 function hasComma({ node, parent }, options) {

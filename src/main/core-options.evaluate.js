@@ -1,9 +1,10 @@
 import { outdent } from "outdent";
+
 import {
   CATEGORY_CONFIG,
   CATEGORY_EDITOR,
-  CATEGORY_OTHER,
   CATEGORY_GLOBAL,
+  CATEGORY_OTHER,
   CATEGORY_SPECIAL,
 } from "./option-categories.js";
 

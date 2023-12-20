@@ -1,11 +1,12 @@
 import dashify from "dashify";
+
 import { getSupportInfo } from "../../index.js";
+import cliOptions from "../cli-options.evaluate.js";
 import {
-  optionCategories,
   getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
+  optionCategories,
 } from "../prettier-internal.js";
-import cliOptions from "../cli-options.evaluate.js";
 
 const detailedCliOptions = normalizeOptionSettings(cliOptions).map((option) =>
   normalizeDetailedOption(option),

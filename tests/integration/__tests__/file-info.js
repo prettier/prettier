@@ -1,8 +1,10 @@
-import path from "node:path";
 import fs from "node:fs";
+import path from "node:path";
 import url from "node:url";
-import { temporaryDirectory as getTemporaryDirectory } from "tempy";
+
 import createEsmUtils from "esm-utils";
+import { temporaryDirectory as getTemporaryDirectory } from "tempy";
+
 import prettier from "../../config/prettier-entry.js";
 
 const { __dirname } = createEsmUtils(import.meta);

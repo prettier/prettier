@@ -1,32 +1,33 @@
-import * as vnopts from "vnopts";
 // "fast-glob" is bundled here since the API uses `micromatch` too
 import fastGlob from "fast-glob";
+import * as vnopts from "vnopts";
+
+import * as errors from "./common/errors.js";
+import getFileInfoWithoutPlugins from "./common/get-file-info.js";
+import mockable from "./common/mockable.js";
+import {
+  clearCache as clearConfigCache,
+  resolveConfig,
+  resolveConfigFile,
+} from "./config/resolve-config.js";
 import * as core from "./main/core.js";
+import { formatOptionsHiddenDefaults } from "./main/normalize-format-options.js";
+import normalizeOptions from "./main/normalize-options.js";
+import * as optionCategories from "./main/option-categories.js";
+import {
+  clearCache as clearPluginCache,
+  loadBuiltinPlugins,
+  loadPlugins,
+} from "./main/plugins/index.js";
 import {
   getSupportInfo as getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
 } from "./main/support.js";
-import inferParserWithoutPlugins from "./utils/infer-parser.js";
-import getFileInfoWithoutPlugins from "./common/get-file-info.js";
-import {
-  loadBuiltinPlugins,
-  loadPlugins,
-  clearCache as clearPluginCache,
-} from "./main/plugins/index.js";
-import {
-  resolveConfig,
-  resolveConfigFile,
-  clearCache as clearConfigCache,
-} from "./config/resolve-config.js";
-import * as errors from "./common/errors.js";
-import * as optionCategories from "./main/option-categories.js";
 import { createIsIgnoredFunction } from "./utils/ignore.js";
-import { formatOptionsHiddenDefaults } from "./main/normalize-format-options.js";
-import normalizeOptions from "./main/normalize-options.js";
-import partition from "./utils/partition.js";
+import inferParserWithoutPlugins from "./utils/infer-parser.js";
 import isNonEmptyArray from "./utils/is-non-empty-array.js";
 import omit from "./utils/object-omit.js";
-import mockable from "./common/mockable.js";
+import partition from "./utils/partition.js";
 
 /**
  * @param {*} fn
@@ -120,17 +121,17 @@ const debugApis = {
 };
 
 export {
-  formatWithCursor,
-  format,
+  debugApis as __debug,
+  sharedWithCli as __internal,
   check,
-  resolveConfig,
-  resolveConfigFile,
   clearCache as clearConfigCache,
+  format,
+  formatWithCursor,
   getFileInfo,
   getSupportInfo,
-  sharedWithCli as __internal,
-  debugApis as __debug,
+  resolveConfig,
+  resolveConfigFile,
 };
-export * as util from "./utils/public.js";
 export * as doc from "./document/public.js";
 export { default as version } from "./main/version.evaluate.cjs";
+export * as util from "./utils/public.js";

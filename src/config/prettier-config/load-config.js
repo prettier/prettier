@@ -1,4 +1,5 @@
 import path from "node:path";
+
 import loadExternalConfig from "./load-external-config.js";
 import loaders, { loadConfigFromPackageJson } from "./loaders.js";
 

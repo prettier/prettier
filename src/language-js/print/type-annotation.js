@@ -1,23 +1,23 @@
-import { printComments } from "../../main/comments/print.js";
 import {
+  align,
   group,
+  ifBreak,
+  indent,
   join,
   line,
   softline,
-  indent,
-  align,
-  ifBreak,
 } from "../../document/builders.js";
-import pathNeedsParens from "../needs-parens.js";
+import { printComments } from "../../main/comments/print.js";
 import { hasSameLocStart } from "../loc.js";
+import pathNeedsParens from "../needs-parens.js";
 import {
-  isSimpleType,
-  isObjectType,
-  hasLeadingOwnLineComment,
-  isObjectTypePropertyAFunction,
-  hasComment,
   CommentCheckFlags,
   createTypeCheckFunction,
+  hasComment,
+  hasLeadingOwnLineComment,
+  isObjectType,
+  isObjectTypePropertyAFunction,
+  isSimpleType,
   isUnionType,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
@@ -26,9 +26,9 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import {
-  printOptionalToken,
-  printDeclareToken,
   printAbstractToken,
+  printDeclareToken,
+  printOptionalToken,
 } from "./misc.js";
 
 /**
@@ -553,20 +553,20 @@ function printTypePredicate(path, print) {
 }
 
 export {
-  printOpaqueType,
-  printTypeAlias,
-  printIntersectionType,
-  printUnionType,
+  printArrayType,
   printFunctionType,
   printIndexedAccessType,
   printInferType,
-  shouldHugType,
+  printIntersectionType,
   printJSDocType,
-  printRestType,
   printNamedTupleMember,
-  printTypeAnnotationProperty,
+  printOpaqueType,
+  printRestType,
+  printTypeAlias,
   printTypeAnnotation,
-  printArrayType,
-  printTypeQuery,
+  printTypeAnnotationProperty,
   printTypePredicate,
+  printTypeQuery,
+  printUnionType,
+  shouldHugType,
 };

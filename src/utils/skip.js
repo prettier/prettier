@@ -62,8 +62,8 @@ const skipEverythingButNewLine = skip(/[^\n\r]/);
 
 export {
   skip,
-  skipWhitespace,
+  skipEverythingButNewLine,
   skipSpaces,
   skipToLineEnd,
-  skipEverythingButNewLine,
+  skipWhitespace,
 };
