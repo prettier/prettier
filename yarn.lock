@@ -1203,7 +1203,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iarna/toml@npm:2.2.5":
+"@iarna/toml@npm:2.2.5, @iarna/toml@npm:^2.2.5":
   version: 2.2.5
   resolution: "@iarna/toml@npm:2.2.5"
   checksum: b61426dc1a3297bbcb24cb8e9c638663866b4bb6f28f2c377b167e4b1f8956d8d208c484b73bb59f4232249903545cc073364c43576d2d5ad66afbd730ad24a9
@@ -1681,10 +1681,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.2.2":
-  version: 0.2.2
-  resolution: "@prettier/cli@npm:0.2.2"
+"@prettier/cli@npm:0.3.0":
+  version: 0.3.0
+  resolution: "@prettier/cli@npm:0.3.0"
   dependencies:
+    "@iarna/toml": "npm:^2.2.5"
     atomically: "npm:^2.0.2"
     fast-ignore: "npm:^1.1.1"
     find-up-json: "npm:^2.0.2"
@@ -1706,7 +1707,7 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0
   bin:
     prettier-next: dist/bin.js
-  checksum: 15413ca4d78f2764a42d3af8d65cae35c2818639f04c7f92b21a46c73557cad2de5e25ac165ca44adaf380b3845f55cf85e08370f98ebc6b266fb41b3e9ab4d3
+  checksum: 8084c09821faf1bff6b468acb85b8c291991a18e3b106f4ab9eca45758d53ce08c32cb5b3600d220c88b5ef89734b9baed4c2c4bf7b7fd12bd1773c8fa50882e
   languageName: node
   linkType: hard
 
@@ -7407,7 +7408,7 @@ __metadata:
     "@glimmer/reference": "npm:0.85.13"
     "@glimmer/syntax": "npm:0.85.13"
     "@iarna/toml": "npm:2.2.5"
-    "@prettier/cli": "npm:0.2.2"
+    "@prettier/cli": "npm:0.3.0"
     "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@types/estree": "npm:1.0.5"
