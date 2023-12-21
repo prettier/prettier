@@ -62,7 +62,11 @@ describe("standalone", () => {
 
       expect(typeof input).toBe("string");
       expect(typeof umdOutput).toBe("string");
-      expect(umdOutput).not.toBe(input);
+      if (parser === "ignore") {
+        expect(umdOutput).toBe(input);
+      } else {
+        expect(umdOutput).not.toBe(input);
+      }
 
       const esmOutput = await esmStandalone.format(input, {
         parser,

@@ -288,6 +288,7 @@ export type BuiltInParserName =
   | "glimmer"
   | "graphql"
   | "html"
+  | "ignore"
   | "json-stringify"
   | "json"
   | "json5"

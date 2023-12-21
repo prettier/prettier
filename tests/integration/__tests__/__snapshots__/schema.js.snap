@@ -273,6 +273,12 @@ exports[`schema 1`] = `
               ],
             },
             {
+              "description": "Leave file unchanged",
+              "enum": [
+                "ignore",
+              ],
+            },
+            {
               "description": "Custom parser",
               "type": "string",
             },

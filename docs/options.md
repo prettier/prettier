@@ -291,6 +291,7 @@ Valid options:
 - `"angular"` (same parser as `"html"`, but also formats angular-specific syntax via [angular-estree-parser](https://github.com/ikatyang/angular-estree-parser)) _First available in 1.15.0_
 - `"lwc"` (same parser as `"html"`, but also formats LWC-specific syntax for unquoted template attributes) _First available in 1.17.0_
 - `"yaml"` (via [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser)) _First available in 1.14.0_
+- `"ignore"` (leave the file unchanged)
 
 | Default | CLI Override        | API Override         |
 | ------- | ------------------- | -------------------- |

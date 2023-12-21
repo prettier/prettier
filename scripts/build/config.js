@@ -464,6 +464,7 @@ const pluginFiles = [
     ],
   },
   "src/plugins/html.js",
+  "src/plugins/ignore.js",
   "src/plugins/yaml.js",
 ].map((file) => {
   if (typeof file === "string") {

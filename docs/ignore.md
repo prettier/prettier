@@ -47,6 +47,21 @@ if [`--with-node-modules` CLI option](cli.md#--with-node-modules) provided
 
 (See also the [`--ignore-path` CLI option](cli.md#--ignore-path).)
 
+## Ignoring Files: the "ignore" parser
+
+You can also assign the `"parser": "ignore"` to specify file patterns that should be ignored in your config file:
+
+```json
+{
+  "overrides": [
+    {
+      "files": "dist/**/*",
+      "options": { "parser": "ignore" }
+    }
+  ]
+}
+```
+
 ## JavaScript
 
 A JavaScript comment of `// prettier-ignore` will exclude the next node in the abstract syntax tree from formatting.

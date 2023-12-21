@@ -192,6 +192,8 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 }
 ```
 
+If a file should not be reformatted by prettier, you can use the special [`ignore` parser]() to leave the file unchanged.
+
 **Note:** _Never_ put the `parser` option at the top level of your configuration. _Only_ use it inside `overrides`. Otherwise you effectively disable Prettier’s automatic file extension based parser inference. This forces Prettier to use the parser you specified for _all_ types of files – even when it doesn’t make sense, such as trying to parse a CSS file as JavaScript.
 
 ## Configuration Schema

@@ -180,6 +180,7 @@ exports[`API getSupportInfo() 1`] = `
         "html",
         "angular",
         "lwc",
+        "ignore",
       ],
       "default": undefined,
       "type": "choice",
@@ -935,7 +936,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         { "description": "Ember / Handlebars", "value": "glimmer" },
         { "description": "HTML", "value": "html" },
         { "description": "Angular", "value": "angular" },
-        { "description": "Lightning Web Components", "value": "lwc" }
+        { "description": "Lightning Web Components", "value": "lwc" },
+        { "description": "Leave file unchanged", "value": "ignore" }
       ],
       "description": "Which parser to use.",
       "name": "parser",
