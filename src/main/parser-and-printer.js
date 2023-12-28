@@ -14,11 +14,11 @@ function getParserPluginByParserName(plugins, parserName) {
   this is how `resolveParser` works in v2.
   This is a temporarily solution, see #13729
   */
-  for (let index = plugins.length - 1; index >= 0; index--) {
-    const plugin = plugins[index];
-    if (plugin.parsers && Object.hasOwn(plugin.parsers, parserName)) {
-      return plugin;
-    }
+  const plugin = plugins.findLast(
+    (plugin) => plugin.parsers && Object.hasOwn(plugin.parsers, parserName),
+  );
+  if (plugin) {
+    return plugin;
   }
 
   /* c8 ignore start */
@@ -39,11 +39,11 @@ function getPrinterPluginByAstFormat(plugins, astFormat) {
   /* c8 ignore stop */
 
   // Loop from end to consistent with parser resolve logic
-  for (let index = plugins.length - 1; index >= 0; index--) {
-    const plugin = plugins[index];
-    if (plugin.printers && Object.hasOwn(plugin.printers, astFormat)) {
-      return plugin;
-    }
+  const plugin = plugins.findLast(
+    (plugin) => plugin.printers && Object.hasOwn(plugin.printers, astFormat),
+  );
+  if (plugin) {
+    return plugin;
   }
 
   /* c8 ignore start */
