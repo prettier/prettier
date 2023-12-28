@@ -1,6 +1,7 @@
 import path from "node:path";
-import { lstatSafe, normalizeToPosix } from "./utils.js";
+
 import { fastGlob } from "./prettier-internal.js";
+import { lstatSafe, normalizeToPosix } from "./utils.js";
 
 /** @typedef {import('./context').Context} Context */
 

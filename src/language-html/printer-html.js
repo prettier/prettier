@@ -4,28 +4,32 @@
 
 import { fill, group, hardline } from "../document/builders.js";
 import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
-import { unescapeQuoteEntities, getTextValueParts } from "./utils/index.js";
-import preprocess from "./print-preprocess.js";
-import { insertPragma } from "./pragma.js";
-import { locStart, locEnd } from "./loc.js";
 import embed from "./embed.js";
-import {
-  printClosingTagSuffix,
-  printClosingTagEnd,
-  printOpeningTagPrefix,
-  printOpeningTagStart,
-} from "./print/tag.js";
-import { printElement } from "./print/element.js";
-import { printChildren } from "./print/children.js";
+import getVisitorKeys from "./get-visitor-keys.js";
+import { locEnd, locStart } from "./loc.js";
+import { insertPragma } from "./pragma.js";
 import {
   printAngularControlFlowBlock,
   printAngularControlFlowBlockParameters,
 } from "./print/angular-control-flow-block.js";
-import getVisitorKeys from "./get-visitor-keys.js";
+import {
+  printAngularIcuCase,
+  printAngularIcuExpression,
+} from "./print/angular-icu-expression.js";
+import { printChildren } from "./print/children.js";
+import { printElement } from "./print/element.js";
+import {
+  printClosingTagEnd,
+  printClosingTagSuffix,
+  printOpeningTagPrefix,
+  printOpeningTagStart,
+} from "./print/tag.js";
+import preprocess from "./print-preprocess.js";
+import { getTextValueParts, unescapeQuoteEntities } from "./utils/index.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -48,6 +52,11 @@ function genericPrint(path, options, print) {
       return printAngularControlFlowBlockParameters(path, options, print);
     case "angularControlFlowBlockParameter":
       return htmlWhitespaceUtils.trim(node.expression);
+
+    case "angularIcuExpression":
+      return printAngularIcuExpression(path, options, print);
+    case "angularIcuCase":
+      return printAngularIcuCase(path, options, print);
 
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":

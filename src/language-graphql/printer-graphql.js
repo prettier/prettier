@@ -1,18 +1,18 @@
 import {
-  join,
+  group,
   hardline,
+  ifBreak,
+  indent,
+  join,
   line,
   softline,
-  group,
-  indent,
-  ifBreak,
 } from "../document/builders.js";
 import isNextLineEmpty from "../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
-import { insertPragma } from "./pragma.js";
-import { locStart, locEnd } from "./loc.js";
 import getVisitorKeys from "./get-visitor-keys.js";
+import { locEnd, locStart } from "./loc.js";
+import { insertPragma } from "./pragma.js";
 import printDescription from "./print/description.js";
 
 function genericPrint(path, options, print) {

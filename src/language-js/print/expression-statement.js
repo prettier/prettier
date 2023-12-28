@@ -1,8 +1,8 @@
 import { printDanglingComments } from "../../main/comments/print.js";
 import {
-  markerForIfWithoutBlockAndSameLineComment,
-  hasComment,
   CommentCheckFlags,
+  hasComment,
+  markerForIfWithoutBlockAndSameLineComment,
 } from "../utils/index.js";
 import {
   isSingleJsxExpressionStatementInMarkdown,

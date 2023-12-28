@@ -1,6 +1,7 @@
 import chalk from "chalk";
-import outdent from "outdent";
 import { execa } from "execa";
+import outdent from "outdent";
+
 import { fetchText, logPromise } from "../utils.js";
 
 const SCHEMA_REPO = "SchemaStore/schemastore";
@@ -45,10 +46,10 @@ function twitterAnnouncement() {
   `;
 }
 
-export default async function postPublishSteps({ dry }) {
+export default async function postPublishSteps({ dry, next }) {
   console.log(chalk.bold.green("The script has finished!\n"));
 
-  if (dry) {
+  if (dry || next) {
     return;
   }
 

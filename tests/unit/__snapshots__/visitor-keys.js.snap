@@ -1394,6 +1394,12 @@ exports[`visitor keys html 1`] = `
   "angularControlFlowBlockParameters": [
     "children",
   ],
+  "angularIcuCase": [
+    "expression",
+  ],
+  "angularIcuExpression": [
+    "cases",
+  ],
   "attribute": [],
   "cdata": [],
   "comment": [],

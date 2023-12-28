@@ -1,4 +1,5 @@
 import linguistLanguages from "linguist-languages";
+
 import createLanguage from "../utils/create-language.js";
 
 const languages = [

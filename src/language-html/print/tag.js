@@ -3,23 +3,24 @@
  */
 
 import assert from "node:assert";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+
 import {
+  hardline,
   indent,
   join,
   line,
   softline,
-  hardline,
 } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import { locStart, locEnd } from "../loc.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locEnd, locStart } from "../loc.js";
 import {
-  isTextLikeNode,
   getLastDescendant,
-  isPreLikeNode,
   hasPrettierIgnore,
-  shouldPreserveContent,
+  isPreLikeNode,
+  isTextLikeNode,
   isVueSfcBlock,
+  shouldPreserveContent,
 } from "../utils/index.js";
 
 function printClosingTag(node, options) {
@@ -97,6 +98,8 @@ function printClosingTagEndMarker(node, options) {
       return "]><!-->";
     case "interpolation":
       return "}}";
+    case "angularIcuExpression":
+      return "}";
     case "element":
       if (node.isSelfClosing) {
         return "/>";
@@ -345,6 +348,8 @@ function printOpeningTagStartMarker(node) {
       return "{{";
     case "docType":
       return node.value === "html" ? "<!doctype" : "<!DOCTYPE";
+    case "angularIcuExpression":
+      return "{";
     case "element":
       if (node.condition) {
         return `<!--[if ${node.condition}]><!--><${node.rawName}`;
@@ -371,20 +376,20 @@ function printOpeningTagEndMarker(node) {
 }
 
 export {
+  needsToBorrowLastChildClosingTagEndMarker,
+  needsToBorrowNextOpeningTagStartMarker,
+  needsToBorrowParentClosingTagStartMarker,
+  needsToBorrowParentOpeningTagEndMarker,
+  needsToBorrowPrevClosingTagEndMarker,
   printClosingTag,
+  printClosingTagEnd,
+  printClosingTagEndMarker,
   printClosingTagStart,
   printClosingTagStartMarker,
-  printClosingTagEndMarker,
   printClosingTagSuffix,
-  printClosingTagEnd,
-  needsToBorrowLastChildClosingTagEndMarker,
-  needsToBorrowParentClosingTagStartMarker,
-  needsToBorrowPrevClosingTagEndMarker,
   printOpeningTag,
-  printOpeningTagStart,
-  printOpeningTagPrefix,
-  printOpeningTagStartMarker,
   printOpeningTagEndMarker,
-  needsToBorrowNextOpeningTagStartMarker,
-  needsToBorrowParentOpeningTagEndMarker,
+  printOpeningTagPrefix,
+  printOpeningTagStart,
+  printOpeningTagStartMarker,
 };

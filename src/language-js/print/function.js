@@ -1,33 +1,34 @@
 import assert from "node:assert";
-import { printDanglingComments } from "../../main/comments/print.js";
+
 import {
-  softline,
   group,
-  indent,
-  ifBreak,
   hardline,
+  ifBreak,
+  indent,
+  softline,
 } from "../../document/builders.js";
-import {
-  getFunctionParameters,
-  hasLeadingOwnLineComment,
-  isBinaryish,
-  isJsxElement,
-  hasComment,
-  CommentCheckFlags,
-  isCallExpression,
-  getCallArguments,
-  hasNakedLeftSide,
-  getLeftSide,
-} from "../utils/index.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import {
+  CommentCheckFlags,
+  getCallArguments,
+  getFunctionParameters,
+  getLeftSide,
+  hasComment,
+  hasLeadingOwnLineComment,
+  hasNakedLeftSide,
+  isBinaryish,
+  isCallExpression,
+  isJsxElement,
+} from "../utils/index.js";
+import {
   printFunctionParameters,
-  shouldGroupFunctionParameters,
   shouldBreakFunctionParameters,
+  shouldGroupFunctionParameters,
 } from "./function-parameters.js";
+import { printDeclareToken, printFunctionTypeParameters } from "./misc.js";
 import { printPropertyKey } from "./property.js";
-import { printFunctionTypeParameters, printDeclareToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
@@ -325,9 +326,9 @@ function returnArgumentHasLeadingComment(options, argument) {
 export {
   printFunction,
   printMethod,
-  printReturnStatement,
-  printThrowStatement,
   printMethodValue,
+  printReturnStatement,
   printReturnType,
+  printThrowStatement,
   shouldPrintParamsWithoutParens,
 };

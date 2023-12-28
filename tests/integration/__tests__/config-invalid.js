@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
+
 import outdent from "outdent";
+
 import jestPathSerializer from "../path-serializer.js";
 
 expect.addSnapshotSerializer(jestPathSerializer);

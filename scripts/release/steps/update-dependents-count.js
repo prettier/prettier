@@ -1,5 +1,6 @@
 import chalk from "chalk";
-import { runGit, fetchText, logPromise, processFile } from "../utils.js";
+
+import { fetchText, logPromise, processFile, runGit } from "../utils.js";
 
 async function update() {
   const npmPage = await logPromise(
@@ -71,8 +72,8 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-export default async function updateDependentsCount({ dry }) {
-  if (dry) {
+export default async function updateDependentsCount({ dry, next }) {
+  if (dry || next) {
     return;
   }
 

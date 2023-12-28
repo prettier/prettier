@@ -1,4 +1,4 @@
-import editorconfigToPrettier from "../../src/config/editorconfig-to-prettier.js";
+import editorconfigToPrettier from "../../src/config/editorconfig/editorconfig-to-prettier.js";
 
 test("editorconfigToPrettier", () => {
   expect(

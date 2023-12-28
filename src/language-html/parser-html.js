@@ -1,24 +1,25 @@
 import {
-  ParseSourceFile,
-  ParseLocation,
-  ParseSourceSpan,
-  parse as parseHtml,
-  RecursiveVisitor,
-  visitAll,
   getHtmlTagDefinition,
+  parse as parseHtml,
+  ParseLocation,
+  ParseSourceFile,
+  ParseSourceSpan,
+  RecursiveVisitor,
   TagContentType,
+  visitAll,
 } from "angular-html-parser";
+
+import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParser from "../utils/infer-parser.js";
-import createError from "../common/parser-create-error.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
-import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
-import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
-import isUnknownNamespace from "./utils/is-unknown-namespace.js";
-import { hasPragma } from "./pragma.js";
 import { Node } from "./ast.js";
 import { parseIeConditionalComment } from "./conditional-comment.js";
-import { locStart, locEnd } from "./loc.js";
+import { locEnd, locStart } from "./loc.js";
+import { hasPragma } from "./pragma.js";
+import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
+import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
+import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 /**
  * @typedef {import('angular-html-parser')} AngularHtmlParser
@@ -65,6 +66,16 @@ function normalizeAngularControlFlowBlock(node) {
       node.parameters.at(-1).sourceSpan.end,
     ),
   };
+}
+
+function normalizeAngularIcuExpression(node) {
+  if (node.type === "plural" || node.type === "select") {
+    node.clause = node.type;
+    node.type = "angularIcuExpression";
+  }
+  if (node.type === "expansionCase") {
+    node.type = "angularIcuCase";
+  }
 }
 
 /**
@@ -261,6 +272,16 @@ function ngHtmlParser(input, parseOptions, options) {
 
   visitAll(
     new (class extends RecursiveVisitor {
+      // Angular does not visit to the children of expansionCase
+      // https://github.com/angular/angular/blob/e3a6bf9b6c3bef03df9bfc8f05b817bc875cbad6/packages/compiler/src/ml_parser/ast.ts#L161
+      visitExpansionCase(ast, context) {
+        if (name === "angular") {
+          // @ts-expect-error
+          this.visitChildren(context, (visit) => {
+            visit(ast.expression);
+          });
+        }
+      }
       visit(node) {
         restoreNameAndValue(node);
         addTagDefinition(node);
@@ -374,6 +395,7 @@ function parse(
     }
 
     normalizeAngularControlFlowBlock(node);
+    normalizeAngularIcuExpression(node);
   });
 
   return ast;

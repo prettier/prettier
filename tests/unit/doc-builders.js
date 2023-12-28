@@ -1,18 +1,18 @@
 import {
-  join,
-  group,
+  addAlignmentToDoc,
+  align,
   conditionalGroup,
+  dedent,
+  dedentToRoot,
   fill,
-  lineSuffix,
+  group,
   ifBreak,
   indent,
   indentIfBreak,
-  align,
-  addAlignmentToDoc,
-  markAsRoot,
-  dedentToRoot,
-  dedent,
+  join,
   label,
+  lineSuffix,
+  markAsRoot,
 } from "../../src/document/builders.js";
 import InvalidDocError from "../../src/document/invalid-doc-error.js";
 

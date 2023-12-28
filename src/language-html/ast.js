@@ -1,6 +1,8 @@
 const NODES_KEYS = {
   attrs: true,
   children: true,
+  cases: true, // plural and select
+  expression: true, // for expansionCase
 };
 
 const NON_ENUMERABLE_PROPERTIES = new Set(["parent"]);
@@ -136,12 +138,12 @@ class Node {
 
   get prev() {
     // @ts-expect-error
-    return this.parent?.children[this.parent.children.indexOf(this) - 1];
+    return this.parent?.children?.[this.parent.children.indexOf(this) - 1];
   }
 
   get next() {
     // @ts-expect-error
-    return this.parent?.children[this.parent.children.indexOf(this) + 1];
+    return this.parent?.children?.[this.parent.children.indexOf(this) + 1];
   }
 
   // for element and attribute

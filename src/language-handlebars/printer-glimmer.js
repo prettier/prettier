@@ -11,13 +11,13 @@ import {
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
-import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
-import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
-import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 import getVisitorKeys from "./get-visitor-keys.js";
+import { locEnd, locStart } from "./loc.js";
+import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
