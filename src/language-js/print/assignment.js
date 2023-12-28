@@ -25,6 +25,10 @@ import {
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 
+/**
+ * @typedef {import("../../common/ast-path.js").default} AstPath
+ */
+
 function printAssignment(
   path,
   options,
@@ -147,7 +151,6 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
 
   if (
     isComplexDestructuring(node) ||
-    isComplexTypeAliasParams(node) ||
     hasComplexTypeAnnotation(node) ||
     (isArrowFunctionVariableDeclarator(node) && canBreakLeftDoc)
   ) {
@@ -164,6 +167,10 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     )
   ) {
     return "break-after-operator";
+  }
+
+  if (isComplexTypeAliasParams(node)) {
+    return "break-lhs";
   }
 
   if (
@@ -194,7 +201,10 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
       return true;
     case "TSConditionalType":
     case "ConditionalTypeAnnotation":
-      if (!options.experimentalTernaries) {
+      if (
+        !options.experimentalTernaries &&
+        !shouldBreakBeforeConditionalType(rightNode)
+      ) {
         break;
       }
       return true;
@@ -433,6 +443,22 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
 
 function getTypeArgumentsFromCallExpression(node) {
   return (node.typeParameters ?? node.typeArguments)?.params;
+}
+
+function shouldBreakBeforeConditionalType(node) {
+  function isGeneric(subNode) {
+    switch (subNode.type) {
+      case "FunctionTypeAnnotation":
+      case "GenericTypeAnnotation":
+      case "TSFunctionType":
+      case "TSTypeReference":
+        return Boolean(subNode.typeParameters);
+      default:
+        return false;
+    }
+  }
+
+  return isGeneric(node.checkType) || isGeneric(node.extendsType);
 }
 
 export {
