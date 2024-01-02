@@ -1,70 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-json.md - {"trailingComma":"all"} format 1`] = `
+exports[`test.jsonc - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
-parsers: ["markdown"]
+parsers: ["jsonc"]
 printWidth: 80
-trailingComma: "all"
+quoteProps: "as-needed"
                                                                                 | printWidth
 =====================================input======================================
-<!-- #10333 -->
-\`\`\`json
-packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
-\`\`\`
-=====================================output=====================================
-<!-- #10333 -->
+[
+  "Object keys should always quoted!",
+  {"key":""},
+  {"key":"","key-can-not-unquote":""},
+  {key:""},
+]
 
-\`\`\`json
-packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
-\`\`\`
+=====================================output=====================================
+[
+  "Object keys should always quoted!",
+  { "key": "" },
+  { "key": "", "key-can-not-unquote": "" },
+  { "key": "" },
+]
 
 ================================================================================
 `;
 
-exports[`jsonc.md - {"trailingComma":"all"} format 1`] = `
+exports[`test.jsonc - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
-parsers: ["markdown"]
+parsers: ["jsonc"]
 printWidth: 80
-trailingComma: "all"
+quoteProps: "consistent"
                                                                                 | printWidth
 =====================================input======================================
-\`\`\`jsonc
-   // comment
-{
-     "foo"   :    "bar"
-}
-\`\`\`
+[
+  "Object keys should always quoted!",
+  {"key":""},
+  {"key":"","key-can-not-unquote":""},
+  {key:""},
+]
 
 =====================================output=====================================
-\`\`\`jsonc
-// comment
-{
-  "foo": "bar",
-}
-\`\`\`
+[
+  "Object keys should always quoted!",
+  { "key": "" },
+  { "key": "", "key-can-not-unquote": "" },
+  { "key": "" },
+]
 
 ================================================================================
 `;
 
-exports[`trailing_comma.md - {"trailingComma":"all"} format 1`] = `
+exports[`test.jsonc - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
-parsers: ["markdown"]
+parsers: ["jsonc"]
 printWidth: 80
-trailingComma: "all"
+quoteProps: "preserve"
                                                                                 | printWidth
 =====================================input======================================
-\`\`\`json
-{
-  "foo": "bar"
-}
-\`\`\`
+[
+  "Object keys should always quoted!",
+  {"key":""},
+  {"key":"","key-can-not-unquote":""},
+  {key:""},
+]
 
 =====================================output=====================================
-\`\`\`json
-{
-  "foo": "bar"
-}
-\`\`\`
+[
+  "Object keys should always quoted!",
+  { "key": "" },
+  { "key": "", "key-can-not-unquote": "" },
+  { "key": "" },
+]
 
 ================================================================================
 `;

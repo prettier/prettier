@@ -93,6 +93,7 @@ export const { parsers, printers } = createParsersAndPrinters([
       "__babel_estree",
       "json",
       "json5",
+      "jsonc",
       "json-stringify",
     ],
   },

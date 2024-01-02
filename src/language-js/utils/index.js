@@ -642,6 +642,7 @@ function hasLeadingOwnLineComment(text, node) {
 function isStringPropSafeToUnquote(node, options) {
   return (
     options.parser !== "json" &&
+    options.parser !== "jsonc" &&
     isStringLiteral(node.key) &&
     rawText(node.key).slice(1, -1) === node.key.value &&
     ((isEs5IdentifierName(node.key.value) &&

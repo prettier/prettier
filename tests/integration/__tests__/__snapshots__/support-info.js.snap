@@ -26,7 +26,7 @@ exports[`API getSupportInfo() 1`] = `
       "json",
     ],
     "JSON with Comments": [
-      "json",
+      "jsonc",
     ],
     "JSON.stringify": [
       "json-stringify",
@@ -170,6 +170,7 @@ exports[`API getSupportInfo() 1`] = `
         "scss",
         "json",
         "json5",
+        "jsonc",
         "json-stringify",
         "graphql",
         "markdown",
@@ -533,13 +534,12 @@ exports[`CLI --support-info (stdout) 1`] = `
         "jsconfig.json",
         "language-configuration.json",
         "tsconfig.json",
-        "tslint.json",
-        ".eslintrc"
+        "tslint.json"
       ],
       "group": "JSON",
       "linguistLanguageId": 423,
       "name": "JSON with Comments",
-      "parsers": ["json"],
+      "parsers": ["jsonc"],
       "tmScope": "source.js",
       "type": "data",
       "vscodeLanguageIds": ["jsonc"]
@@ -926,6 +926,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         { "description": "SCSS", "value": "scss" },
         { "description": "JSON", "value": "json" },
         { "description": "JSON5", "value": "json5" },
+        { "description": "JSON with Comments", "value": "jsonc" },
         { "description": "JSON.stringify", "value": "json-stringify" },
         { "description": "GraphQL", "value": "graphql" },
         { "description": "Markdown", "value": "markdown" },

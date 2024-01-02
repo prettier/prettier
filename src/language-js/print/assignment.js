@@ -142,6 +142,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
       rightNode.callee.name === "require") ||
     // do not put values on a separate line from the key in json
     options.parser === "json5" ||
+    options.parser === "jsonc" ||
     options.parser === "json"
   ) {
     return "never-break-after-operator";
