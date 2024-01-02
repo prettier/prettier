@@ -426,6 +426,48 @@ topStartToSideStartMaxSize) {
 ================================================================================
 `;
 
+exports[`ignore.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- prettier-ignore -->
+@if (condition) {
+  Foo
+} @else {
+  Other
+}
+
+
+@if (condition) {
+  Foo
+}
+<!-- prettier-ignore -->
+@else {
+  Other
+}
+
+=====================================output=====================================
+<!-- prettier-ignore -->
+@if (condition) {
+  Foo
+}
+@else {
+  Other
+}
+
+@if (condition) {
+  Foo
+}
+<!-- prettier-ignore -->
+@else {
+  Other
+}
+
+================================================================================
+`;
+
 exports[`mix.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
