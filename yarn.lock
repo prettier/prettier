@@ -1097,77 +1097,77 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@glimmer/global-context@npm:^0.85.13":
-  version: 0.85.13
-  resolution: "@glimmer/global-context@npm:0.85.13"
-  checksum: d3c1850732380aada0c20caf4cc6f1bf80f03c3eba3b9e23005f12e7402d7c3cbcc745e6a2317eef869ed912089b51ba7b6c140b2481fd8464a1afd131f6f643
+"@glimmer/global-context@npm:^0.87.1":
+  version: 0.87.1
+  resolution: "@glimmer/global-context@npm:0.87.1"
+  checksum: 950395644d2bb60de0273ad4d4a2f48b5e241b193d165a27d2503e730f6395c7b253b16fa266c92b5d98c2343e07d897ff03285e417fd9cb1e866adcb3a23633
   languageName: node
   linkType: hard
 
-"@glimmer/interfaces@npm:^0.85.13":
-  version: 0.85.13
-  resolution: "@glimmer/interfaces@npm:0.85.13"
+"@glimmer/interfaces@npm:^0.87.1":
+  version: 0.87.1
+  resolution: "@glimmer/interfaces@npm:0.87.1"
   dependencies:
     "@simple-dom/interface": "npm:^1.4.0"
-  checksum: 66df2085d759ece8874e18c02b69d84f3d89df71822d340fb95f315512d4fa5b55f57f2e1b052ca6cb8ffcd14330eb0d39481a83ffafbfd6bb7d0bae06ee7d5a
+  checksum: 5a124019016a67232dd1452808e6a9d7197faf0aac1d2c841b339e439a8dc76eaedf2a93433ec266e93b8883e10a064f364b05fb5bf1c4ebbac8f584ed6ed33b
   languageName: node
   linkType: hard
 
-"@glimmer/reference@npm:0.85.13":
-  version: 0.85.13
-  resolution: "@glimmer/reference@npm:0.85.13"
+"@glimmer/reference@npm:0.87.1":
+  version: 0.87.1
+  resolution: "@glimmer/reference@npm:0.87.1"
   dependencies:
     "@glimmer/env": "npm:^0.1.7"
-    "@glimmer/global-context": "npm:^0.85.13"
-    "@glimmer/interfaces": "npm:^0.85.13"
-    "@glimmer/util": "npm:^0.85.13"
-    "@glimmer/validator": "npm:^0.85.13"
-  checksum: 05bb2388e2c2f4fd6176d0b22d98e40ecdb4a1e631836f46115c07a666ca2785b2f30b63ee51c31377854f9b92c62568ec931710a1cae60532913dc60b78ceb4
+    "@glimmer/global-context": "npm:^0.87.1"
+    "@glimmer/interfaces": "npm:^0.87.1"
+    "@glimmer/util": "npm:^0.87.1"
+    "@glimmer/validator": "npm:^0.87.1"
+  checksum: 870a23995d1fd4b26e74b15cc963775056b480aeb244b1c4317fffc69cf547a58a164395352686665f8bc2019934c7644618ab24de047aea35a922ced2efc7e8
   languageName: node
   linkType: hard
 
-"@glimmer/syntax@npm:0.85.13":
-  version: 0.85.13
-  resolution: "@glimmer/syntax@npm:0.85.13"
+"@glimmer/syntax@npm:0.87.1":
+  version: 0.87.1
+  resolution: "@glimmer/syntax@npm:0.87.1"
   dependencies:
-    "@glimmer/interfaces": "npm:^0.85.13"
-    "@glimmer/util": "npm:^0.85.13"
-    "@glimmer/wire-format": "npm:^0.85.13"
+    "@glimmer/interfaces": "npm:^0.87.1"
+    "@glimmer/util": "npm:^0.87.1"
+    "@glimmer/wire-format": "npm:^0.87.1"
     "@handlebars/parser": "npm:~2.0.0"
     simple-html-tokenizer: "npm:^0.5.11"
-  checksum: 634875d06e77d5575c2d8aadd894b98e25e6f4a75fe8ca9dc836ae878e33d8910f4fbdb903b910f20c61c0b4a899a7430652ba0585235fd68ffccdee80b69c38
+  checksum: eaa4004d03b4a462cb08041ca7b7381c0e98b4b8954aba3849dc5e9925f13d552ad0049afcb9599bbd2f3e949d32237e1b1c970ed269d3695441fb445c83fe3e
   languageName: node
   linkType: hard
 
-"@glimmer/util@npm:^0.85.13":
-  version: 0.85.13
-  resolution: "@glimmer/util@npm:0.85.13"
+"@glimmer/util@npm:^0.87.1":
+  version: 0.87.1
+  resolution: "@glimmer/util@npm:0.87.1"
   dependencies:
     "@glimmer/env": "npm:0.1.7"
-    "@glimmer/interfaces": "npm:^0.85.13"
-  checksum: 16c8f32114f136b0f2e73fc88733a1a7d0a26574a2a0fe66fddc639d4ca36d24948cf2820ee80c47f9a2c7fe3d9be94c430f48a2311587f772b7d54ae3f3f918
+    "@glimmer/interfaces": "npm:^0.87.1"
+  checksum: c397a8bacabe91d43ca460a179742fa7acae69a1b01aca9ce2a0368fd13adc239e12404d24be2e195c03484debfd439ff854a54367312908f23ad14fa4970c09
   languageName: node
   linkType: hard
 
-"@glimmer/validator@npm:^0.85.13":
-  version: 0.85.13
-  resolution: "@glimmer/validator@npm:0.85.13"
+"@glimmer/validator@npm:^0.87.1":
+  version: 0.87.1
+  resolution: "@glimmer/validator@npm:0.87.1"
   dependencies:
     "@glimmer/env": "npm:^0.1.7"
-    "@glimmer/global-context": "npm:^0.85.13"
-    "@glimmer/interfaces": "npm:^0.85.13"
-    "@glimmer/util": "npm:^0.85.13"
-  checksum: 376ebdcf17970a838a1c8b5af3f83398e74f8b8df772995781b5be1ccecef563dc8b9282d8533e87a77414b817ac102c111d98c5161639f32a812e5cbd811232
+    "@glimmer/global-context": "npm:^0.87.1"
+    "@glimmer/interfaces": "npm:^0.87.1"
+    "@glimmer/util": "npm:^0.87.1"
+  checksum: 28960217bdf3ed1cd559d0b5fd1e23608e3d9ae40b27754745ae670a40fe869e65fde5964b5709cb902cf8ae14739dcbb31f7c1a1c522bb2fbb388dc07d3b774
   languageName: node
   linkType: hard
 
-"@glimmer/wire-format@npm:^0.85.13":
-  version: 0.85.13
-  resolution: "@glimmer/wire-format@npm:0.85.13"
+"@glimmer/wire-format@npm:^0.87.1":
+  version: 0.87.1
+  resolution: "@glimmer/wire-format@npm:0.87.1"
   dependencies:
-    "@glimmer/interfaces": "npm:^0.85.13"
-    "@glimmer/util": "npm:^0.85.13"
-  checksum: b96207ae09557acd58090a6105871ce540b5ec07cbc0ac0d0853a9b4d65108aa794c76a484f14f88051fb3168dc75a6ec74476ffa3f7d840db0a4a56bd433967
+    "@glimmer/interfaces": "npm:^0.87.1"
+    "@glimmer/util": "npm:^0.87.1"
+  checksum: 76c178aace433cbf08c36006e924c63e7aa6bd8cdf767d8b17553a20dfaf601679786f433d6d14395bfcb806c0fa9e8482657c84a29b1d06c6bf9011b43c00de
   languageName: node
   linkType: hard
 
@@ -3545,16 +3545,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-visualizer@npm:0.5.0":
-  version: 0.5.0
-  resolution: "esbuild-visualizer@npm:0.5.0"
+"esbuild-visualizer@npm:0.5.1":
+  version: 0.5.1
+  resolution: "esbuild-visualizer@npm:0.5.1"
   dependencies:
     open: "npm:^8.4.0"
     picomatch: "npm:^2.3.1"
     yargs: "npm:^17.6.2"
   bin:
     esbuild-visualizer: dist/bin/cli.js
-  checksum: da88c98355068fd1cfd61dae487ff6cde63dc544ad06aeb672c1f7064d745dc487f143a637bf181d545f7f56745db95234747c14a465ac4914e2498bce37c589
+  checksum: 7abbad4fde9f0c228eed3ebf6dc37321f09e1edd76e1409e10d05ae0b03d1209c8191ec68046655c14e962fba8b3889e56db52916a8d8537e658f309a1f6679c
   languageName: node
   linkType: hard
 
@@ -4288,10 +4288,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.224.0":
-  version: 0.224.0
-  resolution: "flow-parser@npm:0.224.0"
-  checksum: 96497563bf188c948e4b0e0b6272447528d0dce6e3f2e3bab7865d7c8e9eed8dd91196854c2ce4817fbf70d7d59ea54b3e7b3c0c8327f3967b43683c7ae5b206
+"flow-parser@npm:0.225.0":
+  version: 0.225.0
+  resolution: "flow-parser@npm:0.225.0"
+  checksum: f0ed209f3e26d6b337fae3001c3cc5c54d9952e81263a78fdf415226740f33353b41867290481f10856a8bef749e2eb01bca04124bc1144bb934d66428500c0c
   languageName: node
   linkType: hard
 
@@ -7258,8 +7258,8 @@ __metadata:
     "@babel/generator": "npm:7.23.6"
     "@babel/parser": "npm:7.23.6"
     "@babel/types": "npm:7.23.6"
-    "@glimmer/reference": "npm:0.85.13"
-    "@glimmer/syntax": "npm:0.85.13"
+    "@glimmer/reference": "npm:0.87.1"
+    "@glimmer/syntax": "npm:0.87.1"
     "@iarna/toml": "npm:2.2.5"
     "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
@@ -7292,7 +7292,7 @@ __metadata:
     enquirer: "npm:2.4.1"
     esbuild: "npm:0.19.9"
     esbuild-plugins-node-modules-polyfill: "npm:1.6.1"
-    esbuild-visualizer: "npm:0.5.0"
+    esbuild-visualizer: "npm:0.5.1"
     escape-string-regexp: "npm:5.0.0"
     eslint: "npm:8.53.0"
     eslint-config-prettier: "npm:9.1.0"
@@ -7313,7 +7313,7 @@ __metadata:
     fast-json-stable-stringify: "npm:2.1.0"
     file-entry-cache: "npm:7.0.2"
     find-cache-dir: "npm:5.0.0"
-    flow-parser: "npm:0.224.0"
+    flow-parser: "npm:0.225.0"
     get-east-asian-width: "npm:1.2.0"
     get-stdin: "npm:9.0.0"
     graphql: "npm:16.8.1"
