@@ -291,6 +291,7 @@ export type BuiltInParserName =
   | "json-stringify"
   | "json"
   | "json5"
+  | "jsonc"
   | "less"
   | "lwc"
   | "markdown"
@@ -347,12 +348,6 @@ export interface RequiredOptions extends doc.printer.Options {
    * @default false
    */
   bracketSameLine: boolean;
-  /**
-   * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
-   * @default false
-   * @deprecated use bracketSameLine instead
-   */
-  jsxBracketSameLine: boolean;
   /**
    * Format only a segment of a file.
    * @default 0
@@ -430,6 +425,22 @@ export interface RequiredOptions extends doc.printer.Options {
    * @default false
    */
   singleAttributePerLine: boolean;
+  /**
+   * Use curious ternaries, with the question mark after the condition, instead
+   * of on the same line as the consequent.
+   * @default false
+   */
+  experimentalTernaries: boolean;
+  /**
+   * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+   * @default false
+   * @deprecated use bracketSameLine instead
+   */
+  jsxBracketSameLine?: boolean;
+  /**
+   * Arbitrary additional values on an options object are always allowed.
+   */
+  [_: string]: unknown;
 }
 
 export interface ParserOptions<T = any> extends RequiredOptions {

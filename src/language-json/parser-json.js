@@ -152,6 +152,7 @@ const jsonParsers = {
     },
   }),
   json5: createParser(parseJson),
+  jsonc: createParser(parseJson),
   "json-stringify": createParser({
     parse: createJsonParse({ allowComments: false }),
     astFormat: "estree-json",
