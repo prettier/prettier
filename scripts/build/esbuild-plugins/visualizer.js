@@ -1,21 +1,6 @@
 import fs from "node:fs/promises";
 
 import { visualizer as esbuildVisualizer } from "esbuild-visualizer/dist/plugin/index.js";
-import { renderTemplate as esbuildVisualizerRenderTemplate } from "esbuild-visualizer/dist/plugin/render-template.js";
-
-/**
- * @param {import("esbuild-visualizer").Metadata} metafile
- * @param {{title: string, template: import("esbuild-visualizer").TemplateType}} options
- */
-const getReport = async (metafile, options) => {
-  const data = await esbuildVisualizer(metafile);
-  const report = esbuildVisualizerRenderTemplate(options.template, {
-    title: options.title,
-    data,
-  });
-
-  return report;
-};
 
 export default function esbuildPluginVisualizer({ formats }) {
   formats = Object.fromEntries(formats.map((format) => [format, true]));
@@ -48,9 +33,8 @@ export default function esbuildPluginVisualizer({ formats }) {
         }
 
         if (formats.html) {
-          const report = await getReport(metafile, {
+          const report = await esbuildVisualizer(metafile, {
             title: files[0],
-            template: "treemap",
           });
 
           await fs.writeFile(`${esbuildConfig.outfile}.report.html`, report);
