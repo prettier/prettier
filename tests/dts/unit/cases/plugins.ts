@@ -141,3 +141,5 @@ const plugin: prettier.Plugin<PluginAST> = {
 };
 
 prettier.format("a line!", { parser: "lines", plugins: [plugin] });
+prettier.getFileInfo("path/to/some/file", { plugins: [plugin] });
+prettier.getSupportInfo({ plugins: [plugin] });
