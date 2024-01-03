@@ -416,7 +416,9 @@ export default [
       ],
     },
   },
-  ...compat.env({ browser: true, worker: true }).map(config => ({...config, files: ["website/**/*"]})),
+  ...compat
+    .env({ browser: true, worker: true })
+    .map((config) => ({ ...config, files: ["website/**/*"] })),
   Object.assign(eslintPluginReactConfigRecommended, {
     files: ["website/**/*"],
     settings: {
