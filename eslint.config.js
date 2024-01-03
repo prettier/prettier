@@ -25,7 +25,7 @@ export default [
   ...compat.config(eslintPluginRegexp.configs.recommended),
   eslintPluginUnicorn.configs["flat/recommended"],
   eslintConfigPrettier,
-  ...compat.env({ es2022: true, node: true }),
+  ...compat.env({ es2024: true, node: true }),
   {
     plugins: {
       "@stylistic/js": eslintPluginStylisticJs,
