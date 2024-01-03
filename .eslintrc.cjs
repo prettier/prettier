@@ -333,7 +333,7 @@ module.exports = {
       },
     },
     {
-      files: ["src/cli/**"],
+      files: ["src/cli/**/*.js"],
       rules: {
         "n/no-restricted-import": [
           "error",
