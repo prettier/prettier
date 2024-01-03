@@ -1,9 +1,3 @@
-import { printDanglingComments } from "../../main/comments/print.js";
-import {
-  CommentCheckFlags,
-  hasComment,
-  markerForIfWithoutBlockAndSameLineComment,
-} from "../utils/index.js";
 import {
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
@@ -21,21 +15,6 @@ function printExpressionStatement(path, options, print) {
     // Do not append semicolon after the only JSX element in a program
   } else if (options.semi) {
     parts.push(";");
-  }
-
-  if (
-    hasComment(
-      path.node,
-      CommentCheckFlags.Dangling,
-      ({ marker }) => marker === markerForIfWithoutBlockAndSameLineComment,
-    )
-  ) {
-    parts.push(
-      " ",
-      printDanglingComments(path, options, {
-        marker: markerForIfWithoutBlockAndSameLineComment,
-      }),
-    );
   }
 
   return parts;
