@@ -148,8 +148,7 @@ module.exports = {
         allowAnonymousClass: false,
         allowAnonymousFunction: false,
         allowCallExpression: true,
-        // Unreleased
-        // allowNew: true,
+        allowNew: true,
         allowLiteral: true,
         allowObject: true,
       },
