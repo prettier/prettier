@@ -209,6 +209,12 @@ module.exports = {
     "unicorn/no-thenable": "off",
     "unicorn/no-unreadable-array-destructuring": "off",
     "unicorn/no-useless-switch-case": "off",
+    "unicorn/no-useless-undefined": [
+      "error",
+      {
+        checkArrowFunctionBody: false,
+      },
+    ],
     "unicorn/number-literal-case": "off",
     "unicorn/numeric-separators-style": "off",
     "unicorn/prefer-array-flat": [
