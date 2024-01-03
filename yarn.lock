@@ -3880,13 +3880,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier-internal-rules@npm:2.0.1":
-  version: 2.0.1
-  resolution: "eslint-plugin-prettier-internal-rules@npm:2.0.1"
-  checksum: 9c30e4db037014a355f9a9c553f48b30384f8b8245584143062c186ae66fe7ff3b7e1a9ad7c85701a6f178cb1424b90c3abb51e686943c6821d777cdfab4ed81
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-react@npm:7.33.2":
   version: 7.33.2
   resolution: "eslint-plugin-react@npm:7.33.2"
@@ -7379,7 +7372,6 @@ __metadata:
     eslint-plugin-import: "npm:2.29.1"
     eslint-plugin-jest: "npm:27.6.1"
     eslint-plugin-n: "npm:16.6.1"
-    eslint-plugin-prettier-internal-rules: "npm:2.0.1"
     eslint-plugin-react: "npm:7.33.2"
     eslint-plugin-regexp: "npm:2.1.2"
     eslint-plugin-simple-import-sort: "npm:10.0.0"
