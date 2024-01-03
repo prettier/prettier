@@ -372,6 +372,7 @@ function genericPrint(path, options, print) {
 
     case "UnionTypeExtension":
     case "UnionTypeDefinition":
+      print("Graphql printer: UnionTypeDefinition detected");
       return group([
         printDescription(path, options, print),
         group([
@@ -384,7 +385,7 @@ function genericPrint(path, options, print) {
                 " =",
                 ifBreak("", " "),
                 indent([
-                  ifBreak([line, "  "]),
+                  ifBreak([line, "|  "]),
                   join([line, "| "], path.map(print, "types")),
                 ]),
               ]
