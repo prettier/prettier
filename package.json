@@ -121,7 +121,7 @@
     "enquirer": "2.4.1",
     "esbuild": "0.19.9",
     "esbuild-plugins-node-modules-polyfill": "1.6.1",
-    "esbuild-visualizer": "0.5.1",
+    "esbuild-visualizer": "0.6.0",
     "eslint": "8.53.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-formatter-friendly": "7.0.0",

@@ -3545,16 +3545,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-visualizer@npm:0.5.1":
-  version: 0.5.1
-  resolution: "esbuild-visualizer@npm:0.5.1"
+"esbuild-visualizer@npm:0.6.0":
+  version: 0.6.0
+  resolution: "esbuild-visualizer@npm:0.6.0"
   dependencies:
     open: "npm:^8.4.0"
     picomatch: "npm:^2.3.1"
     yargs: "npm:^17.6.2"
   bin:
     esbuild-visualizer: dist/bin/cli.js
-  checksum: 7abbad4fde9f0c228eed3ebf6dc37321f09e1edd76e1409e10d05ae0b03d1209c8191ec68046655c14e962fba8b3889e56db52916a8d8537e658f309a1f6679c
+  checksum: 62d2c629b956071420327a595ee9bc0e696f85b6ea7419a3c5b8db21cc3cb17bf5bbe3eef3be6bef621660bedb70c8d66a3a85af1f066b9a396ac0109871c0da
   languageName: node
   linkType: hard
 
@@ -7292,7 +7292,7 @@ __metadata:
     enquirer: "npm:2.4.1"
     esbuild: "npm:0.19.9"
     esbuild-plugins-node-modules-polyfill: "npm:1.6.1"
-    esbuild-visualizer: "npm:0.5.1"
+    esbuild-visualizer: "npm:0.6.0"
     escape-string-regexp: "npm:5.0.0"
     eslint: "npm:8.53.0"
     eslint-config-prettier: "npm:9.1.0"
