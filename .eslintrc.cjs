@@ -19,13 +19,14 @@ module.exports = {
     "plugin:unicorn/recommended",
   ],
   plugins: [
-    "prettier-internal-rules",
+    "@stylistic/js",
+    "@typescript-eslint",
     "import",
     "n",
+    "prettier-internal-rules",
     "regexp",
-    "unicorn",
-    "@typescript-eslint",
     "simple-import-sort",
+    "unicorn",
   ],
   rules: {
     "arrow-body-style": ["error", "as-needed"],
@@ -50,7 +51,6 @@ module.exports = {
       // `!foo === bar` and `!foo !== bar`
       'BinaryExpression[operator=/^[!=]==$/] > UnaryExpression.left[operator="!"]',
     ],
-    "no-return-await": "error",
     "no-unneeded-ternary": "error",
     "no-useless-return": "error",
     "no-unused-expressions": [
@@ -102,13 +102,6 @@ module.exports = {
     "prefer-object-spread": "error",
     "prefer-rest-params": "error",
     "prefer-spread": "error",
-    quotes: [
-      "error",
-      "double",
-      {
-        avoidEscape: true,
-      },
-    ],
     "require-await": "error",
     "symbol-description": "error",
     yoda: [
@@ -126,6 +119,14 @@ module.exports = {
 
     // @typescript-eslint/eslint-plugin
     "@typescript-eslint/prefer-ts-expect-error": "error",
+
+    "@stylistic/js/quotes": [
+      "error",
+      "double",
+      {
+        avoidEscape: true,
+      },
+    ],
 
     // eslint-plugin-import
     "import/extensions": ["error", "ignorePackages"],
@@ -287,6 +288,15 @@ module.exports = {
       },
       plugins: ["jest"],
       rules: {
+        "@stylistic/js/quotes": [
+          "error",
+          "double",
+          {
+            avoidEscape: true,
+            allowTemplateLiterals: true,
+          },
+        ],
+
         "jest/valid-expect": [
           "error",
           {
@@ -323,7 +333,7 @@ module.exports = {
       },
     },
     {
-      files: ["src/cli/**/*.js"],
+      files: ["src/cli/**"],
       rules: {
         "n/no-restricted-import": [
           "error",
@@ -337,17 +347,6 @@ module.exports = {
               message: "Don't use code from other directory.",
             },
           ],
-        ],
-      },
-    },
-    {
-      files: ["src/cli/*/*.js"],
-      rules: {
-        "no-restricted-modules": [
-          "error",
-          {
-            patterns: ["../../"],
-          },
         ],
       },
     },
