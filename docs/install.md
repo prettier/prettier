@@ -30,13 +30,13 @@ Then, create an empty config file to let editors and other tools know you are us
 
 <!--
 Note:
-- `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows.
-- `echo {}> .prettierrc.json` would result the file in UTF-16LE encoding in PowerShell.
+- `echo "{}" > .prettierrc` would result in `"{}"<SPACE>` on Windows.
+- `echo {}> .prettierrc` would result the file in UTF-16LE encoding in PowerShell.
 The below version works in cmd.exe, bash, zsh, fish, PowerShell.
 -->
 
 ```bash
-node --eval "fs.writeFileSync('.prettierrc.json','{}\n')"
+node --eval "fs.writeFileSync('.prettierrc','{}\n')"
 ```
 
 Next, create a [.prettierignore](ignore.md) file to let the Prettier CLI and editors know which files to _not_ format. Here’s an example:
@@ -167,7 +167,7 @@ See [Pre-commit Hook](precommit.md) for more information.
 To summarize, we have learned to:
 
 - Install an exact version of Prettier locally in your project. This makes sure that everyone in the project gets the exact same version of Prettier. Even a patch release of Prettier can result in slightly different formatting, so you wouldn’t want different team members using different versions and formatting each other’s changes back and forth.
-- Add a `.prettierrc.json` to let your editor know that you are using Prettier.
+- Add a `.prettierrc` to let your editor know that you are using Prettier.
 - Add a `.prettierignore` to let your editor know which files _not_ to touch, as well as for being able to run `prettier --write .` to format the entire project (without mangling files you don’t want, or choking on generated files).
 - Run `prettier --check .` in CI to make sure that your project stays formatted.
 - Run Prettier from your editor for the best experience.
