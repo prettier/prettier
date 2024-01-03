@@ -111,7 +111,7 @@
     "@eslint/js": "8.56.0",
     "@glimmer/reference": "0.87.1",
     "@stylistic/eslint-plugin-js": "1.5.3",
-    "@types/eslint__js": "^8",
+    "@types/eslint__js": "8.42.3",
     "@types/estree": "1.0.5",
     "@types/file-entry-cache": "5.0.4",
     "@types/find-cache-dir": "3.2.1",
