@@ -2576,7 +2576,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.21.10, browserslist@npm:^4.21.9, browserslist@npm:^4.22.2":
+"browserslist@npm:4.22.2, browserslist@npm:^4.21.10, browserslist@npm:^4.21.9, browserslist@npm:^4.22.2":
   version: 4.22.2
   resolution: "browserslist@npm:4.22.2"
   dependencies:
@@ -7335,6 +7335,7 @@ __metadata:
     angular-estree-parser: "npm:9.0.0"
     angular-html-parser: "npm:5.2.0"
     benchmark: "npm:2.1.4"
+    browserslist: "npm:4.22.2"
     browserslist-to-esbuild: "npm:2.0.0"
     c8: "npm:8.0.1"
     camelcase: "npm:8.0.0"
