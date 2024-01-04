@@ -89,14 +89,12 @@ type DuplexStreamOptions = {
   readableObjectMode?: boolean,
 };
 
-type DuplexStreamOptions = ReadableStreamOptions &
-  WritableStreamOptions & {
+type DuplexStreamOptions = ReadableStreamOptions & WritableStreamOptions & {
     allowHalfOpen?: boolean,
     readableObjectMode?: boolean,
   };
 
-type DuplexStreamOptions = ReadableStreamOptions &
-  WritableStreamOptions & {
+type DuplexStreamOptions = ReadableStreamOptions & WritableStreamOptions & {
     allowHalfOpen?: boolean,
     readableObjectMode?: boolean,
   } & {
