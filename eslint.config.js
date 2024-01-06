@@ -258,7 +258,7 @@ export default [
   {
     ignores: (await fs.readFile("./.eslintignore", "utf8"))
       .split("\n")
-      .filter(Boolean),
+      .filter((pattern) => pattern && !pattern.startsWith("#")),
   },
   // CommonJS modules
   {
