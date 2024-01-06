@@ -1,5 +1,5 @@
 .tmp
-tests/format/**/*
+tests/format/**/*.js
 tests/integration/cli/
 !tests/format/**/jsfmt.spec.js
 test*.*
