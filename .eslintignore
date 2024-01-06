@@ -1,5 +1,5 @@
 .tmp
-# `tests/format/**/*` will ignore directories
+# Do not use `tests/format/**/*`, since it will ignore directories
 # https://github.com/eslint/eslint/issues/17964#issuecomment-1879772142
 tests/format/**/*.*
 !tests/format/**/jsfmt.spec.js
