@@ -8,6 +8,8 @@
     "source.fixAll.eslint": "explicit"
   },
   "prettier.requireConfig": true,
+  // Enable this after we merge https://github.com/prettier/prettier/pull/15869
+  // "eslint.experimental.useFlatConfig": true,
   "files.exclude": {
     "dist*": true
   }
