@@ -1,0 +1,14 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": ["source.fixAll.eslint"]
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "prettier.requireConfig": true,
+  "files.exclude": {
+    "dist*": true
+  }
+}

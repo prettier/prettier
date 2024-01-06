@@ -10,7 +10,6 @@
 *.log
 /errors
 /test*.*
-/.vscode
 /dist*
 /website/build
 /website/i18n
