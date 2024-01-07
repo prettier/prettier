@@ -12,3 +12,4 @@ export { default as updateDependentsCount } from "./update-dependents-count.js";
 export { default as updateVersion } from "./update-version.js";
 export { default as validateNewVersion } from "./validate-new-version.js";
 export { default as waitForBotRelease } from "./wait-for-bot-release.js";
+export { default as cleanChangelogUnreleased } from "./clean-changelog-unreleased.js";
