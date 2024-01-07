@@ -384,7 +384,7 @@ function genericPrint(path, options, print) {
                 " =",
                 ifBreak("", " "),
                 indent([
-                  ifBreak([line, "  "]),
+                  ifBreak([line, "| "]),
                   join([line, "| "], path.map(print, "types")),
                 ]),
               ]
