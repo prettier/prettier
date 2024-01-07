@@ -47,3 +47,5 @@ Don't fill the form below manually! Let a program create a report for you:
 ```
 
 **Expected behavior:**
+
+<!-- Please write both text and code -->
