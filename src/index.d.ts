@@ -791,7 +791,7 @@ export interface SupportInfo {
 export interface FileInfoOptions {
   ignorePath?: string | URL | (string | URL)[] | undefined;
   withNodeModules?: boolean | undefined;
-  plugins?: string[] | undefined;
+  plugins?: Array<string | Plugin> | undefined;
   resolveConfig?: boolean | undefined;
 }
 
@@ -805,10 +805,17 @@ export function getFileInfo(
   options?: FileInfoOptions,
 ): Promise<FileInfoResult>;
 
+export interface SupportInfoOptions {
+  plugins?: Array<string | Plugin> | undefined;
+  showDeprecated?: boolean | undefined;
+}
+
 /**
  * Returns an object representing the parsers, languages and file types Prettier supports for the current version.
  */
-export function getSupportInfo(): Promise<SupportInfo>;
+export function getSupportInfo(
+  options?: SupportInfoOptions,
+): Promise<SupportInfo>;
 
 /**
  * `version` field in `package.json`
