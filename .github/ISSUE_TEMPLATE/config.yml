@@ -3,3 +3,6 @@ contact_links:
   - name: 🤔 Support question
     url: https://stackoverflow.com/questions/ask?tags=prettier
     about: Issues are dedicated to development purposes. If you have questions, please use Stack Overflow.
+  - name: 📝 Help with Visual Studio Code extension for Prettier
+    url: https://github.com/prettier/prettier-vscode/issues
+    about: Bugs and feature requests for the Visual Studio Code extension for Prettier
