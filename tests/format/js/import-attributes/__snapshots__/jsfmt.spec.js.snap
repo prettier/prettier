@@ -235,6 +235,54 @@ import foo from "foo.json" with { lazy: "true" };
 ================================================================================
 `;
 
+exports[`quoted-keys.js [acorn] format 1`] = `
+"Unexpected token (1:29)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                             ^
+  2 | import json from './mod.js' with { "type-foo" :"json" };
+  3 | import json from './mod.js' with { "333foo" :"json" };
+  4 |
+Cause: Unexpected token (1:28)"
+`;
+
+exports[`quoted-keys.js [espree] format 1`] = `
+"Unexpected token with (1:29)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                             ^
+  2 | import json from './mod.js' with { "type-foo" :"json" };
+  3 | import json from './mod.js' with { "333foo" :"json" };
+  4 |
+Cause: Unexpected token with"
+`;
+
+exports[`quoted-keys.js [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:32)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                                ^
+  2 | import json from './mod.js' with { "type-foo" :"json" };
+  3 | import json from './mod.js' with { "333foo" :"json" };
+  4 |
+Cause: [1:32]: Unexpected token: 'with'"
+`;
+
+exports[`quoted-keys.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import json from './mod.js' with { "type":"json" };
+import json from './mod.js' with { "type-foo" :"json" };
+import json from './mod.js' with { "333foo" :"json" };
+
+=====================================output=====================================
+import json from "./mod.js" with { type: "json" };
+import json from "./mod.js" with { "type-foo": "json" };
+import json from "./mod.js" with { "333foo": "json" };
+
+================================================================================
+`;
+
 exports[`re-export.js [acorn] format 1`] = `
 "Unexpected token (1:44)
 > 1 | export { default as foo2 } from "foo.json" with { type: "json" };

@@ -9,6 +9,7 @@ run_spec(import.meta, ["babel", "typescript"], {
       "without-from.js",
       "non-type.js",
       "keyword-detect.js",
+      "quoted-keys.js",
     ],
     espree: [
       "dynamic-import.js",
@@ -19,6 +20,7 @@ run_spec(import.meta, ["babel", "typescript"], {
       "without-from.js",
       "non-type.js",
       "keyword-detect.js",
+      "quoted-keys.js",
     ],
     meriyah: [
       "dynamic-import.js",
@@ -29,6 +31,7 @@ run_spec(import.meta, ["babel", "typescript"], {
       "without-from.js",
       "non-type.js",
       "keyword-detect.js",
+      "quoted-keys.js",
     ],
   },
 });
