@@ -230,7 +230,7 @@ function printEstree(path, options, print, args) {
     case "ExportDefaultSpecifier":
       return printModuleSpecifier(path, options, print);
     case "ImportAttribute":
-      return [print("key"), ": ", print("value")];
+      return printProperty(path, options, print);
     case "Import":
       return "import";
     case "BlockStatement":
