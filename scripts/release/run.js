@@ -58,7 +58,7 @@ for (let step of [
   {
     name: "Cleaning changelog_unreleased",
     process: steps.cleanChangelogUnreleased,
-    skip: params.dry,
+    skip: params.dry || params.next,
   },
   steps.postPublishSteps,
 ]) {
