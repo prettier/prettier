@@ -184,8 +184,7 @@
     "build": "node ./scripts/build/build.js",
     "build:website": "node ./scripts/build-website.js",
     "gen:changelog": "node ./scripts/generate-changelog.js",
-    "debug": "node bin/prettier.js --ignore-path=.prettierignore",
-    "postinstall": "node -e \"try{fs.existsSync('.vscode/settings.json')||fs.writeFileSync('.vscode/settings.json',fs.readFileSync('.vscode/settings.example.json'))}catch(_){}\""
+    "debug": "node bin/prettier.js --ignore-path=.prettierignore"
   },
   "c8": {
     "reporter": [
