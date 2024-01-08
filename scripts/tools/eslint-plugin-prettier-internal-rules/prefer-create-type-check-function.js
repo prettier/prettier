@@ -164,9 +164,7 @@ module.exports = {
     fixable: "code",
   },
   create(context) {
-    const { ignoreSingleType, onlyTopLevelFunctions } = {
-      ignoreSingleType: false,
-      onlyTopLevelFunctions: false,
+    const { ignoreSingleType = false, onlyTopLevelFunctions = false } = {
       ...context.options[0],
     };
     const sourceCode = context.getSourceCode();
