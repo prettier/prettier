@@ -181,7 +181,8 @@
     "build": "node ./scripts/build/build.js",
     "build:website": "node ./scripts/build-website.js",
     "gen:changelog": "node ./scripts/generate-changelog.js",
-    "debug": "node bin/prettier.js --ignore-path=.prettierignore"
+    "debug": "node bin/prettier.js --ignore-path=.prettierignore",
+    "postinstall": "node ./scripts/setup-editor.js"
   },
   "c8": {
     "reporter": [
