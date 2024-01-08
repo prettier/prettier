@@ -1,4 +1,5 @@
 import fs from "node:fs";
+
 import { copyFile } from "./utils/index.js";
 
 console.log(import.meta.url);
