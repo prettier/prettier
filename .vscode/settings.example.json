@@ -8,6 +8,7 @@
     "source.fixAll.eslint": "explicit"
   },
   "prettier.requireConfig": true,
+  "eslint.experimental.useFlatConfig": true,
   "files.exclude": {
     "dist*": true
   }
