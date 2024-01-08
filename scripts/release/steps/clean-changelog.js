@@ -3,9 +3,9 @@ import { fileURLToPath } from "node:url";
 
 import fastGlob from "fast-glob";
 
-import { runGit } from "../utils";
+import { runGit } from "../utils.js";
 
-export default async function cleanChangelogUnreleased({ repo }) {
+export default async function cleanChangelog({ repo }) {
   const changelogUnreleasedDir = fileURLToPath(
     new URL("../changelog_unreleased", import.meta.url),
   );

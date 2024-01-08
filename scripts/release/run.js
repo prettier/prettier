@@ -56,8 +56,8 @@ for (let step of [
   steps.updateDependentsCount,
   steps.bumpPrettier,
   {
-    name: "Cleaning changelog_unreleased",
-    process: steps.cleanChangelogUnreleased,
+    name: "Cleaning changelog",
+    process: steps.cleanChangelog,
     skip: params.dry || params.next,
   },
   steps.postPublishSteps,
