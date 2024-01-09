@@ -46,6 +46,12 @@ Don't fill the form below manually! Let a program create a report for you:
 // code snippet
 ```
 
-**Expected behavior:**
+**Expected output:**
 
-<!-- Please write both text and code -->
+```jsx
+// code snippet
+```
+
+**Why?**
+
+<!-- short explanation of expected output -->
