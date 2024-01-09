@@ -23,7 +23,7 @@ module.exports = {
           return;
         }
 
-        fs.writeFileSync(settingsFile, fs.readFileSync(settingsExampleFile));
+        fs.copyFileSync(settingsExampleFile, settingsFile);
       },
     },
   }),

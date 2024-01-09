@@ -15,17 +15,20 @@ function writeJson(file, content) {
 }
 
 async function copyFile(from, to) {
-  const data = await fs.readFile(from);
-  return writeFile(to, data);
+  await createDirectory(path.dirname(toPath(to)));
+  return fs.copyFile(from, to);
 }
 
-async function writeFile(file, content) {
-  const directory = path.dirname(toPath(file));
+async function createDirectory(directory) {
   try {
     await fs.mkdir(directory, { recursive: true });
   } catch {
     // noop
   }
+}
+
+async function writeFile(file, content) {
+  await createDirectory(path.dirname(toPath(file)));
   return fs.writeFile(file, content);
 }
 
