@@ -88,7 +88,7 @@ const user = {
 
 Just like with objects, decorators are used for a lot of different things. Sometimes it makes sense to write decorators _above_ the line they're decorating, sometimes it’s nicer if they're on the _same_ line. We haven’t been able to find a good rule for this, so Prettier keeps your decorator positioned like you wrote them (if they fit on the line). This isn’t ideal, but a pragmatic solution to a difficult problem.
 
-```js
+```ts
 @Component({
   selector: "hero-button",
   template: `<button>{{ label }}</button>`,
@@ -109,14 +109,14 @@ class HeroButtonComponent {
 There’s one exception: classes. We don’t think it ever makes sense to inline the decorators for them, so they are always moved to their own line.
 
 <!-- prettier-ignore -->
-```js
+```ts
 // Before running Prettier:
 @observer class OrderLine {
   @observable price: number = 0;
 }
 ```
 
-```js
+```ts
 // After running Prettier:
 @observer
 class OrderLine {
@@ -126,7 +126,7 @@ class OrderLine {
 
 Note: Prettier 1.14.x and older tried to automatically move your decorators, so if you've run an older Prettier version on your code you might need to manually join up some decorators here and there to avoid inconsistencies:
 
-```js
+```ts
 @observer
 class OrderLine {
   @observable price: number = 0;
