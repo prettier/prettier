@@ -88,7 +88,7 @@ const user = {
 
 Just like with objects, decorators are used for a lot of different things. Sometimes it makes sense to write decorators _above_ the line they're decorating, sometimes it’s nicer if they're on the _same_ line. We haven’t been able to find a good rule for this, so Prettier keeps your decorator positioned like you wrote them (if they fit on the line). This isn’t ideal, but a pragmatic solution to a difficult problem.
 
-```js
+```ts
 @Component({
   selector: "hero-button",
   template: `<button>{{ label }}</button>`,

@@ -2053,7 +2053,7 @@ Test <a href="https://prettier.io">abc</a>.
 #### Fix broken format for `...infer T` ([#9044](https://github.com/prettier/prettier/pull/9044) by [@fisker](https://github.com/fisker))
 
 <!-- prettier-ignore -->
-```typescript
+```ts
 // Input
 type Tail<T extends any[]> = T extends [infer U, ...infer R] ? R : never;
 
