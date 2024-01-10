@@ -1,5 +1,6 @@
 export { default as bumpPrettier } from "./bump-prettier.js";
 export { default as checkGitStatus } from "./check-git-status.js";
+export { default as cleanChangelog } from "./clean-changelog.js";
 export { default as generateBundles } from "./generate-bundles.js";
 export { default as installDependencies } from "./install-dependencies.js";
 export { default as lintFiles } from "./lint-files.js";

@@ -853,7 +853,6 @@ function hasJsxIgnoreComment(path) {
     return false;
   }
 
-  // TODO: Use `Array#findLast` when we drop support for Node.js<18
   // Lookup the previous sibling, ignoring any empty JSXText elements
   const { index, siblings } = path;
   let prevSibling;

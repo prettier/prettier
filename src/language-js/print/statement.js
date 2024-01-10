@@ -16,7 +16,9 @@ import { isNextLineEmpty } from "../utils/index.js";
 function printStatementSequence(path, options, print, property) {
   const { node } = path;
   const parts = [];
-  const lastStatement = getLastStatement(node[property]);
+  const lastStatement = node[property].findLast(
+    (statement) => statement.type !== "EmptyStatement",
+  );
 
   path.each(({ node }) => {
     // Skip printing EmptyStatement nodes to avoid leaving stray
@@ -37,15 +39,6 @@ function printStatementSequence(path, options, print, property) {
   }, property);
 
   return parts;
-}
-
-function getLastStatement(statements) {
-  for (let i = statements.length - 1; i >= 0; i--) {
-    const statement = statements[i];
-    if (statement.type !== "EmptyStatement") {
-      return statement;
-    }
-  }
 }
 
 export { printStatementSequence };

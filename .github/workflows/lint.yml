@@ -53,8 +53,7 @@ jobs:
         run: yarn lint:blog
 
       - name: Lint docs code block
-        # TODO: Lint files in `website/versioned_docs/version-stable` too
-        run: yarn "docs/**/*.md"
+        run: yarn prettier "{docs,website/versioned_docs/version-stable}/**/*.md" --check
         env:
           # Make Prettier throws on embeded format
           PRETTIER_DEBUG: true

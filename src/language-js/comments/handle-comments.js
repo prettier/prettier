@@ -21,7 +21,6 @@ import {
   isObjectProperty,
   isPrettierIgnoreComment,
   isUnionType,
-  markerForIfWithoutBlockAndSameLineComment,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
@@ -202,7 +201,7 @@ function handleIfStatementComments({
       addTrailingComment(precedingNode, comment);
     } else {
       const isSingleLineComment =
-        comment.type === "SingleLine" ||
+        isLineComment(comment) ||
         comment.loc.start.line === comment.loc.end.line;
       const isSameLineComment =
         comment.loc.start.line === precedingNode.loc.start.line;
@@ -211,13 +210,7 @@ function handleIfStatementComments({
         //   if (cond1) expr1; // comment A
         //   else if (cond2) expr2; // comment A
         //   else expr3;
-        addDanglingComment(
-          precedingNode,
-          comment,
-          precedingNode.type === "ExpressionStatement"
-            ? markerForIfWithoutBlockAndSameLineComment
-            : undefined,
-        );
+        addTrailingComment(precedingNode, comment);
       } else {
         addDanglingComment(enclosingNode, comment);
       }

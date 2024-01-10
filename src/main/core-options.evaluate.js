@@ -120,6 +120,7 @@ const options = {
       { value: "scss", description: "SCSS" },
       { value: "json", description: "JSON" },
       { value: "json5", description: "JSON5" },
+      { value: "jsonc", description: "JSON with Comments" },
       { value: "json-stringify", description: "JSON.stringify" },
       { value: "graphql", description: "GraphQL" },
       { value: "markdown", description: "Markdown" },

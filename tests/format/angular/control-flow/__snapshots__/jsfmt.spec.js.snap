@@ -285,6 +285,12 @@ item of
   <div *ngFor="item of items; track item"></div>
 </div>
 
+<div>
+  @for (item of items; let i = $index; track block) {}
+
+  <div *ngFor="item of items; let i = $index; track block"></div>
+</div>
+
 =====================================output=====================================
 <ul>
   @for (let item of items; index as i; trackBy: trackByFn) {
@@ -330,6 +336,12 @@ item of
   @for (item of items; track item) {}
 
   <div *ngFor="item of items; track item"></div>
+</div>
+
+<div>
+  @for (item of items; let i = $index; track block) {}
+
+  <div *ngFor="item of items; let i = $index; track block"></div>
 </div>
 
 ================================================================================
@@ -422,6 +434,48 @@ topStartToSideStartMaxSize) {
 @if (widthCategory; as item) {}
 
 <div *ngIf="widthCategory; as item"></div>
+
+================================================================================
+`;
+
+exports[`ignore.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- prettier-ignore -->
+@if (condition) {
+  Foo
+} @else {
+  Other
+}
+
+
+@if (condition) {
+  Foo
+}
+<!-- prettier-ignore -->
+@else {
+  Other
+}
+
+=====================================output=====================================
+<!-- prettier-ignore -->
+@if (condition) {
+  Foo
+}
+@else {
+  Other
+}
+
+@if (condition) {
+  Foo
+}
+<!-- prettier-ignore -->
+@else {
+  Other
+}
 
 ================================================================================
 `;

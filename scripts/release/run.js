@@ -55,6 +55,11 @@ for (let step of [
   steps.showInstructionsAfterNpmPublish,
   steps.updateDependentsCount,
   steps.bumpPrettier,
+  {
+    name: "Cleaning changelog",
+    process: steps.cleanChangelog,
+    skip: params.dry || params.next,
+  },
   steps.postPublishSteps,
 ]) {
   if (typeof step === "function") {

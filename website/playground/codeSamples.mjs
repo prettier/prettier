@@ -116,6 +116,7 @@ export default function getCodeSamples(parser) {
       ].join("\n");
     case "json":
     case "json5":
+    case "jsonc":
     case "json-stringify":
       // Excerpted & adapted from Wikipedia, under the Creative Commons Attribution-ShareAlike License
       // https://en.wikipedia.org/wiki/JSON#Example
