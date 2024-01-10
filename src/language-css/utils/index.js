@@ -385,6 +385,10 @@ function isParenGroupNode(node) {
   );
 }
 
+function isUnitlessNumberNode(node) {
+  return node?.type === "value-number" && node.unit === "";
+}
+
 export {
   getPropOfDeclNode,
   hasComposesNode,
@@ -427,6 +431,7 @@ export {
   isSubtractionNode,
   isTemplatePlaceholderNode,
   isTemplatePropNode,
+  isUnitlessNumberNode,
   isURLFunctionNode,
   isVarFunctionNode,
   isWideKeywords,

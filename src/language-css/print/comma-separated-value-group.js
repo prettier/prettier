@@ -35,6 +35,7 @@ import {
   isRightCurlyBraceNode,
   isSCSSControlDirectiveNode,
   isSubtractionNode,
+  isUnitlessNumberNode,
   isWordNode,
 } from "../utils/index.js";
 
@@ -257,12 +258,20 @@ function printCommaSeparatedValueGroup(path, options, print) {
       iNextNextNode?.type === "value-func" ||
       (iNextNextNode && isWordNode(iNextNextNode)) ||
       iNode.type === "value-func" ||
-      isWordNode(iNode);
+      isWordNode(iNode) ||
+      (isDivisionNode(iNextNode) &&
+        parentNode.type === "value-value" &&
+        isUnitlessNumberNode(iNode) &&
+        isUnitlessNumberNode(iNextNextNode));
     const requireSpaceAfterOperator =
       iNextNode.type === "value-func" ||
       isWordNode(iNextNode) ||
       iPrevNode?.type === "value-func" ||
-      (iPrevNode && isWordNode(iPrevNode));
+      (iPrevNode && isWordNode(iPrevNode)) ||
+      (isDivisionNode(iNode) &&
+        parentNode.type === "value-value" &&
+        isUnitlessNumberNode(iNextNode) &&
+        isUnitlessNumberNode(iPrevNode));
 
     // Space before unary minus followed by a function call.
     if (
