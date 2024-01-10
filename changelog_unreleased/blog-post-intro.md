@@ -1,10 +1,10 @@
 ---
 author: "Sosuke Suzuki (@sosukesuzuki)"
 authorURL: "https://github.com/sosukesuzuki"
-title: "Prettier 3.2: Support JSONC and Angular's ICU expression"
+title: "Prettier 3.2: Support JSONC and Angular’s ICU expression"
 ---
 
-This release includes new features such as adding a JSONC parser, adding Angular's ICU expressions, and many bug fixes.
+This release includes new features such as adding a JSONC parser, adding Angular’s ICU expressions, and many bug fixes.
 
 We are still seeking feedback for the `--experimental-ternaries` option released in Prettier 3.1. Please read [A curious case of the ternaries](https://prettier.io/blog/2023/11/13/curious-ternaries) and respond via the Google Forms link provided.
 
