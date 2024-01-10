@@ -20,6 +20,14 @@ import InvalidDocError from "./invalid-doc-error.js";
 import getDocType from "./utils/get-doc-type.js";
 import traverseDoc from "./utils/traverse-doc.js";
 
+/**
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
+
+/**
+ * @param {*} doc
+ * @returns {Doc[]}
+ */
 const getDocParts = (doc) => {
   if (Array.isArray(doc)) {
     return doc;
@@ -350,6 +358,8 @@ function cleanDocFn(doc) {
 
   return doc;
 }
+
+// TODO: update this comment
 // A safer version of `normalizeDoc`
 // - `normalizeDoc` concat strings and flat array in `fill`, while `cleanDoc` don't
 // - On array, `normalizeDoc` always return object with `parts`, `cleanDoc` may return strings
@@ -389,21 +399,6 @@ function normalizeParts(parts) {
   return newParts;
 }
 
-function normalizeDoc(doc) {
-  return mapDoc(doc, (currentDoc) => {
-    if (Array.isArray(currentDoc)) {
-      return normalizeParts(currentDoc);
-    }
-    if (!currentDoc.parts) {
-      return currentDoc;
-    }
-    return {
-      ...currentDoc,
-      parts: normalizeParts(currentDoc.parts),
-    };
-  });
-}
-
 function replaceEndOfLine(doc, replacement = literalline) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string"
@@ -436,7 +431,6 @@ export {
   getDocType,
   inheritLabel,
   mapDoc,
-  normalizeDoc,
   normalizeParts,
   propagateBreaks,
   removeLines,

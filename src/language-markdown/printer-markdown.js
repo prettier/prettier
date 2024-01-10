@@ -15,8 +15,10 @@ import {
   markAsRoot,
   softline,
 } from "../document/builders.js";
+import { DOC_TYPE_STRING } from "../document/constants.js";
 import { printDocToString } from "../document/printer.js";
-import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
+import { cleanDoc, getDocType, replaceEndOfLine } from "../document/utils.js";
+import { flattenFill } from "../document/utils/flatten-fill.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
@@ -29,6 +31,7 @@ import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
 import preprocess from "./print-preprocess.js";
+import { printSentence } from "./print-sentence.js";
 import { printWhitespace } from "./print-whitespace.js";
 import {
   getFencedCodeBlockValue,
@@ -40,6 +43,7 @@ import {
 } from "./utils.js";
 
 /**
+ * @typedef {import("../common/ast-path.js").default} AstPath
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
@@ -53,16 +57,26 @@ function genericPrint(path, options, print) {
   const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
-    return splitText(
+    const builder = fill.builder();
+    const textsNodes = splitText(
       options.originalText.slice(
         node.position.start.offset,
         node.position.end.offset,
       ),
-    ).map((node) =>
-      node.type === "word"
-        ? node.value
-        : printWhitespace(path, node.value, options.proseWrap, true),
     );
+    for (const node of textsNodes) {
+      if (node.type === "word") {
+        builder.append(node.value);
+        continue;
+      }
+      const doc = printWhitespace(path, node.value, options.proseWrap, true);
+      if (getDocType(doc) === DOC_TYPE_STRING) {
+        builder.append(doc);
+        continue;
+      }
+      builder.appendLine(doc);
+    }
+    return builder.build();
   }
 
   switch (node.type) {
@@ -76,13 +90,11 @@ function genericPrint(path, options, print) {
       if (node.children.length === 0) {
         return "";
       }
-      return [normalizeDoc(printRoot(path, options, print)), hardline];
+      return [cleanDoc(printRoot(path, options, print)), hardline];
     case "paragraph":
-      return printChildren(path, options, print, {
-        postprocessor: fill,
-      });
+      return printParagraph(path, options, print);
     case "sentence":
-      return printChildren(path, options, print);
+      return printSentence(path, print);
     case "word": {
       let escapedValue = node.value
         .replaceAll("*", "\\*") // escape all `*`
@@ -840,6 +852,43 @@ function printLinkReference(node) {
 
 function printFootnoteReference(node) {
   return `[^${node.label}]`;
+}
+
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @param {*} print
+ * @returns {Doc}
+ */
+function printParagraph(path, options, print) {
+  let isFirstPart = true;
+  const builder = fill.builder();
+
+  path.each(() => {
+    const result = print(path);
+    if (result !== false) {
+      if (!isFirstPart && shouldPrePrintHardline(path)) {
+        isFirstPart = false;
+        const lines = [hardline];
+
+        if (
+          shouldPrePrintDoubleHardline(path, options) ||
+          shouldPrePrintTripleHardline(path)
+        ) {
+          lines.push(hardline);
+        }
+
+        if (shouldPrePrintTripleHardline(path)) {
+          lines.push(hardline);
+        }
+        builder.appendLine(lines);
+      }
+
+      builder.append(result);
+    }
+  }, "children");
+
+  return flattenFill(builder.build());
 }
 
 const printer = {

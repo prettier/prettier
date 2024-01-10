@@ -416,7 +416,8 @@ A {/* JS-style comment */} comment.
 </Hello>
 <Hello>
   test <World /> test
-</Hello>123
+</Hello>
+123
 
 ---
 
@@ -518,7 +519,8 @@ A {/* JS-style comment */} comment.
 </Hello>
 <Hello>
   test <World /> test
-</Hello>123
+</Hello>
+123
 
 ---
 
