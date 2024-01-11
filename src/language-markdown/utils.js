@@ -237,6 +237,33 @@ function isAutolink(node) {
   return locStart(node) === locStart(child) && locEnd(node) === locEnd(child);
 }
 
+/** @return {false | 'next' | 'start' | 'end'} */
+function isPrettierIgnore(node) {
+  let match;
+
+  if (node.type === "html") {
+    match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
+  } else {
+    let comment;
+
+    if (node.type === "esComment") {
+      comment = node;
+    } else if (
+      node.type === "paragraph" &&
+      node.children.length === 1 &&
+      node.children[0].type === "esComment"
+    ) {
+      comment = node.children[0];
+    }
+
+    if (comment) {
+      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/);
+    }
+  }
+
+  return match ? match[1] || "next" : false;
+}
+
 export {
   getFencedCodeBlockValue,
   getOrderedListItemInfo,
@@ -244,6 +271,7 @@ export {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  isPrettierIgnore,
   KIND_CJ_LETTER,
   KIND_CJK_PUNCTUATION,
   KIND_K_LETTER,

@@ -30,15 +30,15 @@ import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
+import { preHardLines } from "./pre-hardlines.js";
 import preprocess from "./print-preprocess.js";
 import { printSentence } from "./print-sentence.js";
 import { printWhitespace } from "./print-whitespace.js";
 import {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
-  INLINE_NODE_TYPES,
-  INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  isPrettierIgnore,
   splitText,
 } from "./utils.js";
 
@@ -46,12 +46,6 @@ import {
  * @typedef {import("../common/ast-path.js").default} AstPath
  * @typedef {import("../document/builders.js").Doc} Doc
  */
-
-const SIBLING_NODE_TYPES = new Set([
-  "listItem",
-  "definition",
-  "footnoteDefinition",
-]);
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -661,21 +655,12 @@ function printChildren(path, options, print, events = {}) {
   path.each(() => {
     const result = processor(path);
     if (result !== false) {
-      if (parts.length > 0 && shouldPrePrintHardline(path)) {
-        parts.push(hardline);
-
-        if (
-          shouldPrePrintDoubleHardline(path, options) ||
-          shouldPrePrintTripleHardline(path)
-        ) {
-          parts.push(hardline);
-        }
-
-        if (shouldPrePrintTripleHardline(path)) {
-          parts.push(hardline);
+      if (parts.length > 0) {
+        const hardLines = preHardLines(path, options);
+        if (hardLines > 0) {
+          parts.push(Array.from({ length: hardLines }, () => hardline));
         }
       }
-
       parts.push(result);
     }
   }, "children");
@@ -696,90 +681,6 @@ function printIgnoreComment(node) {
   ) {
     return ["{/* ", node.children[0].value, " */}"];
   }
-}
-
-/** @return {false | 'next' | 'start' | 'end'} */
-function isPrettierIgnore(node) {
-  let match;
-
-  if (node.type === "html") {
-    match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
-  } else {
-    let comment;
-
-    if (node.type === "esComment") {
-      comment = node;
-    } else if (
-      node.type === "paragraph" &&
-      node.children.length === 1 &&
-      node.children[0].type === "esComment"
-    ) {
-      comment = node.children[0];
-    }
-
-    if (comment) {
-      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/);
-    }
-  }
-
-  return match ? match[1] || "next" : false;
-}
-
-function shouldPrePrintHardline({ node, parent }) {
-  const isInlineNode = INLINE_NODE_TYPES.has(node.type);
-
-  const isInlineHTML =
-    node.type === "html" && INLINE_NODE_WRAPPER_TYPES.has(parent.type);
-
-  return !isInlineNode && !isInlineHTML;
-}
-
-function isLooseListItem(node, options) {
-  return (
-    node.type === "listItem" &&
-    (node.spread ||
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
-  );
-}
-
-function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
-  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
-
-  if (isPrevNodeLooseListItem) {
-    return true;
-  }
-
-  const isSequence = previous.type === node.type;
-  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
-  const isInTightListItem =
-    parent.type === "listItem" && !isLooseListItem(parent, options);
-  const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
-  const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
-    node.type === "html" &&
-    previous.type === "html" &&
-    previous.position.end.line + 1 === node.position.start.line;
-  const isHtmlDirectAfterListItem =
-    node.type === "html" &&
-    parent.type === "listItem" &&
-    previous.type === "paragraph" &&
-    previous.position.end.line + 1 === node.position.start.line;
-
-  return !(
-    isSiblingNode ||
-    isInTightListItem ||
-    isPrevNodePrettierIgnore ||
-    isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-    isHtmlDirectAfterListItem
-  );
-}
-
-function shouldPrePrintTripleHardline({ node, previous }) {
-  const isPrevNodeList = previous.type === "list";
-  const isIndentedCode = node.type === "code" && node.isIndented;
-
-  return isPrevNodeList && isIndentedCode;
 }
 
 function shouldRemainTheSameContent(path) {
@@ -867,23 +768,13 @@ function printParagraph(path, options, print) {
   path.each(() => {
     const result = print(path);
     if (result !== false) {
-      if (!isFirstPart && shouldPrePrintHardline(path)) {
-        isFirstPart = false;
-        const lines = [hardline];
-
-        if (
-          shouldPrePrintDoubleHardline(path, options) ||
-          shouldPrePrintTripleHardline(path)
-        ) {
-          lines.push(hardline);
+      if (!isFirstPart) {
+        const hardLines = preHardLines(path, options);
+        if (hardLines > 0) {
+          builder.appendLine(Array.from({ length: hardLines }, () => hardline));
         }
-
-        if (shouldPrePrintTripleHardline(path)) {
-          lines.push(hardline);
-        }
-        builder.appendLine(lines);
       }
-
+      isFirstPart = false;
       builder.append(result);
     }
   }, "children");
