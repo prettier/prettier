@@ -385,7 +385,7 @@ function isParenGroupNode(node) {
   );
 }
 
-function isUnitlessNumberNode(node) {
+function isNumberNodeWithoutUnit(node) {
   return node?.type === "value-number" && node.unit === "";
 }
 
@@ -422,6 +422,7 @@ export {
   isMediaAndSupportsKeywords,
   isModuloNode,
   isMultiplicationNode,
+  isNumberNodeWithoutUnit,
   isParenGroupNode,
   isPostcssSimpleVarNode,
   isRelationalOperatorNode,
@@ -431,7 +432,6 @@ export {
   isSubtractionNode,
   isTemplatePlaceholderNode,
   isTemplatePropNode,
-  isUnitlessNumberNode,
   isURLFunctionNode,
   isVarFunctionNode,
   isWideKeywords,
