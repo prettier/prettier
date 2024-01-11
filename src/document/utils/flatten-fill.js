@@ -2,9 +2,9 @@
  * @typedef {import("../builders.js").Doc} Doc
  */
 
-import { fill } from "../builders.js";
 import { DOC_TYPE_ARRAY, DOC_TYPE_FILL } from "../constants.js";
 import { cleanDoc, getDocParts } from "../utils.js";
+import { fillBuilder } from "./fill-builder.js";
 import getDocType from "./get-doc-type.js";
 
 /**
@@ -16,7 +16,7 @@ function flattenFill(doc) {
   if (getDocType(cleaned) !== DOC_TYPE_FILL) {
     throw new Error("Expected doc to be fill()");
   }
-  const builder = fill.builder();
+  const builder = fillBuilder();
 
   function drain(doc) {
     switch (getDocType(doc)) {

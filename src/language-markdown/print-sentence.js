@@ -3,9 +3,9 @@
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-import { fill } from "../document/builders.js";
 import { DOC_TYPE_STRING } from "../document/constants.js";
 import { getDocType } from "../document/utils.js";
+import { fillBuilder } from "../document/utils/fill-builder.js";
 
 /**
  * @param {AstPath} path
@@ -13,7 +13,7 @@ import { getDocType } from "../document/utils.js";
  * @returns {Doc}
  */
 function printSentence(path, print) {
-  const builder = fill.builder();
+  const builder = fillBuilder();
 
   path.each(() => {
     const { node } = path;

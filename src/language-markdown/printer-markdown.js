@@ -3,7 +3,6 @@ import collapseWhiteSpace from "collapse-white-space";
 import {
   align,
   breakParent,
-  fill,
   group,
   hardline,
   hardlineWithoutBreakParent,
@@ -18,6 +17,7 @@ import {
 import { DOC_TYPE_STRING } from "../document/constants.js";
 import { printDocToString } from "../document/printer.js";
 import { cleanDoc, getDocType, replaceEndOfLine } from "../document/utils.js";
+import { fillBuilder } from "../document/utils/fill-builder.js";
 import { flattenFill } from "../document/utils/flatten-fill.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
@@ -57,7 +57,7 @@ function genericPrint(path, options, print) {
   const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
-    const builder = fill.builder();
+    const builder = fillBuilder();
     const textsNodes = splitText(
       options.originalText.slice(
         node.position.start.offset,
@@ -862,7 +862,7 @@ function printFootnoteReference(node) {
  */
 function printParagraph(path, options, print) {
   let isFirstPart = true;
-  const builder = fill.builder();
+  const builder = fillBuilder();
 
   path.each(() => {
     const result = print(path);
