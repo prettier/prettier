@@ -12,7 +12,7 @@ import getDocType from "./get-doc-type.js";
  * @returns {Doc}
  */
 function flattenFill(doc) {
-  if (getDocType(doc) !== DOC_TYPE_FILL) {
+  if (![DOC_TYPE_ARRAY, DOC_TYPE_FILL].includes(getDocType(doc))) {
     throw new Error("Expected doc to be fill()");
   }
   const builder = fillBuilder();

@@ -762,16 +762,11 @@ function printFootnoteReference(node) {
  * @returns {Doc}
  */
 function printParagraph(path, options, print) {
-  const builder = fillBuilder();
-
+  const parts = [];
   path.each(() => {
-    const result = print(path);
-    if (result !== false) {
-      builder.append(result);
-    }
+    parts.push(print());
   }, "children");
-
-  return flattenFill(builder.build());
+  return flattenFill(parts);
 }
 
 const printer = {

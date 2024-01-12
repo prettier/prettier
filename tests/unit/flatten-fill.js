@@ -13,6 +13,11 @@ const testCases = [
     fill(join(line, [["a"], ["b"], ["c"], ["d"], ["e"]])),
   ],
   [
+    "array",
+    [fill(["a", line, "b"]), fill(["c", line, "d"])],
+    fill(join(line, [["a"], ["b", "c"], ["d"]])),
+  ],
+  [
     "fill in array in fill",
     fill([["a", "b", fill(["c", line, "d"]), "e"], line, "f"]),
     fill(join(line, [["a", "b", "c"], ["d", "e"], ["f"]])),
