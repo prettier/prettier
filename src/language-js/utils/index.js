@@ -406,12 +406,12 @@ function isTestCall(node, parent) {
 const skipChainExpression = (fn) => (node) => {
   if (node?.type === "ChainExpression") {
     // @ts-expect-error
-    if (node.object == null) {
+    if (!node.object) {
       // @ts-expect-error
       node.object = node.expression.object;
     }
     // @ts-expect-error
-    if (node.property == null) {
+    if (!node.property) {
       // @ts-expect-error
       node.property = node.expression.property;
     }
