@@ -3,7 +3,7 @@
  */
 
 import { DOC_TYPE_ARRAY, DOC_TYPE_FILL } from "../constants.js";
-import { cleanDoc, getDocParts } from "../utils.js";
+import { getDocParts } from "../utils.js";
 import { fillBuilder } from "./fill-builder.js";
 import getDocType from "./get-doc-type.js";
 
@@ -12,8 +12,7 @@ import getDocType from "./get-doc-type.js";
  * @returns {Doc}
  */
 function flattenFill(doc) {
-  const cleaned = cleanDoc(doc);
-  if (getDocType(cleaned) !== DOC_TYPE_FILL) {
+  if (getDocType(doc) !== DOC_TYPE_FILL) {
     throw new Error("Expected doc to be fill()");
   }
   const builder = fillBuilder();
@@ -42,7 +41,7 @@ function flattenFill(doc) {
     }
   }
 
-  drain(cleaned);
+  drain(doc);
 
   return builder.build();
 }
