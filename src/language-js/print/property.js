@@ -26,7 +26,8 @@ function printPropertyKey(path, options, print) {
     const objectHasStringProp = (
       parent.properties ||
       parent.body ||
-      parent.members
+      parent.members ||
+      parent.attributes
     ).some(
       (prop) =>
         !prop.computed &&
