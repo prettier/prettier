@@ -1,8 +1,13 @@
+import { hardline } from "../document/builders.js";
 import {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isPrettierIgnore,
 } from "./utils.js";
+
+/**
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
 
 const SIBLING_NODE_TYPES = new Set([
   "listItem",
@@ -13,19 +18,19 @@ const SIBLING_NODE_TYPES = new Set([
 /**
  * @param {*} path
  * @param {*} options
- * @returns {number}
+ * @returns {Doc | null}
  */
-function preHardLines(path, options) {
+function leadingHardlines(path, options) {
   if (!shouldPrePrintHardline(path)) {
-    return 0;
+    return null;
   }
+  let length = 1;
   if (shouldPrePrintTripleHardline(path)) {
-    return 3;
+    length = 3;
+  } else if (shouldPrePrintDoubleHardline(path, options)) {
+    length = 2;
   }
-  if (shouldPrePrintDoubleHardline(path, options)) {
-    return 2;
-  }
-  return 1;
+  return Array.from({ length }, () => hardline);
 }
 
 function shouldPrePrintHardline({ node, parent }) {
@@ -85,4 +90,4 @@ function isLooseListItem(node, options) {
   );
 }
 
-export { preHardLines };
+export { leadingHardlines };

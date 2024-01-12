@@ -28,9 +28,9 @@ import clean from "./clean.js";
 import { PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
+import { leadingHardlines } from "./leading-hardlines.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
-import { preHardLines } from "./pre-hardlines.js";
 import preprocess from "./print-preprocess.js";
 import { printSentence } from "./print-sentence.js";
 import { printWhitespace } from "./print-whitespace.js";
@@ -656,9 +656,9 @@ function printChildren(path, options, print, events = {}) {
     const result = processor(path);
     if (result !== false) {
       if (parts.length > 0) {
-        const hardLines = preHardLines(path, options);
-        if (hardLines > 0) {
-          parts.push(Array.from({ length: hardLines }, () => hardline));
+        const hardlines = leadingHardlines(path, options);
+        if (hardlines !== null) {
+          parts.push(hardlines);
         }
       }
       parts.push(result);
