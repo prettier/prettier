@@ -28,3 +28,22 @@ proseWrap: "always"
 
 ================================================================================
 `;
+
+exports[`wrap.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+a  
+ very-very-very-very-very-very-very-very-very-very-long-word very-very-very-very-very-very-very-very-very-very-long-word very-very-very-very-very-very-very-very-very-very-long-word
+
+=====================================output=====================================
+a  
+ very-very-very-very-very-very-very-very-very-very-long-word
+very-very-very-very-very-very-very-very-very-very-long-word
+very-very-very-very-very-very-very-very-very-very-long-word
+
+================================================================================
+`;

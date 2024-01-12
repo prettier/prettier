@@ -345,6 +345,37 @@ and as you can see_ once you close the italics, it will break incorrectly when p
 ================================================================================
 `;
 
+exports[`issue-9503.mdx - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+
+=====================================output=====================================
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an
+opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+
+================================================================================
+`;
+
+exports[`issue-9503.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+
+=====================================output=====================================
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an
+opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+
+================================================================================
+`;
+
 exports[`jsx.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
