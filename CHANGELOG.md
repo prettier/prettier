@@ -350,7 +350,7 @@ function fn() {
   return (
     /**
      * @type {...}
-     */ expresssion
+     */ expression
   )
 }
 
@@ -358,7 +358,7 @@ function fn() {
 function fn() {
   return /**
    * @type {...}
-   */ expresssion;
+   */ expression;
 }
 
 // Prettier 3.0.1
@@ -366,7 +366,7 @@ function fn() {
   return (
     /**
      * @type {...}
-     */ expresssion
+     */ expression
   );
 }
 ```
