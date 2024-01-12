@@ -405,10 +405,7 @@ function printMemberChain(path, options, print) {
     nodeHasComment ||
     (callExpressions.length > 2 &&
       callExpressions.some(
-        (expr) =>
-          !expr.arguments.every((arg) => {
-            return isSimpleCallArgument(arg);
-          }),
+        (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg)),
       )) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     lastGroupWillBreakAndOtherCallsHaveFunctionArguments()
