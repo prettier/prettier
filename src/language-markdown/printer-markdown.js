@@ -762,19 +762,11 @@ function printFootnoteReference(node) {
  * @returns {Doc}
  */
 function printParagraph(path, options, print) {
-  let isFirstPart = true;
   const builder = fillBuilder();
 
   path.each(() => {
     const result = print(path);
     if (result !== false) {
-      if (!isFirstPart) {
-        const hardLines = preHardLines(path, options);
-        if (hardLines > 0) {
-          builder.appendLine(Array.from({ length: hardLines }, () => hardline));
-        }
-      }
-      isFirstPart = false;
       builder.append(result);
     }
   }, "children");
