@@ -405,6 +405,16 @@ function isTestCall(node, parent) {
 /** @return {(node: Node) => boolean} */
 const skipChainExpression = (fn) => (node) => {
   if (node?.type === "ChainExpression") {
+    // @ts-expect-error
+    if (!node.object) {
+      // @ts-expect-error
+      node.object = node.expression.object;
+    }
+    // @ts-expect-error
+    if (!node.property) {
+      // @ts-expect-error
+      node.property = node.expression.property;
+    }
     node = node.expression;
   }
 
