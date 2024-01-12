@@ -768,9 +768,14 @@ function isSimpleCallArgument(node, depth = 2) {
   }
 
   if (isMemberExpression(node)) {
+    let { object, property } = node;
+    if (node.type === "ChainExpression") {
+      object = node.expression.object;
+      property = node.expression.property;
+    }
     return (
-      isSimpleCallArgument(node.object, depth) &&
-      isSimpleCallArgument(node.property, depth)
+      isSimpleCallArgument(object, depth) &&
+      isSimpleCallArgument(property, depth)
     );
   }
 
