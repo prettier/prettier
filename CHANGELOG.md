@@ -1,3 +1,22 @@
+# 3.2.1
+
+[diff](https://github.com/prettier/prettier/compare/3.2.0...3.2.1)
+
+#### Fix formatting error on member chain ([#15915](https://github.com/prettier/prettier/pull/15915) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+test().test2().test2(thing?.something);
+
+// Prettier 3.2.0
+TypeError: Cannot read properties of undefined (reading 'type')
+
+// Prettier 3.2.1
+test().test2().test2(thing?.something);
+
+```
+
 # 3.2.0
 
 [diff](https://github.com/prettier/prettier/compare/3.1.1...3.2.0)
