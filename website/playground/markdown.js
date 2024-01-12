@@ -27,7 +27,7 @@ function formatMarkdown({
     ...(isIdempotent
       ? []
       : ["", "**Second Output:**", codeBlock(output2, syntax)]),
-    ...(full ? ["", "**Expected output:**", codeBlock(output2, syntax)] : []),
+    ...(full ? ["", "**Expected output:**", codeBlock("", syntax)] : []),
     ...(full
       ? ["", "**Why?**", "", "<!-- short explanation of expected output -->"]
       : []),
