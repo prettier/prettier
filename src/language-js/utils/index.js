@@ -405,6 +405,16 @@ function isTestCall(node, parent) {
 /** @return {(node: Node) => boolean} */
 const skipChainExpression = (fn) => (node) => {
   if (node?.type === "ChainExpression") {
+    // @ts-expect-error
+    if (node.object == null) {
+      // @ts-expect-error
+      node.object = node.expression.object;
+    }
+    // @ts-expect-error
+    if (node.property == null) {
+      // @ts-expect-error
+      node.property = node.expression.property;
+    }
     node = node.expression;
   }
 
@@ -768,14 +778,9 @@ function isSimpleCallArgument(node, depth = 2) {
   }
 
   if (isMemberExpression(node)) {
-    let { object, property } = node;
-    if (node.type === "ChainExpression") {
-      object = node.expression.object;
-      property = node.expression.property;
-    }
     return (
-      isSimpleCallArgument(object, depth) &&
-      isSimpleCallArgument(property, depth)
+      isSimpleCallArgument(node.object, depth) &&
+      isSimpleCallArgument(node.property, depth)
     );
   }
 
