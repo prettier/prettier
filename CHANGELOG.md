@@ -350,7 +350,7 @@ function fn() {
   return (
     /**
      * @type {...}
-     */ expresssion
+     */ expression
   )
 }
 
@@ -358,7 +358,7 @@ function fn() {
 function fn() {
   return /**
    * @type {...}
-   */ expresssion;
+   */ expression;
 }
 
 // Prettier 3.0.1
@@ -366,7 +366,7 @@ function fn() {
   return (
     /**
      * @type {...}
-     */ expresssion
+     */ expression
   );
 }
 ```
@@ -1694,7 +1694,7 @@ interface Foo {
 <MyComponent
   {{! this is a comment for arg 1}}
   @arg1="hello"
-  {{on "clik" this.modify}}
+  {{on "click" this.modify}}
   @arg2="hello"
   {{! this is a comment for arg 3}}
   @arg3="hello"
@@ -1711,7 +1711,7 @@ interface Foo {
   @arg4="hello"
   @arg5="hello"
   ...arguments
-  {{on "clik" this.modify}}
+  {{on "click" this.modify}}
   {{! this is a comment for arg 1}}
   {{! this is a comment for arg 3}}
   {{! this is a comment for arg 5}}
@@ -1720,7 +1720,7 @@ interface Foo {
 <MyComponent
   {{! this is a comment for arg 1}}
   @arg1="hello"
-  {{on "clik" this.modify}}
+  {{on "click" this.modify}}
   @arg2="hello"
   {{! this is a comment for arg 3}}
   @arg3="hello"
