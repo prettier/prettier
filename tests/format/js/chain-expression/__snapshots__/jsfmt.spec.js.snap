@@ -97,6 +97,35 @@ test().test2().test2(thing?.something);
 ================================================================================
 `;
 
+exports[`issue-15916.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const randomFuncion = (value) => {
+    if (value.a) {
+        funcA(
+            "",
+            funcB(
+                dayjs(value.a?.toString())
+                      .add(1, "day")
+                      .toISOString()
+            )
+        );
+    }
+};
+
+=====================================output=====================================
+const randomFuncion = (value) => {
+  if (value.a) {
+    funcA("", funcB(dayjs(value.a?.toString()).add(1, "day").toISOString()));
+  }
+};
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
