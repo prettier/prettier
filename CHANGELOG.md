@@ -1,3 +1,30 @@
+# 3.2.2
+
+[diff](https://github.com/prettier/prettier/compare/3.2.1...3.2.2)
+
+#### Fix crash when parsing template literal CSS in a JSX style tag using a spread attribute ([#15896](https://github.com/prettier/prettier/pull/15896) by [@eelco](https://github.com/eelco))
+
+For example this code would crash before:
+
+<!-- prettier-ignore -->
+```jsx
+<style {...spread}>{`.{}`}</style>
+```
+
+#### Fix formatting error on optional call expression and member chain ([#15920](https://github.com/prettier/prettier/pull/15920) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+a(() => {}, c?.d());
+
+// Prettier 3.2.1
+TypeError: Cannot read properties of undefined (reading 'type')
+
+// Prettier 3.2.2
+a(() => {}, c?.d());
+```
+
 # 3.2.1
 
 [diff](https://github.com/prettier/prettier/compare/3.2.0...3.2.1)
