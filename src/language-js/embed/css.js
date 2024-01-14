@@ -75,7 +75,8 @@ function isStyledJsx({ node, parent, grandparent }) {
       grandparent.type === "JSXElement" &&
       grandparent.openingElement.name.name === "style" &&
       grandparent.openingElement.attributes.some(
-        (attribute) => attribute.name.name === "jsx",
+        (attribute) =>
+          attribute.type === "JSXAttribute" && attribute.name.name === "jsx",
       )) ||
     (parent?.type === "TaggedTemplateExpression" &&
       parent.tag.type === "Identifier" &&
