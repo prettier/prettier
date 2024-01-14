@@ -405,16 +405,6 @@ function isTestCall(node, parent) {
 /** @return {(node: Node) => boolean} */
 const skipChainExpression = (fn) => (node) => {
   if (node?.type === "ChainExpression") {
-    // @ts-expect-error
-    if (!node.object) {
-      // @ts-expect-error
-      node.object = node.expression.object;
-    }
-    // @ts-expect-error
-    if (!node.property) {
-      // @ts-expect-error
-      node.property = node.expression.property;
-    }
     node = node.expression;
   }
 
@@ -428,6 +418,22 @@ const isCallExpression = skipChainExpression(
 const isMemberExpression = skipChainExpression(
   createTypeCheckFunction(["MemberExpression", "OptionalMemberExpression"]),
 );
+
+/**
+ * Retrieves a property from a node, considering any ChainExpression.
+ * If the node is a ChainExpression, the property is obtained from its expression.
+ * Otherwise, the property is obtained directly from the node.
+ *
+ * @param {Node} node - The AST node to be processed.
+ * @param {string} property - The property name to retrieve.
+ * @returns The property value from the node or its expression.
+ */
+function getChainProp(node, property) {
+  if (node.type === "ChainExpression") {
+    return node.expression[property];
+  }
+  return node[property];
+}
 
 /**
  *
@@ -769,7 +775,7 @@ function isSimpleCallArgument(node, depth = 2) {
   if (isCallLikeExpression(node)) {
     if (
       node.type === "ImportExpression" ||
-      isSimpleCallArgument(node.callee, depth)
+      isSimpleCallArgument(getChainProp(node, "callee"), depth)
     ) {
       const args = getCallArguments(node);
       return args.length <= depth && args.every(isChildSimple);
@@ -779,8 +785,8 @@ function isSimpleCallArgument(node, depth = 2) {
 
   if (isMemberExpression(node)) {
     return (
-      isSimpleCallArgument(node.object, depth) &&
-      isSimpleCallArgument(node.property, depth)
+      isSimpleCallArgument(getChainProp(node, "object"), depth) &&
+      isSimpleCallArgument(getChainProp(node, "property"), depth)
     );
   }
 
@@ -1292,4 +1298,5 @@ export {
   shouldFlatten,
   shouldPrintComma,
   startsWithNoLookaheadToken,
+  getChainProp,
 };
