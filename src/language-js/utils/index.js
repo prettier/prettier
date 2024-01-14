@@ -1238,6 +1238,7 @@ export {
   createTypeCheckFunction,
   getCallArguments,
   getCallArgumentSelector,
+  getChainProp,
   getComments,
   getFunctionParameters,
   getLeftSide,
@@ -1298,5 +1299,4 @@ export {
   shouldFlatten,
   shouldPrintComma,
   startsWithNoLookaheadToken,
-  getChainProp,
 };
