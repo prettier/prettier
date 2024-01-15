@@ -9,8 +9,10 @@ function createBabelParseError(error) {
     reasonCode,
   } = error;
 
+  let cause = error;
   if (reasonCode === "MissingPlugin" || reasonCode === "MissingOneOfPlugins") {
     message = "Unexpected token.";
+    cause = undefined;
   }
 
   const suffix = ` (${line}:${column})`;
@@ -20,7 +22,7 @@ function createBabelParseError(error) {
 
   return createError(message, {
     loc: { start: { line, column: column + 1 } },
-    cause: error,
+    cause,
   });
 }
 

@@ -84,8 +84,7 @@ exports[`snippet: #3 [json] format 1`] = `
 exports[`snippet: #3 [json] format 2`] = `
 "Unexpected token. (1:2)
 > 1 | [do {}]
-    |  ^
-Cause: This experimental syntax requires enabling the parser plugin: "doExpressions". (1:1)"
+    |  ^"
 `;
 
 exports[`snippet: #3 [json-stringify] format 1`] = `
@@ -187,8 +186,7 @@ exports[`snippet: #7 [json] format 1`] = `
 exports[`snippet: #7 [json] format 2`] = `
 "Unexpected token. (1:24)
 > 1 | [function*() {function.sent}]
-    |                        ^
-Cause: This experimental syntax requires enabling the parser plugin: "functionSent". (1:23)"
+    |                        ^"
 `;
 
 exports[`snippet: #7 [json-stringify] format 1`] = `
@@ -212,8 +210,7 @@ exports[`snippet: #8 [json] format 1`] = `
 exports[`snippet: #8 [json] format 2`] = `
 "Unexpected token. (1:2)
 > 1 | [throw {}]
-    |  ^
-Cause: This experimental syntax requires enabling the parser plugin: "throwExpressions". (1:1)"
+    |  ^"
 `;
 
 exports[`snippet: #8 [json-stringify] format 1`] = `
@@ -237,8 +234,7 @@ exports[`snippet: #9 [json] format 1`] = `
 exports[`snippet: #9 [json] format 2`] = `
 "Unexpected token. (1:6)
 > 1 | [foo(?)]
-    |      ^
-Cause: This experimental syntax requires enabling the parser plugin: "partialApplication". (1:5)"
+    |      ^"
 `;
 
 exports[`snippet: #9 [json-stringify] format 1`] = `
@@ -262,8 +258,7 @@ exports[`snippet: #10 [json] format 1`] = `
 exports[`snippet: #10 [json] format 2`] = `
 "Unexpected token. (1:2)
 > 1 | [@decorator class {}]
-    |  ^
-Cause: This experimental syntax requires enabling one of the following parser plugin(s): "decorators", "decorators-legacy". (1:1)"
+    |  ^"
 `;
 
 exports[`snippet: #10 [json-stringify] format 1`] = `
@@ -287,8 +282,7 @@ exports[`snippet: #11 [json] format 1`] = `
 exports[`snippet: #11 [json] format 2`] = `
 "Unexpected token. (1:28)
 > 1 | [import('a', {type:'json'})]
-    |                            ^
-Cause: This experimental syntax requires enabling the parser plugin: "importAttributes". (1:27)"
+    |                            ^"
 `;
 
 exports[`snippet: #11 [json-stringify] format 1`] = `
@@ -312,8 +306,7 @@ exports[`snippet: #12 [json] format 1`] = `
 exports[`snippet: #12 [json] format 2`] = `
 "Unexpected token. (1:3)
 > 1 | [1m]
-    |   ^
-Cause: This experimental syntax requires enabling the parser plugin: "decimal". (1:2)"
+    |   ^"
 `;
 
 exports[`snippet: #12 [json-stringify] format 1`] = `
@@ -337,8 +330,7 @@ exports[`snippet: #13 [json] format 1`] = `
 exports[`snippet: #13 [json] format 2`] = `
 "Unexpected token. (1:2)
 > 1 | [module {}]
-    |  ^
-Cause: This experimental syntax requires enabling the parser plugin: "moduleBlocks". (1:1)"
+    |  ^"
 `;
 
 exports[`snippet: #13 [json-stringify] format 1`] = `
@@ -362,8 +354,7 @@ exports[`snippet: #14 [json] format 1`] = `
 exports[`snippet: #14 [json] format 2`] = `
 "Unexpected token. (1:8)
 > 1 | [async do {}]
-    |        ^
-Cause: This experimental syntax requires enabling the parser plugin: "doExpressions". (1:7)"
+    |        ^"
 `;
 
 exports[`snippet: #14 [json-stringify] format 1`] = `
@@ -411,8 +402,7 @@ exports[`snippet: #16 [json] format 1`] = `
 exports[`snippet: #16 [json] format 2`] = `
 "Unexpected token. (1:28)
 > 1 | [class {#foo;bar() {const {#foo: foo} = this;}}]
-    |                            ^
-Cause: This experimental syntax requires enabling the parser plugin: "destructuringPrivate". (1:27)"
+    |                            ^"
 `;
 
 exports[`snippet: #16 [json-stringify] format 1`] = `
@@ -436,8 +426,7 @@ exports[`snippet: #17 [json] format 1`] = `
 exports[`snippet: #17 [json] format 2`] = `
 "Unexpected token. (1:18)
 > 1 | [class {accessor foo = 1}]
-    |                  ^
-Cause: This experimental syntax requires enabling the parser plugin: "decoratorAutoAccessors". (1:17)"
+    |                  ^"
 `;
 
 exports[`snippet: #17 [json-stringify] format 1`] = `
@@ -461,8 +450,7 @@ exports[`snippet: #18 [json] format 1`] = `
 exports[`snippet: #18 [json] format 2`] = `
 "Unexpected token. (1:34)
 > 1 | [import('a', {reflect: 'module'})]
-    |                                  ^
-Cause: This experimental syntax requires enabling the parser plugin: "importAttributes". (1:33)"
+    |                                  ^"
 `;
 
 exports[`snippet: #18 [json-stringify] format 1`] = `
@@ -511,8 +499,7 @@ exports[`snippet: #20 [json] format 1`] = `
 exports[`snippet: #20 [json] format 2`] = `
 "Unexpected token. (1:16)
 > 1 | [function() { {using a = b} }]
-    |                ^
-Cause: This experimental syntax requires enabling the parser plugin: "explicitResourceManagement". (1:15)"
+    |                ^"
 `;
 
 exports[`snippet: #20 [json-stringify] format 1`] = `
@@ -599,8 +586,7 @@ Cause: Unexpected token (1:13)"
 exports[`snippet: #23 [json] format 2`] = `
 "Unexpected token. (1:2)
 > 1 | [#{}]
-    |  ^
-Cause: This experimental syntax requires enabling the parser plugin: "recordAndTuple". (1:1)"
+    |  ^"
 `;
 
 exports[`snippet: #23 [json-stringify] format 1`] = `
@@ -653,8 +639,7 @@ exports[`snippet: #25 [json] format 1`] = `
 exports[`snippet: #25 [json] format 2`] = `
 "Unexpected token. (1:8)
 > 1 | ['foo' |> bar]
-    |        ^
-Cause: This experimental syntax requires enabling the parser plugin: "pipelineOperator". (1:7)"
+    |        ^"
 `;
 
 exports[`snippet: #25 [json-stringify] format 1`] = `
@@ -678,8 +663,7 @@ exports[`snippet: #26 [json] format 1`] = `
 exports[`snippet: #26 [json] format 2`] = `
 "Unexpected token. (1:8)
 > 1 | ['foo' |> bar(%)]
-    |        ^
-Cause: This experimental syntax requires enabling the parser plugin: "pipelineOperator". (1:7)"
+    |        ^"
 `;
 
 exports[`snippet: #26 [json-stringify] format 1`] = `
@@ -703,8 +687,7 @@ exports[`snippet: #27 [json] format 1`] = `
 exports[`snippet: #27 [json] format 2`] = `
 "Unexpected token. (1:2)
 > 1 | [<foo></foo>]
-    |  ^
-Cause: This experimental syntax requires enabling one of the following parser plugin(s): "jsx", "flow", "typescript". (1:1)"
+    |  ^"
 `;
 
 exports[`snippet: #27 [json-stringify] format 1`] = `

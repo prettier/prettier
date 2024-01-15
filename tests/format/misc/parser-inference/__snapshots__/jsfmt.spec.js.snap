@@ -52,6 +52,53 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`snippet: .prettierrc in yaml (with flowMapping) format 1`] = `
+====================================options=====================================
+parsers: []
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# comment
+printWidth: 100
+overrides: {
+  "files": [".prettierrc", "prettierrc.json"],
+  "options": { "parser": "json"}
+}
+=====================================output=====================================
+# comment
+printWidth: 100
+overrides:
+  {
+    "files": [".prettierrc", "prettierrc.json"],
+    "options": { "parser": "json" },
+  }
+
+================================================================================
+`;
+
+exports[`snippet: .prettierrc in yaml format 1`] = `
+====================================options=====================================
+parsers: []
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# comment
+printWidth: 100
+overrides:
+  - files: '.prettierrc'
+    options:
+      parser: "json"
+=====================================output=====================================
+# comment
+printWidth: 100
+overrides:
+  - files: ".prettierrc"
+    options:
+      parser: "json"
+
+================================================================================
+`;
+
 exports[`test.html format 1`] = `
 ====================================options=====================================
 parsers: []
