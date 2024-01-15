@@ -190,8 +190,6 @@ const allowedMessageCodes = new Set([
 
   "UnsupportedParameterPropertyKind",
 
-  "MixedLabeledAndUnlabeledElements",
-
   "DuplicateAccessibilityModifier",
 
   "DecoratorExportClass",
