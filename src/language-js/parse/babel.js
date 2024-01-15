@@ -99,7 +99,7 @@ function isFlowFile(text, options) {
 function parseWithOptions(parse, text, options) {
   const ast = parse(text, options);
   const error = ast.errors.find(
-    (error) => !allowedMessageCodes.has(error.reasonCode),
+    (error) => !allowedReasonCodes.has(error.reasonCode),
   );
   if (error) {
     throw error;
@@ -175,7 +175,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
 //  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/typescript/index.js#L69-L153
 //  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/flow/index.js#L51-L140
 //  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/jsx/index.js#L23-L39
-const allowedMessageCodes = new Set([
+const allowedReasonCodes = new Set([
   "StrictNumericEscape",
   "StrictWith",
   "StrictOctalLiteral",
