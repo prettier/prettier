@@ -725,7 +725,7 @@ function isSimpleCallArgument(node, depth = 2) {
   }
 
   if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
-    node = node.expression;
+    return isSimpleCallArgument(node.expression, depth);
   }
 
   const isChildSimple = (child) => isSimpleCallArgument(child, depth - 1);
