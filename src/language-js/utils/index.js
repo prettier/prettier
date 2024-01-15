@@ -261,7 +261,9 @@ function isFlowObjectTypePropertyAFunction(node) {
       node.type === "ObjectTypeInternalSlot") &&
     !node.static &&
     !node.method &&
+    // @ts-expect-error -- exists on `ObjectTypeProperty` but not `ObjectTypeInternalSlot`
     node.kind !== "get" &&
+    // @ts-expect-error -- exists on `ObjectTypeProperty` but not `ObjectTypeInternalSlot`
     node.kind !== "set" &&
     node.value.type === "FunctionTypeAnnotation"
   );
