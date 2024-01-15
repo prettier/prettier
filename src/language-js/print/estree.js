@@ -14,11 +14,11 @@ import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
-  isAccessorOrMethod,
   isArrayOrTupleExpression,
   isCallExpression,
   isLiteral,
   isMemberExpression,
+  isMethod,
   isNextLineEmpty,
   isObjectOrRecordExpression,
   needsHardlineAfterDanglingComment,
@@ -254,7 +254,7 @@ function printEstree(path, options, print, args) {
     case "RecordExpression":
       return printObject(path, options, print);
     case "Property":
-      if (isAccessorOrMethod(node)) {
+      if (isMethod(node)) {
         return printMethod(path, options, print);
       }
       return printProperty(path, options, print);

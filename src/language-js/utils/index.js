@@ -243,7 +243,7 @@ function isAngularTestWrapper(node) {
 
 const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
-function isAccessorOrMethod(node) {
+function isMethod(node) {
   return (
     (node.method && node.kind === "init") ||
     node.kind === "get" ||
@@ -260,7 +260,7 @@ function isFlowObjectTypePropertyAFunction(node) {
     (node.type === "ObjectTypeProperty" ||
       node.type === "ObjectTypeInternalSlot") &&
     !node.static &&
-    !isAccessorOrMethod(node.method) &&
+    !isMethod(node) &&
     node.value.type === "FunctionTypeAnnotation"
   );
 }
@@ -1204,7 +1204,7 @@ function isObjectProperty(node) {
   return (
     node &&
     (node.type === "ObjectProperty" ||
-      (node.type === "Property" && !isAccessorOrMethod(node)))
+      (node.type === "Property" && !isMethod(node)))
   );
 }
 
@@ -1246,7 +1246,6 @@ export {
   hasNodeIgnoreComment,
   hasRestParameter,
   identity,
-  isAccessorOrMethod,
   isArrayOrTupleExpression,
   isBinaryCastExpression,
   isBinaryish,
@@ -1265,6 +1264,7 @@ export {
   isLongCurriedCallExpression,
   isMemberExpression,
   isMemberish,
+  isMethod,
   isNextLineEmpty,
   isNumericLiteral,
   isObjectOrRecordExpression,
