@@ -2599,16 +2599,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist-to-esbuild@npm:2.1.0":
-  version: 2.1.0
-  resolution: "browserslist-to-esbuild@npm:2.1.0"
+"browserslist-to-esbuild@npm:2.1.1":
+  version: 2.1.1
+  resolution: "browserslist-to-esbuild@npm:2.1.1"
   dependencies:
     meow: "npm:^13.0.0"
   peerDependencies:
     browserslist: "*"
   bin:
     browserslist-to-esbuild: cli/index.js
-  checksum: 67a710fb24c44540e46507a41278617be7d848d1fc4a815ce5dc025e2cd113af63cf117784a74df24e019f9d1c64190498853813e0259cd89b6ab517214f1c60
+  checksum: 5e91b23ba5ac47412b7456bbb74ee11b35d1083163e9e8e001e48f3a975c65758a4559ab532812d8518877a1d8f68c5b649b88a08722b9543b38e633e6943f7d
   languageName: node
   linkType: hard
 
@@ -7357,7 +7357,7 @@ __metadata:
     angular-html-parser: "npm:5.2.0"
     benchmark: "npm:2.1.4"
     browserslist: "npm:4.22.2"
-    browserslist-to-esbuild: "npm:2.1.0"
+    browserslist-to-esbuild: "npm:2.1.1"
     c8: "npm:9.0.0"
     camelcase: "npm:8.0.0"
     chalk: "npm:5.3.0"
