@@ -6,7 +6,13 @@ function createBabelParseError(error) {
   let {
     message,
     loc: { line, column },
+    reasonCode,
   } = error;
+
+  if (reasonCode === "MissingPlugin" || reasonCode === "MissingOneOfPlugins") {
+    message = "Unexpected token";
+  }
+
   const suffix = ` (${line}:${column})`;
   if (message.endsWith(suffix)) {
     message = message.slice(0, -suffix.length);
