@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel] format 1`] = `
+"This experimental syntax requires enabling one of the following parser plugin(s): "flow", "typescript". (1:8)
+> 1 | export type Foo = number;
+    |        ^
+Cause: This experimental syntax requires enabling one of the following parser plugin(s): "flow", "typescript". (1:7)"
+`;
