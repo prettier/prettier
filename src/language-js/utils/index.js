@@ -243,30 +243,25 @@ function isAngularTestWrapper(node) {
 
 const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
-function isGetterOrSetter(node) {
-  return node.kind === "get" || node.kind === "set";
+function isAccessorOrMethod(node) {
+  return (
+    (node.method && node.kind === "init") ||
+    node.kind === "get" ||
+    node.kind === "set"
+  );
 }
 
-// TODO: This is a bad hack and we need a better way to distinguish between
-// arrow functions and otherwise
-function isFunctionNotation(node) {
-  return isGetterOrSetter(node) || hasSameLocStart(node, node.value);
-}
-
-// Hack to differentiate between the following two which have the same ast
-// type T = { method: () => void };
-// type T = { method(): void };
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isObjectTypePropertyAFunction(node) {
+function isFlowObjectTypePropertyAFunction(node) {
   return (
     (node.type === "ObjectTypeProperty" ||
       node.type === "ObjectTypeInternalSlot") &&
-    node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !isFunctionNotation(node)
+    !isAccessorOrMethod(node.method) &&
+    node.value.type === "FunctionTypeAnnotation"
   );
 }
 
@@ -1209,7 +1204,7 @@ function isObjectProperty(node) {
   return (
     node &&
     (node.type === "ObjectProperty" ||
-      (node.type === "Property" && !node.method && node.kind === "init"))
+      (node.type === "Property" && !isAccessorOrMethod(node)))
   );
 }
 
@@ -1251,6 +1246,7 @@ export {
   hasNodeIgnoreComment,
   hasRestParameter,
   identity,
+  isAccessorOrMethod,
   isArrayOrTupleExpression,
   isBinaryCastExpression,
   isBinaryish,
@@ -1258,10 +1254,9 @@ export {
   isCallExpression,
   isCallLikeExpression,
   isExportDeclaration,
+  isFlowObjectTypePropertyAFunction,
   isFunctionCompositionArgs,
-  isFunctionNotation,
   isFunctionOrArrowExpression,
-  isGetterOrSetter,
   isIntersectionType,
   isJsxElement,
   isLineComment,
@@ -1275,7 +1270,6 @@ export {
   isObjectOrRecordExpression,
   isObjectProperty,
   isObjectType,
-  isObjectTypePropertyAFunction,
   isPrettierIgnoreComment,
   isRegExpLiteral,
   isSignedNumericLiteral,

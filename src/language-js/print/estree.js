@@ -14,6 +14,7 @@ import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
+  isAccessorOrMethod,
   isArrayOrTupleExpression,
   isCallExpression,
   isLiteral,
@@ -252,13 +253,15 @@ function printEstree(path, options, print, args) {
     case "ObjectPattern":
     case "RecordExpression":
       return printObject(path, options, print);
-    // Babel 6
-    case "ObjectProperty": // Non-standard AST node type.
     case "Property":
-      if (node.method || node.kind === "get" || node.kind === "set") {
+      if (isAccessorOrMethod(node)) {
         return printMethod(path, options, print);
       }
       return printProperty(path, options, print);
+    // Babel
+    case "ObjectProperty":
+      return printProperty(path, options, print);
+    // Babel
     case "ObjectMethod":
       return printMethod(path, options, print);
     case "Decorator":

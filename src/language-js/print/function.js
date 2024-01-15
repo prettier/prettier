@@ -18,6 +18,7 @@ import {
   hasComment,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
+  isAccessorOrMethod,
   isBinaryish,
   isCallExpression,
   isJsxElement,
@@ -43,8 +44,7 @@ const isMethod = (node) =>
   node.type === "MethodDefinition" ||
   node.type === "TSAbstractMethodDefinition" ||
   node.type === "TSDeclareMethod" ||
-  ((node.type === "Property" || node.type === "ObjectProperty") &&
-    (node.method || node.kind === "get" || node.kind === "set"));
+  (node.type === "Property" && isAccessorOrMethod(node));
 
 const isMethodValue = (path) =>
   path.node.type === "FunctionExpression" &&
