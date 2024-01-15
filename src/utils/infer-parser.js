@@ -21,7 +21,7 @@ function getLanguageByFileName(languages, file) {
   );
 }
 
-function getLanguageByName(languages, languageName) {
+function getLanguageByLanguageName(languages, languageName) {
   if (!languageName) {
     return;
   }
@@ -69,7 +69,7 @@ function inferParser(options, fileInfo) {
   // interpreter in the shebang line, if any; but since this requires FS access,
   // do it last.
   const language =
-    getLanguageByName(languages, fileInfo.language) ??
+    getLanguageByLanguageName(languages, fileInfo.language) ??
     getLanguageByFileName(languages, fileInfo.physicalFile) ??
     getLanguageByFileName(languages, fileInfo.file) ??
     getLanguageByInterpreter(languages, fileInfo.physicalFile);
