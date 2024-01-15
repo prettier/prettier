@@ -18,11 +18,7 @@ function createAngularPrinter({ parser }) {
     formatAttributeValue(
       getUnescapedAttributeValue(path.node),
       textToDoc,
-      {
-        parser,
-        // angular does not allow trailing comma
-        trailingComma: "none",
-      },
+      { parser },
       shouldHugJsExpression,
     );
 }

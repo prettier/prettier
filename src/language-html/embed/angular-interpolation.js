@@ -19,7 +19,6 @@ async function printAngularInterpolation(text, textToDoc) {
               await formatAttributeValue(part, textToDoc, {
                 parser: "__ng_interpolation",
                 __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-                trailingComma: "none",
               }),
             ]),
             line,
