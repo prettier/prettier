@@ -12,13 +12,11 @@ function getLanguageByFileName(languages, file) {
   const basename = getFileBasename(file).toLowerCase();
 
   return (
-    languages.find(
-      ({ filenames }) =>
-        filenames?.some((name) => name.toLowerCase() === basename),
+    languages.find(({ filenames }) =>
+      filenames?.some((name) => name.toLowerCase() === basename),
     ) ??
-    languages.find(
-      ({ extensions }) =>
-        extensions?.some((extension) => basename.endsWith(extension)),
+    languages.find(({ extensions }) =>
+      extensions?.some((extension) => basename.endsWith(extension)),
     )
   );
 }
@@ -50,8 +48,8 @@ function getLanguageByInterpreter(languages, file) {
     return;
   }
 
-  return languages.find(
-    ({ interpreters }) => interpreters?.includes(interpreter),
+  return languages.find(({ interpreters }) =>
+    interpreters?.includes(interpreter),
   );
 }
 
