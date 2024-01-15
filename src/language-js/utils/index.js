@@ -260,7 +260,9 @@ function isFlowObjectTypePropertyAFunction(node) {
     (node.type === "ObjectTypeProperty" ||
       node.type === "ObjectTypeInternalSlot") &&
     !node.static &&
-    !isMethod(node) &&
+    !node.method &&
+    node.kind !== "get" &&
+    node.kind !== "set" &&
     node.value.type === "FunctionTypeAnnotation"
   );
 }
