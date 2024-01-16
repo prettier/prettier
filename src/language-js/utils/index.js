@@ -420,22 +420,6 @@ const isMemberExpression = skipChainExpression(
 );
 
 /**
- * Retrieves a property from a node, considering any ChainExpression.
- * If the node is a ChainExpression, the property is obtained from its expression.
- * Otherwise, the property is obtained directly from the node.
- *
- * @param {Node} node - The AST node to be processed.
- * @param {string} property - The property name to retrieve.
- * @returns The property value from the node or its expression.
- */
-function getChainProp(node, property) {
-  if (node.type === "ChainExpression") {
-    return node.expression[property];
-  }
-  return node[property];
-}
-
-/**
  *
  * @param {any} node
  * @returns {boolean}
@@ -740,6 +724,10 @@ function isSimpleCallArgument(node, depth = 2) {
     return false;
   }
 
+  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
+    return isSimpleCallArgument(node.expression, depth);
+  }
+
   const isChildSimple = (child) => isSimpleCallArgument(child, depth - 1);
 
   if (isRegExpLiteral(node)) {
@@ -775,7 +763,7 @@ function isSimpleCallArgument(node, depth = 2) {
   if (isCallLikeExpression(node)) {
     if (
       node.type === "ImportExpression" ||
-      isSimpleCallArgument(getChainProp(node, "callee"), depth)
+      isSimpleCallArgument(node.callee, depth)
     ) {
       const args = getCallArguments(node);
       return args.length <= depth && args.every(isChildSimple);
@@ -785,8 +773,8 @@ function isSimpleCallArgument(node, depth = 2) {
 
   if (isMemberExpression(node)) {
     return (
-      isSimpleCallArgument(getChainProp(node, "object"), depth) &&
-      isSimpleCallArgument(getChainProp(node, "property"), depth)
+      isSimpleCallArgument(node.object, depth) &&
+      isSimpleCallArgument(node.property, depth)
     );
   }
 
@@ -796,10 +784,6 @@ function isSimpleCallArgument(node, depth = 2) {
     node.type === "UpdateExpression"
   ) {
     return isSimpleCallArgument(node.argument, depth);
-  }
-
-  if (node.type === "TSNonNullExpression") {
-    return isSimpleCallArgument(node.expression, depth);
   }
 
   return false;
@@ -1238,7 +1222,6 @@ export {
   createTypeCheckFunction,
   getCallArguments,
   getCallArgumentSelector,
-  getChainProp,
   getComments,
   getFunctionParameters,
   getLeftSide,
