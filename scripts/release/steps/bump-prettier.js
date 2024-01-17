@@ -45,14 +45,15 @@ export default async function bumpPrettier(params) {
     return;
   }
 
+  /*
+  This should be done before installing Prettier,
+  otherwise the yarn.lock will merge `prettier@npm:<version>, prettier@workspace:.`
+  */
+  await logPromise("Bump default branch version", bump(params));
   await logPromise(
     "Installing Prettier",
-    // TODO: Remove this if `yarn up ...` works
-    // runYarn(["add", "--dev", `prettier@${version}`]),
-    runYarn(["up", `prettier@${version}`]),
+    runYarn(["add", "--dev", `prettier@${version}`]),
   );
-
   await logPromise("Updating files", format());
-  await logPromise("Bump default branch version", bump(params));
   await logPromise("Committing changed files", commit(params));
 }
