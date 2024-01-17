@@ -18,6 +18,14 @@ const languages = [
   createLanguage(linguistLanguages["JSON with Comments"], () => ({
     parsers: ["jsonc"],
     vscodeLanguageIds: ["jsonc"],
+    // To many filenames from `linguist-languages` is not a valid JSONC file.
+    // https://github.com/prettier/prettier/issues/15945#issuecomment-1895371835
+    filenames: [
+      "devcontainer.json",
+      "jsconfig.json",
+      "language-configuration.json",
+      "tsconfig.json",
+    ],
   })),
   createLanguage(linguistLanguages.JSON5, () => ({
     parsers: ["json5"],
