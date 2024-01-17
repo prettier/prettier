@@ -56,7 +56,7 @@ export default async function showInstructionsAfterNpmPublish({
       - Go to ${chalk.cyan.underline(releaseUrl)}
       - Press ${chalk.bgGreen.black("Publish release ")}
 
-      Next, we can proceed to bump this repo's Prettier dependency.
+      After that, we can proceed to bump this repo's Prettier dependency.
     `,
   );
 
