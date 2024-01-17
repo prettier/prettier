@@ -47,7 +47,9 @@ export default async function bumpPrettier(params) {
 
   await logPromise(
     "Installing Prettier",
-    runYarn(["add", "--dev", `prettier@${version}`]),
+    // TODO[@fisker,@sosukesuzuki]: Remove this if `yarn up ...` works
+    // runYarn(["add", "--dev", `prettier@${version}`]),
+    runYarn(["up", `prettier@${version}`]),
   );
 
   await logPromise("Updating files", format());
