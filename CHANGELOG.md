@@ -1,3 +1,22 @@
+# 3.2.4
+
+[diff](https://github.com/prettier/prettier/compare/3.2.3...3.2.4)
+
+#### Fix incorrect parser inference ([#15947](https://github.com/prettier/prettier/pull/15947) by [@fisker](https://github.com/fisker))
+
+Files like `.eslintrc.json` were incorrectly formatted as JSONC files.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+prettier --file-info .eslintrc.json
+{ "ignored": false, "inferredParser": "jsonc" }
+
+// Prettier 3.2.4
+prettier --file-info .eslintrc.json
+{ "ignored": false, "inferredParser": "json" }
+```
+
 # 3.2.3
 
 [diff](https://github.com/prettier/prettier/compare/3.2.2...3.2.3)
