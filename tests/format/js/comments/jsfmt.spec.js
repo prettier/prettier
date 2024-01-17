@@ -15,4 +15,7 @@ const errors = {
 };
 
 runFormatTest(fixtures, ["babel", "flow", "typescript"], { errors });
-runFormatTest(fixtures, ["babel", "flow", "typescript"], { semi: false, errors });
+runFormatTest(fixtures, ["babel", "flow", "typescript"], {
+  semi: false,
+  errors,
+});

@@ -1,1 +1,4 @@
-runFormatTest(import.meta, ["markdown"], { proseWrap: "always", useTabs: true });
+runFormatTest(import.meta, ["markdown"], {
+  proseWrap: "always",
+  useTabs: true,
+});

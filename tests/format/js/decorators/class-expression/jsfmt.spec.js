@@ -5,4 +5,7 @@ const errors = {
 };
 
 runFormatTest(import.meta, ["babel", "flow", "typescript"], { errors });
-runFormatTest(import.meta, ["babel", "flow", "typescript"], { semi: false, errors });
+runFormatTest(import.meta, ["babel", "flow", "typescript"], {
+  semi: false,
+  errors,
+});

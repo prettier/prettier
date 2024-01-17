@@ -5,4 +5,7 @@ const plugins = await Promise.all(
 );
 
 runFormatTest(import.meta, ["vue"], { plugins });
-runFormatTest(import.meta, ["vue"], { plugins, embeddedLanguageFormatting: "off" });
+runFormatTest(import.meta, ["vue"], {
+  plugins,
+  embeddedLanguageFormatting: "off",
+});
