@@ -1,2 +1,2 @@
-run_spec(import.meta, ["html"], { bracketSameLine: true });
-run_spec(import.meta, ["html"], { bracketSameLine: false });
+runFormatTest(import.meta, ["html"], { bracketSameLine: true });
+runFormatTest(import.meta, ["html"], { bracketSameLine: false });

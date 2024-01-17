@@ -1,1 +1,1 @@
-run_spec(import.meta, ["flow"], { quoteProps: "consistent" });
+runFormatTest(import.meta, ["flow"], { quoteProps: "consistent" });

@@ -1,4 +1,4 @@
-run_spec(import.meta, ["babel"], {
+runFormatTest(import.meta, ["babel"], {
   errors: {
     babel: ["invalid-tuple-holes.js"],
     __babel_estree: ["invalid-tuple-holes.js"],

@@ -6,11 +6,11 @@ const emptyListItemSnippets = [
   },
 ];
 
-run_spec(
+runFormatTest(
   { importMeta: import.meta, snippets: emptyListItemSnippets },
   ["markdown"],
   { proseWrap: "always" },
 );
-run_spec(import.meta, ["markdown"], { proseWrap: "always", tabWidth: 4 });
-run_spec(import.meta, ["markdown"], { proseWrap: "always", tabWidth: 999 });
-run_spec(import.meta, ["markdown"], { proseWrap: "always", tabWidth: 0 });
+runFormatTest(import.meta, ["markdown"], { proseWrap: "always", tabWidth: 4 });
+runFormatTest(import.meta, ["markdown"], { proseWrap: "always", tabWidth: 999 });
+runFormatTest(import.meta, ["markdown"], { proseWrap: "always", tabWidth: 0 });

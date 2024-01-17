@@ -14,7 +14,7 @@ const code = Array.from({ length: 6 })
 // lineWidth is 80 and "文" is double-width
 const output = `${"文".repeat(40)}\n`.repeat(6);
 
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: [

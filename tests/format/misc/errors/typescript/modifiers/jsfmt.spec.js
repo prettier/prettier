@@ -19,7 +19,7 @@ const POSSIBLE_MODIFIERS = [
   "static",
 ];
 
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: [

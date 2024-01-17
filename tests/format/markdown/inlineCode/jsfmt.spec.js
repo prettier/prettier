@@ -3,5 +3,5 @@ const fixtures = {
   snippets: ["` \n `", "` \na  `"],
 };
 
-run_spec(fixtures, ["markdown"], { proseWrap: "preserve" });
-run_spec(fixtures, ["markdown"], { proseWrap: "always" });
+runFormatTest(fixtures, ["markdown"], { proseWrap: "preserve" });
+runFormatTest(fixtures, ["markdown"], { proseWrap: "always" });

@@ -5,4 +5,4 @@ const plugins = await Promise.all(
   ].map(async (plugin) => (await import(plugin)).default),
 );
 
-run_spec(import.meta, ["markdown"], { plugins });
+runFormatTest(import.meta, ["markdown"], { plugins });

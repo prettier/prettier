@@ -1,5 +1,5 @@
-run_spec(import.meta, ["angular"], { trailingComma: "none" });
-run_spec(import.meta, ["angular"], { trailingComma: "es5" });
-run_spec(import.meta, ["angular"], { printWidth: 1 });
-run_spec(import.meta, ["angular"], { htmlWhitespaceSensitivity: "ignore" });
-run_spec(import.meta, ["angular"], { bracketSpacing: false });
+runFormatTest(import.meta, ["angular"], { trailingComma: "none" });
+runFormatTest(import.meta, ["angular"], { trailingComma: "es5" });
+runFormatTest(import.meta, ["angular"], { printWidth: 1 });
+runFormatTest(import.meta, ["angular"], { htmlWhitespaceSensitivity: "ignore" });
+runFormatTest(import.meta, ["angular"], { bracketSpacing: false });

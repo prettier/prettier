@@ -1,4 +1,4 @@
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: ["({}) = x;"],
@@ -6,7 +6,7 @@ run_spec(
   ["babel", "babel-ts", "acorn", "espree", "meriyah"],
 );
 
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: ["class Foo extends ((let)[0] = 1) {}"],
@@ -14,7 +14,7 @@ run_spec(
   ["acorn", "espree", "meriyah"],
 );
 
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: ["export default ((let)[0] = 1);"],

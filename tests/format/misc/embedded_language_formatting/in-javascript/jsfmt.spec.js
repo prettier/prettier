@@ -1,2 +1,2 @@
-run_spec(import.meta, ["babel"]);
-run_spec(import.meta, ["babel"], { embeddedLanguageFormatting: "off" });
+runFormatTest(import.meta, ["babel"]);
+runFormatTest(import.meta, ["babel"], { embeddedLanguageFormatting: "off" });

@@ -1,3 +1,3 @@
-run_spec(import.meta, ["lwc"], { trailingComma: "none" });
-run_spec(import.meta, ["lwc"], { trailingComma: "es5" });
-run_spec(import.meta, ["lwc"], { semi: false });
+runFormatTest(import.meta, ["lwc"], { trailingComma: "none" });
+runFormatTest(import.meta, ["lwc"], { trailingComma: "es5" });
+runFormatTest(import.meta, ["lwc"], { semi: false });

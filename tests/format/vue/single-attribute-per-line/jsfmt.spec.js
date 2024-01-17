@@ -1,2 +1,2 @@
-run_spec(import.meta, ["vue"]);
-run_spec(import.meta, ["vue"], { singleAttributePerLine: true });
+runFormatTest(import.meta, ["vue"]);
+runFormatTest(import.meta, ["vue"], { singleAttributePerLine: true });

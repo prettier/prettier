@@ -1,1 +1,1 @@
-run_spec(import.meta, ["angular"]);
+runFormatTest(import.meta, ["angular"]);

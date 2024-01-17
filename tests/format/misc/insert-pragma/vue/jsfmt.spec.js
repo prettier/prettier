@@ -1,1 +1,1 @@
-run_spec(import.meta, ["vue"], { insertPragma: true });
+runFormatTest(import.meta, ["vue"], { insertPragma: true });

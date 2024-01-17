@@ -1,1 +1,1 @@
-run_spec(import.meta, ["mdx"], { requirePragma: true });
+runFormatTest(import.meta, ["mdx"], { requirePragma: true });

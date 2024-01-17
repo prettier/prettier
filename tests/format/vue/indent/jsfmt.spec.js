@@ -1,2 +1,2 @@
-run_spec(import.meta, ["vue"], { vueIndentScriptAndStyle: true });
-run_spec(import.meta, ["vue"], { vueIndentScriptAndStyle: false });
+runFormatTest(import.meta, ["vue"], { vueIndentScriptAndStyle: true });
+runFormatTest(import.meta, ["vue"], { vueIndentScriptAndStyle: false });

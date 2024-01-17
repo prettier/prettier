@@ -6,4 +6,4 @@ const errors = {
   flow: ["tuple-and-record.js"],
 };
 
-run_spec(import.meta, ["babel", "flow", "typescript"], { errors });
+runFormatTest(import.meta, ["babel", "flow", "typescript"], { errors });

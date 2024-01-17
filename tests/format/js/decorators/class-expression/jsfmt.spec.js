@@ -4,5 +4,5 @@ const errors = {
   espree: true,
 };
 
-run_spec(import.meta, ["babel", "flow", "typescript"], { errors });
-run_spec(import.meta, ["babel", "flow", "typescript"], { semi: false, errors });
+runFormatTest(import.meta, ["babel", "flow", "typescript"], { errors });
+runFormatTest(import.meta, ["babel", "flow", "typescript"], { semi: false, errors });

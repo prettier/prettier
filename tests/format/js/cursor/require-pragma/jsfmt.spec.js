@@ -1,1 +1,1 @@
-run_spec(import.meta, ["babel", "typescript", "flow"], { requirePragma: true });
+runFormatTest(import.meta, ["babel", "typescript", "flow"], { requirePragma: true });

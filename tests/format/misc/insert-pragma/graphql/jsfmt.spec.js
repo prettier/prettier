@@ -1,1 +1,1 @@
-run_spec(import.meta, ["graphql"], { insertPragma: true });
+runFormatTest(import.meta, ["graphql"], { insertPragma: true });

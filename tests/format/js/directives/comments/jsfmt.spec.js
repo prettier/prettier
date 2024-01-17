@@ -44,12 +44,12 @@ const snippets = [
   `,
 ]);
 
-run_spec({ importMeta: import.meta, snippets }, [
+runFormatTest({ importMeta: import.meta, snippets }, [
   "babel",
   "flow",
   "typescript",
 ]);
-run_spec(
+runFormatTest(
   { importMeta: import.meta, snippets },
   ["babel", "flow", "typescript"],
   {

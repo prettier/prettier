@@ -1,4 +1,4 @@
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: ["`\n   \n   \n` + `\n    \n    \n`;"],

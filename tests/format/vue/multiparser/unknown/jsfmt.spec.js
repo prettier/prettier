@@ -1,3 +1,3 @@
-run_spec(import.meta, ["vue"]);
-run_spec(import.meta, ["vue"], { vueIndentScriptAndStyle: true });
-run_spec(import.meta, ["vue"], { embeddedLanguageFormatting: "off" });
+runFormatTest(import.meta, ["vue"]);
+runFormatTest(import.meta, ["vue"], { vueIndentScriptAndStyle: true });
+runFormatTest(import.meta, ["vue"], { embeddedLanguageFormatting: "off" });
