@@ -488,7 +488,12 @@ exports[`CLI --support-info (stdout) 1`] = `
         "Pipfile.lock",
         "composer.lock",
         "flake.lock",
-        "mcmod.info"
+        "mcmod.info",
+        ".babelrc",
+        ".jscsrc",
+        ".jshintrc",
+        ".jslintrc",
+        ".swcrc"
       ],
       "linguistLanguageId": 174,
       "name": "JSON",
