@@ -156,6 +156,7 @@
         "jscodeshift",
         "jsesc",
         "jsfmt",
+        "jslintrc",
         "jsonata",
         "judgements",
         "kalmanb",
