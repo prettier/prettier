@@ -174,7 +174,7 @@
     "lint:typecheck": "tsc",
     "lint:eslint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint:changelog": "node ./scripts/lint-changelog.js",
-    "lint:prettier": "prettier . \"!test*\" --check --cache",
+    "lint:prettier": "prettier . --check --cache",
     "lint:spellcheck": "cspell --no-progress --relative --dot --gitignore",
     "lint:deps": "node ./scripts/check-deps.js",
     "lint:blog": "node ./scripts/lint-blog.js",
