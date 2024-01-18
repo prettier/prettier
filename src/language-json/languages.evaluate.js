@@ -32,7 +32,6 @@ const languages = [
       "devcontainer.json",
       "jsconfig.json",
       "language-configuration.json",
-      "tsconfig.json",
     ],
   })),
   createLanguage(linguistLanguages.JSON5, () => ({

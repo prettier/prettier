@@ -529,8 +529,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "filenames": [
         "devcontainer.json",
         "jsconfig.json",
-        "language-configuration.json",
-        "tsconfig.json"
+        "language-configuration.json"
       ],
       "group": "JSON",
       "linguistLanguageId": 423,
