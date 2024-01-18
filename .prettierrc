@@ -5,7 +5,6 @@ overrides:
   - files: "bin/prettier.cjs"
     options:
       trailingComma: none
-  # TODO: Enable this after `jsonc` parser released
-  # - files: ".vscode/*.json"
-  #   options:
-  #     parser: jsonc
+  - files: ".vscode/*.json"
+    options:
+      parser: jsonc

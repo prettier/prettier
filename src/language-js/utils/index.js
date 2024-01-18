@@ -724,6 +724,10 @@ function isSimpleCallArgument(node, depth = 2) {
     return false;
   }
 
+  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
+    return isSimpleCallArgument(node.expression, depth);
+  }
+
   const isChildSimple = (child) => isSimpleCallArgument(child, depth - 1);
 
   if (isRegExpLiteral(node)) {
@@ -780,10 +784,6 @@ function isSimpleCallArgument(node, depth = 2) {
     node.type === "UpdateExpression"
   ) {
     return isSimpleCallArgument(node.argument, depth);
-  }
-
-  if (node.type === "TSNonNullExpression") {
-    return isSimpleCallArgument(node.expression, depth);
   }
 
   return false;
