@@ -21,6 +21,7 @@ import {
   isObjectProperty,
   isPrettierIgnoreComment,
   isUnionType,
+  experimentalTernaryDanglingCommentMarker,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
@@ -395,7 +396,11 @@ function handleConditionalExpressionComments({
         )
       )
     ) {
-      addDanglingComment(enclosingNode, comment);
+      addDanglingComment(
+        enclosingNode,
+        comment,
+        experimentalTernaryDanglingCommentMarker,
+      );
       return true;
     }
     addLeadingComment(followingNode, comment);

@@ -1217,6 +1217,10 @@ const isIntersectionType = createTypeCheckFunction([
   "TSIntersectionType",
 ]);
 
+const experimentalTernaryDanglingCommentMarker = Symbol(
+  "ternaryDanglingCommentMarker",
+);
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -1282,4 +1286,5 @@ export {
   shouldFlatten,
   shouldPrintComma,
   startsWithNoLookaheadToken,
+  experimentalTernaryDanglingCommentMarker,
 };
