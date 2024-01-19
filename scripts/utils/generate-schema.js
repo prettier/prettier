@@ -1,5 +1,3 @@
-import { format, getSupportInfo } from "../../src/index.js";
-
 function generateSchemaData(options) {
   return {
     $schema: "http://json-schema.org/draft-07/schema#",
@@ -121,6 +119,7 @@ function choiceToSchema(choice) {
 }
 
 async function generateSchema() {
+  const { format, getSupportInfo } = await import("../../src/index.js");
   const supportInfo = await getSupportInfo();
   const schema = generateSchemaData(supportInfo.options);
   return format(JSON.stringify(schema, undefined, 2), { parser: "json" });
