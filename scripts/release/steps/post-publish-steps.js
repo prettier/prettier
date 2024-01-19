@@ -18,7 +18,7 @@ async function checkSchema() {
     fetchText(RAW_URL),
   );
 
-  if (schema === remoteSchema.trim()) {
+  if (schema.trim() === remoteSchema.trim()) {
     return;
   }
 
