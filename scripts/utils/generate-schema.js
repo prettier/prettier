@@ -1,12 +1,18 @@
-function generateSchema(options) {
+import { format, getSupportInfo } from "../../src/index.js";
+
+function generateSchemaData(options) {
   return {
-    $schema: "http://json-schema.org/draft-04/schema#",
-    title: "Schema for .prettierrc",
+    $schema: "http://json-schema.org/draft-07/schema#",
+    $id: "https://json.schemastore.org/prettierrc.json",
     definitions: {
       optionsDefinition: {
         type: "object",
         properties: Object.fromEntries(
-          options.map((option) => [option.name, optionToSchema(option)]),
+          options
+            .sort(({ name: optionNameA }, { name: optionNameB }) =>
+              optionNameA.localeCompare(optionNameB),
+            )
+            .map((option) => [option.name, optionToSchema(option)]),
         ),
       },
       overridesDefinition: {
@@ -35,9 +41,9 @@ function generateSchema(options) {
                   ],
                 },
                 options: {
+                  $ref: "#/definitions/optionsDefinition",
                   type: "object",
                   description: "The options to apply for this override.",
-                  $ref: "#/definitions/optionsDefinition",
                 },
               },
               additionalProperties: false,
@@ -58,6 +64,7 @@ function generateSchema(options) {
         type: "string",
       },
     ],
+    title: "Schema for .prettierrc",
   };
 }
 
@@ -113,4 +120,10 @@ function choiceToSchema(choice) {
   return { enum: [choice.value], description: choice.description };
 }
 
-export default generateSchema;
+async function generateSchema() {
+  const supportInfo = await getSupportInfo();
+  const schema = generateSchemaData(supportInfo.options);
+  return format(JSON.stringify(schema, undefined, 2), { parser: "json" });
+}
+
+export { generateSchema, generateSchemaData };

@@ -1,8 +1,7 @@
 import chalk from "chalk";
-import { execa } from "execa";
 import outdent from "outdent";
 
-import { fetchText, logPromise } from "../utils.js";
+import { fetchText, logPromise, writeFile } from "../utils.js";
 
 const SCHEMA_REPO = "SchemaStore/schemastore";
 const SCHEMA_PATH = "src/schemas/json/prettierrc.json";
@@ -12,9 +11,8 @@ const EDIT_URL = `https://github.com/${SCHEMA_REPO}/edit/master/${SCHEMA_PATH}`;
 // Any optional or manual step can be warned in this script.
 
 async function checkSchema() {
-  const { stdout: schema } = await execa("node", [
-    "scripts/generate-schema.js",
-  ]);
+  const { generateSchema } = await import("../../utils/generate-schema.js");
+  const schema = await generateSchema();
   const remoteSchema = await logPromise(
     "Checking current schema in SchemaStore",
     fetchText(RAW_URL),
@@ -24,14 +22,17 @@ async function checkSchema() {
     return;
   }
 
+  writeFile(
+    new URL("../../../.tmp/schema/prettierrc.json", import.meta.url),
+    schema,
+  );
+
   return outdent`
     ${chalk.bold.underline(
       "The schema in {yellow SchemaStore",
     )} needs an update.}
     - Open ${chalk.cyan.underline(EDIT_URL)}
-    - Run ${chalk.yellow(
-      "node scripts/generate-schema.mjs",
-    )} and copy the new schema
+    - Open ${chalk.cyan.underline("/.tmp/schema/prettierrc.json")} file and copy the content
     - Paste it on GitHub interface
     - Open a PR
   `;
