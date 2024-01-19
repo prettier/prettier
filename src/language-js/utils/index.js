@@ -1224,6 +1224,7 @@ const experimentalTernaryDanglingCommentMarker = Symbol(
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
+  experimentalTernaryDanglingCommentMarker,
   getCallArguments,
   getCallArgumentSelector,
   getComments,
@@ -1286,5 +1287,4 @@ export {
   shouldFlatten,
   shouldPrintComma,
   startsWithNoLookaheadToken,
-  experimentalTernaryDanglingCommentMarker,
 };

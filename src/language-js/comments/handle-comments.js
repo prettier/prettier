@@ -11,6 +11,7 @@ import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   createTypeCheckFunction,
+  experimentalTernaryDanglingCommentMarker,
   getCallArguments,
   getFunctionParameters,
   isCallExpression,
@@ -21,7 +22,6 @@ import {
   isObjectProperty,
   isPrettierIgnoreComment,
   isUnionType,
-  experimentalTernaryDanglingCommentMarker,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
