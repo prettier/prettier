@@ -1,1 +1,1 @@
-run_spec(import.meta, ["markdown"], { trailingComma: "all" });
+runFormatTest(import.meta, ["markdown"], { trailingComma: "all" });

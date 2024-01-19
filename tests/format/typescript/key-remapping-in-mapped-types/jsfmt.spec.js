@@ -1,1 +1,1 @@
-run_spec(import.meta, ["babel-ts", "typescript"]);
+runFormatTest(import.meta, ["babel-ts", "typescript"]);

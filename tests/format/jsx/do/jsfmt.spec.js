@@ -1,4 +1,4 @@
-run_spec(import.meta, ["babel"], {
+runFormatTest(import.meta, ["babel"], {
   errors: {
     acorn: ["do.js"],
     espree: ["do.js"],

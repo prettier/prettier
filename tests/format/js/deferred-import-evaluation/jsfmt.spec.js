@@ -4,7 +4,7 @@ const importDeferTests = [
 ];
 const invalidSyntaxTests = ["no-default.js", "no-named.js"];
 
-run_spec(import.meta, ["babel"], {
+runFormatTest(import.meta, ["babel"], {
   errors: {
     acorn: [...importDeferTests, ...invalidSyntaxTests],
     espree: [...importDeferTests, ...invalidSyntaxTests],

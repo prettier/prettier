@@ -1,5 +1,5 @@
-run_spec(import.meta, ["html"]);
-run_spec(import.meta, ["html"], { printWidth: 1 });
-run_spec(import.meta, ["html"], { printWidth: Number.POSITIVE_INFINITY });
-run_spec(import.meta, ["html"], { htmlWhitespaceSensitivity: "strict" });
-run_spec(import.meta, ["html"], { htmlWhitespaceSensitivity: "ignore" });
+runFormatTest(import.meta, ["html"]);
+runFormatTest(import.meta, ["html"], { printWidth: 1 });
+runFormatTest(import.meta, ["html"], { printWidth: Number.POSITIVE_INFINITY });
+runFormatTest(import.meta, ["html"], { htmlWhitespaceSensitivity: "strict" });
+runFormatTest(import.meta, ["html"], { htmlWhitespaceSensitivity: "ignore" });

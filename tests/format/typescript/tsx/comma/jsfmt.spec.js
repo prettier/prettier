@@ -1,6 +1,6 @@
 const code = "const A = <T,>() => {}";
 
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: [

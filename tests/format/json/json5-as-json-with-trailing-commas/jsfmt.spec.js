@@ -1,1 +1,1 @@
-run_spec(import.meta, ["json5"], { quoteProps: "preserve" });
+runFormatTest(import.meta, ["json5"], { quoteProps: "preserve" });

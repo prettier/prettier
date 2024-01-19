@@ -1,4 +1,4 @@
-run_spec(import.meta, ["babel"], {
+runFormatTest(import.meta, ["babel"], {
   errors: {
     babel: true,
     __babel_estree: true,

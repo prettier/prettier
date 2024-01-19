@@ -1,2 +1,2 @@
-run_spec(import.meta, ["html"]);
-run_spec(import.meta, ["html"], { embeddedLanguageFormatting: "off" });
+runFormatTest(import.meta, ["html"]);
+runFormatTest(import.meta, ["html"], { embeddedLanguageFormatting: "off" });

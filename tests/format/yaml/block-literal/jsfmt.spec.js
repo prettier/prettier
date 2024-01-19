@@ -13,7 +13,7 @@ const snippets = [
   },
 ].map((test) => ({ ...test, output: test.output + "\n" }));
 
-run_spec({ importMeta: import.meta, snippets }, ["yaml"]);
-run_spec({ importMeta: import.meta, snippets }, ["yaml"], {
+runFormatTest({ importMeta: import.meta, snippets }, ["yaml"]);
+runFormatTest({ importMeta: import.meta, snippets }, ["yaml"], {
   proseWrap: "always",
 });

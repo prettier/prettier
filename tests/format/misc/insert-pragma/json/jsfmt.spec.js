@@ -1,1 +1,1 @@
-run_spec(import.meta, ["json"], { insertPragma: true });
+runFormatTest(import.meta, ["json"], { insertPragma: true });

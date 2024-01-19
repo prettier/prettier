@@ -1,1 +1,1 @@
-run_spec(import.meta, ["markdown"], { insertPragma: true });
+runFormatTest(import.meta, ["markdown"], { insertPragma: true });

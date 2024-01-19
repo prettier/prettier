@@ -1,4 +1,4 @@
-run_spec(import.meta, ["babel", "typescript", "flow"], {
+runFormatTest(import.meta, ["babel", "typescript", "flow"], {
   errors: {
     acorn: ["expression.js"],
     espree: ["expression.js"],

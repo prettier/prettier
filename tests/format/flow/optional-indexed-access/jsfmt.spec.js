@@ -1,1 +1,1 @@
-run_spec(import.meta, ["flow"], { trailingComma: "all" });
+runFormatTest(import.meta, ["flow"], { trailingComma: "all" });

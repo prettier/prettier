@@ -1,4 +1,4 @@
-run_spec(import.meta, ["babel", "flow", "typescript"], {
+runFormatTest(import.meta, ["babel", "flow", "typescript"], {
   errors: {
     flow: ["v-flag.js"],
     acorn: ["regexp-modifiers.js"],

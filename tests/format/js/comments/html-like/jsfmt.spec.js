@@ -1,1 +1,1 @@
-run_spec(import.meta, ["meriyah"]);
+runFormatTest(import.meta, ["meriyah"]);

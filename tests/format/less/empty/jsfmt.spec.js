@@ -1,1 +1,1 @@
-run_spec(import.meta, ["less"]);
+runFormatTest(import.meta, ["less"]);

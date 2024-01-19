@@ -1,1 +1,1 @@
-run_spec(import.meta, ["jsonc"]);
+runFormatTest(import.meta, ["jsonc"]);

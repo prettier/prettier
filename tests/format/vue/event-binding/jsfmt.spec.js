@@ -1,1 +1,1 @@
-run_spec(import.meta, ["vue"]);
+runFormatTest(import.meta, ["vue"]);
