@@ -205,6 +205,9 @@ function isTrailingSpaceSensitiveNode(node, options) {
   }
 
   if (isPreLikeNode(node.parent)) {
+    if(node.parent.name == "textarea") {
+      return false;
+    }
     return true;
   }
 
