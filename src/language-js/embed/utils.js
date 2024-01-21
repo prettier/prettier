@@ -31,21 +31,22 @@ const angularComponentObjectExpressionPredicates = [
  */
 function isAngularComponentStyles(path) {
   const isTemplateLiteral = (node) => node.type === "TemplateLiteral";
-  const isStyleProperty = (node, name) =>
+  const isObjectPropertyNamedStyles = (node, key) =>
     isObjectProperty(node) &&
+    !node.computed &&
     node.key.type === "Identifier" &&
     node.key.name === "styles" &&
-    name === "value";
+    key === "value";
   return (
     path.match(
       isTemplateLiteral,
       (node, name) => isArrayOrTupleExpression(node) && name === "elements",
-      isStyleProperty,
+      isObjectPropertyNamedStyles,
       ...angularComponentObjectExpressionPredicates,
     ) ||
     path.match(
       isTemplateLiteral,
-      isStyleProperty,
+      isObjectPropertyNamedStyles,
       ...angularComponentObjectExpressionPredicates,
     )
   );
