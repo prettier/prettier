@@ -30,15 +30,24 @@ const angularComponentObjectExpressionPredicates = [
  * })
  */
 function isAngularComponentStyles(path) {
-  return path.match(
-    (node) => node.type === "TemplateLiteral",
-    (node, name) => isArrayOrTupleExpression(node) && name === "elements",
-    (node, name) =>
-      isObjectProperty(node) &&
-      node.key.type === "Identifier" &&
-      node.key.name === "styles" &&
-      name === "value",
-    ...angularComponentObjectExpressionPredicates,
+  const isTemplateLiteral = (node) => node.type === "TemplateLiteral";
+  const isStyleProperty = (node, name) =>
+    isObjectProperty(node) &&
+    node.key.type === "Identifier" &&
+    node.key.name === "styles" &&
+    name === "value";
+  return (
+    path.match(
+      isTemplateLiteral,
+      (node, name) => isArrayOrTupleExpression(node) && name === "elements",
+      isStyleProperty,
+      ...angularComponentObjectExpressionPredicates,
+    ) ||
+    path.match(
+      isTemplateLiteral,
+      isStyleProperty,
+      ...angularComponentObjectExpressionPredicates,
+    )
   );
 }
 function isAngularComponentTemplate(path) {
