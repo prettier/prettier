@@ -156,6 +156,64 @@ export class AppComponent {}
 ================================================================================
 `;
 
+exports[`15969-computed.component.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+import { Component } from '@angular/core';
+
+const template = "foobar";
+
+@Component({
+  [template]: \`<h1>{{       hello }}</h1>\`,
+})
+export class AppComponent {}
+
+=====================================output=====================================
+import { Component } from "@angular/core";
+
+const template = "foobar";
+
+@Component({
+  [template]: \`<h1>{{       hello }}</h1>\`,
+})
+export class AppComponent {}
+
+================================================================================
+`;
+
+exports[`15969-computed.component.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+import { Component } from '@angular/core';
+
+const template = "foobar";
+
+@Component({
+  [template]: \`<h1>{{       hello }}</h1>\`,
+})
+export class AppComponent {}
+
+=====================================output=====================================
+import { Component } from "@angular/core";
+
+const template = "foobar";
+
+@Component({
+  [template]: \`<h1>{{       hello }}</h1>\`
+})
+export class AppComponent {}
+
+================================================================================
+`;
+
 exports[`test.component.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
