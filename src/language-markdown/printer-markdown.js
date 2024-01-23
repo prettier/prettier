@@ -760,7 +760,8 @@ function printFootnoteReference(node) {
  * @param {*} print
  * @returns {Doc}
  */
-  const parts = path.map(print, "children")
+function printParagraph(path, options, print) {
+  const parts = path.map(print, "children");
   return flattenFill(parts);
 }
 
