@@ -299,19 +299,19 @@ Valid options:
 
 - `"espree"`
 
-  Parses [JavaScript](https://tc39.es/ecma262/)  syntax files with [espree](https://github.com/eslint/espree).
+  Parses [JavaScript](https://tc39.es/ecma262/) syntax files with [espree](https://github.com/eslint/espree).
 
   _First available in v2.2.0_
 
 - `"meriyah"`
 
-  Parses [JavaScript](https://tc39.es/ecma262/)  syntax files with [meriyah](https://github.com/meriyah/meriyah))
+  Parses [JavaScript](https://tc39.es/ecma262/) syntax files with [meriyah](https://github.com/meriyah/meriyah))
 
   _First available in v2.2.0_
 
 - `"acorn"`
 
-  Parses [JavaScript](https://tc39.es/ecma262/)  syntax files with [acorn](https://github.com/acornjs/acorn).
+  Parses [JavaScript](https://tc39.es/ecma262/) syntax files with [acorn](https://github.com/acornjs/acorn).
 
   _First available in v2.6.0_
 

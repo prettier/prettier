@@ -13,7 +13,7 @@ module.exports = {
 
         const settingsExampleFile = path.join(
           __dirname,
-          "../../.vscode/settings.example.json",
+          "../../.vscode/settings.example.jsonc",
         );
 
         if (
