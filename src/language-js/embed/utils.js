@@ -56,6 +56,7 @@ function isAngularComponentTemplate(path) {
     (node) => node.type === "TemplateLiteral",
     (node, name) =>
       isObjectProperty(node) &&
+      !node.computed &&
       node.key.type === "Identifier" &&
       node.key.name === "template" &&
       name === "value",
