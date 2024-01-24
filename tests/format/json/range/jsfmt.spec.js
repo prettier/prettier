@@ -1,1 +1,1 @@
-run_spec(import.meta, ["json"]);
+runFormatTest(import.meta, ["json"]);

@@ -1,10 +1,10 @@
 import { outdent } from "outdent";
 
-run_spec(import.meta, ["glimmer"], {
+runFormatTest(import.meta, ["glimmer"], {
   htmlWhitespaceSensitivity: "ignore",
   printWidth: 40,
 });
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: [

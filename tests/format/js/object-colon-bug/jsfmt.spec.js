@@ -1,1 +1,1 @@
-run_spec(import.meta, ["babel", "flow", "typescript"], { printWidth: 35 });
+runFormatTest(import.meta, ["babel", "flow", "typescript"], { printWidth: 35 });

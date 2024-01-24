@@ -1,2 +1,2 @@
-run_spec(import.meta, ["scss"]);
-run_spec(import.meta, ["scss"], { singleQuote: true });
+runFormatTest(import.meta, ["scss"]);
+runFormatTest(import.meta, ["scss"], { singleQuote: true });

@@ -4,5 +4,8 @@ const plugins = await Promise.all(
   ].map(async (plugin) => (await import(plugin)).default),
 );
 
-run_spec(import.meta, ["vue"], { plugins });
-run_spec(import.meta, ["vue"], { plugins, embeddedLanguageFormatting: "off" });
+runFormatTest(import.meta, ["vue"], { plugins });
+runFormatTest(import.meta, ["vue"], {
+  plugins,
+  embeddedLanguageFormatting: "off",
+});

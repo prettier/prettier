@@ -1,2 +1,2 @@
-run_spec(import.meta, ["jsonc"], { singleQuote: true });
-run_spec(import.meta, ["jsonc"], { singleQuote: false });
+runFormatTest(import.meta, ["jsonc"], { singleQuote: true });
+runFormatTest(import.meta, ["jsonc"], { singleQuote: false });

@@ -1,7 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 import { outdent } from "outdent";
 
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: [

@@ -1,2 +1,2 @@
-run_spec(import.meta, ["html"]);
-run_spec(import.meta, ["html"], { singleQuote: true });
+runFormatTest(import.meta, ["html"]);
+runFormatTest(import.meta, ["html"], { singleQuote: true });

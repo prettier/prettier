@@ -15,4 +15,4 @@ const snippets = fs
     };
   });
 
-run_spec({ importMeta: import.meta, snippets }, ["babel"]);
+runFormatTest({ importMeta: import.meta, snippets }, ["babel"]);

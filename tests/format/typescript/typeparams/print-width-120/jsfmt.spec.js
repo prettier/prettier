@@ -1,1 +1,1 @@
-run_spec(import.meta, ["typescript"], { printWidth: 120 });
+runFormatTest(import.meta, ["typescript"], { printWidth: 120 });

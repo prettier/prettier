@@ -39,9 +39,8 @@ type ArrayProperties<T> = {
 // A union of the properties of the given array T that can be used to index it.
 // If the array is a tuple, then that's going to be the explicit indices of the
 // array, otherwise it's going to just be number.
-type IndexProperties<T extends { length: number }> = IsTuple<T> extends true
-  ? Exclude<Partial<T>["length"], T["length"]>
-  : number;
+type IndexProperties<T extends { length: number }> =
+  IsTuple<T> extends true ? Exclude<Partial<T>["length"], T["length"]> : number;
 
 // Effectively performing T[P], except that it's telling TypeScript that it's
 // safe to do this for tuples, arrays, or objects.

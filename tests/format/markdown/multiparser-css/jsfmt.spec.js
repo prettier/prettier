@@ -1,1 +1,1 @@
-run_spec(import.meta, ["markdown"]);
+runFormatTest(import.meta, ["markdown"]);

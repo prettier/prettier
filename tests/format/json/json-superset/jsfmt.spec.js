@@ -11,7 +11,7 @@ const characters = [LINE_SEPARATOR, PARAGRAPH_SEPARATOR, UNDERSCORE, SPACE];
 const characterCode = (character) =>
   `U+${character.charCodeAt(0).toString(16).toUpperCase().padStart(4, "0")}`;
 
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: [
@@ -44,7 +44,7 @@ run_spec(
   ["json", "json5"],
 );
 
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: [

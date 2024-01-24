@@ -8,7 +8,7 @@ const importSourceTests = [
 ];
 const invalidSyntaxTests = ["no-namespace.js", "no-named.js"];
 
-run_spec(import.meta, ["babel"], {
+runFormatTest(import.meta, ["babel"], {
   errors: {
     acorn: [...importSourceTests, ...invalidSyntaxTests],
     espree: [...importSourceTests, ...invalidSyntaxTests],

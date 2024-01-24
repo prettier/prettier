@@ -1,1 +1,1 @@
-run_spec(import.meta, ["angular"], { printWidth: 20 });
+runFormatTest(import.meta, ["angular"], { printWidth: 20 });

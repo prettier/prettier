@@ -6,7 +6,7 @@ const plugins = [
   require("../../../../config/prettier-plugins/prettier-plugin-missing-comments/index.cjs"),
 ];
 
-run_spec(
+runFormatTest(
   { importMeta: import.meta, snippets: ["text"] },
   ["missing-comments"],
   {

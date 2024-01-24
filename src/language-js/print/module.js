@@ -1,5 +1,3 @@
-import assert from "node:assert";
-
 import {
   group,
   hardline,
@@ -13,6 +11,7 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import { hasSameLoc, locEnd, locStart } from "../loc.js";
+import getTextWithoutComments from "../utils/get-text-without-comments.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -247,35 +246,6 @@ function shouldPrintSpecifiers(node, options) {
   );
 
   return text.trimEnd().endsWith("from");
-}
-
-function getTextWithoutComments(options, start, end) {
-  let text = options.originalText.slice(start, end);
-
-  for (const comment of options[Symbol.for("comments")]) {
-    const commentStart = locStart(comment);
-    // Comments are sorted, we can escape if the comment is after the range
-    if (commentStart > end) {
-      break;
-    }
-
-    const commentEnd = locEnd(comment);
-    if (commentEnd < start) {
-      continue;
-    }
-
-    const commentLength = commentEnd - commentStart;
-    text =
-      text.slice(0, commentStart - start) +
-      " ".repeat(commentLength) +
-      text.slice(commentEnd - start);
-  }
-
-  if (process.env.NODE_ENV !== "production") {
-    assert(text.length === end - start);
-  }
-
-  return text;
 }
 
 function getImportAttributesKeyword(node, options) {

@@ -3,8 +3,8 @@ const errors = {
   espree: ["undefined.js"],
 };
 
-run_spec(import.meta, ["babel", "flow", "typescript"], { errors });
-run_spec(import.meta, ["babel", "flow", "typescript"], {
+runFormatTest(import.meta, ["babel", "flow", "typescript"], { errors });
+runFormatTest(import.meta, ["babel", "flow", "typescript"], {
   errors,
   bracketSpacing: false,
 });

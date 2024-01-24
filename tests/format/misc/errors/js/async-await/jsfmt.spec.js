@@ -1,6 +1,6 @@
 import { outdent } from "outdent";
 
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: [
@@ -22,7 +22,7 @@ run_spec(
   ["babel", "acorn", "espree", "meriyah", "flow"],
 );
 
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: [

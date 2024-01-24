@@ -1,1 +1,1 @@
-run_spec(import.meta, ["vue"], { semi: false });
+runFormatTest(import.meta, ["vue"], { semi: false });

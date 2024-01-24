@@ -488,7 +488,12 @@ exports[`CLI --support-info (stdout) 1`] = `
         "Pipfile.lock",
         "composer.lock",
         "flake.lock",
-        "mcmod.info"
+        "mcmod.info",
+        ".babelrc",
+        ".jscsrc",
+        ".jshintrc",
+        ".jslintrc",
+        ".swcrc"
       ],
       "linguistLanguageId": 174,
       "name": "JSON",
@@ -522,19 +527,10 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".sublime_session"
       ],
       "filenames": [
-        ".babelrc",
-        ".devcontainer.json",
-        ".eslintrc.json",
-        ".jscsrc",
-        ".jshintrc",
-        ".jslintrc",
-        ".swcrc",
-        "api-extractor.json",
         "devcontainer.json",
         "jsconfig.json",
         "language-configuration.json",
-        "tsconfig.json",
-        "tslint.json"
+        "tsconfig.json"
       ],
       "group": "JSON",
       "linguistLanguageId": 423,

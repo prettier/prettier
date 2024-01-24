@@ -21,7 +21,7 @@ const optionalChainingAssignTests = [
 // meriyah can parse these files
 const meriyahCanParse = new Set(["valid-lhs-eq.js", "valid-lhs-plus-eq.js"]);
 
-run_spec(import.meta, ["babel"], {
+runFormatTest(import.meta, ["babel"], {
   errors: {
     acorn: [...optionalChainingAssignTests, ...invalidSyntaxTests],
     espree: [...optionalChainingAssignTests, ...invalidSyntaxTests],

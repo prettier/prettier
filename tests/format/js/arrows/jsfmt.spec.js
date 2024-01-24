@@ -5,11 +5,11 @@ const errors = {
   typescript: ["tuple-and-record.js"],
   flow: ["tuple-and-record.js"],
 };
-run_spec(import.meta, ["babel", "typescript"], {
+runFormatTest(import.meta, ["babel", "typescript"], {
   arrowParens: "always",
   errors,
 });
-run_spec(import.meta, ["babel", "typescript"], {
+runFormatTest(import.meta, ["babel", "typescript"], {
   arrowParens: "avoid",
   errors,
 });
