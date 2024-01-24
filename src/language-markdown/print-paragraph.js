@@ -1,6 +1,6 @@
 import { fill } from "../document/builders.js";
 import { DOC_TYPE_ARRAY, DOC_TYPE_FILL } from "../document/constants.js";
-import { getDocParts, getDocType } from "../document/utils.js";
+import { getDocType } from "../document/utils.js";
 
 /**
  * @typedef {import("../common/ast-path.js").default} AstPath
@@ -33,7 +33,7 @@ function flattenFill(docs) {
     for (const doc of docArray) {
       switch (getDocType(doc)) {
         case DOC_TYPE_FILL: {
-          const [head, ...rest] = getDocParts(doc);
+          const [head, ...rest] = doc.parts;
           parts.at(-1).push(head);
           parts.push(...rest.map((doc) => [doc]));
           if (rest.length % 2 === 1) {
@@ -42,7 +42,7 @@ function flattenFill(docs) {
           break;
         }
         case DOC_TYPE_ARRAY:
-          rec(getDocParts(doc));
+          rec(doc);
           break;
         default:
           parts.at(-1).push(doc);
