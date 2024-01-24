@@ -31,23 +31,20 @@ function flattenFill(docs) {
    */
   (function rec(docArray) {
     for (const doc of docArray) {
-      switch (getDocType(doc)) {
-        case DOC_TYPE_FILL: {
-          const [head, ...rest] = doc.parts;
-          parts.at(-1).push(head);
-          parts.push(...rest.map((doc) => [doc]));
-          if (rest.length % 2 === 1) {
-            parts.push([]);
-          }
-          break;
-        }
-        case DOC_TYPE_ARRAY:
-          rec(doc);
-          break;
-        default:
-          parts.at(-1).push(doc);
-          break;
+      const docType = getDocType(doc);
+      if (docType === DOC_TYPE_ARRAY) {
+        rec(doc);
+        continue;
       }
+
+      let head = doc;
+      let rest = [];
+      if (docType === DOC_TYPE_FILL) {
+        [head, ...rest] = doc.parts;
+      }
+
+      parts[parts.length - 1] = [parts.at(-1), head];
+      parts.push(...rest);
     }
   })(docs);
 
