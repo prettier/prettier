@@ -18,7 +18,6 @@ import { DOC_TYPE_STRING } from "../document/constants.js";
 import { printDocToString } from "../document/printer.js";
 import { cleanDoc, getDocType, replaceEndOfLine } from "../document/utils.js";
 import { fillBuilder } from "../document/utils/fill-builder.js";
-import { flattenFill } from "../document/utils/flatten-fill.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
@@ -31,6 +30,7 @@ import getVisitorKeys from "./get-visitor-keys.js";
 import { leadingHardlines } from "./leading-hardlines.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
+import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
 import { printSentence } from "./print-sentence.js";
 import { printWhitespace } from "./print-whitespace.js";
@@ -752,17 +752,6 @@ function printLinkReference(node) {
 
 function printFootnoteReference(node) {
   return `[^${node.label}]`;
-}
-
-/**
- * @param {AstPath} path
- * @param {*} options
- * @param {*} print
- * @returns {Doc}
- */
-function printParagraph(path, options, print) {
-  const parts = path.map(print, "children");
-  return flattenFill(parts);
 }
 
 const printer = {
