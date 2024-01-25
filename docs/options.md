@@ -341,19 +341,19 @@ Valid options:
 
 - `"json5"`
 
-  Parses [JSON5](https://json5.org/) syntax as the same as then `"json"` parser.
+  Parses [JSON5](https://json5.org/) syntax as the same as the `"json"` parser.
 
   _First available in v1.13.0_
 
 - `"jsonc"`
 
-  Parses [JSON with comments(JSONC)](https://github.com/microsoft/node-jsonc-parser) syntax as the same as then `"json"` parser.
+  Parses [JSON with comments(JSONC)](https://github.com/microsoft/node-jsonc-parser) syntax as the same as the `"json"` parser.
 
   _First available in v3.2.0_
 
 - `"json-stringify"`
 
-  Parses [JSON (JavaScript Object Notation)](https://www.json.org/) syntax as the same as then `"json"` parser, but forbids comments and outputs like `JSON.stringify`.
+  Parses [JSON (JavaScript Object Notation)](https://www.json.org/) syntax as the same as the `"json"` parser, but forbids comments and outputs like `JSON.stringify`.
 
   _First available in v1.13.0_
 
