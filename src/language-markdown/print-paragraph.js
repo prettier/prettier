@@ -1,6 +1,6 @@
 import { fill } from "../document/builders.js";
 import { DOC_TYPE_ARRAY, DOC_TYPE_FILL } from "../document/constants.js";
-import { getDocType } from "../document/utils.js";
+import { getDocParts, getDocType } from "../document/utils.js";
 
 /**
  * @typedef {import("../common/ast-path.js").default} AstPath
@@ -23,8 +23,13 @@ function printParagraph(path, options, print) {
  * @returns {Doc}
  */
 function flattenFill(docs) {
-  /** @type {Doc[][]} */
-  const parts = [[]];
+  /*
+   * We assume parts always meet following conditions:
+   * - parts.length is odd
+   * - odd elements are line-like doc that comes from odd element off inner fill
+   */
+  /** @type {Doc[]} */
+  const parts = [""];
 
   /**
    * @param {Doc[]} docArray
@@ -33,18 +38,20 @@ function flattenFill(docs) {
     for (const doc of docArray) {
       const docType = getDocType(doc);
       if (docType === DOC_TYPE_ARRAY) {
-        rec(doc);
+        rec(getDocParts(doc));
         continue;
       }
 
       let head = doc;
       let rest = [];
       if (docType === DOC_TYPE_FILL) {
-        [head, ...rest] = doc.parts;
+        [head, ...rest] = getDocParts(doc);
+        if (rest.length % 2 === 1) {
+          rest.push("");
+        }
       }
 
-      parts[parts.length - 1] = [parts.at(-1), head];
-      parts.push(...rest);
+      parts.push([parts.pop(), head], ...rest);
     }
   })(docs);
 
