@@ -43,9 +43,6 @@ function flattenFill(docs) {
       let rest = [];
       if (docType === DOC_TYPE_FILL) {
         [head, ...rest] = doc.parts;
-        if (rest.length % 2 === 1) {
-          rest.push("");
-        }
       }
 
       parts.push([parts.pop(), head], ...rest);
