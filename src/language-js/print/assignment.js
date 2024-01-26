@@ -152,6 +152,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
 
   if (
     isComplexDestructuring(node) ||
+    isSimpleDestructuring(node) ||
     hasComplexTypeAnnotation(node) ||
     (isArrowFunctionVariableDeclarator(node) && canBreakLeftDoc)
   ) {
@@ -270,6 +271,24 @@ function isComplexDestructuring(node) {
         (property) =>
           isObjectProperty(property) &&
           (!property.shorthand || property.value?.type === "AssignmentPattern"),
+      )
+    );
+  }
+  return false;
+}
+
+
+function isSimpleDestructuring(node) {
+  if (isAssignmentOrVariableDeclarator(node)) {
+    const leftNode = node.left || node.id;
+    return (
+      (leftNode.type === "ObjectPattern"
+        || leftNode.type === "ArrayPattern")
+      &&
+      leftNode.properties?.every(
+        (property) =>
+          isObjectProperty(property) &&
+          (!property.shorthand || property.value?.type !== "AssignmentPattern"),
       )
     );
   }
