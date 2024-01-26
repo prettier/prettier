@@ -277,14 +277,11 @@ function isComplexDestructuring(node) {
   return false;
 }
 
-
 function isSimpleDestructuring(node) {
   if (isAssignmentOrVariableDeclarator(node)) {
     const leftNode = node.left || node.id;
     return (
-      (leftNode.type === "ObjectPattern"
-        || leftNode.type === "ArrayPattern")
-      &&
+      (leftNode.type === "ObjectPattern" || leftNode.type === "ArrayPattern") &&
       leftNode.properties?.every(
         (property) =>
           isObjectProperty(property) &&
