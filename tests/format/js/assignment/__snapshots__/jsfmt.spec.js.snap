@@ -315,8 +315,12 @@ function* g() {
 
 =====================================output=====================================
 async function f() {
-  const { section, rubric, authors, tags } =
-    await utils.upsertCommonData(mainData);
+  const {
+    section,
+    rubric,
+    authors,
+    tags,
+  } = await utils.upsertCommonData(mainData);
 
   const loooooooooooooooooooooooooong1 =
     await looooooooooooooong.looooooooooooooong.loooooong;
@@ -342,8 +346,12 @@ async function f() {
 }
 
 function* g() {
-  const { section, rubric, authors, tags } =
-    yield utils.upsertCommonData(mainData);
+  const {
+    section,
+    rubric,
+    authors,
+    tags,
+  } = yield utils.upsertCommonData(mainData);
 
   const loooooooooooooooooooooooooong1 =
     yield looooooooooooooong.looooooooooooooong.loooooong;
@@ -596,11 +604,11 @@ const {qfwvfkwjdqgz, bctsyljqucgz, xuodxhmgwwpw} =
 // Function call wrapping is not optimal for readability:
 // Function names tend to get pushed to the right, whereas arguments end up on the left,
 // creating a wide gap that the eyes have to cross in order to read the call.
-const { qfwvfkwjdqgz, bctsyljqucgz, xuodxhmgwwpw } = qbhtcuzxwedz(
-  yrwimwkjeeiu,
-  njwvozigdkfi,
-  alvvjgkmnmhd,
-);
+const {
+  qfwvfkwjdqgz,
+  bctsyljqucgz,
+  xuodxhmgwwpw,
+} = qbhtcuzxwedz(yrwimwkjeeiu, njwvozigdkfi, alvvjgkmnmhd);
 
 ================================================================================
 `;
@@ -641,7 +649,10 @@ const data4 = request.delete(
 
 =====================================output=====================================
 async function f() {
-  const { data, status } = await request.delete(
+  const {
+    data,
+    status,
+  } = await request.delete(
     \`/account/\${accountId}/documents/\${type}/\${documentNumber}\`,
     { validateStatus: () => true },
   );
@@ -681,8 +692,11 @@ const {
 } = store[config.reduxStoreName]
 
 =====================================output=====================================
-const { imStore, showChat, customerServiceAccount } =
-  store[config.reduxStoreName];
+const {
+  imStore,
+  showChat,
+  customerServiceAccount,
+} = store[config.reduxStoreName];
 
 ================================================================================
 `;
@@ -773,13 +787,15 @@ const _id1 =
   data.createTestMessageWithAReallyLongName.someVeryLongProperty
     .thisIsAlsoALongProperty._id;
 
-const { _id2 } =
-  data.createTestMessageWithAReallyLongName.someVeryLongProperty
-    .thisIsAlsoALongProperty;
+const {
+  _id2,
+} = data.createTestMessageWithAReallyLongName.someVeryLongProperty
+  .thisIsAlsoALongProperty;
 
-const { _id: id3 } =
-  data.createTestMessageWithAReallyLongName.someVeryLongProperty
-    .thisIsAlsoALongProperty;
+const {
+  _id: id3,
+} = data.createTestMessageWithAReallyLongName.someVeryLongProperty
+  .thisIsAlsoALongProperty;
 
 ================================================================================
 `;

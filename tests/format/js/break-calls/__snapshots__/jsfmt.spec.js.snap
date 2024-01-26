@@ -262,14 +262,17 @@ function MyComponent(props) {
 }
 
 function Comp1() {
-  const { firstName, lastName } = useMemo(
-    () => parseFullName(fullName),
-    [fullName],
-  );
+  const {
+    firstName,
+    lastName,
+  } = useMemo(() => parseFullName(fullName), [fullName]);
 }
 
 function Comp2() {
-  const { firstName, lastName } = useMemo(
+  const {
+    firstName,
+    lastName,
+  } = useMemo(
     () => func(),
     [
       props.value,
@@ -288,7 +291,10 @@ function Comp2() {
 }
 
 function Comp3() {
-  const { firstName, lastName } = useMemo(
+  const {
+    firstName,
+    lastName,
+  } = useMemo(
     (aaa, bbb, ccc, ddd, eee, fff, ggg, hhh, iii, jjj, kkk) =>
       func(aaa, bbb, ccc, ddd, eee, fff, ggg, hhh, iii, jjj, kkk),
     [foo, bar, baz],
@@ -296,7 +302,10 @@ function Comp3() {
 }
 
 function Comp4() {
-  const { firstName, lastName } = useMemo(
+  const {
+    firstName,
+    lastName,
+  } = useMemo(
     () =>
       (foo && bar && baz) ||
       baz ||
