@@ -355,7 +355,8 @@ semi: false
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 =====================================output=====================================
-<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an
+opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 ================================================================================
 `;
@@ -369,7 +370,8 @@ printWidth: 80
 <ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 =====================================output=====================================
-<ExternalLink href="http://example.com">Prettier</ExternalLink> is an opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
+<ExternalLink href="http://example.com">Prettier</ExternalLink> is an
+opinionated-code-formatter-that-support-many-languages-and-integrate-with-most-editors
 
 ================================================================================
 `;
@@ -445,7 +447,8 @@ A {/* JS-style comment */} comment.
 </Hello>
 <Hello>
   test <World /> test
-</Hello>123
+</Hello>
+123
 
 ---
 
@@ -547,7 +550,8 @@ A {/* JS-style comment */} comment.
 </Hello>
 <Hello>
   test <World /> test
-</Hello>123
+</Hello>
+123
 
 ---
 

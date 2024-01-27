@@ -3,7 +3,6 @@ import collapseWhiteSpace from "collapse-white-space";
 import {
   align,
   breakParent,
-  fill,
   group,
   hardline,
   hardlineWithoutBreakParent,
@@ -16,7 +15,7 @@ import {
   softline,
 } from "../document/builders.js";
 import { printDocToString } from "../document/printer.js";
-import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
+import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
@@ -28,6 +27,7 @@ import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
+import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
 import { printWhitespace } from "./print-whitespace.js";
 import {
@@ -76,11 +76,9 @@ function genericPrint(path, options, print) {
       if (node.children.length === 0) {
         return "";
       }
-      return [normalizeDoc(printRoot(path, options, print)), hardline];
+      return [cleanDoc(printRoot(path, options, print)), hardline];
     case "paragraph":
-      return printChildren(path, options, print, {
-        postprocessor: fill,
-      });
+      return printParagraph(path, options, print);
     case "sentence":
       return printChildren(path, options, print);
     case "word": {
