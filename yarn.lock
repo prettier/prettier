@@ -4056,7 +4056,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"espree@npm:9.6.1, espree@npm:^9.6.0, espree@npm:^9.6.1":
+"espree@npm:10.0.0":
+  version: 10.0.0
+  resolution: "espree@npm:10.0.0"
+  dependencies:
+    acorn: "npm:^8.11.3"
+    acorn-jsx: "npm:^5.3.2"
+    eslint-visitor-keys: "npm:^3.4.1"
+  checksum: f577b624888b3dabec909d05669526c9ee7fae67374cb116f185b75b682ebfdd0dfc19b17fd9ce7fb954e30023b2eacfc96a310bea4e286fafff3983e2e7d48f
+  languageName: node
+  linkType: hard
+
+"espree@npm:^9.6.0, espree@npm:^9.6.1":
   version: 9.6.1
   resolution: "espree@npm:9.6.1"
   dependencies:
@@ -7388,7 +7399,7 @@ __metadata:
     eslint-plugin-simple-import-sort: "npm:10.0.0"
     eslint-plugin-unicorn: "npm:50.0.1"
     esm-utils: "npm:4.2.1"
-    espree: "npm:9.6.1"
+    espree: "npm:10.0.0"
     execa: "npm:7.2.0"
     fast-glob: "npm:3.3.2"
     fast-json-stable-stringify: "npm:2.1.0"
