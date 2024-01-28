@@ -265,145 +265,145 @@ Prettier automatically infers the parser from the input file path, so you should
 
 Valid options:
 
-- `"babel"`
+### `"babel"`
 
-  Parses [JavaScript](https://tc39.es/ecma262/) syntax via [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser).
+Parses [JavaScript](https://tc39.es/ecma262/) syntax via [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser).
 
-  _Was named `"babylon"` until v1.16.0_
+_Was named `"babylon"` until v1.16.0_
 
-- `"babel-flow"`
+### `"babel-flow"`
 
-  Parses [Flow](https://flow.org/) syntax with [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser) with additional [`flow`, and `flowComments`](https://babeljs.io/docs/babel-parser#language-extensions) plugins enabled.
+Parses [Flow](https://flow.org/) syntax with [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser) with additional [`flow`, and `flowComments`](https://babeljs.io/docs/babel-parser#language-extensions) plugins enabled.
 
-  > Both the `babel-flow` and `flow` parsers support the same set of Flow Syntax features. They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babel-flow`.
+> Both the `babel-flow` and `flow` parsers support the same set of Flow Syntax features. They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babel-flow`.
 
-  _First available in v1.16.0_
+_First available in v1.16.0_
 
-- `"babel-ts"`
+### `"babel-ts"`
 
-  Parses [TypeScript](https://www.typescriptlang.org/) syntax with [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser) with additional [`typescript`](https://babeljs.io/docs/babel-parser#language-extensions) plugin enabled, similar to `"typescript"` parser.
+Parses [TypeScript](https://www.typescriptlang.org/) syntax with [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser) with additional [`typescript`](https://babeljs.io/docs/babel-parser#language-extensions) plugin enabled, similar to `"typescript"` parser.
 
-  > Both the `babel-ts` and `flow` parsers support the same set of TypeScript features. They might differ in some edge cases, so if you run into one of those you can try `typescript` instead of `babel-ts`. `babel-ts` might support JavaScript features (proposals) not yet supported by TypeScript, but it’s less permissive when it comes to invalid code and less battle-tested than the `typescript` parser.
+> Both the `babel-ts` and `flow` parsers support the same set of TypeScript features. They might differ in some edge cases, so if you run into one of those you can try `typescript` instead of `babel-ts`. `babel-ts` might support JavaScript features (proposals) not yet supported by TypeScript, but it’s less permissive when it comes to invalid code and less battle-tested than the `typescript` parser.
 
-  _First available in v2.0.0_
+_First available in v2.0.0_
 
-- `"flow"`
+### `"flow"`
 
-  Parses [Flow](https://flow.org/) syntax with the official parser [flow-parser](https://github.com/facebook/flow/tree/master/src/parser).
+Parses [Flow](https://flow.org/) syntax with the official parser [flow-parser](https://github.com/facebook/flow/tree/master/src/parser).
 
-- `"typescript"`
+### `"typescript"`
 
-  Parses [TypeScript](https://www.typescriptlang.org/) with [@typescript-eslint/typescript-estree](https://typescript-eslint.io/packages/typescript-estree), which converts TypeScript source code into an ESTree-compatible form.
+Parses [TypeScript](https://www.typescriptlang.org/) with [@typescript-eslint/typescript-estree](https://typescript-eslint.io/packages/typescript-estree), which converts TypeScript source code into an ESTree-compatible form.
 
-  _First available in v1.4.0_
+_First available in v1.4.0_
 
-- `"espree"`
+### `"espree"`
 
-  Parses [JavaScript](https://tc39.es/ecma262/) syntax with [espree](https://github.com/eslint/espree).
+Parses [JavaScript](https://tc39.es/ecma262/) syntax with [espree](https://github.com/eslint/espree).
 
-  _First available in v2.2.0_
+_First available in v2.2.0_
 
-- `"meriyah"`
+### `"meriyah"`
 
-  Parses [JavaScript](https://tc39.es/ecma262/) syntax with [meriyah](https://github.com/meriyah/meriyah)).
+Parses [JavaScript](https://tc39.es/ecma262/) syntax with [meriyah](https://github.com/meriyah/meriyah)).
 
-  _First available in v2.2.0_
+_First available in v2.2.0_
 
-- `"acorn"`
+### `"acorn"`
 
-  Parses [JavaScript](https://tc39.es/ecma262/) syntax with [acorn](https://github.com/acornjs/acorn).
+Parses [JavaScript](https://tc39.es/ecma262/) syntax with [acorn](https://github.com/acornjs/acorn).
 
-  _First available in v2.6.0_
+_First available in v2.6.0_
 
-- `"css"`
+### `"css"`
 
-  Parses [Cascading Style Sheets(CSS)](https://www.w3.org/Style/CSS/) syntax with [postcss](https://github.com/postcss/postcss).
+Parses [Cascading Style Sheets(CSS)](https://www.w3.org/Style/CSS/) syntax with [postcss](https://github.com/postcss/postcss).
 
-  _First available in v1.7.1_
+_First available in v1.7.1_
 
-- `"scss"`
+### `"scss"`
 
-  Parses [SCSS](https://sass-lang.com/) syntax with [postcss-scss](https://github.com/postcss/postcss-scss).
+Parses [SCSS](https://sass-lang.com/) syntax with [postcss-scss](https://github.com/postcss/postcss-scss).
 
-  _First available in v1.7.1_
+_First available in v1.7.1_
 
-- `"less"`
+### `"less"`
 
-  Parses [Less](https://lesscss.org/) syntax with [postcss-less](https://github.com/shellscape/postcss-less).
+Parses [Less](https://lesscss.org/) syntax with [postcss-less](https://github.com/shellscape/postcss-less).
 
-  _First available in v1.7.1_
+_First available in v1.7.1_
 
-- `"json"`
+### `"json"`
 
-  Parses [JSON (JavaScript Object Notation)](https://www.json.org/) syntax with [parseExpression()](https://babeljs.io/docs/babel-parser.html#babelparserparseexpressioncode-options) from [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser).
+Parses [JSON (JavaScript Object Notation)](https://www.json.org/) syntax with [parseExpression()](https://babeljs.io/docs/babel-parser.html#babelparserparseexpressioncode-options) from [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser).
 
-  _First available in v1.5.0_
+_First available in v1.5.0_
 
-- `"json5"`
+### `"json5"`
 
-  Parses [JSON5](https://json5.org/) syntax as the same as the `"json"` parser.
+Parses [JSON5](https://json5.org/) syntax as the same as the `"json"` parser.
 
-  _First available in v1.13.0_
+_First available in v1.13.0_
 
-- `"jsonc"`
+### `"jsonc"`
 
-  Parses [JSON with comments(JSONC)](https://github.com/microsoft/node-jsonc-parser) syntax as the same as the `"json"` parser.
+Parses [JSON with comments(JSONC)](https://github.com/microsoft/node-jsonc-parser) syntax as the same as the `"json"` parser.
 
-  _First available in v3.2.0_
+_First available in v3.2.0_
 
-- `"json-stringify"`
+### `"json-stringify"`
 
-  Parses [JSON (JavaScript Object Notation)](https://www.json.org/) syntax as the same as the `"json"` parser, but forbids comments and outputs like `JSON.stringify`.
+Parses [JSON (JavaScript Object Notation)](https://www.json.org/) syntax as the same as the `"json"` parser, but forbids comments and outputs like `JSON.stringify`.
 
-  _First available in v1.13.0_
+_First available in v1.13.0_
 
-- `"graphql"`
+### `"graphql"`
 
-  Parses [GraphQL](https://graphql.org/) syntax with [GraphQL.js](https://github.com/graphql/graphql-js).
+Parses [GraphQL](https://graphql.org/) syntax with [GraphQL.js](https://github.com/graphql/graphql-js).
 
-  _First available in v1.5.0_
+_First available in v1.5.0_
 
-- `"markdown"`
+### `"markdown"`
 
-  Parses [Markdown](https://www.markdownguide.org/) syntax with [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse).
+Parses [Markdown](https://www.markdownguide.org/) syntax with [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse).
 
-  _First available in v1.8.0_
+_First available in v1.8.0_
 
-- `"mdx"`
+### `"mdx"`
 
-  Parses [MDX](https://mdxjs.com/) syntax with [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse) and [@mdx-js/mdx](https://github.com/mdx-js/mdx/tree/master/packages/mdx).
+Parses [MDX](https://mdxjs.com/) syntax with [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse) and [@mdx-js/mdx](https://github.com/mdx-js/mdx/tree/master/packages/mdx).
 
-  _First available in v1.15.0_
+_First available in v1.15.0_
 
-- `"html"`
+### `"html"`
 
-  Parses [HTML](https://html.spec.whatwg.org/) syntax with [angular-html-parser](https://github.com/prettier/angular-html-parser/tree/dev/packages/angular-html-parser).
+Parses [HTML](https://html.spec.whatwg.org/) syntax with [angular-html-parser](https://github.com/prettier/angular-html-parser/tree/dev/packages/angular-html-parser).
 
-  _First available in v1.15.0_
+_First available in v1.15.0_
 
-- `"vue"`
+### `"vue"`
 
-  Parses [Vue.js](https://vuejs.org/) syntax with [angular-html-parser](https://github.com/prettier/angular-html-parser/tree/dev/packages/angular-html-parser).
+Parses [Vue.js](https://vuejs.org/) syntax with [angular-html-parser](https://github.com/prettier/angular-html-parser/tree/dev/packages/angular-html-parser).
 
-  _First available in 1.10.0_
+_First available in 1.10.0_
 
-- `"angular"`
+### `"angular"`
 
-  Parses [Angular](https://angular.io/) syntax with [angular-html-parser](https://github.com/prettier/angular-html-parser/tree/dev/packages/angular-html-parser).
+Parses [Angular](https://angular.io/) syntax with [angular-html-parser](https://github.com/prettier/angular-html-parser/tree/dev/packages/angular-html-parser).
 
-  _First available in 1.15.0_
+_First available in 1.15.0_
 
-- `"lwc"`
+### `"lwc"`
 
-  Parses [Lightning Web Components(LWC)](https://lwc.dev/) syntax with [angular-html-parser](https://github.com/prettier/angular-html-parser/tree/dev/packages/angular-html-parser).
+Parses [Lightning Web Components(LWC)](https://lwc.dev/) syntax with [angular-html-parser](https://github.com/prettier/angular-html-parser/tree/dev/packages/angular-html-parser).
 
-  _First available in 1.17.0_
+_First available in 1.17.0_
 
-- `"yaml"`
+### `"yaml"`
 
-  Parses [YAML](https://yaml.org/) syntax with [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser).
+Parses [YAML](https://yaml.org/) syntax with [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser).
 
-  _First available in 1.14.0_
+_First available in 1.14.0_
 
 | Default | CLI Override        | API Override         |
 | ------- | ------------------- | -------------------- |
