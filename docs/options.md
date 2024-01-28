@@ -305,7 +305,7 @@ Valid options:
 
 - `"meriyah"`
 
-  Parses [JavaScript](https://tc39.es/ecma262/) syntax with [meriyah](https://github.com/meriyah/meriyah))
+  Parses [JavaScript](https://tc39.es/ecma262/) syntax with [meriyah](https://github.com/meriyah/meriyah)).
 
   _First available in v2.2.0_
 
