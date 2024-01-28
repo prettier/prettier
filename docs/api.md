@@ -35,7 +35,7 @@ await prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
 
 ## `prettier.resolveConfig(fileUrlOrPath [, options])`
 
-`resolveConfig` can be used to resolve configuration for a given source file, passing its path or url as the first argument. The config search will start at the file location and continue to search up the directory (you can use `process.cwd()` to start searching from the current directory). Or you can pass directly the path of the config file as `options.config` if you don’t wish to search for it. A promise is returned which will resolve to:
+`resolveConfig` can be used to resolve configuration for a given source file, passing its path or url as the first argument. The config search will start at the directory of the file location and continue to search up the directory. Or you can pass directly the path of the config file as `options.config` if you don’t wish to search for it. A promise is returned which will resolve to:
 
 - An options object, providing a [config file](configuration.md) was found.
 - `null`, if no file was found.

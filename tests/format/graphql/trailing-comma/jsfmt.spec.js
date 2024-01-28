@@ -1,3 +1,3 @@
-run_spec(import.meta, ["graphql"], { trailingComma: "none" });
-run_spec(import.meta, ["graphql"], { trailingComma: "all" });
-run_spec(import.meta, ["graphql"], { trailingComma: "es5" });
+runFormatTest(import.meta, ["graphql"], { trailingComma: "none" });
+runFormatTest(import.meta, ["graphql"], { trailingComma: "all" });
+runFormatTest(import.meta, ["graphql"], { trailingComma: "es5" });

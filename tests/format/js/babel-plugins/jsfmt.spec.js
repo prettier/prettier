@@ -1,7 +1,7 @@
 // Only testing babel parsing
 // Do not add extra parsers here
 
-run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
+runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
   errors: {
     acorn: [
       "decimal.js",

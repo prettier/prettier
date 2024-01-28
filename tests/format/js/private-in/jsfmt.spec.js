@@ -1,1 +1,3 @@
-run_spec(import.meta, ["babel"], { errors: { acorn: true, espree: true } });
+runFormatTest(import.meta, ["babel"], {
+  errors: { acorn: true, espree: true },
+});

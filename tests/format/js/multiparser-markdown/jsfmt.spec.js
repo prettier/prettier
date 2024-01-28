@@ -1,1 +1,1 @@
-run_spec(import.meta, ["babel"], { proseWrap: "always" });
+runFormatTest(import.meta, ["babel"], { proseWrap: "always" });

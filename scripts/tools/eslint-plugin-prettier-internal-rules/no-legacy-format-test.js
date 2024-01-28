@@ -1,18 +1,26 @@
 "use strict";
 
-const dirnameArgumentSelector = [
+const legacyRunFormatTestCall = [
   "CallExpression",
   '[callee.type="Identifier"]',
   '[callee.name="run_spec"]',
+].join("");
+
+const runFormatTestCall = [
+  "CallExpression",
+  '[callee.type="Identifier"]',
+  '[callee.name="runFormatTest"]',
+].join("");
+
+const dirnameArgumentSelector = [
+  runFormatTestCall,
   " > ",
   "Identifier.arguments:first-child",
   '[name="__dirname"]',
 ].join("");
 
 const dirnamePropertySelector = [
-  "CallExpression",
-  '[callee.type="Identifier"]',
-  '[callee.name="run_spec"]',
+  runFormatTestCall,
   " > ",
   "ObjectExpression.arguments:first-child",
   " > ",
@@ -23,6 +31,7 @@ const dirnamePropertySelector = [
   '[value.name="__dirname"]',
 ].join("");
 
+const MESSAGE_ID_LEGACY_FUNCTION_NAME = "legacy-function-name";
 const MESSAGE_ID_ARGUMENT = "dirname-argument";
 const MESSAGE_ID_PROPERTY = "dirname-property";
 
@@ -30,9 +39,11 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-legacy-format-test-fixtures.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-legacy-format-test.js",
     },
     messages: {
+      [MESSAGE_ID_LEGACY_FUNCTION_NAME]:
+        "Use `runFormatTest(…)` instead of `run_spec(…)`.",
       [MESSAGE_ID_ARGUMENT]: "Use `import.meta` instead of `__dirname`.",
       [MESSAGE_ID_PROPERTY]:
         "Use `importMeta: import.meta` instead of `dirname: __dirname`.",
@@ -42,6 +53,14 @@ module.exports = {
   },
   create(context) {
     return {
+      [legacyRunFormatTestCall](callExpression) {
+        context.report({
+          node: callExpression.callee,
+          messageId: MESSAGE_ID_LEGACY_FUNCTION_NAME,
+          fix: (fixer) =>
+            fixer.replaceText(callExpression.callee, "runFormatTest"),
+        });
+      },
       [dirnameArgumentSelector](node) {
         context.report({
           node,

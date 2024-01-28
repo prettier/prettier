@@ -137,7 +137,6 @@ export default [
       ],
 
       // eslint-plugin-import
-      "import/extensions": ["error", "ignorePackages"],
       "import/no-extraneous-dependencies": [
         "error",
         {
@@ -320,7 +319,7 @@ export default [
   {
     files: ["tests/format/**/*.js"],
     rules: {
-      "prettier-internal-rules/no-legacy-format-test-fixtures": "error",
+      "prettier-internal-rules/no-legacy-format-test": "error",
     },
   },
   {
@@ -340,8 +339,8 @@ export default [
     },
     languageOptions: {
       globals: {
-        run_spec: "readonly",
         runCli: "readonly",
+        runFormatTest: "readonly",
       },
     },
   },

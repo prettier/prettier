@@ -18,16 +18,6 @@ function createJsonParse(options = {}) {
         attachComment: false,
       });
     } catch (/** @type {any} */ error) {
-      if (
-        error?.reasonCode === "MissingPlugin" ||
-        error?.reasonCode === "MissingOneOfPlugins"
-      ) {
-        throw createBabelParseError({
-          message: "Unexpected token",
-          loc: error.loc,
-        });
-      }
-
       throw createBabelParseError(error);
     }
 

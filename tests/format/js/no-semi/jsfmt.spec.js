@@ -1,2 +1,2 @@
-run_spec(import.meta, ["babel", "flow"], {});
-run_spec(import.meta, ["babel", "flow"], { semi: false });
+runFormatTest(import.meta, ["babel", "flow"], {});
+runFormatTest(import.meta, ["babel", "flow"], { semi: false });

@@ -1,3 +1,3 @@
-run_spec(import.meta, ["flow", "babel", "typescript"], {
+runFormatTest(import.meta, ["flow", "babel", "typescript"], {
   errors: { meriyah: ["fragment.js"] },
 });

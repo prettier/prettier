@@ -7,7 +7,7 @@ import { runGit } from "../utils.js";
 
 export default async function cleanChangelog({ repo }) {
   const changelogUnreleasedDir = fileURLToPath(
-    new URL("../changelog_unreleased", import.meta.url),
+    new URL("../../../changelog_unreleased", import.meta.url),
   );
 
   const files = await fastGlob(["blog-post-intro.md", "*/*.md"], {

@@ -3,5 +3,5 @@ const parsers = [
   "babel", // "flow", "typescript"
 ];
 
-run_spec(import.meta, parsers);
-run_spec(import.meta, parsers, { experimentalTernaries: true });
+runFormatTest(import.meta, parsers);
+runFormatTest(import.meta, parsers, { experimentalTernaries: true });

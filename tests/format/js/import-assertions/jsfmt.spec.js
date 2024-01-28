@@ -1,4 +1,4 @@
-run_spec(import.meta, ["babel", "typescript"], {
+runFormatTest(import.meta, ["babel", "typescript"], {
   errors: {
     acorn: [
       "dynamic-import.js",

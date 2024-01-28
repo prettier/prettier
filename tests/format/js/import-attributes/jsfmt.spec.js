@@ -33,12 +33,12 @@ const errors = {
     "quoted-keys.js",
   ],
 };
-run_spec(import.meta, ["babel", "typescript"], { errors });
-run_spec(import.meta, ["babel", "typescript"], {
+runFormatTest(import.meta, ["babel", "typescript"], { errors });
+runFormatTest(import.meta, ["babel", "typescript"], {
   quoteProps: "consistent",
   errors,
 });
-run_spec(import.meta, ["babel", "typescript"], {
+runFormatTest(import.meta, ["babel", "typescript"], {
   quoteProps: "preserve",
   errors,
 });

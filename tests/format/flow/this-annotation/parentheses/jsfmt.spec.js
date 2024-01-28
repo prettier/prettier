@@ -1,2 +1,2 @@
-run_spec(import.meta, ["flow"], { arrowParens: "always" });
-run_spec(import.meta, ["flow"], { arrowParens: "avoid" });
+runFormatTest(import.meta, ["flow"], { arrowParens: "always" });
+runFormatTest(import.meta, ["flow"], { arrowParens: "avoid" });

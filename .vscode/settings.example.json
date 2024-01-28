@@ -2,14 +2,14 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": ["source.fixAll.eslint"]
+    "editor.codeActionsOnSave": ["source.fixAll.eslint"],
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
   },
   "prettier.requireConfig": true,
   "eslint.experimental.useFlatConfig": true,
   "files.exclude": {
-    "dist*": true
-  }
+    "dist*": true,
+  },
 }

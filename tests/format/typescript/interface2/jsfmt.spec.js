@@ -1,3 +1,3 @@
-run_spec(import.meta, ["typescript", "flow"], {
+runFormatTest(import.meta, ["typescript", "flow"], {
   trailingComma: "es5",
 });

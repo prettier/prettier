@@ -1,1 +1,1 @@
-run_spec(import.meta, ["html"], { requirePragma: true });
+runFormatTest(import.meta, ["html"], { requirePragma: true });

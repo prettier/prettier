@@ -1,5 +1,5 @@
-run_spec(import.meta, ["json"], { trailingComma: "es5" });
-run_spec(import.meta, ["json"], { trailingComma: "all" });
-run_spec(import.meta, ["json5"], { trailingComma: "es5" });
-run_spec(import.meta, ["json5"], { trailingComma: "all" });
-run_spec(import.meta, ["json-stringify"]);
+runFormatTest(import.meta, ["json"], { trailingComma: "es5" });
+runFormatTest(import.meta, ["json"], { trailingComma: "all" });
+runFormatTest(import.meta, ["json5"], { trailingComma: "es5" });
+runFormatTest(import.meta, ["json5"], { trailingComma: "all" });
+runFormatTest(import.meta, ["json-stringify"]);

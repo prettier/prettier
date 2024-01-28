@@ -1,1 +1,1 @@
-run_spec(import.meta, ["html"]);
+runFormatTest(import.meta, ["html"]);

@@ -1,4 +1,4 @@
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: ["\uFEFF#!/usr/bin/env node\n/** @format */\nprettier"],

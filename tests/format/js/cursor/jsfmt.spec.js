@@ -2,7 +2,7 @@ import { outdent } from "outdent";
 
 import getPrettier from "../../../config/get-prettier.js";
 
-run_spec(import.meta, ["babel", "typescript", "flow"]);
+runFormatTest(import.meta, ["babel", "typescript", "flow"]);
 
 let prettier;
 beforeAll(async () => {

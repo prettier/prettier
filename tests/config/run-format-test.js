@@ -146,7 +146,7 @@ const ensurePromise = (value) => {
   return value;
 };
 
-function runSpec(fixtures, parsers, options) {
+function runFormatTest(fixtures, parsers, options) {
   let { importMeta, snippets = [] } = fixtures.importMeta
     ? fixtures
     : { importMeta: fixtures };
@@ -531,4 +531,4 @@ async function format(originalText, originalOptions) {
   };
 }
 
-export default runSpec;
+export default runFormatTest;

@@ -1,3 +1,122 @@
+# 3.2.4
+
+[diff](https://github.com/prettier/prettier/compare/3.2.3...3.2.4)
+
+#### Fix incorrect parser inference ([#15947](https://github.com/prettier/prettier/pull/15947) by [@fisker](https://github.com/fisker))
+
+Files like `.eslintrc.json` were incorrectly formatted as JSONC files.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+prettier --file-info .eslintrc.json
+{ "ignored": false, "inferredParser": "jsonc" }
+
+// Prettier 3.2.4
+prettier --file-info .eslintrc.json
+{ "ignored": false, "inferredParser": "json" }
+```
+
+# 3.2.3
+
+[diff](https://github.com/prettier/prettier/compare/3.2.2...3.2.3)
+
+#### Throw errors for invalid code ([#15881](https://github.com/prettier/prettier/pull/15881) by [@fisker](https://github.com/fisker), [@Josh-Cena](https://github.com/Josh-Cena), [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+1++;
+
+// Prettier 3.2.2
+1++;
+
+// Prettier 3.2.3
+SyntaxError: Invalid left-hand side expression in unary operation (1:1)
+> 1 | 1++;
+    | ^
+```
+
+<!-- prettier-ignore -->
+```ts
+// Input
+try {} catch (error = 1){}
+
+// Prettier 3.2.2
+try {
+} catch (error) {}
+
+// Prettier 3.2.3
+SyntaxError: Catch clause variable cannot have an initializer. (1:23)
+> 1 | try {} catch (error = 1){}
+    |                       ^
+```
+
+#### Fix parser inference ([#15927](https://github.com/prettier/prettier/pull/15927) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```console
+// Prettier 3.2.2
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "json" }
+
+// Prettier 3.2.3
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "jsonc" }
+```
+
+# 3.2.2
+
+[diff](https://github.com/prettier/prettier/compare/3.2.1...3.2.2)
+
+#### Fix crash when parsing template literal CSS in a JSX style tag using a spread attribute ([#15896](https://github.com/prettier/prettier/pull/15896) by [@eelco](https://github.com/eelco))
+
+For example this code would crash before:
+
+<!-- prettier-ignore -->
+```jsx
+<style {...spread}>{`.{}`}</style>
+```
+
+#### Fix formatting error on optional call expression and member chain ([#15920](https://github.com/prettier/prettier/pull/15920) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+a(() => {}, c?.d());
+
+// Prettier 3.2.1
+TypeError: Cannot read properties of undefined (reading 'type')
+
+// Prettier 3.2.2
+a(() => {}, c?.d());
+```
+
+# 3.2.1
+
+[diff](https://github.com/prettier/prettier/compare/3.2.0...3.2.1)
+
+#### Fix formatting error on member chain ([#15915](https://github.com/prettier/prettier/pull/15915) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+test().test2().test2(thing?.something);
+
+// Prettier 3.2.0
+TypeError: Cannot read properties of undefined (reading 'type')
+
+// Prettier 3.2.1
+test().test2().test2(thing?.something);
+
+```
+
+# 3.2.0
+
+[diff](https://github.com/prettier/prettier/compare/3.1.1...3.2.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2024/01/12/3.2.0.html)
+
 # 3.1.1
 
 [diff](https://github.com/prettier/prettier/compare/3.1.0...3.1.1)
@@ -325,7 +444,7 @@ function fn() {
   return (
     /**
      * @type {...}
-     */ expresssion
+     */ expression
   )
 }
 
@@ -333,7 +452,7 @@ function fn() {
 function fn() {
   return /**
    * @type {...}
-   */ expresssion;
+   */ expression;
 }
 
 // Prettier 3.0.1
@@ -341,7 +460,7 @@ function fn() {
   return (
     /**
      * @type {...}
-     */ expresssion
+     */ expression
   );
 }
 ```
@@ -1669,7 +1788,7 @@ interface Foo {
 <MyComponent
   {{! this is a comment for arg 1}}
   @arg1="hello"
-  {{on "clik" this.modify}}
+  {{on "click" this.modify}}
   @arg2="hello"
   {{! this is a comment for arg 3}}
   @arg3="hello"
@@ -1686,7 +1805,7 @@ interface Foo {
   @arg4="hello"
   @arg5="hello"
   ...arguments
-  {{on "clik" this.modify}}
+  {{on "click" this.modify}}
   {{! this is a comment for arg 1}}
   {{! this is a comment for arg 3}}
   {{! this is a comment for arg 5}}
@@ -1695,7 +1814,7 @@ interface Foo {
 <MyComponent
   {{! this is a comment for arg 1}}
   @arg1="hello"
-  {{on "clik" this.modify}}
+  {{on "click" this.modify}}
   @arg2="hello"
   {{! this is a comment for arg 3}}
   @arg3="hello"
