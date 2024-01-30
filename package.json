@@ -118,7 +118,7 @@
     "@types/jest": "29.5.8",
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "benchmark": "2.1.4",
-    "browserslist": "4.22.2",
+    "browserslist": "4.22.3",
     "browserslist-to-esbuild": "2.1.1",
     "c8": "9.0.0",
     "cross-env": "7.0.3",
