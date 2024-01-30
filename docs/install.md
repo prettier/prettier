@@ -114,25 +114,23 @@ In addition to running Prettier from the command line (`prettier --write`), chec
 
 For example, you can do the following to have Prettier run before each commit:
 
-1. Install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged):
+1. Install [husky](https://github.com/typicode/husky):
 
    <!--DOCUSAURUS_CODE_TABS-->
    <!--npm-->
 
    ```bash
-   npm install --save-dev husky lint-staged
-   npx husky install
-   npm pkg set scripts.prepare="husky install"
-   npx husky add .husky/pre-commit "npx lint-staged"
+   npm install --save-dev husky
+   npx husky init
+   echo "npm run lint" > .husky/pre-commit
    ```
 
    <!--yarn-->
 
    ```bash
    yarn add --dev husky lint-staged
-   npx husky install
-   npm pkg set scripts.prepare="husky install"
-   npx husky add .husky/pre-commit "npx lint-staged"
+   npx husky init
+   echo "yarn run lint" > .husky/pre-commit
    ```
 
    > If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
@@ -141,9 +139,8 @@ For example, you can do the following to have Prettier run before each commit:
 
    ```bash
    pnpm add --save-dev husky lint-staged
-   pnpm exec husky install
-   npm pkg set scripts.prepare="husky install"
-   pnpm exec husky add .husky/pre-commit "pnpm exec lint-staged"
+   npx husky init
+   echo "pnpm run lint" > .husky/pre-commit
    ```
 
    <!--END_DOCUSAURUS_CODE_TABS-->
@@ -152,8 +149,8 @@ For example, you can do the following to have Prettier run before each commit:
 
 ```json
 {
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+  "scripts": {
+    "lint": "prettier --write --ignore-unknown ."
   }
 }
 ```
