@@ -159,6 +159,9 @@
   "resolutions": {
     "trim": "1.0.1"
   },
+  "rules": {
+    "eol-last": ["error", "always"]
+  },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
