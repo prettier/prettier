@@ -385,27 +385,25 @@ const tierIconSize = new Map([
   ["bronze", "80px"],
   ["backers", "40px"],
 ]);
-const SponsorsTier = ({ tier, sponsors }) => {
-  return (
-    <div className={`sponsorsTier ${tier}`}>
-      <h3>{tierTitle.get(tier)}</h3>
-      <p>{tierDescription.get(tier)}</p>
-      <div className="sponsorAvatars">
-        {sponsors.map((sponsor) => (
-          <div key={sponsor.name}>
-            <a href={sponsor.website}>
-              <img
-                src={sponsor.avatar}
-                title={sponsor.name}
-                height={tierIconSize.get(tier)}
-              />
-            </a>
-          </div>
-        ))}
-      </div>
+const SponsorsTier = ({ tier, sponsors }) => (
+  <div className={`sponsorsTier ${tier}`}>
+    <h3>{tierTitle.get(tier)}</h3>
+    <p>{tierDescription.get(tier)}</p>
+    <div className="sponsorAvatars">
+      {sponsors.map((sponsor) => (
+        <div key={sponsor.name}>
+          <a href={sponsor.website}>
+            <img
+              src={sponsor.avatar}
+              title={sponsor.name}
+              height={tierIconSize.get(tier)}
+            />
+          </a>
+        </div>
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 const SponsorsSection = () => {
   const { gold, silver, bronze, backers } = siteConfig.sponsors;

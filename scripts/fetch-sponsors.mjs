@@ -1,7 +1,7 @@
 import timers from "node:timers/promises";
 
-const OC_API_URL = process.env.OPENCOLLECTIVE_API_KEY
-  ? `https://api.opencollective.com/graphql/v2?personalToken=${process.env.OPENCOLLECTIVE_API_KEY}`
+const OC_API_URL = process.env.OC_API_KEY
+  ? `https://api.opencollective.com/graphql/v2?personalToken=${process.env.OC_API_KEY}`
   : "https://api.opencollective.com/graphql/v2";
 
 const transactionsGraphqlQuery = /* GraphQL */ `
@@ -44,11 +44,10 @@ async function fetchTransactions() {
 
   const allTransactionNodes = [];
 
-  let limit = 10;
   let remaining = 10;
   let reset;
 
-  while (true) {
+  for (;;) {
     if (remaining === 0) {
       await timers.setTimeout(reset - Date.now() + 100);
     }
@@ -68,8 +67,7 @@ async function fetchTransactions() {
         remaining = 0;
         reset = Date.now() + 1000 * 60; // 1 minute
       } else {
-        limit = response.headers.get("x-ratelimit-limit") * 1;
-        remaining = response.headers.get("x-ratelimit-remaining") * 1;
+        remaining = Number(response.headers.get("x-ratelimit-remaining"));
         reset = response.headers.get("x-ratelimit-reset") * 1000;
       }
       result = json;
@@ -84,8 +82,6 @@ async function fetchTransactions() {
     body.variables.offset += pageSize;
     if (nodes.length < pageSize) {
       return allTransactionNodes;
-    } else {
-      // more nodes to fetch
     }
   }
 }
@@ -121,7 +117,7 @@ export async function fetchSponsors() {
     bronze: [],
     backers: [],
   };
-  const sortedSponsors = Array.from(sponsorsMonthlyDonations).sort(
+  const sortedSponsors = [...sponsorsMonthlyDonations].sort(
     (a, b) => b[1].monthlyDonations - a[1].monthlyDonations,
   );
   for (const [, sponsor] of sortedSponsors) {
