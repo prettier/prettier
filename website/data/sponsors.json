@@ -119,6 +119,13 @@
       "monthlyDonations": 3500
     },
     {
+      "slug": "sourcegraph",
+      "name": "Sourcegraph",
+      "website": "https://about.sourcegraph.com",
+      "avatar": "https://images.opencollective.com/sourcegraph/67e40ff/logo.png",
+      "monthlyDonations": 2500
+    },
+    {
       "slug": "vite",
       "name": "Vite",
       "website": "https://vitejs.dev",
@@ -152,13 +159,6 @@
       "website": "https://kwork.studio/",
       "avatar": "https://images.opencollective.com/knowledge-work/f91b72d/logo.png",
       "monthlyDonations": 2000
-    },
-    {
-      "slug": "sourcegraph",
-      "name": "Sourcegraph",
-      "website": "https://about.sourcegraph.com",
-      "avatar": "https://images.opencollective.com/sourcegraph/67e40ff/logo.png",
-      "monthlyDonations": 1667
     },
     {
       "slug": "miranj",
@@ -455,6 +455,13 @@
       "monthlyDonations": 292
     },
     {
+      "slug": "gustavlrsn",
+      "name": "Gustav Larsson",
+      "website": "https://gustav.io/",
+      "avatar": "https://images.opencollective.com/gustavlrsn/04a30b2/avatar.png",
+      "monthlyDonations": 250
+    },
+    {
       "slug": "moody_reaper",
       "name": "Efrem Sarmazov",
       "website": "https://moodyreaper.space/",
@@ -567,13 +574,6 @@
       "monthlyDonations": 167
     },
     {
-      "slug": "gustavlrsn",
-      "name": "Gustav Larsson",
-      "website": "https://gustav.io/",
-      "avatar": "https://images.opencollective.com/gustavlrsn/04a30b2/avatar.png",
-      "monthlyDonations": 167
-    },
-    {
       "slug": "amogh-lele",
       "name": "Amogh Lele",
       "website": null,
@@ -623,6 +623,13 @@
       "monthlyDonations": 133
     },
     {
+      "slug": "gobbler-drought",
+      "name": "Gobbler Drought",
+      "website": null,
+      "avatar": "https://images.opencollective.com/gobbler-drought/avatar.png",
+      "monthlyDonations": 125
+    },
+    {
       "slug": "oliverloops",
       "name": "Oliver Lopez",
       "website": null,
@@ -656,13 +663,6 @@
       "website": "https://danoc.me/",
       "avatar": "https://images.opencollective.com/danoc/e9baf2b/avatar.png",
       "monthlyDonations": 100
-    },
-    {
-      "slug": "gobbler-drought",
-      "name": "Gobbler Drought",
-      "website": null,
-      "avatar": "https://images.opencollective.com/gobbler-drought/avatar.png",
-      "monthlyDonations": 83
     },
     {
       "slug": "guest-b32f416b",
@@ -809,13 +809,6 @@
       "name": "Incognito",
       "website": null,
       "avatar": "https://images.opencollective.com/incognito-222f9aa8/avatar.png",
-      "monthlyDonations": 8
-    },
-    {
-      "slug": "envirociti",
-      "name": "EnviroCiti",
-      "website": "https://envirociti.pk/",
-      "avatar": "https://images.opencollective.com/envirociti/5945351/logo.png",
       "monthlyDonations": 8
     }
   ]

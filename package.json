@@ -182,8 +182,9 @@
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
     "build": "node ./scripts/build/build.js",
-    "build:website": "node ./scripts/build-website.js",
+    "build:website": "node ./scripts/build-website.js > ./website/data/sponsors.json",
     "gen:changelog": "node ./scripts/generate-changelog.js",
+    "gen:sponsors": "node ./scripts/fetch-sponsors.js",
     "debug": "node bin/prettier.js --ignore-path=.prettierignore"
   },
   "c8": {
