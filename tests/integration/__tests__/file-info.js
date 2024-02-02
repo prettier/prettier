@@ -132,7 +132,7 @@ test("API getFileInfo with filepath only", async () => {
   });
   await expect(prettier.getFileInfo("tsconfig.json")).resolves.toEqual({
     ignored: false,
-    inferredParser: "jsonc",
+    inferredParser: "json",
   });
 });
 
