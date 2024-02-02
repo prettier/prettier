@@ -173,6 +173,51 @@ em {
   vertical-align: sub;
 }
 
+.sponsorsSection h2,
+.sponsorsSection .sponsorsTier h3 {
+  color: #ea5e5e !important;
+}
+
+.sponsorsSection .description {
+  color: #f9f9f9 !important;
+  font-size: 16px;
+}
+
+.sponsorsSection .description a {
+  color: #ea5e5e !important;
+  font-size: 18px;
+}
+
+.sponsorsSection .sponsorsTier h3 {
+  text-align: center;
+  font-size: 24px;
+}
+
+.sponsorsSection .sponsorsTier p {
+  font-size: 16px;
+}
+
+.sponsorsSection .sponsorsTier.gold .sponsorAvatars {
+  gap: 20px;
+}
+.sponsorsSection .sponsorsTier.silver .sponsorAvatars {
+  gap: 10px;
+}
+.sponsorsSection .sponsorsTier.bronze .sponsorAvatars {
+  gap: 8px;
+}
+.sponsorsSection .sponsorsTier.backers .sponsorAvatars {
+  gap: 5px;
+}
+
+.sponsorsSection .sponsorAvatars {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .languagesSection h2,
 .languagesSection .accented,
 .languagesSection .accented a {

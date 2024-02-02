@@ -1,0 +1,822 @@
+{
+  "gold": [
+    {
+      "slug": "rauchg2",
+      "name": "Guillermo Rauch",
+      "website": "https://rauchg.com/",
+      "avatar": "https://images.opencollective.com/rauchg2/7846142/avatar.png",
+      "monthlyDonations": 83333
+    },
+    {
+      "slug": "indeed",
+      "name": "Indeed",
+      "website": "https://Indeed.com",
+      "avatar": "https://images.opencollective.com/indeed/4b8725e/logo.png",
+      "monthlyDonations": 83333
+    },
+    {
+      "slug": "cybozu",
+      "name": "Cybozu",
+      "website": "https://cybozu.co.jp/",
+      "avatar": "https://images.opencollective.com/cybozu/933e46d/logo.png",
+      "monthlyDonations": 51608
+    }
+  ],
+  "silver": [
+    {
+      "slug": "canvaofficial",
+      "name": "Canva",
+      "website": "https://www.canva.com",
+      "avatar": "https://images.opencollective.com/canvaofficial/7217c4d/logo.png",
+      "monthlyDonations": 41667
+    }
+  ],
+  "bronze": [
+    {
+      "slug": "thanks-dev",
+      "name": "THANKS.DEV",
+      "website": "https://thanks.dev",
+      "avatar": "https://images.opencollective.com/thanks-dev/ed78b39/logo.png",
+      "monthlyDonations": 22652
+    },
+    {
+      "slug": "napi-rs",
+      "name": "NAPI-RS",
+      "website": null,
+      "avatar": "https://images.opencollective.com/napi-rs/1205a93/logo.png",
+      "monthlyDonations": 20833
+    },
+    {
+      "slug": "airbnb",
+      "name": "Airbnb",
+      "website": "https://www.airbnb.com/",
+      "avatar": "https://images.opencollective.com/airbnb/d327d66/logo.png",
+      "monthlyDonations": 17500
+    },
+    {
+      "slug": "thinkmill",
+      "name": "Thinkmill",
+      "website": "https://www.thinkmill.com.au",
+      "avatar": "https://images.opencollective.com/thinkmill/28910ec/logo.png",
+      "monthlyDonations": 10833
+    }
+  ],
+  "backers": [
+    {
+      "slug": "keita-nonaka",
+      "name": "Keita Nonaka",
+      "website": null,
+      "avatar": "https://images.opencollective.com/keita-nonaka/avatar.png",
+      "monthlyDonations": 6050
+    },
+    {
+      "slug": "invision-ag",
+      "name": "InVision AG",
+      "website": "https://www.ivx.com/",
+      "avatar": "https://images.opencollective.com/invision-ag/4a551bd/logo.png",
+      "monthlyDonations": 5833
+    },
+    {
+      "slug": "nx",
+      "name": "Nx (by Nrwl)",
+      "website": "https://nx.dev",
+      "avatar": "https://images.opencollective.com/nx/0efbe42/logo.png",
+      "monthlyDonations": 5833
+    },
+    {
+      "slug": "principal",
+      "name": "Principal Financial Group",
+      "website": "https://www.principal.com/about-us",
+      "avatar": "https://images.opencollective.com/principal/431e690/logo.png",
+      "monthlyDonations": 5000
+    },
+    {
+      "slug": "tako8ki",
+      "name": "TaKO8Ki",
+      "website": "https://tako8ki.notion.site/",
+      "avatar": "https://images.opencollective.com/tako8ki/0490559/avatar.png",
+      "monthlyDonations": 4508
+    },
+    {
+      "slug": "jetbrains",
+      "name": "JetBrains",
+      "website": "https://www.jetbrains.com/",
+      "avatar": "https://images.opencollective.com/jetbrains/eb04ddc/logo.png",
+      "monthlyDonations": 4167
+    },
+    {
+      "slug": "skunk-team",
+      "name": "Skunk Team",
+      "website": "https://skunk.team",
+      "avatar": "https://images.opencollective.com/skunk-team/3ddba2f/logo.png",
+      "monthlyDonations": 4167
+    },
+    {
+      "slug": "rstudio",
+      "name": "Posit",
+      "website": "https://posit.co/",
+      "avatar": "https://images.opencollective.com/rstudio/75ec376/logo.png",
+      "monthlyDonations": 3500
+    },
+    {
+      "slug": "vite",
+      "name": "Vite",
+      "website": "https://vitejs.dev",
+      "avatar": "https://images.opencollective.com/vite/e6d15e1/logo.png",
+      "monthlyDonations": 2500
+    },
+    {
+      "slug": "frontendmasters",
+      "name": "Frontend Masters",
+      "website": "https://FrontendMasters.com",
+      "avatar": "https://images.opencollective.com/frontendmasters/0b9cda4/logo.png",
+      "monthlyDonations": 2190
+    },
+    {
+      "slug": "pinecast",
+      "name": "Pinecast",
+      "website": "https://www.pinecast.com",
+      "avatar": "https://images.opencollective.com/pinecast/bfbf6a8/logo.png",
+      "monthlyDonations": 2000
+    },
+    {
+      "slug": "agendrix",
+      "name": "Agendrix",
+      "website": "https://www.agendrix.com/",
+      "avatar": "https://images.opencollective.com/agendrix/32bd295/logo.png",
+      "monthlyDonations": 2000
+    },
+    {
+      "slug": "knowledge-work",
+      "name": "Knowledge Work",
+      "website": "https://kwork.studio/",
+      "avatar": "https://images.opencollective.com/knowledge-work/f91b72d/logo.png",
+      "monthlyDonations": 2000
+    },
+    {
+      "slug": "sourcegraph",
+      "name": "Sourcegraph",
+      "website": "https://about.sourcegraph.com",
+      "avatar": "https://images.opencollective.com/sourcegraph/67e40ff/logo.png",
+      "monthlyDonations": 1667
+    },
+    {
+      "slug": "miranj",
+      "name": "Miranj",
+      "website": "https://miranj.in",
+      "avatar": "https://images.opencollective.com/miranj/f4091e9/logo.png",
+      "monthlyDonations": 1667
+    },
+    {
+      "slug": "storis",
+      "name": "STORIS",
+      "website": "https://www.storis.com/",
+      "avatar": "https://images.opencollective.com/storis/dfb0e13/logo.png",
+      "monthlyDonations": 1500
+    },
+    {
+      "slug": "strategyzer",
+      "name": "Strategyzer",
+      "website": "https://www.strategyzer.com/",
+      "avatar": "https://images.opencollective.com/strategyzer/3a0abaf/logo.png",
+      "monthlyDonations": 1500
+    },
+    {
+      "slug": "strand-communications",
+      "name": "Strand Communications",
+      "website": "https://www.strand-uk.com",
+      "avatar": "https://images.opencollective.com/strand-communications/e4774ea/logo.png",
+      "monthlyDonations": 1250
+    },
+    {
+      "slug": "mention-me",
+      "name": "Mention Me",
+      "website": "https://www.mention-me.com",
+      "avatar": "https://images.opencollective.com/mention-me/eca0eb5/logo.png",
+      "monthlyDonations": 1000
+    },
+    {
+      "slug": "watershed",
+      "name": "Watershed",
+      "website": "https://watershed.com",
+      "avatar": "https://images.opencollective.com/watershed/0a45b1a/logo.png",
+      "monthlyDonations": 1000
+    },
+    {
+      "slug": "wwoof-open-source-fund",
+      "name": "WWOOF's Open Source Fund",
+      "website": null,
+      "avatar": "https://images.opencollective.com/wwoof-open-source-fund/cb8119c/logo.png",
+      "monthlyDonations": 1000
+    },
+    {
+      "slug": "mfbtech",
+      "name": "MFB Technologies",
+      "website": "https://mfbtech.com",
+      "avatar": "https://images.opencollective.com/mfbtech/3c62a0c/logo.png",
+      "monthlyDonations": 1000
+    },
+    {
+      "slug": "f_subal",
+      "name": "f_subal",
+      "website": null,
+      "avatar": "https://images.opencollective.com/f_subal/avatar.png",
+      "monthlyDonations": 1000
+    },
+    {
+      "slug": "junliang-huang",
+      "name": "Jùnliàng Huáng",
+      "website": null,
+      "avatar": "https://images.opencollective.com/junliang-huang/d9871cc/avatar.png",
+      "monthlyDonations": 1000
+    },
+    {
+      "slug": "avrios",
+      "name": "Avrios",
+      "website": "https://www.avrios.com/",
+      "avatar": "https://images.opencollective.com/avrios/9167776/logo.png",
+      "monthlyDonations": 1000
+    },
+    {
+      "slug": "chaoran-chen",
+      "name": "Chaoran Chen",
+      "website": null,
+      "avatar": "https://images.opencollective.com/chaoran-chen/avatar.png",
+      "monthlyDonations": 833
+    },
+    {
+      "slug": "guest-fbc617fd",
+      "name": "CarbonReach",
+      "website": null,
+      "avatar": "https://images.opencollective.com/guest-fbc617fd/avatar.png",
+      "monthlyDonations": 833
+    },
+    {
+      "slug": "michal-wojciechowski",
+      "name": "Michał Wojciechowski",
+      "website": null,
+      "avatar": "https://images.opencollective.com/michal-wojciechowski/avatar.png",
+      "monthlyDonations": 833
+    },
+    {
+      "slug": "guest-374296b9",
+      "name": "Omlet/Zeplin",
+      "website": null,
+      "avatar": "https://images.opencollective.com/guest-374296b9/avatar.png",
+      "monthlyDonations": 833
+    },
+    {
+      "slug": "odan",
+      "name": "odan",
+      "website": null,
+      "avatar": "https://images.opencollective.com/odan/3b99c72/avatar.png",
+      "monthlyDonations": 733
+    },
+    {
+      "slug": "lt",
+      "name": "LT",
+      "website": null,
+      "avatar": "https://images.opencollective.com/lt/avatar.png",
+      "monthlyDonations": 700
+    },
+    {
+      "slug": "timavera",
+      "name": "Tímavera",
+      "website": "https://timavera.com",
+      "avatar": "https://images.opencollective.com/timavera/e53672f/avatar.png",
+      "monthlyDonations": 667
+    },
+    {
+      "slug": "trevorburnham",
+      "name": "Trevor Burnham",
+      "website": "https://trevorburnham.com",
+      "avatar": "https://images.opencollective.com/trevorburnham/016f6da/avatar.png",
+      "monthlyDonations": 542
+    },
+    {
+      "slug": "shiftgeist",
+      "name": "Felix Hungenberg",
+      "website": null,
+      "avatar": "https://images.opencollective.com/shiftgeist/60a3dcc/avatar.png",
+      "monthlyDonations": 542
+    },
+    {
+      "slug": "ayush000",
+      "name": "Ayush Sachdeva",
+      "website": null,
+      "avatar": "https://images.opencollective.com/ayush000/avatar.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "nicoloribaudo",
+      "name": "Nicolò Ribaudo",
+      "website": null,
+      "avatar": "https://images.opencollective.com/nicoloribaudo/924f189/avatar.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "morgane-dubus",
+      "name": "Morgane Dubus",
+      "website": null,
+      "avatar": "https://images.opencollective.com/morgane-dubus/avatar.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "batch",
+      "name": "Batch",
+      "website": "https://batch.com",
+      "avatar": "https://images.opencollective.com/batch/3ccdb8f/logo.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "raiderio_wow",
+      "name": "Raider.IO",
+      "website": "https://raider.io",
+      "avatar": "https://images.opencollective.com/raiderio_wow/7a380a3/logo.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "betree",
+      "name": "Benjamin Piouffle",
+      "website": "https://benjamin.piouffle.com/",
+      "avatar": "https://images.opencollective.com/betree/2142bbe/avatar.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "pdehaan",
+      "name": "Peter deHaan",
+      "website": "https://about.me/peterdehaan",
+      "avatar": "https://images.opencollective.com/pdehaan/1b46cd1/avatar.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "znarf",
+      "name": "François Hodierne",
+      "website": "https://francois.hodierne.net/",
+      "avatar": "https://images.opencollective.com/znarf/e534a60/avatar.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "jmcombs",
+      "name": "Jeremy Combs",
+      "website": "https://wwjcdo.com",
+      "avatar": "https://images.opencollective.com/jmcombs/22a314a/avatar.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "brnbw",
+      "name": "Brainbow",
+      "website": "https://brainbow.studio",
+      "avatar": "https://images.opencollective.com/brnbw/332322a/logo.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "benoit-burgener",
+      "name": "Benoît Burgener",
+      "website": null,
+      "avatar": "https://images.opencollective.com/benoit-burgener/671a296/avatar.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "kzhrk",
+      "name": "Kazuhiro Kobayashi",
+      "website": null,
+      "avatar": "https://images.opencollective.com/kzhrk/e4448b3/avatar.png",
+      "monthlyDonations": 500
+    },
+    {
+      "slug": "sudharaka-palamakumbura",
+      "name": "Sudharaka Palamakumbura",
+      "website": "https://ca.linkedin.com/in/sudharakap",
+      "avatar": "https://images.opencollective.com/sudharaka-palamakumbura/03b6087/avatar.png",
+      "monthlyDonations": 475
+    },
+    {
+      "slug": "medikoo",
+      "name": "Mariusz Nowak",
+      "website": "https://medikoo.com",
+      "avatar": "https://images.opencollective.com/medikoo/1fa36d8/avatar.png",
+      "monthlyDonations": 458
+    },
+    {
+      "slug": "stackaid",
+      "name": "StackAid",
+      "website": "https://stackaid.us",
+      "avatar": "https://images.opencollective.com/stackaid/c1d8ea2/logo.png",
+      "monthlyDonations": 433
+    },
+    {
+      "slug": "chromatic",
+      "name": "Chromatic",
+      "website": "https://www.chromatic.com",
+      "avatar": "https://images.opencollective.com/chromatic/f73f7dd/logo.png",
+      "monthlyDonations": 417
+    },
+    {
+      "slug": "kjirou",
+      "name": "kjirou",
+      "website": "https://kjirou.github.io/",
+      "avatar": "https://images.opencollective.com/kjirou/7af2353/avatar.png",
+      "monthlyDonations": 417
+    },
+    {
+      "slug": "zapolnoch",
+      "name": "Nazim Gafarov",
+      "website": null,
+      "avatar": "https://images.opencollective.com/zapolnoch/a232aca/avatar.png",
+      "monthlyDonations": 408
+    },
+    {
+      "slug": "xh",
+      "name": "Extremely Heavy",
+      "website": "https://xh.io",
+      "avatar": "https://images.opencollective.com/xh/cec0963/logo.png",
+      "monthlyDonations": 333
+    },
+    {
+      "slug": "psychothan",
+      "name": "Jonathan Dinu",
+      "website": "https://jonathanjonathanjonathan.com",
+      "avatar": "https://images.opencollective.com/psychothan/b26baa9/avatar.png",
+      "monthlyDonations": 333
+    },
+    {
+      "slug": "arnaud-drain",
+      "name": "Arnaud Drain",
+      "website": null,
+      "avatar": "https://images.opencollective.com/arnaud-drain/d7165f2/avatar.png",
+      "monthlyDonations": 300
+    },
+    {
+      "slug": "fatih-aygun",
+      "name": "Fatih Aygün",
+      "website": null,
+      "avatar": "https://images.opencollective.com/fatih-aygun/avatar.png",
+      "monthlyDonations": 292
+    },
+    {
+      "slug": "moody_reaper",
+      "name": "Efrem Sarmazov",
+      "website": "https://moodyreaper.space/",
+      "avatar": "https://images.opencollective.com/moody_reaper/ee1d0ae/avatar.png",
+      "monthlyDonations": 208
+    },
+    {
+      "slug": "oleksandr-korniienko",
+      "name": "Oleksandr Korniienko",
+      "website": null,
+      "avatar": "https://images.opencollective.com/oleksandr-korniienko/6c0f4da/avatar.png",
+      "monthlyDonations": 208
+    },
+    {
+      "slug": "dave-jansen",
+      "name": "Dave Jansen",
+      "website": "https://www.davejansen.com/",
+      "avatar": "https://images.opencollective.com/dave-jansen/c8077e7/avatar.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "fuller-inc",
+      "name": "Fuller, Inc.",
+      "website": "https://www.fuller-inc.com/",
+      "avatar": "https://images.opencollective.com/fuller-inc/7b0f64a/logo.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "kevinpeckham",
+      "name": "Kevin Peckham",
+      "website": "https://pugify.dev",
+      "avatar": "https://images.opencollective.com/kevinpeckham/194bb8a/avatar.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "taskratchet",
+      "name": "TaskRatchet",
+      "website": "https://taskratchet.com",
+      "avatar": "https://images.opencollective.com/taskratchet/7996706/logo.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "leonardo-rodrigues-ferreira",
+      "name": "Leonardo Rodrigues Ferreira",
+      "website": null,
+      "avatar": "https://images.opencollective.com/leonardo-rodrigues-ferreira/avatar.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "jed",
+      "name": "Jed",
+      "website": null,
+      "avatar": "https://images.opencollective.com/jed/avatar.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "alexeyraspopov",
+      "name": "Oleksii Raspopov",
+      "website": "https://alexeyraspopov.com/",
+      "avatar": "https://images.opencollective.com/alexeyraspopov/a2cfdf9/avatar.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "guest-bc85adaa",
+      "name": "Eric Willroth",
+      "website": null,
+      "avatar": "https://images.opencollective.com/guest-bc85adaa/avatar.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "corellium",
+      "name": "Corellium",
+      "website": "https://www.corellium.com",
+      "avatar": "https://images.opencollective.com/corellium/aa8c228/logo.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "itflies-gmbh",
+      "name": "itFlies GmbH",
+      "website": "https://www.itflies.ch",
+      "avatar": "https://images.opencollective.com/itflies-gmbh/logo.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "standard-resume",
+      "name": "Standard Resume",
+      "website": "https://standardresume.co",
+      "avatar": "https://images.opencollective.com/standard-resume/d54e388/logo.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "matchai",
+      "name": "Matan Kushner",
+      "website": "https://matchai.me",
+      "avatar": "https://images.opencollective.com/matchai/3f2df09/avatar.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "incognito-458ffce6",
+      "name": "incognito",
+      "website": null,
+      "avatar": "https://images.opencollective.com/incognito-458ffce6/avatar.png",
+      "monthlyDonations": 200
+    },
+    {
+      "slug": "guest-91a3a334",
+      "name": "Guest",
+      "website": null,
+      "avatar": "https://images.opencollective.com/guest-91a3a334/avatar.png",
+      "monthlyDonations": 167
+    },
+    {
+      "slug": "gustavlrsn",
+      "name": "Gustav Larsson",
+      "website": "https://gustav.io/",
+      "avatar": "https://images.opencollective.com/gustavlrsn/04a30b2/avatar.png",
+      "monthlyDonations": 167
+    },
+    {
+      "slug": "amogh-lele",
+      "name": "Amogh Lele",
+      "website": null,
+      "avatar": "https://images.opencollective.com/amogh-lele/f83cdf8/avatar.png",
+      "monthlyDonations": 167
+    },
+    {
+      "slug": "jblandry",
+      "name": "Jb Landry",
+      "website": "https://jblandry.info",
+      "avatar": "https://images.opencollective.com/jblandry/e7d47d8/avatar.png",
+      "monthlyDonations": 167
+    },
+    {
+      "slug": "jeroenheijmans",
+      "name": "Jeroen Heijmans",
+      "website": null,
+      "avatar": "https://images.opencollective.com/jeroenheijmans/81ffa23/avatar.png",
+      "monthlyDonations": 167
+    },
+    {
+      "slug": "mado",
+      "name": "mado",
+      "website": null,
+      "avatar": "https://images.opencollective.com/mado/3a86da1/avatar.png",
+      "monthlyDonations": 167
+    },
+    {
+      "slug": "shinyaigeek",
+      "name": "Shinyaigeek",
+      "website": null,
+      "avatar": "https://images.opencollective.com/shinyaigeek/811663a/avatar.png",
+      "monthlyDonations": 150
+    },
+    {
+      "slug": "alinnert",
+      "name": "alinnert",
+      "website": "https://linnertmedia.de",
+      "avatar": "https://images.opencollective.com/alinnert/7923071/avatar.png",
+      "monthlyDonations": 150
+    },
+    {
+      "slug": "jakeleboeuf",
+      "name": "Jake LeBoeuf",
+      "website": "https://givecrypto.org",
+      "avatar": "https://images.opencollective.com/jakeleboeuf/f58e790/avatar.png",
+      "monthlyDonations": 133
+    },
+    {
+      "slug": "oliverloops",
+      "name": "Oliver Lopez",
+      "website": null,
+      "avatar": "https://images.opencollective.com/oliverloops/3dda8bd/avatar.png",
+      "monthlyDonations": 125
+    },
+    {
+      "slug": "josef-kubicek",
+      "name": "Josef Kubíček",
+      "website": null,
+      "avatar": "https://images.opencollective.com/josef-kubicek/6bb5ad8/avatar.png",
+      "monthlyDonations": 117
+    },
+    {
+      "slug": "austin-akers",
+      "name": "Austin Akers",
+      "website": null,
+      "avatar": "https://images.opencollective.com/austin-akers/3548ebd/avatar.png",
+      "monthlyDonations": 100
+    },
+    {
+      "slug": "camplight",
+      "name": "Camplight",
+      "website": "https://camplight.net/",
+      "avatar": "https://images.opencollective.com/camplight/3f2fb63/logo.png",
+      "monthlyDonations": 100
+    },
+    {
+      "slug": "danoc",
+      "name": "Daniel O'Connor",
+      "website": "https://danoc.me/",
+      "avatar": "https://images.opencollective.com/danoc/e9baf2b/avatar.png",
+      "monthlyDonations": 100
+    },
+    {
+      "slug": "gobbler-drought",
+      "name": "Gobbler Drought",
+      "website": null,
+      "avatar": "https://images.opencollective.com/gobbler-drought/avatar.png",
+      "monthlyDonations": 83
+    },
+    {
+      "slug": "guest-b32f416b",
+      "name": "Guest",
+      "website": null,
+      "avatar": "https://images.opencollective.com/guest-b32f416b/avatar.png",
+      "monthlyDonations": 83
+    },
+    {
+      "slug": "brianpeiris",
+      "name": "Brian Peiris",
+      "website": null,
+      "avatar": "https://images.opencollective.com/brianpeiris/68fdb65/avatar.png",
+      "monthlyDonations": 83
+    },
+    {
+      "slug": "sayzlim",
+      "name": "Sayz Lim",
+      "website": "https://sayzlim.net",
+      "avatar": "https://images.opencollective.com/sayzlim/22f657d/avatar.png",
+      "monthlyDonations": 83
+    },
+    {
+      "slug": "yamanoku",
+      "name": "yamanoku",
+      "website": "https://yamanoku.net",
+      "avatar": "https://images.opencollective.com/yamanoku/69e55a5/avatar.png",
+      "monthlyDonations": 83
+    },
+    {
+      "slug": "guest-6101bb41",
+      "name": "DSER GmbH",
+      "website": null,
+      "avatar": "https://images.opencollective.com/guest-6101bb41/avatar.png",
+      "monthlyDonations": 83
+    },
+    {
+      "slug": "guest-f671c749",
+      "name": "Guest",
+      "website": null,
+      "avatar": "https://images.opencollective.com/guest-f671c749/avatar.png",
+      "monthlyDonations": 83
+    },
+    {
+      "slug": "skaji18",
+      "name": "skaji18",
+      "website": null,
+      "avatar": "https://images.opencollective.com/skaji18/e78b8ae/avatar.png",
+      "monthlyDonations": 83
+    },
+    {
+      "slug": "opensource",
+      "name": "Open Source Collective",
+      "website": "https://oscollective.org/",
+      "avatar": "https://images.opencollective.com/opensource/426badd/logo.png",
+      "monthlyDonations": 76
+    },
+    {
+      "slug": "sufi-meditation",
+      "name": "Sufi Meditation",
+      "website": "https://www.zikir.com",
+      "avatar": "https://images.opencollective.com/sufi-meditation/74935dc/logo.png",
+      "monthlyDonations": 67
+    },
+    {
+      "slug": "guest-eedda627",
+      "name": "Guest",
+      "website": null,
+      "avatar": "https://images.opencollective.com/guest-eedda627/avatar.png",
+      "monthlyDonations": 42
+    },
+    {
+      "slug": "kesin11",
+      "name": "Kesin11",
+      "website": null,
+      "avatar": "https://images.opencollective.com/kesin11/4971684/avatar.png",
+      "monthlyDonations": 42
+    },
+    {
+      "slug": "yuto-yoshino",
+      "name": "Yuto Yoshino",
+      "website": null,
+      "avatar": "https://images.opencollective.com/yuto-yoshino/avatar.png",
+      "monthlyDonations": 42
+    },
+    {
+      "slug": "guest-f801456e",
+      "name": "Valentin Furmanek",
+      "website": null,
+      "avatar": "https://images.opencollective.com/guest-f801456e/avatar.png",
+      "monthlyDonations": 42
+    },
+    {
+      "slug": "guest-f29108f0",
+      "name": "Jordan",
+      "website": null,
+      "avatar": "https://images.opencollective.com/guest-f29108f0/avatar.png",
+      "monthlyDonations": 42
+    },
+    {
+      "slug": "incognito810",
+      "name": "incognito",
+      "website": null,
+      "avatar": "https://images.opencollective.com/incognito810/avatar.png",
+      "monthlyDonations": 33
+    },
+    {
+      "slug": "clemlesne",
+      "name": "Clémence",
+      "website": "https://www.linkedin.com/in/clemencelesne",
+      "avatar": "https://images.opencollective.com/clemlesne/7c58537/avatar.png",
+      "monthlyDonations": 25
+    },
+    {
+      "slug": "guest-29681cbc",
+      "name": "Guest",
+      "website": null,
+      "avatar": "https://images.opencollective.com/guest-29681cbc/avatar.png",
+      "monthlyDonations": 17
+    },
+    {
+      "slug": "francescrosas",
+      "name": "Francesc Rosas",
+      "website": null,
+      "avatar": "https://images.opencollective.com/francescrosas/avatar.png",
+      "monthlyDonations": 17
+    },
+    {
+      "slug": "reverseproxy",
+      "name": "ReverseProxy.com",
+      "website": "https://reverseproxy.com",
+      "avatar": "https://images.opencollective.com/reverseproxy/a739284/logo.png",
+      "monthlyDonations": 17
+    },
+    {
+      "slug": "tomasz-kleszczewski",
+      "name": "Tomasz Kleszczewski",
+      "website": null,
+      "avatar": "https://images.opencollective.com/tomasz-kleszczewski/avatar.png",
+      "monthlyDonations": 17
+    },
+    {
+      "slug": "incognito-222f9aa8",
+      "name": "Incognito",
+      "website": null,
+      "avatar": "https://images.opencollective.com/incognito-222f9aa8/avatar.png",
+      "monthlyDonations": 8
+    },
+    {
+      "slug": "envirociti",
+      "name": "EnviroCiti",
+      "website": "https://envirociti.pk/",
+      "avatar": "https://images.opencollective.com/envirociti/5945351/logo.png",
+      "monthlyDonations": 8
+    }
+  ]
+}
