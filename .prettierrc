@@ -5,6 +5,8 @@ overrides:
   - files: "bin/prettier.cjs"
     options:
       trailingComma: none
-  - files: ".vscode/*.json"
+  - files:
+      - ".vscode/*.json"
+      - "tsconfig.json"
     options:
       parser: jsonc
