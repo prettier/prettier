@@ -755,15 +755,6 @@ function handleOnlyComments({
     return true;
   }
 
-  if (
-    followingNode?.type === "Program" &&
-    followingNode.body.length === 0 &&
-    enclosingNode?.type === "ModuleExpression"
-  ) {
-    addDanglingComment(followingNode, comment);
-    return true;
-  }
-
   return false;
 }
 

@@ -10,23 +10,33 @@ import { printStatementSequence } from "./statement.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
+const isRootProgram = ({ node, parent }) =>
+  node.type === "Program" && parent?.type !== "ModuleExpression";
+
 /*
+- `Program`
 - `BlockStatement`
 - `StaticBlock`
+- `ModuleExpression`
 - `TSModuleBlock` (TypeScript)
 */
 function printBlock(path, options, print) {
-  const { node } = path;
+  const bodyDoc = printBlockBody(path, options, print);
+
+  if (isRootProgram(path)) {
+    return [bodyDoc, bodyDoc ? hardline : ""];
+  }
+
   const parts = [];
+  const { node } = path;
 
   if (node.type === "StaticBlock") {
     parts.push("static ");
   }
 
   parts.push("{");
-  const printed = printBlockBody(path, options, print);
-  if (printed) {
-    parts.push(indent([hardline, printed]), hardline);
+  if (bodyDoc) {
+    parts.push(indent([hardline, bodyDoc]), hardline);
   } else {
     const { parent } = path;
     const parentParent = path.grandparent;
@@ -42,6 +52,7 @@ function printBlock(path, options, print) {
         parent.type === "WhileStatement" ||
         parent.type === "DoWhileStatement" ||
         parent.type === "DoExpression" ||
+        parent.type === "ModuleExpression" ||
         (parent.type === "CatchClause" && !parentParent.finalizer) ||
         parent.type === "TSModuleDeclaration" ||
         parent.type === "TSDeclareFunction" ||
@@ -95,11 +106,7 @@ function printBlockBody(path, options, print) {
     parts.push(printDanglingComments(path, options));
   }
 
-  if (node.type === "Program" && path.parent?.type !== "ModuleExpression") {
-    parts.push(hardline);
-  }
-
   return parts;
 }
 
-export { printBlock, printBlockBody };
+export { printBlock };
