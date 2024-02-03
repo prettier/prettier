@@ -213,7 +213,10 @@ function clean(original, cloned, parent) {
     original.expression.type === "TSNonNullExpression"
   ) {
     // Ideally, we should swap these two nodes, but `type` is the only difference
-    [cloned.type, cloned.expression.type] = [cloned.expression.type, cloned.type];
+    [cloned.type, cloned.expression.type] = [
+      cloned.expression.type,
+      cloned.type,
+    ];
   }
 }
 

@@ -26,7 +26,7 @@ function massageAst(ast, options) {
       return original.map((child) => recurse(child, parent)).filter(Boolean);
     }
 
-    const clone = {};
+    const cloned = {};
     const childrenKeys = new Set(getVisitorKeys(original));
     for (const key in original) {
       if (!Object.hasOwn(original, key) || ignoredProperties.has(key)) {
@@ -34,18 +34,18 @@ function massageAst(ast, options) {
       }
 
       if (childrenKeys.has(key)) {
-        clone[key] = recurse(original[key], original);
+        cloned[key] = recurse(original[key], original);
       } else {
-        clone[key] = original[key];
+        cloned[key] = original[key];
       }
     }
 
-    const result = cleanFunction(original, clone, parent);
+    const result = cleanFunction(original, cloned, parent);
     if (result === null) {
       return;
     }
 
-    return result ?? clone;
+    return result ?? cloned;
   }
 }
 
