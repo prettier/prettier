@@ -214,8 +214,8 @@ function clean(original, cloned, parent) {
   ) {
     // Ideally, we should swap these two nodes, but `type` is the only difference
     [cloned.type, cloned.expression.type] = [
-      cloned.expression.type,
-      cloned.type,
+      original.expression.type,
+      original.type,
     ];
   }
 }
