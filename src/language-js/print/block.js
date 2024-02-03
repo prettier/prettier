@@ -10,9 +10,6 @@ import { printStatementSequence } from "./statement.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
-const isRootProgram = ({ node, parent }) =>
-  node.type === "Program" && parent?.type !== "ModuleExpression";
-
 /*
 - `Program`
 - `BlockStatement`
@@ -21,13 +18,13 @@ const isRootProgram = ({ node, parent }) =>
 */
 function printBlock(path, options, print) {
   const bodyDoc = printBlockBody(path, options, print);
+  const { node, parent } = path;
 
-  if (isRootProgram(path)) {
+  if (node.type === "Program" && parent?.type !== "ModuleExpression") {
     return [bodyDoc, bodyDoc ? hardline : ""];
   }
 
   const parts = [];
-  const { node } = path;
 
   if (node.type === "StaticBlock") {
     parts.push("static ");
@@ -37,7 +34,6 @@ function printBlock(path, options, print) {
   if (bodyDoc) {
     parts.push(indent([hardline, bodyDoc]), hardline);
   } else {
-    const { parent } = path;
     const parentParent = path.grandparent;
     if (
       !(
