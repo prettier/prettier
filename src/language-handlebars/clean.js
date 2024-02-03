@@ -10,15 +10,15 @@ function clean(original, clone /*, parent*/) {
     clone.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
   }
 
-  if (ast.type === "ElementNode") {
-    delete newNode.startTag;
-    delete newNode.parts;
-    delete newNode.endTag;
-    delete newNode.nameNode;
+  if (original.type === "ElementNode") {
+    delete clone.startTag;
+    delete clone.parts;
+    delete clone.endTag;
+    delete clone.nameNode;
   }
 
-  if (ast.type === "Block" || ast.type === "ElementNode") {
-    delete newNode.blockParamNodes;
+  if (original.type === "Block" || original.type === "ElementNode") {
+    delete clone.blockParamNodes;
   }
 
   // `class` is reformatted
