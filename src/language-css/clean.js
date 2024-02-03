@@ -62,39 +62,6 @@ function clean(original, cloned, parent) {
     delete cloned.params;
   }
 
-  if (original.type === "selector-combinator") {
-    cloned.value = original.value.replaceAll(/\s+/g, " ");
-  }
-
-  if (original.type === "media-feature") {
-    cloned.value = original.value.replaceAll(" ", "");
-  }
-
-  if (
-    (original.type === "value-word" &&
-      ((original.isColor && original.isHex) ||
-        ["initial", "inherit", "unset", "revert"].includes(
-          original.value.toLowerCase(),
-        ))) ||
-    original.type === "media-feature" ||
-    original.type === "selector-root-invalid" ||
-    original.type === "selector-pseudo"
-  ) {
-    cloned.value = original.value.toLowerCase();
-  }
-  if (original.type === "css-decl") {
-    cloned.prop = original.prop.toLowerCase();
-  }
-  if (original.type === "css-atrule" || original.type === "css-import") {
-    cloned.name = original.name.toLowerCase();
-  }
-  if (original.type === "value-number") {
-    cloned.unit = original.unit.toLowerCase();
-  }
-  if (original.type === "value-unknown") {
-    cloned.value = original.value.replaceAll(/;$/g, "");
-  }
-
   if (
     (original.type === "media-feature" ||
       original.type === "media-keyword" ||
@@ -112,19 +79,48 @@ function clean(original, cloned, parent) {
     cloned.value = cleanCSSStrings(original.value);
   }
 
+  if (original.type === "selector-combinator") {
+    cloned.value = cloned.value.replaceAll(/\s+/g, " ");
+  }
+
+  if (original.type === "media-feature") {
+    cloned.value = cloned.value.replaceAll(" ", "");
+  }
+
+  if (
+    (original.type === "value-word" &&
+      ((original.isColor && original.isHex) ||
+        ["initial", "inherit", "unset", "revert"].includes(
+          original.value.toLowerCase(),
+        ))) ||
+    original.type === "media-feature" ||
+    original.type === "selector-root-invalid" ||
+    original.type === "selector-pseudo"
+  ) {
+    cloned.value = cloned.value.toLowerCase();
+  }
+  if (original.type === "css-decl") {
+    cloned.prop = original.prop.toLowerCase();
+  }
+  if (original.type === "css-atrule" || original.type === "css-import") {
+    cloned.name = original.name.toLowerCase();
+  }
+  if (original.type === "value-number") {
+    cloned.unit = original.unit.toLowerCase();
+  }
+  if (original.type === "value-unknown") {
+    cloned.value = cloned.value.replaceAll(/;$/g, "");
+  }
+
   if (original.type === "selector-attribute") {
     cloned.attribute = original.attribute.trim();
 
     if (original.namespace && typeof original.namespace === "string") {
-      cloned.namespace = original.namespace.trim();
-
-      if (original.namespace.length === 0) {
-        cloned.namespace = true;
-      }
+      cloned.namespace = original.namespace.trim() || true;
     }
 
     if (original.value) {
-      cloned.value = original.value.trim().replaceAll(/^["']|["']$/g, "");
+      cloned.value = cloned.value.trim().replaceAll(/^["']|["']$/g, "");
       delete cloned.quoted;
     }
   }
@@ -139,7 +135,7 @@ function clean(original, cloned, parent) {
       original.type === "selector-tag") &&
     original.value
   ) {
-    cloned.value = original.value.replaceAll(
+    cloned.value = cloned.value.replaceAll(
       /([\d+.e-]+)([a-z]*)/gi,
       (match, numStr, unit) => {
         const num = Number(numStr);
@@ -149,7 +145,7 @@ function clean(original, cloned, parent) {
   }
 
   if (original.type === "selector-tag") {
-    const lowercasedValue = original.value.toLowerCase();
+    const lowercasedValue = cloned.value.toLowerCase();
 
     if (["from", "to"].includes(lowercasedValue)) {
       cloned.value = lowercasedValue;
