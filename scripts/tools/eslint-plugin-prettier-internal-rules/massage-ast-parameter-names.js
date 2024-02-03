@@ -35,7 +35,7 @@ module.exports = {
   },
   create: (context) =>
     Object.fromEntries(
-      ["original", "clone"].map((name, index) => [
+      ["original", "cloned"].map((name, index) => [
         `${massageAstFunctionSelector} > Identifier[name!="${name}"].params:nth-child(${index + 1})`,
         (parameter) => {
           const variables = context.sourceCode.getDeclaredVariables(
