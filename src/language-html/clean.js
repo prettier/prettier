@@ -47,7 +47,7 @@ function clean(original, clone) {
 
   if (
     original.type === "angularControlFlowBlock" &&
-    clone.parameters?.children
+    original.parameters?.children
   ) {
     for (const parameter of clone.parameters.children) {
       if (embeddedAngularControlFlowBlocks.has(original.name)) {

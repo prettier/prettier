@@ -403,11 +403,11 @@ function printFlowScalarContent(nodeType, content, options) {
 }
 
 function clean(original, clone /*, parent */) {
-  if (isNode(clone)) {
-    switch (clone.type) {
+  if (isNode(original)) {
+    switch (original.type) {
       case "comment":
         // insert pragma
-        if (isPragma(clone.value)) {
+        if (isPragma(original.value)) {
           return null;
         }
         break;

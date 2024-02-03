@@ -31,22 +31,22 @@ function clean(original, clone, parent) {
   if (
     (original.type === "BigIntLiteral" ||
       original.type === "BigIntLiteralTypeAnnotation") &&
-    clone.value
+    original.value
   ) {
-    clone.value = clone.value.toLowerCase();
+    clone.value = original.value.toLowerCase();
   }
   if (
     (original.type === "BigIntLiteral" || original.type === "Literal") &&
-    clone.bigint
+    original.bigint
   ) {
-    clone.bigint = clone.bigint.toLowerCase();
+    clone.bigint = original.bigint.toLowerCase();
   }
 
   if (original.type === "DecimalLiteral") {
-    clone.value = Number(clone.value);
+    clone.value = Number(original.value);
   }
   if (original.type === "Literal" && clone.decimal) {
-    clone.decimal = Number(clone.decimal);
+    clone.decimal = Number(original.decimal);
   }
 
   // We remove extra `;` and add them when needed
@@ -125,7 +125,7 @@ function clean(original, clone, parent) {
     original.value?.type === "Literal" &&
     /["']|&quot;|&apos;/.test(original.value.value)
   ) {
-    clone.value.value = clone.value.value.replaceAll(
+    clone.value.value = original.value.value.replaceAll(
       /["']|&quot;|&apos;/g,
       '"',
     );

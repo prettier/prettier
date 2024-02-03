@@ -508,7 +508,7 @@ function clean(original, clone /* , parent */) {
     original.block &&
     !original.value.includes("\n")
   ) {
-    clone.value = clone.value.trim();
+    clone.value = original.value.trim();
   }
 }
 clean.ignoredProperties = new Set(["loc", "comments"]);
