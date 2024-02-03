@@ -10,6 +10,17 @@ function clean(ast, newNode /*, parent*/) {
     newNode.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
   }
 
+  if (ast.type === "ElementNode") {
+    delete newNode.startTag;
+    delete newNode.parts;
+    delete newNode.endTag;
+    delete newNode.nameNode;
+  }
+
+  if (ast.type === "Block" || ast.type === "ElementNode") {
+    delete newNode.blockParamNodes;
+  }
+
   // `class` is reformatted
   if (ast.type === "AttrNode" && ast.name.toLowerCase() === "class") {
     delete newNode.value;
