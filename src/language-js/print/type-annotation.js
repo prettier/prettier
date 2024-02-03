@@ -15,8 +15,8 @@ import {
   createTypeCheckFunction,
   hasComment,
   hasLeadingOwnLineComment,
+  isFlowObjectTypePropertyAFunction,
   isObjectType,
-  isObjectTypePropertyAFunction,
   isSimpleType,
   isUnionType,
 } from "../utils/index.js";
@@ -256,7 +256,7 @@ function isFlowArrowFunctionTypeAnnotation(path) {
   const { node, parent } = path;
   return (
     node.type === "FunctionTypeAnnotation" &&
-    (isObjectTypePropertyAFunction(parent) ||
+    (isFlowObjectTypePropertyAFunction(parent) ||
       !(
         ((parent.type === "ObjectTypeProperty" ||
           parent.type === "ObjectTypeInternalSlot") &&
