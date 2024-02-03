@@ -122,7 +122,7 @@ For example, you can do the following to have Prettier run before each commit:
    ```bash
    npm install --save-dev husky lint-staged
    npx husky init
-   echo "npx lint-staged" > .husky/pre-commit
+   node --eval "fs.writeFileSync('.husky/pre-commit','npx lint-staged\n')"
    ```
 
    <!--yarn-->
@@ -130,7 +130,7 @@ For example, you can do the following to have Prettier run before each commit:
    ```bash
    yarn add --dev husky lint-staged
    npx husky init
-   echo "npx lint-staged" > .husky/pre-commit
+   node --eval "fs.writeFileSync('.husky/pre-commit','npx lint-staged\n')"
    ```
 
    > If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
@@ -140,7 +140,7 @@ For example, you can do the following to have Prettier run before each commit:
    ```bash
    pnpm add --save-dev husky lint-staged
    npx husky init
-   echo "pnpm exec lint-staged" > .husky/pre-commit
+   node --eval "fs.writeFileSync('.husky/pre-commit','pnpm exec lint-staged\n')"
    ```
 
    <!--END_DOCUSAURUS_CODE_TABS-->
