@@ -305,7 +305,7 @@ function printBinaryishExpressions(
       return printed.parts;
     }
 
-    return [printed];
+    return Array.isArray(printed) ? printed : [printed];
   }
 
   return parts;
