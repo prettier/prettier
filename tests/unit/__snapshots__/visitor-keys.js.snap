@@ -1116,7 +1116,6 @@ exports[`visitor keys glimmer 1`] = `
   "Block": [
     "body",
   ],
-  "BlockParam": [],
   "BlockStatement": [
     "path",
     "params",
