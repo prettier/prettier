@@ -15,7 +15,7 @@ import {
   softline,
 } from "../document/builders.js";
 import { printDocToString } from "../document/printer.js";
-import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
+import { replaceEndOfLine } from "../document/utils.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
@@ -76,7 +76,7 @@ function genericPrint(path, options, print) {
       if (node.children.length === 0) {
         return "";
       }
-      return [cleanDoc(printRoot(path, options, print)), hardline];
+      return [printRoot(path, options, print), hardline];
     case "paragraph":
       return printParagraph(path, options, print);
     case "sentence":
