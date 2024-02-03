@@ -80,26 +80,26 @@ const ignoredProperties = new Set([
   "tokens",
 ]);
 
-function clean(original, clone /*, parent*/) {
+function clean(original, cloned /*, parent*/) {
   const { type } = original;
   // We print quoted key
   if (type === "ObjectProperty") {
     const { key } = original;
     if (key.type === "Identifier") {
-      clone.key = { type: "StringLiteral", value: key.name };
+      cloned.key = { type: "StringLiteral", value: key.name };
     } else if (key.type === "NumericLiteral") {
-      clone.key = { type: "StringLiteral", value: String(key.value) };
+      cloned.key = { type: "StringLiteral", value: String(key.value) };
     }
     return;
   }
   if (type === "UnaryExpression" && original.operator === "+") {
-    return clone.argument;
+    return cloned.argument;
   }
   // We print holes in array as `null`
   if (type === "ArrayExpression") {
     for (const [index, element] of original.elements.entries()) {
       if (element === null) {
-        clone.elements.splice(index, 0, { type: "NullLiteral" });
+        cloned.elements.splice(index, 0, { type: "NullLiteral" });
       }
     }
     return;

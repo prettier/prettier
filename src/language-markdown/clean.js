@@ -7,7 +7,7 @@ const ignoredProperties = new Set([
   "position",
   "raw", // front-matter
 ]);
-function clean(original, clone, parent) {
+function clean(original, cloned, parent) {
   // for codeblock
   if (
     original.type === "front-matter" ||
@@ -17,15 +17,15 @@ function clean(original, clone, parent) {
     original.type === "export" ||
     original.type === "jsx"
   ) {
-    delete clone.value;
+    delete cloned.value;
   }
 
   if (original.type === "list") {
-    delete clone.isAligned;
+    delete cloned.isAligned;
   }
 
   if (original.type === "list" || original.type === "listItem") {
-    delete clone.spread;
+    delete cloned.spread;
   }
 
   // texts can be splitted or merged
@@ -34,11 +34,11 @@ function clean(original, clone, parent) {
   }
 
   if (original.type === "inlineCode") {
-    clone.value = original.value.replaceAll("\n", " ");
+    cloned.value = original.value.replaceAll("\n", " ");
   }
 
   if (original.type === "wikiLink") {
-    clone.value = original.value.trim().replaceAll(/[\t\n]+/g, " ");
+    cloned.value = original.value.trim().replaceAll(/[\t\n]+/g, " ");
   }
 
   if (
@@ -46,7 +46,7 @@ function clean(original, clone, parent) {
     original.type === "linkReference" ||
     original.type === "imageReference"
   ) {
-    clone.label = collapseWhiteSpace(original.label);
+    cloned.label = collapseWhiteSpace(original.label);
   }
 
   if (
@@ -55,7 +55,7 @@ function clean(original, clone, parent) {
     original.url.includes("(")
   ) {
     for (const character of "<>") {
-      clone.url = original.url.replaceAll(
+      cloned.url = original.url.replaceAll(
         character,
         encodeURIComponent(character),
       );
@@ -68,7 +68,7 @@ function clean(original, clone, parent) {
       original.type === "image") &&
     original.title
   ) {
-    clone.title = original.title.replaceAll(/\\(?=["')])/g, "");
+    cloned.title = original.title.replaceAll(/\\(?=["')])/g, "");
   }
 
   // for insert pragma

@@ -500,7 +500,7 @@ function printVariableDefinitions(path, print) {
   ]);
 }
 
-function clean(original, clone /* , parent */) {
+function clean(original, cloned /* , parent */) {
   // We print single line `""" string """` as multiple line string,
   // and the parser ignores space in multiple line string
   if (
@@ -508,7 +508,7 @@ function clean(original, clone /* , parent */) {
     original.block &&
     !original.value.includes("\n")
   ) {
-    clone.value = original.value.trim();
+    cloned.value = original.value.trim();
   }
 }
 clean.ignoredProperties = new Set(["loc", "comments"]);

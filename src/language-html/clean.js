@@ -23,7 +23,7 @@ const embeddedAngularControlFlowBlocks = new Set([
   "case",
 ]);
 
-function clean(original, clone) {
+function clean(original, cloned) {
   if (original.type === "text" || original.type === "comment") {
     return null;
   }
@@ -38,18 +38,18 @@ function clean(original, clone) {
   }
 
   if (original.type === "attribute") {
-    delete clone.value;
+    delete cloned.value;
   }
 
   if (original.type === "docType") {
-    delete clone.value;
+    delete cloned.value;
   }
 
   if (
     original.type === "angularControlFlowBlock" &&
     original.parameters?.children
   ) {
-    for (const parameter of clone.parameters.children) {
+    for (const parameter of cloned.parameters.children) {
       if (embeddedAngularControlFlowBlocks.has(original.name)) {
         delete parameter.expression;
       } else {
@@ -59,7 +59,7 @@ function clean(original, clone) {
   }
 
   if (original.type === "angularIcuExpression") {
-    clone.switchValue = original.switchValue.trim();
+    cloned.switchValue = original.switchValue.trim();
   }
 }
 

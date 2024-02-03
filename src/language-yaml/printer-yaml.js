@@ -402,7 +402,7 @@ function printFlowScalarContent(nodeType, content, options) {
   );
 }
 
-function clean(original, clone /*, parent */) {
+function clean(original, cloned /*, parent */) {
   if (isNode(original)) {
     switch (original.type) {
       case "comment":
@@ -413,7 +413,7 @@ function clean(original, clone /*, parent */) {
         break;
       case "quoteDouble":
       case "quoteSingle":
-        clone.type = "quote";
+        cloned.type = "quote";
         break;
     }
   }

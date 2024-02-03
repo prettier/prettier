@@ -23,9 +23,9 @@ const removeTemplateElementsValue = (node) => {
   }
 };
 
-function clean(original, clone, parent) {
+function clean(original, cloned, parent) {
   if (original.type === "Program") {
-    delete clone.sourceType;
+    delete cloned.sourceType;
   }
 
   if (
@@ -33,20 +33,20 @@ function clean(original, clone, parent) {
       original.type === "BigIntLiteralTypeAnnotation") &&
     original.value
   ) {
-    clone.value = original.value.toLowerCase();
+    cloned.value = original.value.toLowerCase();
   }
   if (
     (original.type === "BigIntLiteral" || original.type === "Literal") &&
     original.bigint
   ) {
-    clone.bigint = original.bigint.toLowerCase();
+    cloned.bigint = original.bigint.toLowerCase();
   }
 
   if (original.type === "DecimalLiteral") {
-    clone.value = Number(original.value);
+    cloned.value = Number(original.value);
   }
-  if (original.type === "Literal" && clone.decimal) {
-    clone.decimal = Number(original.decimal);
+  if (original.type === "Literal" && cloned.decimal) {
+    cloned.decimal = Number(original.decimal);
   }
 
   // We remove extra `;` and add them when needed
@@ -87,7 +87,7 @@ function clean(original, clone, parent) {
       original.key.type === "StringLiteral" ||
       original.key.type === "Identifier")
   ) {
-    delete clone.key;
+    delete cloned.key;
   }
 
   // Remove raw and cooked values from TemplateElement when it's CSS
@@ -99,7 +99,7 @@ function clean(original, clone, parent) {
       (attr) => attr.type === "JSXAttribute" && attr.name.name === "jsx",
     )
   ) {
-    for (const { type, expression } of clone.children) {
+    for (const { type, expression } of cloned.children) {
       if (
         type === "JSXExpressionContainer" &&
         expression.type === "TemplateLiteral"
@@ -116,7 +116,7 @@ function clean(original, clone, parent) {
     original.value.type === "JSXExpressionContainer" &&
     original.value.expression.type === "TemplateLiteral"
   ) {
-    removeTemplateElementsValue(clone.value.expression);
+    removeTemplateElementsValue(cloned.value.expression);
   }
 
   // We change quotes
@@ -125,7 +125,7 @@ function clean(original, clone, parent) {
     original.value?.type === "Literal" &&
     /["']|&quot;|&apos;/.test(original.value.value)
   ) {
-    clone.value.value = original.value.value.replaceAll(
+    cloned.value.value = original.value.value.replaceAll(
       /["']|&quot;|&apos;/g,
       '"',
     );
@@ -143,7 +143,7 @@ function clean(original, clone, parent) {
     for (const [
       index,
       prop,
-    ] of clone.expression.arguments[0].properties.entries()) {
+    ] of cloned.expression.arguments[0].properties.entries()) {
       switch (astProps[index].key.name) {
         case "styles":
           if (isArrayOrTupleExpression(prop.value)) {
@@ -172,7 +172,7 @@ function clean(original, clone, parent) {
           original.tag.name === "html")) ||
       original.tag.type === "CallExpression")
   ) {
-    removeTemplateElementsValue(clone.quasi);
+    removeTemplateElementsValue(cloned.quasi);
   }
   if (original.type === "TemplateLiteral") {
     // This checks for a leading comment that is exactly `/* GraphQL */`
@@ -194,7 +194,7 @@ function clean(original, clone, parent) {
       // `flow` and `typescript` don't have `leadingComments`
       !original.leadingComments
     ) {
-      removeTemplateElementsValue(clone);
+      removeTemplateElementsValue(cloned);
     }
   }
 
@@ -204,7 +204,7 @@ function clean(original, clone, parent) {
       original.type === "TSUnionType") &&
     original.types.length === 1
   ) {
-    return clone.types[0];
+    return cloned.types[0];
   }
 
   // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently
@@ -213,7 +213,7 @@ function clean(original, clone, parent) {
     original.expression.type === "TSNonNullExpression"
   ) {
     // Ideally, we should swap these two nodes, but `type` is the only difference
-    [clone.type, clone.expression.type] = [clone.expression.type, clone.type];
+    [cloned.type, cloned.expression.type] = [cloned.expression.type, cloned.type];
   }
 }
 
