@@ -85,13 +85,18 @@ const visitorKeys = Object.fromEntries(
   ]),
 );
 
-// Unsupported
 for (const type of [
+  // Flow, Not supported yet
   "ComponentDeclaration",
   "ComponentParameter",
   "ComponentTypeAnnotation",
   "ComponentTypeParameter",
   "DeclareComponent",
+
+  // Flow, Not supported yet
+  "HookDeclaration",
+  "HookTypeAnnotation",
+  "DeclareHook",
 ]) {
   delete visitorKeys[type];
 }
