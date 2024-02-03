@@ -7,6 +7,7 @@ module.exports = {
     "directly-loc-start-end": require("./directly-loc-start-end.js"),
     "flat-ast-path-call": require("./flat-ast-path-call.js"),
     "jsx-identifier-case": require("./jsx-identifier-case.js"),
+    "massage-ast-parameter-names": require("./massage-ast-parameter-names.js"),
     "no-conflicting-comment-check-flags": require("./no-conflicting-comment-check-flags.js"),
     "no-doc-public-import": require("./no-doc-public-import.js"),
     "no-empty-flat-contents-for-if-break": require("./no-empty-flat-contents-for-if-break.js"),
