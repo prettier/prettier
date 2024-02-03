@@ -639,8 +639,7 @@ function printRoot(path, options, print) {
 }
 
 function printChildren(path, options, print, events = {}) {
-  const { postprocessor = (parts) => parts, processor = () => print() } =
-    events;
+  const { processor = print } = events;
 
   const parts = [];
 
@@ -666,7 +665,7 @@ function printChildren(path, options, print, events = {}) {
     }
   }, "children");
 
-  return postprocessor(parts);
+  return parts;
 }
 
 function printIgnoreComment(node) {
