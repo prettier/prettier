@@ -17,7 +17,6 @@ const isRootProgram = ({ node, parent }) =>
 - `Program`
 - `BlockStatement`
 - `StaticBlock`
-- `ModuleExpression`
 - `TSModuleBlock` (TypeScript)
 */
 function printBlock(path, options, print) {
