@@ -140,7 +140,7 @@ For example, you can do the following to have Prettier run before each commit:
    ```bash
    pnpm add --save-dev husky lint-staged
    npx husky init
-   echo "npx lint-staged" > .husky/pre-commit
+   echo "pnpm exec lint-staged" > .husky/pre-commit
    ```
 
    <!--END_DOCUSAURUS_CODE_TABS-->
