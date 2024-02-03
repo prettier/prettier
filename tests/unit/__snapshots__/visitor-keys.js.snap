@@ -1116,6 +1116,7 @@ exports[`visitor keys glimmer 1`] = `
   "Block": [
     "body",
   ],
+  "BlockParam": [],
   "BlockStatement": [
     "path",
     "params",
@@ -1135,17 +1136,21 @@ exports[`visitor keys glimmer 1`] = `
   "ConcatStatement": [
     "parts",
   ],
+  "ElementEndNode": [],
   "ElementModifierStatement": [
     "path",
     "params",
     "hash",
   ],
+  "ElementNameNode": [],
   "ElementNode": [
     "attributes",
     "modifiers",
     "children",
     "comments",
   ],
+  "ElementPartNode": [],
+  "ElementStartNode": [],
   "Hash": [
     "pairs",
   ],
