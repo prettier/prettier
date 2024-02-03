@@ -4875,10 +4875,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:5.3.0, ignore@npm:^5.2.0, ignore@npm:^5.2.4":
-  version: 5.3.0
-  resolution: "ignore@npm:5.3.0"
-  checksum: 51594355cea4c6ad6b28b3b85eb81afa7b988a1871feefd7062baf136c95aa06760ee934fa9590e43d967bd377ce84a4cf6135fbeb6063e063f1182a0e9a3bcd
+"ignore@npm:5.3.1, ignore@npm:^5.2.0, ignore@npm:^5.2.4":
+  version: 5.3.1
+  resolution: "ignore@npm:5.3.1"
+  checksum: 0a884c2fbc8c316f0b9f92beaf84464253b73230a4d4d286697be45fca081199191ca33e1c2e82d9e5f851f5e9a48a78e25a35c951e7eb41e59f150db3530065
   languageName: node
   linkType: hard
 
@@ -7453,7 +7453,7 @@ __metadata:
     html-element-attributes: "npm:3.3.0"
     html-tag-names: "npm:2.1.0"
     html-ua-styles: "npm:0.0.3"
-    ignore: "npm:5.3.0"
+    ignore: "npm:5.3.1"
     import-meta-resolve: "npm:4.0.0"
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.2"
