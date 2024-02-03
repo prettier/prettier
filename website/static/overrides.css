@@ -188,6 +188,10 @@ em {
   font-size: 18px;
 }
 
+.sponsorsSection h2 {
+  text-align: center;
+}
+
 .sponsorsSection .sponsorsTier h3 {
   text-align: center;
   font-size: 24px;
