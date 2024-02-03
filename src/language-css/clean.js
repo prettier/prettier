@@ -63,36 +63,36 @@ function clean(original, clone, parent) {
   }
 
   if (original.type === "selector-combinator") {
-    clone.value = clone.value.replaceAll(/\s+/g, " ");
+    clone.value = original.value.replaceAll(/\s+/g, " ");
   }
 
   if (original.type === "media-feature") {
-    clone.value = clone.value.replaceAll(" ", "");
+    clone.value = original.value.replaceAll(" ", "");
   }
 
   if (
     (original.type === "value-word" &&
       ((original.isColor && original.isHex) ||
         ["initial", "inherit", "unset", "revert"].includes(
-          clone.value.toLowerCase(),
+          original.value.toLowerCase(),
         ))) ||
     original.type === "media-feature" ||
     original.type === "selector-root-invalid" ||
     original.type === "selector-pseudo"
   ) {
-    clone.value = clone.value.toLowerCase();
+    clone.value = original.value.toLowerCase();
   }
   if (original.type === "css-decl") {
-    clone.prop = clone.prop.toLowerCase();
+    clone.prop = original.prop.toLowerCase();
   }
   if (original.type === "css-atrule" || original.type === "css-import") {
-    clone.name = clone.name.toLowerCase();
+    clone.name = original.name.toLowerCase();
   }
   if (original.type === "value-number") {
-    clone.unit = clone.unit.toLowerCase();
+    clone.unit = original.unit.toLowerCase();
   }
   if (original.type === "value-unknown") {
-    clone.value = clone.value.replaceAll(/;$/g, "");
+    clone.value = original.value.replaceAll(/;$/g, "");
   }
 
   if (
@@ -107,24 +107,24 @@ function clean(original, clone, parent) {
       original.type === "selector-class" ||
       original.type === "selector-combinator" ||
       original.type === "value-string") &&
-    clone.value
+    original.value
   ) {
-    clone.value = cleanCSSStrings(clone.value);
+    clone.value = cleanCSSStrings(original.value);
   }
 
   if (original.type === "selector-attribute") {
-    clone.attribute = clone.attribute.trim();
+    clone.attribute = original.attribute.trim();
 
-    if (clone.namespace && typeof clone.namespace === "string") {
-      clone.namespace = clone.namespace.trim();
+    if (original.namespace && typeof original.namespace === "string") {
+      clone.namespace = original.namespace.trim();
 
-      if (clone.namespace.length === 0) {
+      if (original.namespace.length === 0) {
         clone.namespace = true;
       }
     }
 
-    if (clone.value) {
-      clone.value = clone.value.trim().replaceAll(/^["']|["']$/g, "");
+    if (original.value) {
+      clone.value = original.value.trim().replaceAll(/^["']|["']$/g, "");
       delete clone.quoted;
     }
   }
@@ -137,9 +137,9 @@ function clean(original, clone, parent) {
       original.type === "selector-class" ||
       original.type === "selector-combinator" ||
       original.type === "selector-tag") &&
-    clone.value
+    original.value
   ) {
-    clone.value = clone.value.replaceAll(
+    clone.value = original.value.replaceAll(
       /([\d+.e-]+)([a-z]*)/gi,
       (match, numStr, unit) => {
         const num = Number(numStr);
