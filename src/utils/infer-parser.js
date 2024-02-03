@@ -12,11 +12,11 @@ function getLanguageByFileName(languages, file) {
   const basename = getFileBasename(file).toLowerCase();
 
   return (
-    languages.find(({ extensions }) =>
-      extensions?.some((extension) => basename.endsWith(extension)),
-    ) ??
     languages.find(({ filenames }) =>
       filenames?.some((name) => name.toLowerCase() === basename),
+    ) ??
+    languages.find(({ extensions }) =>
+      extensions?.some((extension) => basename.endsWith(extension)),
     )
   );
 }
