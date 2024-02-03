@@ -10,6 +10,17 @@ function clean(original, clone /*, parent*/) {
     clone.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
   }
 
+  if (ast.type === "ElementNode") {
+    delete newNode.startTag;
+    delete newNode.parts;
+    delete newNode.endTag;
+    delete newNode.nameNode;
+  }
+
+  if (ast.type === "Block" || ast.type === "ElementNode") {
+    delete newNode.blockParamNodes;
+  }
+
   // `class` is reformatted
   if (original.type === "AttrNode" && original.name.toLowerCase() === "class") {
     delete clone.value;
