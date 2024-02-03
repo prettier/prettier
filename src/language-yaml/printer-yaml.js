@@ -402,23 +402,23 @@ function printFlowScalarContent(nodeType, content, options) {
   );
 }
 
-function clean(node, newNode /*, parent */) {
-  if (isNode(newNode)) {
-    delete newNode.position;
-    switch (newNode.type) {
+function clean(original, clone /*, parent */) {
+  if (isNode(clone)) {
+    switch (clone.type) {
       case "comment":
         // insert pragma
-        if (isPragma(newNode.value)) {
+        if (isPragma(clone.value)) {
           return null;
         }
         break;
       case "quoteDouble":
       case "quoteSingle":
-        newNode.type = "quote";
+        clone.type = "quote";
         break;
     }
   }
 }
+clean.ignoredProperties = new Set(["position"]);
 
 const printer = {
   preprocess,

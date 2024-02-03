@@ -1,18 +1,18 @@
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 
-function clean(ast, newNode /*, parent*/) {
+function clean(original, clone /*, parent*/) {
   // (Glimmer/HTML) ignore TextNode
-  if (ast.type === "TextNode") {
-    const trimmed = ast.chars.trim();
+  if (original.type === "TextNode") {
+    const trimmed = original.chars.trim();
     if (!trimmed) {
       return null;
     }
-    newNode.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
+    clone.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
   }
 
   // `class` is reformatted
-  if (ast.type === "AttrNode" && ast.name.toLowerCase() === "class") {
-    delete newNode.value;
+  if (original.type === "AttrNode" && original.name.toLowerCase() === "class") {
+    delete clone.value;
   }
 }
 

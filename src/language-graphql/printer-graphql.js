@@ -500,11 +500,15 @@ function printVariableDefinitions(path, print) {
   ]);
 }
 
-function clean(node, newNode /* , parent */) {
+function clean(original, clone /* , parent */) {
   // We print single line `""" string """` as multiple line string,
   // and the parser ignores space in multiple line string
-  if (node.kind === "StringValue" && node.block && !node.value.includes("\n")) {
-    newNode.value = newNode.value.trim();
+  if (
+    original.kind === "StringValue" &&
+    original.block &&
+    !original.value.includes("\n")
+  ) {
+    clone.value = clone.value.trim();
   }
 }
 clean.ignoredProperties = new Set(["loc", "comments"]);

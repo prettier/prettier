@@ -23,27 +23,34 @@ const embeddedAngularControlFlowBlocks = new Set([
   "case",
 ]);
 
-function clean(ast, newNode) {
-  if (ast.type === "text" || ast.type === "comment") {
+function clean(original, clone) {
+  if (original.type === "text" || original.type === "comment") {
     return null;
   }
 
   // may be formatted by multiparser
-  if (isFrontMatter(ast) || ast.type === "yaml" || ast.type === "toml") {
+  if (
+    isFrontMatter(original) ||
+    original.type === "yaml" ||
+    original.type === "toml"
+  ) {
     return null;
   }
 
-  if (ast.type === "attribute") {
-    delete newNode.value;
+  if (original.type === "attribute") {
+    delete clone.value;
   }
 
-  if (ast.type === "docType") {
-    delete newNode.value;
+  if (original.type === "docType") {
+    delete clone.value;
   }
 
-  if (ast.type === "angularControlFlowBlock" && newNode.parameters?.children) {
-    for (const parameter of newNode.parameters.children) {
-      if (embeddedAngularControlFlowBlocks.has(ast.name)) {
+  if (
+    original.type === "angularControlFlowBlock" &&
+    clone.parameters?.children
+  ) {
+    for (const parameter of clone.parameters.children) {
+      if (embeddedAngularControlFlowBlocks.has(original.name)) {
         delete parameter.expression;
       } else {
         parameter.expression = parameter.expression.trim();
@@ -51,8 +58,8 @@ function clean(ast, newNode) {
     }
   }
 
-  if (ast.type === "angularIcuExpression") {
-    newNode.switchValue = ast.switchValue.trim();
+  if (original.type === "angularIcuExpression") {
+    clone.switchValue = original.switchValue.trim();
   }
 }
 
