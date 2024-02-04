@@ -19,7 +19,7 @@ function printTable(path, options, print) {
         const text = printDocToString(print(), options).formatted;
         const width = getStringWidth(text);
         columnMaxWidths[columnIndex] = Math.max(
-          columnMaxWidths[columnIndex] || 3, // minimum width = 3 (---, :--, :-:, --:)
+          columnMaxWidths[columnIndex] ?? 3, // minimum width = 3 (---, :--, :-:, --:)
           width,
         );
         return { text, width };
