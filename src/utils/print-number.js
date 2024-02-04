@@ -1,4 +1,10 @@
 function printNumber(rawNumber) {
+  if (rawNumber.length === 1) {
+    const code = rawNumber.charCodeAt(0);
+    if (code >= /* "1" */ 48 && code <= /* "9" */ 57) {
+      return rawNumber;
+    }
+  }
   return (
     rawNumber
       .toLowerCase()
