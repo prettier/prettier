@@ -324,16 +324,21 @@ function isSimpleType(node) {
   );
 }
 
+const unitTestSetUp = new Set([
+  "beforeEach",
+  "beforeAll",
+  "afterEach",
+  "afterAll",
+]);
 /**
  * @param {CallExpression} node
  * @returns {boolean}
  */
 function isUnitTestSetUp(node) {
-  const unitTestSetUpRe = /^(?:before|after)(?:Each|All)$/;
   return (
     node.callee.type === "Identifier" &&
     node.arguments.length === 1 &&
-    unitTestSetUpRe.test(node.callee.name)
+    unitTestSetUp.has(node.callee.name)
   );
 }
 
