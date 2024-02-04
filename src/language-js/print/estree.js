@@ -314,13 +314,11 @@ function printEstree(path, options, print, args) {
 
       return parts;
     case "UpdateExpression":
-      parts.push(print("argument"), node.operator);
-
-      if (node.prefix) {
-        parts.reverse();
-      }
-
-      return parts;
+      return [
+        node.prefix ? node.operator : "",
+        print("argument"),
+        node.prefix ? "" : node.operator,
+      ];
     case "ConditionalExpression":
       return printTernary(path, options, print, args);
     case "VariableDeclaration": {
