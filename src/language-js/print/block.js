@@ -21,7 +21,7 @@ function printBlock(path, options, print) {
   const { node, parent } = path;
 
   if (node.type === "Program" && parent?.type !== "ModuleExpression") {
-    return [bodyDoc, bodyDoc ? hardline : ""];
+    return bodyDoc ? [bodyDoc, hardline] : "";
   }
 
   const parts = [];
