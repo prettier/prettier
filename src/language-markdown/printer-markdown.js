@@ -3,7 +3,6 @@ import collapseWhiteSpace from "collapse-white-space";
 import {
   align,
   breakParent,
-  fill,
   group,
   hardline,
   hardlineWithoutBreakParent,
@@ -15,8 +14,10 @@ import {
   markAsRoot,
   softline,
 } from "../document/builders.js";
+import { DOC_TYPE_STRING } from "../document/constants.js";
 import { printDocToString } from "../document/printer.js";
-import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
+import { cleanDoc, getDocType, replaceEndOfLine } from "../document/utils.js";
+import { fillBuilder } from "../document/utils/fill-builder.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
@@ -26,43 +27,50 @@ import clean from "./clean.js";
 import { PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
+import { leadingHardlines } from "./leading-hardlines.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
+import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
+import { printSentence } from "./print-sentence.js";
 import { printWhitespace } from "./print-whitespace.js";
 import {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
-  INLINE_NODE_TYPES,
-  INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  isPrettierIgnore,
   splitText,
 } from "./utils.js";
 
 /**
+ * @typedef {import("../common/ast-path.js").default} AstPath
  * @typedef {import("../document/builders.js").Doc} Doc
  */
-
-const SIBLING_NODE_TYPES = new Set([
-  "listItem",
-  "definition",
-  "footnoteDefinition",
-]);
 
 function genericPrint(path, options, print) {
   const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
-    return splitText(
+    const builder = fillBuilder();
+    const textsNodes = splitText(
       options.originalText.slice(
         node.position.start.offset,
         node.position.end.offset,
       ),
-    ).map((node) =>
-      node.type === "word"
-        ? node.value
-        : printWhitespace(path, node.value, options.proseWrap, true),
     );
+    for (const node of textsNodes) {
+      if (node.type === "word") {
+        builder.append(node.value);
+        continue;
+      }
+      const doc = printWhitespace(path, node.value, options.proseWrap, true);
+      if (getDocType(doc) === DOC_TYPE_STRING) {
+        builder.append(doc);
+        continue;
+      }
+      builder.appendLine(doc);
+    }
+    return builder.build();
   }
 
   switch (node.type) {
@@ -76,13 +84,11 @@ function genericPrint(path, options, print) {
       if (node.children.length === 0) {
         return "";
       }
-      return [normalizeDoc(printRoot(path, options, print)), hardline];
+      return [cleanDoc(printRoot(path, options, print)), hardline];
     case "paragraph":
-      return printChildren(path, options, print, {
-        postprocessor: fill,
-      });
+      return printParagraph(path, options, print);
     case "sentence":
-      return printChildren(path, options, print);
+      return printSentence(path, print);
     case "word": {
       let escapedValue = node.value
         .replaceAll("*", "\\*") // escape all `*`
@@ -641,34 +647,24 @@ function printRoot(path, options, print) {
 }
 
 function printChildren(path, options, print, events = {}) {
-  const { postprocessor = (parts) => parts, processor = () => print() } =
-    events;
+  const { processor = () => print() } = events;
 
   const parts = [];
 
   path.each(() => {
     const result = processor(path);
     if (result !== false) {
-      if (parts.length > 0 && shouldPrePrintHardline(path)) {
-        parts.push(hardline);
-
-        if (
-          shouldPrePrintDoubleHardline(path, options) ||
-          shouldPrePrintTripleHardline(path)
-        ) {
-          parts.push(hardline);
-        }
-
-        if (shouldPrePrintTripleHardline(path)) {
-          parts.push(hardline);
+      if (parts.length > 0) {
+        const hardlines = leadingHardlines(path, options);
+        if (hardlines !== null) {
+          parts.push(hardlines);
         }
       }
-
       parts.push(result);
     }
   }, "children");
 
-  return postprocessor(parts);
+  return parts;
 }
 
 function printIgnoreComment(node) {
@@ -684,90 +680,6 @@ function printIgnoreComment(node) {
   ) {
     return ["{/* ", node.children[0].value, " */}"];
   }
-}
-
-/** @return {false | 'next' | 'start' | 'end'} */
-function isPrettierIgnore(node) {
-  let match;
-
-  if (node.type === "html") {
-    match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
-  } else {
-    let comment;
-
-    if (node.type === "esComment") {
-      comment = node;
-    } else if (
-      node.type === "paragraph" &&
-      node.children.length === 1 &&
-      node.children[0].type === "esComment"
-    ) {
-      comment = node.children[0];
-    }
-
-    if (comment) {
-      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/);
-    }
-  }
-
-  return match ? match[1] || "next" : false;
-}
-
-function shouldPrePrintHardline({ node, parent }) {
-  const isInlineNode = INLINE_NODE_TYPES.has(node.type);
-
-  const isInlineHTML =
-    node.type === "html" && INLINE_NODE_WRAPPER_TYPES.has(parent.type);
-
-  return !isInlineNode && !isInlineHTML;
-}
-
-function isLooseListItem(node, options) {
-  return (
-    node.type === "listItem" &&
-    (node.spread ||
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
-  );
-}
-
-function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
-  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
-
-  if (isPrevNodeLooseListItem) {
-    return true;
-  }
-
-  const isSequence = previous.type === node.type;
-  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
-  const isInTightListItem =
-    parent.type === "listItem" && !isLooseListItem(parent, options);
-  const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
-  const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
-    node.type === "html" &&
-    previous.type === "html" &&
-    previous.position.end.line + 1 === node.position.start.line;
-  const isHtmlDirectAfterListItem =
-    node.type === "html" &&
-    parent.type === "listItem" &&
-    previous.type === "paragraph" &&
-    previous.position.end.line + 1 === node.position.start.line;
-
-  return !(
-    isSiblingNode ||
-    isInTightListItem ||
-    isPrevNodePrettierIgnore ||
-    isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-    isHtmlDirectAfterListItem
-  );
-}
-
-function shouldPrePrintTripleHardline({ node, previous }) {
-  const isPrevNodeList = previous.type === "list";
-  const isIndentedCode = node.type === "code" && node.isIndented;
-
-  return isPrevNodeList && isIndentedCode;
 }
 
 function shouldRemainTheSameContent(path) {
