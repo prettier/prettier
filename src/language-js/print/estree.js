@@ -32,7 +32,7 @@ import {
   printVariableDeclarator,
 } from "./assignment.js";
 import { printBinaryishExpression } from "./binaryish.js";
-import { printBlock, printBlockBody } from "./block.js";
+import { printBlock } from "./block.js";
 import { printCallExpression } from "./call-expression.js";
 import {
   printClass,
@@ -103,9 +103,6 @@ function printEstree(path, options, print, args) {
       return [print("node"), hardline];
     case "File":
       return printHtmlBinding(path, options, print) ?? print("program");
-
-    case "Program":
-      return printBlockBody(path, options, print);
     // Babel extension.
     case "EmptyStatement":
       return "";
@@ -234,6 +231,8 @@ function printEstree(path, options, print, args) {
       return [print("key"), ": ", print("value")];
     case "Import":
       return "import";
+
+    case "Program":
     case "BlockStatement":
     case "StaticBlock":
       return printBlock(path, options, print);
@@ -637,15 +636,8 @@ function printEstree(path, options, print, args) {
     case "ArgumentPlaceholder":
       return "?";
 
-    case "ModuleExpression": {
-      parts.push("module {");
-      const printed = print("body");
-      if (printed) {
-        parts.push(indent([hardline, printed]), hardline);
-      }
-      parts.push("}");
-      return parts;
-    }
+    case "ModuleExpression":
+      return ["module ", print("body")];
 
     case "InterpreterDirective": // Printed as comment
     default:
