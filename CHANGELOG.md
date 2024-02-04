@@ -1,3 +1,107 @@
+# 3.2.5
+
+[diff](https://github.com/prettier/prettier/compare/3.2.4...3.2.5)
+
+#### Support Angular inline styles as single template literal ([#15968](https://github.com/prettier/prettier/pull/15968) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+[Angular v17](https://blog.angular.io/introducing-angular-v17-4d7033312e4b) supports single string inline styles.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+@Component({
+  template: `<div>...</div>`,
+  styles: `h1 { color: blue; }`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.4
+@Component({
+  template: `<div>...</div>`,
+  styles: `h1 { color: blue; }`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.5
+@Component({
+  template: `<div>...</div>`,
+  styles: `
+    h1 {
+      color: blue;
+    }
+  `,
+})
+export class AppComponent {}
+
+```
+
+#### Unexpected embedded formatting for Angular template ([#15969](https://github.com/prettier/prettier/pull/15969) by [@JounQin](https://github.com/JounQin))
+
+Computed template should not be considered as Angular component template
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const template = "foobar";
+
+@Component({
+  [template]: `<h1>{{       hello }}</h1>`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.4
+const template = "foobar";
+
+@Component({
+  [template]: `<h1>{{ hello }}</h1>`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.5
+const template = "foobar";
+
+@Component({
+  [template]: `<h1>{{       hello }}</h1>`,
+})
+export class AppComponent {}
+```
+
+#### Use `"json"` parser for `tsconfig.json` by default ([#16012](https://github.com/prettier/prettier/pull/16012) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+In [v2.3.0](https://prettier.io/blog/2024/01/12/3.2.0#new-jsonc-parser-added-15831httpsgithubcomprettierprettierpull15831-by-fiskerhttpsgithubcomfisker), we introduced `"jsonc"` parser which adds trialing comma **by default**.
+
+When adding a new parser we also define how it will be used based on the [`linguist-languages`](https://www.npmjs.com/package/linguist-languages) data.
+
+`tsconfig.json` is a special file used by [TypeScript](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#using-tsconfigjson-or-jsconfigjson), it uses `.json` file extension, but it actually uses the [JSON with Comments](https://code.visualstudio.com/docs/languages/json#_json-with-comments) syntax. However, we found that there are many third-party tools not recognize it correctly because of the confusing `.json` file extension.
+
+We decide to treat it as a JSON file for now to avoid the extra configuration step.
+
+To keep using the `"jsonc"` parser for your `tsconfig.json` files, add the following to your `.pretterrc` file
+
+```json
+{
+  "overrides": [
+    {
+      "files": ["tsconfig.json", "jsconfig.json"],
+      "options": {
+        "parser": "jsonc"
+      }
+    }
+  ]
+}
+```
+
+<!-- prettier-ignore -->
+```
+# Prettier 3.2.4
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "jsonc" }
+
+# Prettier 3.2.5
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "json" }
+```
+
 # 3.2.4
 
 [diff](https://github.com/prettier/prettier/compare/3.2.3...3.2.4)

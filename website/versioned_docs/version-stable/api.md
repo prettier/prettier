@@ -10,6 +10,8 @@ If you want to run Prettier programmatically, check this page out.
 import * as prettier from "prettier";
 ```
 
+Our public APIs are all asynchronous, if you must use synchronous version for some reason, you can try [`@prettier/sync`](https://github.com/prettier/prettier-synchronized).
+
 ## `prettier.format(source, options)`
 
 `format` is used to format text using Prettier. `options.parser` must be set according to the language you are formatting (see the [list of available parsers](options.md#parser)). Alternatively, `options.filepath` can be specified for Prettier to infer the parser from the file extension. Other [options](options.md) may be provided to override the defaults.

@@ -970,3 +970,22 @@ test("prefer-ast-path-getters", {
     },
   ],
 });
+
+test("massage-ast-parameter-names", {
+  valid: [
+    "function notNamedClean(a, b) {}",
+    "function clean(original, cloned) {}",
+  ],
+  invalid: [
+    {
+      code: "function clean(theOriginalNode, cloned) {delete theOriginalNode.property}",
+      output: "function clean(original, cloned) {delete original.property}",
+      errors: 1,
+    },
+    {
+      code: "function clean(original, theClonedNode) {delete theClonedNode.property}",
+      output: "function clean(original, cloned) {delete cloned.property}",
+      errors: 1,
+    },
+  ],
+});

@@ -526,12 +526,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".sublime_metrics",
         ".sublime_session"
       ],
-      "filenames": [
-        "devcontainer.json",
-        "jsconfig.json",
-        "language-configuration.json",
-        "tsconfig.json"
-      ],
+      "filenames": [],
       "group": "JSON",
       "linguistLanguageId": 423,
       "name": "JSON with Comments",
