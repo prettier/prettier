@@ -496,10 +496,12 @@ export interface Printer<T = any> {
   insertPragma?: (text: string) => string;
   /**
    * @returns `null` if you want to remove this node
-   * @returns `void` if you want to use modified newNode
+   * @returns `void` if you want to use modified `cloned`
    * @returns anything if you want to replace the node with it
    */
-  massageAstNode?: ((node: any, newNode: any, parent: any) => any) | undefined;
+  massageAstNode?:
+    | ((original: any, cloned: any, parent: any) => any)
+    | undefined;
   hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
   canAttachComment?: ((node: T) => boolean) | undefined;
   isBlockComment?: ((node: T) => boolean) | undefined;

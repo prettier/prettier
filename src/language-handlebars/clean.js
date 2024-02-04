@@ -1,29 +1,29 @@
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 
-function clean(ast, newNode /*, parent*/) {
+function clean(original, cloned /*, parent*/) {
   // (Glimmer/HTML) ignore TextNode
-  if (ast.type === "TextNode") {
-    const trimmed = ast.chars.trim();
+  if (original.type === "TextNode") {
+    const trimmed = original.chars.trim();
     if (!trimmed) {
       return null;
     }
-    newNode.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
+    cloned.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
   }
 
-  if (ast.type === "ElementNode") {
-    delete newNode.startTag;
-    delete newNode.parts;
-    delete newNode.endTag;
-    delete newNode.nameNode;
+  if (original.type === "ElementNode") {
+    delete cloned.startTag;
+    delete cloned.parts;
+    delete cloned.endTag;
+    delete cloned.nameNode;
   }
 
-  if (ast.type === "Block" || ast.type === "ElementNode") {
-    delete newNode.blockParamNodes;
+  if (original.type === "Block" || original.type === "ElementNode") {
+    delete cloned.blockParamNodes;
   }
 
   // `class` is reformatted
-  if (ast.type === "AttrNode" && ast.name.toLowerCase() === "class") {
-    delete newNode.value;
+  if (original.type === "AttrNode" && original.name.toLowerCase() === "class") {
+    delete cloned.value;
   }
 }
 
