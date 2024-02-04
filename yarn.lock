@@ -6511,7 +6511,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-from-markdown@npm:^2.0.0":
+"mdast-util-from-markdown@npm:2.0.0, mdast-util-from-markdown@npm:^2.0.0":
   version: 2.0.0
   resolution: "mdast-util-from-markdown@npm:2.0.0"
   dependencies:
@@ -6882,7 +6882,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-util-character@npm:^2.0.0":
+"micromark-util-character@npm:2.1.0, micromark-util-character@npm:^2.0.0":
   version: 2.1.0
   resolution: "micromark-util-character@npm:2.1.0"
   dependencies:
@@ -6998,7 +6998,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-util-symbol@npm:^2.0.0":
+"micromark-util-symbol@npm:2.0.0, micromark-util-symbol@npm:^2.0.0":
   version: 2.0.0
   resolution: "micromark-util-symbol@npm:2.0.0"
   checksum: 8c662644c326b384f02a5269974d843d400930cf6f5d6a8e6db1743fc8933f5ecc125b4203ad4ebca25447f5d23eb7e5bf1f75af34570c3fdd925cb618752fcd
@@ -7982,7 +7982,10 @@ __metadata:
     lines-and-columns: "npm:2.0.4"
     linguist-languages: "npm:7.27.0"
     magic-string: "npm:0.30.5"
+    mdast-util-from-markdown: "npm:2.0.0"
     meriyah: "npm:4.3.9"
+    micromark-util-character: "npm:2.1.0"
+    micromark-util-symbol: "npm:2.0.0"
     micromatch: "npm:4.0.5"
     minimist: "npm:1.2.8"
     n-readlines: "npm:1.0.1"

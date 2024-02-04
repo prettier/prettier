@@ -6,6 +6,7 @@ import { unified } from "unified";
 import { locEnd, locStart } from "./loc.js";
 import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import { hasPragma } from "./pragma.js";
+import { remarkLiquid } from "./unified-plugins/liquid.js";
 // import frontMatter from "./unified-plugins/front-matter.js";
 // import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 // import liquid from "./unified-plugins/liquid.js";
@@ -35,8 +36,8 @@ function createParse({ isMDX }) {
       .use(remarkGfm)
       // .use(frontMatter)
       .use(remarkMath)
-      .use(isMDX ? esSyntax : noop);
-    // .use(liquid)
+      .use(isMDX ? esSyntax : noop)
+      .use(remarkLiquid);
     // .use(isMDX ? htmlToJsx : noop)
     // .use(wikiLink);
     return processor.run(processor.parse(text));
