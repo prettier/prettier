@@ -37,35 +37,30 @@ function printTable(path, options, print) {
   return [breakParent, group(ifBreak(compactTable, alignedTable))];
 
   function printTableContents(isCompact) {
-    /** @type{Doc[]} */
-    const parts = [printRow(contents[0], isCompact), printAlign(isCompact)];
-    if (contents.length > 1) {
-      parts.push(
-        join(
-          hardlineWithoutBreakParent,
-          contents
-            .slice(1)
-            .map((rowContents) => printRow(rowContents, isCompact)),
-        ),
-      );
-    }
-    return join(hardlineWithoutBreakParent, parts);
+    return join(
+      hardlineWithoutBreakParent,
+      [
+        printRow(contents[0], isCompact),
+        printAlign(isCompact),
+        ...contents
+          .slice(1)
+          .map((rowContents) => printRow(rowContents, isCompact)),
+      ].map((columns) => `| ${columns.join(" | ")} |`),
+    );
   }
 
   function printAlign(isCompact) {
-    const align = columnMaxWidths.map((width, index) => {
+    return columnMaxWidths.map((width, index) => {
       const align = node.align[index];
       const first = align === "center" || align === "left" ? ":" : "-";
       const last = align === "center" || align === "right" ? ":" : "-";
       const middle = isCompact ? "-" : "-".repeat(width - 2);
       return `${first}${middle}${last}`;
     });
-
-    return `| ${align.join(" | ")} |`;
   }
 
-  function printRow(rowContents, isCompact) {
-    const columns = rowContents.map(({ text, width }, columnIndex) => {
+  function printRow(columns, isCompact) {
+    return columns.map(({ text, width }, columnIndex) => {
       if (isCompact) {
         return text;
       }
@@ -80,8 +75,6 @@ function printTable(path, options, print) {
       const after = spaces - before;
       return `${" ".repeat(before)}${text}${" ".repeat(after)}`;
     });
-
-    return `| ${columns.join(" | ")} |`;
   }
 }
 
