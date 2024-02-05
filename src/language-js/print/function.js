@@ -21,6 +21,7 @@ import {
   isBinaryish,
   isCallExpression,
   isJsxElement,
+  isMethod,
 } from "../utils/index.js";
 import {
   printFunctionParameters,
@@ -36,20 +37,16 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
  * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
-const isMethod = (node) =>
-  node.type === "ObjectMethod" ||
-  node.type === "ClassMethod" ||
-  node.type === "ClassPrivateMethod" ||
-  node.type === "MethodDefinition" ||
-  node.type === "TSAbstractMethodDefinition" ||
-  node.type === "TSDeclareMethod" ||
-  ((node.type === "Property" || node.type === "ObjectProperty") &&
-    (node.method || node.kind === "get" || node.kind === "set"));
-
-const isMethodValue = (path) =>
-  path.node.type === "FunctionExpression" &&
-  path.key === "value" &&
-  isMethod(path.parent);
+const isMethodValue = ({ node, key, parent }) =>
+  key === "value" &&
+  node.type === "FunctionExpression" &&
+  (parent.type === "ObjectMethod" ||
+    parent.type === "ClassMethod" ||
+    parent.type === "ClassPrivateMethod" ||
+    parent.type === "MethodDefinition" ||
+    parent.type === "TSAbstractMethodDefinition" ||
+    parent.type === "TSDeclareMethod" ||
+    (parent.type === "Property" && isMethod(parent)));
 
 /*
 - "FunctionDeclaration"

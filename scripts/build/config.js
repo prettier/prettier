@@ -353,7 +353,7 @@ const pluginFiles = [
       ...[
         "expression_parser/lexer.mjs",
         "expression_parser/parser.mjs",
-        "ml_parser/interpolation_config.mjs",
+        "ml_parser/defaults.mjs",
       ].map((file) => ({
         module: getPackageFile(`@angular/compiler/esm2022/src/${file}`),
         process: (text) =>
