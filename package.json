@@ -84,7 +84,7 @@
     "outdent": "0.8.0",
     "parse-json": "8.1.0",
     "please-upgrade-node": "3.2.0",
-    "postcss": "8.4.33",
+    "postcss": "8.4.34",
     "postcss-less": "6.0.0",
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "4.0.9",
