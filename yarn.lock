@@ -4809,10 +4809,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-ua-styles@npm:0.0.3":
-  version: 0.0.3
-  resolution: "html-ua-styles@npm:0.0.3"
-  checksum: 10/38e26d12c354c62947bb678f4b5baf0a04b95edbe5d1146e2030cbd3309ee87f6911a3a9cbfb00c747e34ce26ec358765cd20ba516e0a998ad782babb8e0a8e1
+"html-ua-styles@npm:0.0.5":
+  version: 0.0.5
+  resolution: "html-ua-styles@npm:0.0.5"
+  checksum: 10/4ac9fa24f9c22b5025d7ed078890c6b2c279211ff757319a0ad4f33ff5d1de697b70d498fe46d3ed05e89b922b9064b31e9e0b4920d86606f57170f2cad870c1
   languageName: node
   linkType: hard
 
@@ -7425,7 +7425,7 @@ __metadata:
     hermes-parser: "npm:0.19.0"
     html-element-attributes: "npm:3.3.0"
     html-tag-names: "npm:2.1.0"
-    html-ua-styles: "npm:0.0.3"
+    html-ua-styles: "npm:0.0.5"
     ignore: "npm:5.3.1"
     import-meta-resolve: "npm:4.0.0"
     iterate-directory-up: "npm:1.1.1"
