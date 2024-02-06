@@ -26,13 +26,30 @@
       groupName: "glimmer",
     },
     {
+      matchPackageNames: [
+        "eslint",
+        "@eslint/eslintrc",
+        "@eslint/js",
+        "@stylistic/eslint-plugin-js",
+        "@typescript-eslint/eslint-plugin",
+        "eslint-config-prettier",
+        "eslint-plugin-import",
+        "eslint-plugin-jest",
+        "eslint-plugin-n",
+        "eslint-plugin-react",
+        "eslint-plugin-regexp",
+        "eslint-plugin-simple-import-sort",
+      ],
+      groupName: "ESLint related dependencies",
+    },
+    {
       branchPrefix: "renovate/website/",
-      matchPaths: ["website/package.json"],
+      matchFileNames: ["website/package.json"],
       labels: ["dependency:website"],
     },
     {
       branchPrefix: "renovate/tools/",
-      matchPaths: [
+      matchFileNames: [
         "scripts/release/package.json",
         "scripts/tools/bundle-test/package.json",
         "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
@@ -47,5 +64,7 @@
   ignoreDeps: [
     // It's a dependency of `remark-parse`, use same version to reduce size
     "collapse-white-space",
+    // It will be updated by release script
+    "prettier",
   ],
 }
