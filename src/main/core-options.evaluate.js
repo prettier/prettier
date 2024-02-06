@@ -17,7 +17,7 @@ import {
  * @property {OptionRangeInfo} [range] - for type int
  * @property {string} description
  * @property {string} [deprecated] - deprecated since version
- * @property {OptionRedirectInfo} [redirect] - redirect deprecated option
+ * @property {OptionRedirectInfo | string} [redirect] - redirect deprecated option
  * @property {(value: any) => boolean} [exception]
  * @property {OptionChoiceInfo[]} [choices] - for type choice
  * @property {string} [cliName]
