@@ -567,8 +567,20 @@ function needsParens(path, options) {
       }
     // fallthrough
     case "TSInferType":
-      if (node.type === "TSInferType" && parent.type === "TSRestType") {
-        return false;
+      if (node.type === "TSInferType") {
+        if (parent.type === "TSRestType") {
+          return false;
+        }
+
+        if (
+          key === "types" &&
+          (parent.type === "TSUnionType" ||
+            parent.type === "TSIntersectionType") &&
+          node.typeParameter.type === "TSTypeParameter" &&
+          node.typeParameter.constraint
+        ) {
+          return true;
+        }
       }
     // fallthrough
     case "TSTypeOperator":
