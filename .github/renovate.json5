@@ -40,7 +40,7 @@
         "eslint-plugin-regexp",
         "eslint-plugin-simple-import-sort",
       ],
-      groupName: "eslint",
+      groupName: "ESLint related dependencies",
     },
     {
       branchPrefix: "renovate/website/",
