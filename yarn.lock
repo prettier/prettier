@@ -1758,17 +1758,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin-js@npm:1.5.3":
-  version: 1.5.3
-  resolution: "@stylistic/eslint-plugin-js@npm:1.5.3"
+"@stylistic/eslint-plugin-js@npm:1.6.0":
+  version: 1.6.0
+  resolution: "@stylistic/eslint-plugin-js@npm:1.6.0"
   dependencies:
     acorn: "npm:^8.11.3"
     escape-string-regexp: "npm:^4.0.0"
     eslint-visitor-keys: "npm:^3.4.3"
-    espree: "npm:^9.6.1"
+    espree: "npm:^10.0.0"
   peerDependencies:
     eslint: ">=8.40.0"
-  checksum: 10/453c594a04a0e3e30b5767e59f1c6ec414a333f3c51fdd924c872118beaaf04b8018cf833cebf750bbaa8a0f67f98f9ad61136c83dfb1d71febf950130853a6a
+  checksum: 10/80f97203907080ab5049d4bcafc54d8618e73a6bef9464ccb93b4c90d9ab9cdb1973b91a919cefec72316daca5f52755b39d58d24f9ff09bf814cfe6af0e2040
   languageName: node
   linkType: hard
 
@@ -3854,9 +3854,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:27.6.1":
-  version: 27.6.1
-  resolution: "eslint-plugin-jest@npm:27.6.1"
+"eslint-plugin-jest@npm:27.6.3":
+  version: 27.6.3
+  resolution: "eslint-plugin-jest@npm:27.6.3"
   dependencies:
     "@typescript-eslint/utils": "npm:^5.10.0"
   peerDependencies:
@@ -3868,13 +3868,13 @@ __metadata:
       optional: true
     jest:
       optional: true
-  checksum: 10/8cc20a25b6173f4c6ba6151d830fd27458c4946ea9e0d7cd9ed59f6e24c41f526b1f10e03d491bfd8e9d102e6777c5594a43838a9e584eb07594847e2f9416c4
+  checksum: 10/a29319d5a090633e30658da7521f9fa0468f861403509538e0927175ab2a46a7f60bd7fd344b54f7fb5f8e8b6385d8db67c305502a4de1291f32191163e74725
   languageName: node
   linkType: hard
 
-"eslint-plugin-n@npm:16.6.1":
-  version: 16.6.1
-  resolution: "eslint-plugin-n@npm:16.6.1"
+"eslint-plugin-n@npm:16.6.2":
+  version: 16.6.2
+  resolution: "eslint-plugin-n@npm:16.6.2"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.4.0"
     builtins: "npm:^5.0.1"
@@ -3889,7 +3889,7 @@ __metadata:
     semver: "npm:^7.5.3"
   peerDependencies:
     eslint: ">=7.0.0"
-  checksum: 10/fc5a4e7063966dddf6f1200b80fe1eac45384183245cb591a2f21eaf48f32a3abecbf4b0c05288b7bb43404dce7637b3cbe82aeb00278a0bae3cae9694280cf1
+  checksum: 10/e0f600d03d3a3df57e9a811648b1b534a6d67c90ea9406340ddf3763c2b87cf5ef910b390f787ca5cb27c8d8ff36aad42d70209b54e2a1cb4cc2507ca417229a
   languageName: node
   linkType: hard
 
@@ -3919,9 +3919,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-regexp@npm:2.1.2":
-  version: 2.1.2
-  resolution: "eslint-plugin-regexp@npm:2.1.2"
+"eslint-plugin-regexp@npm:2.2.0":
+  version: 2.2.0
+  resolution: "eslint-plugin-regexp@npm:2.2.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
     "@eslint-community/regexpp": "npm:^4.9.1"
@@ -3932,7 +3932,7 @@ __metadata:
     scslre: "npm:^0.3.0"
   peerDependencies:
     eslint: ">=8.44.0"
-  checksum: 10/1a14b2e3b4181cdea60b5d336ecb4abf03522f17438af3aab42e49970a624705cc143d76642523c97d9142f6638f267906e97b966700505f1a5f67a3e53f3c5c
+  checksum: 10/b8adeed6aa97d439a539c1a97f9e2d804f7cb92dcb86ab8ac97aa79512143e1ef089098f2ffd21d9ac02469e1ebf1c667f2a6ea58cf853a446cae2a3decf23ec
   languageName: node
   linkType: hard
 
@@ -4056,7 +4056,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"espree@npm:10.0.0":
+"espree@npm:10.0.0, espree@npm:^10.0.0":
   version: 10.0.0
   resolution: "espree@npm:10.0.0"
   dependencies:
@@ -7366,7 +7366,7 @@ __metadata:
     "@iarna/toml": "npm:2.2.5"
     "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
-    "@stylistic/eslint-plugin-js": "npm:1.5.3"
+    "@stylistic/eslint-plugin-js": "npm:1.6.0"
     "@types/eslint__js": "npm:8.42.3"
     "@types/estree": "npm:1.0.5"
     "@types/file-entry-cache": "npm:5.0.4"
@@ -7405,10 +7405,10 @@ __metadata:
     eslint-formatter-friendly: "npm:7.0.0"
     eslint-plugin-compat: "npm:4.2.0"
     eslint-plugin-import: "npm:2.29.1"
-    eslint-plugin-jest: "npm:27.6.1"
-    eslint-plugin-n: "npm:16.6.1"
+    eslint-plugin-jest: "npm:27.6.3"
+    eslint-plugin-n: "npm:16.6.2"
     eslint-plugin-react: "npm:7.33.2"
-    eslint-plugin-regexp: "npm:2.1.2"
+    eslint-plugin-regexp: "npm:2.2.0"
     eslint-plugin-simple-import-sort: "npm:10.0.0"
     eslint-plugin-unicorn: "npm:50.0.1"
     esm-utils: "npm:4.2.1"
