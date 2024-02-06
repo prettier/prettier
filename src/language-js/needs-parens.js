@@ -576,7 +576,7 @@ function needsParens(path, options) {
           key === "types" &&
           (parent.type === "TSUnionType" ||
             parent.type === "TSIntersectionType") &&
-          node.typeParameter?.type === "TSTypeParameter" &&
+          node.typeParameter.type === "TSTypeParameter" &&
           node.typeParameter.constraint
         ) {
           return true;
