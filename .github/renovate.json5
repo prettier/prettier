@@ -44,12 +44,12 @@
     },
     {
       branchPrefix: "renovate/website/",
-      matchPaths: ["website/package.json"],
+      matchFileNames: ["website/package.json"],
       labels: ["dependency:website"],
     },
     {
       branchPrefix: "renovate/tools/",
-      matchPaths: [
+      matchFileNames: [
         "scripts/release/package.json",
         "scripts/tools/bundle-test/package.json",
         "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
