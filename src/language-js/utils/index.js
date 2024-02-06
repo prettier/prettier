@@ -324,12 +324,6 @@ function isSimpleType(node) {
   );
 }
 
-const unitTestSetUp = new Set([
-  "beforeEach",
-  "beforeAll",
-  "afterEach",
-  "afterAll",
-]);
 /**
  * @param {CallExpression} node
  * @returns {boolean}
@@ -338,7 +332,10 @@ function isUnitTestSetUp(node) {
   return (
     node.callee.type === "Identifier" &&
     node.arguments.length === 1 &&
-    unitTestSetUp.has(node.callee.name)
+    (node.callee.name === "beforeEach" ||
+      node.callee.name === "beforeAll" ||
+      node.callee.name === "afterEach" ||
+      node.callee.name === "afterAll")
   );
 }
 
