@@ -26,6 +26,23 @@
       groupName: "glimmer",
     },
     {
+      matchPackageNames: [
+        "eslint",
+        "@eslint/eslintrc",
+        "@eslint/js",
+        "@stylistic/eslint-plugin-js",
+        "@typescript-eslint/eslint-plugin",
+        "eslint-config-prettier",
+        "eslint-plugin-import",
+        "eslint-plugin-jest",
+        "eslint-plugin-n",
+        "eslint-plugin-react",
+        "eslint-plugin-regexp",
+        "eslint-plugin-simple-import-sort",
+      ],
+      groupName: "eslint",
+    },
+    {
       branchPrefix: "renovate/website/",
       matchPaths: ["website/package.json"],
       labels: ["dependency:website"],
