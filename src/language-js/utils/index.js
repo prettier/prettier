@@ -328,10 +328,9 @@ function isSimpleType(node) {
  * @param {CallExpression} node
  * @returns {boolean}
  */
-function isUnitTestSetUp(node) {
+function isUnitTestSetup(node) {
   return (
     node.callee.type === "Identifier" &&
-    node.arguments.length === 1 &&
     (node.callee.name === "beforeEach" ||
       node.callee.name === "beforeAll" ||
       node.callee.name === "afterEach" ||
@@ -379,7 +378,7 @@ function isTestCall(node, parent) {
       return isFunctionOrArrowExpression(node.arguments[0]);
     }
 
-    if (isUnitTestSetUp(node)) {
+    if (isUnitTestSetup(node)) {
       return isAngularTestWrapper(node.arguments[0]);
     }
   } else if (
