@@ -39,6 +39,7 @@
         "eslint-plugin-react",
         "eslint-plugin-regexp",
         "eslint-plugin-simple-import-sort",
+        "eslint-plugin-unicorn",
       ],
       groupName: "ESLint related dependencies",
     },
