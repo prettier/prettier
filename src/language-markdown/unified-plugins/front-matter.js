@@ -1,21 +1,39 @@
-import parseFrontMatter from "../../utils/front-matter/parse.js";
+/**
+ * @typedef {import('unified').Processor} Processor
+ */
 
 /**
- * @type {import('unified').Plugin<[], import('unified').Settings>}
+ * @this {Processor}
  */
-const frontMatter = function () {
-  const proto = this.Parser.prototype;
-  proto.blockMethods = ["frontMatter", ...proto.blockMethods];
-  proto.blockTokenizers.frontMatter = tokenizer;
+function transformFrontMatter() {
+  /** @type {any} */
+  const data = this.data();
 
-  function tokenizer(eat, value) {
-    const parsed = parseFrontMatter(value);
+  (data.fromMarkdownExtensions ??= []).push({ transforms: [transform] });
+}
 
-    if (parsed.frontMatter) {
-      return eat(parsed.frontMatter.raw)(parsed.frontMatter);
-    }
+const frontMatterTypes = new Set(["yaml", "toml"]);
+
+function transform(node) {
+  if (node.children.length === 0) {
+    return node;
   }
-  tokenizer.onlyAtStart = true;
-};
+  const [head, ...rest] = node.children;
+  if (!frontMatterTypes.has(head.type)) {
+    return node;
+  }
+  const delimiter = head.type === "yaml" ? "---" : "+++";
+  const newHead = {
+    ...head,
+    type: "front-matter",
+    lang: head.type,
+    startDelimiter: delimiter,
+    endDelimiter: delimiter,
+  };
+  return {
+    ...node,
+    children: [newHead, ...rest],
+  };
+}
 
-export default frontMatter;
+export { transformFrontMatter };

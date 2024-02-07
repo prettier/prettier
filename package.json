@@ -94,6 +94,7 @@
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "2.0.1",
     "regexp-util": "2.0.0",
+    "remark-frontmatter": "5.0.0",
     "remark-gfm": "4.0.0",
     "remark-math": "6.0.0",
     "remark-parse": "11.0.0",

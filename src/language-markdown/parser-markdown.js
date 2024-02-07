@@ -1,3 +1,4 @@
+import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
@@ -6,6 +7,7 @@ import { unified } from "unified";
 import { locEnd, locStart } from "./loc.js";
 import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import { hasPragma } from "./pragma.js";
+import { transformFrontMatter } from "./unified-plugins/front-matter.js";
 import { remarkLiquid } from "./unified-plugins/liquid.js";
 // import frontMatter from "./unified-plugins/front-matter.js";
 // import htmlToJsx from "./unified-plugins/html-to-jsx.js";
@@ -34,7 +36,8 @@ function createParse({ isMDX }) {
         ...(isMDX && { blocks: [BLOCKS_REGEX] }),
       })
       .use(remarkGfm)
-      // .use(frontMatter)
+      .use(remarkFrontmatter, ["yaml", "toml"])
+      .use(transformFrontMatter)
       .use(remarkMath)
       .use(isMDX ? esSyntax : noop)
       .use(remarkLiquid);
