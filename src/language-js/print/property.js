@@ -81,6 +81,25 @@ function shouldQuotePropertyKey(path, options) {
   );
 }
 
+/*
+- `ClassProperty`
+- `PropertyDefinition`
+- `ClassPrivateProperty`
+- `ClassAccessorProperty`
+- `AccessorProperty`
+- `ObjectMethod`
+- `Property`
+- `ObjectProperty`
+- `ClassMethod`
+- `ClassPrivateMethod`
+- `MethodDefinition
+- `TSAbstractAccessorProperty` (TypeScript)
+- `TSAbstractPropertyDefinition` (TypeScript)
+- `TSAbstractMethodDefinition` (TypeScript)
+- `TSDeclareMethod` (TypeScript)
+- `TSPropertySignature` (TypeScript)
+- `ObjectTypeProperty` (Flow)
+*/
 function printPropertyKey(path, options, print) {
   const { node } = path;
 
