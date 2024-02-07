@@ -1,4 +1,8 @@
-import { isArrayOrTupleExpression } from "./utils/index.js";
+import {
+  isArrayOrTupleExpression,
+  isNumericLiteral,
+  isStringLiteral,
+} from "./utils/index.js";
 import isBlockComment from "./utils/is-block-comment.js";
 
 const ignoredProperties = new Set([
@@ -85,11 +89,7 @@ function clean(original, cloned, parent) {
     !original.computed
   ) {
     const { key } = original;
-    if (
-      key.type === "Literal" ||
-      key.type === "NumericLiteral" ||
-      key.type === "StringLiteral"
-    ) {
+    if (isStringLiteral(key) || isNumericLiteral(key)) {
       cloned.key = String(key.value);
     } else if (key.type === "Identifier") {
       cloned.key = key.name;
