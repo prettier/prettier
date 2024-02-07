@@ -40,28 +40,45 @@ function isSimpleNumber(numberString) {
 //
 // Identifiers can be unquoted in more circumstances, though.
 function isStringKeySafeToUnquote(node, options) {
-  return (
-    options.parser !== "json" &&
-    options.parser !== "jsonc" &&
-    isStringLiteral(node.key) &&
-    rawText(node.key).slice(1, -1) === node.key.value &&
-    ((isEs5IdentifierName(node.key.value) &&
-      // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
-      // See https://github.com/microsoft/TypeScript/pull/20075
-      !(
-        (options.parser === "babel-ts" && node.type === "ClassProperty") ||
-        (options.parser === "typescript" && node.type === "PropertyDefinition")
-      )) ||
-      (isSimpleNumber(node.key.value) &&
-        String(Number(node.key.value)) === node.key.value &&
-        // TODO[@fisker]: `ImportAttribute` should not care about parser
-        node.type !== "ImportAttribute" &&
-        (options.parser === "babel" ||
-          options.parser === "acorn" ||
-          options.parser === "espree" ||
-          options.parser === "meriyah" ||
-          options.parser === "__babel_estree")))
-  );
+  if (
+    options.parser === "json" ||
+    options.parser === "jsonc" ||
+    !isStringLiteral(node.key) ||
+    // TODO[@fisker]: Use `printString` instead
+    rawText(node.key).slice(1, -1) !== node.key.value
+  ) {
+    return false;
+  }
+
+  // Safe to unquote as identifier
+  if (
+    isEs5IdentifierName(node.key.value) &&
+    // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
+    // See https://github.com/microsoft/TypeScript/pull/20075
+    !(
+      (options.parser === "babel-ts" && node.type === "ClassProperty") ||
+      (options.parser === "typescript" && node.type === "PropertyDefinition")
+    )
+  ) {
+    return true;
+  }
+
+  // Safe to unquote as number
+  if (
+    isSimpleNumber(node.key.value) &&
+    String(Number(node.key.value)) === node.key.value &&
+    // TODO[@fisker]: `ImportAttribute` should not care about parser
+    node.type !== "ImportAttribute" &&
+    (options.parser === "babel" ||
+      options.parser === "acorn" ||
+      options.parser === "espree" ||
+      options.parser === "meriyah" ||
+      options.parser === "__babel_estree")
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 function shouldQuotePropertyKey(path, options) {
