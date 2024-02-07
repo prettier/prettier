@@ -67,7 +67,6 @@ function isStringKeySafeToUnquote(node, options) {
   if (
     isSimpleNumber(node.key.value) &&
     String(Number(node.key.value)) === node.key.value &&
-    // TODO[@fisker]: `ImportAttribute` should not care about parser
     node.type !== "ImportAttribute" &&
     (options.parser === "babel" ||
       options.parser === "acorn" ||
