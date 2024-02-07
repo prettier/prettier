@@ -39,7 +39,7 @@ function isSimpleNumber(numberString) {
 // (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
 //
 // Identifiers can be unquoted in more circumstances, though.
-function isStringPropSafeToUnquote(node, options) {
+function isStringKeySafeToUnquote(node, options) {
   return (
     options.parser !== "json" &&
     options.parser !== "jsonc" &&
@@ -73,7 +73,7 @@ function shouldQuotePropertyKey(path, options) {
         // Avoid converting 999999999999999999999 to 1e+21, 0.99999999999999999 to 1 and 1.0 to 1.
         String(key.value) === printNumber(rawText(key)) &&
         // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
-        // mentioned in `isStringPropSafeToUnquote`).
+        // mentioned in `isStringKeySafeToUnquote`).
         !(options.parser === "typescript" || options.parser === "babel-ts"))) &&
     (options.parser === "json" ||
       options.parser === "jsonc" ||
@@ -124,7 +124,7 @@ function printPropertyKey(path, options, print) {
         !prop.computed &&
         prop.key &&
         isStringLiteral(prop.key) &&
-        !isStringPropSafeToUnquote(prop, options),
+        !isStringKeySafeToUnquote(prop, options),
     );
     needsQuoteProps.set(parent, objectHasStringProp);
   }
@@ -143,7 +143,7 @@ function printPropertyKey(path, options, print) {
   }
 
   if (
-    isStringPropSafeToUnquote(node, options) &&
+    isStringKeySafeToUnquote(node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
   ) {
