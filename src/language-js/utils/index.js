@@ -616,6 +616,7 @@ function isStringPropSafeToUnquote(node, options) {
       )) ||
       (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
+        node.type !== "ImportAttribute" &&
         (options.parser === "babel" ||
           options.parser === "acorn" ||
           options.parser === "espree" ||
