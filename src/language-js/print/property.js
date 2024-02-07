@@ -93,6 +93,9 @@ function shouldQuotePropertyKey(path, options) {
 - `ClassMethod`
 - `ClassPrivateMethod`
 - `MethodDefinition
+- `Property`
+- `ObjectProperty`
+- `ImportAttribute`
 - `TSAbstractAccessorProperty` (TypeScript)
 - `TSAbstractPropertyDefinition` (TypeScript)
 - `TSAbstractMethodDefinition` (TypeScript)
@@ -161,6 +164,11 @@ function printPropertyKey(path, options, print) {
   return print("key");
 }
 
+/*
+- `Property`
+- `ObjectProperty`
+- `ImportAttribute`
+*/
 function printProperty(path, options, print) {
   const { node } = path;
   if (node.shorthand) {
