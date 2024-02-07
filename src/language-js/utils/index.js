@@ -164,9 +164,10 @@ function isSignedNumericLiteral(node) {
  * @returns {boolean}
  */
 function isStringLiteral(node) {
-  return (
-    node.type === "StringLiteral" ||
-    (node.type === "Literal" && typeof node.value === "string")
+  return Boolean(
+    node &&
+      (node.type === "StringLiteral" ||
+        (node.type === "Literal" && typeof node.value === "string")),
   );
 }
 
