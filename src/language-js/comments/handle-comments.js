@@ -725,13 +725,7 @@ function handlePropertyComments({ comment, enclosingNode }) {
   return false;
 }
 
-function handleOnlyComments({
-  comment,
-  enclosingNode,
-  followingNode,
-  ast,
-  isLastComment,
-}) {
+function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
   // With Flow the enclosingNode is undefined so use the AST instead.
   if (ast?.body?.length === 0) {
     if (isLastComment) {
@@ -752,15 +746,6 @@ function handleOnlyComments({
     } else {
       addLeadingComment(enclosingNode, comment);
     }
-    return true;
-  }
-
-  if (
-    followingNode?.type === "Program" &&
-    followingNode.body.length === 0 &&
-    enclosingNode?.type === "ModuleExpression"
-  ) {
-    addDanglingComment(followingNode, comment);
     return true;
   }
 

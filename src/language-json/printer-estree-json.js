@@ -80,33 +80,33 @@ const ignoredProperties = new Set([
   "tokens",
 ]);
 
-function clean(node, newNode /*, parent*/) {
-  const { type } = node;
+function clean(original, cloned /*, parent*/) {
+  const { type } = original;
   // We print quoted key
   if (type === "ObjectProperty") {
-    const { key } = node;
+    const { key } = original;
     if (key.type === "Identifier") {
-      newNode.key = { type: "StringLiteral", value: key.name };
+      cloned.key = { type: "StringLiteral", value: key.name };
     } else if (key.type === "NumericLiteral") {
-      newNode.key = { type: "StringLiteral", value: String(key.value) };
+      cloned.key = { type: "StringLiteral", value: String(key.value) };
     }
     return;
   }
-  if (type === "UnaryExpression" && node.operator === "+") {
-    return newNode.argument;
+  if (type === "UnaryExpression" && original.operator === "+") {
+    return cloned.argument;
   }
   // We print holes in array as `null`
   if (type === "ArrayExpression") {
-    for (const [index, element] of node.elements.entries()) {
+    for (const [index, element] of original.elements.entries()) {
       if (element === null) {
-        newNode.elements.splice(index, 0, { type: "NullLiteral" });
+        cloned.elements.splice(index, 0, { type: "NullLiteral" });
       }
     }
     return;
   }
   // We print `TemplateLiteral` as string
   if (type === "TemplateLiteral") {
-    return { type: "StringLiteral", value: node.quasis[0].value.cooked };
+    return { type: "StringLiteral", value: original.quasis[0].value.cooked };
   }
 }
 

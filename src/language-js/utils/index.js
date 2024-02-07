@@ -243,30 +243,29 @@ function isAngularTestWrapper(node) {
 
 const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
-function isGetterOrSetter(node) {
-  return node.kind === "get" || node.kind === "set";
+function isMethod(node) {
+  return (
+    (node.method && node.kind === "init") ||
+    node.kind === "get" ||
+    node.kind === "set"
+  );
 }
 
-// TODO: This is a bad hack and we need a better way to distinguish between
-// arrow functions and otherwise
-function isFunctionNotation(node) {
-  return isGetterOrSetter(node) || hasSameLocStart(node, node.value);
-}
-
-// Hack to differentiate between the following two which have the same ast
-// type T = { method: () => void };
-// type T = { method(): void };
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isObjectTypePropertyAFunction(node) {
+function isFlowObjectTypePropertyAFunction(node) {
   return (
     (node.type === "ObjectTypeProperty" ||
       node.type === "ObjectTypeInternalSlot") &&
-    node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !isFunctionNotation(node)
+    !node.method &&
+    // @ts-expect-error -- exists on `ObjectTypeProperty` but not `ObjectTypeInternalSlot`
+    node.kind !== "get" &&
+    // @ts-expect-error -- exists on `ObjectTypeProperty` but not `ObjectTypeInternalSlot`
+    node.kind !== "set" &&
+    node.value.type === "FunctionTypeAnnotation"
   );
 }
 
@@ -1194,7 +1193,7 @@ function isObjectProperty(node) {
   return (
     node &&
     (node.type === "ObjectProperty" ||
-      (node.type === "Property" && !node.method && node.kind === "init"))
+      (node.type === "Property" && !isMethod(node)))
   );
 }
 
@@ -1242,10 +1241,9 @@ export {
   isCallExpression,
   isCallLikeExpression,
   isExportDeclaration,
+  isFlowObjectTypePropertyAFunction,
   isFunctionCompositionArgs,
-  isFunctionNotation,
   isFunctionOrArrowExpression,
-  isGetterOrSetter,
   isIntersectionType,
   isJsxElement,
   isLineComment,
@@ -1254,12 +1252,12 @@ export {
   isLongCurriedCallExpression,
   isMemberExpression,
   isMemberish,
+  isMethod,
   isNextLineEmpty,
   isNumericLiteral,
   isObjectOrRecordExpression,
   isObjectProperty,
   isObjectType,
-  isObjectTypePropertyAFunction,
   isPrettierIgnoreComment,
   isRegExpLiteral,
   isSignedNumericLiteral,

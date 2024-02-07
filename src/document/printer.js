@@ -19,7 +19,7 @@ import {
   DOC_TYPE_TRIM,
 } from "./constants.js";
 import InvalidDocError from "./invalid-doc-error.js";
-import { getDocParts, getDocType, propagateBreaks } from "./utils.js";
+import { getDocType, propagateBreaks } from "./utils.js";
 
 /** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
 /** @typedef {{ ind: any, doc: any, mode: Mode }} Command */
@@ -222,8 +222,8 @@ function fits(
     }
 
     const { mode, doc } = cmds.pop();
-
-    switch (getDocType(doc)) {
+    const docType = getDocType(doc);
+    switch (docType) {
       case DOC_TYPE_STRING:
         out.push(doc);
         width -= getStringWidth(doc);
@@ -231,7 +231,7 @@ function fits(
 
       case DOC_TYPE_ARRAY:
       case DOC_TYPE_FILL: {
-        const parts = getDocParts(doc);
+        const parts = docType === DOC_TYPE_ARRAY ? doc : doc.parts;
         for (let i = parts.length - 1; i >= 0; i--) {
           cmds.push({ mode, doc: parts[i] });
         }

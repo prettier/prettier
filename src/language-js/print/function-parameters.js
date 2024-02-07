@@ -17,10 +17,10 @@ import {
   hasComment,
   hasRestParameter,
   isArrayOrTupleExpression,
+  isFlowObjectTypePropertyAFunction,
   isNextLineEmpty,
   isObjectOrRecordExpression,
   isObjectType,
-  isObjectTypePropertyAFunction,
   isSimpleType,
   isTestCall,
   isTypeAnnotationAFunction,
@@ -120,7 +120,7 @@ function printFunctionParameters(
   }
 
   const isFlowShorthandWithOneArg =
-    (isObjectTypePropertyAFunction(parent) ||
+    (isFlowObjectTypePropertyAFunction(parent) ||
       isTypeAnnotationAFunction(parent) ||
       parent.type === "TypeAlias" ||
       parent.type === "UnionTypeAnnotation" ||
