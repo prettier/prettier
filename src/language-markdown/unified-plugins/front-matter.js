@@ -1,39 +1,64 @@
-/**
- * @typedef {import('unified').Processor} Processor
- */
+import { frontmatter } from "micromark-extension-frontmatter";
+
+import parseFrontMatter from "../../utils/front-matter/parse.js";
 
 /**
- * @this {Processor}
+ * @typedef {import('unified').Processor} Processor
+ * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
+ * @typedef {import('mdast-util-from-markdown').Token} Token
  */
-function transformFrontMatter() {
+
+function remarkFrontMatter(options, text) {
   /** @type {any} */
   const data = this.data();
 
-  (data.fromMarkdownExtensions ??= []).push({ transforms: [transform] });
+  (data.micromarkExtensions ??= []).push(frontmatter(options));
+  (data.fromMarkdownExtensions ??= []).push(fromMarkdown(text));
 }
 
-const frontMatterTypes = new Set(["yaml", "toml"]);
-
-function transform(node) {
-  if (node.children.length === 0) {
-    return node;
-  }
-  const [head, ...rest] = node.children;
-  if (!frontMatterTypes.has(head.type)) {
-    return node;
-  }
-  const delimiter = head.type === "yaml" ? "---" : "+++";
-  const newHead = {
-    ...head,
-    type: "front-matter",
-    lang: head.type,
-    startDelimiter: delimiter,
-    endDelimiter: delimiter,
-  };
+function fromMarkdown(text) {
   return {
-    ...node,
-    children: [newHead, ...rest],
+    enter: { yaml: enterFrontMatter, toml: enterFrontMatter },
+    exit: { yaml: exitFrontMatter, toml: exitFrontMatter },
+    transforms: [
+      function (node) {
+        if (node.children.length === 0) {
+          return node;
+        }
+        const [head, ...rest] = node.children;
+        if (head.type !== "front-matter") {
+          return node;
+        }
+        const fm = parseFrontMatter(
+          text.slice(head.position.start.offset, head.position.end.offset),
+        );
+        const newHead = {
+          ...head,
+          ...fm.frontMatter,
+        };
+        return {
+          ...node,
+          children: [newHead, ...rest],
+        };
+      },
+    ],
   };
+
+  /**
+   * @this {CompileContext}
+   * @param {Token} token
+   */
+  function enterFrontMatter(token) {
+    this.enter({ type: "front-matter" }, token);
+  }
+
+  /**
+   * @this {CompileContext}
+   * @param {Token} token
+   */
+  function exitFrontMatter(token) {
+    this.exit(token);
+  }
 }
 
-export { transformFrontMatter };
+export { remarkFrontMatter };

@@ -79,6 +79,7 @@
     "linguist-languages": "7.27.0",
     "mdast-util-from-markdown": "2.0.0",
     "meriyah": "4.3.9",
+    "micromark-extension-frontmatter": "2.0.0",
     "micromark-util-character": "2.1.0",
     "micromark-util-symbol": "2.0.0",
     "micromatch": "4.0.5",

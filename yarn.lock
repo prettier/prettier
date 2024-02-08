@@ -6747,7 +6747,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-frontmatter@npm:^2.0.0":
+"micromark-extension-frontmatter@npm:2.0.0, micromark-extension-frontmatter@npm:^2.0.0":
   version: 2.0.0
   resolution: "micromark-extension-frontmatter@npm:2.0.0"
   dependencies:
@@ -8026,6 +8026,7 @@ __metadata:
     magic-string: "npm:0.30.5"
     mdast-util-from-markdown: "npm:2.0.0"
     meriyah: "npm:4.3.9"
+    micromark-extension-frontmatter: "npm:2.0.0"
     micromark-util-character: "npm:2.1.0"
     micromark-util-symbol: "npm:2.0.0"
     micromatch: "npm:4.0.5"
