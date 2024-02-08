@@ -325,16 +325,16 @@ function isSimpleType(node) {
 }
 
 /**
- * @param {CallExpression} node
+ * @param {*} node
  * @returns {boolean}
  */
-function isUnitTestSetup(node) {
+function isUnitTestSetupIdentifier(node) {
   return (
-    node.callee.type === "Identifier" &&
-    (node.callee.name === "beforeEach" ||
-      node.callee.name === "beforeAll" ||
-      node.callee.name === "afterEach" ||
-      node.callee.name === "afterAll")
+    node.type === "Identifier" &&
+    (node.name === "beforeEach" ||
+      node.name === "beforeAll" ||
+      node.name === "afterEach" ||
+      node.name === "afterAll")
   );
 }
 
@@ -378,7 +378,7 @@ function isTestCall(node, parent) {
       return isFunctionOrArrowExpression(node.arguments[0]);
     }
 
-    if (isUnitTestSetup(node)) {
+    if (isUnitTestSetupIdentifier(node.callee)) {
       return isAngularTestWrapper(node.arguments[0]);
     }
   } else if (
