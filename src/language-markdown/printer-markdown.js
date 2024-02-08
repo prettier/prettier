@@ -44,7 +44,6 @@ import {
 const SIBLING_NODE_TYPES = new Set([
   "listItem",
   "definition",
-  "footnoteDefinition",
 ]);
 
 function genericPrint(path, options, print) {
@@ -405,7 +404,6 @@ function genericPrint(path, options, print) {
                     isFirst ? group([softline, print()]) : print(),
                 }),
               ),
-              path.next?.type === "footnoteDefinition" ? softline : "",
             ]),
       ];
     }
