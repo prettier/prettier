@@ -48,16 +48,15 @@ function printCallArguments(path, options, print) {
   // useEffect(() => { ... }, [foo, bar, baz])
   // useImperativeHandle(ref, () => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
-    const contents = [];
-
+    const parts = ["("];
     for (let i = 0; i < args.length; i++) {
-      contents.push(print(["arguments", i]));
+      parts.push(print(["arguments", i]));
       if (i !== args.length - 1) {
-        contents.push(", ");
+        parts.push(", ");
       }
     }
-
-    return ["(", ...contents, ")"];
+    parts.push(")");
+    return parts;
   }
 
   let anyArgEmptyLine = false;
@@ -326,21 +325,41 @@ function isHopefullyShortCallArgument(node) {
   return isRegExpLiteral(node) || isSimpleCallArgument(node);
 }
 
+/**
+ * Checks if the arguments of a function are a call to a React Hook with a dependencies array.
+ */
 function isReactHookCallWithDepsArray(args) {
-  return (
-    (args.length === 2 &&
-      args[0].type === "ArrowFunctionExpression" &&
-      getFunctionParameters(args[0]).length === 0 &&
-      args[0].body.type === "BlockStatement" &&
-      args[1].type === "ArrayExpression" &&
-      !args.some((arg) => hasComment(arg))) ||
-    (args.length === 3 &&
+  if (args.length === 2) {
+    /**
+     * useEffect(() => {
+     *   // do something
+     * }, [dep1, dep2, dep2])
+     */
+    return isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 0);
+  }
+  if (args.length === 3) {
+    /**
+     * useImperativeHandle(ref, () => {
+     *   // do something
+     * }, [dep1, dep2, dep2]);
+     */
+    return (
       args[0].type === "Identifier" &&
-      args[1].type === "ArrowFunctionExpression" &&
-      getFunctionParameters(args[1]).length === 0 &&
-      args[1].body.type === "BlockStatement" &&
-      args[2].type === "ArrayExpression" &&
-      !args.some((arg) => hasComment(arg)))
+      isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 1)
+    );
+  }
+  return false;
+}
+
+function isValidHookCallbackAndDepsFormat(args, baseIndex) {
+  const maybeArrowFunction = args[baseIndex];
+  const maybeDepsArray = args[baseIndex + 1];
+  return (
+    maybeArrowFunction.type === "ArrowFunctionExpression" &&
+    getFunctionParameters(maybeArrowFunction).length === 0 &&
+    maybeArrowFunction.body.type === "BlockStatement" &&
+    maybeDepsArray.type === "ArrayExpression" &&
+    !args.some((arg) => hasComment(arg))
   );
 }
 
