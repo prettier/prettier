@@ -29,6 +29,110 @@ declare export default 5;
 ================================================================================
 `;
 
+exports[`declare_module.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+declare module "foo" {
+  declare var bar: string;
+}
+
+declare module baz {}
+
+=====================================output=====================================
+declare module "foo" {
+  declare var bar: string
+}
+
+declare module baz {
+}
+
+================================================================================
+`;
+
+exports[`declare_module.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare module "foo" {
+  declare var bar: string;
+}
+
+declare module baz {}
+
+=====================================output=====================================
+declare module "foo" {
+  declare var bar: string;
+}
+
+declare module baz {
+}
+
+================================================================================
+`;
+
+exports[`declare_namespace.js [babel-flow] format 1`] = `
+"Unexpected token (1:9)
+> 1 | declare namespace foo {
+    |         ^
+  2 |   declare var bar: string;
+  3 | }
+  4 |
+Cause: Unexpected token (1:8)"
+`;
+
+exports[`declare_namespace.js - {"semi":false} [babel-flow] format 1`] = `
+"Unexpected token (1:9)
+> 1 | declare namespace foo {
+    |         ^
+  2 |   declare var bar: string;
+  3 | }
+  4 |
+Cause: Unexpected token (1:8)"
+`;
+
+exports[`declare_namespace.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+declare namespace foo {
+  declare var bar: string;
+}
+
+=====================================output=====================================
+declare namespace foo {
+  declare var bar: string
+}
+
+================================================================================
+`;
+
+exports[`declare_namespace.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare namespace foo {
+  declare var bar: string;
+}
+
+=====================================output=====================================
+declare namespace foo {
+  declare var bar: string;
+}
+
+================================================================================
+`;
+
 exports[`declare_type.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

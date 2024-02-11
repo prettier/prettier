@@ -64,7 +64,7 @@
     "get-east-asian-width": "1.2.0",
     "get-stdin": "9.0.0",
     "graphql": "16.8.1",
-    "hermes-parser": "0.19.0",
+    "hermes-parser": "0.19.1",
     "html-element-attributes": "3.3.0",
     "html-tag-names": "2.1.0",
     "html-ua-styles": "0.0.5",
