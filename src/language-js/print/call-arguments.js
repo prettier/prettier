@@ -46,8 +46,18 @@ function printCallArguments(path, options, print) {
   }
 
   // useEffect(() => { ... }, [foo, bar, baz])
+  // useImperativeHandle(ref, () => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
-    return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
+    const contents = [];
+
+    for (let i = 0; i < args.length; i++) {
+      contents.push(print(["arguments", i]));
+      if (i !== args.length - 1) {
+        contents.push(", ");
+      }
+    }
+
+    return ["(", ...contents, ")"];
   }
 
   let anyArgEmptyLine = false;
@@ -318,12 +328,19 @@ function isHopefullyShortCallArgument(node) {
 
 function isReactHookCallWithDepsArray(args) {
   return (
-    args.length === 2 &&
-    args[0].type === "ArrowFunctionExpression" &&
-    getFunctionParameters(args[0]).length === 0 &&
-    args[0].body.type === "BlockStatement" &&
-    args[1].type === "ArrayExpression" &&
-    !args.some((arg) => hasComment(arg))
+    (args.length === 2 &&
+      args[0].type === "ArrowFunctionExpression" &&
+      getFunctionParameters(args[0]).length === 0 &&
+      args[0].body.type === "BlockStatement" &&
+      args[1].type === "ArrayExpression" &&
+      !args.some((arg) => hasComment(arg))) ||
+    (args.length === 3 &&
+      args[0].type === "Identifier" &&
+      args[1].type === "ArrowFunctionExpression" &&
+      getFunctionParameters(args[1]).length === 0 &&
+      args[1].body.type === "BlockStatement" &&
+      args[2].type === "ArrayExpression" &&
+      !args.some((arg) => hasComment(arg)))
   );
 }
 
