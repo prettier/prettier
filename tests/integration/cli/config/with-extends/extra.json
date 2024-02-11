@@ -1,0 +1,5 @@
+{
+  "extends": ["./extra.js", "./extra.mjs"],
+  "plugins": ["bar"],
+  "tabWidth": 3
+}

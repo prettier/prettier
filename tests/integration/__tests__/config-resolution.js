@@ -419,3 +419,15 @@ test("Search from directory, not treat file as directory", async () => {
     "directory/.prettierrc",
   );
 });
+
+test(".json config file with `extends`", async () => {
+  const parentDirectory = new URL("../cli/config/with-extends/", import.meta.url);
+  const config = {
+    singleQuote: true,
+    tabWidth: 3,
+    trailingComma: "all",
+    plugins: ["baz", "qux", "bar", "foo"]
+  };
+  const file = new URL(".prettierrc.json", parentDirectory);
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
+});

@@ -1,10 +1,11 @@
+import {populate} from "@topoconfig/extends";
 import path from "node:path";
 
 import loadExternalConfig from "./load-external-config.js";
 import loaders, { loadConfigFromPackageJson } from "./loaders.js";
 
 async function loadConfig(configFile) {
-  const { base: fileName, ext: extension } = path.parse(configFile);
+  const { base: fileName, ext: extension , dir} = path.parse(configFile);
   const load =
     fileName === "package.json"
       ? loadConfigFromPackageJson
@@ -41,6 +42,14 @@ async function loadConfig(configFile) {
         `but received ${typeof config} in "${configFile}"`,
     );
   }
+
+  config = await populate(config, {
+    cwd: dir,
+    rules: {
+      plugins: "merge",
+      overrides: "merge"
+    }
+  })
 
   delete config.$schema;
   return config;

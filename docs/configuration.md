@@ -160,6 +160,24 @@ An example configuration repository is available [here](https://github.com/azz/p
 > };
 > ```
 
+## Extends statement
+
+The config composition can be applied using a special directive `extends` just like in `tsconfig`. It accepts relative and absolute paths or external modules as extension points, supports recursion and multiple declarations.
+
+```json
+{
+  "extends": "../base.json",
+  "semi": false
+}
+```
+
+```json
+{
+  "extends": ["../base.js", "@external/module", "../another/borrowed.json"],
+  "semi": false
+}
+```
+
 ## Setting the [parser](options.md#parser) option
 
 By default, Prettier automatically infers which parser to use based on the input file extension. Combined with `overrides` you can teach Prettier how to parse files it does not recognize.

@@ -1,0 +1,4 @@
+{
+  "extends": ["./extra.json"],
+  "plugins": ["foo"]
+}
