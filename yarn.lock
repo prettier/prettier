@@ -1772,12 +1772,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@topoconfig/extends@npm:^0.11.0":
-  version: 0.11.0
-  resolution: "@topoconfig/extends@npm:0.11.0"
+"@topoconfig/extends@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "@topoconfig/extends@npm:0.12.0"
   bin:
     xtends: target/esm/cli.mjs
-  checksum: 10/6f9a9c5d3d78eee8b91a7885c9ffecee2a0e6a7d9ef5aba0af7d6c008db2a72a57455d8ee8f0871474966567fa6e872e37817e4d089defbcf660381f8cc1df69
+  checksum: 10/7ce67c940ffc70d3060dcea13cc731cd6bff08510bf13d7c726a33e3d71ba758342034cccf20155589f744058f67c81e692882fca3c129438003bace76b93e6b
   languageName: node
   linkType: hard
 
@@ -7376,7 +7376,7 @@ __metadata:
     "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:1.6.0"
-    "@topoconfig/extends": "npm:^0.11.0"
+    "@topoconfig/extends": "npm:^0.12.0"
     "@types/eslint__js": "npm:8.42.3"
     "@types/estree": "npm:1.0.5"
     "@types/file-entry-cache": "npm:5.0.4"
