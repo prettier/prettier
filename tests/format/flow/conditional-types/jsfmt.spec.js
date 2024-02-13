@@ -1,4 +1,4 @@
-run_spec(import.meta, ["flow", "typescript"], {
+runFormatTest(import.meta, ["flow", "typescript"], {
   errors: {
     "babel-flow": [
       "comments-in-type-annotation.js",

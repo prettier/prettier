@@ -1,1 +1,1 @@
-run_spec(import.meta, ["babel"]);
+runFormatTest(import.meta, ["babel"]);

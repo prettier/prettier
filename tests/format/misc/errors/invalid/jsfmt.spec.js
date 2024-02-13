@@ -1,4 +1,4 @@
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: [
@@ -21,7 +21,7 @@ run_spec(
   ],
 );
 
-run_spec(
+runFormatTest(
   {
     importMeta: import.meta,
     snippets: [

@@ -5,11 +5,7 @@ import assert from "node:assert";
 import { replaceEndOfLine } from "../../document/utils.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
-import {
-  isFunctionNotation,
-  isGetterOrSetter,
-  rawText,
-} from "../utils/index.js";
+import { isMethod, rawText } from "../utils/index.js";
 import isFlowKeywordType from "../utils/is-flow-keyword-type.js";
 import { printArray } from "./array.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
@@ -78,6 +74,8 @@ function printFlow(path, options, print) {
         printTypeAnnotationProperty(path, print),
         semi,
       ];
+    case "DeclareNamespace":
+      return ["declare namespace ", print("id"), " ", print("body")];
     case "DeclareVariable":
       return [
         printDeclareToken(path),
@@ -210,11 +208,11 @@ function printFlow(path, options, print) {
 
       return [
         modifier,
-        isGetterOrSetter(node) ? node.kind + " " : "",
+        node.kind !== "init" ? node.kind + " " : "",
         node.variance ? print("variance") : "",
         printPropertyKey(path, options, print),
         printOptionalToken(path),
-        isFunctionNotation(node) ? "" : ": ",
+        isMethod(node) ? "" : ": ",
         print("value"),
       ];
     }

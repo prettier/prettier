@@ -271,26 +271,32 @@ test("no-identifier-n", {
   ],
 });
 
-test("no-legacy-format-test-fixtures", {
+test("no-legacy-format-test", {
   valid: [
-    "run_spec(import.meta, ['babel'])",
-    "run_spec({importMeta: import.meta}, ['babel'])",
+    "runFormatTest(import.meta, ['babel'])",
+    "runFormatTest({importMeta: import.meta}, ['babel'])",
   ].map((code) => ({ code, parserOptions: { sourceType: "module" } })),
   invalid: [
     {
-      code: "run_spec(__dirname, ['babel'])",
-      errors: [{ message: "Use `import.meta` instead of `__dirname`." }],
-      output: "run_spec(import.meta, ['babel'])",
+      code: "run_spec(import.meta, ['babel'])",
+      errors: [{ message: "Use `runFormatTest(…)` instead of `run_spec(…)`." }],
+      output: "runFormatTest(import.meta, ['babel'])",
     },
     {
-      code: "run_spec({snippets: ['x'], dirname: __dirname}, ['babel'])",
+      code: "runFormatTest(__dirname, ['babel'])",
+      errors: [{ message: "Use `import.meta` instead of `__dirname`." }],
+      output: "runFormatTest(import.meta, ['babel'])",
+    },
+    {
+      code: "runFormatTest({snippets: ['x'], dirname: __dirname}, ['babel'])",
       errors: [
         {
           message:
             "Use `importMeta: import.meta` instead of `dirname: __dirname`.",
         },
       ],
-      output: "run_spec({snippets: ['x'], importMeta: import.meta}, ['babel'])",
+      output:
+        "runFormatTest({snippets: ['x'], importMeta: import.meta}, ['babel'])",
     },
   ].map((test) => ({ ...test, parserOptions: { sourceType: "module" } })),
 });
@@ -961,6 +967,25 @@ test("prefer-ast-path-getters", {
           ],
         },
       ],
+    },
+  ],
+});
+
+test("massage-ast-parameter-names", {
+  valid: [
+    "function notNamedClean(a, b) {}",
+    "function clean(original, cloned) {}",
+  ],
+  invalid: [
+    {
+      code: "function clean(theOriginalNode, cloned) {delete theOriginalNode.property}",
+      output: "function clean(original, cloned) {delete original.property}",
+      errors: 1,
+    },
+    {
+      code: "function clean(original, theClonedNode) {delete theClonedNode.property}",
+      output: "function clean(original, cloned) {delete cloned.property}",
+      errors: 1,
     },
   ],
 });

@@ -1,2 +1,2 @@
-run_spec(import.meta, ["typescript"]);
-run_spec(import.meta, ["typescript"], { experimentalTernaries: true });
+runFormatTest(import.meta, ["typescript"]);
+runFormatTest(import.meta, ["typescript"], { experimentalTernaries: true });

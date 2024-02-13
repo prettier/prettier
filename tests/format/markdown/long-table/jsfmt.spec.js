@@ -1,2 +1,2 @@
-run_spec(import.meta, ["markdown"]);
-run_spec(import.meta, ["markdown"], { proseWrap: "never" });
+runFormatTest(import.meta, ["markdown"]);
+runFormatTest(import.meta, ["markdown"], { proseWrap: "never" });

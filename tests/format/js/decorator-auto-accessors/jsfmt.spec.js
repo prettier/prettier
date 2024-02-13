@@ -23,5 +23,5 @@ const errors = {
     "comments.js",
   ],
 };
-run_spec(import.meta, parsers, { errors });
-run_spec(import.meta, parsers, { errors, semi: false });
+runFormatTest(import.meta, parsers, { errors });
+runFormatTest(import.meta, parsers, { errors, semi: false });

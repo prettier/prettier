@@ -1,1 +1,1 @@
-run_spec(import.meta, ["babel-flow", "babel"]);
+runFormatTest(import.meta, ["babel-flow", "babel"]);

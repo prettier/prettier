@@ -1,2 +1,2 @@
-run_spec(import.meta, ["yaml"]);
-run_spec(import.meta, ["yaml"], { proseWrap: "always" });
+runFormatTest(import.meta, ["yaml"]);
+runFormatTest(import.meta, ["yaml"], { proseWrap: "always" });

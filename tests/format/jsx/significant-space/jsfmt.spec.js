@@ -1,1 +1,1 @@
-run_spec(import.meta, ["flow", "typescript"]);
+runFormatTest(import.meta, ["flow", "typescript"]);

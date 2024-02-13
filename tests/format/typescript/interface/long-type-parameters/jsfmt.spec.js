@@ -1,2 +1,2 @@
-run_spec(import.meta, ["typescript"], { printWidth: 109 });
-run_spec(import.meta, ["typescript"], { printWidth: 110 });
+runFormatTest(import.meta, ["typescript"], { printWidth: 109 });
+runFormatTest(import.meta, ["typescript"], { printWidth: 110 });

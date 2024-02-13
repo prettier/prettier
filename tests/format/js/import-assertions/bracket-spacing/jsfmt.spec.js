@@ -1,4 +1,4 @@
-run_spec(import.meta, ["babel"], {
+runFormatTest(import.meta, ["babel"], {
   bracketSpacing: false,
   errors: {
     acorn: [

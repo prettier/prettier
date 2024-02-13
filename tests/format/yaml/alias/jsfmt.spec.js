@@ -1,1 +1,1 @@
-run_spec(import.meta, ["yaml"]);
+runFormatTest(import.meta, ["yaml"]);

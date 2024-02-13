@@ -1,2 +1,2 @@
-run_spec(import.meta, ["babel", "flow", "typescript"]);
-run_spec(import.meta, ["babel", "flow", "typescript"], { tabWidth: 4 });
+runFormatTest(import.meta, ["babel", "flow", "typescript"]);
+runFormatTest(import.meta, ["babel", "flow", "typescript"], { tabWidth: 4 });

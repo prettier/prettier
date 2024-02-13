@@ -1,2 +1,2 @@
-run_spec(import.meta, ["yaml"], { useTabs: true });
-run_spec(import.meta, ["yaml"], { proseWrap: "always" });
+runFormatTest(import.meta, ["yaml"], { useTabs: true });
+runFormatTest(import.meta, ["yaml"], { proseWrap: "always" });

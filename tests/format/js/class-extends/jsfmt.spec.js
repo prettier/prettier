@@ -1,4 +1,4 @@
-run_spec(import.meta, ["babel", "flow", "typescript"], {
+runFormatTest(import.meta, ["babel", "flow", "typescript"], {
   errors: {
     acorn: ["tuple-and-record.js"],
     espree: ["tuple-and-record.js"],

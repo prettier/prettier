@@ -122,6 +122,7 @@ export default [
 
       // Internal rules
       "prettier-internal-rules/jsx-identifier-case": "error",
+      "prettier-internal-rules/massage-ast-parameter-names": "error",
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
 
@@ -137,7 +138,6 @@ export default [
       ],
 
       // eslint-plugin-import
-      "import/extensions": ["error", "ignorePackages"],
       "import/no-extraneous-dependencies": [
         "error",
         {
@@ -320,7 +320,7 @@ export default [
   {
     files: ["tests/format/**/*.js"],
     rules: {
-      "prettier-internal-rules/no-legacy-format-test-fixtures": "error",
+      "prettier-internal-rules/no-legacy-format-test": "error",
     },
   },
   {
@@ -340,8 +340,8 @@ export default [
     },
     languageOptions: {
       globals: {
-        run_spec: "readonly",
         runCli: "readonly",
+        runFormatTest: "readonly",
       },
     },
   },

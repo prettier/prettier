@@ -1,2 +1,2 @@
-run_spec(import.meta, ["glimmer"]);
-run_spec(import.meta, ["glimmer"], { singleQuote: true });
+runFormatTest(import.meta, ["glimmer"]);
+runFormatTest(import.meta, ["glimmer"], { singleQuote: true });

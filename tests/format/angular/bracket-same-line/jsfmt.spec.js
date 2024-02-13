@@ -1,2 +1,2 @@
-run_spec(import.meta, ["angular"], { bracketSameLine: true });
-run_spec(import.meta, ["angular"], { bracketSameLine: false });
+runFormatTest(import.meta, ["angular"], { bracketSameLine: true });
+runFormatTest(import.meta, ["angular"], { bracketSameLine: false });

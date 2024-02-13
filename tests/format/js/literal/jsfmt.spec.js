@@ -1,2 +1,2 @@
 // flow-parser@0.38.0 fails to parse `1.e1`, so use babel here.
-run_spec(import.meta, ["babel", "typescript"]);
+runFormatTest(import.meta, ["babel", "typescript"]);

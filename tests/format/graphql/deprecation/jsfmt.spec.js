@@ -1,1 +1,1 @@
-run_spec(import.meta, ["graphql"]);
+runFormatTest(import.meta, ["graphql"]);

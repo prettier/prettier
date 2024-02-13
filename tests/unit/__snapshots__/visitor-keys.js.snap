@@ -200,6 +200,10 @@ exports[`visitor keys estree 1`] = `
   "DeclareModuleExports": [
     "typeAnnotation",
   ],
+  "DeclareNamespace": [
+    "id",
+    "body",
+  ],
   "DeclareOpaqueType": [
     "id",
     "typeParameters",

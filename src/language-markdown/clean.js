@@ -7,75 +7,78 @@ const ignoredProperties = new Set([
   "position",
   "raw", // front-matter
 ]);
-function clean(ast, newObj, parent) {
+function clean(original, cloned, parent) {
   // for codeblock
   if (
-    ast.type === "front-matter" ||
-    ast.type === "code" ||
-    ast.type === "yaml" ||
-    ast.type === "import" ||
-    ast.type === "export" ||
-    ast.type === "jsx"
+    original.type === "front-matter" ||
+    original.type === "code" ||
+    original.type === "yaml" ||
+    original.type === "import" ||
+    original.type === "export" ||
+    original.type === "jsx"
   ) {
-    delete newObj.value;
+    delete cloned.value;
   }
 
-  if (ast.type === "list") {
-    delete newObj.isAligned;
+  if (original.type === "list") {
+    delete cloned.isAligned;
   }
 
-  if (ast.type === "list" || ast.type === "listItem") {
-    delete newObj.spread;
+  if (original.type === "list" || original.type === "listItem") {
+    delete cloned.spread;
   }
 
   // texts can be splitted or merged
-  if (ast.type === "text") {
+  if (original.type === "text") {
     return null;
   }
 
-  if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replaceAll("\n", " ");
+  if (original.type === "inlineCode") {
+    cloned.value = original.value.replaceAll("\n", " ");
   }
 
-  if (ast.type === "wikiLink") {
-    newObj.value = ast.value.trim().replaceAll(/[\t\n]+/g, " ");
+  if (original.type === "wikiLink") {
+    cloned.value = original.value.trim().replaceAll(/[\t\n]+/g, " ");
   }
 
   if (
-    ast.type === "definition" ||
-    ast.type === "linkReference" ||
-    ast.type === "imageReference"
+    original.type === "definition" ||
+    original.type === "linkReference" ||
+    original.type === "imageReference"
   ) {
-    newObj.label = collapseWhiteSpace(ast.label);
+    cloned.label = collapseWhiteSpace(original.label);
   }
 
   if (
-    (ast.type === "link" || ast.type === "image") &&
-    ast.url &&
-    ast.url.includes("(")
+    (original.type === "link" || original.type === "image") &&
+    original.url &&
+    original.url.includes("(")
   ) {
     for (const character of "<>") {
-      newObj.url = ast.url.replaceAll(character, encodeURIComponent(character));
+      cloned.url = original.url.replaceAll(
+        character,
+        encodeURIComponent(character),
+      );
     }
   }
 
   if (
-    (ast.type === "definition" ||
-      ast.type === "link" ||
-      ast.type === "image") &&
-    ast.title
+    (original.type === "definition" ||
+      original.type === "link" ||
+      original.type === "image") &&
+    original.title
   ) {
-    newObj.title = ast.title.replaceAll(/\\(?=["')])/g, "");
+    cloned.title = original.title.replaceAll(/\\(?=["')])/g, "");
   }
 
   // for insert pragma
   if (
     parent?.type === "root" &&
     parent.children.length > 0 &&
-    (parent.children[0] === ast ||
-      (isFrontMatter(parent.children[0]) && parent.children[1] === ast)) &&
-    ast.type === "html" &&
-    startWithPragma(ast.value)
+    (parent.children[0] === original ||
+      (isFrontMatter(parent.children[0]) && parent.children[1] === original)) &&
+    original.type === "html" &&
+    startWithPragma(original.value)
   ) {
     return null;
   }

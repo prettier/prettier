@@ -1,1 +1,1 @@
-run_spec(import.meta, ["json-stringify"]);
+runFormatTest(import.meta, ["json-stringify"]);

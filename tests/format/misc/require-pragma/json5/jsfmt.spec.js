@@ -1,1 +1,1 @@
-run_spec(import.meta, ["json5"], { requirePragma: true });
+runFormatTest(import.meta, ["json5"], { requirePragma: true });

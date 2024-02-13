@@ -1,2 +1,2 @@
-run_spec(import.meta, ["graphql"]);
-run_spec(import.meta, ["graphql"], { bracketSpacing: false });
+runFormatTest(import.meta, ["graphql"]);
+runFormatTest(import.meta, ["graphql"], { bracketSpacing: false });

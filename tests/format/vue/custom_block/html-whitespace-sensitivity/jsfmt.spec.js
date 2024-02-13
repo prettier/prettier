@@ -1,4 +1,4 @@
-run_spec(import.meta, ["vue"], { htmlWhitespaceSensitivity: "strict" });
-run_spec(import.meta, ["vue"]);
-run_spec(import.meta, ["vue"], { htmlWhitespaceSensitivity: "ignore" });
-run_spec(import.meta, ["vue"], { htmlWhitespaceSensitivity: "css" });
+runFormatTest(import.meta, ["vue"], { htmlWhitespaceSensitivity: "strict" });
+runFormatTest(import.meta, ["vue"]);
+runFormatTest(import.meta, ["vue"], { htmlWhitespaceSensitivity: "ignore" });
+runFormatTest(import.meta, ["vue"], { htmlWhitespaceSensitivity: "css" });
