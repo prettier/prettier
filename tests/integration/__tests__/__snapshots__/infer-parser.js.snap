@@ -3,7 +3,7 @@
 exports[`--check with unknown path and no parser multiple files (stderr) 1`] = `
 "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".
 [warn] foo.js
-[warn] Code style issues found in the above file. Run Prettier to fix."
+[warn] Code style issues found in the above file. Run Prettier with --write to fix."
 `;
 
 exports[`--check with unknown path and no parser multiple files (stdout) 1`] = `"Checking formatting..."`;
