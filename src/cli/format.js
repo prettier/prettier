@@ -492,7 +492,7 @@ async function formatFiles(context) {
       context.logger.warn(
         context.argv.write
           ? `Code style issues fixed in ${files}.`
-          : `Code style issues found in ${files}. Run Prettier to fix.`,
+          : `Code style issues found in ${files}. Run Prettier with --write to fix.`,
       );
     }
   }

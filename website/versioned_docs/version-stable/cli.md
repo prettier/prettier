@@ -72,7 +72,7 @@ Console output if some of the files require re-formatting:
 Checking formatting...
 [warn] src/fileA.js
 [warn] src/fileB.js
-[warn] Code style issues found in 2 files. Run Prettier to fix.
+[warn] Code style issues found in 2 files. Run Prettier with --write to fix.
 ```
 
 The command will return exit code `1` in the second case, which is helpful inside the CI pipelines.

@@ -79,7 +79,8 @@ function clean(original, cloned, parent) {
       original.type === "PropertyDefinition" ||
       original.type === "TSDeclareMethod" ||
       original.type === "TSPropertySignature" ||
-      original.type === "ObjectTypeProperty") &&
+      original.type === "ObjectTypeProperty" ||
+      original.type === "ImportAttribute") &&
     typeof original.key === "object" &&
     original.key &&
     (original.key.type === "Literal" ||
