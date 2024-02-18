@@ -44,8 +44,7 @@ function isStringKeySafeToUnquote(node, options) {
     options.parser === "json" ||
     options.parser === "jsonc" ||
     !isStringLiteral(node.key) ||
-    // TODO[@fisker]: Use `printString` instead
-    rawText(node.key).slice(1, -1) !== node.key.value
+    printString(rawText(node.key), options).slice(1, -1) !== node.key.value
   ) {
     return false;
   }
