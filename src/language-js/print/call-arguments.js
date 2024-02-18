@@ -45,22 +45,23 @@ function printCallArguments(path, options, print) {
     return ["(", printDanglingComments(path, options), ")"];
   }
 
+  const lastArgIndex = args.length - 1;
+
   // useEffect(() => { ... }, [foo, bar, baz])
   // useImperativeHandle(ref, () => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
     const parts = ["("];
-    for (let i = 0; i < args.length; i++) {
-      parts.push(print(["arguments", i]));
-      if (i !== args.length - 1) {
+    iterateCallArgumentsPath(path, (path, index) => {
+      parts.push(print());
+      if (index !== lastArgIndex) {
         parts.push(", ");
       }
-    }
+    });
     parts.push(")");
     return parts;
   }
 
   let anyArgEmptyLine = false;
-  const lastArgIndex = args.length - 1;
   const printedArguments = [];
   iterateCallArgumentsPath(path, ({ node: arg }, index) => {
     let argDoc = print();

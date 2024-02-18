@@ -236,6 +236,7 @@ function Component3() {
     [],
   );
 }
+
 =====================================output=====================================
 function helloWorld() {
   useEffect(() => {
