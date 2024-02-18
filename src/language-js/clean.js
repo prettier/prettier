@@ -199,15 +199,6 @@ function clean(original, cloned, parent) {
     }
   }
 
-  // Prettier removes degenerate union and intersection types with only one member.
-  if (
-    (original.type === "TSIntersectionType" ||
-      original.type === "TSUnionType") &&
-    original.types.length === 1
-  ) {
-    return cloned.types[0];
-  }
-
   // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently
   if (
     original.type === "ChainExpression" &&
