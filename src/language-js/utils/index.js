@@ -368,33 +368,35 @@ function isTestCallCallee(node) {
 
 // eg; `describe("some string", (done) => {})`
 function isTestCall(node, parent) {
-  if (node.type !== "CallExpression") {
+  if (node.type !== "CallExpression" || node.optional) {
     return false;
   }
-  if (node.arguments.length === 1) {
+
+  const args = getCallArguments(node);
+
+  if (args.length === 1) {
     if (isAngularTestWrapper(node) && parent && isTestCall(parent)) {
-      return isFunctionOrArrowExpression(node.arguments[0]);
+      return isFunctionOrArrowExpression(args[0]);
     }
 
     if (isUnitTestSetupIdentifier(node.callee)) {
-      return isAngularTestWrapper(node.arguments[0]);
+      return isAngularTestWrapper(args[0]);
     }
   } else if (
-    (node.arguments.length === 2 || node.arguments.length === 3) &&
-    (node.arguments[0].type === "TemplateLiteral" ||
-      isStringLiteral(node.arguments[0])) &&
+    (args.length === 2 || args.length === 3) &&
+    (args[0].type === "TemplateLiteral" || isStringLiteral(args[0])) &&
     isTestCallCallee(node.callee)
   ) {
     // it("name", () => { ... }, 2500)
-    if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
+    if (args[2] && !isNumericLiteral(args[2])) {
       return false;
     }
     return (
-      (node.arguments.length === 2
-        ? isFunctionOrArrowExpression(node.arguments[1])
-        : isFunctionOrArrowExpressionWithBody(node.arguments[1]) &&
-          getFunctionParameters(node.arguments[1]).length <= 1) ||
-      isAngularTestWrapper(node.arguments[1])
+      (args.length === 2
+        ? isFunctionOrArrowExpression(args[1])
+        : isFunctionOrArrowExpressionWithBody(args[1]) &&
+          getFunctionParameters(args[1]).length <= 1) ||
+      isAngularTestWrapper(args[1])
     );
   }
   return false;
