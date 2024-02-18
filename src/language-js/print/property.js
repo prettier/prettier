@@ -129,15 +129,9 @@ function printPropertyKey(path, options, print) {
   const { key } = node;
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
-    const objectHasStringProp = (
-      parent.properties ||
-      parent.body ||
-      parent.members ||
-      parent.attributes
-    ).some(
+    const objectHasStringProp = path.siblings.some(
       (prop) =>
         !prop.computed &&
-        prop.key &&
         isStringLiteral(prop.key) &&
         !isStringKeySafeToUnquote(prop, options),
     );

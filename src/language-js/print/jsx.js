@@ -573,7 +573,6 @@ function printJsxOpeningElement(path, options, print) {
   // don't break up opening elements with a single long text attribute
   if (
     node.attributes?.length === 1 &&
-    node.attributes[0].value &&
     isStringLiteral(node.attributes[0].value) &&
     !node.attributes[0].value.value.includes("\n") &&
     // We should break for the following cases:
@@ -601,10 +600,7 @@ function printJsxOpeningElement(path, options, print) {
   // We should print the opening element expanded if any prop value is a
   // string literal with newlines
   const shouldBreak = node.attributes?.some(
-    (attr) =>
-      attr.value &&
-      isStringLiteral(attr.value) &&
-      attr.value.value.includes("\n"),
+    (attr) => isStringLiteral(attr.value) && attr.value.value.includes("\n"),
   );
 
   const attributeLine =
