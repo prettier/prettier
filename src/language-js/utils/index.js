@@ -1011,6 +1011,7 @@ function iterateCallArgumentsPath(path, iteratee) {
 function getCallArgumentSelector(node, index) {
   const selectors = [];
   if (node.type === "ChainExpression") {
+    node = node.expression;
     selectors.push("expression");
   }
 
