@@ -150,7 +150,7 @@ function markAlignedList(ast, options) {
        * - 123
        * - 123
        */
-      return true;
+      return false;
     }
 
     const [firstItem, secondItem] = list.children;
