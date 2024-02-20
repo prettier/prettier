@@ -79,7 +79,8 @@ function clean(original, cloned, parent) {
       original.type === "PropertyDefinition" ||
       original.type === "TSDeclareMethod" ||
       original.type === "TSPropertySignature" ||
-      original.type === "ObjectTypeProperty") &&
+      original.type === "ObjectTypeProperty" ||
+      original.type === "ImportAttribute") &&
     typeof original.key === "object" &&
     original.key &&
     (original.key.type === "Literal" ||
@@ -196,15 +197,6 @@ function clean(original, cloned, parent) {
     ) {
       removeTemplateElementsValue(cloned);
     }
-  }
-
-  // Prettier removes degenerate union and intersection types with only one member.
-  if (
-    (original.type === "TSIntersectionType" ||
-      original.type === "TSUnionType") &&
-    original.types.length === 1
-  ) {
-    return cloned.types[0];
   }
 
   // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently

@@ -74,6 +74,8 @@ function printFlow(path, options, print) {
         printTypeAnnotationProperty(path, print),
         semi,
       ];
+    case "DeclareNamespace":
+      return ["declare namespace ", print("id"), " ", print("body")];
     case "DeclareVariable":
       return [
         printDeclareToken(path),

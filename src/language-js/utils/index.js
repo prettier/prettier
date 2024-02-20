@@ -1,5 +1,3 @@
-import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
-
 import { hasDescendant } from "../../utils/ast-utils.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import hasNewline from "../../utils/has-newline.js";
@@ -166,9 +164,10 @@ function isSignedNumericLiteral(node) {
  * @returns {boolean}
  */
 function isStringLiteral(node) {
-  return (
-    node.type === "StringLiteral" ||
-    (node.type === "Literal" && typeof node.value === "string")
+  return Boolean(
+    node &&
+      (node.type === "StringLiteral" ||
+        (node.type === "Literal" && typeof node.value === "string")),
   );
 }
 
@@ -325,15 +324,16 @@ function isSimpleType(node) {
 }
 
 /**
- * @param {CallExpression} node
+ * @param {*} node
  * @returns {boolean}
  */
-function isUnitTestSetUp(node) {
-  const unitTestSetUpRe = /^(?:before|after)(?:Each|All)$/;
+function isUnitTestSetupIdentifier(node) {
   return (
-    node.callee.type === "Identifier" &&
-    node.arguments.length === 1 &&
-    unitTestSetUpRe.test(node.callee.name)
+    node.type === "Identifier" &&
+    (node.name === "beforeEach" ||
+      node.name === "beforeAll" ||
+      node.name === "afterEach" ||
+      node.name === "afterAll")
   );
 }
 
@@ -377,7 +377,7 @@ function isTestCall(node, parent) {
       return isFunctionOrArrowExpression(node.arguments[0]);
     }
 
-    if (isUnitTestSetUp(node)) {
+    if (isUnitTestSetupIdentifier(node.callee)) {
       return isAngularTestWrapper(node.arguments[0]);
     }
   } else if (
@@ -573,60 +573,6 @@ function hasLeadingOwnLineComment(text, node) {
   return hasComment(node, CommentCheckFlags.Leading, (comment) =>
     hasNewline(text, locEnd(comment)),
   );
-}
-
-// Note: Quoting/unquoting numbers in TypeScript is not safe.
-//
-// let a = { 1: 1, 2: 2 }
-// let b = { '1': 1, '2': 2 }
-//
-// declare let aa: keyof typeof a;
-// declare let bb: keyof typeof b;
-//
-// aa = bb;
-// ^^
-// Type '"1" | "2"' is not assignable to type '1 | 2'.
-//   Type '"1"' is not assignable to type '1 | 2'.(2322)
-//
-// And in Flow, you get:
-//
-// const x = {
-//   0: 1
-//   ^ Non-string literal property keys not supported. [unsupported-syntax]
-// }
-//
-// Angular does not support unquoted numbers in expressions.
-//
-// So we play it safe and only unquote numbers for the JavaScript parsers.
-// (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
-//
-// Identifiers can be unquoted in more circumstances, though.
-function isStringPropSafeToUnquote(node, options) {
-  return (
-    options.parser !== "json" &&
-    options.parser !== "jsonc" &&
-    isStringLiteral(node.key) &&
-    rawText(node.key).slice(1, -1) === node.key.value &&
-    ((isEs5IdentifierName(node.key.value) &&
-      // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
-      // See https://github.com/microsoft/TypeScript/pull/20075
-      !(
-        (options.parser === "babel-ts" && node.type === "ClassProperty") ||
-        (options.parser === "typescript" && node.type === "PropertyDefinition")
-      )) ||
-      (isSimpleNumber(node.key.value) &&
-        String(Number(node.key.value)) === node.key.value &&
-        (options.parser === "babel" ||
-          options.parser === "acorn" ||
-          options.parser === "espree" ||
-          options.parser === "meriyah" ||
-          options.parser === "__babel_estree")))
-  );
-}
-
-// Matches “simple” numbers like `123` and `2.5` but not `1_000`, `1e+100` or `0b10`.
-function isSimpleNumber(numberString) {
-  return /^(?:\d+|\d+\.\d+)$/.test(numberString);
 }
 
 /**
@@ -1066,6 +1012,7 @@ function iterateCallArgumentsPath(path, iteratee) {
 function getCallArgumentSelector(node, index) {
   const selectors = [];
   if (node.type === "ChainExpression") {
+    node = node.expression;
     selectors.push("expression");
   }
 
@@ -1264,11 +1211,9 @@ export {
   isSimpleCallArgument,
   isSimpleExpressionByNodeCount,
   isSimpleMemberExpression,
-  isSimpleNumber,
   isSimpleTemplateLiteral,
   isSimpleType,
   isStringLiteral,
-  isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
   isTypeAnnotationAFunction,
