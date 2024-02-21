@@ -164,9 +164,10 @@ function isSignedNumericLiteral(node) {
  * @returns {boolean}
  */
 function isStringLiteral(node) {
-  return (
-    node.type === "StringLiteral" ||
-    (node.type === "Literal" && typeof node.value === "string")
+  return Boolean(
+    node &&
+      (node.type === "StringLiteral" ||
+        (node.type === "Literal" && typeof node.value === "string")),
   );
 }
 
@@ -1011,6 +1012,7 @@ function iterateCallArgumentsPath(path, iteratee) {
 function getCallArgumentSelector(node, index) {
   const selectors = [];
   if (node.type === "ChainExpression") {
+    node = node.expression;
     selectors.push("expression");
   }
 
