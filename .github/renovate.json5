@@ -14,7 +14,6 @@
     },
     {
       matchPackagePrefixes: ["@babel/"],
-      excludePackageNames: ["@babel/parser"],
       groupName: "babel",
     },
     {
@@ -31,7 +30,6 @@
         "@eslint/eslintrc",
         "@eslint/js",
         "@stylistic/eslint-plugin-js",
-        "@typescript-eslint/eslint-plugin",
         "eslint-config-prettier",
         "eslint-plugin-import",
         "eslint-plugin-jest",
@@ -42,6 +40,10 @@
         "eslint-plugin-unicorn",
       ],
       groupName: "ESLint related dependencies",
+    },
+    {
+      matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
+      groupName: "Angular Estree",
     },
     {
       branchPrefix: "renovate/website/",
