@@ -97,7 +97,7 @@ jobs:
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: |
-          yarn add jest@30.0.0-alpha.2 jest-regex-util@30.0.0-alpha.2 --dev
+          yarn add jest@30.0.0-alpha.2 @jest/transform@30.0.0-alpha.2 jest-regex-util@30.0.0-alpha.2 --dev
 
       - name: Install Dependencies(yarn@3,mutable)
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
