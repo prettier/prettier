@@ -98,13 +98,13 @@ jobs:
         with:
           script: |
             const packageJson = require("./package.json");
-            require("fs").writeFileSync("./package.json", {
+            require("fs").writeFileSync("./package.json", JSON.stringify({
               ...packageJson,
               resolution: {
                 ...packageJson.resolution,
                 jest: "30.0.0-alpha.2",
               },
-            });
+            }));
 
       - name: Install Dependencies(yarn@3,mutable)
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
