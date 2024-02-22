@@ -22,6 +22,12 @@ async function loadJs(file) {
   return module.default;
 }
 
+async function loadTs(file) {
+  await import("tsx")
+  const module = await import(pathToFileURL(file).href);
+  return module.default;
+}
+
 async function loadConfigFromPackageJson(file) {
   const { prettier } = await readJson(file);
   return prettier;
@@ -60,6 +66,9 @@ const loaders = {
   ".js": loadJs,
   ".mjs": loadJs,
   ".cjs": loadJs,
+  ".ts": loadTs,
+  ".mts": loadTs,
+  ".cts": loadTs,
   ".yaml": loadYaml,
   ".yml": loadYaml,
   // No extension
