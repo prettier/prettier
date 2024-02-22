@@ -91,16 +91,16 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "yarn"
 
-      # `jest@30.0.0-alpha.2` is the last version that support Node.js v14
+      # `jest@30.0.0-alpha.2` is the last version that supports Node.js v14
       - name: Install jest@30.0.0-alpha.2
-        if: ${{ matrix.node == '14'}}
+        if: ${{ matrix.node == '14' }}
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: |
-          yarn add jest@30.0.0-alpha.2 @jest/transform@30.0.0-alpha.2 jest-regex-util@30.0.0-alpha.2 --dev
+          yarn add jest@30.0.0-alpha.2 @jest/transform@30.0.0-alpha.2 jest-regex-util@30.0.0-alpha.2 @jest/expect@30.0.0-alpha.2 @jest/fake-timers@30.0.0-alpha.2 jest-circus@30.0.0-alpha.2 jest-each@30.0.0-alpha.2 jest-mock@30.0.0-alpha.2 jest-snapshot@30.0.0-alpha.2 --dev
 
       - name: Install Dependencies(yarn@3,mutable)
-        if: ${{ matrix.node == '14' || matrix.node == '16' }}
+        if: ${{ matrix.node == '16' }}
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: yarn install
