@@ -98,7 +98,7 @@ jobs:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: |
           rm -rf yarn.lock
-          yarn add jest@29 jest-light-runner@0.5.1 --dev
+          yarn add jest@29 jest-light-runner@0.5.1 jest-snapshot@30.0.0-alpha.2 --dev
 
       - name: Install Dependencies(yarn@3,mutable)
         if: ${{ matrix.node == '16' }}
