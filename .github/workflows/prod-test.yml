@@ -97,6 +97,7 @@ jobs:
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: |
+          rm -rf yarn.lock
           yarn add jest@29 jest-light-runner@0.5.1 --dev
 
       - name: Install Dependencies(yarn@3,mutable)
