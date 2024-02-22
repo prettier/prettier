@@ -94,14 +94,19 @@ jobs:
       # `jest@30.0.0-alpha.2` is the last version that supports Node.js v14
       - name: Install jest@29
         if: ${{ matrix.node == '14' }}
-        env:
-          YARN_ENABLE_IMMUTABLE_INSTALLS: false
+        uses: actions/github-script@v7
         run: |
-          rm -rf yarn.lock
-          yarn add jest@29 jest-light-runner@0.5.1 jest-snapshot@30.0.0-alpha.2 --dev
+          const packageJson = require("./package.json");
+          require("fs").writeFileSync("./package.json", {
+            ...packageJson,
+            resolution: {
+              ...packageJson.resolution,
+              jest: "30.0.0-alpha.2",
+            },
+          });
 
       - name: Install Dependencies(yarn@3,mutable)
-        if: ${{ matrix.node == '16' }}
+        if: ${{ matrix.node == '14' || matrix.node == '16' }}
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: yarn install
