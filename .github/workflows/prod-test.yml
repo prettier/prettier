@@ -103,6 +103,7 @@ jobs:
               resolution: {
                 ...packageJson.resolution,
                 jest: "30.0.0-alpha.2",
+                "jest-config": "30.0.0-alpha.2",
               },
             }));
 
