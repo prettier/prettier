@@ -97,8 +97,10 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const fs = require("fs");
+            fs.writeFileSync("./yarn.lock", "");
             const packageJson = require("./package.json");
-            require("fs").writeFileSync("./package.json", JSON.stringify({
+            fs.writeFileSync("./package.json", JSON.stringify({
               ...packageJson,
               resolution: {
                 ...packageJson.resolution,
