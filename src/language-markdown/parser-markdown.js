@@ -6,8 +6,10 @@ import { unified } from "unified";
 import { locEnd, locStart } from "./loc.js";
 import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import { hasPragma } from "./pragma.js";
+import { remarkEscape } from "./unified-plugins/escape.js";
 import { remarkFrontMatter } from "./unified-plugins/front-matter.js";
 import { remarkLiquid } from "./unified-plugins/liquid.js";
+import { remarkSingleDollarMath } from "./unified-plugins/math.js";
 // import frontMatter from "./unified-plugins/front-matter.js";
 // import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 // import liquid from "./unified-plugins/liquid.js";
@@ -31,14 +33,17 @@ function createParse({ isMDX }) {
   return (text) => {
     const processor = unified()
       .use(remarkParse, {
+        extensions: [{ disable: { null: ["characterEscape"] } }],
         commonmark: true,
         ...(isMDX && { blocks: [BLOCKS_REGEX] }),
       })
+      .use(remarkEscape)
       .use(remarkGfm)
       // .use(remarkFrontmatter, ["yaml", "toml"])
       .use(remarkFrontMatter, ["yaml", "toml"], text)
       // .use(transformFrontMatter)
-      .use(remarkMath)
+      .use(remarkSingleDollarMath)
+      .use(remarkMath, { singleDollarTextMath: false })
       .use(isMDX ? esSyntax : noop)
       .use(remarkLiquid);
     // .use(isMDX ? htmlToJsx : noop)

@@ -39,6 +39,7 @@ const visitorKeys = {
   tableRow: ["children"],
   listItem: ["children"],
   text: [],
+  characterEscape: [],
 };
 
 export default visitorKeys;
