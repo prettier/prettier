@@ -140,7 +140,7 @@
     "eslint-plugin-unicorn": "51.0.1",
     "esm-utils": "4.2.1",
     "execa": "7.2.0",
-    "jest": "30.0.0-alpha.2",
+    "jest": "30.0.0-alpha.3",
     "jest-light-runner": "0.6.0",
     "jest-snapshot-serializer-ansi": "2.1.0",
     "jest-snapshot-serializer-raw": "2.0.0",
