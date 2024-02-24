@@ -23,7 +23,7 @@ async function loadJs(file) {
 }
 
 async function loadTs(file) {
-  await import("tsx")
+  await import("tsx");
   const module = await import(pathToFileURL(file).href);
   return module.default;
 }
