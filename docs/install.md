@@ -9,7 +9,7 @@ First, install Prettier locally:
 <!--npm-->
 
 ```bash
-npm install --save-dev --save-exact prettier
+npm i -D prettier
 ```
 
 <!--yarn-->
