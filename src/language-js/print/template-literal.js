@@ -20,7 +20,6 @@ import {
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
-  isSimpleTemplateLiteral,
 } from "../utils/index.js";
 
 function printTemplateLiteral(path, print, options) {
@@ -40,17 +39,6 @@ function printTemplateLiteral(path, print, options) {
   const parts = [];
 
   let expressionDocs = path.map(print, expressionsKey);
-  const isSimple = isSimpleTemplateLiteral(node);
-
-  if (isSimple) {
-    expressionDocs = expressionDocs.map(
-      (doc) =>
-        printDocToString(doc, {
-          ...options,
-          printWidth: Number.POSITIVE_INFINITY,
-        }).formatted,
-    );
-  }
 
   parts.push(lineSuffixBoundary, "`");
 
@@ -82,44 +70,43 @@ function printTemplateLiteral(path, print, options) {
 
     let expressionDoc = expressionDocs[index];
 
-    if (!isSimple) {
-      const expression = node[expressionsKey][index];
+    const expression = node[expressionsKey][index];
 
-      let interpolationHasNewline = hasNewlineInRange(
-        options.originalText,
-        locEnd(quasi),
-        locStart(node.quasis[index + 1]),
-      );
+    let interpolationHasNewline = hasNewlineInRange(
+      options.originalText,
+      locEnd(quasi),
+      locStart(node.quasis[index + 1]),
+    );
 
-      if (!interpolationHasNewline) {
-        // Never add a newline to an interpolation which didn't already have one...
-        const renderedExpression = printDocToString(expressionDoc, {
-          ...options,
-          printWidth: Number.POSITIVE_INFINITY,
-        }).formatted;
+    if (!interpolationHasNewline) {
+      // Never add a newline to an interpolation which didn't already have one...
+      const renderedExpression = printDocToString(expressionDoc, {
+        ...options,
+        printWidth: Number.POSITIVE_INFINITY,
+      }).formatted;
 
-        // ... unless one will be introduced anyway, e.g. by a nested function.
-        // This case is rare, so we can pay the cost of re-rendering.
-        if (renderedExpression.includes("\n")) {
-          interpolationHasNewline = true;
-        } else {
-          expressionDoc = renderedExpression;
-        }
+      // ... unless one will be introduced anyway, e.g. by a nested function.
+      // This case is rare, so we can pay the cost of re-rendering.
+      if (renderedExpression.includes("\n")) {
+        interpolationHasNewline = true;
+      } else {
+        expressionDoc = renderedExpression;
       }
+    }
 
-      // Breaks at the template element boundaries (${ and }) are preferred to breaking
-      // in the middle of a MemberExpression
-      if (
-        interpolationHasNewline &&
-        (hasComment(expression) ||
-          isMemberExpression(expression) ||
-          expression.type === "ConditionalExpression" ||
-          expression.type === "SequenceExpression" ||
-          isBinaryCastExpression(expression) ||
-          isBinaryish(expression))
-      ) {
-        expressionDoc = [indent([softline, expressionDoc]), softline];
-      }
+    // Breaks at the template element boundaries (${ and }) are preferred to breaking
+    // in the middle of a MemberExpression
+    if (
+      interpolationHasNewline &&
+      (hasComment(expression) ||
+        expression.type === "Identifier" ||
+        isMemberExpression(expression) ||
+        expression.type === "ConditionalExpression" ||
+        expression.type === "SequenceExpression" ||
+        isBinaryCastExpression(expression) ||
+        isBinaryish(expression))
+    ) {
+      expressionDoc = [indent([softline, expressionDoc]), softline];
     }
 
     const aligned =

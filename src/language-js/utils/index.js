@@ -419,68 +419,6 @@ const isMemberExpression = skipChainExpression(
 );
 
 /**
- *
- * @param {any} node
- * @returns {boolean}
- */
-function isSimpleTemplateLiteral(node) {
-  let expressionsKey = "expressions";
-  if (node.type === "TSTemplateLiteralType") {
-    expressionsKey = "types";
-  }
-  const expressions = node[expressionsKey];
-
-  if (expressions.length === 0) {
-    return false;
-  }
-
-  return expressions.every((expr) => {
-    if (isSimpleAtomicExpression(expr) || isSimpleMemberExpression(expr)) {
-      return true;
-    }
-  });
-}
-
-function isSimpleMemberExpression(
-  node,
-  { maxDepth = Number.POSITIVE_INFINITY } = {},
-) {
-  if (hasComment(node)) {
-    return false;
-  }
-  if (node.type === "ChainExpression") {
-    return isSimpleMemberExpression(node.expression, { maxDepth });
-  }
-  if (!isMemberExpression(node)) {
-    return false;
-  }
-
-  let head = node;
-  let depth = 0;
-  while (isMemberExpression(head) && depth++ <= maxDepth) {
-    if (!isSimpleAtomicExpression(head.property)) {
-      return false;
-    }
-    head = head.object;
-    if (hasComment(head)) {
-      return false;
-    }
-  }
-  return isSimpleAtomicExpression(head);
-}
-
-/**
- * This is intended to return true for small expressions
- * which cannot be broken.
- */
-function isSimpleAtomicExpression(node) {
-  if (hasComment(node)) {
-    return false;
-  }
-  return isLiteral(node) || isSingleWordType(node);
-}
-
-/**
  * Attempts to gauge the rough complexity of a node, for example
  * to detect deeply-nested booleans, call expressions with lots of arguments, etc.
  */
@@ -1207,11 +1145,8 @@ export {
   isPrettierIgnoreComment,
   isRegExpLiteral,
   isSignedNumericLiteral,
-  isSimpleAtomicExpression,
   isSimpleCallArgument,
   isSimpleExpressionByNodeCount,
-  isSimpleMemberExpression,
-  isSimpleTemplateLiteral,
   isSimpleType,
   isStringLiteral,
   isTemplateOnItsOwnLine,
