@@ -271,7 +271,7 @@ export default [
       sourceType: "script",
     },
     rules: {
-      strict: "error",
+      strict: ["error", "global"],
       "unicorn/prefer-module": "off",
       "unicorn/prefer-node-protocol": "off",
     },
