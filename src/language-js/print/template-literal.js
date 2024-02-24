@@ -38,7 +38,7 @@ function printTemplateLiteral(path, print, options) {
   }
   const parts = [];
 
-  let expressionDocs = path.map(print, expressionsKey);
+  const expressionDocs = path.map(print, expressionsKey);
 
   parts.push(lineSuffixBoundary, "`");
 
