@@ -40,6 +40,7 @@ const visitorKeys = {
   listItem: ["children"],
   text: [],
   characterEscape: [],
+  entity: [],
 };
 
 export default visitorKeys;

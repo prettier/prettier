@@ -433,6 +433,7 @@ function genericPrint(path, options, print) {
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(locStart(node), locEnd(node));
     case "characterEscape":
+    case "entity":
       return node.value;
 
     case "tableRow": // handled in "table"

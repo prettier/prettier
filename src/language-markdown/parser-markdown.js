@@ -7,6 +7,7 @@ import { unified } from "unified";
 import { locEnd, locStart } from "./loc.js";
 import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import { hasPragma } from "./pragma.js";
+import { remarkEntity } from "./unified-plugins/entity.js";
 import { remarkEscape } from "./unified-plugins/escape.js";
 import { remarkFrontMatter } from "./unified-plugins/front-matter.js";
 import { remarkLiquid } from "./unified-plugins/liquid.js";
@@ -47,7 +48,8 @@ function createParse({ isMDX }) {
       .use(remarkMath, { singleDollarTextMath: false })
       .use(isMDX ? esSyntax : noop)
       .use(remarkLiquid)
-      .use(remarkWikiLink);
+      .use(remarkWikiLink)
+      .use(remarkEntity);
     // .use(isMDX ? htmlToJsx : noop)
     return processor.run(processor.parse(text));
   };

@@ -27,6 +27,7 @@ const INLINE_NODE_TYPES = new Set([
   "break",
   "inlineMath",
   "characterEscape",
+  "entity",
 ]);
 
 const INLINE_NODE_WRAPPER_TYPES = new Set([
