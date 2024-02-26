@@ -1,6 +1,7 @@
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
+import remarkWikiLink from "remark-wiki-link";
 import { unified } from "unified";
 
 import { locEnd, locStart } from "./loc.js";
@@ -45,9 +46,9 @@ function createParse({ isMDX }) {
       .use(remarkSingleDollarMath)
       .use(remarkMath, { singleDollarTextMath: false })
       .use(isMDX ? esSyntax : noop)
-      .use(remarkLiquid);
+      .use(remarkLiquid)
+      .use(remarkWikiLink);
     // .use(isMDX ? htmlToJsx : noop)
-    // .use(wikiLink);
     return processor.run(processor.parse(text));
   };
 }

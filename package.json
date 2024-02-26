@@ -99,6 +99,7 @@
     "remark-gfm": "4.0.0",
     "remark-math": "6.0.0",
     "remark-parse": "11.0.0",
+    "remark-wiki-link": "2.0.1",
     "sdbm": "2.0.0",
     "strip-ansi": "7.1.0",
     "to-fast-properties": "4.0.0",
