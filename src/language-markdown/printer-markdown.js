@@ -178,9 +178,9 @@ function genericPrint(path, options, print) {
     case "wikiLink": {
       let contents = "";
       if (options.proseWrap === "preserve") {
-        contents = node.value;
+        contents = node.value.trim();
       } else {
-        contents = node.value.replaceAll(/[\t\n]+/g, " ");
+        contents = node.value.trim().replaceAll(/[\t\n]+/g, " ");
       }
 
       return ["[[", contents, "]]"];
