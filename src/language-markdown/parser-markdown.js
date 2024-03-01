@@ -10,6 +10,7 @@ import { hasPragma } from "./pragma.js";
 import { remarkEntity } from "./unified-plugins/entity.js";
 import { remarkEscape } from "./unified-plugins/escape.js";
 import { remarkFrontMatter } from "./unified-plugins/front-matter.js";
+import { remarkHtmlToJsx } from "./unified-plugins/html-to-jsx.js";
 import { remarkLiquid } from "./unified-plugins/liquid.js";
 import { remarkSingleDollarMath } from "./unified-plugins/math.js";
 // import frontMatter from "./unified-plugins/front-matter.js";
@@ -41,16 +42,14 @@ function createParse({ isMDX }) {
       })
       .use(remarkEscape)
       .use(remarkGfm)
-      // .use(remarkFrontmatter, ["yaml", "toml"])
       .use(remarkFrontMatter, ["yaml", "toml"], text)
-      // .use(transformFrontMatter)
       .use(remarkSingleDollarMath)
       .use(remarkMath, { singleDollarTextMath: false })
       .use(isMDX ? esSyntax : noop)
       .use(remarkLiquid)
       .use(remarkWikiLink)
-      .use(remarkEntity);
-    // .use(isMDX ? htmlToJsx : noop)
+      .use(remarkEntity)
+      .use(isMDX ? remarkHtmlToJsx : noop);
     return processor.run(processor.parse(text));
   };
 }

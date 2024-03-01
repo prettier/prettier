@@ -1,19 +1,36 @@
 import { COMMENT_REGEX } from "../mdx.js";
 import { INLINE_NODE_WRAPPER_TYPES, mapAst } from "../utils.js";
 
-function htmlToJsx() {
-  return (ast) =>
-    mapAst(ast, (node, _index, [parent]) => {
-      if (
-        node.type !== "html" ||
-        // Keep HTML-style comments (legacy MDX)
-        COMMENT_REGEX.test(node.value) ||
-        INLINE_NODE_WRAPPER_TYPES.has(parent.type)
-      ) {
-        return node;
-      }
-      return { ...node, type: "jsx" };
-    });
+function remarkHtmlToJsx() {
+  /** @type {any} */
+  const data = this.data();
+
+  (data.fromMarkdownExtensions ??= []).push(fromMarkdown());
 }
 
-export default htmlToJsx;
+function fromMarkdown() {
+  return {
+    transforms: [
+      function transform(node, parent) {
+        if (
+          node.type === "html" &&
+          !(
+            COMMENT_REGEX.test(node.value) ||
+            INLINE_NODE_WRAPPER_TYPES.has(parent.type)
+          )
+        ) {
+          return { ...node, type: "jsx" };
+        }
+        if (node.children) {
+          return {
+            ...node,
+            children: node.children.map((c) => transform(c, node)),
+          };
+        }
+        return node;
+      },
+    ],
+  };
+}
+
+export { remarkHtmlToJsx };

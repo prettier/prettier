@@ -62,6 +62,7 @@ tokenizeEsSyntax.locator = (value /*, fromIndex*/) =>
 tokenizeEsComment.locator = (value, fromIndex) => value.indexOf("{", fromIndex);
 
 /**
+ * FIXME: migrate to latest remark
  * @type {import('unified').Plugin<[], import('unified').Settings>}
  */
 const esSyntax = function () {
