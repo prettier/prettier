@@ -1,5 +1,7 @@
 import { markdownLineEnding } from "micromark-util-character";
 import { codes, types } from "micromark-util-symbol";
+
+import { dataNode } from "./utils.js";
 // import { Code, Effects, State } from "micromark-util-types";
 
 /**
@@ -16,7 +18,7 @@ function remarkLiquid() {
   const data = this.data();
 
   (data.micromarkExtensions ??= []).push(syntax());
-  (data.fromMarkdownExtensions ??= []).push(fromMarkdown());
+  (data.fromMarkdownExtensions ??= []).push(dataNode("liquidNode"));
 }
 
 function syntax() {
@@ -33,7 +35,7 @@ function syntax() {
     return start;
 
     function start(code) {
-      effects.enter("liquid");
+      effects.enter("liquidNode");
       effects.enter(types.data);
       effects.consume(code);
       return function (code) {
@@ -75,37 +77,9 @@ function syntax() {
       }
       effects.consume(code);
       effects.exit(types.data);
-      effects.exit("liquid");
+      effects.exit("liquidNode");
       return ok;
     }
-  }
-}
-
-function fromMarkdown() {
-  return {
-    canContainEols: ["liquid"],
-    enter: { liquid: enterLiquid },
-    exit: { liquid: exitLiquid },
-  };
-
-  /**
-   * @this {CompileContext}
-   * @param {Token} token
-   */
-  function enterLiquid(token) {
-    this.enter({ type: "liquidNode" }, token);
-    this.buffer();
-  }
-
-  /**
-   * @this {CompileContext}
-   * @param {Token} token
-   */
-  function exitLiquid(token) {
-    const d = this.resume();
-    const node = this.stack.at(-1);
-    node.value = d;
-    this.exit(token);
   }
 }
 

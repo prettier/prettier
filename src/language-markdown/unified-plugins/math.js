@@ -4,6 +4,8 @@ import {
   markdownSpace,
 } from "micromark-util-character";
 import { codes, types } from "micromark-util-symbol";
+
+import { dataNode } from "./utils.js";
 // import { Code, Effects, State } from "micromark-util-types";
 
 /**
@@ -24,7 +26,7 @@ function remarkSingleDollarMath() {
   const data = this.data();
 
   (data.micromarkExtensions ??= []).push(syntax());
-  (data.fromMarkdownExtensions ??= []).push(fromMarkdown());
+  (data.fromMarkdownExtensions ??= []).push(dataNode("inlineMath"));
 }
 
 /** * @returns {MicromarkExtension} */
@@ -118,34 +120,6 @@ function syntax() {
       effects.exit("inlineMath");
       return ok;
     }
-  }
-}
-
-function fromMarkdown() {
-  return {
-    canContainEols: ["inlineMath"],
-    enter: { inlineMath: enterInlineMath },
-    exit: { inlineMath: exitInlineMath },
-  };
-
-  /**
-   * @this {CompileContext}
-   * @param {Token} token
-   */
-  function enterInlineMath(token) {
-    this.enter({ type: "inlineMath" }, token);
-    this.buffer();
-  }
-
-  /**
-   * @this {CompileContext}
-   * @param {Token} token
-   */
-  function exitInlineMath(token) {
-    const d = this.resume();
-    const node = this.stack.at(-1);
-    node.value = d;
-    this.exit(token);
   }
 }
 
