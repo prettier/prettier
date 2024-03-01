@@ -152,6 +152,7 @@
     "jest-snapshot-serializer-raw": "2.0.0",
     "jest-watch-typeahead": "2.2.2",
     "magic-string": "0.30.5",
+    "micromark-util-types": "2.0.0",
     "npm-run-all2": "6.1.1",
     "prettier": "3.2.4",
     "pretty-bytes": "6.1.1",

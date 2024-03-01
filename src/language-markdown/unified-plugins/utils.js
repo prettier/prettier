@@ -16,9 +16,11 @@ function dataNode(type) {
 
   /** @type {Handle} */
   function enterInlineMath(token) {
-    /** @type {any} */
-    const node = { type, value: "" };
-    this.enter(node, token);
+    this.enter(
+      // @ts-expect-error
+      { type },
+      token,
+    );
     this.buffer();
   }
 

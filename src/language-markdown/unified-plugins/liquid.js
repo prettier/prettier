@@ -2,16 +2,15 @@ import { markdownLineEnding } from "micromark-util-character";
 import { codes, types } from "micromark-util-symbol";
 
 import { dataNode } from "./utils.js";
-// import { Code, Effects, State } from "micromark-util-types";
 
 /**
- * @typedef {import('unified').Processor} Processor
  * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
  * @typedef {import('mdast-util-from-markdown').Token} Token
+ * @typedef {import('micromark-util-types').State} State
  */
 
 /**
- * @this {Processor}
+ * @this {import('unified').Processor}
  */
 function remarkLiquid() {
   /** @type {any} */
@@ -21,6 +20,9 @@ function remarkLiquid() {
   (data.fromMarkdownExtensions ??= []).push(dataNode("liquidNode"));
 }
 
+/**
+ * @returns {import('micromark-util-types').Extension}
+ */
 function syntax() {
   return {
     text: {
@@ -34,6 +36,7 @@ function syntax() {
   function liquidTokenize(effects, ok, nok) {
     return start;
 
+    /** @type {State} */
     function start(code) {
       effects.enter("liquidNode");
       effects.enter(types.data);
@@ -50,6 +53,7 @@ function syntax() {
       };
     }
 
+    /** @type {State} */
     function inside(code) {
       switch (code) {
         case codes.percentSign:
@@ -70,6 +74,7 @@ function syntax() {
       }
     }
 
+    /** @type {State} */
     function mayExit(code) {
       if (code !== codes.rightCurlyBrace) {
         effects.consume(code);

@@ -8,8 +8,7 @@ import { codes, types } from "micromark-util-symbol";
 
 /**
  * @typedef {import('unified').Processor} Processor
- * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
- * @typedef {import('mdast-util-from-markdown').Token} Token
+ * @typedef {import('mdast-util-from-markdown').Handle} Handle
  */
 
 /**
@@ -33,7 +32,6 @@ function syntax() {
     },
   };
 
-  /** @type {Tokenizer} */
   function tokenize(effects, ok, nok) {
     return start;
 
@@ -123,21 +121,20 @@ function fromMarkdown() {
     exit: { entity: exit },
   };
 
-  /**
-   * @this {CompileContext}
-   * @param {Token} token
-   */
+  /** @type {Handle}   */
   function enter(token) {
-    this.enter({ type: "entity" }, token);
+    this.enter(
+      // @ts-expect-error
+      { type: "entity" },
+      token,
+    );
     this.buffer();
   }
 
-  /**
-   * @this {CompileContext}
-   * @param {Token} token
-   */
+  /** @type {Handle}   */
   function exit(token) {
     const d = this.resume();
+    /** @type {any} */
     const node = this.stack.at(-1);
     node.value = d;
     this.exit(token);

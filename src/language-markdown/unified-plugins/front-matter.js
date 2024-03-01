@@ -3,11 +3,11 @@ import { frontmatter } from "micromark-extension-frontmatter";
 import parseFrontMatter from "../../utils/front-matter/parse.js";
 
 /**
- * @typedef {import('unified').Processor} Processor
  * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
  * @typedef {import('mdast-util-from-markdown').Token} Token
  */
 
+/** @this {import('unified').Processor} */
 function remarkFrontMatter(options, text) {
   /** @type {any} */
   const data = this.data();
@@ -49,7 +49,11 @@ function fromMarkdown(text) {
    * @param {Token} token
    */
   function enterFrontMatter(token) {
-    this.enter({ type: "front-matter" }, token);
+    this.enter(
+      // @ts-expect-error
+      { type: "front-matter" },
+      token,
+    );
   }
 
   /**

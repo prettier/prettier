@@ -7162,7 +7162,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-util-types@npm:^2.0.0":
+"micromark-util-types@npm:2.0.0, micromark-util-types@npm:^2.0.0":
   version: 2.0.0
   resolution: "micromark-util-types@npm:2.0.0"
   checksum: b88e0eefd4b7c8d86b54dbf4ed0094ef56a3b0c7774d040bd5c8146b8e4e05b1026bbf1cd9308c8fcd05ecdc0784507680c8cee9888a4d3c550e6e574f7aef62
@@ -8158,6 +8158,7 @@ __metadata:
     micromark-extension-frontmatter: "npm:2.0.0"
     micromark-util-character: "npm:2.1.0"
     micromark-util-symbol: "npm:2.0.0"
+    micromark-util-types: "npm:2.0.0"
     micromatch: "npm:4.0.5"
     minimist: "npm:1.2.8"
     n-readlines: "npm:1.0.1"

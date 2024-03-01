@@ -4,9 +4,7 @@
  * @typedef {import('mdast-util-from-markdown').Token} Token
  */
 
-/**
- * @this {Processor}
- */
+/** @this {import('unified').Processor} */
 function remarkEscape() {
   /** @type {any} */
   const data = this.data();
@@ -33,7 +31,11 @@ function fromMarkdown() {
    * @param {Token} token
    */
   function enter(token) {
-    this.enter({ type: "characterEscape" }, token);
+    this.enter(
+      // @ts-expect-error
+      { type: "characterEscape" },
+      token,
+    );
   }
 
   /**
@@ -41,6 +43,7 @@ function fromMarkdown() {
    * @param {Token} token
    */
   function exit(token) {
+    /** @type {any} */
     const parent = this.stack.at(-1);
     parent.value = this.sliceSerialize(token);
     this.exit(token);

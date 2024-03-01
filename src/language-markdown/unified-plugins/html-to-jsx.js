@@ -1,6 +1,7 @@
 import { COMMENT_REGEX } from "../mdx.js";
-import { INLINE_NODE_WRAPPER_TYPES, mapAst } from "../utils.js";
+import { INLINE_NODE_WRAPPER_TYPES } from "../utils.js";
 
+/** @this {import('unified').Processor} */
 function remarkHtmlToJsx() {
   /** @type {any} */
   const data = this.data();
@@ -8,6 +9,7 @@ function remarkHtmlToJsx() {
   (data.fromMarkdownExtensions ??= []).push(fromMarkdown());
 }
 
+/** @returns {import('mdast-util-from-markdown').Extension} */
 function fromMarkdown() {
   return {
     transforms: [

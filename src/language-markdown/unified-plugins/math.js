@@ -6,21 +6,15 @@ import {
 import { codes, types } from "micromark-util-symbol";
 
 import { dataNode } from "./utils.js";
-// import { Code, Effects, State } from "micromark-util-types";
 
 /**
- * @typedef {import('unified').Processor} Processor
- * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
  * @typedef {import('mdast-util-from-markdown').Token} Token
  * @typedef {import('micromark-util-types').Previous} Previous
  * @typedef {import('micromark-util-types').Tokenizer} Tokenizer
  * @typedef {import('micromark-util-types').State} State
- * @typedef {import('micromark-util-types').Extension} MicromarkExtension
  */
 
-/**
- * @this {Processor}
- */
+/** @this {import('unified').Processor} */
 function remarkSingleDollarMath() {
   /** @type {any} */
   const data = this.data();
@@ -29,25 +23,28 @@ function remarkSingleDollarMath() {
   (data.fromMarkdownExtensions ??= []).push(dataNode("inlineMath"));
 }
 
-/** * @returns {MicromarkExtension} */
+/** @returns {import('micromark-util-types').Extension} */
 function syntax() {
   return {
     text: {
       [codes.dollarSign]: {
         name: "math-text",
-        tokenize: mathTextTokenize,
+        tokenize,
         previous,
       },
     },
   };
 
   /** @type {Tokenizer} */
-  function mathTextTokenize(effects, ok, nok) {
+  function tokenize(effects, ok, nok) {
     return start;
 
     /** @type {State} */
     function start(code) {
-      effects.enter("inlineMath");
+      effects.enter(
+        // @ts-expect-error
+        "inlineMath",
+      );
       effects.enter(types.data);
       return open(code);
     }
@@ -117,15 +114,16 @@ function syntax() {
     function exit(code) {
       effects.consume(code);
       effects.exit(types.data);
-      effects.exit("inlineMath");
+      effects.exit(
+        // @ts-expect-error
+        "inlineMath",
+      );
       return ok;
     }
   }
 }
 
-/**
- * @type {Previous}
- */
+/** @type {Previous} */
 function previous(code) {
   return (
     code !== codes.dollarSign ||

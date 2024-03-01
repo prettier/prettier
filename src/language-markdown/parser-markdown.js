@@ -13,10 +13,6 @@ import { remarkFrontMatter } from "./unified-plugins/front-matter.js";
 import { remarkHtmlToJsx } from "./unified-plugins/html-to-jsx.js";
 import { remarkLiquid } from "./unified-plugins/liquid.js";
 import { remarkSingleDollarMath } from "./unified-plugins/math.js";
-// import frontMatter from "./unified-plugins/front-matter.js";
-// import htmlToJsx from "./unified-plugins/html-to-jsx.js";
-// import liquid from "./unified-plugins/liquid.js";
-// import wikiLink from "./unified-plugins/wiki-link.js";
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -35,6 +31,7 @@ import { remarkSingleDollarMath } from "./unified-plugins/math.js";
 function createParse({ isMDX }) {
   return (text) => {
     const processor = unified()
+      // @ts-expect-error
       .use(remarkParse, {
         extensions: [{ disable: { null: ["characterEscape"] } }],
         commonmark: true,
