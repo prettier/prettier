@@ -910,6 +910,41 @@ test.each\`
 ================================================================================
 `;
 
+exports[`optional.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+describe?.("some string some string some string some string some string some string some string some string", (done) => {})
+
+=====================================output=====================================
+describe?.(
+  "some string some string some string some string some string some string some string some string",
+  done => {},
+);
+
+================================================================================
+`;
+
+exports[`optional.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+describe?.("some string some string some string some string some string some string some string some string", (done) => {})
+
+=====================================output=====================================
+describe?.(
+  "some string some string some string some string some string some string some string some string",
+  (done) => {},
+);
+
+================================================================================
+`;
+
 exports[`test_declarations.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
