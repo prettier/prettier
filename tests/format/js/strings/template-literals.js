@@ -65,3 +65,9 @@ and this other one: ${
 }
 which already had a linebreak so can be broken up
 `;
+
+// https://github.com/prettier/prettier/issues/16114
+message = `this is a long messsage a simple interpolation without a linebreak ${foo} <- like this`;
+
+message = `whereas this messsage has a linebreak in the interpolation ${
+  foo} <- like this`;
