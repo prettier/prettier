@@ -73,17 +73,17 @@ Git-format-staged requires Python v3 or v2.7. Python is usually pre-installed on
 <!--npm-->
 
 ```bash
-npx husky-init
+npx husky init
 npm install --save-dev git-format-staged
-npx husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+echo "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ." > .husky/pre-commit
 ```
 
 <!--yarn-->
 
 ```bash
-npx husky-init # add --yarn2 for Yarn 2
+npx husky init # add --yarn2 for Yarn 2
 yarn add --dev git-format-staged
-yarn husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+echo "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ." > .husky/pre-commit
 ```
 
 <!--pnpm-->
@@ -91,7 +91,7 @@ yarn husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknow
 ```bash
 pnpm exec husky-init
 pnpm add --save-dev git-format-staged
-pnpm husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+echo "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ." > .husky/pre-commit
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
