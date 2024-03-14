@@ -68,7 +68,7 @@ export class AppComponent {}
 
 #### Use `"json"` parser for `tsconfig.json` by default ([#16012](https://github.com/prettier/prettier/pull/16012) by [@sosukesuzuki](https://github.com/sosukesuzuki))
 
-In [v3.2.0](https://prettier.io/blog/2024/01/12/3.2.0#new-jsonc-parser-added-15831httpsgithubcomprettierprettierpull15831-by-fiskerhttpsgithubcomfisker), we introduced `"jsonc"` parser which adds trialing comma **by default**.
+In [v3.2.0](https://prettier.io/blog/2024/01/12/3.2.0#new-jsonc-parser-added-15831httpsgithubcomprettierprettierpull15831-by-fiskerhttpsgithubcomfisker), we introduced `"jsonc"` parser which adds trailing comma **by default**.
 
 When adding a new parser we also define how it will be used based on the [`linguist-languages`](https://www.npmjs.com/package/linguist-languages) data.
 
@@ -76,7 +76,7 @@ When adding a new parser we also define how it will be used based on the [`lingu
 
 We decide to treat it as a JSON file for now to avoid the extra configuration step.
 
-To keep using the `"jsonc"` parser for your `tsconfig.json` files, add the following to your `.pretterrc` file
+To keep using the `"jsonc"` parser for your `tsconfig.json` files, add the following to your `.prettierrc` file
 
 ```json
 {
