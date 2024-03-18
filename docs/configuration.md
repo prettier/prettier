@@ -32,7 +32,7 @@ JSON:
 }
 ```
 
-JS(ESM):
+JS (ES Modules):
 
 ```js
 // prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
@@ -48,7 +48,7 @@ const config = {
 export default config;
 ```
 
-JS(CommonJS):
+JS (CommonJS):
 
 ```js
 // prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs

@@ -1,4 +1,8 @@
-import { isArrayOrTupleExpression } from "./utils/index.js";
+import {
+  isArrayOrTupleExpression,
+  isNumericLiteral,
+  isStringLiteral,
+} from "./utils/index.js";
 import isBlockComment from "./utils/is-block-comment.js";
 
 const ignoredProperties = new Set([
@@ -81,14 +85,15 @@ function clean(original, cloned, parent) {
       original.type === "TSPropertySignature" ||
       original.type === "ObjectTypeProperty" ||
       original.type === "ImportAttribute") &&
-    typeof original.key === "object" &&
     original.key &&
-    (original.key.type === "Literal" ||
-      original.key.type === "NumericLiteral" ||
-      original.key.type === "StringLiteral" ||
-      original.key.type === "Identifier")
+    !original.computed
   ) {
-    delete cloned.key;
+    const { key } = original;
+    if (isStringLiteral(key) || isNumericLiteral(key)) {
+      cloned.key = String(key.value);
+    } else if (key.type === "Identifier") {
+      cloned.key = key.name;
+    }
   }
 
   // Remove raw and cooked values from TemplateElement when it's CSS
@@ -197,15 +202,6 @@ function clean(original, cloned, parent) {
     ) {
       removeTemplateElementsValue(cloned);
     }
-  }
-
-  // Prettier removes degenerate union and intersection types with only one member.
-  if (
-    (original.type === "TSIntersectionType" ||
-      original.type === "TSUnionType") &&
-    original.types.length === 1
-  ) {
-    return cloned.types[0];
   }
 
   // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently

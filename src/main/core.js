@@ -1,4 +1,5 @@
-import { diffArrays } from "diff";
+// Use `diff/lib/diff/array.js` instead of `diff` to reduce bundle size
+import { diffArrays } from "diff/lib/diff/array.js";
 
 import {
   convertEndOfLineToChars,
