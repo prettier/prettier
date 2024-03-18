@@ -1,7 +1,4 @@
-import {
-  cursor,
-  hardline,
-} from "../../src/document/builders.js";
+import { cursor, hardline } from "../../src/document/builders.js";
 import { printDocToString } from "../../src/document/printer.js";
 
 const options = { printWidth: 80, tabWidth: 2 };
