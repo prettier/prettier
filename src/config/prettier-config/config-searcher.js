@@ -1,9 +1,14 @@
 import isFile from "../../utils/is-file.js";
 import Searcher from "../searcher.js";
-import { loadConfigFromPackageJson } from "./loaders.js";
+import {
+  loadConfigFromPackageJson,
+  loadConfigFromPackageYaml,
+} from "./loaders.js";
 
 const CONFIG_FILE_NAMES = [
   "package.json",
+  "package.yaml",
+  "package.yml",
   ".prettierrc",
   ".prettierrc.json",
   ".prettierrc.yaml",
@@ -26,6 +31,14 @@ async function filter({ name, path: file }) {
   if (name === "package.json") {
     try {
       return Boolean(await loadConfigFromPackageJson(file));
+    } catch {
+      return false;
+    }
+  }
+
+  if (/^package.ya?ml$/.test(name)) {
+    try {
+      return Boolean(await loadConfigFromPackageYaml(file));
     } catch {
       return false;
     }
