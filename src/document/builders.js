@@ -1,6 +1,4 @@
 import {
-  CURSOR_END,
-  CURSOR_START,
   DOC_TYPE_ALIGN,
   DOC_TYPE_BREAK_PARENT,
   DOC_TYPE_CURSOR,
@@ -177,8 +175,6 @@ const hardline = [hardlineWithoutBreakParent, breakParent];
 const literalline = [literallineWithoutBreakParent, breakParent];
 
 const cursor = { type: DOC_TYPE_CURSOR };
-const cursorStart = { ...cursor, edge: CURSOR_START };
-const cursorEnd = { ...cursor, edge: CURSOR_END };
 
 /**
  * @param {Doc} separator
@@ -242,8 +238,6 @@ export {
   breakParent,
   conditionalGroup,
   cursor,
-  cursorEnd,
-  cursorStart,
   dedent,
   dedentToRoot,
   fill,

@@ -1,5 +1,5 @@
 import AstPath from "../common/ast-path.js";
-import { cursorEnd, cursorStart } from "../document/builders.js";
+import { cursor } from "../document/builders.js";
 import { inheritLabel } from "../document/utils.js";
 import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted, printComments } from "./comments/print.js";
@@ -52,10 +52,10 @@ async function printAstToDoc(ast, options) {
   ensureAllCommentsPrinted(options);
 
   if (options.nodeAfterCursor && !options.nodeBeforeCursor) {
-    return [cursorStart, doc];
+    return [cursor, doc];
   }
   if (options.nodeBeforeCursor && !options.nodeAfterCursor) {
-    return [doc, cursorEnd];
+    return [doc, cursor];
   }
 
   return doc;
@@ -115,13 +115,13 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 
   switch (node) {
     case options.cursorNode:
-      doc = inheritLabel(doc, (doc) => [cursorStart, doc, cursorEnd]);
+      doc = inheritLabel(doc, (doc) => [cursor, doc, cursor]);
       break;
     case options.nodeBeforeCursor:
-      doc = inheritLabel(doc, (doc) => [doc, cursorStart]);
+      doc = inheritLabel(doc, (doc) => [doc, cursor]);
       break;
     case options.nodeAfterCursor:
-      doc = inheritLabel(doc, (doc) => [cursorEnd, doc]);
+      doc = inheritLabel(doc, (doc) => [cursor, doc]);
       break;
   }
 

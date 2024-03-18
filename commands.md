@@ -305,14 +305,13 @@ Examples:
 - `hardlineWithoutBreakParent` is used for printing tables in Prettier's Markdown printer. With `proseWrap` set to `never`, the columns are aligned only if none of the rows exceeds `printWidth`.
 - `literallineWithoutBreakParent` is used in the [Ruby plugin](https://github.com/prettier/plugin-ruby) for [printing heredoc syntax](https://github.com/prettier/plugin-ruby/blob/b6e7bd6bc3f70de8f146aa58ad0c8310518bf467/src/ruby/nodes/heredocs.js).
 
-### `cursorStart`, `cursorEnd`
+### `cursor`
 
 ```ts
-declare const cursorStart: Doc;
-declare const cursorEnd: Doc;
+declare const cursor: Doc;
 ```
 
-These are placeholder values indicating where the cursor was in the original input in order to find where it should be printed. The original cursor location should be surrounded by a `cursorStart` and a `cursorEnd` (respectively somewhere before and somewhere after where the cursor should go).
+This is a placeholder value where the cursor is in the original input in order to find where it would be printed.
 
 ## Example
 
