@@ -1062,8 +1062,7 @@ printWidth: 1
     a: 1
   }"
   [target]="{
-    trailingComma:
-      'notAllowed'
+    trailingComma: 'notAllowed'
   }"
   [target]="[
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
