@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument_comment.graphql format 1`] = `
+exports[`comments_arguments.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -10,16 +10,105 @@ printWidth: 80
 query (
   $string: String, # Some variable comment
   $bool: Boolean # Some comment
+  #  end of line
+   , # own line # own line
  ) {
    someField
  }
+
+# test idempotency
+query (
+  $string: String # Some variable comment
+  $bool: Boolean # Some comment
+  #  end of line
+  # own line # own line
+) {
+  someField
+}
+
+{
+  foo # info about foo
+  {
+    bar # info about bar
+  }
+}
+
+{
+  foo { # info about foo
+    bar # info about bar
+  }
+}
 
 =====================================output=====================================
 query (
   $string: String # Some variable comment
   $bool: Boolean # Some comment
+  #  end of line
+  # own line # own line
 ) {
   someField
+}
+
+# test idempotency
+query (
+  $string: String # Some variable comment
+  $bool: Boolean # Some comment
+  #  end of line
+  # own line # own line
+) {
+  someField
+}
+
+{
+  foo # info about foo
+  {
+    bar # info about bar
+  }
+}
+
+{
+  foo {
+    # info about foo
+    bar # info about bar
+  }
+}
+
+================================================================================
+`;
+
+exports[`comments_types.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Query
+ {    # comment 
+   someField: String # field comment
+  
+    # another field comment
+  anotherField:  Boolean!
+}
+
+# test idempotency
+type Query { # comment
+  someField: String # field comment
+  # another field comment
+  anotherField: Boolean!
+}
+
+=====================================output=====================================
+type Query { # comment
+  someField: String # field comment
+  # another field comment
+  anotherField: Boolean!
+}
+
+# test idempotency
+type Query { # comment
+  someField: String # field comment
+  # another field comment
+  anotherField: Boolean!
 }
 
 ================================================================================
