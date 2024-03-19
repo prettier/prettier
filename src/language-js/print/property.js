@@ -44,8 +44,7 @@ function isStringKeySafeToUnquote(node, options) {
     options.parser === "json" ||
     options.parser === "jsonc" ||
     !isStringLiteral(node.key) ||
-    // TODO[@fisker]: Use `printString` instead
-    rawText(node.key).slice(1, -1) !== node.key.value
+    printString(rawText(node.key), options).slice(1, -1) !== node.key.value
   ) {
     return false;
   }
@@ -130,15 +129,9 @@ function printPropertyKey(path, options, print) {
   const { key } = node;
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
-    const objectHasStringProp = (
-      parent.properties ||
-      parent.body ||
-      parent.members ||
-      parent.attributes
-    ).some(
+    const objectHasStringProp = path.siblings.some(
       (prop) =>
         !prop.computed &&
-        prop.key &&
         isStringLiteral(prop.key) &&
         !isStringKeySafeToUnquote(prop, options),
     );

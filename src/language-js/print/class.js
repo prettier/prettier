@@ -323,7 +323,8 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
 
   if (
     nextNode.static ||
-    nextNode.accessibility // TypeScript
+    nextNode.accessibility || // TypeScript
+    nextNode.readonly // TypeScript
   ) {
     return false;
   }

@@ -1,4 +1,5 @@
-// "fast-glob" is bundled here since the API uses `micromatch` too
+// "fast-glob" and `createTwoFilesPatch` are bundled here since the API uses `micromatch` and `diff` too
+import { createTwoFilesPatch } from "diff/lib/patch/create.js";
 import fastGlob from "fast-glob";
 import * as vnopts from "vnopts";
 
@@ -96,6 +97,7 @@ const sharedWithCli = {
     apiDescriptor: vnopts.apiDescriptor,
   },
   fastGlob,
+  createTwoFilesPatch,
   utils: {
     isNonEmptyArray,
     partition,
