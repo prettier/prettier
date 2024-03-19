@@ -68,6 +68,22 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`issue14350.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<!-- markdownlint-disable-next-line MD041 -->
+![logo](./img/logo.png)
+=====================================output=====================================
+<!-- markdownlint-disable-next-line MD041 -->
+![logo](./img/logo.png)
+
+================================================================================
+`;
+
 exports[`multiline.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
