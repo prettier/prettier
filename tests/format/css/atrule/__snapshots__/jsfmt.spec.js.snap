@@ -2311,6 +2311,8 @@ $family: unquote("Droid+Sans");
 "foo.css,800"
 );
 
+@import ,;
+
 =====================================output=====================================
 @import url("fineprint.css") print;
 @import url("bluish.css") projection, tv;
@@ -2392,6 +2394,8 @@ $family: unquote("Droid+Sans");
 @import url("foo.css");
 @import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600";
 @import url("foo.css,800");
+
+@import ;
 
 ================================================================================
 `;
