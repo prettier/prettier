@@ -41,7 +41,7 @@ See the [WebStorm setup guide](webstorm.md).
 
 ## Visual Studio
 
-Install the [JavaScript Prettier extension](https://github.com/madskristensen/JavaScriptPrettier).
+Install the [JavaScript Prettier extension](https://github.com/madskristensen/JavaScriptPrettier). [Pre VS2022 only](https://github.com/madskristensen/JavaScriptPrettier/issues/36)
 
 ## Atom
 
