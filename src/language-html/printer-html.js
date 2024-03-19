@@ -113,7 +113,7 @@ function genericPrint(path, options, print) {
         return node.rawName;
       }
       const value = unescapeQuoteEntities(node.value);
-      const quote = getPreferredQuote(value, '"');
+      const quote = getPreferredQuote(value, options.singleQuote);
       return [
         node.rawName,
         "=",
