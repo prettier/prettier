@@ -12,6 +12,24 @@ import {
 } from "../print/template-literal.js";
 import { hasLanguageComment, isAngularComponentTemplate } from "./utils.js";
 
+function getVariableName(expression) {
+  if (expression.type === "Identifier") {
+    return expression.name;
+  }
+
+  if (expression.type === "ThisExpression") {
+    return "this";
+  }
+
+  if (expression.type === "MemberExpression") {
+    const objectName = getVariableName(expression.object);
+    const propertyName = getVariableName(expression.property);
+    if (objectName && propertyName) {
+      return objectName + "." + propertyName;
+    }
+  }
+}
+
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
 async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
@@ -19,8 +37,25 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
 
-  const composePlaceholder = (index) =>
-    `PRETTIER_HTML_PLACEHOLDER_${index}_${counter}_IN_JS`;
+  const variableNameIndexLookup = {};
+  const composePlaceholder = (index) => {
+    let placeholder = index;
+
+    const nextExpression = node.expressions[index];
+    if (nextExpression) {
+      const variableName = getVariableName(nextExpression);
+
+      if (variableName) {
+        if (Object.hasOwn(variableNameIndexLookup, variableName)) {
+          placeholder = variableNameIndexLookup[variableName];
+        } else {
+          variableNameIndexLookup[variableName] = index;
+        }
+      }
+    }
+
+    return `PRETTIER_HTML_PLACEHOLDER_${placeholder}_${counter}_IN_JS`;
+  };
 
   const text = node.quasis
     .map((quasi, index, quasis) =>

@@ -100,3 +100,30 @@ html`<div style="   color : red;
 ${ foo}:${bar};
             display    :inline ">
   </div>`
+
+const staticTagName = 'static-tag-name';
+
+html`
+  <div>
+    <${staticTagName}
+    
+    x-attr="${replace}" .prop="${replace}">
+    </${staticTagName}>
+    <${this.staticTagName}
+    >
+    <${this.a.staticTagName}></${this.a.staticTagName}>
+    </${this.staticTagName}
+    >
+</div>
+`
+// Should not format
+html`
+  <${a().c}>
+
+</${b().c}>
+`
+html`
+  <${a().x.b}>
+
+</${a().x.b}>
+`
