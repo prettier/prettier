@@ -110,7 +110,12 @@ function printTemplateLiteral(path, print, options) {
     }
 
     const aligned =
-      indentSize === 0 && text.endsWith("\n")
+      indentSize === 0 &&
+      (text.endsWith("\n") ||
+        text
+          .split("\n")
+          .slice(1)
+          .some((line) => /^\S/.test(line.trimEnd())))
         ? align(Number.NEGATIVE_INFINITY, expressionDoc)
         : addAlignmentToDoc(expressionDoc, indentSize, tabWidth);
 
