@@ -248,8 +248,8 @@ tabWidth: 4
 
 ---
 
--   123
--   123
+- 123
+- 123
     1.  123
     2.  123
 
@@ -543,10 +543,10 @@ tabWidth: 4
 - [x] this is a long long long long long long long long long long long long long long paragraph.
 
 =====================================output=====================================
--   [ ] this is a long long long long long long long long long long long long
-        long long paragraph.
--   [x] this is a long long long long long long long long long long long long
-        long long paragraph.
+- [ ] this is a long long long long long long long long long long long long long
+      long paragraph.
+- [x] this is a long long long long long long long long long long long long long
+      long paragraph.
 
 ================================================================================
 `;
@@ -731,7 +731,7 @@ tabWidth: 4
     const b = 2;
     \`\`\`
 
--   ul01
+- ul01
 
     \`\`\`js
     const a = 1;
@@ -739,7 +739,7 @@ tabWidth: 4
     const b = 2;
     \`\`\`
 
--   ul02
+- ul02
 
     \`\`\`js
     const a = 1;
@@ -968,17 +968,17 @@ tabWidth: 4
 
 * hello6
 =====================================output=====================================
--   hello1
+- hello1
 
--   hello2
+- hello2
 
--   hello3
+- hello3
 
--   hello4
+- hello4
 
--   hello5
+- hello5
 
--   hello6
+- hello6
 
 ================================================================================
 `;
@@ -1457,17 +1457,17 @@ tabWidth: 4
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
 
 =====================================output=====================================
--   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a
 
-    -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
 
-    -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a a
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
@@ -2073,7 +2073,7 @@ tabWidth: 4
 ### Some heading
 
 =====================================output=====================================
--   Something
+- Something
 
 ### Some heading
 
@@ -2172,11 +2172,11 @@ tabWidth: 4
    d d d  
     e e e
 =====================================output=====================================
--   a a  
-     b b  
-     c c  
-     d d  
-    e e
+- a a  
+   b b  
+   c c  
+   d d  
+  e e
 
 1.  a a a  
      b b b  
@@ -2284,8 +2284,8 @@ tabWidth: 4
 - This is a long long long long long long long long long long long long long long paragraph.
 
 =====================================output=====================================
--   This is a long long long long long long long long long long long long long
-    long paragraph.
+- This is a long long long long long long long long long long long long long
+  long paragraph.
 
 ================================================================================
 `;
@@ -2380,17 +2380,17 @@ tabWidth: 4
   - ghi
 
 =====================================output=====================================
--   123
+- 123
 
-    -   abc
+    - abc
 
--   456
+- 456
 
-    -   def
+    - def
 
--   789
+- 789
 
-    -   ghi
+    - ghi
 
 ================================================================================
 `;
@@ -2497,7 +2497,7 @@ tabWidth: 4
   789
 
 =====================================output=====================================
--   123 456 789
+- 123 456 789
 
 ================================================================================
 `;
@@ -2570,9 +2570,9 @@ tabWidth: 4
     - Level 3
 
 =====================================output=====================================
--   Level 1
-    -   Level 2
-        -   Level 3
+- Level 1
+    - Level 2
+        - Level 3
 
 ================================================================================
 `;
@@ -2679,20 +2679,20 @@ tabWidth: 4
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
 
 =====================================output=====================================
--   parent list item parent list item parent list item parent list item parent
-    list item parent list item
+- parent list item parent list item parent list item parent list item parent
+  list item parent list item
 
-    -   child list item child list item child list item child list item child
-        list item child list item
+    - child list item child list item child list item child list item child list
+      item child list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
 
--   [x] parent task list item parent task list item parent task list item parent
-        task list item
+- [x] parent task list item parent task list item parent task list item parent
+      task list item
 
-    -   [x] child task list item child task list item child task list item child
-            task list item
+    - [x] child task list item child task list item child task list item child
+          task list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
@@ -2854,19 +2854,19 @@ tabWidth: 4
 =====================================output=====================================
 # List with 1 tab indentation and \`-\`
 
--   Top level list item 1
--   Top level list item 2
-    -   Nested List item 1
-    -   Nested List item 2
-        -   Sub-Nested List item 1
-        -   Sub-Nested List item 2
+- Top level list item 1
+- Top level list item 2
+    - Nested List item 1
+    - Nested List item 2
+        - Sub-Nested List item 1
+        - Sub-Nested List item 2
 
 # List with 1 tab indentation and \`*\`
 
--   Top level list item 1
--   Top level list item 2
-    -   Nested List item 1
-    -   Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+- Top level list item 1
+- Top level list item 2
+    - Nested List item 1
+    - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
 
 ================================================================================
 `;
@@ -3082,13 +3082,13 @@ tabWidth: 4
 * 123
 
 =====================================output=====================================
--   123
--   123
--   123
+- 123
+- 123
+- 123
 
-*   123
-*   123
-*   123
+* 123
+* 123
+* 123
 
 ================================================================================
 `;
@@ -3181,9 +3181,9 @@ tabWidth: 4
 - 789
 
 =====================================output=====================================
--   123
--   456
--   789
+- 123
+- 456
+- 789
 
 ================================================================================
 `;
@@ -4195,27 +4195,27 @@ tabWidth: 4
  	\`foo\`
 
 =====================================output=====================================
--   Text
+- Text
 
     [title](link)
 
--   Text
+- Text
 
-    -   foo
-    -   foo
-    -   bar
+    - foo
+    - foo
+    - bar
 
--   Text
+- Text
 
     # foo
 
--   Text
+- Text
 
     \`\`\`
     foo
     \`\`\`
 
--   Text
+- Text
 
     \`foo\`
 
@@ -4337,6 +4337,101 @@ proseWrap: "always"
 - Text
 
   \`foo\`
+
+================================================================================
+`;
+
+exports[`unordered.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- first line
+    - second line indented
+- third line
+    - fourth line
+        - fifth line
+
+=====================================output=====================================
+- first line
+  - second line indented
+- third line
+  - fourth line
+    - fifth line
+
+================================================================================
+`;
+
+exports[`unordered.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- first line
+    - second line indented
+- third line
+    - fourth line
+        - fifth line
+
+=====================================output=====================================
+- first line
+    - second line indented
+- third line
+    - fourth line
+        - fifth line
+
+================================================================================
+`;
+
+exports[`unordered.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+- first line
+    - second line indented
+- third line
+    - fourth line
+        - fifth line
+
+=====================================output=====================================
+- first line
+     - second line indented
+- third line
+     - fourth line
+          - fifth line
+
+================================================================================
+`;
+
+exports[`unordered.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- first line
+    - second line indented
+- third line
+    - fourth line
+        - fifth line
+
+=====================================output=====================================
+- first line
+  - second line indented
+- third line
+  - fourth line
+    - fifth line
 
 ================================================================================
 `;

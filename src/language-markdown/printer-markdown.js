@@ -308,7 +308,7 @@ function genericPrint(path, options, print) {
 
             return node.isAligned ||
               /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
-              ? alignListPrefix(rawPrefix, options)
+              ? alignListPrefix(rawPrefix, options, node.ordered)
               : rawPrefix;
           }
         },
@@ -455,8 +455,8 @@ function printListItem(path, options, print, listPrefix) {
   ];
 }
 
-function alignListPrefix(prefix, options) {
-  const additionalSpaces = getAdditionalSpaces();
+function alignListPrefix(prefix, options, isOrdered) {
+  const additionalSpaces = getAdditionalSpaces(isOrdered);
   return (
     prefix +
     " ".repeat(
@@ -464,7 +464,11 @@ function alignListPrefix(prefix, options) {
     )
   );
 
-  function getAdditionalSpaces() {
+  function getAdditionalSpaces(isOrdered) {
+    if (!isOrdered) {
+      return 0;
+    }
+
     const restSpaces = prefix.length % options.tabWidth;
     return restSpaces === 0 ? 0 : options.tabWidth - restSpaces;
   }
