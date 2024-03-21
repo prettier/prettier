@@ -174,7 +174,7 @@ const LanguagesSection = () => {
 
   return (
     <div
-      className="languagesSection productShowcaseSection"
+      className="languagesSection productShowcaseSection lightBackground"
       style={{ textAlign: "center" }}
     >
       <Container>
@@ -216,7 +216,7 @@ Editor.propTypes = {
 };
 
 const EditorSupportSection = () => (
-  <div className="editorSupportSection productShowcaseSection lightBackground">
+  <div className="editorSupportSection productShowcaseSection">
     <Container>
       <h2>Editor Support</h2>
       <div
@@ -254,7 +254,7 @@ const UsersSection = ({ language }) => {
     ));
 
   return (
-    <div className="usersSection productShowcaseSection">
+    <div className="usersSection productShowcaseSection lightBackground">
       <Container>
         <h2>Used By People You Rely On</h2>
         <div style={{ textAlign: "right" }} />
@@ -355,6 +355,79 @@ UsersSection.propTypes = {
   language: PropTypes.string,
 };
 
+const tierTitle = new Map([
+  ["gold", "Gold Sponsors"],
+  ["silver", "Silver Sponsors"],
+  ["bronze", "Bronze Sponsors"],
+  ["backers", "Backers"],
+]);
+const tierDescription = new Map([
+  [
+    "gold",
+    "Gold sponsors are those who have donated an average of $500 over the past 12 months.",
+  ],
+  [
+    "silver",
+    "Silver sponsors are those who have donated an average of $300 to $500 over the past 12 months.",
+  ],
+  [
+    "bronze",
+    "Bronze sponsors are those who have donated an average of $100 to $300 over the past 12 months.",
+  ],
+  [
+    "backers",
+    "Backers are those who have donated less than an average of $100 over the past 12 months.",
+  ],
+]);
+const tierIconSize = new Map([
+  ["gold", "120px"],
+  ["silver", "100px"],
+  ["bronze", "80px"],
+  ["backers", "40px"],
+]);
+const SponsorsTier = ({ tier, sponsors }) => (
+  <div className={`sponsorsTier ${tier}`}>
+    <h3>{tierTitle.get(tier)}</h3>
+    <p>{tierDescription.get(tier)}</p>
+    <div className="sponsorAvatars">
+      {sponsors.map((sponsor) => (
+        <div key={sponsor.name}>
+          <a href={sponsor.website}>
+            <img
+              src={sponsor.avatar}
+              title={sponsor.name}
+              height={tierIconSize.get(tier)}
+            />
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const SponsorsSection = () => {
+  const { gold, silver, bronze, backers } = siteConfig.sponsors;
+  return (
+    <div className="sponsorsSection productShowcaseSection">
+      <Container>
+        <h2>Sponsors</h2>
+        <p className="description">
+          Prettier is maintained by a small team of volunteers. Funds collected
+          from sponsors are paid out monthly to two maintainers, allowing them
+          to continue maintenance. If Prettier is useful to you, please consider
+          becoming our sponsor on{" "}
+          <a href="https://opencollective.com/prettier">OpenCollective</a> or{" "}
+          <a href="https://github.com/sponsors/prettier">GitHub Sponsors</a>.
+        </p>
+        <SponsorsTier tier="gold" sponsors={gold || []} />
+        <SponsorsTier tier="silver" sponsors={silver || []} />
+        <SponsorsTier tier="bronze" sponsors={bronze || []} />
+        <SponsorsTier tier="backers" sponsors={backers || []} />
+      </Container>
+    </div>
+  );
+};
+
 class Index extends React.Component {
   render() {
     const language = this.props.language || "en";
@@ -365,6 +438,7 @@ class Index extends React.Component {
         <HomeSplash language={language} />
         <div className="mainContainer landingContainer">
           <TldrSection language={language} />
+          <SponsorsSection />
           <LanguagesSection />
           <EditorSupportSection />
           <UsersSection language={language} />

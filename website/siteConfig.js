@@ -13,9 +13,14 @@ function loadYaml(fsPath) {
   return parseYaml(fs.readFileSync(path.join(__dirname, fsPath), "utf8"));
 }
 
+function loadJson(fsPath) {
+  return JSON.parse(fs.readFileSync(path.join(__dirname, fsPath), "utf8"));
+}
+
 const users = loadYaml("./data/users.yml");
 const editors = loadYaml("./data/editors.yml");
 const supportedLanguages = loadYaml("./data/languages.yml");
+const sponsors = loadJson("./data/sponsors.json");
 
 const siteConfig = {
   title: "Prettier",
@@ -29,6 +34,7 @@ const siteConfig = {
   users,
   editors,
   supportedLanguages,
+  sponsors,
   tideliftUrl:
     "https://tidelift.com/subscription/pkg/npm-prettier?utm_source=npm-prettier&utm_medium=referral&utm_campaign=website",
   /* base url for editing docs, usage example: editUrl + 'en/doc1.md' */
