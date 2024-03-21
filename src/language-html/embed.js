@@ -114,7 +114,6 @@ function embed(path, options) {
           };
           if (options.parser === "angular") {
             textToDocOptions.parser = "__ng_interpolation";
-            textToDocOptions.trailingComma = "none";
           } else if (options.parser === "vue") {
             textToDocOptions.parser = isVueSfcWithTypescriptScript(
               path,

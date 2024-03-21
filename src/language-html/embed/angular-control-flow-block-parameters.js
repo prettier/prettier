@@ -24,7 +24,6 @@ function printAngularControlFlowBlockParameters(
     {
       parser: "__ng_directive",
       __isInHtmlAttribute: false,
-      trailingComma: "none",
     },
     shouldHugJsExpression,
   );

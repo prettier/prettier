@@ -1,0 +1,622 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`trailing-comma.html - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+<div
+  (action)="
+      {long, long, long, long, long, long, long, long, long, long,
+        object,
+        property,
+      }
+  "
+  (action)="
+      [long, long, long, long, long, long, long, long, long, long,
+        array,
+        element,
+      ]
+  "
+  (action)="
+      call(long, long, long, long, long, long, long, long, long, long,
+        call,
+        argument
+      )
+  "
+  [binding]="
+      {long, long, long, long, long, long, long, long, long, long,
+        object,
+        property,
+      }
+  "
+  [binding]="
+      [long, long, long, long, long, long, long, long, long, long,
+        array,
+        element,
+      ]
+  "
+  [binding]="
+      call(long, long, long, long, long, long, long, long, long, long,
+        call,
+        argument
+      )
+  "
+  *directive="
+      {long, long, long, long, long, long, long, long, long, long,
+        object,
+        property,
+      }
+  "
+  *directive="
+      [long, long, long, long, long, long, long, long, long, long,
+        array,
+        element,
+      ]
+  "
+  *directive="
+      call(long, long, long, long, long, long, long, long, long, long,
+        call,
+        argument
+      )
+  "
+></div>
+
+=====================================output=====================================
+<div
+  (action)="
+    ({
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      object,
+      property,
+    })
+  "
+  (action)="
+    ([
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      array,
+      element,
+    ])
+  "
+  (action)="
+    call(
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      call,
+      argument
+    )
+  "
+  [binding]="{
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    object,
+    property,
+  }"
+  [binding]="[
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    array,
+    element,
+  ]"
+  [binding]="
+    call(
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      call,
+      argument
+    )
+  "
+  *directive="{
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    object,
+    property,
+  }"
+  *directive="[
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    array,
+    element,
+  ]"
+  *directive="
+    call(
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      call,
+      argument
+    )
+  "
+></div>
+
+================================================================================
+`;
+
+exports[`trailing-comma.html - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<div
+  (action)="
+      {long, long, long, long, long, long, long, long, long, long,
+        object,
+        property,
+      }
+  "
+  (action)="
+      [long, long, long, long, long, long, long, long, long, long,
+        array,
+        element,
+      ]
+  "
+  (action)="
+      call(long, long, long, long, long, long, long, long, long, long,
+        call,
+        argument
+      )
+  "
+  [binding]="
+      {long, long, long, long, long, long, long, long, long, long,
+        object,
+        property,
+      }
+  "
+  [binding]="
+      [long, long, long, long, long, long, long, long, long, long,
+        array,
+        element,
+      ]
+  "
+  [binding]="
+      call(long, long, long, long, long, long, long, long, long, long,
+        call,
+        argument
+      )
+  "
+  *directive="
+      {long, long, long, long, long, long, long, long, long, long,
+        object,
+        property,
+      }
+  "
+  *directive="
+      [long, long, long, long, long, long, long, long, long, long,
+        array,
+        element,
+      ]
+  "
+  *directive="
+      call(long, long, long, long, long, long, long, long, long, long,
+        call,
+        argument
+      )
+  "
+></div>
+
+=====================================output=====================================
+<div
+  (action)="
+    ({
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      object,
+      property,
+    })
+  "
+  (action)="
+    ([
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      array,
+      element,
+    ])
+  "
+  (action)="
+    call(
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      call,
+      argument
+    )
+  "
+  [binding]="{
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    object,
+    property,
+  }"
+  [binding]="[
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    array,
+    element,
+  ]"
+  [binding]="
+    call(
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      call,
+      argument
+    )
+  "
+  *directive="{
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    object,
+    property,
+  }"
+  *directive="[
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    array,
+    element,
+  ]"
+  *directive="
+    call(
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      call,
+      argument
+    )
+  "
+></div>
+
+================================================================================
+`;
+
+exports[`trailing-comma.html - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<div
+  (action)="
+      {long, long, long, long, long, long, long, long, long, long,
+        object,
+        property,
+      }
+  "
+  (action)="
+      [long, long, long, long, long, long, long, long, long, long,
+        array,
+        element,
+      ]
+  "
+  (action)="
+      call(long, long, long, long, long, long, long, long, long, long,
+        call,
+        argument
+      )
+  "
+  [binding]="
+      {long, long, long, long, long, long, long, long, long, long,
+        object,
+        property,
+      }
+  "
+  [binding]="
+      [long, long, long, long, long, long, long, long, long, long,
+        array,
+        element,
+      ]
+  "
+  [binding]="
+      call(long, long, long, long, long, long, long, long, long, long,
+        call,
+        argument
+      )
+  "
+  *directive="
+      {long, long, long, long, long, long, long, long, long, long,
+        object,
+        property,
+      }
+  "
+  *directive="
+      [long, long, long, long, long, long, long, long, long, long,
+        array,
+        element,
+      ]
+  "
+  *directive="
+      call(long, long, long, long, long, long, long, long, long, long,
+        call,
+        argument
+      )
+  "
+></div>
+
+=====================================output=====================================
+<div
+  (action)="
+    ({
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      object,
+      property
+    })
+  "
+  (action)="
+    ([
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      array,
+      element
+    ])
+  "
+  (action)="
+    call(
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      call,
+      argument
+    )
+  "
+  [binding]="{
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    object,
+    property
+  }"
+  [binding]="[
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    array,
+    element
+  ]"
+  [binding]="
+    call(
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      call,
+      argument
+    )
+  "
+  *directive="{
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    object,
+    property
+  }"
+  *directive="[
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    long,
+    array,
+    element
+  ]"
+  *directive="
+    call(
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      long,
+      call,
+      argument
+    )
+  "
+></div>
+
+================================================================================
+`;

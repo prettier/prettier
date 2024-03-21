@@ -451,10 +451,10 @@ printWidth: 80
   [target]="{a: 1}"
   [target]="{a: 1}"
   [target]="{
-    trailingComma: 'notAllowed'
+    trailingComma: 'notAllowed',
   }"
   [target]="[
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
   ]"
   [target]="true"
   [target]="undefined"
@@ -540,14 +540,14 @@ printWidth: 80
     listRow.NextScheduledSendStatus == 3
   "
   [target]="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
   }"
   [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
     'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
-    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
+    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER,
   }"
   [stickout]="+toolAssembly.stickoutMm"
   test="{{ 'test' | translate }}"
@@ -730,10 +730,10 @@ printWidth: 80
   [target]="{ a: 1 }"
   [target]="{ a: 1 }"
   [target]="{
-    trailingComma: 'notAllowed'
+    trailingComma: 'notAllowed',
   }"
   [target]="[
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
   ]"
   [target]="true"
   [target]="undefined"
@@ -819,14 +819,14 @@ printWidth: 80
     listRow.NextScheduledSendStatus == 3
   "
   [target]="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
   }"
   [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
     'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
-    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
+    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER,
   }"
   [stickout]="+toolAssembly.stickoutMm"
   test="{{ 'test' | translate }}"
@@ -1053,20 +1053,20 @@ printWidth: 1
     ]
   "
   [target]="[
-    1
+    1,
   ]"
   [target]="{
-    a: 1
+    a: 1,
   }"
   [target]="{
-    a: 1
+    a: 1,
   }"
   [target]="{
     trailingComma:
-      'notAllowed'
+      'notAllowed',
   }"
   [target]="[
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
   ]"
   [target]="
     true
@@ -1210,7 +1210,7 @@ printWidth: 1
       1,
       2,
       3,
-      666666666666666666666666666666666666
+      666666666666666666666666666666666666,
     ];
     let i = index
   "
@@ -1320,7 +1320,7 @@ printWidth: 1
       3
   "
   [target]="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
   }"
   [error]="
     'We couldn\\\\\\'t find anything with that name.'
@@ -1355,7 +1355,7 @@ printWidth: 1
         | async
       )
         .level ===
-      dialogLevelEnum.DANGER
+      dialogLevelEnum.DANGER,
   }"
   [stickout]="
     +toolAssembly.stickoutMm
@@ -1636,10 +1636,10 @@ trailingComma: "es5"
   [target]="{ a: 1 }"
   [target]="{ a: 1 }"
   [target]="{
-    trailingComma: 'notAllowed'
+    trailingComma: 'notAllowed',
   }"
   [target]="[
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
   ]"
   [target]="true"
   [target]="undefined"
@@ -1725,14 +1725,14 @@ trailingComma: "es5"
     listRow.NextScheduledSendStatus == 3
   "
   [target]="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
   }"
   [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
     'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
-    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
+    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER,
   }"
   [stickout]="+toolAssembly.stickoutMm"
   test="{{ 'test' | translate }}"
@@ -3395,21 +3395,21 @@ printWidth: 1
 <div>
   {{
     [
-      1
+      1,
     ]
   }}
 </div>
 <div>
   {{
     {
-      a: 1
+      a: 1,
     }
   }}
 </div>
 <div>
   {{
     {
-      a: 1
+      a: 1,
     }
   }}
 </div>
@@ -3599,8 +3599,8 @@ printWidth: 1
               | translate
                 : {
                     count:
-                      array.length
-                  })
+                      array.length,
+                  }),
           }
   }}
 </p>
@@ -3609,7 +3609,7 @@ printWidth: 1
     {
       a:
         1 +
-        {}
+        {},
     }
   }}
 </p>
@@ -3618,14 +3618,14 @@ printWidth: 1
     {
       a:
         a ===
-        {}
+        {},
     }
   }}
 </p>
 <p>
   {{
     {
-      a: !{}
+      a: !{},
     }
   }}
 </p>
@@ -3634,7 +3634,7 @@ printWidth: 1
     {
       a: a
         ? b
-        : {}
+        : {},
     }
   }}
 </p>
@@ -8391,7 +8391,7 @@ can be found in the LICENSE file at http://angular.io/license
   <div
     [ngClass]="{
       special:
-        isSpecial
+        isSpecial,
     }"
   ></div>
 </div>
@@ -9371,7 +9371,7 @@ bindon-ngModel
   [ngClass]="{
     bad: false,
     curly: true,
-    special: true
+    special: true,
   }"
 >
   Curly
