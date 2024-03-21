@@ -14,6 +14,7 @@ import { locEnd, locStart } from "../loc.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
   CommentCheckFlags,
+  experimentalTernaryDanglingCommentMarker,
   getComments,
   hasComment,
   isBinaryCastExpression,
@@ -284,16 +285,23 @@ function printTernary(path, options, print, args) {
     hasComment(consequentNode, CommentCheckFlags.Dangling)
   ) {
     path.call((childPath) => {
-      consequentComments.push(
-        printDanglingComments(childPath, options),
-        hardline,
-      );
+      const danglingComments = printDanglingComments(childPath, options, {
+        marker: experimentalTernaryDanglingCommentMarker,
+      });
+      if (danglingComments) {
+        consequentComments.push(danglingComments, hardline);
+      }
     }, "consequent");
   }
   const alternateComments = [];
   if (hasComment(node.test, CommentCheckFlags.Dangling)) {
     path.call((childPath) => {
-      alternateComments.push(printDanglingComments(childPath, options));
+      const danglingComments = printDanglingComments(childPath, options, {
+        marker: experimentalTernaryDanglingCommentMarker,
+      });
+      if (danglingComments) {
+        alternateComments.push(danglingComments, hardline);
+      }
     }, "test");
   }
   if (
@@ -301,11 +309,21 @@ function printTernary(path, options, print, args) {
     hasComment(alternateNode, CommentCheckFlags.Dangling)
   ) {
     path.call((childPath) => {
-      alternateComments.push(printDanglingComments(childPath, options));
+      const danglingComments = printDanglingComments(childPath, options, {
+        marker: experimentalTernaryDanglingCommentMarker,
+      });
+      if (danglingComments) {
+        alternateComments.push(danglingComments, hardline);
+      }
     }, "alternate");
   }
   if (hasComment(node, CommentCheckFlags.Dangling)) {
-    alternateComments.push(printDanglingComments(path, options));
+    const danglingComments = printDanglingComments(path, options, {
+      marker: experimentalTernaryDanglingCommentMarker,
+    });
+    if (danglingComments) {
+      alternateComments.push(danglingComments);
+    }
   }
 
   const testId = Symbol("test");
