@@ -93,6 +93,7 @@ function printObject(path, options, print) {
             property.value.type === "ArrayPattern"),
       )) ||
     (node.type !== "ObjectPattern" &&
+      options.multilineObject === "preserve" &&
       propsAndLoc.length > 0 &&
       hasNewlineInRange(
         options.originalText,
