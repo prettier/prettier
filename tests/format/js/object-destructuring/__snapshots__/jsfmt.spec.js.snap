@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`destructuring.js - {"printWidth":20} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 20
+                    | printWidth
+=====================================input======================================
+const {f, b} = f;
+const { foo, bar } = foo;
+const { foo2, bar2, baz } = foo;
+=====================================output=====================================
+const { f, b } = f;
+const {
+  foo,
+  bar,
+} = foo;
+const {
+  foo2,
+  bar2,
+  baz,
+} = foo;
+
+================================================================================
+`;

@@ -172,7 +172,9 @@ const extractTextPluginOptions3 =
     { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
-const { configureStore } =
+const {
+  configureStore,
+} =
   process.env.NODE_ENV === "production" ?
     require("./configureProdStore") // a
   : require("./configureDevStore"); // b
@@ -428,10 +430,11 @@ const extractTextPluginOptions3 = shouldUseRelativeAssetPaths // Making sure tha
   ? { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
-const { configureStore } =
-  process.env.NODE_ENV === "production"
-    ? require("./configureProdStore") // a
-    : require("./configureDevStore"); // b
+const {
+  configureStore,
+} = process.env.NODE_ENV === "production"
+  ? require("./configureProdStore") // a
+  : require("./configureDevStore"); // b
 
 test /* comment
   comment
