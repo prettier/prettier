@@ -85,20 +85,4 @@ const visitorKeys = Object.fromEntries(
   ]),
 );
 
-for (const type of [
-  // Flow, Not supported yet
-  "ComponentDeclaration",
-  "ComponentParameter",
-  "ComponentTypeAnnotation",
-  "ComponentTypeParameter",
-  "DeclareComponent",
-
-  // Flow, Not supported yet
-  "HookDeclaration",
-  "HookTypeAnnotation",
-  "DeclareHook",
-]) {
-  delete visitorKeys[type];
-}
-
 export default visitorKeys;
