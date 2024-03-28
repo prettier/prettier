@@ -29,6 +29,7 @@ import {
   isLeftCurlyBraceNode,
   isMathOperatorNode,
   isMultiplicationNode,
+  isNumberNodeWithoutUnit,
   isParenGroupNode,
   isPostcssSimpleVarNode,
   isRelationalOperatorNode,
@@ -257,12 +258,20 @@ function printCommaSeparatedValueGroup(path, options, print) {
       iNextNextNode?.type === "value-func" ||
       (iNextNextNode && isWordNode(iNextNextNode)) ||
       iNode.type === "value-func" ||
-      isWordNode(iNode);
+      isWordNode(iNode) ||
+      (isDivisionNode(iNextNode) &&
+        parentNode.type === "value-value" &&
+        isNumberNodeWithoutUnit(iNode) &&
+        isNumberNodeWithoutUnit(iNextNextNode));
     const requireSpaceAfterOperator =
       iNextNode.type === "value-func" ||
       isWordNode(iNextNode) ||
       iPrevNode?.type === "value-func" ||
-      (iPrevNode && isWordNode(iPrevNode));
+      (iPrevNode && isWordNode(iPrevNode)) ||
+      (isDivisionNode(iNode) &&
+        parentNode.type === "value-value" &&
+        isNumberNodeWithoutUnit(iNextNode) &&
+        isNumberNodeWithoutUnit(iPrevNode));
 
     // Space before unary minus followed by a function call.
     if (

@@ -452,7 +452,7 @@ a {
   prop25-4: #{$width}-#{$width} #{$width} -#{$width} #{$width}- #{$width} #{$width} -
     #{$width};
   prop26: 8px/2px 8px /1 1/ 2px 1 / 2;
-  prop27: 8px/2px 8px/1 1/2px 1/2;
+  prop27: 8px/2px 8px/1 1/2px 1 / 2;
   prop28: 8px / 2px 8px / 1 1 / 2px 1 / 2;
   prop29: (8px/2px) (8px/1) (1/2px) (1/2);
   prop30: (8px / 2px) (8px / 1) (1 / 2px) (1 / 2);

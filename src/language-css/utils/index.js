@@ -385,6 +385,10 @@ function isParenGroupNode(node) {
   );
 }
 
+function isNumberNodeWithoutUnit(node) {
+  return node?.type === "value-number" && node.unit === "";
+}
+
 export {
   getPropOfDeclNode,
   hasComposesNode,
@@ -418,6 +422,7 @@ export {
   isMediaAndSupportsKeywords,
   isModuloNode,
   isMultiplicationNode,
+  isNumberNodeWithoutUnit,
   isParenGroupNode,
   isPostcssSimpleVarNode,
   isRelationalOperatorNode,
