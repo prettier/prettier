@@ -19,12 +19,12 @@ test("Should trim blank first line", () => {
 test("Should properly trim with cursor", () => {
   expect(
     printDocToString(
-      [cursor, "Prettier  \t", cursor, "\t \t", hardline],
+      ["123", cursor, "Prettier  \t", cursor, "\t \t", hardline],
       options,
     ),
   ).toEqual({
-    formatted: "Prettier\n",
-    cursorNodeStart: 0,
-    cursorNodeText: "Prettier",
+    formatted: "123Prettier\n",
+    cursorRegionStart: 3,
+    cursorRegionText: "Prettier",
   });
 });
