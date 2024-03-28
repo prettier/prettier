@@ -2105,45 +2105,45 @@ printWidth: 80
 <textarea>    {{ generatedDiscountCodes }}</textarea>
 <textarea>
   
-{{ generatedDiscountCodes }}</textarea
->
+{{ generatedDiscountCodes }}
+</textarea>
 <textarea>
   
-    {{ generatedDiscountCodes }}</textarea
->
+    {{ generatedDiscountCodes }}
+</textarea>
 <textarea>{{ generatedDiscountCodes }}123</textarea>
 <textarea>{{ generatedDiscountCodes }}123</textarea>
 <textarea>    {{ generatedDiscountCodes }}123</textarea>
 <textarea>
   
-{{ generatedDiscountCodes }}123</textarea
->
+{{ generatedDiscountCodes }}123
+</textarea>
 <textarea>
   
-    {{ generatedDiscountCodes }}123</textarea
->
+    {{ generatedDiscountCodes }}123
+</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}</textarea>
 <textarea type="text">    {{ generatedDiscountCodes }}</textarea>
 <textarea type="text">
   
-{{ generatedDiscountCodes }}</textarea
->
+{{ generatedDiscountCodes }}
+</textarea>
 <textarea type="text">
   
-    {{ generatedDiscountCodes }}</textarea
->
+    {{ generatedDiscountCodes }}
+</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">    {{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">
   
-{{ generatedDiscountCodes }}123</textarea
->
+{{ generatedDiscountCodes }}123
+</textarea>
 <textarea type="text">
   
-    {{ generatedDiscountCodes }}123</textarea
->
+    {{ generatedDiscountCodes }}123
+</textarea>
 
 ================================================================================
 `;
@@ -2198,45 +2198,45 @@ printWidth: 80
 <textarea>    {{ generatedDiscountCodes }}</textarea>
 <textarea>
   
-{{ generatedDiscountCodes }}</textarea
->
+{{ generatedDiscountCodes }}
+</textarea>
 <textarea>
   
-    {{ generatedDiscountCodes }}</textarea
->
+    {{ generatedDiscountCodes }}
+</textarea>
 <textarea>{{ generatedDiscountCodes }}123</textarea>
 <textarea>{{ generatedDiscountCodes }}123</textarea>
 <textarea>    {{ generatedDiscountCodes }}123</textarea>
 <textarea>
   
-{{ generatedDiscountCodes }}123</textarea
->
+{{ generatedDiscountCodes }}123
+</textarea>
 <textarea>
   
-    {{ generatedDiscountCodes }}123</textarea
->
+    {{ generatedDiscountCodes }}123
+</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}</textarea>
 <textarea type="text">    {{ generatedDiscountCodes }}</textarea>
 <textarea type="text">
   
-{{ generatedDiscountCodes }}</textarea
->
+{{ generatedDiscountCodes }}
+</textarea>
 <textarea type="text">
   
-    {{ generatedDiscountCodes }}</textarea
->
+    {{ generatedDiscountCodes }}
+</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">    {{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">
   
-{{ generatedDiscountCodes }}123</textarea
->
+{{ generatedDiscountCodes }}123
+</textarea>
 <textarea type="text">
   
-    {{ generatedDiscountCodes }}123</textarea
->
+    {{ generatedDiscountCodes }}123
+</textarea>
 
 ================================================================================
 `;
@@ -2288,127 +2288,127 @@ printWidth: 1
 <textarea
   >{{
     generatedDiscountCodes
-  }}</textarea
->
+  }}
+</textarea>
 <textarea
   >{{
     generatedDiscountCodes
-  }}</textarea
->
+  }}
+</textarea>
 <textarea>
     {{
     generatedDiscountCodes
-  }}</textarea
->
-<textarea>
-  
-{{
-    generatedDiscountCodes
-  }}</textarea
->
-<textarea>
-  
-    {{
-    generatedDiscountCodes
-  }}</textarea
->
-<textarea
-  >{{
-    generatedDiscountCodes
-  }}123</textarea
->
-<textarea
-  >{{
-    generatedDiscountCodes
-  }}123</textarea
->
-<textarea>
-    {{
-    generatedDiscountCodes
-  }}123</textarea
->
+  }}
+</textarea>
 <textarea>
   
 {{
     generatedDiscountCodes
-  }}123</textarea
->
+  }}
+</textarea>
 <textarea>
   
     {{
     generatedDiscountCodes
-  }}123</textarea
->
+  }}
+</textarea>
 <textarea
-  type="text"
   >{{
     generatedDiscountCodes
-  }}</textarea
->
+  }}123
+</textarea>
 <textarea
-  type="text"
   >{{
     generatedDiscountCodes
-  }}</textarea
->
-<textarea
-  type="text"
->
+  }}123
+</textarea>
+<textarea>
     {{
     generatedDiscountCodes
-  }}</textarea
->
-<textarea
-  type="text"
->
+  }}123
+</textarea>
+<textarea>
   
 {{
     generatedDiscountCodes
-  }}</textarea
->
-<textarea
-  type="text"
->
+  }}123
+</textarea>
+<textarea>
   
     {{
     generatedDiscountCodes
-  }}</textarea
->
+  }}123
+</textarea>
 <textarea
   type="text"
   >{{
     generatedDiscountCodes
-  }}123</textarea
->
+  }}
+</textarea>
 <textarea
   type="text"
   >{{
     generatedDiscountCodes
-  }}123</textarea
->
+  }}
+</textarea>
 <textarea
   type="text"
 >
     {{
     generatedDiscountCodes
-  }}123</textarea
->
+  }}
+</textarea>
 <textarea
   type="text"
 >
   
 {{
     generatedDiscountCodes
-  }}123</textarea
->
+  }}
+</textarea>
 <textarea
   type="text"
 >
   
     {{
     generatedDiscountCodes
-  }}123</textarea
+  }}
+</textarea>
+<textarea
+  type="text"
+  >{{
+    generatedDiscountCodes
+  }}123
+</textarea>
+<textarea
+  type="text"
+  >{{
+    generatedDiscountCodes
+  }}123
+</textarea>
+<textarea
+  type="text"
 >
+    {{
+    generatedDiscountCodes
+  }}123
+</textarea>
+<textarea
+  type="text"
+>
+  
+{{
+    generatedDiscountCodes
+  }}123
+</textarea>
+<textarea
+  type="text"
+>
+  
+    {{
+    generatedDiscountCodes
+  }}123
+</textarea>
 
 ================================================================================
 `;
@@ -2463,45 +2463,45 @@ trailingComma: "es5"
 <textarea>    {{ generatedDiscountCodes }}</textarea>
 <textarea>
   
-{{ generatedDiscountCodes }}</textarea
->
+{{ generatedDiscountCodes }}
+</textarea>
 <textarea>
   
-    {{ generatedDiscountCodes }}</textarea
->
+    {{ generatedDiscountCodes }}
+</textarea>
 <textarea>{{ generatedDiscountCodes }}123</textarea>
 <textarea>{{ generatedDiscountCodes }}123</textarea>
 <textarea>    {{ generatedDiscountCodes }}123</textarea>
 <textarea>
   
-{{ generatedDiscountCodes }}123</textarea
->
+{{ generatedDiscountCodes }}123
+</textarea>
 <textarea>
   
-    {{ generatedDiscountCodes }}123</textarea
->
+    {{ generatedDiscountCodes }}123
+</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}</textarea>
 <textarea type="text">    {{ generatedDiscountCodes }}</textarea>
 <textarea type="text">
   
-{{ generatedDiscountCodes }}</textarea
->
+{{ generatedDiscountCodes }}
+</textarea>
 <textarea type="text">
   
-    {{ generatedDiscountCodes }}</textarea
->
+    {{ generatedDiscountCodes }}
+</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">    {{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">
   
-{{ generatedDiscountCodes }}123</textarea
->
+{{ generatedDiscountCodes }}123
+</textarea>
 <textarea type="text">
   
-    {{ generatedDiscountCodes }}123</textarea
->
+    {{ generatedDiscountCodes }}123
+</textarea>
 
 ================================================================================
 `;
@@ -2556,45 +2556,45 @@ trailingComma: "none"
 <textarea>    {{ generatedDiscountCodes }}</textarea>
 <textarea>
   
-{{ generatedDiscountCodes }}</textarea
->
+{{ generatedDiscountCodes }}
+</textarea>
 <textarea>
   
-    {{ generatedDiscountCodes }}</textarea
->
+    {{ generatedDiscountCodes }}
+</textarea>
 <textarea>{{ generatedDiscountCodes }}123</textarea>
 <textarea>{{ generatedDiscountCodes }}123</textarea>
 <textarea>    {{ generatedDiscountCodes }}123</textarea>
 <textarea>
   
-{{ generatedDiscountCodes }}123</textarea
->
+{{ generatedDiscountCodes }}123
+</textarea>
 <textarea>
   
-    {{ generatedDiscountCodes }}123</textarea
->
+    {{ generatedDiscountCodes }}123
+</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}</textarea>
 <textarea type="text">    {{ generatedDiscountCodes }}</textarea>
 <textarea type="text">
   
-{{ generatedDiscountCodes }}</textarea
->
+{{ generatedDiscountCodes }}
+</textarea>
 <textarea type="text">
   
-    {{ generatedDiscountCodes }}</textarea
->
+    {{ generatedDiscountCodes }}
+</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">{{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">    {{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">
   
-{{ generatedDiscountCodes }}123</textarea
->
+{{ generatedDiscountCodes }}123
+</textarea>
 <textarea type="text">
   
-    {{ generatedDiscountCodes }}123</textarea
->
+    {{ generatedDiscountCodes }}123
+</textarea>
 
 ================================================================================
 `;
