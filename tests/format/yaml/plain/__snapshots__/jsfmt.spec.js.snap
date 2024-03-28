@@ -162,8 +162,7 @@ proseWrap: "always"
 hello
 
 =====================================output=====================================
-!!str
-# comment 1
+!!str # comment 1
 # comment 2
 hello
 
@@ -182,8 +181,7 @@ proseWrap: "never"
 hello
 
 =====================================output=====================================
-!!str
-# comment 1
+!!str # comment 1
 # comment 2
 hello
 
@@ -201,8 +199,7 @@ printWidth: 80
 hello
 
 =====================================output=====================================
-!!str
-# comment 1
+!!str # comment 1
 # comment 2
 hello
 

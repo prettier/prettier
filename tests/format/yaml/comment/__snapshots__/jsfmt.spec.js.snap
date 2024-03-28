@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`anchor.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+key1: &anchor1
+
+  # This subkey1 ...
+  subkey1: value1
+
+key2:
+  <<: *anchor1
+
+=====================================output=====================================
+key1: &anchor1
+  # This subkey1 ...
+  subkey1: value1
+
+key2:
+  <<: *anchor1
+
+================================================================================
+`;
+
 exports[`collection.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
