@@ -6602,10 +6602,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment@npm:~2.29.3":
-  version: 2.29.4
-  resolution: "moment@npm:2.29.4"
-  checksum: 10/157c5af5a0ba8196e577bc67feb583303191d21ba1f7f2af30b3b40d4c63a64d505ba402be2a1454832082fac6be69db1e0d186c3279dae191e6634b0c33705c
+"moment@npm:~2.30.1":
+  version: 2.30.1
+  resolution: "moment@npm:2.30.1"
+  checksum: 10/ae42d876d4ec831ef66110bdc302c0657c664991e45cf2afffc4b0f6cd6d251dde11375c982a5c0564ccc0fa593fc564576ddceb8c8845e87c15f58aa6baca69
   languageName: node
   linkType: hard
 
@@ -7381,7 +7381,7 @@ __metadata:
     remark-footnotes: "npm:2.0.0"
     remark-math: "npm:3.0.1"
     remark-parse: "npm:8.0.3"
-    rollup-plugin-license: "npm:3.2.0"
+    rollup-plugin-license: "npm:3.3.1"
     sdbm: "npm:2.0.0"
     semver: "npm:7.6.0"
     serialize-javascript: "npm:6.0.2"
@@ -7793,22 +7793,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-license@npm:3.2.0":
-  version: 3.2.0
-  resolution: "rollup-plugin-license@npm:3.2.0"
+"rollup-plugin-license@npm:3.3.1":
+  version: 3.3.1
+  resolution: "rollup-plugin-license@npm:3.3.1"
   dependencies:
     commenting: "npm:~1.1.0"
     glob: "npm:~7.2.0"
     lodash: "npm:~4.17.21"
     magic-string: "npm:~0.30.0"
     mkdirp: "npm:~3.0.0"
-    moment: "npm:~2.29.3"
+    moment: "npm:~2.30.1"
     package-name-regex: "npm:~2.0.6"
     spdx-expression-validate: "npm:~2.0.0"
     spdx-satisfies: "npm:~5.0.1"
   peerDependencies:
     rollup: ^1.0.0 || ^2.0.0 || ^3.0.0 || ^4.0.0
-  checksum: 10/c20b8d25690ac9ec5447a7f51893c9d8a49888577852698c3960bbae91e143d7206c90a1afb50ae7cd43cfc5c39697c2df8fe745b490d97c17a6a9703a87c2c1
+  checksum: 10/383f7a35db3e49212df76e1fc480b308ac4592cf38af6152ea7893e85ab9a7e938f99f84730c925f534a522505b29e175c6f3522be7c6157dfcf5871ed6b7b03
   languageName: node
   linkType: hard
 
