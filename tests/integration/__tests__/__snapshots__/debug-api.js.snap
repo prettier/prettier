@@ -5,7 +5,13 @@ exports[`API prettier.formatDoc 1`] = `
   group([
     "const",
     " ",
-    group([group("foo"), " =", group(indent([line, '"bar"']))]),
+    group([
+      group("foo"),
+      " =",
+      group(indent(line), { id: Symbol.for("assignment") }),
+      lineSuffixBoundary,
+      indentIfBreak('"bar"', { groupId: Symbol.for("assignment") }),
+    ]),
     indent([]),
     ";",
   ]),

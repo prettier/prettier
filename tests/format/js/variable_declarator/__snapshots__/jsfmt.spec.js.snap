@@ -66,10 +66,12 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 elements[0].innerHTML = '<div></div><div></div><div></div><div></div><div></div><div></div>';
+elements[0].innerHTML = \`<div></div><div></div><div></div><div></div><div></div><div></div>\`;
 
 =====================================output=====================================
 elements[0].innerHTML =
   "<div></div><div></div><div></div><div></div><div></div><div></div>";
+elements[0].innerHTML = \`<div></div><div></div><div></div><div></div><div></div><div></div>\`;
 
 ================================================================================
 `;
