@@ -67,9 +67,7 @@ const lineBreakBetweenTheseAndCJConvertsToSpace = new Set(
  * clauses, however we cannot do that so we rely on punctuation and `MAY` in the
  * spec.
  */
-const sembrBreakAfter = new Set(
-  ".!?,;:—"
-);
+const sembrBreakAfter = new Set(".!?,;:—");
 
 /**
  * Determine the preferred style of spacing between Chinese or Japanese and non-CJK
@@ -275,20 +273,41 @@ function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
     return false;
   }
 
-  if (proseWrap === "sembr") {
-    // See: https://sembr.org/
+  return true;
+}
 
-    if (sembrBreakAfter.has(previous.value.at(-1))) {
-      return true;
-    }
-
-    // TODO: would be nice to add wrapping relative to line length in addition
-    // to after punctuation, but that is not a requirement.
-
+/**
+ * Check whether whitespace must be printed as a linebreak. Only call this if
+ * `isBreakable(...)` returns `true`.
+ *
+ * @param {AstPath} path
+ * @param {WhitespaceValue} value
+ * @param {ProseWrap} proseWrap
+ * @param {boolean} isLink
+ * @param {boolean} canBeSpace
+ * @returns {boolean}
+ */
+function isForcedBreak(path, value, proseWrap, isLink, canBeSpace) {
+  if (proseWrap !== "sembr") {
     return false;
-  } else {
+  }
+  /* // This check has already been made for us, no need to repeat it.
+  if (isBreakable(path, value, proseWrap, isLink, canBeSpace)) {
+    return false;
+  }
+  */
+
+  /** @type {AdjacentNodes} */
+  const { previous } = path;
+
+  if (
+    previous?.kind === KIND_NON_CJK &&
+    sembrBreakAfter.has(previous.value.at(-1))
+  ) {
     return true;
   }
+
+  return false;
 }
 
 /**
@@ -308,7 +327,14 @@ function printWhitespace(path, value, proseWrap, isLink) {
     (value === "\n" && lineBreakCanBeConvertedToSpace(path, isLink));
 
   if (isBreakable(path, value, proseWrap, isLink, canBeSpace)) {
-    return canBeSpace ? line : softline;
+    const forcedBreak = isForcedBreak(
+      path,
+      value,
+      proseWrap,
+      isLink,
+      canBeSpace,
+    );
+    return forcedBreak ? hardline : canBeSpace ? line : softline;
   }
 
   return canBeSpace ? " " : "";
