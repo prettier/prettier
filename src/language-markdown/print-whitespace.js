@@ -31,6 +31,24 @@ const lineBreakBetweenTheseAndCJConvertsToSpace = new Set(
 );
 
 /**
+ * For semantic line breaks (see: https://sembr.org/), a line break MUST occur
+ * after period (.), exclamation mark (!), or question mark (?), and SHOULD
+ * occur after a comma (,), semicolon (;), colon (:), or em dash (—). The spec
+ * distinguishes between independent and dependent clauses, however we cannot
+ * do that so we rely on punctuation and `MAY` in the spec.
+ *
+ * To avoid comma-separated lists being splayed across many lines We use a more
+ * conservative list of characters to split on:
+ *
+ * - not comma (`,`) to avoid lists being splayed across many lines
+ * - not emdash (`—`) because linebreak after emdash may cause space to be
+ *   added in markdown
+ *
+ * Note: we will not force newline after these symbols if they are in CJK text.
+ */
+const sembrBreakAfter = ".!?;:";
+
+/**
  * Determine the preferred style of spacing between Chinese or Japanese and non-CJK
  * characters in the parent `sentence` node.
  *
@@ -241,6 +259,29 @@ function isBreakable(path, value, proseWrap, isLink) {
 }
 
 /**
+ * Check if we should add a hard linebreak in this position based on sentence structure.
+ *
+ * @param {AstPath} path
+ * @param {ProseWrap} proseWrap
+ * @param {boolean} isLink
+ * @returns {boolean}
+ */
+function isSemanticBreak(path, proseWrap, isLink) {
+  /** @type {AdjacentNodes} */
+  const { previous } = path;
+
+  if (proseWrap !== "always" || isLink || !previous) {
+    return false;
+  }
+
+  if (previous.value.length === 1 && sembrBreakAfter.includes(previous.value)) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
  * @param {AstPath} path
  * @param {WhitespaceValue} value
  * @param {ProseWrap} proseWrap
@@ -257,7 +298,11 @@ function printWhitespace(path, value, proseWrap, isLink) {
     (value === "\n" && lineBreakCanBeConvertedToSpace(path, isLink));
 
   if (isBreakable(path, value, proseWrap, isLink)) {
-    return canBeSpace ? line : softline;
+    if (canBeSpace) {
+      return isSemanticBreak(path, proseWrap, isLink) ? hardline : line;
+    } else {
+      return softline;
+    }
   }
 
   return canBeSpace ? " " : "";
