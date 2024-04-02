@@ -36,6 +36,7 @@ const unstableTests = new Map(
     ],
     ["js/no-semi/comments.js", (options) => options.semi === false],
     ["flow/no-semi/comments.js", (options) => options.semi === false],
+    "flow/hook/declare-hook.js",
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",
     "js/comments/html-like/comment.js",
