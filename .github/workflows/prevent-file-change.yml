@@ -21,4 +21,4 @@ jobs:
         uses: xalvarez/prevent-file-change-action@v1.6.0
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          pattern: website/data/users.yml
+          pattern: website\/data\/users.yml
