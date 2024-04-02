@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`autolink.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
@@ -79,8 +79,10 @@ singleQuote: true
 ![link](https://www.google.fr/foo-%3Ebar)
 ![link](https://www.google.fr/foo-<bar)
 ![link](https://www.google.fr/foo-%3Cbar) [link]:
-https://www.google.fr/()foo->bar [link]: https://www.google.fr/foo->bar [link]:
-https://www.google.fr/foo-%3Ebar [link]: https://www.google.fr/foo-<bar [link]:
+https://www.google.fr/()foo->bar [link]:
+https://www.google.fr/foo->bar [link]:
+https://www.google.fr/foo-%3Ebar [link]:
+https://www.google.fr/foo-<bar [link]:
 https://www.google.fr/foo-%3Cbar
 
 ================================================================================
@@ -117,8 +119,10 @@ proseWrap: "always"
 ![link](https://www.google.fr/foo-%3Ebar)
 ![link](https://www.google.fr/foo-<bar)
 ![link](https://www.google.fr/foo-%3Cbar) [link]:
-https://www.google.fr/()foo->bar [link]: https://www.google.fr/foo->bar [link]:
-https://www.google.fr/foo-%3Ebar [link]: https://www.google.fr/foo-<bar [link]:
+https://www.google.fr/()foo->bar [link]:
+https://www.google.fr/foo->bar [link]:
+https://www.google.fr/foo-%3Ebar [link]:
+https://www.google.fr/foo-<bar [link]:
 https://www.google.fr/foo-%3Cbar
 
 ================================================================================

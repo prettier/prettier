@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`real-world-case.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
@@ -1158,7 +1158,8 @@ using Prettier:
 
 Linters have two categories of rules:
 
-**Formatting rules**: eg: [max-len](http://eslint.org/docs/rules/max-len),
+**Formatting rules**:
+eg: [max-len](http://eslint.org/docs/rules/max-len),
 [no-mixed-spaces-and-tabs](http://eslint.org/docs/rules/no-mixed-spaces-and-tabs),
 [keyword-spacing](http://eslint.org/docs/rules/keyword-spacing),
 [comma-style](http://eslint.org/docs/rules/comma-style)...
@@ -1167,8 +1168,8 @@ Prettier alleviates the need for this whole category of rules! Prettier is going
 to reprint the entire program from scratch in a consistent way, so it's not
 possible for the programmer to make a mistake there anymore :)
 
-**Code-quality rules**: eg
-[no-unused-vars](http://eslint.org/docs/rules/no-unused-vars),
+**Code-quality rules**:
+eg [no-unused-vars](http://eslint.org/docs/rules/no-unused-vars),
 [no-extra-bind](http://eslint.org/docs/rules/no-extra-bind),
 [no-implicit-globals](http://eslint.org/docs/rules/no-implicit-globals),
 [prefer-promise-reject-errors](http://eslint.org/docs/rules/prefer-promise-reject-errors)...
@@ -1207,8 +1208,8 @@ npm install --global prettier
 Run Prettier through the CLI with this script. Run it without any arguments to
 see the [options](#options).
 
-To format a file in-place, use \`--write\`. You may want to consider committing
-your code before doing that, just in case.
+To format a file in-place, use \`--write\`.
+You may want to consider committing your code before doing that, just in case.
 
 \`\`\`bash
 prettier [opts] [filename ...]
@@ -1236,8 +1237,9 @@ message if it detects that code correctness might have changed. Note that
 
 If you are repeatedly formatting individual files with \`prettier\`, you will
 incur a small performance cost when prettier attempts to look up a
-[configuration file](#configuration-file). In order to skip this, you may ask
-prettier to find the config file once, and re-use it later on.
+[configuration file](#configuration-file).
+In order to skip this, you may ask prettier to find the config file once, and
+re-use it later on.
 
 \`\`\`bash
 prettier --find-config-path ./my/file.js
@@ -1442,8 +1444,9 @@ prettier.format('foo ( );', { semi: false });
 #### \`prettier.check(source [, options])\`
 
 \`check\` checks to see if the file has been formatted with Prettier given those
-options and returns a \`Boolean\`. This is similar to the \`--list-different\`
-parameter in the CLI and is useful for running Prettier in CI scenarios.
+options and returns a \`Boolean\`.
+This is similar to the \`--list-different\` parameter in the CLI and is useful for
+running Prettier in CI scenarios.
 
 #### \`prettier.formatWithCursor(source [, options])\`
 
@@ -3130,7 +3133,8 @@ using Prettier:
 
 Linters have two categories of rules:
 
-**Formatting rules**: eg: [max-len](http://eslint.org/docs/rules/max-len),
+**Formatting rules**:
+eg: [max-len](http://eslint.org/docs/rules/max-len),
 [no-mixed-spaces-and-tabs](http://eslint.org/docs/rules/no-mixed-spaces-and-tabs),
 [keyword-spacing](http://eslint.org/docs/rules/keyword-spacing),
 [comma-style](http://eslint.org/docs/rules/comma-style)...
@@ -3139,8 +3143,8 @@ Prettier alleviates the need for this whole category of rules! Prettier is going
 to reprint the entire program from scratch in a consistent way, so it's not
 possible for the programmer to make a mistake there anymore :)
 
-**Code-quality rules**: eg
-[no-unused-vars](http://eslint.org/docs/rules/no-unused-vars),
+**Code-quality rules**:
+eg [no-unused-vars](http://eslint.org/docs/rules/no-unused-vars),
 [no-extra-bind](http://eslint.org/docs/rules/no-extra-bind),
 [no-implicit-globals](http://eslint.org/docs/rules/no-implicit-globals),
 [prefer-promise-reject-errors](http://eslint.org/docs/rules/prefer-promise-reject-errors)...
@@ -3179,8 +3183,8 @@ npm install --global prettier
 Run Prettier through the CLI with this script. Run it without any arguments to
 see the [options](#options).
 
-To format a file in-place, use \`--write\`. You may want to consider committing
-your code before doing that, just in case.
+To format a file in-place, use \`--write\`.
+You may want to consider committing your code before doing that, just in case.
 
 \`\`\`bash
 prettier [opts] [filename ...]
@@ -3208,8 +3212,9 @@ message if it detects that code correctness might have changed. Note that
 
 If you are repeatedly formatting individual files with \`prettier\`, you will
 incur a small performance cost when prettier attempts to look up a
-[configuration file](#configuration-file). In order to skip this, you may ask
-prettier to find the config file once, and re-use it later on.
+[configuration file](#configuration-file).
+In order to skip this, you may ask prettier to find the config file once, and
+re-use it later on.
 
 \`\`\`bash
 prettier --find-config-path ./my/file.js
@@ -3414,8 +3419,9 @@ prettier.format("foo ( );", { semi: false });
 #### \`prettier.check(source [, options])\`
 
 \`check\` checks to see if the file has been formatted with Prettier given those
-options and returns a \`Boolean\`. This is similar to the \`--list-different\`
-parameter in the CLI and is useful for running Prettier in CI scenarios.
+options and returns a \`Boolean\`.
+This is similar to the \`--list-different\` parameter in the CLI and is useful for
+running Prettier in CI scenarios.
 
 #### \`prettier.formatWithCursor(source [, options])\`
 

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`cjk.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
@@ -234,19 +234,26 @@ proseWrap: "always"
   https://example.com
   (Shakespeare's "Romeo and Juliet" is a famous play)
 
-[a]: https://example.com "\\"" [a]: https://example.com '\\"' [a]:
+[a]:
+https://example.com "\\"" [a]:
+https://example.com '\\"' [a]:
 https://example.com (\\")
 
 [a]: https://example.com "'"
 
-[a]: https://example.com '\\'' [a]: https://example.com (\\')
+[a]:
+https://example.com '\\'' [a]:
+https://example.com (\\')
 
 [a]: https://example.com "'"
 [a]: https://example.com ")"
 
-[a]: https://example.com (\\))
+[a]:
+https://example.com (\\))
 
-[a]: https://example.com "\\\\\\"" [a]: https://example.com '\\\\\\'' [a]:
+[a]:
+https://example.com "\\\\\\"" [a]:
+https://example.com '\\\\\\'' [a]:
 https://example.com (\\\\\\))
 
 [a]: https://example.com "'"
@@ -360,9 +367,9 @@ proseWrap: "always"
 This folder has [VHS] tape files to create gifs for the [Widget Showcase]. To run them, install VHS from main (the theme and screenshot commands are not yet released).
 
 =====================================output=====================================
-This folder has [VHS] tape files to create gifs for the [Widget Showcase]. To
-run them, install VHS from main (the theme and screenshot commands are not yet
-released).
+This folder has [VHS] tape files to create gifs for the [Widget Showcase].
+To run them, install VHS from main (the theme and screenshot commands are not
+yet released).
 
 ================================================================================
 `;
