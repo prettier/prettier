@@ -384,7 +384,7 @@ export interface RequiredOptions extends doc.printer.Options {
    * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
    * @default "preserve"
    */
-  proseWrap: "always" | "never" | "preserve";
+  proseWrap: "always" | "never" | "preserve" | "sembr";
   /**
    * Include parentheses around a sole arrow function parameter.
    * @default "always"

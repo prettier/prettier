@@ -11,7 +11,7 @@ import {
  * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
  * @typedef {import("./utils.js").WordKind} WordKind
  * @typedef {import("../common/ast-path.js").default} AstPath
- * @typedef {"always" | "never" | "preserve"} ProseWrap
+ * @typedef {"always" | "never" | "preserve" | "sembr"} ProseWrap
  * @typedef {{ next?: WordNode | null, previous?: WordNode | null }}
  * AdjacentNodes Nodes adjacent to a `whitespace` node. Are always of type
  * `word`.
@@ -56,6 +56,19 @@ const noBreakBefore = new Set(
  */
 const lineBreakBetweenTheseAndCJConvertsToSpace = new Set(
   "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
+);
+
+/**
+ * For semantic line breaks (see: https://sembr.org/), a line break MUST occur
+ * after period (.), exclamation mark (!), or question mark (?), and SHOULD
+ * occur after a comma (,), semicolon (;), colon (:), or em dash (—).
+ *
+ * Note that the spec itself distinguishes between independent and dependent
+ * clauses, however we cannot do that so we rely on punctuation and `MAY` in the
+ * spec.
+ */
+const sembrBreakAfter = new Set(
+  ".!?,;:—"
 );
 
 /**
@@ -223,7 +236,7 @@ function isNonCJKOrKoreanLetter(kind) {
  */
 function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
   if (
-    proseWrap !== "always" ||
+    (proseWrap !== "always" && proseWrap !== "sembr") ||
     path.hasAncestor((node) => SINGLE_LINE_NODE_TYPES.has(node.type))
   ) {
     return false;
@@ -233,8 +246,8 @@ function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
     return value !== "";
   }
 
-  // Spaces are always breakable
-  if (value === " ") {
+  // Spaces are always breakable in 'always' mode
+  if (proseWrap === "always" && value === " ") {
     return true;
   }
 
@@ -262,7 +275,20 @@ function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
     return false;
   }
 
-  return true;
+  if (proseWrap === "sembr") {
+    // See: https://sembr.org/
+
+    if (sembrBreakAfter.has(previous.value.at(-1))) {
+      return true;
+    }
+
+    // TODO: would be nice to add wrapping relative to line length in addition
+    // to after punctuation, but that is not a requirement.
+
+    return false;
+  } else {
+    return true;
+  }
 }
 
 /**

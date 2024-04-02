@@ -176,6 +176,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
   switch (options.proseWrap) {
     case "never":
       return !node.value.includes("\n");
+    case "sembr":
     case "always":
       return !/[\n ]/.test(node.value);
     default:

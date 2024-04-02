@@ -33,6 +33,10 @@ const options = {
         value: "preserve",
         description: "Wrap prose as-is.",
       },
+      {
+        value: "sembr",
+        description: "Follow the 'Semantic Line Breaks' specification (https://sembr.org/).",
+      },
     ],
   },
   bracketSameLine: {
