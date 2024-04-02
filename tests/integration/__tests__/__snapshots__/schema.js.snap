@@ -322,6 +322,12 @@ exports[`schema 1`] = `
                 "preserve",
               ],
             },
+            {
+              "description": "Follow the 'Semantic Line Breaks' specification (https://sembr.org/).",
+              "enum": [
+                "sembr",
+              ],
+            },
           ],
         },
         "quoteProps": {

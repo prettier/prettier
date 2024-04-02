@@ -78,6 +78,6 @@ exports[`show external options with \`--help\` 1`] = `
                              Which parser to use.
     --print-width <int>      The line length where Prettier will try wrap.
                              Defaults to 80.
-    --prose-wrap <always|never|preserve>
+    --prose-wrap <always|never|preserve|sembr>
                              How to wrap prose."
 `;

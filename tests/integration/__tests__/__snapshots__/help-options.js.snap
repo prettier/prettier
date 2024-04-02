@@ -465,7 +465,7 @@ exports[`show detailed usage with --help print-width (write) 1`] = `[]`;
 exports[`show detailed usage with --help prose-wrap (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help prose-wrap (stdout) 1`] = `
-"--prose-wrap <always|never|preserve>
+"--prose-wrap <always|never|preserve|sembr>
 
   How to wrap prose.
 
@@ -474,6 +474,7 @@ Valid options:
   always     Wrap prose if it exceeds the print width.
   never      Do not wrap prose.
   preserve   Wrap prose as-is.
+  sembr      Follow the 'Semantic Line Breaks' specification (https://sembr.org/).
 
 Default: preserve"
 `;

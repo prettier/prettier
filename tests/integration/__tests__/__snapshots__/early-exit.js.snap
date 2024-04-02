@@ -64,7 +64,7 @@ Format options:
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
-  --prose-wrap <always|never|preserve>
+  --prose-wrap <always|never|preserve|sembr>
                            How to wrap prose.
                            Defaults to preserve.
   --quote-props <as-needed|consistent|preserve>
@@ -229,7 +229,7 @@ Format options:
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
-  --prose-wrap <always|never|preserve>
+  --prose-wrap <always|never|preserve|sembr>
                            How to wrap prose.
                            Defaults to preserve.
   --quote-props <as-needed|consistent|preserve>

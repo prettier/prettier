@@ -203,6 +203,7 @@ exports[`API getSupportInfo() 1`] = `
         "always",
         "never",
         "preserve",
+        "sembr",
       ],
       "default": "preserve",
       "type": "choice",
@@ -960,7 +961,11 @@ exports[`CLI --support-info (stdout) 1`] = `
           "value": "always"
         },
         { "description": "Do not wrap prose.", "value": "never" },
-        { "description": "Wrap prose as-is.", "value": "preserve" }
+        { "description": "Wrap prose as-is.", "value": "preserve" },
+        {
+          "description": "Follow the 'Semantic Line Breaks' specification (https://sembr.org/).",
+          "value": "sembr"
+        }
       ],
       "default": "preserve",
       "description": "How to wrap prose.",
