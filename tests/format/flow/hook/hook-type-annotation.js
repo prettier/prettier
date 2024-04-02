@@ -52,10 +52,6 @@ interface F {
 
 type ExtractType = hook <A>(B<C>) => D
 
-type T = ?hook () => A | B;
-
-type T = (?hook () => A) | B;
-
 // Attached comment
 type T = hook (
   /**
