@@ -472,7 +472,10 @@ function needsParens(path, options) {
       }
 
     case "YieldExpression":
-      if (parent.type === "AwaitExpression") {
+      if (
+        parent.type === "AwaitExpression" ||
+        parent.type === "TSTypeAssertion"
+      ) {
         return true;
       }
     // else fallthrough
