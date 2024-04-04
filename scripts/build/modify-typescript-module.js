@@ -280,8 +280,9 @@ function modifyTypescriptModule(text) {
   );
 
   // `pnp`
-  if (source.hasModule("src/compiler/pnp.ts"))
+  if (source.hasModule("src/compiler/pnp.ts")) {
     source.removeModule("src/compiler/pnp.ts");
+  }
 
   /* spell-checker: disable */
   // `ts.createParenthesizerRules`
