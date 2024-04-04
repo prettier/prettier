@@ -12,6 +12,8 @@ const parseOptions = {
   // all_comments: true,
   // `comments` (boolean, default `true`) - attach comments to AST nodes (`leadingComments` and `trailingComments`)
   comments: false,
+  // `components` (boolean, default `false`) - enable parsing of Flow component syntax
+  components: true,
   // `enums` (boolean, default `false`) - enable parsing of Flow enums
   enums: true,
   // `esproposal_decorators` (boolean, default `false`) - enable parsing of decorators

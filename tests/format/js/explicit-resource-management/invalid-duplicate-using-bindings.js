@@ -1,5 +1,5 @@
 {
-  using f, f = foo();
+  using f = foo(), f = foo();
 }
 {
   using g = foo();
