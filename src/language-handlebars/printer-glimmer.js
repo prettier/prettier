@@ -449,13 +449,13 @@ function printStartingTagEndMarker(node) {
 /* MustacheStatement print helpers */
 
 function printOpeningMustache(node) {
-  const mustache = node.escaped === false ? "{{{" : "{{";
+  const mustache = node.trusting ? "{{{" : "{{";
   const strip = node.strip?.open ? "~" : "";
   return [mustache, strip];
 }
 
 function printClosingMustache(node) {
-  const mustache = node.escaped === false ? "}}}" : "}}";
+  const mustache = node.trusting ? "}}}" : "}}";
   const strip = node.strip?.close ? "~" : "";
   return [strip, mustache];
 }
