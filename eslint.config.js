@@ -150,19 +150,6 @@ export default [
           ],
         },
       ],
-      "import/no-anonymous-default-export": [
-        "error",
-        {
-          allowArray: true,
-          allowArrowFunction: true,
-          allowAnonymousClass: false,
-          allowAnonymousFunction: false,
-          allowCallExpression: true,
-          allowNew: true,
-          allowLiteral: true,
-          allowObject: true,
-        },
-      ],
 
       // eslint-plugin-n
       "n/no-path-concat": "error",
