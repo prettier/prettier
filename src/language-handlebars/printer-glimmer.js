@@ -781,17 +781,18 @@ const isPathExpressionPartNeedBrackets = (part, index) =>
   Array.prototype.some.call(part, (character) =>
     PATH_EXPRESSION_FORBIDDEN_CHARACTERS.has(character),
   );
+// TODO[@fisker]: Print `head` via `print`
 function printPathExpression(node) {
-  if (node.data || (node.parts.length === 1 && node.original.includes("/"))) {
+  if (
+    node.head.type === "AtHead" ||
+    (node.tail.length === 0 && node.original.includes("/"))
+  ) {
     // check if node has data, or
     // check if node is a legacy path expression (and leave it alone)
     return node.original;
   }
 
-  let { parts } = node;
-  if (node.this) {
-    parts = ["this", ...parts];
-  }
+  const parts = [node.head.original, ...node.tail];
 
   return parts
     .map((part, index) =>
