@@ -1,0 +1,14 @@
+type Query
+ {    # comment 
+   someField: String # field comment
+  
+    # another field comment
+  anotherField:  Boolean!
+}
+
+# test idempotency
+type Query { # comment
+  someField: String # field comment
+  # another field comment
+  anotherField: Boolean!
+}

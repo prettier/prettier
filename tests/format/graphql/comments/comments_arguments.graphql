@@ -1,0 +1,32 @@
+
+query (
+  $string: String, # Some variable comment
+  $bool: Boolean # Some comment
+  #  end of line
+   , # own line # own line
+ ) {
+   someField
+ }
+
+# test idempotency
+query (
+  $string: String # Some variable comment
+  $bool: Boolean # Some comment
+  #  end of line
+  # own line # own line
+) {
+  someField
+}
+
+{
+  foo # info about foo
+  {
+    bar # info about bar
+  }
+}
+
+{
+  foo { # info about foo
+    bar # info about bar
+  }
+}
