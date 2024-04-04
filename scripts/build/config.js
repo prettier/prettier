@@ -69,18 +69,6 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
  * @property {boolean?} addDefaultExport - add default export to bundle
  */
 
-/*
-`diff` use deprecated folder mapping "./" in the "exports" field,
-so we can't `import("diff/lib/diff/array.js")` directly.
-To reduce the bundle size, replace the entry with smaller files.
-
-We can switch to deep import once https://github.com/kpdecker/jsdiff/pull/351 get merged
-*/
-const replaceDiffPackageEntry = (file) => ({
-  module: getPackageFile("diff/lib/index.mjs"),
-  path: getPackageFile(`diff/${file}`),
-});
-
 const extensions = {
   esm: ".mjs",
   umd: ".js",
@@ -506,18 +494,9 @@ const nonPluginUniversalFiles = [
         path: path.join(dirname, "./shims/babel-highlight.js"),
       },
       {
-        module: require.resolve("chalk", {
-          paths: [require.resolve("@babel/code-frame")],
-        }),
+        module: require.resolve("chalk"),
         path: path.join(dirname, "./shims/chalk.cjs"),
       },
-      {
-        module: require.resolve("chalk", {
-          paths: [require.resolve("vnopts")],
-        }),
-        path: path.join(dirname, "./shims/chalk.cjs"),
-      },
-      replaceDiffPackageEntry("lib/diff/array.js"),
     ],
   },
 ].map((file) => {
@@ -597,7 +576,6 @@ const nodejsFiles = [
         find: "const readBuffer = new Buffer(this.options.readChunk);",
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
       },
-      replaceDiffPackageEntry("lib/diff/array.js"),
       // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
       {
         module: require.resolve("chalk", {
@@ -646,7 +624,6 @@ const nodejsFiles = [
     input: "src/cli/index.js",
     outputBaseName: "internal/cli",
     external: ["benchmark"],
-    replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;

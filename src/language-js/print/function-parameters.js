@@ -137,7 +137,10 @@ function printFunctionParameters(
     !functionNode.rest;
 
   if (isFlowShorthandWithOneArg) {
-    if (options.arrowParens === "always") {
+    if (
+      options.arrowParens === "always" ||
+      functionNode.type === "HookTypeAnnotation"
+    ) {
       return ["(", ...printed, ")"];
     }
     return printed;

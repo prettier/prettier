@@ -2,7 +2,6 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 import chalk from "chalk";
-import { createTwoFilesPatch } from "diff";
 
 import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
@@ -12,6 +11,7 @@ import isTTY from "./is-tty.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import {
   createIsIgnoredFunction,
+  createTwoFilesPatch,
   errors,
   mockable,
 } from "./prettier-internal.js";

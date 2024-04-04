@@ -48,7 +48,7 @@ printWidth: 80
 exports[`invalid-duplicate-using-bindings.js [acorn] format 1`] = `
 "Unexpected token (2:9)
   1 | {
-> 2 |   using f, f = foo();
+> 2 |   using f = foo(), f = foo();
     |         ^
   3 | }
   4 | {
@@ -59,7 +59,7 @@ Cause: Unexpected token (2:8)"
 exports[`invalid-duplicate-using-bindings.js [espree] format 1`] = `
 "Unexpected token f (2:9)
   1 | {
-> 2 |   using f, f = foo();
+> 2 |   using f = foo(), f = foo();
     |         ^
   3 | }
   4 | {
@@ -70,7 +70,7 @@ Cause: Unexpected token f"
 exports[`invalid-duplicate-using-bindings.js [flow] format 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (2:9)
   1 | {
-> 2 |   using f, f = foo();
+> 2 |   using f = foo(), f = foo();
     |         ^
   3 | }
   4 | {
@@ -80,23 +80,12 @@ exports[`invalid-duplicate-using-bindings.js [flow] format 1`] = `
 exports[`invalid-duplicate-using-bindings.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (2:9)
   1 | {
-> 2 |   using f, f = foo();
+> 2 |   using f = foo(), f = foo();
     |         ^
   3 | }
   4 | {
   5 |   using g = foo();
 Cause: [2:9]: Unexpected token: 'identifier'"
-`;
-
-exports[`invalid-duplicate-using-bindings.js [typescript] format 1`] = `
-"'using' declarations must be initialized. (2:9)
-  1 | {
-> 2 |   using f, f = foo();
-    |         ^
-  3 | }
-  4 | {
-  5 |   using g = foo();
-Cause: 'using' declarations must be initialized."
 `;
 
 exports[`invalid-duplicate-using-bindings.js format 1`] = `
@@ -106,7 +95,7 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 {
-  using f, f = foo();
+  using f = foo(), f = foo();
 }
 {
   using g = foo();
@@ -115,7 +104,7 @@ printWidth: 80
 
 =====================================output=====================================
 {
-  using f,
+  using f = foo(),
     f = foo();
 }
 {

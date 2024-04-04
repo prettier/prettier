@@ -25,8 +25,6 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       "valid-module-block-top-level-await-using-binding.js",
     ],
     typescript: [
-      "invalid-duplicate-using-bindings.js",
-
       // https://github.com/typescript-eslint/typescript-eslint/blob/4f34d0ba34474926ba1eed623704b583a037f886/packages/typescript-estree/src/convert.ts#L1035-L1050
       "valid-for-using-declaration.js",
       "valid-await-using-comments.js",
