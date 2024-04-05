@@ -2,7 +2,6 @@ import collapseWhiteSpace from "collapse-white-space";
 
 import {
   align,
-  fill,
   group,
   hardline,
   indent,
@@ -11,7 +10,7 @@ import {
   markAsRoot,
   softline,
 } from "../document/builders.js";
-import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
+import { replaceEndOfLine } from "../document/utils.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
@@ -23,6 +22,7 @@ import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
 import { printTable } from "./print/table.js";
+import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
 import { printWhitespace } from "./print-whitespace.js";
 import {
@@ -71,11 +71,9 @@ function genericPrint(path, options, print) {
       if (node.children.length === 0) {
         return "";
       }
-      return [normalizeDoc(printRoot(path, options, print)), hardline];
+      return [printRoot(path, options, print), hardline];
     case "paragraph":
-      return printChildren(path, options, print, {
-        postprocessor: fill,
-      });
+      return printParagraph(path, options, print);
     case "sentence":
       return printChildren(path, options, print);
     case "word": {
@@ -559,8 +557,7 @@ function printRoot(path, options, print) {
 }
 
 function printChildren(path, options, print, events = {}) {
-  const { postprocessor = (parts) => parts, processor = () => print() } =
-    events;
+  const { processor = print } = events;
 
   const parts = [];
 
@@ -586,7 +583,7 @@ function printChildren(path, options, print, events = {}) {
     }
   }, "children");
 
-  return postprocessor(parts);
+  return parts;
 }
 
 function printIgnoreComment(node) {
