@@ -37,7 +37,10 @@ JS (ES Modules):
 ```js
 // prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
 
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/en/configuration.html
+ * @type {import("prettier").Config}
+ */
 const config = {
   trailingComma: "es5",
   tabWidth: 4,
@@ -53,7 +56,10 @@ JS (CommonJS):
 ```js
 // prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs
 
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/en/configuration.html
+ * @type {import("prettier").Config}
+ */
 const config = {
   trailingComma: "es5",
   tabWidth: 4,
