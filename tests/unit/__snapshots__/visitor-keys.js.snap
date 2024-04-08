@@ -147,6 +147,27 @@ exports[`visitor keys estree 1`] = `
     "decorators",
     "variance",
   ],
+  "ComponentDeclaration": [
+    "id",
+    "params",
+    "body",
+    "typeParameters",
+    "rendersType",
+  ],
+  "ComponentParameter": [
+    "name",
+    "local",
+  ],
+  "ComponentTypeAnnotation": [
+    "params",
+    "rest",
+    "typeParameters",
+    "rendersType",
+  ],
+  "ComponentTypeParameter": [
+    "name",
+    "typeAnnotation",
+  ],
   "ConditionalExpression": [
     "test",
     "consequent",
@@ -171,6 +192,13 @@ exports[`visitor keys estree 1`] = `
     "implements",
     "body",
   ],
+  "DeclareComponent": [
+    "id",
+    "params",
+    "rest",
+    "typeParameters",
+    "rendersType",
+  ],
   "DeclareEnum": [
     "id",
     "body",
@@ -186,6 +214,9 @@ exports[`visitor keys estree 1`] = `
   "DeclareFunction": [
     "id",
     "predicate",
+  ],
+  "DeclareHook": [
+    "id",
   ],
   "DeclareInterface": [
     "id",
@@ -348,6 +379,19 @@ exports[`visitor keys estree 1`] = `
   ],
   "GenericTypeAnnotation": [
     "id",
+    "typeParameters",
+  ],
+  "HookDeclaration": [
+    "id",
+    "params",
+    "body",
+    "typeParameters",
+    "returnType",
+  ],
+  "HookTypeAnnotation": [
+    "params",
+    "returnType",
+    "rest",
     "typeParameters",
   ],
   "Identifier": [
