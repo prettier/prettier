@@ -3814,8 +3814,7 @@ proseWrap: "always"
 =====================================output=====================================
 %TAG ! tag:clarkevans.com,2002:
 ---
-!shape
-# Use the ! handle for presenting
+!shape # Use the ! handle for presenting
 # tag:clarkevans.com,2002:circle
 - !circle
   center: &ORIGIN { x: 73, y: 129 }
@@ -3856,8 +3855,7 @@ useTabs: true
 =====================================output=====================================
 %TAG ! tag:clarkevans.com,2002:
 ---
-!shape
-# Use the ! handle for presenting
+!shape # Use the ! handle for presenting
 # tag:clarkevans.com,2002:circle
 - !circle
   center: &ORIGIN { x: 73, y: 129 }
