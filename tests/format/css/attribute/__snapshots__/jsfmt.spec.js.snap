@@ -280,6 +280,10 @@ href
 *=
 'example'
 ] {}
+a[ href ^= 'http://example.com' ] {}
+a[ href $= 'https://example.com' ] {}
+a[ href *= 'tel:0123456789' ] {}
+a[ href *= 'mailto:a-n-other@example.com' ] {}
 input[ type = 'radio' i ] {}
 input[  type  =  'radio'  i  ] {}
 input[ type ~= 'radio' i ] {}
@@ -410,6 +414,14 @@ a[href*='example'] {
 }
 a[href*='example'] {
 }
+a[href^='http://example.com'] {
+}
+a[href$='https://example.com'] {
+}
+a[href*='tel:0123456789'] {
+}
+a[href*='mailto:a-n-other@example.com'] {
+}
 input[type='radio' i] {
 }
 input[type='radio' i] {
@@ -521,6 +533,10 @@ href
 *=
 'example'
 ] {}
+a[ href ^= 'http://example.com' ] {}
+a[ href $= 'https://example.com' ] {}
+a[ href *= 'tel:0123456789' ] {}
+a[ href *= 'mailto:a-n-other@example.com' ] {}
 input[ type = 'radio' i ] {}
 input[  type  =  'radio'  i  ] {}
 input[ type ~= 'radio' i ] {}
@@ -650,6 +666,14 @@ a[href$=".cn"] {
 a[href*="example"] {
 }
 a[href*="example"] {
+}
+a[href^="http://example.com"] {
+}
+a[href$="https://example.com"] {
+}
+a[href*="tel:0123456789"] {
+}
+a[href*="mailto:a-n-other@example.com"] {
 }
 input[type="radio" i] {
 }
