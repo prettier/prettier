@@ -80,7 +80,7 @@ echo "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \
 <!--yarn-->
 
 ```bash
-npx husky init # add --yarn2 for Yarn 2
+yarn husky init
 yarn add --dev git-format-staged
 echo "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ." > .husky/pre-commit
 ```
