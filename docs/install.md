@@ -157,7 +157,7 @@ For example, you can do the following to have Prettier run before each commit:
    node --eval "fs.writeFileSync('.husky/pre-commit','pnpm exec lint-staged\n')"
    ```
 
-  <!--bun-->
+   <!--bun-->
 
    ```bash
    bun add --dev husky lint-staged
