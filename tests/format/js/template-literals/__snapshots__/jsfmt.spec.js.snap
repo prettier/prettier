@@ -316,6 +316,16 @@ printWidth: 80
   \`,
 ]
 
+{{{
+a = \`
+# foo \${chalk.green.underline("https://www.example.com/drupedalKangarooTransformer")}
+\`;
+a = \`
+ # foo \${chalk.green.underline("https://www.example.com/drupedalKangarooTransformer")}
+\`;
+}}}
+
+
 =====================================output=====================================
 [
   \`
@@ -399,6 +409,23 @@ printWidth: 80
   # blabla \${a} \${chalk.green.underline("https://www.example.com/drupedalKangarooTransformer")}
   \`,
 ];
+
+{
+  {
+    {
+      a = \`
+# foo \${chalk.green.underline(
+  "https://www.example.com/drupedalKangarooTransformer",
+)}
+\`;
+      a = \`
+ # foo \${chalk.green.underline(
+   "https://www.example.com/drupedalKangarooTransformer",
+ )}
+\`;
+    }
+  }
+}
 
 ================================================================================
 `;

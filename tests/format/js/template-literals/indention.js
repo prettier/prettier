@@ -80,3 +80,13 @@
   # blabla ${a} ${chalk.green.underline("https://www.example.com/drupedalKangarooTransformer")}
   `,
 ]
+
+{{{
+a = `
+# foo ${chalk.green.underline("https://www.example.com/drupedalKangarooTransformer")}
+`;
+a = `
+ # foo ${chalk.green.underline("https://www.example.com/drupedalKangarooTransformer")}
+`;
+}}}
+
