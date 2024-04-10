@@ -67,7 +67,7 @@
     "hermes-parser": "0.20.1",
     "html-element-attributes": "3.4.0",
     "html-tag-names": "2.1.0",
-    "html-ua-styles": "0.0.5",
+    "html-ua-styles": "0.0.6",
     "ignore": "5.3.1",
     "import-meta-resolve": "4.0.0",
     "iterate-directory-up": "1.1.1",
