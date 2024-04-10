@@ -182,6 +182,18 @@ export default [
       // Hard to fix
       "regexp/no-empty-alternative": "off",
       "regexp/no-super-linear-backtracking": "off",
+      "regexp/unicode-property": [
+        "error",
+        {
+          generalCategory: "never",
+          key: "long",
+          property: {
+            binary: "long",
+            generalCategory: "long",
+            script: "long",
+          },
+        },
+      ],
 
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
