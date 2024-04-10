@@ -94,6 +94,14 @@ pnpm add --save-dev git-format-staged
 echo "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ." > .husky/pre-commit
 ```
 
+<!--bun-->
+
+```bash
+bunx husky init
+bun add --dev git-format-staged
+echo "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ." > .husky/pre-commit
+```
+
 <!--END_DOCUSAURUS_CODE_TABS-->
 
 Add or remove file extensions to suit your project. Note that regardless of which extensions you list formatting will respect any `.prettierignore` files in your project.
