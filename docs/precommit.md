@@ -96,7 +96,7 @@ echo "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \
 <!--bun-->
 
 ```bash
-bunx husky-init
+bunx husky init
 bun add --dev git-format-staged
 echo "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ." > .husky/pre-commit
 ```
