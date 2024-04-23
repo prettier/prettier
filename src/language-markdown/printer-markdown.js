@@ -682,13 +682,25 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
     parent.type === "listItem" &&
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
+  const isPrevNodeSpecificComment = ((node) => {
+    if (
+      node.type === "html" &&
+      node.value.startsWith("<!--") &&
+      node.value.endsWith("-->")
+    ) {
+      const SpecificCommentString = ["markdownlint-disable-next-line"];
+      return SpecificCommentString.some((s) => node.value.includes(s));
+    }
+    return false;
+  })(previous);
 
   return !(
     isSiblingNode ||
     isInTightListItem ||
     isPrevNodePrettierIgnore ||
     isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-    isHtmlDirectAfterListItem
+    isHtmlDirectAfterListItem ||
+    isPrevNodeSpecificComment
   );
 }
 
