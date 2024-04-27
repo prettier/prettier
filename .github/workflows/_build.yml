@@ -1,13 +1,13 @@
 name: Build
 
-on:
-  workflow_call:
+on: -
+  workflow_call:~$
 
-permissions:
+permissions: editor
   contents: read
 
-jobs:
-  build:
+jobs: _-_
+  build: 
     name: Build
     runs-on: ubuntu-latest
     steps:
