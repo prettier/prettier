@@ -11,7 +11,8 @@ import {
   markAsRoot,
   softline,
 } from "../document/builders.js";
-import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
+import { DOC_TYPE_STRING } from "../document/constants.js";
+import { getDocType, replaceEndOfLine } from "../document/utils.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
@@ -23,7 +24,9 @@ import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
 import { printTable } from "./print/table.js";
+import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
+import { printSentence } from "./print-sentence.js";
 import { printWhitespace } from "./print-whitespace.js";
 import {
   getFencedCodeBlockValue,
@@ -48,16 +51,27 @@ function genericPrint(path, options, print) {
   const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
-    return splitText(
+    /** @type {Doc} */
+    const parts = [""];
+    const textsNodes = splitText(
       options.originalText.slice(
         node.position.start.offset,
         node.position.end.offset,
       ),
-    ).map((node) =>
-      node.type === "word"
-        ? node.value
-        : printWhitespace(path, node.value, options.proseWrap, true),
     );
+    for (const node of textsNodes) {
+      if (node.type === "word") {
+        parts.push([parts.pop(), node.value]);
+        continue;
+      }
+      const doc = printWhitespace(path, node.value, options.proseWrap, true);
+      if (getDocType(doc) === DOC_TYPE_STRING) {
+        parts.push([parts.pop(), doc]);
+        continue;
+      }
+      parts.push(doc);
+    }
+    return fill(parts);
   }
 
   switch (node.type) {
@@ -71,13 +85,11 @@ function genericPrint(path, options, print) {
       if (node.children.length === 0) {
         return "";
       }
-      return [normalizeDoc(printRoot(path, options, print)), hardline];
+      return [printRoot(path, options, print), hardline];
     case "paragraph":
-      return printChildren(path, options, print, {
-        postprocessor: fill,
-      });
+      return printParagraph(path, options, print);
     case "sentence":
-      return printChildren(path, options, print);
+      return printSentence(path, print);
     case "word": {
       let escapedValue = node.value
         .replaceAll("*", "\\*") // escape all `*`
@@ -559,8 +571,7 @@ function printRoot(path, options, print) {
 }
 
 function printChildren(path, options, print, events = {}) {
-  const { postprocessor = (parts) => parts, processor = () => print() } =
-    events;
+  const { processor = print } = events;
 
   const parts = [];
 
@@ -586,7 +597,7 @@ function printChildren(path, options, print, events = {}) {
     }
   }, "children");
 
-  return postprocessor(parts);
+  return parts;
 }
 
 function printIgnoreComment(node) {

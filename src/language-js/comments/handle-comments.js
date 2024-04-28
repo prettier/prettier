@@ -49,6 +49,7 @@ function handleOwnLineComment(context) {
     handleIgnoreComments,
     handleConditionalExpressionComments,
     handleLastFunctionArgComments,
+    handleLastComponentArgComments,
     handleMemberExpressionComments,
     handleIfStatementComments,
     handleWhileComments,
@@ -597,6 +598,38 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
     addDanglingComment(enclosingNode.value, comment);
     return true;
   }
+  return false;
+}
+
+function handleLastComponentArgComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  text,
+}) {
+  // "DeclareComponent" and "ComponentTypeAnnotation" definitions
+  if (
+    precedingNode?.type === "ComponentTypeParameter" &&
+    (enclosingNode?.type === "DeclareComponent" ||
+      enclosingNode?.type === "ComponentTypeAnnotation") &&
+    followingNode?.type !== "ComponentTypeParameter"
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  // "ComponentParameter" definitions
+  if (
+    (precedingNode?.type === "ComponentParameter" ||
+      precedingNode?.type === "RestElement") &&
+    enclosingNode?.type === "ComponentDeclaration" &&
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
   return false;
 }
 

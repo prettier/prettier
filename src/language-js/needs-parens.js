@@ -119,6 +119,8 @@ function needsParens(path, options) {
         case "using":
         case "yield":
         case "let":
+        case "component":
+        case "hook":
         case "type": {
           const ancestorNeitherAsNorSatisfies = path.findAncestor(
             (node) => !isBinaryCastExpression(node),
@@ -472,7 +474,10 @@ function needsParens(path, options) {
       }
 
     case "YieldExpression":
-      if (parent.type === "AwaitExpression") {
+      if (
+        parent.type === "AwaitExpression" ||
+        parent.type === "TSTypeAssertion"
+      ) {
         return true;
       }
     // else fallthrough
@@ -598,6 +603,16 @@ function needsParens(path, options) {
         (key === "objectType" && parent.type === "TSIndexedAccessType") ||
         (key === "elementType" && parent.type === "TSArrayType")
       );
+    // Same as `TSTypeOperator`, but for Flow syntax
+    case "TypeOperator":
+      return (
+        parent.type === "ArrayTypeAnnotation" ||
+        parent.type === "NullableTypeAnnotation" ||
+        (key === "objectType" &&
+          (parent.type === "IndexedAccessType" ||
+            parent.type === "OptionalIndexedAccessType")) ||
+        parent.type === "TypeOperator"
+      );
     // Same as `TSTypeQuery`, but for Flow syntax
     case "TypeofTypeAnnotation":
       return (
@@ -612,6 +627,7 @@ function needsParens(path, options) {
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation":
       return (
+        parent.type === "TypeOperator" ||
         parent.type === "ArrayTypeAnnotation" ||
         parent.type === "NullableTypeAnnotation" ||
         parent.type === "IntersectionTypeAnnotation" ||
@@ -629,7 +645,15 @@ function needsParens(path, options) {
             parent.type === "OptionalIndexedAccessType"))
       );
 
+    case "ComponentTypeAnnotation":
     case "FunctionTypeAnnotation": {
+      if (
+        node.type === "ComponentTypeAnnotation" &&
+        (node.rendersType === null || node.rendersType === undefined)
+      ) {
+        return false;
+      }
+
       if (
         path.match(
           undefined,
@@ -676,8 +700,8 @@ function needsParens(path, options) {
         (key === "checkType" && parent.type === "ConditionalTypeAnnotation") ||
         (key === "extendsType" &&
           parent.type === "ConditionalTypeAnnotation" &&
-          node.returnType.type === "InferTypeAnnotation" &&
-          node.returnType.typeParameter.bound) ||
+          node.returnType?.type === "InferTypeAnnotation" &&
+          node.returnType?.typeParameter.bound) ||
         // We should check ancestor's parent to know whether the parentheses
         // are really needed, but since ??T doesn't make sense this check
         // will almost never be true.
@@ -989,6 +1013,7 @@ function needsParens(path, options) {
 const isStatement = createTypeCheckFunction([
   "BlockStatement",
   "BreakStatement",
+  "ComponentDeclaration",
   "ClassBody",
   "ClassDeclaration",
   "ClassMethod",
@@ -997,10 +1022,12 @@ const isStatement = createTypeCheckFunction([
   "ClassPrivateProperty",
   "ContinueStatement",
   "DebuggerStatement",
+  "DeclareComponent",
   "DeclareClass",
   "DeclareExportAllDeclaration",
   "DeclareExportDeclaration",
   "DeclareFunction",
+  "DeclareHook",
   "DeclareInterface",
   "DeclareModule",
   "DeclareModuleExports",
@@ -1017,6 +1044,7 @@ const isStatement = createTypeCheckFunction([
   "ForOfStatement",
   "ForStatement",
   "FunctionDeclaration",
+  "HookDeclaration",
   "IfStatement",
   "ImportDeclaration",
   "InterfaceDeclaration",

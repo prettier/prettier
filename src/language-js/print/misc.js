@@ -48,7 +48,9 @@ function printDefiniteToken(path) {
 
 const flowDeclareNodeTypes = new Set([
   "DeclareClass",
+  "DeclareComponent",
   "DeclareFunction",
+  "DeclareHook",
   "DeclareVariable",
   "DeclareExportDeclaration",
   "DeclareExportAllDeclaration",

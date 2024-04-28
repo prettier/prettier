@@ -25,7 +25,7 @@ jobs:
           cache: "yarn"
 
       - name: Check Sizes
-        uses: preactjs/compressed-size-action@2.5.0
+        uses: preactjs/compressed-size-action@2.6.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           pattern: "./dist/**/*"
