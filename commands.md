@@ -97,7 +97,7 @@ ifBreak(";", " ");
 
 `groupId` can be used to check another _already printed_ group instead of the current group.
 
-If a [`hardline`](#hardline) or [`breakParent`](#breakParent) is present within the possible contents, the parent groups will be broken regardless of said content being printed, which might not be desireable. This behaviour is a design limitation. Usually the desired result can be achieved in a different way.
+If a [`hardline`](#hardline) or [`breakParent`](#breakParent) is present within the possible contents, the parent groups will be broken regardless of said content being printed, which might not be desirable. This behaviour is a design limitation. Usually the desired result can be achieved in a different way.
 
 In the rare case that `hardline` is definitely needed, consider using [`hardlineWithoutBreakParent`](#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) instead to avoid an unwanted group break propagation.
 
