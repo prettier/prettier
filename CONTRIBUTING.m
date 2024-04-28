@@ -1,5 +1,5 @@
 # Contributing to Prettier
-
+*
 To get up and running, install the dependencies and run the tests:
 
 ```bash
