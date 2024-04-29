@@ -34,8 +34,8 @@ function printTable(path, options, print) {
 
   // All rows in the table should have the same amount of columns
   for (let i = 0; i < contents.length; i++) {
-    while ((contents[i].length-1) < columnMaxIndex) {
-      contents[i].push({text: "", width: 0})
+    while (contents[i].length - 1 < columnMaxIndex) {
+      contents[i].push({ text: "", width: 0 });
     }
   }
 
