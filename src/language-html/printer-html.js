@@ -69,8 +69,12 @@ function genericPrint(path, options, print) {
       ];
     case "text": {
       // CDATA should not be formatted
-      if (node.value.startsWith("<![CDATA") && node.value.endsWith("]>") && options.parser === "angular") {
-        return node.value
+      if (
+        node.value.startsWith("<![CDATA") &&
+        node.value.endsWith("]>") &&
+        options.parser === "angular"
+      ) {
+        return node.value;
       }
       if (node.parent.type === "interpolation") {
         // replace the trailing literalline with hardline for better readability
