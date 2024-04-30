@@ -70,6 +70,13 @@ jobs:
             node: "16"
           - os: "ubuntu-latest"
             node: "21"
+          # Tests on Intel Mac x Node.js 14
+          - os: "macos-13"
+            node: "14"
+        # setup-node does not support Node.js 14 x M1 Mac
+        exclude:
+          - os: "macos-latest"
+            node: "14"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
     name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Node.js ${{ matrix.node }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
