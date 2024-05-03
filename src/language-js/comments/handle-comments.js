@@ -11,6 +11,7 @@ import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   createTypeCheckFunction,
+  experimentalTernaryDanglingCommentMarker,
   getCallArguments,
   getFunctionParameters,
   isCallExpression,
@@ -396,7 +397,11 @@ function handleConditionalExpressionComments({
         )
       )
     ) {
-      addDanglingComment(enclosingNode, comment);
+      addDanglingComment(
+        enclosingNode,
+        comment,
+        experimentalTernaryDanglingCommentMarker,
+      );
       return true;
     }
     addLeadingComment(followingNode, comment);

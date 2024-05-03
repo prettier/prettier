@@ -1103,9 +1103,14 @@ const isIntersectionType = createTypeCheckFunction([
   "TSIntersectionType",
 ]);
 
+const experimentalTernaryDanglingCommentMarker = Symbol(
+  "ternaryDanglingCommentMarker",
+);
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
+  experimentalTernaryDanglingCommentMarker,
   getCallArguments,
   getCallArgumentSelector,
   getComments,
