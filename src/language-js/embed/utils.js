@@ -10,7 +10,7 @@ const angularComponentObjectExpressionPredicates = [
   (node, name) =>
     node.type === "CallExpression" &&
     node.callee.type === "Identifier" &&
-    node.callee.name === "Component" &&
+    ["Component", "Layout", "Page"].includes(node.callee.name) &&
     name === "arguments",
   (node, name) => node.type === "Decorator" && name === "expression",
 ];

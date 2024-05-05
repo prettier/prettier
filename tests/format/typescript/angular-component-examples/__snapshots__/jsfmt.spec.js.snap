@@ -78,6 +78,162 @@ export class AppComponent {}
 ================================================================================
 `;
 
+exports[`15934.layout.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Layout } from '@angular/core';
+
+@Layout({
+    selector: 'admin-layout',
+    template: \`
+        <h1>My App</h1>
+        <app-todo-list></app-todo-list>
+    \`,
+    styles: \`h1 { color: blue }\`
+})
+export class AdminLayout {}
+
+=====================================output=====================================
+import { Component as Layout } from "@angular/core";
+
+@Layout({
+  selector: "admin-layout",
+  template: \`
+    <h1>My App</h1>
+    <app-todo-list></app-todo-list>
+  \`,
+  styles: \`
+    h1 {
+      color: blue;
+    }
+  \`,
+})
+export class AdminLayout {}
+
+================================================================================
+`;
+
+exports[`15934.layout.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Layout } from '@angular/core';
+
+@Layout({
+    selector: 'admin-layout',
+    template: \`
+        <h1>My App</h1>
+        <app-todo-list></app-todo-list>
+    \`,
+    styles: \`h1 { color: blue }\`
+})
+export class AdminLayout {}
+
+=====================================output=====================================
+import { Component as Layout } from "@angular/core";
+
+@Layout({
+  selector: "admin-layout",
+  template: \`
+    <h1>My App</h1>
+    <app-todo-list></app-todo-list>
+  \`,
+  styles: \`
+    h1 {
+      color: blue;
+    }
+  \`
+})
+export class AdminLayout {}
+
+================================================================================
+`;
+
+exports[`15934.page.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Page } from '@angular/core';
+
+@Page({
+    selector: 'posts-page',
+    template: \`
+        <h1>My App</h1>
+        <app-todo-list></app-todo-list>
+    \`,
+    styles: \`h1 { color: blue }\`
+})
+export class PostsPage {}
+
+=====================================output=====================================
+import { Component as Page } from "@angular/core";
+
+@Page({
+  selector: "posts-page",
+  template: \`
+    <h1>My App</h1>
+    <app-todo-list></app-todo-list>
+  \`,
+  styles: \`
+    h1 {
+      color: blue;
+    }
+  \`,
+})
+export class PostsPage {}
+
+================================================================================
+`;
+
+exports[`15934.page.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Page } from '@angular/core';
+
+@Page({
+    selector: 'posts-page',
+    template: \`
+        <h1>My App</h1>
+        <app-todo-list></app-todo-list>
+    \`,
+    styles: \`h1 { color: blue }\`
+})
+export class PostsPage {}
+
+=====================================output=====================================
+import { Component as Page } from "@angular/core";
+
+@Page({
+  selector: "posts-page",
+  template: \`
+    <h1>My App</h1>
+    <app-todo-list></app-todo-list>
+  \`,
+  styles: \`
+    h1 {
+      color: blue;
+    }
+  \`
+})
+export class PostsPage {}
+
+================================================================================
+`;
+
 exports[`15934-computed.component.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -156,6 +312,162 @@ export class AppComponent {}
 ================================================================================
 `;
 
+exports[`15934-computed.layout.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Layout } from '@angular/core';
+
+const styles = "foobar";
+
+@Layout({
+    selector: 'admin-layout',
+    template: \`
+        <h1>My App</h1>
+        <app-todo-list></app-todo-list>
+    \`,
+    [styles]: \`h1 { color: blue }\`
+})
+export class AdminLayout {}
+
+=====================================output=====================================
+import { Component as Layout } from "@angular/core";
+
+const styles = "foobar";
+
+@Layout({
+  selector: "admin-layout",
+  template: \`
+    <h1>My App</h1>
+    <app-todo-list></app-todo-list>
+  \`,
+  [styles]: \`h1 { color: blue }\`,
+})
+export class AdminLayout {}
+
+================================================================================
+`;
+
+exports[`15934-computed.layout.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Layout } from '@angular/core';
+
+const styles = "foobar";
+
+@Layout({
+    selector: 'admin-layout',
+    template: \`
+        <h1>My App</h1>
+        <app-todo-list></app-todo-list>
+    \`,
+    [styles]: \`h1 { color: blue }\`
+})
+export class AdminLayout {}
+
+=====================================output=====================================
+import { Component as Layout } from "@angular/core";
+
+const styles = "foobar";
+
+@Layout({
+  selector: "admin-layout",
+  template: \`
+    <h1>My App</h1>
+    <app-todo-list></app-todo-list>
+  \`,
+  [styles]: \`h1 { color: blue }\`
+})
+export class AdminLayout {}
+
+================================================================================
+`;
+
+exports[`15934-computed.page.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Page } from '@angular/core';
+
+const styles = "foobar";
+
+@Page({
+    selector: 'posts-page',
+    template: \`
+        <h1>My App</h1>
+        <app-todo-list></app-todo-list>
+    \`,
+    [styles]: \`h1 { color: blue }\`
+})
+export class PostsPage {}
+
+=====================================output=====================================
+import { Component as Page } from "@angular/core";
+
+const styles = "foobar";
+
+@Page({
+  selector: "posts-page",
+  template: \`
+    <h1>My App</h1>
+    <app-todo-list></app-todo-list>
+  \`,
+  [styles]: \`h1 { color: blue }\`,
+})
+export class PostsPage {}
+
+================================================================================
+`;
+
+exports[`15934-computed.page.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Page } from '@angular/core';
+
+const styles = "foobar";
+
+@Page({
+    selector: 'posts-page',
+    template: \`
+        <h1>My App</h1>
+        <app-todo-list></app-todo-list>
+    \`,
+    [styles]: \`h1 { color: blue }\`
+})
+export class PostsPage {}
+
+=====================================output=====================================
+import { Component as Page } from "@angular/core";
+
+const styles = "foobar";
+
+@Page({
+  selector: "posts-page",
+  template: \`
+    <h1>My App</h1>
+    <app-todo-list></app-todo-list>
+  \`,
+  [styles]: \`h1 { color: blue }\`
+})
+export class PostsPage {}
+
+================================================================================
+`;
+
 exports[`15969-computed.component.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -210,6 +522,122 @@ const template = "foobar";
   [template]: \`<h1>{{       hello }}</h1>\`
 })
 export class AppComponent {}
+
+================================================================================
+`;
+
+exports[`15969-computed.layout.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Layout } from '@angular/core';
+
+const template = "foobar";
+
+@Layout({
+  [template]: \`<h1>{{       hello }}</h1>\`,
+})
+export class AdminLayout {}
+
+=====================================output=====================================
+import { Component as Layout } from "@angular/core";
+
+const template = "foobar";
+
+@Layout({
+  [template]: \`<h1>{{       hello }}</h1>\`,
+})
+export class AdminLayout {}
+
+================================================================================
+`;
+
+exports[`15969-computed.layout.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Layout } from '@angular/core';
+
+const template = "foobar";
+
+@Layout({
+  [template]: \`<h1>{{       hello }}</h1>\`,
+})
+export class AdminLayout {}
+
+=====================================output=====================================
+import { Component as Layout } from "@angular/core";
+
+const template = "foobar";
+
+@Layout({
+  [template]: \`<h1>{{       hello }}</h1>\`
+})
+export class AdminLayout {}
+
+================================================================================
+`;
+
+exports[`15969-computed.page.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Page } from '@angular/core';
+
+const template = "foobar";
+
+@Page({
+  [template]: \`<h1>{{       hello }}</h1>\`,
+})
+export class PostsPage {}
+
+=====================================output=====================================
+import { Component as Page } from "@angular/core";
+
+const template = "foobar";
+
+@Page({
+  [template]: \`<h1>{{       hello }}</h1>\`,
+})
+export class PostsPage {}
+
+================================================================================
+`;
+
+exports[`15969-computed.page.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+import { Component as Page } from '@angular/core';
+
+const template = "foobar";
+
+@Page({
+  [template]: \`<h1>{{       hello }}</h1>\`,
+})
+export class PostsPage {}
+
+=====================================output=====================================
+import { Component as Page } from "@angular/core";
+
+const template = "foobar";
+
+@Page({
+  [template]: \`<h1>{{       hello }}</h1>\`
+})
+export class PostsPage {}
 
 ================================================================================
 `;
