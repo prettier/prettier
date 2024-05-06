@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`aspect-ratio.css format 1`] = `
+====================================options=====================================
+parsers: ["css", "scss", "less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+div {
+  aspect-ratio: 3 /2;
+  aspect-ratio: 3/ 2;
+  aspect-ratio: 3/2;
+  aspect-ratio: 3 / 2;
+}
+
+=====================================output=====================================
+div {
+  aspect-ratio: 3 / 2;
+  aspect-ratio: 3 / 2;
+  aspect-ratio: 3 / 2;
+  aspect-ratio: 3 / 2;
+}
+
+================================================================================
+`;
