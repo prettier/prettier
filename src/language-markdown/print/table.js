@@ -12,10 +12,15 @@ function printTable(path, options, print) {
   const { node } = path;
 
   const columnMaxWidths = [];
+  let columnMaxIndex = 0;
+
   // { [rowIndex: number]: { [columnIndex: number]: {text: string, width: number} } }
   const contents = path.map(
     () =>
       path.map(({ index: columnIndex }) => {
+        if (columnIndex > columnMaxIndex) {
+          columnMaxIndex = columnIndex;
+        }
         const text = printDocToString(print(), options).formatted;
         const width = getStringWidth(text);
         columnMaxWidths[columnIndex] = Math.max(
@@ -26,6 +31,13 @@ function printTable(path, options, print) {
       }, "children"),
     "children",
   );
+
+  // All rows in the table should have the same amount of columns
+  for (let i = 0; i < contents.length; i++) {
+    while (contents[i].length - 1 < columnMaxIndex) {
+      contents[i].push({ text: "", width: 0 });
+    }
+  }
 
   const alignedTable = printTableContents(/* isCompact */ false);
   if (options.proseWrap !== "never") {
