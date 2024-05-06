@@ -1,5 +1,7 @@
 "use strict";
 
+const path = require("path");
+
 const legacyRunFormatTestCall = [
   "CallExpression",
   '[callee.type="Identifier"]',
@@ -34,6 +36,7 @@ const dirnamePropertySelector = [
 const MESSAGE_ID_LEGACY_FUNCTION_NAME = "legacy-function-name";
 const MESSAGE_ID_ARGUMENT = "dirname-argument";
 const MESSAGE_ID_PROPERTY = "dirname-property";
+const MESSAGE_ID_LEGACY_FILENAME = "legacy-filename";
 
 module.exports = {
   meta: {
@@ -47,6 +50,7 @@ module.exports = {
       [MESSAGE_ID_ARGUMENT]: "Use `import.meta` instead of `__dirname`.",
       [MESSAGE_ID_PROPERTY]:
         "Use `importMeta: import.meta` instead of `dirname: __dirname`.",
+      [MESSAGE_ID_LEGACY_FILENAME]: "File should be named as 'format.test.js'.",
     },
     fixable: "code",
     hasSuggestions: true,
@@ -76,6 +80,17 @@ module.exports = {
             fixer.replaceText(node.key, "importMeta"),
             fixer.replaceText(node.value, "import.meta"),
           ],
+        });
+      },
+      Program(node) {
+        const filename = path.basename(context.physicalFilename);
+        if (filename !== "jsfmt.spec.js") {
+          return;
+        }
+
+        context.report({
+          node,
+          messageId: MESSAGE_ID_LEGACY_FILENAME,
         });
       },
     };

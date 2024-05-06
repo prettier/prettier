@@ -380,6 +380,7 @@ function printDocToString(doc, options) {
           case MODE_BREAK: {
             shouldRemeasure = false;
 
+            /** @type {Command} */
             const next = { ind, mode: MODE_FLAT, doc: doc.contents };
             const rem = width - pos;
             const hasLineSuffix = lineSuffix.length > 0;
@@ -413,6 +414,7 @@ function printDocToString(doc, options) {
                       break;
                     } else {
                       const state = doc.expandedStates[i];
+                      /** @type {Command} */
                       const cmd = { ind, mode: MODE_FLAT, doc: state };
 
                       if (fits(cmd, cmds, rem, hasLineSuffix, groupModeMap)) {
@@ -465,7 +467,9 @@ function printDocToString(doc, options) {
         }
 
         const [content, whitespace] = parts;
+        /** @type {Command} */
         const contentFlatCmd = { ind, mode: MODE_FLAT, doc: content };
+        /** @type {Command} */
         const contentBreakCmd = { ind, mode: MODE_BREAK, doc: content };
         const contentFits = fits(
           contentFlatCmd,
@@ -485,7 +489,9 @@ function printDocToString(doc, options) {
           break;
         }
 
+        /** @type {Command} */
         const whitespaceFlatCmd = { ind, mode: MODE_FLAT, doc: whitespace };
+        /** @type {Command} */
         const whitespaceBreakCmd = { ind, mode: MODE_BREAK, doc: whitespace };
 
         if (parts.length === 2) {
@@ -503,10 +509,12 @@ function printDocToString(doc, options) {
         // elements to a new array would make this algorithm quadratic,
         // which is unusable for large arrays (e.g. large texts in JSX).
         parts.splice(0, 2);
+        /** @type {Command} */
         const remainingCmd = { ind, mode, doc: fill(parts) };
 
         const secondContent = parts[0];
 
+        /** @type {Command} */
         const firstAndSecondContentFlatCmd = {
           ind,
           mode: MODE_FLAT,
