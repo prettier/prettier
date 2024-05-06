@@ -84,8 +84,7 @@ module.exports = {
       },
       Program(node) {
         const filename = path.basename(context.physicalFilename);
-        console.log({ filename });
-        if (filename === "format.test.js") {
+        if (filename !== "jsfmt.spec.js") {
           return;
         }
 
