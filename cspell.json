@@ -385,7 +385,7 @@
         "website/**/*",
         "tests/config/**/*",
         "tests/integration/**/*",
-        "tests/format/**/jsfmt.spec.js"
+        "tests/format/**/format.test.js"
     ],
     "ignorePaths": [
         ".git",

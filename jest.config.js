@@ -65,6 +65,8 @@ const config = {
     "jest-snapshot-serializer-ansi",
   ],
   testMatch: [
+    "<rootDir>/tests/format/**/format.test.js",
+    // TODO: Remove this in 2025
     "<rootDir>/tests/format/**/jsfmt.spec.js",
     "<rootDir>/tests/integration/__tests__/**/*.js",
     "<rootDir>/tests/unit/**/*.js",

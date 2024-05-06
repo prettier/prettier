@@ -290,7 +290,7 @@ export default [
   {
     files: [
       "tests/config/**/*.js",
-      "tests/format/**/jsfmt.spec.js",
+      "tests/format/**/format.test.js",
       "tests/integration/**/*.js",
       "tests/unit/**/*.js",
       "tests/dts/unit/**/*.js",

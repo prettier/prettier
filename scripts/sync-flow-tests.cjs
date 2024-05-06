@@ -6,7 +6,7 @@ const flowParser = require("flow-parser");
 const fastGlob = require("fast-glob");
 
 const DEFAULT_SPEC_CONTENT = "runFormatTest(import.meta);\n";
-const SPEC_FILE_NAME = "jsfmt.spec.js";
+const SPEC_FILE_NAME = "format.test.js";
 const FLOW_TESTS_DIR = path.join(__dirname, "../tests/format/flow-repo");
 
 function tryParse(file, content) {
