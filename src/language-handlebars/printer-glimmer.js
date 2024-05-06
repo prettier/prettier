@@ -449,13 +449,13 @@ function printStartingTagEndMarker(node) {
 /* MustacheStatement print helpers */
 
 function printOpeningMustache(node) {
-  const mustache = node.escaped === false ? "{{{" : "{{";
+  const mustache = node.trusting ? "{{{" : "{{";
   const strip = node.strip?.open ? "~" : "";
   return [mustache, strip];
 }
 
 function printClosingMustache(node) {
-  const mustache = node.escaped === false ? "}}}" : "}}";
+  const mustache = node.trusting ? "}}}" : "}}";
   const strip = node.strip?.close ? "~" : "";
   return [strip, mustache];
 }
@@ -530,12 +530,17 @@ function printElseBlock(node, options) {
   ];
 }
 
+const isPathWithSameHead = (pathA, pathB) =>
+  pathA.head.type === "VarHead" &&
+  pathB.head.type === "VarHead" &&
+  pathA.head.name === pathB.head.name;
+
 function isElseIfLike(path) {
   const { grandparent, node } = path;
   return (
     grandparent?.inverse?.body.length === 1 &&
     grandparent.inverse.body[0] === node &&
-    grandparent.inverse.body[0].path.parts[0] === grandparent.path.parts[0]
+    isPathWithSameHead(grandparent.inverse.body[0].path, grandparent.path)
   );
 }
 
@@ -543,7 +548,7 @@ function printElseIfLikeBlock(path, print) {
   const { node, grandparent } = path;
   return group([
     printInverseBlockOpeningMustache(grandparent),
-    ["else", " ", grandparent.inverse.body[0].path.parts[0]],
+    ["else", " ", grandparent.inverse.body[0].path.head.name],
     indent([
       line,
       group(printParams(path, print)),
@@ -591,7 +596,7 @@ function blockStatementHasElseIfLike(node) {
     blockStatementHasElse(node) &&
     node.inverse.body.length === 1 &&
     node.inverse.body[0].type === "BlockStatement" &&
-    node.inverse.body[0].path.parts[0] === node.path.parts[0]
+    isPathWithSameHead(node.inverse.body[0].path, node.path)
   );
 }
 
@@ -781,17 +786,18 @@ const isPathExpressionPartNeedBrackets = (part, index) =>
   Array.prototype.some.call(part, (character) =>
     PATH_EXPRESSION_FORBIDDEN_CHARACTERS.has(character),
   );
+// TODO[@fisker]: Print `head` via `print`
 function printPathExpression(node) {
-  if (node.data || (node.parts.length === 1 && node.original.includes("/"))) {
+  if (
+    node.head.type === "AtHead" ||
+    (node.tail.length === 0 && node.original.includes("/"))
+  ) {
     // check if node has data, or
     // check if node is a legacy path expression (and leave it alone)
     return node.original;
   }
 
-  let { parts } = node;
-  if (node.this) {
-    parts = ["this", ...parts];
-  }
+  const parts = [node.head.original, ...node.tail];
 
   return parts
     .map((part, index) =>
