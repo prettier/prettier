@@ -152,6 +152,14 @@ function runFormatTest(fixtures, parsers, options) {
   let { importMeta, snippets = [] } = fixtures.importMeta
     ? fixtures
     : { importMeta: fixtures };
+
+  // TODO: Remove this in 2025
+  // Prevent the old files `jsfmt.spec.js` get merged by accident
+  const filename = path.basename(new URL(importMeta.url).pathname);
+  if (filename !== "format.test.js") {
+    throw new Error(`'${filename}' has been renamed as 'format.test.js'.`);
+  }
+
   const dirname = path.dirname(url.fileURLToPath(importMeta.url));
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
