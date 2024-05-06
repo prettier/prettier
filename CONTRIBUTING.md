@@ -87,7 +87,7 @@ If you're contributing a performance improvement, the following Prettier CLI opt
 - `--debug-repeat N` uses a naïve loop to repeat the formatting `N` times and measures the average run duration. It can be useful to highlight hot functions in the profiler. This can also set by environment variable `PRETTIER_PERF_REPEAT`.
 - `--debug-benchmark` uses [`benchmark`](https://npm.im/benchmark) module to produce statistically significant duration measurements.
 
-For convenience, the following commands for profiling are available via `package.json` `scripts`.
+For convenience, the following commands for profiling are available via [`package.json`](package.json) `scripts`.
 
 - `PRETTIER_PERF_REPEAT=1000 yarn perf <filename>` starts the naïve loop. See the CLI output for when the measurements finish, and stop profiling at that moment.
 - `PRETTIER_PERF_REPEAT=1000 yarn perf:inspect <filename>` starts the naïve loop with `node --inspect-brk` flag that pauses execution and waits for Chromium/Chrome/Node Inspector to attach. Open [`chrome://inspect`](chrome://inspect), select the process to inspect, and activate the CPU Profiler, this will unpause execution. See the CLI output for when the measurements finish, and stop the CPU Profiler at that moment to avoid collecting more data than needed.
@@ -101,7 +101,7 @@ In the above commands:
 
 In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
 
-The script `scripts/benchmark/compare.sh` can be used to compare performance of two or more commits/branches using [hyperfine](https://github.com/sharkdp/hyperfine). Usage (don't forget to install hyperfine):
+The script [`scripts/benchmark/compare.sh`](scripts/benchmark/compare.sh) can be used to compare performance of two or more commits/branches using [hyperfine](https://github.com/sharkdp/hyperfine). Usage (don't forget to install hyperfine):
 
 ```sh
 PRETTIER_PERF_FILENAME=my.js ./compare.sh main some-pr-branch
