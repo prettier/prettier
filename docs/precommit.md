@@ -59,7 +59,7 @@ Git-format-staged requires Python v3 or v2.7. Python is usually pre-installed on
 ```bash
 npx husky init
 npm install --save-dev git-format-staged
-node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \\'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\\' .\\n')"
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
 <!--yarn-->
@@ -67,7 +67,7 @@ node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \\'pret
 ```bash
 yarn husky init
 yarn add --dev git-format-staged
-node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \\'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\\' .\\n')"
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
 <!--pnpm-->
@@ -75,7 +75,7 @@ node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \\'pret
 ```bash
 pnpm exec husky init
 pnpm add --save-dev git-format-staged
-node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \\'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\\' .\\n')"
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
 <!--bun-->
@@ -83,7 +83,7 @@ node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \\'pret
 ```bash
 bunx husky init
 bun add --dev git-format-staged
-bun --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \\'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\\' .\\n')"
+bun --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
