@@ -45,6 +45,41 @@ import("./foo.json", { assert: { type: "json" } });
 ================================================================================
 `;
 
+exports[`template-literal.js [flow] format 1`] = `
+"Unexpected token \`import\`, expected the end of an expression statement (\`;\`) (1:20)
+> 1 | module   =   await import(\`data:text/javascript,
+    |                    ^^^^^^
+  2 |     console.log("RUN");
+  3 | \`);
+  4 |"
+`;
+
+exports[`template-literal.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+module   =   await import(\`data:text/javascript,
+    console.log("RUN");
+\`);
+
+module   =   await import(String.raw\`data:text/javascript,
+    console.log("RUN");
+\`);
+
+=====================================output=====================================
+module = await import(\`data:text/javascript,
+    console.log("RUN");
+\`);
+
+module = await import(String.raw\`data:text/javascript,
+    console.log("RUN");
+\`);
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

@@ -45,7 +45,7 @@ function printCallExpression(path, options, print) {
     if (!(isTemplateLiteralSingleArg && printed[0].label?.embed)) {
       return [
         isNew ? "new " : "",
-        print("callee"),
+        isDynamicImport ? printDynamicImportCallee(node) : print("callee"),
         optional,
         printFunctionTypeParameters(path, options, print),
         "(",
