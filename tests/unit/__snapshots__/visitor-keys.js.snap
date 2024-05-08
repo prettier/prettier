@@ -267,6 +267,13 @@ exports[`visitor keys estree 1`] = `
   ],
   "EmptyStatement": [],
   "EmptyTypeAnnotation": [],
+  "EnumBigIntBody": [
+    "members",
+  ],
+  "EnumBigIntMember": [
+    "id",
+    "init",
+  ],
   "EnumBooleanBody": [
     "members",
   ],
