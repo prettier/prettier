@@ -5,15 +5,48 @@ import {
   isObjectProperty,
 } from "../utils/index.js";
 
-const angularComponentObjectExpressionPredicates = [
+const angularComponentObjectExpressionPredicates = (
+  decoratorLocalName = "Component",
+) => [
   (node, name) => node.type === "ObjectExpression" && name === "properties",
   (node, name) =>
     node.type === "CallExpression" &&
     node.callee.type === "Identifier" &&
-    ["Component", "Layout", "Page"].includes(node.callee.name) &&
+    node.callee.name === decoratorLocalName &&
     name === "arguments",
   (node, name) => node.type === "Decorator" && name === "expression",
 ];
+
+function getProgramBodyNode(path) {
+  for (const node of path.stack) {
+    if (typeof node === "object" && node.type === "Program") {
+      return node.body;
+    }
+  }
+
+  return null;
+}
+
+function getAngularComponentDecoratorLocalName(path) {
+  const body = getProgramBodyNode(path);
+
+  if (body) {
+    for (const node of body) {
+      if (
+        node.type === "ImportDeclaration" &&
+        node.source.value === "@angular/core"
+      ) {
+        for (const specifier of node.specifiers) {
+          if (specifier.imported.name === "Component") {
+            return specifier.local.name;
+          }
+        }
+      }
+    }
+  }
+
+  return null;
+}
 
 /**
  * Angular Components can have:
@@ -30,6 +63,8 @@ const angularComponentObjectExpressionPredicates = [
  * })
  */
 function isAngularComponentStyles(path) {
+  const decoratorLocalName =
+    getAngularComponentDecoratorLocalName(path) || "Component";
   const isTemplateLiteral = (node) => node.type === "TemplateLiteral";
   const isObjectPropertyNamedStyles = (node, key) =>
     isObjectProperty(node) &&
@@ -42,16 +77,20 @@ function isAngularComponentStyles(path) {
       isTemplateLiteral,
       (node, name) => isArrayOrTupleExpression(node) && name === "elements",
       isObjectPropertyNamedStyles,
-      ...angularComponentObjectExpressionPredicates,
+      ...angularComponentObjectExpressionPredicates(decoratorLocalName),
     ) ||
     path.match(
       isTemplateLiteral,
       isObjectPropertyNamedStyles,
-      ...angularComponentObjectExpressionPredicates,
+      ...angularComponentObjectExpressionPredicates(decoratorLocalName),
     )
   );
 }
+
 function isAngularComponentTemplate(path) {
+  const decoratorLocalName =
+    getAngularComponentDecoratorLocalName(path) || "Component";
+
   return path.match(
     (node) => node.type === "TemplateLiteral",
     (node, name) =>
@@ -60,7 +99,7 @@ function isAngularComponentTemplate(path) {
       node.key.type === "Identifier" &&
       node.key.name === "template" &&
       name === "value",
-    ...angularComponentObjectExpressionPredicates,
+    ...angularComponentObjectExpressionPredicates(decoratorLocalName),
   );
 }
 
