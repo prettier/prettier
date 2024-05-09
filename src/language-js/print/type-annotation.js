@@ -553,10 +553,20 @@ function printTypeQuery({ node }, print) {
   return ["typeof ", print(argumentPropertyName), print(typeArgsPropertyName)];
 }
 
+/*
+- `TSTypePredicate`
+- `TypePredicate`
+*/
 function printTypePredicate(path, print) {
   const { node } = path;
+  const prefix =
+    node.type === "TSTypePredicate" && node.asserts
+      ? "asserts "
+      : node.type === "TypePredicate" && node.kind
+        ? `${node.kind} `
+        : "";
   return [
-    node.asserts ? "asserts " : "",
+    prefix,
     print("parameterName"),
     node.typeAnnotation
       ? [" is ", printTypeAnnotationProperty(path, print)]
