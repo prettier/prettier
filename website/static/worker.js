@@ -67,7 +67,7 @@ async function handleMetaMessage() {
 
   return {
     type: "meta",
-    supportInfo: JSON.parse(JSON.stringify(supportInfo)),
+    supportInfo: structuredClone(supportInfo),
     version: prettier.version,
   };
 }

@@ -88,7 +88,7 @@ function genericPrint(path, options, print) {
       return printSentence(path, print);
     case "word": {
       let escapedValue = node.value
-        .replaceAll("*", "\\*") // escape all `*`
+        .replaceAll("*", String.raw`\*`) // escape all `*`
         .replaceAll(
           new RegExp(
             [
@@ -101,7 +101,7 @@ function genericPrint(path, options, print) {
             (underscore1
               ? `${text1}${underscore1}`
               : `${underscore2}${text2}`
-            ).replaceAll("_", "\\_"),
+            ).replaceAll("_", String.raw`\_`),
         ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
 
       const isFirstSentence = (node, name, index) =>

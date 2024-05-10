@@ -276,7 +276,7 @@ function printNode(path, options, print) {
             node.type === "quoteDouble"
               ? raw
                   // double quote needs to be escaped by backslash in quoteDouble
-                  .replaceAll('\\"', doubleQuote)
+                  .replaceAll(String.raw`\"`, doubleQuote)
                   .replaceAll("'", singleQuote.repeat(2))
               : raw,
             options,
