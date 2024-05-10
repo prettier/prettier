@@ -140,7 +140,10 @@ if (path.sep === "/") {
       fs.mkdirSync(path.resolve(base, "test-a\\"));
       fs.writeFileSync(path.resolve(base, "test-a\\", "test.js"), "x");
       fs.mkdirSync(path.resolve(base, String.raw`test-b\?`));
-      fs.writeFileSync(path.resolve(base, String.raw`test-b\?`, "test.js"), "x");
+      fs.writeFileSync(
+        path.resolve(base, String.raw`test-b\?`, "test.js"),
+        "x",
+      );
     });
 
     afterAll(() => {
@@ -150,12 +153,18 @@ if (path.sep === "/") {
       fs.rmdirSync(path.resolve(base, String.raw`test-b\?`));
     });
 
-    testPatterns("", [String.raw`test-a\/test.js`], { stdout: String.raw`test-a\/test.js` });
+    testPatterns("", [String.raw`test-a\/test.js`], {
+      stdout: String.raw`test-a\/test.js`,
+    });
     testPatterns("", ["test-a\\"], { stdout: String.raw`test-a\/test.js` });
     testPatterns("", ["test-a*/*"], { stdout: String.raw`test-a\/test.js` });
 
-    testPatterns("", [String.raw`test-b\?/test.js`], { stdout: String.raw`test-b\?/test.js` });
-    testPatterns("", [String.raw`test-b\?`], { stdout: String.raw`test-b\?/test.js` });
+    testPatterns("", [String.raw`test-b\?/test.js`], {
+      stdout: String.raw`test-b\?/test.js`,
+    });
+    testPatterns("", [String.raw`test-b\?`], {
+      stdout: String.raw`test-b\?/test.js`,
+    });
     testPatterns("", ["test-b*/*"], { stdout: String.raw`test-b\?/test.js` });
   });
 }

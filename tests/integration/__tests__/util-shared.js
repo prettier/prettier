@@ -222,6 +222,10 @@ test("sharedUtil.makeString", () => {
     `${SINGLE_QUOTE}a${DOUBLE_QUOTE}${SINGLE_QUOTE}`,
   );
   expect(
-    makeString(String.raw`\a`, SINGLE_QUOTE, /* unescapeUnnecessaryEscapes */ true),
+    makeString(
+      String.raw`\a`,
+      SINGLE_QUOTE,
+      /* unescapeUnnecessaryEscapes */ true,
+    ),
   ).toBe(`${SINGLE_QUOTE}a${SINGLE_QUOTE}`);
 });
