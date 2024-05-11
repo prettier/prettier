@@ -542,8 +542,8 @@ function printArrayType(print) {
 }
 
 /*
-- `TSTypeQuery`
-- `TypeofTypeAnnotation`
+- `TSTypeQuery` (TypeScript)
+- `TypeofTypeAnnotation` (flow)
 */
 function printTypeQuery({ node }, print) {
   const argumentPropertyName =
@@ -554,8 +554,8 @@ function printTypeQuery({ node }, print) {
 }
 
 /*
-- `TSTypePredicate`
-- `TypePredicate`
+- `TSTypePredicate` (TypeScript)
+- `TypePredicate` (flow)
 */
 function printTypePredicate(path, print) {
   const { node } = path;
