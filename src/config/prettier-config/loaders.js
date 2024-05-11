@@ -27,6 +27,11 @@ async function loadConfigFromPackageJson(file) {
   return prettier;
 }
 
+async function loadConfigFromPackageYaml(file) {
+  const { prettier } = await loadYaml(file);
+  return prettier;
+}
+
 async function loadYaml(file) {
   const content = await readFile(file);
   try {
@@ -67,4 +72,4 @@ const loaders = {
 };
 
 export default loaders;
-export { loadConfigFromPackageJson, readJson };
+export { loadConfigFromPackageJson, loadConfigFromPackageYaml, readJson };

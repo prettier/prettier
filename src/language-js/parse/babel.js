@@ -50,13 +50,11 @@ const parseOptions = {
     "sourcePhaseImports",
     "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],
+    "recordAndTuple",
   ],
   tokens: true,
   ranges: true,
 };
-
-/** @type {ParserPlugin} */
-const recordAndTuplePlugin = ["recordAndTuple", { syntaxType: "hash" }];
 
 /** @type {ParserPlugin} */
 const v8intrinsicPlugin = "v8intrinsic";
@@ -124,12 +122,6 @@ function createParse({ isExpression = false, optionsCombinations }) {
         ...options,
         sourceType: "script",
       }));
-    }
-
-    if (/#[[{]/.test(text)) {
-      combinations = combinations.map((options) =>
-        appendPlugins([recordAndTuplePlugin], options),
-      );
     }
 
     const shouldEnableV8intrinsicPlugin = /%[A-Z]/.test(text);

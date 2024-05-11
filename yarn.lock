@@ -4430,10 +4430,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.233.0":
-  version: 0.233.0
-  resolution: "flow-parser@npm:0.233.0"
-  checksum: 10/a0c4b33f07da28fc5c41ae9b5ad014b298744001c66cb7042a6caa3aacaf50b1bd765a6446c05b396987fc9f2144f8e4490fae12f596d9f61ea0731aa7985f0c
+"flow-parser@npm:0.236.0":
+  version: 0.236.0
+  resolution: "flow-parser@npm:0.236.0"
+  checksum: 10/b556cbe0450659676be80d494f581d11c7e5d83f4a1ae83f28975548c01455aaf06addcd364a1cde427757e4a6f1e373b298acb393bf99dcfdb4f85a3c07b078
   languageName: node
   linkType: hard
 
@@ -4818,19 +4818,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.20.1":
-  version: 0.20.1
-  resolution: "hermes-estree@npm:0.20.1"
-  checksum: 10/b98fc2943bd9fdd904c094e995f79cb7d5958393e221006af81d88f3aed52ddbf15138a6606766d5e6be7ba166576be65f577d0c72ae5eb0f3f56d4720b32baa
+"hermes-estree@npm:0.21.0":
+  version: 0.21.0
+  resolution: "hermes-estree@npm:0.21.0"
+  checksum: 10/2c978c9ed33555a7a70655f03b7cba3d2e477d8b64a97e00ffab86a076080d554ef5abba037d39e9d5604849cb3b6f13bd0242a6e75fd3cfe051cac180fa92fb
   languageName: node
   linkType: hard
 
-"hermes-parser@npm:0.20.1":
-  version: 0.20.1
-  resolution: "hermes-parser@npm:0.20.1"
+"hermes-parser@npm:0.21.0":
+  version: 0.21.0
+  resolution: "hermes-parser@npm:0.21.0"
   dependencies:
-    hermes-estree: "npm:0.20.1"
-  checksum: 10/b1ae9e9f6b49234fcf2bd45eafde140a3c727b8bcb845ab398016a538f040d326291d1f8b75fd91793b8817f2c600a890e251984d55bdedea74a5143d29f0c81
+    hermes-estree: "npm:0.21.0"
+  checksum: 10/326054b7c8bbbb265df5ded508043f14cfa7cff405dd4ca0fc3564424c30248bc361a8e638b159c4e77821f1ba468e8fa34e197a34579bca86ef8cc7db85bb8e
   languageName: node
   linkType: hard
 
@@ -6444,15 +6444,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "lru-cache@npm:6.0.0"
-  dependencies:
-    yallist: "npm:^4.0.0"
-  checksum: 10/fc1fe2ee205f7c8855fa0f34c1ab0bcf14b6229e35579ec1fd1079f31d6fc8ef8eb6fd17f2f4d99788d7e339f50e047555551ebd5e434dda503696e7c6591825
-  languageName: node
-  linkType: hard
-
 "magic-string@npm:0.30.9, magic-string@npm:~0.30.0":
   version: 0.30.9
   resolution: "magic-string@npm:0.30.9"
@@ -7454,11 +7445,11 @@ __metadata:
     fast-json-stable-stringify: "npm:2.1.0"
     file-entry-cache: "npm:7.0.2"
     find-cache-dir: "npm:5.0.0"
-    flow-parser: "npm:0.233.0"
+    flow-parser: "npm:0.236.0"
     get-east-asian-width: "npm:1.2.0"
     get-stdin: "npm:9.0.0"
     graphql: "npm:16.8.1"
-    hermes-parser: "npm:0.20.1"
+    hermes-parser: "npm:0.21.0"
     html-element-attributes: "npm:3.4.0"
     html-tag-names: "npm:2.1.0"
     html-ua-styles: "npm:0.0.6"
@@ -7499,7 +7490,7 @@ __metadata:
     remark-parse: "npm:8.0.3"
     rollup-plugin-license: "npm:3.3.1"
     sdbm: "npm:2.0.0"
-    semver: "npm:7.6.0"
+    semver: "npm:7.6.2"
     serialize-javascript: "npm:6.0.2"
     snapshot-diff: "npm:0.10.0"
     strip-ansi: "npm:7.1.0"
@@ -8009,14 +8000,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.6.0, semver@npm:^7.0.0, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0":
-  version: 7.6.0
-  resolution: "semver@npm:7.6.0"
-  dependencies:
-    lru-cache: "npm:^6.0.0"
+"semver@npm:7.6.2, semver@npm:^7.0.0, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0":
+  version: 7.6.2
+  resolution: "semver@npm:7.6.2"
   bin:
     semver: bin/semver.js
-  checksum: 10/1b41018df2d8aca5a1db4729985e8e20428c650daea60fcd16e926e9383217d00f574fab92d79612771884a98d2ee2a1973f49d630829a8d54d6570defe62535
+  checksum: 10/296b17d027f57a87ef645e9c725bff4865a38dfc9caf29b26aa084b85820972fbe7372caea1ba6857162fa990702c6d9c1d82297cecb72d56c78ab29070d2ca2
   languageName: node
   linkType: hard
 
