@@ -13,6 +13,7 @@ const CONFIG_FILE_NAMES = [
   ".prettierrc.yaml",
   ".prettierrc.yml",
   ".prettierrc.json5",
+  ".prettierrc.jsonc",
   ".prettierrc.js",
   ".prettierrc.mjs",
   ".prettierrc.cjs",
