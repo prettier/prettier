@@ -1,0 +1,7 @@
+{
+  "prettier": {
+    "ignores": [
+      "ignored.js"
+    ]
+  }
+}
