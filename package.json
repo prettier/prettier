@@ -137,7 +137,7 @@
     "eslint-plugin-regexp": "2.5.0",
     "eslint-plugin-simple-import-sort": "12.0.0",
     "eslint-plugin-unicorn": "52.0.0",
-    "esm-utils": "4.2.1",
+    "esm-utils": "4.3.0",
     "execa": "7.2.0",
     "jest": "30.0.0-alpha.3",
     "jest-light-runner": "0.6.0",
