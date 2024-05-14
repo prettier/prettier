@@ -93,7 +93,7 @@ async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
 async function isIgnored(file, options) {
   const { ignorePath: ignoreFiles, withNodeModules } = options;
   const isIgnored = await createIsIgnoredFunction(ignoreFiles, withNodeModules);
-  return isIgnored(file);
+  return isIgnored(file, options?.ignores ?? []);
 }
 
 export { createIsIgnoredFunction, isIgnored };
