@@ -267,6 +267,18 @@ Default: [.gitignore, .prettierignore]"
 
 exports[`show detailed usage with --help ignore-path (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help ignore-pattern (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help ignore-pattern (stdout) 1`] = `
+"--ignore-pattern <path>
+
+  Specify which files and directories to ignore using the same pattern as the \`.prettierignore\` file.
+
+Default: []"
+`;
+
+exports[`show detailed usage with --help ignore-pattern (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help ignore-unknown (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help ignore-unknown (stdout) 1`] = `

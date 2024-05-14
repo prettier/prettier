@@ -147,6 +147,10 @@ exports[`API getSupportInfo() 1`] = `
       "default": "css",
       "type": "choice",
     },
+    "ignores": {
+      "default": [],
+      "type": "path",
+    },
     "insertPragma": {
       "default": false,
       "type": "boolean",
@@ -884,6 +888,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       "name": "htmlWhitespaceSensitivity",
       "pluginDefaults": {},
       "type": "choice"
+    },
+    {
+      "array": true,
+      "category": "Global",
+      "default": [],
+      "description": "Specify which files and directories to ignore using the same pattern as the \`.prettierignore\` file.",
+      "name": "ignores",
+      "pluginDefaults": {},
+      "type": "path"
     },
     {
       "category": "Special",
