@@ -272,7 +272,7 @@ exports[`show detailed usage with --help ignore-pattern (stderr) 1`] = `""`;
 exports[`show detailed usage with --help ignore-pattern (stdout) 1`] = `
 "--ignore-pattern <path>
 
-  Specify which files and directories to ignore using the same pattern as the \`.prettierignore\` file.
+  Pattern to ignore files and directories. Multiple patterns can be passed as separate \`--ignore-pattern\`s.
 
 Default: []"
 `;

@@ -893,7 +893,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "array": true,
       "category": "Global",
       "default": [],
-      "description": "Specify which files and directories to ignore using the same pattern as the \`.prettierignore\` file.",
+      "description": "Specify files and directories to ignore using the same pattern as the \`.prettierignore\` file.",
       "name": "ignores",
       "pluginDefaults": {},
       "type": "path"

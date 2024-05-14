@@ -98,11 +98,13 @@ const options = {
     default: [{ value: [] }],
     category: CATEGORY_GLOBAL,
     description:
-      "Specify which files and directories to ignore using the same pattern as the `.prettierignore` file.",
+      "Specify files and directories to ignore using the same pattern as the `.prettierignore` file.",
     exception: (value) =>
       typeof value === "string" || typeof value === "object",
     cliName: "ignore-pattern",
     cliCategory: CATEGORY_CONFIG,
+    cliDescription:
+      "Pattern to ignore files and directories. Multiple patterns can be passed as separate `--ignore-pattern`s.",
   },
   insertPragma: {
     category: CATEGORY_SPECIAL,

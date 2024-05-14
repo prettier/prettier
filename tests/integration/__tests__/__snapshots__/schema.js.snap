@@ -125,7 +125,7 @@ exports[`schema 1`] = `
         },
         "ignores": {
           "default": [],
-          "description": "Specify which files and directories to ignore using the same pattern as the \`.prettierignore\` file.",
+          "description": "Specify files and directories to ignore using the same pattern as the \`.prettierignore\` file.",
           "items": {
             "type": "string",
           },

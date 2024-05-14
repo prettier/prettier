@@ -100,7 +100,7 @@ Config options:
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Multiple values are accepted.
                            Defaults to [.gitignore, .prettierignore].
-  --ignore-pattern <path>  Specify which files and directories to ignore using the same pattern as the \`.prettierignore\` file.
+  --ignore-pattern <path>  Pattern to ignore files and directories. Multiple patterns can be passed as separate \`--ignore-pattern\`s.
                            Defaults to [].
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
                            Defaults to [].
@@ -267,7 +267,7 @@ Config options:
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Multiple values are accepted.
                            Defaults to [.gitignore, .prettierignore].
-  --ignore-pattern <path>  Specify which files and directories to ignore using the same pattern as the \`.prettierignore\` file.
+  --ignore-pattern <path>  Pattern to ignore files and directories. Multiple patterns can be passed as separate \`--ignore-pattern\`s.
                            Defaults to [].
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
                            Defaults to [].
