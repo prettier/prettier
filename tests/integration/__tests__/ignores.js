@@ -3,7 +3,7 @@ describe("ignores", () => {
     runCli("cli/ignores/package-json", ["*.js", "-l"]).test({
       stderr: "",
       stdout: "not-ignored.js",
-      status: 0,
+      status: 1,
     });
   });
 });
