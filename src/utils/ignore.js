@@ -65,7 +65,7 @@ async function createSingleIsIgnoredFunction(ignoreFile, withNodeModules) {
 /**
  * @param {(string | URL)[]} ignoreFiles
  * @param {boolean?} withNodeModules
- * @returns {Promise<(file: string | URL, ignores?: string | string[]) => boolean>}
+ * @returns {Promise<(file: string | URL, ignores?: string[]) => boolean>}
  */
 async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
   // If `ignoreFilePaths` is empty, we still want `withNodeModules` to work
@@ -81,7 +81,7 @@ async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
     )
   ).filter(Boolean);
 
-  return (file, ignores) =>
+  return (file, ignores = []) =>
     isIgnoredFunctions.some((isIgnored) => isIgnored(file, ignores));
 }
 
