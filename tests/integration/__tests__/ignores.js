@@ -46,4 +46,10 @@ describe("ignores", () => {
       status: 1,
     });
   });
+
+  it("should ignore with the closest config's ignores", () => {
+    runCli("cli/ignores/multi-configs", ["**/*.js", "-l"]).test({
+      status: 1,
+    });
+  });
 });
