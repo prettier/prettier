@@ -260,7 +260,7 @@ async function formatStdin(context) {
     let isFileIgnored = false;
     if (filepath) {
       const isIgnored = await createIsIgnoredFromContextOrDie(context);
-      isFileIgnored = isIgnored(filepath);
+      isFileIgnored = await isIgnored(filepath);
     }
 
     if (isFileIgnored) {
@@ -330,7 +330,7 @@ async function formatFiles(context) {
       continue;
     }
 
-    const isFileIgnored = isIgnored(filename);
+    const isFileIgnored = await isIgnored(filename);
     if (
       isFileIgnored &&
       (context.argv.debugCheck ||

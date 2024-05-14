@@ -61,28 +61,31 @@ async function createSingleIsIgnoredFunction(ignoreFile, withNodeModules) {
 }
 
 /**
- * @returns {Promise<(file: string | URL) => boolean | undefined>}
+ * @param {string} filename
+ * @returns {Promise<boolean>}
  */
-async function createIsIgnoredFromCwdPrettierConfig() {
+async function isIgnoredFromPrettierConfig(filename) {
   try {
-    const configPath = await searchPrettierConfig(process.cwd(), {
+    const configPath = await searchPrettierConfig(filename, {
       shouldCache: true,
     });
     if (!configPath) {
-      return;
+      return false;
     }
 
-    const config = await loadPrettierConfig(configPath, { shouldCache: true });
+    const config = await loadPrettierConfig(configPath, {
+      shouldCache: true,
+    });
     if (!isNonEmptyArray(config.ignores)) {
-      return;
+      return false;
     }
 
     const content = config.ignores.join("\n");
     const ignore = createIgnore({ allowRelativePaths: true }).add(content);
-    return (file) => ignore.ignores(slash(getRelativePath(file, configPath)));
+
+    return ignore.ignores(slash(getRelativePath(filename, configPath)));
   } catch {
-    // eslint-disable-next-line no-useless-return
-    return;
+    return false;
   }
 }
 
@@ -116,19 +119,20 @@ async function createIsIgnoredFunction(
   }
 
   const isIgnoredFunctions = (
-    await Promise.all([
-      ...ignoreFiles.map((ignoreFile) =>
+    await Promise.all(
+      ignoreFiles.map((ignoreFile) =>
         createSingleIsIgnoredFunction(ignoreFile, withNodeModules),
       ),
-      createIsIgnoredFromCwdPrettierConfig(),
-    ])
+    )
   ).filter(Boolean);
 
   if (ignorePatterns) {
     isIgnoredFunctions.push(createIsIgnoredFromIgnorePatterns(ignorePatterns));
   }
 
-  return (file) => isIgnoredFunctions.some((isIgnored) => isIgnored(file));
+  return async (file) =>
+    isIgnoredFunctions.some((isIgnored) => isIgnored(file)) ||
+    (await isIgnoredFromPrettierConfig(file));
 }
 
 /**
