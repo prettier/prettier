@@ -241,6 +241,7 @@ async function createIsIgnoredFromContextOrDie(context) {
     return await createIsIgnoredFunction(
       context.argv.ignorePath,
       context.argv.withNodeModules,
+      context.argv.ignores,
     );
   } catch (e) {
     context.logger.error(e.message);

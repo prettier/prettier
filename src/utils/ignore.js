@@ -4,7 +4,12 @@ import url from "node:url";
 import ignoreModule from "ignore";
 import { isUrl, toPath } from "url-or-path";
 
+import {
+  loadPrettierConfig,
+  searchPrettierConfig,
+} from "../config/prettier-config/index.js";
 import readFile from "../utils/read-file.js";
+import isNonEmptyArray from "./is-non-empty-array.js";
 
 const createIgnore = ignoreModule.default;
 /** @type {(filePath: string) => string} */
@@ -56,23 +61,72 @@ async function createSingleIsIgnoredFunction(ignoreFile, withNodeModules) {
 }
 
 /**
+ * @returns {Promise<(file: string | URL) => boolean | undefined>}
+ */
+async function createIsIgnoredFromCwdPrettierConfig() {
+  try {
+    const configPath = await searchPrettierConfig(process.cwd(), {
+      shouldCache: true,
+    });
+    if (!configPath) {
+      return;
+    }
+
+    const config = await loadPrettierConfig(configPath, { shouldCache: true });
+    if (!isNonEmptyArray(config.ignores)) {
+      return;
+    }
+
+    const content = config.ignores.join("\n");
+    const ignore = createIgnore({ allowRelativePaths: true }).add(content);
+    return (file) => ignore.ignores(slash(getRelativePath(file, configPath)));
+  } catch {
+    // eslint-disable-next-line no-useless-return
+    return;
+  }
+}
+
+/**
+ * @param {string | string[]} ignorePatterns
+ * @returns {(file: string | URL) => boolean}
+ */
+function createIsIgnoredFromIgnorePatterns(ignorePatterns) {
+  if (Array.isArray(ignorePatterns)) {
+    ignorePatterns = ignorePatterns.join("\n");
+  }
+
+  const ignore = createIgnore({ allowRelativePaths: true }).add(ignorePatterns);
+  return (file) => ignore.ignores(slash(getRelativePath(file, process.cwd())));
+}
+
+/**
  * @param {(string | URL)[]} ignoreFiles
  * @param {boolean?} withNodeModules
+ * @param {string | string[] | undefined} ignorePatterns
  * @returns {Promise<(file: string | URL) => boolean>}
  */
-async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
+async function createIsIgnoredFunction(
+  ignoreFiles,
+  withNodeModules,
+  ignorePatterns,
+) {
   // If `ignoreFilePaths` is empty, we still want `withNodeModules` to work
   if (ignoreFiles.length === 0 && !withNodeModules) {
     ignoreFiles = [undefined];
   }
 
   const isIgnoredFunctions = (
-    await Promise.all(
-      ignoreFiles.map((ignoreFile) =>
+    await Promise.all([
+      ...ignoreFiles.map((ignoreFile) =>
         createSingleIsIgnoredFunction(ignoreFile, withNodeModules),
       ),
-    )
+      createIsIgnoredFromCwdPrettierConfig(),
+    ])
   ).filter(Boolean);
+
+  if (ignorePatterns) {
+    isIgnoredFunctions.push(createIsIgnoredFromIgnorePatterns(ignorePatterns));
+  }
 
   return (file) => isIgnoredFunctions.some((isIgnored) => isIgnored(file));
 }
