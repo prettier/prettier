@@ -62,9 +62,10 @@ async function createSingleIsIgnoredFunction(ignoreFile, withNodeModules) {
 
 /**
  * @param {string} filename
+ * @param {boolean} [isCreateFunc]
  * @returns {Promise<boolean>}
  */
-async function isIgnoredFromPrettierConfig(filename) {
+async function isIgnoredFromPrettierConfig(filename, isCreateFunc) {
   try {
     const configPath = await searchPrettierConfig(filename, {
       shouldCache: true,
@@ -83,6 +84,9 @@ async function isIgnoredFromPrettierConfig(filename) {
     const content = config.ignores.join("\n");
     const ignore = createIgnore({ allowRelativePaths: true }).add(content);
 
+    if (isCreateFunc) {
+      return (file) => ignore.ignores(slash(getRelativePath(file, configPath)));
+    }
     return ignore.ignores(slash(getRelativePath(filename, configPath)));
   } catch {
     return false;
@@ -119,11 +123,12 @@ async function createIsIgnoredFunction(
   }
 
   const isIgnoredFunctions = (
-    await Promise.all(
-      ignoreFiles.map((ignoreFile) =>
+    await Promise.all([
+      ...ignoreFiles.map((ignoreFile) =>
         createSingleIsIgnoredFunction(ignoreFile, withNodeModules),
       ),
-    )
+      isIgnoredFromPrettierConfig(process.cwd(), true),
+    ])
   ).filter(Boolean);
 
   if (ignorePatterns) {
