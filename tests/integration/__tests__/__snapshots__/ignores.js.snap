@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`(write) 1`] = `[]`;
+
+exports[`(write) 2`] = `[]`;
