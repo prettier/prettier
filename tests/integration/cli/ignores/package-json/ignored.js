@@ -1,2 +1,1 @@
-console.log
-('ignored');
+export default 'ignored'
