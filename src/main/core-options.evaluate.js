@@ -96,7 +96,7 @@ const options = {
     type: "path",
     array: true,
     default: [{ value: [] }],
-    category: CATEGORY_SPECIAL,
+    category: CATEGORY_CONFIG,
     description: "Ignore the file. Multiple values are accepted.",
     exception: (value) =>
       typeof value === "string" || typeof value === "object",
