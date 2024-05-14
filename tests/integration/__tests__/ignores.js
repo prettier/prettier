@@ -21,4 +21,17 @@ describe("ignores", () => {
       status: 1,
     });
   });
+
+  it("should ignore multiple --ignore-pattern flags", () => {
+    runCli("cli/ignores/multi-ignore-pattern", [
+      "*.js",
+      "--ignore-pattern",
+      "ignored.*",
+      "--ignore-pattern",
+      "ignored2.*",
+      "-l",
+    ]).test({
+      status: 1,
+    });
+  });
 });
