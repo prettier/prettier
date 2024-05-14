@@ -329,7 +329,13 @@ async function formatFiles(context) {
       continue;
     }
 
-    const isFileIgnored = isIgnored(filename);
+    const options = {
+      ...(await getOptionsForFile(context, filename)),
+      filepath: filename,
+    };
+
+    const ignores = options.ignores ?? [];
+    const isFileIgnored = isIgnored(filename, ignores);
     if (
       isFileIgnored &&
       (context.argv.debugCheck ||
@@ -339,11 +345,6 @@ async function formatFiles(context) {
     ) {
       continue;
     }
-
-    const options = {
-      ...(await getOptionsForFile(context, filename)),
-      filepath: filename,
-    };
 
     const fileNameToDisplay = normalizeToPosix(path.relative(cwd, filename));
     let printedFilename;

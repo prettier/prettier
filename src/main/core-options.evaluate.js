@@ -92,6 +92,15 @@ const options = {
     cliCategory: CATEGORY_OTHER,
     cliDescription: "Path to the file to pretend that stdin comes from.",
   },
+  ignores: {
+    type: "path",
+    array: true,
+    default: [{ value: [] }],
+    category: CATEGORY_SPECIAL,
+    description: "Ignore the file. Multiple values are accepted.",
+    exception: (value) =>
+      typeof value === "string" || typeof value === "object",
+  },
   insertPragma: {
     category: CATEGORY_SPECIAL,
     type: "boolean",

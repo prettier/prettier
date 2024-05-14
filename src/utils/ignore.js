@@ -52,13 +52,19 @@ async function createSingleIsIgnoredFunction(ignoreFile, withNodeModules) {
 
   const ignore = createIgnore({ allowRelativePaths: true }).add(content);
 
-  return (file) => ignore.ignores(slash(getRelativePath(file, ignoreFile)));
+  return (file, ignores) => {
+    if (Array.isArray(ignores) && ignores?.length > 0) {
+      const content = ignores.join("\n");
+      ignore.add(content);
+    }
+    return ignore.ignores(slash(getRelativePath(file, ignoreFile)));
+  };
 }
 
 /**
  * @param {(string | URL)[]} ignoreFiles
  * @param {boolean?} withNodeModules
- * @returns {Promise<(file: string | URL) => boolean>}
+ * @returns {Promise<(file: string | URL, ignores?: string | string[]) => boolean>}
  */
 async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
   // If `ignoreFilePaths` is empty, we still want `withNodeModules` to work
@@ -74,7 +80,8 @@ async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
     )
   ).filter(Boolean);
 
-  return (file) => isIgnoredFunctions.some((isIgnored) => isIgnored(file));
+  return (file, ignores) =>
+    isIgnoredFunctions.some((isIgnored) => isIgnored(file, ignores));
 }
 
 /**
