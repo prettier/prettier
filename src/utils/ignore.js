@@ -5,6 +5,7 @@ import ignoreModule from "ignore";
 import { isUrl, toPath } from "url-or-path";
 
 import readFile from "../utils/read-file.js";
+import isNonEmptyArray from "./is-non-empty-array.js";
 
 const createIgnore = ignoreModule.default;
 /** @type {(filePath: string) => string} */
@@ -53,7 +54,7 @@ async function createSingleIsIgnoredFunction(ignoreFile, withNodeModules) {
   const ignore = createIgnore({ allowRelativePaths: true }).add(content);
 
   return (file, ignores) => {
-    if (Array.isArray(ignores) && ignores?.length > 0) {
+    if (isNonEmptyArray(ignores)) {
       const content = ignores.join("\n");
       ignore.add(content);
     }

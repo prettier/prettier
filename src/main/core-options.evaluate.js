@@ -96,10 +96,13 @@ const options = {
     type: "path",
     array: true,
     default: [{ value: [] }],
-    category: CATEGORY_CONFIG,
-    description: "Ignore the file. Multiple values are accepted.",
+    category: CATEGORY_GLOBAL,
+    description:
+      "Specify which files and directories to ignore using the same pattern as the `.prettierignore` file.",
     exception: (value) =>
       typeof value === "string" || typeof value === "object",
+    cliName: "ignore-pattern",
+    cliCategory: CATEGORY_CONFIG,
   },
   insertPragma: {
     category: CATEGORY_SPECIAL,
