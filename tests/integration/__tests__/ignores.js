@@ -34,4 +34,16 @@ describe("ignores", () => {
       status: 1,
     });
   });
+
+  it("should ignore with glob-based value and --ignore-pattern flag", () => {
+    runCli("cli/ignores/glob-ignore-pattern", [
+      "*.js",
+      "--ignore-pattern",
+      "ignored.*",
+      "!ignored2.*",
+      "-l",
+    ]).test({
+      status: 1,
+    });
+  });
 });
