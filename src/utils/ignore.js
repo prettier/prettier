@@ -5,7 +5,6 @@ import ignoreModule from "ignore";
 import { isUrl, toPath } from "url-or-path";
 
 import readFile from "../utils/read-file.js";
-import isNonEmptyArray from "./is-non-empty-array.js";
 
 const createIgnore = ignoreModule.default;
 /** @type {(filePath: string) => string} */
@@ -53,19 +52,13 @@ async function createSingleIsIgnoredFunction(ignoreFile, withNodeModules) {
 
   const ignore = createIgnore({ allowRelativePaths: true }).add(content);
 
-  return (file, ignores) => {
-    if (isNonEmptyArray(ignores)) {
-      const content = ignores.join("\n");
-      ignore.add(content);
-    }
-    return ignore.ignores(slash(getRelativePath(file, ignoreFile)));
-  };
+  return (file) => ignore.ignores(slash(getRelativePath(file, ignoreFile)));
 }
 
 /**
  * @param {(string | URL)[]} ignoreFiles
  * @param {boolean?} withNodeModules
- * @returns {Promise<(file: string | URL, ignores?: string[]) => boolean>}
+ * @returns {Promise<(file: string | URL) => boolean>}
  */
 async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
   // If `ignoreFilePaths` is empty, we still want `withNodeModules` to work
@@ -81,8 +74,7 @@ async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
     )
   ).filter(Boolean);
 
-  return (file, ignores = []) =>
-    isIgnoredFunctions.some((isIgnored) => isIgnored(file, ignores));
+  return (file) => isIgnoredFunctions.some((isIgnored) => isIgnored(file));
 }
 
 /**
@@ -93,7 +85,7 @@ async function createIsIgnoredFunction(ignoreFiles, withNodeModules) {
 async function isIgnored(file, options) {
   const { ignorePath: ignoreFiles, withNodeModules } = options;
   const isIgnored = await createIsIgnoredFunction(ignoreFiles, withNodeModules);
-  return isIgnored(file, options?.ignores ?? []);
+  return isIgnored(file);
 }
 
 export { createIsIgnoredFunction, isIgnored };
