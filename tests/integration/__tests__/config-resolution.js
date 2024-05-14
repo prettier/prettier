@@ -419,3 +419,33 @@ test("Search from directory, not treat file as directory", async () => {
     "directory/.prettierrc",
   );
 });
+
+test("package.json/package.yaml", async () => {
+  await expect(
+    prettier.resolveConfig(
+      new URL("../cli/config/package/file.js", import.meta.url),
+    ),
+  ).resolves.toMatchInlineSnapshot(`
+    {
+      "tabWidth": 3,
+    }
+  `);
+  await expect(
+    prettier.resolveConfig(
+      new URL("../cli/config/package/file.ts", import.meta.url),
+    ),
+  ).resolves.toMatchInlineSnapshot(`
+    {
+      "tabWidth": 5,
+    }
+  `);
+  await expect(
+    prettier.resolveConfig(
+      new URL("../cli/config/package-yaml/file.ts", import.meta.url),
+    ),
+  ).resolves.toMatchInlineSnapshot(`
+    {
+      "printWidth": 101,
+    }
+  `);
+});

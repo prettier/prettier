@@ -267,6 +267,13 @@ exports[`visitor keys estree 1`] = `
   ],
   "EmptyStatement": [],
   "EmptyTypeAnnotation": [],
+  "EnumBigIntBody": [
+    "members",
+  ],
+  "EnumBigIntMember": [
+    "id",
+    "init",
+  ],
   "EnumBooleanBody": [
     "members",
   ],
@@ -1158,6 +1165,7 @@ exports[`visitor keys estree-json 1`] = `
 
 exports[`visitor keys glimmer 1`] = `
 {
+  "AtHead": [],
   "AttrNode": [
     "value",
   ],
@@ -1173,13 +1181,6 @@ exports[`visitor keys glimmer 1`] = `
   ],
   "BooleanLiteral": [],
   "CommentStatement": [],
-  "Component": [
-    "head",
-    "attributes",
-    "modifiers",
-    "children",
-    "comments",
-  ],
   "ConcatStatement": [
     "parts",
   ],
@@ -1206,29 +1207,10 @@ exports[`visitor keys glimmer 1`] = `
     "params",
     "hash",
   ],
-  "NamedBlock": [
-    "attributes",
-    "modifiers",
-    "children",
-    "comments",
-  ],
   "NullLiteral": [],
   "NumberLiteral": [],
-  "PartialStatement": [
-    "name",
-    "params",
-    "hash",
-  ],
-  "PathExpression": [],
-  "PathHead": [],
-  "Program": [
-    "body",
-  ],
-  "SimpleElement": [
-    "attributes",
-    "modifiers",
-    "children",
-    "comments",
+  "PathExpression": [
+    "head",
   ],
   "StringLiteral": [],
   "SubExpression": [
@@ -1240,7 +1222,9 @@ exports[`visitor keys glimmer 1`] = `
     "body",
   ],
   "TextNode": [],
+  "ThisHead": [],
   "UndefinedLiteral": [],
+  "VarHead": [],
 }
 `;
 

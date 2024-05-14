@@ -542,8 +542,8 @@ function printArrayType(print) {
 }
 
 /*
-- `TSTypeQuery`
-- `TypeofTypeAnnotation`
+- `TSTypeQuery` (TypeScript)
+- `TypeofTypeAnnotation` (flow)
 */
 function printTypeQuery({ node }, print) {
   const argumentPropertyName =
@@ -553,10 +553,20 @@ function printTypeQuery({ node }, print) {
   return ["typeof ", print(argumentPropertyName), print(typeArgsPropertyName)];
 }
 
+/*
+- `TSTypePredicate` (TypeScript)
+- `TypePredicate` (flow)
+*/
 function printTypePredicate(path, print) {
   const { node } = path;
+  const prefix =
+    node.type === "TSTypePredicate" && node.asserts
+      ? "asserts "
+      : node.type === "TypePredicate" && node.kind
+        ? `${node.kind} `
+        : "";
   return [
-    node.asserts ? "asserts " : "",
+    prefix,
     print("parameterName"),
     node.typeAnnotation
       ? [" is ", printTypeAnnotationProperty(path, print)]

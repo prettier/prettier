@@ -22,7 +22,7 @@ const compat = new FlatCompat({ baseDirectory: toPath("./") });
 
 export default [
   eslintPluginJs.configs.recommended,
-  ...compat.config(eslintPluginRegexp.configs.recommended),
+  eslintPluginRegexp.configs["flat/recommended"],
   eslintPluginUnicorn.configs["flat/recommended"],
   eslintConfigPrettier,
   ...compat.env({ es2024: true, node: true }),
@@ -290,7 +290,7 @@ export default [
   {
     files: [
       "tests/config/**/*.js",
-      "tests/format/**/jsfmt.spec.js",
+      "tests/format/**/format.test.js",
       "tests/integration/**/*.js",
       "tests/unit/**/*.js",
       "tests/dts/unit/**/*.js",
