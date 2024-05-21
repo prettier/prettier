@@ -4813,19 +4813,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.21.0":
-  version: 0.21.0
-  resolution: "hermes-estree@npm:0.21.0"
-  checksum: 10/2c978c9ed33555a7a70655f03b7cba3d2e477d8b64a97e00ffab86a076080d554ef5abba037d39e9d5604849cb3b6f13bd0242a6e75fd3cfe051cac180fa92fb
+"hermes-estree@npm:0.21.1":
+  version: 0.21.1
+  resolution: "hermes-estree@npm:0.21.1"
+  checksum: 10/0943b6dec9f38aae56fa161154572c88fcf33f3d1a65ca1fe1dcc02d0358dc73c9e0cf8187fb43ea6ea3bffd3ba4a7454a5d61bcb7573690cb821dbd06fe7f35
   languageName: node
   linkType: hard
 
-"hermes-parser@npm:0.21.0":
-  version: 0.21.0
-  resolution: "hermes-parser@npm:0.21.0"
+"hermes-parser@npm:0.21.1":
+  version: 0.21.1
+  resolution: "hermes-parser@npm:0.21.1"
   dependencies:
-    hermes-estree: "npm:0.21.0"
-  checksum: 10/326054b7c8bbbb265df5ded508043f14cfa7cff405dd4ca0fc3564424c30248bc361a8e638b159c4e77821f1ba468e8fa34e197a34579bca86ef8cc7db85bb8e
+    hermes-estree: "npm:0.21.1"
+  checksum: 10/e491d888ee0f3e40c82199e5097ebea35f51738e88bb6b241181c0628eb379ffd69300fcf9c86b1080cd09ce16fb9b5a25d913f1855dad848848842a55108d43
   languageName: node
   linkType: hard
 
@@ -7445,7 +7445,7 @@ __metadata:
     get-east-asian-width: "npm:1.2.0"
     get-stdin: "npm:9.0.0"
     graphql: "npm:16.8.1"
-    hermes-parser: "npm:0.21.0"
+    hermes-parser: "npm:0.21.1"
     html-element-attributes: "npm:3.4.0"
     html-tag-names: "npm:2.1.0"
     html-ua-styles: "npm:0.0.6"
