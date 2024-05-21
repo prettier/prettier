@@ -121,7 +121,7 @@
     "browserslist-to-esbuild": "2.1.1",
     "c8": "9.1.0",
     "cross-env": "7.0.3",
-    "cspell": "8.6.1",
+    "cspell": "8.8.1",
     "enquirer": "2.4.1",
     "esbuild": "0.21.3",
     "esbuild-plugins-node-modules-polyfill": "1.6.4",
