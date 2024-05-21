@@ -144,7 +144,7 @@
     "jest-snapshot-serializer-ansi": "2.1.0",
     "jest-snapshot-serializer-raw": "2.0.0",
     "jest-watch-typeahead": "2.2.2",
-    "magic-string": "0.30.9",
+    "magic-string": "0.30.10",
     "npm-run-all2": "6.2.0",
     "prettier": "3.2.5",
     "pretty-bytes": "6.1.1",
