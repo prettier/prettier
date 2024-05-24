@@ -41,10 +41,7 @@ import {
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-const SIBLING_NODE_TYPES = new Set([
-  "listItem",
-  "definition",
-]);
+const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
 
 function genericPrint(path, options, print) {
   const { node } = path;
