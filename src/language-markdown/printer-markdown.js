@@ -41,11 +41,7 @@ import {
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-const SIBLING_NODE_TYPES = new Set([
-  "listItem",
-  "definition",
-  "footnoteDefinition",
-]);
+const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -405,7 +401,6 @@ function genericPrint(path, options, print) {
                     isFirst ? group([softline, print()]) : print(),
                 }),
               ),
-              path.next?.type === "footnoteDefinition" ? softline : "",
             ]),
       ];
     }
