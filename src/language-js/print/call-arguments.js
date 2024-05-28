@@ -82,7 +82,12 @@ function printCallArguments(path, options, print) {
   const isDynamicImport =
     node.type === "ImportExpression" || node.callee.type === "Import";
   const maybeTrailingComma =
-    !isDynamicImport && shouldPrintComma(options, "all") ? "," : "";
+    // Angular does not allow trailing comma
+    !options.parser.startsWith("__ng_") &&
+    !isDynamicImport &&
+    shouldPrintComma(options, "all")
+      ? ","
+      : "";
 
   function allArgsBrokenOut() {
     return group(
