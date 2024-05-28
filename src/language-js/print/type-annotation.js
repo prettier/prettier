@@ -549,7 +549,10 @@ function printTypeQuery({ node }, print) {
   const argumentPropertyName =
     node.type === "TSTypeQuery" ? "exprName" : "argument";
   const typeArgsPropertyName =
-    node.type === "TSTypeQuery" ? "typeParameters" : "typeArguments";
+    // TODO: Use `typeArguments` only when babel align with TS.
+    node.type === "TypeofTypeAnnotation" || node.typeArguments
+      ? "typeArguments"
+      : "typeParameters";
   return ["typeof ", print(argumentPropertyName), print(typeArgsPropertyName)];
 }
 

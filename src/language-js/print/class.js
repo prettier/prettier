@@ -79,7 +79,10 @@ function printClass(path, options, print) {
   if (node.superClass) {
     const printed = [
       printSuperClass(path, options, print),
-      print("superTypeParameters"),
+      print(
+        // TODO: Use `superTypeArguments` only when babel align with TS.
+        node.superTypeArguments ? "superTypeArguments" : "superTypeParameters",
+      ),
     ];
     const printedWithComments = path.call(
       (superClass) => ["extends ", printComments(superClass, printed, options)],
