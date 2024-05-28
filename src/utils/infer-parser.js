@@ -11,14 +11,17 @@ function getLanguageByFileName(languages, file) {
 
   const basename = getFileBasename(file).toLowerCase();
 
-  return languages.find(
-    (language) =>
-      language.extensions?.some((extension) => basename.endsWith(extension)) ||
-      language.filenames?.some((name) => name.toLowerCase() === basename),
+  return (
+    languages.find(({ filenames }) =>
+      filenames?.some((name) => name.toLowerCase() === basename),
+    ) ??
+    languages.find(({ extensions }) =>
+      extensions?.some((extension) => basename.endsWith(extension)),
+    )
   );
 }
 
-function getLanguageByName(languages, languageName) {
+function getLanguageByLanguageName(languages, languageName) {
   if (!languageName) {
     return;
   }
@@ -45,8 +48,8 @@ function getLanguageByInterpreter(languages, file) {
     return;
   }
 
-  return languages.find((language) =>
-    language.interpreters?.includes(interpreter),
+  return languages.find(({ interpreters }) =>
+    interpreters?.includes(interpreter),
   );
 }
 
@@ -66,7 +69,7 @@ function inferParser(options, fileInfo) {
   // interpreter in the shebang line, if any; but since this requires FS access,
   // do it last.
   const language =
-    getLanguageByName(languages, fileInfo.language) ??
+    getLanguageByLanguageName(languages, fileInfo.language) ??
     getLanguageByFileName(languages, fileInfo.physicalFile) ??
     getLanguageByFileName(languages, fileInfo.file) ??
     getLanguageByInterpreter(languages, fileInfo.physicalFile);

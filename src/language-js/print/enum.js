@@ -8,6 +8,7 @@ function printEnumMembers(path, print, options) {
 /*
 - `EnumBooleanMember`(flow)
 - `EnumNumberMember`(flow)
+- `EnumBigIntMember`(flow)
 - `EnumStringMember`(flow)
 - `EnumDefaultedMember`(flow)
 - `TSEnumMember`(TypeScript)
@@ -43,6 +44,7 @@ function printEnumMember(path, print) {
 /*
 - `EnumBooleanBody`(flow)
 - `EnumNumberBody`(flow)
+- `EnumBigIntBody`(flow)
 - `EnumStringBody`(flow)
 - `EnumSymbolBody`(flow)
 */
@@ -57,6 +59,9 @@ function printEnumBody(path, print, options) {
         break;
       case "EnumNumberBody":
         type = "number";
+        break;
+      case "EnumBigIntBody":
+        type = "bigint";
         break;
       case "EnumStringBody":
         type = "string";

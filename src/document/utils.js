@@ -20,19 +20,6 @@ import InvalidDocError from "./invalid-doc-error.js";
 import getDocType from "./utils/get-doc-type.js";
 import traverseDoc from "./utils/traverse-doc.js";
 
-const getDocParts = (doc) => {
-  if (Array.isArray(doc)) {
-    return doc;
-  }
-
-  /* c8 ignore next 3 */
-  if (doc.type !== DOC_TYPE_FILL) {
-    throw new Error(`Expect doc to be 'array' or '${DOC_TYPE_FILL}'.`);
-  }
-
-  return doc.parts;
-};
-
 function mapDoc(doc, cb) {
   // Avoid creating `Map`
   if (typeof doc === "string") {
@@ -350,10 +337,11 @@ function cleanDocFn(doc) {
 
   return doc;
 }
-// A safer version of `normalizeDoc`
-// - `normalizeDoc` concat strings and flat array in `fill`, while `cleanDoc` don't
-// - On array, `normalizeDoc` always return object with `parts`, `cleanDoc` may return strings
-// - `cleanDoc` also remove nested `group`s and empty `fill`/`align`/`indent`/`line-suffix`/`if-break` if possible
+
+// - concat strings
+// - flat arrays except for parts of `fill`
+// - merge arrays of strings into single strings
+// - remove nested `group`s and empty `fill`/`align`/`indent`/`line-suffix`/`if-break` if possible
 function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
 }
@@ -389,21 +377,6 @@ function normalizeParts(parts) {
   return newParts;
 }
 
-function normalizeDoc(doc) {
-  return mapDoc(doc, (currentDoc) => {
-    if (Array.isArray(currentDoc)) {
-      return normalizeParts(currentDoc);
-    }
-    if (!currentDoc.parts) {
-      return currentDoc;
-    }
-    return {
-      ...currentDoc,
-      parts: normalizeParts(currentDoc.parts),
-    };
-  });
-}
-
 function replaceEndOfLine(doc, replacement = literalline) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string"
@@ -432,11 +405,9 @@ export {
   canBreak,
   cleanDoc,
   findInDoc,
-  getDocParts,
   getDocType,
   inheritLabel,
   mapDoc,
-  normalizeDoc,
   normalizeParts,
   propagateBreaks,
   removeLines,

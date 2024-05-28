@@ -147,6 +147,27 @@ exports[`visitor keys estree 1`] = `
     "decorators",
     "variance",
   ],
+  "ComponentDeclaration": [
+    "id",
+    "params",
+    "body",
+    "typeParameters",
+    "rendersType",
+  ],
+  "ComponentParameter": [
+    "name",
+    "local",
+  ],
+  "ComponentTypeAnnotation": [
+    "params",
+    "rest",
+    "typeParameters",
+    "rendersType",
+  ],
+  "ComponentTypeParameter": [
+    "name",
+    "typeAnnotation",
+  ],
   "ConditionalExpression": [
     "test",
     "consequent",
@@ -171,6 +192,13 @@ exports[`visitor keys estree 1`] = `
     "implements",
     "body",
   ],
+  "DeclareComponent": [
+    "id",
+    "params",
+    "rest",
+    "typeParameters",
+    "rendersType",
+  ],
   "DeclareEnum": [
     "id",
     "body",
@@ -187,6 +215,9 @@ exports[`visitor keys estree 1`] = `
     "id",
     "predicate",
   ],
+  "DeclareHook": [
+    "id",
+  ],
   "DeclareInterface": [
     "id",
     "typeParameters",
@@ -199,6 +230,10 @@ exports[`visitor keys estree 1`] = `
   ],
   "DeclareModuleExports": [
     "typeAnnotation",
+  ],
+  "DeclareNamespace": [
+    "id",
+    "body",
   ],
   "DeclareOpaqueType": [
     "id",
@@ -232,6 +267,13 @@ exports[`visitor keys estree 1`] = `
   ],
   "EmptyStatement": [],
   "EmptyTypeAnnotation": [],
+  "EnumBigIntBody": [
+    "members",
+  ],
+  "EnumBigIntMember": [
+    "id",
+    "init",
+  ],
   "EnumBooleanBody": [
     "members",
   ],
@@ -344,6 +386,19 @@ exports[`visitor keys estree 1`] = `
   ],
   "GenericTypeAnnotation": [
     "id",
+    "typeParameters",
+  ],
+  "HookDeclaration": [
+    "id",
+    "params",
+    "body",
+    "typeParameters",
+    "returnType",
+  ],
+  "HookTypeAnnotation": [
+    "params",
+    "returnType",
+    "rest",
     "typeParameters",
   ],
   "Identifier": [
@@ -1110,6 +1165,7 @@ exports[`visitor keys estree-json 1`] = `
 
 exports[`visitor keys glimmer 1`] = `
 {
+  "AtHead": [],
   "AttrNode": [
     "value",
   ],
@@ -1125,13 +1181,6 @@ exports[`visitor keys glimmer 1`] = `
   ],
   "BooleanLiteral": [],
   "CommentStatement": [],
-  "Component": [
-    "head",
-    "attributes",
-    "modifiers",
-    "children",
-    "comments",
-  ],
   "ConcatStatement": [
     "parts",
   ],
@@ -1158,29 +1207,10 @@ exports[`visitor keys glimmer 1`] = `
     "params",
     "hash",
   ],
-  "NamedBlock": [
-    "attributes",
-    "modifiers",
-    "children",
-    "comments",
-  ],
   "NullLiteral": [],
   "NumberLiteral": [],
-  "PartialStatement": [
-    "name",
-    "params",
-    "hash",
-  ],
-  "PathExpression": [],
-  "PathHead": [],
-  "Program": [
-    "body",
-  ],
-  "SimpleElement": [
-    "attributes",
-    "modifiers",
-    "children",
-    "comments",
+  "PathExpression": [
+    "head",
   ],
   "StringLiteral": [],
   "SubExpression": [
@@ -1192,7 +1222,9 @@ exports[`visitor keys glimmer 1`] = `
     "body",
   ],
   "TextNode": [],
+  "ThisHead": [],
   "UndefinedLiteral": [],
+  "VarHead": [],
 }
 `;
 

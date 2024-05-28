@@ -27,13 +27,13 @@ jobs:
           - "windows-latest"
         node:
           # Latest even version
-          - "20"
+          - "22"
           # Minimal version for development
           - "18"
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
-            node: "20"
+            node: "22"
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
@@ -69,8 +69,9 @@ jobs:
         run: yarn c8 yarn test
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         if: ${{ matrix.ENABLE_CODE_COVERAGE }}
         with:
           fail_ci_if_error: true
           files: coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}

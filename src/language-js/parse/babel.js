@@ -50,13 +50,11 @@ const parseOptions = {
     "sourcePhaseImports",
     "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],
+    "recordAndTuple",
   ],
   tokens: true,
   ranges: true,
 };
-
-/** @type {ParserPlugin} */
-const recordAndTuplePlugin = ["recordAndTuple", { syntaxType: "hash" }];
 
 /** @type {ParserPlugin} */
 const v8intrinsicPlugin = "v8intrinsic";
@@ -99,7 +97,7 @@ function isFlowFile(text, options) {
 function parseWithOptions(parse, text, options) {
   const ast = parse(text, options);
   const error = ast.errors.find(
-    (error) => !allowedMessageCodes.has(error.reasonCode),
+    (error) => !allowedReasonCodes.has(error.reasonCode),
   );
   if (error) {
     throw error;
@@ -124,12 +122,6 @@ function createParse({ isExpression = false, optionsCombinations }) {
         ...options,
         sourceType: "script",
       }));
-    }
-
-    if (/#[[{]/.test(text)) {
-      combinations = combinations.map((options) =>
-        appendPlugins([recordAndTuplePlugin], options),
-      );
     }
 
     const shouldEnableV8intrinsicPlugin = /%[A-Z]/.test(text);
@@ -171,11 +163,11 @@ function createParse({ isExpression = false, optionsCombinations }) {
 }
 
 // Error codes are defined in
-//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/parser/error-message.js
-//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/typescript/index.js#L69-L153
-//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/flow/index.js#L51-L140
-//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/jsx/index.js#L23-L39
-const allowedMessageCodes = new Set([
+//  - https://github.com/babel/babel/tree/v7.23.6/packages/babel-parser/src/parse-error
+//  - https://github.com/babel/babel/blob/v7.23.6/packages/babel-parser/src/plugins/typescript/index.ts#L73-L223
+//  - https://github.com/babel/babel/blob/v7.23.6/packages/babel-parser/src/plugins/flow/index.ts#L47-L224
+//  - https://github.com/babel/babel/blob/v7.23.6/packages/babel-parser/src/plugins/jsx/index.ts#L23-L44
+const allowedReasonCodes = new Set([
   "StrictNumericEscape",
   "StrictWith",
   "StrictOctalLiteral",
@@ -189,10 +181,6 @@ const allowedMessageCodes = new Set([
   "ConstructorHasTypeParameters",
 
   "UnsupportedParameterPropertyKind",
-
-  "MixedLabeledAndUnlabeledElements",
-
-  "DuplicateAccessibilityModifier",
 
   "DecoratorExportClass",
   "ParamDupe",

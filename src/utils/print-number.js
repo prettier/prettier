@@ -1,4 +1,7 @@
 function printNumber(rawNumber) {
+  if (rawNumber.length === 1) {
+    return rawNumber;
+  }
   return (
     rawNumber
       .toLowerCase()

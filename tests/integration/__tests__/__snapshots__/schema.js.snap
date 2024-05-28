@@ -2,7 +2,8 @@
 
 exports[`schema 1`] = `
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "https://json.schemastore.org/prettierrc.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "optionsDefinition": {
       "properties": {

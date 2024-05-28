@@ -9,7 +9,6 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
-import { getDocParts } from "../../document/utils.js";
 import isNextLineEmpty from "../../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
@@ -94,7 +93,7 @@ function printParenthesizedValueGroup(path, options, print) {
       child.groups[0].type !== "value-paren_group" &&
       child.groups[2]?.type === "value-paren_group"
     ) {
-      const parts = getDocParts(doc.contents.contents);
+      const { parts } = doc.contents.contents;
       parts[1] = group(parts[1]);
       doc = group(dedent(doc));
     }

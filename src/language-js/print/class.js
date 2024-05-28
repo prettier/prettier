@@ -200,6 +200,15 @@ function printClassMethod(path, options, print) {
   return parts;
 }
 
+/*
+- `ClassProperty`
+- `PropertyDefinition`
+- `ClassPrivateProperty`
+- `ClassAccessorProperty`
+- `AccessorProperty`
+- `TSAbstractAccessorProperty` (TypeScript)
+- `TSAbstractPropertyDefinition` (TypeScript)
+*/
 function printClassProperty(path, options, print) {
   const { node } = path;
   const parts = [];
@@ -314,7 +323,8 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
 
   if (
     nextNode.static ||
-    nextNode.accessibility // TypeScript
+    nextNode.accessibility || // TypeScript
+    nextNode.readonly // TypeScript
   ) {
     return false;
   }

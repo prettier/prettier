@@ -1,5 +1,3 @@
-import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
-
 import { hasDescendant } from "../../utils/ast-utils.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import hasNewline from "../../utils/has-newline.js";
@@ -166,9 +164,10 @@ function isSignedNumericLiteral(node) {
  * @returns {boolean}
  */
 function isStringLiteral(node) {
-  return (
-    node.type === "StringLiteral" ||
-    (node.type === "Literal" && typeof node.value === "string")
+  return Boolean(
+    node &&
+      (node.type === "StringLiteral" ||
+        (node.type === "Literal" && typeof node.value === "string")),
   );
 }
 
@@ -243,30 +242,29 @@ function isAngularTestWrapper(node) {
 
 const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
-function isGetterOrSetter(node) {
-  return node.kind === "get" || node.kind === "set";
+function isMethod(node) {
+  return (
+    (node.method && node.kind === "init") ||
+    node.kind === "get" ||
+    node.kind === "set"
+  );
 }
 
-// TODO: This is a bad hack and we need a better way to distinguish between
-// arrow functions and otherwise
-function isFunctionNotation(node) {
-  return isGetterOrSetter(node) || hasSameLocStart(node, node.value);
-}
-
-// Hack to differentiate between the following two which have the same ast
-// type T = { method: () => void };
-// type T = { method(): void };
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isObjectTypePropertyAFunction(node) {
+function isFlowObjectTypePropertyAFunction(node) {
   return (
     (node.type === "ObjectTypeProperty" ||
       node.type === "ObjectTypeInternalSlot") &&
-    node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !isFunctionNotation(node)
+    !node.method &&
+    // @ts-expect-error -- exists on `ObjectTypeProperty` but not `ObjectTypeInternalSlot`
+    node.kind !== "get" &&
+    // @ts-expect-error -- exists on `ObjectTypeProperty` but not `ObjectTypeInternalSlot`
+    node.kind !== "set" &&
+    node.value.type === "FunctionTypeAnnotation"
   );
 }
 
@@ -326,15 +324,16 @@ function isSimpleType(node) {
 }
 
 /**
- * @param {CallExpression} node
+ * @param {*} node
  * @returns {boolean}
  */
-function isUnitTestSetUp(node) {
-  const unitTestSetUpRe = /^(?:before|after)(?:Each|All)$/;
+function isUnitTestSetupIdentifier(node) {
   return (
-    node.callee.type === "Identifier" &&
-    node.arguments.length === 1 &&
-    unitTestSetUpRe.test(node.callee.name)
+    node.type === "Identifier" &&
+    (node.name === "beforeEach" ||
+      node.name === "beforeAll" ||
+      node.name === "afterEach" ||
+      node.name === "afterAll")
   );
 }
 
@@ -370,33 +369,35 @@ function isTestCallCallee(node) {
 
 // eg; `describe("some string", (done) => {})`
 function isTestCall(node, parent) {
-  if (node.type !== "CallExpression") {
+  if (node.type !== "CallExpression" || node.optional) {
     return false;
   }
-  if (node.arguments.length === 1) {
+
+  const args = getCallArguments(node);
+
+  if (args.length === 1) {
     if (isAngularTestWrapper(node) && parent && isTestCall(parent)) {
-      return isFunctionOrArrowExpression(node.arguments[0]);
+      return isFunctionOrArrowExpression(args[0]);
     }
 
-    if (isUnitTestSetUp(node)) {
-      return isAngularTestWrapper(node.arguments[0]);
+    if (isUnitTestSetupIdentifier(node.callee)) {
+      return isAngularTestWrapper(args[0]);
     }
   } else if (
-    (node.arguments.length === 2 || node.arguments.length === 3) &&
-    (node.arguments[0].type === "TemplateLiteral" ||
-      isStringLiteral(node.arguments[0])) &&
+    (args.length === 2 || args.length === 3) &&
+    (args[0].type === "TemplateLiteral" || isStringLiteral(args[0])) &&
     isTestCallCallee(node.callee)
   ) {
     // it("name", () => { ... }, 2500)
-    if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
+    if (args[2] && !isNumericLiteral(args[2])) {
       return false;
     }
     return (
-      (node.arguments.length === 2
-        ? isFunctionOrArrowExpression(node.arguments[1])
-        : isFunctionOrArrowExpressionWithBody(node.arguments[1]) &&
-          getFunctionParameters(node.arguments[1]).length <= 1) ||
-      isAngularTestWrapper(node.arguments[1])
+      (args.length === 2
+        ? isFunctionOrArrowExpression(args[1])
+        : isFunctionOrArrowExpressionWithBody(args[1]) &&
+          getFunctionParameters(args[1]).length <= 1) ||
+      isAngularTestWrapper(args[1])
     );
   }
   return false;
@@ -418,84 +419,6 @@ const isCallExpression = skipChainExpression(
 const isMemberExpression = skipChainExpression(
   createTypeCheckFunction(["MemberExpression", "OptionalMemberExpression"]),
 );
-
-/**
- * Retrieves a property from a node, considering any ChainExpression.
- * If the node is a ChainExpression, the property is obtained from its expression.
- * Otherwise, the property is obtained directly from the node.
- *
- * @param {Node} node - The AST node to be processed.
- * @param {string} property - The property name to retrieve.
- * @returns The property value from the node or its expression.
- */
-function getChainProp(node, property) {
-  if (node.type === "ChainExpression") {
-    return node.expression[property];
-  }
-  return node[property];
-}
-
-/**
- *
- * @param {any} node
- * @returns {boolean}
- */
-function isSimpleTemplateLiteral(node) {
-  let expressionsKey = "expressions";
-  if (node.type === "TSTemplateLiteralType") {
-    expressionsKey = "types";
-  }
-  const expressions = node[expressionsKey];
-
-  if (expressions.length === 0) {
-    return false;
-  }
-
-  return expressions.every((expr) => {
-    if (isSimpleAtomicExpression(expr) || isSimpleMemberExpression(expr)) {
-      return true;
-    }
-  });
-}
-
-function isSimpleMemberExpression(
-  node,
-  { maxDepth = Number.POSITIVE_INFINITY } = {},
-) {
-  if (hasComment(node)) {
-    return false;
-  }
-  if (node.type === "ChainExpression") {
-    return isSimpleMemberExpression(node.expression, { maxDepth });
-  }
-  if (!isMemberExpression(node)) {
-    return false;
-  }
-
-  let head = node;
-  let depth = 0;
-  while (isMemberExpression(head) && depth++ <= maxDepth) {
-    if (!isSimpleAtomicExpression(head.property)) {
-      return false;
-    }
-    head = head.object;
-    if (hasComment(head)) {
-      return false;
-    }
-  }
-  return isSimpleAtomicExpression(head);
-}
-
-/**
- * This is intended to return true for small expressions
- * which cannot be broken.
- */
-function isSimpleAtomicExpression(node) {
-  if (hasComment(node)) {
-    return false;
-  }
-  return isLiteral(node) || isSingleWordType(node);
-}
 
 /**
  * Attempts to gauge the rough complexity of a node, for example
@@ -592,60 +515,6 @@ function hasLeadingOwnLineComment(text, node) {
   );
 }
 
-// Note: Quoting/unquoting numbers in TypeScript is not safe.
-//
-// let a = { 1: 1, 2: 2 }
-// let b = { '1': 1, '2': 2 }
-//
-// declare let aa: keyof typeof a;
-// declare let bb: keyof typeof b;
-//
-// aa = bb;
-// ^^
-// Type '"1" | "2"' is not assignable to type '1 | 2'.
-//   Type '"1"' is not assignable to type '1 | 2'.(2322)
-//
-// And in Flow, you get:
-//
-// const x = {
-//   0: 1
-//   ^ Non-string literal property keys not supported. [unsupported-syntax]
-// }
-//
-// Angular does not support unquoted numbers in expressions.
-//
-// So we play it safe and only unquote numbers for the JavaScript parsers.
-// (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
-//
-// Identifiers can be unquoted in more circumstances, though.
-function isStringPropSafeToUnquote(node, options) {
-  return (
-    options.parser !== "json" &&
-    options.parser !== "jsonc" &&
-    isStringLiteral(node.key) &&
-    rawText(node.key).slice(1, -1) === node.key.value &&
-    ((isEs5IdentifierName(node.key.value) &&
-      // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
-      // See https://github.com/microsoft/TypeScript/pull/20075
-      !(
-        (options.parser === "babel-ts" && node.type === "ClassProperty") ||
-        (options.parser === "typescript" && node.type === "PropertyDefinition")
-      )) ||
-      (isSimpleNumber(node.key.value) &&
-        String(Number(node.key.value)) === node.key.value &&
-        (options.parser === "babel" ||
-          options.parser === "acorn" ||
-          options.parser === "espree" ||
-          options.parser === "meriyah" ||
-          options.parser === "__babel_estree")))
-  );
-}
-
-// Matches “simple” numbers like `123` and `2.5` but not `1_000`, `1e+100` or `0b10`.
-function isSimpleNumber(numberString) {
-  return /^(?:\d+|\d+\.\d+)$/.test(numberString);
-}
-
 /**
  * @param {TemplateLiteral} template
  * @returns {boolean}
@@ -740,6 +609,10 @@ function isSimpleCallArgument(node, depth = 2) {
     return false;
   }
 
+  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
+    return isSimpleCallArgument(node.expression, depth);
+  }
+
   const isChildSimple = (child) => isSimpleCallArgument(child, depth - 1);
 
   if (isRegExpLiteral(node)) {
@@ -775,7 +648,7 @@ function isSimpleCallArgument(node, depth = 2) {
   if (isCallLikeExpression(node)) {
     if (
       node.type === "ImportExpression" ||
-      isSimpleCallArgument(getChainProp(node, "callee"), depth)
+      isSimpleCallArgument(node.callee, depth)
     ) {
       const args = getCallArguments(node);
       return args.length <= depth && args.every(isChildSimple);
@@ -785,8 +658,8 @@ function isSimpleCallArgument(node, depth = 2) {
 
   if (isMemberExpression(node)) {
     return (
-      isSimpleCallArgument(getChainProp(node, "object"), depth) &&
-      isSimpleCallArgument(getChainProp(node, "property"), depth)
+      isSimpleCallArgument(node.object, depth) &&
+      isSimpleCallArgument(node.property, depth)
     );
   }
 
@@ -796,10 +669,6 @@ function isSimpleCallArgument(node, depth = 2) {
     node.type === "UpdateExpression"
   ) {
     return isSimpleCallArgument(node.argument, depth);
-  }
-
-  if (node.type === "TSNonNullExpression") {
-    return isSimpleCallArgument(node.expression, depth);
   }
 
   return false;
@@ -1083,6 +952,7 @@ function iterateCallArgumentsPath(path, iteratee) {
 function getCallArgumentSelector(node, index) {
   const selectors = [];
   if (node.type === "ChainExpression") {
+    node = node.expression;
     selectors.push("expression");
   }
 
@@ -1209,7 +1079,7 @@ function isObjectProperty(node) {
   return (
     node &&
     (node.type === "ObjectProperty" ||
-      (node.type === "Property" && !node.method && node.kind === "init"))
+      (node.type === "Property" && !isMethod(node)))
   );
 }
 
@@ -1238,7 +1108,6 @@ export {
   createTypeCheckFunction,
   getCallArguments,
   getCallArgumentSelector,
-  getChainProp,
   getComments,
   getFunctionParameters,
   getLeftSide,
@@ -1258,10 +1127,9 @@ export {
   isCallExpression,
   isCallLikeExpression,
   isExportDeclaration,
+  isFlowObjectTypePropertyAFunction,
   isFunctionCompositionArgs,
-  isFunctionNotation,
   isFunctionOrArrowExpression,
-  isGetterOrSetter,
   isIntersectionType,
   isJsxElement,
   isLineComment,
@@ -1270,24 +1138,19 @@ export {
   isLongCurriedCallExpression,
   isMemberExpression,
   isMemberish,
+  isMethod,
   isNextLineEmpty,
   isNumericLiteral,
   isObjectOrRecordExpression,
   isObjectProperty,
   isObjectType,
-  isObjectTypePropertyAFunction,
   isPrettierIgnoreComment,
   isRegExpLiteral,
   isSignedNumericLiteral,
-  isSimpleAtomicExpression,
   isSimpleCallArgument,
   isSimpleExpressionByNodeCount,
-  isSimpleMemberExpression,
-  isSimpleNumber,
-  isSimpleTemplateLiteral,
   isSimpleType,
   isStringLiteral,
-  isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
   isTypeAnnotationAFunction,

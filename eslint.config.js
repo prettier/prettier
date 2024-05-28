@@ -22,7 +22,7 @@ const compat = new FlatCompat({ baseDirectory: toPath("./") });
 
 export default [
   eslintPluginJs.configs.recommended,
-  ...compat.config(eslintPluginRegexp.configs.recommended),
+  eslintPluginRegexp.configs["flat/recommended"],
   eslintPluginUnicorn.configs["flat/recommended"],
   eslintConfigPrettier,
   ...compat.env({ es2024: true, node: true }),
@@ -122,6 +122,7 @@ export default [
 
       // Internal rules
       "prettier-internal-rules/jsx-identifier-case": "error",
+      "prettier-internal-rules/massage-ast-parameter-names": "error",
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
 
@@ -137,7 +138,6 @@ export default [
       ],
 
       // eslint-plugin-import
-      "import/extensions": ["error", "ignorePackages"],
       "import/no-extraneous-dependencies": [
         "error",
         {
@@ -148,19 +148,6 @@ export default [
             "website/**/*",
             "eslint.config.js",
           ],
-        },
-      ],
-      "import/no-anonymous-default-export": [
-        "error",
-        {
-          allowArray: true,
-          allowArrowFunction: true,
-          allowAnonymousClass: false,
-          allowAnonymousFunction: false,
-          allowCallExpression: true,
-          allowNew: true,
-          allowLiteral: true,
-          allowObject: true,
         },
       ],
 
@@ -195,6 +182,18 @@ export default [
       // Hard to fix
       "regexp/no-empty-alternative": "off",
       "regexp/no-super-linear-backtracking": "off",
+      "regexp/unicode-property": [
+        "error",
+        {
+          generalCategory: "never",
+          key: "long",
+          property: {
+            binary: "long",
+            generalCategory: "long",
+            script: "long",
+          },
+        },
+      ],
 
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
@@ -271,7 +270,7 @@ export default [
       sourceType: "script",
     },
     rules: {
-      strict: "error",
+      strict: ["error", "global"],
       "unicorn/prefer-module": "off",
       "unicorn/prefer-node-protocol": "off",
     },
@@ -288,17 +287,19 @@ export default [
       "unicorn/prefer-top-level-await": "error",
     },
   },
-  ...compat.env({ jest: true }).map((config) => ({
-    ...config,
+  {
     files: [
       "tests/config/**/*.js",
-      "tests/format/**/jsfmt.spec.js",
+      "tests/format/**/format.test.js",
       "tests/integration/**/*.js",
       "tests/unit/**/*.js",
       "tests/dts/unit/**/*.js",
       "scripts/release/__tests__/**/*.spec.js",
     ],
     plugins: { jest: eslintPluginJest },
+    languageOptions: {
+      globals: eslintPluginJest.environments.globals.globals,
+    },
     rules: {
       "@stylistic/js/quotes": [
         "error",
@@ -316,11 +317,11 @@ export default [
       ],
       "jest/prefer-to-be": "error",
     },
-  })),
+  },
   {
     files: ["tests/format/**/*.js"],
     rules: {
-      "prettier-internal-rules/no-legacy-format-test-fixtures": "error",
+      "prettier-internal-rules/no-legacy-format-test": "error",
     },
   },
   {
@@ -340,8 +341,8 @@ export default [
     },
     languageOptions: {
       globals: {
-        run_spec: "readonly",
         runCli: "readonly",
+        runFormatTest: "readonly",
       },
     },
   },

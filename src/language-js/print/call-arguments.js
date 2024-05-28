@@ -45,13 +45,23 @@ function printCallArguments(path, options, print) {
     return ["(", printDanglingComments(path, options), ")"];
   }
 
+  const lastArgIndex = args.length - 1;
+
   // useEffect(() => { ... }, [foo, bar, baz])
+  // useImperativeHandle(ref, () => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
-    return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
+    const parts = ["("];
+    iterateCallArgumentsPath(path, (path, index) => {
+      parts.push(print());
+      if (index !== lastArgIndex) {
+        parts.push(", ");
+      }
+    });
+    parts.push(")");
+    return parts;
   }
 
   let anyArgEmptyLine = false;
-  const lastArgIndex = args.length - 1;
   const printedArguments = [];
   iterateCallArgumentsPath(path, ({ node: arg }, index) => {
     let argDoc = print();
@@ -321,13 +331,40 @@ function isHopefullyShortCallArgument(node) {
   return isRegExpLiteral(node) || isSimpleCallArgument(node);
 }
 
+/**
+ * Checks if the arguments of a function are a call to a React Hook with a dependencies array.
+ */
 function isReactHookCallWithDepsArray(args) {
+  if (args.length === 2) {
+    /**
+     * useEffect(() => {
+     *   // do something
+     * }, [dep1, dep2, dep2])
+     */
+    return isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 0);
+  }
+  if (args.length === 3) {
+    /**
+     * useImperativeHandle(ref, () => {
+     *   // do something
+     * }, [dep1, dep2, dep2]);
+     */
+    return (
+      args[0].type === "Identifier" &&
+      isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 1)
+    );
+  }
+  return false;
+}
+
+function isValidHookCallbackAndDepsFormat(args, baseIndex) {
+  const maybeArrowFunction = args[baseIndex];
+  const maybeDepsArray = args[baseIndex + 1];
   return (
-    args.length === 2 &&
-    args[0].type === "ArrowFunctionExpression" &&
-    getFunctionParameters(args[0]).length === 0 &&
-    args[0].body.type === "BlockStatement" &&
-    args[1].type === "ArrayExpression" &&
+    maybeArrowFunction.type === "ArrowFunctionExpression" &&
+    getFunctionParameters(maybeArrowFunction).length === 0 &&
+    maybeArrowFunction.body.type === "BlockStatement" &&
+    maybeDepsArray.type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))
   );
 }

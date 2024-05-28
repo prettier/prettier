@@ -1,13 +1,9 @@
 import { ConfigError } from "../common/errors.js";
 
-// TODO: Improve coverage
-
 function getParserPluginByParserName(plugins, parserName) {
-  /* c8 ignore start */
   if (!parserName) {
     throw new Error("parserName is required.");
   }
-  /* c8 ignore stop */
 
   /*
   Loop from end to allow plugins override builtin plugins,
@@ -21,22 +17,18 @@ function getParserPluginByParserName(plugins, parserName) {
     return plugin;
   }
 
-  /* c8 ignore start */
   let message = `Couldn't resolve parser "${parserName}".`;
   if (process.env.PRETTIER_TARGET === "universal") {
     message += " Plugins must be explicitly added to the standalone bundle.";
   }
 
   throw new ConfigError(message);
-  /* c8 ignore stop */
 }
 
 function getPrinterPluginByAstFormat(plugins, astFormat) {
-  /* c8 ignore start */
   if (!astFormat) {
     throw new Error("astFormat is required.");
   }
-  /* c8 ignore stop */
 
   // Loop from end to consistent with parser resolve logic
   const plugin = plugins.findLast(
@@ -46,14 +38,12 @@ function getPrinterPluginByAstFormat(plugins, astFormat) {
     return plugin;
   }
 
-  /* c8 ignore start */
   let message = `Couldn't find plugin for AST format "${astFormat}".`;
   if (process.env.PRETTIER_TARGET === "universal") {
     message += " Plugins must be explicitly added to the standalone bundle.";
   }
 
   throw new ConfigError(message);
-  /* c8 ignore stop */
 }
 
 function resolveParser({ plugins, parser }) {

@@ -49,6 +49,7 @@ function handleOwnLineComment(context) {
     handleIgnoreComments,
     handleConditionalExpressionComments,
     handleLastFunctionArgComments,
+    handleLastComponentArgComments,
     handleMemberExpressionComments,
     handleIfStatementComments,
     handleWhileComments,
@@ -600,6 +601,38 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
   return false;
 }
 
+function handleLastComponentArgComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  text,
+}) {
+  // "DeclareComponent" and "ComponentTypeAnnotation" definitions
+  if (
+    precedingNode?.type === "ComponentTypeParameter" &&
+    (enclosingNode?.type === "DeclareComponent" ||
+      enclosingNode?.type === "ComponentTypeAnnotation") &&
+    followingNode?.type !== "ComponentTypeParameter"
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  // "ComponentParameter" definitions
+  if (
+    (precedingNode?.type === "ComponentParameter" ||
+      precedingNode?.type === "RestElement") &&
+    enclosingNode?.type === "ComponentDeclaration" &&
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  return false;
+}
+
 function handleLastFunctionArgComments({
   comment,
   precedingNode,
@@ -725,13 +758,7 @@ function handlePropertyComments({ comment, enclosingNode }) {
   return false;
 }
 
-function handleOnlyComments({
-  comment,
-  enclosingNode,
-  followingNode,
-  ast,
-  isLastComment,
-}) {
+function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
   // With Flow the enclosingNode is undefined so use the AST instead.
   if (ast?.body?.length === 0) {
     if (isLastComment) {
@@ -752,15 +779,6 @@ function handleOnlyComments({
     } else {
       addLeadingComment(enclosingNode, comment);
     }
-    return true;
-  }
-
-  if (
-    followingNode?.type === "Program" &&
-    followingNode.body.length === 0 &&
-    enclosingNode?.type === "ModuleExpression"
-  ) {
-    addDanglingComment(followingNode, comment);
     return true;
   }
 

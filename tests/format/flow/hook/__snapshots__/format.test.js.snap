@@ -1,0 +1,421 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declare-hook.js [babel-flow] format 1`] = `
+"Unexpected token (1:9)
+> 1 | declare hook useFoo(): void;
+    |         ^
+  2 |
+  3 | declare hook useFoo(): SomeComponent;
+  4 |
+Cause: Unexpected token (1:8)"
+`;
+
+exports[`declare-hook.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare hook useFoo(): void;
+
+declare hook useFoo(): SomeComponent;
+
+declare hook useFoo(): React.Element<typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng>;
+
+declare hook useFoo<T>(): void;
+
+declare hook useFoo<T>(): Array<Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>;
+
+declare hook useFoo<T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>(): void;
+
+declare hook useFoo(bar: string): string;
+
+declare hook useFoo(bar?: string): string;
+
+declare hook useFoo(data: string): string;
+
+declare hook useFoo(...restProps: $ReadOnly<{k: string}>): {k: string};
+
+declare hook useFoo(...$ReadOnly<{k: string}>): {k: string};
+
+declare hook useFoo(bar: string, baz: $ReadOnly<{k: string}>): void;
+
+declare hook useFoo(bar: string, baz: $ReadOnly<{k: string}>, realllllllllllllllllllyLong: string): void;
+
+// Attached comment
+declare hook useFoo(
+  /**
+   * Commet block
+   */
+  bar: string, // Trailing comment
+
+  // preceding comment
+  baz: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+): void;
+
+declare hook useFoo(
+  ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+): SomeComponent;
+
+declare hook useFoo(
+  ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+): SomeComponent;
+
+=====================================output=====================================
+declare hook useFoo(): void;
+
+declare hook useFoo(): SomeComponent;
+
+declare hook useFoo(): React.Element<
+  typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng,
+>;
+
+declare hook useFoo<T>(): void;
+
+declare hook useFoo<
+  T,
+>(): Array<Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>;
+
+declare hook useFoo<
+  T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo,
+>(): void;
+
+declare hook useFoo(bar: string): string;
+
+declare hook useFoo(bar?: string): string;
+
+declare hook useFoo(data: string): string;
+
+declare hook useFoo(...restProps: $ReadOnly<{ k: string }>): { k: string };
+
+declare hook useFoo(...$ReadOnly<{ k: string }>): { k: string };
+
+declare hook useFoo(bar: string, baz: $ReadOnly<{ k: string }>): void;
+
+declare hook useFoo(
+  bar: string,
+  baz: $ReadOnly<{ k: string }>,
+  realllllllllllllllllllyLong: string,
+): void;
+
+// Attached comment
+declare hook useFoo(
+  /**
+   * Commet block
+   */
+  bar: string, // Trailing comment
+
+  // preceding comment
+  baz: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>,
+): // Trailing comment
+void;
+
+declare hook useFoo(
+  ...props: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>
+): // Trailing comment
+SomeComponent;
+
+declare hook useFoo(
+  ...props: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>
+): // Trailing comment
+SomeComponent;
+
+================================================================================
+`;
+
+exports[`hook-declaration.js [babel-flow] format 1`] = `
+"Unexpected token, expected "{" (5:8)
+  3 | export default hook useFoo2() {}
+  4 |
+> 5 | export hook useFoo3() {}
+    |        ^
+  6 |
+  7 | hook useFoo4(): string {}
+  8 |
+Cause: Unexpected token, expected "{" (5:7)"
+`;
+
+exports[`hook-declaration.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+hook useFoo1() {}
+
+export default hook useFoo2() {}
+
+export hook useFoo3() {}
+
+hook useFoo4(): string {}
+
+hook useFoo5<T>() {}
+
+hook useFoo6(...foo) {}
+
+hook useFoo7(...rest?: Foo) {}
+
+hook useFoo8(foo, ...bar) {}
+
+hook useFoo9(foo: Foo, ...bar: Bar) {}
+
+hook useFoo10(foo: () => void,): number { return; }
+
+hook useFoo11(o: { f(string): void }) {}
+
+hook useFoo12(foo, ...bar): React.Element<typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng> {}
+
+hook useFoo13(foo: Array<Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>, ...bar): void {}
+
+hook useFoo14<
+  T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo,
+>(): any {};
+
+=====================================output=====================================
+hook useFoo1() {}
+
+export default hook useFoo2() {}
+
+export hook useFoo3() {}
+
+hook useFoo4(): string {}
+
+hook useFoo5<T>() {}
+
+hook useFoo6(...foo) {}
+
+hook useFoo7(...rest?: Foo) {}
+
+hook useFoo8(foo, ...bar) {}
+
+hook useFoo9(foo: Foo, ...bar: Bar) {}
+
+hook useFoo10(foo: () => void): number {
+  return;
+}
+
+hook useFoo11(o: { f(string): void }) {}
+
+hook useFoo12(
+  foo,
+  ...bar
+): React.Element<typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng> {}
+
+hook useFoo13(
+  foo: Array<Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>,
+  ...bar
+): void {}
+
+hook useFoo14<
+  T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo,
+>(): any {}
+
+================================================================================
+`;
+
+exports[`hook-type-annotation.js [babel-flow] format 1`] = `
+"Unexpected token (1:25)
+> 1 | type T = hook () => void;
+    |                         ^
+  2 |
+  3 | type T = hook (bar) => SomeComponent;
+  4 |
+Cause: Unexpected token (1:24)"
+`;
+
+exports[`hook-type-annotation.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type T = hook () => void;
+
+type T = hook (bar) => SomeComponent;
+
+type T = hook () => React.Element<typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng>;
+
+type T = hook <T>() => void;
+
+type T = hook <T>() => Array<Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>;
+
+type T = hook <T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>() => void;
+
+type T = hook (bar: string) => string;
+
+type T = hook (bar?: string) => string;
+
+type T = hook (data: string) => string;
+
+type T = hook (...restProps: $ReadOnly<{k: string}>) => {k: string};
+
+type T = hook (...$ReadOnly<{k: string}>) => {k: string};
+
+type T = hook (bar: string, baz: $ReadOnly<{k: string}>) => void;
+
+type T = hook (bar: string, baz: $ReadOnly<{k: string}>, realllllllllllllllllllyLong: string) => void;
+
+type Banana = {
+  useFoo: hook (string) => boolean,
+};
+
+interface F2 { m: hook (string) => number }
+
+type f3 = hook (...arg) => void;
+
+type f4 = hook (/* comment */ arg) => void;
+
+type f5 = hook (arg /* comment */) => void;
+
+type f6 = hook (?arg) => void;
+
+class Y {
+  constructor(
+    ideConnectionFactory: hook (child_process$ChildProcess) => FlowIDEConnection =
+        defaultIDEConnectionFactory,
+  ) {
+  }
+}
+
+interface F {
+  ideConnectionFactoryLongLongLong: hook (child_process$ChildProcess) => FlowIDEConnection
+}
+
+type ExtractType = hook <A>(B<C>) => D
+
+// Attached comment
+type T = hook (
+  /**
+   * Commet block
+   */
+  bar: string, // Trailing comment
+
+  // preceding comment
+  baz: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+) => void;
+
+type T = hook (
+  ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+) => SomeComponent;
+
+type T = hook (
+  ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+) => SomeComponent;
+
+=====================================output=====================================
+type T = hook () => void;
+
+type T = hook (bar) => SomeComponent;
+
+type T = hook () => React.Element<
+  typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng,
+>;
+
+type T = hook <T>() => void;
+
+type T = hook <
+  T,
+>() => Array<Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>;
+
+type T = hook <
+  T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo,
+>() => void;
+
+type T = hook (bar: string) => string;
+
+type T = hook (bar?: string) => string;
+
+type T = hook (data: string) => string;
+
+type T = hook (...restProps: $ReadOnly<{ k: string }>) => { k: string };
+
+type T = hook (...$ReadOnly<{ k: string }>) => { k: string };
+
+type T = hook (bar: string, baz: $ReadOnly<{ k: string }>) => void;
+
+type T = hook (
+  bar: string,
+  baz: $ReadOnly<{ k: string }>,
+  realllllllllllllllllllyLong: string,
+) => void;
+
+type Banana = {
+  useFoo: hook (string) => boolean,
+};
+
+interface F2 {
+  m: hook (string) => number;
+}
+
+type f3 = hook (...arg) => void;
+
+type f4 = hook (/* comment */ arg) => void;
+
+type f5 = hook (arg /* comment */) => void;
+
+type f6 = hook (?arg) => void;
+
+class Y {
+  constructor(
+    ideConnectionFactory: hook (
+      child_process$ChildProcess,
+    ) => FlowIDEConnection = defaultIDEConnectionFactory,
+  ) {}
+}
+
+interface F {
+  ideConnectionFactoryLongLongLong: hook (
+    child_process$ChildProcess,
+  ) => FlowIDEConnection;
+}
+
+type ExtractType = hook <A>(B<C>) => D;
+
+// Attached comment
+type T = hook (
+  /**
+   * Commet block
+   */
+  bar: string, // Trailing comment
+
+  // preceding comment
+  baz: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>,
+) => // Trailing comment
+void;
+
+type T = hook (
+  ...props: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>
+) => // Trailing comment
+SomeComponent;
+
+type T = hook (
+  ...props: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>
+) => // Trailing comment
+SomeComponent;
+
+================================================================================
+`;
