@@ -1,5 +1,5 @@
 ---
-author: "Sosuke Suzuki"
+author: "Sosuke Suzuki (@sosukesuzuki)"
 authorURL: "https://github.com/sosukesuzuki"
 title: "Prettier 3.3: New Flow features and a lot of bug fixes"
 ---
