@@ -163,7 +163,7 @@ For example, you can do the following to have Prettier run before each commit:
    ```bash
    bun add --dev husky lint-staged
    bunx husky init
-   bun --eval "fs.writeFileSync('.husky/pre-commit','pnpm exec lint-staged\n')"
+   bun --eval "fs.writeFileSync('.husky/pre-commit','bunx lint-staged\n')"
    ```
 
    <!--END_DOCUSAURUS_CODE_TABS-->
