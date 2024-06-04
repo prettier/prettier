@@ -216,7 +216,6 @@ import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {w
 import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
 import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
 
-
 =====================================output=====================================
 import a10 from "./aaaaaaaaaa.json" with { type: "json" };
 import a20 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
