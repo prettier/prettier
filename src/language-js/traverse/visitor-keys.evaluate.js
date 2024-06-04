@@ -72,6 +72,7 @@ const excludeKeys = {
   // TODO: Use the new AST properties instead
   TSMappedType: ["key", "constraint"],
   // `body` added in `@typescript-eslint/typescript-estree` v8
+  // https://github.com/typescript-eslint/typescript-eslint/pull/8920
   // TODO: Use the new AST properties instead
   TSEnumDeclaration: ["body"],
 };
