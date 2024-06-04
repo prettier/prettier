@@ -12,7 +12,7 @@ const ignoredProperties = new Set([
 ]);
 
 function clean(original, cloned, parent) {
-  if (isFrontMatter(original) && original.lang === "yaml") {
+  if (isFrontMatter(original) && original.language === "yaml") {
     delete cloned.value;
   }
 

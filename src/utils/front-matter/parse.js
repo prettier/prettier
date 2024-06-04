@@ -1,7 +1,7 @@
 const frontMatterRegex = new RegExp(
   String.raw`^(?<startDelimiter>-{3}|\+{3})` +
     // trailing spaces after delimiters are allowed
-    String.raw`(?<language>[^\n]*)` +
+    String.raw`(?<explicitLanguage>[^\n]*)` +
     String.raw`\n(?:|(?<value>.*?)\n)` +
     // In some markdown processors such as pandoc,
     // "..." can be used as the end delimiter for YAML front-matter.
@@ -17,22 +17,30 @@ function parse(text) {
     return { content: text };
   }
 
-  const { startDelimiter, language, value = "", endDelimiter } = match.groups;
+  let {
+    startDelimiter,
+    explicitLanguage,
+    value = "",
+    endDelimiter,
+  } = match.groups;
 
-  let lang = language.trim() || "yaml";
+  explicitLanguage = explicitLanguage.trim();
+
+  let language = explicitLanguage || "yaml";
   if (startDelimiter === "+++") {
-    lang = "toml";
+    language = "toml";
   }
 
   // Only allow yaml to parse with a different end delimiter
-  if (lang !== "yaml" && startDelimiter !== endDelimiter) {
+  if (language !== "yaml" && startDelimiter !== endDelimiter) {
     return { content: text };
   }
 
   const [raw] = match;
   const frontMatter = {
     type: "front-matter",
-    lang,
+    language,
+    explicitLanguage: explicitLanguage || undefined,
     value,
     startDelimiter,
     endDelimiter,
