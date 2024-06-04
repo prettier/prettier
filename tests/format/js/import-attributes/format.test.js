@@ -8,7 +8,6 @@ const errors = {
     "without-from.js",
     "non-type.js",
     "keyword-detect.js",
-    "quoted-keys.js",
   ],
   espree: [
     "dynamic-import.js",
@@ -19,7 +18,6 @@ const errors = {
     "without-from.js",
     "non-type.js",
     "keyword-detect.js",
-    "quoted-keys.js",
   ],
   meriyah: [
     "dynamic-import.js",
@@ -30,15 +28,6 @@ const errors = {
     "without-from.js",
     "non-type.js",
     "keyword-detect.js",
-    "quoted-keys.js",
   ],
 };
 runFormatTest(import.meta, ["babel", "typescript"], { errors });
-runFormatTest(import.meta, ["babel", "typescript"], {
-  quoteProps: "consistent",
-  errors,
-});
-runFormatTest(import.meta, ["babel", "typescript"], {
-  quoteProps: "preserve",
-  errors,
-});
