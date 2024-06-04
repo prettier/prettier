@@ -66,6 +66,11 @@ const excludeKeys = {
   ExportAllDeclaration: ["assertions"],
   ExportNamedDeclaration: ["assertions"],
   ImportDeclaration: ["assertions"],
+
+  // `key` and `constraint` added in `@typescript-eslint/typescript-estree` v8
+  // https://github.com/typescript-eslint/typescript-eslint/pull/7065
+  // TODO: Use the new AST properties instead
+  TSMappedType: ["key", "constraint"],
 };
 
 const visitorKeys = Object.fromEntries(
