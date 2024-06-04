@@ -318,16 +318,16 @@ function hasComplexTypeAnnotation(node) {
   if (!typeAnnotation || !typeAnnotation.typeAnnotation) {
     return false;
   }
-  const typeArguments = getTypeArgumentsFromTypeReference(
+  const typeParams = getTypeParametersFromTypeReference(
     typeAnnotation.typeAnnotation,
   );
   return (
-    isNonEmptyArray(typeArguments) &&
-    typeArguments.length > 1 &&
-    typeArguments.some(
-      (typeArgument) =>
-        isNonEmptyArray(getTypeArgumentsFromTypeReference(typeArgument)) ||
-        typeArgument.type === "TSConditionalType",
+    isNonEmptyArray(typeParams) &&
+    typeParams.length > 1 &&
+    typeParams.some(
+      (param) =>
+        isNonEmptyArray(getTypeParametersFromTypeReference(param)) ||
+        param.type === "TSConditionalType",
     )
   );
 }
@@ -343,7 +343,7 @@ const isTypeReference = createTypeCheckFunction([
   "TSTypeReference",
   "GenericTypeAnnotation",
 ]);
-function getTypeArgumentsFromTypeReference(node) {
+function getTypeParametersFromTypeReference(node) {
   if (isTypeReference(node)) {
     return (node.typeArguments ?? node.typeParameters)?.params;
   }
