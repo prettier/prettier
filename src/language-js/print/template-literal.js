@@ -250,7 +250,7 @@ function escapeTemplateCharacters(doc, raw) {
 }
 
 function uncookTemplateElementValue(cookedValue) {
-  return cookedValue.replaceAll(/([\\`]|\${)/g, "\\$1");
+  return cookedValue.replaceAll(/([\\`]|\${)/g, String.raw`\$1`);
 }
 
 function isJestEachTemplateLiteral({ node, parent }) {

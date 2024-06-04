@@ -62,17 +62,15 @@ const options = {
     choices: [
       {
         value: "lf",
-        description:
-          "Line Feed only (\\n), common on Linux and macOS as well as inside git repos",
+        description: String.raw`Line Feed only (\n), common on Linux and macOS as well as inside git repos`,
       },
       {
         value: "crlf",
-        description:
-          "Carriage Return + Line Feed characters (\\r\\n), common on Windows",
+        description: String.raw`Carriage Return + Line Feed characters (\r\n), common on Windows`,
       },
       {
         value: "cr",
-        description: "Carriage Return character only (\\r), used very rarely",
+        description: String.raw`Carriage Return character only (\r), used very rarely`,
       },
       {
         value: "auto",

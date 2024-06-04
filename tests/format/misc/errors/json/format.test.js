@@ -7,7 +7,7 @@ runFormatTest(
       '{"foo": ~1}',
       '{"foo": false || "bar"}',
       '{"foo": () => {}}',
-      "packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json",
+      String.raw`packages\the-hub\cypress\fixtures\gridConfiguration.json`,
       "1+2",
       "{Infinity}",
       "{[key]: 1}",

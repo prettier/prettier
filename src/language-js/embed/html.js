@@ -32,7 +32,10 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
 
   const expressionDocs = printTemplateExpressions(path, print);
 
-  const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
+  const placeholderRegex = new RegExp(
+    composePlaceholder(String.raw`(\d+)`),
+    "g",
+  );
   let topLevelCount = 0;
   const doc = await textToDoc(text, {
     parser,
@@ -56,7 +59,10 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
         if (component) {
           component = uncookTemplateElementValue(component);
           if (options.__embeddedInHtml) {
-            component = component.replaceAll(/<\/(?=script\b)/gi, "<\\/");
+            component = component.replaceAll(
+              /<\/(?=script\b)/gi,
+              String.raw`<\/`,
+            );
           }
           parts.push(component);
         }

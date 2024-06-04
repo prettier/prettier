@@ -21,12 +21,12 @@ function* getModules(text) {
     if (/\S/.test(code)) {
       const esmRegExp = new RegExp(
         [
-          "\\s*var (?<initFunctionName>\\w+) = __esm\\({",
+          String.raw`\s*var (?<initFunctionName>\w+) = __esm\({`,
           `\\s*"${escapeStringRegexp(path)}"\\(\\) {`,
           ".*",
-          "\\s*}",
-          "\\s*}\\);",
-        ].join("\\n"),
+          String.raw`\s*}`,
+          String.raw`\s*}\);`,
+        ].join(String.raw`\n`),
         "s",
       );
       const match = code.match(esmRegExp);
@@ -90,11 +90,11 @@ class TypeScriptModuleSource {
     const regexp = new RegExp(
       [
         "(?<=\n)",
-        "(?<indentString>\\s*)",
+        String.raw`(?<indentString>\s*)`,
         escapeStringRegexp(start),
         ".*?",
         "(?<=\n)",
-        "\\k<indentString>",
+        String.raw`\k<indentString>`,
         escapeStringRegexp(end),
         "(?=\n)",
       ].join(""),

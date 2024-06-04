@@ -1,13 +1,13 @@
 const frontMatterRegex = new RegExp(
-  "^(?<startDelimiter>-{3}|\\+{3})" +
+  String.raw`^(?<startDelimiter>-{3}|\+{3})` +
     // trailing spaces after delimiters are allowed
-    "(?<language>[^\\n]*)" +
-    "\\n(?:|(?<value>.*?)\\n)" +
+    String.raw`(?<language>[^\n]*)` +
+    String.raw`\n(?:|(?<value>.*?)\n)` +
     // In some markdown processors such as pandoc,
     // "..." can be used as the end delimiter for YAML front-matter.
     // Adding `\.{3}` make the regex matches `+++\n...`, but we'll exclude it later
-    "(?<endDelimiter>\\k<startDelimiter>|\\.{3})" +
-    "[^\\S\\n]*(?:\\n|$)",
+    String.raw`(?<endDelimiter>\k<startDelimiter>|\.{3})` +
+    String.raw`[^\S\n]*(?:\n|$)`,
   "s",
 );
 

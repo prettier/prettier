@@ -91,7 +91,9 @@ function genericPrint(path, options, print) {
 
     case "StringValue":
       if (node.block) {
-        const lines = node.value.replaceAll('"""', '\\"""').split("\n");
+        const lines = node.value
+          .replaceAll('"""', String.raw`\"""`)
+          .split("\n");
         if (lines.length === 1) {
           lines[0] = lines[0].trim();
         }
@@ -104,7 +106,9 @@ function genericPrint(path, options, print) {
       }
       return [
         '"',
-        node.value.replaceAll(/["\\]/g, "\\$&").replaceAll("\n", "\\n"),
+        node.value
+          .replaceAll(/["\\]/g, String.raw`\$&`)
+          .replaceAll("\n", String.raw`\n`),
         '"',
       ];
 
