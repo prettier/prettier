@@ -20,40 +20,40 @@ if (semver.parse(previousVersion) === null) {
 }
 
 for (let step of [
-  {
-    name: "Validating new version",
-    process: steps.validateNewVersion,
-  },
-  {
-    name: "Checking git status",
-    process: steps.checkGitStatus,
-    skip: params.dry,
-  },
-  {
-    name: "Installing NPM dependencies",
-    process: steps.installDependencies,
-    skip: params.dry || params.skipDependenciesInstall || !params.manual,
-  },
-  {
-    name: "Linting files",
-    process: steps.lintFiles,
-    skip: params.dry,
-  },
-  {
-    name: "Bumping version",
-    process: steps.updateVersion,
-    skip: params.dry,
-  },
-  steps.generateBundles,
-  steps.updateChangelog,
-  {
-    name: "Committing and pushing to remote",
-    process: steps.pushToGit,
-    skip: params.dry,
-  },
-  params.manual ? steps.publishToNpm : steps.waitForBotRelease,
-  steps.showInstructionsAfterNpmPublish,
-  steps.updateDependentsCount,
+  // {
+  //   name: "Validating new version",
+  //   process: steps.validateNewVersion,
+  // },
+  // {
+  //   name: "Checking git status",
+  //   process: steps.checkGitStatus,
+  //   skip: params.dry,
+  // },
+  // {
+  //   name: "Installing NPM dependencies",
+  //   process: steps.installDependencies,
+  //   skip: params.dry || params.skipDependenciesInstall || !params.manual,
+  // },
+  // {
+  //   name: "Linting files",
+  //   process: steps.lintFiles,
+  //   skip: params.dry,
+  // },
+  // {
+  //   name: "Bumping version",
+  //   process: steps.updateVersion,
+  //   skip: params.dry,
+  // },
+  // steps.generateBundles,
+  // steps.updateChangelog,
+  // {
+  //   name: "Committing and pushing to remote",
+  //   process: steps.pushToGit,
+  //   skip: params.dry,
+  // },
+  // params.manual ? steps.publishToNpm : steps.waitForBotRelease,
+  // steps.showInstructionsAfterNpmPublish,
+  // steps.updateDependentsCount,
   steps.bumpPrettier,
   {
     name: "Cleaning changelog",
