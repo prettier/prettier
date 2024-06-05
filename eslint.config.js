@@ -10,7 +10,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginImport from "eslint-plugin-import";
 import eslintPluginJest from "eslint-plugin-jest";
 import eslintPluginN from "eslint-plugin-n";
-import eslintPluginReactConfigRecommended from "eslint-plugin-react/configs/all.js";
+import eslintPluginReactConfigRecommended from "eslint-plugin-react/configs/recommended.js";
 import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
