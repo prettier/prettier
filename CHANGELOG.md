@@ -1,3 +1,85 @@
+# 3.3.1
+
+[diff](https://github.com/prettier/prettier/compare/3.3.0...3.3.1)
+
+#### Preserve empty lines in front matter ([#16347](https://github.com/prettier/prettier/pull/16347) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+---
+foo:
+  - bar1
+
+  - bar2
+
+  - bar3
+---
+Markdown
+
+<!-- Prettier 3.3.0 -->
+
+---
+foo:
+  - bar1
+  - bar2
+  - bar3
+---
+
+Markdown
+
+
+<!-- Prettier 3.3.1 -->
+---
+foo:
+  - bar1
+
+  - bar2
+
+  - bar3
+---
+
+Markdown
+```
+
+#### Preserve explicit language in front matter ([#16348](https://github.com/prettier/prettier/pull/16348) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+---yaml
+title: Hello
+slug: home
+---
+
+<!-- Prettier 3.3.0 -->
+---
+title: Hello
+slug: home
+---
+
+<!-- Prettier 3.3.1 -->
+---yaml
+title: Hello
+slug: home
+---
+```
+
+#### Avoid line breaks in import attributes ([#16349](https://github.com/prettier/prettier/pull/16349) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type: "json" };
+
+// Prettier 3.3.0
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type:
+  "json" };
+
+// Prettier 3.3.1
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type: "json" };
+```
+
 # 3.3.0
 
 [diff](https://github.com/prettier/prettier/compare/3.2.5...3.3.0)
