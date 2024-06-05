@@ -8,6 +8,7 @@ const errors = {
     "without-from.js",
     "non-type.js",
     "keyword-detect.js",
+    "long-sources.js",
   ],
   espree: [
     "dynamic-import.js",
@@ -18,6 +19,7 @@ const errors = {
     "without-from.js",
     "non-type.js",
     "keyword-detect.js",
+    "long-sources.js",
   ],
   meriyah: [
     "dynamic-import.js",
@@ -28,6 +30,7 @@ const errors = {
     "without-from.js",
     "non-type.js",
     "keyword-detect.js",
+    "long-sources.js",
   ],
 };
 runFormatTest(import.meta, ["babel", "typescript"], { errors });
