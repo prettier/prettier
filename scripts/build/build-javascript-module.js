@@ -1,4 +1,3 @@
-import { createRequire } from "node:module";
 import path from "node:path";
 
 import browserslistToEsbuild from "browserslist-to-esbuild";
