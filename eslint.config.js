@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import url from "node:url";
 
+import { fixupPluginRules } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
 import eslintPluginJs from "@eslint/js";
 import eslintPluginStylisticJs from "@stylistic/eslint-plugin-js";
@@ -10,6 +11,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginImport from "eslint-plugin-import";
 import eslintPluginJest from "eslint-plugin-jest";
 import eslintPluginN from "eslint-plugin-n";
+import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginReactConfigRecommended from "eslint-plugin-react/configs/recommended.js";
 import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
@@ -19,6 +21,8 @@ import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-pre
 
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
 const compat = new FlatCompat({ baseDirectory: toPath("./") });
+eslintPluginReactConfigRecommended.plugins.react =
+  fixupPluginRules(eslintPluginReact);
 
 export default [
   eslintPluginJs.configs.recommended,
@@ -420,6 +424,7 @@ export default [
   ...compat
     .env({ browser: true, worker: true })
     .map((config) => ({ ...config, files: ["website/**/*"] })),
+  // Use `Object.assign` since it contains non-enumerable properties
   Object.assign(eslintPluginReactConfigRecommended, {
     files: ["website/**/*"],
     settings: {

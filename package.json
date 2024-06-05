@@ -107,6 +107,7 @@
   },
   "devDependencies": {
     "@babel/generator": "7.24.6",
+    "@eslint/compat": "1.0.3",
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.4.0",
     "@glimmer/reference": "0.92.0",
