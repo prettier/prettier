@@ -10,7 +10,6 @@ import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginImport from "eslint-plugin-import";
 import eslintPluginJest from "eslint-plugin-jest";
 import eslintPluginN from "eslint-plugin-n";
-import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginReactConfigRecommended from "eslint-plugin-react/configs/recommended.js";
 import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
@@ -20,8 +19,9 @@ import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-pre
 
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
 const compat = new FlatCompat({ baseDirectory: toPath("./") });
-eslintPluginReactConfigRecommended.plugins.react =
-  fixupPluginRules(eslintPluginReact);
+eslintPluginReactConfigRecommended.plugins.react = fixupPluginRules(
+  eslintPluginReactConfigRecommended.plugins.react,
+);
 
 const ignores = `
 .tmp
