@@ -52,7 +52,7 @@ const siteConfig = {
   },
   highlight: {
     theme: "default",
-    // This is a docusaurus dependency
+    // eslint-disable-next-line import/no-extraneous-dependencies -- This is a docusaurus dependency
     version: require("highlight.js/package.json").version,
   },
   usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html", "css"],
