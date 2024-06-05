@@ -18,7 +18,7 @@ async function shouldAddToGitBlameIgnoreRevsFile() {
 }
 
 async function commit({ version, repo }) {
-  const filesChanged = shouldAddToGitBlameIgnoreRevsFile();
+  const filesChanged = await shouldAddToGitBlameIgnoreRevsFile();
 
   await runGit(["commit", "-am", `Bump Prettier dependency to ${version}`]);
 
