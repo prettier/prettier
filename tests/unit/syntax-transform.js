@@ -1,4 +1,3 @@
-/* eslint-disable quotes -- `toMatchInlineSnapshot` uses template literal */
 import path from "node:path";
 import url from "node:url";
 
