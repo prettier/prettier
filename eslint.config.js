@@ -1,4 +1,3 @@
-import fs from "node:fs/promises";
 import url from "node:url";
 
 import { fixupPluginRules } from "@eslint/compat";
@@ -23,6 +22,31 @@ const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
 const compat = new FlatCompat({ baseDirectory: toPath("./") });
 eslintPluginReactConfigRecommended.plugins.react =
   fixupPluginRules(eslintPluginReact);
+
+const ignores = `
+.tmp
+# Ignore directories and files in 'tests/format'
+tests/format/**/*
+# Unignore directories and 'jsfmt.spec.js', 'format.test.js' file
+!tests/format/**/
+!tests/format/**/format.test.js
+# TODO: Remove this in 2025
+!tests/format/**/jsfmt.spec.js
+tests/integration/cli/
+test*.*
+scripts/release/node_modules
+coverage/
+dist*/
+**/node_modules/**
+website/build/
+website/static/playground.js
+website/static/lib/
+scripts/benchmark/*/
+**/.yarn/**
+**/.pnp.*
+`
+  .split("\n")
+  .filter((pattern) => pattern && !pattern.startsWith("#"));
 
 export default [
   eslintPluginJs.configs.recommended,
@@ -259,9 +283,7 @@ export default [
     },
   },
   {
-    ignores: (await fs.readFile("./.eslintignore", "utf8"))
-      .split("\n")
-      .filter((pattern) => pattern && !pattern.startsWith("#")),
+    ignores,
   },
   // CommonJS modules
   {
