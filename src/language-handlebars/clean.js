@@ -28,9 +28,8 @@ function clean(original, cloned /*, parent*/) {
     delete cloned.params;
   }
 
-  // `class` is reformatted
-  if (original.type === "AttrNode" && original.name.toLowerCase() === "class") {
-    delete cloned.value;
+  if (original.type === "PathExpression") {
+    cloned.head = original.head.original;
   }
 }
 
