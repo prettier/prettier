@@ -797,9 +797,8 @@ const isPathExpressionPartNeedBrackets = (part, index) => {
   );
 };
 function printPathExpression(node) {
+  // check if node is a legacy path expression and leave it alone
   if (node.tail.length === 0 && node.original.includes("/")) {
-    // check if node has data, or
-    // check if node is a legacy path expression (and leave it alone)
     return node.original;
   }
 
