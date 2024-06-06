@@ -17,11 +17,11 @@ Cause: Unexpected token *"
 `;
 
 exports[`import-defer.js [meriyah] format 1`] = `
-"Import source must be string (1:14)
+"Unexpected token: '*' (1:14)
 > 1 | import defer * as ns from "x";
     |              ^
   2 |
-Cause: [1:14]: Import source must be string"
+Cause: [1:14]: Unexpected token: '*'"
 `;
 
 exports[`import-defer.js format 1`] = `
@@ -55,11 +55,11 @@ Cause: Unexpected token *"
 `;
 
 exports[`import-defer-attributes-declaration.js [meriyah] format 1`] = `
-"Import source must be string (1:14)
+"Unexpected token: '*' (1:14)
 > 1 | import defer * as ns from "x" with { attr: "val" };
     |              ^
   2 |
-Cause: [1:14]: Import source must be string"
+Cause: [1:14]: Unexpected token: '*'"
 `;
 
 exports[`import-defer-attributes-declaration.js format 1`] = `
@@ -109,11 +109,11 @@ Cause: Unexpected token x"
 `;
 
 exports[`no-default.js [meriyah] format 1`] = `
-"Import source must be string (1:14)
+"Unexpected token: 'identifier' (1:14)
 > 1 | import defer x from "x";
     |              ^
   2 |
-Cause: [1:14]: Import source must be string"
+Cause: [1:14]: Unexpected token: 'identifier'"
 `;
 
 exports[`no-named.js [__babel_estree] format 1`] = `
@@ -149,9 +149,9 @@ Cause: Unexpected token {"
 `;
 
 exports[`no-named.js [meriyah] format 1`] = `
-"Import source must be string (1:14)
+"Unexpected token: '{' (1:14)
 > 1 | import defer { x } from "x";
     |              ^
   2 |
-Cause: [1:14]: Import source must be string"
+Cause: [1:14]: Unexpected token: '{'"
 `;

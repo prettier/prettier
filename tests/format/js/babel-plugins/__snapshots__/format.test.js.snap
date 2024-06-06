@@ -678,11 +678,11 @@ Cause: Unexpected token *"
 `;
 
 exports[`deferred-import-evaluation.js [meriyah] format 1`] = `
-"Import source must be string (1:14)
+"Unexpected token: '*' (1:14)
 > 1 | import defer * as ns from "x";
     |              ^
   2 |
-Cause: [1:14]: Import source must be string"
+Cause: [1:14]: Unexpected token: '*'"
 `;
 
 exports[`deferred-import-evaluation.js format 1`] = `
@@ -1457,11 +1457,11 @@ Cause: Unexpected token foo"
 `;
 
 exports[`import-reflection.js [meriyah] format 1`] = `
-"Import source must be string (1:17)
+"Unexpected token: 'identifier' (1:17)
 > 1 | import module foo from "./module.wasm";
     |                 ^
   2 |
-Cause: [1:17]: Import source must be string"
+Cause: [1:17]: Unexpected token: 'identifier'"
 `;
 
 exports[`import-reflection.js format 1`] = `
@@ -2630,12 +2630,12 @@ Cause: Unexpected token fooSource"
 `;
 
 exports[`source-phase-imports.js [meriyah] format 1`] = `
-"Import source must be string (1:23)
+"Unexpected token: 'identifier' (1:23)
 > 1 | import source fooSource from "foo";
     |                       ^
   2 | import.source("x");
   3 |
-Cause: [1:23]: Import source must be string"
+Cause: [1:23]: Unexpected token: 'identifier'"
 `;
 
 exports[`source-phase-imports.js format 1`] = `
