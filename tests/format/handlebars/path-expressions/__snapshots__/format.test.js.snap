@@ -42,6 +42,7 @@ printWidth: 80
   {{array.2.[@#].[1]}}
   {{array.2.[a b]}}
   {{this.test}}
+  {{@x.y.z}}
   {{#if @foo}}
   {{/if}}
   <!-- legacy path format, which glimmer does not parse - we don't want to wrap with brackets -->
@@ -54,6 +55,7 @@ printWidth: 80
   {{array.[2].[@#].[1]}}
   {{array.[2].[a b]}}
   {{this.test}}
+  {{@x.y.z}}
   {{#if @foo}}{{/if}}
   <!-- legacy path format, which glimmer does not parse - we don't want to wrap with brackets -->
   {{foo/bar/baz ab=cd}}
