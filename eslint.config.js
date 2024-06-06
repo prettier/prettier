@@ -207,8 +207,6 @@ export default [
       ],
       // Conflicting with `unicorn/better-regex`
       "regexp/strict": "off",
-      // Hard to fix
-      "regexp/no-empty-alternative": "off",
       "regexp/no-super-linear-backtracking": "off",
       "regexp/unicode-property": [
         "error",

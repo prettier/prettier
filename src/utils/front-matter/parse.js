@@ -1,51 +1,62 @@
-const frontMatterRegex = new RegExp(
-  String.raw`^(?<startDelimiter>-{3}|\+{3})` +
-    // trailing spaces after delimiters are allowed
-    String.raw`(?<explicitLanguage>[^\n]*)` +
-    String.raw`\n(?:|(?<value>.*?)\n)` +
+const DELIMITER_LENGTH = 3;
+
+function getFrontMatter(text) {
+  const startDelimiter = text.slice(0, DELIMITER_LENGTH);
+
+  if (startDelimiter !== "---" && startDelimiter !== "+++") {
+    return;
+  }
+
+  const firstLineBreakIndex = text.indexOf("\n", DELIMITER_LENGTH);
+  if (firstLineBreakIndex === -1) {
+    return;
+  }
+
+  const explicitLanguage = text
+    .slice(DELIMITER_LENGTH, firstLineBreakIndex)
+    .trim();
+
+  let endDelimiterIndex = text.indexOf(
+    `\n${startDelimiter}\n`,
+    firstLineBreakIndex,
+  );
+
+  if (endDelimiterIndex === -1 && startDelimiter === "---") {
     // In some markdown processors such as pandoc,
     // "..." can be used as the end delimiter for YAML front-matter.
-    // Adding `\.{3}` make the regex matches `+++\n...`, but we'll exclude it later
-    String.raw`(?<endDelimiter>\k<startDelimiter>|\.{3})` +
-    String.raw`[^\S\n]*(?:\n|$)`,
-  "s",
-);
-
-function parse(text) {
-  const match = text.match(frontMatterRegex);
-  if (!match) {
-    return { content: text };
+    endDelimiterIndex = text.indexOf("\n...\n", firstLineBreakIndex);
   }
 
-  let {
-    startDelimiter,
-    explicitLanguage,
-    value = "",
-    endDelimiter,
-  } = match.groups;
-
-  explicitLanguage = explicitLanguage.trim();
-
-  let language = explicitLanguage || "yaml";
-  if (startDelimiter === "+++") {
-    language = "toml";
+  if (endDelimiterIndex === -1) {
+    return;
   }
 
-  // Only allow yaml to parse with a different end delimiter
-  if (language !== "yaml" && startDelimiter !== endDelimiter) {
-    return { content: text };
+  let language = explicitLanguage;
+  if (!language) {
+    language = startDelimiter === "+++" ? "toml" : "yaml";
   }
 
-  const [raw] = match;
-  const frontMatter = {
+  const raw = text.slice(0, endDelimiterIndex + 1 + DELIMITER_LENGTH);
+
+  return {
     type: "front-matter",
     language,
-    explicitLanguage: explicitLanguage || undefined,
-    value,
+    explicitLanguage,
+    value: text.slice(firstLineBreakIndex + 1, endDelimiterIndex),
     startDelimiter,
-    endDelimiter,
-    raw: raw.replace(/\n$/, ""),
+    endDelimiter: raw.slice(-DELIMITER_LENGTH),
+    raw,
   };
+}
+
+function parse(text) {
+  const frontMatter = getFrontMatter(text);
+
+  if (!frontMatter) {
+    return { content: text };
+  }
+
+  const { raw } = frontMatter;
 
   return {
     frontMatter,
