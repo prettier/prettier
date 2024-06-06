@@ -793,7 +793,7 @@ const isPathExpressionPartNeedBrackets = (part, index) =>
   );
 function printPathExpression(node, print) {
   if (node.head.type === "AtHead") {
-    return print("head");
+    return print(node.tail);
   }
 
   if (node.tail.length === 0 && node.original.includes("/")) {
