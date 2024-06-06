@@ -31,13 +31,9 @@ const parseOptions = {
   // Enable lexical binding and scope tracking
   lexical: false,
   // Adds a source attribute in every node’s loc object when the locations option is `true`
-  // source: '',
-  // Distinguish Identifier from IdentifierPattern
-  identifierPattern: false,
+  // source: false,
   // Enable React JSX parsing
   jsx: true,
-  // Allow edge cases that deviate from the spec
-  specDeviation: true,
   // Creates unique key for in ObjectPattern when key value are same
   uniqueKeyInPattern: false,
 };

@@ -77,11 +77,11 @@ exports[`import-reflection.js [flow] format 1`] = `
 `;
 
 exports[`import-reflection.js [meriyah] format 1`] = `
-"Import source must be string (1:17)
+"Unexpected token: 'identifier' (1:17)
 > 1 | import module foo from "./module.wasm";
     |                 ^
   2 |
-Cause: [1:17]: Import source must be string"
+Cause: [1:17]: Unexpected token: 'identifier'"
 `;
 
 exports[`import-reflection.js [typescript] format 1`] = `
@@ -133,12 +133,12 @@ exports[`valid-default-import.mjs [flow] format 1`] = `
 `;
 
 exports[`valid-default-import.mjs [meriyah] format 1`] = `
-"Import source must be string (1:17)
+"Unexpected token: 'identifier' (1:17)
 > 1 | import module foo from "./module.wasm";
     |                 ^
   2 | import bar from "./module.wasm";
   3 |
-Cause: [1:17]: Import source must be string"
+Cause: [1:17]: Unexpected token: 'identifier'"
 `;
 
 exports[`valid-default-import.mjs [typescript] format 1`] = `
@@ -243,11 +243,11 @@ exports[`valid-from-as-default-module-binding-escaped.mjs [flow] format 1`] = `
 `;
 
 exports[`valid-from-as-default-module-binding-escaped.mjs [meriyah] format 1`] = `
-"Import source must be string (1:17)
+"Unexpected token: 'reserved if strict' (1:17)
 > 1 | import module \\u0066rom from "./module.wasm";
     |                 ^
   2 |
-Cause: [1:17]: Import source must be string"
+Cause: [1:17]: Unexpected token: 'reserved if strict'"
 `;
 
 exports[`valid-from-as-default-module-binding-escaped.mjs [typescript] format 1`] = `
