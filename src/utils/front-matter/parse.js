@@ -17,26 +17,37 @@ function getFrontMatter(text) {
     .trim();
 
   let endDelimiterIndex = text.indexOf(
-    `\n${startDelimiter}\n`,
+    `\n${startDelimiter}`,
     firstLineBreakIndex,
   );
-
-  if (endDelimiterIndex === -1 && startDelimiter === "---") {
-    // In some markdown processors such as pandoc,
-    // "..." can be used as the end delimiter for YAML front-matter.
-    endDelimiterIndex = text.indexOf("\n...\n", firstLineBreakIndex);
-  }
-
-  if (endDelimiterIndex === -1) {
-    return;
-  }
 
   let language = explicitLanguage;
   if (!language) {
     language = startDelimiter === "+++" ? "toml" : "yaml";
   }
 
-  const raw = text.slice(0, endDelimiterIndex + 1 + DELIMITER_LENGTH);
+  if (
+    endDelimiterIndex === -1 &&
+    startDelimiter === "---" &&
+    language === "yaml"
+  ) {
+    // In some markdown processors such as pandoc,
+    // "..." can be used as the end delimiter for YAML front-matter.
+    endDelimiterIndex = text.indexOf("\n...", firstLineBreakIndex);
+  }
+
+  if (endDelimiterIndex === -1) {
+    return;
+  }
+
+  const frontMatterEndIndex = endDelimiterIndex + 1 + DELIMITER_LENGTH;
+
+  const nextCharacter = text.charAt(frontMatterEndIndex + 1);
+  if (!/\s?/.test(nextCharacter)) {
+    return;
+  }
+
+  const raw = text.slice(0, frontMatterEndIndex);
 
   return {
     type: "front-matter",
