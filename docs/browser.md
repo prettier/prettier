@@ -91,7 +91,9 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 
 ```js
 importScripts("https://unpkg.com/prettier@%PRETTIER_VERSION%/standalone.js");
-importScripts("https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/graphql.js");
+importScripts(
+  "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/graphql.js",
+);
 
 (async () => {
   const formatted = await prettier.format("type Query { hello: String }", {
