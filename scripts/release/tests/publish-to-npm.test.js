@@ -23,8 +23,8 @@ describe("publish-to-npm", () => {
       assert.equal(
         result,
         getExpectedReleaseUrl({
-          tag: "2.3.1",
-          title: "2.3.1",
+          tag: "v2.3.1",
+          title: "v2.3.1",
           body: "🔗 [Changelog](https://github.com/prettier/prettier/blob/main/CHANGELOG.md#231)",
         }),
       );
@@ -35,10 +35,10 @@ describe("publish-to-npm", () => {
       assert.equal(
         result,
         getExpectedReleaseUrl({
-          tag: "2.4.0",
-          title: "2.4.0",
+          tag: "v2.4.0",
+          title: "v2.4.0",
           body: [
-            "[diff](https://github.com/prettier/prettier/compare/2.3.0...2.4.0)",
+            "[diff](https://github.com/prettier/prettier/compare/v2.3.0...v2.4.0)",
             `🔗 [Release note](https://prettier.io/blog/${getDateParts().join(
               "/",
             )}/2.4.0.html)`,
@@ -52,10 +52,10 @@ describe("publish-to-npm", () => {
       assert.equal(
         result,
         getExpectedReleaseUrl({
-          tag: "2.3.0",
-          title: "2.3.0",
+          tag: "v2.3.0",
+          title: "v2.3.0",
           body: [
-            "[diff](https://github.com/prettier/prettier/compare/2.2.0...2.3.0)",
+            "[diff](https://github.com/prettier/prettier/compare/v2.2.0...v2.3.0)",
             `🔗 [Release note](https://prettier.io/blog/${getDateParts().join(
               "/",
             )}/2.3.0.html)`,
