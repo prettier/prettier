@@ -21,6 +21,10 @@ if (semver.parse(previousVersion) === null) {
 
 for (let step of [
   {
+    process: steps.chooseVersion,
+    skip: Boolean(params.version),
+  },
+  {
     name: "Validating new version",
     process: steps.validateNewVersion,
   },
