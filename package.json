@@ -120,7 +120,7 @@
     "benchmark": "2.1.4",
     "browserslist": "4.23.1",
     "browserslist-to-esbuild": "2.1.1",
-    "c8": "9.1.0",
+    "c8": "10.0.0",
     "cross-env": "7.0.3",
     "cspell": "8.8.4",
     "enquirer": "2.4.1",
