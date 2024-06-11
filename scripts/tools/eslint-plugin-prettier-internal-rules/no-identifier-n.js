@@ -30,7 +30,7 @@ module.exports = {
     const variables = new Map();
     return {
       [selector](node) {
-        const scope = context.getScope();
+        const scope = context.sourceCode.getScope(node);
         const variable = findVariable(scope, node);
 
         /* istanbul ignore next */
