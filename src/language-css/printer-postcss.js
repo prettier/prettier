@@ -40,7 +40,6 @@ import {
   isDetachedRulesetCallNode,
   isDetachedRulesetDeclarationNode,
   isKeyframeAtRuleKeywords,
-  isLastNode,
   isMediaAndSupportsKeywords,
   isSCSSControlDirectiveNode,
   isTemplatePlaceholderNode,
@@ -163,7 +162,7 @@ function genericPrint(path, options, print) {
               !parentNode.raws.semicolon &&
               options.originalText[locEnd(node) - 1] !== ";"
             ? ""
-            : options.__isHTMLStyleAttribute && isLastNode(path, node)
+            : options.__isHTMLStyleAttribute && path.isLast
               ? ifBreak(";")
               : ";",
       ];
@@ -301,10 +300,7 @@ function genericPrint(path, options, print) {
       return group(indent(join(line, parts)));
     }
     case "media-query":
-      return [
-        join(" ", path.map(print, "nodes")),
-        isLastNode(path, node) ? "" : ",",
-      ];
+      return [join(" ", path.map(print, "nodes")), path.isLast ? "" : ","];
 
     case "media-type":
       return adjustNumbers(adjustStrings(node.value, options));
@@ -420,7 +416,7 @@ function genericPrint(path, options, print) {
             ? ""
             : line;
 
-        return [leading, node.value, isLastNode(path, node) ? "" : " "];
+        return [leading, node.value, path.isLast ? "" : " "];
       }
 
       const leading = node.value.trim().startsWith("(") ? line : "";
