@@ -222,6 +222,7 @@
         "Raghuvir",
         "raquo",
         "Rasmus",
+        "ratelimit",
         "Rattray",
         "rattrayalex",
         "Rauch",
@@ -351,6 +352,7 @@
         "website/playground/codeSamples.mjs",
         "website/pages/googlefe164a33bda4034b.html",
         "website/static/lib/**",
-        "website/static/playground.js"
+        "website/static/playground.js",
+        "website/data/sponsors.json"
     ]
 }
