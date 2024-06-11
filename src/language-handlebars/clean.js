@@ -32,6 +32,10 @@ function clean(original, cloned /*, parent*/) {
   if (original.type === "AttrNode" && original.name.toLowerCase() === "class") {
     delete cloned.value;
   }
+
+  if (original.type === "PathExpression") {
+    cloned.head = original.head.original;
+  }
 }
 
 clean.ignoredProperties = new Set(["loc", "selfClosing"]);

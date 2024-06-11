@@ -366,10 +366,7 @@ function print(path, options, print) {
       ];
     }
     case "PathExpression":
-      return printPathExpression(node, print);
-
-    case "AtHead":
-      return node.name;
+      return printPathExpression(node);
 
     case "BooleanLiteral":
       return String(node.value);
@@ -389,6 +386,7 @@ function print(path, options, print) {
     case "NullLiteral":
       return "null";
 
+    case "AtHead": // Handled in `printPathExpression`
     case "VarHead": // Handled in `printPathExpression`
     case "ThisHead": // Handled in `printPathExpression`
     default:
@@ -784,21 +782,23 @@ const PATH_EXPRESSION_FORBIDDEN_IN_FIRST_PART = new Set([
   "null",
   "undefined",
 ]);
-const isPathExpressionPartNeedBrackets = (part, index) =>
-  (index !== 0 && PATH_EXPRESSION_FORBIDDEN_IN_FIRST_PART.has(part)) ||
-  /\s/.test(part) ||
-  /^\d/.test(part) ||
-  Array.prototype.some.call(part, (character) =>
-    PATH_EXPRESSION_FORBIDDEN_CHARACTERS.has(character),
-  );
-function printPathExpression(node, print) {
-  if (node.head.type === "AtHead") {
-    return print("head");
+const isPathExpressionPartNeedBrackets = (part, index) => {
+  if (index === 0 && part.startsWith("@")) {
+    return false;
   }
 
+  return (
+    (index !== 0 && PATH_EXPRESSION_FORBIDDEN_IN_FIRST_PART.has(part)) ||
+    /\s/.test(part) ||
+    /^\d/.test(part) ||
+    Array.prototype.some.call(part, (character) =>
+      PATH_EXPRESSION_FORBIDDEN_CHARACTERS.has(character),
+    )
+  );
+};
+function printPathExpression(node) {
+  // check if node is a legacy path expression and leave it alone
   if (node.tail.length === 0 && node.original.includes("/")) {
-    // check if node has data, or
-    // check if node is a legacy path expression (and leave it alone)
     return node.original;
   }
 

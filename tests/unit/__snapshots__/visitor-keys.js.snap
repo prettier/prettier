@@ -1165,7 +1165,6 @@ exports[`visitor keys estree-json 1`] = `
 
 exports[`visitor keys glimmer 1`] = `
 {
-  "AtHead": [],
   "AttrNode": [
     "value",
   ],
@@ -1209,9 +1208,7 @@ exports[`visitor keys glimmer 1`] = `
   ],
   "NullLiteral": [],
   "NumberLiteral": [],
-  "PathExpression": [
-    "head",
-  ],
+  "PathExpression": [],
   "StringLiteral": [],
   "SubExpression": [
     "path",
@@ -1222,9 +1219,7 @@ exports[`visitor keys glimmer 1`] = `
     "body",
   ],
   "TextNode": [],
-  "ThisHead": [],
   "UndefinedLiteral": [],
-  "VarHead": [],
 }
 `;
 
