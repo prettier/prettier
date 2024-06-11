@@ -78,28 +78,6 @@ declare function f([]?);
 ================================================================================
 `;
 
-exports[`declare_function_with_body.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// Invalid, but recoverable
-declare function foo() {}
-declare function bar() {
-  // comment
-}
-
-=====================================output=====================================
-// Invalid, but recoverable
-declare function foo() {};
-declare function bar() {
-  // comment
-};
-
-================================================================================
-`;
-
 exports[`declare_interface.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

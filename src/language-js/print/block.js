@@ -52,7 +52,6 @@ function printBlock(path, options, print) {
         parent.type === "ModuleExpression" ||
         (parent.type === "CatchClause" && !parentParent.finalizer) ||
         parent.type === "TSModuleDeclaration" ||
-        parent.type === "TSDeclareFunction" ||
         node.type === "StaticBlock"
       )
     ) {
