@@ -3094,17 +3094,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codemirror-graphql@npm:2.0.11":
-  version: 2.0.11
-  resolution: "codemirror-graphql@npm:2.0.11"
+"codemirror-graphql@npm:2.0.12":
+  version: 2.0.12
+  resolution: "codemirror-graphql@npm:2.0.12"
   dependencies:
     "@types/codemirror": "npm:^0.0.90"
-    graphql-language-service: "npm:5.2.0"
+    graphql-language-service: "npm:5.2.1"
   peerDependencies:
     "@codemirror/language": 6.0.0
     codemirror: ^5.65.3
     graphql: ^15.5.0 || ^16.0.0
-  checksum: 10/1455fcf3a2189970cf9fad3b5e6c4caa149f638477d01ab4424e0a2736911a03465f548baa371f30beaa51da376b39e55ef4ad4ec6365a692169273a7e65b327
+  checksum: 10/e4c17c76b6828ace5ed0abab266703ee48d6b99521a0d1e24e12e82d9f49a2981dfd4bd26db82d5a23c1b60cdd934e8c5b23382f3beb835e5bafbfcac0d49820
   languageName: node
   linkType: hard
 
@@ -5558,9 +5558,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-language-service@npm:5.2.0":
-  version: 5.2.0
-  resolution: "graphql-language-service@npm:5.2.0"
+"graphql-language-service@npm:5.2.1":
+  version: 5.2.1
+  resolution: "graphql-language-service@npm:5.2.1"
   dependencies:
     nullthrows: "npm:^1.0.0"
     vscode-languageserver-types: "npm:^3.17.1"
@@ -5568,7 +5568,7 @@ __metadata:
     graphql: ^15.5.0 || ^16.0.0
   bin:
     graphql: dist/temp-bin.js
-  checksum: 10/9a08a2f0c14e91e49840b2f2e90547030b84b7540b1e73b07d97029eda9b3866ff05897f9c6daae6463c69ba80b59c6d0e3781980d0677bed31bbd3c624f8f61
+  checksum: 10/75ba94b4d290ab7cb650cdb7faa1aeee19f82ec89194fe4c15959c297ff014199fdb65530b338fb5b0a7994d3ce609adf5db185ba7ac85c75463d2eb867e5413
   languageName: node
   linkType: hard
 
@@ -9351,7 +9351,7 @@ __metadata:
     "@sandhose/prettier-animated-logo": "npm:1.0.3"
     babel-loader: "npm:9.1.3"
     clipboard: "npm:2.0.11"
-    codemirror-graphql: "npm:2.0.11"
+    codemirror-graphql: "npm:2.0.12"
     concurrently: "npm:8.2.2"
     docusaurus: "npm:1.14.7"
     js-yaml: "npm:4.1.0"
