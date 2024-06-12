@@ -51,16 +51,7 @@ class TypeScriptModuleSource {
       module = found;
     }
 
-    const { esmModuleInitFunctionName } = module;
-    const moduleInitCode = esmModuleInitFunctionName
-      ? `var ${esmModuleInitFunctionName} = () => {};`
-      : "";
-
-    this.#source.overwrite(
-      module.start,
-      module.end,
-      moduleInitCode + replacement,
-    );
+    this.#source.overwrite(module.start, module.end, replacement);
     return this;
   }
 
@@ -375,7 +366,6 @@ async function getRemovedSpecifiers(code, exports) {
         ({ variable }) => variable === match.groups.variable,
       );
       specifiers.push(specifier);
-      console.log({ match, specifier });
     }
   }
 
