@@ -333,9 +333,9 @@ function modifyTypescriptModule(text) {
   code = addExports(code, exports);
 
   code += outdent`
-export const isUnparsedPrepend = () => false;
-export const isUnparsedTextLike = () => false;
-`;
+    export const isUnparsedPrepend = () => false;
+    export const isUnparsedTextLike = () => false;
+  `;
 
   return code;
 }
@@ -345,9 +345,9 @@ function addExports(code, exports) {
     code +
     "\n\n" +
     outdent`
-    export {
-      ${exports.map(({ specifier, variable }) => `  ${variable} as ${specifier}`).join(",\n")}
-    };
+      export {
+        ${exports.map(({ specifier, variable }) => `  ${variable} as ${specifier}`).join(",\n")}
+      };
     `
   );
 }
@@ -384,8 +384,8 @@ async function getRemovedSpecifiers(code, exports) {
   }
 
   console.log(outdent`
-      export default new Set(${JSON.stringify(specifiers, undefined, 2)})
-    `);
+    export default new Set(${JSON.stringify(specifiers, undefined, 2)})
+  `);
 
   await writeFile(
     new URL("./typescript-unused-exports.js", import.meta.url),
