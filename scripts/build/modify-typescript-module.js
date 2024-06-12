@@ -318,18 +318,13 @@ function modifyTypescriptModule(text) {
   /* spell-checker: enable */
 
   source.replaceAlignedCode({
-    start: "function getScriptTargetFeatures(",
-    end: "}",
+    start: "var getScriptTargetFeatures = /* @__PURE__ */ memoize(",
+    end: ");",
   });
 
   source.replaceAlignedCode({
     start: "var __require = ",
     end: "});",
-  });
-
-  source.replaceAlignedCode({
-    start: "var getScriptTargetFeatures = /* @__PURE__ */ memoize(",
-    end: ")",
   });
 
   let code = source.toString();

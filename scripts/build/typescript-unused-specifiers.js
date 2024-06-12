@@ -94,6 +94,8 @@ export default new Set([
   "asyncValues",
   "awaitHelper",
   "awaiterHelper",
+  "base64decode",
+  "base64encode",
   "bindSourceFile",
   "breakIntoCharacterSpans",
   "breakIntoWordSpans",
