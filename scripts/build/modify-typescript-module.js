@@ -173,13 +173,7 @@ function modifyTypescriptModule(text) {
     if (module.path === "src/services/utilities.ts") {
       source.replaceModule(
         module,
-        outdent`
-          var scanner;
-          var ${module.esmModuleInitFunctionName} = () => {
-            init_debug();
-            scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);
-          };
-        `,
+        "var scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);",
       );
       continue;
     }
