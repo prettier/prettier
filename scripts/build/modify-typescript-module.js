@@ -382,15 +382,10 @@ async function getRemovedSpecifiers(code, exports) {
   if (specifiers.length === 0) {
     return;
   }
-
-  console.log(outdent`
-    export default new Set(${JSON.stringify(specifiers, undefined, 2)})
-  `);
-
   await writeFile(
     new URL("./typescript-unused-exports.js", import.meta.url),
     outdent`
-      export default new Set(${JSON.stringify(specifiers, undefined, 2)})
+      export default new Set(${JSON.stringify([...new Set([...UNUSED_EXPORTS, ...specifiers])], undefined, 2)})
     `,
   );
   console.log("typescript-unused-exports.js updated, run build script again.");

@@ -791,4 +791,7 @@ export default new Set([
   "WatchDirectoryFlags",
   "WatchDirectoryKind",
   "WatchFileKind",
+  "readJson",
+  "readJsonOrUndefined",
+  "executeCommandLine",
 ]);
