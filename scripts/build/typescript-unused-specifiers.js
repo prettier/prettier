@@ -675,6 +675,7 @@ export default new Set([
   "screenStartingMessageCodes",
   "semanticDiagnosticsOptionDeclarations",
   "serializeCompilerOptions",
+  "server",
   "setCommentRange",
   "setConfigFileInOptions",
   "setConstantValue",

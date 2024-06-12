@@ -5,7 +5,7 @@ import * as importMetaResolve from "import-meta-resolve";
 import { outdent } from "outdent";
 import * as typescript from "typescript";
 
-import modifyTypescriptModule from "./build/modify-typescript-module.js";
+import { modifyTypescriptModule } from "./build/modify-typescript-module.js";
 import UNUSED_SPECIFIERS from "./build/typescript-unused-specifiers.js";
 
 async function getRemovedSpecifiers(code, exports) {
@@ -35,13 +35,13 @@ async function getRemovedSpecifiers(code, exports) {
 }
 
 async function main() {
-  let text = await fs.readFile(
+  const original = await fs.readFile(
     new URL(importMetaResolve.resolve("typescript", import.meta.url)),
     "utf8",
   );
-  text = modifyTypescriptModule(text);
+  const { code, exports } = modifyTypescriptModule(original);
 
-  let specifiers = (await getRemovedSpecifiers(text)) ?? [];
+  let specifiers = (await getRemovedSpecifiers(code, exports)) ?? [];
 
   specifiers = [...new Set([...UNUSED_SPECIFIERS, ...specifiers])]
     .filter((specifier) => Object.hasOwn(typescript, specifier))

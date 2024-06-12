@@ -211,6 +211,7 @@ function modifyTypescriptModule(text) {
   }
 
   // server
+  source.removeModule("src/typescript/_namespaces/ts.server.ts");
   for (const module of source.modules) {
     if (module.path.startsWith("src/server/")) {
       source.removeModule(module);
@@ -329,7 +330,7 @@ function modifyTypescriptModule(text) {
       export const isUnparsedTextLike = () => false;
     `;
 
-  return code;
+  return { code, exports };
 }
 
 function addExports(code, exports) {
@@ -351,9 +352,10 @@ function addExports(code, exports) {
 
 // Save modified code to `{PROJECT_ROOT}/.tmp/modified-typescript.js` for debug
 const saveOutputToDisk = (process) => (text) => {
-  const result = process(text);
-  writeFile(path.join(PROJECT_ROOT, ".tmp/modified-typescript.js"), result);
-  return result;
+  const { code } = process(text);
+  writeFile(path.join(PROJECT_ROOT, ".tmp/modified-typescript.js"), code);
+  return code;
 };
 
 export default saveOutputToDisk(modifyTypescriptModule);
+export { modifyTypescriptModule };
