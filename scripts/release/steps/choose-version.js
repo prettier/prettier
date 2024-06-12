@@ -7,7 +7,7 @@ const CUSTOM_VERSION_VALUE_PLACEHOLDER = "custom-version";
 export default async function chooseVersion(params) {
   let version = await new enquirer.Select({
     name: "version",
-    message: `Choose a version to release (current: ${params.previousVersion}})`,
+    message: `Choose a version to release (current: ${params.previousVersion})`,
     choices: [
       ...SEMVER_INCREMENTS.map((type) => {
         const version = semver.inc(params.previousVersion, type);
@@ -26,7 +26,7 @@ export default async function chooseVersion(params) {
     ({ version } = await enquirer.prompt({
       type: "input",
       name: "version",
-      message: `Input version (current: ${params.previousVersion}})`,
+      message: `Input version (current: ${params.previousVersion})`,
     }));
   }
 
