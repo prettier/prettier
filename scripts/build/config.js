@@ -275,7 +275,7 @@ const pluginFiles = [
         module: getPackageFile("ts-api-utils/lib/index.js"),
         process(text) {
           text = text.replaceAll(
-            /(?<=import )(?=[\dA-Za-z]+ from ["']typescript["'])/g,
+            /(?<=import )(?=\w+ from ["']typescript["'])/g,
             "* as ",
           );
           return text;

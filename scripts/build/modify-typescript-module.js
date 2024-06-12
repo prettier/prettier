@@ -173,6 +173,17 @@ function modifyTypescriptModule(text) {
   let exports = getExports(entry);
   source.removeModule(entry);
 
+  // print variables from core.ts to ignore
+  // const coreModule = source.modules.find(
+  //   (module) => module.path === "src/compiler/core.ts",
+  // );
+  // const variables = [
+  //   ...coreModule.code.matchAll(/(?<=\n)var (?<variable>\w+) =/g),
+  //   ...coreModule.code.matchAll(/(?<=\n)function (?<variable>\w+)\(/g),
+  // ].map((match) => match.groups.variable);
+
+  // console.log(JSON.stringify(variables, undefined, 2));
+
   // Deprecated
   for (const module of source.modules) {
     if (module.path.startsWith("src/deprecatedCompat/")) {
