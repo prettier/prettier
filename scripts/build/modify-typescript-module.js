@@ -189,13 +189,6 @@ function modifyTypescriptModule(text) {
 
   // services
   for (const module of source.modules) {
-    if (
-      module.path === "src/services/services.ts" ||
-      module.path === "src/services/_namespaces/ts.ts"
-    ) {
-      continue;
-    }
-
     // This is a big module, most code except `scanner` is not used
     if (module.path === "src/services/utilities.ts") {
       source.replaceModule(
