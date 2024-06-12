@@ -226,6 +226,13 @@ function modifyTypescriptModule(text) {
     }
   }
 
+  // `typingsInstaller`
+  for (const module of source.modules) {
+    if (module.path.startsWith("src/typingsInstallerCore/")) {
+      source.removeModule(module);
+    }
+  }
+
   // `ts.moduleSpecifiers`
   source.removeModule("src/compiler/_namespaces/ts.moduleSpecifiers.ts");
   source.removeModule("src/compiler/moduleSpecifiers.ts");
