@@ -285,7 +285,7 @@ function modifyTypescriptModule(text) {
   source.replaceModule(
     "src/compiler/performance.ts",
     outdent`
-      var mark = noop;
+      var mark = () => {};
       var measure = () => {};
     `,
   );
