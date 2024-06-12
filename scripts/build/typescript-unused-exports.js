@@ -788,4 +788,7 @@ export default new Set([
   "visitParameterList",
   "walkUpLexicalEnvironments",
   "whitespaceOrMapCommentRegExp",
+  "WatchDirectoryFlags",
+  "WatchDirectoryKind",
+  "WatchFileKind",
 ]);
