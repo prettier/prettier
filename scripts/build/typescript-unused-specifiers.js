@@ -213,6 +213,7 @@ export default new Set([
   "createSolutionBuilderWithWatchHost",
   "createSourceMapGenerator",
   "createSuperAccessVariableStatement",
+  "createSyntacticTypeNodeBuilder",
   "createSystemWatchFunctions",
   "createTextChange",
   "createTextChangeFromStartLength",

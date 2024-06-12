@@ -250,7 +250,6 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/tsbuild.ts");
   source.removeModule("src/compiler/tsbuildPublic.ts");
   source.removeModule("src/compiler/builderState.ts");
-  source.removeModule("src/compiler/executeCommandLine.ts");
 
   // Misc
   source.removeModule("src/compiler/symbolWalker.ts");
@@ -262,6 +261,8 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/visitorPublic.ts");
   source.removeModule("src/compiler/emitter.ts");
   source.removeModule("src/compiler/_namespaces/ts.performance.ts");
+  source.removeModule("src/compiler/executeCommandLine.ts");
+  source.removeModule("src/compiler/expressionToTypeNode.ts");
 
   // File system
   source.replaceModule("src/compiler/sys.ts", "var sys;");
