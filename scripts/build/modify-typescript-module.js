@@ -298,6 +298,9 @@ function modifyTypescriptModule(text) {
   if (source.hasModule("src/compiler/pnp.ts")) {
     source.removeModule("src/compiler/pnp.ts");
   }
+  if (source.hasModule("src/compiler/pnpapi.ts")) {
+    source.removeModule("src/compiler/pnpapi.ts");
+  }
 
   source.replaceAlignedCode({
     start: "function isNodeLikeSystem(",
