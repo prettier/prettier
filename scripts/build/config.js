@@ -266,6 +266,17 @@ const pluginFiles = [
           return text;
         },
       },
+      // Use named import from `typescript`
+      {
+        module: getPackageFile("ts-api-utils/lib/index.js"),
+        process(text) {
+          text = text.replaceAll(
+            /(?<=import )(?=[\dA-Za-z]+ from ["']typescript["'])/g,
+            "* as ",
+          );
+          return text;
+        },
+      },
     ],
   },
   {
