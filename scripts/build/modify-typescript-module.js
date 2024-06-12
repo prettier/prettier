@@ -5,7 +5,7 @@ import MagicString from "magic-string";
 import { outdent } from "outdent";
 
 import { PROJECT_ROOT, writeFile } from "../utils/index.js";
-import UNUSED_EXPORTS from "./typescript-unused-exports.js";
+import UNUSED_SPECIFIERS from "./typescript-unused-specifiers.js";
 
 function* getModules(text) {
   const parts = text.split(/(?<=\n)(\/\/ src\/\S+\n)/);
@@ -316,17 +316,18 @@ function modifyTypescriptModule(text) {
   });
 
   let code = source.toString();
-  exports = exports.filter(({ specifier }) => !UNUSED_EXPORTS.has(specifier));
-
-  // If esbuild complains variable not defined, add this line back
-  // getRemovedSpecifiers(addExports(code, exports), exports);
+  exports = exports.filter(
+    ({ specifier }) => !UNUSED_SPECIFIERS.has(specifier),
+  );
 
   code = addExports(code, exports);
 
-  code += outdent`
-    export const isUnparsedPrepend = () => false;
-    export const isUnparsedTextLike = () => false;
-  `;
+  code +=
+    "\n" +
+    outdent`
+      export const isUnparsedPrepend = () => false;
+      export const isUnparsedTextLike = () => false;
+    `;
 
   return code;
 }
@@ -337,49 +338,15 @@ function addExports(code, exports) {
     "\n\n" +
     outdent`
       export {
-        ${exports.map(({ specifier, variable }) => `  ${variable} as ${specifier}`).join(",\n")}
+        ${exports
+          .map(({ specifier, variable }) =>
+            variable === specifier ? specifier : `${variable} as ${specifier}`,
+          )
+          .map((line) => `  ${line},`)
+          .join("\n")}
       };
     `
   );
-}
-
-// eslint-disable-next-line no-unused-vars
-async function getRemovedSpecifiers(code, exports) {
-  const esbuild = await import("esbuild");
-
-  let errors = [];
-  try {
-    await esbuild.transformSync(code, { loader: "js" });
-    return;
-  } catch (error) {
-    ({ errors } = error);
-  }
-
-  const specifiers = [];
-  for (const { text } of errors) {
-    const match = text.match(
-      /^"(?<variable>.*?)" is not declared in this file$/,
-    );
-
-    if (match) {
-      const { specifier } = exports.find(
-        ({ variable }) => variable === match.groups.variable,
-      );
-      specifiers.push(specifier);
-    }
-  }
-
-  if (specifiers.length === 0) {
-    return;
-  }
-  await writeFile(
-    new URL("./typescript-unused-exports.js", import.meta.url),
-    outdent`
-      export default new Set(${JSON.stringify([...new Set([...UNUSED_EXPORTS, ...specifiers])], undefined, 2)})
-    `,
-  );
-  console.log("typescript-unused-exports.js updated, run build script again.");
-  process.exit(1);
 }
 
 // Save modified code to `{PROJECT_ROOT}/.tmp/modified-typescript.js` for debug
