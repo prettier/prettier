@@ -431,6 +431,7 @@ export default new Set([
   "getRootDirectoryOfResolutionCache",
   "getRootPathSplitLength",
   "getScriptKind",
+  "getScriptTargetFeatures",
   "getSemanticClassifications",
   "getSnapshotText",
   "getSnippetElement",

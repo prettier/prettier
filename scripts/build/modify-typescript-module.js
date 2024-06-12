@@ -327,6 +327,11 @@ function modifyTypescriptModule(text) {
     end: "});",
   });
 
+  source.replaceAlignedCode({
+    start: "var getScriptTargetFeatures = /* @__PURE__ */ memoize(",
+    end: ")",
+  });
+
   let code = source.toString();
   exports = exports.filter(
     ({ specifier }) => !UNUSED_SPECIFIERS.has(specifier),
