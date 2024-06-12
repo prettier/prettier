@@ -286,11 +286,8 @@ function modifyTypescriptModule(text) {
   // `factory`
   source.removeModule("src/compiler/factory/emitNode.ts");
   source.removeModule("src/compiler/factory/emitHelpers.ts");
-  source.replaceModule(
+  source.removeModule(
     "src/compiler/factory/nodeConverters.ts",
-    outdent`
-      var createNodeConverters = () => new Proxy({}, {get: () => () => {}});
-    `,
   );
 
   // `pnp`
