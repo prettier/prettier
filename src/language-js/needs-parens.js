@@ -366,7 +366,7 @@ function needsParens(path, options) {
           return !isBinaryCastExpression(node);
 
         case "ConditionalExpression":
-          return isBinaryCastExpression(node);
+          return isBinaryCastExpression(node) || node?.operator === "??";
 
         case "CallExpression":
         case "NewExpression":

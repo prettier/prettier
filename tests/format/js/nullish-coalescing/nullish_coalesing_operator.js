@@ -20,3 +20,5 @@ foo || (baz ?? baz);
 
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
+
+baz ?? baz ? a : b;

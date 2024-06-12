@@ -29,12 +29,14 @@ foo || (baz ?? baz);
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
 
+baz ?? baz ? a : b;
+
 =====================================output=====================================
 obj.foo ?? "default";
 
 const x = (foo, bar = foo ?? bar) => {};
 
-foo ? bar ?? foo : baz;
+foo ? (bar ?? foo) : baz;
 
 foo ?? bar ?? baz;
 foo ?? bar ?? baz;
@@ -52,6 +54,8 @@ foo || (baz ?? baz);
 
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
+
+(baz ?? baz) ? a : b;
 
 ================================================================================
 `;
