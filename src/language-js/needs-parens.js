@@ -11,6 +11,7 @@ import {
   isBitwiseOperator,
   isCallExpression,
   isMemberExpression,
+  isNullishCoalescing,
   isObjectOrRecordExpression,
   isObjectProperty,
   shouldFlatten,
@@ -366,7 +367,7 @@ function needsParens(path, options) {
           return !isBinaryCastExpression(node);
 
         case "ConditionalExpression":
-          return isBinaryCastExpression(node) || node?.operator === "??";
+          return isBinaryCastExpression(node) || isNullishCoalescing(node);
 
         case "CallExpression":
         case "NewExpression":
