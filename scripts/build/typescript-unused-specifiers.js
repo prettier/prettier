@@ -61,6 +61,7 @@ export default new Set([
   "SignatureHelp",
   "SignatureInfo",
   "SmartSelectionRange",
+  "StatisticType",
   "SymbolDisplay",
   "SymbolDisplayPartKind",
   "ThrottledCancellationToken",
@@ -488,6 +489,7 @@ export default new Set([
   "isArgumentExpressionOfElementAccess",
   "isArrayLiteralOrObjectLiteralDestructuringPattern",
   "isBlockLike",
+  "isBuild",
   "isBuildInfoFile",
   "isBuilderProgram",
   "isCallExpressionTarget",
@@ -813,5 +815,5 @@ export default new Set([
   "walkUpLexicalEnvironments",
   "whitespaceOrMapCommentRegExp",
   "writeFile",
-  "writeFileEnsuringDirectories"
+  "writeFileEnsuringDirectories",
 ]);

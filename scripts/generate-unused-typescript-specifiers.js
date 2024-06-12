@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import esbuild from "esbuild";
 import * as importMetaResolve from "import-meta-resolve";
 import { outdent } from "outdent";
+import * as prettier from "prettier";
 import * as typescript from "typescript";
 
 import { modifyTypescriptModule } from "./build/modify-typescript-module.js";
@@ -49,11 +50,14 @@ async function main() {
 
   await fs.writeFile(
     new URL("./build/typescript-unused-specifiers.js", import.meta.url),
-    outdent`
-      export default new Set(${JSON.stringify(specifiers, undefined, 2)});
-    `,
+    await prettier.format(
+      outdent`
+        export default new Set(${JSON.stringify(specifiers, undefined, 2)});
+      `,
+      { parser: "meriyah" },
+    ),
   );
-  console.log("typescript-unused-exports.js updated.");
+  console.log("typescript-unused-specifiers.js updated.");
 }
 
 await main();

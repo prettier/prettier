@@ -246,6 +246,7 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/tsbuild.ts");
   source.removeModule("src/compiler/tsbuildPublic.ts");
   source.removeModule("src/compiler/builderState.ts");
+  source.removeModule("src/compiler/executeCommandLine.ts");
 
   // Misc
   source.removeModule("src/compiler/symbolWalker.ts");
