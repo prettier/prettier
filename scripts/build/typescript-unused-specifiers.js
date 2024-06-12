@@ -798,5 +798,5 @@ export default new Set([
   "walkUpLexicalEnvironments",
   "whitespaceOrMapCommentRegExp",
   "writeFile",
-  "writeFileEnsuringDirectories"
-])
+  "writeFileEnsuringDirectories",
+]);
