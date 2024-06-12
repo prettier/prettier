@@ -197,7 +197,7 @@ function modifyTypescriptModule(text) {
     if (module.path === "src/services/utilities.ts") {
       source.replaceModule(
         module,
-        "var scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);",
+        "var scanner = createScanner(ScriptTarget.Latest, /*skipTrivia*/ true);",
       );
       continue;
     }
