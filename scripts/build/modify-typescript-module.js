@@ -335,6 +335,7 @@ function modifyTypescriptModule(text) {
   return code;
 }
 
+// TODO[@fisker]: Try to not use default export
 function appendExports(code, exports) {
   return (
     code +
