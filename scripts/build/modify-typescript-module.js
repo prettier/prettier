@@ -285,18 +285,15 @@ function modifyTypescriptModule(text) {
   source.replaceModule(
     "src/compiler/performance.ts",
     outdent`
-      var mark = () => {};
+      var mark = noop;
       var measure = () => {};
     `,
   );
 
-
   // `factory`
   source.removeModule("src/compiler/factory/emitNode.ts");
   source.removeModule("src/compiler/factory/emitHelpers.ts");
-  source.removeModule(
-    "src/compiler/factory/nodeConverters.ts",
-  );
+  source.removeModule("src/compiler/factory/nodeConverters.ts");
 
   // `pnp`
   if (source.hasModule("src/compiler/pnp.ts")) {

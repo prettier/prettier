@@ -190,6 +190,7 @@ export default new Set([
   "createModuleResolutionLoader",
   "createModuleResolutionLoaderUsingGlobalCache",
   "createModuleSpecifierResolutionHost",
+  "createNodeConverters",
   "createOptionNameMap",
   "createOverload",
   "createPackageJsonImportFilter",
