@@ -7,7 +7,7 @@ import { outdent } from "outdent";
 import { PROJECT_ROOT, writeFile } from "../utils/index.js";
 
 function* getModules(text) {
-  const parts = text.split(/(?<=\n)( {2}\/\/ src\/\S+\n)/);
+  const parts = text.split(/(?<=\n)(\/\/ src\/\S+\n)/);
 
   let start = parts[0].length;
 
@@ -15,31 +15,16 @@ function* getModules(text) {
     const comment = parts[partIndex];
     const code = parts[partIndex + 1];
 
-    const path = comment.slice("  // ".length, -1);
+    const path = comment.slice("// ".length, -1);
     const end = start + comment.length + code.length;
 
-    if (/\S/.test(code)) {
-      const esmRegExp = new RegExp(
-        [
-          String.raw`\s*var (?<initFunctionName>\w+) = __esm\({`,
-          `\\s*"${escapeStringRegexp(path)}"\\(\\) {`,
-          ".*",
-          String.raw`\s*}`,
-          String.raw`\s*}\);`,
-        ].join(String.raw`\n`),
-        "s",
-      );
-      const match = code.match(esmRegExp);
-
-      yield {
-        isEntry: path === "src/typescript/typescript.ts",
-        path,
-        start: start + comment.length,
-        end: end - 1,
-        code,
-        esmModuleInitFunctionName: match?.groups.initFunctionName,
-      };
-    }
+    yield {
+      isEntry: path === "src/typescript/typescript.ts",
+      path,
+      start: start + comment.length,
+      end: end - 1,
+      code,
+    };
 
     start = end;
   }
@@ -142,8 +127,9 @@ class TypeScriptModuleSource {
 }
 
 function unwrap(text) {
-  const startMark = "var ts = (() => {";
-  const endMark = "return require_typescript();";
+  const startMark = 'var ts = {}; ((module) => {\n"use strict";';
+  const endMark =
+    '})(typeof module !== "undefined" && module.exports ? module : { exports: ts });';
   const start = text.indexOf(startMark);
   const end = text.lastIndexOf(endMark);
 
@@ -151,7 +137,9 @@ function unwrap(text) {
     throw new Error("Unexpected source");
   }
 
-  return text.slice(start + startMark.length, end);
+  text = text.slice(start + startMark.length, end);
+
+  return text;
 }
 
 function modifyTypescriptModule(text) {
@@ -237,7 +225,6 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/tsbuild.ts");
   source.removeModule("src/compiler/tsbuildPublic.ts");
   source.removeModule("src/compiler/builderState.ts");
-  source.removeModule("src/compiler/builderStatePublic.ts");
 
   // Misc
   source.removeModule("src/compiler/symbolWalker.ts");
@@ -284,6 +271,12 @@ function modifyTypescriptModule(text) {
     source.removeModule("src/compiler/pnp.ts");
   }
 
+  source.replaceAlignedCode({
+    start: "function isNodeLikeSystem(",
+    end: "}",
+    replacement: "function isNodeLikeSystem() {return false}",
+  });
+
   /* spell-checker: disable */
   // `ts.createParenthesizerRules`
   source.replaceAlignedCode({
@@ -301,8 +294,6 @@ function modifyTypescriptModule(text) {
     start: "var __require = ",
     end: "});",
   });
-
-  source.append("module.exports = require_typescript();");
 
   return source.toString();
 }
