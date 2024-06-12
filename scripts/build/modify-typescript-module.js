@@ -128,8 +128,7 @@ class TypeScriptModuleSource {
 
 function unwrap(text) {
   const startMark = 'var ts = {}; ((module) => {\n"use strict";';
-  const endMark =
-    '})(typeof module !== "undefined" && module.exports ? module : { exports: ts });';
+  const endMark = "// src/typescript/typescript.ts";
   const start = text.indexOf(startMark);
   const end = text.lastIndexOf(endMark);
 
@@ -294,6 +293,8 @@ function modifyTypescriptModule(text) {
     start: "var __require = ",
     end: "});",
   });
+
+  source.append("module.exports = typescript_exports;");
 
   return source.toString();
 }
