@@ -274,7 +274,7 @@ function modifyTypescriptModule(text) {
     "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});",
   );
 
-  // performanceCore
+  // performance
   source.replaceModule(
     "src/compiler/performanceCore.ts",
     outdent`
@@ -282,6 +282,14 @@ function modifyTypescriptModule(text) {
       var timestamp = Date.now;
     `,
   );
+  source.replaceModule(
+    "src/compiler/performance.ts",
+    outdent`
+      var mark = () => {};
+      var measure = () => {};
+    `,
+  );
+
 
   // `factory`
   source.removeModule("src/compiler/factory/emitNode.ts");
