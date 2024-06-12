@@ -133,7 +133,11 @@ const pluginFiles = [
             .replace('require("./create-program/createDefaultProgram")', "{}")
             .replace('require("./create-program/createIsolatedProgram")', "{}")
             .replace('require("./create-program/createProjectProgram")', "{}")
-            .replace('require("./create-program/useProvidedPrograms")', "{}");
+            .replace('require("./create-program/useProvidedPrograms")', "{}")
+            .replace(
+              'require("./semantic-or-syntactic-errors")',
+              "{getFirstSemanticOrSyntacticError(){}}",
+            );
           return text;
         },
       },

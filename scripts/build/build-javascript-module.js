@@ -58,15 +58,10 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     {
       module: "*",
       process(text, file) {
-        text = text
-          .replaceAll(
-            /(?:const|let|var) (\w+) = __importStar\(require\("typescript"\)\);/g,
-            'import * as $1 from "typescript";',
-          )
-          .replaceAll(
-            /(?:const|let|var) (\w+) = require\("typescript"\);/g,
-            'import * as $1 from "typescript";',
-          );
+        text = text.replaceAll(
+          /(?:const|let|var) (\w+) = (?:__importStar\(require\("typescript"\)\)|require\("typescript"\));/g,
+          'import * as $1 from "typescript";',
+        );
         if (/require\(["']typescript["']\)/.test(text)) {
           throw new Error(`Unexpected \`require("typescript")\` in ${file}.`);
         }

@@ -250,7 +250,7 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/symbolWalker.ts");
   source.removeModule("src/compiler/binder.ts");
   source.removeModule("src/compiler/semver.ts");
-  // source.removeModule("src/compiler/program.ts");
+  source.removeModule("src/compiler/program.ts");
   source.removeModule("src/compiler/moduleNameResolver.ts");
   source.removeModule("src/compiler/checker.ts");
   source.removeModule("src/compiler/visitorPublic.ts");
