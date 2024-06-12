@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 
+import esbuild from "esbuild";
 import * as importMetaResolve from "import-meta-resolve";
 import { outdent } from "outdent";
 import * as typescript from "typescript";
@@ -7,17 +8,7 @@ import * as typescript from "typescript";
 import modifyTypescriptModule from "./build/modify-typescript-module.js";
 import UNUSED_SPECIFIERS from "./build/typescript-unused-specifiers.js";
 
-const FILE = new URL(
-  "./build/typescript-unused-specifiers.js",
-  import.meta.url,
-);
-const TYPESCRIPT_MODULE = new URL(
-  importMetaResolve.resolve("typescript", import.meta.url),
-);
-
 async function getRemovedSpecifiers(code, exports) {
-  const esbuild = await import("esbuild");
-
   let errors = [];
   try {
     await esbuild.transformSync(code, { loader: "js" });
@@ -44,7 +35,10 @@ async function getRemovedSpecifiers(code, exports) {
 }
 
 async function main() {
-  let text = await fs.readFile(TYPESCRIPT_MODULE, "utf8");
+  let text = await fs.readFile(
+    new URL(importMetaResolve.resolve("typescript", import.meta.url)),
+    "utf8",
+  );
   text = modifyTypescriptModule(text);
 
   let specifiers = (await getRemovedSpecifiers(text)) ?? [];
@@ -54,9 +48,9 @@ async function main() {
     .sort();
 
   await fs.writeFile(
-    FILE,
+    new URL("./build/typescript-unused-specifiers.js", import.meta.url),
     outdent`
-      export default new Set(${JSON.stringify(specifiers, undefined, 2)})
+      export default new Set(${JSON.stringify(specifiers, undefined, 2)});
     `,
   );
   console.log("typescript-unused-exports.js updated.");
