@@ -54,6 +54,16 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       module: "*",
       process: transform,
     },
+    // Use named import from `typescript`
+    {
+      module: "*",
+      process(text) {
+        return text.replaceAll(
+          /(?<=import )(?=[\dA-Za-z]+ from ["']typescript["'])/g,
+          "* as ",
+        );
+      },
+    },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
       module: require.resolve("tslib"),

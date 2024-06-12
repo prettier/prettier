@@ -328,25 +328,25 @@ function modifyTypescriptModule(text) {
   exports = exports.filter(({ specifier }) => !UNUSED_EXPORTS.has(specifier));
 
   // If esbuild complains variable not defined, add this line back
-  // getRemovedSpecifiers(appendExports(code, exports), exports);
+  // getRemovedSpecifiers(addExports(code, exports), exports);
 
-  code = appendExports(code, exports);
+  code = addExports(code, exports);
+
+  code += outdent`
+export const isUnparsedPrepend = () => false;
+export const isUnparsedTextLike = () => false;
+`;
 
   return code;
 }
 
-// TODO[@fisker]: Try to not use default export
-function appendExports(code, exports) {
+function addExports(code, exports) {
   return (
     code +
     "\n\n" +
     outdent`
     export {
       ${exports.map(({ specifier, variable }) => `  ${variable} as ${specifier}`).join(",\n")}
-    };
-
-    export default {
-      ${exports.map(({ specifier, variable }) => `  ${specifier}: ${variable}`).join(",\n")}
     };
     `
   );
