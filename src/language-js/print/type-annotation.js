@@ -308,13 +308,7 @@ function printFunctionType(path, options, print) {
       print("returnType"),
     );
   } else {
-    returnTypeDoc.push(
-      printTypeAnnotationProperty(
-        path,
-        print,
-        node.returnType ? "returnType" : "typeAnnotation",
-      ),
-    );
+    returnTypeDoc.push(printTypeAnnotationProperty(path, print, "returnType"));
   }
 
   if (shouldGroupFunctionParameters(node, returnTypeDoc)) {
