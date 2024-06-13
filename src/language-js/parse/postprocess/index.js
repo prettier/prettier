@@ -80,18 +80,6 @@ function postprocess(ast, options) {
       case "TSParenthesizedType":
         return node.typeAnnotation;
 
-      case "TSTypeParameter":
-        // babel-ts
-        if (typeof node.name === "string") {
-          const start = locStart(node);
-          node.name = {
-            type: "Identifier",
-            name: node.name,
-            range: [start, start + node.name.length],
-          };
-        }
-        break;
-
       // For hack-style pipeline
       case "TopicReference":
         ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
