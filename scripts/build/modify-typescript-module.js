@@ -317,16 +317,6 @@ function modifyTypescriptModule(text) {
   });
   /* spell-checker: enable */
 
-  source.replaceAlignedCode({
-    start: "var getScriptTargetFeatures = /* @__PURE__ */ memoize(",
-    end: ");",
-  });
-
-  source.replaceAlignedCode({
-    start: "var __require = ",
-    end: "});",
-  });
-
   let code = source.toString();
   exports = exports.filter(
     ({ specifier }) => !UNUSED_SPECIFIERS.has(specifier),
