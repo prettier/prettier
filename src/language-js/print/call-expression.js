@@ -111,7 +111,7 @@ function isCommonsJsOrAmdModuleDefinition(path) {
     return (args.length === 1 && isStringLiteral(args[0])) || args.length > 1;
   }
 
-  // CommonJS
+  // CommonJS module
   if (
     node.callee.name === "define" &&
     path.parent.type === "ExpressionStatement"
