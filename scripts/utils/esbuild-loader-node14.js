@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
+
 import esbuild from "esbuild";
 
 // @babel/code-frame and @babel/highlight use syntax that is not available in Node.js 14,
