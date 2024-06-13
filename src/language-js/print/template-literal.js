@@ -122,11 +122,11 @@ function printTemplateLiteral(path, print, options) {
   return parts;
 }
 
-function printTaggedTemplateLiteral(print) {
+function printTaggedTemplateLiteral(path, print) {
   const quasiDoc = print("quasi");
   return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
     print("tag"),
-    print("typeParameters"),
+    print(path.node.typeArguments ? "typeArguments" : "typeParameters"),
     lineSuffixBoundary,
     quasiDoc,
   ]);
