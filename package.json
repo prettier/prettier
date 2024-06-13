@@ -161,7 +161,7 @@
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
     "test": "jest --runInBand",
-    "test:node14": "cross-env NODE_OPTIONS=\"--experimental-loader=./scripts/utils/esbuild-loader-node14.js --no-warnings=ExperimentalWarning\" jest --runInBand",
+    "test:node14": "cross-env NODE_OPTIONS=\"--experimental-loader=$PWD/scripts/utils/esbuild-loader-node14.js --no-warnings=ExperimentalWarning\" jest --runInBand",
     "test:dev-package": "cross-env INSTALL_PACKAGE=1 yarn test",
     "test:dist": "cross-env NODE_ENV=production yarn test",
     "test:dist-node14": "cross-env NODE_ENV=production yarn test:node14",
