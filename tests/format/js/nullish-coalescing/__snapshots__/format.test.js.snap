@@ -29,7 +29,9 @@ foo || (baz ?? baz);
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
 
-baz ?? baz ? a : b;
+foo ?? bar ? a : b;
+a ? foo ?? bar : b;
+a ? b : foo ?? bar;
 
 =====================================output=====================================
 obj.foo ?? "default";
@@ -55,7 +57,9 @@ foo || (baz ?? baz);
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
 
-(baz ?? baz) ? a : b;
+(foo ?? bar) ? a : b;
+a ? (foo ?? bar) : b;
+a ? b : (foo ?? bar);
 
 ================================================================================
 `;
