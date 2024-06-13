@@ -42,7 +42,7 @@ function printCallExpression(path, options, print) {
     if (!(isTemplateLiteralSingleArg && printed[0].label?.embed)) {
       return [
         isNew ? "new " : "",
-        isDynamicImport ? printDynamicImportCallee(node) : print("callee"),
+        printCallee(path, print),
         optional,
         printFunctionTypeParameters(path, options, print),
         "(",
@@ -69,7 +69,7 @@ function printCallExpression(path, options, print) {
 
   const contents = [
     isNew ? "new " : "",
-    isDynamicImport ? printDynamicImportCallee(node) : print("callee"),
+    printCallee(path, print),
     optional,
     printFunctionTypeParameters(path, options, print),
     printCallArguments(path, options, print),
@@ -84,11 +84,14 @@ function printCallExpression(path, options, print) {
   return contents;
 }
 
-function printDynamicImportCallee(node) {
-  if (!node.phase) {
-    return "import";
+function printCallee(path, print) {
+  const { node } = path;
+
+  if (node.type === "ImportExpression") {
+    return `import${node.phase ? `.${node.phase}` : ""}`;
   }
-  return `import.${node.phase}`;
+
+  return print("callee");
 }
 
 function isCommonsJsOrAmdModuleDefinition(path) {
