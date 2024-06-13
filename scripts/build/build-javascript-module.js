@@ -54,6 +54,20 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       module: "*",
       process: transform,
     },
+    // Transform `require("typescript")` to `import`
+    {
+      module: "*",
+      process(text, file) {
+        text = text.replaceAll(
+          /(?:const|let|var) (\w+) = (?:__importStar\(require\("typescript"\)\)|require\("typescript"\));/g,
+          'import * as $1 from "typescript";',
+        );
+        if (/require\(["']typescript["']\)/.test(text)) {
+          throw new Error(`Unexpected \`require("typescript")\` in ${file}.`);
+        }
+        return text;
+      },
+    },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
       module: require.resolve("tslib"),

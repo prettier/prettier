@@ -307,11 +307,14 @@ function isHopefullyShortCallArgument(node) {
       }
     }
     if (
-      (typeAnnotation.type === "GenericTypeAnnotation" ||
-        typeAnnotation.type === "TSTypeReference") &&
-      typeAnnotation.typeParameters?.params.length === 1
+      typeAnnotation.type === "GenericTypeAnnotation" ||
+      typeAnnotation.type === "TSTypeReference"
     ) {
-      typeAnnotation = typeAnnotation.typeParameters.params[0];
+      const typeArguments =
+        typeAnnotation.typeArguments ?? typeAnnotation.typeParameters;
+      if (typeArguments?.params.length === 1) {
+        typeAnnotation = typeArguments.params[0];
+      }
     }
     return (
       isSimpleType(typeAnnotation) && isSimpleCallArgument(node.expression, 1)

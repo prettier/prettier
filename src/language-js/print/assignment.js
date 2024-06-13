@@ -345,7 +345,7 @@ const isTypeReference = createTypeCheckFunction([
 ]);
 function getTypeParametersFromTypeReference(node) {
   if (isTypeReference(node)) {
-    return node.typeParameters?.params;
+    return (node.typeArguments ?? node.typeParameters)?.params;
   }
 }
 
@@ -453,8 +453,12 @@ function shouldBreakBeforeConditionalType(node) {
       case "FunctionTypeAnnotation":
       case "GenericTypeAnnotation":
       case "TSFunctionType":
-      case "TSTypeReference":
         return Boolean(subNode.typeParameters);
+      case "TSTypeReference":
+        return Boolean(
+          // TODO: Use `typeArguments` only when babel align with TS.
+          subNode.typeArguments ?? subNode.typeParameters,
+        );
       default:
         return false;
     }

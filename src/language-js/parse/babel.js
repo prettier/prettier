@@ -41,7 +41,6 @@ const parseOptions = {
     "decimal",
     "moduleBlocks",
     "asyncDoExpressions",
-    "regexpUnicodeSets",
     "destructuringPrivate",
     "decoratorAutoAccessors",
     "importReflection",

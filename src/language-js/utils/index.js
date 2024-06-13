@@ -327,7 +327,10 @@ function isSimpleType(node) {
     isSimpleTypeAnnotation(node) ||
     ((node.type === "GenericTypeAnnotation" ||
       node.type === "TSTypeReference") &&
-      !node.typeParameters)
+      // @ts-expect-error -- `GenericTypeAnnotation`
+      !node.typeParameters &&
+      // @ts-expect-error -- `TSTypeReference`
+      !node.typeArguments)
   );
 }
 

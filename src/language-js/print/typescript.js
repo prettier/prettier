@@ -127,7 +127,13 @@ function printTypescript(path, options, print) {
     case "TSClassImplements":
     case "TSExpressionWithTypeArguments": // Babel AST
     case "TSInstantiationExpression":
-      return [print("expression"), print("typeParameters")];
+      return [
+        print("expression"),
+        print(
+          // TODO: Use `typeArguments` only when babel align with TS.
+          node.typeArguments ? "typeArguments" : "typeParameters",
+        ),
+      ];
     case "TSTemplateLiteralType":
       return printTemplateLiteral(path, print, options);
     case "TSNamedTupleMember":
@@ -353,7 +359,13 @@ function printTypescript(path, options, print) {
     case "TSTypeReference":
       return [
         print("typeName"),
-        printTypeParameters(path, options, print, "typeParameters"),
+        printTypeParameters(
+          path,
+          options,
+          print,
+          // TODO: Use `typeArguments` only when babel align with TS.
+          node.typeArguments ? "typeArguments" : "typeParameters",
+        ),
       ];
     case "TSTypeAnnotation":
       return printTypeAnnotation(path, options, print);
