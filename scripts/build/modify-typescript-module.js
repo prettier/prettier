@@ -5,9 +5,10 @@ import MagicString from "magic-string";
 import { outdent } from "outdent";
 
 import { PROJECT_ROOT, writeFile } from "../utils/index.js";
+import UNUSED_SPECIFIERS from "./typescript-unused-specifiers.js";
 
 function* getModules(text) {
-  const parts = text.split(/(?<=\n)( {2}\/\/ src\/\S+\n)/);
+  const parts = text.split(/(?<=\n)(\/\/ src\/\S+\n)/);
 
   let start = parts[0].length;
 
@@ -15,31 +16,16 @@ function* getModules(text) {
     const comment = parts[partIndex];
     const code = parts[partIndex + 1];
 
-    const path = comment.slice("  // ".length, -1);
+    const path = comment.slice("// ".length, -1);
     const end = start + comment.length + code.length;
 
-    if (/\S/.test(code)) {
-      const esmRegExp = new RegExp(
-        [
-          String.raw`\s*var (?<initFunctionName>\w+) = __esm\({`,
-          `\\s*"${escapeStringRegexp(path)}"\\(\\) {`,
-          ".*",
-          String.raw`\s*}`,
-          String.raw`\s*}\);`,
-        ].join(String.raw`\n`),
-        "s",
-      );
-      const match = code.match(esmRegExp);
-
-      yield {
-        isEntry: path === "src/typescript/typescript.ts",
-        path,
-        start: start + comment.length,
-        end: end - 1,
-        code,
-        esmModuleInitFunctionName: match?.groups.initFunctionName,
-      };
-    }
+    yield {
+      isEntry: path === "src/typescript/typescript.ts",
+      path,
+      start: start + comment.length,
+      end: end - 1,
+      code,
+    };
 
     start = end;
   }
@@ -65,16 +51,7 @@ class TypeScriptModuleSource {
       module = found;
     }
 
-    const { esmModuleInitFunctionName } = module;
-    const moduleInitCode = esmModuleInitFunctionName
-      ? `var ${esmModuleInitFunctionName} = () => {};`
-      : "";
-
-    this.#source.overwrite(
-      module.start,
-      module.end,
-      moduleInitCode + replacement,
-    );
+    this.#source.overwrite(module.start, module.end, replacement);
     return this;
   }
 
@@ -142,8 +119,8 @@ class TypeScriptModuleSource {
 }
 
 function unwrap(text) {
-  const startMark = "var ts = (() => {";
-  const endMark = "return require_typescript();";
+  const startMark = 'var ts = {}; ((module) => {\n"use strict";';
+  const endMark = "// src/typescript/typescript.ts";
   const start = text.indexOf(startMark);
   const end = text.lastIndexOf(endMark);
 
@@ -151,13 +128,61 @@ function unwrap(text) {
     throw new Error("Unexpected source");
   }
 
-  return text.slice(start + startMark.length, end);
+  text = text.slice(start + startMark.length, end);
+
+  return text;
+}
+
+function getExports(entry) {
+  let lines = entry.code.trim().split("\n");
+
+  if (
+    !(
+      lines[0] === "var typescript_exports = {};" &&
+      lines[1] === "__export(typescript_exports, {" &&
+      lines.at(-2) === "});" &&
+      lines.at(-1) === "module.exports = __toCommonJS(typescript_exports);"
+    )
+  ) {
+    throw new Error("Unexpected source");
+  }
+
+  lines = lines.slice(2, -2);
+
+  const exports = lines.map((line) => {
+    const match = line.match(
+      /^\s*(?<specifier>.*?): \(\) => (?<variable>.*?),?$/,
+    );
+
+    if (!match) {
+      throw new Error("Unexpected source");
+    }
+
+    return match.groups;
+  });
+
+  return exports;
 }
 
 function modifyTypescriptModule(text) {
   text = unwrap(text);
 
   const source = new TypeScriptModuleSource(text);
+
+  const entry = source.modules.find((module) => module.isEntry);
+  let exports = getExports(entry);
+  source.removeModule(entry);
+
+  // print variables from core.ts to ignore
+  // const coreModule = source.modules.find(
+  //   (module) => module.path === "src/compiler/core.ts",
+  // );
+  // const variables = [
+  //   ...coreModule.code.matchAll(/(?<=\n)var (?<variable>\w+) =/g),
+  //   ...coreModule.code.matchAll(/(?<=\n)function (?<variable>\w+)\(/g),
+  // ].map((match) => match.groups.variable);
+
+  // console.log(JSON.stringify(variables, undefined, 2));
 
   // Deprecated
   for (const module of source.modules) {
@@ -175,10 +200,7 @@ function modifyTypescriptModule(text) {
 
   // services
   for (const module of source.modules) {
-    if (
-      module.path === "src/services/services.ts" ||
-      module.path === "src/services/_namespaces/ts.ts"
-    ) {
+    if (module.path === "src/services/services.ts") {
       continue;
     }
 
@@ -186,13 +208,7 @@ function modifyTypescriptModule(text) {
     if (module.path === "src/services/utilities.ts") {
       source.replaceModule(
         module,
-        outdent`
-          var scanner;
-          var ${module.esmModuleInitFunctionName} = () => {
-            init_debug();
-            scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);
-          };
-        `,
+        "var scanner = createScanner(ScriptTarget.Latest, /*skipTrivia*/ true);",
       );
       continue;
     }
@@ -203,6 +219,7 @@ function modifyTypescriptModule(text) {
   }
 
   // server
+  source.removeModule("src/typescript/_namespaces/ts.server.ts");
   for (const module of source.modules) {
     if (module.path.startsWith("src/server/")) {
       source.removeModule(module);
@@ -213,6 +230,13 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/transformer.ts");
   for (const module of source.modules) {
     if (module.path.startsWith("src/compiler/transformers/")) {
+      source.removeModule(module);
+    }
+  }
+
+  // `typingsInstaller`
+  for (const module of source.modules) {
+    if (module.path.startsWith("src/typingsInstallerCore/")) {
       source.removeModule(module);
     }
   }
@@ -237,7 +261,6 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/tsbuild.ts");
   source.removeModule("src/compiler/tsbuildPublic.ts");
   source.removeModule("src/compiler/builderState.ts");
-  source.removeModule("src/compiler/builderStatePublic.ts");
 
   // Misc
   source.removeModule("src/compiler/symbolWalker.ts");
@@ -249,6 +272,8 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/visitorPublic.ts");
   source.removeModule("src/compiler/emitter.ts");
   source.removeModule("src/compiler/_namespaces/ts.performance.ts");
+  source.removeModule("src/compiler/executeCommandLine.ts");
+  source.removeModule("src/compiler/expressionToTypeNode.ts");
 
   // File system
   source.replaceModule("src/compiler/sys.ts", "var sys;");
@@ -260,7 +285,7 @@ function modifyTypescriptModule(text) {
     "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});",
   );
 
-  // performanceCore
+  // performance
   source.replaceModule(
     "src/compiler/performanceCore.ts",
     outdent`
@@ -268,21 +293,32 @@ function modifyTypescriptModule(text) {
       var timestamp = Date.now;
     `,
   );
+  source.replaceModule(
+    "src/compiler/performance.ts",
+    outdent`
+      var mark = () => {};
+      var measure = () => {};
+    `,
+  );
 
   // `factory`
   source.removeModule("src/compiler/factory/emitNode.ts");
   source.removeModule("src/compiler/factory/emitHelpers.ts");
-  source.replaceModule(
-    "src/compiler/factory/nodeConverters.ts",
-    outdent`
-      var createNodeConverters = () => new Proxy({}, {get: () => () => {}});
-    `,
-  );
+  source.removeModule("src/compiler/factory/nodeConverters.ts");
 
   // `pnp`
   if (source.hasModule("src/compiler/pnp.ts")) {
     source.removeModule("src/compiler/pnp.ts");
   }
+  if (source.hasModule("src/compiler/pnpapi.ts")) {
+    source.removeModule("src/compiler/pnpapi.ts");
+  }
+
+  source.replaceAlignedCode({
+    start: "function isNodeLikeSystem(",
+    end: "}",
+    replacement: "function isNodeLikeSystem() {return false}",
+  });
 
   /* spell-checker: disable */
   // `ts.createParenthesizerRules`
@@ -293,8 +329,8 @@ function modifyTypescriptModule(text) {
   /* spell-checker: enable */
 
   source.replaceAlignedCode({
-    start: "function getScriptTargetFeatures(",
-    end: "}",
+    start: "var getScriptTargetFeatures = /* @__PURE__ */ memoize(",
+    end: ");",
   });
 
   source.replaceAlignedCode({
@@ -302,16 +338,46 @@ function modifyTypescriptModule(text) {
     end: "});",
   });
 
-  source.append("module.exports = require_typescript();");
+  let code = source.toString();
+  exports = exports.filter(
+    ({ specifier }) => !UNUSED_SPECIFIERS.has(specifier),
+  );
 
-  return source.toString();
+  code = addExports(code, exports);
+
+  code +=
+    "\n" +
+    outdent`
+      export const isUnparsedPrepend = () => false;
+      export const isUnparsedTextLike = () => false;
+    `;
+
+  return { code, exports };
+}
+
+function addExports(code, exports) {
+  return (
+    code +
+    "\n\n" +
+    outdent`
+      export {
+        ${exports
+          .map(({ specifier, variable }) =>
+            variable === specifier ? specifier : `${variable} as ${specifier}`,
+          )
+          .map((line) => `  ${line},`)
+          .join("\n")}
+      };
+    `
+  );
 }
 
 // Save modified code to `{PROJECT_ROOT}/.tmp/modified-typescript.js` for debug
 const saveOutputToDisk = (process) => (text) => {
-  const result = process(text);
-  writeFile(path.join(PROJECT_ROOT, ".tmp/modified-typescript.js"), result);
-  return result;
+  const { code } = process(text);
+  writeFile(path.join(PROJECT_ROOT, ".tmp/modified-typescript.js"), code);
+  return code;
 };
 
 export default saveOutputToDisk(modifyTypescriptModule);
+export { modifyTypescriptModule };

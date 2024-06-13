@@ -133,7 +133,11 @@ const pluginFiles = [
             .replace('require("./create-program/createDefaultProgram")', "{}")
             .replace('require("./create-program/createIsolatedProgram")', "{}")
             .replace('require("./create-program/createProjectProgram")', "{}")
-            .replace('require("./create-program/useProvidedPrograms")', "{}");
+            .replace('require("./create-program/useProvidedPrograms")', "{}")
+            .replace(
+              'require("./semantic-or-syntactic-errors")',
+              "{getFirstSemanticOrSyntacticError(){}}",
+            );
           return text;
         },
       },
@@ -262,6 +266,17 @@ const pluginFiles = [
           text = text.replace(
             'const tsutils = __importStar(require("ts-api-utils"));',
             'import * as tsutils from "ts-api-utils";',
+          );
+          return text;
+        },
+      },
+      // Use named import from `typescript`
+      {
+        module: getPackageFile("ts-api-utils/lib/index.js"),
+        process(text) {
+          text = text.replaceAll(
+            /(?<=import )(?=\w+ from ["']typescript["'])/g,
+            "* as ",
           );
           return text;
         },

@@ -278,6 +278,7 @@ export default [
       "unicorn/prevent-abbreviations": "off",
       "unicorn/relative-url-style": "off",
       "unicorn/switch-case-braces": ["error", "avoid"],
+      "unicorn/template-indent": "error",
     },
 
     linterOptions: {
