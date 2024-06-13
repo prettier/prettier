@@ -410,7 +410,6 @@ exports[`visitor keys estree 1`] = `
     "consequent",
     "alternate",
   ],
-  "Import": [],
   "ImportAttribute": [
     "key",
     "value",

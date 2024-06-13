@@ -229,8 +229,6 @@ function printEstree(path, options, print, args) {
       return printModuleSpecifier(path, options, print);
     case "ImportAttribute":
       return printProperty(path, options, print);
-    case "Import":
-      return "import";
 
     case "Program":
     case "BlockStatement":

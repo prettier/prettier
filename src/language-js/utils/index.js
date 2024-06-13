@@ -204,7 +204,6 @@ const isSingleWordType = createTypeCheckFunction([
   "Super",
   "PrivateName",
   "PrivateIdentifier",
-  "Import",
 ]);
 
 const isObjectType = createTypeCheckFunction([

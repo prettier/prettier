@@ -94,4 +94,6 @@ const visitorKeys = Object.fromEntries(
   ]),
 );
 
+delete visitorKeys.Import;
+
 export default visitorKeys;
