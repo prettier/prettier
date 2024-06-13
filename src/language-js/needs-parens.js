@@ -17,6 +17,14 @@ import {
   startsWithNoLookaheadToken,
 } from "./utils/index.js";
 
+/**
+ * @typedef {import("../common/ast-path.js").default} AstPath
+ */
+
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
 function needsParens(path, options) {
   if (path.isRoot) {
     return false;
@@ -1066,6 +1074,10 @@ const isStatement = createTypeCheckFunction([
   "WithStatement",
 ]);
 
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
 function isPathInForStatementInitializer(path) {
   let i = 0;
   let { node } = path;
@@ -1093,6 +1105,10 @@ function endsWithRightBracket(node) {
   return isObjectOrRecordExpression(node);
 }
 
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
 function isFollowedByRightBracket(path) {
   const { parent, key } = path;
   switch (parent.type) {
@@ -1126,6 +1142,10 @@ function isFollowedByRightBracket(path) {
   return false;
 }
 
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
 function shouldWrapFunctionForExportDefault(path, options) {
   const { node, parent } = path;
 
@@ -1170,6 +1190,10 @@ new (a?.b)();
 new (a?.())();
 ```
 */
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
 function shouldAddParenthesesToChainElement(path) {
   // Babel, this was implemented before #13735, can use `path.match` as estree does
   const { node, parent, grandparent, key } = path;
