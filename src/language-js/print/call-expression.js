@@ -30,7 +30,7 @@ function printCallExpression(path, options, print) {
     // We want to keep CommonJS- and AMD-style require calls, and AMD-style
     // define calls, as a unit.
     // e.g. `define(["some/lib"], (lib) => {`
-    isCommonsJsOrAmdCall(path) ||
+    isCommonsJsOrAmdModuleDefinition(path) ||
     // Keep test declarations on a single line
     // e.g. `it('long name', () => {`
     isTestCall(node, path.parent)
@@ -91,7 +91,7 @@ function printDynamicImportCallee(node) {
   return `import.${node.phase}`;
 }
 
-function isCommonsJsOrAmdCall(path) {
+function isCommonsJsOrAmdModuleDefinition(path) {
   const { node } = path;
   if (node.type !== "CallExpression" || node.optional) {
     return false;
@@ -103,10 +103,12 @@ function isCommonsJsOrAmdCall(path) {
 
   const args = getCallArguments(node);
 
+  // AMD module
   if (node.callee.name === "require") {
     return (args.length === 1 && isStringLiteral(args[0])) || args.length > 1;
   }
 
+  // CommonJS
   if (
     node.callee.name === "define" &&
     path.parent.type === "ExpressionStatement"
