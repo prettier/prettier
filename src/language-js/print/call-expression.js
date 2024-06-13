@@ -96,6 +96,7 @@ function printCallee(path, print) {
 
 function isCommonsJsOrAmdModuleDefinition(path) {
   const { node } = path;
+
   if (node.type !== "CallExpression" || node.optional) {
     return false;
   }
