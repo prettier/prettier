@@ -1,5 +1,4 @@
 import { all as getCjkCharset } from "cjk-regex";
-import escapeStringRegexp from "escape-string-regexp";
 import { Charset } from "regexp-util";
 import unicodeRegex from "unicode-regex";
 
@@ -73,14 +72,12 @@ const unicodePunctuationClasses = [
 ];
 
 const PUNCTUATION_REGEXP = new RegExp(
-  [
-    ...asciiPunctuationCharacters.map((character) =>
-      escapeStringRegexp(character),
-    ),
+  `(?:${[
+    new Charset(...asciiPunctuationCharacters).toRegExp().source,
     ...unicodePunctuationClasses.map(
       (charset) => `\\p{General_Category=${charset}}`,
     ),
-  ].join("|"),
+  ].join("|")})`,
   "u",
 );
 
