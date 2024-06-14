@@ -110,7 +110,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
 
         text = lines.slice(startMarkLine + 1, endMarkLine - 2).join("\n");
 
-        text
+        text = text
           .replace(
             "const line = (0, _detectNewline().default)(docblock) ?? _os().EOL;",
             String.raw`const line = "\n"`,
