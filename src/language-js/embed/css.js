@@ -46,16 +46,18 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     }
     // When we have multiple placeholders in one line, like:
     // ${Child}${Child2}:not(:first-child)
-    return doc.split(/@prettier-placeholder-(\d+)-id/u).map((component, idx) => {
-      // The placeholder is always at odd indices
-      if (idx % 2 === 0) {
-        return replaceEndOfLine(component);
-      }
+    return doc
+      .split(/@prettier-placeholder-(\d+)-id/u)
+      .map((component, idx) => {
+        // The placeholder is always at odd indices
+        if (idx % 2 === 0) {
+          return replaceEndOfLine(component);
+        }
 
-      // The component will always be a number at odd index
-      replaceCounter++;
-      return expressionDocs[component];
-    });
+        // The component will always be a number at odd index
+        replaceCounter++;
+        return expressionDocs[component];
+      });
   });
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }

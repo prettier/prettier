@@ -1,4 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
+import escapeStringRegexp from "escape-string-regexp";
 
 import {
   align,
@@ -725,9 +726,10 @@ function printUrl(url, dangerousCharOrChars = []) {
       : [dangerousCharOrChars]),
   ];
 
-  return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|"), "u").test(
-    url,
-  )
+  return new RegExp(
+    dangerousChars.map((x) => escapeStringRegexp(x)).join("|"),
+    "u",
+  ).test(url)
     ? `<${encodeUrl(url, "<>")}>`
     : url;
 }
