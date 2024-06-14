@@ -127,6 +127,16 @@ const pluginFiles = [
         ),
       },
       {
+        module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js",
+        ),
+        process: (text) =>
+          text.replace(
+            'require("path")',
+            '{extname: file => "." + file.split(".").pop()}',
+          ),
+      },
+      {
         module: "*",
         process: esmifyTypescriptEslint,
       },
@@ -155,16 +165,6 @@ const pluginFiles = [
               "parseSettings.projects = [] || ",
             );
         },
-      },
-      {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js",
-        ),
-        process: (text) =>
-          text.replace(
-            'require("path")',
-            '{extname: file => "." + file.split(".").pop()}',
-          ),
       },
       ...[
         {
