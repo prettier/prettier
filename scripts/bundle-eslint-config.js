@@ -1,15 +1,67 @@
 import fs from "node:fs/promises";
-import url from "node:url";
 
-import { FlatCompat } from "@eslint/eslintrc";
 import eslintPluginCompat from "eslint-plugin-compat";
 
 const { browserslist: targets } = JSON.parse(
   await fs.readFile(new URL("../package.json", import.meta.url)),
 );
 
-const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
-const compat = new FlatCompat({ baseDirectory: toPath("./") });
+const browserFiles = [
+  "doc.js",
+  "doc.mjs",
+  "standalone.js",
+  "standalone.mjs",
+  "plugins/*",
+];
+
+const nodejsFiles = ["index.cjs", "index.mjs", "bin/*", "internal/*"];
+
+const restrictedSyntaxes = [
+  {
+    selector: String.raw`CallExpression[callee.name="require"][arguments.0.value=/^\..*?\.mjs$/]`,
+    message: ".mjs file can't be `require()`d",
+  },
+];
+
+const browserRestrictedSyntaxes = [
+  {
+    selector: 'CallExpression[callee.name="require"]',
+    message: "Universal bundles should not include any `require()` call.",
+  },
+  {
+    selector: "ImportDeclaration",
+    message: "Universal bundles should not include any `import` declaration.",
+  },
+  {
+    selector:
+      ":matches(ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)[source]",
+    message: "Universal bundles should not `export` from other files.",
+  },
+  {
+    selector: "ImportExpression",
+    message: "Universal bundles should not include any `import()`.",
+  },
+];
+
+const nodejsRestrictedSyntaxes = [
+  // Forbid top level `require()` parsers
+  {
+    selector:
+      'CallExpression:not(:function *)[callee.name="require"][arguments.0.value=/plugins/]',
+    message: "Parsers should be inline `require()`d.",
+  },
+  // Forbid top level `import()` parsers
+  {
+    selector: "ImportExpression:not(:function *)[source.value=/plugins/]",
+    message: "Parsers should be inline `import()`ed.",
+  },
+  // Forbid `import`/`export` parsers
+  {
+    selector:
+      ":matches(ImportDeclaration, ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)[source.value=/plugins/]",
+    message: "Parsers should be inline `import()`ed.",
+  },
+];
 
 /* TODO[@fisker]: Fix `no-restricted-syntax` */
 
@@ -27,80 +79,38 @@ export default [
         "Symbol.asyncIterator",
       ],
     },
+    linterOptions: {
+      noInlineConfig: true,
+      reportUnusedDisableDirectives: "off",
+    },
+    rules: {
+      "compat/compat": "error",
+      "no-restricted-syntax": ["error", ...restrictedSyntaxes],
+    },
+  },
+
+  {
+    files: browserFiles,
     rules: {
       "no-restricted-syntax": [
         "error",
-        // Forbid `require()` .mjs file
-        {
-          selector: String.raw`CallExpression[callee.name="require"][arguments.0.value=/^\..*?\.mjs$/]`,
-          message: ".mjs file can't be `require()`d",
-        },
+        ...restrictedSyntaxes,
+        ...browserRestrictedSyntaxes,
       ],
     },
   },
 
   {
-    files: [
-      "doc.js",
-      "doc.mjs",
-      "standalone.js",
-      "standalone.mjs",
-      "plugins/*",
-    ],
-    ...compat.env({ browser: true }),
+    files: nodejsFiles,
     rules: {
-      "compat/compat": "error",
-      // "no-restricted-syntax": [
-      //   "error",
-      //   // Forbid `require()`
-      //   {
-      //     selector: 'CallExpression[callee.name="require"]',
-      //     message:
-      //       "Universal bundles should not include any `require()` call.",
-      //   },
-      //   {
-      //     selector: "ImportDeclaration",
-      //     message:
-      //       "Universal bundles should not include any `import` declaration.",
-      //   },
-      //   {
-      //     selector:
-      //       ":matches(ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)[source]",
-      //     message: "Universal bundles should not `export` from other files.",
-      //   },
-      //   {
-      //     selector: "ImportExpression",
-      //     message: "Universal bundles should not include any `import()`.",
-      //   },
-      // ],
+      "no-restricted-syntax": [
+        "error",
+        ...restrictedSyntaxes,
+        ...nodejsRestrictedSyntaxes,
+      ],
     },
   },
-  {
-    files: ["index.cjs", "index.mjs", "bin/*", "internal/*"],
-    rules: {
-      // "no-restricted-syntax": [
-      //   "error",
-      //   // Forbid top level `require()` parsers
-      //   {
-      //     selector:
-      //       'CallExpression:not(:function *)[callee.name="require"][arguments.0.value=/plugins/]',
-      //     message: "Parsers should be inline `require()`d.",
-      //   },
-      //   // Forbid top level `import()` parsers
-      //   {
-      //     selector:
-      //       "ImportExpression:not(:function *)[source.value=/plugins/]",
-      //     message: "Parsers should be inline `import()`ed.",
-      //   },
-      //   // Forbid `import`/`export` parsers
-      //   {
-      //     selector:
-      //       ":matches(ImportDeclaration, ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)[source.value=/plugins/]",
-      //     message: "Parsers should be inline `import()`ed.",
-      //   },
-      // ],
-    },
-  },
+
   {
     files: ["bin/prettier.cjs"],
     languageOptions: {
