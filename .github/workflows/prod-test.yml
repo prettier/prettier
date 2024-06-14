@@ -43,7 +43,7 @@ jobs:
           path: dist
 
       - name: Lint Code
-        run: yarn test:dist-lint
+        run: yarn test:dist-lint --debug
 
   test:
     timeout-minutes: 90
