@@ -22,6 +22,7 @@ const variationSelectorsCharset = unicodeRegex({
 
 const CJK_REGEXP = new RegExp(
   `(?:${cjkCharset.toString()})(?:${variationSelectorsCharset.toString()})?`,
+  "u",
 );
 
 const asciiPunctuationCharacters = [

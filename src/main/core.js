@@ -143,7 +143,7 @@ async function formatRange(originalText, opts) {
     rangeStart,
     text.lastIndexOf("\n", rangeStart) + 1,
   );
-  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
+  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/u)[0];
 
   const alignmentSize = getAlignmentSize(indentString, opts.tabWidth);
 

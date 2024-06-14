@@ -2,7 +2,7 @@ import { group, indent, line } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import { formatAttributeValue } from "./utils.js";
 
-const interpolationRegex = /{{(.+?)}}/s;
+const interpolationRegex = /\{\{(.+?)\}\}/su;
 
 async function printAngularInterpolation(text, textToDoc) {
   const parts = [];

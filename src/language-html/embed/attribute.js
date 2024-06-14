@@ -20,7 +20,7 @@ function printAttribute(path, options) {
 
   if (
     // lit-html: html`<my-element obj=${obj}></my-element>`
-    /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(
+    /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/u.test(
       options.originalText.slice(
         node.valueSpan.start.offset,
         node.valueSpan.end.offset,

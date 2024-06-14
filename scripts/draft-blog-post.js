@@ -35,7 +35,7 @@ const nextVersion = `${semver.major(version)}.${semver.minor(
 const postGlob = path.join(blogDir, `????-??-??-${nextVersion}.md`);
 const postFile = path.join(
   blogDir,
-  `${new Date().toISOString().replace(/T.+/, "")}-${nextVersion}.md`,
+  `${new Date().toISOString().replace(/T.+/u, "")}-${nextVersion}.md`,
 );
 
 const categories = [

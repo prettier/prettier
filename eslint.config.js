@@ -134,6 +134,7 @@ export default [
       "prefer-rest-params": "error",
       "prefer-spread": "error",
       "require-await": "error",
+      "require-unicode-regexp": "error",
       "symbol-description": "error",
       yoda: [
         "error",

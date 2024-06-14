@@ -43,7 +43,7 @@ testPatterns("1a - with *.foo plugin", [
   "--plugin=../../plugins/extensions/plugin.cjs",
 ]);
 testPatterns("1b - special characters in dir name", ["dir1", "!dir"], {
-  stdout: expect.stringMatching(/!dir[/\\]a\.js/),
+  stdout: expect.stringMatching(/!dir[/\\]a\.js/u),
 });
 testPatterns("1c", ["dir1", "empty"], { status: 1 });
 
@@ -363,7 +363,7 @@ function testPatterns(
     (namePrefix ? namePrefix + ": " : "") +
     "prettier " +
     cliArgs
-      .map((arg) => (/^[\w./=-]+$/.test(arg) ? arg : `'${arg}'`))
+      .map((arg) => (/^[\w./=-]+$/u.test(arg) ? arg : `'${arg}'`))
       .join(" ");
 
   describe(testName, () => {

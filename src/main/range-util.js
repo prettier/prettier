@@ -199,12 +199,12 @@ function calculateRange(text, opts, ast) {
   assert.ok(end > start);
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
-  const firstNonWhitespaceCharacterIndex = text.slice(start, end).search(/\S/);
+  const firstNonWhitespaceCharacterIndex = text.slice(start, end).search(/\S/u);
   const isAllWhitespace = firstNonWhitespaceCharacterIndex === -1;
   if (!isAllWhitespace) {
     start += firstNonWhitespaceCharacterIndex;
     for (; end > start; --end) {
-      if (/\S/.test(text[end - 1])) {
+      if (/\S/u.test(text[end - 1])) {
         break;
       }
     }

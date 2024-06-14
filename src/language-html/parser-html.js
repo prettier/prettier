@@ -46,7 +46,7 @@ function normalizeAngularControlFlowBlock(node) {
     return;
   }
 
-  node.name = node.name.toLowerCase().replaceAll(/\s+/g, " ").trim();
+  node.name = node.name.toLowerCase().replaceAll(/\s+/gu, " ").trim();
   node.type = "angularControlFlowBlock";
 
   if (!isNonEmptyArray(node.parameters)) {
@@ -188,7 +188,7 @@ function ngHtmlParser(input, parseOptions, options) {
             attr.value = null;
           } else {
             attr.value = attr.valueSpan.toString();
-            if (/["']/.test(attr.value[0])) {
+            if (/["']/u.test(attr.value[0])) {
               attr.value = attr.value.slice(1, -1);
             }
           }
@@ -354,7 +354,7 @@ function parse(
 
   const parseSubHtml = (subContent, startSpan) => {
     const { offset } = startSpan;
-    const fakeContent = text.slice(0, offset).replaceAll(/[^\n\r]/g, " ");
+    const fakeContent = text.slice(0, offset).replaceAll(/[^\n\r]/gu, " ");
     const realContent = subContent;
     const subAst = parse(
       fakeContent + realContent,

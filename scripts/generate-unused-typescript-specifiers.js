@@ -21,7 +21,7 @@ async function getRemovedSpecifiers(code, exports) {
   const specifiers = [];
   for (const { text } of errors) {
     const match = text.match(
-      /^"(?<variable>.*?)" is not declared in this file$/,
+      /^"(?<variable>.*?)" is not declared in this file$/u,
     );
 
     if (match) {

@@ -20,10 +20,7 @@ async function typesFileBuilder({ file }) {
   const replacements = pathReplacementMap[file.input] ?? [];
   let text = await fs.promises.readFile(file.input, "utf8");
   for (const { from, to } of replacements) {
-    text = text.replaceAll(
-      new RegExp(` from "${from}";`, "g"),
-      ` from "${to}";`,
-    );
+    text = text.replaceAll(` from "${from}";`, ` from "${to}";`);
   }
   await writeFile(path.join(DIST_DIR, file.output.file), text);
 }

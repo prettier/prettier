@@ -59,7 +59,7 @@ function createParseError(error) {
   let { message, line, column } = error;
 
   const matches = message.match(
-    /^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/,
+    /^\[(?<line>\d+):(?<column>\d+)\]: (?<message>.*)$/u,
   )?.groups;
 
   if (matches) {

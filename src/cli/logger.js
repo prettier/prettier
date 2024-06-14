@@ -53,7 +53,7 @@ function createLogger(logLevel = "log") {
         ...options,
       };
       message =
-        message.replaceAll(/^/gm, prefix) + (options.newline ? "\n" : "");
+        message.replaceAll(/^/gmu, prefix) + (options.newline ? "\n" : "");
       stream.write(message);
 
       if (options.clearable) {

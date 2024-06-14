@@ -284,7 +284,7 @@ test(".js config file", async () => {
     await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
   }
 
-  const cjsError = /module is not defined in ES module scope/;
+  const cjsError = /module is not defined in ES module scope/u;
   for (const directoryName of [
     "cjs-prettier-config-js-in-type-module",
     "cjs-prettierrc-js-in-type-module",
@@ -293,7 +293,7 @@ test(".js config file", async () => {
     await expect(prettier.resolveConfig(file)).rejects.toThrow(cjsError);
   }
 
-  const mjsError = /Unexpected token 'export'/;
+  const mjsError = /Unexpected token 'export'/u;
   for (const directoryName of [
     "mjs-prettier-config-js-in-type-commonjs",
     "mjs-prettier-config-js-in-type-none",
@@ -361,7 +361,7 @@ test(".json5 config file", async () => {
 test(".json5 config file(invalid)", async () => {
   const parentDirectory = new URL("../cli/config/rc-json5/", import.meta.url);
   const file = new URL("./invalid/foo.js", parentDirectory);
-  const error = /JSON5: invalid end of input at 2:1/;
+  const error = /JSON5: invalid end of input at 2:1/u;
   await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
 });
 

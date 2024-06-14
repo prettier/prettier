@@ -20,7 +20,7 @@ test("Throw error on invalid doc", () => {
     null,
     Promise.resolve("1"),
     (function* () {})(),
-    /regexp/g,
+    /regexp/gu,
     new Date(),
     new Error("error"),
     Buffer.from("buffer"),

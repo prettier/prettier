@@ -3,7 +3,7 @@
  */
 const wikiLink = function () {
   const entityType = "wikiLink";
-  const wikiLinkRegex = /^\[\[(?<linkContents>.+?)]]/s;
+  const wikiLinkRegex = /^\[\[(?<linkContents>.+?)\]\]/su;
   const proto = this.Parser.prototype;
   const methods = proto.inlineMethods;
   methods.splice(methods.indexOf("link"), 0, entityType);

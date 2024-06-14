@@ -255,7 +255,7 @@ function printNode(path, options, print) {
 
       if (
         (node.type === "quoteSingle" && raw.includes("\\")) ||
-        (node.type === "quoteDouble" && /\\[^"]/.test(raw))
+        (node.type === "quoteDouble" && /\\[^"]/u.test(raw))
       ) {
         // only quoteDouble can use escape chars
         // and quoteSingle do not need to escape backslashes
@@ -365,7 +365,7 @@ function shouldPrintDocumentHeadEndMarker(path, options) {
      * preserve the first document head end marker
      */
     (path.isFirst &&
-      /---(?:\s|$)/.test(
+      /---(?:\s|$)/u.test(
         options.originalText.slice(locStart(document), locStart(document) + 4),
       )) ||
     /**
