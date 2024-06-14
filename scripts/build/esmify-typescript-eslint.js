@@ -95,6 +95,24 @@ function esmifyTypescriptEslint(text) {
     "export const $<specifier> = $<value>;",
   );
 
+  /*
+  ```js
+  exports.foo = __importStar(require("foo"));
+  ```
+  ->
+  ```js
+  import * as foo_namespace_export from "foo";
+  export {foo_namespace_export as foo};
+  ````
+  */
+  text = text.replaceAll(
+    /(?<=\n)exports\.(?<specifier>\w+) = __importStar\(require\(["'](?<moduleName>.*?)["']\)\);/g,
+    outdent`
+      import * as $<specifier>_namespace_export from "$<moduleName>";
+      export {$<specifier>_namespace_export as $<specifier>};
+    `,
+  );
+
   return text;
 }
 
