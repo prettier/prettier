@@ -71,7 +71,7 @@
     "ignore": "5.3.1",
     "import-meta-resolve": "4.1.0",
     "iterate-directory-up": "1.1.1",
-    "jest-docblock": "29.7.0",
+    "jest-docblock": "30.0.0-alpha.5",
     "js-yaml": "4.1.0",
     "json5": "2.2.3",
     "leven": "4.0.0",
