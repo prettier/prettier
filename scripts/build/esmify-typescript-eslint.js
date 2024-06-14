@@ -44,6 +44,7 @@ function esmifyTypescriptEslint(text) {
     `,
   );
 
+  text = text.replaceAll('"use strict";', "");
   text = text.replaceAll(
     'Object.defineProperty(exports, "__esModule", { value: true });',
     "",
@@ -64,6 +65,34 @@ function esmifyTypescriptEslint(text) {
   text = text.replaceAll(
     /(?<=\n)exports\.(?<specifier>\w+)(?= = `)/g,
     "export const $<specifier>",
+  );
+
+  /*
+  ```js
+  __exportStar(require("foo"), exports);
+  ```
+  ->
+  ```js
+  export * from "foo";
+  ````
+  */
+  text = text.replaceAll(
+    /(?<=\n)__exportStar\(require\(["'](?<moduleName>.*?)["']\), exports\);/g,
+    'export * from "$<moduleName>";',
+  );
+
+  /*
+  ```js
+  Object.defineProperty(exports, "foo", { enumerable: true, get: function () { return foo; } });
+  ```
+  ->
+  ```js
+  export * from "foo";
+  ````
+  */
+  text = text.replaceAll(
+    /(?<=\n)Object\.defineProperty\(exports, "(?<specifier>\w+)", { enumerable: true, get: function \(\) { return (?<value>.*?); } }\);/g,
+    "export const $<specifier> = $<value>;",
   );
 
   return text;
