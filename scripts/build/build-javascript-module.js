@@ -258,6 +258,10 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     outfile: path.join(DIST_DIR, cliOptions.saveAs ?? file.output.file),
     // https://esbuild.github.io/api/#main-fields
     mainFields: file.platform === "node" ? ["module", "main"] : undefined,
+    supported: {
+      // https://github.com/evanw/esbuild/issues/3471
+      "regexp-unicode-property-escapes": true,
+    },
   };
 
   if (file.platform === "universal") {

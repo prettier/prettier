@@ -24,11 +24,6 @@ const CJK_REGEXP = new RegExp(
   `(?:${cjkCharset.toString()})(?:${variationSelectorsCharset.toString()})?`,
 );
 
-const K_REGEXP = new Charset(
-  unicodeRegex({ Script: ["Hangul"] }),
-  unicodeRegex({ Script_Extensions: ["Hangul"] }),
-).toRegExp();
-
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
 const asciiPunctuationCharset =
   /* prettier-ignore */ new Charset(
@@ -57,4 +52,4 @@ const PUNCTUATION_REGEXP = new Charset(
   unicodePunctuationCharset,
 ).toRegExp();
 
-export { CJK_REGEXP, K_REGEXP, PUNCTUATION_REGEXP };
+export { CJK_REGEXP, PUNCTUATION_REGEXP };
