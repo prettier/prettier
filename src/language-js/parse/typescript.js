@@ -25,7 +25,7 @@ const baseParseOptions = {
 
 function createParseError(error) {
   /* c8 ignore next 3 -- not a parse error */
-  if (!error?.reasonCode) {
+  if (!error?.location) {
     return error;
   }
 
