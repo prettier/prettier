@@ -1,10 +1,10 @@
-import * as cjkRegex from "cjk-regex";
+import { all as getCjkCharset } from "cjk-regex";
 import escapeStringRegexp from "escape-string-regexp";
 import { Charset } from "regexp-util";
 import unicodeRegex from "unicode-regex";
 
 const cjkCharset = new Charset(
-  cjkRegex.all(),
+  getCjkCharset(),
   unicodeRegex({
     Script_Extensions: ["Han", "Katakana", "Hiragana", "Hangul", "Bopomofo"],
     General_Category: [
