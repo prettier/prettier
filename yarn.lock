@@ -7423,7 +7423,6 @@ __metadata:
     postcss-values-parser: "npm:2.0.1"
     prettier: "npm:3.3.2"
     pretty-bytes: "npm:6.1.1"
-    regexp-util: "npm:2.0.0"
     remark-footnotes: "npm:2.0.0"
     remark-math: "npm:3.0.1"
     remark-parse: "npm:8.0.3"
@@ -7631,7 +7630,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regexp-util@npm:2.0.0, regexp-util@npm:^2.0.0":
+"regexp-util@npm:^2.0.0":
   version: 2.0.0
   resolution: "regexp-util@npm:2.0.0"
   dependencies:

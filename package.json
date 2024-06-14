@@ -90,7 +90,6 @@
     "postcss-scss": "4.0.9",
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "2.0.1",
-    "regexp-util": "2.0.0",
     "remark-footnotes": "2.0.0",
     "remark-math": "3.0.1",
     "remark-parse": "8.0.3",

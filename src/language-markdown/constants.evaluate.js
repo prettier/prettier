@@ -24,32 +24,61 @@ const CJK_REGEXP = new RegExp(
   `(?:${cjkCharset.toString()})(?:${variationSelectorsCharset.toString()})?`,
 );
 
-// http://spec.commonmark.org/0.25/#ascii-punctuation-character
-const asciiPunctuationCharset =
-  /* prettier-ignore */ new Charset(
-  "!", '"', "#",  "$", "%", "&", "'", "(", ")", "*",
-  "+", ",", "-",  ".", "/", ":", ";", "<", "=", ">",
-  "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|",
-  "}", "~"
+const asciiPunctuationCharacters = [
+  "!",
+  '"',
+  "#",
+  "$",
+  "%",
+  "&",
+  "'",
+  "(",
+  ")",
+  "*",
+  "+",
+  ",",
+  "-",
+  ".",
+  "/",
+  ":",
+  ";",
+  "<",
+  "=",
+  ">",
+  "?",
+  "@",
+  "[",
+  "\\",
+  "]",
+  "^",
+  "_",
+  "`",
+  "{",
+  "|",
+  "}",
+  "~",
+];
+
+// https://spec.commonmark.org/0.25/#punctuation-character
+// https://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
+const unicodePunctuationClasses = [
+  /* Pc */ "Connector_Punctuation",
+  /* Pd */ "Dash_Punctuation",
+  /* Pe */ "Close_Punctuation",
+  /* Pf */ "Final_Punctuation",
+  /* Pi */ "Initial_Punctuation",
+  /* Po */ "Other_Punctuation",
+  /* Ps */ "Open_Punctuation",
+];
+
+const PUNCTUATION_REGEXP = new RegExp(
+  `(?:${[
+    new Charset(...asciiPunctuationCharacters).toRegExp().source,
+    ...unicodePunctuationClasses.map(
+      (charset) => `\\p{General_Category=${charset}}`,
+    ),
+  ].join("|")})`,
+  "u",
 );
-
-// http://spec.commonmark.org/0.25/#punctuation-character
-const unicodePunctuationCharset = unicodeRegex({
-  // http://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
-  General_Category: [
-    /* Pc */ "Connector_Punctuation",
-    /* Pd */ "Dash_Punctuation",
-    /* Pe */ "Close_Punctuation",
-    /* Pf */ "Final_Punctuation",
-    /* Pi */ "Initial_Punctuation",
-    /* Po */ "Other_Punctuation",
-    /* Ps */ "Open_Punctuation",
-  ],
-});
-
-const PUNCTUATION_REGEXP = new Charset(
-  asciiPunctuationCharset,
-  unicodePunctuationCharset,
-).toRegExp();
 
 export { CJK_REGEXP, PUNCTUATION_REGEXP };
