@@ -262,7 +262,7 @@ const pluginFiles = [
           "@typescript-eslint/types/dist/generated/ast-spec.js",
         ),
         text: outdent`
-          const TYPE_STORE = new Proxy({}, (_, type) => type);
+          const TYPE_STORE = new Proxy({}, {get: (_, type) => type});
           export { TYPE_STORE as AST_TOKEN_TYPES, TYPE_STORE as AST_NODE_TYPES};
         `,
       },
