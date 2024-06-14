@@ -257,6 +257,15 @@ const pluginFiles = [
           );
         },
       },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/types/dist/generated/ast-spec.js",
+        ),
+        text: outdent`
+          const TYPE_STORE = new Proxy({}, (_, type) => type);
+          export { TYPE_STORE as AST_TOKEN_TYPES, TYPE_STORE as AST_NODE_TYPES};
+        `,
+      },
       // Use named import from `typescript`
       {
         module: getPackageFile("ts-api-utils/lib/index.js"),
