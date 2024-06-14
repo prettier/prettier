@@ -239,9 +239,11 @@ const pluginFiles = [
           text: "export const getFirstSemanticOrSyntacticError = () => {};",
         },
       ].map((options) => {
-        options =
-          typeof options === "string" ? { file: options, text: "" } : options;
-        return { module: getPackageFile(options.file), text: options.text };
+        options = typeof options === "string" ? { file: options } : options;
+        return {
+          module: getPackageFile(options.file),
+          text: options.text || "export {};",
+        };
       }),
 
       // Only needed if `range`/`loc` in parse options is `false`

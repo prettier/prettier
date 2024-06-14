@@ -113,6 +113,9 @@ function esmifyTypescriptEslint(text) {
     `,
   );
 
+  // Make sure ESBuild treat it as Module
+  text += "\nexport {};";
+
   return text;
 }
 
