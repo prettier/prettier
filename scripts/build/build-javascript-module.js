@@ -55,27 +55,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
       replacement: "",
     },
-    // Transform `.at`, `Object.hasOwn`, and `String#replaceAll`
-    {
-      module: "*",
-      process: transform,
-    },
-    // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
-    {
-      module: require.resolve("tslib"),
-      path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
-    },
-    // https://github.com/evanw/esbuild/issues/2103
-    {
-      module: getPackageFile("outdent/lib-module/index.js"),
-      process(text) {
-        const index = text.indexOf('if (typeof module !== "undefined") {');
-        if (index === -1) {
-          throw new Error("Unexpected code");
-        }
-        return text.slice(0, index);
-      },
-    },
     /*
     `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
     We already replaced line end to `\n` before calling it
@@ -123,6 +102,27 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         text += "\n\n" + `export {${exports.join(", ")}};`;
 
         return text;
+      },
+    },
+    // Transform `.at`, `Object.hasOwn`, and `String#replaceAll`
+    {
+      module: "*",
+      process: transform,
+    },
+    // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
+    {
+      module: require.resolve("tslib"),
+      path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
+    },
+    // https://github.com/evanw/esbuild/issues/2103
+    {
+      module: getPackageFile("outdent/lib-module/index.js"),
+      process(text) {
+        const index = text.indexOf('if (typeof module !== "undefined") {');
+        if (index === -1) {
+          throw new Error("Unexpected code");
+        }
+        return text.slice(0, index);
       },
     },
   ];
