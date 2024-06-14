@@ -137,20 +137,6 @@ const pluginFiles = [
           ),
       },
       {
-        module: "*",
-        process: esmifyTypescriptEslint,
-      },
-      {
-        module: "*",
-        process(text, file) {
-          if (/require\(["'](?:typescript|ts-api-utils)["']\)/.test(text)) {
-            throw new Error(`Unexpected \`require("typescript")\` in ${file}.`);
-          }
-
-          return text;
-        },
-      },
-      {
         module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js",
         ),
@@ -162,8 +148,22 @@ const pluginFiles = [
             )
             .replace(
               "parseSettings.projects = ",
-              "parseSettings.projects = [] || ",
+              "parseSettings.projects = true ? new Map() : ",
             );
+        },
+      },
+      {
+        module: "*",
+        process: esmifyTypescriptEslint,
+      },
+      {
+        module: "*",
+        process(text, file) {
+          if (/require\(["'](?:typescript|ts-api-utils)["']\)/.test(text)) {
+            throw new Error(`Unexpected \`require("typescript")\` in ${file}.`);
+          }
+
+          return text;
         },
       },
       ...[
