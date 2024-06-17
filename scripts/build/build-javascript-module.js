@@ -1,4 +1,5 @@
 import path from "node:path";
+import url from "node:url";
 
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
@@ -19,7 +20,12 @@ import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.js";
 import transform from "./transform/index.js";
 import { getPackageFile } from "./utils.js";
 
-const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
+const {
+  dirname,
+  readJsonSync,
+  require,
+  resolve: importMetaResolve,
+} = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const universalTarget = browserslistToEsbuild(packageJson.browserslist);
@@ -49,24 +55,59 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
       replacement: "",
     },
+    /*
+    `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
+    We already replaced line end to `\n` before calling it
+    */
+    {
+      module: url.fileURLToPath(importMetaResolve("jest-docblock")),
+      path: require.resolve("jest-docblock"),
+    },
+    {
+      module: require.resolve("jest-docblock"),
+      process(text) {
+        const exports = [
+          ...text.matchAll(
+            /(?<=\n)exports\.(?<specifier>\w+) = \k<specifier>;/g,
+          ),
+        ].map((match) => match.groups.specifier);
+
+        const lines = text.split("\n");
+        const startMarkLine = lines.findIndex((line) =>
+          line.includes("function _interopRequireDefault"),
+        );
+        const endMarkLine = lines.indexOf(
+          "module.exports = __webpack_exports__;",
+        );
+
+        if (
+          lines[startMarkLine + 1] !== "/**" ||
+          lines[endMarkLine - 2] !== "})();"
+        ) {
+          throw new Error("Unexpected source");
+        }
+
+        text = lines.slice(startMarkLine + 1, endMarkLine - 2).join("\n");
+
+        text = text
+          .replace(
+            "const line = (0, _detectNewline().default)(docblock) ?? _os().EOL;",
+            String.raw`const line = "\n"`,
+          )
+          .replace(
+            "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
+            String.raw`const line = "\n"`,
+          );
+
+        text += "\n\n" + `export {${exports.join(", ")}};`;
+
+        return text;
+      },
+    },
     // Transform `.at`, `Object.hasOwn`, and `String#replaceAll`
     {
       module: "*",
       process: transform,
-    },
-    // Transform `require("typescript")` to `import`
-    {
-      module: "*",
-      process(text, file) {
-        text = text.replaceAll(
-          /(?:const|let|var) (\w+) = (?:__importStar\(require\("typescript"\)\)|require\("typescript"\));/g,
-          'import * as $1 from "typescript";',
-        );
-        if (/require\(["']typescript["']\)/.test(text)) {
-          throw new Error(`Unexpected \`require("typescript")\` in ${file}.`);
-        }
-        return text;
-      },
     },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
@@ -83,25 +124,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         }
         return text.slice(0, index);
       },
-    },
-    /*
-    `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
-    We already replaced line end to `\n` before calling it
-    */
-    {
-      module: require.resolve("jest-docblock"),
-      process: (text) =>
-        text
-          .replace(
-            "const line = (0, _detectNewline().default)(docblock) ?? _os().EOL;",
-            String.raw`const line = "\n"`,
-          )
-          .replace(
-            "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
-            String.raw`const line = "\n"`,
-          )
-          .replace(/\nfunction _os\(\).*?\n}/s, "")
-          .replace(/\nfunction _detectNewline\(\).*?\n}/s, ""),
     },
   ];
 
@@ -236,6 +258,10 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     outfile: path.join(DIST_DIR, cliOptions.saveAs ?? file.output.file),
     // https://esbuild.github.io/api/#main-fields
     mainFields: file.platform === "node" ? ["module", "main"] : undefined,
+    supported: {
+      // https://github.com/evanw/esbuild/issues/3471
+      "regexp-unicode-property-escapes": true,
+    },
   };
 
   if (file.platform === "universal") {

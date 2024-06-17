@@ -149,17 +149,23 @@ function getExports(entry) {
 
   lines = lines.slice(2, -2);
 
-  const exports = lines.map((line) => {
-    const match = line.match(
-      /^\s*(?<specifier>.*?): \(\) => (?<variable>.*?),?$/,
-    );
+  const exports = lines
+    .map((line) => {
+      const match = line.match(
+        /^\s*(?<specifier>.*?): \(\) => (?<variable>.*?),?$/,
+      );
 
-    if (!match) {
-      throw new Error("Unexpected source");
-    }
+      if (!match) {
+        throw new Error("Unexpected source");
+      }
 
-    return match.groups;
-  });
+      if (UNUSED_SPECIFIERS.has(match.groups.specifier)) {
+        return;
+      }
+
+      return match.groups;
+    })
+    .filter(Boolean);
 
   return exports;
 }
@@ -170,7 +176,7 @@ function modifyTypescriptModule(text) {
   const source = new TypeScriptModuleSource(text);
 
   const entry = source.modules.find((module) => module.isEntry);
-  let exports = getExports(entry);
+  const exports = getExports(entry);
   source.removeModule(entry);
 
   // Deprecated
@@ -317,38 +323,45 @@ function modifyTypescriptModule(text) {
   });
   /* spell-checker: enable */
 
-  let code = source.toString();
-  exports = exports.filter(
-    ({ specifier }) => !UNUSED_SPECIFIERS.has(specifier),
-  );
+  source.append(createExports(exports));
 
-  code = addExports(code, exports);
-
-  code +=
-    "\n" +
+  // Used in `ts-api-utils`
+  source.append(
     outdent`
       export const isUnparsedPrepend = () => false;
       export const isUnparsedTextLike = () => false;
-    `;
+    `,
+  );
 
-  return { code, exports };
+  // Used in `@typescript-eslint/typescript-estree`, but we manually removed them
+  // source.append(
+  //   outdent`
+  //     export const createProgram = () => {};
+  //     export const flattenDiagnosticMessageText = () => {};
+  //     export const FileWatcherEventKind = () => {};
+  //     export const createWatchCompilerHost = () => {};
+  //     export const createAbstractBuilder = () => {};
+  //     export const createWatchProgram = () => {};
+  //     export const getParsedCommandLineOfConfigFile = () => {};
+  //     export const createCompilerHost = () => {};
+  //     export const formatDiagnostics = () => {};
+  //   `,
+  // );
+
+  return { code: source.toString(), exports };
 }
 
-function addExports(code, exports) {
-  return (
-    code +
-    "\n\n" +
-    outdent`
-      export {
-        ${exports
-          .map(({ specifier, variable }) =>
-            variable === specifier ? specifier : `${variable} as ${specifier}`,
-          )
-          .map((line) => `  ${line},`)
-          .join("\n")}
-      };
-    `
-  );
+function createExports(exports) {
+  return outdent`
+    export {
+      ${exports
+        .map(({ specifier, variable }) =>
+          variable === specifier ? specifier : `${variable} as ${specifier}`,
+        )
+        .map((line) => `  ${line},`)
+        .join("\n")}
+    };
+  `;
 }
 
 // Save modified code to `{PROJECT_ROOT}/.tmp/modified-typescript.js` for debug

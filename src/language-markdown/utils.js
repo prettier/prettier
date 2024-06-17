@@ -1,10 +1,6 @@
 import assert from "node:assert";
 
-import {
-  CJK_REGEXP,
-  K_REGEXP,
-  PUNCTUATION_REGEXP,
-} from "./constants.evaluate.js";
+import { CJK_REGEXP, PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 import { locEnd, locStart } from "./loc.js";
 
 const INLINE_NODE_TYPES = new Set([
@@ -39,6 +35,8 @@ const KIND_NON_CJK = "non-cjk";
 const KIND_CJ_LETTER = "cj-letter";
 const KIND_K_LETTER = "k-letter";
 const KIND_CJK_PUNCTUATION = "cjk-punctuation";
+
+const K_REGEXP = /\p{Script_Extensions=Hangul}/u;
 
 /**
  * @typedef {" " | "\n" | ""} WhitespaceValue
