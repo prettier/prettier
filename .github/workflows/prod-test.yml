@@ -65,7 +65,7 @@ jobs:
             node: "22"
             FULL_TEST: true
           # Versions not tested on linux, normally only even versions
-          # If latest version is an odd number, it can be listed bellow too
+          # If latest version is an odd number, it can be listed below too
           - os: "ubuntu-latest"
             node: "16"
           - os: "ubuntu-latest"
