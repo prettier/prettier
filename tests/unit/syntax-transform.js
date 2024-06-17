@@ -75,3 +75,21 @@ test("Array#findLast", () => {
     transform("foo.findLast(callback, thisArgument)"),
   ).toMatchInlineSnapshot(`"foo.findLast(callback, thisArgument)"`);
 });
+
+test("Array#findLastIndex", () => {
+  expect(transform("foo.findLastIndex(callback)")).toMatchInlineSnapshot(`
+    "import __arrayFindLastIndex from "<SHIMS>/array-find-last-index.js";
+
+    __arrayFindLastIndex( /* isOptionalObject */false, foo, callback);"
+  `);
+  expect(transform("foo?.findLastIndex(callback)")).toMatchInlineSnapshot(`
+    "import __arrayFindLastIndex from "<SHIMS>/array-find-last-index.js";
+
+    __arrayFindLastIndex( /* isOptionalObject */true, foo, callback);"
+  `);
+
+  // Don't support
+  expect(
+    transform("foo.findLastIndex(callback, thisArgument)"),
+  ).toMatchInlineSnapshot(`"foo.findLastIndex(callback, thisArgument)"`);
+});

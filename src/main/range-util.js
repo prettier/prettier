@@ -24,16 +24,15 @@ function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
 }
 
 function dropRootParents(parents) {
-  let lastParentIndex = parents.length - 1;
-  while (true) {
-    const parent = parents[lastParentIndex];
-    if (parent?.type === "Program" || parent?.type === "File") {
-      lastParentIndex--;
-    } else {
-      break;
-    }
+  const index = parents.findLastIndex(
+    (node) => node.type !== "Program" && node.type !== "File",
+  );
+
+  if (index === -1) {
+    return parents;
   }
-  return parents.slice(0, lastParentIndex + 1);
+
+  return parents.slice(0, index + 1);
 }
 
 function findSiblingAncestors(
