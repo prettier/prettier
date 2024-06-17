@@ -1681,33 +1681,38 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.3.0":
-  version: 0.3.0
-  resolution: "@prettier/cli@npm:0.3.0"
+"@prettier/cli@npm:0.5.0":
+  version: 0.5.0
+  resolution: "@prettier/cli@npm:0.5.0"
   dependencies:
     "@iarna/toml": "npm:^2.2.5"
-    atomically: "npm:^2.0.2"
-    fast-ignore: "npm:^1.1.1"
-    find-up-json: "npm:^2.0.2"
+    atomically: "npm:^2.0.3"
+    fast-ignore: "npm:^1.1.3"
+    find-up-json: "npm:^2.0.4"
+    function-once: "npm:^3.0.0"
     import-meta-resolve: "npm:^4.0.0"
     is-binary-path: "npm:^2.1.0"
     js-yaml: "npm:^4.1.0"
     json-sorted-stringify: "npm:^1.0.0"
     json5: "npm:^2.2.3"
     kasi: "npm:^1.1.0"
-    pioppo: "npm:^1.1.0"
+    lomemo: "npm:^1.0.0"
+    pioppo: "npm:^1.1.1"
+    promise-resolve-timeout: "npm:^2.0.0"
     specialist: "npm:^1.4.0"
     tiny-editorconfig: "npm:^1.0.0"
     tiny-jsonc: "npm:^1.0.1"
-    tiny-readdir-glob: "npm:^1.2.1"
+    tiny-readdir-glob: "npm:^1.22.24"
     tiny-spinner: "npm:^2.0.3"
-    worktank: "npm:^2.6.0"
-    zeptomatch: "npm:^1.2.2"
+    worktank: "npm:^2.6.1"
+    zeptomatch: "npm:^2.0.0"
+    zeptomatch-escape: "npm:^1.0.0"
+    zeptomatch-is-static: "npm:^1.0.0"
   peerDependencies:
     prettier: ^3.1.0 || ^4.0.0
   bin:
     prettier-next: dist/bin.js
-  checksum: 8084c09821faf1bff6b468acb85b8c291991a18e3b106f4ab9eca45758d53ce08c32cb5b3600d220c88b5ef89734b9baed4c2c4bf7b7fd12bd1773c8fa50882e
+  checksum: 3cfa74a68c942fbe67d98fd8316056c46f72feadaf3a0808117cf79726050c5ab5e6bcc3b22b89b59b8f88409f003f795ad996a08f312c390b9496eaffcdd15e
   languageName: node
   linkType: hard
 
@@ -2434,13 +2439,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"atomically@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "atomically@npm:2.0.2"
+"atomically@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "atomically@npm:2.0.3"
   dependencies:
     stubborn-fs: "npm:^1.2.5"
-    when-exit: "npm:^2.0.0"
-  checksum: 887f9b40c8547f12d27113859903e503c1a3d8c1e861404b281de1879120254eb8be593d5e7cfdf6e6ede89ccf70e6c515067616b780a349f467ca580e75aafe
+    when-exit: "npm:^2.1.1"
+  checksum: c71cd27688a99199bfb441930ebdea8a289d86f210f59351d872aaaff39f4e29b7dfaf47ab593e444ef1b0e29ee5ea870285cc25a43078040c4f6cfc50bbf19a
   languageName: node
   linkType: hard
 
@@ -4232,12 +4237,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-ignore@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "fast-ignore@npm:1.1.1"
+"fast-ignore@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "fast-ignore@npm:1.1.3"
   dependencies:
     grammex: "npm:^3.1.2"
-  checksum: 7ccc8ca46c2e3b00418686c54a0b18744177738084aaa854e15c22449696a732b4ffa26f6a3e43d0057b67ec13e91a2a82971ace1062a2e8e490c31b8df33a98
+    string-escape-regex: "npm:^1.0.0"
+  checksum: 12d33fe53e140ac902ec9f32f2c69f3a74d3412b1011007248a0a0a50d290bc1efe2c6725f5c60cb94256c34b9bff6e9ef90abce3d14a8402301bce3699296f6
   languageName: node
   linkType: hard
 
@@ -4310,10 +4316,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-up-json@npm:^2.0.1, find-up-json@npm:^2.0.2":
+"find-up-json@npm:^2.0.1":
   version: 2.0.2
   resolution: "find-up-json@npm:2.0.2"
   checksum: b247296fae22060b73598e2a9dc77abedcd422bfd3f198cfb8c4826a1642b229cccbc36be82605362843a49450250ed33123f974c71b14cfe1bb6e61cb817a7a
+  languageName: node
+  linkType: hard
+
+"find-up-json@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "find-up-json@npm:2.0.4"
+  dependencies:
+    find-up-path: "npm:^1.0.0"
+  checksum: ef8a905b140e1254595d46ad9314309606b4dfb4b21a7f3cb8ddb64daa5598c78023cd1a6ba06ffee0e6d175a3dc6e5c36d5572010cd1f3ccd59f0a49e1d25f3
+  languageName: node
+  linkType: hard
+
+"find-up-path@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "find-up-path@npm:1.0.0"
+  checksum: 9090a23cf6a69aa129c0e91cab698dfc617bd9c6d4aadd5cd71bd1738d7b137aab4cd2acb9757eeec8ec88ef1af750422e0fd9a37c5aebf480424a2895040889
   languageName: node
   linkType: hard
 
@@ -4456,6 +4478,13 @@ __metadata:
   version: 1.1.2
   resolution: "function-bind@npm:1.1.2"
   checksum: 185e20d20f10c8d661d59aac0f3b63b31132d492e1b11fcc2a93cb2c47257ebaee7407c38513efd2b35cafdf972d9beb2ea4593c1e0f3bf8f2744836928d7454
+  languageName: node
+  linkType: hard
+
+"function-once@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "function-once@npm:3.0.0"
+  checksum: 6dc7fb815af792a4ea55d5b3ae4519ea5f94f45d1bd334389b41f7be3102bb642a1ae77f7f414440dea412c0489e6625db9ae2e81f47c9cfb70419227089a61d
   languageName: node
   linkType: hard
 
@@ -6421,6 +6450,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lomemo@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "lomemo@npm:1.0.0"
+  checksum: 34c784f9940cf0db889cf0fc674f4a77914c6359b2dfaae74c5172bf66f02b0f50bdaa3cec96d2124a045a7f96ac6ea21123a69e9ac570c64dec8c2a670acae7
+  languageName: node
+  linkType: hard
+
 "loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
@@ -7264,13 +7300,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pioppo@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "pioppo@npm:1.1.0"
+"pioppo@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "pioppo@npm:1.1.1"
   dependencies:
     dettle: "npm:^1.0.1"
-    when-exit: "npm:^2.1.0"
-  checksum: cdabd6c9d263be753ad9e9d02bf6affe77922841cd622fa6bf4e27afe47e3cebfd391bd0dae709a5c169da7f7c151c7865eb6849265f5fe1118527d217c42281
+    when-exit: "npm:^2.1.1"
+  checksum: 8042ad35abc5a5274daa8d3d042f76607bd3a8089cc7e65b8d41d69848d35397a457b09d4b097dd44625beddcb2a382729587acbd013578eb6fab48a8c2107d6
   languageName: node
   linkType: hard
 
@@ -7408,7 +7444,7 @@ __metadata:
     "@glimmer/reference": "npm:0.85.13"
     "@glimmer/syntax": "npm:0.85.13"
     "@iarna/toml": "npm:2.2.5"
-    "@prettier/cli": "npm:0.3.0"
+    "@prettier/cli": "npm:0.5.0"
     "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@types/estree": "npm:1.0.5"
@@ -7565,6 +7601,13 @@ __metadata:
   version: 2.1.1
   resolution: "promise-make-naked@npm:2.1.1"
   checksum: ada18d784cb9c978bbc1f46fba89f5ffd96b32ed737de3636f6b6de5c5f1141d8fb86d600bd9ec637b14e2e93c6586c449a965b497925325ab2d43185761923f
+  languageName: node
+  linkType: hard
+
+"promise-resolve-timeout@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "promise-resolve-timeout@npm:2.0.0"
+  checksum: c2b43ac9cb1ed5d495e4806f00f1feaf0e4abeda846b2170237e9ee4b9ff829063de2af5cece3264174ea46a0bc9d048ad0c19dbcdf2e25bee58a36b85c15fbb
   languageName: node
   linkType: hard
 
@@ -8338,6 +8381,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"string-escape-regex@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "string-escape-regex@npm:1.0.0"
+  checksum: e0e1850221d3571550c632ca3a4f456b19f10c0f51e9a28c5167a2d231ee1f733e0fea33311523172ab84f0944203b91a03ba40eabaa54277a6ab114be7a56fe
+  languageName: node
+  linkType: hard
+
 "string-length@npm:^4.0.1":
   version: 4.0.2
   resolution: "string-length@npm:4.0.2"
@@ -8671,22 +8721,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-readdir-glob@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "tiny-readdir-glob@npm:1.2.1"
+"tiny-readdir-glob@npm:^1.22.24":
+  version: 1.22.24
+  resolution: "tiny-readdir-glob@npm:1.22.24"
   dependencies:
-    tiny-readdir: "npm:^2.4.0"
+    tiny-readdir: "npm:^2.7.0"
     zeptomatch: "npm:^1.2.2"
-  checksum: 971e29d7d21545482bbae63a6e79ca9ed1bedac6b2f881c341eaf6c0d6b09f4dbe661216e769d02c715338e699c0155fd339cae939ad338bb34b9fbbb4e4d1fc
+    zeptomatch-explode: "npm:^1.0.0"
+    zeptomatch-is-static: "npm:^1.0.0"
+    zeptomatch-unescape: "npm:^1.0.0"
+  checksum: 0ee4376bcfcf4b3101164274953fa99aa0792fa70f72a69545f061cfc32b5fff48d9fc5741e48e790d7fc6189971c166f47f0c9ad37cc6a34dbf0195b4d22665
   languageName: node
   linkType: hard
 
-"tiny-readdir@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "tiny-readdir@npm:2.4.0"
+"tiny-readdir@npm:^2.7.0":
+  version: 2.7.2
+  resolution: "tiny-readdir@npm:2.7.2"
   dependencies:
     promise-make-naked: "npm:^2.1.1"
-  checksum: ae797cc88e34a8dca813d65bea8677498044adfc911530998e7a82a94627b98a905962426fc92d7f8e9759bd000b2946909c906c18009f8e193067ae22422b75
+  checksum: 1113ff7e8d11b649f90e94db54e74eda697098b31abf5781106522e14e805289c9c9dd58c82c2ab612b05cc768e8ecd79dcc7708620493ccd1772d59dd6e928c
   languageName: node
   linkType: hard
 
@@ -9255,7 +9308,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"when-exit@npm:^2.0.0, when-exit@npm:^2.1.0, when-exit@npm:^2.1.1":
+"when-exit@npm:^2.0.0, when-exit@npm:^2.1.1":
   version: 2.1.1
   resolution: "when-exit@npm:2.1.1"
   checksum: 5fd8848bb219437fa19fa300c112b7fed00d431bfbec2d4d52aedc32736bd01b0ed8a2a838a7797d32cc06362fbb3a755853a1745c7278d52c50767a6f733734
@@ -9342,13 +9395,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"worktank@npm:^2.6.0":
-  version: 2.6.0
-  resolution: "worktank@npm:2.6.0"
+"worktank@npm:^2.6.1":
+  version: 2.7.3
+  resolution: "worktank@npm:2.7.3"
   dependencies:
     promise-make-naked: "npm:^2.0.0"
     webworker-shim: "npm:^1.1.0"
-  checksum: e74ef86d0004857bb5330b4dee26abd47af26717a35029ffe19b409327fd432e518394f8bd3d3eec1679ec0f12cd43bd2b07d6aa25cb86fe674ecba0a2bf061a
+  checksum: 8b402ed1ebfeb07b80189b12e9cc1da5a2e9fc900144a365396876062bbea665566bb1f6f36ea5382734a74e1c0c60c1d747dcd29d8987b9b2d9ddf45cf94f32
   languageName: node
   linkType: hard
 
@@ -9509,11 +9562,48 @@ __metadata:
   languageName: node
   linkType: hard
 
+"zeptomatch-escape@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "zeptomatch-escape@npm:1.0.0"
+  checksum: 1b11252743f054e7d565e5b6f6e47a32d1e5109975584e695cef436104e21886e614805cfd1c9e07f0b61e0aafc16f17f5f6af411ff6f2e5d9c2d5dc0fce799b
+  languageName: node
+  linkType: hard
+
+"zeptomatch-explode@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "zeptomatch-explode@npm:1.0.0"
+  checksum: 0077188e16da6b433e13ef1856c178bfc892607b8db3ee40bb7147d1b6e802ccccda4246ad6c8c0034870cc0b3441064b959b5c5b08fc88d54d37f367d3d19ab
+  languageName: node
+  linkType: hard
+
+"zeptomatch-is-static@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "zeptomatch-is-static@npm:1.0.0"
+  checksum: 146aae5988f5982fc3346bde484a52b42dc849b6e81b5e43ea726fba0d842c10dccc241b2dab05a18f8d73803fdee1b88ddeb870c5e9a0cb165787aa4920a1ec
+  languageName: node
+  linkType: hard
+
+"zeptomatch-unescape@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "zeptomatch-unescape@npm:1.0.0"
+  checksum: 1ad0a4b1d7fd314e44d9683fbbd36eef92439ccceac7ba19d910f9caaaead21f9621c977a5d24c504538557d5628a0f337e5ea6b1af081945b998f6e5974840e
+  languageName: node
+  linkType: hard
+
 "zeptomatch@npm:^1.1.3, zeptomatch@npm:^1.2.2":
   version: 1.2.2
   resolution: "zeptomatch@npm:1.2.2"
   dependencies:
     grammex: "npm:^3.1.1"
   checksum: 2a260200f857462264222c8cba1dc955e60a7f6cbcf9d57c7ac94fe874f52029a4efe8ff24b29497925a492151fe7ee56e63b3b31874c5d138ee1c11f0052f18
+  languageName: node
+  linkType: hard
+
+"zeptomatch@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "zeptomatch@npm:2.0.0"
+  dependencies:
+    grammex: "npm:^3.1.1"
+  checksum: 0c590c42d9d65b9064e9195c5066b50d5719c623d3fa41822e3972904c0e7969f7f9ca62b8b501d91fd9642fa9c1e6ebeeb49f41044d491619cc3e3ded9a96c1
   languageName: node
   linkType: hard
