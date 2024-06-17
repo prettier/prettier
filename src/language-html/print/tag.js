@@ -190,7 +190,7 @@ function needsToBorrowNextOpeningTagStartMarker(node) {
 }
 
 function getPrettierIgnoreAttributeCommentData(value) {
-  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+(.+))?$/s);
+  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+(.+))?$/su);
 
   if (!match) {
     return false;
@@ -200,7 +200,7 @@ function getPrettierIgnoreAttributeCommentData(value) {
     return true;
   }
 
-  return match[1].split(/\s+/);
+  return match[1].split(/\s+/u);
 }
 
 function needsToBorrowParentOpeningTagEndMarker(node) {

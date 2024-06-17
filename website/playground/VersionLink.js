@@ -4,11 +4,11 @@ import * as ReactDOM from "react-dom";
 const root = document.getElementById("version");
 
 export default function VersionLink({ version }) {
-  const match = version.match(/^pr-(\d+)$/);
+  const match = version.match(/^pr-(\d+)$/u);
   let href;
   if (match) {
     href = `pull/${match[1]}`;
-  } else if (/\.0$/.test(version)) {
+  } else if (/\.0$/u.test(version)) {
     href = `releases/tag/${version}`;
   } else {
     href = `blob/main/CHANGELOG.md#${version.replaceAll(".", "")}`;

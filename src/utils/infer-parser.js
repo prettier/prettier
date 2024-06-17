@@ -2,7 +2,7 @@ import getInterpreter from "./get-interpreter.js";
 
 // Didn't use `path.basename` since this module need work in browsers too
 // And `file` can be a `URL`
-const getFileBasename = (file) => String(file).split(/[/\\]/).pop();
+const getFileBasename = (file) => String(file).split(/[/\\]/u).pop();
 
 function getLanguageByFileName(languages, file) {
   if (!file) {

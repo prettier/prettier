@@ -187,7 +187,7 @@ function extractInterpolation(ast, options) {
     return;
   }
 
-  const interpolationRegex = /{{(.+?)}}/s;
+  const interpolationRegex = /\{\{(.+?)\}\}/su;
   ast.walk((node) => {
     if (!canHaveInterpolation(node)) {
       return;
@@ -346,7 +346,7 @@ function addHasHtmComponentClosingTag(ast, options) {
 
     node.hasHtmComponentClosingTag =
       node.endSourceSpan &&
-      /^<\s*\/\s*\/\s*>$/.test(
+      /^<\s*\/\s*\/\s*>$/u.test(
         options.originalText.slice(
           node.endSourceSpan.start.offset,
           node.endSourceSpan.end.offset,

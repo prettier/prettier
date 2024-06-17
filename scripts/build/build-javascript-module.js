@@ -68,7 +68,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       process(text) {
         const exports = [
           ...text.matchAll(
-            /(?<=\n)exports\.(?<specifier>\w+) = \k<specifier>;/g,
+            /(?<=\n)exports\.(?<specifier>\w+) = \k<specifier>;/gu,
           ),
         ].map((match) => match.groups.specifier);
 
@@ -112,7 +112,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
       module: require.resolve("tslib"),
-      path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
+      path: require.resolve("tslib").replace(/tslib\.js$/u, "tslib.es6.js"),
     },
     // https://github.com/evanw/esbuild/issues/2103
     {

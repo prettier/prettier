@@ -72,7 +72,7 @@ const appendPlugins = (plugins, options = parseOptions) => ({
 
 // Similar to babel
 // https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
-const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/;
+const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/u;
 function isFlowFile(text, options) {
   if (options.filepath?.endsWith(".js.flow")) {
     return true;
@@ -123,7 +123,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
       }));
     }
 
-    const shouldEnableV8intrinsicPlugin = /%[A-Z]/.test(text);
+    const shouldEnableV8intrinsicPlugin = /%[A-Z]/u.test(text);
     if (text.includes("|>")) {
       const conflictsPlugins = shouldEnableV8intrinsicPlugin
         ? [...pipelineOperatorPlugins, v8intrinsicPlugin]

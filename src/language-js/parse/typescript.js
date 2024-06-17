@@ -45,7 +45,7 @@ function createParseError(error) {
 
 // https://typescript-eslint.io/packages/parser/#jsx
 const isKnownFileType = (filepath) =>
-  /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/i.test(filepath);
+  /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/iu.test(filepath);
 
 function getParseOptionsCombinations(text, options) {
   const filepath = options?.filepath;
@@ -95,7 +95,7 @@ function isProbablyJsx(text) {
       "|",
       "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
     ].join(""),
-    "m",
+    "mu",
   ).test(text);
 }
 

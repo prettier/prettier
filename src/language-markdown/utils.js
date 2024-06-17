@@ -65,13 +65,13 @@ function splitText(text) {
   /** @type {Array<TextNode>} */
   const nodes = [];
 
-  const tokens = text.split(/([\t\n ]+)/);
+  const tokens = text.split(/([\t\n ]+)/u);
   for (const [index, token] of tokens.entries()) {
     // whitespace
     if (index % 2 === 1) {
       nodes.push({
         type: "whitespace",
-        value: /\n/.test(token) ? "\n" : " ",
+        value: /\n/u.test(token) ? "\n" : " ",
       });
       continue;
     }
@@ -82,7 +82,7 @@ function splitText(text) {
       continue;
     }
 
-    const innerTokens = token.split(new RegExp(`(${CJK_REGEXP.source})`));
+    const innerTokens = token.split(new RegExp(`(${CJK_REGEXP.source})`, "u"));
     for (const [innerIndex, innerToken] of innerTokens.entries()) {
       if (
         (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&
@@ -145,7 +145,7 @@ function splitText(text) {
       lastNode?.type === "word" &&
       !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
       // disallow leading/trailing full-width whitespace
-      ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
+      ![lastNode.value, node.value].some((value) => /\u3000/u.test(value))
     ) {
       nodes.push({ type: "whitespace", value: "" });
     }
@@ -166,7 +166,7 @@ function getOrderedListItemInfo(orderListItem, originalText) {
       orderListItem.position.start.offset,
       orderListItem.position.end.offset,
     )
-    .match(/^\s*(\d+)(\.|\))(\s*)/);
+    .match(/^\s*(\d+)(\.|\))(\s*)/u);
 
   return { numberText, marker, leadingSpaces };
 }

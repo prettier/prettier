@@ -19,7 +19,7 @@ function esmifyTypescriptEslint(text) {
   */
   text = text.replaceAll(
     // TODO: Use duplicate capture group name when eslint supports
-    /(?<=\n)(?:const|let|var) (?<variable>\w+) = (?:__importStar\(require\(["'](?<moduleName1>.*?)["']\)\)|require\(["'](?<moduleName2>.*?)["']\));/g,
+    /(?<=\n)(?:const|let|var) (?<variable>\w+) = (?:__importStar\(require\(["'](?<moduleName1>.*?)["']\)\)|require\(["'](?<moduleName2>.*?)["']\));/gu,
     (...args) => {
       const groups = args.at(-1);
       return `import * as ${groups.variable} from "${groups.moduleName1 || groups.moduleName2}";`;
@@ -37,7 +37,7 @@ function esmifyTypescriptEslint(text) {
   ````
   */
   text = text.replaceAll(
-    /(?<=\n)(?:const|let|var) (?<variable>\w+) = __importDefault\(require\(["'](?<moduleName>.*?)["']\)\);/g,
+    /(?<=\n)(?:const|let|var) (?<variable>\w+) = __importDefault\(require\(["'](?<moduleName>.*?)["']\)\);/gu,
     outdent`
       import $<variable>_default_export from "$<moduleName>";
       const $<variable> = {default: $<variable>_default_export};
@@ -49,9 +49,9 @@ function esmifyTypescriptEslint(text) {
     'Object.defineProperty(exports, "__esModule", { value: true });',
     "",
   );
-  text = text.replaceAll(/(?<=\n)(?:exports\.\w+ = )+void 0;/g, "");
+  text = text.replaceAll(/(?<=\n)(?:exports\.\w+ = )+void 0;/gu, "");
   text = text.replaceAll(
-    /(?<=\n)exports\.(?<specifier>\w+) = (?<variable>\w+);/g,
+    /(?<=\n)exports\.(?<specifier>\w+) = (?<variable>\w+);/gu,
     (...args) => {
       const { variable, specifier } = args.at(-1);
       if (specifier === variable) {
@@ -63,7 +63,7 @@ function esmifyTypescriptEslint(text) {
   );
 
   text = text.replaceAll(
-    /(?<=\n)exports\.(?<specifier>\w+)(?= = `)/g,
+    /(?<=\n)exports\.(?<specifier>\w+)(?= = `)/gu,
     "export const $<specifier>",
   );
 
@@ -77,7 +77,7 @@ function esmifyTypescriptEslint(text) {
   ````
   */
   text = text.replaceAll(
-    /(?<=\n)__exportStar\(require\(["'](?<moduleName>.*?)["']\), exports\);/g,
+    /(?<=\n)__exportStar\(require\(["'](?<moduleName>.*?)["']\), exports\);/gu,
     'export * from "$<moduleName>";',
   );
 
@@ -91,7 +91,7 @@ function esmifyTypescriptEslint(text) {
   ````
   */
   text = text.replaceAll(
-    /(?<=\n)Object\.defineProperty\(exports, "(?<specifier>\w+)", { enumerable: true, get: function \(\) { return (?<value>.*?); } }\);/g,
+    /(?<=\n)Object\.defineProperty\(exports, "(?<specifier>\w+)", \{ enumerable: true, get: function \(\) \{ return (?<value>.*?); \} \}\);/gu,
     "export const $<specifier> = $<value>;",
   );
 
@@ -106,7 +106,7 @@ function esmifyTypescriptEslint(text) {
   ````
   */
   text = text.replaceAll(
-    /(?<=\n)exports\.(?<specifier>\w+) = __importStar\(require\(["'](?<moduleName>.*?)["']\)\);/g,
+    /(?<=\n)exports\.(?<specifier>\w+) = __importStar\(require\(["'](?<moduleName>.*?)["']\)\);/gu,
     outdent`
       import * as $<specifier>_namespace_export from "$<moduleName>";
       export {$<specifier>_namespace_export as $<specifier>};

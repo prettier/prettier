@@ -8,7 +8,7 @@ import { PROJECT_ROOT, writeFile } from "../utils/index.js";
 import UNUSED_SPECIFIERS from "./typescript-unused-specifiers.js";
 
 function* getModules(text) {
-  const parts = text.split(/(?<=\n)(\/\/ src\/\S+\n)/);
+  const parts = text.split(/(?<=\n)(\/\/ src\/\S+\n)/u);
 
   let start = parts[0].length;
 
@@ -152,7 +152,7 @@ function getExports(entry) {
   const exports = lines
     .map((line) => {
       const match = line.match(
-        /^\s*(?<specifier>.*?): \(\) => (?<variable>.*?),?$/,
+        /^\s*(?<specifier>.*?): \(\) => (?<variable>.*?),?$/u,
       );
 
       if (!match) {

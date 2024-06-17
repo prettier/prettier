@@ -48,7 +48,7 @@ function needsParens(path, options) {
     //     f((a + b) / 2)  vs  f(a + b / 2)
     if (
       node.extra?.parenthesized &&
-      /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(node.name)
+      /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/u.test(node.name)
     ) {
       return true;
     }

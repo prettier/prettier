@@ -1,5 +1,5 @@
 export function fixPrettierVersion(version) {
-  const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
+  const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/u);
   if (match) {
     return `pr-${match[1]}`;
   }
@@ -53,13 +53,13 @@ export function getCodemirrorMode(parser) {
 }
 
 const astAutoFold = {
-  estree: /^\s*"(loc|start|end|tokens|\w+Comments|comments)":/,
-  postcss: /^\s*"(source|input|raws|file)":/,
-  html: /^\s*"(\w+Span|valueTokens|tokens|file|tagDefinition)":/,
-  mdast: /^\s*"position":/,
-  yaml: /^\s*"position":/,
-  glimmer: /^\s*"loc":/,
-  graphql: /^\s*"loc":/,
+  estree: /^\s*"(loc|start|end|tokens|\w+Comments|comments)":/u,
+  postcss: /^\s*"(source|input|raws|file)":/u,
+  html: /^\s*"(\w+Span|valueTokens|tokens|file|tagDefinition)":/u,
+  mdast: /^\s*"position":/u,
+  yaml: /^\s*"position":/u,
+  glimmer: /^\s*"loc":/u,
+  graphql: /^\s*"loc":/u,
 };
 
 export function getAstAutoFold(parser) {

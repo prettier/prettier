@@ -51,7 +51,7 @@ function embed(path, options) {
 
         return async (textToDoc, print) => {
           const content = getNodeContent(node, options);
-          let isEmpty = /^\s*$/.test(content);
+          let isEmpty = /^\s*$/u.test(content);
           let doc = "";
           if (!isEmpty) {
             doc = await textToDoc(htmlTrimPreserveIndentation(content), {
@@ -81,7 +81,7 @@ function embed(path, options) {
           return async (textToDoc) => {
             const value =
               parser === "markdown"
-                ? dedentString(node.value.replace(/^[^\S\n]*\n/, ""))
+                ? dedentString(node.value.replace(/^[^\S\n]*\n/u, ""))
                 : node.value;
             const textToDocOptions = { parser, __embeddedInHtml: true };
             if (options.parser === "html" && parser === "babel") {

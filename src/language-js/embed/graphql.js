@@ -31,11 +31,11 @@ async function printEmbedGraphQL(textToDoc, print, path /*, options*/) {
       lines[numLines - 2].trim() === "";
 
     const commentsAndWhitespaceOnly = lines.every((line) =>
-      /^\s*(?:#[^\n\r]*)?$/.test(line),
+      /^\s*(?:#[^\n\r]*)?$/u.test(line),
     );
 
     // Bail out if an interpolation occurs within a comment.
-    if (!isLast && /#[^\n\r]*$/.test(lines[numLines - 1])) {
+    if (!isLast && /#[^\n\r]*$/u.test(lines[numLines - 1])) {
       return null;
     }
 

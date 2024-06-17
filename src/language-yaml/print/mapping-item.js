@@ -163,7 +163,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
 
   if (
     // backslash-newline
-    /\\$/m.test(
+    /\\$/mu.test(
       options.originalText.slice(
         node.position.start.offset,
         node.position.end.offset,
@@ -177,7 +177,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
     case "never":
       return !node.value.includes("\n");
     case "always":
-      return !/[\n ]/.test(node.value);
+      return !/[\n ]/u.test(node.value);
     default:
       /* c8 ignore next */
       return false;
