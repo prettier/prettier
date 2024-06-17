@@ -18,6 +18,7 @@ import {
   isCallExpression,
   isLiteral,
   isMemberExpression,
+  isMethod,
   isNextLineEmpty,
   isObjectOrRecordExpression,
   needsHardlineAfterDanglingComment,
@@ -31,7 +32,7 @@ import {
   printVariableDeclarator,
 } from "./assignment.js";
 import { printBinaryishExpression } from "./binaryish.js";
-import { printBlock, printBlockBody } from "./block.js";
+import { printBlock } from "./block.js";
 import { printCallExpression } from "./call-expression.js";
 import {
   printClass,
@@ -102,9 +103,6 @@ function printEstree(path, options, print, args) {
       return [print("node"), hardline];
     case "File":
       return printHtmlBinding(path, options, print) ?? print("program");
-
-    case "Program":
-      return printBlockBody(path, options, print);
     // Babel extension.
     case "EmptyStatement":
       return "";
@@ -230,9 +228,11 @@ function printEstree(path, options, print, args) {
     case "ExportDefaultSpecifier":
       return printModuleSpecifier(path, options, print);
     case "ImportAttribute":
-      return [print("key"), ": ", print("value")];
+      return printProperty(path, options, print);
     case "Import":
       return "import";
+
+    case "Program":
     case "BlockStatement":
     case "StaticBlock":
       return printBlock(path, options, print);
@@ -252,13 +252,15 @@ function printEstree(path, options, print, args) {
     case "ObjectPattern":
     case "RecordExpression":
       return printObject(path, options, print);
-    // Babel 6
-    case "ObjectProperty": // Non-standard AST node type.
     case "Property":
-      if (node.method || node.kind === "get" || node.kind === "set") {
+      if (isMethod(node)) {
         return printMethod(path, options, print);
       }
       return printProperty(path, options, print);
+    // Babel
+    case "ObjectProperty":
+      return printProperty(path, options, print);
+    // Babel
     case "ObjectMethod":
       return printMethod(path, options, print);
     case "Decorator":
@@ -311,13 +313,11 @@ function printEstree(path, options, print, args) {
 
       return parts;
     case "UpdateExpression":
-      parts.push(print("argument"), node.operator);
-
-      if (node.prefix) {
-        parts.reverse();
-      }
-
-      return parts;
+      return [
+        node.prefix ? node.operator : "",
+        print("argument"),
+        node.prefix ? "" : node.operator,
+      ];
     case "ConditionalExpression":
       return printTernary(path, options, print, args);
     case "VariableDeclaration": {
@@ -371,12 +371,12 @@ function printEstree(path, options, print, args) {
         adjustClause(node.body, print("body")),
       ]);
     case "IfStatement": {
-      const con = adjustClause(node.consequent, print("consequent"));
+      const consequent = adjustClause(node.consequent, print("consequent"));
       const opening = group([
         "if (",
         group([indent([softline, print("test")]), softline]),
         ")",
-        con,
+        consequent,
       ]);
 
       parts.push(opening);
@@ -623,7 +623,7 @@ function printEstree(path, options, print, args) {
     case "TemplateLiteral":
       return printTemplateLiteral(path, print, options);
     case "TaggedTemplateExpression":
-      return printTaggedTemplateLiteral(print);
+      return printTaggedTemplateLiteral(path, print);
     case "PrivateIdentifier":
       return ["#", node.name];
     case "PrivateName":
@@ -636,15 +636,8 @@ function printEstree(path, options, print, args) {
     case "ArgumentPlaceholder":
       return "?";
 
-    case "ModuleExpression": {
-      parts.push("module {");
-      const printed = print("body");
-      if (printed) {
-        parts.push(indent([hardline, printed]), hardline);
-      }
-      parts.push("}");
-      return parts;
-    }
+    case "ModuleExpression":
+      return ["module ", print("body")];
 
     case "InterpreterDirective": // Printed as comment
     default:

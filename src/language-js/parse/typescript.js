@@ -17,21 +17,22 @@ const baseParseOptions = {
   comment: true,
   tokens: true,
   loggerFn: false,
-  project: [],
+  project: false,
   jsDocParsingMode: "none",
   // TODO: Use new properties when update printer
   suppressDeprecatedPropertyWarnings: true,
 };
 
 function createParseError(error) {
-  const { message, location } = error;
-
-  /* c8 ignore next 3 */
-  if (!location) {
+  /* c8 ignore next 3 -- not a parse error */
+  if (!error?.location) {
     return error;
   }
 
-  const { start, end } = location;
+  const {
+    message,
+    location: { start, end },
+  } = error;
 
   return createError(message, {
     loc: {

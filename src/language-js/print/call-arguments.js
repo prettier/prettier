@@ -45,13 +45,23 @@ function printCallArguments(path, options, print) {
     return ["(", printDanglingComments(path, options), ")"];
   }
 
+  const lastArgIndex = args.length - 1;
+
   // useEffect(() => { ... }, [foo, bar, baz])
+  // useImperativeHandle(ref, () => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
-    return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
+    const parts = ["("];
+    iterateCallArgumentsPath(path, (path, index) => {
+      parts.push(print());
+      if (index !== lastArgIndex) {
+        parts.push(", ");
+      }
+    });
+    parts.push(")");
+    return parts;
   }
 
   let anyArgEmptyLine = false;
-  const lastArgIndex = args.length - 1;
   const printedArguments = [];
   iterateCallArgumentsPath(path, ({ node: arg }, index) => {
     let argDoc = print();
@@ -72,7 +82,12 @@ function printCallArguments(path, options, print) {
   const isDynamicImport =
     node.type === "ImportExpression" || node.callee.type === "Import";
   const maybeTrailingComma =
-    !isDynamicImport && shouldPrintComma(options, "all") ? "," : "";
+    // Angular does not allow trailing comma
+    !options.parser.startsWith("__ng_") &&
+    !isDynamicImport &&
+    shouldPrintComma(options, "all")
+      ? ","
+      : "";
 
   function allArgsBrokenOut() {
     return group(
@@ -292,11 +307,14 @@ function isHopefullyShortCallArgument(node) {
       }
     }
     if (
-      (typeAnnotation.type === "GenericTypeAnnotation" ||
-        typeAnnotation.type === "TSTypeReference") &&
-      typeAnnotation.typeParameters?.params.length === 1
+      typeAnnotation.type === "GenericTypeAnnotation" ||
+      typeAnnotation.type === "TSTypeReference"
     ) {
-      typeAnnotation = typeAnnotation.typeParameters.params[0];
+      const typeArguments =
+        typeAnnotation.typeArguments ?? typeAnnotation.typeParameters;
+      if (typeArguments?.params.length === 1) {
+        typeAnnotation = typeArguments.params[0];
+      }
     }
     return (
       isSimpleType(typeAnnotation) && isSimpleCallArgument(node.expression, 1)
@@ -316,13 +334,40 @@ function isHopefullyShortCallArgument(node) {
   return isRegExpLiteral(node) || isSimpleCallArgument(node);
 }
 
+/**
+ * Checks if the arguments of a function are a call to a React Hook with a dependencies array.
+ */
 function isReactHookCallWithDepsArray(args) {
+  if (args.length === 2) {
+    /**
+     * useEffect(() => {
+     *   // do something
+     * }, [dep1, dep2, dep2])
+     */
+    return isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 0);
+  }
+  if (args.length === 3) {
+    /**
+     * useImperativeHandle(ref, () => {
+     *   // do something
+     * }, [dep1, dep2, dep2]);
+     */
+    return (
+      args[0].type === "Identifier" &&
+      isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 1)
+    );
+  }
+  return false;
+}
+
+function isValidHookCallbackAndDepsFormat(args, baseIndex) {
+  const maybeArrowFunction = args[baseIndex];
+  const maybeDepsArray = args[baseIndex + 1];
   return (
-    args.length === 2 &&
-    args[0].type === "ArrowFunctionExpression" &&
-    getFunctionParameters(args[0]).length === 0 &&
-    args[0].body.type === "BlockStatement" &&
-    args[1].type === "ArrayExpression" &&
+    maybeArrowFunction.type === "ArrowFunctionExpression" &&
+    getFunctionParameters(maybeArrowFunction).length === 0 &&
+    maybeArrowFunction.body.type === "BlockStatement" &&
+    maybeDepsArray.type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))
   );
 }

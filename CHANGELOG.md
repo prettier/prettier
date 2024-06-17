@@ -1,3 +1,332 @@
+# 3.3.2
+
+[diff](https://github.com/prettier/prettier/compare/3.3.1...3.3.2)
+
+#### Fix handlebars path expressions starts with `@` ([#16358](https://github.com/prettier/prettier/pull/16358) by [@Princeyadav05](https://github.com/Princeyadav05))
+
+<!-- prettier-ignore -->
+```hbs
+{{! Input }}
+<div>{{@x.y.z}}</div>
+
+{{! Prettier 3.3.1 }}
+<div>{{@x}}</div>
+
+{{! Prettier 3.3.2 }}
+<div>{{@x.y.z}}</div>
+```
+
+# 3.3.1
+
+[diff](https://github.com/prettier/prettier/compare/3.3.0...3.3.1)
+
+#### Preserve empty lines in front matter ([#16347](https://github.com/prettier/prettier/pull/16347) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+---
+foo:
+  - bar1
+
+  - bar2
+
+  - bar3
+---
+Markdown
+
+<!-- Prettier 3.3.0 -->
+
+---
+foo:
+  - bar1
+  - bar2
+  - bar3
+---
+
+Markdown
+
+
+<!-- Prettier 3.3.1 -->
+---
+foo:
+  - bar1
+
+  - bar2
+
+  - bar3
+---
+
+Markdown
+```
+
+#### Preserve explicit language in front matter ([#16348](https://github.com/prettier/prettier/pull/16348) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+---yaml
+title: Hello
+slug: home
+---
+
+<!-- Prettier 3.3.0 -->
+---
+title: Hello
+slug: home
+---
+
+<!-- Prettier 3.3.1 -->
+---yaml
+title: Hello
+slug: home
+---
+```
+
+#### Avoid line breaks in import attributes ([#16349](https://github.com/prettier/prettier/pull/16349) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type: "json" };
+
+// Prettier 3.3.0
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type:
+  "json" };
+
+// Prettier 3.3.1
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type: "json" };
+```
+
+# 3.3.0
+
+[diff](https://github.com/prettier/prettier/compare/3.2.5...3.3.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2024/06/01/3.3.0.html)
+
+# 3.2.5
+
+[diff](https://github.com/prettier/prettier/compare/3.2.4...3.2.5)
+
+#### Support Angular inline styles as single template literal ([#15968](https://github.com/prettier/prettier/pull/15968) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+[Angular v17](https://blog.angular.io/introducing-angular-v17-4d7033312e4b) supports single string inline styles.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+@Component({
+  template: `<div>...</div>`,
+  styles: `h1 { color: blue; }`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.4
+@Component({
+  template: `<div>...</div>`,
+  styles: `h1 { color: blue; }`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.5
+@Component({
+  template: `<div>...</div>`,
+  styles: `
+    h1 {
+      color: blue;
+    }
+  `,
+})
+export class AppComponent {}
+
+```
+
+#### Unexpected embedded formatting for Angular template ([#15969](https://github.com/prettier/prettier/pull/15969) by [@JounQin](https://github.com/JounQin))
+
+Computed template should not be considered as Angular component template
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const template = "foobar";
+
+@Component({
+  [template]: `<h1>{{       hello }}</h1>`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.4
+const template = "foobar";
+
+@Component({
+  [template]: `<h1>{{ hello }}</h1>`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.5
+const template = "foobar";
+
+@Component({
+  [template]: `<h1>{{       hello }}</h1>`,
+})
+export class AppComponent {}
+```
+
+#### Use `"json"` parser for `tsconfig.json` by default ([#16012](https://github.com/prettier/prettier/pull/16012) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+In [v3.2.0](https://prettier.io/blog/2024/01/12/3.2.0#new-jsonc-parser-added-15831httpsgithubcomprettierprettierpull15831-by-fiskerhttpsgithubcomfisker), we introduced `"jsonc"` parser which adds trailing comma **by default**.
+
+When adding a new parser we also define how it will be used based on the [`linguist-languages`](https://www.npmjs.com/package/linguist-languages) data.
+
+`tsconfig.json` is a special file used by [TypeScript](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#using-tsconfigjson-or-jsconfigjson), it uses `.json` file extension, but it actually uses the [JSON with Comments](https://code.visualstudio.com/docs/languages/json#_json-with-comments) syntax. However, we found that there are many third-party tools not recognize it correctly because of the confusing `.json` file extension.
+
+We decide to treat it as a JSON file for now to avoid the extra configuration step.
+
+To keep using the `"jsonc"` parser for your `tsconfig.json` files, add the following to your `.prettierrc` file
+
+```json
+{
+  "overrides": [
+    {
+      "files": ["tsconfig.json", "jsconfig.json"],
+      "options": {
+        "parser": "jsonc"
+      }
+    }
+  ]
+}
+```
+
+<!-- prettier-ignore -->
+```
+# Prettier 3.2.4
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "jsonc" }
+
+# Prettier 3.2.5
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "json" }
+```
+
+# 3.2.4
+
+[diff](https://github.com/prettier/prettier/compare/3.2.3...3.2.4)
+
+#### Fix incorrect parser inference ([#15947](https://github.com/prettier/prettier/pull/15947) by [@fisker](https://github.com/fisker))
+
+Files like `.eslintrc.json` were incorrectly formatted as JSONC files.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+prettier --file-info .eslintrc.json
+{ "ignored": false, "inferredParser": "jsonc" }
+
+// Prettier 3.2.4
+prettier --file-info .eslintrc.json
+{ "ignored": false, "inferredParser": "json" }
+```
+
+# 3.2.3
+
+[diff](https://github.com/prettier/prettier/compare/3.2.2...3.2.3)
+
+#### Throw errors for invalid code ([#15881](https://github.com/prettier/prettier/pull/15881) by [@fisker](https://github.com/fisker), [@Josh-Cena](https://github.com/Josh-Cena), [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+1++;
+
+// Prettier 3.2.2
+1++;
+
+// Prettier 3.2.3
+SyntaxError: Invalid left-hand side expression in unary operation (1:1)
+> 1 | 1++;
+    | ^
+```
+
+<!-- prettier-ignore -->
+```ts
+// Input
+try {} catch (error = 1){}
+
+// Prettier 3.2.2
+try {
+} catch (error) {}
+
+// Prettier 3.2.3
+SyntaxError: Catch clause variable cannot have an initializer. (1:23)
+> 1 | try {} catch (error = 1){}
+    |                       ^
+```
+
+#### Fix parser inference ([#15927](https://github.com/prettier/prettier/pull/15927) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```console
+// Prettier 3.2.2
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "json" }
+
+// Prettier 3.2.3
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "jsonc" }
+```
+
+# 3.2.2
+
+[diff](https://github.com/prettier/prettier/compare/3.2.1...3.2.2)
+
+#### Fix crash when parsing template literal CSS in a JSX style tag using a spread attribute ([#15896](https://github.com/prettier/prettier/pull/15896) by [@eelco](https://github.com/eelco))
+
+For example this code would crash before:
+
+<!-- prettier-ignore -->
+```jsx
+<style {...spread}>{`.{}`}</style>
+```
+
+#### Fix formatting error on optional call expression and member chain ([#15920](https://github.com/prettier/prettier/pull/15920) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+a(() => {}, c?.d());
+
+// Prettier 3.2.1
+TypeError: Cannot read properties of undefined (reading 'type')
+
+// Prettier 3.2.2
+a(() => {}, c?.d());
+```
+
+# 3.2.1
+
+[diff](https://github.com/prettier/prettier/compare/3.2.0...3.2.1)
+
+#### Fix formatting error on member chain ([#15915](https://github.com/prettier/prettier/pull/15915) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+test().test2().test2(thing?.something);
+
+// Prettier 3.2.0
+TypeError: Cannot read properties of undefined (reading 'type')
+
+// Prettier 3.2.1
+test().test2().test2(thing?.something);
+
+```
+
+# 3.2.0
+
+[diff](https://github.com/prettier/prettier/compare/3.1.1...3.2.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2024/01/12/3.2.0.html)
+
 # 3.1.1
 
 [diff](https://github.com/prettier/prettier/compare/3.1.0...3.1.1)
@@ -325,7 +654,7 @@ function fn() {
   return (
     /**
      * @type {...}
-     */ expresssion
+     */ expression
   )
 }
 
@@ -333,7 +662,7 @@ function fn() {
 function fn() {
   return /**
    * @type {...}
-   */ expresssion;
+   */ expression;
 }
 
 // Prettier 3.0.1
@@ -341,7 +670,7 @@ function fn() {
   return (
     /**
      * @type {...}
-     */ expresssion
+     */ expression
   );
 }
 ```
@@ -1669,7 +1998,7 @@ interface Foo {
 <MyComponent
   {{! this is a comment for arg 1}}
   @arg1="hello"
-  {{on "clik" this.modify}}
+  {{on "click" this.modify}}
   @arg2="hello"
   {{! this is a comment for arg 3}}
   @arg3="hello"
@@ -1686,7 +2015,7 @@ interface Foo {
   @arg4="hello"
   @arg5="hello"
   ...arguments
-  {{on "clik" this.modify}}
+  {{on "click" this.modify}}
   {{! this is a comment for arg 1}}
   {{! this is a comment for arg 3}}
   {{! this is a comment for arg 5}}
@@ -1695,7 +2024,7 @@ interface Foo {
 <MyComponent
   {{! this is a comment for arg 1}}
   @arg1="hello"
-  {{on "clik" this.modify}}
+  {{on "click" this.modify}}
   @arg2="hello"
   {{! this is a comment for arg 3}}
   @arg3="hello"
@@ -2053,7 +2382,7 @@ Test <a href="https://prettier.io">abc</a>.
 #### Fix broken format for `...infer T` ([#9044](https://github.com/prettier/prettier/pull/9044) by [@fisker](https://github.com/fisker))
 
 <!-- prettier-ignore -->
-```typescript
+```ts
 // Input
 type Tail<T extends any[]> = T extends [infer U, ...infer R] ? R : never;
 

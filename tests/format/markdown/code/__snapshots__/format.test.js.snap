@@ -1,0 +1,1345 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`0-indent-js.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- 1
+  - 2
+    - 3
+      \`\`\`js
+      md\`
+      # this is the root indent
+
+      # this is the root indent
+
+      # this is the root indent
+      \`
+
+      something\`
+      asd
+
+      asd
+
+      asd
+      \`
+      \`\`\`
+
+=====================================output=====================================
+- 1
+
+  - 2
+
+    - 3
+
+      \`\`\`js
+      md\`
+      # this is the root indent
+
+      # this is the root indent
+
+      # this is the root indent
+      \`;
+
+      something\`
+      asd
+      
+      asd
+      
+      asd
+      \`;
+      \`\`\`
+
+================================================================================
+`;
+
+exports[`additional-space.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+1. Fork the repo and create your branch from \`master\`.
+
+   Open terminal (e.g. Terminal, iTerm, Git Bash or Git Shell) and type:
+   \`\`\`sh
+   git clone https://github.com/<your_username>/jest
+   cd jest
+   git checkout -b my_branch
+   \`\`\`
+   Note:
+   Replace \`<your_username>\` with your GitHub username
+
+3. Run \`yarn install\`.
+   On Windows:
+   To install [Yarn](https://yarnpkg.com/en/docs/install#windows-tab) on Windows you may need to download either node.js or Chocolatey<br />
+
+    \`\`\`sh
+    yarn install
+    \`\`\`
+    To check your version of Yarn and ensure it's installed you can type:
+    \`\`\`sh
+    yarn --version
+    \`\`\`
+=====================================output=====================================
+1. Fork the repo and create your branch from \`master\`.
+
+   Open terminal (e.g. Terminal, iTerm, Git Bash or Git Shell) and type:
+
+   \`\`\`sh
+   git clone https://github.com/<your_username>/jest
+   cd jest
+   git checkout -b my_branch
+   \`\`\`
+
+   Note: Replace \`<your_username>\` with your GitHub username
+
+2. Run \`yarn install\`. On Windows: To install
+   [Yarn](https://yarnpkg.com/en/docs/install#windows-tab) on Windows you may
+   need to download either node.js or Chocolatey<br />
+
+   \`\`\`sh
+   yarn install
+   \`\`\`
+
+   To check your version of Yarn and ensure it's installed you can type:
+
+   \`\`\`sh
+   yarn --version
+   \`\`\`
+
+================================================================================
+`;
+
+exports[`backtick.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`\`\`\`\`\`\`\`
+
+\`\`\`js
+console.log("hello world!");
+\`\`\`
+
+\`\`\`\`\`\`\`\`\`\`
+
+=====================================output=====================================
+\`\`\`\`
+
+\`\`\`js
+console.log("hello world!");
+\`\`\`
+
+\`\`\`\`
+
+================================================================================
+`;
+
+exports[`format.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`js
+const foo      = 'bar'
+
+
+
+   console     .log(    213    )
+\`\`\`
+
+=====================================output=====================================
+\`\`\`js
+const foo = "bar";
+
+console.log(213);
+\`\`\`
+
+================================================================================
+`;
+
+exports[`indent.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+
+- \`\`\`
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  \`\`\`
+
+<!-- prettier/prettier#3459 -->
+
+1. Change to your home directory:
+
+        cd
+
+2. List the contents:
+
+        ls -l
+
+=====================================output=====================================
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+    Indented Code Block
+
+- \`\`\`
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  Fenced Code Block
+  \`\`\`
+
+<!-- prettier/prettier#3459 -->
+
+1.  Change to your home directory:
+
+        cd
+
+2.  List the contents:
+
+        ls -l
+
+================================================================================
+`;
+
+exports[`lang.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`js
+console.log("hello world");
+\`\`\`
+
+=====================================output=====================================
+\`\`\`js
+console.log("hello world");
+\`\`\`
+
+================================================================================
+`;
+
+exports[`leading-trailing-newlines.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`
+
+
+123
+
+
+\`\`\`
+
+=====================================output=====================================
+\`\`\`
+
+
+123
+
+
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-auth-api.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+
+\`\`\`javascript
+
+
+// sample arguments for registration
+const createCredentialDefaultArgs = {
+          publicKey: {
+    // Relying Party (a.k.a. - Service):
+  rp: {
+      name: "Acme",    },
+    // User:
+    user: {
+      id: new Uint8Array(16),
+      name: "carina.p.anand@example.com",   displayName: "Carina P. Anand",
+    },
+    pubKeyCredParams: [
+      {
+        type: "public-key",
+        alg: -7,
+      },
+    ],
+    attestation: "direct",
+    timeout: 60000,
+    challenge: new Uint8Array(
+[
+      // must be a cryptographically random number sent from a server
+      0x8c, 0x0a, 0x26, 0xff, 0x22, 0x91, 0xc1, 0xe9, 0xb9, 0x4e, 0x2e, 0x17, 0x1a, 0x98, 0x6a, 0x73, 0x71, 0x9d, 0x43, 0x48, 0xd5, 0xa7, 0x6a, 0x15, 0x7e, 0x38,
+  0x94, 0x52, 0x77, 0x97, 0x0f, 0xef,
+    ]).buffer,
+  },
+};
+\`\`\`
+
+=====================================output=====================================
+\`\`\`javascript
+// sample arguments for registration
+const createCredentialDefaultArgs = {
+  publicKey: {
+    // Relying Party (a.k.a. - Service):
+    rp: {
+      name: "Acme",
+    },
+    // User:
+    user: {
+      id: new Uint8Array(16),
+      name: "carina.p.anand@example.com",
+      displayName: "Carina P. Anand",
+    },
+    pubKeyCredParams: [
+      {
+        type: "public-key",
+        alg: -7,
+      },
+    ],
+    attestation: "direct",
+    timeout: 60000,
+    challenge: new Uint8Array([
+      // must be a cryptographically random number sent from a server
+      0x8c, 0x0a, 0x26, 0xff, 0x22, 0x91, 0xc1, 0xe9, 0xb9, 0x4e, 0x2e, 0x17,
+      0x1a, 0x98, 0x6a, 0x73, 0x71, 0x9d, 0x43, 0x48, 0xd5, 0xa7, 0x6a, 0x15,
+      0x7e, 0x38, 0x94, 0x52, 0x77, 0x97, 0x0f, 0xef,
+    ]).buffer,
+  },
+};
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-background-1.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+
+\`\`\`css
+
+.box {
+  background:
+    linear-gradient(
+        105deg,
+        rgb(255 255 255 / 20%) 39%,
+        rgb(51 56 57 / 100%) 96%
+      )           center center / 400px 200px no-repeat,    url(big-star.png) center no-repeat,
+    rebeccapurple;
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+.box {
+  background:
+    linear-gradient(
+        105deg,
+        rgb(255 255 255 / 20%) 39%,
+        rgb(51 56 57 / 100%) 96%
+      )
+      center center / 400px 200px no-repeat,
+    url(big-star.png) center no-repeat,
+    rebeccapurple;
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-background-2.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+\`\`\`css
+
+
+
+background-image: linear-gradient(
+    to bottom,
+              rgb(255 255 0 / 50%),
+ rgb(0 0 255 / 50%)
+  ), url("catfront.png");
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+background-image: linear-gradient(
+    to bottom,
+    rgb(255 255 0 / 50%),
+    rgb(0 0 255 / 50%)
+  ),
+  url("catfront.png");
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-background-3.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+\`\`\`css
+
+.box {
+  margin: 10px 0;
+  color: #fff;
+  background: linear-gradient(90deg,
+      rgb(131 58 180 / 100%)  0%,
+  rgb(253 29 29 / 60%) 60%, rgb(252 176 69 / 100%) 100%), radial-gradient(circle, rgb(255 255 255 / 100%) 0%, rgb(0 0 0 / 100%) 28%);
+  border: 20px dashed black;
+  padding: 20px;
+width: 400px;
+        background-origin: padding-box, content-box;
+  background-repeat: no-repeat;
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+.box {
+  margin: 10px 0;
+  color: #fff;
+  background: linear-gradient(
+      90deg,
+      rgb(131 58 180 / 100%) 0%,
+      rgb(253 29 29 / 60%) 60%,
+      rgb(252 176 69 / 100%) 100%
+    ),
+    radial-gradient(circle, rgb(255 255 255 / 100%) 0%, rgb(0 0 0 / 100%) 28%);
+  border: 20px dashed black;
+  padding: 20px;
+  width: 400px;
+  background-origin: padding-box, content-box;
+  background-repeat: no-repeat;
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-background-4.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+\`\`\`css
+
+
+.multi-bg-example {
+  width: 100%;  height: 400px;
+  background-image: url(firefox.png),       url(bubbles.png), linear-gradient(to right, rgb(30
+          75 115 / 100%), rgb(255 255 255 / 0%));
+    background-repeat: no-repeat, no-repeat, no-repeat;
+background-position:
+    bottom right,
+    left,
+    right;
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+.multi-bg-example {
+  width: 100%;
+  height: 400px;
+  background-image: url(firefox.png), url(bubbles.png),
+    linear-gradient(to right, rgb(30 75 115 / 100%), rgb(255 255 255 / 0%));
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position:
+    bottom right,
+    left,
+    right;
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-background-5.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+\`\`\`css
+
+.stacked-linear {
+  background: linear-gradient(
+      217deg,
+      rgb(255 0 0 / 80%),
+      rgb(255 0 0 / 0%) 70.71%
+    ), linear-gradient(127deg, rgb(0 255 0 / 80%), rgb(0 255 0 / 0%) 70.71%),
+    linear-gradient(336deg, rgb(0 0 255 / 80%), rgb(0 0 255 / 0%) 70.71%);
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+.stacked-linear {
+  background: linear-gradient(
+      217deg,
+      rgb(255 0 0 / 80%),
+      rgb(255 0 0 / 0%) 70.71%
+    ),
+    linear-gradient(127deg, rgb(0 255 0 / 80%), rgb(0 255 0 / 0%) 70.71%),
+    linear-gradient(336deg, rgb(0 0 255 / 80%), rgb(0 0 255 / 0%) 70.71%);
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-background-6.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+\`\`\`css
+
+
+
+.stacked-radial {
+  background:
+    radial-gradient(
+      circle at 50% 0,
+      rgb(255 0 0 / 50%),
+      rgb(255 0 0 / 0%) 70.71%
+    ),
+    radial-gradient(
+      circle at 6.7% 75%,
+      rgb(0 0 255 / 50%),
+      rgb(0 0 255 / 0%) 70.71%
+    ),
+    radial-gradient(
+        circle at 93.3% 75%,
+        rgb(0 255 0 / 50%),
+        rgb(0 255 0 / 0%) 70.71%
+      ) beige;
+  border-radius: 50%;
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+.stacked-radial {
+  background:
+    radial-gradient(
+      circle at 50% 0,
+      rgb(255 0 0 / 50%),
+      rgb(255 0 0 / 0%) 70.71%
+    ),
+    radial-gradient(
+      circle at 6.7% 75%,
+      rgb(0 0 255 / 50%),
+      rgb(0 0 255 / 0%) 70.71%
+    ),
+    radial-gradient(
+        circle at 93.3% 75%,
+        rgb(0 255 0 / 50%),
+        rgb(0 255 0 / 0%) 70.71%
+      )
+      beige;
+  border-radius: 50%;
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-background-7.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+\`\`\`css
+
+.multi-repeating-linear {
+  background:     repeating-linear-gradient(
+      190deg,
+              rgb(255 0 0 / 50%) 40px,
+      rgb(255 153 0 / 50%) 80px,
+rgb(255 255 0 / 50%) 120px,
+      rgb(0 255 0 / 50%) 160px,
+      rgb(0 0 255 / 50%) 200px,
+      rgb(75 0 130 / 50%) 240px,
+      rgb(238 130 238 / 50%) 280px,
+      rgb(255 0 0 / 50%) 300px
+    ), repeating-linear-gradient(
+      -190deg,
+      rgb(255 0 0 / 50%) 30px,
+      rgb(255 153 0 / 50%) 60px,
+      rgb(255 255 0 / 50%) 90px,
+      rgb(0 255 0 / 50%) 120px,
+      rgb(0 0 255 / 50%) 150px,
+  rgb(75 0 130 / 50%) 180px,
+      rgb(238 130 238 / 50%) 210px,
+      rgb(255 0 0 / 50%) 230px
+    ), repeating-linear-gradient(23deg, red 50px, orange 100px, yellow 150px, green
+        200px, blue 250px, indigo 300px, violet 350px, red 370px);
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+.multi-repeating-linear {
+  background: repeating-linear-gradient(
+      190deg,
+      rgb(255 0 0 / 50%) 40px,
+      rgb(255 153 0 / 50%) 80px,
+      rgb(255 255 0 / 50%) 120px,
+      rgb(0 255 0 / 50%) 160px,
+      rgb(0 0 255 / 50%) 200px,
+      rgb(75 0 130 / 50%) 240px,
+      rgb(238 130 238 / 50%) 280px,
+      rgb(255 0 0 / 50%) 300px
+    ),
+    repeating-linear-gradient(
+      -190deg,
+      rgb(255 0 0 / 50%) 30px,
+      rgb(255 153 0 / 50%) 60px,
+      rgb(255 255 0 / 50%) 90px,
+      rgb(0 255 0 / 50%) 120px,
+      rgb(0 0 255 / 50%) 150px,
+      rgb(75 0 130 / 50%) 180px,
+      rgb(238 130 238 / 50%) 210px,
+      rgb(255 0 0 / 50%) 230px
+    ),
+    repeating-linear-gradient(
+      23deg,
+      red 50px,
+      orange 100px,
+      yellow 150px,
+      green 200px,
+      blue 250px,
+      indigo 300px,
+      violet 350px,
+      red 370px
+    );
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-background-8.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+\`\`\`css
+
+.plaid-gradient {
+  background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 50px,
+      rgb(255 127 0 / 25%) 50px,
+      rgb(255 127 0 / 25%) 56px,
+      transparent 56px,
+      transparent 63px,
+      rgb(255 127 0 / 25%) 63px,
+      rgb(255 127 0 / 25%) 69px,
+transparent 69px,
+      transparent 116px,
+      rgb(255 206 0 / 25%) 116px,
+      rgb(255 206 0 / 25%) 166px
+    ), repeating-linear-gradient(
+      0deg,
+                transparent,
+      transparent       50px,
+      rgb(255 127 0 / 25%) 50px,
+            rgb(255 127 0 / 25%) 56px,
+      transparent 56px,
+      transparent 63px,
+      rgb(255 127 0 / 25%) 63px,
+      rgb(255 127 0 / 25%) 69px,
+      transparent 69px,
+      transparent 116px,
+      rgb(255 206 0 / 25%) 116px,
+      rgb(255 206 0 / 25%) 166px
+    ), repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 5px,
+      rgb(143 77 63 / 25%) 5px,
+      rgb(143 77 63 / 25%) 10px
+    ), repeating-linear-gradient(45deg, transparent, transparent 5px, rgb(
+          143 77 63 / 25%
+        ) 5px, rgb(143 77 63 / 25%) 10px);
+
+  background: repeating-linear-gradient(
+      90deg,
+      transparent 0 50px,
+      rgb(255 127 0 / 25%) 50px 56px,
+      transparent 56px 63px,
+      rgb(255 127 0 / 25%) 63px 69px,
+      transparent 69px 116px,
+      rgb(255 206 0 / 25%) 116px 166px
+    ), repeating-linear-gradient(
+      0deg,
+      transparent 0 50px,
+      rgb(255 127 0 / 25%) 50px 56px,
+          transparent 56px 63px,
+      rgb(255 127 0 / 25%) 63px 69px,
+      transparent 69px 116px,
+      rgb(255 206 0 / 25%) 116px 166px
+    ), repeating-linear-gradient(
+      -45deg,
+      transparent 0 5px,
+      rgb(143 77 63 / 25%) 5px 10px
+    ), repeating-linear-gradient(45deg, transparent 0 5px, rgb(143 77 63 / 25%) 5px
+        10px);
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+.plaid-gradient {
+  background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 50px,
+      rgb(255 127 0 / 25%) 50px,
+      rgb(255 127 0 / 25%) 56px,
+      transparent 56px,
+      transparent 63px,
+      rgb(255 127 0 / 25%) 63px,
+      rgb(255 127 0 / 25%) 69px,
+      transparent 69px,
+      transparent 116px,
+      rgb(255 206 0 / 25%) 116px,
+      rgb(255 206 0 / 25%) 166px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 50px,
+      rgb(255 127 0 / 25%) 50px,
+      rgb(255 127 0 / 25%) 56px,
+      transparent 56px,
+      transparent 63px,
+      rgb(255 127 0 / 25%) 63px,
+      rgb(255 127 0 / 25%) 69px,
+      transparent 69px,
+      transparent 116px,
+      rgb(255 206 0 / 25%) 116px,
+      rgb(255 206 0 / 25%) 166px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 5px,
+      rgb(143 77 63 / 25%) 5px,
+      rgb(143 77 63 / 25%) 10px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 5px,
+      rgb(143 77 63 / 25%) 5px,
+      rgb(143 77 63 / 25%) 10px
+    );
+
+  background: repeating-linear-gradient(
+      90deg,
+      transparent 0 50px,
+      rgb(255 127 0 / 25%) 50px 56px,
+      transparent 56px 63px,
+      rgb(255 127 0 / 25%) 63px 69px,
+      transparent 69px 116px,
+      rgb(255 206 0 / 25%) 116px 166px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 50px,
+      rgb(255 127 0 / 25%) 50px 56px,
+      transparent 56px 63px,
+      rgb(255 127 0 / 25%) 63px 69px,
+      transparent 69px 116px,
+      rgb(255 206 0 / 25%) 116px 166px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0 5px,
+      rgb(143 77 63 / 25%) 5px 10px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 5px,
+      rgb(143 77 63 / 25%) 5px 10px
+    );
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-background-9.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+\`\`\`css
+
+
+div {
+  background: conic-gradient(
+      #fff      0.25turn,
+  #000 0.25turn 0.5turn,
+      #fff 0.5turn 0.75turn,
+        #000 0.75turn
+    ) top left      / 25% 25% repeat;
+  border: 1px solid;
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+div {
+  background: conic-gradient(
+      #fff 0.25turn,
+      #000 0.25turn 0.5turn,
+      #fff 0.5turn 0.75turn,
+      #000 0.75turn
+    )
+    top left / 25% 25% repeat;
+  border: 1px solid;
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-filter-1.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+\`\`\`css
+
+img {
+  filter: drop-shadow(2px 2px 0 hsl(300deg 100% 50%)) drop-shadow(
+      -2px -2px 0 hsl(210deg 100% 50%) ) drop-shadow(2px 2px 0 hsl(120deg 100% 50%)) drop-shadow(
+      -2px -2px 0 hsl(30deg 100% 50%)
+    );
+}
+img + img {
+filter: none;
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+img {
+  filter: drop-shadow(2px 2px 0 hsl(300deg 100% 50%))
+    drop-shadow(-2px -2px 0 hsl(210deg 100% 50%))
+    drop-shadow(2px 2px 0 hsl(120deg 100% 50%))
+    drop-shadow(-2px -2px 0 hsl(30deg 100% 50%));
+}
+img + img {
+  filter: none;
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-filter-2.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+\`\`\`css
+
+
+
+#MDN-logo {
+border: 1px solid blue;
+  filter: drop-shadow(5px 5px 0 red) hue-rotate(180deg) drop-shadow(5px 5px 0
+        red);
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+#MDN-logo {
+  border: 1px solid blue;
+  filter: drop-shadow(5px 5px 0 red) hue-rotate(180deg)
+    drop-shadow(5px 5px 0 red);
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-font-face-1.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+
+\`\`\`css
+
+@font-face {
+  font-family: "HeydingsControlsRegular";
+          src: url("fonts/heydings_controls-webfont.eot");
+  src:
+    url("fonts/heydings_controls-webfont.eot?#iefix") format("embedded-opentype"),
+url("fonts/heydings_controls-webfont.woff") format("woff"),
+    url("fonts/heydings_controls-webfont.ttf")      format("truetype");
+  font-weight: normal;
+font-style: normal;
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+@font-face {
+  font-family: "HeydingsControlsRegular";
+  src: url("fonts/heydings_controls-webfont.eot");
+  src:
+    url("fonts/heydings_controls-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("fonts/heydings_controls-webfont.woff") format("woff"),
+    url("fonts/heydings_controls-webfont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-font-face-2.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+\`\`\`css
+
+
+
+
+
+@font-face {
+  font-family: "Bungee Spice";
+  src:
+    url("https://fonts.googleapis.com/css2?family=Bungee+Spice") tech(color-COLRv1), url("Bungee-fallback.otf") format("opentype");
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+@font-face {
+  font-family: "Bungee Spice";
+  src:
+    url("https://fonts.googleapis.com/css2?family=Bungee+Spice")
+      tech(color-COLRv1),
+    url("Bungee-fallback.otf") format("opentype");
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-grid-auto-columns.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+\`\`\`css
+
+/* multiple track-size values */
+grid-auto-columns: min-content max-content auto;
+grid-auto-columns: 100px 150px 390px;
+grid-auto-columns: 10% 33.3%;
+grid-auto-columns: 0.5fr 3fr 1fr;
+grid-auto-columns: minmax(100px, auto)    minmax(max-content, 2fr) minmax(20%, 80vmax);
+grid-auto-columns: 100px minmax(100px, auto)        10% 0.5fr fit-content(400px);
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+/* multiple track-size values */
+grid-auto-columns: min-content max-content auto;
+grid-auto-columns: 100px 150px 390px;
+grid-auto-columns: 10% 33.3%;
+grid-auto-columns: 0.5fr 3fr 1fr;
+grid-auto-columns: minmax(100px, auto) minmax(max-content, 2fr)
+  minmax(20%, 80vmax);
+grid-auto-columns: 100px minmax(100px, auto) 10% 0.5fr fit-content(400px);
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-import.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+\`\`\`css
+
+
+@import url("gridy.css")    supports(       display: grid) screen and (max-width: 400px);
+@import url("flexy.css") supports(not (display: grid    ) and           (display: flex)) screen and (max-width: 400px);
+@import url(
+"whatever.css") supports((selector(h2 > p)) and    (font-tech(color-COLRv1)));
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+@import url("gridy.css") supports(display: grid) screen and (max-width: 400px);
+@import url("flexy.css") supports(not (display: grid) and (display: flex))
+  screen and (max-width: 400px);
+@import url("whatever.css")
+supports((selector(h2 > p)) and (font-tech(color-COLRv1)));
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-mask-image.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+\`\`\`css
+
+/* Multiple values */
+mask-image: image(url(mask.png), skyblue),                          linear-gradient(rgb(0 0 0 / 100%), transparent);
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+/* Multiple values */
+mask-image: image(url(mask.png), skyblue),
+  linear-gradient(rgb(0 0 0 / 100%), transparent);
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-padding-1.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+\`\`\`css
+
+body {
+padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px) env(
+      safe-area-inset-bottom,
+                20px
+    ) env(safe-area-inset-left, 20px);
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+body {
+  padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px)
+    env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px);
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-padding-2.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+\`\`\`css
+
+p {
+  width: 300px;
+  border: 2px solid red;
+        padding: env(safe-area-inset-top, 50px) env(safe-area-inset-right, 50px) env(
+      safe-area-inset-bottom,
+  50px
+    ) env(SAFE-AREA-INSET-LEFT, 50px);
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+p {
+  width: 300px;
+  border: 2px solid red;
+  padding: env(safe-area-inset-top, 50px) env(safe-area-inset-right, 50px)
+    env(safe-area-inset-bottom, 50px) env(SAFE-AREA-INSET-LEFT, 50px);
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-transform.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+\`\`\`css
+
+#example-element:focus {
+  transform: rotate3d(1, 1, 1,      30deg) matrix3d(
+      1,
+      0,
+      0,
+                      0,
+      0,
+    1,
+      6,
+      0,
+      0,
+      0,
+      1,
+      0,
+      50,
+      100,
+      0,
+      1.1
+    );
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+#example-element:focus {
+  transform: rotate3d(1, 1, 1, 30deg)
+    matrix3d(1, 0, 0, 0, 0, 1, 6, 0, 0, 0, 1, 0, 50, 100, 0, 1.1);
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`mdn-unicode-range.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+\`\`\`css
+
+
+
+@media (prefers-reduced-data: no-preference) {
+  @font-face      {
+    font-family: Montserrat;
+            font-style: normal;
+  font-weight: 400;
+    font-display: swap;
+    /* latin */
+    src:
+      local("Montserrat Regular"),
+      local("Montserrat-Regular"),
+      url("fonts/montserrat-regular.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131,
+U+0152-0153, U+02BB-02BC, U+02C6,
+            U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193,
+      U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`css
+@media (prefers-reduced-data: no-preference) {
+  @font-face {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    /* latin */
+    src:
+      local("Montserrat Regular"),
+      local("Montserrat-Regular"),
+      url("fonts/montserrat-regular.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+      U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+      U+2215, U+FEFF, U+FFFD;
+  }
+}
+\`\`\`
+
+================================================================================
+`;
+
+exports[`simple.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`
+hello world
+\`\`\`
+
+=====================================output=====================================
+\`\`\`
+hello world
+\`\`\`
+
+================================================================================
+`;
+
+exports[`ts-trailing-comma.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`ts
+const test = <T,>(value: T) => {};
+\`\`\`
+
+\`\`\`typescript
+const test = <T,>(value: T) => {};
+\`\`\`
+
+=====================================output=====================================
+\`\`\`ts
+const test = <T>(value: T) => {};
+\`\`\`
+
+\`\`\`typescript
+const test = <T>(value: T) => {};
+\`\`\`
+
+================================================================================
+`;
+
+exports[`tsx-trailing-comma.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`tsx
+const test = <T,>(value: T) => {};
+\`\`\`
+
+=====================================output=====================================
+\`\`\`tsx
+const test = <T,>(value: T) => {};
+\`\`\`
+
+================================================================================
+`;

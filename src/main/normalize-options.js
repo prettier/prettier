@@ -176,10 +176,13 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
       !value
         ? undefined
         : {
-            to: {
-              key: optionInfo.redirect.option,
-              value: optionInfo.redirect.value,
-            },
+            to:
+              typeof optionInfo.redirect === "string"
+                ? optionInfo.redirect
+                : {
+                    key: optionInfo.redirect.option,
+                    value: optionInfo.redirect.value,
+                  },
           };
   }
   /* c8 ignore stop */

@@ -184,6 +184,7 @@ function attachComments(ast, options) {
     if (
       options.parser === "json" ||
       options.parser === "json5" ||
+      options.parser === "jsonc" ||
       options.parser === "__js_expression" ||
       options.parser === "__ts_expression" ||
       options.parser === "__vue_expression" ||

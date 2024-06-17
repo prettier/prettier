@@ -20,7 +20,6 @@ import {
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
-  isSimpleTemplateLiteral,
 } from "../utils/index.js";
 
 function printTemplateLiteral(path, print, options) {
@@ -39,18 +38,7 @@ function printTemplateLiteral(path, print, options) {
   }
   const parts = [];
 
-  let expressionDocs = path.map(print, expressionsKey);
-  const isSimple = isSimpleTemplateLiteral(node);
-
-  if (isSimple) {
-    expressionDocs = expressionDocs.map(
-      (doc) =>
-        printDocToString(doc, {
-          ...options,
-          printWidth: Number.POSITIVE_INFINITY,
-        }).formatted,
-    );
-  }
+  const expressionDocs = path.map(print, expressionsKey);
 
   parts.push(lineSuffixBoundary, "`");
 
@@ -82,44 +70,43 @@ function printTemplateLiteral(path, print, options) {
 
     let expressionDoc = expressionDocs[index];
 
-    if (!isSimple) {
-      const expression = node[expressionsKey][index];
+    const expression = node[expressionsKey][index];
 
-      let interpolationHasNewline = hasNewlineInRange(
-        options.originalText,
-        locEnd(quasi),
-        locStart(node.quasis[index + 1]),
-      );
+    let interpolationHasNewline = hasNewlineInRange(
+      options.originalText,
+      locEnd(quasi),
+      locStart(node.quasis[index + 1]),
+    );
 
-      if (!interpolationHasNewline) {
-        // Never add a newline to an interpolation which didn't already have one...
-        const renderedExpression = printDocToString(expressionDoc, {
-          ...options,
-          printWidth: Number.POSITIVE_INFINITY,
-        }).formatted;
+    if (!interpolationHasNewline) {
+      // Never add a newline to an interpolation which didn't already have one...
+      const renderedExpression = printDocToString(expressionDoc, {
+        ...options,
+        printWidth: Number.POSITIVE_INFINITY,
+      }).formatted;
 
-        // ... unless one will be introduced anyway, e.g. by a nested function.
-        // This case is rare, so we can pay the cost of re-rendering.
-        if (renderedExpression.includes("\n")) {
-          interpolationHasNewline = true;
-        } else {
-          expressionDoc = renderedExpression;
-        }
+      // ... unless one will be introduced anyway, e.g. by a nested function.
+      // This case is rare, so we can pay the cost of re-rendering.
+      if (renderedExpression.includes("\n")) {
+        interpolationHasNewline = true;
+      } else {
+        expressionDoc = renderedExpression;
       }
+    }
 
-      // Breaks at the template element boundaries (${ and }) are preferred to breaking
-      // in the middle of a MemberExpression
-      if (
-        interpolationHasNewline &&
-        (hasComment(expression) ||
-          isMemberExpression(expression) ||
-          expression.type === "ConditionalExpression" ||
-          expression.type === "SequenceExpression" ||
-          isBinaryCastExpression(expression) ||
-          isBinaryish(expression))
-      ) {
-        expressionDoc = [indent([softline, expressionDoc]), softline];
-      }
+    // Breaks at the template element boundaries (${ and }) are preferred to breaking
+    // in the middle of a MemberExpression
+    if (
+      interpolationHasNewline &&
+      (hasComment(expression) ||
+        expression.type === "Identifier" ||
+        isMemberExpression(expression) ||
+        expression.type === "ConditionalExpression" ||
+        expression.type === "SequenceExpression" ||
+        isBinaryCastExpression(expression) ||
+        isBinaryish(expression))
+    ) {
+      expressionDoc = [indent([softline, expressionDoc]), softline];
     }
 
     const aligned =
@@ -135,11 +122,11 @@ function printTemplateLiteral(path, print, options) {
   return parts;
 }
 
-function printTaggedTemplateLiteral(print) {
+function printTaggedTemplateLiteral(path, print) {
   const quasiDoc = print("quasi");
   return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
     print("tag"),
-    print("typeParameters"),
+    print(path.node.typeArguments ? "typeArguments" : "typeParameters"),
     lineSuffixBoundary,
     quasiDoc,
   ]);
@@ -263,7 +250,7 @@ function escapeTemplateCharacters(doc, raw) {
 }
 
 function uncookTemplateElementValue(cookedValue) {
-  return cookedValue.replaceAll(/([\\`]|\${)/g, "\\$1");
+  return cookedValue.replaceAll(/([\\`]|\${)/g, String.raw`\$1`);
 }
 
 function isJestEachTemplateLiteral({ node, parent }) {

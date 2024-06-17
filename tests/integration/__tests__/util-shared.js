@@ -43,9 +43,9 @@ test("sharedUtil.getMaxContinuousCount", () => {
   expect(getMaxContinuousCount(fixture, "([a-f])")).toBe(2);
   expect(getMaxContinuousCount(fixture, "[a-f]")).toBe(3);
   expect(getMaxContinuousCount(fixture, "a-f")).toBe(4);
-  expect(getMaxContinuousCount(fixture, "([a\\-f])")).toBe(0);
-  expect(getMaxContinuousCount(fixture, "[a\\-f]")).toBe(0);
-  expect(getMaxContinuousCount(fixture, "a\\-f")).toBe(0);
+  expect(getMaxContinuousCount(fixture, String.raw`([a\-f])`)).toBe(0);
+  expect(getMaxContinuousCount(fixture, String.raw`[a\-f]`)).toBe(0);
+  expect(getMaxContinuousCount(fixture, String.raw`a\-f`)).toBe(0);
 });
 
 test("sharedUtil.getStringWidth", () => {
@@ -222,6 +222,10 @@ test("sharedUtil.makeString", () => {
     `${SINGLE_QUOTE}a${DOUBLE_QUOTE}${SINGLE_QUOTE}`,
   );
   expect(
-    makeString("\\a", SINGLE_QUOTE, /* unescapeUnnecessaryEscapes */ true),
+    makeString(
+      String.raw`\a`,
+      SINGLE_QUOTE,
+      /* unescapeUnnecessaryEscapes */ true,
+    ),
   ).toBe(`${SINGLE_QUOTE}a${SINGLE_QUOTE}`);
 });

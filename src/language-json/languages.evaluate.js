@@ -14,11 +14,19 @@ const languages = [
     parsers: ["json"],
     vscodeLanguageIds: ["json"],
     extensions: data.extensions.filter((extension) => extension !== ".jsonl"),
+    filenames: [
+      ...data.filenames,
+      ".babelrc",
+      ".jscsrc",
+      ".jshintrc",
+      ".jslintrc",
+      ".swcrc",
+    ],
   })),
-  createLanguage(linguistLanguages["JSON with Comments"], (data) => ({
-    parsers: ["json"],
+  createLanguage(linguistLanguages["JSON with Comments"], () => ({
+    parsers: ["jsonc"],
     vscodeLanguageIds: ["jsonc"],
-    filenames: [...data.filenames, ".eslintrc"],
+    filenames: [],
   })),
   createLanguage(linguistLanguages.JSON5, () => ({
     parsers: ["json5"],

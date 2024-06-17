@@ -9,17 +9,29 @@ async function format() {
   await runYarn(["lint:prettier", "--write"]);
 }
 
+// Only add commit to `.git-blame-ignore-revs` when files except `package.json` and `yarn.lock` changed
+const IGNORED_FILES = new Set(["package.json", "yarn.lock"]);
+async function shouldAddToGitBlameIgnoreRevsFile() {
+  const { stdout } = await runGit(["diff", "--name-only"]);
+  const changedFiles = stdout.split("\n");
+  return changedFiles.some((file) => !IGNORED_FILES.has(file));
+}
+
 async function commit({ version, repo }) {
+  const filesChanged = await shouldAddToGitBlameIgnoreRevsFile();
+
   await runGit(["commit", "-am", `Bump Prettier dependency to ${version}`]);
 
   // Add rev to `.git-blame-ignore-revs` file
-  const file = ".git-blame-ignore-revs";
-  const mark = "# Prettier bump after release";
-  const { stdout: rev } = await runGit(["rev-parse", "HEAD"]);
-  let text = fs.readFileSync(file, "utf8");
-  text = text.replace(mark, `${mark}\n# ${version}\n${rev}`);
-  fs.writeFileSync(file, text);
-  await runGit(["commit", "-am", `Git blame ignore ${version}`]);
+  if (filesChanged) {
+    const file = ".git-blame-ignore-revs";
+    const mark = "# Prettier bump after release";
+    const { stdout: rev } = await runGit(["rev-parse", "HEAD"]);
+    let text = fs.readFileSync(file, "utf8");
+    text = text.replace(mark, `${mark}\n# ${version}\n${rev}`);
+    fs.writeFileSync(file, text);
+    await runGit(["commit", "-am", `Git blame ignore ${version}`]);
+  }
 
   await runGit(["push", "--repo", repo]);
 }
@@ -45,12 +57,15 @@ export default async function bumpPrettier(params) {
     return;
   }
 
+  /*
+  This should be done before installing Prettier,
+  otherwise the yarn.lock will merge `prettier@npm:<version>, prettier@workspace:.`
+  */
+  await logPromise("Bump default branch version", bump(params));
   await logPromise(
     "Installing Prettier",
     runYarn(["add", "--dev", `prettier@${version}`]),
   );
-
   await logPromise("Updating files", format());
-  await logPromise("Bump default branch version", bump(params));
   await logPromise("Committing changed files", commit(params));
 }

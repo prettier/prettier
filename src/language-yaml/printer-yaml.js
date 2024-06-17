@@ -276,7 +276,7 @@ function printNode(path, options, print) {
             node.type === "quoteDouble"
               ? raw
                   // double quote needs to be escaped by backslash in quoteDouble
-                  .replaceAll('\\"', doubleQuote)
+                  .replaceAll(String.raw`\"`, doubleQuote)
                   .replaceAll("'", singleQuote.repeat(2))
               : raw,
             options,
@@ -402,23 +402,23 @@ function printFlowScalarContent(nodeType, content, options) {
   );
 }
 
-function clean(node, newNode /*, parent */) {
-  if (isNode(newNode)) {
-    delete newNode.position;
-    switch (newNode.type) {
+function clean(original, cloned /*, parent */) {
+  if (isNode(original)) {
+    switch (original.type) {
       case "comment":
         // insert pragma
-        if (isPragma(newNode.value)) {
+        if (isPragma(original.value)) {
           return null;
         }
         break;
       case "quoteDouble":
       case "quoteSingle":
-        newNode.type = "quote";
+        cloned.type = "quote";
         break;
     }
   }
 }
+clean.ignoredProperties = new Set(["position"]);
 
 const printer = {
   preprocess,

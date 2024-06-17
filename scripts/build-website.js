@@ -107,6 +107,7 @@ await runYarn("install", [], { cwd: WEBSITE_DIR });
 
 if (IS_PULL_REQUEST) {
   console.log("Synchronizing docs...");
+  process.env.PRETTIER_VERSION = `999.999.999-pr.${process.env.REVIEW_ID}`;
   await runYarn("update-stable-docs", [], { cwd: WEBSITE_DIR });
 }
 

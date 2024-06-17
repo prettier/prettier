@@ -9,12 +9,11 @@
   prConcurrentLimit: 0,
   packageRules: [
     {
-      matchPackageNames: ["react", "react-dom"],
+      matchDepNames: ["react", "react-dom"],
       groupName: "react",
     },
     {
       matchPackagePrefixes: ["@babel/"],
-      excludePackageNames: ["@babel/parser"],
       groupName: "babel",
     },
     {
@@ -26,13 +25,34 @@
       groupName: "glimmer",
     },
     {
+      matchDepNames: [
+        "eslint",
+        "@eslint/eslintrc",
+        "@eslint/js",
+        "@stylistic/eslint-plugin-js",
+        "eslint-config-prettier",
+        "eslint-plugin-import",
+        "eslint-plugin-jest",
+        "eslint-plugin-n",
+        "eslint-plugin-react",
+        "eslint-plugin-regexp",
+        "eslint-plugin-simple-import-sort",
+        "eslint-plugin-unicorn",
+      ],
+      groupName: "ESLint related dependencies",
+    },
+    {
+      matchDepNames: ["@angular/compiler", "angular-estree-parser"],
+      groupName: "Angular Estree",
+    },
+    {
       branchPrefix: "renovate/website/",
-      matchPaths: ["website/package.json"],
+      matchFileNames: ["website/package.json"],
       labels: ["dependency:website"],
     },
     {
       branchPrefix: "renovate/tools/",
-      matchPaths: [
+      matchFileNames: [
         "scripts/release/package.json",
         "scripts/tools/bundle-test/package.json",
         "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
@@ -47,5 +67,7 @@
   ignoreDeps: [
     // It's a dependency of `remark-parse`, use same version to reduce size
     "collapse-white-space",
+    // It will be updated by release script
+    "prettier",
   ],
 }

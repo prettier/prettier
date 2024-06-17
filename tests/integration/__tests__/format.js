@@ -58,7 +58,9 @@ test("should work with foo plugin instance", async () => {
         plugins: [fooPlugin],
       }),
     ),
-  ).toMatchInlineSnapshot('""{\\"tabWidth\\":8,\\"bracketSpacing\\":false}""');
+  ).toMatchInlineSnapshot(
+    String.raw`""{\"tabWidth\":8,\"bracketSpacing\":false}""`,
+  );
 });
 
 test("'Adjacent JSX' error should not be swallowed by Babel's error recovery", async () => {

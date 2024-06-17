@@ -9,7 +9,7 @@ function parseComments(ast) {
   const { startToken, endToken } = ast.loc;
   for (let token = startToken; token !== endToken; token = token.next) {
     if (token.kind === "Comment") {
-      comments.push(token);
+      comments.push({ ...token, loc: { start: token.start, end: token.end } });
     }
   }
 
@@ -34,7 +34,6 @@ function createParseError(error) {
 }
 
 function parse(text /*, options */) {
-  /** @type {any} */
   let ast;
   try {
     ast = parseGraphql(text, parseOptions);

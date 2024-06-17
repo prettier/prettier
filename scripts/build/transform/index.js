@@ -19,7 +19,8 @@ function transform(original, file) {
       file.startsWith(path.join(PROJECT_ROOT, "node_modules/camelcase/")) ||
       file.startsWith(
         path.join(PROJECT_ROOT, "node_modules/angular-estree-parser/"),
-      )
+      ) ||
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/jest-docblock/"))
     )
   ) {
     return original;

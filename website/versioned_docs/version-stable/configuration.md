@@ -6,7 +6,7 @@ original_id: configuration
 
 You can configure Prettier via (in order of precedence):
 
-- A `"prettier"` key in your `package.json` file.
+- A `"prettier"` key in your `package.json`, or [`package.yaml`](https://github.com/pnpm/pnpm/pull/1799) file.
 - A `.prettierrc` file written in JSON or YAML.
 - A `.prettierrc.json`, `.prettierrc.yml`, `.prettierrc.yaml`, or `.prettierrc.json5` file.
 - A `.prettierrc.js`, or `prettier.config.js` file that exports an object using `export default` or `module.exports` (depends on the [`type`](https://nodejs.org/api/packages.html#type) value in your `package.json`).
@@ -33,12 +33,15 @@ JSON:
 }
 ```
 
-JS(ESM):
+JS (ES Modules):
 
 ```js
 // prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
 
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/en/configuration.html
+ * @type {import("prettier").Config}
+ */
 const config = {
   trailingComma: "es5",
   tabWidth: 4,
@@ -49,12 +52,15 @@ const config = {
 export default config;
 ```
 
-JS(CommonJS):
+JS (CommonJS):
 
 ```js
 // prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs
 
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/en/configuration.html
+ * @type {import("prettier").Config}
+ */
 const config = {
   trailingComma: "es5",
   tabWidth: 4,

@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`assertions.js [acorn] format 1`] = `
+"Unexpected token (1:20)
+> 1 | import("./foo.json", { assert: { type: "json" } });
+    |                    ^
+  2 |
+Cause: Unexpected token (1:19)"
+`;
+
+exports[`assertions.js [espree] format 1`] = `
+"Unexpected token , (1:20)
+> 1 | import("./foo.json", { assert: { type: "json" } });
+    |                    ^
+  2 |
+Cause: Unexpected token ,"
+`;
+
+exports[`assertions.js [flow] format 1`] = `
+"Unexpected token \`,\`, expected the token \`)\` (1:20)
+> 1 | import("./foo.json", { assert: { type: "json" } });
+    |                    ^
+  2 |"
+`;
+
+exports[`assertions.js [meriyah] format 1`] = `
+"Expected ')' (1:20)
+> 1 | import("./foo.json", { assert: { type: "json" } });
+    |                    ^
+  2 |
+Cause: [1:20]: Expected ')'"
+`;
+
+exports[`assertions.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("./foo.json", { assert: { type: "json" } });
+
+=====================================output=====================================
+import("./foo.json", { assert: { type: "json" } });
+
+================================================================================
+`;
+
+exports[`import-phase.js [acorn] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source(\`data:text/javascript,
+    |        ^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |
+Cause: The only valid meta property for import is 'import.meta' (1:7)"
+`;
+
+exports[`import-phase.js [espree] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source(\`data:text/javascript,
+    |        ^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |
+Cause: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-phase.js [flow] format 1`] = `
+"Unexpected identifier, expected the identifier \`meta\` (1:8)
+> 1 | import.source(\`data:text/javascript,
+    |        ^^^^^^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |"
+`;
+
+exports[`import-phase.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (1:13)
+> 1 | import.source(\`data:text/javascript,
+    |             ^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |
+Cause: [1:13]: Unexpected token: 'identifier'"
+`;
+
+exports[`import-phase.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import.source(\`data:text/javascript,
+    console.log("RUN");
+\`)
+
+import.source(String.raw\`data:text/javascript,
+    console.log("RUN");
+\`)
+
+=====================================output=====================================
+import.source(\`data:text/javascript,
+    console.log("RUN");
+\`);
+
+import.source(String.raw\`data:text/javascript,
+    console.log("RUN");
+\`);
+
+================================================================================
+`;
+
+exports[`template-literal.js [flow] format 1`] = `
+"Unexpected token \`import\`, expected the end of an expression statement (\`;\`) (1:20)
+> 1 | module   =   await import(\`data:text/javascript,
+    |                    ^^^^^^
+  2 |     console.log("RUN");
+  3 | \`);
+  4 |"
+`;
+
+exports[`template-literal.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+module   =   await import(\`data:text/javascript,
+    console.log("RUN");
+\`);
+
+module   =   await import(String.raw\`data:text/javascript,
+    console.log("RUN");
+\`);
+
+=====================================output=====================================
+module = await import(\`data:text/javascript,
+    console.log("RUN");
+\`);
+
+module = await import(String.raw\`data:text/javascript,
+    console.log("RUN");
+\`);
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("module.js");
+import("module.js").then((a) => a);
+
+=====================================output=====================================
+import("module.js");
+import("module.js").then((a) => a);
+
+================================================================================
+`;

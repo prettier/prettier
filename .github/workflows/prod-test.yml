@@ -56,13 +56,13 @@ jobs:
           - "windows-latest"
         node:
           # Latest even version
-          - "20"
+          - "22"
           # Minimal version for production
           - "14"
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
-            node: "20"
+            node: "22"
             FULL_TEST: true
           # Versions not tested on linux, normally only even versions
           # If latest version is an odd number, it can be listed bellow too
@@ -70,6 +70,13 @@ jobs:
             node: "16"
           - os: "ubuntu-latest"
             node: "21"
+          # Tests on Intel Mac x Node.js 14
+          - os: "macos-13"
+            node: "14"
+        # setup-node does not support Node.js 14 x M1 Mac
+        exclude:
+          - os: "macos-latest"
+            node: "14"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
     name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Node.js ${{ matrix.node }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
@@ -91,10 +98,15 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "yarn"
 
+      # `jest@30.0.0-alpha.2` is the last version that supports Node.js v14
+      - name: Install jest@30.0.0-alpha.2
+        if: ${{ matrix.node == '14' }}
+        run: node ./scripts/prepare-nodejs-14-test.js
+
       - name: Install Dependencies(yarn@3,mutable)
+        if: ${{ matrix.node == '14' || matrix.node == '16' }}
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
-        if: ${{ matrix.node == '14' || matrix.node == '16' }}
         run: yarn install
 
       - name: Install Dependencies

@@ -159,7 +159,7 @@ function print(path, options, print) {
       /* if `{{my-component}}` (or any text containing "{{")
        * makes it to the TextNode, it means it was escaped,
        * so let's print it escaped, ie.; `\{{my-component}}` */
-      let text = node.chars.replaceAll("{{", "\\{{");
+      let text = node.chars.replaceAll("{{", String.raw`\{{`);
 
       const attrName = getCurrentAttributeName(path);
 
@@ -386,6 +386,9 @@ function print(path, options, print) {
     case "NullLiteral":
       return "null";
 
+    case "AtHead": // Handled in `printPathExpression`
+    case "VarHead": // Handled in `printPathExpression`
+    case "ThisHead": // Handled in `printPathExpression`
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Handlebars");
@@ -449,13 +452,13 @@ function printStartingTagEndMarker(node) {
 /* MustacheStatement print helpers */
 
 function printOpeningMustache(node) {
-  const mustache = node.escaped === false ? "{{{" : "{{";
+  const mustache = node.trusting ? "{{{" : "{{";
   const strip = node.strip?.open ? "~" : "";
   return [mustache, strip];
 }
 
 function printClosingMustache(node) {
-  const mustache = node.escaped === false ? "}}}" : "}}";
+  const mustache = node.trusting ? "}}}" : "}}";
   const strip = node.strip?.close ? "~" : "";
   return [strip, mustache];
 }
@@ -530,12 +533,17 @@ function printElseBlock(node, options) {
   ];
 }
 
+const isPathWithSameHead = (pathA, pathB) =>
+  pathA.head.type === "VarHead" &&
+  pathB.head.type === "VarHead" &&
+  pathA.head.name === pathB.head.name;
+
 function isElseIfLike(path) {
   const { grandparent, node } = path;
   return (
     grandparent?.inverse?.body.length === 1 &&
     grandparent.inverse.body[0] === node &&
-    grandparent.inverse.body[0].path.parts[0] === grandparent.path.parts[0]
+    isPathWithSameHead(grandparent.inverse.body[0].path, grandparent.path)
   );
 }
 
@@ -543,7 +551,7 @@ function printElseIfLikeBlock(path, print) {
   const { node, grandparent } = path;
   return group([
     printInverseBlockOpeningMustache(grandparent),
-    ["else", " ", grandparent.inverse.body[0].path.parts[0]],
+    ["else", " ", grandparent.inverse.body[0].path.head.name],
     indent([
       line,
       group(printParams(path, print)),
@@ -591,7 +599,7 @@ function blockStatementHasElseIfLike(node) {
     blockStatementHasElse(node) &&
     node.inverse.body.length === 1 &&
     node.inverse.body[0].type === "BlockStatement" &&
-    node.inverse.body[0].path.parts[0] === node.path.parts[0]
+    isPathWithSameHead(node.inverse.body[0].path, node.path)
   );
 }
 
@@ -774,24 +782,27 @@ const PATH_EXPRESSION_FORBIDDEN_IN_FIRST_PART = new Set([
   "null",
   "undefined",
 ]);
-const isPathExpressionPartNeedBrackets = (part, index) =>
-  (index !== 0 && PATH_EXPRESSION_FORBIDDEN_IN_FIRST_PART.has(part)) ||
-  /\s/.test(part) ||
-  /^\d/.test(part) ||
-  Array.prototype.some.call(part, (character) =>
-    PATH_EXPRESSION_FORBIDDEN_CHARACTERS.has(character),
+const isPathExpressionPartNeedBrackets = (part, index) => {
+  if (index === 0 && part.startsWith("@")) {
+    return false;
+  }
+
+  return (
+    (index !== 0 && PATH_EXPRESSION_FORBIDDEN_IN_FIRST_PART.has(part)) ||
+    /\s/.test(part) ||
+    /^\d/.test(part) ||
+    Array.prototype.some.call(part, (character) =>
+      PATH_EXPRESSION_FORBIDDEN_CHARACTERS.has(character),
+    )
   );
+};
 function printPathExpression(node) {
-  if (node.data || (node.parts.length === 1 && node.original.includes("/"))) {
-    // check if node has data, or
-    // check if node is a legacy path expression (and leave it alone)
+  // check if node is a legacy path expression and leave it alone
+  if (node.tail.length === 0 && node.original.includes("/")) {
     return node.original;
   }
 
-  let { parts } = node;
-  if (node.this) {
-    parts = ["this", ...parts];
-  }
+  const parts = [node.head.original, ...node.tail];
 
   return parts
     .map((part, index) =>

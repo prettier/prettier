@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`quoted-keys.js [acorn] format 1`] = `
+"Unexpected token (1:29)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                             ^
+  2 | import json from './mod.js' with { "foobar":"json" };
+  3 | import json from './mod.js' with { "type-foo" :"json" };
+  4 | import json from './mod.js' with { "333foo" :"json" };
+Cause: Unexpected token (1:28)"
+`;
+
+exports[`quoted-keys.js [espree] format 1`] = `
+"Unexpected token with (1:29)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                             ^
+  2 | import json from './mod.js' with { "foobar":"json" };
+  3 | import json from './mod.js' with { "type-foo" :"json" };
+  4 | import json from './mod.js' with { "333foo" :"json" };
+Cause: Unexpected token with"
+`;
+
+exports[`quoted-keys.js [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:32)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                                ^
+  2 | import json from './mod.js' with { "foobar":"json" };
+  3 | import json from './mod.js' with { "type-foo" :"json" };
+  4 | import json from './mod.js' with { "333foo" :"json" };
+Cause: [1:32]: Unexpected token: 'with'"
+`;
+
+exports[`quoted-keys.js - {"quoteProps":"consistent"} [acorn] format 1`] = `
+"Unexpected token (1:29)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                             ^
+  2 | import json from './mod.js' with { "foobar":"json" };
+  3 | import json from './mod.js' with { "type-foo" :"json" };
+  4 | import json from './mod.js' with { "333foo" :"json" };
+Cause: Unexpected token (1:28)"
+`;
+
+exports[`quoted-keys.js - {"quoteProps":"consistent"} [espree] format 1`] = `
+"Unexpected token with (1:29)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                             ^
+  2 | import json from './mod.js' with { "foobar":"json" };
+  3 | import json from './mod.js' with { "type-foo" :"json" };
+  4 | import json from './mod.js' with { "333foo" :"json" };
+Cause: Unexpected token with"
+`;
+
+exports[`quoted-keys.js - {"quoteProps":"consistent"} [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:32)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                                ^
+  2 | import json from './mod.js' with { "foobar":"json" };
+  3 | import json from './mod.js' with { "type-foo" :"json" };
+  4 | import json from './mod.js' with { "333foo" :"json" };
+Cause: [1:32]: Unexpected token: 'with'"
+`;
+
+exports[`quoted-keys.js - {"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+quoteProps: "consistent"
+                                                                                | printWidth
+=====================================input======================================
+import json from './mod.js' with { "type":"json" };
+import json from './mod.js' with { "foobar":"json" };
+import json from './mod.js' with { "type-foo" :"json" };
+import json from './mod.js' with { "333foo" :"json" };
+import json from './mod.js' with { "0" :"json" };
+import json from './mod.js' with { "0n" :"json" };
+import json from './mod.js' with { "33333" :"json" };
+import json from './mod.js' with { "33333n" :"json" };
+import json from './mod.js' with { "33333b" :"json" };
+import json from './mod.js' with { "03333" :"json" };
+
+=====================================output=====================================
+import json from "./mod.js" with { type: "json" };
+import json from "./mod.js" with { foobar: "json" };
+import json from "./mod.js" with { "type-foo": "json" };
+import json from "./mod.js" with { "333foo": "json" };
+import json from "./mod.js" with { "0": "json" };
+import json from "./mod.js" with { "0n": "json" };
+import json from "./mod.js" with { "33333": "json" };
+import json from "./mod.js" with { "33333n": "json" };
+import json from "./mod.js" with { "33333b": "json" };
+import json from "./mod.js" with { "03333": "json" };
+
+================================================================================
+`;
+
+exports[`quoted-keys.js - {"quoteProps":"preserve"} [acorn] format 1`] = `
+"Unexpected token (1:29)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                             ^
+  2 | import json from './mod.js' with { "foobar":"json" };
+  3 | import json from './mod.js' with { "type-foo" :"json" };
+  4 | import json from './mod.js' with { "333foo" :"json" };
+Cause: Unexpected token (1:28)"
+`;
+
+exports[`quoted-keys.js - {"quoteProps":"preserve"} [espree] format 1`] = `
+"Unexpected token with (1:29)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                             ^
+  2 | import json from './mod.js' with { "foobar":"json" };
+  3 | import json from './mod.js' with { "type-foo" :"json" };
+  4 | import json from './mod.js' with { "333foo" :"json" };
+Cause: Unexpected token with"
+`;
+
+exports[`quoted-keys.js - {"quoteProps":"preserve"} [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:32)
+> 1 | import json from './mod.js' with { "type":"json" };
+    |                                ^
+  2 | import json from './mod.js' with { "foobar":"json" };
+  3 | import json from './mod.js' with { "type-foo" :"json" };
+  4 | import json from './mod.js' with { "333foo" :"json" };
+Cause: [1:32]: Unexpected token: 'with'"
+`;
+
+exports[`quoted-keys.js - {"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+quoteProps: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+import json from './mod.js' with { "type":"json" };
+import json from './mod.js' with { "foobar":"json" };
+import json from './mod.js' with { "type-foo" :"json" };
+import json from './mod.js' with { "333foo" :"json" };
+import json from './mod.js' with { "0" :"json" };
+import json from './mod.js' with { "0n" :"json" };
+import json from './mod.js' with { "33333" :"json" };
+import json from './mod.js' with { "33333n" :"json" };
+import json from './mod.js' with { "33333b" :"json" };
+import json from './mod.js' with { "03333" :"json" };
+
+=====================================output=====================================
+import json from "./mod.js" with { "type": "json" };
+import json from "./mod.js" with { "foobar": "json" };
+import json from "./mod.js" with { "type-foo": "json" };
+import json from "./mod.js" with { "333foo": "json" };
+import json from "./mod.js" with { "0": "json" };
+import json from "./mod.js" with { "0n": "json" };
+import json from "./mod.js" with { "33333": "json" };
+import json from "./mod.js" with { "33333n": "json" };
+import json from "./mod.js" with { "33333b": "json" };
+import json from "./mod.js" with { "03333": "json" };
+
+================================================================================
+`;
+
+exports[`quoted-keys.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import json from './mod.js' with { "type":"json" };
+import json from './mod.js' with { "foobar":"json" };
+import json from './mod.js' with { "type-foo" :"json" };
+import json from './mod.js' with { "333foo" :"json" };
+import json from './mod.js' with { "0" :"json" };
+import json from './mod.js' with { "0n" :"json" };
+import json from './mod.js' with { "33333" :"json" };
+import json from './mod.js' with { "33333n" :"json" };
+import json from './mod.js' with { "33333b" :"json" };
+import json from './mod.js' with { "03333" :"json" };
+
+=====================================output=====================================
+import json from "./mod.js" with { type: "json" };
+import json from "./mod.js" with { foobar: "json" };
+import json from "./mod.js" with { "type-foo": "json" };
+import json from "./mod.js" with { "333foo": "json" };
+import json from "./mod.js" with { "0": "json" };
+import json from "./mod.js" with { "0n": "json" };
+import json from "./mod.js" with { "33333": "json" };
+import json from "./mod.js" with { "33333n": "json" };
+import json from "./mod.js" with { "33333b": "json" };
+import json from "./mod.js" with { "03333": "json" };
+
+================================================================================
+`;

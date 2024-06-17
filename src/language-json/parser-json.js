@@ -18,16 +18,6 @@ function createJsonParse(options = {}) {
         attachComment: false,
       });
     } catch (/** @type {any} */ error) {
-      if (
-        error?.reasonCode === "MissingPlugin" ||
-        error?.reasonCode === "MissingOneOfPlugins"
-      ) {
-        throw createBabelParseError({
-          message: "Unexpected token",
-          loc: error.loc,
-        });
-      }
-
       throw createBabelParseError(error);
     }
 
@@ -152,6 +142,7 @@ const jsonParsers = {
     },
   }),
   json5: createParser(parseJson),
+  jsonc: createParser(parseJson),
   "json-stringify": createParser({
     parse: createJsonParse({ allowComments: false }),
     astFormat: "estree-json",

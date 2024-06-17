@@ -35,6 +35,7 @@ function printObject(path, options, print) {
     node.type === "TSEnumDeclaration" ||
     node.type === "EnumBooleanBody" ||
     node.type === "EnumNumberBody" ||
+    node.type === "EnumBigIntBody" ||
     node.type === "EnumStringBody" ||
     node.type === "EnumSymbolBody";
   const fields = [

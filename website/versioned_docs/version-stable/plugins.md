@@ -50,6 +50,7 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 - [`prettier-plugin-astro`](https://github.com/withastro/prettier-plugin-astro) by [**@withastro contributors**](https://github.com/withastro/prettier-plugin-astro/graphs/contributors)
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
 - [`prettier-plugin-erb`](https://github.com/adamzapasnik/prettier-plugin-erb) by [**@adamzapasnik**](https://github.com/adamzapasnik)
+- [`prettier-plugin-gherkin`](https://github.com/mapado/prettier-plugin-gherkin) by [**@mapado**](https://github.com/mapado)
 - [`prettier-plugin-glsl`](https://github.com/NaridaL/glsl-language-toolkit/tree/main/packages/prettier-plugin-glsl) by [**@NaridaL**](https://github.com/NaridaL)
 - [`prettier-plugin-go-template`](https://github.com/NiklasPor/prettier-plugin-go-template) by [**@NiklasPor**](https://github.com/NiklasPor)
 - [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
@@ -202,7 +203,7 @@ function print(
 
 The `print` function is passed the following parameters:
 
-- **`path`**: An object, which can be used to access nodes in the AST. It’s a stack-like data structure that maintains the current state of the recursion. It is called “path” because it represents the path to the current node from the root of the AST. The current node is returned by `path.getValue()`.
+- **`path`**: An object, which can be used to access nodes in the AST. It’s a stack-like data structure that maintains the current state of the recursion. It is called “path” because it represents the path to the current node from the root of the AST. The current node is returned by `path.node`.
 - **`options`**: A persistent object, which contains global options and which a plugin may mutate to store contextual data.
 - **`print`**: A callback for printing sub-nodes. This function contains the core printing logic that consists of steps whose implementation is provided by plugins. In particular, it calls the printer’s `print` function and passes itself to it. Thus, the two `print` functions – the one from the core and the one from the plugin – call each other while descending down the AST recursively.
 
@@ -214,7 +215,7 @@ import { doc } from "prettier";
 const { group, indent, join, line, softline } = doc.builders;
 
 function print(path, options, print) {
-  const node = path.getValue();
+  const node = path.node;
 
   switch (node.type) {
     case "list":
@@ -281,7 +282,7 @@ For example, a plugin that has nodes with embedded JavaScript might have the fol
 
 ```js
 function embed(path, options) {
-  const node = path.getValue();
+  const node = path.node;
   if (node.type === "javascript") {
     return async (textToDoc) => {
       return [

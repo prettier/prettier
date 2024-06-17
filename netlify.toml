@@ -3,7 +3,7 @@
 
 [build.environment]
   NODE_VERSION = "lts/*"
-  YARN_VERSION = "1.22.19"
+  YARN_VERSION = "1.22.22"
 
 [[headers]]
   for = "/worker.js"

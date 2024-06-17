@@ -21,7 +21,6 @@ import {
   isObjectProperty,
   isPrettierIgnoreComment,
   isUnionType,
-  markerForIfWithoutBlockAndSameLineComment,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
@@ -50,6 +49,7 @@ function handleOwnLineComment(context) {
     handleIgnoreComments,
     handleConditionalExpressionComments,
     handleLastFunctionArgComments,
+    handleLastComponentArgComments,
     handleMemberExpressionComments,
     handleIfStatementComments,
     handleWhileComments,
@@ -202,7 +202,7 @@ function handleIfStatementComments({
       addTrailingComment(precedingNode, comment);
     } else {
       const isSingleLineComment =
-        comment.type === "SingleLine" ||
+        isLineComment(comment) ||
         comment.loc.start.line === comment.loc.end.line;
       const isSameLineComment =
         comment.loc.start.line === precedingNode.loc.start.line;
@@ -211,13 +211,7 @@ function handleIfStatementComments({
         //   if (cond1) expr1; // comment A
         //   else if (cond2) expr2; // comment A
         //   else expr3;
-        addDanglingComment(
-          precedingNode,
-          comment,
-          precedingNode.type === "ExpressionStatement"
-            ? markerForIfWithoutBlockAndSameLineComment
-            : undefined,
-        );
+        addTrailingComment(precedingNode, comment);
       } else {
         addDanglingComment(enclosingNode, comment);
       }
@@ -607,6 +601,38 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
   return false;
 }
 
+function handleLastComponentArgComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  text,
+}) {
+  // "DeclareComponent" and "ComponentTypeAnnotation" definitions
+  if (
+    precedingNode?.type === "ComponentTypeParameter" &&
+    (enclosingNode?.type === "DeclareComponent" ||
+      enclosingNode?.type === "ComponentTypeAnnotation") &&
+    followingNode?.type !== "ComponentTypeParameter"
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  // "ComponentParameter" definitions
+  if (
+    (precedingNode?.type === "ComponentParameter" ||
+      precedingNode?.type === "RestElement") &&
+    enclosingNode?.type === "ComponentDeclaration" &&
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  return false;
+}
+
 function handleLastFunctionArgComments({
   comment,
   precedingNode,
@@ -732,13 +758,7 @@ function handlePropertyComments({ comment, enclosingNode }) {
   return false;
 }
 
-function handleOnlyComments({
-  comment,
-  enclosingNode,
-  followingNode,
-  ast,
-  isLastComment,
-}) {
+function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
   // With Flow the enclosingNode is undefined so use the AST instead.
   if (ast?.body?.length === 0) {
     if (isLastComment) {
@@ -759,15 +779,6 @@ function handleOnlyComments({
     } else {
       addLeadingComment(enclosingNode, comment);
     }
-    return true;
-  }
-
-  if (
-    followingNode?.type === "Program" &&
-    followingNode.body.length === 0 &&
-    enclosingNode?.type === "ModuleExpression"
-  ) {
-    addDanglingComment(followingNode, comment);
     return true;
   }
 
