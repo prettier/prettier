@@ -144,6 +144,14 @@ const isObjectOrRecordExpression = createTypeCheckFunction([
  * @param {Node} node
  * @returns {boolean}
  */
+function isNullishCoalescing(node) {
+  return node.type === "LogicalExpression" && node.operator === "??";
+}
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isNumericLiteral(node) {
   return (
     node.type === "NumericLiteral" ||
@@ -1143,6 +1151,7 @@ export {
   isMemberish,
   isMethod,
   isNextLineEmpty,
+  isNullishCoalescing,
   isNumericLiteral,
   isObjectOrRecordExpression,
   isObjectProperty,
