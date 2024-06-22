@@ -2,6 +2,7 @@ import footnotes from "remark-footnotes";
 import gfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
+import remarkWikiLink from "remark-wiki-link";
 import { unified } from "unified";
 
 import parseFrontMatter from "../utils/front-matter/parse.js";
@@ -33,7 +34,7 @@ function createParse() {
     .use(remarkMath)
     .use(gfm)
     .use(remarkLiquid)
-    .use(wikiLink);
+    .use(remarkWikiLink);
 
   return async (text, options) => {
     const { frontMatter, content } = parseFrontMatter(text);
