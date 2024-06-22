@@ -31,6 +31,7 @@ import preprocess from "./print-preprocess.js";
 import { printSentence } from "./print-sentence.js";
 import { printWhitespace } from "./print-whitespace.js";
 import {
+  getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
@@ -187,8 +188,10 @@ function genericPrint(path, options, print) {
       return [backtickString, padding, code, padding, backtickString];
     }
     case "wikiLink": {
-      let contents = node.value;
-      if (options.proseWrap !== "preserve") {
+      let contents = "";
+      if (options.proseWrap === "preserve") {
+        contents = node.value;
+      } else {
         contents = node.value.replaceAll(/[\t\n]+/gu, " ");
       }
 
@@ -263,7 +266,10 @@ function genericPrint(path, options, print) {
         node.lang || "",
         node.meta ? " " + node.meta : "",
         hardline,
-        replaceEndOfLine(node.value, hardline),
+        replaceEndOfLine(
+          getFencedCodeBlockValue(node, options.originalText),
+          hardline,
+        ),
         hardline,
         style,
       ];
