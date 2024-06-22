@@ -195,6 +195,9 @@ function genericPrint(path, options, print) {
       return ["[[", contents, "]]"];
     }
     case "link":
+      if (!node.position) {
+        return path.map(print, "children");
+      }
       switch (options.originalText[node.position.start.offset]) {
         case "<": {
           const mailto = "mailto:";

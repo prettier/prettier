@@ -12,10 +12,13 @@ function preprocess(ast, options) {
 function addRawToText(ast, options) {
   return mapAst(ast, (node) => {
     if (node.type === "text") {
-      node.raw = options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset
-      );
+      // https://github.com/remarkjs/remark-gfm/issues/16
+      node.raw = node.position
+        ? options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset,
+          )
+        : node.value;
     }
     return node;
   });
@@ -64,7 +67,7 @@ function splitTextIntoSentences(ast) {
 
     if (parentNode.type === "paragraph") {
       if (grandparentNode.type === "blockquote") {
-        text = text.replaceAll("\n> ", "\n")
+        text = text.replaceAll("\n> ", "\n");
       }
 
       if (index === 0) {

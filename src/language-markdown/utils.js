@@ -216,6 +216,11 @@ function isAutolink(node) {
   if (node?.type !== "link" || node.children.length !== 1) {
     return false;
   }
+
+  if (!node.position) {
+    return true;
+  }
+
   const [child] = node.children;
   return locStart(node) === locStart(child) && locEnd(node) === locEnd(child);
 }
