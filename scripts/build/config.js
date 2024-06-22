@@ -425,7 +425,7 @@ const pluginFiles = [
       {
         module: path.join(
           require.resolve("decode-named-character-reference"),
-          "../index.dom.js"
+          "../index.dom.js",
         ),
         path: require.resolve("decode-named-character-reference"),
       },
