@@ -148,7 +148,7 @@
     "npm-run-all2": "6.2.0",
     "prettier": "3.3.2",
     "pretty-bytes": "6.1.1",
-    "rollup-plugin-license": "3.4.0",
+    "rollup-plugin-license": "3.4.1",
     "semver": "7.6.2",
     "serialize-javascript": "6.0.2",
     "snapshot-diff": "0.10.0",
