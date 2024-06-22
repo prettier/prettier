@@ -1,23 +1,27 @@
 import getInterpreter from "./get-interpreter.js";
 
 // Didn't use `path.basename` since this module need work in browsers too
-const getFileBasename = (file) => file.split(/[/\\]/).pop();
+// And `file` can be a `URL`
+const getFileBasename = (file) => String(file).split(/[/\\]/u).pop();
 
-function getLanguageByFilename(languages, filename) {
-  if (!filename) {
+function getLanguageByFileName(languages, file) {
+  if (!file) {
     return;
   }
 
-  const basename = getFileBasename(filename).toLowerCase();
+  const basename = getFileBasename(file).toLowerCase();
 
-  return languages.find(
-    (language) =>
-      language.extensions?.some((extension) => basename.endsWith(extension)) ||
-      language.filenames?.some((name) => name.toLowerCase() === basename),
+  return (
+    languages.find(({ filenames }) =>
+      filenames?.some((name) => name.toLowerCase() === basename),
+    ) ??
+    languages.find(({ extensions }) =>
+      extensions?.some((extension) => basename.endsWith(extension)),
+    )
   );
 }
 
-function getLanguageByName(languages, languageName) {
+function getLanguageByLanguageName(languages, languageName) {
   if (!languageName) {
     return;
   }
@@ -44,14 +48,14 @@ function getLanguageByInterpreter(languages, file) {
     return;
   }
 
-  return languages.find(
-    (language) => language.interpreters?.includes(interpreter),
+  return languages.find(({ interpreters }) =>
+    interpreters?.includes(interpreter),
   );
 }
 
 /**
  * @param {import("../index.js").Options} options
- * @param {{physicalFile?: string, file?: string, language?: string}} fileInfo
+ * @param {{physicalFile?: string | URL, file?: string | URL, language?: string}} fileInfo
  * @returns {string | void} matched parser name if found
  */
 function inferParser(options, fileInfo) {
@@ -65,9 +69,9 @@ function inferParser(options, fileInfo) {
   // interpreter in the shebang line, if any; but since this requires FS access,
   // do it last.
   const language =
-    getLanguageByName(languages, fileInfo.language) ??
-    getLanguageByFilename(languages, fileInfo.physicalFile) ??
-    getLanguageByFilename(languages, fileInfo.file) ??
+    getLanguageByLanguageName(languages, fileInfo.language) ??
+    getLanguageByFileName(languages, fileInfo.physicalFile) ??
+    getLanguageByFileName(languages, fileInfo.file) ??
     getLanguageByInterpreter(languages, fileInfo.physicalFile);
 
   return language?.parsers[0];

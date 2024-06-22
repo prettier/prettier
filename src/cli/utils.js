@@ -1,6 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+
 import sdbm from "sdbm";
+
 // @ts-expect-error
 import { __internal as sharedWithCli } from "../index.js";
 
@@ -107,12 +109,12 @@ const normalizeToPosix =
 
 export const { isNonEmptyArray, partition, omit } = sharedWithCli.utils;
 export {
-  printToScreen,
-  groupBy,
-  pick,
   createHash,
-  statSafe,
-  lstatSafe,
+  groupBy,
   isJson,
+  lstatSafe,
   normalizeToPosix,
+  pick,
+  printToScreen,
+  statSafe,
 };

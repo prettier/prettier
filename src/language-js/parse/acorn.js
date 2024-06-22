@@ -1,11 +1,11 @@
-import { createRequire } from "node:module";
+import { Parser as AcornParser } from "acorn";
+import acornJsx from "acorn-jsx";
+
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
-import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
+import createParser from "./utils/create-parser.js";
 import getSourceType from "./utils/get-source-type.js";
-
-const require = createRequire(import.meta.url);
 
 /** @type {import("acorn").Options} */
 const parseOptions = {
@@ -28,7 +28,7 @@ function createParseError(error) {
 
   const { line, column } = loc;
 
-  return createError(message.replace(/ \(\d+:\d+\)$/, ""), {
+  return createError(message.replace(/ \(\d+:\d+\)$/u, ""), {
     loc: {
       start: { line, column: column + 1 },
     },
@@ -36,13 +36,10 @@ function createParseError(error) {
   });
 }
 
+/** @type {ReturnType<AcornParser.extend> | undefined} */
 let parser;
 const getParser = () => {
-  if (!parser) {
-    const { Parser: AcornParser } = require("acorn");
-    const acornJsx = require("acorn-jsx");
-    parser = AcornParser.extend(acornJsx());
-  }
+  parser ??= AcornParser.extend(acornJsx());
   return parser;
 };
 
@@ -52,7 +49,6 @@ function parseWithOptions(text, sourceType) {
   const comments = [];
   const tokens = [];
 
-  /** @type {any} */
   const ast = parser.parse(text, {
     ...parseOptions,
     sourceType,
@@ -60,7 +56,10 @@ function parseWithOptions(text, sourceType) {
     onComment: comments,
     onToken: tokens,
   });
+
+  // @ts-expect-error -- expected
   ast.comments = comments;
+  // @ts-expect-error -- expected
   ast.tokens = tokens;
 
   return ast;

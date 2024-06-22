@@ -1,7 +1,7 @@
-import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import { hardline, markAsRoot } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
+import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import inferParser from "../utils/infer-parser.js";
 
 function embed(path, options) {
@@ -16,7 +16,14 @@ function embed(path, options) {
           Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
         );
         const newOptions = { parser };
-        if (node.lang === "tsx") {
+
+        // Override the filepath option.
+        // This is because whether the trailing comma of type parameters
+        // should be printed depends on whether it is `*.ts` or `*.tsx`.
+        // https://github.com/prettier/prettier/issues/15282
+        if (node.lang === "ts" || node.lang === "typescript") {
+          newOptions.filepath = "dummy.ts";
+        } else if (node.lang === "tsx") {
           newOptions.filepath = "dummy.tsx";
         }
 

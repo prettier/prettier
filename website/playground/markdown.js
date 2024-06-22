@@ -27,7 +27,10 @@ function formatMarkdown({
     ...(isIdempotent
       ? []
       : ["", "**Second Output:**", codeBlock(output2, syntax)]),
-    ...(full ? ["", "**Expected behavior:**", ""] : []),
+    ...(full ? ["", "**Expected output:**", codeBlock("", syntax)] : []),
+    ...(full
+      ? ["", "**Why?**", "", "<!-- short explanation of expected output -->"]
+      : []),
   ]
     .filter((part) => part !== null)
     .join("\n");
@@ -66,7 +69,7 @@ function formatCLIOptions(cliOptions) {
 }
 
 function codeBlock(content, syntax) {
-  const backtickSequences = content.match(/`+/g) || [];
+  const backtickSequences = content.match(/`+/gu) || [];
   const longestBacktickSequenceLength = Math.max(
     ...backtickSequences.map(({ length }) => length),
   );

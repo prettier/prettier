@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js [babel-flow] format 1`] = `
+"Missing semicolon. (1:36)
+> 1 | declare function basic(x: mixed): x is string;
+    |                                    ^
+  2 |
+  3 | declare function asserts(x: mixed): asserts x is string;
+  4 |
+Cause: Missing semicolon. (1:35)"
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare function basic(x: mixed): x is string;
+
+declare function asserts(x: mixed): asserts x is string;
+
+declare function implies(x: mixed): implies x is string;
+
+=====================================output=====================================
+declare function basic(x: mixed): x is string;
+
+declare function asserts(x: mixed): asserts x is string;
+
+declare function implies(x: mixed): implies x is string;
+
+================================================================================
+`;

@@ -1,11 +1,10 @@
-import { createRequire } from "node:module";
+import { parse as espreeParse } from "espree";
+
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
-import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
+import createParser from "./utils/create-parser.js";
 import getSourceType from "./utils/get-source-type.js";
-
-const require = createRequire(import.meta.url);
 
 /** @type {import("espree").Options} */
 const parseOptions = {
@@ -37,8 +36,6 @@ function createParseError(error) {
 }
 
 function parse(text, options = {}) {
-  const { parse: espreeParse } = require("espree");
-
   const sourceType = getSourceType(options);
   // prettier-ignore
   const combinations = (

@@ -2,7 +2,8 @@
 
 exports[`schema 1`] = `
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "https://json.schemastore.org/prettierrc.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "optionsDefinition": {
       "properties": {
@@ -36,8 +37,7 @@ exports[`schema 1`] = `
         },
         "cursorOffset": {
           "default": -1,
-          "description": "Print (to stderr) where a cursor at the given position would move to after formatting.
-This option cannot be used with --range-start and --range-end.",
+          "description": "Print (to stderr) where a cursor at the given position would move to after formatting.",
           "type": "integer",
         },
         "embeddedLanguageFormatting": {
@@ -88,6 +88,11 @@ This option cannot be used with --range-start and --range-end.",
               ],
             },
           ],
+        },
+        "experimentalTernaries": {
+          "default": false,
+          "description": "Use curious ternaries, with the question mark after the condition.",
+          "type": "boolean",
         },
         "filepath": {
           "default": undefined,
@@ -206,6 +211,12 @@ This option cannot be used with --range-start and --range-end.",
               "description": "JSON5",
               "enum": [
                 "json5",
+              ],
+            },
+            {
+              "description": "JSON with Comments",
+              "enum": [
+                "jsonc",
               ],
             },
             {
@@ -340,15 +351,13 @@ This option cannot be used with --range-start and --range-end.",
         "rangeEnd": {
           "default": Infinity,
           "description": "Format code ending at a given character offset (exclusive).
-The range will extend forwards to the end of the selected statement.
-This option cannot be used with --cursor-offset.",
+The range will extend forwards to the end of the selected statement.",
           "type": "integer",
         },
         "rangeStart": {
           "default": 0,
           "description": "Format code starting at a given character offset.
-The range will extend backwards to the start of the first line containing the selected statement.
-This option cannot be used with --cursor-offset.",
+The range will extend backwards to the start of the first line containing the selected statement.",
           "type": "integer",
         },
         "requirePragma": {

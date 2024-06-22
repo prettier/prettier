@@ -1,33 +1,35 @@
 import assert from "node:assert";
-import { printDanglingComments } from "../../main/comments/print.js";
+
 import {
-  softline,
   group,
-  indent,
-  ifBreak,
   hardline,
+  ifBreak,
+  indent,
+  softline,
 } from "../../document/builders.js";
-import {
-  getFunctionParameters,
-  hasLeadingOwnLineComment,
-  isBinaryish,
-  isJsxElement,
-  hasComment,
-  CommentCheckFlags,
-  isCallExpression,
-  getCallArguments,
-  hasNakedLeftSide,
-  getLeftSide,
-} from "../utils/index.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import {
+  CommentCheckFlags,
+  getCallArguments,
+  getFunctionParameters,
+  getLeftSide,
+  hasComment,
+  hasLeadingOwnLineComment,
+  hasNakedLeftSide,
+  isBinaryish,
+  isCallExpression,
+  isJsxElement,
+  isMethod,
+} from "../utils/index.js";
+import {
   printFunctionParameters,
-  shouldGroupFunctionParameters,
   shouldBreakFunctionParameters,
+  shouldGroupFunctionParameters,
 } from "./function-parameters.js";
+import { printDeclareToken, printFunctionTypeParameters } from "./misc.js";
 import { printPropertyKey } from "./property.js";
-import { printFunctionTypeParameters, printDeclareToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
@@ -35,20 +37,16 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
  * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
-const isMethod = (node) =>
-  node.type === "ObjectMethod" ||
-  node.type === "ClassMethod" ||
-  node.type === "ClassPrivateMethod" ||
-  node.type === "MethodDefinition" ||
-  node.type === "TSAbstractMethodDefinition" ||
-  node.type === "TSDeclareMethod" ||
-  ((node.type === "Property" || node.type === "ObjectProperty") &&
-    (node.method || node.kind === "get" || node.kind === "set"));
-
-const isMethodValue = (path) =>
-  path.node.type === "FunctionExpression" &&
-  path.key === "value" &&
-  isMethod(path.parent);
+const isMethodValue = ({ node, key, parent }) =>
+  key === "value" &&
+  node.type === "FunctionExpression" &&
+  (parent.type === "ObjectMethod" ||
+    parent.type === "ClassMethod" ||
+    parent.type === "ClassPrivateMethod" ||
+    parent.type === "MethodDefinition" ||
+    parent.type === "TSAbstractMethodDefinition" ||
+    parent.type === "TSDeclareMethod" ||
+    (parent.type === "Property" && isMethod(parent)));
 
 /*
 - "FunctionDeclaration"
@@ -171,8 +169,8 @@ function printMethodValue(path, options, print) {
       shouldBreakParameters
         ? group(parametersDoc, { shouldBreak: true })
         : shouldGroupParameters
-        ? group(parametersDoc)
-        : parametersDoc,
+          ? group(parametersDoc)
+          : parametersDoc,
       returnTypeDoc,
     ]),
   ];
@@ -243,7 +241,11 @@ function printReturnOrThrowArgument(path, options, print) {
       argumentDoc = ["(", indent([hardline, argumentDoc]), hardline, ")"];
     } else if (
       isBinaryish(node.argument) ||
-      node.argument.type === "SequenceExpression"
+      node.argument.type === "SequenceExpression" ||
+      (options.experimentalTernaries &&
+        node.argument.type === "ConditionalExpression" &&
+        (node.argument.consequent.type === "ConditionalExpression" ||
+          node.argument.alternate.type === "ConditionalExpression"))
     ) {
       argumentDoc = group([
         ifBreak("("),
@@ -321,9 +323,9 @@ function returnArgumentHasLeadingComment(options, argument) {
 export {
   printFunction,
   printMethod,
-  printReturnStatement,
-  printThrowStatement,
   printMethodValue,
+  printReturnStatement,
   printReturnType,
+  printThrowStatement,
   shouldPrintParamsWithoutParens,
 };

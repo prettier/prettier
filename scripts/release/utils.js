@@ -1,8 +1,12 @@
 import fs from "node:fs";
+import path from "node:path";
 import readline from "node:readline";
+import url from "node:url";
+
 import chalk from "chalk";
 import { execa } from "execa";
 import outdent from "outdent";
+
 import getFormattedDate from "./get-formatted-date.js";
 
 readline.emitKeypressEvents(process.stdin);
@@ -96,8 +100,20 @@ function readJson(filename) {
   return JSON.parse(fs.readFileSync(filename));
 }
 
-function writeJson(filename, content) {
-  fs.writeFileSync(filename, JSON.stringify(content, null, 2) + "\n");
+function writeJson(file, content) {
+  writeFile(file, JSON.stringify(content, null, 2) + "\n");
+}
+
+const toPath = (urlOrPath) =>
+  urlOrPath instanceof URL ? url.fileURLToPath(urlOrPath) : urlOrPath;
+function writeFile(file, content) {
+  try {
+    fs.mkdirSync(path.dirname(toPath(file)), { recursive: true });
+  } catch {
+    // noop
+  }
+
+  fs.writeFileSync(file, content);
 }
 
 function processFile(filename, fn) {
@@ -128,14 +144,15 @@ function getChangelogContent({ version, previousVersion, body }) {
 }
 
 export {
-  runYarn,
-  runGit,
   fetchText,
+  getBlogPostInfo,
+  getChangelogContent,
   logPromise,
   processFile,
   readJson,
-  writeJson,
+  runGit,
+  runYarn,
   waitForEnter,
-  getBlogPostInfo,
-  getChangelogContent,
+  writeFile,
+  writeJson,
 };

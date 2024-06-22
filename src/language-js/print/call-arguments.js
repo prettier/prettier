@@ -1,42 +1,40 @@
+import { ArgExpansionBailout } from "../../common/errors.js";
+import {
+  breakParent,
+  conditionalGroup,
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  line,
+  softline,
+} from "../../document/builders.js";
+import { willBreak } from "../../document/utils.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import {
+  CommentCheckFlags,
+  getCallArguments,
+  getCallArgumentSelector,
   getFunctionParameters,
   hasComment,
-  CommentCheckFlags,
+  isArrayOrTupleExpression,
+  isBinaryCastExpression,
+  isBinaryish,
+  isCallExpression,
+  isCallLikeExpression,
   isFunctionCompositionArgs,
   isJsxElement,
   isLongCurriedCallExpression,
-  shouldPrintComma,
-  getCallArguments,
-  iterateCallArgumentsPath,
   isNextLineEmpty,
-  isCallExpression,
-  isStringLiteral,
-  isObjectProperty,
-  getCallArgumentSelector,
-  isSimpleCallArgument,
-  isBinaryish,
-  isRegExpLiteral,
-  isSimpleType,
-  isCallLikeExpression,
-  isTSTypeExpression,
-  isArrayOrTupleExpression,
   isObjectOrRecordExpression,
+  isObjectProperty,
+  isRegExpLiteral,
+  isSimpleCallArgument,
+  isSimpleType,
+  isStringLiteral,
+  iterateCallArgumentsPath,
+  shouldPrintComma,
 } from "../utils/index.js";
-
-import {
-  line,
-  hardline,
-  softline,
-  group,
-  indent,
-  conditionalGroup,
-  ifBreak,
-  breakParent,
-} from "../../document/builders.js";
-import { willBreak } from "../../document/utils.js";
-
-import { ArgExpansionBailout } from "../../common/errors.js";
 import { isConciselyPrintedArray } from "./array.js";
 
 function printCallArguments(path, options, print) {
@@ -47,13 +45,23 @@ function printCallArguments(path, options, print) {
     return ["(", printDanglingComments(path, options), ")"];
   }
 
+  const lastArgIndex = args.length - 1;
+
   // useEffect(() => { ... }, [foo, bar, baz])
+  // useImperativeHandle(ref, () => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
-    return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
+    const parts = ["("];
+    iterateCallArgumentsPath(path, (path, index) => {
+      parts.push(print());
+      if (index !== lastArgIndex) {
+        parts.push(", ");
+      }
+    });
+    parts.push(")");
+    return parts;
   }
 
   let anyArgEmptyLine = false;
-  const lastArgIndex = args.length - 1;
   const printedArguments = [];
   iterateCallArgumentsPath(path, ({ node: arg }, index) => {
     let argDoc = print();
@@ -74,7 +82,12 @@ function printCallArguments(path, options, print) {
   const isDynamicImport =
     node.type === "ImportExpression" || node.callee.type === "Import";
   const maybeTrailingComma =
-    !isDynamicImport && shouldPrintComma(options, "all") ? "," : "";
+    // Angular does not allow trailing comma
+    !options.parser.startsWith("__ng_") &&
+    !isDynamicImport &&
+    shouldPrintComma(options, "all")
+      ? ","
+      : "";
 
   function allArgsBrokenOut() {
     return group(
@@ -185,7 +198,7 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
     (isArrayOrTupleExpression(arg) &&
       (arg.elements.length > 0 || hasComment(arg))) ||
     (arg.type === "TSTypeAssertion" && couldExpandArg(arg.expression)) ||
-    (isTSTypeExpression(arg) && couldExpandArg(arg.expression)) ||
+    (isBinaryCastExpression(arg) && couldExpandArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
       // we want to avoid breaking inside composite return types but not simple keywords
@@ -281,7 +294,7 @@ function isHopefullyShortCallArgument(node) {
     return isHopefullyShortCallArgument(node.expression);
   }
 
-  if (isTSTypeExpression(node) || node.type === "TypeCastExpression") {
+  if (isBinaryCastExpression(node) || node.type === "TypeCastExpression") {
     let { typeAnnotation } = node;
     if (typeAnnotation.type === "TypeAnnotation") {
       typeAnnotation = typeAnnotation.typeAnnotation;
@@ -294,11 +307,14 @@ function isHopefullyShortCallArgument(node) {
       }
     }
     if (
-      (typeAnnotation.type === "GenericTypeAnnotation" ||
-        typeAnnotation.type === "TSTypeReference") &&
-      typeAnnotation.typeParameters?.params.length === 1
+      typeAnnotation.type === "GenericTypeAnnotation" ||
+      typeAnnotation.type === "TSTypeReference"
     ) {
-      typeAnnotation = typeAnnotation.typeParameters.params[0];
+      const typeArguments =
+        typeAnnotation.typeArguments ?? typeAnnotation.typeParameters;
+      if (typeArguments?.params.length === 1) {
+        typeAnnotation = typeArguments.params[0];
+      }
     }
     return (
       isSimpleType(typeAnnotation) && isSimpleCallArgument(node.expression, 1)
@@ -318,13 +334,40 @@ function isHopefullyShortCallArgument(node) {
   return isRegExpLiteral(node) || isSimpleCallArgument(node);
 }
 
+/**
+ * Checks if the arguments of a function are a call to a React Hook with a dependencies array.
+ */
 function isReactHookCallWithDepsArray(args) {
+  if (args.length === 2) {
+    /**
+     * useEffect(() => {
+     *   // do something
+     * }, [dep1, dep2, dep2])
+     */
+    return isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 0);
+  }
+  if (args.length === 3) {
+    /**
+     * useImperativeHandle(ref, () => {
+     *   // do something
+     * }, [dep1, dep2, dep2]);
+     */
+    return (
+      args[0].type === "Identifier" &&
+      isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 1)
+    );
+  }
+  return false;
+}
+
+function isValidHookCallbackAndDepsFormat(args, baseIndex) {
+  const maybeArrowFunction = args[baseIndex];
+  const maybeDepsArray = args[baseIndex + 1];
   return (
-    args.length === 2 &&
-    args[0].type === "ArrowFunctionExpression" &&
-    getFunctionParameters(args[0]).length === 0 &&
-    args[0].body.type === "BlockStatement" &&
-    args[1].type === "ArrayExpression" &&
+    maybeArrowFunction.type === "ArrowFunctionExpression" &&
+    getFunctionParameters(maybeArrowFunction).length === 0 &&
+    maybeArrowFunction.body.type === "BlockStatement" &&
+    maybeDepsArray.type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))
   );
 }

@@ -88,7 +88,7 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
   return mapAst(ast, (node, index, parentStack) => {
     if (node.type === "code") {
       // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
-      const isIndented = /^\n?(?: {4,}|\t)/.test(
+      const isIndented = /^\n?(?: {4,}|\t)/u.test(
         options.originalText.slice(
           node.position.start.offset,
           node.position.end.offset,

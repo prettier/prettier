@@ -17,35 +17,35 @@ function massageAst(ast, options) {
 
   return recurse(ast);
 
-  function recurse(node, parent) {
-    if (!(node !== null && typeof node === "object")) {
-      return node;
+  function recurse(original, parent) {
+    if (!(original !== null && typeof original === "object")) {
+      return original;
     }
 
-    if (Array.isArray(node)) {
-      return node.map((child) => recurse(child, parent)).filter(Boolean);
+    if (Array.isArray(original)) {
+      return original.map((child) => recurse(child, parent)).filter(Boolean);
     }
 
-    const newObj = {};
-    const childrenKeys = new Set(getVisitorKeys(node));
-    for (const key in node) {
-      if (!Object.hasOwn(node, key) || ignoredProperties.has(key)) {
+    const cloned = {};
+    const childrenKeys = new Set(getVisitorKeys(original));
+    for (const key in original) {
+      if (!Object.hasOwn(original, key) || ignoredProperties.has(key)) {
         continue;
       }
 
       if (childrenKeys.has(key)) {
-        newObj[key] = recurse(node[key], node);
+        cloned[key] = recurse(original[key], original);
       } else {
-        newObj[key] = node[key];
+        cloned[key] = original[key];
       }
     }
 
-    const result = cleanFunction(node, newObj, parent);
+    const result = cleanFunction(original, cloned, parent);
     if (result === null) {
       return;
     }
 
-    return result ?? newObj;
+    return result ?? cloned;
   }
 }
 

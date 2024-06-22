@@ -88,7 +88,7 @@ const user = {
 
 Just like with objects, decorators are used for a lot of different things. Sometimes it makes sense to write decorators _above_ the line they're decorating, sometimes it’s nicer if they're on the _same_ line. We haven’t been able to find a good rule for this, so Prettier keeps your decorator positioned like you wrote them (if they fit on the line). This isn’t ideal, but a pragmatic solution to a difficult problem.
 
-```js
+```ts
 @Component({
   selector: "hero-button",
   template: `<button>{{ label }}</button>`,
@@ -109,14 +109,14 @@ class HeroButtonComponent {
 There’s one exception: classes. We don’t think it ever makes sense to inline the decorators for them, so they are always moved to their own line.
 
 <!-- prettier-ignore -->
-```js
+```ts
 // Before running Prettier:
 @observer class OrderLine {
   @observable price: number = 0;
 }
 ```
 
-```js
+```ts
 // After running Prettier:
 @observer
 class OrderLine {
@@ -126,7 +126,7 @@ class OrderLine {
 
 Note: Prettier 1.14.x and older tried to automatically move your decorators, so if you've run an older Prettier version on your code you might need to manually join up some decorators here and there to avoid inconsistencies:
 
-```js
+```ts
 @observer
 class OrderLine {
   @observable price: number = 0;
@@ -143,6 +143,21 @@ One final thing: TC39 has [not yet decided if decorators come before or after `e
 
 export @decorator class Foo {}
 ```
+
+### Template literals
+
+Template literals can contain interpolations. Deciding whether it's appropriate to insert a linebreak within an interpolation unfortunately depends on the semantic content of the template - for example, introducing a linebreak in the middle of a natural-language sentence is usually undesirable. Since Prettier doesn't have enough information to make this decision itself, it uses a heuristic similar to that used for objects: it will only split an interpolation expression across multiple lines if there was already a linebreak within that interpolation.
+
+This means that a literal like the following will not be broken onto multiple lines, even if it exceeds the print width:
+
+<!-- prettier-ignore -->
+```js
+`this is a long message which contains an interpolation: ${format(data)} <- like this`;
+```
+
+If you want Prettier to split up an interpolation, you'll need to ensure there's a linebreak somewhere within the `${...}`. Otherwise it will keep everything on a single line, no matter how long it is.
+
+The team would prefer not to depend on the original formatting in this way, but it's the best heuristic we have at the moment.
 
 ### Semicolons
 

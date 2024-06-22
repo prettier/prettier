@@ -1,10 +1,15 @@
+import footnotes from "remark-footnotes";
+import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
-import remarkMath from "remark-math";
+
 import parseFrontMatter from "../utils/front-matter/parse.js";
+import { locEnd, locStart } from "./loc.js";
+import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import { hasPragma } from "./pragma.js";
-import { locStart, locEnd } from "./loc.js";
+import frontMatter from "./unified-plugins/front-matter.js";
 import gfm from "./unified-plugins/gfm.js";
+import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 import liquid from "./unified-plugins/liquid-for-micromark.js";
 import wikiLink from "./unified-plugins/wiki-link-for-micromark.js";
 
@@ -33,7 +38,7 @@ function createParse() {
   return async (text, options) => {
     const { frontMatter, content } = parseFrontMatter(text);
     const ast = await processor.run(processor.parse(content));
-// {console.log(JSON.stringify(ast.children, 0, 2))}
+    // {console.log(JSON.stringify(ast.children, 0, 2))}
 
     if (frontMatter) {
       ast.children.unshift(frontMatter);

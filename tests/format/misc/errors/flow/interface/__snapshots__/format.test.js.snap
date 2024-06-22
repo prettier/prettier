@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel-flow] format 1`] = `
+"Unexpected token, expected "{" (1:13)
+> 1 | interface A mixins B {}
+    |             ^
+Cause: Unexpected token, expected "{" (1:12)"
+`;
+
+exports[`snippet: #0 [flow] format 1`] = `
+"Unexpected identifier, expected the token \`{\` (1:13)
+> 1 | interface A mixins B {}
+    |             ^^^^^^"
+`;
+
+exports[`snippet: #1 [babel-flow] format 1`] = `
+"Unexpected token, expected "{" (1:13)
+> 1 | interface A implements B {}
+    |             ^
+Cause: Unexpected token, expected "{" (1:12)"
+`;
+
+exports[`snippet: #1 [flow] format 1`] = `
+"Unexpected identifier, expected the token \`{\` (1:13)
+> 1 | interface A implements B {}
+    |             ^^^^^^^^^^"
+`;
+
+exports[`snippet: #2 [babel-flow] format 1`] = `
+"Unexpected token, expected "{" (1:21)
+> 1 | declare interface A mixins B {}
+    |                     ^
+Cause: Unexpected token, expected "{" (1:20)"
+`;
+
+exports[`snippet: #2 [flow] format 1`] = `
+"Unexpected identifier, expected the token \`{\` (1:21)
+> 1 | declare interface A mixins B {}
+    |                     ^^^^^^"
+`;
+
+exports[`snippet: #3 [babel-flow] format 1`] = `
+"Unexpected token, expected "{" (1:21)
+> 1 | declare interface A implements B {}
+    |                     ^
+Cause: Unexpected token, expected "{" (1:20)"
+`;
+
+exports[`snippet: #3 [flow] format 1`] = `
+"Unexpected identifier, expected the token \`{\` (1:21)
+> 1 | declare interface A implements B {}
+    |                     ^^^^^^^^^^"
+`;

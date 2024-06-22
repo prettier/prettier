@@ -3,28 +3,28 @@ import {
   dedentToRoot,
   group,
   ifBreak,
-  indentIfBreak,
   indent,
+  indentIfBreak,
   line,
   softline,
 } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import getNodeContent from "../get-node-content.js";
 import {
-  shouldPreserveContent,
+  forceBreakContent,
   isScriptLikeTag,
   isVueCustomBlock,
-  forceBreakContent,
+  shouldPreserveContent,
 } from "../utils/index.js";
-import {
-  printOpeningTagPrefix,
-  printOpeningTag,
-  printClosingTagSuffix,
-  printClosingTag,
-  needsToBorrowPrevClosingTagEndMarker,
-  needsToBorrowLastChildClosingTagEndMarker,
-} from "./tag.js";
 import { printChildren } from "./children.js";
+import {
+  needsToBorrowLastChildClosingTagEndMarker,
+  needsToBorrowPrevClosingTagEndMarker,
+  printClosingTag,
+  printClosingTagSuffix,
+  printOpeningTag,
+  printOpeningTagPrefix,
+} from "./tag.js";
 
 function printElement(path, options, print) {
   const { node } = path;
@@ -60,7 +60,8 @@ function printElement(path, options, print) {
    */
   const shouldHugContent =
     node.children.length === 1 &&
-    node.firstChild.type === "interpolation" &&
+    (node.firstChild.type === "interpolation" ||
+      node.firstChild.type === "angularIcuExpression") &&
     node.firstChild.isLeadingSpaceSensitive &&
     !node.firstChild.hasLeadingSpaces &&
     node.lastChild.isTrailingSpaceSensitive &&
@@ -139,6 +140,7 @@ function printElement(path, options, print) {
           node.isIndentationSensitive)) &&
       new RegExp(
         `\\n[\\t ]{${options.tabWidth * (path.ancestors.length - 1)}}$`,
+        "u",
       ).test(node.lastChild.value)
     ) {
       return "";

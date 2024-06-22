@@ -26,7 +26,7 @@ Don't fill the form below manually! Let a program create a report for you:
 
 -->
 
-**Prettier 3.0.2**
+**Prettier 3.3.2**
 [Playground link](https://prettier.io/playground/#.....)
 
 ```sh
@@ -46,4 +46,12 @@ Don't fill the form below manually! Let a program create a report for you:
 // code snippet
 ```
 
-**Expected behavior:**
+**Expected output:**
+
+```jsx
+// code snippet
+```
+
+**Why?**
+
+<!-- short explanation of expected output -->

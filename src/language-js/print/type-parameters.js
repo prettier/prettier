@@ -1,30 +1,35 @@
-import { printDanglingComments } from "../../main/comments/print.js";
 import {
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  indentIfBreak,
   join,
   line,
-  hardline,
-  softline,
-  group,
-  indent,
-  ifBreak,
   lineSuffixBoundary,
-  indentIfBreak,
+  softline,
 } from "../../document/builders.js";
-import {
-  isTestCall,
-  hasComment,
-  CommentCheckFlags,
-  shouldPrintComma,
-  getFunctionParameters,
-  isObjectType,
-} from "../utils/index.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
+import {
+  CommentCheckFlags,
+  getFunctionParameters,
+  hasComment,
+  isObjectType,
+  isTestCall,
+  shouldPrintComma,
+} from "../utils/index.js";
+import { isArrowFunctionVariableDeclarator } from "./assignment.js";
+import { printTypeScriptMappedTypeModifier } from "./mapped-type.js";
 import {
   printTypeAnnotationProperty,
   shouldHugType,
 } from "./type-annotation.js";
-import { isArrowFunctionVariableDeclarator } from "./assignment.js";
-import { printTypeScriptMappedTypeModifier } from "./mapped-type.js";
+
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js").default} AstPath
+ */
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
@@ -38,10 +43,13 @@ function shouldForceTrailingComma(path, options, paramsKey) {
     node.type.startsWith("TS") &&
     !node[paramsKey][0].constraint &&
     path.parent.type === "ArrowFunctionExpression" &&
-    !(options.filepath && /\.ts$/.test(options.filepath))
+    !(options.filepath && /\.ts$/u.test(options.filepath))
   );
 }
 
+/**
+ * @param {AstPath} path
+ */
 function printTypeParameters(path, options, print, paramsKey) {
   const { node } = path;
 
@@ -54,8 +62,7 @@ function printTypeParameters(path, options, print, paramsKey) {
     return print(paramsKey);
   }
 
-  const grandparent = path.getNode(2);
-  const isParameterInTestCall = grandparent && isTestCall(grandparent);
+  const isParameterInTestCall = isTestCall(path.grandparent);
 
   const isArrowFunctionVariable = path.match(
     (node) =>
@@ -87,10 +94,10 @@ function printTypeParameters(path, options, print, paramsKey) {
     node.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
       ? ""
       : shouldForceTrailingComma(path, options, paramsKey)
-      ? ","
-      : shouldPrintComma(options)
-      ? ifBreak(",")
-      : "";
+        ? ","
+        : shouldPrintComma(options)
+          ? ifBreak(",")
+          : "";
 
   return group(
     [
@@ -123,7 +130,7 @@ function printTypeParameter(path, options, print) {
   const { node, parent } = path;
 
   /**
-   * @type {import("../../document/builders.js").Doc[]}
+   * @type {Doc[]}
    */
   const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
 
@@ -189,4 +196,4 @@ function printTypeParameter(path, options, print) {
   return group(parts);
 }
 
-export { printTypeParameter, printTypeParameters, getTypeParametersGroupId };
+export { getTypeParametersGroupId, printTypeParameter, printTypeParameters };

@@ -1,5 +1,5 @@
-import { pathToFileURL } from "node:url";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 function getPrettierInternal() {
   if (process.env.TEST_STANDALONE) {

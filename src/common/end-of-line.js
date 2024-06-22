@@ -22,13 +22,13 @@ function countEndOfLineChars(text, eol) {
 
   switch (eol) {
     case "\n":
-      regex = /\n/g;
+      regex = /\n/gu;
       break;
     case "\r":
-      regex = /\r/g;
+      regex = /\r/gu;
       break;
     case "\r\n":
-      regex = /\r\n/g;
+      regex = /\r\n/gu;
       break;
     default:
       /* c8 ignore next */
@@ -40,12 +40,12 @@ function countEndOfLineChars(text, eol) {
 }
 
 function normalizeEndOfLine(text) {
-  return text.replaceAll(/\r\n?/g, "\n");
+  return text.replaceAll(/\r\n?/gu, "\n");
 }
 
 export {
-  guessEndOfLine,
   convertEndOfLineToChars,
   countEndOfLineChars,
+  guessEndOfLine,
   normalizeEndOfLine,
 };

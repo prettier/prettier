@@ -1,22 +1,24 @@
-import { printComments } from "../../main/comments/print.js";
 import {
+  align,
   group,
+  ifBreak,
+  indent,
   join,
   line,
   softline,
-  indent,
-  align,
-  ifBreak,
 } from "../../document/builders.js";
-import pathNeedsParens from "../needs-parens.js";
+import { printComments } from "../../main/comments/print.js";
 import { hasSameLocStart } from "../loc.js";
+import pathNeedsParens from "../needs-parens.js";
 import {
-  isSimpleType,
-  isObjectType,
-  hasLeadingOwnLineComment,
-  isObjectTypePropertyAFunction,
-  hasComment,
   CommentCheckFlags,
+  createTypeCheckFunction,
+  hasComment,
+  hasLeadingOwnLineComment,
+  isFlowObjectTypePropertyAFunction,
+  isObjectType,
+  isSimpleType,
+  isUnionType,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import {
@@ -24,43 +26,51 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import {
-  printOptionalToken,
-  printDeclareToken,
   printAbstractToken,
+  printDeclareToken,
+  printOptionalToken,
 } from "./misc.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
+const isVoidType = createTypeCheckFunction([
+  "VoidTypeAnnotation",
+  "TSVoidKeyword",
+  "NullLiteralTypeAnnotation",
+  "TSNullKeyword",
+]);
+
+const isObjectLikeType = createTypeCheckFunction([
+  "ObjectTypeAnnotation",
+  "TSTypeLiteral",
+  // This is a bit aggressive but captures Array<{x}>
+  "GenericTypeAnnotation",
+  "TSTypeReference",
+]);
+
+function shouldHugUnionType(node) {
+  const { types } = node;
+  if (types.some((node) => hasComment(node))) {
+    return false;
+  }
+
+  const objectType = types.find((node) => isObjectLikeType(node));
+  if (!objectType) {
+    return false;
+  }
+
+  return types.every((node) => node === objectType || isVoidType(node));
+}
+
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
     return true;
   }
 
-  if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
-    const voidCount = node.types.filter(
-      (node) =>
-        node.type === "VoidTypeAnnotation" ||
-        node.type === "TSVoidKeyword" ||
-        node.type === "NullLiteralTypeAnnotation" ||
-        node.type === "TSNullKeyword",
-    ).length;
-
-    const hasObject = node.types.some(
-      (node) =>
-        node.type === "ObjectTypeAnnotation" ||
-        node.type === "TSTypeLiteral" ||
-        // This is a bit aggressive but captures Array<{x}>
-        node.type === "GenericTypeAnnotation" ||
-        node.type === "TSTypeReference",
-    );
-
-    const hasComments = node.types.some((node) => hasComment(node));
-
-    if (node.types.length - 1 === voidCount && hasObject && !hasComments) {
-      return true;
-    }
+  if (isUnionType(node)) {
+    return shouldHugUnionType(node);
   }
 
   return false;
@@ -161,6 +171,9 @@ function printUnionType(path, options, print) {
   // If there's a leading comment, the parent is doing the indentation
   const shouldIndent =
     parent.type !== "TypeParameterInstantiation" &&
+    (parent.type !== "TSConditionalType" || !options.experimentalTernaries) &&
+    (parent.type !== "ConditionalTypeAnnotation" ||
+      !options.experimentalTernaries) &&
     parent.type !== "TSTypeParameterInstantiation" &&
     parent.type !== "GenericTypeAnnotation" &&
     parent.type !== "TSTypeReference" &&
@@ -243,7 +256,7 @@ function isFlowArrowFunctionTypeAnnotation(path) {
   const { node, parent } = path;
   return (
     node.type === "FunctionTypeAnnotation" &&
-    (isObjectTypePropertyAFunction(parent) ||
+    (isFlowObjectTypePropertyAFunction(parent) ||
       !(
         ((parent.type === "ObjectTypeProperty" ||
           parent.type === "ObjectTypeInternalSlot") &&
@@ -460,6 +473,18 @@ const getTypeAnnotationFirstToken = (path) => {
     ) ||
     /*
     Flow
+    ```js
+    declare hook foo(): void;
+                    ^^^^^^^^ `TypeAnnotation`
+    ```
+    */
+    path.match(
+      (node) => node.type === "TypeAnnotation",
+      (node, key) => key === "typeAnnotation" && node.type === "Identifier",
+      (node, key) => key === "id" && node.type === "DeclareHook",
+    ) ||
+    /*
+    Flow
 
     ```js
     type A = () => infer R extends string;
@@ -517,22 +542,34 @@ function printArrayType(print) {
 }
 
 /*
-- `TSTypeQuery`
-- `TypeofTypeAnnotation`
+- `TSTypeQuery` (TypeScript)
+- `TypeofTypeAnnotation` (flow)
 */
 function printTypeQuery({ node }, print) {
-  return [
-    "typeof ",
-    ...(node.type === "TSTypeQuery"
-      ? [print("exprName"), print("typeParameters")]
-      : [print("argument")]),
-  ];
+  const argumentPropertyName =
+    node.type === "TSTypeQuery" ? "exprName" : "argument";
+  const typeArgsPropertyName =
+    // TODO: Use `typeArguments` only when babel align with TS.
+    node.type === "TypeofTypeAnnotation" || node.typeArguments
+      ? "typeArguments"
+      : "typeParameters";
+  return ["typeof ", print(argumentPropertyName), print(typeArgsPropertyName)];
 }
 
+/*
+- `TSTypePredicate` (TypeScript)
+- `TypePredicate` (flow)
+*/
 function printTypePredicate(path, print) {
   const { node } = path;
+  const prefix =
+    node.type === "TSTypePredicate" && node.asserts
+      ? "asserts "
+      : node.type === "TypePredicate" && node.kind
+        ? `${node.kind} `
+        : "";
   return [
-    node.asserts ? "asserts " : "",
+    prefix,
     print("parameterName"),
     node.typeAnnotation
       ? [" is ", printTypeAnnotationProperty(path, print)]
@@ -541,20 +578,20 @@ function printTypePredicate(path, print) {
 }
 
 export {
-  printOpaqueType,
-  printTypeAlias,
-  printIntersectionType,
-  printUnionType,
+  printArrayType,
   printFunctionType,
   printIndexedAccessType,
   printInferType,
-  shouldHugType,
+  printIntersectionType,
   printJSDocType,
-  printRestType,
   printNamedTupleMember,
-  printTypeAnnotationProperty,
+  printOpaqueType,
+  printRestType,
+  printTypeAlias,
   printTypeAnnotation,
-  printArrayType,
-  printTypeQuery,
+  printTypeAnnotationProperty,
   printTypePredicate,
+  printTypeQuery,
+  printUnionType,
+  shouldHugType,
 };

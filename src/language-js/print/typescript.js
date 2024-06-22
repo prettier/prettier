@@ -1,61 +1,60 @@
 import {
+  conditionalGroup,
+  group,
+  ifBreak,
+  indent,
   join,
   softline,
-  group,
-  indent,
-  conditionalGroup,
-  ifBreak,
 } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
+import { locStart } from "../loc.js";
+import getTextWithoutComments from "../utils/get-text-without-comments.js";
 import {
-  isStringLiteral,
-  shouldPrintComma,
-  isCallExpression,
-  isMemberExpression,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
+  isStringLiteral,
+  shouldPrintComma,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
-import { locStart } from "../loc.js";
-
-import {
-  printOptionalToken,
-  printDeclareToken,
-  printTypeScriptAccessibilityToken,
-} from "./misc.js";
-import { printTernary } from "./ternary.js";
+import { printArray } from "./array.js";
+import { printBlock } from "./block.js";
+import { printBinaryCastExpression } from "./cast-expression.js";
+import { printClassMethod, printClassProperty } from "./class.js";
+import { printEnumDeclaration, printEnumMember } from "./enum.js";
+import { printFunction, printMethodValue } from "./function.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printTemplateLiteral } from "./template-literal.js";
-import { printArray } from "./array.js";
-import { printObject } from "./object.js";
-import { printClassProperty, printClassMethod } from "./class.js";
-import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
-import { printPropertyKey } from "./property.js";
-import { printFunction, printMethodValue } from "./function.js";
 import { printInterface } from "./interface.js";
-import { printBlock } from "./block.js";
+import { printTypescriptMappedType } from "./mapped-type.js";
 import {
-  printTypeAlias,
-  printIntersectionType,
-  printUnionType,
+  printDeclareToken,
+  printOptionalToken,
+  printTypeScriptAccessibilityToken,
+} from "./misc.js";
+import { printImportKind } from "./module.js";
+import { printObject } from "./object.js";
+import { printPropertyKey } from "./property.js";
+import { printTemplateLiteral } from "./template-literal.js";
+import { printTernary } from "./ternary.js";
+import {
+  printArrayType,
   printFunctionType,
   printIndexedAccessType,
   printInferType,
+  printIntersectionType,
   printJSDocType,
-  printRestType,
   printNamedTupleMember,
+  printRestType,
+  printTypeAlias,
   printTypeAnnotation,
   printTypeAnnotationProperty,
-  printArrayType,
-  printTypeQuery,
   printTypePredicate,
+  printTypeQuery,
+  printUnionType,
 } from "./type-annotation.js";
-import { printEnumDeclaration, printEnumMember } from "./enum.js";
-import { printImportKind } from "./module.js";
-import { printTypescriptMappedType } from "./mapped-type.js";
+import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
@@ -128,7 +127,13 @@ function printTypescript(path, options, print) {
     case "TSClassImplements":
     case "TSExpressionWithTypeArguments": // Babel AST
     case "TSInstantiationExpression":
-      return [print("expression"), print("typeParameters")];
+      return [
+        print("expression"),
+        print(
+          // TODO: Use `typeArguments` only when babel align with TS.
+          node.typeArguments ? "typeArguments" : "typeParameters",
+        ),
+      ];
     case "TSTemplateLiteralType":
       return printTemplateLiteral(path, print, options);
     case "TSNamedTupleMember":
@@ -145,18 +150,9 @@ function printTypescript(path, options, print) {
     case "TSTypeParameter":
       return printTypeParameter(path, options, print);
     case "TSAsExpression":
-    case "TSSatisfiesExpression": {
-      const operator = node.type === "TSAsExpression" ? "as" : "satisfies";
-      parts.push(print("expression"), ` ${operator} `, print("typeAnnotation"));
-      const { parent } = path;
-      if (
-        (isCallExpression(parent) && parent.callee === node) ||
-        (isMemberExpression(parent) && parent.object === node)
-      ) {
-        return group([indent([softline, ...parts]), softline]);
-      }
-      return parts;
-    }
+    case "TSSatisfiesExpression":
+      return printBinaryCastExpression(path, options, print);
+
     case "TSArrayType":
       return printArrayType(print);
     case "TSPropertySignature":
@@ -322,9 +318,9 @@ function printTypescript(path, options, print) {
             node.kind ??
             // TODO: Use `node.kind` when babel update AST
             (isStringLiteral(node.id) ||
-            /(?:^|\s)module(?:\s|$)/.test(
-              options.originalText.slice(locStart(node), locStart(node.id)),
-            )
+            getTextWithoutComments(options, locStart(node), locStart(node.id))
+              .trim()
+              .endsWith("module")
               ? "module"
               : "namespace");
           parts.push(kind, " ");
@@ -363,7 +359,13 @@ function printTypescript(path, options, print) {
     case "TSTypeReference":
       return [
         print("typeName"),
-        printTypeParameters(path, options, print, "typeParameters"),
+        printTypeParameters(
+          path,
+          options,
+          print,
+          // TODO: Use `typeArguments` only when babel align with TS.
+          node.typeArguments ? "typeArguments" : "typeParameters",
+        ),
       ];
     case "TSTypeAnnotation":
       return printTypeAnnotation(path, options, print);

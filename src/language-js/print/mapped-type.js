@@ -1,13 +1,13 @@
+import {
+  group,
+  ifBreak,
+  indent,
+  line,
+  softline,
+} from "../../document/builders.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locStart } from "../loc.js";
-import {
-  group,
-  softline,
-  indent,
-  ifBreak,
-  line,
-} from "../../document/builders.js";
 
 /**
  * @param {string | null} optional
@@ -87,6 +87,6 @@ function printTypescriptMappedType(path, options, print) {
 
 export {
   printFlowMappedTypeProperty,
-  printTypeScriptMappedTypeModifier,
   printTypescriptMappedType,
+  printTypeScriptMappedTypeModifier,
 };

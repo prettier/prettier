@@ -1,7 +1,7 @@
 import { hardline, line, softline } from "../document/builders.js";
 import {
-  KIND_CJK_PUNCTUATION,
   KIND_CJ_LETTER,
+  KIND_CJK_PUNCTUATION,
   KIND_K_LETTER,
   KIND_NON_CJK,
 } from "./utils.js";
@@ -47,7 +47,7 @@ const noBreakAfter = new Set(
  *         `"檜原村（ひのはらむら）\n以外には、"`
  */
 const noBreakBefore = new Set(
-  "!%),.:;?]}¢°·'\"†‡›℃∶、。〃〆〕〗〞﹚﹜！＂％＇），．：；？］｝～–—•〉》」︰︱︲︳﹐﹑﹒﹓﹔﹕﹖﹘︶︸︺︼︾﹀﹂﹗｜､』】〙〟｠»ヽヾーァィゥェォッャュョヮヵヶぁぃぅぇぉっゃゅょゎゕゖㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ々〻‐゠〜～‼⁇⁈⁉・",
+  "!%),.:;?]}¢°·'\"†‡›℃∶、。〃〆〕〗〞﹚﹜！＂％＇），．：；？］｝～–—•〉》」︰︱︲︳﹐﹑﹒﹓﹔﹕﹖﹘︶︸︺︼︾﹀﹂﹗｜､』】〙〟｠»ヽヾーァィゥェォッャュョヮヵヶぁぃぅぇぉっゃゅょゎゕゖㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ々〻‐゠〜～‼⁇⁈⁉・゙゚",
 );
 
 /**

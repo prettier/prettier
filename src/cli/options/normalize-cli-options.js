@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import leven from "leven";
+
 import { normalizeOptions, vnopts } from "../prettier-internal.js";
 
 const descriptor = {
@@ -9,10 +10,10 @@ const descriptor = {
     value === false
       ? `--no-${key}`
       : value === true
-      ? descriptor.key(key)
-      : value === ""
-      ? `${descriptor.key(key)} without an argument`
-      : `${descriptor.key(key)}=${value}`,
+        ? descriptor.key(key)
+        : value === ""
+          ? `${descriptor.key(key)} without an argument`
+          : `${descriptor.key(key)}=${value}`,
 };
 
 class FlagSchema extends vnopts.ChoiceSchema {

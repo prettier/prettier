@@ -3,23 +3,24 @@
  */
 
 import assert from "node:assert";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+
 import {
+  hardline,
   indent,
   join,
   line,
   softline,
-  hardline,
 } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import { locStart, locEnd } from "../loc.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locEnd, locStart } from "../loc.js";
 import {
-  isTextLikeNode,
   getLastDescendant,
-  isPreLikeNode,
   hasPrettierIgnore,
-  shouldPreserveContent,
+  isPreLikeNode,
+  isTextLikeNode,
   isVueSfcBlock,
+  shouldPreserveContent,
 } from "../utils/index.js";
 
 function printClosingTag(node, options) {
@@ -62,8 +63,8 @@ function printClosingTagSuffix(node, options) {
   return needsToBorrowParentClosingTagStartMarker(node)
     ? printClosingTagStartMarker(node.parent, options)
     : needsToBorrowNextOpeningTagStartMarker(node)
-    ? printOpeningTagStartMarker(node.next)
-    : "";
+      ? printOpeningTagStartMarker(node.next)
+      : "";
 }
 
 function printClosingTagStartMarker(node, options) {
@@ -97,6 +98,8 @@ function printClosingTagEndMarker(node, options) {
       return "]><!-->";
     case "interpolation":
       return "}}";
+    case "angularIcuExpression":
+      return "}";
     case "element":
       if (node.isSelfClosing) {
         return "/>";
@@ -128,6 +131,7 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
   return (
     node.prev &&
     node.prev.type !== "docType" &&
+    node.type !== "angularControlFlowBlock" &&
     !isTextLikeNode(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
@@ -186,7 +190,7 @@ function needsToBorrowNextOpeningTagStartMarker(node) {
 }
 
 function getPrettierIgnoreAttributeCommentData(value) {
-  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+(.+))?$/s);
+  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+(.+))?$/su);
 
   if (!match) {
     return false;
@@ -196,7 +200,7 @@ function getPrettierIgnoreAttributeCommentData(value) {
     return true;
   }
 
-  return match[1].split(/\s+/);
+  return match[1].split(/\s+/u);
 }
 
 function needsToBorrowParentOpeningTagEndMarker(node) {
@@ -233,8 +237,8 @@ function printAttributes(path, options, print) {
     typeof ignoreAttributeData === "boolean"
       ? () => ignoreAttributeData
       : Array.isArray(ignoreAttributeData)
-      ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
-      : () => false;
+        ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
+        : () => false;
 
   const printedAttributes = path.map(
     ({ node: attribute }) =>
@@ -294,8 +298,8 @@ function printAttributes(path, options, print) {
           ? " "
           : ""
         : node.isSelfClosing
-        ? line
-        : softline,
+          ? line
+          : softline,
     );
   }
 
@@ -329,8 +333,8 @@ function printOpeningTagPrefix(node, options) {
   return needsToBorrowParentOpeningTagEndMarker(node)
     ? printOpeningTagEndMarker(node.parent)
     : needsToBorrowPrevClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.prev, options)
-    : "";
+      ? printClosingTagEndMarker(node.prev, options)
+      : "";
 }
 
 function printOpeningTagStartMarker(node) {
@@ -344,6 +348,8 @@ function printOpeningTagStartMarker(node) {
       return "{{";
     case "docType":
       return node.value === "html" ? "<!doctype" : "<!DOCTYPE";
+    case "angularIcuExpression":
+      return "{";
     case "element":
       if (node.condition) {
         return `<!--[if ${node.condition}]><!--><${node.rawName}`;
@@ -370,20 +376,20 @@ function printOpeningTagEndMarker(node) {
 }
 
 export {
+  needsToBorrowLastChildClosingTagEndMarker,
+  needsToBorrowNextOpeningTagStartMarker,
+  needsToBorrowParentClosingTagStartMarker,
+  needsToBorrowParentOpeningTagEndMarker,
+  needsToBorrowPrevClosingTagEndMarker,
   printClosingTag,
+  printClosingTagEnd,
+  printClosingTagEndMarker,
   printClosingTagStart,
   printClosingTagStartMarker,
-  printClosingTagEndMarker,
   printClosingTagSuffix,
-  printClosingTagEnd,
-  needsToBorrowLastChildClosingTagEndMarker,
-  needsToBorrowParentClosingTagStartMarker,
-  needsToBorrowPrevClosingTagEndMarker,
   printOpeningTag,
-  printOpeningTagStart,
-  printOpeningTagPrefix,
-  printOpeningTagStartMarker,
   printOpeningTagEndMarker,
-  needsToBorrowNextOpeningTagStartMarker,
-  needsToBorrowParentOpeningTagEndMarker,
+  printOpeningTagPrefix,
+  printOpeningTagStart,
+  printOpeningTagStartMarker,
 };

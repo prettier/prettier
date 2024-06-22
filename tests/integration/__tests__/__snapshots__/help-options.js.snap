@@ -136,7 +136,6 @@ exports[`show detailed usage with --help cursor-offset (stdout) 1`] = `
 "--cursor-offset <int>
 
   Print (to stderr) where a cursor at the given position would move to after formatting.
-  This option cannot be used with --range-start and --range-end.
 
 Default: -1"
 `;
@@ -191,6 +190,18 @@ Default: lf"
 `;
 
 exports[`show detailed usage with --help end-of-line (write) 1`] = `[]`;
+
+exports[`show detailed usage with --help experimental-ternaries (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help experimental-ternaries (stdout) 1`] = `
+"--experimental-ternaries
+
+  Use curious ternaries, with the question mark after the condition.
+
+Default: false"
+`;
+
+exports[`show detailed usage with --help experimental-ternaries (write) 1`] = `[]`;
 
 exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
 
@@ -370,6 +381,16 @@ exports[`show detailed usage with --help no-error-on-unmatched-pattern (stdout) 
 
 exports[`show detailed usage with --help no-error-on-unmatched-pattern (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help no-experimental-ternaries (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-experimental-ternaries (stdout) 1`] = `
+"--no-experimental-ternaries
+
+  Default behavior of ternaries; keep question marks on the same line as the consequent."
+`;
+
+exports[`show detailed usage with --help no-experimental-ternaries (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help no-semi (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-semi (stdout) 1`] = `
@@ -383,7 +404,7 @@ exports[`show detailed usage with --help no-semi (write) 1`] = `[]`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
 
   Which parser to use.
 
@@ -402,6 +423,7 @@ Valid options:
   scss             SCSS
   json             JSON
   json5            JSON5
+  jsonc            JSON with Comments
   json-stringify   JSON.stringify
   graphql          GraphQL
   markdown         Markdown
@@ -483,7 +505,6 @@ exports[`show detailed usage with --help range-end (stdout) 1`] = `
 
   Format code ending at a given character offset (exclusive).
   The range will extend forwards to the end of the selected statement.
-  This option cannot be used with --cursor-offset.
 
 Default: Infinity"
 `;
@@ -497,7 +518,6 @@ exports[`show detailed usage with --help range-start (stdout) 1`] = `
 
   Format code starting at a given character offset.
   The range will extend backwards to the start of the first line containing the selected statement.
-  This option cannot be used with --cursor-offset.
 
 Default: 0"
 `;

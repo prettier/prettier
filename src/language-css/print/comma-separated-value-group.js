@@ -1,42 +1,42 @@
 import {
-  line,
-  hardline,
-  softline,
-  group,
-  fill,
-  indent,
-  dedent,
   breakParent,
+  dedent,
+  fill,
+  group,
+  hardline,
+  indent,
+  line,
+  softline,
 } from "../../document/builders.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   getPropOfDeclNode,
-  insideValueFunctionNode,
+  hasEmptyRawBefore,
   insideAtRuleNode,
   insideURLFunctionInImportAtRuleNode,
-  isSCSSControlDirectiveNode,
-  isRelationalOperatorNode,
-  isEqualityOperatorNode,
-  isMultiplicationNode,
-  isDivisionNode,
+  insideValueFunctionNode,
   isAdditionNode,
-  isSubtractionNode,
-  isMathOperatorNode,
-  isEachKeywordNode,
-  isForKeywordNode,
-  isIfElseKeywordNode,
-  hasEmptyRawBefore,
-  isPostcssSimpleVarNode,
-  isInlineValueCommentNode,
-  isHashNode,
-  isLeftCurlyBraceNode,
-  isRightCurlyBraceNode,
-  isWordNode,
+  isAtWordPlaceholderNode,
   isColonNode,
   isColorAdjusterFuncNode,
-  isAtWordPlaceholderNode,
+  isDivisionNode,
+  isEachKeywordNode,
+  isEqualityOperatorNode,
+  isForKeywordNode,
+  isHashNode,
+  isIfElseKeywordNode,
+  isInlineValueCommentNode,
+  isLeftCurlyBraceNode,
+  isMathOperatorNode,
+  isMultiplicationNode,
   isParenGroupNode,
+  isPostcssSimpleVarNode,
+  isRelationalOperatorNode,
+  isRightCurlyBraceNode,
+  isSCSSControlDirectiveNode,
+  isSubtractionNode,
+  isWordNode,
 } from "../utils/index.js";
-import { locStart, locEnd } from "../loc.js";
 
 function printCommaSeparatedValueGroup(path, options, print) {
   const { node } = path;
@@ -269,7 +269,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
       options.parser === "scss" &&
       isMathOperator &&
       iNode.value === "-" &&
-      iNextNode.type === "value-func"
+      iNextNode.type === "value-func" &&
+      locEnd(iNode) !== locStart(iNextNode)
     ) {
       parts.push(" ");
       continue;

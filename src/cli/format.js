@@ -1,16 +1,21 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+
 import chalk from "chalk";
-import { createTwoFilesPatch } from "diff";
+
 import * as prettier from "../index.js";
-import mockable from "../common/mockable.js";
-import { createIsIgnoredFunction, errors } from "./prettier-internal.js";
 import { expandPatterns } from "./expand-patterns.js";
-import getOptionsForFile from "./options/get-options-for-file.js";
-import isTTY from "./is-tty.js";
 import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
-import { statSafe, normalizeToPosix } from "./utils.js";
+import isTTY from "./is-tty.js";
+import getOptionsForFile from "./options/get-options-for-file.js";
+import {
+  createIsIgnoredFunction,
+  createTwoFilesPatch,
+  errors,
+  mockable,
+} from "./prettier-internal.js";
+import { normalizeToPosix, statSafe } from "./utils.js";
 
 const { getStdin, writeFormattedFile } = mockable;
 
@@ -22,17 +27,16 @@ class DebugError extends Error {
   name = "DebugError";
 }
 
-function handleError(context, filename, error, printedFilename) {
+function handleError(context, filename, error, printedFilename, ignoreUnknown) {
+  ignoreUnknown ||= context.argv.ignoreUnknown;
+
   const errorIsUndefinedParseError =
     error instanceof errors.UndefinedParserError;
 
   if (printedFilename) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
     /* c8 ignore next 3 */
-    if (
-      (context.argv.write || context.argv.ignoreUnknown) &&
-      errorIsUndefinedParseError
-    ) {
+    if ((context.argv.write || ignoreUnknown) && errorIsUndefinedParseError) {
       printedFilename.clear();
     } else {
       // Add newline to split errors from filename line.
@@ -41,7 +45,7 @@ function handleError(context, filename, error, printedFilename) {
   }
 
   if (errorIsUndefinedParseError) {
-    if (context.argv.ignoreUnknown) {
+    if (ignoreUnknown) {
       return;
     }
     if (!context.argv.check && !context.argv.listDifferent) {
@@ -52,7 +56,7 @@ function handleError(context, filename, error, printedFilename) {
   }
 
   const isParseError = Boolean(error?.loc);
-  const isValidationError = /^Invalid \S+ value\./.test(error?.message);
+  const isValidationError = /^Invalid \S+ value\./u.test(error?.message);
 
   if (isParseError) {
     // `invalid.js: SyntaxError: Unexpected token (1:1)`.
@@ -249,6 +253,8 @@ async function formatStdin(context) {
 
   try {
     const input = await getStdin();
+    // TODO[@fisker]: Exit if no input.
+    // `prettier --config-precedence cli-override`
 
     let isFileIgnored = false;
     if (filepath) {
@@ -263,7 +269,7 @@ async function formatStdin(context) {
 
     const options = await getOptionsForFile(
       context,
-      filepath ? path.resolve(process.cwd(), filepath) : process.cwd(),
+      filepath ? path.resolve(filepath) : undefined,
     );
 
     if (await listDifferent(context, input, options, "(stdin)")) {
@@ -306,30 +312,22 @@ async function formatFiles(context) {
       cacheFilePath,
       context.argv.cacheStrategy || "content",
     );
-  } else {
-    if (context.argv.cacheStrategy) {
-      context.logger.error(
-        "`--cache-strategy` cannot be used without `--cache`.",
-      );
-      process.exit(2);
-    }
-    if (!context.argv.cacheLocation) {
-      const stat = await statSafe(cacheFilePath);
-      if (stat) {
-        await fs.unlink(cacheFilePath);
-      }
+  } else if (!context.argv.cacheLocation) {
+    const stat = await statSafe(cacheFilePath);
+    if (stat) {
+      await fs.unlink(cacheFilePath);
     }
   }
 
-  for await (const pathOrError of expandPatterns(context)) {
-    if (typeof pathOrError === "object") {
-      context.logger.error(pathOrError.error);
+  for await (const { error, filename, ignoreUnknown } of expandPatterns(
+    context,
+  )) {
+    if (error) {
+      context.logger.error(error);
       // Don't exit, but set the exit code to 2
       process.exitCode = 2;
       continue;
     }
-
-    const filename = pathOrError;
 
     const isFileIgnored = isIgnored(filename);
     if (
@@ -399,7 +397,13 @@ async function formatFiles(context) {
       }
       output = result.formatted;
     } catch (error) {
-      handleError(context, fileNameToDisplay, error, printedFilename);
+      handleError(
+        context,
+        fileNameToDisplay,
+        error,
+        printedFilename,
+        ignoreUnknown,
+      );
       continue;
     }
 
@@ -440,7 +444,7 @@ async function formatFiles(context) {
       } else if (!context.argv.check && !context.argv.listDifferent) {
         const message = `${chalk.grey(fileNameToDisplay)} ${
           Date.now() - start
-        }ms`;
+        }ms (unchanged)`;
         if (isCacheExists) {
           context.logger.log(`${message} (cached)`);
         } else {
@@ -488,7 +492,7 @@ async function formatFiles(context) {
       context.logger.warn(
         context.argv.write
           ? `Code style issues fixed in ${files}.`
-          : `Code style issues found in ${files}. Run Prettier to fix.`,
+          : `Code style issues found in ${files}. Run Prettier with --write to fix.`,
       );
     }
   }
@@ -504,4 +508,4 @@ async function formatFiles(context) {
   }
 }
 
-export { formatStdin, formatFiles };
+export { formatFiles, formatStdin };

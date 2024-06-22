@@ -1,10 +1,7 @@
 import assert from "node:assert";
-import { locStart, locEnd } from "./loc.js";
-import {
-  cjkPattern,
-  kRegex,
-  punctuationPattern,
-} from "./constants.evaluate.js";
+
+import { CJK_REGEXP, PUNCTUATION_REGEXP } from "./constants.evaluate.js";
+import { locEnd, locStart } from "./loc.js";
 
 const INLINE_NODE_TYPES = new Set([
   "liquidNode",
@@ -34,12 +31,12 @@ const INLINE_NODE_WRAPPER_TYPES = new Set([
   "heading",
 ]);
 
-const punctuationRegex = new RegExp(punctuationPattern);
-
 const KIND_NON_CJK = "non-cjk";
 const KIND_CJ_LETTER = "cj-letter";
 const KIND_K_LETTER = "k-letter";
 const KIND_CJK_PUNCTUATION = "cjk-punctuation";
+
+const K_REGEXP = /\p{Script_Extensions=Hangul}/u;
 
 /**
  * @typedef {" " | "\n" | ""} WhitespaceValue
@@ -68,13 +65,13 @@ function splitText(text) {
   /** @type {Array<TextNode>} */
   const nodes = [];
 
-  const tokens = text.split(/([\t\n ]+)/);
+  const tokens = text.split(/([\t\n ]+)/u);
   for (const [index, token] of tokens.entries()) {
     // whitespace
     if (index % 2 === 1) {
       nodes.push({
         type: "whitespace",
-        value: /\n/.test(token) ? "\n" : " ",
+        value: /\n/u.test(token) ? "\n" : " ",
       });
       continue;
     }
@@ -85,7 +82,7 @@ function splitText(text) {
       continue;
     }
 
-    const innerTokens = token.split(new RegExp(`(${cjkPattern})`));
+    const innerTokens = token.split(new RegExp(`(${CJK_REGEXP.source})`, "u"));
     for (const [innerIndex, innerToken] of innerTokens.entries()) {
       if (
         (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&
@@ -101,8 +98,8 @@ function splitText(text) {
             type: "word",
             value: innerToken,
             kind: KIND_NON_CJK,
-            hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
-            hasTrailingPunctuation: punctuationRegex.test(innerToken.at(-1)),
+            hasLeadingPunctuation: PUNCTUATION_REGEXP.test(innerToken[0]),
+            hasTrailingPunctuation: PUNCTUATION_REGEXP.test(innerToken.at(-1)),
           });
         }
         continue;
@@ -110,7 +107,7 @@ function splitText(text) {
 
       // CJK character
       appendNode(
-        punctuationRegex.test(innerToken)
+        PUNCTUATION_REGEXP.test(innerToken)
           ? {
               type: "word",
               value: innerToken,
@@ -122,7 +119,7 @@ function splitText(text) {
               type: "word",
               value: innerToken,
               // Korean uses space to divide words, but Chinese & Japanese do not
-              kind: kRegex.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
+              kind: K_REGEXP.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
               hasLeadingPunctuation: false,
               hasTrailingPunctuation: false,
             },
@@ -148,7 +145,7 @@ function splitText(text) {
       lastNode?.type === "word" &&
       !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
       // disallow leading/trailing full-width whitespace
-      ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
+      ![lastNode.value, node.value].some((value) => /\u3000/u.test(value))
     ) {
       nodes.push({ type: "whitespace", value: "" });
     }
@@ -169,7 +166,7 @@ function getOrderedListItemInfo(orderListItem, originalText) {
       orderListItem.position.start.offset,
       orderListItem.position.end.offset,
     )
-    .match(/^\s*(\d+)(\.|\))(\s*)/);
+    .match(/^\s*(\d+)(\.|\))(\s*)/u);
 
   return { numberText, marker, leadingSpaces };
 }
@@ -224,16 +221,15 @@ function isAutolink(node) {
 }
 
 export {
-  mapAst,
-  splitText,
-  punctuationPattern,
   getOrderedListItemInfo,
   hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
-  KIND_NON_CJK,
   KIND_CJ_LETTER,
-  KIND_K_LETTER,
   KIND_CJK_PUNCTUATION,
+  KIND_K_LETTER,
+  KIND_NON_CJK,
+  mapAst,
+  splitText,
 };

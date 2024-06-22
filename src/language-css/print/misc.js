@@ -8,17 +8,18 @@ function printUnit(unit) {
   return CSS_UNITS.has(lowercased) ? CSS_UNITS.get(lowercased) : unit;
 }
 
-const STRING_REGEX = /(["'])(?:(?!\1)[^\\]|\\.)*\1/gs;
-const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[Ee][+-]?\d+)?/g;
-const STANDARD_UNIT_REGEX = /[A-Za-z]+/g;
-const WORD_PART_REGEX = /[$@]?[A-Z_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/g;
+const STRING_REGEX = /(["'])(?:(?!\1)[^\\]|\\.)*\1/gsu;
+const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:e[+-]?\d+)?/giu;
+const STANDARD_UNIT_REGEX = /[a-z]+/giu;
+const WORD_PART_REGEX = /[$@]?[_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/giu;
 const ADJUST_NUMBERS_REGEX = new RegExp(
   STRING_REGEX.source +
     "|" +
+    // eslint-disable-next-line regexp/no-misleading-capturing-group
     `(${WORD_PART_REGEX.source})?` +
     `(${NUMBER_REGEX.source})` +
     `(${STANDARD_UNIT_REGEX.source})?`,
-  "g",
+  "giu",
 );
 
 function adjustStrings(value, options) {
@@ -46,7 +47,7 @@ function printCssNumber(rawNumber) {
   return (
     printNumber(rawNumber)
       // Remove trailing `.0`.
-      .replace(/\.0(?=$|e)/, "")
+      .replace(/\.0(?=$|e)/u, "")
   );
 }
 
@@ -55,10 +56,10 @@ function shouldPrintTrailingComma(options) {
 }
 
 export {
-  adjustStrings,
   adjustNumbers,
+  adjustStrings,
+  printCssNumber,
+  printUnit,
   quoteAttributeValue,
   shouldPrintTrailingComma,
-  printUnit,
-  printCssNumber,
 };

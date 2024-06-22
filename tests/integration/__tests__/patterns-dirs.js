@@ -1,8 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
+
 import createEsmUtils from "esm-utils";
-import jestPathSerializer from "../path-serializer.js";
+
 import { projectRoot } from "../env.js";
+import jestPathSerializer from "../path-serializer.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -12,22 +14,25 @@ const runCliWithoutGitignore = (dir, args, options) =>
   runCli(dir, [...args, "--ignore-path", ".prettierignore"], options);
 
 // ESLint-like behavior
+//
 // https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
+//
+// Since 3.0: https://github.com/prettier/prettier/pull/15155#issuecomment-1723654981
 //
 // 1. `prettier dir1 dir2` – prettify all files with supported extensions inside `dir1` and `dir2`.
 //
 // 2. `prettier dir1 "dir2/**/*"` – prettify all files with supported extensions inside `dir1`
 //     as well as all files matched by the `dir2/**/*` glob.
-//     If any of the latter files have unknown extensions – log an error for them. (*)
+//     Unsupported files are ignored as with `--ignore-unknown`.
 //
 // 3. `prettier non-exists-dir "dir2/**/*""` – log an error that `non-exists-dir` resulted in 0 files
 //     and prettify all files matched by the `dir2/**/*` glob.
-//     If any of the latter files have unknown extensions – log an error for them. (*)
+//     Unsupported files are ignored as with `--ignore-unknown`.
 //     (Note: ESLint just prints an error and doesn't process anything.)
 //
 // 4. `prettier . "dir2/**/*"` – prettify all files with supported extensions in `.`
 //     and all files matched by the `dir2/**/*` glob.
-//     If any of the latter files have unknown extensions – log an error for them. (*)
+//     Unsupported files are ignored as with `--ignore-unknown`.
 //
 // (*) That error ("No parser could be inferred for file") doesn't affect the error code.
 
@@ -38,9 +43,9 @@ testPatterns("1a - with *.foo plugin", [
   "--plugin=../../plugins/extensions/plugin.cjs",
 ]);
 testPatterns("1b - special characters in dir name", ["dir1", "!dir"], {
-  stdout: expect.stringMatching(/!dir[/\\]a\.js/),
+  stdout: expect.stringMatching(/!dir[/\\]a\.js/u),
 });
-testPatterns("1c", ["dir1", "empty"], { status: 2 });
+testPatterns("1c", ["dir1", "empty"], { status: 1 });
 
 testPatterns("2", ["dir1", "dir2/**/*"], { status: 1 });
 
@@ -134,24 +139,33 @@ if (path.sep === "/") {
     beforeAll(() => {
       fs.mkdirSync(path.resolve(base, "test-a\\"));
       fs.writeFileSync(path.resolve(base, "test-a\\", "test.js"), "x");
-      fs.mkdirSync(path.resolve(base, "test-b\\?"));
-      fs.writeFileSync(path.resolve(base, "test-b\\?", "test.js"), "x");
+      fs.mkdirSync(path.resolve(base, String.raw`test-b\?`));
+      fs.writeFileSync(
+        path.resolve(base, String.raw`test-b\?`, "test.js"),
+        "x",
+      );
     });
 
     afterAll(() => {
       fs.unlinkSync(path.resolve(base, "test-a\\", "test.js"));
       fs.rmdirSync(path.resolve(base, "test-a\\"));
-      fs.unlinkSync(path.resolve(base, "test-b\\?", "test.js"));
-      fs.rmdirSync(path.resolve(base, "test-b\\?"));
+      fs.unlinkSync(path.resolve(base, String.raw`test-b\?`, "test.js"));
+      fs.rmdirSync(path.resolve(base, String.raw`test-b\?`));
     });
 
-    testPatterns("", ["test-a\\/test.js"], { stdout: "test-a\\/test.js" });
-    testPatterns("", ["test-a\\"], { stdout: "test-a\\/test.js" });
-    testPatterns("", ["test-a*/*"], { stdout: "test-a\\/test.js" });
+    testPatterns("", [String.raw`test-a\/test.js`], {
+      stdout: String.raw`test-a\/test.js`,
+    });
+    testPatterns("", ["test-a\\"], { stdout: String.raw`test-a\/test.js` });
+    testPatterns("", ["test-a*/*"], { stdout: String.raw`test-a\/test.js` });
 
-    testPatterns("", ["test-b\\?/test.js"], { stdout: "test-b\\?/test.js" });
-    testPatterns("", ["test-b\\?"], { stdout: "test-b\\?/test.js" });
-    testPatterns("", ["test-b*/*"], { stdout: "test-b\\?/test.js" });
+    testPatterns("", [String.raw`test-b\?/test.js`], {
+      stdout: String.raw`test-b\?/test.js`,
+    });
+    testPatterns("", [String.raw`test-b\?`], {
+      stdout: String.raw`test-b\?/test.js`,
+    });
+    testPatterns("", ["test-b*/*"], { stdout: String.raw`test-b\?/test.js` });
   });
 }
 
@@ -318,6 +332,25 @@ function isSymlinkSupported() {
     { stdout: "test-a/symlink-to-directory-b/b.js" },
     base,
   );
+
+  testPatterns(
+    "",
+    [
+      "test-a/symlink-to-file-b",
+      "--no-error-on-unmatched-pattern",
+      "--log-level",
+      "debug",
+    ],
+    {
+      status: 0,
+      stdout: "",
+      stderr:
+        '[debug] normalized argv: {"":["test-a/symlink-to-file-b"],"cache":false,"color":true,"editorconfig":true,"errorOnUnmatchedPattern":false,"logLevel":"debug","ignorePath":[".prettierignore"],"configPrecedence":"cli-override","debugRepeat":0,"plugins":[],"listDifferent":true,"_":["test-a/symlink-to-file-b"],"__raw":{"_":["test-a/symlink-to-file-b"],"cache":false,"color":true,"editorconfig":true,"error-on-unmatched-pattern":false,"l":true,"log-level":"debug","ignore-path":".prettierignore","config-precedence":"cli-override","debug-repeat":0,"plugin":[]}}' +
+        "\n" +
+        '[debug] Skipping pattern "test-a/symlink-to-file-b", as it is a symbolic link.',
+    },
+    base,
+  );
 });
 
 function testPatterns(
@@ -330,7 +363,7 @@ function testPatterns(
     (namePrefix ? namePrefix + ": " : "") +
     "prettier " +
     cliArgs
-      .map((arg) => (/^[\w./=-]+$/.test(arg) ? arg : `'${arg}'`))
+      .map((arg) => (/^[\w./=-]+$/u.test(arg) ? arg : `'${arg}'`))
       .join(" ");
 
   describe(testName, () => {

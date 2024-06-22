@@ -10,7 +10,9 @@
 *.log
 /errors
 /test*.*
-/.vscode
+/.vscode/**/*
+!/.vscode/extensions.json
+!/.vscode/settings.example.json
 /dist*
 /website/build
 /website/i18n
@@ -35,3 +37,6 @@ package-lock.json
 
 # For 0x flamegraph directory (https://github.com/davidmarkclements/0x)
 *.0x/
+
+# For Node.js builtin cpu profile file
+*.cpuprofile

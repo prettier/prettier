@@ -1,54 +1,53 @@
-import printString from "../utils/print-string.js";
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import {
+  breakParent,
+  dedent,
+  group,
+  hardline,
+  ifBreak,
+  indent,
   join,
   line,
-  hardline,
   softline,
-  group,
-  indent,
-  dedent,
-  ifBreak,
-  breakParent,
 } from "../document/builders.js";
 import { removeLines } from "../document/utils.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import printString from "../utils/print-string.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
-import { insertPragma } from "./pragma.js";
 import getVisitorKeys from "./get-visitor-keys.js";
-import {
-  maybeToLowerCase,
-  insideValueFunctionNode,
-  insideICSSRuleNode,
-  insideAtRuleNode,
-  isKeyframeAtRuleKeywords,
-  isWideKeywords,
-  isLastNode,
-  isSCSSControlDirectiveNode,
-  isDetachedRulesetDeclarationNode,
-  hasComposesNode,
-  hasParensAroundNode,
-  isDetachedRulesetCallNode,
-  isTemplatePlaceholderNode,
-  isTemplatePropNode,
-  isMediaAndSupportsKeywords,
-  lastLineHasInlineComment,
-} from "./utils/index.js";
-import { locStart, locEnd } from "./loc.js";
-import {
-  adjustStrings,
-  adjustNumbers,
-  quoteAttributeValue,
-  printUnit,
-  printCssNumber,
-} from "./print/misc.js";
+import { locEnd, locStart } from "./loc.js";
+import { insertPragma } from "./pragma.js";
 import printCommaSeparatedValueGroup from "./print/comma-separated-value-group.js";
+import {
+  adjustNumbers,
+  adjustStrings,
+  printCssNumber,
+  printUnit,
+  quoteAttributeValue,
+} from "./print/misc.js";
 import {
   printParenthesizedValueGroup,
   shouldBreakList,
 } from "./print/parenthesized-value-group.js";
 import printSequence from "./print/sequence.js";
+import {
+  hasComposesNode,
+  hasParensAroundNode,
+  insideAtRuleNode,
+  insideICSSRuleNode,
+  insideValueFunctionNode,
+  isDetachedRulesetCallNode,
+  isDetachedRulesetDeclarationNode,
+  isKeyframeAtRuleKeywords,
+  isMediaAndSupportsKeywords,
+  isSCSSControlDirectiveNode,
+  isTemplatePlaceholderNode,
+  isTemplatePropNode,
+  isWideKeywords,
+  lastLineHasInlineComment,
+  maybeToLowerCase,
+} from "./utils/index.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -87,8 +86,8 @@ function genericPrint(path, options, print) {
               lastLineHasInlineComment(node.selector.value)
                 ? line
                 : node.selector
-                ? " "
-                : "",
+                  ? " "
+                  : "",
               "{",
               node.nodes.length > 0
                 ? indent([hardline, printSequence(path, options, print)])
@@ -107,7 +106,7 @@ function genericPrint(path, options, print) {
       const trimmedBetween = rawBetween.trim();
       const isColon = trimmedBetween === ":";
       const isValueAllSpace =
-        typeof node.value === "string" && /^ *$/.test(node.value);
+        typeof node.value === "string" && /^ *$/u.test(node.value);
       let value = typeof node.value === "string" ? node.value : print("value");
 
       value = hasComposesNode(node) ? removeLines(value) : value;
@@ -124,7 +123,7 @@ function genericPrint(path, options, print) {
       }
 
       return [
-        node.raws.before.replaceAll(/[\s;]/g, ""),
+        node.raws.before.replaceAll(/[\s;]/gu, ""),
         // Less variable
         (parentNode.type === "css-atrule" && parentNode.variable) ||
         insideICSSRuleNode(path)
@@ -138,20 +137,20 @@ function genericPrint(path, options, print) {
           : "",
         value,
         node.raws.important
-          ? node.raws.important.replace(/\s*!\s*important/i, " !important")
+          ? node.raws.important.replace(/\s*!\s*important/iu, " !important")
           : node.important
-          ? " !important"
-          : "",
+            ? " !important"
+            : "",
         node.raws.scssDefault
-          ? node.raws.scssDefault.replace(/\s*!default/i, " !default")
+          ? node.raws.scssDefault.replace(/\s*!default/iu, " !default")
           : node.scssDefault
-          ? " !default"
-          : "",
+            ? " !default"
+            : "",
         node.raws.scssGlobal
-          ? node.raws.scssGlobal.replace(/\s*!global/i, " !global")
+          ? node.raws.scssGlobal.replace(/\s*!global/iu, " !global")
           : node.scssGlobal
-          ? " !global"
-          : "",
+            ? " !global"
+            : "",
         node.nodes
           ? [
               " {",
@@ -160,12 +159,12 @@ function genericPrint(path, options, print) {
               "}",
             ]
           : isTemplatePropNode(node) &&
-            !parentNode.raws.semicolon &&
-            options.originalText[locEnd(node) - 1] !== ";"
-          ? ""
-          : options.__isHTMLStyleAttribute && isLastNode(path, node)
-          ? ifBreak(";")
-          : ";",
+              !parentNode.raws.semicolon &&
+              options.originalText[locEnd(node) - 1] !== ";"
+            ? ""
+            : options.__isHTMLStyleAttribute && path.isLast
+              ? ifBreak(";")
+              : ";",
       ];
     }
     case "css-atrule": {
@@ -224,7 +223,9 @@ function genericPrint(path, options, print) {
         // If a Less file ends up being parsed with the SCSS parser, Less
         // variable declarations will be parsed as at-rules with names ending
         // with a colon, so keep the original case then.
-        isDetachedRulesetCallNode(node) || node.name.endsWith(":")
+        isDetachedRulesetCallNode(node) ||
+        node.name.endsWith(":") ||
+        isTemplatePlaceholderNode(node)
           ? node.name
           : maybeToLowerCase(node.name),
         node.params
@@ -232,16 +233,16 @@ function genericPrint(path, options, print) {
               isDetachedRulesetCallNode(node)
                 ? ""
                 : isTemplatePlaceholderNode(node)
-                ? node.raws.afterName === ""
-                  ? ""
-                  : node.name.endsWith(":")
-                  ? " "
-                  : /^\s*\n\s*\n/.test(node.raws.afterName)
-                  ? [hardline, hardline]
-                  : /^\s*\n/.test(node.raws.afterName)
-                  ? hardline
-                  : " "
-                : " ",
+                  ? node.raws.afterName === ""
+                    ? ""
+                    : node.name.endsWith(":")
+                      ? " "
+                      : /^\s*\n\s*\n/u.test(node.raws.afterName)
+                        ? [hardline, hardline]
+                        : /^\s*\n/u.test(node.raws.afterName)
+                          ? hardline
+                          : " "
+                  : " ",
               typeof node.params === "string" ? node.params : print("params"),
             ]
           : "",
@@ -257,21 +258,21 @@ function genericPrint(path, options, print) {
                 : "",
             ])
           : node.name === "else"
-          ? " "
-          : "",
+            ? " "
+            : "",
         node.nodes
           ? [
               isSCSSControlDirectiveNode(node, options)
                 ? ""
                 : (node.selector &&
-                    !node.selector.nodes &&
-                    typeof node.selector.value === "string" &&
-                    lastLineHasInlineComment(node.selector.value)) ||
-                  (!node.selector &&
-                    typeof node.params === "string" &&
-                    lastLineHasInlineComment(node.params))
-                ? line
-                : " ",
+                      !node.selector.nodes &&
+                      typeof node.selector.value === "string" &&
+                      lastLineHasInlineComment(node.selector.value)) ||
+                    (!node.selector &&
+                      typeof node.params === "string" &&
+                      lastLineHasInlineComment(node.params))
+                  ? line
+                  : " ",
               "{",
               indent([
                 node.nodes.length > 0 ? softline : "",
@@ -281,9 +282,9 @@ function genericPrint(path, options, print) {
               "}",
             ]
           : isTemplatePlaceholderNodeWithoutSemiColon ||
-            isImportUnknownValueEndsWithSemiColon
-          ? ""
-          : ";",
+              isImportUnknownValueEndsWithSemiColon
+            ? ""
+            : ";",
       ];
     }
     // postcss-media-query-parser
@@ -299,10 +300,7 @@ function genericPrint(path, options, print) {
       return group(indent(join(line, parts)));
     }
     case "media-query":
-      return [
-        join(" ", path.map(print, "nodes")),
-        isLastNode(path, node) ? "" : ",",
-      ];
+      return [join(" ", path.map(print, "nodes")), path.isLast ? "" : ","];
 
     case "media-type":
       return adjustNumbers(adjustStrings(node.value, options));
@@ -315,7 +313,7 @@ function genericPrint(path, options, print) {
 
     case "media-feature":
       return maybeToLowerCase(
-        adjustStrings(node.value.replaceAll(/ +/g, " "), options),
+        adjustStrings(node.value.replaceAll(/ +/gu, " "), options),
       );
 
     case "media-colon":
@@ -329,7 +327,9 @@ function genericPrint(path, options, print) {
 
     case "media-url":
       return adjustStrings(
-        node.value.replaceAll(/^url\(\s+/gi, "url(").replaceAll(/\s+\)$/g, ")"),
+        node.value
+          .replaceAll(/^url\(\s+/giu, "url(")
+          .replaceAll(/\s+\)$/gu, ")"),
         options,
       );
 
@@ -418,7 +418,7 @@ function genericPrint(path, options, print) {
             ? ""
             : line;
 
-        return [leading, node.value, isLastNode(path, node) ? "" : " "];
+        return [leading, node.value, path.isLast ? "" : " "];
       }
 
       const leading = node.value.trim().startsWith("(") ? line : "";

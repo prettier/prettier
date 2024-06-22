@@ -17,8 +17,8 @@ function shouldHugJsExpression(ast, options) {
         ? ast.node.body[0].expression
         : ast.node
       : ast.type === "JsExpressionRoot"
-      ? ast.node
-      : ast;
+        ? ast.node
+        : ast;
   return (
     rootNode &&
     (rootNode.type === "ObjectExpression" ||
@@ -62,4 +62,4 @@ async function formatAttributeValue(
   return shouldHug ? group(doc) : printExpand(doc);
 }
 
-export { printExpand, formatAttributeValue, shouldHugJsExpression };
+export { formatAttributeValue, printExpand, shouldHugJsExpression };

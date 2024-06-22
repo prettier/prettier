@@ -39,9 +39,8 @@ type ArrayProperties<T> = {
 // A union of the properties of the given array T that can be used to index it.
 // If the array is a tuple, then that's going to be the explicit indices of the
 // array, otherwise it's going to just be number.
-type IndexProperties<T extends { length: number }> = IsTuple<T> extends true
-  ? Exclude<Partial<T>["length"], T["length"]>
-  : number;
+type IndexProperties<T extends { length: number }> =
+  IsTuple<T> extends true ? Exclude<Partial<T>["length"], T["length"]> : number;
 
 // Effectively performing T[P], except that it's telling TypeScript that it's
 // safe to do this for tuples, arrays, or objects.
@@ -50,8 +49,8 @@ type IndexValue<T, P> = T extends any[]
     ? T[P]
     : never
   : P extends keyof T
-  ? T[P]
-  : never;
+    ? T[P]
+    : never;
 
 // Determines if an object T is an array like string[] (in which case this
 // evaluates to false) or a tuple like [string] (in which case this evaluates to
@@ -60,8 +59,8 @@ type IndexValue<T, P> = T extends any[]
 type IsTuple<T> = T extends []
   ? true
   : T extends [infer First, ...infer Remain]
-  ? IsTuple<Remain>
-  : false;
+    ? IsTuple<Remain>
+    : false;
 
 type CallProperties<T> = T extends any[] ? IndexProperties<T> : keyof T;
 type IterProperties<T> = T extends any[]
@@ -291,6 +290,7 @@ export type BuiltInParserName =
   | "json-stringify"
   | "json"
   | "json5"
+  | "jsonc"
   | "less"
   | "lwc"
   | "markdown"
@@ -301,11 +301,6 @@ export type BuiltInParserName =
   | "vue"
   | "yaml";
 export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
-
-export type CustomParser = (
-  text: string,
-  options: Options,
-) => AST | Promise<AST>;
 
 /**
  * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettierrc.mjs`, `prettier.config.js`, `prettier.config.cjs`, `prettier.config.mjs`
@@ -353,12 +348,6 @@ export interface RequiredOptions extends doc.printer.Options {
    */
   bracketSameLine: boolean;
   /**
-   * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
-   * @default false
-   * @deprecated use bracketSameLine instead
-   */
-  jsxBracketSameLine: boolean;
-  /**
    * Format only a segment of a file.
    * @default 0
    */
@@ -371,7 +360,7 @@ export interface RequiredOptions extends doc.printer.Options {
   /**
    * Specify which parser to use.
    */
-  parser: LiteralUnion<BuiltInParserName> | CustomParser;
+  parser: LiteralUnion<BuiltInParserName>;
   /**
    * Specify the input filepath. This will be used to do parser inference.
    */
@@ -435,6 +424,22 @@ export interface RequiredOptions extends doc.printer.Options {
    * @default false
    */
   singleAttributePerLine: boolean;
+  /**
+   * Use curious ternaries, with the question mark after the condition, instead
+   * of on the same line as the consequent.
+   * @default false
+   */
+  experimentalTernaries: boolean;
+  /**
+   * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+   * @default false
+   * @deprecated use bracketSameLine instead
+   */
+  jsxBracketSameLine?: boolean;
+  /**
+   * Arbitrary additional values on an options object are always allowed.
+   */
+  [_: string]: unknown;
 }
 
 export interface ParserOptions<T = any> extends RequiredOptions {
@@ -491,10 +496,12 @@ export interface Printer<T = any> {
   insertPragma?: (text: string) => string;
   /**
    * @returns `null` if you want to remove this node
-   * @returns `void` if you want to use modified newNode
+   * @returns `void` if you want to use modified `cloned`
    * @returns anything if you want to replace the node with it
    */
-  massageAstNode?: ((node: any, newNode: any, parent: any) => any) | undefined;
+  massageAstNode?:
+    | ((original: any, cloned: any, parent: any) => any)
+    | undefined;
   hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
   canAttachComment?: ((node: T) => boolean) | undefined;
   isBlockComment?: ((node: T) => boolean) | undefined;
@@ -553,8 +560,6 @@ export interface CursorOptions extends Options {
    * Specify where the cursor is.
    */
   cursorOffset: number;
-  rangeStart?: never;
-  rangeEnd?: never;
 }
 
 export interface CursorResult {
@@ -577,14 +582,12 @@ export function check(source: string, options?: Options): Promise<boolean>;
  * `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
  * This is useful for editor integrations, to prevent the cursor from moving when code is formatted.
  *
- * The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
+ * The `cursorOffset` option should be provided, to specify where the cursor is.
  */
 export function formatWithCursor(
   source: string,
   options: CursorOptions,
 ): Promise<CursorResult>;
-
-export function formatAST(ast: any, options?: Options): Promise<string>;
 
 export interface ResolveConfigOptions {
   /**
@@ -609,9 +612,8 @@ export interface ResolveConfigOptions {
 
 /**
  * `resolveConfig` can be used to resolve configuration for a given source file,
- * passing its path as the first argument. The config search will start at the
- * file path and continue to search up the directory.
- * (You can use `process.cwd()` to start searching from the current directory).
+ * passing its path or url as the first argument. The config search will start at
+ * the directory of the file location and continue to search up the directory.
  *
  * A promise is returned which will resolve to:
  *
@@ -621,7 +623,7 @@ export interface ResolveConfigOptions {
  * The promise will be rejected if there was an error parsing the configuration file.
  */
 export function resolveConfig(
-  filePath: string,
+  fileUrlOrPath: string | URL,
   options?: ResolveConfigOptions,
 ): Promise<Options | null>;
 
@@ -636,7 +638,9 @@ export function resolveConfig(
  *
  * The promise will be rejected if there was an error parsing the configuration file.
  */
-export function resolveConfigFile(filePath?: string): Promise<string | null>;
+export function resolveConfigFile(
+  fileUrlOrPath?: string | URL,
+): Promise<string | null>;
 
 /**
  * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.
@@ -785,9 +789,9 @@ export interface SupportInfo {
 }
 
 export interface FileInfoOptions {
-  ignorePath?: string | string[] | undefined;
+  ignorePath?: string | URL | (string | URL)[] | undefined;
   withNodeModules?: boolean | undefined;
-  plugins?: string[] | undefined;
+  plugins?: Array<string | Plugin> | undefined;
   resolveConfig?: boolean | undefined;
 }
 
@@ -797,14 +801,21 @@ export interface FileInfoResult {
 }
 
 export function getFileInfo(
-  filePath: string,
+  file: string | URL,
   options?: FileInfoOptions,
 ): Promise<FileInfoResult>;
+
+export interface SupportInfoOptions {
+  plugins?: Array<string | Plugin> | undefined;
+  showDeprecated?: boolean | undefined;
+}
 
 /**
  * Returns an object representing the parsers, languages and file types Prettier supports for the current version.
  */
-export function getSupportInfo(): Promise<SupportInfo>;
+export function getSupportInfo(
+  options?: SupportInfoOptions,
+): Promise<SupportInfo>;
 
 /**
  * `version` field in `package.json`
@@ -870,10 +881,19 @@ export namespace util {
     options?: SkipOptions | undefined,
   ): boolean;
 
+  function getNextNonSpaceNonCommentCharacterIndex(
+    text: string,
+    startIndex: number,
+  ): number | false;
+
   function getNextNonSpaceNonCommentCharacter(
     text: string,
     startIndex: number,
   ): string;
+
+  function isNextLineEmpty(text: string, startIndex: number): boolean;
+
+  function isPreviousLineEmpty(text: string, startIndex: number): boolean;
 
   function makeString(
     rawText: string,

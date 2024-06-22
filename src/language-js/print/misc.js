@@ -48,7 +48,9 @@ function printDefiniteToken(path) {
 
 const flowDeclareNodeTypes = new Set([
   "DeclareClass",
+  "DeclareComponent",
   "DeclareFunction",
+  "DeclareHook",
   "DeclareVariable",
   "DeclareExportDeclaration",
   "DeclareExportAllDeclaration",
@@ -124,13 +126,13 @@ function printTypeScriptAccessibilityToken(node) {
 }
 
 export {
-  printOptionalToken,
-  printDefiniteToken,
-  printDeclareToken,
-  printAbstractToken,
-  printFunctionTypeParameters,
-  printBindExpressionCallee,
-  printRestSpread,
   adjustClause,
+  printAbstractToken,
+  printBindExpressionCallee,
+  printDeclareToken,
+  printDefiniteToken,
+  printFunctionTypeParameters,
+  printOptionalToken,
+  printRestSpread,
   printTypeScriptAccessibilityToken,
 };

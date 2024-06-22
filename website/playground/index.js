@@ -4,9 +4,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import Playground from "./Playground.js";
+import { fixPrettierVersion } from "./util.js";
 import VersionLink from "./VersionLink.js";
 import WorkerApi from "./WorkerApi.js";
-import { fixPrettierVersion } from "./util.js";
 
 class App extends React.Component {
   constructor() {
@@ -53,7 +53,7 @@ function augmentOption(option) {
   option.cliName =
     "--" +
     (option.inverted ? "no-" : "") +
-    option.name.replaceAll(/(?<=[a-z])(?=[A-Z])/g, "-").toLowerCase();
+    option.name.replaceAll(/(?<=[a-z])(?=[A-Z])/gu, "-").toLowerCase();
 
   return option;
 }

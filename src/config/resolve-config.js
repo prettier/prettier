@@ -1,43 +1,58 @@
 import path from "node:path";
-import micromatch from "micromatch";
-import mem, { memClear } from "mem";
-import partition from "../utils/partition.js";
-import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
-import getPrettierConfigExplorerWithoutCache from "./get-prettier-config-explorer.js";
 
-const getPrettierConfigExplorer = mem(getPrettierConfigExplorerWithoutCache, {
-  cacheKey: ([options]) => options.cache,
-});
-const memoizedLoadEditorConfig = mem(loadEditorConfigWithoutCache);
+import micromatch from "micromatch";
+import { toPath } from "url-or-path";
+
+import partition from "../utils/partition.js";
+import {
+  clearEditorconfigCache,
+  loadEditorconfig as loadEditorconfigForFile,
+} from "./editorconfig/index.js";
+import {
+  clearPrettierConfigCache,
+  loadPrettierConfig as loadPrettierConfigFile,
+  searchPrettierConfig,
+} from "./prettier-config/index.js";
+
 function clearCache() {
-  memClear(getPrettierConfigExplorer);
-  memClear(memoizedLoadEditorConfig);
+  clearPrettierConfigCache();
+  clearEditorconfigCache();
 }
 
-function loadEditorConfig(filePath, options) {
-  if (!filePath || !options.editorconfig) {
+function loadEditorconfig(file, options) {
+  if (!file || !options.editorconfig) {
     return;
   }
 
-  return (
-    options.useCache ? memoizedLoadEditorConfig : loadEditorConfigWithoutCache
-  )(filePath);
+  const shouldCache = options.useCache;
+  return loadEditorconfigForFile(file, { shouldCache });
 }
 
-function loadPrettierConfig(filePath, options) {
-  const { useCache, config: configPath } = options;
-  const { load, search } = getPrettierConfigExplorer({
-    cache: Boolean(useCache),
-  });
-  return configPath ? load(configPath) : search(filePath);
+async function loadPrettierConfig(file, options) {
+  const shouldCache = options.useCache;
+  let configFile = options.config;
+
+  if (!configFile) {
+    const directory = file ? path.dirname(path.resolve(file)) : undefined;
+    configFile = await searchPrettierConfig(directory, { shouldCache });
+  }
+
+  if (!configFile) {
+    return;
+  }
+
+  const config = await loadPrettierConfigFile(configFile, { shouldCache });
+
+  return { config, configFile };
 }
 
-async function resolveConfig(filePath, options) {
+async function resolveConfig(fileUrlOrPath, options) {
   options = { useCache: true, ...options };
+  const filePath = toPath(fileUrlOrPath);
 
   const [result, editorConfigured] = await Promise.all([
     loadPrettierConfig(filePath, options),
-    loadEditorConfig(filePath, options),
+    loadEditorconfig(filePath, options),
   ]);
 
   if (!result && !editorConfigured) {
@@ -52,7 +67,7 @@ async function resolveConfig(filePath, options) {
   if (Array.isArray(merged.plugins)) {
     merged.plugins = merged.plugins.map((value) =>
       typeof value === "string" && value.startsWith(".") // relative path
-        ? path.resolve(path.dirname(result.filepath), value)
+        ? path.resolve(path.dirname(result.configFile), value)
         : value,
     );
   }
@@ -60,17 +75,19 @@ async function resolveConfig(filePath, options) {
   return merged;
 }
 
-async function resolveConfigFile(filePath) {
-  const { search } = getPrettierConfigExplorer({ cache: false });
-  const result = await search(filePath);
-  return result ? result.filepath : null;
+async function resolveConfigFile(fileUrlOrPath) {
+  const directory = fileUrlOrPath
+    ? path.dirname(path.resolve(toPath(fileUrlOrPath)))
+    : undefined;
+  const result = await searchPrettierConfig(directory, { shouldCache: false });
+  return result ?? null;
 }
 
 function mergeOverrides(configResult, filePath) {
-  const { config, filepath: configPath } = configResult || {};
+  const { config, configFile } = configResult || {};
   const { overrides, ...options } = config || {};
   if (filePath && overrides) {
-    const relativeFilePath = path.relative(path.dirname(configPath), filePath);
+    const relativeFilePath = path.relative(path.dirname(configFile), filePath);
     for (const override of overrides) {
       if (
         pathMatchesGlobs(
@@ -110,4 +127,4 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   );
 }
 
-export { resolveConfig, resolveConfigFile, clearCache };
+export { clearCache, resolveConfig, resolveConfigFile };

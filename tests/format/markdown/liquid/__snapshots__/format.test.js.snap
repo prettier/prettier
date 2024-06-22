@@ -1,0 +1,241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`example-1.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+{% include_relative _installations/tarball.md %}
+
+{% cloudinary nice_prefix_-_for_the_filename.jpg %}
+
+# Userscripts <span>[{% img github.svg alt:"View on GitHub" title:"View on GitHub" %}](https://github.com/Charcoal-SE/Userscripts) [Build <span>status loading…</span>](//travis-ci.org/Charcoal-SE/userscripts){: .build}</span>
+
+{% css userscripts %}
+{% js userscripts %}
+
+{{ foo
+multiline
+where does it end }}
+
+=====================================output=====================================
+{% include_relative _installations/tarball.md %}
+
+{% cloudinary nice_prefix_-_for_the_filename.jpg %}
+
+# Userscripts <span>[{% img github.svg alt:"View on GitHub" title:"View on GitHub" %}](https://github.com/Charcoal-SE/Userscripts) [Build <span>status loading…</span>](//travis-ci.org/Charcoal-SE/userscripts){: .build}</span>
+
+{% css userscripts %} {% js userscripts %}
+
+{{ foo
+multiline
+where does it end }}
+
+================================================================================
+`;
+
+exports[`example-1.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{% include_relative _installations/tarball.md %}
+
+{% cloudinary nice_prefix_-_for_the_filename.jpg %}
+
+# Userscripts <span>[{% img github.svg alt:"View on GitHub" title:"View on GitHub" %}](https://github.com/Charcoal-SE/Userscripts) [Build <span>status loading…</span>](//travis-ci.org/Charcoal-SE/userscripts){: .build}</span>
+
+{% css userscripts %}
+{% js userscripts %}
+
+{{ foo
+multiline
+where does it end }}
+
+=====================================output=====================================
+{% include_relative _installations/tarball.md %}
+
+{% cloudinary nice_prefix_-_for_the_filename.jpg %}
+
+# Userscripts <span>[{% img github.svg alt:"View on GitHub" title:"View on GitHub" %}](https://github.com/Charcoal-SE/Userscripts) [Build <span>status loading…</span>](//travis-ci.org/Charcoal-SE/userscripts){: .build}</span>
+
+{% css userscripts %}
+{% js userscripts %}
+
+{{ foo
+multiline
+where does it end }}
+
+================================================================================
+`;
+
+exports[`unbalanced-mismatched-braces.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
+
+=====================================output=====================================
+Braces {% doesn't match so these words should not be considered as _liquid node_
+}}
+
+================================================================================
+`;
+
+exports[`unbalanced-mismatched-braces.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
+
+=====================================output=====================================
+Braces {% doesn't match so these words should not be considered as _liquid node_ }}
+
+================================================================================
+`;
+
+exports[`unbalanced-object-close-only.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+Following brace doesn't   open  so these words    should not be   considered as *liquid node* }}
+
+=====================================output=====================================
+Following brace doesn't open so these words should not be considered as _liquid
+node_ }}
+
+================================================================================
+`;
+
+exports[`unbalanced-object-close-only.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+
+Following brace doesn't   open  so these words    should not be   considered as *liquid node* }}
+
+=====================================output=====================================
+Following brace doesn't open so these words should not be considered as _liquid node_ }}
+
+================================================================================
+`;
+
+exports[`unbalanced-object-open-only.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+This brace {{ doesn't   close  so these words    should not be   considered as *liquid node*
+
+=====================================output=====================================
+This brace {{ doesn't close so these words should not be considered as _liquid
+node_
+
+================================================================================
+`;
+
+exports[`unbalanced-object-open-only.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+
+This brace {{ doesn't   close  so these words    should not be   considered as *liquid node*
+
+=====================================output=====================================
+This brace {{ doesn't close so these words should not be considered as _liquid node_
+
+================================================================================
+`;
+
+exports[`unbalanced-template-close-only.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+Following brace doesn't   open  so these words    should not be   considered as *liquid node* %}
+
+=====================================output=====================================
+Following brace doesn't open so these words should not be considered as _liquid
+node_ %}
+
+================================================================================
+`;
+
+exports[`unbalanced-template-close-only.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+
+Following brace doesn't   open  so these words    should not be   considered as *liquid node* %}
+
+=====================================output=====================================
+Following brace doesn't open so these words should not be considered as _liquid node_ %}
+
+================================================================================
+`;
+
+exports[`unbalanced-template-open-only.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+
+This brace {% doesn't   close  so these words    should not be   considered as *liquid node*
+
+=====================================output=====================================
+This brace {% doesn't close so these words should not be considered as _liquid
+node_
+
+================================================================================
+`;
+
+exports[`unbalanced-template-open-only.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+
+This brace {% doesn't   close  so these words    should not be   considered as *liquid node*
+
+=====================================output=====================================
+This brace {% doesn't close so these words should not be considered as _liquid node_
+
+================================================================================
+`;

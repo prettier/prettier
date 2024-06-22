@@ -1,67 +1,74 @@
 import collapseWhiteSpace from "collapse-white-space";
-import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
-import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
-import getStringWidth from "../utils/get-string-width.js";
-import isNextLineEmpty from "../utils/is-next-line-empty.js";
-import getPreferredQuote from "../utils/get-preferred-quote.js";
+import escapeStringRegexp from "escape-string-regexp";
+
 import {
-  breakParent,
-  join,
+  align,
+  fill,
+  group,
+  hardline,
+  indent,
   line,
   literalline,
   markAsRoot,
-  hardline,
   softline,
-  ifBreak,
-  fill,
-  align,
-  indent,
-  group,
-  hardlineWithoutBreakParent,
 } from "../document/builders.js";
-import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
-import { printDocToString } from "../document/printer.js";
+import { DOC_TYPE_STRING } from "../document/constants.js";
+import { getDocType, replaceEndOfLine } from "../document/utils.js";
+import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
+import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
+import getPreferredQuote from "../utils/get-preferred-quote.js";
+import isNextLineEmpty from "../utils/is-next-line-empty.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
-import embed from "./embed.js";
-import { insertPragma } from "./pragma.js";
-import { locStart, locEnd } from "./loc.js";
-import preprocess from "./print-preprocess.js";
 import clean from "./clean.js";
+import { PUNCTUATION_REGEXP } from "./constants.evaluate.js";
+import embed from "./embed.js";
+import getVisitorKeys from "./get-visitor-keys.js";
+import { locEnd, locStart } from "./loc.js";
+import { insertPragma } from "./pragma.js";
+import { printTable } from "./print/table.js";
+import { printParagraph } from "./print-paragraph.js";
+import preprocess from "./print-preprocess.js";
+import { printSentence } from "./print-sentence.js";
+import { printWhitespace } from "./print-whitespace.js";
 import {
   hasGitDiffFriendlyOrderedList,
-  splitText,
-  punctuationPattern,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  splitText,
 } from "./utils.js";
-import getVisitorKeys from "./get-visitor-keys.js";
-import { printWhitespace } from "./print-whitespace.js";
 
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-const SIBLING_NODE_TYPES = new Set([
-  "listItem",
-  "definition",
-  "footnoteDefinition",
-]);
+const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
 
 function genericPrint(path, options, print) {
   const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
-    return splitText(
+    /** @type {Doc} */
+    const parts = [""];
+    const textsNodes = splitText(
       options.originalText.slice(
         node.position.start.offset,
         node.position.end.offset,
       ),
-    ).map((node) =>
-      node.type === "word"
-        ? node.value
-        : printWhitespace(path, node.value, options.proseWrap, true),
     );
+    for (const node of textsNodes) {
+      if (node.type === "word") {
+        parts.push([parts.pop(), node.value]);
+        continue;
+      }
+      const doc = printWhitespace(path, node.value, options.proseWrap, true);
+      if (getDocType(doc) === DOC_TYPE_STRING) {
+        parts.push([parts.pop(), doc]);
+        continue;
+      }
+      parts.push(doc);
+    }
+    return fill(parts);
   }
 
   switch (node.type) {
@@ -70,7 +77,7 @@ function genericPrint(path, options, print) {
         node.raw ??
         options.originalText.slice(
           node.position.start.offset,
-          node.position.end.offset
+          node.position.end.offset,
         )
       );
     case "root":
@@ -78,33 +85,31 @@ function genericPrint(path, options, print) {
       if (node.children.length === 0) {
         return "";
       }
-      return [normalizeDoc(printRoot(path, options, print)), hardline];
+      return [printRoot(path, options, print), hardline];
     case "paragraph":
-      return printChildren(path, options, print, {
-        postprocessor: fill,
-      });
+      return printParagraph(path, options, print);
     case "sentence":
-      return printChildren(path, options, print);
+      return printSentence(path, print);
     case "word": {
       if (options.parser !== "mdx") {
         return node.value;
       }
 
       let escapedValue = node.value
-        .replaceAll("*", "\\*") // escape all `*`
+        .replaceAll("*", String.raw`\*`) // escape all `*`
         .replaceAll(
           new RegExp(
             [
-              `(^|${punctuationPattern})(_+)`,
-              `(_+)(${punctuationPattern}|$)`,
+              `(^|${PUNCTUATION_REGEXP.source})(_+)`,
+              `(_+)(${PUNCTUATION_REGEXP.source}|$)`,
             ].join("|"),
-            "g",
+            "gu",
           ),
           (_, text1, underscore1, underscore2, text2) =>
             (underscore1
               ? `${text1}${underscore1}`
               : `${underscore2}${text2}`
-            ).replaceAll("_", "\\_"),
+            ).replaceAll("_", String.raw`\_`),
         ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
 
       const isFirstSentence = (node, name, index) =>
@@ -123,7 +128,7 @@ function genericPrint(path, options, print) {
           ))
       ) {
         // backslash is parsed as part of autolinks, so we need to remove it
-        escapedValue = escapedValue.replace(/^(\\?[*_])+/, (prefix) =>
+        escapedValue = escapedValue.replace(/^(\\?[*_])+/u, (prefix) =>
           prefix.replaceAll("\\", ""),
         );
       }
@@ -135,7 +140,7 @@ function genericPrint(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        next && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value)
+        next && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/u.test(next.value)
           ? "never"
           : options.proseWrap;
 
@@ -176,7 +181,7 @@ function genericPrint(path, options, print) {
       const padding =
         code.startsWith("`") ||
         code.endsWith("`") ||
-        (/^[\n ]/.test(code) && /[\n ]$/.test(code) && /[^\n ]/.test(code))
+        (/^[\n ]/u.test(code) && /[\n ]$/u.test(code) && /[^\n ]/u.test(code))
           ? " "
           : "";
       return [backtickString, padding, code, padding, backtickString];
@@ -184,7 +189,7 @@ function genericPrint(path, options, print) {
     case "wikiLink": {
       let contents = node.value;
       if (options.proseWrap !== "preserve") {
-        contents = node.value.replaceAll(/[\t\n]+/g, " ");
+        contents = node.value.replaceAll(/[\t\n]+/gu, " ");
       }
 
       return ["[[", contents, "]]"];
@@ -255,10 +260,7 @@ function genericPrint(path, options, print) {
         node.lang || "",
         node.meta ? " " + node.meta : "",
         hardline,
-        replaceEndOfLine(
-          node.value,
-          hardline
-        ),
+        replaceEndOfLine(node.value, hardline),
         hardline,
         style,
       ];
@@ -267,7 +269,7 @@ function genericPrint(path, options, print) {
       const { parent, isLast } = path;
       const value =
         parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
-      const isHtmlComment = /^<!--.*-->$/s.test(value);
+      const isHtmlComment = /^<!--.*-->$/su.test(value);
 
       return replaceEndOfLine(
         value,
@@ -310,12 +312,12 @@ function genericPrint(path, options, print) {
               ? (childPath.isFirst
                   ? node.start
                   : isGitDiffFriendlyOrderedList
-                  ? 1
-                  : node.start + childPath.index) +
+                    ? 1
+                    : node.start + childPath.index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
-              ? "- "
-              : "* ";
+                ? "- "
+                : "* ";
 
             return node.isAligned ||
               /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
@@ -345,8 +347,8 @@ function genericPrint(path, options, print) {
         node.referenceType === "full"
           ? printLinkReference(node)
           : node.referenceType === "collapsed"
-          ? "[]"
-          : "",
+            ? "[]"
+            : "",
       ];
     case "imageReference":
       switch (node.referenceType) {
@@ -401,7 +403,6 @@ function genericPrint(path, options, print) {
                     isFirst ? group([softline, print()]) : print(),
                 }),
               ),
-              path.next?.type === "footnoteDefinition" ? softline : "",
             ]),
       ];
     }
@@ -410,7 +411,7 @@ function genericPrint(path, options, print) {
     case "tableCell":
       return printChildren(path, options, print);
     case "break":
-      return /\s/.test(options.originalText[node.position.start.offset])
+      return /\s/u.test(options.originalText[node.position.start.offset])
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
@@ -506,83 +507,6 @@ function getNthSiblingIndex(node, parentNode, condition) {
   }
 }
 
-function printTable(path, options, print) {
-  const { node } = path;
-
-  const columnMaxWidths = [];
-  // { [rowIndex: number]: { [columnIndex: number]: {text: string, width: number} } }
-  const contents = path.map(
-    () =>
-      path.map(({ index: columnIndex }) => {
-        const text = printDocToString(print(), options).formatted;
-        const width = getStringWidth(text);
-        columnMaxWidths[columnIndex] = Math.max(
-          columnMaxWidths[columnIndex] || 3, // minimum width = 3 (---, :--, :-:, --:)
-          width,
-        );
-        return { text, width };
-      }, "children"),
-    "children",
-  );
-
-  const alignedTable = printTableContents(/* isCompact */ false);
-  if (options.proseWrap !== "never") {
-    return [breakParent, alignedTable];
-  }
-
-  // Only if the --prose-wrap never is set and it exceeds the print width.
-  const compactTable = printTableContents(/* isCompact */ true);
-  return [breakParent, group(ifBreak(compactTable, alignedTable))];
-
-  function printTableContents(isCompact) {
-    /** @type{Doc[]} */
-    const parts = [printRow(contents[0], isCompact), printAlign(isCompact)];
-    if (contents.length > 1) {
-      parts.push(
-        join(
-          hardlineWithoutBreakParent,
-          contents
-            .slice(1)
-            .map((rowContents) => printRow(rowContents, isCompact)),
-        ),
-      );
-    }
-    return join(hardlineWithoutBreakParent, parts);
-  }
-
-  function printAlign(isCompact) {
-    const align = columnMaxWidths.map((width, index) => {
-      const align = node.align[index];
-      const first = align === "center" || align === "left" ? ":" : "-";
-      const last = align === "center" || align === "right" ? ":" : "-";
-      const middle = isCompact ? "-" : "-".repeat(width - 2);
-      return `${first}${middle}${last}`;
-    });
-
-    return `| ${align.join(" | ")} |`;
-  }
-
-  function printRow(rowContents, isCompact) {
-    const columns = rowContents.map(({ text, width }, columnIndex) => {
-      if (isCompact) {
-        return text;
-      }
-      const spaces = columnMaxWidths[columnIndex] - width;
-      const align = node.align[columnIndex];
-      let before = 0;
-      if (align === "right") {
-        before = spaces;
-      } else if (align === "center") {
-        before = Math.floor(spaces / 2);
-      }
-      const after = spaces - before;
-      return `${" ".repeat(before)}${text}${" ".repeat(after)}`;
-    });
-
-    return `| ${columns.join(" | ")} |`;
-  }
-}
-
 function printRoot(path, options, print) {
   /** @typedef {{ index: number, offset: number }} IgnorePosition */
   /** @type {Array<{start: IgnorePosition, end: IgnorePosition}>} */
@@ -646,8 +570,7 @@ function printRoot(path, options, print) {
 }
 
 function printChildren(path, options, print, events = {}) {
-  const { postprocessor = (parts) => parts, processor = () => print() } =
-    events;
+  const { processor = print } = events;
 
   const parts = [];
 
@@ -673,7 +596,7 @@ function printChildren(path, options, print, events = {}) {
     }
   }, "children");
 
-  return postprocessor(parts);
+  return parts;
 }
 
 function printIgnoreComment(node) {
@@ -696,7 +619,9 @@ function isPrettierIgnore(node) {
   let match;
 
   if (node.type === "html") {
-    match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
+    match = node.value.match(
+      /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/u,
+    );
   } else {
     let comment;
 
@@ -711,7 +636,7 @@ function isPrettierIgnore(node) {
     }
 
     if (comment) {
-      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/);
+      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/u);
     }
   }
 
@@ -750,7 +675,6 @@ function shouldPrePrintDoubleHardline(path, options) {
   const { node, previous, parent } = path;
   const isPrevNodeLooseListItem = isLooseListItem(previous, options);
 
-
   if (isPrevNodeLooseListItem) {
     return true;
   }
@@ -758,8 +682,10 @@ function shouldPrePrintDoubleHardline(path, options) {
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
-    parent.type === "listItem" && !path.callParent(({node, isLast}) => !isLast && isLooseListItem(node, options))
-
+    parent.type === "listItem" &&
+    !path.callParent(
+      ({ node, isLast }) => !isLast && isLooseListItem(node, options),
+    );
 
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
@@ -797,6 +723,13 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
+const encodeUrl = (url, characters) => {
+  for (const character of characters) {
+    url = url.replaceAll(character, encodeURIComponent(character));
+  }
+  return url;
+};
+
 /**
  * @param {string} url
  * @param {string[] | string} [dangerousCharOrChars]
@@ -809,8 +742,12 @@ function printUrl(url, dangerousCharOrChars = []) {
       ? dangerousCharOrChars
       : [dangerousCharOrChars]),
   ];
-  return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(url)
-    ? `<${url}>`
+
+  return new RegExp(
+    dangerousChars.map((x) => escapeStringRegexp(x)).join("|"),
+    "u",
+  ).test(url)
+    ? `<${encodeUrl(url, "<>")}>`
     : url;
 }
 
@@ -823,8 +760,9 @@ function printTitle(title, options, printSpace = true) {
   }
 
   // title is escaped before `remark-parse` v10
-  if (options.parser === "mdx")
-  {title = title.replaceAll(/\\(?=["')])/g, "");}
+  if (options.parser === "mdx") {
+    title = title.replaceAll(/\\(?=["')])/gu, "");
+  }
 
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes

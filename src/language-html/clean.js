@@ -10,24 +10,56 @@ const ignoredProperties = new Set([
   "tagDefinition",
   "tokens",
   "valueTokens",
+  "switchValueSourceSpan",
+  "expSourceSpan",
+  "valueSourceSpan",
 ]);
 
-function clean(ast, newNode) {
-  if (ast.type === "text" || ast.type === "comment") {
+const embeddedAngularControlFlowBlocks = new Set([
+  "if",
+  "else if",
+  "for",
+  "switch",
+  "case",
+]);
+
+function clean(original, cloned) {
+  if (original.type === "text" || original.type === "comment") {
     return null;
   }
 
   // may be formatted by multiparser
-  if (isFrontMatter(ast) || ast.type === "yaml" || ast.type === "toml") {
+  if (
+    isFrontMatter(original) ||
+    original.type === "yaml" ||
+    original.type === "toml"
+  ) {
     return null;
   }
 
-  if (ast.type === "attribute") {
-    delete newNode.value;
+  if (original.type === "attribute") {
+    delete cloned.value;
   }
 
-  if (ast.type === "docType") {
-    delete newNode.value;
+  if (original.type === "docType") {
+    delete cloned.value;
+  }
+
+  if (
+    original.type === "angularControlFlowBlock" &&
+    original.parameters?.children
+  ) {
+    for (const parameter of cloned.parameters.children) {
+      if (embeddedAngularControlFlowBlocks.has(original.name)) {
+        delete parameter.expression;
+      } else {
+        parameter.expression = parameter.expression.trim();
+      }
+    }
+  }
+
+  if (original.type === "angularIcuExpression") {
+    cloned.switchValue = original.switchValue.trim();
   }
 }
 

@@ -1,4 +1,5 @@
 import PostcssSelectorParser from "postcss-selector-parser/dist/processor.js";
+
 import { addTypePrefix } from "./utils.js";
 
 function parseSelector(selector) {
@@ -6,7 +7,7 @@ function parseSelector(selector) {
   // the content of the comment as selectors which turns it into complete
   // garbage. Better to print the whole selector as-is and not try to parse
   // and reformat it.
-  if (/\/\/|\/\*/.test(selector)) {
+  if (/\/\/|\/\*/u.test(selector)) {
     return {
       type: "selector-unknown",
       value: selector.trim(),

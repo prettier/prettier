@@ -1,10 +1,10 @@
-import { workerData, parentPort } from "node:worker_threads";
 import fs from "node:fs";
 import path from "node:path";
-import url from "node:url";
 import readline from "node:readline";
-import { cosmiconfig } from "cosmiconfig";
-import { prettierCli, mockable as mockableModuleFile } from "./env.js";
+import url from "node:url";
+import { parentPort, workerData } from "node:worker_threads";
+
+import { prettierCli, prettierMainEntry } from "./env.js";
 
 const normalizeToPosix =
   path.sep === "\\"
@@ -47,8 +47,8 @@ async function run() {
         stream === process.stdout
           ? "process.stdout"
           : stream === process.stderr
-          ? "process.stderr"
-          : "unknown stream"
+            ? "process.stderr"
+            : "unknown stream"
       })]]\n`,
     );
   };
@@ -56,9 +56,8 @@ async function run() {
   process.stdin.isTTY = Boolean(options.isTTY);
   process.stdout.isTTY = Boolean(options.stdoutIsTTY);
 
-  const { default: mockable } = await import(
-    url.pathToFileURL(mockableModuleFile)
-  );
+  const prettier = await import(url.pathToFileURL(prettierMainEntry));
+  const { mockable } = prettier.__debug;
 
   // We cannot use `jest.setMock("get-stream", impl)` here, because in the
   // production build everything is bundled into one file so there is no
@@ -66,12 +65,8 @@ async function run() {
   // eslint-disable-next-line require-await
   mockable.getStdin = async () => options.input || "";
   mockable.isCI = () => Boolean(options.ci);
-  mockable.cosmiconfig = (moduleName, options) =>
-    cosmiconfig(moduleName, {
-      ...options,
-      stopDir: url.fileURLToPath(new URL("./cli", import.meta.url)),
-    });
-  mockable.findParentDir = () => process.cwd();
+  mockable.getPrettierConfigSearchStopDirectory = () =>
+    url.fileURLToPath(new URL("./cli", import.meta.url));
   // eslint-disable-next-line require-await
   mockable.writeFormattedFile = async (filename, content) => {
     filename = normalizeToPosix(path.relative(process.cwd(), filename));
@@ -90,7 +85,7 @@ async function run() {
     });
   };
 
-  const { promise } = await import(url.pathToFileURL(prettierCli));
+  const { __promise: promise } = await import(url.pathToFileURL(prettierCli));
   await promise;
 }
 

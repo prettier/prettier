@@ -1,6 +1,6 @@
-import { skipEverythingButNewLine } from "../utils/skip.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import lineColumnToIndex from "../utils/line-column-to-index.js";
+import { skipEverythingButNewLine } from "../utils/skip.js";
 
 function calculateLocStart(node, text) {
   // `postcss>=8`
@@ -28,8 +28,7 @@ function calculateLocEnd(node, text) {
 
   // `postcss>=8`
   if (typeof node.source?.end?.offset === "number") {
-    // https://github.com/postcss/postcss/issues/1450
-    return node.source.end.offset + 1;
+    return node.source.end.offset;
   }
 
   if (node.source) {
@@ -95,7 +94,7 @@ function getValueRootOffset(node) {
 
   if (node.type === "css-atrule" && typeof node.name === "string") {
     result +=
-      1 + node.name.length + node.raws.afterName.match(/^\s*:?\s*/)[0].length;
+      1 + node.name.length + node.raws.afterName.match(/^\s*:?\s*/u)[0].length;
   }
 
   if (node.type !== "css-atrule" && typeof node.raws?.between === "string") {
@@ -224,7 +223,7 @@ function replaceQuotesInInlineComments(text) {
   for (const [start, end] of inlineCommentsToReplace) {
     text =
       text.slice(0, start) +
-      text.slice(start, end).replaceAll(/["'*]/g, " ") +
+      text.slice(start, end).replaceAll(/["'*]/gu, " ") +
       text.slice(end);
   }
 
@@ -239,4 +238,4 @@ function locEnd(node) {
   return node.source?.endOffset;
 }
 
-export { locStart, locEnd, calculateLoc, replaceQuotesInInlineComments };
+export { calculateLoc, locEnd, locStart, replaceQuotesInInlineComments };

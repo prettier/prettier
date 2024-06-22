@@ -1,12 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+
 import createEsmUtils from "esm-utils";
 import fastGlob from "fast-glob";
-import { projectRoot } from "../env.js";
-import prettier from "../../config/prettier-entry.js";
-import createSandBox from "../../config/utils/create-sandbox.cjs";
+
 import coreOptions from "../../../src/main/core-options.evaluate.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
+import prettier from "../../config/prettier-entry.js";
+import createSandBox from "../../config/utils/create-sandbox.cjs";
+import { projectRoot } from "../env.js";
 
 const { require, importModule } = createEsmUtils(import.meta);
 
@@ -96,10 +98,9 @@ test("global objects", async () => {
 });
 
 test("Commonjs version", () => {
-  const prettierCommonjsVersion = require(path.join(
-    distDirectory,
-    "index.cjs",
-  ));
+  const prettierCommonjsVersion = require(
+    path.join(distDirectory, "index.cjs"),
+  );
 
   expect(Object.keys(prettierCommonjsVersion).sort()).toEqual(
     Object.keys(prettier)
@@ -119,7 +120,9 @@ test("Commonjs version", () => {
   expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
 
   expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toEqual(
-    Object.keys(prettier.__debug).sort(),
+    Object.keys(prettier.__debug)
+      .filter((key) => key !== "mockable")
+      .sort(),
   );
   expect(typeof prettierCommonjsVersion.__debug.parse).toBe("function");
 

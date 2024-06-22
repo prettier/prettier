@@ -1,15 +1,15 @@
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import hasNewline from "../../utils/has-newline.js";
-import isIgnored from "../utils/is-ignored.js";
 import {
-  line,
-  hardline,
-  join,
   breakParent,
   group,
+  hardline,
+  join,
+  line,
 } from "../../document/builders.js";
-import { locEnd, hasSameLocStart } from "../loc.js";
+import hasNewline from "../../utils/has-newline.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { hasSameLocStart, locEnd } from "../loc.js";
 import { isExportDeclaration } from "../utils/index.js";
+import isIgnored from "../utils/is-ignored.js";
 
 function printClassMemberDecorators(path, options, print) {
   const { node } = path;
@@ -59,8 +59,8 @@ function printDecorators(path, options, print) {
     path.key === "declaration" && isExportDeclaration(parent)
       ? hardline
       : shouldBreak
-      ? breakParent
-      : "",
+        ? breakParent
+        : "",
     join(line, path.map(print, "decorators")),
     line,
   ];
@@ -87,8 +87,8 @@ function hasDecoratorsBeforeExport(node) {
 }
 
 export {
-  printDecorators,
-  printClassMemberDecorators,
-  printDecoratorsBeforeExport,
   hasDecoratorsBeforeExport,
+  printClassMemberDecorators,
+  printDecorators,
+  printDecoratorsBeforeExport,
 };

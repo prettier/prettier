@@ -1,6 +1,7 @@
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
 import flowVisitorKeys from "hermes-parser/dist/generated/ESTreeVisitorKeys.js";
+
 import unionVisitorKeys from "./union-visitor-keys.js";
 
 const angularVisitorKeys = {
@@ -40,12 +41,15 @@ const additionalVisitorKeys = {
   TypePredicate: ["asserts"],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
+  AsExpression: ["expression", "typeAnnotation"],
+  AsConstExpression: ["expression"],
+  SatisfiesExpression: ["expression", "typeAnnotation"],
+  TypeofTypeAnnotation: ["argument", "typeArguments"],
 };
 
 const excludeKeys = {
   // From `tsVisitorKeys`
   MethodDefinition: ["typeParameters"],
-  TSPropertySignature: ["initializer"],
 
   // From `flowVisitorKeys`
   ArrowFunctionExpression: ["id"],
@@ -58,9 +62,19 @@ const excludeKeys = {
   // TupleTypeAnnotation: ["types"],
   PropertyDefinition: ["tsModifiers"],
 
-  // From `babelVisitorKeys`
-  DeclareInterface: ["mixins", "implements"],
-  InterfaceDeclaration: ["mixins", "implements"],
+  // Legacy property
+  ExportAllDeclaration: ["assertions"],
+  ExportNamedDeclaration: ["assertions"],
+  ImportDeclaration: ["assertions"],
+
+  // `key` and `constraint` added in `@typescript-eslint/typescript-estree` v8
+  // https://github.com/typescript-eslint/typescript-eslint/pull/7065
+  // TODO: Use the new AST properties instead
+  TSMappedType: ["key", "constraint"],
+  // `body` added in `@typescript-eslint/typescript-estree` v8
+  // https://github.com/typescript-eslint/typescript-eslint/pull/8920
+  // TODO: Use the new AST properties instead
+  TSEnumDeclaration: ["body"],
 };
 
 const visitorKeys = Object.fromEntries(
@@ -79,16 +93,5 @@ const visitorKeys = Object.fromEntries(
       : keys,
   ]),
 );
-
-// Unsupported
-for (const type of [
-  "ComponentDeclaration",
-  "ComponentParameter",
-  "ComponentTypeAnnotation",
-  "ComponentTypeParameter",
-  "DeclareComponent",
-]) {
-  delete visitorKeys[type];
-}
 
 export default visitorKeys;

@@ -1,9 +1,10 @@
 import { parse as parseTypeScript } from "@typescript-eslint/typescript-estree";
+
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
+import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
-import postprocess from "./postprocess/index.js";
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const baseParseOptions = {
@@ -16,20 +17,22 @@ const baseParseOptions = {
   comment: true,
   tokens: true,
   loggerFn: false,
-  project: [],
+  project: false,
+  jsDocParsingMode: "none",
   // TODO: Use new properties when update printer
   suppressDeprecatedPropertyWarnings: true,
 };
 
 function createParseError(error) {
-  const { message, location } = error;
-
-  /* c8 ignore next 3 */
-  if (!location) {
+  /* c8 ignore next 3 -- not a parse error */
+  if (!error?.location) {
     return error;
   }
 
-  const { start, end } = location;
+  const {
+    message,
+    location: { start, end },
+  } = error;
 
   return createError(message, {
     loc: {
@@ -40,9 +43,9 @@ function createParseError(error) {
   });
 }
 
-// https://typescript-eslint.io/architecture/parser/#jsx
+// https://typescript-eslint.io/packages/parser/#jsx
 const isKnownFileType = (filepath) =>
-  /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/i.test(filepath);
+  /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/iu.test(filepath);
 
 function getParseOptionsCombinations(text, options) {
   const filepath = options?.filepath;
@@ -92,7 +95,7 @@ function isProbablyJsx(text) {
       "|",
       "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
     ].join(""),
-    "m",
+    "mu",
   ).test(text);
 }
 

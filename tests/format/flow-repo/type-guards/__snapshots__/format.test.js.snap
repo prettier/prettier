@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comments-in-type-annotations.js [babel-flow] format 1`] = `
+"Unexpected token, expected "{" (3:51)
+  1 | type F = (x: mixed) /* C1 */ => /* C2 */ x /* C3 */ is /* C4 */ number;
+  2 |
+> 3 | function f(x: any) /* C1 */ : /* C2 */ x /* C3 */ is /* C4 */ number /* C5 */ { return true; }
+    |                                                   ^
+  4 |
+  5 | const arrow = (x: any): /* C1 */ x is (number /* C2 */ => /* C3 */ x /* C4 */ is /* C5 */ string /* C6 */ => /* C7 */ x /* C8 */ is /* C9 */ boolean) => true;
+  6 |
+Cause: Unexpected token, expected "{" (3:50)"
+`;
+
+exports[`comments-in-type-annotations.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type F = (x: mixed) /* C1 */ => /* C2 */ x /* C3 */ is /* C4 */ number;
+
+function f(x: any) /* C1 */ : /* C2 */ x /* C3 */ is /* C4 */ number /* C5 */ { return true; }
+
+const arrow = (x: any): /* C1 */ x is (number /* C2 */ => /* C3 */ x /* C4 */ is /* C5 */ string /* C6 */ => /* C7 */ x /* C8 */ is /* C9 */ boolean) => true;
+
+=====================================output=====================================
+type F = (x: mixed /* C1 */) => /* C2 */ x /* C3 */ is /* C4 */ number;
+
+function f(x: any) /* C1 */ : /* C2 */ x /* C3 */ is /* C4 */ number /* C5 */ {
+  return true;
+}
+
+const arrow = (
+  x: any,
+): /* C1 */ x is ((
+  number /* C2 */,
+) => /* C3 */ x /* C4 */ is /* C5 */ (
+  string /* C6 */,
+) => /* C7 */ x /* C8 */ is /* C9 */ boolean) => true;
+
+================================================================================
+`;
+
+exports[`passing.js [babel-flow] format 1`] = `
+"Unexpected token, expected "{" (5:20)
+  3 | type F = (x: mixed) => x is A;
+  4 |
+> 5 | function f(any): x is A { return true; }
+    |                    ^
+  6 |
+  7 | const arrow0 = (x: any): x is A => true;
+  8 | const arrow1 = (x: any): x is (y: A) => B => true;
+Cause: Unexpected token, expected "{" (5:19)"
+`;
+
+exports[`passing.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type F = (x: mixed) => x is A;
+
+function f(any): x is A { return true; }
+
+const arrow0 = (x: any): x is A => true;
+const arrow1 = (x: any): x is (y: A) => B => true;
+const arrow3 = (x: any): x is (y: A) => y is B => true;
+
+const needs_parens_1 = (x: any): x is (A => B) => true;
+const needs_parens_2 = (x: any): x is ((A) => B) => true;
+const needs_parens_3 = (x: any): x is (A => x is B) => true;
+const needs_parens_4 = (x: any): x is (A => x is B => x is C) => true;
+
+const needs_parens_5 = (x: any): x is (y: A) => (B => C) => true;
+const needs_parens_6 = (x: any): x is (y: A) => y is (B => C) => true;
+
+class C {
+  m(): this is D {}
+  f = (): this is D => {}
+}
+
+function asserts_1(x: any): asserts x {}
+function asserts_2(x: any): asserts x is A {}
+
+=====================================output=====================================
+// @flow
+
+type F = (x: mixed) => x is A;
+
+function f(any): x is A {
+  return true;
+}
+
+const arrow0 = (x: any): x is A => true;
+const arrow1 = (x: any): x is ((y: A) => B) => true;
+const arrow3 = (x: any): x is ((y: A) => y is B) => true;
+
+const needs_parens_1 = (x: any): x is ((A) => B) => true;
+const needs_parens_2 = (x: any): x is ((A) => B) => true;
+const needs_parens_3 = (x: any): x is ((A) => x is B) => true;
+const needs_parens_4 = (x: any): x is ((A) => x is (B) => x is C) => true;
+
+const needs_parens_5 = (x: any): x is ((y: A) => (B) => C) => true;
+const needs_parens_6 = (x: any): x is ((y: A) => y is (B) => C) => true;
+
+class C {
+  m(): this is D {}
+  f = (): this is D => {};
+}
+
+function asserts_1(x: any): asserts x {}
+function asserts_2(x: any): asserts x is A {}
+
+================================================================================
+`;

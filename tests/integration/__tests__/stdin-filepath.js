@@ -1,5 +1,6 @@
 import { isCI } from "ci-info";
 import { outdent } from "outdent";
+
 describe("format correctly if stdin content compatible with stdin-filepath", () => {
   runCli(
     "cli",
@@ -133,5 +134,16 @@ describe("output file as-is if stdin-filepath matched patterns in ignore-path", 
   }).test({
     stdout: "hello_world( );",
     status: 0,
+  });
+});
+
+describe("Should format stdin even if it's empty", () => {
+  runCli("cli", ["--stdin-filepath", "example.js"], {
+    isTTY: true,
+  }).test({
+    stdout: "",
+    status: 0,
+    stderr: "",
+    write: [],
   });
 });

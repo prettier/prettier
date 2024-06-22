@@ -1,4 +1,7 @@
+import fs from "node:fs/promises";
+
 import outdent from "outdent";
+
 import jestPathSerializer from "../path-serializer.js";
 
 expect.addSnapshotSerializer(jestPathSerializer);
@@ -15,7 +18,7 @@ describe("throw error for unsupported extension", () => {
 describe("throw error with invalid config format", () => {
   runCli("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
     status: "non-zero",
-    stderr: expect.stringMatching(/Cannot find package '--invalid--'/),
+    stderr: expect.stringMatching(/Cannot find package '--invalid--'/u),
   });
 });
 
@@ -136,4 +139,73 @@ describe("Invalid toml file", () => {
       /* cSpell:enable */
     ),
   });
+});
+
+describe("Invalid yaml file", () => {
+  runCli("cli/config/invalid", [
+    "--config",
+    "broken-yaml/.prettierrc.yaml",
+    "--parser",
+    "babel",
+  ]).test({
+    status: 2,
+    stdout: "",
+    write: [],
+    stderr: expect.stringContaining(
+      /* cSpell:disable */
+      outdent`
+        end of the stream or a document separator is expected (2:1)
+
+         1 |   a
+         2 | -b
+        -----^
+      `
+        .split("\n")
+        .map((line) => `[error] ${line}`)
+        .join("\n"),
+      /* cSpell:enable */
+    ),
+  });
+});
+
+describe("Invalid config value", () => {
+  runCli("cli/config/invalid", [
+    "--config",
+    "invalid-config-value/prettier.config.mjs",
+    "--parser",
+    "babel",
+  ]).test({
+    status: 0,
+    stdout: "",
+    write: [],
+    stderr: "",
+  });
+});
+
+// Can't put a invalid `package.json` file in the test dir
+test("Invalid package.json", async () => {
+  const packageJsonFile = new URL(
+    "../cli/config/invalid/broken-package-json/package.json",
+    import.meta.url,
+  );
+
+  try {
+    await fs.writeFile(packageJsonFile, '{"prettier":{}}');
+    const { stdout: configFileForValidPackageJson } = await runCli(
+      "cli/config/invalid/broken-package-json",
+      ["--find-config-path", "foo.js"],
+    );
+
+    expect(configFileForValidPackageJson).toBe("package.json");
+
+    await fs.writeFile(packageJsonFile, '{"prettier":{');
+    const { stdout: configFileForInvalidPackageJson } = await runCli(
+      "cli/config/invalid/broken-package-json",
+      ["--find-config-path", "foo.js"],
+    );
+
+    expect(configFileForInvalidPackageJson).toBe(".prettierrc");
+  } finally {
+    await fs.rm(packageJsonFile, { force: true });
+  }
 });

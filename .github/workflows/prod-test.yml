@@ -26,10 +26,10 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v4
         with:
           cache: "yarn"
 
@@ -37,7 +37,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
@@ -56,38 +56,66 @@ jobs:
           - "windows-latest"
         node:
           # Latest even version
-          - "20"
+          - "22"
           # Minimal version for production
           - "14"
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
-            node: "18"
+            node: "22"
             FULL_TEST: true
           # Versions not tested on linux, normally only even versions
-          # If latest version is an odd number, it can be listed bellow too
+          # If latest version is an odd number, it can be listed below too
+          - os: "ubuntu-latest"
+            node: "20"
+          - os: "ubuntu-latest"
+            node: "18"
           - os: "ubuntu-latest"
             node: "16"
+          # Tests on Intel Mac x Node.js 14
+          - os: "macos-13"
+            node: "14"
+        # setup-node does not support Node.js 14 x M1 Mac
+        exclude:
+          - os: "macos-latest"
+            node: "14"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
-    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}${{ matrix.FULL_TEST && ' (Full Test)' || '' }}
+    name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Node.js ${{ matrix.node }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4
+
+      - name: Install yarn@3
+        if: ${{ matrix.node == '14' || matrix.node == '16' }}
+        run: |
+          yarn set version 3
+          cat .yarnrc.yml
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
+
+      # `jest@30.0.0-alpha.2` is the last version that supports Node.js v14
+      - name: Install jest@30.0.0-alpha.2
+        if: ${{ matrix.node == '14' }}
+        run: node ./scripts/prepare-nodejs-14-test.js
+
+      - name: Install Dependencies(yarn@3,mutable)
+        if: ${{ matrix.node == '14' || matrix.node == '16' }}
+        env:
+          YARN_ENABLE_IMMUTABLE_INSTALLS: false
+        run: yarn install
 
       - name: Install Dependencies
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
@@ -104,15 +132,15 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v4
         with:
           node-version: "0.10.48"
 
       - name: Download Artifact
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist

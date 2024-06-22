@@ -1,8 +1,8 @@
+import { group, ifBreak, indent, join, line } from "../../document/builders.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { join, line, group, indent, ifBreak } from "../../document/builders.js";
-import { hasComment, identity, CommentCheckFlags } from "../utils/index.js";
-import { getTypeParametersGroupId } from "./type-parameters.js";
+import { CommentCheckFlags, hasComment, identity } from "../utils/index.js";
 import { printDeclareToken } from "./misc.js";
+import { getTypeParametersGroupId } from "./type-parameters.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
