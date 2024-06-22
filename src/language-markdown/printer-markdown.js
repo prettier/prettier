@@ -17,7 +17,6 @@ import { getDocType, replaceEndOfLine } from "../document/utils.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
-import isNextLineEmpty from "../utils/is-next-line-empty.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import { PUNCTUATION_REGEXP } from "./constants.evaluate.js";
@@ -74,13 +73,12 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return (
-        node.raw ??
-        options.originalText.slice(
-          node.position.start.offset,
-          node.position.end.offset,
-        )
-      );
+      return options.parser === "mdx"
+        ? options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset,
+          )
+        : node.raw;
     case "root":
       /* c8 ignore next 3 */
       if (node.children.length === 0) {
@@ -195,7 +193,11 @@ function genericPrint(path, options, print) {
         contents = node.value.replaceAll(/[\t\n]+/gu, " ");
       }
 
-      return ["[[", contents.trim(), "]]"];
+      return [
+        "[[",
+        options.parser === "mdx" ? contents : contents.trim(),
+        "]]",
+      ];
     }
     case "link":
       if (!node.position) {
@@ -368,7 +370,7 @@ function genericPrint(path, options, print) {
         default:
           return [
             "!",
-            printLinkReference(node),
+            options.parser === "mdx" ? node.alt : printLinkReference(node),
             node.referenceType === "collapsed" ? "[]" : "",
           ];
       }
@@ -684,7 +686,6 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
     parent.type === "listItem" && !isLooseListItem(parent, options);
-
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&

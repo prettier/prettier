@@ -1,12 +1,41 @@
 import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
+// 0x0 ~ 0x10ffff
+const isSingleCharRegex = /^.$/su;
+
 function preprocess(ast, options) {
-  ast = addRawToText(ast, options);
+  if (options.parser === "mdx") {
+    ast = restoreUnescapedCharacter(ast, options);
+  } else {
+    ast = addRawToText(ast, options);
+  }
   ast = mergeContinuousTexts(ast);
   ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
   ast = markAlignedList(ast, options);
-  ast = splitTextIntoSentences(ast);
+  if (options.parser === "mdx") {
+    ast = splitTextIntoSentencesLegacy(ast);
+  } else {
+    ast = splitTextIntoSentences(ast);
+  }
   return ast;
+}
+
+function restoreUnescapedCharacter(ast, options) {
+  return mapAst(ast, (node) =>
+    node.type !== "text" ||
+    node.value === "*" ||
+    node.value === "_" || // handle these cases in printer
+    !isSingleCharRegex.test(node.value) ||
+    node.position.end.offset - node.position.start.offset === node.value.length
+      ? node
+      : {
+          ...node,
+          value: options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset,
+          ),
+        },
+  );
 }
 
 function addRawToText(ast, options) {
@@ -55,6 +84,31 @@ function mergeContinuousTexts(ast) {
       },
     }),
   );
+}
+
+function splitTextIntoSentencesLegacy(ast) {
+  return mapAst(ast, (node, index, [parentNode]) => {
+    if (node.type !== "text") {
+      return node;
+    }
+
+    let { value } = node;
+
+    if (parentNode.type === "paragraph") {
+      if (index === 0) {
+        value = value.trimStart();
+      }
+      if (index === parentNode.children.length - 1) {
+        value = value.trimEnd();
+      }
+    }
+
+    return {
+      type: "sentence",
+      position: node.position,
+      children: splitText(value),
+    };
+  });
 }
 
 function splitTextIntoSentences(ast) {
