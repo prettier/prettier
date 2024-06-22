@@ -656,22 +656,13 @@ function shouldPrePrintHardline({ node, parent }) {
 }
 
 function isLooseListItem(node, options) {
-  if (node.type !== "listItem") {
-    return false;
-  }
-
-  if (node.spread) {
-    return true;
-  }
-
-  // remark v8
-  if (options.parser === "mdx") {
-    // Check if `listItem` ends with `\n`
-    // since it can't be empty, so we only need check the last character
-    return options.originalText.charAt(node.position.end.offset - 1) === "\n";
-  }
-
-  return isNextLineEmpty(options.originalText, node.position.end.offset);
+  return (
+    node.type === "listItem" &&
+    (node.spread ||
+      // Check if `listItem` ends with `\n`
+      // since it can't be empty, so we only need check the last character
+      options.originalText.charAt(node.position.end.offset - 1) === "\n")
+  );
 }
 
 function shouldPrePrintDoubleHardline(path, options) {
