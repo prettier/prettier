@@ -1,13 +1,44 @@
 import { markdownLineEnding } from "micromark-util-character";
 import { codes, types } from "micromark-util-symbol";
 
-import { dataNode } from "./utils.js";
-
 /**
- * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
+ * @typedef {import('mdast-util-from-markdown').Extension} FromMarkdownExtension
  * @typedef {import('mdast-util-from-markdown').Token} Token
+ * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
+ * @typedef {import('mdast-util-from-markdown').Handle} Handle
  * @typedef {import('micromark-util-types').State} State
  */
+
+/**
+ * @param {string} type
+ * @returns {FromMarkdownExtension}
+ */
+function dataNode(type) {
+  return {
+    canContainEols: [type],
+    enter: { [type]: enterInlineMath },
+    exit: { [type]: exitInlineMath },
+  };
+
+  /** @type {Handle} */
+  function enterInlineMath(token) {
+    this.enter(
+      // @ts-expect-error
+      { type },
+      token,
+    );
+    this.buffer();
+  }
+
+  /** @type {Handle} */
+  function exitInlineMath(token) {
+    const d = this.resume();
+    /** @type {any} */
+    const node = this.stack.at(-1);
+    node.value = d;
+    this.exit(token);
+  }
+}
 
 /**
  * @this {import('unified').Processor}

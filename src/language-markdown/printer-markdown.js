@@ -369,8 +369,9 @@ function genericPrint(path, options, print) {
           return ["![", node.alt || "", "]", printLinkReference(node)];
         default:
           return [
-            "!",
-            options.parser === "mdx" ? node.alt : printLinkReference(node),
+            ...(options.parser === "mdx"
+              ? ["![", node.alt, "]"]
+              : ["!", printLinkReference(node)]),
             node.referenceType === "collapsed" ? "[]" : "",
           ];
       }
