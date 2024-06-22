@@ -1,4 +1,5 @@
 import footnotes from "remark-footnotes";
+import gfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
@@ -8,7 +9,6 @@ import { locEnd, locStart } from "./loc.js";
 import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import { hasPragma } from "./pragma.js";
 import frontMatter from "./unified-plugins/front-matter.js";
-import gfm from "./unified-plugins/gfm.js";
 import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 import liquid from "./unified-plugins/liquid-for-micromark.js";
 import wikiLink from "./unified-plugins/wiki-link-for-micromark.js";

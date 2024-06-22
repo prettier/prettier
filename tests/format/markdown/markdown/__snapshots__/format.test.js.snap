@@ -1568,22 +1568,25 @@ Specify the line length that the printer will wrap on.
 > With the print width set to 120, prettier may produce overly compact, or
 > otherwise undesirable code.
 
-Default | CLI Override | API Override --------|--------------|------------- \`80\`
-| \`--print-width <int>\` | \`printWidth: <int>\`
+| Default | CLI Override          | API Override        |
+| ------- | --------------------- | ------------------- |
+| \`80\`    | \`--print-width <int>\` | \`printWidth: <int>\` |
 
 ### Tab Width
 
 Specify the number of spaces per indentation-level.
 
-Default | CLI Override | API Override --------|--------------|------------- \`2\`
-| \`--tab-width <int>\` | \`tabWidth: <int>\`
+| Default | CLI Override        | API Override      |
+| ------- | ------------------- | ----------------- |
+| \`2\`     | \`--tab-width <int>\` | \`tabWidth: <int>\` |
 
 ### Tabs
 
 Indent lines with tabs instead of spaces
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`false\` | \`--use-tabs\` | \`useTabs: <bool>\`
+| Default | CLI Override | API Override      |
+| ------- | ------------ | ----------------- |
+| \`false\` | \`--use-tabs\` | \`useTabs: <bool>\` |
 
 ### Semicolons
 
@@ -1595,8 +1598,9 @@ Valid options:
 - \`false\` - Only add semicolons at the beginning of lines that may introduce ASI
   failures.
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`true\` | \`--no-semi\` | \`semi: <bool>\`
+| Default | CLI Override | API Override   |
+| ------- | ------------ | -------------- |
+| \`true\`  | \`--no-semi\`  | \`semi: <bool>\` |
 
 ### Quotes
 
@@ -1610,8 +1614,9 @@ Notes:
   results in \`"I'm double quoted"\` and \`"This \\"example\\" is single quoted"\`
   results in \`'This "example" is single quoted'\`.
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`false\` | \`--single-quote\` | \`singleQuote: <bool>\`
+| Default | CLI Override     | API Override          |
+| ------- | ---------------- | --------------------- |
+| \`false\` | \`--single-quote\` | \`singleQuote: <bool>\` |
 
 ### Trailing Commas
 
@@ -1626,9 +1631,9 @@ Valid options:
   This requires node 8 or a
   [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> |
-<code>trailingComma: "<none&#124;es5&#124;all>"</code>
+| Default  | CLI Override                                           | API Override                                           |
+| -------- | ------------------------------------------------------ | ------------------------------------------------------ |
+| \`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
 
 ### Bracket Spacing
 
@@ -1639,16 +1644,18 @@ Valid options:
 - \`true\` - Example: \`{ foo: bar }\`.
 - \`false\` - Example: \`{foo: bar}\`.
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`true\` | \`--no-bracket-spacing\` | \`bracketSpacing: <bool>\`
+| Default | CLI Override           | API Override             |
+| ------- | ---------------------- | ------------------------ |
+| \`true\`  | \`--no-bracket-spacing\` | \`bracketSpacing: <bool>\` |
 
 ### JSX Brackets
 
 Put the \`>\` of a multi-line JSX element at the end of the last line instead of
 being alone on the next line (does not apply to self closing elements).
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`false\` | \`--jsx-bracket-same-line\` | \`jsxBracketSameLine: <bool>\`
+| Default | CLI Override              | API Override                 |
+| ------- | ------------------------- | ---------------------------- |
+| \`false\` | \`--jsx-bracket-same-line\` | \`jsxBracketSameLine: <bool>\` |
 
 ### Range
 
@@ -1660,9 +1667,10 @@ character offset (inclusive and exclusive, respectively). The range will extend:
 - Backwards to the start of the first line containing the selected statement.
 - Forwards to the end of the selected statement.
 
-Default | CLI Override | API Override --------|--------------|------------- \`0\`
-| \`--range-start <int>\`| \`rangeStart: <int>\` \`Infinity\` | \`--range-end <int>\` |
-\`rangeEnd: <int>\`
+| Default    | CLI Override          | API Override        |
+| ---------- | --------------------- | ------------------- |
+| \`0\`        | \`--range-start <int>\` | \`rangeStart: <int>\` |
+| \`Infinity\` | \`--range-end <int>\`   | \`rangeEnd: <int>\`   |
 
 ### Parser
 
@@ -1686,9 +1694,9 @@ Built-in parsers:
 
 [Custom parsers](#custom-parser-api) are also supported. _Since v1.5.0_
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`babylon\` | \`--parser <string>\`<br />\`--parser ./my-parser\` |
-\`parser: "<string>"\`<br />\`parser: require("./my-parser")\`
+| Default   | CLI Override                                    | API Override                                               |
+| --------- | ----------------------------------------------- | ---------------------------------------------------------- |
+| \`babylon\` | \`--parser <string>\`<br />\`--parser ./my-parser\` | \`parser: "<string>"\`<br />\`parser: require("./my-parser")\` |
 
 ### Filepath
 
@@ -1700,8 +1708,9 @@ For example, the following will use \`postcss\` parser:
 cat foo | prettier --stdin-filepath foo.css
 \`\`\`
 
-Default | CLI Override | API Override --------|--------------|------------- None
-| \`--stdin-filepath <string>\` | \`filepath: "<string>"\`
+| Default | CLI Override                | API Override           |
+| ------- | --------------------------- | ---------------------- |
+| None    | \`--stdin-filepath <string>\` | \`filepath: "<string>"\` |
 
 ### Require pragma
 
@@ -1726,8 +1735,9 @@ or
  */
 \`\`\`
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`false\` | \`--require-pragma\` | \`requirePragma: <bool>\`
+| Default | CLI Override       | API Override            |
+| ------- | ------------------ | ----------------------- |
+| \`false\` | \`--require-pragma\` | \`requirePragma: <bool>\` |
 
 ## Configuration File
 
@@ -3530,22 +3540,25 @@ Specify the line length that the printer will wrap on.
 > With the print width set to 120, prettier may produce overly compact, or
 > otherwise undesirable code.
 
-Default | CLI Override | API Override --------|--------------|------------- \`80\`
-| \`--print-width <int>\` | \`printWidth: <int>\`
+| Default | CLI Override          | API Override        |
+| ------- | --------------------- | ------------------- |
+| \`80\`    | \`--print-width <int>\` | \`printWidth: <int>\` |
 
 ### Tab Width
 
 Specify the number of spaces per indentation-level.
 
-Default | CLI Override | API Override --------|--------------|------------- \`2\`
-| \`--tab-width <int>\` | \`tabWidth: <int>\`
+| Default | CLI Override        | API Override      |
+| ------- | ------------------- | ----------------- |
+| \`2\`     | \`--tab-width <int>\` | \`tabWidth: <int>\` |
 
 ### Tabs
 
 Indent lines with tabs instead of spaces
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`false\` | \`--use-tabs\` | \`useTabs: <bool>\`
+| Default | CLI Override | API Override      |
+| ------- | ------------ | ----------------- |
+| \`false\` | \`--use-tabs\` | \`useTabs: <bool>\` |
 
 ### Semicolons
 
@@ -3557,8 +3570,9 @@ Valid options:
 - \`false\` - Only add semicolons at the beginning of lines that may introduce ASI
   failures.
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`true\` | \`--no-semi\` | \`semi: <bool>\`
+| Default | CLI Override | API Override   |
+| ------- | ------------ | -------------- |
+| \`true\`  | \`--no-semi\`  | \`semi: <bool>\` |
 
 ### Quotes
 
@@ -3572,8 +3586,9 @@ Notes:
   results in \`"I'm double quoted"\` and \`"This \\"example\\" is single quoted"\`
   results in \`'This "example" is single quoted'\`.
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`false\` | \`--single-quote\` | \`singleQuote: <bool>\`
+| Default | CLI Override     | API Override          |
+| ------- | ---------------- | --------------------- |
+| \`false\` | \`--single-quote\` | \`singleQuote: <bool>\` |
 
 ### Trailing Commas
 
@@ -3588,9 +3603,9 @@ Valid options:
   This requires node 8 or a
   [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> |
-<code>trailingComma: "<none&#124;es5&#124;all>"</code>
+| Default  | CLI Override                                           | API Override                                           |
+| -------- | ------------------------------------------------------ | ------------------------------------------------------ |
+| \`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
 
 ### Bracket Spacing
 
@@ -3601,16 +3616,18 @@ Valid options:
 - \`true\` - Example: \`{ foo: bar }\`.
 - \`false\` - Example: \`{foo: bar}\`.
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`true\` | \`--no-bracket-spacing\` | \`bracketSpacing: <bool>\`
+| Default | CLI Override           | API Override             |
+| ------- | ---------------------- | ------------------------ |
+| \`true\`  | \`--no-bracket-spacing\` | \`bracketSpacing: <bool>\` |
 
 ### JSX Brackets
 
 Put the \`>\` of a multi-line JSX element at the end of the last line instead of
 being alone on the next line (does not apply to self closing elements).
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`false\` | \`--jsx-bracket-same-line\` | \`jsxBracketSameLine: <bool>\`
+| Default | CLI Override              | API Override                 |
+| ------- | ------------------------- | ---------------------------- |
+| \`false\` | \`--jsx-bracket-same-line\` | \`jsxBracketSameLine: <bool>\` |
 
 ### Range
 
@@ -3622,9 +3639,10 @@ character offset (inclusive and exclusive, respectively). The range will extend:
 - Backwards to the start of the first line containing the selected statement.
 - Forwards to the end of the selected statement.
 
-Default | CLI Override | API Override --------|--------------|------------- \`0\`
-| \`--range-start <int>\`| \`rangeStart: <int>\` \`Infinity\` | \`--range-end <int>\` |
-\`rangeEnd: <int>\`
+| Default    | CLI Override          | API Override        |
+| ---------- | --------------------- | ------------------- |
+| \`0\`        | \`--range-start <int>\` | \`rangeStart: <int>\` |
+| \`Infinity\` | \`--range-end <int>\`   | \`rangeEnd: <int>\`   |
 
 ### Parser
 
@@ -3648,9 +3666,9 @@ Built-in parsers:
 
 [Custom parsers](#custom-parser-api) are also supported. _Since v1.5.0_
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`babylon\` | \`--parser <string>\`<br />\`--parser ./my-parser\` |
-\`parser: "<string>"\`<br />\`parser: require("./my-parser")\`
+| Default   | CLI Override                                    | API Override                                               |
+| --------- | ----------------------------------------------- | ---------------------------------------------------------- |
+| \`babylon\` | \`--parser <string>\`<br />\`--parser ./my-parser\` | \`parser: "<string>"\`<br />\`parser: require("./my-parser")\` |
 
 ### Filepath
 
@@ -3662,8 +3680,9 @@ For example, the following will use \`postcss\` parser:
 cat foo | prettier --stdin-filepath foo.css
 \`\`\`
 
-Default | CLI Override | API Override --------|--------------|------------- None
-| \`--stdin-filepath <string>\` | \`filepath: "<string>"\`
+| Default | CLI Override                | API Override           |
+| ------- | --------------------------- | ---------------------- |
+| None    | \`--stdin-filepath <string>\` | \`filepath: "<string>"\` |
 
 ### Require pragma
 
@@ -3688,8 +3707,9 @@ or
  */
 \`\`\`
 
-Default | CLI Override | API Override --------|--------------|-------------
-\`false\` | \`--require-pragma\` | \`requirePragma: <bool>\`
+| Default | CLI Override       | API Override            |
+| ------- | ------------------ | ----------------------- |
+| \`false\` | \`--require-pragma\` | \`requirePragma: <bool>\` |
 
 ## Configuration File
 
