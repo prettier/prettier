@@ -192,7 +192,7 @@ function genericPrint(path, options, print) {
         contents = node.value.replaceAll(/[\t\n]+/gu, " ");
       }
 
-      return ["[[", contents, "]]"];
+      return ["[[", contents.trim(), "]]"];
     }
     case "link":
       if (!node.position) {
