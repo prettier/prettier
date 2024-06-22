@@ -1,100 +1,91 @@
-import { codes } from "micromark-util-symbol";
+import { markdownLineEnding } from "micromark-util-character";
+import { codes, types } from "micromark-util-symbol";
 
-import { markdownPlugin } from "./markdown-plugin.js";
+import { dataNode } from "./utils.js";
 
-/** @type {(type: string) => import('micromark-util-types').Construct} */
-const liquidConstruct = (type) => ({
-  name: type,
-  concrete: true,
-  tokenize(effects, ok, nok) {
-    let kind;
+/**
+ * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
+ * @typedef {import('mdast-util-from-markdown').Token} Token
+ * @typedef {import('micromark-util-types').State} State
+ */
+
+/**
+ * @this {import('unified').Processor}
+ */
+function remarkLiquid() {
+  /** @type {any} */
+  const data = this.data();
+
+  (data.micromarkExtensions ??= []).push(syntax());
+  (data.fromMarkdownExtensions ??= []).push(dataNode("liquidNode"));
+}
+
+/**
+ * @returns {import('micromark-util-types').Extension}
+ */
+function syntax() {
+  return {
+    text: {
+      [codes.leftCurlyBrace]: {
+        name: "liquid",
+        tokenize: liquidTokenize,
+      },
+    },
+  };
+
+  function liquidTokenize(effects, ok, nok) {
     return start;
 
-    /** @type {import('micromark-util-types').State} */
+    /** @type {State} */
     function start(code) {
-      effects.enter(type);
+      effects.enter("liquidNode");
+      effects.enter(types.data);
       effects.consume(code);
-      return openDelimiter;
+      return function (code) {
+        switch (code) {
+          case codes.percentSign:
+          case codes.leftCurlyBrace:
+            effects.consume(code);
+            return inside;
+          default:
+            return nok;
+        }
+      };
     }
 
-    /** @type {import('micromark-util-types').State} */
-    function openDelimiter(code) {
-      if (code === codes.percentSign) {
-        kind = "tag";
-        effects.consume(code);
-        return content;
+    /** @type {State} */
+    function inside(code) {
+      switch (code) {
+        case codes.percentSign:
+        case codes.rightCurlyBrace:
+          effects.consume(code);
+          return mayExit;
+        case codes.eof:
+          return nok;
+        default:
+          if (markdownLineEnding(code)) {
+            effects.enter(types.lineEnding);
+            effects.consume(code);
+            effects.exit(types.lineEnding);
+            return inside;
+          }
+          effects.consume(code);
+          return inside;
       }
-      if (code === codes.leftCurlyBrace) {
-        kind = "variable";
-        effects.consume(code);
-        return content;
-      }
-      return nok(code);
     }
 
-    /** @type {import('micromark-util-types').State} */
-    function content(code) {
-      if (kind === "tag" && code === codes.percentSign) {
+    /** @type {State} */
+    function mayExit(code) {
+      if (code !== codes.rightCurlyBrace) {
         effects.consume(code);
-        return closeDelimiter;
-      }
-      if (kind === "variable" && code === codes.rightCurlyBrace) {
-        effects.consume(code);
-        return closeDelimiter;
-      }
-      effects.consume(code);
-      return content;
-    }
-
-    /** @type {import('micromark-util-types').State} */
-    function closeDelimiter(code) {
-      if (code === codes.rightCurlyBrace) {
-        effects.consume(code);
-        effects.exit(type);
-        return ok;
-      }
-      if (code === codes.eof) {
-        return nok(code);
+        return inside;
       }
       effects.consume(code);
-      return content;
+      effects.exit(types.data);
+      effects.exit("liquidNode");
+      return ok;
     }
-  },
-});
-
-/** @type {import('micromark-util-types').Extension} */
-const liquid = {
-  text: {
-    [codes.leftCurlyBrace]: liquidConstruct("liquid"),
-  },
-  flow: {
-    [codes.leftCurlyBrace]: liquidConstruct("liquidFlow"),
-  },
-};
-
-/** @type {import('mdast-util-from-markdown').Extension} */
-const liquidMDAST = {
-  enter: {
-    liquid(token) {
-      this.enter({ type: "liquidNode", value: "", children: [] }, token);
-    },
-    liquidFlow(token) {
-      this.enter({ type: "liquidBlock", value: "", children: [] }, token);
-    },
-  },
-  exit: {
-    liquid(token) {
-      this.exit(token);
-      this.stack.at(-1).value = this.sliceSerialize(token);
-    },
-    liquidFlow(token) {
-      this.exit(token);
-      this.stack.at(-1).value = this.sliceSerialize(token);
-    },
-  },
-};
-
-/** @type {import('unified').Plugin<[]>} */
-export default function liquidPlugin() {
-  this.use(markdownPlugin(liquid, liquidMDAST));
+  }
 }
+
+export { remarkLiquid };

@@ -10,7 +10,7 @@ import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import { hasPragma } from "./pragma.js";
 import frontMatter from "./unified-plugins/front-matter.js";
 import htmlToJsx from "./unified-plugins/html-to-jsx.js";
-import liquid from "./unified-plugins/liquid-for-micromark.js";
+import { remarkLiquid } from "./unified-plugins/liquid-for-micromark.js";
 import wikiLink from "./unified-plugins/wiki-link-for-micromark.js";
 
 /**
@@ -32,7 +32,7 @@ function createParse() {
     .use(remarkParse)
     .use(remarkMath)
     .use(gfm)
-    .use(liquid)
+    .use(remarkLiquid)
     .use(wikiLink);
 
   return async (text, options) => {
