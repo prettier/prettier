@@ -1,4 +1,5 @@
-import { codes } from "micromark-util-symbol/codes";
+import { codes } from "micromark-util-symbol";
+
 import { markdownPlugin } from "./markdown-plugin.js";
 
 /** @type {(type: string) => import('micromark-util-types').Construct} */
@@ -83,12 +84,12 @@ const liquidMDAST = {
   },
   exit: {
     liquid(token) {
-      const node = this.exit(token);
-      node.value = this.sliceSerialize(token);
+      this.exit(token);
+      this.stack.at(-1).value = this.sliceSerialize(token);
     },
     liquidFlow(token) {
-      const node = this.exit(token);
-      node.value = this.sliceSerialize(token);
+      this.exit(token);
+      this.stack.at(-1).value = this.sliceSerialize(token);
     },
   },
 };

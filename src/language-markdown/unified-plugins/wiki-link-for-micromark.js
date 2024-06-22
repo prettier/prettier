@@ -1,4 +1,5 @@
-import { codes } from "micromark-util-symbol/codes";
+import { codes } from "micromark-util-symbol";
+
 import { markdownPlugin } from "./markdown-plugin.js";
 
 /** @type {import('micromark-util-types').Construct} */
@@ -54,7 +55,7 @@ const wikiLinkConstruct = {
         return effects.check(
           wikiLinkEndConstruct,
           startEnd,
-          skipBracketContent
+          skipBracketContent,
         )(code);
       }
       if (code === codes.eof) {
