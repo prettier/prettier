@@ -1,12 +1,13 @@
+import footnotes from "remark-footnotes";
+import remarkMath from "remark-math-v3";
 import remarkParse from "remark-parse-v8";
 import unified from "unified-v9";
-import remarkMath from "remark-math-v3";
-import footnotes from "remark-footnotes";
-import { hasPragma } from "./pragma.js";
-import { locStart, locEnd } from "./loc.js";
+
+import { locEnd, locStart } from "./loc.js";
 import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
-import htmlToJsx from "./unified-plugins/html-to-jsx.js";
+import { hasPragma } from "./pragma.js";
 import frontMatter from "./unified-plugins/front-matter.js";
+import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 import liquid from "./unified-plugins/liquid.js";
 import wikiLink from "./unified-plugins/wiki-link.js";
 
@@ -36,8 +37,10 @@ const mdxParser = {
         commonmark: true,
         blocks: [BLOCKS_REGEX],
       })
+      // @ts-expect-error -- IDK
       .use(footnotes)
       .use(frontMatter)
+      // @ts-expect-error -- IDK
       .use(remarkMath)
       .use(esSyntax)
       .use(liquid)
@@ -46,6 +49,5 @@ const mdxParser = {
     return processor.run(processor.parse(text));
   },
 };
-
 
 export const mdx = mdxParser;

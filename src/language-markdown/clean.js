@@ -50,12 +50,12 @@ function clean(original, cloned, parent) {
   }
 
   // if (
-  //   (ast.type === "definition" ||
-  //     ast.type === "link" ||
-  //     ast.type === "image") &&
-  //   ast.title
+  //   (original.type === "definition" ||
+  //     original.type === "link" ||
+  //     original.type === "image") &&
+  //   original.title
   // ) {
-  //   newObj.title = ast.title.replaceAll(/\\(?=["')])/g, "");
+  //   cloned.title = original.title.replaceAll(/\\(?=["')])/gu, "");
   // }
 
   if (

@@ -1,5 +1,5 @@
-import * as parsersMarkdown from "./parser-markdown.js";
 import * as parsersMdx from "./parser-mdx.js";
+import * as parsersMarkdown from "./parser-remark-11-markdown.js";
 import printer from "./printer-markdown.js";
 
 export const parsers = {

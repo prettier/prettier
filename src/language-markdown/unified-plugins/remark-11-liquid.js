@@ -88,4 +88,4 @@ function syntax() {
   }
 }
 
-export { remarkLiquid };
+export default remarkLiquid;

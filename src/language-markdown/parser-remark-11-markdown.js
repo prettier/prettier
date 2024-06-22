@@ -1,5 +1,4 @@
-import footnotes from "remark-footnotes";
-import gfm from "remark-gfm";
+import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkWikiLink from "remark-wiki-link";
@@ -7,12 +6,8 @@ import { unified } from "unified";
 
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import { locEnd, locStart } from "./loc.js";
-import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import { hasPragma } from "./pragma.js";
-import frontMatter from "./unified-plugins/front-matter.js";
-import htmlToJsx from "./unified-plugins/html-to-jsx.js";
-import { remarkLiquid } from "./unified-plugins/liquid-for-micromark.js";
-import wikiLink from "./unified-plugins/wiki-link-for-micromark.js";
+import remarkLiquid from "./unified-plugins/remark-11-liquid.js";
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -32,18 +27,16 @@ function createParse() {
   const processor = unified()
     .use(remarkParse)
     .use(remarkMath)
-    .use(gfm)
+    .use(remarkGfm)
     .use(remarkLiquid)
     .use(remarkWikiLink);
 
-  return async (text, options) => {
+  return async (text) => {
     const { frontMatter, content } = parseFrontMatter(text);
     const ast = await processor.run(processor.parse(content));
-    {
-      // console.log(JSON.stringify(ast.children, 0, 2));
-    }
 
     if (frontMatter) {
+      // @ts-expect-error -- Missing?
       ast.children.unshift(frontMatter);
     }
 
