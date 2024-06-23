@@ -317,9 +317,10 @@ function genericPrint(path, options, print) {
                 ? "- "
                 : "* ";
 
-            return node.isAligned ||
-              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
-              ? alignListPrefix(rawPrefix, options, node.ordered)
+            return (node.isAligned ||
+              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock) &&
+              node.ordered
+              ? alignListPrefix(rawPrefix, options)
               : rawPrefix;
           }
         },
@@ -465,8 +466,8 @@ function printListItem(path, options, print, listPrefix) {
   ];
 }
 
-function alignListPrefix(prefix, options, isOrdered) {
-  const additionalSpaces = getAdditionalSpaces(isOrdered);
+function alignListPrefix(prefix, options) {
+  const additionalSpaces = getAdditionalSpaces();
   return (
     prefix +
     " ".repeat(
@@ -474,11 +475,7 @@ function alignListPrefix(prefix, options, isOrdered) {
     )
   );
 
-  function getAdditionalSpaces(isOrdered) {
-    if (!isOrdered) {
-      return 0;
-    }
-
+  function getAdditionalSpaces() {
     const restSpaces = prefix.length % options.tabWidth;
     return restSpaces === 0 ? 0 : options.tabWidth - restSpaces;
   }
