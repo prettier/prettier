@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic-plural-01.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span i18n>Updated {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago}}</span>
+
+=====================================output=====================================
+<span i18n
+  >Updated
+  {minutes, plural,
+    =0 {just now}
+    =1 {one minute ago}
+    other {{{minutes}} minutes ago}
+
+}</span>
+
+================================================================================
+`;
+
+exports[`basic-plural-02.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{ count, plural,
+    =0 {{ sex, select,
+      other {<p>deeply nested</p>}
+    }}
+    =other {a lot}
+}
+
+{ count123, plural,
+  =0 {{ sex, select,
+    other {<p>deeply nested</p>}
+  }}
+  =other {a lot}
+}
+
+=====================================output=====================================
+{count, plural, =0 {{sex, select, other {<p>deeply nested</p>}}} =other {a lot}}
+
+{count123, plural,
+  =0 {{sex, select, other {<p>deeply nested</p>}}}
+  =other {a lot}
+}
+
+================================================================================
+`;
+
+exports[`basic-plural-03.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<foo>
+  <bar>{VAR_PLURAL, plural, =0 {zero} =1 {un} =2 {deux} other {<pc id="0" equivStart="START_BOLD_TEXT" equivEnd="CLOSE_BOLD_TEXT" type="fmt" dispStart="&lt;b&gt;" dispEnd="&lt;/b&gt;">beaucoup</pc>} }</bar>
+  <baz>{VAR_PLURAL, plural, =0 {zero} =1 {one} =2 {two} other {<pc id="0" equivStart="START_BOLD_TEXT" equivEnd="CLOSE_BOLD_TEXT" type="fmt" dispStart="&lt;b&gt;" dispEnd="&lt;/b&gt;">many</pc>} }</baz>
+</foo>
+
+=====================================output=====================================
+<foo>
+  <bar>{VAR_PLURAL, plural,
+    =0 {zero}
+    =1 {un}
+    =2 {deux}
+    other {
+      <pc
+        id="0"
+        equivStart="START_BOLD_TEXT"
+        equivEnd="CLOSE_BOLD_TEXT"
+        type="fmt"
+        dispStart="&lt;b&gt;"
+        dispEnd="&lt;/b&gt;"
+        >beaucoup</pc
+      >
+    }
+  }</bar>
+  <baz>{VAR_PLURAL, plural,
+    =0 {zero}
+    =1 {one}
+    =2 {two}
+    other {
+      <pc
+        id="0"
+        equivStart="START_BOLD_TEXT"
+        equivEnd="CLOSE_BOLD_TEXT"
+        type="fmt"
+        dispStart="&lt;b&gt;"
+        dispEnd="&lt;/b&gt;"
+        >many</pc
+      >
+    }
+  }</baz>
+</foo>
+
+================================================================================
+`;
+
+exports[`basic-plural-04.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<foo>
+  <bar>{VAR_PLURAL, plural, =0 {Found no results} =1 {Found one result} other {Found <ph id="0" equiv="INTERPOLATION" disp="{{response.getItemsList().length}}"/> results} }</bar>
+</foo>
+
+=====================================output=====================================
+<foo>
+  <bar>{VAR_PLURAL, plural,
+    =0 {Found no results}
+    =1 {Found one result}
+    other {
+      Found <ph
+        id="0"
+        equiv="INTERPOLATION"
+        disp="{{ response.getItemsList().length }}"
+      /> results
+    }
+  }</bar>
+</foo>
+
+================================================================================
+`;
+
+exports[`basic-select-01.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span i18n>The author is {gender, select, male {male} female {female} other {other}}</span>
+
+=====================================output=====================================
+<span i18n
+  >The author is {gender, select, male {male} female {female} other {other}
+}</span>
+
+================================================================================
+`;
+
+exports[`basic-select-02.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<ng-template>{gender, select, male {male} female {female} other {other}}</ng-template>
+<ng-container>{age, select, 10 {ten} 20 {twenty} other {other}}</ng-container>
+
+=====================================output=====================================
+<ng-template>{gender, select,
+  male {male}
+  female {female}
+  other {other}
+}</ng-template>
+<ng-container>{age, select, 10 {ten} 20 {twenty} other {other}}</ng-container>
+
+================================================================================
+`;
+
+exports[`combination-01.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span i18n>Updated: {minutes, plural,
+    =0 {just now}
+    =1 {one minute ago}
+    other {{{minutes}} minutes ago by {gender, select, male {male} female {female} other {other}}}}
+  </span>
+
+=====================================output=====================================
+<span i18n
+  >Updated:
+  {minutes, plural,
+    =0 {just now}
+    =1 {one minute ago}
+    other {
+      {{minutes}} minutes ago by {gender, select,
+        male {male}
+        female {female}
+        other {other}
+      }
+    }
+  }
+</span>
+
+================================================================================
+`;

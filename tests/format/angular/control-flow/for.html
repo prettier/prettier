@@ -1,0 +1,60 @@
+<ul>
+@for (
+            let
+
+            item of items;index as
+i;
+            trackBy: trackByFn
+) {
+<li><strong>{{item.name}}</strong></li>
+}
+@empty {
+<span>The collection is empty</span>
+}
+</ul>
+
+
+<li *ngFor="
+            let
+
+            item of items;index as
+i;
+            trackBy: trackByFn
+"></li>
+
+
+
+<ul>
+@for (item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count) {
+
+<li><strong>{{item.name}}</strong> index={{index}} first={{first}} last={{last}} even={{even}} odd={{odd}} count={{count}}</li>
+
+}
+</ul>
+
+<ul>
+@for (item of
+ emptyCollection; track item.id;) {
+<li><strong>{{item.name}}</strong></li>
+}
+@empty {
+  <span>The collection is empty</span>
+}
+</ul>
+<li *ngFor="
+item of
+ emptyCollection; track item.id;
+"></li>
+
+<div>
+  @for ( item of items; track item){
+  }
+
+  <div *ngFor="item of items; track item"></div>
+</div>
+
+<div>
+  @for (item of items; let i = $index; track block) {}
+
+  <div *ngFor="item of items; let i = $index; track block"></div>
+</div>

@@ -1,5 +1,6 @@
 import path from "node:path";
-import { PROJECT_ROOT, DIST_DIR, readJson, writeJson } from "../utils/index.js";
+
+import { DIST_DIR, PROJECT_ROOT, readJson, writeJson } from "../utils/index.js";
 
 const keysToKeep = [
   "name",
@@ -42,6 +43,10 @@ async function buildPackageJson({ file, files }) {
       ".": {
         types: "./index.d.ts",
         require: "./index.cjs",
+        browser: {
+          import: "./standalone.mjs",
+          default: "./standalone.js",
+        },
         default: "./index.mjs",
       },
       "./*": "./*",
@@ -53,9 +58,9 @@ async function buildPackageJson({ file, files }) {
             return [
               file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
               {
-                types: `./${file.output.file.replace(/\.js$/, ".d.ts")}`,
+                types: `./${file.output.file.replace(/\.js$/u, ".d.ts")}`,
                 require: `./${file.output.file}`,
-                default: `./${file.output.file.replace(/\.js$/, ".mjs")}`,
+                default: `./${file.output.file.replace(/\.js$/u, ".mjs")}`,
               },
             ];
           }),
@@ -81,7 +86,7 @@ async function buildPackageJson({ file, files }) {
               [`./parser-${basename}.js`, `./${file.output.file}`],
               [
                 `./esm/parser-${basename}.mjs`,
-                `./${file.output.file.replace(/\.js$/, ".mjs")}`,
+                `./${file.output.file.replace(/\.js$/u, ".mjs")}`,
               ],
             ];
           }),

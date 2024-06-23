@@ -1,14 +1,15 @@
 import { parse as parseGraphql } from "graphql/language/parser.mjs";
+
 import createError from "../common/parser-create-error.js";
+import { locEnd, locStart } from "./loc.js";
 import { hasPragma } from "./pragma.js";
-import { locStart, locEnd } from "./loc.js";
 
 function parseComments(ast) {
   const comments = [];
   const { startToken, endToken } = ast.loc;
   for (let token = startToken; token !== endToken; token = token.next) {
     if (token.kind === "Comment") {
-      comments.push(token);
+      comments.push({ ...token, loc: { start: token.start, end: token.end } });
     }
   }
 
@@ -33,7 +34,6 @@ function createParseError(error) {
 }
 
 function parse(text /*, options */) {
-  /** @type {any} */
   let ast;
   try {
     ast = parseGraphql(text, parseOptions);

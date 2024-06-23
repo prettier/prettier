@@ -1,4 +1,5 @@
 import fs from "node:fs";
+
 import readlines from "n-readlines";
 
 /**
@@ -19,13 +20,13 @@ function getInterpreter(file) {
     const firstLine = liner.next().toString("utf8");
 
     // #!/bin/env node, #!/usr/bin/env node
-    const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(\S+)/);
+    const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(\S+)/u);
     if (m1) {
       return m1[1];
     }
 
     // #!/bin/node, #!/usr/bin/node, #!/usr/local/bin/node
-    const m2 = firstLine.match(/^#!\/(?:usr\/(?:local\/)?)?bin\/(\S+)/);
+    const m2 = firstLine.match(/^#!\/(?:usr\/(?:local\/)?)?bin\/(\S+)/u);
     if (m2) {
       return m2[1];
     }

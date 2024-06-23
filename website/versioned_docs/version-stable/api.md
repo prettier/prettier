@@ -10,6 +10,8 @@ If you want to run Prettier programmatically, check this page out.
 import * as prettier from "prettier";
 ```
 
+Our public APIs are all asynchronous, if you must use synchronous version for some reason, you can try [`@prettier/sync`](https://github.com/prettier/prettier-synchronized).
+
 ## `prettier.format(source, options)`
 
 `format` is used to format text using Prettier. `options.parser` must be set according to the language you are formatting (see the [list of available parsers](options.md#parser)). Alternatively, `options.filepath` can be specified for Prettier to infer the parser from the file extension. Other [options](options.md) may be provided to override the defaults.
@@ -27,16 +29,16 @@ await prettier.format("foo ( );", { semi: false, parser: "babel" });
 
 `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code. This is useful for editor integrations, to prevent the cursor from moving when code is formatted.
 
-The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
+The `cursorOffset` option should be provided, to specify where the cursor is.
 
 ```js
 await prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
-## `prettier.resolveConfig(filePath [, options])`
+## `prettier.resolveConfig(fileUrlOrPath [, options])`
 
-`resolveConfig` can be used to resolve configuration for a given source file, passing its path as the first argument. The config search will start at the file path and continue to search up the directory (you can use `process.cwd()` to start searching from the current directory). Or you can pass directly the path of the config file as `options.config` if you don’t wish to search for it. A promise is returned which will resolve to:
+`resolveConfig` can be used to resolve configuration for a given source file, passing its path or url as the first argument. The config search will start at the directory of the file location and continue to search up the directory. Or you can pass directly the path of the config file as `options.config` if you don’t wish to search for it. A promise is returned which will resolve to:
 
 - An options object, providing a [config file](configuration.md) was found.
 - `null`, if no file was found.
@@ -58,7 +60,7 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editor
 - `indent_size`/`tab_width`
 - `max_line_length`
 
-## `prettier.resolveConfigFile([filePath])`
+## `prettier.resolveConfigFile([fileUrlOrPath])`
 
 `resolveConfigFile` can be used to find the path of the Prettier configuration file that will be used when resolving the config (i.e. when calling `resolveConfig`). A promise is returned which will resolve to:
 
@@ -67,7 +69,7 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editor
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-The search starts at `process.cwd()`, or at `filePath` if provided. Please see the [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) for details on how the resolving works.
+The search starts at `process.cwd()`, or at the directory of `fileUrlOrPath` if provided.
 
 ```js
 const configFile = await prettier.resolveConfigFile(filePath);
@@ -78,7 +80,7 @@ const configFile = await prettier.resolveConfigFile(filePath);
 
 When Prettier loads configuration files and plugins, the file system structure is cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
 
-## `prettier.getFileInfo(filePath [, options])`
+## `prettier.getFileInfo(fileUrlOrPath [, options])`
 
 `getFileInfo` can be used by editor extensions to decide if a particular file needs to be formatted. This method returns a promise, which resolves to an object with the following properties:
 
@@ -89,11 +91,11 @@ When Prettier loads configuration files and plugins, the file system structure i
 }
 ```
 
-The promise will be rejected if the type of `filePath` is not `string`.
+The promise will be rejected if the type of `fileUrlOrPath` is not `string` or `URL`.
 
-Setting `options.ignorePath` (`string | string[]`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
+Setting `options.ignorePath` (`string | URL | (string | URL)[]`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
 
-If the given `filePath` is ignored, the `inferredParser` is always `null`.
+If the given `fileUrlOrPath` is ignored, the `inferredParser` is always `null`.
 
 Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
 

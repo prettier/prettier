@@ -1,10 +1,10 @@
-import { join, line, group } from "../../document/builders.js";
+import { group, join, line } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
-  hasNode,
-  hasComment,
-  getComments,
   createTypeCheckFunction,
+  getComments,
+  hasComment,
+  hasNode,
 } from "../utils/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
@@ -49,7 +49,7 @@ function printAngular(path, options, print) {
         "body",
       );
     case "NGMicrosyntaxKey":
-      return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/i.test(node.name)
+      return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/iu.test(node.name)
         ? node.name
         : JSON.stringify(node.name);
     case "NGMicrosyntaxExpression":
@@ -59,14 +59,18 @@ function printAngular(path, options, print) {
       ];
     case "NGMicrosyntaxKeyedExpression": {
       const { index, parent } = path;
+      // https://github.com/prettier/angular-estree-parser/issues/267
       const shouldNotPrintColon =
         isNgForOf(path) ||
         (((index === 1 &&
-          (node.key.name === "then" || node.key.name === "else")) ||
-          (index === 2 &&
-            node.key.name === "else" &&
-            parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
-            parent.body[index - 1].key.name === "then")) &&
+          (node.key.name === "then" ||
+            node.key.name === "else" ||
+            node.key.name === "as")) ||
+          ((index === 2 || index === 3) &&
+            ((node.key.name === "else" &&
+              parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
+              parent.body[index - 1].key.name === "then") ||
+              node.key.name === "track"))) &&
           parent.body[0].type === "NGMicrosyntaxExpression");
       return [
         print("key"),
@@ -88,13 +92,11 @@ function printAngular(path, options, print) {
   }
 }
 
-function isNgForOf({ node, index, parent }) {
+function isNgForOf({ node, index }) {
   return (
     node.type === "NGMicrosyntaxKeyedExpression" &&
     node.key.name === "of" &&
-    index === 1 &&
-    parent.body[0].type === "NGMicrosyntaxLet" &&
-    parent.body[0].value === null
+    index === 1
   );
 }
 

@@ -14,26 +14,74 @@ import * as prettierPluginGlimmer from "../../../../dist/plugins/glimmer.js";
 import * as prettierPluginHtml from "../../../../dist/plugins/html.js";
 import * as prettierPluginYaml from "../../../../dist/plugins/yaml.js";
 
-prettierPluginBabel.parsers.babel.parse("code");
-prettierPluginFlow.parsers.flow.parse("code");
-prettierPluginTypeScript.parsers.typescript.parse("code");
-prettierPluginAcorn.parsers.acorn.parse("code");
-prettierPluginAcorn.parsers.espree.parse("code");
-prettierPluginMeriyah.parsers.meriyah.parse("code");
-prettierPluginAngular.parsers.__ng_action.parse("code");
-prettierPluginPostcss.parsers.css.parse("code");
-prettierPluginPostcss.parsers.less.parse("code");
-prettierPluginPostcss.parsers.scss.parse("code");
-prettierPluginGraphql.parsers.graphql.parse("code");
-prettierPluginMarkdown.parsers.remark.parse("code");
-prettierPluginMarkdown.parsers.markdown.parse("code");
-prettierPluginMarkdown.parsers.mdx.parse("code");
-prettierPluginGlimmer.parsers.glimmer.parse("code");
-prettierPluginHtml.parsers.html.parse("code");
-prettierPluginHtml.parsers.vue.parse("code");
-prettierPluginHtml.parsers.lwc.parse("code");
-prettierPluginHtml.parsers.angular.parse("code");
-prettierPluginYaml.parsers.yaml.parse("code");
+const options: prettier.ParserOptions = {
+  filepath: "/home/mark/prettier/bin/prettier.js",
+  singleQuote: false,
+  bracketSpacing: true,
+  bracketSameLine: false,
+  htmlWhitespaceSensitivity: "css",
+  singleAttributePerLine: false,
+  vueIndentScriptAndStyle: false,
+  arrowParens: "always",
+  semi: true,
+  experimentalTernaries: false,
+  jsxSingleQuote: false,
+  quoteProps: "as-needed",
+  trailingComma: "all",
+  proseWrap: "preserve",
+  cursorOffset: -1,
+  endOfLine: "lf",
+  insertPragma: false,
+  parser: "meriyah",
+  plugins: [
+    {
+      languages: [],
+      options: {},
+      parsers: {},
+      printers: {},
+    },
+  ],
+  printWidth: 80,
+  rangeEnd: 240,
+  rangeStart: 0,
+  requirePragma: false,
+  tabWidth: 2,
+  useTabs: false,
+  embeddedLanguageFormatting: "auto",
+  astFormat: "estree",
+  locEnd: (node) => 0,
+  locStart: (node) => 0,
+  printer: {
+    print: (
+      path: prettier.AstPath,
+      options: prettier.ParserOptions,
+      print: (path: prettier.AstPath) => prettier.Doc,
+      args?: unknown,
+    ) => [],
+  },
+  originalText: "bla bla bla",
+};
+
+prettierPluginBabel.parsers.babel.parse("code", options);
+prettierPluginFlow.parsers.flow.parse("code", options);
+prettierPluginTypeScript.parsers.typescript.parse("code", options);
+prettierPluginAcorn.parsers.acorn.parse("code", options);
+prettierPluginAcorn.parsers.espree.parse("code", options);
+prettierPluginMeriyah.parsers.meriyah.parse("code", options);
+prettierPluginAngular.parsers.__ng_action.parse("code", options);
+prettierPluginPostcss.parsers.css.parse("code", options);
+prettierPluginPostcss.parsers.less.parse("code", options);
+prettierPluginPostcss.parsers.scss.parse("code", options);
+prettierPluginGraphql.parsers.graphql.parse("code", options);
+prettierPluginMarkdown.parsers.remark.parse("code", options);
+prettierPluginMarkdown.parsers.markdown.parse("code", options);
+prettierPluginMarkdown.parsers.mdx.parse("code", options);
+prettierPluginGlimmer.parsers.glimmer.parse("code", options);
+prettierPluginHtml.parsers.html.parse("code", options);
+prettierPluginHtml.parsers.vue.parse("code", options);
+prettierPluginHtml.parsers.lwc.parse("code", options);
+prettierPluginHtml.parsers.angular.parse("code", options);
+prettierPluginYaml.parsers.yaml.parse("code", options);
 
 prettier.format("hello world", {
   plugins: [

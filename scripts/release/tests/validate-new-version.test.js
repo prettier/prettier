@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
+
 import chalk from "chalk";
+
 import validateNewVersion from "../steps/validate-new-version.js";
 
 describe("validate-new-version", () => {

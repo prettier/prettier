@@ -45,10 +45,10 @@ function serializeAst(ast) {
       value instanceof Error
         ? { name: value.name, message: value.message, ...value }
         : typeof value === "bigint"
-        ? `BigInt('${String(value)}')`
-        : typeof value === "symbol"
-        ? String(value)
-        : value,
+          ? `BigInt('${String(value)}')`
+          : typeof value === "symbol"
+            ? String(value)
+            : value,
     2,
   );
 }
@@ -67,6 +67,7 @@ async function handleMetaMessage() {
 
   return {
     type: "meta",
+    // eslint-disable-next-line unicorn/prefer-structured-clone
     supportInfo: JSON.parse(JSON.stringify(supportInfo)),
     version: prettier.version,
   };

@@ -1,5 +1,7 @@
 import path from "node:path";
+
 import createEsmUtils from "esm-utils";
+
 import installPrettier from "./tests/config/install-prettier.js";
 
 const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
@@ -47,6 +49,8 @@ if (SKIP_TESTS_WITH_NEW_SYNTAX) {
     "<rootDir>/tests/integration/__tests__/normalize-doc.js",
     "<rootDir>/tests/integration/__tests__/doc-utils-clean-doc.js",
     "<rootDir>/tests/integration/__tests__/config-invalid.js",
+    // Fails on Node.js v14
+    "<rootDir>/tests/dts/unit/run.js",
   );
 }
 
@@ -61,6 +65,8 @@ const config = {
     "jest-snapshot-serializer-ansi",
   ],
   testMatch: [
+    "<rootDir>/tests/format/**/format.test.js",
+    // TODO: Remove this in 2025
     "<rootDir>/tests/format/**/jsfmt.spec.js",
     "<rootDir>/tests/integration/__tests__/**/*.js",
     "<rootDir>/tests/unit/**/*.js",

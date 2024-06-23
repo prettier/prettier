@@ -1,5 +1,6 @@
 import path from "node:path";
 import url from "node:url";
+
 import prettier from "../../config/prettier-entry.js";
 
 test("resolves configuration from external files and overrides by extname", async () => {
@@ -74,7 +75,7 @@ describe("prints error message when no file found with --find-config-path", () =
     "--end-of-line",
     "lf",
     "--find-config-path",
-    "..",
+    "../--non-exits-filename--",
   ]).test({
     stdout: "",
     status: 1,
@@ -163,7 +164,7 @@ test("API resolveConfig with nested file arg and .editorconfig and indent_size =
 });
 
 test("API clearConfigCache", () => {
-  expect(() => prettier.clearConfigCache()).not.toThrowError();
+  expect(() => prettier.clearConfigCache()).not.toThrow();
 });
 
 test("API resolveConfig overrides work with dotfiles", async () => {
@@ -283,7 +284,7 @@ test(".js config file", async () => {
     await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
   }
 
-  const cjsError = /module is not defined in ES module scope/;
+  const cjsError = /module is not defined in ES module scope/u;
   for (const directoryName of [
     "cjs-prettier-config-js-in-type-module",
     "cjs-prettierrc-js-in-type-module",
@@ -292,7 +293,7 @@ test(".js config file", async () => {
     await expect(prettier.resolveConfig(file)).rejects.toThrow(cjsError);
   }
 
-  const mjsError = /Unexpected token 'export'/;
+  const mjsError = /Unexpected token 'export'/u;
   for (const directoryName of [
     "mjs-prettier-config-js-in-type-commonjs",
     "mjs-prettier-config-js-in-type-none",
@@ -360,7 +361,7 @@ test(".json5 config file", async () => {
 test(".json5 config file(invalid)", async () => {
   const parentDirectory = new URL("../cli/config/rc-json5/", import.meta.url);
   const file = new URL("./invalid/foo.js", parentDirectory);
-  const error = /JSON5: invalid end of input at 2:1/;
+  const error = /JSON5: invalid end of input at 2:1/u;
   await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
 });
 
@@ -388,4 +389,63 @@ test("API resolveConfig accepts path or URL", async () => {
   expect(resultByUrlHref).toMatchObject(expectedResult);
   expect(resultByPath).toMatchObject(expectedResult);
   expect(resultByRelativePath).toMatchObject(expectedResult);
+});
+
+test("Search from directory, not treat file as directory", async () => {
+  // CLI
+  const getConfigFileByCli = async (file) => {
+    const { stdout: configFile } = await runCli("cli/config/config-position/", [
+      "--find-config-path",
+      file,
+    ]);
+    return configFile;
+  };
+
+  expect(await getConfigFileByCli("file.js")).toBe(".prettierrc");
+  expect(await getConfigFileByCli("directory/file-in-child-directory.js")).toBe(
+    "directory/.prettierrc",
+  );
+
+  // Api
+  const directory = new URL("../cli/config/config-position/", import.meta.url);
+  const getConfigFileByApi = async (file) => {
+    const configFile = await prettier.resolveConfigFile(
+      new URL(file, directory),
+    );
+    return url.pathToFileURL(configFile).href.slice(directory.href.length);
+  };
+  expect(await getConfigFileByApi("file.js")).toBe(".prettierrc");
+  expect(await getConfigFileByApi("directory/file-in-child-directory.js")).toBe(
+    "directory/.prettierrc",
+  );
+});
+
+test("package.json/package.yaml", async () => {
+  await expect(
+    prettier.resolveConfig(
+      new URL("../cli/config/package/file.js", import.meta.url),
+    ),
+  ).resolves.toMatchInlineSnapshot(`
+    {
+      "tabWidth": 3,
+    }
+  `);
+  await expect(
+    prettier.resolveConfig(
+      new URL("../cli/config/package/file.ts", import.meta.url),
+    ),
+  ).resolves.toMatchInlineSnapshot(`
+    {
+      "tabWidth": 5,
+    }
+  `);
+  await expect(
+    prettier.resolveConfig(
+      new URL("../cli/config/package-yaml/file.ts", import.meta.url),
+    ),
+  ).resolves.toMatchInlineSnapshot(`
+    {
+      "printWidth": 101,
+    }
+  `);
 });

@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`func_inside_attr.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<bar x={function (x): Array<string> {}} />
+
+=====================================output=====================================
+<bar x={function (x): Array<string> {}} />;
+
+================================================================================
+`;
+
+exports[`generic-component.js [babel-flow] format 1`] = `
+"Unexpected token (1:24)
+> 1 | const c1 = <MyComponent<number> data={12} />
+    |                        ^
+  2 |
+  3 | const c2 = <MyComponent<number> />
+  4 |
+Cause: Unexpected token (1:23)"
+`;
+
+exports[`generic-component.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const c1 = <MyComponent<number> data={12} />
+
+const c2 = <MyComponent<number> />
+
+const c3 = <MyComponent<number> attr="value" />
+
+=====================================output=====================================
+const c1 = <MyComponent<number> data={12} />;
+
+const c2 = <MyComponent<number> />;
+
+const c3 = <MyComponent<number> attr="value" />;
+
+================================================================================
+`;
+
+exports[`return_type.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fail = (): X => <x />;
+
+=====================================output=====================================
+const fail = (): X => <x />;
+
+================================================================================
+`;

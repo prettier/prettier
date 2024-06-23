@@ -1,11 +1,12 @@
 import assert from "node:assert";
+
+import { getChildren } from "../../utils/ast-utils.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { getChildren } from "../../utils/ast-utils.js";
 import createGetVisitorKeysFunction from "../create-get-visitor-keys-function.js";
 import {
-  addLeadingComment,
   addDanglingComment,
+  addLeadingComment,
   addTrailingComment,
 } from "./utils.js";
 
@@ -183,6 +184,7 @@ function attachComments(ast, options) {
     if (
       options.parser === "json" ||
       options.parser === "json5" ||
+      options.parser === "jsonc" ||
       options.parser === "__js_expression" ||
       options.parser === "__ts_expression" ||
       options.parser === "__vue_expression" ||
@@ -289,7 +291,7 @@ function attachComments(ast, options) {
   }
 }
 
-const isAllEmptyAndNoLineBreak = (text) => !/[\S\n\u2028\u2029]/.test(text);
+const isAllEmptyAndNoLineBreak = (text) => !/[\S\n\u2028\u2029]/u.test(text);
 function isOwnLineComment(text, options, decoratedComments, commentIndex) {
   const { comment, precedingNode } = decoratedComments[commentIndex];
   const { locStart, locEnd } = options;
@@ -370,7 +372,7 @@ function breakTies(tiesToBreak, options) {
 
     const gap = options.originalText.slice(options.locEnd(comment), gapEndPos);
 
-    if (options.printer.isGap?.(gap, options) ?? /^[\s(]*$/.test(gap)) {
+    if (options.printer.isGap?.(gap, options) ?? /^[\s(]*$/u.test(gap)) {
       gapEndPos = options.locStart(comment);
     } else {
       // The gap string contained something other than whitespace or open

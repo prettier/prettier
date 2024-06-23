@@ -11,10 +11,10 @@ yarn test
 
 The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-testing.html). You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
 
-Each test directory in `tests/format` has a `jsfmt.spec.js` file that controls how exactly the rest of the files in the directory are used for tests. This file must contain one or more calls to the `run_spec` global function. For example, in directories with JavaScript formatting tests, `jsfmt.spec.js` generally looks like this:
+Each test directory in `tests/format` has a `format.test.js` file that controls how exactly the rest of the files in the directory are used for tests. This file must contain one or more calls to the `runFormatTest` global function. For example, in directories with JavaScript formatting tests, `format.test.js` generally looks like this:
 
 ```js
-run_spec(import.meta, ["babel", "flow", "typescript"]);
+runFormatTest(import.meta, ["babel", "flow", "typescript"]);
 ```
 
 This verifies that for each file in the directory, the output matches the snapshot and is the same for each listed parser.
@@ -22,13 +22,13 @@ This verifies that for each file in the directory, the output matches the snapsh
 You can also pass options as the third argument:
 
 ```js
-run_spec(import.meta, ["babel"], { trailingComma: "es5" });
+runFormatTest(import.meta, ["babel"], { trailingComma: "es5" });
 ```
 
 Signature:
 
 ```ts
-function run_spec(
+function runFormatTest(
   fixtures:
     | ImportMeta
     | {
@@ -47,11 +47,11 @@ function run_spec(
 
 Parameters:
 
-- **`fixtures`**: Must be set to `import.meta` or to an object of the shape `{ importMeta: import.meta, ... }`. The object may have the `snippets` property to specify an array of extra input entries in addition to the files in the current directory. For each input entry (a file or a snippet), `run_spec` configures and runs a number of tests. The main check is that for a given input the output should match the snapshot (for snippets, the expected output can also be specified directly). [Additional checks](#deeper-testing) are controlled by options and environment variables.
+- **`fixtures`**: Must be set to `import.meta` or to an object of the shape `{ importMeta: import.meta, ... }`. The object may have the `snippets` property to specify an array of extra input entries in addition to the files in the current directory. For each input entry (a file or a snippet), `runFormatTest` configures and runs a number of tests. The main check is that for a given input the output should match the snapshot (for snippets, the expected output can also be specified directly). [Additional checks](#deeper-testing) are controlled by options and environment variables.
 - **`parsers`**: A list of parser names. The tests verify that the parsers in this list produce the same output. If the list includes `typescript`, then `babel-ts` is included implicitly. If the list includes `flow`, then `babel-flow` is included implicitly. If the list includes `babel`, and the current directory is inside `tests/format/js` or `tests/format/jsx`, then `acorn`, `espree`, and `meriyah` are included implicitly.
 - **`options`**: In addition to Prettier's formatting options, can contain the `errors` property to specify that it's expected that the formatting shouldn't be successful and an error should be thrown for all (`errors: true`) or some combinations of input entries and parsers.
 
-The implementation of `run_spec` can be found in [`tests/config/format-test.js`](tests/config/format-test.js).
+The implementation of `runFormatTest` can be found in [`tests/config/run-format-test.js`](tests/config/run-format-test.js).
 
 `tests/format/flow-repo/` contains the Flow test suite and is not supposed to be edited by hand. To update it, clone the Flow repo next to the Prettier repo and run: `node scripts/sync-flow-tests.cjs ../flow/tests/`.
 
@@ -61,6 +61,10 @@ To debug Prettier locally, you can either debug it in Node (recommended) or the 
 
 - The easiest way to debug it in Node is to create a local test file with some example code you want formatted and either run it in an editor like VS Code or run it directly via `./bin/prettier.js <your_test_file>`.
 - The easiest way to debug it in the browser is to build Prettier's website locally (see [`website/README.md`](website/README.md)).
+
+## No New Options
+
+Prettier is an opinionated formatter and is not accepting pull requests that add new formatting options. You can [read more about our options philosophy here](docs/option-philosophy.md).
 
 ## Pull requests
 
@@ -83,7 +87,7 @@ If you're contributing a performance improvement, the following Prettier CLI opt
 - `--debug-repeat N` uses a naïve loop to repeat the formatting `N` times and measures the average run duration. It can be useful to highlight hot functions in the profiler. This can also set by environment variable `PRETTIER_PERF_REPEAT`.
 - `--debug-benchmark` uses [`benchmark`](https://npm.im/benchmark) module to produce statistically significant duration measurements.
 
-For convenience, the following commands for profiling are available via `package.json` `scripts`.
+For convenience, the following commands for profiling are available via [`package.json`](package.json) `scripts`.
 
 - `PRETTIER_PERF_REPEAT=1000 yarn perf <filename>` starts the naïve loop. See the CLI output for when the measurements finish, and stop profiling at that moment.
 - `PRETTIER_PERF_REPEAT=1000 yarn perf:inspect <filename>` starts the naïve loop with `node --inspect-brk` flag that pauses execution and waits for Chromium/Chrome/Node Inspector to attach. Open [`chrome://inspect`](chrome://inspect), select the process to inspect, and activate the CPU Profiler, this will unpause execution. See the CLI output for when the measurements finish, and stop the CPU Profiler at that moment to avoid collecting more data than needed.
@@ -97,7 +101,7 @@ In the above commands:
 
 In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
 
-The script `scripts/benchmark/compare.sh` can be used to compare performance of two or more commits/branches using [hyperfine](https://github.com/sharkdp/hyperfine). Usage (don't forget to install hyperfine):
+The script [`scripts/benchmark/compare.sh`](scripts/benchmark/compare.sh) can be used to compare performance of two or more commits/branches using [hyperfine](https://github.com/sharkdp/hyperfine). Usage (don't forget to install hyperfine):
 
 ```sh
 PRETTIER_PERF_FILENAME=my.js ./compare.sh main some-pr-branch

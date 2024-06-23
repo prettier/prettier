@@ -6,23 +6,32 @@ import {
   line,
 } from "../document/builders.js";
 import printFrontMatter from "../utils/front-matter/print.js";
+import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
+import printAttribute from "./embed/attribute.js";
+import getNodeContent from "./get-node-content.js";
 import {
+  needsToBorrowPrevClosingTagEndMarker,
   printClosingTag,
   printClosingTagSuffix,
-  needsToBorrowPrevClosingTagEndMarker,
-  printOpeningTagPrefix,
   printOpeningTag,
+  printOpeningTagPrefix,
 } from "./print/tag.js";
 import {
+  dedentString,
+  htmlTrimPreserveIndentation,
+  inferElementParser,
   isScriptLikeTag,
   isVueNonHtmlBlock,
-  inferElementParser,
-  htmlTrimPreserveIndentation,
-  dedentString,
 } from "./utils/index.js";
 import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
-import getNodeContent from "./get-node-content.js";
-import printAttribute from "./embed/attribute.js";
+
+const embeddedAngularControlFlowBlocks = new Set([
+  "if",
+  "else if",
+  "for",
+  "switch",
+  "case",
+]);
 
 function embed(path, options) {
   const { node } = path;
@@ -42,7 +51,7 @@ function embed(path, options) {
 
         return async (textToDoc, print) => {
           const content = getNodeContent(node, options);
-          let isEmpty = /^\s*$/.test(content);
+          let isEmpty = /^\s*$/u.test(content);
           let doc = "";
           if (!isEmpty) {
             doc = await textToDoc(htmlTrimPreserveIndentation(content), {
@@ -72,7 +81,7 @@ function embed(path, options) {
           return async (textToDoc) => {
             const value =
               parser === "markdown"
-                ? dedentString(node.value.replace(/^[^\S\n]*\n/, ""))
+                ? dedentString(node.value.replace(/^[^\S\n]*\n/u, ""))
                 : node.value;
             const textToDocOptions = { parser, __embeddedInHtml: true };
             if (options.parser === "html" && parser === "babel") {
@@ -92,9 +101,7 @@ function embed(path, options) {
             return [
               breakParent,
               printOpeningTagPrefix(node, options),
-              await textToDoc(value, textToDocOptions, {
-                stripTrailingHardline: true,
-              }),
+              await textToDoc(value, textToDocOptions),
               printClosingTagSuffix(node, options),
             ];
           };
@@ -107,7 +114,6 @@ function embed(path, options) {
           };
           if (options.parser === "angular") {
             textToDocOptions.parser = "__ng_interpolation";
-            textToDocOptions.trailingComma = "none";
           } else if (options.parser === "vue") {
             textToDocOptions.parser = isVueSfcWithTypescriptScript(
               path,
@@ -135,6 +141,13 @@ function embed(path, options) {
 
     case "front-matter":
       return (textToDoc) => printFrontMatter(node, textToDoc);
+
+    case "angularControlFlowBlockParameters":
+      if (!embeddedAngularControlFlowBlocks.has(path.parent.name)) {
+        return;
+      }
+
+      return printAngularControlFlowBlockParameters;
   }
 }
 

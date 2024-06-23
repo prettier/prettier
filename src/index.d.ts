@@ -39,9 +39,8 @@ type ArrayProperties<T> = {
 // A union of the properties of the given array T that can be used to index it.
 // If the array is a tuple, then that's going to be the explicit indices of the
 // array, otherwise it's going to just be number.
-type IndexProperties<T extends { length: number }> = IsTuple<T> extends true
-  ? Exclude<Partial<T>["length"], T["length"]>
-  : number;
+type IndexProperties<T extends { length: number }> =
+  IsTuple<T> extends true ? Exclude<Partial<T>["length"], T["length"]> : number;
 
 // Effectively performing T[P], except that it's telling TypeScript that it's
 // safe to do this for tuples, arrays, or objects.
@@ -50,8 +49,8 @@ type IndexValue<T, P> = T extends any[]
     ? T[P]
     : never
   : P extends keyof T
-  ? T[P]
-  : never;
+    ? T[P]
+    : never;
 
 // Determines if an object T is an array like string[] (in which case this
 // evaluates to false) or a tuple like [string] (in which case this evaluates to
@@ -60,8 +59,8 @@ type IndexValue<T, P> = T extends any[]
 type IsTuple<T> = T extends []
   ? true
   : T extends [infer First, ...infer Remain]
-  ? IsTuple<Remain>
-  : false;
+    ? IsTuple<Remain>
+    : false;
 
 type CallProperties<T> = T extends any[] ? IndexProperties<T> : keyof T;
 type IterProperties<T> = T extends any[]
@@ -291,6 +290,7 @@ export type BuiltInParserName =
   | "json-stringify"
   | "json"
   | "json5"
+  | "jsonc"
   | "less"
   | "lwc"
   | "markdown"
@@ -347,12 +347,6 @@ export interface RequiredOptions extends doc.printer.Options {
    * @default false
    */
   bracketSameLine: boolean;
-  /**
-   * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
-   * @default false
-   * @deprecated use bracketSameLine instead
-   */
-  jsxBracketSameLine: boolean;
   /**
    * Format only a segment of a file.
    * @default 0
@@ -430,6 +424,22 @@ export interface RequiredOptions extends doc.printer.Options {
    * @default false
    */
   singleAttributePerLine: boolean;
+  /**
+   * Use curious ternaries, with the question mark after the condition, instead
+   * of on the same line as the consequent.
+   * @default false
+   */
+  experimentalTernaries: boolean;
+  /**
+   * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+   * @default false
+   * @deprecated use bracketSameLine instead
+   */
+  jsxBracketSameLine?: boolean;
+  /**
+   * Arbitrary additional values on an options object are always allowed.
+   */
+  [_: string]: unknown;
 }
 
 export interface ParserOptions<T = any> extends RequiredOptions {
@@ -486,10 +496,12 @@ export interface Printer<T = any> {
   insertPragma?: (text: string) => string;
   /**
    * @returns `null` if you want to remove this node
-   * @returns `void` if you want to use modified newNode
+   * @returns `void` if you want to use modified `cloned`
    * @returns anything if you want to replace the node with it
    */
-  massageAstNode?: ((node: any, newNode: any, parent: any) => any) | undefined;
+  massageAstNode?:
+    | ((original: any, cloned: any, parent: any) => any)
+    | undefined;
   hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
   canAttachComment?: ((node: T) => boolean) | undefined;
   isBlockComment?: ((node: T) => boolean) | undefined;
@@ -548,8 +560,6 @@ export interface CursorOptions extends Options {
    * Specify where the cursor is.
    */
   cursorOffset: number;
-  rangeStart?: never;
-  rangeEnd?: never;
 }
 
 export interface CursorResult {
@@ -572,7 +582,7 @@ export function check(source: string, options?: Options): Promise<boolean>;
  * `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
  * This is useful for editor integrations, to prevent the cursor from moving when code is formatted.
  *
- * The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
+ * The `cursorOffset` option should be provided, to specify where the cursor is.
  */
 export function formatWithCursor(
   source: string,
@@ -603,8 +613,7 @@ export interface ResolveConfigOptions {
 /**
  * `resolveConfig` can be used to resolve configuration for a given source file,
  * passing its path or url as the first argument. The config search will start at
- * the file location and continue to search up the directory.
- * (You can use `process.cwd()` to start searching from the current directory).
+ * the directory of the file location and continue to search up the directory.
  *
  * A promise is returned which will resolve to:
  *
@@ -782,7 +791,7 @@ export interface SupportInfo {
 export interface FileInfoOptions {
   ignorePath?: string | URL | (string | URL)[] | undefined;
   withNodeModules?: boolean | undefined;
-  plugins?: string[] | undefined;
+  plugins?: Array<string | Plugin> | undefined;
   resolveConfig?: boolean | undefined;
 }
 
@@ -796,10 +805,17 @@ export function getFileInfo(
   options?: FileInfoOptions,
 ): Promise<FileInfoResult>;
 
+export interface SupportInfoOptions {
+  plugins?: Array<string | Plugin> | undefined;
+  showDeprecated?: boolean | undefined;
+}
+
 /**
  * Returns an object representing the parsers, languages and file types Prettier supports for the current version.
  */
-export function getSupportInfo(): Promise<SupportInfo>;
+export function getSupportInfo(
+  options?: SupportInfoOptions,
+): Promise<SupportInfo>;
 
 /**
  * `version` field in `package.json`

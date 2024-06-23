@@ -41,7 +41,7 @@ function isNextLineEmpty(node, text) {
       newlineCount++;
     }
 
-    if (newlineCount === 1 && /\S/.test(char)) {
+    if (newlineCount === 1 && /\S/u.test(char)) {
       return false;
     }
 
@@ -148,7 +148,7 @@ function splitWithSingleSpace(text) {
   const parts = [];
 
   let lastPart;
-  for (const part of text.split(/( +)/)) {
+  for (const part of text.split(/( +)/u)) {
     if (part !== " ") {
       if (lastPart === " ") {
         parts.push(part);
@@ -182,10 +182,10 @@ function getFlowScalarLineContents(nodeType, content, options) {
       index === 0 && index === lineContents.length - 1
         ? lineContent
         : index !== 0 && index !== lineContents.length - 1
-        ? lineContent.trim()
-        : index === 0
-        ? lineContent.trimEnd()
-        : lineContent.trimStart(),
+          ? lineContent.trim()
+          : index === 0
+            ? lineContent.trimEnd()
+            : lineContent.trimStart(),
     );
 
   if (options.proseWrap === "preserve") {
@@ -228,11 +228,11 @@ function getBlockValueLineContents(
       : options.originalText
           .slice(node.position.start.offset, node.position.end.offset)
           // exclude open line `>` or `|`
-          .match(/^[^\n]*\n(.*)$/s)[1];
+          .match(/^[^\n]*\n(.*)$/su)[1];
 
   let leadingSpaceCount;
   if (node.indent === null) {
-    const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/m);
+    const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/mu);
     leadingSpaceCount = matches
       ? matches.groups.leadingSpace.length
       : Number.POSITIVE_INFINITY;
@@ -262,8 +262,8 @@ function getBlockValueLineContents(
           index !== 0 &&
           rawLineContents[index - 1].length > 0 &&
           lineContentWords.length > 0 &&
-          !/^\s/.test(lineContentWords[0]) &&
-          !/^\s|\s$/.test(reduced.at(-1))
+          !/^\s/u.test(lineContentWords[0]) &&
+          !/^\s|\s$/u.test(reduced.at(-1))
             ? [
                 ...reduced.slice(0, -1),
                 [...reduced.at(-1), ...lineContentWords],
@@ -275,7 +275,7 @@ function getBlockValueLineContents(
         lineContentWords.reduce(
           (reduced, word) =>
             // disallow trailing spaces
-            reduced.length > 0 && /\s$/.test(reduced.at(-1))
+            reduced.length > 0 && /\s$/u.test(reduced.at(-1))
               ? [...reduced.slice(0, -1), reduced.at(-1) + " " + word]
               : [...reduced, word],
           [],
@@ -307,9 +307,9 @@ function getBlockValueLineContents(
     return trailingNewlineCount === 0
       ? lineContents
       : trailingNewlineCount >= 2 && !isLastDescendant
-      ? // next empty line
-        lineContents.slice(0, -(trailingNewlineCount - 1))
-      : lineContents.slice(0, -trailingNewlineCount);
+        ? // next empty line
+          lineContents.slice(0, -(trailingNewlineCount - 1))
+        : lineContents.slice(0, -trailingNewlineCount);
   }
 }
 
@@ -333,20 +333,20 @@ function isInlineNode(node) {
 }
 
 export {
-  isNode,
-  isEmptyNode,
-  isInlineNode,
-  mapNode,
   defineShortcut,
-  isNextLineEmpty,
-  isLastDescendantNode,
   getBlockValueLineContents,
   getFlowScalarLineContents,
   getLastDescendantNode,
-  hasPrettierIgnore,
+  hasEndComments,
+  hasIndicatorComment,
   hasLeadingComments,
   hasMiddleComments,
-  hasIndicatorComment,
+  hasPrettierIgnore,
   hasTrailingComment,
-  hasEndComments,
+  isEmptyNode,
+  isInlineNode,
+  isLastDescendantNode,
+  isNextLineEmpty,
+  isNode,
+  mapNode,
 };

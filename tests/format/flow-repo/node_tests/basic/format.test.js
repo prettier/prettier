@@ -1,0 +1,1 @@
+runFormatTest(import.meta, ["flow"]);

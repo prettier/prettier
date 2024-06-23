@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`block-param.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<Foo as
+|bar baz qux|></Foo>{{#Foo as
+|bar baz qux|}}{{/Foo}}
+
+=====================================output=====================================
+<Foo as |bar baz qux| />{{#Foo as |bar baz qux|}}{{/Foo}}
+================================================================================
+`;

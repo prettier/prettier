@@ -1,14 +1,15 @@
 import camelCase from "camelcase";
+
 import { categoryOrder, usageSummary } from "./constants.evaluate.js";
-import { groupBy } from "./utils.js";
 import { formatOptionsHiddenDefaults } from "./prettier-internal.js";
+import { groupBy } from "./utils.js";
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 function indent(str, spaces) {
-  return str.replaceAll(/^/gm, " ".repeat(spaces));
+  return str.replaceAll(/^/gmu, " ".repeat(spaces));
 }
 
 function createDefaultValueDisplay(value) {
@@ -193,4 +194,4 @@ function createDetailedUsage(context, flag) {
   return `${header}${description}${choices}${defaults}${pluginDefaults}`;
 }
 
-export { createUsage, createDetailedUsage };
+export { createDetailedUsage, createUsage };

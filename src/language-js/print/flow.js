@@ -1,52 +1,59 @@
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
 import assert from "node:assert";
-import printString from "../../utils/print-string.js";
-import printNumber from "../../utils/print-number.js";
+
 import { replaceEndOfLine } from "../../document/utils.js";
-import {
-  isFunctionNotation,
-  isGetterOrSetter,
-  rawText,
-} from "../utils/index.js";
+import printNumber from "../../utils/print-number.js";
+import printString from "../../utils/print-string.js";
+import { isMethod, rawText } from "../utils/index.js";
 import isFlowKeywordType from "../utils/is-flow-keyword-type.js";
+import { printArray } from "./array.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
 import { printClass } from "./class.js";
 import {
-  printOpaqueType,
-  printTypeAlias,
-  printIntersectionType,
-  printInferType,
-  printUnionType,
-  printFunctionType,
-  printIndexedAccessType,
-  printRestType,
-  printNamedTupleMember,
-  printTypeAnnotation,
-  printTypeAnnotationProperty,
-  printArrayType,
-  printTypeQuery,
-  printTypePredicate,
-} from "./type-annotation.js";
-import { printInterface } from "./interface.js";
-import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
-import { printExportDeclaration } from "./module.js";
-import { printArray } from "./array.js";
-import { printObject } from "./object.js";
-import { printPropertyKey } from "./property.js";
+  printComponent,
+  printComponentParameter,
+  printComponentTypeParameter,
+} from "./component.js";
 import {
-  printEnumDeclaration,
   printEnumBody,
+  printEnumDeclaration,
   printEnumMember,
 } from "./enum.js";
-import { printBigInt } from "./literal.js";
 import {
+  printDeclareHook,
+  printHook,
+  printHookTypeAnnotation,
+} from "./hook.js";
+import { printInterface } from "./interface.js";
+import { printBigInt } from "./literal.js";
+import { printFlowMappedTypeProperty } from "./mapped-type.js";
+import {
+  printDeclareToken,
   printOptionalToken,
   printRestSpread,
-  printDeclareToken,
 } from "./misc.js";
+import { printExportDeclaration } from "./module.js";
+import { printObject } from "./object.js";
+import { printPropertyKey } from "./property.js";
 import { printTernary } from "./ternary.js";
-import { printFlowMappedTypeProperty } from "./mapped-type.js";
+import {
+  printArrayType,
+  printFunctionType,
+  printIndexedAccessType,
+  printInferType,
+  printIntersectionType,
+  printNamedTupleMember,
+  printOpaqueType,
+  printRestType,
+  printTypeAlias,
+  printTypeAnnotation,
+  printTypeAnnotationProperty,
+  printTypePredicate,
+  printTypeQuery,
+  printUnionType,
+} from "./type-annotation.js";
+import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
 
 function printFlow(path, options, print) {
   const { node } = path;
@@ -59,6 +66,20 @@ function printFlow(path, options, print) {
   const semi = options.semi ? ";" : "";
 
   switch (node.type) {
+    case "ComponentDeclaration":
+    case "DeclareComponent":
+    case "ComponentTypeAnnotation":
+      return printComponent(path, options, print);
+    case "ComponentParameter":
+      return printComponentParameter(path, options, print);
+    case "ComponentTypeParameter":
+      return printComponentTypeParameter(path, options, print);
+    case "HookDeclaration":
+      return printHook(path, options, print);
+    case "DeclareHook":
+      return printDeclareHook(path, options, print);
+    case "HookTypeAnnotation":
+      return printHookTypeAnnotation(path, options, print);
     case "DeclareClass":
       return printClass(path, options, print);
     case "DeclareFunction":
@@ -77,6 +98,8 @@ function printFlow(path, options, print) {
         printTypeAnnotationProperty(path, print),
         semi,
       ];
+    case "DeclareNamespace":
+      return ["declare namespace ", print("id"), " ", print("body")];
     case "DeclareVariable":
       return [
         printDeclareToken(path),
@@ -140,12 +163,14 @@ function printFlow(path, options, print) {
 
     case "EnumBooleanBody":
     case "EnumNumberBody":
+    case "EnumBigIntBody":
     case "EnumStringBody":
     case "EnumSymbolBody":
       return printEnumBody(path, print, options);
 
     case "EnumBooleanMember":
     case "EnumNumberMember":
+    case "EnumBigIntMember":
     case "EnumStringMember":
     case "EnumDefaultedMember":
       return printEnumMember(path, print);
@@ -154,8 +179,8 @@ function printFlow(path, options, print) {
       const name = node.name
         ? print("name")
         : path.parent.this === node
-        ? "this"
-        : "";
+          ? "this"
+          : "";
       return [
         name,
         printOptionalToken(path),
@@ -209,11 +234,11 @@ function printFlow(path, options, print) {
 
       return [
         modifier,
-        isGetterOrSetter(node) ? node.kind + " " : "",
+        node.kind !== "init" ? node.kind + " " : "",
         node.variance ? print("variance") : "",
         printPropertyKey(path, options, print),
         printOptionalToken(path),
-        isFunctionNotation(node) ? "" : ": ",
+        isMethod(node) ? "" : ": ",
         print("value"),
       ];
     }
@@ -257,10 +282,14 @@ function printFlow(path, options, print) {
     case "TypePredicate":
       return printTypePredicate(path, print);
 
+    case "TypeOperator":
+      return [node.operator, " ", print("typeAnnotation")];
+
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
 
+    // Deprecated https://github.com/facebook/flow/commit/b98ae5528d9a073ddc62fc8ce418bbb1f2f80a82
     case "InferredPredicate":
     case "DeclaredPredicate":
       // Note: Leading comment print should be improved https://github.com/prettier/prettier/pull/14710#issuecomment-1512522282

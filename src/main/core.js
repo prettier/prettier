@@ -1,22 +1,22 @@
 import { diffArrays } from "diff";
 
-import { hardline, addAlignmentToDoc } from "../document/builders.js";
-import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer.js";
-import { printDocToDebug } from "../document/debug.js";
-import getAlignmentSize from "../utils/get-alignment-size.js";
 import {
-  guessEndOfLine,
   convertEndOfLineToChars,
   countEndOfLineChars,
+  guessEndOfLine,
   normalizeEndOfLine,
 } from "../common/end-of-line.js";
-import normalizeFormatOptions from "./normalize-format-options.js";
-import massageAst from "./massage-ast.js";
-import { resolveParser } from "./parser-and-printer.js";
-import parseText from "./parse.js";
-import { printAstToDoc, prepareToPrint } from "./ast-to-doc.js";
-import { calculateRange } from "./range-util.js";
+import { addAlignmentToDoc, hardline } from "../document/builders.js";
+import { printDocToDebug } from "../document/debug.js";
+import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer.js";
+import getAlignmentSize from "../utils/get-alignment-size.js";
+import { prepareToPrint, printAstToDoc } from "./ast-to-doc.js";
 import getCursorNode from "./get-cursor-node.js";
+import massageAst from "./massage-ast.js";
+import normalizeFormatOptions from "./normalize-format-options.js";
+import parseText from "./parse.js";
+import { resolveParser } from "./parser-and-printer.js";
+import { calculateRange } from "./range-util.js";
 
 const BOM = "\uFEFF";
 
@@ -142,7 +142,7 @@ async function formatRange(originalText, opts) {
     rangeStart,
     text.lastIndexOf("\n", rangeStart) + 1,
   );
-  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
+  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/u)[0];
 
   const alignmentSize = getAlignmentSize(indentString, opts.tabWidth);
 
@@ -357,10 +357,10 @@ async function printDocToString(doc, options) {
 }
 
 export {
-  formatWithCursor,
-  parse,
   formatAst,
   formatDoc,
-  printToDoc,
+  formatWithCursor,
+  parse,
   printDocToString,
+  printToDoc,
 };

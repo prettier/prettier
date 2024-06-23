@@ -1,18 +1,40 @@
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 
-function clean(ast, newNode /*, parent*/) {
+function clean(original, cloned /*, parent*/) {
   // (Glimmer/HTML) ignore TextNode
-  if (ast.type === "TextNode") {
-    const trimmed = ast.chars.trim();
+  if (original.type === "TextNode") {
+    const trimmed = original.chars.trim();
     if (!trimmed) {
       return null;
     }
-    newNode.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
+    cloned.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
+  }
+
+  if (original.type === "ElementNode") {
+    delete cloned.startTag;
+    delete cloned.openTag;
+    delete cloned.parts;
+    delete cloned.endTag;
+    delete cloned.closeTag;
+    delete cloned.nameNode;
+    delete cloned.body;
+    delete cloned.blockParamNodes;
+    delete cloned.params;
+    delete cloned.path;
+  }
+
+  if (original.type === "Block") {
+    delete cloned.blockParamNodes;
+    delete cloned.params;
   }
 
   // `class` is reformatted
-  if (ast.type === "AttrNode" && ast.name.toLowerCase() === "class") {
-    delete newNode.value;
+  if (original.type === "AttrNode" && original.name.toLowerCase() === "class") {
+    delete cloned.value;
+  }
+
+  if (original.type === "PathExpression") {
+    cloned.head = original.head.original;
   }
 }
 

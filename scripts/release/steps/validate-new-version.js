@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import semver from "semver";
 
-export default function validateNewVersion({ version, previousVersion }) {
+export default function validateNewVersion({ version, previousVersion, next }) {
   if (!version) {
     throw new Error("'--version' is required");
   }
@@ -15,6 +15,14 @@ export default function validateNewVersion({ version, previousVersion }) {
   if (!semver.gt(version, previousVersion)) {
     throw new Error(
       `Version '${chalk.yellow.underline(version)}' has already been published`,
+    );
+  }
+
+  if (next && semver.prerelease(version) === null) {
+    throw new Error(
+      `Version '${chalk.yellow.underline(
+        version,
+      )}' is not a prerelease version`,
     );
   }
 }

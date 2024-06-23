@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`if.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@if      (should.   not.    format) {  }
+@else if (should.   not.    format) {  }
+
+=====================================output=====================================
+@if (should.   not.    format) {
+} @else if (should.   not.    format) {}
+
+================================================================================
+`;

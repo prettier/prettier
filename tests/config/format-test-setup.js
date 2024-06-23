@@ -1,3 +1,3 @@
-import runSpec from "./format-test.js";
+import runFormatTest from "./run-format-test.js";
 
-globalThis.run_spec = runSpec;
+globalThis.runFormatTest = runFormatTest;

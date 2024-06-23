@@ -1,0 +1,451 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dynamic-import.js [acorn] format 1`] = `
+"Unexpected token (1:20)
+> 1 | import("./foo.json", { with: { type: "json" } });
+    |                    ^
+  2 |
+Cause: Unexpected token (1:19)"
+`;
+
+exports[`dynamic-import.js [espree] format 1`] = `
+"Unexpected token , (1:20)
+> 1 | import("./foo.json", { with: { type: "json" } });
+    |                    ^
+  2 |
+Cause: Unexpected token ,"
+`;
+
+exports[`dynamic-import.js [meriyah] format 1`] = `
+"Expected ')' (1:20)
+> 1 | import("./foo.json", { with: { type: "json" } });
+    |                    ^
+  2 |
+Cause: [1:20]: Expected ')'"
+`;
+
+exports[`dynamic-import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("./foo.json", { with: { type: "json" } });
+
+=====================================output=====================================
+import("./foo.json", { with: { type: "json" } });
+
+================================================================================
+`;
+
+exports[`empty.js [acorn] format 1`] = `
+"Unexpected token (2:33)
+  1 | export * as foo from "foo.json"
+> 2 | export * as bar from "bar.json" with { }
+    |                                 ^
+  3 | export * as baz from "baz.json" with { /* comment */ }
+  4 |
+  5 | import * as foo from "foo.json"
+Cause: Unexpected token (2:32)"
+`;
+
+exports[`empty.js [espree] format 1`] = `
+"Unexpected token with (2:33)
+  1 | export * as foo from "foo.json"
+> 2 | export * as bar from "bar.json" with { }
+    |                                 ^
+  3 | export * as baz from "baz.json" with { /* comment */ }
+  4 |
+  5 | import * as foo from "foo.json"
+Cause: Unexpected token with"
+`;
+
+exports[`empty.js [meriyah] format 1`] = `
+"Unexpected token: 'with' (2:36)
+  1 | export * as foo from "foo.json"
+> 2 | export * as bar from "bar.json" with { }
+    |                                    ^
+  3 | export * as baz from "baz.json" with { /* comment */ }
+  4 |
+  5 | import * as foo from "foo.json"
+Cause: [2:36]: Unexpected token: 'with'"
+`;
+
+exports[`empty.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export * as foo from "foo.json"
+export * as bar from "bar.json" with { }
+export * as baz from "baz.json" with { /* comment */ }
+
+import * as foo from "foo.json"
+import * as bar from "bar.json" with { }
+import * as baz from "baz.json" with { /* comment */ }
+
+=====================================output=====================================
+export * as foo from "foo.json";
+export * as bar from "bar.json" with {};
+export * as baz from "baz.json" /* comment */ with {};
+
+import * as foo from "foo.json";
+import * as bar from "bar.json" with {};
+import * as baz from "baz.json" /* comment */ with {};
+
+================================================================================
+`;
+
+exports[`keyword-detect.js [acorn] format 1`] = `
+"Unexpected token (1:35)
+> 1 | import "./test.json" /* assert */ with /* assert */  { type: "json" }
+    |                                   ^
+  2 | import {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
+  3 | import "./test.json" /* with */ assert /* with */  { type: "json" }
+  4 | import {} from "./test.json" /* with */ assert /* with */  { type: "json" }
+Cause: Unexpected token (1:34)"
+`;
+
+exports[`keyword-detect.js [espree] format 1`] = `
+"Unexpected token with (1:35)
+> 1 | import "./test.json" /* assert */ with /* assert */  { type: "json" }
+    |                                   ^
+  2 | import {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
+  3 | import "./test.json" /* with */ assert /* with */  { type: "json" }
+  4 | import {} from "./test.json" /* with */ assert /* with */  { type: "json" }
+Cause: Unexpected token with"
+`;
+
+exports[`keyword-detect.js [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:38)
+> 1 | import "./test.json" /* assert */ with /* assert */  { type: "json" }
+    |                                      ^
+  2 | import {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
+  3 | import "./test.json" /* with */ assert /* with */  { type: "json" }
+  4 | import {} from "./test.json" /* with */ assert /* with */  { type: "json" }
+Cause: [1:38]: Unexpected token: 'with'"
+`;
+
+exports[`keyword-detect.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import "./test.json" /* assert */ with /* assert */  { type: "json" }
+import {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
+import "./test.json" /* with */ assert /* with */  { type: "json" }
+import {} from "./test.json" /* with */ assert /* with */  { type: "json" }
+
+export {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
+export {} from "./test.json" /* with */ assert /* with */  { type: "json" }
+
+export * from "./test.json" /* assert */ with /* assert */  { type: "json" }
+export * from "./test.json" /* with */ assert /* with */  { type: "json" }
+
+=====================================output=====================================
+import "./test.json" /* assert */ /* assert */ with { type: "json" };
+import {} from "./test.json" /* assert */ /* assert */ with { type: "json" };
+import "./test.json" /* with */ /* with */ assert { type: "json" };
+import {} from "./test.json" /* with */ /* with */ assert { type: "json" };
+
+export {} from "./test.json" /* assert */ /* assert */ with { type: "json" };
+export {} from "./test.json" /* with */ /* with */ assert { type: "json" };
+
+export * from "./test.json" /* assert */ /* assert */ with { type: "json" };
+export * from "./test.json" /* with */ /* with */ assert { type: "json" };
+
+================================================================================
+`;
+
+exports[`long-sources.js [acorn] format 1`] = `
+"Unexpected token (1:37)
+> 1 | import a10 from "./aaaaaaaaaa.json" with {
+    |                                     ^
+  2 | type: "json" };
+  3 | import a20 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+  4 | import a30 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+Cause: Unexpected token (1:36)"
+`;
+
+exports[`long-sources.js [espree] format 1`] = `
+"Unexpected token with (1:37)
+> 1 | import a10 from "./aaaaaaaaaa.json" with {
+    |                                     ^
+  2 | type: "json" };
+  3 | import a20 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+  4 | import a30 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+Cause: Unexpected token with"
+`;
+
+exports[`long-sources.js [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:40)
+> 1 | import a10 from "./aaaaaaaaaa.json" with {
+    |                                        ^
+  2 | type: "json" };
+  3 | import a20 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+  4 | import a30 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+Cause: [1:40]: Unexpected token: 'with'"
+`;
+
+exports[`long-sources.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import a10 from "./aaaaaaaaaa.json" with {
+type: "json" };
+import a20 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a30 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a40 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a50 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a60 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a70 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with {
+type: "json" };
+import a80
+from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+
+import("./aaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+
+=====================================output=====================================
+import a10 from "./aaaaaaaaaa.json" with { type: "json" };
+import a20 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a30 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a40 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a50 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a60 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a70 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a80 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+
+import("./aaaaaaaaaa.json", { with: { type: "json" } });
+import("./aaaaaaaaaaaaaaaaaaaa.json", { with: { type: "json" } });
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", { with: { type: "json" } });
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {
+  with: { type: "json" },
+});
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {
+  with: { type: "json" },
+});
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {
+  with: { type: "json" },
+});
+import(
+  "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+  { with: { type: "json" } }
+);
+import(
+  "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+  { with: { type: "json" } }
+);
+
+================================================================================
+`;
+
+exports[`multi-types.js [acorn] format 1`] = `
+"Unexpected token (1:31)
+> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
+    |                               ^
+  2 |
+Cause: Unexpected token (1:30)"
+`;
+
+exports[`multi-types.js [espree] format 1`] = `
+"Unexpected token with (1:31)
+> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
+    |                               ^
+  2 |
+Cause: Unexpected token with"
+`;
+
+exports[`multi-types.js [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:34)
+> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
+    |                                  ^
+  2 |
+Cause: [1:34]: Unexpected token: 'with'"
+`;
+
+exports[`multi-types.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import json from "./foo.json" with { type: "json", type: "bar" };
+
+=====================================output=====================================
+import json from "./foo.json" with { type: "json", type: "bar" };
+
+================================================================================
+`;
+
+exports[`non-type.js [acorn] format 1`] = `
+"Unexpected token (1:28)
+> 1 | import foo from "foo.json" with { lazy: "true" };
+    |                            ^
+  2 |
+Cause: Unexpected token (1:27)"
+`;
+
+exports[`non-type.js [espree] format 1`] = `
+"Unexpected token with (1:28)
+> 1 | import foo from "foo.json" with { lazy: "true" };
+    |                            ^
+  2 |
+Cause: Unexpected token with"
+`;
+
+exports[`non-type.js [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:31)
+> 1 | import foo from "foo.json" with { lazy: "true" };
+    |                               ^
+  2 |
+Cause: [1:31]: Unexpected token: 'with'"
+`;
+
+exports[`non-type.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import foo from "foo.json" with { lazy: "true" };
+
+=====================================output=====================================
+import foo from "foo.json" with { lazy: "true" };
+
+================================================================================
+`;
+
+exports[`re-export.js [acorn] format 1`] = `
+"Unexpected token (1:44)
+> 1 | export { default as foo2 } from "foo.json" with { type: "json" };
+    |                                            ^
+  2 | export * from "foo.json" with { type: "json" };
+  3 | export * as foo3 from "foo.json" with { type: "json" };
+  4 |
+Cause: Unexpected token (1:43)"
+`;
+
+exports[`re-export.js [espree] format 1`] = `
+"Unexpected token with (1:44)
+> 1 | export { default as foo2 } from "foo.json" with { type: "json" };
+    |                                            ^
+  2 | export * from "foo.json" with { type: "json" };
+  3 | export * as foo3 from "foo.json" with { type: "json" };
+  4 |
+Cause: Unexpected token with"
+`;
+
+exports[`re-export.js [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:47)
+> 1 | export { default as foo2 } from "foo.json" with { type: "json" };
+    |                                               ^
+  2 | export * from "foo.json" with { type: "json" };
+  3 | export * as foo3 from "foo.json" with { type: "json" };
+  4 |
+Cause: [1:47]: Unexpected token: 'with'"
+`;
+
+exports[`re-export.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export { default as foo2 } from "foo.json" with { type: "json" };
+export * from "foo.json" with { type: "json" };
+export * as foo3 from "foo.json" with { type: "json" };
+
+=====================================output=====================================
+export { default as foo2 } from "foo.json" with { type: "json" };
+export * from "foo.json" with { type: "json" };
+export * as foo3 from "foo.json" with { type: "json" };
+
+================================================================================
+`;
+
+exports[`static-import.js [acorn] format 1`] = `
+"Unexpected token (1:31)
+> 1 | import json from "./foo.json" with { type: "json" };
+    |                               ^
+  2 |
+Cause: Unexpected token (1:30)"
+`;
+
+exports[`static-import.js [espree] format 1`] = `
+"Unexpected token with (1:31)
+> 1 | import json from "./foo.json" with { type: "json" };
+    |                               ^
+  2 |
+Cause: Unexpected token with"
+`;
+
+exports[`static-import.js [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:34)
+> 1 | import json from "./foo.json" with { type: "json" };
+    |                                  ^
+  2 |
+Cause: [1:34]: Unexpected token: 'with'"
+`;
+
+exports[`static-import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import json from "./foo.json" with { type: "json" };
+
+=====================================output=====================================
+import json from "./foo.json" with { type: "json" };
+
+================================================================================
+`;
+
+exports[`without-from.js [acorn] format 1`] = `
+"Unexpected token (1:14)
+> 1 | import "foo" with { type: "json" }
+    |              ^
+  2 |
+Cause: Unexpected token (1:13)"
+`;
+
+exports[`without-from.js [espree] format 1`] = `
+"Unexpected token with (1:14)
+> 1 | import "foo" with { type: "json" }
+    |              ^
+  2 |
+Cause: Unexpected token with"
+`;
+
+exports[`without-from.js [meriyah] format 1`] = `
+"Unexpected token: 'with' (1:17)
+> 1 | import "foo" with { type: "json" }
+    |                 ^
+  2 |
+Cause: [1:17]: Unexpected token: 'with'"
+`;
+
+exports[`without-from.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import "foo" with { type: "json" }
+
+=====================================output=====================================
+import "foo" with { type: "json" };
+
+================================================================================
+`;

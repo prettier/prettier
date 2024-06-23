@@ -97,10 +97,10 @@ class CodeMirrorPanel extends React.Component {
   }
 
   updateOverlay() {
-    if (!this.props.readOnly) {
-      if (this._overlay) {
-        this._codeMirror.removeOverlay(this._overlay);
-      }
+    if (this._overlay) {
+      this._codeMirror.removeOverlay(this._overlay);
+    }
+    if (this.props.overlayStart !== undefined) {
       const [start, end] = getIndexPosition(this.props.value, [
         this.props.overlayStart,
         this.props.overlayEnd,

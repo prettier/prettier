@@ -12,7 +12,7 @@
     "noImplicitAny": false,
     "strictNullChecks": false,
 
-    "typeRoots": ["./types", "./node_modules/@types"]
+    "typeRoots": ["./types", "./node_modules/@types"],
   },
   "exclude": [
     "coverage/",
@@ -53,6 +53,6 @@
     "scripts/",
     "tests/",
     "website/",
-    "types/"
-  ]
+    "types/",
+  ],
 }

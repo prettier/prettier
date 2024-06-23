@@ -1,8 +1,9 @@
 import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
+
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import {
-  getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
+  getLeadingAndTrailingHtmlWhitespace,
   getNodeCssStyleDisplay,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
@@ -186,7 +187,7 @@ function extractInterpolation(ast, options) {
     return;
   }
 
-  const interpolationRegex = /{{(.+?)}}/s;
+  const interpolationRegex = /\{\{(.+?)\}\}/su;
   ast.walk((node) => {
     if (!canHaveInterpolation(node)) {
       return;
@@ -345,7 +346,7 @@ function addHasHtmComponentClosingTag(ast, options) {
 
     node.hasHtmComponentClosingTag =
       node.endSourceSpan &&
-      /^<\s*\/\s*\/\s*>$/.test(
+      /^<\s*\/\s*\/\s*>$/u.test(
         options.originalText.slice(
           node.endSourceSpan.start.offset,
           node.endSourceSpan.end.offset,

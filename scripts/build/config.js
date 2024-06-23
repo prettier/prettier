@@ -1,12 +1,16 @@
+import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-import fs from "node:fs";
+
 import createEsmUtils from "esm-utils";
-import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.js";
+import { outdent } from "outdent";
+
+import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import buildJavascriptModule from "./build-javascript-module.js";
-import buildPackageJson from "./build-package-json.js";
 import buildLicense from "./build-license.js";
+import buildPackageJson from "./build-package-json.js";
 import buildTypes from "./build-types.js";
+import esmifyTypescriptEslint from "./esmify-typescript-eslint.js";
 import modifyTypescriptModule from "./modify-typescript-module.js";
 import { getPackageFile } from "./utils.js";
 
@@ -15,8 +19,8 @@ const {
   dirname,
   resolve: importMetaResolve,
 } = createEsmUtils(import.meta);
-const resolveEsmModulePath = async (specifier) =>
-  url.fileURLToPath(await importMetaResolve(specifier));
+const resolveEsmModulePath = (specifier) =>
+  url.fileURLToPath(importMetaResolve(specifier));
 const copyFileBuilder = ({ file }) =>
   copyFile(
     path.join(PROJECT_ROOT, file.input),
@@ -26,7 +30,7 @@ const copyFileBuilder = ({ file }) =>
 function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
   let input = jsFileInput;
   if (!isPlugin) {
-    input = jsFileInput.replace(/\.[cm]?js$/, ".d.ts");
+    input = jsFileInput.replace(/\.[cm]?js$/u, ".d.ts");
 
     if (!fs.existsSync(path.join(PROJECT_ROOT, input))) {
       return;
@@ -66,18 +70,6 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
  * @property {boolean?} isPlugin - file is a plugin
  * @property {boolean?} addDefaultExport - add default export to bundle
  */
-
-/*
-`diff` use deprecated folder mapping "./" in the "exports" field,
-so we can't `import("diff/lib/diff/array.js")` directly.
-To reduce the bundle size, replace the entry with smaller files.
-
-We can switch to deep import once https://github.com/kpdecker/jsdiff/pull/351 get merged
-*/
-const replaceDiffPackageEntry = (file) => ({
-  module: getPackageFile("diff/lib/index.mjs"),
-  path: getPackageFile(`diff/${file}`),
-});
 
 const extensions = {
   esm: ".mjs",
@@ -136,64 +128,6 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parser.js",
-        ),
-        process(text) {
-          text = text
-            .replace('require("./create-program/createDefaultProgram")', "{}")
-            .replace('require("./create-program/createIsolatedProgram")', "{}")
-            .replace('require("./create-program/createProjectProgram")', "{}")
-            .replace('require("./create-program/useProvidedPrograms")', "{}");
-          return text;
-        },
-      },
-      {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js",
-        ),
-        process(text) {
-          return text
-            .replace('require("./resolveProjectList")', "{}")
-            .replace(
-              'require("../create-program/shared")',
-              "{ensureAbsolutePath: path => path}",
-            )
-            .replace(
-              "process.cwd()",
-              JSON.stringify("/prettier-security-dirname-placeholder"),
-            )
-            .replace(
-              "parseSettings.projects = ",
-              "parseSettings.projects = [] || ",
-            );
-        },
-      },
-      {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js",
-        ),
-        text: "exports.inferSingleRun = () => false;",
-      },
-      {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/ExpiringCache.js",
-        ),
-        text: "exports.ExpiringCache = class {};",
-      },
-      {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/getProjectConfigFiles.js",
-        ),
-        text: "exports.resolveProjectList = () => [];",
-      },
-      {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js",
-        ),
-        text: "exports.warnAboutTSVersion = () => {};",
-      },
-      {
-        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js",
         ),
         process: (text) =>
@@ -204,51 +138,161 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/version-check.js",
+          "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js",
         ),
-        text: "exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
+        process(text) {
+          return text
+            .replace(
+              "process.cwd()",
+              JSON.stringify("/prettier-security-dirname-placeholder"),
+            )
+            .replace(
+              "parseSettings.projects = ",
+              "parseSettings.projects = true ? new Map() : ",
+            );
+        },
       },
       {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/create-program/createProjectService.js",
-        ),
-        text: "",
+        module: "*",
+        process: esmifyTypescriptEslint,
       },
       {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/create-program/getWatchProgramsForProjects.js",
-        ),
-        text: "",
+        module: "*",
+        process(text, file) {
+          if (/require\(["'](?:typescript|ts-api-utils)["']\)/u.test(text)) {
+            throw new Error(`Unexpected \`require("typescript")\` in ${file}.`);
+          }
+
+          return text;
+        },
       },
-      {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/create-program/describeFilePath.js",
-        ),
-        text: "",
-      },
-      {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/create-program/createProjectProgram.js",
-        ),
-        text: "",
-      },
-      {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/useProgramFromProjectService.js",
-        ),
-        text: "",
-      },
+      ...[
+        {
+          file: "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js",
+          text: "export const inferSingleRun = () => false;",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/parseSettings/ExpiringCache.js",
+          text: outdent`
+            export const DEFAULT_TSCONFIG_CACHE_DURATION_SECONDS = undefined;
+            export const ExpiringCache = class {};
+          `,
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/parseSettings/getProjectConfigFiles.js",
+          text: "export const resolveProjectList = () => [];",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/parseSettings/resolveProjectList.js",
+          text: "export const resolveProjectList = () => [];",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js",
+          text: "export const warnAboutTSVersion = () => {};",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/version-check.js",
+          text: "export const typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/jsx/xhtml-entities.js",
+          text: "export const xhtmlEntities = {};",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/simple-traverse.js",
+          text: "export const simpleTraverse = () => {};",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/create-program/shared.js",
+          text: "export const ensureAbsolutePath = path => path;",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/create-program/createIsolatedProgram.js",
+          text: "export const createIsolatedProgram = () => {};",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/create-program/useProvidedPrograms.js",
+          text: outdent`
+            export const useProvidedPrograms = () => {};
+            export const createProgramFromConfigFile = () => {};
+          `,
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/create-program/createProjectService.js",
+          text: "export const createProjectService = () => {};",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/create-program/getWatchProgramsForProjects.js",
+          text: "export const getWatchProgramsForProjects = () => {};",
+        },
+        "@typescript-eslint/typescript-estree/dist/create-program/describeFilePath.js",
+        {
+          file: "@typescript-eslint/typescript-estree/dist/create-program/createProjectProgram.js",
+          text: "export const createProjectProgram = () => {};",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/useProgramFromProjectService.js",
+          text: "export const useProgramFromProjectService = () => {};",
+        },
+        {
+          file: "@typescript-eslint/typescript-estree/dist/semantic-or-syntactic-errors.js",
+          text: "export const getFirstSemanticOrSyntacticError = () => {};",
+        },
+      ].map((options) => {
+        options = typeof options === "string" ? { file: options } : options;
+        return {
+          module: getPackageFile(options.file),
+          text: options.text || "export {};",
+        };
+      }),
 
       // Only needed if `range`/`loc` in parse options is `false`
       {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/ast-converter.js",
-        ),
-        process: (text) => text.replace('require("./simple-traverse")', "{}"),
-      },
-      {
         module: getPackageFile("debug/src/browser.js"),
         path: path.join(dirname, "./shims/debug.js"),
+      },
+      {
+        module: require.resolve("ts-api-utils"),
+        process() {
+          throw new Error(
+            "Please replace the CJS version of 'ts-api-utils' with ESM version.",
+          );
+        },
+      },
+      {
+        module: getPackageFile(
+          "@typescript-eslint/types/dist/generated/ast-spec.js",
+        ),
+        text: outdent`
+          const TYPE_STORE = new Proxy({}, {get: (_, type) => type});
+          export { TYPE_STORE as AST_TOKEN_TYPES, TYPE_STORE as AST_NODE_TYPES};
+        `,
+      },
+      // Use named import from `typescript`
+      {
+        module: getPackageFile("ts-api-utils/lib/index.js"),
+        process(text) {
+          const typescriptVariables = [
+            ...text.matchAll(
+              /import (?<variable>\w+) from ["']typescript["']/gu,
+            ),
+          ].map((match) => match.groups.variable);
+
+          // Remove `'property' in typescript` check
+          text = text.replaceAll(
+            new RegExp(
+              `".*?" in (?:${typescriptVariables.join("|")})(?=\\W)`,
+              "gu",
+            ),
+            "true",
+          );
+
+          text = text.replaceAll(
+            /(?<=import )(?=\w+ from ["']typescript["'])/gu,
+            "* as ",
+          );
+          return text;
+        },
       },
     ],
   },
@@ -256,7 +300,7 @@ const pluginFiles = [
     input: "src/plugins/acorn.js",
     replaceModule: [
       {
-        module: await resolveEsmModulePath("espree"),
+        module: resolveEsmModulePath("espree"),
         process(text) {
           const lines = text.split("\n");
 
@@ -303,7 +347,7 @@ const pluginFiles = [
     replaceModule: [
       {
         // We don't use value of JSXText
-        module: await resolveEsmModulePath("meriyah"),
+        module: resolveEsmModulePath("meriyah"),
         find: "parser.tokenValue = decodeHTMLStrict(raw);",
         replacement: "parser.tokenValue = raw;",
       },
@@ -325,11 +369,11 @@ const pluginFiles = [
       ...[
         "expression_parser/lexer.mjs",
         "expression_parser/parser.mjs",
-        "ml_parser/interpolation_config.mjs",
+        "ml_parser/defaults.mjs",
       ].map((file) => ({
         module: getPackageFile(`@angular/compiler/esm2022/src/${file}`),
         process: (text) =>
-          text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/g, "'$1.mjs'"),
+          text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/gu, "'$1.mjs'"),
       })),
     ],
   },
@@ -424,7 +468,7 @@ const pluginFiles = [
             "const LOCAL_DEBUG = false &&",
           );
 
-          text = text.replace(/(?<=\n)export .*?;/, "export { preprocess };");
+          text = text.replace(/(?<=\n)export .*?;/u, "export { preprocess };");
 
           return text;
         },
@@ -444,7 +488,7 @@ const pluginFiles = [
 
   let { input, umdPropertyName, outputBaseName, ...buildOptions } = file;
 
-  outputBaseName ??= input.match(/\/plugins\/(?<outputBaseName>.*?)\.js$/)
+  outputBaseName ??= input.match(/\/plugins\/(?<outputBaseName>.*?)\.js$/u)
     .groups.outputBaseName;
 
   const umdVariableName = `prettierPlugins.${
@@ -478,18 +522,9 @@ const nonPluginUniversalFiles = [
         path: path.join(dirname, "./shims/babel-highlight.js"),
       },
       {
-        module: require.resolve("chalk", {
-          paths: [require.resolve("@babel/code-frame")],
-        }),
+        module: require.resolve("chalk"),
         path: path.join(dirname, "./shims/chalk.cjs"),
       },
-      {
-        module: require.resolve("chalk", {
-          paths: [require.resolve("vnopts")],
-        }),
-        path: path.join(dirname, "./shims/chalk.cjs"),
-      },
-      replaceDiffPackageEntry("lib/diff/array.js"),
     ],
   },
 ].map((file) => {
@@ -569,7 +604,6 @@ const nodejsFiles = [
         find: "const readBuffer = new Buffer(this.options.readChunk);",
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
       },
-      replaceDiffPackageEntry("lib/diff/array.js"),
       // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
       {
         module: require.resolve("chalk", {
@@ -581,7 +615,20 @@ const nodejsFiles = [
       },
       {
         module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
-        path: getPackageFile("js-yaml/lib/loader.js"),
+        find: "var dump                = dumper.dump;",
+        replacement: "var dump;",
+      },
+      // `parse-json` use another copy of `@babel/code-frame`
+      {
+        module: require.resolve("@babel/code-frame", {
+          paths: [require.resolve("parse-json")],
+        }),
+        path: require.resolve("@babel/code-frame"),
+      },
+      {
+        module: getPackageFile("json5/dist/index.mjs"),
+        find: "export default lib;",
+        replacement: "export default { parse };",
       },
     ],
     addDefaultExport: true,
@@ -605,18 +652,6 @@ const nodejsFiles = [
     input: "src/cli/index.js",
     outputBaseName: "internal/cli",
     external: ["benchmark"],
-    replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
-  },
-  {
-    input: "src/common/mockable.js",
-    outputBaseName: "internal/internal",
-    replaceModule: [
-      {
-        module: require.resolve("lilconfig"),
-        find: "exports.lilconfigSync = lilconfigSync;",
-        replacement: "",
-      },
-    ],
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;

@@ -1,23 +1,21 @@
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
-
 /**
  * @typedef {import("./types/estree.js").Node} Node
  */
 
 function locStart(node) {
-  const start = node.range ? node.range[0] : node.start;
+  const start = node.range?.[0] ?? node.start;
 
   // Handle nodes with decorators. They should start at the first decorator
-  const decorators = node.declaration?.decorators ?? node.decorators;
-  if (isNonEmptyArray(decorators)) {
-    return Math.min(locStart(decorators[0]), start);
+  const firstDecorator = (node.declaration?.decorators ?? node.decorators)?.[0];
+  if (firstDecorator) {
+    return Math.min(locStart(firstDecorator), start);
   }
 
   return start;
 }
 
 function locEnd(node) {
-  return node.range ? node.range[1] : node.end;
+  return node.range?.[1] ?? node.end;
 }
 
 /**
@@ -49,4 +47,4 @@ function hasSameLoc(nodeA, nodeB) {
   return hasSameLocStart(nodeA, nodeB) && hasSameLocEnd(nodeA, nodeB);
 }
 
-export { locStart, locEnd, hasSameLocStart, hasSameLoc };
+export { hasSameLoc, hasSameLocStart, locEnd, locStart };

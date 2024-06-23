@@ -1,9 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
+
 import { isValidIdentifier } from "@babel/types";
 import { outdent } from "outdent";
-import { PROJECT_ROOT, DIST_DIR, writeFile } from "../utils/index.js";
+
+import { DIST_DIR, PROJECT_ROOT, writeFile } from "../utils/index.js";
 
 async function typesFileBuilder({ file }) {
   /**
@@ -18,10 +20,7 @@ async function typesFileBuilder({ file }) {
   const replacements = pathReplacementMap[file.input] ?? [];
   let text = await fs.promises.readFile(file.input, "utf8");
   for (const { from, to } of replacements) {
-    text = text.replaceAll(
-      new RegExp(` from "${from}";`, "g"),
-      ` from "${to}";`,
-    );
+    text = text.replaceAll(` from "${from}";`, ` from "${to}";`);
   }
   await writeFile(path.join(DIST_DIR, file.output.file), text);
 }

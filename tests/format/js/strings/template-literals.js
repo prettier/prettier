@@ -55,3 +55,19 @@ const makeBody = (store, assets, html) =>
 const Bar = styled.div`
   color: ${props => (props.highlight.length > 0 ? palette(['text', 'dark', 'tertiary'])(props) : palette(['text', 'dark', 'primary'])(props))} !important;
 `
+
+// https://github.com/prettier/prettier/issues/3368
+let message = `this is a long message which contains an interpolation: ${format(data)} <- like this`;
+
+let otherMessage = `this template contains two interpolations: ${this(one)}, which should be kept on its line,
+and this other one: ${
+  this(long.placeholder.text.goes.here.so.we.get.a.linebreak)
+}
+which already had a linebreak so can be broken up
+`;
+
+// https://github.com/prettier/prettier/issues/16114
+message = `this is a long messsage a simple interpolation without a linebreak ${foo} <- like this`;
+
+message = `whereas this messsage has a linebreak in the interpolation ${
+  foo} <- like this`;

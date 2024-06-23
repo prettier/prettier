@@ -1,6 +1,6 @@
+import { hardline, indent, softline } from "../../document/builders.js";
+import { cleanDoc, mapDoc, replaceEndOfLine } from "../../document/utils.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { indent, hardline, softline } from "../../document/builders.js";
-import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
 import { isAngularComponentStyles } from "./utils.js";
 
@@ -46,16 +46,18 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     }
     // When we have multiple placeholders in one line, like:
     // ${Child}${Child2}:not(:first-child)
-    return doc.split(/@prettier-placeholder-(\d+)-id/).map((component, idx) => {
-      // The placeholder is always at odd indices
-      if (idx % 2 === 0) {
-        return replaceEndOfLine(component);
-      }
+    return doc
+      .split(/@prettier-placeholder-(\d+)-id/u)
+      .map((component, idx) => {
+        // The placeholder is always at odd indices
+        if (idx % 2 === 0) {
+          return replaceEndOfLine(component);
+        }
 
-      // The component will always be a number at odd index
-      replaceCounter++;
-      return expressionDocs[component];
-    });
+        // The component will always be a number at odd index
+        replaceCounter++;
+        return expressionDocs[component];
+      });
   });
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }
@@ -75,7 +77,8 @@ function isStyledJsx({ node, parent, grandparent }) {
       grandparent.type === "JSXElement" &&
       grandparent.openingElement.name.name === "style" &&
       grandparent.openingElement.attributes.some(
-        (attribute) => attribute.name.name === "jsx",
+        (attribute) =>
+          attribute.type === "JSXAttribute" && attribute.name.name === "jsx",
       )) ||
     (parent?.type === "TaggedTemplateExpression" &&
       parent.tag.type === "Identifier" &&
@@ -93,7 +96,7 @@ function isStyledIdentifier(node) {
 }
 
 function isStyledExtend(node) {
-  return /^[A-Z]/.test(node.object.name) && node.property.name === "extend";
+  return /^[A-Z]/u.test(node.object.name) && node.property.name === "extend";
 }
 
 /**

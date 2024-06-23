@@ -10,6 +10,19 @@ Prettier ships with a handful of format options.
 
 If you change any options, it’s recommended to do it via a [configuration file](configuration.md). This way the Prettier CLI, [editor integrations](editors.md) and other tooling knows what options you use.
 
+## Experimental Ternaries
+
+Try prettier's [new ternary formatting](https://github.com/prettier/prettier/pull/13183) before it becomes the default behavior.
+
+Valid options:
+
+- `true` - Use curious ternaries, with the question mark after the condition.
+- `false` - Retain the default behavior of ternaries; keep question marks on the same line as the consequent.
+
+| Default | CLI Override               | API Override                    |
+| ------- | -------------------------- | ------------------------------- |
+| `false` | `--experimental-ternaries` | `experimentalTernaries: <bool>` |
+
 ## Print Width
 
 Specify the line length that the printer will wrap on.
@@ -102,8 +115,6 @@ Note that Prettier never unquotes numeric property names in Angular expressions,
 [quote-props-typescript]: https://www.typescriptlang.org/play?#code/DYUwLgBAhhC8EG8IEYBcKA0EBM7sQF8AoUSAIzkQgHJlr1ktrt6dCiiATEAY2CgBOICKWhR0AaxABPAPYAzCGGkAHEAugBuLr35CR4CGTKSZG5Wo1ltRKDHjHtQA
 [quote-props-flow]: https://flow.org/try/#0PQKgBAAgZgNg9gdzCYAoVBjOA7AzgFzAA8wBeMAb1TDAAYAuMARlQF8g
 [quote-props-vue]: https://github.com/prettier/prettier/issues/10127
-
-If this option is set to `preserve`, `singleQuote` to `false` (default value), and `parser` to `json5`, double quotes are always used for strings. This effectively allows using the `json5` parser for “JSON with comments and trailing commas”.
 
 ## JSX Quotes
 
@@ -242,8 +253,6 @@ These two options can be used to format code starting and ending at a given char
 - Backwards to the start of the first line containing the selected statement.
 - Forwards to the end of the selected statement.
 
-These options cannot be used with `cursorOffset`.
-
 | Default    | CLI Override          | API Override        |
 | ---------- | --------------------- | ------------------- |
 | `0`        | `--range-start <int>` | `rangeStart: <int>` |
@@ -272,6 +281,7 @@ Valid options:
 - `"less"` (via [postcss-less](https://github.com/shellscape/postcss-less)) _First available in v1.7.1_
 - `"json"` (via [@babel/parser parseExpression](https://babeljs.io/docs/en/next/babel-parser.html#babelparserparseexpressioncode-options)) _First available in v1.5.0_
 - `"json5"` (same parser as `"json"`, but outputs as [json5](https://json5.org/)) _First available in v1.13.0_
+- `"jsonc"` (same parser as `"json"`, but outputs as "JSON with Comments") _First available in v3.2.0_
 - `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _First available in v1.13.0_
 - `"graphql"` (via [graphql/language](https://github.com/graphql/graphql-js/tree/master/src/language)) _First available in v1.5.0_
 - `"markdown"` (via [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse)) _First available in v1.8.0_

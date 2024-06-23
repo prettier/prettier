@@ -1,6 +1,6 @@
+import { isValidIdentifier } from "@babel/types";
 import createEsmUtils from "esm-utils";
 import serialize from "serialize-javascript";
-import { isValidIdentifier } from "@babel/types";
 
 const { importModule } = createEsmUtils(import.meta);
 
@@ -10,16 +10,19 @@ export default function esbuildPluginEvaluate() {
     setup(build) {
       const { format } = build.initialOptions;
 
-      build.onLoad({ filter: /\.evaluate\.c?js$/ }, async ({ path }) => {
+      build.onLoad({ filter: /\.evaluate\.c?js$/u }, async ({ path }) => {
         const module = await importModule(path);
         const text = Object.entries(module)
           .map(([specifier, value]) => {
-            value = serialize(value, { space: 2 });
+            const code =
+              value instanceof RegExp
+                ? `/${value.source}/${value.flags}`
+                : serialize(value, { space: 2 });
 
             if (specifier === "default") {
               return format === "cjs"
-                ? `module.exports = ${value};`
-                : `export default ${value};`;
+                ? `module.exports = ${code};`
+                : `export default ${code};`;
             }
 
             if (!isValidIdentifier(specifier)) {
@@ -27,8 +30,8 @@ export default function esbuildPluginEvaluate() {
             }
 
             return format === "cjs"
-              ? `exports.${specifier} = ${value};`
-              : `export const ${specifier} = ${value};`;
+              ? `exports.${specifier} = ${code};`
+              : `export const ${specifier} = ${code};`;
           })
           .join("\n");
         return { contents: text };
