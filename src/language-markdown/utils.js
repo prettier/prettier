@@ -160,43 +160,40 @@ function splitText(text) {
   }
 }
 
-function getOrderedListItemInfo(orderListItem, originalText) {
-  const [, numberText, marker, leadingSpaces] = originalText
-    .slice(
-      orderListItem.position.start.offset,
-      orderListItem.position.end.offset,
-    )
-    .match(/^\s*(\d+)(\.|\))(\s*)/u);
+function getOrderedListItemInfo(orderListItem, options) {
+  const text = options.originalText.slice(
+    orderListItem.position.start.offset,
+    orderListItem.position.end.offset,
+  );
 
-  return { numberText, marker, leadingSpaces };
+  const { numberText, leadingSpaces } = text.match(
+    /^\s*(?<numberText>\d+)(\.|\))(?<leadingSpaces>\s*)/u,
+  ).groups;
+
+  return { number: Number(numberText), leadingSpaces };
 }
 
 function hasGitDiffFriendlyOrderedList(node, options) {
-  if (!node.ordered) {
+  if (!node.ordered || node.children.length < 2) {
     return false;
   }
 
-  if (node.children.length < 2) {
+  const secondNumber = getOrderedListItemInfo(node.children[1], options).number;
+
+  if (secondNumber !== 1) {
     return false;
   }
 
-  const firstNumber = Number(
-    getOrderedListItemInfo(node.children[0], options.originalText).numberText,
-  );
+  const firstNumber = getOrderedListItemInfo(node.children[0], options).number;
 
-  const secondNumber = Number(
-    getOrderedListItemInfo(node.children[1], options.originalText).numberText,
-  );
-
-  if (firstNumber === 0 && node.children.length > 2) {
-    const thirdNumber = Number(
-      getOrderedListItemInfo(node.children[2], options.originalText).numberText,
-    );
-
-    return secondNumber === 1 && thirdNumber === 1;
+  if (firstNumber !== 0) {
+    return true;
   }
 
-  return secondNumber === 1;
+  return (
+    node.children.length > 2 &&
+    getOrderedListItemInfo(node.children[2], options).number === 1
+  );
 }
 
 // The final new line should not include in value
