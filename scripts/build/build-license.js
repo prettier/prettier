@@ -17,7 +17,18 @@ function toBlockQuote(text) {
     .join("\n");
 }
 
-function getLicenses(files) {
+function getDependencies(results) {
+  // A fake rollup chunk
+  const chunk = {
+    modules: Object.fromEntries(
+      results
+        .flatMap((result) =>
+          Object.keys(result.esbuildResult?.metafile.inputs ?? {}),
+        )
+        .map((file) => [file, { renderedLength: 1 }]),
+    ),
+  };
+
   let dependencies;
   const plugin = rollupPluginLicense({
     cwd: PROJECT_ROOT,
@@ -28,13 +39,9 @@ function getLicenses(files) {
       },
     },
   });
-  const chunk = {
-    modules: Object.fromEntries(
-      files.map((file) => [file, { renderedLength: 1 }]),
-    ),
-  };
   plugin.renderChunk("", chunk);
   plugin.generateBundle();
+
   return dependencies;
 }
 
@@ -154,12 +161,7 @@ async function buildLicense({ file, files, results, cliOptions }) {
     return;
   }
 
-  let inputFiles = results.flatMap(({ esbuildResult }) =>
-    Object.keys(esbuildResult?.metafile.inputs ?? {}),
-  );
-  inputFiles = [...new Set(inputFiles)];
-
-  const dependencies = getLicenses(inputFiles);
+  const dependencies = getDependencies(results);
 
   if (dependencies.length === 0) {
     throw new Error("Fail to collect dependencies.");
