@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-
+import rollupPluginLicense from "rollup-plugin-license";
 import { outdent } from "outdent";
 
 import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
@@ -17,9 +17,28 @@ function toBlockQuote(text) {
     .join("\n");
 }
 
-async function getLicenseText(files) {
-  let dependencies = files.flatMap((file) => file.dependencies);
+function getLicenses(files) {
+  let dependencies;
+  const plugin = rollupPluginLicense({
+    cwd: PROJECT_ROOT,
+    thirdParty: {
+      includePrivate: true,
+      output(_dependencies) {
+        dependencies = _dependencies;
+      },
+    },
+  });
+  const chunk = {
+    modules: Object.fromEntries(
+      files.map((file) => [file, { renderedLength: 1 }]),
+    ),
+  };
+  plugin.renderChunk("", chunk);
+  plugin.generateBundle();
+  return dependencies;
+}
 
+async function getLicenseText(dependencies) {
   dependencies = dependencies.filter(
     (dependency, index) =>
       // Exclude ourself
@@ -121,21 +140,32 @@ async function getLicenseText(files) {
   ].join("\n\n");
 }
 
-async function buildLicense({ file, files, shouldCollectLicenses }) {
-  if (files.indexOf(file) !== files.length - 1) {
+async function buildLicense({ file, files, results, cliOptions }) {
+  if (files.at(-1) !== file) {
     throw new Error("license should be last file to build.");
   }
 
-  if (!shouldCollectLicenses) {
+  const shouldBuildLicense =
+    !cliOptions.playground &&
+    !cliOptions.files &&
+    typeof cliOptions.minify !== "boolean";
+
+  if (!shouldBuildLicense) {
     return;
   }
 
-  const javascriptFiles = files.filter((file) => file.kind === "javascript");
-  if (javascriptFiles.some((file) => !Array.isArray(file.dependencies))) {
-    return { skipped: true };
+  let inputFiles = results.flatMap(({ esbuildResult }) =>
+    Object.keys(esbuildResult?.metafile.inputs ?? {}),
+  );
+  inputFiles = [...new Set(inputFiles)];
+
+  const dependencies = getLicenses(inputFiles);
+
+  if (dependencies.length === 0) {
+    throw new Error("Fail to collect dependencies.");
   }
 
-  const text = await getLicenseText(javascriptFiles);
+  const text = await getLicenseText(dependencies);
 
   await fs.writeFile(LICENSE_FILE, text);
 }
