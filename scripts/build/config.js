@@ -1,10 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-
 import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
-
 import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import buildJavascriptModule from "./build-javascript-module.js";
 import buildLicense from "./build-license.js";

@@ -1,5 +1,4 @@
 import stringify from "fast-json-stable-stringify";
-
 import { format, getSupportInfo } from "../index.js";
 import { omit, printToScreen } from "./utils.js";
 

@@ -1,7 +1,6 @@
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
 import assert from "node:assert";
-
 import { replaceEndOfLine } from "../../document/utils.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";

@@ -2,7 +2,6 @@
 import { createTwoFilesPatch } from "diff";
 import fastGlob from "fast-glob";
 import * as vnopts from "vnopts";
-
 import * as errors from "./common/errors.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import mockable from "./common/mockable.js";

@@ -1,6 +1,5 @@
 import enquirer from "enquirer";
 import { execa } from "execa";
-
 import { waitForEnter } from "../utils.js";
 
 export default async function publishToNpm({ dry }) {

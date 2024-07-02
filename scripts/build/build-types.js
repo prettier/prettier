@@ -1,10 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-
 import { isValidIdentifier } from "@babel/types";
 import { outdent } from "outdent";
-
 import { DIST_DIR, PROJECT_ROOT, writeFile } from "../utils/index.js";
 
 async function typesFileBuilder({ file }) {

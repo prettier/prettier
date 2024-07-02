@@ -1,6 +1,5 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-
 import importFromDirectory from "../../utils/import-from-directory.js";
 
 async function importPlugin(name, cwd) {

@@ -1,8 +1,6 @@
 import fs from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-
 import fastGlob from "fast-glob";
-
 import { runGit } from "../utils.js";
 
 export default async function cleanChangelog({ repo }) {

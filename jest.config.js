@@ -1,7 +1,5 @@
 import path from "node:path";
-
 import createEsmUtils from "esm-utils";
-
 import installPrettier from "./tests/config/install-prettier.js";
 
 const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);

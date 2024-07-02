@@ -1,5 +1,4 @@
 import { outdent } from "outdent";
-
 /** @type {import('prettier')} */
 import prettier from "../../config/prettier-entry.js";
 import printDoc from "../print-doc.js";

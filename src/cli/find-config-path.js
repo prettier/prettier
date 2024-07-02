@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import { resolveConfigFile } from "../index.js";
 import { normalizeToPosix, printToScreen } from "./utils.js";
 
