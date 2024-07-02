@@ -253,6 +253,7 @@ function getEsbuildOptions({ file, files, cliOptions }) {
       // https://github.com/evanw/esbuild/issues/3471
       "regexp-unicode-property-escapes": true,
     },
+    packages: "bundle",
   };
 
   if (file.platform === "universal") {
