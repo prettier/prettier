@@ -201,9 +201,10 @@ export default [
         {
           groups: [
             // https://github.com/lydell/eslint-plugin-simple-import-sort/blob/20e25f3b83c713825f96b8494e2091e6600954d6/src/imports.js#L5-L19
+
+            // Side effect imports.
+            [String.raw`^\u0000`],
             [
-              // Side effect imports.
-              [String.raw`^\u0000`],
               // Node.js builtins prefixed with `node:`.
               ["^node:"],
               // Packages.
