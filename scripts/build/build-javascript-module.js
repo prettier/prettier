@@ -9,7 +9,6 @@ import createEsmUtils from "esm-utils";
 import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
-import esbuildPluginLicense from "./esbuild-plugins/license.js";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.js";
 import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.js";
@@ -38,7 +37,7 @@ const getRelativePath = (from, to) => {
   return relativePath;
 };
 
-function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
+function getEsbuildOptions({ file, files, cliOptions }) {
   // Save dependencies to file
   file.dependencies = [];
 
@@ -231,14 +230,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         replacements: [...replaceModule, ...(buildOptions.replaceModule ?? [])],
       }),
       file.platform === "universal" && esbuildPluginNodeModulePolyfills(),
-      shouldCollectLicenses &&
-        esbuildPluginLicense({
-          cwd: PROJECT_ROOT,
-          thirdParty: {
-            includePrivate: true,
-            output: (dependencies) => file.dependencies.push(...dependencies),
-          },
-        }),
       cliOptions.reports &&
         esbuildPluginVisualizer({ formats: cliOptions.reports }),
       esbuildPluginThrowWarnings({
@@ -291,7 +282,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
 
 async function runEsbuild(options) {
   const esbuildOptions = getEsbuildOptions(options);
-  await esbuild.build(esbuildOptions);
+  return { esbuildResult: await esbuild.build(esbuildOptions) };
 }
 
 export default runEsbuild;
