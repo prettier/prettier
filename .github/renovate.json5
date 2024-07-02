@@ -27,6 +27,7 @@
     {
       matchDepNames: [
         "eslint",
+        "@eslint/compat",
         "@eslint/eslintrc",
         "@eslint/js",
         "@stylistic/eslint-plugin-js",
