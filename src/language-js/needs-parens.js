@@ -235,6 +235,13 @@ function needsParens(path, options) {
         while (current) {
           switch (current.type) {
             case "MemberExpression":
+              if (
+                options.parser === "typescript" &&
+                /** @(x.y) */ (hasMemberExpression ||
+                  /** @(x.y()) */ hasCallExpression)
+              ) {
+                return true;
+              }
               hasMemberExpression = true;
               current = current.object;
               break;
