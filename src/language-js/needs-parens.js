@@ -243,7 +243,7 @@ function needsParens(path, options) {
                 /** @(x().y) */ hasMemberExpression ||
                 /** @(x().y()) */ hasCallExpression
               ) {
-                return options.parser !== "typescript";
+                return true;
               }
               hasCallExpression = true;
               current = current.callee;
@@ -252,8 +252,9 @@ function needsParens(path, options) {
               return false;
             case "TaggedTemplateExpression":
               // babel-parser cannot parse
+              // TypeScript needs this as well for version 5.5+
               //   @foo`bar`
-              return options.parser !== "typescript";
+              return true;
             default:
               return true;
           }
