@@ -237,8 +237,8 @@ function needsParens(path, options) {
             case "MemberExpression":
               if (
                 options.parser === "typescript" &&
-                /** @(x.y) */ (hasMemberExpression ||
-                  /** @(x.y()) */ hasCallExpression)
+                /* @(x.y) */ (hasMemberExpression ||
+                  /* @(x.y()) */ hasCallExpression)
               ) {
                 return true;
               }
@@ -247,8 +247,8 @@ function needsParens(path, options) {
               break;
             case "CallExpression":
               if (
-                /** @(x().y) */ hasMemberExpression ||
-                /** @(x().y()) */ hasCallExpression
+                /* @(x().y) */ hasMemberExpression ||
+                /* @(x().y()) */ hasCallExpression
               ) {
                 return true;
               }
