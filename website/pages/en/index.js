@@ -355,44 +355,43 @@ UsersSection.propTypes = {
   language: PropTypes.string,
 };
 
-const SyntaxSection = () => {
-  return (
-    <a
-      href="https://sentry.shop/"
-      target="_blank"
-      className="syntaxLink"
+const SyntaxSection = () => (
+  // eslint-disable-next-line react/jsx-no-target-blank
+  <a
+    href="https://sentry.shop/products/syntax-prettier-tee"
+    target="_blank"
+    className="syntaxLink"
+    style={{
+      color: "black",
+      fontSize: 20,
+      fontWeight: "bold",
+    }}
+  >
+    <div
       style={{
-        color: "black",
-        fontSize: 20,
-        fontWeight: "bold",
+        backgroundColor: "#f8bc45",
+        justifyContent: "center",
+        display: "flex",
+        paddingTop: 20,
       }}
     >
       <div
         style={{
-          backgroundColor: "#f8bc45",
-          justifyContent: "center",
+          width: 860,
           display: "flex",
-          paddingTop: 20,
+          justifyContent: "center",
+          flexDirection: "column",
         }}
       >
-        <div
-          style={{
-            width: 860,
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
-          <p>
-            Limited edition tshirts are now available to buy! $10 per tshirt
-            goes to maintain the project.
-          </p>
-          <img width={860} src={`/images/syntaxfm/1.png`}></img>
-        </div>
+        <p>
+          Limited edition tshirts are now available to buy! $10 per tshirt goes
+          to maintain the project.
+        </p>
+        <img width={860} src="/images/syntaxfm/1.png" />
       </div>
-    </a>
-  );
-};
+    </div>
+  </a>
+);
 
 class Index extends React.Component {
   render() {
