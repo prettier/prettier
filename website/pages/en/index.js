@@ -355,6 +355,45 @@ UsersSection.propTypes = {
   language: PropTypes.string,
 };
 
+const SyntaxSection = () => {
+  return (
+    <a
+      href="https://sentry.shop/"
+      target="_blank"
+      className="syntaxLink"
+      style={{
+        color: "black",
+        fontSize: 20,
+        fontWeight: "bold",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "#f8bc45",
+          justifyContent: "center",
+          display: "flex",
+          paddingTop: 20,
+        }}
+      >
+        <div
+          style={{
+            width: 860,
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <p>
+            $10 from every shirt goes directly to the Prettier Open Source
+            Project.
+          </p>
+          <img width={860} src={`/images/syntaxfm/1.png`}></img>
+        </div>
+      </div>
+    </a>
+  );
+};
+
 class Index extends React.Component {
   render() {
     const language = this.props.language || "en";
@@ -364,6 +403,7 @@ class Index extends React.Component {
         <script src="landing.js" />
         <HomeSplash language={language} />
         <div className="mainContainer landingContainer">
+          <SyntaxSection />
           <TldrSection language={language} />
           <LanguagesSection />
           <EditorSupportSection />
