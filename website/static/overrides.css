@@ -604,3 +604,8 @@ a {
 .tabs .nav-tabs > div {
   padding: 4px 12px;
 }
+
+/* Syntax Section */
+.syntaxLink:hover {
+  text-decoration: underline;
+}
