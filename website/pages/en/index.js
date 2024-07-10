@@ -384,8 +384,8 @@ const SyntaxSection = () => {
           }}
         >
           <p>
-            $10 from every shirt goes directly to the Prettier Open Source
-            Project.
+            Limited edition tshirts are now available to buy! $10 per tshirt
+            goes to maintain the project.
           </p>
           <img width={860} src={`/images/syntaxfm/1.png`}></img>
         </div>
