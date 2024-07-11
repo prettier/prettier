@@ -224,47 +224,10 @@ function needsParens(path, options) {
       );
 
     case "Decorator":
-      if (key === "expression") {
-        if (isMemberExpression(node) && node.computed) {
-          return true;
-        }
-
-        let hasCallExpression = false;
-        let hasMemberExpression = false;
-        let current = node;
-        while (current) {
-          switch (current.type) {
-            case "MemberExpression":
-              if (
-                /* @(x.y) */ hasMemberExpression ||
-                /* @(x.y()) */ hasCallExpression
-              ) {
-                return true;
-              }
-              hasMemberExpression = true;
-              current = current.object;
-              break;
-            case "CallExpression":
-              if (
-                /* @(x().y) */ hasMemberExpression ||
-                /* @(x().y()) */ hasCallExpression
-              ) {
-                return true;
-              }
-              hasCallExpression = true;
-              current = current.callee;
-              break;
-            case "Identifier":
-              return false;
-            case "TaggedTemplateExpression":
-              // babel-parser cannot parse
-              // TypeScript needs this as well for version 5.5+
-              //   @foo`bar`
-              return true;
-            default:
-              return true;
-          }
-        }
+      if (
+        key === "expression" &&
+        !canDecoratorExpressionUnparenthesized(node)
+      ) {
         return true;
       }
       break;
@@ -1262,6 +1225,26 @@ function shouldAddParenthesesToChainElement(path) {
   }
 
   // This function only handle cases above
+  return false;
+}
+
+function canDecoratorExpressionUnparenthesized(node) {
+  if (node.type === "ChainExpression") {
+    node = node.expression;
+  }
+
+  if (node.type === "Identifier") {
+    return true;
+  }
+
+  if (isCallExpression(node)) {
+    return node.callee.type === "Identifier";
+  }
+
+  if (isMemberExpression(node)) {
+    return !node.computed && node.object.type === "Identifier";
+  }
+
   return false;
 }
 

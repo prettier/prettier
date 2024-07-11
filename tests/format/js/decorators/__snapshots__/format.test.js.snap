@@ -280,7 +280,7 @@ printWidth: 80
     method() {}
   },
   class {
-    @(decorators?.first)
+    @decorators?.first
     method() {}
   },
   class {
