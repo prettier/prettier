@@ -53,6 +53,9 @@ function genericPrint(path, options, print) {
     case "angularControlFlowBlockParameter":
       return htmlWhitespaceUtils.trim(node.expression);
 
+    case "angularLetDeclaration":
+      return ["@let ", node.name, " = ", node.value];
+
     case "angularIcuExpression":
       return printAngularIcuExpression(path, options, print);
     case "angularIcuCase":

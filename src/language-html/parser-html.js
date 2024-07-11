@@ -68,6 +68,12 @@ function normalizeAngularControlFlowBlock(node) {
   };
 }
 
+function normalizeAngularLetDeclaration(node) {
+  if (node.type === "letDeclaration") {
+    node.type = "angularLetDeclaration";
+  }
+}
+
 function normalizeAngularIcuExpression(node) {
   if (node.type === "plural" || node.type === "select") {
     node.clause = node.type;
@@ -395,6 +401,7 @@ function parse(
     }
 
     normalizeAngularControlFlowBlock(node);
+    normalizeAngularLetDeclaration(node);
     normalizeAngularIcuExpression(node);
   });
 
