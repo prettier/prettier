@@ -1,5 +1,17 @@
 [
   class {
+    @(decorator)
+    method() {}
+  },
+  class {
+    @(decorator())
+    method() {}
+  },
+  class {
+    @(decorator?.())
+    method() {}
+  },
+  class {
     @(decorators[0])
     method() {}
   },

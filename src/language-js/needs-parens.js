@@ -1238,7 +1238,7 @@ function canDecoratorExpressionUnparenthesized(node) {
   }
 
   if (isCallExpression(node)) {
-    return node.callee.type === "Identifier";
+    return !node.optional && node.callee.type === "Identifier";
   }
 
   if (isMemberExpression(node)) {
