@@ -268,7 +268,7 @@ printWidth: 80
     method() {}
   },
   class {
-    @decorators.at(0)
+    @(decorators.at(0))
     method() {}
   },
   class {
