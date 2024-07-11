@@ -224,6 +224,10 @@ printWidth: 80
     method() {}
   },
   class {
+    @(decorators.at?.(0))
+    method() {}
+  },
+  class {
     @(decorators.first)
     method() {}
   },
@@ -273,6 +277,10 @@ printWidth: 80
   },
   class {
     @(decorators?.at(0))
+    method() {}
+  },
+  class {
+    @(decorators.at?.(0))
     method() {}
   },
   class {

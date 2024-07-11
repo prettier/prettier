@@ -20,6 +20,10 @@
     method() {}
   },
   class {
+    @(decorators.at?.(0))
+    method() {}
+  },
+  class {
     @(decorators.first)
     method() {}
   },
