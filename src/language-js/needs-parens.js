@@ -1242,7 +1242,9 @@ function canDecoratorExpressionUnparenthesized(node) {
   }
 
   if (isMemberExpression(node)) {
-    return !node.computed && node.object.type === "Identifier";
+    return (
+      !node.computed && !node.optional && node.object.type === "Identifier"
+    );
   }
 
   return false;
