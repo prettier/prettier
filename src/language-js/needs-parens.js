@@ -1228,26 +1228,36 @@ function shouldAddParenthesesToChainElement(path) {
   return false;
 }
 
+function isDecoratorMemberExpression(node) {
+  if (node.type === "Identifier") {
+    return true;
+  }
+
+  if (isMemberExpression(node)) {
+    return (
+      !node.computed &&
+      !node.optional &&
+      node.property.type === "Identifier" &&
+      isDecoratorMemberExpression(node.object)
+    );
+  }
+
+  return false;
+}
+
+// Based on babel implementation
+// https://github.com/nicolo-ribaudo/babel/blob/c4b88a4e5005364255f7e964fe324cf7bfdfb019/packages/babel-generator/src/node/index.ts#L111
 function canDecoratorExpressionUnparenthesized(node) {
   if (node.type === "ChainExpression") {
     node = node.expression;
   }
 
-  if (node.type === "Identifier") {
-    return true;
-  }
-
-  if (isCallExpression(node)) {
-    return !node.optional && node.callee.type === "Identifier";
-  }
-
-  if (isMemberExpression(node)) {
-    return (
-      !node.computed && !node.optional && node.object.type === "Identifier"
-    );
-  }
-
-  return false;
+  return (
+    isDecoratorMemberExpression(node) ||
+    (isCallExpression(node) &&
+      !node.optional &&
+      isDecoratorMemberExpression(node.callee))
+  );
 }
 
 export default needsParens;
