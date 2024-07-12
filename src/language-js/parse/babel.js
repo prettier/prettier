@@ -174,6 +174,7 @@ const allowedReasonCodes = new Set([
   "StrictEvalArguments",
   "StrictEvalArgumentsBinding",
   "StrictFunction",
+  "ForInOfLoopInitializer",
 
   "EmptyTypeArguments",
   "EmptyTypeParameters",
