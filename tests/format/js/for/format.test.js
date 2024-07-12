@@ -1,7 +1,6 @@
 runFormatTest(import.meta, ["babel", "flow", "typescript"], {
   errors: {
-    meriyah: ["parentheses.js"],
-    flow: ["parentheses.js"],
-    typescript: ["parentheses.js"],
+    flow: ["parentheses.js", "for-in-with-initializer.js"],
+    typescript: ["parentheses.js", "for-in-with-initializer.js"],
   },
 });

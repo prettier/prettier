@@ -799,6 +799,71 @@ for (var i = 0; i < 10; ++i) 0;
 ================================================================================
 `;
 
+exports[`for-in-with-initializer.js [flow] format 1`] = `
+"Invalid left-hand side in for-in (3:6)
+  1 | // https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
+  2 |
+> 3 | for (var a = (b in c) in {});
+    |      ^^^^^^^^^^^^^^^^
+  4 | for (var a = 1 || (b in c) in {});
+  5 | for (var a = 1 + (2 || (b in c)) in {});
+  6 | for (var a = (() => b in c) in {});"
+`;
+
+exports[`for-in-with-initializer.js [typescript] format 1`] = `
+"',' expected. (9:17)
+   7 | for (var a = 1 || (() => b in c) in {});
+   8 | for (var a = (() => { b in c; }) in {});
+>  9 | for (var a = [b in c] in {});
+     |                 ^
+  10 | for (var a = {b: b in c} in {});
+  11 | // Meriyah can't parse
+  12 | // for (var a = (x = b in c) => {} in {});
+Cause: ',' expected."
+`;
+
+exports[`for-in-with-initializer.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
+
+for (var a = (b in c) in {});
+for (var a = 1 || (b in c) in {});
+for (var a = 1 + (2 || (b in c)) in {});
+for (var a = (() => b in c) in {});
+for (var a = 1 || (() => b in c) in {});
+for (var a = (() => { b in c; }) in {});
+for (var a = [b in c] in {});
+for (var a = {b: b in c} in {});
+// Meriyah can't parse
+// for (var a = (x = b in c) => {} in {});
+for (var a = class extends (b in c) {} in {});
+for (var a = function (x = b in c) {} in {});
+
+=====================================output=====================================
+// https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
+
+for (var a = (b in c) in {});
+for (var a = (1 || b in c) in {});
+for (var a = (1 + (2 || b in c)) in {});
+for (var a = (() => b in c) in {});
+for (var a = (1 || (() => b in c)) in {});
+for (var a = (() => {
+  b in c;
+}) in {});
+for (var a = ([b in c]) in {});
+for (var a = ({ b: b in c }) in {});
+// Meriyah can't parse
+// for (var a = (x = b in c) => {} in {});
+for (var a = (class extends (b in c) {}) in {});
+for (var a = (function (x = b in c) {}) in {});
+
+================================================================================
+`;
+
 exports[`in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -836,37 +901,25 @@ for (a in b) 0;
 `;
 
 exports[`parentheses.js [flow] format 1`] = `
-"Invalid left-hand side in for-in (3:6)
-  1 | // https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
-  2 |
-> 3 | for (var a = (b in c) in {});
-    |      ^^^^^^^^^^^^^^^^
-  4 | for (var a = 1 || (b in c) in {});
-  5 | for (var a = 1 + (2 || (b in c)) in {});
-  6 | for (var a = (() => b in c) in {});"
-`;
-
-exports[`parentheses.js [meriyah] format 1`] = `
-"'for-in' loop head declarations can not have an initializer (3:140)
-  1 | // https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
-  2 |
-> 3 | for (var a = (b in c) in {});
-    |                                                                                          ^
-  4 | for (var a = 1 || (b in c) in {});
-  5 | for (var a = 1 + (2 || (b in c)) in {});
-  6 | for (var a = (() => b in c) in {});
-Cause: [3:140]: 'for-in' loop head declarations can not have an initializer"
+"Unexpected token \`=>\`, expected the token \`;\` (11:27)
+   9 | for (var a = [b in c];;);
+  10 | for (var a = {b: b in c};;);
+> 11 | for (var a = (x = b in c) => {};;);
+     |                           ^^
+  12 | for (var a = class extends (b in c) {};;);
+  13 | for (var a = function (x = b in c) {};;);
+  14 |"
 `;
 
 exports[`parentheses.js [typescript] format 1`] = `
 "',' expected. (9:17)
-   7 | for (var a = 1 || (() => b in c) in {});
-   8 | for (var a = (() => { b in c; }) in {});
->  9 | for (var a = [b in c] in {});
+   7 | for (var a = 1 || (() => b in c);;);
+   8 | for (var a = (() => { b in c; });;);
+>  9 | for (var a = [b in c];;);
      |                 ^
-  10 | for (var a = {b: b in c} in {});
-  11 | for (var a = (x = b in c) => {} in {});
-  12 | for (var a = class extends (b in c) {} in {});
+  10 | for (var a = {b: b in c};;);
+  11 | for (var a = (x = b in c) => {};;);
+  12 | for (var a = class extends (b in c) {};;);
 Cause: ',' expected."
 `;
 
@@ -877,18 +930,6 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 // https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
-
-for (var a = (b in c) in {});
-for (var a = 1 || (b in c) in {});
-for (var a = 1 + (2 || (b in c)) in {});
-for (var a = (() => b in c) in {});
-for (var a = 1 || (() => b in c) in {});
-for (var a = (() => { b in c; }) in {});
-for (var a = [b in c] in {});
-for (var a = {b: b in c} in {});
-for (var a = (x = b in c) => {} in {});
-for (var a = class extends (b in c) {} in {});
-for (var a = function (x = b in c) {} in {});
 
 for (var a = (b in c);;);
 for (var a = 1 || (b in c);;);
@@ -928,20 +969,6 @@ for (;a = function (x = b in c) {};);
 
 =====================================output=====================================
 // https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
-
-for (var a = (b in c) in {});
-for (var a = (1 || b in c) in {});
-for (var a = (1 + (2 || b in c)) in {});
-for (var a = (() => b in c) in {});
-for (var a = (1 || (() => b in c)) in {});
-for (var a = (() => {
-  b in c;
-}) in {});
-for (var a = ([b in c]) in {});
-for (var a = ({ b: b in c }) in {});
-for (var a = ((x = b in c) => {}) in {});
-for (var a = (class extends (b in c) {}) in {});
-for (var a = (function (x = b in c) {}) in {});
 
 for (var a = (b in c); ; );
 for (var a = 1 || (b in c); ; );
