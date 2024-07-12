@@ -288,6 +288,24 @@ function needsParens(path, options) {
         return true;
       }
       break;
+
+    case "VariableDeclarator":
+      // Legacy syntax
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Invalid_for-in_initializer
+      // `for (var a = 1 in b);`
+      if (
+        key === "init" &&
+        path.match(
+          undefined,
+          undefined,
+          (node, key) =>
+            key === "declarations" && node.type === "VariableDeclaration",
+          (node, key) => key === "left" && node.type === "ForInStatement",
+        )
+      ) {
+        return true;
+      }
+      break;
   }
 
   switch (node.type) {
