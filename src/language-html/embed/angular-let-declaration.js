@@ -1,11 +1,10 @@
-import { group, line, indent } from "../../document/builders.js";
+import { group, indent,line } from "../../document/builders.js";
 import { formatAttributeValue } from "./utils.js";
 
 export default async function printAngularLetDeclaration(
   textToDoc,
   print,
   path,
-  options,
 ) {
   const { node } = path;
 
