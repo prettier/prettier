@@ -150,7 +150,7 @@ function embed(path, options) {
 
       return printAngularControlFlowBlockParameters;
 
-    case "angularLetDeclarationExpression":
+    case "angularLetDeclarationInitializer":
       return (textToDoc) =>
         formatAttributeValue(node.value, textToDoc, {
           parser: "__ng_binding",

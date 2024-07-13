@@ -77,7 +77,7 @@ function normalizeAngularLetDeclaration(node) {
   node.type = "angularLetDeclaration";
   node.id = node.name;
   node.init = {
-    type: "angularLetDeclarationExpression",
+    type: "angularLetDeclarationInitializer",
     sourceSpan: new ParseSourceSpan(node.valueSpan.start, node.valueSpan.end),
     value: node.value,
   };

@@ -61,7 +61,7 @@ function genericPrint(path, options, print) {
         // semicolon is required
         ";",
       ]);
-    case "angularLetDeclarationExpression":
+    case "angularLetDeclarationInitializer":
       // basically printed via embedded formatting
       return node.value;
 

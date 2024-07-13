@@ -1430,7 +1430,7 @@ exports[`visitor keys html 1`] = `
   "angularLetDeclaration": [
     "init",
   ],
-  "angularLetDeclarationExpression": [],
+  "angularLetDeclarationInitializer": [],
   "attribute": [],
   "cdata": [],
   "comment": [],
