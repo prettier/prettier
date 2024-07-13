@@ -1,3 +1,4 @@
+import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
 import { printAssignmentWithLayout } from "../../language-js/print/assignment.js";
 
 export default async function printAngularLetDeclarations(
@@ -20,10 +21,15 @@ export default async function printAngularLetDeclarations(
 
   const leftDoc = ["@let ", node.name];
   const operator = " =";
-  const rightDoc = await textToDoc(node.value, {
-    parser: "__js_expression",
-    __embeddedInHtml: true,
-  });
+  const rightDoc = await formatAttributeValue(
+    node.value,
+    textToDoc,
+    {
+      parser: "__ng_binding",
+      __isInHtmlAttribute: false,
+    },
+    shouldHugJsExpression,
+  );
 
   return [
     printAssignmentWithLayout(
