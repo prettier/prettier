@@ -1,6 +1,6 @@
 import { group } from "../../document/builders.js";
-import { formatAttributeValue } from "./utils.js";
 import { printAssignmentWithLayout } from "../../language-js/print/assignment.js";
+import { formatAttributeValue } from "./utils.js";
 
 export default async function printAngularLetDeclarations(
   textToDoc,

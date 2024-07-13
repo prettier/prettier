@@ -490,7 +490,7 @@ function shouldBreakBeforeConditionalType(node) {
 export {
   isArrowFunctionVariableDeclarator,
   printAssignment,
-  printAssignmentWithLayout,
   printAssignmentExpression,
+  printAssignmentWithLayout,
   printVariableDeclarator,
 };
