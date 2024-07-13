@@ -61,6 +61,10 @@ function clean(original, cloned) {
   if (original.type === "angularIcuExpression") {
     cloned.switchValue = original.switchValue.trim();
   }
+
+  if (original.type === "angularLetDeclaration") {
+    delete cloned.value;
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;
