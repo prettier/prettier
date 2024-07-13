@@ -8,6 +8,7 @@ import {
 import printFrontMatter from "../utils/front-matter/print.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
+import { formatAttributeValue } from "./embed/utils.js";
 import getNodeContent from "./get-node-content.js";
 import {
   needsToBorrowPrevClosingTagEndMarker,
@@ -148,6 +149,13 @@ function embed(path, options) {
       }
 
       return printAngularControlFlowBlockParameters;
+
+    case "angularLetDeclarationInitializer":
+      return (textToDoc) =>
+        formatAttributeValue(node.value, textToDoc, {
+          parser: "__ng_binding",
+          __isInHtmlAttribute: false,
+        });
   }
 }
 
