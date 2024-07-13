@@ -1,5 +1,4 @@
 import { parseExpression } from "@babel/parser";
-
 import createError from "../common/parser-create-error.js";
 import createBabelParseError from "../language-js/parse/utils/create-babel-parse-error.js";
 import createParser from "../language-js/parse/utils/create-parser.js";

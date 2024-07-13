@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-
 import chalk from "chalk";
 import { execaSync } from "execa";
 import { outdent } from "outdent";

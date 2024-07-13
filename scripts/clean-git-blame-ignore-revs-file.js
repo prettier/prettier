@@ -7,7 +7,6 @@ Remove revs without actual file change
 */
 
 import fs from "node:fs/promises";
-
 import { execa } from "execa";
 
 const FILE = new URL("../.git-blame-ignore-revs", import.meta.url);

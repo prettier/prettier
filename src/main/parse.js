@@ -1,5 +1,4 @@
 import { codeFrameColumns } from "@babel/code-frame";
-
 import { resolveParser } from "./parser-and-printer.js";
 
 async function parse(originalText, options) {

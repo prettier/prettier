@@ -1,5 +1,4 @@
 import fs from "node:fs";
-
 import { outdent } from "outdent";
 
 export default function esbuildPluginShimCommonjsObjects() {

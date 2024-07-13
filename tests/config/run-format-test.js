@@ -1,9 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-
 import createEsmUtils from "esm-utils";
-
 import getPrettier from "./get-prettier.js";
 import checkParsers from "./utils/check-parsers.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";

@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-
 import { toPath } from "url-or-path";
 
 /**

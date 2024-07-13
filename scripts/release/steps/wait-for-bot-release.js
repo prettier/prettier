@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import outdent from "outdent";
-
 import { logPromise, waitForEnter } from "../utils.js";
 
 export async function isVersionReleased(version) {

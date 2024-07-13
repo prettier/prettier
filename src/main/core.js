@@ -1,5 +1,4 @@
 import { diffArrays } from "diff";
-
 import {
   convertEndOfLineToChars,
   countEndOfLineChars,

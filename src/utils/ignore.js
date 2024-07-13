@@ -1,9 +1,7 @@
 import path from "node:path";
 import url from "node:url";
-
 import ignoreModule from "ignore";
 import { isUrl, toPath } from "url-or-path";
-
 import readFile from "../utils/read-file.js";
 
 const createIgnore = ignoreModule.default;

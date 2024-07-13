@@ -1,5 +1,4 @@
 import url from "node:url";
-
 import prettier from "../../config/prettier-entry.js";
 
 test("API resolveConfigFile", async () => {

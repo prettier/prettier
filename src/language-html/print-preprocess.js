@@ -1,5 +1,4 @@
 import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
-
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import {
   canHaveInterpolation,

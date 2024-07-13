@@ -1,5 +1,4 @@
 import { parse as babelParse, parseExpression } from "@babel/parser";
-
 import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";

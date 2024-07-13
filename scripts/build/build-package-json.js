@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import { DIST_DIR, PROJECT_ROOT, readJson, writeJson } from "../utils/index.js";
 
 const keysToKeep = [

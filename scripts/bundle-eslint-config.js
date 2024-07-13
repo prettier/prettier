@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-
 import eslintPluginCompat from "eslint-plugin-compat";
 
 const { browserslist: targets } = JSON.parse(

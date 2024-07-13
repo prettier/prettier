@@ -2,11 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
 import url from "node:url";
-
 import chalk from "chalk";
 import { execa } from "execa";
 import outdent from "outdent";
-
 import getFormattedDate from "./get-formatted-date.js";
 
 readline.emitKeypressEvents(process.stdin);

@@ -1,5 +1,4 @@
 import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
-
 import { printComments } from "../../main/comments/print.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";

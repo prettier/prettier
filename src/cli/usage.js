@@ -1,5 +1,4 @@
 import camelCase from "camelcase";
-
 import { categoryOrder, usageSummary } from "./constants.evaluate.js";
 import { formatOptionsHiddenDefaults } from "./prettier-internal.js";
 import { groupBy } from "./utils.js";

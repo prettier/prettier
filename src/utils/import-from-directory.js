@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import importFromFile from "./import-from-file.js";
 
 function importFromDirectory(specifier, directory) {

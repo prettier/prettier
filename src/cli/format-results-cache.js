@@ -3,7 +3,6 @@
 
 import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
-
 import { version as prettierVersion } from "../index.js";
 import { createHash } from "./utils.js";
 
