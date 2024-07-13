@@ -69,9 +69,21 @@ function normalizeAngularControlFlowBlock(node) {
 }
 
 function normalizeAngularLetDeclaration(node) {
-  if (node.type === "letDeclaration") {
-    node.type = "angularLetDeclaration";
+  if (node.type !== "letDeclaration") {
+    return;
   }
+
+  // Similar to `VariableDeclarator` in estree
+  node.type = "angularLetDeclaration";
+  node.id = node.name;
+  node.init = {
+    type: "angularLetDeclarationInitializer",
+    sourceSpan: new ParseSourceSpan(node.valueSpan.start, node.valueSpan.end),
+    value: node.value,
+  };
+
+  delete node.name;
+  delete node.value;
 }
 
 function normalizeAngularIcuExpression(node) {

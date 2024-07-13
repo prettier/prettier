@@ -62,7 +62,7 @@ function clean(original, cloned) {
     cloned.switchValue = original.switchValue.trim();
   }
 
-  if (original.type === "angularLetDeclaration") {
+  if (original.type === "angularLetDeclarationInitializer") {
     delete cloned.value;
   }
 }
