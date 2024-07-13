@@ -43,26 +43,6 @@ function printAssignment(
     ? print(rightPropertyName, { assignmentLayout: layout })
     : "";
 
-  return printAssignmentWithLayout(
-    path,
-    options,
-    print,
-    leftDoc,
-    operator,
-    rightDoc,
-    layout,
-  );
-}
-
-function printAssignmentWithLayout(
-  path,
-  options,
-  print,
-  leftDoc,
-  operator,
-  rightDoc,
-  layout,
-) {
   switch (layout) {
     // First break after operator, then the sides are broken independently on their own lines
     case "break-after-operator":
@@ -491,6 +471,5 @@ export {
   isArrowFunctionVariableDeclarator,
   printAssignment,
   printAssignmentExpression,
-  printAssignmentWithLayout,
   printVariableDeclarator,
 };

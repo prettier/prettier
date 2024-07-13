@@ -1,5 +1,4 @@
-import { group } from "../../document/builders.js";
-import { printAssignmentWithLayout } from "../../language-js/print/assignment.js";
+import { group, line, indent } from "../../document/builders.js";
 import { formatAttributeValue } from "./utils.js";
 
 export default async function printAngularLetDeclaration(
@@ -10,18 +9,17 @@ export default async function printAngularLetDeclaration(
 ) {
   const { node } = path;
 
+  const leftDoc = node.name;
+  const operator = " =";
   const rightDoc = await formatAttributeValue(node.value, textToDoc, {
     parser: "__ng_binding",
     __isInHtmlAttribute: false,
   });
-  const printed = printAssignmentWithLayout(
-    path,
-    options,
-    print,
-    /* leftDoc */ node.name,
-    /* operator */ " =",
-    rightDoc,
-    "break-after-operator",
-  );
-  return group(["@let ", printed, ";"]);
+  // print like "break-after-operator" layout assignment
+  const printedAssignment = group([
+    group(leftDoc),
+    operator,
+    group(indent([line, rightDoc])),
+  ]);
+  return group(["@let ", printedAssignment, ";"]);
 }
