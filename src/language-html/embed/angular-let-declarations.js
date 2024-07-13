@@ -10,16 +10,6 @@ export default async function printAngularLetDeclarations(
 ) {
   const { node } = path;
 
-  const content = options.originalText.slice(
-    node.sourceSpan.start.offset,
-    node.sourceSpan.end.offset,
-  );
-  const isEmpty = /^\s*$/u.test(content);
-
-  if (isEmpty) {
-    return "";
-  }
-
   const rightDoc = await formatAttributeValue(node.value, textToDoc, {
     parser: "__ng_binding",
     __isInHtmlAttribute: false,
