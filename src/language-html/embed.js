@@ -7,6 +7,7 @@ import {
 } from "../document/builders.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
+import printAngularLetDeclarations from "./embed/angular-let-declarations.js";
 import printAttribute from "./embed/attribute.js";
 import getNodeContent from "./get-node-content.js";
 import {
@@ -148,6 +149,9 @@ function embed(path, options) {
       }
 
       return printAngularControlFlowBlockParameters;
+
+    case "angularLetDeclaration":
+      return printAngularLetDeclarations;
   }
 }
 
