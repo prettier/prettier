@@ -24,13 +24,17 @@ export default async function printAngularLetDeclarations(
     parser: "__js_expression",
   });
 
-  return printAssignmentWithLayout(
-    path,
-    options,
-    print,
-    leftDoc,
-    operator,
-    rightDoc,
-    "fluid",
-  );
+  return [
+    printAssignmentWithLayout(
+      path,
+      options,
+      print,
+      leftDoc,
+      operator,
+      rightDoc,
+      "fluid",
+    ),
+    // semicolon is required
+    ";",
+  ];
 }

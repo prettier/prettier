@@ -54,7 +54,8 @@ function genericPrint(path, options, print) {
       return htmlWhitespaceUtils.trim(node.expression);
 
     case "angularLetDeclaration":
-      return ["@let ", node.name, " = ", node.value];
+      // semicolon is required
+      return ["@let ", node.name, " = ", node.value, ";"];
 
     case "angularIcuExpression":
       return printAngularIcuExpression(path, options, print);
