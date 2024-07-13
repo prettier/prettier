@@ -1,4 +1,5 @@
-import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
+import { group } from "../../document/builders.js";
+import { formatAttributeValue } from "./utils.js";
 import { printAssignmentWithLayout } from "../../language-js/print/assignment.js";
 
 export default async function printAngularLetDeclarations(
@@ -19,29 +20,18 @@ export default async function printAngularLetDeclarations(
     return "";
   }
 
-  const leftDoc = ["@let ", node.name];
-  const operator = " =";
-  const rightDoc = await formatAttributeValue(
-    node.value,
-    textToDoc,
-    {
-      parser: "__ng_binding",
-      __isInHtmlAttribute: false,
-    },
-    shouldHugJsExpression,
+  const rightDoc = await formatAttributeValue(node.value, textToDoc, {
+    parser: "__ng_binding",
+    __isInHtmlAttribute: false,
+  });
+  const printed = printAssignmentWithLayout(
+    path,
+    options,
+    print,
+    /* leftDoc */ node.name,
+    /* operator */ " =",
+    rightDoc,
+    "break-after-operator",
   );
-
-  return [
-    printAssignmentWithLayout(
-      path,
-      options,
-      print,
-      leftDoc,
-      operator,
-      rightDoc,
-      "fluid",
-    ),
-    // semicolon is required
-    ";",
-  ];
+  return group(["@let ", printed, ";"]);
 }
