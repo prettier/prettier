@@ -1427,10 +1427,7 @@ exports[`visitor keys html 1`] = `
   "angularIcuExpression": [
     "cases",
   ],
-  "angularLetDeclaration": [
-    "name",
-    "value",
-  ],
+  "angularLetDeclaration": [],
   "attribute": [],
   "cdata": [],
   "comment": [],
