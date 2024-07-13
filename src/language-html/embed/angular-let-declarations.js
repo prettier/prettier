@@ -1,3 +1,5 @@
+import { printAssignmentWithLayout } from "../../language-js/print/assignment.js";
+
 export default async function printAngularLetDeclarations(
   textToDoc,
   print,
@@ -17,10 +19,18 @@ export default async function printAngularLetDeclarations(
   }
 
   const leftDoc = "@let";
-  const operator = "=";
+  const operator = " =";
   const rightDoc = await textToDoc(node.value, {
     parser: "__js_expression",
   });
 
-  return [leftDoc, operator, rightDoc];
+  return printAssignmentWithLayout(
+    path,
+    options,
+    print,
+    leftDoc,
+    operator,
+    rightDoc,
+    "fluid",
+  );
 }
