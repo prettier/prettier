@@ -18,10 +18,11 @@ export default async function printAngularLetDeclarations(
     return "";
   }
 
-  const leftDoc = "@let";
+  const leftDoc = ["@let ", node.name];
   const operator = " =";
   const rightDoc = await textToDoc(node.value, {
     parser: "__js_expression",
+    __embeddedInHtml: true,
   });
 
   return [
