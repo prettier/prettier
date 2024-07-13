@@ -1,3 +1,66 @@
+# 3.3.3
+
+[diff](https://github.com/prettier/prettier/compare/3.3.2...3.3.3)
+
+#### Add parentheses for nullish coalescing in ternary ([#16391](https://github.com/prettier/prettier/pull/16391) by [@cdignam-segment](https://github.com/cdignam-segment))
+
+This change adds clarity to operator precedence.
+
+<!-- prettier-ignore -->
+```js
+// Input
+foo ? bar ?? foo : baz;
+foo ?? bar ? a : b;
+a ? b : foo ?? bar;
+
+// Prettier 3.3.2
+foo ? bar ?? foo : baz;
+foo ?? bar ? a : b;
+a ? b : foo ?? bar;
+
+// Prettier 3.3.3
+foo ? (bar ?? foo) : baz;
+(foo ?? bar) ? a : b;
+a ? b : (foo ?? bar);
+```
+
+#### Add parentheses for decorator expressions ([#16458](https://github.com/prettier/prettier/pull/16458) by [@y-schneider](https://github.com/y-schneider))
+
+Prevent parentheses around member expressions or tagged template literals from being removed to follow the stricter parsing rules of TypeScript 5.5.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+@(foo`tagged template`)
+class X {}
+
+// Prettier 3.3.2
+@foo`tagged template`
+class X {}
+
+// Prettier 3.3.3
+@(foo`tagged template`)
+class X {}
+```
+
+#### Support `@let` declaration syntax ([#16474](https://github.com/prettier/prettier/pull/16474) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Adds support for Angular v18 `@let` declaration syntax.
+
+Please see the following code example. The `@let` declaration allows you to define local variables within the template:
+
+<!-- prettier-ignore -->
+```html
+@let name = 'Frodo';
+
+<h1>Dashboard for {{name}}</h1>
+Hello, {{name}}
+```
+
+For more details, please refer to the excellent blog post by the Angular Team: [Introducing @let in Angular](https://blog.angular.dev/introducing-let-in-angular-686f9f383f0f).
+
+We also appreciate the Angular Team for kindly answering our questions to implement this feature.
+
 # 3.3.2
 
 [diff](https://github.com/prettier/prettier/compare/3.3.1...3.3.2)
