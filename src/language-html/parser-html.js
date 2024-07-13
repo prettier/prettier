@@ -81,6 +81,9 @@ function normalizeAngularLetDeclaration(node) {
     sourceSpan: new ParseSourceSpan(node.valueSpan.start, node.valueSpan.end),
     value: node.value,
   };
+
+  delete node.name;
+  delete node.value;
 }
 
 function normalizeAngularIcuExpression(node) {
