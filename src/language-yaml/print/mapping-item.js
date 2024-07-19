@@ -112,6 +112,8 @@ function printMappingItem(path, print, options) {
     implicitMappingValueParts.push(hardline);
   } else if (value.content) {
     implicitMappingValueParts.push(line);
+  } else if (hasTrailingComment(value)) {
+    implicitMappingValueParts.push(" ");
   }
   implicitMappingValueParts.push(printedValue);
   const implicitMappingValue = alignWithSpaces(
