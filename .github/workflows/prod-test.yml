@@ -56,7 +56,7 @@ jobs:
           - "windows-latest"
         node:
           # Latest even version
-          - "22"
+          - "22.5.1"
           # Minimal version for production
           - "14"
         include:
