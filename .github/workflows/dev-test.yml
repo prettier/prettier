@@ -27,13 +27,13 @@ jobs:
           - "windows-latest"
         node:
           # Latest even version
-          - "22"
+          - "22.4.1"
           # Minimal version for development
           - "18"
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
-            node: "22"
+            node: "22.4.1"
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
