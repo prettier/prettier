@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.hbs - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>
+  <style>
+  </style>
+</div>
+
+<style>
+  div {   color: red;
+
+
+
+  }
+</style>
+
+<style>
+  .a {
+    color: red;
+  }
+
+
+  .b {
+    color: blue;
+  }
+</style>
+
+=====================================output=====================================
+<div>
+  <style>
+  </style>
+</div>
+
+<style>
+  div {   color: red;
+
+
+
+  }
+</style>
+
+<style
+>
+  .a {
+    color: red;
+  }
+
+
+  .b {
+    color: blue;
+  }
+</style>
+
+================================================================================
+`;
+
+exports[`test.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>
+  <style>
+  </style>
+</div>
+
+<style>
+  div {   color: red;
+
+
+
+  }
+</style>
+
+<style>
+  .a {
+    color: red;
+  }
+
+
+  .b {
+    color: blue;
+  }
+</style>
+
+=====================================output=====================================
+<div>
+  <style></style>
+</div>
+
+<style>
+  div {
+    color: red;
+  }
+</style>
+
+<style>
+  .a {
+    color: red;
+  }
+
+  .b {
+    color: blue;
+  }
+</style>
+================================================================================
+`;
