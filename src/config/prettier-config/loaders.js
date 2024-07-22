@@ -1,9 +1,9 @@
 import { pathToFileURL } from "node:url";
 
-import parseToml from "@iarna/toml/parse-async.js";
 import { load as parseYaml } from "js-yaml";
 import json5 from "json5";
 import parseJson from "parse-json";
+import { parse as parseToml } from "smol-toml";
 
 import readFile from "../../utils/read-file.js";
 
