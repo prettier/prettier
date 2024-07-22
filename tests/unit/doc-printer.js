@@ -6,8 +6,8 @@ test("`printDocToString` should not manipulate docs", () => {
   const doc = fill(
     join(
       line,
-      Array.from({ length: 255 }, (_, index) => String(index + 1))
-    )
+      Array.from({ length: 255 }, (_, index) => String(index + 1)),
+    ),
   );
 
   expect(doc.parts.length).toBe(255 + 254);
@@ -27,8 +27,8 @@ test("`printDocToString` should not manipulate docs", () => {
       line,
       Array.from(
         { length: 1000 * Math.ceil(printOptions.printWidth / WORD.length) },
-        () => WORD
-      )
+        () => WORD,
+      ),
     );
     const orignalLength = hugeParts.length;
 
