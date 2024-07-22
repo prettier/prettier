@@ -947,10 +947,27 @@ function needsParens(path, options) {
       }
 
       if (
-        node.type === "OptionalMemberExpression" ||
-        (node.type === "MemberExpression" && node.optional === true)
+        parent.type === "TaggedTemplateExpression" &&
+        (node.type === "OptionalMemberExpression" ||
+          node.type === "OptionalCallExpression")
       ) {
         return true;
+      }
+
+      if (
+        parent.type === "ChainExpression" &&
+        path.grandparent.type === "TaggedTemplateExpression"
+      ) {
+        let object = node;
+
+        do {
+          if (object?.optional === true) {
+            return true;
+          }
+
+          object =
+            object.type === "CallExpression" ? object.callee : object.object;
+        } while (object);
       }
 
       return false;
