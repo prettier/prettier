@@ -507,8 +507,6 @@ function printDocToString(doc, options) {
 
         const secondContent = parts[2];
 
-        parts.splice(0, 2);
-
         // At this point we've handled the first pair (context, separator)
         // and will create a new *mutable* fill doc for the rest of the content.
         // Copying all the elements to a new array would make this algorithm quadratic,
