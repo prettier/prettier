@@ -46,7 +46,7 @@ const loaders = {
   async ".toml"(file) {
     const content = await readFile(file);
     try {
-      return await parseToml(content);
+      return parseToml(content);
     } catch (/** @type {any} */ error) {
       error.message = `TOML Error in ${file}:\n${error.message}`;
       throw error;
