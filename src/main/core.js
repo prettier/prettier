@@ -74,8 +74,12 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
       cursorOffsetRelativeToOldCursorNode =
         opts.cursorOffset - oldCursorNodeStart;
 
-      newCursorNodeStart = result.cursorNodeStart;
-      newCursorNodeText = result.cursorNodeText;
+      const { cursorNodeText, cursorNodeStart } = result;
+      const trimmedCursorNodeText = cursorNodeText.trimStart();
+      newCursorNodeText = trimmedCursorNodeText;
+      newCursorNodeStart =
+        cursorNodeStart +
+        (cursorNodeText.length - trimmedCursorNodeText.length);
     } else {
       oldCursorNodeStart = 0;
       oldCursorNodeText = text;
