@@ -32,7 +32,7 @@ const MODE_FLAT = Symbol("MODE_FLAT");
 
 const CURSOR_PLACEHOLDER = Symbol("cursor");
 
-const DOC_FILL_IS_MUTABLE = Symbol("DOC_FILL_IS_MUTABLE");
+const IS_MUTABLE_FILL = Symbol("IS_MUTABLE_FILL");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -507,21 +507,25 @@ function printDocToString(doc, options) {
 
         const secondContent = parts[2];
 
+        parts.splice(0, 2);
+
         // At this point we've handled the first pair (context, separator)
         // and will create a new *mutable* fill doc for the rest of the content.
         // Copying all the elements to a new array would make this algorithm quadratic,
         // which is unusable for large arrays (e.g. large texts in JSX).
         // https://github.com/prettier/prettier/issues/3263#issuecomment-344275152
         let remainingDoc = doc;
-        if (doc[DOC_FILL_IS_MUTABLE]) {
+        if (doc[IS_MUTABLE_FILL]) {
           parts.splice(0, 2);
         } else {
           remainingDoc = {
             ...doc,
             parts: parts.slice(2),
-            [DOC_FILL_IS_MUTABLE]: true,
+            [IS_MUTABLE_FILL]: true,
           };
         }
+
+        /** @type {Command} */
         const remainingCmd = { ind, mode, doc: remainingDoc };
 
         /** @type {Command} */
