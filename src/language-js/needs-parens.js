@@ -945,6 +945,14 @@ function needsParens(path, options) {
           }
         }
       }
+
+      if (
+        node.type === "OptionalMemberExpression" ||
+        (node.type === "MemberExpression" && node.optional === true)
+      ) {
+        return true;
+      }
+
       return false;
 
     case "BindExpression":
