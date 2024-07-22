@@ -461,7 +461,7 @@ function printDocToString(doc, options) {
       case DOC_TYPE_FILL: {
         const rem = width - pos;
 
-        const { parts } = doc;
+        let { parts } = doc;
         if (parts.length === 0) {
           break;
         }
@@ -508,7 +508,7 @@ function printDocToString(doc, options) {
         // Ideally we wouldn't mutate the array here but copying all the
         // elements to a new array would make this algorithm quadratic,
         // which is unusable for large arrays (e.g. large texts in JSX).
-        parts.splice(0, 2);
+        parts = parts.toSpliced(0, 2);
         /** @type {Command} */
         const remainingCmd = { ind, mode, doc: fill(parts) };
 
