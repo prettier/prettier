@@ -946,6 +946,20 @@ function needsParens(path, options) {
         }
       }
 
+      // case (a?.b!)``;
+      if (
+        node.expression &&
+        [
+          "OptionalMemberExpression",
+          "OptionalCallExpression",
+          "CallExpression",
+          "MemberExpression",
+        ].includes(node.expression.type) &&
+        shouldAddParenthesesToChainElement(path)
+      ) {
+        return true;
+      }
+
       return false;
 
     case "BindExpression":
@@ -1201,6 +1215,35 @@ function shouldAddParenthesesToChainElement(path) {
       (node) =>
         node.type === "OptionalCallExpression" ||
         node.type === "OptionalMemberExpression",
+      (node, name) =>
+        name === "tag" && node.type === "TaggedTemplateExpression",
+    ) ||
+    // case (a?.b)!``; in Babel-ts
+    path.match(
+      (node) =>
+        node.type === "OptionalCallExpression" ||
+        node.type === "OptionalMemberExpression",
+      (node, name) =>
+        name === "expression" &&
+        node.type === "TSNonNullExpression" &&
+        node?.extra?.parenthesized !== true,
+      (node, name) =>
+        name === "tag" && node.type === "TaggedTemplateExpression",
+    ) ||
+    // case (a?.b)!``; in Typescript
+    path.match(
+      undefined,
+      (node, name) => name === "expression" && node.type === "ChainExpression",
+      (node, name) =>
+        name === "expression" && node.type === "TSNonNullExpression",
+      (node, name) =>
+        name === "tag" && node.type === "TaggedTemplateExpression",
+    ) ||
+    // case (a?.b!)``; in Typescript and Babel-ts
+    path.match(
+      (node) =>
+        node.type === "TSNonNullExpression" &&
+        node?.extra?.parenthesized === true,
       (node, name) =>
         name === "tag" && node.type === "TaggedTemplateExpression",
     )
