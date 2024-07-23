@@ -158,7 +158,7 @@ In case you want to use [plugins](./plugins.md) in your shared configuration, yo
   "main": "index.json",
   "license": "MIT",
   "dependencies": {
-    "prettier-plugin-xml": "^3.4.1"
+    "prettier-plugin-xml": "3.4.1"
   },
   "peerDependencies": {
     "prettier": ">=2.0.0"
