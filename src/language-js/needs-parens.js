@@ -946,21 +946,6 @@ function needsParens(path, options) {
         }
       }
 
-      if (
-        parent.type === "TaggedTemplateExpression" &&
-        (node.type === "OptionalMemberExpression" ||
-          node.type === "OptionalCallExpression")
-      ) {
-        return true;
-      }
-
-      if (
-        parent.type === "ChainExpression" &&
-        path.grandparent.type === "TaggedTemplateExpression"
-      ) {
-        return true;
-      }
-
       return false;
 
     case "BindExpression":
@@ -1193,6 +1178,9 @@ Matches following cases:
 
 new (a?.b)();
 new (a?.())();
+
+(a?.b)``;
+(a?.())``;
 ```
 */
 /**
@@ -1200,6 +1188,26 @@ new (a?.())();
  * @returns {boolean}
  */
 function shouldAddParenthesesToChainElement(path) {
+  if (
+    // ESTree
+    path.match(
+      undefined,
+      (node, name) => name === "expression" && node.type === "ChainExpression",
+      (node, name) =>
+        name === "tag" && node.type === "TaggedTemplateExpression",
+    ) ||
+    // Babel
+    path.match(
+      (node) =>
+        node.type === "OptionalCallExpression" ||
+        node.type === "OptionalMemberExpression",
+      (node, name) =>
+        name === "tag" && node.type === "TaggedTemplateExpression",
+    )
+  ) {
+    return true;
+  }
+
   // Babel, this was implemented before #13735, can use `path.match` as estree does
   const { node, parent, grandparent, key } = path;
   if (
