@@ -958,16 +958,7 @@ function needsParens(path, options) {
         parent.type === "ChainExpression" &&
         path.grandparent.type === "TaggedTemplateExpression"
       ) {
-        let object = node;
-
-        do {
-          if (object?.optional === true) {
-            return true;
-          }
-
-          object =
-            object.type === "CallExpression" ? object.callee : object.object;
-        } while (object);
+        return true;
       }
 
       return false;
