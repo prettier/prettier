@@ -122,13 +122,14 @@ export default {
 
 Don't forget to change the `main` field in your `package.json` too:
 
-```json
+```diff
 // package.json
 {
   "name": "@username/prettier-config",
   "version": "1.0.0",
   "description": "My personal Prettier config",
-  "main": "index.mjs", // <-- change index.json to index.mjs
+-  "main": "index.json",
++  "main": "index.mjs",
   "license": "MIT",
   "peerDependencies": {
     "prettier": ">=2.0.0"
