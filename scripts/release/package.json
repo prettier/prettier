@@ -10,7 +10,7 @@
     "execa": "9.2.0",
     "fast-glob": "3.3.2",
     "outdent": "0.8.0",
-    "semver": "7.6.2"
+    "semver": "7.6.3"
   },
   "engines": {
     "node": ">=18"
