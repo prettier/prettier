@@ -628,9 +628,6 @@ exports[`visitor keys estree 1`] = `
   "ObjectTypeInternalSlot": [
     "id",
     "value",
-    "optional",
-    "static",
-    "method",
   ],
   "ObjectTypeMappedTypeProperty": [
     "keyTparam",
@@ -1430,6 +1427,10 @@ exports[`visitor keys html 1`] = `
   "angularIcuExpression": [
     "cases",
   ],
+  "angularLetDeclaration": [
+    "init",
+  ],
+  "angularLetDeclarationInitializer": [],
   "attribute": [],
   "cdata": [],
   "comment": [],

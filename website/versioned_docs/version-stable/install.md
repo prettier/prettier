@@ -48,10 +48,8 @@ node --eval "fs.writeFileSync('.prettierrc','{}\n')"
 
 Next, create a [.prettierignore](ignore.md) file to let the Prettier CLI and editors know which files to _not_ format. Here’s an example:
 
-```text
-# Ignore artifacts:
-build
-coverage
+```bash
+node --eval "fs.writeFileSync('.prettierignore','# Ignore artifacts:\nbuild\ncoverage\n')"
 ```
 
 > Tip! Prettier will follow rules specified in .gitignore if it exists in the same directory from which it is run. You can also base your .prettierignore on .eslintignore (if you have one).

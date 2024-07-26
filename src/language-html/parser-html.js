@@ -68,6 +68,24 @@ function normalizeAngularControlFlowBlock(node) {
   };
 }
 
+function normalizeAngularLetDeclaration(node) {
+  if (node.type !== "letDeclaration") {
+    return;
+  }
+
+  // Similar to `VariableDeclarator` in estree
+  node.type = "angularLetDeclaration";
+  node.id = node.name;
+  node.init = {
+    type: "angularLetDeclarationInitializer",
+    sourceSpan: new ParseSourceSpan(node.valueSpan.start, node.valueSpan.end),
+    value: node.value,
+  };
+
+  delete node.name;
+  delete node.value;
+}
+
 function normalizeAngularIcuExpression(node) {
   if (node.type === "plural" || node.type === "select") {
     node.clause = node.type;
@@ -103,6 +121,7 @@ function ngHtmlParser(input, parseOptions, options) {
           shouldParseAsRawText(...args) ? TagContentType.RAW_TEXT : undefined
       : undefined,
     tokenizeAngularBlocks: name === "angular" ? true : undefined,
+    tokenizeAngularLetDeclaration: name === "angular" ? true : undefined,
   });
 
   if (name === "vue") {
@@ -395,6 +414,7 @@ function parse(
     }
 
     normalizeAngularControlFlowBlock(node);
+    normalizeAngularLetDeclaration(node);
     normalizeAngularIcuExpression(node);
   });
 

@@ -176,7 +176,7 @@ exports[`member-expression.js [acorn] format 1`] = `
 "Unexpected character '@' (3:5)
   1 | [
   2 |   class {
-> 3 |     @(decorators[0])
+> 3 |     @(decorator)
     |     ^
   4 |     method() {}
   5 |   },
@@ -188,7 +188,7 @@ exports[`member-expression.js [espree] format 1`] = `
 "Unexpected character '@' (3:5)
   1 | [
   2 |   class {
-> 3 |     @(decorators[0])
+> 3 |     @(decorator)
     |     ^
   4 |     method() {}
   5 |   },
@@ -203,6 +203,18 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 [
+  class {
+    @(decorator)
+    method() {}
+  },
+  class {
+    @(decorator())
+    method() {}
+  },
+  class {
+    @(decorator?.())
+    method() {}
+  },
   class {
     @(decorators[0])
     method() {}
@@ -221,6 +233,10 @@ printWidth: 80
   },
   class {
     @(decorators?.at(0))
+    method() {}
+  },
+  class {
+    @(decorators.at?.(0))
     method() {}
   },
   class {
@@ -256,6 +272,18 @@ printWidth: 80
 =====================================output=====================================
 [
   class {
+    @decorator
+    method() {}
+  },
+  class {
+    @decorator()
+    method() {}
+  },
+  class {
+    @(decorator?.())
+    method() {}
+  },
+  class {
     @(decorators[0])
     method() {}
   },
@@ -273,6 +301,10 @@ printWidth: 80
   },
   class {
     @(decorators?.at(0))
+    method() {}
+  },
+  class {
+    @(decorators.at?.(0))
     method() {}
   },
   class {

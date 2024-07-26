@@ -16,14 +16,6 @@ exports[`dynamic-import.js [espree] format 1`] = `
 Cause: Unexpected token ,"
 `;
 
-exports[`dynamic-import.js [meriyah] format 1`] = `
-"Expected ')' (1:20)
-> 1 | import("./foo.json", { with: { type: "json" } });
-    |                    ^
-  2 |
-Cause: [1:20]: Expected ')'"
-`;
-
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -58,17 +50,6 @@ exports[`empty.js [espree] format 1`] = `
   4 |
   5 | import * as foo from "foo.json"
 Cause: Unexpected token with"
-`;
-
-exports[`empty.js [meriyah] format 1`] = `
-"Unexpected token: 'with' (2:36)
-  1 | export * as foo from "foo.json"
-> 2 | export * as bar from "bar.json" with { }
-    |                                    ^
-  3 | export * as baz from "baz.json" with { /* comment */ }
-  4 |
-  5 | import * as foo from "foo.json"
-Cause: [2:36]: Unexpected token: 'with'"
 `;
 
 exports[`empty.js format 1`] = `
@@ -118,13 +99,13 @@ Cause: Unexpected token with"
 `;
 
 exports[`keyword-detect.js [meriyah] format 1`] = `
-"Unexpected token: 'with' (1:38)
+"Invalid binding in JSON import (1:69)
 > 1 | import "./test.json" /* assert */ with /* assert */  { type: "json" }
-    |                                      ^
+    |                                                                     ^
   2 | import {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
   3 | import "./test.json" /* with */ assert /* with */  { type: "json" }
   4 | import {} from "./test.json" /* with */ assert /* with */  { type: "json" }
-Cause: [1:38]: Unexpected token: 'with'"
+Cause: [1:69]: Invalid binding in JSON import"
 `;
 
 exports[`keyword-detect.js format 1`] = `
@@ -177,16 +158,6 @@ exports[`long-sources.js [espree] format 1`] = `
   3 | import a20 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
   4 | import a30 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
 Cause: Unexpected token with"
-`;
-
-exports[`long-sources.js [meriyah] format 1`] = `
-"Unexpected token: 'with' (1:40)
-> 1 | import a10 from "./aaaaaaaaaa.json" with {
-    |                                        ^
-  2 | type: "json" };
-  3 | import a20 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
-  4 | import a30 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
-Cause: [1:40]: Unexpected token: 'with'"
 `;
 
 exports[`long-sources.js format 1`] = `
@@ -267,11 +238,11 @@ Cause: Unexpected token with"
 `;
 
 exports[`multi-types.js [meriyah] format 1`] = `
-"Unexpected token: 'with' (1:34)
+"Duplicate binding 'type' (1:64)
 > 1 | import json from "./foo.json" with { type: "json", type: "bar" };
-    |                                  ^
+    |                                                                ^
   2 |
-Cause: [1:34]: Unexpected token: 'with'"
+Cause: [1:64]: Duplicate binding 'type'"
 `;
 
 exports[`multi-types.js format 1`] = `
@@ -302,14 +273,6 @@ exports[`non-type.js [espree] format 1`] = `
     |                            ^
   2 |
 Cause: Unexpected token with"
-`;
-
-exports[`non-type.js [meriyah] format 1`] = `
-"Unexpected token: 'with' (1:31)
-> 1 | import foo from "foo.json" with { lazy: "true" };
-    |                               ^
-  2 |
-Cause: [1:31]: Unexpected token: 'with'"
 `;
 
 exports[`non-type.js format 1`] = `
@@ -390,14 +353,6 @@ exports[`static-import.js [espree] format 1`] = `
 Cause: Unexpected token with"
 `;
 
-exports[`static-import.js [meriyah] format 1`] = `
-"Unexpected token: 'with' (1:34)
-> 1 | import json from "./foo.json" with { type: "json" };
-    |                                  ^
-  2 |
-Cause: [1:34]: Unexpected token: 'with'"
-`;
-
 exports[`static-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -429,11 +384,11 @@ Cause: Unexpected token with"
 `;
 
 exports[`without-from.js [meriyah] format 1`] = `
-"Unexpected token: 'with' (1:17)
+"Invalid binding in JSON import (1:34)
 > 1 | import "foo" with { type: "json" }
-    |                 ^
+    |                                  ^
   2 |
-Cause: [1:17]: Unexpected token: 'with'"
+Cause: [1:34]: Invalid binding in JSON import"
 `;
 
 exports[`without-from.js format 1`] = `

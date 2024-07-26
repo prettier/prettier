@@ -80,14 +80,15 @@ exports[`invalid-using-binding-let.js [flow] format 1`] = `
 `;
 
 exports[`invalid-using-binding-pattern.js [babel] format 1`] = `
-"Unexpected token (2:17)
-  1 | {
-> 2 |   using { foo } = f();
-    |                 ^
+"Unexpected token, expected ")" (4:25)
+  2 |   using { foo } = f();
   3 |   using [ bar ] = g();
-  4 |   for (using { qux } of h());
+> 4 |   for (using { qux } of h());
+    |                         ^
   5 |   for (using [ quux ] of i());
-Cause: Unexpected token (2:16)"
+  6 | }
+  7 |
+Cause: Unexpected token, expected ")" (4:24)"
 `;
 
 exports[`invalid-using-binding-pattern.js [flow] format 1`] = `
