@@ -109,7 +109,7 @@ Then, you can reference it in your `package.json`:
 }
 ```
 
-If you don’t want to use `package.json`, you can use any of the supported extensions to export a string, e.g. `.prettierrc.json`:
+If you don’t want to use `package.json`, you can use any of the supported extensions to export a string, e.g. `.prettierrc`:
 
 ```json
 "@company/prettier-config"
