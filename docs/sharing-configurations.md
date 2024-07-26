@@ -119,12 +119,17 @@ If you don’t want to use `package.json`, you can use any of the supported exte
 To _extend_ the configuration to overwrite some properties from the shared configuration, import the file in a `.prettierrc.mjs` file and export the modifications, e.g:
 
 ```js
-import myPrettierConfig from "@username/prettier-config";
+import usernamePrettierConfig from "@username/prettier-config";
 
-export default {
-  ...myPrettierConfig,
+/**
+ * @type {import("prettier").Config}
+ */
+const config = {
+  ...usernamePrettierConfig,
   semi: false,
 };
+
+export default config;
 ```
 
 ## Other examples
