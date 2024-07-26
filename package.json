@@ -136,7 +136,7 @@
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-regexp": "2.6.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
-    "eslint-plugin-unicorn": "54.0.0",
+    "eslint-plugin-unicorn": "55.0.0",
     "esm-utils": "4.3.0",
     "execa": "7.2.0",
     "jest": "30.0.0-alpha.5",
