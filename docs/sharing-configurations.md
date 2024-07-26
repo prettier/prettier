@@ -152,13 +152,9 @@ const config = {
 export default config;
 ```
 
-In order to make this work, you have to install `prettier` as a `devDependency` for the project:
+In order to make this work, you have to [install `prettier`](./install.md) for the project.
 
-```bash
-npm install -D prettier
-```
-
-Your `package.json` file should look like this now:
+After that, your `package.json` file should look like this:
 
 ```diff
 {
