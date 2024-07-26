@@ -61,7 +61,7 @@ An example shared configuration repository is available [here](https://github.co
 
 Once you are ready, you can [publish your package to npm](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages#publishing-scoped-public-packages):
 
-```sh
+```bash
 npm publish --access public
 ```
 
@@ -69,9 +69,32 @@ npm publish --access public
 
 You first need to install your published configuration, for example:
 
-```sh
-npm install @username/prettier-config --save-dev
+<!--DOCUSAURUS_CODE_TABS-->
+<!--npm-->
+
+```bash
+npm install --save-dev @username/prettier-config
 ```
+
+<!--yarn-->
+
+```bash
+yarn add --dev @username/prettier-config
+```
+
+<!--pnpm-->
+
+```bash
+pnpm add --save-dev @username/prettier-config
+```
+
+<!--bun-->
+
+```bash
+bun add --dev @username/prettier-config
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 Then, you can reference it in your `package.json`:
 
@@ -124,7 +147,7 @@ export default config;
 
 In order to make this work, you have to install `prettier` as a `devDependency` for the project:
 
-```sh
+```bash
 npm install -D prettier
 ```
 
