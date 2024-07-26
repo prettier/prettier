@@ -1,3 +1,4 @@
+// TODO: Find a better way to test the performance
 import { fill, join, line } from "../../src/document/builders.js";
 import { printDocToString } from "../../src/document/printer.js";
 
