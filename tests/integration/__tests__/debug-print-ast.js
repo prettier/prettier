@@ -10,4 +10,5 @@ test("prints information for debugging AST --debug-print-ast", async () => {
   const data = JSON.parse(stdout);
 
   expect(data).toHaveProperty("type", "File");
+  expect(data).toHaveProperty("program.type", "Program");
 });
