@@ -37,6 +37,9 @@ Example `package.json`:
   "type": "module",
   "exports": "./index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "prettier": ">=3.0.0"
   }
@@ -62,7 +65,7 @@ An example shared configuration repository is available [here](https://github.co
 Once you are ready, you can [publish your package to npm](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages#publishing-scoped-public-packages):
 
 ```bash
-npm publish --access public
+npm publish
 ```
 
 ## Using a Shareable Config
@@ -161,6 +164,9 @@ Your `package.json` file should look like this now:
   "type": "module",
   "exports": "./index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "prettier": ">=3.0.0"
   },
@@ -193,6 +199,9 @@ export default config;
   "type": "module",
   "exports": "./index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
 +  "dependencies": {
 +    "prettier-plugin-xml": "3.4.1"
 +  },
