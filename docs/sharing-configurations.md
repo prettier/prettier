@@ -18,11 +18,11 @@ Before we start, make sure you have:
 
 First, create a new package. We recommend creating a [scoped package](https://docs.npmjs.com/cli/v10/using-npm/scope) with the name `@username/prettier-config`.
 
-A minimal package should have at least two files. A `package.json` for the package configuration and an `index.json` which holds the shared prettier configuration values:
+A minimal package should have at least two files. A `package.json` for the package configuration and an `index.js` which holds the shared prettier configuration object:
 
 ```text
 prettier-config/
-├── index.json
+├── index.js
 └── package.json
 ```
 
@@ -33,7 +33,8 @@ Example `package.json`:
   "name": "@username/prettier-config",
   "version": "1.0.0",
   "description": "My personal Prettier config",
-  "main": "index.json",
+  "type": "module",
+  "exports": "./index.js",
   "license": "MIT",
   "peerDependencies": {
     "prettier": ">=2.0.0"
@@ -41,15 +42,16 @@ Example `package.json`:
 }
 ```
 
-`index.json` is where you put the shared configuration. This file has the same fields as [normal prettier configuration file](./configuration.md). In this example, we added a `$schema` field to enable IDE autocompletion too:
+`index.js` is where you put the shared configuration. This file just exports a [regular prettier configuration](./configuration.md) with the same syntax and same options:
 
-```json
-{
-  "$schema": "http://json.schemastore.org/prettierrc",
-  "singleQuote": true,
-  "trailingComma": "all",
-  "endOfLine": "lf"
-}
+```js
+const config = {
+  trailingComma: "es5",
+  tabWidth: 4,
+  singleQuote: true,
+};
+
+export default config;
 ```
 
 An example shared configuration repository is available [here](https://github.com/azz/prettier-config).
@@ -101,39 +103,46 @@ export default {
 
 ## Other examples
 
-### Sharing a JavaScript Configuration File
+### Using Type Annotation in the Shared Config
 
-Instead of a `.json` file, you can write your shared configuration in JavaScript as well. For example:
+You can get type safety and autocomplete support in your shared configuration by using a `jsdoc` type annotation:
 
-```text
-prettier-config/
-├── index.mjs
-└── package.json
-```
-
-```mjs
-// index.mjs
-export default {
+```js
+/**
+ * @type {import("prettier").Config}
+ */
+const config = {
+  trailingComma: "es5",
+  tabWidth: 4,
+  semi: false,
   singleQuote: true,
-  trailingComma: "all",
-  endOfLine: "lf",
 };
+
+export default config;
 ```
 
-Don't forget to change the `main` field in your `package.json` too:
+In order to make this work, you have to install `prettier` as a `devDependency` for the project:
+
+```sh
+npm install -D prettier
+```
+
+Your `package.json` file should look like this now:
 
 ```diff
-// package.json
 {
   "name": "@username/prettier-config",
   "version": "1.0.0",
   "description": "My personal Prettier config",
--  "main": "index.json",
-+  "main": "index.mjs",
+  "type": "module",
+  "exports": "./index.js",
   "license": "MIT",
   "peerDependencies": {
     "prettier": ">=2.0.0"
-  }
+  },
++ "devDependencies": {
++   "prettier": "^3.3.3"
++ }
 }
 ```
 
@@ -141,26 +150,28 @@ Don't forget to change the `main` field in your `package.json` too:
 
 In case you want to use [plugins](./plugins.md) in your shared configuration, you need to declare those plugins in the config file's `plugin` array and as `dependencies` in `package.json`:
 
-```json
-// index.json
-{
-  "$schema": "http://json.schemastore.org/prettierrc",
-  "singleQuote": true,
-  "plugins": ["prettier-plugin-xml"]
-}
+```js
+// index.js
+const config = {
+  singleQuote: true,
+  plugins: ["prettier-plugin-xml"],
+};
+
+export default config;
 ```
 
-```json
+```diff
 // package.json
 {
   "name": "@username/prettier-config",
   "version": "1.0.0",
   "description": "My personal Prettier config",
-  "main": "index.json",
+  "type": "module",
+  "exports": "./index.js",
   "license": "MIT",
-  "dependencies": {
-    "prettier-plugin-xml": "3.4.1"
-  },
++  "dependencies": {
++    "prettier-plugin-xml": "3.4.1"
++  },
   "peerDependencies": {
     "prettier": ">=2.0.0"
   }
