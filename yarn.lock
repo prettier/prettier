@@ -1678,10 +1678,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdn/browser-compat-data@npm:^5.2.34, @mdn/browser-compat-data@npm:^5.5.19":
-  version: 5.5.35
-  resolution: "@mdn/browser-compat-data@npm:5.5.35"
-  checksum: 10/320f217d438a9a1d6dab7de9d0df3983cae7fb39ea9934ce4034caa4a699846e536bca394f3dc8409492782396fb15334185a2621bc33ade831652f68c456e68
+"@mdn/browser-compat-data@npm:^5.2.34, @mdn/browser-compat-data@npm:^5.5.35":
+  version: 5.5.41
+  resolution: "@mdn/browser-compat-data@npm:5.5.41"
+  checksum: 10/29cc42d99c097396d5e1f1540d5a28a72489b043617e5773f767a8cdbec7b27d023d9653fa9e7e1fb0dd7a7c8f8badd9e0047389d619d0e306aeed707bf2c353
   languageName: node
   linkType: hard
 
@@ -2614,7 +2614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:4.23.2, browserslist@npm:^4.22.2, browserslist@npm:^4.23.0":
+"browserslist@npm:4.23.2, browserslist@npm:^4.22.2, browserslist@npm:^4.23.0, browserslist@npm:^4.23.1":
   version: 4.23.2
   resolution: "browserslist@npm:4.23.2"
   dependencies:
@@ -2738,10 +2738,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001605, caniuse-lite@npm:^1.0.30001640":
-  version: 1.0.30001641
-  resolution: "caniuse-lite@npm:1.0.30001641"
-  checksum: 10/d60df2662fcae31efc8f36451929640e9630bb2e936f7449166dc70dcc4a757f6d86a5a089eed763b58354d684404b175e6c8790a9fd95c48abed1fcb7c26225
+"caniuse-lite@npm:^1.0.30001639, caniuse-lite@npm:^1.0.30001640":
+  version: 1.0.30001643
+  resolution: "caniuse-lite@npm:1.0.30001643"
+  checksum: 10/dddbda29fa24fbc435873309c71070461cbfc915d9bce3216180524c20c5637b2bee1a14b45972e9ac19e1fdf63fba3f63608b9e7d68de32f5ee1953c8c69e05
   languageName: node
   linkType: hard
 
@@ -3823,21 +3823,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-compat@npm:5.0.0":
-  version: 5.0.0
-  resolution: "eslint-plugin-compat@npm:5.0.0"
+"eslint-plugin-compat@npm:6.0.0":
+  version: 6.0.0
+  resolution: "eslint-plugin-compat@npm:6.0.0"
   dependencies:
-    "@mdn/browser-compat-data": "npm:^5.5.19"
+    "@mdn/browser-compat-data": "npm:^5.5.35"
     ast-metadata-inferer: "npm:^0.8.0"
-    browserslist: "npm:^4.23.0"
-    caniuse-lite: "npm:^1.0.30001605"
+    browserslist: "npm:^4.23.1"
+    caniuse-lite: "npm:^1.0.30001639"
     find-up: "npm:^5.0.0"
-    globals: "npm:^13.24.0"
+    globals: "npm:^15.7.0"
     lodash.memoize: "npm:^4.1.2"
-    semver: "npm:^7.6.0"
+    semver: "npm:^7.6.2"
   peerDependencies:
-    eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
-  checksum: 10/e211daeb41d99b580c01bba9aaeb81dd6a42b41c172cbdcc1f8eb16b843a8b9a1b79905113f41aa8806e6ca606bb463f6431f4e9cc34ba37fd5eaadeca680a81
+    eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
+  checksum: 10/bf205cbdc7f16e9e451704b8ec5cb20eb766e99fb26e2758f93da9f2c5b03d04c37aef17eb15c9d235e2c12ebb11cbc6b6fdf036121473226f2d5bd4a2767a4e
   languageName: node
   linkType: hard
 
@@ -4627,15 +4627,6 @@ __metadata:
   version: 11.12.0
   resolution: "globals@npm:11.12.0"
   checksum: 10/9f054fa38ff8de8fa356502eb9d2dae0c928217b8b5c8de1f09f5c9b6c8a96d8b9bd3afc49acbcd384a98a81fea713c859e1b09e214c60509517bb8fc2bc13c2
-  languageName: node
-  linkType: hard
-
-"globals@npm:^13.24.0":
-  version: 13.24.0
-  resolution: "globals@npm:13.24.0"
-  dependencies:
-    type-fest: "npm:^0.20.2"
-  checksum: 10/62c5b1997d06674fc7191d3e01e324d3eda4d65ac9cc4e78329fa3b5c4fd42a0e1c8722822497a6964eee075255ce21ccf1eec2d83f92ef3f06653af4d0ee28e
   languageName: node
   linkType: hard
 
@@ -7366,7 +7357,7 @@ __metadata:
     eslint: "npm:9.7.0"
     eslint-config-prettier: "npm:9.1.0"
     eslint-formatter-friendly: "npm:7.0.0"
-    eslint-plugin-compat: "npm:5.0.0"
+    eslint-plugin-compat: "npm:6.0.0"
     eslint-plugin-import: "npm:2.29.1"
     eslint-plugin-jest: "npm:28.6.0"
     eslint-plugin-n: "npm:17.10.1"
@@ -8637,13 +8628,6 @@ __metadata:
   version: 4.0.8
   resolution: "type-detect@npm:4.0.8"
   checksum: 10/5179e3b8ebc51fce1b13efb75fdea4595484433f9683bbc2dca6d99789dba4e602ab7922d2656f2ce8383987467f7770131d4a7f06a26287db0615d2f4c4ce7d
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^0.20.2":
-  version: 0.20.2
-  resolution: "type-fest@npm:0.20.2"
-  checksum: 10/8907e16284b2d6cfa4f4817e93520121941baba36b39219ea36acfe64c86b9dbc10c9941af450bd60832c8f43464974d51c0957f9858bc66b952b66b6914cbb9
   languageName: node
   linkType: hard
 
