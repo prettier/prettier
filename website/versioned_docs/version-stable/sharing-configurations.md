@@ -104,7 +104,7 @@ Then, you can reference it in your `package.json`:
 ```json
 {
   "name": "my-cool-library",
-  "version": "9000.0.1",
+  "version": "1.0.0",
   "prettier": "@username/prettier-config"
 }
 ```
