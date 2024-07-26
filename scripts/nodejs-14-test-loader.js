@@ -10,7 +10,7 @@ import esbuild from "esbuild";
 
 export async function getSource(url, context, defaultGetSource) {
   if (
-    !/node_modules\/@babel\/(?:code-frame|highlight)/.test(url) ||
+    !/node_modules\/@babel\/(?:code-frame|highlight)/u.test(url) ||
     context.format !== "module"
   ) {
     return defaultGetSource(url, context, defaultGetSource);
