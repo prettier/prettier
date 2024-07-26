@@ -37,7 +37,7 @@ Example `package.json`:
   "exports": "./index.js",
   "license": "MIT",
   "peerDependencies": {
-    "prettier": ">=2.0.0"
+    "prettier": ">=3.0.0"
   }
 }
 ```
@@ -138,7 +138,7 @@ Your `package.json` file should look like this now:
   "exports": "./index.js",
   "license": "MIT",
   "peerDependencies": {
-    "prettier": ">=2.0.0"
+    "prettier": ">=3.0.0"
   },
 + "devDependencies": {
 +   "prettier": "^3.3.3"
@@ -173,7 +173,7 @@ export default config;
 +    "prettier-plugin-xml": "3.4.1"
 +  },
   "peerDependencies": {
-    "prettier": ">=2.0.0"
+    "prettier": ">=3.0.0"
   }
 }
 ```
