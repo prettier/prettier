@@ -159,6 +159,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
       - name: Release
         run: |
           npx pkg-pr-new publish --compact
