@@ -1255,7 +1255,7 @@ function shouldAddParenthesesToChainElement(path) {
       (node, name) =>
         name === "expression" && node.type === "TSNonNullExpression",
       (node, name) =>
-        (node.type === "MemberExpression" && node.object === path.parent) ||
+        (name === "object" && node.type === "MemberExpression") ||
         (name === "callee" && node.type === "CallExpression"),
     )
   ) {
