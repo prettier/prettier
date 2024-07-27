@@ -163,6 +163,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: "yarn"
+          node-version: latest
 
       - name: Download Artifact
         uses: actions/download-artifact@v4
