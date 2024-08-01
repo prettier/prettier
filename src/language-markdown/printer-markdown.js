@@ -252,7 +252,7 @@ function genericPrint(path, options, print) {
       );
       return [
         style,
-        node.lang || "",
+        node.lang ? node.lang.toLowerCase() : "",
         node.meta ? " " + node.meta : "",
         hardline,
         replaceEndOfLine(
