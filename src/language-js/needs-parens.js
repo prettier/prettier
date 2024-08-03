@@ -927,7 +927,7 @@ function needsParens(path, options) {
           switch (object.type) {
             case "CallExpression":
             case "OptionalCallExpression":
-              return true;
+              return node.optional;
             case "MemberExpression":
             case "OptionalMemberExpression":
             case "BindExpression":
