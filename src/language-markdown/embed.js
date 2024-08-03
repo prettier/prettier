@@ -9,7 +9,7 @@ function embed(path, options) {
   const { node } = path;
 
   if (node.type === "code" && node.lang !== null) {
-    const parser = inferParser(options, { language: node.lang });
+    const parser = inferParser(options, { language: node.lang.toLowerCase() });
     if (parser) {
       return async (textToDoc) => {
         const styleUnit = options.__inJsTemplate ? "~" : "`";
@@ -22,9 +22,12 @@ function embed(path, options) {
         // This is because whether the trailing comma of type parameters
         // should be printed depends on whether it is `*.ts` or `*.tsx`.
         // https://github.com/prettier/prettier/issues/15282
-        if (node.lang === "ts" || node.lang === "typescript") {
+        if (
+          node.lang.toLowerCase() === "ts" ||
+          node.lang.toLowerCase() === "typescript"
+        ) {
           newOptions.filepath = "dummy.ts";
-        } else if (node.lang === "tsx") {
+        } else if (node.lang.toLowerCase() === "tsx") {
           newOptions.filepath = "dummy.tsx";
         }
 
@@ -35,7 +38,7 @@ function embed(path, options) {
 
         return markAsRoot([
           style,
-          node.lang,
+          node.lang.toLowerCase(),
           node.meta ? " " + node.meta : "",
           hardline,
           replaceEndOfLine(doc),
