@@ -365,6 +365,23 @@ test(".json5 config file(invalid)", async () => {
   await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
 });
 
+test(".jsonc config file", async () => {
+  const parentDirectory = new URL("../cli/config/rc-jsonc/", import.meta.url);
+  const file = new URL("./valid/foo.js", parentDirectory);
+  await expect(prettier.resolveConfig(file)).resolves.toMatchInlineSnapshot(`
+    {
+      "singleQuote": true,
+    }
+  `);
+});
+
+test(".jsonc config file(invalid)", async () => {
+  const parentDirectory = new URL("../cli/config/rc-jsonc/", import.meta.url);
+  const file = new URL("./invalid/foo.js", parentDirectory);
+  const error = /JSON5: invalid character '#' at 2:3/;
+  await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
+});
+
 test("support external module with `module` only `exports`", async () => {
   const file = new URL(
     "../cli/config/external-config/esm-package-forbids-require/index.js",
