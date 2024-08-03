@@ -1,5 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`call-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Member expressions
+(a?.b)   ();
+(a.b?.c)   ();
+(a?.b.c)   ();
+(a[b?.c])   ();
+((a?.b).c)   ();
+(a[b?.()])   ();
+((a?.b).c)   ();
+((a?.()).b)   ();
+
+// Call expressions
+(a?.())   ();
+(a.b.c?.())   ();
+(a.b?.c())   ();
+(a?.b.c())   ();
+(a(b?.c))   ();
+((a?.b)())   ();
+((a?.())())   ();
+
+// Not \`.callee\`
+foo(a?.b)
+
+=====================================output=====================================
+// Member expressions
+(a?.b)();
+(a.b?.c)();
+(a?.b.c)();
+a[b?.c]();
+(a?.b).c();
+a[b?.()]();
+(a?.b).c();
+(a?.()).b();
+
+// Call expressions
+(a?.())();
+(a.b.c?.())();
+(a.b?.c())();
+(a?.b.c())();
+a(b?.c)();
+(a?.b)()();
+(a?.())()();
+
+// Not \`.callee\`
+foo(a?.b);
+
+================================================================================
+`;
+
 exports[`issue-15785-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
@@ -122,6 +176,120 @@ const randomFuncion = (value) => {
     funcA("", funcB(dayjs(value.a?.toString()).add(1, "day").toISOString()));
   }
 };
+
+================================================================================
+`;
+
+exports[`member-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Member expressions
+(a?.b)   .foo;
+(a.b?.c)   .foo;
+(a?.b.c)   .foo;
+(a[b?.c])   .foo;
+((a?.b).c)   .foo;
+(a[b?.()])   .foo;
+((a?.b).c)   .foo;
+((a?.()).b)   .foo;
+
+// Call expressions
+(a?.())   .foo;
+(a.b.c?.())   .foo;
+(a.b?.c())   .foo;
+(a?.b.c())   .foo;
+(a(b?.c))   .foo;
+((a?.b)())   .foo;
+((a?.())())   .foo;
+
+// Not \`.object\`
+_[a?.b];
+
+// Computed
+(a?.b)   [foo];
+
+=====================================output=====================================
+// Member expressions
+(a?.b).foo;
+(a.b?.c).foo;
+(a?.b.c).foo;
+a[b?.c].foo;
+(a?.b).c.foo;
+a[b?.()].foo;
+(a?.b).c.foo;
+(a?.()).b.foo;
+
+// Call expressions
+(a?.()).foo;
+(a.b.c?.()).foo;
+(a.b?.c()).foo;
+(a?.b.c()).foo;
+a(b?.c).foo;
+(a?.b)().foo;
+(a?.())().foo;
+
+// Not \`.object\`
+_[a?.b];
+
+// Computed
+(a?.b)[foo];
+
+================================================================================
+`;
+
+exports[`new-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Member expressions
+new   (a?.b)   ();
+new   (a.b?.c)   ();
+new   (a?.b.c)   ();
+new   (a[b?.c])   ();
+new   ((a?.b).c)   ();
+new   (a[b?.()])   ();
+new   ((a?.b).c)   ();
+// FIXME: new   ((a?.()).b)   ();
+
+// Call expressions
+new   (a?.())   ();
+new   (a.b.c?.())   ();
+new   (a.b?.c())   ();
+new   (a?.b.c())   ();
+new   (a(b?.c))   ();
+new   ((a?.b)())   ();
+new   ((a?.())())   ();
+
+// Not \`.callee\`
+new Foo(a?.b)
+
+=====================================output=====================================
+// Member expressions
+new (a?.b)();
+new (a.b?.c)();
+new (a?.b.c)();
+new a[b?.c]();
+new (a?.b).c();
+new a[b?.()]();
+new (a?.b).c();
+// FIXME: new   ((a?.()).b)   ();
+
+// Call expressions
+new (a?.())();
+new (a.b.c?.())();
+new (a.b?.c())();
+new (a?.b.c())();
+new (a(b?.c))();
+new ((a?.b)())();
+new ((a?.())())();
+
+// Not \`.callee\`
+new Foo(a?.b);
 
 ================================================================================
 `;
