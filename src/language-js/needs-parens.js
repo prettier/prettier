@@ -1,4 +1,5 @@
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import { shouldAddParenthesesToChainElement } from "./parentheses/chain-element.js";
 import {
   createTypeCheckFunction,
   getFunctionParameters,
@@ -937,6 +938,7 @@ function needsParens(path, options) {
             case "TaggedTemplateExpression":
               object = object.tag;
               break;
+            case "ChainExpression":
             case "TSNonNullExpression":
               object = object.expression;
               break;
@@ -1187,7 +1189,7 @@ new (a?.())();
  * @param {AstPath} path
  * @returns {boolean}
  */
-function shouldAddParenthesesToChainElement(path) {
+function shouldAddParenthesesToChainElement2(path) {
   if (
     // ESTree
     path.match(

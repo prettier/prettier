@@ -6,7 +6,7 @@ new   (a[b?.c])   ();
 new   ((a?.b).c)   ();
 new   (a[b?.()])   ();
 new   ((a?.b).c)   ();
-// FIXME: new   ((a?.()).b)   ();
+new   ((a?.()).b)   ();
 
 // Call expressions
 new   (a?.())   ();

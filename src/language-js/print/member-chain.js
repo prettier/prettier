@@ -318,6 +318,7 @@ function printMemberChain(path, options, print) {
 
   function printGroup(printedGroup) {
     const printed = printedGroup.map((tuple) => tuple.printed);
+
     // Checks if the last node (i.e. the parent node) needs parens and print
     // accordingly
     if (printedGroup.length > 0 && printedGroup.at(-1).needsParens) {
