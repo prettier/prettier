@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new-expression-with-chain.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Member expressions
+new (a?.b)
+new (a.b?.c)
+new (a?.b.c)
+new (a[b?.c])
+new ((a?.b).c)
+new (a[b?.()])
+new ((a?.b).c)
+new ((a?.()).b)
+
+// Call expressions
+new (a?.())
+new (a.b.c?.())
+new (a.b?.c())
+new (a?.b.c())
+new (a(b?.c))
+new ((a?.b)())
+new ((a?.())())
+=====================================output=====================================
+// Member expressions
+new (a?.b)();
+new (a.b?.c)();
+new (a?.b.c)();
+new a[b?.c]();
+new (a?.b).c();
+new a[b?.()]();
+new (a?.b).c();
+new (a?.()).b();
+
+// Call expressions
+new (a?.())();
+new (a.b.c?.())();
+new (a.b?.c())();
+new (a?.b.c())();
+new (a(b?.c))();
+new ((a?.b)())();
+new ((a?.())())();
+
+================================================================================
+`;

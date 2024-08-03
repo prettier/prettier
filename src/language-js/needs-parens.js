@@ -18,6 +18,8 @@ import {
   startsWithNoLookaheadToken,
 } from "./utils/index.js";
 
+const IS_PARENTHESIZED = Symbol("IS_PARENTHESIZED");
+
 /**
  * @typedef {import("../common/ast-path.js").default} AstPath
  */
@@ -926,7 +928,7 @@ function needsParens(path, options) {
           switch (object.type) {
             case "CallExpression":
             case "OptionalCallExpression":
-              return true;
+              return !object[IS_PARENTHESIZED];
             case "MemberExpression":
             case "OptionalMemberExpression":
             case "BindExpression":
@@ -938,6 +940,7 @@ function needsParens(path, options) {
               object = object.tag;
               break;
             case "TSNonNullExpression":
+            case "ChainExpression":
               object = object.expression;
               break;
             default:
@@ -1235,6 +1238,7 @@ function shouldAddParenthesesToChainElement(path) {
         name === "tag" && node.type === "TaggedTemplateExpression",
     )
   ) {
+    path.node[IS_PARENTHESIZED] = true;
     return true;
   }
 
@@ -1256,9 +1260,11 @@ function shouldAddParenthesesToChainElement(path) {
         name === "expression" && node.type === "TSNonNullExpression",
       (node, name) =>
         (name === "object" && node.type === "MemberExpression") ||
-        (name === "callee" && node.type === "CallExpression"),
+        (name === "callee" &&
+          (node.type === "CallExpression" || node.type === "NewExpression")),
     )
   ) {
+    path.node[IS_PARENTHESIZED] = true;
     return true;
   }
 
@@ -1287,9 +1293,31 @@ function shouldAddParenthesesToChainElement(path) {
           name === "expression" && node.type === "TSNonNullExpression",
         (node, name) =>
           (name === "object" && node.type === "MemberExpression") ||
-          (name === "callee" && node.type === "CallExpression"),
+          (name === "callee" &&
+            (node.type === "CallExpression" || node.type === "NewExpression")),
       ))
   ) {
+    path.node[IS_PARENTHESIZED] = true;
+    return true;
+  }
+  if (
+    path.match(
+      (node) =>
+        node.type === "CallExpression" || node.type === "MemberExpression",
+      (node, name) =>
+        name === "expression" && node.type === "TSNonNullExpression",
+    ) &&
+    path.match(
+      undefined,
+      undefined,
+      (node, name) => name === "expression" && node.type === "ChainExpression",
+      (node, name) =>
+        (name === "object" && node.type === "MemberExpression") ||
+        (name === "callee" &&
+          (node.type === "CallExpression" || node.type === "NewExpression")),
+    )
+  ) {
+    path.node[IS_PARENTHESIZED] = true;
     return true;
   }
 
@@ -1307,6 +1335,7 @@ function shouldAddParenthesesToChainElement(path) {
         (name === "callee" && node.type === "CallExpression"),
     )
   ) {
+    path.node[IS_PARENTHESIZED] = true;
     return true;
   }
 
