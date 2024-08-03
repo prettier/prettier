@@ -23,6 +23,8 @@ import {
  * @typedef {import("../common/ast-path.js").default} AstPath
  */
 
+const parenthesizedNodes = new WeakSet();
+
 /**
  * @param {AstPath} path
  * @returns {boolean}
@@ -912,12 +914,14 @@ function needsParens(path, options) {
     case "CallExpression":
     case "MemberExpression":
       if (shouldAddParenthesesToChainElement(path)) {
+        parenthesizedNodes.add(path.node);
         return true;
       }
 
     // fallthrough
     case "TaggedTemplateExpression":
     case "TSNonNullExpression":
+    case "ChainExpression":
       if (
         key === "callee" &&
         (parent.type === "BindExpression" || parent.type === "NewExpression")
@@ -927,7 +931,7 @@ function needsParens(path, options) {
           switch (object.type) {
             case "CallExpression":
             case "OptionalCallExpression":
-              return node.optional;
+              return !parenthesizedNodes.has(object);
             case "MemberExpression":
             case "OptionalMemberExpression":
             case "BindExpression":
@@ -938,8 +942,8 @@ function needsParens(path, options) {
             case "TaggedTemplateExpression":
               object = object.tag;
               break;
-            case "ChainExpression":
             case "TSNonNullExpression":
+            case "ChainExpression":
               object = object.expression;
               break;
             default:
