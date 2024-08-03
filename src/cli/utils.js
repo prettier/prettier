@@ -78,7 +78,7 @@ async function lstatSafe(filePath) {
     return await fs.lstat(filePath);
   } catch (/** @type {any} */ error) {
     /* c8 ignore next 3 */
-    if (error.code !== "ENOENT") {
+    if (error.code !== "ENOENT" && error.code !== "ENAMETOOLONG") {
       throw error;
     }
   }
