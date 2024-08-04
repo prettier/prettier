@@ -817,7 +817,7 @@ function embed(path, options) {
 
     return async (textToDoc, print) => {
       const content = getNodeContent(node, options);
-      let isEmpty = /^\s*$/.test(content);
+      let isEmpty = /^\s*$/u.test(content);
       let doc = "";
       if (!isEmpty) {
         doc = await textToDoc(content, {
