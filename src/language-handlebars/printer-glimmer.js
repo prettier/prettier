@@ -161,12 +161,8 @@ function print(path, options, print) {
       // Don't format content:
       // 1.in <pre>,
       // 2.in <style> tags when there are CSS syntax errors
-      // 3.when `embeddedLanguageFormatting` is disabled
-      if (
-        path.parent.tag === "pre" ||
-        path.parent.tag === "style" ||
-        options.embeddedLanguageFormatting === "off"
-      ) {
+
+      if (path.parent.tag === "pre" || path.parent.tag === "style") {
         return node.chars;
       }
 
