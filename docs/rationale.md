@@ -346,6 +346,10 @@ If possible, prefer comments that operate on line ranges (e.g. `eslint-disable` 
 
 Prettier is often able to recognize and format non-standard syntax such as ECMAScript early-stage proposals and Markdown syntax extensions not defined by any specification. The support for such syntax is considered best-effort and experimental. Incompatibilities may be introduced in any release and should not be viewed as breaking changes.
 
+## Disclaimer about machine-generated files
+
+Some files, like `package.json` or `composer.lock`, are machine-generated and regularly updated by the package manager. If Prettier were to use the same JSON formatting rules as with other files, it would regularly conflict with these other tools. To avoid this inconvenience, Prettier will use a formatter based on `JSON.stringify` on such files instead. You may notice these differences, such as the removal of vertical whitespace, but this is an intended behavior.
+
 ## What Prettier is _not_ concerned about
 
 Prettier only _prints_ code. It does not transform it. This is to limit the scope of Prettier. Let’s focus on the printing and do it really well!
