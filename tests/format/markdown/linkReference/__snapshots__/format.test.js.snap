@@ -349,3 +349,35 @@ proseWrap: "never"
 
 ================================================================================
 `;
+
+exports[`wrap.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+This folder has [VHS] tape files to create gifs for the [Widget Showcase]. To run them, install VHS from main (the theme and screenshot commands are not yet released).
+
+=====================================output=====================================
+This folder has [VHS] tape files to create gifs for the [Widget Showcase]. To
+run them, install VHS from main (the theme and screenshot commands are not yet
+released).
+
+================================================================================
+`;
+
+exports[`wrap.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+This folder has [VHS] tape files to create gifs for the [Widget Showcase]. To run them, install VHS from main (the theme and screenshot commands are not yet released).
+
+=====================================output=====================================
+This folder has [VHS] tape files to create gifs for the [Widget Showcase]. To run them, install VHS from main (the theme and screenshot commands are not yet released).
+
+================================================================================
+`;
