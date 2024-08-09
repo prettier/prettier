@@ -27,8 +27,8 @@ export function getReleaseUrl(version, previousVersion) {
     });
   }
   const parameters = new URLSearchParams({
-    tag: version,
-    title: version,
+    tag: `v${version}`,
+    title: `v${version}`,
     body,
   });
   return `${RELEASE_URL_BASE}${parameters}`;
@@ -40,7 +40,7 @@ export default async function showInstructionsAfterNpmPublish({
   next,
 }) {
   if (next) {
-    console.log(`${chalk.green.bold(`Prettier ${version} published!`)}`);
+    console.log(`${chalk.green.bold(`Prettier v${version} published!`)}`);
     await waitForEnter();
     return;
   }
@@ -48,7 +48,7 @@ export default async function showInstructionsAfterNpmPublish({
   const releaseUrl = getReleaseUrl(version, previousVersion);
   console.log(
     outdent`
-      ${chalk.green.bold(`Prettier ${version} published!`)}
+      ${chalk.green.bold(`Prettier v${version} published!`)}
 
       ${chalk.yellow.bold("Some manual steps are necessary.")}
 
