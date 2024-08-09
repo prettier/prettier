@@ -222,6 +222,7 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
           couldExpandArg(arg.body, true)) ||
         isObjectOrRecordExpression(arg.body) ||
         isArrayOrTupleExpression(arg.body) ||
+        isBinaryCastExpression(arg.body) ||
         (!arrowChainRecursion &&
           (isCallExpression(arg.body) ||
             arg.body.type === "ConditionalExpression")) ||
