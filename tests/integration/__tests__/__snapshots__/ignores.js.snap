@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`(stderr) 1`] = `""`;
+
+exports[`(stderr) 2`] = `""`;
+
+exports[`(stderr) 3`] = `""`;
+
+exports[`(stderr) 4`] = `""`;
+
+exports[`(stderr) 5`] = `""`;
+
+exports[`(stderr) 6`] = `""`;
+
+exports[`(stdout) 1`] = `"not-ignored.js"`;
+
+exports[`(stdout) 2`] = `"not-ignored.js"`;
+
+exports[`(stdout) 3`] = `"not-ignored.js"`;
+
+exports[`(stdout) 4`] = `"not-ignored.js"`;
+
+exports[`(stdout) 5`] = `"not-ignored.js"`;
+
+exports[`(stdout) 6`] = `"foo/not-ignored/not-ignored.js"`;
+
+exports[`(write) 1`] = `[]`;
+
+exports[`(write) 2`] = `[]`;
+
+exports[`(write) 3`] = `[]`;
+
+exports[`(write) 4`] = `[]`;
+
+exports[`(write) 5`] = `[]`;
+
+exports[`(write) 6`] = `[]`;

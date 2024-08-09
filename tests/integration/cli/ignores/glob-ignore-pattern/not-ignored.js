@@ -1,0 +1,1 @@
+export default 'not-ignored'

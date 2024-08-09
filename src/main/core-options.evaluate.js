@@ -90,6 +90,20 @@ const options = {
     cliCategory: CATEGORY_OTHER,
     cliDescription: "Path to the file to pretend that stdin comes from.",
   },
+  ignores: {
+    type: "path",
+    array: true,
+    default: [{ value: [] }],
+    category: CATEGORY_GLOBAL,
+    description:
+      "Specify files and directories to ignore using the same pattern as the `.prettierignore` file.",
+    exception: (value) =>
+      typeof value === "string" || typeof value === "object",
+    cliName: "ignore-pattern",
+    cliCategory: CATEGORY_CONFIG,
+    cliDescription:
+      "Pattern to ignore files and directories. Multiple patterns can be passed as separate `--ignore-pattern`s.",
+  },
   insertPragma: {
     category: CATEGORY_SPECIAL,
     type: "boolean",
