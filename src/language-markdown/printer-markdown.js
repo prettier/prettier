@@ -66,7 +66,7 @@ function genericPrint(path, options, print) {
         parts.push([parts.pop(), doc]);
         continue;
       }
-      parts.push(doc);
+      parts.push(doc, "");
     }
     return fill(parts);
   }
