@@ -10,7 +10,7 @@ import {
   softline,
 } from "../../document/builders.js";
 import { printDocToString } from "../../document/printer.js";
-import { mapDoc } from "../../document/utils.js";
+import { mapDoc, replaceEndOfLine } from "../../document/utils.js";
 import getIndentSize from "../../utils/get-indent-size.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
@@ -20,6 +20,7 @@ import {
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
+  removeUnnecessaryTemplateElementEscape,
 } from "../utils/index.js";
 
 function printTemplateLiteral(path, print, options) {
@@ -130,6 +131,16 @@ function printTaggedTemplateLiteral(path, print) {
     lineSuffixBoundary,
     quasiDoc,
   ]);
+}
+
+function printTemplateElement(path) {
+  const { node, grandparent } = path;
+  let str = node.value.raw;
+  // Ignore tagged template literals, because the backslash character is accessible to the tag function.
+  if (grandparent.type !== "TaggedTemplateExpression") {
+    str = removeUnnecessaryTemplateElementEscape(str);
+  }
+  return replaceEndOfLine(str);
 }
 
 function printJestEachTemplateLiteral(path, options, print) {
@@ -285,6 +296,7 @@ function isJestEachTemplateLiteral({ node, parent }) {
 export {
   escapeTemplateCharacters,
   printTaggedTemplateLiteral,
+  printTemplateElement,
   printTemplateExpressions,
   printTemplateLiteral,
   uncookTemplateElementValue,

@@ -68,6 +68,7 @@ import { printProperty } from "./property.js";
 import { printStatementSequence } from "./statement.js";
 import {
   printTaggedTemplateLiteral,
+  printTemplateElement,
   printTemplateLiteral,
 } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
@@ -619,7 +620,7 @@ function printEstree(path, options, print, args) {
     case "AccessorProperty":
       return printClassProperty(path, options, print);
     case "TemplateElement":
-      return replaceEndOfLine(node.value.raw);
+      return printTemplateElement(path);
     case "TemplateLiteral":
       return printTemplateLiteral(path, print, options);
     case "TaggedTemplateExpression":

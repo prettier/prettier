@@ -1,3 +1,5 @@
+import validStringEscapeRegex from "./valid-string-escape-regex.js";
+
 /** @typedef {import("./get-preferred-quote.js").Quote} Quote */
 
 /**
@@ -34,9 +36,7 @@ function makeString(rawText, enclosingQuote, unescapeUnnecessaryEscapes) {
     }
 
     // Unescape any unnecessarily escaped character.
-    // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
-    return unescapeUnnecessaryEscapes &&
-      /^[^\n\r"'0-7\\bfnrt-vx\u2028\u2029]$/u.test(escaped)
+    return unescapeUnnecessaryEscapes && validStringEscapeRegex.test(escaped)
       ? escaped
       : "\\" + escaped;
   });

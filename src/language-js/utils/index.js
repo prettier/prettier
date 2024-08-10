@@ -4,6 +4,7 @@ import hasNewline from "../../utils/has-newline.js";
 import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import printString from "../../utils/print-string.js";
+import validStringEscapeRegex from "../../utils/valid-string-escape-regex.js";
 import { hasSameLocStart, locEnd, locStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import createTypeCheckFunction from "./create-type-check-function.js";
@@ -1114,6 +1115,47 @@ const isIntersectionType = createTypeCheckFunction([
   "TSIntersectionType",
 ]);
 
+/**
+ * Adopted from https://github.com/eslint/eslint/blob/0dd38631b8dd60f93807e9cee1df3e752b86ab51/lib/rules/no-useless-escape.js#L127-L156
+ *
+ * @param {string} escaped
+ * @param {number} offset
+ * @param {string} text
+ * @returns {boolean}
+ */
+function necessaryTemplateElementEscape(escaped, offset, text) {
+  if (escaped === "$") {
+    return text[offset + 2] === "{";
+  } else if (escaped === "{") {
+    return text[offset - 1] === "$";
+  }
+  return false;
+}
+
+/**
+ * @param {string} rawText
+ * @returns {string}
+ */
+function removeUnnecessaryTemplateElementEscape(rawText) {
+  // Matches _any_ escape
+  const regex = /\\(.)/gsu;
+
+  const raw = rawText.replaceAll(regex, (_, escaped, offset, text) => {
+    // Keep escaping when back quote (`) or ${ is present
+    if (
+      escaped === "`" ||
+      necessaryTemplateElementEscape(escaped, offset, text)
+    ) {
+      return "\\" + escaped;
+    }
+
+    // Determines whether to escape in the same way as makeString
+    return validStringEscapeRegex.test(escaped) ? escaped : "\\" + escaped;
+  });
+
+  return raw;
+}
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -1171,6 +1213,7 @@ export {
   iterateFunctionParametersPath,
   needsHardlineAfterDanglingComment,
   rawText,
+  removeUnnecessaryTemplateElementEscape,
   shouldFlatten,
   shouldPrintComma,
   startsWithNoLookaheadToken,
