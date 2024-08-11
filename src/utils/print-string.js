@@ -33,7 +33,10 @@ function printString(raw, options) {
   return makeString(
     rawContent,
     enclosingQuote,
-    /* unescapeUnnecessaryEscapes */ false,
+    // Until Prettier 3.3.3, this option was set to true for most parsers, with some exceptions like CSS.
+    // Since Prettier 3.3.4, it is set to false for all parsers.
+    // For more details, please see https://github.com/prettier/prettier/issues/16542#issuecomment-2282249280.
+    false,
   );
 }
 
