@@ -33,12 +33,7 @@ function printString(raw, options) {
   return makeString(
     rawContent,
     enclosingQuote,
-    !(
-      options.parser === "css" ||
-      options.parser === "less" ||
-      options.parser === "scss" ||
-      options.__embeddedInHtml
-    ),
+    /* unescapeUnnecessaryEscapes */ false,
   );
 }
 
