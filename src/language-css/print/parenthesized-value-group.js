@@ -9,6 +9,7 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
+import { assertDocArray } from "../../document/utils/assert-doc.js";
 import isNextLineEmpty from "../../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
@@ -78,7 +79,13 @@ function printParenthesizedValueGroup(path, options, print) {
 
   if (!node.open) {
     const forceHardLine = shouldBreakList(path);
-    const parts = join([",", forceHardLine ? hardline : line], groupDocs);
+    assertDocArray(groupDocs);
+    const parts = join(
+      forceHardLine ? hardline : line,
+      groupDocs.map((doc, i) =>
+        i === groupDocs.length - 1 ? doc : [doc, ","],
+      ),
+    );
     return indent(forceHardLine ? [hardline, parts] : group(fill(parts)));
   }
 
