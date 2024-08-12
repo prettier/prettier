@@ -9,6 +9,7 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
+import { assertDocArray } from "../../document/utils/assert-doc.js";
 import isNextLineEmpty from "../../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
@@ -78,7 +79,9 @@ function printParenthesizedValueGroup(path, options, print) {
 
   if (!node.open) {
     const forceHardLine = shouldBreakList(path);
-    const parts = join([",", forceHardLine ? hardline : line], groupDocs);
+    assertDocArray(groupDocs);
+    const withComma = chunk(join(",", groupDocs), 2);
+    const parts = join(forceHardLine ? hardline : line, withComma);
     return indent(forceHardLine ? [hardline, parts] : group(fill(parts)));
   }
 
@@ -93,8 +96,6 @@ function printParenthesizedValueGroup(path, options, print) {
       child.groups[0].type !== "value-paren_group" &&
       child.groups[2]?.type === "value-paren_group"
     ) {
-      const { parts } = doc.contents.contents;
-      parts[1] = group(parts[1]);
       doc = group(dedent(doc));
     }
 
@@ -153,6 +154,20 @@ function shouldBreakList(path) {
       ((node.type === "css-decl" && !node.prop.startsWith("--")) ||
         (node.type === "css-atrule" && node.variable)),
   );
+}
+
+/**
+ * @template {*} T
+ * @param {T[]} array
+ * @param {number} size
+ * @returns {T[][]}
+ */
+function chunk(array, size) {
+  const result = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
 }
 
 export { printParenthesizedValueGroup, shouldBreakList };
