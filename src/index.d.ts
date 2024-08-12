@@ -938,4 +938,9 @@ export namespace util {
   function addDanglingComment(node: any, comment: any, marker: any): void;
 
   function addTrailingComment(node: any, comment: any): void;
+
+  function getPreferredQuote(
+    rawContent: string,
+    preferredQuoteOrPreferSingleQuote: Quote | boolean,
+  ): Quote;
 }

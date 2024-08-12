@@ -609,6 +609,11 @@ function getNextNonSpaceNonCommentCharacterIndex(
 function isNextLineEmpty(text: string, startIndex: number): boolean;
 
 function isPreviousLineEmpty(text: string, startIndex: number): boolean;
+
+function getPreferredQuote(
+  rawContent: string,
+  preferredQuoteOrPreferSingleQuote: Quote | boolean,
+): Quote;
 ```
 
 ### Tutorials
