@@ -25,7 +25,7 @@ runFormatTest(
         code: SINGLE_QUOTE + BACKSLASH + character + SINGLE_QUOTE,
         output:
           character === UNDERSCORE || character === SPACE
-            ? DOUBLE_QUOTE + character + DOUBLE_QUOTE + LINE_FEED
+            ? DOUBLE_QUOTE + BACKSLASH + character + DOUBLE_QUOTE + LINE_FEED
             : DOUBLE_QUOTE + BACKSLASH + character + DOUBLE_QUOTE + LINE_FEED,
       })),
       ...characters.map((character) => ({
