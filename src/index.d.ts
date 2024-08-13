@@ -940,7 +940,7 @@ export namespace util {
   function addTrailingComment(node: any, comment: any): void;
 
   function getPreferredQuote(
-    rawContent: string,
+    text: string,
     preferredQuoteOrPreferSingleQuote: Quote | boolean,
   ): Quote;
 }

@@ -611,7 +611,7 @@ function isNextLineEmpty(text: string, startIndex: number): boolean;
 function isPreviousLineEmpty(text: string, startIndex: number): boolean;
 
 function getPreferredQuote(
-  rawContent: string,
+  text: string,
   preferredQuoteOrPreferSingleQuote: Quote | boolean,
 ): Quote;
 ```
