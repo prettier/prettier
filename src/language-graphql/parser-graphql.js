@@ -17,7 +17,7 @@ function parseComments(ast) {
 }
 
 const parseOptions = {
-  allowLegacyFragmentVariables: true,
+  experimentalFragmentArguments: true,
 };
 
 function createParseError(error) {

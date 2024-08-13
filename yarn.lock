@@ -4670,10 +4670,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:16.9.0":
-  version: 16.9.0
-  resolution: "graphql@npm:16.9.0"
-  checksum: 10/5833f82bb6c31bec120bbf9cd400eda873e1bb7ef5c17974fa262cd82dc68728fda5d4cb859dc8aaa4c4fe4f6fe1103a9c47efc01a12c02ae5cb581d8e4029e2
+"graphql@npm:16.9.0-canary.pr.4159.0fa29326c53fcd63c6473c7357c28aa13fa0019d":
+  version: 16.9.0-canary.pr.4159.0fa29326c53fcd63c6473c7357c28aa13fa0019d
+  resolution: "graphql@npm:16.9.0-canary.pr.4159.0fa29326c53fcd63c6473c7357c28aa13fa0019d"
+  checksum: 10/dda3b848efd13b304599fc5a91f416a770029d4d2ffd52c62b12ee8699fda68d866fc56b1049d555e233d8c117fc4e027a0e92a01d3732bc2f6cb86b2046fb0f
   languageName: node
   linkType: hard
 
@@ -7359,7 +7359,7 @@ __metadata:
     flow-parser: "npm:0.243.0"
     get-east-asian-width: "npm:1.2.0"
     get-stdin: "npm:9.0.0"
-    graphql: "npm:16.9.0"
+    graphql: "npm:16.9.0-canary.pr.4159.0fa29326c53fcd63c6473c7357c28aa13fa0019d"
     hermes-parser: "npm:0.23.1"
     html-element-attributes: "npm:3.4.0"
     html-tag-names: "npm:2.1.0"

@@ -13,6 +13,7 @@ query MyQuery @directive(
   @skip(if: true) @nope
   otherField
   ...fragmentSpread, @include(if: ["this isn't even a boolean", "wow, that's really odd",,,,,])
+  ... fragmentSpread2 ( arg:    true) @directive
 }
 
 fragment YouCanHaveDirectivesHereToo on SomeType @yesReally(what: "yes") {
@@ -33,6 +34,7 @@ query MyQuery @directive(arg: 5) {
   otherField
   ...fragmentSpread
     @include(if: ["this isn't even a boolean", "wow, that's really odd"])
+  ...fragmentSpread2(arg: true) @directive
 }
 
 fragment YouCanHaveDirectivesHereToo on SomeType @yesReally(what: "yes") {

@@ -62,7 +62,7 @@
     "flow-parser": "0.243.0",
     "get-east-asian-width": "1.2.0",
     "get-stdin": "9.0.0",
-    "graphql": "16.9.0",
+    "graphql": "16.9.0-canary.pr.4159.0fa29326c53fcd63c6473c7357c28aa13fa0019d",
     "hermes-parser": "0.23.1",
     "html-element-attributes": "3.4.0",
     "html-tag-names": "2.1.0",
