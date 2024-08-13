@@ -26,7 +26,8 @@ trailingComma: "none"
 );
 
 =====================================output=====================================
-@use "@fylgja/base" with (
+@use "@fylgja/base"
+  with (
   $family-main: (
     Rubik,
     Roboto,
@@ -39,7 +40,8 @@ trailingComma: "none"
   $h3-font-weight: 500
 );
 
-@use "library" with (
+@use "library"
+  with (
   $black: #222,
   $border-radius: 0.1rem
 );
@@ -72,7 +74,8 @@ printWidth: 80
 );
 
 =====================================output=====================================
-@use "@fylgja/base" with (
+@use "@fylgja/base"
+  with (
   $family-main: (
     Rubik,
     Roboto,
@@ -85,7 +88,8 @@ printWidth: 80
   $h3-font-weight: 500
 );
 
-@use "library" with (
+@use "library"
+  with (
   $black: #222,
   $border-radius: 0.1rem
 );
