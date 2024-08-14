@@ -495,6 +495,7 @@ const propertyLikeNodeTypes = new Set([
   "ClassAccessorProperty",
   "AccessorProperty",
   "TSAbstractAccessorProperty",
+  "TSParameterProperty",
 ]);
 function handleMethodNameComments({
   comment,
