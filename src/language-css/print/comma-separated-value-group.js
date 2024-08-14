@@ -72,7 +72,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
    * - if we push non-line-like doc, push [parts.pop(), doc] instead
    */
   /** @type {Doc[]} */
-  const parts = [""];
+  let parts = [""];
   const insideURLFunction = insideValueFunctionNode(path, "url");
 
   let insideSCSSInterpolationInString = false;
@@ -401,7 +401,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     }
 
     if (iNode.value === "with" && isParenGroupNode(iNextNode)) {
-      parts.push([parts.pop(), " "]);
+      parts = [[fill(parts), " "]];
       continue;
     }
 

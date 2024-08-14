@@ -43,8 +43,7 @@ singleQuote: true
 @forward 'foo.scss' with ($components: red);
 
 =====================================output=====================================
-@forward 'foo.scss'
-  with (
+@forward 'foo.scss' with (
   $components: red
 );
 
@@ -60,8 +59,7 @@ printWidth: 80
 @forward 'foo.scss' with ($components: red);
 
 =====================================output=====================================
-@forward "foo.scss"
-  with (
+@forward "foo.scss" with (
   $components: red
 );
 
@@ -102,8 +100,7 @@ singleQuote: true
 =====================================output=====================================
 @use 'library';
 
-@use 'library'
-  with (
+@use 'library' with (
   $black: #222,
   $border-radius: 0.1rem $font-family: 'Helvetica, sans-serif'
 );
@@ -160,8 +157,7 @@ printWidth: 80
 =====================================output=====================================
 @use "library";
 
-@use "library"
-  with (
+@use "library" with (
   $black: #222,
   $border-radius: 0.1rem $font-family: "Helvetica, sans-serif"
 );
