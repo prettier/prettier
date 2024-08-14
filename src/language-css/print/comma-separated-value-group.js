@@ -63,6 +63,14 @@ function printCommaSeparatedValueGroup(path, options, print) {
   );
 
   const printed = path.map(print, "groups");
+  /*
+   * We assume parts always meet following conditions:
+   * - parts.length is odd
+   * - odd (0-indexed) elements are line-like doc
+   * We can achieve this by following way:
+   * - if we push line-like doc, we push empty string after it
+   * - if we push non-line-like doc, push [parts.pop(), doc] instead
+   */
   /** @type {Doc[]} */
   const parts = [""];
   const insideURLFunction = insideValueFunctionNode(path, "url");
