@@ -89,6 +89,11 @@ exports[`schema 1`] = `
             },
           ],
         },
+        "experimentalOperatorPosition": {
+          "default": false,
+          "description": "When binary expressions wrap lines, put operators at the start of new lines.",
+          "type": "boolean",
+        },
         "experimentalTernaries": {
           "default": false,
           "description": "Use curious ternaries, with the question mark after the condition.",

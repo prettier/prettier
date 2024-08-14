@@ -53,6 +53,8 @@ Format options:
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
+  --no-experimental-operator-position
+                           Default behavior; when binary expressions wrap lines, keep operators at the end of previous lines.
   --no-experimental-ternaries
                            Default behavior of ternaries; keep question marks on the same line as the consequent.
   --html-whitespace-sensitivity <css|strict|ignore>
@@ -218,6 +220,8 @@ Format options:
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
+  --no-experimental-operator-position
+                           Default behavior; when binary expressions wrap lines, keep operators at the end of previous lines.
   --no-experimental-ternaries
                            Default behavior of ternaries; keep question marks on the same line as the consequent.
   --html-whitespace-sensitivity <css|strict|ignore>

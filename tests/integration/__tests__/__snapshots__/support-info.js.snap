@@ -130,6 +130,10 @@ exports[`API getSupportInfo() 1`] = `
       "default": "lf",
       "type": "choice",
     },
+    "experimentalOperatorPosition": {
+      "default": false,
+      "type": "boolean",
+    },
     "experimentalTernaries": {
       "default": false,
       "type": "boolean",
@@ -846,6 +850,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       "name": "endOfLine",
       "pluginDefaults": {},
       "type": "choice"
+    },
+    {
+      "category": "JavaScript",
+      "default": false,
+      "description": "When binary expressions wrap lines, put operators at the start of new lines.",
+      "name": "experimentalOperatorPosition",
+      "oppositeDescription": "Default behavior; when binary expressions wrap lines, keep operators at the end of previous lines.",
+      "pluginDefaults": {},
+      "type": "boolean"
     },
     {
       "category": "JavaScript",

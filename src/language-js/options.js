@@ -36,6 +36,15 @@ const options = {
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them.",
   },
+  experimentalOperatorPosition: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "When binary expressions wrap lines, put operators at the start of new lines.",
+    oppositeDescription:
+      "Default behavior; when binary expressions wrap lines, keep operators at the end of previous lines.",
+  },
   experimentalTernaries: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
