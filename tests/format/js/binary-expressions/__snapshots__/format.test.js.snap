@@ -28,20 +28,20 @@ function f2() {
 function f() {
   const appEntities = getAppEntities(loadObject).filter(
     (entity) =>
-      entity &&
-      entity.isInstallAvailable() &&
-      !entity.isQueue() &&
-      entity.isDisabled(),
+      entity
+      && entity.isInstallAvailable()
+      && !entity.isQueue()
+      && entity.isDisabled(),
   );
 }
 
 function f2() {
   const appEntities = getAppEntities(loadObject).map(
     (entity) =>
-      entity &&
-      entity.isInstallAvailable() &&
-      !entity.isQueue() &&
-      entity.isDisabled() && {
+      entity
+      && entity.isInstallAvailable()
+      && !entity.isQueue()
+      && entity.isDisabled() && {
         id: entity.id,
       },
   );
@@ -225,57 +225,57 @@ printWidth: 80
 
 =====================================output=====================================
 (
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-  bbbbbbbbbbbbbbbbbbbbbbbbb &&
-  ccccccccccccccccccccccccc &&
-  ddddddddddddddddddddddddd &&
-  eeeeeeeeeeeeeeeeeeeeeeeee
+  aaaaaaaaaaaaaaaaaaaaaaaaa
+  && bbbbbbbbbbbbbbbbbbbbbbbbb
+  && ccccccccccccccccccccccccc
+  && ddddddddddddddddddddddddd
+  && eeeeeeeeeeeeeeeeeeeeeeeee
 )();
 
 (aa && bb && cc && dd && ee)();
 
 (
-  aaaaaaaaaaaaaaaaaaaaaaaaa +
-  bbbbbbbbbbbbbbbbbbbbbbbbb +
-  ccccccccccccccccccccccccc +
-  ddddddddddddddddddddddddd +
-  eeeeeeeeeeeeeeeeeeeeeeeee
+  aaaaaaaaaaaaaaaaaaaaaaaaa
+  + bbbbbbbbbbbbbbbbbbbbbbbbb
+  + ccccccccccccccccccccccccc
+  + ddddddddddddddddddddddddd
+  + eeeeeeeeeeeeeeeeeeeeeeeee
 )();
 
 (aa + bb + cc + dd + ee)();
 
 (
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-  bbbbbbbbbbbbbbbbbbbbbbbbb &&
-  ccccccccccccccccccccccccc &&
-  ddddddddddddddddddddddddd &&
-  eeeeeeeeeeeeeeeeeeeeeeeee
+  aaaaaaaaaaaaaaaaaaaaaaaaa
+  && bbbbbbbbbbbbbbbbbbbbbbbbb
+  && ccccccccccccccccccccccccc
+  && ddddddddddddddddddddddddd
+  && eeeeeeeeeeeeeeeeeeeeeeeee
 )()()();
 
 (
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-  bbbbbbbbbbbbbbbbbbbbbbbbb &&
-  ccccccccccccccccccccccccc &&
-  ddddddddddddddddddddddddd &&
-  eeeeeeeeeeeeeeeeeeeeeeeee
+  aaaaaaaaaaaaaaaaaaaaaaaaa
+  && bbbbbbbbbbbbbbbbbbbbbbbbb
+  && ccccccccccccccccccccccccc
+  && ddddddddddddddddddddddddd
+  && eeeeeeeeeeeeeeeeeeeeeeeee
 )(
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-    bbbbbbbbbbbbbbbbbbbbbbbbb &&
-    ccccccccccccccccccccccccc &&
-    ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee,
+  aaaaaaaaaaaaaaaaaaaaaaaaa
+    && bbbbbbbbbbbbbbbbbbbbbbbbb
+    && ccccccccccccccccccccccccc
+    && ddddddddddddddddddddddddd
+    && eeeeeeeeeeeeeeeeeeeeeeeee,
 )(
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-    bbbbbbbbbbbbbbbbbbbbbbbbb &&
-    ccccccccccccccccccccccccc &&
-    ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee,
+  aaaaaaaaaaaaaaaaaaaaaaaaa
+    && bbbbbbbbbbbbbbbbbbbbbbbbb
+    && ccccccccccccccccccccccccc
+    && ddddddddddddddddddddddddd
+    && eeeeeeeeeeeeeeeeeeeeeeeee,
 )(
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-    bbbbbbbbbbbbbbbbbbbbbbbbb &&
-    ccccccccccccccccccccccccc &&
-    ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee,
+  aaaaaaaaaaaaaaaaaaaaaaaaa
+    && bbbbbbbbbbbbbbbbbbbbbbbbb
+    && ccccccccccccccccccccccccc
+    && ddddddddddddddddddddddddd
+    && eeeeeeeeeeeeeeeeeeeeeeeee,
 );
 
 ================================================================================
@@ -487,72 +487,72 @@ a +
 =====================================output=====================================
 a =
   // Comment 1
-  Math.random() * (yRange * (1 - minVerticalFraction)) +
-  minVerticalFraction * yRange -
-  offset;
+  Math.random() * (yRange * (1 - minVerticalFraction))
+  + minVerticalFraction * yRange
+  - offset;
 
-a +
-  a +
-  a + // comment
-  a +
-  a;
+a
+  + a
+  + a // comment
+  + a
+  + a;
 
-a &&
-  longLongLongLongLongLongLongLongLong &&
-  longLongLongLongLongLongLongLongLong && // comment
-  longLongLongLongLongLongLongLongLong &&
-  longLongLongLongLongLongLongLongLong;
+a
+  && longLongLongLongLongLongLongLongLong
+  && longLongLongLongLongLongLongLongLong // comment
+  && longLongLongLongLongLongLongLongLong
+  && longLongLongLongLongLongLongLongLong;
 
-a ||
-  longLongLongLongLongLongLongLongLong ||
-  longLongLongLongLongLongLongLongLong || // comment
-  longLongLongLongLongLongLongLongLong ||
-  longLongLongLongLongLongLongLongLong;
+a
+  || longLongLongLongLongLongLongLongLong
+  || longLongLongLongLongLongLongLongLong // comment
+  || longLongLongLongLongLongLongLongLong
+  || longLongLongLongLongLongLongLongLong;
 
 var a = x(
-  abifornCringerMoshedPerplexSawder +
-    kochabCooieGameOnOboleUnweave + // f
-    glimseGlyphsHazardNoopsTieTie +
-    bifornCringerMoshedPerplexSawder,
+  abifornCringerMoshedPerplexSawder
+    + kochabCooieGameOnOboleUnweave // f
+    + glimseGlyphsHazardNoopsTieTie
+    + bifornCringerMoshedPerplexSawder,
 );
 
 foo[
-  a +
-    a + // comment
-    a +
-    bar[
-      b +
-        b +
-        b + // comment
-        b +
-        b
+  a
+    + a // comment
+    + a
+    + bar[
+      b
+        + b
+        + b // comment
+        + b
+        + b
     ]
 ];
 
 !(
-  a +
-  a + // comment
-  a +
-  !(
-    b +
-    b +
-    b + // comment
-    b +
+  a
+  + a // comment
+  + a
+  + !(
     b
+    + b
+    + b // comment
+    + b
+    + b
   )
 );
 
 const logical_expression =
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa /* trailing comment */ &&
-  /* leading comment */ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa /* trailing comment */
+  && /* leading comment */ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
   // line comment
-  cccccccccccccccccccccccc;
+  && cccccccccccccccccccccccc;
 
 const bc = a /* internal before */ || /* internal after */ b;
 
-a +
+a
   /**/
-  a.a().a();
+  + a.a().a();
 
 ================================================================================
 `;
@@ -845,14 +845,14 @@ if (this.hasPlugin("dynamicImports") && this.lookahead().type) {
 }
 
 if (
-  this.hasPlugin("dynamicImports") &&
-  this.lookahead().type === tt.parenLeft
+  this.hasPlugin("dynamicImports")
+  && this.lookahead().type === tt.parenLeft
 ) {
 }
 
 if (
-  this.hasPlugin("dynamicImports") &&
-  this.lookahead().type === tt.parenLeft.right
+  this.hasPlugin("dynamicImports")
+  && this.lookahead().type === tt.parenLeft.right
 ) {
 }
 
@@ -1243,8 +1243,8 @@ const user = renderedUser || (
 );
 
 const user2 =
-  renderedUser ||
-  (shouldRenderUser && (
+  renderedUser
+  || (shouldRenderUser && (
     <div>
       <User name={this.state.user.name} age={this.state.user.age} />
     </div>
@@ -1403,8 +1403,8 @@ prevState = prevState || {
   selectedCatalog: null,
 };
 
-prevState = prevState ||
-  defaultState || {
+prevState = prevState
+  || defaultState || {
     catalogs: [],
     loadState: LOADED,
     opened: false,
@@ -1413,8 +1413,8 @@ prevState = prevState ||
   };
 
 prevState =
-  prevState ||
-  (defaultState && {
+  prevState
+  || (defaultState && {
     catalogs: [],
     loadState: LOADED,
     opened: false,
@@ -1422,8 +1422,8 @@ prevState =
     selectedCatalog: null,
   });
 
-prevState = prevState ||
-  (useDefault && defaultState) || {
+prevState = prevState
+  || (useDefault && defaultState) || {
     catalogs: [],
     loadState: LOADED,
     opened: false,
@@ -1439,8 +1439,8 @@ this.steps = steps || [
 ];
 
 this.steps =
-  steps ||
-  (checkStep && [
+  steps
+  || (checkStep && [
     {
       name: "mock-module",
       path: "/nux/mock-module",
@@ -1457,8 +1457,8 @@ this.steps = (steps && checkStep) || [
 const create = () => {
   const result = doSomething();
   return (
-    shouldReturn &&
-    result.ok && {
+    shouldReturn
+    && result.ok && {
       status: "ok",
       createdAt: result.createdAt,
       updatedAt: result.updatedAt,
@@ -1478,8 +1478,8 @@ const create2 = () => {
 };
 
 const obj = {
-  state: shouldHaveState &&
-    stateIsOK && {
+  state: shouldHaveState
+    && stateIsOK && {
       loadState: LOADED,
       opened: false,
     },
@@ -1730,22 +1730,22 @@ printWidth: 80
 =====================================output=====================================
 <div
   src={
-    !isJellyfishEnabled &&
-    diffUpdateMessageInput != null &&
-    this.state.isUpdateMessageEmpty
+    !isJellyfishEnabled
+    && diffUpdateMessageInput != null
+    && this.state.isUpdateMessageEmpty
   }
 />;
 
 <div>
-  {!isJellyfishEnabled &&
-    diffUpdateMessageInput != null &&
-    this.state.isUpdateMessageEmpty}
+  {!isJellyfishEnabled
+    && diffUpdateMessageInput != null
+    && this.state.isUpdateMessageEmpty}
 </div>;
 
 <div
   style={
-    !isJellyfishEnabled &&
-    diffUpdateMessageInput && {
+    !isJellyfishEnabled
+    && diffUpdateMessageInput && {
       fontSize: 14,
       color: "#fff",
     }
@@ -2023,21 +2023,21 @@ function foo3() {
 =====================================output=====================================
 function foo() {
   return (
-    this.hasPlugin("dynamicImports") &&
-    this.lookahead().type === tt.parenLeft.right
+    this.hasPlugin("dynamicImports")
+    && this.lookahead().type === tt.parenLeft.right
   );
 }
 
 function foo2() {
-  return this.hasPlugin("dynamicImports") &&
-    this.lookahead().type === tt.parenLeft.right
+  return this.hasPlugin("dynamicImports")
+    && this.lookahead().type === tt.parenLeft.right
     ? true
     : false;
 }
 
 function foo3() {
-  return this.calculate().compute().first.numberOfThings >
-    this.calculate().compute().last.numberOfThings
+  return this.calculate().compute().first.numberOfThings
+    > this.calculate().compute().last.numberOfThings
     ? true
     : false;
 }
@@ -2120,15 +2120,14 @@ defaultContent.filter(defaultLocale => {
 })[0] || null;
 
 =====================================output=====================================
-this._cumulativeHeights &&
-  Math.abs(
-    this._cachedItemHeight(this._firstVisibleIndex + i) -
-      this._provider.fastHeight(i + this._firstVisibleIndex),
+this._cumulativeHeights
+  && Math.abs(
+    this._cachedItemHeight(this._firstVisibleIndex + i)
+      - this._provider.fastHeight(i + this._firstVisibleIndex),
   ) > 1;
 
-foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
-  aaaaaaaaaaaaaaaaaaa,
-) + a;
+foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(aaaaaaaaaaaaaaaaaaa)
+  + a;
 
 const isPartOfPackageJSON =
   dependenciesArray.indexOf(dependencyWithOutRelativePath.split("/")[0]) !== -1;
@@ -2220,42 +2219,42 @@ foo(obj.property * new Class() && obj instanceof Class && longVariable ? number 
 
 const x = longVariable + longVariable + longVariable;
 const x1 =
-  longVariable +
-  longVariable +
-  longVariable +
-  longVariable -
-  longVariable +
-  longVariable;
+  longVariable
+  + longVariable
+  + longVariable
+  + longVariable
+  - longVariable
+  + longVariable;
 const x2 =
-  longVariable +
-  longVariable * longVariable +
-  longVariable -
-  longVariable +
-  longVariable;
+  longVariable
+  + longVariable * longVariable
+  + longVariable
+  - longVariable
+  + longVariable;
 const x3 =
-  longVariable +
-  (longVariable * longVariable * longVariable) / longVariable +
-  longVariable;
+  longVariable
+  + (longVariable * longVariable * longVariable) / longVariable
+  + longVariable;
 
 const x4 =
-  longVariable &&
-  longVariable &&
-  longVariable &&
-  longVariable &&
-  longVariable &&
-  longVariable;
+  longVariable
+  && longVariable
+  && longVariable
+  && longVariable
+  && longVariable
+  && longVariable;
 const x5 =
-  (longVariable && longVariable) ||
-  (longVariable && longVariable) ||
-  (longVariable && longVariable);
+  (longVariable && longVariable)
+  || (longVariable && longVariable)
+  || (longVariable && longVariable);
 const x6 =
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  {};
+  firstItemWithAVeryLongNameThatKeepsGoing
+  || firstItemWithAVeryLongNameThatKeepsGoing
+  || {};
 const x7 =
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  [];
+  firstItemWithAVeryLongNameThatKeepsGoing
+  || firstItemWithAVeryLongNameThatKeepsGoing
+  || [];
 const x8 =
   call(
     firstItemWithAVeryLongNameThatKeepsGoing,
@@ -2599,8 +2598,8 @@ const anyTestFailures = !(
 
 =====================================output=====================================
 const anyTestFailures = !(
-  aggregatedResults.numFailedTests === 0 &&
-  aggregatedResults.numRuntimeErrorTestSuites === 0
+  aggregatedResults.numFailedTests === 0
+  && aggregatedResults.numRuntimeErrorTestSuites === 0
 );
 
 ================================================================================
