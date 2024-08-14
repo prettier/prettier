@@ -26,6 +26,7 @@ test("shared util has correct structure", () => {
     "function",
   );
   expect(typeof sharedUtil.makeString).toBe("function");
+  expect(typeof sharedUtil.getPreferredQuote).toBe("function");
 });
 
 test("sharedUtil.getMaxContinuousCount", () => {
@@ -228,4 +229,31 @@ test("sharedUtil.makeString", () => {
       /* unescapeUnnecessaryEscapes */ true,
     ),
   ).toBe(`${SINGLE_QUOTE}a${SINGLE_QUOTE}`);
+});
+
+test("sharedUtil.getPreferredQuote", () => {
+  const { getPreferredQuote } = sharedUtil;
+  const DOUBLE_QUOTE = '"';
+  const SINGLE_QUOTE = "'";
+
+  expect(getPreferredQuote(``, true)).toBe(SINGLE_QUOTE);
+  expect(getPreferredQuote(``, false)).toBe(DOUBLE_QUOTE);
+  expect(getPreferredQuote(``, DOUBLE_QUOTE)).toBe(DOUBLE_QUOTE);
+  expect(getPreferredQuote(``, SINGLE_QUOTE)).toBe(SINGLE_QUOTE);
+  expect(getPreferredQuote(`'Hello' "World" 'Test'`, SINGLE_QUOTE)).toBe(
+    DOUBLE_QUOTE,
+  );
+  expect(getPreferredQuote(`"Hello" 'World' "Test"`, DOUBLE_QUOTE)).toBe(
+    SINGLE_QUOTE,
+  );
+  expect(getPreferredQuote(`"Hello" "World" "Test"`, SINGLE_QUOTE)).toBe(
+    SINGLE_QUOTE,
+  );
+  expect(getPreferredQuote(`'Hello' 'World' 'Test'`, DOUBLE_QUOTE)).toBe(
+    DOUBLE_QUOTE,
+  );
+  expect(getPreferredQuote(`'Hello' "World"`, SINGLE_QUOTE)).toBe(SINGLE_QUOTE);
+  expect(getPreferredQuote(`"Hello" 'World'`, DOUBLE_QUOTE)).toBe(DOUBLE_QUOTE);
+  expect(getPreferredQuote(`Hello World`, true)).toBe(SINGLE_QUOTE);
+  expect(getPreferredQuote(`Hello World`, false)).toBe(DOUBLE_QUOTE);
 });

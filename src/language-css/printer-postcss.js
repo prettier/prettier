@@ -358,8 +358,12 @@ function genericPrint(path, options, print) {
         ),
       ]);
 
-    case "selector-selector":
-      return group(indent(path.map(print, "nodes")));
+    case "selector-selector": {
+      const shouldIndent = node.nodes.length > 1;
+      return group(
+        (shouldIndent ? indent : (x) => x)(path.map(print, "nodes")),
+      );
+    }
 
     case "selector-comment":
       return node.value;
