@@ -22,6 +22,17 @@ Valid options:
 | ------- | -------------------------- | ------------------------------- |
 | `false` | `--experimental-ternaries` | `experimentalTernaries: <bool>` |
 
+## Experimental Operator Position
+
+Valid options:
+
+- `true` - When binary expressions wrap lines, put operators at the start of new lines.
+- `false` - Default behavior; when binary expressions wrap lines, keep operators at the end of previous lines.
+
+| Default | CLI Override                       | API Override                           |
+| ------- | ---------------------------------- | -------------------------------------- |
+| `false` | `--experimental-operator-position` | `experimentalOperatorPosition: <bool>` |
+
 ## Print Width
 
 Specify the line length that the printer will wrap on.
