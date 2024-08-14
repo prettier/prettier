@@ -1,5 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`indent.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+:where(input:not([type="button"], [type="reset"], [type="submit"]), textarea, select) {
+    /* CSS here */
+}
+
+.foooooooooooooooooooo :where(input:not([type="button"], [type="reset"], [type="submit"]), textarea, select) {
+    /* CSS here */
+}
+
+:is(input:not([type="button"], [type="reset"], [type="submit"]), textarea, select) {
+    /* CSS here */
+}
+
+.foooooooooooooooooooo :is(input:not([type="button"], [type="reset"], [type="submit"]), textarea, select) {
+    /* CSS here */
+}
+
+:not(input:not([type="button"], [type="reset"], [type="submit"]), textarea, select) {
+    /* CSS here */
+}
+
+.foooooooooooooooooooo :not(input:not([type="button"], [type="reset"], [type="submit"]), textarea, select) {
+    /* CSS here */
+}
+
+=====================================output=====================================
+:where(
+  input:not([type="button"], [type="reset"], [type="submit"]),
+  textarea,
+  select
+) {
+  /* CSS here */
+}
+
+.foooooooooooooooooooo
+  :where(
+    input:not([type="button"], [type="reset"], [type="submit"]),
+    textarea,
+    select
+  ) {
+  /* CSS here */
+}
+
+:is(
+  input:not([type="button"], [type="reset"], [type="submit"]),
+  textarea,
+  select
+) {
+  /* CSS here */
+}
+
+.foooooooooooooooooooo
+  :is(
+    input:not([type="button"], [type="reset"], [type="submit"]),
+    textarea,
+    select
+  ) {
+  /* CSS here */
+}
+
+:not(
+  input:not([type="button"], [type="reset"], [type="submit"]),
+  textarea,
+  select
+) {
+  /* CSS here */
+}
+
+.foooooooooooooooooooo
+  :not(
+    input:not([type="button"], [type="reset"], [type="submit"]),
+    textarea,
+    select
+  ) {
+  /* CSS here */
+}
+
+================================================================================
+`;
+
 exports[`is.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
