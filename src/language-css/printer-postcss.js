@@ -535,16 +535,19 @@ function genericPrint(path, options, print) {
 
     case "value-colon": {
       const { previous } = path;
-      return label("colon", [
-        node.value,
-        // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
-        (typeof previous?.value === "string" &&
-          previous.value.endsWith("\\")) ||
-        // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
-        insideValueFunctionNode(path, "url")
-          ? ""
-          : line,
-      ]);
+      return label(
+        "colon",
+        group([
+          node.value,
+          // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
+          (typeof previous?.value === "string" &&
+            previous.value.endsWith("\\")) ||
+          // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
+          insideValueFunctionNode(path, "url")
+            ? ""
+            : line,
+        ]),
+      );
     }
     case "value-string":
       return printString(

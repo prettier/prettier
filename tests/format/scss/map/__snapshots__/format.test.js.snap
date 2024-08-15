@@ -28,8 +28,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value",
-  ):
-    (
+  ): (
       "key": "value",
     ),
   (
@@ -38,8 +37,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value",
-  ):
-    (
+  ): (
       "list",
     ),
   (
@@ -53,8 +51,7 @@ $map: (
     "list",
     "list",
     "list",
-  ):
-    (
+  ): (
       "list",
     ),
   (
@@ -68,8 +65,7 @@ $map: (
     "list",
     "list",
     "list",
-  ):
-    (
+  ): (
       "key": "value",
     ),
   (
@@ -78,8 +74,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value",
-  ):
-    1,
+  ): 1,
 );
 
 ================================================================================
@@ -113,8 +108,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value"
-  ):
-    (
+  ): (
       "key": "value"
     ),
   (
@@ -123,8 +117,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value"
-  ):
-    (
+  ): (
       "list"
     ),
   (
@@ -138,8 +131,7 @@ $map: (
     "list",
     "list",
     "list"
-  ):
-    (
+  ): (
       "list"
     ),
   (
@@ -153,8 +145,7 @@ $map: (
     "list",
     "list",
     "list"
-  ):
-    (
+  ): (
       "key": "value"
     ),
   (
@@ -163,8 +154,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value"
-  ):
-    1
+  ): 1
 );
 
 ================================================================================
@@ -198,14 +188,12 @@ $map: (
   (
     "list",
     "long long long long long long long long long long long long long list",
-  ):
-    "hello world",
+  ): "hello world",
   (
     "key": "value",
     "long long long long long long long long long long long long long map":
       "value",
-  ):
-    "hello world",
+  ): "hello world",
 );
 
 // #10000
@@ -244,14 +232,12 @@ $map: (
   (
     "list",
     "long long long long long long long long long long long long long list"
-  ):
-    "hello world",
+  ): "hello world",
   (
     "key": "value",
     "long long long long long long long long long long long long long map":
       "value"
-  ):
-    "hello world"
+  ): "hello world"
 );
 
 // #10000

@@ -30,8 +30,7 @@ $icons: (
   ),
 
   /* Should preserve empty lines */
-    cal-week-group:
-    (
+    cal-week-group: (
       left: 1,
       top: 169,
     ),
