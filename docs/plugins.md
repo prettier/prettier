@@ -590,6 +590,11 @@ function hasSpaces(
   options?: SkipOptions,
 ): boolean;
 
+function getPreferredQuote(
+  text: string,
+  preferredQuoteOrPreferSingleQuote: Quote | boolean,
+): Quote;
+
 function makeString(
   rawText: string,
   enclosingQuote: Quote,
@@ -609,11 +614,6 @@ function getNextNonSpaceNonCommentCharacterIndex(
 function isNextLineEmpty(text: string, startIndex: number): boolean;
 
 function isPreviousLineEmpty(text: string, startIndex: number): boolean;
-
-function getPreferredQuote(
-  text: string,
-  preferredQuoteOrPreferSingleQuote: Quote | boolean,
-): Quote;
 ```
 
 ### Tutorials
