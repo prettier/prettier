@@ -93,6 +93,19 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // Align key after comment in SCSS map
+    if (
+      isColonNode(iNextNode) &&
+      iNode.type === "value-word" &&
+      parts.length > 2 &&
+      node.groups
+        .slice(0, i)
+        .every((group) => group.type === "value-comment") &&
+      !isInlineValueCommentNode(iPrevNode)
+    ) {
+      parts[parts.length - 2] = dedent(parts.at(-2));
+    }
+
     // Ignore SCSS @forward wildcard suffix
     if (
       insideAtRuleNode(path, "forward") &&
