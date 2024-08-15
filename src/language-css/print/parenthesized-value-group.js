@@ -82,12 +82,8 @@ function printParenthesizedValueGroup(path, options, print) {
   if (!node.open) {
     const forceHardLine = shouldBreakList(path);
     assertDocArray(groupDocs);
-    const parts = join(
-      forceHardLine ? hardline : line,
-      groupDocs.map((doc, i) =>
-        i === groupDocs.length - 1 ? doc : [doc, ","],
-      ),
-    );
+    const withComma = chunk(join(",", groupDocs), 2);
+    const parts = join(forceHardLine ? hardline : line, withComma);
     return indent(forceHardLine ? [hardline, parts] : group(fill(parts)));
   }
 
@@ -166,6 +162,20 @@ function shouldBreakList(path) {
       ((node.type === "css-decl" && !node.prop.startsWith("--")) ||
         (node.type === "css-atrule" && node.variable)),
   );
+}
+
+/**
+ * @template {*} T
+ * @param {T[]} xs
+ * @param {number} chunkSize
+ * @returns {T[][]}
+ */
+function chunk(xs, chunkSize) {
+  const result = [];
+  for (let i = 0; i < xs.length; i += chunkSize) {
+    result.push(xs.slice(i, i + chunkSize));
+  }
+  return result;
 }
 
 export { printParenthesizedValueGroup, shouldBreakList };
