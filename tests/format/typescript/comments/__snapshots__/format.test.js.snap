@@ -156,6 +156,72 @@ class Foo {
 ================================================================================
 `;
 
+exports[`16065-2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  // PropertyDefinition
+  @decorator
+  readonly /* comment */ propertyDefinition;
+
+  // TSAbstractPropertyDefinition
+  @decorator
+  abstract /* comment */ abstractPropertyDefinition;
+
+  // TSAbstractMethodDefinition
+  @decorator
+  abstract /* comment */ abstractMethodDefinition;
+
+  // MethodDefinition
+  @decorator
+  private /* comment */ methodDefinition() {}
+
+  // AccessorProperty
+  @decorator
+  accessor /* comment */ accessorProperty = 3;
+
+  constructor(
+    // TSParameterProperty
+    @decorator
+    readonly /* comment */ parameterProperty,
+  ) {}
+}
+
+=====================================output=====================================
+class Foo {
+  // PropertyDefinition
+  @decorator
+  readonly /* comment */ propertyDefinition;
+
+  // TSAbstractPropertyDefinition
+  @decorator
+  abstract /* comment */ abstractPropertyDefinition;
+
+  // TSAbstractMethodDefinition
+  @decorator
+  abstract /* comment */ abstractMethodDefinition;
+
+  // MethodDefinition
+  @decorator
+  private /* comment */ methodDefinition() {}
+
+  // AccessorProperty
+  @decorator
+  accessor /* comment */ accessorProperty = 3;
+
+  constructor(
+    // TSParameterProperty
+    @decorator
+    readonly /* comment */ parameterProperty,
+  ) {}
+}
+
+================================================================================
+`;
+
 exports[`abstract_class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
