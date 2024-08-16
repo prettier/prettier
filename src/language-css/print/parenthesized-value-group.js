@@ -9,8 +9,6 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
-import { DOC_TYPE_LABEL } from "../../document/constants.js";
-import { getDocType, mapDoc } from "../../document/utils.js";
 import { assertDocArray } from "../../document/utils/assert-doc.js";
 import isNextLineEmpty from "../../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
@@ -98,12 +96,6 @@ function printParenthesizedValueGroup(path, options, print) {
       child.groups[0].type !== "value-paren_group" &&
       child.groups[2]?.type === "value-paren_group"
     ) {
-      doc = mapDoc(doc, (d) => {
-        if (getDocType(d) === DOC_TYPE_LABEL && d.label === "colon") {
-          return group(d);
-        }
-        return d;
-      });
       doc = group(dedent(doc));
     }
 
@@ -166,14 +158,14 @@ function shouldBreakList(path) {
 
 /**
  * @template {*} T
- * @param {T[]} xs
- * @param {number} chunkSize
+ * @param {T[]} array
+ * @param {number} size
  * @returns {T[][]}
  */
-function chunk(xs, chunkSize) {
+function chunk(array, size) {
   const result = [];
-  for (let i = 0; i < xs.length; i += chunkSize) {
-    result.push(xs.slice(i, i + chunkSize));
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
   }
   return result;
 }
