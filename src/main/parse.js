@@ -22,7 +22,7 @@ async function parse(originalText, options) {
     handleParseError(error, originalText);
   }
 
-  return { text, ast, parser: options.parser };
+  return { text, ast };
 }
 
 function handleParseError(error, text) {
