@@ -147,6 +147,9 @@ const options = {
   debugPrintAst: {
     type: "boolean",
   },
+  debugPrintLoclessAst: {
+    type: "boolean",
+  },
   debugPrintComments: {
     type: "boolean",
   },
