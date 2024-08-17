@@ -138,14 +138,13 @@ async function format(context, input, opt) {
       case "html":
       case "vue":
       case "angular":
-      case "lwc": {
+      case "lwc":
         locationKeys
           .add("sourceSpan")
           .add("startSourceSpan")
           .add("endSourceSpan")
           .add("nameSpan");
         break;
-      }
       case "babel":
       case "babel-flow":
       case "babel-ts":
@@ -157,22 +156,19 @@ async function format(context, input, opt) {
       case "json":
       case "json5":
       case "json-stringify":
-      case "graphql": {
+      case "graphql":
         locationKeys.add("loc").add("tokens");
         break;
-      }
       case "css":
       case "scss":
-      case "less": {
+      case "less":
         locationKeys.add("source");
         break;
-      }
       case "markdown":
       case "mdx":
-      case "yaml": {
+      case "yaml":
         locationKeys.add("position");
         break;
-      }
     }
     return {
       formatted: JSON.stringify(ast, (key, value) => {

@@ -147,13 +147,13 @@ const options = {
   debugPrintAst: {
     type: "boolean",
   },
-  debugPrintLoclessAst: {
-    type: "boolean",
-  },
   debugPrintComments: {
     type: "boolean",
   },
   debugPrintDoc: {
+    type: "boolean",
+  },
+  debugPrintLoclessAst: {
     type: "boolean",
   },
   debugRepeat: {
