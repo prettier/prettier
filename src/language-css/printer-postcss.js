@@ -534,7 +534,7 @@ function genericPrint(path, options, print) {
 
     case "value-colon": {
       const { previous } = path;
-      return group([
+      return [
         node.value,
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
         (typeof previous?.value === "string" &&
@@ -543,7 +543,7 @@ function genericPrint(path, options, print) {
         insideValueFunctionNode(path, "url")
           ? ""
           : line,
-      ]);
+      ];
     }
     case "value-string":
       return printString(

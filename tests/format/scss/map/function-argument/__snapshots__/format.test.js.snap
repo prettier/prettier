@@ -28,8 +28,7 @@ $display-breakpoints: map-deep-merge(
 =====================================output=====================================
 $display-breakpoints: map-deep-merge(
   (
-    "sm-only":
-      "only screen and (min-width: #{$map-get + $grid-breakpoints + "hogehoge"}) and (max-width: #{$a})",
+    "sm-only": "only screen and (min-width: #{$map-get + $grid-breakpoints + "hogehoge"}) and (max-width: #{$a})",
     "sm-only":
       "inside a long long long long long long long long long long long long long long string #{call("")}",
     "sm-only":
@@ -150,10 +149,8 @@ $display-breakpoints: map-deep-merge(
   (
     "print-only": "only print",
     "screen-only": "only screen",
-    "xs-only":
-      "only screen and (max-width: #{map-get($grid-breakpoints, "sm") - 1})",
-    "sm-only":
-      "only screen and (min-width: #{map-get($grid-breakpoints, "sm")}) and (max-width: #{map-get($grid-breakpoints, "md") - 1})",
+    "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, "sm") - 1})",
+    "sm-only": "only screen and (min-width: #{map-get($grid-breakpoints, "sm")}) and (max-width: #{map-get($grid-breakpoints, "md") - 1})",
   ),
   $display-breakpoints
 );

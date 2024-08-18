@@ -38,10 +38,6 @@ import {
   isWordNode,
 } from "../utils/index.js";
 
-/**
- * @typedef {import("../../document/builders.js").Doc} Doc
- */
-
 function printCommaSeparatedValueGroup(path, options, print) {
   const { node } = path;
   const parentNode = path.parent;
@@ -63,23 +59,14 @@ function printCommaSeparatedValueGroup(path, options, print) {
   );
 
   const printed = path.map(print, "groups");
-  /*
-   * We assume parts always meet following conditions:
-   * - parts.length is odd
-   * - odd (0-indexed) elements are line-like doc
-   * We can achieve this by following way:
-   * - if we push line-like doc, we push empty string after it
-   * - if we push non-line-like doc, push [parts.pop(), doc] instead
-   */
-  /** @type {Doc[]} */
-  let parts = [""];
+  const parts = [];
   const insideURLFunction = insideValueFunctionNode(path, "url");
 
   let insideSCSSInterpolationInString = false;
   let didBreak = false;
 
   for (let i = 0; i < node.groups.length; ++i) {
-    parts.push([parts.pop(), printed[i]]);
+    parts.push(printed[i]);
 
     const iPrevNode = node.groups[i - 1];
     const iNode = node.groups[i];
@@ -88,22 +75,9 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
     if (insideURLFunction) {
       if ((iNextNode && isAdditionNode(iNextNode)) || isAdditionNode(iNode)) {
-        parts.push([parts.pop(), " "]);
+        parts.push(" ");
       }
       continue;
-    }
-
-    // Align key after comment in SCSS map
-    if (
-      isColonNode(iNextNode) &&
-      iNode.type === "value-word" &&
-      parts.length > 2 &&
-      node.groups
-        .slice(0, i)
-        .every((group) => group.type === "value-comment") &&
-      !isInlineValueCommentNode(iPrevNode)
-    ) {
-      parts[parts.length - 2] = dedent(parts.at(-2));
     }
 
     // Ignore SCSS @forward wildcard suffix
@@ -298,7 +272,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
       iNextNode.type === "value-func" &&
       locEnd(iNode) !== locStart(iNextNode)
     ) {
-      parts.push([parts.pop(), " "]);
+      parts.push(" ");
       continue;
     }
 
@@ -335,10 +309,10 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Add `hardline` after inline comment (i.e. `// comment\n foo: bar;`)
     if (isInlineValueCommentNode(iNode)) {
       if (parentNode.type === "value-paren_group") {
-        parts.push(dedent(hardline), "");
+        parts.push(dedent(hardline));
         continue;
       }
-      parts.push(hardline, "");
+      parts.push(hardline);
       continue;
     }
 
@@ -351,7 +325,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
         isEachKeywordNode(iNode) ||
         isForKeywordNode(iNode))
     ) {
-      parts.push([parts.pop(), " "]);
+      parts.push(" ");
 
       continue;
     }
@@ -361,7 +335,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
       atRuleAncestorNode &&
       atRuleAncestorNode.name.toLowerCase() === "namespace"
     ) {
-      parts.push([parts.pop(), " "]);
+      parts.push(" ");
 
       continue;
     }
@@ -373,11 +347,11 @@ function printCommaSeparatedValueGroup(path, options, print) {
         iNextNode.source &&
         iNode.source.start.line !== iNextNode.source.start.line
       ) {
-        parts.push(hardline, "");
+        parts.push(hardline);
 
         didBreak = true;
       } else {
-        parts.push([parts.pop(), " "]);
+        parts.push(" ");
       }
 
       continue;
@@ -387,7 +361,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Note: `grip` property have `/` delimiter and it is not math operation, so
     // `grid` property handles above
     if (isNextMathOperator) {
-      parts.push([parts.pop(), " "]);
+      parts.push(" ");
 
       continue;
     }
@@ -409,12 +383,12 @@ function printCommaSeparatedValueGroup(path, options, print) {
       isParenGroupNode(iNextNode) &&
       locEnd(iNode) === locStart(iNextNode.open)
     ) {
-      parts.push(softline, "");
+      parts.push(softline);
       continue;
     }
 
     if (iNode.value === "with" && isParenGroupNode(iNextNode)) {
-      parts = [[fill(parts), " "]];
+      parts.push(" ");
       continue;
     }
 
@@ -427,15 +401,15 @@ function printCommaSeparatedValueGroup(path, options, print) {
     }
 
     // Be default all values go through `line`
-    parts.push(line, "");
+    parts.push(line);
   }
 
   if (hasInlineComment) {
-    parts.push([parts.pop(), breakParent]);
+    parts.push(breakParent);
   }
 
   if (didBreak) {
-    parts.unshift("", hardline);
+    parts.unshift(hardline);
   }
 
   if (isControlDirective) {
