@@ -27,6 +27,7 @@ const debugApiFunctionNames = [
   "formatDoc",
   "printToDoc",
   "printDocToString",
+  "inferParser",
 ];
 
 const debugApis = Object.create(null);
