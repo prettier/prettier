@@ -498,8 +498,28 @@ function genericPrint(path, options, print) {
     case "value-root":
       return print("group");
 
-    case "value-comment":
-      return options.originalText.slice(locStart(node), locEnd(node));
+    case "value-comment": {
+      const start = locStart(node);
+      const end = locEnd(node);
+      let text = options.originalText.slice(start, end);
+
+      const isValidCommentText = () =>
+        text.startsWith("//") || (text.startsWith("/*") && text.endsWith("*/"));
+
+      // https://github.com/prettier/prettier/issues/15948
+      if (!isValidCommentText()) {
+        // Due to a bug in the PostCSS parser, the location of the
+        // comment may be off by one, so we advance it by one.
+        text = options.originalText.slice(start + 1, end + 1);
+      }
+      if (!isValidCommentText()) {
+        // If, due to an unknown bug, the comment is still invalid,
+        // we force it to be a valid comment to avoid breaking the code.
+        text = "/* " + text + " */";
+      }
+
+      return text;
+    }
 
     case "value-comma_group":
       return printCommaSeparatedValueGroup(path, options, print);
