@@ -133,9 +133,11 @@ async function format(context, input, opt) {
 
   if (context.argv.debugPrintLoclessAst) {
     const { ast } = await prettier.__debug.parse(input, opt);
-    const parser = await prettier.__debug.inferParser(opt, {
-      physicalFile: opt.filepath,
-    });
+    const parser =
+      context.argv.parser ??
+      (await prettier.__debug.inferParser(opt, {
+        physicalFile: opt.filepath,
+      }));
     const locationKeys = new Set();
     switch (parser) {
       case "html":
