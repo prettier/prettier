@@ -2,7 +2,7 @@
 
 exports[`asi.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -18,7 +18,7 @@ let x;
 
 exports[`definite.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -44,7 +44,7 @@ var y!: MyComponent;
 
 exports[`without-annotation.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
