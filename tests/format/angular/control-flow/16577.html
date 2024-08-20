@@ -1,0 +1,51 @@
+<div>
+    @if (true) {foo}
+</div>
+
+<div>
+    @if (true) {foo} @else {bar}
+</div>
+
+<div>
+    @if (true) {{{ foo }}}
+</div>
+
+<div>
+    @if (true) {{{ foo }}} @else {{{ bar }}}
+</div>
+
+<div>
+    @if (true) {
+        foo
+    }
+</div>
+
+<div>
+    @if (true) {
+        foo
+        bar
+        baz
+    }
+</div>
+
+<div>
+    @if (true) {
+        <span>foo</span>
+        bar
+        <span>baz</span>
+    }
+</div>
+
+
+<div>
+    @if (true) {
+        <span>foo</span>
+        bar
+    baz}
+</div>
+
+<div>
+    @if (true) {foo
+        bar
+    <span>baz</span>}
+</div>

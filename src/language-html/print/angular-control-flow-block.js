@@ -121,11 +121,11 @@ function shouldBreaklineWithinBrackets(block, options, kind) {
     return true;
   }
   const child = kind === "open" ? block.firstChild : block.lastChild;
-  if (child && !isWhitespaceSensitiveNodeInBlock(child)) {
+  if (!child || !isWhitespaceSensitiveNodeInBlock(child)) {
     return true;
   }
   const lineFn = kind === "open" ? lineStart : lineEnd;
-  if (child && lineFn(block) != lineFn(child)) {
+  if (!child || lineFn(block) != lineFn(child)) {
     return true;
   }
   return false;
