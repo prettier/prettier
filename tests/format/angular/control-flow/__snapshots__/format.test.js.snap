@@ -230,8 +230,7 @@ printWidth: 80
 </div>
 
 <div>
-  @if (true) {foo bar <span>baz</span>
-  }
+  @if (true) {foo bar <span>baz</span>}
 </div>
 
 ================================================================================
@@ -341,8 +340,7 @@ printWidth: 80
 </div>
 
 <div>
-  @if (true) {foo bar <span>baz</span>
-  }
+  @if (true) {foo bar <span>baz</span>}
 </div>
 
 ================================================================================

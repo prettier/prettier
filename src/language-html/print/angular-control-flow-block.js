@@ -90,6 +90,18 @@ function isWhitespaceSensitiveNodeInBlock(node) {
   return node.type === "text" || node.type === "interpolation";
 }
 
+function siblingsShouldBreakLine(block, child, options) {
+  for (const ch of block.children) {
+    if (ch === child) {
+      continue;
+    }
+    if (!isWhitespaceSensitiveNodeInBlock(ch, options)) {
+      return false;
+    }
+  }
+  return true;
+}
+
 /**
  * Returns whether to print a hardline inside the brackets of a control flow block.
  *
@@ -118,7 +130,22 @@ function shouldBreakLineWithinBrackets(block, options, kind) {
     return true;
   }
   const child = kind === "open" ? block.firstChild : block.lastChild;
-  if (!child || !isWhitespaceSensitiveNodeInBlock(child)) {
+  if (
+    !child ||
+    (!isWhitespaceSensitiveNodeInBlock(child) &&
+      //   @if (true) {foo <span>bar</span>}
+      //
+      // should be preserved as is, should not be formatted as:
+      //
+      //   @if (true) {foo <span>bar</span>
+      //   }
+      //
+      !(
+        kind === "close" &&
+        block.children.length > 1 &&
+        siblingsShouldBreakLine(block, child, options)
+      ))
+  ) {
     return true;
   }
   const lineFn = kind === "open" ? lineStart : lineEnd;
