@@ -14,7 +14,7 @@ function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
   const docs = [];
 
-  if (isPreviousBlockUnClosed(path)) {
+  if (isPreviousBlockUnClosed(path, options)) {
     docs.push("} ");
   }
 
@@ -26,13 +26,21 @@ function printAngularControlFlowBlock(path, options, print) {
 
   docs.push(" {");
 
-  const shouldPrintCloseBracket = shouldCloseBlock(node);
+  const shouldPrintCloseBracket = shouldCloseBlock(node, options);
   if (node.children.length > 0) {
+    const strictWhitespaces = options.htmlWhitespaceSensitivity !== "ignore";
+
     node.firstChild.hasLeadingSpaces = true;
     node.lastChild.hasTrailingSpaces = true;
-    docs.push(indent([hardline, printChildren(path, options, print)]));
+
+    docs.push(
+      indent([
+        linebreakAfterOpenBracket(node, options),
+        printChildren(path, options, print),
+      ]),
+    );
     if (shouldPrintCloseBracket) {
-      docs.push(hardline, "}");
+      docs.push(linebreakBeforeCloseBracket(node, options), "}");
     }
   } else if (shouldPrintCloseBracket) {
     docs.push("}");
@@ -41,19 +49,25 @@ function printAngularControlFlowBlock(path, options, print) {
   return group(docs, { shouldBreak: true });
 }
 
-function shouldCloseBlock(node) {
-  return !(
-    node.next?.type === "angularControlFlowBlock" &&
-    ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name)?.has(node.next.name)
-  );
+function shouldCloseBlock(node, options) {
+  if (linebreakBeforeCloseBracket(node, options) === "") {
+    return true;
+  }
+  if (
+    node.next?.type !== "angularControlFlowBlock" ||
+    !ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name)?.has(node.next.name)
+  ) {
+    return true;
+  }
+  return false;
 }
 
-function isPreviousBlockUnClosed(path) {
+function isPreviousBlockUnClosed(path, options) {
   const { previous } = path;
   return (
     previous?.type === "angularControlFlowBlock" &&
     !hasPrettierIgnore(previous) &&
-    !shouldCloseBlock(previous)
+    !shouldCloseBlock(previous, options)
   );
 }
 
@@ -62,6 +76,48 @@ function printAngularControlFlowBlockParameters(path, options, print) {
     indent([softline, join([";", line], path.map(print, "children"))]),
     softline,
   ];
+}
+
+function lineStart(node) {
+  return node.sourceSpan.start.line;
+}
+
+function lineEnd(node) {
+  return node.sourceSpan.end.line;
+}
+
+function linebreakAfterOpenBracket(block, options) {
+  if (options.htmlWhitespaceSensitivity === "ignore") {
+    return hardline;
+  }
+  if (!isWhitespaceSensitiveNodeInBlock(block.firstChild)) {
+    return hardline;
+  }
+  const blockStart = lineStart(block);
+  const firstChildStart = lineStart(block.firstChild);
+  if (blockStart !== firstChildStart) {
+    return hardline;
+  }
+  return "";
+}
+
+function linebreakBeforeCloseBracket(block, options) {
+  if (options.htmlWhitespaceSensitivity === "ignore") {
+    return hardline;
+  }
+  if (!isWhitespaceSensitiveNodeInBlock(block.lastChild)) {
+    return hardline;
+  }
+  const blockEnd = lineEnd(block);
+  const lastChildEnd = lineEnd(block.lastChild);
+  if (blockEnd !== lastChildEnd) {
+    return hardline;
+  }
+  return "";
+}
+
+function isWhitespaceSensitiveNodeInBlock(node) {
+  return node.type === "text" || node.type === "interpolation";
 }
 
 export { printAngularControlFlowBlock, printAngularControlFlowBlockParameters };
