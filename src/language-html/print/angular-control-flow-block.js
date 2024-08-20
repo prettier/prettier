@@ -28,20 +28,17 @@ function printAngularControlFlowBlock(path, options, print) {
 
   const shouldPrintCloseBracket = shouldCloseBlock(node, options);
   if (node.children.length > 0) {
-    const strictWhitespaces = options.htmlWhitespaceSensitivity !== "ignore";
-
     node.firstChild.hasLeadingSpaces = true;
     node.lastChild.hasTrailingSpaces = true;
-
     docs.push(
       indent([
-        shouldBreaklineWithinBrackets(node, options, "open") ? hardline : "",
+        shouldBreakLineWithinBrackets(node, options, "open") ? hardline : "",
         printChildren(path, options, print),
       ]),
     );
     if (shouldPrintCloseBracket) {
       docs.push(
-        shouldBreaklineWithinBrackets(node, options, "close") ? hardline : "",
+        shouldBreakLineWithinBrackets(node, options, "close") ? hardline : "",
         "}",
       );
     }
@@ -53,7 +50,7 @@ function printAngularControlFlowBlock(path, options, print) {
 }
 
 function shouldCloseBlock(node, options) {
-  if (shouldBreaklineWithinBrackets(node, options, "close") === false) {
+  if (shouldBreakLineWithinBrackets(node, options, "close") === false) {
     return true;
   }
   if (
@@ -116,7 +113,7 @@ function isWhitespaceSensitiveNodeInBlock(node) {
  * @param {"open" | "close"} kind
  * @returns {boolean}
  */
-function shouldBreaklineWithinBrackets(block, options, kind) {
+function shouldBreakLineWithinBrackets(block, options, kind) {
   if (options.htmlWhitespaceSensitivity === "ignore") {
     return true;
   }
@@ -125,7 +122,7 @@ function shouldBreaklineWithinBrackets(block, options, kind) {
     return true;
   }
   const lineFn = kind === "open" ? lineStart : lineEnd;
-  if (!child || lineFn(block) != lineFn(child)) {
+  if (!child || lineFn(block) !== lineFn(child)) {
     return true;
   }
   return false;
