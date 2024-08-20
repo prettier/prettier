@@ -90,12 +90,12 @@ function isWhitespaceSensitiveNodeInBlock(node) {
   return node.type === "text" || node.type === "interpolation";
 }
 
-function siblingsShouldBreakLine(block, child, options) {
+function allSiblingsSpaceSensitive(block, child) {
   for (const ch of block.children) {
     if (ch === child) {
       continue;
     }
-    if (!isWhitespaceSensitiveNodeInBlock(ch, options)) {
+    if (!isWhitespaceSensitiveNodeInBlock(ch)) {
       return false;
     }
   }
@@ -143,7 +143,7 @@ function shouldBreakLineWithinBrackets(block, options, kind) {
       !(
         kind === "close" &&
         block.children.length > 1 &&
-        siblingsShouldBreakLine(block, child, options)
+        allSiblingsSpaceSensitive(block, child)
       ))
   ) {
     return true;
