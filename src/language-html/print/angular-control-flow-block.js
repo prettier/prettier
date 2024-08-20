@@ -35,12 +35,15 @@ function printAngularControlFlowBlock(path, options, print) {
 
     docs.push(
       indent([
-        linebreakAfterOpenBracket(node, options),
+        shouldBreaklineWithinBrackets(node, options, "open") ? hardline : "",
         printChildren(path, options, print),
       ]),
     );
     if (shouldPrintCloseBracket) {
-      docs.push(linebreakBeforeCloseBracket(node, options), "}");
+      docs.push(
+        shouldBreaklineWithinBrackets(node, options, "close") ? hardline : "",
+        "}",
+      );
     }
   } else if (shouldPrintCloseBracket) {
     docs.push("}");
@@ -50,7 +53,7 @@ function printAngularControlFlowBlock(path, options, print) {
 }
 
 function shouldCloseBlock(node, options) {
-  if (linebreakBeforeCloseBracket(node, options) === "") {
+  if (shouldBreaklineWithinBrackets(node, options, "close") === false) {
     return true;
   }
   if (
@@ -86,38 +89,46 @@ function lineEnd(node) {
   return node.sourceSpan.end.line;
 }
 
-function linebreakAfterOpenBracket(block, options) {
-  if (options.htmlWhitespaceSensitivity === "ignore") {
-    return hardline;
-  }
-  if (!isWhitespaceSensitiveNodeInBlock(block.firstChild)) {
-    return hardline;
-  }
-  const blockStart = lineStart(block);
-  const firstChildStart = lineStart(block.firstChild);
-  if (blockStart !== firstChildStart) {
-    return hardline;
-  }
-  return "";
-}
-
-function linebreakBeforeCloseBracket(block, options) {
-  if (options.htmlWhitespaceSensitivity === "ignore") {
-    return hardline;
-  }
-  if (!isWhitespaceSensitiveNodeInBlock(block.lastChild)) {
-    return hardline;
-  }
-  const blockEnd = lineEnd(block);
-  const lastChildEnd = lineEnd(block.lastChild);
-  if (blockEnd !== lastChildEnd) {
-    return hardline;
-  }
-  return "";
-}
-
 function isWhitespaceSensitiveNodeInBlock(node) {
   return node.type === "text" || node.type === "interpolation";
+}
+
+/**
+ * Returns whether to print a hardline inside the brackets of a control flow block.
+ *
+ * The inside of Angular control flow blocks is space-sensitive,
+ * meaning the following two pieces of code produce different outputs:
+ *
+ * 1:
+ *   @if (true) {foo}
+ *
+ * 2:
+ *   @if (true) {
+ *     foo
+ *   }
+ *
+ * So, when the --html-whitespace-sensitivity option is not set to `ignore`,
+ * we should control line breaks to ensure consistent rendering.
+ * For more details, please read https://github.com/prettier/prettier/issues/16577.
+ *
+ * @param {any} block
+ * @param {any} options
+ * @param {"open" | "close"} kind
+ * @returns {boolean}
+ */
+function shouldBreaklineWithinBrackets(block, options, kind) {
+  if (options.htmlWhitespaceSensitivity === "ignore") {
+    return true;
+  }
+  const child = kind === "open" ? block.firstChild : block.lastChild;
+  if (child && !isWhitespaceSensitiveNodeInBlock(child)) {
+    return true;
+  }
+  const lineFn = kind === "open" ? lineStart : lineEnd;
+  if (child && lineFn(block) != lineFn(child)) {
+    return true;
+  }
+  return false;
 }
 
 export { printAngularControlFlowBlock, printAngularControlFlowBlockParameters };
