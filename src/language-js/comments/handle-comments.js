@@ -90,6 +90,7 @@ function handleEndOfLineComment(context) {
     handleBreakAndContinueStatementComments,
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
+    handleLastBinaryOperatorOperand,
   ].some((fn) => fn(context));
 }
 
@@ -1019,6 +1020,44 @@ function handleCommentsInDestructuringPattern({
     }
     return true;
   }
+}
+
+function handleLastBinaryOperatorOperand({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+}) {
+  // "baz" should be a trailing commnet of `cond3`:
+  //
+  //   !(
+  //     cond1 || // foo
+  //     cond2 || // bar
+  //     cond3 // baz
+  //   );
+  if (
+    !followingNode &&
+    enclosingNode?.type === "UnaryExpression" &&
+    (precedingNode?.type === "LogicalExpression" ||
+      precedingNode?.type === "BinaryExpression")
+  ) {
+    //   !(
+    //     (cond1 || cond2) // foo
+    //   );
+    const isMultilineExpression =
+      enclosingNode.argument.loc?.start.line !==
+      precedingNode.right.loc.start.line;
+    const isSingleLineComment =
+      isLineComment(comment) || comment.loc.start.line === comment.loc.end.line;
+    const isSameLineComment =
+      comment.loc.start.line === precedingNode.right.loc.start.line;
+
+    if (isMultilineExpression && isSingleLineComment && isSameLineComment) {
+      addTrailingComment(precedingNode.right, comment);
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
