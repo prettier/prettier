@@ -1,6 +1,6 @@
 import { convertEndOfLineToChars } from "../common/end-of-line.js";
 import getStringWidth from "../utils/get-string-width.js";
-import { fill, hardlineWithoutBreakParent, indent } from "./builders.js";
+import { hardlineWithoutBreakParent, indent } from "./builders.js";
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,
@@ -31,6 +31,8 @@ const MODE_BREAK = Symbol("MODE_BREAK");
 const MODE_FLAT = Symbol("MODE_FLAT");
 
 const CURSOR_PLACEHOLDER = Symbol("cursor");
+
+const IS_MUTABLE_FILL = Symbol("IS_MUTABLE_FILL");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -503,16 +505,26 @@ function printDocToString(doc, options) {
           break;
         }
 
-        // At this point we've handled the first pair (context, separator)
-        // and will create a new fill doc for the rest of the content.
-        // Ideally we wouldn't mutate the array here but copying all the
-        // elements to a new array would make this algorithm quadratic,
-        // which is unusable for large arrays (e.g. large texts in JSX).
-        parts.splice(0, 2);
-        /** @type {Command} */
-        const remainingCmd = { ind, mode, doc: fill(parts) };
+        const secondContent = parts[2];
 
-        const secondContent = parts[0];
+        // At this point we've handled the first pair (context, separator)
+        // and will create a new *mutable* fill doc for the rest of the content.
+        // Copying all the elements to a new array would make this algorithm quadratic,
+        // which is unusable for large arrays (e.g. large texts in JSX).
+        // https://github.com/prettier/prettier/issues/3263#issuecomment-344275152
+        let remainingDoc = doc;
+        if (doc[IS_MUTABLE_FILL]) {
+          parts.splice(0, 2);
+        } else {
+          remainingDoc = {
+            ...doc,
+            parts: parts.slice(2),
+            [IS_MUTABLE_FILL]: true,
+          };
+        }
+
+        /** @type {Command} */
+        const remainingCmd = { ind, mode, doc: remainingDoc };
 
         /** @type {Command} */
         const firstAndSecondContentFlatCmd = {

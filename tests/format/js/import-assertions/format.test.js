@@ -19,7 +19,6 @@ runFormatTest(import.meta, ["babel", "typescript"], {
       "non-type.js",
     ],
     meriyah: [
-      "dynamic-import.js",
       "empty.js",
       "multi-types.js",
       "static-import.js",

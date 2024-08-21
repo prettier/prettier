@@ -495,6 +495,7 @@ const propertyLikeNodeTypes = new Set([
   "ClassAccessorProperty",
   "AccessorProperty",
   "TSAbstractAccessorProperty",
+  "TSParameterProperty",
 ]);
 function handleMethodNameComments({
   comment,
@@ -527,7 +528,8 @@ function handleMethodNameComments({
   // on the decorator node instead of the method node
   if (
     precedingNode?.type === "Decorator" &&
-    propertyLikeNodeTypes.has(enclosingNode?.type)
+    propertyLikeNodeTypes.has(enclosingNode?.type) &&
+    isLineComment(comment)
   ) {
     addTrailingComment(precedingNode, comment);
     return true;

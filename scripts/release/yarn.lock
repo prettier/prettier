@@ -97,9 +97,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:9.2.0":
-  version: 9.2.0
-  resolution: "execa@npm:9.2.0"
+"execa@npm:9.3.0":
+  version: 9.3.0
+  resolution: "execa@npm:9.3.0"
   dependencies:
     "@sindresorhus/merge-streams": "npm:^4.0.0"
     cross-spawn: "npm:^7.0.3"
@@ -113,7 +113,7 @@ __metadata:
     signal-exit: "npm:^4.1.0"
     strip-final-newline: "npm:^4.0.0"
     yoctocolors: "npm:^2.0.0"
-  checksum: 10/6fd8daf0297578c1013e4c67d4f2c35d8af76763ac8ad773e9c693ba3e6e3ae8cb71773b4e29d07b267f899c6df9d36f7be3b0a590ed0c11c7d429d29c190c95
+  checksum: 10/07cf570a8482b124971e7a01ba047a3d3f80c7ebf7a6c937a65d9cd593f6487b419ba9e7cf4388464e4a605ea4849d4c266d57465bb0496d8fa9275a063ce842
   languageName: node
   linkType: hard
 
@@ -324,10 +324,10 @@ __metadata:
   dependencies:
     chalk: "npm:5.3.0"
     enquirer: "npm:2.4.1"
-    execa: "npm:9.2.0"
+    execa: "npm:9.3.0"
     fast-glob: "npm:3.3.2"
     outdent: "npm:0.8.0"
-    semver: "npm:7.6.2"
+    semver: "npm:7.6.3"
   languageName: unknown
   linkType: soft
 
@@ -340,12 +340,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.6.2":
-  version: 7.6.2
-  resolution: "semver@npm:7.6.2"
+"semver@npm:7.6.3":
+  version: 7.6.3
+  resolution: "semver@npm:7.6.3"
   bin:
     semver: bin/semver.js
-  checksum: 10/296b17d027f57a87ef645e9c725bff4865a38dfc9caf29b26aa084b85820972fbe7372caea1ba6857162fa990702c6d9c1d82297cecb72d56c78ab29070d2ca2
+  checksum: 10/36b1fbe1a2b6f873559cd57b238f1094a053dbfd997ceeb8757d79d1d2089c56d1321b9f1069ce263dc64cfa922fa1d2ad566b39426fe1ac6c723c1487589e10
   languageName: node
   linkType: hard
 

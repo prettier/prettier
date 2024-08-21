@@ -582,11 +582,6 @@ const nodejsFiles = [
   {
     input: "src/index.js",
     replaceModule: [
-      {
-        module: require.resolve("@iarna/toml/lib/toml-parser.js"),
-        find: "const utilInspect = eval(\"require('util').inspect\")",
-        replacement: "const utilInspect = require('util').inspect",
-      },
       // `editorconfig` use a older version of `semver` and only uses `semver.gte`
       {
         module: require.resolve("editorconfig"),

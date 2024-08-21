@@ -16,6 +16,7 @@ import {
 import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import { locEnd } from "../loc.js";
 import {
+  CommentCheckFlags,
   getFunctionParameters,
   hasComment,
   hasLeadingOwnLineComment,
@@ -119,8 +120,9 @@ function printArrowFunction(path, options, print, args = {}) {
     signatureDocs,
     shouldBreak: shouldBreakChain,
   });
-  let shouldBreakSignatures;
+  let shouldBreakSignatures = false;
   let shouldIndentSignatures = false;
+  let shouldPrintSoftlineInIndent = false;
   if (
     shouldPrintAsChain &&
     (isCallee ||
@@ -128,6 +130,13 @@ function printArrowFunction(path, options, print, args = {}) {
       args.assignmentLayout)
   ) {
     shouldIndentSignatures = true;
+    // If the arrow function has a leading line comment, there should be a hardline above it
+    // so we should not print a softline in indent call
+    // https://github.com/prettier/prettier/issues/16067
+    shouldPrintSoftlineInIndent = !hasComment(
+      path.node,
+      CommentCheckFlags.Leading & CommentCheckFlags.Line,
+    );
     shouldBreakSignatures =
       args.assignmentLayout === "chain-tail-arrow-chain" ||
       (isCallee && !shouldPutBodyOnSameLine);
@@ -143,7 +152,7 @@ function printArrowFunction(path, options, print, args = {}) {
   return group([
     group(
       shouldIndentSignatures
-        ? indent([softline, signaturesDoc])
+        ? indent([shouldPrintSoftlineInIndent ? softline : "", signaturesDoc])
         : signaturesDoc,
       { shouldBreak: shouldBreakSignatures, id: chainGroupId },
     ),
