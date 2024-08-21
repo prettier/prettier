@@ -1028,7 +1028,7 @@ function handleLastBinaryOperatorOperand({
   enclosingNode,
   followingNode,
 }) {
-  // "baz" should be a trailing commnet of `cond3`:
+  // "baz" should be a trailing comment of `cond3`:
   //
   //   !(
   //     cond1 || // foo
