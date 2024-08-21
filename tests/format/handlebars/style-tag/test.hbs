@@ -1,23 +1,50 @@
 <div>
   <style>
+
+
+
   </style>
 </div>
 
-<style>
-  div {   color: red;
+<div>
+  <style>
+
+
+    .a {
+      color: red;
+    }
+
+
+  </style>
+</div>
+
+
+<div>
+  <style>
+    .a {
 
 
 
-  }
-</style>
+      color: red;
+    }
+              .b { color:     blue
 
-<style>
-  .a {
-    color: red;
-  }
+};
+  </style>
+</div>
 
+<div>
+  <style>
+    .a { color: red; }
+  </style>
+</div>
 
-  .b {
-    color: blue;
-  }
-</style>
+<div>
+  <style>
+    .a {
+                    color: red;
+    }
+
+    <<<invalid css stuff here which should not crash the formatter and the rest of the unformatted css should remain unchanged>>>
+  </style>
+</div>

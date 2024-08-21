@@ -1,5 +1,4 @@
 import {
-  breakParent,
   dedent,
   fill,
   group,
@@ -161,12 +160,8 @@ function print(path, options, print) {
       // Don't format content:
       // 1.in <pre>,
       // 2.in <style> tags when there are CSS syntax errors
-      // 3.when `embeddedLanguageFormatting` is disabled
-      if (
-        path.parent.tag === "pre" ||
-        path.parent.tag === "style" ||
-        options.embeddedLanguageFormatting === "off"
-      ) {
+
+      if (path.parent.tag === "pre" || path.parent.tag === "style") {
         return node.chars;
       }
 
@@ -786,59 +781,33 @@ function printBlockParams(node) {
   return ["as |", node.blockParams.join(" "), "|"];
 }
 
-function getCssParser(node, options) {
-  if (node.tag !== "style") {
+function getCssParser(path, options) {
+  if (path.parent.tag !== "style") {
     return;
   }
 
   return inferParser(options, { language: "css" });
 }
 
-function getNodeContent(node, options) {
-  if (node.children.length === 0) {
-    return "";
-  }
-  return options.originalText.slice(
-    node.children.at(0).loc.start.offset,
-    node.children.at(-1).loc.end.offset,
-  );
-}
-
 function embed(path, options) {
   const { node } = path;
 
-  if (node.type === "ElementNode") {
-    const parser = getCssParser(node, options);
-
-    // For now, we only support embedding CSS language (via `<style>` tags)
+  if (node.type === "TextNode" && path.parent.tag === "style") {
+    const parser = getCssParser(path, options);
     if (!parser) {
-      return;
+      return "";
     }
 
-    return async (textToDoc, print) => {
-      const content = getNodeContent(node, options);
-      let isEmpty = /^\s*$/.test(content);
-      let doc = "";
-      if (!isEmpty) {
-        doc = await textToDoc(content, {
-          parser,
-          __embeddedInHtml: true,
-        });
-        isEmpty = doc === "";
+    return async (textToDoc) => {
+      const doc = await textToDoc(node.chars.trim(), { parser });
+      if (!doc) {
+        return [];
       }
-
-      const startingTag = group(printStartingTag(path, print));
-      const endingTag = ["</", node.tag, ">"];
-
-      return group([
-        startingTag,
-        isEmpty ? "" : breakParent,
-        indent([softline, doc]),
-        softline,
-        endingTag,
-      ]);
+      return [hardline, doc, dedent(softline)];
     };
   }
+
+  return null;
 }
 
 // https://handlebarsjs.com/guide/expressions.html#literal-segments
