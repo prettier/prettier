@@ -1,6 +1,6 @@
 import { convertEndOfLineToChars } from "../common/end-of-line.js";
 import getStringWidth from "../utils/get-string-width.js";
-import { hardlineWithoutBreakParent, indent } from "./builders.js";
+import { fill, hardlineWithoutBreakParent, indent } from "./builders.js";
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,
@@ -20,6 +20,9 @@ import {
 } from "./constants.js";
 import InvalidDocError from "./invalid-doc-error.js";
 import { getDocType, propagateBreaks } from "./utils.js";
+import { ListOptimizedToPrintFill } from "./utils/list-optimized-to-print-fill.js";
+
+/** @typedef {import("./builders.js").Doc} Doc */
 
 /** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
 /** @typedef {{ ind: any, doc: any, mode: Mode }} Command */
@@ -31,8 +34,6 @@ const MODE_BREAK = Symbol("MODE_BREAK");
 const MODE_FLAT = Symbol("MODE_FLAT");
 
 const CURSOR_PLACEHOLDER = Symbol("cursor");
-
-const IS_REVERSED_FILL = Symbol("IS_REVERSED_FILL");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -462,30 +463,20 @@ function printDocToString(doc, options) {
       //   -> output the first content item and the whitespace with "break".
       case DOC_TYPE_FILL: {
         const rem = width - pos;
-        const originalLength = doc.parts.length;
 
-        // At this point we are handling the first pair (context, separator)
-        // and will create a new *mutable* fill doc for the rest of the content.
-        // Copying all the elements to a new array would make this algorithm quadratic,
-        // which is unusable for large arrays (e.g. large texts in JSX).
-        // And also, removing leading elements from the array would make the algorithm quadratic.
-        // So we use a *reversed* fill doc to use pop() to get the last element with constant cost.
+        // Naive implementation with array make this algorithm quadratic. We use specialized List.
         // https://github.com/prettier/prettier/issues/3263#issuecomment-344275152
-        const reversedDoc = doc[IS_REVERSED_FILL]
-          ? doc
-          : {
-              ...doc,
-              parts: [...doc.parts].reverse(),
-              [IS_REVERSED_FILL]: true,
-            };
-
-        const { parts } = reversedDoc;
-        if (originalLength === 0) {
+        /** @type {ListOptimizedToPrintFill} */
+        const parts =
+          doc.parts instanceof ListOptimizedToPrintFill
+            ? doc.parts
+            : new ListOptimizedToPrintFill(doc.parts);
+        if (parts.length === 0) {
           break;
         }
 
-        const content = parts.pop();
-        const whitespace = parts.pop();
+        const content = parts.at(0);
+        const whitespace = parts.at(1);
         /** @type {Command} */
         const contentFlatCmd = { ind, mode: MODE_FLAT, doc: content };
         /** @type {Command} */
@@ -499,7 +490,7 @@ function printDocToString(doc, options) {
           true,
         );
 
-        if (originalLength === 1) {
+        if (parts.length === 1) {
           if (contentFits) {
             cmds.push(contentFlatCmd);
           } else {
@@ -513,7 +504,7 @@ function printDocToString(doc, options) {
         /** @type {Command} */
         const whitespaceBreakCmd = { ind, mode: MODE_BREAK, doc: whitespace };
 
-        if (parts.length === 0) {
+        if (parts.length === 2) {
           if (contentFits) {
             cmds.push(whitespaceFlatCmd, contentFlatCmd);
           } else {
@@ -522,10 +513,12 @@ function printDocToString(doc, options) {
           break;
         }
 
-        const secondContent = parts.at(-1);
+        const secondContent = parts.at(2);
 
+        // @ts-expect-error
+        const remainingDoc = fill(parts.slice(2));
         /** @type {Command} */
-        const remainingCmd = { ind, mode, doc: reversedDoc };
+        const remainingCmd = { ind, mode, doc: remainingDoc };
 
         /** @type {Command} */
         const firstAndSecondContentFlatCmd = {
