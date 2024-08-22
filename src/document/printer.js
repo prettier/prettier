@@ -32,8 +32,6 @@ const MODE_FLAT = Symbol("MODE_FLAT");
 
 const CURSOR_PLACEHOLDER = Symbol("cursor");
 
-const IS_MUTABLE_FILL = Symbol("IS_MUTABLE_FILL");
-
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
 }
@@ -462,13 +460,24 @@ function printDocToString(doc, options) {
       //   -> output the first content item and the whitespace with "break".
       case DOC_TYPE_FILL: {
         const rem = width - pos;
+        const len = doc.parts.length;
 
-        const { parts } = doc;
-        if (parts.length === 0) {
+        let revDoc = doc;
+        if (!doc.isReversed) {
+          revDoc = {
+            ...doc,
+            parts: [...doc.parts].reverse(),
+            isReversed: true,
+          };
+        }
+
+        const { parts } = revDoc;
+        if (len === 0) {
           break;
         }
 
-        const [content, whitespace] = parts;
+        const content = parts.pop();
+        const whitespace = parts.pop();
         /** @type {Command} */
         const contentFlatCmd = { ind, mode: MODE_FLAT, doc: content };
         /** @type {Command} */
@@ -482,7 +491,7 @@ function printDocToString(doc, options) {
           true,
         );
 
-        if (parts.length === 1) {
+        if (len === 1) {
           if (contentFits) {
             cmds.push(contentFlatCmd);
           } else {
@@ -496,7 +505,7 @@ function printDocToString(doc, options) {
         /** @type {Command} */
         const whitespaceBreakCmd = { ind, mode: MODE_BREAK, doc: whitespace };
 
-        if (parts.length === 2) {
+        if (parts.length === 0) {
           if (contentFits) {
             cmds.push(whitespaceFlatCmd, contentFlatCmd);
           } else {
@@ -505,26 +514,16 @@ function printDocToString(doc, options) {
           break;
         }
 
-        const secondContent = parts[2];
+        const secondContent = parts.at(-1);
 
         // At this point we've handled the first pair (context, separator)
         // and will create a new *mutable* fill doc for the rest of the content.
         // Copying all the elements to a new array would make this algorithm quadratic,
         // which is unusable for large arrays (e.g. large texts in JSX).
         // https://github.com/prettier/prettier/issues/3263#issuecomment-344275152
-        let remainingDoc = doc;
-        if (doc[IS_MUTABLE_FILL]) {
-          parts.splice(0, 2);
-        } else {
-          remainingDoc = {
-            ...doc,
-            parts: parts.slice(2),
-            [IS_MUTABLE_FILL]: true,
-          };
-        }
 
         /** @type {Command} */
-        const remainingCmd = { ind, mode, doc: remainingDoc };
+        const remainingCmd = { ind, mode, doc: revDoc };
 
         /** @type {Command} */
         const firstAndSecondContentFlatCmd = {
