@@ -44,7 +44,7 @@ test("`printDocToString` should not manipulate docs", () => {
   }
 });
 
-describe("time complexity to print fill()", () => {
+describe("`printDocToString` has linear time complexity at most to print fill()", () => {
   const baseSize = 3_000;
   const relativeMargin = 0.3;
   const baseTime = time(makeFill(baseSize));
