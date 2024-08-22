@@ -1,7 +1,8 @@
 import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
 // 0x0 ~ 0x10ffff
-const isSingleCharRegex = /^.$/su;
+const isSingleCharRegex = /^\\?.$/su;
+const isNewLineBlockquoteRegex = /^\n *>[ >]*$/u;
 
 function preprocess(ast, options) {
   ast = restoreUnescapedCharacter(ast, options);
@@ -13,21 +14,27 @@ function preprocess(ast, options) {
 }
 
 function restoreUnescapedCharacter(ast, options) {
-  return mapAst(ast, (node) =>
-    node.type !== "text" ||
-    node.value === "*" ||
-    node.value === "_" || // handle these cases in printer
-    !isSingleCharRegex.test(node.value) ||
-    node.position.end.offset - node.position.start.offset === node.value.length
-      ? node
-      : {
-          ...node,
-          value: options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset,
-          ),
-        },
-  );
+  return mapAst(ast, (node) => {
+    const restored =
+      node.type !== "text" ||
+      node.value === "*" ||
+      node.value === "_" || // handle these cases in printer
+      !isSingleCharRegex.test(node.value) ||
+      node.position.end.offset - node.position.start.offset ===
+        node.value.length
+        ? node
+        : {
+            ...node,
+            value: options.originalText.slice(
+              node.position.start.offset,
+              node.position.end.offset,
+            ),
+          };
+    if (isNewLineBlockquoteRegex.test(restored.value)) {
+      return node;
+    }
+    return restored;
+  });
 }
 
 function mergeChildren(ast, shouldMerge, mergeNode) {
