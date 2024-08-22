@@ -22,8 +22,6 @@ import InvalidDocError from "./invalid-doc-error.js";
 import { getDocType, propagateBreaks } from "./utils.js";
 import { ListOptimizedToPrintFill } from "./utils/list-optimized-to-print-fill.js";
 
-/** @typedef {import("./builders.js").Doc} Doc */
-
 /** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
 /** @typedef {{ ind: any, doc: any, mode: Mode }} Command */
 /** @typedef {Record<symbol, Mode>} GroupModeMap */
