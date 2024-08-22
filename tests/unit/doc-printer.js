@@ -40,7 +40,7 @@ test("`printDocToString` should not manipulate docs", () => {
 
     const lines = formatted.split("\n");
     expect(lines.length).toBeGreaterThan(1000);
-    expect(endTime - startTime).toBeLessThan(1000);
+    expect(endTime - startTime).toBeLessThan(100);
   }
 });
 
