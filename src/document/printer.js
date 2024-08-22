@@ -1,6 +1,6 @@
 import { convertEndOfLineToChars } from "../common/end-of-line.js";
 import getStringWidth from "../utils/get-string-width.js";
-import { fill, hardlineWithoutBreakParent, indent } from "./builders.js";
+import { hardlineWithoutBreakParent, indent } from "./builders.js";
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,
@@ -516,7 +516,11 @@ function printDocToString(doc, options) {
         const secondContent = parts.at(2);
 
         /** @type {Command} */
-        const remainingCmd = { ind, mode, doc: fill(parts.slice(2)) };
+        const remainingCmd = {
+          ind,
+          mode,
+          doc: { ...doc, parts: parts.slice(2) },
+        };
 
         /** @type {Command} */
         const firstAndSecondContentFlatCmd = {

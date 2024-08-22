@@ -1,4 +1,3 @@
-import { ListOptimizedToPrintFill } from "./list-optimized-to-print-fill.js";
 import traverseDoc from "./traverse-doc.js";
 
 const checked = process.env.NODE_ENV !== "production" && new WeakSet();
@@ -23,10 +22,6 @@ const assertDocArray =
     ? noop
     : function (docs, optional = false) {
         if (optional && !docs) {
-          return;
-        }
-
-        if (docs instanceof ListOptimizedToPrintFill) {
           return;
         }
 
