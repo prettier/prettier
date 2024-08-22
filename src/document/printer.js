@@ -515,10 +515,8 @@ function printDocToString(doc, options) {
 
         const secondContent = parts.at(2);
 
-        // @ts-expect-error
-        const remainingDoc = fill(parts.slice(2));
         /** @type {Command} */
-        const remainingCmd = { ind, mode, doc: remainingDoc };
+        const remainingCmd = { ind, mode, doc: fill(parts.slice(2)) };
 
         /** @type {Command} */
         const firstAndSecondContentFlatCmd = {

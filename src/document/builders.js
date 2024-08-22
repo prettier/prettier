@@ -15,6 +15,8 @@ import {
 } from "./constants.js";
 import { assertDoc, assertDocArray } from "./utils/assert-doc.js";
 
+/** @typedef {import("./utils/list-optimized-to-print-fill.js").ListOptimizedToPrintFill} ListOptimizedToPrintFill */
+
 /**
  * TBD properly tagged union for Doc object type is needed here.
  *
@@ -102,7 +104,7 @@ function conditionalGroup(states, opts) {
 }
 
 /**
- * @param {Doc[]} parts
+ * @param {Doc[] | ListOptimizedToPrintFill} parts
  * @returns Doc
  */
 function fill(parts) {
