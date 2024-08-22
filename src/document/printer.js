@@ -32,6 +32,8 @@ const MODE_FLAT = Symbol("MODE_FLAT");
 
 const CURSOR_PLACEHOLDER = Symbol("cursor");
 
+const IS_REVERSED_FILL = Symbol("IS_REVERSED_FILL");
+
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
 }
@@ -460,19 +462,25 @@ function printDocToString(doc, options) {
       //   -> output the first content item and the whitespace with "break".
       case DOC_TYPE_FILL: {
         const rem = width - pos;
-        const len = doc.parts.length;
+        const originalLength = doc.parts.length;
 
-        let revDoc = doc;
-        if (!doc.isReversed) {
-          revDoc = {
-            ...doc,
-            parts: [...doc.parts].reverse(),
-            isReversed: true,
-          };
-        }
+        // At this point we are handling the first pair (context, separator)
+        // and will create a new *mutable* fill doc for the rest of the content.
+        // Copying all the elements to a new array would make this algorithm quadratic,
+        // which is unusable for large arrays (e.g. large texts in JSX).
+        // And also, removing leading elements from the array would make the algorithm quadratic.
+        // So we use a *reversed* fill doc to use pop() to get the last element with constant cost.
+        // https://github.com/prettier/prettier/issues/3263#issuecomment-344275152
+        const reversedDoc = doc[IS_REVERSED_FILL]
+          ? doc
+          : {
+              ...doc,
+              parts: [...doc.parts].reverse(),
+              [IS_REVERSED_FILL]: true,
+            };
 
-        const { parts } = revDoc;
-        if (len === 0) {
+        const { parts } = reversedDoc;
+        if (originalLength === 0) {
           break;
         }
 
@@ -491,7 +499,7 @@ function printDocToString(doc, options) {
           true,
         );
 
-        if (len === 1) {
+        if (originalLength === 1) {
           if (contentFits) {
             cmds.push(contentFlatCmd);
           } else {
@@ -516,14 +524,8 @@ function printDocToString(doc, options) {
 
         const secondContent = parts.at(-1);
 
-        // At this point we've handled the first pair (context, separator)
-        // and will create a new *mutable* fill doc for the rest of the content.
-        // Copying all the elements to a new array would make this algorithm quadratic,
-        // which is unusable for large arrays (e.g. large texts in JSX).
-        // https://github.com/prettier/prettier/issues/3263#issuecomment-344275152
-
         /** @type {Command} */
-        const remainingCmd = { ind, mode, doc: revDoc };
+        const remainingCmd = { ind, mode, doc: reversedDoc };
 
         /** @type {Command} */
         const firstAndSecondContentFlatCmd = {
