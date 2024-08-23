@@ -20,7 +20,6 @@ import {
 } from "./constants.js";
 import InvalidDocError from "./invalid-doc-error.js";
 import { getDocType, propagateBreaks } from "./utils.js";
-import { ListOptimizedToPrintFill } from "./utils/list-optimized-to-print-fill.js";
 
 /** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
 /** @typedef {{ ind: any, doc: any, mode: Mode }} Command */
@@ -32,6 +31,8 @@ const MODE_BREAK = Symbol("MODE_BREAK");
 const MODE_FLAT = Symbol("MODE_FLAT");
 
 const CURSOR_PLACEHOLDER = Symbol("cursor");
+
+const INDEX_OFFSET_OF_FILL = Symbol("INDEX_OFFSET_OF_FILL");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -462,19 +463,15 @@ function printDocToString(doc, options) {
       case DOC_TYPE_FILL: {
         const rem = width - pos;
 
-        // Naive implementation with array make this algorithm quadratic. We use specialized List.
-        // https://github.com/prettier/prettier/issues/3263#issuecomment-344275152
-        /** @type {ListOptimizedToPrintFill} */
-        const parts =
-          doc.parts instanceof ListOptimizedToPrintFill
-            ? doc.parts
-            : new ListOptimizedToPrintFill(doc.parts);
-        if (parts.length === 0) {
+        const offset = doc[INDEX_OFFSET_OF_FILL] ?? 0;
+        const { parts } = doc;
+        const length = parts.length - offset;
+        if (length === 0) {
           break;
         }
 
-        const content = parts.at(0);
-        const whitespace = parts.at(1);
+        const content = parts[offset + 0];
+        const whitespace = parts[offset + 1];
         /** @type {Command} */
         const contentFlatCmd = { ind, mode: MODE_FLAT, doc: content };
         /** @type {Command} */
@@ -488,7 +485,7 @@ function printDocToString(doc, options) {
           true,
         );
 
-        if (parts.length === 1) {
+        if (length === 1) {
           if (contentFits) {
             cmds.push(contentFlatCmd);
           } else {
@@ -502,7 +499,7 @@ function printDocToString(doc, options) {
         /** @type {Command} */
         const whitespaceBreakCmd = { ind, mode: MODE_BREAK, doc: whitespace };
 
-        if (parts.length === 2) {
+        if (length === 2) {
           if (contentFits) {
             cmds.push(whitespaceFlatCmd, contentFlatCmd);
           } else {
@@ -511,13 +508,13 @@ function printDocToString(doc, options) {
           break;
         }
 
-        const secondContent = parts.at(2);
+        const secondContent = parts[offset + 2];
 
         /** @type {Command} */
         const remainingCmd = {
           ind,
           mode,
-          doc: { ...doc, parts: parts.slice(2) },
+          doc: { ...doc, [INDEX_OFFSET_OF_FILL]: offset + 2 },
         };
 
         /** @type {Command} */
