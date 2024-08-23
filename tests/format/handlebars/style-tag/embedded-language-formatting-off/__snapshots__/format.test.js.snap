@@ -1,31 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.hbs format 1`] = `
+exports[`test.hbs - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
+embeddedLanguageFormatting: "off"
 parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div>
-  <style>
-
-
-
-  </style>
-</div>
-
-<div>
-  <style>
-
-
-    .a {
-      color: red;
-    }
-
-
-  </style>
-</div>
-
 
 <div>
   <style>
@@ -41,61 +22,20 @@ printWidth: 80
   </style>
 </div>
 
-<div>
-  <style>
-    .a { color: red; }
-  </style>
-</div>
-
-<div>
-  <style>
-    .a {
-                    color: red;
-    }
-
-    invalid css
-  </style>
-</div>
 
 =====================================output=====================================
 <div>
-  <style></style>
-</div>
-
-<div>
-  <style>
+  <style
+  >
     .a {
+
+
+
       color: red;
     }
-  </style>
-</div>
+              .b { color:     blue
 
-<div>
-  <style>
-    .a {
-      color: red;
-    }
-    .b {
-      color: blue;
-    }
-  </style>
-</div>
-
-<div>
-  <style>
-    .a {
-      color: red;
-    }
-  </style>
-</div>
-
-<div>
-  <style>
-    .a {
-                    color: red;
-    }
-
-    invalid css
+};
   </style>
 </div>
 ================================================================================
