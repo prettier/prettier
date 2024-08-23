@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.25.2",
-    "@babel/preset-env": "7.25.3",
+    "@babel/preset-env": "7.25.4",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "9.1.3",
     "concurrently": "8.2.2",
