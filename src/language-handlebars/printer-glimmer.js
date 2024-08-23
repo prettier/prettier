@@ -12,10 +12,10 @@ import {
 import { replaceEndOfLine } from "../document/utils.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
-import inferParser from "../utils/infer-parser.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
+import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
@@ -779,35 +779,6 @@ function printParams(path, print) {
 
 function printBlockParams(node) {
   return ["as |", node.blockParams.join(" "), "|"];
-}
-
-function getCssParser(path, options) {
-  if (path.parent.tag !== "style") {
-    return;
-  }
-
-  return inferParser(options, { language: "css" });
-}
-
-function embed(path, options) {
-  const { node } = path;
-
-  if (node.type === "TextNode" && path.parent.tag === "style") {
-    const parser = getCssParser(path, options);
-    if (!parser) {
-      return "";
-    }
-
-    return async (textToDoc) => {
-      const doc = await textToDoc(node.chars.trim(), { parser });
-      if (!doc) {
-        return [];
-      }
-      return [hardline, doc, dedent(softline)];
-    };
-  }
-
-  return null;
 }
 
 // https://handlebarsjs.com/guide/expressions.html#literal-segments
