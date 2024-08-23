@@ -160,7 +160,7 @@ function parseNestedCSS(node, options) {
       return node;
     }
 
-    if (value.length > 0) {
+    if (value.trim().length > 0) {
       const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
 
       if (defaultSCSSDirectiveIndex) {
