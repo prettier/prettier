@@ -110,9 +110,7 @@ function parseNestedCSS(node, options) {
         ? (node.raws.value.scss ?? node.raws.value.raw)
         : node.value;
 
-      value = value.trim();
-
-      node.raws.value = value;
+      node.raws.value = value.trim();
     }
 
     let params = "";
