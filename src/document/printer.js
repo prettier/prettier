@@ -32,7 +32,7 @@ const MODE_FLAT = Symbol("MODE_FLAT");
 
 const CURSOR_PLACEHOLDER = Symbol("cursor");
 
-const INDEX_OFFSET_OF_FILL = Symbol("INDEX_OFFSET_OF_FILL");
+const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -463,7 +463,7 @@ function printDocToString(doc, options) {
       case DOC_TYPE_FILL: {
         const rem = width - pos;
 
-        const offset = doc[INDEX_OFFSET_OF_FILL] ?? 0;
+        const offset = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
         const { parts } = doc;
         const length = parts.length - offset;
         if (length === 0) {
@@ -514,7 +514,7 @@ function printDocToString(doc, options) {
         const remainingCmd = {
           ind,
           mode,
-          doc: { ...doc, [INDEX_OFFSET_OF_FILL]: offset + 2 },
+          doc: { ...doc, [DOC_FILL_PRINTED_LENGTH]: offset + 2 },
         };
 
         /** @type {Command} */
