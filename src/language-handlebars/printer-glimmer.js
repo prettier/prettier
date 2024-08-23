@@ -158,8 +158,8 @@ function print(path, options, print) {
 
     case "TextNode": {
       // Don't format content:
-      // 1.in <pre>,
-      // 2.in <style> tags when there are CSS syntax errors
+      // 1. in `<pre>`,
+      // 2. in `<style>`
 
       if (path.parent.tag === "pre" || path.parent.tag === "style") {
         return node.chars;
