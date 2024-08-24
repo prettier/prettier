@@ -1125,14 +1125,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/config-array@npm:^0.17.1":
-  version: 0.17.1
-  resolution: "@eslint/config-array@npm:0.17.1"
+"@eslint/config-array@npm:^0.18.0":
+  version: 0.18.0
+  resolution: "@eslint/config-array@npm:0.18.0"
   dependencies:
     "@eslint/object-schema": "npm:^2.1.4"
     debug: "npm:^4.3.1"
     minimatch: "npm:^3.1.2"
-  checksum: 10/d837852445d3cfc62da5e0d94ab036aa4393751cf2ee71676df61ec77bffabaa73f87207bfa200b8d0e7e95b556704f29f35f2f22d63d1ce2e285db4a325a2df
+  checksum: 10/60ccad1eb4806710b085cd739568ec7afd289ee5af6ca0383f0876f9fe375559ef525f7b3f86bdb3f961493de952f2cf3ab4aa4a6ccaef0ae3cd688267cabcb3
   languageName: node
   linkType: hard
 
@@ -1153,10 +1153,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.9.0":
-  version: 9.9.0
-  resolution: "@eslint/js@npm:9.9.0"
-  checksum: 10/9d6e94d0334aecaa7e5c78e654297d9b11679f56c8ec1b64db122cbecf64b5a04138617e901d0c79727d03abce8a898cce4288259435bde78460ebdab202998f
+"@eslint/js@npm:9.9.1":
+  version: 9.9.1
+  resolution: "@eslint/js@npm:9.9.1"
+  checksum: 10/c3fac3389bda97e790eea03c0a0be2dc1cfb0eec3863f8c4b88033ca7bad4265e4c48abe40d4dc8f82b456a2617fc8a499b2b90837c8bd39a05ebc8cb34c3a04
   languageName: node
   linkType: hard
 
@@ -1810,9 +1810,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin-js@npm:2.6.2":
-  version: 2.6.2
-  resolution: "@stylistic/eslint-plugin-js@npm:2.6.2"
+"@stylistic/eslint-plugin-js@npm:2.6.4":
+  version: 2.6.4
+  resolution: "@stylistic/eslint-plugin-js@npm:2.6.4"
   dependencies:
     "@types/eslint": "npm:^9.6.0"
     acorn: "npm:^8.12.1"
@@ -1820,7 +1820,7 @@ __metadata:
     espree: "npm:^10.1.0"
   peerDependencies:
     eslint: ">=8.40.0"
-  checksum: 10/f99f0128b641c953a5f8b4a3d67eab492e9294d625d8f3773ab8f23a9e42e71766094e6439865ca122168d684e26fd9bec91f941714cfab098a36439ac0f6070
+  checksum: 10/a84b643737fa4f50382087a60d84bcc1b3f172be28e5871b7dedfe18b26c739a16e679811bb46af916b6c3e9541dac27a7ee9c9066080bb4b4b1a6f9ccd003bd
   languageName: node
   linkType: hard
 
@@ -3994,15 +3994,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.9.0":
-  version: 9.9.0
-  resolution: "eslint@npm:9.9.0"
+"eslint@npm:9.9.1":
+  version: 9.9.1
+  resolution: "eslint@npm:9.9.1"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
     "@eslint-community/regexpp": "npm:^4.11.0"
-    "@eslint/config-array": "npm:^0.17.1"
+    "@eslint/config-array": "npm:^0.18.0"
     "@eslint/eslintrc": "npm:^3.1.0"
-    "@eslint/js": "npm:9.9.0"
+    "@eslint/js": "npm:9.9.1"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
     "@humanwhocodes/retry": "npm:^0.3.0"
     "@nodelib/fs.walk": "npm:^1.2.8"
@@ -4039,7 +4039,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10/88616421c9cb873d8f116d1ef6aa665cc898d35361351739c8041f11c30fe004bcfa641a2b6074655393eac7e7e5f9a661675dd1c01a24cf1e65cc6b556e06b3
+  checksum: 10/d53dcfff396642cc33907b7c4a04536205f8889ae264fe105eea29de571b5923eb9b0bc6fc95b5d30414796cbe180dc93a523e0fdd4f26b2b4b4cf0195969908
   languageName: node
   linkType: hard
 
@@ -7300,12 +7300,12 @@ __metadata:
     "@babel/types": "npm:7.25.4"
     "@eslint/compat": "npm:1.1.1"
     "@eslint/eslintrc": "npm:3.1.0"
-    "@eslint/js": "npm:9.9.0"
+    "@eslint/js": "npm:9.9.1"
     "@glimmer/reference": "npm:0.92.0"
     "@glimmer/syntax": "npm:0.92.0"
     "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
-    "@stylistic/eslint-plugin-js": "npm:2.6.2"
+    "@stylistic/eslint-plugin-js": "npm:2.6.4"
     "@types/eslint__js": "npm:8.42.3"
     "@types/estree": "npm:1.0.5"
     "@types/file-entry-cache": "npm:5.0.4"
@@ -7338,7 +7338,7 @@ __metadata:
     esbuild-plugins-node-modules-polyfill: "npm:1.6.4"
     esbuild-visualizer: "npm:0.6.0"
     escape-string-regexp: "npm:5.0.0"
-    eslint: "npm:9.9.0"
+    eslint: "npm:9.9.1"
     eslint-config-prettier: "npm:9.1.0"
     eslint-formatter-friendly: "npm:7.0.0"
     eslint-plugin-compat: "npm:6.0.0"
