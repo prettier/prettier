@@ -9,6 +9,12 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
+import {
+  DOC_TYPE_FILL,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_INDENT,
+} from "../../document/constants.js";
+import { getDocType } from "../../document/utils.js";
 import isNextLineEmpty from "../../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
@@ -91,7 +97,10 @@ function printParenthesizedValueGroup(path, options, print) {
       child.type === "value-comma_group" &&
       child.groups &&
       child.groups[0].type !== "value-paren_group" &&
-      child.groups[2]?.type === "value-paren_group"
+      child.groups[2]?.type === "value-paren_group" &&
+      getDocType(doc) === DOC_TYPE_GROUP &&
+      getDocType(doc.contents) === DOC_TYPE_INDENT &&
+      getDocType(doc.contents.contents) === DOC_TYPE_FILL
     ) {
       const { parts } = doc.contents.contents;
       parts[1] = group(parts[1]);
