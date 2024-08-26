@@ -195,16 +195,6 @@ function lineBreakCanBeConvertedToSpace(path, isLink) {
 
 /**
  * @param {WordKind | undefined} kind
- * @returns {boolean} `true` if `kind` is defined and not CJK punctuation
- */
-function isLetter(kind) {
-  return (
-    kind === KIND_NON_CJK || kind === KIND_CJ_LETTER || kind === KIND_K_LETTER
-  );
-}
-
-/**
- * @param {WordKind | undefined} kind
  * @returns {boolean} `true` if `kind` is Korean letter or non-CJK
  */
 function isNonCJKOrKoreanLetter(kind) {
@@ -233,32 +223,64 @@ function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
     return value !== "";
   }
 
-  // Spaces are always breakable
-  if (value === " ") {
-    return true;
-  }
-
   /** @type {AdjacentNodes} */
   const { previous, next } = path;
 
+  if (value === " ") {
+    // We will make a breaking change to the rule to convert spaces between
+    // a Chinese or Japanese character and another character in the future.
+    // Such a space must have been always interchangeable with a line break.
+    // https://wpt.fyi/results/css/css-text/line-breaking?label=master&label=experimental&aligned&q=segment-break-transformation-rules-
+    return (
+      !previous ||
+      !next ||
+      previous.isCJ === next.isCJ ||
+      // See the same product terms as the following in lineBreakCanBeConvertedToSpace
+      (previous.kind === KIND_K_LETTER && next.kind === KIND_CJ_LETTER) ||
+      (next.kind === KIND_K_LETTER && previous.kind === KIND_CJ_LETTER)
+    );
+  }
+
   // Simulates Latin words; see https://github.com/prettier/prettier/issues/6516
-  // [Latin][""][Hangul] & vice versa => Don't break
-  // [Han & Kana][""][Hangul], either
+  // [printable][""][Hangul] & vice versa => Don't break
+  // [printable][\n][Hangul] will be interchangeable to [printable][" "][Hangul] in the future
+  // (will be compatible with Firefox's behavior)
   if (
     value === "" &&
-    ((previous?.kind === KIND_K_LETTER && isLetter(next?.kind)) ||
-      (next?.kind === KIND_K_LETTER && isLetter(previous?.kind)))
+    (previous?.kind === KIND_K_LETTER || next?.kind === KIND_K_LETTER)
+  ) {
+    return false;
+  }
+
+  // Currently, [CJK punctuation][\n][Hangul] is interchangeable to [CJK punctuation][""][Hangul],
+  // but this is not compatible with Firefox's behavior.
+  // Will be changed to [CJK punctuation][" "][Hangul] in the future
+  if (
+    value === "\n" &&
+    ((previous?.kind === KIND_K_LETTER &&
+      next?.kind === KIND_CJK_PUNCTUATION) ||
+      (next?.kind === KIND_K_LETTER && previous?.kind === KIND_CJK_PUNCTUATION))
   ) {
     return false;
   }
 
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
   const violatesCJKLineBreakingRules =
-    !canBeSpace &&
+    (value === "" || !canBeSpace) &&
     ((next && noBreakBefore.has(next.value[0])) ||
       (previous && noBreakAfter.has(previous.value.at(-1))));
 
   if (violatesCJKLineBreakingRules) {
+    return false;
+  }
+
+  // The same reason as the inside of `if (value === " ")` above.
+  if (
+    previous &&
+    next &&
+    ((previous.isCJ && next.kind === KIND_NON_CJK) ||
+      (next.isCJ && previous.kind === KIND_NON_CJK))
+  ) {
     return false;
   }
 
