@@ -39,6 +39,7 @@ async function buildPackageJson({ file, files }) {
       // Don't delete, comment out if we don't want override
       node: ">=14",
     },
+    type: "commonjs",
     exports: {
       ".": {
         types: "./index.d.ts",
