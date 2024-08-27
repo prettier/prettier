@@ -49,12 +49,10 @@ css\`
 }
 \`;
 
-markdown\`
-\${
+markdown\`\${
       foo
   /* comment */
-}
-\`;
+}\`;
 markdown\`
 \${
       foo
@@ -118,10 +116,12 @@ css\`
   }
 \`;
 
-markdown\`\${
+markdown\`
+\${
   foo
   /* comment */
-}\`;
+}
+\`;
 markdown\`
 \${
   foo
