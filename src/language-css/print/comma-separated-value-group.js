@@ -88,8 +88,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
     const iNextNode = node.groups[i + 1];
     const iNextNextNode = node.groups[i + 2];
 
-    // if the node is comment and last node print it in a line suffix
-    if (isInlineValueCommentNode(iNode) && iNextNode === undefined) {
+    // If the node is comment and last node print it in a line suffix
+    if (isInlineValueCommentNode(iNode) && !iNextNode) {
       parts.push(lineSuffix([" ", printed[i], breakParent]));
       continue;
     }
