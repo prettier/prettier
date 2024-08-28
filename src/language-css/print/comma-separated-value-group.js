@@ -438,7 +438,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
     // don't print line when the next node is a comment and last node
     // it will be printed with the comment in a  linesuffix
-    if (isInlineValueCommentNode(iNextNode) && iNextNextNode === undefined) {
+    if (isInlineValueCommentNode(iNextNode) && !iNextNextNode) {
       continue;
     }
 
