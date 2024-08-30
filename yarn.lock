@@ -3382,10 +3382,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emoji-regex@npm:10.3.0":
-  version: 10.3.0
-  resolution: "emoji-regex@npm:10.3.0"
-  checksum: 10/b9b084ebe904f13bb4b66ee4c29fb41a7a4a1165adcc33c1ce8056c0194b882cc91ebdc782f1a779b5d7ea7375c5064643a7734893d7c657b44c5c6b9d7bf1e7
+"emoji-regex@npm:10.4.0":
+  version: 10.4.0
+  resolution: "emoji-regex@npm:10.4.0"
+  checksum: 10/76bb92c5bcf0b6980d37e535156231e4a9d0aa6ab3b9f5eabf7690231d5aa5d5b8e516f36e6804cbdd0f1c23dfef2a60c40ab7bb8aedd890584281a565b97c50
   languageName: node
   linkType: hard
 
@@ -7332,7 +7332,7 @@ __metadata:
     dashify: "npm:2.0.0"
     diff: "npm:5.2.0"
     editorconfig: "npm:0.15.3"
-    emoji-regex: "npm:10.3.0"
+    emoji-regex: "npm:10.4.0"
     enquirer: "npm:2.4.1"
     esbuild: "npm:0.23.0"
     esbuild-plugins-node-modules-polyfill: "npm:1.6.4"
