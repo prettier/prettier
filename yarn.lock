@@ -4259,12 +4259,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-entry-cache@npm:9.0.0, file-entry-cache@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "file-entry-cache@npm:9.0.0"
+"file-entry-cache@npm:9.1.0, file-entry-cache@npm:^9.0.0":
+  version: 9.1.0
+  resolution: "file-entry-cache@npm:9.1.0"
   dependencies:
     flat-cache: "npm:^5.0.0"
-  checksum: 10/6b0ddc88e087e758fbc9c75e7f5f07982f02a8fc555c70561faff37ddce9f03e7273f62844beb5a0ee84685f6c62b036429227718687219a35fea57f3331f1aa
+  checksum: 10/fd67a9552f272ac4a1731c545e1350bd135e208659144cc5311baac6b8bbf55da7c8c3a0bf25c71ed78eff2bdd26d2a3a8f9ba3d8bec968fe8d1eeba6ab14a96
   languageName: node
   linkType: hard
 
@@ -7354,7 +7354,7 @@ __metadata:
     execa: "npm:7.2.0"
     fast-glob: "npm:3.3.2"
     fast-json-stable-stringify: "npm:2.1.0"
-    file-entry-cache: "npm:9.0.0"
+    file-entry-cache: "npm:9.1.0"
     find-cache-dir: "npm:5.0.0"
     flow-parser: "npm:0.244.0"
     get-east-asian-width: "npm:1.2.0"

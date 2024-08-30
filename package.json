@@ -57,7 +57,7 @@
     "espree": "10.1.0",
     "fast-glob": "3.3.2",
     "fast-json-stable-stringify": "2.1.0",
-    "file-entry-cache": "9.0.0",
+    "file-entry-cache": "9.1.0",
     "find-cache-dir": "5.0.0",
     "flow-parser": "0.244.0",
     "get-east-asian-width": "1.2.0",
