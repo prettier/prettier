@@ -163,17 +163,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-plugin-utils@npm:^7.0.0, @babel/helper-plugin-utils@npm:^7.10.4, @babel/helper-plugin-utils@npm:^7.12.13, @babel/helper-plugin-utils@npm:^7.14.5, @babel/helper-plugin-utils@npm:^7.8.0":
+"@babel/helper-plugin-utils@npm:^7.0.0, @babel/helper-plugin-utils@npm:^7.10.4, @babel/helper-plugin-utils@npm:^7.12.13, @babel/helper-plugin-utils@npm:^7.14.5, @babel/helper-plugin-utils@npm:^7.22.5, @babel/helper-plugin-utils@npm:^7.8.0":
   version: 7.24.7
   resolution: "@babel/helper-plugin-utils@npm:7.24.7"
   checksum: 10/dad51622f0123fdba4e2d40a81a6b7d6ef4b1491b2f92fd9749447a36bde809106cf117358705057a2adc8fd73d5dc090222e0561b1213dae8601c8367f5aac8
-  languageName: node
-  linkType: hard
-
-"@babel/helper-plugin-utils@npm:^7.22.5":
-  version: 7.22.5
-  resolution: "@babel/helper-plugin-utils@npm:7.22.5"
-  checksum: 10/ab220db218089a2aadd0582f5833fd17fa300245999f5f8784b10f5a75267c4e808592284a29438a0da365e702f05acb369f99e1c915c02f9f9210ec60eab8ea
   languageName: node
   linkType: hard
 
@@ -1125,14 +1118,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint-community/regexpp@npm:^4.10.0, @eslint-community/regexpp@npm:^4.6.0, @eslint-community/regexpp@npm:^4.8.0, @eslint-community/regexpp@npm:^4.9.1":
-  version: 4.10.0
-  resolution: "@eslint-community/regexpp@npm:4.10.0"
-  checksum: 10/8c36169c815fc5d726078e8c71a5b592957ee60d08c6470f9ce0187c8046af1a00afbda0a065cc40ff18d5d83f82aed9793c6818f7304a74a7488dc9f3ecbd42
-  languageName: node
-  linkType: hard
-
-"@eslint-community/regexpp@npm:^4.11.0":
+"@eslint-community/regexpp@npm:^4.10.0, @eslint-community/regexpp@npm:^4.11.0, @eslint-community/regexpp@npm:^4.6.0, @eslint-community/regexpp@npm:^4.8.0, @eslint-community/regexpp@npm:^4.9.1":
   version: 4.11.0
   resolution: "@eslint-community/regexpp@npm:4.11.0"
   checksum: 10/f053f371c281ba173fe6ee16dbc4fe544c84870d58035ccca08dba7f6ce1830d895ce3237a0db89ba37616524775dca82f1c502066b58e2d5712d7f87f5ba17c
@@ -1785,16 +1771,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.5.0":
-  version: 0.5.0
-  resolution: "@prettier/cli@npm:0.5.0"
+"@prettier/cli@npm:0.6.0":
+  version: 0.6.0
+  resolution: "@prettier/cli@npm:0.6.0"
   dependencies:
     "@iarna/toml": "npm:^2.2.5"
     atomically: "npm:^2.0.3"
     fast-ignore: "npm:^1.1.3"
     find-up-json: "npm:^2.0.4"
     function-once: "npm:^3.0.0"
-    import-meta-resolve: "npm:^4.0.0"
+    import-meta-resolve: "npm:^4.1.0"
     is-binary-path: "npm:^2.1.0"
     js-yaml: "npm:^4.1.0"
     json-sorted-stringify: "npm:^1.0.0"
@@ -1803,12 +1789,12 @@ __metadata:
     lomemo: "npm:^1.0.0"
     pioppo: "npm:^1.1.1"
     promise-resolve-timeout: "npm:^2.0.0"
-    specialist: "npm:^1.4.0"
+    specialist: "npm:^1.4.2"
     tiny-editorconfig: "npm:^1.0.0"
     tiny-jsonc: "npm:^1.0.1"
     tiny-readdir-glob: "npm:^1.22.24"
     tiny-spinner: "npm:^2.0.3"
-    worktank: "npm:^2.6.1"
+    worktank: "npm:^2.7.3"
     zeptomatch: "npm:^2.0.0"
     zeptomatch-escape: "npm:^1.0.0"
     zeptomatch-is-static: "npm:^1.0.0"
@@ -1816,7 +1802,7 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0
   bin:
     prettier-next: dist/bin.js
-  checksum: 10/3cfa74a68c942fbe67d98fd8316056c46f72feadaf3a0808117cf79726050c5ab5e6bcc3b22b89b59b8f88409f003f795ad996a08f312c390b9496eaffcdd15e
+  checksum: 10/4079b435afbb0b5f3652f7fa3d350a93d5fdd8662987d78ed82db8266db53b7b066739a82fdaf3f78ee0a402ef42d0cc8c8695a6e73da1788b17a7f3016c872c
   languageName: node
   linkType: hard
 
@@ -4339,6 +4325,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-string-truncated-width@npm:^1.0.4":
+  version: 1.1.0
+  resolution: "fast-string-truncated-width@npm:1.1.0"
+  checksum: 10/d6015594a3bd9dc9945e0ad2631dc438069267d372726399a58c2c80035545e0d3a3d116f4deea5fed2a7c7fdd10c29a20e1ccbb9933578b6866eecf5b41d12b
+  languageName: node
+  linkType: hard
+
+"fast-string-width@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "fast-string-width@npm:1.0.5"
+  dependencies:
+    fast-string-truncated-width: "npm:^1.0.4"
+  checksum: 10/4b9223ea5ed36215c5b0dbbf0ec38042140193cb31f6bbb4b035fd89948f95b5cfd997a54c812f5ba1ebcc90d0f733d53f3e37f86d1eb26930649b8eba85118e
+  languageName: node
+  linkType: hard
+
 "fastq@npm:^1.6.0":
   version: 1.15.0
   resolution: "fastq@npm:1.15.0"
@@ -4706,7 +4708,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.4.1":
+"glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.3.7, glob@npm:^10.4.1":
   version: 10.4.2
   resolution: "glob@npm:10.4.2"
   dependencies:
@@ -4719,21 +4721,6 @@ __metadata:
   bin:
     glob: dist/esm/bin.mjs
   checksum: 10/e412776b5952a818eba790c830bea161c9a56813fd767d8c4c49f855603b1fb962b3e73f1f627a47298a57d2992b9f0f2fe15cf93e74ecaaa63fb45d63fdd090
-  languageName: node
-  linkType: hard
-
-"glob@npm:^10.3.7":
-  version: 10.4.1
-  resolution: "glob@npm:10.4.1"
-  dependencies:
-    foreground-child: "npm:^3.1.0"
-    jackspeak: "npm:^3.1.2"
-    minimatch: "npm:^9.0.4"
-    minipass: "npm:^7.1.2"
-    path-scurry: "npm:^1.11.1"
-  bin:
-    glob: dist/esm/bin.mjs
-  checksum: 10/d7bb49d2b413f77bdd59fea4ca86dcc12450deee221af0ca93e09534b81b9ef68fe341345751d8ff0c5b54bad422307e0e44266ff8ad7fbbd0c200e8ec258b16
   languageName: node
   linkType: hard
 
@@ -5049,7 +5036,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-meta-resolve@npm:4.1.0, import-meta-resolve@npm:^4.0.0, import-meta-resolve@npm:^4.1.0":
+"import-meta-resolve@npm:4.1.0, import-meta-resolve@npm:^4.1.0":
   version: 4.1.0
   resolution: "import-meta-resolve@npm:4.1.0"
   checksum: 10/40162f67eb406c8d5d49266206ef12ff07b54f5fad8cfd806db9efe3a055958e9969be51d6efaf82e34b8bea6758113dcc17bb79ff148292a4badcabc3472f22
@@ -7511,7 +7498,7 @@ __metadata:
     "@eslint/js": "npm:9.9.1"
     "@glimmer/reference": "npm:0.92.0"
     "@glimmer/syntax": "npm:0.92.0"
-    "@prettier/cli": "npm:0.5.0"
+    "@prettier/cli": "npm:0.6.0"
     "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:2.6.4"
@@ -8396,15 +8383,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"specialist@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "specialist@npm:1.4.0"
+"specialist@npm:^1.4.2":
+  version: 1.4.2
+  resolution: "specialist@npm:1.4.2"
   dependencies:
-    tiny-bin: "npm:^1.7.0"
-    tiny-colors: "npm:^2.1.2"
-    tiny-parse-argv: "npm:^2.4.0"
-    tiny-updater: "npm:^3.5.1"
-  checksum: 10/99e64b933589b22292422ff0ca8b201cd4df8284fd9acc7f018cecbd2a263333cf7c11dd14a390dcfc3c613b3c53cbd9d191d3e81fb82da7b4392e10db895c6e
+    tiny-bin: "npm:^1.10.0"
+    tiny-colors: "npm:^2.2.1"
+    tiny-parse-argv: "npm:^2.7.0"
+    tiny-updater: "npm:^3.5.2"
+  checksum: 10/dffdc26732997cc0b3810fb47e43ac3141c8a4697afed86e7299bf60c49f084108fe6062850d8c5d25bf474fd0d93c9f6244ec541d04f3c6c28ff5876b043d6d
   languageName: node
   linkType: hard
 
@@ -8758,24 +8745,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-bin@npm:^1.7.0":
-  version: 1.7.0
-  resolution: "tiny-bin@npm:1.7.0"
+"tiny-bin@npm:^1.10.0":
+  version: 1.10.1
+  resolution: "tiny-bin@npm:1.10.1"
   dependencies:
     ansi-purge: "npm:^1.0.0"
+    fast-string-width: "npm:^1.0.5"
     get-current-package: "npm:^1.0.0"
-    tiny-colors: "npm:^2.1.2"
+    tiny-colors: "npm:^2.2.0"
     tiny-levenshtein: "npm:^1.0.0"
-    tiny-parse-argv: "npm:^2.3.0"
-    tiny-updater: "npm:^3.5.1"
-  checksum: 10/07f550567fdc27d4c31dbb009039f4145162b4b79cbdd5c4e6caf59cc195bb6e31a3051149a9d27a3d55ed3811b7361c45cc3f80f425375b6c20fd286c06f596
+    tiny-parse-argv: "npm:^2.7.0"
+    tiny-updater: "npm:^3.5.2"
+  checksum: 10/8675e85e6965de2521229cdad03029e200cc584381887edaa4ebcfc2f98530621a73807626bc0aac4c603f60eae2d664091006e013d16eba7078755450f6d553
   languageName: node
   linkType: hard
 
-"tiny-colors@npm:^2.0.2, tiny-colors@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "tiny-colors@npm:2.1.2"
-  checksum: 10/5c922f615302960d0e7778feed4d2e179341296e38bfa1fac2f1ca00371aaa452f78b82dd77e1cc708f2e9793e101ab56b9195c8429d9c7b7aef100b68800b80
+"tiny-colors@npm:^2.0.2, tiny-colors@npm:^2.1.2, tiny-colors@npm:^2.2.0, tiny-colors@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "tiny-colors@npm:2.2.1"
+  checksum: 10/f36901f0522b5eac5978fbdff7596650d1c60e810338e70ca7fbcf072df2ccb9a8b7fcec4bba86d899537919ca43fa6aa88b727eea308b2e8ccea82e41a35109
   languageName: node
   linkType: hard
 
@@ -8812,10 +8800,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-parse-argv@npm:^2.3.0, tiny-parse-argv@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "tiny-parse-argv@npm:2.4.0"
-  checksum: 10/92d1cb6834328399e0a073c877072a177356705d78442f71a71c8a3b9b5d15be41306265f4353cd180ff33107ccaf903fd29bbd949690004e93e24c6a00c6846
+"tiny-parse-argv@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "tiny-parse-argv@npm:2.7.0"
+  checksum: 10/738858f1d1cad89cf15029bdb9cb6a7824789f663e3892acfb84b4ca29d392646a5164cd80d4a4ee041916a3f416a288f61e976c2c6b01d093791bd6a0b2fef4
   languageName: node
   linkType: hard
 
@@ -8862,14 +8850,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-updater@npm:^3.5.1":
-  version: 3.5.1
-  resolution: "tiny-updater@npm:3.5.1"
+"tiny-updater@npm:^3.5.2":
+  version: 3.5.2
+  resolution: "tiny-updater@npm:3.5.2"
   dependencies:
     ionstore: "npm:^1.0.0"
     tiny-colors: "npm:^2.0.2"
     when-exit: "npm:^2.1.1"
-  checksum: 10/3186c9acb7d82f56d1eb862441386eec9ec65b929b9a687edc2bf8a087353648063b2b29693e641b7fb23f70d2a975b8163b21cf5a5880aaae0a043503aa57d9
+  checksum: 10/38c03907e397e9cf69110042b9138062b17c0559d7e66bbe3dc76dc2f9ba0523b13b21e3613f9b2c53a87f5e56dd6c3bd02da3a03d18f8109417a0ed1ba6198b
   languageName: node
   linkType: hard
 
@@ -9457,7 +9445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"worktank@npm:^2.6.1":
+"worktank@npm:^2.7.3":
   version: 2.7.3
   resolution: "worktank@npm:2.7.3"
   dependencies:
