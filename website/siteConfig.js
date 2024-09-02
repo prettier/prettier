@@ -78,7 +78,7 @@ const siteConfig = {
         (state, startLine) => {
           const pos = state.bMarks[startLine];
           const max = state.eMarks[startLine];
-          if (/<!-- prettier-ignore -->/.test(state.src.slice(pos, max))) {
+          if (/<!-- prettier-ignore -->/u.test(state.src.slice(pos, max))) {
             state.line += 1;
             return true;
           }

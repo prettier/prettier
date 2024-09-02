@@ -94,11 +94,11 @@ function printMemberChain(path, options, print) {
     return isNextLineEmpty(node, options);
   }
 
-  function rec(path) {
+  function rec() {
     const { node } = path;
 
     if (node.type === "ChainExpression") {
-      return path.call(() => rec(path), "expression");
+      return path.call(rec, "expression");
     }
 
     if (
@@ -122,7 +122,7 @@ function printMemberChain(path, options, print) {
           hasTrailingEmptyLine ? hardline : "",
         ],
       });
-      path.call((callee) => rec(callee), "callee");
+      path.call(rec, "callee");
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node,
@@ -135,13 +135,13 @@ function printMemberChain(path, options, print) {
           options,
         ),
       });
-      path.call((object) => rec(object), "object");
+      path.call(rec, "object");
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
         printed: printComments(path, "!", options),
       });
-      path.call((expression) => rec(expression), "expression");
+      path.call(rec, "expression");
     } else {
       printedNodes.unshift({
         node,
@@ -163,7 +163,7 @@ function printMemberChain(path, options, print) {
   });
 
   if (node.callee) {
-    path.call((callee) => rec(callee), "callee");
+    path.call(rec, "callee");
   }
 
   // Once we have a linear list of printed nodes, we want to create groups out
@@ -275,7 +275,7 @@ function printMemberChain(path, options, print) {
   // letter or just a sequence of _$. The rationale is that they are
   // likely to be factories.
   function isFactory(name) {
-    return /^[A-Z]|^[$_]+$/.test(name);
+    return /^[A-Z]|^[$_]+$/u.test(name);
   }
 
   // In case the Identifier is shorter than tab width, we can keep the

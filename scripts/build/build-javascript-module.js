@@ -9,7 +9,6 @@ import createEsmUtils from "esm-utils";
 import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
-import esbuildPluginLicense from "./esbuild-plugins/license.js";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.js";
 import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.js";
@@ -38,7 +37,7 @@ const getRelativePath = (from, to) => {
   return relativePath;
 };
 
-function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
+function getEsbuildOptions({ file, files, cliOptions }) {
   // Save dependencies to file
   file.dependencies = [];
 
@@ -68,7 +67,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       process(text) {
         const exports = [
           ...text.matchAll(
-            /(?<=\n)exports\.(?<specifier>\w+) = \k<specifier>;/g,
+            /(?<=\n)exports\.(?<specifier>\w+) = \k<specifier>;/gu,
           ),
         ].map((match) => match.groups.specifier);
 
@@ -112,7 +111,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
       module: require.resolve("tslib"),
-      path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
+      path: require.resolve("tslib").replace(/tslib\.js$/u, "tslib.es6.js"),
     },
     // https://github.com/evanw/esbuild/issues/2103
     {
@@ -231,14 +230,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         replacements: [...replaceModule, ...(buildOptions.replaceModule ?? [])],
       }),
       file.platform === "universal" && esbuildPluginNodeModulePolyfills(),
-      shouldCollectLicenses &&
-        esbuildPluginLicense({
-          cwd: PROJECT_ROOT,
-          thirdParty: {
-            includePrivate: true,
-            output: (dependencies) => file.dependencies.push(...dependencies),
-          },
-        }),
       cliOptions.reports &&
         esbuildPluginVisualizer({ formats: cliOptions.reports }),
       esbuildPluginThrowWarnings({
@@ -262,6 +253,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       // https://github.com/evanw/esbuild/issues/3471
       "regexp-unicode-property-escapes": true,
     },
+    packages: "bundle",
   };
 
   if (file.platform === "universal") {
@@ -291,7 +283,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
 
 async function runEsbuild(options) {
   const esbuildOptions = getEsbuildOptions(options);
-  await esbuild.build(esbuildOptions);
+  return { esbuildResult: await esbuild.build(esbuildOptions) };
 }
 
 export default runEsbuild;

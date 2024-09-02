@@ -18,7 +18,7 @@ describe("throw error for unsupported extension", () => {
 describe("throw error with invalid config format", () => {
   runCli("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
     status: "non-zero",
-    stderr: expect.stringMatching(/Cannot find package '--invalid--'/),
+    stderr: expect.stringMatching(/Cannot find package '--invalid--'/u),
   });
 });
 
@@ -126,17 +126,16 @@ describe("Invalid toml file", () => {
     stdout: "",
     write: [],
     stderr: expect.stringContaining(
-      /* cSpell:disable */
       outdent`
-        Unexpected character, expecting string, number, datetime, boolean, inline array or inline table at row 1, col 4, pos 3:
-        1> a=
+        Invalid TOML document: incomplete key-value declaration: no value specified
+
+        1:  a=
               ^
-        2:   b!=
+        2:    b!=
       `
         .split("\n")
         .map((line) => `[error] ${line}`)
         .join("\n"),
-      /* cSpell:enable */
     ),
   });
 });

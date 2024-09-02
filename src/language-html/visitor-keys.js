@@ -14,6 +14,8 @@ const visitorKeys = {
   angularControlFlowBlock: ["children", "parameters"],
   angularControlFlowBlockParameters: ["children"],
   angularControlFlowBlockParameter: [],
+  angularLetDeclaration: ["init"],
+  angularLetDeclarationInitializer: [],
   angularIcuExpression: ["cases"],
   angularIcuCase: ["expression"],
 };

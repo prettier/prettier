@@ -7,7 +7,7 @@ function embed(path, options) {
   if (
     node.type === "root" &&
     options.filepath &&
-    /(?:[/\\]|^)\.(?:prettier|stylelint|lintstaged)rc$/.test(options.filepath)
+    /(?:[/\\]|^)\.(?:prettier|stylelint|lintstaged)rc$/u.test(options.filepath)
   ) {
     return async (textToDoc) => {
       const doc = await textToDoc(options.originalText, { parser: "json" });

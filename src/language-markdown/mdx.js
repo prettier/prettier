@@ -22,11 +22,11 @@
  * THE SOFTWARE.
  */
 
-const IMPORT_REGEX = /^import\s/;
-const EXPORT_REGEX = /^export\s/;
+const IMPORT_REGEX = /^import\s/u;
+const EXPORT_REGEX = /^export\s/u;
 const BLOCKS_REGEX = String.raw`[a-z][a-z0-9]*(\.[a-z][a-z0-9]*)*|`;
-const COMMENT_REGEX = /<!---->|<!---?[^>-](?:-?[^-])*-->/;
-const ES_COMMENT_REGEX = /^{\s*\/\*(.*)\*\/\s*}/;
+const COMMENT_REGEX = /<!---->|<!---?[^>-](?:-?[^-])*-->/u;
+const ES_COMMENT_REGEX = /^\{\s*\/\*(.*)\*\/\s*\}/u;
 const EMPTY_NEWLINE = "\n\n";
 
 const isImport = (text) => IMPORT_REGEX.test(text);

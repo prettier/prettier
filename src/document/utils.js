@@ -235,7 +235,7 @@ function stripTrailingHardlineFromDoc(doc) {
       return stripTrailingHardlineFromParts(doc);
 
     case DOC_TYPE_STRING:
-      return doc.replace(/[\n\r]*$/, "");
+      return doc.replace(/[\n\r]*$/u, "");
 
     case DOC_TYPE_ALIGN:
     case DOC_TYPE_CURSOR:

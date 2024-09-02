@@ -5,8 +5,7 @@ import semver from "semver";
 import { logPromise, readJson, runGit, runYarn, writeJson } from "../utils.js";
 
 async function format() {
-  await runYarn(["lint:eslint", "--fix"]);
-  await runYarn(["lint:prettier", "--write"]);
+  await runYarn(["fix:prettier"]);
 }
 
 // Only add commit to `.git-blame-ignore-revs` when files except `package.json` and `yarn.lock` changed
@@ -66,6 +65,6 @@ export default async function bumpPrettier(params) {
     "Installing Prettier",
     runYarn(["add", "--dev", `prettier@${version}`]),
   );
-  await logPromise("Updating files", format());
+  await logPromise("Formatting files", format());
   await logPromise("Committing changed files", commit(params));
 }

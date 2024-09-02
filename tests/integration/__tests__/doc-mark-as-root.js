@@ -18,7 +18,7 @@ describe("markAsRoot", () => {
       "\n  123",
     ],
     [
-      "followed by trim will trims up to the the first column, ignoring indented root",
+      "followed by trim will trims up to the first column, ignoring indented root",
       [indent(markAsRoot(indent(literalline))), trim, "123"],
       "\n123",
     ],

@@ -30,7 +30,7 @@ const copyFileBuilder = ({ file }) =>
 function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
   let input = jsFileInput;
   if (!isPlugin) {
-    input = jsFileInput.replace(/\.[cm]?js$/, ".d.ts");
+    input = jsFileInput.replace(/\.[cm]?js$/u, ".d.ts");
 
     if (!fs.existsSync(path.join(PROJECT_ROOT, input))) {
       return;
@@ -159,7 +159,7 @@ const pluginFiles = [
       {
         module: "*",
         process(text, file) {
-          if (/require\(["'](?:typescript|ts-api-utils)["']\)/.test(text)) {
+          if (/require\(["'](?:typescript|ts-api-utils)["']\)/u.test(text)) {
             throw new Error(`Unexpected \`require("typescript")\` in ${file}.`);
           }
 
@@ -274,7 +274,7 @@ const pluginFiles = [
         process(text) {
           const typescriptVariables = [
             ...text.matchAll(
-              /import (?<variable>\w+) from ["']typescript["']/g,
+              /import (?<variable>\w+) from ["']typescript["']/gu,
             ),
           ].map((match) => match.groups.variable);
 
@@ -282,13 +282,13 @@ const pluginFiles = [
           text = text.replaceAll(
             new RegExp(
               `".*?" in (?:${typescriptVariables.join("|")})(?=\\W)`,
-              "g",
+              "gu",
             ),
             "true",
           );
 
           text = text.replaceAll(
-            /(?<=import )(?=\w+ from ["']typescript["'])/g,
+            /(?<=import )(?=\w+ from ["']typescript["'])/gu,
             "* as ",
           );
           return text;
@@ -373,7 +373,7 @@ const pluginFiles = [
       ].map((file) => ({
         module: getPackageFile(`@angular/compiler/esm2022/src/${file}`),
         process: (text) =>
-          text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/g, "'$1.mjs'"),
+          text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/gu, "'$1.mjs'"),
       })),
     ],
   },
@@ -468,7 +468,7 @@ const pluginFiles = [
             "const LOCAL_DEBUG = false &&",
           );
 
-          text = text.replace(/(?<=\n)export .*?;/, "export { preprocess };");
+          text = text.replace(/(?<=\n)export .*?;/u, "export { preprocess };");
 
           return text;
         },
@@ -488,7 +488,7 @@ const pluginFiles = [
 
   let { input, umdPropertyName, outputBaseName, ...buildOptions } = file;
 
-  outputBaseName ??= input.match(/\/plugins\/(?<outputBaseName>.*?)\.js$/)
+  outputBaseName ??= input.match(/\/plugins\/(?<outputBaseName>.*?)\.js$/u)
     .groups.outputBaseName;
 
   const umdVariableName = `prettierPlugins.${
@@ -582,11 +582,6 @@ const nodejsFiles = [
   {
     input: "src/index.js",
     replaceModule: [
-      {
-        module: require.resolve("@iarna/toml/lib/toml-parser.js"),
-        find: "const utilInspect = eval(\"require('util').inspect\")",
-        replacement: "const utilInspect = require('util').inspect",
-      },
       // `editorconfig` use a older version of `semver` and only uses `semver.gte`
       {
         module: require.resolve("editorconfig"),

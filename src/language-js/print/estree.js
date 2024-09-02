@@ -299,7 +299,7 @@ function printEstree(path, options, print, args) {
     case "UnaryExpression":
       parts.push(node.operator);
 
-      if (/[a-z]$/.test(node.operator)) {
+      if (/[a-z]$/u.test(node.operator)) {
         parts.push(" ");
       }
 

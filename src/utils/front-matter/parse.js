@@ -43,7 +43,7 @@ function getFrontMatter(text) {
   const frontMatterEndIndex = endDelimiterIndex + 1 + DELIMITER_LENGTH;
 
   const nextCharacter = text.charAt(frontMatterEndIndex + 1);
-  if (!/\s?/.test(nextCharacter)) {
+  if (!/\s?/u.test(nextCharacter)) {
     return;
   }
 
@@ -71,7 +71,7 @@ function parse(text) {
 
   return {
     frontMatter,
-    content: raw.replaceAll(/[^\n]/g, " ") + text.slice(raw.length),
+    content: raw.replaceAll(/[^\n]/gu, " ") + text.slice(raw.length),
   };
 }
 

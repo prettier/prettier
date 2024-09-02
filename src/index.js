@@ -1,5 +1,5 @@
 // "fast-glob" and `createTwoFilesPatch` are bundled here since the API uses `micromatch` and `diff` too
-import { createTwoFilesPatch } from "diff/lib/patch/create.js";
+import { createTwoFilesPatch } from "diff";
 import fastGlob from "fast-glob";
 import * as vnopts from "vnopts";
 

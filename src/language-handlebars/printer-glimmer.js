@@ -166,7 +166,7 @@ function print(path, options, print) {
       if (attrName) {
         // TODO: format style and srcset attributes
         if (attrName === "class") {
-          const formattedClasses = text.trim().split(/\s+/).join(" ");
+          const formattedClasses = text.trim().split(/\s+/u).join(" ");
 
           let leadingSpace = false;
           let trailingSpace = false;
@@ -174,13 +174,13 @@ function print(path, options, print) {
           if (path.parent.type === "ConcatStatement") {
             if (
               path.previous?.type === "MustacheStatement" &&
-              /^\s/.test(text)
+              /^\s/u.test(text)
             ) {
               leadingSpace = true;
             }
             if (
               path.next?.type === "MustacheStatement" &&
-              /\s$/.test(text) &&
+              /\s$/u.test(text) &&
               formattedClasses !== ""
             ) {
               trailingSpace = true;
@@ -667,14 +667,14 @@ function countNewLines(string) {
 function countLeadingNewLines(string) {
   /* c8 ignore next */
   string = typeof string === "string" ? string : "";
-  const newLines = (string.match(/^([^\S\n\r]*[\n\r])+/g) || [])[0] || "";
+  const newLines = (string.match(/^([^\S\n\r]*[\n\r])+/gu) || [])[0] || "";
   return countNewLines(newLines);
 }
 
 function countTrailingNewLines(string) {
   /* c8 ignore next */
   string = typeof string === "string" ? string : "";
-  const newLines = (string.match(/([\n\r][^\S\n\r]*)+$/g) || [])[0] || "";
+  const newLines = (string.match(/([\n\r][^\S\n\r]*)+$/gu) || [])[0] || "";
   return countNewLines(newLines);
 }
 
@@ -789,8 +789,8 @@ const isPathExpressionPartNeedBrackets = (part, index) => {
 
   return (
     (index !== 0 && PATH_EXPRESSION_FORBIDDEN_IN_FIRST_PART.has(part)) ||
-    /\s/.test(part) ||
-    /^\d/.test(part) ||
+    /\s/u.test(part) ||
+    /^\d/u.test(part) ||
     Array.prototype.some.call(part, (character) =>
       PATH_EXPRESSION_FORBIDDEN_CHARACTERS.has(character),
     )

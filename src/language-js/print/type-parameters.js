@@ -26,6 +26,11 @@ import {
   shouldHugType,
 } from "./type-annotation.js";
 
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js").default} AstPath
+ */
+
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 // Keep comma if the file extension not `.ts` and
@@ -38,10 +43,13 @@ function shouldForceTrailingComma(path, options, paramsKey) {
     node.type.startsWith("TS") &&
     !node[paramsKey][0].constraint &&
     path.parent.type === "ArrowFunctionExpression" &&
-    !(options.filepath && /\.ts$/.test(options.filepath))
+    !(options.filepath && /\.ts$/u.test(options.filepath))
   );
 }
 
+/**
+ * @param {AstPath} path
+ */
 function printTypeParameters(path, options, print, paramsKey) {
   const { node } = path;
 
@@ -54,8 +62,7 @@ function printTypeParameters(path, options, print, paramsKey) {
     return print(paramsKey);
   }
 
-  const grandparent = path.getNode(2);
-  const isParameterInTestCall = grandparent && isTestCall(grandparent);
+  const isParameterInTestCall = isTestCall(path.grandparent);
 
   const isArrowFunctionVariable = path.match(
     (node) =>
@@ -123,7 +130,7 @@ function printTypeParameter(path, options, print) {
   const { node, parent } = path;
 
   /**
-   * @type {import("../../document/builders.js").Doc[]}
+   * @type {Doc[]}
    */
   const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
 

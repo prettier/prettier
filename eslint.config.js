@@ -134,6 +134,7 @@ export default [
       "prefer-rest-params": "error",
       "prefer-spread": "error",
       "require-await": "error",
+      "require-unicode-regexp": "error",
       "symbol-description": "error",
       yoda: [
         "error",
@@ -149,9 +150,7 @@ export default [
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
 
-      // @typescript-eslint/eslint-plugin
-      "@typescript-eslint/prefer-ts-expect-error": "error",
-
+      /* @stylistic/eslint-plugin-js */
       "@stylistic/js/quotes": [
         "error",
         "double",
@@ -160,7 +159,10 @@ export default [
         },
       ],
 
-      // eslint-plugin-import
+      /* @typescript-eslint/eslint-plugin */
+      "@typescript-eslint/prefer-ts-expect-error": "error",
+
+      /* eslint-plugin-import */
       "import/no-extraneous-dependencies": [
         "error",
         {
@@ -174,10 +176,10 @@ export default [
         },
       ],
 
-      // eslint-plugin-n
+      /* eslint-plugin-n */
       "n/no-path-concat": "error",
 
-      // eslint-plugin-regexp
+      /* eslint-plugin-regexp */
       "regexp/match-any": [
         "error",
         {
@@ -200,8 +202,6 @@ export default [
           strictTypes: false,
         },
       ],
-      // Conflicting with `unicorn/better-regex`
-      "regexp/strict": "off",
       "regexp/no-super-linear-backtracking": "off",
       "regexp/unicode-property": [
         "error",
@@ -216,10 +216,11 @@ export default [
         },
       ],
 
+      /* eslint-plugin-simple-import-sort */
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
 
-      // eslint-plugin-unicorn
+      /* eslint-plugin-unicorn */
       "unicorn/escape-case": "off",
       "unicorn/catch-error-name": "off",
       "unicorn/consistent-destructuring": "off",

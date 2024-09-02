@@ -1,5 +1,4 @@
-// Use `diff/lib/diff/array.js` instead of `diff` to reduce bundle size
-import { diffArrays } from "diff/lib/diff/array.js";
+import { diffArrays } from "diff";
 
 import {
   convertEndOfLineToChars,
@@ -143,7 +142,7 @@ async function formatRange(originalText, opts) {
     rangeStart,
     text.lastIndexOf("\n", rangeStart) + 1,
   );
-  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
+  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/u)[0];
 
   const alignmentSize = getAlignmentSize(indentString, opts.tabWidth);
 

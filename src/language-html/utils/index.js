@@ -16,7 +16,7 @@ import {
 import isUnknownNamespace from "./is-unknown-namespace.js";
 
 const htmlTrimLeadingBlankLines = (string) =>
-  string.replaceAll(/^[\t\f\r ]*\n/g, "");
+  string.replaceAll(/^[\t\f\r ]*\n/gu, "");
 const htmlTrimPreserveIndentation = (string) =>
   htmlTrimLeadingBlankLines(htmlWhitespaceUtils.trimEnd(string));
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
@@ -473,7 +473,7 @@ function getNodeCssStyleDisplay(node, options) {
 
   if (node.prev?.type === "comment") {
     // <!-- display: block -->
-    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
+    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/u);
     if (match) {
       return match[1];
     }

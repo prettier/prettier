@@ -5,13 +5,13 @@ const pragmas = ["format", "prettier"];
 function startWithPragma(text) {
   const pragma = `@(${pragmas.join("|")})`;
   const regex = new RegExp(
-    // eslint-disable-next-line regexp/match-any -- possible bug
+    // eslint-disable-next-line regexp/match-any
     [
       `<!--\\s*${pragma}\\s*-->`,
-      `{\\s*\\/\\*\\s*${pragma}\\s*\\*\\/\\s*}`,
+      `\\{\\s*\\/\\*\\s*${pragma}\\s*\\*\\/\\s*\\}`,
       `<!--.*\r?\n[\\s\\S]*(^|\n)[^\\S\n]*${pragma}[^\\S\n]*($|\n)[\\s\\S]*\n.*-->`,
     ].join("|"),
-    "m",
+    "mu",
   );
   const matched = text.match(regex);
   return matched?.index === 0;

@@ -92,7 +92,7 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
   return mapAst(ast, (node, index, parentStack) => {
     if (node.type === "code") {
       // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
-      const isIndented = /^\n?(?: {4,}|\t)/.test(
+      const isIndented = /^\n?(?: {4,}|\t)/u.test(
         options.originalText.slice(
           node.position.start.offset,
           node.position.end.offset,
@@ -155,7 +155,7 @@ function markAlignedList(ast, options) {
 
     const [firstItem, secondItem] = list.children;
 
-    const firstInfo = getOrderedListItemInfo(firstItem, options.originalText);
+    const firstInfo = getOrderedListItemInfo(firstItem, options);
 
     if (firstInfo.leadingSpaces.length > 1) {
       /**
@@ -224,7 +224,7 @@ function markAlignedList(ast, options) {
      * 1. 123
      * 2. 123
      */
-    const secondInfo = getOrderedListItemInfo(secondItem, options.originalText);
+    const secondInfo = getOrderedListItemInfo(secondItem, options);
     return secondInfo.leadingSpaces.length > 1;
   }
 }

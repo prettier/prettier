@@ -590,6 +590,11 @@ function hasSpaces(
   options?: SkipOptions,
 ): boolean;
 
+function getPreferredQuote(
+  text: string,
+  preferredQuoteOrPreferSingleQuote: Quote | boolean,
+): Quote;
+
 function makeString(
   rawText: string,
   enclosingQuote: Quote,
