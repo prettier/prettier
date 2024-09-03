@@ -19,6 +19,12 @@ describe("visitor keys", () => {
     { name: "remark", visitorKeys: remarkVisitorKeys },
     { name: "yaml", visitorKeys: yamlVisitorKeys },
   ])("$name", ({ visitorKeys }) => {
+    visitorKeys = Object.fromEntries(
+      Object.entries(visitorKeys).map(([type, keys]) => [
+        type,
+        [...keys].sort(),
+      ]),
+    );
     expect(visitorKeys).toMatchSnapshot();
   });
 });
