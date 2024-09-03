@@ -9,13 +9,13 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
-import { assertDocArray } from "../../document/utils/assert-doc.js";
 import {
   DOC_TYPE_FILL,
   DOC_TYPE_GROUP,
   DOC_TYPE_INDENT,
 } from "../../document/constants.js";
 import { getDocType } from "../../document/utils.js";
+import { assertDocArray } from "../../document/utils/assert-doc.js";
 import isNextLineEmpty from "../../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
