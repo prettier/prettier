@@ -1558,9 +1558,9 @@ proseWrap: "always"
     - bar
 
 =====================================output=====================================
-1.  foo
+1. foo
 
-    - bar
+   - bar
 
 ================================================================================
 `;
@@ -4274,11 +4274,11 @@ proseWrap: "always"
     > A block quote.
 
 =====================================output=====================================
-1.  A paragraph with two lines.
+1. A paragraph with two lines.
 
-        indented code
+       indented code
 
-    > A block quote.
+   > A block quote.
 
 ================================================================================
 `;
@@ -4371,9 +4371,9 @@ proseWrap: "always"
 >>     two
 
 =====================================output=====================================
-> > 1.  one
+> > 1. one
 > >
-> >     two
+> >    two
 
 ================================================================================
 `;
@@ -4494,15 +4494,15 @@ proseWrap: "always"
     > bam
 
 =====================================output=====================================
-1.  foo
+1. foo
 
-    \`\`\`
-    bar
-    \`\`\`
+   \`\`\`
+   bar
+   \`\`\`
 
-    baz
+   baz
 
-    > bam
+   > bam
 
 ================================================================================
 `;
@@ -4705,11 +4705,11 @@ proseWrap: "always"
        more code
 
 =====================================output=====================================
-1.      indented code
+1.     indented code
 
-    paragraph
+   paragraph
 
-        more code
+       more code
 
 ================================================================================
 `;
@@ -4728,11 +4728,11 @@ proseWrap: "always"
        more code
 
 =====================================output=====================================
-1.       indented code
+1.      indented code
 
-    paragraph
+   paragraph
 
-        more code
+       more code
 
 ================================================================================
 `;
@@ -4898,11 +4898,11 @@ proseWrap: "always"
      > A block quote.
 
 =====================================output=====================================
-1.  A paragraph with two lines.
+1. A paragraph with two lines.
 
-        indented code
+       indented code
 
-    > A block quote.
+   > A block quote.
 
 ================================================================================
 `;
@@ -4922,11 +4922,11 @@ proseWrap: "always"
       > A block quote.
 
 =====================================output=====================================
-1.  A paragraph with two lines.
+1. A paragraph with two lines.
 
-        indented code
+       indented code
 
-    > A block quote.
+   > A block quote.
 
 ================================================================================
 `;
@@ -4946,11 +4946,11 @@ proseWrap: "always"
        > A block quote.
 
 =====================================output=====================================
-1.  A paragraph with two lines.
+1. A paragraph with two lines.
 
-        indented code
+       indented code
 
-    > A block quote.
+   > A block quote.
 
 ================================================================================
 `;
@@ -4995,11 +4995,11 @@ with two lines.
       > A block quote.
 
 =====================================output=====================================
-1.  A paragraph with two lines.
+1. A paragraph with two lines.
 
-              indented code
+             indented code
 
-          > A block quote.
+         > A block quote.
 
 ================================================================================
 `;
@@ -5015,7 +5015,7 @@ proseWrap: "always"
     with two lines.
 
 =====================================output=====================================
-1.  A paragraph with two lines.
+1. A paragraph with two lines.
 
 ================================================================================
 `;

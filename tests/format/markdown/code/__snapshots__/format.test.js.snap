@@ -215,13 +215,13 @@ proseWrap: "always"
 
 <!-- prettier/prettier#3459 -->
 
-1.  Change to your home directory:
+1. Change to your home directory:
 
-        cd
+       cd
 
-2.  List the contents:
+2. List the contents:
 
-        ls -l
+       ls -l
 
 ================================================================================
 `;
