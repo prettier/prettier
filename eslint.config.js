@@ -1,6 +1,5 @@
 import url from "node:url";
 
-import { fixupPluginRules } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
 import eslintPluginJs from "@eslint/js";
 import eslintPluginStylisticJs from "@stylistic/eslint-plugin-js";
@@ -19,9 +18,6 @@ import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-pre
 
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
 const compat = new FlatCompat({ baseDirectory: toPath("./") });
-eslintPluginReactConfigRecommended.plugins.react = fixupPluginRules(
-  eslintPluginReactConfigRecommended.plugins.react,
-);
 
 const ignores = `
 .tmp

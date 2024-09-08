@@ -1125,13 +1125,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/compat@npm:1.1.1":
-  version: 1.1.1
-  resolution: "@eslint/compat@npm:1.1.1"
-  checksum: 10/9004697701e9e9a7749d9e37452ee965af3620af46796ac0ee196478bbda490c780d17686c2888353c2a12d764837fa71c027c3ca18b1c3af6136105caa93642
-  languageName: node
-  linkType: hard
-
 "@eslint/config-array@npm:^0.18.0":
   version: 0.18.0
   resolution: "@eslint/config-array@npm:0.18.0"
@@ -7285,7 +7278,6 @@ __metadata:
     "@babel/generator": "npm:7.25.6"
     "@babel/parser": "npm:7.25.6"
     "@babel/types": "npm:7.25.6"
-    "@eslint/compat": "npm:1.1.1"
     "@eslint/eslintrc": "npm:3.1.0"
     "@eslint/js": "npm:9.10.0"
     "@glimmer/reference": "npm:0.92.0"
