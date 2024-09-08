@@ -30,7 +30,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "18.2.1",
+    "@angular/compiler": "18.2.3",
     "@babel/code-frame": "7.24.7",
     "@babel/parser": "7.25.6",
     "@babel/types": "7.25.6",
@@ -83,7 +83,7 @@
     "outdent": "0.8.0",
     "parse-json": "8.1.0",
     "please-upgrade-node": "3.2.0",
-    "postcss": "8.4.41",
+    "postcss": "8.4.45",
     "postcss-less": "6.0.0",
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "4.0.9",
