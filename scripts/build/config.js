@@ -131,10 +131,15 @@ const pluginFiles = [
           "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js",
         ),
         process: (text) =>
-          text.replace(
-            'require("path")',
-            '{extname: file => "." + file.split(".").pop()}',
-          ),
+          text
+            .replace(
+              'require("path")',
+              '{extname: file => "." + file.split(".").pop()}',
+            )
+            .replace(
+              'require("node:path")',
+              '{extname: file => "." + file.split(".").pop()}',
+            ),
       },
       {
         module: getPackageFile(
