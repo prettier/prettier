@@ -1,7 +1,6 @@
 export default {
   entry: ["index.js", "standalone.js", "src/plugins/*", "scripts/**"],
   ignore: [
-    "bin/prettier.js",
     "tests/**",
     "website/**",
     "**/*.d.ts",
