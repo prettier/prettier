@@ -384,7 +384,6 @@ export {
   printClosingTag,
   printClosingTagEnd,
   printClosingTagEndMarker,
-  printClosingTagStart,
   printClosingTagStartMarker,
   printClosingTagSuffix,
   printOpeningTag,
