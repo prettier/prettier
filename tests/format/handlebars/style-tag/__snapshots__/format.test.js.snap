@@ -63,8 +63,7 @@ printWidth: 80
   <style>
 
 
-    .a {
-      color: red;
+    .a {color: red;
     }
 
 
@@ -132,8 +131,7 @@ printWidth: 80
   <style lang="css">
 
 
-    .a {
-      color: red;
+    .a { color: red;
     }
 
 
@@ -145,8 +143,7 @@ printWidth: 80
   <style lang="css">
 
 
-    .a {
-      color: red;
+    .a { color: red;
     }
 
 
@@ -165,8 +162,7 @@ printWidth: 80
   <style lang>
 
 
-    .a {
-      color: red;
+    .a {color: red;
     }
 
 
@@ -194,8 +190,7 @@ printWidth: 80
   <style lang="unknown">
 
 
-    .a {
-      color: red;
+    .a {color: red;
     }
 
 
