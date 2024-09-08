@@ -9,7 +9,6 @@ export default {
     "scripts/tools/**",
   ],
   ignoreDependencies: [
-    "@types/jest",
     "eslint-formatter-friendly",
     "jest-snapshot-serializer-ansi",
     "ts-expect",

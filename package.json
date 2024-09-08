@@ -114,7 +114,6 @@
     "@types/eslint__js": "8.42.3",
     "@types/estree": "1.0.5",
     "@types/file-entry-cache": "5.0.4",
-    "@types/jest": "29.5.12",
     "@typescript-eslint/eslint-plugin": "8.4.0",
     "benchmark": "2.1.4",
     "browserslist": "4.23.3",
