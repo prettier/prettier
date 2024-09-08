@@ -1,5 +1,5 @@
 export default {
-  entry: ["index.js", "standalone.js", "src/plugins/*", "scripts/**"],
+  entry: ["src/plugins/*", "scripts/**"],
   ignore: [
     "tests/**",
     "website/**",
