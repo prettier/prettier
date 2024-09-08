@@ -114,6 +114,14 @@ export default function esbuildPluginThrowWarnings({
             continue;
           }
 
+          if (
+            warning.id === "package.json" &&
+            warning.text ===
+              'The condition "default" here will never be used as it comes after both "import" and "require"'
+          ) {
+            continue;
+          }
+
           console.log(warning);
           throw new Error(warning.text);
         }
