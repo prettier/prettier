@@ -94,4 +94,7 @@ const visitorKeys = Object.fromEntries(
   ]),
 );
 
+// Babel will remove this in v8
+delete visitorKeys.DecimalLiteral;
+
 export default visitorKeys;

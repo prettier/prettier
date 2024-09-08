@@ -4,7 +4,6 @@
 runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
   errors: {
     acorn: [
-      "decimal.js",
       "decorators.js",
       "destructuring-private.js",
       "do-expressions.js",
@@ -36,7 +35,6 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "optional-chaining-assignment.js",
     ],
     espree: [
-      "decimal.js",
       "decorators.js",
       "destructuring-private.js",
       "do-expressions.js",
@@ -68,7 +66,6 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "optional-chaining-assignment.js",
     ],
     meriyah: [
-      "decimal.js",
       "do-expressions.js",
       "destructuring-private.js",
       "export-default-from.js",
