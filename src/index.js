@@ -25,6 +25,7 @@ import {
   normalizeOptionSettings,
 } from "./main/support.js";
 import { createIsIgnoredFunction } from "./utils/ignore.js";
+import inferParser from "./utils/infer-parser.js";
 import isNonEmptyArray from "./utils/is-non-empty-array.js";
 import omit from "./utils/object-omit.js";
 import partition from "./utils/partition.js";
@@ -113,6 +114,7 @@ const debugApis = {
   printToDoc: withPlugins(core.printToDoc),
   printDocToString: withPlugins(core.printDocToString),
   mockable,
+  inferParser: withPlugins(inferParser, /* optionsArgumentIndex */ 0),
 };
 
 export {

@@ -153,6 +153,9 @@ const options = {
   debugPrintDoc: {
     type: "boolean",
   },
+  debugPrintLoclessAst: {
+    type: "boolean",
+  },
   debugRepeat: {
     // Repeat the formatting a few times and measure the average duration.
     default: 0,

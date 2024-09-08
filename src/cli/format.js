@@ -131,6 +131,59 @@ async function format(context, input, opt) {
     };
   }
 
+  if (context.argv.debugPrintLoclessAst) {
+    const { ast } = await prettier.__debug.parse(input, opt);
+    const parser =
+      context.argv.parser ??
+      (await prettier.__debug.inferParser(opt, {
+        physicalFile: opt.filepath,
+      }));
+    const locationKeys = new Set();
+    switch (parser) {
+      case "html":
+      case "vue":
+      case "angular":
+      case "lwc":
+        locationKeys
+          .add("sourceSpan")
+          .add("startSourceSpan")
+          .add("endSourceSpan")
+          .add("nameSpan");
+        break;
+      case "babel":
+      case "babel-flow":
+      case "babel-ts":
+      case "flow":
+      case "typescript":
+      case "espree":
+      case "meriyah":
+      case "acorn":
+      case "json":
+      case "json5":
+      case "json-stringify":
+      case "graphql":
+        locationKeys.add("loc").add("tokens");
+        break;
+      case "css":
+      case "scss":
+      case "less":
+        locationKeys.add("source");
+        break;
+      case "markdown":
+      case "mdx":
+      case "yaml":
+        locationKeys.add("position");
+        break;
+    }
+    return {
+      formatted: JSON.stringify(ast, (key, value) => {
+        if (!locationKeys.has(key)) {
+          return value;
+        }
+      }),
+    };
+  }
+
   if (context.argv.debugCheck) {
     const pp = await prettier.format(input, opt);
     const pppp = await prettier.format(pp, opt);
