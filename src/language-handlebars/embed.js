@@ -20,6 +20,19 @@ function embed(path /*, options*/) {
     return;
   }
 
+  const languageAttribute = parent.attributes.find(
+    (attribute) => attribute.type === "AttrNode" && attribute.name === "lang",
+  );
+  if (
+    languageAttribute &&
+    !(
+      languageAttribute.value.type === "TextNode" &&
+      languageAttribute.value.chars !== "css"
+    )
+  ) {
+    return;
+  }
+
   return async (textToDoc) => {
     const doc = await textToDoc(node.chars, { parser: "css" });
     if (!doc) {
