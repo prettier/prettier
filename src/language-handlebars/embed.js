@@ -27,7 +27,8 @@ function embed(path /*, options*/) {
     languageAttribute &&
     !(
       languageAttribute.value.type === "TextNode" &&
-      languageAttribute.value.chars !== "css"
+      (languageAttribute.value.chars === "" ||
+        languageAttribute.value.chars === "css")
     )
   ) {
     return;
