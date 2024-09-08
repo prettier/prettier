@@ -1136,7 +1136,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:3.1.0, @eslint/eslintrc@npm:^3.1.0":
+"@eslint/eslintrc@npm:^3.1.0":
   version: 3.1.0
   resolution: "@eslint/eslintrc@npm:3.1.0"
   dependencies:
@@ -4603,6 +4603,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"globals@npm:15.9.0":
+  version: 15.9.0
+  resolution: "globals@npm:15.9.0"
+  checksum: 10/19bca70131c5d3e0d4171deed0f8ae16adda19f18d39b67421056f1eaa160b4433c3ffc8eb69b8b19adebbbdad4834d8a0494c5fe1ae295f0f769a5c0331d794
+  languageName: node
+  linkType: hard
+
 "globals@npm:^11.1.0":
   version: 11.12.0
   resolution: "globals@npm:11.12.0"
@@ -7278,7 +7285,6 @@ __metadata:
     "@babel/generator": "npm:7.25.6"
     "@babel/parser": "npm:7.25.6"
     "@babel/types": "npm:7.25.6"
-    "@eslint/eslintrc": "npm:3.1.0"
     "@eslint/js": "npm:9.10.0"
     "@glimmer/reference": "npm:0.92.0"
     "@glimmer/syntax": "npm:0.92.0"
@@ -7338,6 +7344,7 @@ __metadata:
     flow-parser: "npm:0.244.0"
     get-east-asian-width: "npm:1.2.0"
     get-stdin: "npm:9.0.0"
+    globals: "npm:15.9.0"
     graphql: "npm:16.9.0"
     hermes-parser: "npm:0.23.1"
     html-element-attributes: "npm:3.4.0"
