@@ -387,7 +387,7 @@ const SyntaxSection = () => (
           Limited edition tshirts are now available to buy! $10 per tshirt goes
           to maintain the project.
         </p>
-        <img width={860} src="/images/syntaxfm/1.png" />
+        <img width={860} src="/images/syntaxfm/1.webp" />
       </div>
     </div>
   </a>
