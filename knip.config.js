@@ -6,7 +6,7 @@ export default {
       ignore: [
         "scripts/build/config.js",
         "scripts/build/build-javascript-module.js",
-        "scripts/**",
+        "scripts/tools/**",
       ],
       ignoreDependencies: [
         "eslint-formatter-friendly",
@@ -16,7 +16,6 @@ export default {
       ignoreBinaries: ["test-coverage", "renovate-config-validator"],
     },
     website: {
-      // Knip doesn't have a Docusaurus plugin yet so until then manual entries:
       entry: [
         "siteConfig.js",
         "core/Footer.js",
