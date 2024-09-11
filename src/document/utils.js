@@ -191,6 +191,28 @@ function removeLines(doc) {
   return mapDoc(doc, removeLinesFn);
 }
 
+function stripTrailingHardlineFromFillParts(parts) {
+  parts = [...parts];
+  if (parts.length % 2 === 0) {
+    // Make parts to be odd length
+    parts.push("");
+  }
+  while (parts.length > 0) {
+    const lastPart = cleanDoc(stripTrailingHardlineFromDoc(parts.at(-1)));
+    parts[parts.length - 1] = lastPart;
+    if (lastPart !== "" || parts.length < 2) {
+      break;
+    }
+    const linePart = cleanDoc(stripTrailingHardlineFromDoc(parts.at(-2)));
+    parts[parts.length - 2] = linePart;
+    if (linePart !== "") {
+      break;
+    }
+    parts.length -= 2;
+  }
+  return parts;
+}
+
 function stripTrailingHardlineFromParts(parts) {
   parts = [...parts];
 
@@ -229,7 +251,7 @@ function stripTrailingHardlineFromDoc(doc) {
       };
 
     case DOC_TYPE_FILL:
-      return { ...doc, parts: stripTrailingHardlineFromParts(doc.parts) };
+      return { ...doc, parts: stripTrailingHardlineFromFillParts(doc.parts) };
 
     case DOC_TYPE_ARRAY:
       return stripTrailingHardlineFromParts(doc);

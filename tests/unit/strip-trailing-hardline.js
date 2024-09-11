@@ -4,7 +4,7 @@ import { stripTrailingHardline } from "../../src/document/utils.js";
 test("Should not mutate doc", () => {
   {
     const original = fill(["text", [hardline]]);
-    expect(stripTrailingHardline(original)).toStrictEqual(fill(["text", []]));
+    expect(stripTrailingHardline(original)).toStrictEqual(fill(["text"]));
     expect(original.parts.length).toBe(2);
   }
 
