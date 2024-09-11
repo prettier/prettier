@@ -1,4 +1,4 @@
-import { fill, hardline } from "../../src/document/builders.js";
+import { fill, hardline, line } from "../../src/document/builders.js";
 import { stripTrailingHardline } from "../../src/document/utils.js";
 
 test("Should not mutate doc", () => {
@@ -17,4 +17,30 @@ test("Should not mutate doc", () => {
 
 test("Should work for strings", () => {
   expect(stripTrailingHardline("\ntext\n\n\r\r\r\n\r\n")).toBe("\ntext");
+});
+
+test("Should work for fill()", () => {
+  expect(stripTrailingHardline(fill(["text", hardline, "\n"]))).toStrictEqual(
+    fill(["text"]),
+  );
+
+  expect(
+    stripTrailingHardline(
+      fill([
+        "text",
+        line,
+        "text",
+        line,
+        "\n",
+        hardline,
+        "\n\n",
+        [hardline, hardline, hardline],
+        "",
+        hardline,
+        [],
+        hardline,
+        "\n",
+      ]),
+    ),
+  ).toStrictEqual(fill(["text", line, "text", line, ""]));
 });
