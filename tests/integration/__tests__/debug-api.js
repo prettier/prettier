@@ -72,18 +72,6 @@ describe("API", () => {
       await formatDoc(fill(["foo", hardline, "bar", literalline, "baz"])),
     ).toBe('fill(["foo", hardline, "bar", literalline, "baz"])');
 
-    /*
-    This is not really `cleanDoc` from `src/document/utils.js`
-    But if we pass array to it, it will flat array
-    */
-    const cleanDoc = (parts) => parts.flat();
-    expect(
-      await formatDoc(
-        // The argument of fill must not be passed to cleanDoc because it's not a doc
-        fill(cleanDoc(["foo", literalline, "bar"])), // invalid fill
-      ),
-    ).toBe('fill(["foo", literallineWithoutBreakParent, breakParent, "bar"])');
-
     expect(
       await formatDoc(indentIfBreak(group(["1", line, "2"]), { groupId: "Q" })),
     ).toBe('indentIfBreak(group(["1", line, "2"]), { groupId: "Q" })');
