@@ -9,5 +9,5 @@ const errors = {
 runFormatTest(import.meta, ["babel", "flow", "typescript"], { errors });
 runFormatTest(import.meta, ["babel", "flow", "typescript"], {
   errors,
-  experimentalOperatorPosition: true,
+  experimentalOperatorPosition: "start",
 });

@@ -281,7 +281,7 @@ function printBinaryishExpressions(
           "right",
         )
       : print("right");
-    if (options.experimentalOperatorPosition) {
+    if (options.experimentalOperatorPosition === "start") {
       let comment = "";
       if (commentBeforeOperator) {
         switch (getDocType(rightContent)) {
@@ -322,7 +322,7 @@ function printBinaryishExpressions(
     right = group(right, { shouldBreak });
   }
 
-  if (options.experimentalOperatorPosition) {
+  if (options.experimentalOperatorPosition === "start") {
     parts.push(shouldInline || commentBeforeOperator ? " " : "", right);
   } else {
     parts.push(lineBeforeOperator ? "" : " ", right);

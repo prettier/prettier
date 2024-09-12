@@ -60,10 +60,10 @@ exports[`show external options with \`--help\` 1`] = `
 - First value
 + Second value
 
-@@ -26,16 +26,18 @@
-                             Defaults to lf.
-    --no-experimental-operator-position
-                             Default behavior; when binary expressions wrap lines, keep operators at the end of previous lines.
+@@ -27,16 +27,18 @@
+    --experimental-operator-position <start|end>
+                             Where to print operators when binary expressions wrap lines.
+                             Defaults to end.
     --no-experimental-ternaries
                              Default behavior of ternaries; keep question marks on the same line as the consequent.
 +   --foo-option <bar|baz>   foo description

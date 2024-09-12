@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`arrow.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -105,9 +105,9 @@ function f2() {
 ================================================================================
 `;
 
-exports[`bitwise-flags.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`bitwise-flags.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -150,9 +150,9 @@ const all = FLAG_A | FLAG_B | FLAG_C;
 ================================================================================
 `;
 
-exports[`call.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`call.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -411,9 +411,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comment.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`comment.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -702,9 +702,9 @@ a +
 ================================================================================
 `;
 
-exports[`equality.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`equality.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -763,9 +763,9 @@ x !== y !== z;
 ================================================================================
 `;
 
-exports[`exp.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`exp.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -824,9 +824,9 @@ a ** (b * c);
 ================================================================================
 `;
 
-exports[`if.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`if.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -903,9 +903,9 @@ if (
 ================================================================================
 `;
 
-exports[`in_instanceof.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`in_instanceof.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1220,9 +1220,9 @@ typeof (0 instanceof bar);
 ================================================================================
 `;
 
-exports[`inline-jsx.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`inline-jsx.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1297,9 +1297,9 @@ const avatar2 = (hasAvatar || showPlaceholder) && (
 ================================================================================
 `;
 
-exports[`inline-object-array.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`inline-object-array.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1686,9 +1686,9 @@ const obj = {
 ================================================================================
 `;
 
-exports[`jsx_parent.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`jsx_parent.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1855,9 +1855,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`like-regexp.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`like-regexp.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1884,9 +1884,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`math.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`math.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1997,9 +1997,9 @@ x & (y >> z);
 ================================================================================
 `;
 
-exports[`return.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`return.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2092,9 +2092,9 @@ function foo3() {
 ================================================================================
 `;
 
-exports[`short-right.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`short-right.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2186,9 +2186,9 @@ defaultContent.filter((defaultLocale) => {
 ================================================================================
 `;
 
-exports[`test.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`test.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2424,7 +2424,7 @@ exports[`tuple-and-record.js [typescript] format 1`] = `
 Cause: Invalid character."
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [acorn] format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [acorn] format 1`] = `
 "Unexpected character '[' (6:15)
   4 | ]
   5 |
@@ -2436,7 +2436,7 @@ exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [acorn] for
 Cause: Unexpected character '[' (6:14)"
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [espree] format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [espree] format 1`] = `
 "Unexpected character '[' (6:15)
   4 | ]
   5 |
@@ -2448,7 +2448,7 @@ exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [espree] fo
 Cause: Unexpected character '['"
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [flow] format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [flow] format 1`] = `
 "Unexpected token \`#\`, expected an identifier (6:14)
   4 | ]
   5 |
@@ -2459,7 +2459,7 @@ exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [flow] form
   9 | ]"
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [meriyah] format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [meriyah] format 1`] = `
 "'#' not followed by identifier (6:14)
   4 | ]
   5 |
@@ -2471,7 +2471,7 @@ exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [meriyah] f
 Cause: [6:14]: '#' not followed by identifier"
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [typescript] format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [typescript] format 1`] = `
 "Invalid character. (6:14)
   4 | ]
   5 |
@@ -2483,9 +2483,9 @@ exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} [typescript
 Cause: Invalid character."
 `;
 
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -2584,9 +2584,9 @@ foo = foo || #{
 ================================================================================
 `;
 
-exports[`unary.js - {"experimentalOperatorPosition":true} format 1`] = `
+exports[`unary.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
-experimentalOperatorPosition: true
+experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

@@ -194,11 +194,16 @@ exports[`show detailed usage with --help end-of-line (write) 1`] = `[]`;
 exports[`show detailed usage with --help experimental-operator-position (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help experimental-operator-position (stdout) 1`] = `
-"--experimental-operator-position
+"--experimental-operator-position <start|end>
 
-  When binary expressions wrap lines, put operators at the start of new lines.
+  Where to print operators when binary expressions wrap lines.
 
-Default: false"
+Valid options:
+
+  start   Print operators at the start of new lines.
+  end     Print operators at the end of previous lines.
+
+Default: end"
 `;
 
 exports[`show detailed usage with --help experimental-operator-position (write) 1`] = `[]`;
@@ -392,16 +397,6 @@ exports[`show detailed usage with --help no-error-on-unmatched-pattern (stdout) 
 `;
 
 exports[`show detailed usage with --help no-error-on-unmatched-pattern (write) 1`] = `[]`;
-
-exports[`show detailed usage with --help no-experimental-operator-position (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help no-experimental-operator-position (stdout) 1`] = `
-"--no-experimental-operator-position
-
-  Default behavior; when binary expressions wrap lines, keep operators at the end of previous lines."
-`;
-
-exports[`show detailed usage with --help no-experimental-operator-position (write) 1`] = `[]`;
 
 exports[`show detailed usage with --help no-experimental-ternaries (stderr) 1`] = `""`;
 

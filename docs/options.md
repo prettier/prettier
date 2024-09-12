@@ -26,12 +26,12 @@ Valid options:
 
 Valid options:
 
-- `true` - When binary expressions wrap lines, put operators at the start of new lines.
-- `false` - Default behavior; when binary expressions wrap lines, keep operators at the end of previous lines.
+- `"start"` - When binary expressions wrap lines, print operators at the start of new lines.
+- `"end"` - Default behavior; when binary expressions wrap lines, print operators at the end of previous lines.
 
-| Default | CLI Override                       | API Override                           |
-| ------- | ---------------------------------- | -------------------------------------- |
-| `false` | `--experimental-operator-position` | `experimentalOperatorPosition: <bool>` |
+| Default | CLI Override                                                   | API Override                                                  |
+| ------- | -------------------------------------------------------------- | ------------------------------------------------------------- |
+| `"end"` | <code>--experimental-operator-position <start&#124;end></code> | <code>experimentalOperatorPosition: "<start&#124;end>"</code> |
 
 ## Print Width
 
