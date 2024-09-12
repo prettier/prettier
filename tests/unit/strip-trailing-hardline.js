@@ -42,5 +42,5 @@ test("Should work for fill()", () => {
         "\n",
       ]),
     ),
-  ).toStrictEqual(fill(["text", line, "text", line, ""]));
+  ).toStrictEqual(fill(["text", line, "text", line]));
 });
