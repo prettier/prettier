@@ -13,11 +13,7 @@ import {
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
   DOC_TYPE_TRIM,
 } from "./constants.js";
-import {
-  assertDoc,
-  assertDocArray,
-  assertDocFill,
-} from "./utils/assert-doc.js";
+import { assertDoc, assertDocArray } from "./utils/assert-doc.js";
 
 /**
  * TBD properly tagged union for Doc object type is needed here.
@@ -110,7 +106,7 @@ function conditionalGroup(states, opts) {
  * @returns Doc
  */
 function fill(parts) {
-  assertDocFill(parts);
+  assertDocArray(parts);
 
   return { type: DOC_TYPE_FILL, parts };
 }
