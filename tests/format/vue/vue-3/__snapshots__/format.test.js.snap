@@ -39,27 +39,27 @@ extends string &
 
 
 =====================================output=====================================
-<script setup lang="ts" generic="T"></script>
+<script setup lang="ts" generic='T'></script>
 
 <script
   setup
   lang="ts"
-  generic="T extends Type1 & Type2 & (Type3 | Type4), U"
+  generic='T extends Type1 & Type2 & (Type3 | Type4), U'
 ></script>
 
 <script
   setup
   lang="ts"
-  generic="
+  generic='
     T extends Type1 & Type2 & (Type3 | Type4),
     U extends string | number | boolean
-  "
+  '
 ></script>
 
 <script
   setup
   lang="ts"
-  generic="
+  generic='
     T extends
       | 'loooooooooooooooooooooooooooooooooong'
       | 'looooooooooooooooooooooooooooooooooong',
@@ -80,13 +80,13 @@ extends string &
       >
     >,
     C
-  "
+  '
 ></script>
 
 <script
   setup
   lang="ts"
-  generic="
+  generic='
     // comment 1:
     T extends string &
       'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooong',
@@ -95,7 +95,7 @@ extends string &
      */
     U extends number, // comment 3
     /** comment 4 */ C extends MyType
-  "
+  '
 ></script>
 
 <template>
@@ -137,14 +137,14 @@ printWidth: 80
 
 =====================================output=====================================
 <script setup></script>
-<script setup="foo"></script>
-<script setup="{ row }"></script>
+<script setup='foo'></script>
+<script setup='{ row }'></script>
 <script
-  setup="{
+  setup='{
     destructuring: {
       a: { b },
     },
-  }"
+  }'
 ></script>
 
 <!-- Not script -->
@@ -191,14 +191,14 @@ printWidth: 80
 
 =====================================output=====================================
 <style vars></style>
-<style vars="foo"></style>
-<style vars="{ row }"></style>
+<style vars='foo'></style>
+<style vars='{ row }'></style>
 <style
-  vars="{
+  vars='{
     destructuring: {
       a: { b },
     },
-  }"
+  }'
 ></style>
 
 <!-- Not style -->

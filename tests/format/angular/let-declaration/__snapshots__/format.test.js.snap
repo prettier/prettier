@@ -69,7 +69,7 @@ printWidth: 80
   @let nested = value;
 }
 
-<div *ngIf="condition">
+<div *ngIf='condition'>
   @let nestedNgIf = value;
 </div>
 

@@ -66,7 +66,7 @@ trailingComma: "all"
 
 =====================================output=====================================
 <div
-  (action)="
+  (action)='
     ({
       long,
       long,
@@ -81,8 +81,8 @@ trailingComma: "all"
       object,
       property,
     })
-  "
-  (action)="
+  '
+  (action)='
     ([
       long,
       long,
@@ -97,8 +97,8 @@ trailingComma: "all"
       array,
       element,
     ])
-  "
-  (action)="
+  '
+  (action)='
     call(
       long,
       long,
@@ -113,8 +113,8 @@ trailingComma: "all"
       call,
       argument
     )
-  "
-  [binding]="{
+  '
+  [binding]='{
     long,
     long,
     long,
@@ -127,8 +127,8 @@ trailingComma: "all"
     long,
     object,
     property,
-  }"
-  [binding]="[
+  }'
+  [binding]='[
     long,
     long,
     long,
@@ -141,8 +141,8 @@ trailingComma: "all"
     long,
     array,
     element,
-  ]"
-  [binding]="
+  ]'
+  [binding]='
     call(
       long,
       long,
@@ -157,8 +157,8 @@ trailingComma: "all"
       call,
       argument
     )
-  "
-  *directive="{
+  '
+  *directive='{
     long,
     long,
     long,
@@ -171,8 +171,8 @@ trailingComma: "all"
     long,
     object,
     property,
-  }"
-  *directive="[
+  }'
+  *directive='[
     long,
     long,
     long,
@@ -185,8 +185,8 @@ trailingComma: "all"
     long,
     array,
     element,
-  ]"
-  *directive="
+  ]'
+  *directive='
     call(
       long,
       long,
@@ -201,7 +201,7 @@ trailingComma: "all"
       call,
       argument
     )
-  "
+  '
 ></div>
 
 ================================================================================
@@ -273,7 +273,7 @@ trailingComma: "es5"
 
 =====================================output=====================================
 <div
-  (action)="
+  (action)='
     ({
       long,
       long,
@@ -288,8 +288,8 @@ trailingComma: "es5"
       object,
       property,
     })
-  "
-  (action)="
+  '
+  (action)='
     ([
       long,
       long,
@@ -304,8 +304,8 @@ trailingComma: "es5"
       array,
       element,
     ])
-  "
-  (action)="
+  '
+  (action)='
     call(
       long,
       long,
@@ -320,8 +320,8 @@ trailingComma: "es5"
       call,
       argument
     )
-  "
-  [binding]="{
+  '
+  [binding]='{
     long,
     long,
     long,
@@ -334,8 +334,8 @@ trailingComma: "es5"
     long,
     object,
     property,
-  }"
-  [binding]="[
+  }'
+  [binding]='[
     long,
     long,
     long,
@@ -348,8 +348,8 @@ trailingComma: "es5"
     long,
     array,
     element,
-  ]"
-  [binding]="
+  ]'
+  [binding]='
     call(
       long,
       long,
@@ -364,8 +364,8 @@ trailingComma: "es5"
       call,
       argument
     )
-  "
-  *directive="{
+  '
+  *directive='{
     long,
     long,
     long,
@@ -378,8 +378,8 @@ trailingComma: "es5"
     long,
     object,
     property,
-  }"
-  *directive="[
+  }'
+  *directive='[
     long,
     long,
     long,
@@ -392,8 +392,8 @@ trailingComma: "es5"
     long,
     array,
     element,
-  ]"
-  *directive="
+  ]'
+  *directive='
     call(
       long,
       long,
@@ -408,7 +408,7 @@ trailingComma: "es5"
       call,
       argument
     )
-  "
+  '
 ></div>
 
 ================================================================================
@@ -480,7 +480,7 @@ trailingComma: "none"
 
 =====================================output=====================================
 <div
-  (action)="
+  (action)='
     ({
       long,
       long,
@@ -495,8 +495,8 @@ trailingComma: "none"
       object,
       property
     })
-  "
-  (action)="
+  '
+  (action)='
     ([
       long,
       long,
@@ -511,8 +511,8 @@ trailingComma: "none"
       array,
       element
     ])
-  "
-  (action)="
+  '
+  (action)='
     call(
       long,
       long,
@@ -527,8 +527,8 @@ trailingComma: "none"
       call,
       argument
     )
-  "
-  [binding]="{
+  '
+  [binding]='{
     long,
     long,
     long,
@@ -541,8 +541,8 @@ trailingComma: "none"
     long,
     object,
     property
-  }"
-  [binding]="[
+  }'
+  [binding]='[
     long,
     long,
     long,
@@ -555,8 +555,8 @@ trailingComma: "none"
     long,
     array,
     element
-  ]"
-  [binding]="
+  ]'
+  [binding]='
     call(
       long,
       long,
@@ -571,8 +571,8 @@ trailingComma: "none"
       call,
       argument
     )
-  "
-  *directive="{
+  '
+  *directive='{
     long,
     long,
     long,
@@ -585,8 +585,8 @@ trailingComma: "none"
     long,
     object,
     property
-  }"
-  *directive="[
+  }'
+  *directive='[
     long,
     long,
     long,
@@ -599,8 +599,8 @@ trailingComma: "none"
     long,
     array,
     element
-  ]"
-  *directive="
+  ]'
+  *directive='
     call(
       long,
       long,
@@ -615,7 +615,7 @@ trailingComma: "none"
       call,
       argument
     )
-  "
+  '
 ></div>
 
 ================================================================================

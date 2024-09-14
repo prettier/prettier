@@ -121,7 +121,7 @@ printWidth: 80
       Found <ph
         id="0"
         equiv="INTERPOLATION"
-        disp="{{ response.getItemsList().length }}"
+        disp='{{ response.getItemsList().length }}'
       /> results
     }
   }</bar>

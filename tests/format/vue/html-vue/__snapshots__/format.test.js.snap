@@ -321,7 +321,7 @@ printWidth: 80
 <!doctype html>
 <html>
   <body>
-    <div v-if="foo === 'foo'"></div>
+    <div v-if='foo === 'foo''></div>
     <script>
       new Vue({ el: "#app" });
     </script>
@@ -367,7 +367,7 @@ new Vue({el: '#app'})
 <!doctype html>
 <html>
   <body>
-    <div v-if="foo === 'foo'"></div>
+    <div v-if='foo === 'foo''></div>
     <script>
       new Vue({ el: "#app" });
     </script>
@@ -414,7 +414,7 @@ printWidth: 80
 =====================================output=====================================
 <html>
   <body>
-    <div v-if="foo === 'foo'"></div>
+    <div v-if='foo === 'foo''></div>
     <script>
       new Vue({ el: "#app" });
     </script>

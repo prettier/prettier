@@ -394,7 +394,7 @@ printWidth: 80
   width="250"
   height="200"
   behavior="alternate"
-  style="border: solid"
+  style='border: solid'
 >
   <marquee behavior="alternate">This text will bounce</marquee>
 </marquee>
@@ -432,7 +432,7 @@ printWidth: 80
   width="250"
   height="200"
   behavior="alternate"
-  style="border: solid"
+  style='border: solid'
 >
   <marquee behavior="alternate"> This text will bounce </marquee>
 </marquee>
@@ -463,7 +463,7 @@ printWidth: Infinity
 
 <marquee direction="up">This text will scroll from bottom to top</marquee>
 
-<marquee direction="down" width="250" height="200" behavior="alternate" style="border: solid">
+<marquee direction="down" width="250" height="200" behavior="alternate" style='border: solid'>
   <marquee behavior="alternate">This text will bounce</marquee>
 </marquee>
 
@@ -519,9 +519,9 @@ printWidth: 1
   width="250"
   height="200"
   behavior="alternate"
-  style="
+  style='
     border: solid;
-  "
+  '
 >
   <marquee
     behavior="alternate"
@@ -565,7 +565,7 @@ printWidth: 80
   width="250"
   height="200"
   behavior="alternate"
-  style="border: solid"
+  style='border: solid'
 >
   <marquee behavior="alternate">This text will bounce</marquee>
 </marquee>
@@ -2934,9 +2934,9 @@ printWidth: 80
 </div>
 <ul>
   123
-  <li class="foo" id="bar">First</li>
+  <li class='foo' id="bar">First</li>
   456
-  <li class="baz">Second</li>
+  <li class='baz'>Second</li>
   789
 </ul>
 <span>
@@ -3027,9 +3027,9 @@ printWidth: 80
   .
 </div>
 <span>
-  <i class="fa fa-refresh fa-spin" />
-  <i class="fa fa-refresh fa-spin" />
-  <i class="fa fa-refresh fa-spin" />
+  <i class='fa fa-refresh fa-spin' />
+  <i class='fa fa-refresh fa-spin' />
+  <i class='fa fa-refresh fa-spin' />
 </span>
 
 <!-- #5810 -->
@@ -3283,8 +3283,8 @@ printWidth: 80
   <div>string</div>
 </div>
 <ul
-  >123<li class="foo" id="bar">First</li
-  >456<li class="baz">Second</li
+  >123<li class='foo' id="bar">First</li
+  >456<li class='baz'>Second</li
   >789</ul
 >
 <span>*<b>200</b></span>
@@ -3346,9 +3346,9 @@ printWidth: 80
   <strong>seddoeiusmod</strong>.
 </div>
 <span>
-  <i class="fa fa-refresh fa-spin" />
-  <i class="fa fa-refresh fa-spin" />
-  <i class="fa fa-refresh fa-spin" />
+  <i class='fa fa-refresh fa-spin' />
+  <i class='fa fa-refresh fa-spin' />
+  <i class='fa fa-refresh fa-spin' />
 </span>
 
 <!-- #5810 -->
@@ -3563,9 +3563,9 @@ printWidth: Infinity
 </div>
 <ul>
   123
-  <li class="foo" id="bar">First</li>
+  <li class='foo' id="bar">First</li>
   456
-  <li class="baz">Second</li>
+  <li class='baz'>Second</li>
   789
 </ul>
 <span>*<b>200</b></span>
@@ -3609,9 +3609,9 @@ printWidth: Infinity
   <strong>seddoeiusmod</strong>.
 </div>
 <span>
-  <i class="fa fa-refresh fa-spin" />
-  <i class="fa fa-refresh fa-spin" />
-  <i class="fa fa-refresh fa-spin" />
+  <i class='fa fa-refresh fa-spin' />
+  <i class='fa fa-refresh fa-spin' />
+  <i class='fa fa-refresh fa-spin' />
 </span>
 
 <!-- #5810 -->
@@ -3989,14 +3989,14 @@ printWidth: 1
 <ul>
   123
   <li
-    class="foo"
+    class='foo'
     id="bar"
   >
     First
   </li>
   456
   <li
-    class="baz"
+    class='baz'
   >
     Second
   </li>
@@ -4138,13 +4138,13 @@ printWidth: 1
 </div>
 <span>
   <i
-    class="fa fa-refresh fa-spin"
+    class='fa fa-refresh fa-spin'
   />
   <i
-    class="fa fa-refresh fa-spin"
+    class='fa fa-refresh fa-spin'
   />
   <i
-    class="fa fa-refresh fa-spin"
+    class='fa fa-refresh fa-spin'
   />
 </span>
 
@@ -4431,9 +4431,9 @@ printWidth: 80
 </div>
 <ul>
   123
-  <li class="foo" id="bar">First</li>
+  <li class='foo' id="bar">First</li>
   456
-  <li class="baz">Second</li>
+  <li class='baz'>Second</li>
   789
 </ul>
 <span>*<b>200</b></span>
@@ -4495,9 +4495,9 @@ printWidth: 80
   <strong>seddoeiusmod</strong>.
 </div>
 <span>
-  <i class="fa fa-refresh fa-spin" />
-  <i class="fa fa-refresh fa-spin" />
-  <i class="fa fa-refresh fa-spin" />
+  <i class='fa fa-refresh fa-spin' />
+  <i class='fa fa-refresh fa-spin' />
+  <i class='fa fa-refresh fa-spin' />
 </span>
 
 <!-- #5810 -->
