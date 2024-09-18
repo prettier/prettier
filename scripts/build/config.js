@@ -350,9 +350,14 @@ const pluginFiles = [
   {
     input: "src/plugins/meriyah.js",
     replaceModule: [
+      // Use non-minified version so we can replace code easier
       {
-        // We don't use value of JSXText
         module: resolveEsmModulePath("meriyah"),
+        path: getPackageFile("meriyah/dist/meriyah.mjs"),
+      },
+      // We don't use value of JSXText
+      {
+        module: getPackageFile("meriyah/dist/meriyah.mjs"),
         find: "parser.tokenValue = decodeHTMLStrict(raw);",
         replacement: "parser.tokenValue = raw;",
       },
