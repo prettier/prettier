@@ -98,3 +98,6 @@ jobs:
 
       - name: Check File Changes
         run: echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
+
+      - name: Knip
+        run: yarn lint:knip
