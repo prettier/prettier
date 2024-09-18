@@ -27,7 +27,8 @@ function transform(original, file) {
           PROJECT_ROOT,
           "node_modules/@typescript-eslint/typescript-estree/",
         ),
-      )
+      ) ||
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/meriyah/"))
     )
   ) {
     return original;
