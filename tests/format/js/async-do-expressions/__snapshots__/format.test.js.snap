@@ -21,13 +21,13 @@ Cause: Unexpected token do"
 `;
 
 exports[`async-do-expressions.js [meriyah] format 1`] = `
-"Unexpected token: 'do' (1:8)
+"Unexpected token: 'do' (1:7)
 > 1 | async do {
-    |        ^
+    |       ^^
   2 |   1;
   3 | };
   4 |
-Cause: [1:8]: Unexpected token: 'do'"
+Cause: [1:6-1:8]: Unexpected token: 'do'"
 `;
 
 exports[`async-do-expressions.js format 1`] = `

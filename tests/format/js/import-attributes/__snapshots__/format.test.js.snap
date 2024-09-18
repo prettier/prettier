@@ -105,7 +105,7 @@ exports[`keyword-detect.js [meriyah] format 1`] = `
   2 | import {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
   3 | import "./test.json" /* with */ assert /* with */  { type: "json" }
   4 | import {} from "./test.json" /* with */ assert /* with */  { type: "json" }
-Cause: [1:69]: Invalid binding in JSON import"
+Cause: [1:68-1:69]: Invalid binding in JSON import"
 `;
 
 exports[`keyword-detect.js format 1`] = `
@@ -242,7 +242,7 @@ exports[`multi-types.js [meriyah] format 1`] = `
 > 1 | import json from "./foo.json" with { type: "json", type: "bar" };
     |                                                                ^
   2 |
-Cause: [1:64]: Duplicate binding 'type'"
+Cause: [1:63-1:64]: Duplicate binding 'type'"
 `;
 
 exports[`multi-types.js format 1`] = `
@@ -307,16 +307,6 @@ exports[`re-export.js [espree] format 1`] = `
   3 | export * as foo3 from "foo.json" with { type: "json" };
   4 |
 Cause: Unexpected token with"
-`;
-
-exports[`re-export.js [meriyah] format 1`] = `
-"Unexpected token: 'with' (1:47)
-> 1 | export { default as foo2 } from "foo.json" with { type: "json" };
-    |                                               ^
-  2 | export * from "foo.json" with { type: "json" };
-  3 | export * as foo3 from "foo.json" with { type: "json" };
-  4 |
-Cause: [1:47]: Unexpected token: 'with'"
 `;
 
 exports[`re-export.js format 1`] = `
@@ -388,7 +378,7 @@ exports[`without-from.js [meriyah] format 1`] = `
 > 1 | import "foo" with { type: "json" }
     |                                  ^
   2 |
-Cause: [1:34]: Invalid binding in JSON import"
+Cause: [1:33-1:34]: Invalid binding in JSON import"
 `;
 
 exports[`without-from.js format 1`] = `

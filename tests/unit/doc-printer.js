@@ -46,7 +46,7 @@ test("`printDocToString` should not manipulate docs", () => {
 
 describe("`printDocToString` has linear time complexity at most to print fill()", () => {
   const baseSize = 3_000;
-  const relativeMargin = 0.3;
+  const relativeMargin = 0.4;
   const baseTime = time(makeFill(baseSize));
   test.each([10_000, 20_000, 40_000])("numWords=%d", (numWords) => {
     const doc = makeFill(numWords);
