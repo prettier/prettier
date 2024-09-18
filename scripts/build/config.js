@@ -459,7 +459,7 @@ const pluginFiles = [
           );
 
           text = text.replaceAll(
-            /\nvar api\S* = \/\*#__PURE__\*\/Object\.freeze\(\{.*?\n\}\);/gsu,
+            /\nvar api\S* = \s*(?:\/\*#__PURE__\*\/)?\s*Object\.freeze\(\{.*?\n\}\);/gsu,
             "",
           );
 
