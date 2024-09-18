@@ -91,6 +91,7 @@ const meriyahDisabledTests = new Set([
     // The following fails on Node.js < 20
     "js/babel-plugins/regex-v-flag.js",
     "js/regex/v-flag.js",
+    "js/regex/d-flag.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const babelTsDisabledTest = new Set(
