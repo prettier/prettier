@@ -451,15 +451,15 @@ const pluginFiles = [
         module: getPackageFile("@glimmer/syntax/dist/dev/index.js"),
         process(text) {
           // This passed to plugins, our plugin don't need access to the options
-          text = text.replace(/(?<=\nconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
+          text = text.replace(/(?<=\sconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
 
           text = text.replaceAll(
-            /\nclass \S+ extends node\(.*?\).*?\{.*?\n\}/gsu,
-            "",
+            /\sclass \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}\n/gsu,
+            "\n",
           );
 
           text = text.replaceAll(
-            /\nvar api\S* = \/\*#__PURE__\*\/Object\.freeze\(\{.*?\n\}\);/gsu,
+            /\nvar api\S* = \s*(?:\/\*#__PURE__\*\/)?\s*Object\.freeze\(\{.*?\n\}\);/gsu,
             "",
           );
 
