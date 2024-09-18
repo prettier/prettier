@@ -454,9 +454,8 @@ const pluginFiles = [
           text = text.replace(/(?<=\sconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
 
           text = text.replaceAll(
-            /\sclass (?<className>\S+) extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}\n/gsu,
-            (string, className) =>
-              className === "AppendContent" ? string : "\n",
+            /\sclass \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}\n/gsu,
+            "\n",
           );
 
           text = text.replaceAll(
