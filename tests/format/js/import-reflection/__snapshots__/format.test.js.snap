@@ -24,11 +24,11 @@ exports[`comments.js [flow] format 1`] = `
 `;
 
 exports[`comments.js [meriyah] format 1`] = `
-"Import source must be string (1:51)
+"Import source must be string (1:48)
 > 1 | /* 0 */import /* 1 */module /* 2 */from /* 3 */from /* 4 */"./module.wasm"/* 5 */;
-    |                                                   ^
+    |                                                ^^^^
   2 |
-Cause: [1:51]: Import source must be string"
+Cause: [1:47-1:51]: Import source must be string"
 `;
 
 exports[`comments.js [typescript] format 1`] = `
@@ -77,11 +77,11 @@ exports[`import-reflection.js [flow] format 1`] = `
 `;
 
 exports[`import-reflection.js [meriyah] format 1`] = `
-"Expected 'from' (1:17)
+"Expected 'from' (1:15)
 > 1 | import module foo from "./module.wasm";
-    |                 ^
+    |               ^^^
   2 |
-Cause: [1:17]: Expected 'from'"
+Cause: [1:14-1:17]: Expected 'from'"
 `;
 
 exports[`import-reflection.js [typescript] format 1`] = `
@@ -133,12 +133,12 @@ exports[`valid-default-import.mjs [flow] format 1`] = `
 `;
 
 exports[`valid-default-import.mjs [meriyah] format 1`] = `
-"Expected 'from' (1:17)
+"Expected 'from' (1:15)
 > 1 | import module foo from "./module.wasm";
-    |                 ^
+    |               ^^^
   2 | import bar from "./module.wasm";
   3 |
-Cause: [1:17]: Expected 'from'"
+Cause: [1:14-1:17]: Expected 'from'"
 `;
 
 exports[`valid-default-import.mjs [typescript] format 1`] = `
@@ -190,11 +190,11 @@ exports[`valid-from-as-default-module-binding.mjs [flow] format 1`] = `
 `;
 
 exports[`valid-from-as-default-module-binding.mjs [meriyah] format 1`] = `
-"Import source must be string (1:23)
+"Import source must be string (1:20)
 > 1 | import module from from "./module.wasm";
-    |                       ^
+    |                    ^^^^
   2 |
-Cause: [1:23]: Import source must be string"
+Cause: [1:19-1:23]: Import source must be string"
 `;
 
 exports[`valid-from-as-default-module-binding.mjs [typescript] format 1`] = `
@@ -243,11 +243,11 @@ exports[`valid-from-as-default-module-binding-escaped.mjs [flow] format 1`] = `
 `;
 
 exports[`valid-from-as-default-module-binding-escaped.mjs [meriyah] format 1`] = `
-"Expected 'from' (1:17)
+"Expected 'from' (1:15)
 > 1 | import module \\u0066rom from "./module.wasm";
-    |                 ^
+    |               ^^^
   2 |
-Cause: [1:17]: Expected 'from'"
+Cause: [1:14-1:17]: Expected 'from'"
 `;
 
 exports[`valid-from-as-default-module-binding-escaped.mjs [typescript] format 1`] = `

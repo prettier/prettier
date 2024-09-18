@@ -53,14 +53,14 @@ Cause: Unexpected token assert"
 `;
 
 exports[`empty.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (2:38)
+"Unexpected token: 'identifier' (2:33)
   1 | export * as foo from "foo.json"
 > 2 | export * as bar from "bar.json" assert { }
-    |                                      ^
+    |                                 ^^^^^^
   3 | export * as baz from "baz.json" assert { /* comment */ }
   4 |
   5 | import * as foo from "foo.json"
-Cause: [2:38]: Unexpected token: 'identifier'"
+Cause: [2:32-2:38]: Unexpected token: 'identifier'"
 `;
 
 exports[`empty.js format 1`] = `
@@ -105,11 +105,11 @@ Cause: Unexpected token assert"
 `;
 
 exports[`multi-types.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:36)
+"Unexpected token: 'identifier' (1:31)
 > 1 | import json from "./foo.json" assert { type: "json", type: "bar" };
-    |                                    ^
+    |                               ^^^^^^
   2 |
-Cause: [1:36]: Unexpected token: 'identifier'"
+Cause: [1:30-1:36]: Unexpected token: 'identifier'"
 `;
 
 exports[`multi-types.js format 1`] = `
@@ -143,11 +143,11 @@ Cause: Unexpected token assert"
 `;
 
 exports[`non-type.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:33)
+"Unexpected token: 'identifier' (1:28)
 > 1 | import foo from "foo.json" assert { lazy: "true" };
-    |                                 ^
+    |                            ^^^^^^
   2 |
-Cause: [1:33]: Unexpected token: 'identifier'"
+Cause: [1:27-1:33]: Unexpected token: 'identifier'"
 `;
 
 exports[`non-type.js format 1`] = `
@@ -201,13 +201,13 @@ Cause: Unexpected token assert"
 `;
 
 exports[`re-export.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:49)
+"Unexpected token: 'identifier' (1:44)
 > 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
-    |                                                 ^
+    |                                            ^^^^^^
   2 | export * from "foo.json" assert { type: "json" };
   3 | export * as foo3 from "foo.json" assert { type: "json" };
   4 |
-Cause: [1:49]: Unexpected token: 'identifier'"
+Cause: [1:43-1:49]: Unexpected token: 'identifier'"
 `;
 
 exports[`re-export.js format 1`] = `
@@ -245,11 +245,11 @@ Cause: Unexpected token assert"
 `;
 
 exports[`static-import.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:36)
+"Unexpected token: 'identifier' (1:31)
 > 1 | import json from "./foo.json" assert { type: "json" };
-    |                                    ^
+    |                               ^^^^^^
   2 |
-Cause: [1:36]: Unexpected token: 'identifier'"
+Cause: [1:30-1:36]: Unexpected token: 'identifier'"
 `;
 
 exports[`static-import.js format 1`] = `
@@ -283,11 +283,11 @@ Cause: Unexpected token assert"
 `;
 
 exports[`without-from.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:19)
+"Unexpected token: 'identifier' (1:14)
 > 1 | import "foo" assert { type: "json" }
-    |                   ^
+    |              ^^^^^^
   2 |
-Cause: [1:19]: Unexpected token: 'identifier'"
+Cause: [1:13-1:19]: Unexpected token: 'identifier'"
 `;
 
 exports[`without-from.js format 1`] = `

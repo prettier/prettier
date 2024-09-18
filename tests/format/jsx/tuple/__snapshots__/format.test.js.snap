@@ -33,7 +33,7 @@ exports[`tuple.js [meriyah] format 1`] = `
   7 |   <div/>,
   8 |   <div/>,
   9 | ]
-Cause: [6:5]: '#' not followed by identifier"
+Cause: [6:4-6:5]: '#' not followed by identifier"
 `;
 
 exports[`tuple.js format 1`] = `
