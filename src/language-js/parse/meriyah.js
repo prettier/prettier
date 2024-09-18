@@ -56,29 +56,29 @@ function parseWithOptions(text, sourceType) {
 }
 
 function createParseError(error) {
-  let { message, line, column } = error;
-
-  const matches = message.match(
-    /^\[(?<line>\d+):(?<column>\d+)\]: (?<message>.*)$/u,
-  )?.groups;
-
-  if (matches) {
-    message = matches.message;
-
-    /* c8 ignore next 4 */
-    if (typeof line !== "number") {
-      line = Number(matches.line);
-      column = Number(matches.column);
-    }
-  }
+  let { message, loc } = error;
 
   /* c8 ignore next 3 */
-  if (typeof line !== "number") {
+  if (!loc) {
     return error;
   }
 
+  const prefix = `[${[loc.start, loc.end].map(({ line, column }) => [line, column].join(":")).join("-")}]: `;
+  if (message.startsWith(prefix)) {
+    message = message.slice(prefix.length);
+  }
+
   return createError(message, {
-    loc: { start: { line, column } },
+    loc: {
+      start: {
+        line: loc.start.line,
+        column: loc.start.column + 1,
+      },
+      end: {
+        line: loc.end.line,
+        column: loc.end.column + 1,
+      },
+    },
     cause: error,
   });
 }

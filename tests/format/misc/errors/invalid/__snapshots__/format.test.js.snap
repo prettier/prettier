@@ -69,17 +69,17 @@ exports[`snippet: #0 [flow] format 2`] = `
 `;
 
 exports[`snippet: #0 [meriyah] format 1`] = `
-"Expected '(' (1:8)
+"Expected '(' (1:5)
 > 1 | for each (a in b) {}
-    |        ^
-Cause: [1:8]: Expected '('"
+    |     ^^^^
+Cause: [1:4-1:8]: Expected '('"
 `;
 
 exports[`snippet: #0 [meriyah] format 2`] = `
 "Invalid left-hand side in assignment (1:9)
 > 1 | (a = b) = 1
     |         ^
-Cause: [1:9]: Invalid left-hand side in assignment"
+Cause: [1:8-1:9]: Invalid left-hand side in assignment"
 `;
 
 exports[`snippet: #0 [typescript] format 1`] = `
@@ -158,17 +158,17 @@ exports[`snippet: #1 [flow] format 2`] = `
 `;
 
 exports[`snippet: #1 [meriyah] format 1`] = `
-"Unexpected strict mode reserved word (1:12)
+"Unexpected strict mode reserved word (1:7)
 > 1 | class switch() {}
-    |            ^
-Cause: [1:12]: Unexpected strict mode reserved word"
+    |       ^^^^^^
+Cause: [1:6-1:12]: Unexpected strict mode reserved word"
 `;
 
 exports[`snippet: #1 [meriyah] format 2`] = `
 "Invalid left-hand side in assignment (1:7)
 > 1 | a = 1 = 2
     |       ^
-Cause: [1:7]: Invalid left-hand side in assignment"
+Cause: [1:6-1:7]: Invalid left-hand side in assignment"
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
@@ -250,14 +250,14 @@ exports[`snippet: #2 [meriyah] format 1`] = `
 "Expected '{' (1:13)
 > 1 | ({ method() })
     |             ^
-Cause: [1:13]: Expected '{'"
+Cause: [1:12-1:13]: Expected '{'"
 `;
 
 exports[`snippet: #2 [meriyah] format 2`] = `
 "Invalid left-hand side in assignment (1:9)
 > 1 | (a = 1) = 2
     |         ^
-Cause: [1:9]: Invalid left-hand side in assignment"
+Cause: [1:8-1:9]: Invalid left-hand side in assignment"
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
@@ -339,14 +339,14 @@ exports[`snippet: #3 [meriyah] format 1`] = `
 "Expected '{' (1:15)
 > 1 | ({ method({}) })
     |               ^
-Cause: [1:15]: Expected '{'"
+Cause: [1:14-1:15]: Expected '{'"
 `;
 
 exports[`snippet: #3 [meriyah] format 2`] = `
 "Invalid left-hand side in assignment (1:10)
 > 1 | (a += b) = 1
     |          ^
-Cause: [1:10]: Invalid left-hand side in assignment"
+Cause: [1:9-1:10]: Invalid left-hand side in assignment"
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `
@@ -428,14 +428,14 @@ exports[`snippet: #4 [meriyah] format 1`] = `
 "Expected '{' (1:23)
 > 1 | ({ method(parameter,) })
     |                       ^
-Cause: [1:23]: Expected '{'"
+Cause: [1:22-1:23]: Expected '{'"
 `;
 
 exports[`snippet: #4 [meriyah] format 2`] = `
-"Invalid left-hand side in assignment (1:10)
+"Invalid left-hand side in assignment (1:9)
 > 1 | (a = b) += 1
-    |          ^
-Cause: [1:10]: Invalid left-hand side in assignment"
+    |         ^^
+Cause: [1:8-1:10]: Invalid left-hand side in assignment"
 `;
 
 exports[`snippet: #4 [typescript] format 1`] = `

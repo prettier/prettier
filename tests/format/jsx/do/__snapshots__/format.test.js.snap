@@ -23,14 +23,14 @@ Cause: Unexpected token do"
 `;
 
 exports[`do.js [meriyah] format 1`] = `
-"Unexpected token: 'do' (2:5)
+"Unexpected token: 'do' (2:4)
   1 | <div>
 > 2 |   {do {
-    |     ^
+    |    ^^
   3 | 	  1
   4 |   }}
   5 | </div>
-Cause: [2:5]: Unexpected token: 'do'"
+Cause: [2:3-2:5]: Unexpected token: 'do'"
 `;
 
 exports[`do.js format 1`] = `
