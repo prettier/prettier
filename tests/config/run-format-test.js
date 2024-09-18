@@ -87,6 +87,10 @@ const meriyahDisabledTests = new Set([
     "js/babel-plugins/decorator-auto-accessors.js",
     // Parsing to different ASTs
     "js/decorators/member-expression.js",
+    // Meriyah parse RegExp relay on runtime behavior
+    // The following fails on Node.js < 20
+    "tests/format/js/babel-plugins/regex-v-flag.js",
+    "tests/format/js/regex/v-flag.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const babelTsDisabledTest = new Set(
