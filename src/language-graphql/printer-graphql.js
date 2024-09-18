@@ -363,7 +363,25 @@ function genericPrint(path, options, print) {
       return [node.operation, ": ", print("type")];
 
     case "FragmentSpread":
-      return ["...", print("name"), printDirectives(path, print, node)];
+      return [
+        "...",
+        print("name"),
+        node.arguments?.length > 0
+          ? group([
+              "(",
+              indent([
+                softline,
+                join(
+                  [ifBreak("", ", "), softline],
+                  printSequence(path, options, print, "arguments"),
+                ),
+              ]),
+              softline,
+              ")",
+            ])
+          : "",
+        printDirectives(path, print, node),
+      ];
 
     case "InlineFragment":
       return [
