@@ -669,15 +669,15 @@ function printDocToString(doc, options) {
       // plugin was used when printing the AST to a doc, the possibility of
       // reaching this scenario MIGHT be reasonable to consider a bug in the
       // plugin. However, we try to at least not crash if this ever happens;
-      // instead we simply give up on returning a cursorRegionStart or
-      // cursorRegionText.
+      // instead we simply give up on returning a cursorNodeStart or
+      // cursorNodeText.
       //
       // coreFormat has logic specifically to handle this scenario - where it
       // is supposed to preserve the cursor position but the printer gives it
       // no information about where the nodes around the cursor ended up -
       // although that logic is unavoidably slower (and has more potential to
       // return a perverse result) than the happy path where we help out
-      // coreFormat by returning a cursorRegionStart and cursorRegionText here.
+      // coreFormat by returning a cursorNodeStart and cursorNodeText here.
       return {
         formatted: out.filter((char) => char !== CURSOR_PLACEHOLDER).join(""),
       };
@@ -691,8 +691,8 @@ function printDocToString(doc, options) {
 
     return {
       formatted: beforeCursor + aroundCursor + afterCursor,
-      cursorRegionStart: beforeCursor.length,
-      cursorRegionText: aroundCursor,
+      cursorNodeStart: beforeCursor.length,
+      cursorNodeText: aroundCursor,
     };
   }
 

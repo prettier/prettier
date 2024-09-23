@@ -49,17 +49,17 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (addAlignmentSize > 0) {
     const trimmed = result.formatted.trim();
 
-    if (result.cursorRegionStart !== undefined) {
-      result.cursorRegionStart -= result.formatted.indexOf(trimmed);
-      if (result.cursorRegionStart < 0) {
-        result.cursorRegionStart = 0;
-        result.cursorRegionText = result.cursorRegionText.trimStart();
+    if (result.cursorNodeStart !== undefined) {
+      result.cursorNodeStart -= result.formatted.indexOf(trimmed);
+      if (result.cursorNodeStart < 0) {
+        result.cursorNodeStart = 0;
+        result.cursorNodeText = result.cursorNodeText.trimStart();
       }
       if (
-        result.cursorRegionStart + result.cursorRegionText.length >
+        result.cursorNodeStart + result.cursorNodeText.length >
         trimmed.length
       ) {
-        result.cursorRegionText = result.cursorRegionText.trimEnd();
+        result.cursorNodeText = result.cursorNodeText.trimEnd();
       }
     }
 
@@ -93,10 +93,10 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
     if (
       (opts.cursorNode || opts.nodeBeforeCursor || opts.nodeAfterCursor) &&
-      result.cursorRegionText
+      result.cursorNodeText
     ) {
-      newCursorRegionStart = result.cursorRegionStart;
-      newCursorRegionText = result.cursorRegionText;
+      newCursorRegionStart = result.cursorNodeStart;
+      newCursorRegionText = result.cursorNodeText;
 
       if (opts.cursorNode) {
         oldCursorRegionStart = opts.locStart(opts.cursorNode);
