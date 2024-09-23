@@ -196,7 +196,7 @@ export namespace printer {
      * This property is a misnomer, and has been since the changes in
      * https://github.com/prettier/prettier/pull/15709.
      * The region of the document indicated by `cursorNodeStart` and `cursorNodeText` will
-     * sometimes actually be what lies BETWEEN a pair of leaf nodes in the AST, rather than  node.
+     * sometimes actually be what lies BETWEEN a pair of leaf nodes in the AST, rather than a node.
      */
     cursorNodeStart?: number | undefined;
 
