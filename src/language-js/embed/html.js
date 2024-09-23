@@ -32,7 +32,10 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
 
   const expressionDocs = printTemplateExpressions(path, print);
 
-  const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
+  const placeholderRegex = new RegExp(
+    composePlaceholder(String.raw`(\d+)`),
+    "gu",
+  );
   let topLevelCount = 0;
   const doc = await textToDoc(text, {
     parser,
@@ -56,7 +59,10 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
         if (component) {
           component = uncookTemplateElementValue(component);
           if (options.__embeddedInHtml) {
-            component = component.replaceAll(/<\/(?=script\b)/gi, "<\\/");
+            component = component.replaceAll(
+              /<\/(?=script\b)/giu,
+              String.raw`<\/`,
+            );
           }
           parts.push(component);
         }
@@ -70,8 +76,8 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     return parts;
   });
 
-  const leadingWhitespace = /^\s/.test(text) ? " " : "";
-  const trailingWhitespace = /\s$/.test(text) ? " " : "";
+  const leadingWhitespace = /^\s/u.test(text) ? " " : "";
+  const trailingWhitespace = /\s$/u.test(text) ? " " : "";
 
   const linebreak =
     options.htmlWhitespaceSensitivity === "ignore"

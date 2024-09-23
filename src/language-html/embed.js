@@ -8,6 +8,7 @@ import {
 import printFrontMatter from "../utils/front-matter/print.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
+import { formatAttributeValue } from "./embed/utils.js";
 import getNodeContent from "./get-node-content.js";
 import {
   needsToBorrowPrevClosingTagEndMarker,
@@ -51,7 +52,7 @@ function embed(path, options) {
 
         return async (textToDoc, print) => {
           const content = getNodeContent(node, options);
-          let isEmpty = /^\s*$/.test(content);
+          let isEmpty = /^\s*$/u.test(content);
           let doc = "";
           if (!isEmpty) {
             doc = await textToDoc(htmlTrimPreserveIndentation(content), {
@@ -81,7 +82,7 @@ function embed(path, options) {
           return async (textToDoc) => {
             const value =
               parser === "markdown"
-                ? dedentString(node.value.replace(/^[^\S\n]*\n/, ""))
+                ? dedentString(node.value.replace(/^[^\S\n]*\n/u, ""))
                 : node.value;
             const textToDocOptions = { parser, __embeddedInHtml: true };
             if (options.parser === "html" && parser === "babel") {
@@ -114,7 +115,6 @@ function embed(path, options) {
           };
           if (options.parser === "angular") {
             textToDocOptions.parser = "__ng_interpolation";
-            textToDocOptions.trailingComma = "none";
           } else if (options.parser === "vue") {
             textToDocOptions.parser = isVueSfcWithTypescriptScript(
               path,
@@ -149,6 +149,13 @@ function embed(path, options) {
       }
 
       return printAngularControlFlowBlockParameters;
+
+    case "angularLetDeclarationInitializer":
+      return (textToDoc) =>
+        formatAttributeValue(node.value, textToDoc, {
+          parser: "__ng_binding",
+          __isInHtmlAttribute: false,
+        });
   }
 }
 

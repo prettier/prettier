@@ -1,3 +1,172 @@
+# 3.3.3
+
+[diff](https://github.com/prettier/prettier/compare/3.3.2...3.3.3)
+
+#### Add parentheses for nullish coalescing in ternary ([#16391](https://github.com/prettier/prettier/pull/16391) by [@cdignam-segment](https://github.com/cdignam-segment))
+
+This change adds clarity to operator precedence.
+
+<!-- prettier-ignore -->
+```js
+// Input
+foo ? bar ?? foo : baz;
+foo ?? bar ? a : b;
+a ? b : foo ?? bar;
+
+// Prettier 3.3.2
+foo ? bar ?? foo : baz;
+foo ?? bar ? a : b;
+a ? b : foo ?? bar;
+
+// Prettier 3.3.3
+foo ? (bar ?? foo) : baz;
+(foo ?? bar) ? a : b;
+a ? b : (foo ?? bar);
+```
+
+#### Add parentheses for decorator expressions ([#16458](https://github.com/prettier/prettier/pull/16458) by [@y-schneider](https://github.com/y-schneider))
+
+Prevent parentheses around member expressions or tagged template literals from being removed to follow the stricter parsing rules of TypeScript 5.5.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+@(foo`tagged template`)
+class X {}
+
+// Prettier 3.3.2
+@foo`tagged template`
+class X {}
+
+// Prettier 3.3.3
+@(foo`tagged template`)
+class X {}
+```
+
+#### Support `@let` declaration syntax ([#16474](https://github.com/prettier/prettier/pull/16474) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Adds support for Angular v18 `@let` declaration syntax.
+
+Please see the following code example. The `@let` declaration allows you to define local variables within the template:
+
+<!-- prettier-ignore -->
+```html
+@let name = 'Frodo';
+
+<h1>Dashboard for {{name}}</h1>
+Hello, {{name}}
+```
+
+For more details, please refer to the excellent blog post by the Angular Team: [Introducing @let in Angular](https://blog.angular.dev/introducing-let-in-angular-686f9f383f0f).
+
+We also appreciate the Angular Team for kindly answering our questions to implement this feature.
+
+# 3.3.2
+
+[diff](https://github.com/prettier/prettier/compare/3.3.1...3.3.2)
+
+#### Fix handlebars path expressions starts with `@` ([#16358](https://github.com/prettier/prettier/pull/16358) by [@Princeyadav05](https://github.com/Princeyadav05))
+
+<!-- prettier-ignore -->
+```hbs
+{{! Input }}
+<div>{{@x.y.z}}</div>
+
+{{! Prettier 3.3.1 }}
+<div>{{@x}}</div>
+
+{{! Prettier 3.3.2 }}
+<div>{{@x.y.z}}</div>
+```
+
+# 3.3.1
+
+[diff](https://github.com/prettier/prettier/compare/3.3.0...3.3.1)
+
+#### Preserve empty lines in front matter ([#16347](https://github.com/prettier/prettier/pull/16347) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+---
+foo:
+  - bar1
+
+  - bar2
+
+  - bar3
+---
+Markdown
+
+<!-- Prettier 3.3.0 -->
+
+---
+foo:
+  - bar1
+  - bar2
+  - bar3
+---
+
+Markdown
+
+
+<!-- Prettier 3.3.1 -->
+---
+foo:
+  - bar1
+
+  - bar2
+
+  - bar3
+---
+
+Markdown
+```
+
+#### Preserve explicit language in front matter ([#16348](https://github.com/prettier/prettier/pull/16348) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+---yaml
+title: Hello
+slug: home
+---
+
+<!-- Prettier 3.3.0 -->
+---
+title: Hello
+slug: home
+---
+
+<!-- Prettier 3.3.1 -->
+---yaml
+title: Hello
+slug: home
+---
+```
+
+#### Avoid line breaks in import attributes ([#16349](https://github.com/prettier/prettier/pull/16349) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type: "json" };
+
+// Prettier 3.3.0
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type:
+  "json" };
+
+// Prettier 3.3.1
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type: "json" };
+```
+
+# 3.3.0
+
+[diff](https://github.com/prettier/prettier/compare/3.2.5...3.3.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2024/06/01/3.3.0.html)
+
 # 3.2.5
 
 [diff](https://github.com/prettier/prettier/compare/3.2.4...3.2.5)

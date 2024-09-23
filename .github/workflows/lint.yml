@@ -96,5 +96,8 @@ jobs:
           yarn dedupe --check
         working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
 
+      - name: Knip
+        run: yarn lint:knip
+
       - name: Check File Changes
         run: echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."

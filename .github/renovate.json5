@@ -9,7 +9,7 @@
   prConcurrentLimit: 0,
   packageRules: [
     {
-      matchPackageNames: ["react", "react-dom"],
+      matchDepNames: ["react", "react-dom"],
       groupName: "react",
     },
     {
@@ -25,8 +25,9 @@
       groupName: "glimmer",
     },
     {
-      matchPackageNames: [
+      matchDepNames: [
         "eslint",
+        "@eslint/compat",
         "@eslint/eslintrc",
         "@eslint/js",
         "@stylistic/eslint-plugin-js",
@@ -42,7 +43,7 @@
       groupName: "ESLint related dependencies",
     },
     {
-      matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
+      matchDepNames: ["@angular/compiler", "angular-estree-parser"],
       groupName: "Angular Estree",
     },
     {

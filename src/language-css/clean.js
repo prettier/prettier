@@ -12,7 +12,7 @@ const ignoredProperties = new Set([
 ]);
 
 function clean(original, cloned, parent) {
-  if (isFrontMatter(original) && original.lang === "yaml") {
+  if (isFrontMatter(original) && original.language === "yaml") {
     delete cloned.value;
   }
 
@@ -35,7 +35,7 @@ function clean(original, cloned, parent) {
       delete cloned.text;
 
       // standalone pragma
-      if (/^\*\s*@(?:format|prettier)\s*$/.test(original.text)) {
+      if (/^\*\s*@(?:format|prettier)\s*$/u.test(original.text)) {
         return null;
       }
     }
@@ -80,7 +80,7 @@ function clean(original, cloned, parent) {
   }
 
   if (original.type === "selector-combinator") {
-    cloned.value = cloned.value.replaceAll(/\s+/g, " ");
+    cloned.value = cloned.value.replaceAll(/\s+/gu, " ");
   }
 
   if (original.type === "media-feature") {
@@ -109,7 +109,7 @@ function clean(original, cloned, parent) {
     cloned.unit = original.unit.toLowerCase();
   }
   if (original.type === "value-unknown") {
-    cloned.value = cloned.value.replaceAll(/;$/g, "");
+    cloned.value = cloned.value.replaceAll(/;$/gu, "");
   }
 
   if (original.type === "selector-attribute") {
@@ -120,7 +120,7 @@ function clean(original, cloned, parent) {
     }
 
     if (original.value) {
-      cloned.value = cloned.value.trim().replaceAll(/^["']|["']$/g, "");
+      cloned.value = cloned.value.trim().replaceAll(/^["']|["']$/gu, "");
       delete cloned.quoted;
     }
   }
@@ -136,7 +136,7 @@ function clean(original, cloned, parent) {
     original.value
   ) {
     cloned.value = cloned.value.replaceAll(
-      /([\d+.e-]+)([a-z]*)/gi,
+      /([\d+.e-]+)([a-z]*)/giu,
       (match, numStr, unit) => {
         const num = Number(numStr);
         return Number.isNaN(num) ? match : num + unit.toLowerCase();
@@ -207,7 +207,7 @@ function clean(original, cloned, parent) {
 clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
-  return value.replaceAll("'", '"').replaceAll(/\\([^\da-f])/gi, "$1");
+  return value.replaceAll("'", '"').replaceAll(/\\([^\da-f])/giu, "$1");
 }
 
 export default clean;

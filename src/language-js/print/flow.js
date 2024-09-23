@@ -11,10 +11,20 @@ import { printArray } from "./array.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
 import { printClass } from "./class.js";
 import {
+  printComponent,
+  printComponentParameter,
+  printComponentTypeParameter,
+} from "./component.js";
+import {
   printEnumBody,
   printEnumDeclaration,
   printEnumMember,
 } from "./enum.js";
+import {
+  printDeclareHook,
+  printHook,
+  printHookTypeAnnotation,
+} from "./hook.js";
 import { printInterface } from "./interface.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
@@ -56,6 +66,20 @@ function printFlow(path, options, print) {
   const semi = options.semi ? ";" : "";
 
   switch (node.type) {
+    case "ComponentDeclaration":
+    case "DeclareComponent":
+    case "ComponentTypeAnnotation":
+      return printComponent(path, options, print);
+    case "ComponentParameter":
+      return printComponentParameter(path, options, print);
+    case "ComponentTypeParameter":
+      return printComponentTypeParameter(path, options, print);
+    case "HookDeclaration":
+      return printHook(path, options, print);
+    case "DeclareHook":
+      return printDeclareHook(path, options, print);
+    case "HookTypeAnnotation":
+      return printHookTypeAnnotation(path, options, print);
     case "DeclareClass":
       return printClass(path, options, print);
     case "DeclareFunction":
@@ -139,12 +163,14 @@ function printFlow(path, options, print) {
 
     case "EnumBooleanBody":
     case "EnumNumberBody":
+    case "EnumBigIntBody":
     case "EnumStringBody":
     case "EnumSymbolBody":
       return printEnumBody(path, print, options);
 
     case "EnumBooleanMember":
     case "EnumNumberMember":
+    case "EnumBigIntMember":
     case "EnumStringMember":
     case "EnumDefaultedMember":
       return printEnumMember(path, print);
@@ -255,6 +281,9 @@ function printFlow(path, options, print) {
 
     case "TypePredicate":
       return printTypePredicate(path, print);
+
+    case "TypeOperator":
+      return [node.operator, " ", print("typeAnnotation")];
 
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation":

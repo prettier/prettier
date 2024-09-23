@@ -128,6 +128,6 @@ async function runCliWithLogLevel(logLevel, patterns) {
       expect(stderr).toMatch(pattern);
     }
   } else {
-    expect(stderr).toMatch(/^\s*$/);
+    expect(stderr).toMatch(/^\s*$/u);
   }
 }

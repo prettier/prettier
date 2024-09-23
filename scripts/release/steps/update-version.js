@@ -12,25 +12,15 @@ export default async function updateVersion({ version, next }) {
 
   // Update github issue templates
   processFile(".github/ISSUE_TEMPLATE/formatting.md", (content) =>
-    content.replace(/^(\*\*Prettier ).*?(\*\*)$/m, `$1${version}$2`),
+    content.replace(/^(\*\*Prettier ).*?(\*\*)$/mu, `$1${version}$2`),
   );
   processFile(".github/ISSUE_TEMPLATE/integration.md", (content) =>
-    content.replace(/^(- Prettier Version: ).*$/m, `$1${version}`),
-  );
-  processFile("docs/install.md", (content) =>
-    content.replace(/^(npx prettier@)\S+/m, `$1${version}`),
-  );
-
-  // Update unpkg link in docs
-  processFile("docs/browser.md", (content) =>
-    content.replaceAll(
-      /(\/\/unpkg\.com\/(?:browse\/)?prettier@).*?\//g,
-      `$1${version}/`,
-    ),
+    content.replace(/^(- Prettier Version: ).*$/mu, `$1${version}`),
   );
 
   await runYarn(["install"], { cwd: "./website" });
 
+  process.env.PRETTIER_VERSION = version;
   await runYarn(["update-stable-docs"], {
     cwd: "./website",
   });

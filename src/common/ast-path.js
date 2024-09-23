@@ -139,6 +139,12 @@ class AstPath {
     }
   }
 
+  /**
+   * @template {(path: AstPath) => any} T
+   * @param {T} callback
+   * @param {number} [count=0]
+   * @returns {ReturnType<T>}
+   */
   callParent(callback, count = 0) {
     const stackIndex = this.#getNodeStackIndex(count + 1);
     const parentValues = this.stack.splice(stackIndex + 1);

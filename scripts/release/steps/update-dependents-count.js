@@ -8,7 +8,7 @@ async function update() {
     fetchText("https://www.npmjs.com/package/prettier"),
   );
   const dependentsCountNpm = Number(
-    npmPage.match(/"dependentsCount":(\d+),/)[1],
+    npmPage.match(/"dependentsCount":(\d+),/u)[1],
   );
   if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
@@ -24,7 +24,7 @@ async function update() {
     githubPage
       .replaceAll("\n", "")
       .match(
-        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/,
+        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/u,
       )[1]
       .replaceAll(",", ""),
   );
@@ -37,11 +37,11 @@ async function update() {
   processFile("website/pages/en/index.js", (content) =>
     content
       .replace(
-        /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
+        /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/u,
         `$1${formatNumber(dependentsCountNpm)}$3`,
       )
       .replace(
-        /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
+        /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/u,
         `$1${formatNumber(dependentsCountGithub)}$3`,
       ),
   );

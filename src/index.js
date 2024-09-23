@@ -1,5 +1,5 @@
 // "fast-glob" and `createTwoFilesPatch` are bundled here since the API uses `micromatch` and `diff` too
-import { createTwoFilesPatch } from "diff/lib/patch/create.js";
+import { createTwoFilesPatch } from "diff";
 import fastGlob from "fast-glob";
 import * as vnopts from "vnopts";
 
@@ -25,9 +25,7 @@ import {
   normalizeOptionSettings,
 } from "./main/support.js";
 import { createIsIgnoredFunction } from "./utils/ignore.js";
-import isNonEmptyArray from "./utils/is-non-empty-array.js";
 import omit from "./utils/object-omit.js";
-import partition from "./utils/partition.js";
 
 /**
  * @param {*} fn
@@ -99,8 +97,6 @@ const sharedWithCli = {
   fastGlob,
   createTwoFilesPatch,
   utils: {
-    isNonEmptyArray,
-    partition,
     omit,
   },
   mockable,

@@ -26,7 +26,7 @@ Don't fill the form below manually! Let a program create a report for you:
 
 -->
 
-**Prettier 3.2.5**
+**Prettier 3.3.3**
 [Playground link](https://prettier.io/playground/#.....)
 
 ```sh

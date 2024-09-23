@@ -138,6 +138,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   }
 
   if (
+    node.type === "ImportAttribute" ||
     (rightNode.type === "CallExpression" &&
       rightNode.callee.name === "require") ||
     // do not put values on a separate line from the key in json
@@ -230,7 +231,7 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
 
   let node = rightNode;
   const propertiesForPath = [];
-  for (;;) {
+  while (true) {
     if (
       node.type === "UnaryExpression" ||
       node.type === "AwaitExpression" ||
@@ -344,7 +345,7 @@ const isTypeReference = createTypeCheckFunction([
 ]);
 function getTypeParametersFromTypeReference(node) {
   if (isTypeReference(node)) {
-    return node.typeParameters?.params;
+    return (node.typeArguments ?? node.typeParameters)?.params;
   }
 }
 
@@ -452,8 +453,12 @@ function shouldBreakBeforeConditionalType(node) {
       case "FunctionTypeAnnotation":
       case "GenericTypeAnnotation":
       case "TSFunctionType":
-      case "TSTypeReference":
         return Boolean(subNode.typeParameters);
+      case "TSTypeReference":
+        return Boolean(
+          // TODO: Use `typeArguments` only when babel align with TS.
+          subNode.typeArguments ?? subNode.typeParameters,
+        );
       default:
         return false;
     }

@@ -66,6 +66,15 @@ const excludeKeys = {
   ExportAllDeclaration: ["assertions"],
   ExportNamedDeclaration: ["assertions"],
   ImportDeclaration: ["assertions"],
+
+  // `key` and `constraint` added in `@typescript-eslint/typescript-estree` v8
+  // https://github.com/typescript-eslint/typescript-eslint/pull/7065
+  // TODO: Use the new AST properties instead
+  TSMappedType: ["key", "constraint"],
+  // `body` added in `@typescript-eslint/typescript-estree` v8
+  // https://github.com/typescript-eslint/typescript-eslint/pull/8920
+  // TODO: Use the new AST properties instead
+  TSEnumDeclaration: ["body"],
 };
 
 const visitorKeys = Object.fromEntries(
@@ -84,21 +93,5 @@ const visitorKeys = Object.fromEntries(
       : keys,
   ]),
 );
-
-for (const type of [
-  // Flow, Not supported yet
-  "ComponentDeclaration",
-  "ComponentParameter",
-  "ComponentTypeAnnotation",
-  "ComponentTypeParameter",
-  "DeclareComponent",
-
-  // Flow, Not supported yet
-  "HookDeclaration",
-  "HookTypeAnnotation",
-  "DeclareHook",
-]) {
-  delete visitorKeys[type];
-}
 
 export default visitorKeys;

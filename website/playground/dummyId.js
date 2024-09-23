@@ -48,7 +48,7 @@ function getRandomElement(array) {
 }
 
 function camelCase(string) {
-  return string.replaceAll(/_(\w)/g, (_, c) => c.toUpperCase());
+  return string.replaceAll(/_(\w)/gu, (_, c) => c.toUpperCase());
 }
 
 export default function generateDummyId() {

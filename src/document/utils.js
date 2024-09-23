@@ -212,7 +212,6 @@ function stripTrailingHardlineFromParts(parts) {
 
 function stripTrailingHardlineFromDoc(doc) {
   switch (getDocType(doc)) {
-    case DOC_TYPE_ALIGN:
     case DOC_TYPE_INDENT:
     case DOC_TYPE_INDENT_IF_BREAK:
     case DOC_TYPE_GROUP:
@@ -236,8 +235,9 @@ function stripTrailingHardlineFromDoc(doc) {
       return stripTrailingHardlineFromParts(doc);
 
     case DOC_TYPE_STRING:
-      return doc.replace(/[\n\r]*$/, "");
+      return doc.replace(/[\n\r]*$/u, "");
 
+    case DOC_TYPE_ALIGN:
     case DOC_TYPE_CURSOR:
     case DOC_TYPE_TRIM:
     case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
@@ -337,58 +337,13 @@ function cleanDocFn(doc) {
 
   return doc;
 }
-// A safer version of `normalizeDoc`
-// - `normalizeDoc` concat strings and flat array in `fill`, while `cleanDoc` don't
-// - On array, `normalizeDoc` always return object with `parts`, `cleanDoc` may return strings
-// - `cleanDoc` also remove nested `group`s and empty `fill`/`align`/`indent`/`line-suffix`/`if-break` if possible
+
+// - concat strings
+// - flat arrays except for parts of `fill`
+// - merge arrays of strings into single strings
+// - remove nested `group`s and empty `fill`/`align`/`indent`/`line-suffix`/`if-break` if possible
 function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
-}
-
-function normalizeParts(parts) {
-  const newParts = [];
-
-  const restParts = parts.filter(Boolean);
-  while (restParts.length > 0) {
-    const part = restParts.shift();
-
-    if (!part) {
-      continue;
-    }
-
-    if (Array.isArray(part)) {
-      restParts.unshift(...part);
-      continue;
-    }
-
-    if (
-      newParts.length > 0 &&
-      typeof newParts.at(-1) === "string" &&
-      typeof part === "string"
-    ) {
-      newParts[newParts.length - 1] += part;
-      continue;
-    }
-
-    newParts.push(part);
-  }
-
-  return newParts;
-}
-
-function normalizeDoc(doc) {
-  return mapDoc(doc, (currentDoc) => {
-    if (Array.isArray(currentDoc)) {
-      return normalizeParts(currentDoc);
-    }
-    if (!currentDoc.parts) {
-      return currentDoc;
-    }
-    return {
-      ...currentDoc,
-      parts: normalizeParts(currentDoc.parts),
-    };
-  });
 }
 
 function replaceEndOfLine(doc, replacement = literalline) {
@@ -422,8 +377,6 @@ export {
   getDocType,
   inheritLabel,
   mapDoc,
-  normalizeDoc,
-  normalizeParts,
   propagateBreaks,
   removeLines,
   replaceEndOfLine,

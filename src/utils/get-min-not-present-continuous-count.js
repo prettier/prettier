@@ -7,7 +7,7 @@ import escapeStringRegexp from "escape-string-regexp";
  */
 function getMinNotPresentContinuousCount(text, searchString) {
   const matches = text.match(
-    new RegExp(`(${escapeStringRegexp(searchString)})+`, "g"),
+    new RegExp(`(${escapeStringRegexp(searchString)})+`, "gu"),
   );
 
   if (matches === null) {

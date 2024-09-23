@@ -1,15 +1,15 @@
 import fs from "node:fs/promises";
 
-const DEFAULT_ON_RESOLVE_CONCEPTS = { filter: /./, namespace: "file" };
+const DEFAULT_ON_RESOLVE_CONCEPTS = { filter: /./u, namespace: "file" };
 const DEFAULT_ON_LOAD_CONCEPTS = {
-  filter: /\.(?:js|json|mjs|cjs)$/,
+  filter: /\.(?:js|json|mjs|cjs)$/u,
   namespace: "file",
 };
 
 function processReplacements(replacements) {
   const onResolveReplacements = new Map();
   const onLoadReplacements = new Map();
-  const onLoadProcessors = new Map();
+  const onLoadProcessors = [];
 
   const checkPathReplaced = (module) => {
     if (!onResolveReplacements.has(module)) {
@@ -75,34 +75,24 @@ function processReplacements(replacements) {
     checkPathReplaced(module);
     checkTextReplaced(module);
 
-    if (!onLoadProcessors.has(module)) {
-      onLoadProcessors.set(module, []);
-    }
-
-    const processFunctions = onLoadProcessors.get(module);
+    let { process } = replacement;
 
     if (Object.hasOwn(replacement, "process")) {
-      const { process } = replacement;
       if (typeof process !== "function") {
         throw new TypeError("'process' option should be a function.");
       }
-
-      processFunctions.push(process);
-      continue;
-    }
-
-    if (
+    } else if (
       Object.hasOwn(replacement, "find") &&
       Object.hasOwn(replacement, "replacement")
     ) {
-      processFunctions.push((text) =>
-        text.replaceAll(replacement.find, replacement.replacement),
-      );
-      continue;
+      process = (text) =>
+        text.replaceAll(replacement.find, replacement.replacement);
+    } else {
+      console.log(replacement);
+      throw new Error("Unexpected replacement option.");
     }
 
-    console.log(replacement);
-    throw new Error("Unexpected replacement option.");
+    onLoadProcessors.push({ module, process });
   }
 
   return { onResolveReplacements, onLoadReplacements, onLoadProcessors };
@@ -148,23 +138,18 @@ function setupOnResolveListener(build, { concepts, replacements }) {
 }
 
 function setupOnLoadListener(build, { concepts, replacements, processors }) {
-  if (replacements.size === 0 && processors.size === 0) {
+  if (replacements.size === 0 && processors.length === 0) {
     return;
   }
-
-  const processFunctionsForAllModules = processors.has("*")
-    ? processors.get("*")
-    : [];
 
   build.onLoad(concepts, async ({ path: file }) => {
     if (replacements.has(file)) {
       return replacements.get(file);
     }
 
-    const processFunctions = [
-      ...processFunctionsForAllModules,
-      ...(processors.has(file) ? processors.get(file) : []),
-    ];
+    const processFunctions = processors
+      .filter(({ module }) => module === "*" || module === file)
+      .map((processor) => processor.process);
 
     if (processFunctions.length === 0) {
       return;

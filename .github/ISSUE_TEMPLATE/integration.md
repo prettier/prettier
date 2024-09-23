@@ -20,7 +20,7 @@ BEFORE SUBMITTING AN ISSUE:
 
 **Environments:**
 
-- Prettier Version: 3.2.5
+- Prettier Version: 3.3.3
 - Running Prettier via: <!-- CLI, Node.js API, Browser API, etc. -->
 - Runtime: <!-- Node.js v14, Chrome v83, etc. -->
 - Operating System: <!-- Windows, Linux, macOS, etc. -->

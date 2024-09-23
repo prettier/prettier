@@ -19,7 +19,16 @@ function transform(original, file) {
       file.startsWith(path.join(PROJECT_ROOT, "node_modules/camelcase/")) ||
       file.startsWith(
         path.join(PROJECT_ROOT, "node_modules/angular-estree-parser/"),
-      )
+      ) ||
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/jest-docblock/")) ||
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/espree/")) ||
+      file.startsWith(
+        path.join(
+          PROJECT_ROOT,
+          "node_modules/@typescript-eslint/typescript-estree/",
+        ),
+      ) ||
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/meriyah/"))
     )
   ) {
     return original;

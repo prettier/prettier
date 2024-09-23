@@ -1,14 +1,19 @@
 import path from "node:path";
 
 import loadExternalConfig from "./load-external-config.js";
-import loaders, { loadConfigFromPackageJson } from "./loaders.js";
+import loaders, {
+  loadConfigFromPackageJson,
+  loadConfigFromPackageYaml,
+} from "./loaders.js";
 
 async function loadConfig(configFile) {
   const { base: fileName, ext: extension } = path.parse(configFile);
   const load =
     fileName === "package.json"
       ? loadConfigFromPackageJson
-      : loaders[extension];
+      : fileName === "package.yaml"
+        ? loadConfigFromPackageYaml
+        : loaders[extension];
 
   if (!load) {
     throw new Error(

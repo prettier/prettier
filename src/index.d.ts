@@ -613,8 +613,7 @@ export interface ResolveConfigOptions {
 /**
  * `resolveConfig` can be used to resolve configuration for a given source file,
  * passing its path or url as the first argument. The config search will start at
- * the file location and continue to search up the directory.
- * (You can use `process.cwd()` to start searching from the current directory).
+ * the directory of the file location and continue to search up the directory.
  *
  * A promise is returned which will resolve to:
  *
@@ -939,4 +938,9 @@ export namespace util {
   function addDanglingComment(node: any, comment: any, marker: any): void;
 
   function addTrailingComment(node: any, comment: any): void;
+
+  function getPreferredQuote(
+    text: string,
+    preferredQuoteOrPreferSingleQuote: Quote | boolean,
+  ): Quote;
 }

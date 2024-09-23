@@ -44,3 +44,5 @@ descirbe('something', () => {
 })
 
 throw new Error(`pretty-format: Option "theme" has a key "${key}" whose value "${value}" is undefined in ansi-styles.`,)
+
+a = `${[[1, 2, 3], [4, 5, 6]]}`

@@ -1,5 +1,5 @@
-import { createRequire } from "node:module";
 import path from "node:path";
+import url from "node:url";
 
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
@@ -9,7 +9,6 @@ import createEsmUtils from "esm-utils";
 import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
-import esbuildPluginLicense from "./esbuild-plugins/license.js";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.js";
 import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.js";
@@ -20,7 +19,12 @@ import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.js";
 import transform from "./transform/index.js";
 import { getPackageFile } from "./utils.js";
 
-const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
+const {
+  dirname,
+  readJsonSync,
+  require,
+  resolve: importMetaResolve,
+} = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const universalTarget = browserslistToEsbuild(packageJson.browserslist);
@@ -33,7 +37,7 @@ const getRelativePath = (from, to) => {
   return relativePath;
 };
 
-function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
+function getEsbuildOptions({ file, files, cliOptions }) {
   // Save dependencies to file
   file.dependencies = [];
 
@@ -50,19 +54,65 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
       replacement: "",
     },
+    /*
+    `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
+    We already replaced line end to `\n` before calling it
+    */
+    {
+      module: url.fileURLToPath(importMetaResolve("jest-docblock")),
+      path: require.resolve("jest-docblock"),
+    },
+    {
+      module: require.resolve("jest-docblock"),
+      process(text) {
+        const exports = [
+          ...text.matchAll(
+            /(?<=\n)exports\.(?<specifier>\w+) = \k<specifier>;/gu,
+          ),
+        ].map((match) => match.groups.specifier);
+
+        const lines = text.split("\n");
+        const startMarkLine = lines.findIndex((line) =>
+          line.includes("function _interopRequireDefault"),
+        );
+        const endMarkLine = lines.indexOf(
+          "module.exports = __webpack_exports__;",
+        );
+
+        if (
+          lines[startMarkLine + 1] !== "/**" ||
+          lines[endMarkLine - 2] !== "})();"
+        ) {
+          throw new Error("Unexpected source");
+        }
+
+        text = lines.slice(startMarkLine + 1, endMarkLine - 2).join("\n");
+
+        text = text
+          .replace(
+            "const line = (0, _detectNewline().default)(docblock) ?? _os().EOL;",
+            String.raw`const line = "\n"`,
+          )
+          .replace(
+            "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
+            String.raw`const line = "\n"`,
+          );
+
+        text += "\n\n" + `export {${exports.join(", ")}};`;
+
+        return text;
+      },
+    },
     // Transform `.at`, `Object.hasOwn`, and `String#replaceAll`
     {
       module: "*",
       process: transform,
     },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
-    ...[
-      require.resolve("tslib"),
-      createRequire(require.resolve("tsutils")).resolve("tslib"),
-    ].map((file) => ({
-      module: file,
-      path: file.replace(/tslib\.js$/, "tslib.es6.js"),
-    })),
+    {
+      module: require.resolve("tslib"),
+      path: require.resolve("tslib").replace(/tslib\.js$/u, "tslib.es6.js"),
+    },
     // https://github.com/evanw/esbuild/issues/2103
     {
       module: getPackageFile("outdent/lib-module/index.js"),
@@ -73,25 +123,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         }
         return text.slice(0, index);
       },
-    },
-    /*
-    `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
-    We already replaced line end to `\n` before calling it
-    */
-    {
-      module: require.resolve("jest-docblock"),
-      process: (text) =>
-        text
-          .replace(
-            "const line = (0, _detectNewline().default)(docblock) ?? _os().EOL;",
-            'const line = "\\n"',
-          )
-          .replace(
-            "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
-            'const line = "\\n"',
-          )
-          .replace(/\nfunction _os\(\).*?\n}/s, "")
-          .replace(/\nfunction _detectNewline\(\).*?\n}/s, ""),
     },
   ];
 
@@ -199,14 +230,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         replacements: [...replaceModule, ...(buildOptions.replaceModule ?? [])],
       }),
       file.platform === "universal" && esbuildPluginNodeModulePolyfills(),
-      shouldCollectLicenses &&
-        esbuildPluginLicense({
-          cwd: PROJECT_ROOT,
-          thirdParty: {
-            includePrivate: true,
-            output: (dependencies) => file.dependencies.push(...dependencies),
-          },
-        }),
       cliOptions.reports &&
         esbuildPluginVisualizer({ formats: cliOptions.reports }),
       esbuildPluginThrowWarnings({
@@ -226,6 +249,11 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     outfile: path.join(DIST_DIR, cliOptions.saveAs ?? file.output.file),
     // https://esbuild.github.io/api/#main-fields
     mainFields: file.platform === "node" ? ["module", "main"] : undefined,
+    supported: {
+      // https://github.com/evanw/esbuild/issues/3471
+      "regexp-unicode-property-escapes": true,
+    },
+    packages: "bundle",
   };
 
   if (file.platform === "universal") {
@@ -255,7 +283,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
 
 async function runEsbuild(options) {
   const esbuildOptions = getEsbuildOptions(options);
-  await esbuild.build(esbuildOptions);
+  return { esbuildResult: await esbuild.build(esbuildOptions) };
 }
 
 export default runEsbuild;

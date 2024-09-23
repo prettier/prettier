@@ -473,6 +473,18 @@ const getTypeAnnotationFirstToken = (path) => {
     ) ||
     /*
     Flow
+    ```js
+    declare hook foo(): void;
+                    ^^^^^^^^ `TypeAnnotation`
+    ```
+    */
+    path.match(
+      (node) => node.type === "TypeAnnotation",
+      (node, key) => key === "typeAnnotation" && node.type === "Identifier",
+      (node, key) => key === "id" && node.type === "DeclareHook",
+    ) ||
+    /*
+    Flow
 
     ```js
     type A = () => infer R extends string;
@@ -530,21 +542,34 @@ function printArrayType(print) {
 }
 
 /*
-- `TSTypeQuery`
-- `TypeofTypeAnnotation`
+- `TSTypeQuery` (TypeScript)
+- `TypeofTypeAnnotation` (flow)
 */
 function printTypeQuery({ node }, print) {
   const argumentPropertyName =
     node.type === "TSTypeQuery" ? "exprName" : "argument";
   const typeArgsPropertyName =
-    node.type === "TSTypeQuery" ? "typeParameters" : "typeArguments";
+    // TODO: Use `typeArguments` only when babel align with TS.
+    node.type === "TypeofTypeAnnotation" || node.typeArguments
+      ? "typeArguments"
+      : "typeParameters";
   return ["typeof ", print(argumentPropertyName), print(typeArgsPropertyName)];
 }
 
+/*
+- `TSTypePredicate` (TypeScript)
+- `TypePredicate` (flow)
+*/
 function printTypePredicate(path, print) {
   const { node } = path;
+  const prefix =
+    node.type === "TSTypePredicate" && node.asserts
+      ? "asserts "
+      : node.type === "TypePredicate" && node.kind
+        ? `${node.kind} `
+        : "";
   return [
-    node.asserts ? "asserts " : "",
+    prefix,
     print("parameterName"),
     node.typeAnnotation
       ? [" is ", printTypeAnnotationProperty(path, print)]

@@ -144,6 +144,14 @@ const isObjectOrRecordExpression = createTypeCheckFunction([
  * @param {Node} node
  * @returns {boolean}
  */
+function isNullishCoalescing(node) {
+  return node.type === "LogicalExpression" && node.operator === "??";
+}
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isNumericLiteral(node) {
   return (
     node.type === "NumericLiteral" ||
@@ -319,7 +327,10 @@ function isSimpleType(node) {
     isSimpleTypeAnnotation(node) ||
     ((node.type === "GenericTypeAnnotation" ||
       node.type === "TSTypeReference") &&
-      !node.typeParameters)
+      // @ts-expect-error -- `GenericTypeAnnotation`
+      !node.typeParameters &&
+      // @ts-expect-error -- `TSTypeReference`
+      !node.typeArguments)
   );
 }
 
@@ -369,14 +380,14 @@ function isTestCallCallee(node) {
 
 // eg; `describe("some string", (done) => {})`
 function isTestCall(node, parent) {
-  if (node.type !== "CallExpression" || node.optional) {
+  if (node?.type !== "CallExpression" || node.optional) {
     return false;
   }
 
   const args = getCallArguments(node);
 
   if (args.length === 1) {
-    if (isAngularTestWrapper(node) && parent && isTestCall(parent)) {
+    if (isAngularTestWrapper(node) && isTestCall(parent)) {
       return isFunctionOrArrowExpression(args[0]);
     }
 
@@ -1140,6 +1151,7 @@ export {
   isMemberish,
   isMethod,
   isNextLineEmpty,
+  isNullishCoalescing,
   isNumericLiteral,
   isObjectOrRecordExpression,
   isObjectProperty,

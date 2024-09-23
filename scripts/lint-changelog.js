@@ -41,14 +41,14 @@ for (const file of [
   }
 }
 
-const authorRegex = /by @[\w-]+|by \[@([\w-]+)]\(https:\/\/github\.com\/\1\)/;
-const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}])/;
+const authorRegex = /by @[\w-]+|by \[@([\w-]+)\]\(https:\/\/github\.com\/\1\)/u;
+const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}\])/u;
 
 const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
   "utf8",
 );
-const templateComments = template.match(/<!--.*?-->/gs);
+const templateComments = template.match(/<!--.*?-->/gsu);
 const [templateAuthorLink] = template.match(authorRegex);
 const checkedFiles = new Map();
 
@@ -65,7 +65,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
 
-    const match = prFile.match(/^(\d{4,})(-\d+)?\.md$/);
+    const match = prFile.match(/^(\d{4,})(-\d+)?\.md$/u);
     const displayPath = `${CHANGELOG_DIR}/${category}/${prFile}`;
 
     if (!match) {
@@ -136,7 +136,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       );
     }
 
-    if (/prettier master/i.test(content)) {
+    if (/prettier master/iu.test(content)) {
       showErrorMessage(
         `[${displayPath}]: Please use "main" instead of "master".`,
       );

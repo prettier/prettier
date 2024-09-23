@@ -33,7 +33,7 @@ function transformMethodCallToFunctionCall(node, functionName) {
     {
       type: "BooleanLiteral",
       value: node.callee.type === "OptionalMemberExpression",
-      leadingComments: [{ type: "CommentBlock", value: " isOptionalObject" }],
+      leadingComments: [{ type: "CommentBlock", value: " isOptionalObject " }],
     },
     node.callee.object,
   );

@@ -109,11 +109,6 @@ function isVarFunctionNode(node) {
   return node.type === "value-func" && node.value.toLowerCase() === "var";
 }
 
-function isLastNode(path, node) {
-  const nodes = path.parent?.nodes;
-  return nodes && nodes.indexOf(node) === nodes.length - 1;
-}
-
 function isDetachedRulesetDeclarationNode(node) {
   const { selector } = node;
   // If a Less file ends up being parsed with the SCSS parser, Less
@@ -125,8 +120,8 @@ function isDetachedRulesetDeclarationNode(node) {
   }
 
   return (
-    (typeof selector === "string" && /^@.+:.*$/.test(selector)) ||
-    (selector.value && /^@.+:.*$/.test(selector.value))
+    (typeof selector === "string" && /^@.+:.*$/u.test(selector)) ||
+    (selector.value && /^@.+:.*$/u.test(selector.value))
   );
 }
 
@@ -196,7 +191,7 @@ function isSCSSControlDirectiveNode(node, options) {
 }
 
 function isDetachedRulesetCallNode(node) {
-  return node.raws?.params && /^\(\s*\)$/.test(node.raws.params);
+  return node.raws?.params && /^\(\s*\)$/u.test(node.raws.params);
 }
 
 function isTemplatePlaceholderNode(node) {
@@ -346,7 +341,7 @@ function isColorAdjusterFuncNode(node) {
 }
 
 function lastLineHasInlineComment(text) {
-  return /\/\//.test(text.split(/[\n\r]/).pop());
+  return /\/\//u.test(text.split(/[\n\r]/u).pop());
 }
 
 function isAtWordPlaceholderNode(node) {
@@ -410,13 +405,10 @@ export {
   isInlineValueCommentNode,
   isKeyframeAtRuleKeywords,
   isKeyInValuePairNode,
-  isKeyValuePairInParenGroupNode,
   isKeyValuePairNode,
-  isLastNode,
   isLeftCurlyBraceNode,
   isMathOperatorNode,
   isMediaAndSupportsKeywords,
-  isModuloNode,
   isMultiplicationNode,
   isParenGroupNode,
   isPostcssSimpleVarNode,

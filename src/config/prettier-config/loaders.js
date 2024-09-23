@@ -1,9 +1,9 @@
 import { pathToFileURL } from "node:url";
 
-import parseToml from "@iarna/toml/parse-async.js";
 import { load as parseYaml } from "js-yaml";
 import json5 from "json5";
 import parseJson from "parse-json";
+import { parse as parseToml } from "smol-toml";
 
 import readFile from "../../utils/read-file.js";
 
@@ -27,6 +27,11 @@ async function loadConfigFromPackageJson(file) {
   return prettier;
 }
 
+async function loadConfigFromPackageYaml(file) {
+  const { prettier } = await loadYaml(file);
+  return prettier;
+}
+
 async function loadYaml(file) {
   const content = await readFile(file);
   try {
@@ -41,7 +46,7 @@ const loaders = {
   async ".toml"(file) {
     const content = await readFile(file);
     try {
-      return await parseToml(content);
+      return parseToml(content);
     } catch (/** @type {any} */ error) {
       error.message = `TOML Error in ${file}:\n${error.message}`;
       throw error;
@@ -67,4 +72,4 @@ const loaders = {
 };
 
 export default loaders;
-export { loadConfigFromPackageJson, readJson };
+export { loadConfigFromPackageJson, loadConfigFromPackageYaml };

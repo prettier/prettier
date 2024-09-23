@@ -82,7 +82,12 @@ function printCallArguments(path, options, print) {
   const isDynamicImport =
     node.type === "ImportExpression" || node.callee.type === "Import";
   const maybeTrailingComma =
-    !isDynamicImport && shouldPrintComma(options, "all") ? "," : "";
+    // Angular does not allow trailing comma
+    !options.parser.startsWith("__ng_") &&
+    !isDynamicImport &&
+    shouldPrintComma(options, "all")
+      ? ","
+      : "";
 
   function allArgsBrokenOut() {
     return group(
@@ -302,11 +307,14 @@ function isHopefullyShortCallArgument(node) {
       }
     }
     if (
-      (typeAnnotation.type === "GenericTypeAnnotation" ||
-        typeAnnotation.type === "TSTypeReference") &&
-      typeAnnotation.typeParameters?.params.length === 1
+      typeAnnotation.type === "GenericTypeAnnotation" ||
+      typeAnnotation.type === "TSTypeReference"
     ) {
-      typeAnnotation = typeAnnotation.typeParameters.params[0];
+      const typeArguments =
+        typeAnnotation.typeArguments ?? typeAnnotation.typeParameters;
+      if (typeArguments?.params.length === 1) {
+        typeAnnotation = typeArguments.params[0];
+      }
     }
     return (
       isSimpleType(typeAnnotation) && isSimpleCallArgument(node.expression, 1)

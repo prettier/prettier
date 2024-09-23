@@ -321,7 +321,7 @@ function printJsxChildren(
         if (words[0] === "") {
           parts.push("");
           words.shift();
-          if (/\n/.test(words[0])) {
+          if (/\n/u.test(words[0])) {
             parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
@@ -357,7 +357,7 @@ function printJsxChildren(
         }
 
         if (endWhitespace !== undefined) {
-          if (/\n/.test(endWhitespace)) {
+          if (/\n/u.test(endWhitespace)) {
             parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
@@ -379,10 +379,10 @@ function printJsxChildren(
             ),
           );
         }
-      } else if (/\n/.test(text)) {
+      } else if (/\n/u.test(text)) {
         // Keep (up to one) blank line between tags/expressions/text.
         // Note: We don't keep blank lines between text elements.
-        if (text.match(/\n/g).length > 1) {
+        if (text.match(/\n/gu).length > 1) {
           parts.push("", hardline);
         }
       } else {
@@ -825,7 +825,7 @@ function isMeaningfulJsxText(node) {
   return (
     node.type === "JSXText" &&
     (jsxWhitespaceUtils.hasNonWhitespaceCharacter(rawText(node)) ||
-      !/\n/.test(rawText(node)))
+      !/\n/u.test(rawText(node)))
   );
 }
 

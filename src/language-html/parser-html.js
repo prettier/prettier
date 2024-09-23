@@ -46,7 +46,7 @@ function normalizeAngularControlFlowBlock(node) {
     return;
   }
 
-  node.name = node.name.toLowerCase().replaceAll(/\s+/g, " ").trim();
+  node.name = node.name.toLowerCase().replaceAll(/\s+/gu, " ").trim();
   node.type = "angularControlFlowBlock";
 
   if (!isNonEmptyArray(node.parameters)) {
@@ -66,6 +66,24 @@ function normalizeAngularControlFlowBlock(node) {
       node.parameters.at(-1).sourceSpan.end,
     ),
   };
+}
+
+function normalizeAngularLetDeclaration(node) {
+  if (node.type !== "letDeclaration") {
+    return;
+  }
+
+  // Similar to `VariableDeclarator` in estree
+  node.type = "angularLetDeclaration";
+  node.id = node.name;
+  node.init = {
+    type: "angularLetDeclarationInitializer",
+    sourceSpan: new ParseSourceSpan(node.valueSpan.start, node.valueSpan.end),
+    value: node.value,
+  };
+
+  delete node.name;
+  delete node.value;
 }
 
 function normalizeAngularIcuExpression(node) {
@@ -103,6 +121,7 @@ function ngHtmlParser(input, parseOptions, options) {
           shouldParseAsRawText(...args) ? TagContentType.RAW_TEXT : undefined
       : undefined,
     tokenizeAngularBlocks: name === "angular" ? true : undefined,
+    tokenizeAngularLetDeclaration: name === "angular" ? true : undefined,
   });
 
   if (name === "vue") {
@@ -188,7 +207,7 @@ function ngHtmlParser(input, parseOptions, options) {
             attr.value = null;
           } else {
             attr.value = attr.valueSpan.toString();
-            if (/["']/.test(attr.value[0])) {
+            if (/["']/u.test(attr.value[0])) {
               attr.value = attr.value.slice(1, -1);
             }
           }
@@ -354,7 +373,7 @@ function parse(
 
   const parseSubHtml = (subContent, startSpan) => {
     const { offset } = startSpan;
-    const fakeContent = text.slice(0, offset).replaceAll(/[^\n\r]/g, " ");
+    const fakeContent = text.slice(0, offset).replaceAll(/[^\n\r]/gu, " ");
     const realContent = subContent;
     const subAst = parse(
       fakeContent + realContent,
@@ -395,6 +414,7 @@ function parse(
     }
 
     normalizeAngularControlFlowBlock(node);
+    normalizeAngularLetDeclaration(node);
     normalizeAngularIcuExpression(node);
   });
 

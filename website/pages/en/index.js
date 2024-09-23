@@ -321,7 +321,7 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-github">7.3 million</strong>{" "}
+                <strong data-placeholder="dependent-github">8.2 million</strong>{" "}
                 dependent repositories on GitHub
               </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
@@ -337,7 +337,7 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-npm">16.4k</strong>{" "}
+                <strong data-placeholder="dependent-npm">17.9k</strong>{" "}
                 dependent packages on npm
               </p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">
@@ -355,6 +355,44 @@ UsersSection.propTypes = {
   language: PropTypes.string,
 };
 
+const SyntaxSection = () => (
+  // eslint-disable-next-line react/jsx-no-target-blank
+  <a
+    href="https://sentry.shop/products/syntax-prettier-tee"
+    target="_blank"
+    className="syntaxLink"
+    style={{
+      color: "black",
+      fontSize: 20,
+      fontWeight: "bold",
+    }}
+  >
+    <div
+      style={{
+        backgroundColor: "#f8bc45",
+        justifyContent: "center",
+        display: "flex",
+        paddingTop: 20,
+      }}
+    >
+      <div
+        style={{
+          width: 860,
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        <p>
+          Limited edition tshirts are now available to buy! $10 per tshirt goes
+          to maintain the project.
+        </p>
+        <img width={860} src="/images/syntaxfm/1.webp" />
+      </div>
+    </div>
+  </a>
+);
+
 class Index extends React.Component {
   render() {
     const language = this.props.language || "en";
@@ -364,6 +402,7 @@ class Index extends React.Component {
         <script src="landing.js" />
         <HomeSplash language={language} />
         <div className="mainContainer landingContainer">
+          <SyntaxSection />
           <TldrSection language={language} />
           <LanguagesSection />
           <EditorSupportSection />
