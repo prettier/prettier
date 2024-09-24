@@ -124,7 +124,7 @@ exports[`expression.js [meriyah] format 1`] = `
   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
   7 | ({}(), 0);
   8 | ({} = 0);
-Cause: [5:4]: Expected ')'"
+Cause: [5:3-5:4]: Expected ')'"
 `;
 
 exports[`expression.js [typescript] format 1`] = `

@@ -87,7 +87,6 @@ function hasDecoratorsBeforeExport(node) {
 }
 
 export {
-  hasDecoratorsBeforeExport,
   printClassMemberDecorators,
   printDecorators,
   printDecoratorsBeforeExport,

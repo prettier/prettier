@@ -259,4 +259,4 @@ function calculateRange(text, opts, ast) {
   };
 }
 
-export { calculateRange, findNodeAtOffset };
+export { calculateRange };

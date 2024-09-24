@@ -72,4 +72,4 @@ const loaders = {
 };
 
 export default loaders;
-export { loadConfigFromPackageJson, loadConfigFromPackageYaml, readJson };
+export { loadConfigFromPackageJson, loadConfigFromPackageYaml };
