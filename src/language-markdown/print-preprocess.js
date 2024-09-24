@@ -73,7 +73,7 @@ function splitTextIntoSentences(ast) {
     let { value } = node;
 
     if (parentNode.type === "paragraph") {
-      // CommonMark doesn't treat \f as non-Unicode space, but it should be
+      // CommonMark doesn't remove trailing/leading \f, but it should be
       // removed in the HTML rendering process
       if (index === 0) {
         value = htmlWhitespaceUtils.trimStart(value);
