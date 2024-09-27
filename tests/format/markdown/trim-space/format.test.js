@@ -6,7 +6,7 @@ function leadingTestCase() {
   return {
     name: "Trim leading U+0020 less than 4",
     code: paragraphs.join("\n"),
-    output: paragraphs.map((p) => p.replace(/^ +/, "")).join("\n"),
+    output: paragraphs.map((p) => p.replace(/^ +/u, "")).join("\n"),
   };
 }
 
