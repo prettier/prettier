@@ -450,13 +450,6 @@ export default [
       sourceType: "module",
     },
   },
-  // `import/no-extraneous-dependencies` reports on Windows but not on CI
-  {
-    files: ["website/siteConfig.js"],
-    linterOptions: {
-      reportUnusedDisableDirectives: "off",
-    },
-  },
   {
     files: ["bin/prettier.cjs"],
     languageOptions: {
