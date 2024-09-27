@@ -26,23 +26,23 @@ function trailingTestCase() {
 function preserveVariantSpacesTestCase() {
   const variantSpaces = `\v\vvertical tab\v\v
 
-\u00a0\u00a0NBSP\u00a0\u00a0
+\u{a0}\u{a0}NBSP\u{a0}\u{a0}
 
-\u2002\u2002en space\u2002\u2002
+\u{2002}\u{2002}en space\u{2002}\u{2002}
 
-\u2003\u2003em space\u2003\u2003
+\u{2003}\u{2003}em space\u{2003}\u{2003}
 
-\u2004\u20041/3em\u2004\u2004
+\u{2004}\u{2004}1/3em\u{2004}\u{2004}
 
-\u2005\u20051/4em\u2005\u2005
+\u{2005}\u{2005}1/4em\u{2005}\u{2005}
 
-\u2028\u2028line separator\u2028\u2028
+\u{2028}\u{2028}line separator\u{2028}\u{2028}
 
-\u2029\u2029paragraph separator\u2029\u2029
+\u{2029}\u{2029}paragraph separator\u{2029}\u{2029}
 
-\u3000\u3000全角空白\u3000\u3000
+\u{3000}\u{3000}全角空白\u{3000}\u{3000}
 
-\ufeff\ufeffzero width NBSP\ufeff\ufeff
+\u{feff}\u{feff}zero width NBSP\u{feff}\u{feff}
 `;
   return {
     name: "Preserve non-ASCII Unicode spaces / line terminators, and vertical tab",
