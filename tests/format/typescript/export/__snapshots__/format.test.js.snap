@@ -110,7 +110,7 @@ export type * as ns from "./mod";
 ================================================================================
 `;
 
-exports[`export-type-star-from-2.ts [babel-ts] format 1`] = `
+exports[`export-type-star-from-2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -126,14 +126,4 @@ export type * as "ns2" from './mod';
 export type * as "ns2" from "./mod";
 
 ================================================================================
-`;
-
-exports[`export-type-star-from-2.ts [typescript] format 1`] = `
-"Identifier expected. (3:18)
-  1 | // Note: TSC doesn't support string module specifiers yet,
-  2 | // but it's easier for us to support them than not.
-> 3 | export type * as "ns2" from './mod';
-    |                  ^
-  4 |
-Cause: Identifier expected."
 `;
