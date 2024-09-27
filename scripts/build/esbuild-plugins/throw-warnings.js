@@ -119,14 +119,12 @@ export default function esbuildPluginThrowWarnings({
             warning.location.file.startsWith("node_modules/") &&
             (warning.text ===
               'The condition "default" here will never be used as it comes after both "import" and "require"' ||
-              // meriyah
+              // `lines-and-columns`
               warning.text ===
                 'The condition "types" here will never be used as it comes after both "import" and "require"')
           ) {
             continue;
           }
-
-          console.log(warning);
 
           console.log(warning);
           throw new Error(warning.text);

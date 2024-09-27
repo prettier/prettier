@@ -82,9 +82,9 @@ exports[`keyword-detect.js [acorn] format 1`] = `
 "Unexpected token (1:35)
 > 1 | import "./test.json" /* assert */ with /* assert */  { type: "json" }
     |                                   ^
-  2 | import {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
-  3 | import "./test.json" /* with */ assert /* with */  { type: "json" }
-  4 | import {} from "./test.json" /* with */ assert /* with */  { type: "json" }
+  2 | import a from "./test.json" /* assert */ with /* assert */  { type: "json" }
+  3 |
+  4 | export {default as c} from "./test.json" /* assert */ with /* assert */  { type: "json" }
 Cause: Unexpected token (1:34)"
 `;
 
@@ -92,9 +92,9 @@ exports[`keyword-detect.js [espree] format 1`] = `
 "Unexpected token with (1:35)
 > 1 | import "./test.json" /* assert */ with /* assert */  { type: "json" }
     |                                   ^
-  2 | import {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
-  3 | import "./test.json" /* with */ assert /* with */  { type: "json" }
-  4 | import {} from "./test.json" /* with */ assert /* with */  { type: "json" }
+  2 | import a from "./test.json" /* assert */ with /* assert */  { type: "json" }
+  3 |
+  4 | export {default as c} from "./test.json" /* assert */ with /* assert */  { type: "json" }
 Cause: Unexpected token with"
 `;
 
@@ -102,9 +102,9 @@ exports[`keyword-detect.js [meriyah] format 1`] = `
 "Invalid binding in JSON import (1:69)
 > 1 | import "./test.json" /* assert */ with /* assert */  { type: "json" }
     |                                                                     ^
-  2 | import {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
-  3 | import "./test.json" /* with */ assert /* with */  { type: "json" }
-  4 | import {} from "./test.json" /* with */ assert /* with */  { type: "json" }
+  2 | import a from "./test.json" /* assert */ with /* assert */  { type: "json" }
+  3 |
+  4 | export {default as c} from "./test.json" /* assert */ with /* assert */  { type: "json" }
 Cause: [1:68-1:69]: Invalid binding in JSON import"
 `;
 
@@ -115,27 +115,19 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 import "./test.json" /* assert */ with /* assert */  { type: "json" }
-import {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
-import "./test.json" /* with */ assert /* with */  { type: "json" }
-import {} from "./test.json" /* with */ assert /* with */  { type: "json" }
+import a from "./test.json" /* assert */ with /* assert */  { type: "json" }
 
-export {} from "./test.json" /* assert */ with /* assert */  { type: "json" }
-export {} from "./test.json" /* with */ assert /* with */  { type: "json" }
+export {default as c} from "./test.json" /* assert */ with /* assert */  { type: "json" }
 
 export * from "./test.json" /* assert */ with /* assert */  { type: "json" }
-export * from "./test.json" /* with */ assert /* with */  { type: "json" }
 
 =====================================output=====================================
 import "./test.json" /* assert */ /* assert */ with { type: "json" };
-import {} from "./test.json" /* assert */ /* assert */ with { type: "json" };
-import "./test.json" /* with */ /* with */ assert { type: "json" };
-import {} from "./test.json" /* with */ /* with */ assert { type: "json" };
+import a from "./test.json" /* assert */ /* assert */ with { type: "json" };
 
-export {} from "./test.json" /* assert */ /* assert */ with { type: "json" };
-export {} from "./test.json" /* with */ /* with */ assert { type: "json" };
+export { default as c } from "./test.json" /* assert */ /* assert */ with { type: "json" };
 
 export * from "./test.json" /* assert */ /* assert */ with { type: "json" };
-export * from "./test.json" /* with */ /* with */ assert { type: "json" };
 
 ================================================================================
 `;
