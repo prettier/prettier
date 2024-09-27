@@ -335,7 +335,8 @@
         "author: \".*?\"",
         "authorURL: \".*?\"",
         "\"author\": \".*?\"",
-        "(long|after){3,}"
+        "(long|after){3,}",
+        "\\\\u\\{[0-9a-fA-F]{4,6}\\}"
     ],
     "files": [
         "*",
