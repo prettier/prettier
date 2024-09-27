@@ -54,7 +54,6 @@ export default [
     plugins: {
       "@stylistic/js": eslintPluginStylisticJs,
       "@typescript-eslint": eslintPluginTypescriptEslint,
-      import: eslintPluginImport,
       n: eslintPluginN,
       "prettier-internal-rules": eslintPluginPrettierInternalRules,
       "simple-import-sort": eslintPluginSimpleImportSort,
