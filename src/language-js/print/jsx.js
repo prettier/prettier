@@ -11,7 +11,7 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/builders.js";
-import { replaceEndOfLine, willBreak } from "../../document/utils.js";
+import { cleanDoc, replaceEndOfLine, willBreak } from "../../document/utils.js";
 import {
   printComments,
   printDanglingComments,
@@ -201,9 +201,17 @@ function printJsxElementInternal(path, options, print) {
     children.shift();
   }
 
-  // Tweak how we format children if outputting this element over multiple lines.
-  // Also detect whether we will force this element to output over multiple lines.
-  const multilineChildren = [];
+  /*
+   * Tweak how we format children if outputting this element over multiple lines.
+   * Also detect whether we will force this element to output over multiple lines.
+   *
+   * Moreover, we need to ensure that we always have line-like doc at odd index, that is rule of fill().
+   * Assuming that parts.length is always odd, satisfying the above can be straightforwardly done by:
+   * - if we push line-like doc, we push empty string after it
+   * - if we push non-line-like doc, push [parts.pop(), doc] instead
+   */
+  /** @type {Doc[]} */
+  const multilineChildren = [""];
   for (const [i, child] of children.entries()) {
     // There are a number of situations where we need to ensure we display
     // whitespace as `{" "}` when outputting this element over multiple lines.
@@ -211,24 +219,33 @@ function printJsxElementInternal(path, options, print) {
       if (i === 1 && children[i - 1] === "") {
         if (children.length === 2) {
           // Solitary whitespace
-          multilineChildren.push(rawJsxWhitespace);
+          multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
           continue;
         }
         // Leading whitespace
-        multilineChildren.push([rawJsxWhitespace, hardline]);
+        multilineChildren.push([rawJsxWhitespace, hardline], "");
         continue;
       } else if (i === children.length - 1) {
         // Trailing whitespace
-        multilineChildren.push(rawJsxWhitespace);
+        multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
         continue;
       } else if (children[i - 1] === "" && children[i - 2] === hardline) {
         // Whitespace after line break
-        multilineChildren.push(rawJsxWhitespace);
+        multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
         continue;
       }
     }
 
-    multilineChildren.push(child);
+    // Note that children always satisfy the rule of fill() content.
+    // - printJsxChildren always returns valid fill() content
+    // - we always remove even number (containing zero) of leading items from children.
+    if (i % 2 === 0) {
+      // non-line-like
+      multilineChildren.push([multilineChildren.pop(), child]);
+    } else {
+      // line-like
+      multilineChildren.push(child, "");
+    }
 
     if (willBreak(child)) {
       forcedBreak = true;
@@ -305,7 +322,25 @@ function printJsxChildren(
   jsxWhitespace,
   isFacebookTranslationTag,
 ) {
-  const parts = [];
+  /** @type {Doc} */
+  let prevPart = "";
+  /** @type {Doc[]} */
+  const parts = [prevPart];
+  function push(doc) {
+    prevPart = doc;
+    parts.push(cleanDoc([parts.pop(), doc]));
+  }
+  function pushLine(doc) {
+    prevPart = doc;
+    parts.push(doc, "");
+  }
+  function pushWhitespace(doc) {
+    if (typeof doc === "string") {
+      push(doc);
+      return;
+    }
+    pushLine(doc);
+  }
   path.each(({ node, next }) => {
     if (node.type === "JSXText") {
       const text = rawText(node);
@@ -319,10 +354,10 @@ function printJsxChildren(
 
         // Starts with whitespace
         if (words[0] === "") {
-          parts.push("");
+          push("");
           words.shift();
           if (/\n/u.test(words[0])) {
-            parts.push(
+            pushLine(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 words[1],
@@ -331,7 +366,7 @@ function printJsxChildren(
               ),
             );
           } else {
-            parts.push(jsxWhitespace);
+            pushWhitespace(jsxWhitespace);
           }
           words.shift();
         }
@@ -350,30 +385,30 @@ function printJsxChildren(
 
         for (const [i, word] of words.entries()) {
           if (i % 2 === 1) {
-            parts.push(line);
+            pushLine(line);
           } else {
-            parts.push(word);
+            push(word);
           }
         }
 
         if (endWhitespace !== undefined) {
           if (/\n/u.test(endWhitespace)) {
-            parts.push(
+            pushLine(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
-                parts.at(-1),
+                prevPart,
                 node,
                 next,
               ),
             );
           } else {
-            parts.push(jsxWhitespace);
+            pushWhitespace(jsxWhitespace);
           }
         } else {
-          parts.push(
+          pushWhitespace(
             separatorNoWhitespace(
               isFacebookTranslationTag,
-              parts.at(-1),
+              prevPart,
               node,
               next,
             ),
@@ -383,21 +418,21 @@ function printJsxChildren(
         // Keep (up to one) blank line between tags/expressions/text.
         // Note: We don't keep blank lines between text elements.
         if (text.match(/\n/gu).length > 1) {
-          parts.push("", hardline);
+          pushLine(hardline);
         }
       } else {
-        parts.push("", jsxWhitespace);
+        pushWhitespace(jsxWhitespace);
       }
     } else {
       const printedChild = print();
-      parts.push(printedChild);
+      push(printedChild);
 
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
         const trimmed = jsxWhitespaceUtils.trim(rawText(next));
         const [firstWord] = jsxWhitespaceUtils.split(trimmed);
-        parts.push(
+        pushWhitespace(
           separatorNoWhitespace(
             isFacebookTranslationTag,
             firstWord,
@@ -406,7 +441,7 @@ function printJsxChildren(
           ),
         );
       } else {
-        parts.push(hardline);
+        pushLine(hardline);
       }
     }
   }, "children");

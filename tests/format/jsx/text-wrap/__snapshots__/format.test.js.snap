@@ -828,9 +828,8 @@ expression_does_not_break = (
 br_triggers_expression_break = (
   <div>
     <br />
-    text text text text text text text text text text text {
-      this.props.type
-    }{" "}
+    text text text text text text text text text text text{" "}
+    {this.props.type}{" "}
   </div>
 );
 
