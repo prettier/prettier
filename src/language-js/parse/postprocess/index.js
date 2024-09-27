@@ -97,22 +97,6 @@ function postprocess(ast, options) {
         ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
         break;
 
-      case "ExportAllDeclaration":
-        // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
-        if (parser === "meriyah" && node.exported?.type === "Identifier") {
-          const { exported } = node;
-          const raw = text.slice(locStart(exported), locEnd(exported));
-          if (raw.startsWith('"') || raw.startsWith("'")) {
-            node.exported = {
-              ...node.exported,
-              type: "Literal",
-              value: node.exported.name,
-              raw,
-            };
-          }
-        }
-        break;
-
       // In Flow parser, it doesn't generate union/intersection types for single type
       case "TSUnionType":
       case "TSIntersectionType":
