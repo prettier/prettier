@@ -25,6 +25,10 @@
       groupName: "glimmer",
     },
     {
+      matchDepNames: ["flow-parser", "hermes-parser"],
+      groupName: "flow",
+    },
+    {
       matchDepNames: [
         "eslint",
         "@eslint/compat",
@@ -32,7 +36,6 @@
         "@eslint/js",
         "@stylistic/eslint-plugin-js",
         "eslint-config-prettier",
-        "eslint-plugin-import",
         "eslint-plugin-jest",
         "eslint-plugin-n",
         "eslint-plugin-react",

@@ -170,7 +170,6 @@ async function format(context, input, opt) {
   if (performanceTestFlag?.debugBenchmark) {
     let benchmark;
     try {
-      // eslint-disable-next-line import/no-extraneous-dependencies
       ({ default: benchmark } = await import("benchmark"));
     } catch {
       context.logger.debug(
