@@ -274,12 +274,6 @@ function modifyTypescriptModule(text) {
   source.replaceModule("src/compiler/sys.ts", "var sys;");
   source.replaceModule("src/compiler/tracing.ts", "var tracing;");
 
-  // perfLogger
-  source.replaceModule(
-    "src/compiler/perfLogger.ts",
-    "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});",
-  );
-
   // performance
   source.replaceModule(
     "src/compiler/performanceCore.ts",
