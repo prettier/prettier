@@ -5,7 +5,6 @@ import eslintPluginStylisticJs from "@stylistic/eslint-plugin-js";
 import eslintPluginTypescriptEslint from "@typescript-eslint/eslint-plugin";
 import { isCI } from "ci-info";
 import eslintConfigPrettier from "eslint-config-prettier";
-import eslintPluginImport from "eslint-plugin-import";
 import eslintPluginJest from "eslint-plugin-jest";
 import eslintPluginN from "eslint-plugin-n";
 import eslintPluginReact from "eslint-plugin-react";
@@ -158,20 +157,6 @@ export default [
 
       /* @typescript-eslint/eslint-plugin */
       "@typescript-eslint/prefer-ts-expect-error": "error",
-
-      /* eslint-plugin-import */
-      "import/no-extraneous-dependencies": [
-        "error",
-        {
-          devDependencies: [
-            "jest.config.js",
-            "tests/**",
-            "scripts/**",
-            "website/**/*",
-            "eslint.config.js",
-          ],
-        },
-      ],
 
       /* eslint-plugin-n */
       "n/no-path-concat": "error",
