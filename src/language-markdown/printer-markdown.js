@@ -323,8 +323,9 @@ function genericPrint(path, options, print) {
                 ? "- "
                 : "* ";
 
-            return node.isAligned ||
-              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
+            return (node.isAligned ||
+              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock) &&
+              node.ordered
               ? alignListPrefix(rawPrefix, options)
               : rawPrefix;
           }
