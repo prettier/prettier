@@ -23,10 +23,24 @@ function trailingTestCase() {
   };
 }
 
-run_spec(
+const variantSpaces = `
+\u{3000}\u{3000}全角空白\u{3000}\u{3000}
+
+\u{a0}\u{a0}NBSP\u{a0}\u{a0}
+
+\u{2002}\u{2002}en space\u{2002}\u{2002}
+
+\u{2003}\u{2003}em space\u{2003}\u{2003}
+
+\u{2004}\u{2004}1/3em\u{2004}\u{2004}
+
+\u{2005}\u{2005}1/4em\u{2005}\u{2005}
+`;
+
+runFormatTest(
   {
     importMeta: import.meta,
-    snippets: [leadingTestCase(), trailingTestCase()],
+    snippets: [leadingTestCase(), trailingTestCase(), variantSpaces],
   },
   ["markdown"],
   {
