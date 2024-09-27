@@ -88,6 +88,60 @@ import * as baz from "baz.json" /* comment */ assert {};
 ================================================================================
 `;
 
+exports[`keyword-detect.js [acorn] format 1`] = `
+"Unexpected token (1:33)
+> 1 | import "./test.json" /* with */ assert /* with */  { type: "json" }
+    |                                 ^
+  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
+  3 |
+  4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
+Cause: Unexpected token (1:32)"
+`;
+
+exports[`keyword-detect.js [espree] format 1`] = `
+"Unexpected token assert (1:33)
+> 1 | import "./test.json" /* with */ assert /* with */  { type: "json" }
+    |                                 ^
+  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
+  3 |
+  4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
+Cause: Unexpected token assert"
+`;
+
+exports[`keyword-detect.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (1:33)
+> 1 | import "./test.json" /* with */ assert /* with */  { type: "json" }
+    |                                 ^^^^^^
+  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
+  3 |
+  4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
+Cause: [1:32-1:38]: Unexpected token: 'identifier'"
+`;
+
+exports[`keyword-detect.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import "./test.json" /* with */ assert /* with */  { type: "json" }
+import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
+
+export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
+
+export * from "./test.json" /* with */ assert /* with */  { type: "json" }
+
+=====================================output=====================================
+import "./test.json" /* with */ /* with */ assert { type: "json" };
+import { default as b } from "./test.json" /* with */ /* with */ assert { type: "json" };
+
+export { default as e } from "./test.json" /* with */ /* with */ assert { type: "json" };
+
+export * from "./test.json" /* with */ /* with */ assert { type: "json" };
+
+================================================================================
+`;
+
 exports[`multi-types.js [acorn] format 1`] = `
 "Unexpected token (1:31)
 > 1 | import json from "./foo.json" assert { type: "json", type: "bar" };
