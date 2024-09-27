@@ -75,14 +75,6 @@ exports[`re-export.js - {"bracketSpacing":false} [espree] format 1`] = `
 Cause: Unexpected token with"
 `;
 
-exports[`re-export.js - {"bracketSpacing":false} [meriyah] format 1`] = `
-"Unexpected token: 'with' (1:47)
-> 1 | export { default as foo2 } from "foo.json" with { type: "json" };
-    |                                               ^
-  2 |
-Cause: [1:47]: Unexpected token: 'with'"
-`;
-
 exports[`re-export.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false

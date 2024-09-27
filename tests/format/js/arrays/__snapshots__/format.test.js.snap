@@ -1048,7 +1048,7 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
    8 |   #[1,2],
    9 | ]
   10 |
-Cause: [7:3]: '#' not followed by identifier"
+Cause: [7:2-7:3]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js [typescript] format 1`] = `

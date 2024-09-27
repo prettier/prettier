@@ -69,24 +69,13 @@ const acornDisabledTests = espreeDisabledTests;
 const meriyahDisabledTests = new Set([
   ...espreeDisabledTests,
   ...[
-    // Meriyah does not support decorator auto accessors syntax.
-    // But meriyah can parse it as an ordinary class property.
-    // So meriyah does not throw parsing error for it.
-    ...[
-      "basic.js",
-      "computed.js",
-      "private.js",
-      "static-computed.js",
-      "static-private.js",
-      "static.js",
-      "with-semicolon-1.js",
-      "with-semicolon-2.js",
-      "comments.js",
-    ].map((filename) => `js/decorator-auto-accessors/${filename}`),
-    // https://github.com/meriyah/meriyah/issues/233
-    "js/babel-plugins/decorator-auto-accessors.js",
     // Parsing to different ASTs
     "js/decorators/member-expression.js",
+    // Meriyah parse RegExp relay on runtime behavior
+    // The following fails on Node.js < 20
+    "js/babel-plugins/regex-v-flag.js",
+    "js/regex/v-flag.js",
+    "js/regex/d-flag.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const babelTsDisabledTest = new Set(

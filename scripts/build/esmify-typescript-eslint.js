@@ -45,10 +45,20 @@ function esmifyTypescriptEslint(text) {
   );
 
   text = text.replaceAll('"use strict";', "");
-  text = text.replaceAll(
-    'Object.defineProperty(exports, "__esModule", { value: true });',
-    "",
-  );
+  text = text
+    .replaceAll(
+      'Object.defineProperty(exports, "__esModule", { value: true });',
+      "",
+    )
+    .replaceAll(
+      outdent`
+        Object.defineProperty(exports, "__esModule", {
+          value: true
+        });
+      `,
+      "",
+    );
+
   text = text.replaceAll(/(?<=\n)(?:exports\.\w+ = )+void 0;/gu, "");
   text = text.replaceAll(
     /(?<=\n)exports\.(?<specifier>\w+) = (?<variable>\w+);/gu,

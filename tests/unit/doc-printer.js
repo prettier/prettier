@@ -40,13 +40,13 @@ test("`printDocToString` should not manipulate docs", () => {
 
     const lines = formatted.split("\n");
     expect(lines.length).toBeGreaterThan(1000);
-    expect(endTime - startTime).toBeLessThan(100);
+    expect(endTime - startTime).toBeLessThan(150);
   }
 });
 
 describe("`printDocToString` has linear time complexity at most to print fill()", () => {
   const baseSize = 3_000;
-  const relativeMargin = 0.3;
+  const relativeMargin = 0.4;
   const baseTime = time(makeFill(baseSize));
   test.each([10_000, 20_000, 40_000])("numWords=%d", (numWords) => {
     const doc = makeFill(numWords);

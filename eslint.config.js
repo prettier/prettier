@@ -1,7 +1,5 @@
 import url from "node:url";
 
-import { fixupPluginRules } from "@eslint/compat";
-import { FlatCompat } from "@eslint/eslintrc";
 import eslintPluginJs from "@eslint/js";
 import eslintPluginStylisticJs from "@stylistic/eslint-plugin-js";
 import eslintPluginTypescriptEslint from "@typescript-eslint/eslint-plugin";
@@ -10,18 +8,15 @@ import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginImport from "eslint-plugin-import";
 import eslintPluginJest from "eslint-plugin-jest";
 import eslintPluginN from "eslint-plugin-n";
-import eslintPluginReactConfigRecommended from "eslint-plugin-react/configs/recommended.js";
+import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import globals from "globals";
 
 import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-prettier-internal-rules/index.js";
 
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
-const compat = new FlatCompat({ baseDirectory: toPath("./") });
-eslintPluginReactConfigRecommended.plugins.react = fixupPluginRules(
-  eslintPluginReactConfigRecommended.plugins.react,
-);
 
 const ignores = `
 .tmp
@@ -53,8 +48,10 @@ export default [
   eslintPluginRegexp.configs["flat/recommended"],
   eslintPluginUnicorn.configs["flat/recommended"],
   eslintConfigPrettier,
-  ...compat.env({ es2024: true, node: true }),
   {
+    languageOptions: {
+      globals: { ...globals.builtin, ...globals.node },
+    },
     plugins: {
       "@stylistic/js": eslintPluginStylisticJs,
       "@typescript-eslint": eslintPluginTypescriptEslint,
@@ -442,20 +439,20 @@ export default [
       ],
     },
   },
-  ...compat
-    .env({ browser: true, worker: true })
-    .map((config) => ({ ...config, files: ["website/**/*"] })),
-  // Use `Object.assign` since it contains non-enumerable properties
-  Object.assign(eslintPluginReactConfigRecommended, {
+  {
     files: ["website/**/*"],
+    ...eslintPluginReact.configs.flat.recommended,
+  },
+  {
+    files: ["website/**/*"],
+    languageOptions: {
+      globals: { ...globals.browser, ...globals.worker },
+    },
     settings: {
       react: {
         version: "18",
       },
     },
-  }),
-  {
-    files: ["website/**/*"],
     rules: {
       "react/display-name": "off",
       "react/no-deprecated": "off",
