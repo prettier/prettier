@@ -323,7 +323,7 @@ function printJsxChildren(
   let prevPart = "";
   /** @type {Doc[]} */
   const parts = [prevPart];
-  // To ensure rule of `fill()`, we use push(), pushLine(), pushWhitespace() instead of parts.push().
+  // To ensure rule of `fill()`, we use push(), pushLine(), pushStringOrLine() instead of parts.push().
   function push(doc) {
     prevPart = doc;
     parts.push([parts.pop(), doc]);
@@ -332,7 +332,7 @@ function printJsxChildren(
     prevPart = doc;
     parts.push(doc, "");
   }
-  function pushWhitespace(doc) {
+  function pushStringOrLine(doc) {
     if (typeof doc === "string") {
       push(doc);
       return;
@@ -363,7 +363,7 @@ function printJsxChildren(
               ),
             );
           } else {
-            pushWhitespace(jsxWhitespace);
+            pushStringOrLine(jsxWhitespace);
           }
           words.shift();
         }
@@ -399,10 +399,10 @@ function printJsxChildren(
               ),
             );
           } else {
-            pushWhitespace(jsxWhitespace);
+            pushStringOrLine(jsxWhitespace);
           }
         } else {
-          pushWhitespace(
+          pushStringOrLine(
             separatorNoWhitespace(
               isFacebookTranslationTag,
               prevPart,
@@ -418,7 +418,7 @@ function printJsxChildren(
           pushLine(hardline);
         }
       } else {
-        pushWhitespace(jsxWhitespace);
+        pushStringOrLine(jsxWhitespace);
       }
     } else {
       const printedChild = print();
@@ -429,7 +429,7 @@ function printJsxChildren(
       if (directlyFollowedByMeaningfulText) {
         const trimmed = jsxWhitespaceUtils.trim(rawText(next));
         const [firstWord] = jsxWhitespaceUtils.split(trimmed);
-        pushWhitespace(
+        pushStringOrLine(
           separatorNoWhitespace(
             isFacebookTranslationTag,
             firstWord,
