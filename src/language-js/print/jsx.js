@@ -311,10 +311,7 @@ function printJsxElementInternal(path, options, print) {
 // Leading, trailing, and lone whitespace all need to
 // turn themselves into the rather ugly `{' '}` when breaking.
 //
-// We print JSX using the `fill` doc primitive.
-// This requires that we give it an array of alternating
-// content and whitespace elements.
-// To ensure this we add dummy `""` content elements as needed.
+// This function returns Doc array that satisfies rule of `fill()`.
 function printJsxChildren(
   path,
   options,
@@ -326,6 +323,7 @@ function printJsxChildren(
   let prevPart = "";
   /** @type {Doc[]} */
   const parts = [prevPart];
+  // To ensure rule of `fill()`, we use push(), pushLine(), pushWhitespace() instead of parts.push().
   function push(doc) {
     prevPart = doc;
     parts.push([parts.pop(), doc]);
