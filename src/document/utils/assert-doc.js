@@ -84,9 +84,13 @@ function isValidSeparator(doc) {
         hasLine = true;
         return;
       case DOC_TYPE_STRING:
-        if (doc !== "{' '}" && doc !== '{" "}') {
-          hasUnexpectedString = true;
+        if (doc === "{' '}" || doc === '{" "}') {
+          // As of now, we can include `{' '}` in line part of `fill()`.
+          // This sometimes causes overflows https://github.com/prettier/prettier/issues/2553
+          // We don't have a good way to handle this case.
+          return;
         }
+        hasUnexpectedString = true;
         return;
       case DOC_TYPE_IF_BREAK:
         traverseDoc(doc.breakContents, rec);
