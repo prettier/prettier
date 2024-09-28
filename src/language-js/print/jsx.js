@@ -216,7 +216,7 @@ function printJsxElementInternal(path, options, print) {
     // There are a number of situations where we need to ensure we display
     // whitespace as `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
-      if (i === 1 && children[i - 1] === "") {
+      if (i === 1 && cleanDoc(children[i - 1]) === "") {
         if (children.length === 2) {
           // Solitary whitespace
           multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
@@ -328,7 +328,7 @@ function printJsxChildren(
   const parts = [prevPart];
   function push(doc) {
     prevPart = doc;
-    parts.push(cleanDoc([parts.pop(), doc]));
+    parts.push([parts.pop(), doc]);
   }
   function pushLine(doc) {
     prevPart = doc;
@@ -354,7 +354,6 @@ function printJsxChildren(
 
         // Starts with whitespace
         if (words[0] === "") {
-          push("");
           words.shift();
           if (/\n/u.test(words[0])) {
             pushLine(
