@@ -3,7 +3,7 @@ import { DOC_TYPE_ARRAY, DOC_TYPE_FILL } from "../document/constants.js";
 import { getDocType } from "../document/utils.js";
 
 /**
- * @typedef {import("../common/ast-path.js").default} AstPath
+ * @import AstPath from "../common/ast-path.js"
  * @import {Doc} from "../document/builders.js"
  */
 

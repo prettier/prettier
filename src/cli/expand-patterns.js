@@ -2,7 +2,7 @@ import path from "node:path";
 import { fastGlob } from "./prettier-internal.js";
 import { lstatSafe, normalizeToPosix } from "./utils.js";
 
-/** @import {Context} from './context' */
+/** @import {Context} from './context.js' */
 
 /**
  * @param {Context} context

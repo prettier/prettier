@@ -10,7 +10,7 @@ import {
  * @import {WordNode} from "./utils.js"
  * @import {WhitespaceValue} from "./utils.js"
  * @import {WordKind} from "./utils.js"
- * @typedef {import("../common/ast-path.js").default} AstPath
+ * @import AstPath from "../common/ast-path.js"
  * @typedef {"always" | "never" | "preserve"} ProseWrap
  * @typedef {{ next?: WordNode | null, previous?: WordNode | null }}
  * AdjacentNodes Nodes adjacent to a `whitespace` node. Are always of type

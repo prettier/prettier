@@ -48,7 +48,7 @@ const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  * @import {Node} from "../types/estree.js"
  * @import {JSXElement} from "../types/estree.js"
  * @import {Doc} from "../../document/builders.js"

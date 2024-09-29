@@ -74,7 +74,7 @@ import { printTernary } from "./ternary.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  * @import {Doc} from "../../document/builders.js"
  */
 
