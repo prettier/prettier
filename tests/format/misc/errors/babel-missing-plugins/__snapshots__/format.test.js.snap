@@ -11,3 +11,9 @@ exports[`snippet: #1 [babel] format 1`] = `
 > 1 | 100m;
     |    ^"
 `;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"Unexpected token. (1:8)
+> 1 | import module foo from "./module.wasm";
+    |        ^"
+`;
