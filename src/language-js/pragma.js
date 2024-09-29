@@ -1,5 +1,4 @@
 import { extract, parseWithComments, print, strip } from "jest-docblock";
-
 import { normalizeEndOfLine } from "../common/end-of-line.js";
 import getShebang from "./utils/get-shebang.js";
 

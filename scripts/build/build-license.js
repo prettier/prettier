@@ -1,9 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-
 import { outdent } from "outdent";
 import rollupPluginLicense from "rollup-plugin-license";
-
 import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 
 const PROJECT_LICENSE_FILE = path.join(PROJECT_ROOT, "LICENSE");

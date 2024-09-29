@@ -1,5 +1,4 @@
 import chalk from "chalk";
-
 import { fetchText, logPromise, processFile, runGit } from "../utils.js";
 
 async function update() {

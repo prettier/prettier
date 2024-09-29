@@ -1,5 +1,4 @@
 import { outdent } from "outdent";
-
 import {
   CATEGORY_CONFIG,
   CATEGORY_EDITOR,
