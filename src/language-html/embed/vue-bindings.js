@@ -1,7 +1,7 @@
 import { formatAttributeValue } from "./utils.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 /**

@@ -14,7 +14,7 @@ import {
 import { printVueVForDirective } from "./vue-v-for-directive.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 

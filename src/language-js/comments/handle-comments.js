@@ -26,8 +26,8 @@ import isBlockComment from "../utils/is-block-comment.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
 
 /**
- * @typedef {import("../types/estree.js").Node} Node
- * @typedef {import("../types/estree.js").Comment} Comment
+ * @import {Node} from "../types/estree.js"
+ * @import {Comment} from "../types/estree.js"
  *
  * @typedef {Object} CommentContext
  * @property {Comment} comment

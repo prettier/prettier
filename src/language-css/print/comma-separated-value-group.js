@@ -39,7 +39,7 @@ import {
 } from "../utils/index.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 function printCommaSeparatedValueGroup(path, options, print) {

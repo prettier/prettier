@@ -38,7 +38,7 @@ import {
 } from "./utils.js";
 
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
 const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);

@@ -4,7 +4,7 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
  * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 /**

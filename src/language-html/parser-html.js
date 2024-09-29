@@ -23,8 +23,8 @@ import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 /**
  * @typedef {import('angular-html-parser')} AngularHtmlParser
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Node} AstNode
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Attribute} Attribute
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Element} Element
+ * @import {Attribute} from 'angular-html-parser/lib/compiler/src/ml_parser/ast.js'
+ * @import {Element} from 'angular-html-parser/lib/compiler/src/ml_parser/ast.js'
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/parser.js').ParseTreeResult} ParserTreeResult
  * @typedef {import('angular-html-parser').ParseOptions & {
  *   name: 'html' | 'angular' | 'vue' | 'lwc';

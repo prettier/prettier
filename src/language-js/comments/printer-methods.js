@@ -7,7 +7,7 @@ import {
 } from "../utils/index.js";
 
 /**
- * @typedef {import("../types/estree.js").Node} Node
+ * @import {Node} from "../types/estree.js"
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 

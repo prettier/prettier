@@ -7,7 +7,7 @@ import { printStyleAttribute } from "./style.js";
 import printVueAttribute from "./vue-attributes.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 

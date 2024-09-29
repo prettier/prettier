@@ -1,4 +1,4 @@
-/** @typedef {import("../../document/builders.js").Doc} Doc */
+/** @import {Doc} from "../../document/builders.js" */
 
 import assert from "node:assert";
 import { replaceEndOfLine } from "../../document/utils.js";

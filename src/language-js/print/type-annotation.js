@@ -32,7 +32,7 @@ import {
 } from "./misc.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 const isVoidType = createTypeCheckFunction([

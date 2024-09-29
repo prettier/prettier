@@ -7,9 +7,9 @@ import {
 } from "./utils.js";
 
 /**
- * @typedef {import("./utils.js").WordNode} WordNode
- * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
- * @typedef {import("./utils.js").WordKind} WordKind
+ * @import {WordNode} from "./utils.js"
+ * @import {WhitespaceValue} from "./utils.js"
+ * @import {WordKind} from "./utils.js"
  * @typedef {import("../common/ast-path.js").default} AstPath
  * @typedef {"always" | "never" | "preserve"} ProseWrap
  * @typedef {{ next?: WordNode | null, previous?: WordNode | null }}

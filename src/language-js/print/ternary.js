@@ -27,7 +27,7 @@ import isBlockComment from "../utils/is-block-comment.js";
 import { printTernaryOld } from "./ternary-old.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  * @typedef {import("../../common/ast-path.js").default} AstPath
  *
  * @typedef {any} Options - Prettier options (TBD ...)
