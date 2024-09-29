@@ -3,7 +3,7 @@ import { isNextLineEmpty } from "../utils/index.js";
 
 /**
  * @import {Doc} from "../../document/builders.js"
- * @typedef {import("../../common/ast-path.js")} AstPath
+ * @import AstPath from "../../common/ast-path.js")
  */
 
 /*

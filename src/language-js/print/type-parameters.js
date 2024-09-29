@@ -28,7 +28,7 @@ import {
 
 /**
  * @import {Doc} from "../../document/builders.js"
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");

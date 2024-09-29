@@ -8,7 +8,7 @@ import {
 
 /**
  * @import {Node} from "../types/estree.js"
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 const nodeTypesCanNotAttachComment = new Set([

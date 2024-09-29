@@ -21,7 +21,7 @@ import isBlockComment from "../utils/is-block-comment.js";
 
 /**
  * @import {Doc} from "../../document/builders.js"
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  *
  * @typedef {any} Options - Prettier options (TBD ...)
  */

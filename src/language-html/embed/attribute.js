@@ -8,7 +8,7 @@ import printVueAttribute from "./vue-attributes.js";
 
 /**
  * @import {Doc} from "../../document/builders.js"
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 function printAttribute(path, options) {
