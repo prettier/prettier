@@ -209,10 +209,14 @@ function isBreakable(path, value, proseWrap, isLink) {
   //      [printable][\n][Hangul] will be interchangeable to [printable][" "][Hangul] in the future
   //      (will be compatible with Firefox's behavior)
 
-  if (!previous || !next) {
+  if (!previous) {
     // empty side is Latin ASCII symbol (e.g. *, [, ], or `)
     // [1] & [2]
-    return previous?.isCJ === false || next?.isCJ === false;
+    return !next?.isCJ;
+  }
+
+  if (!next) {
+    return !previous?.isCJ;
   }
 
   if (value === "") {
