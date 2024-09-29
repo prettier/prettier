@@ -38,7 +38,6 @@ const parseOptions = {
     "throwExpressions",
     "partialApplication",
     "decorators",
-    "decimal",
     "moduleBlocks",
     "asyncDoExpressions",
     "destructuringPrivate",

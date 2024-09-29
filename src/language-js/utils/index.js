@@ -190,7 +190,6 @@ const isLiteral = createTypeCheckFunction([
   "Literal",
   "BooleanLiteral",
   "BigIntLiteral", // Babel, flow use `BigIntLiteral` too
-  "DecimalLiteral",
   "DirectiveLiteral",
   "NullLiteral",
   "NumericLiteral",

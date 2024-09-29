@@ -183,7 +183,6 @@ exports[`visitor keys estree 1`] = `
     "label",
   ],
   "DebuggerStatement": [],
-  "DecimalLiteral": [],
   "DeclareClass": [
     "body",
     "extends",
