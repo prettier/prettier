@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "prettier": {
+    "ignores": [
+      "ignored.*"
+    ]
+  }
+}

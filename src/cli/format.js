@@ -240,6 +240,7 @@ async function createIsIgnoredFromContextOrDie(context) {
     return await createIsIgnoredFunction(
       context.argv.ignorePath,
       context.argv.withNodeModules,
+      context.argv.ignores,
     );
   } catch (e) {
     context.logger.error(e.message);
@@ -258,7 +259,7 @@ async function formatStdin(context) {
     let isFileIgnored = false;
     if (filepath) {
       const isIgnored = await createIsIgnoredFromContextOrDie(context);
-      isFileIgnored = isIgnored(filepath);
+      isFileIgnored = await isIgnored(filepath);
     }
 
     if (isFileIgnored) {
@@ -328,7 +329,7 @@ async function formatFiles(context) {
       continue;
     }
 
-    const isFileIgnored = isIgnored(filename);
+    const isFileIgnored = await isIgnored(filename);
     if (
       isFileIgnored &&
       (context.argv.debugCheck ||
