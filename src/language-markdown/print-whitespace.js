@@ -216,7 +216,8 @@ function isBreakable(path, value, proseWrap, isLink) {
   }
 
   if (!next) {
-    return !previous?.isCJ;
+    // previous is not nullish because of the above if (!previous)
+    return !previous.isCJ;
   }
 
   if (value === "") {
