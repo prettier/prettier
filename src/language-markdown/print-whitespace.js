@@ -203,47 +203,36 @@ function isBreakable(path, value, proseWrap, isLink) {
     return true;
   }
 
-  if (value === " ") {
-    // [1]: We will make a breaking change to the rule to convert spaces between
-    // a Chinese or Japanese character and another character in the future.
-    // Such a space must have been always interchangeable with a line break.
-    // https://wpt.fyi/results/css/css-text/line-breaking?label=master&label=experimental&aligned&q=segment-break-transformation-rules-
-    // [2]: we should not break lines even between Chinese/Japanese characters because Chrome & Safari replaces "\n" between such characters with " " now.
-    return (
-      // See [2]
-      (!previous.isCJ && !next.isCJ) ||
-      // See the same product terms as the following in lineBreakCanBeConvertedToSpace
-      // The behavior is consistent between browsers and Prettier in that line breaks between Korean and Chinese/Japanese letters are equivalent to spaces.
-      (previous.kind === KIND_K_LETTER && next.kind === KIND_CJ_LETTER) ||
-      (next.kind === KIND_K_LETTER && previous.kind === KIND_CJ_LETTER)
-    );
-  }
+  // [1]: We will make a breaking change to the rule to convert spaces between
+  //      a Chinese or Japanese character and another character in the future.
+  //      Such a space must have been always interchangeable with a line break.
+  //      https://wpt.fyi/results/css/css-text/line-breaking?label=master&label=experimental&aligned&q=segment-break-transformation-rules-
+  // [2]: we should not break lines even between Chinese/Japanese characters because Chrome & Safari replaces "\n" between such characters with " " now.
+  // [3]: Hangul (Korean) must simulate Latin words; see https://github.com/prettier/prettier/issues/6516
+  //      [printable][""][Hangul] & vice versa => Don't break
+  //      [printable][\n][Hangul] will be interchangeable to [printable][" "][Hangul] in the future
+  //      (will be compatible with Firefox's behavior)
 
-  // Simulates Latin words; see https://github.com/prettier/prettier/issues/6516
-  // [printable][""][Hangul] & vice versa => Don't break
-  // [printable][\n][Hangul] will be interchangeable to [printable][" "][Hangul] in the future
-  // (will be compatible with Firefox's behavior)
-  if (
-    value === "" &&
-    (previous.kind === KIND_K_LETTER || next?.kind === KIND_K_LETTER)
-  ) {
+  if (value === "") {
+    // [1] & [2] & [3]
+    // At least either of previous or next is non-Latin (=CJK)
     return false;
   }
 
-  // Currently, [CJK punctuation][\n][Hangul] is interchangeable to [CJK punctuation][""][Hangul],
-  // but this is not compatible with Firefox's behavior.
-  // Will be changed to [CJK punctuation][" "][Hangul] in the future
   if (
-    value === "\n" &&
-    ((previous?.kind === KIND_K_LETTER &&
-      next?.kind === KIND_CJK_PUNCTUATION) ||
-      (next?.kind === KIND_K_LETTER && previous?.kind === KIND_CJK_PUNCTUATION))
+    // See the same product terms as the following in lineBreakCanBeConvertedToSpace
+    // The behavior is consistent between browsers and Prettier in that line breaks between Korean and Chinese/Japanese letters are equivalent to spaces.
+    // Currently, [CJK punctuation][\n][Hangul] is interchangeable to [CJK punctuation][""][Hangul],
+    // but this is not compatible with Firefox's behavior.
+    // Will be changed to [CJK punctuation][" "][Hangul] in the future
+    (previous.kind === KIND_K_LETTER && next.kind === KIND_CJ_LETTER) ||
+    (next.kind === KIND_K_LETTER && previous.kind === KIND_CJ_LETTER)
   ) {
-    return false;
+    return true;
   }
 
-  // The same reasons as [1] & [2] above
-  if (previous && next && (previous.isCJ || next.isCJ)) {
+  // [1] & [2]
+  if (previous.isCJ || next.isCJ) {
     return false;
   }
 
