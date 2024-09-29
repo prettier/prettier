@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-
 import chalk from "chalk";
 
 const packageJson = JSON.parse(

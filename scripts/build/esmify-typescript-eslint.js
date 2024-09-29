@@ -1,9 +1,7 @@
 /* Transform `@typescript-eslint/*` module to ESM */
 
 import * as path from "node:path";
-
 import { outdent } from "outdent";
-
 import { PROJECT_ROOT, writeFile } from "../utils/index.js";
 
 function esmifyTypescriptEslint(text) {

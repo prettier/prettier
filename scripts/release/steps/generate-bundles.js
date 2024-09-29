@@ -1,5 +1,4 @@
 import chalk from "chalk";
-
 import { logPromise, readJson, runYarn } from "../utils.js";
 
 export default async function generateBundles({ dry, version, manual }) {

@@ -1,9 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-
 import createEsmUtils from "esm-utils";
 import fastGlob from "fast-glob";
-
 import coreOptions from "../../../src/main/core-options.evaluate.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
 import prettier from "../../config/prettier-entry.js";

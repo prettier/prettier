@@ -8,7 +8,6 @@ import {
   TagContentType,
   visitAll,
 } from "angular-html-parser";
-
 import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParser from "../utils/infer-parser.js";
