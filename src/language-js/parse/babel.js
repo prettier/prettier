@@ -59,7 +59,6 @@ const v8intrinsicPlugin = "v8intrinsic";
 /** @type {Array<ParserPlugin>} */
 const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "hack", topicToken: "%" }],
-  ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
 
