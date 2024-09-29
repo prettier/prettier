@@ -199,10 +199,6 @@ function isBreakable(path, value, proseWrap, isLink) {
   /** @type {AdjacentNodes} */
   const { previous, next } = path;
 
-  if (!previous || !next) {
-    return true;
-  }
-
   // [1]: We will make a breaking change to the rule to convert spaces between
   //      a Chinese or Japanese character and another character in the future.
   //      Such a space must have been always interchangeable with a line break.
@@ -212,6 +208,12 @@ function isBreakable(path, value, proseWrap, isLink) {
   //      [printable][""][Hangul] & vice versa => Don't break
   //      [printable][\n][Hangul] will be interchangeable to [printable][" "][Hangul] in the future
   //      (will be compatible with Firefox's behavior)
+
+  if (!previous || !next) {
+    // empty side is Latin ASCII symbol (e.g. *, [, ], or `)
+    // [1] & [2]
+    return previous?.isCJ === false || next?.isCJ === false;
+  }
 
   if (value === "") {
     // [1] & [2] & [3]
