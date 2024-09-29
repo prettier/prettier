@@ -211,6 +211,7 @@ function isBreakable(path, value, proseWrap, isLink) {
 
   if (!previous) {
     // empty side is Latin ASCII symbol (e.g. *, [, ], or `)
+    // value is " " or "\n" (not "")
     // [1] & [2]
     return !next?.isCJ;
   }
