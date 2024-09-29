@@ -49,8 +49,7 @@ const isEmptyStringOrAnyLine = (doc) =>
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Node} from "../types/estree.js"
- * @import {JSXElement} from "../types/estree.js"
+ * @import {Node, JSXElement} from "../types/estree.js"
  * @import {Doc} from "../../document/builders.js"
  */
 
