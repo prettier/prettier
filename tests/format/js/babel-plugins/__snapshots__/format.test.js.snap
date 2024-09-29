@@ -1317,44 +1317,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`import-reflection.js [acorn] format 1`] = `
-"Unexpected token (1:15)
-> 1 | import module foo from "./module.wasm";
-    |               ^
-  2 |
-Cause: Unexpected token (1:14)"
-`;
-
-exports[`import-reflection.js [espree] format 1`] = `
-"Unexpected token foo (1:15)
-> 1 | import module foo from "./module.wasm";
-    |               ^
-  2 |
-Cause: Unexpected token foo"
-`;
-
-exports[`import-reflection.js [meriyah] format 1`] = `
-"Expected 'from' (1:15)
-> 1 | import module foo from "./module.wasm";
-    |               ^^^
-  2 |
-Cause: [1:14-1:17]: Expected 'from'"
-`;
-
-exports[`import-reflection.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import module foo from "./module.wasm";
-
-=====================================output=====================================
-import module foo from "./module.wasm";
-
-================================================================================
-`;
-
 exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
