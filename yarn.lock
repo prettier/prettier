@@ -15,17 +15,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:18.2.5":
-  version: 18.2.5
-  resolution: "@angular/compiler@npm:18.2.5"
+"@angular/compiler@npm:18.2.6":
+  version: 18.2.6
+  resolution: "@angular/compiler@npm:18.2.6"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/core": 18.2.5
+    "@angular/core": 18.2.6
   peerDependenciesMeta:
     "@angular/core":
       optional: true
-  checksum: 10/9bc11279fad9725cfa91e18cb7f483130b3c340389b92b90ea335ef53c944989df82af0bf8de8c4da628ffb3edf2e68ff779d77acbc7cb834995c5e730b18337
+  checksum: 10/14ed1b955141b6af4a609fda9bc1d38c4a62dc0fee85610c8542de32fb6e7ea8f09ea4309216c61d7cbd4c85a3f400a7ecd3a8d845f3f8c59e805d247ed65d38
   languageName: node
   linkType: hard
 
@@ -2143,12 +2143,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-estree-parser@npm:10.0.3":
-  version: 10.0.3
-  resolution: "angular-estree-parser@npm:10.0.3"
+"angular-estree-parser@npm:10.0.4":
+  version: 10.0.4
+  resolution: "angular-estree-parser@npm:10.0.4"
   peerDependencies:
     "@angular/compiler": ^17.3.9 || ^18.0.0
-  checksum: 10/6289fed62ab056e927e811bc17298108d33bdca893296207f9c6ac362729936d7d6c0abcfa72e78b5b77f3740f4d702937d86c167771aaa57fe04afd39d368da
+  checksum: 10/6adc929f66b0dff2dfad2abb3804001b425410f9012a02b3e0c5fb817125abd9b0231efa607f1cfee0ea8fbfb317c9c04fd70b81d9afe3248308e827c610c1bf
   languageName: node
   linkType: hard
 
@@ -7225,7 +7225,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": "npm:18.2.5"
+    "@angular/compiler": "npm:18.2.6"
     "@babel/code-frame": "npm:7.24.7"
     "@babel/generator": "npm:7.25.6"
     "@babel/parser": "npm:7.25.6"
@@ -7243,7 +7243,7 @@ __metadata:
     "@typescript-eslint/visitor-keys": "npm:8.7.0"
     acorn: "npm:8.12.1"
     acorn-jsx: "npm:5.3.2"
-    angular-estree-parser: "npm:10.0.3"
+    angular-estree-parser: "npm:10.0.4"
     angular-html-parser: "npm:7.0.0"
     benchmark: "npm:2.1.4"
     browserslist: "npm:4.24.0"
