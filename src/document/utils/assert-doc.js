@@ -45,7 +45,7 @@ const assertDocArray =
         }
       };
 
-const assertDocFill =
+const assertDocFillParts =
   process.env.NODE_ENV === "production"
     ? noop
     : /**
@@ -102,4 +102,4 @@ function isValidSeparator(doc) {
   return hasLine && !hasUnexpectedString;
 }
 
-export { assertDoc, assertDocArray, assertDocFill };
+export { assertDoc, assertDocArray, assertDocFillParts };

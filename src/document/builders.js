@@ -16,7 +16,7 @@ import {
 import {
   assertDoc,
   assertDocArray,
-  assertDocFill,
+  assertDocFillParts,
 } from "./utils/assert-doc.js";
 
 /**
@@ -110,7 +110,7 @@ function conditionalGroup(states, opts) {
  * @returns Doc
  */
 function fill(parts) {
-  assertDocFill(parts);
+  assertDocFillParts(parts);
 
   return { type: DOC_TYPE_FILL, parts };
 }
