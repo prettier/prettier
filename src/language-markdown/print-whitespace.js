@@ -209,16 +209,12 @@ function isBreakable(path, value, proseWrap, isLink) {
   //      [printable][\n][Hangul] will be interchangeable to [printable][" "][Hangul] in the future
   //      (will be compatible with Firefox's behavior)
 
-  if (!previous) {
+  if (!previous || !next) {
+    // previous or next is not nullish
     // empty side is Latin ASCII symbol (e.g. *, [, ], or `)
     // value is " " or "\n" (not "")
-    // [1] & [2]
-    return !next?.isCJ;
-  }
-
-  if (!next) {
-    // previous is not nullish because of the above if (!previous)
-    return !previous.isCJ;
+    // [1] & [2]? No, it's the only exception because " " & "\n" have been always interchangeable only here
+    return true;
   }
 
   if (value === "") {
