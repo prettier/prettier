@@ -1,6 +1,5 @@
 import { preprocess as parseGlimmer } from "@glimmer/syntax";
 import { LinesAndColumns } from "lines-and-columns";
-
 import createError from "../common/parser-create-error.js";
 import { locEnd, locStart } from "./loc.js";
 

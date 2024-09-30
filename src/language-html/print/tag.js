@@ -3,7 +3,6 @@
  */
 
 import assert from "node:assert";
-
 import {
   hardline,
   indent,

@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { Button, ClipboardButton } from "./buttons.js";
 import getCodeSample from "./codeSamples.mjs";
 import generateDummyId from "./dummyId.js";

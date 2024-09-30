@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { Checkbox, NumberInput, Select } from "./inputs.js";
 
 function BooleanOption({ option, value, onChange }) {

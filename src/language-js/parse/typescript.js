@@ -1,5 +1,4 @@
 import { parse as parseTypeScript } from "@typescript-eslint/typescript-estree";
-
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";

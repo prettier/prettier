@@ -5,3 +5,9 @@ exports[`snippet: #0 [babel] format 1`] = `
 > 1 | export type Foo = number;
     |        ^"
 `;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"Unexpected token. (1:4)
+> 1 | 100m;
+    |    ^"
+`;

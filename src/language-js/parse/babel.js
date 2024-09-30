@@ -1,5 +1,4 @@
 import { parse as babelParse, parseExpression } from "@babel/parser";
-
 import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
@@ -38,7 +37,6 @@ const parseOptions = {
     "throwExpressions",
     "partialApplication",
     "decorators",
-    "decimal",
     "moduleBlocks",
     "asyncDoExpressions",
     "destructuringPrivate",
@@ -61,7 +59,6 @@ const v8intrinsicPlugin = "v8intrinsic";
 /** @type {Array<ParserPlugin>} */
 const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "hack", topicToken: "%" }],
-  ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
 

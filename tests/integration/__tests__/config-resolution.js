@@ -1,6 +1,5 @@
 import path from "node:path";
 import url from "node:url";
-
 import prettier from "../../config/prettier-entry.js";
 
 test("resolves configuration from external files and overrides by extname", async () => {

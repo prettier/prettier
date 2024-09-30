@@ -8,7 +8,6 @@ import {
   TagContentType,
   visitAll,
 } from "angular-html-parser";
-
 import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParser from "../utils/infer-parser.js";
@@ -365,7 +364,6 @@ function parse(
     const start = new ParseLocation(file, 0, 0, 0);
     const end = start.moveBy(frontMatter.raw.length);
     frontMatter.sourceSpan = new ParseSourceSpan(start, end);
-    // @ts-expect-error -- not a real AstNode
     rawAst.children.unshift(frontMatter);
   }
 

@@ -22,8 +22,6 @@ function printLiteral(path, options /*, print*/) {
       return "null";
     case "BooleanLiteral": // Babel 6 Literal split
       return String(node.value);
-    case "DecimalLiteral":
-      return printNumber(node.value) + "m";
     case "DirectiveLiteral":
       return printDirective(node.extra.raw, options);
     case "Literal": {
@@ -33,10 +31,6 @@ function printLiteral(path, options /*, print*/) {
 
       if (node.bigint) {
         return printBigInt(node.raw);
-      }
-
-      if (node.decimal) {
-        return printNumber(node.decimal) + "m";
       }
 
       const { value } = node;
