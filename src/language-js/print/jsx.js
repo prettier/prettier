@@ -126,7 +126,7 @@ function printJsxElementInternal(path, options, print) {
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = isMdxBlock
-    ? " "
+    ? line
     : ifBreak([rawJsxWhitespace, softline], " ");
 
   const isFacebookTranslationTag = node.openingElement?.name?.name === "fbt";
@@ -323,21 +323,17 @@ function printJsxChildren(
   let prevPart = "";
   /** @type {Doc[]} */
   const parts = [prevPart];
-  // To ensure rule of `fill()`, we use push(), pushLine(), pushStringOrLine() instead of parts.push().
+  // To ensure rule of `fill()`, we use `push()` and `pushLine()` instead of `parts.push()`.
   function push(doc) {
     prevPart = doc;
     parts.push([parts.pop(), doc]);
   }
   function pushLine(doc) {
-    prevPart = doc;
-    parts.push(doc, "");
-  }
-  function pushStringOrLine(doc) {
-    if (typeof doc === "string") {
-      push(doc);
+    if (doc === "") {
       return;
     }
-    pushLine(doc);
+    prevPart = doc;
+    parts.push(doc, "");
   }
   path.each(({ node, next }) => {
     if (node.type === "JSXText") {
@@ -363,7 +359,7 @@ function printJsxChildren(
               ),
             );
           } else {
-            pushStringOrLine(jsxWhitespace);
+            pushLine(jsxWhitespace);
           }
           words.shift();
         }
@@ -399,10 +395,10 @@ function printJsxChildren(
               ),
             );
           } else {
-            pushStringOrLine(jsxWhitespace);
+            pushLine(jsxWhitespace);
           }
         } else {
-          pushStringOrLine(
+          pushLine(
             separatorNoWhitespace(
               isFacebookTranslationTag,
               prevPart,
@@ -418,7 +414,7 @@ function printJsxChildren(
           pushLine(hardline);
         }
       } else {
-        pushStringOrLine(jsxWhitespace);
+        pushLine(jsxWhitespace);
       }
     } else {
       const printedChild = print();
@@ -429,7 +425,7 @@ function printJsxChildren(
       if (directlyFollowedByMeaningfulText) {
         const trimmed = jsxWhitespaceUtils.trim(rawText(next));
         const [firstWord] = jsxWhitespaceUtils.split(trimmed);
-        pushStringOrLine(
+        pushLine(
           separatorNoWhitespace(
             isFacebookTranslationTag,
             firstWord,

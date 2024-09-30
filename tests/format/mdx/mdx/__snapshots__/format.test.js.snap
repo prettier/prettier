@@ -455,18 +455,18 @@ A {/* JS-style comment */} comment.
 <Hello>
   test <World /> test
 </Hello>
- 123
+123
 <Hello>
   test <World /> test
 </Hello>
- 234
+234
 
 ---
 
 <>
   test <World /> test
 </>
- 123
+123
 
 ---
 
@@ -561,18 +561,18 @@ A {/* JS-style comment */} comment.
 <Hello>
   test <World /> test
 </Hello>
- 123
+123
 <Hello>
   test <World /> test
 </Hello>
- 234
+234
 
 ---
 
 <>
   test <World /> test
 </>
- 123
+123
 
 ---
 

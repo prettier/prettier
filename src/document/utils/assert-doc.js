@@ -84,7 +84,7 @@ function isValidSeparator(doc) {
         hasLine = true;
         return;
       case DOC_TYPE_STRING:
-        if (doc === "{' '}" || doc === '{" "}') {
+        if (doc === "{' '}" || doc === '{" "}' || doc === " ") {
           // As of now, we can include `{' '}` in line part of `fill()`.
           // This sometimes causes overflows https://github.com/prettier/prettier/issues/2553
           // We don't have a good way to handle this case.
