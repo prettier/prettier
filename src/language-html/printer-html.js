@@ -1,5 +1,5 @@
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
 import { fill, group, hardline, indent, line } from "../document/builders.js";

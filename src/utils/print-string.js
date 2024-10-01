@@ -1,7 +1,7 @@
 import getPreferredQuote from "./get-preferred-quote.js";
 import makeString from "./make-string.js";
 
-/** @typedef {import("./get-preferred-quote.js").Quote} Quote */
+/** @import {Quote} from "./get-preferred-quote.js" */
 
 function printString(raw, options) {
   // `rawContent` is the string exactly like it appeared in the input source

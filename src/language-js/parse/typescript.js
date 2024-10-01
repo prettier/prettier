@@ -5,7 +5,9 @@ import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 
-/** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
+/** @import {TSESTreeOptions} from "@typescript-eslint/typescript-estree" */
+
+/** @type {TSESTreeOptions} */
 const baseParseOptions = {
   // `jest@<=26.4.2` rely on `loc`
   // https://github.com/facebook/jest/issues/10444

@@ -10,10 +10,10 @@ import wrapBabelExpression from "./utils/wrap-babel-expression.js";
 
 const createBabelParser = (options) => createParser(createParse(options));
 
+/** @import {ParserOptions, ParserPlugin} from "@babel/parser" */
+
 /**
- * @typedef {import("@babel/parser").parse | import("@babel/parser").parseExpression} Parse
- * @typedef {import("@babel/parser").ParserOptions} ParserOptions
- * @typedef {import("@babel/parser").ParserPlugin} ParserPlugin
+ * @typedef {typeof babelParse | typeof parseExpression} Parse
  */
 
 /** @type {ParserOptions} */

@@ -8,7 +8,7 @@ import {
 } from "../utils/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
-/** @typedef {import("../../common/ast-path.js").default} AstPath */
+/** @import AstPath from "../../common/ast-path.js" */
 
 function printAngular(path, options, print) {
   const { node } = path;

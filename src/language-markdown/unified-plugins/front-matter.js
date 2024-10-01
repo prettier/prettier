@@ -1,7 +1,9 @@
 import parseFrontMatter from "../../utils/front-matter/parse.js";
 
+/** @import {Plugin, Settings} from "unified" */
+
 /**
- * @type {import('unified').Plugin<[], import('unified').Settings>}
+ * @type {Plugin<[], Settings>}
  */
 const frontMatter = function () {
   const proto = this.Parser.prototype;

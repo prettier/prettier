@@ -1,5 +1,5 @@
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 import { hardline, join, line } from "../../document/builders.js";
