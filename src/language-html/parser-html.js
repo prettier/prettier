@@ -8,7 +8,6 @@ import {
   TagContentType,
   visitAll,
 } from "angular-html-parser";
-
 import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParser from "../utils/infer-parser.js";
@@ -22,12 +21,13 @@ import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 /**
- * @typedef {import('angular-html-parser')} AngularHtmlParser
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Node} AstNode
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Attribute} Attribute
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Element} Element
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/parser.js').ParseTreeResult} ParserTreeResult
- * @typedef {import('angular-html-parser').ParseOptions & {
+ * @import AngularHtmlParser, {ParseOptions as AngularHtmlParserParseOptions} from "angular-html-parser"
+ * @import {Node as AstNode, Attribute, Element} from "angular-html-parser/lib/compiler/src/ml_parser/ast.js"
+ * @import {ParseTreeResult} from "angular-html-parser/lib/compiler/src/ml_parser/parser.js"
+ */
+
+/**
+ * @typedef {AngularHtmlParserParseOptions & {
  *   name: 'html' | 'angular' | 'vue' | 'lwc';
  *   normalizeTagName?: boolean;
  *   normalizeAttributeName?: boolean;
@@ -136,7 +136,7 @@ function ngHtmlParser(input, parseOptions, options) {
       return ngHtmlParser(input, HTML_PARSE_OPTIONS, options);
     }
 
-    /** @type {ParserTreeResult | undefined} */
+    /** @type {ParseTreeResult | undefined} */
     let secondParseResult;
     const getHtmlParseResult = () =>
       (secondParseResult ??= parseHtml(input, {
@@ -365,7 +365,6 @@ function parse(
     const start = new ParseLocation(file, 0, 0, 0);
     const end = start.moveBy(frontMatter.raw.length);
     frontMatter.sourceSpan = new ParseSourceSpan(start, end);
-    // @ts-expect-error -- not a real AstNode
     rawAst.children.unshift(frontMatter);
   }
 

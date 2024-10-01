@@ -1,7 +1,7 @@
 import isBlockComment from "./is-block-comment.js";
 
 /**
- * @typedef {import("../types/estree.js").Comment} Comment
+ * @import {Comment} from "../types/estree.js"
  */
 
 /**

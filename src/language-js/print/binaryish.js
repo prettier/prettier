@@ -24,7 +24,7 @@ import {
   shouldFlatten,
 } from "../utils/index.js";
 
-/** @typedef {import("../../document/builders.js").Doc} Doc */
+/** @import {Doc} from "../../document/builders.js" */
 
 let uid = 0;
 function printBinaryishExpression(path, options, print) {

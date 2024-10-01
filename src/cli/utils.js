@@ -1,8 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-
 import sdbm from "sdbm";
-
 // @ts-expect-error
 import { __internal as sharedWithCli } from "../index.js";
 
@@ -52,10 +50,11 @@ function createHash(source) {
   return String(sdbm(source));
 }
 
+/** @import {Stats} from "fs" */
 /**
  * Get stats of a given path.
  * @param {string} filePath The path to target file.
- * @returns {Promise<import('fs').Stats | undefined>} The stats.
+ * @returns {Promise<Stats | undefined>} The stats.
  */
 async function statSafe(filePath) {
   try {
@@ -71,7 +70,7 @@ async function statSafe(filePath) {
 /**
  * Get stats of a given path without following symbolic links.
  * @param {string} filePath The path to target file.
- * @returns {Promise<import('fs').Stats | undefined>} The stats.
+ * @returns {Promise<Stats | undefined>} The stats.
  */
 async function lstatSafe(filePath) {
   try {
@@ -107,7 +106,7 @@ const normalizeToPosix =
     ? (filepath) => filepath.replaceAll("\\", "/")
     : (filepath) => filepath;
 
-export const { isNonEmptyArray, partition, omit } = sharedWithCli.utils;
+export const { omit } = sharedWithCli.utils;
 export {
   createHash,
   groupBy,

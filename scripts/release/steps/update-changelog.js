@@ -1,9 +1,7 @@
 import fs from "node:fs";
-
 import chalk from "chalk";
 import { execa } from "execa";
 import semver from "semver";
-
 import {
   getBlogPostInfo,
   getChangelogContent,

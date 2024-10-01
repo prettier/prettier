@@ -3,7 +3,6 @@
 
 import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
-
 import { version as prettierVersion } from "../index.js";
 import { createHash } from "./utils.js";
 
@@ -26,10 +25,10 @@ function getHashOfOptions(options) {
 }
 
 /**
+ * @import {FileDescriptor} from "file-entry-cache"
  * @typedef {{ hashOfOptions?: string }} OurMeta
- * @typedef {import("file-entry-cache").FileDescriptor} FileDescriptor
  *
- * @param {import("file-entry-cache").FileDescriptor} fileDescriptor
+ * @param {FileDescriptor} fileDescriptor
  * @returns {FileDescriptor["meta"] & OurMeta}
  */
 function getMetadataFromFileDescriptor(fileDescriptor) {

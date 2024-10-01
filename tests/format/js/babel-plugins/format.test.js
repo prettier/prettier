@@ -4,7 +4,6 @@
 runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
   errors: {
     acorn: [
-      "decimal.js",
       "decorators.js",
       "destructuring-private.js",
       "do-expressions.js",
@@ -36,7 +35,6 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "optional-chaining-assignment.js",
     ],
     espree: [
-      "decimal.js",
       "decorators.js",
       "destructuring-private.js",
       "do-expressions.js",
@@ -68,7 +66,6 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "optional-chaining-assignment.js",
     ],
     meriyah: [
-      "decimal.js",
       "do-expressions.js",
       "destructuring-private.js",
       "export-default-from.js",
@@ -86,14 +83,9 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "throw-expressions.js",
       "typescript.js",
       "v8intrinsic.js",
-      "import-assertions-dynamic.js",
       "import-assertions-static.js",
-      "import-attributes-dynamic.js",
-      "import-attributes-static.js",
-      "module-string-names.js",
       "module-blocks.js",
       "async-do-expressions.js",
-      "regex-v-flag.js",
       "import-reflection.js",
       "explicit-resource-management.js",
       "regexp-modifiers.js",

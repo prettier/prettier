@@ -1,11 +1,9 @@
 import fs from "node:fs/promises";
-
 import esbuild from "esbuild";
 import * as importMetaResolve from "import-meta-resolve";
 import { outdent } from "outdent";
 import * as prettier from "prettier";
 import * as typescript from "typescript";
-
 import { modifyTypescriptModule } from "./build/modify-typescript-module.js";
 import UNUSED_SPECIFIERS from "./build/typescript-unused-specifiers.js";
 

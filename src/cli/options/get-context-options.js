@@ -1,5 +1,4 @@
 import dashify from "dashify";
-
 import { getSupportInfo } from "../../index.js";
 import cliOptions from "../cli-options.evaluate.js";
 import {

@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import iterateDirectoryUp from "iterate-directory-up";
 
 class Searcher {

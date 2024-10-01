@@ -1,7 +1,7 @@
 import getPreferredQuote from "./get-preferred-quote.js";
 import makeString from "./make-string.js";
 
-/** @typedef {import("./get-preferred-quote.js").Quote} Quote */
+/** @import {Quote} from "./get-preferred-quote.js" */
 
 function printString(raw, options) {
   // `rawContent` is the string exactly like it appeared in the input source
@@ -33,12 +33,10 @@ function printString(raw, options) {
   return makeString(
     rawContent,
     enclosingQuote,
-    !(
-      options.parser === "css" ||
-      options.parser === "less" ||
-      options.parser === "scss" ||
-      options.__embeddedInHtml
-    ),
+    // Until Prettier 3.3.3, this option was set to true for most parsers, with some exceptions like CSS.
+    // Since Prettier 3.3.4, it is set to false for all parsers.
+    // For more details, please see https://github.com/prettier/prettier/issues/16542#issuecomment-2282249280.
+    false,
   );
 }
 

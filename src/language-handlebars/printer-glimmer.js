@@ -20,7 +20,7 @@ import { locEnd, locStart } from "./loc.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
@@ -686,7 +686,7 @@ function generateHardlines(number = 0) {
 
 /* StringLiteral print helpers */
 
-/** @typedef {import("../utils/get-preferred-quote.js").Quote} Quote */
+/** @import {Quote} from "../utils/get-preferred-quote.js" */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on

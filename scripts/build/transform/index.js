@@ -1,10 +1,8 @@
 import path from "node:path";
-
 import babelGenerator from "@babel/generator";
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import { outdent } from "outdent";
-
 import { PROJECT_ROOT, SOURCE_DIR } from "../../utils/index.js";
 import allTransforms from "./transforms/index.js";
 
@@ -21,7 +19,14 @@ function transform(original, file) {
         path.join(PROJECT_ROOT, "node_modules/angular-estree-parser/"),
       ) ||
       file.startsWith(path.join(PROJECT_ROOT, "node_modules/jest-docblock/")) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/espree/"))
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/espree/")) ||
+      file.startsWith(
+        path.join(
+          PROJECT_ROOT,
+          "node_modules/@typescript-eslint/typescript-estree/",
+        ),
+      ) ||
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/meriyah/"))
     )
   ) {
     return original;

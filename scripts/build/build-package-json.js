@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import { DIST_DIR, PROJECT_ROOT, readJson, writeJson } from "../utils/index.js";
 
 const keysToKeep = [
@@ -39,6 +38,7 @@ async function buildPackageJson({ file, files }) {
       // Don't delete, comment out if we don't want override
       node: ">=14",
     },
+    type: "commonjs",
     exports: {
       ".": {
         types: "./index.d.ts",

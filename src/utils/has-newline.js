@@ -1,7 +1,7 @@
 import { skipSpaces } from "./skip.js";
 import skipNewline from "./skip-newline.js";
 
-/** @typedef {import("./skip.js").SkipOptions} SkipOptions */
+/** @import {SkipOptions} from "./skip.js" */
 
 /**
  * @param {string} text

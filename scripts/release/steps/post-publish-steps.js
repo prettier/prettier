@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import outdent from "outdent";
-
 import { fetchText, logPromise, writeFile } from "../utils.js";
 
 const SCHEMA_REPO = "SchemaStore/schemastore";

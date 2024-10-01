@@ -11,10 +11,8 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
-
 import enquirer from "enquirer";
 import createEsmUtils from "esm-utils";
-
 import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
 
 const { __dirname } = createEsmUtils(import.meta);

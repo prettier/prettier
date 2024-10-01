@@ -2,7 +2,6 @@
 // https://github.com/kirstein/find-project-root/blob/master/index.js
 
 import * as path from "node:path";
-
 import isDirectory from "../utils/is-directory.js";
 import Searcher from "./searcher.js";
 

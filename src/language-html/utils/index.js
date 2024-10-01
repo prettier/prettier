@@ -1,5 +1,5 @@
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 import { hardline, join, line } from "../../document/builders.js";
@@ -630,12 +630,10 @@ export {
   getLastDescendant,
   getLeadingAndTrailingHtmlWhitespace,
   getNodeCssStyleDisplay,
-  getNodeCssStyleWhiteSpace,
   getTextValueParts,
   getUnescapedAttributeValue,
   hasPrettierIgnore,
   htmlTrimPreserveIndentation,
-  htmlWhitespaceUtils,
   inferElementParser,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
@@ -644,7 +642,6 @@ export {
   isScriptLikeTag,
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
-  isUnknownNamespace,
   isVueCustomBlock,
   isVueNonHtmlBlock,
   isVueScriptTag,
@@ -653,7 +650,6 @@ export {
   isVueSlotAttribute,
   isWhitespaceSensitiveNode,
   preferHardlineAsLeadingSpaces,
-  preferHardlineAsTrailingSpaces,
   shouldPreserveContent,
   unescapeQuoteEntities,
 };
