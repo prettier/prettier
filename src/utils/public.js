@@ -91,6 +91,7 @@ export { default as getAlignmentSize } from "./get-alignment-size.js";
 export { default as getIndentSize } from "./get-indent-size.js";
 export { default as getMaxContinuousCount } from "./get-max-continuous-count.js";
 export { default as getNextNonSpaceNonCommentCharacter } from "./get-next-non-space-non-comment-character.js";
+export { default as getPreferredQuote } from "./get-preferred-quote.js";
 export { default as getStringWidth } from "./get-string-width.js";
 export { default as hasNewline } from "./has-newline.js";
 export { default as hasNewlineInRange } from "./has-newline-in-range.js";

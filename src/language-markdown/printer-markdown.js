@@ -1,6 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
 import escapeStringRegexp from "escape-string-regexp";
-
 import {
   align,
   fill,
@@ -48,7 +47,12 @@ function genericPrint(path, options, print) {
   const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
-    /** @type {Doc} */
+    /*
+     * We assume parts always meet following conditions:
+     * - parts.length is odd
+     * - odd (0-indexed) elements are line-like doc
+     */
+    /** @type {Doc[]} */
     const parts = [""];
     const textsNodes = splitText(
       options.originalText.slice(
@@ -66,7 +70,8 @@ function genericPrint(path, options, print) {
         parts.push([parts.pop(), doc]);
         continue;
       }
-      parts.push(doc);
+      // In this path, doc is line. To meet the condition, we need additional element "".
+      parts.push(doc, "");
     }
     return fill(parts);
   }
@@ -317,8 +322,9 @@ function genericPrint(path, options, print) {
                 ? "- "
                 : "* ";
 
-            return node.isAligned ||
-              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
+            return (node.isAligned ||
+              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock) &&
+              node.ordered
               ? alignListPrefix(rawPrefix, options)
               : rawPrefix;
           }

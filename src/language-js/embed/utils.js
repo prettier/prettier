@@ -100,5 +100,4 @@ export {
   hasLanguageComment,
   isAngularComponentStyles,
   isAngularComponentTemplate,
-  isAsConstExpression,
 };

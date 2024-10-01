@@ -13,11 +13,5 @@ runFormatTest(import.meta, ["babel"], {
       "re-export.js",
       "empty.js",
     ],
-    meriyah: [
-      "dynamic-import.js",
-      "static-import.js",
-      "re-export.js",
-      "empty.js",
-    ],
   },
 });

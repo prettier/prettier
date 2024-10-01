@@ -1,5 +1,4 @@
 import fs from "node:fs";
-
 import camelCase from "camelcase";
 import { outdent } from "outdent";
 

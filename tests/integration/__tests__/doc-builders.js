@@ -5,6 +5,7 @@ const {
   literalline,
   group,
   fill,
+  line,
   lineSuffix,
   breakParent,
   ifBreak,
@@ -33,7 +34,7 @@ describe("doc builders", () => {
         expandedStates: undefined,
       },
     ],
-    ["fill", fill(["1", "2"]), { type: "fill", parts: ["1", "2"] }],
+    ["fill", fill(["1", line, "2"]), { type: "fill", parts: ["1", line, "2"] }],
     [
       "line-suffix",
       lineSuffix(["1"]),

@@ -236,21 +236,21 @@ singleQuote: true
 // Unnecessary escapes.
 ("'");
 ('"');
-('a');
-('a');
-('hola');
-('hola');
+('\\a');
+('\\a');
+('hol\\a');
+('hol\\a');
 ('hol\\\\a (the a is not escaped)');
 ('hol\\\\a (the a is not escaped)');
-('multiple a unnecessary a escapes');
-('multiple a unnecessary a escapes');
-('unnecessarily escaped character preceded by escaped backslash \\\\a');
-('unnecessarily escaped character preceded by escaped backslash \\\\a');
+('multiple \\a unnecessary \\a escapes');
+('multiple \\a unnecessary \\a escapes');
+('unnecessarily escaped character preceded by escaped backslash \\\\\\a');
+('unnecessarily escaped character preceded by escaped backslash \\\\\\a');
 ('unescaped character preceded by two escaped backslashes       \\\\\\\\a');
 ('unescaped character preceded by two escaped backslashes       \\\\\\\\a');
-('aa'); // consecutive unnecessarily escaped characters
-('aa'); // consecutive unnecessarily escaped characters
-('escaped \\u2030 ‰ (should not stay escaped)');
+('\\a\\a'); // consecutive unnecessarily escaped characters
+('\\a\\a'); // consecutive unnecessarily escaped characters
+('escaped \\u2030 \\‰ (should not stay escaped)');
 
 // Meaningful escapes
 ('octal escapes \\0 \\1 \\2 \\3 \\4 \\5 \\6 \\7');
@@ -448,21 +448,21 @@ printWidth: 80
 // Unnecessary escapes.
 ("'");
 ('"');
-("a");
-("a");
-("hola");
-("hola");
+("\\a");
+("\\a");
+("hol\\a");
+("hol\\a");
 ("hol\\\\a (the a is not escaped)");
 ("hol\\\\a (the a is not escaped)");
-("multiple a unnecessary a escapes");
-("multiple a unnecessary a escapes");
-("unnecessarily escaped character preceded by escaped backslash \\\\a");
-("unnecessarily escaped character preceded by escaped backslash \\\\a");
+("multiple \\a unnecessary \\a escapes");
+("multiple \\a unnecessary \\a escapes");
+("unnecessarily escaped character preceded by escaped backslash \\\\\\a");
+("unnecessarily escaped character preceded by escaped backslash \\\\\\a");
 ("unescaped character preceded by two escaped backslashes       \\\\\\\\a");
 ("unescaped character preceded by two escaped backslashes       \\\\\\\\a");
-("aa"); // consecutive unnecessarily escaped characters
-("aa"); // consecutive unnecessarily escaped characters
-("escaped \\u2030 ‰ (should not stay escaped)");
+("\\a\\a"); // consecutive unnecessarily escaped characters
+("\\a\\a"); // consecutive unnecessarily escaped characters
+("escaped \\u2030 \\‰ (should not stay escaped)");
 
 // Meaningful escapes
 ("octal escapes \\0 \\1 \\2 \\3 \\4 \\5 \\6 \\7");

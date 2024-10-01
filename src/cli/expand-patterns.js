@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import { fastGlob } from "./prettier-internal.js";
 import { lstatSafe, normalizeToPosix } from "./utils.js";
 
@@ -45,7 +44,7 @@ async function* expandPatterns(context) {
  */
 async function* expandPatternsInternal(context) {
   // Ignores files in version control systems directories and `node_modules`
-  const silentlyIgnoredDirs = [".git", ".sl", ".svn", ".hg"];
+  const silentlyIgnoredDirs = [".git", ".sl", ".svn", ".hg", ".jj"];
   if (context.argv.withNodeModules !== true) {
     silentlyIgnoredDirs.push("node_modules");
   }

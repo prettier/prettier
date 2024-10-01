@@ -244,14 +244,25 @@ function printJsxElementInternal(path, options, print) {
     : group(multilineChildren, { shouldBreak: true });
 
   /*
-  `printJsxChildren` won't call `print` on `JSXText`
-  When the cursorNode is inside `cursor` won't get print.
+  `printJsxChildren` won't call `print` on `JSXText`, so when the cursorNode,
+  nodeBeforeCursor, or nodeAfterCursor is inside, `cursor` won't get printed.
+  This logic fixes that:
   */
   if (
     options.cursorNode?.type === "JSXText" &&
     node.children.includes(options.cursorNode)
   ) {
     content = [cursor, content, cursor];
+  } else if (
+    options.nodeBeforeCursor?.type === "JSXText" &&
+    node.children.includes(options.nodeBeforeCursor)
+  ) {
+    content = [cursor, content];
+  } else if (
+    options.nodeAfterCursor?.type === "JSXText" &&
+    node.children.includes(options.nodeAfterCursor)
+  ) {
+    content = [content, cursor];
   }
 
   if (isMdxBlock) {

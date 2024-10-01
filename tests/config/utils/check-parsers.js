@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
 

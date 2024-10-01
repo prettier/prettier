@@ -1,6 +1,5 @@
 "use strict";
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 const { findVariable } = require("@eslint-community/eslint-utils");
 const ERROR = "error";
 const SUGGESTION = "suggestion";

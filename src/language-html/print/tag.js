@@ -3,7 +3,6 @@
  */
 
 import assert from "node:assert";
-
 import {
   hardline,
   indent,
@@ -384,7 +383,6 @@ export {
   printClosingTag,
   printClosingTagEnd,
   printClosingTagEndMarker,
-  printClosingTagStart,
   printClosingTagStartMarker,
   printClosingTagSuffix,
   printOpeningTag,

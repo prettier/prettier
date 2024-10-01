@@ -3,7 +3,7 @@
  */
 
 import { fill, group, hardline, indent, line } from "../document/builders.js";
-import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
+import { replaceEndOfLine } from "../document/utils.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
@@ -90,17 +90,14 @@ function genericPrint(path, options, print) {
         return [replaceEndOfLine(value), hasTrailingNewline ? hardline : ""];
       }
 
-      const printed = cleanDoc([
-        printOpeningTagPrefix(node, options),
-        ...getTextValueParts(node),
-        printClosingTagSuffix(node, options),
-      ]);
+      const prefix = printOpeningTagPrefix(node, options);
+      const printed = getTextValueParts(node);
+      const suffix = printClosingTagSuffix(node, options);
+      // We cant use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
+      printed[0] = [prefix, printed[0]];
+      printed.push([printed.pop(), suffix]);
 
-      if (Array.isArray(printed)) {
-        return fill(printed);
-      }
-
-      return printed;
+      return fill(printed);
     }
     case "docType":
       return [

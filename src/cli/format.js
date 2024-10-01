@@ -1,8 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-
 import chalk from "chalk";
-
 import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
 import findCacheFile from "./find-cache-file.js";
@@ -170,7 +168,6 @@ async function format(context, input, opt) {
   if (performanceTestFlag?.debugBenchmark) {
     let benchmark;
     try {
-      // eslint-disable-next-line import/no-extraneous-dependencies
       ({ default: benchmark } = await import("benchmark"));
     } catch {
       context.logger.debug(

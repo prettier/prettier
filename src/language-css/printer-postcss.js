@@ -357,8 +357,12 @@ function genericPrint(path, options, print) {
         ),
       ]);
 
-    case "selector-selector":
-      return group(indent(path.map(print, "nodes")));
+    case "selector-selector": {
+      const shouldIndent = node.nodes.length > 1;
+      return group(
+        (shouldIndent ? indent : (x) => x)(path.map(print, "nodes")),
+      );
+    }
 
     case "selector-comment":
       return node.value;
@@ -530,7 +534,7 @@ function genericPrint(path, options, print) {
 
     case "value-colon": {
       const { previous } = path;
-      return [
+      return group([
         node.value,
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
         (typeof previous?.value === "string" &&
@@ -539,7 +543,7 @@ function genericPrint(path, options, print) {
         insideValueFunctionNode(path, "url")
           ? ""
           : line,
-      ];
+      ]);
     }
     case "value-string":
       return printString(
