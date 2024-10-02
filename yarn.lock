@@ -6399,10 +6399,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"meriyah@npm:6.0.1":
-  version: 6.0.1
-  resolution: "meriyah@npm:6.0.1"
-  checksum: 10/33263d03d35cddcd8bfdc43a563e131de837b4ca1a55133403d3706508b50fca4b3fc317aad383e74b3988efdb14c5b6be60fd5f5b5748efae842c9ececf1908
+"meriyah@npm:6.0.2":
+  version: 6.0.2
+  resolution: "meriyah@npm:6.0.2"
+  checksum: 10/8aa6cd298b1ae0c5fcc837c5fb91b32bc8b312f9f68f09b251680d518a9cd9b748b203f9b3bb069ee1f01413368794b03409852f03fabe8182999ff683938593
   languageName: node
   linkType: hard
 
@@ -7308,7 +7308,7 @@ __metadata:
     lines-and-columns: "npm:2.0.4"
     linguist-languages: "npm:7.27.0"
     magic-string: "npm:0.30.11"
-    meriyah: "npm:6.0.1"
+    meriyah: "npm:6.0.2"
     micromatch: "npm:4.0.8"
     minimist: "npm:1.2.8"
     n-readlines: "npm:1.0.1"
