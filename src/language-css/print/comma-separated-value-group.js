@@ -81,7 +81,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
   for (let i = 0; i < node.groups.length; ++i) {
 
-    parts.push([parts.pop(), printed[i]]);
+    //parts.push([parts.pop(), printed[i]]);
 
     const iPrevNode = node.groups[i - 1];
     const iNode = node.groups[i];
@@ -90,11 +90,12 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
     // If the node is comment and last node print it in a line suffix
     if (isInlineValueCommentNode(iNode) && !iNextNode) {
-      parts.push(lineSuffix([" ", printed[i], breakParent]));
+      parts.push([parts.pop(), lineSuffix([" ", printed[i]])]);
       continue;
     }
 
-    parts.push(printed[i]);
+    parts.push([parts.pop(), printed[i]]);
+
 
     if (insideURLFunction) {
       if ((iNextNode && isAdditionNode(iNextNode)) || isAdditionNode(iNode)) {
