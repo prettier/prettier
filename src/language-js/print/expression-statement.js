@@ -1,14 +1,21 @@
 import {
+  isVueEventBindingFunctionExpression,
+  isVueEventBindingMemberExpression,
+} from "../utils/vue-event-binding.js";
+import {
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
-  isVueEventBindingExpression,
 } from "./semicolon.js";
 
 function printExpressionStatement(path, options, print) {
   const parts = [print("expression")];
 
   if (isSingleVueEventBindingExpressionStatement(path, options)) {
-    if (isVueEventBindingExpression(path.node.expression)) {
+    const { expression } = path.node;
+    if (
+      isVueEventBindingFunctionExpression(expression) ||
+      isVueEventBindingMemberExpression(expression)
+    ) {
       parts.push(";");
     }
   } else if (isSingleJsxExpressionStatementInMarkdown(path, options)) {

@@ -99,24 +99,6 @@ function isSingleJsxExpressionStatementInMarkdown({ node, parent }, options) {
   );
 }
 
-// based on /src/language-html/syntax-vue.js isVueEventBindingExpression()
-function isVueEventBindingExpression(node) {
-  switch (node.type) {
-    case "MemberExpression":
-      switch (node.property.type) {
-        case "Identifier":
-        case "NumericLiteral":
-        case "StringLiteral":
-          return isVueEventBindingExpression(node.object);
-      }
-      return false;
-    case "Identifier":
-      return true;
-    default:
-      return false;
-  }
-}
-
 function isSingleVueEventBindingExpressionStatement({ node, parent }, options) {
   return (
     (options.parser === "__vue_event_binding" ||
@@ -130,6 +112,5 @@ function isSingleVueEventBindingExpressionStatement({ node, parent }, options) {
 export {
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
-  isVueEventBindingExpression,
   shouldPrintLeadingSemicolon,
 };
