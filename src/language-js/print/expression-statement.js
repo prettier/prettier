@@ -1,6 +1,7 @@
 import {
   isVueEventBindingFunctionExpression,
   isVueEventBindingMemberExpression,
+  unwrapVueEventBindingTsNode,
 } from "../utils/vue-event-binding.js";
 import {
   isSingleJsxExpressionStatementInMarkdown,
@@ -11,7 +12,7 @@ function printExpressionStatement(path, options, print) {
   const parts = [print("expression")];
 
   if (isSingleVueEventBindingExpressionStatement(path, options)) {
-    const { expression } = path.node;
+    const expression = unwrapVueEventBindingTsNode(path.node.expression);
     if (
       isVueEventBindingFunctionExpression(expression) ||
       isVueEventBindingMemberExpression(expression)
