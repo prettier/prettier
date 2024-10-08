@@ -50,9 +50,9 @@ async function printEmbeddedLanguages(
       }
     } catch (error) {
       /* c8 ignore next 3 */
-      // if (process.env.PRETTIER_DEBUG) {
-      throw error;
-      // }
+      if (process.env.PRETTIER_DEBUG) {
+        throw error;
+      }
     }
   }
 
