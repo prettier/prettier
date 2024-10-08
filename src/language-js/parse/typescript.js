@@ -3,6 +3,7 @@ import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
+import getSourceType from "./utils/get-source-type.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 
 /** @import {TSESTreeOptions} from "@typescript-eslint/typescript-estree" */
@@ -50,15 +51,27 @@ const isKnownFileType = (filepath) =>
 
 function getParseOptionsCombinations(text, options) {
   const filepath = options?.filepath;
-  if (filepath && isKnownFileType(filepath)) {
-    return [{ ...baseParseOptions, filePath: filepath }];
+
+  let combinations = [{ ...baseParseOptions, filePath: filepath }];
+
+  if (!filepath || !isKnownFileType(filepath)) {
+    const shouldEnableJsx = isProbablyJsx(text);
+    combinations = [shouldEnableJsx, !shouldEnableJsx].flatMap((jsx) =>
+      combinations.map((parseOptions) => ({ ...parseOptions, jsx })),
+    );
   }
 
-  const shouldEnableJsx = isProbablyJsx(text);
-  return [
-    { ...baseParseOptions, jsx: shouldEnableJsx },
-    { ...baseParseOptions, jsx: !shouldEnableJsx },
-  ];
+  const sourceType = getSourceType(options);
+  if (sourceType) {
+    return combinations.map((parseOptions) => ({
+      ...parseOptions,
+      sourceType,
+    }));
+  }
+
+  return ["module", "script"].flatMap((sourceType) =>
+    combinations.map((parseOptions) => ({ ...parseOptions, sourceType })),
+  );
 }
 
 function parse(text, options) {
