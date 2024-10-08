@@ -18,4 +18,6 @@ type Foo = () => void
   <div @click="   me!" />
   <div @click="我<   string>" />
   <div @click="me<   string>" />
+  <div @click="我!   as unknown   satisfies Foo" />
+  <div @click="me!   as unknown   satisfies Foo" />
 </template>
