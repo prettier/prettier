@@ -152,6 +152,10 @@ const pluginFiles = [
             .replace(
               "parseSettings.projects = ",
               "parseSettings.projects = true ? new Map() : ",
+            )
+            .replace(
+              'require("node:path")',
+              '{extname: file => "." + file.split(".").pop()}',
             );
         },
       },
