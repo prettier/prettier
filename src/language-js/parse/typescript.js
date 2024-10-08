@@ -61,7 +61,9 @@ function getParseOptionsCombinations(text, options) {
       sourceType,
     }));
   } else {
-    combinations = ["module", "script"].flatMap((sourceType) =>
+    /** @type {("module" | "script") []} */
+    const sourceTypes = ["module", "script"];
+    combinations = sourceTypes.flatMap((sourceType) =>
       combinations.map((parseOptions) => ({ ...parseOptions, sourceType })),
     );
   }
