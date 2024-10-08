@@ -365,6 +365,7 @@ function parse(
     const start = new ParseLocation(file, 0, 0, 0);
     const end = start.moveBy(frontMatter.raw.length);
     frontMatter.sourceSpan = new ParseSourceSpan(start, end);
+    // @ts-expect-error -- not a real AstNode
     rawAst.children.unshift(frontMatter);
   }
 
