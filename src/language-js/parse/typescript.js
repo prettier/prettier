@@ -78,7 +78,7 @@ function getParseOptionsCombinations(text, options) {
   );
 }
 
-function parse(text, options) {
+function parse(text, options = {}) {
   const textToParse = replaceHashbang(text);
   const parseOptionsCombinations = getParseOptionsCombinations(text, options);
 
