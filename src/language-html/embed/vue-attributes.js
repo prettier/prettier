@@ -71,16 +71,20 @@ function printVueAttribute(path, options) {
 async function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
   try {
     return await printExpression(text, textToDoc, { parseWithTs });
-  } catch {
-    return await formatAttributeValue(
-      text,
-      textToDoc,
-      {
-        parser: parseWithTs ? "__vue_ts_event_binding" : "__vue_event_binding",
-      },
-      shouldHugJsExpression,
-    );
+  } catch (error) {
+    if (error.cause?.code !== "BABEL_PARSER_SYNTAX_ERROR") {
+      throw error;
+    }
   }
+
+  return formatAttributeValue(
+    text,
+    textToDoc,
+    {
+      parser: parseWithTs ? "__vue_ts_event_binding" : "__vue_event_binding",
+    },
+    shouldHugJsExpression,
+  );
 }
 
 /**
