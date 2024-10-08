@@ -72,6 +72,7 @@ async function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
   try {
     return await printExpression(text, textToDoc, { parseWithTs });
   } catch (error) {
+    // @ts-expect-error -- expected
     if (error.cause?.code !== "BABEL_PARSER_SYNTAX_ERROR") {
       throw error;
     }
