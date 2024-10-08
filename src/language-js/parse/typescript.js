@@ -54,23 +54,25 @@ function getParseOptionsCombinations(text, options) {
 
   let combinations = [{ ...baseParseOptions, filePath: filepath }];
 
-  if (!filepath || !isKnownFileType(filepath)) {
-    const shouldEnableJsx = isProbablyJsx(text);
-    combinations = [shouldEnableJsx, !shouldEnableJsx].flatMap((jsx) =>
-      combinations.map((parseOptions) => ({ ...parseOptions, jsx })),
-    );
-  }
-
   const sourceType = getSourceType(options);
   if (sourceType) {
-    return combinations.map((parseOptions) => ({
+    combinations = combinations.map((parseOptions) => ({
       ...parseOptions,
       sourceType,
     }));
+  } else {
+    combinations = ["module", "script"].flatMap((sourceType) =>
+      combinations.map((parseOptions) => ({ ...parseOptions, sourceType })),
+    );
   }
 
-  return ["module", "script"].flatMap((sourceType) =>
-    combinations.map((parseOptions) => ({ ...parseOptions, sourceType })),
+  if (filepath && isKnownFileType(filepath)) {
+    return combinations;
+  }
+
+  const shouldEnableJsx = isProbablyJsx(text);
+  return [shouldEnableJsx, !shouldEnableJsx].flatMap((jsx) =>
+    combinations.map((parseOptions) => ({ ...parseOptions, jsx })),
   );
 }
 
