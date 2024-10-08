@@ -571,7 +571,8 @@ $z-indexes: (
 =====================================output=====================================
 $z-indexes: (
   header: 1035,
-  overlay: 1202, // The comma shoud be printed before the comment when trailing-comma = es5
+  overlay: 1202,
+  // The comma shoud be printed before the comment when trailing-comma = es5
 );
 
 ================================================================================
@@ -592,7 +593,8 @@ $z-indexes: (
 =====================================output=====================================
 $z-indexes: (
   header: 1035,
-  overlay: 1202 // The comma shoud be printed before the comment when trailing-comma = es5
+  overlay: 1202
+  // The comma shoud be printed before the comment when trailing-comma = es5
 );
 
 ================================================================================
