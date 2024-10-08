@@ -7334,7 +7334,7 @@ __metadata:
     unified: "npm:9.2.2"
     url-or-path: "npm:2.3.0"
     vnopts: "npm:2.0.0"
-    wcwidth.js: "npm:1.1.2"
+    wcwidth.js: "npm:2.0.0"
     yaml-unist-parser: "npm:2.0.1"
   bin:
     prettier: ./bin/prettier.cjs
@@ -8907,10 +8907,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wcwidth.js@npm:1.1.2":
-  version: 1.1.2
-  resolution: "wcwidth.js@npm:1.1.2"
-  checksum: 10/9b51308e1c34db7f03c25b807dbfbaf19680e5074ab43b2cc19e934c814aaed06a9cc5025090d69bb2a3049858cfed34a141edad1999b6b49e2f6ad1fbd1ae9a
+"wcwidth.js@npm:2.0.0":
+  version: 2.0.0
+  resolution: "wcwidth.js@npm:2.0.0"
+  checksum: 10/b70e308a729f4c820ff2f37bd03de9ef171eeba5e528e290642f1d103949da0f61ba51452a2865802f28ca0435381c7b17f6a9fe02509a2468d15341a6970b5b
   languageName: node
   linkType: hard
 
