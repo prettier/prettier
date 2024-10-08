@@ -41,7 +41,6 @@ const parseOptions = {
     "asyncDoExpressions",
     "destructuringPrivate",
     "decoratorAutoAccessors",
-    "importReflection",
     "explicitResourceManagement",
     ["importAttributes", { deprecatedAssertSyntax: true }],
     "sourcePhaseImports",
