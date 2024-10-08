@@ -353,6 +353,36 @@ interface AudioBufferList {
 ================================================================================
 `;
 
+exports[`issue-16723.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export class JiraCreatePixFraudDetectionGateway
+  implements Pick<IssuePixFraudDetectionGateway, "createPixFraudDetectionIssue">
+{
+  constructor(private readonly logger: Logger) {
+    this.logger = logger.child({
+      context: JiraCreatePixFraudDetectionGateway.name,
+    });
+  }
+}
+
+=====================================output=====================================
+export class JiraCreatePixFraudDetectionGateway
+  implements Pick<IssuePixFraudDetectionGateway, "createPixFraudDetectionIssue">
+{
+  constructor(private readonly logger: Logger) {
+    this.logger = logger.child({
+      context: JiraCreatePixFraudDetectionGateway.name,
+    });
+  }
+}
+
+================================================================================
+`;
+
 exports[`methods.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
