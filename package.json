@@ -135,7 +135,7 @@
     "eslint-plugin-unicorn": "56.0.0",
     "esm-utils": "4.3.0",
     "execa": "7.2.0",
-    "globals": "15.9.0",
+    "globals": "15.10.0",
     "jest": "30.0.0-alpha.6",
     "jest-light-runner": "0.6.0",
     "jest-snapshot-serializer-ansi": "2.1.0",
