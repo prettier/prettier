@@ -126,7 +126,7 @@
     "eslint": "9.12.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-formatter-friendly": "7.0.0",
-    "eslint-plugin-compat": "6.0.0",
+    "eslint-plugin-compat": "6.0.1",
     "eslint-plugin-jest": "28.8.3",
     "eslint-plugin-n": "17.10.3",
     "eslint-plugin-react": "7.37.1",

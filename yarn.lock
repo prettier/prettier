@@ -3766,9 +3766,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-compat@npm:6.0.0":
-  version: 6.0.0
-  resolution: "eslint-plugin-compat@npm:6.0.0"
+"eslint-plugin-compat@npm:6.0.1":
+  version: 6.0.1
+  resolution: "eslint-plugin-compat@npm:6.0.1"
   dependencies:
     "@mdn/browser-compat-data": "npm:^5.5.35"
     ast-metadata-inferer: "npm:^0.8.0"
@@ -3780,7 +3780,7 @@ __metadata:
     semver: "npm:^7.6.2"
   peerDependencies:
     eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
-  checksum: 10/bf205cbdc7f16e9e451704b8ec5cb20eb766e99fb26e2758f93da9f2c5b03d04c37aef17eb15c9d235e2c12ebb11cbc6b6fdf036121473226f2d5bd4a2767a4e
+  checksum: 10/e0a2927db8d8594537d0d5aeda41577fe3d82c631a5a951daea4aac4efe66f45f88011ae9f8bd094f8bb88d4007d1eb1765456b66f8a4e4975e9a6cacca1dc5e
   languageName: node
   linkType: hard
 
@@ -7268,7 +7268,7 @@ __metadata:
     eslint: "npm:9.12.0"
     eslint-config-prettier: "npm:9.1.0"
     eslint-formatter-friendly: "npm:7.0.0"
-    eslint-plugin-compat: "npm:6.0.0"
+    eslint-plugin-compat: "npm:6.0.1"
     eslint-plugin-jest: "npm:28.8.3"
     eslint-plugin-n: "npm:17.10.3"
     eslint-plugin-react: "npm:7.37.1"
