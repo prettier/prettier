@@ -761,7 +761,7 @@ function printTitle(title, options, printSpace = true) {
 }
 
 function clamp(value, min, max) {
-  return value < min ? min : value > max ? max : value;
+  return Math.max(min, Math.min(value, max));
 }
 
 function hasPrettierIgnore(path) {
