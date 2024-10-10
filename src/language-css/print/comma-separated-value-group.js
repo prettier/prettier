@@ -6,6 +6,7 @@ import {
   hardline,
   indent,
   line,
+  lineSuffix,
   softline,
 } from "../../document/builders.js";
 import { locEnd, locStart } from "../loc.js";
@@ -79,12 +80,22 @@ function printCommaSeparatedValueGroup(path, options, print) {
   let didBreak = false;
 
   for (let i = 0; i < node.groups.length; ++i) {
-    parts.push([parts.pop(), printed[i]]);
-
     const iPrevNode = node.groups[i - 1];
     const iNode = node.groups[i];
     const iNextNode = node.groups[i + 1];
     const iNextNextNode = node.groups[i + 2];
+
+    // If the node is comment and last node print it in a line suffix
+    if (isInlineValueCommentNode(iNode) && !iNextNode) {
+      // TODO: Improve this part
+      // This `lineSuffix` should be done in `value-comment` print
+      // But since we add `line` to groups in `value-paren_group`,
+      // The format result looks bad for now
+      parts.push([parts.pop(), lineSuffix([" ", printed[i]])]);
+      continue;
+    }
+
+    parts.push([parts.pop(), printed[i]]);
 
     if (insideURLFunction) {
       if ((iNextNode && isAdditionNode(iNextNode)) || isAdditionNode(iNode)) {
@@ -423,6 +434,12 @@ function printCommaSeparatedValueGroup(path, options, print) {
       iNextNode.value === "{" &&
       isParenGroupNode(iNextNode.group)
     ) {
+      continue;
+    }
+
+    // don't print line when the next node is a comment and last node
+    // it will be printed with the comment in a line suffix
+    if (isInlineValueCommentNode(iNextNode) && !iNextNextNode) {
       continue;
     }
 

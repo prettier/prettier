@@ -7,6 +7,9 @@ import isSCSSVariable from "../utils/is-scss-variable.js";
 import parseSelector from "./parse-selector.js";
 import { addTypePrefix } from "./utils.js";
 
+const isClosingParenthesis = (node) =>
+  node.type === "paren" && node.value === ")";
+
 function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
   let parenGroup = {
@@ -87,7 +90,7 @@ function parseValueNode(valueNode, options) {
         type: "comma_group",
       };
       commaGroupStack.push(commaGroup);
-    } else if (node.type === "paren" && node.value === ")") {
+    } else if (isClosingParenthesis(node)) {
       if (commaGroup.groups.length > 0) {
         parenGroup.groups.push(commaGroup);
       }
@@ -105,6 +108,15 @@ function parseValueNode(valueNode, options) {
       parenGroupStack.pop();
       parenGroup = parenGroupStack.at(-1);
     } else if (node.type === "comma") {
+      // Trialing comma
+      if (
+        i === nodes.length - 3 &&
+        nodes[i + 1].type === "comment" &&
+        isClosingParenthesis(nodes[i + 2])
+      ) {
+        continue;
+      }
+
       parenGroup.groups.push(commaGroup);
       commaGroup = {
         groups: [],
@@ -118,6 +130,7 @@ function parseValueNode(valueNode, options) {
   if (commaGroup.groups.length > 0) {
     parenGroup.groups.push(commaGroup);
   }
+
   return rootParenGroup;
 }
 
