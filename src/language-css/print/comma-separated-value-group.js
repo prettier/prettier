@@ -87,6 +87,10 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
     // If the node is comment and last node print it in a line suffix
     if (isInlineValueCommentNode(iNode) && !iNextNode) {
+      // TODO: Improve this part
+      // This `lineSuffix` should be done in `value-comment` print
+      // But since we add `line` to groups in `value-paren_group`,
+      // The format result looks bad for now
       parts.push([parts.pop(), lineSuffix([" ", printed[i]])]);
       continue;
     }
