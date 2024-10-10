@@ -152,6 +152,110 @@ a {
 ================================================================================
 `;
 
+exports[`comments.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+.simplification {
+  foo: (
+    calc(), // It is a comment
+  );
+}
+
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+$z-indexes: (
+  header: 1035,
+  header: 1035,
+  overlay: 1202, // TODO
+  header: 1035,
+  header: 1035,
+);
+
+=====================================output=====================================
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+$z-indexes: (
+  header: 1035,
+  header: 1035,
+  overlay: 1202,
+  // TODO
+  header: 1035,
+  header: 1035,
+);
+
+================================================================================
+`;
+
+exports[`comments.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+.simplification {
+  foo: (
+    calc(), // It is a comment
+  );
+}
+
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+$z-indexes: (
+  header: 1035,
+  header: 1035,
+  overlay: 1202, // TODO
+  header: 1035,
+  header: 1035,
+);
+
+=====================================output=====================================
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+$z-indexes: (
+  header: 1035,
+  header: 1035,
+  overlay: 1202,
+  // TODO
+  header: 1035,
+  header: 1035
+);
+
+================================================================================
+`;
+
 exports[`declaration.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
@@ -600,7 +704,7 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
 ================================================================================
 `;
 
-exports[`trailingComma.scss - {"trailingComma":"es5"} format 1`] = `
+exports[`trailing-comma.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -621,7 +725,7 @@ $z-indexes: (
 ================================================================================
 `;
 
-exports[`trailingComma.scss - {"trailingComma":"none"} format 1`] = `
+exports[`trailing-comma.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
