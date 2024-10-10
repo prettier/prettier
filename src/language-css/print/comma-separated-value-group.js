@@ -80,7 +80,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
   let didBreak = false;
 
   for (let i = 0; i < node.groups.length; ++i) {
-
     const iPrevNode = node.groups[i - 1];
     const iNode = node.groups[i];
     const iNextNode = node.groups[i + 1];
