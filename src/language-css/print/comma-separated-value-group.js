@@ -7,7 +7,6 @@ import {
   indent,
   line,
   lineSuffix,
-  literalline,
   softline,
 } from "../../document/builders.js";
 import { locEnd, locStart } from "../loc.js";
@@ -89,12 +88,11 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
     // If the node is comment and last node print it in a line suffix
     if (isInlineValueCommentNode(iNode) && !iNextNode) {
-      parts.push([parts.pop(), lineSuffix(dedent([hardline, printed[i]]))]);
+      parts.push([parts.pop(), lineSuffix([" ", printed[i]])]);
       continue;
     }
 
     parts.push([parts.pop(), printed[i]]);
-
 
     if (insideURLFunction) {
       if ((iNextNode && isAdditionNode(iNextNode)) || isAdditionNode(iNode)) {
