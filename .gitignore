@@ -12,7 +12,7 @@
 /test*.*
 /.vscode/**/*
 !/.vscode/extensions.json
-!/.vscode/settings.example.json
+!/.vscode/settings.example.jsonc
 /dist*
 /website/build
 /website/i18n
