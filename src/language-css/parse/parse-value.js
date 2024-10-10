@@ -7,7 +7,8 @@ import isSCSSVariable from "../utils/is-scss-variable.js";
 import parseSelector from "./parse-selector.js";
 import { addTypePrefix } from "./utils.js";
 
-const isClosingParen = (node) => node.type === "paren" && node.value === ")";
+const isClosingParenthesis = (node) =>
+  node.type === "paren" && node.value === ")";
 
 function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
@@ -89,7 +90,7 @@ function parseValueNode(valueNode, options) {
         type: "comma_group",
       };
       commaGroupStack.push(commaGroup);
-    } else if (isClosingParen(node)) {
+    } else if (isClosingParenthesis(node)) {
       if (commaGroup.groups.length > 0) {
         parenGroup.groups.push(commaGroup);
       }
@@ -111,7 +112,7 @@ function parseValueNode(valueNode, options) {
       if (
         i === nodes.length - 3 &&
         nodes[i + 1].type === "comment" &&
-        isClosingParen(nodes[i + 2])
+        isClosingParenthesis(nodes[i + 2])
       ) {
         continue;
       }
