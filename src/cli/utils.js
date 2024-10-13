@@ -50,10 +50,11 @@ function createHash(source) {
   return String(sdbm(source));
 }
 
+/** @import {Stats} from "fs" */
 /**
  * Get stats of a given path.
  * @param {string} filePath The path to target file.
- * @returns {Promise<import('fs').Stats | undefined>} The stats.
+ * @returns {Promise<Stats | undefined>} The stats.
  */
 async function statSafe(filePath) {
   try {
@@ -69,7 +70,7 @@ async function statSafe(filePath) {
 /**
  * Get stats of a given path without following symbolic links.
  * @param {string} filePath The path to target file.
- * @returns {Promise<import('fs').Stats | undefined>} The stats.
+ * @returns {Promise<Stats | undefined>} The stats.
  */
 async function lstatSafe(filePath) {
   try {

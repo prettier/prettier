@@ -48,10 +48,9 @@ const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../types/estree.js").Node} Node
- * @typedef {import("../types/estree.js").JSXElement} JSXElement
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Node, JSXElement} from "../types/estree.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 // JSX expands children from the inside-out, instead of the outside-in.

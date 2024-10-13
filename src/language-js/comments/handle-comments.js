@@ -25,18 +25,17 @@ import {
 import isBlockComment from "../utils/is-block-comment.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
 
+/** @import * as Estree from "../types/estree.js" */
+
 /**
- * @typedef {import("../types/estree.js").Node} Node
- * @typedef {import("../types/estree.js").Comment} Comment
- *
  * @typedef {Object} CommentContext
- * @property {Comment} comment
- * @property {Node} precedingNode
- * @property {Node} enclosingNode
- * @property {Node} followingNode
+ * @property {Estree.Comment} comment
+ * @property {Estree.Node} precedingNode
+ * @property {Estree.Node} enclosingNode
+ * @property {Estree.Node} followingNode
  * @property {string} text
  * @property {any} options
- * @property {Node} ast
+ * @property {Estree.Node} ast
  * @property {boolean} isLastComment
  */
 
@@ -116,7 +115,7 @@ function handleRemainingComment(context) {
 }
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {void}
  */
 function addBlockStatementFirstComment(node, comment) {
@@ -132,7 +131,7 @@ function addBlockStatementFirstComment(node, comment) {
 }
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {void}
  */
 function addBlockOrNotComment(node, comment) {

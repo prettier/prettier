@@ -1,6 +1,6 @@
 function guessEndOfLine(text) {
   const index = text.indexOf("\r");
-  if (index >= 0) {
+  if (index !== -1) {
     return text.charAt(index + 1) === "\n" ? "crlf" : "cr";
   }
   return "lf";

@@ -1,4 +1,4 @@
-/** @typedef {import("./skip.js").SkipOptions} SkipOptions */
+/** @import {SkipOptions} from "./skip.js" */
 
 // This one doesn't use the above helper function because it wants to
 // test \r\n in order and `skip` doesn't support ordering and we only

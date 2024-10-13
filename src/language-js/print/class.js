@@ -34,7 +34,7 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 const isClassProperty = createTypeCheckFunction([

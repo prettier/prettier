@@ -10,7 +10,7 @@ import {
 } from "./utils.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 const childNodesCache = new WeakMap();

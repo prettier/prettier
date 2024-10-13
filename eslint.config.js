@@ -272,6 +272,7 @@ export default [
           ignoreUsedVariables: true,
         },
       ],
+      "unicorn/prefer-global-this": "off",
       "unicorn/prefer-query-selector": "off",
       "unicorn/prefer-ternary": "off",
       "unicorn/prevent-abbreviations": "off",

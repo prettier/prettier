@@ -6,6 +6,8 @@ runFormatTest(
       "export type Foo = number;",
       // Removed
       "100m;",
+      // Removed https://github.com/babel/babel/pull/16808
+      'import module foo from "./module.wasm";',
     ],
   },
   ["babel"],

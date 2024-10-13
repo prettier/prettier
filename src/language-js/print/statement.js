@@ -2,8 +2,8 @@ import { hardline } from "../../document/builders.js";
 import { isNextLineEmpty } from "../utils/index.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
- * @typedef {import("../../common/ast-path.js")} AstPath
+ * @import {Doc} from "../../document/builders.js"
+ * @import AstPath from "../../common/ast-path.js")
  */
 
 /*

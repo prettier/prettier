@@ -109,9 +109,7 @@ function parseNestedCSS(node, options) {
         ? (node.raws.value.scss ?? node.raws.value.raw)
         : node.value;
 
-      value = value.trim();
-
-      node.raws.value = value;
+      node.raws.value = value.trim();
     }
 
     let params = "";
@@ -161,7 +159,7 @@ function parseNestedCSS(node, options) {
       return node;
     }
 
-    if (value.length > 0) {
+    if (value.trim().length > 0) {
       const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
 
       if (defaultSCSSDirectiveIndex) {

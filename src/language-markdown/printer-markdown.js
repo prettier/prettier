@@ -38,7 +38,7 @@ import {
 } from "./utils.js";
 
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
 const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
@@ -761,7 +761,7 @@ function printTitle(title, options, printSpace = true) {
 }
 
 function clamp(value, min, max) {
-  return value < min ? min : value > max ? max : value;
+  return Math.max(min, Math.min(value, max));
 }
 
 function hasPrettierIgnore(path) {

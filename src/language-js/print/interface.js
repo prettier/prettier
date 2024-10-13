@@ -5,7 +5,7 @@ import { printDeclareToken } from "./misc.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 /*
