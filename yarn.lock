@@ -225,14 +225,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:7.25.7, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.24.7":
-  version: 7.25.7
-  resolution: "@babel/parser@npm:7.25.7"
+"@babel/parser@npm:7.25.8, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.24.7":
+  version: 7.25.8
+  resolution: "@babel/parser@npm:7.25.8"
   dependencies:
-    "@babel/types": "npm:^7.25.7"
+    "@babel/types": "npm:^7.25.8"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 10/98eaa81bd378734a5f2790f02c7c076ecaba0839217445b4b84f45a7b391d640c34034253231a5bb2b2daf8204796f03584c3f94c10d46b004369bbb426a418f
+  checksum: 10/0396eb71e379903cedb43862f84ebb1bec809c41e82b4894d2e6e83b8e8bc636ba6eff45382e615baefdb2399ede76ca82247ecc3a9877ac16eb3140074a3276
   languageName: node
   linkType: hard
 
@@ -419,14 +419,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:7.25.7, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.24.7, @babel/types@npm:^7.25.7, @babel/types@npm:^7.3.3":
-  version: 7.25.7
-  resolution: "@babel/types@npm:7.25.7"
+"@babel/types@npm:7.25.8, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.24.7, @babel/types@npm:^7.25.7, @babel/types@npm:^7.25.8, @babel/types@npm:^7.3.3":
+  version: 7.25.8
+  resolution: "@babel/types@npm:7.25.8"
   dependencies:
     "@babel/helper-string-parser": "npm:^7.25.7"
     "@babel/helper-validator-identifier": "npm:^7.25.7"
     to-fast-properties: "npm:^2.0.0"
-  checksum: 10/4504e16a95b6a67d50cfaa389bcbc0621019084cff73784ad4797f82d1bb76c870cb0abb6d9881d5776eb06b4607419a2b1205a08c3e87b152d74bd0884b822a
+  checksum: 10/973108dbb189916bb87360f2beff43ae97f1b08f1c071bc6499d363cce48b3c71674bf3b59dfd617f8c5062d1c76dc2a64232bc07b6ccef831fd0c06162d44d9
   languageName: node
   linkType: hard
 
@@ -7227,8 +7227,8 @@ __metadata:
     "@angular/compiler": "npm:18.2.6"
     "@babel/code-frame": "npm:7.25.7"
     "@babel/generator": "npm:7.25.7"
-    "@babel/parser": "npm:7.25.7"
-    "@babel/types": "npm:7.25.7"
+    "@babel/parser": "npm:7.25.8"
+    "@babel/types": "npm:7.25.8"
     "@eslint/js": "npm:9.12.0"
     "@glimmer/syntax": "npm:0.92.3"
     "@prettier/is-es5-identifier-name": "npm:0.2.0"
