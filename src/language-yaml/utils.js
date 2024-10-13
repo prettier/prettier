@@ -88,7 +88,10 @@ function getLastDescendantNode(node) {
 }
 
 function isPrettierIgnore(comment) {
-  return comment.value.trim() === "prettier-ignore";
+  return (
+    comment._parent.type !== "docmentHead" &&
+    comment.value.trim() === "prettier-ignore"
+  );
 }
 
 function hasPrettierIgnore(path) {
