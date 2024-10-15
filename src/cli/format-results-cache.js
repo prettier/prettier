@@ -25,11 +25,10 @@ function getHashOfOptions(options) {
 }
 
 /**
- * @import {FileDescriptor} from "file-entry-cache"
- * @typedef {{ hashOfOptions?: string }} OurMeta
+ * @import {FileDescriptor, FileDescriptorMeta} from "file-entry-cache"
  *
  * @param {FileDescriptor} fileDescriptor
- * @returns {FileDescriptor["meta"] & OurMeta}
+ * @returns {FileDescriptorMeta & {data?: {hashOfOptions?: string }}}}
  */
 function getMetadataFromFileDescriptor(fileDescriptor) {
   return fileDescriptor.meta;
@@ -37,6 +36,8 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
 
 class FormatResultsCache {
   #fileEntryCache;
+  #currentWorkingDirectory;
+  #useChecksum;
 
   /**
    * @param {string} cacheFileLocation The path of cache file location. (default: `node_modules/.cache/prettier/.prettier-cache`)
@@ -44,10 +45,12 @@ class FormatResultsCache {
    */
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
+    const currentWorkingDirectory = process.cwd();
 
-    this.#fileEntryCache = fileEntryCache.create(
-      /* cacheId */ cacheFileLocation,
-      /* directory */ undefined,
+    this.#currentWorkingDirectory = currentWorkingDirectory;
+    this.#useChecksum = useChecksum;
+    this.#fileEntryCache = fileEntryCache.createFromFile(
+      /* filePath */ cacheFileLocation,
       useChecksum,
     );
   }
@@ -57,7 +60,7 @@ class FormatResultsCache {
    * @param {any} options
    */
   existsAvailableFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
+    const fileDescriptor = this.#getFileDescriptor(filePath);
 
     /* c8 ignore next 3 */
     if (fileDescriptor.notFound) {
@@ -67,7 +70,7 @@ class FormatResultsCache {
     const hashOfOptions = getHashOfOptions(options);
     const meta = getMetadataFromFileDescriptor(fileDescriptor);
     const changed =
-      fileDescriptor.changed || meta.hashOfOptions !== hashOfOptions;
+      fileDescriptor.changed || meta.data?.hashOfOptions !== hashOfOptions;
 
     return !changed;
   }
@@ -77,10 +80,11 @@ class FormatResultsCache {
    * @param {any} options
    */
   setFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-    const meta = getMetadataFromFileDescriptor(fileDescriptor);
+    const fileDescriptor = this.#getFileDescriptor(filePath);
     if (fileDescriptor && !fileDescriptor.notFound) {
-      meta.hashOfOptions = getHashOfOptions(options);
+      this.#fileEntryCache.cache.set(fileDescriptor.key, {
+        data: { hashOfOptions: getHashOfOptions(options) },
+      });
     }
   }
 
@@ -88,11 +92,20 @@ class FormatResultsCache {
    * @param {string} filePath
    */
   removeFormatResultsCache(filePath) {
-    this.#fileEntryCache.removeEntry(filePath);
+    this.#fileEntryCache.removeEntry(filePath, {
+      currentWorkingDirectory: this.#currentWorkingDirectory,
+    });
   }
 
   reconcile() {
     this.#fileEntryCache.reconcile();
+  }
+
+  #getFileDescriptor(filePath) {
+    return this.#fileEntryCache.getFileDescriptor(filePath, {
+      useCheckSum: this.#useChecksum,
+      currentWorkingDirectory: this.#currentWorkingDirectory,
+    });
   }
 }
 
