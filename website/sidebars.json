@@ -17,7 +17,11 @@
       "api",
       "browser"
     ],
-    "Configuring Prettier": ["options", "configuration"],
+    "Configuring Prettier": [
+      "options",
+      "configuration",
+      "sharing-configurations"
+    ],
     "Editors": ["editors", "webstorm", "vim", "watching-files"],
     "Misc": ["technical-details", "related-projects", "for-enterprise"]
   }

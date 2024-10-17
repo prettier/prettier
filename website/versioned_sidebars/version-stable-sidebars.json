@@ -19,7 +19,8 @@
     ],
     "Configuring Prettier": [
       "version-stable-options",
-      "version-stable-configuration"
+      "version-stable-configuration",
+      "version-stable-sharing-configurations"
     ],
     "Editors": [
       "version-stable-editors",
