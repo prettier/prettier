@@ -221,7 +221,7 @@ function printClassProperty(path, options, print) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
 
-  parts.push(printTypeScriptAccessibilityToken(node), printDeclareToken(path));
+  parts.push(printDeclareToken(path), printTypeScriptAccessibilityToken(node));
 
   if (node.static) {
     parts.push("static ");

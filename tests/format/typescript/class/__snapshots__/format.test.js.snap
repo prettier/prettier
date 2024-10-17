@@ -88,6 +88,26 @@ class B {
 ================================================================================
 `;
 
+exports[`declare-field.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  declare private readonly name: string;
+   private declare readonly name2: string;
+}
+
+=====================================output=====================================
+class A {
+  declare private readonly name: string;
+  declare private readonly name2: string;
+}
+
+================================================================================
+`;
+
 exports[`declare-readonly-field-initializer.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
