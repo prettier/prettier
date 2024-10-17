@@ -41,10 +41,10 @@ v-for="([longLongProp, longLongProp, [longLongProp, longLongProp='Hello, Prettie
 <script lang="ts"></script>
 <template>
   <div
-    v-for="a: number of x as number[]"
-    v-for="[a, b]: [string, string] of x as Array<[string, string]>"
-    v-for="a of list.map((x: any): unknown => x.foo.bar)"
-    v-for="(
+    v-for='a: number of x as number[]'
+    v-for='[a, b]: [string, string] of x as Array<[string, string]>'
+    v-for='a of list.map((x: any): unknown => x.foo.bar)'
+    v-for='(
       [
         longLongProp,
         longLongProp,
@@ -67,7 +67,7 @@ v-for="([longLongProp, longLongProp, [longLongProp, longLongProp='Hello, Prettie
         yetAnotherLongLongProp,
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
+    ) of longLongLongLongLongLongLongLongList'
   ></div>
 </template>
 

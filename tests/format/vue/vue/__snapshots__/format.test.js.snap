@@ -79,17 +79,17 @@ semi: false
 =====================================output=====================================
 <template>
   <div
-    v-for="(
+    v-for='(
       { longLongProp, longLongProp }, index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       { longLongProp = 42, longLongProp = 'Hello, World!' }, index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="{
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='{
       longLongProp,
       longLongProp,
-    } of longLongLongLongLongLongLongLongList"
-    v-for="(
+    } of longLongLongLongLongLongLongLongList'
+    v-for='(
       {
         longLongProp,
         longLongProp,
@@ -97,18 +97,18 @@ semi: false
         yetAnotherLongLongProp,
       },
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="{
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='{
       longLongProp,
       longLongProp,
       anotherLongLongProp,
       yetAnotherLongLongProp,
-    } of longLongLongLongLongLongLongLongList"
-    v-for="(
+    } of longLongLongLongLongLongLongLongList'
+    v-for='(
       [longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         longLongProp,
         longLongProp = 42,
@@ -116,8 +116,8 @@ semi: false
         yetAnotherLongLongProp = 'Hello, World!',
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         longLongProp,
         longLongProp,
@@ -135,8 +135,8 @@ semi: false
         yetAnotherLongLongProp,
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         longLongProp,
         longLongProp,
@@ -159,8 +159,8 @@ semi: false
         yetAnotherLongLongProp,
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         { longLongProp, longLongProp },
         { longLongProp, longLongProp },
@@ -176,8 +176,8 @@ semi: false
         yetAnotherLongLongProp,
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       {
         firstValue,
         secondValue: {
@@ -189,19 +189,19 @@ semi: false
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       { firstValue = { longLongProp, longLongProp }, secondValue },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       {
         firstValue,
         secondValue,
@@ -218,8 +218,8 @@ semi: false
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       {
         firstValue,
         secondValue,
@@ -249,8 +249,8 @@ semi: false
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       {
         firstValue,
         secondValue,
@@ -272,94 +272,94 @@ semi: false
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="item in items"
-    v-for="item of items"
-    v-for="(item, index) in items"
-    v-for="value in object"
-    v-for="(value, key) in object"
-    v-for="(value, key) of object"
-    v-for="(value, key, index) in object"
-    v-for="n in evenNumbers"
-    v-for="n in even(numbers)"
-    v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({ a: 1 }))"
-    v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map((x) => {
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='item in items'
+    v-for='item of items'
+    v-for='(item, index) in items'
+    v-for='value in object'
+    v-for='(value, key) in object'
+    v-for='(value, key) of object'
+    v-for='(value, key, index) in object'
+    v-for='n in evenNumbers'
+    v-for='n in even(numbers)'
+    v-for='n in 10'
+    v-for='{ a } in [0].map(() => ({ a: 1 }))'
+    v-for='({ a }, [c]) in [0].map(() => 1)'
+    v-for='n in items.map((x) => {
       return x
-    })"
-    @click="/* hello */"
-    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
-    @click="$emit('click')"
-    @click="$emit('click')"
-    @click="
+    })'
+    @click='/* hello */'
+    @click='/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */'
+    @click='$emit('click')'
+    @click='$emit('click')'
+    @click='
       $emit('click')
       if (something) {
         for (let i = j; i < 100; i++) {}
       } else {
       }
-    "
-    slot-scope="foo"
-    slot-scope="{ row }"
-    slot-scope="{
+    '
+    slot-scope='foo'
+    slot-scope='{ row }'
+    slot-scope='{
       destructuring: {
         a: { b },
       },
-    }"
-    #default="foo"
-    #default="{ row }"
-    #default="{
+    }'
+    #default='foo'
+    #default='{ row }'
+    #default='{
       destructuring: {
         a: { b },
       },
-    }"
-    v-slot="foo"
-    v-slot="{ row }"
-    v-slot="{
+    }'
+    v-slot='foo'
+    v-slot='{ row }'
+    v-slot='{
       destructuring: {
         a: { b },
       },
-    }"
-    v-slot:name="foo"
-    v-slot:name="{ row }"
-    v-slot:name="{
+    }'
+    v-slot:name='foo'
+    v-slot:name='{ row }'
+    v-slot:name='{
       destructuring: {
         a: { b },
       },
-    }"
-    :class="{
+    }'
+    :class='{
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
-    }"
-    :class="
+    }'
+    :class='
       (() => {
         return 'hello'
       })()
-    "
-    :key="index /* hello */"
-    :key="
+    '
+    :key='index /* hello */'
+    :key='
       index // hello
-    "
-    @click="
+    '
+    @click='
       () => {
         console.log(test)
       }
-    "
-    @click="
+    '
+    @click='
       () => {
         console.log(test)
       }
-    "
-    @click="doSomething()"
-    @click="doSomething;"
-    @click="a.b;"
-    @click="a[1];"
-    @click="a['b'];"
-    @click="a[null]"
-    #default="{
+    '
+    @click='doSomething()'
+    @click='doSomething;'
+    @click='a.b;'
+    @click='a[1];'
+    @click='a['b'];'
+    @click='a[null]'
+    #default='{
       foo: {
         bar: { baz },
       },
-    }"
+    }'
   ></div>
 </template>
 
@@ -445,17 +445,17 @@ trailingComma: "es5"
 =====================================output=====================================
 <template>
   <div
-    v-for="(
+    v-for='(
       { longLongProp, longLongProp }, index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       { longLongProp = 42, longLongProp = 'Hello, World!' }, index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="{
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='{
       longLongProp,
       longLongProp,
-    } of longLongLongLongLongLongLongLongList"
-    v-for="(
+    } of longLongLongLongLongLongLongLongList'
+    v-for='(
       {
         longLongProp,
         longLongProp,
@@ -463,18 +463,18 @@ trailingComma: "es5"
         yetAnotherLongLongProp,
       },
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="{
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='{
       longLongProp,
       longLongProp,
       anotherLongLongProp,
       yetAnotherLongLongProp,
-    } of longLongLongLongLongLongLongLongList"
-    v-for="(
+    } of longLongLongLongLongLongLongLongList'
+    v-for='(
       [longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         longLongProp,
         longLongProp = 42,
@@ -482,8 +482,8 @@ trailingComma: "es5"
         yetAnotherLongLongProp = 'Hello, World!',
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         longLongProp,
         longLongProp,
@@ -501,8 +501,8 @@ trailingComma: "es5"
         yetAnotherLongLongProp,
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         longLongProp,
         longLongProp,
@@ -525,8 +525,8 @@ trailingComma: "es5"
         yetAnotherLongLongProp,
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         { longLongProp, longLongProp },
         { longLongProp, longLongProp },
@@ -542,8 +542,8 @@ trailingComma: "es5"
         yetAnotherLongLongProp,
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       {
         firstValue,
         secondValue: {
@@ -555,19 +555,19 @@ trailingComma: "es5"
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       { firstValue = { longLongProp, longLongProp }, secondValue },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       {
         firstValue,
         secondValue,
@@ -584,8 +584,8 @@ trailingComma: "es5"
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       {
         firstValue,
         secondValue,
@@ -615,8 +615,8 @@ trailingComma: "es5"
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       {
         firstValue,
         secondValue,
@@ -638,94 +638,94 @@ trailingComma: "es5"
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="item in items"
-    v-for="item of items"
-    v-for="(item, index) in items"
-    v-for="value in object"
-    v-for="(value, key) in object"
-    v-for="(value, key) of object"
-    v-for="(value, key, index) in object"
-    v-for="n in evenNumbers"
-    v-for="n in even(numbers)"
-    v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({ a: 1 }))"
-    v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map((x) => {
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='item in items'
+    v-for='item of items'
+    v-for='(item, index) in items'
+    v-for='value in object'
+    v-for='(value, key) in object'
+    v-for='(value, key) of object'
+    v-for='(value, key, index) in object'
+    v-for='n in evenNumbers'
+    v-for='n in even(numbers)'
+    v-for='n in 10'
+    v-for='{ a } in [0].map(() => ({ a: 1 }))'
+    v-for='({ a }, [c]) in [0].map(() => 1)'
+    v-for='n in items.map((x) => {
       return x;
-    })"
-    @click="/* hello */"
-    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
-    @click="$emit('click')"
-    @click="$emit('click')"
-    @click="
+    })'
+    @click='/* hello */'
+    @click='/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */'
+    @click='$emit('click')'
+    @click='$emit('click')'
+    @click='
       $emit('click');
       if (something) {
         for (let i = j; i < 100; i++) {}
       } else {
       }
-    "
-    slot-scope="foo"
-    slot-scope="{ row }"
-    slot-scope="{
+    '
+    slot-scope='foo'
+    slot-scope='{ row }'
+    slot-scope='{
       destructuring: {
         a: { b },
       },
-    }"
-    #default="foo"
-    #default="{ row }"
-    #default="{
+    }'
+    #default='foo'
+    #default='{ row }'
+    #default='{
       destructuring: {
         a: { b },
       },
-    }"
-    v-slot="foo"
-    v-slot="{ row }"
-    v-slot="{
+    }'
+    v-slot='foo'
+    v-slot='{ row }'
+    v-slot='{
       destructuring: {
         a: { b },
       },
-    }"
-    v-slot:name="foo"
-    v-slot:name="{ row }"
-    v-slot:name="{
+    }'
+    v-slot:name='foo'
+    v-slot:name='{ row }'
+    v-slot:name='{
       destructuring: {
         a: { b },
       },
-    }"
-    :class="{
+    }'
+    :class='{
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
-    }"
-    :class="
+    }'
+    :class='
       (() => {
         return 'hello';
       })()
-    "
-    :key="index /* hello */"
-    :key="
+    '
+    :key='index /* hello */'
+    :key='
       index // hello
-    "
-    @click="
+    '
+    @click='
       () => {
         console.log(test);
       }
-    "
-    @click="
+    '
+    @click='
       () => {
         console.log(test);
       }
-    "
-    @click="doSomething()"
-    @click="doSomething;"
-    @click="a.b;"
-    @click="a[1];"
-    @click="a['b'];"
-    @click="a[null]"
-    #default="{
+    '
+    @click='doSomething()'
+    @click='doSomething;'
+    @click='a.b;'
+    @click='a[1];'
+    @click='a['b'];'
+    @click='a[null]'
+    #default='{
       foo: {
         bar: { baz },
       },
-    }"
+    }'
   ></div>
 </template>
 
@@ -811,17 +811,17 @@ trailingComma: "none"
 =====================================output=====================================
 <template>
   <div
-    v-for="(
+    v-for='(
       { longLongProp, longLongProp }, index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       { longLongProp = 42, longLongProp = 'Hello, World!' }, index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="{
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='{
       longLongProp,
       longLongProp
-    } of longLongLongLongLongLongLongLongList"
-    v-for="(
+    } of longLongLongLongLongLongLongLongList'
+    v-for='(
       {
         longLongProp,
         longLongProp,
@@ -829,18 +829,18 @@ trailingComma: "none"
         yetAnotherLongLongProp
       },
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="{
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='{
       longLongProp,
       longLongProp,
       anotherLongLongProp,
       yetAnotherLongLongProp
-    } of longLongLongLongLongLongLongLongList"
-    v-for="(
+    } of longLongLongLongLongLongLongLongList'
+    v-for='(
       [longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         longLongProp,
         longLongProp = 42,
@@ -848,8 +848,8 @@ trailingComma: "none"
         yetAnotherLongLongProp = 'Hello, World!'
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         longLongProp,
         longLongProp,
@@ -867,8 +867,8 @@ trailingComma: "none"
         yetAnotherLongLongProp
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         longLongProp,
         longLongProp,
@@ -891,8 +891,8 @@ trailingComma: "none"
         yetAnotherLongLongProp
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       [
         { longLongProp, longLongProp },
         { longLongProp, longLongProp },
@@ -908,8 +908,8 @@ trailingComma: "none"
         yetAnotherLongLongProp
       ],
       index
-    ) of longLongLongLongLongLongLongLongList"
-    v-for="(
+    ) of longLongLongLongLongLongLongLongList'
+    v-for='(
       {
         firstValue,
         secondValue: {
@@ -921,19 +921,19 @@ trailingComma: "none"
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       { firstValue = { longLongProp, longLongProp }, secondValue },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       {
         firstValue,
         secondValue,
@@ -950,8 +950,8 @@ trailingComma: "none"
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       {
         firstValue,
         secondValue,
@@ -981,8 +981,8 @@ trailingComma: "none"
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="(
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='(
       {
         firstValue,
         secondValue,
@@ -1004,94 +1004,94 @@ trailingComma: "none"
       },
       objectKey,
       index
-    ) in objectWithAVeryVeryVeryVeryLongName"
-    v-for="item in items"
-    v-for="item of items"
-    v-for="(item, index) in items"
-    v-for="value in object"
-    v-for="(value, key) in object"
-    v-for="(value, key) of object"
-    v-for="(value, key, index) in object"
-    v-for="n in evenNumbers"
-    v-for="n in even(numbers)"
-    v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({ a: 1 }))"
-    v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map((x) => {
+    ) in objectWithAVeryVeryVeryVeryLongName'
+    v-for='item in items'
+    v-for='item of items'
+    v-for='(item, index) in items'
+    v-for='value in object'
+    v-for='(value, key) in object'
+    v-for='(value, key) of object'
+    v-for='(value, key, index) in object'
+    v-for='n in evenNumbers'
+    v-for='n in even(numbers)'
+    v-for='n in 10'
+    v-for='{ a } in [0].map(() => ({ a: 1 }))'
+    v-for='({ a }, [c]) in [0].map(() => 1)'
+    v-for='n in items.map((x) => {
       return x;
-    })"
-    @click="/* hello */"
-    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
-    @click="$emit('click')"
-    @click="$emit('click')"
-    @click="
+    })'
+    @click='/* hello */'
+    @click='/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */'
+    @click='$emit('click')'
+    @click='$emit('click')'
+    @click='
       $emit('click');
       if (something) {
         for (let i = j; i < 100; i++) {}
       } else {
       }
-    "
-    slot-scope="foo"
-    slot-scope="{ row }"
-    slot-scope="{
+    '
+    slot-scope='foo'
+    slot-scope='{ row }'
+    slot-scope='{
       destructuring: {
         a: { b }
       }
-    }"
-    #default="foo"
-    #default="{ row }"
-    #default="{
+    }'
+    #default='foo'
+    #default='{ row }'
+    #default='{
       destructuring: {
         a: { b }
       }
-    }"
-    v-slot="foo"
-    v-slot="{ row }"
-    v-slot="{
+    }'
+    v-slot='foo'
+    v-slot='{ row }'
+    v-slot='{
       destructuring: {
         a: { b }
       }
-    }"
-    v-slot:name="foo"
-    v-slot:name="{ row }"
-    v-slot:name="{
+    }'
+    v-slot:name='foo'
+    v-slot:name='{ row }'
+    v-slot:name='{
       destructuring: {
         a: { b }
       }
-    }"
-    :class="{
+    }'
+    :class='{
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
-    }"
-    :class="
+    }'
+    :class='
       (() => {
         return 'hello';
       })()
-    "
-    :key="index /* hello */"
-    :key="
+    '
+    :key='index /* hello */'
+    :key='
       index // hello
-    "
-    @click="
+    '
+    @click='
       () => {
         console.log(test);
       }
-    "
-    @click="
+    '
+    @click='
       () => {
         console.log(test);
       }
-    "
-    @click="doSomething()"
-    @click="doSomething;"
-    @click="a.b;"
-    @click="a[1];"
-    @click="a['b'];"
-    @click="a[null]"
-    #default="{
+    '
+    @click='doSomething()'
+    @click='doSomething;'
+    @click='a.b;'
+    @click='a[1];'
+    @click='a['b'];'
+    @click='a[null]'
+    #default='{
       foo: {
         bar: { baz }
       }
-    }"
+    }'
   ></div>
 </template>
 
@@ -1239,24 +1239,24 @@ export default {
 
 <template>
   <li
-    class="card"
-    :class="{
+    class='card'
+    :class='{
       'user-can-drag': !disabled && issue.id,
       'is-disabled': disabled || !issue.id,
       'is-active': issueDetailVisible,
-    }"
-    :index="index"
-    :data-issue-id="issue.id"
-    @mousedown="mouseDown"
-    @mousemove="mouseMove"
-    @mouseup="showIssue($event)"
+    }'
+    :index='index'
+    :data-issue-id='issue.id'
+    @mousedown='mouseDown'
+    @mousemove='mouseMove'
+    @mouseup='showIssue($event)'
   >
     <issue-card-inner
-      :list="list"
-      :issue="issue"
-      :issue-link-base="issueLinkBase"
-      :root-path="rootPath"
-      :update-filters="true"
+      :list='list'
+      :issue='issue'
+      :issue-link-base='issueLinkBase'
+      :root-path='rootPath'
+      :update-filters='true'
     />
   </li>
 </template>
@@ -1405,24 +1405,24 @@ export default {
 
 <template>
   <li
-    class="card"
-    :class="{
+    class='card'
+    :class='{
       'user-can-drag': !disabled && issue.id,
       'is-disabled': disabled || !issue.id,
       'is-active': issueDetailVisible,
-    }"
-    :index="index"
-    :data-issue-id="issue.id"
-    @mousedown="mouseDown"
-    @mousemove="mouseMove"
-    @mouseup="showIssue($event)"
+    }'
+    :index='index'
+    :data-issue-id='issue.id'
+    @mousedown='mouseDown'
+    @mousemove='mouseMove'
+    @mouseup='showIssue($event)'
   >
     <issue-card-inner
-      :list="list"
-      :issue="issue"
-      :issue-link-base="issueLinkBase"
-      :root-path="rootPath"
-      :update-filters="true"
+      :list='list'
+      :issue='issue'
+      :issue-link-base='issueLinkBase'
+      :root-path='rootPath'
+      :update-filters='true'
     />
   </li>
 </template>
@@ -1571,24 +1571,24 @@ export default {
 
 <template>
   <li
-    class="card"
-    :class="{
+    class='card'
+    :class='{
       'user-can-drag': !disabled && issue.id,
       'is-disabled': disabled || !issue.id,
       'is-active': issueDetailVisible
-    }"
-    :index="index"
-    :data-issue-id="issue.id"
-    @mousedown="mouseDown"
-    @mousemove="mouseMove"
-    @mouseup="showIssue($event)"
+    }'
+    :index='index'
+    :data-issue-id='issue.id'
+    @mousedown='mouseDown'
+    @mousemove='mouseMove'
+    @mouseup='showIssue($event)'
   >
     <issue-card-inner
-      :list="list"
-      :issue="issue"
-      :issue-link-base="issueLinkBase"
-      :root-path="rootPath"
-      :update-filters="true"
+      :list='list'
+      :issue='issue'
+      :issue-link-base='issueLinkBase'
+      :root-path='rootPath'
+      :update-filters='true'
     />
   </li>
 </template>
@@ -1767,20 +1767,20 @@ semi: false
 <!-- #7396 -->
 <template>
   <MyComponent
-    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-    :bar="
+    :foo='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`'
+    :bar='
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-    "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
-    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-    :add="
+    '
+    :baz='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`'
+    :src=''loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value''
+    :add='
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
-    "
-    :num="
+    '
+    :num='
       100000000000000000000000000000000000000000000000000000000000000000000000000
-    "
+    '
   />
 </template>
 
@@ -1811,20 +1811,20 @@ trailingComma: "es5"
 <!-- #7396 -->
 <template>
   <MyComponent
-    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-    :bar="
+    :foo='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`'
+    :bar='
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-    "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
-    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-    :add="
+    '
+    :baz='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`'
+    :src=''loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value''
+    :add='
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
-    "
-    :num="
+    '
+    :num='
       100000000000000000000000000000000000000000000000000000000000000000000000000
-    "
+    '
   />
 </template>
 
@@ -1855,20 +1855,20 @@ trailingComma: "none"
 <!-- #7396 -->
 <template>
   <MyComponent
-    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-    :bar="
+    :foo='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`'
+    :bar='
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-    "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
-    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-    :add="
+    '
+    :baz='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`'
+    :src=''loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value''
+    :add='
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
-    "
-    :num="
+    '
+    :num='
       100000000000000000000000000000000000000000000000000000000000000000000000000
-    "
+    '
   />
 </template>
 
@@ -1900,20 +1900,20 @@ semi: false
 <!-- #7396 -->
 <template>
   <MyComponent
-    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-    :bar="
+    :foo='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`'
+    :bar='
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-    "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
-    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-    :add="
+    '
+    :baz='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`'
+    :src=''loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value''
+    :add='
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
-    "
-    :num="
+    '
+    :num='
       100000000000000000000000000000000000000000000000000000000000000000000000000
-    "
+    '
   />
 </template>
 <script lang="ts"></script>
@@ -1946,20 +1946,20 @@ trailingComma: "es5"
 <!-- #7396 -->
 <template>
   <MyComponent
-    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-    :bar="
+    :foo='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`'
+    :bar='
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-    "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
-    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-    :add="
+    '
+    :baz='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`'
+    :src=''loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value''
+    :add='
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
-    "
-    :num="
+    '
+    :num='
       100000000000000000000000000000000000000000000000000000000000000000000000000
-    "
+    '
   />
 </template>
 <script lang="ts"></script>
@@ -1992,20 +1992,20 @@ trailingComma: "none"
 <!-- #7396 -->
 <template>
   <MyComponent
-    :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
-    :bar="
+    :foo='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`'
+    :bar='
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
       \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-    "
-    :baz="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`"
-    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
-    :add="
+    '
+    :baz='\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo + bar} template literal value\`'
+    :src=''loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value''
+    :add='
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
       'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
-    "
-    :num="
+    '
+    :num='
       100000000000000000000000000000000000000000000000000000000000000000000000000
-    "
+    '
   />
 </template>
 <script lang="ts"></script>
@@ -2031,7 +2031,7 @@ semi: false
 =====================================output=====================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
-  <div class="allowed">
+  <div class='allowed'>
     {{
       value
         | thisIsARealSuperLongFilterPipe("arg1", arg2)
@@ -2040,31 +2040,31 @@ semi: false
     }}
   </div>
   <div
-    class="allowed"
-    v-bind:something="
+    class='allowed'
+    v-bind:something='
       value
         | thisIsARealSuperLongFilterPipe('arg1', arg2)
         | anotherPipeLongJustForFun
         | pipeTheThird
-    "
+    '
   ></div>
   <div
-    class="allowed"
-    :class="
+    class='allowed'
+    :class='
       value
         | thisIsARealSuperLongFilterPipe('arg1', arg2)
         | anotherPipeLongJustForFun
         | pipeTheThird
-    "
+    '
   ></div>
   <div
-    class="not-allowed"
-    v-if="
+    class='not-allowed'
+    v-if='
       value |
         thisIsARealSuperLongBitwiseOr('arg1', arg2) |
         anotherBitwiseOrLongJustForFun |
         bitwiseOrTheThird
-    "
+    '
   ></div>
 </template>
 
@@ -2089,7 +2089,7 @@ trailingComma: "es5"
 =====================================output=====================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
-  <div class="allowed">
+  <div class='allowed'>
     {{
       value
         | thisIsARealSuperLongFilterPipe("arg1", arg2)
@@ -2098,31 +2098,31 @@ trailingComma: "es5"
     }}
   </div>
   <div
-    class="allowed"
-    v-bind:something="
+    class='allowed'
+    v-bind:something='
       value
         | thisIsARealSuperLongFilterPipe('arg1', arg2)
         | anotherPipeLongJustForFun
         | pipeTheThird
-    "
+    '
   ></div>
   <div
-    class="allowed"
-    :class="
+    class='allowed'
+    :class='
       value
         | thisIsARealSuperLongFilterPipe('arg1', arg2)
         | anotherPipeLongJustForFun
         | pipeTheThird
-    "
+    '
   ></div>
   <div
-    class="not-allowed"
-    v-if="
+    class='not-allowed'
+    v-if='
       value |
         thisIsARealSuperLongBitwiseOr('arg1', arg2) |
         anotherBitwiseOrLongJustForFun |
         bitwiseOrTheThird
-    "
+    '
   ></div>
 </template>
 
@@ -2147,7 +2147,7 @@ trailingComma: "none"
 =====================================output=====================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
-  <div class="allowed">
+  <div class='allowed'>
     {{
       value
         | thisIsARealSuperLongFilterPipe("arg1", arg2)
@@ -2156,31 +2156,31 @@ trailingComma: "none"
     }}
   </div>
   <div
-    class="allowed"
-    v-bind:something="
+    class='allowed'
+    v-bind:something='
       value
         | thisIsARealSuperLongFilterPipe('arg1', arg2)
         | anotherPipeLongJustForFun
         | pipeTheThird
-    "
+    '
   ></div>
   <div
-    class="allowed"
-    :class="
+    class='allowed'
+    :class='
       value
         | thisIsARealSuperLongFilterPipe('arg1', arg2)
         | anotherPipeLongJustForFun
         | pipeTheThird
-    "
+    '
   ></div>
   <div
-    class="not-allowed"
-    v-if="
+    class='not-allowed'
+    v-if='
       value |
         thisIsARealSuperLongBitwiseOr('arg1', arg2) |
         anotherBitwiseOrLongJustForFun |
         bitwiseOrTheThird
-    "
+    '
   ></div>
 </template>
 
@@ -2979,7 +2979,7 @@ semi: false
 =====================================output=====================================
 <template>
   <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
-  <pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
+  <pre ref="buildTrace" class='build-trace mb-0 h-100' @scroll='scrollBuildLog'>
   <code
     v-show="!detailJob.isLoading"
     class="bash"
@@ -2999,19 +2999,19 @@ semi: false
 
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
 <template>
-  <pre class="code-block rounded">
+  <pre class='code-block rounded'>
     <code class="d-block">{{ code }}</code>
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+  <pre class='woot'>
   {{ stuff }}
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+  <pre class='woot'>
   123{{
       wqeqwwqwqweqweqwewwq ||
       wqeqwwqwqweqweqwewwq ||
@@ -3085,7 +3085,7 @@ trailingComma: "es5"
 =====================================output=====================================
 <template>
   <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
-  <pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
+  <pre ref="buildTrace" class='build-trace mb-0 h-100' @scroll='scrollBuildLog'>
   <code
     v-show="!detailJob.isLoading"
     class="bash"
@@ -3105,19 +3105,19 @@ trailingComma: "es5"
 
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
 <template>
-  <pre class="code-block rounded">
+  <pre class='code-block rounded'>
     <code class="d-block">{{ code }}</code>
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+  <pre class='woot'>
   {{ stuff }}
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+  <pre class='woot'>
   123{{
       wqeqwwqwqweqweqwewwq ||
       wqeqwwqwqweqweqwewwq ||
@@ -3191,7 +3191,7 @@ trailingComma: "none"
 =====================================output=====================================
 <template>
   <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
-  <pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
+  <pre ref="buildTrace" class='build-trace mb-0 h-100' @scroll='scrollBuildLog'>
   <code
     v-show="!detailJob.isLoading"
     class="bash"
@@ -3211,19 +3211,19 @@ trailingComma: "none"
 
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
 <template>
-  <pre class="code-block rounded">
+  <pre class='code-block rounded'>
     <code class="d-block">{{ code }}</code>
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+  <pre class='woot'>
   {{ stuff }}
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+  <pre class='woot'>
   123{{
       wqeqwwqwqweqweqwewwq ||
       wqeqwwqwqweqweqwewwq ||
@@ -3334,7 +3334,7 @@ foo()
 </script>
 
 <template>
-  <div class="container">
+  <div class='container'>
     <HomeH />
     <HomeA />
     <HomeX />
@@ -3389,7 +3389,7 @@ foo();
 </script>
 
 <template>
-  <div class="container">
+  <div class='container'>
     <HomeH />
     <HomeA />
     <HomeX />
@@ -3444,7 +3444,7 @@ foo();
 </script>
 
 <template>
-  <div class="container">
+  <div class='container'>
     <HomeH />
     <HomeA />
     <HomeX />
@@ -3474,7 +3474,7 @@ semi: false
 
 =====================================output=====================================
 <template>
-  <span :class="$style.root"><slot /></span>
+  <span :class='$style.root'><slot /></span>
 </template>
 
 <style src="./style.css" module />
@@ -3497,7 +3497,7 @@ trailingComma: "es5"
 
 =====================================output=====================================
 <template>
-  <span :class="$style.root"><slot /></span>
+  <span :class='$style.root'><slot /></span>
 </template>
 
 <style src="./style.css" module />
@@ -3520,7 +3520,7 @@ trailingComma: "none"
 
 =====================================output=====================================
 <template>
-  <span :class="$style.root"><slot /></span>
+  <span :class='$style.root'><slot /></span>
 </template>
 
 <style src="./style.css" module />
@@ -3554,10 +3554,10 @@ semi: false
 <template>
   <comp>
     <template
-      v-slot="x: unknown[]"
-      v-slot:named="y: never"
-      slot-scope="{ des: { truc: tured } }: any"
-      #shorthand="abc: string"
+      v-slot='x: unknown[]'
+      v-slot:named='y: never'
+      slot-scope='{ des: { truc: tured } }: any'
+      #shorthand='abc: string'
     >
       {{ x[1] }}
     </template>
@@ -3593,10 +3593,10 @@ trailingComma: "es5"
 <template>
   <comp>
     <template
-      v-slot="x: unknown[]"
-      v-slot:named="y: never"
-      slot-scope="{ des: { truc: tured } }: any"
-      #shorthand="abc: string"
+      v-slot='x: unknown[]'
+      v-slot:named='y: never'
+      slot-scope='{ des: { truc: tured } }: any'
+      #shorthand='abc: string'
     >
       {{ x[1] }}
     </template>
@@ -3632,10 +3632,10 @@ trailingComma: "none"
 <template>
   <comp>
     <template
-      v-slot="x: unknown[]"
-      v-slot:named="y: never"
-      slot-scope="{ des: { truc: tured } }: any"
-      #shorthand="abc: string"
+      v-slot='x: unknown[]'
+      v-slot:named='y: never'
+      slot-scope='{ des: { truc: tured } }: any'
+      #shorthand='abc: string'
     >
       {{ x[1] }}
     </template>
@@ -4061,22 +4061,22 @@ semi: false
 =====================================output=====================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
-  <div class="file-container">
-    <div class="file-content image_file">
+  <div class='file-container'>
+    <div class='file-content image_file'>
       <img
         ref="contentImg"
-        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
-        :src="path"
-        :alt="path"
-        @load="onImgLoad"
-        @click="onImgClick"
+        :class='{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }'
+        :src='path'
+        :alt='path'
+        @load='onImgLoad'
+        @click='onImgClick'
       />
-      <p v-if="renderInfo" class="file-info prepend-top-10">
-        <template v-if="fileSize > 0">
+      <p v-if='renderInfo' class='file-info prepend-top-10'>
+        <template v-if='fileSize > 0'>
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize > 0 && width && height"> | </template>
-        <template v-if="width && height">
+        <template v-if='fileSize > 0 && width && height'> | </template>
+        <template v-if='width && height'>
           W: {{ width }} | H: {{ height }}
         </template>
       </p>
@@ -4125,22 +4125,22 @@ trailingComma: "es5"
 =====================================output=====================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
-  <div class="file-container">
-    <div class="file-content image_file">
+  <div class='file-container'>
+    <div class='file-content image_file'>
       <img
         ref="contentImg"
-        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
-        :src="path"
-        :alt="path"
-        @load="onImgLoad"
-        @click="onImgClick"
+        :class='{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }'
+        :src='path'
+        :alt='path'
+        @load='onImgLoad'
+        @click='onImgClick'
       />
-      <p v-if="renderInfo" class="file-info prepend-top-10">
-        <template v-if="fileSize > 0">
+      <p v-if='renderInfo' class='file-info prepend-top-10'>
+        <template v-if='fileSize > 0'>
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize > 0 && width && height"> | </template>
-        <template v-if="width && height">
+        <template v-if='fileSize > 0 && width && height'> | </template>
+        <template v-if='width && height'>
           W: {{ width }} | H: {{ height }}
         </template>
       </p>
@@ -4189,22 +4189,22 @@ trailingComma: "none"
 =====================================output=====================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
-  <div class="file-container">
-    <div class="file-content image_file">
+  <div class='file-container'>
+    <div class='file-content image_file'>
       <img
         ref="contentImg"
-        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
-        :src="path"
-        :alt="path"
-        @load="onImgLoad"
-        @click="onImgClick"
+        :class='{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }'
+        :src='path'
+        :alt='path'
+        @load='onImgLoad'
+        @click='onImgClick'
       />
-      <p v-if="renderInfo" class="file-info prepend-top-10">
-        <template v-if="fileSize > 0">
+      <p v-if='renderInfo' class='file-info prepend-top-10'>
+        <template v-if='fileSize > 0'>
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize > 0 && width && height"> | </template>
-        <template v-if="width && height">
+        <template v-if='fileSize > 0 && width && height'> | </template>
+        <template v-if='width && height'>
           W: {{ width }} | H: {{ height }}
         </template>
       </p>
@@ -4237,7 +4237,7 @@ new Vue({el: '#app'})
 <!doctype html>
 <html>
   <body>
-    <div v-if="foo === 'foo'"></div>
+    <div v-if='foo === 'foo''></div>
     <script>
       new Vue({ el: "#app" })
     </script>
@@ -4269,7 +4269,7 @@ new Vue({el: '#app'})
 <!doctype html>
 <html>
   <body>
-    <div v-if="foo === 'foo'"></div>
+    <div v-if='foo === 'foo''></div>
     <script>
       new Vue({ el: "#app" });
     </script>
@@ -4301,7 +4301,7 @@ new Vue({el: '#app'})
 <!doctype html>
 <html>
   <body>
-    <div v-if="foo === 'foo'"></div>
+    <div v-if='foo === 'foo''></div>
     <script>
       new Vue({ el: "#app" });
     </script>
@@ -4696,64 +4696,64 @@ long_long_long_long_long_long_long_condition_4
 <template>
   <root>
     <and
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 &&
         long_long_long_long_long_long_long_condition_2 &&
         short_1 &&
         short_2 &&
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></and>
     <and
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 &&
         long_long_long_long_long_long_long_condition_2 &&
         short_1 &&
         short_2 &&
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></and>
     <or
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 ||
         long_long_long_long_long_long_long_condition_2 ||
         short_1 ||
         short_2 ||
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></or>
     <or
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 ||
         long_long_long_long_long_long_long_condition_2 ||
         short_1 ||
         short_2 ||
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></or>
     <mixed
-      v-if="
+      v-if='
         (long_long_long_long_long_long_long_condition_1 &&
           long_long_long_long_long_long_long_condition_2) ||
         (short_1 &&
           short_2 &&
           long_long_long_long_long_long_long_condition_3 &&
           long_long_long_long_long_long_long_condition_4)
-      "
+      '
     ></mixed>
     <mixed
-      v-if="
+      v-if='
         (long_long_long_long_long_long_long_condition_1 &&
           long_long_long_long_long_long_long_condition_2) ||
         (short_1 &&
           short_2 &&
           long_long_long_long_long_long_long_condition_3) ||
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></mixed>
   </root>
 </template>
@@ -4807,64 +4807,64 @@ long_long_long_long_long_long_long_condition_4
 <template>
   <root>
     <and
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 &&
         long_long_long_long_long_long_long_condition_2 &&
         short_1 &&
         short_2 &&
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></and>
     <and
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 &&
         long_long_long_long_long_long_long_condition_2 &&
         short_1 &&
         short_2 &&
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></and>
     <or
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 ||
         long_long_long_long_long_long_long_condition_2 ||
         short_1 ||
         short_2 ||
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></or>
     <or
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 ||
         long_long_long_long_long_long_long_condition_2 ||
         short_1 ||
         short_2 ||
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></or>
     <mixed
-      v-if="
+      v-if='
         (long_long_long_long_long_long_long_condition_1 &&
           long_long_long_long_long_long_long_condition_2) ||
         (short_1 &&
           short_2 &&
           long_long_long_long_long_long_long_condition_3 &&
           long_long_long_long_long_long_long_condition_4)
-      "
+      '
     ></mixed>
     <mixed
-      v-if="
+      v-if='
         (long_long_long_long_long_long_long_condition_1 &&
           long_long_long_long_long_long_long_condition_2) ||
         (short_1 &&
           short_2 &&
           long_long_long_long_long_long_long_condition_3) ||
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></mixed>
   </root>
 </template>
@@ -4918,64 +4918,64 @@ long_long_long_long_long_long_long_condition_4
 <template>
   <root>
     <and
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 &&
         long_long_long_long_long_long_long_condition_2 &&
         short_1 &&
         short_2 &&
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></and>
     <and
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 &&
         long_long_long_long_long_long_long_condition_2 &&
         short_1 &&
         short_2 &&
         long_long_long_long_long_long_long_condition_3 &&
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></and>
     <or
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 ||
         long_long_long_long_long_long_long_condition_2 ||
         short_1 ||
         short_2 ||
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></or>
     <or
-      v-if="
+      v-if='
         long_long_long_long_long_long_long_condition_1 ||
         long_long_long_long_long_long_long_condition_2 ||
         short_1 ||
         short_2 ||
         long_long_long_long_long_long_long_condition_3 ||
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></or>
     <mixed
-      v-if="
+      v-if='
         (long_long_long_long_long_long_long_condition_1 &&
           long_long_long_long_long_long_long_condition_2) ||
         (short_1 &&
           short_2 &&
           long_long_long_long_long_long_long_condition_3 &&
           long_long_long_long_long_long_long_condition_4)
-      "
+      '
     ></mixed>
     <mixed
-      v-if="
+      v-if='
         (long_long_long_long_long_long_long_condition_1 &&
           long_long_long_long_long_long_long_condition_2) ||
         (short_1 &&
           short_2 &&
           long_long_long_long_long_long_long_condition_3) ||
         long_long_long_long_long_long_long_condition_4
-      "
+      '
     ></mixed>
   </root>
 </template>

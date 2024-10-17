@@ -27,13 +27,13 @@ function log(...args) {
 
 <template>
   <div
-    @click="
+    @click='
       if (x === (1 as number)) {
         log('hello');
       } else {
         log('nonhello');
       }
-    "
+    '
   >
     {{ x }}
   </div>
@@ -62,14 +62,14 @@ printWidth: 80
 <script setup lang="ts"></script>
 
 <template>
-  <div @click="(x: never) => null">arrow</div>
+  <div @click='(x: never) => null'>arrow</div>
   <div
-    @click="
+    @click='
       function (a: unknown[]) {
         console.log('abcdefg');
         return;
       }
-    "
+    '
   >
     anonymous function
   </div>

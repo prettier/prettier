@@ -25,7 +25,7 @@ printWidth: 80
 
 =====================================output=====================================
 <!doctype html>
-<html class="no-js mY-ClAsS">
+<html class='no-js mY-ClAsS'>
   <head>
     <meta charset="utf-8" />
     <title>My tITlE</title>

@@ -87,11 +87,11 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
 <input name="address" maxlength="200" />
 <input name="address" maxlength="200" />
 <input name="address" maxlength="200" />
-<div class="foo"></div>
-<div class="foo"></div>
-<div class="foo bar"></div>
-<div class="foo bar" id="header"></div>
-<div class="foo bar" id="header"></div>
+<div class='foo'></div>
+<div class='foo'></div>
+<div class='foo bar'></div>
+<div class='foo bar' id="header"></div>
+<div class='foo bar' id="header"></div>
 <div data-prettier></div>
 <div data-prettier="true"></div>
 <meta
@@ -151,7 +151,7 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
 <X a="1"> </X>
 <X a="1" b="2"> </X>
 <X a="1" b="2" c="3"> </X>
-<p class="foo bar baz"></p>
+<p class='foo bar baz'></p>
 
 ================================================================================
 `;
@@ -253,17 +253,17 @@ printWidth: 80
 
 =====================================output=====================================
 <div
-  class="ProviderMeasuresContainer__heading-row d-flex flex-column flex-lg-row justify-content-start justify-content-lg-between align-items-start align-items-lg-center"
+  class='ProviderMeasuresContainer__heading-row d-flex flex-column flex-lg-row justify-content-start justify-content-lg-between align-items-start align-items-lg-center'
 >
   Foo
 </div>
 
-<div class="a-bem-block a-bem-block--with-modifer">
+<div class='a-bem-block a-bem-block--with-modifer'>
   <div
-    class="a-bem-block__element a-bem-block__element--with-modifer also-another-block"
+    class='a-bem-block__element a-bem-block__element--with-modifer also-another-block'
   >
     <div
-      class="a-bem-block__element a-bem-block__element--with-modifer also-another-block__element"
+      class='a-bem-block__element a-bem-block__element--with-modifer also-another-block__element'
     ></div>
   </div>
 </div>
@@ -300,11 +300,11 @@ printWidth: 80
 </div>
 
 =====================================output=====================================
-<div class="news__header widget__content">
-  <div class="news__tabs">
-    <h1 class="news__tab-wrapper news__head-item">
+<div class='news__header widget__content'>
+  <div class='news__tabs'>
+    <h1 class='news__tab-wrapper news__head-item'>
       <a
-        class="home-link home-link_blue_yes news__tab news__tab_selected_yes mix-tabber__tab mix-tabber__tab_selected_yes"
+        class='home-link home-link_blue_yes news__tab news__tab_selected_yes mix-tabber__tab mix-tabber__tab_selected_yes'
         tabindex="0"
         aria-selected="true"
         aria-controls="news_panel_news"
@@ -335,7 +335,7 @@ printWidth: 80
 
 =====================================output=====================================
 <my-tag
-  class="md:foo-bg md:foo-color md:foo--sub-bg md:foo--sub-color xl:foo xl:prefix2 --prefix2--something-else unrelated_class_to_fill_80_chars"
+  class='md:foo-bg md:foo-color md:foo--sub-bg md:foo--sub-color xl:foo xl:prefix2 --prefix2--something-else unrelated_class_to_fill_80_chars'
 ></my-tag>
 
 ================================================================================
@@ -353,11 +353,11 @@ printWidth: 80
 
 =====================================output=====================================
 <my-tag
-  class="__prefix1__foo __prefix1__bar __prefix2__foo prefix2 prefix2--something --prefix2--something-else"
+  class='__prefix1__foo __prefix1__bar __prefix2__foo prefix2 prefix2--something --prefix2--something-else'
 ></my-tag>
 
 <my-tag
-  class="--prefix1--foo --prefix1--bar --prefix2--foo prefix2 prefix2__something __prefix2__something_else"
+  class='--prefix1--foo --prefix1--bar --prefix2--foo prefix2 prefix2__something __prefix2__something_else'
 ></my-tag>
 
 ================================================================================
@@ -377,10 +377,10 @@ printWidth: 80
 =====================================output=====================================
 <div
   aria-hidden="true"
-  class="border rounded-1 flex-shrink-0 bg-gray px-1 text-gray-light ml-1 f6 d-none d-on-nav-focus js-jump-to-badge-jump"
+  class='border rounded-1 flex-shrink-0 bg-gray px-1 text-gray-light ml-1 f6 d-none d-on-nav-focus js-jump-to-badge-jump'
 >
   Jump to
-  <span class="d-inline-block ml-1 v-align-middle">x</span>
+  <span class='d-inline-block ml-1 v-align-middle'>x</span>
 </div>
 
 ================================================================================
@@ -446,13 +446,13 @@ src="https://s.yimg.com/rz/p/yahoo_frontpage_en-US_s_f_p_205x58_frontpage_2x.png
 width="205px" alt="Yahoo"/></a></h1></div></div>
 
 =====================================output=====================================
-<img class="foo bar" />
+<img class='foo bar' />
 
 <img class="  " />
 <img class />
 
 <img
-  class="looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong a-long-long-long-long-long-class-name another-long-long-long-class-name foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar"
+  class='looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong a-long-long-long-long-long-class-name another-long-long-long-class-name foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar'
 />
 
 <img class="{{ ...classes }}" />
@@ -460,25 +460,25 @@ width="205px" alt="Yahoo"/></a></h1></div></div>
 
 <!-- escaped -->
 <!-- from: https://developer.mozilla.org/en-US/docs/Web/API/CSS/escape#Basic_results -->
-<img class="\\.foo\\#bar \\(\\)\\[\\]\\{\\} --a \\30 \\ufffd" />
+<img class='\\.foo\\#bar \\(\\)\\[\\]\\{\\} --a \\30 \\ufffd' />
 
 <!-- from yahoo website -->
 <div
   id="header-wrapper"
-  class="Bgc(#fff) Bdbc(t) Bdbs(s) Bdbw(1px) D(tb) Pos(f) Tbl(f) W(100%) Z(4) has-scrolled_Bdc($c-fuji-grey-d) Scrolling_Bdc($c-fuji-grey-d) has-scrolled_Bxsh($headerShadow) Scrolling_Bxsh($headerShadow)"
+  class='Bgc(#fff) Bdbc(t) Bdbs(s) Bdbw(1px) D(tb) Pos(f) Tbl(f) W(100%) Z(4) has-scrolled_Bdc($c-fuji-grey-d) Scrolling_Bdc($c-fuji-grey-d) has-scrolled_Bxsh($headerShadow) Scrolling_Bxsh($headerShadow)'
 >
   <div
-    class="Bgc(#fff) M(a) Maw(1301px) Miw(1000px) Pb(12px) Pt(22px) Pos(r) TranslateZ(0) Z(6)"
+    class='Bgc(#fff) M(a) Maw(1301px) Miw(1000px) Pb(12px) Pt(22px) Pos(r) TranslateZ(0) Z(6)'
   >
-    <h1 class="Fz(0) Pstart(15px) Pos(a)">
+    <h1 class='Fz(0) Pstart(15px) Pos(a)'>
       <a
         id="header-logo"
         href="https://www.yahoo.com/"
-        class="D(b) Pos(r)"
+        class='D(b) Pos(r)'
         data-ylk="elm:img;elmt:logo;sec:hd;slk:logo"
       >
         <img
-          class="H(27px)!--sm1024 Mt(9px)!--sm1024 W(90px)!--sm1024"
+          class='H(27px)!--sm1024 Mt(9px)!--sm1024 W(90px)!--sm1024'
           src="https://s.yimg.com/rz/p/yahoo_frontpage_en-US_s_f_p_205x58_frontpage_2x.png"
           height="58px"
           width="205px"
@@ -503,7 +503,7 @@ printWidth: 80
 =====================================output=====================================
 <div
   aria-hidden="true"
-  class="border rounded-1 flex-shrink-0 bg-gray px-1 loooooooooooooooooooooooong"
+  class='border rounded-1 flex-shrink-0 bg-gray px-1 loooooooooooooooooooooooong'
 ></div>
 
 ================================================================================
@@ -618,37 +618,37 @@ alt="">
 =====================================output=====================================
 <img
   src="/assets/visual.png"
-  srcset="/assets/visual@0.5.png 400w, /assets/visual.png 805w"
+  srcset='/assets/visual@0.5.png 400w, /assets/visual.png 805w'
   sizes="(max-width: 66rem) 100vw, 66rem"
   alt=""
 />
 <img
   src="/assets/visual.png"
-  srcset="
+  srcset='
     /assets/visual@0.5.png  400w,
     /assets/visual.png      805w,
     /assets/visual@2x.png  1610w,
     /assets/visual@3x.png  2415w
-  "
+  '
   sizes="(max-width: 66rem) 100vw, 66rem"
   alt=""
 />
 <img
   src="/assets/visual.png"
-  srcset="
+  srcset='
     /assets/visual@0.5.png    0.5x,
     /assets/visual.png     1111x,
     /assets/visual@2x.png     2x,
     /assets/visual@3x.png     3.3333x
-  "
+  '
   sizes="(max-width: 66rem) 100vw, 66rem"
   alt=""
 />
-<img srcset="/media/examples/surfer-240-200.jpg" />
+<img srcset='/media/examples/surfer-240-200.jpg' />
 <!-- #8150 -->
 <img
   sizes="(max-width: 1400px) 100vw, 1400px"
-  srcset="
+  srcset='
     _20200401_145009_szrhju_c_scale,w_200.jpg   200w,
     _20200401_145009_szrhju_c_scale,w_379.jpg   379w,
     _20200401_145009_szrhju_c_scale,w_515.jpg   515w,
@@ -664,7 +664,7 @@ alt="">
     _20200401_145009_szrhju_c_scale,w_1350.jpg 1350w,
     _20200401_145009_szrhju_c_scale,w_1398.jpg 1398w,
     _20200401_145009_szrhju_c_scale,w_1400.jpg 1400w
-  "
+  '
   src="_20200401_145009_szrhju_c_scale,w_1400.jpg"
   alt=""
 />
@@ -713,33 +713,37 @@ background: linear-gradient(to left, hotpink, hsla(240, 100%, 50%, .05), transpa
   </div>
 
 
-<div style="  
+<div style="
 
 color: green;
 
-display: inline 
+display: inline
 
 ">
   </div>
 
-<div attribute-1 attribute-2 attribute-3 attribute-4 attribute-5 attribute-6 attribute-7 
+<div attribute-1 attribute-2 attribute-3 attribute-4 attribute-5 attribute-6 attribute-7
 style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-prop-4: css-value;"
  attribute-1 attribute-2 attribute-3 attribute-4 attribute-5 attribute-6 attribute-7 >
   </div>
 
-<div style="{{ ...styles }}" 
+<div style="{{ ...styles }}"
 ></div>
 
 <div style="color: red; {{ otherStyles }}"
 ></div>
-=====================================output=====================================
-<div style="color: #fff"></div>
+<div
+    style="font-family: 'Arial';"
+></div>
 
-<div style=""></div>
+=====================================output=====================================
+<div style='color: #fff'></div>
+
+<div style=''></div>
 <div style></div>
 
 <div
-  style="
+  style='
     all: initial;
     display: block;
     contain: content;
@@ -758,28 +762,28 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
     margin: 0 auto;
     border-radius: 8px;
     transition: transform 0.2s ease-out;
-  "
+  '
 ></div>
 
 <div
-  style="
+  style='
     background: linear-gradient(
       to left,
       hotpink,
       hsla(240, 100%, 50%, 0.05),
       transparent
     );
-  "
+  '
 ></div>
 
-<div style="color: red; display: inline"></div>
+<div style='color: red; display: inline'></div>
 
 <div
-  style="
+  style='
     color: green;
 
     display: inline;
-  "
+  '
 ></div>
 
 <div
@@ -790,12 +794,12 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
   attribute-5
   attribute-6
   attribute-7
-  style="
+  style='
     css-prop-1: css-value;
     css-prop-2: css-value;
     css-prop-3: css-value;
     css-prop-4: css-value;
-  "
+  '
   attribute-1
   attribute-2
   attribute-3
@@ -808,6 +812,7 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
 <div style="{{ ...styles }}"></div>
 
 <div style="color: red; {{ otherStyles }}"></div>
+<div style='font-family: "Arial"'></div>
 
 ================================================================================
 `;

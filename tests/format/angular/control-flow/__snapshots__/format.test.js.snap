@@ -33,21 +33,21 @@ printWidth: 80
     }
 
 =====================================output=====================================
-<ion-list class="timeline" appScrollItem>
+<ion-list class='timeline' appScrollItem>
   @for (let item of items; index as i; trackBy: trackByFn) {
     <app-tweet-item></app-tweet-item>
     @if (areaId && canTweet) {
-      <ion-item class="recommend-trust-up" lines="full"></ion-item>
+      <ion-item class='recommend-trust-up' lines="full"></ion-item>
     }
   }
 </ion-list>
 
-<ng-container *ngIf="areaId && canTweet">
-  <ion-item class="recommend-trust-up" lines="full"></ion-item>
+<ng-container *ngIf='areaId && canTweet'>
+  <ion-item class='recommend-trust-up' lines="full"></ion-item>
 </ng-container>
 
 @if (areaId && canTweet) {
-  <ion-item class="recommend-trust-up" lines="full"></ion-item>
+  <ion-item class='recommend-trust-up' lines="full"></ion-item>
 }
 
 ================================================================================
@@ -302,7 +302,7 @@ item of
   }
 </ul>
 
-<li *ngFor="let item of items; index as i; trackBy: trackByFn"></li>
+<li *ngFor='let item of items; index as i; trackBy: trackByFn'></li>
 
 <ul>
   @for (
@@ -330,18 +330,18 @@ item of
     <span>The collection is empty</span>
   }
 </ul>
-<li *ngFor="item of emptyCollection; track item.id"></li>
+<li *ngFor='item of emptyCollection; track item.id'></li>
 
 <div>
   @for (item of items; track item) {}
 
-  <div *ngFor="item of items; track item"></div>
+  <div *ngFor='item of items; track item'></div>
 </div>
 
 <div>
   @for (item of items; let i = $index; track block) {}
 
-  <div *ngFor="item of items; let i = $index; track block"></div>
+  <div *ngFor='item of items; let i = $index; track block'></div>
 </div>
 
 ================================================================================
@@ -396,8 +396,8 @@ topStartToSideStartMaxSize) {
   <input
     #checkbox
     type="checkbox"
-    [checked]="isChecked()"
-    (change)="isChecked.set(checkbox.checked)"
+    [checked]='isChecked()'
+    (change)='isChecked.set(checkbox.checked)'
     id="checkbox"
   />
 </div>
@@ -415,7 +415,7 @@ topStartToSideStartMaxSize) {
   {{ users.length }}
 }
 
-<div *ngIf="users$ | async; as users">{{ users.length }}</div>
+<div *ngIf='users$ | async; as users'>{{ users.length }}</div>
 
 @else {}
 
@@ -433,7 +433,7 @@ topStartToSideStartMaxSize) {
 
 @if (widthCategory; as item) {}
 
-<div *ngIf="widthCategory; as item"></div>
+<div *ngIf='widthCategory; as item'></div>
 
 ================================================================================
 `;
@@ -499,11 +499,11 @@ printWidth: 80
 
 =====================================output=====================================
 @if (user.isHuman) {
-  <human-profile [data]="user" />
+  <human-profile [data]='user' />
 } @else if (user.isRobot) {
   <!-- robot users are rare, so load their profiles lazily -->
   @defer {
-    <robot-profile [data]="user" />
+    <robot-profile [data]='user' />
   }
 } @else {
   <p>The profile is unknown!</p>

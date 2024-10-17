@@ -79,7 +79,7 @@ printWidth: 80
 
 =====================================output=====================================
 <!doctype html>
-<html class="no-js mY-ClAsS">
+<html class='no-js mY-ClAsS'>
   <head>
     <meta charset="utf-8" />
     <title>My tITlE</title>
@@ -113,7 +113,7 @@ printWidth: 80
   <img
     src="/images/pansies.jpg"
     alt="about fedco bottom image"
-    style="float: left"
+    style='float: left'
   /><strong>We are a cooperative</strong>, one of the few seed companies so
   organized in the United States. Because we do not have an individual owner or
   beneficiary, profit is not our primary goal. Consumers own 60% of the
@@ -212,7 +212,7 @@ printWidth: 80
 
 =====================================output=====================================
 <a href="/wiki/Help:IPA/English" title="Help:IPA/English"
-  >/<span style="border-bottom: 1px dotted"
+  >/<span style='border-bottom: 1px dotted'
     ><span title="/ˌ/: secondary stress follows">ˌ</span
     ><span title="/ɪ/: &#39;i&#39; in &#39;kit&#39;">ɪ</span
     ><span title="&#39;l&#39; in &#39;lie&#39;">l</span
@@ -223,14 +223,14 @@ printWidth: 80
   >/</a
 >
 
-<span class="word"
-  ><span class="syllable"
-    ><span class="letter vowel">i</span
-    ><span class="letter consonant">p</span></span
-  ><span class="syllable"
-    ><span class="letter consonant onset">s</span
-    ><span class="letter vowel">u</span
-    ><span class="letter consonant">m</span></span
+<span class='word'
+  ><span class='syllable'
+    ><span class='letter vowel'>i</span
+    ><span class='letter consonant'>p</span></span
+  ><span class='syllable'
+    ><span class='letter consonant onset'>s</span
+    ><span class='letter vowel'>u</span
+    ><span class='letter consonant'>m</span></span
   ></span
 >
 

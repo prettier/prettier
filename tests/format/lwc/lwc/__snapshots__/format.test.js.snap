@@ -27,7 +27,7 @@ semi: false
     data-for={value[0]}
     data-for={value.toString()}
     data-for={value()}
-    class="test"
+    class='test'
   ></div>
 </template>
 <template if:true={value.error}>
@@ -65,7 +65,7 @@ trailingComma: "es5"
     data-for={value[0]}
     data-for={value.toString()}
     data-for={value()}
-    class="test"
+    class='test'
   ></div>
 </template>
 <template if:true={value.error}>
@@ -103,7 +103,7 @@ trailingComma: "none"
     data-for={value[0]}
     data-for={value.toString()}
     data-for={value()}
-    class="test"
+    class='test'
   ></div>
 </template>
 <template if:true={value.error}>
