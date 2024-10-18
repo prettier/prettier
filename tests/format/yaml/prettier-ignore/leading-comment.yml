@@ -1,3 +1,11 @@
-abc:     123
 # prettier-ignore
+abc:     123
 def:     456
+# prettier-ignore
+ghi:     789
+---
+# prettier-ignore
+-        abc
+-        def
+# prettier-ignore
+-        ghi
