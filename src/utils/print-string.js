@@ -1,9 +1,12 @@
+import assert from "node:assert";
 import getPreferredQuote from "./get-preferred-quote.js";
 import makeString from "./make-string.js";
 
 /** @import {Quote} from "./get-preferred-quote.js" */
 
 function printString(raw, options) {
+  assert(/^(?<quote>["']).*\k<quote>$/su.test(raw));
+
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
   const rawContent = raw.slice(1, -1);
@@ -25,6 +28,12 @@ function printString(raw, options) {
       : options.__isInHtmlAttribute
         ? "'"
         : getPreferredQuote(rawContent, options.singleQuote);
+
+  const originalQuote = raw.charAt(0);
+
+  if (originalQuote === enclosingQuote) {
+    return raw;
+  }
 
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
