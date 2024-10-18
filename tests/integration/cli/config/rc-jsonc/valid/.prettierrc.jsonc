@@ -1,0 +1,4 @@
+{
+  // jsonc allows comments
+  "singleQuote": /* and block comments */ true
+}

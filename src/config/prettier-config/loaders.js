@@ -40,6 +40,16 @@ async function loadYaml(file) {
   }
 }
 
+async function loadJson5(file) {
+  const content = await readFile(file);
+  try {
+    return json5.parse(content);
+  } catch (/** @type {any} */ error) {
+    error.message = `JSON5 Error in ${file}:\n${error.message}`;
+    throw error;
+  }
+}
+
 const loaders = {
   async ".toml"(file) {
     const content = await readFile(file);
@@ -50,16 +60,9 @@ const loaders = {
       throw error;
     }
   },
-  async ".json5"(file) {
-    const content = await readFile(file);
-    try {
-      return json5.parse(content);
-    } catch (/** @type {any} */ error) {
-      error.message = `JSON5 Error in ${file}:\n${error.message}`;
-      throw error;
-    }
-  },
+  ".json5": loadJson5,
   ".json": readJson,
+  ".jsonc": loadJson5,
   ".js": loadJs,
   ".mjs": loadJs,
   ".cjs": loadJs,
