@@ -150,3 +150,29 @@ jobs:
 
       - name: Run CLI on Node.js v0.10.48
         run: node dist/bin/prettier.cjs --version 2>&1 >/dev/null | grep "prettier requires at least version 14 of Node, please upgrade" || exit 1
+
+  preview:
+    if: github.event_name == 'pull_request' && github.repository == 'prettier/prettier'
+    name: Preview release
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # `pkg-pr-new` requires Node.js v20
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Release
+        run: |
+          npx pkg-pr-new publish --compact
+        working-directory: dist
