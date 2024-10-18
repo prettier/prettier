@@ -25,8 +25,8 @@ text
 <div
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
 ></div>
-<div class="a">text</div>
-<div class="a">text</div>
+<div class='a'>text</div>
+<div class='a'>text</div>
 
 ================================================================================
 `;
@@ -54,8 +54,8 @@ text
 </div>
 <div
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"></div>
-<div class="a">text</div>
-<div class="a">text</div>
+<div class='a'>text</div>
+<div class='a'>text</div>
 
 ================================================================================
 `;
@@ -170,20 +170,20 @@ text
 <span
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
 ></span>
-<span class="a">text</span>
+<span class='a'>text</span>
 <span
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
 >
   text
 </span>
-<span class="a">text</span
+<span class='a'>text</span
 ><span
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"
 >
   text
 </span>
-<span class="a">text</span><span class="a">text</span><span class="a">text</span
-><span class="a">text</span><span class="a">text</span>
+<span class='a'>text</span><span class='a'>text</span><span class='a'>text</span
+><span class='a'>text</span><span class='a'>text</span>
 
 ================================================================================
 `;
@@ -216,18 +216,18 @@ text
 </span>
 <span
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value"></span>
-<span class="a">text</span>
+<span class='a'>text</span>
 <span
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
   text
 </span>
-<span class="a">text</span
+<span class='a'>text</span
 ><span
   long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
   text
 </span>
-<span class="a">text</span><span class="a">text</span><span class="a">text</span
-><span class="a">text</span><span class="a">text</span>
+<span class='a'>text</span><span class='a'>text</span><span class='a'>text</span
+><span class='a'>text</span><span class='a'>text</span>
 
 ================================================================================
 `;

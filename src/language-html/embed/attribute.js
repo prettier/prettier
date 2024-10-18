@@ -60,10 +60,10 @@ function printAttributeWithValuePrinter(printValue) {
     }
 
     valueDoc = mapDoc(valueDoc, (doc) =>
-      typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc,
+      typeof doc === "string" ? doc.replaceAll('"', '"') : doc,
     );
 
-    return [path.node.rawName, '="', group(valueDoc), '"'];
+    return [path.node.rawName, "='", group(valueDoc), "'"];
   };
 }
 

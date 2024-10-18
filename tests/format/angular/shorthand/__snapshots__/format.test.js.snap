@@ -10,8 +10,8 @@ printWidth: 80
 <div dir [input]="{   a,   b:   2   }"></div>
 
 =====================================output=====================================
-<ng-container *ngTemplateOutlet="someTmpl; context: { app }"></ng-container>
-<div dir [input]="{ a, b: 2 }"></div>
+<ng-container *ngTemplateOutlet='someTmpl; context: { app }'></ng-container>
+<div dir [input]='{ a, b: 2 }'></div>
 
 ================================================================================
 `;
