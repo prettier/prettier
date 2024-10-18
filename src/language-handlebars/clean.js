@@ -1,13 +1,23 @@
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 
-function clean(original, cloned /*, parent*/) {
+function clean(original, cloned, parent) {
   // (Glimmer/HTML) ignore TextNode
   if (original.type === "TextNode") {
     const trimmed = original.chars.trim();
     if (!trimmed) {
       return null;
     }
-    cloned.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
+
+    // CSS will be formatted
+    if (
+      parent.tag === "style" &&
+      parent.children.length === 1 &&
+      parent.children[0] === original
+    ) {
+      cloned.chars = "";
+    } else {
+      cloned.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
+    }
   }
 
   if (original.type === "ElementNode") {
