@@ -22,25 +22,20 @@ nasalカ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク
 かつてはワ行のワ、ヰ、ヱ、ヲに濁点を付して [v] 音を表現すること（ワ゛、ヰ゛、ヱ゛、ヲ゛）も行われたが、一般的にはならなかった。
 
 =====================================output=====================================
-這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長
-很長的段落
+這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
 
-全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
-全　　形　空白全　　形　空白
+全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
 
-空白全形空白全形空白全形空白　空白全形空白全形空白全形空白　空白全形空白全形空白
-全形空白　空白全形空白全形空白全形空白
+空白全形空白全形空白全形空白　空白全形空白全形空白全形空白　空白全形空白全形空白全形空白　空白全形空白全形空白全形空白
 
 何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。
 
 カ゚キ゚ク゚ケ゚コ゚でガギグゴ
 
-nasalカ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚
-ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚
-ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚
+nasalカ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚
 
-かつてはワ行のワ、ヰ、ヱ、ヲに濁点を付して [v] 音を表現すること（ワ゛、ヰ゛、ヱ
-゛、ヲ゛）も行われたが、一般的にはならなかった。
+かつてはワ行のワ、ヰ、ヱ、ヲに濁点を付して [v]
+音を表現すること（ワ゛、ヰ゛、ヱ゛、ヲ゛）も行われたが、一般的にはならなかった。
 
 ================================================================================
 `;
@@ -61,50 +56,13 @@ MarkdownフォーマッターPrettierはサイコー！Markdownフォーマッ�
 Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。
 
 =====================================output=====================================
-這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段
-Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的
-一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中
-文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合
-著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English
-混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個
-English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是
-一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
-這是一個English混合著中文的一段Paragraph！
+這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
 
-Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語
-が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざった
-Paragraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れ
-た！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはど
-うする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？English
-と日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざっ
-たParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現
-れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierは
-どうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうす
-る？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日
-本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざった
-Paragraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れ
-た！Prettierはどうする？
+Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？Englishと日本語が混ざったParagraphが現れた！Prettierはどうする？
 
-MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイ
-コー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierは
-サイコー！MarkdownフォーマッターPrettierはサイコー！Markdownフォーマッター
-Prettierはサイコー！MarkdownフォーマッターPrettierはサイコー！Markdownフォーマッ
-ターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！Markdownフォー
-マッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！Markdown
-フォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイ
-コー！MarkdownフォーマッターPrettierはサイコー！
+MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！MarkdownフォーマッターPrettierはサイコー！
 
-Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在
-2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的
-第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われま
-した。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11
-月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初の
-Commitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29
-日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit
-是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われまし
-た。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月
-29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初の
-Commitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。
+Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。Prettierの最初のCommitは2016年11月29日に行われました。Prettier的第一次Commit是在2016年11月29日。
 
 ================================================================================
 `;
@@ -205,10 +163,10 @@ NVIDIA의 RTX3000 시리즈는 삼성전자와 TSMC에 의해 제조된다.
 全斗煥 과 盧泰愚 과 金泳三 과 金大中 과 盧武鉉 과 李明博 과 朴槿惠 과 文在寅 과
 尹錫悅 과 음...
 
-역대 대통령은 李承晩과 許政과 尹潽善과 朴正熙과 崔圭夏과 朴忠勳과 全斗煥과 盧泰
-愚과 金泳三과 金大中과 盧武鉉과 李明博과 朴槿惠과 文在寅과 尹錫悅과 음... 역대
-대통령은 李承晩과 許政과 尹潽善과 朴正熙과 崔圭夏과 朴忠勳과 全斗煥과 盧泰愚과
-金泳三과 金大中과 盧武鉉과 李明博과 朴槿惠과 文在寅과 尹錫悅과 음...
+역대 대통령은 李承晩과 許政과 尹潽善과 朴正熙과 崔圭夏과 朴忠勳과 全斗煥과
+盧泰愚과 金泳三과 金大中과 盧武鉉과 李明博과 朴槿惠과 文在寅과 尹錫悅과 음...
+역대 대통령은 李承晩과 許政과 尹潽善과 朴正熙과 崔圭夏과 朴忠勳과 全斗煥과
+盧泰愚과 金泳三과 金大中과 盧武鉉과 李明博과 朴槿惠과 文在寅과 尹錫悅과 음...
 
 ================================================================================
 `;
@@ -238,15 +196,7 @@ proseWrap: "always"
 這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
 
 =====================================output=====================================
-這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段
-Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的
-一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中
-文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合
-著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English
-混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個
-English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是
-一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
-這是一個English混合著中文的一段Paragraph！
+這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
 
 ================================================================================
 `;
@@ -261,16 +211,7 @@ proseWrap: "always"
 這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！
 
 =====================================output=====================================
-這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段
-Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著
-中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個
-English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段
-Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著
-中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個
-English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段
-Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著
-中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個
-English 混合著中文的一段 Paragraph！
+這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！
 
 ================================================================================
 `;
@@ -343,22 +284,14 @@ English
 ィキペディア]: https://ja.wikipedia.org/
 
 =====================================output=====================================
-日本語、にほんご。汉语, 中文. 日本語，にほんご．English words!? 漢字！汉字？「セ
-リフ」(括弧) 文字（括弧）文字【括弧】日本語English
+日本語、にほんご。汉语, 中文. 日本語，にほんご．English
+words!? 漢字！汉字？「セリフ」(括弧) 文字（括弧）文字【括弧】日本語English
 
-「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則
-（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）」「禁則（きんそ
-く）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理
-（しょり）」「禁則（きんそく）処理（しょり）」「禁則（きんそく）処理（しょ
-り）！！！！」「禁則（きんそく）処理（しょり）！！！」「禁則（きんそく）処理
-（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょ
-り）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」
-「禁則（きんそく）処理（しょり）！」
+「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）」「禁則（きんそく）処理（しょり）」「禁則（きんそく）処理（しょり）！！！！」「禁則（きんそく）処理（しょり）！！！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」「禁則（きんそく）処理（しょり）！」
 
 中点・中点
 
-禁則処理にわざと違反した文章のテストを今から行います。準備はいいでしょうか？レ
-ディ、ゴー！
+禁則処理にわざと違反した文章のテストを今から行います。準備はいいでしょうか？レディ、ゴー！
 
 [ウ ィキペディア]
 
