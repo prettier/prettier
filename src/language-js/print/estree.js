@@ -466,13 +466,14 @@ function printEstree(path, options, print, args) {
 
     case "ForOfStatement":
       return group([
-        "for",
-        node.await ? " await" : "",
-        " (",
-        print("left"),
-        " of ",
-        print("right"),
-        ")",
+        group([
+          "for",
+          node.await ? " await" : "",
+          " (",
+          indent([softline, print("left"), " of ", print("right")]),
+          softline,
+          ")",
+        ]),
         adjustClause(node.body, print("body")),
       ]);
 
