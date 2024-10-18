@@ -26,7 +26,7 @@
     },
     {
       matchDepNames: ["flow-parser", "hermes-parser"],
-      groupName: "flow",
+      groupName: "flow-parser",
     },
     {
       matchDepNames: [
