@@ -12,7 +12,8 @@ const code = Array.from({ length: 6 })
   .join("");
 // (39 + 40 + 41) * 2 === 40 * 3 * 2 === 40 * 6
 // lineWidth is 80 and "文" is double-width
-const output = `${"文".repeat(40)}\n`.repeat(6);
+// This is being saved for after Chrome and Safari bug is fixed.
+const output = /* `${"文".repeat(40)}\n`.repeat(6) */ `${"文".repeat(40 * 6)}\n`;
 
 runFormatTest(
   {

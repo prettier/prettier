@@ -92,13 +92,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`v-flag.js [flow] format 1`] = `
-"Invalid flags supplied to RegExp constructor 'v' (1:5)
-> 1 | /a/v;
-    |     ^
-  2 |"
-`;
-
 exports[`v-flag.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

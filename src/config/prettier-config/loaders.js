@@ -1,5 +1,3 @@
-import "fast-glob";
-
 import { pathToFileURL } from "node:url";
 import { load as parseYaml } from "js-yaml";
 import json5 from "json5";
