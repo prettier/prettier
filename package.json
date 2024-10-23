@@ -143,7 +143,7 @@
     "jest-watch-typeahead": "2.2.2",
     "knip": "5.33.3",
     "magic-string": "0.30.11",
-    "npm-run-all2": "6.2.3",
+    "npm-run-all2": "7.0.0",
     "prettier": "3.3.3",
     "pretty-bytes": "6.1.1",
     "rollup-plugin-license": "3.5.3",
