@@ -18,7 +18,11 @@ async function parse(originalText, options) {
       options,
     );
   } catch (error) {
-    handleParseError(error, originalText);
+    if (typeof parser.handleParseError === "function") {
+      parser.handleParseError(error, originalText);
+    } else {
+      handleParseError(error, originalText);
+    }
   }
 
   return { text, ast };

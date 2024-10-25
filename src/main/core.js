@@ -28,6 +28,10 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
   const { ast, text } = await parseText(originalText, opts);
 
+  if (!ast) {
+    return { formatted: text, cursorOffset: -1, comments: [] };
+  }
+
   if (opts.cursorOffset >= 0) {
     opts = {
       ...opts,

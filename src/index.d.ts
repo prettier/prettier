@@ -465,6 +465,7 @@ export interface Parser<T = any> {
   preprocess?:
     | ((text: string, options: ParserOptions<T>) => string)
     | undefined;
+  handleParseError?: ((error: Error, text: string) => void) | undefined;
 }
 
 export interface Printer<T = any> {

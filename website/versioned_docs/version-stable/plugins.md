@@ -113,6 +113,7 @@ export const parsers = {
     locStart,
     locEnd,
     preprocess,
+    handleParseError,
   },
 };
 ```
@@ -140,6 +141,12 @@ _(Optional)_ The preprocess function can process the input text before passing i
 ```ts
 function preprocess(text: string, options: object): string;
 ```
+
+```ts
+function handleParseError(error: Error, text: string): void;
+```
+
+_(Optional)_ The handleParseError function can have custom error handling when a problem occurs when generating the AST. By default the error returned by `parse` will be thrown.
 
 ### `printers`
 
