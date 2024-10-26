@@ -68,3 +68,36 @@ test("'Adjacent JSX' error should not be swallowed by Babel's error recovery", a
     prettier.format(input, { parser: "babel" }),
   ).rejects.toThrowErrorMatchingSnapshot();
 });
+
+test("angular parser should format inline elements without breaking closing tag onto a new line", async () => {
+  const input = `
+  <a
+    class="link-menu-item"
+    type="button"
+    cdkMenuItem
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    [routerLink]="['/link']">
+    {{ t('body.menu.open-funds') }}</a>
+  `;
+  expect(
+    await prettier.format(input, {
+      parser: "angular",
+      singleQuote: true,
+      arrowParens: "always",
+      semi: true,
+      trailingComma: "es5",
+      bracketSameLine: true,
+      printWidth: 140,
+    }),
+  ).toMatchInlineSnapshot(`
+    "<a
+      class='link-menu-item'
+      type='button'
+      cdkMenuItem
+      routerLinkActive='active'
+      [routerLinkActiveOptions]='{ exact: true }'
+      [routerLink]='['/link']'>
+      {{ t('body.menu.open-funds') }}</a>"
+  `);
+});
