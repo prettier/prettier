@@ -1,5 +1,9 @@
-# Security Policy
+# prettierx security
 
-## Reporting a Vulnerability
+- <mailto:chris.brody+brodybits@gmail.com>
+- https://www.linkedin.com/in/chrisbrody/
 
-To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+<!--
+  Note that .github/SECURITY.md from prettier@2.0.0 is
+  not to be merged into prettierx.
+-->

@@ -1,42 +1,26 @@
-# node_modules
-# We have `node_modules` directory for tests, don't ignore them all
+/.cache
 /node_modules
-/website/node_modules
 /scripts/release/node_modules
-/scripts/tools/bundle-test/node_modules
-/scripts/tools/eslint-plugin-prettier-internal-rules/node_modules
-
-.tmp
 *.log
 /errors
 /test*.*
-/.vscode/**/*
-!/.vscode/extensions.json
-!/.vscode/settings.example.json
-/dist*
-/website/build
-/website/i18n
-/website/static/playground.js
-/website/static/lib
+/.vscode
+/dist
+/x-unsupported/website/node_modules
+/x-unsupported/website/build
+/x-unsupported/website/i18n
+/x-unsupported/website/static/playground.js
+/x-unsupported/website/static/lib
 .DS_Store
 /coverage
 .idea
 package-lock.json
-**/.yarn/*
+.yarn/*
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
-**/.pnp.*
+.pnp.*
 .nyc_output
+/scripts/tools/eslint-plugin-prettier-internal-rules/node_modules
 .devcontainer
-.node-version
-# When installing software on gitpod.io, `core.*` files are generated
-/core.*
-*.swp
-
-# For 0x flamegraph directory (https://github.com/davidmarkclements/0x)
-*.0x/
-
-# For Node.js builtin cpu profile file
-*.cpuprofile

@@ -1,21 +1,25 @@
-import { ParseSourceSpan } from "angular-html-parser";
+"use strict";
+
+const {
+  ParseSourceSpan,
+} = require("angular-html-parser/lib/compiler/src/parse_util");
 
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
 const parseFunctions = [
   {
     // <!--[if ... ]> ... <![endif]-->
-    regex: /^(\[if([^\]]*)\]>)(.*?)<!\s*\[endif\]$/su,
+    regex: /^(\[if([^\]]*?)]>)(.*?)<!\s*\[endif]$/s,
     parse: parseIeConditionalStartEndComment,
   },
   {
     // <!--[if ... ]><!-->
-    regex: /^\[if([^\]]*)\]><!$/u,
+    regex: /^\[if([^\]]*?)]><!$/,
     parse: parseIeConditionalStartComment,
   },
   {
     // <!--<![endif]-->
-    regex: /^<!\s*\[endif\]$/u,
+    regex: /^<!\s*\[endif]$/,
     parse: parseIeConditionalEndComment,
   },
 ];
@@ -53,11 +57,11 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
     type: "ieConditionalComment",
     complete,
     children,
-    condition: condition.trim().replaceAll(/\s+/gu, " "),
+    condition: condition.trim().replace(/\s+/g, " "),
     sourceSpan: node.sourceSpan,
     startSourceSpan: new ParseSourceSpan(
       node.sourceSpan.start,
-      contentStartSpan,
+      contentStartSpan
     ),
     endSourceSpan: new ParseSourceSpan(contentEndSpan, node.sourceSpan.end),
   };
@@ -67,7 +71,7 @@ function parseIeConditionalStartComment(node, parseHtml, match) {
   const [, condition] = match;
   return {
     type: "ieConditionalStartComment",
-    condition: condition.trim().replaceAll(/\s+/gu, " "),
+    condition: condition.trim().replace(/\s+/g, " "),
     sourceSpan: node.sourceSpan,
   };
 }
@@ -79,4 +83,6 @@ function parseIeConditionalEndComment(node /*, parseHtml, match */) {
   };
 }
 
-export { parseIeConditionalComment };
+module.exports = {
+  parseIeConditionalComment,
+};

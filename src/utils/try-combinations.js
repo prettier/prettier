@@ -1,21 +1,17 @@
-/**
- * @template {function} T
- * @param {T[]} combinations
- * @returns {ReturnType<T>}
- */
-function tryCombinations(combinations) {
-  const errors = [];
-  for (const fn of combinations) {
+"use strict";
+
+function tryCombinations(...combinations) {
+  let firstError;
+  for (const [index, fn] of combinations.entries()) {
     try {
-      return fn();
+      return { result: fn() };
     } catch (error) {
-      errors.push(error);
+      if (index === 0) {
+        firstError = error;
+      }
     }
   }
-
-  // TODO: Use `AggregateError` when we drop Node.js v14
-  // throw new AggregateError(errors, "All combinations failed");
-  throw Object.assign(new Error("All combinations failed"), { errors });
+  return { error: firstError };
 }
 
-export default tryCombinations;
+module.exports = tryCombinations;

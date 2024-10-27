@@ -15,16 +15,12 @@ module.exports = {
       [MESSAGE_ID]: "Please rename '{{name}}' to '{{fixed}}'.",
     },
     fixable: "code",
-    schema: {
-      type: "array",
-      uniqueItems: true,
-    },
   },
   create(context) {
     const ignored = new Set(context.options);
     return {
       "Identifier[name=/JSX/]:not(ObjectExpression > Property.properties > .key)"(
-        node,
+        node
       ) {
         const { name } = node;
 
@@ -32,7 +28,7 @@ module.exports = {
           return;
         }
 
-        const fixed = name.replaceAll("JSX", "Jsx");
+        const fixed = name.replace(/JSX/g, "Jsx");
         context.report({
           node,
           messageId: MESSAGE_ID,
@@ -41,5 +37,9 @@ module.exports = {
         });
       },
     };
+  },
+  schema: {
+    type: "array",
+    uniqueItems: true,
   },
 };

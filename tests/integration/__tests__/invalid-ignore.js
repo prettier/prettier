@@ -1,11 +1,13 @@
-import path from "node:path";
-import createEsmUtils from "esm-utils";
-import prettier from "../../config/prettier-entry.js";
+"use strict";
 
-const { __dirname } = createEsmUtils(import.meta);
+const path = require("path");
+const prettier = require("prettier-local");
+const runPrettier = require("../runPrettier");
+
+expect.addSnapshotSerializer(require("../path-serializer"));
 
 describe("throw error with invalid ignore", () => {
-  runCli("cli/invalid-ignore", ["something.js"]).test({
+  runPrettier("cli/invalid-ignore", ["something.js"]).test({
     status: "non-zero",
   });
 
@@ -14,9 +16,9 @@ describe("throw error with invalid ignore", () => {
       prettier.getFileInfo("something.js", {
         ignorePath: path.join(
           __dirname,
-          "../cli/invalid-ignore/.prettierignore",
+          "../cli/invalid-ignore/.prettierignore"
         ),
-      }),
-    ).rejects.toThrow(/EISDIR: illegal operation on a directory/u);
+      })
+    ).rejects.toThrow(/EISDIR: illegal operation on a directory/);
   });
 });

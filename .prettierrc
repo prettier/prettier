@@ -1,12 +1,4 @@
 overrides:
-  - files: "**/*.{js,mjs,cjs}"
+  - files: "**/*.{js,mjs}"
     options:
       parser: meriyah
-  - files: "bin/prettier.cjs"
-    options:
-      trailingComma: none
-  - files:
-      - ".vscode/*.json"
-      - "tsconfig.json"
-    options:
-      parser: jsonc

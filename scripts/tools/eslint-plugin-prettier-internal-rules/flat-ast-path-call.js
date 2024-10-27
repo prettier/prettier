@@ -83,7 +83,7 @@ module.exports = {
                 //                                        ^
                 innerCallback.range[0],
               ],
-              "",
+              ""
             );
 
             // path.call((childPath) => childPath.call(print, "b"), "a")
@@ -96,17 +96,17 @@ module.exports = {
 
             let innerNamesText = sourceCode.text.slice(
               innerNamesStart,
-              innerNamesEnd,
+              innerNamesEnd
             );
 
             yield fixer.replaceTextRange(
               [innerNamesStart, innerNamesEnd + 1],
-              "",
+              ""
             );
 
             const [penultimateToken, lastToken] = sourceCode.getLastTokens(
               outerCall,
-              2,
+              2
             );
 
             // `outer` call has `trailing comma`

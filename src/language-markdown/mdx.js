@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * modified from https://github.com/mdx-js/mdx/blob/master/packages/mdx
  *
@@ -22,11 +24,10 @@
  * THE SOFTWARE.
  */
 
-const IMPORT_REGEX = /^import\s/u;
-const EXPORT_REGEX = /^export\s/u;
-const BLOCKS_REGEX = String.raw`[a-z][a-z0-9]*(\.[a-z][a-z0-9]*)*|`;
-const COMMENT_REGEX = /<!---->|<!---?[^>-](?:-?[^-])*-->/u;
-const ES_COMMENT_REGEX = /^\{\s*\/\*(.*)\*\/\s*\}/u;
+const IMPORT_REGEX = /^import\s/;
+const EXPORT_REGEX = /^export\s/;
+const BLOCKS_REGEX = "[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)*|";
+const COMMENT_REGEX = /<!---->|<!---?[^>-](?:-?[^-])*-->/;
 const EMPTY_NEWLINE = "\n\n";
 
 const isImport = (text) => IMPORT_REGEX.test(text);
@@ -44,38 +45,22 @@ const tokenizeEsSyntax = (eat, value) => {
   }
 };
 
-const tokenizeEsComment = (eat, value) => {
-  const match = ES_COMMENT_REGEX.exec(value);
-
-  if (match) {
-    return eat(match[0])({
-      type: "esComment",
-      value: match[1].trim(),
-    });
-  }
-};
-
-/* c8 ignore next 2 */
+/* istanbul ignore next */
 tokenizeEsSyntax.locator = (value /*, fromIndex*/) =>
   isExport(value) || isImport(value) ? -1 : 1;
 
-tokenizeEsComment.locator = (value, fromIndex) => value.indexOf("{", fromIndex);
-
-/** @import {Plugin, Settings} from "unified" */
-
-/**
- * @type {Plugin<[], Settings>}
- */
-const esSyntax = function () {
+function esSyntax() {
   const { Parser } = this;
-  const { blockTokenizers, blockMethods, inlineTokenizers, inlineMethods } =
-    Parser.prototype;
+  const tokenizers = Parser.prototype.blockTokenizers;
+  const methods = Parser.prototype.blockMethods;
 
-  blockTokenizers.esSyntax = tokenizeEsSyntax;
-  inlineTokenizers.esComment = tokenizeEsComment;
+  tokenizers.esSyntax = tokenizeEsSyntax;
 
-  blockMethods.splice(blockMethods.indexOf("paragraph"), 0, "esSyntax");
-  inlineMethods.splice(inlineMethods.indexOf("text"), 0, "esComment");
+  methods.splice(methods.indexOf("paragraph"), 0, "esSyntax");
+}
+
+module.exports = {
+  esSyntax,
+  BLOCKS_REGEX,
+  COMMENT_REGEX,
 };
-
-export { BLOCKS_REGEX, COMMENT_REGEX, esSyntax };

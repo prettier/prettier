@@ -1,77 +1,47 @@
-import {
-  fill,
-  group,
-  hardline,
-  ifBreak,
-  indent,
-  line,
-  softline,
-} from "../../document/builders.js";
-import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewline from "../../utils/has-newline.js";
-import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
-import skipInlineComment from "../../utils/skip-inline-comment.js";
-import skipTrailingComment from "../../utils/skip-trailing-comment.js";
-import { locEnd, locStart } from "../loc.js";
-import {
-  CommentCheckFlags,
-  hasComment,
-  isArrayOrTupleExpression,
-  isNumericLiteral,
-  isObjectOrRecordExpression,
-  isSignedNumericLiteral,
+"use strict";
+
+const { printDanglingComments } = require("../../main/comments");
+const {
+  builders: { line, softline, hardline, group, indent, ifBreak, fill },
+} = require("../../document");
+const { getLast, hasNewline } = require("../../common/util");
+const {
   shouldPrintComma,
-} from "../utils/index.js";
-import { printOptionalToken } from "./misc.js";
-import { printTypeAnnotationProperty } from "./type-annotation.js";
+  hasComment,
+  CommentCheckFlags,
+  isNextLineEmpty,
+  isNumericLiteral,
+  isSignedNumericLiteral,
+} = require("../utils");
+const { locStart } = require("../loc");
 
-/** @import {Doc} from "../../document/builders.js" */
+const { printOptionalToken, printTypeAnnotation } = require("./misc");
 
-function printEmptyArrayElements(path, options, openBracket, closeBracket) {
-  const { node } = path;
-  const inexact = node.inexact ? "..." : "";
-  if (!hasComment(node, CommentCheckFlags.Dangling)) {
-    return [openBracket, inexact, closeBracket];
-  }
-  return group([
-    openBracket,
-    inexact,
-    printDanglingComments(path, options, { indent: true }),
-    softline,
-    closeBracket,
-  ]);
-}
+/** @typedef {import("../../document").Doc} Doc */
 
-/*
-- `ArrayExpression`
-- `TupleExpression`
-- `ArrayPattern`
-- `TSTupleType`(TypeScript)
-- `TupleTypeAnnotation`(Flow)
-*/
 function printArray(path, options, print) {
-  const { node } = path;
+  const node = path.getValue();
   /** @type{Doc[]} */
   const parts = [];
 
   const openBracket = node.type === "TupleExpression" ? "#[" : "[";
   const closeBracket = "]";
-  const elementsProperty =
-    // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
-    node.type === "TupleTypeAnnotation" && node.types
-      ? "types"
-      : node.type === "TSTupleType" || node.type === "TupleTypeAnnotation"
-        ? "elementTypes"
-        : "elements";
-  const elements = node[elementsProperty];
-  if (elements.length === 0) {
-    parts.push(
-      printEmptyArrayElements(path, options, openBracket, closeBracket),
-    );
+  if (node.elements.length === 0) {
+    if (!hasComment(node, CommentCheckFlags.Dangling)) {
+      parts.push(openBracket, closeBracket);
+    } else {
+      parts.push(
+        group([
+          openBracket,
+          printDanglingComments(path, options),
+          softline,
+          closeBracket,
+        ])
+      );
+    }
   } else {
-    const lastElem = elements.at(-1);
-    const canHaveTrailingComma =
-      lastElem?.type !== "RestElement" && !node.inexact;
+    const lastElem = getLast(node.elements);
+    const canHaveTrailingComma = !(lastElem && lastElem.type === "RestElement");
 
     // JavaScript allows you to have empty elements in an array which
     // changes its length based on the number of commas. The algorithm
@@ -89,12 +59,12 @@ function printArray(path, options, print) {
 
     const shouldBreak =
       !options.__inJestEach &&
-      elements.length > 1 &&
-      elements.every((element, i, elements) => {
-        const elementType = element?.type;
+      node.elements.length > 1 &&
+      node.elements.every((element, i, elements) => {
+        const elementType = element && element.type;
         if (
-          !isArrayOrTupleExpression(element) &&
-          !isObjectOrRecordExpression(element)
+          elementType !== "ArrayExpression" &&
+          elementType !== "ObjectExpression"
         ) {
           return false;
         }
@@ -104,9 +74,8 @@ function printArray(path, options, print) {
           return false;
         }
 
-        const itemsKey = isArrayOrTupleExpression(element)
-          ? "elements"
-          : "properties";
+        const itemsKey =
+          elementType === "ArrayExpression" ? "elements" : "properties";
 
         return element[itemsKey] && element[itemsKey].length > 1;
       });
@@ -116,44 +85,43 @@ function printArray(path, options, print) {
     const trailingComma = !canHaveTrailingComma
       ? ""
       : needsForcedTrailingComma
-        ? ","
-        : !shouldPrintComma(options)
-          ? ""
-          : shouldUseConciseFormatting
-            ? ifBreak(",", "", { groupId })
-            : ifBreak(",");
+      ? ","
+      : !shouldPrintComma(options)
+      ? ""
+      : shouldUseConciseFormatting
+      ? ifBreak(",", "", { groupId })
+      : ifBreak(",");
 
+    // [prettierx] --array-bracket-spacing option support (...)
     parts.push(
       group(
+        // [prettierx] --array-bracket-spacing option support (...)
         [
           openBracket,
+          // [prettierx] --array-bracket-spacing option support (...)
           indent([
-            softline,
+            // [prettierx] --array-bracket-spacing option support (...)
+            options.arrayBracketSpacing ? line : softline,
             shouldUseConciseFormatting
-              ? printArrayElementsConcisely(path, options, print, trailingComma)
+              ? printArrayItemsConcisely(path, options, print, trailingComma)
               : [
-                  printArrayElements(
-                    path,
-                    options,
-                    elementsProperty,
-                    node.inexact,
-                    print,
-                  ),
+                  printArrayItems(path, options, "elements", print),
                   trailingComma,
                 ],
-            printDanglingComments(path, options),
+            printDanglingComments(path, options, /* sameIndent */ true),
           ]),
-          softline,
+          // [prettierx] --array-bracket-spacing option support (...)
+          options.arrayBracketSpacing ? line : softline,
           closeBracket,
         ],
-        { shouldBreak, id: groupId },
-      ),
+        { shouldBreak, id: groupId }
+      )
     );
   }
 
   parts.push(
     printOptionalToken(path),
-    printTypeAnnotationProperty(path, print),
+    printTypeAnnotation(path, options, print)
   );
 
   return parts;
@@ -161,7 +129,6 @@ function printArray(path, options, print) {
 
 function isConciselyPrintedArray(node, options) {
   return (
-    isArrayOrTupleExpression(node) &&
     node.elements.length > 1 &&
     node.elements.every(
       (element) =>
@@ -174,59 +141,49 @@ function isConciselyPrintedArray(node, options) {
           (comment) =>
             !hasNewline(options.originalText, locStart(comment), {
               backwards: true,
-            }),
-        ),
+            })
+        )
     )
   );
 }
 
-function isLineAfterElementEmpty({ node }, { originalText: text }) {
-  const skipComment = (idx) =>
-    skipInlineComment(text, skipTrailingComment(text, idx));
+function printArrayItems(path, options, printPath, print) {
+  const printedElements = [];
+  let separatorParts = [];
 
-  const skipToComma = (currentIdx) =>
-    text[currentIdx] === ","
-      ? currentIdx
-      : skipToComma(skipComment(currentIdx + 1));
+  path.each((childPath) => {
+    printedElements.push(separatorParts, group(print()));
 
-  return isNextLineEmptyAfterIndex(text, skipToComma(locEnd(node)));
-}
-
-function printArrayElements(path, options, elementsProperty, inexact, print) {
-  const parts = [];
-
-  path.each(({ node, isLast }) => {
-    parts.push(node ? group(print()) : "");
-
-    if (!isLast || inexact) {
-      parts.push([
-        ",",
-        line,
-        node && isLineAfterElementEmpty(path, options) ? softline : "",
-      ]);
+    separatorParts = [",", line];
+    if (
+      childPath.getValue() &&
+      isNextLineEmpty(childPath.getValue(), options)
+    ) {
+      separatorParts.push(softline);
     }
-  }, elementsProperty);
+  }, printPath);
 
-  if (inexact) {
-    parts.push("...");
-  }
-
-  return parts;
+  return printedElements;
 }
 
-function printArrayElementsConcisely(path, options, print, trailingComma) {
+function printArrayItemsConcisely(path, options, print, trailingComma) {
   const parts = [];
 
-  path.each(({ isLast, next }) => {
+  path.each((childPath, i, elements) => {
+    const isLast = i === elements.length - 1;
+
     parts.push([print(), isLast ? trailingComma : ","]);
 
     if (!isLast) {
       parts.push(
-        isLineAfterElementEmpty(path, options)
+        isNextLineEmpty(childPath.getValue(), options)
           ? [hardline, hardline]
-          : hasComment(next, CommentCheckFlags.Leading | CommentCheckFlags.Line)
-            ? hardline
-            : line,
+          : hasComment(
+              elements[i + 1],
+              CommentCheckFlags.Leading | CommentCheckFlags.Line
+            )
+          ? hardline
+          : line
       );
     }
   }, "elements");
@@ -234,4 +191,4 @@ function printArrayElementsConcisely(path, options, print, trailingComma) {
   return fill(parts);
 }
 
-export { isConciselyPrintedArray, printArray };
+module.exports = { printArray, printArrayItems, isConciselyPrintedArray };

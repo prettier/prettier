@@ -1,49 +1,51 @@
-/** @import {Doc} from "../document/builders.js" */
+"use strict";
 
-import {
-  breakParent,
-  fill,
-  group,
-  hardline,
-  join,
-  line,
-  lineSuffix,
-} from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
-import isPreviousLineEmpty from "../utils/is-previous-line-empty.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
-import embed from "./embed.js";
-import getVisitorKeys from "./get-visitor-keys.js";
-import { locStart } from "./loc.js";
-import { insertPragma, isPragma } from "./pragma.js";
-import printBlock from "./print/block.js";
-import {
-  printFlowMapping,
-  printFlowSequence,
-} from "./print/flow-mapping-sequence.js";
-import printMappingItem from "./print/mapping-item.js";
-import {
+/** @typedef {import("../document").Doc} Doc */
+
+const {
+  builders: {
+    breakParent,
+    fill,
+    group,
+    hardline,
+    join,
+    line,
+    lineSuffix,
+    literalline,
+  },
+  utils: { getDocParts, replaceEndOfLineWith },
+} = require("../document");
+const { isPreviousLineEmpty } = require("../common/util");
+const { insertPragma, isPragma } = require("./pragma");
+const { locStart } = require("./loc");
+const embed = require("./embed");
+const {
+  getFlowScalarLineContents,
+  getLastDescendantNode,
+  hasLeadingComments,
+  hasMiddleComments,
+  hasTrailingComment,
+  hasEndComments,
+  hasPrettierIgnore,
+  isLastDescendantNode,
+  isNode,
+  isInlineNode,
+} = require("./utils");
+const preprocess = require("./print-preprocess");
+const {
   alignWithSpaces,
   printNextEmptyLine,
   shouldPrintEndComments,
-} from "./print/misc.js";
-import preprocess from "./print-preprocess.js";
-import {
-  getFlowScalarLineContents,
-  getLastDescendantNode,
-  hasEndComments,
-  hasLeadingComments,
-  hasMiddleComments,
-  hasPrettierIgnore,
-  hasTrailingComment,
-  isInlineNode,
-  isLastDescendantNode,
-  isNode,
-} from "./utils.js";
+} = require("./print/misc");
+const {
+  printFlowMapping,
+  printFlowSequence,
+} = require("./print/flow-mapping-sequence");
+const printMappingItem = require("./print/mapping-item");
+const printBlock = require("./print/block");
 
 function genericPrint(path, options, print) {
-  const { node } = path;
-
+  const node = path.getValue();
   /** @type {Doc[]} */
   const parts = [];
 
@@ -95,29 +97,31 @@ function genericPrint(path, options, print) {
     ]);
   }
 
+  const parentNode = path.getParentNode();
   if (hasPrettierIgnore(path)) {
     parts.push(
-      replaceEndOfLine(
+      replaceEndOfLineWith(
         options.originalText
           .slice(node.position.start.offset, node.position.end.offset)
           .trimEnd(),
-      ),
+        literalline
+      )
     );
   } else {
-    parts.push(group(printNode(path, options, print)));
+    parts.push(group(printNode(node, parentNode, path, options, print)));
   }
 
   if (hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])) {
     parts.push(
       lineSuffix([
         node.type === "mappingValue" && !node.content ? "" : " ",
-        path.parent.type === "mappingKey" &&
+        parentNode.type === "mappingKey" &&
         path.getParentNode(2).type === "mapping" &&
         isInlineNode(node)
           ? ""
           : breakParent,
         print("trailingComment"),
-      ]),
+      ])
     );
   }
 
@@ -128,29 +132,35 @@ function genericPrint(path, options, print) {
         join(
           hardline,
           path.map(
-            ({ node }) => [
-              isPreviousLineEmpty(options.originalText, locStart(node))
+            (path) => [
+              isPreviousLineEmpty(
+                options.originalText,
+                path.getValue(),
+                locStart
+              )
                 ? hardline
                 : "",
               print(),
             ],
-            "endComments",
-          ),
+            "endComments"
+          )
         ),
-      ]),
+      ])
     );
   }
   parts.push(nextEmptyLine);
   return parts;
 }
 
-function printNode(path, options, print) {
-  const { node } = path;
+function printNode(node, parentNode, path, options, print) {
   switch (node.type) {
     case "root": {
+      const { children } = node;
       const parts = [];
-      path.each(({ node: document, next: nextDocument, isFirst }) => {
-        if (!isFirst) {
+      path.each((childPath, index) => {
+        const document = children[index];
+        const nextDocument = children[index + 1];
+        if (index !== 0) {
           parts.push(hardline);
         }
         parts.push(print());
@@ -174,8 +184,16 @@ function printNode(path, options, print) {
       return parts;
     }
     case "document": {
+      const nextDocument = parentNode.children[path.getName() + 1];
       const parts = [];
-      if (shouldPrintDocumentHeadEndMarker(path, options) === "head") {
+      if (
+        shouldPrintDocumentHeadEndMarker(
+          node,
+          nextDocument,
+          parentNode,
+          options
+        ) === "head"
+      ) {
         if (node.head.children.length > 0 || node.head.endComments.length > 0) {
           parts.push(print("head"));
         }
@@ -230,7 +248,7 @@ function printNode(path, options, print) {
     case "tag":
       return options.originalText.slice(
         node.position.start.offset,
-        node.position.end.offset,
+        node.position.end.offset
       );
     case "anchor":
       return ["&", node.value];
@@ -239,9 +257,9 @@ function printNode(path, options, print) {
         node.type,
         options.originalText.slice(
           node.position.start.offset,
-          node.position.end.offset,
+          node.position.end.offset
         ),
-        options,
+        options
       );
     case "quoteDouble":
     case "quoteSingle": {
@@ -250,12 +268,12 @@ function printNode(path, options, print) {
 
       const raw = options.originalText.slice(
         node.position.start.offset + 1,
-        node.position.end.offset - 1,
+        node.position.end.offset - 1
       );
 
       if (
         (node.type === "quoteSingle" && raw.includes("\\")) ||
-        (node.type === "quoteDouble" && /\\[^"]/u.test(raw))
+        (node.type === "quoteDouble" && /\\[^"]/.test(raw))
       ) {
         // only quoteDouble can use escape chars
         // and quoteSingle do not need to escape backslashes
@@ -276,10 +294,10 @@ function printNode(path, options, print) {
             node.type === "quoteDouble"
               ? raw
                   // double quote needs to be escaped by backslash in quoteDouble
-                  .replaceAll(String.raw`\"`, doubleQuote)
-                  .replaceAll("'", singleQuote.repeat(2))
+                  .replace(/\\"/g, doubleQuote)
+                  .replace(/'/g, singleQuote.repeat(2))
               : raw,
-            options,
+            options
           ),
           singleQuote,
         ];
@@ -292,9 +310,9 @@ function printNode(path, options, print) {
             node.type,
             node.type === "quoteSingle"
               ? // single quote needs to be escaped by 2 single quotes in quoteSingle
-                raw.replaceAll("''", singleQuote)
+                raw.replace(/''/g, singleQuote)
               : raw,
-            options,
+            options
           ),
           doubleQuote,
         ];
@@ -304,30 +322,30 @@ function printNode(path, options, print) {
       return [quote, printFlowScalarContent(node.type, raw, options), quote];
     }
     case "blockFolded":
-    case "blockLiteral":
+    case "blockLiteral": {
       return printBlock(path, print, options);
-
+    }
     case "mapping":
     case "sequence":
       return join(hardline, path.map(print, "children"));
     case "sequenceItem":
-      return ["- ", alignWithSpaces(2, node.content ? print("content") : "")];
+      return ["- ", alignWithSpaces(2, !node.content ? "" : print("content"))];
     case "mappingKey":
     case "mappingValue":
       return !node.content ? "" : print("content");
     case "mappingItem":
-    case "flowMappingItem":
-      return printMappingItem(path, print, options);
-
+    case "flowMappingItem": {
+      return printMappingItem(node, parentNode, path, print, options);
+    }
     case "flowMapping":
       return printFlowMapping(path, print, options);
     case "flowSequence":
       return printFlowSequence(path, print, options);
     case "flowSequenceItem":
       return print("content");
+    // istanbul ignore next
     default:
-      /* c8 ignore next */
-      throw new UnexpectedNodeError(node, "YAML");
+      throw new Error(`Unexpected node type ${node.type}`);
   }
 }
 
@@ -357,16 +375,20 @@ function shouldPrintDocumentEndMarker(document, nextDocument) {
   );
 }
 
-function shouldPrintDocumentHeadEndMarker(path, options) {
-  const document = path.node;
+function shouldPrintDocumentHeadEndMarker(
+  document,
+  nextDocument,
+  root,
+  options
+) {
   if (
     /**
      * ---
      * preserve the first document head end marker
      */
-    (path.isFirst &&
-      /---(?:\s|$)/u.test(
-        options.originalText.slice(locStart(document), locStart(document) + 4),
+    (root.children[0] === document &&
+      /---(\s|$)/.test(
+        options.originalText.slice(locStart(document), locStart(document) + 4)
       )) ||
     /**
      * %DIRECTIVE
@@ -386,7 +408,6 @@ function shouldPrintDocumentHeadEndMarker(path, options) {
     return "head";
   }
 
-  const nextDocument = path.next;
   if (shouldPrintDocumentEndMarker(document, nextDocument)) {
     return false;
   }
@@ -398,35 +419,34 @@ function printFlowScalarContent(nodeType, content, options) {
   const lineContents = getFlowScalarLineContents(nodeType, content, options);
   return join(
     hardline,
-    lineContents.map((lineContentWords) => fill(join(line, lineContentWords))),
+    lineContents.map((lineContentWords) =>
+      fill(getDocParts(join(line, lineContentWords)))
+    )
   );
 }
 
-function clean(original, cloned /*, parent */) {
-  if (isNode(original)) {
-    switch (original.type) {
+function clean(node, newNode /*, parent */) {
+  if (isNode(newNode)) {
+    delete newNode.position;
+    switch (newNode.type) {
       case "comment":
         // insert pragma
-        if (isPragma(original.value)) {
+        if (isPragma(newNode.value)) {
           return null;
         }
         break;
       case "quoteDouble":
       case "quoteSingle":
-        cloned.type = "quote";
+        newNode.type = "quote";
         break;
     }
   }
 }
-clean.ignoredProperties = new Set(["position"]);
 
-const printer = {
+module.exports = {
   preprocess,
   embed,
   print: genericPrint,
   massageAstNode: clean,
   insertPragma,
-  getVisitorKeys,
 };
-
-export default printer;

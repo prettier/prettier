@@ -3,7 +3,7 @@ class X {
 }
 
 interface Iterable<T> {
-  [Symbol.iterator](): Iterator<T>;
+  export [Symbol.iterator](): Iterator<T>;
 }
 
 export class Check {

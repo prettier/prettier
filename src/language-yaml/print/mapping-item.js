@@ -1,25 +1,22 @@
-/** @import {Doc} from "../../document/builders.js" */
+"use strict";
 
-import {
-  conditionalGroup,
-  group,
-  hardline,
-  ifBreak,
-  line,
-} from "../../document/builders.js";
-import {
-  hasEndComments,
+/** @typedef {import("../../document").Doc} Doc */
+
+const {
+  builders: { conditionalGroup, group, hardline, ifBreak, join, line },
+} = require("../../document");
+const {
   hasLeadingComments,
   hasMiddleComments,
   hasTrailingComment,
+  hasEndComments,
+  isNode,
   isEmptyNode,
   isInlineNode,
-  isNode,
-} from "../utils.js";
-import { alignWithSpaces } from "./misc.js";
+} = require("../utils");
+const { alignWithSpaces } = require("./misc");
 
-function printMappingItem(path, print, options) {
-  const { node, parent } = path;
+function printMappingItem(node, parentNode, path, print, options) {
   const { key, value } = node;
 
   const isEmptyMappingKey = isEmptyNode(key);
@@ -33,7 +30,7 @@ function printMappingItem(path, print, options) {
   const spaceBeforeColon = needsSpaceInFrontOfMappingValue(node) ? " " : "";
 
   if (isEmptyMappingValue) {
-    if (node.type === "flowMappingItem" && parent.type === "flowMapping") {
+    if (node.type === "flowMappingItem" && parentNode.type === "flowMapping") {
       return printedKey;
     }
 
@@ -41,7 +38,7 @@ function printMappingItem(path, print, options) {
       node.type === "mappingItem" &&
       isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
       !hasTrailingComment(key.content) &&
-      parent.tag?.value !== "tag:yaml.org,2002:set"
+      (!parentNode.tag || parentNode.tag.value !== "tag:yaml.org,2002:set")
     ) {
       return [printedKey, spaceBeforeColon, ":"];
     }
@@ -60,7 +57,12 @@ function printMappingItem(path, print, options) {
       "? ",
       alignWithSpaces(2, printedKey),
       hardline,
-      ...path.map(() => [print(), hardline], "value", "leadingComments"),
+      join(
+        "",
+        path
+          .map(print, "value", "leadingComments")
+          .map((comment) => [comment, hardline])
+      ),
       ": ",
       alignWithSpaces(2, printedValue),
     ];
@@ -102,7 +104,7 @@ function printMappingItem(path, print, options) {
     (hasEndComments(value) &&
       value.content &&
       !isNode(value.content, ["mapping", "sequence"])) ||
-    (parent.type === "mapping" &&
+    (parentNode.type === "mapping" &&
       hasTrailingComment(key.content) &&
       isInlineNode(value.content)) ||
     (isNode(value.content, ["mapping", "sequence"]) &&
@@ -112,13 +114,11 @@ function printMappingItem(path, print, options) {
     implicitMappingValueParts.push(hardline);
   } else if (value.content) {
     implicitMappingValueParts.push(line);
-  } else if (hasTrailingComment(value)) {
-    implicitMappingValueParts.push(" ");
   }
   implicitMappingValueParts.push(printedValue);
   const implicitMappingValue = alignWithSpaces(
     options.tabWidth,
-    implicitMappingValueParts,
+    implicitMappingValueParts
   );
 
   // If a key is definitely single-line, forcibly use implicit style to avoid edge cases (very long
@@ -165,11 +165,11 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
 
   if (
     // backslash-newline
-    /\\$/mu.test(
+    /\\$/m.test(
       options.originalText.slice(
         node.position.start.offset,
-        node.position.end.offset,
-      ),
+        node.position.end.offset
+      )
     )
   ) {
     return false;
@@ -179,19 +179,19 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
     case "never":
       return !node.value.includes("\n");
     case "always":
-      return !/[\n ]/u.test(node.value);
+      return !/[\n ]/.test(node.value);
+    // istanbul ignore next
     default:
-      /* c8 ignore next */
       return false;
   }
 }
 
 function needsSpaceInFrontOfMappingValue(node) {
-  return node.key.content?.type === "alias";
+  return node.key.content && node.key.content.type === "alias";
 }
 
 function isSingleLineNode(node) {
-  /* c8 ignore next 3 */
+  /* istanbul ignore next */
   if (!node) {
     return true;
   }
@@ -208,4 +208,4 @@ function isSingleLineNode(node) {
   }
 }
 
-export default printMappingItem;
+module.exports = printMappingItem;

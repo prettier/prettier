@@ -1,14 +1,14 @@
-import footnotes from "remark-footnotes";
-import remarkMath from "remark-math";
-import remarkParse from "remark-parse";
-import unified from "unified";
-import { locEnd, locStart } from "./loc.js";
-import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
-import { hasPragma } from "./pragma.js";
-import frontMatter from "./unified-plugins/front-matter.js";
-import htmlToJsx from "./unified-plugins/html-to-jsx.js";
-import liquid from "./unified-plugins/liquid.js";
-import wikiLink from "./unified-plugins/wiki-link.js";
+"use strict";
+
+const remarkParse = require("@brodybits/remark-parse");
+const unified = require("unified");
+const remarkMath = require("remark-math");
+const footnotes = require("remark-footnotes");
+const parseFrontMatter = require("../utils/front-matter/parse");
+const pragma = require("./pragma");
+const { locStart, locEnd } = require("./loc");
+const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
+const mdx = require("./mdx");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -29,28 +29,148 @@ function createParse({ isMDX }) {
     const processor = unified()
       .use(remarkParse, {
         commonmark: true,
-        ...(isMDX && { blocks: [BLOCKS_REGEX] }),
+        ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] }),
       })
       .use(footnotes)
       .use(frontMatter)
       .use(remarkMath)
-      .use(isMDX ? esSyntax : noop)
+      .use(isMDX ? mdx.esSyntax : identity)
       .use(liquid)
-      .use(isMDX ? htmlToJsx : noop)
-      .use(wikiLink);
-    return processor.run(processor.parse(text));
+      .use(isMDX ? htmlToJsx : identity)
+      .use(wikiLink)
+      .use(looseItems);
+    return processor.runSync(processor.parse(text));
   };
 }
 
-function noop() {}
+function identity(x) {
+  return x;
+}
+
+function htmlToJsx() {
+  return (ast) =>
+    mapAst(ast, (node, _index, [parent]) => {
+      if (
+        node.type !== "html" ||
+        mdx.COMMENT_REGEX.test(node.value) ||
+        INLINE_NODE_WRAPPER_TYPES.includes(parent.type)
+      ) {
+        return node;
+      }
+
+      return { ...node, type: "jsx" };
+    });
+}
+
+function frontMatter() {
+  const proto = this.Parser.prototype;
+  proto.blockMethods = ["frontMatter", ...proto.blockMethods];
+  proto.blockTokenizers.frontMatter = tokenizer;
+
+  function tokenizer(eat, value) {
+    const parsed = parseFrontMatter(value);
+
+    if (parsed.frontMatter) {
+      return eat(parsed.frontMatter.raw)(parsed.frontMatter);
+    }
+  }
+  tokenizer.onlyAtStart = true;
+}
+
+function liquid() {
+  const proto = this.Parser.prototype;
+  const methods = proto.inlineMethods;
+  methods.splice(methods.indexOf("text"), 0, "liquid");
+  proto.inlineTokenizers.liquid = tokenizer;
+
+  function tokenizer(eat, value) {
+    const match = value.match(/^({%.*?%}|{{.*?}})/s);
+
+    if (match) {
+      return eat(match[0])({
+        type: "liquidNode",
+        value: match[0],
+      });
+    }
+  }
+  tokenizer.locator = function (value, fromIndex) {
+    return value.indexOf("{", fromIndex);
+  };
+}
+
+function wikiLink() {
+  const entityType = "wikiLink";
+  const wikiLinkRegex = /^\[\[(?<linkContents>.+?)]]/s;
+  const proto = this.Parser.prototype;
+  const methods = proto.inlineMethods;
+  methods.splice(methods.indexOf("link"), 0, entityType);
+  proto.inlineTokenizers.wikiLink = tokenizer;
+
+  function tokenizer(eat, value) {
+    const match = wikiLinkRegex.exec(value);
+
+    if (match) {
+      const linkContents = match.groups.linkContents.trim();
+
+      return eat(match[0])({
+        type: entityType,
+        value: linkContents,
+      });
+    }
+  }
+
+  tokenizer.locator = function (value, fromIndex) {
+    return value.indexOf("[", fromIndex);
+  };
+}
+
+function looseItems() {
+  const proto = this.Parser.prototype;
+  const originalList = proto.blockTokenizers.list;
+
+  function fixListNodes(value, node, parent) {
+    if (node.type === "listItem") {
+      node.loose = node.spread || value.charAt(value.length - 1) === "\n";
+      if (node.loose) {
+        parent.loose = true;
+      }
+    }
+    return node;
+  }
+
+  proto.blockTokenizers.list = function list(realEat, value, silent) {
+    function eat(subvalue) {
+      const realAdd = realEat(subvalue);
+
+      function add(node, parent) {
+        return realAdd(fixListNodes(subvalue, node, parent), parent);
+      }
+      add.reset = function (node, parent) {
+        return realAdd.reset(fixListNodes(subvalue, node, parent), parent);
+      };
+
+      return add;
+    }
+    eat.now = realEat.now;
+    return originalList.call(this, eat, value, silent);
+  };
+}
 
 const baseParser = {
   astFormat: "mdast",
-  hasPragma,
+  hasPragma: pragma.hasPragma,
   locStart,
   locEnd,
 };
 
-export const markdown = { ...baseParser, parse: createParse({ isMDX: false }) };
-export const mdx = { ...baseParser, parse: createParse({ isMDX: true }) };
-export { markdown as remark };
+const markdownParser = { ...baseParser, parse: createParse({ isMDX: false }) };
+
+const mdxParser = { ...baseParser, parse: createParse({ isMDX: true }) };
+
+module.exports = {
+  parsers: {
+    remark: markdownParser,
+    markdown: markdownParser,
+    mdx: mdxParser,
+  },
+};

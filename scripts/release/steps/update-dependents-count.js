@@ -1,55 +1,59 @@
-import chalk from "chalk";
-import { fetchText, logPromise, processFile, runGit } from "../utils.js";
+"use strict";
+
+const chalk = require("chalk");
+const { runGit, fetchText, logPromise, processFile } = require("../utils");
 
 async function update() {
   const npmPage = await logPromise(
     "Fetching npm dependents count",
-    fetchText("https://www.npmjs.com/package/prettier"),
+    fetchText("https://www.npmjs.com/package/prettier")
   );
   const dependentsCountNpm = Number(
-    npmPage.match(/"dependentsCount":(\d+),/u)[1],
+    npmPage.match(/"dependentsCount":(\d+),/)[1]
   );
   if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
-      "Invalid data from https://www.npmjs.com/package/prettier",
+      "Invalid data from https://www.npmjs.com/package/prettier"
     );
   }
 
   const githubPage = await logPromise(
     "Fetching github dependents count",
-    fetchText("https://github.com/prettier/prettier/network/dependents"),
+    fetchText("https://github.com/prettier/prettier/network/dependents")
   );
   const dependentsCountGithub = Number(
     githubPage
-      .replaceAll("\n", "")
+      .replace(/\n/g, "")
       .match(
-        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/u,
+        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+?)\s*Repositories\s*<\/a>/
       )[1]
-      .replaceAll(",", ""),
+      .replace(/,/g, "")
   );
   if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
-      "Invalid data from https://github.com/prettier/prettier/network/dependents",
+      "Invalid data from https://github.com/prettier/prettier/network/dependents"
     );
   }
 
-  processFile("website/pages/en/index.js", (content) =>
+  // [prettierx] website is now in x-unsupported/subdirectory
+  processFile("x-unsupported/website/pages/en/index.js", (content) =>
     content
       .replace(
-        /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/u,
-        `$1${formatNumber(dependentsCountNpm)}$3`,
+        /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
+        `$1${formatNumber(dependentsCountNpm)}$3`
       )
       .replace(
-        /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/u,
-        `$1${formatNumber(dependentsCountGithub)}$3`,
-      ),
+        /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
+        `$1${formatNumber(dependentsCountGithub)}$3`
+      )
   );
 
   const isUpdated = await logPromise(
     "Checking if dependents count has been updated",
+    // [prettierx] website is now in x-unsupported/subdirectory
     async () =>
       (await runGit(["diff", "--name-only"])).stdout ===
-      "website/pages/en/index.js",
+      "x-unsupported/website/pages/en/index.js"
   );
 
   if (isUpdated) {
@@ -71,14 +75,10 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-export default async function updateDependentsCount({ dry, next }) {
-  if (dry || next) {
-    return;
-  }
-
+module.exports = async function () {
   try {
     await update();
   } catch (error) {
     console.log(chalk.red.bold(error.message));
   }
-}
+};

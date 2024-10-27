@@ -1,14 +1,15 @@
-import camelCase from "camelcase";
-import { categoryOrder, usageSummary } from "./constants.evaluate.js";
-import { formatOptionsHiddenDefaults } from "./prettier-internal.js";
-import { groupBy } from "./utils.js";
+"use strict";
+
+const groupBy = require("lodash/groupBy");
+const camelCase = require("camelcase");
+const constant = require("./constant");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 function indent(str, spaces) {
-  return str.replaceAll(/^/gmu, " ".repeat(spaces));
+  return str.replace(/^/gm, " ".repeat(spaces));
 }
 
 function createDefaultValueDisplay(value) {
@@ -19,21 +20,20 @@ function createDefaultValueDisplay(value) {
 
 function getOptionDefaultValue(context, optionName) {
   // --no-option
-  const option = context.detailedOptions.find(
-    ({ name }) => name === optionName,
-  );
+  if (!(optionName in context.detailedOptionMap)) {
+    return;
+  }
 
-  if (option?.default !== undefined) {
+  const option = context.detailedOptionMap[optionName];
+
+  if (option.default !== undefined) {
     return option.default;
   }
 
   const optionCamelName = camelCase(optionName);
-  return (
-    formatOptionsHiddenDefaults[optionCamelName] ??
-    context.supportOptions.find(
-      (option) => !option.deprecated && option.name === optionCamelName,
-    )?.default
-  );
+  if (optionCamelName in context.apiDefaultOptions) {
+    return context.apiDefaultOptions[optionCamelName];
+  }
 }
 
 function createOptionUsageHeader(option) {
@@ -49,7 +49,7 @@ function createOptionUsageRow(header, content, threshold) {
       ? `\n${" ".repeat(threshold)}`
       : " ".repeat(threshold - header.length);
 
-  const description = content.replaceAll("\n", `\n${" ".repeat(threshold)}`);
+  const description = content.replace(/\n/g, `\n${" ".repeat(threshold)}`);
 
   return `${header}${separator}${description}`;
 }
@@ -60,7 +60,7 @@ function createOptionUsageType(option) {
       return null;
     case "choice":
       return `<${option.choices
-        .filter((choice) => !choice.deprecated)
+        .filter((choice) => !choice.deprecated && choice.since !== null)
         .map((choice) => choice.value)
         .join("|")}>`;
     default:
@@ -69,14 +69,16 @@ function createOptionUsageType(option) {
 }
 
 function createChoiceUsages(choices, margin, indentation) {
-  const activeChoices = choices.filter((choice) => !choice.deprecated);
+  const activeChoices = choices.filter(
+    (choice) => !choice.deprecated && choice.since !== null
+  );
   const threshold =
     Math.max(0, ...activeChoices.map((choice) => choice.value.length)) + margin;
   return activeChoices.map((choice) =>
     indent(
       createOptionUsageRow(choice.value, choice.description, threshold),
-      indentation,
-    ),
+      indentation
+    )
   );
 }
 
@@ -90,7 +92,7 @@ function createOptionUsage(context, option, threshold) {
         ? ""
         : `\nDefaults to ${createDefaultValueDisplay(optionDefaultValue)}.`
     }`,
-    threshold,
+    threshold
   );
 }
 
@@ -111,25 +113,22 @@ function getOptionsWithOpposites(options) {
 }
 
 function createUsage(context) {
-  const sortedOptions = context.detailedOptions.sort((optionA, optionB) =>
-    optionA.name.localeCompare(optionB.name),
-  );
-
-  const options = getOptionsWithOpposites(sortedOptions).filter(
+  const options = getOptionsWithOpposites(context.detailedOptions).filter(
     // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
     (option) =>
       !(
         option.type === "boolean" &&
         option.oppositeDescription &&
         !option.name.startsWith("no-")
-      ),
+      )
   );
+
   const groupedOptions = groupBy(options, (option) => option.category);
 
-  const firstCategories = categoryOrder.slice(0, -1);
-  const lastCategories = categoryOrder.slice(-1);
+  const firstCategories = constant.categoryOrder.slice(0, -1);
+  const lastCategories = constant.categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
-    (category) => !categoryOrder.includes(category),
+    (category) => !constant.categoryOrder.includes(category)
   );
   const allCategories = [
     ...firstCategories,
@@ -140,35 +139,18 @@ function createUsage(context) {
   const optionsUsage = allCategories.map((category) => {
     const categoryOptions = groupedOptions[category]
       .map((option) =>
-        createOptionUsage(context, option, OPTION_USAGE_THRESHOLD),
+        createOptionUsage(context, option, OPTION_USAGE_THRESHOLD)
       )
       .join("\n");
     return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
 
-  return [usageSummary, ...optionsUsage, ""].join("\n\n");
-}
-
-function createPluginDefaults(pluginDefaults) {
-  if (!pluginDefaults || Object.keys(pluginDefaults).length === 0) {
-    return "";
-  }
-
-  const defaults = Object.entries(pluginDefaults)
-    .sort(([pluginNameA], [pluginNameB]) =>
-      pluginNameA.localeCompare(pluginNameB),
-    )
-    .map(
-      ([plugin, value]) => `* ${plugin}: ${createDefaultValueDisplay(value)}`,
-    )
-    .join("\n");
-
-  return `\nPlugin defaults:\n${defaults}`;
+  return [constant.usageSummary, ...optionsUsage, ""].join("\n\n");
 }
 
 function createDetailedUsage(context, flag) {
   const option = getOptionsWithOpposites(context.detailedOptions).find(
-    (option) => option.name === flag || option.alias === flag,
+    (option) => option.name === flag || option.alias === flag
   );
 
   const header = createOptionUsageHeader(option);
@@ -180,7 +162,7 @@ function createDetailedUsage(context, flag) {
       : `\n\nValid options:\n\n${createChoiceUsages(
           option.choices,
           CHOICE_USAGE_MARGIN,
-          CHOICE_USAGE_INDENTATION,
+          CHOICE_USAGE_INDENTATION
         ).join("\n")}`;
 
   const optionDefaultValue = getOptionDefaultValue(context, option.name);
@@ -189,8 +171,16 @@ function createDetailedUsage(context, flag) {
       ? `\n\nDefault: ${createDefaultValueDisplay(optionDefaultValue)}`
       : "";
 
-  const pluginDefaults = createPluginDefaults(option.pluginDefaults);
+  const pluginDefaults =
+    option.pluginDefaults && Object.keys(option.pluginDefaults).length > 0
+      ? `\nPlugin defaults:${Object.entries(option.pluginDefaults).map(
+          ([key, value]) => `\n* ${key}: ${createDefaultValueDisplay(value)}`
+        )}`
+      : "";
   return `${header}${description}${choices}${defaults}${pluginDefaults}`;
 }
 
-export { createDetailedUsage, createUsage };
+module.exports = {
+  createUsage,
+  createDetailedUsage,
+};

@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`abstractNewlineHandling.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var
+abstract
+class X {}
+
+const
+abstract
+class Y {}
+
+export let
+abstract
+class Y {}
+
+let
+abstract
+export class Y {}
+
+=====================================output=====================================
+var abstract;
+class X {}
+
+const abstract;
+class Y {}
+
+export let abstract;
+class Y {}
+
+let abstract;
+export class Y {}
+
+================================================================================
+`;
+
+exports[`abstractProperties.ts [babel-ts] format 1`] = `
+"'static' modifier cannot be used with 'abstract' modifier. (4:12)
+  2 |     abstract private a: 1;
+  3 |     private abstract b: 2;
+> 4 |     static abstract c: 3;
+    |            ^
+  5 |
+  6 |     abstract private d = 4;
+  7 |     private abstract e = 5;"
+`;
+
+exports[`abstractProperties.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+abstract class Foo {
+    abstract private a: 1;
+    private abstract b: 2;
+    static abstract c: 3;
+
+    abstract private d = 4;
+    private abstract e = 5;
+    static abstract f = 6;
+
+    abstract private ['g'] = 4;
+    private abstract ['h'] = 5;
+    static abstract ['i'] = 6;
+}
+
+=====================================output=====================================
+abstract class Foo {
+  private abstract a: 1;
+  private abstract b: 2;
+  static abstract c: 3;
+
+  private abstract d = 4;
+  private abstract e = 5;
+  static abstract f = 6;
+
+  private abstract ["g"] = 4;
+  private abstract ["h"] = 5;
+  static abstract ["i"] = 6;
+}
+
+================================================================================
+`;
+
+exports[`abstractPropertiesWithBreaks.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+abstract class Foo {
+    abstract private foobar =
+      // comment to break
+      1 +
+      // another comment to break
+      2;
+}
+
+=====================================output=====================================
+abstract class Foo {
+  private abstract foobar =
+    // comment to break
+    1 +
+    // another comment to break
+    2;
+}
+
+================================================================================
+`;

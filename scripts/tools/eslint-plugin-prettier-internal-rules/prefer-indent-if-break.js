@@ -48,15 +48,15 @@ module.exports = {
           *fix(fixer) {
             yield fixer.replaceText(node.callee, "indentIfBreak");
             const openingParenthesisToken = sourceCode.getTokenAfter(
-              node.callee,
+              node.callee
             );
             const commaToken = sourceCode.getTokenBefore(
               doc,
-              ({ type, value }) => type === "Punctuator" && value === ",",
+              ({ type, value }) => type === "Punctuator" && value === ","
             );
             yield fixer.replaceTextRange(
               [openingParenthesisToken.range[1], commaToken.range[1]],
-              "",
+              ""
             );
           },
         });

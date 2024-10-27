@@ -1,0 +1,741 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`await.js [espree] format 1`] = `
+"Unexpected token : (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |"
+`;
+
+exports[`await.js [meriyah] format 1`] = `
+"[3:27]: Unexpected token: ':' (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |"
+`;
+
+exports[`await.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token : (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |"
+`;
+
+exports[`await.js - {"semi":false} [meriyah] format 1`] = `
+"[3:27]: Unexpected token: ':' (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |"
+`;
+
+exports[`await.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const doBothThings = async () => {
+    const request = doAsyncThing();
+    return (await request)::doSyncThing();
+};
+
+=====================================output=====================================
+const doBothThings = async () => {
+  const request = doAsyncThing()
+  return (await request)::doSyncThing()
+}
+
+================================================================================
+`;
+
+exports[`await.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const doBothThings = async () => {
+    const request = doAsyncThing();
+    return (await request)::doSyncThing();
+};
+
+=====================================output=====================================
+const doBothThings = async () => {
+  const request = doAsyncThing();
+  return (await request)::doSyncThing();
+};
+
+================================================================================
+`;
+
+exports[`bind_parens.js [espree] format 1`] = `
+"Unexpected token : (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();"
+`;
+
+exports[`bind_parens.js [meriyah] format 1`] = `
+"[1:9]: Unexpected token: ':' (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();"
+`;
+
+exports[`bind_parens.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token : (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();"
+`;
+
+exports[`bind_parens.js - {"semi":false} [meriyah] format 1`] = `
+"[1:9]: Unexpected token: ':' (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();"
+`;
+
+exports[`bind_parens.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+(a || b)::c;
+a || (b::c);
+::obj.prop;
+(void 0)::func();
+(+0)::is(-0);
+a::(b.c);
+a::(b.c());
+a::b.c();
+a::(b.c()());
+a::((b.c())());
+a::(b.c())();
+a::(b.c().d);
+a::(c().d.e);
+a::(b());
+a::(b::c());
+a::(b()::c);
+a::(b().c::d);
+a::(b.c::d);
+a::(b::c.d);
+a::(b.c::d::e);
+a::(b::c::d);
+a::(b::c::d.e);
+a::((b::c::d).e);
+a::(void 0);
+a::(b.c()::d.e);
+a::(b.c::d.e);
+a::(b.c::d.e)::f.g;
+b.c::d.e;
+(b.c::d).e;
+(b::c::d).e;
+new (a::b)();
+new f(a::b);
+f[a::b];
+f[a::b()];
+
+=====================================output=====================================
+;(a || b)::c
+a || b::c
+;::obj.prop
+;(void 0)::func()
+;(+0)::is(-0)
+a::b.c
+a::(b.c())
+a::b.c()
+a::(b.c()())
+a::(b.c()())
+a::(b.c())()
+a::(b.c().d)
+a::(c().d.e)
+a::(b())
+a::(b::c())
+a::(b()::c)
+a::(b().c::d)
+a::(b.c::d)
+a::(b::c.d)
+a::(b.c::d::e)
+a::(b::c::d)
+a::(b::c::d.e)
+a::(b::c::d).e
+a::(void 0)
+a::(b.c()::d.e)
+a::(b.c::d.e)
+a::(b.c::d.e)::f.g
+b.c::d.e
+;(b.c::d).e
+;(b::c::d).e
+new (a::b)()
+new f(a::b)
+f[a::b]
+f[a::b()]
+
+================================================================================
+`;
+
+exports[`bind_parens.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(a || b)::c;
+a || (b::c);
+::obj.prop;
+(void 0)::func();
+(+0)::is(-0);
+a::(b.c);
+a::(b.c());
+a::b.c();
+a::(b.c()());
+a::((b.c())());
+a::(b.c())();
+a::(b.c().d);
+a::(c().d.e);
+a::(b());
+a::(b::c());
+a::(b()::c);
+a::(b().c::d);
+a::(b.c::d);
+a::(b::c.d);
+a::(b.c::d::e);
+a::(b::c::d);
+a::(b::c::d.e);
+a::((b::c::d).e);
+a::(void 0);
+a::(b.c()::d.e);
+a::(b.c::d.e);
+a::(b.c::d.e)::f.g;
+b.c::d.e;
+(b.c::d).e;
+(b::c::d).e;
+new (a::b)();
+new f(a::b);
+f[a::b];
+f[a::b()];
+
+=====================================output=====================================
+(a || b)::c;
+a || b::c;
+::obj.prop;
+(void 0)::func();
+(+0)::is(-0);
+a::b.c;
+a::(b.c());
+a::b.c();
+a::(b.c()());
+a::(b.c()());
+a::(b.c())();
+a::(b.c().d);
+a::(c().d.e);
+a::(b());
+a::(b::c());
+a::(b()::c);
+a::(b().c::d);
+a::(b.c::d);
+a::(b::c.d);
+a::(b.c::d::e);
+a::(b::c::d);
+a::(b::c::d.e);
+a::(b::c::d).e;
+a::(void 0);
+a::(b.c()::d.e);
+a::(b.c::d.e);
+a::(b.c::d.e)::f.g;
+b.c::d.e;
+(b.c::d).e;
+(b::c::d).e;
+new (a::b)();
+new f(a::b);
+f[a::b];
+f[a::b()];
+
+================================================================================
+`;
+
+exports[`long_name_method.js [espree] format 1`] = `
+"Unexpected token : (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {"
+`;
+
+exports[`long_name_method.js [meriyah] format 1`] = `
+"[3:54]: Unexpected token: ':' (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {"
+`;
+
+exports[`long_name_method.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token : (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {"
+`;
+
+exports[`long_name_method.js - {"semi":false} [meriyah] format 1`] = `
+"[3:54]: Unexpected token: ':' (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {"
+`;
+
+exports[`long_name_method.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class X {
+  constructor() {
+    this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+  }
+  
+  testLongNameMethodAndSomethingElseLallala() {
+    return true;
+  }
+}
+=====================================output=====================================
+class X {
+  constructor() {
+    this.testLongNameMethodAndSomethingElseLallala =
+      ::this.testLongNameMethodAndSomethingElseLallala
+  }
+
+  testLongNameMethodAndSomethingElseLallala() {
+    return true
+  }
+}
+
+================================================================================
+`;
+
+exports[`long_name_method.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class X {
+  constructor() {
+    this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+  }
+  
+  testLongNameMethodAndSomethingElseLallala() {
+    return true;
+  }
+}
+=====================================output=====================================
+class X {
+  constructor() {
+    this.testLongNameMethodAndSomethingElseLallala =
+      ::this.testLongNameMethodAndSomethingElseLallala;
+  }
+
+  testLongNameMethodAndSomethingElseLallala() {
+    return true;
+  }
+}
+
+================================================================================
+`;
+
+exports[`method_chain.js [espree] format 1`] = `
+"Unexpected token : (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)"
+`;
+
+exports[`method_chain.js [meriyah] format 1`] = `
+"[10:9]: Unexpected token: ':' (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)"
+`;
+
+exports[`method_chain.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token : (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)"
+`;
+
+exports[`method_chain.js - {"semi":false} [meriyah] format 1`] = `
+"[10:9]: Unexpected token: ':' (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)"
+`;
+
+exports[`method_chain.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+import {interval} from 'rxjs/observable/interval';
+import {filter} from 'rxjs/operator/filter';
+import {take} from 'rxjs/operator/take';
+import {map} from 'rxjs/operator/map';
+import {throttle} from 'rxjs/operator/throttle';
+import {takeUntil} from 'rxjs/operator/takeUntil';
+
+function test(observable) {
+    return observable
+        ::filter(data => data.someTest)
+        ::throttle(() =>
+            interval(10)
+                ::take(1)
+                ::takeUntil(observable::filter(data => someOtherTest))
+        )
+        ::map(someFunction);
+}
+
+=====================================output=====================================
+import { interval } from "rxjs/observable/interval"
+import { filter } from "rxjs/operator/filter"
+import { take } from "rxjs/operator/take"
+import { map } from "rxjs/operator/map"
+import { throttle } from "rxjs/operator/throttle"
+import { takeUntil } from "rxjs/operator/takeUntil"
+
+function test(observable) {
+  return observable
+    ::filter((data) => data.someTest)
+    ::throttle(() =>
+      interval(10)
+        ::take(1)
+        ::takeUntil(observable::filter((data) => someOtherTest))
+    )
+    ::map(someFunction)
+}
+
+================================================================================
+`;
+
+exports[`method_chain.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {interval} from 'rxjs/observable/interval';
+import {filter} from 'rxjs/operator/filter';
+import {take} from 'rxjs/operator/take';
+import {map} from 'rxjs/operator/map';
+import {throttle} from 'rxjs/operator/throttle';
+import {takeUntil} from 'rxjs/operator/takeUntil';
+
+function test(observable) {
+    return observable
+        ::filter(data => data.someTest)
+        ::throttle(() =>
+            interval(10)
+                ::take(1)
+                ::takeUntil(observable::filter(data => someOtherTest))
+        )
+        ::map(someFunction);
+}
+
+=====================================output=====================================
+import { interval } from "rxjs/observable/interval";
+import { filter } from "rxjs/operator/filter";
+import { take } from "rxjs/operator/take";
+import { map } from "rxjs/operator/map";
+import { throttle } from "rxjs/operator/throttle";
+import { takeUntil } from "rxjs/operator/takeUntil";
+
+function test(observable) {
+  return observable
+    ::filter((data) => data.someTest)
+    ::throttle(() =>
+      interval(10)
+        ::take(1)
+        ::takeUntil(observable::filter((data) => someOtherTest))
+    )
+    ::map(someFunction);
+}
+
+================================================================================
+`;
+
+exports[`short_name_method.js [espree] format 1`] = `
+"Unexpected token : (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {"
+`;
+
+exports[`short_name_method.js [meriyah] format 1`] = `
+"[3:24]: Unexpected token: ':' (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {"
+`;
+
+exports[`short_name_method.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token : (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {"
+`;
+
+exports[`short_name_method.js - {"semi":false} [meriyah] format 1`] = `
+"[3:24]: Unexpected token: ':' (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {"
+`;
+
+exports[`short_name_method.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod;
+  }
+  
+  shortMethod() {
+    return true;
+  }
+}
+=====================================output=====================================
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod
+  }
+
+  shortMethod() {
+    return true
+  }
+}
+
+================================================================================
+`;
+
+exports[`short_name_method.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod;
+  }
+  
+  shortMethod() {
+    return true;
+  }
+}
+=====================================output=====================================
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod;
+  }
+
+  shortMethod() {
+    return true;
+  }
+}
+
+================================================================================
+`;
+
+exports[`unary.js [espree] format 1`] = `
+"Unexpected token : (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !("
+`;
+
+exports[`unary.js [meriyah] format 1`] = `
+"[1:3]: Unexpected token: ':' (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !("
+`;
+
+exports[`unary.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token : (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !("
+`;
+
+exports[`unary.js - {"semi":false} [meriyah] format 1`] = `
+"[1:3]: Unexpected token: ':' (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !("
+`;
+
+exports[`unary.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+!x::y;
+!(x::y /* foo */);
+!(/* foo */ x::y);
+!(
+  /* foo */
+  x::y
+);
+!(
+  x::y
+  /* foo */
+);
+!(
+  x::y // foo
+);
+
+=====================================output=====================================
+!x::y
+!(x::y /* foo */)
+!(/* foo */ x::y)
+!(
+  /* foo */
+  x::y
+)
+!(
+  x::y
+  /* foo */
+)
+!(
+  x::y // foo
+)
+
+================================================================================
+`;
+
+exports[`unary.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+!x::y;
+!(x::y /* foo */);
+!(/* foo */ x::y);
+!(
+  /* foo */
+  x::y
+);
+!(
+  x::y
+  /* foo */
+);
+!(
+  x::y // foo
+);
+
+=====================================output=====================================
+!x::y;
+!(x::y /* foo */);
+!(/* foo */ x::y);
+!(
+  /* foo */
+  x::y
+);
+!(
+  x::y
+  /* foo */
+);
+!(
+  x::y // foo
+);
+
+================================================================================
+`;

@@ -1,68 +1,69 @@
-import { hardline, markAsRoot } from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
-import printFrontMatter from "../utils/front-matter/print.js";
-import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
-import inferParser from "../utils/infer-parser.js";
-import { getFencedCodeBlockValue } from "./utils.js";
+"use strict";
 
-function embed(path, options) {
-  const { node } = path;
+const {
+  inferParserByLanguage,
+  getMaxContinuousCount,
+} = require("../common/util");
+const {
+  builders: { hardline, markAsRoot },
+  utils: { replaceNewlinesWithLiterallines },
+} = require("../document");
+const printFrontMatter = require("../utils/front-matter/print");
+const { getFencedCodeBlockValue } = require("./utils");
+
+function embed(path, print, textToDoc, options) {
+  const node = path.getValue();
 
   if (node.type === "code" && node.lang !== null) {
-    const parser = inferParser(options, { language: node.lang });
+    const parser = inferParserByLanguage(node.lang, options);
     if (parser) {
-      return async (textToDoc) => {
-        const styleUnit = options.__inJsTemplate ? "~" : "`";
-        const style = styleUnit.repeat(
-          Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
-        );
-        const newOptions = { parser };
-
-        // Override the filepath option.
-        // This is because whether the trailing comma of type parameters
-        // should be printed depends on whether it is `*.ts` or `*.tsx`.
-        // https://github.com/prettier/prettier/issues/15282
-        if (node.lang === "ts" || node.lang === "typescript") {
-          newOptions.filepath = "dummy.ts";
-        } else if (node.lang === "tsx") {
-          newOptions.filepath = "dummy.tsx";
-        }
-
-        const doc = await textToDoc(
-          getFencedCodeBlockValue(node, options.originalText),
-          newOptions,
-        );
-
-        return markAsRoot([
-          style,
-          node.lang,
-          node.meta ? " " + node.meta : "",
-          hardline,
-          replaceEndOfLine(doc),
-          hardline,
-          style,
-        ]);
-      };
+      const styleUnit = options.__inJsTemplate ? "~" : "`";
+      const style = styleUnit.repeat(
+        Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
+      );
+      const doc = textToDoc(
+        getFencedCodeBlockValue(node, options.originalText),
+        { parser },
+        { stripTrailingHardline: true }
+      );
+      return markAsRoot([
+        style,
+        node.lang,
+        node.meta ? " " + node.meta : "",
+        hardline,
+        replaceNewlinesWithLiterallines(doc),
+        hardline,
+        style,
+      ]);
     }
   }
 
   switch (node.type) {
     case "front-matter":
-      return (textToDoc) => printFrontMatter(node, textToDoc);
+      return printFrontMatter(node, textToDoc);
 
     // MDX
-    case "import":
-    case "export":
-      return (textToDoc) => textToDoc(node.value, { parser: "babel" });
+    case "importExport":
+      return [
+        textToDoc(
+          node.value,
+          { parser: "babel" },
+          { stripTrailingHardline: true }
+        ),
+        hardline,
+      ];
     case "jsx":
-      return (textToDoc) =>
-        textToDoc(`<$>${node.value}</$>`, {
+      return textToDoc(
+        `<$>${node.value}</$>`,
+        {
           parser: "__js_expression",
           rootMarker: "mdx",
-        });
+        },
+        { stripTrailingHardline: true }
+      );
   }
 
   return null;
 }
 
-export default embed;
+module.exports = embed;

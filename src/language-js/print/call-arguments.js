@@ -1,183 +1,231 @@
-import { ArgExpansionBailout } from "../../common/errors.js";
-import {
-  breakParent,
-  conditionalGroup,
-  group,
-  hardline,
-  ifBreak,
-  indent,
-  line,
-  softline,
-} from "../../document/builders.js";
-import { willBreak } from "../../document/utils.js";
-import { printDanglingComments } from "../../main/comments/print.js";
-import {
-  CommentCheckFlags,
-  getCallArguments,
-  getCallArgumentSelector,
+"use strict";
+
+const { printDanglingComments } = require("../../main/comments");
+const { getLast, getPenultimate } = require("../../common/util");
+const {
   getFunctionParameters,
+  // [prettierx] --space-in-parens option support (...)
+  hasAddedLine,
   hasComment,
-  isArrayOrTupleExpression,
-  isBinaryCastExpression,
-  isBinaryish,
-  isCallExpression,
-  isCallLikeExpression,
+  CommentCheckFlags,
   isFunctionCompositionArgs,
-  isJsxElement,
+  isJsxNode,
   isLongCurriedCallExpression,
-  isNextLineEmpty,
-  isObjectOrRecordExpression,
-  isObjectProperty,
-  isRegExpLiteral,
-  isSimpleCallArgument,
-  isSimpleType,
-  isStringLiteral,
-  iterateCallArgumentsPath,
   shouldPrintComma,
-} from "../utils/index.js";
-import { isConciselyPrintedArray } from "./array.js";
+  getCallArguments,
+  iterateCallArgumentsPath,
+  isNextLineEmpty,
+  isCallExpression,
+  isStringLiteral,
+  isObjectProperty,
+} = require("../utils");
+
+const {
+  builders: {
+    line,
+    hardline,
+    softline,
+    group,
+    indent,
+    conditionalGroup,
+    ifBreak,
+    breakParent,
+  },
+  utils: { willBreak },
+} = require("../../document");
+
+const { ArgExpansionBailout } = require("../../common/errors");
+const { isConciselyPrintedArray } = require("./array");
 
 function printCallArguments(path, options, print) {
-  const { node } = path;
+  const node = path.getValue();
+  const isDynamicImport = node.type === "ImportExpression";
+
+  // [prettierx] for --space-in-parens option support (...)
+  const insideSpace = options.spaceInParens ? " " : "";
+  const innerLineBreak = options.spaceInParens ? line : softline;
 
   const args = getCallArguments(node);
   if (args.length === 0) {
-    return ["(", printDanglingComments(path, options), ")"];
+    return [
+      "(",
+      printDanglingComments(path, options, /* sameIndent */ true),
+      ")",
+    ];
   }
 
-  const lastArgIndex = args.length - 1;
-
   // useEffect(() => { ... }, [foo, bar, baz])
-  // useImperativeHandle(ref, () => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
-    const parts = ["("];
-    iterateCallArgumentsPath(path, (path, index) => {
-      parts.push(print());
-      if (index !== lastArgIndex) {
-        parts.push(", ");
-      }
-    });
-    parts.push(")");
-    return parts;
+    // [prettierx] with --space-in-parens option support (...)
+    return [
+      "(",
+      insideSpace,
+      print(["arguments", 0]),
+      ", ",
+      print(["arguments", 1]),
+      insideSpace,
+      ")",
+    ];
   }
 
   let anyArgEmptyLine = false;
+  let hasEmptyLineFollowingFirstArg = false;
+  const lastArgIndex = args.length - 1;
   const printedArguments = [];
-  iterateCallArgumentsPath(path, ({ node: arg }, index) => {
-    let argDoc = print();
+  iterateCallArgumentsPath(path, (argPath, index) => {
+    const arg = argPath.getNode();
+    const parts = [print()];
 
     if (index === lastArgIndex) {
       // do nothing
     } else if (isNextLineEmpty(arg, options)) {
+      if (index === 0) {
+        hasEmptyLineFollowingFirstArg = true;
+      }
+
       anyArgEmptyLine = true;
-      argDoc = [argDoc, ",", hardline, hardline];
+      parts.push(",", hardline, hardline);
     } else {
-      argDoc = [argDoc, ",", line];
+      parts.push(",", line);
     }
 
-    printedArguments.push(argDoc);
+    printedArguments.push(parts);
   });
 
-  // Dynamic imports cannot have trailing commas
-  const isDynamicImport =
-    node.type === "ImportExpression" || node.callee.type === "Import";
   const maybeTrailingComma =
-    // Angular does not allow trailing comma
-    !options.parser.startsWith("__ng_") &&
-    !isDynamicImport &&
+    // Dynamic imports cannot have trailing commas
+    !(isDynamicImport || (node.callee && node.callee.type === "Import")) &&
     shouldPrintComma(options, "all")
       ? ","
       : "";
 
-  function allArgsBrokenOut() {
+  // [prettierx] with lastArgAddedLine arg for --space-in-parens option support
+  function allArgsBrokenOut(lastArgAddedLine) {
     return group(
-      ["(", indent([line, ...printedArguments]), maybeTrailingComma, line, ")"],
-      { shouldBreak: true },
+      [
+        "(",
+        // [prettierx] keep break here, regardless of --space-in-parens option
+        indent([line, ...printedArguments]),
+        maybeTrailingComma,
+        // [prettierx] keep break here, unless lastArgAddedLine is true
+        lastArgAddedLine ? "" : line,
+        ")",
+      ],
+      { shouldBreak: true }
     );
   }
 
   if (
     anyArgEmptyLine ||
-    (path.parent.type !== "Decorator" && isFunctionCompositionArgs(args))
+    (path.getParentNode().type !== "Decorator" &&
+      isFunctionCompositionArgs(args))
   ) {
     return allArgsBrokenOut();
   }
 
-  if (shouldExpandFirstArg(args)) {
-    const tailArgs = printedArguments.slice(1);
-    if (tailArgs.some(willBreak)) {
+  // [prettierx] with --space-in-parens option support below (...)
+  const shouldGroupFirst = shouldGroupFirstArg(args);
+  const shouldGroupLast = shouldGroupLastArg(args, options);
+  if (shouldGroupFirst || shouldGroupLast) {
+    if (
+      shouldGroupFirst
+        ? printedArguments.slice(1).some(willBreak)
+        : printedArguments.slice(0, -1).some(willBreak)
+    ) {
       return allArgsBrokenOut();
     }
-    let firstArg;
+
+    // We want to print the last argument with a special flag
+    let printedExpanded = [];
+
+    // [prettierx] keep for --space-in-parens option support (...)
+    let lastArgAddedLine = false;
+
     try {
-      firstArg = print(getCallArgumentSelector(node, 0), {
-        expandFirstArg: true,
+      path.try(() => {
+        iterateCallArgumentsPath(path, (argPath, i) => {
+          if (shouldGroupFirst && i === 0) {
+            printedExpanded = [
+              [
+                print([], { expandFirstArg: true }),
+                printedArguments.length > 1 ? "," : "",
+                hasEmptyLineFollowingFirstArg ? hardline : line,
+                hasEmptyLineFollowingFirstArg ? hardline : "",
+              ],
+              ...printedArguments.slice(1),
+            ];
+          }
+          if (shouldGroupLast && i === lastArgIndex) {
+            // [prettierx] with --space-in-parens option support (...)
+
+            // [prettierx] keep for --space-in-parens option support (...)
+            const printedLastArg = print(argPath, { expandLastArg: true });
+
+            // [prettierx] with --space-in-parens option support (...)
+            lastArgAddedLine = hasAddedLine(printedLastArg);
+
+            printedExpanded = [
+              ...printedArguments.slice(0, -1),
+              print([], { expandLastArg: true }),
+            ];
+          }
+        });
       });
     } catch (caught) {
       if (caught instanceof ArgExpansionBailout) {
         return allArgsBrokenOut();
       }
-      /* c8 ignore next */
+      /* istanbul ignore next */
       throw caught;
     }
 
-    if (willBreak(firstArg)) {
-      return [
-        breakParent,
-        conditionalGroup([
-          ["(", group(firstArg, { shouldBreak: true }), ", ", ...tailArgs, ")"],
-          allArgsBrokenOut(),
-        ]),
-      ];
-    }
-
-    return conditionalGroup([
-      ["(", firstArg, ", ", ...tailArgs, ")"],
-      ["(", group(firstArg, { shouldBreak: true }), ", ", ...tailArgs, ")"],
-      allArgsBrokenOut(),
-    ]);
+    return [
+      printedArguments.some(willBreak) ? breakParent : "",
+      // [prettierx] with --space-in-parens option support (...)
+      conditionalGroup([
+        [
+          "(",
+          // [prettierx] --space-in-parens option support (...)
+          insideSpace,
+          ...printedExpanded,
+          // [prettierx] --space-in-parens option support (...)
+          lastArgAddedLine ? "" : insideSpace,
+          ")",
+        ],
+        shouldGroupFirst
+          ? [
+              "(",
+              // [prettierx] --space-in-parens option support (...)
+              insideSpace,
+              group(printedExpanded[0], { shouldBreak: true }),
+              ...printedExpanded.slice(1),
+              // [prettierx] --space-in-parens option support (...)
+              insideSpace,
+              ")",
+            ]
+          : [
+              "(",
+              // [prettierx] --space-in-parens option support (...)
+              insideSpace,
+              ...printedArguments.slice(0, -1),
+              group(getLast(printedExpanded), { shouldBreak: true }),
+              // [prettierx] --space-in-parens option support (...)
+              lastArgAddedLine ? "" : insideSpace,
+              ")",
+            ],
+        allArgsBrokenOut(lastArgAddedLine),
+      ]),
+    ];
   }
 
-  if (shouldExpandLastArg(args, printedArguments, options)) {
-    const headArgs = printedArguments.slice(0, -1);
-    if (headArgs.some(willBreak)) {
-      return allArgsBrokenOut();
-    }
-    let lastArg;
-    try {
-      lastArg = print(getCallArgumentSelector(node, -1), {
-        expandLastArg: true,
-      });
-    } catch (caught) {
-      if (caught instanceof ArgExpansionBailout) {
-        return allArgsBrokenOut();
-      }
-      /* c8 ignore next */
-      throw caught;
-    }
-
-    if (willBreak(lastArg)) {
-      return [
-        breakParent,
-        conditionalGroup([
-          ["(", ...headArgs, group(lastArg, { shouldBreak: true }), ")"],
-          allArgsBrokenOut(),
-        ]),
-      ];
-    }
-
-    return conditionalGroup([
-      ["(", ...headArgs, lastArg, ")"],
-      ["(", ...headArgs, group(lastArg, { shouldBreak: true }), ")"],
-      allArgsBrokenOut(),
-    ]);
-  }
-
+  // [prettierx] with --space-in-parens option support (...)
   const contents = [
     "(",
-    indent([softline, ...printedArguments]),
+    // [prettierx] --space-in-parens option support (...)
+    indent([innerLineBreak, ...printedArguments]),
     ifBreak(maybeTrailingComma),
-    softline,
+    // [prettierx] --space-in-parens option support (...)
+    innerLineBreak,
     ")",
   ];
   if (isLongCurriedCallExpression(path)) {
@@ -191,14 +239,14 @@ function printCallArguments(path, options, print) {
   });
 }
 
-function couldExpandArg(arg, arrowChainRecursion = false) {
+function couldGroupArg(arg, arrowChainRecursion = false) {
   return (
-    (isObjectOrRecordExpression(arg) &&
+    (arg.type === "ObjectExpression" &&
       (arg.properties.length > 0 || hasComment(arg))) ||
-    (isArrayOrTupleExpression(arg) &&
+    (arg.type === "ArrayExpression" &&
       (arg.elements.length > 0 || hasComment(arg))) ||
-    (arg.type === "TSTypeAssertion" && couldExpandArg(arg.expression)) ||
-    (isBinaryCastExpression(arg) && couldExpandArg(arg.expression)) ||
+    (arg.type === "TSTypeAssertion" && couldGroupArg(arg.expression)) ||
+    (arg.type === "TSAsExpression" && couldGroupArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
       // we want to avoid breaking inside composite return types but not simple keywords
@@ -219,45 +267,41 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
         isNonEmptyBlockStatement(arg.body)) &&
       (arg.body.type === "BlockStatement" ||
         (arg.body.type === "ArrowFunctionExpression" &&
-          couldExpandArg(arg.body, true)) ||
-        isObjectOrRecordExpression(arg.body) ||
-        isArrayOrTupleExpression(arg.body) ||
+          couldGroupArg(arg.body, true)) ||
+        arg.body.type === "ObjectExpression" ||
+        arg.body.type === "ArrayExpression" ||
         (!arrowChainRecursion &&
           (isCallExpression(arg.body) ||
             arg.body.type === "ConditionalExpression")) ||
-        isJsxElement(arg.body))) ||
+        isJsxNode(arg.body))) ||
     arg.type === "DoExpression" ||
     arg.type === "ModuleExpression"
   );
 }
 
-function shouldExpandLastArg(args, argDocs, options) {
-  const lastArg = args.at(-1);
-
-  if (args.length === 1) {
-    const lastArgDoc = argDocs.at(-1);
-    if (lastArgDoc.label?.embed && lastArgDoc.label?.hug !== false) {
-      return true;
-    }
-  }
-
-  const penultimateArg = args.at(-2);
+function shouldGroupLastArg(args, options) {
+  const lastArg = getLast(args);
+  const penultimateArg = getPenultimate(args);
   return (
     !hasComment(lastArg, CommentCheckFlags.Leading) &&
     !hasComment(lastArg, CommentCheckFlags.Trailing) &&
-    couldExpandArg(lastArg) &&
+    couldGroupArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.
     (!penultimateArg || penultimateArg.type !== lastArg.type) &&
     // useMemo(() => func(), [foo, bar, baz])
     (args.length !== 2 ||
       penultimateArg.type !== "ArrowFunctionExpression" ||
-      !isArrayOrTupleExpression(lastArg)) &&
-    !(args.length > 1 && isConciselyPrintedArray(lastArg, options))
+      lastArg.type !== "ArrayExpression") &&
+    !(
+      args.length > 1 &&
+      lastArg.type === "ArrayExpression" &&
+      isConciselyPrintedArray(lastArg, options)
+    )
   );
 }
 
-function shouldExpandFirstArg(args) {
+function shouldGroupFirstArg(args) {
   if (args.length !== 2) {
     return false;
   }
@@ -279,95 +323,17 @@ function shouldExpandFirstArg(args) {
     secondArg.type !== "FunctionExpression" &&
     secondArg.type !== "ArrowFunctionExpression" &&
     secondArg.type !== "ConditionalExpression" &&
-    isHopefullyShortCallArgument(secondArg) &&
-    !couldExpandArg(secondArg)
+    !couldGroupArg(secondArg)
   );
 }
 
-// A hack to fix most manifestations of
-// https://github.com/prettier/prettier/issues/2456
-// https://github.com/prettier/prettier/issues/5172
-// https://github.com/prettier/prettier/issues/12892
-// A proper (printWidth-aware) fix for those would require a complex change in the doc printer.
-function isHopefullyShortCallArgument(node) {
-  if (node.type === "ParenthesizedExpression") {
-    return isHopefullyShortCallArgument(node.expression);
-  }
-
-  if (isBinaryCastExpression(node) || node.type === "TypeCastExpression") {
-    let { typeAnnotation } = node;
-    if (typeAnnotation.type === "TypeAnnotation") {
-      typeAnnotation = typeAnnotation.typeAnnotation;
-    }
-
-    if (typeAnnotation.type === "TSArrayType") {
-      typeAnnotation = typeAnnotation.elementType;
-      if (typeAnnotation.type === "TSArrayType") {
-        typeAnnotation = typeAnnotation.elementType;
-      }
-    }
-    if (
-      typeAnnotation.type === "GenericTypeAnnotation" ||
-      typeAnnotation.type === "TSTypeReference"
-    ) {
-      const typeArguments =
-        typeAnnotation.typeArguments ?? typeAnnotation.typeParameters;
-      if (typeArguments?.params.length === 1) {
-        typeAnnotation = typeArguments.params[0];
-      }
-    }
-    return (
-      isSimpleType(typeAnnotation) && isSimpleCallArgument(node.expression, 1)
-    );
-  }
-
-  if (isCallLikeExpression(node) && getCallArguments(node).length > 1) {
-    return false;
-  }
-
-  if (isBinaryish(node)) {
-    return (
-      isSimpleCallArgument(node.left, 1) && isSimpleCallArgument(node.right, 1)
-    );
-  }
-
-  return isRegExpLiteral(node) || isSimpleCallArgument(node);
-}
-
-/**
- * Checks if the arguments of a function are a call to a React Hook with a dependencies array.
- */
 function isReactHookCallWithDepsArray(args) {
-  if (args.length === 2) {
-    /**
-     * useEffect(() => {
-     *   // do something
-     * }, [dep1, dep2, dep2])
-     */
-    return isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 0);
-  }
-  if (args.length === 3) {
-    /**
-     * useImperativeHandle(ref, () => {
-     *   // do something
-     * }, [dep1, dep2, dep2]);
-     */
-    return (
-      args[0].type === "Identifier" &&
-      isValidHookCallbackAndDepsFormat(args, /* baseIndex */ 1)
-    );
-  }
-  return false;
-}
-
-function isValidHookCallbackAndDepsFormat(args, baseIndex) {
-  const maybeArrowFunction = args[baseIndex];
-  const maybeDepsArray = args[baseIndex + 1];
   return (
-    maybeArrowFunction.type === "ArrowFunctionExpression" &&
-    getFunctionParameters(maybeArrowFunction).length === 0 &&
-    maybeArrowFunction.body.type === "BlockStatement" &&
-    maybeDepsArray.type === "ArrayExpression" &&
+    args.length === 2 &&
+    args[0].type === "ArrowFunctionExpression" &&
+    getFunctionParameters(args[0]).length === 0 &&
+    args[0].body.type === "BlockStatement" &&
+    args[1].type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))
   );
 }
@@ -393,4 +359,4 @@ function isTypeModuleObjectExpression(node) {
   );
 }
 
-export default printCallArguments;
+module.exports = printCallArguments;

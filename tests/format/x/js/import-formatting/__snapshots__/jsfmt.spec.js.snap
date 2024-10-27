@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`long_import.js - {"bogus1":true,"importFormatting":"oneline"} format 1`] = `
+====================================options=====================================
+bogus1: true
+importFormatting: "oneline"
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import abc, { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+import { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+
+=====================================output=====================================
+import abc, { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+import { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+
+================================================================================
+`;
+
+exports[`long_import.js - {"importFormatting":"auto","trailingComma":"none"} format 1`] = `
+====================================options=====================================
+importFormatting: "auto"
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+import abc, { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+import { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+
+=====================================output=====================================
+import abc, {
+  Lorem,
+  ipsum,
+  dolor,
+  sit,
+  amet,
+  consectetur,
+  adipiscing,
+  elit,
+  sed,
+  eiusmod,
+  tempor,
+  incididunt,
+  ut,
+  labore,
+  et,
+  magna
+} from "some-module";
+import {
+  Lorem,
+  ipsum,
+  dolor,
+  sit,
+  amet,
+  consectetur,
+  adipiscing,
+  elit,
+  sed,
+  eiusmod,
+  tempor,
+  incididunt,
+  ut,
+  labore,
+  et,
+  magna
+} from "some-module";
+
+================================================================================
+`;

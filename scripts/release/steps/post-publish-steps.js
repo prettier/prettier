@@ -1,6 +1,9 @@
-import chalk from "chalk";
-import outdent from "outdent";
-import { fetchText, logPromise, writeFile } from "../utils.js";
+"use strict";
+
+const chalk = require("chalk");
+const { string: outdentString } = require("outdent");
+const execa = require("execa");
+const { fetchText, logPromise } = require("../utils");
 
 const SCHEMA_REPO = "SchemaStore/schemastore";
 const SCHEMA_PATH = "src/schemas/json/prettierrc.json";
@@ -10,60 +13,52 @@ const EDIT_URL = `https://github.com/${SCHEMA_REPO}/edit/master/${SCHEMA_PATH}`;
 // Any optional or manual step can be warned in this script.
 
 async function checkSchema() {
-  const { generateSchema } = await import("../../utils/generate-schema.js");
-  const schema = await generateSchema();
+  const { stdout: schema } = await execa("node", [
+    "scripts/generate-schema.js",
+  ]);
   const remoteSchema = await logPromise(
     "Checking current schema in SchemaStore",
-    fetchText(RAW_URL),
+    fetchText(RAW_URL)
   );
 
-  if (schema.trim() === remoteSchema.trim()) {
+  if (schema === remoteSchema.trim()) {
     return;
   }
 
-  writeFile(
-    new URL("../../../.tmp/schema/prettierrc.json", import.meta.url),
-    schema,
-  );
-
-  return outdent`
-    ${chalk.bold.underline(
-      "The schema in {yellow SchemaStore",
-    )} needs an update.}
-    - Open ${chalk.cyan.underline(EDIT_URL)}
-    - Open ${chalk.cyan.underline("/.tmp/schema/prettierrc.json")} file and copy the content
+  return outdentString(chalk`
+    {bold.underline The schema in {yellow SchemaStore} needs an update.}
+    - Open {cyan.underline ${EDIT_URL}}
+    - Run {yellow node scripts/generate-schema.js} and copy the new schema
     - Paste it on GitHub interface
     - Open a PR
-  `;
+  `);
 }
 
 function twitterAnnouncement() {
-  return outdent`
-    ${chalk.bold.underline("Announce on Twitter")}
-    - Open ${chalk.cyan.underline("https://tweetdeck.twitter.com")}
+  return outdentString(chalk`
+    {bold.underline Announce on Twitter}
+    - Open {cyan.underline https://tweetdeck.twitter.com}
     - Make sure you are tweeting from the {yellow @PrettierCode} account.
     - Tweet about the release, including the blog post URL.
-  `;
+  `);
 }
 
-export default async function postPublishSteps({ dry, next }) {
+module.exports = async function () {
+  const steps = [await checkSchema(), twitterAnnouncement()].filter(Boolean);
+
   console.log(chalk.bold.green("The script has finished!\n"));
 
-  if (dry || next) {
+  if (steps.length === 0) {
     return;
   }
 
-  const steps = [await checkSchema(), twitterAnnouncement()].filter(Boolean);
-
   console.log(
-    outdent`
-      ${chalk.yellow.bold(
-        `The following ${
-          steps.length === 1 ? "step is" : "steps are"
-        } optional.`,
-      )}
+    outdentString(chalk`
+      {yellow.bold The following ${
+        steps.length === 1 ? "step is" : "steps are"
+      } optional.}
 
       ${steps.join("\n\n")}
-    `,
+    `)
   );
-}
+};

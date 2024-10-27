@@ -1,11 +1,13 @@
-import prettier from "../../config/prettier-entry.js";
+"use strict";
+
+const prettier = require("prettier-local");
 const {
+  concat,
   join,
   hardline,
   literalline,
   group,
   fill,
-  line,
   lineSuffix,
   breakParent,
   ifBreak,
@@ -13,20 +15,59 @@ const {
   align,
 } = prettier.doc.builders;
 
+// TODO: Make these builders to use array if possible in 3.0.0
 describe("doc builders", () => {
   test.each([
-    ["concat", ["1", "2"], ["1", "2"]],
-    ["join", join(["1"], ["2", ["3"]]), ["2", ["1"], ["3"]]],
-    ["hardline", hardline, [{ type: "line", hard: true }, breakParent]],
+    ["concat", concat(["1", "2"]), { type: "concat", parts: ["1", "2"] }],
+    [
+      "join",
+      join(concat(["1"]), ["2", concat(["3"])]),
+      {
+        type: "concat",
+        parts: [
+          "2",
+          { type: "concat", parts: ["1"] },
+          { type: "concat", parts: ["3"] },
+        ],
+      },
+    ],
+    [
+      "join(array)",
+      join(["1"], ["2", concat(["3"])]),
+      { type: "concat", parts: ["2", ["1"], { type: "concat", parts: ["3"] }] },
+    ],
+    [
+      "hardline",
+      hardline,
+      { type: "concat", parts: [{ type: "line", hard: true }, breakParent] },
+    ],
     [
       "literalline",
       literalline,
-      [{ type: "line", hard: true, literal: true }, breakParent],
+      {
+        type: "concat",
+        parts: [{ type: "line", hard: true, literal: true }, breakParent],
+      },
     ],
     [
       "group",
+      group(concat(["1"])),
+      {
+        // [prettierx] for --space-in-parens option support (...)
+        addedLine: false,
+        type: "group",
+        id: undefined,
+        contents: { type: "concat", parts: ["1"] },
+        break: false,
+        expandedStates: undefined,
+      },
+    ],
+    [
+      "group (array)",
       group(["1"]),
       {
+        // [prettierx] for --space-in-parens option support (...)
+        addedLine: false,
         type: "group",
         id: undefined,
         contents: ["1"],
@@ -34,9 +75,17 @@ describe("doc builders", () => {
         expandedStates: undefined,
       },
     ],
-    ["fill", fill(["1", line, "2"]), { type: "fill", parts: ["1", line, "2"] }],
+    ["fill", fill(["1", "2"]), { type: "fill", parts: ["1", "2"] }],
     [
       "line-suffix",
+      lineSuffix(concat(["1"])),
+      {
+        type: "line-suffix",
+        contents: { type: "concat", parts: ["1"] },
+      },
+    ],
+    [
+      "line-suffix(array)",
       lineSuffix(["1"]),
       {
         type: "line-suffix",
@@ -45,16 +94,24 @@ describe("doc builders", () => {
     ],
     [
       "if-break",
-      ifBreak(["1"], ["2"]),
+      ifBreak(concat(["1"]), ["2"]),
       {
         type: "if-break",
-        breakContents: ["1"],
+        breakContents: { type: "concat", parts: ["1"] },
         flatContents: ["2"],
         groupId: undefined,
       },
     ],
     [
       "indent",
+      indent(concat(["1"])),
+      {
+        type: "indent",
+        contents: { type: "concat", parts: ["1"] },
+      },
+    ],
+    [
+      "indent(array)",
       indent(["1"]),
       {
         type: "indent",
@@ -63,6 +120,15 @@ describe("doc builders", () => {
     ],
     [
       "align",
+      align("  ", concat(["1"])),
+      {
+        type: "align",
+        contents: { type: "concat", parts: ["1"] },
+        n: "  ",
+      },
+    ],
+    [
+      "align(array)",
       align("  ", ["1"]),
       {
         type: "align",

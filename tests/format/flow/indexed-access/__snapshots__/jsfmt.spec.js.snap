@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`indexed-access.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+const x: Obj['bar'] = 1;
+
+type A = (T & S)['bar'];
+type B = (T | S)['bar'];
+type C = (?T)['bar'];
+type D = (typeof x)['bar'];
+type E = (string => void)['bar'];
+
+=====================================output=====================================
+const x: Obj["bar"] = 1;
+
+type A = (T & S)["bar"];
+type B = (T | S)["bar"];
+type C = (?T)["bar"];
+type D = (typeof x)["bar"];
+type E = ((string) => void)["bar"];
+
+================================================================================
+`;

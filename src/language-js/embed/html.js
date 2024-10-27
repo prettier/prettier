@@ -1,21 +1,18 @@
-import {
-  group,
-  hardline,
-  indent,
-  label,
-  line,
-} from "../../document/builders.js";
-import { mapDoc } from "../../document/utils.js";
-import {
+"use strict";
+
+const {
+  builders: { indent, line, hardline, group },
+  utils: { mapDoc },
+} = require("../../document");
+const {
   printTemplateExpressions,
   uncookTemplateElementValue,
-} from "../print/template-literal.js";
-import { hasLanguageComment, isAngularComponentTemplate } from "./utils.js";
+} = require("../print/template-literal");
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
-async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
-  const { node } = path;
+function format(path, print, textToDoc, options, { parser }) {
+  const node = path.getValue();
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
 
@@ -26,23 +23,28 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     .map((quasi, index, quasis) =>
       index === quasis.length - 1
         ? quasi.value.cooked
-        : quasi.value.cooked + composePlaceholder(index),
+        : quasi.value.cooked + composePlaceholder(index)
     )
     .join("");
 
-  const expressionDocs = printTemplateExpressions(path, print);
+  // [prettierx] --template-curly-spacing option support (...)
+  const expressionDocs = printTemplateExpressions(path, print, options);
+  if (expressionDocs.length === 0 && text.trim().length === 0) {
+    return "``";
+  }
 
-  const placeholderRegex = new RegExp(
-    composePlaceholder(String.raw`(\d+)`),
-    "gu",
-  );
+  const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
   let topLevelCount = 0;
-  const doc = await textToDoc(text, {
-    parser,
-    __onHtmlRoot(root) {
-      topLevelCount = root.children.length;
+  const doc = textToDoc(
+    text,
+    {
+      parser,
+      __onHtmlRoot(root) {
+        topLevelCount = root.children.length;
+      },
     },
-  });
+    { stripTrailingHardline: true }
+  );
 
   const contentDoc = mapDoc(doc, (doc) => {
     if (typeof doc !== "string") {
@@ -59,10 +61,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
         if (component) {
           component = uncookTemplateElementValue(component);
           if (options.__embeddedInHtml) {
-            component = component.replaceAll(
-              /<\/(?=script\b)/giu,
-              String.raw`<\/`,
-            );
+            component = component.replace(/<\/(script)\b/gi, "<\\/$1");
           }
           parts.push(component);
         }
@@ -76,61 +75,27 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     return parts;
   });
 
-  const leadingWhitespace = /^\s/u.test(text) ? " " : "";
-  const trailingWhitespace = /\s$/u.test(text) ? " " : "";
+  const leadingWhitespace = /^\s/.test(text) ? " " : "";
+  const trailingWhitespace = /\s$/.test(text) ? " " : "";
 
   const linebreak =
     options.htmlWhitespaceSensitivity === "ignore"
       ? hardline
       : leadingWhitespace && trailingWhitespace
-        ? line
-        : null;
+      ? line
+      : null;
 
   if (linebreak) {
     return group(["`", indent([linebreak, group(contentDoc)]), linebreak, "`"]);
   }
 
-  return label(
-    { hug: false },
-    group([
-      "`",
-      leadingWhitespace,
-      topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
-      trailingWhitespace,
-      "`",
-    ]),
-  );
+  return group([
+    "`",
+    leadingWhitespace,
+    topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
+    trailingWhitespace,
+    "`",
+  ]);
 }
 
-/**
- *     - html`...`
- *     - HTML comment block
- */
-function isHtml(path) {
-  return (
-    hasLanguageComment(path, "HTML") ||
-    path.match(
-      (node) => node.type === "TemplateLiteral",
-      (node, name) =>
-        node.type === "TaggedTemplateExpression" &&
-        node.tag.type === "Identifier" &&
-        node.tag.name === "html" &&
-        name === "quasi",
-    )
-  );
-}
-
-const printEmbedHtml = printEmbedHtmlLike.bind(undefined, "html");
-const printEmbedAngular = printEmbedHtmlLike.bind(undefined, "angular");
-
-function printHtml(path /*, options*/) {
-  if (isHtml(path)) {
-    return printEmbedHtml;
-  }
-
-  if (isAngularComponentTemplate(path)) {
-    return printEmbedAngular;
-  }
-}
-
-export default printHtml;
+module.exports = format;

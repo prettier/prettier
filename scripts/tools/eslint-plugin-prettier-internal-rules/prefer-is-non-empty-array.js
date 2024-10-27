@@ -99,7 +99,7 @@ module.exports = {
           fix(fixer) {
             return fixer.replaceTextRange(
               [start, end],
-              `isNonEmptyArray(${objectText})`,
+              `isNonEmptyArray(${objectText})`
             );
           },
         });
@@ -141,7 +141,7 @@ module.exports = {
           fix(fixer) {
             return fixer.replaceTextRange(
               [start, end],
-              `!isNonEmptyArray(${objectText})`,
+              `!isNonEmptyArray(${objectText})`
             );
           },
         });

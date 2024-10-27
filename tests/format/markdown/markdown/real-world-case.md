@@ -1,5 +1,6 @@
 # Prettier
 
+[![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
 [![Build Status](https://travis-ci.org/prettier/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
 [![Codecov](https://img.shields.io/codecov/c/github/prettier/prettier.svg)](https://codecov.io/gh/prettier/prettier)
 [![NPM version](https://img.shields.io/npm/v/prettier.svg)](https://www.npmjs.com/package/prettier)
@@ -455,7 +456,7 @@ This is similar to the `--list-different` parameter in the CLI and is useful for
 `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
 This is useful for editor integrations, to prevent the cursor from moving when code is formatted.
 
-The `cursorOffset` option should be provided, to specify where the cursor is.
+The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
 
 ```js
 prettier.formatWithCursor(" 1", { cursorOffset: 2 });
@@ -636,6 +637,8 @@ These two options can be used to format code starting and ending at a given char
 * Backwards to the start of the first line containing the selected statement.
 * Forwards to the end of the selected statement.
 
+These options cannot be used with `cursorOffset`.
+
 Default | CLI Override | API Override
 --------|--------------|-------------
 `0`        | `--range-start <int>`| `rangeStart: <int>`
@@ -778,7 +781,7 @@ For more information on how to use the CLI to locate a file, see the [CLI](#cli)
 
 ### Configuration Schema
 
-If you'd like a JSON schema to validate your configuration, one is available here: https://json.schemastore.org/prettierrc.
+If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
 
 ## Editor Integration
 

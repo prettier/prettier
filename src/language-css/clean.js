@@ -1,4 +1,7 @@
-import isFrontMatter from "../utils/front-matter/is-front-matter.js";
+"use strict";
+
+const { isFrontMatterNode } = require("../common/util");
+const getLast = require("../utils/get-last");
 
 const ignoredProperties = new Set([
   "raw", // front-matter
@@ -8,206 +11,170 @@ const ignoredProperties = new Set([
   "before",
   "after",
   "trailingComma",
-  "spaces",
 ]);
 
-function clean(original, cloned, parent) {
-  if (isFrontMatter(original) && original.language === "yaml") {
-    delete cloned.value;
+function clean(ast, newObj, parent) {
+  if (isFrontMatterNode(ast) && ast.lang === "yaml") {
+    delete newObj.value;
   }
 
   if (
-    original.type === "css-comment" &&
+    ast.type === "css-comment" &&
     parent.type === "css-root" &&
     parent.nodes.length > 0
   ) {
     // --insert-pragma
     // first non-front-matter comment
     if (
-      parent.nodes[0] === original ||
-      (isFrontMatter(parent.nodes[0]) && parent.nodes[1] === original)
+      parent.nodes[0] === ast ||
+      (isFrontMatterNode(parent.nodes[0]) && parent.nodes[1] === ast)
     ) {
       /**
        * something
        *
        * @format
        */
-      delete cloned.text;
+      delete newObj.text;
 
       // standalone pragma
-      if (/^\*\s*@(?:format|prettier)\s*$/u.test(original.text)) {
+      if (/^\*\s*@(format|prettier)\s*$/.test(ast.text)) {
         return null;
       }
     }
 
     // Last comment is not parsed, when omitting semicolon, #8675
-    if (parent.type === "css-root" && parent.nodes.at(-1) === original) {
+    if (parent.type === "css-root" && getLast(parent.nodes) === ast) {
       return null;
     }
   }
 
-  if (original.type === "value-root") {
-    delete cloned.text;
+  if (ast.type === "value-root") {
+    delete newObj.text;
   }
 
   if (
-    original.type === "media-query" ||
-    original.type === "media-query-list" ||
-    original.type === "media-feature-expression"
+    ast.type === "media-query" ||
+    ast.type === "media-query-list" ||
+    ast.type === "media-feature-expression"
   ) {
-    delete cloned.value;
+    delete newObj.value;
   }
 
-  if (original.type === "css-rule") {
-    delete cloned.params;
+  if (ast.type === "css-rule") {
+    delete newObj.params;
   }
 
-  if (
-    (original.type === "media-feature" ||
-      original.type === "media-keyword" ||
-      original.type === "media-type" ||
-      original.type === "media-unknown" ||
-      original.type === "media-url" ||
-      original.type === "media-value" ||
-      original.type === "selector-attribute" ||
-      original.type === "selector-string" ||
-      original.type === "selector-class" ||
-      original.type === "selector-combinator" ||
-      original.type === "value-string") &&
-    original.value
-  ) {
-    cloned.value = cleanCSSStrings(original.value);
+  if (ast.type === "selector-combinator") {
+    newObj.value = newObj.value.replace(/\s+/g, " ");
   }
 
-  if (original.type === "selector-combinator") {
-    cloned.value = cloned.value.replaceAll(/\s+/gu, " ");
-  }
-
-  if (original.type === "media-feature") {
-    cloned.value = cloned.value.replaceAll(" ", "");
+  if (ast.type === "media-feature") {
+    newObj.value = newObj.value.replace(/ /g, "");
   }
 
   if (
-    (original.type === "value-word" &&
-      ((original.isColor && original.isHex) ||
+    (ast.type === "value-word" &&
+      ((ast.isColor && ast.isHex) ||
         ["initial", "inherit", "unset", "revert"].includes(
-          original.value.toLowerCase(),
+          newObj.value.replace().toLowerCase()
         ))) ||
-    original.type === "media-feature" ||
-    original.type === "selector-root-invalid" ||
-    original.type === "selector-pseudo"
+    ast.type === "media-feature" ||
+    ast.type === "selector-root-invalid" ||
+    ast.type === "selector-pseudo"
   ) {
-    cloned.value = cloned.value.toLowerCase();
+    newObj.value = newObj.value.toLowerCase();
   }
-  if (original.type === "css-decl") {
-    cloned.prop = original.prop.toLowerCase();
+  if (ast.type === "css-decl") {
+    newObj.prop = newObj.prop.toLowerCase();
   }
-  if (original.type === "css-atrule" || original.type === "css-import") {
-    cloned.name = original.name.toLowerCase();
+  if (ast.type === "css-atrule" || ast.type === "css-import") {
+    newObj.name = newObj.name.toLowerCase();
   }
-  if (original.type === "value-number") {
-    cloned.unit = original.unit.toLowerCase();
+  if (ast.type === "value-number") {
+    newObj.unit = newObj.unit.toLowerCase();
   }
-  if (original.type === "value-unknown") {
-    cloned.value = cloned.value.replaceAll(/;$/gu, "");
+  if (ast.type === "value-unknown") {
+    newObj.value = newObj.value.replace(/;$/g, "");
   }
 
-  if (original.type === "selector-attribute") {
-    cloned.attribute = original.attribute.trim();
+  if (
+    (ast.type === "media-feature" ||
+      ast.type === "media-keyword" ||
+      ast.type === "media-type" ||
+      ast.type === "media-unknown" ||
+      ast.type === "media-url" ||
+      ast.type === "media-value" ||
+      ast.type === "selector-attribute" ||
+      ast.type === "selector-string" ||
+      ast.type === "selector-class" ||
+      ast.type === "selector-combinator" ||
+      ast.type === "value-string") &&
+    newObj.value
+  ) {
+    newObj.value = cleanCSSStrings(newObj.value);
+  }
 
-    if (original.namespace && typeof original.namespace === "string") {
-      cloned.namespace = original.namespace.trim() || true;
+  if (ast.type === "selector-attribute") {
+    newObj.attribute = newObj.attribute.trim();
+
+    if (newObj.namespace) {
+      if (typeof newObj.namespace === "string") {
+        newObj.namespace = newObj.namespace.trim();
+
+        if (newObj.namespace.length === 0) {
+          newObj.namespace = true;
+        }
+      }
     }
 
-    if (original.value) {
-      cloned.value = cloned.value.trim().replaceAll(/^["']|["']$/gu, "");
-      delete cloned.quoted;
+    if (newObj.value) {
+      newObj.value = newObj.value.trim().replace(/^["']|["']$/g, "");
+      delete newObj.quoted;
     }
   }
 
   if (
-    (original.type === "media-value" ||
-      original.type === "media-type" ||
-      original.type === "value-number" ||
-      original.type === "selector-root-invalid" ||
-      original.type === "selector-class" ||
-      original.type === "selector-combinator" ||
-      original.type === "selector-tag") &&
-    original.value
+    (ast.type === "media-value" ||
+      ast.type === "media-type" ||
+      ast.type === "value-number" ||
+      ast.type === "selector-root-invalid" ||
+      ast.type === "selector-class" ||
+      ast.type === "selector-combinator" ||
+      ast.type === "selector-tag") &&
+    newObj.value
   ) {
-    cloned.value = cloned.value.replaceAll(
-      /([\d+.e-]+)([a-z]*)/giu,
+    newObj.value = newObj.value.replace(
+      /([\d+.Ee-]+)([A-Za-z]*)/g,
       (match, numStr, unit) => {
         const num = Number(numStr);
         return Number.isNaN(num) ? match : num + unit.toLowerCase();
-      },
+      }
     );
   }
 
-  if (original.type === "selector-tag") {
-    const lowercasedValue = cloned.value.toLowerCase();
+  if (ast.type === "selector-tag") {
+    const lowercasedValue = ast.value.toLowerCase();
 
     if (["from", "to"].includes(lowercasedValue)) {
-      cloned.value = lowercasedValue;
+      newObj.value = lowercasedValue;
     }
   }
 
   // Workaround when `postcss-values-parser` parse `not`, `and` or `or` keywords as `value-func`
-  if (
-    original.type === "css-atrule" &&
-    original.name.toLowerCase() === "supports"
-  ) {
-    delete cloned.value;
+  if (ast.type === "css-atrule" && ast.name.toLowerCase() === "supports") {
+    delete newObj.value;
   }
 
   // Workaround for SCSS nested properties
-  if (original.type === "selector-unknown") {
-    delete cloned.value;
-  }
-
-  // Workaround for SCSS arbitrary arguments
-  if (original.type === "value-comma_group") {
-    const index = original.groups.findIndex(
-      (node) => node.type === "value-number" && node.unit === "...",
-    );
-
-    if (index !== -1) {
-      cloned.groups[index].unit = "";
-      cloned.groups.splice(index + 1, 0, {
-        type: "value-word",
-        value: "...",
-        isColor: false,
-        isHex: false,
-      });
-    }
-  }
-
-  // We parse `@var[ foo ]` and `@var[foo]` differently
-  if (
-    original.type === "value-comma_group" &&
-    original.groups.some(
-      (node) =>
-        (node.type === "value-atword" && node.value.endsWith("[")) ||
-        (node.type === "value-word" && node.value.startsWith("]")),
-    )
-  ) {
-    return {
-      type: "value-atword",
-      value: original.groups.map((node) => node.value).join(""),
-      group: {
-        open: null,
-        close: null,
-        groups: [],
-        type: "value-paren_group",
-      },
-    };
+  if (ast.type === "selector-unknown") {
+    delete newObj.value;
   }
 }
 
 clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
-  return value.replaceAll("'", '"').replaceAll(/\\([^\da-f])/giu, "$1");
+  return value.replace(/'/g, '"').replace(/\\([^\dA-Fa-f])/g, "$1");
 }
 
-export default clean;
+module.exports = clean;

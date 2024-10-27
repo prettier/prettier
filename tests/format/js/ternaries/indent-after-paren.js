@@ -199,7 +199,6 @@ bifornCringerMoshedPerplexSawder =
     kochabCooieGameOnOboleUnweave === Math.PI
       ? averredBathersBoxroomBuggyNurl
       : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo));
-// TODO(rattrayalex): try to fix this case
 
 bifornCringerMoshedPerplexSawder = (
   glimseGlyphsHazardNoopsTieTie === 0 &&

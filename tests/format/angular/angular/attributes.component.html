@@ -1,8 +1,8 @@
 <div
-    bindon-target=" a | b : c:d :e "
-    [(target)]=" a | b : c:d :e "
-    bind-target=" a | b : c:d :e "
-    [target]=" a | b : c:d :e "
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+    [target]=" a | b : c "
     [target]=" a | pipe   "
     [target]=" 0 - 1 "
     [target]=" - 1 "
@@ -13,10 +13,10 @@
     [target]=" [ 1 ] "
     [target]=" { 'a' : 1 } "
     [target]=" { a : 1 } "
-    [target]=" {
+    [target]=" { 
       trailingComma : 'notAllowed'
     }"
-    [target]=" [
+    [target]=" [ 
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
     [target]=" true "
@@ -33,8 +33,6 @@
     [target]=" a "
     [target]=" a // hello "
     [target]=" a . b "
-    [target]=" a ?. b "
-    [target]=" a ?. [b] "
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
@@ -47,8 +45,6 @@
     (target)=" a ; b "
     (event)="  0  "
     (event)="  a.b  "
-    (event)="  a   ?.b  "
-    (event)="  a?.[  b]  "
     (event)="  hello  "
     (event)="  hello()  "
     (event)="  a && b  "
@@ -93,14 +89,14 @@
     test='{{ "test" | translate }}'
     test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
     test='foo
-
+    
     {{       invalid
-             invalid       }}
-
-    bar
-
-          {{       valid       }}
-
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
     baz'
     i18n="Normal i18n text"
     i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"

@@ -3,7 +3,7 @@
 exports[`include plugin's parsers to the values of the \`parser\` option\` (stderr) 1`] = `""`;
 
 exports[`include plugin's parsers to the values of the \`parser\` option\` (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
 
   Which parser to use.
 
@@ -14,7 +14,6 @@ Valid options:
   babel-flow       Flow
   babel-ts         TypeScript
   typescript       TypeScript
-  acorn            JavaScript
   espree           JavaScript
   meriyah          JavaScript
   css              CSS
@@ -22,7 +21,6 @@ Valid options:
   scss             SCSS
   json             JSON
   json5            JSON5
-  jsonc            JSON with Comments
   json-stringify   JSON.stringify
   graphql          GraphQL
   markdown         Markdown
@@ -33,10 +31,11 @@ Valid options:
   html             HTML
   angular          Angular
   lwc              Lightning Web Components
-  foo-parser       foo (plugin: ./plugin.cjs)"
+  foo-parser       foo (plugin: ./plugin)
+"
 `;
 
-exports[`include plugin's parsers to the values of the \`parser\` option\` (write) 1`] = `[]`;
+exports[`include plugin's parsers to the values of the \`parser\` option\` (write) 1`] = `Array []`;
 
 exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;
 
@@ -50,31 +49,38 @@ Valid options:
   bar   bar description
   baz   baz description
 
-Default: bar"
+Default: bar
+"
 `;
 
-exports[`show detailed external option with \`--help foo-option\` (write) 1`] = `[]`;
+exports[`show detailed external option with \`--help foo-option\` (write) 1`] = `Array []`;
 
 exports[`show external options with \`--help\` 1`] = `
 "Snapshot Diff:
 - First value
 + Second value
 
-@@ -24,16 +24,18 @@
+@@ -36,10 +36,12 @@
     --end-of-line <lf|crlf|cr|auto>
                              Which end of line characters to apply.
                              Defaults to lf.
-    --no-experimental-ternaries
-                             Default behavior of ternaries; keep question marks on the same line as the consequent.
+    --no-export-curly-spacing
+                             Disable spaces between export curly braces.
 +   --foo-option <bar|baz>   foo description
 +                            Defaults to bar.
-    --html-whitespace-sensitivity <css|strict|ignore>
-                             How to handle whitespaces in HTML.
-                             Defaults to css.
-    --jsx-single-quote       Use single quotes in JSX.
+    --generator-star-spacing Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
                              Defaults to false.
--   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
-+   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
+    --no-graphql-curly-spacing
+                             Do not put spaces between curly braces for GraphQL.
+    --html-void-tags         Format void HTML elements as void tags.
+@@ -60,11 +62,11 @@
+    --no-object-curly-spacing
+                             Disable spaces between object curly braces.
+    --offset-ternary-expressions
+                             Indent and align ternary expression branches more consistently with \\"Standard JS\\" (similar to the corresponding eslint option).
+                             Defaults to false.
+-   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
++   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
                              Which parser to use.
     --print-width <int>      The line length where Prettier will try wrap.
                              Defaults to 80.

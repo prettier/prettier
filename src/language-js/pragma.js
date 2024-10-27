@@ -1,6 +1,8 @@
-import { extract, parseWithComments, print, strip } from "jest-docblock";
-import { normalizeEndOfLine } from "../common/end-of-line.js";
-import getShebang from "./utils/get-shebang.js";
+"use strict";
+
+const { parseWithComments, strip, extract, print } = require("jest-docblock");
+const { getShebang } = require("../common/util");
+const { normalizeEndOfLine } = require("../common/end-of-line");
 
 function parseDocBlock(text) {
   const shebang = getShebang(text);
@@ -15,15 +17,15 @@ function parseDocBlock(text) {
 }
 
 function hasPragma(text) {
-  const { pragmas } = parseDocBlock(text);
-  return Object.hasOwn(pragmas, "prettier") || Object.hasOwn(pragmas, "format");
+  const pragmas = Object.keys(parseDocBlock(text).pragmas);
+  return pragmas.includes("prettier") || pragmas.includes("format");
 }
 
 function insertPragma(originalText) {
   const { shebang, text, pragmas, comments } = parseDocBlock(originalText);
   const strippedText = strip(text);
 
-  let docBlock = print({
+  const docBlock = print({
     pragmas: {
       format: "",
       ...pragmas,
@@ -31,19 +33,16 @@ function insertPragma(originalText) {
     comments: comments.trimStart(),
   });
 
-  // normalise newlines (mitigate use of os.EOL by jest-docblock)
-  // Only needed in development version on Windows,
-  // bundler will hack `jest-docblock` enforce it to use `\n` in production
-  if (process.env.NODE_ENV !== "production") {
-    docBlock = normalizeEndOfLine(docBlock);
-  }
-
   return (
     (shebang ? `${shebang}\n` : "") +
-    docBlock +
+    // normalise newlines (mitigate use of os.EOL by jest-docblock)
+    normalizeEndOfLine(docBlock) +
     (strippedText.startsWith("\n") ? "\n" : "\n\n") +
     strippedText
   );
 }
 
-export { hasPragma, insertPragma };
+module.exports = {
+  hasPragma,
+  insertPragma,
+};

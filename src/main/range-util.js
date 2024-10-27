@@ -1,11 +1,10 @@
-import assert from "node:assert";
-import { getSortedChildNodes } from "./comments/attach.js";
+"use strict";
+
+const assert = require("assert");
+const comments = require("./comments");
 
 const isJsonParser = ({ parser }) =>
-  parser === "json" ||
-  parser === "json5" ||
-  parser === "jsonc" ||
-  parser === "json-stringify";
+  parser === "json" || parser === "json5" || parser === "json-stringify";
 
 function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
   const startNodeAndAncestors = [
@@ -17,27 +16,27 @@ function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
     ...endNodeAndParents.parentNodes,
   ]);
   return startNodeAndAncestors.find(
-    (node) =>
-      jsonSourceElements.has(node.type) && endNodeAndAncestors.has(node),
+    (node) => jsonSourceElements.has(node.type) && endNodeAndAncestors.has(node)
   );
 }
 
 function dropRootParents(parents) {
-  const index = parents.findLastIndex(
-    (node) => node.type !== "Program" && node.type !== "File",
-  );
-
-  if (index === -1) {
-    return parents;
+  let lastParentIndex = parents.length - 1;
+  for (;;) {
+    const parent = parents[lastParentIndex];
+    if (parent && (parent.type === "Program" || parent.type === "File")) {
+      lastParentIndex--;
+    } else {
+      break;
+    }
   }
-
-  return parents.slice(0, index + 1);
+  return parents.slice(0, lastParentIndex + 1);
 }
 
 function findSiblingAncestors(
   startNodeAndParents,
   endNodeAndParents,
-  { locStart, locEnd },
+  { locStart, locEnd }
 ) {
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
@@ -65,9 +64,6 @@ function findSiblingAncestors(
     } else {
       break;
     }
-    if (resultStartNode === resultEndNode) {
-      break;
-    }
   }
 
   return {
@@ -82,7 +78,7 @@ function findNodeAtOffset(
   options,
   predicate,
   parentNodes = [],
-  type,
+  type
 ) {
   const { locStart, locEnd } = options;
   const start = locStart(node);
@@ -97,14 +93,14 @@ function findNodeAtOffset(
     return;
   }
 
-  for (const childNode of getSortedChildNodes(node, options)) {
+  for (const childNode of comments.getSortedChildNodes(node, options)) {
     const childResult = findNodeAtOffset(
       childNode,
       offset,
       options,
       predicate,
       [node, ...parentNodes],
-      type,
+      type
     );
     if (childResult) {
       return childResult;
@@ -135,7 +131,6 @@ function isJsSourceElement(type, parentType) {
 }
 
 const jsonSourceElements = new Set([
-  "JsonRoot",
   "ObjectExpression",
   "ArrayExpression",
   "StringLiteral",
@@ -164,7 +159,7 @@ const graphqlSourceElements = new Set([
   "ScalarTypeDefinition",
 ]);
 function isSourceElement(opts, node, parentNode) {
-  /* c8 ignore next 3 */
+  /* istanbul ignore next */
   if (!node) {
     return false;
   }
@@ -174,14 +169,13 @@ function isSourceElement(opts, node, parentNode) {
     case "babel-flow":
     case "babel-ts":
     case "typescript":
-    case "acorn":
     case "espree":
     case "meriyah":
     case "__babel_estree":
-      return isJsSourceElement(node.type, parentNode?.type);
+    case "__typescript_estree": // [prettierx] parser option for testing
+      return isJsSourceElement(node.type, parentNode && parentNode.type);
     case "json":
     case "json5":
-    case "jsonc":
     case "json-stringify":
       return jsonSourceElements.has(node.type);
     case "graphql":
@@ -197,12 +191,12 @@ function calculateRange(text, opts, ast) {
   assert.ok(end > start);
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
-  const firstNonWhitespaceCharacterIndex = text.slice(start, end).search(/\S/u);
+  const firstNonWhitespaceCharacterIndex = text.slice(start, end).search(/\S/);
   const isAllWhitespace = firstNonWhitespaceCharacterIndex === -1;
   if (!isAllWhitespace) {
     start += firstNonWhitespaceCharacterIndex;
     for (; end > start; --end) {
-      if (/\S/u.test(text[end - 1])) {
+      if (/\S/.test(text[end - 1])) {
         break;
       }
     }
@@ -214,7 +208,7 @@ function calculateRange(text, opts, ast) {
     opts,
     (node, parentNode) => isSourceElement(opts, node, parentNode),
     [],
-    "rangeStart",
+    "rangeStart"
   );
   const endNodeAndParents =
     // No need find Node at `end`, it will be the same as `startNodeAndParents`
@@ -226,7 +220,7 @@ function calculateRange(text, opts, ast) {
           opts,
           (node) => isSourceElement(opts, node),
           [],
-          "rangeEnd",
+          "rangeEnd"
         );
   if (!startNodeAndParents || !endNodeAndParents) {
     return {
@@ -240,7 +234,7 @@ function calculateRange(text, opts, ast) {
   if (isJsonParser(opts)) {
     const commonAncestor = findCommonAncestor(
       startNodeAndParents,
-      endNodeAndParents,
+      endNodeAndParents
     );
     startNode = commonAncestor;
     endNode = commonAncestor;
@@ -248,7 +242,7 @@ function calculateRange(text, opts, ast) {
     ({ startNode, endNode } = findSiblingAncestors(
       startNodeAndParents,
       endNodeAndParents,
-      opts,
+      opts
     ));
   }
 
@@ -258,4 +252,7 @@ function calculateRange(text, opts, ast) {
   };
 }
 
-export { calculateRange };
+module.exports = {
+  calculateRange,
+  findNodeAtOffset,
+};

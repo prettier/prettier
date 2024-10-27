@@ -1,9 +1,17 @@
-function locStart(nodeOrToken) {
-  return nodeOrToken.loc.start;
+"use strict";
+
+function locStart(node) {
+  if (typeof node.start === "number") {
+    return node.start;
+  }
+  return node.loc && node.loc.start;
 }
 
-function locEnd(nodeOrToken) {
-  return nodeOrToken.loc.end;
+function locEnd(node) {
+  if (typeof node.end === "number") {
+    return node.end;
+  }
+  return node.loc && node.loc.end;
 }
 
-export { locEnd, locStart };
+module.exports = { locStart, locEnd };

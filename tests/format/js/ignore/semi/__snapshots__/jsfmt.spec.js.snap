@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`directive.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// prettier-ignore
+'use strict';
+[].forEach();
+
+function foo() {
+// prettier-ignore
+'use strict';
+[].forEach();
+}
+
+=====================================output=====================================
+// prettier-ignore
+'use strict';
+;[].forEach()
+
+function foo() {
+  // prettier-ignore
+  'use strict';
+  ;[].forEach()
+}
+
+================================================================================
+`;
+
+exports[`directive.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// prettier-ignore
+'use strict';
+[].forEach();
+
+function foo() {
+// prettier-ignore
+'use strict';
+[].forEach();
+}
+
+=====================================output=====================================
+// prettier-ignore
+'use strict';
+[].forEach();
+
+function foo() {
+  // prettier-ignore
+  'use strict';
+  [].forEach();
+}
+
+================================================================================
+`;

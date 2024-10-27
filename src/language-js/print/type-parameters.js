@@ -1,57 +1,30 @@
-import {
-  group,
-  hardline,
-  ifBreak,
-  indent,
-  indentIfBreak,
-  join,
-  line,
-  lineSuffixBoundary,
-  softline,
-} from "../../document/builders.js";
-import { printDanglingComments } from "../../main/comments/print.js";
-import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
-import {
-  CommentCheckFlags,
-  getFunctionParameters,
-  hasComment,
-  isObjectType,
-  isTestCall,
-  shouldPrintComma,
-} from "../utils/index.js";
-import { isArrowFunctionVariableDeclarator } from "./assignment.js";
-import { printTypeScriptMappedTypeModifier } from "./mapped-type.js";
-import {
-  printTypeAnnotationProperty,
-  shouldHugType,
-} from "./type-annotation.js";
+"use strict";
 
-/**
- * @import {Doc} from "../../document/builders.js"
- * @import AstPath from "../../common/ast-path.js"
- */
+const { printDanglingComments } = require("../../main/comments");
+const {
+  builders: { join, line, hardline, softline, group, indent, ifBreak },
+} = require("../../document");
+const {
+  isTestCall,
+  hasComment,
+  CommentCheckFlags,
+  isTSXFile,
+  shouldPrintComma,
+  getFunctionParameters,
+} = require("../utils");
+const { createGroupIdMapper } = require("../../common/util");
+const { shouldHugType } = require("./type-annotation");
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
-// Keep comma if the file extension not `.ts` and
-// has one type parameter that isn't extend with any types.
-// Because, otherwise formatted result will be invalid as tsx.
-function shouldForceTrailingComma(path, options, paramsKey) {
-  const { node } = path;
-  return (
-    getFunctionParameters(node).length === 1 &&
-    node.type.startsWith("TS") &&
-    !node[paramsKey][0].constraint &&
-    path.parent.type === "ArrowFunctionExpression" &&
-    !(options.filepath && /\.ts$/u.test(options.filepath))
-  );
-}
-
-/**
- * @param {AstPath} path
- */
 function printTypeParameters(path, options, print, paramsKey) {
-  const { node } = path;
+  const node = path.getValue();
+
+  // [prettierx] typeAngleBracketSpacing option support (...)
+  const typeAngleBracketSpace = options.typeAngleBracketSpacing ? " " : "";
+  const typeAngleBracketLine = options.typeAngleBracketSpacing
+    ? line
+    : softline;
 
   if (!node[paramsKey]) {
     return "";
@@ -62,64 +35,77 @@ function printTypeParameters(path, options, print, paramsKey) {
     return print(paramsKey);
   }
 
-  const isParameterInTestCall = isTestCall(path.grandparent);
-
-  const isArrowFunctionVariable = path.match(
-    (node) =>
-      !(node[paramsKey].length === 1 && isObjectType(node[paramsKey][0])),
-    undefined,
-    (node, name) => name === "typeAnnotation",
-    (node) => node.type === "Identifier",
-    isArrowFunctionVariableDeclarator,
-  );
+  const grandparent = path.getNode(2);
+  const isParameterInTestCall = grandparent && isTestCall(grandparent);
 
   const shouldInline =
+    isParameterInTestCall ||
     node[paramsKey].length === 0 ||
-    (!isArrowFunctionVariable &&
-      (isParameterInTestCall ||
-        (node[paramsKey].length === 1 &&
-          (node[paramsKey][0].type === "NullableTypeAnnotation" ||
-            shouldHugType(node[paramsKey][0])))));
+    (node[paramsKey].length === 1 &&
+      (shouldHugType(node[paramsKey][0]) ||
+        node[paramsKey][0].type === "NullableTypeAnnotation"));
 
   if (shouldInline) {
+    // [prettierx] typeAngleBracketSpacing option support (...)
     return [
       "<",
+      // [prettierx] typeAngleBracketSpacing option support (...)
+      typeAngleBracketSpace,
       join(", ", path.map(print, paramsKey)),
+      // [prettierx] typeAngleBracketSpacing option support (...)
+      typeAngleBracketSpace,
       printDanglingCommentsForInline(path, options),
       ">",
     ];
   }
 
+  // Keep comma if the file extension is .tsx and
+  // has one type parameter that isn't extend with any types.
+  // Because, otherwise formatted result will be invalid as tsx.
   const trailingComma =
     node.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
       ? ""
-      : shouldForceTrailingComma(path, options, paramsKey)
-        ? ","
-        : shouldPrintComma(options)
-          ? ifBreak(",")
-          : "";
+      : getFunctionParameters(node).length === 1 &&
+        isTSXFile(options) &&
+        !node[paramsKey][0].constraint &&
+        path.getParentNode().type === "ArrowFunctionExpression"
+      ? ","
+      : shouldPrintComma(options, "all")
+      ? ifBreak(",")
+      : "";
 
   return group(
+    // [prettierx] typeAngleBracketSpacing option support (...)
     [
       "<",
-      indent([softline, join([",", line], path.map(print, paramsKey))]),
+      // [prettierx] typeAngleBracketSpacing option support (...)
+      indent([
+        // [prettierx] typeAngleBracketSpacing option support (...)
+        typeAngleBracketLine,
+        // [prettierx] keep break after comma here,
+        // regardless of typeAngleBracketSpacing option (...)
+        join([",", line], path.map(print, paramsKey)),
+      ]),
       trailingComma,
-      softline,
+      // [prettierx] typeAngleBracketSpacing option support (...)
+      typeAngleBracketLine,
       ">",
     ],
-    { id: getTypeParametersGroupId(node) },
+    { id: getTypeParametersGroupId(node) }
   );
 }
 
 function printDanglingCommentsForInline(path, options) {
-  const { node } = path;
+  const node = path.getValue();
   if (!hasComment(node, CommentCheckFlags.Dangling)) {
     return "";
   }
   const hasOnlyBlockComments = !hasComment(node, CommentCheckFlags.Line);
-  const printed = printDanglingComments(path, options, {
-    indent: !hasOnlyBlockComments,
-  });
+  const printed = printDanglingComments(
+    path,
+    options,
+    /* sameIndent */ hasOnlyBlockComments
+  );
   if (hasOnlyBlockComments) {
     return printed;
   }
@@ -127,33 +113,26 @@ function printDanglingCommentsForInline(path, options) {
 }
 
 function printTypeParameter(path, options, print) {
-  const { node, parent } = path;
-
-  /**
-   * @type {Doc[]}
-   */
-  const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
-
-  const name = node.type === "TSTypeParameter" ? print("name") : node.name;
-
+  const node = path.getValue();
+  const parts = [];
+  const parent = path.getParentNode();
   if (parent.type === "TSMappedType") {
-    if (parent.readonly) {
-      parts.push(
-        printTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
-        " ",
-      );
-    }
-    parts.push("[", name);
+    // [prettierx] typeBracketSpacing option support (...)
+    const typeBracketSpace = options.typeBracketSpacing ? " " : "";
+
+    // [prettierx] typeBracketSpacing option support (...)
+    parts.push("[", typeBracketSpace, print("name"));
     if (node.constraint) {
       parts.push(" in ", print("constraint"));
     }
     if (parent.nameType) {
       parts.push(
         " as ",
-        path.callParent(() => print("nameType")),
+        path.callParent(() => print("nameType"))
       );
     }
-    parts.push("]");
+    // [prettierx] typeBracketSpacing option support (...)
+    parts.push(typeBracketSpace, "]");
     return parts;
   }
 
@@ -161,39 +140,25 @@ function printTypeParameter(path, options, print) {
     parts.push(print("variance"));
   }
 
-  if (node.in) {
-    parts.push("in ");
-  }
-
-  if (node.out) {
-    parts.push("out ");
-  }
-
-  parts.push(name);
+  parts.push(print("name"));
 
   if (node.bound) {
-    if (node.usesExtendsBound) {
-      parts.push(" extends ");
-    }
-
-    parts.push(printTypeAnnotationProperty(path, print, "bound"));
+    parts.push(": ", print("bound"));
   }
 
   if (node.constraint) {
-    const groupId = Symbol("constraint");
-    parts.push(
-      " extends",
-      group(indent(line), { id: groupId }),
-      lineSuffixBoundary,
-      indentIfBreak(print("constraint"), { groupId }),
-    );
+    parts.push(" extends ", print("constraint"));
   }
 
   if (node.default) {
     parts.push(" = ", print("default"));
   }
 
-  return group(parts);
+  return parts;
 }
 
-export { getTypeParametersGroupId, printTypeParameter, printTypeParameters };
+module.exports = {
+  printTypeParameter,
+  printTypeParameters,
+  getTypeParametersGroupId,
+};

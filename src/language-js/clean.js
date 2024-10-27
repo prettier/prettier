@@ -1,9 +1,6 @@
-import {
-  isArrayOrTupleExpression,
-  isNumericLiteral,
-  isStringLiteral,
-} from "./utils/index.js";
-import isBlockComment from "./utils/is-block-comment.js";
+"use strict";
+
+const { isBlockComment } = require("./utils");
 
 const ignoredProperties = new Set([
   "range",
@@ -27,39 +24,46 @@ const removeTemplateElementsValue = (node) => {
   }
 };
 
-function clean(original, cloned, parent) {
-  if (original.type === "Program") {
-    delete cloned.sourceType;
+function clean(ast, newObj, parent) {
+  if (ast.type === "Program") {
+    delete newObj.sourceType;
   }
 
   if (
-    (original.type === "BigIntLiteral" ||
-      original.type === "BigIntLiteralTypeAnnotation") &&
-    original.value
+    ast.type === "BigIntLiteral" ||
+    ast.type === "BigIntLiteralTypeAnnotation"
   ) {
-    cloned.value = original.value.toLowerCase();
+    if (newObj.value) {
+      newObj.value = newObj.value.toLowerCase();
+    }
   }
-  if (
-    (original.type === "BigIntLiteral" || original.type === "Literal") &&
-    original.bigint
-  ) {
-    cloned.bigint = original.bigint.toLowerCase();
+  if (ast.type === "BigIntLiteral" || ast.type === "Literal") {
+    if (newObj.bigint) {
+      newObj.bigint = newObj.bigint.toLowerCase();
+    }
+  }
+
+  if (ast.type === "DecimalLiteral") {
+    newObj.value = Number(newObj.value);
+  }
+  if (ast.type === "Literal" && newObj.decimal) {
+    newObj.decimal = Number(newObj.decimal);
   }
 
   // We remove extra `;` and add them when needed
-  if (original.type === "EmptyStatement") {
+  if (ast.type === "EmptyStatement") {
     return null;
   }
 
   // We move text around, including whitespaces and add {" "}
-  if (original.type === "JSXText") {
+  if (ast.type === "JSXText") {
     return null;
   }
   if (
-    original.type === "JSXExpressionContainer" &&
-    (original.expression.type === "Literal" ||
-      original.expression.type === "StringLiteral") &&
-    original.expression.value === " "
+    ast.type === "JSXExpressionContainer" &&
+    (ast.expression.type === "Literal" ||
+      ast.expression.type === "StringLiteral") &&
+    ast.expression.value === " "
   ) {
     return null;
   }
@@ -68,37 +72,33 @@ function clean(original, cloned, parent) {
   // And {key: value} into {'key': value}.
   // Also for (some) number keys.
   if (
-    (original.type === "Property" ||
-      original.type === "ObjectProperty" ||
-      original.type === "MethodDefinition" ||
-      original.type === "ClassProperty" ||
-      original.type === "ClassMethod" ||
-      original.type === "PropertyDefinition" ||
-      original.type === "TSDeclareMethod" ||
-      original.type === "TSPropertySignature" ||
-      original.type === "ObjectTypeProperty" ||
-      original.type === "ImportAttribute") &&
-    original.key &&
-    !original.computed
+    (ast.type === "Property" ||
+      ast.type === "ObjectProperty" ||
+      ast.type === "MethodDefinition" ||
+      ast.type === "ClassProperty" ||
+      ast.type === "ClassMethod" ||
+      ast.type === "PropertyDefinition" ||
+      ast.type === "TSDeclareMethod" ||
+      ast.type === "TSPropertySignature" ||
+      ast.type === "ObjectTypeProperty") &&
+    typeof ast.key === "object" &&
+    ast.key &&
+    (ast.key.type === "Literal" ||
+      ast.key.type === "NumericLiteral" ||
+      ast.key.type === "StringLiteral" ||
+      ast.key.type === "Identifier")
   ) {
-    const { key } = original;
-    if (isStringLiteral(key) || isNumericLiteral(key)) {
-      cloned.key = String(key.value);
-    } else if (key.type === "Identifier") {
-      cloned.key = key.name;
-    }
+    delete newObj.key;
   }
 
   // Remove raw and cooked values from TemplateElement when it's CSS
   // styled-jsx
   if (
-    original.type === "JSXElement" &&
-    original.openingElement.name.name === "style" &&
-    original.openingElement.attributes.some(
-      (attr) => attr.type === "JSXAttribute" && attr.name.name === "jsx",
-    )
+    ast.type === "JSXElement" &&
+    ast.openingElement.name.name === "style" &&
+    ast.openingElement.attributes.some((attr) => attr.name.name === "jsx")
   ) {
-    for (const { type, expression } of cloned.children) {
+    for (const { type, expression } of newObj.children) {
       if (
         type === "JSXExpressionContainer" &&
         expression.type === "TemplateLiteral"
@@ -110,42 +110,40 @@ function clean(original, cloned, parent) {
 
   // CSS template literals in css prop
   if (
-    original.type === "JSXAttribute" &&
-    original.name.name === "css" &&
-    original.value.type === "JSXExpressionContainer" &&
-    original.value.expression.type === "TemplateLiteral"
+    ast.type === "JSXAttribute" &&
+    ast.name.name === "css" &&
+    ast.value.type === "JSXExpressionContainer" &&
+    ast.value.expression.type === "TemplateLiteral"
   ) {
-    removeTemplateElementsValue(cloned.value.expression);
+    removeTemplateElementsValue(newObj.value.expression);
   }
 
   // We change quotes
   if (
-    original.type === "JSXAttribute" &&
-    original.value?.type === "Literal" &&
-    /["']|&quot;|&apos;/u.test(original.value.value)
+    ast.type === "JSXAttribute" &&
+    ast.value &&
+    ast.value.type === "Literal" &&
+    /["']|&quot;|&apos;/.test(ast.value.value)
   ) {
-    cloned.value.value = original.value.value.replaceAll(
-      /["']|&quot;|&apos;/gu,
-      '"',
-    );
+    newObj.value.value = newObj.value.value.replace(/["']|&quot;|&apos;/g, '"');
   }
 
   // Angular Components: Inline HTML template and Inline CSS styles
-  const expression = original.expression || original.callee;
+  const expression = ast.expression || ast.callee;
   if (
-    original.type === "Decorator" &&
+    ast.type === "Decorator" &&
     expression.type === "CallExpression" &&
     expression.callee.name === "Component" &&
     expression.arguments.length === 1
   ) {
-    const astProps = original.expression.arguments[0].properties;
+    const astProps = ast.expression.arguments[0].properties;
     for (const [
       index,
       prop,
-    ] of cloned.expression.arguments[0].properties.entries()) {
+    ] of newObj.expression.arguments[0].properties.entries()) {
       switch (astProps[index].key.name) {
         case "styles":
-          if (isArrayOrTupleExpression(prop.value)) {
+          if (prop.value.type === "ArrayExpression") {
             removeTemplateElementsValue(prop.value.elements[0]);
           }
           break;
@@ -160,65 +158,58 @@ function clean(original, cloned, parent) {
 
   // styled-components, graphql, markdown
   if (
-    original.type === "TaggedTemplateExpression" &&
-    (original.tag.type === "MemberExpression" ||
-      (original.tag.type === "Identifier" &&
-        (original.tag.name === "gql" ||
-          original.tag.name === "graphql" ||
-          original.tag.name === "css" ||
-          original.tag.name === "md" ||
-          original.tag.name === "markdown" ||
-          original.tag.name === "html")) ||
-      original.tag.type === "CallExpression")
+    ast.type === "TaggedTemplateExpression" &&
+    (ast.tag.type === "MemberExpression" ||
+      (ast.tag.type === "Identifier" &&
+        (ast.tag.name === "gql" ||
+          ast.tag.name === "graphql" ||
+          ast.tag.name === "css" ||
+          ast.tag.name === "md" ||
+          ast.tag.name === "markdown" ||
+          ast.tag.name === "html")) ||
+      ast.tag.type === "CallExpression")
   ) {
-    removeTemplateElementsValue(cloned.quasi);
+    removeTemplateElementsValue(newObj.quasi);
   }
-  if (original.type === "TemplateLiteral") {
+  if (ast.type === "TemplateLiteral") {
     // This checks for a leading comment that is exactly `/* GraphQL */`
     // In order to be in line with other implementations of this comment tag
     // we will not trim the comment value and we will expect exactly one space on
     // either side of the GraphQL string
     // Also see ./embed.js
-    const hasLanguageComment = original.leadingComments?.some(
-      (comment) =>
-        isBlockComment(comment) &&
-        ["GraphQL", "HTML"].some(
-          (languageName) => comment.value === ` ${languageName} `,
-        ),
-    );
+    const hasLanguageComment =
+      ast.leadingComments &&
+      ast.leadingComments.some(
+        (comment) =>
+          isBlockComment(comment) &&
+          ["GraphQL", "HTML"].some(
+            (languageName) => comment.value === ` ${languageName} `
+          )
+      );
     if (
       hasLanguageComment ||
       (parent.type === "CallExpression" && parent.callee.name === "graphql") ||
       // TODO: check parser
       // `flow` and `typescript` don't have `leadingComments`
-      !original.leadingComments
+      !ast.leadingComments
     ) {
-      removeTemplateElementsValue(cloned);
+      removeTemplateElementsValue(newObj);
     }
   }
 
-  // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently
+  if (ast.type === "InterpreterDirective") {
+    newObj.value = newObj.value.trimEnd();
+  }
+
+  // Prettier removes degenerate union and intersection types with only one member.
   if (
-    original.type === "ChainExpression" &&
-    original.expression.type === "TSNonNullExpression"
+    (ast.type === "TSIntersectionType" || ast.type === "TSUnionType") &&
+    ast.types.length === 1
   ) {
-    // Ideally, we should swap these two nodes, but `type` is the only difference
-    cloned.type = "TSNonNullExpression";
-    cloned.expression.type = "ChainExpression";
-  }
-
-  // `@typescript-eslint/typescript-estree` v8
-  if (original.type === "TSMappedType") {
-    delete cloned.key;
-    delete cloned.constraint;
-  }
-
-  // `@typescript-eslint/typescript-estree` v8
-  if (original.type === "TSEnumDeclaration") {
-    delete cloned.body;
+    return newObj.types[0];
   }
 }
 
 clean.ignoredProperties = ignoredProperties;
 
-export default clean;
+module.exports = clean;

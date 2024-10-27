@@ -1,92 +1,134 @@
-import coreOptions from "./core-options.evaluate.js";
+"use strict";
+
+const semver = {
+  compare: require("semver/functions/compare"),
+  lt: require("semver/functions/lt"),
+  gte: require("semver/functions/gte"),
+};
+const arrayify = require("../utils/arrayify");
+// [prettierx] read info from package.json:
+const pkg = require("../../package.json");
+const coreOptions = require("./core-options").options;
+
+// [prettierx] get info from package.json:
+const currentVersion = pkg["prettier-version"];
 
 /**
- * @import {OptionInfo} from "./core-options.evaluate.js"
- * @typedef {{ name: string; pluginDefaults: Array<any> } & OptionInfo} NamedOptionInfo
- */
-
-/**
- * Strings in `plugins` are handled by a wrapped version
+ * Strings in `plugins` and `pluginSearchDirs` are handled by a wrapped version
  * of this function created by `withPlugins`. Don't pass them here directly.
  * @param {object} param0
  * @param {(string | object)[]=} param0.plugins Strings are resolved by `withPlugins`.
+ * @param {string[]=} param0.pluginSearchDirs Added by `withPlugins`.
+ * @param {boolean=} param0.showUnreleased
  * @param {boolean=} param0.showDeprecated
- * @return {{ languages: Array<any>, options: Array<NamedOptionInfo> }}
+ * @param {boolean=} param0.showInternal
  */
-function getSupportInfo({ plugins = [], showDeprecated = false } = {}) {
-  const languages = plugins.flatMap((plugin) => plugin.languages ?? []);
+function getSupportInfo({
+  plugins = [],
+  showUnreleased = false,
+  showDeprecated = false,
+  showInternal = false,
+} = {}) {
+  // pre-release version is smaller than the normal version in semver,
+  // we need to treat it as the normal one so as to test new features.
+  const version = currentVersion.split("-", 1)[0];
 
-  const options = [];
-  for (const option of normalizeOptionSettings(
+  const languages = plugins
+    .flatMap((plugin) => plugin.languages || [])
+    .filter(filterSince);
+
+  const options = arrayify(
     Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
-  )) {
-    if (!showDeprecated && option.deprecated) {
-      continue;
-    }
+    "name"
+  )
+    .filter((option) => filterSince(option) && filterDeprecated(option))
+    .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
+    .map(mapInternal)
+    .map((option) => {
+      option = { ...option };
 
-    if (Array.isArray(option.choices)) {
-      if (!showDeprecated) {
-        option.choices = option.choices.filter((choice) => !choice.deprecated);
+      if (Array.isArray(option.default)) {
+        option.default =
+          option.default.length === 1
+            ? option.default[0].value
+            : option.default
+                .filter(filterSince)
+                .sort((info1, info2) =>
+                  semver.compare(info2.since, info1.since)
+                )[0].value;
       }
 
-      if (option.name === "parser") {
-        option.choices = [
-          ...option.choices,
-          ...collectParsersFromLanguages(option.choices, languages, plugins),
-        ];
+      if (Array.isArray(option.choices)) {
+        option.choices = option.choices.filter(
+          (option) => filterSince(option) && filterDeprecated(option)
+        );
+
+        if (option.name === "parser") {
+          collectParsersFromLanguages(option, languages, plugins);
+        }
       }
-    }
 
-    option.pluginDefaults = Object.fromEntries(
-      plugins
-        .filter((plugin) => plugin.defaultOptions?.[option.name] !== undefined)
-        .map((plugin) => [plugin.name, plugin.defaultOptions[option.name]]),
-    );
+      const pluginDefaults = Object.fromEntries(
+        plugins
+          .filter(
+            (plugin) =>
+              plugin.defaultOptions &&
+              plugin.defaultOptions[option.name] !== undefined
+          )
+          .map((plugin) => [plugin.name, plugin.defaultOptions[option.name]])
+      );
 
-    options.push(option);
-  }
+      return { ...option, pluginDefaults };
+    });
 
   return { languages, options };
+
+  function filterSince(object) {
+    return (
+      showUnreleased ||
+      !("since" in object) ||
+      (object.since && semver.gte(version, object.since))
+    );
+  }
+
+  function filterDeprecated(object) {
+    return (
+      showDeprecated ||
+      !("deprecated" in object) ||
+      (object.deprecated && semver.lt(version, object.deprecated))
+    );
+  }
+
+  function mapInternal(object) {
+    if (showInternal) {
+      return object;
+    }
+    const { cliName, cliCategory, cliDescription, ...newObject } = object;
+    return newObject;
+  }
 }
 
-function* collectParsersFromLanguages(parserChoices, languages, plugins) {
-  const existingParsers = new Set(parserChoices.map((choice) => choice.value));
-
+function collectParsersFromLanguages(option, languages, plugins) {
+  const existingValues = new Set(option.choices.map((choice) => choice.value));
   for (const language of languages) {
     if (language.parsers) {
-      for (const parserName of language.parsers) {
-        if (!existingParsers.has(parserName)) {
-          existingParsers.add(parserName);
+      for (const value of language.parsers) {
+        if (!existingValues.has(value)) {
+          existingValues.add(value);
           const plugin = plugins.find(
-            (plugin) =>
-              plugin.parsers && Object.hasOwn(plugin.parsers, parserName),
+            (plugin) => plugin.parsers && plugin.parsers[value]
           );
-
           let description = language.name;
-          if (plugin?.name) {
+          if (plugin && plugin.name) {
             description += ` (plugin: ${plugin.name})`;
           }
-          yield { value: parserName, description };
+          option.choices.push({ value, description });
         }
       }
     }
   }
 }
 
-function normalizeOptionSettings(settings) {
-  const options = [];
-  for (const [name, originalOption] of Object.entries(settings)) {
-    const option = { name, ...originalOption };
-
-    // This work this way because we used support `[{value: [], since: '0.0.0'}]`
-    if (Array.isArray(option.default)) {
-      option.default = option.default.at(-1).value;
-    }
-
-    options.push(option);
-  }
-
-  return options;
-}
-
-export { getSupportInfo, normalizeOptionSettings };
+module.exports = {
+  getSupportInfo,
+};

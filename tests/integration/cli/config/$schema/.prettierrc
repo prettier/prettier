@@ -1,4 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/prettierrc",
+  "$schema": "http://json.schemastore.org/prettierrc",
   "tabWidth": 42
 }

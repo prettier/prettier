@@ -1,17 +1,20 @@
-import prettier from "../../config/prettier-entry.js";
+"use strict";
 
-test("API getSupportInfo()", async () => {
-  expect(await getCoreInfo()).toMatchSnapshot();
+const prettier = require("prettier-local");
+const runPrettier = require("../runPrettier");
+
+test("API getSupportInfo()", () => {
+  expect(getCoreInfo()).toMatchSnapshot();
 });
 
 describe("CLI --support-info", () => {
-  runCli("cli", "--support-info").test({ status: 0 });
+  runPrettier("cli", "--support-info").test({ status: 0 });
 });
 
-async function getCoreInfo() {
-  const supportInfo = await prettier.getSupportInfo();
+function getCoreInfo() {
+  const supportInfo = prettier.getSupportInfo();
   const languages = Object.fromEntries(
-    supportInfo.languages.map(({ name, parsers }) => [name, parsers]),
+    supportInfo.languages.map(({ name, parsers }) => [name, parsers])
   );
 
   const options = Object.fromEntries(
@@ -23,10 +26,10 @@ async function getCoreInfo() {
         ...(option.type === "int"
           ? { range: option.range }
           : option.type === "choice"
-            ? { choices: option.choices.map((choice) => choice.value) }
-            : null),
+          ? { choices: option.choices.map((choice) => choice.value) }
+          : null),
       },
-    ]),
+    ])
   );
 
   return { languages, options };

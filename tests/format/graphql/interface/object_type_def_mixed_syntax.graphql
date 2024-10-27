@@ -1,4 +1,4 @@
-type MixedArtist implements Node& Entity & Releasable {
+type MixedArtist implements Node, Entity & Releasable {
   # The ID of an object
   id: ID!
 

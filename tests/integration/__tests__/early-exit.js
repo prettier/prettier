@@ -1,29 +1,47 @@
-import prettier from "../../config/prettier-entry.js";
+"use strict";
+
+const prettier = require("prettier-local");
+const runPrettier = require("../runPrettier");
+const { isProduction } = require("../env");
+
+// [prettierx] fork name from package.json
+const { name } = require("../../../package.json");
 
 describe("show version with --version", () => {
-  runCli("cli/with-shebang", ["--version"]).test({
-    stdout: prettier.version,
+  runPrettier("cli/with-shebang", ["--version"]).test({
+    stdout: prettier.version + "\n",
     status: 0,
   });
 });
 
 describe("show usage with --help", () => {
-  runCli("cli", ["--help"]).test({
+  runPrettier("cli", ["--help"]).test({
     status: 0,
   });
 });
 
 describe("show detailed usage with --help l (alias)", () => {
-  runCli("cli", ["--help", "l"]).test({
+  runPrettier("cli", ["--help", "l"]).test({
+    status: 0,
+  });
+});
+
+describe("show detailed usage with plugin options (automatic resolution)", () => {
+  runPrettier("plugins/automatic", [
+    "--help",
+    "tab-width",
+    "--parser=bar",
+    "--plugin-search-dir=.",
+  ]).test({
     status: 0,
   });
 });
 
 describe("show detailed usage with plugin options (manual resolution)", () => {
-  runCli("cli", [
+  runPrettier("cli", [
     "--help",
     "tab-width",
-    "--plugin=../plugins/automatic/node_modules/prettier-plugin-bar/index.js",
+    "--plugin=../plugins/automatic/node_modules/prettier-plugin-bar",
     "--parser=bar",
   ]).test({
     status: 0,
@@ -31,13 +49,13 @@ describe("show detailed usage with plugin options (manual resolution)", () => {
 });
 
 describe("throw error with --help not-found", () => {
-  runCli("cli", ["--help", "not-found"]).test({
+  runPrettier("cli", ["--help", "not-found"]).test({
     status: 1,
   });
 });
 
 describe("show warning with --help not-found (typo)", () => {
-  runCli("cli", [
+  runPrettier("cli", [
     "--help",
     // cspell:disable-next-line
     "parserr",
@@ -47,31 +65,57 @@ describe("show warning with --help not-found (typo)", () => {
 });
 
 describe("throw error with --check + --list-different", () => {
-  runCli("cli", ["--check", "--list-different"]).test({
+  runPrettier("cli", ["--check", "--list-different"]).test({
     status: 1,
   });
 });
 
 describe("throw error with --write + --debug-check", () => {
-  runCli("cli", ["--write", "--debug-check"]).test({
+  runPrettier("cli", ["--write", "--debug-check"]).test({
     status: 1,
   });
 });
 
 describe("throw error with --find-config-path + multiple files", () => {
-  runCli("cli", ["--find-config-path", "abc.js", "def.js"]).test({
+  runPrettier("cli", ["--find-config-path", "abc.js", "def.js"]).test({
     status: 1,
   });
 });
 
 describe("throw error with --file-info + multiple files", () => {
-  runCli("cli", ["--file-info", "abc.js", "def.js"]).test({
+  runPrettier("cli", ["--file-info", "abc.js", "def.js"]).test({
     status: 1,
   });
 });
 
 describe("throw error and show usage with something unexpected", () => {
-  runCli("cli", [], { isTTY: true }).test({
+  runPrettier("cli", [], { isTTY: true }).test({
     status: "non-zero",
   });
+});
+
+test("node version error", async () => {
+  const originalProcessVersion = process.version;
+
+  try {
+    Object.defineProperty(process, "version", {
+      value: "v8.0.0",
+      writable: false,
+    });
+    const result = runPrettier("cli", ["--help"]);
+    expect(await result.status).toBe(1);
+    expect(await result.stderr).toBe(
+      // [prettierx] fork name from package.json
+      `${name} requires at least version ${
+        isProduction ? "10.13.0" : "12.17.0"
+      } of Node, please upgrade\n`
+    );
+    expect(await result.stdout).toBe("");
+    expect(await result.write).toEqual([]);
+  } finally {
+    Object.defineProperty(process, "version", {
+      value: originalProcessVersion,
+      writable: false,
+    });
+  }
 });

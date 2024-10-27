@@ -1,8 +1,7 @@
-import path from "node:path";
-import createEsmUtils from "esm-utils";
-import { outdent } from "outdent";
+"use strict";
 
-const { __dirname, __filename } = createEsmUtils(import.meta);
+const path = require("path");
+const { outdent } = require("outdent");
 
 const TESTS_ROOT = path.join(__dirname, "../../format");
 
@@ -26,16 +25,16 @@ const categoryParsers = new Map([
     "flow",
     {
       parsers: ["flow", "babel-flow"],
-      verifyParsers: ["flow", "babel-flow", "typescript", "babel-ts"],
-      extensions: [".js", ".cjs", ".mjs"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".js"],
     },
   ],
   [
     "flow-repo",
     {
       parsers: ["flow", "babel-flow"],
-      verifyParsers: ["flow", "babel-flow", "typescript", "babel-ts"],
-      extensions: [".js", ".cjs", ".mjs"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".js"],
     },
   ],
   [
@@ -46,58 +45,48 @@ const categoryParsers = new Map([
     "handlebars",
     { parsers: ["glimmer"], verifyParsers: [], extensions: [".hbs"] },
   ],
-  [
-    "html",
-    { parsers: ["html"], verifyParsers: [], extensions: [".html", ".svg"] },
-  ],
+  ["html", { parsers: ["html"], verifyParsers: [], extensions: [".html"] }],
   ["mjml", { parsers: ["html"], verifyParsers: [], extensions: [".mjml"] }],
   [
     "js",
     {
-      parsers: ["babel", "acorn", "espree", "meriyah"],
+      parsers: ["babel", "meriyah", "espree"],
       verifyParsers: [
         "babel",
-        "acorn",
-        "espree",
         "meriyah",
+        "espree",
         "flow",
         "babel-flow",
         "typescript",
         "babel-ts",
+        // [prettierx] support __typescript_estree parser option for testing
+        "__typescript_estree",
       ],
-      extensions: [".js", ".cjs", ".mjs"],
+      extensions: [".js"],
     },
   ],
   [
     "json",
     {
-      parsers: ["json", "json5", "jsonc", "json-stringify"],
-      verifyParsers: ["json", "json5", "jsonc", "json-stringify"],
-      extensions: [".json", ".json5", ".jsonc"],
+      parsers: ["json", "json5", "json-stringify"],
+      verifyParsers: ["json", "json5", "json-stringify"],
+      extensions: [".json"],
     },
   ],
   [
     "jsx",
     {
-      parsers: [
-        "babel",
-        "meriyah",
-        "espree",
-        "flow",
-        "babel-flow",
-        "typescript",
-        "babel-ts",
-      ],
+      parsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      // [prettierx] support __typescript_estree parser option for testing
       verifyParsers: [
         "babel",
-        "meriyah",
-        "espree",
         "flow",
         "babel-flow",
         "typescript",
         "babel-ts",
+        "__typescript_estree",
       ],
-      extensions: [".js", ".jsx"],
+      extensions: [".js"],
     },
   ],
   [
@@ -130,8 +119,8 @@ const categoryParsers = new Map([
     "typescript",
     {
       parsers: ["typescript", "babel-ts"],
-      verifyParsers: ["typescript", "babel-ts", "flow", "babel-flow"],
-      extensions: [".ts", ".tsx", ".cts", ".mts"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".ts", ".tsx"],
     },
   ],
   [
@@ -171,8 +160,8 @@ const checkParser = ({ dirname, files }, parsers = []) => {
   if (verifyParsers.includes(parser)) {
     throw new Error(
       `verifyParsers ${JSON.stringify(
-        verifyParsers,
-      )} should not include parser "${parser}".`,
+        verifyParsers
+      )} should not include parser "${parser}".`
     );
   }
 
@@ -183,18 +172,18 @@ const checkParser = ({ dirname, files }, parsers = []) => {
       suggestCategories.length === 0
         ? ""
         : outdent`
-          Suggest move your tests to:
-          ${suggestCategories
-            .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
-            .join("\n")}
+            Suggest move your tests to:
+            ${suggestCategories
+              .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
+              .join("\n")}
 
-          Or config to allow use this parser in "${__filename}".
-        `;
+            Or config to allow use this parser in "${__filename}".
+          `;
 
     throw new Error(
       `Parser "${parser}" should not used in "${dirname}".${
         suggestion ? `\n\n${suggestion}` : ""
-      }`,
+      }`
     );
   }
 
@@ -205,7 +194,7 @@ const checkParser = ({ dirname, files }, parsers = []) => {
           outdent`
             Parser "${verifyParser}" should not used to verify in "${dirname}".
             Please remove it or config to allow use this parser in "${__filename}".
-          `,
+          `
         );
       }
     }
@@ -219,10 +208,10 @@ const checkParser = ({ dirname, files }, parsers = []) => {
           File "${name}" should not tested in "${dirname}".
           Allowed extensions: ${extensions.join(",")}.
           Please rename it or config to allow test "${ext}" file in "${__filename}".
-        `,
+        `
       );
     }
   }
 };
 
-export default checkParser;
+module.exports = checkParser;

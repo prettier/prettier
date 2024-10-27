@@ -1,6 +1,7 @@
 "use strict";
 
-const { findVariable } = require("@eslint-community/eslint-utils");
+// eslint-disable-next-line import/no-extraneous-dependencies
+const { findVariable } = require("eslint-utils");
 const ERROR = "error";
 const SUGGESTION = "suggestion";
 const selector = [
@@ -23,13 +24,12 @@ module.exports = {
       [SUGGESTION]: "Rename to `node`.",
     },
     fixable: "code",
-    hasSuggestions: true,
   },
   create(context) {
     const variables = new Map();
     return {
       [selector](node) {
-        const scope = context.sourceCode.getScope(node);
+        const scope = context.getScope();
         const variable = findVariable(scope, node);
 
         /* istanbul ignore next */
@@ -63,7 +63,12 @@ module.exports = {
 
             for (const identifier of identifiers) {
               const { parent } = identifier;
-              if (parent && parent.type === "Property" && parent.shorthand) {
+              if (
+                parent &&
+                parent.type === "Property" &&
+                parent.shorthand &&
+                parent.key === identifier
+              ) {
                 yield fixer.replaceText(identifier, "n: node");
               } else {
                 yield fixer.replaceText(identifier, "node");

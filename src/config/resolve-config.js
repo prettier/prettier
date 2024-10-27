@@ -1,97 +1,148 @@
-import path from "node:path";
-import micromatch from "micromatch";
-import { toPath } from "url-or-path";
-import partition from "../utils/partition.js";
-import {
-  clearEditorconfigCache,
-  loadEditorconfig as loadEditorconfigForFile,
-} from "./editorconfig/index.js";
-import {
-  clearPrettierConfigCache,
-  loadPrettierConfig as loadPrettierConfigFile,
-  searchPrettierConfig,
-} from "./prettier-config/index.js";
+"use strict";
 
-function clearCache() {
-  clearPrettierConfigCache();
-  clearEditorconfigCache();
+const path = require("path");
+const minimatch = require("minimatch");
+const mem = require("mem");
+const thirdParty = require("../common/third-party");
+
+const loadToml = require("../utils/load-toml");
+const loadJson5 = require("../utils/load-json5");
+const resolve = require("../common/resolve");
+const resolveEditorConfig = require("./resolve-config-editorconfig");
+
+const getExplorerMemoized = mem(
+  (opts) => {
+    const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
+    const explorer = cosmiconfig("prettier", {
+      cache: opts.cache,
+      transform: (result) => {
+        if (result && result.config) {
+          if (typeof result.config === "string") {
+            const dir = path.dirname(result.filepath);
+            const modulePath = resolve(result.config, { paths: [dir] });
+            result.config = require(modulePath);
+          }
+
+          if (typeof result.config !== "object") {
+            throw new Error(
+              "Config is only allowed to be an object, " +
+                `but received ${typeof result.config} in "${result.filepath}"`
+            );
+          }
+
+          delete result.config.$schema;
+        }
+        return result;
+      },
+      searchPlaces: [
+        "package.json",
+        ".prettierrc",
+        ".prettierrc.json",
+        ".prettierrc.yaml",
+        ".prettierrc.yml",
+        ".prettierrc.json5",
+        ".prettierrc.js",
+        ".prettierrc.cjs",
+        "prettier.config.js",
+        "prettier.config.cjs",
+        ".prettierrc.toml",
+      ],
+      loaders: {
+        ".toml": loadToml,
+        ".json5": loadJson5,
+      },
+    });
+
+    return explorer;
+  },
+  { cacheKey: JSON.stringify }
+);
+
+/** @param {{ cache: boolean, sync: boolean }} opts */
+function getExplorer(opts) {
+  // Normalize opts before passing to a memoized function
+  opts = { sync: false, cache: false, ...opts };
+  return getExplorerMemoized(opts);
 }
 
-function loadEditorconfig(file, options) {
-  if (!file || !options.editorconfig) {
-    return;
-  }
+function _resolveConfig(filePath, opts, sync) {
+  opts = { useCache: true, ...opts };
+  const loadOpts = {
+    cache: Boolean(opts.useCache),
+    sync: Boolean(sync),
+    editorconfig: Boolean(opts.editorconfig),
+  };
+  const { load, search } = getExplorer(loadOpts);
+  const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
+  const arr = [
+    opts.config ? load(opts.config) : search(filePath),
+    loadEditorConfig(filePath),
+  ];
 
-  const shouldCache = options.useCache;
-  return loadEditorconfigForFile(file, { shouldCache });
-}
+  const unwrapAndMerge = ([result, editorConfigured]) => {
+    const merged = {
+      ...editorConfigured,
+      ...mergeOverrides(result, filePath),
+    };
 
-async function loadPrettierConfig(file, options) {
-  const shouldCache = options.useCache;
-  let configFile = options.config;
+    for (const optionName of ["plugins", "pluginSearchDirs"]) {
+      if (Array.isArray(merged[optionName])) {
+        merged[optionName] = merged[optionName].map((value) =>
+          typeof value === "string" && value.startsWith(".") // relative path
+            ? path.resolve(path.dirname(result.filepath), value)
+            : value
+        );
+      }
+    }
 
-  if (!configFile) {
-    const directory = file ? path.dirname(path.resolve(file)) : undefined;
-    configFile = await searchPrettierConfig(directory, { shouldCache });
-  }
+    if (!result && !editorConfigured) {
+      return null;
+    }
 
-  if (!configFile) {
-    return;
-  }
-
-  const config = await loadPrettierConfigFile(configFile, { shouldCache });
-
-  return { config, configFile };
-}
-
-async function resolveConfig(fileUrlOrPath, options) {
-  options = { useCache: true, ...options };
-  const filePath = toPath(fileUrlOrPath);
-
-  const [result, editorConfigured] = await Promise.all([
-    loadPrettierConfig(filePath, options),
-    loadEditorconfig(filePath, options),
-  ]);
-
-  if (!result && !editorConfigured) {
-    return null;
-  }
-
-  const merged = {
-    ...editorConfigured,
-    ...mergeOverrides(result, filePath),
+    // We are not using this option
+    delete merged.insertFinalNewline;
+    return merged;
   };
 
-  if (Array.isArray(merged.plugins)) {
-    merged.plugins = merged.plugins.map((value) =>
-      typeof value === "string" && value.startsWith(".") // relative path
-        ? path.resolve(path.dirname(result.configFile), value)
-        : value,
-    );
+  if (loadOpts.sync) {
+    return unwrapAndMerge(arr);
   }
 
-  return merged;
+  return Promise.all(arr).then(unwrapAndMerge);
 }
 
-async function resolveConfigFile(fileUrlOrPath) {
-  const directory = fileUrlOrPath
-    ? path.dirname(path.resolve(toPath(fileUrlOrPath)))
-    : undefined;
-  const result = await searchPrettierConfig(directory, { shouldCache: false });
-  return result ?? null;
+const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
+
+resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
+
+function clearCache() {
+  mem.clear(getExplorerMemoized);
+  resolveEditorConfig.clearCache();
 }
+
+async function resolveConfigFile(filePath) {
+  const { search } = getExplorer({ sync: false });
+  const result = await search(filePath);
+  return result ? result.filepath : null;
+}
+
+resolveConfigFile.sync = (filePath) => {
+  const { search } = getExplorer({ sync: true });
+  const result = search(filePath);
+  return result ? result.filepath : null;
+};
 
 function mergeOverrides(configResult, filePath) {
-  const { config, configFile } = configResult || {};
+  const { config, filepath: configPath } = configResult || {};
   const { overrides, ...options } = config || {};
   if (filePath && overrides) {
-    const relativeFilePath = path.relative(path.dirname(configFile), filePath);
+    const relativeFilePath = path.relative(path.dirname(configPath), filePath);
     for (const override of overrides) {
       if (
         pathMatchesGlobs(
           relativeFilePath,
           override.files,
-          override.excludeFiles,
+          override.excludeFiles
         )
       ) {
         Object.assign(options, override.options);
@@ -103,26 +154,23 @@ function mergeOverrides(configResult, filePath) {
 }
 
 // Based on eslint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
-function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
+function pathMatchesGlobs(filePath, patterns, excludedPatterns = []) {
   const patternList = Array.isArray(patterns) ? patterns : [patterns];
-  // micromatch always matches against basename when the option is enabled
-  // use only patterns without slashes with it to match minimatch behavior
-  const [withSlashes, withoutSlashes] = partition(patternList, (pattern) =>
-    pattern.includes("/"),
-  );
+  const excludedPatternList = Array.isArray(excludedPatterns)
+    ? excludedPatterns
+    : [excludedPatterns];
+  const opts = { matchBase: true, dot: true };
 
   return (
-    micromatch.isMatch(filePath, withoutSlashes, {
-      ignore: excludedPatterns,
-      basename: true,
-      dot: true,
-    }) ||
-    micromatch.isMatch(filePath, withSlashes, {
-      ignore: excludedPatterns,
-      basename: false,
-      dot: true,
-    })
+    patternList.some((pattern) => minimatch(filePath, pattern, opts)) &&
+    !excludedPatternList.some((excludedPattern) =>
+      minimatch(filePath, excludedPattern, opts)
+    )
   );
 }
 
-export { clearCache, resolveConfig, resolveConfigFile };
+module.exports = {
+  resolveConfig,
+  resolveConfigFile,
+  clearCache,
+};

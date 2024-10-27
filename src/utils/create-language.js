@@ -1,39 +1,10 @@
-function assertUniqueArray(array, message) {
-  if (new Set(array).size === array.length) {
-    return;
-  }
+"use strict";
 
-  /* c8 ignore next */
-  throw new Error(message);
-}
-
-function createLanguage(linguistData, getOverrides) {
-  const { languageId, ...restData } = linguistData;
-  const overrides = getOverrides(linguistData);
-
-  if (process.env.NODE_ENV !== "production" && overrides) {
-    for (const property of [
-      "parsers",
-      "extensions",
-      "interpreters",
-      "filenames",
-    ]) {
-      const value = overrides[property];
-
-      if (value) {
-        assertUniqueArray(
-          value,
-          `Language property '${property}' should be unique.`,
-        );
-      }
-    }
-  }
-
+module.exports = function (linguistData, override) {
+  const { languageId, ...rest } = linguistData;
   return {
     linguistLanguageId: languageId,
-    ...restData,
-    ...overrides,
+    ...rest,
+    ...override(linguistData),
   };
-}
-
-export default createLanguage;
+};

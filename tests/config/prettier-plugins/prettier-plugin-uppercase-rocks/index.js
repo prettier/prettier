@@ -1,12 +1,8 @@
-import createPlugin from "../../utils/create-plugin.cjs";
+"use strict";
 
-const plugin = createPlugin({
+const createPlugin = require("../../utils/create-plugin");
+
+module.exports = createPlugin({
   name: "uppercase-rocks",
-  print: (text, options) =>
-    (options.parentParser && text.startsWith("\n")
-      ? text.slice(1)
-      : text
-    ).toUpperCase(),
+  print: (text) => text.toUpperCase(),
 });
-
-export default plugin;

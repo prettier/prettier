@@ -2,24 +2,31 @@
 
 exports[`cursorOffset should not be affected by full-width character (stdout) 1`] = `
 "const x = [
-  "中文",
-  "中文",
-  "中文",
-  "中文",
-  "中文",
-  "中文",
-  "中文",
-  "中文",
-  "中文",
-  "中文",
-  "中文",
-];"
+  \\"中文\\",
+  \\"中文\\",
+  \\"中文\\",
+  \\"中文\\",
+  \\"中文\\",
+  \\"中文\\",
+  \\"中文\\",
+  \\"中文\\",
+  \\"中文\\",
+  \\"中文\\",
+  \\"中文\\",
+];
+"
 `;
 
-exports[`cursorOffset should not be affected by full-width character (write) 1`] = `[]`;
+exports[`cursorOffset should not be affected by full-width character (write) 1`] = `Array []`;
 
-exports[`write cursorOffset to stderr with --cursor-offset <int> (stderr) 1`] = `"1"`;
+exports[`write cursorOffset to stderr with --cursor-offset <int> (stderr) 1`] = `
+"1
+"
+`;
 
-exports[`write cursorOffset to stderr with --cursor-offset <int> (stdout) 1`] = `"1;"`;
+exports[`write cursorOffset to stderr with --cursor-offset <int> (stdout) 1`] = `
+"1;
+"
+`;
 
-exports[`write cursorOffset to stderr with --cursor-offset <int> (write) 1`] = `[]`;
+exports[`write cursorOffset to stderr with --cursor-offset <int> (write) 1`] = `Array []`;

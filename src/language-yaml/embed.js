@@ -1,23 +1,16 @@
-import { hardline } from "../document/builders.js";
+"use strict";
 
-function embed(path, options) {
-  const { node } = path;
+function embed(path, print, textToDoc, options) {
+  const node = path.getValue();
 
-  // Try to format `.prettierrc`, `.stylelintrc`, and `.lintstagedrc` as `json` first
+  // Try to format `.prettierrc` as `json` first
   if (
     node.type === "root" &&
     options.filepath &&
-    /(?:[/\\]|^)\.(?:prettier|stylelint|lintstaged)rc$/u.test(options.filepath)
+    /(?:[/\\]|^)\.prettierrc$/.test(options.filepath)
   ) {
-    return async (textToDoc) => {
-      const doc = await textToDoc(options.originalText, { parser: "json" });
-      return doc ? [doc, hardline] : undefined;
-    };
+    return textToDoc(options.originalText, { ...options, parser: "json" });
   }
 }
 
-// Only "root" allow print as JSON
-// Use `[]` to prevent `printEmbeddedLanguages` traverse deep
-embed.getVisitorKeys = () => [];
-
-export default embed;
+module.exports = embed;

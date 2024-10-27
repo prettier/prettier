@@ -29,7 +29,3 @@ namespace X {
     const x = 1;
   }
 }
-
-namespace /* module */ X {}
-module /* namespace */ X {}
-module /* namespace */ "x" {}

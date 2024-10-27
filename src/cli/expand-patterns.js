@@ -1,37 +1,38 @@
-import path from "node:path";
-import { fastGlob } from "./prettier-internal.js";
-import { lstatSafe, normalizeToPosix } from "./utils.js";
+"use strict";
 
-/** @import {Context} from './context.js' */
+const path = require("path");
+const { promises: fs } = require("fs");
+const fastGlob = require("fast-glob");
+
+/** @typedef {import('./context').Context} Context */
 
 /**
  * @param {Context} context
  */
 async function* expandPatterns(context) {
+  const cwd = process.cwd();
   const seen = new Set();
   let noResults = true;
 
-  for await (const { filePath, ignoreUnknown, error } of expandPatternsInternal(
-    context,
-  )) {
+  for await (const pathOrError of expandPatternsInternal(context)) {
     noResults = false;
-    if (error) {
-      yield { error };
+    if (typeof pathOrError !== "string") {
+      yield pathOrError;
       continue;
     }
 
-    const filename = path.resolve(filePath);
+    const relativePath = path.relative(cwd, pathOrError);
 
     // filter out duplicates
-    if (seen.has(filename)) {
+    if (seen.has(relativePath)) {
       continue;
     }
 
-    seen.add(filename);
-    yield { filename, ignoreUnknown };
+    seen.add(relativePath);
+    yield relativePath;
   }
 
-  if (noResults && context.argv.errorOnUnmatchedPattern !== false) {
+  if (noResults && context.argv["error-on-unmatched-pattern"] !== false) {
     // If there was no files and no other errors, let's yield a general error.
     yield {
       error: `No matching files. Patterns: ${context.filePatterns.join(" ")}`,
@@ -44,16 +45,16 @@ async function* expandPatterns(context) {
  */
 async function* expandPatternsInternal(context) {
   // Ignores files in version control systems directories and `node_modules`
-  const silentlyIgnoredDirs = [".git", ".sl", ".svn", ".hg", ".jj"];
-  if (context.argv.withNodeModules !== true) {
+  const silentlyIgnoredDirs = [".git", ".svn", ".hg"];
+  if (context.argv["with-node-modules"] !== true) {
     silentlyIgnoredDirs.push("node_modules");
   }
   const globOptions = {
     dot: true,
     ignore: silentlyIgnoredDirs.map((dir) => "**/" + dir),
-    followSymbolicLinks: false,
   };
 
+  let supportedFilesGlob;
   const cwd = process.cwd();
 
   /** @type {Array<{ type: 'file' | 'dir' | 'glob'; glob: string; input: string; }>} */
@@ -66,19 +67,9 @@ async function* expandPatternsInternal(context) {
       continue;
     }
 
-    const stat = await lstatSafe(absolutePath);
+    const stat = await statSafe(absolutePath);
     if (stat) {
-      if (stat.isSymbolicLink()) {
-        if (context.argv.errorOnUnmatchedPattern !== false) {
-          yield {
-            error: `Explicitly specified pattern "${pattern}" is a symbolic link.`,
-          };
-        } else {
-          context.logger.debug(
-            `Skipping pattern "${pattern}", as it is a symbolic link.`,
-          );
-        }
-      } else if (stat.isFile()) {
+      if (stat.isFile()) {
         entries.push({
           type: "file",
           glob: escapePathForGlob(fixWindowsSlashes(pattern)),
@@ -91,12 +82,13 @@ async function* expandPatternsInternal(context) {
           it returns files like 'src/../index.js'
         */
         const relativePath = path.relative(cwd, absolutePath) || ".";
-        const prefix = escapePathForGlob(fixWindowsSlashes(relativePath));
         entries.push({
           type: "dir",
-          glob: `${prefix}/**/*`,
+          glob:
+            escapePathForGlob(fixWindowsSlashes(relativePath)) +
+            "/" +
+            getSupportedFilesGlob(),
           input: pattern,
-          ignoreUnknown: true,
         });
       }
     } else if (pattern[0] === "!") {
@@ -111,26 +103,41 @@ async function* expandPatternsInternal(context) {
     }
   }
 
-  for (const { type, glob, input, ignoreUnknown } of entries) {
+  for (const { type, glob, input } of entries) {
     let result;
 
     try {
       result = await fastGlob(glob, globOptions);
     } catch ({ message }) {
-      /* c8 ignore next 4 */
-      yield {
-        error: `${errorMessages.globError[type]}: "${input}".\n${message}`,
-      };
+      /* istanbul ignore next */
+      yield { error: `${errorMessages.globError[type]}: ${input}\n${message}` };
+      /* istanbul ignore next */
       continue;
     }
 
     if (result.length === 0) {
-      if (context.argv.errorOnUnmatchedPattern !== false) {
+      if (context.argv["error-on-unmatched-pattern"] !== false) {
         yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
       }
     } else {
-      yield* sortPaths(result).map((filePath) => ({ filePath, ignoreUnknown }));
+      yield* sortPaths(result);
     }
+  }
+
+  function getSupportedFilesGlob() {
+    if (!supportedFilesGlob) {
+      const extensions = context.languages.flatMap(
+        (lang) => lang.extensions || []
+      );
+      const filenames = context.languages.flatMap(
+        (lang) => lang.filenames || []
+      );
+      supportedFilesGlob = `**/{${[
+        ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
+        ...filenames,
+      ]}}`;
+    }
+    return supportedFilesGlob;
   }
 }
 
@@ -167,6 +174,22 @@ function sortPaths(paths) {
 }
 
 /**
+ * Get stats of a given path.
+ * @param {string} filePath The path to target file.
+ * @returns {Promise<import('fs').Stats | undefined>} The stats.
+ */
+async function statSafe(filePath) {
+  try {
+    return await fs.stat(filePath);
+  } catch (error) {
+    /* istanbul ignore next */
+    if (error.code !== "ENOENT") {
+      throw error;
+    }
+  }
+}
+
+/**
  * This function should be replaced with `fastGlob.escapePath` when these issues are fixed:
  * - https://github.com/mrmlnc/fast-glob/issues/261
  * - https://github.com/mrmlnc/fast-glob/issues/262
@@ -175,18 +198,26 @@ function sortPaths(paths) {
 function escapePathForGlob(path) {
   return fastGlob
     .escapePath(
-      path.replaceAll("\\", "\0"), // Workaround for fast-glob#262 (part 1)
+      path.replace(/\\/g, "\0") // Workaround for fast-glob#262 (part 1)
     )
-    .replaceAll(String.raw`\!`, "@(!)") // Workaround for fast-glob#261
-    .replaceAll("\0", String.raw`@(\\)`); // Workaround for fast-glob#262 (part 2)
+    .replace(/\\!/g, "@(!)") // Workaround for fast-glob#261
+    .replace(/\0/g, "@(\\\\)"); // Workaround for fast-glob#262 (part 2)
 }
+
+const isWindows = path.sep === "\\";
 
 /**
  * Using backslashes in globs is probably not okay, but not accepting
  * backslashes as path separators on Windows is even more not okay.
  * https://github.com/prettier/prettier/pull/6776#discussion_r380723717
  * https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
+ * @param {string} pattern
  */
-const fixWindowsSlashes = normalizeToPosix;
+function fixWindowsSlashes(pattern) {
+  return isWindows ? pattern.replace(/\\/g, "/") : pattern;
+}
 
-export { expandPatterns };
+module.exports = {
+  expandPatterns,
+  fixWindowsSlashes,
+};

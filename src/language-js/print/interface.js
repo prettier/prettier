@@ -1,23 +1,28 @@
-import { group, ifBreak, indent, join, line } from "../../document/builders.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { CommentCheckFlags, hasComment, identity } from "../utils/index.js";
-import { printDeclareToken } from "./misc.js";
-import { getTypeParametersGroupId } from "./type-parameters.js";
+"use strict";
 
-/**
- * @import {Doc} from "../../document/builders.js"
- */
+const { isNonEmptyArray } = require("../../common/util");
+const {
+  builders: { join, line, group, indent, ifBreak },
+} = require("../../document");
+const { hasComment, identity, CommentCheckFlags } = require("../utils");
+const { getTypeParametersGroupId } = require("./type-parameters");
+const { printTypeScriptModifiers } = require("./misc");
 
-/*
-- `TSInterfaceDeclaration`(TypeScript)
-- `DeclareInterface`(flow)
-- `InterfaceDeclaration`(flow)
-- `InterfaceTypeAnnotation`(flow)
-*/
 function printInterface(path, options, print) {
-  const { node } = path;
-  /** @type {Doc[]} */
-  const parts = [printDeclareToken(path), "interface"];
+  const node = path.getValue();
+  const parts = [];
+  if (node.declare) {
+    parts.push("declare ");
+  }
+
+  if (node.type === "TSInterfaceDeclaration") {
+    parts.push(
+      node.abstract ? "abstract " : "",
+      printTypeScriptModifiers(path, options, print)
+    );
+  }
+
+  parts.push("interface");
 
   const partsGroup = [];
   const extendsParts = [];
@@ -30,7 +35,7 @@ function printInterface(path, options, print) {
     node.typeParameters &&
     !hasComment(
       node.typeParameters,
-      CommentCheckFlags.Trailing | CommentCheckFlags.Line,
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line
     );
 
   if (isNonEmptyArray(node.extends)) {
@@ -42,13 +47,13 @@ function printInterface(path, options, print) {
         : line,
       "extends ",
       (node.extends.length === 1 ? identity : indent)(
-        join([",", line], path.map(print, "extends")),
-      ),
+        join([",", line], path.map(print, "extends"))
+      )
     );
   }
 
   if (
-    hasComment(node.id, CommentCheckFlags.Trailing) ||
+    (node.id && hasComment(node.id, CommentCheckFlags.Trailing)) ||
     isNonEmptyArray(node.extends)
   ) {
     if (shouldIndentOnlyHeritageClauses) {
@@ -65,4 +70,4 @@ function printInterface(path, options, print) {
   return group(parts);
 }
 
-export { printInterface };
+module.exports = { printInterface };

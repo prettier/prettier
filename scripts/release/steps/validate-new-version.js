@@ -1,28 +1,16 @@
-import chalk from "chalk";
-import semver from "semver";
+"use strict";
 
-export default function validateNewVersion({ version, previousVersion, next }) {
-  if (!version) {
-    throw new Error("'--version' is required");
-  }
+const chalk = require("chalk");
+const semver = require("semver");
 
+module.exports = function ({ version, previousVersion }) {
   if (!semver.valid(version)) {
-    throw new Error(
-      `Invalid version '${chalk.red.underline(version)}' specified`,
-    );
+    throw new Error("Invalid version specified");
   }
 
   if (!semver.gt(version, previousVersion)) {
     throw new Error(
-      `Version '${chalk.yellow.underline(version)}' has already been published`,
+      `Version ${chalk.yellow(version)} has already been published`
     );
   }
-
-  if (next && semver.prerelease(version) === null) {
-    throw new Error(
-      `Version '${chalk.yellow.underline(
-        version,
-      )}' is not a prerelease version`,
-    );
-  }
-}
+};

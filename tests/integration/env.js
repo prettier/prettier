@@ -1,20 +1,27 @@
-import path from "node:path";
-import createEsmUtils from "esm-utils";
+"use strict";
 
-const { __dirname, require } = createEsmUtils(import.meta);
-
+const path = require("path");
 const isProduction = process.env.NODE_ENV === "production";
-const { PRETTIER_DIR } = process.env;
-const { bin } = require(path.join(PRETTIER_DIR, "package.json"));
+// [prettierx]
+const { PRETTIERX_DIR } = process.env;
+// [prettierx] get fork package name from package.json
+const { bin, name } = require(path.join(PRETTIERX_DIR, "package.json"));
 const prettierCli = path.join(
-  PRETTIER_DIR,
-  typeof bin === "object" ? bin.prettier : bin,
+  PRETTIERX_DIR,
+  // [prettierx] use fork package name from package.json
+  typeof bin === "object" ? bin[name] : bin
 );
 
-const prettierMainEntry = isProduction
-  ? path.join(PRETTIER_DIR, "./index.mjs")
-  : path.join(PRETTIER_DIR, "./src/index.js");
+// [prettierx]
+const thirdParty = isProduction
+  ? path.join(PRETTIERX_DIR, "./third-party")
+  : path.join(PRETTIERX_DIR, "./src/common/third-party");
 
 const projectRoot = path.join(__dirname, "../..");
 
-export { isProduction, prettierCli, prettierMainEntry, projectRoot };
+module.exports = {
+  isProduction,
+  thirdParty,
+  prettierCli,
+  projectRoot,
+};

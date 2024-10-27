@@ -1,0 +1,748 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`option.hbs - {"htmlWhitespaceSensitivity":"ignore","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<p>Hi  {{firstName}}  {{lastName}}   , welcome!</p>
+{{#component propA}}
+    for {{propB}}  do {{propC}} f
+{{/component}}
+{{#component propA}}
+    for {{propB}}  <span>name</span>do {{propC}} f
+{{/component}}
+{{propA}} {{propB}}
+{{propC}}{{propD}}
+<span>{{propE}} {{propF}}</span>
+<span>{{propG}}{{propH}}</span>
+
+
+
+hey
+
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+<button>
+Click here! Click here! Click here! Click here! Click here! Click here!
+</button>
+<div>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button><button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+</div>
+<div>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+</div>
+<video src="brave.webm"></video>
+
+<SomeComponent />
+{{name}}
+
+
+
+Some sentence with  {{dynamic}}  expressions.
+
+sometimes{{nogaps}}areimportant<Hello></Hello>
+
+
+{{name}}  is your name
+
+
+{{#block}}
+{{/block}}
+
+
+{{#block}}
+  some {{text}}
+{{/block}}
+
+{{#block}}
+
+  some {{text}}
+{{/block}}
+
+<HelloWorld>
+</HelloWorld>
+
+<HelloWorld>
+  some {{text}}
+</HelloWorld>
+
+<HelloWorld>
+
+  some {{text}}
+</HelloWorld>
+
+<div class="a list of classes">
+</div>
+
+<div class="a list of classes">
+
+</div>
+
+<span>This is your name: {{name}}.</span>
+<span>This is your name: {{name}} (employee)</span>
+<span>This is your name: {{name}} ({{role}})</span>
+
+<span>123</span>
+<span>
+123</span>
+<span>123
+</span>
+<span>
+123
+</span>
+
+<div>123</div>
+<div>
+123</div>
+<div>123
+</div>
+<div>
+123
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+    </tr>
+  </thead>
+</table>
+
+<table><thead><tr><th>A</th><th>B</th><th>C</th></tr></thead></table>
+
+<table> <thead> <tr> <th> A </th> <th> B </th> <th> C </th> </tr> </thead> </table>
+
+<table>
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+</table>
+
+=====================================output=====================================
+<p>
+  Hi {{firstName}} {{lastName}} ,
+  welcome!
+</p>
+{{#component propA}}
+  for {{propB}} do {{propC}} f
+{{/component}}
+{{#component propA}}
+  for {{propB}}
+  <span>
+    name
+  </span>
+  do {{propC}} f
+{{/component}}
+{{propA}} {{propB}}
+{{propC}}{{propD}}
+<span>
+  {{propE}} {{propF}}
+</span>
+<span>
+  {{propG}}{{propH}}
+</span>
+
+hey
+
+<button>
+  Click here! Click here! Click here!
+  Click here! Click here! Click here!
+</button>
+<button>
+  Click here! Click here! Click here!
+  Click here! Click here! Click here!
+</button>
+<div>
+  <button>
+    Click here! Click here! Click here!
+    Click here! Click here! Click here!
+  </button>
+  <button>
+    Click here! Click here! Click here!
+    Click here! Click here! Click here!
+  </button>
+</div>
+<div>
+  <button>
+    Click here! Click here! Click here!
+    Click here! Click here! Click here!
+  </button>
+  <button>
+    Click here! Click here! Click here!
+    Click here! Click here! Click here!
+  </button>
+</div>
+<video src="brave.webm"></video>
+
+<SomeComponent />
+{{name}}
+
+Some sentence with {{dynamic}}
+expressions. sometimes{{nogaps}}areimportant
+<Hello />
+
+{{name}} is your name
+
+{{#block}}{{/block}}
+
+{{#block}}
+  some {{text}}
+{{/block}}
+
+{{#block}}
+  some {{text}}
+{{/block}}
+
+<HelloWorld />
+
+<HelloWorld>
+  some {{text}}
+</HelloWorld>
+
+<HelloWorld>
+  some {{text}}
+</HelloWorld>
+
+<div class="a list of classes">
+</div>
+
+<div class="a list of classes">
+</div>
+
+<span>
+  This is your name: {{name}}.
+</span>
+<span>
+  This is your name: {{name}} (employee)
+</span>
+<span>
+  This is your name: {{name}} ({{role}})
+</span>
+
+<span>
+  123
+</span>
+<span>
+  123
+</span>
+<span>
+  123
+</span>
+<span>
+  123
+</span>
+
+<div>
+  123
+</div>
+<div>
+  123
+</div>
+<div>
+  123
+</div>
+<div>
+  123
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        A
+      </th>
+      <th>
+        B
+      </th>
+      <th>
+        C
+      </th>
+    </tr>
+  </thead>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        A
+      </th>
+      <th>
+        B
+      </th>
+      <th>
+        C
+      </th>
+    </tr>
+  </thead>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        A
+      </th>
+
+      <th>
+        B
+      </th>
+
+      <th>
+        C
+      </th>
+    </tr>
+  </thead>
+</table>
+
+<table>
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+</table>
+================================================================================
+`;
+
+exports[`option.hbs - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<p>Hi  {{firstName}}  {{lastName}}   , welcome!</p>
+{{#component propA}}
+    for {{propB}}  do {{propC}} f
+{{/component}}
+{{#component propA}}
+    for {{propB}}  <span>name</span>do {{propC}} f
+{{/component}}
+{{propA}} {{propB}}
+{{propC}}{{propD}}
+<span>{{propE}} {{propF}}</span>
+<span>{{propG}}{{propH}}</span>
+
+
+
+hey
+
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+<button>
+Click here! Click here! Click here! Click here! Click here! Click here!
+</button>
+<div>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button><button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+</div>
+<div>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+</div>
+<video src="brave.webm"></video>
+
+<SomeComponent />
+{{name}}
+
+
+
+Some sentence with  {{dynamic}}  expressions.
+
+sometimes{{nogaps}}areimportant<Hello></Hello>
+
+
+{{name}}  is your name
+
+
+{{#block}}
+{{/block}}
+
+
+{{#block}}
+  some {{text}}
+{{/block}}
+
+{{#block}}
+
+  some {{text}}
+{{/block}}
+
+<HelloWorld>
+</HelloWorld>
+
+<HelloWorld>
+  some {{text}}
+</HelloWorld>
+
+<HelloWorld>
+
+  some {{text}}
+</HelloWorld>
+
+<div class="a list of classes">
+</div>
+
+<div class="a list of classes">
+
+</div>
+
+<span>This is your name: {{name}}.</span>
+<span>This is your name: {{name}} (employee)</span>
+<span>This is your name: {{name}} ({{role}})</span>
+
+<span>123</span>
+<span>
+123</span>
+<span>123
+</span>
+<span>
+123
+</span>
+
+<div>123</div>
+<div>
+123</div>
+<div>123
+</div>
+<div>
+123
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+    </tr>
+  </thead>
+</table>
+
+<table><thead><tr><th>A</th><th>B</th><th>C</th></tr></thead></table>
+
+<table> <thead> <tr> <th> A </th> <th> B </th> <th> C </th> </tr> </thead> </table>
+
+<table>
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+</table>
+
+=====================================output=====================================
+<p>Hi
+  {{firstName}}
+  {{lastName}}
+  , welcome!</p>
+{{#component propA}}
+  for
+  {{propB}}
+  do
+  {{propC}}
+  f
+{{/component}}
+{{#component propA}}
+  for
+  {{propB}}
+  <span>name</span>do
+  {{propC}}
+  f
+{{/component}}
+{{propA}}
+{{propB}}
+{{propC}}{{propD}}
+<span>{{propE}} {{propF}}</span>
+<span>{{propG}}{{propH}}</span>
+
+hey
+
+<button>Click here! Click here! Click
+  here! Click here! Click here! Click
+  here!</button>
+<button>
+  Click here! Click here! Click here!
+  Click here! Click here! Click here!
+</button>
+<div>
+  <button>Click here! Click here! Click
+    here! Click here! Click here! Click
+    here!</button><button>Click here!
+    Click here! Click here! Click here!
+    Click here! Click here!</button>
+</div>
+<div>
+  <button>Click here! Click here! Click
+    here! Click here! Click here! Click
+    here!</button>
+  <button>Click here! Click here! Click
+    here! Click here! Click here! Click
+    here!</button>
+</div>
+<video src="brave.webm"></video>
+
+<SomeComponent />
+{{name}}
+
+Some sentence with
+{{dynamic}}
+expressions. sometimes{{nogaps}}areimportant<Hello
+/>
+
+{{name}}
+is your name
+
+{{#block}}{{/block}}
+
+{{#block}}
+  some
+  {{text}}
+{{/block}}
+
+{{#block}}
+
+  some
+  {{text}}
+{{/block}}
+
+<HelloWorld />
+
+<HelloWorld>
+  some
+  {{text}}
+</HelloWorld>
+
+<HelloWorld>
+
+  some
+  {{text}}
+</HelloWorld>
+
+<div class="a list of classes">
+</div>
+
+<div class="a list of classes">
+
+</div>
+
+<span>This is your name:
+  {{name}}.</span>
+<span>This is your name:
+  {{name}}
+  (employee)</span>
+<span>This is your name:
+  {{name}}
+  ({{role}})</span>
+
+<span>123</span>
+<span>
+  123</span>
+<span>123
+</span>
+<span>
+  123
+</span>
+
+<div>123</div>
+<div>
+  123</div>
+<div>123
+</div>
+<div>
+  123
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+    </tr>
+  </thead>
+</table>
+
+<table><thead><tr><th>A</th><th
+      >B</th><th
+      >C</th></tr></thead></table>
+
+<table>
+  <thead>
+    <tr>
+      <th> A </th>
+      <th> B </th>
+      <th> C </th>
+    </tr>
+  </thead>
+</table>
+
+<table>
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+</table>
+================================================================================
+`;
+
+exports[`snippet: #12 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<div> </div>
+=====================================output=====================================
+<div> </div>
+================================================================================
+`;
+
+exports[`snippet: #13 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<div>          </div>
+=====================================output=====================================
+<div>   </div>
+================================================================================
+`;
+
+exports[`snippet: #14 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<div>           </div>
+=====================================output=====================================
+<div>    </div>
+================================================================================
+`;
+
+exports[`snippet: #15 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<div>                   </div>
+=====================================output=====================================
+<div>     </div>
+================================================================================
+`;
+
+exports[`snippet: #16 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<img/> <img/>
+=====================================output=====================================
+<img /> <img />
+================================================================================
+`;
+
+exports[`snippet: #17 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<img/>          <img/>
+=====================================output=====================================
+<img />   <img />
+================================================================================
+`;
+
+exports[`snippet: #18 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<img/>           <img/>
+=====================================output=====================================
+<img />    <img />
+================================================================================
+`;
+
+exports[`snippet: #19 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<img/>                   <img/>
+=====================================output=====================================
+<img />     <img />
+================================================================================
+`;
+
+exports[`snippet: #20 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<i />   |   <i />
+=====================================output=====================================
+<i></i>   |   <i></i>
+================================================================================
+`;
+
+exports[`snippet: #21 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<p><span>X</span>   or   <span>Y</span></p><p>X   or   Y</p>
+=====================================output=====================================
+<p><span>X</span>
+    or  
+  <span>Y</span></p><p>X   or   Y</p>
+================================================================================
+`;
+
+exports[`snippet: \`U+2005\` should format like \`U+005F\` not like \`U+0020\` - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<!-- U+2005 -->
+<div>before<span> </span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+<!-- U+005F -->
+<div>before<span>_</span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+<!-- U+0020 -->
+<div>before<span> </span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+=====================================output=====================================
+<!-- U+2005 -->
+<div>before<span
+  > </span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+<!-- U+005F -->
+<div>before<span
+  >_</span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+<!-- U+0020 -->
+<div>before<span>
+  </span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+================================================================================
+`;

@@ -3,6 +3,20 @@ id: option-philosophy
 title: Option Philosophy
 ---
 
+# prettierX
+
+This fork is made to provide some additional options to help improve consistency with [`feross/standard`](https://github.com/standard/standard) and [`Flet/semistandard`](https://github.com/Flet/semistandard).
+
+This fork will attempt to pick up where [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) left off.
+
+Note that changes from [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) will likely need to be largely reworked, due to the divergence between [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) and [`prettier/prettier`](https://github.com/prettier/prettier). Here are some examples of changes reworked by [@brodybits (Christopher J. Brody)](https://github.com/brodybits):
+
+- [brodybits/prettier#3](https://github.com/brodybits/prettier/pull/3) - `--space-before-function-paren` enhancement - take 2 (WIP)
+- [brodybits/prettier#4](https://github.com/brodybits/prettier/pull/4) - `--align-object-properties` option - first take (WIP)
+- [brodybits/prettier#4](https://github.com/brodybits/prettier/pull/5) - `--no-indent-chains` option - first take (WIP)
+
+## Original Prettier option philosophy
+
 > Prettier has a few options because of history. **But we won’t add more of them.**
 >
 > Read on to learn more.
@@ -29,7 +43,7 @@ Options that are easier to motivate include:
 - `--end-of-line` makes it easier for teams to keep CRLFs out of their git repositories.
 - `--quote-props` is important for advanced usage of the Google Closure Compiler.
 
-But other options are harder to motivate in hindsight: `--arrow-parens`, `--jsx-single-quote`, `--bracket-same-line` and `--no-bracket-spacing` are not the type of options we’re happy to have. They cause a lot of [bike-shedding](https://en.wikipedia.org/wiki/Law_of_triviality) in teams, and we’re sorry for that. Difficult to remove now, these options exist as a historical artifact and should not motivate adding more options (“If _those_ options exist, why can’t this one?”).
+But other options are harder to motivate in hindsight: `--arrow-parens`, `--jsx-single-quote`, `--jsx-bracket-same-line` and `--no-bracket-spacing` are not the type of options we’re happy to have. They cause a lot of [bike-shedding](https://en.wikipedia.org/wiki/Law_of_triviality) in teams, and we’re sorry for that. Difficult to remove now, these options exist as a historical artifact and should not motivate adding more options (“If _those_ options exist, why can’t this one?”).
 
 For a long time, we left option requests open in order to let discussions play out and collect feedback. What we’ve learned during those years is that it’s really hard to measure demand. Prettier has grown a lot in usage. What was “great demand” back in the day is not as much today. GitHub reactions and Twitter polls became unrepresentative. What about all silent users? It looked easy to add “just one more” option. But where should we have stopped? When is one too many? Even after adding “that one final option”, there would always be a “top issue” in the issue tracker.
 

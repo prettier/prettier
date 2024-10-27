@@ -21,38 +21,3 @@ switch(x) {
   case y: {
   }
 }
-
-switch(x) {
-  default: // comment
-    break;
-}
-
-switch(x) {
-  default: // comment
-    {break;}
-}
-
-switch(x) {
-  default: {// comment
-    break;}
-}
-
-switch(x) {
-  default: /* comment */
-    break;
-}
-
-switch(x) {
-  default: /* comment */
-    {break;}
-}
-
-switch(x) {
-  default: {/* comment */
-    break;}
-}
-
-switch(x) {
-  default: /* comment */ {
-    break;}
-}

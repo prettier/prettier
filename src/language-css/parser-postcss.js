@@ -1,24 +1,289 @@
-import postcssParse from "postcss/lib/parse";
-import postcssLess from "postcss-less";
-import postcssScssParse from "postcss-scss/lib/scss-parse";
-import createError from "../common/parser-create-error.js";
-import parseFrontMatter from "../utils/front-matter/parse.js";
-import {
-  calculateLoc,
-  locEnd,
-  locStart,
-  replaceQuotesInInlineComments,
-} from "./loc.js";
-import parseMediaQuery from "./parse/parse-media-query.js";
-import parseSelector from "./parse/parse-selector.js";
-import parseValue from "./parse/parse-value.js";
-import { addTypePrefix } from "./parse/utils.js";
-import { hasPragma } from "./pragma.js";
-import isModuleRuleName from "./utils/is-module-rule-name.js";
-import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
+"use strict";
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/u;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/u;
+const createError = require("../common/parser-create-error");
+const getLast = require("../utils/get-last");
+const parseFrontMatter = require("../utils/front-matter/parse");
+const { hasPragma } = require("./pragma");
+const {
+  hasSCSSInterpolation,
+  hasStringOrFunction,
+  isSCSSNestedPropertyNode,
+  isSCSSVariable,
+  stringifyNode,
+} = require("./utils");
+const { locStart, locEnd } = require("./loc");
+const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
+
+const getHighestAncestor = (node) => {
+  while (node.parent) {
+    node = node.parent;
+  }
+  return node;
+};
+
+function parseValueNode(valueNode, options) {
+  const { nodes } = valueNode;
+  let parenGroup = {
+    open: null,
+    close: null,
+    groups: [],
+    type: "paren_group",
+  };
+  const parenGroupStack = [parenGroup];
+  const rootParenGroup = parenGroup;
+  let commaGroup = {
+    groups: [],
+    type: "comma_group",
+  };
+  const commaGroupStack = [commaGroup];
+
+  for (let i = 0; i < nodes.length; ++i) {
+    const node = nodes[i];
+
+    if (
+      options.parser === "scss" &&
+      node.type === "number" &&
+      node.unit === ".." &&
+      getLast(node.value) === "."
+    ) {
+      // Work around postcss bug parsing `50...` as `50.` with unit `..`
+      // Set the unit to `...` to "accidentally" have arbitrary arguments work in the same way that cases where the node already had a unit work.
+      // For example, 50px... is parsed as `50` with unit `px...` already by postcss-values-parser.
+      node.value = node.value.slice(0, -1);
+      node.unit = "...";
+    }
+
+    if (node.type === "func" && node.value === "selector") {
+      node.group.groups = [
+        parseSelector(
+          getHighestAncestor(valueNode).text.slice(
+            node.group.open.sourceIndex + 1,
+            node.group.close.sourceIndex
+          )
+        ),
+      ];
+    }
+
+    if (node.type === "func" && node.value === "url") {
+      const groups = (node.group && node.group.groups) || [];
+
+      // Create a view with any top-level comma groups flattened.
+      let groupList = [];
+      for (let i = 0; i < groups.length; i++) {
+        const group = groups[i];
+        if (group.type === "comma_group") {
+          groupList = [...groupList, ...group.groups];
+        } else {
+          groupList.push(group);
+        }
+      }
+
+      // Stringify if the value parser can't handle the content.
+      if (
+        hasSCSSInterpolation(groupList) ||
+        (!hasStringOrFunction(groupList) &&
+          !isSCSSVariable(groupList[0], options))
+      ) {
+        const stringifiedContent = stringifyNode({
+          groups: node.group.groups,
+        });
+        node.group.groups = [stringifiedContent.trim()];
+      }
+    }
+    if (node.type === "paren" && node.value === "(") {
+      parenGroup = {
+        open: node,
+        close: null,
+        groups: [],
+        type: "paren_group",
+      };
+      parenGroupStack.push(parenGroup);
+
+      commaGroup = {
+        groups: [],
+        type: "comma_group",
+      };
+      commaGroupStack.push(commaGroup);
+    } else if (node.type === "paren" && node.value === ")") {
+      if (commaGroup.groups.length > 0) {
+        parenGroup.groups.push(commaGroup);
+      }
+      parenGroup.close = node;
+
+      /* istanbul ignore next */
+      if (commaGroupStack.length === 1) {
+        throw new Error("Unbalanced parenthesis");
+      }
+
+      commaGroupStack.pop();
+      commaGroup = getLast(commaGroupStack);
+      commaGroup.groups.push(parenGroup);
+
+      parenGroupStack.pop();
+      parenGroup = getLast(parenGroupStack);
+    } else if (node.type === "comma") {
+      parenGroup.groups.push(commaGroup);
+      commaGroup = {
+        groups: [],
+        type: "comma_group",
+      };
+      commaGroupStack[commaGroupStack.length - 1] = commaGroup;
+    } else {
+      commaGroup.groups.push(node);
+    }
+  }
+  if (commaGroup.groups.length > 0) {
+    parenGroup.groups.push(commaGroup);
+  }
+  return rootParenGroup;
+}
+
+function flattenGroups(node) {
+  if (
+    node.type === "paren_group" &&
+    !node.open &&
+    !node.close &&
+    node.groups.length === 1
+  ) {
+    return flattenGroups(node.groups[0]);
+  }
+
+  if (node.type === "comma_group" && node.groups.length === 1) {
+    return flattenGroups(node.groups[0]);
+  }
+
+  if (node.type === "paren_group" || node.type === "comma_group") {
+    return { ...node, groups: node.groups.map(flattenGroups) };
+  }
+
+  return node;
+}
+
+function addTypePrefix(node, prefix, skipPrefix) {
+  if (node && typeof node === "object") {
+    delete node.parent;
+    for (const key in node) {
+      addTypePrefix(node[key], prefix, skipPrefix);
+      if (key === "type" && typeof node[key] === "string") {
+        if (
+          !node[key].startsWith(prefix) &&
+          (!skipPrefix || !skipPrefix.test(node[key]))
+        ) {
+          node[key] = prefix + node[key];
+        }
+      }
+    }
+  }
+  return node;
+}
+
+function addMissingType(node) {
+  if (node && typeof node === "object") {
+    delete node.parent;
+    for (const key in node) {
+      addMissingType(node[key]);
+    }
+    if (!Array.isArray(node) && node.value && !node.type) {
+      node.type = "unknown";
+    }
+  }
+  return node;
+}
+
+function parseNestedValue(node, options) {
+  if (node && typeof node === "object") {
+    for (const key in node) {
+      if (key !== "parent") {
+        parseNestedValue(node[key], options);
+        if (key === "nodes") {
+          node.group = flattenGroups(parseValueNode(node, options));
+          delete node[key];
+        }
+      }
+    }
+    delete node.parent;
+  }
+  return node;
+}
+
+function parseValue(value, options) {
+  const valueParser = require("postcss-values-parser");
+
+  let result = null;
+
+  try {
+    result = valueParser(value, { loose: true }).parse();
+  } catch {
+    return {
+      type: "value-unknown",
+      value,
+    };
+  }
+
+  result.text = value;
+
+  const parsedResult = parseNestedValue(result, options);
+
+  return addTypePrefix(parsedResult, "value-", /^selector-/);
+}
+
+function parseSelector(selector) {
+  // If there's a comment inside of a selector, the parser tries to parse
+  // the content of the comment as selectors which turns it into complete
+  // garbage. Better to print the whole selector as-is and not try to parse
+  // and reformat it.
+  if (/\/\/|\/\*/.test(selector)) {
+    return {
+      type: "selector-unknown",
+      value: selector.trim(),
+    };
+  }
+
+  const selectorParser = require("postcss-selector-parser");
+
+  let result = null;
+
+  try {
+    selectorParser((result_) => {
+      result = result_;
+    }).process(selector);
+  } catch {
+    // Fail silently. It's better to print it as is than to try and parse it
+    // Note: A common failure is for SCSS nested properties. `background:
+    // none { color: red; }` is parsed as a NestedDeclaration by
+    // postcss-scss, while `background: { color: red; }` is parsed as a Rule
+    // with a selector ending with a colon. See:
+    // https://github.com/postcss/postcss-scss/issues/39
+    return {
+      type: "selector-unknown",
+      value: selector,
+    };
+  }
+
+  return addTypePrefix(result, "selector-");
+}
+
+function parseMediaQuery(params) {
+  const mediaParser = require("postcss-media-query-parser").default;
+
+  let result = null;
+
+  try {
+    result = mediaParser(params);
+  } catch {
+    // Ignore bad media queries
+    /* istanbul ignore next */
+    return {
+      type: "selector-unknown",
+      value: params,
+    };
+  }
+
+  return addTypePrefix(addMissingType(result), "media-");
+}
+
+const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
 
 function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {
@@ -32,8 +297,10 @@ function parseNestedCSS(node, options) {
       return node;
     }
 
-    /* c8 ignore next */
-    node.raws ??= {};
+    /* istanbul ignore next */
+    if (!node.raws) {
+      node.raws = {};
+    }
 
     // Custom properties looks like declarations
     if (
@@ -44,18 +311,18 @@ function parseNestedCSS(node, options) {
       node.value.startsWith("{")
     ) {
       let rules;
-      if (node.value.trimEnd().endsWith("}")) {
+      if (node.value.endsWith("}")) {
         const textBefore = options.originalText.slice(
           0,
-          node.source.start.offset,
+          node.source.start.offset
         );
         const nodeText =
           "a".repeat(node.prop.length) +
           options.originalText.slice(
             node.source.start.offset + node.prop.length,
-            node.source.end.offset,
+            node.source.end.offset + 1
           );
-        const fakeContent = textBefore.replaceAll(/[^\n]/gu, " ") + nodeText;
+        const fakeContent = textBefore.replace(/[^\n]/g, " ") + nodeText;
         let parse;
         if (options.parser === "scss") {
           parse = parseScss;
@@ -65,12 +332,18 @@ function parseNestedCSS(node, options) {
           parse = parseCss;
         }
         let ast;
+        // [prettierx merge update from prettier@2.3.2 ...]
         try {
-          ast = parse(fakeContent, { ...options });
+          ast = parse(fakeContent, [], { ...options });
         } catch {
           // noop
         }
-        if (ast?.nodes?.length === 1 && ast.nodes[0].type === "css-rule") {
+        if (
+          ast &&
+          ast.nodes &&
+          ast.nodes.length === 1 &&
+          ast.nodes[0].type === "css-rule"
+        ) {
           rules = ast.nodes[0].nodes;
         }
       }
@@ -92,7 +365,9 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.selector === "string") {
       selector = node.raws.selector
-        ? (node.raws.selector.scss ?? node.raws.selector.raw)
+        ? node.raws.selector.scss
+          ? node.raws.selector.scss
+          : node.raws.selector.raw
         : node.selector;
 
       if (node.raws.between && node.raws.between.trim().length > 0) {
@@ -106,17 +381,23 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.value === "string") {
       value = node.raws.value
-        ? (node.raws.value.scss ?? node.raws.value.raw)
+        ? node.raws.value.scss
+          ? node.raws.value.scss
+          : node.raws.value.raw
         : node.value;
 
-      node.raws.value = value.trim();
+      value = value.trim();
+
+      node.raws.value = value;
     }
 
     let params = "";
 
     if (typeof node.params === "string") {
       params = node.raws.params
-        ? (node.raws.params.scss ?? node.raws.params.raw)
+        ? node.raws.params.scss
+          ? node.raws.params.scss
+          : node.raws.params.raw
         : node.params;
 
       if (node.raws.afterName && node.raws.afterName.trim().length > 0) {
@@ -135,13 +416,13 @@ function parseNestedCSS(node, options) {
     // Ignore LESS mixin declaration
     if (selector.trim().length > 0) {
       // TODO: confirm this code is dead
-      /* c8 ignore next 3 */
+      /* istanbul ignore next */
       if (selector.startsWith("@") && selector.endsWith(":")) {
         return node;
       }
 
       // TODO: confirm this code is dead
-      /* c8 ignore next 6 */
+      /* istanbul ignore next */
       // Ignore LESS mixins
       if (node.mixin) {
         node.selector = parseValue(selector, options);
@@ -159,7 +440,7 @@ function parseNestedCSS(node, options) {
       return node;
     }
 
-    if (value.trim().length > 0) {
+    if (value.length > 0) {
       const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
 
       if (defaultSCSSDirectiveIndex) {
@@ -198,7 +479,9 @@ function parseNestedCSS(node, options) {
       value.startsWith("extend(")
     ) {
       // extend is missing
-      node.extend ||= node.raws.between === ":";
+      if (!node.extend) {
+        node.extend = node.raws.between === ":";
+      }
 
       // `:extend()` is parsed as value
       if (node.extend && !node.selector) {
@@ -229,10 +512,10 @@ function parseNestedCSS(node, options) {
 
       // only css support custom-selector
       if (options.parser === "css" && node.name === "custom-selector") {
-        const customSelector = node.params.match(/:--\S+\s+/u)[0].trim();
+        const customSelector = node.params.match(/:--\S+?\s+/)[0].trim();
         node.customSelector = customSelector;
         node.selector = parseSelector(
-          node.params.slice(customSelector.length).trim(),
+          node.params.slice(customSelector.length).trim()
         );
         delete node.params;
         return node;
@@ -253,24 +536,17 @@ function parseNestedCSS(node, options) {
         // `@color :blue;`
         if (
           !["page", "nest", "keyframes"].includes(node.name) &&
-          node.params?.[0] === ":"
+          node.params &&
+          node.params[0] === ":"
         ) {
           node.variable = true;
-          const text = node.params.slice(1);
-          if (text) {
-            node.value = parseValue(text, options);
-          }
+          node.value = parseValue(node.params.slice(1), options);
           node.raws.afterName += ":";
         }
 
         // Less variable
         if (node.variable) {
           delete node.params;
-
-          if (!node.value) {
-            delete node.value;
-          }
-
           return node;
         }
       }
@@ -297,7 +573,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (name === "at-root") {
-        if (/^\(\s*(?:without|with)\s*:.+\)$/su.test(params)) {
+        if (/^\(\s*(without|with)\s*:.+\)$/s.test(params)) {
           node.params = parseValue(params, options);
         } else {
           node.selector = parseSelector(params);
@@ -307,7 +583,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      if (isModuleRuleName(lowercasedName)) {
+      if (lowercasedName === "import") {
         node.import = true;
         delete node.filename;
         node.params = parseValue(params, options);
@@ -333,11 +609,9 @@ function parseNestedCSS(node, options) {
         ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
-        // Move spaces after the `...`, so we can keep the range correct
-        params = params.replace(/(\$\S+?)(\s+)?\.{3}/u, "$1...$2");
+        params = params.replace(/(\$\S+?)\s+?\.{3}/, "$1...");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
-        // Move spaces after the `(`, so we can keep the range correct
-        params = params.replace(/^(?!if)(\S+)(\s+)\(/u, "$1($2");
+        params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
 
         node.value = parseValue(params, options);
         delete node.params;
@@ -376,21 +650,14 @@ function parseWithParser(parse, text, options) {
   let result;
 
   try {
-    result = parse(text, {
-      // Prevent file access https://github.com/postcss/postcss/blob/4f4e2932fc97e2c117e1a4b15f0272ed551ed59d/lib/previous-map.js#L18
-      map: false,
-    });
-  } catch (/** @type {any} */ error) {
+    result = parse(text);
+  } catch (error) {
     const { name, reason, line, column } = error;
-    /* c8 ignore 3 */
+    /* istanbul ignore next */
     if (typeof line !== "number") {
       throw error;
     }
-
-    throw createError(`${name}: ${reason}`, {
-      loc: { start: { line, column } },
-      cause: error,
-    });
+    throw createError(`${name}: ${reason}`, { start: { line, column } });
   }
 
   options.originalText = text;
@@ -403,28 +670,31 @@ function parseWithParser(parse, text, options) {
       startOffset: 0,
       endOffset: frontMatter.raw.length,
     };
-    result.frontMatter = frontMatter;
+    result.nodes.unshift(frontMatter);
   }
 
   return result;
 }
 
-function parseCss(text, options = {}) {
-  return parseWithParser(postcssParse.default, text, options);
+function parseCss(text, parsers, options) {
+  const { parse } = require("postcss");
+  return parseWithParser(parse, text, options);
 }
 
-function parseLess(text, options = {}) {
+function parseLess(text, parsers, options) {
+  const lessParser = require("postcss-less");
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
     // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    (text) => postcssLess.parse(replaceQuotesInInlineComments(text)),
+    (text) => lessParser.parse(replaceQuotesInInlineComments(text)),
     text,
-    options,
+    options
   );
 }
 
-function parseScss(text, options = {}) {
-  return parseWithParser(postcssScssParse, text, options);
+function parseScss(text, parsers, options) {
+  const { parse } = require("postcss-scss");
+  return parseWithParser(parse, text, options);
 }
 
 const postCssParser = {
@@ -434,6 +704,20 @@ const postCssParser = {
   locEnd,
 };
 
-export const css = { ...postCssParser, parse: parseCss };
-export const less = { ...postCssParser, parse: parseLess };
-export const scss = { ...postCssParser, parse: parseScss };
+// Export as a plugin so we can reuse the same bundle for UMD loading
+module.exports = {
+  parsers: {
+    css: {
+      ...postCssParser,
+      parse: parseCss,
+    },
+    less: {
+      ...postCssParser,
+      parse: parseLess,
+    },
+    scss: {
+      ...postCssParser,
+      parse: parseScss,
+    },
+  },
+};

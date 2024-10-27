@@ -1,27 +1,27 @@
-import {
-  hardline,
-  ifBreak,
-  join,
-  line,
-  softline,
-} from "../../document/builders.js";
-import { hasEndComments, isEmptyNode } from "../utils.js";
-import { alignWithSpaces, printNextEmptyLine } from "./misc.js";
+"use strict";
+
+const {
+  builders: { ifBreak, line, softline, hardline, join },
+} = require("../../document");
+const { isEmptyNode, getLast, hasEndComments } = require("../utils");
+const { printNextEmptyLine, alignWithSpaces } = require("./misc");
 
 function printFlowMapping(path, print, options) {
-  const { node } = path;
+  const node = path.getValue();
   const isMapping = node.type === "flowMapping";
   const openMarker = isMapping ? "{" : "[";
   const closeMarker = isMapping ? "}" : "]";
 
   /** @type {softline | line} */
   let bracketSpacing = softline;
-  if (isMapping && node.children.length > 0 && options.bracketSpacing) {
+  // [prettierx merge update from prettier@2.3.2] yamlBracketSpacing option
+  if (isMapping && node.children.length > 0 && options.yamlBracketSpacing) {
     bracketSpacing = line;
   }
-  const lastItem = node.children.at(-1);
+  const lastItem = getLast(node.children);
   const isLastItemEmptyMappingItem =
-    lastItem?.type === "flowMappingItem" &&
+    lastItem &&
+    lastItem.type === "flowMappingItem" &&
     isEmptyNode(lastItem.key) &&
     isEmptyNode(lastItem.value);
 
@@ -41,25 +41,28 @@ function printFlowMapping(path, print, options) {
 }
 
 function printChildren(path, print, options) {
-  return path.map(
-    ({ isLast, node, next }) => [
+  const node = path.getValue();
+  const parts = path.map(
+    (childPath, index) => [
       print(),
-      isLast
+      index === node.children.length - 1
         ? ""
         : [
             ",",
             line,
-            node.position.start.line !== next.position.start.line
-              ? printNextEmptyLine(path, options.originalText)
+            node.children[index].position.start.line !==
+            node.children[index + 1].position.start.line
+              ? printNextEmptyLine(childPath, options.originalText)
               : "",
           ],
     ],
-    "children",
+    "children"
   );
+  return parts;
 }
 
-export {
+module.exports = {
   printFlowMapping,
   // Alias
-  printFlowMapping as printFlowSequence,
+  printFlowSequence: printFlowMapping,
 };

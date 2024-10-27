@@ -1,67 +1,67 @@
-import { ArgExpansionBailout } from "../../common/errors.js";
-import {
-  group,
-  hardline,
-  ifBreak,
-  indent,
-  line,
-  softline,
-} from "../../document/builders.js";
-import { removeLines, willBreak } from "../../document/utils.js";
-import { printDanglingComments } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { locEnd } from "../loc.js";
-import {
+"use strict";
+
+const { getNextNonSpaceNonCommentCharacter } = require("../../common/util");
+const { printDanglingComments } = require("../../main/comments");
+const {
+  builders: { line, hardline, softline, group, indent, ifBreak },
+  utils: { removeLines, willBreak },
+} = require("../../document");
+const {
   getFunctionParameters,
-  hasComment,
-  hasRestParameter,
-  isArrayOrTupleExpression,
-  isFlowObjectTypePropertyAFunction,
-  isNextLineEmpty,
-  isObjectOrRecordExpression,
-  isObjectType,
+  iterateFunctionParametersPath,
   isSimpleType,
   isTestCall,
   isTypeAnnotationAFunction,
-  iterateFunctionParametersPath,
+  isObjectType,
+  isObjectTypePropertyAFunction,
+  hasRestParameter,
   shouldPrintComma,
-} from "../utils/index.js";
-import { printFunctionTypeParameters } from "./misc.js";
-
-/** @import AstPath from "../../common/ast-path.js" */
+  hasComment,
+  isNextLineEmpty,
+} = require("../utils");
+const { locEnd } = require("../loc");
+const { ArgExpansionBailout } = require("../../common/errors");
+const { printFunctionTypeParameters } = require("./misc");
 
 function printFunctionParameters(
   path,
   print,
   options,
   expandArg,
-  printTypeParams,
+  printTypeParams
 ) {
-  const functionNode = path.node;
+  const functionNode = path.getValue();
   const parameters = getFunctionParameters(functionNode);
   const typeParams = printTypeParams
     ? printFunctionTypeParameters(path, options, print)
     : "";
 
+  // [prettierx] --space-in-parens option support (...)
+  const insideSpace = options.spaceInParens ? " " : "";
+  const innerLineBreak = options.spaceInParens ? line : softline;
+
   if (parameters.length === 0) {
     return [
       typeParams,
       "(",
-      printDanglingComments(path, options, {
-        filter: (comment) =>
+      printDanglingComments(
+        path,
+        options,
+        /* sameIndent */ true,
+        (comment) =>
           getNextNonSpaceNonCommentCharacter(
             options.originalText,
-            locEnd(comment),
-          ) === ")",
-      }),
+            comment,
+            locEnd
+          ) === ")"
+      ),
       ")",
     ];
   }
 
-  const { parent } = path;
+  const parent = path.getParentNode();
   const isParametersInTestCall = isTestCall(parent);
-  const shouldHugParameters = shouldHugTheOnlyFunctionParameter(functionNode);
+  const shouldHugParameters = shouldHugFunctionParameters(functionNode);
   const printed = [];
   iterateFunctionParametersPath(path, (parameterPath, index) => {
     const isLastParameter = index === parameters.length - 1;
@@ -92,12 +92,22 @@ function printFunctionParameters(
   //     }                     b,
   //   )                     ) => {
   //                         })
-  if (expandArg && !isDecoratedFunction(path)) {
+  if (expandArg) {
     if (willBreak(typeParams) || willBreak(printed)) {
       // Removing lines in this case leads to broken or ugly output
       throw new ArgExpansionBailout();
     }
-    return group([removeLines(typeParams), "(", removeLines(printed), ")"]);
+    // [prettierx] with --space-in-parens option support (...)
+    return group([
+      removeLines(typeParams),
+      "(",
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
+      removeLines(printed),
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
+      ")",
+    ]);
   }
 
   // Single object destructuring should hug
@@ -107,23 +117,42 @@ function printFunctionParameters(
   //   b,
   //   c
   // }) {}
-  const hasNotParameterDecorator = parameters.every(
-    (node) => !isNonEmptyArray(node.decorators),
-  );
+  const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
   if (shouldHugParameters && hasNotParameterDecorator) {
-    return [typeParams, "(", ...printed, ")"];
+    // [prettierx] with --space-in-parens option support (...)
+    return [
+      typeParams,
+      "(",
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
+      ...printed,
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
+      ")",
+    ];
   }
 
   // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
   if (isParametersInTestCall) {
-    return [typeParams, "(", ...printed, ")"];
+    // [prettierx] with --space-in-parens option support (...)
+    return [
+      typeParams,
+      "(",
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
+      ...printed,
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
+      ")",
+    ];
   }
 
   const isFlowShorthandWithOneArg =
-    (isFlowObjectTypePropertyAFunction(parent) ||
+    (isObjectTypePropertyAFunction(parent) ||
       isTypeAnnotationAFunction(parent) ||
       parent.type === "TypeAlias" ||
       parent.type === "UnionTypeAnnotation" ||
+      parent.type === "TSUnionType" ||
       parent.type === "IntersectionTypeAnnotation" ||
       (parent.type === "FunctionTypeAnnotation" &&
         parent.returnType === functionNode)) &&
@@ -137,30 +166,31 @@ function printFunctionParameters(
     !functionNode.rest;
 
   if (isFlowShorthandWithOneArg) {
-    if (
-      options.arrowParens === "always" ||
-      functionNode.type === "HookTypeAnnotation"
-    ) {
-      return ["(", ...printed, ")"];
+    if (options.arrowParens === "always") {
+      // [prettierx] --space-in-parens option support (...)
+      return ["(", insideSpace, ...printed, insideSpace, ")"];
     }
     return printed;
   }
 
+  // [prettierx] with --space-in-parens option support (...)
   return [
     typeParams,
     "(",
-    indent([softline, ...printed]),
+    // [prettierx] --space-in-parens option support (...)
+    indent([innerLineBreak, ...printed]),
     ifBreak(
       !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
         ? ","
-        : "",
+        : ""
     ),
-    softline,
+    // [prettierx] --space-in-parens option support (...)
+    innerLineBreak,
     ")",
   ];
 }
 
-function shouldHugTheOnlyFunctionParameter(node) {
+function shouldHugFunctionParameters(node) {
   if (!node) {
     return false;
   }
@@ -179,15 +209,14 @@ function shouldHugTheOnlyFunctionParameter(node) {
           parameter.typeAnnotation.type === "TSTypeAnnotation") &&
         isObjectType(parameter.typeAnnotation.typeAnnotation)) ||
       (parameter.type === "FunctionTypeParam" &&
-        isObjectType(parameter.typeAnnotation) &&
-        parameter !== node.rest) ||
+        isObjectType(parameter.typeAnnotation)) ||
       (parameter.type === "AssignmentPattern" &&
         (parameter.left.type === "ObjectPattern" ||
           parameter.left.type === "ArrayPattern") &&
         (parameter.right.type === "Identifier" ||
-          (isObjectOrRecordExpression(parameter.right) &&
+          (parameter.right.type === "ObjectExpression" &&
             parameter.right.properties.length === 0) ||
-          (isArrayOrTupleExpression(parameter.right) &&
+          (parameter.right.type === "ArrayExpression" &&
             parameter.right.elements.length === 0))))
   );
 }
@@ -212,7 +241,8 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
     return false;
   }
 
-  const typeParameters = functionNode.typeParameters?.params;
+  const typeParameters =
+    functionNode.typeParameters && functionNode.typeParameters.params;
   if (typeParameters) {
     if (typeParameters.length > 1) {
       return false;
@@ -231,70 +261,8 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   );
 }
 
-/**
- * The "decorated function" pattern.
- * The arrow function should be kept hugged even if its signature breaks.
- *
- * ```
- * const decoratedFn = decorator(param1, param2)((
- *   ...
- * ) => {
- *   ...
- * });
- * ```
- * @param {AstPath} path
- */
-function isDecoratedFunction(path) {
-  return path.match(
-    (node) =>
-      node.type === "ArrowFunctionExpression" &&
-      node.body.type === "BlockStatement",
-    (node, name) => {
-      if (
-        node.type === "CallExpression" &&
-        name === "arguments" &&
-        node.arguments.length === 1 &&
-        node.callee.type === "CallExpression"
-      ) {
-        const decorator = node.callee.callee;
-        return (
-          decorator.type === "Identifier" ||
-          (decorator.type === "MemberExpression" &&
-            !decorator.computed &&
-            decorator.object.type === "Identifier" &&
-            decorator.property.type === "Identifier")
-        );
-      }
-      return false;
-    },
-    (node, name) =>
-      (node.type === "VariableDeclarator" && name === "init") ||
-      (node.type === "ExportDefaultDeclaration" && name === "declaration") ||
-      (node.type === "TSExportAssignment" && name === "expression") ||
-      (node.type === "AssignmentExpression" &&
-        name === "right" &&
-        node.left.type === "MemberExpression" &&
-        node.left.object.type === "Identifier" &&
-        node.left.object.name === "module" &&
-        node.left.property.type === "Identifier" &&
-        node.left.property.name === "exports"),
-    (node) =>
-      node.type !== "VariableDeclaration" ||
-      (node.kind === "const" && node.declarations.length === 1),
-  );
-}
-
-function shouldBreakFunctionParameters(functionNode) {
-  const parameters = getFunctionParameters(functionNode);
-  return (
-    parameters.length > 1 &&
-    parameters.some((parameter) => parameter.type === "TSParameterProperty")
-  );
-}
-
-export {
+module.exports = {
   printFunctionParameters,
-  shouldBreakFunctionParameters,
+  shouldHugFunctionParameters,
   shouldGroupFunctionParameters,
-  shouldHugTheOnlyFunctionParameter,
 };

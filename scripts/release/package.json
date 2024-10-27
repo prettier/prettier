@@ -1,19 +1,12 @@
 {
   "private": true,
-  "type": "module",
-  "scripts": {
-    "test": "node --test"
-  },
   "dependencies": {
-    "chalk": "5.3.0",
-    "enquirer": "2.4.1",
-    "execa": "9.4.0",
-    "fast-glob": "3.3.2",
+    "chalk": "4.1.1",
+    "execa": "5.1.1",
+    "minimist": "1.2.5",
+    "node-fetch": "2.6.1",
     "outdent": "0.8.0",
-    "semver": "7.6.3"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "packageManager": "yarn@4.5.0"
+    "semver": "7.3.5",
+    "string-width": "4.2.0"
+  }
 }

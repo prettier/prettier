@@ -1,12 +1,17 @@
-import { hardline, markAsRoot } from "../../document/builders.js";
+"use strict";
 
-async function print(node, textToDoc) {
-  if (node.language === "yaml") {
+const {
+  builders: { hardline, markAsRoot },
+} = require("../../document");
+
+function print(node, textToDoc) {
+  if (node.lang === "yaml") {
     const value = node.value.trim();
-    const doc = value ? await textToDoc(value, { parser: "yaml" }) : "";
+    const doc = value
+      ? textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
+      : "";
     return markAsRoot([
       node.startDelimiter,
-      node.explicitLanguage,
       hardline,
       doc,
       doc ? hardline : "",
@@ -15,4 +20,4 @@ async function print(node, textToDoc) {
   }
 }
 
-export default print;
+module.exports = print;

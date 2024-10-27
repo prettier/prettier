@@ -1,5 +1,6 @@
-import fs from "node:fs";
-import { prettierCli } from "../env.js";
+"use strict";
+const fs = require("fs");
+const { prettierCli } = require("../env");
 
 describe("CLI", () => {
   test("CLI should be executable.", () => {

@@ -1,4 +1,4 @@
-type OldArtist implements Node& Entity {
+type OldArtist implements Node, Entity {
   # The ID of an object
   id: ID!
 

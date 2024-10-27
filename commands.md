@@ -1,4 +1,4 @@
-The core of the algorithm is implemented in `src/document/{printer,builders,utils}.js`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
+The core of the algorithm is implemented in `src/document/doc-{printer,builders,utils}.js`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
 
 ## Prettier's intermediate representation: `Doc`
 
@@ -55,7 +55,7 @@ This should be used as **last resort** as it triggers an exponential complexity 
 ```ts
 declare function conditionalGroup(
   alternatives: Doc[],
-  options?: GroupOptions,
+  options?: GroupOptions
 ): Doc;
 ```
 
@@ -83,9 +83,9 @@ Expects the `docs` argument to be an array of alternating content and line break
 
 ```ts
 declare function ifBreak(
-  breakContents: Doc,
-  flatContents?: Doc,
-  options?: { groupId?: symbol },
+  ifBreak: Doc,
+  noBreak?: Doc,
+  options?: { groupId?: symbol }
 ): Doc;
 ```
 
@@ -96,10 +96,6 @@ ifBreak(";", " ");
 ```
 
 `groupId` can be used to check another _already printed_ group instead of the current group.
-
-If a [`hardline`](#hardline) or [`breakParent`](#breakParent) is present within the possible contents, the parent groups will be broken regardless of said content being printed, which might not be desirable. This behaviour is a design limitation. Usually the desired result can be achieved in a different way.
-
-In the rare case that `hardline` is definitely needed, consider using [`hardlineWithoutBreakParent`](#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) instead to avoid an unwanted group break propagation.
 
 ### `breakParent`
 
@@ -265,7 +261,7 @@ _Added in v2.3.0_
 ```ts
 declare function indentIfBreak(
   doc: Doc,
-  opts: { groupId: symbol; negate?: boolean },
+  opts: { groupId: symbol; negate?: boolean }
 ): Doc;
 ```
 
@@ -280,14 +276,12 @@ It doesn't make sense to apply `indentIfBreak` to the current group because "ind
 _Added in v2.3.0_
 
 ```ts
-declare function label(label: any, doc: Doc): Doc;
+declare function label(label: string, doc: Doc): Doc;
 ```
 
-Mark a doc with an arbitrary truthy value. This doesn't affect how the doc is printed, but can be useful for heuristics based on doc introspection.
+Mark a doc with a string label. This doesn't affect how the doc is printed, but can be useful for heuristics based on doc introspection.
 
 E.g., to decide how to print an assignment expression, we might want to know whether its right-hand side has been printed as a method call chain, not as a plain function call. If the method chain printing code uses `label` to mark its result, checking that condition can be as easy as `rightHandSideDoc.label === 'method-chain'`.
-
-If the `label` argument is falsy, `doc` is returned as is, without wrapping.
 
 ### `hardlineWithoutBreakParent` and `literallineWithoutBreakParent`
 
@@ -312,6 +306,16 @@ declare const cursor: Doc;
 ```
 
 This is a placeholder value where the cursor is in the original input in order to find where it would be printed.
+
+### [Deprecated] `concat`
+
+_This command has been deprecated in v2.3.0, use `Doc[]` instead_
+
+```ts
+declare function concat(docs: Doc[]): Doc;
+```
+
+Combine an array into a single doc.
 
 ## Example
 

@@ -1,8 +1,31 @@
-import printer from "./printer-yaml.js";
+"use strict";
 
-export const printers = {
-  yaml: printer,
+const createLanguage = require("../utils/create-language");
+const printer = require("./printer-yaml");
+const options = require("./options");
+
+const languages = [
+  createLanguage(require("linguist-languages/data/YAML.json"), (data) => ({
+    since: "1.14.0",
+    parsers: ["yaml"],
+    vscodeLanguageIds: ["yaml", "ansible", "home-assistant"],
+    // yarn.lock is not YAML: https://github.com/yarnpkg/yarn/issues/5629
+    filenames: [
+      ...data.filenames.filter((filename) => filename !== "yarn.lock"),
+      ".prettierrc",
+    ],
+  })),
+];
+
+const parsers = {
+  get yaml() {
+    return require("./parser-yaml").parsers.yaml;
+  },
 };
-export { default as languages } from "./languages.evaluate.js";
-export { default as options } from "./options.js";
-export * as parsers from "./parser-yaml.js";
+
+module.exports = {
+  languages,
+  printers: { yaml: printer },
+  options,
+  parsers,
+};

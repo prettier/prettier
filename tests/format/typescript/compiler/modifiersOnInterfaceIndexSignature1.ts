@@ -1,3 +1,3 @@
 interface I {
-  [a: string]: number;
+  public [a: string]: number;
 }

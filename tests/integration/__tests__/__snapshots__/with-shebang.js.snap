@@ -4,7 +4,8 @@ exports[`preserves shebang (stderr) 1`] = `""`;
 
 exports[`preserves shebang (stdout) 1`] = `
 "#!/usr/bin/env node
-"use strict";"
+\\"use strict\\";
+"
 `;
 
-exports[`preserves shebang (write) 1`] = `[]`;
+exports[`preserves shebang (write) 1`] = `Array []`;

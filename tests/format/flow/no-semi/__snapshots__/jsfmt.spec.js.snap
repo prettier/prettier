@@ -1,0 +1,282 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+let error = new Error(response.statusText);
+// comment
+(error: any).response = response
+
+x;
+
+/* comment */ (error: any).response = response
+
+x;
+
+(error: any).response = response; /* comment */
+
+=====================================output=====================================
+let error = new Error(response.statusText)
+// comment
+;(error: any).response = response
+
+x
+
+/* comment */ ;(error: any).response = response
+
+x
+
+;(error: any).response = response /* comment */
+
+================================================================================
+`;
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let error = new Error(response.statusText);
+// comment
+(error: any).response = response
+
+x;
+
+/* comment */ (error: any).response = response
+
+x;
+
+(error: any).response = response; /* comment */
+
+=====================================output=====================================
+let error = new Error(response.statusText);
+// comment
+(error: any).response = response;
+
+x;
+
+/* comment */ (error: any).response = response;
+
+x;
+
+(error: any).response = response; /* comment */
+
+================================================================================
+`;
+
+exports[`flow-interfaces.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+declare class A {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// declare class B {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+declare interface C {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// declare interface D {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+interface E {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// interface F {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+=====================================output=====================================
+declare class A {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// declare class B {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+declare interface C {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// declare interface D {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+interface E {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// interface F {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+================================================================================
+`;
+
+exports[`flow-interfaces.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare class A {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// declare class B {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+declare interface C {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// declare interface D {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+interface E {
+    one: boolean;
+    two: { three: string }
+    | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// interface F {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+=====================================output=====================================
+declare class A {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// declare class B {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+declare interface C {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// declare interface D {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+interface E {
+  one: boolean;
+  two: { three: string } | number;
+}
+
+// NOTE: Flow and Babel both fail to apply ASI here
+// interface F {
+//     one: boolean
+//     two: { three: string }
+//     | number
+// }
+
+================================================================================
+`;
+
+exports[`no-semi.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// flow
+
+(x: void);
+(y: void)
+
+=====================================output=====================================
+// flow
+
+;(x: void)
+;(y: void)
+
+================================================================================
+`;
+
+exports[`no-semi.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// flow
+
+(x: void);
+(y: void)
+
+=====================================output=====================================
+// flow
+
+(x: void);
+(y: void);
+
+================================================================================
+`;

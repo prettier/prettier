@@ -7,5 +7,4 @@ class A {
 
   bar: A;
   private [baz]
-  readonly [qux]
 }

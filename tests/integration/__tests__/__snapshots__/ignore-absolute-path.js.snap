@@ -2,6 +2,9 @@
 
 exports[`support absolute filename (stderr) 1`] = `""`;
 
-exports[`support absolute filename (stdout) 1`] = `"regular-module.js"`;
+exports[`support absolute filename (stdout) 1`] = `
+"regular-module.js
+"
+`;
 
-exports[`support absolute filename (write) 1`] = `[]`;
+exports[`support absolute filename (write) 1`] = `Array []`;

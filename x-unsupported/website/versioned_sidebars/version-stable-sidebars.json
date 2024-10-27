@@ -1,0 +1,36 @@
+{
+  "version-stable-docs": {
+    "About": [
+      "version-stable-index",
+      "version-stable-why-prettier",
+      "version-stable-comparison",
+      "version-stable-option-philosophy",
+      "version-stable-rationale"
+    ],
+    "Usage": [
+      "version-stable-install",
+      "version-stable-ignore",
+      "version-stable-integrating-with-linters",
+      "version-stable-precommit",
+      "version-stable-plugins",
+      "version-stable-cli",
+      "version-stable-api",
+      "version-stable-browser"
+    ],
+    "Configuring Prettier": [
+      "version-stable-options",
+      "version-stable-configuration"
+    ],
+    "Editors": [
+      "version-stable-editors",
+      "version-stable-webstorm",
+      "version-stable-vim",
+      "version-stable-watching-files"
+    ],
+    "Misc": [
+      "version-stable-technical-details",
+      "version-stable-related-projects",
+      "version-stable-for-enterprise"
+    ]
+  }
+}

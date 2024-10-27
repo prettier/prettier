@@ -1,28 +1,19 @@
-import chalk from "chalk";
-import { logPromise, readJson, runYarn } from "../utils.js";
+"use strict";
 
-export default async function generateBundles({ dry, version, manual }) {
-  if (!manual) {
-    return;
-  }
+const chalk = require("chalk");
+const { runYarn, logPromise, readJson } = require("../utils");
 
-  await logPromise(
-    "Generating bundles",
-    runYarn(["build", "--clean", "--print-size", "--compare-size"]),
-  );
+module.exports = async function ({ version }) {
+  await logPromise("Generating bundles", runYarn(["build", "--purge-cache"]));
 
   const builtPkg = await readJson("dist/package.json");
-  if (!dry && builtPkg.version !== version) {
+  if (builtPkg.version !== version) {
     throw new Error(
-      `Expected ${version} in dist/package.json but found ${builtPkg.version}`,
+      `Expected ${version} in dist/package.json but found ${builtPkg.version}`
     );
   }
 
-  await logPromise(
-    "Running tests on generated bundles",
-    () => runYarn("test:dist"),
-    /* shouldSkip */ dry,
-  );
+  await logPromise("Running tests on generated bundles", runYarn("test:dist"));
 
   console.log(chalk.green.bold("Build successful!\n"));
-}
+};

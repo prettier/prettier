@@ -38,6 +38,6 @@ Node & Named {
 
 # `InterfaceTypeExtension`
 extend interface Bar implements
-A& B & C {
+A, B & C {
   two(argument: InputType!): Type
 }

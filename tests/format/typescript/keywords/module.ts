@@ -1,11 +1,12 @@
 module Y3 {
-  module Module {
+  public module Module {
       class A { s: string }
   }
 
-  export enum X { }
+  // Apparently this parses :P
+  export private public protected static readonly abstract async enum X { }
 
   interface x {
-      readonly [x: any]: any;
+      export private static readonly [x: any]: any;
   }
 }

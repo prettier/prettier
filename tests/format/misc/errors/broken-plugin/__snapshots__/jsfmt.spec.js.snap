@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [missing-comments] format 1`] = `"Comment \\"comment\\" was not printed. Please report this error!"`;

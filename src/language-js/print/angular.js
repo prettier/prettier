@@ -1,17 +1,15 @@
-import { group, join, line } from "../../document/builders.js";
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import {
-  createTypeCheckFunction,
-  getComments,
-  hasComment,
-  hasNode,
-} from "../utils/index.js";
-import { printBinaryishExpression } from "./binaryish.js";
+"use strict";
 
-/** @import AstPath from "../../common/ast-path.js" */
+const {
+  builders: { join, line, group },
+} = require("../../document");
+const { hasNode, hasComment, getComments } = require("../utils");
+const { printBinaryishExpression } = require("./binaryish");
+
+/** @typedef {import("../../common/ast-path")} AstPath */
 
 function printAngular(path, options, print) {
-  const { node } = path;
+  const node = path.getValue();
 
   // Angular nodes always starts with `NG`
   if (!node.type.startsWith("NG")) {
@@ -22,9 +20,9 @@ function printAngular(path, options, print) {
     case "NGRoot":
       return [
         print("node"),
-        hasComment(node.node)
-          ? " //" + getComments(node.node)[0].value.trimEnd()
-          : "",
+        !hasComment(node.node)
+          ? ""
+          : " //" + getComments(node.node)[0].value.trimEnd(),
       ];
     case "NGPipeExpression":
       return printBinaryishExpression(path, options, print);
@@ -33,23 +31,30 @@ function printAngular(path, options, print) {
         join(
           [";", line],
           path.map(
-            () => (hasNgSideEffect(path) ? print() : ["(", print(), ")"]),
-            "expressions",
-          ),
-        ),
+            (childPath) =>
+              hasNgSideEffect(childPath) ? print() : ["(", print(), ")"],
+            "expressions"
+          )
+        )
       );
     case "NGEmptyExpression":
       return "";
+    case "NGQuotedExpression":
+      return [node.prefix, ": ", node.value.trim()];
     case "NGMicrosyntax":
       return path.map(
-        () => [
-          path.isFirst ? "" : isNgForOf(path) ? " " : [";", line],
+        (childPath, index) => [
+          index === 0
+            ? ""
+            : isNgForOf(childPath.getValue(), index, node)
+            ? " "
+            : [";", line],
           print(),
         ],
-        "body",
+        "body"
       );
     case "NGMicrosyntaxKey":
-      return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/iu.test(node.name)
+      return /^[$_a-z][\w$]*(-[$_a-z][\w$])*$/i.test(node.name)
         ? node.name
         : JSON.stringify(node.name);
     case "NGMicrosyntaxExpression":
@@ -58,20 +63,18 @@ function printAngular(path, options, print) {
         node.alias === null ? "" : [" as ", print("alias")],
       ];
     case "NGMicrosyntaxKeyedExpression": {
-      const { index, parent } = path;
-      // https://github.com/prettier/angular-estree-parser/issues/267
+      const index = path.getName();
+      const parentNode = path.getParentNode();
       const shouldNotPrintColon =
-        isNgForOf(path) ||
+        isNgForOf(node, index, parentNode) ||
         (((index === 1 &&
-          (node.key.name === "then" ||
-            node.key.name === "else" ||
-            node.key.name === "as")) ||
-          ((index === 2 || index === 3) &&
-            ((node.key.name === "else" &&
-              parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
-              parent.body[index - 1].key.name === "then") ||
-              node.key.name === "track"))) &&
-          parent.body[0].type === "NGMicrosyntaxExpression");
+          (node.key.name === "then" || node.key.name === "else")) ||
+          (index === 2 &&
+            node.key.name === "else" &&
+            parentNode.body[index - 1].type ===
+              "NGMicrosyntaxKeyedExpression" &&
+            parentNode.body[index - 1].key.name === "then")) &&
+          parentNode.body[0].type === "NGMicrosyntaxExpression");
       return [
         print("key"),
         shouldNotPrintColon ? " " : ": ",
@@ -87,31 +90,39 @@ function printAngular(path, options, print) {
     case "NGMicrosyntaxAs":
       return [print("key"), " as ", print("alias")];
     default:
-      /* c8 ignore next */
-      throw new UnexpectedNodeError(node, "Angular");
+      /* istanbul ignore next */
+      throw new Error(
+        `Unknown Angular node type: ${JSON.stringify(node.type)}.`
+      );
   }
 }
 
-function isNgForOf({ node, index }) {
+function isNgForOf(node, index, parentNode) {
   return (
     node.type === "NGMicrosyntaxKeyedExpression" &&
     node.key.name === "of" &&
-    index === 1
+    index === 1 &&
+    parentNode.body[0].type === "NGMicrosyntaxLet" &&
+    parentNode.body[0].value === null
   );
 }
 
-const hasSideEffect = createTypeCheckFunction([
-  "CallExpression",
-  "OptionalCallExpression",
-  "AssignmentExpression",
-]);
 /** identify if an angular expression seems to have side effects */
 /**
  * @param {AstPath} path
  * @returns {boolean}
  */
-function hasNgSideEffect({ node }) {
-  return hasNode(node, hasSideEffect);
+function hasNgSideEffect(path) {
+  return hasNode(path.getValue(), (node) => {
+    switch (node.type) {
+      case undefined:
+        return false;
+      case "CallExpression":
+      case "OptionalCallExpression":
+      case "AssignmentExpression":
+        return true;
+    }
+  });
 }
 
-export { printAngular };
+module.exports = { printAngular };

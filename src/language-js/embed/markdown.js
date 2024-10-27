@@ -1,25 +1,28 @@
-import {
-  dedentToRoot,
-  indent,
-  literalline,
-  softline,
-} from "../../document/builders.js";
-import { escapeTemplateCharacters } from "../print/template-literal.js";
+"use strict";
 
-async function printEmbedMarkdown(textToDoc, print, path /*, options*/) {
-  const { node } = path;
-  let text = node.quasis[0].value.raw.replaceAll(
-    /((?:\\\\)*)\\`/gu,
-    (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`",
+const {
+  builders: { indent, softline, literalline, dedentToRoot },
+} = require("../../document");
+const { escapeTemplateCharacters } = require("../print/template-literal");
+
+function format(path, print, textToDoc) {
+  const node = path.getValue();
+  let text = node.quasis[0].value.raw.replace(
+    /((?:\\\\)*)\\`/g,
+    (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
   );
   const indentation = getIndentation(text);
   const hasIndent = indentation !== "";
   if (hasIndent) {
-    text = text.replaceAll(new RegExp(`^${indentation}`, "gmu"), "");
+    text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
   }
   const doc = escapeTemplateCharacters(
-    await textToDoc(text, { parser: "markdown", __inJsTemplate: true }),
-    true,
+    textToDoc(
+      text,
+      { parser: "markdown", __inJsTemplate: true },
+      { stripTrailingHardline: true }
+    ),
+    true
   );
   return [
     "`",
@@ -30,27 +33,8 @@ async function printEmbedMarkdown(textToDoc, print, path /*, options*/) {
 }
 
 function getIndentation(str) {
-  const firstMatchedIndent = str.match(/^([^\S\n]*)\S/mu);
+  const firstMatchedIndent = str.match(/^([^\S\n]*)\S/m);
   return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
-function printMarkdown(path /*, options*/) {
-  if (isMarkdown(path)) {
-    return printEmbedMarkdown;
-  }
-}
-
-/**
- * md`...`
- * markdown`...`
- */
-function isMarkdown({ node, parent }) {
-  return (
-    parent?.type === "TaggedTemplateExpression" &&
-    node.quasis.length === 1 &&
-    parent.tag.type === "Identifier" &&
-    (parent.tag.name === "md" || parent.tag.name === "markdown")
-  );
-}
-
-export default printMarkdown;
+module.exports = format;

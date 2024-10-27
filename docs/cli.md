@@ -16,7 +16,7 @@ To format a file in-place, use `--write`. (Note: This overwrites your files!)
 In practice, this may look something like:
 
 ```bash
-prettier . --write
+prettier --write .
 ```
 
 This command formats all files supported by Prettier in the current directory and its subdirectories.
@@ -26,7 +26,7 @@ It’s recommended to always make sure that `prettier --write .` only formats wh
 A more complicated example:
 
 ```bash
-prettier docs package.json "{app,__{tests,mocks}__}/**/*.js" --write --single-quote --trailing-comma all
+prettier --single-quote --trailing-comma all --write docs package.json "{app,__{tests,mocks}__}/**/*.js"
 ```
 
 > Don’t forget the **quotes** around the globs! The quotes make sure that Prettier CLI expands the globs rather than your shell, which is important for cross-platform usage.
@@ -45,8 +45,6 @@ Given a list of paths/patterns, the Prettier CLI first treats every entry in it 
 
 Prettier CLI will ignore files located in `node_modules` directory. To opt out from this behavior, use `--with-node-modules` flag.
 
-Prettier CLI will not follow symbolic links when expanding arguments.
-
 To escape special characters in globs, one of the two escaping syntaxes can be used: `prettier "\[my-dir]/*.js"` or `prettier "[[]my-dir]/*.js"`. Both match all JS files in a directory named `[my-dir]`, however the latter syntax is preferable as the former doesn’t work on Windows, where backslashes are treated as path separators.
 
 ## `--check`
@@ -55,7 +53,7 @@ When you want to check if your files are formatted, you can run Prettier with th
 This will output a human-friendly message and a list of unformatted files, if any.
 
 ```bash
-prettier . --check
+prettier --check "src/**/*.js"
 ```
 
 Console output if all files are formatted:
@@ -71,7 +69,7 @@ Console output if some of the files require re-formatting:
 Checking formatting...
 [warn] src/fileA.js
 [warn] src/fileB.js
-[warn] Code style issues found in 2 files. Run Prettier with --write to fix.
+[warn] Code style issues found in the above file(s). Forgot to run Prettier?
 ```
 
 The command will return exit code `1` in the second case, which is helpful inside the CI pipelines.
@@ -97,15 +95,15 @@ If you're worried that Prettier will change the correctness of your code, add `-
 
 If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost when Prettier attempts to look up a [configuration file](configuration.md). In order to skip this, you may ask Prettier to find the config file once, and re-use it later on.
 
-```console
-$ prettier --find-config-path path/to/file.js
-path/to/.prettierrc
+```bash
+prettier --find-config-path ./my/file.js
+./my/.prettierrc
 ```
 
 This will provide you with a path to the configuration file, which you can pass to `--config`:
 
 ```bash
-prettier path/to/file.js --write --config path/to/.prettierrc
+prettier --config ./my/.prettierrc --write ./my/file.js
 ```
 
 You can also use `--config` if your configuration file lives somewhere where Prettier cannot find it, such as a `config/` directory.
@@ -114,15 +112,14 @@ If you don’t have a configuration file, or want to ignore it if it does exist,
 
 ## `--ignore-path`
 
-Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.gitignore` and `./.prettierignore`.\
-Multiple values are accepted.
+Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.prettierignore`.
 
 ## `--list-different`
 
 Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.
 
 ```bash
-prettier . --single-quote --list-different
+prettier --single-quote --list-different "src/**/*.js"
 ```
 
 You can also use [`--check`](cli.md#--check) flag, which works the same way as `--list-different`, but also prints a human-friendly summary message to stdout.
@@ -161,7 +158,7 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt out f
 
 This rewrites all processed files in place. This is comparable to the `eslint --fix` workflow. You can also use `-w` alias.
 
-## `--log-level`
+## `--loglevel`
 
 Change the level of logging for the CLI. Valid options are:
 
@@ -196,52 +193,10 @@ $ cat abc.css | prettier --stdin-filepath abc.css
 
 With `--ignore-unknown` (or `-u`), prettier will ignore unknown files matched by patterns.
 
-```bash
-prettier "**/*" --write --ignore-unknown
+```console
+$ prettier "**/*" --write --ignore-unknown
 ```
 
 ## `--no-error-on-unmatched-pattern`
 
 Prevent errors when pattern is unmatched.
-
-## `--cache`
-
-If this option is enabled, the following values are used as cache keys and the file is formatted only if one of them is changed.
-
-- Prettier version
-- Options
-- Node.js version
-- (if `--cache-strategy` is `metadata`) file metadata, such as timestamps
-- (if `--cache-strategy` is `content`) content of the file
-
-```bash
-prettier . --write --cache
-```
-
-Running Prettier without `--cache` will delete the cache.
-
-Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettier-cache`, so you can use `rm ./node_modules/.cache/prettier/.prettier-cache` to remove it manually.
-
-> Plugins version and implementation are not used as cache keys. We recommend that you delete the cache when updating plugins.
-
-## `--cache-location`
-
-Path to the cache file location used by `--cache` flag. If you don't explicit `--cache-location`, Prettier saves cache file at `./node_modules/.cache/prettier/.prettier-cache`.
-
-If a file path is passed, that file is used as the cache file.
-
-```bash
-prettier . --write --cache --cache-location=path/to/cache-file
-```
-
-## `--cache-strategy`
-
-Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`.
-
-In general, `metadata` is faster. However, `content` is useful for updating the timestamp without changing the file content. This can happen, for example, during git operations such as `git clone`, because it does not track file modification times.
-
-If no strategy is specified, `content` will be used.
-
-```bash
-prettier . --write --cache --cache-strategy metadata
-```

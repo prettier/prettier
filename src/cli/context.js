@@ -1,8 +1,20 @@
-import { getContextOptions } from "./options/get-context-options.js";
-import {
-  parseArgv,
-  parseArgvWithoutPlugins,
-} from "./options/parse-cli-arguments.js";
+"use strict";
+const pick = require("lodash/pick");
+
+// eslint-disable-next-line no-restricted-modules
+const prettier = require("../index");
+const {
+  optionsModule,
+  optionsNormalizer: { normalizeCliOptions },
+  utils: { arrayify },
+} = require("./prettier-internal");
+const minimist = require("./minimist");
+const constant = require("./constant");
+const {
+  createDetailedOptionMap,
+  normalizeDetailedOptionMap,
+} = require("./option-map");
+const createMinimistOptions = require("./create-minimist-options");
 
 /**
  * @typedef {Object} Context
@@ -12,6 +24,8 @@ import {
  * @property {string[]} filePatterns
  * @property {any[]} supportOptions
  * @property detailedOptions
+ * @property detailedOptionMap
+ * @property apiDefaultOptions
  * @property languages
  * @property {Partial<Context>[]} stack
  * @property pushContextPlugins
@@ -19,70 +33,102 @@ import {
  */
 
 class Context {
-  #stack = [];
-
   constructor({ rawArguments, logger }) {
     this.rawArguments = rawArguments;
     this.logger = logger;
-  }
+    this.stack = [];
 
-  async init() {
-    const { rawArguments, logger } = this;
+    const { plugin: plugins, "plugin-search-dir": pluginSearchDirs } =
+      parseArgvWithoutPlugins(rawArguments, logger, [
+        "plugin",
+        "plugin-search-dir",
+      ]);
 
-    const { plugins } = parseArgvWithoutPlugins(rawArguments, logger, [
-      "plugin",
-    ]);
-
-    await this.pushContextPlugins(plugins);
+    this.pushContextPlugins(plugins, pluginSearchDirs);
 
     const argv = parseArgv(rawArguments, this.detailedOptions, logger);
     this.argv = argv;
-    this.filePatterns = argv._;
+    this.filePatterns = argv._.map((file) => String(file));
   }
 
   /**
    * @param {string[]} plugins
+   * @param {string[]=} pluginSearchDirs
    */
-  async pushContextPlugins(plugins) {
-    const options = await getContextOptions(plugins);
-    this.#stack.push(options);
-    Object.assign(this, options);
+  pushContextPlugins(plugins, pluginSearchDirs) {
+    this.stack.push(
+      pick(this, [
+        "supportOptions",
+        "detailedOptions",
+        "detailedOptionMap",
+        "apiDefaultOptions",
+        "languages",
+      ])
+    );
+
+    Object.assign(this, getContextOptions(plugins, pluginSearchDirs));
   }
 
   popContextPlugins() {
-    this.#stack.pop();
-    Object.assign(this, this.#stack.at(-1));
-  }
-
-  // eslint-disable-next-line getter-return
-  get performanceTestFlag() {
-    const { debugBenchmark, debugRepeat } = this.argv;
-    /* c8 ignore start */
-    if (debugBenchmark) {
-      return {
-        name: "--debug-benchmark",
-        debugBenchmark: true,
-      };
-    }
-    /* c8 ignore stop */
-
-    if (debugRepeat > 0) {
-      return {
-        name: "--debug-repeat",
-        debugRepeat,
-      };
-    }
-
-    /* c8 ignore start */
-    const { PRETTIER_PERF_REPEAT } = process.env;
-    if (PRETTIER_PERF_REPEAT && /^\d+$/u.test(PRETTIER_PERF_REPEAT)) {
-      return {
-        name: "PRETTIER_PERF_REPEAT (environment variable)",
-        debugRepeat: Number(PRETTIER_PERF_REPEAT),
-      };
-    }
-    /* c8 ignore stop */
+    Object.assign(this, this.stack.pop());
   }
 }
 
-export default Context;
+function getContextOptions(plugins, pluginSearchDirs) {
+  const { options: supportOptions, languages } = prettier.getSupportInfo({
+    showDeprecated: true,
+    showUnreleased: true,
+    showInternal: true,
+    plugins,
+    pluginSearchDirs,
+  });
+  const detailedOptionMap = normalizeDetailedOptionMap({
+    ...createDetailedOptionMap(supportOptions),
+    ...constant.options,
+  });
+
+  const detailedOptions = arrayify(detailedOptionMap, "name");
+
+  const apiDefaultOptions = {
+    ...optionsModule.hiddenDefaults,
+    ...Object.fromEntries(
+      supportOptions
+        .filter(({ deprecated }) => !deprecated)
+        .map((option) => [option.name, option.default])
+    ),
+  };
+
+  return {
+    supportOptions,
+    detailedOptions,
+    detailedOptionMap,
+    apiDefaultOptions,
+    languages,
+  };
+}
+
+function parseArgv(rawArguments, detailedOptions, logger, keys) {
+  const minimistOptions = createMinimistOptions(detailedOptions);
+  let argv = minimist(rawArguments, minimistOptions);
+
+  if (keys) {
+    detailedOptions = detailedOptions.filter((option) =>
+      keys.includes(option.name)
+    );
+    argv = pick(argv, keys);
+  }
+
+  return normalizeCliOptions(argv, detailedOptions, { logger });
+}
+
+const detailedOptionsWithoutPlugins = getContextOptions().detailedOptions;
+function parseArgvWithoutPlugins(rawArguments, logger, keys) {
+  return parseArgv(
+    rawArguments,
+    detailedOptionsWithoutPlugins,
+    logger,
+    typeof keys === "string" ? [keys] : keys
+  );
+}
+
+module.exports = { Context, parseArgvWithoutPlugins };

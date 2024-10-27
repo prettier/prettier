@@ -1,5 +1,7 @@
-import { codeFrameColumns } from "@babel/code-frame";
-import { LinesAndColumns } from "lines-and-columns";
+"use strict";
+
+const LinesAndColumns = require("lines-and-columns").default;
+const { codeFrameColumns } = require("@babel/code-frame");
 const codeFrameColumnsOptions = {
   linesAbove: Number.POSITIVE_INFINITY,
   linesBelow: Number.POSITIVE_INFINITY,
@@ -32,7 +34,7 @@ const visualizeRange = (text, { rangeStart = 0, rangeEnd = text.length }) =>
     locationForRange(text, rangeStart, rangeEnd),
     rangeStart > rangeEnd
       ? { ...codeFrameColumnsOptions, message: "[Reversed range]" }
-      : codeFrameColumnsOptions,
+      : codeFrameColumnsOptions
   );
 
-export default visualizeRange;
+module.exports = visualizeRange;

@@ -1,17 +1,13 @@
-function createError(message, options) {
-  // TODO: Use `Error.prototype.cause` when we drop support for Node.js<18.7.0
+"use strict";
 
+function createError(message, loc) {
   // Construct an error similar to the ones thrown by Babel.
   const error = new SyntaxError(
-    message +
-      " (" +
-      options.loc.start.line +
-      ":" +
-      options.loc.start.column +
-      ")",
+    message + " (" + loc.start.line + ":" + loc.start.column + ")"
   );
-
-  return Object.assign(error, options);
+  // @ts-ignore - TBD (...)
+  error.loc = loc;
+  return error;
 }
 
-export default createError;
+module.exports = createError;

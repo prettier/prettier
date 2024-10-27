@@ -1,4 +1,5 @@
-import { defineShortcut, mapNode } from "./utils.js";
+"use strict";
+const { defineShortcut, mapNode } = require("./utils");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -26,4 +27,4 @@ function defineShortcuts(node) {
   return node;
 }
 
-export default preprocess;
+module.exports = preprocess;

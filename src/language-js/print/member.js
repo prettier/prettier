@@ -1,31 +1,33 @@
-import { group, indent, label, softline } from "../../document/builders.js";
-import {
-  getCallArguments,
-  isCallExpression,
-  isMemberExpression,
-  isNumericLiteral,
-} from "../utils/index.js";
-import { printOptionalToken } from "./misc.js";
+"use strict";
 
-const isCallExpressionWithArguments = (node) => {
-  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
-    node = node.expression;
-  }
-  return isCallExpression(node) && getCallArguments(node).length > 0;
-};
+const {
+  // [prettierx] --computed-property-spacing option support
+  builders: { softline, line, group, indent, label },
+} = require("../../document");
+const {
+  isNumericLiteral,
+  isMemberExpression,
+  isCallExpression,
+} = require("../utils");
+const { printOptionalToken } = require("./misc");
 
 function printMemberExpression(path, options, print) {
+  const node = path.getValue();
+
+  const parent = path.getParentNode();
+  let firstNonMemberParent;
+  let i = 0;
+  do {
+    firstNonMemberParent = path.getParentNode(i);
+    i++;
+  } while (
+    firstNonMemberParent &&
+    (isMemberExpression(firstNonMemberParent) ||
+      firstNonMemberParent.type === "TSNonNullExpression")
+  );
+
   const objectDoc = print("object");
   const lookupDoc = printMemberLookup(path, options, print);
-  const { node } = path;
-  const firstNonMemberParent = path.findAncestor(
-    (node) =>
-      !(isMemberExpression(node) || node.type === "TSNonNullExpression"),
-  );
-  const firstNonChainElementWrapperParent = path.findAncestor(
-    (node) =>
-      !(node.type === "ChainExpression" || node.type === "TSNonNullExpression"),
-  );
 
   const shouldInline =
     (firstNonMemberParent &&
@@ -36,13 +38,16 @@ function printMemberExpression(path, options, print) {
     node.computed ||
     (node.object.type === "Identifier" &&
       node.property.type === "Identifier" &&
-      !isMemberExpression(firstNonChainElementWrapperParent)) ||
-    ((firstNonChainElementWrapperParent.type === "AssignmentExpression" ||
-      firstNonChainElementWrapperParent.type === "VariableDeclarator") &&
-      (isCallExpressionWithArguments(node.object) ||
-        objectDoc.label?.memberChain));
+      !isMemberExpression(parent)) ||
+    ((parent.type === "AssignmentExpression" ||
+      parent.type === "VariableDeclarator") &&
+      ((isCallExpression(node.object) && node.object.arguments.length > 0) ||
+        (node.object.type === "TSNonNullExpression" &&
+          isCallExpression(node.object.expression) &&
+          node.object.expression.arguments.length > 0) ||
+        objectDoc.label === "member-chain"));
 
-  return label(objectDoc.label, [
+  return label(objectDoc.label === "member-chain" ? "member-chain" : "member", [
     objectDoc,
     shouldInline ? lookupDoc : group(indent([softline, lookupDoc])),
   ]);
@@ -50,18 +55,40 @@ function printMemberExpression(path, options, print) {
 
 function printMemberLookup(path, options, print) {
   const property = print("property");
-  const { node } = path;
+  const node = path.getValue();
   const optional = printOptionalToken(path);
+
+  // [prettierx] --computed-property-spacing option support
+  const computedPropertySpace = options.computedPropertySpacing ? " " : "";
+  const computedPropertyLine = options.computedPropertySpacing
+    ? line
+    : softline;
 
   if (!node.computed) {
     return [optional, ".", property];
   }
 
   if (!node.property || isNumericLiteral(node.property)) {
-    return [optional, "[", property, "]"];
+    // [prettierx] --computed-property-spacing option support
+    return [
+      optional,
+      "[",
+      computedPropertySpace,
+      property,
+      computedPropertySpace,
+      "]",
+    ];
   }
 
-  return group([optional, "[", indent([softline, property]), softline, "]"]);
+  // [prettierx] --computed-property-spacing option support
+  return group([
+    optional,
+    "[",
+    // [prettierx] --computed-property-spacing option support
+    indent([computedPropertyLine, property]),
+    computedPropertyLine,
+    "]",
+  ]);
 }
 
-export { printMemberExpression, printMemberLookup };
+module.exports = { printMemberExpression, printMemberLookup };

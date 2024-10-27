@@ -1,8 +1,8 @@
-class C {
+declare class C {
   f(
     superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
     ...args
-  ) {}
+  ): void,
 }
 
 function f(
@@ -10,7 +10,7 @@ function f(
   ...args
 ) {}
 
-class D { f(...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong) {}; }
+declare class C { f(...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong): void; }
 
 [superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,,];
 

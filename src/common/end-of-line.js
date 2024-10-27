@@ -1,6 +1,8 @@
+"use strict";
+
 function guessEndOfLine(text) {
   const index = text.indexOf("\r");
-  if (index !== -1) {
+  if (index >= 0) {
     return text.charAt(index + 1) === "\n" ? "crlf" : "cr";
   }
   return "lf";
@@ -20,19 +22,15 @@ function convertEndOfLineToChars(value) {
 function countEndOfLineChars(text, eol) {
   let regex;
 
-  switch (eol) {
-    case "\n":
-      regex = /\n/gu;
-      break;
-    case "\r":
-      regex = /\r/gu;
-      break;
-    case "\r\n":
-      regex = /\r\n/gu;
-      break;
-    default:
-      /* c8 ignore next */
-      throw new Error(`Unexpected "eol" ${JSON.stringify(eol)}.`);
+  /* istanbul ignore else */
+  if (eol === "\n") {
+    regex = /\n/g;
+  } else if (eol === "\r") {
+    regex = /\r/g;
+  } else if (eol === "\r\n") {
+    regex = /\r\n/g;
+  } else {
+    throw new Error(`Unexpected "eol" ${JSON.stringify(eol)}.`);
   }
 
   const endOfLines = text.match(regex);
@@ -40,12 +38,12 @@ function countEndOfLineChars(text, eol) {
 }
 
 function normalizeEndOfLine(text) {
-  return text.replaceAll(/\r\n?/gu, "\n");
+  return text.replace(/\r\n?/g, "\n");
 }
 
-export {
+module.exports = {
+  guessEndOfLine,
   convertEndOfLineToChars,
   countEndOfLineChars,
-  guessEndOfLine,
   normalizeEndOfLine,
 };

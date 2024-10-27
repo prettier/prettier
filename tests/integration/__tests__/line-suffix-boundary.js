@@ -1,13 +1,15 @@
-import { outdent } from "outdent";
+"use strict";
+
 /** @type {import('prettier')} */
-import prettier from "../../config/prettier-entry.js";
-import printDoc from "../print-doc.js";
+const prettier = require("prettier-local");
 
 const { group, indent, line, lineSuffix, lineSuffixBoundary, softline } =
   prettier.doc.builders;
 
+const printDoc = require("../printDoc");
+
 describe("lineSuffixBoundary", () => {
-  test("should be correctly treated as a potential line break in `fits`", async () => {
+  test("should be correctly treated as a potential line break in `fits`", () => {
     const doc = group([
       "let foo = [",
       indent([
@@ -22,14 +24,12 @@ describe("lineSuffixBoundary", () => {
       "];",
     ]);
 
-    const expected = outdent`
-      let foo = [
-        item1,
-        item2, // comment
-        item3
-      ];
-    `;
+    const expected = `let foo = [
+  item1,
+  item2, // comment
+  item3
+];`;
 
-    expect(await printDoc(doc)).toBe(expected);
+    expect(printDoc(doc)).toBe(expected);
   });
 });

@@ -87,7 +87,7 @@ const user = {
 
 Just like with objects, decorators are used for a lot of different things. Sometimes it makes sense to write decorators _above_ the line they're decorating, sometimes it’s nicer if they're on the _same_ line. We haven’t been able to find a good rule for this, so Prettier keeps your decorator positioned like you wrote them (if they fit on the line). This isn’t ideal, but a pragmatic solution to a difficult problem.
 
-```ts
+```js
 @Component({
   selector: "hero-button",
   template: `<button>{{ label }}</button>`,
@@ -108,14 +108,14 @@ class HeroButtonComponent {
 There’s one exception: classes. We don’t think it ever makes sense to inline the decorators for them, so they are always moved to their own line.
 
 <!-- prettier-ignore -->
-```ts
+```js
 // Before running Prettier:
 @observer class OrderLine {
   @observable price: number = 0;
 }
 ```
 
-```ts
+```js
 // After running Prettier:
 @observer
 class OrderLine {
@@ -125,7 +125,7 @@ class OrderLine {
 
 Note: Prettier 1.14.x and older tried to automatically move your decorators, so if you've run an older Prettier version on your code you might need to manually join up some decorators here and there to avoid inconsistencies:
 
-```ts
+```js
 @observer
 class OrderLine {
   @observable price: number = 0;
@@ -142,21 +142,6 @@ One final thing: TC39 has [not yet decided if decorators come before or after `e
 
 export @decorator class Foo {}
 ```
-
-### Template literals
-
-Template literals can contain interpolations. Deciding whether it's appropriate to insert a linebreak within an interpolation unfortunately depends on the semantic content of the template - for example, introducing a linebreak in the middle of a natural-language sentence is usually undesirable. Since Prettier doesn't have enough information to make this decision itself, it uses a heuristic similar to that used for objects: it will only split an interpolation expression across multiple lines if there was already a linebreak within that interpolation.
-
-This means that a literal like the following will not be broken onto multiple lines, even if it exceeds the print width:
-
-<!-- prettier-ignore -->
-```js
-`this is a long message which contains an interpolation: ${format(data)} <- like this`;
-```
-
-If you want Prettier to split up an interpolation, you'll need to ensure there's a linebreak somewhere within the `${...}`. Otherwise it will keep everything on a single line, no matter how long it is.
-
-The team would prefer not to depend on the original formatting in this way, but it's the best heuristic we have at the moment.
 
 ### Semicolons
 
@@ -201,24 +186,6 @@ if (shouldAddLines) {
 With a semicolon in front of that `[` such issues never happen. It makes the line independent of other lines so you can move and add lines without having to think about ASI rules.
 
 This practice is also common in [standard] which uses a semicolon-free style.
-
-Note that if your program currently has a semicolon-related bug in it, Prettier _will not_ auto-fix the bug for you. Remember, Prettier only reformats code, it does not change the behavior of the code. Take this buggy piece of code as an example, where the developer forgot to place a semicolon before the `(`:
-
-<!-- prettier-ignore -->
-```js
-console.log('Running a background task')
-(async () => {
-  await doBackgroundWork()
-})()
-```
-
-If you feed this into Prettier, it will not alter the behavior of this code, instead, it will reformat it in a way that shows how this code will actually behave when ran.
-
-```js
-console.log("Running a background task")(async () => {
-  await doBackgroundWork();
-})();
-```
 
 [standard]: https://standardjs.com/rules.html#semicolons
 
@@ -345,10 +312,6 @@ If possible, prefer comments that operate on line ranges (e.g. `eslint-disable` 
 ## Disclaimer about non-standard syntax
 
 Prettier is often able to recognize and format non-standard syntax such as ECMAScript early-stage proposals and Markdown syntax extensions not defined by any specification. The support for such syntax is considered best-effort and experimental. Incompatibilities may be introduced in any release and should not be viewed as breaking changes.
-
-## Disclaimer about machine-generated files
-
-Some files, like `package.json` or `composer.lock`, are machine-generated and regularly updated by the package manager. If Prettier were to use the same JSON formatting rules as with other files, it would regularly conflict with these other tools. To avoid this inconvenience, Prettier will use a formatter based on `JSON.stringify` on such files instead. You may notice these differences, such as the removal of vertical whitespace, but this is an intended behavior.
 
 ## What Prettier is _not_ concerned about
 

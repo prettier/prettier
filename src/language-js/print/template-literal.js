@@ -1,32 +1,43 @@
-import {
-  addAlignmentToDoc,
-  align,
-  group,
-  hardline,
-  indent,
-  join,
-  label,
-  lineSuffixBoundary,
-  softline,
-} from "../../document/builders.js";
-import { printDocToString } from "../../document/printer.js";
-import { mapDoc } from "../../document/utils.js";
-import getIndentSize from "../../utils/get-indent-size.js";
-import getStringWidth from "../../utils/get-string-width.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import { locEnd, locStart } from "../loc.js";
-import {
-  hasComment,
-  isBinaryCastExpression,
+"use strict";
+
+const getLast = require("../../utils/get-last");
+const { getStringWidth, getIndentSize } = require("../../common/util");
+const {
+  builders: {
+    join,
+    hardline,
+    softline,
+    // [prettierx] --template-curly-spacing option support (...)
+    line,
+    group,
+    indent,
+    align,
+    lineSuffixBoundary,
+    addAlignmentToDoc,
+  },
+  printer: { printDocToString },
+  utils: { mapDoc },
+} = require("../../document");
+const {
   isBinaryish,
+  isJestEachTemplateLiteral,
+  isSimpleTemplateLiteral,
+  hasComment,
   isMemberExpression,
-} from "../utils/index.js";
+} = require("../utils");
 
 function printTemplateLiteral(path, print, options) {
-  const { node } = path;
+  const node = path.getValue();
   const isTemplateLiteral = node.type === "TemplateLiteral";
 
-  if (isTemplateLiteral && isJestEachTemplateLiteral(path)) {
+  // [prettierx] --template-curly-spacing option support (...)
+  const templateCurlySpace = options.templateCurlySpacing ? " " : "";
+  const templateCurlyLine = options.templateCurlySpacing ? line : softline;
+
+  if (
+    isTemplateLiteral &&
+    isJestEachTemplateLiteral(node, path.getParentNode())
+  ) {
     const printed = printJestEachTemplateLiteral(path, options, print);
     if (printed) {
       return printed;
@@ -38,98 +49,76 @@ function printTemplateLiteral(path, print, options) {
   }
   const parts = [];
 
-  const expressionDocs = path.map(print, expressionsKey);
+  let expressions = path.map(print, expressionsKey);
+  const isSimple = isSimpleTemplateLiteral(node);
+
+  if (isSimple) {
+    expressions = expressions.map(
+      (doc) =>
+        printDocToString(doc, {
+          ...options,
+          printWidth: Number.POSITIVE_INFINITY,
+        }).formatted
+    );
+  }
 
   parts.push(lineSuffixBoundary, "`");
 
-  let previousQuasiIndentSize = 0;
-  path.each(({ index, node: quasi }) => {
+  path.each((childPath) => {
+    const i = childPath.getName();
+
     parts.push(print());
 
-    if (quasi.tail) {
-      return;
-    }
+    if (i < expressions.length) {
+      // For a template literal of the following form:
+      //   `someQuery {
+      //     ${call({
+      //       a,
+      //       b,
+      //     })}
+      //   }`
+      // the expression is on its own line (there is a \n in the previous
+      // quasi literal), therefore we want to indent the JavaScript
+      // expression inside at the beginning of ${ instead of the beginning
+      // of the `.
+      const { tabWidth } = options;
+      const quasi = childPath.getValue();
+      const indentSize = getIndentSize(quasi.value.raw, tabWidth);
 
-    // For a template literal of the following form:
-    //   `someQuery {
-    //     ${call({
-    //       a,
-    //       b,
-    //     })}
-    //   }`
-    // the expression is on its own line (there is a \n in the previous
-    // quasi literal), therefore we want to indent the JavaScript
-    // expression inside at the beginning of ${ instead of the beginning
-    // of the `.
-    const { tabWidth } = options;
-    const text = quasi.value.raw;
-    const indentSize = text.includes("\n")
-      ? getIndentSize(text, tabWidth)
-      : previousQuasiIndentSize;
-    previousQuasiIndentSize = indentSize;
+      let printed = expressions[i];
 
-    let expressionDoc = expressionDocs[index];
-
-    const expression = node[expressionsKey][index];
-
-    let interpolationHasNewline = hasNewlineInRange(
-      options.originalText,
-      locEnd(quasi),
-      locStart(node.quasis[index + 1]),
-    );
-
-    if (!interpolationHasNewline) {
-      // Never add a newline to an interpolation which didn't already have one...
-      const renderedExpression = printDocToString(expressionDoc, {
-        ...options,
-        printWidth: Number.POSITIVE_INFINITY,
-      }).formatted;
-
-      // ... unless one will be introduced anyway, e.g. by a nested function.
-      // This case is rare, so we can pay the cost of re-rendering.
-      if (renderedExpression.includes("\n")) {
-        interpolationHasNewline = true;
-      } else {
-        expressionDoc = renderedExpression;
+      if (!isSimple) {
+        const expression = node[expressionsKey][i];
+        // Breaks at the template element boundaries (${ and }) are preferred to breaking
+        // in the middle of a MemberExpression
+        if (
+          hasComment(expression) ||
+          isMemberExpression(expression) ||
+          expression.type === "ConditionalExpression" ||
+          expression.type === "SequenceExpression" ||
+          expression.type === "TSAsExpression" ||
+          isBinaryish(expression)
+        ) {
+          // [prettierx] --template-curly-spacing option support (...)
+          printed = [indent([templateCurlyLine, printed]), templateCurlyLine];
+        } else {
+          // [prettierx] --template-curly-spacing option support (...)
+          printed = [templateCurlySpace, printed, templateCurlySpace];
+        }
       }
+
+      const aligned =
+        indentSize === 0 && quasi.value.raw.endsWith("\n")
+          ? align(Number.NEGATIVE_INFINITY, printed)
+          : addAlignmentToDoc(printed, indentSize, tabWidth);
+
+      parts.push(group(["${", aligned, lineSuffixBoundary, "}"]));
     }
-
-    // Breaks at the template element boundaries (${ and }) are preferred to breaking
-    // in the middle of a MemberExpression
-    if (
-      interpolationHasNewline &&
-      (hasComment(expression) ||
-        expression.type === "Identifier" ||
-        isMemberExpression(expression) ||
-        expression.type === "ConditionalExpression" ||
-        expression.type === "SequenceExpression" ||
-        isBinaryCastExpression(expression) ||
-        isBinaryish(expression))
-    ) {
-      expressionDoc = [indent([softline, expressionDoc]), softline];
-    }
-
-    const aligned =
-      indentSize === 0 && text.endsWith("\n")
-        ? align(Number.NEGATIVE_INFINITY, expressionDoc)
-        : addAlignmentToDoc(expressionDoc, indentSize, tabWidth);
-
-    parts.push(group(["${", aligned, lineSuffixBoundary, "}"]));
   }, "quasis");
 
   parts.push("`");
 
   return parts;
-}
-
-function printTaggedTemplateLiteral(path, print) {
-  const quasiDoc = print("quasi");
-  return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
-    print("tag"),
-    print(path.node.typeArguments ? "typeArguments" : "typeParameters"),
-    lineSuffixBoundary,
-    quasiDoc,
-  ]);
 }
 
 function printJestEachTemplateLiteral(path, options, print) {
@@ -139,8 +128,8 @@ function printJestEachTemplateLiteral(path, options, print) {
    * ${1} | ${2} | ${3}
    * ${2} | ${1} | ${3}
    */
-  const { node } = path;
-  const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/u);
+  const node = path.getNode();
+  const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
     headerNames.length > 1 ||
     headerNames.some((headerName) => headerName.length > 0)
@@ -149,20 +138,27 @@ function printJestEachTemplateLiteral(path, options, print) {
     const expressions = path.map(print, "expressions");
     options.__inJestEach = false;
     const parts = [];
+
+    // [prettierx] --template-curly-spacing option support (...)
+    const templateCurlySpace = options.templateCurlySpacing ? " " : "";
+
     const stringifiedExpressions = expressions.map(
       (doc) =>
+        // [prettierx] --template-curly-spacing option support (...)
         "${" +
+        templateCurlySpace +
         printDocToString(doc, {
           ...options,
           printWidth: Number.POSITIVE_INFINITY,
           endOfLine: "lf",
         }).formatted +
-        "}",
+        templateCurlySpace +
+        "}"
     );
 
     const tableBody = [{ hasLineBreak: false, cells: [] }];
     for (let i = 1; i < node.quasis.length; i++) {
-      const row = tableBody.at(-1);
+      const row = getLast(tableBody);
       const correspondingExpression = stringifiedExpressions[i - 1];
 
       row.cells.push(correspondingExpression);
@@ -177,7 +173,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 
     const maxColumnCount = Math.max(
       headerNames.length,
-      ...tableBody.map((row) => row.cells.length),
+      ...tableBody.map((row) => row.cells.length)
     );
 
     const maxColumnWidths = Array.from({ length: maxColumnCount }).fill(0);
@@ -189,7 +185,7 @@ function printJestEachTemplateLiteral(path, options, print) {
       for (const [index, cell] of cells.entries()) {
         maxColumnWidths[index] = Math.max(
           maxColumnWidths[index],
-          getStringWidth(cell),
+          getStringWidth(cell)
         );
       }
     }
@@ -208,32 +204,47 @@ function printJestEachTemplateLiteral(path, options, print) {
                 row.hasLineBreak
                   ? cell
                   : cell +
-                    " ".repeat(maxColumnWidths[index] - getStringWidth(cell)),
-              ),
-            ),
-          ),
+                    " ".repeat(maxColumnWidths[index] - getStringWidth(cell))
+              )
+            )
+          )
         ),
       ]),
       hardline,
-      "`",
+      "`"
     );
     return parts;
   }
 }
 
-function printTemplateExpression(path, print) {
-  const { node } = path;
+// [prettierx] --template-curly-spacing option support (...)
+function printTemplateExpression(path, print, options) {
+  const node = path.getValue();
   let printed = print();
   if (hasComment(node)) {
     printed = group([indent([softline, printed]), softline]);
   }
-  return ["${", printed, lineSuffixBoundary, "}"];
+
+  // [prettierx] --template-curly-spacing option support (...)
+  const templateCurlySpace = options.templateCurlySpacing ? " " : "";
+
+  // [prettierx] --template-curly-spacing option support (...)
+  return [
+    "${",
+    templateCurlySpace,
+    printed,
+    lineSuffixBoundary,
+    templateCurlySpace,
+    "}",
+  ];
 }
 
-function printTemplateExpressions(path, print) {
+// [prettierx] --template-curly-spacing option support (...)
+function printTemplateExpressions(path, print, options) {
   return path.map(
-    (path) => printTemplateExpression(path, print),
-    "expressions",
+    // [prettierx] --template-curly-spacing option support (...)
+    (path) => printTemplateExpression(path, print, options),
+    "expressions"
   );
 }
 
@@ -241,7 +252,7 @@ function escapeTemplateCharacters(doc, raw) {
   return mapDoc(doc, (currentDoc) => {
     if (typeof currentDoc === "string") {
       return raw
-        ? currentDoc.replaceAll(/(\\*)`/gu, "$1$1\\`")
+        ? currentDoc.replace(/(\\*)`/g, "$1$1\\`")
         : uncookTemplateElementValue(currentDoc);
     }
 
@@ -250,42 +261,12 @@ function escapeTemplateCharacters(doc, raw) {
 }
 
 function uncookTemplateElementValue(cookedValue) {
-  return cookedValue.replaceAll(/([\\`]|\$\{)/gu, String.raw`\$1`);
+  return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
 }
 
-function isJestEachTemplateLiteral({ node, parent }) {
-  /**
-   * describe.each`table`(name, fn)
-   * describe.only.each`table`(name, fn)
-   * describe.skip.each`table`(name, fn)
-   * test.each`table`(name, fn)
-   * test.only.each`table`(name, fn)
-   * test.skip.each`table`(name, fn)
-   *
-   * Ref: https://github.com/facebook/jest/pull/6102
-   */
-  const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/u;
-  return (
-    parent.type === "TaggedTemplateExpression" &&
-    parent.quasi === node &&
-    parent.tag.type === "MemberExpression" &&
-    parent.tag.property.type === "Identifier" &&
-    parent.tag.property.name === "each" &&
-    ((parent.tag.object.type === "Identifier" &&
-      jestEachTriggerRegex.test(parent.tag.object.name)) ||
-      (parent.tag.object.type === "MemberExpression" &&
-        parent.tag.object.property.type === "Identifier" &&
-        (parent.tag.object.property.name === "only" ||
-          parent.tag.object.property.name === "skip") &&
-        parent.tag.object.object.type === "Identifier" &&
-        jestEachTriggerRegex.test(parent.tag.object.object.name)))
-  );
-}
-
-export {
-  escapeTemplateCharacters,
-  printTaggedTemplateLiteral,
-  printTemplateExpressions,
+module.exports = {
   printTemplateLiteral,
+  printTemplateExpressions,
+  escapeTemplateCharacters,
   uncookTemplateElementValue,
 };

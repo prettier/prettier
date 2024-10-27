@@ -1,52 +1,40 @@
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
+"use strict";
 
-function massageAst(ast, options) {
-  const {
-    printer: {
-      massageAstNode: cleanFunction,
-      getVisitorKeys: printerGetVisitorKeys,
-    },
-  } = options;
+function massageAST(ast, options, parent) {
+  if (Array.isArray(ast)) {
+    return ast.map((e) => massageAST(e, options, parent)).filter(Boolean);
+  }
 
-  if (!cleanFunction) {
+  if (!ast || typeof ast !== "object") {
     return ast;
   }
 
-  const getVisitorKeys = createGetVisitorKeysFunction(printerGetVisitorKeys);
-  const ignoredProperties = cleanFunction.ignoredProperties ?? new Set();
+  const cleanFunction = options.printer.massageAstNode;
+  let ignoredProperties;
+  if (cleanFunction && cleanFunction.ignoredProperties) {
+    ignoredProperties = cleanFunction.ignoredProperties;
+  } else {
+    ignoredProperties = new Set();
+  }
 
-  return recurse(ast);
-
-  function recurse(original, parent) {
-    if (!(original !== null && typeof original === "object")) {
-      return original;
+  const newObj = {};
+  for (const [key, value] of Object.entries(ast)) {
+    if (!ignoredProperties.has(key) && typeof value !== "function") {
+      newObj[key] = massageAST(value, options, ast);
     }
+  }
 
-    if (Array.isArray(original)) {
-      return original.map((child) => recurse(child, parent)).filter(Boolean);
-    }
-
-    const cloned = {};
-    const childrenKeys = new Set(getVisitorKeys(original));
-    for (const key in original) {
-      if (!Object.hasOwn(original, key) || ignoredProperties.has(key)) {
-        continue;
-      }
-
-      if (childrenKeys.has(key)) {
-        cloned[key] = recurse(original[key], original);
-      } else {
-        cloned[key] = original[key];
-      }
-    }
-
-    const result = cleanFunction(original, cloned, parent);
+  if (cleanFunction) {
+    const result = cleanFunction(ast, newObj, parent);
     if (result === null) {
       return;
     }
-
-    return result ?? cloned;
+    if (result) {
+      return result;
+    }
   }
+
+  return newObj;
 }
 
-export default massageAst;
+module.exports = massageAST;

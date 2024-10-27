@@ -1,8 +1,13 @@
+"use strict";
+
+const runPrettier = require("../runPrettier");
+const EOL = "\n";
+
 describe("parser preprocess function is used to reshape input text", () => {
-  runCli("plugins/preprocess", ["*.foo", "--plugin=./plugin.cjs"], {
+  runPrettier("plugins/preprocess", ["*.foo", "--plugin=./plugin"], {
     ignoreLineEndings: true,
   }).test({
-    stdout: "preprocessed:contents",
+    stdout: "preprocessed:contents" + EOL,
     stderr: "",
     status: 0,
     write: [],

@@ -1,97 +1,32 @@
-import { indent, line } from "../../document/builders.js";
-import { isCallExpression, isMemberExpression } from "../utils/index.js";
-import { printTypeAnnotationProperty } from "./type-annotation.js";
+"use strict";
 
-/**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
- */
+const { isNonEmptyArray } = require("../../common/util");
+const {
+  builders: { indent, join, line },
+} = require("../../document");
+const { isFlowAnnotationComment } = require("../utils");
 
-/**
- * @param {AstPath} path
- * @returns {Doc}
- */
 function printOptionalToken(path) {
-  const { node } = path;
+  const node = path.getValue();
   if (
     !node.optional ||
     // It's an optional computed method parsed by typescript-estree.
     // "?" is printed in `printMethod`.
-    (node.type === "Identifier" && node === path.parent.key)
+    (node.type === "Identifier" && node === path.getParentNode().key)
   ) {
     return "";
   }
   if (
-    isCallExpression(node) ||
-    (isMemberExpression(node) && node.computed) ||
-    node.type === "OptionalIndexedAccessType"
+    node.type === "OptionalCallExpression" ||
+    (node.type === "OptionalMemberExpression" && node.computed)
   ) {
     return "?.";
   }
   return "?";
 }
 
-/**
- * @param {AstPath} path
- * @returns {Doc}
- */
-function printDefiniteToken(path) {
-  return path.node.definite ||
-    path.match(
-      undefined,
-      (node, name) =>
-        name === "id" && node.type === "VariableDeclarator" && node.definite,
-    )
-    ? "!"
-    : "";
-}
-
-const flowDeclareNodeTypes = new Set([
-  "DeclareClass",
-  "DeclareComponent",
-  "DeclareFunction",
-  "DeclareHook",
-  "DeclareVariable",
-  "DeclareExportDeclaration",
-  "DeclareExportAllDeclaration",
-  "DeclareOpaqueType",
-  "DeclareTypeAlias",
-  "DeclareEnum",
-  "DeclareInterface",
-]);
-/**
- * @param {AstPath} path
- * @returns {Doc}
- */
-function printDeclareToken(path) {
-  const { node } = path;
-
-  return (
-    // TypeScript
-    node.declare ||
-      // Flow
-      (flowDeclareNodeTypes.has(node.type) &&
-        path.parent.type !== "DeclareExportDeclaration")
-      ? "declare "
-      : ""
-  );
-}
-
-const tsAbstractNodeTypes = new Set([
-  "TSAbstractMethodDefinition",
-  "TSAbstractPropertyDefinition",
-  "TSAbstractAccessorProperty",
-]);
-/**
- * @param {AstPath} param0
- * @returns {Doc}
- */
-function printAbstractToken({ node }) {
-  return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
-}
-
 function printFunctionTypeParameters(path, options, print) {
-  const fun = path.node;
+  const fun = path.getValue();
   if (fun.typeArguments) {
     return print("typeArguments");
   }
@@ -101,8 +36,42 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
+function printTypeAnnotation(path, options, print) {
+  const node = path.getValue();
+  if (!node.typeAnnotation) {
+    return "";
+  }
+
+  const parentNode = path.getParentNode();
+  const isDefinite =
+    node.definite ||
+    (parentNode &&
+      parentNode.type === "VariableDeclarator" &&
+      parentNode.definite);
+
+  const isFunctionDeclarationIdentifier =
+    parentNode.type === "DeclareFunction" && parentNode.id === node;
+
+  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
+    return [" /*: ", print("typeAnnotation"), " */"];
+  }
+
+  return [
+    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
+    print("typeAnnotation"),
+  ];
+}
+
 function printBindExpressionCallee(path, options, print) {
   return ["::", print("callee")];
+}
+
+function printTypeScriptModifiers(path, options, print) {
+  const node = path.getValue();
+  if (!isNonEmptyArray(node.modifiers)) {
+    return "";
+  }
+  return [join(" ", path.map(print, "modifiers")), " "];
 }
 
 function adjustClause(node, clause, forceSpace) {
@@ -117,22 +86,16 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
-function printRestSpread(path, print) {
-  return ["...", print("argument"), printTypeAnnotationProperty(path, print)];
+function printRestSpread(path, options, print) {
+  return ["...", print("argument"), printTypeAnnotation(path, options, print)];
 }
 
-function printTypeScriptAccessibilityToken(node) {
-  return node.accessibility ? node.accessibility + " " : "";
-}
-
-export {
-  adjustClause,
-  printAbstractToken,
-  printBindExpressionCallee,
-  printDeclareToken,
-  printDefiniteToken,
-  printFunctionTypeParameters,
+module.exports = {
   printOptionalToken,
+  printFunctionTypeParameters,
+  printBindExpressionCallee,
+  printTypeScriptModifiers,
+  printTypeAnnotation,
   printRestSpread,
-  printTypeScriptAccessibilityToken,
+  adjustClause,
 };

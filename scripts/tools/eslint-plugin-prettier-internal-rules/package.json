@@ -3,13 +3,11 @@
   "version": "1.0.3",
   "description": "Prettier internal eslint rules",
   "private": true,
-  "type": "commonjs",
   "author": "fisker",
   "main": "./index.js",
   "license": "MIT",
   "scripts": {
     "test": "node test.js",
     "test-coverage": "npx nyc node test.js"
-  },
-  "packageManager": "yarn@4.5.0"
+  }
 }

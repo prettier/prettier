@@ -1,1 +1,1 @@
-export { default as foo } assert { type: "json" };
+export { foo } assert { type: "json" };

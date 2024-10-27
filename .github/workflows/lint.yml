@@ -1,19 +1,15 @@
 name: Lint
 
 on:
+  # [prettierx ...]
   push:
     branches:
-      - main
-      - patch-release
-      - next
+      # [prettierx ...]
+      - "@prettier-x/*"
+      - dev
+      - dev-*
+      - prettierx-*
   pull_request:
-
-permissions:
-  contents: read
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   lint:
@@ -21,15 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          cache: "yarn"
+        uses: actions/setup-node@v2.2.0
 
       - name: Install Dependencies
-        run: yarn install --immutable
+        run: yarn install --frozen-lockfile
 
       - name: Check Dependencies
         run: yarn lint:deps
@@ -49,55 +43,5 @@ jobs:
       - name: Lint Changelog
         run: yarn lint:changelog
 
-      - name: Lint blog post
-        run: yarn lint:blog
-
-      - name: Lint docs code block
-        run: yarn prettier "{docs,website/versioned_docs/version-stable}/**/*.md" --check
-        env:
-          # Make Prettier throws on embeded format
-          PRETTIER_DEBUG: true
-
-      - name: Lint workflow files
-        run: |
-          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-          ./actionlint -color
-        shell: bash
-
-      - name: Validate renovate config
-        run: npx --package renovate -c renovate-config-validator
-
-      - name: Run yarn (/)
-        run: |
-          yarn
-          yarn dedupe --check
-
-      - name: Run yarn (/website)
-        run: |
-          yarn
-          yarn dedupe --check
-        working-directory: website
-
-      - name: Run yarn (/scripts/release)
-        run: |
-          yarn
-          yarn dedupe --check
-        working-directory: scripts/release
-
-      - name: Run yarn (/scripts/tools/bundle-test)
-        run: |
-          yarn
-          yarn dedupe --check
-        working-directory: scripts/tools/bundle-test
-
-      - name: Run yarn (/scripts/tools/eslint-plugin-prettier-internal-rules)
-        run: |
-          yarn
-          yarn dedupe --check
-        working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
-
-      - name: Knip
-        run: yarn lint:knip
-
-      - name: Check File Changes
-        run: echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
+      - name: Check Lock File Changes
+        run: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
