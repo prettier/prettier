@@ -2119,12 +2119,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:8.13.0, acorn@npm:^8.11.3, acorn@npm:^8.12.0":
-  version: 8.13.0
-  resolution: "acorn@npm:8.13.0"
+"acorn@npm:8.14.0, acorn@npm:^8.11.3, acorn@npm:^8.12.0":
+  version: 8.14.0
+  resolution: "acorn@npm:8.14.0"
   bin:
     acorn: bin/acorn
-  checksum: 10/33e3a03114b02b3bc5009463b3d9549b31a90ee38ebccd5e66515830a02acf62a90edcc12abfb6c9fb3837b6c17a3ec9b72b3bf52ac31d8ad8248a4af871e0f5
+  checksum: 10/6df29c35556782ca9e632db461a7f97947772c6c1d5438a81f0c873a3da3a792487e83e404d1c6c25f70513e91aa18745f6eafb1fcc3a43ecd1920b21dd173d2
   languageName: node
   linkType: hard
 
@@ -7249,7 +7249,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:8.10.0"
     "@typescript-eslint/typescript-estree": "npm:8.10.0"
     "@typescript-eslint/visitor-keys": "npm:8.10.0"
-    acorn: "npm:8.13.0"
+    acorn: "npm:8.14.0"
     acorn-jsx: "npm:5.3.2"
     angular-estree-parser: "npm:10.0.4"
     angular-html-parser: "npm:7.0.1"
