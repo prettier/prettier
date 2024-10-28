@@ -1,21 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dynamic-import.js - {"bracketSpacing":false} [acorn] format 1`] = `
-"Unexpected token (1:20)
-> 1 | import("./foo.json", { assert: { type: "json" } });
-    |                    ^
-  2 |
-Cause: Unexpected token (1:19)"
-`;
-
-exports[`dynamic-import.js - {"bracketSpacing":false} [espree] format 1`] = `
-"Unexpected token , (1:20)
-> 1 | import("./foo.json", { assert: { type: "json" } });
-    |                    ^
-  2 |
-Cause: Unexpected token ,"
-`;
-
 exports[`dynamic-import.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
