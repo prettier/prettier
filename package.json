@@ -39,7 +39,7 @@
     "@prettier/parse-srcset": "3.1.0",
     "@typescript-eslint/typescript-estree": "8.10.0",
     "@typescript-eslint/visitor-keys": "8.10.0",
-    "acorn": "8.13.0",
+    "acorn": "8.14.0",
     "acorn-jsx": "5.3.2",
     "angular-estree-parser": "10.0.4",
     "angular-html-parser": "7.0.1",

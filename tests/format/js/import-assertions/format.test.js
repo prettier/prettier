@@ -1,7 +1,6 @@
 runFormatTest(import.meta, ["babel", "typescript"], {
   errors: {
     acorn: [
-      "dynamic-import.js",
       "empty.js",
       "multi-types.js",
       "static-import.js",
@@ -11,7 +10,6 @@ runFormatTest(import.meta, ["babel", "typescript"], {
       "keyword-detect.js",
     ],
     espree: [
-      "dynamic-import.js",
       "empty.js",
       "multi-types.js",
       "static-import.js",

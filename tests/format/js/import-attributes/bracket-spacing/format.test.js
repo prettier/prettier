@@ -1,17 +1,1 @@
-runFormatTest(import.meta, ["babel"], {
-  bracketSpacing: false,
-  errors: {
-    acorn: [
-      "dynamic-import.js",
-      "static-import.js",
-      "re-export.js",
-      "empty.js",
-    ],
-    espree: [
-      "dynamic-import.js",
-      "static-import.js",
-      "re-export.js",
-      "empty.js",
-    ],
-  },
-});
+runFormatTest(import.meta, ["babel"], { bracketSpacing: false });

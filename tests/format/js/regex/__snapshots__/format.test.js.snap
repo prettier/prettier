@@ -30,26 +30,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`regexp-modifiers.js [acorn] format 1`] = `
-"Invalid regular expression: /(?ims:^[a-z])/: Invalid group (1:2)
-> 1 | /(?ims:^[a-z])/u;
-    |  ^
-  2 | /(?-ims:^[a-z].)(^[a-z].)/uims;
-  3 | /(?ims:^[a-z].1$)/;
-  4 |
-Cause: Invalid regular expression: /(?ims:^[a-z])/: Invalid group (1:1)"
-`;
-
-exports[`regexp-modifiers.js [espree] format 1`] = `
-"Invalid regular expression: /(?ims:^[a-z])/: Invalid group (1:2)
-> 1 | /(?ims:^[a-z])/u;
-    |  ^
-  2 | /(?-ims:^[a-z].)(^[a-z].)/uims;
-  3 | /(?ims:^[a-z].1$)/;
-  4 |
-Cause: Invalid regular expression: /(?ims:^[a-z])/: Invalid group"
-`;
-
 exports[`regexp-modifiers.js [meriyah] format 1`] = `
 "Unterminated regular expression (1:1)
 > 1 | /(?ims:^[a-z])/u;
