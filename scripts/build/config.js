@@ -575,6 +575,10 @@ const nonPluginUniversalFiles = [
           return text;
         },
       },
+      {
+        module: require.resolve("chalk"),
+        path: path.join(dirname, "./shims/chalk.cjs"),
+      },
     ],
   },
 ].map((file) => {
