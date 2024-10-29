@@ -38,13 +38,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/code-frame@npm:7.25.9, @babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.22.13, @babel/code-frame@npm:^7.24.7":
-  version: 7.25.9
-  resolution: "@babel/code-frame@npm:7.25.9"
+"@babel/code-frame@npm:7.26.0, @babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.22.13, @babel/code-frame@npm:^7.24.7":
+  version: 7.26.0
+  resolution: "@babel/code-frame@npm:7.26.0"
   dependencies:
-    "@babel/highlight": "npm:^7.25.9"
+    "@babel/helper-validator-identifier": "npm:^7.25.9"
+    js-tokens: "npm:^4.0.0"
     picocolors: "npm:^1.0.0"
-  checksum: 10/96d69a570d0df82daedeb3d26ca508970bb31de83580c36c9605e7e7c0aae307ae17bc42609363016f0bdab12e991cebca3c02bf10765036b136bfe7281aee9a
+  checksum: 10/41deb0a9ac72d81e46aeab7e587a75e46c7af6a717e10b150a150b332e843807eacb7c856832c84bee2c5015fe31de23e04c18e052c83a1254027c71c0840791
   languageName: node
   linkType: hard
 
@@ -78,15 +79,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:7.25.9, @babel/generator@npm:^7.24.7, @babel/generator@npm:^7.7.2":
-  version: 7.25.9
-  resolution: "@babel/generator@npm:7.25.9"
+"@babel/generator@npm:7.26.0, @babel/generator@npm:^7.24.7, @babel/generator@npm:^7.7.2":
+  version: 7.26.0
+  resolution: "@babel/generator@npm:7.26.0"
   dependencies:
-    "@babel/types": "npm:^7.25.9"
+    "@babel/parser": "npm:^7.26.0"
+    "@babel/types": "npm:^7.26.0"
     "@jridgewell/gen-mapping": "npm:^0.3.5"
     "@jridgewell/trace-mapping": "npm:^0.3.25"
     jsesc: "npm:^3.0.2"
-  checksum: 10/eb36706c62ea77a09604077b84fae4e25d103cce58a15926d9d8b62d90c5fa69e35962515c05e78b5a975848ef772406dd79e2d4e83851bf9f7517b197a1b19d
+  checksum: 10/3528b0b5da7003617771ddfc564bcb4037dde59e8142e3808ae8eb5d45c5dfda74df5eb9e6162ab2c2bc66329c609a44d9fd0ce6d4bc14b89b3deb92c3343c56
   languageName: node
   linkType: hard
 
@@ -213,7 +215,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/highlight@npm:^7.0.0, @babel/highlight@npm:^7.25.9":
+"@babel/highlight@npm:^7.0.0":
   version: 7.25.9
   resolution: "@babel/highlight@npm:7.25.9"
   dependencies:
@@ -225,14 +227,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:7.25.9, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.24.7":
-  version: 7.25.9
-  resolution: "@babel/parser@npm:7.25.9"
+"@babel/parser@npm:7.26.1, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.24.7, @babel/parser@npm:^7.26.0":
+  version: 7.26.1
+  resolution: "@babel/parser@npm:7.26.1"
   dependencies:
-    "@babel/types": "npm:^7.25.9"
+    "@babel/types": "npm:^7.26.0"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 10/702af8c40bb1236e3e3e6187b99e1290bd4bc1500aa53593ea63df8fe99f07ff1efef147b1d58886b264aff0972c4b9440ace442c8db9a6e079f318d46773421
+  checksum: 10/87d6248c6a1f962621b4505e24ee89c9869d40640beb231d6befb2d56112a84a654b15980941300617aa3211ca9632cc1644c6d3f72ea3427f220133d11d9c0c
   languageName: node
   linkType: hard
 
@@ -419,13 +421,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:7.25.9, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.24.7, @babel/types@npm:^7.25.9, @babel/types@npm:^7.3.3":
-  version: 7.25.9
-  resolution: "@babel/types@npm:7.25.9"
+"@babel/types@npm:7.26.0, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.24.7, @babel/types@npm:^7.26.0, @babel/types@npm:^7.3.3":
+  version: 7.26.0
+  resolution: "@babel/types@npm:7.26.0"
   dependencies:
     "@babel/helper-string-parser": "npm:^7.25.9"
     "@babel/helper-validator-identifier": "npm:^7.25.9"
-  checksum: 10/dd0f2874b10048aa230a5633ab440bbee8c3905f254ef26223b5321ddb824b057b9404d24a87556c6a9f7430198fa6311473778d147ed8ed7845428aee2ebc34
+  checksum: 10/40780741ecec886ed9edae234b5eb4976968cc70d72b4e5a40d55f83ff2cc457de20f9b0f4fe9d858350e43dab0ea496e7ef62e2b2f08df699481a76df02cd6e
   languageName: node
   linkType: hard
 
@@ -7234,10 +7236,10 @@ __metadata:
   resolution: "prettier@workspace:."
   dependencies:
     "@angular/compiler": "npm:18.2.6"
-    "@babel/code-frame": "npm:7.25.9"
-    "@babel/generator": "npm:7.25.9"
-    "@babel/parser": "npm:7.25.9"
-    "@babel/types": "npm:7.25.9"
+    "@babel/code-frame": "npm:7.26.0"
+    "@babel/generator": "npm:7.26.0"
+    "@babel/parser": "npm:7.26.1"
+    "@babel/types": "npm:7.26.0"
     "@eslint/js": "npm:9.13.0"
     "@glimmer/syntax": "npm:0.92.3"
     "@prettier/is-es5-identifier-name": "npm:0.2.0"

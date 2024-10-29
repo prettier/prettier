@@ -528,10 +528,53 @@ const nonPluginUniversalFiles = [
     umdVariableName: "prettier",
     replaceModule: [
       {
-        module: require.resolve("@babel/highlight", {
-          paths: [require.resolve("@babel/code-frame")],
-        }),
-        path: path.join(dirname, "./shims/babel-highlight.js"),
+        module: require.resolve("@babel/code-frame"),
+        process(text) {
+          text = text.replaceAll("var picocolors = require('picocolors');", "");
+          text = text.replaceAll("var jsTokens = require('js-tokens');", "");
+          text = text.replaceAll(
+            "var helperValidatorIdentifier = require('@babel/helper-validator-identifier');",
+            "",
+          );
+
+          text = text.replaceAll(
+            /(?<=\n)let tokenize;\n\{\n.*?\n\}(?=\n)/gsu,
+            "",
+          );
+
+          text = text.replaceAll(
+            /(?<=\n)function highlight\(text\) \{\n.*?\n\}(?=\n)/gsu,
+            "function highlight(text) {return text}",
+          );
+
+          text = text.replaceAll(
+            /(?<=\n)function getDefs\(enabled\) \{\n.*?\n\}(?=\n)/gsu,
+            outdent`
+              function getDefs() {
+                return new Proxy({}, {get: () => (text) => text})
+              }
+            `,
+          );
+
+          text = text.replaceAll(
+            "const defsOn = builDefs(picocolors.createColors(true));",
+            "",
+          );
+          text = text.replaceAll(
+            "const defsOff = builDefs(picocolors.createColors(false));",
+            "",
+          );
+
+          text = text.replaceAll(
+            "const shouldHighlight = opts.forceColor || isColorSupported() && opts.highlightCode;",
+            "const shouldHighlight = false;",
+          );
+
+          text = text.replaceAll("exports.default = index;", "");
+          text = text.replaceAll("exports.highlight = highlight;", "");
+
+          return text;
+        },
       },
       {
         module: require.resolve("chalk"),
