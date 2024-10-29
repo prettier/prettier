@@ -17,32 +17,6 @@ const SINGLE_LINE_NODE_TYPES = new Set([
 ]);
 
 /**
- * These characters must not immediately precede a line break.
- *
- * e.g. `"（"`:
- *
- * - Bad:  `"檜原村（\nひのはらむら）"`
- * - Good: `"檜原村\n（ひのはらむら）"` or
- *         `"檜原村（ひ\nのはらむら）"`
- */
-const noBreakAfter = new Set(
-  "$(£¥·'\"〈《「『【〔〖〝﹙﹛＄（［｛￡￥[{‵︴︵︷︹︻︽︿﹁﹃﹏〘｟«",
-);
-
-/**
- * These characters must not immediately follow a line break.
- *
- * e.g. `"）"`:
- *
- * - Bad:  `"檜原村（ひのはらむら\n）以外には、"`
- * - Good: `"檜原村（ひのはらむ\nら）以外には、"` or
- *         `"檜原村（ひのはらむら）\n以外には、"`
- */
-const noBreakBefore = new Set(
-  "!%),.:;?]}¢°·'\"†‡›℃∶、。〃〆〕〗〞﹚﹜！＂％＇），．：；？］｝～–—•〉》」︰︱︲︳﹐﹑﹒﹓﹔﹕﹖﹘︶︸︺︼︾﹀﹂﹗｜､』】〙〟｠»ヽヾーァィゥェォッャュョヮヵヶぁぃぅぇぉっゃゅょゎゕゖㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ々〻‐゠〜～‼⁇⁈⁉・゙゚",
-);
-
-/**
  * Check whether the given `"\n"` node can be converted to a space.
  *
  * For example, if you would like to squash English text
@@ -126,17 +100,8 @@ function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
     return false;
   }
 
-  // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
-  // If violates this, the result will look ugly.
-  const violatesCJKLineBreakingRules =
-    (next && noBreakBefore.has(next.value[0])) ||
-    (previous && noBreakAfter.has(previous.value.at(-1)));
-
-  if (violatesCJKLineBreakingRules) {
-    return false;
-  }
-
   // Chrome & Safari always replace "\n" with a space now.
+  // If we break the line at a place where a space is unwanted, they will insert a space there.
   return canBeSpace;
 }
 
