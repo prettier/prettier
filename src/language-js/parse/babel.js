@@ -221,11 +221,7 @@ const babelTSExpression = createBabelParser({
 });
 const babelFlow = createBabelParser({
   optionsCombinations: [
-    appendPlugins([
-      "jsx",
-      ["flow", { all: true, enums: true }],
-      "flowComments",
-    ]),
+    appendPlugins(["jsx", ["flow", { all: true }], "flowComments"]),
   ],
 });
 const babelEstree = createBabelParser({
