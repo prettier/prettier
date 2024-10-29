@@ -305,25 +305,10 @@ function printTypescript(path, options, print) {
       } else {
         parts.push(printDeclareToken(path));
 
-        // Global declaration looks like this:
-        // (declare)? global { ... }
-        const isGlobal =
-          node.kind === "global" ||
-          // TODO: Use `node.kind` when babel update AST
-          // https://github.com/typescript-eslint/typescript-eslint/pull/6443
-          node.global;
+        const isGlobal = node.kind === "global";
 
         if (!isGlobal) {
-          const kind =
-            node.kind ??
-            // TODO: Use `node.kind` when babel update AST
-            (isStringLiteral(node.id) ||
-            getTextWithoutComments(options, locStart(node), locStart(node.id))
-              .trim()
-              .endsWith("module")
-              ? "module"
-              : "namespace");
-          parts.push(kind, " ");
+          parts.push(node.kind, " ");
         }
       }
 
