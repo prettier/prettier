@@ -7,12 +7,9 @@ import {
   softline,
 } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import { locStart } from "../loc.js";
-import getTextWithoutComments from "../utils/get-text-without-comments.js";
 import {
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
-  isStringLiteral,
   shouldPrintComma,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
