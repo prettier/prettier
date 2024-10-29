@@ -305,9 +305,7 @@ function printTypescript(path, options, print) {
       } else {
         parts.push(printDeclareToken(path));
 
-        const isGlobal = node.kind === "global";
-
-        if (!isGlobal) {
+        if (node.kind !== "global") {
           parts.push(node.kind, " ");
         }
       }
