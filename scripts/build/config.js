@@ -549,7 +549,7 @@ const nonPluginUniversalFiles = [
           text = text.replaceAll(
             /(?<=\n)function getDefs\(enabled\) \{\n.*?\n\}(?=\n)/gsu,
             outdent`
-              function getDef() {
+              function getDefs() {
                 return new Proxy({}, {get: () => (text) => text})
               }
             `,
