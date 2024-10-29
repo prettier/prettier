@@ -530,6 +530,7 @@ const nonPluginUniversalFiles = [
       {
         module: require.resolve("@babel/code-frame"),
         process(text) {
+          text = text.replaceAll("var picocolors = require('picocolors');", "");
           text = text.replaceAll("var jsTokens = require('js-tokens');", "");
           text = text.replaceAll(
             "var helperValidatorIdentifier = require('@babel/helper-validator-identifier');",
