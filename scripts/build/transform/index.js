@@ -43,7 +43,7 @@ function transform(original, file) {
   let changed = false;
   const injected = new Set();
 
-  const ast = parse(original, { sourceType: "module" });
+  const ast = parse(original, { sourceType: "module", tokens: true });
   traverse(ast, (node) => {
     for (const transform of transforms) {
       if (!transform.test(node)) {
@@ -64,7 +64,11 @@ function transform(original, file) {
     return original;
   }
 
-  let { code } = generate(ast);
+  let { code } = generate(
+    ast,
+    { experimental_preserveFormat: true, retainLines: true },
+    original,
+  );
 
   if (injected.size > 0) {
     code = outdent`
