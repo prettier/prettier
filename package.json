@@ -54,7 +54,7 @@
     "editorconfig": "0.15.3",
     "emoji-regex": "10.4.0",
     "escape-string-regexp": "5.0.0",
-    "espree": "10.2.0",
+    "espree": "10.3.0",
     "fast-glob": "3.3.2",
     "fast-json-stable-stringify": "2.1.0",
     "file-entry-cache": "9.1.0",
