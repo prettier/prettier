@@ -3168,10 +3168,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-units-list@npm:2.0.1":
-  version: 2.0.1
-  resolution: "css-units-list@npm:2.0.1"
-  checksum: 10/584c5fd4e2915042f5348ebfbf49dff79d9b3fab495e29e8576a9fe3a6f5cfd42e278f5d9a64cf7c10de8d05082202ad00b26b1f65b72f76c05643214ba06eb8
+"css-units-list@npm:2.1.0":
+  version: 2.1.0
+  resolution: "css-units-list@npm:2.1.0"
+  checksum: 10/be36dd4ba4ed3f103a544ca955c80f46bb57d471b159b81e93fae7e700092de6cc75c98abcbde4bb9e963ad6f63c72fae18dde935c0944ca48e71f277420adfc
   languageName: node
   linkType: hard
 
@@ -7266,7 +7266,7 @@ __metadata:
     collapse-white-space: "npm:1.0.6"
     cross-env: "npm:7.0.3"
     cspell: "npm:8.14.2"
-    css-units-list: "npm:2.0.1"
+    css-units-list: "npm:2.1.0"
     dashify: "npm:2.0.0"
     diff: "npm:7.0.0"
     editorconfig: "npm:0.15.3"
