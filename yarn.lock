@@ -7351,7 +7351,7 @@ __metadata:
     typescript: "npm:5.6.3"
     unicode-regex: "npm:4.0.0"
     unified: "npm:9.2.2"
-    url-or-path: "npm:2.3.0"
+    url-or-path: "npm:2.3.2"
     vnopts: "npm:2.0.0"
     wcwidth.js: "npm:2.0.0"
     yaml-unist-parser: "npm:2.0.1"
@@ -8828,10 +8828,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"url-or-path@npm:2.3.0, url-or-path@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "url-or-path@npm:2.3.0"
-  checksum: 10/a68ff40220bff9a6fb6e68f4fa7f4cf27ba461f4cad7a6c934c6a8df5ffdbc2251f6cd67d61d25ea2ca685b5d160fe8625302af50a7ea71b59eb4d6ee1a3b67b
+"url-or-path@npm:2.3.2, url-or-path@npm:^2.3.0":
+  version: 2.3.2
+  resolution: "url-or-path@npm:2.3.2"
+  checksum: 10/9078f06d5754293464332da3f98eddd9878dc6a2b4ece5303f72e6a5fa72c3d25a3c33f01bd097bf54cccd29e61283fec38432c928894c032630a04867ceaf81
   languageName: node
   linkType: hard
 

@@ -100,7 +100,7 @@
     "typescript": "5.6.3",
     "unicode-regex": "4.0.0",
     "unified": "9.2.2",
-    "url-or-path": "2.3.0",
+    "url-or-path": "2.3.2",
     "vnopts": "2.0.0",
     "wcwidth.js": "2.0.0",
     "yaml-unist-parser": "2.0.1"
