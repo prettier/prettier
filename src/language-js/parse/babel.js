@@ -42,7 +42,6 @@ const parseOptions = {
     "destructuringPrivate",
     "decoratorAutoAccessors",
     "explicitResourceManagement",
-    ["importAttributes", { deprecatedAssertSyntax: true }],
     "sourcePhaseImports",
     "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],
@@ -199,6 +198,15 @@ const allowedReasonCodes = new Set([
   "VarRedeclaration",
   "InvalidPrivateFieldResolution",
   "DuplicateExport",
+
+  /*
+  Legacy syntax
+
+  ```js
+  import json from "./json.json" assert {type: "json"};
+  ```
+  */
+  "ImportAttributesUseAssert",
 ]);
 
 const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
