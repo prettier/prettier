@@ -43,7 +43,12 @@ function transform(original, file) {
   let changed = false;
   const injected = new Set();
 
-  const ast = parse(original, { sourceType: "module", tokens: true });
+  const ast = parse(original, {
+    filename: file,
+    sourceType: "module",
+    tokens: true,
+    createParenthesizedExpressions: true,
+  });
   traverse(ast, (node) => {
     for (const transform of transforms) {
       if (!transform.test(node)) {
@@ -66,7 +71,15 @@ function transform(original, file) {
 
   let { code } = generate(
     ast,
-    { experimental_preserveFormat: true, retainLines: true },
+    {
+      sourceFileName: file,
+      experimental_preserveFormat: true,
+      retainLines: true,
+      comments: true,
+      jsescOption: null,
+      minified: false,
+      compact: false,
+    },
     original,
   );
 
