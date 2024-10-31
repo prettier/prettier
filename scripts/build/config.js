@@ -557,11 +557,11 @@ const nonPluginUniversalFiles = [
           );
 
           text = text.replaceAll(
-            "const defsOn = builDefs(picocolors.createColors(true));",
+            "const defsOn = buildDefs(picocolors.createColors(true));",
             "",
           );
           text = text.replaceAll(
-            "const defsOff = builDefs(picocolors.createColors(false));",
+            "const defsOff = buildDefs(picocolors.createColors(false));",
             "",
           );
 
