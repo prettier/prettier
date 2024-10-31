@@ -24,25 +24,25 @@ test(".at", () => {
   expect(transform("foo.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at(/* isOptionalObject */false,foo,-1)"
+    __at  (/* isOptionalObject */false,foo,-1)"
   `);
 
   expect(transform("foo?.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at(/* isOptionalObject */true,foo,-1)"
+    __at   (/* isOptionalObject */true,foo,-1)"
   `);
 
   expect(transform("foo?.bar.baz.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at(/* isOptionalObject */true,foo?.bar.baz,-1)"
+    __at           (/* isOptionalObject */true,foo?.bar.baz,-1)"
   `);
 
   expect(transform("foo.at(-1)?.bar")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at(/* isOptionalObject */false,foo,-1)?.bar"
+    __at  (/* isOptionalObject */false,foo,-1)?.bar"
   `);
 
   // Don't support optional call
