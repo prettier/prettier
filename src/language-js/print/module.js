@@ -25,7 +25,7 @@ import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./misc.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 function printImportDeclaration(path, options, print) {
@@ -33,7 +33,6 @@ function printImportDeclaration(path, options, print) {
   /** @type{Doc[]} */
   return [
     "import",
-    node.module ? " module" : "",
     node.phase ? ` ${node.phase}` : "",
     printImportKind(node),
     printModuleSpecifiers(path, options, print),

@@ -21,7 +21,7 @@ exports[`import-defer.js [meriyah] format 1`] = `
 > 1 | import defer * as ns from "x";
     |              ^
   2 |
-Cause: [1:14]: Expected 'from'"
+Cause: [1:13-1:14]: Expected 'from'"
 `;
 
 exports[`import-defer.js format 1`] = `
@@ -59,7 +59,7 @@ exports[`import-defer-attributes-declaration.js [meriyah] format 1`] = `
 > 1 | import defer * as ns from "x" with { attr: "val" };
     |              ^
   2 |
-Cause: [1:14]: Expected 'from'"
+Cause: [1:13-1:14]: Expected 'from'"
 `;
 
 exports[`import-defer-attributes-declaration.js format 1`] = `
@@ -113,7 +113,7 @@ exports[`no-default.js [meriyah] format 1`] = `
 > 1 | import defer x from "x";
     |              ^
   2 |
-Cause: [1:14]: Expected 'from'"
+Cause: [1:13-1:14]: Expected 'from'"
 `;
 
 exports[`no-named.js [__babel_estree] format 1`] = `
@@ -153,5 +153,5 @@ exports[`no-named.js [meriyah] format 1`] = `
 > 1 | import defer { x } from "x";
     |              ^
   2 |
-Cause: [1:14]: Expected 'from'"
+Cause: [1:13-1:14]: Expected 'from'"
 `;

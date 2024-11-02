@@ -25,6 +25,10 @@
       groupName: "glimmer",
     },
     {
+      matchDepNames: ["flow-parser", "hermes-parser"],
+      groupName: "flow-parser",
+    },
+    {
       matchDepNames: [
         "eslint",
         "@eslint/compat",
@@ -32,13 +36,14 @@
         "@eslint/js",
         "@stylistic/eslint-plugin-js",
         "eslint-config-prettier",
-        "eslint-plugin-import",
+        "eslint-plugin-compat",
         "eslint-plugin-jest",
         "eslint-plugin-n",
         "eslint-plugin-react",
         "eslint-plugin-regexp",
         "eslint-plugin-simple-import-sort",
         "eslint-plugin-unicorn",
+        "globals",
       ],
       groupName: "ESLint related dependencies",
     },

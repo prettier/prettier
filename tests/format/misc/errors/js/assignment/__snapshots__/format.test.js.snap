@@ -53,19 +53,19 @@ exports[`snippet: #0 [meriyah] format 1`] = `
 "Invalid left-hand side in assignment (1:6)
 > 1 | ({}) = x;
     |      ^
-Cause: [1:6]: Invalid left-hand side in assignment"
+Cause: [1:5-1:6]: Invalid left-hand side in assignment"
 `;
 
 exports[`snippet: #0 [meriyah] format 2`] = `
 "The identifier 'let' must not be in expression position in strict mode (1:24)
 > 1 | class Foo extends ((let)[0] = 1) {}
     |                        ^
-Cause: [1:24]: The identifier 'let' must not be in expression position in strict mode"
+Cause: [1:23-1:24]: The identifier 'let' must not be in expression position in strict mode"
 `;
 
 exports[`snippet: #0 [meriyah] format 3`] = `
 "The identifier 'let' must not be in expression position in strict mode (1:21)
 > 1 | export default ((let)[0] = 1);
     |                     ^
-Cause: [1:21]: The identifier 'let' must not be in expression position in strict mode"
+Cause: [1:20-1:21]: The identifier 'let' must not be in expression position in strict mode"
 `;

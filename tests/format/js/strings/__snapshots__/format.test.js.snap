@@ -136,6 +136,18 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [espree] format 1
 Cause: Invalid escape sequence"
 `;
 
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [meriyah] format 1`] = `
+"Escapes \\8 or \\9 are not syntactically valid escapes (3:1)
+  1 | // https://github.com/babel/babel/pull/11852
+  2 |
+> 3 | "\\8","\\9";
+    | ^^
+  4 | () => {
+  5 |   "use strict";
+  6 |   "\\8", "\\9";
+Cause: [3:0-3:2]: Escapes \\8 or \\9 are not syntactically valid escapes"
+`;
+
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
@@ -185,6 +197,18 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [espree] format 1
   5 |   "use strict";
   6 |   "\\8", "\\9";
 Cause: Invalid escape sequence"
+`;
+
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [meriyah] format 1`] = `
+"Escapes \\8 or \\9 are not syntactically valid escapes (3:1)
+  1 | // https://github.com/babel/babel/pull/11852
+  2 |
+> 3 | "\\8","\\9";
+    | ^^
+  4 | () => {
+  5 |   "use strict";
+  6 |   "\\8", "\\9";
+Cause: [3:0-3:2]: Escapes \\8 or \\9 are not syntactically valid escapes"
 `;
 
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} format 1`] = `

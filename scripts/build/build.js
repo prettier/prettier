@@ -3,11 +3,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import readline from "node:readline";
-
 import chalk from "chalk";
 import createEsmUtils from "esm-utils";
 import prettyBytes from "pretty-bytes";
-
 import { DIST_DIR } from "../utils/index.js";
 import files from "./config.js";
 import parseArguments from "./parse-arguments.js";

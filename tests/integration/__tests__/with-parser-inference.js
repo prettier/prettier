@@ -1,5 +1,4 @@
 import { outdent } from "outdent";
-
 import prettier from "../../config/prettier-entry.js";
 
 describe("infers postcss parser", () => {

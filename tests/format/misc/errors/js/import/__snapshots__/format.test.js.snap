@@ -31,7 +31,7 @@ exports[`snippet: #0 [meriyah] format 1`] = `
 "Unexpected token: ')' (1:8)
 > 1 | import();
     |        ^
-Cause: [1:8]: Unexpected token: ')'"
+Cause: [1:7-1:8]: Unexpected token: ')'"
 `;
 
 exports[`snippet: #0 [typescript] format 1`] = `
@@ -72,7 +72,7 @@ exports[`snippet: #1 [meriyah] format 1`] = `
 "Unexpected token: ')' (1:21)
 > 1 | import(/* comment */);
     |                     ^
-Cause: [1:21]: Unexpected token: ')'"
+Cause: [1:20-1:21]: Unexpected token: ')'"
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
@@ -113,7 +113,7 @@ exports[`snippet: #2 [meriyah] format 1`] = `
 "Cannot use new with import(...) (1:11)
 > 1 | new import('./a.mjs');
     |           ^
-Cause: [1:11]: Cannot use new with import(...)"
+Cause: [1:10-1:11]: Cannot use new with import(...)"
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
@@ -154,7 +154,7 @@ exports[`snippet: #3 [meriyah] format 1`] = `
 "Cannot use new with import(...) (1:11)
 > 1 | new import();
     |           ^
-Cause: [1:11]: Cannot use new with import(...)"
+Cause: [1:10-1:11]: Cannot use new with import(...)"
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `

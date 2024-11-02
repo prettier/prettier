@@ -1,10 +1,8 @@
 import path from "node:path";
-
 import babelGenerator from "@babel/generator";
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import { outdent } from "outdent";
-
 import { PROJECT_ROOT, SOURCE_DIR } from "../../utils/index.js";
 import allTransforms from "./transforms/index.js";
 
@@ -21,7 +19,14 @@ function transform(original, file) {
         path.join(PROJECT_ROOT, "node_modules/angular-estree-parser/"),
       ) ||
       file.startsWith(path.join(PROJECT_ROOT, "node_modules/jest-docblock/")) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/espree/"))
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/espree/")) ||
+      file.startsWith(
+        path.join(
+          PROJECT_ROOT,
+          "node_modules/@typescript-eslint/typescript-estree/",
+        ),
+      ) ||
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/meriyah/"))
     )
   ) {
     return original;
@@ -38,7 +43,12 @@ function transform(original, file) {
   let changed = false;
   const injected = new Set();
 
-  const ast = parse(original, { sourceType: "module" });
+  const ast = parse(original, {
+    filename: file,
+    sourceType: "module",
+    tokens: true,
+    createParenthesizedExpressions: true,
+  });
   traverse(ast, (node) => {
     for (const transform of transforms) {
       if (!transform.test(node)) {
@@ -59,7 +69,19 @@ function transform(original, file) {
     return original;
   }
 
-  let { code } = generate(ast);
+  let { code } = generate(
+    ast,
+    {
+      sourceFileName: file,
+      experimental_preserveFormat: true,
+      retainLines: true,
+      comments: true,
+      jsescOption: null,
+      minified: false,
+      compact: false,
+    },
+    original,
+  );
 
   if (injected.size > 0) {
     code = outdent`

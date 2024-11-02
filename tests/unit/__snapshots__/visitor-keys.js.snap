@@ -183,7 +183,6 @@ exports[`visitor keys estree 1`] = `
     "label",
   ],
   "DebuggerStatement": [],
-  "DecimalLiteral": [],
   "DeclareClass": [
     "body",
     "extends",
@@ -204,9 +203,11 @@ exports[`visitor keys estree 1`] = `
     "id",
   ],
   "DeclareExportAllDeclaration": [
+    "attributes",
     "source",
   ],
   "DeclareExportDeclaration": [
+    "attributes",
     "declaration",
     "source",
     "specifiers",

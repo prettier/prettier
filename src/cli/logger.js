@@ -1,5 +1,4 @@
 import readline from "node:readline";
-
 import chalk, { chalkStderr } from "chalk";
 import stripAnsi from "strip-ansi";
 import wcwidth from "wcwidth.js";

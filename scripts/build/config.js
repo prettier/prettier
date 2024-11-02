@@ -1,10 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-
 import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
-
 import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import buildJavascriptModule from "./build-javascript-module.js";
 import buildLicense from "./build-license.js";
@@ -131,10 +129,15 @@ const pluginFiles = [
           "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js",
         ),
         process: (text) =>
-          text.replace(
-            'require("path")',
-            '{extname: file => "." + file.split(".").pop()}',
-          ),
+          text
+            .replace(
+              'require("path")',
+              '{extname: file => "." + file.split(".").pop()}',
+            )
+            .replace(
+              'require("node:path")',
+              '{extname: file => "." + file.split(".").pop()}',
+            ),
       },
       {
         module: getPackageFile(
@@ -149,6 +152,10 @@ const pluginFiles = [
             .replace(
               "parseSettings.projects = ",
               "parseSettings.projects = true ? new Map() : ",
+            )
+            .replace(
+              'require("node:path")',
+              '{extname: file => "." + file.split(".").pop()}',
             );
         },
       },
@@ -345,9 +352,14 @@ const pluginFiles = [
   {
     input: "src/plugins/meriyah.js",
     replaceModule: [
+      // Use non-minified version so we can replace code easier
       {
-        // We don't use value of JSXText
         module: resolveEsmModulePath("meriyah"),
+        path: getPackageFile("meriyah/dist/meriyah.mjs"),
+      },
+      // We don't use value of JSXText
+      {
+        module: getPackageFile("meriyah/dist/meriyah.mjs"),
         find: "parser.tokenValue = decodeHTMLStrict(raw);",
         replacement: "parser.tokenValue = raw;",
       },
@@ -441,15 +453,15 @@ const pluginFiles = [
         module: getPackageFile("@glimmer/syntax/dist/dev/index.js"),
         process(text) {
           // This passed to plugins, our plugin don't need access to the options
-          text = text.replace(/(?<=\nconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
+          text = text.replace(/(?<=\sconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
 
           text = text.replaceAll(
-            /\nclass \S+ extends node\(.*?\).*?\{.*?\n\}/gsu,
-            "",
+            /\sclass \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}\n/gsu,
+            "\n",
           );
 
           text = text.replaceAll(
-            /\nvar api\S* = \/\*#__PURE__\*\/Object\.freeze\(\{.*?\n\}\);/gsu,
+            /\nvar api\S* = \s*(?:\/\*#__PURE__\*\/)?\s*Object\.freeze\(\{.*?\n\}\);/gsu,
             "",
           );
 
@@ -516,10 +528,53 @@ const nonPluginUniversalFiles = [
     umdVariableName: "prettier",
     replaceModule: [
       {
-        module: require.resolve("@babel/highlight", {
-          paths: [require.resolve("@babel/code-frame")],
-        }),
-        path: path.join(dirname, "./shims/babel-highlight.js"),
+        module: require.resolve("@babel/code-frame"),
+        process(text) {
+          text = text.replaceAll("var picocolors = require('picocolors');", "");
+          text = text.replaceAll("var jsTokens = require('js-tokens');", "");
+          text = text.replaceAll(
+            "var helperValidatorIdentifier = require('@babel/helper-validator-identifier');",
+            "",
+          );
+
+          text = text.replaceAll(
+            /(?<=\n)let tokenize;\n\{\n.*?\n\}(?=\n)/gsu,
+            "",
+          );
+
+          text = text.replaceAll(
+            /(?<=\n)function highlight\(text\) \{\n.*?\n\}(?=\n)/gsu,
+            "function highlight(text) {return text}",
+          );
+
+          text = text.replaceAll(
+            /(?<=\n)function getDefs\(enabled\) \{\n.*?\n\}(?=\n)/gsu,
+            outdent`
+              function getDefs() {
+                return new Proxy({}, {get: () => (text) => text})
+              }
+            `,
+          );
+
+          text = text.replaceAll(
+            "const defsOn = buildDefs(picocolors.createColors(true));",
+            "",
+          );
+          text = text.replaceAll(
+            "const defsOff = buildDefs(picocolors.createColors(false));",
+            "",
+          );
+
+          text = text.replaceAll(
+            "const shouldHighlight = opts.forceColor || isColorSupported() && opts.highlightCode;",
+            "const shouldHighlight = false;",
+          );
+
+          text = text.replaceAll("exports.default = index;", "");
+          text = text.replaceAll("exports.highlight = highlight;", "");
+
+          return text;
+        },
       },
       {
         module: require.resolve("chalk"),
