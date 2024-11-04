@@ -4,7 +4,10 @@
 
 var nodeModule = require("module");
 
-if (typeof nodeModule.enableCompileCache === "function") {
+if (
+  process.env.NODE_ENV === "production" &&
+  typeof nodeModule.enableCompileCache === "function"
+) {
   nodeModule.enableCompileCache();
 }
 
