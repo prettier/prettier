@@ -241,12 +241,11 @@ function getEsbuildOptions({ file, files, cliOptions }) {
     external: ["pnpapi", ...(buildOptions.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfigRaw: JSON.stringify({}),
-    target: [
-      ...(buildOptions.target ??
-        Object.entries(packageJson.engines).map(
-          ([engine, version]) => engine + version.replace(/^>=/u, ""),
-        )),
-    ],
+    target:
+      buildOptions.target ??
+      Object.entries(packageJson.engines).map(
+        ([engine, version]) => engine + version.replace(/^>=/u, ""),
+      ),
     logLevel: "error",
     format: file.output.format,
     outfile: path.join(DIST_DIR, cliOptions.saveAs ?? file.output.file),
