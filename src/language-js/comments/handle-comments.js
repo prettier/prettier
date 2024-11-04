@@ -198,25 +198,39 @@ function handleIfStatementComments({
     precedingNode === enclosingNode.consequent &&
     followingNode === enclosingNode.alternate
   ) {
-    if (precedingNode.type === "BlockStatement") {
-      addTrailingComment(precedingNode, comment);
-    } else {
-      const isSingleLineComment =
-        isLineComment(comment) ||
-        comment.loc.start.line === comment.loc.end.line;
-      const isSameLineComment =
-        comment.loc.start.line === precedingNode.loc.start.line;
-      if (isSingleLineComment && isSameLineComment) {
-        // example:
-        //   if (cond1) expr1; // comment A
-        //   else if (cond2) expr2; // comment A
-        //   else expr3;
+    const maybeElseTokenIndex = getNextNonSpaceNonCommentCharacterIndex(
+      text,
+      locEnd(enclosingNode.consequent),
+    );
+    // With the above conditions alone, this code would also match. This is a false positive.
+    // So, ignore cases where the token "else" appears immediately after the consequent:
+    //
+    //   if (cond) a;
+    //   else /* foo */ b;
+    if (
+      locStart(comment) < maybeElseTokenIndex ||
+      enclosingNode.alternate.type === "BlockStatement"
+    ) {
+      if (precedingNode.type === "BlockStatement") {
         addTrailingComment(precedingNode, comment);
       } else {
-        addDanglingComment(enclosingNode, comment);
+        const isSingleLineComment =
+          isLineComment(comment) ||
+          comment.loc.start.line === comment.loc.end.line;
+        const isSameLineComment =
+          comment.loc.start.line === precedingNode.loc.start.line;
+        if (isSingleLineComment && isSameLineComment) {
+          // example:
+          //   if (cond1) expr1; // comment A
+          //   else if (cond2) expr2; // comment A
+          //   else expr3;
+          addTrailingComment(precedingNode, comment);
+        } else {
+          addDanglingComment(enclosingNode, comment);
+        }
       }
+      return true;
     }
-    return true;
   }
 
   if (followingNode.type === "BlockStatement") {
