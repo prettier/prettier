@@ -16,9 +16,15 @@ const CONFIG_FILE_NAMES = [
   ".prettierrc.js",
   ".prettierrc.mjs",
   ".prettierrc.cjs",
+  ".prettierrc.ts",
+  ".prettierrc.mts",
+  ".prettierrc.cts",
   "prettier.config.js",
   "prettier.config.mjs",
   "prettier.config.cjs",
+  "prettier.config.ts",
+  "prettier.config.mts",
+  "prettier.config.cts",
   ".prettierrc.toml",
 ];
 

@@ -106,7 +106,7 @@ exports[`show detailed usage with --help config (stderr) 1`] = `""`;
 exports[`show detailed usage with --help config (stdout) 1`] = `
 "--config <path>
 
-  Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js)."
+  Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js, prettier.config.ts)."
 `;
 
 exports[`show detailed usage with --help config (write) 1`] = `[]`;
