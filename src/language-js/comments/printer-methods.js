@@ -14,8 +14,6 @@ import {
 const nodeTypesCanNotAttachComment = new Set([
   "EmptyStatement",
   "TemplateElement",
-  // In ESTree `import` is a token, `import("foo")`
-  "Import",
   // There is no similar node in Babel AST
   // ```ts
   // class Foo {

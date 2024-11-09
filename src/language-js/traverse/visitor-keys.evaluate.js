@@ -95,5 +95,7 @@ const visitorKeys = Object.fromEntries(
 
 // Babel will remove this in v8
 delete visitorKeys.DecimalLiteral;
+// Won't exist since we use `createImportExpressions` when parsing with babel
+delete visitorKeys.Import;
 
 export default visitorKeys;
