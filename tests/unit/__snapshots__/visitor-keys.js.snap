@@ -424,7 +424,6 @@ exports[`visitor keys estree 1`] = `
     "local",
   ],
   "ImportExpression": [
-    "attributes",
     "options",
     "source",
   ],

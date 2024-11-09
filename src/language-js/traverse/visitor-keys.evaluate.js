@@ -65,6 +65,7 @@ const excludeKeys = {
   ExportAllDeclaration: ["assertions"],
   ExportNamedDeclaration: ["assertions"],
   ImportDeclaration: ["assertions"],
+  ImportExpression: ["attributes"],
 
   // `key` and `constraint` added in `@typescript-eslint/typescript-estree` v8
   // https://github.com/typescript-eslint/typescript-eslint/pull/7065
