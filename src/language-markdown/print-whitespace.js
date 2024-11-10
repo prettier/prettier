@@ -58,6 +58,24 @@ function lineBreakCanBeConvertedToSpace(path, isLink) {
     return false;
   }
 
+  // Converting a line break between CJK punctuation and non-ASCII punctuation to a space is
+  // undesired in many cases. PRs are welcome to fine-tune this logic.
+  //
+  // Examples where \n must not be converted to a space:
+  //
+  // 1. "〜" (U+301C, belongs to Pd) in
+  //
+  //     "ア〜\nエの中から1つ選べ。"
+  //
+  // 2. "。" (U+3002, belongs to Po) in
+  //
+  //     "このコマンドは管理者権限が必要です。\nsudoを頭につけて実行してみましょう。"
+  // This has not been supported even by Firefox yet but is considered by CSS WG:
+  // https://github.com/w3c/csswg-drafts/issues/5086
+  if (previous.kind === "cjk-punctuation" || next.kind === "cjk-punctuation") {
+    return false;
+  }
+
   // If the sentence uses the style with spaces between CJ and non-CJK, "\n" can
   // be converted to a space.
   return true;
