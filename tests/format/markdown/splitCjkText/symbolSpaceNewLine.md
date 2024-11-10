@@ -57,3 +57,7 @@ English
 
 [ウ
 ィキペディア]: https://ja.wikipedia.org/
+
+U+301C〜
+U+FF5E～
+U+1F221🈡
