@@ -37,7 +37,11 @@ function runCliWorker(dir, args, options) {
 
   const worker = new Worker(CLI_WORKER_FILE, {
     argv: args,
-    execArgv: ["--trace-deprecation", "--experimental-strip-types"],
+    execArgv: [
+      "--trace-deprecation",
+      "--disable-warning=ExperimentalWarning",
+      "--experimental-strip-types",
+    ],
     stdout: true,
     stderr: true,
     env: {
