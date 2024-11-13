@@ -21,7 +21,7 @@ const variationSelectorsCharset = unicodeRegex({
 });
 
 const CJK_REGEXP = new RegExp(
-  `(?:${cjkCharset.toString()})(?:${variationSelectorsCharset.toString()})?`,
+  `(?:${cjkCharset.toString("u")})(?:${variationSelectorsCharset.toString("u")})?`,
   "u",
 );
 
@@ -74,7 +74,7 @@ const unicodePunctuationClasses = [
 
 const PUNCTUATION_REGEXP = new RegExp(
   `(?:${[
-    new Charset(...asciiPunctuationCharacters).toRegExp().source,
+    new Charset(...asciiPunctuationCharacters).toRegExp("u").source,
     ...unicodePunctuationClasses.map(
       (charset) => `\\p{General_Category=${charset}}`,
     ),

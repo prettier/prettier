@@ -411,7 +411,6 @@ exports[`visitor keys estree 1`] = `
     "consequent",
     "test",
   ],
-  "Import": [],
   "ImportAttribute": [
     "key",
     "value",
@@ -425,7 +424,6 @@ exports[`visitor keys estree 1`] = `
     "local",
   ],
   "ImportExpression": [
-    "attributes",
     "options",
     "source",
   ],

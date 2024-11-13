@@ -191,7 +191,6 @@ const isSingleWordType = createTypeCheckFunction([
   "Super",
   "PrivateName",
   "PrivateIdentifier",
-  "Import",
 ]);
 
 const isObjectType = createTypeCheckFunction([
@@ -905,12 +904,6 @@ function getCallArguments(node) {
   if (node.type === "ImportExpression") {
     args = [node.source];
 
-    // import attributes
-    if (node.attributes) {
-      args.push(node.attributes);
-    }
-
-    // deprecated import assertions
     if (node.options) {
       args.push(node.options);
     }
@@ -933,12 +926,6 @@ function iterateCallArgumentsPath(path, iteratee) {
   if (node.type === "ImportExpression") {
     path.call((sourcePath) => iteratee(sourcePath, 0), "source");
 
-    // import attributes
-    if (node.attributes) {
-      path.call((sourcePath) => iteratee(sourcePath, 1), "attributes");
-    }
-
-    // deprecated import assertions
     if (node.options) {
       path.call((sourcePath) => iteratee(sourcePath, 1), "options");
     }
@@ -955,14 +942,9 @@ function getCallArgumentSelector(node, index) {
   }
 
   if (node.type === "ImportExpression") {
-    if (index === 0 || index === (node.attributes || node.options ? -2 : -1)) {
+    if (index === 0 || index === (node.options ? -2 : -1)) {
       return [...selectors, "source"];
     }
-    // import attributes
-    if (node.attributes && (index === 1 || index === -1)) {
-      return [...selectors, "attributes"];
-    }
-    // deprecated import assertions
     if (node.options && (index === 1 || index === -1)) {
       return [...selectors, "options"];
     }
