@@ -7,12 +7,9 @@ import {
   softline,
 } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import { locStart } from "../loc.js";
-import getTextWithoutComments from "../utils/get-text-without-comments.js";
 import {
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
-  isStringLiteral,
   shouldPrintComma,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
@@ -305,25 +302,8 @@ function printTypescript(path, options, print) {
       } else {
         parts.push(printDeclareToken(path));
 
-        // Global declaration looks like this:
-        // (declare)? global { ... }
-        const isGlobal =
-          node.kind === "global" ||
-          // TODO: Use `node.kind` when babel update AST
-          // https://github.com/typescript-eslint/typescript-eslint/pull/6443
-          node.global;
-
-        if (!isGlobal) {
-          const kind =
-            node.kind ??
-            // TODO: Use `node.kind` when babel update AST
-            (isStringLiteral(node.id) ||
-            getTextWithoutComments(options, locStart(node), locStart(node.id))
-              .trim()
-              .endsWith("module")
-              ? "module"
-              : "namespace");
-          parts.push(kind, " ");
+        if (node.kind !== "global") {
+          parts.push(node.kind, " ");
         }
       }
 

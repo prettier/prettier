@@ -1141,22 +1141,6 @@ iterator.next(2); // Logs "Yield 2"
 ================================================================================
 `;
 
-exports[`import-assertions-dynamic.js [acorn] format 1`] = `
-"Unexpected token (1:20)
-> 1 | import("./foo.json", { assert: { type: "json" } });
-    |                    ^
-  2 |
-Cause: Unexpected token (1:19)"
-`;
-
-exports[`import-assertions-dynamic.js [espree] format 1`] = `
-"Unexpected token , (1:20)
-> 1 | import("./foo.json", { assert: { type: "json" } });
-    |                    ^
-  2 |
-Cause: Unexpected token ,"
-`;
-
 exports[`import-assertions-dynamic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -1209,22 +1193,6 @@ import json from "./foo.json" assert { type: "json" };
 ================================================================================
 `;
 
-exports[`import-attributes-dynamic.js [acorn] format 1`] = `
-"Unexpected token (1:20)
-> 1 | import("./foo.json", { with: { type: "json" } });
-    |                    ^
-  2 |
-Cause: Unexpected token (1:19)"
-`;
-
-exports[`import-attributes-dynamic.js [espree] format 1`] = `
-"Unexpected token , (1:20)
-> 1 | import("./foo.json", { with: { type: "json" } });
-    |                    ^
-  2 |
-Cause: Unexpected token ,"
-`;
-
 exports[`import-attributes-dynamic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -1237,22 +1205,6 @@ import("./foo.json", { with: { type: "json" } });
 import("./foo.json", { with: { type: "json" } });
 
 ================================================================================
-`;
-
-exports[`import-attributes-static.js [acorn] format 1`] = `
-"Unexpected token (1:31)
-> 1 | import json from "./foo.json" with { type: "json" };
-    |                               ^
-  2 |
-Cause: Unexpected token (1:30)"
-`;
-
-exports[`import-attributes-static.js [espree] format 1`] = `
-"Unexpected token with (1:31)
-> 1 | import json from "./foo.json" with { type: "json" };
-    |                               ^
-  2 |
-Cause: Unexpected token with"
 `;
 
 exports[`import-attributes-static.js format 1`] = `
@@ -2393,22 +2345,6 @@ printWidth: 80
 /a/v;
 
 ================================================================================
-`;
-
-exports[`regexp-modifiers.js [acorn] format 1`] = `
-"Invalid regular expression: /^(?i:[a-z])[a-z]$/: Invalid group (1:13)
-> 1 | const re = /^(?i:[a-z])[a-z]$/;
-    |             ^
-  2 |
-Cause: Invalid regular expression: /^(?i:[a-z])[a-z]$/: Invalid group (1:12)"
-`;
-
-exports[`regexp-modifiers.js [espree] format 1`] = `
-"Invalid regular expression: /^(?i:[a-z])[a-z]$/: Invalid group (1:13)
-> 1 | const re = /^(?i:[a-z])[a-z]$/;
-    |             ^
-  2 |
-Cause: Invalid regular expression: /^(?i:[a-z])[a-z]$/: Invalid group"
 `;
 
 exports[`regexp-modifiers.js [meriyah] format 1`] = `
