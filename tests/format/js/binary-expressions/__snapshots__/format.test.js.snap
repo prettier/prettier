@@ -2468,7 +2468,7 @@ exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [meriyah
   7 |   // comment
   8 |   a,
   9 | ]
-Cause: [6:14]: '#' not followed by identifier"
+Cause: [6:13-6:14]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [typescript] format 1`] = `
