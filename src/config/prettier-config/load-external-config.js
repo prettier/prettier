@@ -5,6 +5,7 @@ const requireErrorCodesShouldBeIgnored = new Set([
   "MODULE_NOT_FOUND",
   "ERR_REQUIRE_ESM",
   "ERR_PACKAGE_PATH_NOT_EXPORTED",
+  "ERR_REQUIRE_ASYNC_MODULE",
 ]);
 async function loadExternalConfig(externalConfig, configFile) {
   /*
