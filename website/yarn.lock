@@ -2879,17 +2879,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codemirror-graphql@npm:2.0.12":
-  version: 2.0.12
-  resolution: "codemirror-graphql@npm:2.0.12"
+"codemirror-graphql@npm:2.1.1":
+  version: 2.1.1
+  resolution: "codemirror-graphql@npm:2.1.1"
   dependencies:
     "@types/codemirror": "npm:^0.0.90"
-    graphql-language-service: "npm:5.2.1"
+    graphql-language-service: "npm:5.3.0"
   peerDependencies:
     "@codemirror/language": 6.0.0
     codemirror: ^5.65.3
-    graphql: ^15.5.0 || ^16.0.0
-  checksum: 10/e4c17c76b6828ace5ed0abab266703ee48d6b99521a0d1e24e12e82d9f49a2981dfd4bd26db82d5a23c1b60cdd934e8c5b23382f3beb835e5bafbfcac0d49820
+    graphql: ^15.5.0 || ^16.0.0 || ^17.0.0-alpha.2
+  checksum: 10/4a313d6a00f2bc83de0c1bafcf5b4207454f31d7b1b08a26870e8f6113d4f6581e114ec9080f6e53267cdedbbfb5d4ea25311441095bda6527827edb1f96449e
   languageName: node
   linkType: hard
 
@@ -3474,6 +3474,13 @@ __metadata:
     es-errors: "npm:^1.3.0"
     is-data-view: "npm:^1.0.1"
   checksum: 10/96f34f151bf02affb7b9f98762fb7aca1dd5f4553cb57b80bce750ca609c15d33ca659568ef1d422f7e35680736cbccb893a3d4b012760c758c1446bbdc4c6db
+  languageName: node
+  linkType: hard
+
+"debounce-promise@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "debounce-promise@npm:3.1.2"
+  checksum: 10/9a06b4f4674abf92ccda608510ba896f1a6f25c594d6288b787f40e99de836461ad8122f6cd8ce335816b693a678dfb37b7470961888ea4b08863208f3eea348
   languageName: node
   linkType: hard
 
@@ -5381,17 +5388,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-language-service@npm:5.2.1":
-  version: 5.2.1
-  resolution: "graphql-language-service@npm:5.2.1"
+"graphql-language-service@npm:5.3.0":
+  version: 5.3.0
+  resolution: "graphql-language-service@npm:5.3.0"
   dependencies:
+    debounce-promise: "npm:^3.1.2"
     nullthrows: "npm:^1.0.0"
     vscode-languageserver-types: "npm:^3.17.1"
   peerDependencies:
-    graphql: ^15.5.0 || ^16.0.0
+    graphql: ^15.5.0 || ^16.0.0 || ^17.0.0-alpha.2
   bin:
     graphql: dist/temp-bin.js
-  checksum: 10/75ba94b4d290ab7cb650cdb7faa1aeee19f82ec89194fe4c15959c297ff014199fdb65530b338fb5b0a7994d3ce609adf5db185ba7ac85c75463d2eb867e5413
+  checksum: 10/461a3d9135e1076f667ef83522db63906e902f4403486addd7a958c128c34e85ec3f74c2b22dc394ad0538e5189bbfc989ec78fae452958a31648f98596431cb
   languageName: node
   linkType: hard
 
@@ -9207,7 +9215,7 @@ __metadata:
     "@sandhose/prettier-animated-logo": "npm:1.0.3"
     babel-loader: "npm:9.2.1"
     clipboard: "npm:2.0.11"
-    codemirror-graphql: "npm:2.0.12"
+    codemirror-graphql: "npm:2.1.1"
     concurrently: "npm:9.1.0"
     docusaurus: "npm:1.14.7"
     js-yaml: "npm:4.1.0"
