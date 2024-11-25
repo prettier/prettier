@@ -6007,7 +6007,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jiti@npm:^2.3.3":
+"jiti@npm:^2.4.0":
   version: 2.4.0
   resolution: "jiti@npm:2.4.0"
   bin:
@@ -6143,19 +6143,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.33.3":
-  version: 5.33.3
-  resolution: "knip@npm:5.33.3"
+"knip@npm:5.37.2":
+  version: 5.37.2
+  resolution: "knip@npm:5.37.2"
   dependencies:
     "@nodelib/fs.walk": "npm:1.2.8"
     "@snyk/github-codeowners": "npm:1.1.0"
     easy-table: "npm:1.2.0"
     enhanced-resolve: "npm:^5.17.1"
     fast-glob: "npm:^3.3.2"
-    jiti: "npm:^2.3.3"
+    jiti: "npm:^2.4.0"
     js-yaml: "npm:^4.1.0"
     minimist: "npm:^1.2.8"
-    picocolors: "npm:^1.0.0"
+    picocolors: "npm:^1.1.0"
     picomatch: "npm:^4.0.1"
     pretty-ms: "npm:^9.0.0"
     smol-toml: "npm:^1.3.0"
@@ -6169,7 +6169,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/d6227a43666ce9732fe6b797a0c348bc46f59603826766c2049f44682ce96c23f0fb85b659d243dd36f98098a83a4e500d1044f3114a32564a39cf92dce8e853
+  checksum: 10/bce209845eb14fe1fe27367f29c111d5b485305dfbc415db70c27dbef615c9f311c8a3aad44430dd3ad03a1ce616830a7a3f9ac460c2fa41464c234127ef24ec
   languageName: node
   linkType: hard
 
@@ -7309,7 +7309,7 @@ __metadata:
     jest-watch-typeahead: "npm:2.2.2"
     js-yaml: "npm:4.1.0"
     json5: "npm:2.2.3"
-    knip: "npm:5.33.3"
+    knip: "npm:5.37.2"
     leven: "npm:4.0.0"
     lines-and-columns: "npm:2.0.4"
     linguist-languages: "npm:7.27.0"
