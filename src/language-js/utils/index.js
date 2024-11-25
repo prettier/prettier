@@ -901,8 +901,8 @@ function getCallArguments(node) {
   }
 
   let args = node.arguments;
-  if (node.type === "ImportExpression") {
-    args = [node.source];
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+    args = [node.type === "ImportExpression" ? node.source : node.argument];
 
     if (node.options) {
       args.push(node.options);
@@ -923,8 +923,11 @@ function iterateCallArgumentsPath(path, iteratee) {
     );
   }
 
-  if (node.type === "ImportExpression") {
-    path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+    path.call(
+      (sourcePath) => iteratee(sourcePath, 0),
+      node.type === "ImportExpression" ? "source" : "argument",
+    );
 
     if (node.options) {
       path.call((sourcePath) => iteratee(sourcePath, 1), "options");
@@ -941,9 +944,12 @@ function getCallArgumentSelector(node, index) {
     selectors.push("expression");
   }
 
-  if (node.type === "ImportExpression") {
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
     if (index === 0 || index === (node.options ? -2 : -1)) {
-      return [...selectors, "source"];
+      return [
+        ...selectors,
+        node.type === "ImportExpression" ? "source" : "argument",
+      ];
     }
     if (node.options && (index === 1 || index === -1)) {
       return [...selectors, "options"];
