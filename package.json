@@ -30,7 +30,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "18.2.12",
+    "@angular/compiler": "19.0.0",
     "@babel/code-frame": "7.26.2",
     "@babel/parser": "7.26.2",
     "@babel/types": "7.26.0",
