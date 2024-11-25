@@ -59,10 +59,7 @@ const assertDocFillParts =
           parts = parts.slice(0, -1);
         }
         for (const [i, doc] of parts.entries()) {
-          if (i % 2 === 0) {
-            continue;
-          }
-          if (!isValidSeparator(doc)) {
+          if (i % 2 === 1 && !isValidSeparator(doc)) {
             const type = getDocType(doc);
             throw new Error(
               `Unexpected non-line-break doc at ${i}. Doc type is ${type}.`,
