@@ -371,6 +371,10 @@ const pluginFiles = [
       {
         module: resolveEsmModulePath("@angular/compiler"),
         process(text) {
+          text = text.replace(
+            "const phases = [",
+            "const phases = undefined && [",
+          );
           text = text.replace("publishFacade(_global)", "");
           return text;
         },
