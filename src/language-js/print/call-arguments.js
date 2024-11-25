@@ -41,6 +41,7 @@ function printCallArguments(path, options, print) {
   const { node } = path;
 
   const args = getCallArguments(node);
+
   if (args.length === 0) {
     return ["(", printDanglingComments(path, options), ")"];
   }
@@ -83,6 +84,7 @@ function printCallArguments(path, options, print) {
     !options.parser.startsWith("__ng_") &&
     // Dynamic imports cannot have trailing commas
     node.type !== "ImportExpression" &&
+    node.type !== "TSImportType" &&
     shouldPrintComma(options, "all")
       ? ","
       : "";
