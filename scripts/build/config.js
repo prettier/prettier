@@ -435,6 +435,11 @@ const pluginFiles = [
           );
 
           text = text.replaceAll(
+            /const BINARY_OPERATORS = new Map\(\[\n.*?\n\]\);\n/gsu,
+            "const BINARY_OPERATORS = undefined;",
+          );
+
+          text = text.replaceAll(
             /const PIPE_BINDINGS = \[\n.*?\n\];\n/gsu,
             "const PIPE_BINDINGS = undefined;",
           );
@@ -442,6 +447,11 @@ const pluginFiles = [
           text = text.replaceAll(
             /const TEXT_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
             "const TEXT_INTERPOLATE_CONFIG = undefined;",
+          );
+
+          text = text.replaceAll(
+            /const CHAINABLE = new Set\(\[\n.*?\n\]\);\n/gsu,
+            "const CHAINABLE = undefined;",
           );
 
           text = text.replaceAll(
