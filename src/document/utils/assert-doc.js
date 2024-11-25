@@ -3,7 +3,7 @@ import {
   DOC_TYPE_LINE,
   DOC_TYPE_STRING,
 } from "../constants.js";
-import { cleanDoc } from "../utils.js";
+import { isEmptyDoc } from "../utils.js";
 import getDocType from "./get-doc-type.js";
 import traverseDoc from "./traverse-doc.js";
 
@@ -53,7 +53,7 @@ const assertDocFillParts =
        */
       function (parts) {
         assertDocArray(parts);
-        if (parts.length > 1 && cleanDoc(parts.at(-1)) === "") {
+        if (parts.length > 1 && isEmptyDoc(parts.at(-1))) {
           // stripTrailingHardline can transform trailing hardline into empty string.
           // The trailing empty string is not a problem even if it's a line element.
           parts = parts.slice(0, -1);

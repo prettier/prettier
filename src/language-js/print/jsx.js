@@ -11,7 +11,11 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/builders.js";
-import { cleanDoc, replaceEndOfLine, willBreak } from "../../document/utils.js";
+import {
+  isEmptyDoc,
+  replaceEndOfLine,
+  willBreak,
+} from "../../document/utils.js";
 import {
   printComments,
   printDanglingComments,
@@ -215,7 +219,7 @@ function printJsxElementInternal(path, options, print) {
     // There are a number of situations where we need to ensure we display
     // whitespace as `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
-      if (i === 1 && cleanDoc(children[i - 1]) === "") {
+      if (i === 1 && isEmptyDoc(children[i - 1])) {
         if (children.length === 2) {
           // Solitary whitespace
           multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
