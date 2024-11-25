@@ -424,6 +424,56 @@ const pluginFiles = [
             "",
           );
 
+          text = text.replaceAll(
+            /function transformExpressionsInExpression\(.*?\n.*?\n\}\n/gsu,
+            "function transformExpressionsInExpression(){}",
+          );
+
+          text = text.replaceAll(
+            /const deferTriggerToR3TriggerInstructionsMap = new Map\(\[\n.*?\n\]\);\n/gsu,
+            "const deferTriggerToR3TriggerInstructionsMap = undefined;",
+          );
+
+          text = text.replaceAll(
+            /const PIPE_BINDINGS = \[\n.*?\n\];\n/gsu,
+            "const PIPE_BINDINGS = undefined;",
+          );
+
+          text = text.replaceAll(
+            /const TEXT_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const TEXT_INTERPOLATE_CONFIG = undefined;",
+          );
+
+          text = text.replaceAll(
+            /const PROPERTY_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const PROPERTY_INTERPOLATE_CONFIG = undefined;",
+          );
+          text = text.replaceAll(
+            /const STYLE_PROP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const STYLE_PROP_INTERPOLATE_CONFIG = undefined;",
+          );
+
+          text = text.replaceAll(
+            /const ATTRIBUTE_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const ATTRIBUTE_INTERPOLATE_CONFIG = undefined;",
+          );
+          text = text.replaceAll(
+            /const STYLE_MAP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const STYLE_MAP_INTERPOLATE_CONFIG = undefined;",
+          );
+          text = text.replaceAll(
+            /const CLASS_MAP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const CLASS_MAP_INTERPOLATE_CONFIG = undefined;",
+          );
+          text = text.replaceAll(
+            /const PURE_FUNCTION_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const PURE_FUNCTION_CONFIG = undefined;",
+          );
+          text = text.replaceAll(
+            /const NAMED_ENTITIES = \{\n.*?\n\};\n/gsu,
+            "const NAMED_ENTITIES = {};",
+          );
+
           return text;
         },
       },
