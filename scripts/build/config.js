@@ -298,6 +298,16 @@ const pluginFiles = [
             /(?<=import )(?=\w+ from ["']typescript["'])/gu,
             "* as ",
           );
+
+          // Remove bundled `semver`
+          text = text
+            .replaceAll(
+              /\n\/\/ node_modules\/\.pnpm\/semver@.*?\nvar .*? = __commonJS\(\{\n.*\n\}\);\n/gsu,
+              "",
+            )
+            .replace(/var import_semver = .*?;/u, "")
+            .replace(/if \(import_semver.*?\) \{/u, "if (false) {");
+
           return text;
         },
       },
