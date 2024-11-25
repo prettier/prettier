@@ -367,6 +367,15 @@ const pluginFiles = [
   },
   {
     input: "src/plugins/angular.js",
+    replaceModule: [
+      {
+        module: resolveEsmModulePath("@angular/compiler"),
+        process(text) {
+          text = text.replace("publishFacade(_global)", "");
+          return text;
+        },
+      },
+    ],
   },
   {
     input: "src/plugins/postcss.js",
