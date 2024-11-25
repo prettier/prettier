@@ -6353,16 +6353,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:0.30.11":
-  version: 0.30.11
-  resolution: "magic-string@npm:0.30.11"
-  dependencies:
-    "@jridgewell/sourcemap-codec": "npm:^1.5.0"
-  checksum: 10/b784d2240252f5b1e755d487354ada4c672cbca16f045144f7185a75b059210e5fcca7be7be03ef1bac2ca754c4428b21d36ae64a9057ba429916f06b8c54eb2
-  languageName: node
-  linkType: hard
-
-"magic-string@npm:~0.30.0":
+"magic-string@npm:0.30.13, magic-string@npm:~0.30.0":
   version: 0.30.13
   resolution: "magic-string@npm:0.30.13"
   dependencies:
@@ -7353,7 +7344,7 @@ __metadata:
     leven: "npm:4.0.0"
     lines-and-columns: "npm:2.0.4"
     linguist-languages: "npm:7.27.0"
-    magic-string: "npm:0.30.11"
+    magic-string: "npm:0.30.13"
     meriyah: "npm:6.0.3"
     micromatch: "npm:4.0.8"
     minimist: "npm:1.2.8"
