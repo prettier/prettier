@@ -1,7 +1,7 @@
 ---
 author: "Sosuke Suzuki (@sosukesuzuki)"
 authorURL: "https://github.com/sosukesuzuki"
-title: "Prettier 3.4: Fixes a lot of bugs"
+title: "Prettier 3.4: A lot of bug fixes"
 ---
 
 This release includes numerous bug fixes and other improvements.
