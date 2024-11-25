@@ -376,6 +376,54 @@ const pluginFiles = [
             "const phases = undefined && [",
           );
           text = text.replace("publishFacade(_global)", "");
+          text = text.replace(
+            "const serializerVisitor = new GetMsgSerializerVisitor()",
+            "",
+          );
+          text = text.replace(
+            "const compatibilityMode = CompatibilityMode.TemplateDefinitionBuilder",
+            "",
+          );
+          text = text.replace(
+            "const domSchema = new DomElementSchemaRegistry()",
+            "",
+          );
+          text = text.replace(
+            "const elementRegistry = new DomElementSchemaRegistry()",
+            "",
+          );
+          text = text.replace(
+            "const serializerVisitor$1 = new _SerializerVisitor()",
+            "",
+          );
+          text = text.replace(
+            "const NON_BINDABLE_VISITOR = new NonBindableVisitor()",
+            "",
+          );
+          text = text.replace(
+            "const NULL_EXPR = new LiteralExpr(null, null, null)",
+            "",
+          );
+          text = text.replace(
+            "const TYPED_NULL_EXPR = new LiteralExpr(null, INFERRED_TYPE, null)",
+            "",
+          );
+          text = text.replace("const _visitor = new _Visitor$2()", "");
+          text = text.replaceAll(
+            /const (.*?) = new BuiltinType\(BuiltinTypeName\..*?\);/gu,
+            "const $1 = undefined;",
+          );
+          text = text.replaceAll(/var output_ast =.*?;\n/gsu, "var output_ast");
+
+          text = text.replace(
+            "const serializer = new IcuSerializerVisitor();",
+            "",
+          );
+          text = text.replace(
+            "const _TAG_DEFINITION = new XmlTagDefinition();",
+            "",
+          );
+
           return text;
         },
       },
