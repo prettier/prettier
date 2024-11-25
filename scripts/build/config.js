@@ -367,27 +367,6 @@ const pluginFiles = [
   },
   {
     input: "src/plugins/angular.js",
-    replaceModule: [
-      // We only use a small set of `@angular/compiler` from `esm2022/src/expression_parser/`
-      // Those files can't be imported, they also not directly runnable, because `.mjs` extension is missing
-      {
-        module: getPackageFile("@angular/compiler/fesm2022/compiler.mjs"),
-        text: /* indent */ `
-          export * from '../esm2022/src/expression_parser/ast.mjs';
-          export {Lexer} from '../esm2022/src/expression_parser/lexer.mjs';
-          export {Parser} from '../esm2022/src/expression_parser/parser.mjs';
-        `,
-      },
-      ...[
-        "expression_parser/lexer.mjs",
-        "expression_parser/parser.mjs",
-        "ml_parser/defaults.mjs",
-      ].map((file) => ({
-        module: getPackageFile(`@angular/compiler/esm2022/src/${file}`),
-        process: (text) =>
-          text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/gu, "'$1.mjs'"),
-      })),
-    ],
   },
   {
     input: "src/plugins/postcss.js",
