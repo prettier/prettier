@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "3.4.1",
+  "version": "3.5.0-dev",
   "description": "Prettier is an opinionated code formatter",
   "bin": "./bin/prettier.cjs",
   "repository": "prettier/prettier",
@@ -144,7 +144,7 @@
     "knip": "5.37.2",
     "magic-string": "0.30.13",
     "npm-run-all2": "7.0.1",
-    "prettier": "3.4.0",
+    "prettier": "3.4.1",
     "pretty-bytes": "6.1.1",
     "rollup-plugin-license": "3.5.3",
     "semver": "7.6.3",
