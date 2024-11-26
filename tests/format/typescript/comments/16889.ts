@@ -57,6 +57,13 @@ class A {
   protected async method() {
   }
 
+  @decorator
+   /* comment */
+  * method() {}
+
+  @decorator
+  * /* comment */ method() {}
+
    /* comment */
   abstract method():void;
 

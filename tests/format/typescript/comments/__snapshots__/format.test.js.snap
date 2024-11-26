@@ -313,6 +313,13 @@ class A {
   protected async method() {
   }
 
+  @decorator
+   /* comment */
+  * method() {}
+
+  @decorator
+  * /* comment */ method() {}
+
    /* comment */
   abstract method():void;
 
@@ -367,6 +374,13 @@ class A {
   @decorator
   /* comment */
   protected async method() {}
+
+  @decorator
+  /* comment */
+  *method() {}
+
+  @decorator
+  */* comment */ method() {}
 
   /* comment */
   abstract method(): void;
