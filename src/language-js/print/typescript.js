@@ -15,6 +15,7 @@ import {
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { printArray } from "./array.js";
 import { printBlock } from "./block.js";
+import printCallArguments from "./call-arguments.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
 import { printClassMethod, printClassProperty } from "./class.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
@@ -211,9 +212,8 @@ function printTypescript(path, options, print) {
     case "TSImportType":
       return [
         !node.isTypeOf ? "" : "typeof ",
-        "import(",
-        print("argument"),
-        ")",
+        "import",
+        printCallArguments(path, options, print),
         !node.qualifier ? "" : [".", print("qualifier")],
         printTypeParameters(
           path,

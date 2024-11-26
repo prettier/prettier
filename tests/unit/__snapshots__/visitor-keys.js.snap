@@ -852,6 +852,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSImportType": [
     "argument",
+    "options",
     "qualifier",
     "typeArguments",
     "typeParameters",
