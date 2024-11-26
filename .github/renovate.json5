@@ -10,7 +10,7 @@
   packageRules: [
     {
       groupName: "react",
-      matchDepNames: ["react", "react-dom"],
+      matchPackageNames: ["react", "react-dom"],
     },
     {
       groupName: "babel",
@@ -26,11 +26,11 @@
     },
     {
       groupName: "flow-parser",
-      matchDepNames: ["flow-parser", "hermes-parser"],
+      matchPackageNames: ["flow-parser", "hermes-parser"],
     },
     {
       groupName: "ESLint related dependencies",
-      matchDepNames: [
+      matchPackageNames: [
         "eslint",
         "@eslint/*",
         "@stylistic/eslint-plugin-js",
@@ -47,7 +47,7 @@
     },
     {
       groupName: "Angular Estree",
-      matchDepNames: ["@angular/compiler", "angular-estree-parser"],
+      matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
     },
     {
       branchPrefix: "renovate/website/",
