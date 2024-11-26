@@ -21,17 +21,22 @@ const VUE_BUILTIN_DIRECTIVES = new Set([
   "v-html",
   "v-show",
   "v-if",
-  "v-else",
+  // Does not expect expression
+  // "v-else",
   "v-else-if",
-  "v-for",
+  // Handled in `printVueVForDirective`
+  // "v-for",
   "v-on",
   "v-bind",
   "v-model",
   "v-slot",
-  "v-pre",
-  "v-once",
+  // Does not expect expression
+  // "v-pre",
+  // Does not expect expression
+  // "v-once",
   "v-memo",
-  "v-cloak",
+  // Does not expect expression
+  // "v-cloak",
 ]);
 
 function printVueAttribute(path, options) {
