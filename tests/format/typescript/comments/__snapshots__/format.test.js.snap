@@ -248,6 +248,53 @@ class Foo {
 ================================================================================
 `;
 
+exports[`16889.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class myClass {
+  @decorator
+  /**
+   * The method description
+   *
+  */
+  async method() {
+  }
+
+  @decorator
+  async /* comment */ method() {
+  }
+
+
+  @decorator
+  // line comment
+  async method2() {
+  }
+}
+
+
+=====================================output=====================================
+class myClass {
+  @decorator
+  /**
+   * The method description
+   *
+   */
+  async method() {}
+
+  @decorator
+  async /* comment */ method() {}
+
+  @decorator
+  // line comment
+  async method2() {}
+}
+
+================================================================================
+`;
+
 exports[`abstract_class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
