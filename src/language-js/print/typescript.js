@@ -210,7 +210,6 @@ function printTypescript(path, options, print) {
       return [print("expression"), "!"];
     case "TSImportType":
       return [
-        !node.isTypeOf ? "" : "typeof ",
         "import(",
         print("argument"),
         ")",
