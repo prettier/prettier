@@ -68,5 +68,10 @@
       matchManagers: ["github-actions"],
     },
   ],
-  ignoreDeps: ["collapse-white-space", "prettier"],
+  ignoreDeps: [
+    // It's a dependency of `remark-parse`, use same version to reduce size
+    "collapse-white-space",
+    // It will be updated by release script
+    "prettier",
+  ],
 }
