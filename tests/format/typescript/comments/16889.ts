@@ -1,4 +1,4 @@
-class myClass {
+class A {
   @decorator
   /**
    * The method description
@@ -35,5 +35,30 @@ class myClass {
   @decorator // line comment
   async method() {
   }
+
+
+  @decorator
+   /* comment */
+  public async method() {
+  }
+
+  @decorator
+   /* comment */
+  static async method() {
+  }
+
+  @decorator
+   /* comment */
+  protected async method() {
+  }
+
+  @decorator
+   /* comment */
+  protected async method() {
+  }
+
+   /* comment */
+  abstract method():void;
+
 }
 
