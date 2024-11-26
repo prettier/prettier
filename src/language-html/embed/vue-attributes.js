@@ -15,6 +15,25 @@ import { printVueVForDirective } from "./vue-v-for-directive.js";
  * @import AstPath from "../../common/ast-path.js"
  */
 
+// https://vuejs.org/api/built-in-directives.html
+const VUE_BUILTIN_DIRECTIVES = new Set([
+  "v-text",
+  "v-html",
+  "v-show",
+  "v-if",
+  "v-else",
+  "v-else-if",
+  "v-for",
+  "v-on",
+  "v-bind",
+  "v-model",
+  "v-slot",
+  "v-pre",
+  "v-once",
+  "v-memo",
+  "v-cloak",
+]);
+
 function printVueAttribute(path, options) {
   if (options.parser !== "vue") {
     return;
@@ -60,7 +79,7 @@ function printVueAttribute(path, options) {
   /**
    *     v-if="jsExpression"
    */
-  if (attributeName.startsWith("v-")) {
+  if (VUE_BUILTIN_DIRECTIVES.has(attributeName)) {
     return (textToDoc) => printExpression(value, textToDoc, { parseWithTs });
   }
 }
