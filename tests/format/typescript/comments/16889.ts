@@ -4,17 +4,17 @@ class myClass {
    * The method description
    *
   */
-  async method() {
+  async method1() {
   }
 
   @decorator
-  async /* comment */ method() {
+  async /* comment */ method2() {
   }
 
 
   @decorator
   // line comment
-  async method2() {
+  async method3() {
   }
 }
 
