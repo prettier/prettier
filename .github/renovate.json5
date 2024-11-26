@@ -13,16 +13,16 @@
       groupName: "react",
     },
     {
-      matchPackagePrefixes: ["@babel/"],
       groupName: "babel",
+      matchPackageNames: ["@babel/{/,}**"],
     },
     {
-      matchPackagePrefixes: ["@typescript-eslint/"],
       groupName: "typescript-eslint",
+      matchPackageNames: ["@typescript-eslint/{/,}**"],
     },
     {
-      matchPackagePrefixes: ["@glimmer/"],
       groupName: "glimmer",
+      matchPackageNames: ["@glimmer/{/,}**"],
     },
     {
       matchDepNames: ["flow-parser", "hermes-parser"],
@@ -70,10 +70,5 @@
       groupName: "GitHub Actions",
     },
   ],
-  ignoreDeps: [
-    // It's a dependency of `remark-parse`, use same version to reduce size
-    "collapse-white-space",
-    // It will be updated by release script
-    "prettier",
-  ],
+  ignoreDeps: ["collapse-white-space", "prettier"],
 }
