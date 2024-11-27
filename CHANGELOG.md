@@ -1,3 +1,33 @@
+# 3.4.1
+
+[diff](https://github.com/prettier/prettier/compare/3.4.0...3.4.1)
+
+#### Remove unnecessary parentheses around assignment in `v-on` ([#16887](https://github.com/prettier/prettier/pull/16887) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```vue
+<!-- Input -->
+<template>
+  <button @click="foo += 2">Click</button>
+</template>
+
+<!-- Prettier 3.4.0 -->
+<template>
+  <button @click="(foo += 2)">Click</button>
+</template>
+
+<!-- Prettier 3.4.1 -->
+<template>
+  <button @click="foo += 2">Click</button>
+</template>
+```
+
+# 3.4.0
+
+[diff](https://github.com/prettier/prettier/compare/3.3.3...3.4.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2024/11/26/3.4.0.html)
+
 # 3.3.3
 
 [diff](https://github.com/prettier/prettier/compare/3.3.2...3.3.3)

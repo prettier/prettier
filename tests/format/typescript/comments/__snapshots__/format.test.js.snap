@@ -222,6 +222,32 @@ class Foo {
 ================================================================================
 `;
 
+exports[`16207.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  constructor(
+    @required
+    // comment
+    protected readonly myParam: string,
+  ) {}
+}
+
+=====================================output=====================================
+class Foo {
+  constructor(
+    @required
+    // comment
+    protected readonly myParam: string,
+  ) {}
+}
+
+================================================================================
+`;
+
 exports[`abstract_class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

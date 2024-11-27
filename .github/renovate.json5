@@ -9,31 +9,30 @@
   prConcurrentLimit: 0,
   packageRules: [
     {
-      matchDepNames: ["react", "react-dom"],
       groupName: "react",
+      matchPackageNames: ["react", "react-dom"],
     },
     {
-      matchPackagePrefixes: ["@babel/"],
       groupName: "babel",
+      matchPackageNames: ["@babel/*"],
     },
     {
-      matchPackagePrefixes: ["@typescript-eslint/"],
       groupName: "typescript-eslint",
+      matchPackageNames: ["@typescript-eslint/*"],
     },
     {
-      matchPackagePrefixes: ["@glimmer/"],
       groupName: "glimmer",
+      matchPackageNames: ["@glimmer/*"],
     },
     {
-      matchDepNames: ["flow-parser", "hermes-parser"],
       groupName: "flow-parser",
+      matchPackageNames: ["flow-parser", "hermes-parser"],
     },
     {
-      matchDepNames: [
+      groupName: "ESLint related dependencies",
+      matchPackageNames: [
         "eslint",
-        "@eslint/compat",
-        "@eslint/eslintrc",
-        "@eslint/js",
+        "@eslint/*",
         "@stylistic/eslint-plugin-js",
         "eslint-config-prettier",
         "eslint-plugin-compat",
@@ -45,11 +44,10 @@
         "eslint-plugin-unicorn",
         "globals",
       ],
-      groupName: "ESLint related dependencies",
     },
     {
-      matchDepNames: ["@angular/compiler", "angular-estree-parser"],
       groupName: "Angular Estree",
+      matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
     },
     {
       branchPrefix: "renovate/website/",
@@ -66,8 +64,8 @@
       labels: ["dependency:tools"],
     },
     {
-      matchManagers: ["github-actions"],
       groupName: "GitHub Actions",
+      matchManagers: ["github-actions"],
     },
   ],
   ignoreDeps: [
