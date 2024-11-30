@@ -2047,8 +2047,7 @@ p {
   }
 }
 
-@each
-  $animal in puma, sea-slug, cheerfulDog, BigSalamander, "string",
+@each $animal in puma, sea-slug, cheerfulDog, BigSalamander, "string",
   "another-string", "camelCaseString", "PascalCaseString"
 {
   .#{$animal}-icon {
@@ -2545,8 +2544,7 @@ $my-map: (
   }
 }
 
-@import
-  // Comment
+@import // Comment
   "mixins",
   "variables",
   // Comment
@@ -4261,8 +4259,7 @@ p {
   }
 }
 
-@each
-  $animal in puma, sea-slug, cheerfulDog, BigSalamander, "string",
+@each $animal in puma, sea-slug, cheerfulDog, BigSalamander, "string",
   "another-string", "camelCaseString", "PascalCaseString"
 {
   .#{$animal}-icon {
@@ -4759,8 +4756,7 @@ $my-map: (
   }
 }
 
-@import
-  // Comment
+@import // Comment
   "mixins",
   "variables",
   // Comment

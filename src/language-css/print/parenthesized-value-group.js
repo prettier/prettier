@@ -174,6 +174,7 @@ function shouldPrecededBySoftline(path) {
     (node) => node.type === "value-paren_group" && !node.open,
     (node, key) => key === "group" && node.type === "value-value",
     (node, key) => key === "group" && node.type === "value-root",
+    (node, key) => key === "value" && node.type === "css-decl",
   );
 }
 
