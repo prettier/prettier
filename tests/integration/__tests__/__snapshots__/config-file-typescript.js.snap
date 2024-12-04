@@ -1,6 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`(stderr) 1`] = `
-"[error] Invalid configuration for file "<cli>/config/ts/auto-discovery/foo.js":
-[error] Unknown file extension ".ts" for <cli>/config/ts/auto-discovery/.prettierrc.ts"
-`;
