@@ -13,13 +13,27 @@ You can configure Prettier via (in order of precedence):
 - A `.prettierrc.cjs`, `prettier.config.cjs`, `.prettierrc.cts`, or `prettier.config.cts` file that exports an object using `module.exports`.
 - A `.prettierrc.toml` file.
 
+> TypeScript configuration files support requires [additional setup](#typescript-configuration-files)
+
 The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn’t) found.
 
 Prettier intentionally doesn’t support any kind of global configuration. This is to make sure that when a project is copied to another computer, Prettier’s behavior stays the same. Otherwise, Prettier wouldn’t be able to guarantee that everybody in a team gets the same consistent results.
 
 The options you can use in the configuration file are the same as the [API options](options.md).
 
-> TypeScript support for Node.js is currently experimental, `--experimental-strip-types` is required to load `.prettierrc.{ts,mts,cts}` and `prettier.config.{ts,mts,cts}`
+### TypeScript Configuration Files
+
+TypeScript support for Node.js is currently experimental, Node.js>=22.6.0 is required and `--experimental-strip-types` is required to run Node.js.
+
+```sh
+node --experimental-strip-types node_modules/prettier/bin/prettier.cjs . --write
+```
+
+or
+
+```sh
+NODE_OPTIONS="--experimental-strip-types" node prettier . --write
+```
 
 ## Basic Configuration
 
