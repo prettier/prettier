@@ -15,7 +15,7 @@ async function readJson(file) {
   }
 }
 
-async function importConfigFile(file) {
+async function loadJs(file) {
   const module = await import(pathToFileURL(file).href);
   return module.default;
 }
@@ -60,12 +60,12 @@ const loaders = {
     }
   },
   ".json": readJson,
-  ".js": importConfigFile,
-  ".mjs": importConfigFile,
-  ".cjs": importConfigFile,
-  ".ts": importConfigFile,
-  ".mts": importConfigFile,
-  ".cts": importConfigFile,
+  ".js": loadJs,
+  ".mjs": loadJs,
+  ".cjs": loadJs,
+  ".ts": loadJs,
+  ".mts": loadJs,
+  ".cts": loadJs,
   ".yaml": loadYaml,
   ".yml": loadYaml,
   // No extension
