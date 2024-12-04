@@ -32,7 +32,7 @@ node --experimental-strip-types node_modules/prettier/bin/prettier.cjs . --write
 or
 
 ```sh
-NODE_OPTIONS="--experimental-strip-types" node prettier . --write
+NODE_OPTIONS="--experimental-strip-types" prettier . --write
 ```
 
 ## Basic Configuration
