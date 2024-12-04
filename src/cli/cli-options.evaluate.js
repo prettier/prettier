@@ -106,7 +106,7 @@ const options = {
   config: {
     category: optionCategories.CATEGORY_CONFIG,
     description:
-      "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js, prettier.config.ts).",
+      "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
     exception: (value) => value === false,
     oppositeDescription: "Do not look for a configuration file.",
     type: "path",

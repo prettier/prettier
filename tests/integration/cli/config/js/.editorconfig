@@ -1,4 +1,4 @@
-# This file should be overridden by prettier.config.js or prettier.config.ts
+# This file should be overridden by prettier.config.js
 root = true
 
 [*]

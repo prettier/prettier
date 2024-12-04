@@ -35,13 +35,11 @@ function runCliWorker(dir, args, options) {
     write: [],
   };
 
+  const nodeOptions = options?.nodeOptions ?? [];
+
   const worker = new Worker(CLI_WORKER_FILE, {
     argv: args,
-    execArgv: [
-      "--trace-deprecation",
-      "--disable-warning=ExperimentalWarning",
-      "--experimental-strip-types",
-    ],
+    execArgv: ["--trace-deprecation", ...nodeOptions],
     stdout: true,
     stderr: true,
     env: {

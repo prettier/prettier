@@ -89,7 +89,7 @@ Format options:
 
 Config options:
 
-  --config <path>          Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js, prettier.config.ts).
+  --config <path>          Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).
   --no-config              Do not look for a configuration file.
   --config-precedence <cli-override|file-override|prefer-file>
                            Define in which order config files and CLI options should be evaluated.
@@ -254,7 +254,7 @@ Format options:
 
 Config options:
 
-  --config <path>          Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js, prettier.config.ts).
+  --config <path>          Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).
   --no-config              Do not look for a configuration file.
   --config-precedence <cli-override|file-override|prefer-file>
                            Define in which order config files and CLI options should be evaluated.
