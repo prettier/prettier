@@ -19,6 +19,8 @@ Prettier intentionally doesn’t support any kind of global configuration. This 
 
 The options you can use in the configuration file are the same as the [API options](options.md).
 
+> TypeScript support for Node.js is currently experimental, `--experimental-strip-types` is required to load `.prettierrc.{ts,mts,cts}` and `prettier.config.{ts,mts,cts}`
+
 ## Basic Configuration
 
 JSON:
