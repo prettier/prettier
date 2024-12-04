@@ -1,3 +1,110 @@
+# 3.4.2
+
+[diff](https://github.com/prettier/prettier/compare/3.4.1...3.4.2)
+
+#### Treat U+30A0 & U+30FB in Katakana Block as CJK ([#16796](https://github.com/prettier/prettier/pull/16796) by [@tats-u](https://github.com/tats-u))
+
+Prettier doesn't treat U+30A0 & U+30FB as Japanese. U+30FB is commonly used in Japanese to represent the delimitation of first and last names of non-Japanese people or “and”. The following “C言語・C++・Go・Rust” means “C language & C++ & Go & Rust” in Japanese.
+
+<!-- prettier-ignore -->
+```md
+<!-- Input (--prose-wrap=never) -->
+
+C言
+語
+・
+C++
+・
+Go
+・
+Rust
+
+<!-- Prettier 3.4.1 -->
+C言語・ C++ ・ Go ・ Rust
+
+<!-- Prettier 3.4.2 -->
+C言語・C++・Go・Rust
+```
+
+U+30A0 can be used as the replacement of the `-` in non-Japanese names (e.g. “Saint-Saëns” (Charles Camille Saint-Saëns) can be represented as “サン゠サーンス” in Japanese), but substituted by ASCII hyphen (U+002D) or U+FF1D (full width hyphen) in many cases (e.g. “サン=サーンス” or “サン＝サーンス”).
+
+#### Fix comments print on class methods with decorators ([#16891](https://github.com/prettier/prettier/pull/16891) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+class A {
+  @decorator
+  /** 
+   * The method description
+   *
+  */
+  async method(foo: Foo, bar: Bar) {
+    console.log(foo);
+  }
+}
+
+// Prettier 3.4.1
+class A {
+  @decorator
+  async /**
+   * The method description
+   *
+   */
+  method(foo: Foo, bar: Bar) {
+    console.log(foo);
+  }
+}
+
+// Prettier 3.4.2
+class A {
+  @decorator
+  /**
+   * The method description
+   *
+   */
+  async method(foo: Foo, bar: Bar) {
+    console.log(foo);
+  }
+}
+```
+
+#### Fix non-idempotent formatting ([#16899](https://github.com/prettier/prettier/pull/16899) by [@seiyab](https://github.com/seiyab))
+
+This bug fix is not language-specific. You may see similar change in any languages. This fixes regression in 3.4.0 so change caused by it should yield same formatting as 3.3.3.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+<div>
+  foo
+  <span>longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo</span>
+  , abc
+</div>;
+
+// Prettier 3.4.1 (first)
+<div>
+  foo
+  <span>
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo
+  </span>, abc
+</div>;
+
+// Prettier 3.4.1 (second)
+<div>
+  foo
+  <span>longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo</span>
+  , abc
+</div>;
+
+// Prettier 3.4.2
+<div>
+  foo
+  <span>longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo</span>
+  , abc
+</div>;
+```
+
 # 3.4.1
 
 [diff](https://github.com/prettier/prettier/compare/3.4.0...3.4.1)
