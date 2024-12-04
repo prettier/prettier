@@ -51,7 +51,7 @@ JSON:
 JS (ES Modules):
 
 ```js
-// prettier.config.js, .prettierrc.js, prettier.config.ts, .prettierrc.ts, prettier.config.mjs, .prettierrc.mjs, prettier.config.mts, or .prettierrc.mts
+// prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
 
 /**
  * @see https://prettier.io/docs/en/configuration.html
@@ -70,7 +70,7 @@ export default config;
 JS (CommonJS):
 
 ```js
-// prettier.config.js, .prettierrc.js, prettier.config.ts, .prettierrc.ts, prettier.config.cjs, .prettierrc.cjs, prettier.config.cts, or .prettierrc.cts
+// prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs
 
 /**
  * @see https://prettier.io/docs/en/configuration.html
@@ -81,6 +81,34 @@ const config = {
   tabWidth: 4,
   semi: false,
   singleQuote: true,
+};
+
+module.exports = config;
+```
+
+TypeScript (ES Modules):
+
+```ts
+// prettier.config.ts, .prettierrc.ts, prettier.config.mts, or .prettierrc.mts
+
+import { type Config } from "prettier";
+
+const config: Config = {
+  trailingComma: "none",
+};
+
+export default config;
+```
+
+TypeScript (CommonJS):
+
+```ts
+// prettier.config.ts, .prettierrc.ts, prettier.config.cts, or .prettierrc.cts
+
+import { type Config } from "prettier";
+
+const config: Config = {
+  trailingComma: "none",
 };
 
 module.exports = config;
