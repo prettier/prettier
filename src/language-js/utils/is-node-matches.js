@@ -22,6 +22,7 @@ function isNodeMatchesNameOrPath(node, nameOrPath) {
 
     if (
       node.type !== "MemberExpression" ||
+      // @ts-expect-error -- Don't know why
       node.optional ||
       node.computed ||
       node.property.type !== "Identifier" ||
