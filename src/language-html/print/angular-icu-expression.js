@@ -5,7 +5,6 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
-import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import { printClosingTagEnd, printOpeningTagStart } from "./tag.js";
 
 /*
