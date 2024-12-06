@@ -20,14 +20,7 @@ export default {
       ],
     },
     website: {
-      entry: [
-        "siteConfig.js",
-        "core/Footer.js",
-        "pages/**/*.js",
-        "static/**/*.js",
-      ],
-      ignoreDependencies: ["codemirror", "highlight.js", "@babel/preset-react"],
-      ignore: ["pages/en/**"],
+      ignore: ["**/*"],
     },
     "scripts/tools/bundle-test": {},
     "scripts/tools/eslint-plugin-prettier-internal-rules": {},
