@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-
 import { default as ts } from "typescript";
 
 const isProduction = process.env.NODE_ENV === "production";

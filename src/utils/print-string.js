@@ -1,9 +1,12 @@
+import assert from "node:assert";
 import getPreferredQuote from "./get-preferred-quote.js";
 import makeString from "./make-string.js";
 
-/** @typedef {import("./get-preferred-quote.js").Quote} Quote */
+/** @import {Quote} from "./get-preferred-quote.js" */
 
 function printString(raw, options) {
+  assert(/^(?<quote>["']).*\k<quote>$/su.test(raw));
+
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
   const rawContent = raw.slice(1, -1);
@@ -26,6 +29,12 @@ function printString(raw, options) {
         ? "'"
         : getPreferredQuote(rawContent, options.singleQuote);
 
+  const originalQuote = raw.charAt(0);
+
+  if (originalQuote === enclosingQuote) {
+    return raw;
+  }
+
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
@@ -33,12 +42,10 @@ function printString(raw, options) {
   return makeString(
     rawContent,
     enclosingQuote,
-    !(
-      options.parser === "css" ||
-      options.parser === "less" ||
-      options.parser === "scss" ||
-      options.__embeddedInHtml
-    ),
+    // Until Prettier 3.3.3, this option was set to true for most parsers, with some exceptions like CSS.
+    // Since Prettier 3.3.4, it is set to false for all parsers.
+    // For more details, please see https://github.com/prettier/prettier/issues/16542#issuecomment-2282249280.
+    false,
   );
 }
 

@@ -7,11 +7,11 @@ Prettier is an opinionated code formatter with support for:
 
 - JavaScript (including experimental features)
 - [JSX](https://facebook.github.io/jsx/)
-- [Angular](https://angular.io/)
+- [Angular](https://angular.dev/)
 - [Vue](https://vuejs.org/)
 - [Flow](https://flow.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- CSS, [Less](http://lesscss.org/), and [SCSS](https://sass-lang.com)
+- CSS, [Less](https://lesscss.org/), and [SCSS](https://sass-lang.com)
 - [HTML](https://en.wikipedia.org/wiki/HTML)
 - [Ember/Handlebars](https://handlebarsjs.com/)
 - [JSON](https://json.org/)

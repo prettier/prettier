@@ -122,6 +122,273 @@ const [
 ================================================================================
 `;
 
+exports[`16065.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  constructor(
+    @decorator1
+    // comment1
+    readonly baz1: string,
+
+    @decorator2
+    // comment2
+    private baz2: string,
+  ) {}
+}
+
+=====================================output=====================================
+class Foo {
+  constructor(
+    @decorator1
+    // comment1
+    readonly baz1: string,
+
+    @decorator2
+    // comment2
+    private baz2: string,
+  ) {}
+}
+
+================================================================================
+`;
+
+exports[`16065-2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  // PropertyDefinition
+  @decorator
+  readonly /* comment */ propertyDefinition;
+
+  // TSAbstractPropertyDefinition
+  @decorator
+  abstract /* comment */ abstractPropertyDefinition;
+
+  // TSAbstractMethodDefinition
+  @decorator
+  abstract /* comment */ abstractMethodDefinition;
+
+  // MethodDefinition
+  @decorator
+  private /* comment */ methodDefinition() {}
+
+  // AccessorProperty
+  @decorator
+  accessor /* comment */ accessorProperty = 3;
+
+  constructor(
+    // TSParameterProperty
+    @decorator
+    readonly /* comment */ parameterProperty,
+  ) {}
+}
+
+=====================================output=====================================
+class Foo {
+  // PropertyDefinition
+  @decorator
+  readonly /* comment */ propertyDefinition;
+
+  // TSAbstractPropertyDefinition
+  @decorator
+  abstract /* comment */ abstractPropertyDefinition;
+
+  // TSAbstractMethodDefinition
+  @decorator
+  abstract /* comment */ abstractMethodDefinition;
+
+  // MethodDefinition
+  @decorator
+  private /* comment */ methodDefinition() {}
+
+  // AccessorProperty
+  @decorator
+  accessor /* comment */ accessorProperty = 3;
+
+  constructor(
+    // TSParameterProperty
+    @decorator
+    readonly /* comment */ parameterProperty,
+  ) {}
+}
+
+================================================================================
+`;
+
+exports[`16207.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  constructor(
+    @required
+    // comment
+    protected readonly myParam: string,
+  ) {}
+}
+
+=====================================output=====================================
+class Foo {
+  constructor(
+    @required
+    // comment
+    protected readonly myParam: string,
+  ) {}
+}
+
+================================================================================
+`;
+
+exports[`16889.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  @decorator
+  /**
+   * The method description
+   *
+  */
+  async method() {
+  }
+
+  @decorator/**
+   * The method description
+   *
+  */
+  async method() {
+  }
+
+  @decorator/**
+   * The method description
+   *
+  */ async method() {
+  }
+
+  @decorator
+  async /* comment */ method() {
+  }
+
+  @decorator /* comment */ async method() {
+  }
+
+  @decorator
+  // line comment
+  async method() {
+  }
+
+  @decorator // line comment
+  async method() {
+  }
+
+
+  @decorator
+   /* comment */
+  public async method() {
+  }
+
+  @decorator
+   /* comment */
+  static async method() {
+  }
+
+  @decorator
+   /* comment */
+  protected async method() {
+  }
+
+  @decorator
+   /* comment */
+  protected async method() {
+  }
+
+  @decorator
+   /* comment */
+  * method() {}
+
+  @decorator
+  * /* comment */ method() {}
+
+   /* comment */
+  abstract method():void;
+
+}
+
+
+=====================================output=====================================
+class A {
+  @decorator
+  /**
+   * The method description
+   *
+   */
+  async method() {}
+
+  @decorator /**
+   * The method description
+   *
+   */
+  async method() {}
+
+  @decorator /**
+   * The method description
+   *
+   */
+  async method() {}
+
+  @decorator
+  async /* comment */ method() {}
+
+  @decorator /* comment */ async method() {}
+
+  @decorator
+  // line comment
+  async method() {}
+
+  @decorator // line comment
+  async method() {}
+
+  @decorator
+  /* comment */
+  public async method() {}
+
+  @decorator
+  /* comment */
+  static async method() {}
+
+  @decorator
+  /* comment */
+  protected async method() {}
+
+  @decorator
+  /* comment */
+  protected async method() {}
+
+  @decorator
+  /* comment */
+  *method() {}
+
+  @decorator
+  */* comment */ method() {}
+
+  /* comment */
+  abstract method(): void;
+}
+
+================================================================================
+`;
+
 exports[`abstract_class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

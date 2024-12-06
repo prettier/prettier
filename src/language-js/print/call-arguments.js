@@ -78,12 +78,11 @@ function printCallArguments(path, options, print) {
     printedArguments.push(argDoc);
   });
 
-  // Dynamic imports cannot have trailing commas
-  const isDynamicImport = node.type === "ImportExpression";
   const maybeTrailingComma =
     // Angular does not allow trailing comma
     !options.parser.startsWith("__ng_") &&
-    !isDynamicImport &&
+    // Dynamic imports cannot have trailing commas
+    node.type !== "ImportExpression" &&
     shouldPrintComma(options, "all")
       ? ","
       : "";

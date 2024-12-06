@@ -1,5 +1,4 @@
 import { execa } from "execa";
-
 import { runGit, runYarn } from "../utils.js";
 
 export default async function installDependencies() {

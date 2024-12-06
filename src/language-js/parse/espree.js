@@ -1,12 +1,13 @@
 import { parse as espreeParse } from "espree";
-
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import getSourceType from "./utils/get-source-type.js";
 
-/** @type {import("espree").Options} */
+/** @import {Options} from "espree" */
+
+/** @type {Options} */
 const parseOptions = {
   ecmaVersion: "latest",
   range: true,

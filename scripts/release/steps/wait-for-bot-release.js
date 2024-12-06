@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import outdent from "outdent";
-
 import { logPromise, waitForEnter } from "../utils.js";
 
 export async function isVersionReleased(version) {
@@ -53,7 +52,7 @@ export default async function waitForBotRelease({ dry, version, next }) {
       2. Make sure "${chalk.yellow(
         "Publishing access",
       )}" section is set to "${chalk.yellow(
-        "Require two-factor authentication or automation tokens",
+        "Require two-factor authentication or an automation or granular access token",
       )}".
     `,
   );

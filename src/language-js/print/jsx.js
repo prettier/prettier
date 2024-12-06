@@ -48,10 +48,9 @@ const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../types/estree.js").Node} Node
- * @typedef {import("../types/estree.js").JSXElement} JSXElement
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Node, JSXElement} from "../types/estree.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 // JSX expands children from the inside-out, instead of the outside-in.
@@ -244,14 +243,25 @@ function printJsxElementInternal(path, options, print) {
     : group(multilineChildren, { shouldBreak: true });
 
   /*
-  `printJsxChildren` won't call `print` on `JSXText`
-  When the cursorNode is inside `cursor` won't get print.
+  `printJsxChildren` won't call `print` on `JSXText`, so when the cursorNode,
+  nodeBeforeCursor, or nodeAfterCursor is inside, `cursor` won't get printed.
+  This logic fixes that:
   */
   if (
     options.cursorNode?.type === "JSXText" &&
     node.children.includes(options.cursorNode)
   ) {
     content = [cursor, content, cursor];
+  } else if (
+    options.nodeBeforeCursor?.type === "JSXText" &&
+    node.children.includes(options.nodeBeforeCursor)
+  ) {
+    content = [cursor, content];
+  } else if (
+    options.nodeAfterCursor?.type === "JSXText" &&
+    node.children.includes(options.nodeAfterCursor)
+  ) {
+    content = [content, cursor];
   }
 
   if (isMdxBlock) {

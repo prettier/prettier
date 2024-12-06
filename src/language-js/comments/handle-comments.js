@@ -25,18 +25,17 @@ import {
 import isBlockComment from "../utils/is-block-comment.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
 
+/** @import * as Estree from "../types/estree.js" */
+
 /**
- * @typedef {import("../types/estree.js").Node} Node
- * @typedef {import("../types/estree.js").Comment} Comment
- *
  * @typedef {Object} CommentContext
- * @property {Comment} comment
- * @property {Node} precedingNode
- * @property {Node} enclosingNode
- * @property {Node} followingNode
+ * @property {Estree.Comment} comment
+ * @property {Estree.Node} precedingNode
+ * @property {Estree.Node} enclosingNode
+ * @property {Estree.Node} followingNode
  * @property {string} text
  * @property {any} options
- * @property {Node} ast
+ * @property {Estree.Node} ast
  * @property {boolean} isLastComment
  */
 
@@ -90,6 +89,7 @@ function handleEndOfLineComment(context) {
     handleBreakAndContinueStatementComments,
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
+    handleLastBinaryOperatorOperand,
   ].some((fn) => fn(context));
 }
 
@@ -115,7 +115,7 @@ function handleRemainingComment(context) {
 }
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {void}
  */
 function addBlockStatementFirstComment(node, comment) {
@@ -131,7 +131,7 @@ function addBlockStatementFirstComment(node, comment) {
 }
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {void}
  */
 function addBlockOrNotComment(node, comment) {
@@ -198,25 +198,39 @@ function handleIfStatementComments({
     precedingNode === enclosingNode.consequent &&
     followingNode === enclosingNode.alternate
   ) {
-    if (precedingNode.type === "BlockStatement") {
-      addTrailingComment(precedingNode, comment);
-    } else {
-      const isSingleLineComment =
-        isLineComment(comment) ||
-        comment.loc.start.line === comment.loc.end.line;
-      const isSameLineComment =
-        comment.loc.start.line === precedingNode.loc.start.line;
-      if (isSingleLineComment && isSameLineComment) {
-        // example:
-        //   if (cond1) expr1; // comment A
-        //   else if (cond2) expr2; // comment A
-        //   else expr3;
+    const maybeElseTokenIndex = getNextNonSpaceNonCommentCharacterIndex(
+      text,
+      locEnd(enclosingNode.consequent),
+    );
+    // With the above conditions alone, this code would also match. This is a false positive.
+    // So, ignore cases where the token "else" appears immediately after the consequent:
+    //
+    //   if (cond) a;
+    //   else /* foo */ b;
+    if (
+      locStart(comment) < maybeElseTokenIndex ||
+      enclosingNode.alternate.type === "BlockStatement"
+    ) {
+      if (precedingNode.type === "BlockStatement") {
         addTrailingComment(precedingNode, comment);
       } else {
-        addDanglingComment(enclosingNode, comment);
+        const isSingleLineComment =
+          isLineComment(comment) ||
+          comment.loc.start.line === comment.loc.end.line;
+        const isSameLineComment =
+          comment.loc.start.line === precedingNode.loc.start.line;
+        if (isSingleLineComment && isSameLineComment) {
+          // example:
+          //   if (cond1) expr1; // comment A
+          //   else if (cond2) expr2; // comment A
+          //   else expr3;
+          addTrailingComment(precedingNode, comment);
+        } else {
+          addDanglingComment(enclosingNode, comment);
+        }
       }
+      return true;
     }
-    return true;
   }
 
   if (followingNode.type === "BlockStatement") {
@@ -495,6 +509,7 @@ const propertyLikeNodeTypes = new Set([
   "ClassAccessorProperty",
   "AccessorProperty",
   "TSAbstractAccessorProperty",
+  "TSParameterProperty",
 ]);
 function handleMethodNameComments({
   comment,
@@ -527,7 +542,8 @@ function handleMethodNameComments({
   // on the decorator node instead of the method node
   if (
     precedingNode?.type === "Decorator" &&
-    propertyLikeNodeTypes.has(enclosingNode?.type)
+    propertyLikeNodeTypes.has(enclosingNode?.type) &&
+    (isLineComment(comment) || comment.placement === "ownLine")
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -1017,6 +1033,44 @@ function handleCommentsInDestructuringPattern({
     }
     return true;
   }
+}
+
+function handleLastBinaryOperatorOperand({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+}) {
+  // "baz" should be a trailing comment of `cond3`:
+  //
+  //   !(
+  //     cond1 || // foo
+  //     cond2 || // bar
+  //     cond3 // baz
+  //   );
+  if (
+    !followingNode &&
+    enclosingNode?.type === "UnaryExpression" &&
+    (precedingNode?.type === "LogicalExpression" ||
+      precedingNode?.type === "BinaryExpression")
+  ) {
+    //   !(
+    //     (cond1 || cond2) // foo
+    //   );
+    const isMultilineExpression =
+      enclosingNode.argument.loc?.start.line !==
+      precedingNode.right.loc.start.line;
+    const isSingleLineComment =
+      isLineComment(comment) || comment.loc.start.line === comment.loc.end.line;
+    const isSameLineComment =
+      comment.loc.start.line === precedingNode.right.loc.start.line;
+
+    if (isMultilineExpression && isSingleLineComment && isSameLineComment) {
+      addTrailingComment(precedingNode.right, comment);
+      return true;
+    }
+  }
+  return false;
 }
 
 /**

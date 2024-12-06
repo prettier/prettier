@@ -11,6 +11,9 @@ export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
   goog.getMsg("That's all we know");
 
 export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
+  goog.getMsg('That\\'s all we know');
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_3 =
   goog.getMsg("That\\'s all we know");
 
 =====================================output=====================================
@@ -19,6 +22,10 @@ export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
 
 export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
   goog.getMsg("That's all we know");
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_3 = goog.getMsg(
+  "That\\'s all we know",
+);
 
 ================================================================================
 `;
@@ -34,6 +41,9 @@ export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
   goog.getMsg("That's all we know");
 
 export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
+  goog.getMsg('That\\'s all we know');
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_3 =
   goog.getMsg("That\\'s all we know");
 
 =====================================output=====================================
@@ -42,6 +52,10 @@ export const MSG_GENERIC_OPERATION_FAILURE_BODY_1 =
 
 export const MSG_GENERIC_OPERATION_FAILURE_BODY_2 =
   goog.getMsg("That's all we know");
+
+export const MSG_GENERIC_OPERATION_FAILURE_BODY_3 = goog.getMsg(
+  "That\\'s all we know"
+);
 
 ================================================================================
 `;
@@ -136,6 +150,18 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [espree] format 1
 Cause: Invalid escape sequence"
 `;
 
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [meriyah] format 1`] = `
+"Escapes \\8 or \\9 are not syntactically valid escapes (3:1)
+  1 | // https://github.com/babel/babel/pull/11852
+  2 |
+> 3 | "\\8","\\9";
+    | ^^
+  4 | () => {
+  5 |   "use strict";
+  6 |   "\\8", "\\9";
+Cause: [3:0-3:2]: Escapes \\8 or \\9 are not syntactically valid escapes"
+`;
+
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
@@ -154,10 +180,10 @@ trailingComma: "all"
 =====================================output=====================================
 // https://github.com/babel/babel/pull/11852
 
-"8", "9";
+"\\8", "\\9";
 () => {
   "use strict";
-  "8", "9";
+  "\\8", "\\9";
 };
 
 ================================================================================
@@ -187,6 +213,18 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [espree] format 1
 Cause: Invalid escape sequence"
 `;
 
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} [meriyah] format 1`] = `
+"Escapes \\8 or \\9 are not syntactically valid escapes (3:1)
+  1 | // https://github.com/babel/babel/pull/11852
+  2 |
+> 3 | "\\8","\\9";
+    | ^^
+  4 | () => {
+  5 |   "use strict";
+  6 |   "\\8", "\\9";
+Cause: [3:0-3:2]: Escapes \\8 or \\9 are not syntactically valid escapes"
+`;
+
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
@@ -205,10 +243,10 @@ trailingComma: "es5"
 =====================================output=====================================
 // https://github.com/babel/babel/pull/11852
 
-"8", "9";
+"\\8", "\\9";
 () => {
   "use strict";
-  "8", "9";
+  "\\8", "\\9";
 };
 
 ================================================================================
@@ -255,11 +293,11 @@ trailingComma: "all"
   "'",
 
   '"',
-  '"',
+  '\\"',
   '\\\\"',
 
   "'",
-  "'",
+  "\\'",
   "\\\\'",
 
   "'\\"",
@@ -318,11 +356,11 @@ trailingComma: "es5"
   "'",
 
   '"',
-  '"',
+  '\\"',
   '\\\\"',
 
   "'",
-  "'",
+  "\\'",
   "\\\\'",
 
   "'\\"",

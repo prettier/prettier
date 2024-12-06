@@ -1,8 +1,7 @@
 import * as React from "react";
-
 import { Checkbox, NumberInput, Select } from "./inputs.js";
 
-export function BooleanOption({ option, value, onChange }) {
+function BooleanOption({ option, value, onChange }) {
   function maybeInvert(value) {
     return option.inverted ? !value : value;
   }
@@ -16,7 +15,7 @@ export function BooleanOption({ option, value, onChange }) {
   );
 }
 
-export function ChoiceOption({ option, value, onChange }) {
+function ChoiceOption({ option, value, onChange }) {
   return (
     <Select
       label={option.cliName}
@@ -28,7 +27,7 @@ export function ChoiceOption({ option, value, onChange }) {
   );
 }
 
-export function NumberOption({ option, value, onChange }) {
+function NumberOption({ option, value, onChange }) {
   return (
     <NumberInput
       label={option.cliName}

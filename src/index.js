@@ -2,7 +2,6 @@
 import { createTwoFilesPatch } from "diff";
 import fastGlob from "fast-glob";
 import * as vnopts from "vnopts";
-
 import * as errors from "./common/errors.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import mockable from "./common/mockable.js";
@@ -25,9 +24,7 @@ import {
   normalizeOptionSettings,
 } from "./main/support.js";
 import { createIsIgnoredFunction } from "./utils/ignore.js";
-import isNonEmptyArray from "./utils/is-non-empty-array.js";
 import omit from "./utils/object-omit.js";
-import partition from "./utils/partition.js";
 
 /**
  * @param {*} fn
@@ -99,8 +96,6 @@ const sharedWithCli = {
   fastGlob,
   createTwoFilesPatch,
   utils: {
-    isNonEmptyArray,
-    partition,
     omit,
   },
   mockable,
