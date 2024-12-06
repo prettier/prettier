@@ -203,9 +203,11 @@ exports[`visitor keys estree 1`] = `
     "id",
   ],
   "DeclareExportAllDeclaration": [
+    "attributes",
     "source",
   ],
   "DeclareExportDeclaration": [
+    "attributes",
     "declaration",
     "source",
     "specifiers",
@@ -823,10 +825,6 @@ exports[`visitor keys estree 1`] = `
     "expression",
   ],
   "TSExportKeyword": [],
-  "TSExpressionWithTypeArguments": [
-    "expression",
-    "typeParameters",
-  ],
   "TSExternalModuleReference": [
     "expression",
   ],
@@ -893,7 +891,6 @@ exports[`visitor keys estree 1`] = `
   "TSMappedType": [
     "nameType",
     "typeAnnotation",
-    "typeParameter",
   ],
   "TSMethodSignature": [
     "key",

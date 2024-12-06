@@ -280,9 +280,9 @@ exports[`snippet: #11 [json] format 1`] = `
 `;
 
 exports[`snippet: #11 [json] format 2`] = `
-"Unexpected token. (1:14)
+"'ImportExpression' is not allowed in JSON. (1:2)
 > 1 | [import('a', {type:'json'})]
-    |              ^"
+    |  ^^^^^^^^^^^^^^^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #11 [json-stringify] format 1`] = `
@@ -304,9 +304,10 @@ exports[`snippet: #12 [json] format 1`] = `
 `;
 
 exports[`snippet: #12 [json] format 2`] = `
-"Unexpected token. (1:3)
+"Identifier directly after number. (1:3)
 > 1 | [1m]
-    |   ^"
+    |   ^
+Cause: Identifier directly after number. (1:2)"
 `;
 
 exports[`snippet: #12 [json-stringify] format 1`] = `
@@ -448,9 +449,9 @@ exports[`snippet: #18 [json] format 1`] = `
 `;
 
 exports[`snippet: #18 [json] format 2`] = `
-"Unexpected token. (1:14)
+"'ImportExpression' is not allowed in JSON. (1:2)
 > 1 | [import('a', {reflect: 'module'})]
-    |              ^"
+    |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #18 [json-stringify] format 1`] = `

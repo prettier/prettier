@@ -44,6 +44,9 @@ const additionalVisitorKeys = {
   AsConstExpression: ["expression"],
   SatisfiesExpression: ["expression", "typeAnnotation"],
   TypeofTypeAnnotation: ["argument", "typeArguments"],
+
+  // TODO: Remove this when babel release v8 stable
+  TSMappedType: ["typeParameter"],
 };
 
 const excludeKeys = {
