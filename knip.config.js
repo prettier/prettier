@@ -19,6 +19,7 @@ export default {
         "pkg-pr-new",
       ],
     },
+    // TODO: Enable this after we fix https://github.com/prettier/prettier/issues/11409
     website: {
       ignore: ["**/*"],
     },
