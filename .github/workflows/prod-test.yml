@@ -67,6 +67,8 @@ jobs:
           # Versions not tested on linux, normally only even versions
           # If latest version is an odd number, it can be listed below too
           - os: "ubuntu-latest"
+            node: "23"
+          - os: "ubuntu-latest"
             node: "20"
           - os: "ubuntu-latest"
             node: "18"
