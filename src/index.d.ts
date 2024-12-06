@@ -303,7 +303,7 @@ export type BuiltInParserName =
 export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
 /**
- * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettierrc.mjs`, `prettier.config.js`, `prettier.config.cjs`, `prettier.config.mjs`
+ * For use in `.prettierrc.js`, `.prettierrc.ts`, `.prettierrc.cjs`, `.prettierrc.cts`, `prettierrc.mjs`, `prettierrc.mts`, `prettier.config.js`, `prettier.config.ts`, `prettier.config.cjs`, `prettier.config.cts`, `prettier.config.mjs`, `prettier.config.mts`
  */
 export interface Config extends Options {
   overrides?: Array<{
