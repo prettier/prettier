@@ -19,15 +19,9 @@ export default {
         "pkg-pr-new",
       ],
     },
+    // TODO: Enable this after we fix https://github.com/prettier/prettier/issues/11409
     website: {
-      entry: [
-        "siteConfig.js",
-        "core/Footer.js",
-        "pages/**/*.js",
-        "static/**/*.js",
-      ],
-      ignoreDependencies: ["codemirror", "highlight.js", "@babel/preset-react"],
-      ignore: ["pages/en/**"],
+      ignore: ["**/*"],
     },
     "scripts/tools/bundle-test": {},
     "scripts/tools/eslint-plugin-prettier-internal-rules": {},
