@@ -28,6 +28,7 @@ function preprocess(ast, options) {
   for (const fn of PREPROCESS_PIPELINE) {
     fn(ast, options);
   }
+
   return ast;
 }
 
@@ -253,18 +254,21 @@ function extractInterpolation(ast, options) {
  */
 function extractWhitespaces(ast /*, options*/) {
   ast.walk((node) => {
-    if (!node.children) {
+    const childrenProperty = node.$childrenProperty;
+    const children = node[childrenProperty];
+
+    if (!children) {
       return;
     }
 
     if (
-      node.children.length === 0 ||
-      (node.children.length === 1 &&
-        node.children[0].type === "text" &&
-        htmlWhitespaceUtils.trim(node.children[0].value).length === 0)
+      children.length === 0 ||
+      (children.length === 1 &&
+        children[0].type === "text" &&
+        htmlWhitespaceUtils.trim(children[0].value).length === 0)
     ) {
-      node.hasDanglingSpaces = node.children.length > 0;
-      node.children = [];
+      node.hasDanglingSpaces = children.length > 0;
+      node[childrenProperty] = [];
       return;
     }
 
@@ -272,8 +276,8 @@ function extractWhitespaces(ast /*, options*/) {
     const isIndentationSensitive = isIndentationSensitiveNode(node);
 
     if (!isWhitespaceSensitive) {
-      for (let i = 0; i < node.children.length; i++) {
-        const child = node.children[i];
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i];
         if (child.type !== "text") {
           continue;
         }
