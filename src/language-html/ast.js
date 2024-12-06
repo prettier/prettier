@@ -12,6 +12,7 @@ const NON_ENUMERABLE_PROPERTIES = new Set(["parent"]);
 
 class Node {
   type;
+  parent;
 
   constructor(nodeOrProperties = {}) {
     for (const property of new Set([
@@ -53,7 +54,6 @@ class Node {
         const mappedNodes = mapNodesIfChanged(nodes, (node) => node.map(fn));
         if (newNode !== nodes) {
           if (!newNode) {
-            // @ts-expect-error
             newNode = new Node({ parent: this.parent });
           }
           newNode.setProperty(NODES_KEY, mappedNodes);
@@ -148,7 +148,6 @@ class Node {
   }
 
   get #siblings() {
-    // @ts-expect-error
     return this.parent?.$children ?? [];
   }
 
