@@ -11,6 +11,22 @@ const NON_ENUMERABLE_PROPERTIES = new Set(["parent"]);
 // https://github.com/microsoft/TypeScript/issues/26811
 
 class Node {
+  get $childrenProperty() {
+    if (this.type === "angularIcuCase") {
+      return "expression";
+    }
+
+    if (this.type === "angularIcuExpression") {
+      return "cases";
+    }
+
+    return "children";
+  }
+
+  get $children() {
+    return this[this.$childrenProperty];
+  }
+
   constructor(nodeOrProperties = {}) {
     for (const property of new Set([
       ...NON_ENUMERABLE_PROPERTIES,
@@ -96,10 +112,11 @@ class Node {
    * @param {Object} [node]
    */
   insertChildBefore(target, node) {
+    const children = this[this.$childrenProperty];
     // @ts-expect-error
-    this.children.splice(
+    children.splice(
       // @ts-expect-error
-      this.children.indexOf(target),
+      children.indexOf(target),
       0,
       this.createChild(node),
     );
@@ -109,8 +126,9 @@ class Node {
    * @param {Node} [child]
    */
   removeChild(child) {
+    const children = this[this.$childrenProperty];
     // @ts-expect-error
-    this.children.splice(this.children.indexOf(child), 1);
+    children.splice(children.indexOf(child), 1);
   }
 
   /**
@@ -118,8 +136,9 @@ class Node {
    * @param {Object} [node]
    */
   replaceChild(target, node) {
+    const children = this[this.$childrenProperty];
     // @ts-expect-error
-    this.children[this.children.indexOf(target)] = this.createChild(node);
+    children[children.indexOf(target)] = this.createChild(node);
   }
 
   clone() {
@@ -127,23 +146,32 @@ class Node {
   }
 
   get firstChild() {
+    const children = this[this.$childrenProperty];
     // @ts-expect-error
-    return this.children?.[0];
+    return children?.[0];
   }
 
   get lastChild() {
+    const children = this[this.$childrenProperty];
     // @ts-expect-error
-    return this.children?.[this.children.length - 1];
+    return children?.at(-1);
+  }
+
+  get #siblings() {
+    const { parent } = this;
+    return parent?.[parent.$childrenProperty] ?? [];
   }
 
   get prev() {
+    const siblings = this.#siblings;
     // @ts-expect-error
-    return this.parent?.children?.[this.parent.children.indexOf(this) - 1];
+    return siblings[siblings.indexOf(this) - 1];
   }
 
   get next() {
+    const siblings = this.#siblings;
     // @ts-expect-error
-    return this.parent?.children?.[this.parent.children.indexOf(this) + 1];
+    return siblings[siblings.indexOf(this) + 1];
   }
 
   // for element and attribute
