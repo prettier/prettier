@@ -11,21 +11,7 @@ const NON_ENUMERABLE_PROPERTIES = new Set(["parent"]);
 // https://github.com/microsoft/TypeScript/issues/26811
 
 class Node {
-  get $childrenProperty() {
-    if (this.type === "angularIcuCase") {
-      return "expression";
-    }
-
-    if (this.type === "angularIcuExpression") {
-      return "cases";
-    }
-
-    return "children";
-  }
-
-  get $children() {
-    return this[this.$childrenProperty];
-  }
+  type;
 
   constructor(nodeOrProperties = {}) {
     for (const property of new Set([
@@ -112,22 +98,15 @@ class Node {
    * @param {Object} [node]
    */
   insertChildBefore(target, node) {
-    const children = this[this.$childrenProperty];
-    // @ts-expect-error
-    children.splice(
-      // @ts-expect-error
-      children.indexOf(target),
-      0,
-      this.createChild(node),
-    );
+    const children = this.$children;
+    children.splice(children.indexOf(target), 0, this.createChild(node));
   }
 
   /**
    * @param {Node} [child]
    */
   removeChild(child) {
-    const children = this[this.$childrenProperty];
-    // @ts-expect-error
+    const children = this.$children;
     children.splice(children.indexOf(child), 1);
   }
 
@@ -136,8 +115,7 @@ class Node {
    * @param {Object} [node]
    */
   replaceChild(target, node) {
-    const children = this[this.$childrenProperty];
-    // @ts-expect-error
+    const children = this.$children;
     children[children.indexOf(target)] = this.createChild(node);
   }
 
@@ -145,32 +123,42 @@ class Node {
     return new Node(this);
   }
 
+  get $childrenProperty() {
+    if (this.type === "angularIcuCase") {
+      return "expression";
+    }
+
+    if (this.type === "angularIcuExpression") {
+      return "cases";
+    }
+
+    return "children";
+  }
+
+  get $children() {
+    return this[this.$childrenProperty];
+  }
+
   get firstChild() {
-    const children = this[this.$childrenProperty];
-    // @ts-expect-error
-    return children?.[0];
+    return this.$children?.[0];
   }
 
   get lastChild() {
-    const children = this[this.$childrenProperty];
-    // @ts-expect-error
-    return children?.at(-1);
+    return this.$children?.at(-1);
   }
 
   get #siblings() {
-    const { parent } = this;
-    return parent?.[parent.$childrenProperty] ?? [];
+    // @ts-expect-error
+    return this.parent?.$children ?? [];
   }
 
   get prev() {
     const siblings = this.#siblings;
-    // @ts-expect-error
     return siblings[siblings.indexOf(this) - 1];
   }
 
   get next() {
     const siblings = this.#siblings;
-    // @ts-expect-error
     return siblings[siblings.indexOf(this) + 1];
   }
 
