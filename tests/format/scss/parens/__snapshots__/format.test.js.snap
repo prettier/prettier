@@ -29,12 +29,34 @@ $icons: (
     top: 73,
   ),
 
-  /* Should preserve empty lines */ cal-week-group:
-    (
+  /* Should preserve empty lines */
+  cal-week-group: (
       left: 1,
       top: 169,
     ),
 );
+
+================================================================================
+`;
+
+exports[`issue-16594.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+      @if true {
+        $newKey: ($key: ( $theme-name: $value ))
+      }
+
+=====================================output=====================================
+@if true {
+  $newKey: (
+    $key: (
+        $theme-name: $value,
+      ),
+  );
+}
 
 ================================================================================
 `;
@@ -443,14 +465,14 @@ a {
   prop22: 2 / @width 2 / @width 2 / @width 2 / @width;
   prop23: (@width / 2) (@width / 2) (@width / 2) (@width / 2);
   prop24: (2 / @width) (2 / @width) (2 / @width) (2 / @width);
-  prop25-1: #{$width}/#{$width} #{$width} /#{$width} #{$width}/ #{$width} #{$width} /
-    #{$width};
-  prop25-2: #{$width}*#{$width} #{$width} *#{$width} #{$width}* #{$width} #{$width} *
-    #{$width};
-  prop25-3: #{$width}+#{$width} #{$width} +#{$width} #{$width}+ #{$width} #{$width} +
-    #{$width};
-  prop25-4: #{$width}-#{$width} #{$width} -#{$width} #{$width}- #{$width} #{$width} -
-    #{$width};
+  prop25-1: #{$width}/#{$width} #{$width} /#{$width} #{$width}/ #{$width}
+    #{$width} / #{$width};
+  prop25-2: #{$width}*#{$width} #{$width} *#{$width} #{$width}* #{$width}
+    #{$width} * #{$width};
+  prop25-3: #{$width}+#{$width} #{$width} +#{$width} #{$width}+ #{$width}
+    #{$width} + #{$width};
+  prop25-4: #{$width}-#{$width} #{$width} -#{$width} #{$width}- #{$width}
+    #{$width} - #{$width};
   prop26: 8px/2px 8px /1 1/ 2px 1 / 2;
   prop27: 8px/2px 8px/1 1/2px 1/2;
   prop28: 8px / 2px 8px / 1 1 / 2px 1 / 2;

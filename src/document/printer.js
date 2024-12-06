@@ -32,7 +32,7 @@ const MODE_FLAT = Symbol("MODE_FLAT");
 
 const CURSOR_PLACEHOLDER = Symbol("cursor");
 
-const IS_MUTABLE_FILL = Symbol("IS_MUTABLE_FILL");
+const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -234,7 +234,8 @@ function fits(
       case DOC_TYPE_ARRAY:
       case DOC_TYPE_FILL: {
         const parts = docType === DOC_TYPE_ARRAY ? doc : doc.parts;
-        for (let i = parts.length - 1; i >= 0; i--) {
+        const end = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
+        for (let i = parts.length - 1; i >= end; i--) {
           cmds.push({ mode, doc: parts[i] });
         }
         break;
@@ -463,12 +464,15 @@ function printDocToString(doc, options) {
       case DOC_TYPE_FILL: {
         const rem = width - pos;
 
+        const offset = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
         const { parts } = doc;
-        if (parts.length === 0) {
+        const length = parts.length - offset;
+        if (length === 0) {
           break;
         }
 
-        const [content, whitespace] = parts;
+        const content = parts[offset + 0];
+        const whitespace = parts[offset + 1];
         /** @type {Command} */
         const contentFlatCmd = { ind, mode: MODE_FLAT, doc: content };
         /** @type {Command} */
@@ -482,7 +486,7 @@ function printDocToString(doc, options) {
           true,
         );
 
-        if (parts.length === 1) {
+        if (length === 1) {
           if (contentFits) {
             cmds.push(contentFlatCmd);
           } else {
@@ -496,7 +500,7 @@ function printDocToString(doc, options) {
         /** @type {Command} */
         const whitespaceBreakCmd = { ind, mode: MODE_BREAK, doc: whitespace };
 
-        if (parts.length === 2) {
+        if (length === 2) {
           if (contentFits) {
             cmds.push(whitespaceFlatCmd, contentFlatCmd);
           } else {
@@ -505,26 +509,14 @@ function printDocToString(doc, options) {
           break;
         }
 
-        const secondContent = parts[2];
-
-        // At this point we've handled the first pair (context, separator)
-        // and will create a new *mutable* fill doc for the rest of the content.
-        // Copying all the elements to a new array would make this algorithm quadratic,
-        // which is unusable for large arrays (e.g. large texts in JSX).
-        // https://github.com/prettier/prettier/issues/3263#issuecomment-344275152
-        let remainingDoc = doc;
-        if (doc[IS_MUTABLE_FILL]) {
-          parts.splice(0, 2);
-        } else {
-          remainingDoc = {
-            ...doc,
-            parts: parts.slice(2),
-            [IS_MUTABLE_FILL]: true,
-          };
-        }
+        const secondContent = parts[offset + 2];
 
         /** @type {Command} */
-        const remainingCmd = { ind, mode, doc: remainingDoc };
+        const remainingCmd = {
+          ind,
+          mode,
+          doc: { ...doc, [DOC_FILL_PRINTED_LENGTH]: offset + 2 },
+        };
 
         /** @type {Command} */
         const firstAndSecondContentFlatCmd = {
@@ -660,6 +652,38 @@ function printDocToString(doc, options) {
       CURSOR_PLACEHOLDER,
       cursorPlaceholderIndex + 1,
     );
+
+    if (otherCursorPlaceholderIndex === -1) {
+      // If we got here, the doc must have contained ONE cursor command,
+      // instead of the expected zero or two. If the doc being printed was
+      // returned by printAstToDoc, then the only ways this can have happened
+      // are if:
+      // 1. a plugin added a cursor command itself, or
+      // 2. one (but not both) of options.nodeAfterCursor and
+      //    options.nodeAfterCursor pointed to a node within a subtree of the
+      //    AST that the printer plugin used in printAstToDoc simply omits from
+      //    the doc, or that it prints without recursively calling mainPrint,
+      //    with the consequence that the logic for adding a cursor command in
+      //    callPluginPrintFunction was never called for that node.
+      // These are both weird scenarios that should be considered a bug if they
+      // ever occur with one of Prettier's built-in plugins. If a third-party
+      // plugin was used when printing the AST to a doc, the possibility of
+      // reaching this scenario MIGHT be reasonable to consider a bug in the
+      // plugin. However, we try to at least not crash if this ever happens;
+      // instead we simply give up on returning a cursorNodeStart or
+      // cursorNodeText.
+      //
+      // coreFormat has logic specifically to handle this scenario - where it
+      // is supposed to preserve the cursor position but the printer gives it
+      // no information about where the nodes around the cursor ended up -
+      // although that logic is unavoidably slower (and has more potential to
+      // return a perverse result) than the happy path where we help out
+      // coreFormat by returning a cursorNodeStart and cursorNodeText here.
+      return {
+        formatted: out.filter((char) => char !== CURSOR_PLACEHOLDER).join(""),
+      };
+    }
+
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
     const aroundCursor = out
       .slice(cursorPlaceholderIndex + 1, otherCursorPlaceholderIndex)

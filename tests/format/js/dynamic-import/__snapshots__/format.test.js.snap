@@ -1,21 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assertions.js [acorn] format 1`] = `
-"Unexpected token (1:20)
-> 1 | import("./foo.json", { assert: { type: "json" } });
-    |                    ^
-  2 |
-Cause: Unexpected token (1:19)"
-`;
-
-exports[`assertions.js [espree] format 1`] = `
-"Unexpected token , (1:20)
-> 1 | import("./foo.json", { assert: { type: "json" } });
-    |                    ^
-  2 |
-Cause: Unexpected token ,"
-`;
-
 exports[`assertions.js [flow] format 1`] = `
 "Unexpected token \`,\`, expected the token \`)\` (1:20)
 > 1 | import("./foo.json", { assert: { type: "json" } });
@@ -67,13 +51,13 @@ exports[`import-phase.js [flow] format 1`] = `
 `;
 
 exports[`import-phase.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:13)
+"The only valid meta property for import is 'import.meta' (1:8)
 > 1 | import.source(\`data:text/javascript,
-    |             ^
+    |        ^^^^^^
   2 |     console.log("RUN");
   3 | \`)
   4 |
-Cause: [1:13]: Unexpected token: 'identifier'"
+Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
 `;
 
 exports[`import-phase.js format 1`] = `

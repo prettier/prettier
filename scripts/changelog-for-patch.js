@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
 import path from "node:path";
-
 import minimist from "minimist";
 import semver from "semver";
-
 import {
   changelogUnreleasedDirPath,
   changelogUnreleasedDirs,

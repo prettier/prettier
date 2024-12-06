@@ -1,12 +1,13 @@
 name: Prevent File change
 
 on:
-  pull_request:
+  pull_request_target:
     paths:
       - "website/data/users.yml"
 
 permissions:
   contents: read
+  pull-requests: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Prevent file change
-        uses: xalvarez/prevent-file-change-action@v1.6.0
+        uses: xalvarez/prevent-file-change-action@v1.8.0
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           pattern: website/data/users.yml
