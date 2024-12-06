@@ -13,7 +13,11 @@ export default {
         "ts-expect",
         "renovate",
       ],
-      ignoreBinaries: ["test-coverage", "renovate-config-validator"],
+      ignoreBinaries: [
+        "test-coverage",
+        "renovate-config-validator",
+        "pkg-pr-new",
+      ],
     },
     website: {
       entry: [
