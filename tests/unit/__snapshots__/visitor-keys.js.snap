@@ -579,7 +579,6 @@ exports[`visitor keys estree 1`] = `
     "typeArguments",
     "typeParameters",
   ],
-  "Noop": [],
   "NullLiteral": [],
   "NullLiteralTypeAnnotation": [],
   "NullableTypeAnnotation": [
@@ -765,10 +764,8 @@ exports[`visitor keys estree 1`] = `
   "TSBigIntKeyword": [],
   "TSBooleanKeyword": [],
   "TSCallSignatureDeclaration": [
-    "parameters",
     "params",
     "returnType",
-    "typeAnnotation",
     "typeParameters",
   ],
   "TSClassImplements": [
@@ -783,17 +780,13 @@ exports[`visitor keys estree 1`] = `
     "trueType",
   ],
   "TSConstructSignatureDeclaration": [
-    "parameters",
     "params",
     "returnType",
-    "typeAnnotation",
     "typeParameters",
   ],
   "TSConstructorType": [
-    "parameters",
     "params",
     "returnType",
-    "typeAnnotation",
     "typeParameters",
   ],
   "TSDeclareFunction": [
@@ -832,18 +825,12 @@ exports[`visitor keys estree 1`] = `
     "expression",
   ],
   "TSExportKeyword": [],
-  "TSExpressionWithTypeArguments": [
-    "expression",
-    "typeParameters",
-  ],
   "TSExternalModuleReference": [
     "expression",
   ],
   "TSFunctionType": [
-    "parameters",
     "params",
     "returnType",
-    "typeAnnotation",
     "typeParameters",
   ],
   "TSImportEqualsDeclaration": [
@@ -908,10 +895,8 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSMethodSignature": [
     "key",
-    "parameters",
     "params",
     "returnType",
-    "typeAnnotation",
     "typeParameters",
   ],
   "TSModuleBlock": [
