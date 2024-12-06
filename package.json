@@ -108,7 +108,6 @@
   "devDependencies": {
     "@babel/generator": "8.0.0-alpha.13",
     "@eslint/js": "9.15.0",
-    "@glimmer/reference": "0.92.0",
     "@stylistic/eslint-plugin-js": "2.11.0",
     "@types/eslint__js": "8.42.3",
     "@types/estree": "1.0.6",
