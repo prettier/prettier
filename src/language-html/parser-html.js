@@ -10,6 +10,7 @@ import {
 } from "angular-html-parser";
 import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import inferParser from "../utils/infer-parser.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import { Node } from "./ast.js";
@@ -90,6 +91,12 @@ function normalizeAngularIcuExpression(node) {
   if (node.type === "plural" || node.type === "select") {
     node.clause = node.type;
     node.type = "angularIcuExpression";
+    for (const c of node.cases) {
+      const lastExpr = c.expression?.at(-1);
+      if (lastExpr && lastExpr.type === "text") {
+        lastExpr.value = htmlWhitespaceUtils.trimEnd(lastExpr.value);
+      }
+    }
   }
   if (node.type === "expansionCase") {
     node.type = "angularIcuCase";
