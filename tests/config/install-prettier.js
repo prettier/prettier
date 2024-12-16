@@ -1,9 +1,19 @@
+import crypto from "node:crypto";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import chalk from "chalk";
 import { execaSync } from "execa";
 import { outdent } from "outdent";
-import { temporaryDirectory as createTemporaryDirectory } from "tempy";
+
+const createTemporaryDirectory = () => {
+  const directory = path.join(
+    os.tmpdir(),
+    crypto.randomBytes(256).toString("hex").slice(0, 32),
+  );
+  fs.mkdirSync(directory);
+  return directory;
+};
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
 
