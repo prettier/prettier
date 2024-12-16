@@ -1001,7 +1001,6 @@ exports[`visitor keys estree 1`] = `
   "TSTypeReference": [
     "typeArguments",
     "typeName",
-    "typeParameters",
   ],
   "TSUndefinedKeyword": [],
   "TSUnionType": [
