@@ -9,7 +9,7 @@ import { outdent } from "outdent";
 const createTemporaryDirectory = () => {
   const directory = path.join(
     os.tmpdir(),
-    crypto.randomBytes(256).toString("hex").slice(0, 32),
+    crypto.randomBytes(16).toString("hex"),
   );
   fs.mkdirSync(directory);
   return directory;
