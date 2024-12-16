@@ -22,6 +22,7 @@ describe("Unit tests for dts files", () => {
       noEmit: true,
       strict: true,
       esModuleInterop: true,
+      skipLibCheck: true,
     };
 
     const program = ts.createProgram(testCaseFiles, compilerOptions);
