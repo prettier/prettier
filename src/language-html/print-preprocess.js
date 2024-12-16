@@ -254,8 +254,7 @@ function extractInterpolation(ast, options) {
  */
 function extractWhitespaces(ast /*, options*/) {
   ast.walk((node) => {
-    const childrenProperty = node.$childrenProperty;
-    const children = node[childrenProperty];
+    const children = node.$children;
 
     if (!children) {
       return;
@@ -268,7 +267,7 @@ function extractWhitespaces(ast /*, options*/) {
         htmlWhitespaceUtils.trim(children[0].value).length === 0)
     ) {
       node.hasDanglingSpaces = children.length > 0;
-      node[childrenProperty] = [];
+      node.$children = [];
       return;
     }
 

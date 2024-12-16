@@ -123,7 +123,7 @@ class Node {
     return new Node(this);
   }
 
-  get $childrenProperty() {
+  get #childrenProperty() {
     if (this.type === "angularIcuCase") {
       return "expression";
     }
@@ -136,7 +136,11 @@ class Node {
   }
 
   get $children() {
-    return this[this.$childrenProperty];
+    return this[this.#childrenProperty];
+  }
+
+  set $children(value) {
+    this[this.#childrenProperty] = value;
   }
 
   get firstChild() {
