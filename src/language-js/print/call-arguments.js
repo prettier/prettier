@@ -308,7 +308,8 @@ function isHopefullyShortCallArgument(node) {
       typeAnnotation.type === "GenericTypeAnnotation" ||
       typeAnnotation.type === "TSTypeReference"
     ) {
-      const { typeArguments } = typeAnnotation;
+      const typeArguments =
+        typeAnnotation.typeArguments ?? typeAnnotation.typeParameters;
       if (typeArguments?.params.length === 1) {
         typeAnnotation = typeArguments.params[0];
       }
