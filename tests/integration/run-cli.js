@@ -27,6 +27,9 @@ const streamToString = (stream) =>
 const removeFinalNewLine = (string) =>
   string.endsWith("\n") ? string.slice(0, -1) : string;
 
+const SUPPORTS_DISABLE_WARNING_FLAG =
+  Number(process.versions.node.split(".")[0]) >= 20;
+
 function runCliWorker(dir, args, options) {
   const result = {
     status: undefined,
@@ -37,7 +40,12 @@ function runCliWorker(dir, args, options) {
 
   const worker = new Worker(CLI_WORKER_FILE, {
     argv: args,
-    execArgv: ["--trace-deprecation"],
+    execArgv: [
+      "--trace-deprecation",
+      ...(SUPPORTS_DISABLE_WARNING_FLAG
+        ? ["--disable-warning=ExperimentalWarning"]
+        : []),
+    ],
     stdout: true,
     stderr: true,
     env: {
