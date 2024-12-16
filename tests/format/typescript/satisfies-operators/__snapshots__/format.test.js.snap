@@ -155,8 +155,10 @@ this.intervalID = (setInterval(() => {
 }, 30) satisfies unknown) satisfies number;
 
 =====================================output=====================================
-const extraRendererAttrs = ((attrs.rendererAttrs &&
-  this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
+const extraRendererAttrs = ((
+  attrs.rendererAttrs &&
+  this.utils.safeParseJsonString(attrs.rendererAttrs)
+) ||
   Object.create(null)) satisfies FieldService.RendererAttributes
 
 const annotate = (angular.injector satisfies any).$$annotate satisfies (
@@ -210,8 +212,10 @@ this.intervalID = (setInterval(() => {
 }, 30) satisfies unknown) satisfies number;
 
 =====================================output=====================================
-const extraRendererAttrs = ((attrs.rendererAttrs &&
-  this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
+const extraRendererAttrs = ((
+  attrs.rendererAttrs &&
+  this.utils.safeParseJsonString(attrs.rendererAttrs)
+) ||
   Object.create(null)) satisfies FieldService.RendererAttributes;
 
 const annotate = (angular.injector satisfies any).$$annotate satisfies (
