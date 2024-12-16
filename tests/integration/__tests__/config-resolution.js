@@ -37,6 +37,14 @@ describe("resolves external configuration from package.json (esm package)", () =
   });
 });
 
+describe("resolves external configuration from package.json (esm package with TLA)", () => {
+  runCli("cli/config/external-config/esm-package-with-tla", ["index.js"]).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+});
+
 describe("resolves external configuration from package.json (esm file)", () => {
   runCli("cli/config/external-config/esm-package", ["index.js"]).test({
     status: 0,
