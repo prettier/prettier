@@ -196,6 +196,7 @@ end_of_line = lf
 indent_style = space
 indent_size = 2
 max_line_length = 80
+quote_type = double
 ```
 
 Here’s a copy+paste-ready `.editorconfig` file if you use the default options:
@@ -208,4 +209,5 @@ end_of_line = lf
 indent_style = space
 indent_size = 2
 max_line_length = 80
+quote_type = double
 ```
