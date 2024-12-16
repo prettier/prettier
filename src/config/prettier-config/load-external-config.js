@@ -19,8 +19,6 @@ async function loadExternalConfig(externalConfig, configFile) {
     const required = requireFromFile(externalConfig, configFile);
     // Since Node.js v23 onwards, it is possible to load ESM using require.
     // If that feature is enabled, it is necessary to return the default.
-    // https://github.com/prettier/prettier/issues/16812
-    // FIXME: We want to add tests but https://github.com/jestjs/jest/issues/15363 blocks
     // @ts-expect-error
     if (process.features.require_module && required.__esModule) {
       return required.default;
