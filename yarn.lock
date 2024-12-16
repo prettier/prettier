@@ -3192,6 +3192,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cssesc@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "cssesc@npm:3.0.0"
+  bin:
+    cssesc: bin/cssesc
+  checksum: 10/0e161912c1306861d8f46e1883be1cbc8b1b2879f0f509287c0db71796e4ddfb97ac96bdfca38f77f452e2c10554e1bb5678c99b07a5cf947a12778f73e47e12
+  languageName: node
+  linkType: hard
+
 "dashify@npm:2.0.0":
   version: 2.0.0
   resolution: "dashify@npm:2.0.0"
@@ -7202,14 +7211,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:2.2.3":
-  version: 2.2.3
-  resolution: "postcss-selector-parser@npm:2.2.3"
+"postcss-selector-parser@npm:7.0.0":
+  version: 7.0.0
+  resolution: "postcss-selector-parser@npm:7.0.0"
   dependencies:
-    flatten: "npm:^1.0.2"
-    indexes-of: "npm:^1.0.1"
-    uniq: "npm:^1.0.1"
-  checksum: 10/a3d0300117abac9730b3a268c91dae6048770080c42e6504d33b3c6620efd5c60623392ffd2931a74519e10ca72d9e75d24ac25cfc3e1e109cb42993f0373e42
+    cssesc: "npm:^3.0.0"
+    util-deprecate: "npm:^1.0.2"
+  checksum: 10/0e92be7281e2b440a8be8cf207de40a24ca7bc765577916499614d5a47827a3e658206728cc559db96803e554270516104aad919a04f91bfa8914ccef1ba14ca
   languageName: node
   linkType: hard
 
@@ -7350,7 +7358,7 @@ __metadata:
     postcss-less: "npm:6.0.0"
     postcss-media-query-parser: "npm:0.2.3"
     postcss-scss: "npm:4.0.9"
-    postcss-selector-parser: "npm:2.2.3"
+    postcss-selector-parser: "npm:7.0.0"
     postcss-values-parser: "npm:2.0.1"
     prettier: "npm:3.4.2"
     pretty-bytes: "npm:6.1.1"
@@ -8856,6 +8864,13 @@ __metadata:
   version: 2.3.2
   resolution: "url-or-path@npm:2.3.2"
   checksum: 10/9078f06d5754293464332da3f98eddd9878dc6a2b4ece5303f72e6a5fa72c3d25a3c33f01bd097bf54cccd29e61283fec38432c928894c032630a04867ceaf81
+  languageName: node
+  linkType: hard
+
+"util-deprecate@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "util-deprecate@npm:1.0.2"
+  checksum: 10/474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
   languageName: node
   linkType: hard
 
