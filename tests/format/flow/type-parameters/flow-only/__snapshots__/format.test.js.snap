@@ -23,3 +23,48 @@ type A</* comment */ T: string> = B;
 
 ================================================================================
 `;
+
+exports[`const-type-params.js [babel-flow] format 1`] = `
+"Unexpected token, expected "," (2:14)
+  1 | // Simple
+> 2 | type T<const X> = X;
+    |              ^
+  3 | function f<const T>(): void {}
+  4 | <const T>(x: T) => {}
+  5 | class C<const T>{}
+Cause: Unexpected token, expected "," (2:13)"
+`;
+
+exports[`const-type-params.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Simple
+type T<const X> = X;
+function f<const T>(): void {}
+<const T>(x: T) => {}
+class C<const T>{}
+
+// With variance
+type T<const +X> = X;
+function f<const +T>(): void {}
+<const +T>(x: T) => {}
+class C<const +T>{}
+
+=====================================output=====================================
+// Simple
+type T<const X> = X;
+function f<const T>(): void {}
+<const T>(x: T) => {};
+class C<const T> {}
+
+// With variance
+type T<const +X> = X;
+function f<const +T>(): void {}
+<const +T>(x: T) => {};
+class C<const +T> {}
+
+================================================================================
+`;

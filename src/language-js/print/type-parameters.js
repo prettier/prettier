@@ -132,7 +132,7 @@ function printTypeParameter(path, options, print) {
   /**
    * @type {Doc[]}
    */
-  const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
+  const parts = [node.const ? "const " : ""];
 
   const name = node.type === "TSTypeParameter" ? print("name") : node.name;
 
