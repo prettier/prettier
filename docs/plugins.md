@@ -106,7 +106,7 @@ The key must match the name in the `parsers` array from `languages`. The value c
 export const parsers = {
   "dance-parse": {
     parse,
-    // The name of the AST that
+    // The name of the AST that the parser produces.
     astFormat: "dance-ast",
     hasPragma,
     locStart,

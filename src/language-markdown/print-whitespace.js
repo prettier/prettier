@@ -23,32 +23,6 @@ const SINGLE_LINE_NODE_TYPES = new Set([
 ]);
 
 /**
- * These characters must not immediately precede a line break.
- *
- * e.g. `"（"`:
- *
- * - Bad:  `"檜原村（\nひのはらむら）"`
- * - Good: `"檜原村\n（ひのはらむら）"` or
- *         `"檜原村（ひ\nのはらむら）"`
- */
-const noBreakAfter = new Set(
-  "$(£¥·'\"〈《「『【〔〖〝﹙﹛＄（［｛￡￥[{‵︴︵︷︹︻︽︿﹁﹃﹏〘｟«",
-);
-
-/**
- * These characters must not immediately follow a line break.
- *
- * e.g. `"）"`:
- *
- * - Bad:  `"檜原村（ひのはらむら\n）以外には、"`
- * - Good: `"檜原村（ひのはらむ\nら）以外には、"` or
- *         `"檜原村（ひのはらむら）\n以外には、"`
- */
-const noBreakBefore = new Set(
-  "!%),.:;?]}¢°·'\"†‡›℃∶、。〃〆〕〗〞﹚﹜！＂％＇），．：；？］｝～–—•〉》」︰︱︲︳﹐﹑﹒﹓﹔﹕﹖﹘︶︸︺︼︾﹀﹂﹗｜､』】〙〟｠»ヽヾーァィゥェォッャュョヮヵヶぁぃぅぇぉっゃゅょゎゕゖㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ々〻‐゠〜～‼⁇⁈⁉・゙゚",
-);
-
-/**
  * A line break between a character from this set and CJ can be converted to a
  * space. Includes only ASCII punctuation marks for now.
  */
@@ -193,16 +167,6 @@ function lineBreakCanBeConvertedToSpace(path, isLink) {
 
 /**
  * @param {WordKind | undefined} kind
- * @returns {boolean} `true` if `kind` is defined and not CJK punctuation
- */
-function isLetter(kind) {
-  return (
-    kind === KIND_NON_CJK || kind === KIND_CJ_LETTER || kind === KIND_K_LETTER
-  );
-}
-
-/**
- * @param {WordKind | undefined} kind
  * @returns {boolean} `true` if `kind` is Korean letter or non-CJK
  */
 function isNonCJKOrKoreanLetter(kind) {
@@ -216,10 +180,9 @@ function isNonCJKOrKoreanLetter(kind) {
  * @param {WhitespaceValue} value
  * @param {ProseWrap} proseWrap
  * @param {boolean} isLink
- * @param {boolean} canBeSpace
  * @returns {boolean}
  */
-function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
+function isBreakable(path, value, proseWrap, isLink) {
   if (
     proseWrap !== "always" ||
     path.hasAncestor((node) => SINGLE_LINE_NODE_TYPES.has(node.type))
@@ -231,32 +194,46 @@ function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
     return value !== "";
   }
 
-  // Spaces are always breakable
-  if (value === " ") {
-    return true;
-  }
-
   /** @type {AdjacentNodes} */
   const { previous, next } = path;
 
-  // Simulates Latin words; see https://github.com/prettier/prettier/issues/6516
-  // [Latin][""][Hangul] & vice versa => Don't break
-  // [Han & Kana][""][Hangul], either
-  if (
-    value === "" &&
-    ((previous?.kind === KIND_K_LETTER && isLetter(next?.kind)) ||
-      (next?.kind === KIND_K_LETTER && isLetter(previous?.kind)))
-  ) {
+  // [1]: We will make a breaking change to the rule to convert spaces between
+  //      a Chinese or Japanese character and another character in the future.
+  //      Such a space must have been always interchangeable with a line break.
+  //      https://wpt.fyi/results/css/css-text/line-breaking?label=master&label=experimental&aligned&q=segment-break-transformation-rules-
+  // [2]: we should not break lines even between Chinese/Japanese characters because Chrome & Safari replaces "\n" between such characters with " " now.
+  // [3]: Hangul (Korean) must simulate Latin words; see https://github.com/prettier/prettier/issues/6516
+  //      [printable][""][Hangul] & vice versa => Don't break
+  //      [printable][\n][Hangul] will be interchangeable to [printable][" "][Hangul] in the future
+  //      (will be compatible with Firefox's behavior)
+
+  if (!previous || !next) {
+    // empty side is Latin ASCII symbol (e.g. *, [, ], or `)
+    // value is " " or "\n" (not "")
+    // [1] & [2]? No, it's the only exception because " " & "\n" have been always interchangeable only here
+    return true;
+  }
+
+  if (value === "") {
+    // [1] & [2] & [3]
+    // At least either of previous or next is non-Latin (=CJK)
     return false;
   }
 
-  // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
-  const violatesCJKLineBreakingRules =
-    !canBeSpace &&
-    ((next && noBreakBefore.has(next.value[0])) ||
-      (previous && noBreakAfter.has(previous.value.at(-1))));
+  if (
+    // See the same product terms as the following in lineBreakCanBeConvertedToSpace
+    // The behavior is consistent between browsers and Prettier in that line breaks between Korean and Chinese/Japanese letters are equivalent to spaces.
+    // Currently, [CJK punctuation][\n][Hangul] is interchangeable to [CJK punctuation][""][Hangul],
+    // but this is not compatible with Firefox's behavior.
+    // Will be changed to [CJK punctuation][" "][Hangul] in the future
+    (previous.kind === KIND_K_LETTER && next.kind === KIND_CJ_LETTER) ||
+    (next.kind === KIND_K_LETTER && previous.kind === KIND_CJ_LETTER)
+  ) {
+    return true;
+  }
 
-  if (violatesCJKLineBreakingRules) {
+  // [1] & [2]
+  if (previous.isCJ || next.isCJ) {
     return false;
   }
 
@@ -279,7 +256,7 @@ function printWhitespace(path, value, proseWrap, isLink) {
     value === " " ||
     (value === "\n" && lineBreakCanBeConvertedToSpace(path, isLink));
 
-  if (isBreakable(path, value, proseWrap, isLink, canBeSpace)) {
+  if (isBreakable(path, value, proseWrap, isLink)) {
     return canBeSpace ? line : softline;
   }
 

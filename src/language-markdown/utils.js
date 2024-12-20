@@ -49,6 +49,7 @@ const K_REGEXP = /\p{Script_Extensions=Hangul}/u;
  *   type: "word",
  *   value: string,
  *   kind: WordKind,
+ *   isCJ: boolean,
  *   hasLeadingPunctuation: boolean,
  *   hasTrailingPunctuation: boolean,
  * }} WordNode
@@ -97,6 +98,7 @@ function splitText(text) {
             type: "word",
             value: innerToken,
             kind: KIND_NON_CJK,
+            isCJ: false,
             hasLeadingPunctuation: PUNCTUATION_REGEXP.test(innerToken[0]),
             hasTrailingPunctuation: PUNCTUATION_REGEXP.test(innerToken.at(-1)),
           });
@@ -105,24 +107,43 @@ function splitText(text) {
       }
 
       // CJK character
-      appendNode(
-        PUNCTUATION_REGEXP.test(innerToken)
-          ? {
-              type: "word",
-              value: innerToken,
-              kind: KIND_CJK_PUNCTUATION,
-              hasLeadingPunctuation: true,
-              hasTrailingPunctuation: true,
-            }
-          : {
-              type: "word",
-              value: innerToken,
-              // Korean uses space to divide words, but Chinese & Japanese do not
-              kind: K_REGEXP.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
-              hasLeadingPunctuation: false,
-              hasTrailingPunctuation: false,
-            },
-      );
+
+      // punctuation for CJ(K)
+      // Korean doesn't use them in horizontal writing usually
+      if (PUNCTUATION_REGEXP.test(innerToken)) {
+        appendNode({
+          type: "word",
+          value: innerToken,
+          kind: KIND_CJK_PUNCTUATION,
+          isCJ: true,
+          hasLeadingPunctuation: true,
+          hasTrailingPunctuation: true,
+        });
+        continue;
+      }
+
+      // Korean uses space to divide words, but Chinese & Japanese do not
+      // This is why Korean should be treated like non-CJK
+      if (K_REGEXP.test(innerToken)) {
+        appendNode({
+          type: "word",
+          value: innerToken,
+          kind: KIND_K_LETTER,
+          isCJ: false,
+          hasLeadingPunctuation: false,
+          hasTrailingPunctuation: false,
+        });
+        continue;
+      }
+
+      appendNode({
+        type: "word",
+        value: innerToken,
+        kind: KIND_CJ_LETTER,
+        isCJ: true,
+        hasLeadingPunctuation: false,
+        hasTrailingPunctuation: false,
+      });
     }
   }
 
