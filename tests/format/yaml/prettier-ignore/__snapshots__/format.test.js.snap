@@ -31,30 +31,14 @@ parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-# prettier-ignore
 abc:     123
+# prettier-ignore
 def:     456
-# prettier-ignore
-ghi:     789
----
-# prettier-ignore
--        abc
--        def
-# prettier-ignore
--        ghi
 
 =====================================output=====================================
+abc: 123
 # prettier-ignore
-abc:     123
-def: 456
-# prettier-ignore
-ghi:     789
----
-# prettier-ignore
--        abc
-- def
-# prettier-ignore
--        ghi
+def:     456
 
 ================================================================================
 `;
