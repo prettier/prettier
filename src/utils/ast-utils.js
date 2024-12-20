@@ -47,6 +47,14 @@ function* getDescendants(node, options) {
 
 /**
  * @param {Node} node
+ * @param {{getVisitorKeys: GetVisitorKeys}} options
+ */
+function isLeaf(node, options) {
+  return getChildren(node, options).next().done;
+}
+
+/**
+ * @param {Node} node
  * @param {{getVisitorKeys: GetVisitorKeys, predicate: Predicate}} options
  */
 function hasDescendant(node, { getVisitorKeys, predicate }) {
@@ -59,4 +67,4 @@ function hasDescendant(node, { getVisitorKeys, predicate }) {
   return false;
 }
 
-export { hasDescendant, getDescendants, getChildren };
+export { getChildren, getDescendants, hasDescendant, isLeaf };

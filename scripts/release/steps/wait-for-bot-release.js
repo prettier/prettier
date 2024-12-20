@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import outdent from "outdent";
-import { waitForEnter, logPromise } from "../utils.js";
+import { logPromise, waitForEnter } from "../utils.js";
 
 export async function isVersionReleased(version) {
   const response = await fetch("https://registry.npmjs.org/prettier/");
@@ -26,7 +26,7 @@ const sleep = () =>
     setTimeout(resolve, 30_000);
   });
 
-export default async function waitForBotRelease({ dry, version }) {
+export default async function waitForBotRelease({ dry, version, next }) {
   if (dry) {
     return;
   }
@@ -52,7 +52,7 @@ export default async function waitForBotRelease({ dry, version }) {
       2. Make sure "${chalk.yellow(
         "Publishing access",
       )}" section is set to "${chalk.yellow(
-        "Require two-factor authentication or automation tokens",
+        "Require two-factor authentication or an automation or granular access token",
       )}".
     `,
   );
@@ -68,9 +68,9 @@ export default async function waitForBotRelease({ dry, version }) {
         "Run workflow",
       )}" button, type "${chalk.yellow.underline(
         version,
-      )}" in "Version to release", uncheck all checkboxes, hit the "${chalk.bgGreen(
-        "Run workflow",
-      )}" button.
+      )}" in "Version to release", ${
+        next ? 'check only "Unstable version"' : "uncheck all checkboxes"
+      }, hit the "${chalk.bgGreen("Run workflow")}" button.
     `,
   );
 

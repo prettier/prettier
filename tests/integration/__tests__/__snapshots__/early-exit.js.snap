@@ -60,7 +60,7 @@ Format options:
                            Defaults to css.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
-  --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
+  --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
@@ -107,15 +107,12 @@ Config options:
 Editor options:
 
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
-                           This option cannot be used with --range-start and --range-end.
                            Defaults to -1.
   --range-end <int>        Format code ending at a given character offset (exclusive).
                            The range will extend forwards to the end of the selected statement.
-                           This option cannot be used with --cursor-offset.
                            Defaults to Infinity.
   --range-start <int>      Format code starting at a given character offset.
                            The range will extend backwards to the start of the first line containing the selected statement.
-                           This option cannot be used with --cursor-offset.
                            Defaults to 0.
 
 Other options:
@@ -158,7 +155,7 @@ exports[`show version with --version (write) 1`] = `[]`;
 exports[`show warning with --help not-found (typo) (stderr) 1`] = `"[warn] Unknown flag "parserr", did you mean "parser"?"`;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
 
   Which parser to use.
 
@@ -177,6 +174,7 @@ Valid options:
   scss             SCSS
   json             JSON
   json5            JSON5
+  jsonc            JSON with Comments
   json-stringify   JSON.stringify
   graphql          GraphQL
   markdown         Markdown
@@ -227,7 +225,7 @@ Format options:
                            Defaults to css.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
-  --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
+  --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
@@ -274,15 +272,12 @@ Config options:
 Editor options:
 
   --cursor-offset <int>    Print (to stderr) where a cursor at the given position would move to after formatting.
-                           This option cannot be used with --range-start and --range-end.
                            Defaults to -1.
   --range-end <int>        Format code ending at a given character offset (exclusive).
                            The range will extend forwards to the end of the selected statement.
-                           This option cannot be used with --cursor-offset.
                            Defaults to Infinity.
   --range-start <int>      Format code starting at a given character offset.
                            The range will extend backwards to the start of the first line containing the selected statement.
-                           This option cannot be used with --cursor-offset.
                            Defaults to 0.
 
 Other options:

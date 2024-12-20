@@ -10,7 +10,9 @@
 *.log
 /errors
 /test*.*
-/.vscode
+/.vscode/**/*
+!/.vscode/extensions.json
+!/.vscode/settings.example.json
 /dist*
 /website/build
 /website/i18n

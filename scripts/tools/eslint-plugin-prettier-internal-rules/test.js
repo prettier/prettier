@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 "use strict";
 
 const path = require("path");
@@ -7,11 +6,7 @@ const { RuleTester } = require("eslint");
 const { rules } = require("./index.js");
 
 const test = (ruleId, tests) => {
-  new RuleTester({ parserOptions: { ecmaVersion: 2021 } }).run(
-    ruleId,
-    rules[ruleId],
-    tests,
-  );
+  new RuleTester().run(ruleId, rules[ruleId], tests);
 };
 
 test("await-cli-tests", {
@@ -74,7 +69,9 @@ test("better-parent-property-check-in-needs-parens", {
   ].map((testCase) => ({
     ...testCase,
     code: `function needsParens() {${testCase.code}}`,
-    output: `function needsParens() {${testCase.output || testCase.code}}`,
+    output: testCase.output
+      ? `function needsParens() {${testCase.output}}`
+      : null,
     filename: "needs-parens.js",
   })),
 });
@@ -236,19 +233,13 @@ test("no-identifier-n", {
           alert(n)
         }
       `,
-      output: outdent`
-        const n = 1;
-        function a(node) {
-          alert(n, node)
-        }
-        function b() {
-          alert(n)
-        }
-      `,
+      output: null,
       errors: [
         {
+          messageId: "error",
           suggestions: [
             {
+              messageId: "suggestion",
               output: outdent`
                 const node = 1;
                 function a(node) {
@@ -263,36 +254,53 @@ test("no-identifier-n", {
         },
       ],
     },
-    {
-      code: "const n = 1;const node = 2;",
-      output: "const n = 1;const node = 2;",
-      errors: [{ suggestions: [{ output: "const node = 1;const node = 2;" }] }],
-    },
+    // ESLint 8 doesn't allow suggest invalid code
+    // {
+    //   code: "const n = 1;const node = 2;",
+    //   output: null,
+    //   errors: [
+    //     {
+    //       messageId: "error",
+    //       suggestions: [
+    //         {
+    //           messageId: "suggestion",
+    //           output: "const node = 1;const node = 2;",
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
   ],
 });
 
-test("no-legacy-format-test-fixtures", {
+test("no-legacy-format-test", {
   valid: [
-    "run_spec(import.meta, ['babel'])",
-    "run_spec({importMeta: import.meta}, ['babel'])",
-  ].map((code) => ({ code, parserOptions: { sourceType: "module" } })),
+    "runFormatTest(import.meta, ['babel'])",
+    "runFormatTest({importMeta: import.meta}, ['babel'])",
+  ],
   invalid: [
     {
-      code: "run_spec(__dirname, ['babel'])",
-      errors: [{ message: "Use `import.meta` instead of `__dirname`." }],
-      output: "run_spec(import.meta, ['babel'])",
+      code: "run_spec(import.meta, ['babel'])",
+      errors: [{ message: "Use `runFormatTest(…)` instead of `run_spec(…)`." }],
+      output: "runFormatTest(import.meta, ['babel'])",
     },
     {
-      code: "run_spec({snippets: ['x'], dirname: __dirname}, ['babel'])",
+      code: "runFormatTest(__dirname, ['babel'])",
+      errors: [{ message: "Use `import.meta` instead of `__dirname`." }],
+      output: "runFormatTest(import.meta, ['babel'])",
+    },
+    {
+      code: "runFormatTest({snippets: ['x'], dirname: __dirname}, ['babel'])",
       errors: [
         {
           message:
             "Use `importMeta: import.meta` instead of `dirname: __dirname`.",
         },
       ],
-      output: "run_spec({snippets: ['x'], importMeta: import.meta}, ['babel'])",
+      output:
+        "runFormatTest({snippets: ['x'], importMeta: import.meta}, ['babel'])",
     },
-  ].map((test) => ({ ...test, parserOptions: { sourceType: "module" } })),
+  ],
 });
 
 test("no-node-comments", {
@@ -316,12 +324,12 @@ test("no-node-comments", {
       "const {comments: nodeComments} = node",
     ].map((code) => ({
       code,
-      output: code,
+      output: null,
       errors: [{ message: "Do not access node.comments." }],
     })),
     {
       code: "function notFunctionName() {return node.comments;}",
-      output: "function notFunctionName() {return node.comments;}",
+      output: null,
       filename: path.join(__dirname, "../../..", "a.js"),
       options: [{ file: "a.js", functions: ["functionName"] }],
       errors: [{ message: "Do not access node.comments." }],
@@ -551,10 +559,7 @@ test("prefer-create-type-check-function", {
         const foo = node =>
           node.type === "Identifier" || /* comment */ node.type === "FunctionExpression";
       `,
-      output: outdent`
-        const foo = node =>
-          node.type === "Identifier" || /* comment */ node.type === "FunctionExpression";
-      `,
+      output: null,
       errors: 1,
     },
     {
@@ -567,10 +572,7 @@ test("prefer-create-type-check-function", {
         'const isClassProperty = createTypeCheckFunction(["ClassProperty", "PropertyDefinition"]);',
       errors: 1,
     },
-  ].map((testCase) => ({
-    ...testCase,
-    parserOptions: { sourceType: "module" },
-  })),
+  ],
 });
 
 test("prefer-indent-if-break", {
@@ -702,7 +704,7 @@ test("no-unnecessary-ast-path-call", {
     },
     {
       code: "foo.call(() => bar)",
-      output: "foo.call(() => bar)",
+      output: null,
       errors: 1,
     },
   ],
@@ -714,7 +716,7 @@ test("prefer-fs-promises-submodule", {
     "import fs from 'node:fs/promises';",
     "import fs, { promises as fsPromises } from 'node:fs';",
     "import { promises as fs, statSync } from 'node:fs';",
-  ].map((code) => ({ code, parserOptions: { sourceType: "module" } })),
+  ],
   invalid: [
     {
       code: "import { promises as fsPromises } from 'node:fs';",
@@ -724,10 +726,7 @@ test("prefer-fs-promises-submodule", {
       code: "import { promises as fs } from 'node:fs';",
       errors: 1,
     },
-  ].map((testCase) => ({
-    ...testCase,
-    parserOptions: { sourceType: "module" },
-  })),
+  ],
 });
 
 test("prefer-ast-path-getters", {
@@ -823,24 +822,6 @@ test("prefer-ast-path-getters", {
       ],
     },
     {
-      code: "path.getParentNode()",
-      output: "path.parent",
-      errors: [
-        {
-          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
-        },
-      ],
-    },
-    {
-      code: "const node = path.getParentNode()",
-      output: "const node = path.parent",
-      errors: [
-        {
-          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
-        },
-      ],
-    },
-    {
       code: "fooPath.getParentNode()",
       output: "fooPath.parent",
       errors: [
@@ -851,24 +832,6 @@ test("prefer-ast-path-getters", {
     },
 
     // path.getParentNode(0)
-    {
-      code: "path.getParentNode(0)",
-      output: "path.parent",
-      errors: [
-        {
-          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
-        },
-      ],
-    },
-    {
-      code: "const node = path.getParentNode(0)",
-      output: "const node = path.parent",
-      errors: [
-        {
-          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
-        },
-      ],
-    },
     {
       code: "path.getParentNode(0)",
       output: "path.parent",
@@ -919,26 +882,6 @@ test("prefer-ast-path-getters", {
       ],
     },
     {
-      code: "path.getParentNode(1)",
-      output: "path.grandparent",
-      errors: [
-        {
-          message:
-            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
-        },
-      ],
-    },
-    {
-      code: "const node = path.getParentNode(1)",
-      output: "const node = path.grandparent",
-      errors: [
-        {
-          message:
-            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
-        },
-      ],
-    },
-    {
       code: "fooPath.getParentNode(1)",
       output: "fooPath.grandparent",
       errors: [
@@ -950,7 +893,7 @@ test("prefer-ast-path-getters", {
     },
     {
       code: "path.getName()",
-      output: "path.getName()",
+      output: null,
       errors: [
         {
           message:
@@ -961,6 +904,25 @@ test("prefer-ast-path-getters", {
           ],
         },
       ],
+    },
+  ],
+});
+
+test("massage-ast-parameter-names", {
+  valid: [
+    "function notNamedClean(a, b) {}",
+    "function clean(original, cloned) {}",
+  ],
+  invalid: [
+    {
+      code: "function clean(theOriginalNode, cloned) {delete theOriginalNode.property}",
+      output: "function clean(original, cloned) {delete original.property}",
+      errors: 1,
+    },
+    {
+      code: "function clean(original, theClonedNode) {delete theClonedNode.property}",
+      output: "function clean(original, cloned) {delete cloned.property}",
+      errors: 1,
     },
   ],
 });

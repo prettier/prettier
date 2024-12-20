@@ -1,8 +1,8 @@
 import { parse as meriyahParse } from "meriyah";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
-import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
+import createParser from "./utils/create-parser.js";
 import getSourceType from "./utils/get-source-type.js";
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
@@ -30,13 +30,9 @@ const parseOptions = {
   // Enable lexical binding and scope tracking
   lexical: false,
   // Adds a source attribute in every node’s loc object when the locations option is `true`
-  // source: '',
-  // Distinguish Identifier from IdentifierPattern
-  identifierPattern: false,
+  // source: false,
   // Enable React JSX parsing
   jsx: true,
-  // Allow edge cases that deviate from the spec
-  specDeviation: true,
   // Creates unique key for in ObjectPattern when key value are same
   uniqueKeyInPattern: false,
 };
@@ -59,29 +55,29 @@ function parseWithOptions(text, sourceType) {
 }
 
 function createParseError(error) {
-  let { message, line, column } = error;
-
-  const matches = message.match(
-    /^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/,
-  )?.groups;
-
-  if (matches) {
-    message = matches.message;
-
-    /* c8 ignore next 4 */
-    if (typeof line !== "number") {
-      line = Number(matches.line);
-      column = Number(matches.column);
-    }
-  }
+  let { message, loc } = error;
 
   /* c8 ignore next 3 */
-  if (typeof line !== "number") {
+  if (!loc) {
     return error;
   }
 
+  const prefix = `[${[loc.start, loc.end].map(({ line, column }) => [line, column].join(":")).join("-")}]: `;
+  if (message.startsWith(prefix)) {
+    message = message.slice(prefix.length);
+  }
+
   return createError(message, {
-    loc: { start: { line, column } },
+    loc: {
+      start: {
+        line: loc.start.line,
+        column: loc.start.column + 1,
+      },
+      end: {
+        line: loc.end.line,
+        column: loc.end.column + 1,
+      },
+    },
     cause: error,
   });
 }

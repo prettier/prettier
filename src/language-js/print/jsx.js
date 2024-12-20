@@ -1,38 +1,38 @@
 import {
+  conditionalGroup,
+  cursor,
+  fill,
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  join,
+  line,
+  lineSuffixBoundary,
+  softline,
+} from "../../document/builders.js";
+import { replaceEndOfLine, willBreak } from "../../document/utils.js";
+import {
   printComments,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import {
-  line,
-  hardline,
-  softline,
-  group,
-  indent,
-  conditionalGroup,
-  fill,
-  ifBreak,
-  lineSuffixBoundary,
-  join,
-  cursor,
-} from "../../document/builders.js";
-import { willBreak, replaceEndOfLine } from "../../document/utils.js";
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import getPreferredQuote from "../../utils/get-preferred-quote.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import WhitespaceUtils from "../../utils/whitespace-utils.js";
+import { willPrintOwnComments } from "../comments/printer-methods.js";
+import pathNeedsParens from "../needs-parens.js";
 import {
-  isJsxElement,
-  rawText,
-  isCallExpression,
-  isStringLiteral,
-  isBinaryish,
-  hasComment,
   CommentCheckFlags,
+  hasComment,
   hasNodeIgnoreComment,
   isArrayOrTupleExpression,
+  isBinaryish,
+  isCallExpression,
+  isJsxElement,
   isObjectOrRecordExpression,
+  isStringLiteral,
+  rawText,
 } from "../utils/index.js";
-import pathNeedsParens from "../needs-parens.js";
-import { willPrintOwnComments } from "../comments/printer-methods.js";
 
 /*
 Only the following are treated as whitespace inside JSX.
@@ -48,10 +48,9 @@ const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../types/estree.js").Node} Node
- * @typedef {import("../types/estree.js").JSXElement} JSXElement
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Node, JSXElement} from "../types/estree.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 // JSX expands children from the inside-out, instead of the outside-in.
@@ -244,14 +243,25 @@ function printJsxElementInternal(path, options, print) {
     : group(multilineChildren, { shouldBreak: true });
 
   /*
-  `printJsxChildren` won't call `print` on `JSXText`
-  When the cursorNode is inside `cursor` won't get print.
+  `printJsxChildren` won't call `print` on `JSXText`, so when the cursorNode,
+  nodeBeforeCursor, or nodeAfterCursor is inside, `cursor` won't get printed.
+  This logic fixes that:
   */
   if (
     options.cursorNode?.type === "JSXText" &&
     node.children.includes(options.cursorNode)
   ) {
     content = [cursor, content, cursor];
+  } else if (
+    options.nodeBeforeCursor?.type === "JSXText" &&
+    node.children.includes(options.nodeBeforeCursor)
+  ) {
+    content = [cursor, content];
+  } else if (
+    options.nodeAfterCursor?.type === "JSXText" &&
+    node.children.includes(options.nodeAfterCursor)
+  ) {
+    content = [content, cursor];
   }
 
   if (isMdxBlock) {
@@ -310,7 +320,7 @@ function printJsxChildren(
         if (words[0] === "") {
           parts.push("");
           words.shift();
-          if (/\n/.test(words[0])) {
+          if (/\n/u.test(words[0])) {
             parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
@@ -346,7 +356,7 @@ function printJsxChildren(
         }
 
         if (endWhitespace !== undefined) {
-          if (/\n/.test(endWhitespace)) {
+          if (/\n/u.test(endWhitespace)) {
             parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
@@ -368,10 +378,10 @@ function printJsxChildren(
             ),
           );
         }
-      } else if (/\n/.test(text)) {
+      } else if (/\n/u.test(text)) {
         // Keep (up to one) blank line between tags/expressions/text.
         // Note: We don't keep blank lines between text elements.
-        if (text.match(/\n/g).length > 1) {
+        if (text.match(/\n/gu).length > 1) {
           parts.push("", hardline);
         }
       } else {
@@ -573,7 +583,6 @@ function printJsxOpeningElement(path, options, print) {
   // don't break up opening elements with a single long text attribute
   if (
     node.attributes?.length === 1 &&
-    node.attributes[0].value &&
     isStringLiteral(node.attributes[0].value) &&
     !node.attributes[0].value.value.includes("\n") &&
     // We should break for the following cases:
@@ -601,10 +610,7 @@ function printJsxOpeningElement(path, options, print) {
   // We should print the opening element expanded if any prop value is a
   // string literal with newlines
   const shouldBreak = node.attributes?.some(
-    (attr) =>
-      attr.value &&
-      isStringLiteral(attr.value) &&
-      attr.value.value.includes("\n"),
+    (attr) => isStringLiteral(attr.value) && attr.value.value.includes("\n"),
   );
 
   const attributeLine =
@@ -697,8 +703,8 @@ function printJsxOpeningClosingFragment(path, options /*, print*/) {
       hasOwnLineComment
         ? hardline
         : nodeHasComment && !isOpeningFragment
-        ? " "
-        : "",
+          ? " "
+          : "",
       printDanglingComments(path, options),
     ]),
     hasOwnLineComment ? hardline : "",
@@ -818,7 +824,7 @@ function isMeaningfulJsxText(node) {
   return (
     node.type === "JSXText" &&
     (jsxWhitespaceUtils.hasNonWhitespaceCharacter(rawText(node)) ||
-      !/\n/.test(rawText(node)))
+      !/\n/u.test(rawText(node)))
   );
 }
 
@@ -842,7 +848,6 @@ function hasJsxIgnoreComment(path) {
     return false;
   }
 
-  // TODO: Use `Array#findLast` when we drop support for Node.js<18
   // Lookup the previous sibling, ignoring any empty JSXText elements
   const { index, siblings } = path;
   let prevSibling;

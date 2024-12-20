@@ -1,5 +1,5 @@
-import { LinesAndColumns } from "lines-and-columns";
 import { codeFrameColumns } from "@babel/code-frame";
+import { LinesAndColumns } from "lines-and-columns";
 const codeFrameColumnsOptions = {
   linesAbove: Number.POSITIVE_INFINITY,
   linesBelow: Number.POSITIVE_INFINITY,

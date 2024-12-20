@@ -1,25 +1,25 @@
 import { convertEndOfLineToChars } from "../common/end-of-line.js";
 import getStringWidth from "../utils/get-string-width.js";
+import { hardlineWithoutBreakParent, indent } from "./builders.js";
 import {
-  DOC_TYPE_STRING,
-  DOC_TYPE_ARRAY,
-  DOC_TYPE_CURSOR,
-  DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
-  DOC_TYPE_TRIM,
-  DOC_TYPE_GROUP,
+  DOC_TYPE_ARRAY,
+  DOC_TYPE_BREAK_PARENT,
+  DOC_TYPE_CURSOR,
   DOC_TYPE_FILL,
+  DOC_TYPE_GROUP,
   DOC_TYPE_IF_BREAK,
+  DOC_TYPE_INDENT,
   DOC_TYPE_INDENT_IF_BREAK,
+  DOC_TYPE_LABEL,
+  DOC_TYPE_LINE,
   DOC_TYPE_LINE_SUFFIX,
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
-  DOC_TYPE_LINE,
-  DOC_TYPE_LABEL,
-  DOC_TYPE_BREAK_PARENT,
+  DOC_TYPE_STRING,
+  DOC_TYPE_TRIM,
 } from "./constants.js";
-import { fill, indent, hardlineWithoutBreakParent } from "./builders.js";
-import { getDocParts, getDocType, propagateBreaks } from "./utils.js";
 import InvalidDocError from "./invalid-doc-error.js";
+import { getDocType, propagateBreaks } from "./utils.js";
 
 /** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
 /** @typedef {{ ind: any, doc: any, mode: Mode }} Command */
@@ -31,6 +31,8 @@ const MODE_BREAK = Symbol("MODE_BREAK");
 const MODE_FLAT = Symbol("MODE_FLAT");
 
 const CURSOR_PLACEHOLDER = Symbol("cursor");
+
+const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -222,8 +224,8 @@ function fits(
     }
 
     const { mode, doc } = cmds.pop();
-
-    switch (getDocType(doc)) {
+    const docType = getDocType(doc);
+    switch (docType) {
       case DOC_TYPE_STRING:
         out.push(doc);
         width -= getStringWidth(doc);
@@ -231,8 +233,9 @@ function fits(
 
       case DOC_TYPE_ARRAY:
       case DOC_TYPE_FILL: {
-        const parts = getDocParts(doc);
-        for (let i = parts.length - 1; i >= 0; i--) {
+        const parts = docType === DOC_TYPE_ARRAY ? doc : doc.parts;
+        const end = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
+        for (let i = parts.length - 1; i >= end; i--) {
           cmds.push({ mode, doc: parts[i] });
         }
         break;
@@ -380,6 +383,7 @@ function printDocToString(doc, options) {
           case MODE_BREAK: {
             shouldRemeasure = false;
 
+            /** @type {Command} */
             const next = { ind, mode: MODE_FLAT, doc: doc.contents };
             const rem = width - pos;
             const hasLineSuffix = lineSuffix.length > 0;
@@ -413,6 +417,7 @@ function printDocToString(doc, options) {
                       break;
                     } else {
                       const state = doc.expandedStates[i];
+                      /** @type {Command} */
                       const cmd = { ind, mode: MODE_FLAT, doc: state };
 
                       if (fits(cmd, cmds, rem, hasLineSuffix, groupModeMap)) {
@@ -459,13 +464,18 @@ function printDocToString(doc, options) {
       case DOC_TYPE_FILL: {
         const rem = width - pos;
 
+        const offset = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
         const { parts } = doc;
-        if (parts.length === 0) {
+        const length = parts.length - offset;
+        if (length === 0) {
           break;
         }
 
-        const [content, whitespace] = parts;
+        const content = parts[offset + 0];
+        const whitespace = parts[offset + 1];
+        /** @type {Command} */
         const contentFlatCmd = { ind, mode: MODE_FLAT, doc: content };
+        /** @type {Command} */
         const contentBreakCmd = { ind, mode: MODE_BREAK, doc: content };
         const contentFits = fits(
           contentFlatCmd,
@@ -476,7 +486,7 @@ function printDocToString(doc, options) {
           true,
         );
 
-        if (parts.length === 1) {
+        if (length === 1) {
           if (contentFits) {
             cmds.push(contentFlatCmd);
           } else {
@@ -485,10 +495,12 @@ function printDocToString(doc, options) {
           break;
         }
 
+        /** @type {Command} */
         const whitespaceFlatCmd = { ind, mode: MODE_FLAT, doc: whitespace };
+        /** @type {Command} */
         const whitespaceBreakCmd = { ind, mode: MODE_BREAK, doc: whitespace };
 
-        if (parts.length === 2) {
+        if (length === 2) {
           if (contentFits) {
             cmds.push(whitespaceFlatCmd, contentFlatCmd);
           } else {
@@ -497,16 +509,16 @@ function printDocToString(doc, options) {
           break;
         }
 
-        // At this point we've handled the first pair (context, separator)
-        // and will create a new fill doc for the rest of the content.
-        // Ideally we wouldn't mutate the array here but copying all the
-        // elements to a new array would make this algorithm quadratic,
-        // which is unusable for large arrays (e.g. large texts in JSX).
-        parts.splice(0, 2);
-        const remainingCmd = { ind, mode, doc: fill(parts) };
+        const secondContent = parts[offset + 2];
 
-        const secondContent = parts[0];
+        /** @type {Command} */
+        const remainingCmd = {
+          ind,
+          mode,
+          doc: { ...doc, [DOC_FILL_PRINTED_LENGTH]: offset + 2 },
+        };
 
+        /** @type {Command} */
         const firstAndSecondContentFlatCmd = {
           ind,
           mode: MODE_FLAT,
@@ -538,8 +550,8 @@ function printDocToString(doc, options) {
             doc.type === DOC_TYPE_IF_BREAK
               ? doc.breakContents
               : doc.negate
-              ? doc.contents
-              : indent(doc.contents);
+                ? doc.contents
+                : indent(doc.contents);
           if (breakContents) {
             cmds.push({ ind, mode, doc: breakContents });
           }
@@ -549,8 +561,8 @@ function printDocToString(doc, options) {
             doc.type === DOC_TYPE_IF_BREAK
               ? doc.flatContents
               : doc.negate
-              ? indent(doc.contents)
-              : doc.contents;
+                ? indent(doc.contents)
+                : doc.contents;
           if (flatContents) {
             cmds.push({ ind, mode, doc: flatContents });
           }
@@ -640,6 +652,38 @@ function printDocToString(doc, options) {
       CURSOR_PLACEHOLDER,
       cursorPlaceholderIndex + 1,
     );
+
+    if (otherCursorPlaceholderIndex === -1) {
+      // If we got here, the doc must have contained ONE cursor command,
+      // instead of the expected zero or two. If the doc being printed was
+      // returned by printAstToDoc, then the only ways this can have happened
+      // are if:
+      // 1. a plugin added a cursor command itself, or
+      // 2. one (but not both) of options.nodeAfterCursor and
+      //    options.nodeAfterCursor pointed to a node within a subtree of the
+      //    AST that the printer plugin used in printAstToDoc simply omits from
+      //    the doc, or that it prints without recursively calling mainPrint,
+      //    with the consequence that the logic for adding a cursor command in
+      //    callPluginPrintFunction was never called for that node.
+      // These are both weird scenarios that should be considered a bug if they
+      // ever occur with one of Prettier's built-in plugins. If a third-party
+      // plugin was used when printing the AST to a doc, the possibility of
+      // reaching this scenario MIGHT be reasonable to consider a bug in the
+      // plugin. However, we try to at least not crash if this ever happens;
+      // instead we simply give up on returning a cursorNodeStart or
+      // cursorNodeText.
+      //
+      // coreFormat has logic specifically to handle this scenario - where it
+      // is supposed to preserve the cursor position but the printer gives it
+      // no information about where the nodes around the cursor ended up -
+      // although that logic is unavoidably slower (and has more potential to
+      // return a perverse result) than the happy path where we help out
+      // coreFormat by returning a cursorNodeStart and cursorNodeText here.
+      return {
+        formatted: out.filter((char) => char !== CURSOR_PLACEHOLDER).join(""),
+      };
+    }
+
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
     const aroundCursor = out
       .slice(cursorPlaceholderIndex + 1, otherCursorPlaceholderIndex)

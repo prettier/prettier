@@ -1,21 +1,18 @@
 import {
-  isVueSlotAttribute,
-  isVueSfcBindingsAttribute,
   getUnescapedAttributeValue,
   isVueScriptTag,
+  isVueSfcBindingsAttribute,
+  isVueSlotAttribute,
 } from "../utils/index.js";
 import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
-import { printVueVForDirective } from "./vue-v-for-directive.js";
 import { printVueScriptGenericAttributeValue } from "./print-vue-script-generic-attribute-value.js";
 import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
-import {
-  printVueBindings,
-  isVueEventBindingExpression,
-} from "./vue-bindings.js";
+import { printVueBindings } from "./vue-bindings.js";
+import { printVueVForDirective } from "./vue-v-for-directive.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
- * @typedef {import("../../common/ast-path.js")} AstPath
+ * @import {Doc} from "../../document/builders.js"
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 function printVueAttribute(path, options) {
@@ -71,15 +68,22 @@ function printVueAttribute(path, options) {
 /**
  * @returns {Promise<Doc>}
  */
-function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
-  if (isVueEventBindingExpression(text)) {
-    return printExpression(text, textToDoc, { parseWithTs });
+async function printVueVOnDirective(text, textToDoc, { parseWithTs }) {
+  try {
+    return await printExpression(text, textToDoc, { parseWithTs });
+  } catch (error) {
+    // @ts-expect-error -- expected
+    if (error.cause?.code !== "BABEL_PARSER_SYNTAX_ERROR") {
+      throw error;
+    }
   }
 
   return formatAttributeValue(
     text,
     textToDoc,
-    { parser: parseWithTs ? "__vue_ts_event_binding" : "__vue_event_binding" },
+    {
+      parser: parseWithTs ? "__vue_ts_event_binding" : "__vue_event_binding",
+    },
     shouldHugJsExpression,
   );
 }

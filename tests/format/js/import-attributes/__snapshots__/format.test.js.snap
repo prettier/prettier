@@ -1,0 +1,242 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dynamic-import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("./foo.json", { with: { type: "json" } });
+
+=====================================output=====================================
+import("./foo.json", { with: { type: "json" } });
+
+================================================================================
+`;
+
+exports[`empty.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export * as foo from "foo.json"
+export * as bar from "bar.json" with { }
+export * as baz from "baz.json" with { /* comment */ }
+
+import * as foo from "foo.json"
+import * as bar from "bar.json" with { }
+import * as baz from "baz.json" with { /* comment */ }
+
+=====================================output=====================================
+export * as foo from "foo.json";
+export * as bar from "bar.json" with {};
+export * as baz from "baz.json" /* comment */ with {};
+
+import * as foo from "foo.json";
+import * as bar from "bar.json" with {};
+import * as baz from "baz.json" /* comment */ with {};
+
+================================================================================
+`;
+
+exports[`keyword-detect.js [meriyah] format 1`] = `
+"Invalid binding in JSON import (1:69)
+> 1 | import "./test.json" /* assert */ with /* assert */  { type: "json" }
+    |                                                                     ^
+  2 | import a from "./test.json" /* assert */ with /* assert */  { type: "json" }
+  3 |
+  4 | export {default as c} from "./test.json" /* assert */ with /* assert */  { type: "json" }
+Cause: [1:68-1:69]: Invalid binding in JSON import"
+`;
+
+exports[`keyword-detect.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import "./test.json" /* assert */ with /* assert */  { type: "json" }
+import a from "./test.json" /* assert */ with /* assert */  { type: "json" }
+
+export {default as c} from "./test.json" /* assert */ with /* assert */  { type: "json" }
+
+export * from "./test.json" /* assert */ with /* assert */  { type: "json" }
+
+=====================================output=====================================
+import "./test.json" /* assert */ /* assert */ with { type: "json" };
+import a from "./test.json" /* assert */ /* assert */ with { type: "json" };
+
+export { default as c } from "./test.json" /* assert */ /* assert */ with { type: "json" };
+
+export * from "./test.json" /* assert */ /* assert */ with { type: "json" };
+
+================================================================================
+`;
+
+exports[`long-sources.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import a10 from "./aaaaaaaaaa.json" with {
+type: "json" };
+import a20 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a30 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a40 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a50 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a60 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a70 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with {
+type: "json" };
+import a80
+from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+
+import("./aaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {with: { type: "json" }})
+
+=====================================output=====================================
+import a10 from "./aaaaaaaaaa.json" with { type: "json" };
+import a20 from "./aaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a30 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a40 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a50 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a60 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a70 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+import a80 from "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json" with { type: "json" };
+
+import("./aaaaaaaaaa.json", { with: { type: "json" } });
+import("./aaaaaaaaaaaaaaaaaaaa.json", { with: { type: "json" } });
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", { with: { type: "json" } });
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {
+  with: { type: "json" },
+});
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {
+  with: { type: "json" },
+});
+import("./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json", {
+  with: { type: "json" },
+});
+import(
+  "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+  { with: { type: "json" } }
+);
+import(
+  "./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+  { with: { type: "json" } }
+);
+
+================================================================================
+`;
+
+exports[`multi-types.js [acorn] format 1`] = `
+"Duplicate attribute key 'type' (1:52)
+> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
+    |                                                    ^
+  2 |
+Cause: Duplicate attribute key 'type' (1:51)"
+`;
+
+exports[`multi-types.js [espree] format 1`] = `
+"Duplicate attribute key 'type' (1:52)
+> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
+    |                                                    ^
+  2 |
+Cause: Duplicate attribute key 'type'"
+`;
+
+exports[`multi-types.js [meriyah] format 1`] = `
+"Duplicate binding 'type' (1:64)
+> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
+    |                                                                ^
+  2 |
+Cause: [1:63-1:64]: Duplicate binding 'type'"
+`;
+
+exports[`multi-types.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import json from "./foo.json" with { type: "json", type: "bar" };
+
+=====================================output=====================================
+import json from "./foo.json" with { type: "json", type: "bar" };
+
+================================================================================
+`;
+
+exports[`non-type.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import foo from "foo.json" with { lazy: "true" };
+
+=====================================output=====================================
+import foo from "foo.json" with { lazy: "true" };
+
+================================================================================
+`;
+
+exports[`re-export.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export { default as foo2 } from "foo.json" with { type: "json" };
+export * from "foo.json" with { type: "json" };
+export * as foo3 from "foo.json" with { type: "json" };
+
+=====================================output=====================================
+export { default as foo2 } from "foo.json" with { type: "json" };
+export * from "foo.json" with { type: "json" };
+export * as foo3 from "foo.json" with { type: "json" };
+
+================================================================================
+`;
+
+exports[`static-import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import json from "./foo.json" with { type: "json" };
+
+=====================================output=====================================
+import json from "./foo.json" with { type: "json" };
+
+================================================================================
+`;
+
+exports[`without-from.js [meriyah] format 1`] = `
+"Invalid binding in JSON import (1:34)
+> 1 | import "foo" with { type: "json" }
+    |                                  ^
+  2 |
+Cause: [1:33-1:34]: Invalid binding in JSON import"
+`;
+
+exports[`without-from.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import "foo" with { type: "json" }
+
+=====================================output=====================================
+import "foo" with { type: "json" };
+
+================================================================================
+`;

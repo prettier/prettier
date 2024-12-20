@@ -1,38 +1,42 @@
-import { printComments } from "../../main/comments/print.js";
-import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import pathNeedsParens from "../needs-parens.js";
 import {
-  isCallExpression,
-  isMemberExpression,
-  isFunctionOrArrowExpression,
-  isLongCurriedCallExpression,
-  isMemberish,
-  isNumericLiteral,
-  isSimpleCallArgument,
-  hasComment,
-  CommentCheckFlags,
-  isNextLineEmpty,
-} from "../utils/index.js";
-import { locEnd } from "../loc.js";
-
-import {
-  join,
-  hardline,
-  group,
-  indent,
-  conditionalGroup,
   breakParent,
+  conditionalGroup,
+  group,
+  hardline,
+  indent,
+  join,
   label,
 } from "../../document/builders.js";
 import { willBreak } from "../../document/utils.js";
+import { printComments } from "../../main/comments/print.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
+import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import { locEnd } from "../loc.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
+  CommentCheckFlags,
+  hasComment,
+  isCallExpression,
+  isFunctionOrArrowExpression,
+  isLongCurriedCallExpression,
+  isMemberExpression,
+  isMemberish,
+  isNextLineEmpty,
+  isNumericLiteral,
+  isSimpleCallArgument,
+} from "../utils/index.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";
 import {
-  printOptionalToken,
-  printFunctionTypeParameters,
   printBindExpressionCallee,
+  printFunctionTypeParameters,
+  printOptionalToken,
 } from "./misc.js";
+
+/**
+ * @import {Doc} from "../../document/builders.js"
+ * @typedef {{ node: any, printed: Doc, needsParens?: boolean, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
+ */
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
@@ -46,6 +50,14 @@ import {
 // MemberExpression and CallExpression. We need to traverse the AST
 // and make groups out of it to print it in the desired way.
 function printMemberChain(path, options, print) {
+  /* c8 ignore next 6 */
+  if (path.node.type === "ChainExpression") {
+    return path.call(
+      () => printMemberChain(path, options, print),
+      "expression",
+    );
+  }
+
   const { parent } = path;
   const isExpressionStatement =
     !parent || parent.type === "ExpressionStatement";
@@ -57,6 +69,7 @@ function printMemberChain(path, options, print) {
   //   CallExpression(MemberExpression(CallExpression(Identifier)))
   // and we transform it into
   //   [Identifier, CallExpression, MemberExpression, CallExpression]
+  /** @type {PrintedNode[]}} */
   const printedNodes = [];
 
   // Here we try to retain one typed empty line after each call expression or
@@ -81,14 +94,21 @@ function printMemberChain(path, options, print) {
     return isNextLineEmpty(node, options);
   }
 
-  function rec(path) {
+  function rec() {
     const { node } = path;
+
+    if (node.type === "ChainExpression") {
+      return path.call(rec, "expression");
+    }
+
     if (
       isCallExpression(node) &&
       (isMemberish(node.callee) || isCallExpression(node.callee))
     ) {
+      const hasTrailingEmptyLine = shouldInsertEmptyLineAfter(node);
       printedNodes.unshift({
         node,
+        hasTrailingEmptyLine,
         printed: [
           printComments(
             path,
@@ -99,10 +119,10 @@ function printMemberChain(path, options, print) {
             ],
             options,
           ),
-          shouldInsertEmptyLineAfter(node) ? hardline : "",
+          hasTrailingEmptyLine ? hardline : "",
         ],
       });
-      path.call((callee) => rec(callee), "callee");
+      path.call(rec, "callee");
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node,
@@ -115,13 +135,13 @@ function printMemberChain(path, options, print) {
           options,
         ),
       });
-      path.call((object) => rec(object), "object");
+      path.call(rec, "object");
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
         printed: printComments(path, "!", options),
       });
-      path.call((expression) => rec(expression), "expression");
+      path.call(rec, "expression");
     } else {
       printedNodes.unshift({
         node,
@@ -143,7 +163,7 @@ function printMemberChain(path, options, print) {
   });
 
   if (node.callee) {
-    path.call((callee) => rec(callee), "callee");
+    path.call(rec, "callee");
   }
 
   // Once we have a linear list of printed nodes, we want to create groups out
@@ -170,6 +190,7 @@ function printMemberChain(path, options, print) {
   //       < fn()[0][1][2] >.something()
   //   - then, as many MemberExpression as possible but the last one
   //       < this.items >.something()
+  /** @type {PrintedNode[][]} */
   const groups = [];
   let currentGroup = [printedNodes[0]];
   let i = 1;
@@ -254,7 +275,7 @@ function printMemberChain(path, options, print) {
   // letter or just a sequence of _$. The rationale is that they are
   // likely to be factories.
   function isFactory(name) {
-    return /^[A-Z]|^[$_]+$/.test(name);
+    return /^[A-Z]|^[$_]+$/u.test(name);
   }
 
   // In case the Identifier is shorter than tab width, we can keep the
@@ -310,7 +331,7 @@ function printMemberChain(path, options, print) {
     if (groups.length === 0) {
       return "";
     }
-    return indent(group([hardline, join(hardline, groups.map(printGroup))]));
+    return indent([hardline, join(hardline, groups.map(printGroup))]);
   }
 
   const printedGroups = groups.map(printGroup);
@@ -331,7 +352,11 @@ function printMemberChain(path, options, print) {
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= cutoff && !nodeHasComment) {
+  if (
+    groups.length <= cutoff &&
+    !nodeHasComment &&
+    !groups.some((g) => g.at(-1).hasTrailingEmptyLine)
+  ) {
     if (isLongCurriedCallExpression(path)) {
       return oneLine;
     }

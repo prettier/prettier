@@ -8,6 +8,7 @@ function parseArguments() {
       manual = false,
       dry = false,
       "skip-dependencies-install": skipDependenciesInstall = false,
+      next = false,
     },
   } = parseArgs({
     options: {
@@ -26,6 +27,9 @@ function parseArguments() {
       "skip-dependencies-install": {
         type: "boolean",
       },
+      next: {
+        type: "boolean",
+      },
     },
   });
 
@@ -35,6 +39,7 @@ function parseArguments() {
     manual,
     dry,
     skipDependenciesInstall,
+    next,
   };
 }
 

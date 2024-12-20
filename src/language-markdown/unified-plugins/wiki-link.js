@@ -1,9 +1,11 @@
+/** @import {Plugin, Settings} from "unified" */
+
 /**
- * @type {import('unified').Plugin<[], import('unified').Settings>}
+ * @type {Plugin<[], Settings>}
  */
 const wikiLink = function () {
   const entityType = "wikiLink";
-  const wikiLinkRegex = /^\[\[(?<linkContents>.+?)]]/s;
+  const wikiLinkRegex = /^\[\[(?<linkContents>.+?)\]\]/su;
   const proto = this.Parser.prototype;
   const methods = proto.inlineMethods;
   methods.splice(methods.indexOf("link"), 0, entityType);

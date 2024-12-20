@@ -1,7 +1,7 @@
 import * as vnopts from "vnopts";
 
 /**
- * @typedef {import("./support.js").NamedOptionInfo} NamedOptionInfo
+ * @import {NamedOptionInfo} from "./support.js"
  */
 
 let hasDeprecationWarned;
@@ -47,9 +47,9 @@ function normalizeOptions(
         });
       }
     : Array.isArray(passThrough)
-    ? (key, value) =>
-        !passThrough.includes(key) ? undefined : { [key]: value }
-    : (key, value) => ({ [key]: value });
+      ? (key, value) =>
+          !passThrough.includes(key) ? undefined : { [key]: value }
+      : (key, value) => ({ [key]: value });
 
   const schemas = optionInfosToSchemas(optionInfos, { isCLI, FlagSchema });
   const normalizer = new vnopts.Normalizer(schemas, {
@@ -176,10 +176,13 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
       !value
         ? undefined
         : {
-            to: {
-              key: optionInfo.redirect.option,
-              value: optionInfo.redirect.value,
-            },
+            to:
+              typeof optionInfo.redirect === "string"
+                ? optionInfo.redirect
+                : {
+                    key: optionInfo.redirect.option,
+                    value: optionInfo.redirect.value,
+                  },
           };
   }
   /* c8 ignore stop */

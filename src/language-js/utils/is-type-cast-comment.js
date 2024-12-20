@@ -1,7 +1,7 @@
 import isBlockComment from "./is-block-comment.js";
 
 /**
- * @typedef {import("../types/estree.js").Comment} Comment
+ * @import {Comment} from "../types/estree.js"
  */
 
 /**
@@ -15,7 +15,7 @@ function isTypeCastComment(comment) {
     // TypeScript expects the type to be enclosed in curly brackets, however
     // Closure Compiler accepts types in parens and even without any delimiters at all.
     // That's why we just search for "@type" and "@satisfies".
-    /@(?:type|satisfies)\b/.test(comment.value)
+    /@(?:type|satisfies)\b/u.test(comment.value)
   );
 }
 

@@ -1,22 +1,22 @@
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  */
 
-import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
-import inferParser from "../../utils/infer-parser.js";
-import { line, hardline, join } from "../../document/builders.js";
+import { hardline, join, line } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import {
-  CSS_DISPLAY_TAGS,
-  CSS_DISPLAY_DEFAULT,
-  CSS_WHITE_SPACE_TAGS,
-  CSS_WHITE_SPACE_DEFAULT,
-} from "../constants.evaluate.js";
+import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
+import inferParser from "../../utils/infer-parser.js";
+import {
+  CSS_DISPLAY_DEFAULT,
+  CSS_DISPLAY_TAGS,
+  CSS_WHITE_SPACE_DEFAULT,
+  CSS_WHITE_SPACE_TAGS,
+} from "../constants.evaluate.js";
 import isUnknownNamespace from "./is-unknown-namespace.js";
 
 const htmlTrimLeadingBlankLines = (string) =>
-  string.replaceAll(/^[\t\f\r ]*\n/g, "");
+  string.replaceAll(/^[\t\f\r ]*\n/gu, "");
 const htmlTrimPreserveIndentation = (string) =>
   htmlTrimLeadingBlankLines(htmlWhitespaceUtils.trimEnd(string));
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
@@ -145,7 +145,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
   return isLeadingSpaceSensitive;
 
   function _isLeadingSpaceSensitiveNode() {
-    if (isFrontMatter(node)) {
+    if (isFrontMatter(node) || node.type === "angularControlFlowBlock") {
       return false;
     }
 
@@ -188,7 +188,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
 }
 
 function isTrailingSpaceSensitiveNode(node, options) {
-  if (isFrontMatter(node)) {
+  if (isFrontMatter(node) || node.type === "angularControlFlowBlock") {
     return false;
   }
 
@@ -473,7 +473,7 @@ function getNodeCssStyleDisplay(node, options) {
 
   if (node.prev?.type === "comment") {
     // <!-- display: block -->
-    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
+    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/u);
     if (match) {
       return match[1];
     }
@@ -622,24 +622,19 @@ function isVueScriptTag(node, options) {
 }
 
 export {
-  htmlTrimPreserveIndentation,
-  getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,
   getLastDescendant,
+  getLeadingAndTrailingHtmlWhitespace,
   getNodeCssStyleDisplay,
-  getNodeCssStyleWhiteSpace,
+  getTextValueParts,
+  getUnescapedAttributeValue,
   hasPrettierIgnore,
+  htmlTrimPreserveIndentation,
   inferElementParser,
-  isVueCustomBlock,
-  isVueNonHtmlBlock,
-  isVueScriptTag,
-  isVueSlotAttribute,
-  isVueSfcBindingsAttribute,
-  isVueSfcBlock,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
@@ -647,13 +642,14 @@ export {
   isScriptLikeTag,
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
+  isVueCustomBlock,
+  isVueNonHtmlBlock,
+  isVueScriptTag,
+  isVueSfcBindingsAttribute,
+  isVueSfcBlock,
+  isVueSlotAttribute,
   isWhitespaceSensitiveNode,
-  isUnknownNamespace,
   preferHardlineAsLeadingSpaces,
-  preferHardlineAsTrailingSpaces,
   shouldPreserveContent,
   unescapeQuoteEntities,
-  getTextValueParts,
-  htmlWhitespaceUtils,
-  getUnescapedAttributeValue,
 };

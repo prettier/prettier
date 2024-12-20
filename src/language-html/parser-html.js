@@ -1,31 +1,33 @@
 import {
-  ParseSourceFile,
-  ParseLocation,
-  ParseSourceSpan,
-  parse as parseHtml,
-  RecursiveVisitor,
-  visitAll,
   getHtmlTagDefinition,
+  parse as parseHtml,
+  ParseLocation,
+  ParseSourceFile,
+  ParseSourceSpan,
+  RecursiveVisitor,
   TagContentType,
+  visitAll,
 } from "angular-html-parser";
+import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParser from "../utils/infer-parser.js";
-import createError from "../common/parser-create-error.js";
-import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
-import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
-import isUnknownNamespace from "./utils/is-unknown-namespace.js";
-import { hasPragma } from "./pragma.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import { Node } from "./ast.js";
 import { parseIeConditionalComment } from "./conditional-comment.js";
-import { locStart, locEnd } from "./loc.js";
+import { locEnd, locStart } from "./loc.js";
+import { hasPragma } from "./pragma.js";
+import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
+import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
+import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 /**
- * @typedef {import('angular-html-parser')} AngularHtmlParser
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Node} AstNode
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Attribute} Attribute
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Element} Element
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/parser.js').ParseTreeResult} ParserTreeResult
- * @typedef {import('angular-html-parser').ParseOptions & {
+ * @import AngularHtmlParser, {ParseOptions as AngularHtmlParserParseOptions} from "angular-html-parser"
+ * @import {Node as AstNode, Attribute, Element} from "angular-html-parser/lib/compiler/src/ml_parser/ast.js"
+ * @import {ParseTreeResult} from "angular-html-parser/lib/compiler/src/ml_parser/parser.js"
+ */
+
+/**
+ * @typedef {AngularHtmlParserParseOptions & {
  *   name: 'html' | 'angular' | 'vue' | 'lwc';
  *   normalizeTagName?: boolean;
  *   normalizeAttributeName?: boolean;
@@ -37,6 +39,62 @@ import { locStart, locEnd } from "./loc.js";
  * }} ParseOptions
  * @typedef {{filepath?: string}} Options
  */
+
+// `@else    if`
+function normalizeAngularControlFlowBlock(node) {
+  if (node.type !== "block") {
+    return;
+  }
+
+  node.name = node.name.toLowerCase().replaceAll(/\s+/gu, " ").trim();
+  node.type = "angularControlFlowBlock";
+
+  if (!isNonEmptyArray(node.parameters)) {
+    delete node.parameters;
+    return;
+  }
+
+  for (const parameter of node.parameters) {
+    parameter.type = "angularControlFlowBlockParameter";
+  }
+
+  node.parameters = {
+    type: "angularControlFlowBlockParameters",
+    children: node.parameters,
+    sourceSpan: new ParseSourceSpan(
+      node.parameters[0].sourceSpan.start,
+      node.parameters.at(-1).sourceSpan.end,
+    ),
+  };
+}
+
+function normalizeAngularLetDeclaration(node) {
+  if (node.type !== "letDeclaration") {
+    return;
+  }
+
+  // Similar to `VariableDeclarator` in estree
+  node.type = "angularLetDeclaration";
+  node.id = node.name;
+  node.init = {
+    type: "angularLetDeclarationInitializer",
+    sourceSpan: new ParseSourceSpan(node.valueSpan.start, node.valueSpan.end),
+    value: node.value,
+  };
+
+  delete node.name;
+  delete node.value;
+}
+
+function normalizeAngularIcuExpression(node) {
+  if (node.type === "plural" || node.type === "select") {
+    node.clause = node.type;
+    node.type = "angularIcuExpression";
+  }
+  if (node.type === "expansionCase") {
+    node.type = "angularIcuCase";
+  }
+}
 
 /**
  * @param {string} input
@@ -62,6 +120,8 @@ function ngHtmlParser(input, parseOptions, options) {
       ? (...args) =>
           shouldParseAsRawText(...args) ? TagContentType.RAW_TEXT : undefined
       : undefined,
+    tokenizeAngularBlocks: name === "angular" ? true : undefined,
+    tokenizeAngularLetDeclaration: name === "angular" ? true : undefined,
   });
 
   if (name === "vue") {
@@ -76,7 +136,7 @@ function ngHtmlParser(input, parseOptions, options) {
       return ngHtmlParser(input, HTML_PARSE_OPTIONS, options);
     }
 
-    /** @type {ParserTreeResult | undefined} */
+    /** @type {ParseTreeResult | undefined} */
     let secondParseResult;
     const getHtmlParseResult = () =>
       (secondParseResult ??= parseHtml(input, {
@@ -147,7 +207,7 @@ function ngHtmlParser(input, parseOptions, options) {
             attr.value = null;
           } else {
             attr.value = attr.valueSpan.toString();
-            if (/["']/.test(attr.value[0])) {
+            if (/["']/u.test(attr.value[0])) {
               attr.value = attr.value.slice(1, -1);
             }
           }
@@ -231,6 +291,16 @@ function ngHtmlParser(input, parseOptions, options) {
 
   visitAll(
     new (class extends RecursiveVisitor {
+      // Angular does not visit to the children of expansionCase
+      // https://github.com/angular/angular/blob/e3a6bf9b6c3bef03df9bfc8f05b817bc875cbad6/packages/compiler/src/ml_parser/ast.ts#L161
+      visitExpansionCase(ast, context) {
+        if (name === "angular") {
+          // @ts-expect-error
+          this.visitChildren(context, (visit) => {
+            visit(ast.expression);
+          });
+        }
+      }
       visit(node) {
         restoreNameAndValue(node);
         addTagDefinition(node);
@@ -303,7 +373,7 @@ function parse(
 
   const parseSubHtml = (subContent, startSpan) => {
     const { offset } = startSpan;
-    const fakeContent = text.slice(0, offset).replaceAll(/[^\n\r]/g, " ");
+    const fakeContent = text.slice(0, offset).replaceAll(/[^\n\r]/gu, " ");
     const realContent = subContent;
     const subAst = parse(
       fakeContent + realContent,
@@ -342,6 +412,10 @@ function parse(
         node.parent.replaceChild(node, ieConditionalComment);
       }
     }
+
+    normalizeAngularControlFlowBlock(node);
+    normalizeAngularLetDeclaration(node);
+    normalizeAngularIcuExpression(node);
   });
 
   return ast;

@@ -1,5 +1,17 @@
 [
   class {
+    @(decorator)
+    method() {}
+  },
+  class {
+    @(decorator())
+    method() {}
+  },
+  class {
+    @(decorator?.())
+    method() {}
+  },
+  class {
     @(decorators[0])
     method() {}
   },
@@ -17,6 +29,10 @@
   },
   class {
     @(decorators?.at(0))
+    method() {}
+  },
+  class {
+    @(decorators.at?.(0))
     method() {}
   },
   class {

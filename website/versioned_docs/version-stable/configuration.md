@@ -4,9 +4,9 @@ title: Configuration File
 original_id: configuration
 ---
 
-Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support. This means you can configure Prettier via (in order of precedence):
+You can configure Prettier via (in order of precedence):
 
-- A `"prettier"` key in your `package.json` file.
+- A `"prettier"` key in your `package.json`, or [`package.yaml`](https://github.com/pnpm/pnpm/pull/1799) file.
 - A `.prettierrc` file written in JSON or YAML.
 - A `.prettierrc.json`, `.prettierrc.yml`, `.prettierrc.yaml`, or `.prettierrc.json5` file.
 - A `.prettierrc.js`, or `prettier.config.js` file that exports an object using `export default` or `module.exports` (depends on the [`type`](https://nodejs.org/api/packages.html#type) value in your `package.json`).
@@ -33,12 +33,15 @@ JSON:
 }
 ```
 
-JS(ESM):
+JS (ES Modules):
 
 ```js
 // prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
 
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/en/configuration.html
+ * @type {import("prettier").Config}
+ */
 const config = {
   trailingComma: "es5",
   tabWidth: 4,
@@ -49,12 +52,15 @@ const config = {
 export default config;
 ```
 
-JS(CommonJS):
+JS (CommonJS):
 
 ```js
 // prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs
 
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/en/configuration.html
+ * @type {import("prettier").Config}
+ */
 const config = {
   trailingComma: "es5",
   tabWidth: 4,
@@ -130,37 +136,6 @@ overrides:
 
 `files` is required for each override, and may be a string or array of strings. `excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.
 
-## Sharing configurations
-
-Sharing a Prettier configuration is simple: just publish a module that exports a configuration object, say `@company/prettier-config`, and reference it in your `package.json`:
-
-```json
-{
-  "name": "my-cool-library",
-  "version": "9000.0.1",
-  "prettier": "@company/prettier-config"
-}
-```
-
-If you don’t want to use `package.json`, you can use any of the supported extensions to export a string, e.g. `.prettierrc.json`:
-
-```json
-"@company/prettier-config"
-```
-
-An example configuration repository is available [here](https://github.com/azz/prettier-config).
-
-> Note: This method does **not** offer a way to _extend_ the configuration to overwrite some properties from the shared configuration. If you need to do that, import the file in a `.prettierrc.js` file and export the modifications, e.g:
->
-> ```js
-> import companyPrettierConfig from "@company/prettier-config";
->
-> export default {
->   ...companyPrettierConfig,
->   semi: false,
-> };
-> ```
-
 ## Setting the [parser](options.md#parser) option
 
 By default, Prettier automatically infers which parser to use based on the input file extension. Combined with `overrides` you can teach Prettier how to parse files it does not recognize.
@@ -197,11 +172,11 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 
 ## Configuration Schema
 
-If you’d like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
+If you’d like a JSON schema to validate your configuration, one is available here: <https://json.schemastore.org/prettierrc>.
 
 ## EditorConfig
 
-If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc.
+If a [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc.
 
 Here’s an annotated description of how different properties map to Prettier’s behavior:
 

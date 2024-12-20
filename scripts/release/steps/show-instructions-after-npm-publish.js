@@ -36,9 +36,15 @@ export function getReleaseUrl(version, previousVersion) {
 export default async function showInstructionsAfterNpmPublish({
   version,
   previousVersion,
+  next,
 }) {
-  const releaseUrl = getReleaseUrl(version, previousVersion);
+  if (next) {
+    console.log(`${chalk.green.bold(`Prettier ${version} published!`)}`);
+    await waitForEnter();
+    return;
+  }
 
+  const releaseUrl = getReleaseUrl(version, previousVersion);
   console.log(
     outdent`
       ${chalk.green.bold(`Prettier ${version} published!`)}
@@ -48,12 +54,6 @@ export default async function showInstructionsAfterNpmPublish({
       ${chalk.bold.underline("Create a GitHub Release")}
       - Go to ${chalk.cyan.underline(releaseUrl)}
       - Press ${chalk.bgGreen.black("Publish release ")}
-
-      ${chalk.bold.underline("Test the new release")}
-      - In a new session, run ${chalk.yellow(
-        "npm i prettier@latest",
-      )} in another directory
-      - Test the API and CLI
 
       After that, we can proceed to bump this repo's Prettier dependency.
     `,

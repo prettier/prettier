@@ -19,22 +19,7 @@ This will install [husky](https://github.com/typicode/husky) and [lint-staged](h
 
 Read more at the [lint-staged](https://github.com/okonet/lint-staged#configuration) repo.
 
-## Option 2. [pre-commit](https://github.com/pre-commit/pre-commit)
-
-**Use Case:** Great when working with multi-language projects.
-
-Copy the following config into your `.pre-commit-config.yaml` file:
-
-```yaml
-- repo: https://github.com/pre-commit/mirrors-prettier
-  rev: "" # Use the sha or tag you want to point at
-  hooks:
-    - id: prettier
-```
-
-Read more at [mirror of prettier package for pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
-
-## Option 3. [Husky.Net](https://github.com/alirezanet/Husky.Net)
+## Option 2. [Husky.Net](https://github.com/alirezanet/Husky.Net)
 
 **Use Case:** A dotnet solution to use Prettier along with other code quality tools (e.g. dotnet-format, ESLint, Stylelint, etc.). It supports multiple file states (staged - last-commit, git-files etc.)
 
@@ -55,7 +40,7 @@ after installation you can add prettier task to the `task-runner.json`.
 }
 ```
 
-## Option 4. [git-format-staged](https://github.com/hallettj/git-format-staged)
+## Option 3. [git-format-staged](https://github.com/hallettj/git-format-staged)
 
 **Use Case:** Great for when you want to format partially-staged files, and other options do not provide a good fit for your project.
 
@@ -72,25 +57,33 @@ Git-format-staged requires Python v3 or v2.7. Python is usually pre-installed on
 <!--npm-->
 
 ```bash
-npx husky-init
+npx husky init
 npm install --save-dev git-format-staged
-npx husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
 <!--yarn-->
 
 ```bash
-npx husky-init # add --yarn2 for Yarn 2
+yarn husky init
 yarn add --dev git-format-staged
-yarn husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
 <!--pnpm-->
 
 ```bash
-pnpm exec husky-init
+pnpm exec husky init
 pnpm add --save-dev git-format-staged
-pnpm husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
+```
+
+<!--bun-->
+
+```bash
+bunx husky init
+bun add --dev git-format-staged
+bun --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
@@ -99,7 +92,7 @@ Add or remove file extensions to suit your project. Note that regardless of whic
 
 To read about how git-format-staged works see [Automatic Code Formatting for Partially-Staged Files](https://www.olioapps.com/blog/automatic-code-formatting/).
 
-## Option 5. Shell script
+## Option 4. Shell script
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 

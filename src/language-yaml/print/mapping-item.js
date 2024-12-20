@@ -1,4 +1,4 @@
-/** @typedef {import("../../document/builders.js").Doc} Doc */
+/** @import {Doc} from "../../document/builders.js" */
 
 import {
   conditionalGroup,
@@ -8,13 +8,13 @@ import {
   line,
 } from "../../document/builders.js";
 import {
+  hasEndComments,
   hasLeadingComments,
   hasMiddleComments,
   hasTrailingComment,
-  hasEndComments,
-  isNode,
   isEmptyNode,
   isInlineNode,
+  isNode,
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
 
@@ -112,6 +112,8 @@ function printMappingItem(path, print, options) {
     implicitMappingValueParts.push(hardline);
   } else if (value.content) {
     implicitMappingValueParts.push(line);
+  } else if (hasTrailingComment(value)) {
+    implicitMappingValueParts.push(" ");
   }
   implicitMappingValueParts.push(printedValue);
   const implicitMappingValue = alignWithSpaces(
@@ -163,7 +165,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
 
   if (
     // backslash-newline
-    /\\$/m.test(
+    /\\$/mu.test(
       options.originalText.slice(
         node.position.start.offset,
         node.position.end.offset,
@@ -177,7 +179,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
     case "never":
       return !node.value.includes("\n");
     case "always":
-      return !/[\n ]/.test(node.value);
+      return !/[\n ]/u.test(node.value);
     default:
       /* c8 ignore next */
       return false;

@@ -17,6 +17,6 @@ describe("throw error with invalid ignore", () => {
           "../cli/invalid-ignore/.prettierignore",
         ),
       }),
-    ).rejects.toThrow(/EISDIR: illegal operation on a directory/);
+    ).rejects.toThrow(/EISDIR: illegal operation on a directory/u);
   });
 });

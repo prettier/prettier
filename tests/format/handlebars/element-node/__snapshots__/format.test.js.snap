@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`element-node.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div class="attribute" {{modifier}} {{! comment}}>
+  Hello
+</div>
+
+<div>
+  Hello
+</div>
+
+<div>
+  hi
+</div>
+
+<div>
+  A long enough string to trigger a line break that would prevent wrapping.
+</div>
+
+<div>
+  A long enough string to trigger a line break that would prevent wrapping more.
+</div>
+
+<div>
+  A long enough string to trigger a line break that would prevent wrapping more and more.
+</div>
+
+<div>
+  {{#block}}
+    {{hello}}
+  {{/block}}
+</div>
+
+<div>
+  {{hello}}
+</div>
+
+<div></div>
+<img />
+
+<MyComponent @prop={{true}} @prop2={{true}} @prop3={{true}} @prop4={{true}} as |thing|></MyComponent>
+
+<div />
+<div></div>
+<custom-component />
+<custom-component></custom-component>
+<i />
+<i></i>
+<Component />
+<Component></Component>
+
+=====================================output=====================================
+<div class="attribute" {{modifier}} {{! comment}}>
+  Hello
+</div>
+
+<div>
+  Hello
+</div>
+
+<div>
+  hi
+</div>
+
+<div>
+  A long enough string to trigger a line break that would prevent wrapping.
+</div>
+
+<div>
+  A long enough string to trigger a line break that would prevent wrapping more.
+</div>
+
+<div>
+  A long enough string to trigger a line break that would prevent wrapping more
+  and more.
+</div>
+
+<div>
+  {{#block}}
+    {{hello}}
+  {{/block}}
+</div>
+
+<div>
+  {{hello}}
+</div>
+
+<div></div>
+<img />
+
+<MyComponent
+  @prop={{true}}
+  @prop2={{true}}
+  @prop3={{true}}
+  @prop4={{true}}
+  as |thing|
+/>
+
+<div />
+<div></div>
+<custom-component />
+<custom-component></custom-component>
+<i />
+<i></i>
+<Component />
+<Component />
+================================================================================
+`;
+
+exports[`element-parts.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+    <Foo as |bar|>
+<bar.x.y class='bar'/>
+      <bar.x.y class='bar'></bar.x.y>
+    </Foo>
+
+=====================================output=====================================
+<Foo as |bar|>
+  <bar.x.y class="bar" />
+  <bar.x.y class="bar" />
+</Foo>
+================================================================================
+`;
+
+exports[`snippet: basefont format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<basefont> text </basefont>
+=====================================output=====================================
+<basefont> text </basefont>
+================================================================================
+`;
+
+exports[`snippet: bgsound format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<bgsound> text </bgsound>
+=====================================output=====================================
+<bgsound> text </bgsound>
+================================================================================
+`;
+
+exports[`snippet: frame format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<frame> text </frame>
+=====================================output=====================================
+<frame> text </frame>
+================================================================================
+`;
+
+exports[`snippet: image format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<image> text </image>
+=====================================output=====================================
+<image> text </image>
+================================================================================
+`;
+
+exports[`snippet: isindex format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<isindex> text </isindex>
+=====================================output=====================================
+<isindex> text </isindex>
+================================================================================
+`;
+
+exports[`snippet: menuitem format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<menuitem> text </menuitem>
+=====================================output=====================================
+<menuitem> text </menuitem>
+================================================================================
+`;
+
+exports[`snippet: nextid format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<nextid> text </nextid>
+=====================================output=====================================
+<nextid> text </nextid>
+================================================================================
+`;
+
+exports[`void-elements.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<img>
+<input>
+
+=====================================output=====================================
+<img />
+<input />
+================================================================================
+`;

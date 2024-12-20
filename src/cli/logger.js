@@ -1,7 +1,7 @@
 import readline from "node:readline";
 import chalk, { chalkStderr } from "chalk";
 import stripAnsi from "strip-ansi";
-import wcwidth from "wcwidth";
+import wcwidth from "wcwidth.js";
 
 const countLines = (stream, text) => {
   const columns = stream.columns || 80;
@@ -52,7 +52,7 @@ function createLogger(logLevel = "log") {
         ...options,
       };
       message =
-        message.replaceAll(/^/gm, prefix) + (options.newline ? "\n" : "");
+        message.replaceAll(/^/gmu, prefix) + (options.newline ? "\n" : "");
       stream.write(message);
 
       if (options.clearable) {

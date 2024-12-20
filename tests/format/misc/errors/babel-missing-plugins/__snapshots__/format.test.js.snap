@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel] format 1`] = `
+"Unexpected token. (1:8)
+> 1 | export type Foo = number;
+    |        ^"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"Unexpected token. (1:4)
+> 1 | 100m;
+    |    ^"
+`;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"Unexpected token. (1:8)
+> 1 | import module foo from "./module.wasm";
+    |        ^"
+`;

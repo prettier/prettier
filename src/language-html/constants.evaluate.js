@@ -13,7 +13,7 @@ const getCssStyleTags = (property) =>
       }
 
       const tagNames = selectors.filter((selector) =>
-        /^[\dA-Za-z]+$/.test(selector),
+        /^[\da-z]+$/iu.test(selector),
       );
 
       return tagNames.map((tagName) => [tagName, style.value]);
@@ -34,8 +34,6 @@ const CSS_DISPLAY_TAGS = {
   // noscript: "inline",
 
   // there's no css display for these elements but they behave these ways
-  details: "block",
-  summary: "block",
   meter: "inline-block",
   progress: "inline-block",
   object: "inline-block",
@@ -50,8 +48,8 @@ const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");
 const CSS_WHITE_SPACE_DEFAULT = "normal";
 
 export {
-  CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
-  CSS_WHITE_SPACE_TAGS,
+  CSS_DISPLAY_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
+  CSS_WHITE_SPACE_TAGS,
 };

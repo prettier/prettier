@@ -1,6 +1,6 @@
 import { wrap as raw } from "jest-snapshot-serializer-raw";
-import visualizeRange from "./visualize-range.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
+import visualizeRange from "./visualize-range.js";
 
 const SEPARATOR_WIDTH = 80;
 function printSeparator(description = "") {
@@ -13,8 +13,8 @@ function stringify(value) {
   return value === Number.POSITIVE_INFINITY
     ? "Infinity"
     : Array.isArray(value)
-    ? `[${value.map((v) => JSON.stringify(v)).join(", ")}]`
-    : JSON.stringify(value);
+      ? `[${value.map((v) => JSON.stringify(v)).join(", ")}]`
+      : JSON.stringify(value);
 }
 
 function printOptions(options) {
@@ -69,7 +69,7 @@ function createSnapshot(
     }
 
     input = visualizeRange(input, { rangeStart, rangeEnd });
-    codeOffset = input.match(/^>?\s+1 \|/)[0].length + 1;
+    codeOffset = input.match(/^>?\s+1 \|/u)[0].length + 1;
   }
 
   if ("endOfLine" in formatOptions) {

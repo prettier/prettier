@@ -11,6 +11,13 @@ const visitorKeys = {
   comment: [],
   attribute: [],
   cdata: [],
+  angularControlFlowBlock: ["children", "parameters"],
+  angularControlFlowBlockParameters: ["children"],
+  angularControlFlowBlockParameter: [],
+  angularLetDeclaration: ["init"],
+  angularLetDeclarationInitializer: [],
+  angularIcuExpression: ["cases"],
+  angularIcuCase: ["expression"],
 };
 
 export default visitorKeys;

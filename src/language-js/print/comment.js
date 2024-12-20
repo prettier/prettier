@@ -1,8 +1,7 @@
-import { join, hardline } from "../../document/builders.js";
+import { hardline, join } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-
+import { locEnd, locStart } from "../loc.js";
 import { isLineComment } from "../utils/index.js";
-import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
 import isIndentableBlockComment from "../utils/is-indentable-block-comment.js";
 
@@ -45,4 +44,4 @@ function printIndentableBlockComment(comment) {
   ];
 }
 
-export { printComment, isIndentableBlockComment };
+export { printComment };

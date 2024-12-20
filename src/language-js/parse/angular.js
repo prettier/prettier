@@ -4,7 +4,7 @@ import {
   parseInterpolationExpression,
   parseTemplateBindings,
 } from "angular-estree-parser";
-import { locStart, locEnd } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 
 /**
  * @param {parseAction | parseBinding | parseInterpolationExpression | parseTemplateBindings} parseMethod

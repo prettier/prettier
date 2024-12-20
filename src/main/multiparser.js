@@ -1,10 +1,12 @@
 import { stripTrailingHardline } from "../document/utils.js";
+import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
 import parse from "./parse.js";
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
+
+/** @import AstPath from "../common/ast-path.js" */
 
 async function printEmbeddedLanguages(
-  /** @type {import("../common/ast-path.js").default} */ path,
+  /** @type {AstPath} */ path,
   genericPrint,
   options,
   printAstToDoc,

@@ -1,5 +1,7 @@
+/** @import {Plugin, Settings} from "unified" */
+
 /**
- * @type {import('unified').Plugin<[], import('unified').Settings>}
+ * @type {Plugin<[], Settings>}
  */
 const liquid = function () {
   const proto = this.Parser.prototype;
@@ -8,7 +10,7 @@ const liquid = function () {
   proto.inlineTokenizers.liquid = tokenizer;
 
   function tokenizer(eat, value) {
-    const match = value.match(/^({%.*?%}|{{.*?}})/s);
+    const match = value.match(/^(\{%.*?%\}|\{\{.*?\}\})/su);
 
     if (match) {
       return eat(match[0])({

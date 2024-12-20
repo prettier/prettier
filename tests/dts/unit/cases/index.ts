@@ -13,6 +13,7 @@ prettier.getFileInfo("./tsconfig.json").then((result) => {
     throw new Error("Bad parser");
   }
 });
+prettier.getFileInfo("path/to/some/file", { plugins: ["my-plugin"] });
 // @ts-expect-error
 prettier.resolveConfig();
 prettier.resolveConfigFile().then((filePath) => {
@@ -27,6 +28,7 @@ prettier.resolveConfigFile("/path").then((filePath) => {
 });
 prettier.clearConfigCache();
 prettier.getSupportInfo();
+prettier.getSupportInfo({ showDeprecated: true, plugins: ["my-plugin"] });
 
 prettier.doc.builders.trim;
 prettier.doc.builders.trim.type;

@@ -22,11 +22,11 @@
  * THE SOFTWARE.
  */
 
-const IMPORT_REGEX = /^import\s/;
-const EXPORT_REGEX = /^export\s/;
-const BLOCKS_REGEX = "[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)*|";
-const COMMENT_REGEX = /<!---->|<!---?[^>-](?:-?[^-])*-->/;
-const ES_COMMENT_REGEX = /^{\s*\/\*(.*)\*\/\s*}/;
+const IMPORT_REGEX = /^import\s/u;
+const EXPORT_REGEX = /^export\s/u;
+const BLOCKS_REGEX = String.raw`[a-z][a-z0-9]*(\.[a-z][a-z0-9]*)*|`;
+const COMMENT_REGEX = /<!---->|<!---?[^>-](?:-?[^-])*-->/u;
+const ES_COMMENT_REGEX = /^\{\s*\/\*(.*)\*\/\s*\}/u;
 const EMPTY_NEWLINE = "\n\n";
 
 const isImport = (text) => IMPORT_REGEX.test(text);
@@ -61,8 +61,10 @@ tokenizeEsSyntax.locator = (value /*, fromIndex*/) =>
 
 tokenizeEsComment.locator = (value, fromIndex) => value.indexOf("{", fromIndex);
 
+/** @import {Plugin, Settings} from "unified" */
+
 /**
- * @type {import('unified').Plugin<[], import('unified').Settings>}
+ * @type {Plugin<[], Settings>}
  */
 const esSyntax = function () {
   const { Parser } = this;
@@ -76,4 +78,4 @@ const esSyntax = function () {
   inlineMethods.splice(inlineMethods.indexOf("text"), 0, "esComment");
 };
 
-export { esSyntax, BLOCKS_REGEX, COMMENT_REGEX };
+export { BLOCKS_REGEX, COMMENT_REGEX, esSyntax };

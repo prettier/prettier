@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { runGit, fetchText, logPromise, processFile } from "../utils.js";
+import { fetchText, logPromise, processFile, runGit } from "../utils.js";
 
 async function update() {
   const npmPage = await logPromise(
@@ -7,7 +7,7 @@ async function update() {
     fetchText("https://www.npmjs.com/package/prettier"),
   );
   const dependentsCountNpm = Number(
-    npmPage.match(/"dependentsCount":(\d+),/)[1],
+    npmPage.match(/"dependentsCount":(\d+),/u)[1],
   );
   if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
@@ -23,7 +23,7 @@ async function update() {
     githubPage
       .replaceAll("\n", "")
       .match(
-        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/,
+        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/u,
       )[1]
       .replaceAll(",", ""),
   );
@@ -36,11 +36,11 @@ async function update() {
   processFile("website/pages/en/index.js", (content) =>
     content
       .replace(
-        /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
+        /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/u,
         `$1${formatNumber(dependentsCountNpm)}$3`,
       )
       .replace(
-        /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
+        /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/u,
         `$1${formatNumber(dependentsCountGithub)}$3`,
       ),
   );
@@ -71,8 +71,8 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-export default async function updateDependentsCount({ dry }) {
-  if (dry) {
+export default async function updateDependentsCount({ dry, next }) {
+  if (dry || next) {
     return;
   }
 

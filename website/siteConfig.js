@@ -52,7 +52,6 @@ const siteConfig = {
   },
   highlight: {
     theme: "default",
-    // eslint-disable-next-line import/no-extraneous-dependencies -- This is a docusaurus dependency
     version: require("highlight.js/package.json").version,
   },
   usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html", "css"],
@@ -78,7 +77,7 @@ const siteConfig = {
         (state, startLine) => {
           const pos = state.bMarks[startLine];
           const max = state.eMarks[startLine];
-          if (/<!-- prettier-ignore -->/.test(state.src.slice(pos, max))) {
+          if (/<!-- prettier-ignore -->/u.test(state.src.slice(pos, max))) {
             state.line += 1;
             return true;
           }

@@ -1,7 +1,7 @@
 import { group, indent, softline } from "../../document/builders.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 function printExpand(doc, canHaveTrailingWhitespace = true) {
@@ -17,8 +17,8 @@ function shouldHugJsExpression(ast, options) {
         ? ast.node.body[0].expression
         : ast.node
       : ast.type === "JsExpressionRoot"
-      ? ast.node
-      : ast;
+        ? ast.node
+        : ast;
   return (
     rootNode &&
     (rootNode.type === "ObjectExpression" ||
@@ -62,4 +62,4 @@ async function formatAttributeValue(
   return shouldHug ? group(doc) : printExpand(doc);
 }
 
-export { printExpand, formatAttributeValue, shouldHugJsExpression };
+export { formatAttributeValue, printExpand, shouldHugJsExpression };

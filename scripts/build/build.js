@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import path from "node:path";
 import fs from "node:fs/promises";
+import path from "node:path";
 import readline from "node:readline";
 import chalk from "chalk";
-import prettyBytes from "pretty-bytes";
 import createEsmUtils from "esm-utils";
+import prettyBytes from "pretty-bytes";
 import { DIST_DIR } from "../utils/index.js";
 import files from "./config.js";
 import parseArguments from "./parse-arguments.js";
@@ -44,7 +44,7 @@ const clear = () => {
   readline.cursorTo(process.stdout, 0, null);
 };
 
-async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
+async function buildFile({ file, files, cliOptions, results }) {
   let displayName = file.output.file;
   if (
     (file.platform === "universal" && file.output.format !== "esm") ||
@@ -67,37 +67,32 @@ async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
 
   let result;
   try {
-    result = await file.build({
-      file,
-      files,
-      shouldCollectLicenses,
-      cliOptions,
-    });
+    result = await file.build({ file, files, cliOptions, results });
   } catch (error) {
     console.log(status.FAIL + "\n");
     console.error(error);
     throw error;
   }
 
-  result ??= {
-    file: cliOptions.saveAs ?? file.output.file,
-  };
+  result ??= {};
 
   if (result.skipped) {
     console.log(status.SKIPPED);
     return;
   }
 
+  const outputFile = cliOptions.saveAs ?? file.output.file;
+
   const sizeMessages = [];
   if (cliOptions.printSize) {
-    const { size } = await fs.stat(path.join(DIST_DIR, result.file));
+    const { size } = await fs.stat(path.join(DIST_DIR, outputFile));
     sizeMessages.push(prettyBytes(size));
   }
 
   if (cliOptions.compareSize) {
     // TODO: Use `import.meta.resolve` when Node.js support
     const stablePrettierDirectory = path.dirname(require.resolve("prettier"));
-    const stableVersionFile = path.join(stablePrettierDirectory, result.file);
+    const stableVersionFile = path.join(stablePrettierDirectory, outputFile);
     let stableSize;
     try {
       ({ size: stableSize } = await fs.stat(stableVersionFile));
@@ -106,7 +101,7 @@ async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
     }
 
     if (stableSize) {
-      const { size } = await fs.stat(path.join(DIST_DIR, result.file));
+      const { size } = await fs.stat(path.join(DIST_DIR, outputFile));
       const sizeDiff = size - stableSize;
       const message = chalk[sizeDiff > 0 ? "yellow" : "green"](
         prettyBytes(sizeDiff),
@@ -127,6 +122,8 @@ async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
   }
 
   console.log(status.DONE);
+
+  return result;
 }
 
 async function run() {
@@ -149,15 +146,12 @@ async function run() {
     }
   }
 
-  const shouldCollectLicenses =
-    !cliOptions.playground &&
-    !cliOptions.files &&
-    typeof cliOptions.minify !== "boolean";
-
   console.log(chalk.inverse(" Building packages "));
 
+  const results = [];
   for (const file of files) {
-    await buildFile({ file, files, shouldCollectLicenses, cliOptions });
+    const result = await buildFile({ file, files, cliOptions, results });
+    results.push(result);
   }
 }
 

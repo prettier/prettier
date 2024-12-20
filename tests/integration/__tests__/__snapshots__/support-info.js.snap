@@ -26,7 +26,7 @@ exports[`API getSupportInfo() 1`] = `
       "json",
     ],
     "JSON with Comments": [
-      "json",
+      "jsonc",
     ],
     "JSON.stringify": [
       "json-stringify",
@@ -170,6 +170,7 @@ exports[`API getSupportInfo() 1`] = `
         "scss",
         "json",
         "json5",
+        "jsonc",
         "json-stringify",
         "graphql",
         "markdown",
@@ -487,7 +488,12 @@ exports[`CLI --support-info (stdout) 1`] = `
         "Pipfile.lock",
         "composer.lock",
         "flake.lock",
-        "mcmod.info"
+        "mcmod.info",
+        ".babelrc",
+        ".jscsrc",
+        ".jshintrc",
+        ".jslintrc",
+        ".swcrc"
       ],
       "linguistLanguageId": 174,
       "name": "JSON",
@@ -505,6 +511,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "extensions": [
         ".jsonc",
         ".code-snippets",
+        ".code-workspace",
         ".sublime-build",
         ".sublime-commands",
         ".sublime-completions",
@@ -519,26 +526,11 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".sublime_metrics",
         ".sublime_session"
       ],
-      "filenames": [
-        ".babelrc",
-        ".devcontainer.json",
-        ".eslintrc.json",
-        ".jscsrc",
-        ".jshintrc",
-        ".jslintrc",
-        ".swcrc",
-        "api-extractor.json",
-        "devcontainer.json",
-        "jsconfig.json",
-        "language-configuration.json",
-        "tsconfig.json",
-        "tslint.json",
-        ".eslintrc"
-      ],
+      "filenames": [],
       "group": "JSON",
       "linguistLanguageId": 423,
       "name": "JSON with Comments",
-      "parsers": ["json"],
+      "parsers": ["jsonc"],
       "tmScope": "source.js",
       "type": "data",
       "vscodeLanguageIds": ["jsonc"]
@@ -805,7 +797,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "category": "Special",
       "default": -1,
-      "description": "Print (to stderr) where a cursor at the given position would move to after formatting.\\nThis option cannot be used with --range-start and --range-end.",
+      "description": "Print (to stderr) where a cursor at the given position would move to after formatting.",
       "name": "cursorOffset",
       "pluginDefaults": {},
       "range": { "end": null, "start": -1, "step": 1 },
@@ -925,6 +917,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         { "description": "SCSS", "value": "scss" },
         { "description": "JSON", "value": "json" },
         { "description": "JSON5", "value": "json5" },
+        { "description": "JSON with Comments", "value": "jsonc" },
         { "description": "JSON.stringify", "value": "json-stringify" },
         { "description": "GraphQL", "value": "graphql" },
         { "description": "Markdown", "value": "markdown" },
@@ -1000,7 +993,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "category": "Special",
       "default": null,
-      "description": "Format code ending at a given character offset (exclusive).\\nThe range will extend forwards to the end of the selected statement.\\nThis option cannot be used with --cursor-offset.",
+      "description": "Format code ending at a given character offset (exclusive).\\nThe range will extend forwards to the end of the selected statement.",
       "name": "rangeEnd",
       "pluginDefaults": {},
       "range": { "end": null, "start": 0, "step": 1 },
@@ -1009,7 +1002,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "category": "Special",
       "default": 0,
-      "description": "Format code starting at a given character offset.\\nThe range will extend backwards to the start of the first line containing the selected statement.\\nThis option cannot be used with --cursor-offset.",
+      "description": "Format code starting at a given character offset.\\nThe range will extend backwards to the start of the first line containing the selected statement.",
       "name": "rangeStart",
       "pluginDefaults": {},
       "range": { "end": null, "start": 0, "step": 1 },

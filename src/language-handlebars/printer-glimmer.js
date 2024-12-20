@@ -11,16 +11,17 @@ import {
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
-import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
-import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
-import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
+import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
+import { locEnd, locStart } from "./loc.js";
+import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
@@ -127,13 +128,13 @@ function print(path, options, print) {
       const quote = isText
         ? getPreferredQuote(value.chars, options.singleQuote)
         : value.type === "ConcatStatement"
-        ? getPreferredQuote(
-            value.parts
-              .map((part) => (part.type === "TextNode" ? part.chars : ""))
-              .join(""),
-            options.singleQuote,
-          )
-        : "";
+          ? getPreferredQuote(
+              value.parts
+                .map((part) => (part.type === "TextNode" ? part.chars : ""))
+                .join(""),
+              options.singleQuote,
+            )
+          : "";
 
       const valueDoc = print("value");
 
@@ -156,17 +157,25 @@ function print(path, options, print) {
       return [node.key, "=", print("value")];
 
     case "TextNode": {
+      // Don't format content:
+      // 1. in `<pre>`,
+      // 2. in `<style>`
+
+      if (path.parent.tag === "pre" || path.parent.tag === "style") {
+        return node.chars;
+      }
+
       /* if `{{my-component}}` (or any text containing "{{")
        * makes it to the TextNode, it means it was escaped,
        * so let's print it escaped, ie.; `\{{my-component}}` */
-      let text = node.chars.replaceAll("{{", "\\{{");
+      let text = node.chars.replaceAll("{{", String.raw`\{{`);
 
       const attrName = getCurrentAttributeName(path);
 
       if (attrName) {
         // TODO: format style and srcset attributes
         if (attrName === "class") {
-          const formattedClasses = text.trim().split(/\s+/).join(" ");
+          const formattedClasses = text.trim().split(/\s+/u).join(" ");
 
           let leadingSpace = false;
           let trailingSpace = false;
@@ -174,13 +183,13 @@ function print(path, options, print) {
           if (path.parent.type === "ConcatStatement") {
             if (
               path.previous?.type === "MustacheStatement" &&
-              /^\s/.test(text)
+              /^\s/u.test(text)
             ) {
               leadingSpace = true;
             }
             if (
               path.next?.type === "MustacheStatement" &&
-              /\s$/.test(text) &&
+              /\s$/u.test(text) &&
               formattedClasses !== ""
             ) {
               trailingSpace = true;
@@ -366,7 +375,7 @@ function print(path, options, print) {
       ];
     }
     case "PathExpression":
-      return node.original;
+      return printPathExpression(node);
 
     case "BooleanLiteral":
       return String(node.value);
@@ -386,6 +395,9 @@ function print(path, options, print) {
     case "NullLiteral":
       return "null";
 
+    case "AtHead": // Handled in `printPathExpression`
+    case "VarHead": // Handled in `printPathExpression`
+    case "ThisHead": // Handled in `printPathExpression`
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Handlebars");
@@ -449,13 +461,13 @@ function printStartingTagEndMarker(node) {
 /* MustacheStatement print helpers */
 
 function printOpeningMustache(node) {
-  const mustache = node.escaped === false ? "{{{" : "{{";
+  const mustache = node.trusting ? "{{{" : "{{";
   const strip = node.strip?.open ? "~" : "";
   return [mustache, strip];
 }
 
 function printClosingMustache(node) {
-  const mustache = node.escaped === false ? "}}}" : "}}";
+  const mustache = node.trusting ? "}}}" : "}}";
   const strip = node.strip?.close ? "~" : "";
   return [strip, mustache];
 }
@@ -530,12 +542,17 @@ function printElseBlock(node, options) {
   ];
 }
 
+const isPathWithSameHead = (pathA, pathB) =>
+  pathA.head.type === "VarHead" &&
+  pathB.head.type === "VarHead" &&
+  pathA.head.name === pathB.head.name;
+
 function isElseIfLike(path) {
   const { grandparent, node } = path;
   return (
     grandparent?.inverse?.body.length === 1 &&
     grandparent.inverse.body[0] === node &&
-    grandparent.inverse.body[0].path.parts[0] === grandparent.path.parts[0]
+    isPathWithSameHead(grandparent.inverse.body[0].path, grandparent.path)
   );
 }
 
@@ -543,7 +560,7 @@ function printElseIfLikeBlock(path, print) {
   const { node, grandparent } = path;
   return group([
     printInverseBlockOpeningMustache(grandparent),
-    ["else", " ", grandparent.inverse.body[0].path.parts[0]],
+    ["else", " ", grandparent.inverse.body[0].path.head.name],
     indent([
       line,
       group(printParams(path, print)),
@@ -591,7 +608,7 @@ function blockStatementHasElseIfLike(node) {
     blockStatementHasElse(node) &&
     node.inverse.body.length === 1 &&
     node.inverse.body[0].type === "BlockStatement" &&
-    node.inverse.body[0].path.parts[0] === node.path.parts[0]
+    isPathWithSameHead(node.inverse.body[0].path, node.path)
   );
 }
 
@@ -659,14 +676,14 @@ function countNewLines(string) {
 function countLeadingNewLines(string) {
   /* c8 ignore next */
   string = typeof string === "string" ? string : "";
-  const newLines = (string.match(/^([^\S\n\r]*[\n\r])+/g) || [])[0] || "";
+  const newLines = (string.match(/^([^\S\n\r]*[\n\r])+/gu) || [])[0] || "";
   return countNewLines(newLines);
 }
 
 function countTrailingNewLines(string) {
   /* c8 ignore next */
   string = typeof string === "string" ? string : "";
-  const newLines = (string.match(/([\n\r][^\S\n\r]*)+$/g) || [])[0] || "";
+  const newLines = (string.match(/([\n\r][^\S\n\r]*)+$/gu) || [])[0] || "";
   return countNewLines(newLines);
 }
 
@@ -678,7 +695,7 @@ function generateHardlines(number = 0) {
 
 /* StringLiteral print helpers */
 
-/** @typedef {import("../utils/get-preferred-quote.js").Quote} Quote */
+/** @import {Quote} from "../utils/get-preferred-quote.js" */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on
@@ -764,11 +781,51 @@ function printBlockParams(node) {
   return ["as |", node.blockParams.join(" "), "|"];
 }
 
+// https://handlebarsjs.com/guide/expressions.html#literal-segments
+const PATH_EXPRESSION_FORBIDDEN_CHARACTERS = new Set(
+  "!\"#%&'()*+,./;<=>@[\\]^`{|}~",
+);
+const PATH_EXPRESSION_FORBIDDEN_IN_FIRST_PART = new Set([
+  "true",
+  "false",
+  "null",
+  "undefined",
+]);
+const isPathExpressionPartNeedBrackets = (part, index) => {
+  if (index === 0 && part.startsWith("@")) {
+    return false;
+  }
+
+  return (
+    (index !== 0 && PATH_EXPRESSION_FORBIDDEN_IN_FIRST_PART.has(part)) ||
+    /\s/u.test(part) ||
+    /^\d/u.test(part) ||
+    Array.prototype.some.call(part, (character) =>
+      PATH_EXPRESSION_FORBIDDEN_CHARACTERS.has(character),
+    )
+  );
+};
+function printPathExpression(node) {
+  // check if node is a legacy path expression and leave it alone
+  if (node.tail.length === 0 && node.original.includes("/")) {
+    return node.original;
+  }
+
+  const parts = [node.head.original, ...node.tail];
+
+  return parts
+    .map((part, index) =>
+      isPathExpressionPartNeedBrackets(part, index) ? `[${part}]` : part,
+    )
+    .join(".");
+}
+
 const printer = {
   print,
   massageAstNode: clean,
   hasPrettierIgnore,
   getVisitorKeys,
+  embed,
 };
 
 export default printer;

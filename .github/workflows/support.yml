@@ -11,7 +11,7 @@ jobs:
   support:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/support-requests@v3.0.0
+      - uses: dessant/support-requests@v4.0.0
         with:
           github-token: ${{ github.token }}
           support-label: "type:question"

@@ -3,18 +3,17 @@ import {
   getFunctionParameters,
   hasNodeIgnoreComment,
   isJsxElement,
+  isUnionType,
 } from "../utils/index.js";
 
 /**
- * @typedef {import("../types/estree.js").Node} Node
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import {Node} from "../types/estree.js"
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 const nodeTypesCanNotAttachComment = new Set([
   "EmptyStatement",
   "TemplateElement",
-  // In ESTree `import` is a token, `import("foo")`
-  "Import",
   // There is no similar node in Babel AST
   // ```ts
   // class Foo {
@@ -71,14 +70,11 @@ function willPrintOwnComments(path) {
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||
-          parent.type === "UnionTypeAnnotation" ||
-          parent.type === "TSUnionType" ||
+          isUnionType(parent) ||
           ((parent.type === "ClassDeclaration" ||
             parent.type === "ClassExpression") &&
             parent.superClass === node)))) &&
-    (!hasNodeIgnoreComment(node) ||
-      parent.type === "UnionTypeAnnotation" ||
-      parent.type === "TSUnionType")
+    (!hasNodeIgnoreComment(node) || isUnionType(parent))
   );
 }
 
@@ -86,12 +82,12 @@ function isGap(text, { parser }) {
   if (parser === "flow" || parser === "babel-flow") {
     // Example: (a /* b */ /* : c */)
     //                gap ^^^^
-    text = text.replaceAll(/[\s(]/g, "");
+    text = text.replaceAll(/[\s(]/gu, "");
     return text === "" || text === "/*" || text === "/*::";
   }
 }
 
-export * as handleComments from "./handle-comments.js";
 export { printComment } from "../print/comment.js";
 export { default as isBlockComment } from "../utils/is-block-comment.js";
-export { canAttachComment, getCommentChildNodes, willPrintOwnComments, isGap };
+export * as handleComments from "./handle-comments.js";
+export { canAttachComment, getCommentChildNodes, isGap, willPrintOwnComments };

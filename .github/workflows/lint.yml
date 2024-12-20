@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.8.1
+        uses: actions/setup-node@v4
         with:
           cache: "yarn"
 
@@ -49,9 +49,11 @@ jobs:
       - name: Lint Changelog
         run: yarn lint:changelog
 
+      - name: Lint blog post
+        run: yarn lint:blog
+
       - name: Lint docs code block
-        # TODO: Lint files in `website/versioned_docs/version-stable` too
-        run: yarn "docs/**/*.md"
+        run: yarn prettier "{docs,website/versioned_docs/version-stable}/**/*.md" --check
         env:
           # Make Prettier throws on embeded format
           PRETTIER_DEBUG: true
@@ -93,6 +95,9 @@ jobs:
           yarn
           yarn dedupe --check
         working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
+
+      - name: Knip
+        run: yarn lint:knip
 
       - name: Check File Changes
         run: echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."

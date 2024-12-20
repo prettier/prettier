@@ -1,7 +1,7 @@
 import path from "node:path";
 import url from "node:url";
-import { isUrl, toPath } from "url-or-path";
 import ignoreModule from "ignore";
+import { isUrl, toPath } from "url-or-path";
 import readFile from "../utils/read-file.js";
 
 const createIgnore = ignoreModule.default;
@@ -18,10 +18,7 @@ const slash =
  */
 function getRelativePath(file, ignoreFile) {
   const ignoreFilePath = toPath(ignoreFile);
-  const filePath = isUrl(file)
-    ? url.fileURLToPath(file)
-    : // @ts-expect-error -- URLs handled by `isUrl`
-      path.resolve(file);
+  const filePath = isUrl(file) ? url.fileURLToPath(file) : path.resolve(file);
 
   return path.relative(
     // If there's an ignore-path set, the filename must be relative to the

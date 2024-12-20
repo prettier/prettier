@@ -1,16 +1,16 @@
 import {
-  DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
-  DOC_TYPE_TRIM,
-  DOC_TYPE_GROUP,
+  DOC_TYPE_BREAK_PARENT,
   DOC_TYPE_FILL,
+  DOC_TYPE_GROUP,
   DOC_TYPE_IF_BREAK,
+  DOC_TYPE_INDENT,
   DOC_TYPE_INDENT_IF_BREAK,
+  DOC_TYPE_LABEL,
+  DOC_TYPE_LINE,
   DOC_TYPE_LINE_SUFFIX,
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
-  DOC_TYPE_LINE,
-  DOC_TYPE_LABEL,
-  DOC_TYPE_BREAK_PARENT,
+  DOC_TYPE_TRIM,
 } from "./constants.js";
 
 function flattenDoc(doc) {
@@ -114,14 +114,14 @@ function printDocToDebug(doc) {
       return doc.n === Number.NEGATIVE_INFINITY
         ? "dedentToRoot(" + printDoc(doc.contents) + ")"
         : doc.n < 0
-        ? "dedent(" + printDoc(doc.contents) + ")"
-        : doc.n.type === "root"
-        ? "markAsRoot(" + printDoc(doc.contents) + ")"
-        : "align(" +
-          JSON.stringify(doc.n) +
-          ", " +
-          printDoc(doc.contents) +
-          ")";
+          ? "dedent(" + printDoc(doc.contents) + ")"
+          : doc.n.type === "root"
+            ? "markAsRoot(" + printDoc(doc.contents) + ")"
+            : "align(" +
+              JSON.stringify(doc.n) +
+              ", " +
+              printDoc(doc.contents) +
+              ")";
     }
 
     if (doc.type === DOC_TYPE_IF_BREAK) {

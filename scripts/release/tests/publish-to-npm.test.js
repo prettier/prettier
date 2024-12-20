@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { URLSearchParams } from "node:url";
 import { describe, it } from "node:test";
+import { URLSearchParams } from "node:url";
 import { getReleaseUrl } from "../steps/show-instructions-after-npm-publish.js";
 
 const RELEASE_URL_BASE = "https://github.com/prettier/prettier/releases/new?";

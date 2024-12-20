@@ -65,7 +65,7 @@ function Versions(props) {
               </tr>
               {pastDocsVersions.length > 0 &&
                 pastDocsVersions.map((pastDocsVersion, index) => {
-                  const pastMajorVersion = pastDocsVersion.replace(/^v/, "");
+                  const pastMajorVersion = pastDocsVersion.replace(/^v/u, "");
                   return (
                     <tr key={index}>
                       <td>{pastMajorVersion}.x</td>

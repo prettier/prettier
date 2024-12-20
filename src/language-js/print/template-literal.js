@@ -1,24 +1,25 @@
-import getStringWidth from "../../utils/get-string-width.js";
-import getIndentSize from "../../utils/get-indent-size.js";
 import {
-  join,
-  hardline,
-  softline,
-  group,
-  indent,
-  align,
-  lineSuffixBoundary,
   addAlignmentToDoc,
+  align,
+  group,
+  hardline,
+  indent,
+  join,
   label,
+  lineSuffixBoundary,
+  softline,
 } from "../../document/builders.js";
 import { printDocToString } from "../../document/printer.js";
 import { mapDoc } from "../../document/utils.js";
+import getIndentSize from "../../utils/get-indent-size.js";
+import getStringWidth from "../../utils/get-string-width.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import { locEnd, locStart } from "../loc.js";
 import {
-  isBinaryish,
-  isSimpleTemplateLiteral,
   hasComment,
-  isMemberExpression,
   isBinaryCastExpression,
+  isBinaryish,
+  isMemberExpression,
 } from "../utils/index.js";
 
 function printTemplateLiteral(path, print, options) {
@@ -37,18 +38,7 @@ function printTemplateLiteral(path, print, options) {
   }
   const parts = [];
 
-  let expressionDocs = path.map(print, expressionsKey);
-  const isSimple = isSimpleTemplateLiteral(node);
-
-  if (isSimple) {
-    expressionDocs = expressionDocs.map(
-      (doc) =>
-        printDocToString(doc, {
-          ...options,
-          printWidth: Number.POSITIVE_INFINITY,
-        }).formatted,
-    );
-  }
+  const expressionDocs = path.map(print, expressionsKey);
 
   parts.push(lineSuffixBoundary, "`");
 
@@ -80,20 +70,43 @@ function printTemplateLiteral(path, print, options) {
 
     let expressionDoc = expressionDocs[index];
 
-    if (!isSimple) {
-      const expression = node[expressionsKey][index];
-      // Breaks at the template element boundaries (${ and }) are preferred to breaking
-      // in the middle of a MemberExpression
-      if (
-        hasComment(expression) ||
+    const expression = node[expressionsKey][index];
+
+    let interpolationHasNewline = hasNewlineInRange(
+      options.originalText,
+      locEnd(quasi),
+      locStart(node.quasis[index + 1]),
+    );
+
+    if (!interpolationHasNewline) {
+      // Never add a newline to an interpolation which didn't already have one...
+      const renderedExpression = printDocToString(expressionDoc, {
+        ...options,
+        printWidth: Number.POSITIVE_INFINITY,
+      }).formatted;
+
+      // ... unless one will be introduced anyway, e.g. by a nested function.
+      // This case is rare, so we can pay the cost of re-rendering.
+      if (renderedExpression.includes("\n")) {
+        interpolationHasNewline = true;
+      } else {
+        expressionDoc = renderedExpression;
+      }
+    }
+
+    // Breaks at the template element boundaries (${ and }) are preferred to breaking
+    // in the middle of a MemberExpression
+    if (
+      interpolationHasNewline &&
+      (hasComment(expression) ||
+        expression.type === "Identifier" ||
         isMemberExpression(expression) ||
         expression.type === "ConditionalExpression" ||
         expression.type === "SequenceExpression" ||
         isBinaryCastExpression(expression) ||
-        isBinaryish(expression)
-      ) {
-        expressionDoc = [indent([softline, expressionDoc]), softline];
-      }
+        isBinaryish(expression))
+    ) {
+      expressionDoc = [indent([softline, expressionDoc]), softline];
     }
 
     const aligned =
@@ -109,11 +122,11 @@ function printTemplateLiteral(path, print, options) {
   return parts;
 }
 
-function printTaggedTemplateLiteral(print) {
+function printTaggedTemplateLiteral(path, print) {
   const quasiDoc = print("quasi");
   return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
     print("tag"),
-    print("typeParameters"),
+    print(path.node.typeArguments ? "typeArguments" : "typeParameters"),
     lineSuffixBoundary,
     quasiDoc,
   ]);
@@ -127,7 +140,7 @@ function printJestEachTemplateLiteral(path, options, print) {
    * ${2} | ${1} | ${3}
    */
   const { node } = path;
-  const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
+  const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/u);
   if (
     headerNames.length > 1 ||
     headerNames.some((headerName) => headerName.length > 0)
@@ -228,7 +241,7 @@ function escapeTemplateCharacters(doc, raw) {
   return mapDoc(doc, (currentDoc) => {
     if (typeof currentDoc === "string") {
       return raw
-        ? currentDoc.replaceAll(/(\\*)`/g, "$1$1\\`")
+        ? currentDoc.replaceAll(/(\\*)`/gu, "$1$1\\`")
         : uncookTemplateElementValue(currentDoc);
     }
 
@@ -237,7 +250,7 @@ function escapeTemplateCharacters(doc, raw) {
 }
 
 function uncookTemplateElementValue(cookedValue) {
-  return cookedValue.replaceAll(/([\\`]|\${)/g, "\\$1");
+  return cookedValue.replaceAll(/([\\`]|\$\{)/gu, String.raw`\$1`);
 }
 
 function isJestEachTemplateLiteral({ node, parent }) {
@@ -251,7 +264,7 @@ function isJestEachTemplateLiteral({ node, parent }) {
    *
    * Ref: https://github.com/facebook/jest/pull/6102
    */
-  const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/;
+  const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/u;
   return (
     parent.type === "TaggedTemplateExpression" &&
     parent.quasi === node &&
@@ -270,9 +283,9 @@ function isJestEachTemplateLiteral({ node, parent }) {
 }
 
 export {
-  printTemplateLiteral,
+  escapeTemplateCharacters,
   printTaggedTemplateLiteral,
   printTemplateExpressions,
-  escapeTemplateCharacters,
+  printTemplateLiteral,
   uncookTemplateElementValue,
 };
