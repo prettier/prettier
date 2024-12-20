@@ -127,3 +127,20 @@ html`
 
 </${a().x.b}>
 `
+html`
+  <${a[x]}>
+
+</${a[x]}>
+`
+html`
+  <${a?.x}>
+</${a?.x}>
+`
+html`
+  <${a.x /* comment */}>
+</${a.x}>
+`
+html`
+  <${a.x }>
+</${a.x/* comment */}>
+`

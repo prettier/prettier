@@ -13,6 +13,10 @@ import {
 import { isAngularComponentTemplate, hasLanguageComment } from "./utils.js";
 
 function getVariableName(expression) {
+  if (expression.trailingComments || expression.leadingComments) {
+    return;
+  }
+
   if (expression.type === "Identifier") {
     return expression.name;
   }
@@ -21,7 +25,11 @@ function getVariableName(expression) {
     return "this";
   }
 
-  if (expression.type === "MemberExpression") {
+  if (
+    expression.type === "MemberExpression" &&
+    !expression.computed &&
+    !expression.optional
+  ) {
     const objectName = getVariableName(expression.object);
     const propertyName = getVariableName(expression.property);
     if (objectName && propertyName) {
