@@ -1,5 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`indent_multiline.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Indent multiline logical expressions used as function arguments
+foo(long_long_long_long_long_long_long_condition_1 &&
+  long_long_long_long_long_long_long_variable_2);
+foo(long_long_long_long_long_long_long_condition_1 ||
+  long_long_long_long_long_long_long_variable_2);
+foo(long_long_long_long_long_long_long_condition_1 ??
+  long_long_long_long_long_long_long_variable_2);
+
+// Indent multiline logical sub expressions
+long_long_long_long_long_long_long_condition_1 ||
+  (long_long_long_long_long_long_long_condition_2 &&
+    long_long_long_long_long_long_long_condition_3);
+long_long_long_long_long_long_long_condition_1 &&
+  (long_long_long_long_long_long_long_condition_2 ||
+    long_long_long_long_long_long_long_condition_3);
+long_long_long_long_long_long_long_condition_1 ||
+  (long_long_long_long_long_long_long_condition_2 ??
+    long_long_long_long_long_long_long_condition_3);
+
+=====================================output=====================================
+// Indent multiline logical expressions used as function arguments
+foo(
+  long_long_long_long_long_long_long_condition_1 &&
+    long_long_long_long_long_long_long_variable_2,
+);
+foo(
+  long_long_long_long_long_long_long_condition_1 ||
+    long_long_long_long_long_long_long_variable_2,
+);
+foo(
+  long_long_long_long_long_long_long_condition_1 ??
+    long_long_long_long_long_long_long_variable_2,
+);
+
+// Indent multiline logical sub expressions
+long_long_long_long_long_long_long_condition_1 ||
+  (
+    long_long_long_long_long_long_long_condition_2 &&
+    long_long_long_long_long_long_long_condition_3
+  );
+long_long_long_long_long_long_long_condition_1 &&
+  (
+    long_long_long_long_long_long_long_condition_2 ||
+    long_long_long_long_long_long_long_condition_3
+  );
+long_long_long_long_long_long_long_condition_1 ||
+  (
+    long_long_long_long_long_long_long_condition_2 ??
+    long_long_long_long_long_long_long_condition_3
+  );
+
+================================================================================
+`;
+
 exports[`issue-7024.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -13,8 +73,10 @@ const radioSelectedAttr =
 
 =====================================output=====================================
 const radioSelectedAttr =
-  (isAnyValueSelected &&
-    node.getAttribute(radioAttr.toLowerCase()) === radioValue) ||
+  (
+    isAnyValueSelected &&
+    node.getAttribute(radioAttr.toLowerCase()) === radioValue
+  ) ||
   (!isAnyValueSelected && values[a].default === true) ||
   a === 0;
 
