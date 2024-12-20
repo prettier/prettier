@@ -114,18 +114,20 @@ html`
     <${this.a.staticTagName}></${this.a.staticTagName}>
     </${this.staticTagName}
     >
+<${literal(staticTagName)}></
+    ${literal(staticTagName)}>
+    
+<${getTags().dom.p}>
+
+    </${getTags().dom.p}>
 </div>
 `
+
 // Should not format
 html`
   <${a().c}>
 
 </${b().c}>
-`
-html`
-  <${a().x.b}>
-
-</${a().x.b}>
 `
 html`
   <${a[x]}>

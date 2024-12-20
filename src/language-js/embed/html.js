@@ -36,6 +36,27 @@ function getVariableName(expression) {
       return objectName + "." + propertyName;
     }
   }
+
+  if (expression.type === "CallExpression") {
+    const fn = getVariableName(expression.callee);
+    if (fn) {
+      let hasNonParsableArgs = false;
+      const args = [];
+      for (const argument of expression.arguments) {
+        const argName = getVariableName(argument);
+        if (argName) {
+          args.push(argName);
+        } else {
+          hasNonParsableArgs = true;
+          break;
+        }
+      }
+
+      if (!hasNonParsableArgs) {
+        return fn + "(" + args.join(",") + ")";
+      }
+    }
+  }
 }
 
 // The counter is needed to distinguish nested embeds.
