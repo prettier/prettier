@@ -5,7 +5,6 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
-import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import { printClosingTagEnd, printOpeningTagStart } from "./tag.js";
 
 /*
@@ -37,20 +36,27 @@ function printAngularIcuExpression(path, options, print) {
 
 function printAngularIcuCase(path, options, print) {
   const { node } = path;
+
   return [
     node.value,
     " {",
     group([
       indent([
         softline,
-        path.map(({ node }) => {
-          // FIXME: We need a fundamental solution.
-          // Like this: https://github.com/prettier/prettier/blob/c1ebae2e8303841e59bc02e9e719a93e964ab0e9/src/language-html/print-preprocess.js#L254
-          if (node.type === "text" && !htmlWhitespaceUtils.trim(node.value)) {
-            return "";
+        path.map(({ node, isLast }) => {
+          const parts = [print()];
+
+          if (node.type === "text") {
+            if (node.hasLeadingSpaces) {
+              parts.unshift(line);
+            }
+
+            if (node.hasTrailingSpaces && !isLast) {
+              parts.push(line);
+            }
           }
 
-          return print();
+          return parts;
         }, "expression"),
       ]),
       softline,
