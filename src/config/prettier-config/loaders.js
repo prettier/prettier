@@ -63,6 +63,9 @@ const loaders = {
   ".js": loadJs,
   ".mjs": loadJs,
   ".cjs": loadJs,
+  ".ts": loadJs,
+  ".mts": loadJs,
+  ".cts": loadJs,
   ".yaml": loadYaml,
   ".yml": loadYaml,
   // No extension
