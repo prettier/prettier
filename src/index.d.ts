@@ -342,6 +342,11 @@ export interface RequiredOptions extends doc.printer.Options {
    */
   bracketSpacing: boolean;
   /**
+   * Allow multi-line objects to collapse to a single line.
+   * @default "preserve"
+   */
+  multilineObject: "preserve" | "collapse";
+  /**
    * Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the end of the last line instead of being
    * alone on the next line (does not apply to self closing elements).
    * @default false
