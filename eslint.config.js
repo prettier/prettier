@@ -225,8 +225,6 @@ export default [
 
       /* eslint-plugin-unicorn */
       "unicorn/escape-case": "off",
-      // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2496
-      "unicorn/expiring-todo-comments": "off",
       "unicorn/catch-error-name": "off",
       "unicorn/consistent-destructuring": "off",
       "unicorn/consistent-function-scoping": "off",

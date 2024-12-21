@@ -234,7 +234,8 @@ function fits(
       case DOC_TYPE_ARRAY:
       case DOC_TYPE_FILL: {
         const parts = docType === DOC_TYPE_ARRAY ? doc : doc.parts;
-        for (let i = parts.length - 1; i >= 0; i--) {
+        const end = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
+        for (let i = parts.length - 1; i >= end; i--) {
           cmds.push({ mode, doc: parts[i] });
         }
         break;

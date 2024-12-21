@@ -7,7 +7,7 @@
   "dependencies": {
     "chalk": "5.3.0",
     "enquirer": "2.4.1",
-    "execa": "9.4.0",
+    "execa": "9.5.1",
     "fast-glob": "3.3.2",
     "outdent": "0.8.0",
     "semver": "7.6.3"
@@ -15,5 +15,5 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "yarn@4.5.1"
+  "packageManager": "yarn@4.5.3"
 }

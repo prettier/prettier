@@ -298,6 +298,7 @@ const pluginFiles = [
             /(?<=import )(?=\w+ from ["']typescript["'])/gu,
             "* as ",
           );
+
           return text;
         },
       },
@@ -368,25 +369,125 @@ const pluginFiles = [
   {
     input: "src/plugins/angular.js",
     replaceModule: [
-      // We only use a small set of `@angular/compiler` from `esm2022/src/expression_parser/`
-      // Those files can't be imported, they also not directly runnable, because `.mjs` extension is missing
       {
-        module: getPackageFile("@angular/compiler/fesm2022/compiler.mjs"),
-        text: /* indent */ `
-          export * from '../esm2022/src/expression_parser/ast.mjs';
-          export {Lexer} from '../esm2022/src/expression_parser/lexer.mjs';
-          export {Parser} from '../esm2022/src/expression_parser/parser.mjs';
-        `,
+        module: resolveEsmModulePath("@angular/compiler"),
+        process(text) {
+          text = text.replace(
+            "const phases = [",
+            "const phases = undefined && [",
+          );
+          text = text.replace("publishFacade(_global)", "");
+          text = text.replace(
+            "const serializerVisitor = new GetMsgSerializerVisitor()",
+            "",
+          );
+          text = text.replace(
+            "const compatibilityMode = CompatibilityMode.TemplateDefinitionBuilder",
+            "",
+          );
+          text = text.replace(
+            "const domSchema = new DomElementSchemaRegistry()",
+            "",
+          );
+          text = text.replace(
+            "const elementRegistry = new DomElementSchemaRegistry()",
+            "",
+          );
+          text = text.replace(
+            "const serializerVisitor$1 = new _SerializerVisitor()",
+            "",
+          );
+          text = text.replace(
+            "const NON_BINDABLE_VISITOR = new NonBindableVisitor()",
+            "",
+          );
+          text = text.replace(
+            "const NULL_EXPR = new LiteralExpr(null, null, null)",
+            "",
+          );
+          text = text.replace(
+            "const TYPED_NULL_EXPR = new LiteralExpr(null, INFERRED_TYPE, null)",
+            "",
+          );
+          text = text.replace("const _visitor = new _Visitor$2()", "");
+          text = text.replaceAll(
+            /const (.*?) = new BuiltinType\(BuiltinTypeName\..*?\);/gu,
+            "const $1 = undefined;",
+          );
+          text = text.replaceAll(/var output_ast =.*?;\n/gsu, "var output_ast");
+
+          text = text.replace(
+            "const serializer = new IcuSerializerVisitor();",
+            "",
+          );
+          text = text.replace(
+            "const _TAG_DEFINITION = new XmlTagDefinition();",
+            "",
+          );
+
+          text = text.replaceAll(
+            /function transformExpressionsInExpression\(.*?\n.*?\n\}\n/gsu,
+            "function transformExpressionsInExpression(){}",
+          );
+
+          text = text.replaceAll(
+            /const deferTriggerToR3TriggerInstructionsMap = new Map\(\[\n.*?\n\]\);\n/gsu,
+            "const deferTriggerToR3TriggerInstructionsMap = undefined;",
+          );
+
+          text = text.replaceAll(
+            /const BINARY_OPERATORS = new Map\(\[\n.*?\n\]\);\n/gsu,
+            "const BINARY_OPERATORS = undefined;",
+          );
+
+          text = text.replaceAll(
+            /const PIPE_BINDINGS = \[\n.*?\n\];\n/gsu,
+            "const PIPE_BINDINGS = undefined;",
+          );
+
+          text = text.replaceAll(
+            /const TEXT_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const TEXT_INTERPOLATE_CONFIG = undefined;",
+          );
+
+          text = text.replaceAll(
+            /const CHAINABLE = new Set\(\[\n.*?\n\]\);\n/gsu,
+            "const CHAINABLE = undefined;",
+          );
+
+          text = text.replaceAll(
+            /const PROPERTY_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const PROPERTY_INTERPOLATE_CONFIG = undefined;",
+          );
+          text = text.replaceAll(
+            /const STYLE_PROP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const STYLE_PROP_INTERPOLATE_CONFIG = undefined;",
+          );
+
+          text = text.replaceAll(
+            /const ATTRIBUTE_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const ATTRIBUTE_INTERPOLATE_CONFIG = undefined;",
+          );
+          text = text.replaceAll(
+            /const STYLE_MAP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const STYLE_MAP_INTERPOLATE_CONFIG = undefined;",
+          );
+          text = text.replaceAll(
+            /const CLASS_MAP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const CLASS_MAP_INTERPOLATE_CONFIG = undefined;",
+          );
+          text = text.replaceAll(
+            /const PURE_FUNCTION_CONFIG = \{\n.*?\n\};\n/gsu,
+            "const PURE_FUNCTION_CONFIG = undefined;",
+          );
+          text = text.replaceAll(
+            /const NAMED_ENTITIES = \{\n.*?\n\};\n/gsu,
+            "const NAMED_ENTITIES = {};",
+          );
+
+          return text;
+        },
       },
-      ...[
-        "expression_parser/lexer.mjs",
-        "expression_parser/parser.mjs",
-        "ml_parser/defaults.mjs",
-      ].map((file) => ({
-        module: getPackageFile(`@angular/compiler/esm2022/src/${file}`),
-        process: (text) =>
-          text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/gu, "'$1.mjs'"),
-      })),
     ],
   },
   {
