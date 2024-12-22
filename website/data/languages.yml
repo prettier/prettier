@@ -27,6 +27,21 @@
   image: /images/languages/tools_gql.svg
   variants:
     - "[GraphQL Schemas](https://graphql.org/learn/schema/)"
+
+# codeblock formatting support for markdown
+# Prettier formats the code blocks in Markdown, using language code provided
+# with code block to determine language Prettier can format any supported language.
+# Example : Input
+# ```css
+# .h1 {     color : red }
+
+# Output :
+# ```css
+# .h1 {
+#   color: red;
+# }
+# ```
+
 - name: Markdown
   showName: true
   image: /images/languages/tools_md.svg
