@@ -13,14 +13,16 @@ window.addEventListener("load", () => {
   const logo = document.querySelector(".prettier-logo-wide");
   const lastDash = logo.querySelector("g:last-of-type path:last-of-type");
 
-  function handleLogoDrag(event) {
+  function handleLogoDrag() {
     logo.classList.add("rolling");
-    event.preventDefault();
+    logoWrapper.addEventListener("mousemove", handleLogoDrag, {
+      passive: true,
+    });
   }
 
-  logoWrapper.setAttribute("draggable", "true");
-  logoWrapper.addEventListener("touchstart", handleLogoDrag);
-  logoWrapper.addEventListener("dragstart", handleLogoDrag);
+  logoWrapper.addEventListener("draggable", "true", { passive: true });
+  logoWrapper.addEventListener("touchstart", handleLogoDrag, { passive: true });
+  logoWrapper.addEventListener("dragstart", handleLogoDrag, { passive: true });
 
   lastDash.addEventListener("animationend", (event) => {
     if (/roll/u.test(event.animationName)) {
