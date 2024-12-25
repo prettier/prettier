@@ -38,6 +38,8 @@ function runCliWorker(dir, args, options) {
     write: [],
   };
 
+  const nodeOptions = options?.nodeOptions ?? [];
+
   const worker = new Worker(CLI_WORKER_FILE, {
     argv: args,
     execArgv: [
@@ -45,6 +47,7 @@ function runCliWorker(dir, args, options) {
       ...(SUPPORTS_DISABLE_WARNING_FLAG
         ? ["--disable-warning=ExperimentalWarning"]
         : []),
+      ...nodeOptions,
     ],
     stdout: true,
     stderr: true,

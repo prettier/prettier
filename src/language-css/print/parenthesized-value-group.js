@@ -88,7 +88,11 @@ function printParenthesizedValueGroup(path, options, print) {
     assertDocArray(groupDocs);
     const withComma = chunk(join(",", groupDocs), 2);
     const parts = join(forceHardLine ? hardline : line, withComma);
-    return indent(forceHardLine ? [hardline, parts] : group(fill(parts)));
+    return indent(
+      forceHardLine
+        ? [hardline, parts]
+        : group([shouldPrecededBySoftline(path) ? softline : "", fill(parts)]),
+    );
   }
 
   const parts = path.map(({ node: child, isLast, index }) => {
@@ -162,6 +166,15 @@ function shouldBreakList(path) {
       key === "value" &&
       ((node.type === "css-decl" && !node.prop.startsWith("--")) ||
         (node.type === "css-atrule" && node.variable)),
+  );
+}
+
+function shouldPrecededBySoftline(path) {
+  return path.match(
+    (node) => node.type === "value-paren_group" && !node.open,
+    (node, key) => key === "group" && node.type === "value-value",
+    (node, key) => key === "group" && node.type === "value-root",
+    (node, key) => key === "value" && node.type === "css-decl",
   );
 }
 
