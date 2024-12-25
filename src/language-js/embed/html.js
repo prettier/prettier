@@ -13,7 +13,11 @@ import {
 import { hasLanguageComment, isAngularComponentTemplate } from "./utils.js";
 
 function getVariableName(expression) {
-  if (expression.trailingComments || expression.leadingComments) {
+  if (
+    expression.trailingComments ||
+    expression.leadingComments ||
+    expression.comments
+  ) {
     return;
   }
 
@@ -147,8 +151,8 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     options.htmlWhitespaceSensitivity === "ignore"
       ? hardline
       : leadingWhitespace && trailingWhitespace
-        ? line
-        : null;
+      ? line
+      : null;
 
   if (linebreak) {
     return group(["`", indent([linebreak, group(contentDoc)]), linebreak, "`"]);
