@@ -191,6 +191,23 @@ Default: lf"
 
 exports[`show detailed usage with --help end-of-line (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help experimental-operator-position (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help experimental-operator-position (stdout) 1`] = `
+"--experimental-operator-position <start|end>
+
+  Where to print operators when binary expressions wrap lines.
+
+Valid options:
+
+  start   Print operators at the start of new lines.
+  end     Print operators at the end of previous lines.
+
+Default: end"
+`;
+
+exports[`show detailed usage with --help experimental-operator-position (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help experimental-ternaries (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help experimental-ternaries (stdout) 1`] = `
