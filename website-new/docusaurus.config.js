@@ -111,22 +111,24 @@ const config = {
             type: "docSidebar",
             sidebarId: "docs",
             label: "Docs",
+            position: "right",
           },
-          { to: "/blog", label: "Blog" }, // Done
           {
             // TODO
             href: "/playground/index.html",
             label: "Playground",
             position: "right",
           },
+          { to: "/blog", label: "Blog", position: "right" }, // Done
           {
             href: "https://opencollective.com/prettier",
             label: "Donate",
             position: "right",
           },
           {
+            "aria-label": "GitHub repository",
+            className: "header-github-link",
             href: GITHUB_URL,
-            label: "GitHub",
             position: "right",
           },
         ],
