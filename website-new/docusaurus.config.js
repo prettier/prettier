@@ -25,6 +25,7 @@ const config = {
   title: "Prettier",
   tagline: "Opinionated Code Formatter",
   favicon: "icon.png",
+  titleDelimiter: "·",
 
   // Set the production url of your site here
   url: packageJson.homepage,
@@ -107,7 +108,6 @@ const config = {
         style: "dark",
         items: [
           {
-            // Done
             type: "docSidebar",
             sidebarId: "docs",
             label: "Docs",
@@ -119,7 +119,7 @@ const config = {
             label: "Playground",
             position: "right",
           },
-          { to: "/blog", label: "Blog", position: "right" }, // Done
+          { to: "/blog", label: "Blog", position: "right" },
           {
             href: "https://opencollective.com/prettier",
             label: "Donate",
@@ -140,8 +140,20 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro",
+                label: "About",
+                to: "/docs",
+              },
+              {
+                label: "Usage",
+                to: "/docs/install",
+              },
+              {
+                html: /*html*/ `
+                  <br />
+                  <a href="https://www.netlify.com" target="_blank" rel="noreferrer noopener" aria-label="Deploys by Netlify">
+                    <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" alt="Deploys by Netlify" width="114" height="51" />
+                  </a>
+                `,
               },
             ],
           },
@@ -149,16 +161,16 @@ const config = {
             title: "Community",
             items: [
               {
+                label: "User Showcase",
+                href: "https://prettier.io/en/users",
+              },
+              {
                 label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
+                href: "http://stackoverflow.com/questions/tagged/prettier",
               },
               {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
-              },
-              {
-                label: "X",
-                href: "https://x.com/docusaurus",
+                label: "@PrettierCode on Twitter",
+                href: "https://twitter.com/PrettierCode",
               },
             ],
           },
@@ -171,12 +183,28 @@ const config = {
               },
               {
                 label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                href: GITHUB_URL,
+              },
+              {
+                label: "Issues",
+                href: `${GITHUB_URL}/issues`,
+              },
+              {
+                html: /*html*/ `
+                  <a
+                    href="https://github.com/prettier/prettier"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="Star this project on GitHub"
+                    class="footer__github-stars"
+                  >
+                    <img src="https://img.shields.io/github/stars/prettier/prettier?style=social" alt="Star this project on GitHub" />
+                  </a>
+                `,
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       // TODO: need to know the app ID
       // algolia: {

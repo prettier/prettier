@@ -54,3 +54,8 @@
 .menu__link {
   line-height: 1.15;
 }
+
+.footer__github-stars {
+  display: block;
+  margin-top: 8px;
+}
