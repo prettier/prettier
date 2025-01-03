@@ -13,7 +13,11 @@ You can configure Prettier via (in order of precedence):
 - A `.prettierrc.cjs`, `prettier.config.cjs`, `.prettierrc.cts`, or `prettier.config.cts` file that exports an object using `module.exports`.
 - A `.prettierrc.toml` file.
 
-> TypeScript configuration files support requires [additional setup](#typescript-configuration-files)
+:::info
+
+TypeScript configuration files support requires [additional setup](#typescript-configuration-files)
+
+:::
 
 The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn’t) found.
 

@@ -58,9 +58,17 @@ Next, create a [.prettierignore](ignore.md) file to let the Prettier CLI and edi
 node --eval "fs.writeFileSync('.prettierignore','# Ignore artifacts:\nbuild\ncoverage\n')"
 ```
 
-> Tip! Prettier will follow rules specified in .gitignore if it exists in the same directory from which it is run. You can also base your .prettierignore on .eslintignore (if you have one).
+:::tip
 
-> Another tip! If your project isn’t ready to format, say, HTML files yet, add `*.html`.
+Prettier will follow rules specified in .gitignore if it exists in the same directory from which it is run. You can also base your .prettierignore on .eslintignore (if you have one).
+
+:::
+
+:::tip[Another tip]
+
+If your project isn’t ready to format, say, HTML files yet, add `*.html`.
+
+:::
 
 Now, format all files with Prettier:
 
@@ -71,9 +79,13 @@ Now, format all files with Prettier:
 npx prettier . --write
 ```
 
-> What is that `npx` thing? `npx` ships with `npm` and lets you run locally installed tools. We’ll leave off the `npx` part for brevity throughout the rest of this file!
->
-> Note: If you forget to install Prettier first, `npx` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
+:::info
+
+What is that `npx` thing? `npx` ships with `npm` and lets you run locally installed tools. We’ll leave off the `npx` part for brevity throughout the rest of this file!
+
+Note: If you forget to install Prettier first, `npx` will temporarily download the latest version. That’s not a good idea when using Prettier, becausewe change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
+
+:::
 
 </TabItem>
 <TabItem value="yarn">
@@ -82,7 +94,11 @@ npx prettier . --write
 yarn prettier . --write
 ```
 
-> What is `yarn` doing at the start? `yarn prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn` part for brevity throughout the rest of this file!
+:::info
+
+What is `yarn` doing at the start? `yarn prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn` part for brevity throughout the rest of this file!
+
+:::
 
 </TabItem>
 <TabItem value="pnpm">
@@ -91,7 +107,11 @@ yarn prettier . --write
 pnpm exec prettier . --write
 ```
 
-> What is `pnpm` doing at the start? `pnpm prettier` runs the locally installed version of Prettier. We’ll leave off the `pnpm` part for brevity throughout the rest of this file!
+:::info
+
+What is `pnpm` doing at the start? `pnpm prettier` runs the locally installed version of Prettier. We’ll leave off the `pnpm` part for brevity throughout the rest of this file!
+
+:::
 
 </TabItem>
 <TabItem value="bun">
@@ -100,7 +120,11 @@ pnpm exec prettier . --write
 bun prettier . --write
 ```
 
-> What is `bun` doing at the start? `bun prettier` runs the locally installed version of Prettier. We’ll leave off the `bun` part for brevity throughout the rest of this file!
+:::info
+
+What is `bun` doing at the start? `bun prettier` runs the locally installed version of Prettier. We’ll leave off the `bun` part for brevity throughout the rest of this file!
+
+:::
 
 </TabItem>
 </Tabs>
@@ -121,9 +145,13 @@ Formatting from the command line is a good way to get started, but you get the m
 
 See [Editor Integration](editors.md) for how to set up your editor. If your editor does not support Prettier, you can instead [run Prettier with a file watcher](watching-files.md).
 
-> **Note:** Don’t skip the regular local install! Editor plugins will pick up your local version of Prettier, making sure you use the correct version in every project. (You wouldn’t want your editor accidentally causing lots of changes because it’s using a newer version of Prettier than your project!)
->
-> And being able to run Prettier from the command line is still a good fallback, and needed for CI setups.
+:::note
+
+Don’t skip the regular local install! Editor plugins will pick up your local version of Prettier, making sure you use the correct version in every project. (You wouldn’t want your editor accidentally causing lots of changes because it’s using a newer version of Prettier than your project!)
+
+And being able to run Prettier from the command line is still a good fallback, and needed for CI setups.
+
+:::
 
 ## ESLint (and other linters)
 
@@ -157,7 +185,11 @@ npx husky init
 node --eval "fs.writeFileSync('.husky/pre-commit','yarn lint-staged\n')"
 ```
 
-> If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
+:::note
+
+If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
+
+:::
 
 </TabItem>
 <TabItem value="pnpm">
@@ -190,7 +222,11 @@ bun --eval "fs.writeFileSync('.husky/pre-commit','bunx lint-staged\n')"
 }
 ```
 
-> Note: If you use ESLint, make sure lint-staged runs it before Prettier, not after.
+:::note
+
+If you use ESLint, make sure lint-staged runs it before Prettier, not after.
+
+:::
 
 See [Pre-commit Hook](precommit.md) for more information.
 
