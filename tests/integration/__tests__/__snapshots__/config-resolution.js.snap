@@ -24,6 +24,8 @@ exports[`resolves external configuration from package.json (cjs package) (stdout
 
 exports[`resolves external configuration from package.json (esm file) (stdout) 1`] = `"console.log("should have no semi")"`;
 
+exports[`resolves external configuration from package.json (esm package with TLA) (stdout) 1`] = `"console.log("should have no semi")"`;
+
 exports[`resolves external configuration from package.json (esm package) (stdout) 1`] = `"console.log("should have no semi")"`;
 
 exports[`resolves json configuration file with --find-config-path file (stderr) 1`] = `""`;

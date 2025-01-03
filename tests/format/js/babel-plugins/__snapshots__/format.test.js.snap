@@ -2347,14 +2347,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`regexp-modifiers.js [meriyah] format 1`] = `
-"Unterminated regular expression (1:12)
-> 1 | const re = /^(?i:[a-z])[a-z]$/;
-    |            ^^^^^^^^^^^^^^^^^^^
-  2 |
-Cause: [1:11-1:30]: Unterminated regular expression"
-`;
-
 exports[`regexp-modifiers.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]

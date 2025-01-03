@@ -543,7 +543,7 @@ function handleMethodNameComments({
   if (
     precedingNode?.type === "Decorator" &&
     propertyLikeNodeTypes.has(enclosingNode?.type) &&
-    isLineComment(comment)
+    (isLineComment(comment) || comment.placement === "ownLine")
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
