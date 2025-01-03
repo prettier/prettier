@@ -1,7 +1,5 @@
 "use strict";
 
-// Docs: https://docusaurus.io/docs/en/site-config.html
-
 const path = require("path");
 const fs = require("fs");
 const { load: parseYaml } = require("js-yaml");
@@ -18,25 +16,25 @@ const editors = loadYaml("./data/editors.yml");
 const supportedLanguages = loadYaml("./data/languages.yml");
 
 const siteConfig = {
-  title: "Prettier",
-  tagline: "Opinionated Code Formatter",
-  githubUrl: GITHUB_URL,
-  url: PACKAGE.homepage,
-  baseUrl: "/",
-  projectName: PACKAGE.name,
-  repo: PACKAGE.repository,
-  cname: "prettier.io",
-  users,
-  editors,
-  supportedLanguages,
+  title: "Prettier", // Done
+  tagline: "Opinionated Code Formatter", // Done
+  githubUrl: GITHUB_URL, // Done
+  url: PACKAGE.homepage, // Done
+  baseUrl: "/", // Done
+  projectName: PACKAGE.name, // Done
+  repo: PACKAGE.repository, // Done
+  cname: "prettier.io", // Done
+  users, // Done
+  editors, // Done
+  supportedLanguages, // Done
   tideliftUrl:
-    "https://tidelift.com/subscription/pkg/npm-prettier?utm_source=npm-prettier&utm_medium=referral&utm_campaign=website",
+    "https://tidelift.com/subscription/pkg/npm-prettier?utm_source=npm-prettier&utm_medium=referral&utm_campaign=website", // Done
   /* base url for editing docs, usage example: editUrl + 'en/doc1.md' */
-  editUrl: `${GITHUB_URL}/edit/main/docs/`,
+  editUrl: `${GITHUB_URL}/edit/main/docs/`, // Done
   headerLinks: [
     { href: "/playground/", label: "Playground" },
-    { doc: "index", label: "Docs" },
-    { blog: true, label: "Blog" },
+    { doc: "index", label: "Docs" }, // Done
+    { blog: true, label: "Blog" }, // Done
     { search: true },
     { href: "https://opencollective.com/prettier", label: "Donate" },
     { href: GITHUB_URL, label: "GitHub" },
@@ -44,17 +42,17 @@ const siteConfig = {
   /* path to images for header/footer */
   headerIcon: "icon.png",
   footerIcon: "icon.png",
-  favicon: "icon.png",
+  favicon: "icon.png", // Done
   /* colors for website */
   colors: {
     primaryColor: "#1A2B34",
     secondaryColor: "#808080",
   },
   highlight: {
-    theme: "default",
-    version: require("highlight.js/package.json").version,
+    theme: "default", // Done
+    version: require("highlight.js/package.json").version, // Done
   },
-  usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html", "css"],
+  usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html", "css"], // Done
   useEnglishUrl: true,
   scripts: [
     "https://buttons.github.io/buttons.js",
@@ -68,6 +66,7 @@ const siteConfig = {
     apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
     indexName: "prettier",
   },
+  // Done
   markdownPlugins: [
     // ignore `<!-- prettier-ignore -->` before passing into Docusaurus to avoid mis-parsing (#3322)
     (md) => {
@@ -90,9 +89,9 @@ const siteConfig = {
   gaTrackingId: "UA-111350464-1",
   twitter: true,
   twitterUsername: "PrettierCode",
-  twitterImage: "icon.png",
-  ogImage: "icon.png",
-  onPageNav: "separate",
+  twitterImage: "icon.png", // Done
+  ogImage: "icon.png", // Done
+  onPageNav: "separate", // Done
 };
 
 module.exports = siteConfig;

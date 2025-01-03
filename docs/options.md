@@ -104,9 +104,9 @@ Valid options:
 - `"consistent"` - If at least one property in an object requires quotes, quote all properties.
 - `"preserve"` - Respect the input use of quotes in object properties.
 
-| Default       | CLI Override                                                         | API Override                                                         |
-| ------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `"as-needed"` | <code>--quote-props <as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "<as-needed&#124;consistent&#124;preserve>"</code> |
+| Default       | CLI Override                                                          | API Override                                                          |
+| ------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `"as-needed"` | <code>--quote-props \<as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "\<as-needed&#124;consistent&#124;preserve>"</code> |
 
 Note that Prettier never unquotes numeric property names in Angular expressions, TypeScript, and Flow because the distinction between string and numeric keys is significant in these languages. See: [Angular][quote-props-angular], [TypeScript][quote-props-typescript], [Flow][quote-props-flow]. Also Prettier doesn’t unquote numeric properties for Vue (see the [issue][quote-props-vue] about that).
 
@@ -135,9 +135,9 @@ Valid options:
 - `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.). Trailing commas in type parameters in TypeScript and Flow.
 - `"none"` - No trailing commas.
 
-| Default | CLI Override                                           | API Override                                           |
-| ------- | ------------------------------------------------------ | ------------------------------------------------------ |
-| `"all"` | <code>--trailing-comma <all&#124;es5&#124;none></code> | <code>trailingComma: "<all&#124;es5&#124;none>"</code> |
+| Default | CLI Override                                            | API Override                                            |
+| ------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| `"all"` | <code>--trailing-comma \<all&#124;es5&#124;none></code> | <code>trailingComma: "\<all&#124;es5&#124;none>"</code> |
 
 ## Bracket Spacing
 
@@ -235,9 +235,9 @@ Valid options:
 - `"always"` - Always include parens. Example: `(x) => x`
 - `"avoid"` - Omit parens when possible. Example: `x => x`
 
-| Default    | CLI Override                                    | API Override                                    |
-| ---------- | ----------------------------------------------- | ----------------------------------------------- |
-| `"always"` | <code>--arrow-parens <always&#124;avoid></code> | <code>arrowParens: "<always&#124;avoid>"</code> |
+| Default    | CLI Override                                     | API Override                                     |
+| ---------- | ------------------------------------------------ | ------------------------------------------------ |
+| `"always"` | <code>--arrow-parens \<always&#124;avoid></code> | <code>arrowParens: "\<always&#124;avoid>"</code> |
 
 At first glance, avoiding parentheses may look like a better choice because of less visual noise.
 However, when Prettier removes parentheses, it becomes harder to add type annotations, extra arguments or default values as well as making other changes.
@@ -369,9 +369,9 @@ Valid options:
 - `"never"` - Un-wrap each block of prose into one line.
 - `"preserve"` - Do nothing, leave prose as-is. _First available in v1.9.0_
 
-| Default      | CLI Override                                                | API Override                                                |
-| ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `"preserve"` | <code>--prose-wrap <always&#124;never&#124;preserve></code> | <code>proseWrap: "<always&#124;never&#124;preserve>"</code> |
+| Default      | CLI Override                                                 | API Override                                                 |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `"preserve"` | <code>--prose-wrap \<always&#124;never&#124;preserve></code> | <code>proseWrap: "\<always&#124;never&#124;preserve>"</code> |
 
 ## HTML Whitespace Sensitivity
 
@@ -387,9 +387,9 @@ Valid options:
 - `"strict"` - Whitespace (or the lack of it) around all tags is considered significant.
 - `"ignore"` - Whitespace (or the lack of it) around all tags is considered insignificant.
 
-| Default | CLI Override                                                             | API Override                                                            |
-| ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
-| `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
+| Default | CLI Override                                                              | API Override                                                             |
+| ------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `"css"` | <code>--html-whitespace-sensitivity \<css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "\<css&#124;strict&#124;ignore>"</code> |
 
 ## Vue files script and style tags indentation
 
@@ -438,9 +438,9 @@ Valid options:
 - `"auto"` - Maintain existing line endings
   (mixed values within one file are normalised by looking at what’s used after the first line)
 
-| Default | CLI Override                                                | API Override                                               |
-| ------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
-| `"lf"`  | <code>--end-of-line <lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "<lf&#124;crlf&#124;cr&#124;auto>"</code> |
+| Default | CLI Override                                                 | API Override                                                |
+| ------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| `"lf"`  | <code>--end-of-line \<lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "\<lf&#124;crlf&#124;cr&#124;auto>"</code> |
 
 Setting `end_of_line` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s end of line usage, unless overridden.
 
@@ -459,9 +459,9 @@ Valid options:
 - `"auto"` – Format embedded code if Prettier can automatically identify it.
 - `"off"` - Never automatically format embedded code.
 
-| Default  | CLI Override                                                | API Override                                               |
-| -------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
-| `"auto"` | <code>--embedded-language-formatting=<off&#124;auto></code> | <code>embeddedLanguageFormatting: "<off&#124;auto>"</code> |
+| Default  | CLI Override                                                 | API Override                                                |
+| -------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| `"auto"` | <code>--embedded-language-formatting=\<off&#124;auto></code> | <code>embeddedLanguageFormatting: "\<off&#124;auto>"</code> |
 
 ## Single Attribute Per Line
 

@@ -53,6 +53,7 @@
     "scripts/",
     "tests/",
     "website/",
+    "website-new/",
     "types/",
   ],
 }

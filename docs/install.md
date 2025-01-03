@@ -3,34 +3,41 @@ id: install
 title: Install
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
 First, install Prettier locally:
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--npm-->
+<Tabs groupId="package-manager">
+<TabItem value="npm">
 
 ```bash
 npm install --save-dev --save-exact prettier
 ```
 
-<!--yarn-->
+</TabItem>
+<TabItem value="yarn">
 
 ```bash
 yarn add --dev --exact prettier
 ```
 
-<!--pnpm-->
+</TabItem>
+<TabItem value="pnpm">
 
 ```bash
 pnpm add --save-dev --save-exact prettier
 ```
 
-<!--bun-->
+</TabItem>
+<TabItem value="bun">
 
 ```bash
 bun add --dev --exact prettier
 ```
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+</Tabs>
 
 Then, create an empty config file to let editors and other tools know you are using Prettier:
 
@@ -57,8 +64,8 @@ node --eval "fs.writeFileSync('.prettierignore','# Ignore artifacts:\nbuild\ncov
 
 Now, format all files with Prettier:
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--npm-->
+<Tabs groupId="package-manager">
+<TabItem value="npm">
 
 ```bash
 npx prettier . --write
@@ -68,7 +75,8 @@ npx prettier . --write
 >
 > Note: If you forget to install Prettier first, `npx` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
 
-<!--yarn-->
+</TabItem>
+<TabItem value="yarn">
 
 ```bash
 yarn prettier . --write
@@ -76,7 +84,8 @@ yarn prettier . --write
 
 > What is `yarn` doing at the start? `yarn prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn` part for brevity throughout the rest of this file!
 
-<!--pnpm-->
+</TabItem>
+<TabItem value="pnpm">
 
 ```bash
 pnpm exec prettier . --write
@@ -84,7 +93,8 @@ pnpm exec prettier . --write
 
 > What is `pnpm` doing at the start? `pnpm prettier` runs the locally installed version of Prettier. We’ll leave off the `pnpm` part for brevity throughout the rest of this file!
 
-<!--bun-->
+</TabItem>
+<TabItem value="bun">
 
 ```bash
 bun prettier . --write
@@ -92,7 +102,8 @@ bun prettier . --write
 
 > What is `bun` doing at the start? `bun prettier` runs the locally installed version of Prettier. We’ll leave off the `bun` part for brevity throughout the rest of this file!
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+</Tabs>
 
 `prettier --write .` is great for formatting everything, but for a big project it might take a little while. You may run `prettier --write app/` to format a certain directory, or `prettier --write app/components/Button.js` to format a certain file. Or use a _glob_ like `prettier --write "app/**/*.test.js"` to format all tests in a directory (see [fast-glob](https://github.com/mrmlnc/fast-glob#pattern-syntax) for supported glob syntax).
 
@@ -128,42 +139,46 @@ For example, you can do the following to have Prettier run before each commit:
 
 1. Install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged):
 
-   <!--DOCUSAURUS_CODE_TABS-->
-   <!--npm-->
+<Tabs groupId="package-manager">
+<TabItem value="npm">
 
-   ```bash
-   npm install --save-dev husky lint-staged
-   npx husky init
-   node --eval "fs.writeFileSync('.husky/pre-commit','npx lint-staged\n')"
-   ```
+```bash
+npm install --save-dev husky lint-staged
+npx husky init
+node --eval "fs.writeFileSync('.husky/pre-commit','npx lint-staged\n')"
+```
 
-   <!--yarn-->
+</TabItem>
+<TabItem value="yarn">
 
-   ```bash
-   yarn add --dev husky lint-staged
-   npx husky init
-   node --eval "fs.writeFileSync('.husky/pre-commit','yarn lint-staged\n')"
-   ```
+```bash
+yarn add --dev husky lint-staged
+npx husky init
+node --eval "fs.writeFileSync('.husky/pre-commit','yarn lint-staged\n')"
+```
 
-   > If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
+> If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
 
-   <!--pnpm-->
+</TabItem>
+<TabItem value="pnpm">
 
-   ```bash
-   pnpm add --save-dev husky lint-staged
-   pnpm exec husky init
-   node --eval "fs.writeFileSync('.husky/pre-commit','pnpm exec lint-staged\n')"
-   ```
+```bash
+pnpm add --save-dev husky lint-staged
+pnpm exec husky init
+node --eval "fs.writeFileSync('.husky/pre-commit','pnpm exec lint-staged\n')"
+```
 
-   <!--bun-->
+</TabItem>
+<TabItem value="bun">
 
-   ```bash
-   bun add --dev husky lint-staged
-   bunx husky init
-   bun --eval "fs.writeFileSync('.husky/pre-commit','bunx lint-staged\n')"
-   ```
+```bash
+bun add --dev husky lint-staged
+bunx husky init
+bun --eval "fs.writeFileSync('.husky/pre-commit','bunx lint-staged\n')"
+```
 
-   <!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+</Tabs>
 
 2. Add the following to your `package.json`:
 
