@@ -10,7 +10,8 @@
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "update-stable-docs": "node ./scripts/update-stable-docs.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.7.0",

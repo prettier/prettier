@@ -1,6 +1,5 @@
 - home page
 - docs
-  - replace version placeholder script
   - algolia
 - playground
 - blog
