@@ -163,6 +163,23 @@ Valid options:
 | ------- | ---------------------- | ------------------------ |
 | `true`  | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
 
+## Multi-line Object
+
+_First available in v3.5.0_
+
+Allow multi-line objects to collapse to a single line.
+
+By default, Prettier formats objects as multi-line if there is a newline prior to the first property. Authors can use this heuristic to contextually improve readability, though it has some downsides. See [Multi-line objects](rationale.md#multi-line-objects).
+
+Valid options:
+
+- `"preserve"` - Keep as multi-line, if there is a newline between the opening brace and first property.
+- `"collapse"` - Fit to a single line when possible.
+
+| Default      | CLI Override                                             | API Override                                             |
+| ------------ | -------------------------------------------------------- | -------------------------------------------------------- |
+| `"preserve"` | <code>--multiline-object <preserve&#124;collapse></code> | <code>multilineObject: "<preserve&#124;collapse>"</code> |
+
 ## Bracket Line
 
 Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).

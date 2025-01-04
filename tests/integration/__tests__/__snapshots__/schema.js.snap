@@ -151,6 +151,24 @@ exports[`schema 1`] = `
           "description": "Use single quotes in JSX.",
           "type": "boolean",
         },
+        "multilineObject": {
+          "default": "preserve",
+          "description": "Allow multi-line objects to collapse to a single line.",
+          "oneOf": [
+            {
+              "description": "Keep as multi-line, if there is a newline between the opening brace and first property.",
+              "enum": [
+                "preserve",
+              ],
+            },
+            {
+              "description": "Fit to a single line when possible.",
+              "enum": [
+                "collapse",
+              ],
+            },
+          ],
+        },
         "parser": {
           "anyOf": [
             {
