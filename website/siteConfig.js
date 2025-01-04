@@ -40,13 +40,13 @@ const siteConfig = {
     { href: GITHUB_URL, label: "GitHub" },
   ],
   /* path to images for header/footer */
-  headerIcon: "icon.png",
-  footerIcon: "icon.png",
+  headerIcon: "icon.png", // Done
+  footerIcon: "icon.png", // Done
   favicon: "icon.png", // Done
   /* colors for website */
   colors: {
-    primaryColor: "#1A2B34",
-    secondaryColor: "#808080",
+    primaryColor: "#1A2B34", // Done
+    secondaryColor: "#808080", // Done
   },
   highlight: {
     theme: "default", // Done
@@ -85,7 +85,7 @@ const siteConfig = {
       );
     },
   ],
-  separateCss: ["static/separate-css"],
+  separateCss: ["static/separate-css"], // Done
   gaTrackingId: "UA-111350464-1",
   twitter: true,
   twitterUsername: "PrettierCode",

@@ -3,4 +3,3 @@
   - algolia
   - "/en" missing from routes
 - playground
-- blog

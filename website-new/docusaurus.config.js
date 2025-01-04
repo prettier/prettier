@@ -1,8 +1,11 @@
 // @ts-check
 
 import fs from "node:fs";
+import { createRequire } from "node:module";
 import { load as parseYaml } from "js-yaml";
 import { themes as prismThemes } from "prism-react-renderer";
+
+const require = createRequire(import.meta.url);
 
 const packageJsonFile = new URL("../package.json", import.meta.url);
 const packageJson = JSON.parse(fs.readFileSync(packageJsonFile, "utf8"));
@@ -87,15 +90,21 @@ const config = {
             type: ["rss", "atom"],
             xslt: true,
           },
-          editUrl:
-            "https://github.com/prettier/prettier/edit/main/website/blog/",
-          // Useful options to enforce blogging best practices
+          blogTitle: "Prettier blog",
+          blogDescription: "Read blog posts about Prettier from the team",
+          editUrl: `${GITHUB_URL}/edit/main/website/blog/`,
+          blogSidebarCount: 10,
+          blogSidebarTitle: "Recent posts",
+          postsPerPage: 10,
           onInlineTags: "warn",
           onInlineAuthors: "warn",
           onUntruncatedBlogPosts: "warn",
         },
         theme: {
-          customCss: "./src/css/custom.css",
+          customCss: [
+            "./src/css/custom.css",
+            require.resolve("react-tweet/theme.css"),
+          ],
         },
       },
     ],
@@ -234,6 +243,8 @@ const config = {
           "toml",
           "ini",
           "vim",
+          "scss",
+          "less",
         ],
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
