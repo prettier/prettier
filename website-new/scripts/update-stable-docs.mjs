@@ -2,16 +2,23 @@ import fs from "node:fs/promises";
 
 const version = await getPrettierVersion();
 
-const STABLE_DOCS_DIRECTORY = new URL(
-  "../versioned_docs/version-stable/",
-  import.meta.url,
+// Copy sibar config
+const STABLE_SIDEBAR = relativeURL(
+  "../versioned_sidebars/version-stable-sidebars.json",
 );
-const CURRENT_DOCS_DIRECTORY = new URL("../../docs/", import.meta.url);
+const CURRENT_SIDEBAR = relativeURL("../sidebars.json");
+
+await fs.copyFile(CURRENT_SIDEBAR, STABLE_SIDEBAR);
+
+// Copy docs
+const STABLE_DOCS_DIRECTORY = relativeURL("../versioned_docs/version-stable/");
+const CURRENT_DOCS_DIRECTORY = relativeURL("../../docs/");
 
 await fs.rm(STABLE_DOCS_DIRECTORY, { recursive: true, force: true });
 await fs.mkdir(STABLE_DOCS_DIRECTORY, { recursive: true, force: true });
 await fs.cp(CURRENT_DOCS_DIRECTORY, STABLE_DOCS_DIRECTORY, { recursive: true });
 
+// Replace version placeholders
 await Promise.all(
   ["browser.md"].map(async (file) => {
     file = new URL(file, STABLE_DOCS_DIRECTORY);
@@ -28,6 +35,13 @@ async function getPrettierVersion() {
     return packageJson.version;
   }
   return version;
+}
+
+/**
+ * @param {import("fs").PathLike} path
+ */
+function relativeURL(path) {
+  return new URL(path, import.meta.url);
 }
 
 /**

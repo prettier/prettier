@@ -1,5 +1,6 @@
 - home page
 - docs
   - algolia
+  - "/en" missing from routes
 - playground
 - blog
