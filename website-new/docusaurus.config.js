@@ -66,11 +66,21 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
-          sidebarPath: "./sidebars.js",
+          sidebarPath: "./sidebars.json",
           editUrl: `${GITHUB_URL}/edit/main/docs/`,
           path: "../docs",
           sidebarCollapsed: false,
           breadcrumbs: false,
+          versions: {
+            current: {
+              label: "next",
+              badge: false,
+            },
+            stable: {
+              label: "stable",
+              badge: false,
+            },
+          },
         },
         blog: {
           feedOptions: {
@@ -108,15 +118,18 @@ const config = {
         style: "dark",
         items: [
           {
-            type: "docSidebar",
-            sidebarId: "docs",
-            label: "Docs",
-            position: "right",
+            type: "docsVersionDropdown",
           },
           {
             // TODO
             href: "/playground/index.html",
             label: "Playground",
+            position: "right",
+          },
+          {
+            type: "docSidebar",
+            sidebarId: "docs",
+            label: "Docs",
             position: "right",
           },
           { to: "/blog", label: "Blog", position: "right" },

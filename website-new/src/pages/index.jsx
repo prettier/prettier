@@ -30,7 +30,6 @@ function HomepageHeader() {
 }
 
 export default function Home() {
-  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
       title="Prettier · Opinionated Code Formatter"
