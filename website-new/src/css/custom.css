@@ -36,6 +36,10 @@
   --ifm-navbar-link-hover-color: #68bbbc;
 }
 
+.footer {
+  --ifm-footer-background-color: #20232a;
+}
+
 .header-github-link::before {
   content: "";
   width: 24px;
