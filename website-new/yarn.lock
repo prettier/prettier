@@ -2817,6 +2817,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sandhose/prettier-animated-logo@npm:1.0.3":
+  version: 1.0.3
+  resolution: "@sandhose/prettier-animated-logo@npm:1.0.3"
+  dependencies:
+    react: "npm:^16.2.0"
+    react-dom: "npm:^16.2.0"
+  checksum: 10/aa1fe4013a8b4a129fbcaaf8dfcb4f34158a553916f2bea7b60cea74a231a4ac5980e9846dce3f90d290c5e06351016bfddfbad9d5fd5ad181d634c98c0f5f49
+  languageName: node
+  linkType: hard
+
 "@sideway/address@npm:^4.1.5":
   version: 4.1.5
   resolution: "@sideway/address@npm:4.1.5"
@@ -10397,6 +10407,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:^16.2.0":
+  version: 16.14.0
+  resolution: "react-dom@npm:16.14.0"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    object-assign: "npm:^4.1.1"
+    prop-types: "npm:^15.6.2"
+    scheduler: "npm:^0.19.1"
+  peerDependencies:
+    react: ^16.14.0
+  checksum: 10/d59f3376ab41ee874fbb9bd738160f6d70f619b4cba40531d5c60dfa289c216cff4d5e6552babdf59843a1a8e7f08faf4a746bf4df6c68d2b406a6c13bdbd92b
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^18.3.1":
   version: 18.3.1
   resolution: "react-dom@npm:18.3.1"
@@ -10537,6 +10561,17 @@ __metadata:
     react: ">= 18.0.0"
     react-dom: ">= 18.0.0"
   checksum: 10/a18201386acc5b246bce24ae4cebe8186ae620d0c2dcd457b34cce0d348c69801756b0e786ce9535d099648ca0fc00d9af90d61abc51e5c69ca5f9aa5fb7de92
+  languageName: node
+  linkType: hard
+
+"react@npm:^16.2.0":
+  version: 16.14.0
+  resolution: "react@npm:16.14.0"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    object-assign: "npm:^4.1.1"
+    prop-types: "npm:^15.6.2"
+  checksum: 10/ee04c82f5ecb70fe15a48d8cfc3fb20ce2f7e65277d4adcb56a0ac2b82c54550d4c65eabce0d5dc0cc90d053831b9586d72ee515b11cdf0c5436c7f95aafdcda
   languageName: node
   linkType: hard
 
@@ -11014,6 +11049,7 @@ __metadata:
     "@docusaurus/preset-classic": "npm:3.7.0"
     "@docusaurus/types": "npm:3.7.0"
     "@mdx-js/react": "npm:^3.0.0"
+    "@sandhose/prettier-animated-logo": "npm:1.0.3"
     "@types/js-yaml": "npm:4.0.9"
     clsx: "npm:^2.0.0"
     js-yaml: "npm:4.1.0"
@@ -11072,6 +11108,16 @@ __metadata:
   version: 1.4.1
   resolution: "sax@npm:1.4.1"
   checksum: 10/b1c784b545019187b53a0c28edb4f6314951c971e2963a69739c6ce222bfbc767e54d320e689352daba79b7d5e06d22b5d7113b99336219d6e93718e2f99d335
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.19.1":
+  version: 0.19.1
+  resolution: "scheduler@npm:0.19.1"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    object-assign: "npm:^4.1.1"
+  checksum: 10/2bf42cd56994dd8a97bad0ecb6fbd720674f640c4a95957f9ab453dda28133d5f56755d842e6a0b203efef89a49c52354d151946f50e5c0b633d97d718285c8d
   languageName: node
   linkType: hard
 

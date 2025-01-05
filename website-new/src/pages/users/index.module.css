@@ -1,0 +1,19 @@
+.main {
+  --ifm-container-width: 990px;
+  --ifm-container-width-xl: 990px;
+}
+
+.logoGrid {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+}
+
+.logoItem {
+  padding: 20px;
+}
+
+.logoItem img {
+  max-height: 64px;
+  width: 128px;
+}

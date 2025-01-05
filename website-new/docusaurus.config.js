@@ -130,8 +130,7 @@ const config = {
             type: "docsVersionDropdown",
           },
           {
-            // TODO
-            href: "/playground/index.html",
+            href: "pathname:///playground.html",
             label: "Playground",
             position: "right",
           },
@@ -184,7 +183,7 @@ const config = {
             items: [
               {
                 label: "User Showcase",
-                href: "https://prettier.io/en/users",
+                to: "/users",
               },
               {
                 label: "Stack Overflow",
