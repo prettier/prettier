@@ -42,6 +42,7 @@ async function buildPackageJson({ file, files }) {
     exports: {
       ".": {
         types: "./index.d.ts",
+        "module-sync": "./index.mjs",
         require: "./index.cjs",
         browser: {
           import: "./standalone.mjs",
