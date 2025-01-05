@@ -3,7 +3,6 @@
   - algolia
   - "/en" missing from routes
 - playground
-- help page
 - playground redirect
 - pwa?
 - analytics
