@@ -4,12 +4,24 @@
 }
 
 .logoGrid {
-  display: grid;
-  place-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+  --min-item-size: 168px;
+
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.logoItem {
+.logoGrid > * {
+  flex: 1 1 var(--min-item-size);
+}
+
+.logoItem,
+.logoItem > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoItem a {
   padding: 20px;
 }
 

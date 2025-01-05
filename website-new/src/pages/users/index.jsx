@@ -10,9 +10,11 @@ export default function Users() {
   const users = siteConfig.customFields.users;
 
   const showcase = users.map((user, i) => (
-    <a key={i} href={user.infoLink} className={styles.logoItem}>
-      <img src={user.image} title={user.caption} />
-    </a>
+    <div key={i} className={styles.logoItem}>
+      <a href={user.infoLink}>
+        <img src={user.image} title={user.caption} />
+      </a>
+    </div>
   ));
 
   return (
