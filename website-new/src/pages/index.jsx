@@ -97,6 +97,39 @@ function SyntaxSection() {
   );
 }
 
+function TldrSection() {
+  return (
+    <div
+      className={clsx("container", styles.tldrSection, styles.sectionPadding)}
+    >
+      <div className={styles.tldrSectionInner}>
+        <div className={styles.tldrSectionColumn}>
+          <h2>What is Prettier?</h2>
+          <ul>
+            <li>An opinionated code formatter</li>
+            <li>Supports many languages</li>
+            <li>Integrates with most editors</li>
+            <li>
+              <a href={"/docs/option-philosophy"}>Has few options &raquo;</a>
+            </li>
+          </ul>
+        </div>
+        <div className={styles.tldrSectionColumn}>
+          <h2>Why?</h2>
+          <ul>
+            <li>Your code is formatted on save</li>
+            <li>No need to discuss style in code review</li>
+            <li>Saves you time and energy</li>
+            <li>
+              <Link to={"/docs/why-prettier"}>And more &raquo;</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -107,6 +140,7 @@ export default function Home() {
       <div className="home">
         <HomepageHeader />
         <SyntaxSection />
+        <TldrSection />
       </div>
     </Layout>
   );

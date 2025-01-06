@@ -17,6 +17,14 @@
 
   --color-tidelift: #f6914d;
   --color-tidelift-darker: #e67c36;
+
+  --ifm-h2-font-size: 2.125rem;
+  --ifm-heading-font-weight: 500;
+  --ifm-heading-margin-top: 1.25rem;
+  --ifm-heading-margin-bottom: 2.5rem;
+
+  --ifm-list-margin: 0;
+  --ifm-list-left-padding: 0;
 }
 
 .heroBanner {
@@ -98,11 +106,52 @@
   --ifm-container-width-xl: 860px;
 
   color: var(--ifm-color-gray-900);
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: bold;
 
   justify-content: center;
   display: flex;
   flex-direction: column;
-  padding-top: 20px;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.sectionPadding {
+  padding-top: 3.125rem;
+  padding-bottom: 3.125rem;
+}
+
+.tldrSection {
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-link-hover-color: var(--ifm-color-primary);
+
+  background-color: #182025;
+  color: var(--ifm-color-primary);
+}
+
+.tldrSectionInner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-evenly;
+}
+
+.tldrSectionColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.tldrSection h2:before {
+  content: "# ";
+}
+
+.tldrSectionColumn ul li {
+  list-style: none;
+  list-style-position: inside;
+}
+
+.tldrSectionColumn li::before {
+  content: "* ";
+  vertical-align: sub;
 }
