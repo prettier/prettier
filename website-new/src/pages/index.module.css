@@ -28,7 +28,7 @@
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding-bottom: 2.5rem;
   }
 }
 
@@ -36,11 +36,12 @@
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
-  max-width: calc(100vw - 30px);
 }
 
 .logoWrapper > svg {
   cursor: ew-resize;
+  height: auto;
+  max-width: calc(100vw - 30px);
 }
 
 .heroButtonContainer {
@@ -50,18 +51,24 @@
   gap: 1rem;
 }
 
+@media screen and (max-width: 443px) {
+  .heroButtonContainer {
+    flex-direction: column;
+  }
+}
+
 .heroButton {
   --ifm-button-color: var(--ifm-color-gray-900);
 }
 
 .tidelift {
   --ifm-link-hover-decoration: none;
-  --ifm-link-hover-color: var(--ifm-button-color);
+  --ifm-link-hover-color: var(--ifm-color-gray-900);
 
   background: var(--color-tidelift) url(/images/tidelift-small.png) 10px
     no-repeat;
   background-size: 24px;
-  color: var(--ifm-button-color);
+  color: var(--ifm-color-gray-900);
   position: absolute;
   top: 16px;
   right: 0;
@@ -77,4 +84,25 @@
 
 .tidelift:hover {
   background-color: var(--color-tidelift-darker);
+}
+
+.syntaxSection {
+  background-color: var(--ifm-color-primary);
+  display: flex;
+  justify-content: center;
+}
+
+.syntaxLink {
+  --ifm-link-hover-color: var(--ifm-color-gray-900);
+  --ifm-container-width: 860px;
+  --ifm-container-width-xl: 860px;
+
+  color: var(--ifm-color-gray-900);
+  font-size: 20px;
+  font-weight: bold;
+
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
 }

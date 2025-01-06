@@ -80,16 +80,33 @@ function HomepageHeader() {
   );
 }
 
+function SyntaxSection() {
+  return (
+    <section className={styles.syntaxSection}>
+      <Link
+        to="https://sentry.shop/products/syntax-prettier-tee"
+        className={clsx(styles.syntaxLink, "container")}
+      >
+        <div>
+          Limited edition tshirts are now available to buy! $10 per tshirt goes
+          to maintain the project.
+        </div>
+        <img width={860} src="/images/syntaxfm/1.webp" />
+      </Link>
+    </section>
+  );
+}
+
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
       title="Prettier · Opinionated Code Formatter"
-      description="Description will go into a meta tag in <head />"
+      description={siteConfig.tagline}
     >
       <div className="home">
         <HomepageHeader />
-        <main>asd</main>
+        <SyntaxSection />
       </div>
     </Layout>
   );
