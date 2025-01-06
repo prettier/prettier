@@ -1,5 +1,4 @@
 - name: JavaScript
-  showName: true
   image: /images/languages/tools_js.svg
   variants:
     - "[JSX](https://facebook.github.io/jsx/)"
@@ -7,14 +6,12 @@
     - "[TypeScript](https://www.typescriptlang.org)"
     - "[JSON](https://json.org)"
 - name: HTML
-  showName: true
   image: /images/languages/tools_html.svg
   variants:
     - "[Vue](https://vuejs.org)"
     - "[Angular](https://angular.io)"
     - "[Ember / Handlebars](https://emberjs.com)"
 - name: CSS
-  showName: true
   image: /images/languages/tools_css.svg
   variants:
     - "[Less](http://lesscss.org)"
@@ -23,12 +20,10 @@
     - "[`styled-jsx`](https://npmjs.com/styled-jsx)"
 - name: GraphQL
   nameLink: https://graphql.org
-  showName: true
   image: /images/languages/tools_gql.svg
   variants:
     - "[GraphQL Schemas](https://graphql.org/learn/schema/)"
 - name: Markdown
-  showName: true
   image: /images/languages/tools_md.svg
   variants:
     - "[CommonMark](https://commonmark.org)"
@@ -36,12 +31,10 @@
     - "[MDX v1](https://mdxjs.com)"
 - name: YAML
   nameLink: https://yaml.org
-  showName: true
   image: /images/languages/tools_yaml.svg
   variants: []
 - name: Community Plugins
   nameLink: ./docs/en/plugins.html#community-plugins
-  showName: true
   image: /images/languages/tools_wip.svg
   variants:
     - "[Apex](https://github.com/dangmai/prettier-plugin-apex)"
@@ -52,4 +45,4 @@
     - "[Rust](https://github.com/jinxdash/prettier-plugin-rust)"
     - "[TOML](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml)"
     - "[XML](https://github.com/prettier/plugin-xml)"
-    - "[And more...](./docs/en/plugins.html#community-plugins)"
+    - "[And more...](/docs/plugins#community-plugins)"

@@ -6,6 +6,7 @@ import AnimatedLogo from "@sandhose/prettier-animated-logo";
 import Heading from "@theme/Heading";
 import styles from "./index.module.css";
 import { useState } from "react";
+import Markdown from "react-markdown";
 
 function DraggableLogo() {
   const [rolling, setRolling] = useState(false);
@@ -99,12 +100,10 @@ function SyntaxSection() {
 
 function TldrSection() {
   return (
-    <div
-      className={clsx("container", styles.tldrSection, styles.sectionPadding)}
-    >
-      <div className={styles.tldrSectionInner}>
+    <div className={clsx(styles.tldrSection, styles.sectionPadding)}>
+      <div className={clsx("container", styles.tldrSectionInner)}>
         <div className={styles.tldrSectionColumn}>
-          <h2>What is Prettier?</h2>
+          <Heading as="h2">What is Prettier?</Heading>
           <ul>
             <li>An opinionated code formatter</li>
             <li>Supports many languages</li>
@@ -115,7 +114,7 @@ function TldrSection() {
           </ul>
         </div>
         <div className={styles.tldrSectionColumn}>
-          <h2>Why?</h2>
+          <Heading as="h2">Why?</Heading>
           <ul>
             <li>Your code is formatted on save</li>
             <li>No need to discuss style in code review</li>
@@ -126,6 +125,69 @@ function TldrSection() {
           </ul>
         </div>
       </div>
+    </div>
+  );
+}
+
+function LanguagesSection() {
+  const { siteConfig } = useDocusaurusContext();
+  const languages = siteConfig.customFields.supportedLanguages;
+
+  const languageChunks = languages.reduce((acc, language) => {
+    const last = acc.at(-1);
+    if (
+      last &&
+      last.length < 2 &&
+      last.reduce((sum, lang) => sum + lang.variants.length, 0) +
+        language.variants.length <
+        9
+    ) {
+      last.push(language);
+    } else {
+      acc.push([language]);
+    }
+    return acc;
+  }, []);
+
+  return (
+    <section className={clsx(styles.sectionPadding, styles.languageSection)}>
+      <div className="container">
+        <Heading as="h2">Works with the Tools You Use</Heading>
+        <div className={styles.languageSectionGrid}>
+          {languageChunks.map((languageChunk, index) => (
+            <div key={index}>
+              {languageChunk.map((language) => (
+                <LanguageItem key={language.name} {...language} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ *
+ * @param {object} props
+ * @param {string} props.name
+ * @param {string?} props.nameLink
+ * @param {string} props.image
+ * @param {string[]} props.variants
+ */
+function LanguageItem({ name, nameLink, image, variants }) {
+  return (
+    <div className={styles.languageItem}>
+      <img src={image} />
+      <ul>
+        <li>{nameLink ? <a href={nameLink}>{name}</a> : name}</li>
+
+        {variants.map((variant) => (
+          <li key={variant}>
+            <Markdown>{variant}</Markdown>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -141,6 +203,7 @@ export default function Home() {
         <HomepageHeader />
         <SyntaxSection />
         <TldrSection />
+        <LanguagesSection />
       </div>
     </Layout>
   );
