@@ -2,26 +2,77 @@ import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
-import HomepageFeatures from "@site/src/components/HomepageFeatures";
-
+import AnimatedLogo from "@sandhose/prettier-animated-logo";
 import Heading from "@theme/Heading";
 import styles from "./index.module.css";
+import { useState } from "react";
+
+function DraggableLogo() {
+  const [rolling, setRolling] = useState(false);
+
+  /**
+   *
+   * @param {DragEvent} event
+   */
+  const onDragStart = (event) => {
+    event.preventDefault();
+    setRolling(true);
+  };
+
+  return (
+    <div
+      className={styles.logoWrapper}
+      draggable="true"
+      onDragStart={onDragStart}
+      onTouchStart={onDragStart}
+    >
+      <AnimatedLogo
+        version="wide"
+        rolling={rolling}
+        onAnimationEnd={() => setRolling(false)}
+      />
+    </div>
+  );
+}
+
+function Tidelift() {
+  const { siteConfig } = useDocusaurusContext();
+  const tideliftUrl = siteConfig.customFields.tideliftUrl;
+
+  return (
+    <Link className={styles.tidelift} to={tideliftUrl}>
+      PRETTIER FOR ENTERPRISE
+    </Link>
+  );
+}
 
 function HomepageHeader() {
-  const { siteConfig } = useDocusaurusContext();
   return (
-    <header className={clsx("hero hero--primary", styles.heroBanner)}>
+    <header className={clsx("hero hero--dark", styles.heroBanner)}>
+      <Tidelift />
+
       <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
+        <div className={styles.logoWrapperContainer}>
+          <DraggableLogo />
+        </div>
+        <div className={styles.heroButtonContainer}>
           <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro"
+            className={clsx(
+              "button button--primary button--lg",
+              styles.heroButton,
+            )}
+            to="pathname:///playground.html"
           >
-            Docusaurus Tutorial - 5min ⏱️
+            Try It Online
+          </Link>
+          <Link
+            className={clsx(
+              "button button--secondary button--lg",
+              styles.heroButton,
+            )}
+            to="/docs/install"
+          >
+            Install Prettier
           </Link>
         </div>
       </div>
@@ -31,16 +82,15 @@ function HomepageHeader() {
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
-
   return (
     <Layout
       title="Prettier · Opinionated Code Formatter"
-      description={siteConfig.tagline}
+      description="Description will go into a meta tag in <head />"
     >
-      <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-      </main>
+      <div className="home">
+        <HomepageHeader />
+        <main>asd</main>
+      </div>
     </Layout>
   );
 }

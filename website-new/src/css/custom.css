@@ -13,7 +13,7 @@
   --ifm-color-primary-light: #1b8f98;
   --ifm-color-primary-lighter: #1d959f;
   --ifm-color-primary-lightest: #21a9b3;
-
+  --ifm-global-radius: 0.8rem;
   --ifm-code-font-size: 90%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
@@ -34,6 +34,11 @@
 .navbar {
   --ifm-navbar-background-color: #1a2b34;
   --ifm-navbar-link-hover-color: #68bbbc;
+  --ifm-navbar-shadow: none;
+}
+
+.hero {
+  --ifm-hero-background-color: #1a2b34;
 }
 
 .footer {

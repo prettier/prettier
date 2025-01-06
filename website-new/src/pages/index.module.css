@@ -1,7 +1,23 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+:global(.home) {
+  --ifm-color-primary: #f8bc45;
+  --ifm-color-primary-dark: #f7b126;
+  --ifm-color-primary-darker: #f6ab17;
+  --ifm-color-primary-darkest: #d69108;
+  --ifm-color-primary-light: #f9c764;
+  --ifm-color-primary-lighter: #facd73;
+  --ifm-color-primary-lightest: #fbdda1;
+
+  --ifm-color-secondary: #c596c7;
+  --ifm-color-secondary-dark: #b87fbb;
+  --ifm-color-secondary-darker: #b274b5;
+  --ifm-color-secondary-darkest: #9c559f;
+  --ifm-color-secondary-light: #d2add3;
+  --ifm-color-secondary-lighter: #d8b8d9;
+  --ifm-color-secondary-lightest: #ebdaeb;
+
+  --color-tidelift: #f6914d;
+  --color-tidelift-darker: #e67c36;
+}
 
 .heroBanner {
   padding: 4rem 0;
@@ -16,8 +32,49 @@
   }
 }
 
-.buttons {
+.logoWrapperContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  max-width: calc(100vw - 30px);
+}
+
+.logoWrapper > svg {
+  cursor: ew-resize;
+}
+
+.heroButtonContainer {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+}
+
+.heroButton {
+  --ifm-button-color: var(--ifm-color-gray-900);
+}
+
+.tidelift {
+  --ifm-link-hover-decoration: none;
+  --ifm-link-hover-color: var(--ifm-button-color);
+
+  background: var(--color-tidelift) url(/images/tidelift-small.png) 10px
+    no-repeat;
+  background-size: 24px;
+  color: var(--ifm-button-color);
+  position: absolute;
+  top: 16px;
+  right: 0;
+  font-size: 12px;
+  border-radius: 14px 0 0 14px;
+  padding: 6px 14px 6px 44px;
+  z-index: 10;
+  font-weight: 500;
+  transition-property: color, background, border-color;
+  transition-duration: var(--ifm-button-transition-duration);
+  transition-timing-function: var(--ifm-transition-timing-default);
+}
+
+.tidelift:hover {
+  background-color: var(--color-tidelift-darker);
 }

@@ -4,6 +4,7 @@ import Heading from "@theme/Heading";
 import Admonition from "@theme/Admonition";
 import styles from "./index.module.css";
 import clsx from "clsx";
+import Link from "@docusaurus/Link";
 
 export default function Users() {
   const { siteConfig } = useDocusaurusContext();
@@ -11,9 +12,9 @@ export default function Users() {
 
   const showcase = users.map((user, i) => (
     <div key={i} className={styles.logoItem}>
-      <a href={user.infoLink}>
+      <Link to={user.infoLink}>
         <img src={user.image} title={user.caption} />
-      </a>
+      </Link>
     </div>
   ));
 
@@ -32,16 +33,16 @@ export default function Users() {
           >
             <ul>
               <li>
-                <a href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
+                <Link to="https://2021.stateofjs.com/en-US/other-tools/#utilities">
                   More than <strong>83%</strong> of respondents to State of JS
                   2021 (10282 developers out of 12360).
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="https://2020.stateofjs.com/en-US/other-tools/#utilities">
+                <Link to="https://2020.stateofjs.com/en-US/other-tools/#utilities">
                   More than <strong>70%</strong> of respondents to State of JS
                   2020 (14880 developers out of 20974).
-                </a>
+                </Link>
               </li>
             </ul>
           </Admonition>
@@ -50,9 +51,9 @@ export default function Users() {
             <div className={styles.logoGrid}>{showcase}</div>
             <div className="text--center margin-bottom--lg">
               ...and{" "}
-              <a href="https://www.npmjs.com/browse/depended/prettier">
+              <Link to="https://www.npmjs.com/browse/depended/prettier">
                 many more projects
-              </a>
+              </Link>
             </div>
           </section>
         </div>

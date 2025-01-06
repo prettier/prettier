@@ -50,6 +50,10 @@ const config = {
       "https://tidelift.com/subscription/pkg/npm-prettier?utm_source=npm-prettier&utm_medium=referral&utm_campaign=website",
   },
 
+  stylesheets: [
+    "https://unpkg.com/@sandhose/prettier-animated-logo@1.0.3/dist/wide.css",
+  ],
+
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
 
