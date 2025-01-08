@@ -69,7 +69,7 @@ class FormatResultsCache {
    * @param {any} options
    */
   setFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.#getFileDescriptor(filePath);
+    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
     fileDescriptor.meta.data = { hashOfOptions: getHashOfOptions(options) };
   }
 
@@ -82,10 +82,6 @@ class FormatResultsCache {
 
   reconcile() {
     this.#fileEntryCache.reconcile();
-  }
-
-  #getFileDescriptor(filePath) {
-    return this.#fileEntryCache.getFileDescriptor(filePath);
   }
 }
 

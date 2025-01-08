@@ -144,7 +144,6 @@ describe("--cache option", () => {
         "metadata",
         "*.js",
       ]);
-
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
