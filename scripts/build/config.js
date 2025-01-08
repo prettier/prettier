@@ -811,7 +811,7 @@ const nodejsFiles = [
           outdent`
             const structuredClone =
               globalThis.structuredClone ??
-              ((value) => JSON.parse(JSON.stringify(vale)));
+              ((value) => JSON.parse(JSON.stringify(value)));
 
             ${text}
           `,
