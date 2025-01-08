@@ -37,7 +37,6 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
 
 class FormatResultsCache {
   #fileEntryCache;
-  #currentWorkingDirectory;
   #useChecksum;
 
   /**
@@ -46,9 +45,7 @@ class FormatResultsCache {
    */
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
-    const currentWorkingDirectory = process.cwd();
 
-    this.#currentWorkingDirectory = currentWorkingDirectory;
     this.#useChecksum = useChecksum;
     this.#fileEntryCache = fileEntryCache.createFromFile(
       /* filePath */ cacheFileLocation,
@@ -96,7 +93,6 @@ class FormatResultsCache {
   #getFileDescriptor(filePath) {
     return this.#fileEntryCache.getFileDescriptor(filePath, {
       useCheckSum: this.#useChecksum,
-      currentWorkingDirectory: this.#currentWorkingDirectory,
     });
   }
 }
