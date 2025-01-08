@@ -135,6 +135,9 @@ class Node {
     return "children";
   }
 
+  // Use `$` prefix since `children` already exits in the original AST,
+  // Can't use `#children` either, since it need be public
+  // There are other children in different Node, see `#childrenProperty`
   get $children() {
     return this[this.#childrenProperty];
   }
