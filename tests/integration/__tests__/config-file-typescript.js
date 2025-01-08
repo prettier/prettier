@@ -18,7 +18,7 @@ const TAB_WIDTH_3_OUTPUT = outdent`
 
 // Node.js>=22 supports ts files, 22 requires experimental flag, 23 doesn't
 if (NODE_JS_MAJOR_VERSION >= 22) {
-  const nodeOptions = NODE_JS_MAJOR_VERSION === 22 ? [] : NODE_TS_SUPPORT_FLAGS;
+  const nodeOptions = NODE_JS_MAJOR_VERSION === 22 ? NODE_TS_SUPPORT_FLAGS : [];
 
   test("Should support typescript config files", async () => {
     const output = await runCli(
