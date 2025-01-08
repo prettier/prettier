@@ -73,7 +73,7 @@ class FormatResultsCache {
   setFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
     if (!fileDescriptor.notFound) {
-      const meta = getMetadataFromFileDescriptor();
+      const meta = getMetadataFromFileDescriptor(fileDescriptor);
       fileDescriptor.meta.hashOfOptions = getHashOfOptions(options);
     }
   }
