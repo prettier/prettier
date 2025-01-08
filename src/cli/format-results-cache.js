@@ -37,19 +37,15 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
 
 class FormatResultsCache {
   #fileEntryCache;
-  #useChecksum;
 
   /**
    * @param {string} cacheFileLocation The path of cache file location. (default: `node_modules/.cache/prettier/.prettier-cache`)
    * @param {string} cacheStrategy
    */
   constructor(cacheFileLocation, cacheStrategy) {
-    const useChecksum = cacheStrategy === "content";
-
-    this.#useChecksum = useChecksum;
     this.#fileEntryCache = fileEntryCache.createFromFile(
       /* filePath */ cacheFileLocation,
-      useChecksum,
+      /* useChecksum */ cacheStrategy === "content",
     );
   }
 
@@ -74,9 +70,7 @@ class FormatResultsCache {
    */
   setFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#getFileDescriptor(filePath);
-    this.#fileEntryCache.cache.set(fileDescriptor.key, {
-      data: { hashOfOptions: getHashOfOptions(options) },
-    });
+    fileDescriptor.meta.data = { hashOfOptions: getHashOfOptions(options) };
   }
 
   /**
@@ -91,9 +85,7 @@ class FormatResultsCache {
   }
 
   #getFileDescriptor(filePath) {
-    return this.#fileEntryCache.getFileDescriptor(filePath, {
-      useCheckSum: this.#useChecksum,
-    });
+    return this.#fileEntryCache.getFileDescriptor(filePath);
   }
 }
 
