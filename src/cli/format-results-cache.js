@@ -25,11 +25,10 @@ function getHashOfOptions(options) {
 }
 
 /**
- * @import {FileDescriptor} from "file-entry-cache"
- * @typedef {{ hashOfOptions?: string }} OurMeta
+ * @import {FileDescriptor, FileDescriptorMeta} from "file-entry-cache"
  *
  * @param {FileDescriptor} fileDescriptor
- * @returns {FileDescriptor["meta"] & OurMeta}
+ * @returns {FileDescriptorMeta & {data?: {hashOfOptions?: string }}}}
  */
 function getMetadataFromFileDescriptor(fileDescriptor) {
   return fileDescriptor.meta;
@@ -37,6 +36,8 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
 
 class FormatResultsCache {
   #fileEntryCache;
+  #currentWorkingDirectory;
+  #useChecksum;
 
   /**
    * @param {string} cacheFileLocation The path of cache file location. (default: `node_modules/.cache/prettier/.prettier-cache`)
@@ -44,7 +45,10 @@ class FormatResultsCache {
    */
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
+    const currentWorkingDirectory = process.cwd();
 
+    this.#currentWorkingDirectory = currentWorkingDirectory;
+    this.#useChecksum = useChecksum;
     this.#fileEntryCache = fileEntryCache.createFromFile(
       /* filePath */ cacheFileLocation,
       useChecksum,
@@ -61,8 +65,8 @@ class FormatResultsCache {
       return false;
     }
 
-    const { hashOfOptions } = getMetadataFromFileDescriptor(fileDescriptor);
-
+    const hashOfOptions =
+      getMetadataFromFileDescriptor(fileDescriptor).data?.hashOfOptions;
     return hashOfOptions && hashOfOptions === getHashOfOptions(options);
   }
 
@@ -71,10 +75,11 @@ class FormatResultsCache {
    * @param {any} options
    */
   setFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-    if (!fileDescriptor.notFound) {
-      const meta = getMetadataFromFileDescriptor(fileDescriptor);
-      meta.hashOfOptions = getHashOfOptions(options);
+    const fileDescriptor = this.#getFileDescriptor(filePath);
+    if (fileDescriptor && !fileDescriptor.notFound) {
+      this.#fileEntryCache.cache.set(fileDescriptor.key, {
+        data: { hashOfOptions: getHashOfOptions(options) },
+      });
     }
   }
 
@@ -82,11 +87,20 @@ class FormatResultsCache {
    * @param {string} filePath
    */
   removeFormatResultsCache(filePath) {
-    this.#fileEntryCache.removeEntry(filePath);
+    this.#fileEntryCache.removeEntry(filePath, {
+      currentWorkingDirectory: this.#currentWorkingDirectory,
+    });
   }
 
   reconcile() {
     this.#fileEntryCache.reconcile();
+  }
+
+  #getFileDescriptor(filePath) {
+    return this.#fileEntryCache.getFileDescriptor(filePath, {
+      useCheckSum: this.#useChecksum,
+      currentWorkingDirectory: this.#currentWorkingDirectory,
+    });
   }
 }
 
