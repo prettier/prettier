@@ -45,9 +45,8 @@ class FormatResultsCache {
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
 
-    this.#fileEntryCache = fileEntryCache.create(
-      /* cacheId */ cacheFileLocation,
-      /* directory */ undefined,
+    this.#fileEntryCache = fileEntryCache.createFromFile(
+      /* filePath */ cacheFileLocation,
       useChecksum,
     );
   }
