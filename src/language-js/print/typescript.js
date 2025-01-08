@@ -338,13 +338,7 @@ function printTypescript(path, options, print) {
     case "TSTypeReference":
       return [
         print("typeName"),
-        printTypeParameters(
-          path,
-          options,
-          print,
-          // TODO: Use `typeArguments` only when babel align with TS.
-          node.typeArguments ? "typeArguments" : "typeParameters",
-        ),
+        printTypeParameters(path, options, print, "typeArguments"),
       ];
     case "TSTypeAnnotation":
       return printTypeAnnotation(path, options, print);
