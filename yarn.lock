@@ -4816,10 +4816,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:6.0.2":
-  version: 6.0.2
-  resolution: "ignore@npm:6.0.2"
-  checksum: 10/af39e49996cd989763920e445eff897d0ae1e36b5f27b0e09e14a4fd2df89b362f92e720ecf06ef729056842366527db8561d310e904718810b92ffbcd23056d
+"ignore@npm:7.0.0":
+  version: 7.0.0
+  resolution: "ignore@npm:7.0.0"
+  checksum: 10/4033102404784e8f8e53e737021996d25d8d41b0abf021645ad50699c531cc176e91addf703231f43583b00cfa8b87bec363ea8e2f21602d75909c5b957b3acd
   languageName: node
   linkType: hard
 
@@ -7322,7 +7322,7 @@ __metadata:
     html-element-attributes: "npm:3.4.0"
     html-tag-names: "npm:2.1.0"
     html-ua-styles: "npm:0.0.8"
-    ignore: "npm:6.0.2"
+    ignore: "npm:7.0.0"
     import-meta-resolve: "npm:4.1.0"
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.6"
