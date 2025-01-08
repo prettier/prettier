@@ -58,18 +58,13 @@ class FormatResultsCache {
    */
   existsAvailableFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-
-    /* c8 ignore next 3 */
-    if (fileDescriptor.notFound) {
+    if (fileDescriptor.notFound || fileDescriptor.changed) {
       return false;
     }
 
-    const hashOfOptions = getHashOfOptions(options);
-    const meta = getMetadataFromFileDescriptor(fileDescriptor);
-    const changed =
-      fileDescriptor.changed || meta.hashOfOptions !== hashOfOptions;
+    const { hashOfOptions } = getMetadataFromFileDescriptor(fileDescriptor);
 
-    return !changed;
+    return hashOfOptions && hashOfOptions === getHashOfOptions(options);
   }
 
   /**
@@ -78,9 +73,9 @@ class FormatResultsCache {
    */
   setFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-    const meta = getMetadataFromFileDescriptor(fileDescriptor);
-    if (fileDescriptor && !fileDescriptor.notFound) {
-      meta.hashOfOptions = getHashOfOptions(options);
+    if (!fileDescriptor.notFound) {
+      const meta = getMetadataFromFileDescriptor();
+      fileDescriptor.meta.hashOfOptions = getHashOfOptions(options);
     }
   }
 
