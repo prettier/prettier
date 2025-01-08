@@ -4,11 +4,8 @@ import * as steps from "./steps/index.js";
 import { logPromise, readJson, runGit } from "./utils.js";
 
 const params = parseArguments();
-const { stdout: previousVersion } = await runGit([
-  "describe",
-  "--tags",
-  "--abbrev=0",
-]);
+const { stdout: tag } = await runGit(["describe", "--tags", "--abbrev=0"]);
+const previousVersion = tag.startsWith("v") ? tag.slice(1) : tag;
 if (semver.parse(previousVersion) === null) {
   throw new Error(`Unexpected previousVersion: ${previousVersion}`);
 } else {

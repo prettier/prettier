@@ -135,7 +135,7 @@ function getBlogPostInfo(version) {
 
 function getChangelogContent({ version, previousVersion, body }) {
   return outdent`
-    [diff](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
+    [diff](https://github.com/prettier/prettier/compare/v${previousVersion}...v${version})
 
     ${body}
   `;
