@@ -28,7 +28,7 @@ describe("validate-new-version", () => {
         validateNewVersion({ version: "0.0.1", previousVersion: "0.0.2" });
       },
       {
-        message: `Version '${styleText.yellow(
+        message: `Version '${styleText.yellow.underline(
           "0.0.1",
         )}' has already been published`,
       },
