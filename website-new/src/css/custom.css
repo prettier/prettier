@@ -16,6 +16,24 @@
   --ifm-global-radius: 0.8rem;
   --ifm-code-font-size: 90%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --navbar-color: #1a2a33;
+
+  --color-yellow: #f8bc45;
+  --color-yellow-dark: #f7b126;
+  --color-yellow-darker: #f6ab17;
+  --color-yellow-darkest: #d69108;
+  --color-yellow-light: #f9c764;
+  --color-yellow-lighter: #facd73;
+  --color-yellow-lightest: #fbdda1;
+
+  --color-pink: #c596c7;
+  --color-pink-dark: #b87fbb;
+  --color-pink-darker: #b274b5;
+  --color-pink-darkest: #9c559f;
+  --color-pink-light: #d2add3;
+  --color-pink-lighter: #d8b8d9;
+  --color-pink-lightest: #ebdaeb;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -32,13 +50,12 @@
 }
 
 .navbar {
-  --ifm-navbar-background-color: #1a2b34;
+  --ifm-navbar-background-color: var(--navbar-color);
   --ifm-navbar-link-hover-color: #68bbbc;
-  --ifm-navbar-shadow: none;
 }
 
 .hero {
-  --ifm-hero-background-color: #1a2b34;
+  --ifm-hero-background-color: var(--navbar-color);
 }
 
 .footer {

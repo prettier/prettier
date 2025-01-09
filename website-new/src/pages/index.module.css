@@ -1,19 +1,5 @@
 :global(.home) {
-  --ifm-color-primary: #f8bc45;
-  --ifm-color-primary-dark: #f7b126;
-  --ifm-color-primary-darker: #f6ab17;
-  --ifm-color-primary-darkest: #d69108;
-  --ifm-color-primary-light: #f9c764;
-  --ifm-color-primary-lighter: #facd73;
-  --ifm-color-primary-lightest: #fbdda1;
-
-  --ifm-color-secondary: #c596c7;
-  --ifm-color-secondary-dark: #b87fbb;
-  --ifm-color-secondary-darker: #b274b5;
-  --ifm-color-secondary-darkest: #9c559f;
-  --ifm-color-secondary-light: #d2add3;
-  --ifm-color-secondary-lighter: #d8b8d9;
-  --ifm-color-secondary-lightest: #ebdaeb;
+  --ifm-navbar-shadow: none;
 
   --color-tidelift: #f6914d;
   --color-tidelift-darker: #e67c36;
@@ -21,10 +7,30 @@
   --ifm-h2-font-size: 2.125rem;
   --ifm-heading-font-weight: 500;
   --ifm-heading-margin-top: 1.25rem;
-  --ifm-heading-margin-bottom: 2.5rem;
+  --ifm-heading-margin-bottom: 2.75rem;
 
   --ifm-list-margin: 0;
   --ifm-list-left-padding: 0;
+}
+
+.yellowPrimary {
+  --ifm-color-primary: var(--color-yellow);
+  --ifm-color-primary-dark: var(--color-yellow-dark);
+  --ifm-color-primary-darker: var(--color-yellow-darker);
+  --ifm-color-primary-darkest: var(--color-yellow-darkest);
+  --ifm-color-primary-light: var(--color-yellow-light);
+  --ifm-color-primary-lighter: var(--color-yellow-lighter);
+  --ifm-color-primary-lightest: var(--color-yellow-lightest);
+}
+
+.pinkPrimary {
+  --ifm-color-primary: var(--color-pink);
+  --ifm-color-primary-dark: var(--color-pink-dark);
+  --ifm-color-primary-darker: var(--color-pink-darker);
+  --ifm-color-primary-darkest: var(--color-pink-darkest);
+  --ifm-color-primary-light: var(--color-pink-light);
+  --ifm-color-primary-lighter: var(--color-pink-lighter);
+  --ifm-color-primary-lightest: var(--color-pink-lightest);
 }
 
 .heroBanner {
@@ -163,7 +169,7 @@
 }
 
 .languageSection h2 {
-  color: var(--ifm-color-secondary);
+  color: var(--ifm-color-primary);
 }
 
 .languageSectionGrid {
@@ -182,27 +188,74 @@
   padding-bottom: 1em;
 }
 
-.languageItem img {
+.languageItemImage {
   width: 50px;
   margin: 0 1.25rem;
 }
 
-.languageItem ul {
+.languageItemList {
   list-style: none;
   --ifm-paragraph-margin-bottom: 0;
 }
 
-.languageItem li:first-of-type {
-  --ifm-link-color: var(--ifm-color-secondary);
-  --ifm-link-hover-color: var(--ifm-color-secondary);
-  color: var(--ifm-color-secondary);
+.languageItemList li:first-of-type {
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-link-hover-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
 }
 
-.languageItem li + li {
+.languageItemList li + li {
   margin-bottom: 0.25rem;
 }
 
-.languageItem code {
+.languageItem code,
+.editorItem code {
   background-color: transparent;
   border: none;
+}
+
+.editorSection {
+  background-color: #182025;
+}
+
+.editorSection h2 {
+  color: var(--ifm-color-primary);
+}
+
+.editorSectionGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 3.75rem 1.25rem;
+}
+
+.editorSectionGrid > * {
+  flex: 0 1 262px;
+}
+
+.editorItem {
+  --ifm-heading-margin-top: 1.25rem;
+  --ifm-heading-margin-bottom: 0px;
+  --ifm-paragraph-margin-bottom: 0;
+  --ifm-link-color: var(--ifm-font-color-base);
+  --ifm-link-hover-color: var(--ifm-font-color-base);
+
+  display: flex;
+  gap: 0.75rem;
+}
+
+.editorItemImage {
+  width: 100px;
+  height: 100px;
+}
+
+.editorSectionButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 3.75rem;
+}
+
+.editorSectionPRButton {
+  --ifm-button-background-color: transparent;
+  --ifm-button-border-color: #5ab3b3;
 }

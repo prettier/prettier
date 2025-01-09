@@ -36,8 +36,8 @@ const siteConfig = {
     { doc: "index", label: "Docs" }, // Done
     { blog: true, label: "Blog" }, // Done
     { search: true },
-    { href: "https://opencollective.com/prettier", label: "Donate" },
-    { href: GITHUB_URL, label: "GitHub" },
+    { href: "https://opencollective.com/prettier", label: "Donate" }, // Done
+    { href: GITHUB_URL, label: "GitHub" }, // Done
   ],
   /* path to images for header/footer */
   headerIcon: "icon.png", // Done
@@ -53,14 +53,14 @@ const siteConfig = {
     version: require("highlight.js/package.json").version, // Done
   },
   usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html", "css"], // Done
-  useEnglishUrl: true,
+  useEnglishUrl: true, // Done
   scripts: [
     "https://buttons.github.io/buttons.js",
     "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js",
     "/js/code-block-buttons.js",
   ],
   stylesheets: [
-    "//unpkg.com/@sandhose/prettier-animated-logo@1.0.3/dist/wide.css",
+    "//unpkg.com/@sandhose/prettier-animated-logo@1.0.3/dist/wide.css", // Done
   ],
   algolia: {
     apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
@@ -87,8 +87,8 @@ const siteConfig = {
   ],
   separateCss: ["static/separate-css"], // Done
   gaTrackingId: "UA-111350464-1",
-  twitter: true,
-  twitterUsername: "PrettierCode",
+  twitter: true, // Done
+  twitterUsername: "PrettierCode", // Done
   twitterImage: "icon.png", // Done
   ogImage: "icon.png", // Done
   onPageNav: "separate", // Done

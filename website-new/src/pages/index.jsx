@@ -49,7 +49,13 @@ function Tidelift() {
 
 function HomepageHeader() {
   return (
-    <header className={clsx("hero hero--dark", styles.heroBanner)}>
+    <header
+      className={clsx(
+        "hero hero--dark",
+        styles.heroBanner,
+        styles.yellowPrimary,
+      )}
+    >
       <Tidelift />
 
       <div className="container">
@@ -83,7 +89,7 @@ function HomepageHeader() {
 
 function SyntaxSection() {
   return (
-    <section className={styles.syntaxSection}>
+    <section className={clsx(styles.syntaxSection, styles.yellowPrimary)}>
       <Link
         to="https://sentry.shop/products/syntax-prettier-tee"
         className={clsx(styles.syntaxLink, "container")}
@@ -100,7 +106,13 @@ function SyntaxSection() {
 
 function TldrSection() {
   return (
-    <div className={clsx(styles.tldrSection, styles.sectionPadding)}>
+    <div
+      className={clsx(
+        styles.tldrSection,
+        styles.sectionPadding,
+        styles.yellowPrimary,
+      )}
+    >
       <div className={clsx("container", styles.tldrSectionInner)}>
         <div className={styles.tldrSectionColumn}>
           <Heading as="h2">What is Prettier?</Heading>
@@ -150,7 +162,13 @@ function LanguagesSection() {
   }, []);
 
   return (
-    <section className={clsx(styles.sectionPadding, styles.languageSection)}>
+    <section
+      className={clsx(
+        styles.sectionPadding,
+        styles.languageSection,
+        styles.pinkPrimary,
+      )}
+    >
       <div className="container">
         <Heading as="h2">Works with the Tools You Use</Heading>
         <div className={styles.languageSectionGrid}>
@@ -178,8 +196,8 @@ function LanguagesSection() {
 function LanguageItem({ name, nameLink, image, variants }) {
   return (
     <div className={styles.languageItem}>
-      <img src={image} />
-      <ul>
+      <img src={image} className={styles.languageItemImage} />
+      <ul className={styles.languageItemList}>
         <li>{nameLink ? <a href={nameLink}>{name}</a> : name}</li>
 
         {variants.map((variant) => (
@@ -192,19 +210,70 @@ function LanguageItem({ name, nameLink, image, variants }) {
   );
 }
 
+function EditorSupportSection() {
+  const { siteConfig } = useDocusaurusContext();
+  const editors = siteConfig.customFields.editors;
+  const githubUrl = siteConfig.customFields.githubUrl;
+
+  return (
+    <div className={clsx(styles.sectionPadding, styles.editorSection)}>
+      <div className="container">
+        <Heading as="h2">Editor Support</Heading>
+        <div className={styles.editorSectionGrid}>
+          {editors.map((editor) => (
+            <Editor key={editor.name} {...editor} />
+          ))}
+        </div>
+
+        <div className={styles.editorSectionButtonContainer}>
+          <div>
+            <span className="margin-right--sm">Got more?</span>
+            <Link
+              to={`${githubUrl}/edit/main/website/data/editors.yml`}
+              className="button button--outline button--primary"
+            >
+              Send a PR
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ *
+ * @param {object} props
+ * @param {string} props.content
+ * @param {string} props.image
+ * @param {string} props.name
+ */
+function Editor({ content = "", image, name }) {
+  return (
+    <div className={styles.editorItem}>
+      <img src={image} className={styles.editorItemImage} />
+      <div>
+        <Heading as="h3">{name}</Heading>
+        <Markdown>{content.replaceAll("\n", "  \n")}</Markdown>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout
-      title="Prettier · Opinionated Code Formatter"
-      description={siteConfig.tagline}
-    >
-      <div className="home">
+    <div className="home">
+      <Layout
+        title="Prettier · Opinionated Code Formatter"
+        description={siteConfig.tagline}
+      >
         <HomepageHeader />
         <SyntaxSection />
         <TldrSection />
         <LanguagesSection />
-      </div>
-    </Layout>
+        <EditorSupportSection />
+      </Layout>
+    </div>
   );
 }
