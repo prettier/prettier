@@ -99,4 +99,26 @@ delete visitorKeys.DecimalLiteral;
 // Won't exist since we use `createImportExpressions` when parsing with babel
 delete visitorKeys.Import;
 
+// Flow, not supported
+for (const type of [
+  "MatchArrayPattern",
+  "MatchAsPattern",
+  "MatchBindingPattern",
+  "MatchExpression",
+  "MatchExpressionCase",
+  "MatchIdentifierPattern",
+  "MatchLiteralPattern",
+  "MatchMemberPattern",
+  "MatchObjectPattern",
+  "MatchObjectPatternProperty",
+  "MatchOrPattern",
+  "MatchRestPattern",
+  "MatchStatement",
+  "MatchStatementCase",
+  "MatchUnaryPattern",
+  "MatchWildcardPattern",
+]) {
+  delete visitorKeys[type];
+}
+
 export default visitorKeys;
