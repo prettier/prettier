@@ -49,13 +49,7 @@ function Tidelift() {
 
 function HomepageHeader() {
   return (
-    <header
-      className={clsx(
-        "hero hero--dark",
-        styles.heroBanner,
-        styles.yellowPrimary,
-      )}
-    >
+    <header className={clsx("hero hero--dark", styles.heroBanner)}>
       <Tidelift />
 
       <div className="container">
@@ -89,7 +83,7 @@ function HomepageHeader() {
 
 function SyntaxSection() {
   return (
-    <section className={clsx(styles.syntaxSection, styles.yellowPrimary)}>
+    <section className={styles.syntaxSection}>
       <Link
         to="https://sentry.shop/products/syntax-prettier-tee"
         className={clsx(styles.syntaxLink, "container")}
@@ -106,13 +100,7 @@ function SyntaxSection() {
 
 function TldrSection() {
   return (
-    <div
-      className={clsx(
-        styles.tldrSection,
-        styles.sectionPadding,
-        styles.yellowPrimary,
-      )}
-    >
+    <div className={clsx(styles.tldrSection, styles.sectionPadding)}>
       <div className={clsx("container", styles.tldrSectionInner)}>
         <div className={styles.tldrSectionColumn}>
           <Heading as="h2">What is Prettier?</Heading>
@@ -162,13 +150,7 @@ function LanguagesSection() {
   }, []);
 
   return (
-    <section
-      className={clsx(
-        styles.sectionPadding,
-        styles.languageSection,
-        styles.pinkPrimary,
-      )}
-    >
+    <section className={clsx(styles.sectionPadding, styles.languageSection)}>
       <div className="container">
         <Heading as="h2">Works with the Tools You Use</Heading>
         <div className={styles.languageSectionGrid}>
@@ -230,7 +212,7 @@ function EditorSupportSection() {
             <span className="margin-right--sm">Got more?</span>
             <Link
               to={`${githubUrl}/edit/main/website/data/editors.yml`}
-              className="button button--outline button--primary"
+              className={clsx("button button--outline button--primary")}
             >
               Send a PR
             </Link>

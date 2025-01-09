@@ -13,27 +13,12 @@
   --ifm-list-left-padding: 0;
 }
 
-.yellowPrimary {
+.heroBanner {
   --ifm-color-primary: var(--color-yellow);
   --ifm-color-primary-dark: var(--color-yellow-dark);
-  --ifm-color-primary-darker: var(--color-yellow-darker);
-  --ifm-color-primary-darkest: var(--color-yellow-darkest);
-  --ifm-color-primary-light: var(--color-yellow-light);
-  --ifm-color-primary-lighter: var(--color-yellow-lighter);
-  --ifm-color-primary-lightest: var(--color-yellow-lightest);
-}
+  --ifm-color-secondary: var(--color-pink);
+  --ifm-color-secondary-dark: var(--color-pink-dark);
 
-.pinkPrimary {
-  --ifm-color-primary: var(--color-pink);
-  --ifm-color-primary-dark: var(--color-pink-dark);
-  --ifm-color-primary-darker: var(--color-pink-darker);
-  --ifm-color-primary-darkest: var(--color-pink-darkest);
-  --ifm-color-primary-light: var(--color-pink-light);
-  --ifm-color-primary-lighter: var(--color-pink-lighter);
-  --ifm-color-primary-lightest: var(--color-pink-lightest);
-}
-
-.heroBanner {
   padding: 4rem 0;
   text-align: center;
   position: relative;
@@ -101,6 +86,9 @@
 }
 
 .syntaxSection {
+  --ifm-color-primary: var(--color-yellow);
+  --ifm-color-primary-dark: var(--color-yellow-dark);
+
   background-color: var(--ifm-color-primary);
   display: flex;
   justify-content: center;
@@ -128,6 +116,8 @@
 }
 
 .tldrSection {
+  --ifm-color-primary: var(--color-yellow);
+  --ifm-color-primary-dark: var(--color-yellow-dark);
   --ifm-link-color: var(--ifm-color-primary);
   --ifm-link-hover-color: var(--ifm-color-primary);
 
@@ -163,9 +153,12 @@
 }
 
 .languageSection {
-  background-color: #1a2b34;
-  --ifm-link-color: var(--ifm-font-color-base);
-  --ifm-link-hover-color: var(--ifm-font-color-base);
+  --ifm-color-primary: var(--color-pink);
+  --ifm-color-primary-dark: var(--color-pink-dark);
+  --ifm-link-color: var(--ifm-color-white);
+  --ifm-link-hover-color: var(--ifm-color-white);
+  color: var(--ifm-color-white);
+  background-color: var(--navbar-color);
 }
 
 .languageSection h2 {
@@ -215,6 +208,10 @@
 }
 
 .editorSection {
+  --ifm-color-primary: #56b3b4;
+  --ifm-link-color: var(--ifm-color-white);
+  --ifm-link-hover-color: var(--ifm-color-white);
+  color: var(--ifm-color-white);
   background-color: #182025;
 }
 
@@ -237,8 +234,6 @@
   --ifm-heading-margin-top: 1.25rem;
   --ifm-heading-margin-bottom: 0px;
   --ifm-paragraph-margin-bottom: 0;
-  --ifm-link-color: var(--ifm-font-color-base);
-  --ifm-link-hover-color: var(--ifm-font-color-base);
 
   display: flex;
   gap: 0.75rem;
@@ -253,9 +248,6 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 3.75rem;
-}
 
-.editorSectionPRButton {
-  --ifm-button-background-color: transparent;
-  --ifm-button-border-color: #5ab3b3;
+  --ifm-font-color-base-inverse: var(--ifm-color-gray-1000);
 }
