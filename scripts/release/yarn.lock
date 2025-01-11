@@ -69,13 +69,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:5.3.0":
-  version: 5.3.0
-  resolution: "chalk@npm:5.3.0"
-  checksum: 10/6373caaab21bd64c405bfc4bd9672b145647fc9482657b5ea1d549b3b2765054e9d3d928870cdf764fb4aad67555f5061538ff247b8310f110c5c888d92397ea
-  languageName: node
-  linkType: hard
-
 "cross-spawn@npm:^7.0.3":
   version: 7.0.6
   resolution: "cross-spawn@npm:7.0.6"
@@ -251,6 +244,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-style-text@npm:0.0.6":
+  version: 0.0.6
+  resolution: "node-style-text@npm:0.0.6"
+  checksum: 10/9eeb6a054597ed122f16ec1fc404a687f75c857655cc1478b0f8b6ccd14f8badfbaeacc0b9cd5dcf84b8286986e52c5feffbf070ed4568acb7f4eb2f1cb6a5a3
+  languageName: node
+  linkType: hard
+
 "npm-run-path@npm:^6.0.0":
   version: 6.0.0
   resolution: "npm-run-path@npm:6.0.0"
@@ -323,10 +323,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    chalk: "npm:5.3.0"
     enquirer: "npm:2.4.1"
     execa: "npm:9.5.1"
     fast-glob: "npm:3.3.3"
+    node-style-text: "npm:0.0.6"
     outdent: "npm:0.8.0"
     semver: "npm:7.6.3"
   languageName: unknown

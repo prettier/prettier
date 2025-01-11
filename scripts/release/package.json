@@ -5,15 +5,15 @@
     "test": "node --test"
   },
   "dependencies": {
-    "chalk": "5.3.0",
     "enquirer": "2.4.1",
     "execa": "9.5.1",
     "fast-glob": "3.3.3",
+    "node-style-text": "0.0.6",
     "outdent": "0.8.0",
     "semver": "7.6.3"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "packageManager": "yarn@4.6.0"
 }
