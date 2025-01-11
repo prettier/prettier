@@ -99,7 +99,7 @@
     "to-fast-properties": "4.0.0",
     "typescript": "5.7.3",
     "unicode-regex": "4.0.0",
-    "unified": "9.2.2",
+    "unified": "11.0.5",
     "url-or-path": "2.3.2",
     "vnopts": "2.0.0",
     "wcwidth.js": "2.0.0",
