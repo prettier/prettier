@@ -1,2 +1,2 @@
 runFormatTest(import.meta, ["babel"]);
-runFormatTest(import.meta, ["babel"], { multilineObject: "collapse" });
+runFormatTest(import.meta, ["babel"], { objectWrapping: "collapse" });

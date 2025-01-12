@@ -36,7 +36,7 @@ const ENABLED_OPTIONS = [
   "singleQuote",
   "bracketSpacing",
   "jsxSingleQuote",
-  "multilineObject",
+  "objectWrapping",
   "quoteProps",
   "arrowParens",
   "trailingComma",

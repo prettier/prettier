@@ -1,2 +1,2 @@
 runFormatTest(import.meta, ["typescript"]);
-runFormatTest(import.meta, ["typescript"], { multilineObject: "collapse" });
+runFormatTest(import.meta, ["typescript"], { objectWrapping: "collapse" });

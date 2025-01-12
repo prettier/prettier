@@ -31,7 +31,7 @@ It turns out that empty lines are very hard to automatically generate. The appro
 
 By default, Prettier’s printing algorithm prints expressions on a single line if they fit. Objects are used for a lot of different things in JavaScript, though, and sometimes it really helps readability if they stay multiline. See [object lists], [nested configs], [stylesheets] and [keyed methods], for example. We haven’t been able to find a good rule for all those cases, so by default Prettier keeps objects multi-line if there’s a newline between the `{` and the first key in the original source code. Consequently, long single-line objects are automatically expanded, but short multi-line objects are never collapsed.
 
-You can disable this conditional behavior with the [multilineObject](options.md#multi-line-object) option.
+You can disable this conditional behavior with the [`objectWrapping`](options.md#object-wrapping) option.
 
 **Tip:** If you have a multi-line object that you’d like to join up into a single line:
 

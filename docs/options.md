@@ -163,11 +163,11 @@ Valid options:
 | ------- | ---------------------- | ------------------------ |
 | `true`  | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
 
-## Multi-line Object
+## Object Wrapping
 
 _First available in v3.5.0_
 
-Allow multi-line objects to collapse to a single line.
+Configure how Prettier wraps object literals when they could fit on one line or span multiple lines.
 
 By default, Prettier formats objects as multi-line if there is a newline prior to the first property. Authors can use this heuristic to contextually improve readability, though it has some downsides. See [Multi-line objects](rationale.md#multi-line-objects).
 
@@ -178,7 +178,7 @@ Valid options:
 
 | Default      | CLI Override                                             | API Override                                             |
 | ------------ | -------------------------------------------------------- | -------------------------------------------------------- |
-| `"preserve"` | <code>--multiline-object <preserve&#124;collapse></code> | <code>multilineObject: "<preserve&#124;collapse>"</code> |
+| `"preserve"` | <code>--object-wrapping <preserve&#124;collapse></code>  | <code>objectWrapping: "<preserve&#124;collapse>"</code>  |
 
 ## Bracket Line
 

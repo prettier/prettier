@@ -9,11 +9,11 @@ const options = {
     description: "Print spaces between brackets.",
     oppositeDescription: "Do not print spaces between brackets.",
   },
-  multilineObject: {
+  objectWrapping: {
     category: CATEGORY_COMMON,
     type: "choice",
     default: "preserve",
-    description: "Allow multi-line objects to collapse to a single line.",
+    description: "How to wrap object literals.",
     choices: [
       {
         value: "preserve",
