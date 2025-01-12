@@ -348,23 +348,6 @@ Default: log"
 
 exports[`show detailed usage with --help log-level (write) 1`] = `[]`;
 
-exports[`show detailed usage with --help multiline-object (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help multiline-object (stdout) 1`] = `
-"--multiline-object <preserve|collapse>
-
-  Allow multi-line objects to collapse to a single line.
-
-Valid options:
-
-  preserve   Keep as multi-line, if there is a newline between the opening brace and first property.
-  collapse   Fit to a single line when possible.
-
-Default: preserve"
-`;
-
-exports[`show detailed usage with --help multiline-object (write) 1`] = `[]`;
-
 exports[`show detailed usage with --help no-bracket-spacing (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-bracket-spacing (stdout) 1`] = `
@@ -434,6 +417,23 @@ exports[`show detailed usage with --help no-semi (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help no-semi (write) 1`] = `[]`;
+
+exports[`show detailed usage with --help object-wrapping (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help object-wrapping (stdout) 1`] = `
+"--object-wrapping <preserve|collapse>
+
+  How to wrap object literals.
+
+Valid options:
+
+  preserve   Keep as multi-line, if there is a newline between the opening brace and first property.
+  collapse   Fit to a single line when possible.
+
+Default: preserve"
+`;
+
+exports[`show detailed usage with --help object-wrapping (write) 1`] = `[]`;
 
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 

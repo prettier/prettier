@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`array.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -158,9 +158,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`boolean.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`boolean.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -247,9 +247,9 @@ true
 ================================================================================
 `;
 
-exports[`json5.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`json5.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -609,9 +609,9 @@ No \\\\n's!",
 ================================================================================
 `;
 
-exports[`json6.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`json6.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -1299,9 +1299,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`key-value.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`key-value.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -1436,9 +1436,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`multi-line.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`multi-line.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -1546,9 +1546,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`null.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`null.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -1635,9 +1635,9 @@ null
 ================================================================================
 `;
 
-exports[`number.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`number.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -1724,9 +1724,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`pass1.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`pass1.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -2524,9 +2524,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`positive-number.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`positive-number.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -2613,9 +2613,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`propertyKey.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`propertyKey.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -2978,9 +2978,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`single-line.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`single-line.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -3082,9 +3082,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`single-quote.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`single-quote.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
@@ -3171,9 +3171,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`string.json - {"multilineObject":"collapse"} format 1`] = `
+exports[`string.json - {"objectWrapping":"collapse"} format 1`] = `
 ====================================options=====================================
-multilineObject: "collapse"
+objectWrapping: "collapse"
 parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth

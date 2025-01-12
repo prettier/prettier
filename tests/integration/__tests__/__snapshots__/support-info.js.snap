@@ -163,7 +163,7 @@ exports[`API getSupportInfo() 1`] = `
       "default": false,
       "type": "boolean",
     },
-    "multilineObject": {
+    "objectWrapping": {
       "choices": [
         "preserve",
         "collapse",
@@ -948,8 +948,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         }
       ],
       "default": "preserve",
-      "description": "Allow multi-line objects to collapse to a single line.",
-      "name": "multilineObject",
+      "description": "How to wrap object literals.",
+      "name": "objectWrapping",
       "pluginDefaults": {},
       "type": "choice"
     },
