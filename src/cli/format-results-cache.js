@@ -1,7 +1,6 @@
 // Inspired by LintResultsCache from ESLint
 // https://github.com/eslint/eslint/blob/c2d0a830754b6099a3325e6d3348c3ba983a677a/lib/cli-engine/lint-result-cache.js
 
-import fs from "node:fs";
 import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
 import { version as prettierVersion } from "../index.js";
@@ -72,9 +71,9 @@ class FormatResultsCache {
    */
   setFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-    if (fileDescriptor && !fileDescriptor.notFound) {
+    if (!fileDescriptor.notFound) {
       const meta = getMetadataFromFileDescriptor(fileDescriptor);
-      meta.data = { hashOfOptions: getHashOfOptions(options) };
+      meta.data = { ...meta.data, hashOfOptions: getHashOfOptions(options) };
     }
   }
 
