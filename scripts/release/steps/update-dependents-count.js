@@ -1,4 +1,4 @@
-import chalk from "chalk";
+import styleText from "node-style-text";
 import { fetchText, logPromise, processFile, runGit } from "../utils.js";
 
 async function update() {
@@ -79,6 +79,6 @@ export default async function updateDependentsCount({ dry, next }) {
   try {
     await update();
   } catch (error) {
-    console.log(chalk.red.bold(error.message));
+    console.log(styleText.red.bold(error.message));
   }
 }

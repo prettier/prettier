@@ -51,3 +51,15 @@ foo[
     b
   )
 );
+
+const logical_expression =
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa /* trailing comment */ &&
+  /* leading comment */ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb &&
+  // line comment
+  cccccccccccccccccccccccc;
+
+const bc = a /* internal before */ || /* internal after */ b;
+
+a +
+  /**/
+  a.a().a();

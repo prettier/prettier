@@ -2,8 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
 import url from "node:url";
-import chalk from "chalk";
 import { execa } from "execa";
+import styleText from "node-style-text";
 import outdent from "outdent";
 import getFormattedDate from "./get-formatted-date.js";
 
@@ -23,7 +23,7 @@ const padStatusText = (text) => {
 };
 const status = {};
 for (const { color, text } of statusConfig) {
-  status[text] = chalk[color].black(padStatusText(text));
+  status[text] = styleText[color].black(padStatusText(text));
 }
 
 function fitTerminal(input, suffix = "") {
@@ -31,7 +31,7 @@ function fitTerminal(input, suffix = "") {
   const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
     const repeatCount = Math.max(WIDTH - input.length - 1 - suffix.length, 0);
-    input += chalk.dim(".").repeat(repeatCount) + suffix;
+    input += styleText.dim(".").repeat(repeatCount) + suffix;
   }
   return input;
 }
@@ -73,7 +73,7 @@ function runGit(args, options) {
 
 function waitForEnter() {
   console.log();
-  console.log(chalk.gray("Press ENTER to continue."));
+  console.log(styleText.gray("Press ENTER to continue."));
 
   process.stdin.setRawMode(true);
 

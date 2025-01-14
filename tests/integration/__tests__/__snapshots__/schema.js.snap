@@ -89,6 +89,24 @@ exports[`schema 1`] = `
             },
           ],
         },
+        "experimentalOperatorPosition": {
+          "default": "end",
+          "description": "Where to print operators when binary expressions wrap lines.",
+          "oneOf": [
+            {
+              "description": "Print operators at the start of new lines.",
+              "enum": [
+                "start",
+              ],
+            },
+            {
+              "description": "Print operators at the end of previous lines.",
+              "enum": [
+                "end",
+              ],
+            },
+          ],
+        },
         "experimentalTernaries": {
           "default": false,
           "description": "Use curious ternaries, with the question mark after the condition.",

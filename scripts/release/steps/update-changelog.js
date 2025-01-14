@@ -1,6 +1,6 @@
 import fs from "node:fs";
-import chalk from "chalk";
 import { execa } from "execa";
+import styleText from "node-style-text";
 import semver from "semver";
 import {
   getBlogPostInfo,
@@ -51,9 +51,9 @@ export default async function updateChangelog({
       return;
     }
     console.warn(
-      `${chalk.yellow("warning")} The file ${chalk.bold(
+      `${styleText.yellow("warning")} The file ${styleText.bold(
         blogPost.file,
-      )} doesn't exist, but it will be referenced in ${chalk.bold(
+      )} doesn't exist, but it will be referenced in ${styleText.bold(
         "CHANGELOG.md",
       )}. Make sure to create it later.`,
     );
