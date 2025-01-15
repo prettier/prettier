@@ -56,7 +56,7 @@ function printTypescriptMappedType(path, options, print) {
   const { node } = path;
   // Break after `{` like `printObject`
   const shouldBreak =
-    options.objectWrapping === "preserve" &&
+    options.objectWrap === "preserve" &&
     hasNewlineInRange(
       options.originalText,
       locStart(node),

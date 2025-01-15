@@ -345,7 +345,7 @@ export interface RequiredOptions extends doc.printer.Options {
    * How to wrap object literals.
    * @default "preserve"
    */
-  objectWrapping: "preserve" | "collapse";
+  objectWrap: "preserve" | "collapse";
   /**
    * Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the end of the last line instead of being
    * alone on the next line (does not apply to self closing elements).

@@ -163,7 +163,7 @@ Valid options:
 | ------- | ---------------------- | ------------------------ |
 | `true`  | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
 
-## Object Wrapping
+## Object Wrap
 
 _First available in v3.5.0_
 
@@ -178,7 +178,7 @@ Valid options:
 
 | Default      | CLI Override                                            | API Override                                            |
 | ------------ | ------------------------------------------------------- | ------------------------------------------------------- |
-| `"preserve"` | <code>--object-wrapping <preserve&#124;collapse></code> | <code>objectWrapping: "<preserve&#124;collapse>"</code> |
+| `"preserve"` | <code>--object-wrap <preserve&#124;collapse></code> | <code>objectWrap: "<preserve&#124;collapse>"</code> |
 
 ## Bracket Line
 

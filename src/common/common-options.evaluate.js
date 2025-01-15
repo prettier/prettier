@@ -9,7 +9,7 @@ const options = {
     description: "Print spaces between brackets.",
     oppositeDescription: "Do not print spaces between brackets.",
   },
-  objectWrapping: {
+  objectWrap: {
     category: CATEGORY_COMMON,
     type: "choice",
     default: "preserve",

@@ -20,7 +20,7 @@ const options: prettier.ParserOptions = {
   bracketSpacing: true,
   bracketSameLine: false,
   htmlWhitespaceSensitivity: "css",
-  objectWrapping: "preserve",
+  objectWrap: "preserve",
   singleAttributePerLine: false,
   vueIndentScriptAndStyle: false,
   arrowParens: "always",
