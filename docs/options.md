@@ -176,8 +176,8 @@ Valid options:
 - `"preserve"` - Keep as multi-line, if there is a newline between the opening brace and first property.
 - `"collapse"` - Fit to a single line when possible.
 
-| Default      | CLI Override                                            | API Override                                            |
-| ------------ | ------------------------------------------------------- | ------------------------------------------------------- |
+| Default      | CLI Override                                        | API Override                                        |
+| ------------ | --------------------------------------------------- | --------------------------------------------------- |
 | `"preserve"` | <code>--object-wrap <preserve&#124;collapse></code> | <code>objectWrap: "<preserve&#124;collapse>"</code> |
 
 ## Bracket Line
