@@ -163,6 +163,14 @@ exports[`API getSupportInfo() 1`] = `
       "default": false,
       "type": "boolean",
     },
+    "objectWrap": {
+      "choices": [
+        "preserve",
+        "collapse",
+      ],
+      "default": "preserve",
+      "type": "choice",
+    },
     "parser": {
       "choices": [
         "flow",
@@ -926,6 +934,24 @@ exports[`CLI --support-info (stdout) 1`] = `
       "name": "jsxSingleQuote",
       "pluginDefaults": {},
       "type": "boolean"
+    },
+    {
+      "category": "Common",
+      "choices": [
+        {
+          "description": "Keep as multi-line, if there is a newline between the opening brace and first property.",
+          "value": "preserve"
+        },
+        {
+          "description": "Fit to a single line when possible.",
+          "value": "collapse"
+        }
+      ],
+      "default": "preserve",
+      "description": "How to wrap object literals.",
+      "name": "objectWrap",
+      "pluginDefaults": {},
+      "type": "choice"
     },
     {
       "category": "Global",

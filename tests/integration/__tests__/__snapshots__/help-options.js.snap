@@ -418,6 +418,23 @@ exports[`show detailed usage with --help no-semi (stdout) 1`] = `
 
 exports[`show detailed usage with --help no-semi (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help object-wrap (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help object-wrap (stdout) 1`] = `
+"--object-wrap <preserve|collapse>
+
+  How to wrap object literals.
+
+Valid options:
+
+  preserve   Keep as multi-line, if there is a newline between the opening brace and first property.
+  collapse   Fit to a single line when possible.
+
+Default: preserve"
+`;
+
+exports[`show detailed usage with --help object-wrap (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
