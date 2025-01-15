@@ -163,7 +163,7 @@ exports[`API getSupportInfo() 1`] = `
       "default": false,
       "type": "boolean",
     },
-    "objectWrapping": {
+    "objectWrap": {
       "choices": [
         "preserve",
         "collapse",
@@ -949,7 +949,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       ],
       "default": "preserve",
       "description": "How to wrap object literals.",
-      "name": "objectWrapping",
+      "name": "objectWrap",
       "pluginDefaults": {},
       "type": "choice"
     },

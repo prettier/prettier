@@ -418,10 +418,10 @@ exports[`show detailed usage with --help no-semi (stdout) 1`] = `
 
 exports[`show detailed usage with --help no-semi (write) 1`] = `[]`;
 
-exports[`show detailed usage with --help object-wrapping (stderr) 1`] = `""`;
+exports[`show detailed usage with --help object-wrap (stderr) 1`] = `""`;
 
-exports[`show detailed usage with --help object-wrapping (stdout) 1`] = `
-"--object-wrapping <preserve|collapse>
+exports[`show detailed usage with --help object-wrap (stdout) 1`] = `
+"--object-wrap <preserve|collapse>
 
   How to wrap object literals.
 
@@ -433,7 +433,7 @@ Valid options:
 Default: preserve"
 `;
 
-exports[`show detailed usage with --help object-wrapping (write) 1`] = `[]`;
+exports[`show detailed usage with --help object-wrap (write) 1`] = `[]`;
 
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
