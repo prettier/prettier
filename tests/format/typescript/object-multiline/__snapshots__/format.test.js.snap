@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`multiline.ts - {"objectWrapping":"collapse"} format 1`] = `
+exports[`multiline.ts - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
-objectWrapping: "collapse"
+objectWrap: "collapse"
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
