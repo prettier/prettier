@@ -6786,12 +6786,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-run-all2@npm:7.0.1":
-  version: 7.0.1
-  resolution: "npm-run-all2@npm:7.0.1"
+"npm-run-all2@npm:7.0.2":
+  version: 7.0.2
+  resolution: "npm-run-all2@npm:7.0.2"
   dependencies:
     ansi-styles: "npm:^6.2.1"
-    cross-spawn: "npm:^7.0.3"
+    cross-spawn: "npm:^7.0.6"
     memorystream: "npm:^0.3.1"
     minimatch: "npm:^9.0.0"
     pidtree: "npm:^0.6.0"
@@ -6803,7 +6803,7 @@ __metadata:
     npm-run-all2: bin/npm-run-all/index.js
     run-p: bin/run-p/index.js
     run-s: bin/run-s/index.js
-  checksum: 10/1920595f6e508d1de4255790cd24037b957aefa1af9b6fec0e402f93fbb5cf5ee50a68db9d691d9e9562c3a812cd9c8f6543b712b367a588658207cdd45d4faf
+  checksum: 10/46d3f7a9117d6af2463285a02909ecc92bde31fc5cd9d8a7c4cc66157e639481eed13d5553dda62b9def6df36b8a5c748393ea65233aea97ee0e615033595266
   languageName: node
   linkType: hard
 
@@ -7431,7 +7431,7 @@ __metadata:
     micromatch: "npm:4.0.8"
     minimist: "npm:1.2.8"
     n-readlines: "npm:1.0.1"
-    npm-run-all2: "npm:7.0.1"
+    npm-run-all2: "npm:7.0.2"
     outdent: "npm:0.8.0"
     parse-json: "npm:8.1.0"
     please-upgrade-node: "npm:3.2.0"
