@@ -6,8 +6,8 @@ title: "Prettier 3.5: New `objectWrap` option, `experimentalOperatorPosition` op
 
 This release includes a lot of bug fixes and the following new features:
 
-- Support for the new objectWrap option
-- Support for the new experimental experimentalOperatorPosition option
+- Support for the new `objectWrap` option
+- Support for the new experimental `experimentalOperatorPosition` option
 - Support for TypeScript configuration file
 
 See each section for details.
