@@ -90,9 +90,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:9.5.1":
-  version: 9.5.1
-  resolution: "execa@npm:9.5.1"
+"execa@npm:9.5.2":
+  version: 9.5.2
+  resolution: "execa@npm:9.5.2"
   dependencies:
     "@sindresorhus/merge-streams": "npm:^4.0.0"
     cross-spawn: "npm:^7.0.3"
@@ -106,7 +106,7 @@ __metadata:
     signal-exit: "npm:^4.1.0"
     strip-final-newline: "npm:^4.0.0"
     yoctocolors: "npm:^2.0.0"
-  checksum: 10/aa030cdd43ffbf6a8825c16eec1515729553ce3655a8fa5165f0ddab2320957a9783effbeff37662e238e6f5d979d9732e3baa4bcaaeba4360856e627a214177
+  checksum: 10/652fa492e7e1052becba12275aafd1c3d249967a4400f798877aa6c21fafcd8182ee3ce09a54f0379785635f32a4adeef77b2edb83d7e8a55b06819ed102ff2a
   languageName: node
   linkType: hard
 
@@ -324,7 +324,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     enquirer: "npm:2.4.1"
-    execa: "npm:9.5.1"
+    execa: "npm:9.5.2"
     fast-glob: "npm:3.3.3"
     node-style-text: "npm:0.0.6"
     outdent: "npm:0.8.0"

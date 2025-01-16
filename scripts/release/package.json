@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "enquirer": "2.4.1",
-    "execa": "9.5.1",
+    "execa": "9.5.2",
     "fast-glob": "3.3.3",
     "node-style-text": "0.0.6",
     "outdent": "0.8.0",
