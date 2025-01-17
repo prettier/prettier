@@ -137,7 +137,7 @@ one 'two' three {}
 
     /* One of each with unnecessary escapes. */
     content: '"\\'';
-    content: '"\\'';
+    content: '\\"\\'';
 
     /* More double quotes than single quotes. */
     content: '"\\'"';
@@ -156,8 +156,8 @@ one 'two' three {}
     content: '\\\\';
 
     /* Backslases. */
-    content: "\\"\\\\\\"\\\\\\\\\\" ''\\\\'\\\\'\\\\\\\\'";
-    content: '\\'\\\\\\'\\\\\\\\\\' ""\\\\"\\\\"\\\\\\\\"';
+    content: "\\"\\\\\\"\\\\\\\\\\" '\\'\\\\'\\\\\\'\\\\\\\\'";
+    content: '\\'\\\\\\'\\\\\\\\\\' "\\"\\\\"\\\\\\"\\\\\\\\"';
 
     /* Somewhat more real-word example. */
     content: "He's sayin': \\"How's it goin'?\\" Don't ask me why.";
@@ -332,7 +332,7 @@ one 'two' three {}
     content: "\\"'";
 
     /* One of each with unnecessary escapes. */
-    content: "\\"'";
+    content: "\\"\\'";
     content: "\\"'";
 
     /* More double quotes than single quotes. */
@@ -352,8 +352,8 @@ one 'two' three {}
     content: "\\\\";
 
     /* Backslases. */
-    content: "\\"\\\\\\"\\\\\\\\\\" ''\\\\'\\\\'\\\\\\\\'";
-    content: '\\'\\\\\\'\\\\\\\\\\' ""\\\\"\\\\"\\\\\\\\"';
+    content: "\\"\\\\\\"\\\\\\\\\\" '\\'\\\\'\\\\\\'\\\\\\\\'";
+    content: '\\'\\\\\\'\\\\\\\\\\' "\\"\\\\"\\\\\\"\\\\\\\\"';
 
     /* Somewhat more real-word example. */
     content: "He's sayin': \\"How's it goin'?\\" Don't ask me why.";

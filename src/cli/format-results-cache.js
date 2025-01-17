@@ -3,7 +3,6 @@
 
 import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
-
 import { version as prettierVersion } from "../index.js";
 import { createHash } from "./utils.js";
 
@@ -26,10 +25,10 @@ function getHashOfOptions(options) {
 }
 
 /**
+ * @import {FileDescriptor} from "file-entry-cache"
  * @typedef {{ hashOfOptions?: string }} OurMeta
- * @typedef {import("file-entry-cache").FileDescriptor} FileDescriptor
  *
- * @param {import("file-entry-cache").FileDescriptor} fileDescriptor
+ * @param {FileDescriptor} fileDescriptor
  * @returns {FileDescriptor["meta"] & OurMeta}
  */
 function getMetadataFromFileDescriptor(fileDescriptor) {
@@ -46,9 +45,8 @@ class FormatResultsCache {
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
 
-    this.#fileEntryCache = fileEntryCache.create(
-      /* cacheId */ cacheFileLocation,
-      /* directory */ undefined,
+    this.#fileEntryCache = fileEntryCache.createFromFile(
+      /* filePath */ cacheFileLocation,
       useChecksum,
     );
   }
@@ -59,18 +57,13 @@ class FormatResultsCache {
    */
   existsAvailableFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-
-    /* c8 ignore next 3 */
-    if (fileDescriptor.notFound) {
+    if (fileDescriptor.notFound || fileDescriptor.changed) {
       return false;
     }
 
-    const hashOfOptions = getHashOfOptions(options);
-    const meta = getMetadataFromFileDescriptor(fileDescriptor);
-    const changed =
-      fileDescriptor.changed || meta.hashOfOptions !== hashOfOptions;
+    const { hashOfOptions } = getMetadataFromFileDescriptor(fileDescriptor);
 
-    return !changed;
+    return hashOfOptions && hashOfOptions === getHashOfOptions(options);
   }
 
   /**
@@ -79,8 +72,8 @@ class FormatResultsCache {
    */
   setFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-    const meta = getMetadataFromFileDescriptor(fileDescriptor);
-    if (fileDescriptor && !fileDescriptor.notFound) {
+    if (!fileDescriptor.notFound) {
+      const meta = getMetadataFromFileDescriptor(fileDescriptor);
       meta.hashOfOptions = getHashOfOptions(options);
     }
   }

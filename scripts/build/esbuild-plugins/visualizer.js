@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-
 import { visualizer as esbuildVisualizer } from "esbuild-visualizer/dist/plugin/index.js";
 
 export default function esbuildPluginVisualizer({ formats }) {

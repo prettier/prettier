@@ -8,16 +8,32 @@ You can configure Prettier via (in order of precedence):
 - A `"prettier"` key in your `package.json`, or [`package.yaml`](https://github.com/pnpm/pnpm/pull/1799) file.
 - A `.prettierrc` file written in JSON or YAML.
 - A `.prettierrc.json`, `.prettierrc.yml`, `.prettierrc.yaml`, or `.prettierrc.json5` file.
-- A `.prettierrc.js`, or `prettier.config.js` file that exports an object using `export default` or `module.exports` (depends on the [`type`](https://nodejs.org/api/packages.html#type) value in your `package.json`).
-- A `.prettierrc.mjs`, or `prettier.config.mjs` file that exports an object using `export default`.
-- A `.prettierrc.cjs`, or `prettier.config.cjs` file that exports an object using `module.exports`.
+- A `.prettierrc.js`, `prettier.config.js`, `.prettierrc.ts`, or `prettier.config.ts` file that exports an object using `export default` or `module.exports` (depends on the [`type`](https://nodejs.org/api/packages.html#type) value in your `package.json`).
+- A `.prettierrc.mjs`, `prettier.config.mjs`, `.prettierrc.mts`, or `prettier.config.mts` file that exports an object using `export default`.
+- A `.prettierrc.cjs`, `prettier.config.cjs`, `.prettierrc.cts`, or `prettier.config.cts` file that exports an object using `module.exports`.
 - A `.prettierrc.toml` file.
+
+> TypeScript configuration files support requires [additional setup](#typescript-configuration-files)
 
 The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn’t) found.
 
 Prettier intentionally doesn’t support any kind of global configuration. This is to make sure that when a project is copied to another computer, Prettier’s behavior stays the same. Otherwise, Prettier wouldn’t be able to guarantee that everybody in a team gets the same consistent results.
 
 The options you can use in the configuration file are the same as the [API options](options.md).
+
+### TypeScript Configuration Files
+
+TypeScript support for Node.js is currently experimental, Node.js>=22.6.0 is required and `--experimental-strip-types` is required to run Node.js.
+
+```sh
+node --experimental-strip-types node_modules/prettier/bin/prettier.cjs . --write
+```
+
+or
+
+```sh
+NODE_OPTIONS="--experimental-strip-types" prettier . --write
+```
 
 ## Basic Configuration
 
@@ -65,6 +81,34 @@ const config = {
   tabWidth: 4,
   semi: false,
   singleQuote: true,
+};
+
+module.exports = config;
+```
+
+TypeScript (ES Modules):
+
+```ts
+// prettier.config.ts, .prettierrc.ts, prettier.config.mts, or .prettierrc.mts
+
+import { type Config } from "prettier";
+
+const config: Config = {
+  trailingComma: "none",
+};
+
+export default config;
+```
+
+TypeScript (CommonJS):
+
+```ts
+// prettier.config.ts, .prettierrc.ts, prettier.config.cts, or .prettierrc.cts
+
+import { type Config } from "prettier";
+
+const config: Config = {
+  trailingComma: "none",
 };
 
 module.exports = config;
@@ -134,37 +178,6 @@ overrides:
 ```
 
 `files` is required for each override, and may be a string or array of strings. `excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.
-
-## Sharing configurations
-
-Sharing a Prettier configuration is simple: just publish a module that exports a configuration object, say `@company/prettier-config`, and reference it in your `package.json`:
-
-```json
-{
-  "name": "my-cool-library",
-  "version": "9000.0.1",
-  "prettier": "@company/prettier-config"
-}
-```
-
-If you don’t want to use `package.json`, you can use any of the supported extensions to export a string, e.g. `.prettierrc.json`:
-
-```json
-"@company/prettier-config"
-```
-
-An example configuration repository is available [here](https://github.com/azz/prettier-config).
-
-> Note: This method does **not** offer a way to _extend_ the configuration to overwrite some properties from the shared configuration. If you need to do that, import the file in a `.prettierrc.js` file and export the modifications, e.g:
->
-> ```js
-> import companyPrettierConfig from "@company/prettier-config";
->
-> export default {
->   ...companyPrettierConfig,
->   semi: false,
-> };
-> ```
 
 ## Setting the [parser](options.md#parser) option
 

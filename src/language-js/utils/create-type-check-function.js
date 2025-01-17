@@ -1,5 +1,4 @@
-/** @typedef {import("../types/estree.js").Node} Node */
-/** @typedef {import("../types/estree.js").Comment} Comment */
+/** @import {Node, Comment} from "../types/estree.js" */
 
 /**
  * @param {string[]} typesArray

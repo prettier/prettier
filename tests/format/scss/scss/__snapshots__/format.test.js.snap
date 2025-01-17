@@ -2533,8 +2533,7 @@ $my-map: (
   // Comment
   "buz": calc(1 + 2),
   // Buz
-  "baz": 4,
-  // Baz
+  "baz": 4, // Baz
 );
 
 [href]:hover &, // Comment
@@ -4746,8 +4745,7 @@ $my-map: (
   // Comment
   "buz": calc(1 + 2),
   // Buz
-  "baz": 4,
-  // Baz
+  "baz": 4 // Baz
 );
 
 [href]:hover &, // Comment

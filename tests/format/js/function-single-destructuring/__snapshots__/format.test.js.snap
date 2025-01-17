@@ -279,7 +279,7 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
   23 | }
   24 |
   25 | function StatelessFunctionalComponent3([
-Cause: [22:5]: '#' not followed by identifier"
+Cause: [22:4-22:5]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js format 1`] = `

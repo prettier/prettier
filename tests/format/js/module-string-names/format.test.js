@@ -1,3 +1,1 @@
-runFormatTest(import.meta, ["babel"], {
-  errors: { meriyah: true },
-});
+runFormatTest(import.meta, ["babel"]);

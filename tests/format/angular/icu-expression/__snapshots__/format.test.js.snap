@@ -15,8 +15,8 @@ printWidth: 80
     =0 {just now}
     =1 {one minute ago}
     other {{{minutes}} minutes ago}
-
-}</span>
+  }</span
+>
 
 ================================================================================
 `;
@@ -118,11 +118,13 @@ printWidth: 80
     =0 {Found no results}
     =1 {Found one result}
     other {
-      Found <ph
+      Found
+      <ph
         id="0"
         equiv="INTERPOLATION"
         disp="{{ response.getItemsList().length }}"
-      /> results
+      />
+      results
     }
   }</bar>
 </foo>
@@ -140,8 +142,9 @@ printWidth: 80
 
 =====================================output=====================================
 <span i18n
-  >The author is {gender, select, male {male} female {female} other {other}
-}</span>
+  >The author is
+  {gender, select, male {male} female {female} other {other}}</span
+>
 
 ================================================================================
 `;
@@ -185,14 +188,39 @@ printWidth: 80
     =0 {just now}
     =1 {one minute ago}
     other {
-      {{minutes}} minutes ago by {gender, select,
-        male {male}
-        female {female}
-        other {other}
-      }
+      {{minutes}} minutes ago by
+      {gender, select, male {male} female {female} other {other}}
     }
   }
 </span>
+
+================================================================================
+`;
+
+exports[`issue-16914.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{active, select,
+  true {
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp
+  }
+  false {
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp
+  }
+}
+
+=====================================output=====================================
+{active, select,
+  true {
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp
+  }
+  false {
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp
+  }
+}
 
 ================================================================================
 `;

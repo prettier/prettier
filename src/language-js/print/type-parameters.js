@@ -27,8 +27,8 @@ import {
 } from "./type-annotation.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import {Doc} from "../../document/builders.js"
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
@@ -132,7 +132,7 @@ function printTypeParameter(path, options, print) {
   /**
    * @type {Doc[]}
    */
-  const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
+  const parts = [node.const ? "const " : ""];
 
   const name = node.type === "TSTypeParameter" ? print("name") : node.name;
 

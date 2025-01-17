@@ -1,6 +1,5 @@
 import path from "node:path";
 import url from "node:url";
-
 import transformCode from "../../scripts/build/transform/index.js";
 
 const file = url.fileURLToPath(
@@ -17,7 +16,7 @@ const transform = (code) =>
 
 test("Object.hasOwn", () => {
   expect(transform("Object.hasOwn(foo, bar)")).toMatchInlineSnapshot(
-    `"Object.prototype.hasOwnProperty.call(foo, bar);"`,
+    `"Object.prototype.hasOwnProperty.call(foo,bar)"`,
   );
 });
 
@@ -25,25 +24,25 @@ test(".at", () => {
   expect(transform("foo.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at( /* isOptionalObject */false, foo, -1);"
+    __at  (/* isOptionalObject */false,foo,-1)"
   `);
 
   expect(transform("foo?.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at( /* isOptionalObject */true, foo, -1);"
+    __at   (/* isOptionalObject */true,foo,-1)"
   `);
 
   expect(transform("foo?.bar.baz.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at( /* isOptionalObject */true, foo?.bar.baz, -1);"
+    __at           (/* isOptionalObject */true,foo?.bar.baz,-1)"
   `);
 
   expect(transform("foo.at(-1)?.bar")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at( /* isOptionalObject */false, foo, -1)?.bar;"
+    __at  (/* isOptionalObject */false,foo,-1)?.bar"
   `);
 
   // Don't support optional call
@@ -54,7 +53,7 @@ test("String#replaceAll", () => {
   expect(transform("foo.replaceAll('a', 'b')")).toMatchInlineSnapshot(`
     "import __stringReplaceAll from "<SHIMS>/string-replace-all.js";
 
-    __stringReplaceAll( /* isOptionalObject */false, foo, 'a', 'b');"
+    __stringReplaceAll(/* isOptionalObject */false,foo,'a','b')"
   `);
 });
 
@@ -62,12 +61,12 @@ test("Array#findLast", () => {
   expect(transform("foo.findLast(callback)")).toMatchInlineSnapshot(`
     "import __arrayFindLast from "<SHIMS>/array-find-last.js";
 
-    __arrayFindLast( /* isOptionalObject */false, foo, callback);"
+    __arrayFindLast(/* isOptionalObject */false,foo,callback)"
   `);
   expect(transform("foo?.findLast(callback)")).toMatchInlineSnapshot(`
     "import __arrayFindLast from "<SHIMS>/array-find-last.js";
 
-    __arrayFindLast( /* isOptionalObject */true, foo, callback);"
+    __arrayFindLast(/* isOptionalObject */true,foo,callback)"
   `);
 
   // Don't support
@@ -80,12 +79,12 @@ test("Array#findLastIndex", () => {
   expect(transform("foo.findLastIndex(callback)")).toMatchInlineSnapshot(`
     "import __arrayFindLastIndex from "<SHIMS>/array-find-last-index.js";
 
-    __arrayFindLastIndex( /* isOptionalObject */false, foo, callback);"
+    __arrayFindLastIndex(/* isOptionalObject */false,foo,callback)"
   `);
   expect(transform("foo?.findLastIndex(callback)")).toMatchInlineSnapshot(`
     "import __arrayFindLastIndex from "<SHIMS>/array-find-last-index.js";
 
-    __arrayFindLastIndex( /* isOptionalObject */true, foo, callback);"
+    __arrayFindLastIndex(/* isOptionalObject */true,foo,callback)"
   `);
 
   // Don't support

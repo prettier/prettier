@@ -1,5 +1,4 @@
 import camelCase from "camelcase";
-
 import { pick } from "../utils.js";
 import createMinimistOptions from "./create-minimist-options.js";
 import { getContextOptionsWithoutPlugins } from "./get-context-options.js";
