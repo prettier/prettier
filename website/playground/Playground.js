@@ -36,7 +36,8 @@ const ENABLED_OPTIONS = [
   "singleQuote",
   "bracketSpacing",
   "jsxSingleQuote",
-  "objectWrap",
+  // TODO: remove this comment out when 3.5.0 is released
+  // "objectWrap",
   "quoteProps",
   "arrowParens",
   "trailingComma",
