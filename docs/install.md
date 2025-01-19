@@ -175,7 +175,7 @@ For example, you can do the following to have Prettier run before each commit:
 }
 ```
 
-> Note: If you use ESLint, make sure lint-staged runs it before Prettier, not after.
+> Note: If you also use ESLint, pay attention to the [task concurrency](https://github.com/okonet/lint-staged#task-concurrency) of lint-staged.
 
 See [Pre-commit Hook](precommit.md) for more information.
 
