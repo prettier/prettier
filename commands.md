@@ -24,7 +24,7 @@ declare function group(doc: Doc, options?: GroupOptions): Doc;
 
 Mark a group of items which the printer should try to fit on one line. This is the basic command to tell the printer when to break. Groups are usually nested, and the printer will try to fit everything on one line, but if it doesn't fit it will break the outermost group first and try again. It will continue breaking groups until everything fits (or there are no more groups to break).
 
-A group is forced to break if it's created with the `shouldBreak` option set to `true` or if it includes [`breakParent`](#breakParent). A [hard](#hardline) and [literal](#literalline) line breaks automatically include this so they always break parent groups. Breaks are propagated to all parent groups, so if a deeply nested expression has a hard break, everything will break. This only matters for "hard" breaks, i.e. newlines that are printed no matter what and can be statically analyzed.
+A group is forced to break if it's created with the `shouldBreak` option set to `true` or if it includes [`breakParent`](#breakparent). A [hard](#hardline) and [literal](#literalline) line breaks automatically include this so they always break parent groups. Breaks are propagated to all parent groups, so if a deeply nested expression has a hard break, everything will break. This only matters for "hard" breaks, i.e. newlines that are printed no matter what and can be statically analyzed.
 
 For example, an array will try to fit on one line:
 
@@ -46,7 +46,7 @@ However, if any of the items inside the array have a hard break, the array will 
 
 Functions always break after the opening curly brace no matter what, so the array breaks as well for consistent formatting. See [the implementation of `ArrayExpression`](#example) for an example.
 
-The `id` option can be used in [`ifBreak`](#ifBreak) checks.
+The `id` option can be used in [`ifBreak`](#ifbreak) checks.
 
 ### `conditionalGroup`
 
@@ -177,7 +177,7 @@ a; // comment
 declare const lineSuffixBoundary: Doc;
 ```
 
-In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. `lineSuffixBoundary` is an explicit marker you can use to flush the [`lineSuffix`](#lineSuffix) buffer in addition to line breaks.
+In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. `lineSuffixBoundary` is an explicit marker you can use to flush the [`lineSuffix`](#linesuffix) buffer in addition to line breaks.
 
 ```js
 ["{", lineSuffix(" // comment"), lineSuffixBoundary, "}", hardline];
@@ -240,7 +240,7 @@ For example:
 declare function markAsRoot(doc: Doc): Doc;
 ```
 
-Mark the current indentation as root for [`dedentToRoot`](#dedentToRoot) and [`literalline`](#literalline)s.
+Mark the current indentation as root for [`dedentToRoot`](#dedenttoroot) and [`literalline`](#literalline)s.
 
 ### `dedentToRoot`
 
@@ -248,7 +248,7 @@ Mark the current indentation as root for [`dedentToRoot`](#dedentToRoot) and [`l
 declare function dedentToRoot(doc: Doc): Doc;
 ```
 
-Decrease the current indentation to the root marked by [`markAsRoot`](#markAsRoot).
+Decrease the current indentation to the root marked by [`markAsRoot`](#markasroot).
 
 ### `trim`
 
@@ -298,7 +298,7 @@ declare const hardlineWithoutBreakParent: Doc;
 declare const literallineWithoutBreakParent: Doc;
 ```
 
-These are used very rarely, for advanced formatting tricks. Unlike their "normal" counterparts, they don't include an implicit [`breakParent`](#breakParent).
+These are used very rarely, for advanced formatting tricks. Unlike their "normal" counterparts, they don't include an implicit [`breakParent`](#breakparent).
 
 Examples:
 
