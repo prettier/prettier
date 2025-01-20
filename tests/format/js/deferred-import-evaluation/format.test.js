@@ -1,6 +1,8 @@
 const importDeferTests = [
   "import-defer.js",
   "import-defer-attributes-declaration.js",
+  "dynamic-import.js",
+  "dynamic-import-attributes-expression.js",
 ];
 const invalidSyntaxTests = ["no-default.js", "no-named.js"];
 
