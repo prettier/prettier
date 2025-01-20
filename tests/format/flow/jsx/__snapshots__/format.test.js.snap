@@ -14,16 +14,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`generic-component.js [babel-flow] format 1`] = `
-"Unexpected token (1:24)
-> 1 | const c1 = <MyComponent<number> data={12} />
-    |                        ^
-  2 |
-  3 | const c2 = <MyComponent<number> />
-  4 |
-Cause: Unexpected token (1:23)"
-`;
-
 exports[`generic-component.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
