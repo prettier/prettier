@@ -44,7 +44,7 @@
     "angular-estree-parser": "10.2.0",
     "angular-html-parser": "8.0.1",
     "camelcase": "8.0.0",
-    "chalk": "5.3.0",
+    "chalk": "5.4.1",
     "ci-info": "4.1.0",
     "cjk-regex": "3.1.0",
     "collapse-white-space": "1.0.6",
