@@ -259,10 +259,6 @@ export {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
-  KIND_CJ_LETTER,
-  KIND_CJK_PUNCTUATION,
-  KIND_K_LETTER,
-  KIND_NON_CJK,
   mapAst,
   splitText,
 };
