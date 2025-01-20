@@ -59,7 +59,7 @@
     "fast-json-stable-stringify": "2.1.0",
     "file-entry-cache": "10.0.5",
     "find-cache-dir": "5.0.0",
-    "flow-parser": "0.258.1",
+    "flow-parser": "0.259.1",
     "get-east-asian-width": "1.3.0",
     "get-stdin": "9.0.0",
     "graphql": "16.10.0",
