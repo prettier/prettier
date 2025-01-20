@@ -23,7 +23,7 @@
     "docusaurus": "1.14.7",
     "js-yaml": "4.1.0",
     "rimraf": "6.0.1",
-    "webpack": "5.96.1",
+    "webpack": "5.97.1",
     "webpack-cli": "6.0.1"
   },
   "packageManager": "yarn@4.6.0"
