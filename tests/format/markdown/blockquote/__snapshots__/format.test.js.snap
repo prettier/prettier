@@ -43,11 +43,325 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`code.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+> NOTE: To use \`unobtrusive\`, \`unobtrusive/import\`, \`unobtrusive/react\`, and \`unobtrusive/flowtype\` together, your eslint config would look like this:
+>\`\`\`json
+>{
+>  "extends": [
+>    "unobtrusive",
+>    "unobtrusive/import",
+>    "unobtrusive/react",
+>    "unobtrusive/flowtype"
+>  ],
+>  "env": {
+>    "browser": true
+>  }
+>}
+>\`\`\`
+
+=====================================output=====================================
+> NOTE: To use \`unobtrusive\`, \`unobtrusive/import\`, \`unobtrusive/react\`, and \`unobtrusive/flowtype\` together, your eslint config would look like this:
+>
+> \`\`\`json
+> {
+>   "extends": [
+>     "unobtrusive",
+>     "unobtrusive/import",
+>     "unobtrusive/react",
+>     "unobtrusive/flowtype"
+>   ],
+>   "env": {
+>     "browser": true
+>   }
+> }
+> \`\`\`
+
+================================================================================
+`;
+
+exports[`code.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+> NOTE: To use \`unobtrusive\`, \`unobtrusive/import\`, \`unobtrusive/react\`, and \`unobtrusive/flowtype\` together, your eslint config would look like this:
+>\`\`\`json
+>{
+>  "extends": [
+>    "unobtrusive",
+>    "unobtrusive/import",
+>    "unobtrusive/react",
+>    "unobtrusive/flowtype"
+>  ],
+>  "env": {
+>    "browser": true
+>  }
+>}
+>\`\`\`
+
+=====================================output=====================================
+> NOTE: To use \`unobtrusive\`, \`unobtrusive/import\`, \`unobtrusive/react\`, and \`unobtrusive/flowtype\` together, your eslint config would look like this:
+>
+> \`\`\`json
+> {
+>   "extends": [
+>     "unobtrusive",
+>     "unobtrusive/import",
+>     "unobtrusive/react",
+>     "unobtrusive/flowtype"
+>   ],
+>   "env": {
+>     "browser": true
+>   }
+> }
+> \`\`\`
+
+================================================================================
+`;
+
 exports[`ignore-code.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
 proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+> \`\`\`\`md
+> <!-- prettier-ignore -->
+> \`\`\`js
+> ugly   ( code ) ;
+> \`\`\`
+> \`\`\`\`
+
+> \`\`\`md
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+> \`\`\`
+
+> - test
+>   \`\`\`md
+>   <!-- prettier-ignore -->
+>   - This is a long long
+>     long long long long
+>     long long paragraph.
+>   \`\`\`
+
+\`\`\`\`md
+> \`\`\`md
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+> \`\`\`
+\`\`\`\`
+
+> \`\`\`\`md
+> > \`\`\`md
+> > <!-- prettier-ignore -->
+> > - This is a long long
+> >   long long long long
+> >   long long paragraph.
+> > \`\`\`
+> \`\`\`\`
+
+> 
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+> 
+
+> \`\`\`\`js
+> // prettier-ignore
+> const x = 1,
+> b = 2
+> \`\`\`\`
+
+=====================================output=====================================
+> \`\`\`\`md
+> <!-- prettier-ignore -->
+> \`\`\`js
+> ugly   ( code ) ;
+> \`\`\`
+> \`\`\`\`
+
+> \`\`\`md
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+> \`\`\`
+
+> - test
+>   \`\`\`md
+>   <!-- prettier-ignore -->
+>   - This is a long long
+>     long long long long
+>     long long paragraph.
+>   \`\`\`
+
+\`\`\`\`md
+> \`\`\`md
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+> \`\`\`
+\`\`\`\`
+
+> \`\`\`\`md
+> > \`\`\`md
+> > <!-- prettier-ignore -->
+> > - This is a long long
+> >   long long long long
+> >   long long paragraph.
+> > \`\`\`
+> \`\`\`\`
+
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+
+> \`\`\`js
+> // prettier-ignore
+> const x = 1,
+> b = 2
+> \`\`\`
+
+================================================================================
+`;
+
+exports[`ignore-code.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+> \`\`\`\`md
+> <!-- prettier-ignore -->
+> \`\`\`js
+> ugly   ( code ) ;
+> \`\`\`
+> \`\`\`\`
+
+> \`\`\`md
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+> \`\`\`
+
+> - test
+>   \`\`\`md
+>   <!-- prettier-ignore -->
+>   - This is a long long
+>     long long long long
+>     long long paragraph.
+>   \`\`\`
+
+\`\`\`\`md
+> \`\`\`md
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+> \`\`\`
+\`\`\`\`
+
+> \`\`\`\`md
+> > \`\`\`md
+> > <!-- prettier-ignore -->
+> > - This is a long long
+> >   long long long long
+> >   long long paragraph.
+> > \`\`\`
+> \`\`\`\`
+
+> 
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+> 
+
+> \`\`\`\`js
+> // prettier-ignore
+> const x = 1,
+> b = 2
+> \`\`\`\`
+
+=====================================output=====================================
+> \`\`\`\`md
+> <!-- prettier-ignore -->
+> \`\`\`js
+> ugly   ( code ) ;
+> \`\`\`
+> \`\`\`\`
+
+> \`\`\`md
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+> \`\`\`
+
+> - test
+>   \`\`\`md
+>   <!-- prettier-ignore -->
+>   - This is a long long
+>     long long long long
+>     long long paragraph.
+>   \`\`\`
+
+\`\`\`\`md
+> \`\`\`md
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+> \`\`\`
+\`\`\`\`
+
+> \`\`\`\`md
+> > \`\`\`md
+> > <!-- prettier-ignore -->
+> > - This is a long long
+> >   long long long long
+> >   long long paragraph.
+> > \`\`\`
+> \`\`\`\`
+
+> <!-- prettier-ignore -->
+> - This is a long long
+>   long long long long
+>   long long paragraph.
+
+> \`\`\`js
+> // prettier-ignore
+> const x = 1,
+> b = 2
+> \`\`\`
+
+================================================================================
+`;
+
+exports[`ignore-code.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
                                                                                 | printWidth
 =====================================input======================================
 > \`\`\`\`md
@@ -173,6 +487,185 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`nested.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+>>> 123
+
+=====================================output=====================================
+> > > 123
+
+================================================================================
+`;
+
+exports[`nested.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+>>> 123
+
+=====================================output=====================================
+> > > 123
+
+================================================================================
+`;
+
+exports[`notext-end.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+> [!NOTE]
+> \`DOOM\`
+
+> _b_
+>> \`A\`
+>> \`B\`
+
+> *a*
+>> # foo
+>> \`a\` > \`b\`
+
+
+> This is a quote with an italic _across multuple lines
+> which should just work_. So make sure there is no > if we set
+> proseWrap to \`never\`
+
+> This is a quote with a link [across multuple lines
+> which should just work](). So make sure there is no > if we set
+> proseWrap to \`never\`
+
+=====================================output=====================================
+> [!NOTE] \`DOOM\`
+
+> _b_
+>
+> > \`A\` \`B\`
+
+> _a_
+>
+> > # foo
+> >
+> > \`a\` > \`b\`
+
+> This is a quote with an italic _across multuple lines which should just work_.
+> So make sure there is no > if we set proseWrap to \`never\`
+
+> This is a quote with a link [across multuple lines which should just work]().
+> So make sure there is no > if we set proseWrap to \`never\`
+
+================================================================================
+`;
+
+exports[`notext-end.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+> [!NOTE]
+> \`DOOM\`
+
+> _b_
+>> \`A\`
+>> \`B\`
+
+> *a*
+>> # foo
+>> \`a\` > \`b\`
+
+
+> This is a quote with an italic _across multuple lines
+> which should just work_. So make sure there is no > if we set
+> proseWrap to \`never\`
+
+> This is a quote with a link [across multuple lines
+> which should just work](). So make sure there is no > if we set
+> proseWrap to \`never\`
+
+=====================================output=====================================
+> [!NOTE] \`DOOM\`
+
+> _b_
+>
+> > \`A\` \`B\`
+
+> _a_
+>
+> > # foo
+> >
+> > \`a\` > \`b\`
+
+> This is a quote with an italic _across multuple lines which should just work_. So make sure there is no > if we set proseWrap to \`never\`
+
+> This is a quote with a link [across multuple lines which should just work](). So make sure there is no > if we set proseWrap to \`never\`
+
+================================================================================
+`;
+
+exports[`notext-end.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+> [!NOTE]
+> \`DOOM\`
+
+> _b_
+>> \`A\`
+>> \`B\`
+
+> *a*
+>> # foo
+>> \`a\` > \`b\`
+
+
+> This is a quote with an italic _across multuple lines
+> which should just work_. So make sure there is no > if we set
+> proseWrap to \`never\`
+
+> This is a quote with a link [across multuple lines
+> which should just work](). So make sure there is no > if we set
+> proseWrap to \`never\`
+
+=====================================output=====================================
+> [!NOTE]
+> \`DOOM\`
+
+> _b_
+>
+> > \`A\`
+> > \`B\`
+
+> _a_
+>
+> > # foo
+> >
+> > \`a\` > \`b\`
+
+> This is a quote with an italic _across multuple lines
+> which should just work_. So make sure there is no > if we set
+> proseWrap to \`never\`
+
+> This is a quote with a link [across multuple lines
+> which should just work](). So make sure there is no > if we set
+> proseWrap to \`never\`
+
+================================================================================
+`;
+
 exports[`paragraph.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -191,11 +684,74 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`paragraph.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+> This is a long long long long long long long long long long long long long long long paragraph.
+> This is a long long long long long long long long long long long long long long long paragraph.
+
+=====================================output=====================================
+> This is a long long long long long long long long long long long long long long long paragraph. This is a long long long long long long long long long long long long long long long paragraph.
+
+================================================================================
+`;
+
+exports[`paragraph.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+> This is a long long long long long long long long long long long long long long long paragraph.
+> This is a long long long long long long long long long long long long long long long paragraph.
+
+=====================================output=====================================
+> This is a long long long long long long long long long long long long long long long paragraph.
+> This is a long long long long long long long long long long long long long long long paragraph.
+
+================================================================================
+`;
+
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
 proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+> 123
+
+=====================================output=====================================
+> 123
+
+================================================================================
+`;
+
+exports[`simple.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+> 123
+
+=====================================output=====================================
+> 123
+
+================================================================================
+`;
+
+exports[`simple.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
                                                                                 | printWidth
 =====================================input======================================
 > 123
