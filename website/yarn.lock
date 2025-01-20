@@ -2879,17 +2879,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codemirror-graphql@npm:2.1.1":
-  version: 2.1.1
-  resolution: "codemirror-graphql@npm:2.1.1"
+"codemirror-graphql@npm:2.2.0":
+  version: 2.2.0
+  resolution: "codemirror-graphql@npm:2.2.0"
   dependencies:
     "@types/codemirror": "npm:^0.0.90"
     graphql-language-service: "npm:5.3.0"
   peerDependencies:
     "@codemirror/language": 6.0.0
     codemirror: ^5.65.3
-    graphql: ^15.5.0 || ^16.0.0 || ^17.0.0-alpha.2
-  checksum: 10/4a313d6a00f2bc83de0c1bafcf5b4207454f31d7b1b08a26870e8f6113d4f6581e114ec9080f6e53267cdedbbfb5d4ea25311441095bda6527827edb1f96449e
+    graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
+  checksum: 10/050ab5205aded4b34f654622ea9f2f413680d76103683958b0958e2e92eb7b7c62afb25d018cf0c1c3ef88c7dd10561003e0b732609cfafa911c4d9b56b919f1
   languageName: node
   linkType: hard
 
@@ -9215,7 +9215,7 @@ __metadata:
     "@sandhose/prettier-animated-logo": "npm:1.0.3"
     babel-loader: "npm:9.2.1"
     clipboard: "npm:2.0.11"
-    codemirror-graphql: "npm:2.1.1"
+    codemirror-graphql: "npm:2.2.0"
     concurrently: "npm:9.1.2"
     docusaurus: "npm:1.14.7"
     js-yaml: "npm:4.1.0"
