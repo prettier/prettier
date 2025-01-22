@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import chalk from "chalk";
+import styleText from "node-style-text";
 
 const packageJson = JSON.parse(
   await fs.readFile(new URL("../package.json", import.meta.url)),
@@ -9,11 +9,11 @@ validateDependencyObject(packageJson.dependencies);
 validateDependencyObject(packageJson.devDependencies);
 
 function validateDependencyObject(object) {
-  for (const key of Object.keys(object)) {
-    if (object[key][0] === "^" || object[key][0] === "~") {
+  for (const [name, version] of Object.entries(object)) {
+    if (version[0] === "^" || version[0] === "~") {
       console.error(
-        chalk.red("error"),
-        `Dependency "${chalk.bold.red(key)}" should be pinned.`,
+        styleText.bgRed.black(" ERROR "),
+        `Dependency "${styleText.bold.blue(name)}" should be pinned.`,
       );
       process.exitCode = 1;
     }
