@@ -19,7 +19,7 @@
   --ifm-color-secondary: var(--color-pink);
   --ifm-color-secondary-dark: var(--color-pink-dark);
 
-  padding: 4rem 0;
+  padding: 3rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -111,8 +111,8 @@
 }
 
 .sectionPadding {
-  padding-top: 3.125rem;
-  padding-bottom: 3.125rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .tldrSection {
@@ -250,4 +250,84 @@
   margin-top: 3.75rem;
 
   --ifm-font-color-base-inverse: var(--ifm-color-gray-1000);
+}
+
+.userSection {
+  --ifm-color-primary: #6f7b81;
+  --ifm-color-primary-dark: #637075;
+  --ifm-button-color: #1a2b34;
+  background-color: var(--navbar-color);
+}
+
+.userSection h2 {
+  color: var(--ifm-color-primary);
+}
+
+.userSectionGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.userItem {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+  transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.userItem:hover {
+  transform: scale(1.2);
+}
+
+.userItemImage {
+  width: 200px;
+  max-height: 100px;
+}
+
+@media only screen and (max-width: 736px) {
+  .userItemImage {
+    max-height: 50px;
+    width: 100px;
+  }
+}
+
+.userSectionButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+.ecosystemGrid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1.5rem 1rem;
+}
+
+@media only screen and (max-width: 736px) {
+  .ecosystemGrid {
+    gap: 2rem 1rem;
+  }
+}
+
+.ecosystemGridItem {
+  display: grid;
+  grid-template-columns: auto 260px;
+  gap: 0.8rem;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #b0c4ce;
+  --ifm-link-color: #b0c4ce;
+  --ifm-link-hover-color: var(--ifm-color-white);
+  --ifm-list-left-padding: 2rem;
+  --ifm-paragraph-margin-bottom: 1rem;
+}
+
+.ecosystemGridItem img {
+  width: 80px;
+}
+
+.ecosystemGridItem li + li {
+  margin-top: 0.5rem;
 }

@@ -13,8 +13,8 @@
   --ifm-color-primary-light: #1b8f98;
   --ifm-color-primary-lighter: #1d959f;
   --ifm-color-primary-lightest: #21a9b3;
-  --ifm-global-radius: 0.8rem;
   --ifm-code-font-size: 90%;
+  --ifm-button-border-radius: calc(0.8rem * var(--ifm-button-size-multiplier));
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
   --navbar-color: #1a2b34;
@@ -36,7 +36,6 @@
   --color-pink-lightest: #ebdaeb;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme="dark"] {
   --ifm-color-primary: #56b3b4;
   --ifm-color-primary-dark: #4aa5a6;
@@ -47,6 +46,18 @@
   --ifm-color-primary-lightest: #8dcccd;
 
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.button--primary:active,
+.button--primary.button--active {
+  --ifm-button-background-color: var(--ifm-color-primary-dark);
+  --ifm-button-border-color: var(--ifm-color-primary-dark);
+}
+
+.button--secondary:active,
+.button--secondary.button--active {
+  --ifm-button-background-color: var(--ifm-color-secondary-dark);
+  --ifm-button-border-color: var(--ifm-color-secondary-dark);
 }
 
 .navbar {

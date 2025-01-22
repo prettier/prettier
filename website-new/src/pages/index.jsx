@@ -88,7 +88,7 @@ function SyntaxSection() {
         to="https://sentry.shop/products/syntax-prettier-tee"
         className={clsx(styles.syntaxLink, "container")}
       >
-        <div>
+        <div className="margin-bottom--md">
           Limited edition tshirts are now available to buy! $10 per tshirt goes
           to maintain the project.
         </div>
@@ -242,6 +242,106 @@ function Editor({ content = "", image, name }) {
   );
 }
 
+function UsersSection() {
+  const { siteConfig } = useDocusaurusContext();
+  const users = siteConfig.customFields.users;
+  const showcase = users
+    .filter((user) => user.pinned)
+    .map((user, i) => (
+      <a key={i} href={user.infoLink} className={styles.userItem}>
+        <img
+          src={user.greyImage}
+          title={user.caption}
+          className={styles.userItemImage}
+        />
+      </a>
+    ));
+
+  return (
+    <div className={clsx(styles.sectionPadding, styles.userSection)}>
+      <div className="container padding-bottom--md">
+        <Heading as="h2">Used By People You Rely On</Heading>
+        <div className={styles.userSectionGrid}>{showcase}</div>
+        <div className={styles.userSectionButtonContainer}>
+          <div>
+            <Link to="/users" className={clsx("button button--primary")}>
+              See others
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="container">
+        <Heading as="h2">Established in the Ecosystem</Heading>
+
+        <div className={styles.ecosystemGrid}>
+          <div className={styles.ecosystemGridItem}>
+            <Link
+              to="https://2021.stateofjs.com/en-US/other-tools/utilities"
+              style={{ marginTop: "15px" }}
+            >
+              <img src="/images/state_of_js_grey.svg" />
+            </Link>
+            <div>
+              <p>Regularly used by:</p>
+              <ul>
+                <li>
+                  <Link to="https://2021.stateofjs.com/en-US/other-tools/#utilities">
+                    More than 83% of respondents to State of JS 2021.
+                  </Link>
+                </li>
+                <li>
+                  <Link to="https://2020.stateofjs.com/en-US/other-tools/#utilities">
+                    More than 70% of respondents to State of JS 2020.
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className={styles.ecosystemGridItem}>
+            <Link to="https://github.com/prettier/prettier">
+              <img src="/images/github_grey.svg" />
+            </Link>
+            <div>
+              <p>
+                More than{" "}
+                <strong data-placeholder="dependent-github">8.9 million</strong>{" "}
+                dependent repositories on GitHub
+              </p>
+              <Link
+                className="button button--primary"
+                to="https://github.com/prettier/prettier/network/dependents"
+              >
+                Check Them Out
+              </Link>
+            </div>
+          </div>
+
+          <div className={styles.ecosystemGridItem}>
+            <Link to="https://npmjs.com/package/prettier">
+              <img src="/images/npm_grey.svg" />
+            </Link>
+            <div>
+              <p>
+                More than{" "}
+                <strong data-placeholder="dependent-npm">18.7k</strong>{" "}
+                dependent packages on npm
+              </p>
+              <Link
+                className="button button--primary"
+                to="https://www.npmjs.com/browse/depended/prettier"
+              >
+                See them all
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -255,6 +355,7 @@ export default function Home() {
         <TldrSection />
         <LanguagesSection />
         <EditorSupportSection />
+        <UsersSection />
       </Layout>
     </div>
   );
