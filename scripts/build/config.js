@@ -803,6 +803,20 @@ const nodejsFiles = [
     input: "src/cli/index.js",
     outputBaseName: "internal/cli",
     external: ["benchmark"],
+    // TODO: Remove this when we drop support for Node.js v16
+    replaceModule: [
+      {
+        module: resolveEsmModulePath("cacheable"),
+        process: (text) =>
+          outdent`
+            const structuredClone =
+              globalThis.structuredClone ??
+              ((value) => JSON.parse(JSON.stringify(value)));
+
+            ${text}
+          `,
+      },
+    ],
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;

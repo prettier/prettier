@@ -25,11 +25,10 @@ function getHashOfOptions(options) {
 }
 
 /**
- * @import {FileDescriptor} from "file-entry-cache"
- * @typedef {{ hashOfOptions?: string }} OurMeta
+ * @import {FileDescriptor, FileDescriptorMeta} from "file-entry-cache"
  *
  * @param {FileDescriptor} fileDescriptor
- * @returns {FileDescriptor["meta"] & OurMeta}
+ * @returns {FileDescriptorMeta & {data?: {hashOfOptions?: string }}}}
  */
 function getMetadataFromFileDescriptor(fileDescriptor) {
   return fileDescriptor.meta;
@@ -61,8 +60,8 @@ class FormatResultsCache {
       return false;
     }
 
-    const { hashOfOptions } = getMetadataFromFileDescriptor(fileDescriptor);
-
+    const hashOfOptions =
+      getMetadataFromFileDescriptor(fileDescriptor).data?.hashOfOptions;
     return hashOfOptions && hashOfOptions === getHashOfOptions(options);
   }
 
@@ -74,7 +73,7 @@ class FormatResultsCache {
     const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
     if (!fileDescriptor.notFound) {
       const meta = getMetadataFromFileDescriptor(fileDescriptor);
-      meta.hashOfOptions = getHashOfOptions(options);
+      meta.data = { ...meta.data, hashOfOptions: getHashOfOptions(options) };
     }
   }
 

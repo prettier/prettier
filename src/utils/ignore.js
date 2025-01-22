@@ -47,7 +47,6 @@ async function createSingleIsIgnoredFunction(ignoreFile, withNodeModules) {
     return;
   }
 
-  // @ts-expect-error -- bug?
   const ignore = createIgnore({ allowRelativePaths: true }).add(content);
 
   return (file) =>

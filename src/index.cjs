@@ -45,6 +45,12 @@ if (process.env.NODE_ENV === "production") {
   Object.defineProperties(prettier, {
     util: {
       get() {
+        try {
+          return require("./utils/public.js");
+        } catch {
+          // No op
+        }
+
         throw new Error(
           "prettier.util is not available in development CommonJS version",
         );
@@ -52,6 +58,12 @@ if (process.env.NODE_ENV === "production") {
     },
     doc: {
       get() {
+        try {
+          return require("./document/public.js");
+        } catch {
+          // No op
+        }
+
         throw new Error(
           "prettier.doc is not available in development CommonJS version",
         );
