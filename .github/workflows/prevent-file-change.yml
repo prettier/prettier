@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Prevent file change
-        uses: xalvarez/prevent-file-change-action@v1.8.0
+        uses: xalvarez/prevent-file-change-action@v1.9.0
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           pattern: website/data/users.yml

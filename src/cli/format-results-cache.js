@@ -25,11 +25,10 @@ function getHashOfOptions(options) {
 }
 
 /**
- * @import {FileDescriptor} from "file-entry-cache"
- * @typedef {{ hashOfOptions?: string }} OurMeta
+ * @import {FileDescriptor, FileDescriptorMeta} from "file-entry-cache"
  *
  * @param {FileDescriptor} fileDescriptor
- * @returns {FileDescriptor["meta"] & OurMeta}
+ * @returns {FileDescriptorMeta & {data?: {hashOfOptions?: string }}}}
  */
 function getMetadataFromFileDescriptor(fileDescriptor) {
   return fileDescriptor.meta;
@@ -45,9 +44,8 @@ class FormatResultsCache {
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
 
-    this.#fileEntryCache = fileEntryCache.create(
-      /* cacheId */ cacheFileLocation,
-      /* directory */ undefined,
+    this.#fileEntryCache = fileEntryCache.createFromFile(
+      /* filePath */ cacheFileLocation,
       useChecksum,
     );
   }
@@ -58,18 +56,13 @@ class FormatResultsCache {
    */
   existsAvailableFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-
-    /* c8 ignore next 3 */
-    if (fileDescriptor.notFound) {
+    if (fileDescriptor.notFound || fileDescriptor.changed) {
       return false;
     }
 
-    const hashOfOptions = getHashOfOptions(options);
-    const meta = getMetadataFromFileDescriptor(fileDescriptor);
-    const changed =
-      fileDescriptor.changed || meta.hashOfOptions !== hashOfOptions;
-
-    return !changed;
+    const hashOfOptions =
+      getMetadataFromFileDescriptor(fileDescriptor).data?.hashOfOptions;
+    return hashOfOptions && hashOfOptions === getHashOfOptions(options);
   }
 
   /**
@@ -78,9 +71,9 @@ class FormatResultsCache {
    */
   setFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-    const meta = getMetadataFromFileDescriptor(fileDescriptor);
-    if (fileDescriptor && !fileDescriptor.notFound) {
-      meta.hashOfOptions = getHashOfOptions(options);
+    if (!fileDescriptor.notFound) {
+      const meta = getMetadataFromFileDescriptor(fileDescriptor);
+      meta.data = { ...meta.data, hashOfOptions: getHashOfOptions(options) };
     }
   }
 

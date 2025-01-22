@@ -42,6 +42,7 @@ async function buildPackageJson({ file, files }) {
     exports: {
       ".": {
         types: "./index.d.ts",
+        "module-sync": "./index.mjs",
         require: "./index.cjs",
         browser: {
           import: "./standalone.mjs",
@@ -55,12 +56,14 @@ async function buildPackageJson({ file, files }) {
           .filter((file) => file.output.format === "umd")
           .map((file) => {
             const basename = path.basename(file.output.file, ".js");
+            const mjsPath = `./${file.output.file.replace(/\.js$/u, ".mjs")}`;
             return [
               file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
               {
                 types: `./${file.output.file.replace(/\.js$/u, ".d.ts")}`,
+                "module-sync": mjsPath,
                 require: `./${file.output.file}`,
-                default: `./${file.output.file.replace(/\.js$/u, ".mjs")}`,
+                default: mjsPath,
               },
             ];
           }),

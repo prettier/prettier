@@ -55,12 +55,14 @@ function printTypeScriptMappedTypeModifier(tokenNode, keyword) {
 function printTypescriptMappedType(path, options, print) {
   const { node } = path;
   // Break after `{` like `printObject`
-  const shouldBreak = hasNewlineInRange(
-    options.originalText,
-    locStart(node),
-    // Ideally, this should be the next token after `{`, but there is no node starts with it.
-    locStart(node.typeParameter),
-  );
+  const shouldBreak =
+    options.objectWrap === "preserve" &&
+    hasNewlineInRange(
+      options.originalText,
+      locStart(node),
+      // Ideally, this should be the next token after `{`, but there is no node starts with it.
+      locStart(node.typeParameter),
+    );
 
   return group(
     [
