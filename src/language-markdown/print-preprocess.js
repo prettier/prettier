@@ -31,16 +31,16 @@ function restoreUnescapedCharacter(ast, options) {
       return node;
     }
 
-    const restored = options.originalText.slice(
+    const text = options.originalText.slice(
       node.position.start.offset,
       node.position.end.offset,
     );
 
-    if (isNewLineBlockquoteRegex.test(restored)) {
+    if (isNewLineBlockquoteRegex.test(text)) {
       return node;
     }
 
-    return { ...node, value: restored };
+    return { ...node, value: text };
   });
 }
 
