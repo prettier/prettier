@@ -16,25 +16,28 @@ function preprocess(ast, options) {
 
 function restoreUnescapedCharacter(ast, options) {
   return mapAst(ast, (node) => {
-    const restored =
+    const { value } = node;
+
+    if (
       node.type !== "text" ||
-      node.value === "*" ||
-      node.value === "_" || // handle these cases in printer
-      !isSingleCharRegex.test(node.value) ||
-      node.position.end.offset - node.position.start.offset ===
-        node.value.length
-        ? node
-        : {
-            ...node,
-            value: options.originalText.slice(
-              node.position.start.offset,
-              node.position.end.offset,
-            ),
-          };
-    if (isNewLineBlockquoteRegex.test(restored.value)) {
+      value === "*" ||
+      value === "_" || // handle these cases in printer
+      !isSingleCharRegex.test(value) ||
+      node.position.end.offset - node.position.start.offset === value.length
+    ) {
       return node;
     }
-    return restored;
+
+    const restored = options.originalText.slice(
+      node.position.start.offset,
+      node.position.end.offset,
+    );
+
+    if (isNewLineBlockquoteRegex.test(restored)) {
+      return node;
+    }
+
+    return { ...node, value: restored };
   });
 }
 
