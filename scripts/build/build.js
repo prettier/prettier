@@ -3,8 +3,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import readline from "node:readline";
-import chalk from "chalk";
 import createEsmUtils from "esm-utils";
+import styleText from "node-style-text";
 import prettyBytes from "pretty-bytes";
 import { DIST_DIR } from "../utils/index.js";
 import files from "./config.js";
@@ -26,7 +26,7 @@ const padStatusText = (text) => {
 };
 const status = {};
 for (const { color, text } of statusConfig) {
-  status[text] = chalk[color].black(padStatusText(text));
+  status[text] = styleText[color].black(padStatusText(text));
 }
 
 function fitTerminal(input, suffix = "") {
@@ -34,7 +34,7 @@ function fitTerminal(input, suffix = "") {
   const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
     const repeatCount = Math.max(WIDTH - input.length - 1 - suffix.length, 0);
-    input += chalk.dim(".").repeat(repeatCount) + suffix;
+    input += styleText.dim(".").repeat(repeatCount) + suffix;
   }
   return input;
 }
@@ -103,13 +103,13 @@ async function buildFile({ file, files, cliOptions, results }) {
     if (stableSize) {
       const { size } = await fs.stat(path.join(DIST_DIR, outputFile));
       const sizeDiff = size - stableSize;
-      const message = chalk[sizeDiff > 0 ? "yellow" : "green"](
+      const message = styleText[sizeDiff > 0 ? "yellow" : "green"](
         prettyBytes(sizeDiff),
       );
 
       sizeMessages.push(`${message}`);
     } else {
-      sizeMessages.push(chalk.blue("[NEW FILE]"));
+      sizeMessages.push(styleText.blue("[NEW FILE]"));
     }
   }
 
@@ -146,7 +146,7 @@ async function run() {
     }
   }
 
-  console.log(chalk.inverse(" Building packages "));
+  console.log(styleText.inverse(" Building packages "));
 
   const results = [];
   for (const file of files) {
