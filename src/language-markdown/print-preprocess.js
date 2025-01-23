@@ -16,10 +16,13 @@ function preprocess(ast, options) {
 
 function restoreUnescapedCharacter(ast, options) {
   return mapAst(ast, (node) => {
+    if (node.type !== "text") {
+      return node;
+    }
+
     const { value } = node;
 
     if (
-      node.type !== "text" ||
       value === "*" ||
       value === "_" || // handle these cases in printer
       !isSingleCharRegex.test(value) ||
