@@ -244,10 +244,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-style-text@npm:0.0.6":
-  version: 0.0.6
-  resolution: "node-style-text@npm:0.0.6"
-  checksum: 10/9eeb6a054597ed122f16ec1fc404a687f75c857655cc1478b0f8b6ccd14f8badfbaeacc0b9cd5dcf84b8286986e52c5feffbf070ed4568acb7f4eb2f1cb6a5a3
+"node-style-text@npm:0.0.7":
+  version: 0.0.7
+  resolution: "node-style-text@npm:0.0.7"
+  checksum: 10/a8816753ce863342bed6403e45e3911484ad14bd4010469ff3529d58a25dec36f0aab98afd6523e64fe1a469339fd78256718c7c4df4c3e74c2579e817544df3
   languageName: node
   linkType: hard
 
@@ -326,7 +326,7 @@ __metadata:
     enquirer: "npm:2.4.1"
     execa: "npm:9.5.2"
     fast-glob: "npm:3.3.3"
-    node-style-text: "npm:0.0.6"
+    node-style-text: "npm:0.0.7"
     outdent: "npm:0.8.0"
     semver: "npm:7.6.3"
   languageName: unknown
