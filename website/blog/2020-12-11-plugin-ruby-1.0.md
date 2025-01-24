@@ -1,6 +1,5 @@
 ---
-author: Kevin Newton (@kddnewton)
-authorURL: https://twitter.com/kddnewton
+authors: kddnewton
 title: Prettier for Ruby goes v1.0 🎉
 ---
 

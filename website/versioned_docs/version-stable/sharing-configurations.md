@@ -1,8 +1,10 @@
 ---
-id: version-stable-sharing-configurations
+id: sharing-configurations
 title: Sharing configurations
-original_id: sharing-configurations
 ---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 In case you have many different projects, it can be helpful to have a **shared configuration** which can be used in all of them, instead of copy-pasting the same config for every project.
 
@@ -72,32 +74,36 @@ npm publish
 
 You first need to install your published configuration, for example:
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--npm-->
+<Tabs groupId="package-manager">
+<TabItem value="npm">
 
 ```bash
 npm install --save-dev @username/prettier-config
 ```
 
-<!--yarn-->
+</TabItem>
+<TabItem value="yarn">
 
 ```bash
 yarn add --dev @username/prettier-config
 ```
 
-<!--pnpm-->
+</TabItem>
+<TabItem value="pnpm">
 
 ```bash
 pnpm add --save-dev @username/prettier-config
 ```
 
-<!--bun-->
+</TabItem>
+<TabItem value="bun">
 
 ```bash
 bun add --dev @username/prettier-config
 ```
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+</Tabs>
 
 Then, you can reference it in your `package.json`:
 

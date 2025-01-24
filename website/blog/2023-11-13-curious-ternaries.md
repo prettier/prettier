@@ -1,6 +1,5 @@
 ---
-author: "Alex Rattray (@rattrayalex)"
-authorURL: "https://github.com/rattrayalex"
+authors: "rattrayalex"
 title: "A curious case of the ternaries"
 ---
 

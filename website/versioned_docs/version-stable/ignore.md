@@ -1,7 +1,6 @@
 ---
-id: version-stable-ignore
+id: ignore
 title: Ignoring Code
-original_id: ignore
 ---
 
 Use `.prettierignore` to ignore (i.e. not reformat) certain files and folders completely.
