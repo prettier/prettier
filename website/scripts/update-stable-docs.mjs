@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 
 const version = await getPrettierVersion();
 
-// Copy sibar config
+// Copy sidebar config
 const STABLE_SIDEBAR = relativeURL(
   "../versioned_sidebars/version-stable-sidebars.json",
 );

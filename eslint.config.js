@@ -33,6 +33,7 @@ dist*/
 website/build/
 website/static/playground.js
 website/static/lib/
+website/.docusaurus
 scripts/benchmark/*/
 **/.yarn/**
 **/.pnp.*
@@ -465,6 +466,12 @@ export default [
       "react/no-deprecated": "off",
       "react/prop-types": "off",
       "unicorn/filename-case": "off",
+    },
+  },
+  {
+    files: ["website/docusaurus.config.js"],
+    languageOptions: {
+      sourceType: "module",
     },
   },
   {

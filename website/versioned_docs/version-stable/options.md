@@ -30,7 +30,7 @@ Specify the line length that the printer will wrap on.
 
 **For readability we recommend against using more than 80 characters:**
 
-In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don’t strive to reach the maximum mber of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends well below the maximum.
+In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don’t strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends well below the maximum.
 
 Prettier’s printWidth option does not work the same way. It is not the hard upper allowed line length limit. It is a way to say to Prettier roughly how ng you’d like lines to be. Prettier will make both shorter and longer lines, but generally strive to meet the specified printWidth.
 
