@@ -134,9 +134,10 @@ const config = {
             type: "docsVersionDropdown",
           },
           {
-            href: "pathname:///playground.html",
+            to: "pathname:///playground/",
             label: "Playground",
             position: "right",
+            target: "_self",
           },
           {
             type: "docSidebar",

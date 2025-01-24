@@ -35,7 +35,7 @@ export default function Help() {
           <div className="col">
             <Card title="Browse Docs">
               Learn more using the{" "}
-              <Link to="docs">documentation on this site</Link>.
+              <Link to="/docs">documentation on this site</Link>.
             </Card>
           </div>
           <div className="col">

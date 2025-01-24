@@ -62,7 +62,8 @@ function HomepageHeader() {
               "button button--primary button--lg",
               styles.heroButton,
             )}
-            to="pathname:///playground.html"
+            to="pathname:///playground/"
+            target="_self"
           >
             Try It Online
           </Link>
