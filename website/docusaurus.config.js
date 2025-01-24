@@ -102,7 +102,7 @@ const config = {
           postsPerPage: 10,
           onInlineTags: "warn",
           onInlineAuthors: "warn",
-          onUntruncatedBlogPosts: "warn",
+          onUntruncatedBlogPosts: "throw",
         },
         theme: {
           customCss: [

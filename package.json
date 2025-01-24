@@ -175,7 +175,6 @@
     "lint:prettier": "prettier . --check --cache",
     "lint:spellcheck": "cspell --no-progress --relative --dot --gitignore",
     "lint:deps": "node ./scripts/check-deps.js",
-    "lint:blog": "node ./scripts/lint-blog.js",
     "lint:knip": "knip",
     "fix": "run-s fix:eslint fix:prettier",
     "fix:eslint": "yarn lint:eslint --fix",
