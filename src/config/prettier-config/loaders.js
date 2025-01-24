@@ -15,13 +15,33 @@ async function readJson(file) {
   }
 }
 
-async function loadJs(file) {
+async function importModuleDefault(file) {
   const module = await import(pathToFileURL(file).href);
   return module.default;
 }
 
+async function readPackageJson(file) {
+  try {
+    return await readJson(file);
+  } catch (error) {
+    // TODO: Add tests for this
+    // Bun supports comments and trialing comma in `package.json`
+    // And it can load via `import()`
+    // https://bun.sh/blog/bun-v1.2#jsonc-support-in-package-json
+    if (process.versions.bun) {
+      try {
+        return await importModuleDefault(file);
+      } catch {
+        // No op
+      }
+    }
+
+    throw error;
+  }
+}
+
 async function loadConfigFromPackageJson(file) {
-  const { prettier } = await readJson(file);
+  const { prettier } = await readPackageJson(file);
   return prettier;
 }
 
@@ -60,12 +80,12 @@ const loaders = {
     }
   },
   ".json": readJson,
-  ".js": loadJs,
-  ".mjs": loadJs,
-  ".cjs": loadJs,
-  ".ts": loadJs,
-  ".mts": loadJs,
-  ".cts": loadJs,
+  ".js": importModuleDefault,
+  ".mjs": importModuleDefault,
+  ".cjs": importModuleDefault,
+  ".ts": importModuleDefault,
+  ".mts": importModuleDefault,
+  ".cts": importModuleDefault,
   ".yaml": loadYaml,
   ".yml": loadYaml,
   // No extension
