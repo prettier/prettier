@@ -118,15 +118,15 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     {
       // Replace with your project's social card
-      image: "icon.png", // Done
+      image: "icon.png",
       colorMode: {
-        respectPrefersColorScheme: true, // Done
+        respectPrefersColorScheme: true,
       },
       navbar: {
-        title: "Prettier", // Done
+        title: "Prettier",
         logo: {
-          alt: "Prettier", // Done
-          src: "icon.png", // Done
+          alt: "Prettier",
+          src: "icon.png",
         },
         style: "dark",
         items: [
