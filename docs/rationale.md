@@ -13,9 +13,9 @@ The first requirement of Prettier is to output valid code that has the exact sam
 
 ### Strings
 
-Double or single quotes? Prettier chooses the one which results in the fewest number of escapes. `"It's gettin' better!"`, not `'It\'s gettin\' better!'`. In case of a tie or the string not containing any quotes, Prettier defaults to double quotes (but that can be changed via the [singleQuote](options.html#quotes) option).
+Double or single quotes? Prettier chooses the one which results in the fewest number of escapes. `"It's gettin' better!"`, not `'It\'s gettin\' better!'`. In case of a tie or the string not containing any quotes, Prettier defaults to double quotes (but that can be changed via the [singleQuote](/docs/options#quotes) option).
 
-JSX has its own option for quotes: [jsxSingleQuote](options.html#jsx-quotes).
+JSX has its own option for quotes: [jsxSingleQuote](/docs/options#jsx-quotes).
 JSX takes its roots from HTML, where the dominant use of quotes for attributes is double quotes. Browser developer tools also follow this convention by always displaying HTML with double quotes, even if the source code uses single quotes. A separate option allows using single quotes for JS and double quotes for "HTML" (JSX).
 
 Prettier maintains the way your string is escaped. For example, `"🙂"` won’t be formatted into `"\uD83D\uDE42"` and vice versa.
@@ -230,7 +230,7 @@ console.log("Running a background task")(async () => {
 
 The [printWidth](options.md#print-width) option is more of a guideline to Prettier than a hard rule. It is not the upper allowed line length limit. It is a way to say to Prettier roughly how long you’d like lines to be. Prettier will make both shorter and longer lines, but generally strive to meet the specified print width.
 
-There are some edge cases, such as really long string literals, regexps, comments and variable names, which cannot be broken across lines (without using code transforms which [Prettier doesn’t do](#what-prettier-is-_not_-concerned-about)). Or if you nest your code 50 levels deep your lines are of course going to be mostly indentation :)
+There are some edge cases, such as really long string literals, regexps, comments and variable names, which cannot be broken across lines (without using code transforms which [Prettier doesn’t do](#what-prettier-is-not-concerned-about)). Or if you nest your code 50 levels deep your lines are of course going to be mostly indentation :)
 
 Apart from that, there are a few cases where Prettier intentionally exceeds the print width.
 

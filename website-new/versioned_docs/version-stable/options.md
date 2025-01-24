@@ -305,7 +305,7 @@ Valid options:
 
 Note: the default value was `"babylon"` until v1.13.0.
 
-Note: the Custom parser API has been removed in v3.0.0. Use [plugins](plugins.md) instead ([how to migrate](api.md#custom-parser-api)).
+Note: the Custom parser API has been removed in v3.0.0. Use [plugins](plugins.md) instead ([how to migrate](api.md#custom-parser-api-removed)).
 
 <a name="filepath"></a>
 
