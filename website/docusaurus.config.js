@@ -65,8 +65,6 @@ const config = {
     locales: ["en"],
   },
 
-  // ------------------------- TODO -------------------------
-
   presets: [
     [
       "classic",
