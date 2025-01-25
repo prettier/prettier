@@ -69,7 +69,7 @@ The `website/blog` directory contains blog posts written in Markdown. Their fron
 
 ```yaml
 title: Blog Post Title
-author: authors declared in `blog/authors.yml`
+authors: author declared in `blog/authors.yml`
 ---
 ```
 
