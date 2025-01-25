@@ -234,8 +234,7 @@ const config = {
       },
       // TODO
       algolia: {
-        // appId: "FPHG9L4N9A",
-        appId: "BH4D9OD16A",
+        appId: "FPHG9L4N9A",
         apiKey: "9fcdb2a62af4c47cc5eecf3d5a747818",
         indexName: "prettier",
       },
