@@ -123,7 +123,7 @@ const config = {
       navbar: {
         title: "Prettier",
         logo: {
-          alt: "Prettier",
+          alt: "",
           src: "icon.png",
         },
         style: "dark",

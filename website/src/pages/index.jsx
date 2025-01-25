@@ -93,7 +93,7 @@ function SyntaxSection() {
           Limited edition tshirts are now available to buy! $10 per tshirt goes
           to maintain the project.
         </div>
-        <img width={860} src="/images/syntaxfm/1.webp" />
+        <img width={860} alt="" src="/images/syntaxfm/1.webp" />
       </Link>
     </section>
   );
@@ -179,7 +179,7 @@ function LanguagesSection() {
 function LanguageItem({ name, nameLink, image, variants }) {
   return (
     <div className={styles.languageItem}>
-      <img src={image} className={styles.languageItemImage} />
+      <img src={image} className={styles.languageItemImage} alt="" />
       <ul className={styles.languageItemList}>
         <li>{nameLink ? <a href={nameLink}>{name}</a> : name}</li>
 
@@ -234,7 +234,7 @@ function EditorSupportSection() {
 function Editor({ content = "", image, name }) {
   return (
     <div className={styles.editorItem}>
-      <img src={image} className={styles.editorItemImage} />
+      <img src={image} className={styles.editorItemImage} alt="" />
       <div>
         <Heading as="h3">{name}</Heading>
         <Markdown>{content.replaceAll("\n", "  \n")}</Markdown>
@@ -280,8 +280,9 @@ function UsersSection() {
             <Link
               to="https://2021.stateofjs.com/en-US/other-tools/utilities"
               style={{ marginTop: "15px" }}
+              aria-label="Statistic for utility tools in the State of JavaScript survey"
             >
-              <img src="/images/state_of_js_grey.svg" />
+              <img src="/images/state_of_js_grey.svg" alt="" />
             </Link>
             <div>
               <p>Regularly used by:</p>
@@ -301,8 +302,11 @@ function UsersSection() {
           </div>
 
           <div className={styles.ecosystemGridItem}>
-            <Link to="https://github.com/prettier/prettier">
-              <img src="/images/github_grey.svg" />
+            <Link
+              to="https://github.com/prettier/prettier"
+              aria-label="Prettier on GitHub"
+            >
+              <img src="/images/github_grey.svg" alt="" />
             </Link>
             <div>
               <p>
@@ -320,8 +324,11 @@ function UsersSection() {
           </div>
 
           <div className={styles.ecosystemGridItem}>
-            <Link to="https://npmjs.com/package/prettier">
-              <img src="/images/npm_grey.svg" />
+            <Link
+              to="https://npmjs.com/package/prettier"
+              aria-label="Prettier on NPM"
+            >
+              <img src="/images/npm_grey.svg" alt="" />
             </Link>
             <div>
               <p>
@@ -332,6 +339,7 @@ function UsersSection() {
               <Link
                 className="button button--primary"
                 to="https://www.npmjs.com/browse/depended/prettier"
+                aria-label="See every dependent npm packages"
               >
                 See them all
               </Link>
