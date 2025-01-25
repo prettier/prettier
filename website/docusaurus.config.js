@@ -72,7 +72,8 @@ const config = {
       {
         docs: {
           sidebarPath: "./sidebars.json",
-          editUrl: `${GITHUB_URL}/edit/main/docs/`,
+          /** @type {import('@docusaurus/plugin-content-docs').EditUrlFunction} */
+          editUrl: ({ docPath }) => `${GITHUB_URL}/edit/main/docs/${docPath}`,
           path: "../docs",
           sidebarCollapsed: false,
           breadcrumbs: false,
@@ -94,7 +95,7 @@ const config = {
           },
           blogTitle: "Prettier blog",
           blogDescription: "Read blog posts about Prettier from the team",
-          editUrl: `${GITHUB_URL}/edit/main/website/blog/`,
+          editUrl: `${GITHUB_URL}/edit/main/website/`,
           blogSidebarCount: 10,
           blogSidebarTitle: "Recent posts",
           postsPerPage: 10,
