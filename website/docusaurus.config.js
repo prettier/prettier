@@ -145,6 +145,7 @@ const config = {
             position: "right",
           },
           { to: "/blog", label: "Blog", position: "right" },
+          { type: "search", position: "right" },
           {
             href: "https://opencollective.com/prettier",
             label: "Donate",
@@ -231,12 +232,13 @@ const config = {
           },
         ],
       },
-      // TODO: need to know the app ID
-      // algolia: {
-      //   appId: '<NEW_APP_ID>',
-      //   apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
-      //   indexName: "prettier",
-      // },
+      // TODO
+      algolia: {
+        // appId: "FPHG9L4N9A",
+        appId: "BH4D9OD16A",
+        apiKey: "9fcdb2a62af4c47cc5eecf3d5a747818",
+        indexName: "prettier",
+      },
       prism: {
         additionalLanguages: [
           "bash",
