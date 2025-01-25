@@ -231,11 +231,10 @@ const config = {
           },
         ],
       },
-      // TODO
       algolia: {
         appId: "FPHG9L4N9A",
-        apiKey: "9fcdb2a62af4c47cc5eecf3d5a747818",
-        indexName: "prettier",
+        apiKey: "6f603e43175906f34415b22950957e3b",
+        indexName: "prettier1",
       },
       prism: {
         additionalLanguages: [
