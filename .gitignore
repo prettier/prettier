@@ -15,6 +15,7 @@
 !/.vscode/settings.example.json
 /dist*
 /website/build
+/website/i18n
 /website/static/playground.js
 /website/static/lib
 /website/.docusaurus
