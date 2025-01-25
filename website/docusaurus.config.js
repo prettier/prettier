@@ -145,7 +145,6 @@ const config = {
             position: "right",
           },
           { to: "/blog", label: "Blog", position: "right" },
-          { type: "search", position: "right" },
           {
             href: "https://opencollective.com/prettier",
             label: "Donate",
