@@ -109,6 +109,10 @@ const config = {
             require.resolve("react-tweet/theme.css"),
           ],
         },
+        gtag: {
+          trackingID: "G-T57CP1SG02",
+          anonymizeIP: true,
+        },
       },
     ],
   ],
