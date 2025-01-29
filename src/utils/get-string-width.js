@@ -4,6 +4,20 @@ import { _isNarrowWidth as isNarrowWidth } from "get-east-asian-width";
 
 const notAsciiRegex = /[^\x20-\x7F]/u;
 
+let segmenter;
+
+/**
+ * @param {string} text
+ * @yields {string}
+ */
+function* splitString(text) {
+  segmenter ??= new Intl.Segmenter();
+
+  for (const { segment: character } of segmenter.segment(text)) {
+    yield character;
+  }
+}
+
 // Similar to https://github.com/sindresorhus/string-width
 // We don't strip ansi, always treat ambiguous width characters as having narrow width.
 /**
@@ -23,10 +37,7 @@ function getStringWidth(text) {
   text = text.replace(emojiRegex(), "  ");
   let width = 0;
 
-  // Use `Intl.Segmenter` when we drop support for Node.js v14
-  // https://github.com/prettier/prettier/pull/14793#discussion_r1185840038
-  // https://github.com/sindresorhus/string-width/pull/47
-  for (const character of text) {
+  for (const character of splitString(text)) {
     const codePoint = character.codePointAt(0);
 
     // Ignore control characters
