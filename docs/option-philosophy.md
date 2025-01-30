@@ -3,9 +3,13 @@ id: option-philosophy
 title: Option Philosophy
 ---
 
-> Prettier has a few options because of history. **But we won’t add more of them.**
->
-> Read on to learn more.
+:::info
+
+Prettier has a few options because of history. **But we won’t add more of them.**
+
+Read on to learn more.
+
+:::
 
 Prettier is not a kitchen-sink code formatter that attempts to print your code in any way you wish. It is _opinionated._ Quoting the [Why Prettier?](why-prettier.md) page:
 

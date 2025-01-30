@@ -1,0 +1,98 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #19828a;
+  --ifm-color-primary-dark: #16757c;
+  --ifm-color-primary-darker: #156e75;
+  --ifm-color-primary-darkest: #115b61;
+  --ifm-color-primary-light: #1b8f98;
+  --ifm-color-primary-lighter: #1d959f;
+  --ifm-color-primary-lightest: #21a9b3;
+  --ifm-code-font-size: 90%;
+  --ifm-button-border-radius: calc(0.8rem * var(--ifm-button-size-multiplier));
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --navbar-color: #1a2b34;
+
+  --color-yellow: #f8bc45;
+  --color-yellow-dark: #f7b126;
+  --color-yellow-darker: #f6ab17;
+  --color-yellow-darkest: #d69108;
+  --color-yellow-light: #f9c764;
+  --color-yellow-lighter: #facd73;
+  --color-yellow-lightest: #fbdda1;
+
+  --color-pink: #c596c7;
+  --color-pink-dark: #b87fbb;
+  --color-pink-darker: #b274b5;
+  --color-pink-darkest: #9c559f;
+  --color-pink-light: #d2add3;
+  --color-pink-lighter: #d8b8d9;
+  --color-pink-lightest: #ebdaeb;
+}
+
+[data-theme="dark"] {
+  --ifm-color-primary: #56b3b4;
+  --ifm-color-primary-dark: #4aa5a6;
+  --ifm-color-primary-darker: #459c9d;
+  --ifm-color-primary-darkest: #398081;
+  --ifm-color-primary-light: #68bbbc;
+  --ifm-color-primary-lighter: #72bfc0;
+  --ifm-color-primary-lightest: #8dcccd;
+
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.button--primary:active,
+.button--primary.button--active {
+  --ifm-button-background-color: var(--ifm-color-primary-dark);
+  --ifm-button-border-color: var(--ifm-color-primary-dark);
+}
+
+.button--secondary:active,
+.button--secondary.button--active {
+  --ifm-button-background-color: var(--ifm-color-secondary-dark);
+  --ifm-button-border-color: var(--ifm-color-secondary-dark);
+}
+
+.navbar {
+  --ifm-navbar-background-color: var(--navbar-color);
+  --ifm-navbar-link-hover-color: #68bbbc;
+}
+
+.hero {
+  --ifm-hero-background-color: var(--navbar-color);
+}
+
+.footer {
+  --ifm-footer-background-color: #20232a;
+}
+
+.header-github-link::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  display: flex;
+  background-color: var(--ifm-navbar-link-color);
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
+  transition: background-color var(--ifm-transition-fast)
+    var(--ifm-transition-timing-default);
+}
+
+.header-github-link:hover::before {
+  background-color: var(--ifm-navbar-link-hover-color);
+}
+
+.menu__link {
+  line-height: 1.15;
+}
+
+.footer__github-stars {
+  display: block;
+  margin-top: 8px;
+}

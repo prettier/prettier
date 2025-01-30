@@ -1,7 +1,6 @@
 ---
-id: version-stable-technical-details
+id: technical-details
 title: Technical Details
-original_id: technical-details
 ---
 
 This printer is a fork of [recast](https://github.com/benjamn/recast)’s printer with its algorithm replaced by the one described by Wadler in "[A prettier printer](https://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)". There still may be leftover code from recast that needs to be cleaned up.

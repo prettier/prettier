@@ -13,7 +13,11 @@ You can configure Prettier via (in order of precedence):
 - A `.prettierrc.cjs`, `prettier.config.cjs`, `.prettierrc.cts`, or `prettier.config.cts` file that exports an object using `module.exports`.
 - A `.prettierrc.toml` file.
 
-> TypeScript configuration files support requires [additional setup](#typescript-configuration-files)
+:::info
+
+TypeScript configuration files support requires [additional setup](#typescript-configuration-files)
+
+:::
 
 The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn’t) found.
 
@@ -215,7 +219,7 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 
 ## Configuration Schema
 
-If you’d like a JSON schema to validate your configuration, one is available here: <https://json.schemastore.org/prettierrc>.
+If you’d like a JSON schema to validate your configuration, one is available here: [https://json.schemastore.org/prettierrc](https://json.schemastore.org/prettierrc).
 
 ## EditorConfig
 

@@ -1,0 +1,31 @@
+.main {
+  --ifm-container-width: 990px;
+  --ifm-container-width-xl: 990px;
+}
+
+.logoGrid {
+  --min-item-size: 168px;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.logoGrid > * {
+  flex: 1 1 var(--min-item-size);
+}
+
+.logoItem,
+.logoItem > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoItem a {
+  padding: 20px;
+}
+
+.logoItem img {
+  max-height: 64px;
+  width: 128px;
+}

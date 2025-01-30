@@ -18,7 +18,7 @@ Required options:
 
 - **[`parser`](options.md#parser) (or [`filepath`](options.md#file-path))**: One of these options has to be specified for Prettier to know which parser to use.
 
-- **`plugins`**: Unlike the `format` function from the [Node.js-based API](api.md#prettierformatsource--options), this function doesn’t load plugins automatically. The `plugins` option is required because all the parsers included in the Prettier package come as plugins (for reasons of file size). These plugins are files in <https://unpkg.com/browse/prettier@%PRETTIER_VERSION%/plugins/>. Note that `estree` plugin should be loaded when printing JavaScript, TypeScript, Flow, or JSON.
+- **`plugins`**: Unlike the `format` function from the [Node.js-based API](api.md#prettierformatsource-options), this function doesn’t load plugins automatically. The `plugins` option is required because all the parsers included in the Prettier package come as plugins (for reasons of file size). These plugins are files in [https://unpkg.com/browse/prettier@%PRETTIER_VERSION%/plugins](https://unpkg.com/browse/prettier@%PRETTIER_VERSION%/plugins). Note that `estree` plugin should be loaded when printing JavaScript, TypeScript, Flow, or JSON.
 
   You need to load the ones that you’re going to use and pass them to `prettier.format` using the `plugins` option.
 

@@ -1,7 +1,6 @@
 ---
-id: version-stable-configuration
+id: configuration
 title: Configuration File
-original_id: configuration
 ---
 
 You can configure Prettier via (in order of precedence):
@@ -172,7 +171,7 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 
 ## Configuration Schema
 
-If you’d like a JSON schema to validate your configuration, one is available here: <https://json.schemastore.org/prettierrc>.
+If you’d like a JSON schema to validate your configuration, one is available here: https://json.schemastore.org/prettierrc.
 
 ## EditorConfig
 

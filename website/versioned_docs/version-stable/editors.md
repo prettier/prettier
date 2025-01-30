@@ -1,7 +1,6 @@
 ---
-id: version-stable-editors
+id: editors
 title: Editor Integration
-original_id: editors
 ---
 
 To get the most out of Prettier, it’s recommended to run it from your editor.

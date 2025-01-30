@@ -1,0 +1,333 @@
+:global(.home) {
+  --ifm-navbar-shadow: none;
+
+  --color-tidelift: #f6914d;
+  --color-tidelift-darker: #e67c36;
+
+  --ifm-h2-font-size: 2.125rem;
+  --ifm-heading-font-weight: 500;
+  --ifm-heading-margin-top: 1.25rem;
+  --ifm-heading-margin-bottom: 2.75rem;
+
+  --ifm-list-margin: 0;
+  --ifm-list-left-padding: 0;
+}
+
+.heroBanner {
+  --ifm-color-primary: var(--color-yellow);
+  --ifm-color-primary-dark: var(--color-yellow-dark);
+  --ifm-color-secondary: var(--color-pink);
+  --ifm-color-secondary-dark: var(--color-pink-dark);
+
+  padding: 3rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding-bottom: 2.5rem;
+  }
+}
+
+.logoWrapperContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.logoWrapper > svg {
+  cursor: ew-resize;
+  height: auto;
+  max-width: calc(100vw - 30px);
+}
+
+.heroButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 443px) {
+  .heroButtonContainer {
+    flex-direction: column;
+  }
+}
+
+.heroButton {
+  --ifm-button-color: var(--ifm-color-gray-900);
+}
+
+.tidelift {
+  --ifm-link-hover-decoration: none;
+  --ifm-link-hover-color: var(--ifm-color-gray-900);
+
+  background: var(--color-tidelift) url(/images/tidelift-small.png) 10px
+    no-repeat;
+  background-size: 24px;
+  color: var(--ifm-color-gray-900);
+  position: absolute;
+  top: 16px;
+  right: 0;
+  font-size: 12px;
+  border-radius: 14px 0 0 14px;
+  padding: 6px 14px 6px 44px;
+  z-index: 10;
+  font-weight: 500;
+  transition-property: color, background, border-color;
+  transition-duration: var(--ifm-button-transition-duration);
+  transition-timing-function: var(--ifm-transition-timing-default);
+}
+
+.tidelift:hover {
+  background-color: var(--color-tidelift-darker);
+}
+
+.syntaxSection {
+  --ifm-color-primary: var(--color-yellow);
+  --ifm-color-primary-dark: var(--color-yellow-dark);
+
+  background-color: var(--ifm-color-primary);
+  display: flex;
+  justify-content: center;
+}
+
+.syntaxLink {
+  --ifm-link-hover-color: var(--ifm-color-gray-900);
+  --ifm-container-width: 860px;
+  --ifm-container-width-xl: 860px;
+
+  color: var(--ifm-color-gray-900);
+  font-size: 1.25rem;
+  font-weight: bold;
+
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.sectionPadding {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.tldrSection {
+  --ifm-color-primary: var(--color-yellow);
+  --ifm-color-primary-dark: var(--color-yellow-dark);
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-link-hover-color: var(--ifm-color-primary);
+
+  background-color: #182025;
+  color: var(--ifm-color-primary);
+}
+
+.tldrSectionInner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-evenly;
+}
+
+.tldrSectionColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.tldrSection h2:before {
+  content: "# ";
+}
+
+.tldrSectionColumn ul li {
+  list-style: none;
+  list-style-position: inside;
+}
+
+.tldrSectionColumn li::before {
+  content: "* ";
+  vertical-align: sub;
+}
+
+.languageSection {
+  --ifm-color-primary: var(--color-pink);
+  --ifm-color-primary-dark: var(--color-pink-dark);
+  --ifm-link-color: var(--ifm-color-white);
+  --ifm-link-hover-color: var(--ifm-color-white);
+  color: var(--ifm-color-white);
+  background-color: var(--navbar-color);
+}
+
+.languageSection h2 {
+  color: var(--ifm-color-primary);
+}
+
+.languageSectionGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.languageSectionGrid > * {
+  flex: 1 1 auto;
+}
+
+.languageItem {
+  display: flex;
+  align-items: flex-start;
+  padding-bottom: 1em;
+}
+
+.languageItemImage {
+  width: 50px;
+  margin: 0 1.25rem;
+}
+
+.languageItemList {
+  list-style: none;
+  --ifm-paragraph-margin-bottom: 0;
+}
+
+.languageItemList li:first-of-type {
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-link-hover-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.languageItemList li + li {
+  margin-bottom: 0.25rem;
+}
+
+.languageItem code,
+.editorItem code {
+  background-color: transparent;
+  border: none;
+}
+
+.editorSection {
+  --ifm-color-primary: #56b3b4;
+  --ifm-link-color: var(--ifm-color-white);
+  --ifm-link-hover-color: var(--ifm-color-white);
+  color: var(--ifm-color-white);
+  background-color: #182025;
+}
+
+.editorSection h2 {
+  color: var(--ifm-color-primary);
+}
+
+.editorSectionGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 3.75rem 1.25rem;
+}
+
+.editorSectionGrid > * {
+  flex: 0 1 262px;
+}
+
+.editorItem {
+  --ifm-heading-margin-top: 1.25rem;
+  --ifm-heading-margin-bottom: 0px;
+  --ifm-paragraph-margin-bottom: 0;
+
+  display: flex;
+  gap: 0.75rem;
+}
+
+.editorItemImage {
+  width: 100px;
+  height: 100px;
+}
+
+.editorSectionButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 3.75rem;
+
+  --ifm-font-color-base-inverse: var(--ifm-color-gray-1000);
+}
+
+.userSection {
+  --ifm-color-primary: #6f7b81;
+  --ifm-color-primary-dark: #637075;
+  --ifm-button-color: #1a2b34;
+  background-color: var(--navbar-color);
+}
+
+.userSection h2 {
+  color: var(--ifm-color-primary);
+}
+
+.userSectionGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.userItem {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+  transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.userItem:hover {
+  transform: scale(1.2);
+}
+
+.userItemImage {
+  width: 200px;
+  max-height: 100px;
+}
+
+@media only screen and (max-width: 736px) {
+  .userItemImage {
+    max-height: 50px;
+    width: 100px;
+  }
+}
+
+.userSectionButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+.ecosystemGrid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1.5rem 1rem;
+}
+
+@media only screen and (max-width: 736px) {
+  .ecosystemGrid {
+    gap: 2rem 1rem;
+  }
+}
+
+.ecosystemGridItem {
+  display: grid;
+  grid-template-columns: auto 260px;
+  gap: 0.8rem;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #b0c4ce;
+  --ifm-link-color: #b0c4ce;
+  --ifm-link-hover-color: var(--ifm-color-white);
+  --ifm-list-left-padding: 2rem;
+  --ifm-paragraph-margin-bottom: 1rem;
+}
+
+.ecosystemGridItem img {
+  width: 80px;
+}
+
+.ecosystemGridItem li + li {
+  margin-top: 0.5rem;
+}

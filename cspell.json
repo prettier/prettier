@@ -338,11 +338,11 @@
         "ve{2,}r{2,}y",
         "ve+r+y+long\\w*",
         "\\(https?://.*?\\)",
-        "author: \".*?\"",
-        "authorURL: \".*?\"",
-        "\"author\": \".*?\"",
+        "authors: \".*?\"",
+        "\"authors\": \".*?\"",
         "(long|after){3,}",
-        "\\\\u\\{[0-9a-fA-F]{4,6}\\}"
+        "\\\\u\\{[0-9a-fA-F]{4,6}\\}",
+        "appId: \".*?\""
     ],
     "files": [
         "*",
@@ -364,9 +364,11 @@
         "website/data/users.yml",
         "website/build/**",
         "website/playground/codeSamples.mjs",
-        "website/pages/googlefe164a33bda4034b.html",
+        "website/static/googlefe164a33bda4034b.html",
         "website/static/lib/**",
         "website/static/playground.js",
+        "website/src/css/custom.css",
+        "website/blog/authors.yml",
         "scripts/build/typescript-unused-specifiers.js"
     ]
 }

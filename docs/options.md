@@ -29,23 +29,27 @@ Valid options:
 - `"start"` - When binary expressions wrap lines, print operators at the start of new lines.
 - `"end"` - Default behavior; when binary expressions wrap lines, print operators at the end of previous lines.
 
-| Default | CLI Override                                                   | API Override                                                  |
-| ------- | -------------------------------------------------------------- | ------------------------------------------------------------- |
-| `"end"` | <code>--experimental-operator-position <start&#124;end></code> | <code>experimentalOperatorPosition: "<start&#124;end>"</code> |
+| Default | CLI Override                                                    | API Override                                                   |
+| ------- | --------------------------------------------------------------- | -------------------------------------------------------------- |
+| `"end"` | <code>--experimental-operator-position \<start&#124;end></code> | <code>experimentalOperatorPosition: "\<start&#124;end>"</code> |
 
 ## Print Width
 
 Specify the line length that the printer will wrap on.
 
-> **For readability we recommend against using more than 80 characters:**
->
-> In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don’t strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends up well below the maximum.
->
-> Prettier’s printWidth option does not work the same way. It is not the hard upper allowed line length limit. It is a way to say to Prettier roughly how long you’d like lines to be. Prettier will make both shorter and longer lines, but generally strive to meet the specified printWidth.
->
-> Remember, computers are dumb. You need to explicitly tell them what to do, while humans can make their own (implicit) judgements, for example on when to break a line.
->
-> In other words, don’t try to use printWidth as if it was ESLint’s [max-len](https://eslint.org/docs/rules/max-len) – they’re not the same. max-len just says what the maximum allowed line length is, but not what the generally preferred length is – which is what printWidth specifies.
+:::warning
+
+**For readability we recommend against using more than 80 characters:**
+
+In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don’t strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends well below the maximum.
+
+Prettier’s printWidth option does not work the same way. It is not the hard upper allowed line length limit. It is a way to say to Prettier roughly how ng you’d like lines to be. Prettier will make both shorter and longer lines, but generally strive to meet the specified printWidth.
+
+Remember, computers are dumb. You need to explicitly tell them what to do, while humans can make their own (implicit) judgements, for example on when break a line.
+
+In other words, don’t try to use printWidth as if it was ESLint’s [max-len](https://eslint.org/docs/rules/max-len) – they’re not the same. max-len just says what the maximum allowed line length is, but not what the generally preferred length is – which is what printWidth specifies.
+
+:::
 
 | Default | CLI Override          | API Override        |
 | ------- | --------------------- | ------------------- |
@@ -115,9 +119,9 @@ Valid options:
 - `"consistent"` - If at least one property in an object requires quotes, quote all properties.
 - `"preserve"` - Respect the input use of quotes in object properties.
 
-| Default       | CLI Override                                                         | API Override                                                         |
-| ------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `"as-needed"` | <code>--quote-props <as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "<as-needed&#124;consistent&#124;preserve>"</code> |
+| Default       | CLI Override                                                          | API Override                                                          |
+| ------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `"as-needed"` | <code>--quote-props \<as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "\<as-needed&#124;consistent&#124;preserve>"</code> |
 
 Note that Prettier never unquotes numeric property names in Angular expressions, TypeScript, and Flow because the distinction between string and numeric keys is significant in these languages. See: [Angular][quote-props-angular], [TypeScript][quote-props-typescript], [Flow][quote-props-flow]. Also Prettier doesn’t unquote numeric properties for Vue (see the [issue][quote-props-vue] about that).
 
@@ -146,9 +150,9 @@ Valid options:
 - `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.). Trailing commas in type parameters in TypeScript and Flow.
 - `"none"` - No trailing commas.
 
-| Default | CLI Override                                           | API Override                                           |
-| ------- | ------------------------------------------------------ | ------------------------------------------------------ |
-| `"all"` | <code>--trailing-comma <all&#124;es5&#124;none></code> | <code>trailingComma: "<all&#124;es5&#124;none>"</code> |
+| Default | CLI Override                                            | API Override                                            |
+| ------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| `"all"` | <code>--trailing-comma \<all&#124;es5&#124;none></code> | <code>trailingComma: "\<all&#124;es5&#124;none>"</code> |
 
 ## Bracket Spacing
 
@@ -176,9 +180,9 @@ Valid options:
 - `"preserve"` - Keep as multi-line, if there is a newline between the opening brace and first property.
 - `"collapse"` - Fit to a single line when possible.
 
-| Default      | CLI Override                                        | API Override                                        |
-| ------------ | --------------------------------------------------- | --------------------------------------------------- |
-| `"preserve"` | <code>--object-wrap <preserve&#124;collapse></code> | <code>objectWrap: "<preserve&#124;collapse>"</code> |
+| Default      | CLI Override                                         | API Override                                         |
+| ------------ | ---------------------------------------------------- | ---------------------------------------------------- |
+| `"preserve"` | <code>--object-wrap \<preserve&#124;collapse></code> | <code>objectWrap: "\<preserve&#124;collapse>"</code> |
 
 ## Bracket Line
 
@@ -217,7 +221,11 @@ Valid options:
 
 ## [Deprecated] JSX Brackets
 
-_This option has been deprecated in v2.4.0, use --bracket-same-line instead_
+:::danger
+
+This option has been deprecated in v2.4.0, use --bracket-same-line instead\_
+
+:::
 
 Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
 
@@ -263,9 +271,9 @@ Valid options:
 - `"always"` - Always include parens. Example: `(x) => x`
 - `"avoid"` - Omit parens when possible. Example: `x => x`
 
-| Default    | CLI Override                                    | API Override                                    |
-| ---------- | ----------------------------------------------- | ----------------------------------------------- |
-| `"always"` | <code>--arrow-parens <always&#124;avoid></code> | <code>arrowParens: "<always&#124;avoid>"</code> |
+| Default    | CLI Override                                     | API Override                                     |
+| ---------- | ------------------------------------------------ | ------------------------------------------------ |
+| `"always"` | <code>--arrow-parens \<always&#124;avoid></code> | <code>arrowParens: "\<always&#124;avoid>"</code> |
 
 At first glance, avoiding parentheses may look like a better choice because of less visual noise.
 However, when Prettier removes parentheses, it becomes harder to add type annotations, extra arguments or default values as well as making other changes.
@@ -325,7 +333,7 @@ Valid options:
 
 Note: the default value was `"babylon"` until v1.13.0.
 
-Note: the Custom parser API has been removed in v3.0.0. Use [plugins](plugins.md) instead ([how to migrate](api.md#custom-parser-api)).
+Note: the Custom parser API has been removed in v3.0.0. Use [plugins](plugins.md) instead ([how to migrate](api.md#custom-parser-api-removed)).
 
 <a name="filepath"></a>
 
@@ -397,9 +405,9 @@ Valid options:
 - `"never"` - Un-wrap each block of prose into one line.
 - `"preserve"` - Do nothing, leave prose as-is. _First available in v1.9.0_
 
-| Default      | CLI Override                                                | API Override                                                |
-| ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `"preserve"` | <code>--prose-wrap <always&#124;never&#124;preserve></code> | <code>proseWrap: "<always&#124;never&#124;preserve>"</code> |
+| Default      | CLI Override                                                 | API Override                                                 |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `"preserve"` | <code>--prose-wrap \<always&#124;never&#124;preserve></code> | <code>proseWrap: "\<always&#124;never&#124;preserve>"</code> |
 
 ## HTML Whitespace Sensitivity
 
@@ -415,9 +423,9 @@ Valid options:
 - `"strict"` - Whitespace (or the lack of it) around all tags is considered significant.
 - `"ignore"` - Whitespace (or the lack of it) around all tags is considered insignificant.
 
-| Default | CLI Override                                                             | API Override                                                            |
-| ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
-| `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
+| Default | CLI Override                                                              | API Override                                                             |
+| ------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `"css"` | <code>--html-whitespace-sensitivity \<css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "\<css&#124;strict&#124;ignore>"</code> |
 
 ## Vue files script and style tags indentation
 
@@ -466,9 +474,9 @@ Valid options:
 - `"auto"` - Maintain existing line endings
   (mixed values within one file are normalised by looking at what’s used after the first line)
 
-| Default | CLI Override                                                | API Override                                               |
-| ------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
-| `"lf"`  | <code>--end-of-line <lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "<lf&#124;crlf&#124;cr&#124;auto>"</code> |
+| Default | CLI Override                                                 | API Override                                                |
+| ------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| `"lf"`  | <code>--end-of-line \<lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "\<lf&#124;crlf&#124;cr&#124;auto>"</code> |
 
 Setting `end_of_line` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s end of line usage, unless overridden.
 
@@ -487,9 +495,9 @@ Valid options:
 - `"auto"` – Format embedded code if Prettier can automatically identify it.
 - `"off"` - Never automatically format embedded code.
 
-| Default  | CLI Override                                                | API Override                                               |
-| -------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
-| `"auto"` | <code>--embedded-language-formatting=<off&#124;auto></code> | <code>embeddedLanguageFormatting: "<off&#124;auto>"</code> |
+| Default  | CLI Override                                                 | API Override                                                |
+| -------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| `"auto"` | <code>--embedded-language-formatting=\<off&#124;auto></code> | <code>embeddedLanguageFormatting: "\<off&#124;auto>"</code> |
 
 ## Single Attribute Per Line
 

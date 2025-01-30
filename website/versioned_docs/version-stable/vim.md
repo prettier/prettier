@@ -1,7 +1,6 @@
 ---
-id: version-stable-vim
+id: vim
 title: Vim Setup
-original_id: vim
 ---
 
 Vim users can install either [vim-prettier](https://github.com/prettier/vim-prettier), which is Prettier specific, or [Neoformat](https://github.com/sbdchd/neoformat) or [ALE](https://github.com/dense-analysis/ale) which are generalized lint/format engines with support for Prettier.
