@@ -10,7 +10,7 @@
     "fast-glob": "3.3.3",
     "node-style-text": "0.0.7",
     "outdent": "0.8.0",
-    "semver": "7.6.3"
+    "semver": "7.7.0"
   },
   "engines": {
     "node": ">=20"
