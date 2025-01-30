@@ -149,7 +149,7 @@
     "prettier": "3.4.2",
     "pretty-bytes": "6.1.1",
     "rollup-plugin-license": "3.5.3",
-    "semver": "7.6.3",
+    "semver": "7.7.0",
     "serialize-javascript": "6.0.2",
     "snapshot-diff": "0.10.0",
     "tempy": "3.1.0",
