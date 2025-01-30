@@ -553,6 +553,11 @@ const pluginFiles = [
       {
         module: getPackageFile("@glimmer/syntax/dist/dev/index.js"),
         process(text) {
+          text = text.replace(
+            'import { DEBUG } from "@glimmer/env";',
+            "const DEBUG = false;",
+          );
+
           // This passed to plugins, our plugin don't need access to the options
           text = text.replace(/(?<=\sconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
 
