@@ -237,7 +237,7 @@ const config = {
       },
       algolia: {
         appId: "OHFQ1H5TQS",
-        apiKey: "46e1871dfdc7b4e16290acceb5b0f459",
+        apiKey: "ecfff8a35d82ecff7e911d57d7be8510",
         indexName: "prettier",
       },
       prism: {
