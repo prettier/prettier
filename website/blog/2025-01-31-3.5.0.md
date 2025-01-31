@@ -1,6 +1,5 @@
 ---
-author: "Sosuke Suzuki (@sosukesuzuki)"
-authorURL: "https://github.com/sosukesuzuki"
+authors: "sosukesuzuki"
 title: "Prettier 3.5: New `objectWrap` option, `experimentalOperatorPosition` option and TS config file support!"
 ---
 
