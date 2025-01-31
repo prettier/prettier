@@ -17,7 +17,7 @@ If you appreciate Prettier and would like to support our work, please consider s
 
 ## Why We Added Two New Options
 
-This release introduces two new options. If you’re familiar with Prettier’s[Option Philosophy](https://prettier.io/docs/option-philosophy/), you might be wondering: “Why add new options?” Rest assured, these aren’t your typical options, nor do they violate our option philosophy.
+This release introduces two new options. If you’re familiar with Prettier’s [Option Philosophy](https://prettier.io/docs/option-philosophy/), you might be wondering: “Why add new options?” Rest assured, these aren’t your typical options, nor do they violate our option philosophy.
 
 As the name suggests, `experimentalOperatorPosition` is experimental. We have a [policy for experimental options](https://github.com/prettier/prettier/issues/14527), which means it will eventually be removed. In the future, the new behavior could become the default, or this option might be dropped entirely. If you’ve been following Prettier for a while, you may recall we once added an `experimentalTernaries` option, and this follows the same approach.
 
