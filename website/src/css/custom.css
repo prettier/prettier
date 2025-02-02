@@ -71,6 +71,7 @@
 
 .footer {
   --ifm-footer-background-color: #20232a;
+  --ifm-heading-margin-bottom: 1rem;
 }
 
 .header-github-link::before {
