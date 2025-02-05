@@ -223,7 +223,7 @@
 .editorSectionGrid {
   display: grid;
   gap: 3.75rem 1.25rem;
-  grid-template-columns: repeat(auto-fill, minmax(262px, 1fr))
+  grid-template-columns: repeat(auto-fill, minmax(262px, 1fr));
 }
 
 .editorItem {
