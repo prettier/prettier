@@ -4,8 +4,8 @@ import url from "node:url";
 import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
 import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
+import buildDependenciesLicense from "./build-dependencies-license.js";
 import buildJavascriptModule from "./build-javascript-module.js";
-import buildLicense from "./build-license.js";
 import buildPackageJson from "./build-package-json.js";
 import buildTypes from "./build-types.js";
 import esmifyTypescriptEslint from "./esmify-typescript-eslint.js";
@@ -862,8 +862,10 @@ const metaFiles = [
     build: copyFileBuilder,
   },
   {
-    input: "ThirdPartyNotices.txt",
-    build: buildLicense,
+    output: {
+      file: "THIRD-PARTY-NOTICES.md",
+    },
+    build: buildDependenciesLicense,
   },
 ].map((file) => ({
   ...file,

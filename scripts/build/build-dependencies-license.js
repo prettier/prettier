@@ -69,18 +69,12 @@ function getLicenseText(dependencies) {
     ),
   ];
 
-  if (licenses.length === 0) {
-    return;
-  }
+  const head = outdent`
+    # Licenses of bundled dependencies
 
-  const parts = [
-    outdent`
-      # Licenses of bundled dependencies
-
-      The published Prettier artifact additionally contains code with the following licenses:
-      ${new Intl.ListFormat("en-US", { type: "conjunction" }).format(licenses)}
-    `,
-  ];
+    The published Prettier artifact additionally contains code with the following licenses:
+    ${new Intl.ListFormat("en-US", { type: "conjunction" }).format(licenses)}
+  `;
 
   const content = dependencies
     .map((dependency) => {
@@ -123,12 +117,14 @@ function getLicenseText(dependencies) {
     })
     .join(separator);
 
-  return [...parts, content].join("\n\n");
+  return [head, content].join("\n\n");
 }
 
-async function buildLicense({ file, files, results, cliOptions }) {
+async function buildDependenciesLicense({ file, files, results, cliOptions }) {
+  const fileName = file.output.file;
+
   if (files.at(-1) !== file) {
-    throw new Error("license should be last file to build.");
+    throw new Error(`${fileName} should be last file to build.`);
   }
 
   const shouldBuildLicense =
@@ -137,7 +133,7 @@ async function buildLicense({ file, files, results, cliOptions }) {
     typeof cliOptions.minify !== "boolean";
 
   if (!shouldBuildLicense) {
-    return;
+    return { skipped: true };
   }
 
   const dependencies = getDependencies(results);
@@ -148,7 +144,7 @@ async function buildLicense({ file, files, results, cliOptions }) {
 
   const text = getLicenseText(dependencies);
 
-  await fs.writeFile(path.join(DIST_DIR, file.output.file), text);
+  await fs.writeFile(path.join(DIST_DIR, fileName), text);
 }
 
-export default buildLicense;
+export default buildDependenciesLicense;
