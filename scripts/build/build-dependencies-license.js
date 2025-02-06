@@ -73,7 +73,7 @@ function getLicenseText(dependencies) {
     # Licenses of bundled dependencies
 
     The published Prettier artifact additionally contains code with the following licenses:
-    ${new Intl.ListFormat("en-US", { type: "conjunction" }).format(licenses)}.
+    ${licenses.join(", ")}.
   `;
 
   const content = dependencies
