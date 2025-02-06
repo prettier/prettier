@@ -87,16 +87,16 @@ function getLicenseText(dependencies) {
       }
 
       if (dependency.license) {
-        meta.push(`License: ${dependency.license}`);
+        meta.push(`License: ${dependency.license}  `);
       }
       if (dependency.homepage) {
-        meta.push(`Homepage: <${dependency.homepage}>`);
+        meta.push(`Homepage: <${dependency.homepage}>  `);
       }
       if (dependency.repository?.url) {
-        meta.push(`Repository: <${dependency.repository.url}>`);
+        meta.push(`Repository: <${dependency.repository.url}>  `);
       }
       if (dependency.author) {
-        meta.push(`Author: ${dependency.author.text()}`);
+        meta.push(`Author: ${dependency.author.text()}  `);
       }
       if (dependency.contributors?.length > 0) {
         const contributors = dependency.contributors
