@@ -4,8 +4,6 @@ import { outdent } from "outdent";
 import rollupPluginLicense from "rollup-plugin-license";
 import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 
-const PROJECT_LICENSE_FILE = path.join(PROJECT_ROOT, "LICENSE");
-const LICENSE_FILE = path.join(DIST_DIR, "LICENSE");
 const separator = `\n${"-".repeat(40)}\n\n`;
 
 function toBlockQuote(text) {
@@ -44,7 +42,7 @@ function getDependencies(results) {
   return dependencies;
 }
 
-async function getLicenseText(dependencies) {
+function getLicenseText(dependencies) {
   dependencies = dependencies.filter(
     (dependency, index) =>
       // Exclude ourself
@@ -63,8 +61,6 @@ async function getLicenseText(dependencies) {
       dependencyA.version.localeCompare(dependencyB.version),
   );
 
-  const prettierLicense = await fs.readFile(PROJECT_LICENSE_FILE, "utf8");
-
   const licenses = [
     ...new Set(
       dependencies
@@ -73,31 +69,22 @@ async function getLicenseText(dependencies) {
     ),
   ];
 
-  const text = outdent`
-    # Prettier license
-
-    Prettier is released under the MIT license:
-
-    ${prettierLicense.trim()}
-  `;
-
   if (licenses.length === 0) {
-    return text;
+    return;
   }
 
   const parts = [
-    text,
     outdent`
-      ## Licenses of bundled dependencies
+      # Licenses of bundled dependencies
 
       The published Prettier artifact additionally contains code with the following licenses:
-      ${licenses.join(", ")}
+      ${new Intl.ListFormat("en-US", { type: "conjunction" }).format(licenses)}
     `,
   ];
 
   const content = dependencies
     .map((dependency) => {
-      let text = `### ${dependency.name}@v${dependency.version}\n`;
+      let text = `## ${dependency.name}@v${dependency.version}\n`;
 
       const meta = [];
 
@@ -136,14 +123,7 @@ async function getLicenseText(dependencies) {
     })
     .join(separator);
 
-  return [
-    ...parts,
-    outdent`
-      ## Bundled dependencies
-
-      ${content}
-    `,
-  ].join("\n\n");
+  return [...parts, content].join("\n\n");
 }
 
 async function buildLicense({ file, files, results, cliOptions }) {
@@ -166,9 +146,9 @@ async function buildLicense({ file, files, results, cliOptions }) {
     throw new Error("Fail to collect dependencies.");
   }
 
-  const text = await getLicenseText(dependencies);
+  const text = getLicenseText(dependencies);
 
-  await fs.writeFile(LICENSE_FILE, text);
+  await fs.writeFile(path.join(DIST_DIR, file.output.file), text);
 }
 
 export default buildLicense;

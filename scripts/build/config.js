@@ -859,6 +859,10 @@ const metaFiles = [
   },
   {
     input: "LICENSE",
+    build: copyFileBuilder,
+  },
+  {
+    input: "ThirdPartyNotices.txt",
     build: buildLicense,
   },
 ].map((file) => ({
