@@ -23,8 +23,6 @@ tests/format/**/*
 # Unignore directories and 'jsfmt.spec.js', 'format.test.js' file
 !tests/format/**/
 !tests/format/**/format.test.js
-# TODO: Remove this in 2025, somehow '!tests/format/**/jsfmt.spec.js' does not work
-!tests/format/**/jsfmt.*.js
 tests/integration/cli/
 scripts/release/node_modules
 coverage/

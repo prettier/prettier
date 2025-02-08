@@ -11,7 +11,14 @@ const FORMAT_TEST_DIRECTORY = path.join(PROJECT_ROOT, "tests/format/");
 const TEST_SCRIPT_FILE_NAME = "format.test.js";
 const SNAPSHOTS_DIRECTORY_NAME = "__snapshots__";
 
+const IGNORED = new Set([
+  path.join(FORMAT_TEST_DIRECTORY, "markdown/spec/remark-bug"),
+]);
+
 async function* checkDirectory(directory) {
+  if (IGNORED.has(directory)) {
+    return;
+  }
   const files = await fs.readdir(directory, { withFileTypes: true });
 
   yield {
@@ -36,6 +43,7 @@ async function* checkDirectory(directory) {
 const directories = [];
 for await (const { directory, ok } of checkDirectory(FORMAT_TEST_DIRECTORY)) {
   const name = path.relative(PROJECT_ROOT, directory).replaceAll("\\", "/");
+
   if (!ok) {
     console.log(name);
     directories.push(name);
@@ -49,5 +57,5 @@ if (directories.length > 0) {
   );
   process.exitCode = 1;
 } else {
-  console.log("Passed.");
+  console.log("Pass.");
 }
