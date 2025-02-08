@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-proposal-function-bind
+// https://babeljs.io/docs/babel-plugin-proposal-function-bind
 
 obj::func
 // is equivalent to:

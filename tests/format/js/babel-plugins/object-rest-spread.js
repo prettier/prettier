@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread
+// https://babeljs.io/docs/babel-plugin-transform-object-rest-spread
 
 let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
 console.log(x); // 1

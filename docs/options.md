@@ -146,7 +146,7 @@ Print trailing commas wherever possible in multi-line comma-separated syntactic 
 
 Valid options:
 
-- `"all"` - Trailing commas wherever possible (including [function parameters and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). To run, JavaScript code formatted this way needs an engine that supports ES2017 (Node.js 8+ or a modern browser) or [downlevel compilation](https://babeljs.io/docs/en/index). This also enables trailing commas in type parameters in TypeScript (supported since TypeScript 2.7 released in January 2018).
+- `"all"` - Trailing commas wherever possible (including [function parameters and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). To run, JavaScript code formatted this way needs an engine that supports ES2017 (Node.js 8+ or a modern browser) or [downlevel compilation](https://babeljs.io/docs/index). This also enables trailing commas in type parameters in TypeScript (supported since TypeScript 2.7 released in January 2018).
 - `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.). Trailing commas in type parameters in TypeScript and Flow.
 - `"none"` - No trailing commas.
 
@@ -314,7 +314,7 @@ Valid options:
 - `"css"` (via [postcss](https://github.com/postcss/postcss)) _First available in v1.7.1_
 - `"scss"` (via [postcss-scss](https://github.com/postcss/postcss-scss)) _First available in v1.7.1_
 - `"less"` (via [postcss-less](https://github.com/shellscape/postcss-less)) _First available in v1.7.1_
-- `"json"` (via [@babel/parser parseExpression](https://babeljs.io/docs/en/next/babel-parser.html#babelparserparseexpressioncode-options)) _First available in v1.5.0_
+- `"json"` (via [@babel/parser parseExpression](https://babeljs.io/docs/babel-parser#babelparserparseexpressioncode-options)) _First available in v1.5.0_
 - `"json5"` (same parser as `"json"`, but outputs as [json5](https://json5.org/)) _First available in v1.13.0_
 - `"jsonc"` (same parser as `"json"`, but outputs as "JSON with Comments") _First available in v3.2.0_
 - `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _First available in v1.13.0_

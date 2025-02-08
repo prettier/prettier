@@ -9,7 +9,7 @@ After 1500 commits and 50 releases since July 2018, we're happy to announce that
 
 ## How does it work?
 
-Prettier for Ruby works through Prettier's [plugin API](https://prettier.io/docs/en/plugins.html). Its `parse` function works by spawning a Ruby process and using Ruby's own parser (known as `Ripper`). After tracking all of the various node types, comments, location information, and other various metadata, it returns a built abstract syntax tree (AST) to the Prettier process. Finally it converts that AST into Prettier's intermediate representation (known as `Doc`) before allowing Prettier to handle printing it back out.
+Prettier for Ruby works through Prettier's [plugin API](https://prettier.io/docs/plugins). Its `parse` function works by spawning a Ruby process and using Ruby's own parser (known as `Ripper`). After tracking all of the various node types, comments, location information, and other various metadata, it returns a built abstract syntax tree (AST) to the Prettier process. Finally it converts that AST into Prettier's intermediate representation (known as `Doc`) before allowing Prettier to handle printing it back out.
 
 ## Philosophy
 

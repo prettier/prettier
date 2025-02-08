@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-proposal-private-methods
+// https://babeljs.io/docs/babel-plugin-proposal-private-methods
 
 // Test for `classPrivateProperties` and `classPrivateMethods`
 
