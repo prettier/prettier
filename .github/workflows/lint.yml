@@ -49,6 +49,9 @@ jobs:
       - name: Lint Changelog
         run: yarn lint:changelog
 
+      - name: Lint "format test"
+        run: yarn lint:format-test
+
       - name: Lint docs code block
         run: yarn prettier "{docs,website/versioned_docs/version-stable}/**/*.md" --check
         env:
