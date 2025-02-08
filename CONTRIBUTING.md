@@ -59,7 +59,7 @@ The implementation of `runFormatTest` can be found in [`tests/config/run-format-
 
 To debug Prettier locally, you can either debug it in Node (recommended) or the browser.
 
-- The easiest way to debug it in Node is to create a local test file with some example code you want formatted and either run it in an editor like VS Code or run it directly via `./bin/prettier.js <your_test_file>`.
+- The easiest way to debug it in Node is to create a local test file with some example code you want formatted and either run it in an editor like VS Code or run it directly via `yarn debug <your_test_file>`.
 - The easiest way to debug it in the browser is to build Prettier's website locally (see [`website/README.md`](website/README.md)).
 
 ## No New Options
