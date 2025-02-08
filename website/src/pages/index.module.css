@@ -221,14 +221,9 @@
 }
 
 .editorSectionGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
   gap: 3.75rem 1.25rem;
-}
-
-.editorSectionGrid > * {
-  flex: 0 1 262px;
+  grid-template-columns: repeat(auto-fill, minmax(262px, 1fr));
 }
 
 .editorItem {
