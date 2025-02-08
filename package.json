@@ -33,8 +33,8 @@
   "dependencies": {
     "@angular/compiler": "19.1.2",
     "@babel/code-frame": "7.26.2",
-    "@babel/parser": "7.26.7",
-    "@babel/types": "7.26.7",
+    "@babel/parser": "7.26.8",
+    "@babel/types": "7.26.8",
     "@glimmer/syntax": "0.94.3",
     "@prettier/is-es5-identifier-name": "0.2.0",
     "@prettier/parse-srcset": "3.1.0",
@@ -107,7 +107,7 @@
     "yaml-unist-parser": "2.0.1"
   },
   "devDependencies": {
-    "@babel/generator": "7.26.5",
+    "@babel/generator": "7.26.8",
     "@eslint/js": "9.18.0",
     "@stylistic/eslint-plugin-js": "3.1.0",
     "@types/eslint__js": "8.42.3",
