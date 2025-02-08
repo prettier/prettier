@@ -27,17 +27,15 @@ const f = (argument1, argument2, argument3) => (
   argument1
 );
 (function () {
-  return (
-    aLongIdentifierName,
-    aLongIdentifierName,
-    aLongIdentifierName,
-    aLongIdentifierName
-  );
+  return (aLongIdentifierName,
+  aLongIdentifierName,
+  aLongIdentifierName,
+  aLongIdentifierName);
 });
-aLongIdentifierName,
+(aLongIdentifierName,
   aLongIdentifierName,
   aLongIdentifierName,
-  aLongIdentifierName;
+  aLongIdentifierName);
 a.then(
   () => (
     aLongIdentifierName,
@@ -54,7 +52,7 @@ for (
   test;
   update
 ) {}
-(a = b
+((a = b
   ? c
   : function () {
       return 0;
@@ -78,7 +76,7 @@ for (
     ? c
     : function () {
         return 0;
-      });
+      }));
 
 ================================================================================
 `;
