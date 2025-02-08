@@ -109,7 +109,7 @@
   "devDependencies": {
     "@babel/generator": "7.26.5",
     "@eslint/js": "9.18.0",
-    "@stylistic/eslint-plugin-js": "2.13.0",
+    "@stylistic/eslint-plugin-js": "3.1.0",
     "@types/eslint__js": "8.42.3",
     "@types/estree": "1.0.6",
     "@types/file-entry-cache": "5.0.4",
