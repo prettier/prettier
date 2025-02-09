@@ -18,4 +18,3 @@ export default async function cleanChangelog({ repo }) {
   await runGit(["commit", "-am", "Clean changelog_unreleased"]);
   await runGit(["push", "--repo", repo]);
 }
-
