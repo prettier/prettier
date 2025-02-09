@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-proposal-decorators
+// https://babeljs.io/docs/babel-plugin-proposal-decorators
 
 @annotation
 class MyClass { }

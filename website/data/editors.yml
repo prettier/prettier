@@ -34,4 +34,4 @@
 - image: /images/editors/editor_webstorm.svg
   name: WebStorm
   content: |
-    [Built-in support](https://prettier.io/docs/en/webstorm.html)
+    [Built-in support](https://prettier.io/docs/webstorm)

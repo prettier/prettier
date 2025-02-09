@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-syntax-jsx
+// https://babeljs.io/docs/babel-plugin-syntax-jsx
 
 var profile = <div>
   <img src="avatar.png" className="profile" />

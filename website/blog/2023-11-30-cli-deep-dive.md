@@ -45,7 +45,7 @@ Prettier's CLI works roughly like in the diagram above:
 2. We need to actually find all the files to execute this action on.
 3. We need to resolve `.gitignore` and `.prettierignore` files, to figure out if some of those files are to be ignored.
 4. We need to resolve `.editorconfig` files, for [EditorConfig](https://editorconfig.org)-specific formatting configurations for those files.
-5. We need to resolve `.prettierrc` files, and [~10 more](https://prettier.io/docs/en/configuration), for Prettier-specific formatting configurations for those files.
+5. We need to resolve `.prettierrc` files, and [~10 more](https://prettier.io/docs/configuration), for Prettier-specific formatting configurations for those files.
 6. We need to check if each of the files matches its formatting configuration.
 7. Finally we need to output some kind of result to the terminal.
 
@@ -156,7 +156,7 @@ It's basically an identical situation to what we had for EditorConfig-specific c
 
 The main aspects to consider here for the future are, in my opinion:
 
-1. A large number of [different configuration files](https://prettier.io/docs/en/configuration) are supported. In Babel's monorepo this translates to ~150k lookups in the object of known paths we created in the first step, which while not super expensive it's not free either. If this number could be reduced by a lot it would speed things up a bit.
+1. A large number of [different configuration files](https://prettier.io/docs/configuration) are supported. In Babel's monorepo this translates to ~150k lookups in the object of known paths we created in the first step, which while not super expensive it's not free either. If this number could be reduced by a lot it would speed things up a bit.
 2. Also some of the parsers required to parse those configuration files are relatively expensive, the [`json5`](https://npmjs.com/package/json5) parser requires ~100x as much code as the smallest [JSONC](https://code.visualstudio.com/docs/languages/json) (JSON with Comments) parser that I know of for JavaScript, while being in some cases ~50x slower at parsing also. If fewer formats could be supported the CLI would be leaner as a result.
 3. If we could check just once if a file named for example `.prettierrc.json5` got found anywhere in the repo we could reduce the number of checks for these configuration files by an order of magnitude, because if no file with that name was found anywhere in the repo then we don't need to ask each of Babel's ~13k folders if they have it. The list of all known file names is another piece of valuable information that the glob library we are using could give us for free.
 

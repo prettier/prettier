@@ -30,7 +30,7 @@
   </em>
   <br />
   <em>
-    <a href="https://prettier.io/docs/en/plugins.html">
+    <a href="https://prettier.io/docs/plugins">
       Your favorite language?
     </a>
   </em>

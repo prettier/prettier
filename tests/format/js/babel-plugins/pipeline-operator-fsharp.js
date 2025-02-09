@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
+// https://babeljs.io/docs/babel-plugin-proposal-pipeline-operator
 // https://github.com/valtech-nyc/proposal-fsharp-pipelines
 
 promise

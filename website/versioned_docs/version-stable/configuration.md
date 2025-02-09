@@ -58,7 +58,7 @@ JS (ES Modules):
 // prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
 
 /**
- * @see https://prettier.io/docs/en/configuration.html
+ * @see https://prettier.io/docs/configuration
  * @type {import("prettier").Config}
  */
 const config = {
@@ -77,7 +77,7 @@ JS (CommonJS):
 // prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs
 
 /**
- * @see https://prettier.io/docs/en/configuration.html
+ * @see https://prettier.io/docs/configuration
  * @type {import("prettier").Config}
  */
 const config = {

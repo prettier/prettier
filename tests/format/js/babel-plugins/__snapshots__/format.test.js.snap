@@ -46,7 +46,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-async-generator-functions
+// https://babeljs.io/docs/babel-plugin-proposal-async-generator-functions
 
 async function* agf() {
   await 1;
@@ -54,7 +54,7 @@ async function* agf() {
 }
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-async-generator-functions
+// https://babeljs.io/docs/babel-plugin-proposal-async-generator-functions
 
 async function* agf() {
   await 1;
@@ -338,7 +338,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
+// https://babeljs.io/docs/babel-plugin-proposal-class-properties
 
 class Bork {
     //Property initializer syntax
@@ -366,7 +366,7 @@ class Bork {
   console.log(Bork.staticFunction()); // > "babelIsCool"
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
+// https://babeljs.io/docs/babel-plugin-proposal-class-properties
 
 class Bork {
   //Property initializer syntax
@@ -470,7 +470,7 @@ class C extends HTMLElement {
 
 exports[`decorators.js [acorn] format 1`] = `
 "Unexpected character '@' (3:1)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-decorators
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-decorators
   2 |
 > 3 | @annotation
     | ^
@@ -482,7 +482,7 @@ Cause: Unexpected character '@' (3:0)"
 
 exports[`decorators.js [espree] format 1`] = `
 "Unexpected character '@' (3:1)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-decorators
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-decorators
   2 |
 > 3 | @annotation
     | ^
@@ -498,7 +498,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-decorators
+// https://babeljs.io/docs/babel-plugin-proposal-decorators
 
 @annotation
 class MyClass { }
@@ -529,7 +529,7 @@ function enumerable(value) {
 }
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-decorators
+// https://babeljs.io/docs/babel-plugin-proposal-decorators
 
 @annotation
 class MyClass {}
@@ -674,7 +674,7 @@ class Foo {
 
 exports[`do-expressions.js [acorn] format 1`] = `
 "Unexpected token (3:9)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-do-expressions
   2 |
 > 3 | let a = do {
     |         ^
@@ -686,7 +686,7 @@ Cause: Unexpected token (3:8)"
 
 exports[`do-expressions.js [espree] format 1`] = `
 "Unexpected token do (3:9)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-do-expressions
   2 |
 > 3 | let a = do {
     |         ^
@@ -698,7 +698,7 @@ Cause: Unexpected token do"
 
 exports[`do-expressions.js [meriyah] format 1`] = `
 "Unexpected token: 'do' (3:9)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-do-expressions
   2 |
 > 3 | let a = do {
     |         ^^
@@ -714,7 +714,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions
+// https://babeljs.io/docs/babel-plugin-proposal-do-expressions
 
 let a = do {
   if(x > 10) {
@@ -727,7 +727,7 @@ let a = do {
 let a = x > 10 ? 'big' : 'small';
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions
+// https://babeljs.io/docs/babel-plugin-proposal-do-expressions
 
 let a = do {
   if (x > 10) {
@@ -748,7 +748,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import
+// https://babeljs.io/docs/babel-plugin-syntax-dynamic-import
 
 // There is no example code on babel website
 
@@ -758,7 +758,7 @@ import('./prettier.mjs').then(module => console.log(module));
 import(prettier).then(module => console.log(module));
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import
+// https://babeljs.io/docs/babel-plugin-syntax-dynamic-import
 
 // There is no example code on babel website
 
@@ -875,13 +875,13 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-export-default-from
+// https://babeljs.io/docs/babel-plugin-proposal-export-default-from
 
 
 export v from 'mod';
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-export-default-from
+// https://babeljs.io/docs/babel-plugin-proposal-export-default-from
 
 export v from "mod";
 
@@ -894,12 +894,12 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-export-namespace-from
+// https://babeljs.io/docs/babel-plugin-proposal-export-namespace-from
 
 export * as ns from 'mod';
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-export-namespace-from
+// https://babeljs.io/docs/babel-plugin-proposal-export-namespace-from
 
 export * as ns from "mod";
 
@@ -908,7 +908,7 @@ export * as ns from "mod";
 
 exports[`flow.js [__babel_estree] format 1`] = `
 "Unexpected token, expected "," (3:17)
-  1 | // https://babeljs.io/docs/en/babel-preset-flow
+  1 | // https://babeljs.io/docs/babel-preset-flow
   2 |
 > 3 | function foo(one: any, two: number, three?): string {}
     |                 ^
@@ -918,7 +918,7 @@ Cause: Unexpected token, expected "," (3:16)"
 
 exports[`flow.js [acorn] format 1`] = `
 "Unexpected token (3:17)
-  1 | // https://babeljs.io/docs/en/babel-preset-flow
+  1 | // https://babeljs.io/docs/babel-preset-flow
   2 |
 > 3 | function foo(one: any, two: number, three?): string {}
     |                 ^
@@ -928,7 +928,7 @@ Cause: Unexpected token (3:16)"
 
 exports[`flow.js [babel] format 1`] = `
 "Unexpected token, expected "," (3:17)
-  1 | // https://babeljs.io/docs/en/babel-preset-flow
+  1 | // https://babeljs.io/docs/babel-preset-flow
   2 |
 > 3 | function foo(one: any, two: number, three?): string {}
     |                 ^
@@ -942,12 +942,12 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-preset-flow
+// https://babeljs.io/docs/babel-preset-flow
 
 function foo(one: any, two: number, three?): string {}
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-preset-flow
+// https://babeljs.io/docs/babel-preset-flow
 
 function foo(one: any, two: number, three?): string {}
 
@@ -960,12 +960,12 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-preset-flow
+// https://babeljs.io/docs/babel-preset-flow
 
 function foo(one: any, two: number, three?): string {}
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-preset-flow
+// https://babeljs.io/docs/babel-preset-flow
 
 function foo(one: any, two: number, three?): string {}
 
@@ -974,7 +974,7 @@ function foo(one: any, two: number, three?): string {}
 
 exports[`flow.js [espree] format 1`] = `
 "Unexpected token : (3:17)
-  1 | // https://babeljs.io/docs/en/babel-preset-flow
+  1 | // https://babeljs.io/docs/babel-preset-flow
   2 |
 > 3 | function foo(one: any, two: number, three?): string {}
     |                 ^
@@ -984,7 +984,7 @@ Cause: Unexpected token :"
 
 exports[`flow.js [meriyah] format 1`] = `
 "Expected ')' (3:17)
-  1 | // https://babeljs.io/docs/en/babel-preset-flow
+  1 | // https://babeljs.io/docs/babel-preset-flow
   2 |
 > 3 | function foo(one: any, two: number, three?): string {}
     |                 ^
@@ -994,7 +994,7 @@ Cause: [3:16-3:17]: Expected ')'"
 
 exports[`function-bind.js [acorn] format 1`] = `
 "Unexpected token (3:5)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-function-bind
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-function-bind
   2 |
 > 3 | obj::func
     |     ^
@@ -1006,7 +1006,7 @@ Cause: Unexpected token (3:4)"
 
 exports[`function-bind.js [espree] format 1`] = `
 "Unexpected token : (3:5)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-function-bind
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-function-bind
   2 |
 > 3 | obj::func
     |     ^
@@ -1018,7 +1018,7 @@ Cause: Unexpected token :"
 
 exports[`function-bind.js [meriyah] format 1`] = `
 "Unexpected token: ':' (3:5)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-function-bind
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-function-bind
   2 |
 > 3 | obj::func
     |     ^
@@ -1034,7 +1034,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-function-bind
+// https://babeljs.io/docs/babel-plugin-proposal-function-bind
 
 obj::func
 // is equivalent to:
@@ -1053,7 +1053,7 @@ func.call(obj, val)
 obj.func.call(obj, val)
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-function-bind
+// https://babeljs.io/docs/babel-plugin-proposal-function-bind
 
 obj::func;
 // is equivalent to:
@@ -1115,7 +1115,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-function-sent
+// https://babeljs.io/docs/babel-plugin-proposal-function-sent
 
 function* generator() {
     console.log("Sent", function.sent);
@@ -1127,7 +1127,7 @@ iterator.next(1); // Logs "Sent 1"
 iterator.next(2); // Logs "Yield 2"
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-function-sent
+// https://babeljs.io/docs/babel-plugin-proposal-function-sent
 
 function* generator() {
   console.log("Sent", function.sent);
@@ -1227,7 +1227,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-syntax-import-meta
+// https://babeljs.io/docs/babel-plugin-syntax-import-meta
 
 // Enabled by default https://github.com/babel/babel/pull/11406
 
@@ -1247,7 +1247,7 @@ printWidth: 80
 })();
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-syntax-import-meta
+// https://babeljs.io/docs/babel-plugin-syntax-import-meta
 
 // Enabled by default https://github.com/babel/babel/pull/11406
 
@@ -1275,7 +1275,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-syntax-jsx
+// https://babeljs.io/docs/babel-plugin-syntax-jsx
 
 var profile = <div>
   <img src="avatar.png" className="profile" />
@@ -1283,7 +1283,7 @@ var profile = <div>
 </div>;
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-syntax-jsx
+// https://babeljs.io/docs/babel-plugin-syntax-jsx
 
 var profile = (
   <div>
@@ -1301,7 +1301,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-logical-assignment-operators
+// https://babeljs.io/docs/babel-plugin-proposal-logical-assignment-operators
 
 a ||= b;
 obj.a.b ||= c;
@@ -1310,7 +1310,7 @@ a &&= b;
 obj.a.b &&= c;
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-logical-assignment-operators
+// https://babeljs.io/docs/babel-plugin-proposal-logical-assignment-operators
 
 a ||= b;
 obj.a.b ||= c;
@@ -1393,12 +1393,12 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-nullish-coalescing-operator
+// https://babeljs.io/docs/babel-plugin-proposal-nullish-coalescing-operator
 
 var foo = object.foo ?? "default";
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-nullish-coalescing-operator
+// https://babeljs.io/docs/babel-plugin-proposal-nullish-coalescing-operator
 
 var foo = object.foo ?? "default";
 
@@ -1411,7 +1411,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-numeric-separator
+// https://babeljs.io/docs/babel-plugin-proposal-numeric-separator
 
 let budget = 1_000_000_000_000;
 
@@ -1449,7 +1449,7 @@ let c = message & 0xff;
 console.log(c.toString(16), b); // c0, 192
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-numeric-separator
+// https://babeljs.io/docs/babel-plugin-proposal-numeric-separator
 
 let budget = 1_000_000_000_000;
 
@@ -1495,7 +1495,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread
+// https://babeljs.io/docs/babel-plugin-transform-object-rest-spread
 
 let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
 console.log(x); // 1
@@ -1506,7 +1506,7 @@ let n = { x, y, ...z };
 console.log(n); // { x: 1, y: 2, a: 3, b: 4 }
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread
+// https://babeljs.io/docs/babel-plugin-transform-object-rest-spread
 
 let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
 console.log(x); // 1
@@ -1525,7 +1525,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-optional-catch-binding
+// https://babeljs.io/docs/babel-plugin-proposal-optional-catch-binding
 
 try {
   throw 0;
@@ -1542,7 +1542,7 @@ try {
 }
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-optional-catch-binding
+// https://babeljs.io/docs/babel-plugin-proposal-optional-catch-binding
 
 try {
   throw 0;
@@ -1567,7 +1567,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-optional-chaining
+// https://babeljs.io/docs/babel-plugin-proposal-optional-chaining
 
 const obj = {
   foo: {
@@ -1631,7 +1631,7 @@ const obj4 = {
 const ret = delete obj?.foo?.bar?.baz; // true
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-optional-chaining
+// https://babeljs.io/docs/babel-plugin-proposal-optional-chaining
 
 const obj = {
   foo: {
@@ -1776,7 +1776,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-partial-application
+// https://babeljs.io/docs/babel-plugin-proposal-partial-application
 
 function add(x, y) { return x + y; }
 
@@ -1799,7 +1799,7 @@ o.f(?, x, ?)      // partial application for any arg
 super.f(?)        // partial application allowed for call on |SuperProperty|
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-partial-application
+// https://babeljs.io/docs/babel-plugin-proposal-partial-application
 
 function add(x, y) {
   return x + y;
@@ -1866,7 +1866,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
+// https://babeljs.io/docs/babel-plugin-proposal-pipeline-operator
 // https://github.com/valtech-nyc/proposal-fsharp-pipelines
 
 promise
@@ -1902,7 +1902,7 @@ newScore //=> 57
 let newScore = boundScore(0, 100, add(7, double(person.score)));
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
+// https://babeljs.io/docs/babel-plugin-proposal-pipeline-operator
 // https://github.com/valtech-nyc/proposal-fsharp-pipelines
 
 promise
@@ -1977,7 +1977,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
+// https://babeljs.io/docs/babel-plugin-proposal-pipeline-operator
 // https://github.com/js-choi/proposal-hack-pipes
 
 return list
@@ -1987,7 +1987,7 @@ return list
 // (The % token isn't final; it might instead be @ or ? or #.)
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
+// https://babeljs.io/docs/babel-plugin-proposal-pipeline-operator
 // https://github.com/js-choi/proposal-hack-pipes
 
 return list |> take(prefix.length, %) |> equals(%, prefix);
@@ -2039,7 +2039,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
+// https://babeljs.io/docs/babel-plugin-proposal-pipeline-operator
 // https://github.com/tc39/proposal-pipeline-operator/
 
 let result = exclaim(capitalize(doubleSay("hello")));
@@ -2053,7 +2053,7 @@ let result = "hello"
 result //=> "Hello, hello!"
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
+// https://babeljs.io/docs/babel-plugin-proposal-pipeline-operator
 // https://github.com/tc39/proposal-pipeline-operator/
 
 let result = exclaim(capitalize(doubleSay("hello")));
@@ -2194,7 +2194,7 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-private-methods
+// https://babeljs.io/docs/babel-plugin-proposal-private-methods
 
 // Test for \`classPrivateProperties\` and \`classPrivateMethods\`
 
@@ -2215,7 +2215,7 @@ class Counter extends HTMLElement {
 }
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-private-methods
+// https://babeljs.io/docs/babel-plugin-proposal-private-methods
 
 // Test for \`classPrivateProperties\` and \`classPrivateMethods\`
 
@@ -2406,7 +2406,7 @@ import.source("x");
 
 exports[`throw-expressions.js [acorn] format 1`] = `
 "Unexpected token (3:23)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-throw-expressions
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-throw-expressions
   2 |
 > 3 | function test(param = throw new Error('required!')) {
     |                       ^
@@ -2418,7 +2418,7 @@ Cause: Unexpected token (3:22)"
 
 exports[`throw-expressions.js [espree] format 1`] = `
 "Unexpected token throw (3:23)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-throw-expressions
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-throw-expressions
   2 |
 > 3 | function test(param = throw new Error('required!')) {
     |                       ^
@@ -2430,7 +2430,7 @@ Cause: Unexpected token throw"
 
 exports[`throw-expressions.js [meriyah] format 1`] = `
 "Unexpected token: 'throw' (3:23)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-throw-expressions
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-throw-expressions
   2 |
 > 3 | function test(param = throw new Error('required!')) {
     |                       ^^^^^
@@ -2446,14 +2446,14 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-throw-expressions
+// https://babeljs.io/docs/babel-plugin-proposal-throw-expressions
 
 function test(param = throw new Error('required!')) {
   const test = param === true || throw new Error('Falsy!');
 }
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-throw-expressions
+// https://babeljs.io/docs/babel-plugin-proposal-throw-expressions
 
 function test(param = throw new Error("required!")) {
   const test = param === true || throw new Error("Falsy!");
@@ -2464,7 +2464,7 @@ function test(param = throw new Error("required!")) {
 
 exports[`typescript.js [__babel_estree] format 1`] = `
 "Unexpected token (3:8)
-  1 | // https://babeljs.io/docs/en/babel-preset-typescript
+  1 | // https://babeljs.io/docs/babel-preset-typescript
   2 |
 > 3 | const x: number = 0;
     |        ^
@@ -2474,7 +2474,7 @@ Cause: Unexpected token (3:7)"
 
 exports[`typescript.js [acorn] format 1`] = `
 "Unexpected token (3:8)
-  1 | // https://babeljs.io/docs/en/babel-preset-typescript
+  1 | // https://babeljs.io/docs/babel-preset-typescript
   2 |
 > 3 | const x: number = 0;
     |        ^
@@ -2484,7 +2484,7 @@ Cause: Unexpected token (3:7)"
 
 exports[`typescript.js [babel] format 1`] = `
 "Unexpected token (3:8)
-  1 | // https://babeljs.io/docs/en/babel-preset-typescript
+  1 | // https://babeljs.io/docs/babel-preset-typescript
   2 |
 > 3 | const x: number = 0;
     |        ^
@@ -2498,12 +2498,12 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-preset-typescript
+// https://babeljs.io/docs/babel-preset-typescript
 
 const x: number = 0;
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-preset-typescript
+// https://babeljs.io/docs/babel-preset-typescript
 
 const x: number = 0;
 
@@ -2516,12 +2516,12 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://babeljs.io/docs/en/babel-preset-typescript
+// https://babeljs.io/docs/babel-preset-typescript
 
 const x: number = 0;
 
 =====================================output=====================================
-// https://babeljs.io/docs/en/babel-preset-typescript
+// https://babeljs.io/docs/babel-preset-typescript
 
 const x: number = 0;
 
@@ -2530,7 +2530,7 @@ const x: number = 0;
 
 exports[`typescript.js [espree] format 1`] = `
 "Unexpected token : (3:8)
-  1 | // https://babeljs.io/docs/en/babel-preset-typescript
+  1 | // https://babeljs.io/docs/babel-preset-typescript
   2 |
 > 3 | const x: number = 0;
     |        ^
@@ -2540,7 +2540,7 @@ Cause: Unexpected token :"
 
 exports[`typescript.js [meriyah] format 1`] = `
 "Missing initializer in const declaration (3:8)
-  1 | // https://babeljs.io/docs/en/babel-preset-typescript
+  1 | // https://babeljs.io/docs/babel-preset-typescript
   2 |
 > 3 | const x: number = 0;
     |        ^

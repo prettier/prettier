@@ -22,7 +22,7 @@ https://prettier.io/
 
    This starts a server hosting the website locally at `http://localhost:3000/`. Any changes to the site's source files are reflected after refreshing the page, i.e. the server does not need to be restarted to show changes.
 
-   When working on the docs, you need to go to `http://localhost:3000/docs/en/next/index.html` (note “next”) to see your changes.
+   When working on the docs, you need to go to `http://localhost:3000/docs/next/index.html` (note “next”) to see your changes.
 
 ## Docusaurus
 
@@ -40,7 +40,7 @@ The Playground is not integrated with the Docusaurus infrastructure. Its UI (`we
 
 The entry point of the playground is at `static/playground/index.html`.
 
-Another part of the Playground is a web worker where formatting happens. It’s not managed by webpack and resides directly in `static/worker.js`. It expects to find the [UMD bundles of Prettier](https://prettier.io/docs/en/browser.html) in `static/lib/`. That’s why running `yarn build:website` or `PULL_REQUEST=true yarn build:website` in the project root is a required step.
+Another part of the Playground is a web worker where formatting happens. It’s not managed by webpack and resides directly in `static/worker.js`. It expects to find the [UMD bundles of Prettier](https://prettier.io/docs/browser) in `static/lib/`. That’s why running `yarn build:website` or `PULL_REQUEST=true yarn build:website` in the project root is a required step.
 
 Finally, there is a service worker that caches Prettier’s relatively heavy bundles (`static/service-worker.js`).
 
@@ -54,7 +54,7 @@ id: doc1 # used for docs to find each other and to map links
 title: Document Title
 layout: docs1 # used to determine different sidebar groupings
 category: Sidebar Category 1 # Category on the sidebar under which this doc goes
-permalink: docs/en/doc1.html # link to the document that is used for site
+permalink: docs/doc1.html # link to the document that is used for site
 previous: doc0 # previous doc on sidebar for navigation
 next: doc2 # next doc on the sidebar for navigation
 # don’t include next if this is the last doc; don’t include previous if first doc

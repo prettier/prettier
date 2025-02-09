@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-proposal-optional-chaining
+// https://babeljs.io/docs/babel-plugin-proposal-optional-chaining
 
 const obj = {
   foo: {
