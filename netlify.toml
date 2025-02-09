@@ -6,6 +6,10 @@
   NODE_VERSION = "lts/*"
   YARN_VERSION = "1.22.22"
 
+# Fix for https://github.com/facebook/docusaurus/issues/10053
+[build.processing.html]
+  pretty_urls = true
+
 [[headers]]
   for = "/worker.js"
   [headers.values]
