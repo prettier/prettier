@@ -442,6 +442,11 @@ export interface RequiredOptions extends doc.printer.Options {
    */
   jsxBracketSameLine?: boolean;
   /**
+   * Where to print operators when binary expressions wrap lines.
+   * @default "end"
+   */
+  experimentalOperatorPosition?: "start" | "end";
+  /**
    * Arbitrary additional values on an options object are always allowed.
    */
   [_: string]: unknown;
