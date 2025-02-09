@@ -22,6 +22,17 @@ Valid options:
 | ------- | -------------------------- | ------------------------------- |
 | `false` | `--experimental-ternaries` | `experimentalTernaries: <bool>` |
 
+## Experimental Operator Position
+
+Valid options:
+
+- `"start"` - When binary expressions wrap lines, print operators at the start of new lines.
+- `"end"` - Default behavior; when binary expressions wrap lines, print operators at the end of previous lines.
+
+| Default | CLI Override                                                    | API Override                                                   |
+| ------- | --------------------------------------------------------------- | -------------------------------------------------------------- |
+| `"end"` | <code>--experimental-operator-position \<start&#124;end></code> | <code>experimentalOperatorPosition: "\<start&#124;end>"</code> |
+
 ## Print Width
 
 Specify the line length that the printer will wrap on.
@@ -155,6 +166,23 @@ Valid options:
 | Default | CLI Override           | API Override             |
 | ------- | ---------------------- | ------------------------ |
 | `true`  | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
+
+## Object Wrap
+
+_First available in v3.5.0_
+
+Configure how Prettier wraps object literals when they could fit on one line or span multiple lines.
+
+By default, Prettier formats objects as multi-line if there is a newline prior to the first property. Authors can use this heuristic to contextually improve readability, though it has some downsides. See [Multi-line objects](rationale.md#multi-line-objects).
+
+Valid options:
+
+- `"preserve"` - Keep as multi-line, if there is a newline between the opening brace and first property.
+- `"collapse"` - Fit to a single line when possible.
+
+| Default      | CLI Override                                         | API Override                                         |
+| ------------ | ---------------------------------------------------- | ---------------------------------------------------- |
+| `"preserve"` | <code>--object-wrap \<preserve&#124;collapse></code> | <code>objectWrap: "\<preserve&#124;collapse>"</code> |
 
 ## Bracket Line
 
