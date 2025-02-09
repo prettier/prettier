@@ -19,5 +19,3 @@ export default async function cleanChangelog({ repo }) {
   await runGit(["push", "--repo", repo]);
 }
 
-
-cleanChangelog("git@github.com:prettier/prettier.git");
