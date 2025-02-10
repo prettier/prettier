@@ -25,6 +25,7 @@ const options: prettier.ParserOptions = {
   vueIndentScriptAndStyle: false,
   arrowParens: "always",
   semi: true,
+  experimentalOperatorPosition: "end",
   experimentalTernaries: false,
   jsxSingleQuote: false,
   quoteProps: "as-needed",
