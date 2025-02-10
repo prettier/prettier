@@ -129,7 +129,7 @@ function getBlogPostInfo(version) {
 
   return {
     file: `website/blog/${year}-${month}-${day}-${version}.md`,
-    path: `blog/${year}/${month}/${day}/${version}.html`,
+    path: `blog/${year}/${month}/${day}/${version}`,
   };
 }
 
