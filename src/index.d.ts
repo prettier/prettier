@@ -430,6 +430,11 @@ export interface RequiredOptions extends doc.printer.Options {
    */
   singleAttributePerLine: boolean;
   /**
+   * Where to print operators when binary expressions wrap lines.
+   * @default "end"
+   */
+  experimentalOperatorPosition: "start" | "end";
+  /**
    * Use curious ternaries, with the question mark after the condition, instead
    * of on the same line as the consequent.
    * @default false
@@ -441,11 +446,6 @@ export interface RequiredOptions extends doc.printer.Options {
    * @deprecated use bracketSameLine instead
    */
   jsxBracketSameLine?: boolean;
-  /**
-   * Where to print operators when binary expressions wrap lines.
-   * @default "end"
-   */
-  experimentalOperatorPosition?: "start" | "end";
   /**
    * Arbitrary additional values on an options object are always allowed.
    */
