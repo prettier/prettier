@@ -106,6 +106,22 @@ const normalizeToPosix =
     ? (filepath) => filepath.replaceAll("\\", "/")
     : (filepath) => filepath;
 
+/**
+ * @param {string} filePath
+ * @param {number} headN
+ * @returns {Promise<string>}
+ */
+async function readFileHead(filePath, headN) {
+  const fd = await fs.open(filePath, "r");
+  const buf = Buffer.alloc(headN);
+  try {
+    await fd.read(buf, 0, headN, 0);
+    return buf.toString();
+  } finally {
+    fd.close();
+  }
+}
+
 export const { omit } = sharedWithCli.utils;
 export {
   createHash,
@@ -115,5 +131,6 @@ export {
   normalizeToPosix,
   pick,
   printToScreen,
+  readFileHead,
   statSafe,
 };
