@@ -1,27 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interfaces.js format 1`] = `
+exports[`expression.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["acorn", "espree", "meriyah", "babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+semi: false
                                                                                 | printWidth
 =====================================input======================================
-foo.interface;
-interface.foo;
-new interface();
-({ interface: "foo" });
-(interface, "foo");
-void interface;
-const interface = "foo";
+a;
++1, b
 
 =====================================output=====================================
-foo.interface;
-interface.foo;
-new interface();
-({ interface: "foo" });
-(interface, "foo");
-void interface;
-const interface = "foo";
+a
+;(+1, b)
 
 ================================================================================
 `;

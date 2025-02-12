@@ -5262,7 +5262,7 @@ function excessiveEverything() {
 function sequenceExpressionInside() {
   return (
     // Reason for a
-    a, b
+    (a, b)
   )
 }
 
@@ -5616,7 +5616,7 @@ function excessiveEverything() {
 function sequenceExpressionInside() {
   return (
     // Reason for a
-    a, b
+    (a, b)
   );
 }
 

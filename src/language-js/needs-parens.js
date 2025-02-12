@@ -446,18 +446,12 @@ function needsParens(path, options) {
 
     case "SequenceExpression":
       switch (parent.type) {
-        case "ReturnStatement":
-          return false;
-
         case "ForStatement":
           // Although parentheses wouldn't hurt around sequence
           // expressions in the head of for loops, traditional style
           // dictates that e.g. i++, j++ should not be wrapped with
           // parentheses.
           return false;
-
-        case "ExpressionStatement":
-          return key !== "expression";
 
         case "ArrowFunctionExpression":
           // We do need parentheses, but SequenceExpressions are handled
