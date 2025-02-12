@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import { isCI } from "ci-info";
-import getStdin from "get-stdin";
+import getStdin from "../utils/get-stdin.js";
 
 function writeFormattedFile(file, data) {
   return fs.writeFile(file, data);
