@@ -771,7 +771,13 @@ exports[`CLI --support-info (stdout) 1`] = `
       "parsers": ["yaml"],
       "tmScope": "source.yaml",
       "type": "data",
-      "vscodeLanguageIds": ["yaml", "ansible", "home-assistant"]
+      "vscodeLanguageIds": [
+        "yaml",
+        "ansible",
+        "dockercompose",
+        "github-actions-workflow",
+        "home-assistant"
+      ]
     }
   ],
   "options": [
