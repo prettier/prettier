@@ -52,8 +52,8 @@ class FormatResultsCache {
       );
     } catch {
       // https://github.com/prettier/prettier/issues/17092
-      // Prettier 3.5 uses a different cache format than previous versions.
-      // If the cache file is not in the expected format, delete it and retry.
+      // If `createFromFile()` fails, it's probably because the format
+      // of cache file changed,it happened when we release v3.5.0
       if (fs.existsSync(cacheFileLocation)) {
         fs.unlinkSync(cacheFileLocation);
         // retry
