@@ -1,4 +1,3 @@
-import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import sdbm from "sdbm";
@@ -69,21 +68,6 @@ async function statSafe(filePath) {
 }
 
 /**
- * sync version of `statSafe`.
- * @param {string} filePath
- * @returns {import("node:fs").Stats | undefined}
- */
-function statSafeSync(filePath) {
-  try {
-    return fsSync.statSync(filePath);
-  } catch (/** @type {any} */ error) {
-    if (error.code !== "ENOENT") {
-      throw error;
-    }
-  }
-}
-
-/**
  * Get stats of a given path without following symbolic links.
  * @param {string} filePath The path to target file.
  * @returns {Promise<Stats | undefined>} The stats.
@@ -132,5 +116,4 @@ export {
   pick,
   printToScreen,
   statSafe,
-  statSafeSync,
 };

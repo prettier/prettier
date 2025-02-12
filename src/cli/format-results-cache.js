@@ -5,7 +5,7 @@ import fs from "node:fs";
 import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
 import { version as prettierVersion } from "../index.js";
-import { createHash, statSafeSync } from "./utils.js";
+import { createHash } from "./utils.js";
 
 const optionsHashCache = new WeakMap();
 const nodeVersion = process.version;
@@ -54,8 +54,7 @@ class FormatResultsCache {
       // https://github.com/prettier/prettier/issues/17092
       // Prettier 3.5 uses a different cache format than previous versions.
       // If the cache file is not in the expected format, delete it and retry.
-      const cacheStat = statSafeSync(cacheFileLocation);
-      if (cacheStat) {
+      if (fs.existsSync(cacheFileLocation)) {
         fs.unlinkSync(cacheFileLocation);
         // retry
         this.#fileEntryCache = fileEntryCache.createFromFile(
