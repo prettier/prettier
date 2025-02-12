@@ -141,7 +141,7 @@ function ifBreak(breakContents, flatContents = "", opts = {}) {
  * @param {{ groupId: symbol, negate?: boolean }} opts
  * @returns Doc
  */
-function indentIfBreak(contents, opts) {
+function indentIfBreak(contents, opts = {}) {
   assertDoc(contents);
 
   return {
