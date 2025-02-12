@@ -1,10 +1,11 @@
 // Inspired by LintResultsCache from ESLint
 // https://github.com/eslint/eslint/blob/c2d0a830754b6099a3325e6d3348c3ba983a677a/lib/cli-engine/lint-result-cache.js
 
+import fs from "node:fs";
 import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
 import { version as prettierVersion } from "../index.js";
-import { createHash } from "./utils.js";
+import { createHash, statSafeSync } from "./utils.js";
 
 const optionsHashCache = new WeakMap();
 const nodeVersion = process.version;
@@ -44,10 +45,25 @@ class FormatResultsCache {
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
 
-    this.#fileEntryCache = fileEntryCache.createFromFile(
-      /* filePath */ cacheFileLocation,
-      useChecksum,
-    );
+    try {
+      this.#fileEntryCache = fileEntryCache.createFromFile(
+        /* filePath */ cacheFileLocation,
+        useChecksum,
+      );
+    } catch {
+      // https://github.com/prettier/prettier/issues/17092
+      // Prettier 3.5 uses a different cache format than previous versions.
+      // If the cache file is not in the expected format, delete it and retry.
+      const cacheStat = statSafeSync(cacheFileLocation);
+      if (cacheStat) {
+        fs.unlinkSync(cacheFileLocation);
+        // retry
+        this.#fileEntryCache = fileEntryCache.createFromFile(
+          /* filePath */ cacheFileLocation,
+          useChecksum,
+        );
+      }
+    }
   }
 
   /**
