@@ -44,6 +44,9 @@ const additionalVisitorKeys = {
   AsConstExpression: ["expression"],
   SatisfiesExpression: ["expression", "typeAnnotation"],
   TypeofTypeAnnotation: ["argument", "typeArguments"],
+
+  // https://github.com/typescript-eslint/typescript-eslint/issues/10394
+  TSImportType: ["options"],
 };
 
 const excludeKeys = {
