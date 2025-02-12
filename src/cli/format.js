@@ -13,7 +13,7 @@ import {
   errors,
   mockable,
 } from "./prettier-internal.js";
-import { normalizeToPosix, readFileHead, statSafe } from "./utils.js";
+import { normalizeToPosix, statSafe } from "./utils.js";
 
 const { getStdin, writeFormattedFile } = mockable;
 
@@ -289,27 +289,6 @@ async function formatStdin(context) {
   }
 }
 
-/**
- * Prettier 3.5 uses a different cache format than previous versions.
- * Since loading an old cache file in Prettier 3.5 would cause a
- * runtime error outdated cache files are removed.
- *
- * @param {string} cacheFilePath
- * @returns {Promise<void>}
- */
-async function invalidateOutdatedCacheFile(cacheFilePath) {
-  const stat = await statSafe(cacheFilePath);
-  if (stat) {
-    const head = await readFileHead(cacheFilePath, 2);
-    // Previous cache files started with `[{` but
-    // the new cache files start with `[[`.
-    const isOutdatedCache = !head.startsWith("[[");
-    if (isOutdatedCache) {
-      await fs.unlink(cacheFilePath);
-    }
-  }
-}
-
 async function formatFiles(context) {
   // This will be used to filter file paths after the glob is checked,
   // before any files are actually written
@@ -326,19 +305,10 @@ async function formatFiles(context) {
   let formatResultsCache;
   const cacheFilePath = await findCacheFile(context.argv.cacheLocation);
   if (context.argv.cache) {
-    await invalidateOutdatedCacheFile(cacheFilePath);
-    try {
-      formatResultsCache = new FormatResultsCache(
-        cacheFilePath,
-        context.argv.cacheStrategy || "content",
-      );
-    } catch {
-      // Since invalidateOutdatedCacheFile is called, this path is unlikely to be reached, but just in case.
-      context.logger.error(
-        "A cache-related issue has occurred. Please run without the `--cache` option, then try again.",
-      );
-      process.exit(2);
-    }
+    formatResultsCache = new FormatResultsCache(
+      cacheFilePath,
+      context.argv.cacheStrategy || "content",
+    );
   } else if (!context.argv.cacheLocation) {
     const stat = await statSafe(cacheFilePath);
     if (stat) {
