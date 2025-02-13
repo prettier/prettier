@@ -1,3 +1,15 @@
+# 3.5.1
+
+[diff](https://github.com/prettier/prettier/compare/3.5.0...3.5.1)
+
+#### Fix CLI crash when cache for old version exists ([#17100](https://github.com/prettier/prettier/pull/17100) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Prettier 3.5 uses a different cache format than previous versions, Prettier 3.5.0 crashes when reading existing cache file, Prettier 3.5.1 fixed the problem.
+
+#### Support dockercompose and github-actions-workflow in VSCode ([#17101](https://github.com/prettier/prettier/pull/17101) by [@remcohaszing](https://github.com/remcohaszing))
+
+Prettier now supports the `dockercompose` and `github-actions-workflow` languages in Visual Studio Code.
+
 # 3.5.0
 
 [diff](https://github.com/prettier/prettier/compare/3.4.2...3.5.0)
