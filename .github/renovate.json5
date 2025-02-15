@@ -71,7 +71,7 @@
     // https://github.com/prettier/prettier/pull/13171#issuecomment-1258427561
     {
       matchPackageNames: ["codemirror"],
-      allowedVersions: "< 6.65",
+      allowedVersions: "!/^6\\.65\\.7$/",
     },
     {
       matchPackageNames: ["react", "react-dom"],
