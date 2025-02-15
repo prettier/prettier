@@ -76,14 +76,14 @@ async function buildPlaygroundFiles() {
 
     for (const property of ["languages", "options", "defaultOptions"]) {
       const value = pluginModule[property];
-      if (value !== "undefined") {
+      if (value !== undefined) {
         plugin[property] = value;
       }
     }
 
     for (const property of ["parsers", "printers"]) {
       const value = pluginModule[property];
-      if (value !== "undefined") {
+      if (value !== undefined) {
         plugin[property] = Object.keys(value);
       }
     }
