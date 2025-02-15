@@ -67,29 +67,25 @@ async function buildPlaygroundFiles() {
       continue;
     }
 
-    const {
-      default: { languages, options, parsers, printers },
-    } = await import(url.pathToFileURL(dist));
+    const { default: pluginModule } = await import(url.pathToFileURL(dist));
 
     const plugin = {
       name: path.basename(fileName, ".js"),
       file: fileName,
     };
 
-    if (languages) {
-      plugin.languages = languages;
+    for (const property of ["languages", "options", "defaultOptions"]) {
+      const value = pluginModule[property];
+      if (value !== "undefined") {
+        plugin[property] = value;
+      }
     }
 
-    if (options) {
-      plugin.options = options;
-    }
-
-    if (parsers) {
-      plugin.parsers = Object.keys(parsers);
-    }
-
-    if (printers) {
-      plugin.printers = Object.keys(printers);
+    for (const property of ["parsers", "printers"]) {
+      const value = pluginModule[property];
+      if (value !== "undefined") {
+        plugin[property] = Object.keys(value);
+      }
     }
 
     packageManifest.builtinPlugins.push(plugin);

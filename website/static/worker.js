@@ -23,7 +23,7 @@ function importPlugin(plugin) {
 }
 
 function createPlugin(pluginManifest) {
-  const { languages, options } = pluginManifest;
+  const { languages, options, defaultOptions } = pluginManifest;
   const [parsers, printers] = ["parsers", "printers"].map((property) =>
     Array.isArray(pluginManifest[property])
       ? Object.defineProperties(
@@ -44,7 +44,7 @@ function createPlugin(pluginManifest) {
       : undefined,
   );
 
-  return { languages, options, parsers, printers };
+  return { languages, options, defaultOptions, parsers, printers };
 }
 
 const docExplorerPlugin = {
