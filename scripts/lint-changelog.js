@@ -40,7 +40,7 @@ const authorRegex = /by @[\w-]+|by \[@([\w-]+)\]\(https:\/\/github\.com\/\1\)/u;
 const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}\])/u;
 
 const template = fs.readFileSync(
-  new URL(`${TEMPLATE_FILE}/`, CHANGELOG_ROOT),
+  new URL(TEMPLATE_FILE, CHANGELOG_ROOT),
   "utf8",
 );
 const templateComments = template.match(/<!--.*?-->/gsu);
