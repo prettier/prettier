@@ -4,7 +4,7 @@ import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
 import { nodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "esbuild-plugins-node-modules-polyfill";
 import createEsmUtils from "esm-utils";
-import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
+import { PROJECT_ROOT } from "../utils/index.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
@@ -35,7 +35,7 @@ const getRelativePath = (from, to) => {
   return relativePath;
 };
 
-function getEsbuildOptions({ file, files, cliOptions }) {
+function getEsbuildOptions({ packageConfig, file, cliOptions }) {
   // Save dependencies to file
   file.dependencies = [];
 
@@ -156,7 +156,7 @@ function getEsbuildOptions({ file, files, cliOptions }) {
   if (file.platform === "node") {
     // External other bundled files
     replaceModule.push(
-      ...files
+      ...packageConfig.files
         .filter(
           (bundle) =>
             bundle.input === "package.json" ||
@@ -244,7 +244,10 @@ function getEsbuildOptions({ file, files, cliOptions }) {
     target: [...(buildOptions.target ?? ["node14"])],
     logLevel: "error",
     format: file.output.format,
-    outfile: path.join(DIST_DIR, 'prettier', cliOptions.saveAs ?? file.output.file),
+    outfile: path.join(
+      packageConfig.distDirectory,
+      cliOptions.saveAs ?? file.output.file,
+    ),
     // https://esbuild.github.io/api/#main-fields
     mainFields: file.platform === "node" ? ["module", "main"] : undefined,
     supported: {
@@ -268,7 +271,9 @@ function getEsbuildOptions({ file, files, cliOptions }) {
     }
   } else {
     esbuildOptions.platform = "node";
-    esbuildOptions.external.push(...files.map((file) => file.output.file));
+    esbuildOptions.external.push(
+      ...packageConfig.files.map((file) => file.output.file),
+    );
 
     // https://github.com/evanw/esbuild/issues/1921
     if (file.output.format === "esm") {

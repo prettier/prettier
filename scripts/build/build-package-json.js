@@ -1,5 +1,5 @@
 import path from "node:path";
-import { DIST_DIR, PROJECT_ROOT, readJson, writeJson } from "../utils/index.js";
+import { PROJECT_ROOT, readJson, writeJson } from "../utils/index.js";
 
 const keysToKeep = [
   "name",
@@ -20,7 +20,8 @@ const keysToKeep = [
   "preferUnplugged",
 ];
 
-async function buildPackageJson({ file, files }) {
+async function buildPackageJson({ packageConfig, file }) {
+  const { files } = packageConfig;
   const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));
 
   const bin = files.find(
@@ -103,7 +104,7 @@ async function buildPackageJson({ file, files }) {
   };
 
   await writeJson(
-    path.join(DIST_DIR, file.output.file),
+    path.join(packageConfig.distDirectory, file.output.file),
     Object.assign(pick(packageJson, keysToKeep), overrides),
   );
 }

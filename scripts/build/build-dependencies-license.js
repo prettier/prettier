@@ -2,9 +2,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { outdent } from "outdent";
 import rollupPluginLicense from "rollup-plugin-license";
-import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
+import { PROJECT_ROOT } from "../utils/index.js";
 
-const PACKAGE_NAME = "prettier";
 const separator = `\n${"-".repeat(40)}\n\n`;
 
 function toBlockQuote(text) {
@@ -121,10 +120,15 @@ function getLicenseText(dependencies) {
   return [head, content].join("\n\n");
 }
 
-async function buildDependenciesLicense({ file, files, results, cliOptions }) {
+async function buildDependenciesLicense({
+  packageConfig,
+  file,
+  results,
+  cliOptions,
+}) {
   const fileName = file.output.file;
 
-  if (files.at(-1) !== file) {
+  if (packageConfig.files.at(-1) !== file) {
     throw new Error(`${fileName} should be last file to build.`);
   }
 
@@ -145,7 +149,7 @@ async function buildDependenciesLicense({ file, files, results, cliOptions }) {
 
   const text = getLicenseText(dependencies);
 
-  await fs.writeFile(path.join(DIST_DIR, PACKAGE_NAME, fileName), text);
+  await fs.writeFile(path.join(packageConfig.distDirectory, fileName), text);
 }
 
 export default buildDependenciesLicense;
