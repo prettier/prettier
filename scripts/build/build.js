@@ -45,7 +45,7 @@ const clear = () => {
 };
 
 async function buildFile({ packageConfig, file, cliOptions, results }) {
-  const { distDirectory, files } = packageConfig;
+  const { distDirectory } = packageConfig;
   let displayName = file.output.file;
   if (
     (file.platform === "universal" && file.output.format !== "esm") ||
