@@ -252,7 +252,7 @@ test("no-identifier-n", {
         },
       ],
     },
-    // ESLint 8 doesn't allow suggest invalid code
+    // ESLint>=8 doesn't allow suggest invalid code
     // {
     //   code: "const n = 1;const node = 2;",
     //   output: null,
