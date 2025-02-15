@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "3.5.0-dev",
+  "version": "3.6.0-dev",
   "description": "Prettier is an opinionated code formatter",
   "bin": "./bin/prettier.cjs",
   "repository": "prettier/prettier",
@@ -33,9 +33,9 @@
   "dependencies": {
     "@angular/compiler": "19.1.2",
     "@babel/code-frame": "7.26.2",
-    "@babel/parser": "7.26.7",
-    "@babel/types": "7.26.7",
-    "@glimmer/syntax": "0.94.1",
+    "@babel/parser": "7.26.8",
+    "@babel/types": "7.26.8",
+    "@glimmer/syntax": "0.94.3",
     "@prettier/is-es5-identifier-name": "0.2.0",
     "@prettier/parse-srcset": "3.1.0",
     "@typescript-eslint/typescript-estree": "8.20.0",
@@ -107,7 +107,7 @@
     "yaml-unist-parser": "2.0.1"
   },
   "devDependencies": {
-    "@babel/generator": "7.26.5",
+    "@babel/generator": "7.26.8",
     "@eslint/js": "9.18.0",
     "@stylistic/eslint-plugin-js": "3.1.0",
     "@types/eslint__js": "8.42.3",
@@ -121,7 +121,7 @@
     "cross-env": "7.0.3",
     "cspell": "8.17.2",
     "enquirer": "2.4.1",
-    "esbuild": "0.24.2",
+    "esbuild": "0.25.0",
     "esbuild-plugins-node-modules-polyfill": "1.6.8",
     "esbuild-visualizer": "0.7.0",
     "eslint": "9.18.0",
@@ -146,7 +146,7 @@
     "magic-string": "0.30.17",
     "node-style-text": "0.0.7",
     "npm-run-all2": "7.0.2",
-    "prettier": "3.4.2",
+    "prettier": "3.5.1",
     "pretty-bytes": "6.1.1",
     "rollup-plugin-license": "3.5.3",
     "semver": "7.7.1",

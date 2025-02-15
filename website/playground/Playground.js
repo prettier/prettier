@@ -36,8 +36,7 @@ const ENABLED_OPTIONS = [
   "singleQuote",
   "bracketSpacing",
   "jsxSingleQuote",
-  // TODO: remove this comment out when 3.5.0 is released
-  // "objectWrap",
+  "objectWrap",
   "quoteProps",
   "arrowParens",
   "trailingComma",
@@ -50,6 +49,7 @@ const ENABLED_OPTIONS = [
   "bracketSameLine",
   "singleAttributePerLine",
   "experimentalTernaries",
+  "experimentalOperatorPosition",
 ];
 
 class Playground extends React.Component {
