@@ -869,7 +869,7 @@ const metaFiles = [
   },
 ].map((file) => ({
   ...file,
-  output: { file: `${file.input}`, ...file.output },
+  output: { file: file.input, ...file.output },
   kind: "meta",
 }));
 
