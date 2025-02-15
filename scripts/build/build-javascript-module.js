@@ -36,6 +36,8 @@ const getRelativePath = (from, to) => {
 };
 
 function getEsbuildOptions({ packageConfig, file, cliOptions }) {
+  const { distDirectory, files } = packageConfig;
+
   // Save dependencies to file
   file.dependencies = [];
 
@@ -156,7 +158,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
   if (file.platform === "node") {
     // External other bundled files
     replaceModule.push(
-      ...packageConfig.files
+      ...files
         .filter(
           (bundle) =>
             bundle.input === "package.json" ||
@@ -244,10 +246,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
     target: [...(buildOptions.target ?? ["node14"])],
     logLevel: "error",
     format: file.output.format,
-    outfile: path.join(
-      packageConfig.distDirectory,
-      cliOptions.saveAs ?? file.output.file,
-    ),
+    outfile: path.join(distDirectory, cliOptions.saveAs ?? file.output.file),
     // https://esbuild.github.io/api/#main-fields
     mainFields: file.platform === "node" ? ["module", "main"] : undefined,
     supported: {
@@ -271,9 +270,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
     }
   } else {
     esbuildOptions.platform = "node";
-    esbuildOptions.external.push(
-      ...packageConfig.files.map((file) => file.output.file),
-    );
+    esbuildOptions.external.push(...files.map((file) => file.output.file));
 
     // https://github.com/evanw/esbuild/issues/1921
     if (file.output.format === "esm") {
