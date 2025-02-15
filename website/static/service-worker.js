@@ -1,7 +1,7 @@
 "use strict";
 
-importScripts("lib/package-manifest.js");
 importScripts(
+  "lib/package-manifest.js",
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
 );
 

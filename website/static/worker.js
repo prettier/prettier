@@ -1,7 +1,6 @@
 "use strict";
 
-importScripts("lib/package-manifest.js");
-importScripts("lib/standalone.js");
+importScripts("lib/package-manifest.js", "lib/standalone.js");
 
 const { prettier, prettierPackageManifest } = self;
 
