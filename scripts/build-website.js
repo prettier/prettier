@@ -3,10 +3,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
+import esbuild from "esbuild";
 import createEsmUtils from "esm-utils";
 import { execa } from "execa";
 import fastGlob from "fast-glob";
-import { format } from "../src/index.js";
+import serialize from "serialize-javascript";
 import {
   copyFile,
   DIST_DIR,
@@ -81,17 +82,16 @@ async function buildPlaygroundFiles() {
     });
   }
 
+  const code = /* Indent */ `
+    "use strict";
+
+    const prettierPackageManifest = ${serialize(packageManifest, { space: 2 })};
+    globalThis.prettierPackageManifest = prettierPackageManifest;
+  `;
+
   await writeFile(
     path.join(PLAYGROUND_PRETTIER_DIR, "package-manifest.js"),
-    await format(
-      /* Indent */ `
-        "use strict";
-
-        const prettierPackageManifest = ${JSON.stringify(packageManifest)};
-        globalThis.prettierPackageManifest = prettierPackageManifest;
-      `,
-      { parser: "meriyah" },
-    ),
+    esbuild.transformSync(code, { loader: "js", minify: true }).code.trim(),
   );
 }
 
