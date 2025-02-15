@@ -4,7 +4,6 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
 import esbuild from "esbuild";
-import createEsmUtils from "esm-utils";
 import { execa } from "execa";
 import fastGlob from "fast-glob";
 import serialize from "serialize-javascript";
@@ -17,7 +16,6 @@ import {
   writeJson,
 } from "./utils/index.js";
 
-const { require } = createEsmUtils(import.meta);
 const runYarn = (command, args, options) =>
   execa("yarn", [command, ...args], {
     stdout: "inherit",
@@ -69,17 +67,32 @@ async function buildPlaygroundFiles() {
       continue;
     }
 
-    const pluginModule = require(dist);
-    const plugin = pluginModule.default ?? pluginModule;
-    const { languages, options, parsers = {}, printers = {} } = plugin;
-    packageManifest.builtinPlugins.push({
+    const {
+      default: { languages, options, parsers, printers },
+    } = await import(url.pathToFileURL(dist));
+
+    const plugin = {
       name: path.basename(fileName, ".js"),
       file: fileName,
-      languages,
-      options,
-      parsers: Object.keys(parsers),
-      printers: Object.keys(printers),
-    });
+    };
+
+    if (languages) {
+      plugin.languages = languages;
+    }
+
+    if (options) {
+      plugin.options = options;
+    }
+
+    if (parsers) {
+      plugin.parsers = Object.keys(parsers);
+    }
+
+    if (printers) {
+      plugin.printers = Object.keys(printers);
+    }
+
+    packageManifest.builtinPlugins.push(plugin);
   }
 
   const code = /* Indent */ `

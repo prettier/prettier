@@ -22,24 +22,26 @@ function importPlugin(plugin) {
   return importedPlugins.get(plugin);
 }
 
-function createPlugin(plugin) {
-  const { languages, options } = plugin;
+function createPlugin(pluginManifest) {
+  const { languages, options } = pluginManifest;
   const [parsers, printers] = ["parsers", "printers"].map((property) =>
-    Object.defineProperties(
-      Object.create(null),
-      Object.fromEntries(
-        plugin[property].map((parserName) => [
-          parserName,
-          {
-            configurable: true,
-            enumerable: true,
-            get() {
-              return importPlugin(plugin)[property][parserName];
-            },
-          },
-        ]),
-      ),
-    ),
+    Array.isArray(pluginManifest[property])
+      ? Object.defineProperties(
+          Object.create(null),
+          Object.fromEntries(
+            pluginManifest[property].map((parserName) => [
+              parserName,
+              {
+                configurable: true,
+                enumerable: true,
+                get() {
+                  return importPlugin(pluginManifest)[property][parserName];
+                },
+              },
+            ]),
+          ),
+        )
+      : undefined,
   );
 
   return { languages, options, parsers, printers };
