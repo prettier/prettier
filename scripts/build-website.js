@@ -98,8 +98,7 @@ async function buildPlaygroundFiles() {
   const code = /* Indent */ `
     "use strict";
 
-    const prettierPackageManifest = ${serialize(packageManifest, { space: 2 })};
-    globalThis.prettierPackageManifest = prettierPackageManifest;
+    globalThis.prettierPackageManifest = ${serialize(packageManifest, { space: 2 })};
   `;
 
   await writeFile(
