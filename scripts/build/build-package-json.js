@@ -21,7 +21,7 @@ const keysToKeep = [
 ];
 
 async function buildPackageJson({ packageConfig, file }) {
-  const { files } = packageConfig;
+  const { distDirectory, files } = packageConfig;
   const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));
 
   const bin = files.find(
@@ -104,7 +104,7 @@ async function buildPackageJson({ packageConfig, file }) {
   };
 
   await writeJson(
-    path.join(packageConfig.distDirectory, file.output.file),
+    path.join(distDirectory, file.output.file),
     Object.assign(pick(packageJson, keysToKeep), overrides),
   );
 }

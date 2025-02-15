@@ -45,6 +45,7 @@ const clear = () => {
 };
 
 async function buildFile({ packageConfig, file, cliOptions, results }) {
+  const { distDirectory, files } = packageConfig;
   let displayName = file.output.file;
   if (
     (file.platform === "universal" && file.output.format !== "esm") ||
@@ -85,9 +86,7 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
 
   const sizeMessages = [];
   if (cliOptions.printSize) {
-    const { size } = await fs.stat(
-      path.join(packageConfig.distDirectory, outputFile),
-    );
+    const { size } = await fs.stat(path.join(distDirectory, outputFile));
     sizeMessages.push(prettyBytes(size));
   }
 
@@ -103,9 +102,7 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
     }
 
     if (stableSize) {
-      const { size } = await fs.stat(
-        path.join(packageConfig.distDirectory, outputFile),
-      );
+      const { size } = await fs.stat(path.join(distDirectory, outputFile));
       const sizeDiff = size - stableSize;
       const message = styleText[sizeDiff > 0 ? "yellow" : "green"](
         prettyBytes(sizeDiff),

@@ -126,9 +126,11 @@ async function buildDependenciesLicense({
   results,
   cliOptions,
 }) {
+  const { distDirectory, files } = packageConfig;
+
   const fileName = file.output.file;
 
-  if (packageConfig.files.at(-1) !== file) {
+  if (files.at(-1) !== file) {
     throw new Error(`${fileName} should be last file to build.`);
   }
 
@@ -149,7 +151,7 @@ async function buildDependenciesLicense({
 
   const text = getLicenseText(dependencies);
 
-  await fs.writeFile(path.join(packageConfig.distDirectory, fileName), text);
+  await fs.writeFile(path.join(distDirectory, fileName), text);
 }
 
 export default buildDependenciesLicense;
