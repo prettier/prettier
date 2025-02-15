@@ -141,6 +141,7 @@ async function buildDependenciesLicense({ file, files, results, cliOptions }) {
   if (dependencies.length === 0) {
     throw new Error("Fail to collect dependencies.");
   }
+
   const text = getLicenseText(dependencies);
 
   await fs.writeFile(path.join(DIST_DIR, fileName), text);
