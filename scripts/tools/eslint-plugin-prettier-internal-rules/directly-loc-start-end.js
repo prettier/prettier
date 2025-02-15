@@ -1,5 +1,3 @@
-"use strict";
-
 const selector = [
   "MemberExpression",
   "[computed=false]",
@@ -9,12 +7,9 @@ const selector = [
 
 const MESSAGE_ID = "directly-loc-start-end";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/directly-loc-start-end.js",
-    },
     messages: {
       [MESSAGE_ID]:
         "Please import `{{function}}` function and use it directly.",

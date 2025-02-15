@@ -1,5 +1,3 @@
-"use strict";
-
 const selector = [
   "CallExpression",
   '[callee.type="Identifier"]',
@@ -9,12 +7,9 @@ const selector = [
 const MESSAGE_ID_CALL = "await-cli-tests/call";
 const MESSAGE_ID_GETTER = "await-cli-tests/getter";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/await-cli-tests.js",
-    },
     messages: {
       [MESSAGE_ID_CALL]: "'runCli()' should be awaited or calling `.test()`.",
       [MESSAGE_ID_GETTER]: "'runCli().{{property}}' should be awaited.",
