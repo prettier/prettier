@@ -30,8 +30,8 @@
     "react-tweet": "3.2.1"
   },
   "devDependencies": {
-    "@babel/core": "7.26.8",
-    "@babel/preset-env": "7.26.8",
+    "@babel/core": "7.26.9",
+    "@babel/preset-env": "7.26.9",
     "@docusaurus/module-type-aliases": "3.7.0",
     "@docusaurus/types": "3.7.0",
     "@types/js-yaml": "4.0.9",
