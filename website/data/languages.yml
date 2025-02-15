@@ -34,7 +34,7 @@
   image: /images/languages/tools_yaml.svg
   variants: []
 - name: Community Plugins
-  nameLink: ./docs/en/plugins.html#community-plugins
+  nameLink: ./docs/plugins#community-plugins
   image: /images/languages/tools_wip.svg
   variants:
     - "[Apex](https://github.com/dangmai/prettier-plugin-apex)"

@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-proposal-optional-catch-binding
+// https://babeljs.io/docs/babel-plugin-proposal-optional-catch-binding
 
 try {
   throw 0;

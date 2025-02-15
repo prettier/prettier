@@ -9,7 +9,7 @@ yarn test
 
 ## Tests
 
-The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-testing.html). You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
+The tests use [Jest snapshots](https://jestjs.io/docs/snapshot-testing). You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
 
 Each test directory in `tests/format` has a `format.test.js` file that controls how exactly the rest of the files in the directory are used for tests. This file must contain one or more calls to the `runFormatTest` global function. For example, in directories with JavaScript formatting tests, `format.test.js` generally looks like this:
 

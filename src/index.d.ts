@@ -578,7 +578,7 @@ export interface CursorResult {
 }
 
 /**
- * `format` is used to format text using Prettier. [Options](https://prettier.io/docs/en/options.html) may be provided to override the defaults.
+ * `format` is used to format text using Prettier. [Options](https://prettier.io/docs/options) may be provided to override the defaults.
  */
 export function format(source: string, options?: Options): Promise<string>;
 
@@ -627,7 +627,7 @@ export interface ResolveConfigOptions {
  *
  * A promise is returned which will resolve to:
  *
- *  - An options object, providing a [config file](https://prettier.io/docs/en/configuration.html) was found.
+ *  - An options object, providing a [config file](https://prettier.io/docs/configuration) was found.
  *  - `null`, if no file was found.
  *
  * The promise will be rejected if there was an error parsing the configuration file.

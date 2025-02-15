@@ -3194,7 +3194,7 @@ export const getVehicleDescriptor = async (
 
 - Config: Match dotfiles in config overrides ([#6194] by [@duailibe])
 
-  When using [`overrides`](https://prettier.io/docs/en/configuration.html#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
+  When using [`overrides`](https://prettier.io/docs/configuration#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
 
 [#6190]: https://github.com/prettier/prettier/pull/6190
 [#6194]: https://github.com/prettier/prettier/pull/6194

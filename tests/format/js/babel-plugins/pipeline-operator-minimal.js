@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
+// https://babeljs.io/docs/babel-plugin-proposal-pipeline-operator
 // https://github.com/tc39/proposal-pipeline-operator/
 
 let result = exclaim(capitalize(doubleSay("hello")));

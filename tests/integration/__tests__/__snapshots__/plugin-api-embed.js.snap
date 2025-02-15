@@ -7,4 +7,4 @@ exports[`embed API in plugins with new signature should work 1`] = `
 "
 `;
 
-exports[`embed API in plugins with outdated signature should cause error 1`] = `"printer.embed has too many parameters. The API changed in Prettier v3. Please update your plugin. See https://prettier.io/docs/en/plugins.html#optional-embed"`;
+exports[`embed API in plugins with outdated signature should cause error 1`] = `"printer.embed has too many parameters. The API changed in Prettier v3. Please update your plugin. See https://prettier.io/docs/plugins#optional-embed"`;
