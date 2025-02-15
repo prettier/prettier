@@ -93,11 +93,11 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 ### Worker
 
 <Tabs groupId="worker-type">
-<TabItem value="Module worker">
+<TabItem value="module" label="Module worker">
 
 ```js
-import * as prettier from "https://unpkg.com/prettier@%PRETTIER_VERSION%/standalone.mjs";
-import * as prettierPluginGraphql from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/graphql.mjs";
+import * as prettier from "https://unpkg.com/prettier@3.5.1/standalone.mjs";
+import * as prettierPluginGraphql from "https://unpkg.com/prettier@3.5.1/plugins/graphql.mjs";
 
 const formatted = await prettier.format("type Query { hello: String }", {
   parser: "graphql",
@@ -106,12 +106,12 @@ const formatted = await prettier.format("type Query { hello: String }", {
 ```
 
 </TabItem>
-<TabItem value="Classic worker">
+<TabItem value="classic" label="Classic worker">
 
 ```js
 importScripts(
-  "https://unpkg.com/prettier@%PRETTIER_VERSION%/standalone.js",
-  "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/graphql.js",
+  "https://unpkg.com/prettier@3.5.1/standalone.js",
+  "https://unpkg.com/prettier@3.5.1/plugins/graphql.js",
 );
 
 (async () => {
