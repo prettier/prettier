@@ -244,7 +244,7 @@ function getEsbuildOptions({ file, files, cliOptions }) {
     target: [...(buildOptions.target ?? ["node14"])],
     logLevel: "error",
     format: file.output.format,
-    outfile: path.join(DIST_DIR, cliOptions.saveAs ?? file.output.file),
+    outfile: path.join(DIST_DIR, 'prettier', cliOptions.saveAs ?? file.output.file),
     // https://esbuild.github.io/api/#main-fields
     mainFields: file.platform === "node" ? ["module", "main"] : undefined,
     supported: {

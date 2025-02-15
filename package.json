@@ -164,7 +164,7 @@
     "test:dev-package": "cross-env INSTALL_PACKAGE=1 yarn test",
     "test:dist": "cross-env NODE_ENV=production yarn test",
     "test:dist-standalone": "cross-env TEST_STANDALONE=1 yarn test:dist",
-    "test:dist-lint": "eslint dist/prettier --config=./scripts/bundle-eslint-config.js --quiet",
+    "test:dist-lint": "eslint dist/prettier --config=./scripts/bundle-eslint-config.js --quiet --format friendly",
     "perf": "yarn && yarn build && cross-env NODE_ENV=production node ./dist/prettier/bin/prettier.cjs",
     "perf:inspect": "yarn && yarn build && cross-env NODE_ENV=production node --inspect-brk ./dist/prettier/bin/prettier.cjs",
     "perf:benchmark": "yarn perf --debug-benchmark",

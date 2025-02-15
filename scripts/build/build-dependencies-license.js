@@ -4,6 +4,7 @@ import { outdent } from "outdent";
 import rollupPluginLicense from "rollup-plugin-license";
 import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 
+const PACKAGE_NAME = "prettier";
 const separator = `\n${"-".repeat(40)}\n\n`;
 
 function toBlockQuote(text) {
@@ -144,7 +145,7 @@ async function buildDependenciesLicense({ file, files, results, cliOptions }) {
 
   const text = getLicenseText(dependencies);
 
-  await fs.writeFile(path.join(DIST_DIR, fileName), text);
+  await fs.writeFile(path.join(DIST_DIR, PACKAGE_NAME, fileName), text);
 }
 
 export default buildDependenciesLicense;
