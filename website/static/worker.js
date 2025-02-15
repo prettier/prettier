@@ -3,7 +3,7 @@
 importScripts("lib/package-manifest.js");
 importScripts("lib/standalone.js");
 
-const { prettier, prettierPackageManifest } = globalThis;
+const { prettier, prettierPackageManifest } = self;
 
 const importedPlugins = new Map();
 function importPlugin(plugin) {
