@@ -96,7 +96,7 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 <TabItem value="Module worker">
 
 ```js
-import * as prettier from "https://unpkg.com/prettier@3.5.1/standalone.js";
+import * as prettier from "https://unpkg.com/prettier@3.5.1/standalone.mjs";
 import * as prettierPluginGraphql from "https://unpkg.com/prettier@3.5.1/plugins/graphql.mjs";
 
 const formatted = await prettier.format("type Query { hello: String }", {
