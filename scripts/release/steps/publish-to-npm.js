@@ -24,7 +24,7 @@ export default async function publishToNpm({ dry }) {
       args.push("--otp", otp);
     }
 
-    await execa("npm", args, { cwd: "./dist" });
+    await execa("npm", args, { cwd: "./dist/prettier" });
   };
 
   /**

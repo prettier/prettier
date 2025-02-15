@@ -11,10 +11,10 @@ export default async function generateBundles({ dry, version, manual }) {
     runYarn(["build", "--clean", "--print-size", "--compare-size"]),
   );
 
-  const builtPkg = await readJson("dist/package.json");
+  const builtPkg = await readJson("dist/prettier/package.json");
   if (!dry && builtPkg.version !== version) {
     throw new Error(
-      `Expected ${version} in dist/package.json but found ${builtPkg.version}`,
+      `Expected ${version} in dist/prettier/package.json but found ${builtPkg.version}`,
     );
   }
 
