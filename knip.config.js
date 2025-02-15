@@ -16,9 +16,13 @@ export default {
       ],
     },
     // TODO: Enable this after we fix https://github.com/prettier/prettier/issues/11409
-    website: { ignore: ["**/*"] },
+    website: {
+      ignore: ["**/*"],
+    },
     "scripts/tools/bundle-test": {},
     "scripts/tools/eslint-plugin-prettier-internal-rules": {},
-    "scripts/release": { entry: ["release.js"] },
+    "scripts/release": {
+      entry: ["release.js"],
+    },
   },
 };
