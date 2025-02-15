@@ -1,6 +1,7 @@
 {
   "private": true,
   "license": "MIT",
+"type":"module",
   "scripts": {
     "playground:build": "webpack --mode=production",
     "playground:watch": "webpack --mode=development --watch",

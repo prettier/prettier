@@ -292,7 +292,6 @@ export default [
     files: [
       "**/*.cjs",
       "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",
-      "website/**/*.js",
     ],
     languageOptions: {
       sourceType: "script",

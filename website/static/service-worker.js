@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-module */
 /* global toolbox prettierPackageManifest */
 
 "use strict";
