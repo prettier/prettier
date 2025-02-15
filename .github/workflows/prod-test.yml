@@ -178,4 +178,4 @@ jobs:
       - name: Release
         run: |
           npx pkg-pr-new publish --compact
-        working-directory: dist
+        working-directory: dist/prettier
