@@ -13,6 +13,7 @@ const pluginFiles = prettierPackageManifest.builtinPlugins.map(
 toolbox.precache([
   // Scripts
   "lib/standalone.js",
+  "lib/package-manifest.js",
   ...pluginFiles,
   "playground.js",
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
