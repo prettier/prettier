@@ -1,13 +1,12 @@
-"use strict";
-const path = require("node:path");
+import path from "node:path";
 
-module.exports = {
+export default {
   entry: {
     playground: "./playground/index.js",
   },
   output: {
     filename: "[name].js",
-    path: path.join(__dirname, "static"),
+    path: path.join(import.meta.dirname, "static"),
   },
   module: {
     rules: [

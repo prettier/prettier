@@ -1,4 +1,4 @@
-import "codemirror-graphql/mode";
+import "codemirror-graphql/esm/mode.js";
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";

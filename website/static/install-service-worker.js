@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-module */
 "use strict";
 
 if ("serviceWorker" in navigator) {
