@@ -50,7 +50,7 @@ async function buildPrettier() {
 }
 
 async function buildPlaygroundFiles() {
-  const patterns = ["standalone.js", "plugins/*.js"];
+  const patterns = ["standalone.mjs", "plugins/*.mjs"];
 
   const files = await fastGlob(patterns, {
     cwd: PRETTIER_DIR,
@@ -64,7 +64,7 @@ async function buildPlaygroundFiles() {
     const dist = path.join(PLAYGROUND_PRETTIER_DIR, fileName);
     await copyFile(file, dist);
 
-    if (fileName === "standalone.js") {
+    if (fileName === "standalone.mjs") {
       continue;
     }
 
@@ -88,6 +88,13 @@ async function buildPlaygroundFiles() {
       `,
       { parser: "meriyah" },
     ),
+  );
+
+  await writeFile(
+    path.join(PLAYGROUND_PRETTIER_DIR, "package-manifest.mjs"),
+    await format(`export default ${JSON.stringify(packageManifest)};`, {
+      parser: "meriyah",
+    }),
   );
 }
 

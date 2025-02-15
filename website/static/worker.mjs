@@ -1,14 +1,5 @@
-/* globals prettier prettierPlugins prettierPackageManifest */
-
-"use strict";
-
-importScripts("lib/package-manifest.js");
-importScripts("lib/standalone.js");
-
-// TODO[@fisker]: Lazy load plugins
-for (const { file } of prettierPackageManifest.builtinPlugins) {
-  importScripts(`lib/${file}`);
-}
+import prettierPackageManifest from "./lib/package-manifest.mjs";
+import * as prettier from "./lib/standalone.mjs";
 
 const docExplorerPlugin = {
   parsers: {
@@ -29,7 +20,16 @@ const docExplorerPlugin = {
   languages: [{ name: "doc-explorer", parsers: ["doc-explorer"] }],
 };
 
-const plugins = [...Object.values(prettierPlugins), docExplorerPlugin];
+// TODO[@fisker]: Lazy load plugins
+// eslint-disable-next-line unicorn/prefer-top-level-await
+const pluginsLoadPromise = (async () => [
+  ...(await Promise.all(
+    prettierPackageManifest.builtinPlugins.map(
+      ({ file }) => import(`./lib/${file}`),
+    ),
+  )),
+  docExplorerPlugin,
+])();
 
 self.onmessage = async function (event) {
   self.postMessage({
@@ -63,6 +63,7 @@ function handleMessage(message) {
 }
 
 async function handleMetaMessage() {
+  const plugins = await pluginsLoadPromise;
   const supportInfo = await prettier.getSupportInfo({ plugins });
 
   return {
@@ -74,6 +75,7 @@ async function handleMetaMessage() {
 }
 
 async function handleFormatMessage(message) {
+  const plugins = await pluginsLoadPromise;
   const options = { ...message.options, plugins };
 
   delete options.ast;
