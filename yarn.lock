@@ -1231,43 +1231,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@glimmer/interfaces@npm:0.94.2":
-  version: 0.94.2
-  resolution: "@glimmer/interfaces@npm:0.94.2"
+"@glimmer/interfaces@npm:0.94.5":
+  version: 0.94.5
+  resolution: "@glimmer/interfaces@npm:0.94.5"
   dependencies:
     "@simple-dom/interface": "npm:^1.4.0"
-  checksum: 10/5ff6dfb75af099656139b86b101cf9be3e91867e05cda861045d1af1e7271d8cc27662bbdbbe40212c2daef14a0902e27893e7a1297d5a9d85f1fcb0ab6c31b3
+  checksum: 10/6f9cbe781f23bd748042699a2adb7444e5084948216112eca52c541bfbb7f76475f44d3b5742a3a9b8316ad3cc3583434116bfd0e3c22f40d4283ef09cc19e9a
   languageName: node
   linkType: hard
 
-"@glimmer/syntax@npm:0.94.3":
-  version: 0.94.3
-  resolution: "@glimmer/syntax@npm:0.94.3"
+"@glimmer/syntax@npm:0.94.7":
+  version: 0.94.7
+  resolution: "@glimmer/syntax@npm:0.94.7"
   dependencies:
-    "@glimmer/interfaces": "npm:0.94.2"
-    "@glimmer/util": "npm:0.94.3"
-    "@glimmer/wire-format": "npm:0.94.3"
+    "@glimmer/interfaces": "npm:0.94.5"
+    "@glimmer/util": "npm:0.94.6"
+    "@glimmer/wire-format": "npm:0.94.6"
     "@handlebars/parser": "npm:~2.0.0"
     simple-html-tokenizer: "npm:^0.5.11"
-  checksum: 10/4144292f2e0adc39822390022f26f73be955c2bf7b90c1ab60d7d55bb4ed235739313a34764e1951116f64dc79b9f46787dfc84b3beb5cdbecd26f6b3cd55006
+  checksum: 10/37e0f0e5b9eafde5843fa11282a361c28d9afb6489847e0f0e16a0de15ba68210a02de6336dfea88691f3979b13a67d21d296cf9c9753d35d0f79d105ee8a677
   languageName: node
   linkType: hard
 
-"@glimmer/util@npm:0.94.3":
-  version: 0.94.3
-  resolution: "@glimmer/util@npm:0.94.3"
+"@glimmer/util@npm:0.94.6":
+  version: 0.94.6
+  resolution: "@glimmer/util@npm:0.94.6"
   dependencies:
-    "@glimmer/interfaces": "npm:0.94.2"
-  checksum: 10/e776ded350521db5dcc27c27d76da2e2604d0c9f3bffce30497e112593da4ed1face9aa05a5fb47608f3db0c90fa80837557f0380e0f5dcc23a78b212c1084ea
+    "@glimmer/interfaces": "npm:0.94.5"
+  checksum: 10/6a482d107d921ab78be316fe8842426e7b48abccad551392bb540bcc121b37089675d9cda262ac51963509f622c4e2cf47bc97ed70b81e54b6d2aeb1aa7b1459
   languageName: node
   linkType: hard
 
-"@glimmer/wire-format@npm:0.94.3":
-  version: 0.94.3
-  resolution: "@glimmer/wire-format@npm:0.94.3"
+"@glimmer/wire-format@npm:0.94.6":
+  version: 0.94.6
+  resolution: "@glimmer/wire-format@npm:0.94.6"
   dependencies:
-    "@glimmer/interfaces": "npm:0.94.2"
-  checksum: 10/856fd00fbc47daa13902b4d96b2184db4743923cf3f26094827073fd200b445f5d7301b32cf874166ce1a64a29d5b8955e93f5831cf35ce3b1fb3080a6ff7fb3
+    "@glimmer/interfaces": "npm:0.94.5"
+  checksum: 10/44d0dc69e7455d37db57f73b69d7570d4f1ba08386abceeff155008042538fc017483b383d09ed14f5717694402c43ecb8af21e8c5e70064d45c148a49ba4df5
   languageName: node
   linkType: hard
 
@@ -7481,7 +7481,7 @@ __metadata:
     "@babel/parser": "npm:7.26.8"
     "@babel/types": "npm:7.26.8"
     "@eslint/js": "npm:9.18.0"
-    "@glimmer/syntax": "npm:0.94.3"
+    "@glimmer/syntax": "npm:0.94.7"
     "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:3.1.0"
