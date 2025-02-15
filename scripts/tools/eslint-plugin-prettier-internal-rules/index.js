@@ -19,7 +19,9 @@ for (const dirent of await fs.readdir(import.meta.dirname, {
   }
 
   const name = path.basename(fileName, ".js");
-  const { default: rule } = await import(new URL(fileName, import.meta.url));
+  const { default: rule } = await import(
+    new URL(fileName, import.meta.url).href
+  );
 
   if (rule.meta?.docs?.url) {
     throw new Error(`Please remove 'meta.docs.url' from '${fileName}'.`);
