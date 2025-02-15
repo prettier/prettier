@@ -1,13 +1,48 @@
-/* globals prettier prettierPlugins prettierPackageManifest */
-
 "use strict";
 
 importScripts("lib/package-manifest.js");
 importScripts("lib/standalone.js");
 
-// TODO[@fisker]: Lazy load plugins
-for (const { file } of prettierPackageManifest.builtinPlugins) {
-  importScripts(`lib/${file}`);
+const { prettier, prettierPackageManifest } = globalThis;
+
+const importedPlugins = new Map();
+function importPlugin(plugin) {
+  if (!importedPlugins.has(plugin)) {
+    importScripts(`lib/${plugin.file}`);
+
+    const module = globalThis.prettierPlugins[plugin.name];
+
+    if (!module) {
+      throw new Error(`Load plugin '${plugin.file}' failed.`);
+    }
+
+    importedPlugins.set(plugin, module);
+  }
+
+  return importedPlugins.get(plugin);
+}
+
+function createPlugin(plugin) {
+  const { languages, options } = plugin;
+  const [parsers, printers] = ["parsers", "printers"].map((property) =>
+    Object.defineProperties(
+      Object.create(null),
+      Object.fromEntries(
+        plugin[property].map((parserName) => [
+          parserName,
+          {
+            configurable: true,
+            enumerable: true,
+            get() {
+              return importPlugin(plugin)[property][parserName];
+            },
+          },
+        ]),
+      ),
+    ),
+  );
+
+  return { languages, options, parsers, printers };
 }
 
 const docExplorerPlugin = {
@@ -29,7 +64,12 @@ const docExplorerPlugin = {
   languages: [{ name: "doc-explorer", parsers: ["doc-explorer"] }],
 };
 
-const plugins = [...Object.values(prettierPlugins), docExplorerPlugin];
+const plugins = [
+  ...prettierPackageManifest.builtinPlugins.map((plugin) =>
+    createPlugin(plugin),
+  ),
+  docExplorerPlugin,
+];
 
 self.onmessage = async function (event) {
   self.postMessage({

@@ -70,9 +70,12 @@ async function buildPlaygroundFiles() {
 
     const pluginModule = require(dist);
     const plugin = pluginModule.default ?? pluginModule;
-    const { parsers = {}, printers = {} } = plugin;
+    const { languages, options, parsers = {}, printers = {} } = plugin;
     packageManifest.builtinPlugins.push({
+      name: path.basename(fileName, ".js"),
       file: fileName,
+      languages,
+      options,
       parsers: Object.keys(parsers),
       printers: Object.keys(printers),
     });
@@ -85,6 +88,7 @@ async function buildPlaygroundFiles() {
         "use strict";
 
         const prettierPackageManifest = ${JSON.stringify(packageManifest)};
+        globalThis.prettierPackageManifest = prettierPackageManifest;
       `,
       { parser: "meriyah" },
     ),
