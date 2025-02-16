@@ -82,7 +82,7 @@ for (const category of CHANGELOG_CATEGORIES) {
     }
     checkedFiles.set(prFile, displayPath);
     const content = fs.readFileSync(
-      new URL(`${category}/${prFile}`, CHANGELOG_DIR),
+      new URL(`${category}/${prFile}`, CHANGELOG_ROOT),
       "utf8",
     );
 
