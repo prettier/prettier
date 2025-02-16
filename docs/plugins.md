@@ -585,7 +585,7 @@ function hasNewline(
 function hasNewlineInRange(
   text: string,
   startIndex: number,
-  startIndex: number,
+  endIndex: number,
 ): boolean;
 
 function hasSpaces(
