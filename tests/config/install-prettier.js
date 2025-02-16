@@ -1,9 +1,9 @@
+import { spawnSync } from "node:child_process";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import chalk from "chalk";
-import { execaSync } from "execa";
 import { outdent } from "outdent";
 
 const createTemporaryDirectory = () => {
@@ -51,7 +51,7 @@ function cleanUp() {
 function installPrettier(packageDirectory) {
   const temporaryDirectory = createTemporaryDirectory();
   directoriesToClean.add(temporaryDirectory);
-  const fileName = execaSync("npm", ["pack"], {
+  const fileName = spawnSync("npm", ["pack"], {
     cwd: packageDirectory,
   }).stdout.trim();
   const file = path.join(packageDirectory, fileName);
@@ -60,7 +60,7 @@ function installPrettier(packageDirectory) {
   fs.unlinkSync(file);
 
   const runNpmClient = (args) =>
-    execaSync(client, args, { cwd: temporaryDirectory });
+    spawnSync(client, args, { cwd: temporaryDirectory });
 
   runNpmClient(client === "pnpm" ? ["init"] : ["init", "-y"]);
 
