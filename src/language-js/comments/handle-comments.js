@@ -39,6 +39,10 @@ import isTypeCastComment from "../utils/is-type-cast-comment.js";
  * @property {boolean} isLastComment
  */
 
+const isSingleLineComment = (comment, text) =>
+  isLineComment(comment) ||
+  !hasNewlineInRange(text, locStart(comment), locEnd(comment));
+
 /**
  * @param {CommentContext} context
  * @returns {boolean}
@@ -213,22 +217,23 @@ function handleIfStatementComments({
     ) {
       if (precedingNode.type === "BlockStatement") {
         addTrailingComment(precedingNode, comment);
-      } else {
-        const isSingleLineComment =
-          isLineComment(comment) ||
-          comment.loc.start.line === comment.loc.end.line;
-        const isSameLineComment =
-          comment.loc.start.line === precedingNode.loc.start.line;
-        if (isSingleLineComment && isSameLineComment) {
-          // example:
-          //   if (cond1) expr1; // comment A
-          //   else if (cond2) expr2; // comment A
-          //   else expr3;
-          addTrailingComment(precedingNode, comment);
-        } else {
-          addDanglingComment(enclosingNode, comment);
-        }
+        return true;
       }
+
+      if (
+        isSingleLineComment(comment, text) &&
+        // Comment and `precedingNode` are on same line
+        hasNewlineInRange(text, locEnd(comment), locStart(precedingNode))
+      ) {
+        // example:
+        //   if (cond1) expr1; // comment A
+        //   else if (cond2) expr2; // comment A
+        //   else expr3;
+        addTrailingComment(precedingNode, comment);
+        return true;
+      }
+
+      addDanglingComment(enclosingNode, comment);
       return true;
     }
   }
@@ -1040,6 +1045,7 @@ function handleLastBinaryOperatorOperand({
   precedingNode,
   enclosingNode,
   followingNode,
+  text,
 }) {
   // "baz" should be a trailing comment of `cond3`:
   //
@@ -1057,15 +1063,18 @@ function handleLastBinaryOperatorOperand({
     //   !(
     //     (cond1 || cond2) // foo
     //   );
-    const isMultilineExpression =
-      enclosingNode.argument.loc?.start.line !==
-      precedingNode.right.loc.start.line;
-    const isSingleLineComment =
-      isLineComment(comment) || comment.loc.start.line === comment.loc.end.line;
-    const isSameLineComment =
-      comment.loc.start.line === precedingNode.right.loc.start.line;
-
-    if (isMultilineExpression && isSingleLineComment && isSameLineComment) {
+    // eslint-disable-next-line unicorn/no-lonely-if
+    if (
+      // Is multiline expression
+      hasNewlineInRange(
+        text,
+        locStart(enclosingNode.argument),
+        locStart(precedingNode.right),
+      ) &&
+      isSingleLineComment(comment) &&
+      // Comment and `precedingNode.right` are on same line
+      !hasNewlineInRange(text, locEnd(comment), locStart(precedingNode.right))
+    ) {
       addTrailingComment(precedingNode.right, comment);
       return true;
     }
