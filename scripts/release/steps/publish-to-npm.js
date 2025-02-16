@@ -1,5 +1,5 @@
 import enquirer from "enquirer";
-import { execa } from "execa";
+import spawn from "nano-spawn";
 import { waitForEnter } from "../utils.js";
 
 export default async function publishToNpm({ dry }) {
@@ -24,7 +24,7 @@ export default async function publishToNpm({ dry }) {
       args.push("--otp", otp);
     }
 
-    await execa("npm", args, { cwd: "./dist" });
+    await spawn("npm", args, { cwd: "./dist" });
   };
 
   /**

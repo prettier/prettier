@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
 import url from "node:url";
-import { execa } from "execa";
+import spawn from "nano-spawn";
 import styleText from "node-style-text";
 import outdent from "outdent";
 import getFormattedDate from "./get-formatted-date.js";
@@ -60,7 +60,7 @@ async function runYarn(args, options) {
   args = Array.isArray(args) ? args : [args];
 
   try {
-    return await execa("yarn", [...args], options);
+    return await spawn("yarn", [...args], options);
   } catch (error) {
     throw new Error(`\`yarn ${args.join(" ")}\` failed\n${error.stdout}`);
   }
@@ -68,7 +68,7 @@ async function runYarn(args, options) {
 
 function runGit(args, options) {
   args = Array.isArray(args) ? args : [args];
-  return execa("git", args, options);
+  return spawn("git", args, options);
 }
 
 function waitForEnter() {
