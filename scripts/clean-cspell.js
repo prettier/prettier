@@ -56,6 +56,6 @@ console.log("Updating words ...");
 await updateConfig(config);
 
 console.log("Running spellcheck with new words ...");
-await runSpellcheck([], { stdout: "inherit", stderr: "inherit" });
+await runSpellcheck([], { stdio: "inherit" });
 
 console.log("CSpell config file updated.");

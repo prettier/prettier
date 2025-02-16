@@ -18,11 +18,7 @@ import {
 
 const { require } = createEsmUtils(import.meta);
 const runYarn = (command, args, options) =>
-  spawn("yarn", [command, ...args], {
-    stdout: "inherit",
-    stderr: "inherit",
-    ...options,
-  });
+  spawn("yarn", [command, ...args], { stdio: "inherit", ...options });
 const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
 const PRETTIER_DIR = IS_PULL_REQUEST
   ? DIST_DIR
