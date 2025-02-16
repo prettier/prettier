@@ -807,7 +807,7 @@ const nodejsFiles = [
   {
     input: "src/cli/index.js",
     outputBaseName: "internal/cli",
-    external: ["benchmark"],
+    external: ["tinybench"],
     // TODO: Remove this when we drop support for Node.js v16
     replaceModule: [
       {

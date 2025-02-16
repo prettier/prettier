@@ -166,40 +166,26 @@ async function format(context, input, opt) {
 
   const { performanceTestFlag } = context;
   if (performanceTestFlag?.debugBenchmark) {
-    let benchmark;
+    let Bench;
     try {
-      ({ default: benchmark } = await import("benchmark"));
+      ({ Bench } = await import("tinybench"));
     } catch {
       context.logger.debug(
-        "'--debug-benchmark' requires the 'benchmark' package to be installed.",
+        "'--debug-benchmark' requires the 'tinybench' package to be installed.",
       );
       process.exit(2);
     }
     context.logger.debug(
-      "'--debug-benchmark' option found, measuring formatWithCursor with 'benchmark' module.",
+      "'--debug-benchmark' option found, measuring formatWithCursor with 'tinybench' module.",
     );
-    const suite = new benchmark.Suite();
-    suite.add("format", {
-      defer: true,
-      async fn(deferred) {
-        await prettier.formatWithCursor(input, opt);
-        deferred.resolve();
-      },
-    });
-    const result = await new Promise((resolve) => {
-      suite
-        .on("complete", (event) => {
-          resolve({
-            benchmark: String(event.target),
-            hz: event.target.hz,
-            ms: event.target.times.cycle * 1000,
-          });
-        })
-        .run({ async: false });
-    });
+    const bench = new Bench();
+    bench.add("Format", () => prettier.formatWithCursor(input, opt));
+    await bench.run();
+
+    const [result] = bench.table();
     context.logger.debug(
       "'--debug-benchmark' measurements for formatWithCursor: " +
-        JSON.stringify(result, null, 2),
+        JSON.stringify(result, undefined, 2),
     );
   } else if (performanceTestFlag?.debugRepeat) {
     const repeat = performanceTestFlag.debugRepeat;
