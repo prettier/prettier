@@ -3,6 +3,9 @@ id: browser
 title: Browser
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
 Run Prettier in the browser using its **standalone** version. This version doesn’t depend on Node.js. It only formats the code and has no support for config files, ignore files, CLI usage, or automatic loading of plugins.
 
 The standalone version comes as:
@@ -48,7 +51,7 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 ```html
 <script type="module">
   import * as prettier from "https://unpkg.com/prettier@%PRETTIER_VERSION%/standalone.mjs";
-  import prettierPluginGraphql from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/graphql.mjs";
+  import * as prettierPluginGraphql from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/graphql.mjs";
 
   const formatted = await prettier.format("type Query { hello: String }", {
     parser: "graphql",
@@ -89,9 +92,25 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 
 ### Worker
 
+<Tabs groupId="worker-type">
+<TabItem value="module" label="Module worker">
+
 ```js
-importScripts("https://unpkg.com/prettier@%PRETTIER_VERSION%/standalone.js");
+import * as prettier from "https://unpkg.com/prettier@%PRETTIER_VERSION%/standalone.mjs";
+import * as prettierPluginGraphql from "https://unpkg.com/prettier@%PRETTIER_VERSION%1/plugins/graphql.mjs";
+
+const formatted = await prettier.format("type Query { hello: String }", {
+  parser: "graphql",
+  plugins: [prettierPluginGraphql],
+});
+```
+
+</TabItem>
+<TabItem value="classic" label="Classic worker">
+
+```js
 importScripts(
+  "https://unpkg.com/prettier@%PRETTIER_VERSION%/standalone.js",
   "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/graphql.js",
 );
 
@@ -103,6 +122,9 @@ importScripts(
 })();
 ```
 
+</TabItem>
+</Tabs>
+
 ## Parser plugins for embedded code
 
 If you want to format [embedded code](options.md#embedded-language-formatting), you need to load related plugins too. For example:
@@ -110,8 +132,8 @@ If you want to format [embedded code](options.md#embedded-language-formatting), 
 ```html
 <script type="module">
   import * as prettier from "https://unpkg.com/prettier@%PRETTIER_VERSION%/standalone.mjs";
-  import prettierPluginBabel from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/babel.mjs";
-  import prettierPluginEstree from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/estree.mjs";
+  import * as prettierPluginBabel from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/babel.mjs";
+  import * as prettierPluginEstree from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/estree.mjs";
 
   console.log(
     await prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
@@ -128,9 +150,9 @@ The HTML code embedded in JavaScript stays unformatted because the `html` parser
 ```html
 <script type="module">
   import * as prettier from "https://unpkg.com/prettier@%PRETTIER_VERSION%/standalone.mjs";
-  import prettierPluginBabel from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/babel.mjs";
-  import prettierPluginEstree from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/estree.mjs";
-  import prettierPluginHtml from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/html.mjs";
+  import * as prettierPluginBabel from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/babel.mjs";
+  import * as prettierPluginEstree from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/estree.mjs";
+  import * as prettierPluginHtml from "https://unpkg.com/prettier@%PRETTIER_VERSION%/plugins/html.mjs";
 
   console.log(
     await prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
