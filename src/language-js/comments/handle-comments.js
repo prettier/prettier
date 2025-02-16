@@ -1071,7 +1071,7 @@ function handleLastBinaryOperatorOperand({
         locStart(enclosingNode.argument),
         locStart(precedingNode.right),
       ) &&
-      isSingleLineComment(comment) &&
+      isSingleLineComment(comment, text) &&
       // Comment and `precedingNode.right` are on same line
       !hasNewlineInRange(text, locEnd(comment), locStart(precedingNode.right))
     ) {
