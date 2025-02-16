@@ -11,7 +11,7 @@ runFormatTest(import.meta, ["babel"], {
     acorn: [...importDeferTests, ...invalidSyntaxTests],
     espree: [...importDeferTests, ...invalidSyntaxTests],
     meriyah: [...importDeferTests, ...invalidSyntaxTests],
-    oxc: [...importDeferTests, ...invalidSyntaxTests],
+    oxc: invalidSyntaxTests,
     babel: invalidSyntaxTests,
     __babel_estree: invalidSyntaxTests,
   },
