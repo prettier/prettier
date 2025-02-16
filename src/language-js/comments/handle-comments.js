@@ -1073,7 +1073,7 @@ function handleLastBinaryOperatorOperand({
       ) &&
       isSingleLineComment(comment, text) &&
       // Comment and `precedingNode.right` are on same line
-      !hasNewlineInRange(text, locStart(precedingNode.right), locEnd(comment))
+      !hasNewlineInRange(text, locStart(precedingNode.right), locStart(comment))
     ) {
       addTrailingComment(precedingNode.right, comment);
       return true;
