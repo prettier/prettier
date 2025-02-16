@@ -6816,6 +6816,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nano-spawn@npm:0.2.0":
+  version: 0.2.0
+  resolution: "nano-spawn@npm:0.2.0"
+  checksum: 10/efc75810590f9a15ffde05f03ab6408727524040fe13db1a34e8d09512803269f976a294b4facf51ba30bfb32568dcc8a723fee36e45a5748cd045bf566b6790
+  languageName: node
+  linkType: hard
+
 "nanoid@npm:^3.3.8":
   version: 3.3.8
   resolution: "nanoid@npm:3.3.8"
@@ -7562,6 +7569,7 @@ __metadata:
     micromatch: "npm:4.0.8"
     minimist: "npm:1.2.8"
     n-readlines: "npm:1.0.1"
+    nano-spawn: "npm:0.2.0"
     node-style-text: "npm:0.0.7"
     npm-run-all2: "npm:7.0.2"
     outdent: "npm:0.8.0"

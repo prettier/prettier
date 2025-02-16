@@ -144,6 +144,7 @@
     "jest-watch-typeahead": "2.2.2",
     "knip": "5.42.2",
     "magic-string": "0.30.17",
+    "nano-spawn": "0.2.0",
     "node-style-text": "0.0.7",
     "npm-run-all2": "7.0.2",
     "prettier": "3.5.1",
