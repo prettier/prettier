@@ -277,4 +277,5 @@ test("sharedUtil.hasNewlineInRange", () => {
   );
   expect(hasNewlineInRange("\n", 0, 100)).toBe(true);
   expect(hasNewlineInRange("\n", -100, 1)).toBe(true);
+  expect(hasNewlineInRange("\n", 0, 1)).toBe(true);
 });
