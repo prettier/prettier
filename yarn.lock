@@ -5815,9 +5815,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.6.0":
+"jest-light-runner@fisker/jest-light-runner#child-process":
   version: 0.6.0
-  resolution: "jest-light-runner@npm:0.6.0"
+  resolution: "jest-light-runner@https://github.com/fisker/jest-light-runner.git#commit=cf6130bda600d0468487071922363a16217885c8"
   dependencies:
     "@jest/expect": "npm:^30.0.0-alpha.1"
     "@jest/fake-timers": "npm:^30.0.0-alpha.1"
@@ -5826,10 +5826,10 @@ __metadata:
     jest-mock: "npm:^30.0.0-alpha.1"
     jest-snapshot: "npm:^30.0.0-alpha.1"
     supports-color: "npm:^9.2.1"
-    tinypool: "npm:^0.8.1"
+    tinypool: "npm:^1.0.2"
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0-0
-  checksum: 10/74103180fa2b997e46b7ba08e3afa6b673dd35d0c15fcecf825f9b7768c53c4f416bcdb261285b234375caaf45dd7cab397d5def7d95271c8d75ac59237fbf86
+  checksum: 10/7acda3b5d545d008842a1d2796b88794ebcca42124abe62fe05710997e094af928cfcb54ac82cafd611a425862cdfb2395df73d7c9ec17cd8cc78ea4f7db2c7f
   languageName: node
   linkType: hard
 
@@ -7547,7 +7547,7 @@ __metadata:
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
-    jest-light-runner: "npm:0.6.0"
+    jest-light-runner: "fisker/jest-light-runner#child-process"
     jest-snapshot-serializer-ansi: "npm:2.1.0"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:2.2.2"
@@ -8770,10 +8770,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinypool@npm:^0.8.1":
-  version: 0.8.4
-  resolution: "tinypool@npm:0.8.4"
-  checksum: 10/7365944c2532f240111443e7012be31a634faf1a02db08a91db3aa07361c26a374d0be00a0f2ea052c4bee39c107ba67f1f814c108d9d51dfc725c559c1a9c03
+"tinypool@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "tinypool@npm:1.0.2"
+  checksum: 10/6109322f14b3763f65c8fa49fddab72cd3edd96b82dd50e05e63de74867329ff5353bff4377281ec963213d9314f37f4a353e9ee34bbac85fd4c1e4a568d6076
   languageName: node
   linkType: hard
 

@@ -57,7 +57,7 @@ const config = {
     "<rootDir>/tests/config/format-test-setup.js",
     "<rootDir>/tests/integration/integration-test-setup.js",
   ],
-  runner: "jest-light-runner",
+  runner: "./scripts/jest-light-process-runner.js",
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",

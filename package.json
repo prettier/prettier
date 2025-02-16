@@ -138,7 +138,7 @@
     "execa": "7.2.0",
     "globals": "15.14.0",
     "jest": "30.0.0-alpha.7",
-    "jest-light-runner": "0.6.0",
+    "jest-light-runner": "fisker/jest-light-runner#child-process",
     "jest-snapshot-serializer-ansi": "2.1.0",
     "jest-snapshot-serializer-raw": "2.0.0",
     "jest-watch-typeahead": "2.2.2",
@@ -160,7 +160,7 @@
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
+    "test": "jest",
     "test:dev-package": "cross-env INSTALL_PACKAGE=1 yarn test",
     "test:dist": "cross-env NODE_ENV=production yarn test",
     "test:dist-standalone": "cross-env TEST_STANDALONE=1 yarn test:dist",
