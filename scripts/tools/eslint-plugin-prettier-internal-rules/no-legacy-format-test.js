@@ -1,6 +1,4 @@
-"use strict";
-
-const path = require("path");
+import path from "node:path";
 
 const legacyRunFormatTestCall = [
   "CallExpression",
@@ -38,12 +36,9 @@ const MESSAGE_ID_ARGUMENT = "dirname-argument";
 const MESSAGE_ID_PROPERTY = "dirname-property";
 const MESSAGE_ID_LEGACY_FILENAME = "legacy-filename";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-legacy-format-test.js",
-    },
     messages: {
       [MESSAGE_ID_LEGACY_FUNCTION_NAME]:
         "Use `runFormatTest(…)` instead of `run_spec(…)`.",

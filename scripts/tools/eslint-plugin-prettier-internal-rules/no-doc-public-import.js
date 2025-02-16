@@ -1,5 +1,4 @@
-"use strict";
-const path = require("path");
+import path from "node:path";
 
 const selector = [
   ":matches(ImportDeclaration, ExportNamedDeclaration, ImportExpression)",
@@ -8,10 +7,13 @@ const selector = [
 ].join("");
 
 const messageId = "no-doc-public-import";
-const docIndexFile = path.join(__dirname, "../../../src/document/public.js");
+const docIndexFile = path.join(
+  import.meta.dirname,
+  "../../../src/document/public.js",
+);
 const ignored = new Set([
-  path.join(__dirname, "../../../src/index.js"),
-  path.join(__dirname, "../../../src/standalone.js"),
+  path.join(import.meta.dirname, "../../../src/index.js"),
+  path.join(import.meta.dirname, "../../../src/standalone.js"),
 ]);
 
 const docProperties = new Set(["builders", "debug", "printer", "utils"]);
@@ -84,12 +86,9 @@ function fix(source, context) {
   };
 }
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-doc-public-import.js",
-    },
     messages: {
       [messageId]: "Do not {{type}} document/public.js file",
     },

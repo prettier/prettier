@@ -1,6 +1,5 @@
-"use strict";
+import { findVariable } from "@eslint-community/eslint-utils";
 
-const { findVariable } = require("@eslint-community/eslint-utils");
 const ERROR = "error";
 const SUGGESTION = "suggestion";
 const selector = [
@@ -12,12 +11,9 @@ const selector = [
   ].join(", ")})`,
 ].join("");
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-identifier-n.js",
-    },
     messages: {
       [ERROR]: "Please rename variable 'n'.",
       [SUGGESTION]: "Rename to `node`.",
