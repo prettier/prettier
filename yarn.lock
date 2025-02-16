@@ -5817,7 +5817,7 @@ __metadata:
 
 "jest-light-runner@fisker/jest-light-runner#child-process":
   version: 0.6.0
-  resolution: "jest-light-runner@https://github.com/fisker/jest-light-runner.git#commit=cf6130bda600d0468487071922363a16217885c8"
+  resolution: "jest-light-runner@https://github.com/fisker/jest-light-runner.git#commit=1887f588b78b50bb614df4fd85250f4155950333"
   dependencies:
     "@jest/expect": "npm:^30.0.0-alpha.1"
     "@jest/fake-timers": "npm:^30.0.0-alpha.1"
@@ -5825,11 +5825,12 @@ __metadata:
     jest-each: "npm:^30.0.0-alpha.1"
     jest-mock: "npm:^30.0.0-alpha.1"
     jest-snapshot: "npm:^30.0.0-alpha.1"
+    p-map: "npm:^7.0.3"
     supports-color: "npm:^9.2.1"
     tinypool: "npm:^1.0.2"
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0-0
-  checksum: 10/7acda3b5d545d008842a1d2796b88794ebcca42124abe62fe05710997e094af928cfcb54ac82cafd611a425862cdfb2395df73d7c9ec17cd8cc78ea4f7db2c7f
+  checksum: 10/1cfb13a2f2d1e66c405a6cea14f8dfed746b3eb5e25efe076c25f8e63c2a62e9468b484c9901e3ece48529dd7f7eb341d9231a3a9b3297d8465de01eda8aafbe
   languageName: node
   linkType: hard
 
@@ -7156,6 +7157,13 @@ __metadata:
   dependencies:
     aggregate-error: "npm:^3.0.0"
   checksum: 10/7ba4a2b1e24c05e1fc14bbaea0fc6d85cf005ae7e9c9425d4575550f37e2e584b1af97bcde78eacd7559208f20995988d52881334db16cf77bc1bcf68e48ed7c
+  languageName: node
+  linkType: hard
+
+"p-map@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "p-map@npm:7.0.3"
+  checksum: 10/2ef48ccfc6dd387253d71bf502604f7893ed62090b2c9d73387f10006c342606b05233da0e4f29388227b61eb5aeface6197e166520c465c234552eeab2fe633
   languageName: node
   linkType: hard
 
