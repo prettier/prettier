@@ -63,6 +63,16 @@ const f2 = <
 ================================================================================
 `;
 
+exports[`trailing.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
+"Unexpected trailing comma after rest element (15:10)
+  13 |   longKeySoThisWillGoOnMultipleLines2,
+  14 |   longKeySoThisWillGoOnMultipleLines3,
+> 15 |   ...rest,
+     |          ^
+  16 | } = something;
+  17 |"
+`;
+
 exports[`trailing.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -107,6 +117,16 @@ const {
 ================================================================================
 `;
 
+exports[`trailing.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
+"Unexpected trailing comma after rest element (15:10)
+  13 |   longKeySoThisWillGoOnMultipleLines2,
+  14 |   longKeySoThisWillGoOnMultipleLines3,
+> 15 |   ...rest,
+     |          ^
+  16 | } = something;
+  17 |"
+`;
+
 exports[`trailing.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -149,6 +169,16 @@ const {
 } = something;
 
 ================================================================================
+`;
+
+exports[`trailing.ts - {"trailingComma":"none"} [oxc-ts] format 1`] = `
+"Unexpected trailing comma after rest element (15:10)
+  13 |   longKeySoThisWillGoOnMultipleLines2,
+  14 |   longKeySoThisWillGoOnMultipleLines3,
+> 15 |   ...rest,
+     |          ^
+  16 | } = something;
+  17 |"
 `;
 
 exports[`trailing.ts - {"trailingComma":"none"} format 1`] = `

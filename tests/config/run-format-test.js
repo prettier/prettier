@@ -97,6 +97,17 @@ const oxcDisabledTests = new Set(
     "js/ignore/class-expression-decorator.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 );
+const oxcTsDisabledTests = new Set(
+  [
+    "js/dynamic-import/import-phase.js",
+
+    // Can't reproduce on Oxc playground
+    "typescript/decorators/abstract-method.ts",
+
+    // https://github.com/oxc-project/oxc/issues/10980
+    "js/top-level-await/test.cjs", // Parses as `module` even I already told it's `script`
+  ].map((file) => path.join(__dirname, "../format", file)),
+);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -255,12 +266,13 @@ function runFormatTest(fixtures, parsers, options) {
       }
     }
 
-    if (
-      parsers.includes("typescript") &&
-      !parsers.includes("babel-ts") &&
-      !IS_TYPESCRIPT_ONLY_TEST
-    ) {
-      allParsers.push("babel-ts");
+    if (parsers.includes("typescript") && !IS_TYPESCRIPT_ONLY_TEST) {
+      if (!parsers.includes("babel-ts")) {
+        allParsers.push("babel-ts");
+      }
+      if (!parsers.includes("oxc-ts")) {
+        allParsers.push("oxc-ts");
+      }
     }
 
     if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
@@ -306,6 +318,7 @@ function runFormatTest(fixtures, parsers, options) {
           (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
           (currentParser === "oxc" && oxcDisabledTests.has(filename)) ||
+          (currentParser === "oxc-ts" && oxcTsDisabledTests.has(filename)) ||
           (currentParser === "babel-ts" && babelTsDisabledTests.has(filename))
         ) {
           continue;
@@ -554,7 +567,7 @@ async function format(originalText, originalOptions) {
 }
 
 async function loadPlugins(options) {
-  if (options.parser === "oxc") {
+  if (options.parser === "oxc" || options.parser === "oxc-ts") {
     const plugins = options.plugins ?? [];
     const url = new URL(
       isProduction

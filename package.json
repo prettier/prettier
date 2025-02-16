@@ -189,9 +189,9 @@
     "build": "node ./scripts/build/build.js",
     "build:website": "node ./scripts/build-website.js",
     "gen:changelog": "node ./scripts/generate-changelog.js",
-    "debug": "node bin/prettier.js --ignore-path=.prettierignore",
-    "debug:watch": "node --watch bin/prettier.js --ignore-path=.prettierignore",
-    "debug:inspect": "node --inspect-brk bin/prettier.js --ignore-path=.prettierignore"
+    "debug": "node bin/prettier.js --ignore-path=.prettierignore --plugin=./packages/plugin-oxc/index.js",
+    "debug:watch": "node --watch bin/prettier.js --ignore-path=.prettierignore --plugin=./packages/plugin-oxc/index.js",
+    "debug:inspect": "node --inspect-brk bin/prettier.js --ignore-path=.prettierignore --plugin=./packages/plugin-oxc/index.js"
   },
   "c8": {
     "reporter": [

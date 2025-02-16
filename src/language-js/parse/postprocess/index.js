@@ -34,6 +34,7 @@ const isNodeWithRaw = createTypeCheckFunction([
  * @param {{
  *   text: string,
  *   parser?: string,
+ *   oxcAstType?: string,
  * }} options
  */
 function postprocess(ast, options) {
@@ -47,6 +48,11 @@ function postprocess(ast, options) {
   if (interpreter) {
     ast.comments.unshift(interpreter);
     delete program.interpreter;
+  }
+
+  if (parser === "oxc" && options.oxcAstType === "ts" && ast.hashbang) {
+    const { comments, hashbang } = ast;
+    comments.unshift(hashbang);
   }
 
   if (ast.comments.length > 0) {
@@ -118,12 +124,13 @@ function postprocess(ast, options) {
         break;
 
       case "TemplateElement":
-        // `flow` and `typescript` follows the `espree` style positions
+        // `flow`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
         // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
         if (
           parser === "flow" ||
           parser === "espree" ||
-          parser === "typescript"
+          parser === "typescript" ||
+          (parser === "oxc" && options.oxcAstType === "ts")
         ) {
           const start = locStart(node) + 1;
           const end = locEnd(node) - (node.tail ? 1 : 2);

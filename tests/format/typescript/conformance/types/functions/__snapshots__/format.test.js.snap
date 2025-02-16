@@ -603,6 +603,16 @@ exports[`functionOverloadErrorsSyntax.ts [babel-ts] format 1`] = `
 Cause: Rest element must be last element. (9:35)"
 `;
 
+exports[`functionOverloadErrorsSyntax.ts [oxc-ts] format 1`] = `
+"A rest parameter must be last in a parameter list (9:25)
+   7 |
+   8 | //Function overload signature with rest param followed by non-optional parameter
+>  9 | function fn5(x: string, ...y: any[], z: string);
+     |                         ^^^^^^^^^^^
+  10 | function fn5() { }
+  11 |"
+`;
+
 exports[`functionOverloadErrorsSyntax.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
