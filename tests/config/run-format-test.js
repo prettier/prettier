@@ -78,12 +78,26 @@ const meriyahDisabledTests = new Set([
     "js/regex/regexp-modifiers.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
-const babelTsDisabledTest = new Set(
+const babelTsDisabledTests = new Set(
   ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
     path.join(__dirname, "../format/typescript", file),
   ),
 );
-const oxcDisabledTests = new Set();
+const oxcDisabledTests = new Set(
+  [
+    /**
+    Positions for following code is incorrect
+    ```
+    // ↪
+    [4n, 6, -12n, 10, 4, 0, 0n];
+    ```
+    */
+    "js/babel-plugins/bigint.js",
+    // Bug
+    "js/babel-plugins/private-fields-in-in.js",
+    "js/babel-plugins/source-phase-imports.js",
+  ].map((file) => path.join(__dirname, "../format", file)),
+);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -289,10 +303,11 @@ function runFormatTest(fixtures, parsers, options) {
 
       for (const currentParser of allParsers) {
         if (
+          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
           (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
-          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
-          (currentParser === "babel-ts" && babelTsDisabledTest.has(filename))
+          (currentParser === "oxc" && oxcDisabledTests.has(filename)) ||
+          (currentParser === "babel-ts" && babelTsDisabledTests.has(filename))
         ) {
           continue;
         }
