@@ -83,6 +83,7 @@ const babelTsDisabledTest = new Set(
     path.join(__dirname, "../format/typescript", file),
   ),
 );
+const oxcDisabledTests = new Set();
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -235,6 +236,9 @@ function runFormatTest(fixtures, parsers, options) {
       }
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
+      }
+      if (!parsers.includes("acorn") && !oxcDisabledTests.has(dirname)) {
+        allParsers.push("oxc");
       }
     }
 

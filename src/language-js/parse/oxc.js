@@ -29,7 +29,7 @@ function createParseError(error, magicString) {
 async function parseWithOptions(filename, text, sourceType) {
   const result = await oxcParse(filename, text, {
     sourceType,
-    lang: "js",
+    lang: "jsx",
     preserveParens: false,
   });
 
@@ -45,7 +45,7 @@ async function parse(text, options = {}) {
   const sourceType = getSourceType(options);
   let { filepath } = options;
   if (typeof filepath !== "string") {
-    filepath = "prettier.js";
+    filepath = "prettier.jsx";
   }
 
   const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
@@ -62,7 +62,7 @@ async function parse(text, options = {}) {
   const { program: ast, comments } = result;
   ast.comments = comments;
 
-  return postprocess(ast, { text });
+  return postprocess(ast, { text, parser: "oxc" });
 }
 
 export const oxc = createParser(parse);

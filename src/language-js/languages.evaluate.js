@@ -8,6 +8,7 @@ const languages = [
       "acorn",
       "espree",
       "meriyah",
+      "oxc",
       "babel-flow",
       "babel-ts",
       "flow",
