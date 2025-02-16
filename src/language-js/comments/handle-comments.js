@@ -223,7 +223,7 @@ function handleIfStatementComments({
       if (
         isSingleLineComment(comment, text) &&
         // Comment and `precedingNode` are on same line
-        hasNewlineInRange(text, locEnd(comment), locStart(precedingNode))
+        !hasNewlineInRange(text, locStart(precedingNode), locStart(comment))
       ) {
         // example:
         //   if (cond1) expr1; // comment A
@@ -1073,7 +1073,7 @@ function handleLastBinaryOperatorOperand({
       ) &&
       isSingleLineComment(comment, text) &&
       // Comment and `precedingNode.right` are on same line
-      !hasNewlineInRange(text, locEnd(comment), locStart(precedingNode.right))
+      !hasNewlineInRange(text, locStart(precedingNode.right), locEnd(comment))
     ) {
       addTrailingComment(precedingNode.right, comment);
       return true;
