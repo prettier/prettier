@@ -33,6 +33,15 @@ exports[`do.js [meriyah] format 1`] = `
 Cause: [2:3-2:5]: Unexpected token: 'do'"
 `;
 
+exports[`do.js [oxc] format 1`] = `
+"Unexpected token (1:4)
+> 1 | <div>
+    |    ^^
+  2 |   {do {
+  3 | 	  1
+  4 |   }}"
+`;
+
 exports[`do.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
