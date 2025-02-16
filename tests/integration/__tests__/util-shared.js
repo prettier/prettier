@@ -257,3 +257,24 @@ test("sharedUtil.getPreferredQuote", () => {
   expect(getPreferredQuote(`Hello World`, true)).toBe(SINGLE_QUOTE);
   expect(getPreferredQuote(`Hello World`, false)).toBe(DOUBLE_QUOTE);
 });
+
+test("sharedUtil.hasNewlineInRange", () => {
+  const { hasNewlineInRange } = sharedUtil;
+
+  const string = "a\nb";
+  const padLines = 10;
+  const text = `${"\n".repeat(padLines)}${string}${"\n".repeat(padLines)}`;
+  const lineBreakIndex = 1 + padLines;
+  expect(hasNewlineInRange(text, lineBreakIndex, lineBreakIndex)).toBe(false);
+  expect(hasNewlineInRange(text, lineBreakIndex, 1 + lineBreakIndex)).toBe(
+    true,
+  );
+  expect(hasNewlineInRange(text, lineBreakIndex - 1, lineBreakIndex + 2)).toBe(
+    true,
+  );
+  expect(hasNewlineInRange(text, lineBreakIndex + 2, lineBreakIndex - 1)).toBe(
+    true,
+  );
+  expect(hasNewlineInRange("\n", 0, 100)).toBe(true);
+  expect(hasNewlineInRange("\n", -100, 1)).toBe(true);
+});

@@ -5,8 +5,15 @@
  * @returns {boolean}
  */
 function hasNewlineInRange(text, startIndex, endIndex) {
-  for (let i = startIndex; i < endIndex; ++i) {
-    if (text.charAt(i) === "\n") {
+  if (startIndex > endIndex) {
+    [startIndex, endIndex] = [endIndex, startIndex];
+  }
+
+  startIndex = Math.max(0, startIndex);
+  endIndex = Math.min(text.length, endIndex);
+
+  for (let index = startIndex; index < endIndex; index++) {
+    if (text.charAt(index) === "\n") {
       return true;
     }
   }
