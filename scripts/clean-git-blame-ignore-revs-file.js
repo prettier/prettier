@@ -7,7 +7,7 @@ Remove revs without actual file change
 */
 
 import fs from "node:fs/promises";
-import { execa } from "execa";
+import spawn from "nano-spawn";
 
 const FILE = new URL("../.git-blame-ignore-revs", import.meta.url);
 const content = await fs.readFile(FILE, "utf8");
@@ -17,7 +17,7 @@ const revsToRemove = new Set();
 
 const IGNORED_FILES = new Set(["package.json", "yarn.lock"]);
 async function getChangedFiles(rev) {
-  const { stdout } = await execa("git", [
+  const { stdout } = await spawn("git", [
     "show",
     "--name-only",
     "--pretty=",
