@@ -5817,7 +5817,7 @@ __metadata:
 
 "jest-light-runner@fisker/jest-light-runner#child-process":
   version: 0.6.0
-  resolution: "jest-light-runner@https://github.com/fisker/jest-light-runner.git#commit=1887f588b78b50bb614df4fd85250f4155950333"
+  resolution: "jest-light-runner@https://github.com/fisker/jest-light-runner.git#commit=47f1232451d23429ebca9db76534795379182835"
   dependencies:
     "@jest/expect": "npm:^30.0.0-alpha.1"
     "@jest/fake-timers": "npm:^30.0.0-alpha.1"
@@ -5830,7 +5830,7 @@ __metadata:
     tinypool: "npm:^1.0.2"
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0-0
-  checksum: 10/1cfb13a2f2d1e66c405a6cea14f8dfed746b3eb5e25efe076c25f8e63c2a62e9468b484c9901e3ece48529dd7f7eb341d9231a3a9b3297d8465de01eda8aafbe
+  checksum: 10/8f729a21811cfac38aef496122e587d73c604da54aa6c8511fe2c06be0c63cf47c9c247a4ac97d7405f1788da0cdc5486bf4a59e43bff9024479ba5f87d47cd6
   languageName: node
   linkType: hard
 
