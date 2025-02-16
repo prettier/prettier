@@ -4,8 +4,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
-import { execa } from "execa";
 import fastGlob from "fast-glob";
+import spawn from "nano-spawn";
 import { format } from "../src/index.js";
 import {
   copyFile,
@@ -18,7 +18,7 @@ import {
 
 const { require } = createEsmUtils(import.meta);
 const runYarn = (command, args, options) =>
-  execa("yarn", [command, ...args], {
+  spawn("yarn", [command, ...args], {
     stdout: "inherit",
     stderr: "inherit",
     ...options,
