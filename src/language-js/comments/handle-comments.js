@@ -1065,7 +1065,7 @@ function handleLastBinaryOperatorOperand({
     //   );
     // eslint-disable-next-line unicorn/no-lonely-if
     if (
-      // Is multiline expression
+      // Multiline expression
       hasNewlineInRange(
         text,
         locStart(enclosingNode.argument),
