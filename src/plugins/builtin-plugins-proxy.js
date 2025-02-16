@@ -130,6 +130,10 @@ export const { parsers, printers } = createParsersAndPrinters([
     parsers: ["meriyah"],
   },
   {
+    importPlugin: () => import("./oxc.js"),
+    parsers: ["oxc"],
+  },
+  {
     importPlugin: () => import("./postcss.js"),
     parsers: ["css", "less", "scss"],
     printers: ["postcss"],
