@@ -153,8 +153,8 @@ function postprocess(ast, options) {
 
       // OXC bug?
       case "JSXText":
-        if (parser === "oxc") {
-          node.raw ??= text.slice(locStart(node) - 1, locEnd(node) + 1);
+        if (parser === "oxc" && node.raw === undefined) {
+          node.raw ??= text.slice(locStart(node), locEnd(node));
         }
         break;
       // OXC bug?

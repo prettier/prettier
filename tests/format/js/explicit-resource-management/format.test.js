@@ -103,5 +103,16 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       "valid-for-using-declaration.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
+    oxc: [
+      // "invalid-duplicate-using-bindings.js",
+      // "invalid-script-top-level-using-binding.js",
+      "valid-module-block-top-level-using-binding.js",
+      "valid-using-binding-using.js",
+
+      "valid-for-lhs-await-as-identifier.js",
+      "valid-module-block-top-level-await-using-binding.js",
+      "valid-using-as-identifier-expression-statement.js",
+      "valid-await-using-asi-assignment.js",
+    ],
   },
 });
