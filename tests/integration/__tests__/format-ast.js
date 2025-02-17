@@ -2,6 +2,14 @@ import prettier from "../../config/prettier-entry.js";
 const { formatAST } = prettier.__debug;
 
 describe("formatAST", () => {
+  const originalNodeEnv = process.env.NODE_ENV;
+  beforeAll(() => {
+    process.env.NODE_ENV = "production";
+  });
+  afterAll(() => {
+    process.env.NODE_ENV = originalNodeEnv;
+  });
+
   const formatExportSpecifier = async (specifier) => {
     const { formatted } = await formatAST(
       {

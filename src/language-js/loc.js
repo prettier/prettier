@@ -7,7 +7,8 @@ const isIndex = (value) => Number.isInteger(value) && value >= 0;
 function locStart(node) {
   const start = node.range?.[0] ?? node.start;
 
-  if (!isIndex(start)) {
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production" && !isIndex(start)) {
     throw new TypeError("Can't not locate node.");
   }
 
@@ -23,7 +24,8 @@ function locStart(node) {
 function locEnd(node) {
   const end = node.range?.[1] ?? node.end;
 
-  if (!isIndex(end)) {
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production" && !isIndex(end)) {
     throw new TypeError("Can't not locate node.");
   }
 
