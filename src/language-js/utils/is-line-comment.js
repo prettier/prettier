@@ -5,7 +5,7 @@ import createTypeCheckFunction from "./create-type-check-function.js";
  */
 
 /**
- * @param {Estree.Comment} comment
+ * @param {Comment} comment
  * @returns {boolean}
  */
 const isLineComment = createTypeCheckFunction([
