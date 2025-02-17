@@ -786,6 +786,22 @@ const nodejsFiles = [
         find: "export default lib;",
         replacement: "export default { parse };",
       },
+      {
+        module: require.resolve("@one-ini/wasm"),
+        process(text) {
+          const buffer = fs.readFileSync(
+            getPackageFile("@one-ini/wasm/one_ini_bg.wasm"),
+          );
+
+          return text.replace(
+            outdent`
+              const path = require('path').join(__dirname, 'one_ini_bg.wasm');
+              const bytes = require('fs').readFileSync(path);
+            `,
+            `const bytes = Buffer.from(${JSON.stringify(buffer.toString("binary"))}, 'binary');`,
+          );
+        },
+      },
     ],
     addDefaultExport: true,
   },

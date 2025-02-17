@@ -1,5 +1,5 @@
 import path from "node:path";
-import editorconfig from "editorconfig";
+import * as editorconfig from "editorconfig";
 import {
   clearFindProjectRootCache,
   findProjectRoot,
