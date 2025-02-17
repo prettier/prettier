@@ -53,6 +53,7 @@ function postprocess(ast, options) {
 
   if (parser === "oxc" && ast.hashbang) {
     const { hashbang, comments } = ast;
+    delete ast.hashbang;
     comments.unshift(hashbang);
   }
 

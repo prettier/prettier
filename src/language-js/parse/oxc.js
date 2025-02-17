@@ -33,7 +33,7 @@ async function parseWithOptions(filename, text, sourceType) {
     preserveParens: false,
   });
 
-  console.log({ ...result, sourceType });
+  // console.log({ ...result, sourceType });
 
   const { errors } = result;
   for (const error of errors) {
@@ -70,8 +70,6 @@ async function parse(text, options = {}) {
 
   const { program: ast, comments } = result;
   ast.comments = comments;
-
-  // console.log(ast.body[0].expression);
 
   return postprocess(ast, { text, parser: "oxc" });
 }

@@ -93,10 +93,12 @@ const oxcDisabledTests = new Set(
     ```
     */
     "js/babel-plugins/bigint.js",
+
     // Missing `.phase`
     "js/deferred-import-evaluation/dynamic-import-attributes-expression.js",
-    // Missing `.phase`
     "js/deferred-import-evaluation/dynamic-import.js",
+    "js/dynamic-import/format.test.js",
+
     // Bug
     "js/babel-plugins/private-fields-in-in.js",
     "js/babel-plugins/source-phase-imports.js",
