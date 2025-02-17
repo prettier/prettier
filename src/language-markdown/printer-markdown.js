@@ -43,6 +43,18 @@ import {
 
 const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
 
+function prevOrNextWord(path) {
+  const { previous, next } = path;
+  const hasPrevOrNextWord =
+    (previous?.type === "sentence" &&
+      previous.children.at(-1)?.type === "word" &&
+      !previous.children.at(-1).hasTrailingPunctuation) ||
+    (next?.type === "sentence" &&
+      next.children[0]?.type === "word" &&
+      !next.children[0].hasLeadingPunctuation);
+  return hasPrevOrNextWord;
+}
+
 function genericPrint(path, options, print) {
   const { node } = path;
 
@@ -149,16 +161,12 @@ function genericPrint(path, options, print) {
       if (isAutolink(node.children[0])) {
         style = options.originalText[node.position.start.offset];
       } else {
-        const { previous, next } = path;
-        const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
-          (previous?.type === "sentence" &&
-            previous.children.at(-1)?.type === "word" &&
-            !previous.children.at(-1).hasTrailingPunctuation) ||
-          (next?.type === "sentence" &&
-            next.children[0]?.type === "word" &&
-            !next.children[0].hasLeadingPunctuation);
+        const hasPrevOrNextWord = prevOrNextWord(path); // `1*2*3` is considered emphasis but `1_2_3` is not
+        const inStrongAndHasPrevOrNextWord = // `1***2***3` is considered strong emphasis but `1**_2_**3` is not
+          path.parent?.type === "strong" && prevOrNextWord(path.ancestors);
         style =
           hasPrevOrNextWord ||
+          inStrongAndHasPrevOrNextWord ||
           path.hasAncestor((node) => node.type === "emphasis")
             ? "*"
             : "_";
