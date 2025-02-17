@@ -2,8 +2,14 @@
  * @import {Node} from "./types/estree.js"
  */
 
+const isIndex = (value) => Number.isInteger(value) && value >= 0;
+
 function locStart(node) {
   const start = node.range?.[0] ?? node.start;
+
+  if (!isIndex(start)) {
+    throw new TypeError("Can't not locate node.");
+  }
 
   // Handle nodes with decorators. They should start at the first decorator
   const firstDecorator = (node.declaration?.decorators ?? node.decorators)?.[0];
@@ -15,7 +21,13 @@ function locStart(node) {
 }
 
 function locEnd(node) {
-  return node.range?.[1] ?? node.end;
+  const end = node.range?.[1] ?? node.end;
+
+  if (!isIndex(end)) {
+    throw new TypeError("Can't not locate node.");
+  }
+
+  return end;
 }
 
 /**
@@ -24,8 +36,7 @@ function locEnd(node) {
  * @returns {boolean}
  */
 function hasSameLocStart(nodeA, nodeB) {
-  const nodeAStart = locStart(nodeA);
-  return Number.isInteger(nodeAStart) && nodeAStart === locStart(nodeB);
+  return locStart(nodeA) === locStart(nodeB);
 }
 
 /**
@@ -34,8 +45,7 @@ function hasSameLocStart(nodeA, nodeB) {
  * @returns {boolean}
  */
 function hasSameLocEnd(nodeA, nodeB) {
-  const nodeAEnd = locEnd(nodeA);
-  return Number.isInteger(nodeAEnd) && nodeAEnd === locEnd(nodeB);
+  return locEnd(nodeA) === locEnd(nodeB);
 }
 
 /**

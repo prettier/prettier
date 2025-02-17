@@ -16,13 +16,13 @@ import {
   isCallExpression,
   isCallLikeExpression,
   isIntersectionType,
-  isLineComment,
   isMemberExpression,
   isObjectProperty,
   isPrettierIgnoreComment,
   isUnionType,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
+import isLineComment from "../utils/is-line-comment.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
 
 /** @import * as Estree from "../types/estree.js" */

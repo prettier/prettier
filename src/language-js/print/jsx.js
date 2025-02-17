@@ -25,6 +25,7 @@ import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import WhitespaceUtils from "../../utils/whitespace-utils.js";
 import { willPrintOwnComments } from "../comments/printer-methods.js";
 import pathNeedsParens from "../needs-parens.js";
+import getRaw from "../utils/get-raw.js";
 import {
   CommentCheckFlags,
   hasComment,
@@ -35,7 +36,6 @@ import {
   isJsxElement,
   isObjectOrRecordExpression,
   isStringLiteral,
-  rawText,
 } from "../utils/index.js";
 
 /*
@@ -340,7 +340,7 @@ function printJsxChildren(
   }
   path.each(({ node, next }) => {
     if (node.type === "JSXText") {
-      const text = rawText(node);
+      const text = getRaw(node);
 
       // Contains a non-whitespace character
       if (isMeaningfulJsxText(node)) {
@@ -426,7 +426,7 @@ function printJsxChildren(
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
-        const trimmed = jsxWhitespaceUtils.trim(rawText(next));
+        const trimmed = jsxWhitespaceUtils.trim(getRaw(next));
         const [firstWord] = jsxWhitespaceUtils.split(trimmed);
         pushLine(
           separatorNoWhitespace(
@@ -533,7 +533,7 @@ function printJsxAttribute(path, options, print) {
   if (node.value) {
     let res;
     if (isStringLiteral(node.value)) {
-      const raw = rawText(node.value);
+      const raw = getRaw(node.value);
       // Remove enclosing quotes and unescape
       // all quotes so we get an accurate preferred quote
       let final = raw
@@ -855,8 +855,8 @@ function isEmptyJsxElement(node) {
 function isMeaningfulJsxText(node) {
   return (
     node.type === "JSXText" &&
-    (jsxWhitespaceUtils.hasNonWhitespaceCharacter(rawText(node)) ||
-      !/\n/u.test(rawText(node)))
+    (jsxWhitespaceUtils.hasNonWhitespaceCharacter(getRaw(node)) ||
+      !/\n/u.test(getRaw(node)))
   );
 }
 
