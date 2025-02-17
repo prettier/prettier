@@ -98,7 +98,7 @@ const oxcDisabledTests = new Set(
     // Missing `.phase`
     "js/deferred-import-evaluation/dynamic-import-attributes-expression.js",
     "js/deferred-import-evaluation/dynamic-import.js",
-    "js/dynamic-import/format.test.js",
+    "js/dynamic-import/import-phase.js",
 
     // Bug
     "js/babel-plugins/private-fields-in-in.js",
@@ -107,6 +107,7 @@ const oxcDisabledTests = new Set(
     // TODO: Remove after #17133 get merged
     "js/comments/15661.js",
     "js/comments/16398.js",
+    "js/comments/if.js",
     "js/if/comment_before_else.jss",
   ].map((file) => path.join(__dirname, "../format", file)),
 );
