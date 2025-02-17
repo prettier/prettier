@@ -33,14 +33,15 @@ async function parseWithOptions(filename, text, sourceType) {
     preserveParens: false,
   });
 
-  // console.log({ ...result, sourceType });
+  // debugger;
 
   const { errors } = result;
   for (const error of errors) {
     if (
       error.severity === "Error" &&
-      error.message ===
-        "A 'return' statement can only be used within a function body."
+      (error.message ===
+        "A 'return' statement can only be used within a function body." ||
+        /^Identifier `.*` has already been declared$/u.test(error.message))
     ) {
       continue;
     }
