@@ -264,9 +264,9 @@ test("sharedUtil.hasNewlineInRange", () => {
   expect(hasNewlineInRange("\n", 0, 1)).toBe(true);
   expect(hasNewlineInRange("\n", 0, 0)).toBe(false);
   expect(() =>
-    hasNewlineInRange(["\n"], 0, 1),
+    hasNewlineInRange(undefined, 0, 1),
   ).toThrowErrorMatchingInlineSnapshot(
-    `"Expected "text" to be string. Received type "object"."`,
+    `"Expected "text" to be string. Received type "undefined"."`,
   );
   expect(() =>
     hasNewlineInRange("\n", -1, 0),

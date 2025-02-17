@@ -25,7 +25,7 @@ function hasNewlineInRange(text, startIndex, endIndex) {
   validateIndex(endIndex, "endIndex");
 
   if (startIndex > endIndex) {
-    throw new TypeError(
+    throw new RangeError(
       '"startIndex" should be less or equal than "endIndex".',
     );
   }
