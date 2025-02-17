@@ -85,6 +85,7 @@ const babelTsDisabledTests = new Set(
 );
 const oxcDisabledTests = new Set(
   [
+    ...espreeDisabledTests,
     /**
     Positions for following code is incorrect
     ```
