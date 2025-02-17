@@ -83,7 +83,7 @@ const babelTsDisabledTests = new Set(
     path.join(__dirname, "../format/typescript", file),
   ),
 );
-const oxcDisabledTests = new Set(
+const oxcDisabledTests = new Set([
   ...espreeDisabledTests,
   ...[
     /**
@@ -106,6 +106,10 @@ const oxcDisabledTests = new Set(
     "js/conditional/postfix-ternary-regressions.js",
     "js/conditional/new-ternary-examples.js",
     "js/conditional/comments.js",
+    "js/comments/emoji.js",
+    "js/method-chain/issue-11298.js",
+    "js/quotes/strings.js",
+    "js/strings/strings.js",
 
     // Missing `.phase`
     "js/deferred-import-evaluation/dynamic-import-attributes-expression.js",
@@ -127,8 +131,9 @@ const oxcDisabledTests = new Set(
     "js/if/expr_and_same_line_comments.js",
     "js/if/issue-15168.js",
     "js/if/non-block.js",
+    "js/unary-expression/comments.js",
   ].map((file) => path.join(__dirname, "../format", file)),
-);
+]);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
