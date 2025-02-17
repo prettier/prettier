@@ -753,7 +753,6 @@ function needsParens(path, options) {
       );
 
     case "AssignmentExpression":
-      // This will be removed in #17145
       if (
         key === "key" &&
         (parent.type === "ClassProperty" ||
