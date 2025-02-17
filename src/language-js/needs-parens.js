@@ -752,13 +752,8 @@ function needsParens(path, options) {
         typeof node.value === "number"
       );
 
-    case "AssignmentExpression": {
-      const grandParent = path.grandparent;
-
-      if (key === "body" && parent.type === "ArrowFunctionExpression") {
-        return true;
-      }
-
+    case "AssignmentExpression":
+      // This will be removed in #17145
       if (
         key === "key" &&
         (parent.type === "ClassProperty" ||
@@ -775,8 +770,12 @@ function needsParens(path, options) {
         return false;
       }
 
-      if (parent.type === "ExpressionStatement") {
-        return node.left.type === "ObjectPattern";
+      if (
+        key === "expression" &&
+        node.left.type !== "ObjectPattern" &&
+        parent.type === "ExpressionStatement"
+      ) {
+        return false;
       }
 
       if (key === "key" && parent.type === "TSPropertySignature") {
@@ -788,9 +787,15 @@ function needsParens(path, options) {
       }
 
       if (
+        key === "expressions" &&
         parent.type === "SequenceExpression" &&
-        grandParent.type === "ForStatement" &&
-        (grandParent.init === parent || grandParent.update === parent)
+        path.match(
+          undefined,
+          undefined,
+          (node, name) =>
+            (name === "init" || name === "update") &&
+            node.type === "ForStatement",
+        )
       ) {
         return false;
       }
@@ -798,8 +803,12 @@ function needsParens(path, options) {
       if (
         key === "value" &&
         parent.type === "Property" &&
-        grandParent.type === "ObjectPattern" &&
-        grandParent.properties.includes(parent)
+        path.match(
+          undefined,
+          undefined,
+          (node, name) =>
+            name === "properties" && node.type === "ObjectPattern",
+        )
       ) {
         return false;
       }
@@ -813,7 +822,7 @@ function needsParens(path, options) {
       }
 
       return true;
-    }
+
     case "ConditionalExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
