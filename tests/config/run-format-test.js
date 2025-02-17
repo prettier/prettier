@@ -102,6 +102,11 @@ const oxcDisabledTests = new Set(
     // Bug
     "js/babel-plugins/private-fields-in-in.js",
     "js/babel-plugins/source-phase-imports.js",
+
+    // TODO: Remove after #17133 get merged
+    "js/comments/15661.js",
+    "js/comments/16398.js",
+    "js/if/comment_before_else.jss",
   ].map((file) => path.join(__dirname, "../format", file)),
 );
 
