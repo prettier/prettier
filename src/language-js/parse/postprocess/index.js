@@ -153,14 +153,14 @@ function postprocess(ast, options) {
 
       // OXC bug?
       case "JSXText":
-        if (parser === "oxc" && !node.raw) {
-          node.raw = text.slice(locStart(node), locEnd(node));
+        if (parser === "oxc") {
+          node.raw ??= text.slice(locStart(node) - 1, locEnd(node) + 1);
         }
         break;
       // OXC bug?
       case "JSXNamespacedName":
-        if (parser === "oxc" && !node.name && node.property) {
-          node.name = node.property;
+        if (parser === "oxc" && node.property) {
+          node.name ??= node.property;
         }
         break;
     }

@@ -87,6 +87,8 @@ const oxcDisabledTests = new Set(
   [
     ...espreeDisabledTests,
     /**
+    The following are related to locations
+
     Positions for following code is incorrect
     ```
     // ↪
@@ -94,6 +96,7 @@ const oxcDisabledTests = new Set(
     ```
     */
     "js/babel-plugins/bigint.js",
+    "jsx/escape/nbsp.js",
 
     // Missing `.phase`
     "js/deferred-import-evaluation/dynamic-import-attributes-expression.js",

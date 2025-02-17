@@ -33,7 +33,7 @@ async function parseWithOptions(filename, text, sourceType) {
     preserveParens: false,
   });
 
-  // debugger;
+  debugger;
 
   const { errors } = result;
   for (const error of errors) {
