@@ -5,9 +5,6 @@ import { outdent } from "outdent";
 import { PROJECT_ROOT, writeFile } from "../utils/index.js";
 
 function esmifyTypescriptEslint(text) {
-  const x = text.includes(
-    "exports.AST_TOKEN_TYPES = exports.AST_NODE_TYPES = void 0;",
-  );
   /*
   ```js
   const foo = __importStar(require("foo"));
