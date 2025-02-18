@@ -544,7 +544,10 @@ function printDocToString(doc, options) {
       }
       case DOC_TYPE_IF_BREAK:
       case DOC_TYPE_INDENT_IF_BREAK: {
-        const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
+        const groupMode =
+          doc.groupId && groupModeMap[doc.groupId]
+            ? groupModeMap[doc.groupId]
+            : mode;
         if (groupMode === MODE_BREAK) {
           const breakContents =
             doc.type === DOC_TYPE_IF_BREAK
@@ -555,8 +558,7 @@ function printDocToString(doc, options) {
           if (breakContents) {
             cmds.push({ ind, mode, doc: breakContents });
           }
-        }
-        if (groupMode === MODE_FLAT) {
+        } else if (groupMode === MODE_FLAT) {
           const flatContents =
             doc.type === DOC_TYPE_IF_BREAK
               ? doc.flatContents
@@ -566,6 +568,8 @@ function printDocToString(doc, options) {
           if (flatContents) {
             cmds.push({ ind, mode, doc: flatContents });
           }
+        } else {
+          throw new Error("Unexpected doc error");
         }
 
         break;
