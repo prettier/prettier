@@ -6,9 +6,6 @@ const docBuilders = prettier.doc.builders;
 const { printDocToString } = docPrinter;
 const { softline, indentIfBreak } = docBuilders;
 
-// These tests don't use `runCli` because `trim` is not used by any
-// bundled parser (only third-party plugins).
-
 describe("trim", () => {
   test.each([
     [
