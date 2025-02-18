@@ -288,15 +288,16 @@ function printEstree(path, options, print, args) {
         return group(parts);
       }
 
-      let doc = join([",", line], path.map(print, "expressions"));
+      const parts = join([",", line], path.map(print, "expressions"));
+
       if (
         parent.type === "ReturnStatement" ||
         parent.type === "ThrowStatement"
       ) {
-        doc = ifBreak([indent([softline, doc]), softline], doc);
+        return group(ifBreak([indent([softline, parts]), softline], parts));
       }
 
-      return group(doc);
+      return group(parts);
     }
     case "ThisExpression":
       return "this";
