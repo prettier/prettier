@@ -161,7 +161,7 @@
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
-    "test": "cross-env PRETTIER_LEGACY_CLI=1 jest --runInBand",
+    "test": "jest --runInBand",
     "test:dev-package": "cross-env INSTALL_PACKAGE=1 yarn test",
     "test:dist": "cross-env NODE_ENV=production yarn test",
     "test:dist-standalone": "cross-env TEST_STANDALONE=1 yarn test:dist",
