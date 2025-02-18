@@ -1,5 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`dynamic-import.js [acorn] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("foo");
+    |        ^
+  2 |
+Cause: The only valid meta property for import is 'import.meta' (1:7)"
+`;
+
+exports[`dynamic-import.js [espree] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("foo");
+    |        ^
+  2 |
+Cause: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`dynamic-import.js [meriyah] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("foo");
+    |        ^^^^^
+  2 |
+Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`dynamic-import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import.defer("foo");
+
+=====================================output=====================================
+import.defer("foo");
+
+================================================================================
+`;
+
+exports[`dynamic-import-attributes-expression.js [acorn] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("x", { with: { attr: "val" } });
+    |        ^
+  2 |
+Cause: The only valid meta property for import is 'import.meta' (1:7)"
+`;
+
+exports[`dynamic-import-attributes-expression.js [espree] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("x", { with: { attr: "val" } });
+    |        ^
+  2 |
+Cause: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`dynamic-import-attributes-expression.js [meriyah] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("x", { with: { attr: "val" } });
+    |        ^^^^^
+  2 |
+Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`dynamic-import-attributes-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import.defer("x", { with: { attr: "val" } });
+
+=====================================output=====================================
+import.defer("x", { with: { attr: "val" } });
+
+================================================================================
+`;
+
 exports[`import-defer.js [acorn] format 1`] = `
 "Unexpected token (1:14)
 > 1 | import defer * as ns from "x";
@@ -21,7 +97,7 @@ exports[`import-defer.js [meriyah] format 1`] = `
 > 1 | import defer * as ns from "x";
     |              ^
   2 |
-Cause: [1:14]: Expected 'from'"
+Cause: [1:13-1:14]: Expected 'from'"
 `;
 
 exports[`import-defer.js format 1`] = `
@@ -59,7 +135,7 @@ exports[`import-defer-attributes-declaration.js [meriyah] format 1`] = `
 > 1 | import defer * as ns from "x" with { attr: "val" };
     |              ^
   2 |
-Cause: [1:14]: Expected 'from'"
+Cause: [1:13-1:14]: Expected 'from'"
 `;
 
 exports[`import-defer-attributes-declaration.js format 1`] = `
@@ -113,7 +189,7 @@ exports[`no-default.js [meriyah] format 1`] = `
 > 1 | import defer x from "x";
     |              ^
   2 |
-Cause: [1:14]: Expected 'from'"
+Cause: [1:13-1:14]: Expected 'from'"
 `;
 
 exports[`no-named.js [__babel_estree] format 1`] = `
@@ -153,5 +229,5 @@ exports[`no-named.js [meriyah] format 1`] = `
 > 1 | import defer { x } from "x";
     |              ^
   2 |
-Cause: [1:14]: Expected 'from'"
+Cause: [1:13-1:14]: Expected 'from'"
 `;

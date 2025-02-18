@@ -1,12 +1,9 @@
 import path from "node:path";
 import url from "node:url";
-
-import ignoreModule from "ignore";
+import createIgnore from "ignore";
 import { isUrl, toPath } from "url-or-path";
-
 import readFile from "../utils/read-file.js";
 
-const createIgnore = ignoreModule.default;
 /** @type {(filePath: string) => string} */
 const slash =
   path.sep === "\\"
@@ -52,7 +49,8 @@ async function createSingleIsIgnoredFunction(ignoreFile, withNodeModules) {
 
   const ignore = createIgnore({ allowRelativePaths: true }).add(content);
 
-  return (file) => ignore.ignores(slash(getRelativePath(file, ignoreFile)));
+  return (file) =>
+    ignore.checkIgnore(slash(getRelativePath(file, ignoreFile))).ignored;
 }
 
 /**

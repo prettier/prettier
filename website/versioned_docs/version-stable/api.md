@@ -1,7 +1,6 @@
 ---
-id: version-stable-api
+id: api
 title: API
-original_id: api
 ---
 
 If you want to run Prettier programmatically, check this page out.
@@ -50,7 +49,10 @@ If `options.useCache` is `false`, all caching will be bypassed.
 ```js
 const text = await fs.readFile(filePath, "utf8");
 const options = await prettier.resolveConfig(filePath);
-const formatted = await prettier.format(text, options);
+const formatted = await prettier.format(text, {
+  ...options,
+  filepath: filePath,
+});
 ```
 
 If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
@@ -175,6 +177,10 @@ await format("lodash ( )", {
 // -> "_();\n"
 ```
 
-> Note: Overall, doing codemods this way isn’t recommended. Prettier uses the location data of AST nodes for many things like preserving blank lines and attaching comments. When the AST is modified after the parsing, the location data often gets out of sync, which may lead to unpredictable results. Consider using [jscodeshift](https://github.com/facebook/jscodeshift) if you need codemods.
+:::note
+
+Overall, doing codemods this way isn’t recommended. Prettier uses the location data of AST nodes for many things like preserving blank lines and attaching comments. When the AST is modified after the parsing, the location data often gets out of sync, which may lead to unpredictable results. Consider using [jscodeshift](https://github.com/facebook/jscodeshift) if you need codemods.
+
+:::
 
 As part of the removed Custom parser API, it was previously possible to pass a path to a module exporting a `parse` function via the `--parser` option. Use the `--plugin` CLI option or the `plugins` API option instead to [load plugins](plugins.md#using-plugins).

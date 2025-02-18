@@ -17,10 +17,10 @@ exports[`show external options with \`--help\` 1`] = `
 - First value
 + Second value
 
-@@ -24,16 +24,18 @@
-    --end-of-line <lf|crlf|cr|auto>
-                             Which end of line characters to apply.
-                             Defaults to lf.
+@@ -27,19 +27,21 @@
+    --experimental-operator-position <start|end>
+                             Where to print operators when binary expressions wrap lines.
+                             Defaults to end.
     --no-experimental-ternaries
                              Default behavior of ternaries; keep question marks on the same line as the consequent.
 +   --foo-string <string>    foo description
@@ -30,6 +30,9 @@ exports[`show external options with \`--help\` 1`] = `
                              Defaults to css.
     --jsx-single-quote       Use single quotes in JSX.
                              Defaults to false.
+    --object-wrap <preserve|collapse>
+                             How to wrap object literals.
+                             Defaults to preserve.
 -   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
 +   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
                              Which parser to use.

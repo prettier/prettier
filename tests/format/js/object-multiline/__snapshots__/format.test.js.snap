@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multiline.js - {"objectWrap":"collapse"} format 1`] = `
+====================================options=====================================
+objectWrap: "collapse"
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a = {
+  name1: 'value1',
+  name2: 'value2',
+};
+
+const b = { name1: 'value1',
+  name2: 'value2',
+};
+
+const c = {
+  name1: 'value1', name2: 'value2',
+};
+
+const d = {
+  name1: 'value1', name2: 'value2', };
+
+const e = { name1: 'value1', name2: 'value2', };
+
+=====================================output=====================================
+const a = { name1: "value1", name2: "value2" };
+
+const b = { name1: "value1", name2: "value2" };
+
+const c = { name1: "value1", name2: "value2" };
+
+const d = { name1: "value1", name2: "value2" };
+
+const e = { name1: "value1", name2: "value2" };
+
+================================================================================
+`;
+
+exports[`multiline.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a = {
+  name1: 'value1',
+  name2: 'value2',
+};
+
+const b = { name1: 'value1',
+  name2: 'value2',
+};
+
+const c = {
+  name1: 'value1', name2: 'value2',
+};
+
+const d = {
+  name1: 'value1', name2: 'value2', };
+
+const e = { name1: 'value1', name2: 'value2', };
+
+=====================================output=====================================
+const a = {
+  name1: "value1",
+  name2: "value2",
+};
+
+const b = { name1: "value1", name2: "value2" };
+
+const c = {
+  name1: "value1",
+  name2: "value2",
+};
+
+const d = {
+  name1: "value1",
+  name2: "value2",
+};
+
+const e = { name1: "value1", name2: "value2" };
+
+================================================================================
+`;

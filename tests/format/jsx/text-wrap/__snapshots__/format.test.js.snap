@@ -1,5 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`issue-16897.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function HelloWorld(   ) {
+  return (
+    <div>
+      <div>
+        foo
+        <br />
+        bar{' '}
+        <span className="font-semibold">
+          foobar foobar foobar foobar 12345
+        </span>, foobar foobar foobar
+      </div>
+    </div>
+  )
+}
+
+=====================================output=====================================
+function HelloWorld() {
+  return (
+    <div>
+      <div>
+        foo
+        <br />
+        bar{" "}
+        <span className="font-semibold">foobar foobar foobar foobar 12345</span>
+        , foobar foobar foobar
+      </div>
+    </div>
+  );
+}
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
@@ -281,7 +320,6 @@ single_expression_child_tags =
 expression_does_not_break =
   <div>texty text text text text text text text text text text text {this.props.type} </div>
 
-// FIXME
 br_triggers_expression_break =
   <div><br />
   text text text text text text text text text text text {this.props.type} </div>
@@ -824,13 +862,11 @@ expression_does_not_break = (
   </div>
 );
 
-// FIXME
 br_triggers_expression_break = (
   <div>
     <br />
-    text text text text text text text text text text text {
-      this.props.type
-    }{" "}
+    text text text text text text text text text text text{" "}
+    {this.props.type}{" "}
   </div>
 );
 

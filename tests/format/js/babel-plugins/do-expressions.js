@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions
+// https://babeljs.io/docs/babel-plugin-proposal-do-expressions
 
 let a = do {
   if(x > 10) {

@@ -9,7 +9,7 @@ yarn test
 
 ## Tests
 
-The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-testing.html). You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
+The tests use [Jest snapshots](https://jestjs.io/docs/snapshot-testing). You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
 
 Each test directory in `tests/format` has a `format.test.js` file that controls how exactly the rest of the files in the directory are used for tests. This file must contain one or more calls to the `runFormatTest` global function. For example, in directories with JavaScript formatting tests, `format.test.js` generally looks like this:
 
@@ -59,7 +59,7 @@ The implementation of `runFormatTest` can be found in [`tests/config/run-format-
 
 To debug Prettier locally, you can either debug it in Node (recommended) or the browser.
 
-- The easiest way to debug it in Node is to create a local test file with some example code you want formatted and either run it in an editor like VS Code or run it directly via `./bin/prettier.js <your_test_file>`.
+- The easiest way to debug it in Node is to create a local test file with some example code you want formatted and either run it in an editor like VS Code or run it directly via `yarn debug <your_test_file>`.
 - The easiest way to debug it in the browser is to build Prettier's website locally (see [`website/README.md`](website/README.md)).
 
 ## No New Options

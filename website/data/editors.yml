@@ -1,9 +1,3 @@
-- image: /images/editors/editor_atom.svg
-  name: Atom
-  content: |
-    [`prettier-atom`](https://github.com/prettier/prettier-atom)
-    [`mprettier`](https://github.com/t9md/atom-mprettier)
-    [`miniprettier`](https://github.com/duailibe/atom-miniprettier)
 - image: "/images/editors/editor_emacs.svg"
   name: Emacs
   content: |
@@ -40,4 +34,4 @@
 - image: /images/editors/editor_webstorm.svg
   name: WebStorm
   content: |
-    [Built-in support](https://prettier.io/docs/en/webstorm.html)
+    [Built-in support](https://prettier.io/docs/webstorm)

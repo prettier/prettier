@@ -63,12 +63,12 @@ exports[`snippet: #0 [flow] format 2`] = `
 `;
 
 exports[`snippet: #0 [meriyah] format 1`] = `
-"Await is only valid in async functions (2:24)
+"Await expression not allowed in formal parameter (2:20)
   1 | async function foo() {
 > 2 |   function bar(x = await 2) {}
-    |                        ^
+    |                    ^^^^^
   3 | }
-Cause: [2:24]: Await is only valid in async functions"
+Cause: [2:19-2:24]: Await expression not allowed in formal parameter"
 `;
 
 exports[`snippet: #1 [acorn] format 1`] = `
@@ -99,10 +99,10 @@ exports[`snippet: #1 [flow] format 1`] = `
 `;
 
 exports[`snippet: #1 [meriyah] format 1`] = `
-"Await expression not allowed in formal parameter (1:22)
+"Await expression not allowed in formal parameter (1:21)
 > 1 | async (x = await 2) => {};
-    |                      ^
-Cause: [1:22]: Await expression not allowed in formal parameter"
+    |                     ^^
+Cause: [1:20-1:22]: Await expression not allowed in formal parameter"
 `;
 
 exports[`snippet: #2 [acorn] format 1`] = `
@@ -136,7 +136,7 @@ exports[`snippet: #2 [meriyah] format 1`] = `
 "Unexpected token: '!' (1:25)
 > 1 | f = async (a) => await a! ** 6;
     |                         ^
-Cause: [1:25]: Unexpected token: '!'"
+Cause: [1:24-1:25]: Unexpected token: '!'"
 `;
 
 exports[`snippet: #3 [acorn] format 1`] = `
@@ -170,7 +170,7 @@ exports[`snippet: #3 [meriyah] format 1`] = `
 "Unexpected token: '!' (1:14)
 > 1 | f = (a) => +a! ** 6;
     |              ^
-Cause: [1:14]: Unexpected token: '!'"
+Cause: [1:13-1:14]: Unexpected token: '!'"
 `;
 
 exports[`snippet: #4 [acorn] format 1`] = `
@@ -204,7 +204,7 @@ exports[`snippet: #4 [meriyah] format 1`] = `
 "Expected ')' (1:22)
 > 1 | async (a) => (await a!) ** 6;
     |                      ^
-Cause: [1:22]: Expected ')'"
+Cause: [1:21-1:22]: Expected ')'"
 `;
 
 exports[`snippet: #5 [acorn] format 1`] = `
@@ -235,10 +235,10 @@ exports[`snippet: #5 [flow] format 1`] = `
 `;
 
 exports[`snippet: #5 [meriyah] format 1`] = `
-"Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:7)
+"Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:6)
 > 1 | (-+5 ** 6);
-    |       ^
-Cause: [1:7]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses"
+    |      ^^
+Cause: [1:5-1:7]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses"
 `;
 
 exports[`snippet: #6 [acorn] format 1`] = `
@@ -269,10 +269,10 @@ exports[`snippet: #6 [flow] format 1`] = `
 `;
 
 exports[`snippet: #6 [meriyah] format 1`] = `
-"Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:26)
+"Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:25)
 > 1 | f = async () => await 5 ** 6;
-    |                          ^
-Cause: [1:26]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses"
+    |                         ^^
+Cause: [1:24-1:26]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses"
 `;
 
 exports[`snippet: #7 [acorn] format 1`] = `
@@ -303,10 +303,10 @@ exports[`snippet: #7 [flow] format 1`] = `
 `;
 
 exports[`snippet: #7 [meriyah] format 1`] = `
-"Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:27)
+"Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:26)
 > 1 | f = async () => await -5 ** 6;
-    |                           ^
-Cause: [1:27]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses"
+    |                          ^^
+Cause: [1:25-1:27]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses"
 `;
 
 exports[`snippet: #8 [acorn] format 1`] = `
@@ -340,5 +340,5 @@ exports[`snippet: #8 [meriyah] format 1`] = `
 "Invalid shorthand property initializer (1:21)
 > 1 | async({ foo33 = 1 });
     |                     ^
-Cause: [1:21]: Invalid shorthand property initializer"
+Cause: [1:20-1:21]: Invalid shorthand property initializer"
 `;

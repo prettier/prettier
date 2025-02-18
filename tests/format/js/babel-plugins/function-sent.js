@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-proposal-function-sent
+// https://babeljs.io/docs/babel-plugin-proposal-function-sent
 
 function* generator() {
     console.log("Sent", function.sent);

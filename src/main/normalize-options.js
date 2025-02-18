@@ -1,7 +1,7 @@
 import * as vnopts from "vnopts";
 
 /**
- * @typedef {import("./support.js").NamedOptionInfo} NamedOptionInfo
+ * @import {NamedOptionInfo} from "./support.js"
  */
 
 let hasDeprecationWarned;

@@ -234,7 +234,8 @@ function fits(
       case DOC_TYPE_ARRAY:
       case DOC_TYPE_FILL: {
         const parts = docType === DOC_TYPE_ARRAY ? doc : doc.parts;
-        for (let i = parts.length - 1; i >= 0; i--) {
+        const end = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
+        for (let i = parts.length - 1; i >= end; i--) {
           cmds.push({ mode, doc: parts[i] });
         }
         break;
@@ -651,6 +652,38 @@ function printDocToString(doc, options) {
       CURSOR_PLACEHOLDER,
       cursorPlaceholderIndex + 1,
     );
+
+    if (otherCursorPlaceholderIndex === -1) {
+      // If we got here, the doc must have contained ONE cursor command,
+      // instead of the expected zero or two. If the doc being printed was
+      // returned by printAstToDoc, then the only ways this can have happened
+      // are if:
+      // 1. a plugin added a cursor command itself, or
+      // 2. one (but not both) of options.nodeAfterCursor and
+      //    options.nodeAfterCursor pointed to a node within a subtree of the
+      //    AST that the printer plugin used in printAstToDoc simply omits from
+      //    the doc, or that it prints without recursively calling mainPrint,
+      //    with the consequence that the logic for adding a cursor command in
+      //    callPluginPrintFunction was never called for that node.
+      // These are both weird scenarios that should be considered a bug if they
+      // ever occur with one of Prettier's built-in plugins. If a third-party
+      // plugin was used when printing the AST to a doc, the possibility of
+      // reaching this scenario MIGHT be reasonable to consider a bug in the
+      // plugin. However, we try to at least not crash if this ever happens;
+      // instead we simply give up on returning a cursorNodeStart or
+      // cursorNodeText.
+      //
+      // coreFormat has logic specifically to handle this scenario - where it
+      // is supposed to preserve the cursor position but the printer gives it
+      // no information about where the nodes around the cursor ended up -
+      // although that logic is unavoidably slower (and has more potential to
+      // return a perverse result) than the happy path where we help out
+      // coreFormat by returning a cursorNodeStart and cursorNodeText here.
+      return {
+        formatted: out.filter((char) => char !== CURSOR_PLACEHOLDER).join(""),
+      };
+    }
+
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
     const aroundCursor = out
       .slice(cursorPlaceholderIndex + 1, otherCursorPlaceholderIndex)

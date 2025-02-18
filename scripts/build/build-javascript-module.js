@@ -1,11 +1,9 @@
 import path from "node:path";
 import url from "node:url";
-
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
 import { nodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "esbuild-plugins-node-modules-polyfill";
 import createEsmUtils from "esm-utils";
-
 import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
@@ -42,18 +40,6 @@ function getEsbuildOptions({ file, files, cliOptions }) {
   file.dependencies = [];
 
   const replaceModule = [
-    // Use `require` directly
-    {
-      module: "*",
-      find: "const require = createRequire(import.meta.url);",
-      replacement: "",
-    },
-    // Use `__dirname` directly
-    {
-      module: "*",
-      find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
-      replacement: "",
-    },
     /*
     `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
     We already replaced line end to `\n` before calling it

@@ -1,7 +1,6 @@
 ---
-id: version-stable-plugins
+id: plugins
 title: Plugins
-original_id: plugins
 ---
 
 Plugins are ways of adding new languages or formatting rules to Prettier. Prettier’s own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you’ll need to install a plugin.
@@ -16,7 +15,11 @@ You can load plugins with:
   prettier --write main.foo --plugin=prettier-plugin-foo
   ```
 
-  > Tip: You can set `--plugin` options multiple times.
+  :::tip
+
+  You can set `--plugin` options multiple times.
+
+  :::
 
 - The [API](api.md), via the `plugins` options:
 
@@ -107,7 +110,7 @@ The key must match the name in the `parsers` array from `languages`. The value c
 export const parsers = {
   "dance-parse": {
     parse,
-    // The name of the AST that
+    // The name of the AST that the parser produces.
     astFormat: "dance-ast",
     hasPragma,
     locStart,
@@ -590,6 +593,11 @@ function hasSpaces(
   startIndex: number,
   options?: SkipOptions,
 ): boolean;
+
+function getPreferredQuote(
+  text: string,
+  preferredQuoteOrPreferSingleQuote: Quote | boolean,
+): Quote;
 
 function makeString(
   rawText: string,

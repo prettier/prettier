@@ -183,7 +183,6 @@ exports[`visitor keys estree 1`] = `
     "label",
   ],
   "DebuggerStatement": [],
-  "DecimalLiteral": [],
   "DeclareClass": [
     "body",
     "extends",
@@ -204,9 +203,11 @@ exports[`visitor keys estree 1`] = `
     "id",
   ],
   "DeclareExportAllDeclaration": [
+    "attributes",
     "source",
   ],
   "DeclareExportDeclaration": [
+    "attributes",
     "declaration",
     "source",
     "specifiers",
@@ -410,7 +411,6 @@ exports[`visitor keys estree 1`] = `
     "consequent",
     "test",
   ],
-  "Import": [],
   "ImportAttribute": [
     "key",
     "value",
@@ -424,7 +424,6 @@ exports[`visitor keys estree 1`] = `
     "local",
   ],
   "ImportExpression": [
-    "attributes",
     "options",
     "source",
   ],
@@ -853,6 +852,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSImportType": [
     "argument",
+    "options",
     "qualifier",
     "typeArguments",
     "typeParameters",

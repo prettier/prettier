@@ -15,12 +15,13 @@ import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
+import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
@@ -156,6 +157,14 @@ function print(path, options, print) {
       return [node.key, "=", print("value")];
 
     case "TextNode": {
+      // Don't format content:
+      // 1. in `<pre>`,
+      // 2. in `<style>`
+
+      if (path.parent.tag === "pre" || path.parent.tag === "style") {
+        return node.chars;
+      }
+
       /* if `{{my-component}}` (or any text containing "{{")
        * makes it to the TextNode, it means it was escaped,
        * so let's print it escaped, ie.; `\{{my-component}}` */
@@ -686,7 +695,7 @@ function generateHardlines(number = 0) {
 
 /* StringLiteral print helpers */
 
-/** @typedef {import("../utils/get-preferred-quote.js").Quote} Quote */
+/** @import {Quote} from "../utils/get-preferred-quote.js" */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on
@@ -816,6 +825,7 @@ const printer = {
   massageAstNode: clean,
   hasPrettierIgnore,
   getVisitorKeys,
+  embed,
 };
 
 export default printer;

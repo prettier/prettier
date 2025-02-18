@@ -1,6 +1,5 @@
 import path from "node:path";
 import url from "node:url";
-
 import prettier from "../../config/prettier-entry.js";
 
 test("resolves configuration from external files and overrides by extname", async () => {
@@ -32,6 +31,14 @@ describe("resolves external configuration from package.json (cjs package)", () =
 
 describe("resolves external configuration from package.json (esm package)", () => {
   runCli("cli/config/external-config/esm-package", ["index.js"]).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+});
+
+describe("resolves external configuration from package.json (esm package with TLA)", () => {
+  runCli("cli/config/external-config/esm-package-with-tla", ["index.js"]).test({
     status: 0,
     stderr: "",
     write: [],
@@ -276,7 +283,8 @@ test(".js config file", async () => {
     "cjs-prettier-config-js-in-type-commonjs",
     "cjs-prettier-config-js-in-type-none",
     "cjs-prettierrc-js-in-type-commonjs",
-    "cjs-prettierrc-js-in-type-none",
+    // Node.js v22.7 throws `MODULE_TYPELESS_PACKAGE_JSON` when `type` missed in package.json
+    // "cjs-prettierrc-js-in-type-none",
     "mjs-prettier-config-js-in-type-module",
     "mjs-prettierrc-js-in-type-module",
   ]) {
@@ -296,9 +304,11 @@ test(".js config file", async () => {
   const mjsError = /Unexpected token 'export'/u;
   for (const directoryName of [
     "mjs-prettier-config-js-in-type-commonjs",
-    "mjs-prettier-config-js-in-type-none",
+    // Node.js v22.7 throws `MODULE_TYPELESS_PACKAGE_JSON` when `type` missed in package.json
+    // "mjs-prettier-config-js-in-type-none",
     "mjs-prettierrc-js-in-type-commonjs",
-    "mjs-prettierrc-js-in-type-none",
+    // Node.js v22.7 throws `MODULE_TYPELESS_PACKAGE_JSON` when `type` missed in package.json
+    // "mjs-prettierrc-js-in-type-none",
   ]) {
     const file = new URL(`./${directoryName}/foo.js`, parentDirectory);
     await expect(prettier.resolveConfig(file)).rejects.toThrow(mjsError);

@@ -25,9 +25,9 @@ Cause: Invalid number"
 `;
 
 exports[`invalid-exponent.js [meriyah] format 1`] = `
-"Non-number found after exponent indicator (1:5)
+"Non-number found after exponent indicator (1:1)
 > 1 | 12.3e
-    |     ^
+    | ^^^^^
   2 |
-Cause: [1:5]: Non-number found after exponent indicator"
+Cause: [1:0-1:5]: Non-number found after exponent indicator"
 `;

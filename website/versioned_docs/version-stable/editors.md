@@ -1,7 +1,6 @@
 ---
-id: version-stable-editors
+id: editors
 title: Editor Integration
-original_id: editors
 ---
 
 To get the most out of Prettier, it’s recommended to run it from your editor.
@@ -43,11 +42,6 @@ See the [WebStorm setup guide](webstorm.md).
 ## Visual Studio
 
 Install the [JavaScript Prettier extension](https://github.com/madskristensen/JavaScriptPrettier).
-
-## Atom
-
-Atom users can install the [prettier-atom](https://github.com/prettier/prettier-atom) package, or one of the more minimalistic [mprettier](https://github.com/t9md/atom-mprettier) and
-[miniprettier](https://github.com/duailibe/atom-miniprettier) packages.
 
 ## Espresso
 

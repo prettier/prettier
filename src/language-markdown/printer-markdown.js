@@ -1,6 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
 import escapeStringRegexp from "escape-string-regexp";
-
 import {
   align,
   fill,
@@ -39,7 +38,7 @@ import {
 } from "./utils.js";
 
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
 const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
@@ -323,8 +322,9 @@ function genericPrint(path, options, print) {
                 ? "- "
                 : "* ";
 
-            return node.isAligned ||
-              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
+            return (node.isAligned ||
+              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock) &&
+              node.ordered
               ? alignListPrefix(rawPrefix, options)
               : rawPrefix;
           }
@@ -761,7 +761,7 @@ function printTitle(title, options, printSpace = true) {
 }
 
 function clamp(value, min, max) {
-  return value < min ? min : value > max ? max : value;
+  return Math.max(min, Math.min(value, max));
 }
 
 function hasPrettierIgnore(path) {

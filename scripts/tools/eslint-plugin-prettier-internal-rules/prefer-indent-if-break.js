@@ -1,5 +1,3 @@
-"use strict";
-
 const selector = [
   "CallExpression",
   "[optional=false]",
@@ -18,12 +16,9 @@ const selector = [
 
 const messageId = "prefer-indent-if-break";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/prefer-indent-if-break.js",
-    },
     messages: {
       [messageId]: "Prefer `indentIfBreak(…)` over `ifBreak(indent(…), …)`.",
     },

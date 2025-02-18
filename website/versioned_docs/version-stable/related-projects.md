@@ -1,7 +1,6 @@
 ---
-id: version-stable-related-projects
+id: related-projects
 title: Related Projects
-original_id: related-projects
 ---
 
 ## ESLint Integrations

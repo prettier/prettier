@@ -1,7 +1,5 @@
 import path from "node:path";
-
 import createEsmUtils from "esm-utils";
-
 import installPrettier from "./tests/config/install-prettier.js";
 
 const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
@@ -66,8 +64,6 @@ const config = {
   ],
   testMatch: [
     "<rootDir>/tests/format/**/format.test.js",
-    // TODO: Remove this in 2025
-    "<rootDir>/tests/format/**/jsfmt.spec.js",
     "<rootDir>/tests/integration/__tests__/**/*.js",
     "<rootDir>/tests/unit/**/*.js",
     "<rootDir>/tests/dts/unit/**/*.js",

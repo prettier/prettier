@@ -3,11 +3,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
-
 import createEsmUtils from "esm-utils";
 import { execa } from "execa";
 import fastGlob from "fast-glob";
-
 import { format } from "../src/index.js";
 import {
   copyFile,

@@ -3,8 +3,10 @@ import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js"
 import normalizeFormatOptions from "./normalize-format-options.js";
 import parse from "./parse.js";
 
+/** @import AstPath from "../common/ast-path.js" */
+
 async function printEmbeddedLanguages(
-  /** @type {import("../common/ast-path.js").default} */ path,
+  /** @type {AstPath} */ path,
   genericPrint,
   options,
   printAstToDoc,
@@ -25,7 +27,7 @@ async function printEmbeddedLanguages(
 
   if (embed.length > 2) {
     throw new Error(
-      "printer.embed has too many parameters. The API changed in Prettier v3. Please update your plugin. See https://prettier.io/docs/en/plugins.html#optional-embed",
+      "printer.embed has too many parameters. The API changed in Prettier v3. Please update your plugin. See https://prettier.io/docs/plugins#optional-embed",
     );
   }
 
