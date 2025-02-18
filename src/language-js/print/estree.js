@@ -1,6 +1,7 @@
 import {
   group,
   hardline,
+  ifBreak,
   indent,
   join,
   line,
@@ -286,7 +287,16 @@ function printEstree(path, options, print, args) {
         }, "expressions");
         return group(parts);
       }
-      return group(join([",", line], path.map(print, "expressions")));
+
+      let doc = join([",", line], path.map(print, "expressions"));
+      if (
+        parent.type === "ReturnStatement" ||
+        parent.type === "ThrowStatement"
+      ) {
+        doc = ifBreak([indent([softline, doc]), softline], doc);
+      }
+
+      return group(doc);
     }
     case "ThisExpression":
       return "this";
