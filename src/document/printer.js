@@ -569,7 +569,8 @@ function printDocToString(doc, options) {
             cmds.push({ ind, mode, doc: flatContents });
           }
         } else {
-          throw new Error("Unexpected doc error");
+          /* c8 ignore next */
+          throw new Error("Unexpected mode");
         }
 
         break;
