@@ -206,7 +206,7 @@ function assertComment(comment, text) {
         0,
         text.startsWith("<--") || text.startsWith("-->") ? 3 : 2,
       );
-      assert(openingMark + comment.value, commentText);
+      assert.ok(openingMark + comment.value, commentText);
     }
     return;
   }
