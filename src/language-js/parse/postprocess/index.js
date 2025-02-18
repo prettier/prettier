@@ -201,19 +201,22 @@ function rebalanceLogicalTree(node) {
 function assertComment(comment, text) {
   if (isLineComment(comment)) {
     if (process.env.NODE_ENV !== "production") {
-      assert(
-        text.slice(locStart(comment), locEnd(comment)).endsWith(comment.value),
+      const commentText = text.slice(locStart(comment), locEnd(comment));
+      const openingMark = text.slice(
+        0,
+        text.startsWith("<--") || text.startsWith("-->") ? 3 : 2,
       );
+      assert(openingMark + comment.value, commentText);
     }
     return;
   }
 
   if (isBlockComment(comment)) {
     if (process.env.NODE_ENV !== "production") {
-      assert.equal(
-        "/*" + comment.value + "*/",
-        text.slice(locStart(comment), locEnd(comment)),
-      );
+      const commentText = text.slice(locStart(comment), locEnd(comment));
+      // Flow
+      const closingMark = commentText.endsWith("*-/") ? "*-/" : "*/";
+      assert.equal("/*" + comment.value + closingMark, commentText);
     }
     return;
   }
