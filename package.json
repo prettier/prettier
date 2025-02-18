@@ -108,6 +108,7 @@
   },
   "devDependencies": {
     "@babel/generator": "7.26.9",
+    "@eslint-react/eslint-plugin": "1.26.2",
     "@eslint/js": "9.18.0",
     "@stylistic/eslint-plugin-js": "3.1.0",
     "@types/eslint__js": "8.42.3",
@@ -130,7 +131,6 @@
     "eslint-plugin-compat": "6.0.2",
     "eslint-plugin-jest": "28.11.0",
     "eslint-plugin-n": "17.15.1",
-    "eslint-plugin-react": "7.37.4",
     "eslint-plugin-regexp": "2.7.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-unicorn": "57.0.0",
