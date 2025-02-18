@@ -5,6 +5,9 @@ import { outdent } from "outdent";
 import { PROJECT_ROOT, writeFile } from "../utils/index.js";
 
 function esmifyTypescriptEslint(text) {
+  const x = text.includes(
+    "exports.AST_TOKEN_TYPES = exports.AST_NODE_TYPES = void 0;",
+  );
   /*
   ```js
   const foo = __importStar(require("foo"));
@@ -118,6 +121,24 @@ function esmifyTypescriptEslint(text) {
     outdent`
       import * as $<specifier>_namespace_export from "$<moduleName>";
       export {$<specifier>_namespace_export as $<specifier>};
+    `,
+  );
+
+  /**
+  ```js
+  var AST_TOKEN_TYPES;
+  (function (AST_TOKEN_TYPES) {
+  })(AST_TOKEN_TYPES || (exports.AST_TOKEN_TYPES = AST_TOKEN_TYPES = {}));
+  ```
+  ->
+  ```js
+  ```
+   */
+  text = text.replaceAll(
+    /(?<=\n\}\))\((?<name>\S+) \|\| \(exports\.\k<name> = \k<name> = \{\}\)\);/gu,
+    outdent`
+      ($<name> ??= {});
+      export {$<name>};
     `,
   );
 
