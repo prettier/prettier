@@ -123,12 +123,16 @@ function esmifyTypescriptEslint(text) {
 
   /**
   ```js
-  var AST_TOKEN_TYPES;
-  (function (AST_TOKEN_TYPES) {
-  })(AST_TOKEN_TYPES || (exports.AST_TOKEN_TYPES = AST_TOKEN_TYPES = {}));
+  var FOO;
+  (function (FOO) {
+  })(FOO || (exports.FOO = FOO = {}));
   ```
   ->
   ```js
+  var FOO;
+  (function (FOO) {
+  })(FOO ?? {}));
+  export {FOO};
   ```
    */
   text = text.replaceAll(
