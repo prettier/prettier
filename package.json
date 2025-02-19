@@ -15,7 +15,6 @@
   "exports": {
     ".": {
       "types": "./src/index.d.ts",
-      "module-sync": "./src/index.js",
       "require": "./src/index.cjs",
       "default": "./src/index.js"
     },
