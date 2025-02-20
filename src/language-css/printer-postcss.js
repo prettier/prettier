@@ -392,7 +392,13 @@ function genericPrint(path, options, print) {
     case "selector-class":
       return [".", adjustNumbers(adjustStrings(node.value, options))];
 
-    case "selector-attribute":
+    case "selector-attribute": {
+      const quotedValue = [
+        node.quoteMark ?? "",
+        node.value ?? "",
+        node.quoteMark ?? "",
+      ].join("");
+
       return [
         "[",
         node.namespace
@@ -400,15 +406,13 @@ function genericPrint(path, options, print) {
           : "",
         node.attribute.trim(),
         node.operator ?? "",
-        node.value
-          ? quoteAttributeValue(
-              adjustStrings(node.value.trim(), options),
-              options,
-            )
+        quotedValue
+          ? quoteAttributeValue(adjustStrings(quotedValue, options), options)
           : "",
         node.insensitive ? " i" : "",
         "]",
       ];
+    }
 
     case "selector-combinator": {
       if (
