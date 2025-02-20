@@ -108,7 +108,7 @@
   },
   "devDependencies": {
     "@babel/generator": "7.26.9",
-    "@eslint/js": "9.18.0",
+    "@eslint/js": "9.20.0",
     "@stylistic/eslint-plugin-js": "4.0.1",
     "@types/estree": "1.0.6",
     "@typescript-eslint/eslint-plugin": "8.24.1",
@@ -122,7 +122,7 @@
     "esbuild": "0.25.0",
     "esbuild-plugins-node-modules-polyfill": "1.6.8",
     "esbuild-visualizer": "0.7.0",
-    "eslint": "9.18.0",
+    "eslint": "9.20.1",
     "eslint-config-prettier": "10.0.1",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-compat": "6.0.2",
