@@ -238,6 +238,7 @@ function parseNestedCSS(node, options) {
         node.selector = parseSelector(
           node.params.slice(customSelector.length).trim(),
         );
+        debugger;
         delete node.params;
         return node;
       }
