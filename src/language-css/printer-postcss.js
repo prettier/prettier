@@ -370,19 +370,21 @@ function genericPrint(path, options, print) {
     case "selector-string":
       return adjustStrings(node.value, options);
 
-    case "selector-tag":
+    case "selector-tag": {
+      const value = node.raws?.value ?? node.value;
       return [
         node.namespace
           ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
           : "",
         path.previous?.type === "selector-nesting"
-          ? node.value
+          ? value
           : adjustNumbers(
-              isKeyframeAtRuleKeywords(path, node.value)
-                ? node.value.toLowerCase()
-                : node.value,
+              isKeyframeAtRuleKeywords(path, value)
+                ? value.toLowerCase()
+                : value,
             ),
       ];
+    }
 
     case "selector-id":
       return ["#", node.value];
