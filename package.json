@@ -109,7 +109,7 @@
   "devDependencies": {
     "@babel/generator": "7.26.9",
     "@eslint/js": "9.18.0",
-    "@stylistic/eslint-plugin-js": "3.1.0",
+    "@stylistic/eslint-plugin-js": "4.0.1",
     "@types/estree": "1.0.6",
     "@typescript-eslint/eslint-plugin": "8.24.1",
     "benchmark": "2.1.4",
@@ -134,7 +134,7 @@
     "eslint-plugin-unicorn": "57.0.0",
     "esm-utils": "4.3.0",
     "execa": "7.2.0",
-    "globals": "15.14.0",
+    "globals": "16.0.0",
     "jest": "30.0.0-alpha.7",
     "jest-light-runner": "0.6.0",
     "jest-snapshot-serializer-ansi": "2.1.0",
