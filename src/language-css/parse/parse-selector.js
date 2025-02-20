@@ -18,7 +18,7 @@ function parseSelector(selector) {
   try {
     new PostcssSelectorParser((selectors) => {
       result = selectors;
-    }).process(selector);
+    }).processSnc(selector);
   } catch {
     // Fail silently. It's better to print it as is than to try and parse it
     // Note: A common failure is for SCSS nested properties. `background:
