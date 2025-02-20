@@ -152,9 +152,13 @@ function parseNestedCSS(node, options) {
       // Check on SCSS nested property
       if (isSCSSNestedPropertyNode(node, options)) {
         node.isSCSSNesterProperty = true;
+        node.selector = {
+          type: "selector-unknown",
+          value: selector.trim(),
+        };
+      } else {
+        node.selector = parseSelector(selector);
       }
-
-      node.selector = parseSelector(selector);
 
       return node;
     }
