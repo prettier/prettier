@@ -59,6 +59,8 @@ async function buildPackageJson({ file, files }) {
               file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
               {
                 types: `./${file.output.file.replace(/\.js$/u, ".d.ts")}`,
+                // module-sync can prevent CJS plugins from working: https://github.com/prettier/prettier/issues/17139
+                // Perform a test before re-adding it.
                 require: `./${file.output.file}`,
                 default: `./${file.output.file.replace(/\.js$/u, ".mjs")}`,
               },
