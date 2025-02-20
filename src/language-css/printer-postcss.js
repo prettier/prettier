@@ -393,11 +393,7 @@ function genericPrint(path, options, print) {
       return [".", adjustNumbers(adjustStrings(node.value, options))];
 
     case "selector-attribute": {
-      const quotedValue = [
-        node.quoteMark ?? "",
-        node.value ?? "",
-        node.quoteMark ?? "",
-      ].join("");
+      const quotedValue = JSON.stringify(node.value);
 
       return [
         "[",
