@@ -607,7 +607,7 @@ export interface ResolveConfigOptions {
   /**
    * Pass directly the path of the config file if you don't wish to search for it.
    */
-  config?: string | URL| undefined;
+  config?: string | URL | undefined;
   /**
    * If set to `true` and an `.editorconfig` file is in your project,
    * Prettier will parse it and convert its properties to the corresponding prettier configuration.
