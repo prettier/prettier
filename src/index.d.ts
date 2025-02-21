@@ -398,7 +398,7 @@ export interface RequiredOptions extends doc.printer.Options {
   /**
    * Provide ability to support new languages to prettier.
    */
-  plugins: Array<string | Plugin>;
+  plugins: Array<string | URL | Plugin>;
   /**
    * How to handle whitespaces in HTML.
    * @default "css"
@@ -801,7 +801,7 @@ export interface SupportInfo {
 export interface FileInfoOptions {
   ignorePath?: string | URL | (string | URL)[] | undefined;
   withNodeModules?: boolean | undefined;
-  plugins?: Array<string | Plugin> | undefined;
+  plugins?: Array<string | URL | Plugin> | undefined;
   resolveConfig?: boolean | undefined;
 }
 
@@ -816,7 +816,7 @@ export function getFileInfo(
 ): Promise<FileInfoResult>;
 
 export interface SupportInfoOptions {
-  plugins?: Array<string | Plugin> | undefined;
+  plugins?: Array<string | URL | Plugin> | undefined;
   showDeprecated?: boolean | undefined;
 }
 
