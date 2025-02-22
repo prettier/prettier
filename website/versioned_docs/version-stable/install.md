@@ -83,7 +83,11 @@ npx prettier . --write
 
 What is that `npx` thing? `npx` ships with `npm` and lets you run locally installed tools. We’ll leave off the `npx` part for brevity throughout the rest of this file!
 
-Note: If you forget to install Prettier first, `npx` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
+:::
+
+:::warning
+
+If you forget to install Prettier first, `npx` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
 
 :::
 
@@ -98,7 +102,11 @@ yarn exec prettier . --write
 
 What is `yarn exec` doing at the start? `yarn exec prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn exec` part for brevity throughout the rest of this file!
 
-Note: If you forget to install Prettier first, `yarn exec` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
+:::
+
+:::warning
+
+If you forget to install Prettier first, `yarn exec` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
 
 :::
 
@@ -113,7 +121,11 @@ pnpm exec prettier . --write
 
 What is `pnpm exec` doing at the start? `pnpm exec prettier` runs the locally installed version of Prettier. We’ll leave off the `pnpm exec` part for brevity throughout the rest of this file!
 
-Note: If you forget to install Prettier first, `pnpm exec` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
+:::
+
+:::warning
+
+If you forget to install Prettier first, `pnpm exec` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
 
 :::
 
@@ -128,7 +140,11 @@ bun exec prettier . --write
 
 What is `bun exec` doing at the start? `bun exec prettier` runs the locally installed version of Prettier. We’ll leave off the `bun exec` part for brevity throughout the rest of this file!
 
-Note: If you forget to install Prettier first, `bun exec` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
+:::
+
+:::warning
+
+If you forget to install Prettier first, `bun exec` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
 
 :::
 
