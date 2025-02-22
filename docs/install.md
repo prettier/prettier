@@ -96,7 +96,7 @@ yarn exec prettier . --write
 
 :::info
 
-What is `yarn` doing at the start? `yarn exec prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn` part for brevity throughout the rest of this file!
+What is `yarn exec` doing at the start? `yarn exec prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn exec` part for brevity throughout the rest of this file!
 
 :::
 
@@ -109,7 +109,7 @@ pnpm exec prettier . --write
 
 :::info
 
-What is `pnpm` doing at the start? `pnpm exec prettier` runs the locally installed version of Prettier. We’ll leave off the `pnpm` part for brevity throughout the rest of this file!
+What is `pnpm exec` doing at the start? `pnpm exec prettier` runs the locally installed version of Prettier. We’ll leave off the `pnpm exec` part for brevity throughout the rest of this file!
 
 :::
 
@@ -122,7 +122,7 @@ bun exec prettier . --write
 
 :::info
 
-What is `bun` doing at the start? `bun exec prettier` runs the locally installed version of Prettier. We’ll leave off the `bun` part for brevity throughout the rest of this file!
+What is `bun exec` doing at the start? `bun exec prettier` runs the locally installed version of Prettier. We’ll leave off the `bun exec` part for brevity throughout the rest of this file!
 
 :::
 
