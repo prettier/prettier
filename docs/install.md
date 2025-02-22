@@ -104,7 +104,7 @@ What is `yarn` doing at the start? `yarn prettier` runs the locally installed ve
 <TabItem value="pnpm">
 
 ```bash
-pnpm exec prettier . --write
+pnpm prettier . --write
 ```
 
 :::info
