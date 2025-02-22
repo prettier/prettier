@@ -104,12 +104,6 @@ What is `yarn exec` doing at the start? `yarn exec prettier` runs the locally in
 
 :::
 
-:::warning
-
-If you forget to install Prettier first, `yarn exec` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
-
-:::
-
 </TabItem>
 <TabItem value="pnpm">
 
@@ -123,12 +117,6 @@ What is `pnpm exec` doing at the start? `pnpm exec prettier` runs the locally in
 
 :::
 
-:::warning
-
-If you forget to install Prettier first, `pnpm exec` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
-
-:::
-
 </TabItem>
 <TabItem value="bun">
 
@@ -139,12 +127,6 @@ bun exec prettier . --write
 :::info
 
 What is `bun exec` doing at the start? `bun exec prettier` runs the locally installed version of Prettier. We’ll leave off the `bun exec` part for brevity throughout the rest of this file!
-
-:::
-
-:::warning
-
-If you forget to install Prettier first, `bun exec` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
 
 :::
 
