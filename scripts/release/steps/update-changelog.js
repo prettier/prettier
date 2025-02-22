@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { execa } from "execa";
+import spawn from "nano-spawn";
 import styleText from "node-style-text";
 import semver from "semver";
 import {
@@ -17,7 +17,7 @@ function writeChangelog(params) {
 }
 
 async function getChangelogForPatch({ version, previousVersion }) {
-  const { stdout: changelog } = await execa("node", [
+  const { stdout: changelog } = await spawn(process.execPath, [
     "scripts/changelog-for-patch.js",
     "--prev-version",
     previousVersion,
