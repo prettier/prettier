@@ -41,7 +41,7 @@ function twitterAnnouncement() {
   return outdent`
     ${styleText.bold.underline("Announce on Twitter")}
     - Open ${styleText.cyan.underline("https://tweetdeck.twitter.com")}
-    - Make sure you are tweeting from the {yellow @PrettierCode} account.
+    - Make sure you are tweeting from the ${styleText.yellow("@PrettierCode")} account.
     - Tweet about the release, including the blog post URL.
   `;
 }
