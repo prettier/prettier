@@ -3,6 +3,7 @@ runFormatTest(import.meta, ["babel", "flow"], {
   errors: {
     acorn: ["non-octal-eight-and-nine.js"],
     espree: ["non-octal-eight-and-nine.js"],
+    meriyah: ["non-octal-eight-and-nine.js"],
   },
 });
 runFormatTest(import.meta, ["babel", "flow"], {
@@ -10,5 +11,6 @@ runFormatTest(import.meta, ["babel", "flow"], {
   errors: {
     acorn: ["non-octal-eight-and-nine.js"],
     espree: ["non-octal-eight-and-nine.js"],
+    meriyah: ["non-octal-eight-and-nine.js"],
   },
 });

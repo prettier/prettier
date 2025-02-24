@@ -30,7 +30,7 @@ jobs:
           - "ubuntu-latest"
         node:
           # Minimal version for development
-          - "18"
+          - "20"
         NPM_CLIENT:
           - "yarn"
           # Disabled temporarily #13151

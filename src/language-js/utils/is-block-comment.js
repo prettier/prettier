@@ -1,6 +1,6 @@
 import createTypeCheckFunction from "./create-type-check-function.js";
 /**
- * @typedef {import("../types/estree.js").Comment} Comment
+ * @import {Comment} from "../types/estree.js"
  */
 
 /**

@@ -2,11 +2,9 @@
 
 import fs from "node:fs";
 import path from "node:path";
-
 import createEsmUtils from "esm-utils";
 import fg from "fast-glob";
 import semver from "semver";
-
 import {
   changelogUnreleasedDirPath,
   changelogUnreleasedDirs,

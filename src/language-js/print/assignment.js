@@ -26,7 +26,7 @@ import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 function printAssignment(

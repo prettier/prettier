@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import mockable from "../../common/mockable.js";
 import getConfigSearcher from "./config-searcher.js";
 import loadConfig from "./load-config.js";

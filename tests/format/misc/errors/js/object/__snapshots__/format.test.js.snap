@@ -37,7 +37,7 @@ exports[`getter-generator.js [meriyah] format 1`] = `
     |         ^
   3 | });
   4 |
-Cause: [2:9]: A getter cannot be a generator"
+Cause: [2:8-2:9]: A getter cannot be a generator"
 `;
 
 exports[`getter-with-parameter.js [acorn] format 1`] = `
@@ -69,7 +69,7 @@ exports[`getter-with-parameter.js [meriyah] format 1`] = `
 > 1 | ({ get x(a){} });
     |          ^
   2 |
-Cause: [1:10]: Getter functions must have exactly no arguments"
+Cause: [1:9-1:10]: Getter functions must have exactly no arguments"
 `;
 
 exports[`setter-generator.js [acorn] format 1`] = `
@@ -109,7 +109,7 @@ exports[`setter-generator.js [meriyah] format 1`] = `
     |         ^
   3 | });
   4 |
-Cause: [2:9]: A setter cannot be a generator"
+Cause: [2:8-2:9]: A setter cannot be a generator"
 `;
 
 exports[`setter-without-parameter.js [acorn] format 1`] = `
@@ -141,5 +141,5 @@ exports[`setter-without-parameter.js [meriyah] format 1`] = `
 > 1 | ({ set x(){} });
     |          ^
   2 |
-Cause: [1:10]: Setter functions must have exactly one argument"
+Cause: [1:9-1:10]: Setter functions must have exactly one argument"
 `;

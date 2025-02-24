@@ -25,7 +25,7 @@ exports[`snippet: #0 [meriyah] format 1`] = `
 "'#' not followed by identifier (1:1)
 > 1 | #{a() {}}
     | ^
-Cause: [1:1]: '#' not followed by identifier"
+Cause: [1:0-1:1]: '#' not followed by identifier"
 `;
 
 exports[`snippet: #1 [acorn] format 1`] = `
@@ -53,7 +53,7 @@ exports[`snippet: #1 [meriyah] format 1`] = `
 "'#' not followed by identifier (1:1)
 > 1 | #{async b() {}}
     | ^
-Cause: [1:1]: '#' not followed by identifier"
+Cause: [1:0-1:1]: '#' not followed by identifier"
 `;
 
 exports[`snippet: #2 [acorn] format 1`] = `
@@ -81,7 +81,7 @@ exports[`snippet: #2 [meriyah] format 1`] = `
 "'#' not followed by identifier (1:1)
 > 1 | #{get c() {}}
     | ^
-Cause: [1:1]: '#' not followed by identifier"
+Cause: [1:0-1:1]: '#' not followed by identifier"
 `;
 
 exports[`snippet: #3 [acorn] format 1`] = `
@@ -109,7 +109,7 @@ exports[`snippet: #3 [meriyah] format 1`] = `
 "'#' not followed by identifier (1:1)
 > 1 | #{set d(_) {}}
     | ^
-Cause: [1:1]: '#' not followed by identifier"
+Cause: [1:0-1:1]: '#' not followed by identifier"
 `;
 
 exports[`snippet: #4 [acorn] format 1`] = `
@@ -137,5 +137,5 @@ exports[`snippet: #4 [meriyah] format 1`] = `
 "'#' not followed by identifier (1:1)
 > 1 | #{*e() {}}
     | ^
-Cause: [1:1]: '#' not followed by identifier"
+Cause: [1:0-1:1]: '#' not followed by identifier"
 `;

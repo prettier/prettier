@@ -19,7 +19,7 @@ import {
 } from "./utils/index.js";
 
 /**
- * @typedef {import("../common/ast-path.js").default} AstPath
+ * @import AstPath from "../common/ast-path.js"
  */
 
 /**
@@ -805,6 +805,10 @@ function needsParens(path, options) {
       }
 
       if (parent.type === "NGChainedExpression") {
+        return false;
+      }
+
+      if (key === "node" && parent.type === "JsExpressionRoot") {
         return false;
       }
 

@@ -71,14 +71,6 @@ exports[`export-star-as-string.js [flow] format 1`] = `
   2 |"
 `;
 
-exports[`export-star-as-string.js [typescript] format 1`] = `
-"Identifier expected. (1:13)
-> 1 | export * as 'foo' from 'foo'
-    |             ^
-  2 |
-Cause: Identifier expected."
-`;
-
 exports[`export-star-as-string.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -98,14 +90,6 @@ exports[`export-star-as-string2.js [flow] format 1`] = `
 > 1 | export * as "foo" from 'foo'
     |             ^^^^^
   2 |"
-`;
-
-exports[`export-star-as-string2.js [typescript] format 1`] = `
-"Identifier expected. (1:13)
-> 1 | export * as "foo" from 'foo'
-    |             ^
-  2 |
-Cause: Identifier expected."
 `;
 
 exports[`export-star-as-string2.js format 1`] = `

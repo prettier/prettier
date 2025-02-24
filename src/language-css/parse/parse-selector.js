@@ -1,5 +1,4 @@
 import PostcssSelectorParser from "postcss-selector-parser/dist/processor.js";
-
 import { addTypePrefix } from "./utils.js";
 
 function parseSelector(selector) {

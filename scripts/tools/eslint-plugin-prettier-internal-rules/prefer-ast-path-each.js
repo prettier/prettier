@@ -1,5 +1,3 @@
-"use strict";
-
 const selector = [
   "ExpressionStatement",
   ">",
@@ -16,12 +14,9 @@ const selector = [
 
 const messageId = "prefer-ast-path-each";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/require-json-extensions.js",
-    },
     messages: {
       [messageId]: "Prefer `AstPath#each()` over `AstPath#map()`.",
     },

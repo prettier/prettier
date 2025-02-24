@@ -346,37 +346,6 @@ function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
 }
 
-function normalizeParts(parts) {
-  const newParts = [];
-
-  const restParts = parts.filter(Boolean);
-  while (restParts.length > 0) {
-    const part = restParts.shift();
-
-    if (!part) {
-      continue;
-    }
-
-    if (Array.isArray(part)) {
-      restParts.unshift(...part);
-      continue;
-    }
-
-    if (
-      newParts.length > 0 &&
-      typeof newParts.at(-1) === "string" &&
-      typeof part === "string"
-    ) {
-      newParts[newParts.length - 1] += part;
-      continue;
-    }
-
-    newParts.push(part);
-  }
-
-  return newParts;
-}
-
 function replaceEndOfLine(doc, replacement = literalline) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string"
@@ -401,14 +370,39 @@ function inheritLabel(doc, fn) {
     : fn(doc);
 }
 
+/**
+ * returns true iff cleanDoc(doc) === ""
+ * @param {import("./builders.js").Doc} doc
+ * @returns {boolean}
+ */
+function isEmptyDoc(doc) {
+  let isEmpty = true;
+  traverseDoc(doc, (doc) => {
+    switch (getDocType(doc)) {
+      case DOC_TYPE_STRING:
+        if (doc === "") {
+          break;
+        }
+      // fallthrough
+      case DOC_TYPE_TRIM:
+      case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
+      case DOC_TYPE_LINE:
+      case DOC_TYPE_BREAK_PARENT:
+        isEmpty = false;
+        return false;
+    }
+  });
+  return isEmpty;
+}
+
 export {
   canBreak,
   cleanDoc,
   findInDoc,
   getDocType,
   inheritLabel,
+  isEmptyDoc,
   mapDoc,
-  normalizeParts,
   propagateBreaks,
   removeLines,
   replaceEndOfLine,

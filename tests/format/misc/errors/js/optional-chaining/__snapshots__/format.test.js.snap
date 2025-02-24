@@ -22,10 +22,10 @@ Cause: Optional chaining cannot appear in the callee of new expressions"
 `;
 
 exports[`snippet: #0 [meriyah] format 1`] = `
-"Invalid optional chain from new expression (1:22)
+"Invalid optional chain from new expression (1:21)
 > 1 | const baz3 = new obj?.foo?.bar?.baz(); // baz instance
-    |                      ^
-Cause: [1:22]: Invalid optional chain from new expression"
+    |                     ^^
+Cause: [1:20-1:22]: Invalid optional chain from new expression"
 `;
 
 exports[`snippet: #1 [acorn] format 1`] = `
@@ -50,10 +50,10 @@ Cause: Optional chaining cannot appear in the callee of new expressions"
 `;
 
 exports[`snippet: #1 [meriyah] format 1`] = `
-"Invalid optional chain from new expression (1:23)
+"Invalid optional chain from new expression (1:22)
 > 1 | const safe5 = new obj?.qux?.baz(); // undefined
-    |                       ^
-Cause: [1:23]: Invalid optional chain from new expression"
+    |                      ^^
+Cause: [1:21-1:23]: Invalid optional chain from new expression"
 `;
 
 exports[`snippet: #2 [acorn] format 1`] = `
@@ -78,10 +78,10 @@ Cause: Optional chaining cannot appear in the callee of new expressions"
 `;
 
 exports[`snippet: #2 [meriyah] format 1`] = `
-"Invalid optional chain from new expression (1:23)
+"Invalid optional chain from new expression (1:22)
 > 1 | const safe6 = new obj?.foo.bar.qux?.(); // undefined
-    |                       ^
-Cause: [1:23]: Invalid optional chain from new expression"
+    |                      ^^
+Cause: [1:21-1:23]: Invalid optional chain from new expression"
 `;
 
 exports[`snippet: #3 [acorn] format 1`] = `
@@ -106,10 +106,10 @@ Cause: Optional chaining cannot appear in the callee of new expressions"
 `;
 
 exports[`snippet: #3 [meriyah] format 1`] = `
-"Invalid optional chain from new expression (1:27)
+"Invalid optional chain from new expression (1:26)
 > 1 | const willThrow = new obj?.foo.bar.qux(); // Error: not a constructor
-    |                           ^
-Cause: [1:27]: Invalid optional chain from new expression"
+    |                          ^^
+Cause: [1:25-1:27]: Invalid optional chain from new expression"
 `;
 
 exports[`snippet: #4 [acorn] format 1`] = `
@@ -140,12 +140,12 @@ Cause: Optional chaining cannot appear in the callee of new expressions"
 `;
 
 exports[`snippet: #4 [meriyah] format 1`] = `
-"Invalid optional chain from new expression (4:10)
+"Invalid optional chain from new expression (4:9)
   2 | class Test {
   3 | }
 > 4 | new Test?.(); // test instance
-    |          ^
-Cause: [4:10]: Invalid optional chain from new expression"
+    |         ^^
+Cause: [4:8-4:10]: Invalid optional chain from new expression"
 `;
 
 exports[`snippet: #5 [acorn] format 1`] = `
@@ -170,8 +170,8 @@ Cause: Optional chaining cannot appear in the callee of new expressions"
 `;
 
 exports[`snippet: #5 [meriyah] format 1`] = `
-"Invalid optional chain from new expression (1:12)
+"Invalid optional chain from new expression (1:11)
 > 1 | new exists?.(); // undefined
-    |            ^
-Cause: [1:12]: Invalid optional chain from new expression"
+    |           ^^
+Cause: [1:10-1:12]: Invalid optional chain from new expression"
 `;

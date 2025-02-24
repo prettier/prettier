@@ -3,7 +3,6 @@ import path from "node:path";
 import readline from "node:readline";
 import url from "node:url";
 import { parentPort, workerData } from "node:worker_threads";
-
 import { prettierCli, prettierMainEntry } from "./env.js";
 
 const normalizeToPosix =

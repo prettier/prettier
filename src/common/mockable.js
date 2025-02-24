@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-
 import { isCI } from "ci-info";
 import getStdin from "get-stdin";
 

@@ -152,6 +152,110 @@ a {
 ================================================================================
 `;
 
+exports[`comments.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+.simplification {
+  foo: (
+    calc(), // It is a comment
+  );
+}
+
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+$z-indexes: (
+  header: 1035,
+  header: 1035,
+  overlay: 1202, // TODO
+  header: 1035,
+  header: 1035,
+);
+
+=====================================output=====================================
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+$z-indexes: (
+  header: 1035,
+  header: 1035,
+  overlay: 1202,
+  // TODO
+  header: 1035,
+  header: 1035,
+);
+
+================================================================================
+`;
+
+exports[`comments.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+.simplification {
+  foo: (
+    calc(), // It is a comment
+  );
+}
+
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+$z-indexes: (
+  header: 1035,
+  header: 1035,
+  overlay: 1202, // TODO
+  header: 1035,
+  header: 1035,
+);
+
+=====================================output=====================================
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+.simplification {
+  foo: (
+    calc() // It is a comment
+  );
+}
+
+$z-indexes: (
+  header: 1035,
+  header: 1035,
+  overlay: 1202,
+  // TODO
+  header: 1035,
+  header: 1035
+);
+
+================================================================================
+`;
+
 exports[`declaration.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
@@ -186,6 +290,50 @@ a {
 a {
   margin: $bar;
 }
+
+================================================================================
+`;
+
+exports[`issue-6920.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+$my-map: (
+  'foo': 1, // Comment
+  'bar': 2, // Comment
+);
+
+=====================================output=====================================
+$my-map: (
+  "foo": 1,
+  // Comment
+  "bar": 2, // Comment
+);
+
+================================================================================
+`;
+
+exports[`issue-6920.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+$my-map: (
+  'foo': 1, // Comment
+  'bar': 2, // Comment
+);
+
+=====================================output=====================================
+$my-map: (
+  "foo": 1,
+  // Comment
+  "bar": 2 // Comment
+);
 
 ================================================================================
 `;
@@ -552,6 +700,48 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
     color: red;
   }
 }
+
+================================================================================
+`;
+
+exports[`trailing-comma.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+$z-indexes: (
+    header: 1035,
+    overlay: 1202 // The comma shoud be printed before the comment when trailing-comma = es5
+);
+
+=====================================output=====================================
+$z-indexes: (
+  header: 1035,
+  overlay: 1202, // The comma shoud be printed before the comment when trailing-comma = es5
+);
+
+================================================================================
+`;
+
+exports[`trailing-comma.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+$z-indexes: (
+    header: 1035,
+    overlay: 1202 // The comma shoud be printed before the comment when trailing-comma = es5
+);
+
+=====================================output=====================================
+$z-indexes: (
+  header: 1035,
+  overlay: 1202 // The comma shoud be printed before the comment when trailing-comma = es5
+);
 
 ================================================================================
 `;

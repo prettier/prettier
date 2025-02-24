@@ -24,11 +24,11 @@ exports[`outside-functions.js [flow] format 1`] = `
 `;
 
 exports[`outside-functions.js [meriyah] format 1`] = `
-"new.target only allowed within functions (1:20)
+"new.target only allowed within functions or static blocks (1:15)
 > 1 | const x = new.target;
-    |                    ^
+    |               ^^^^^^
   2 |
-Cause: [1:20]: new.target only allowed within functions"
+Cause: [1:14-1:20]: new.target only allowed within functions or static blocks"
 `;
 
 exports[`outside-functions.js format 1`] = `
@@ -69,11 +69,11 @@ exports[`range.js [flow] format 1`] = `
 `;
 
 exports[`range.js [meriyah] format 1`] = `
-"new.target only allowed within functions (2:10)
+"new.target only allowed within functions or static blocks (2:5)
   1 | const x =
 > 2 | new.target;
-    |          ^
-Cause: [2:10]: new.target only allowed within functions"
+    |     ^^^^^^
+Cause: [2:4-2:10]: new.target only allowed within functions or static blocks"
 `;
 
 exports[`range.js format 1`] = `

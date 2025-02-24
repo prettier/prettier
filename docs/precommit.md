@@ -3,6 +3,9 @@ id: precommit
 title: Pre-commit Hook
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
 You can use Prettier with a pre-commit tool. This can re-format your files that are marked as “staged” via `git add` before you commit.
 
 ## Option 1. [lint-staged](https://github.com/okonet/lint-staged)
@@ -53,8 +56,8 @@ Git-format-staged is used to run any formatter that can accept file content via 
 
 Git-format-staged requires Python v3 or v2.7. Python is usually pre-installed on Linux and macOS, but not on Windows. Use git-format-staged with [husky](https://github.com/typicode/husky):
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--npm-->
+<Tabs groupId="package-manager">
+<TabItem value="npm">
 
 ```bash
 npx husky init
@@ -62,7 +65,8 @@ npm install --save-dev git-format-staged
 node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--yarn-->
+</TabItem>
+<TabItem value="yarn">
 
 ```bash
 yarn husky init
@@ -70,7 +74,8 @@ yarn add --dev git-format-staged
 node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--pnpm-->
+</TabItem>
+<TabItem value="pnpm">
 
 ```bash
 pnpm exec husky init
@@ -78,7 +83,8 @@ pnpm add --save-dev git-format-staged
 node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--bun-->
+</TabItem>
+<TabItem value="bun">
 
 ```bash
 bunx husky init
@@ -86,7 +92,8 @@ bun add --dev git-format-staged
 bun --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+</Tabs>
 
 Add or remove file extensions to suit your project. Note that regardless of which extensions you list formatting will respect any `.prettierignore` files in your project.
 

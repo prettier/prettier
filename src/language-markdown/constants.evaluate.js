@@ -14,14 +14,21 @@ const cjkCharset = new Charset(
       "Modifier_Symbol",
       "Nonspacing_Mark",
     ],
-  }),
+    // .union below makes the next Block condition "OR"
+    // If it is merged into this object definition, it will be "AND" instead
+  }).union(
+    // Firefox treats some symbols (U+30A0, U+30FB) in the Katakana block as CJK
+    unicodeRegex({
+      Block: ["Katakana"],
+    }),
+  ),
 );
 const variationSelectorsCharset = unicodeRegex({
   Block: ["Variation_Selectors", "Variation_Selectors_Supplement"],
 });
 
 const CJK_REGEXP = new RegExp(
-  `(?:${cjkCharset.toString()})(?:${variationSelectorsCharset.toString()})?`,
+  `(?:${cjkCharset.toString("u")})(?:${variationSelectorsCharset.toString("u")})?`,
   "u",
 );
 
@@ -74,9 +81,10 @@ const unicodePunctuationClasses = [
 
 const PUNCTUATION_REGEXP = new RegExp(
   `(?:${[
-    new Charset(...asciiPunctuationCharacters).toRegExp().source,
+    new Charset(...asciiPunctuationCharacters).toRegExp("u").source,
     ...unicodePunctuationClasses.map(
       (charset) => `\\p{General_Category=${charset}}`,
+      "\u{ff5e}", // Used as a substitute for U+301C in Windows
     ),
   ].join("|")})`,
   "u",

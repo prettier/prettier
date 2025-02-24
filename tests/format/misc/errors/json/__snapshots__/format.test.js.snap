@@ -280,9 +280,9 @@ exports[`snippet: #11 [json] format 1`] = `
 `;
 
 exports[`snippet: #11 [json] format 2`] = `
-"Unexpected token. (1:28)
+"'CallExpression' is not allowed in JSON. (1:2)
 > 1 | [import('a', {type:'json'})]
-    |                            ^"
+    |  ^^^^^^^^^^^^^^^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #11 [json-stringify] format 1`] = `
@@ -448,9 +448,9 @@ exports[`snippet: #18 [json] format 1`] = `
 `;
 
 exports[`snippet: #18 [json] format 2`] = `
-"Unexpected token. (1:34)
+"'CallExpression' is not allowed in JSON. (1:2)
 > 1 | [import('a', {reflect: 'module'})]
-    |                                  ^"
+    |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #18 [json-stringify] format 1`] = `

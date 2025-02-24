@@ -43,11 +43,6 @@ See the [WebStorm setup guide](webstorm.md).
 
 Install the [JavaScript Prettier extension](https://github.com/madskristensen/JavaScriptPrettier).
 
-## Atom
-
-Atom users can install the [prettier-atom](https://github.com/prettier/prettier-atom) package, or one of the more minimalistic [mprettier](https://github.com/t9md/atom-mprettier) and
-[miniprettier](https://github.com/duailibe/atom-miniprettier) packages.
-
 ## Espresso
 
 Espresso users can install the [espresso-prettier](https://github.com/eablokker/espresso-prettier) plugin.

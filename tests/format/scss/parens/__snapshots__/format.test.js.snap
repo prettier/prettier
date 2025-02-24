@@ -29,8 +29,8 @@ $icons: (
     top: 73,
   ),
 
-  /* Should preserve empty lines */ cal-week-group:
-    (
+  /* Should preserve empty lines */
+  cal-week-group: (
       left: 1,
       top: 169,
     ),
@@ -52,8 +52,7 @@ printWidth: 80
 =====================================output=====================================
 @if true {
   $newKey: (
-    $key:
-      (
+    $key: (
         $theme-name: $value,
       ),
   );
@@ -466,14 +465,14 @@ a {
   prop22: 2 / @width 2 / @width 2 / @width 2 / @width;
   prop23: (@width / 2) (@width / 2) (@width / 2) (@width / 2);
   prop24: (2 / @width) (2 / @width) (2 / @width) (2 / @width);
-  prop25-1: #{$width}/#{$width} #{$width} /#{$width} #{$width}/ #{$width} #{$width} /
-    #{$width};
-  prop25-2: #{$width}*#{$width} #{$width} *#{$width} #{$width}* #{$width} #{$width} *
-    #{$width};
-  prop25-3: #{$width}+#{$width} #{$width} +#{$width} #{$width}+ #{$width} #{$width} +
-    #{$width};
-  prop25-4: #{$width}-#{$width} #{$width} -#{$width} #{$width}- #{$width} #{$width} -
-    #{$width};
+  prop25-1: #{$width}/#{$width} #{$width} /#{$width} #{$width}/ #{$width}
+    #{$width} / #{$width};
+  prop25-2: #{$width}*#{$width} #{$width} *#{$width} #{$width}* #{$width}
+    #{$width} * #{$width};
+  prop25-3: #{$width}+#{$width} #{$width} +#{$width} #{$width}+ #{$width}
+    #{$width} + #{$width};
+  prop25-4: #{$width}-#{$width} #{$width} -#{$width} #{$width}- #{$width}
+    #{$width} - #{$width};
   prop26: 8px/2px 8px /1 1/ 2px 1 / 2;
   prop27: 8px/2px 8px/1 1/2px 1/2;
   prop28: 8px / 2px 8px / 1 1 / 2px 1 / 2;

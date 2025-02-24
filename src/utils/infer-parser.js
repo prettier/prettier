@@ -1,5 +1,7 @@
 import getInterpreter from "./get-interpreter.js";
 
+/** @import {Options} from "../index.js" */
+
 // Didn't use `path.basename` since this module need work in browsers too
 // And `file` can be a `URL`
 const getFileBasename = (file) => String(file).split(/[/\\]/u).pop();
@@ -54,7 +56,7 @@ function getLanguageByInterpreter(languages, file) {
 }
 
 /**
- * @param {import("../index.js").Options} options
+ * @param {Options} options
  * @param {{physicalFile?: string | URL, file?: string | URL, language?: string}} fileInfo
  * @returns {string | void} matched parser name if found
  */

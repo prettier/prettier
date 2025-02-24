@@ -1,7 +1,6 @@
 ---
-id: version-stable-cli
+id: cli
 title: CLI
-original_id: cli
 ---
 
 Use the `prettier` command to run Prettier from the command line.
@@ -10,7 +9,11 @@ Use the `prettier` command to run Prettier from the command line.
 prettier [options] [file/dir/glob ...]
 ```
 
-> To run your locally installed version of Prettier, prefix the command with `npx` or `yarn` (if you use Yarn), i.e. `npx prettier --help`, or `yarn prettier --help`.
+:::note
+
+To run your locally installed version of Prettier, prefix the command with `npx` or `yarn` (if you use Yarn), i.e. `npx prettier --help`, or `yarn prettier --help`.
+
+:::
 
 To format a file in-place, use `--write`. (Note: This overwrites your files!)
 
@@ -30,9 +33,17 @@ A more complicated example:
 prettier docs package.json "{app,__{tests,mocks}__}/**/*.js" --write --single-quote --trailing-comma all
 ```
 
-> Don’t forget the **quotes** around the globs! The quotes make sure that Prettier CLI expands the globs rather than your shell, which is important for cross-platform usage.
+:::warning
 
-> It’s better to use a [configuration file](configuration.md) for formatting options like `--single-quote` and `--trailing-comma` instead of passing them as CLI flags. This way the Prettier CLI, [editor integrations](editors.md), and other tooling can all know what options you use.
+Don’t forget the **quotes** around the globs! The quotes make sure that Prettier CLI expands the globs rather than your shell, which is important for cross-platform usage.
+
+:::
+
+:::note
+
+It’s better to use a [configuration file](configuration.md) for formatting options like `--single-quote` and `--trailing-comma` instead of passing them as CLI flags. This way the Prettier CLI, [editor integrations](editors.md), and other tooling can all know what options you use.
+
+:::
 
 ## File patterns
 
@@ -223,7 +234,11 @@ Running Prettier without `--cache` will delete the cache.
 
 Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettier-cache`, so you can use `rm ./node_modules/.cache/prettier/.prettier-cache` to remove it manually.
 
-> Plugins version and implementation are not used as cache keys. We recommend that you delete the cache when updating plugins.
+:::warning
+
+Plugins version and implementation are not used as cache keys. We recommend that you delete the cache when updating plugins.
+
+:::
 
 ## `--cache-location`
 

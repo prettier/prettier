@@ -445,7 +445,7 @@ describe("--cache option", () => {
       );
     });
 
-    it("doesn't re-format when timestamp has been updated", async () => {
+    it("re-format when timestamp has been updated", async () => {
       const cliArguments = [
         "--cache",
         "--cache-strategy",
@@ -474,7 +474,7 @@ describe("--cache option", () => {
       );
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/u),
           expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
         ]),
       );

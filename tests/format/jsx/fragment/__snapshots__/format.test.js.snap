@@ -1,17 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fragment.js [meriyah] format 1`] = `
-"Unexpected token: '>' (38:21)
-  36 | );
-  37 |
-> 38 | </* open fragment */>
-     |                     ^
-  39 |   <Component />
-  40 |   <Component />
-  41 | </ /* close fragment */>;
-Cause: [38:21]: Unexpected token: '>'"
-`;
-
 exports[`fragment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]

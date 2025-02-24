@@ -1,5 +1,4 @@
 import assert from "node:assert";
-
 import { getChildren } from "../../utils/ast-utils.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
@@ -11,7 +10,7 @@ import {
 } from "./utils.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 const childNodesCache = new WeakMap();

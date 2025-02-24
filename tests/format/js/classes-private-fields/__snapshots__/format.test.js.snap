@@ -20,16 +20,6 @@ exports[`optional-chaining.js [espree] format 1`] = `
 Cause: Private field '#x' must be declared in an enclosing class"
 `;
 
-exports[`optional-chaining.js [meriyah] format 1`] = `
-"Dot property must be an identifier (3:13)
-  1 | // https://github.com/babel/babel/pull/11669
-  2 |
-> 3 | delete obj?.#x.a
-    |             ^
-  4 |
-Cause: [3:13]: Dot property must be an identifier"
-`;
-
 exports[`optional-chaining.js - {"semi":false} [acorn] format 1`] = `
 "Private field '#x' must be declared in an enclosing class (3:13)
   1 | // https://github.com/babel/babel/pull/11669
@@ -48,16 +38,6 @@ exports[`optional-chaining.js - {"semi":false} [espree] format 1`] = `
     |             ^
   4 |
 Cause: Private field '#x' must be declared in an enclosing class"
-`;
-
-exports[`optional-chaining.js - {"semi":false} [meriyah] format 1`] = `
-"Dot property must be an identifier (3:13)
-  1 | // https://github.com/babel/babel/pull/11669
-  2 |
-> 3 | delete obj?.#x.a
-    |             ^
-  4 |
-Cause: [3:13]: Dot property must be an identifier"
 `;
 
 exports[`optional-chaining.js - {"semi":false} format 1`] = `

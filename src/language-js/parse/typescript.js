@@ -1,12 +1,14 @@
 import { parse as parseTypeScript } from "@typescript-eslint/typescript-estree";
-
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
+import getSourceType from "./utils/get-source-type.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 
-/** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
+/** @import {TSESTreeOptions} from "@typescript-eslint/typescript-estree" */
+
+/** @type {TSESTreeOptions} */
 const baseParseOptions = {
   // `jest@<=26.4.2` rely on `loc`
   // https://github.com/facebook/jest/issues/10444
@@ -49,18 +51,34 @@ const isKnownFileType = (filepath) =>
 
 function getParseOptionsCombinations(text, options) {
   const filepath = options?.filepath;
+
+  let combinations = [{ ...baseParseOptions, filePath: filepath }];
+
+  const sourceType = getSourceType(options);
+  if (sourceType) {
+    combinations = combinations.map((parseOptions) => ({
+      ...parseOptions,
+      sourceType,
+    }));
+  } else {
+    /** @type {("module" | "script") []} */
+    const sourceTypes = ["module", "script"];
+    combinations = sourceTypes.flatMap((sourceType) =>
+      combinations.map((parseOptions) => ({ ...parseOptions, sourceType })),
+    );
+  }
+
   if (filepath && isKnownFileType(filepath)) {
-    return [{ ...baseParseOptions, filePath: filepath }];
+    return combinations;
   }
 
   const shouldEnableJsx = isProbablyJsx(text);
-  return [
-    { ...baseParseOptions, jsx: shouldEnableJsx },
-    { ...baseParseOptions, jsx: !shouldEnableJsx },
-  ];
+  return [shouldEnableJsx, !shouldEnableJsx].flatMap((jsx) =>
+    combinations.map((parseOptions) => ({ ...parseOptions, jsx })),
+  );
 }
 
-function parse(text, options) {
+function parse(text, options = {}) {
   const textToParse = replaceHashbang(text);
   const parseOptionsCombinations = getParseOptionsCombinations(text, options);
 

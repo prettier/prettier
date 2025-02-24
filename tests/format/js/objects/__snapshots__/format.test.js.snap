@@ -1,15 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bigint-key.js [typescript] format 1`] = `
-"Property assignment expected. (1:6)
-> 1 | a = {1n: ""}
-    |      ^
-  2 | a = {1n() {}}
-  3 | a = {get 1n() {}}
-  4 |
-Cause: Property assignment expected."
-`;
-
 exports[`bigint-key.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
@@ -124,7 +114,7 @@ exports[`expression.js [meriyah] format 1`] = `
   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
   7 | ({}(), 0);
   8 | ({} = 0);
-Cause: [5:4]: Expected ')'"
+Cause: [5:3-5:4]: Expected ')'"
 `;
 
 exports[`expression.js [typescript] format 1`] = `

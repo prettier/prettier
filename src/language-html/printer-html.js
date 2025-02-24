@@ -1,5 +1,5 @@
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
 import { fill, group, hardline, indent, line } from "../document/builders.js";
@@ -92,6 +92,7 @@ function genericPrint(path, options, print) {
 
       const prefix = printOpeningTagPrefix(node, options);
       const printed = getTextValueParts(node);
+
       const suffix = printClosingTagSuffix(node, options);
       // We cant use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
       printed[0] = [prefix, printed[0]];

@@ -1,13 +1,14 @@
 import { Parser as AcornParser } from "acorn";
 import acornJsx from "acorn-jsx";
-
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import getSourceType from "./utils/get-source-type.js";
 
-/** @type {import("acorn").Options} */
+/** @import {Options} from "acorn" */
+
+/** @type {Options} */
 const parseOptions = {
   ecmaVersion: "latest",
   // sourceType: "module",

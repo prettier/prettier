@@ -1,5 +1,4 @@
 import fs from "node:fs";
-
 import { prettierCli } from "../env.js";
 
 describe("CLI", () => {

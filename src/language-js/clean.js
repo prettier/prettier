@@ -46,13 +46,6 @@ function clean(original, cloned, parent) {
     cloned.bigint = original.bigint.toLowerCase();
   }
 
-  if (original.type === "DecimalLiteral") {
-    cloned.value = Number(original.value);
-  }
-  if (original.type === "Literal" && cloned.decimal) {
-    cloned.decimal = Number(original.decimal);
-  }
-
   // We remove extra `;` and add them when needed
   if (original.type === "EmptyStatement") {
     return null;

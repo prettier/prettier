@@ -13,8 +13,8 @@ import { isNextLineEmpty, shouldPrintComma } from "../utils/index.js";
 import { printDeclareToken } from "./misc.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 /*

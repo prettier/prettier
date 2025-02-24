@@ -1,13 +1,5 @@
-const errors = {
-  acorn: ["quoted-keys.js"],
-  espree: ["quoted-keys.js"],
-};
-runFormatTest(import.meta, ["babel", "typescript"], { errors });
+runFormatTest(import.meta, ["babel", "typescript"]);
 runFormatTest(import.meta, ["babel", "typescript"], {
   quoteProps: "consistent",
-  errors,
 });
-runFormatTest(import.meta, ["babel", "typescript"], {
-  quoteProps: "preserve",
-  errors,
-});
+runFormatTest(import.meta, ["babel", "typescript"], { quoteProps: "preserve" });

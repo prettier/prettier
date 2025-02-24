@@ -74,8 +74,8 @@ import { printTernary } from "./ternary.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 /**
@@ -229,8 +229,6 @@ function printEstree(path, options, print, args) {
       return printModuleSpecifier(path, options, print);
     case "ImportAttribute":
       return printProperty(path, options, print);
-    case "Import":
-      return "import";
 
     case "Program":
     case "BlockStatement":

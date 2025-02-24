@@ -25,7 +25,7 @@ import {
 import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
-/** @typedef {import("../../document/builders.js").Doc} Doc */
+/** @import {Doc} from "../../document/builders.js" */
 
 function printEmptyArrayElements(path, options, openBracket, closeBracket) {
   const { node } = path;

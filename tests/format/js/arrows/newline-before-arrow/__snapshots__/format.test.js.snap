@@ -19,12 +19,12 @@ Cause: Unexpected token =>"
 `;
 
 exports[`newline-before-arrow.js [meriyah] format 1`] = `
-"No line break is allowed after '=>' (2:2)
+"No line break is allowed after '=>' (2:1)
   1 | async x
 > 2 | => x
-    |  ^
+    | ^^
   3 |
-Cause: [2:2]: No line break is allowed after '=>'"
+Cause: [2:0-2:2]: No line break is allowed after '=>'"
 `;
 
 exports[`newline-before-arrow.js format 1`] = `

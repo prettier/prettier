@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { Button, ClipboardButton } from "./buttons.js";
 import getCodeSample from "./codeSamples.mjs";
 import generateDummyId from "./dummyId.js";
@@ -37,6 +36,7 @@ const ENABLED_OPTIONS = [
   "singleQuote",
   "bracketSpacing",
   "jsxSingleQuote",
+  "objectWrap",
   "quoteProps",
   "arrowParens",
   "trailingComma",
@@ -49,6 +49,7 @@ const ENABLED_OPTIONS = [
   "bracketSameLine",
   "singleAttributePerLine",
   "experimentalTernaries",
+  "experimentalOperatorPosition",
 ];
 
 class Playground extends React.Component {

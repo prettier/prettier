@@ -27,7 +27,7 @@ exports[`after_export.js [meriyah] format 1`] = `
   2 |
   3 | export default @decorator class {}
   4 |
-Cause: [1:8]: Unexpected token: '@'"
+Cause: [1:7-1:8]: Unexpected token: '@'"
 `;
 
 exports[`after_export.js format 1`] = `

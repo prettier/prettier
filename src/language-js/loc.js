@@ -1,5 +1,5 @@
 /**
- * @typedef {import("./types/estree.js").Node} Node
+ * @import {Node} from "./types/estree.js"
  */
 
 function locStart(node) {

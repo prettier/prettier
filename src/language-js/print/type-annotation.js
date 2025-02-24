@@ -32,7 +32,7 @@ import {
 } from "./misc.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 const isVoidType = createTypeCheckFunction([
@@ -142,6 +142,9 @@ function printIntersectionType(path, options, print) {
 
       // If no object is involved, go to the next line if it breaks
       if (!previousIsObjectType && !currentIsObjectType) {
+        if (options.experimentalOperatorPosition === "start") {
+          return indent([line, "& ", doc]);
+        }
         return indent([" &", line, doc]);
       }
 

@@ -27,7 +27,7 @@ exports[`comments.js [meriyah] format 1`] = `
   2 |   /*A4*/
   3 |   export const foo = "foo";
   4 |   export { foo }; /*A5*/
-Cause: [1:32]: Unexpected token: '{'"
+Cause: [1:31-1:32]: Unexpected token: '{'"
 `;
 
 exports[`comments.js format 1`] = `
@@ -90,7 +90,7 @@ exports[`module-blocks.js [meriyah] format 1`] = `
   2 |
   3 | class B {
   4 |   #p() {
-Cause: [1:8]: Unexpected token: '{'"
+Cause: [1:7-1:8]: Unexpected token: '{'"
 `;
 
 exports[`module-blocks.js format 1`] = `
@@ -237,7 +237,7 @@ exports[`range.js [meriyah] format 1`] = `
   2 | };
   3 |
   4 | foo(module { export let foo = "foo"; })
-Cause: [1:26]: Unexpected token: '{'"
+Cause: [1:25-1:26]: Unexpected token: '{'"
 `;
 
 exports[`range.js format 1`] = `
@@ -296,7 +296,7 @@ exports[`worker.js [meriyah] format 1`] = `
   2 |   onmessage = function({data}) {
   3 |     let mod = import(data);
   4 |     postMessage(mod.fn());
-Cause: [1:32]: Expected ')'"
+Cause: [1:31-1:32]: Expected ')'"
 `;
 
 exports[`worker.js format 1`] = `

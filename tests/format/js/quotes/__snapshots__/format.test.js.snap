@@ -234,8 +234,8 @@ singleQuote: true
 ("'");
 
 // Unnecessary escapes.
-("'");
-('"');
+("\\'");
+('\\"');
 ('\\a');
 ('\\a');
 ('hol\\a');
@@ -270,7 +270,7 @@ singleQuote: true
 
 // One of each with unnecessary escapes.
 ('"\\'');
-('"\\'');
+('\\"\\'');
 
 // More double quotes than single quotes.
 ('"\\'"');
@@ -289,8 +289,8 @@ singleQuote: true
 ('\\\\');
 
 // Backslases.
-("\\"\\\\\\"\\\\\\\\\\" ''\\\\'\\\\'\\\\\\\\'");
-('\\'\\\\\\'\\\\\\\\\\' ""\\\\"\\\\"\\\\\\\\"');
+("\\"\\\\\\"\\\\\\\\\\" '\\'\\\\'\\\\\\'\\\\\\\\'");
+('\\'\\\\\\'\\\\\\\\\\' "\\"\\\\"\\\\\\"\\\\\\\\"');
 
 // Somewhat more real-word example.
 ("He's sayin': \\"How's it goin'?\\" Don't ask me why.");
@@ -446,8 +446,8 @@ printWidth: 80
 ("'");
 
 // Unnecessary escapes.
-("'");
-('"');
+("\\'");
+('\\"');
 ("\\a");
 ("\\a");
 ("hol\\a");
@@ -481,7 +481,7 @@ printWidth: 80
 ("\\"'");
 
 // One of each with unnecessary escapes.
-("\\"'");
+("\\"\\'");
 ("\\"'");
 
 // More double quotes than single quotes.
@@ -501,8 +501,8 @@ printWidth: 80
 ("\\\\");
 
 // Backslases.
-("\\"\\\\\\"\\\\\\\\\\" ''\\\\'\\\\'\\\\\\\\'");
-('\\'\\\\\\'\\\\\\\\\\' ""\\\\"\\\\"\\\\\\\\"');
+("\\"\\\\\\"\\\\\\\\\\" '\\'\\\\'\\\\\\'\\\\\\\\'");
+('\\'\\\\\\'\\\\\\\\\\' "\\"\\\\"\\\\\\"\\\\\\\\"');
 
 // Somewhat more real-word example.
 ("He's sayin': \\"How's it goin'?\\" Don't ask me why.");

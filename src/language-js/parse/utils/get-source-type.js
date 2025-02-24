@@ -6,11 +6,11 @@ function getSourceType(options) {
   }
   filepath = filepath.toLowerCase();
 
-  if (filepath.endsWith(".cjs")) {
+  if (filepath.endsWith(".cjs") || filepath.endsWith(".cts")) {
     return "script";
   }
 
-  if (filepath.endsWith(".mjs")) {
+  if (filepath.endsWith(".mjs") || filepath.endsWith(".mts")) {
     return "module";
   }
 }

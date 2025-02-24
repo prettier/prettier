@@ -321,6 +321,51 @@ void (
 ================================================================================
 `;
 
+exports[`16398.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+if (foo) a = b;
+/* foo */ else foo.split;
+
+if (foo) a = b;
+else /* foo */ foo.split;
+
+=====================================output=====================================
+if (foo) a = b
+/* foo */ else foo.split
+
+if (foo) a = b
+else /* foo */ foo.split
+
+================================================================================
+`;
+
+exports[`16398.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (foo) a = b;
+/* foo */ else foo.split;
+
+if (foo) a = b;
+else /* foo */ foo.split;
+
+=====================================output=====================================
+if (foo) a = b;
+/* foo */ else foo.split;
+
+if (foo) a = b;
+else /* foo */ foo.split;
+
+================================================================================
+`;
+
 exports[`arrow.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -6463,7 +6508,7 @@ exports[`tuple-and-record.js [meriyah] format 1`] = `
    8 |   key: 'value'
    9 | }
   10 |
-Cause: [7:1]: '#' not followed by identifier"
+Cause: [7:0-7:1]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js [typescript] format 1`] = `
@@ -6522,7 +6567,7 @@ exports[`tuple-and-record.js - {"semi":false} [meriyah] format 1`] = `
    8 |   key: 'value'
    9 | }
   10 |
-Cause: [7:1]: '#' not followed by identifier"
+Cause: [7:0-7:1]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js - {"semi":false} [typescript] format 1`] = `

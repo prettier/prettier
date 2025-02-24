@@ -9,42 +9,45 @@
   prConcurrentLimit: 0,
   packageRules: [
     {
-      matchDepNames: ["react", "react-dom"],
       groupName: "react",
+      matchPackageNames: ["react", "react-dom"],
     },
     {
-      matchPackagePrefixes: ["@babel/"],
       groupName: "babel",
+      matchPackageNames: ["@babel/*"],
     },
     {
-      matchPackagePrefixes: ["@typescript-eslint/"],
       groupName: "typescript-eslint",
+      matchPackageNames: ["@typescript-eslint/*"],
     },
     {
-      matchPackagePrefixes: ["@glimmer/"],
       groupName: "glimmer",
+      matchPackageNames: ["@glimmer/*"],
     },
     {
-      matchDepNames: [
+      groupName: "flow-parser",
+      matchPackageNames: ["flow-parser", "hermes-parser"],
+    },
+    {
+      groupName: "ESLint related dependencies",
+      matchPackageNames: [
         "eslint",
-        "@eslint/compat",
-        "@eslint/eslintrc",
-        "@eslint/js",
+        "@eslint/*",
         "@stylistic/eslint-plugin-js",
         "eslint-config-prettier",
-        "eslint-plugin-import",
+        "eslint-plugin-compat",
         "eslint-plugin-jest",
         "eslint-plugin-n",
         "eslint-plugin-react",
         "eslint-plugin-regexp",
         "eslint-plugin-simple-import-sort",
         "eslint-plugin-unicorn",
+        "globals",
       ],
-      groupName: "ESLint related dependencies",
     },
     {
-      matchDepNames: ["@angular/compiler", "angular-estree-parser"],
       groupName: "Angular Estree",
+      matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
     },
     {
       branchPrefix: "renovate/website/",
@@ -61,8 +64,18 @@
       labels: ["dependency:tools"],
     },
     {
-      matchManagers: ["github-actions"],
       groupName: "GitHub Actions",
+      matchManagers: ["github-actions"],
+    },
+    // Forbid codemirror@6.65.7
+    // https://github.com/prettier/prettier/pull/13171#issuecomment-1258427561
+    {
+      matchPackageNames: ["codemirror"],
+      allowedVersions: "!/^6\\.65\\.7$/",
+    },
+    {
+      matchPackageNames: ["react", "react-dom"],
+      allowedVersions: "^18.0.0",
     },
   ],
   ignoreDeps: [

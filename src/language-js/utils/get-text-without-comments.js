@@ -1,5 +1,4 @@
 import assert from "node:assert";
-
 import { locEnd, locStart } from "../loc.js";
 
 function getTextWithoutComments(options, start, end) {
@@ -25,7 +24,7 @@ function getTextWithoutComments(options, start, end) {
   }
 
   if (process.env.NODE_ENV !== "production") {
-    assert(text.length === end - start);
+    assert.ok(text.length === end - start);
   }
 
   return text;

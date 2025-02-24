@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import fs from "node:fs/promises";
-
 import { execa } from "execa";
 
 const CSPELL_CONFIG_FILE = new URL("../cspell.json", import.meta.url);

@@ -21,7 +21,7 @@ exports[`example.js [meriyah] format 1`] = `
 > 1 | super();
     |      ^
   2 |
-Cause: [1:6]: Calls to super must be in the "constructor" method of a class expression or class declaration that has a superclass"
+Cause: [1:5-1:6]: Calls to super must be in the "constructor" method of a class expression or class declaration that has a superclass"
 `;
 
 exports[`example.js format 1`] = `

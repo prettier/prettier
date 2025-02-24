@@ -1,5 +1,103 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comment.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+$map: (
+  /* comment */
+  key1: value,
+
+  // comment
+  key2: value,
+
+  /* comment */ /* comment */
+  key3: value,
+
+  /* comment */
+  key4: (
+    key: value,
+    key: value,
+    key: value,
+    key: value,
+    key: value,
+  ),
+);
+
+=====================================output=====================================
+$map: (
+  /* comment */ key1: value,
+
+  // comment
+  key2: value,
+
+  /* comment */ /* comment */ key3: value,
+
+  /* comment */
+  key4: (
+      key: value,
+      key: value,
+      key: value,
+      key: value,
+      key: value,
+    )
+);
+
+================================================================================
+`;
+
+exports[`comment.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+$map: (
+  /* comment */
+  key1: value,
+
+  // comment
+  key2: value,
+
+  /* comment */ /* comment */
+  key3: value,
+
+  /* comment */
+  key4: (
+    key: value,
+    key: value,
+    key: value,
+    key: value,
+    key: value,
+  ),
+);
+
+=====================================output=====================================
+$map: (
+  /* comment */ key1: value,
+
+  // comment
+  key2: value,
+
+  /* comment */ /* comment */ key3: value,
+
+  /* comment */
+  key4: (
+      key: value,
+      key: value,
+      key: value,
+      key: value,
+      key: value
+    )
+);
+
+================================================================================
+`;
+
 exports[`key-values.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
@@ -28,8 +126,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value",
-  ):
-    (
+  ): (
       "key": "value",
     ),
   (
@@ -38,8 +135,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value",
-  ):
-    (
+  ): (
       "list",
     ),
   (
@@ -53,8 +149,7 @@ $map: (
     "list",
     "list",
     "list",
-  ):
-    (
+  ): (
       "list",
     ),
   (
@@ -68,8 +163,7 @@ $map: (
     "list",
     "list",
     "list",
-  ):
-    (
+  ): (
       "key": "value",
     ),
   (
@@ -78,8 +172,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value",
-  ):
-    1,
+  ): 1,
 );
 
 ================================================================================
@@ -113,8 +206,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value"
-  ):
-    (
+  ): (
       "key": "value"
     ),
   (
@@ -123,8 +215,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value"
-  ):
-    (
+  ): (
       "list"
     ),
   (
@@ -138,8 +229,7 @@ $map: (
     "list",
     "list",
     "list"
-  ):
-    (
+  ): (
       "list"
     ),
   (
@@ -153,8 +243,7 @@ $map: (
     "list",
     "list",
     "list"
-  ):
-    (
+  ): (
       "key": "value"
     ),
   (
@@ -163,8 +252,7 @@ $map: (
     "key": "value",
     "key": "value",
     "key": "value"
-  ):
-    1
+  ): 1
 );
 
 ================================================================================
@@ -198,14 +286,12 @@ $map: (
   (
     "list",
     "long long long long long long long long long long long long long list",
-  ):
-    "hello world",
+  ): "hello world",
   (
     "key": "value",
     "long long long long long long long long long long long long long map":
       "value",
-  ):
-    "hello world",
+  ): "hello world",
 );
 
 // #10000
@@ -244,14 +330,12 @@ $map: (
   (
     "list",
     "long long long long long long long long long long long long long list"
-  ):
-    "hello world",
+  ): "hello world",
   (
     "key": "value",
     "long long long long long long long long long long long long long map":
       "value"
-  ):
-    "hello world"
+  ): "hello world"
 );
 
 // #10000

@@ -11,6 +11,9 @@ const NON_ENUMERABLE_PROPERTIES = new Set(["parent"]);
 // https://github.com/microsoft/TypeScript/issues/26811
 
 class Node {
+  type;
+  parent;
+
   constructor(nodeOrProperties = {}) {
     for (const property of new Set([
       ...NON_ENUMERABLE_PROPERTIES,
@@ -51,7 +54,6 @@ class Node {
         const mappedNodes = mapNodesIfChanged(nodes, (node) => node.map(fn));
         if (newNode !== nodes) {
           if (!newNode) {
-            // @ts-expect-error
             newNode = new Node({ parent: this.parent });
           }
           newNode.setProperty(NODES_KEY, mappedNodes);
@@ -96,21 +98,16 @@ class Node {
    * @param {Object} [node]
    */
   insertChildBefore(target, node) {
-    // @ts-expect-error
-    this.children.splice(
-      // @ts-expect-error
-      this.children.indexOf(target),
-      0,
-      this.createChild(node),
-    );
+    const children = this.$children;
+    children.splice(children.indexOf(target), 0, this.createChild(node));
   }
 
   /**
    * @param {Node} [child]
    */
   removeChild(child) {
-    // @ts-expect-error
-    this.children.splice(this.children.indexOf(child), 1);
+    const children = this.$children;
+    children.splice(children.indexOf(child), 1);
   }
 
   /**
@@ -118,32 +115,57 @@ class Node {
    * @param {Object} [node]
    */
   replaceChild(target, node) {
-    // @ts-expect-error
-    this.children[this.children.indexOf(target)] = this.createChild(node);
+    const children = this.$children;
+    children[children.indexOf(target)] = this.createChild(node);
   }
 
   clone() {
     return new Node(this);
   }
 
+  get #childrenProperty() {
+    if (this.type === "angularIcuCase") {
+      return "expression";
+    }
+
+    if (this.type === "angularIcuExpression") {
+      return "cases";
+    }
+
+    return "children";
+  }
+
+  // Use `$` prefix since `children` already exits in the original AST,
+  // Can't use `#children` either, since it need be public
+  // There are other children in different Node, see `#childrenProperty`
+  get $children() {
+    return this[this.#childrenProperty];
+  }
+
+  set $children(value) {
+    this[this.#childrenProperty] = value;
+  }
+
   get firstChild() {
-    // @ts-expect-error
-    return this.children?.[0];
+    return this.$children?.[0];
   }
 
   get lastChild() {
-    // @ts-expect-error
-    return this.children?.[this.children.length - 1];
+    return this.$children?.at(-1);
+  }
+
+  get #siblings() {
+    return this.parent?.$children ?? [];
   }
 
   get prev() {
-    // @ts-expect-error
-    return this.parent?.children?.[this.parent.children.indexOf(this) - 1];
+    const siblings = this.#siblings;
+    return siblings[siblings.indexOf(this) - 1];
   }
 
   get next() {
-    // @ts-expect-error
-    return this.parent?.children?.[this.parent.children.indexOf(this) + 1];
+    const siblings = this.#siblings;
+    return siblings[siblings.indexOf(this) + 1];
   }
 
   // for element and attribute

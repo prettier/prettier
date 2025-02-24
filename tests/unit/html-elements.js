@@ -1,5 +1,4 @@
 import { htmlTagNames } from "html-tag-names";
-
 import {
   CSS_DISPLAY_DEFAULT,
   CSS_DISPLAY_TAGS,

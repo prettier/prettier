@@ -1,5 +1,4 @@
 import flowParser from "flow-parser";
-
 import createError from "../../common/parser-create-error.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";

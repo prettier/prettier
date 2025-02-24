@@ -79,7 +79,7 @@ exports[`snippet: #0 [meriyah] format 1`] = `
 "Identifier "let" disallowed as left-hand side expression in strict mode (1:9)
 > 1 | for (let.foo of []);
     |         ^
-Cause: [1:9]: Identifier "let" disallowed as left-hand side expression in strict mode"
+Cause: [1:8-1:9]: Identifier "let" disallowed as left-hand side expression in strict mode"
 `;
 
 exports[`snippet: #0 [typescript] format 1`] = `
@@ -127,7 +127,7 @@ exports[`snippet: #1 [meriyah] format 1`] = `
 "Identifier "let" disallowed as left-hand side expression in strict mode (1:9)
 > 1 | for (let().bar of []);
     |         ^
-Cause: [1:9]: Identifier "let" disallowed as left-hand side expression in strict mode"
+Cause: [1:8-1:9]: Identifier "let" disallowed as left-hand side expression in strict mode"
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
@@ -172,10 +172,10 @@ exports[`snippet: #2 [flow] format 1`] = `
 `;
 
 exports[`snippet: #2 [meriyah] format 1`] = `
-"Identifier "let" disallowed as left-hand side expression in strict mode (1:10)
+"Identifier "let" disallowed as left-hand side expression in strict mode (1:9)
 > 1 | for (let\`\`.bar of []);
-    |          ^
-Cause: [1:10]: Identifier "let" disallowed as left-hand side expression in strict mode"
+    |         ^^
+Cause: [1:8-1:10]: Identifier "let" disallowed as left-hand side expression in strict mode"
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `

@@ -83,17 +83,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`in-end-tag.js - {"bracketSameLine":true} [meriyah] format 1`] = `
-"Expected '>' (2:11)
-  1 | /* =========== before slash =========== */
-> 2 | <a><// line
-    |           ^
-  3 | /a>;
-  4 | <a></* block */
-  5 | /a>;
-Cause: [2:11]: Expected '>'"
-`;
-
 exports[`in-end-tag.js - {"bracketSameLine":true} [typescript] format 1`] = `
 "Identifier expected. (2:6)
   1 | /* =========== before slash =========== */

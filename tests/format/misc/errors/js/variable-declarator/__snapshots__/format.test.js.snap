@@ -29,5 +29,5 @@ exports[`invalid-const.js [meriyah] format 1`] = `
 > 1 | const foo;
     |          ^
   2 |
-Cause: [1:10]: Missing initializer in const declaration"
+Cause: [1:9-1:10]: Missing initializer in const declaration"
 `;

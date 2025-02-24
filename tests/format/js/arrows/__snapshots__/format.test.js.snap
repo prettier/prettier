@@ -4573,7 +4573,7 @@ exports[`tuple-and-record.js - {"arrowParens":"always"} [meriyah] format 1`] = `
   6 |
   7 | map(() => ([
   8 |   // comment
-Cause: [5:4]: '#' not followed by identifier"
+Cause: [5:3-5:4]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js - {"arrowParens":"always"} [typescript] format 1`] = `
@@ -4690,7 +4690,7 @@ exports[`tuple-and-record.js - {"arrowParens":"avoid"} [meriyah] format 1`] = `
   6 |
   7 | map(() => ([
   8 |   // comment
-Cause: [5:4]: '#' not followed by identifier"
+Cause: [5:3-5:4]: '#' not followed by identifier"
 `;
 
 exports[`tuple-and-record.js - {"arrowParens":"avoid"} [typescript] format 1`] = `

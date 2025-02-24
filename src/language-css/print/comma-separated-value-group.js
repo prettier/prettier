@@ -6,6 +6,7 @@ import {
   hardline,
   indent,
   line,
+  lineSuffix,
   softline,
 } from "../../document/builders.js";
 import { locEnd, locStart } from "../loc.js";
@@ -38,6 +39,10 @@ import {
   isWordNode,
 } from "../utils/index.js";
 
+/**
+ * @import {Doc} from "../../document/builders.js"
+ */
+
 function printCommaSeparatedValueGroup(path, options, print) {
   const { node } = path;
   const parentNode = path.parent;
@@ -59,25 +64,57 @@ function printCommaSeparatedValueGroup(path, options, print) {
   );
 
   const printed = path.map(print, "groups");
-  const parts = [];
+  /*
+   * We assume parts always meet following conditions:
+   * - parts.length is odd
+   * - odd (0-indexed) elements are line-like doc
+   * We can achieve this by following way:
+   * - if we push line-like doc, we push empty string after it
+   * - if we push non-line-like doc, push [parts.pop(), doc] instead
+   */
+  /** @type {Doc[]} */
+  let parts = [""];
   const insideURLFunction = insideValueFunctionNode(path, "url");
 
   let insideSCSSInterpolationInString = false;
   let didBreak = false;
 
   for (let i = 0; i < node.groups.length; ++i) {
-    parts.push(printed[i]);
-
     const iPrevNode = node.groups[i - 1];
     const iNode = node.groups[i];
     const iNextNode = node.groups[i + 1];
     const iNextNextNode = node.groups[i + 2];
 
+    // If the node is comment and last node print it in a line suffix
+    if (isInlineValueCommentNode(iNode) && !iNextNode) {
+      // TODO: Improve this part
+      // This `lineSuffix` should be done in `value-comment` print
+      // But since we add `line` to groups in `value-paren_group`,
+      // The format result looks bad for now
+      parts.push([parts.pop(), lineSuffix([" ", printed[i]])]);
+      continue;
+    }
+
+    parts.push([parts.pop(), printed[i]]);
+
     if (insideURLFunction) {
       if ((iNextNode && isAdditionNode(iNextNode)) || isAdditionNode(iNode)) {
-        parts.push(" ");
+        parts.push([parts.pop(), " "]);
       }
       continue;
+    }
+
+    // Align key after comment in SCSS map
+    if (
+      isColonNode(iNextNode) &&
+      iNode.type === "value-word" &&
+      parts.length > 2 &&
+      node.groups
+        .slice(0, i)
+        .every((group) => group.type === "value-comment") &&
+      !isInlineValueCommentNode(iPrevNode)
+    ) {
+      parts[parts.length - 2] = dedent(parts.at(-2));
     }
 
     // Ignore SCSS @forward wildcard suffix
@@ -272,7 +309,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
       iNextNode.type === "value-func" &&
       locEnd(iNode) !== locStart(iNextNode)
     ) {
-      parts.push(" ");
+      parts.push([parts.pop(), " "]);
       continue;
     }
 
@@ -309,10 +346,10 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Add `hardline` after inline comment (i.e. `// comment\n foo: bar;`)
     if (isInlineValueCommentNode(iNode)) {
       if (parentNode.type === "value-paren_group") {
-        parts.push(dedent(hardline));
+        parts.push(dedent(hardline), "");
         continue;
       }
-      parts.push(hardline);
+      parts.push(hardline, "");
       continue;
     }
 
@@ -325,7 +362,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
         isEachKeywordNode(iNode) ||
         isForKeywordNode(iNode))
     ) {
-      parts.push(" ");
+      parts.push([parts.pop(), " "]);
 
       continue;
     }
@@ -335,7 +372,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
       atRuleAncestorNode &&
       atRuleAncestorNode.name.toLowerCase() === "namespace"
     ) {
-      parts.push(" ");
+      parts.push([parts.pop(), " "]);
 
       continue;
     }
@@ -347,11 +384,11 @@ function printCommaSeparatedValueGroup(path, options, print) {
         iNextNode.source &&
         iNode.source.start.line !== iNextNode.source.start.line
       ) {
-        parts.push(hardline);
+        parts.push(hardline, "");
 
         didBreak = true;
       } else {
-        parts.push(" ");
+        parts.push([parts.pop(), " "]);
       }
 
       continue;
@@ -361,7 +398,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Note: `grip` property have `/` delimiter and it is not math operation, so
     // `grid` property handles above
     if (isNextMathOperator) {
-      parts.push(" ");
+      parts.push([parts.pop(), " "]);
 
       continue;
     }
@@ -383,12 +420,12 @@ function printCommaSeparatedValueGroup(path, options, print) {
       isParenGroupNode(iNextNode) &&
       locEnd(iNode) === locStart(iNextNode.open)
     ) {
-      parts.push(softline);
+      parts.push(softline, "");
       continue;
     }
 
     if (iNode.value === "with" && isParenGroupNode(iNextNode)) {
-      parts.push(" ");
+      parts = [[fill(parts), " "]];
       continue;
     }
 
@@ -400,16 +437,22 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // don't print line when the next node is a comment and last node
+    // it will be printed with the comment in a line suffix
+    if (isInlineValueCommentNode(iNextNode) && !iNextNextNode) {
+      continue;
+    }
+
     // Be default all values go through `line`
-    parts.push(line);
+    parts.push(line, "");
   }
 
   if (hasInlineComment) {
-    parts.push(breakParent);
+    parts.push([parts.pop(), breakParent]);
   }
 
   if (didBreak) {
-    parts.unshift(hardline);
+    parts.unshift("", hardline);
   }
 
   if (isControlDirective) {

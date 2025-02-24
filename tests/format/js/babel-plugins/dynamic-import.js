@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import
+// https://babeljs.io/docs/babel-plugin-syntax-dynamic-import
 
 // There is no example code on babel website
 

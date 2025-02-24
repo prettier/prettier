@@ -24,7 +24,7 @@ import { shouldHugTheOnlyFunctionParameter } from "./function-parameters.js";
 import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
-/** @typedef {import("../../document/builders.js").Doc} Doc */
+/** @import {Doc} from "../../document/builders.js" */
 
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
@@ -94,6 +94,7 @@ function printObject(path, options, print) {
             property.value.type === "ArrayPattern"),
       )) ||
     (node.type !== "ObjectPattern" &&
+      options.objectWrap === "preserve" &&
       propsAndLoc.length > 0 &&
       hasNewlineInRange(
         options.originalText,
