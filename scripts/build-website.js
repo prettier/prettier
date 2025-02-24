@@ -3,10 +3,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
-import createEsmUtils from "esm-utils";
+import esbuild from "esbuild";
 import { execa } from "execa";
 import fastGlob from "fast-glob";
-import { format } from "../src/index.js";
+import serialize from "serialize-javascript";
 import {
   copyFile,
   DIST_DIR,
@@ -16,7 +16,6 @@ import {
   writeJson,
 } from "./utils/index.js";
 
-const { require } = createEsmUtils(import.meta);
 const runYarn = (command, args, options) =>
   execa("yarn", [command, ...args], {
     stdout: "inherit",
@@ -68,26 +67,39 @@ async function buildPlaygroundFiles() {
       continue;
     }
 
-    const pluginModule = require(dist);
-    const plugin = pluginModule.default ?? pluginModule;
-    const { parsers = {}, printers = {} } = plugin;
-    packageManifest.builtinPlugins.push({
+    const { default: pluginModule } = await import(url.pathToFileURL(dist));
+
+    const plugin = {
+      name: path.basename(fileName, ".js"),
       file: fileName,
-      parsers: Object.keys(parsers),
-      printers: Object.keys(printers),
-    });
+    };
+
+    for (const property of ["languages", "options", "defaultOptions"]) {
+      const value = pluginModule[property];
+      if (value !== undefined) {
+        plugin[property] = value;
+      }
+    }
+
+    for (const property of ["parsers", "printers"]) {
+      const value = pluginModule[property];
+      if (value !== undefined) {
+        plugin[property] = Object.keys(value);
+      }
+    }
+
+    packageManifest.builtinPlugins.push(plugin);
   }
+
+  const code = /* Indent */ `
+    "use strict";
+
+    self.prettierPackageManifest = ${serialize(packageManifest, { space: 2 })};
+  `;
 
   await writeFile(
     path.join(PLAYGROUND_PRETTIER_DIR, "package-manifest.js"),
-    await format(
-      /* Indent */ `
-        "use strict";
-
-        const prettierPackageManifest = ${JSON.stringify(packageManifest)};
-      `,
-      { parser: "meriyah" },
-    ),
+    esbuild.transformSync(code, { loader: "js", minify: true }).code.trim(),
   );
 }
 
