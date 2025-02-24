@@ -23,13 +23,19 @@ const languages = [
       ...data.extensions.filter(
         (extension) => extension !== ".jsx" && extension !== ".frag",
       ),
+      // https://github.com/github-linguist/linguist/issues/7232#issuecomment-2646876469
       ".start.frag",
       ".end.frag",
       // WeiXin Script (Weixin Mini Programs)
       // https://developers.weixin.qq.com/miniprogram/en/dev/framework/view/wxs/
       ".wxs",
     ],
-    filenames: [...data.filenames, "start.frag", "end.frag"],
+    filenames: [
+      ...data.filenames,
+      // https://github.com/github-linguist/linguist/issues/7232#issuecomment-2646876469
+      "start.frag",
+      "end.frag",
+    ],
   })),
   createLanguage(linguistLanguages.JavaScript, () => ({
     name: "Flow",
