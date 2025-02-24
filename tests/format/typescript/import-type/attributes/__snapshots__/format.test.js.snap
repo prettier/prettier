@@ -2,7 +2,7 @@
 
 exports[`import-type-attributes.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

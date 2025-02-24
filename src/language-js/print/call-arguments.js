@@ -41,7 +41,6 @@ function printCallArguments(path, options, print) {
   const { node } = path;
 
   const args = getCallArguments(node);
-
   if (args.length === 0) {
     return ["(", printDanglingComments(path, options), ")"];
   }
