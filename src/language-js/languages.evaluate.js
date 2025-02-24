@@ -20,7 +20,9 @@ const languages = [
       "zx",
     ],
     extensions: [
-      ...data.extensions.filter((extension) => extension !== ".jsx"),
+      ...data.extensions.filter(
+        (extension) => extension !== ".jsx" && extension !== ".frag",
+      ),
       // WeiXin Script (Weixin Mini Programs)
       // https://developers.weixin.qq.com/miniprogram/en/dev/framework/view/wxs/
       ".wxs",
