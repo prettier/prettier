@@ -20,7 +20,7 @@ const ignores = `
 test*.*
 # Ignore directories and files in 'tests/format'
 tests/format/**/*
-# Unignore directories and 'jsfmt.spec.js', 'format.test.js' file
+# Unignore directories and 'format.test.js' file
 !tests/format/**/
 !tests/format/**/format.test.js
 tests/integration/cli/
@@ -289,11 +289,7 @@ export default [
   },
   // CommonJS modules
   {
-    files: [
-      "**/*.cjs",
-      "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",
-      "website/**/*.js",
-    ],
+    files: ["**/*.cjs", "website/**/*.js"],
     languageOptions: {
       sourceType: "script",
     },

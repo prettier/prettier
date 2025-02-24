@@ -40,18 +40,6 @@ function getEsbuildOptions({ file, files, cliOptions }) {
   file.dependencies = [];
 
   const replaceModule = [
-    // Use `require` directly
-    {
-      module: "*",
-      find: "const require = createRequire(import.meta.url);",
-      replacement: "",
-    },
-    // Use `__dirname` directly
-    {
-      module: "*",
-      find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
-      replacement: "",
-    },
     /*
     `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
     We already replaced line end to `\n` before calling it
