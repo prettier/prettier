@@ -23,10 +23,13 @@ const languages = [
       ...data.extensions.filter(
         (extension) => extension !== ".jsx" && extension !== ".frag",
       ),
+      ".start.frag",
+      ".end.frag",
       // WeiXin Script (Weixin Mini Programs)
       // https://developers.weixin.qq.com/miniprogram/en/dev/framework/view/wxs/
       ".wxs",
     ],
+    filenames: [...data.filenames, "start.frag", "end.frag"],
   })),
   createLanguage(linguistLanguages.JavaScript, () => ({
     name: "Flow",
