@@ -12,7 +12,7 @@ const pluginFiles = prettierPackageManifest.builtinPlugins.map(
 
 toolbox.precache([
   // Scripts
-  "lib/standalone.js",
+  "lib/standalone.mjs",
   "lib/package-manifest.js",
   "lib/package-manifest.mjs",
   ...pluginFiles,
