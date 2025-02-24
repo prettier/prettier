@@ -415,7 +415,6 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".cjs",
         ".es",
         ".es6",
-        ".frag",
         ".gs",
         ".jake",
         ".javascript",
