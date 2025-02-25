@@ -1,12 +1,22 @@
-import spawn from "nano-spawn";
+import fs from "node:fs/promises";
 import { runGit, runYarn } from "../utils.js";
 
-export default async function installDependencies() {
-  await spawn("rm", ["-rf", "node_modules"]);
-  await runYarn(["install"]);
+const PROJECT_ROOT = new URL("../../../", import.meta.url);
 
-  await spawn("rm", ["-rf", "node_modules"], { cwd: "./website" });
-  await runYarn(["install"], { cwd: "./website" });
+async function installDependenciesInDirectory(directory) {
+  await fs.rm(new URL("./node_modules/", directory), {
+    recursive: true,
+    force: true,
+  });
+  await runYarn("install", { cwd: directory });
+}
+
+export default async function installDependencies() {
+  await Promise.all(
+    [PROJECT_ROOT, new URL("./website/", PROJECT_ROOT)].map((directory) =>
+      installDependenciesInDirectory(directory),
+    ),
+  );
 
   const { stdout: status } = await runGit(["ls-files", "-m"]);
   if (status) {

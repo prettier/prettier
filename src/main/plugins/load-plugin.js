@@ -1,8 +1,18 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { isUrl } from "url-or-path";
 import importFromDirectory from "../../utils/import-from-directory.js";
 
+/**
+@param {string | URL} name
+@param {string} cwd
+*/
 async function importPlugin(name, cwd) {
+  if (isUrl(name)) {
+    // @ts-expect-error -- Pass `URL` to `import()` works too
+    return import(name);
+  }
+
   if (path.isAbsolute(name)) {
     return import(pathToFileURL(name).href);
   }
@@ -23,7 +33,7 @@ async function loadPluginWithoutCache(plugin, cwd) {
 
 const cache = new Map();
 function loadPlugin(plugin) {
-  if (typeof plugin !== "string") {
+  if (typeof plugin !== "string" && !(plugin instanceof URL)) {
     return plugin;
   }
 

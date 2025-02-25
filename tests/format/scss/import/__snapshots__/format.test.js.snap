@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import_comma.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+@import "rounded-corners", "text-shadow";
+
+=====================================output=====================================
+@import "rounded-corners", "text-shadow";
+
+================================================================================
+`;
+
+exports[`import_comma.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+@import "rounded-corners", "text-shadow";
+
+=====================================output=====================================
+@import "rounded-corners", "text-shadow";
+
+================================================================================
+`;
