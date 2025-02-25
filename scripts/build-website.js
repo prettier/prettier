@@ -24,6 +24,14 @@ const PRETTIER_DIR = IS_PULL_REQUEST
   : url.fileURLToPath(new URL("../node_modules/prettier", import.meta.url));
 const PLAYGROUND_PRETTIER_DIR = path.join(WEBSITE_DIR, "static/lib");
 
+async function writeScript(file, code) {
+  const { code: minified } = await esbuild.transform(code, {
+    loader: "js",
+    minify: true,
+  });
+  await writeFile(path.join(PLAYGROUND_PRETTIER_DIR, file), minified.trim());
+}
+
 async function buildPrettier() {
   // --- Build prettier for PR ---
   const packageJsonFile = path.join(PROJECT_ROOT, "package.json");
@@ -45,7 +53,7 @@ async function buildPrettier() {
 }
 
 async function buildPlaygroundFiles() {
-  const patterns = ["standalone.js", "plugins/*.js"];
+  const patterns = ["standalone.mjs", "plugins/*.mjs"];
 
   const files = await fastGlob(patterns, {
     cwd: PRETTIER_DIR,
@@ -59,7 +67,7 @@ async function buildPlaygroundFiles() {
     const dist = path.join(PLAYGROUND_PRETTIER_DIR, fileName);
     await copyFile(file, dist);
 
-    if (fileName === "standalone.js") {
+    if (fileName === "standalone.mjs") {
       continue;
     }
 
@@ -87,16 +95,19 @@ async function buildPlaygroundFiles() {
     packageManifest.builtinPlugins.push(plugin);
   }
 
-  const code = /* Indent */ `
-    "use strict";
+  const serialized = serialize(packageManifest, { space: 2 });
 
-    self.prettierPackageManifest = ${serialize(packageManifest, { space: 2 })};
-  `;
+  await Promise.all([
+    writeScript("package-manifest.mjs", `export default ${serialized};`),
+    writeScript(
+      "package-manifest.js",
+      /* Indent */ `
+        "use strict";
 
-  await writeFile(
-    path.join(PLAYGROUND_PRETTIER_DIR, "package-manifest.js"),
-    esbuild.transformSync(code, { loader: "js", minify: true }).code.trim(),
-  );
+        self.prettierPackageManifest = ${serialized};
+      `,
+    ),
+  ]);
 }
 
 if (IS_PULL_REQUEST) {

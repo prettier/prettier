@@ -1,49 +1,41 @@
-"use strict";
+import prettierPackageManifest from "./lib/package-manifest.mjs";
+import * as prettier from "./lib/standalone.mjs";
 
-importScripts("lib/package-manifest.js", "lib/standalone.js");
-
-const { prettier, prettierPackageManifest } = self;
-
-const importedPlugins = new Map();
-function importPlugin(plugin) {
-  if (!importedPlugins.has(plugin)) {
-    importScripts(`lib/${plugin.file}`);
-
-    const module = globalThis.prettierPlugins[plugin.name];
-
-    if (!module) {
-      throw new Error(`Load plugin '${plugin.file}' failed.`);
-    }
-
-    importedPlugins.set(plugin, module);
+const pluginLoadPromises = new Map();
+async function importPlugin(plugin) {
+  if (!pluginLoadPromises.has(plugin)) {
+    pluginLoadPromises.set(plugin, import(`./lib/${plugin.file}`));
   }
 
-  return importedPlugins.get(plugin);
+  try {
+    return await pluginLoadPromises.get(plugin);
+  } catch {
+    throw new Error(`Load plugin '${plugin.file}' failed.`);
+  }
 }
 
+// Similar to `createParsersAndPrinters` in `src/plugins/builtin-plugins-proxy.js`
 function createPlugin(pluginManifest) {
   const { languages, options, defaultOptions } = pluginManifest;
-  const [parsers, printers] = ["parsers", "printers"].map((property) =>
-    Array.isArray(pluginManifest[property])
-      ? Object.defineProperties(
-          Object.create(null),
-          Object.fromEntries(
-            pluginManifest[property].map((parserName) => [
-              parserName,
-              {
-                configurable: true,
-                enumerable: true,
-                get() {
-                  return importPlugin(pluginManifest)[property][parserName];
-                },
-              },
-            ]),
-          ),
-        )
-      : undefined,
-  );
 
-  return { languages, options, defaultOptions, parsers, printers };
+  const parsers = Object.create(null);
+  const printers = Object.create(null);
+  const plugin = { languages, options, defaultOptions, parsers, printers };
+
+  const loadPlugin = async () => {
+    const plugin = await importPlugin(pluginManifest);
+    Object.assign(parsers, plugin.parsers);
+    Object.assign(printers, plugin.printers);
+    return plugin;
+  };
+
+  for (const property of ["parsers", "printers"]) {
+    for (const name of pluginManifest[property] ?? []) {
+      plugin[property][name] = async () => (await loadPlugin())[property][name];
+    }
+  }
+
+  return plugin;
 }
 
 const docExplorerPlugin = {
