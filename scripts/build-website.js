@@ -4,8 +4,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
 import esbuild from "esbuild";
-import { execa } from "execa";
 import fastGlob from "fast-glob";
+import spawn from "nano-spawn";
 import serialize from "serialize-javascript";
 import {
   copyFile,
@@ -17,11 +17,7 @@ import {
 } from "./utils/index.js";
 
 const runYarn = (command, args, options) =>
-  execa("yarn", [command, ...args], {
-    stdout: "inherit",
-    stderr: "inherit",
-    ...options,
-  });
+  spawn("yarn", [command, ...args], { stdio: "inherit", ...options });
 const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
 const PRETTIER_DIR = IS_PULL_REQUEST
   ? DIST_DIR
