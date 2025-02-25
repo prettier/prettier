@@ -11,7 +11,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = { loaded: false };
-    this.worker = new WorkerApi("/worker.mjs", { type: "module" });
+    this.worker = new WorkerApi("/worker.mjs");
   }
 
   async componentDidMount() {
