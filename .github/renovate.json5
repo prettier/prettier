@@ -33,12 +33,12 @@
       matchPackageNames: [
         "eslint",
         "@eslint/*",
+        "@eslint-react/eslint-plugin",
         "@stylistic/eslint-plugin-js",
         "eslint-config-prettier",
         "eslint-plugin-compat",
         "eslint-plugin-jest",
         "eslint-plugin-n",
-        "eslint-plugin-react",
         "eslint-plugin-regexp",
         "eslint-plugin-simple-import-sort",
         "eslint-plugin-unicorn",

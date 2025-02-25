@@ -17,6 +17,7 @@ class App extends React.Component {
   async componentDidMount() {
     const { supportInfo, version } = await this.worker.getMetadata();
 
+    // eslint-disable-next-line @eslint-react/no-set-state-in-component-did-mount
     this.setState({
       loaded: true,
       availableOptions: supportInfo.options.map(augmentOption),
