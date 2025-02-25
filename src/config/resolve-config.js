@@ -39,6 +39,7 @@ async function loadPrettierConfig(file, options) {
     return;
   }
 
+  configFile = toPath(configFile);
   const config = await loadPrettierConfigFile(configFile, { shouldCache });
 
   return { config, configFile };

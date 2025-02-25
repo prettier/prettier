@@ -1,0 +1,525 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`3748.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+.card-column-simple {
+  @include breakpoint( getBp( md ) ) {
+    padding: $spacing_content-sm $spacing_content-md;
+  }
+
+  @include breakpoint (getBp(md)) {
+    &:nth-child(2n + 3) {
+      clear: both;
+    }
+  }
+
+  @include breakpoint (getBp(xl)) {
+    &:nth-child(2n + 3) {
+      clear: none;
+    }
+    &:nth-child(3n + 4) {
+      clear: both;
+    }
+  }
+}
+
+=====================================output=====================================
+.card-column-simple {
+  @include breakpoint(getBp(md)) {
+    padding: $spacing_content-sm $spacing_content-md;
+  }
+
+  @include breakpoint(getBp(md)) {
+    &:nth-child(2n + 3) {
+      clear: both;
+    }
+  }
+
+  @include breakpoint(getBp(xl)) {
+    &:nth-child(2n + 3) {
+      clear: none;
+    }
+    &:nth-child(3n + 4) {
+      clear: both;
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`3748.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+.card-column-simple {
+  @include breakpoint( getBp( md ) ) {
+    padding: $spacing_content-sm $spacing_content-md;
+  }
+
+  @include breakpoint (getBp(md)) {
+    &:nth-child(2n + 3) {
+      clear: both;
+    }
+  }
+
+  @include breakpoint (getBp(xl)) {
+    &:nth-child(2n + 3) {
+      clear: none;
+    }
+    &:nth-child(3n + 4) {
+      clear: both;
+    }
+  }
+}
+
+=====================================output=====================================
+.card-column-simple {
+  @include breakpoint(getBp(md)) {
+    padding: $spacing_content-sm $spacing_content-md;
+  }
+
+  @include breakpoint(getBp(md)) {
+    &:nth-child(2n + 3) {
+      clear: both;
+    }
+  }
+
+  @include breakpoint(getBp(xl)) {
+    &:nth-child(2n + 3) {
+      clear: none;
+    }
+    &:nth-child(3n + 4) {
+      clear: both;
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`5636.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+// #5636
+div {
+  margin: - pow(2, 2) * 100px;
+}
+
+=====================================output=====================================
+// #5636
+div {
+  margin: - pow(2, 2) * 100px;
+}
+
+================================================================================
+`;
+
+exports[`5636.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+// #5636
+div {
+  margin: - pow(2, 2) * 100px;
+}
+
+=====================================output=====================================
+// #5636
+div {
+  margin: - pow(2, 2) * 100px;
+}
+
+================================================================================
+`;
+
+exports[`15369.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+div {
+  margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
+}
+
+@function -double($value) {
+  @return $value * 2;
+}
+
+=====================================output=====================================
+div {
+  margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
+}
+
+@function -double($value) {
+  @return $value * 2;
+}
+
+================================================================================
+`;
+
+exports[`15369.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+div {
+  margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
+}
+
+@function -double($value) {
+  @return $value * 2;
+}
+
+=====================================output=====================================
+div {
+  margin: -double(-double(1em));
+  margin: -double(- double(1em));
+  margin: - double(-double(1em));
+}
+
+@function -double($value) {
+  @return $value * 2;
+}
+
+================================================================================
+`;
+
+exports[`arbitrary-arguments.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+body {
+  test: foo(return-list($list)...);
+}
+body {
+  test: foo(bar($list)...);
+}
+body {
+  test: foo($list...);
+}
+@mixin syntax-colors($args...) {
+  @debug meta.keywords($args);
+  // (string: #080, comment: #800, variable: $60b)
+
+  @each $name, $color in meta.keywords($args) {
+    pre span.stx-#{$name} {
+      color: $color;
+    }
+  }
+}
+$form-selectors: "input.name", "input.address", "input.zip" !default;
+@include order(150px, $form-selectors...);
+@mixin linear-gradient($direction, $gradients...) {
+  background-color: nth($gradients, 1);
+  background-image: linear-gradient($direction, $gradients...);
+}
+$parameters: (
+  'c': 'kittens',
+  'a': true,
+  'b': 42
+);
+$value: dummy($parameters...);
+
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 .50 50...);
+  background-color: rgba(50 50 50. .50...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50....);
+  width: min(50px 20px 30px...);
+}
+
+=====================================output=====================================
+body {
+  test: foo(return-list($list)...);
+}
+body {
+  test: foo(bar($list)...);
+}
+body {
+  test: foo($list...);
+}
+@mixin syntax-colors($args...) {
+  @debug meta.keywords($args);
+  // (string: #080, comment: #800, variable: $60b)
+
+  @each $name, $color in meta.keywords($args) {
+    pre span.stx-#{$name} {
+      color: $color;
+    }
+  }
+}
+$form-selectors: "input.name", "input.address", "input.zip" !default;
+@include order(150px, $form-selectors...);
+@mixin linear-gradient($direction, $gradients...) {
+  background-color: nth($gradients, 1);
+  background-image: linear-gradient($direction, $gradients...);
+}
+$parameters: (
+  "c": "kittens",
+  "a": true,
+  "b": 42,
+);
+$value: dummy($parameters...);
+
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 0.5 50...);
+  background-color: rgba(50 50 50 0.5...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50...);
+  width: min(50px 20px 30px...);
+}
+
+================================================================================
+`;
+
+exports[`arbitrary-arguments.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+body {
+  test: foo(return-list($list)...);
+}
+body {
+  test: foo(bar($list)...);
+}
+body {
+  test: foo($list...);
+}
+@mixin syntax-colors($args...) {
+  @debug meta.keywords($args);
+  // (string: #080, comment: #800, variable: $60b)
+
+  @each $name, $color in meta.keywords($args) {
+    pre span.stx-#{$name} {
+      color: $color;
+    }
+  }
+}
+$form-selectors: "input.name", "input.address", "input.zip" !default;
+@include order(150px, $form-selectors...);
+@mixin linear-gradient($direction, $gradients...) {
+  background-color: nth($gradients, 1);
+  background-image: linear-gradient($direction, $gradients...);
+}
+$parameters: (
+  'c': 'kittens',
+  'a': true,
+  'b': 42
+);
+$value: dummy($parameters...);
+
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 .50 50...);
+  background-color: rgba(50 50 50. .50...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50....);
+  width: min(50px 20px 30px...);
+}
+
+=====================================output=====================================
+body {
+  test: foo(return-list($list)...);
+}
+body {
+  test: foo(bar($list)...);
+}
+body {
+  test: foo($list...);
+}
+@mixin syntax-colors($args...) {
+  @debug meta.keywords($args);
+  // (string: #080, comment: #800, variable: $60b)
+
+  @each $name, $color in meta.keywords($args) {
+    pre span.stx-#{$name} {
+      color: $color;
+    }
+  }
+}
+$form-selectors: "input.name", "input.address", "input.zip" !default;
+@include order(150px, $form-selectors...);
+@mixin linear-gradient($direction, $gradients...) {
+  background-color: nth($gradients, 1);
+  background-image: linear-gradient($direction, $gradients...);
+}
+$parameters: (
+  "c": "kittens",
+  "a": true,
+  "b": 42
+);
+$value: dummy($parameters...);
+
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 0.5 50...);
+  background-color: rgba(50 50 50 0.5...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50...);
+  width: min(50px 20px 30px...);
+}
+
+================================================================================
+`;
+
+exports[`arbitrary-arguments-comment.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+@include bar (
+    rgba(
+    50 
+    50 
+    .50 
+    50            ...
+    // comment
+  )
+)
+
+=====================================output=====================================
+@include bar(
+  rgba(
+    50 50 0.5 50... // comment
+  )
+);
+
+================================================================================
+`;
+
+exports[`arbitrary-arguments-comment.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+@include bar (
+    rgba(
+    50 
+    50 
+    .50 
+    50            ...
+    // comment
+  )
+)
+
+=====================================output=====================================
+@include bar(
+  rgba(
+    50 50 0.5 50... // comment
+  )
+);
+
+================================================================================
+`;
+
+exports[`function-in-url.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+@function concat($strings...) {
+  $result: '';
+  @each $string in $strings {
+    $sum: $result + $string;
+  }
+  @return $result;
+}
+
+a {
+ backround: url(concat('http://', 'example.com', '/image.png'));
+}
+
+=====================================output=====================================
+@function concat($strings...) {
+  $result: "";
+  @each $string in $strings {
+    $sum: $result + $string;
+  }
+  @return $result;
+}
+
+a {
+  backround: url(concat("http://", "example.com", "/image.png"));
+}
+
+================================================================================
+`;
+
+exports[`function-in-url.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+@function concat($strings...) {
+  $result: '';
+  @each $string in $strings {
+    $sum: $result + $string;
+  }
+  @return $result;
+}
+
+a {
+ backround: url(concat('http://', 'example.com', '/image.png'));
+}
+
+=====================================output=====================================
+@function concat($strings...) {
+  $result: "";
+  @each $string in $strings {
+    $sum: $result + $string;
+  }
+  @return $result;
+}
+
+a {
+  backround: url(concat("http://", "example.com", "/image.png"));
+}
+
+================================================================================
+`;
