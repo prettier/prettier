@@ -1,5 +1,5 @@
-import { SidebarCategory } from "./components.js";
-import Option from "./options.js";
+import { SidebarCategory } from "./components.jsx";
+import Option from "./options.jsx";
 
 // Copied from `/src/cli/utils.js`
 function groupBy(array, iteratee) {

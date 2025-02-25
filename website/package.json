@@ -2,8 +2,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "playground:build": "webpack --mode=production",
-    "playground:watch": "webpack --mode=development --watch",
+    "playground:build": "vite build",
+    "playground:watch": "vite",
     "docusaurus": "docusaurus",
     "start": "concurrently \"yarn playground:watch\" \"docusaurus start\"",
     "build": "yarn playground:build && docusaurus build",
@@ -19,10 +19,8 @@
     "@docusaurus/preset-classic": "3.7.0",
     "@mdx-js/react": "3.1.0",
     "@sandhose/prettier-animated-logo": "1.0.3",
-    "clipboard": "2.0.11",
     "clsx": "2.1.1",
     "codemirror-graphql": "2.2.0",
-    "lz-string": "1.5.0",
     "prism-react-renderer": "2.4.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -30,16 +28,13 @@
     "react-tweet": "3.2.1"
   },
   "devDependencies": {
-    "@babel/core": "7.26.9",
-    "@babel/preset-env": "7.26.9",
     "@docusaurus/module-type-aliases": "3.7.0",
     "@docusaurus/types": "3.7.0",
     "@types/js-yaml": "4.0.9",
-    "babel-loader": "9.2.1",
+    "@vitejs/plugin-react": "4.3.4",
     "concurrently": "9.1.2",
     "js-yaml": "4.1.0",
-    "webpack": "5.98.0",
-    "webpack-cli": "6.0.1"
+    "vite": "6.2.0"
   },
   "browserslist": {
     "production": [

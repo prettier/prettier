@@ -137,7 +137,10 @@ const config = {
             type: "docsVersionDropdown",
           },
           {
-            to: "pathname:///playground/",
+            href:
+              process.env.NODE_ENV === "production"
+                ? "pathname:///playground/"
+                : "http://localhost:5173/",
             label: "Playground",
             position: "right",
             target: "_self",

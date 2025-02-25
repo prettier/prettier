@@ -8,6 +8,11 @@ import styles from "./index.module.css";
 import { useState } from "react";
 import Markdown from "react-markdown";
 
+const playgroundLink =
+  process.env.NODE_ENV === "production"
+    ? "pathname:///playground/"
+    : "http://localhost:5173/";
+
 function DraggableLogo() {
   const [rolling, setRolling] = useState(false);
 
@@ -62,7 +67,7 @@ function HomepageHeader() {
               "button button--primary button--lg",
               styles.heroButton,
             )}
-            to="pathname:///playground/"
+            to={playgroundLink}
             target="_self"
           >
             Try It Online

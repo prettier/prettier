@@ -16,7 +16,6 @@ toolbox.precache([
   "lib/package-manifest.js",
   "lib/package-manifest.mjs",
   ...pluginFiles,
-  "playground.js",
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
 
   // CodeMirror; keep this in sync with website/pages/playground/index.html
