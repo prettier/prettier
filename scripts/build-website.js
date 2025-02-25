@@ -29,10 +29,11 @@ const PRETTIER_DIR = IS_PULL_REQUEST
 const PLAYGROUND_PRETTIER_DIR = path.join(WEBSITE_DIR, "static/lib");
 
 async function writeScript(file, code) {
-  await writeFile(
-    path.join(PLAYGROUND_PRETTIER_DIR, file),
-    esbuild.transformSync(code, { loader: "js", minify: true }).code.trim(),
-  );
+  const { code: minified } = await esbuild.transform(code, {
+    loader: "js",
+    minify: true,
+  });
+  await writeFile(path.join(PLAYGROUND_PRETTIER_DIR, file), minified.trim());
 }
 
 async function buildPrettier() {
