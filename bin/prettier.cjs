@@ -13,12 +13,12 @@ var packageJson = require("../package.json");
 
 pleaseUpgradeNode(packageJson);
 
-function runCli(cli) {
-  return cli.run();
-}
-
 var dynamicImport = new Function("module", "return import(module)");
-var promise = dynamicImport("../src/cli/index.js").then(runCli);
-
-// Exported for test
-module.exports.__promise = promise;
+if (process.env.PRETTIER_EXPERIMENTAL_CLI) {
+  dynamicImport("@prettier/cli/bin");
+} else {
+  var promise = dynamicImport("../src/cli/index.js").then(function runCli(cli) {
+    return cli.run();
+  });
+  module.exports.__promise = promise;
+}
