@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-proposal-numeric-separator
+// https://babeljs.io/docs/babel-plugin-proposal-numeric-separator
 
 let budget = 1_000_000_000_000;
 

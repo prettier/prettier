@@ -142,11 +142,9 @@ function runFormatTest(fixtures, parsers, options) {
     ? fixtures
     : { importMeta: fixtures };
 
-  // TODO: Remove this in 2025
-  // Prevent the old files `jsfmt.spec.js` get merged by accident
   const filename = path.basename(new URL(importMeta.url).pathname);
   if (filename !== "format.test.js") {
-    throw new Error(`'${filename}' has been renamed as 'format.test.js'.`);
+    throw new Error(`Format test should run in file named 'format.test.js'.`);
   }
 
   const dirname = path.dirname(url.fileURLToPath(importMeta.url));

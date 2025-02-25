@@ -370,12 +370,38 @@ function inheritLabel(doc, fn) {
     : fn(doc);
 }
 
+/**
+ * returns true iff cleanDoc(doc) === ""
+ * @param {import("./builders.js").Doc} doc
+ * @returns {boolean}
+ */
+function isEmptyDoc(doc) {
+  let isEmpty = true;
+  traverseDoc(doc, (doc) => {
+    switch (getDocType(doc)) {
+      case DOC_TYPE_STRING:
+        if (doc === "") {
+          break;
+        }
+      // fallthrough
+      case DOC_TYPE_TRIM:
+      case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
+      case DOC_TYPE_LINE:
+      case DOC_TYPE_BREAK_PARENT:
+        isEmpty = false;
+        return false;
+    }
+  });
+  return isEmpty;
+}
+
 export {
   canBreak,
   cleanDoc,
   findInDoc,
   getDocType,
   inheritLabel,
+  isEmptyDoc,
   mapDoc,
   propagateBreaks,
   removeLines,

@@ -36,6 +36,7 @@ const ENABLED_OPTIONS = [
   "singleQuote",
   "bracketSpacing",
   "jsxSingleQuote",
+  "objectWrap",
   "quoteProps",
   "arrowParens",
   "trailingComma",
@@ -48,6 +49,7 @@ const ENABLED_OPTIONS = [
   "bracketSameLine",
   "singleAttributePerLine",
   "experimentalTernaries",
+  "experimentalOperatorPosition",
 ];
 
 class Playground extends React.Component {

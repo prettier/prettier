@@ -33,12 +33,12 @@
       matchPackageNames: [
         "eslint",
         "@eslint/*",
+        "@eslint-react/eslint-plugin",
         "@stylistic/eslint-plugin-js",
         "eslint-config-prettier",
         "eslint-plugin-compat",
         "eslint-plugin-jest",
         "eslint-plugin-n",
-        "eslint-plugin-react",
         "eslint-plugin-regexp",
         "eslint-plugin-simple-import-sort",
         "eslint-plugin-unicorn",
@@ -66,6 +66,16 @@
     {
       groupName: "GitHub Actions",
       matchManagers: ["github-actions"],
+    },
+    // Forbid codemirror@6.65.7
+    // https://github.com/prettier/prettier/pull/13171#issuecomment-1258427561
+    {
+      matchPackageNames: ["codemirror"],
+      allowedVersions: "!/^6\\.65\\.7$/",
+    },
+    {
+      matchPackageNames: ["react", "react-dom"],
+      allowedVersions: "^18.0.0",
     },
   ],
   ignoreDeps: [

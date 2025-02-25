@@ -8,11 +8,7 @@ export default {
         "scripts/build/build-javascript-module.js",
         "scripts/tools/**",
       ],
-      ignoreDependencies: [
-        "eslint-formatter-friendly",
-        "ts-expect",
-        "renovate",
-      ],
+      ignoreDependencies: ["eslint-formatter-friendly", "ts-expect"],
       ignoreBinaries: [
         "test-coverage",
         "renovate-config-validator",

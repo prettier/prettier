@@ -1,12 +1,12 @@
 import url from "node:url";
 import eslintPluginJs from "@eslint/js";
+import eslintPluginEslintReact from "@eslint-react/eslint-plugin";
 import eslintPluginStylisticJs from "@stylistic/eslint-plugin-js";
 import eslintPluginTypescriptEslint from "@typescript-eslint/eslint-plugin";
 import { isCI } from "ci-info";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginJest from "eslint-plugin-jest";
 import eslintPluginN from "eslint-plugin-n";
-import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
@@ -20,11 +20,9 @@ const ignores = `
 test*.*
 # Ignore directories and files in 'tests/format'
 tests/format/**/*
-# Unignore directories and 'jsfmt.spec.js', 'format.test.js' file
+# Unignore directories and 'format.test.js' file
 !tests/format/**/
 !tests/format/**/format.test.js
-# TODO: Remove this in 2025, somehow '!tests/format/**/jsfmt.spec.js' does not work
-!tests/format/**/jsfmt.*.js
 tests/integration/cli/
 scripts/release/node_modules
 coverage/
@@ -33,6 +31,7 @@ dist*/
 website/build/
 website/static/playground.js
 website/static/lib/
+website/.docusaurus
 scripts/benchmark/*/
 **/.yarn/**
 **/.pnp.*
@@ -290,11 +289,7 @@ export default [
   },
   // CommonJS modules
   {
-    files: [
-      "**/*.cjs",
-      "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",
-      "website/**/*.js",
-    ],
+    files: ["**/*.cjs", "website/**/*.js"],
     languageOptions: {
       sourceType: "script",
     },
@@ -448,27 +443,29 @@ export default [
   },
   {
     files: ["website/**/*"],
-    ...eslintPluginReact.configs.flat.recommended,
+    ...eslintPluginEslintReact.configs.recommended,
   },
   {
     files: ["website/**/*"],
     languageOptions: {
       globals: { ...globals.browser, ...globals.worker },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
     settings: {
-      react: {
+      "react-x": {
         version: "18",
       },
     },
     rules: {
-      "react/display-name": "off",
-      "react/no-deprecated": "off",
-      "react/prop-types": "off",
       "unicorn/filename-case": "off",
     },
   },
   {
-    files: ["website/playground/**/*"],
+    files: ["website/docusaurus.config.js", "website/playground/**/*"],
     languageOptions: {
       sourceType: "module",
     },

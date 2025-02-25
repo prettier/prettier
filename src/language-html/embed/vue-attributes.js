@@ -49,10 +49,15 @@ function printVueAttribute(path, options) {
   }
 
   /**
-   *     :class="vueExpression"
-   *     v-bind:id="vueExpression"
+   *     :property="vueExpression"
+   *     .property="vueExpression"
+   *     v-bind:property="vueExpression"
    */
-  if (attributeName.startsWith(":") || attributeName.startsWith("v-bind:")) {
+  if (
+    attributeName.startsWith(":") ||
+    attributeName.startsWith(".") ||
+    attributeName.startsWith("v-bind:")
+  ) {
     return (textToDoc) =>
       printVueVBindDirective(value, textToDoc, { parseWithTs });
   }

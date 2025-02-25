@@ -94,6 +94,7 @@ function printObject(path, options, print) {
             property.value.type === "ArrayPattern"),
       )) ||
     (node.type !== "ObjectPattern" &&
+      options.objectWrap === "preserve" &&
       propsAndLoc.length > 0 &&
       hasNewlineInRange(
         options.originalText,

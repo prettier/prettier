@@ -142,6 +142,9 @@ function printIntersectionType(path, options, print) {
 
       // If no object is involved, go to the next line if it breaks
       if (!previousIsObjectType && !currentIsObjectType) {
+        if (options.experimentalOperatorPosition === "start") {
+          return indent([line, "& ", doc]);
+        }
         return indent([" &", line, doc]);
       }
 

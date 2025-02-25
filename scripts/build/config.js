@@ -4,8 +4,8 @@ import url from "node:url";
 import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
 import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
+import buildDependenciesLicense from "./build-dependencies-license.js";
 import buildJavascriptModule from "./build-javascript-module.js";
-import buildLicense from "./build-license.js";
 import buildPackageJson from "./build-package-json.js";
 import buildTypes from "./build-types.js";
 import esmifyTypescriptEslint from "./esmify-typescript-eslint.js";
@@ -553,6 +553,11 @@ const pluginFiles = [
       {
         module: getPackageFile("@glimmer/syntax/dist/dev/index.js"),
         process(text) {
+          text = text.replace(
+            'import { DEBUG } from "@glimmer/env";',
+            "const DEBUG = false;",
+          );
+
           // This passed to plugins, our plugin don't need access to the options
           text = text.replace(/(?<=\sconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
 
@@ -803,6 +808,20 @@ const nodejsFiles = [
     input: "src/cli/index.js",
     outputBaseName: "internal/cli",
     external: ["benchmark"],
+    // TODO: Remove this when we drop support for Node.js v16
+    replaceModule: [
+      {
+        module: resolveEsmModulePath("cacheable"),
+        process: (text) =>
+          outdent`
+            const structuredClone =
+              globalThis.structuredClone ??
+              ((value) => JSON.parse(JSON.stringify(value)));
+
+            ${text}
+          `,
+      },
+    ],
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
@@ -840,7 +859,13 @@ const metaFiles = [
   },
   {
     input: "LICENSE",
-    build: buildLicense,
+    build: copyFileBuilder,
+  },
+  {
+    output: {
+      file: "THIRD-PARTY-NOTICES.md",
+    },
+    build: buildDependenciesLicense,
   },
 ].map((file) => ({
   ...file,

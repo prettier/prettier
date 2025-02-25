@@ -303,7 +303,7 @@ export type BuiltInParserName =
 export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
 /**
- * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettierrc.mjs`, `prettier.config.js`, `prettier.config.cjs`, `prettier.config.mjs`
+ * For use in `.prettierrc.js`, `.prettierrc.ts`, `.prettierrc.cjs`, `.prettierrc.cts`, `prettierrc.mjs`, `prettierrc.mts`, `prettier.config.js`, `prettier.config.ts`, `prettier.config.cjs`, `prettier.config.cts`, `prettier.config.mjs`, `prettier.config.mts`
  */
 export interface Config extends Options {
   overrides?: Array<{
@@ -341,6 +341,11 @@ export interface RequiredOptions extends doc.printer.Options {
    * @default true
    */
   bracketSpacing: boolean;
+  /**
+   * How to wrap object literals.
+   * @default "preserve"
+   */
+  objectWrap: "preserve" | "collapse";
   /**
    * Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the end of the last line instead of being
    * alone on the next line (does not apply to self closing elements).
@@ -393,7 +398,7 @@ export interface RequiredOptions extends doc.printer.Options {
   /**
    * Provide ability to support new languages to prettier.
    */
-  plugins: Array<string | Plugin>;
+  plugins: Array<string | URL | Plugin>;
   /**
    * How to handle whitespaces in HTML.
    * @default "css"
@@ -424,6 +429,11 @@ export interface RequiredOptions extends doc.printer.Options {
    * @default false
    */
   singleAttributePerLine: boolean;
+  /**
+   * Where to print operators when binary expressions wrap lines.
+   * @default "end"
+   */
+  experimentalOperatorPosition: "start" | "end";
   /**
    * Use curious ternaries, with the question mark after the condition, instead
    * of on the same line as the consequent.
@@ -568,7 +578,7 @@ export interface CursorResult {
 }
 
 /**
- * `format` is used to format text using Prettier. [Options](https://prettier.io/docs/en/options.html) may be provided to override the defaults.
+ * `format` is used to format text using Prettier. [Options](https://prettier.io/docs/options) may be provided to override the defaults.
  */
 export function format(source: string, options?: Options): Promise<string>;
 
@@ -597,7 +607,7 @@ export interface ResolveConfigOptions {
   /**
    * Pass directly the path of the config file if you don't wish to search for it.
    */
-  config?: string | undefined;
+  config?: string | URL | undefined;
   /**
    * If set to `true` and an `.editorconfig` file is in your project,
    * Prettier will parse it and convert its properties to the corresponding prettier configuration.
@@ -617,7 +627,7 @@ export interface ResolveConfigOptions {
  *
  * A promise is returned which will resolve to:
  *
- *  - An options object, providing a [config file](https://prettier.io/docs/en/configuration.html) was found.
+ *  - An options object, providing a [config file](https://prettier.io/docs/configuration) was found.
  *  - `null`, if no file was found.
  *
  * The promise will be rejected if there was an error parsing the configuration file.
@@ -791,7 +801,7 @@ export interface SupportInfo {
 export interface FileInfoOptions {
   ignorePath?: string | URL | (string | URL)[] | undefined;
   withNodeModules?: boolean | undefined;
-  plugins?: Array<string | Plugin> | undefined;
+  plugins?: Array<string | URL | Plugin> | undefined;
   resolveConfig?: boolean | undefined;
 }
 
@@ -806,7 +816,7 @@ export function getFileInfo(
 ): Promise<FileInfoResult>;
 
 export interface SupportInfoOptions {
-  plugins?: Array<string | Plugin> | undefined;
+  plugins?: Array<string | URL | Plugin> | undefined;
   showDeprecated?: boolean | undefined;
 }
 
