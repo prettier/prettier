@@ -456,7 +456,9 @@ export default [
       },
     },
     settings: {
-      "react-x": { version: "18" },
+      "react-x": {
+        version: "18",
+      },
     },
     rules: {
       "unicorn/filename-case": "off",
