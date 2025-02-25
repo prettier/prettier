@@ -1,5 +1,5 @@
-export default function WorkerApi(source) {
-  const worker = new Worker(source, { type: "module" });
+export default function WorkerApi() {
+  const worker = new Worker("/worker.mjs", { type: "module" });
   let counter = 0;
   const handlers = {};
 
