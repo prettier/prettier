@@ -46,7 +46,7 @@ async function getParser(file, options) {
   let config;
   if (options.resolveConfig !== false) {
     config = await resolveConfig(file, {
-      // No need read editorconfig
+      // No need read `.editorconfig`
       editorconfig: false,
     });
   }
