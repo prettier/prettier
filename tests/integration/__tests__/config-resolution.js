@@ -459,3 +459,21 @@ test("package.json/package.yaml", async () => {
     }
   `);
 });
+
+test("'config' option should accept `URL` and `string`", async () => {
+  const configFileUrl = new URL(
+    "../cli/config/custom-config-file-location/my-prettier-config.mjs",
+    import.meta.url,
+  );
+  const file = new URL("./file.js", configFileUrl);
+
+  for (const configFile of [
+    configFileUrl,
+    configFileUrl.href,
+    url.fileURLToPath(configFileUrl),
+  ]) {
+    await expect(
+      prettier.resolveConfig(file, { config: configFile }),
+    ).resolves.toEqual({ tabWidth: 7 });
+  }
+});

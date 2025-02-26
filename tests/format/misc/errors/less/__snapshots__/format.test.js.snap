@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`inline-comment.less [less] format 1`] = `
-"CssSyntaxError: Unknown word (5:4)
+"CssSyntaxError: Unknown word inline (5:4)
   3 | a{
   4 | 	prop
 > 5 | // inline
@@ -9,7 +9,7 @@ exports[`inline-comment.less [less] format 1`] = `
   6 | :
   7 | value;
   8 | }
-Cause: <css input>:5:4: Unknown word"
+Cause: <css input>:5:4: Unknown word inline"
 `;
 
 exports[`open-double-quote.less [less] format 1`] = `
@@ -33,9 +33,9 @@ Cause: <css input>:2:17: Unclosed string"
 `;
 
 exports[`scss-syntax.scss [less] format 1`] = `
-"CssSyntaxError: Unknown word (1:15)
+"CssSyntaxError: Unknown word $foo (1:15)
 > 1 | a {content: #{$foo}}
     |               ^
   2 |
-Cause: <css input>:1:15: Unknown word"
+Cause: <css input>:1:15: Unknown word $foo"
 `;

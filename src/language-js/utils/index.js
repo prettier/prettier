@@ -7,8 +7,10 @@ import printString from "../../utils/print-string.js";
 import { hasSameLocStart, locEnd, locStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import createTypeCheckFunction from "./create-type-check-function.js";
+import getRaw from "./get-raw.js";
 import isBlockComment from "./is-block-comment.js";
 import isFlowKeywordType from "./is-flow-keyword-type.js";
+import isLineComment from "./is-line-comment.js";
 import isNodeMatches from "./is-node-matches.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
 
@@ -91,24 +93,6 @@ function getLeftSidePathName(node) {
   }
   throw new Error("Unexpected node has no left side.");
 }
-
-/**
- * @param {Estree.Comment} comment
- * @returns {boolean}
- */
-const isLineComment = createTypeCheckFunction([
-  "Line",
-  "CommentLine",
-  // `meriyah` has `SingleLine`, `HashbangComment`, `HTMLOpen`, and `HTMLClose`
-  "SingleLine",
-  "HashbangComment",
-  "HTMLOpen",
-  "HTMLClose",
-  // `espree`
-  "Hashbang",
-  // Babel hashbang
-  "InterpreterDirective",
-]);
 
 const isExportDeclaration = createTypeCheckFunction([
   "ExportDefaultDeclaration",
@@ -471,7 +455,7 @@ function isLoneShortArgument(node, options) {
   }
 
   if (isStringLiteral(node)) {
-    return printString(rawText(node), options).length <= threshold;
+    return printString(getRaw(node), options).length <= threshold;
   }
 
   if (node.type === "TemplateLiteral") {
@@ -669,10 +653,6 @@ function isSimpleCallArgument(node, depth = 2) {
   }
 
   return false;
-}
-
-function rawText(node) {
-  return node.extra?.raw ?? node.raw;
 }
 
 function identity(x) {
@@ -901,8 +881,8 @@ function getCallArguments(node) {
   }
 
   let args = node.arguments;
-  if (node.type === "ImportExpression") {
-    args = [node.source];
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+    args = [node.type === "ImportExpression" ? node.source : node.argument];
 
     if (node.options) {
       args.push(node.options);
@@ -923,8 +903,11 @@ function iterateCallArgumentsPath(path, iteratee) {
     );
   }
 
-  if (node.type === "ImportExpression") {
-    path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+    path.call(
+      (sourcePath) => iteratee(sourcePath, 0),
+      node.type === "ImportExpression" ? "source" : "argument",
+    );
 
     if (node.options) {
       path.call((sourcePath) => iteratee(sourcePath, 1), "options");
@@ -941,9 +924,12 @@ function getCallArgumentSelector(node, index) {
     selectors.push("expression");
   }
 
-  if (node.type === "ImportExpression") {
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
     if (index === 0 || index === (node.options ? -2 : -1)) {
-      return [...selectors, "source"];
+      return [
+        ...selectors,
+        node.type === "ImportExpression" ? "source" : "argument",
+      ];
     }
     if (node.options && (index === 1 || index === -1)) {
       return [...selectors, "options"];
@@ -1112,7 +1098,6 @@ export {
   isFunctionOrArrowExpression,
   isIntersectionType,
   isJsxElement,
-  isLineComment,
   isLiteral,
   isLoneShortArgument,
   isLongCurriedCallExpression,
@@ -1139,7 +1124,6 @@ export {
   iterateCallArgumentsPath,
   iterateFunctionParametersPath,
   needsHardlineAfterDanglingComment,
-  rawText,
   shouldFlatten,
   shouldPrintComma,
   startsWithNoLookaheadToken,

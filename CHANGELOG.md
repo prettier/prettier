@@ -1,3 +1,11 @@
+# 3.5.2
+
+[diff](https://github.com/prettier/prettier/compare/3.5.1...3.5.2)
+
+#### Remove `module-sync` condition ([#17156](https://github.com/prettier/prettier/pull/17156) by [@fisker](https://github.com/fisker))
+
+In Prettier 3.5.0, [we added `module-sync` condition to `package.json`](https://prettier.io/blog/2025/02/09/3.5.0#use-esm-entrypoint-for-requireesm-16958-by-tats-u), so that `require("prettier")` can use ESM version, but turns out it doesn't work if CommonJS and ESM plugins both imports builtin plugins. To solve this problem, we decide simply remove the `module-sync` condition, so `require("prettier")` will still use the CommonJS version, we'll revisit until `require(ESM)` feature is more stable.
+
 # 3.5.1
 
 [diff](https://github.com/prettier/prettier/compare/3.5.0...3.5.1)

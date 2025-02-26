@@ -83,6 +83,7 @@ function printCallArguments(path, options, print) {
     !options.parser.startsWith("__ng_") &&
     // Dynamic imports cannot have trailing commas
     node.type !== "ImportExpression" &&
+    node.type !== "TSImportType" &&
     shouldPrintComma(options, "all")
       ? ","
       : "";
