@@ -20,7 +20,7 @@ const runYarn = (command, args, options) =>
   spawn("yarn", [command, ...args], { stdio: "inherit", ...options });
 const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
 const PRETTIER_DIR = IS_PULL_REQUEST
-  ? DIST_DIR
+  ? path.join(DIST_DIR, "prettier")
   : url.fileURLToPath(new URL("../node_modules/prettier", import.meta.url));
 const PLAYGROUND_PRETTIER_DIR = path.join(WEBSITE_DIR, "static/lib");
 
