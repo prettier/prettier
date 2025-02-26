@@ -16,13 +16,13 @@ import {
   isCallExpression,
   isCallLikeExpression,
   isIntersectionType,
-  isLineComment,
   isMemberExpression,
   isObjectProperty,
   isPrettierIgnoreComment,
   isUnionType,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
+import isLineComment from "../utils/is-line-comment.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
 
 /** @import * as Estree from "../types/estree.js" */
@@ -38,6 +38,10 @@ import isTypeCastComment from "../utils/is-type-cast-comment.js";
  * @property {Estree.Node} ast
  * @property {boolean} isLastComment
  */
+
+const isSingleLineComment = (comment, text) =>
+  isLineComment(comment) ||
+  !hasNewlineInRange(text, locStart(comment), locEnd(comment));
 
 /**
  * @param {CommentContext} context
@@ -213,22 +217,23 @@ function handleIfStatementComments({
     ) {
       if (precedingNode.type === "BlockStatement") {
         addTrailingComment(precedingNode, comment);
-      } else {
-        const isSingleLineComment =
-          isLineComment(comment) ||
-          comment.loc.start.line === comment.loc.end.line;
-        const isSameLineComment =
-          comment.loc.start.line === precedingNode.loc.start.line;
-        if (isSingleLineComment && isSameLineComment) {
-          // example:
-          //   if (cond1) expr1; // comment A
-          //   else if (cond2) expr2; // comment A
-          //   else expr3;
-          addTrailingComment(precedingNode, comment);
-        } else {
-          addDanglingComment(enclosingNode, comment);
-        }
+        return true;
       }
+
+      if (
+        isSingleLineComment(comment, text) &&
+        // Comment and `precedingNode` are on same line
+        !hasNewlineInRange(text, locStart(precedingNode), locStart(comment))
+      ) {
+        // example:
+        //   if (cond1) expr1; // comment A
+        //   else if (cond2) expr2; // comment A
+        //   else expr3;
+        addTrailingComment(precedingNode, comment);
+        return true;
+      }
+
+      addDanglingComment(enclosingNode, comment);
       return true;
     }
   }
@@ -1040,6 +1045,7 @@ function handleLastBinaryOperatorOperand({
   precedingNode,
   enclosingNode,
   followingNode,
+  text,
 }) {
   // "baz" should be a trailing comment of `cond3`:
   //
@@ -1057,15 +1063,18 @@ function handleLastBinaryOperatorOperand({
     //   !(
     //     (cond1 || cond2) // foo
     //   );
-    const isMultilineExpression =
-      enclosingNode.argument.loc?.start.line !==
-      precedingNode.right.loc.start.line;
-    const isSingleLineComment =
-      isLineComment(comment) || comment.loc.start.line === comment.loc.end.line;
-    const isSameLineComment =
-      comment.loc.start.line === precedingNode.right.loc.start.line;
-
-    if (isMultilineExpression && isSingleLineComment && isSameLineComment) {
+    // eslint-disable-next-line unicorn/no-lonely-if
+    if (
+      // Multiline expression
+      hasNewlineInRange(
+        text,
+        locStart(enclosingNode.argument),
+        locStart(precedingNode.right),
+      ) &&
+      isSingleLineComment(comment, text) &&
+      // Comment and `precedingNode.right` are on same line
+      !hasNewlineInRange(text, locStart(precedingNode.right), locStart(comment))
+    ) {
       addTrailingComment(precedingNode.right, comment);
       return true;
     }

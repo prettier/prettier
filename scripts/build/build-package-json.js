@@ -43,7 +43,6 @@ async function buildPackageJson({ packageConfig, file }) {
     exports: {
       ".": {
         types: "./index.d.ts",
-        "module-sync": "./index.mjs",
         require: "./index.cjs",
         browser: {
           import: "./standalone.mjs",
@@ -57,14 +56,14 @@ async function buildPackageJson({ packageConfig, file }) {
           .filter((file) => file.output.format === "umd")
           .map((file) => {
             const basename = path.basename(file.output.file, ".js");
-            const mjsPath = `./${file.output.file.replace(/\.js$/u, ".mjs")}`;
             return [
               file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
               {
                 types: `./${file.output.file.replace(/\.js$/u, ".d.ts")}`,
-                "module-sync": mjsPath,
+                // `module-sync` condition can prevent CJS plugins from working: https://github.com/prettier/prettier/issues/17139
+                // Perform a test before re-adding it.
                 require: `./${file.output.file}`,
-                default: mjsPath,
+                default: `./${file.output.file.replace(/\.js$/u, ".mjs")}`,
               },
             ];
           }),
