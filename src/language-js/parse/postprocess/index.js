@@ -205,8 +205,9 @@ function rebalanceLogicalTree(node) {
 
 /* c8 ignore next */
 function assertComment(comment, text) {
+  const commentText = text.slice(locStart(comment), locEnd(comment));
+
   if (isLineComment(comment)) {
-    const commentText = text.slice(locStart(comment), locEnd(comment));
     const openingMark = text.slice(
       0,
       text.startsWith("<--") || text.startsWith("-->") ? 3 : 2,
@@ -216,7 +217,6 @@ function assertComment(comment, text) {
   }
 
   if (isBlockComment(comment)) {
-    const commentText = text.slice(locStart(comment), locEnd(comment));
     // Flow
     const closingMark = commentText.endsWith("*-/") ? "*-/" : "*/";
     assert.equal("/*" + comment.value + closingMark, commentText);
