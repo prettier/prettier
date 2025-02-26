@@ -754,15 +754,6 @@ function needsParens(path, options) {
       }
 
       if (
-        key === "key" &&
-        (parent.type === "ClassProperty" ||
-          parent.type === "PropertyDefinition") &&
-        parent.computed
-      ) {
-        return false;
-      }
-
-      if (
         (key === "init" || key === "update") &&
         parent.type === "ForStatement"
       ) {
