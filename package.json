@@ -111,7 +111,6 @@
     "@eslint/js": "9.21.0",
     "@stylistic/eslint-plugin-js": "4.0.1",
     "@types/estree": "1.0.6",
-    "@types/file-entry-cache": "5.0.4",
     "@typescript-eslint/eslint-plugin": "8.25.0",
     "browserslist": "4.24.4",
     "browserslist-to-esbuild": "2.1.1",
