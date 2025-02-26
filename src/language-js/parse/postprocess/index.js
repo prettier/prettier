@@ -140,7 +140,6 @@ function postprocess(ast, options) {
     let followingComment;
     for (let i = ast.comments.length - 1; i >= 0; i--) {
       const comment = ast.comments[i];
-      assertComment(comment, text);
 
       if (
         followingComment &&
@@ -153,7 +152,14 @@ function postprocess(ast, options) {
         ast.comments.splice(i + 1, 1);
         comment.value += "*//*" + followingComment.value;
         comment.range = [locStart(comment), locEnd(followingComment)];
+      }
 
+      if (!isLineComment(comment) && !isBlockComment(comment)) {
+        throw new TypeError(`Unknown comment type: "${comment.type}".`);
+      }
+
+      /* c8 ignore next 3 */
+      if (process.env.NODE_ENV !== "production") {
         assertComment(comment, text);
       }
 
@@ -200,28 +206,21 @@ function rebalanceLogicalTree(node) {
 /* c8 ignore next */
 function assertComment(comment, text) {
   if (isLineComment(comment)) {
-    if (process.env.NODE_ENV !== "production") {
-      const commentText = text.slice(locStart(comment), locEnd(comment));
-      const openingMark = text.slice(
-        0,
-        text.startsWith("<--") || text.startsWith("-->") ? 3 : 2,
-      );
-      assert.ok(openingMark + comment.value, commentText);
-    }
+    const commentText = text.slice(locStart(comment), locEnd(comment));
+    const openingMark = text.slice(
+      0,
+      text.startsWith("<--") || text.startsWith("-->") ? 3 : 2,
+    );
+    assert.ok(openingMark + comment.value, commentText);
     return;
   }
 
   if (isBlockComment(comment)) {
-    if (process.env.NODE_ENV !== "production") {
-      const commentText = text.slice(locStart(comment), locEnd(comment));
-      // Flow
-      const closingMark = commentText.endsWith("*-/") ? "*-/" : "*/";
-      assert.equal("/*" + comment.value + closingMark, commentText);
-    }
-    return;
+    const commentText = text.slice(locStart(comment), locEnd(comment));
+    // Flow
+    const closingMark = commentText.endsWith("*-/") ? "*-/" : "*/";
+    assert.equal("/*" + comment.value + closingMark, commentText);
   }
-
-  throw new TypeError(`Unknown comment type: "${comment.type}".`);
 }
 
 /* c8 ignore next */
