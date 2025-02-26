@@ -38,7 +38,8 @@ function locEnd(node) {
  * @returns {boolean}
  */
 function hasSameLocStart(nodeA, nodeB) {
-  return locStart(nodeA) === locStart(nodeB);
+  const nodeAStart = locStart(nodeA);
+  return isIndex(nodeAStart) && nodeAStart === locStart(nodeB);
 }
 
 /**
@@ -47,7 +48,8 @@ function hasSameLocStart(nodeA, nodeB) {
  * @returns {boolean}
  */
 function hasSameLocEnd(nodeA, nodeB) {
-  return locEnd(nodeA) === locEnd(nodeB);
+  const nodeAEnd = locEnd(nodeA);
+  return isIndex(nodeAEnd) && nodeAEnd === locEnd(nodeB);
 }
 
 /**
