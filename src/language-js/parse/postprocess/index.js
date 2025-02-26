@@ -1,9 +1,33 @@
+import assert from "node:assert";
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../../loc.js";
+import createTypeCheckFunction from "../../utils/create-type-check-function.js";
+import getRaw from "../../utils/get-raw.js";
 import isBlockComment from "../../utils/is-block-comment.js";
 import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
+import isLineComment from "../../utils/is-line-comment.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import visitNode from "./visit-node.js";
+
+const isNodeWithRaw = createTypeCheckFunction([
+  // Babel
+  "RegExpLiteral",
+  "BigIntLiteral",
+  "NumericLiteral",
+  "StringLiteral",
+  // "NullLiteral",
+  // "BooleanLiteral",
+  "DirectiveLiteral",
+
+  // ESTree
+  "Literal",
+  "JSXText",
+
+  // Flow
+  "StringLiteralTypeAnnotation",
+  "NumberLiteralTypeAnnotation",
+  "BigIntLiteralTypeAnnotation",
+]);
 
 /**
  * @param {{
@@ -60,6 +84,11 @@ function postprocess(ast, options) {
   }
 
   ast = visitNode(ast, (node) => {
+    /* c8 ignore next 3 */
+    if (process.env.NODE_ENV !== "production") {
+      assertRaw(node, text);
+    }
+
     switch (node.type) {
       case "LogicalExpression":
         // We remove unneeded parens around same-operator LogicalExpressions
@@ -108,10 +137,12 @@ function postprocess(ast, options) {
   });
 
   if (isNonEmptyArray(ast.comments)) {
-    let followingComment = ast.comments.at(-1);
-    for (let i = ast.comments.length - 2; i >= 0; i--) {
+    let followingComment;
+    for (let i = ast.comments.length - 1; i >= 0; i--) {
       const comment = ast.comments[i];
+
       if (
+        followingComment &&
         locEnd(comment) === locStart(followingComment) &&
         isBlockComment(comment) &&
         isBlockComment(followingComment) &&
@@ -122,6 +153,16 @@ function postprocess(ast, options) {
         comment.value += "*//*" + followingComment.value;
         comment.range = [locStart(comment), locEnd(followingComment)];
       }
+
+      if (!isLineComment(comment) && !isBlockComment(comment)) {
+        throw new TypeError(`Unknown comment type: "${comment.type}".`);
+      }
+
+      /* c8 ignore next 3 */
+      if (process.env.NODE_ENV !== "production") {
+        assertComment(comment, text);
+      }
+
       followingComment = comment;
     }
   }
@@ -160,6 +201,35 @@ function rebalanceLogicalTree(node) {
     right: node.right.right,
     range: [locStart(node), locEnd(node)],
   });
+}
+
+/* c8 ignore next */
+function assertComment(comment, text) {
+  const commentText = text.slice(locStart(comment), locEnd(comment));
+
+  if (isLineComment(comment)) {
+    const openingMark = text.slice(
+      0,
+      text.startsWith("<--") || text.startsWith("-->") ? 3 : 2,
+    );
+    assert.ok(openingMark + comment.value, commentText);
+    return;
+  }
+
+  if (isBlockComment(comment)) {
+    // Flow
+    const closingMark = commentText.endsWith("*-/") ? "*-/" : "*/";
+    assert.equal("/*" + comment.value + closingMark, commentText);
+  }
+}
+
+/* c8 ignore next */
+function assertRaw(node, text) {
+  if (!isNodeWithRaw(node)) {
+    return;
+  }
+  const raw = getRaw(node);
+  assert.equal(raw, text.slice(locStart(node), locEnd(node)));
 }
 
 export default postprocess;
