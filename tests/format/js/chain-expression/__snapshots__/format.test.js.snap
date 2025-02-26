@@ -294,6 +294,52 @@ new Foo(a?.b);
 ================================================================================
 `;
 
+exports[`number.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(1.).toString();
+(1.).toString?.();
+(1.)?.toString();
+(1).toString();
+(1)?.toString();
+
+(1.).toString;
+(1.)?.toString;
+
+a[1.].toString();
+a[1.].toString?.();
+a[1.]?.toString();
+a?.[1.].toString();
+
+a[1.].toString;
+a[1.]?.toString;
+a?.[1.].toString;
+
+=====================================output=====================================
+(1).toString();
+(1).toString?.();
+(1)?.toString();
+(1).toString();
+(1)?.toString();
+
+(1).toString;
+(1)?.toString;
+
+a[1].toString();
+a[1].toString?.();
+a[1]?.toString();
+a?.[1].toString();
+
+a[1].toString;
+a[1]?.toString;
+a?.[1].toString;
+
+================================================================================
+`;
+
 exports[`tagged-template-literals.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
