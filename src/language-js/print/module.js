@@ -11,6 +11,7 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import { hasSameLoc, locEnd, locStart } from "../loc.js";
+import getRaw from "../utils/get-raw.js";
 import getTextWithoutComments from "../utils/get-text-without-comments.js";
 import {
   CommentCheckFlags,
@@ -18,7 +19,6 @@ import {
   hasComment,
   isStringLiteral,
   needsHardlineAfterDanglingComment,
-  rawText,
   shouldPrintComma,
 } from "../utils/index.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
@@ -364,7 +364,7 @@ function isShorthandSpecifier(specifier) {
   if (isStringLiteral(local)) {
     return (
       local.value === importedOrExported.value &&
-      rawText(local) === rawText(importedOrExported)
+      getRaw(local) === getRaw(importedOrExported)
     );
   }
 

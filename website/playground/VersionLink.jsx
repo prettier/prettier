@@ -1,5 +1,4 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+const { React, ReactDOM } = window;
 
 const root = document.getElementById("version");
 

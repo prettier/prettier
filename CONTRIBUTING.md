@@ -85,13 +85,13 @@ If you want to know more about Prettier's GitHub labels, see the [Issue Labels](
 If you're contributing a performance improvement, the following Prettier CLI options can help:
 
 - `--debug-repeat N` uses a naïve loop to repeat the formatting `N` times and measures the average run duration. It can be useful to highlight hot functions in the profiler. This can also set by environment variable `PRETTIER_PERF_REPEAT`.
-- `--debug-benchmark` uses [`benchmark`](https://npm.im/benchmark) module to produce statistically significant duration measurements.
+- `--debug-benchmark` uses [`tinybench`](https://www.npmjs.com/package/tinybench) module to produce statistically significant duration measurements.
 
 For convenience, the following commands for profiling are available via [`package.json`](package.json) `scripts`.
 
 - `PRETTIER_PERF_REPEAT=1000 yarn perf <filename>` starts the naïve loop. See the CLI output for when the measurements finish, and stop profiling at that moment.
 - `PRETTIER_PERF_REPEAT=1000 yarn perf:inspect <filename>` starts the naïve loop with `node --inspect-brk` flag that pauses execution and waits for Chromium/Chrome/Node Inspector to attach. Open [`chrome://inspect`](chrome://inspect), select the process to inspect, and activate the CPU Profiler, this will unpause execution. See the CLI output for when the measurements finish, and stop the CPU Profiler at that moment to avoid collecting more data than needed.
-- `yarn perf:benchmark <filename>` starts the `benchmark`-powered measurements. See the CLI output for when the measurements finish.
+- `yarn perf:benchmark <filename>` starts the measurements. See the CLI output for when the measurements finish.
 
 In the above commands:
 

@@ -1,11 +1,15 @@
-import "codemirror-graphql/mode";
+import "codemirror-graphql/cm6-legacy/mode.esm.js";
+import "./install-service-worker.js";
 
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import Playground from "./Playground.js";
+import Playground from "./Playground.jsx";
 import { fixPrettierVersion } from "./util.js";
-import VersionLink from "./VersionLink.js";
+import VersionLink from "./VersionLink.jsx";
 import WorkerApi from "./WorkerApi.js";
+
+const {
+  React,
+  ReactDOM: { createRoot },
+} = window;
 
 class App extends React.Component {
   constructor() {
@@ -58,4 +62,6 @@ function augmentOption(option) {
   return option;
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(<App />);

@@ -1,4 +1,4 @@
-import { Checkbox, NumberInput, Select } from "./inputs.js";
+import { Checkbox, NumberInput, Select } from "./inputs.jsx";
 
 function BooleanOption({ option, value, onChange }) {
   function maybeInvert(value) {

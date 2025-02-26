@@ -2577,16 +2577,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"benchmark@npm:2.1.4":
-  version: 2.1.4
-  resolution: "benchmark@npm:2.1.4"
-  dependencies:
-    lodash: "npm:^4.17.4"
-    platform: "npm:^1.3.3"
-  checksum: 10/0f42f865aeb8b79992bb6204874312f9cb384e122f4fd3b20ba6d0bc7cff003610400fb37e52580a7b4aec4a3d1291c51b5ff887691b1abc80e9df4ff032a675
-  languageName: node
-  linkType: hard
-
 "birecord@npm:^0.1.1":
   version: 0.1.1
   resolution: "birecord@npm:0.1.1"
@@ -6026,7 +6016,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.4, lodash@npm:~4.17.21":
+"lodash@npm:~4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10/c08619c038846ea6ac754abd6dd29d2568aa705feb69339e836dfa8d8b09abbb2f859371e86863eda41848221f9af43714491467b5b0299122431e202bb0c532
@@ -6783,13 +6773,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"platform@npm:^1.3.3":
-  version: 1.3.6
-  resolution: "platform@npm:1.3.6"
-  checksum: 10/1f2d8333e23ea6a7620c828d2fc1ccbbd33e01928fb142323420506114d7325ebdeb1b38544efbf64e90ab73af0847f874d0f475b9327bcf53510fa827a4ef95
-  languageName: node
-  linkType: hard
-
 "please-upgrade-node@npm:3.2.0":
   version: 3.2.0
   resolution: "please-upgrade-node@npm:3.2.0"
@@ -6903,7 +6886,6 @@ __metadata:
     acorn-jsx: "npm:5.3.2"
     angular-estree-parser: "npm:10.2.0"
     angular-html-parser: "npm:8.0.1"
-    benchmark: "npm:2.1.4"
     browserslist: "npm:4.24.4"
     browserslist-to-esbuild: "npm:2.1.1"
     c8: "npm:10.1.3"
@@ -6994,6 +6976,7 @@ __metadata:
     snapshot-diff: "npm:0.10.0"
     strip-ansi: "npm:7.1.0"
     tempy: "npm:3.1.0"
+    tinybench: "npm:3.1.1"
     to-fast-properties: "npm:4.0.0"
     ts-expect: "npm:1.3.0"
     typescript: "npm:5.7.3"
@@ -7905,6 +7888,13 @@ __metadata:
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
   checksum: 10/4383b5baaeffa9bb4cda2ac33a4aa2e6d1f8aaf811848bf73513a9b88fd76372dc461f6fd6d2e9cb5100f48b473be32c6f95bd983509b7d92bb4d92c10747452
+  languageName: node
+  linkType: hard
+
+"tinybench@npm:3.1.1":
+  version: 3.1.1
+  resolution: "tinybench@npm:3.1.1"
+  checksum: 10/1d97035722dd91fc8a496cb2a97c375a06ce2ec03e57586ee5bf4b861bbc8a3ab52839d285ca5948c094ac61c1529fbdf7f47c9cb7e8dce11daafd4239eb47b0
   languageName: node
   linkType: hard
 

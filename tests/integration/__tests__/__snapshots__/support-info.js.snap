@@ -415,7 +415,6 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".cjs",
         ".es",
         ".es6",
-        ".frag",
         ".gs",
         ".jake",
         ".javascript",
@@ -433,9 +432,11 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".ssjs",
         ".xsjs",
         ".xsjslib",
+        ".start.frag",
+        ".end.frag",
         ".wxs"
       ],
-      "filenames": ["Jakefile"],
+      "filenames": ["Jakefile", "start.frag", "end.frag"],
       "interpreters": [
         "chakra",
         "d8",
