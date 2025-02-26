@@ -121,12 +121,12 @@ What is `pnpm exec` doing at the start? `pnpm exec prettier` runs the locally in
 <TabItem value="bun">
 
 ```bash
-bun exec prettier . --write
+bunx prettier . --write
 ```
 
 :::info
 
-What is `bun exec` doing at the start? `bun exec prettier` runs the locally installed version of Prettier. We’ll leave off the `bun exec` part for brevity throughout the rest of this file!
+What is `bunx` doing at the start? `bunx prettier` runs the locally installed version of Prettier. We’ll leave off the `bunx` part for brevity throughout the rest of this file!
 
 :::
 
