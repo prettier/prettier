@@ -21,6 +21,7 @@ import {
   hasComment,
   hasLeadingOwnLineComment,
   isArrayOrTupleExpression,
+  isBinaryCastExpression,
   isBinaryish,
   isCallLikeExpression,
   isJsxElement,
@@ -228,6 +229,7 @@ function mayBreakAfterShortPrefix(functionBody, bodyDoc, options) {
   return (
     isArrayOrTupleExpression(functionBody) ||
     isObjectOrRecordExpression(functionBody) ||
+    isBinaryCastExpression(functionBody) ||
     functionBody.type === "ArrowFunctionExpression" ||
     functionBody.type === "DoExpression" ||
     functionBody.type === "BlockStatement" ||
