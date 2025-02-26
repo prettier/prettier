@@ -157,6 +157,12 @@ const options = {
     default: 0,
     type: "int",
   },
+  gitDiff: {
+    default: false,
+    description:
+      "Show git diff of changed file. Can only be used with --check.",
+    type: "boolean",
+  },
   editorconfig: {
     category: optionCategories.CATEGORY_CONFIG,
     default: true,

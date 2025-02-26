@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { execSync } from "node:child_process";
 import chalk from "chalk";
 import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
@@ -453,6 +454,25 @@ async function formatFiles(context) {
 
     if (isDifferent) {
       if (context.argv.check) {
+        if (context.argv.gitDiff) {
+          const tmpFileName = `${filename}-prettier`;
+
+          await fs.writeFile(tmpFileName, output);
+
+          try {
+            execSync(`git diff --no-index ${filename} ${tmpFileName}`, {
+              shell: true,
+              stdio: "inherit",
+            });
+          } catch (e) {
+            if (!("status" in e) || e.status > 1) {
+              console.log(`git diff error for ${filename}`);
+            }
+          }
+
+          await fs.unlink(tmpFileName);
+        }
+
         context.logger.warn(fileNameToDisplay);
       } else if (context.argv.listDifferent) {
         context.logger.log(fileNameToDisplay);

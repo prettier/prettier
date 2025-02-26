@@ -38,6 +38,10 @@ async function run(rawArguments = process.argv.slice(2)) {
 async function main(context) {
   context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
+  if (context.argv.gitDiff && !context.argv.check) {
+    throw new Error("Cannot use --git-diff without --check.");
+  }
+
   if (context.argv.check && context.argv.listDifferent) {
     throw new Error("Cannot use --check and --list-different together.");
   }
