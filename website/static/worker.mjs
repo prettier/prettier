@@ -1,13 +1,41 @@
-/* globals prettier prettierPlugins prettierPackageManifest */
+import prettierPackageManifest from "./lib/package-manifest.mjs";
+import * as prettier from "./lib/standalone.mjs";
 
-"use strict";
+const pluginLoadPromises = new Map();
+async function importPlugin(plugin) {
+  if (!pluginLoadPromises.has(plugin)) {
+    pluginLoadPromises.set(plugin, import(`./lib/${plugin.file}`));
+  }
 
-importScripts("lib/package-manifest.js");
-importScripts("lib/standalone.js");
+  try {
+    return await pluginLoadPromises.get(plugin);
+  } catch {
+    throw new Error(`Load plugin '${plugin.file}' failed.`);
+  }
+}
 
-// TODO[@fisker]: Lazy load plugins
-for (const { file } of prettierPackageManifest.builtinPlugins) {
-  importScripts(`lib/${file}`);
+// Similar to `createParsersAndPrinters` in `src/plugins/builtin-plugins-proxy.js`
+function createPlugin(pluginManifest) {
+  const { languages, options, defaultOptions } = pluginManifest;
+
+  const parsers = Object.create(null);
+  const printers = Object.create(null);
+  const plugin = { languages, options, defaultOptions, parsers, printers };
+
+  const loadPlugin = async () => {
+    const plugin = await importPlugin(pluginManifest);
+    Object.assign(parsers, plugin.parsers);
+    Object.assign(printers, plugin.printers);
+    return plugin;
+  };
+
+  for (const property of ["parsers", "printers"]) {
+    for (const name of pluginManifest[property] ?? []) {
+      plugin[property][name] = async () => (await loadPlugin())[property][name];
+    }
+  }
+
+  return plugin;
 }
 
 const docExplorerPlugin = {
@@ -29,7 +57,12 @@ const docExplorerPlugin = {
   languages: [{ name: "doc-explorer", parsers: ["doc-explorer"] }],
 };
 
-const plugins = [...Object.values(prettierPlugins), docExplorerPlugin];
+const plugins = [
+  ...prettierPackageManifest.builtinPlugins.map((plugin) =>
+    createPlugin(plugin),
+  ),
+  docExplorerPlugin,
+];
 
 self.onmessage = async function (event) {
   self.postMessage({

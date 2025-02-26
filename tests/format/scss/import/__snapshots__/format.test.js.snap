@@ -1,45 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`object-property.js format 1`] = `
+exports[`import_comma.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
+parsers: ["scss"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
-a = {
-  [this.resource = resource]: 1,
-}
+@import "rounded-corners", "text-shadow";
 
 =====================================output=====================================
-a = {
-  [(this.resource = resource)]: 1,
-};
+@import "rounded-corners", "text-shadow";
 
 ================================================================================
 `;
 
-exports[`object-value.js format 1`] = `
+exports[`import_comma.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
+parsers: ["scss"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
-a = {
-  resource: (this.resource = resource),
-}
-
-map(([resource]) => ({
-  resource: (this.resource = resource),
-}))
+@import "rounded-corners", "text-shadow";
 
 =====================================output=====================================
-a = {
-  resource: (this.resource = resource),
-};
-
-map(([resource]) => ({
-  resource: (this.resource = resource),
-}));
+@import "rounded-corners", "text-shadow";
 
 ================================================================================
 `;

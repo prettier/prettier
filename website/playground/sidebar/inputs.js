@@ -1,5 +1,3 @@
-import * as React from "react";
-
 export function Checkbox({ label: _label, title, checked, onChange }) {
   return (
     <label title={title}>

@@ -2722,7 +2722,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdx-js/react@npm:^3.0.0":
+"@mdx-js/react@npm:3.1.0, @mdx-js/react@npm:^3.0.0":
   version: 3.1.0
   resolution: "@mdx-js/react@npm:3.1.0"
   dependencies:
@@ -4597,7 +4597,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.0.0":
+"clsx@npm:2.1.1, clsx@npm:^2.0.0":
   version: 2.1.1
   resolution: "clsx@npm:2.1.1"
   checksum: 10/cdfb57fa6c7649bbff98d9028c2f0de2f91c86f551179541cf784b1cfdc1562dcb951955f46d54d930a3879931a980e32a46b598acaea274728dbe068deca919
@@ -10461,7 +10461,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prism-react-renderer@npm:^2.3.0":
+"prism-react-renderer@npm:2.4.1, prism-react-renderer@npm:^2.3.0":
   version: 2.4.1
   resolution: "prism-react-renderer@npm:2.4.1"
   dependencies:
@@ -10678,6 +10678,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:18.3.1":
+  version: 18.3.1
+  resolution: "react-dom@npm:18.3.1"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    scheduler: "npm:^0.23.2"
+  peerDependencies:
+    react: ^18.3.1
+  checksum: 10/3f4b73a3aa083091173b29812b10394dd06f4ac06aff410b74702cfb3aa29d7b0ced208aab92d5272919b612e5cda21aeb1d54191848cf6e46e9e354f3541f81
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^16.2.0":
   version: 16.14.0
   resolution: "react-dom@npm:16.14.0"
@@ -10689,18 +10701,6 @@ __metadata:
   peerDependencies:
     react: ^16.14.0
   checksum: 10/d59f3376ab41ee874fbb9bd738160f6d70f619b4cba40531d5c60dfa289c216cff4d5e6552babdf59843a1a8e7f08faf4a746bf4df6c68d2b406a6c13bdbd92b
-  languageName: node
-  linkType: hard
-
-"react-dom@npm:^18.3.1":
-  version: 18.3.1
-  resolution: "react-dom@npm:18.3.1"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-    scheduler: "npm:^0.23.2"
-  peerDependencies:
-    react: ^18.3.1
-  checksum: 10/3f4b73a3aa083091173b29812b10394dd06f4ac06aff410b74702cfb3aa29d7b0ced208aab92d5272919b612e5cda21aeb1d54191848cf6e46e9e354f3541f81
   languageName: node
   linkType: hard
 
@@ -10773,11 +10773,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-markdown@npm:9.0.3":
-  version: 9.0.3
-  resolution: "react-markdown@npm:9.0.3"
+"react-markdown@npm:10.0.0":
+  version: 10.0.0
+  resolution: "react-markdown@npm:10.0.0"
   dependencies:
     "@types/hast": "npm:^3.0.0"
+    "@types/mdast": "npm:^4.0.0"
     devlop: "npm:^1.0.0"
     hast-util-to-jsx-runtime: "npm:^2.0.0"
     html-url-attributes: "npm:^3.0.0"
@@ -10790,7 +10791,7 @@ __metadata:
   peerDependencies:
     "@types/react": ">=18"
     react: ">=18"
-  checksum: 10/b97eb9a61762762043263286ece030bd878acabe24bbf433767a9518cb18e434e26a75b1b810a7cb966e304ddb4e16bd4a15edcc808113b11b4fb85a68d99e8d
+  checksum: 10/513d9119587b561ac1195e3b2fa30b2bd9149b4dea658c189e2417fda600fbf9d5067967f098ea8e2d525b5fc7db00e3e4176ba2662a6eb503bc09d9b8bd5b5a
   languageName: node
   linkType: hard
 
@@ -10856,6 +10857,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react@npm:18.3.1":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+  checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
+  languageName: node
+  linkType: hard
+
 "react@npm:^16.2.0":
   version: 16.14.0
   resolution: "react@npm:16.14.0"
@@ -10864,15 +10874,6 @@ __metadata:
     object-assign: "npm:^4.1.1"
     prop-types: "npm:^15.6.2"
   checksum: 10/ee04c82f5ecb70fe15a48d8cfc3fb20ce2f7e65277d4adcb56a0ac2b82c54550d4c65eabce0d5dc0cc90d053831b9586d72ee515b11cdf0c5436c7f95aafdcda
-  languageName: node
-  linkType: hard
-
-"react@npm:^18.3.1":
-  version: 18.3.1
-  resolution: "react@npm:18.3.1"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
   languageName: node
   linkType: hard
 
@@ -11374,20 +11375,20 @@ __metadata:
     "@docusaurus/module-type-aliases": "npm:3.7.0"
     "@docusaurus/preset-classic": "npm:3.7.0"
     "@docusaurus/types": "npm:3.7.0"
-    "@mdx-js/react": "npm:^3.0.0"
+    "@mdx-js/react": "npm:3.1.0"
     "@sandhose/prettier-animated-logo": "npm:1.0.3"
     "@types/js-yaml": "npm:4.0.9"
     babel-loader: "npm:9.2.1"
     clipboard: "npm:2.0.11"
-    clsx: "npm:^2.0.0"
+    clsx: "npm:2.1.1"
     codemirror-graphql: "npm:2.2.0"
     concurrently: "npm:9.1.2"
     js-yaml: "npm:4.1.0"
     lz-string: "npm:1.5.0"
-    prism-react-renderer: "npm:^2.3.0"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    react-markdown: "npm:9.0.3"
+    prism-react-renderer: "npm:2.4.1"
+    react: "npm:18.3.1"
+    react-dom: "npm:18.3.1"
+    react-markdown: "npm:10.0.0"
     react-tweet: "npm:3.2.1"
     webpack: "npm:5.98.0"
     webpack-cli: "npm:6.0.1"
