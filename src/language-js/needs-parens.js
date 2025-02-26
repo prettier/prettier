@@ -1,4 +1,5 @@
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import { shouldAddParenthesesToChainElement } from "./parentheses/chain-element.js";
 import {
   createTypeCheckFunction,
   getFunctionParameters,
@@ -21,6 +22,8 @@ import {
 /**
  * @import AstPath from "../common/ast-path.js"
  */
+
+const parenthesizedNodes = new WeakSet();
 
 /**
  * @param {AstPath} path
@@ -908,12 +911,14 @@ function needsParens(path, options) {
     case "CallExpression":
     case "MemberExpression":
       if (shouldAddParenthesesToChainElement(path)) {
+        parenthesizedNodes.add(path.node);
         return true;
       }
 
     // fallthrough
     case "TaggedTemplateExpression":
     case "TSNonNullExpression":
+    case "ChainExpression":
       if (
         key === "callee" &&
         (parent.type === "BindExpression" || parent.type === "NewExpression")
@@ -923,7 +928,7 @@ function needsParens(path, options) {
           switch (object.type) {
             case "CallExpression":
             case "OptionalCallExpression":
-              return true;
+              return !parenthesizedNodes.has(object);
             case "MemberExpression":
             case "OptionalMemberExpression":
             case "BindExpression":
@@ -935,6 +940,7 @@ function needsParens(path, options) {
               object = object.tag;
               break;
             case "TSNonNullExpression":
+            case "ChainExpression":
               object = object.expression;
               break;
             default:
@@ -1184,7 +1190,7 @@ new (a?.())();
  * @param {AstPath} path
  * @returns {boolean}
  */
-function shouldAddParenthesesToChainElement(path) {
+function shouldAddParenthesesToChainElement2(path) {
   if (
     // ESTree
     path.match(
