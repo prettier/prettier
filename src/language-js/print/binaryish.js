@@ -15,6 +15,7 @@ import {
 } from "../../document/constants.js";
 import { cleanDoc, getDocType } from "../../document/utils.js";
 import { printComments } from "../../main/comments/print.js";
+import needsParens from "../needs-parens.js";
 import {
   CommentCheckFlags,
   hasComment,
@@ -81,7 +82,8 @@ function printBinaryishExpression(path, options, print) {
   if (
     (isCallExpression(parent) && parent.callee === node) ||
     parent.type === "UnaryExpression" ||
-    (isMemberExpression(parent) && !parent.computed)
+    (isMemberExpression(parent) && !parent.computed) ||
+    (parent.type === "LogicalExpression" && needsParens(path, options))
   ) {
     return group([indent([softline, ...parts]), softline]);
   }
