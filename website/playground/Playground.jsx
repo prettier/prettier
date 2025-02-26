@@ -1,18 +1,19 @@
-import * as React from "react";
-import { Button, ClipboardButton } from "./buttons.js";
+import { Button, ClipboardButton } from "./buttons.jsx";
 import getCodeSample from "./codeSamples.mjs";
 import generateDummyId from "./dummyId.js";
 import EditorState from "./EditorState.js";
 import { shallowEqual } from "./helpers.js";
 import formatMarkdown from "./markdown.js";
-import { DebugPanel, InputPanel, OutputPanel } from "./panels.js";
+import { DebugPanel, InputPanel, OutputPanel } from "./panels.jsx";
 import PrettierFormat from "./PrettierFormat.js";
-import { Sidebar, SidebarCategory } from "./sidebar/components.js";
-import { Checkbox } from "./sidebar/inputs.js";
-import Option from "./sidebar/options.js";
-import SidebarOptions from "./sidebar/SidebarOptions.js";
+import { Sidebar, SidebarCategory } from "./sidebar/components.jsx";
+import { Checkbox } from "./sidebar/inputs.jsx";
+import Option from "./sidebar/options.jsx";
+import SidebarOptions from "./sidebar/SidebarOptions.jsx";
 import * as urlHash from "./urlHash.js";
 import * as util from "./util.js";
+
+const { React } = window;
 
 const CATEGORIES_ORDER = [
   "Global",

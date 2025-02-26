@@ -1,5 +1,4 @@
-import ClipboardJS from "clipboard";
-import * as React from "react";
+const { ClipboardJS, React } = window;
 
 export const Button = React.forwardRef((props, ref) => (
   <button type="button" className="btn" ref={ref} {...props} />

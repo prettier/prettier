@@ -8,7 +8,7 @@ export function Sidebar({ visible, children }) {
 
 export function SidebarCategory({ title, children }) {
   return (
-    <details className="sub-options" open="true">
+    <details className="sub-options" open>
       <summary>{title}</summary>
       {children}
     </details>

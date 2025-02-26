@@ -12,5 +12,7 @@
     "dist*": true,
     "website/.docusaurus": true,
     "website/build": true,
+    "website/static/playground": true,
+    "website/static/lib": true,
   },
 }
