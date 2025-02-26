@@ -271,7 +271,7 @@ function printBinaryishExpressions(
   if (shouldInline) {
     right = [
       operator,
-      hasComment(node.right, CommentCheckFlags.Leading | CommentCheckFlags.Line)
+      hasLeadingOwnLineComment(options.originalText, node.right)
         ? indent([line, print("right"), rightSuffix])
         : [" ", print("right"), rightSuffix],
     ];
