@@ -701,20 +701,23 @@ function f() {
 
 =====================================output=====================================
 export default function theFunction(action$, store) {
-  return action$.ofType(THE_ACTION).switchMap((action) =>
-    Observable.webSocket({
-      url: THE_URL,
-      more: stuff(),
-      evenMore: stuff({
-        value1: true,
-        value2: false,
-        value3: false,
-      }),
-    })
-      .filter((data) => theFilter(data))
-      .map(({ theType, ...data }) => theMap(theType, data))
-      .retryWhen((errors) => errors),
-  );
+  return action$
+    .ofType(THE_ACTION)
+    .switchMap((action) =>
+      Observable
+        .webSocket({
+          url: THE_URL,
+          more: stuff(),
+          evenMore: stuff({
+            value1: true,
+            value2: false,
+            value3: false,
+          }),
+        })
+        .filter((data) => theFilter(data))
+        .map(({ theType, ...data }) => theMap(theType, data))
+        .retryWhen((errors) => errors),
+    );
 }
 
 function f() {
@@ -802,13 +805,15 @@ var jqxhr = $.ajax("example.php")
   .fail(failFn);
 
 =====================================output=====================================
-Object.keys(
-  availableLocales({
-    test: true,
-  }),
-).forEach((locale) => {
-  // ...
-});
+Object
+  .keys(
+    availableLocales({
+      test: true,
+    }),
+  )
+  .forEach((locale) => {
+    // ...
+  });
 
 this.layoutPartsToHide = this.utils.hashset(
   _.flatMap(this.visibilityHandlers, (fn) => fn())
@@ -1090,7 +1095,8 @@ d3.select("body")
   .enter()
   .style("color", "white");
 
-Object.keys(props)
+Object
+  .keys(props)
   .filter((key) => key in own === false)
   .reduce((a, key) => {
     a[key] = props[key];
@@ -1125,10 +1131,12 @@ fetchUser(id) //
 // examples from https://github.com/prettier/prettier/issues/3107
 
 function HelloWorld() {
-  window.FooClient.setVars({
-    locale: getFooLocale({ page }),
-    authorizationToken: data.token,
-  }).initVerify("foo_container");
+  window.FooClient
+    .setVars({
+      locale: getFooLocale({ page }),
+      authorizationToken: data.token,
+    })
+    .initVerify("foo_container");
 
   fejax
     .ajax({
@@ -1152,7 +1160,8 @@ action$
   .map((action) => action.payload.query)
   .filter((q) => !!q)
   .switchMap((q) =>
-    Observable.timer(800) // debounce
+    Observable
+      .timer(800) // debounce
       .takeUntil(action$.ofType(ActionTypes.CLEARED_SEARCH_RESULTS))
       .mergeMap(() =>
         Observable.merge(
@@ -1165,10 +1174,12 @@ action$
       ),
   );
 
-window.FooClient.setVars({
-  locale: getFooLocale({ page }),
-  authorizationToken: data.token,
-}).initVerify("foo_container");
+window.FooClient
+  .setVars({
+    locale: getFooLocale({ page }),
+    authorizationToken: data.token,
+  })
+  .initVerify("foo_container");
 
 it("gets triggered by mouseenter", () => {
   const wrapper = shallow(<CalendarDay />);
@@ -1329,14 +1340,16 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
   describe("POST /users/me/pet", function () {
     it("saves pet", function () {
       function assert(pet) {
-        expect(pet).to.have.property("OwnerAddress").that.deep.equals({
-          AddressLine1: "Alexanderstrasse",
-          AddressLine2: "",
-          PostalCode: "10999",
-          Region: "Berlin",
-          City: "Berlin",
-          Country: "DE",
-        });
+        expect(pet)
+          .to.have.property("OwnerAddress")
+          .that.deep.equals({
+            AddressLine1: "Alexanderstrasse",
+            AddressLine2: "",
+            PostalCode: "10999",
+            Region: "Berlin",
+            City: "Berlin",
+            Country: "DE",
+          });
       }
     });
   });
@@ -1440,17 +1453,21 @@ const Profile2 = view.with({ name }).as((props) => (
 ))
 
 =====================================output=====================================
-const Profile = view.with({ name: (state) => state.name }).as((props) => (
-  <div>
-    <h1>Hello, {props.name}</h1>
-  </div>
-));
+const Profile = view
+  .with({ name: (state) => state.name })
+  .as((props) => (
+    <div>
+      <h1>Hello, {props.name}</h1>
+    </div>
+  ));
 
-const Profile2 = view.with({ name }).as((props) => (
-  <div>
-    <h1>Hello, {props.name}</h1>
-  </div>
-));
+const Profile2 = view
+  .with({ name })
+  .as((props) => (
+    <div>
+      <h1>Hello, {props.name}</h1>
+    </div>
+  ));
 
 ================================================================================
 `;
