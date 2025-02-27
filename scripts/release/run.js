@@ -56,7 +56,7 @@ for (let step of [
   },
   params.manual ? steps.publishToNpm : steps.waitForBotRelease,
   steps.showInstructionsAfterNpmPublish,
-  steps.waitForBlogPost,
+  steps.mergeBlogPost,
   steps.updateDependentsCount,
   {
     name: "Cleaning changelog",
