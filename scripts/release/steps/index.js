@@ -13,4 +13,5 @@ export { default as updateChangelog } from "./update-changelog.js";
 export { default as updateDependentsCount } from "./update-dependents-count.js";
 export { default as updateVersion } from "./update-version.js";
 export { default as validateNewVersion } from "./validate-new-version.js";
+export { default as waitForBlogPost } from "./wait-for-blog-post.js";
 export { default as waitForBotRelease } from "./wait-for-bot-release.js";
