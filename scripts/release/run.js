@@ -56,7 +56,10 @@ for (let step of [
   },
   params.manual ? steps.publishToNpm : steps.waitForBotRelease,
   steps.showInstructionsAfterNpmPublish,
-  steps.mergeBlogPost,
+  {
+    name: "Merge release notes PR",
+    process: steps.mergeBlogPost,
+  },
   steps.updateDependentsCount,
   {
     name: "Cleaning changelog",
