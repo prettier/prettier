@@ -11,5 +11,5 @@
     "test": "node test.js",
     "test-coverage": "npx nyc node test.js"
   },
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@4.7.0"
 }
