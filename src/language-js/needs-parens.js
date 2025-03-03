@@ -10,10 +10,13 @@ import {
   isBinaryCastExpression,
   isBitwiseOperator,
   isCallExpression,
+  isConditionalType,
+  isIntersectionType,
   isMemberExpression,
   isNullishCoalescing,
   isObjectOrRecordExpression,
   isObjectProperty,
+  isUnionType,
   shouldFlatten,
   startsWithNoLookaheadToken,
 } from "./utils/index.js";
@@ -531,11 +534,20 @@ function needsParens(path, options) {
     // fallthrough
     case "TSConditionalType":
     case "TSConstructorType":
-      if (key === "extendsType" && parent.type === "TSConditionalType") {
-        if (node.type === "TSConditionalType") {
-          return true;
-        }
+    case "ConditionalTypeAnnotation":
+      if (
+        key === "extendsType" &&
+        isConditionalType(node) &&
+        parent.type === node.type
+      ) {
+        return true;
+      }
 
+      if (key === "checkType" && isConditionalType(parent)) {
+        return true;
+      }
+
+      if (key === "extendsType" && parent.type === "TSConditionalType") {
         let { typeAnnotation } = node.returnType || node.typeAnnotation;
 
         if (
@@ -553,15 +565,11 @@ function needsParens(path, options) {
         }
       }
 
-      if (key === "checkType" && parent.type === "TSConditionalType") {
-        return true;
-      }
     // fallthrough
     case "TSUnionType":
     case "TSIntersectionType":
       if (
-        (parent.type === "TSUnionType" ||
-          parent.type === "TSIntersectionType") &&
+        (isUnionType(parent) || isIntersectionType(parent)) &&
         parent.types.length > 1 &&
         (!node.types || node.types.length > 1)
       ) {
@@ -711,19 +719,6 @@ function needsParens(path, options) {
           ))
       );
     }
-
-    case "ConditionalTypeAnnotation":
-      if (
-        key === "extendsType" &&
-        parent.type === "ConditionalTypeAnnotation" &&
-        node.type === "ConditionalTypeAnnotation"
-      ) {
-        return true;
-      }
-
-      if (key === "checkType" && parent.type === "ConditionalTypeAnnotation") {
-        return true;
-      }
 
     // fallthrough
     case "OptionalIndexedAccessType":

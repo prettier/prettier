@@ -15,6 +15,7 @@ import {
   getFunctionParameters,
   isCallExpression,
   isCallLikeExpression,
+  isConditionalType,
   isIntersectionType,
   isLineComment,
   isMemberExpression,
@@ -360,8 +361,7 @@ function handleNestedConditionalExpressionComments({
 
   const enclosingIsCond =
     enclosingNode?.type === "ConditionalExpression" ||
-    enclosingNode?.type === "ConditionalTypeAnnotation" ||
-    enclosingNode?.type === "TSConditionalType";
+    isConditionalType(enclosingNode);
 
   if (!enclosingIsCond) {
     return false;
@@ -369,8 +369,7 @@ function handleNestedConditionalExpressionComments({
 
   const followingIsCond =
     followingNode?.type === "ConditionalExpression" ||
-    followingNode?.type === "ConditionalTypeAnnotation" ||
-    followingNode?.type === "TSConditionalType";
+    isConditionalType(followingNode);
 
   if (followingIsCond) {
     addDanglingComment(enclosingNode, comment);
@@ -394,8 +393,7 @@ function handleConditionalExpressionComments({
   if (
     (!precedingNode || !isSameLineAsPrecedingNode) &&
     (enclosingNode?.type === "ConditionalExpression" ||
-      enclosingNode?.type === "ConditionalTypeAnnotation" ||
-      enclosingNode?.type === "TSConditionalType") &&
+      isConditionalType(enclosingNode)) &&
     followingNode
   ) {
     if (
