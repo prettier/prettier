@@ -316,7 +316,7 @@ function UsersSection() {
             <div>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-github">9.2 million</strong>{" "}
+                <strong data-placeholder="dependent-github">9.3 million</strong>{" "}
                 dependent repositories on GitHub
               </p>
               <Link
@@ -338,7 +338,7 @@ function UsersSection() {
             <div>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-npm">19.2k</strong>{" "}
+                <strong data-placeholder="dependent-npm">19.3k</strong>{" "}
                 dependent packages on npm
               </p>
               <Link
