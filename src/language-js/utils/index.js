@@ -1060,13 +1060,18 @@ const isBinaryCastExpression = createTypeCheckFunction([
 ]);
 
 const isUnionType = createTypeCheckFunction([
-  "UnionTypeAnnotation",
   "TSUnionType",
+  "UnionTypeAnnotation",
 ]);
 
 const isIntersectionType = createTypeCheckFunction([
-  "IntersectionTypeAnnotation",
   "TSIntersectionType",
+  "IntersectionTypeAnnotation",
+]);
+
+const isConditionalType = createTypeCheckFunction([
+  "TSConditionalType",
+  "ConditionalTypeAnnotation",
 ]);
 
 export {
@@ -1092,6 +1097,7 @@ export {
   isBitwiseOperator,
   isCallExpression,
   isCallLikeExpression,
+  isConditionalType,
   isExportDeclaration,
   isFlowObjectTypePropertyAFunction,
   isFunctionCompositionArgs,

@@ -15,6 +15,7 @@ import {
   createTypeCheckFunction,
   hasComment,
   hasLeadingOwnLineComment,
+  isConditionalType,
   isFlowObjectTypePropertyAFunction,
   isObjectType,
   isSimpleType,
@@ -174,9 +175,7 @@ function printUnionType(path, options, print) {
   // If there's a leading comment, the parent is doing the indentation
   const shouldIndent =
     parent.type !== "TypeParameterInstantiation" &&
-    (parent.type !== "TSConditionalType" || !options.experimentalTernaries) &&
-    (parent.type !== "ConditionalTypeAnnotation" ||
-      !options.experimentalTernaries) &&
+    (!isConditionalType(parent) || !options.experimentalTernaries) &&
     parent.type !== "TSTypeParameterInstantiation" &&
     parent.type !== "GenericTypeAnnotation" &&
     parent.type !== "TSTypeReference" &&
