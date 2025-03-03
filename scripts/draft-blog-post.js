@@ -6,6 +6,7 @@ import createEsmUtils from "esm-utils";
 import fg from "fast-glob";
 import semver from "semver";
 import {
+  categories,
   changelogUnreleasedDirPath,
   changelogUnreleasedDirs,
   getEntries,
@@ -35,28 +36,6 @@ const postFile = path.join(
   blogDir,
   `${new Date().toISOString().replace(/T.+/u, "")}-${nextVersion}.md`,
 );
-
-const categories = [
-  { dir: "javascript", title: "JavaScript" },
-  { dir: "typescript", title: "TypeScript" },
-  { dir: "flow", title: "Flow" },
-  { dir: "json", title: "JSON" },
-  { dir: "css", title: "CSS" },
-  { dir: "scss", title: "SCSS" },
-  { dir: "less", title: "Less" },
-  { dir: "html", title: "HTML" },
-  { dir: "vue", title: "Vue" },
-  { dir: "angular", title: "Angular" },
-  { dir: "lwc", title: "LWC" },
-  { dir: "handlebars", title: "Ember / Handlebars" },
-  { dir: "graphql", title: "GraphQL" },
-  { dir: "markdown", title: "Markdown" },
-  { dir: "mdx", title: "MDX" },
-  { dir: "yaml", title: "YAML" },
-  { dir: "api", title: "API" },
-  { dir: "cli", title: "CLI" },
-  { dir: "misc", title: "Miscellaneous" },
-];
 
 const categoriesByDir = new Map(
   categories.map((category) => [category.dir, category]),
