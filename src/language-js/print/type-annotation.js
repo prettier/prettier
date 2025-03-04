@@ -141,8 +141,11 @@ function printIntersectionType(path, options, print) {
         return [" & ", wasIndented ? indent(doc) : doc];
       }
 
-      // If no object is involved, go to the next line if it breaks
-      if (!previousIsObjectType && !currentIsObjectType) {
+      if (
+        // If no object is involved, go to the next line if it breaks
+        (!previousIsObjectType && !currentIsObjectType) ||
+        hasLeadingOwnLineComment(options.originalText, node)
+      ) {
         if (options.experimentalOperatorPosition === "start") {
           return indent([line, "& ", doc]);
         }
