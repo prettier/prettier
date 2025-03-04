@@ -14,6 +14,7 @@ import {
   isIntersectionType,
   isMemberExpression,
   isNullishCoalescing,
+  isNumericLiteral,
   isObjectOrRecordExpression,
   isObjectProperty,
   isUnionType,
@@ -736,9 +737,7 @@ function needsParens(path, options) {
       }
 
       return (
-        key === "object" &&
-        parent.type === "MemberExpression" &&
-        typeof node.value === "number"
+        key === "object" && isMemberExpression(parent) && isNumericLiteral(node)
       );
 
     case "AssignmentExpression":
