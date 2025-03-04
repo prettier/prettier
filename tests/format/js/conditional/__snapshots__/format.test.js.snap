@@ -822,9 +822,11 @@ inJSXExpressionContainer.withNullConditional = (
     )}
     {(
       isACat() &&
-      (someReallyLongCondition ||
+      (
+        someReallyLongCondition ||
         moreInThisLongCondition ||
-        evenMoreInThisExtraLongConditional)
+        evenMoreInThisExtraLongConditional
+      )
     ) ?
       null
     : <Foo />}
@@ -1118,9 +1120,11 @@ inJSXExpressionContainer.withNullConditional = (
       <Foo />
     )}
     {isACat() &&
-    (someReallyLongCondition ||
+    (
+      someReallyLongCondition ||
       moreInThisLongCondition ||
-      evenMoreInThisExtraLongConditional) ? null : (
+      evenMoreInThisExtraLongConditional
+    ) ? null : (
       <Foo />
     )}
   </div>
@@ -2205,9 +2209,13 @@ const obj = {
   error:
     (
       matchingReferencesError &&
-      (!input.value ||
-        (input.value &&
-          selectedReferencesDataStatus === REFERENCES_STATUS_EMPTY))
+      (
+        !input.value ||
+        (
+          input.value &&
+          selectedReferencesDataStatus === REFERENCES_STATUS_EMPTY
+        )
+      )
     ) ?
       translate("ra.input.references.all_missing", {
         _: "ra.input.references.all_missing",
@@ -2535,8 +2543,10 @@ const matchingReferencesError = isMatchingReferencesError(matchingReferences)
 const obj = {
   error:
     matchingReferencesError &&
-    (!input.value ||
-      (input.value && selectedReferencesDataStatus === REFERENCES_STATUS_EMPTY))
+    (
+      !input.value ||
+      (input.value && selectedReferencesDataStatus === REFERENCES_STATUS_EMPTY)
+    )
       ? translate("ra.input.references.all_missing", {
           _: "ra.input.references.all_missing",
         })
