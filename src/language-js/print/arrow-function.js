@@ -326,10 +326,6 @@ function printArrowFunctionBody(
     ];
   }
 
-  if (shouldAlwaysAddParens(functionBody)) {
-    bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
-  }
-
   return shouldPutBodyOnSameLine
     ? [" ", bodyDoc, bodyComments]
     : [indent([line, bodyDoc, bodyComments]), trailingComma, trailingSpace];
