@@ -134,6 +134,8 @@ Other options:
   --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
                            * ignored (boolean) - true if file path is filtered by --ignore-path
                            * inferredParser (string | null) - name of parser inferred from file path
+  --git-diff               Show git diff of changed file. Can only be used with --check.
+                           Defaults to false.
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
   -u, --ignore-unknown     Ignore unknown files.
@@ -305,6 +307,8 @@ Other options:
   --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
                            * ignored (boolean) - true if file path is filtered by --ignore-path
                            * inferredParser (string | null) - name of parser inferred from file path
+  --git-diff               Show git diff of changed file. Can only be used with --check.
+                           Defaults to false.
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
   -u, --ignore-unknown     Ignore unknown files.
