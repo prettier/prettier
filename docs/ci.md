@@ -9,7 +9,7 @@ To apply autofix for Prettier on GitHub actions, do the following:
 1. Make sure you have a **pinned** version of Prettier installed in your repository.
 1. Create `.github/workflows/prettier.yml` with following content:
 
-   ```yaml
+   ```yaml title=".github/workflows/prettier.yml"
    name: autofix.ci # needed to securely identify the workflow
 
    on:
