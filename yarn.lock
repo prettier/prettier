@@ -6980,7 +6980,7 @@ __metadata:
     to-fast-properties: "npm:4.0.0"
     ts-expect: "npm:1.3.0"
     typescript: "npm:5.8.2"
-    unicode-regex: "npm:4.0.0"
+    unicode-regex: "npm:4.1.0"
     unified: "npm:9.2.2"
     url-or-path: "npm:2.3.2"
     vnopts: "npm:2.0.0"
@@ -7152,7 +7152,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regexp-util@npm:2.0.1, regexp-util@npm:^2.0.0":
+"regexp-util@npm:2.0.1, regexp-util@npm:^2.0.0, regexp-util@npm:^2.0.1":
   version: 2.0.1
   resolution: "regexp-util@npm:2.0.1"
   checksum: 10/934345a752cc1226a0b8a83f496e196439fe427c2f173d8d61512b437921dcad0c3cc9b44dd84c85547ec5a15e917071a2f4271ee08964300c7b835718d01ba0
@@ -8086,12 +8086,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unicode-regex@npm:4.0.0, unicode-regex@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "unicode-regex@npm:4.0.0"
+"unicode-regex@npm:4.1.0, unicode-regex@npm:^4.0.0":
+  version: 4.1.0
+  resolution: "unicode-regex@npm:4.1.0"
   dependencies:
-    regexp-util: "npm:^2.0.0"
-  checksum: 10/78c7186737897a06f7ad9ae36430c8bffa74833c10aa06849a1e76ef420b9b6860384e93d067e5533de85eafe0cdddc097677dad67e830f0838b79d19d671b3b
+    regexp-util: "npm:^2.0.1"
+  checksum: 10/581fe6275d01ab84f47d14043f62edc2f1bfd7115bbb8993e36f418bd86e8ab4a03fc8acca6270004bb90a8f4e2613d6988062da65b13cd8d39e328b55302314
   languageName: node
   linkType: hard
 

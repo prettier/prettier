@@ -98,7 +98,7 @@
     "strip-ansi": "7.1.0",
     "to-fast-properties": "4.0.0",
     "typescript": "5.8.2",
-    "unicode-regex": "4.0.0",
+    "unicode-regex": "4.1.0",
     "unified": "9.2.2",
     "url-or-path": "2.3.2",
     "vnopts": "2.0.0",
