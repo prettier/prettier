@@ -11,14 +11,11 @@ To apply autofix for Prettier on GitHub actions, do the following:
 
    ```yaml title=".github/workflows/prettier.yml"
    name: autofix.ci
-
    on:
      pull_request:
      push:
-
    permissions:
      contents: read
-
    jobs:
      prettier:
        runs-on: ubuntu-latest
