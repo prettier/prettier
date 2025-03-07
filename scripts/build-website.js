@@ -1,33 +1,36 @@
 #!/usr/bin/env node
 
-import path from "node:path";
 import fs from "node:fs/promises";
+import path from "node:path";
 import url from "node:url";
+import esbuild from "esbuild";
 import fastGlob from "fast-glob";
-import createEsmUtils from "esm-utils";
-import { execa } from "execa";
-import { format } from "../src/index.js";
+import spawn from "nano-spawn";
+import serialize from "serialize-javascript";
 import {
-  PROJECT_ROOT,
-  DIST_DIR,
-  WEBSITE_DIR,
-  writeJson,
   copyFile,
+  DIST_DIR,
+  PROJECT_ROOT,
+  WEBSITE_DIR,
   writeFile,
+  writeJson,
 } from "./utils/index.js";
 
-const { require } = createEsmUtils(import.meta);
 const runYarn = (command, args, options) =>
-  execa("yarn", [command, ...args], {
-    stdout: "inherit",
-    stderr: "inherit",
-    ...options,
-  });
+  spawn("yarn", [command, ...args], { stdio: "inherit", ...options });
 const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
 const PRETTIER_DIR = IS_PULL_REQUEST
   ? DIST_DIR
   : url.fileURLToPath(new URL("../node_modules/prettier", import.meta.url));
 const PLAYGROUND_PRETTIER_DIR = path.join(WEBSITE_DIR, "static/lib");
+
+async function writeScript(file, code) {
+  const { code: minified } = await esbuild.transform(code, {
+    loader: "js",
+    minify: true,
+  });
+  await writeFile(path.join(PLAYGROUND_PRETTIER_DIR, file), minified.trim());
+}
 
 async function buildPrettier() {
   // --- Build prettier for PR ---
@@ -50,7 +53,7 @@ async function buildPrettier() {
 }
 
 async function buildPlaygroundFiles() {
-  const patterns = ["standalone.js", "plugins/*.js"];
+  const patterns = ["standalone.mjs", "plugins/*.mjs"];
 
   const files = await fastGlob(patterns, {
     cwd: PRETTIER_DIR,
@@ -64,31 +67,47 @@ async function buildPlaygroundFiles() {
     const dist = path.join(PLAYGROUND_PRETTIER_DIR, fileName);
     await copyFile(file, dist);
 
-    if (fileName === "standalone.js") {
+    if (fileName === "standalone.mjs") {
       continue;
     }
 
-    const pluginModule = require(dist);
-    const plugin = pluginModule.default ?? pluginModule;
-    const { parsers = {}, printers = {} } = plugin;
-    packageManifest.builtinPlugins.push({
+    const pluginModule = await import(url.pathToFileURL(dist));
+
+    const plugin = {
+      name: path.basename(fileName, ".js"),
       file: fileName,
-      parsers: Object.keys(parsers),
-      printers: Object.keys(printers),
-    });
+    };
+
+    for (const property of ["languages", "options", "defaultOptions"]) {
+      const value = pluginModule[property];
+      if (value !== undefined) {
+        plugin[property] = value;
+      }
+    }
+
+    for (const property of ["parsers", "printers"]) {
+      const value = pluginModule[property];
+      if (value !== undefined) {
+        plugin[property] = Object.keys(value);
+      }
+    }
+
+    packageManifest.builtinPlugins.push(plugin);
   }
 
-  await writeFile(
-    path.join(PLAYGROUND_PRETTIER_DIR, "package-manifest.js"),
-    await format(
+  const serialized = serialize(packageManifest, { space: 2 });
+
+  await Promise.all([
+    writeScript("package-manifest.mjs", `export default ${serialized};`),
+    writeScript(
+      "package-manifest.js",
       /* Indent */ `
         "use strict";
 
-        const prettierPackageManifest = ${JSON.stringify(packageManifest)};
+        self.prettierPackageManifest = ${serialized};
       `,
-      { parser: "meriyah" },
     ),
-  );
+  ]);
 }
 
 if (IS_PULL_REQUEST) {
@@ -105,6 +124,7 @@ await runYarn("install", [], { cwd: WEBSITE_DIR });
 
 if (IS_PULL_REQUEST) {
   console.log("Synchronizing docs...");
+  process.env.PRETTIER_VERSION = `999.999.999-pr.${process.env.REVIEW_ID}`;
   await runYarn("update-stable-docs", [], { cwd: WEBSITE_DIR });
 }
 

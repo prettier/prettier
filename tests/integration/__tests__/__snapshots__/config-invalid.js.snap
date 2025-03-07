@@ -63,7 +63,7 @@ exports[`throw error with invalid config precedence option (configPrecedence) (w
 
 exports[`throw error with invalid config target (directory) (stderr) 1`] = `
 "[error] Invalid configuration:
-[error] EISDIR: illegal operation on a directory, read"
+[error] Unable to read '<cli>/config/invalid/folder/.prettierrc': EISDIR: illegal operation on a directory, read"
 `;
 
 exports[`throw error with invalid config target (directory) (stdout) 1`] = `""`;

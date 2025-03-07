@@ -1,6 +1,4 @@
-"use strict";
-
-const path = require("path");
+import path from "node:path";
 
 const parentPropertyCheckSelector = [
   "FunctionDeclaration",
@@ -44,12 +42,9 @@ const keyCheckSelector = [
 const MESSAGE_ID_PREFER_KEY_CHECK = "prefer-key-check";
 const MESSAGE_ID_KEY_CHECK_FIRST = "key-check-on-left";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/better-parent-property-check-in-needs-parens.js",
-    },
     messages: {
       [MESSAGE_ID_PREFER_KEY_CHECK]:
         "Prefer `key {{operator}} {{propertyText}}` over `parent.{{property}} {{operator}} node`.",

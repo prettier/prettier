@@ -4,7 +4,7 @@ import { CursorOptions, CursorResult, Options, SupportInfo } from "./index.js";
  * formatWithCursor both formats the code, and translates a cursor position from unformatted code to formatted code.
  * This is useful for editor integrations, to prevent the cursor from moving when code is formatted
  *
- * The cursorOffset option should be provided, to specify where the cursor is. This option cannot be used with rangeStart and rangeEnd.
+ * The cursorOffset option should be provided, to specify where the cursor is.
  *
  * ```js
  * await prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
@@ -17,7 +17,7 @@ export function formatWithCursor(
 ): Promise<CursorResult>;
 
 /**
- * `format` is used to format text using Prettier. [Options](https://prettier.io/docs/en/options.html) may be provided to override the defaults.
+ * `format` is used to format text using Prettier. [Options](https://prettier.io/docs/options) may be provided to override the defaults.
  */
 export function format(source: string, options?: Options): Promise<string>;
 

@@ -16,7 +16,7 @@ BEFORE SUBMITTING AN ISSUE:
 2.  We get a lot of requests for adding options, but Prettier is
     built on the principle of being opinionated about code formatting.
     This means we add options only in the case of strict technical necessity.
-    Find out more: https://prettier.io/docs/en/option-philosophy.html
+    Find out more: https://prettier.io/docs/option-philosophy
 
 Don't fill the form below manually! Let a program create a report for you:
 
@@ -26,7 +26,7 @@ Don't fill the form below manually! Let a program create a report for you:
 
 -->
 
-**Prettier 3.1.0**
+**Prettier 3.5.3**
 [Playground link](https://prettier.io/playground/#.....)
 
 ```sh
@@ -46,4 +46,12 @@ Don't fill the form below manually! Let a program create a report for you:
 // code snippet
 ```
 
-**Expected behavior:**
+**Expected output:**
+
+```jsx
+// code snippet
+```
+
+**Why?**
+
+<!-- short explanation of expected output -->

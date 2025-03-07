@@ -1,4 +1,4 @@
-import mockable from "../common/mockable.js";
+import { mockable } from "./prettier-internal.js";
 
 // Some CI pipelines incorrectly report process.stdout.isTTY status,
 // which causes unwanted lines in the output. An additional check for isCI() helps.

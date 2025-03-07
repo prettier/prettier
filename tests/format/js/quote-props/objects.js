@@ -1,29 +1,29 @@
-const a = {
+a = {
   a: "a"
 };
 
-const b = {
+a = {
   'b': "b"
 };
 
-const b2 = {
+a = {
   // Escapes should stay as escapes and not be unquoted.
   '\u0062': "b",
   '\u0031': "1"
 };
 
-const c = {
+a = {
   c1: "c1",
   'c2': "c2"
 };
 
-const d = {
+a = {
   d1: "d1",
   'd-2': "d2"
 };
 
 // None of these should become quoted, regardless of the quoteProps value.
-const e = {
+a = {
   NaN: null,
   1: null,
   1.5: null,
@@ -41,7 +41,7 @@ const e = {
   2n: null,
 }
 
-const f = {
+a = {
   // These should be unquoted for quoteProps=as-needed.
   "NaN": null,
   "1": null,
@@ -94,4 +94,9 @@ Object.entries({
 !{
   "-1": null,
   "-1.5": null,
+}
+
+a = {
+  "\a": 1,
+  "b": 2
 }

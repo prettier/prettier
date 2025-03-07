@@ -28,7 +28,7 @@ function isVoidElement(node) {
 }
 
 function isWhitespaceNode(node) {
-  return node.type === "TextNode" && !/\S/.test(node.chars);
+  return node.type === "TextNode" && !/\S/u.test(node.chars);
 }
 
 function isPrettierIgnoreNode(node) {

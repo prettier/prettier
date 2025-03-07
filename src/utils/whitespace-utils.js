@@ -11,7 +11,7 @@ class WhitespaceUtils {
       (this.#whitespaceCharacters.size === 0 ||
         Array.prototype.some.call(
           whitespaceCharacters,
-          (character) => !/^\s$/.test(character),
+          (character) => !/^\s$/u.test(character),
         ))
     ) {
       throw new TypeError(
@@ -86,7 +86,10 @@ class WhitespaceUtils {
     const pattern = `[${escapeStringRegexp(
       [...this.#whitespaceCharacters].join(""),
     )}]+`;
-    const regexp = new RegExp(captureWhitespace ? `(${pattern})` : pattern);
+    const regexp = new RegExp(
+      captureWhitespace ? `(${pattern})` : pattern,
+      "u",
+    );
     return text.split(regexp);
   }
 

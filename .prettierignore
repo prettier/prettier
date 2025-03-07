@@ -1,7 +1,7 @@
 **/.yarn/*
 
 /tests/format/**/*.*
-!/tests/format/**/jsfmt.spec.js
+!/tests/format/**/format.test.js
 /tests/integration/cli/
 /tests/integration/plugins/**/*.*
 !/tests/integration/plugins/automatic/node_modules/@prettier/plugin-foo/index.js

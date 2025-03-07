@@ -8,7 +8,7 @@ function printClassNames(path, options) {
     !options.parentParser &&
     !value.includes("{{")
   ) {
-    return () => value.trim().split(/\s+/).join(" ");
+    return () => value.trim().split(/\s+/u).join(" ");
   }
 }
 

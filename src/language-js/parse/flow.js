@@ -1,8 +1,8 @@
 import flowParser from "flow-parser";
 import createError from "../../common/parser-create-error.js";
+import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
-import postprocess from "./postprocess/index.js";
 
 // https://github.com/facebook/flow/tree/main/packages/flow-parser#options
 // Keep this sync with `/scripts/sync-flow-test.js`
@@ -11,6 +11,8 @@ const parseOptions = {
   // all_comments: true,
   // `comments` (boolean, default `true`) - attach comments to AST nodes (`leadingComments` and `trailingComments`)
   comments: false,
+  // `components` (boolean, default `false`) - enable parsing of Flow component syntax
+  components: true,
   // `enums` (boolean, default `false`) - enable parsing of Flow enums
   enums: true,
   // `esproposal_decorators` (boolean, default `false`) - enable parsing of decorators

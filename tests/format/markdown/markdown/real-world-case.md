@@ -455,7 +455,7 @@ This is similar to the `--list-different` parameter in the CLI and is useful for
 `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
 This is useful for editor integrations, to prevent the cursor from moving when code is formatted.
 
-The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
+The `cursorOffset` option should be provided, to specify where the cursor is.
 
 ```js
 prettier.formatWithCursor(" 1", { cursorOffset: 2 });
@@ -635,8 +635,6 @@ Format only a segment of a file.
 These two options can be used to format code starting and ending at a given character offset (inclusive and exclusive, respectively). The range will extend:
 * Backwards to the start of the first line containing the selected statement.
 * Forwards to the end of the selected statement.
-
-These options cannot be used with `cursorOffset`.
 
 Default | CLI Override | API Override
 --------|--------------|-------------

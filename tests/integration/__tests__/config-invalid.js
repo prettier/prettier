@@ -1,3 +1,4 @@
+import fs from "node:fs/promises";
 import outdent from "outdent";
 import jestPathSerializer from "../path-serializer.js";
 
@@ -15,7 +16,7 @@ describe("throw error for unsupported extension", () => {
 describe("throw error with invalid config format", () => {
   runCli("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
     status: "non-zero",
-    stderr: expect.stringMatching(/Cannot find package '--invalid--'/),
+    stderr: expect.stringMatching(/Cannot find package '--invalid--'/u),
   });
 });
 
@@ -123,17 +124,16 @@ describe("Invalid toml file", () => {
     stdout: "",
     write: [],
     stderr: expect.stringContaining(
-      /* cSpell:disable */
       outdent`
-        Unexpected character, expecting string, number, datetime, boolean, inline array or inline table at row 1, col 4, pos 3:
-        1> a=
+        Invalid TOML document: incomplete key-value declaration: no value specified
+
+        1:  a=
               ^
-        2:   b!=
+        2:    b!=
       `
         .split("\n")
         .map((line) => `[error] ${line}`)
         .join("\n"),
-      /* cSpell:enable */
     ),
   });
 });
@@ -177,4 +177,32 @@ describe("Invalid config value", () => {
     write: [],
     stderr: "",
   });
+});
+
+// Can't put a invalid `package.json` file in the test dir
+test("Invalid package.json", async () => {
+  const packageJsonFile = new URL(
+    "../cli/config/invalid/broken-package-json/package.json",
+    import.meta.url,
+  );
+
+  try {
+    await fs.writeFile(packageJsonFile, '{"prettier":{}}');
+    const { stdout: configFileForValidPackageJson } = await runCli(
+      "cli/config/invalid/broken-package-json",
+      ["--find-config-path", "foo.js"],
+    );
+
+    expect(configFileForValidPackageJson).toBe("package.json");
+
+    await fs.writeFile(packageJsonFile, '{"prettier":{');
+    const { stdout: configFileForInvalidPackageJson } = await runCli(
+      "cli/config/invalid/broken-package-json",
+      ["--find-config-path", "foo.js"],
+    );
+
+    expect(configFileForInvalidPackageJson).toBe(".prettierrc");
+  } finally {
+    await fs.rm(packageJsonFile, { force: true });
+  }
 });

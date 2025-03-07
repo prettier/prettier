@@ -1,6 +1,5 @@
 ---
-author: "Alex Rattray (@rattrayalex)"
-authorURL: "https://github.com/rattrayalex"
+authors: "rattrayalex"
 title: "A curious case of the ternaries"
 ---
 
@@ -80,8 +79,7 @@ const animalName =
     pet.isScary() ?
       'wolf'
     : 'dog'
-  : pet.canMeow() ?
-    'cat'
+  : pet.canMeow() ? 'cat'
   : 'probably a bunny';
 ```
 

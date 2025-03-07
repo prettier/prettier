@@ -10,6 +10,28 @@ export const changelogUnreleasedDirPath = path.join(
   "../../changelog_unreleased",
 );
 
+export const categories = [
+  { dir: "javascript", title: "JavaScript" },
+  { dir: "typescript", title: "TypeScript" },
+  { dir: "flow", title: "Flow" },
+  { dir: "json", title: "JSON" },
+  { dir: "css", title: "CSS" },
+  { dir: "scss", title: "SCSS" },
+  { dir: "less", title: "Less" },
+  { dir: "html", title: "HTML" },
+  { dir: "vue", title: "Vue" },
+  { dir: "angular", title: "Angular" },
+  { dir: "lwc", title: "LWC" },
+  { dir: "handlebars", title: "Ember / Handlebars" },
+  { dir: "graphql", title: "GraphQL" },
+  { dir: "markdown", title: "Markdown" },
+  { dir: "mdx", title: "MDX" },
+  { dir: "yaml", title: "YAML" },
+  { dir: "api", title: "API" },
+  { dir: "cli", title: "CLI" },
+  { dir: "misc", title: "Miscellaneous" },
+];
+
 export const changelogUnreleasedDirs = fs
   .readdirSync(changelogUnreleasedDirPath, {
     withFileTypes: true,
@@ -26,7 +48,7 @@ export function getEntries(dirPath) {
       .trim()
       .split("\n");
 
-    const improvement = title.match(/\[IMPROVEMENT(:(\d+))?]/);
+    const improvement = title.match(/\[IMPROVEMENT(:(\d+))?\]/u);
 
     const section = title.includes("[HIGHLIGHT]")
       ? "highlight"
@@ -71,11 +93,11 @@ export function replaceVersions(data, prevVer, newVer, isPatch = false) {
 
   return data
     .replaceAll(
-      /prettier stable/gi,
+      /prettier stable/giu,
       `Prettier ${isPatch ? prevVer : formatVersion(prevVer)}`,
     )
     .replaceAll(
-      /prettier main/gi,
+      /prettier main/giu,
       `Prettier ${isPatch ? newVer : formatVersion(newVer)}`,
     );
 }
@@ -86,12 +108,12 @@ function formatVersion(version) {
 
 function processTitle(title) {
   return title
-    .replaceAll(/\[(BREAKING|HIGHLIGHT|IMPROVEMENT(:\d+)?)]/g, "")
-    .replaceAll(/\s+/g, " ")
-    .replace(/^#{4} [a-z]/, (s) => s.toUpperCase())
-    .replaceAll(/(?<![[`])@([\w-]+)/g, "[@$1](https://github.com/$1)")
+    .replaceAll(/\[(BREAKING|HIGHLIGHT|IMPROVEMENT(:\d+)?)\]/gu, "")
+    .replaceAll(/\s+/gu, " ")
+    .replace(/^#{4} [a-z]/u, (s) => s.toUpperCase())
+    .replaceAll(/(?<![[`])@([\w-]+)/gu, "[@$1](https://github.com/$1)")
     .replaceAll(
-      /(?<![[`])#(\d{4,})/g,
+      /(?<![[`])#(\d{4,})/gu,
       "[#$1](https://github.com/prettier/prettier/pull/$1)",
     );
 }

@@ -1,31 +1,35 @@
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
-import { fill, group, hardline } from "../document/builders.js";
-import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import { fill, group, hardline, indent, line } from "../document/builders.js";
+import { replaceEndOfLine } from "../document/utils.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
-import { unescapeQuoteEntities, getTextValueParts } from "./utils/index.js";
-import preprocess from "./print-preprocess.js";
-import { insertPragma } from "./pragma.js";
-import { locStart, locEnd } from "./loc.js";
 import embed from "./embed.js";
-import {
-  printClosingTagSuffix,
-  printClosingTagEnd,
-  printOpeningTagPrefix,
-  printOpeningTagStart,
-} from "./print/tag.js";
-import { printElement } from "./print/element.js";
-import { printChildren } from "./print/children.js";
+import getVisitorKeys from "./get-visitor-keys.js";
+import { locEnd, locStart } from "./loc.js";
+import { insertPragma } from "./pragma.js";
 import {
   printAngularControlFlowBlock,
   printAngularControlFlowBlockParameters,
 } from "./print/angular-control-flow-block.js";
-import getVisitorKeys from "./get-visitor-keys.js";
+import {
+  printAngularIcuCase,
+  printAngularIcuExpression,
+} from "./print/angular-icu-expression.js";
+import { printChildren } from "./print/children.js";
+import { printElement } from "./print/element.js";
+import {
+  printClosingTagEnd,
+  printClosingTagSuffix,
+  printOpeningTagPrefix,
+  printOpeningTagStart,
+} from "./print/tag.js";
+import preprocess from "./print-preprocess.js";
+import { getTextValueParts, unescapeQuoteEntities } from "./utils/index.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -49,6 +53,23 @@ function genericPrint(path, options, print) {
     case "angularControlFlowBlockParameter":
       return htmlWhitespaceUtils.trim(node.expression);
 
+    case "angularLetDeclaration":
+      // print like "break-after-operator" layout assignment in estree printer
+      return group([
+        "@let ",
+        group([node.id, " =", group(indent([line, print("init")]))]),
+        // semicolon is required
+        ";",
+      ]);
+    case "angularLetDeclarationInitializer":
+      // basically printed via embedded formatting
+      return node.value;
+
+    case "angularIcuExpression":
+      return printAngularIcuExpression(path, options, print);
+    case "angularIcuCase":
+      return printAngularIcuCase(path, options, print);
+
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":
       return [printOpeningTagStart(node), printClosingTagEnd(node)];
@@ -61,7 +82,7 @@ function genericPrint(path, options, print) {
     case "text": {
       if (node.parent.type === "interpolation") {
         // replace the trailing literalline with hardline for better readability
-        const trailingNewlineRegex = /\n[^\S\n]*$/;
+        const trailingNewlineRegex = /\n[^\S\n]*$/u;
         const hasTrailingNewline = trailingNewlineRegex.test(node.value);
         const value = hasTrailingNewline
           ? node.value.replace(trailingNewlineRegex, "")
@@ -69,24 +90,22 @@ function genericPrint(path, options, print) {
         return [replaceEndOfLine(value), hasTrailingNewline ? hardline : ""];
       }
 
-      const printed = cleanDoc([
-        printOpeningTagPrefix(node, options),
-        ...getTextValueParts(node),
-        printClosingTagSuffix(node, options),
-      ]);
+      const prefix = printOpeningTagPrefix(node, options);
+      const printed = getTextValueParts(node);
 
-      if (Array.isArray(printed)) {
-        return fill(printed);
-      }
+      const suffix = printClosingTagSuffix(node, options);
+      // We cant use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
+      printed[0] = [prefix, printed[0]];
+      printed.push([printed.pop(), suffix]);
 
-      return printed;
+      return fill(printed);
     }
     case "docType":
       return [
         group([
           printOpeningTagStart(node, options),
           " ",
-          node.value.replace(/^html\b/i, "html").replaceAll(/\s+/g, " "),
+          node.value.replace(/^html\b/iu, "html").replaceAll(/\s+/gu, " "),
         ]),
         printClosingTagEnd(node, options),
       ];

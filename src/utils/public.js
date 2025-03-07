@@ -1,6 +1,6 @@
 import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "./get-next-non-space-non-comment-character-index.js";
-import isPreviousLineEmptyWithStartIndex from "./is-previous-line-empty.js";
 import isNextLineEmptyAfterIndex from "./is-next-line-empty.js";
+import isPreviousLineEmptyWithStartIndex from "./is-previous-line-empty.js";
 
 // Legacy version of `getNextNonSpaceNonCommentCharacterIndex`
 /**
@@ -82,30 +82,31 @@ export function isNextLineEmpty(text, startIndex) {
       legacyIsNextLineEmpty(...arguments);
 }
 
-export { default as getMaxContinuousCount } from "./get-max-continuous-count.js";
-export { default as getStringWidth } from "./get-string-width.js";
+export {
+  addDanglingComment,
+  addLeadingComment,
+  addTrailingComment,
+} from "../main/comments/utils.js";
 export { default as getAlignmentSize } from "./get-alignment-size.js";
 export { default as getIndentSize } from "./get-indent-size.js";
-export { default as skipNewline } from "./skip-newline.js";
-export { default as skipInlineComment } from "./skip-inline-comment.js";
-export { default as skipTrailingComment } from "./skip-trailing-comment.js";
+export { default as getMaxContinuousCount } from "./get-max-continuous-count.js";
+export { default as getNextNonSpaceNonCommentCharacter } from "./get-next-non-space-non-comment-character.js";
+export { default as getPreferredQuote } from "./get-preferred-quote.js";
+export { default as getStringWidth } from "./get-string-width.js";
 export { default as hasNewline } from "./has-newline.js";
 export { default as hasNewlineInRange } from "./has-newline-in-range.js";
 export { default as hasSpaces } from "./has-spaces.js";
-export { default as getNextNonSpaceNonCommentCharacter } from "./get-next-non-space-non-comment-character.js";
 export { default as makeString } from "./make-string.js";
 export {
   skip,
-  skipWhitespace,
+  skipEverythingButNewLine,
   skipSpaces,
   skipToLineEnd,
-  skipEverythingButNewLine,
+  skipWhitespace,
 } from "./skip.js";
-export {
-  addLeadingComment,
-  addDanglingComment,
-  addTrailingComment,
-} from "../main/comments/utils.js";
+export { default as skipInlineComment } from "./skip-inline-comment.js";
+export { default as skipNewline } from "./skip-newline.js";
+export { default as skipTrailingComment } from "./skip-trailing-comment.js";
 
 // TODO: Remove this in v4
 export { isNextLineEmptyAfterIndex };

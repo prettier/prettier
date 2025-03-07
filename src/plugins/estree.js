@@ -1,7 +1,7 @@
-import * as estreePrinter from "../language-js/printer.js";
 import jsLanguages from "../language-js/languages.evaluate.js";
-import * as estreeJsonPrinter from "../language-json/printer-estree-json.js";
+import * as estreePrinter from "../language-js/printer.js";
 import jsonLanguages from "../language-json/languages.evaluate.js";
+import * as estreeJsonPrinter from "../language-json/printer-estree-json.js";
 
 export const printers = {
   estree: estreePrinter,

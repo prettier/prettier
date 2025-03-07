@@ -1,9 +1,9 @@
 import {
-  needsToBorrowParentClosingTagStartMarker,
-  printClosingTagStartMarker,
   needsToBorrowLastChildClosingTagEndMarker,
-  printClosingTagEndMarker,
+  needsToBorrowParentClosingTagStartMarker,
   needsToBorrowParentOpeningTagEndMarker,
+  printClosingTagEndMarker,
+  printClosingTagStartMarker,
   printOpeningTagEndMarker,
 } from "./print/tag.js";
 

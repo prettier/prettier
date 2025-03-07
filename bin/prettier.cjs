@@ -2,6 +2,12 @@
 
 "use strict";
 
+var nodeModule = require("module");
+
+if (typeof nodeModule.enableCompileCache === "function") {
+  nodeModule.enableCompileCache();
+}
+
 var pleaseUpgradeNode = require("please-upgrade-node");
 var packageJson = require("../package.json");
 

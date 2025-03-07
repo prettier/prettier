@@ -5,17 +5,17 @@ import { ParseSourceSpan } from "angular-html-parser";
 const parseFunctions = [
   {
     // <!--[if ... ]> ... <![endif]-->
-    regex: /^(\[if([^\]]*)]>)(.*?)<!\s*\[endif]$/s,
+    regex: /^(\[if([^\]]*)\]>)(.*?)<!\s*\[endif\]$/su,
     parse: parseIeConditionalStartEndComment,
   },
   {
     // <!--[if ... ]><!-->
-    regex: /^\[if([^\]]*)]><!$/,
+    regex: /^\[if([^\]]*)\]><!$/u,
     parse: parseIeConditionalStartComment,
   },
   {
     // <!--<![endif]-->
-    regex: /^<!\s*\[endif]$/,
+    regex: /^<!\s*\[endif\]$/u,
     parse: parseIeConditionalEndComment,
   },
 ];
@@ -53,7 +53,7 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
     type: "ieConditionalComment",
     complete,
     children,
-    condition: condition.trim().replaceAll(/\s+/g, " "),
+    condition: condition.trim().replaceAll(/\s+/gu, " "),
     sourceSpan: node.sourceSpan,
     startSourceSpan: new ParseSourceSpan(
       node.sourceSpan.start,
@@ -67,7 +67,7 @@ function parseIeConditionalStartComment(node, parseHtml, match) {
   const [, condition] = match;
   return {
     type: "ieConditionalStartComment",
-    condition: condition.trim().replaceAll(/\s+/g, " "),
+    condition: condition.trim().replaceAll(/\s+/gu, " "),
     sourceSpan: node.sourceSpan,
   };
 }

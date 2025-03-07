@@ -1,5 +1,5 @@
-import path from "node:path";
 import fs from "node:fs";
+import path from "node:path";
 import { PROJECT_ROOT } from "../utils/index.js";
 
 function getPackageFile(file) {

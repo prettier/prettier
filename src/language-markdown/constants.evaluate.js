@@ -14,47 +14,80 @@ const cjkCharset = new Charset(
       "Modifier_Symbol",
       "Nonspacing_Mark",
     ],
-  }),
+    // .union below makes the next Block condition "OR"
+    // If it is merged into this object definition, it will be "AND" instead
+  }).union(
+    // Firefox treats some symbols (U+30A0, U+30FB) in the Katakana block as CJK
+    unicodeRegex({
+      Block: ["Katakana"],
+    }),
+  ),
 );
 const variationSelectorsCharset = unicodeRegex({
   Block: ["Variation_Selectors", "Variation_Selectors_Supplement"],
 });
 
 const CJK_REGEXP = new RegExp(
-  `(?:${cjkCharset.toString()})(?:${variationSelectorsCharset.toString()})?`,
+  `(?:${cjkCharset.toString("u")})(?:${variationSelectorsCharset.toString("u")})?`,
+  "u",
 );
 
-const K_REGEXP = new Charset(
-  unicodeRegex({ Script: ["Hangul"] }),
-  unicodeRegex({ Script_Extensions: ["Hangul"] }),
-).toRegExp();
+const asciiPunctuationCharacters = [
+  "!",
+  '"',
+  "#",
+  "$",
+  "%",
+  "&",
+  "'",
+  "(",
+  ")",
+  "*",
+  "+",
+  ",",
+  "-",
+  ".",
+  "/",
+  ":",
+  ";",
+  "<",
+  "=",
+  ">",
+  "?",
+  "@",
+  "[",
+  "\\",
+  "]",
+  "^",
+  "_",
+  "`",
+  "{",
+  "|",
+  "}",
+  "~",
+];
 
-// http://spec.commonmark.org/0.25/#ascii-punctuation-character
-const asciiPunctuationCharset =
-  /* prettier-ignore */ new Charset(
-  "!", '"', "#",  "$", "%", "&", "'", "(", ")", "*",
-  "+", ",", "-",  ".", "/", ":", ";", "<", "=", ">",
-  "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|",
-  "}", "~"
+// https://spec.commonmark.org/0.25/#punctuation-character
+// https://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
+const unicodePunctuationClasses = [
+  /* Pc */ "Connector_Punctuation",
+  /* Pd */ "Dash_Punctuation",
+  /* Pe */ "Close_Punctuation",
+  /* Pf */ "Final_Punctuation",
+  /* Pi */ "Initial_Punctuation",
+  /* Po */ "Other_Punctuation",
+  /* Ps */ "Open_Punctuation",
+];
+
+const PUNCTUATION_REGEXP = new RegExp(
+  `(?:${[
+    new Charset(...asciiPunctuationCharacters).toRegExp("u").source,
+    ...unicodePunctuationClasses.map(
+      (charset) => `\\p{General_Category=${charset}}`,
+      "\u{ff5e}", // Used as a substitute for U+301C in Windows
+    ),
+  ].join("|")})`,
+  "u",
 );
 
-// http://spec.commonmark.org/0.25/#punctuation-character
-const unicodePunctuationCharset = unicodeRegex({
-  // http://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
-  General_Category: [
-    /* Pc */ "Connector_Punctuation",
-    /* Pd */ "Dash_Punctuation",
-    /* Pe */ "Close_Punctuation",
-    /* Pf */ "Final_Punctuation",
-    /* Pi */ "Initial_Punctuation",
-    /* Po */ "Other_Punctuation",
-    /* Ps */ "Open_Punctuation",
-  ],
-});
-
-const PUNCTUATION_REGEXP = new Charset(
-  asciiPunctuationCharset,
-  unicodePunctuationCharset,
-).toRegExp();
-
-export { CJK_REGEXP, K_REGEXP, PUNCTUATION_REGEXP };
+export { CJK_REGEXP, PUNCTUATION_REGEXP };

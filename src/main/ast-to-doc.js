@@ -2,9 +2,9 @@ import AstPath from "../common/ast-path.js";
 import { cursor } from "../document/builders.js";
 import { inheritLabel } from "../document/utils.js";
 import { attachComments } from "./comments/attach.js";
-import { printComments, ensureAllCommentsPrinted } from "./comments/print.js";
-import { printEmbeddedLanguages } from "./multiparser.js";
+import { ensureAllCommentsPrinted, printComments } from "./comments/print.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
+import { printEmbeddedLanguages } from "./multiparser.js";
 import printIgnored from "./print-ignored.js";
 
 /**
@@ -50,6 +50,13 @@ async function printAstToDoc(ast, options) {
   );
 
   ensureAllCommentsPrinted(options);
+
+  if (options.nodeAfterCursor && !options.nodeBeforeCursor) {
+    return [cursor, doc];
+  }
+  if (options.nodeBeforeCursor && !options.nodeAfterCursor) {
+    return [doc, cursor];
+  }
 
   return doc;
 
@@ -106,8 +113,16 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
     doc = printer.print(path, options, printPath, args);
   }
 
-  if (node === options.cursorNode) {
-    doc = inheritLabel(doc, (doc) => [cursor, doc, cursor]);
+  switch (node) {
+    case options.cursorNode:
+      doc = inheritLabel(doc, (doc) => [cursor, doc, cursor]);
+      break;
+    case options.nodeBeforeCursor:
+      doc = inheritLabel(doc, (doc) => [doc, cursor]);
+      break;
+    case options.nodeAfterCursor:
+      doc = inheritLabel(doc, (doc) => [cursor, doc]);
+      break;
   }
 
   // We let JSXElement print its comments itself because it adds () around
@@ -143,4 +158,4 @@ async function prepareToPrint(ast, options) {
   return { ast, comments };
 }
 
-export { printAstToDoc, prepareToPrint };
+export { prepareToPrint, printAstToDoc };

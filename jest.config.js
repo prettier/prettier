@@ -47,6 +47,8 @@ if (SKIP_TESTS_WITH_NEW_SYNTAX) {
     "<rootDir>/tests/integration/__tests__/normalize-doc.js",
     "<rootDir>/tests/integration/__tests__/doc-utils-clean-doc.js",
     "<rootDir>/tests/integration/__tests__/config-invalid.js",
+    // Fails on Node.js v14
+    "<rootDir>/tests/dts/unit/run.js",
   );
 }
 
@@ -61,7 +63,7 @@ const config = {
     "jest-snapshot-serializer-ansi",
   ],
   testMatch: [
-    "<rootDir>/tests/format/**/jsfmt.spec.js",
+    "<rootDir>/tests/format/**/format.test.js",
     "<rootDir>/tests/integration/__tests__/**/*.js",
     "<rootDir>/tests/unit/**/*.js",
     "<rootDir>/tests/dts/unit/**/*.js",

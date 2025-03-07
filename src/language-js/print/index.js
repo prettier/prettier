@@ -1,21 +1,21 @@
-import printIgnored from "../../main/print-ignored.js";
-import { line, group, indent } from "../../document/builders.js";
+import { group, indent, line } from "../../document/builders.js";
 import { inheritLabel } from "../../document/utils.js";
+import printIgnored from "../../main/print-ignored.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import pathNeedsParens from "../needs-parens.js";
 import { createTypeCheckFunction } from "../utils/index.js";
 import isIgnored from "../utils/is-ignored.js";
-import { printEstree } from "./estree.js";
 import { printAngular } from "./angular.js";
-import { printJsx } from "./jsx.js";
-import { printFlow } from "./flow.js";
-import { printTypescript } from "./typescript.js";
 import { printDecorators } from "./decorators.js";
+import { printEstree } from "./estree.js";
+import { printFlow } from "./flow.js";
+import { printJsx } from "./jsx.js";
 import { shouldPrintLeadingSemicolon } from "./semicolon.js";
+import { printTypescript } from "./typescript.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 function printWithoutParentheses(path, options, print, args) {

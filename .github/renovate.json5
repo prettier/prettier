@@ -9,39 +9,79 @@
   prConcurrentLimit: 0,
   packageRules: [
     {
-      matchPackageNames: ["react", "react-dom"],
       groupName: "react",
+      matchPackageNames: ["react", "react-dom"],
     },
     {
-      matchPackagePrefixes: ["@babel/"],
-      excludePackageNames: ["@babel/parser"],
       groupName: "babel",
+      matchPackageNames: ["@babel/*"],
     },
     {
-      matchPackagePrefixes: ["@typescript-eslint/"],
       groupName: "typescript-eslint",
+      matchPackageNames: ["@typescript-eslint/*"],
     },
     {
-      matchPackagePrefixes: ["@glimmer/"],
       groupName: "glimmer",
+      matchPackageNames: ["@glimmer/*"],
+    },
+    {
+      groupName: "flow-parser",
+      matchPackageNames: ["flow-parser", "hermes-parser"],
+    },
+    {
+      groupName: "ESLint related dependencies",
+      matchPackageNames: [
+        "eslint",
+        "@eslint/*",
+        "@eslint-react/eslint-plugin",
+        "@stylistic/eslint-plugin-js",
+        "eslint-config-prettier",
+        "eslint-plugin-compat",
+        "eslint-plugin-jest",
+        "eslint-plugin-n",
+        "eslint-plugin-regexp",
+        "eslint-plugin-simple-import-sort",
+        "eslint-plugin-unicorn",
+        "globals",
+      ],
+    },
+    {
+      groupName: "Angular Estree",
+      matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
     },
     {
       branchPrefix: "renovate/website/",
-      matchPaths: ["website/package.json"],
+      matchFileNames: ["website/package.json"],
       labels: ["dependency:website"],
     },
     {
       branchPrefix: "renovate/tools/",
-      matchPaths: [
+      matchFileNames: [
         "scripts/release/package.json",
         "scripts/tools/bundle-test/package.json",
         "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
       ],
       labels: ["dependency:tools"],
     },
+    {
+      groupName: "GitHub Actions",
+      matchManagers: ["github-actions"],
+    },
+    // Forbid codemirror@6.65.7
+    // https://github.com/prettier/prettier/pull/13171#issuecomment-1258427561
+    {
+      matchPackageNames: ["codemirror"],
+      allowedVersions: "!/^6\\.65\\.7$/",
+    },
+    {
+      matchPackageNames: ["react", "react-dom"],
+      allowedVersions: "^18.0.0",
+    },
   ],
   ignoreDeps: [
     // It's a dependency of `remark-parse`, use same version to reduce size
     "collapse-white-space",
+    // It will be updated by release script
+    "prettier",
   ],
 }

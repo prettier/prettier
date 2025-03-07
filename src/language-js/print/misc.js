@@ -3,8 +3,8 @@ import { isCallExpression, isMemberExpression } from "../utils/index.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 /**
@@ -48,7 +48,9 @@ function printDefiniteToken(path) {
 
 const flowDeclareNodeTypes = new Set([
   "DeclareClass",
+  "DeclareComponent",
   "DeclareFunction",
+  "DeclareHook",
   "DeclareVariable",
   "DeclareExportDeclaration",
   "DeclareExportAllDeclaration",
@@ -124,13 +126,13 @@ function printTypeScriptAccessibilityToken(node) {
 }
 
 export {
-  printOptionalToken,
-  printDefiniteToken,
-  printDeclareToken,
-  printAbstractToken,
-  printFunctionTypeParameters,
-  printBindExpressionCallee,
-  printRestSpread,
   adjustClause,
+  printAbstractToken,
+  printBindExpressionCallee,
+  printDeclareToken,
+  printDefiniteToken,
+  printFunctionTypeParameters,
+  printOptionalToken,
+  printRestSpread,
   printTypeScriptAccessibilityToken,
 };

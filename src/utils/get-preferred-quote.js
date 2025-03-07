@@ -7,11 +7,11 @@ const DOUBLE_QUOTE = '"';
 
 /**
  *
- * @param {string} rawContent
+ * @param {string} text
  * @param {Quote | boolean} preferredQuoteOrPreferSingleQuote
  * @returns {Quote}
  */
-function getPreferredQuote(rawContent, preferredQuoteOrPreferSingleQuote) {
+function getPreferredQuote(text, preferredQuoteOrPreferSingleQuote) {
   const preferred =
     preferredQuoteOrPreferSingleQuote === true ||
     preferredQuoteOrPreferSingleQuote === SINGLE_QUOTE
@@ -21,7 +21,7 @@ function getPreferredQuote(rawContent, preferredQuoteOrPreferSingleQuote) {
 
   let preferredQuoteCount = 0;
   let alternateQuoteCount = 0;
-  for (const character of rawContent) {
+  for (const character of text) {
     if (character === preferred) {
       preferredQuoteCount++;
     } else if (character === alternate) {

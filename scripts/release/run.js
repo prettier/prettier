@@ -1,7 +1,7 @@
 import semver from "semver";
-import { runGit, readJson, logPromise } from "./utils.js";
 import parseArguments from "./parse-arguments.js";
 import * as steps from "./steps/index.js";
+import { logPromise, readJson, runGit } from "./utils.js";
 
 const params = parseArguments();
 const { stdout: previousVersion } = await runGit([
@@ -19,6 +19,10 @@ if (semver.parse(previousVersion) === null) {
 }
 
 for (let step of [
+  {
+    process: steps.chooseVersion,
+    skip: Boolean(params.version),
+  },
   {
     name: "Validating new version",
     process: steps.validateNewVersion,
@@ -52,7 +56,16 @@ for (let step of [
   },
   params.manual ? steps.publishToNpm : steps.waitForBotRelease,
   steps.showInstructionsAfterNpmPublish,
+  {
+    name: "Merge release notes PR",
+    process: steps.mergeBlogPost,
+  },
   steps.updateDependentsCount,
+  {
+    name: "Cleaning changelog",
+    process: steps.cleanChangelog,
+    skip: params.dry || params.next,
+  },
   steps.bumpPrettier,
   steps.postPublishSteps,
 ]) {

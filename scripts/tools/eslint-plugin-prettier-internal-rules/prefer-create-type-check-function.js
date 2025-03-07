@@ -1,5 +1,3 @@
-"use strict";
-
 const MESSAGE_ID = "prefer-create-type-check-function";
 
 const isTypeAccess = (node, parameterName) => {
@@ -135,12 +133,9 @@ const selector = [
   "[generator!=true]",
 ].join("");
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/prefer-create-type-check-function.js",
-    },
     messages: {
       [MESSAGE_ID]:
         "Prefer use `createTypeCheckFunction` to create this function",
@@ -164,9 +159,7 @@ module.exports = {
     fixable: "code",
   },
   create(context) {
-    const { ignoreSingleType, onlyTopLevelFunctions } = {
-      ignoreSingleType: false,
-      onlyTopLevelFunctions: false,
+    const { ignoreSingleType = false, onlyTopLevelFunctions = false } = {
       ...context.options[0],
     };
     const sourceCode = context.getSourceCode();

@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
-import url from "node:url";
 import path from "node:path";
+import url from "node:url";
 
 const toPath = (path) => (path instanceof URL ? url.fileURLToPath(path) : path);
 
@@ -15,17 +15,20 @@ function writeJson(file, content) {
 }
 
 async function copyFile(from, to) {
-  const data = await fs.readFile(from);
-  return writeFile(to, data);
+  await createDirectory(path.dirname(toPath(to)));
+  return fs.copyFile(from, to);
 }
 
-async function writeFile(file, content) {
-  const directory = path.dirname(toPath(file));
+async function createDirectory(directory) {
   try {
     await fs.mkdir(directory, { recursive: true });
   } catch {
     // noop
   }
+}
+
+async function writeFile(file, content) {
+  await createDirectory(path.dirname(toPath(file)));
   return fs.writeFile(file, content);
 }
 
@@ -35,12 +38,12 @@ const WEBSITE_DIR = path.join(PROJECT_ROOT, "website");
 const SOURCE_DIR = path.join(PROJECT_ROOT, "src");
 
 export {
-  PROJECT_ROOT,
-  DIST_DIR,
-  WEBSITE_DIR,
-  SOURCE_DIR,
-  readJson,
-  writeJson,
-  writeFile,
   copyFile,
+  DIST_DIR,
+  PROJECT_ROOT,
+  readJson,
+  SOURCE_DIR,
+  WEBSITE_DIR,
+  writeFile,
+  writeJson,
 };

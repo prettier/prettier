@@ -1,16 +1,19 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import chalk from "chalk";
-import { createTwoFilesPatch } from "diff";
 import * as prettier from "../index.js";
-import mockable from "../common/mockable.js";
-import { createIsIgnoredFunction, errors } from "./prettier-internal.js";
 import { expandPatterns } from "./expand-patterns.js";
-import getOptionsForFile from "./options/get-options-for-file.js";
-import isTTY from "./is-tty.js";
 import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
-import { statSafe, normalizeToPosix } from "./utils.js";
+import isTTY from "./is-tty.js";
+import getOptionsForFile from "./options/get-options-for-file.js";
+import {
+  createIsIgnoredFunction,
+  createTwoFilesPatch,
+  errors,
+  mockable,
+} from "./prettier-internal.js";
+import { normalizeToPosix, statSafe } from "./utils.js";
 
 const { getStdin, writeFormattedFile } = mockable;
 
@@ -51,7 +54,7 @@ function handleError(context, filename, error, printedFilename, ignoreUnknown) {
   }
 
   const isParseError = Boolean(error?.loc);
-  const isValidationError = /^Invalid \S+ value\./.test(error?.message);
+  const isValidationError = /^Invalid \S+ value\./u.test(error?.message);
 
   if (isParseError) {
     // `invalid.js: SyntaxError: Unexpected token (1:1)`.
@@ -163,41 +166,26 @@ async function format(context, input, opt) {
 
   const { performanceTestFlag } = context;
   if (performanceTestFlag?.debugBenchmark) {
-    let benchmark;
+    let Bench;
     try {
-      // eslint-disable-next-line import/no-extraneous-dependencies
-      ({ default: benchmark } = await import("benchmark"));
+      ({ Bench } = await import("tinybench"));
     } catch {
       context.logger.debug(
-        "'--debug-benchmark' requires the 'benchmark' package to be installed.",
+        "'--debug-benchmark' requires the 'tinybench' package to be installed.",
       );
       process.exit(2);
     }
     context.logger.debug(
-      "'--debug-benchmark' option found, measuring formatWithCursor with 'benchmark' module.",
+      "'--debug-benchmark' option found, measuring formatWithCursor with 'tinybench' module.",
     );
-    const suite = new benchmark.Suite();
-    suite.add("format", {
-      defer: true,
-      async fn(deferred) {
-        await prettier.formatWithCursor(input, opt);
-        deferred.resolve();
-      },
-    });
-    const result = await new Promise((resolve) => {
-      suite
-        .on("complete", (event) => {
-          resolve({
-            benchmark: String(event.target),
-            hz: event.target.hz,
-            ms: event.target.times.cycle * 1000,
-          });
-        })
-        .run({ async: false });
-    });
+    const bench = new Bench();
+    bench.add("Format", () => prettier.formatWithCursor(input, opt));
+    await bench.run();
+
+    const [result] = bench.table();
     context.logger.debug(
       "'--debug-benchmark' measurements for formatWithCursor: " +
-        JSON.stringify(result, null, 2),
+        JSON.stringify(result, undefined, 2),
     );
   } else if (performanceTestFlag?.debugRepeat) {
     const repeat = performanceTestFlag.debugRepeat;
@@ -487,7 +475,7 @@ async function formatFiles(context) {
       context.logger.warn(
         context.argv.write
           ? `Code style issues fixed in ${files}.`
-          : `Code style issues found in ${files}. Run Prettier to fix.`,
+          : `Code style issues found in ${files}. Run Prettier with --write to fix.`,
       );
     }
   }
@@ -503,4 +491,4 @@ async function formatFiles(context) {
   }
 }
 
-export { formatStdin, formatFiles };
+export { formatFiles, formatStdin };

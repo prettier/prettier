@@ -1,62 +1,57 @@
+#!/usr/bin/env node
+
 import fs from "node:fs/promises";
-import { execa } from "execa";
-import chalk from "chalk";
+import styleText from "node-style-text";
 
-const PACKAGE_JSON_FILE = new URL("../package.json", import.meta.url);
-const DEPENDENCY_KINDS = [
-  "dependencies",
-  "devDependencies",
-  "peerDependencies",
-  "optionalDependencies",
-  "resolutions",
-];
+const PROJECT_ROOT = new URL("../", import.meta.url);
+const ERROR = styleText.bgRed.black(" ERROR ");
+const PASS = "✅ All dependency versions are pinned.";
 
-const isPinnedVersion = (version) =>
-  !(version.startsWith("^") || version.startsWith("~"));
+for (const [index, directory] of [
+  "./",
+  "./website/",
+  "./scripts/release/",
+  "./scripts/tools/bundle-test/",
+  "./scripts/tools/eslint-plugin-prettier-internal-rules/",
+].entries()) {
+  const file = new URL(`${directory}package.json`, PROJECT_ROOT);
 
-function* getUnpinnedDependencies(packageJson) {
-  for (const kind of DEPENDENCY_KINDS) {
-    for (const [name, version] of Object.entries(packageJson[kind] ?? {})) {
-      if (!isPinnedVersion(version)) {
-        yield { kind, name, version };
+  if (index > 0) {
+    console.log();
+  }
+
+  console.log(
+    `Checking '${styleText.gray(file.href.slice(PROJECT_ROOT.href.length - 1))}'...`,
+  );
+  const ok = await validatePackageJson(file);
+  if (ok) {
+    console.log(PASS);
+  }
+}
+
+async function validatePackageJson(packageJsonFile) {
+  const packageJson = JSON.parse(await fs.readFile(packageJsonFile));
+
+  let ok = true;
+  for (const property of ["dependencies", "devDependencies", "resolutions"]) {
+    const value = packageJson[property];
+
+    if (!value) {
+      continue;
+    }
+
+    for (const [name, version] of Object.entries(value)) {
+      if (version[0] === "^" || version[0] === "~") {
+        console.error(
+          ERROR,
+          `Dependency "${styleText.bold.blue(name)}" in "${styleText.gray.underline(property)}" should be pinned.`,
+        );
+
+        ok = false;
+        process.exitCode = 1;
       }
     }
   }
+
+  return ok;
 }
-
-async function fixDependencies() {
-  const packageJson = JSON.parse(await fs.readFile(PACKAGE_JSON_FILE));
-
-  let changed = false;
-
-  for (const { kind, name, version } of getUnpinnedDependencies(packageJson)) {
-    packageJson[kind][name] = version.slice(1);
-    changed = true;
-  }
-
-  if (changed) {
-    await fs.writeFile(
-      PACKAGE_JSON_FILE,
-      JSON.stringify(packageJson, undefined, 2) + "\n",
-    );
-    await execa("yarn");
-  }
-}
-
-async function checkDependencies() {
-  const packageJson = JSON.parse(await fs.readFile(PACKAGE_JSON_FILE));
-
-  for (const { kind, name } of getUnpinnedDependencies(packageJson)) {
-    console.error(
-      chalk.red("error"),
-      `"${chalk.bold.red(name)}" in "${kind}" should be pinned.`,
-    );
-    process.exitCode = 1;
-  }
-}
-
-if (process.argv.includes("--fix")) {
-  await fixDependencies();
-}
-
-await checkDependencies();

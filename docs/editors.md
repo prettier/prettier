@@ -29,7 +29,7 @@ For more details see [the Vim setup guide](vim.md).
 
 A formatter can be specified in your [Helix language configuration](https://docs.helix-editor.com/languages.html#language-configuration), which will take precedence over any language servers.
 
-For more details see the [Helix external binary formatter configuration for Prettier](https://github.com/helix-editor/helix/wiki/External-binary-formatter-configuration#prettier).
+For more details see the [Helix external binary formatter configuration for Prettier](https://github.com/helix-editor/helix/wiki/External-formatter-configuration#prettier).
 
 ## Sublime Text
 
@@ -42,11 +42,6 @@ See the [WebStorm setup guide](webstorm.md).
 ## Visual Studio
 
 Install the [JavaScript Prettier extension](https://github.com/madskristensen/JavaScriptPrettier).
-
-## Atom
-
-Atom users can install the [prettier-atom](https://github.com/prettier/prettier-atom) package, or one of the more minimalistic [mprettier](https://github.com/t9md/atom-mprettier) and
-[miniprettier](https://github.com/duailibe/atom-miniprettier) packages.
 
 ## Espresso
 

@@ -1,0 +1,751 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`htmlTagNames 1`] = `
+[
+  {
+    "display": "inline",
+    "tagName": "a",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "abbr",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "acronym",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "address",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "applet",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "none",
+    "tagName": "area",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "article",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "aside",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline-block",
+    "tagName": "audio",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "b",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "none",
+    "tagName": "base",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "none",
+    "tagName": "basefont",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "bdi",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "bdo",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "bgsound",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "big",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "blink",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "blockquote",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "body",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "br",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline-block",
+    "tagName": "button",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "canvas",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "table-caption",
+    "tagName": "caption",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "center",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "cite",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "code",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "table-column",
+    "tagName": "col",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "table-column-group",
+    "tagName": "colgroup",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "command",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "content",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "data",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "none",
+    "tagName": "datalist",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "dd",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "del",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "details",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "dfn",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "dialog",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "dir",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "div",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "dl",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "dt",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "element",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "em",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "embed",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "fieldset",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "figcaption",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "figure",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "font",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "footer",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "form",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "frame",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "frameset",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "h1",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "h2",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "h3",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "h4",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "h5",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "h6",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "none",
+    "tagName": "head",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "header",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "hgroup",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "hr",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "html",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "i",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "iframe",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "image",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "img",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline-block",
+    "tagName": "input",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "ins",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "isindex",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "kbd",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "keygen",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "label",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "legend",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "list-item",
+    "tagName": "li",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "none",
+    "tagName": "link",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "listing",
+    "whiteSpace": "pre",
+  },
+  {
+    "display": "block",
+    "tagName": "main",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "map",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "mark",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline-block",
+    "tagName": "marquee",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "math",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "menu",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "menuitem",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "none",
+    "tagName": "meta",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline-block",
+    "tagName": "meter",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "multicol",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "nav",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "nextid",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "nobr",
+    "whiteSpace": "nowrap",
+  },
+  {
+    "display": "none",
+    "tagName": "noembed",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "none",
+    "tagName": "noframes",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "noscript",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline-block",
+    "tagName": "object",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "ol",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "optgroup",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "option",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "output",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "p",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "param",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "picture",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "plaintext",
+    "whiteSpace": "pre",
+  },
+  {
+    "display": "block",
+    "tagName": "pre",
+    "whiteSpace": "pre",
+  },
+  {
+    "display": "inline-block",
+    "tagName": "progress",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "q",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "rb",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "rbc",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "none",
+    "tagName": "rp",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "ruby-text",
+    "tagName": "rt",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "rtc",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "ruby",
+    "tagName": "ruby",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "s",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "samp",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "script",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "search",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "section",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline-block",
+    "tagName": "select",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "shadow",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "contents",
+    "tagName": "slot",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "small",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "source",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "spacer",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "span",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "strike",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "strong",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "none",
+    "tagName": "style",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "sub",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "summary",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "sup",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "svg",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "table",
+    "tagName": "table",
+    "whiteSpace": "initial",
+  },
+  {
+    "display": "table-row-group",
+    "tagName": "tbody",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "table-cell",
+    "tagName": "td",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "template",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "textarea",
+    "whiteSpace": "pre-wrap",
+  },
+  {
+    "display": "table-footer-group",
+    "tagName": "tfoot",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "table-cell",
+    "tagName": "th",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "table-header-group",
+    "tagName": "thead",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "time",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "none",
+    "tagName": "title",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "table-row",
+    "tagName": "tr",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "track",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "tt",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "u",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "ul",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "var",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline-block",
+    "tagName": "video",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "wbr",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "block",
+    "tagName": "xmp",
+    "whiteSpace": "pre",
+  },
+]
+`;

@@ -43,4 +43,4 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-export { addLeadingComment, addDanglingComment, addTrailingComment };
+export { addDanglingComment, addLeadingComment, addTrailingComment };

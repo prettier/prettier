@@ -45,12 +45,12 @@ const debugApis = {
 };
 
 export {
-  formatWithCursor,
-  format,
-  check,
-  getSupportInfo,
   debugApis as __debug,
+  check,
+  format,
+  formatWithCursor,
+  getSupportInfo,
 };
-export * as util from "./utils/public.js";
 export * as doc from "./document/public.js";
 export { default as version } from "./main/version.evaluate.cjs";
+export * as util from "./utils/public.js";

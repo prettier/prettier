@@ -75,7 +75,7 @@ class Context {
 
     /* c8 ignore start */
     const { PRETTIER_PERF_REPEAT } = process.env;
-    if (PRETTIER_PERF_REPEAT && /^\d+$/.test(PRETTIER_PERF_REPEAT)) {
+    if (PRETTIER_PERF_REPEAT && /^\d+$/u.test(PRETTIER_PERF_REPEAT)) {
       return {
         name: "PRETTIER_PERF_REPEAT (environment variable)",
         debugRepeat: Number(PRETTIER_PERF_REPEAT),

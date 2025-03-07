@@ -3,7 +3,7 @@ import { ifBreak, join, line } from "../../document/builders.js";
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import { printExpand } from "./utils.js";
 
-/** @typedef {import("../../document/builders.js").Doc} Doc */
+/** @import {Doc} from "../../document/builders.js" */
 
 function printSrcset(path /*, options*/) {
   if (

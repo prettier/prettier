@@ -1,0 +1,542 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid-destructuring-arr.js [__babel_estree] format 1`] = `
+"Invalid optional chaining in the left-hand side of array destructuring pattern. (1:2)
+> 1 | [a?.b] = [];
+    |  ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of array destructuring pattern. (1:1)"
+`;
+
+exports[`invalid-destructuring-arr.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:2)
+> 1 | [a?.b] = [];
+    |  ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:1)"
+`;
+
+exports[`invalid-destructuring-arr.js [babel] format 1`] = `
+"Invalid optional chaining in the left-hand side of array destructuring pattern. (1:2)
+> 1 | [a?.b] = [];
+    |  ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of array destructuring pattern. (1:1)"
+`;
+
+exports[`invalid-destructuring-arr.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:2)
+> 1 | [a?.b] = [];
+    |  ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`invalid-destructuring-arr.js [meriyah] format 1`] = `
+"Invalid left-hand side in assignment (1:10)
+> 1 | [a?.b] = [];
+    |          ^
+  2 |
+Cause: [1:9-1:10]: Invalid left-hand side in assignment"
+`;
+
+exports[`invalid-destructuring-obj.js [__babel_estree] format 1`] = `
+"Invalid optional chaining in the left-hand side of object destructuring pattern. (1:10)
+> 1 | ({ prop: a?.b } = {});
+    |          ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of object destructuring pattern. (1:9)"
+`;
+
+exports[`invalid-destructuring-obj.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:10)
+> 1 | ({ prop: a?.b } = {});
+    |          ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:9)"
+`;
+
+exports[`invalid-destructuring-obj.js [babel] format 1`] = `
+"Invalid optional chaining in the left-hand side of object destructuring pattern. (1:10)
+> 1 | ({ prop: a?.b } = {});
+    |          ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of object destructuring pattern. (1:9)"
+`;
+
+exports[`invalid-destructuring-obj.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:10)
+> 1 | ({ prop: a?.b } = {});
+    |          ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`invalid-destructuring-obj.js [meriyah] format 1`] = `
+"Invalid left-hand side in assignment (1:19)
+> 1 | ({ prop: a?.b } = {});
+    |                   ^
+  2 |
+Cause: [1:18-1:19]: Invalid left-hand side in assignment"
+`;
+
+exports[`invalid-fn-param.js [__babel_estree] format 1`] = `
+"Unexpected token, expected "," (1:13)
+> 1 | function f(a?.b) {}
+    |             ^
+  2 |
+Cause: Unexpected token, expected "," (1:12)"
+`;
+
+exports[`invalid-fn-param.js [acorn] format 1`] = `
+"Unexpected token (1:13)
+> 1 | function f(a?.b) {}
+    |             ^
+  2 |
+Cause: Unexpected token (1:12)"
+`;
+
+exports[`invalid-fn-param.js [babel] format 1`] = `
+"Unexpected token, expected "," (1:13)
+> 1 | function f(a?.b) {}
+    |             ^
+  2 |
+Cause: Unexpected token, expected "," (1:12)"
+`;
+
+exports[`invalid-fn-param.js [espree] format 1`] = `
+"Unexpected token ?. (1:13)
+> 1 | function f(a?.b) {}
+    |             ^
+  2 |
+Cause: Unexpected token ?."
+`;
+
+exports[`invalid-fn-param.js [meriyah] format 1`] = `
+"Expected ')' (1:13)
+> 1 | function f(a?.b) {}
+    |             ^^
+  2 |
+Cause: [1:12-1:14]: Expected ')'"
+`;
+
+exports[`invalid-fn-param-arrow.js [__babel_estree] format 1`] = `
+"Invalid optional chaining in the left-hand side of function parameter list. (1:2)
+> 1 | (a?.b) => {}
+    |  ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of function parameter list. (1:1)"
+`;
+
+exports[`invalid-fn-param-arrow.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:2)
+> 1 | (a?.b) => {}
+    |  ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:1)"
+`;
+
+exports[`invalid-fn-param-arrow.js [babel] format 1`] = `
+"Invalid optional chaining in the left-hand side of function parameter list. (1:2)
+> 1 | (a?.b) => {}
+    |  ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of function parameter list. (1:1)"
+`;
+
+exports[`invalid-fn-param-arrow.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:2)
+> 1 | (a?.b) => {}
+    |  ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`invalid-fn-param-arrow.js [meriyah] format 1`] = `
+"The left-hand side of the arrow can only be destructed through assignment (1:8)
+> 1 | (a?.b) => {}
+    |        ^^
+  2 |
+Cause: [1:7-1:9]: The left-hand side of the arrow can only be destructed through assignment"
+`;
+
+exports[`invalid-fn-param-assign.js [__babel_estree] format 1`] = `
+"Unexpected token, expected "," (1:13)
+> 1 | function f(a?.b = c) {}
+    |             ^
+  2 |
+Cause: Unexpected token, expected "," (1:12)"
+`;
+
+exports[`invalid-fn-param-assign.js [acorn] format 1`] = `
+"Unexpected token (1:13)
+> 1 | function f(a?.b = c) {}
+    |             ^
+  2 |
+Cause: Unexpected token (1:12)"
+`;
+
+exports[`invalid-fn-param-assign.js [babel] format 1`] = `
+"Unexpected token, expected "," (1:13)
+> 1 | function f(a?.b = c) {}
+    |             ^
+  2 |
+Cause: Unexpected token, expected "," (1:12)"
+`;
+
+exports[`invalid-fn-param-assign.js [espree] format 1`] = `
+"Unexpected token ?. (1:13)
+> 1 | function f(a?.b = c) {}
+    |             ^
+  2 |
+Cause: Unexpected token ?."
+`;
+
+exports[`invalid-fn-param-assign.js [meriyah] format 1`] = `
+"Expected ')' (1:13)
+> 1 | function f(a?.b = c) {}
+    |             ^^
+  2 |
+Cause: [1:12-1:14]: Expected ')'"
+`;
+
+exports[`invalid-for-await-of.js [__babel_estree] format 1`] = `
+"Invalid optional chaining in the left-hand side of for-of statement. (1:6)
+> 1 | for (a?.b of x);
+    |      ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of for-of statement. (1:5)"
+`;
+
+exports[`invalid-for-await-of.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:6)
+> 1 | for (a?.b of x);
+    |      ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:5)"
+`;
+
+exports[`invalid-for-await-of.js [babel] format 1`] = `
+"Invalid optional chaining in the left-hand side of for-of statement. (1:6)
+> 1 | for (a?.b of x);
+    |      ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of for-of statement. (1:5)"
+`;
+
+exports[`invalid-for-await-of.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:6)
+> 1 | for (a?.b of x);
+    |      ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`invalid-for-await-of.js [meriyah] format 1`] = `
+"Invalid left-hand side in for-of (1:11)
+> 1 | for (a?.b of x);
+    |           ^^
+  2 |
+Cause: [1:10-1:12]: Invalid left-hand side in for-of"
+`;
+
+exports[`invalid-for-in.js [__babel_estree] format 1`] = `
+"Invalid optional chaining in the left-hand side of for-in statement. (1:6)
+> 1 | for (a?.b in x);
+    |      ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of for-in statement. (1:5)"
+`;
+
+exports[`invalid-for-in.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:6)
+> 1 | for (a?.b in x);
+    |      ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:5)"
+`;
+
+exports[`invalid-for-in.js [babel] format 1`] = `
+"Invalid optional chaining in the left-hand side of for-in statement. (1:6)
+> 1 | for (a?.b in x);
+    |      ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of for-in statement. (1:5)"
+`;
+
+exports[`invalid-for-in.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:6)
+> 1 | for (a?.b in x);
+    |      ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`invalid-for-in.js [meriyah] format 1`] = `
+"Invalid left-hand side in for-in (1:11)
+> 1 | for (a?.b in x);
+    |           ^^
+  2 |
+Cause: [1:10-1:12]: Invalid left-hand side in for-in"
+`;
+
+exports[`invalid-for-of.js [__babel_estree] format 1`] = `
+"Invalid optional chaining in the left-hand side of for-of statement. (1:6)
+> 1 | for (a?.b of x);
+    |      ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of for-of statement. (1:5)"
+`;
+
+exports[`invalid-for-of.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:6)
+> 1 | for (a?.b of x);
+    |      ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:5)"
+`;
+
+exports[`invalid-for-of.js [babel] format 1`] = `
+"Invalid optional chaining in the left-hand side of for-of statement. (1:6)
+> 1 | for (a?.b of x);
+    |      ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of for-of statement. (1:5)"
+`;
+
+exports[`invalid-for-of.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:6)
+> 1 | for (a?.b of x);
+    |      ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`invalid-for-of.js [meriyah] format 1`] = `
+"Invalid left-hand side in for-of (1:11)
+> 1 | for (a?.b of x);
+    |           ^^
+  2 |
+Cause: [1:10-1:12]: Invalid left-hand side in for-of"
+`;
+
+exports[`invalid-inc-postfix.js [__babel_estree] format 1`] = `
+"Invalid optional chaining in the left-hand side of postfix operation. (1:1)
+> 1 | a?.b++;
+    | ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of postfix operation. (1:0)"
+`;
+
+exports[`invalid-inc-postfix.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | a?.b++;
+    | ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:0)"
+`;
+
+exports[`invalid-inc-postfix.js [babel] format 1`] = `
+"Invalid optional chaining in the left-hand side of postfix operation. (1:1)
+> 1 | a?.b++;
+    | ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of postfix operation. (1:0)"
+`;
+
+exports[`invalid-inc-postfix.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | a?.b++;
+    | ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`invalid-inc-postfix.js [meriyah] format 1`] = `
+"Invalid increment/decrement operand (1:5)
+> 1 | a?.b++;
+    |     ^^
+  2 |
+Cause: [1:4-1:6]: Invalid increment/decrement operand"
+`;
+
+exports[`invalid-inc-prefix.js [__babel_estree] format 1`] = `
+"Invalid optional chaining in the left-hand side of prefix operation. (1:3)
+> 1 | ++a?.b;
+    |   ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of prefix operation. (1:2)"
+`;
+
+exports[`invalid-inc-prefix.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:3)
+> 1 | ++a?.b;
+    |   ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:2)"
+`;
+
+exports[`invalid-inc-prefix.js [babel] format 1`] = `
+"Invalid optional chaining in the left-hand side of prefix operation. (1:3)
+> 1 | ++a?.b;
+    |   ^
+  2 |
+Cause: Invalid optional chaining in the left-hand side of prefix operation. (1:2)"
+`;
+
+exports[`invalid-inc-prefix.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:3)
+> 1 | ++a?.b;
+    |   ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`invalid-inc-prefix.js [meriyah] format 1`] = `
+"Invalid increment/decrement operand (1:7)
+> 1 | ++a?.b;
+    |       ^
+  2 |
+Cause: [1:6-1:7]: Invalid increment/decrement operand"
+`;
+
+exports[`valid-complex-case.js [acorn] format 1`] = `
+"The keyword 'let' is reserved (1:1)
+> 1 | let?.()[a] =1;
+    | ^
+  2 | let?.[a] = 1;
+  3 |
+Cause: The keyword 'let' is reserved (1:0)"
+`;
+
+exports[`valid-complex-case.js [espree] format 1`] = `
+"The keyword 'let' is reserved (1:1)
+> 1 | let?.()[a] =1;
+    | ^
+  2 | let?.[a] = 1;
+  3 |
+Cause: The keyword 'let' is reserved"
+`;
+
+exports[`valid-complex-case.js [meriyah] format 1`] = `
+"\`let\` declaration not allowed here and \`let\` cannot be a regular var name in strict mode (1:4)
+> 1 | let?.()[a] =1;
+    |    ^^
+  2 | let?.[a] = 1;
+  3 |
+Cause: [1:3-1:5]: \`let\` declaration not allowed here and \`let\` cannot be a regular var name in strict mode"
+`;
+
+exports[`valid-complex-case.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let?.()[a] =1;
+let?.[a] = 1;
+
+=====================================output=====================================
+let?.()[a] = 1;
+let?.[a] = 1;
+
+================================================================================
+`;
+
+exports[`valid-lhs-eq.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | a?.b.c = d;
+    | ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:0)"
+`;
+
+exports[`valid-lhs-eq.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | a?.b.c = d;
+    | ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`valid-lhs-eq.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a?.b.c = d;
+
+=====================================output=====================================
+a?.b.c = d;
+
+================================================================================
+`;
+
+exports[`valid-lhs-plus-eq.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | a?.b.c += d;
+    | ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:0)"
+`;
+
+exports[`valid-lhs-plus-eq.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | a?.b.c += d;
+    | ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`valid-lhs-plus-eq.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a?.b.c += d;
+
+=====================================output=====================================
+a?.b.c += d;
+
+================================================================================
+`;
+
+exports[`valid-parenthesized.js [acorn] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:2)
+> 1 | (a?.b) = c;
+    |  ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:1)"
+`;
+
+exports[`valid-parenthesized.js [espree] format 1`] = `
+"Optional chaining cannot appear in left-hand side (1:2)
+> 1 | (a?.b) = c;
+    |  ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side"
+`;
+
+exports[`valid-parenthesized.js [meriyah] format 1`] = `
+"Invalid left-hand side in assignment (1:8)
+> 1 | (a?.b) = c;
+    |        ^
+  2 |
+Cause: [1:7-1:8]: Invalid left-hand side in assignment"
+`;
+
+exports[`valid-parenthesized.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(a?.b) = c;
+
+=====================================output=====================================
+a?.b = c;
+
+================================================================================
+`;

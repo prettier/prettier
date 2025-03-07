@@ -28,9 +28,8 @@ function a() {
   if (a) throw e; /* comment 6d */
   else return 2;
 
-  // TODO[@fisker]: fix this
-  // if (a) var a = 1; /* comment 6e */
-  // else return 2;
+  if (a) var a = 1; /* comment 6e */
+  else return 2;
 
   if (a) if (b); /* comment 6f */
   else return 2;

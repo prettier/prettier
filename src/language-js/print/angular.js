@@ -1,14 +1,14 @@
-import { join, line, group } from "../../document/builders.js";
+import { group, join, line } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
-  hasNode,
-  hasComment,
-  getComments,
   createTypeCheckFunction,
+  getComments,
+  hasComment,
+  hasNode,
 } from "../utils/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
-/** @typedef {import("../../common/ast-path.js").default} AstPath */
+/** @import AstPath from "../../common/ast-path.js" */
 
 function printAngular(path, options, print) {
   const { node } = path;
@@ -49,7 +49,7 @@ function printAngular(path, options, print) {
         "body",
       );
     case "NGMicrosyntaxKey":
-      return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/i.test(node.name)
+      return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/iu.test(node.name)
         ? node.name
         : JSON.stringify(node.name);
     case "NGMicrosyntaxExpression":
@@ -66,7 +66,7 @@ function printAngular(path, options, print) {
           (node.key.name === "then" ||
             node.key.name === "else" ||
             node.key.name === "as")) ||
-          (index === 2 &&
+          ((index === 2 || index === 3) &&
             ((node.key.name === "else" &&
               parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
               parent.body[index - 1].key.name === "then") ||

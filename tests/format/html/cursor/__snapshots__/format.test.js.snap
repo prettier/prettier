@@ -1,0 +1,327 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cursor-0.html format 1`] = `
+====================================options=====================================
+cursorOffset: 354
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- At the time of adding this test, the cursor positioning we end up with
+     here seems clearly wrong.
+     I'm adding the test case anyway to demonstrate the brokenness and ensure
+     that if a future changes fixes it, it'll be obvious from the PR diff that
+     the fix happened.
+     Remove this comment if and when we fix it! -->
+<div>bla bla
+
+
+<|></div>
+
+=====================================output=====================================
+<!-- At the time of adding this test, the cursor positioning we end up with
+     here seems clearly wrong.
+     I'm adding the test case anyway to demonstrate the brokenness and ensure
+     that if a future changes fixes it, it'll be obvious from the PR diff that
+     the fix happened.
+     Remove this comment if and when we fix it! -->
+<div>bla bla</d<|>iv>
+
+================================================================================
+`;
+
+exports[`cursor-1.html format 1`] = `
+====================================options=====================================
+cursorOffset: 354
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- At the time of adding this test, the cursor positioning we end up with
+     here seems clearly wrong.
+     I'm adding the test case anyway to demonstrate the brokenness and ensure
+     that if a future changes fixes it, it'll be obvious from the PR diff that
+     the fix happened.
+     Remove this comment if and when we fix it! -->
+<div>bla bla
+
+
+<|></div>
+<script type="module">
+      import lib from './lib.js';
+  
+        function myFunction() { return 'foo'; }
+  </script>
+
+=====================================output=====================================
+<!-- At the time of adding this test, the cursor positioning we end up with
+     here seems clearly wrong.
+     I'm adding the test case anyway to demonstrate the brokenness and ensure
+     that if a future changes fixes it, it'll be obvious from the PR diff that
+     the fix happened.
+     Remove this comment if and when we fix it! -->
+<div>bla bla</d<|>iv>
+<script type="module">
+  import lib from "./lib.js";
+
+  function myFunction() {
+    return "foo";
+  }
+</script>
+
+================================================================================
+`;
+
+exports[`cursor-2.html format 1`] = `
+====================================options=====================================
+cursorOffset: 48
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>bla bla
+
+
+</div>
+<script type="module">
+   <|>   import lib from './lib.js';
+  
+        function myFunction() { return 'foo'; }
+  </script>
+
+=====================================output=====================================
+<div>bla bla</div>
+<script type="module">
+  <|>import lib from "./lib.js";
+
+  function myFunction() {
+    return "foo";
+  }
+</script>
+
+================================================================================
+`;
+
+exports[`cursor-3.html format 1`] = `
+====================================options=====================================
+cursorOffset: 43
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>bla bla
+
+
+</div>
+<script type="module"<|>>
+      import lib from './lib.js';
+  
+        function myFunction() { return 'foo'; }
+  </script>
+
+=====================================output=====================================
+<div>bla bla</div>
+<script type="module"<|>>
+  import lib from "./lib.js";
+
+  function myFunction() {
+    return "foo";
+  }
+</script>
+
+================================================================================
+`;
+
+exports[`cursor-4.html format 1`] = `
+====================================options=====================================
+cursorOffset: 399
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- At the time of adding this test, the cursor positioning we end up with
+     here seems wrong, or at least suboptimal.
+     I'm adding the test case anyway to demonstrate the brokenness and ensure
+     that if a future changes fixes it, it'll be obvious from the PR diff that
+     the fix happened.
+     Remove this comment if and when we fix it! -->
+<div>bla bla
+
+
+</div>
+<script type="module"><|>
+      import lib from './lib.js';
+  
+        function myFunction() { return 'foo'; }
+  </script>
+
+=====================================output=====================================
+<!-- At the time of adding this test, the cursor positioning we end up with
+     here seems wrong, or at least suboptimal.
+     I'm adding the test case anyway to demonstrate the brokenness and ensure
+     that if a future changes fixes it, it'll be obvious from the PR diff that
+     the fix happened.
+     Remove this comment if and when we fix it! -->
+<div>bla bla</div>
+<script type="module">
+  <|>import lib from "./lib.js";
+
+  function myFunction() {
+    return "foo";
+  }
+</script>
+
+================================================================================
+`;
+
+exports[`cursor-5.html format 1`] = `
+====================================options=====================================
+cursorOffset: 65
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>bla bla
+
+
+</div>
+<script type="module">
+      import lib fro<|>m './lib.js';
+  
+        function myFunction() { return 'foo'; }
+  </script>
+
+=====================================output=====================================
+<div>bla bla</div>
+<script type="module">
+  import lib fro<|>m "./lib.js";
+
+  function myFunction() {
+    return "foo";
+  }
+</script>
+
+================================================================================
+`;
+
+exports[`cursor-6.html format 1`] = `
+====================================options=====================================
+cursorOffset: 660
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- At the time of adding this test, the cursor positioning we end up with
+     here seems clearly wrong.
+     I'm adding the test case anyway to demonstrate the brokenness and ensure
+     that if a future changes fixes it, it'll be obvious from the PR diff that
+     the fix happened.
+     Remove this comment if and when we fix it!
+     A big clue: note that tests/format/js/cursor/cursor-12.js features the
+     same JavaScript code but not in an embedded doc, and we handle cursor
+     positioning just fine in that case! -->
+<div>bla bla
+
+
+</div>
+<script type="module">
+      import lib from './lib.js';
+  
+        function myFunction() { return 'foo'; }<|>
+  </script>
+
+=====================================output=====================================
+<!-- At the time of adding this test, the cursor positioning we end up with
+     here seems clearly wrong.
+     I'm adding the test case anyway to demonstrate the brokenness and ensure
+     that if a future changes fixes it, it'll be obvious from the PR diff that
+     the fix happened.
+     Remove this comment if and when we fix it!
+     A big clue: note that tests/format/js/cursor/cursor-12.js features the
+     same JavaScript code but not in an embedded doc, and we handle cursor
+     positioning just fine in that case! -->
+<div>bla bla</div>
+<script type="module">
+  import lib from "./lib.js";
+
+  function myFunction() {
+    return "foo";<|>
+  }
+</script>
+
+================================================================================
+`;
+
+exports[`cursor-7.html format 1`] = `
+====================================options=====================================
+cursorOffset: 470
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- At the time of adding this test, the cursor positioning we end up with
+     here seems clearly wrong.
+     I'm adding the test case anyway to demonstrate the brokenness and ensure
+     that if a future changes fixes it, it'll be obvious from the PR diff that
+     the fix happened.
+     Remove this comment if and when we fix it! -->
+
+<div>bla bla
+
+
+</div>
+<script type="module">
+      import lib from './lib.js';
+  
+        function myFunction() { return 'foo'; }
+<|>  </script>
+
+=====================================output=====================================
+<!-- At the time of adding this test, the cursor positioning we end up with
+     here seems clearly wrong.
+     I'm adding the test case anyway to demonstrate the brokenness and ensure
+     that if a future changes fixes it, it'll be obvious from the PR diff that
+     the fix happened.
+     Remove this comment if and when we fix it! -->
+
+<div>bla bla</div>
+<script type="module">
+  import lib from "./lib.js";
+
+  function myFunction() {
+    return "foo";
+<|>  }
+</script>
+
+================================================================================
+`;
+
+exports[`cursor-8.html format 1`] = `
+====================================options=====================================
+cursorOffset: 137
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>bla bla
+
+
+</div>
+<script type="module">
+      import lib from './lib.js';
+  
+        function myFunction() { return 'foo'; }
+  </scr<|>ipt>
+
+=====================================output=====================================
+<div>bla bla</div>
+<script type="module">
+  import lib from "./lib.js";
+
+  function myFunction() {
+    return "foo";
+  }
+</scr<|>ipt>
+
+================================================================================
+`;

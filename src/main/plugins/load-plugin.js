@@ -1,41 +1,53 @@
-import { pathToFileURL } from "node:url";
 import path from "node:path";
-import mem, { memClear } from "mem";
+import { pathToFileURL } from "node:url";
+import { isUrl } from "url-or-path";
 import importFromDirectory from "../../utils/import-from-directory.js";
 
-function normalizePlugin(pluginInstanceOfPluginModule, name) {
-  const plugin =
-    pluginInstanceOfPluginModule.default ?? pluginInstanceOfPluginModule;
-  return { name, ...plugin };
-}
+/**
+@param {string | URL} name
+@param {string} cwd
+*/
+async function importPlugin(name, cwd) {
+  if (isUrl(name)) {
+    // @ts-expect-error -- Pass `URL` to `import()` works too
+    return import(name);
+  }
 
-const loadPluginFromDirectory = mem(
-  async (name, directory) =>
-    normalizePlugin(await importFromDirectory(name, directory), name),
-  { cacheKey: JSON.stringify },
-);
+  if (path.isAbsolute(name)) {
+    return import(pathToFileURL(name).href);
+  }
 
-const importPlugin = mem(async (name) => {
   try {
     // try local files
     return await import(pathToFileURL(path.resolve(name)).href);
   } catch {
     // try node modules
-    return importFromDirectory(name, process.cwd());
+    return importFromDirectory(name, cwd);
   }
-});
+}
 
-async function loadPlugin(plugin) {
-  if (typeof plugin === "string") {
-    return normalizePlugin(await importPlugin(plugin), plugin);
+async function loadPluginWithoutCache(plugin, cwd) {
+  const module = await importPlugin(plugin, cwd);
+  return { name: plugin, ...(module.default ?? module) };
+}
+
+const cache = new Map();
+function loadPlugin(plugin) {
+  if (typeof plugin !== "string" && !(plugin instanceof URL)) {
+    return plugin;
   }
 
-  return plugin;
+  const cwd = process.cwd();
+  const cacheKey = JSON.stringify({ name: plugin, cwd });
+  if (!cache.has(cacheKey)) {
+    cache.set(cacheKey, loadPluginWithoutCache(plugin, cwd));
+  }
+
+  return cache.get(cacheKey);
 }
 
 function clearCache() {
-  memClear(loadPluginFromDirectory);
-  memClear(importPlugin);
+  cache.clear();
 }
 
-export { loadPlugin, loadPluginFromDirectory, clearCache };
+export { clearCache, loadPlugin };

@@ -1,7 +1,5 @@
-"use strict";
+import { findVariable } from "@eslint-community/eslint-utils";
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-const { findVariable } = require("@eslint-community/eslint-utils");
 const ERROR = "error";
 const SUGGESTION = "suggestion";
 const selector = [
@@ -13,12 +11,9 @@ const selector = [
   ].join(", ")})`,
 ].join("");
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-identifier-n.js",
-    },
     messages: {
       [ERROR]: "Please rename variable 'n'.",
       [SUGGESTION]: "Rename to `node`.",
@@ -30,7 +25,7 @@ module.exports = {
     const variables = new Map();
     return {
       [selector](node) {
-        const scope = context.getScope();
+        const scope = context.sourceCode.getScope(node);
         const variable = findVariable(scope, node);
 
         /* istanbul ignore next */

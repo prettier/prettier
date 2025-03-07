@@ -1,0 +1,280 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic-01.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@let    name   =      'Frodo';
+<h1>Dashboard for {{name}}</h1>
+Hello, {{name}}
+
+=====================================output=====================================
+@let name = "Frodo";
+<h1>Dashboard for {{ name }}</h1>
+Hello, {{ name }}
+
+================================================================================
+`;
+
+exports[`basic-02.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<input #name>
+
+@let greeting     =  'Hello '     +   name.value;
+
+@let user = user$ | async;
+
+=====================================output=====================================
+<input #name />
+
+@let greeting = "Hello " + name.value;
+
+@let user = user$ | async;
+
+================================================================================
+`;
+
+exports[`basic-03.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@let     topLevel    =   value;
+
+@if (condition) {
+  @let         nested    =   value;
+}
+
+<div *ngIf="condition">
+  @let    nestedNgIf    =     value;
+</div>
+
+{{topLevel}}
+
+{{nested}}
+
+{{nestedNgIf}}
+
+=====================================output=====================================
+@let topLevel = value;
+
+@if (condition) {
+  @let nested = value;
+}
+
+<div *ngIf="condition">
+  @let nestedNgIf = value;
+</div>
+
+{{ topLevel }}
+
+{{ nested }}
+
+{{ nestedNgIf }}
+
+================================================================================
+`;
+
+exports[`complex.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@let  foo  =     a | b : c:d :e;
+@let    foo   =  a | pipe;
+@let  foo   =  0 - 1;
+@let   foo  =  - 1;
+@let   foo  =   a ?  1   : 2;
+@let   foo   =  a ( 1 ) ( 2 );
+@let  foo  =   a [ b ];
+@let   foo   =  [ 1 ];
+@let   foo =   {   'a' : 1 };
+@let    foo  =  {  a : 1 };
+@let   foo   =   true;
+@let  foo  =    undefined;
+@let   foo  =  null;
+@let  foo  =   ( 1 );
+@let   foo =   1;
+@let    foo  =   'hello';
+@let  foo  =  a ( 1 , 2 );
+@let   foo = a . b ( 1 , 2 );
+@let  foo =   x !;
+@let foo  =   ! x;
+@let   foo   =    ( ( a ) );
+@let   foo =   a;
+@let  foo =   a; // hello
+@let    foo =   a . b;
+@let   foo  = a ?. b ( );
+@let  foo   =  a ?. b;
+@let   foo = a; // hello
+@let   foo    =    "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection;
+@let    foo   =   copyTypes[options.copyType];
+@let  foo   =   listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3;
+@let   foo  =    a;
+@let   foo   =   b;
+@let   foo   =   aNormalValue | aPipe;
+@let  foo =  aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis;
+@let   foo =   'delete' | translate: {what: ('entities' | translate: {count: array.length})};
+@let    foo   =   {a:1+{} };
+@let  foo =   {a:a==={} };
+@let   foo =   {a:!{} };
+@let  foo =   {a:a?b:{} };
+
+=====================================output=====================================
+@let foo = a | b: c : d : e;
+@let foo = a | pipe;
+@let foo = 0 - 1;
+@let foo = -1;
+@let foo = a ? 1 : 2;
+@let foo = a(1)(2);
+@let foo = a[b];
+@let foo = [1];
+@let foo = { a: 1 };
+@let foo = { a: 1 };
+@let foo = true;
+@let foo = undefined;
+@let foo = null;
+@let foo = 1;
+@let foo = 1;
+@let foo = "hello";
+@let foo = a(1, 2);
+@let foo = a.b(1, 2);
+@let foo = x!;
+@let foo = !x;
+@let foo = a;
+@let foo = a;
+@let foo = a; // hello
+@let foo = a.b;
+@let foo = a?.b();
+@let foo = a?.b;
+@let foo = a; // hello
+@let foo =
+  "SearchSelection.transmissionLayoutRadioButton"
+    | localize: localizationSection;
+@let foo = copyTypes[options.copyType];
+@let foo =
+  listRow.NextScheduledSendStatus == 1 ||
+  listRow.NextScheduledSendStatus == 2 ||
+  listRow.NextScheduledSendStatus == 3;
+@let foo = a;
+@let foo = b;
+@let foo = aNormalValue | aPipe;
+@let foo = aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis;
+@let foo =
+  "delete"
+    | translate: { what: ("entities" | translate: { count: array.length }) };
+@let foo = { a: 1 + {} };
+@let foo = { a: a === {} };
+@let foo = { a: !{} };
+@let foo = { a: a ? b : {} };
+
+================================================================================
+`;
+
+exports[`valid-from-tokenizer-test.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- import from https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b -->
+
+@let foo = 123 + 456;
+
+@let               foo       =          123 + 456;
+@let foo=123 + 456;
+@let foo =123 + 456;
+@let foo=   123 + 456;
+
+@let
+foo = 123;
+@let    
+foo = 123;
+@let    
+              foo = 123;
+@let foo
+= 123;
+@let foo
+       = 123;
+@let foo   
+   = 123;
+@let  
+   foo   
+      = 123;
+
+@let foo = 
+123 + 
+ 456 + 
+ 789
+ ;
+
+@block {@let foo = 123 + 456;}
+
+@let foo = 'a; b';
+@let foo = "';'";
+
+@let foo = '\\';\\'' + "\\",";
+
+@let foo = fn(a, b) + fn2(c, d, e);
+
+@let foo = [1, 2, 3];
+
+@let foo = [0, [foo[1]], 3];
+
+@let foo = {a: 1, b: {c: something + 2}};
+@let foo = {};
+@let foo = {foo: ";"};
+
+@let foo = fn({a: 1, b: [otherFn([{c: ";"}], 321, {d: [',']})]});
+
+=====================================output=====================================
+<!-- import from https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b -->
+
+@let foo = 123 + 456;
+
+@let foo = 123 + 456;
+@let foo = 123 + 456;
+@let foo = 123 + 456;
+@let foo = 123 + 456;
+
+@let foo = 123;
+@let foo = 123;
+@let foo = 123;
+@let foo = 123;
+@let foo = 123;
+@let foo = 123;
+@let foo = 123;
+
+@let foo = 123 + 456 + 789;
+
+@block {
+  @let foo = 123 + 456;
+}
+
+@let foo = "a; b";
+@let foo = "';'";
+
+@let foo = "';'" + '",';
+
+@let foo = fn(a, b) + fn2(c, d, e);
+
+@let foo = [1, 2, 3];
+
+@let foo = [0, [foo[1]], 3];
+
+@let foo = { a: 1, b: { c: something + 2 } };
+@let foo = {};
+@let foo = { foo: ";" };
+
+@let foo = fn({ a: 1, b: [otherFn([{ c: ";" }], 321, { d: [","] })] });
+
+================================================================================
+`;

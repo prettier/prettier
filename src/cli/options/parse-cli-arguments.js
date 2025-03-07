@@ -1,8 +1,8 @@
 import camelCase from "camelcase";
 import { pick } from "../utils.js";
+import createMinimistOptions from "./create-minimist-options.js";
 import { getContextOptionsWithoutPlugins } from "./get-context-options.js";
 import minimist from "./minimist.js";
-import createMinimistOptions from "./create-minimist-options.js";
 import normalizeCliOptions from "./normalize-cli-options.js";
 
 function parseArgv(rawArguments, detailedOptions, logger, keys) {

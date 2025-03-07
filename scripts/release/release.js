@@ -2,8 +2,8 @@
 
 /* This file can't use any dependency since the dependencies may not installed yet */
 import { exec } from "node:child_process";
-import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 function runCommand(command) {

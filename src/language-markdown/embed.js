@@ -1,7 +1,7 @@
-import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import { hardline, markAsRoot } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
+import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import inferParser from "../utils/infer-parser.js";
 import { getFencedCodeBlockValue } from "./utils.js";
 

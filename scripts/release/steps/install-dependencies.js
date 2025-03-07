@@ -1,12 +1,22 @@
-import { execa } from "execa";
-import { runYarn, runGit } from "../utils.js";
+import fs from "node:fs/promises";
+import { runGit, runYarn } from "../utils.js";
+
+const PROJECT_ROOT = new URL("../../../", import.meta.url);
+
+async function installDependenciesInDirectory(directory) {
+  await fs.rm(new URL("./node_modules/", directory), {
+    recursive: true,
+    force: true,
+  });
+  await runYarn("install", { cwd: directory });
+}
 
 export default async function installDependencies() {
-  await execa("rm", ["-rf", "node_modules"]);
-  await runYarn(["install"]);
-
-  await execa("rm", ["-rf", "node_modules"], { cwd: "./website" });
-  await runYarn(["install"], { cwd: "./website" });
+  await Promise.all(
+    [PROJECT_ROOT, new URL("./website/", PROJECT_ROOT)].map((directory) =>
+      installDependenciesInDirectory(directory),
+    ),
+  );
 
   const { stdout: status } = await runGit(["ls-files", "-m"]);
   if (status) {

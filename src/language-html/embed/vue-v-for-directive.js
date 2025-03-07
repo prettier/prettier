@@ -4,7 +4,7 @@ import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-sc
 import { formatAttributeValue } from "./utils.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 /**
@@ -38,9 +38,9 @@ async function printVueVForDirective(textToDoc, print, path, options) {
 
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387
 function parseVueVForDirective(value) {
-  const forAliasRE = /(.*?)\s+(in|of)\s+(.*)/s;
-  const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/;
-  const stripParensRE = /^\(|\)$/g;
+  const forAliasRE = /(.*?)\s+(in|of)\s+(.*)/su;
+  const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/u;
+  const stripParensRE = /^\(|\)$/gu;
 
   const inMatch = value.match(forAliasRE);
   if (!inMatch) {

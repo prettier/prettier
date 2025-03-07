@@ -7,7 +7,7 @@ import escapeStringRegexp from "escape-string-regexp";
  */
 function getMaxContinuousCount(text, searchString) {
   const results = text.match(
-    new RegExp(`(${escapeStringRegexp(searchString)})+`, "g"),
+    new RegExp(`(${escapeStringRegexp(searchString)})+`, "gu"),
   );
 
   if (results === null) {

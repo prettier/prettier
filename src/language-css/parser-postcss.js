@@ -3,22 +3,22 @@ import postcssLess from "postcss-less";
 import postcssScssParse from "postcss-scss/lib/scss-parse";
 import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
-import { hasPragma } from "./pragma.js";
 import {
-  locStart,
-  locEnd,
   calculateLoc,
+  locEnd,
+  locStart,
   replaceQuotesInInlineComments,
 } from "./loc.js";
-import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
-import isModuleRuleName from "./utils/is-module-rule-name.js";
-import parseValue from "./parse/parse-value.js";
-import parseSelector from "./parse/parse-selector.js";
 import parseMediaQuery from "./parse/parse-media-query.js";
+import parseSelector from "./parse/parse-selector.js";
+import parseValue from "./parse/parse-value.js";
 import { addTypePrefix } from "./parse/utils.js";
+import { hasPragma } from "./pragma.js";
+import isModuleRuleName from "./utils/is-module-rule-name.js";
+import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
+const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/u;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/u;
 
 function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {
@@ -55,7 +55,7 @@ function parseNestedCSS(node, options) {
             node.source.start.offset + node.prop.length,
             node.source.end.offset,
           );
-        const fakeContent = textBefore.replaceAll(/[^\n]/g, " ") + nodeText;
+        const fakeContent = textBefore.replaceAll(/[^\n]/gu, " ") + nodeText;
         let parse;
         if (options.parser === "scss") {
           parse = parseScss;
@@ -92,7 +92,7 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.selector === "string") {
       selector = node.raws.selector
-        ? node.raws.selector.scss ?? node.raws.selector.raw
+        ? (node.raws.selector.scss ?? node.raws.selector.raw)
         : node.selector;
 
       if (node.raws.between && node.raws.between.trim().length > 0) {
@@ -106,19 +106,17 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.value === "string") {
       value = node.raws.value
-        ? node.raws.value.scss ?? node.raws.value.raw
+        ? (node.raws.value.scss ?? node.raws.value.raw)
         : node.value;
 
-      value = value.trim();
-
-      node.raws.value = value;
+      node.raws.value = value.trim();
     }
 
     let params = "";
 
     if (typeof node.params === "string") {
       params = node.raws.params
-        ? node.raws.params.scss ?? node.raws.params.raw
+        ? (node.raws.params.scss ?? node.raws.params.raw)
         : node.params;
 
       if (node.raws.afterName && node.raws.afterName.trim().length > 0) {
@@ -161,7 +159,7 @@ function parseNestedCSS(node, options) {
       return node;
     }
 
-    if (value.length > 0) {
+    if (value.trim().length > 0) {
       const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
 
       if (defaultSCSSDirectiveIndex) {
@@ -231,7 +229,7 @@ function parseNestedCSS(node, options) {
 
       // only css support custom-selector
       if (options.parser === "css" && node.name === "custom-selector") {
-        const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
+        const customSelector = node.params.match(/:--\S+\s+/u)[0].trim();
         node.customSelector = customSelector;
         node.selector = parseSelector(
           node.params.slice(customSelector.length).trim(),
@@ -299,7 +297,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (name === "at-root") {
-        if (/^\(\s*(?:without|with)\s*:.+\)$/s.test(params)) {
+        if (/^\(\s*(?:without|with)\s*:.+\)$/su.test(params)) {
           node.params = parseValue(params, options);
         } else {
           node.selector = parseSelector(params);
@@ -336,10 +334,10 @@ function parseNestedCSS(node, options) {
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
         // Move spaces after the `...`, so we can keep the range correct
-        params = params.replace(/(\$\S+?)(\s+)?\.{3}/, "$1...$2");
+        params = params.replace(/(\$\S+?)(\s+)?\.{3}/u, "$1...$2");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
         // Move spaces after the `(`, so we can keep the range correct
-        params = params.replace(/^(?!if)(\S+)(\s+)\(/, "$1($2");
+        params = params.replace(/^(?!if)(\S+)(\s+)\(/u, "$1($2");
 
         node.value = parseValue(params, options);
         delete node.params;

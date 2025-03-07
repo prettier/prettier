@@ -1,12 +1,12 @@
 import {
+  hardline,
   ifBreak,
+  join,
   line,
   softline,
-  hardline,
-  join,
 } from "../../document/builders.js";
-import { isEmptyNode, hasEndComments } from "../utils.js";
-import { printNextEmptyLine, alignWithSpaces } from "./misc.js";
+import { hasEndComments, isEmptyNode } from "../utils.js";
+import { alignWithSpaces, printNextEmptyLine } from "./misc.js";
 
 function printFlowMapping(path, print, options) {
   const { node } = path;

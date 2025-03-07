@@ -1,6 +1,6 @@
 import {
-  DOC_TYPE_STRING,
   DOC_TYPE_ARRAY,
+  DOC_TYPE_STRING,
   VALID_OBJECT_DOC_TYPES,
 } from "../constants.js";
 

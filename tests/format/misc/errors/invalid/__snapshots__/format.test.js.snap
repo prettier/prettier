@@ -1,0 +1,446 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [acorn] format 1`] = `
+"Unexpected token (1:5)
+> 1 | for each (a in b) {}
+    |     ^
+Cause: Unexpected token (1:4)"
+`;
+
+exports[`snippet: #0 [babel] format 1`] = `
+"Unexpected token, expected "(" (1:5)
+> 1 | for each (a in b) {}
+    |     ^
+Cause: Unexpected token, expected "(" (1:4)"
+`;
+
+exports[`snippet: #0 [babel] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = b) = 1
+    | ^
+Cause: Invalid parenthesized assignment pattern. (1:0)"
+`;
+
+exports[`snippet: #0 [babel-flow] format 1`] = `
+"Unexpected token, expected "(" (1:5)
+> 1 | for each (a in b) {}
+    |     ^
+Cause: Unexpected token, expected "(" (1:4)"
+`;
+
+exports[`snippet: #0 [babel-flow] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = b) = 1
+    | ^
+Cause: Invalid parenthesized assignment pattern. (1:0)"
+`;
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"Unexpected token, expected "(" (1:5)
+> 1 | for each (a in b) {}
+    |     ^
+Cause: Unexpected token, expected "(" (1:4)"
+`;
+
+exports[`snippet: #0 [babel-ts] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = b) = 1
+    | ^
+Cause: Invalid parenthesized assignment pattern. (1:0)"
+`;
+
+exports[`snippet: #0 [espree] format 1`] = `
+"Unexpected token each (1:5)
+> 1 | for each (a in b) {}
+    |     ^
+Cause: Unexpected token each"
+`;
+
+exports[`snippet: #0 [flow] format 1`] = `
+"Unexpected identifier, expected the token \`(\` (1:5)
+> 1 | for each (a in b) {}
+    |     ^^^^"
+`;
+
+exports[`snippet: #0 [flow] format 2`] = `
+"Invalid left-hand side in assignment (1:2)
+> 1 | (a = b) = 1
+    |  ^^^^^"
+`;
+
+exports[`snippet: #0 [meriyah] format 1`] = `
+"Expected '(' (1:5)
+> 1 | for each (a in b) {}
+    |     ^^^^
+Cause: [1:4-1:8]: Expected '('"
+`;
+
+exports[`snippet: #0 [meriyah] format 2`] = `
+"Invalid left-hand side in assignment (1:9)
+> 1 | (a = b) = 1
+    |         ^
+Cause: [1:8-1:9]: Invalid left-hand side in assignment"
+`;
+
+exports[`snippet: #0 [typescript] format 1`] = `
+"'(' expected. (1:5)
+> 1 | for each (a in b) {}
+    |     ^
+Cause: '(' expected."
+`;
+
+exports[`snippet: #1 [acorn] format 1`] = `
+"Unexpected token (1:7)
+> 1 | class switch() {}
+    |       ^
+Cause: Unexpected token (1:6)"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"A class name is required. (1:7)
+> 1 | class switch() {}
+    |       ^
+Cause: A class name is required. (1:6)"
+`;
+
+exports[`snippet: #1 [babel] format 2`] = `
+"Invalid left-hand side in assignment expression. (1:5)
+> 1 | a = 1 = 2
+    |     ^
+Cause: Invalid left-hand side in assignment expression. (1:4)"
+`;
+
+exports[`snippet: #1 [babel-flow] format 1`] = `
+"A class name is required. (1:7)
+> 1 | class switch() {}
+    |       ^
+Cause: A class name is required. (1:6)"
+`;
+
+exports[`snippet: #1 [babel-flow] format 2`] = `
+"Invalid left-hand side in assignment expression. (1:5)
+> 1 | a = 1 = 2
+    |     ^
+Cause: Invalid left-hand side in assignment expression. (1:4)"
+`;
+
+exports[`snippet: #1 [babel-ts] format 1`] = `
+"A class name is required. (1:7)
+> 1 | class switch() {}
+    |       ^
+Cause: A class name is required. (1:6)"
+`;
+
+exports[`snippet: #1 [babel-ts] format 2`] = `
+"Invalid left-hand side in assignment expression. (1:5)
+> 1 | a = 1 = 2
+    |     ^
+Cause: Invalid left-hand side in assignment expression. (1:4)"
+`;
+
+exports[`snippet: #1 [espree] format 1`] = `
+"Unexpected token switch (1:7)
+> 1 | class switch() {}
+    |       ^
+Cause: Unexpected token switch"
+`;
+
+exports[`snippet: #1 [flow] format 1`] = `
+"Unexpected token \`switch\`, expected an identifier (1:7)
+> 1 | class switch() {}
+    |       ^^^^^^"
+`;
+
+exports[`snippet: #1 [flow] format 2`] = `
+"Invalid left-hand side in assignment (1:5)
+> 1 | a = 1 = 2
+    |     ^"
+`;
+
+exports[`snippet: #1 [meriyah] format 1`] = `
+"Unexpected strict mode reserved word (1:7)
+> 1 | class switch() {}
+    |       ^^^^^^
+Cause: [1:6-1:12]: Unexpected strict mode reserved word"
+`;
+
+exports[`snippet: #1 [meriyah] format 2`] = `
+"Invalid left-hand side in assignment (1:7)
+> 1 | a = 1 = 2
+    |       ^
+Cause: [1:6-1:7]: Invalid left-hand side in assignment"
+`;
+
+exports[`snippet: #1 [typescript] format 1`] = `
+"'{' expected. (1:7)
+> 1 | class switch() {}
+    |       ^
+Cause: '{' expected."
+`;
+
+exports[`snippet: #2 [acorn] format 1`] = `
+"Unexpected token (1:13)
+> 1 | ({ method() })
+    |             ^
+Cause: Unexpected token (1:12)"
+`;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"Unexpected token, expected "{" (1:13)
+> 1 | ({ method() })
+    |             ^
+Cause: Unexpected token, expected "{" (1:12)"
+`;
+
+exports[`snippet: #2 [babel] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = 1) = 2
+    | ^
+Cause: Invalid parenthesized assignment pattern. (1:0)"
+`;
+
+exports[`snippet: #2 [babel-flow] format 1`] = `
+"Unexpected token, expected "{" (1:13)
+> 1 | ({ method() })
+    |             ^
+Cause: Unexpected token, expected "{" (1:12)"
+`;
+
+exports[`snippet: #2 [babel-flow] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = 1) = 2
+    | ^
+Cause: Invalid parenthesized assignment pattern. (1:0)"
+`;
+
+exports[`snippet: #2 [babel-ts] format 1`] = `
+"Unexpected token, expected "{" (1:13)
+> 1 | ({ method() })
+    |             ^
+Cause: Unexpected token, expected "{" (1:12)"
+`;
+
+exports[`snippet: #2 [babel-ts] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = 1) = 2
+    | ^
+Cause: Invalid parenthesized assignment pattern. (1:0)"
+`;
+
+exports[`snippet: #2 [espree] format 1`] = `
+"Unexpected token } (1:13)
+> 1 | ({ method() })
+    |             ^
+Cause: Unexpected token }"
+`;
+
+exports[`snippet: #2 [flow] format 1`] = `
+"Unexpected token \`}\`, expected the token \`{\` (1:13)
+> 1 | ({ method() })
+    |             ^"
+`;
+
+exports[`snippet: #2 [flow] format 2`] = `
+"Invalid left-hand side in assignment (1:2)
+> 1 | (a = 1) = 2
+    |  ^^^^^"
+`;
+
+exports[`snippet: #2 [meriyah] format 1`] = `
+"Expected '{' (1:13)
+> 1 | ({ method() })
+    |             ^
+Cause: [1:12-1:13]: Expected '{'"
+`;
+
+exports[`snippet: #2 [meriyah] format 2`] = `
+"Invalid left-hand side in assignment (1:9)
+> 1 | (a = 1) = 2
+    |         ^
+Cause: [1:8-1:9]: Invalid left-hand side in assignment"
+`;
+
+exports[`snippet: #2 [typescript] format 1`] = `
+"'{' expected. (1:11)
+> 1 | ({ method() })
+    |           ^
+Cause: '{' expected."
+`;
+
+exports[`snippet: #3 [acorn] format 1`] = `
+"Unexpected token (1:15)
+> 1 | ({ method({}) })
+    |               ^
+Cause: Unexpected token (1:14)"
+`;
+
+exports[`snippet: #3 [babel] format 1`] = `
+"Unexpected token, expected "{" (1:15)
+> 1 | ({ method({}) })
+    |               ^
+Cause: Unexpected token, expected "{" (1:14)"
+`;
+
+exports[`snippet: #3 [babel] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a += b) = 1
+    | ^
+Cause: Invalid parenthesized assignment pattern. (1:0)"
+`;
+
+exports[`snippet: #3 [babel-flow] format 1`] = `
+"Unexpected token, expected "{" (1:15)
+> 1 | ({ method({}) })
+    |               ^
+Cause: Unexpected token, expected "{" (1:14)"
+`;
+
+exports[`snippet: #3 [babel-flow] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a += b) = 1
+    | ^
+Cause: Invalid parenthesized assignment pattern. (1:0)"
+`;
+
+exports[`snippet: #3 [babel-ts] format 1`] = `
+"Unexpected token, expected "{" (1:15)
+> 1 | ({ method({}) })
+    |               ^
+Cause: Unexpected token, expected "{" (1:14)"
+`;
+
+exports[`snippet: #3 [babel-ts] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a += b) = 1
+    | ^
+Cause: Invalid parenthesized assignment pattern. (1:0)"
+`;
+
+exports[`snippet: #3 [espree] format 1`] = `
+"Unexpected token } (1:15)
+> 1 | ({ method({}) })
+    |               ^
+Cause: Unexpected token }"
+`;
+
+exports[`snippet: #3 [flow] format 1`] = `
+"Unexpected token \`}\`, expected the token \`{\` (1:15)
+> 1 | ({ method({}) })
+    |               ^"
+`;
+
+exports[`snippet: #3 [flow] format 2`] = `
+"Invalid left-hand side in assignment (1:2)
+> 1 | (a += b) = 1
+    |  ^^^^^^"
+`;
+
+exports[`snippet: #3 [meriyah] format 1`] = `
+"Expected '{' (1:15)
+> 1 | ({ method({}) })
+    |               ^
+Cause: [1:14-1:15]: Expected '{'"
+`;
+
+exports[`snippet: #3 [meriyah] format 2`] = `
+"Invalid left-hand side in assignment (1:10)
+> 1 | (a += b) = 1
+    |          ^
+Cause: [1:9-1:10]: Invalid left-hand side in assignment"
+`;
+
+exports[`snippet: #3 [typescript] format 1`] = `
+"'{' expected. (1:13)
+> 1 | ({ method({}) })
+    |             ^
+Cause: '{' expected."
+`;
+
+exports[`snippet: #4 [acorn] format 1`] = `
+"Unexpected token (1:23)
+> 1 | ({ method(parameter,) })
+    |                       ^
+Cause: Unexpected token (1:22)"
+`;
+
+exports[`snippet: #4 [babel] format 1`] = `
+"Unexpected token, expected "{" (1:23)
+> 1 | ({ method(parameter,) })
+    |                       ^
+Cause: Unexpected token, expected "{" (1:22)"
+`;
+
+exports[`snippet: #4 [babel] format 2`] = `
+"Invalid left-hand side in assignment expression. (1:2)
+> 1 | (a = b) += 1
+    |  ^
+Cause: Invalid left-hand side in assignment expression. (1:1)"
+`;
+
+exports[`snippet: #4 [babel-flow] format 1`] = `
+"Unexpected token, expected "{" (1:23)
+> 1 | ({ method(parameter,) })
+    |                       ^
+Cause: Unexpected token, expected "{" (1:22)"
+`;
+
+exports[`snippet: #4 [babel-flow] format 2`] = `
+"Invalid left-hand side in assignment expression. (1:2)
+> 1 | (a = b) += 1
+    |  ^
+Cause: Invalid left-hand side in assignment expression. (1:1)"
+`;
+
+exports[`snippet: #4 [babel-ts] format 1`] = `
+"Unexpected token, expected "{" (1:23)
+> 1 | ({ method(parameter,) })
+    |                       ^
+Cause: Unexpected token, expected "{" (1:22)"
+`;
+
+exports[`snippet: #4 [babel-ts] format 2`] = `
+"Invalid left-hand side in assignment expression. (1:2)
+> 1 | (a = b) += 1
+    |  ^
+Cause: Invalid left-hand side in assignment expression. (1:1)"
+`;
+
+exports[`snippet: #4 [espree] format 1`] = `
+"Unexpected token } (1:23)
+> 1 | ({ method(parameter,) })
+    |                       ^
+Cause: Unexpected token }"
+`;
+
+exports[`snippet: #4 [flow] format 1`] = `
+"Unexpected token \`}\`, expected the token \`{\` (1:23)
+> 1 | ({ method(parameter,) })
+    |                       ^"
+`;
+
+exports[`snippet: #4 [flow] format 2`] = `
+"Invalid left-hand side in assignment (1:2)
+> 1 | (a = b) += 1
+    |  ^^^^^"
+`;
+
+exports[`snippet: #4 [meriyah] format 1`] = `
+"Expected '{' (1:23)
+> 1 | ({ method(parameter,) })
+    |                       ^
+Cause: [1:22-1:23]: Expected '{'"
+`;
+
+exports[`snippet: #4 [meriyah] format 2`] = `
+"Invalid left-hand side in assignment (1:9)
+> 1 | (a = b) += 1
+    |         ^^
+Cause: [1:8-1:10]: Invalid left-hand side in assignment"
+`;
+
+exports[`snippet: #4 [typescript] format 1`] = `
+"'{' expected. (1:21)
+> 1 | ({ method(parameter,) })
+    |                     ^
+Cause: '{' expected."
+`;

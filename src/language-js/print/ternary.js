@@ -1,35 +1,35 @@
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import {
-  isJsxElement,
-  isCallExpression,
-  isMemberExpression,
-  isBinaryCastExpression,
-  getComments,
-  isLoneShortArgument,
-  isSimpleExpressionByNodeCount,
-  hasComment,
-  CommentCheckFlags,
-} from "../utils/index.js";
-import { locStart, locEnd } from "../loc.js";
-import isBlockComment from "../utils/is-block-comment.js";
-import {
+  breakParent,
+  dedent,
+  group,
+  hardline,
+  ifBreak,
+  indent,
   line,
   softline,
-  hardline,
-  group,
-  indent,
-  dedent,
-  ifBreak,
-  breakParent,
 } from "../../document/builders.js";
-import pathNeedsParens from "../needs-parens.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import { locEnd, locStart } from "../loc.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
+  CommentCheckFlags,
+  getComments,
+  hasComment,
+  isBinaryCastExpression,
+  isCallExpression,
+  isConditionalType,
+  isJsxElement,
+  isLoneShortArgument,
+  isMemberExpression,
+  isSimpleExpressionByNodeCount,
+} from "../utils/index.js";
+import isBlockComment from "../utils/is-block-comment.js";
 import { printTernaryOld } from "./ternary-old.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import {Doc} from "../../document/builders.js"
+ * @import AstPath from "../../common/ast-path.js"
  *
  * @typedef {any} Options - Prettier options (TBD ...)
  */
@@ -76,6 +76,7 @@ const ancestorNameMap = new Map([
   ["ThrowStatement", "argument"],
   ["UnaryExpression", "argument"],
   ["YieldExpression", "argument"],
+  ["AwaitExpression", "argument"],
 ]);
 /**
  * Do we want to wrap the entire ternary in its own indent?
@@ -153,9 +154,7 @@ function printTernary(path, options, print, args) {
 
   const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
-  const isTSConditional =
-    node.type === "TSConditionalType" ||
-    node.type === "ConditionalTypeAnnotation"; // For Flow.
+  const isTSConditional = isConditionalType(node);
   const consequentNodePropertyName = isConditionalExpression
     ? "consequent"
     : "trueType";
@@ -322,8 +321,7 @@ function printTernary(path, options, print, args) {
         " ",
         "extends",
         " ",
-        node.extendsType.type === "TSConditionalType" ||
-        node.extendsType.type === "ConditionalTypeAnnotation" ||
+        isConditionalType(node.extendsType) ||
         node.extendsType.type === "TSMappedType"
           ? print("extendsType")
           : group(wrapInParens(print("extendsType"))),

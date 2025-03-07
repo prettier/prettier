@@ -168,13 +168,13 @@ describe("--write and --list-different with unknown path and no parser", () => {
 describe("API with no path and no parser", () => {
   test("prettier.format", async () => {
     await expect(prettier.format(" foo  (  )")).rejects.toThrow(
-      /No parser and no file path given, couldn't infer a parser\./,
+      /No parser and no file path given, couldn't infer a parser\./u,
     );
   });
 
   test("prettier.check", async () => {
     await expect(prettier.check(" foo (  )")).rejects.toThrow(
-      /No parser and no file path given, couldn't infer a parser\./,
+      /No parser and no file path given, couldn't infer a parser\./u,
     );
   });
 });

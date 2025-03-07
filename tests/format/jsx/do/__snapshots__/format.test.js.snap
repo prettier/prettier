@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`do.js [acorn] format 1`] = `
+"Unexpected token (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^
+  3 | 	  1
+  4 |   }}
+  5 | </div>
+Cause: Unexpected token (2:3)"
+`;
+
+exports[`do.js [espree] format 1`] = `
+"Unexpected token do (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^
+  3 | 	  1
+  4 |   }}
+  5 | </div>
+Cause: Unexpected token do"
+`;
+
+exports[`do.js [meriyah] format 1`] = `
+"Unexpected token: 'do' (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^^
+  3 | 	  1
+  4 |   }}
+  5 | </div>
+Cause: [2:3-2:5]: Unexpected token: 'do'"
+`;
+
+exports[`do.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>
+  {do {
+	  1
+  }}
+</div>
+
+=====================================output=====================================
+<div>
+  {do {
+    1;
+  }}
+</div>;
+
+================================================================================
+`;

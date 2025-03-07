@@ -1,8 +1,8 @@
-import skipNewline from "./skip-newline.js";
+import hasNewline from "./has-newline.js";
 import { skipSpaces, skipToLineEnd } from "./skip.js";
 import skipInlineComment from "./skip-inline-comment.js";
+import skipNewline from "./skip-newline.js";
 import skipTrailingComment from "./skip-trailing-comment.js";
-import hasNewline from "./has-newline.js";
 
 /**
  * @param {string} text

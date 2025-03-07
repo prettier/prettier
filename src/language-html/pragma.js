@@ -1,5 +1,5 @@
 function hasPragma(text) {
-  return /^\s*<!--\s*@(?:format|prettier)\s*-->/.test(text);
+  return /^\s*<!--\s*@(?:format|prettier)\s*-->/u.test(text);
 }
 
 function insertPragma(text) {

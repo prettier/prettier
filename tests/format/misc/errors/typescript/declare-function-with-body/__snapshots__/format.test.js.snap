@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"An implementation cannot be declared in ambient contexts. (1:1)
+> 1 | declare function foo() {}
+    | ^
+Cause: An implementation cannot be declared in ambient contexts. (1:0)"
+`;
+
+exports[`snippet: #0 [typescript] format 1`] = `
+"An implementation cannot be declared in ambient contexts. (1:1)
+> 1 | declare function foo() {}
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^
+Cause: An implementation cannot be declared in ambient contexts."
+`;

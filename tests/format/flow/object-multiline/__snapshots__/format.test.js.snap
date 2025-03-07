@@ -1,0 +1,152 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multiline.js - {"objectWrap":"collapse"} format 1`] = `
+====================================options=====================================
+objectWrap: "collapse"
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = {
+  name1: 'value1',
+  name2: 'value2',
+};
+
+const a: A = {
+  name1: 'value1',
+  name2: 'value2',
+};
+
+type B = { name1: 'value1',
+  name2: 'value2',
+};
+
+const b: B = { name1: 'value1',
+  name2: 'value2',
+};
+
+type C = {
+  name1: 'value1', name2: 'value2',
+};
+
+const c: C = {
+  name1: 'value1', name2: 'value2',
+};
+
+type D = {
+  name1: 'value1', name2: 'value2', };
+
+const d: D = {
+    name1: 'value1', name2: 'value2', };
+
+  type E = { name1: 'value1', name2: 'value2', };
+
+const e: E = { name1: 'value1', name2: 'value2', };
+
+=====================================output=====================================
+type A = { name1: "value1", name2: "value2" };
+
+const a: A = { name1: "value1", name2: "value2" };
+
+type B = { name1: "value1", name2: "value2" };
+
+const b: B = { name1: "value1", name2: "value2" };
+
+type C = { name1: "value1", name2: "value2" };
+
+const c: C = { name1: "value1", name2: "value2" };
+
+type D = { name1: "value1", name2: "value2" };
+
+const d: D = { name1: "value1", name2: "value2" };
+
+type E = { name1: "value1", name2: "value2" };
+
+const e: E = { name1: "value1", name2: "value2" };
+
+================================================================================
+`;
+
+exports[`multiline.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = {
+  name1: 'value1',
+  name2: 'value2',
+};
+
+const a: A = {
+  name1: 'value1',
+  name2: 'value2',
+};
+
+type B = { name1: 'value1',
+  name2: 'value2',
+};
+
+const b: B = { name1: 'value1',
+  name2: 'value2',
+};
+
+type C = {
+  name1: 'value1', name2: 'value2',
+};
+
+const c: C = {
+  name1: 'value1', name2: 'value2',
+};
+
+type D = {
+  name1: 'value1', name2: 'value2', };
+
+const d: D = {
+    name1: 'value1', name2: 'value2', };
+
+  type E = { name1: 'value1', name2: 'value2', };
+
+const e: E = { name1: 'value1', name2: 'value2', };
+
+=====================================output=====================================
+type A = {
+  name1: "value1",
+  name2: "value2",
+};
+
+const a: A = {
+  name1: "value1",
+  name2: "value2",
+};
+
+type B = { name1: "value1", name2: "value2" };
+
+const b: B = { name1: "value1", name2: "value2" };
+
+type C = {
+  name1: "value1",
+  name2: "value2",
+};
+
+const c: C = {
+  name1: "value1",
+  name2: "value2",
+};
+
+type D = {
+  name1: "value1",
+  name2: "value2",
+};
+
+const d: D = {
+  name1: "value1",
+  name2: "value2",
+};
+
+type E = { name1: "value1", name2: "value2" };
+
+const e: E = { name1: "value1", name2: "value2" };
+
+================================================================================
+`;

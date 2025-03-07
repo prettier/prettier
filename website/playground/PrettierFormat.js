@@ -1,4 +1,4 @@
-import * as React from "react";
+const { React } = window;
 
 export default class PrettierFormat extends React.Component {
   constructor() {

@@ -1,19 +1,23 @@
 import {
-  DOC_TYPE_CURSOR,
-  DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
-  DOC_TYPE_TRIM,
-  DOC_TYPE_GROUP,
+  DOC_TYPE_BREAK_PARENT,
+  DOC_TYPE_CURSOR,
   DOC_TYPE_FILL,
+  DOC_TYPE_GROUP,
   DOC_TYPE_IF_BREAK,
+  DOC_TYPE_INDENT,
   DOC_TYPE_INDENT_IF_BREAK,
+  DOC_TYPE_LABEL,
+  DOC_TYPE_LINE,
   DOC_TYPE_LINE_SUFFIX,
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
-  DOC_TYPE_LINE,
-  DOC_TYPE_LABEL,
-  DOC_TYPE_BREAK_PARENT,
+  DOC_TYPE_TRIM,
 } from "./constants.js";
-import { assertDoc, assertDocArray } from "./utils/assert-doc.js";
+import {
+  assertDoc,
+  assertDocArray,
+  assertDocFillParts,
+} from "./utils/assert-doc.js";
 
 /**
  * TBD properly tagged union for Doc object type is needed here.
@@ -106,7 +110,7 @@ function conditionalGroup(states, opts) {
  * @returns Doc
  */
 function fill(parts) {
-  assertDocArray(parts);
+  assertDocFillParts(parts);
 
   return { type: DOC_TYPE_FILL, parts };
 }
@@ -233,28 +237,28 @@ function label(label, contents) {
 }
 
 export {
-  join,
-  line,
-  softline,
-  hardline,
-  literalline,
-  group,
-  conditionalGroup,
-  fill,
-  lineSuffix,
-  lineSuffixBoundary,
-  cursor,
+  addAlignmentToDoc,
+  align,
   breakParent,
+  conditionalGroup,
+  cursor,
+  dedent,
+  dedentToRoot,
+  fill,
+  group,
+  hardline,
+  hardlineWithoutBreakParent,
   ifBreak,
-  trim,
   indent,
   indentIfBreak,
-  align,
-  addAlignmentToDoc,
-  markAsRoot,
-  dedentToRoot,
-  dedent,
-  hardlineWithoutBreakParent,
-  literallineWithoutBreakParent,
+  join,
   label,
+  line,
+  lineSuffix,
+  lineSuffixBoundary,
+  literalline,
+  literallineWithoutBreakParent,
+  markAsRoot,
+  softline,
+  trim,
 };

@@ -4,6 +4,7 @@ import path from "node:path";
 import minimist from "minimist";
 import semver from "semver";
 import {
+  categories,
   changelogUnreleasedDirPath,
   changelogUnreleasedDirs,
   getEntries,
@@ -15,7 +16,13 @@ const { previousVersion, newVersion } = parseArgv();
 
 const entries = changelogUnreleasedDirs.flatMap((dir) => {
   const dirPath = path.join(changelogUnreleasedDirPath, dir.name);
-  return getEntries(dirPath);
+  const { title } = categories.find((category) => category.dir === dir.name);
+
+  return getEntries(dirPath).map((entry) => {
+    const content =
+      entry.content.slice(0, 4) + ` ${title}:` + entry.content.slice(4);
+    return { ...entry, content };
+  });
 });
 
 console.log(

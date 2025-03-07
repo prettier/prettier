@@ -1,21 +1,21 @@
 import {
-  line,
-  hardline,
   breakParent,
+  hardline,
   indent,
-  lineSuffix,
   join,
+  line,
+  lineSuffix,
 } from "../../document/builders.js";
 import { inheritLabel } from "../../document/utils.js";
 import hasNewline from "../../utils/has-newline.js";
-import skipNewline from "../../utils/skip-newline.js";
-import { skipSpaces } from "../../utils/skip.js";
-import isPreviousLineEmpty from "../../utils/is-previous-line-empty.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import isPreviousLineEmpty from "../../utils/is-previous-line-empty.js";
+import { skipSpaces } from "../../utils/skip.js";
+import skipNewline from "../../utils/skip-newline.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 const returnTrue = () => true;
@@ -222,8 +222,8 @@ function ensureAllCommentsPrinted(options) {
 }
 
 export {
+  ensureAllCommentsPrinted,
   printComments,
   printCommentsSeparately,
   printDanglingComments,
-  ensureAllCommentsPrinted,
 };

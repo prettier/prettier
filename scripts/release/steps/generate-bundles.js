@@ -1,5 +1,5 @@
-import chalk from "chalk";
-import { runYarn, logPromise, readJson } from "../utils.js";
+import styleText from "node-style-text";
+import { logPromise, readJson, runYarn } from "../utils.js";
 
 export default async function generateBundles({ dry, version, manual }) {
   if (!manual) {
@@ -24,5 +24,5 @@ export default async function generateBundles({ dry, version, manual }) {
     /* shouldSkip */ dry,
   );
 
-  console.log(chalk.green.bold("Build successful!\n"));
+  console.log(styleText.green.bold("Build successful!\n"));
 }

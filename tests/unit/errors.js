@@ -1,7 +1,7 @@
 import {
+  ArgExpansionBailout,
   ConfigError,
   UndefinedParserError,
-  ArgExpansionBailout,
 } from "../../src/common/errors.js";
 
 it("ConfigError", () => {

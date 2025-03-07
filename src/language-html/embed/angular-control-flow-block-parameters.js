@@ -12,7 +12,7 @@ function printAngularControlFlowBlockParameters(
     node.sourceSpan.start.offset,
     node.sourceSpan.end.offset,
   );
-  const isEmpty = /^\s*$/.test(content);
+  const isEmpty = /^\s*$/u.test(content);
 
   if (isEmpty) {
     return "";
@@ -24,7 +24,6 @@ function printAngularControlFlowBlockParameters(
     {
       parser: "__ng_directive",
       __isInHtmlAttribute: false,
-      trailingComma: "none",
     },
     shouldHugJsExpression,
   );

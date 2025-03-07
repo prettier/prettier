@@ -26,7 +26,7 @@ override.as-js-file"
 exports[`ignore-unknown check (stderr) 1`] = `
 "[warn] javascript.js
 [warn] override.as-js-file
-[warn] Code style issues found in 2 files. Run Prettier to fix."
+[warn] Code style issues found in 2 files. Run Prettier with --write to fix."
 `;
 
 exports[`ignore-unknown check (stdout) 1`] = `"Checking formatting..."`;

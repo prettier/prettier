@@ -39,9 +39,8 @@ type ArrayProperties<T> = {
 // A union of the properties of the given array T that can be used to index it.
 // If the array is a tuple, then that's going to be the explicit indices of the
 // array, otherwise it's going to just be number.
-type IndexProperties<T extends { length: number }> = IsTuple<T> extends true
-  ? Exclude<Partial<T>["length"], T["length"]>
-  : number;
+type IndexProperties<T extends { length: number }> =
+  IsTuple<T> extends true ? Exclude<Partial<T>["length"], T["length"]> : number;
 
 // Effectively performing T[P], except that it's telling TypeScript that it's
 // safe to do this for tuples, arrays, or objects.
@@ -291,6 +290,7 @@ export type BuiltInParserName =
   | "json-stringify"
   | "json"
   | "json5"
+  | "jsonc"
   | "less"
   | "lwc"
   | "markdown"
@@ -303,7 +303,7 @@ export type BuiltInParserName =
 export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
 /**
- * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettierrc.mjs`, `prettier.config.js`, `prettier.config.cjs`, `prettier.config.mjs`
+ * For use in `.prettierrc.js`, `.prettierrc.ts`, `.prettierrc.cjs`, `.prettierrc.cts`, `prettierrc.mjs`, `prettierrc.mts`, `prettier.config.js`, `prettier.config.ts`, `prettier.config.cjs`, `prettier.config.cts`, `prettier.config.mjs`, `prettier.config.mts`
  */
 export interface Config extends Options {
   overrides?: Array<{
@@ -342,17 +342,16 @@ export interface RequiredOptions extends doc.printer.Options {
    */
   bracketSpacing: boolean;
   /**
+   * How to wrap object literals.
+   * @default "preserve"
+   */
+  objectWrap: "preserve" | "collapse";
+  /**
    * Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the end of the last line instead of being
    * alone on the next line (does not apply to self closing elements).
    * @default false
    */
   bracketSameLine: boolean;
-  /**
-   * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
-   * @default false
-   * @deprecated use bracketSameLine instead
-   */
-  jsxBracketSameLine: boolean;
   /**
    * Format only a segment of a file.
    * @default 0
@@ -399,7 +398,7 @@ export interface RequiredOptions extends doc.printer.Options {
   /**
    * Provide ability to support new languages to prettier.
    */
-  plugins: Array<string | Plugin>;
+  plugins: Array<string | URL | Plugin>;
   /**
    * How to handle whitespaces in HTML.
    * @default "css"
@@ -430,6 +429,27 @@ export interface RequiredOptions extends doc.printer.Options {
    * @default false
    */
   singleAttributePerLine: boolean;
+  /**
+   * Where to print operators when binary expressions wrap lines.
+   * @default "end"
+   */
+  experimentalOperatorPosition: "start" | "end";
+  /**
+   * Use curious ternaries, with the question mark after the condition, instead
+   * of on the same line as the consequent.
+   * @default false
+   */
+  experimentalTernaries: boolean;
+  /**
+   * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+   * @default false
+   * @deprecated use bracketSameLine instead
+   */
+  jsxBracketSameLine?: boolean;
+  /**
+   * Arbitrary additional values on an options object are always allowed.
+   */
+  [_: string]: unknown;
 }
 
 export interface ParserOptions<T = any> extends RequiredOptions {
@@ -486,10 +506,12 @@ export interface Printer<T = any> {
   insertPragma?: (text: string) => string;
   /**
    * @returns `null` if you want to remove this node
-   * @returns `void` if you want to use modified newNode
+   * @returns `void` if you want to use modified `cloned`
    * @returns anything if you want to replace the node with it
    */
-  massageAstNode?: ((node: any, newNode: any, parent: any) => any) | undefined;
+  massageAstNode?:
+    | ((original: any, cloned: any, parent: any) => any)
+    | undefined;
   hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
   canAttachComment?: ((node: T) => boolean) | undefined;
   isBlockComment?: ((node: T) => boolean) | undefined;
@@ -548,8 +570,6 @@ export interface CursorOptions extends Options {
    * Specify where the cursor is.
    */
   cursorOffset: number;
-  rangeStart?: never;
-  rangeEnd?: never;
 }
 
 export interface CursorResult {
@@ -558,7 +578,7 @@ export interface CursorResult {
 }
 
 /**
- * `format` is used to format text using Prettier. [Options](https://prettier.io/docs/en/options.html) may be provided to override the defaults.
+ * `format` is used to format text using Prettier. [Options](https://prettier.io/docs/options) may be provided to override the defaults.
  */
 export function format(source: string, options?: Options): Promise<string>;
 
@@ -572,7 +592,7 @@ export function check(source: string, options?: Options): Promise<boolean>;
  * `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
  * This is useful for editor integrations, to prevent the cursor from moving when code is formatted.
  *
- * The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
+ * The `cursorOffset` option should be provided, to specify where the cursor is.
  */
 export function formatWithCursor(
   source: string,
@@ -587,7 +607,7 @@ export interface ResolveConfigOptions {
   /**
    * Pass directly the path of the config file if you don't wish to search for it.
    */
-  config?: string | undefined;
+  config?: string | URL | undefined;
   /**
    * If set to `true` and an `.editorconfig` file is in your project,
    * Prettier will parse it and convert its properties to the corresponding prettier configuration.
@@ -603,12 +623,11 @@ export interface ResolveConfigOptions {
 /**
  * `resolveConfig` can be used to resolve configuration for a given source file,
  * passing its path or url as the first argument. The config search will start at
- * the file location and continue to search up the directory.
- * (You can use `process.cwd()` to start searching from the current directory).
+ * the directory of the file location and continue to search up the directory.
  *
  * A promise is returned which will resolve to:
  *
- *  - An options object, providing a [config file](https://prettier.io/docs/en/configuration.html) was found.
+ *  - An options object, providing a [config file](https://prettier.io/docs/configuration) was found.
  *  - `null`, if no file was found.
  *
  * The promise will be rejected if there was an error parsing the configuration file.
@@ -782,7 +801,7 @@ export interface SupportInfo {
 export interface FileInfoOptions {
   ignorePath?: string | URL | (string | URL)[] | undefined;
   withNodeModules?: boolean | undefined;
-  plugins?: string[] | undefined;
+  plugins?: Array<string | URL | Plugin> | undefined;
   resolveConfig?: boolean | undefined;
 }
 
@@ -796,10 +815,17 @@ export function getFileInfo(
   options?: FileInfoOptions,
 ): Promise<FileInfoResult>;
 
+export interface SupportInfoOptions {
+  plugins?: Array<string | URL | Plugin> | undefined;
+  showDeprecated?: boolean | undefined;
+}
+
 /**
  * Returns an object representing the parsers, languages and file types Prettier supports for the current version.
  */
-export function getSupportInfo(): Promise<SupportInfo>;
+export function getSupportInfo(
+  options?: SupportInfoOptions,
+): Promise<SupportInfo>;
 
 /**
  * `version` field in `package.json`
@@ -922,4 +948,9 @@ export namespace util {
   function addDanglingComment(node: any, comment: any, marker: any): void;
 
   function addTrailingComment(node: any, comment: any): void;
+
+  function getPreferredQuote(
+    text: string,
+    preferredQuoteOrPreferSingleQuote: Quote | boolean,
+  ): Quote;
 }

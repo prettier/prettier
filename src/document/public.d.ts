@@ -192,7 +192,18 @@ export namespace printer {
     options: Options,
   ): {
     formatted: string;
+    /**
+     * This property is a misnomer, and has been since the changes in
+     * https://github.com/prettier/prettier/pull/15709.
+     * The region of the document indicated by `cursorNodeStart` and `cursorNodeText` will
+     * sometimes actually be what lies BETWEEN a pair of leaf nodes in the AST, rather than a node.
+     */
     cursorNodeStart?: number | undefined;
+
+    /**
+     * Note that, like cursorNodeStart, this is a misnomer and may actually be the text between two
+     * leaf nodes in the AST instead of the text of a node.
+     */
     cursorNodeText?: string | undefined;
   };
   interface Options {

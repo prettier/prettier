@@ -1,28 +1,24 @@
-import {
-  getUnescapedAttributeValue,
-  getTextValueParts,
-} from "../utils/index.js";
 import { fill } from "../../document/builders.js";
+import {
+  getTextValueParts,
+  getUnescapedAttributeValue,
+} from "../utils/index.js";
+import {
+  interpolationRegex as angularInterpolationRegex,
+  printAngularInterpolation,
+} from "./angular-interpolation.js";
 import {
   formatAttributeValue,
   printExpand,
   shouldHugJsExpression,
 } from "./utils.js";
-import {
-  interpolationRegex as angularInterpolationRegex,
-  printAngularInterpolation,
-} from "./angular-interpolation.js";
 
 function createAngularPrinter({ parser }) {
   return (textToDoc, print, path /*, options*/) =>
     formatAttributeValue(
       getUnescapedAttributeValue(path.node),
       textToDoc,
-      {
-        parser,
-        // angular does not allow trailing comma
-        trailingComma: "none",
-      },
+      { parser },
       shouldHugJsExpression,
     );
 }
@@ -58,9 +54,9 @@ function printAngularAttribute(path, options) {
    */
   if (
     (attributeName.startsWith("[") && attributeName.endsWith("]")) ||
-    /^bind(?:on)?-/.test(attributeName) ||
+    /^bind(?:on)?-/u.test(attributeName) ||
     // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
-    /^ng-(?:if|show|hide|class|style)$/.test(attributeName)
+    /^ng-(?:if|show|hide|class|style)$/u.test(attributeName)
   ) {
     return printNgBinding;
   }
@@ -78,7 +74,7 @@ function printAngularAttribute(path, options) {
    *     i18n="longDescription"
    *     i18n-attr="longDescription"
    */
-  if (/^i18n(?:-.+)?$/.test(attributeName)) {
+  if (/^i18n(?:-.+)?$/u.test(attributeName)) {
     return () =>
       printExpand(
         fill(getTextValueParts(node, value.trim())),

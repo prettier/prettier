@@ -1,4 +1,4 @@
-import { join, group } from "../../document/builders.js";
+import { group, join } from "../../document/builders.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
   getCallArguments,
@@ -9,12 +9,12 @@ import {
   isTestCall,
   iterateCallArgumentsPath,
 } from "../utils/index.js";
-import printMemberChain from "./member-chain.js";
 import printCallArguments from "./call-arguments.js";
-import { printOptionalToken, printFunctionTypeParameters } from "./misc.js";
+import printMemberChain from "./member-chain.js";
+import { printFunctionTypeParameters, printOptionalToken } from "./misc.js";
 
 function printCallExpression(path, options, print) {
-  const { node, parent } = path;
+  const { node } = path;
   const isNew = node.type === "NewExpression";
   const isDynamicImport = node.type === "ImportExpression";
 
@@ -27,16 +27,13 @@ function printCallExpression(path, options, print) {
   if (
     isTemplateLiteralSingleArg ||
     // Dangling comments are not handled, all these special cases should have arguments #9668
-    (args.length > 0 &&
-      !isNew &&
-      !isDynamicImport &&
-      // We want to keep CommonJS- and AMD-style require calls, and AMD-style
-      // define calls, as a unit.
-      // e.g. `define(["some/lib"], (lib) => {`
-      (isCommonsJsOrAmdCall(node, parent) ||
-        // Keep test declarations on a single line
-        // e.g. `it('long name', () => {`
-        isTestCall(node, parent)))
+    // We want to keep CommonJS- and AMD-style require calls, and AMD-style
+    // define calls, as a unit.
+    // e.g. `define(["some/lib"], (lib) => {`
+    isCommonsJsOrAmdModuleDefinition(path) ||
+    // Keep test declarations on a single line
+    // e.g. `it('long name', () => {`
+    isTestCall(node, path.parent)
   ) {
     const printed = [];
     iterateCallArgumentsPath(path, () => {
@@ -45,7 +42,7 @@ function printCallExpression(path, options, print) {
     if (!(isTemplateLiteralSingleArg && printed[0].label?.embed)) {
       return [
         isNew ? "new " : "",
-        print("callee"),
+        printCallee(path, print),
         optional,
         printFunctionTypeParameters(path, options, print),
         "(",
@@ -61,14 +58,18 @@ function printCallExpression(path, options, print) {
     !isDynamicImport &&
     !isNew &&
     isMemberish(node.callee) &&
-    !path.call((path) => pathNeedsParens(path, options), "callee")
+    !path.call(
+      (path) => pathNeedsParens(path, options),
+      "callee",
+      ...(node.callee.type === "ChainExpression" ? ["expression"] : []),
+    )
   ) {
     return printMemberChain(path, options, print);
   }
 
   const contents = [
     isNew ? "new " : "",
-    isDynamicImport ? printDynamicImportCallee(node) : print("callee"),
+    printCallee(path, print),
     optional,
     printFunctionTypeParameters(path, options, print),
     printCallArguments(path, options, print),
@@ -83,32 +84,45 @@ function printCallExpression(path, options, print) {
   return contents;
 }
 
-function printDynamicImportCallee(node) {
-  if (!node.phase) {
-    return "import";
+function printCallee(path, print) {
+  const { node } = path;
+
+  if (node.type === "ImportExpression") {
+    return `import${node.phase ? `.${node.phase}` : ""}`;
   }
-  return `import.${node.phase}`;
+
+  return print("callee");
 }
 
-function isCommonsJsOrAmdCall(node, parentNode) {
+function isCommonsJsOrAmdModuleDefinition(path) {
+  const { node } = path;
+
+  if (node.type !== "CallExpression" || node.optional) {
+    return false;
+  }
+
   if (node.callee.type !== "Identifier") {
     return false;
   }
 
+  const args = getCallArguments(node);
+
+  // AMD module
   if (node.callee.name === "require") {
-    const args = getCallArguments(node);
     return (args.length === 1 && isStringLiteral(args[0])) || args.length > 1;
   }
 
-  if (node.callee.name === "define") {
-    const args = getCallArguments(node);
+  // CommonJS module
+  if (
+    node.callee.name === "define" &&
+    path.parent.type === "ExpressionStatement"
+  ) {
     return (
-      parentNode.type === "ExpressionStatement" &&
-      (args.length === 1 ||
-        (args.length === 2 && args[0].type === "ArrayExpression") ||
-        (args.length === 3 &&
-          isStringLiteral(args[0]) &&
-          args[1].type === "ArrayExpression"))
+      args.length === 1 ||
+      (args.length === 2 && args[0].type === "ArrayExpression") ||
+      (args.length === 3 &&
+        isStringLiteral(args[0]) &&
+        args[1].type === "ArrayExpression")
     );
   }
 

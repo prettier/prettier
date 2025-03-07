@@ -1,14 +1,14 @@
 import { group } from "../../document/builders.js";
 import { mapDoc } from "../../document/utils.js";
-import printSrcset from "./srcset.js";
+import printAngularAttribute from "./angular-attributes.js";
 import printClassNames from "./class-names.js";
+import printSrcset from "./srcset.js";
 import { printStyleAttribute } from "./style.js";
 import printVueAttribute from "./vue-attributes.js";
-import printAngularAttribute from "./angular-attributes.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
- * @typedef {import("../../common/ast-path.js")} AstPath
+ * @import {Doc} from "../../document/builders.js"
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 function printAttribute(path, options) {
@@ -20,7 +20,7 @@ function printAttribute(path, options) {
 
   if (
     // lit-html: html`<my-element obj=${obj}></my-element>`
-    /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(
+    /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/u.test(
       options.originalText.slice(
         node.valueSpan.start.offset,
         node.valueSpan.end.offset,

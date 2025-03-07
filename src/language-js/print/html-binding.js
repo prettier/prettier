@@ -1,9 +1,9 @@
 import {
+  group,
+  indent,
   join,
   line,
-  group,
   softline,
-  indent,
 } from "../../document/builders.js";
 
 function printHtmlBinding(path, options, print) {

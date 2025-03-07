@@ -1,46 +1,67 @@
 import {
   breakParent,
   group,
+  hardline,
   ifBreak,
   line,
   softline,
-  hardline,
 } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import { locStart, locEnd } from "../loc.js";
+import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   forceBreakChildren,
   forceNextEmptyLine,
-  isTextLikeNode,
   hasPrettierIgnore,
+  isTextLikeNode,
   preferHardlineAsLeadingSpaces,
 } from "../utils/index.js";
 import {
-  printOpeningTagPrefix,
   needsToBorrowNextOpeningTagStartMarker,
-  printOpeningTagStartMarker,
+  needsToBorrowParentClosingTagStartMarker,
   needsToBorrowPrevClosingTagEndMarker,
   printClosingTagEndMarker,
   printClosingTagSuffix,
-  needsToBorrowParentClosingTagStartMarker,
+  printOpeningTagPrefix,
+  printOpeningTagStartMarker,
 } from "./tag.js";
+
+function getEndLocation(node) {
+  const endLocation = locEnd(node);
+
+  // Element can be unclosed
+  if (
+    node.type === "element" &&
+    !node.endSourceSpan &&
+    isNonEmptyArray(node.children)
+  ) {
+    return Math.max(endLocation, getEndLocation(node.children.at(-1)));
+  }
+
+  return endLocation;
+}
 
 function printChild(childPath, options, print) {
   const child = childPath.node;
 
   if (hasPrettierIgnore(child)) {
+    const endLocation = getEndLocation(child);
+
     return [
       printOpeningTagPrefix(child, options),
       replaceEndOfLine(
-        options.originalText.slice(
-          locStart(child) +
-            (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
-              ? printOpeningTagStartMarker(child).length
-              : 0),
-          locEnd(child) -
-            (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
-              ? printClosingTagEndMarker(child, options).length
-              : 0),
+        htmlWhitespaceUtils.trimEnd(
+          options.originalText.slice(
+            locStart(child) +
+              (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
+                ? printOpeningTagStartMarker(child).length
+                : 0),
+            endLocation -
+              (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
+                ? printClosingTagEndMarker(child, options).length
+                : 0),
+          ),
         ),
       ),
       printClosingTagSuffix(child, options),

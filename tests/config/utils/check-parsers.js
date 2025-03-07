@@ -1,6 +1,6 @@
 import path from "node:path";
-import { outdent } from "outdent";
 import createEsmUtils from "esm-utils";
+import { outdent } from "outdent";
 
 const { __dirname, __filename } = createEsmUtils(import.meta);
 
@@ -71,9 +71,9 @@ const categoryParsers = new Map([
   [
     "json",
     {
-      parsers: ["json", "json5", "json-stringify"],
-      verifyParsers: ["json", "json5", "json-stringify"],
-      extensions: [".json"],
+      parsers: ["json", "json5", "jsonc", "json-stringify"],
+      verifyParsers: ["json", "json5", "jsonc", "json-stringify"],
+      extensions: [".json", ".json5", ".jsonc"],
     },
   ],
   [

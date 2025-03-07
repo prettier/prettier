@@ -10,12 +10,12 @@ export default function getCodeSamples(parser) {
         "  if(!greeting){return null};",
         "",
         "     // TODO: Don't use random in render",
-        '  let num = Math.floor (Math.random() * 1E+7).toString().replace(/\\.\\d+/ig, "")',
+        String.raw`  let num = Math.floor (Math.random() * 1E+7).toString().replace(/\.\d+/ig, "")`,
         "",
         "  return <div className='HelloWorld' title={`You are visitor number ${ num }`} onMouseOver={onMouseOver}>",
         "",
         "    <strong>{ greeting.slice( 0, 1 ).toUpperCase() + greeting.slice(1).toLowerCase() }</strong>",
-        '    {greeting.endsWith(",") ? " " : <span style={{color: \'\\grey\'}}>", "</span> }',
+        String.raw`    {greeting.endsWith(",") ? " " : <span style={{color: '\grey'}}>", "</span> }`,
         "    <em>",
         "\t{ greeted }",
         "\t</em>",
@@ -116,6 +116,7 @@ export default function getCodeSamples(parser) {
       ].join("\n");
     case "json":
     case "json5":
+    case "jsonc":
     case "json-stringify":
       // Excerpted & adapted from Wikipedia, under the Creative Commons Attribution-ShareAlike License
       // https://en.wikipedia.org/wiki/JSON#Example

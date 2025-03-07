@@ -33,6 +33,7 @@ test("builtin parsers", async () => {
       "json",
       "json-stringify",
       "json5",
+      "jsonc",
       "less",
       "lwc",
       "markdown",
