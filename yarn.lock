@@ -6964,7 +6964,7 @@ __metadata:
     postcss-values-parser: "npm:2.0.1"
     prettier: "npm:3.5.3"
     pretty-bytes: "npm:6.1.1"
-    regexp-util: "npm:2.0.0"
+    regexp-util: "npm:2.0.1"
     remark-footnotes: "npm:2.0.0"
     remark-math: "npm:3.0.1"
     remark-parse: "npm:8.0.3"
@@ -7152,12 +7152,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regexp-util@npm:2.0.0, regexp-util@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "regexp-util@npm:2.0.0"
-  dependencies:
-    tslib: "npm:^2.6.0"
-  checksum: 10/8f273c5760496d2d3dfe7607d982eaf1886d41c128c7376db735c278e7dd92bf1c817893e0f1f20060b32be826224a4fa8757976d294b941e49c013f27d00d97
+"regexp-util@npm:2.0.1, regexp-util@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "regexp-util@npm:2.0.1"
+  checksum: 10/934345a752cc1226a0b8a83f496e196439fe427c2f173d8d61512b437921dcad0c3cc9b44dd84c85547ec5a15e917071a2f4271ee08964300c7b835718d01ba0
   languageName: node
   linkType: hard
 
