@@ -16,4 +16,3 @@ jobs:
     uses: prettier/shared-workflows/.github/workflows/automated-fix.yml@main
     with:
       repository: prettier/prettier
-      script: yarn && yarn lint || exit 0
