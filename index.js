@@ -1,1 +1,7 @@
-export * from "./src/index.js";
+export * from 
+
+"./src/index.js";
+
+const a = 'hello,' + 'world!';
+
+[].forEach(x => console.log(x))
