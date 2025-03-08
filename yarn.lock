@@ -4578,12 +4578,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"has-ansi@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "has-ansi@npm:5.0.1"
+"has-ansi@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "has-ansi@npm:6.0.0"
   dependencies:
     ansi-regex: "npm:^6.0.1"
-  checksum: 10/3edc00033f1b67191a8bf051ae7787bbe609ed08be27aaf58c03f77c68ce4b18c376b8a6901a7beead2d2e0e07358063c87aa4e3e1d47ac614ee940efec2e01a
+  checksum: 10/5f839cceb7d5df380aa07ca059b2281cdf327578d48738ee5e28ca2f062f9a526008e6c67dae1ee9fff86471105aa98858dbaf0620b3def1fa4f4eef8aaa2915
   languageName: node
   linkType: hard
 
@@ -5549,13 +5549,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-snapshot-serializer-ansi@npm:2.1.0":
-  version: 2.1.0
-  resolution: "jest-snapshot-serializer-ansi@npm:2.1.0"
+"jest-snapshot-serializer-ansi@npm:2.1.2":
+  version: 2.1.2
+  resolution: "jest-snapshot-serializer-ansi@npm:2.1.2"
   dependencies:
-    has-ansi: "npm:^5.0.1"
+    has-ansi: "npm:^6.0.0"
     strip-ansi: "npm:^7.1.0"
-  checksum: 10/6f67679c308662c83585bbc3cb443718cc85c1c837d60510dd08fdb21a9cc622be93fa46f72270c8f5583385e0334c6e228279ad1e4005f7341a3abdc2e1c0c7
+  checksum: 10/86205f32132f6b140ffdba3d531d2b27f1791df3dc232433f1586f4b10cfd9c05c70c6f48a9c509b8a67109c2c888a32d53d0bcd3e22fc51e14b327972e90d73
   languageName: node
   linkType: hard
 
@@ -6937,7 +6937,7 @@ __metadata:
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
     jest-light-runner: "npm:0.6.0"
-    jest-snapshot-serializer-ansi: "npm:2.1.0"
+    jest-snapshot-serializer-ansi: "npm:2.1.2"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:2.2.2"
     js-yaml: "npm:4.1.0"
