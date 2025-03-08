@@ -682,9 +682,10 @@ const nonPluginUniversalFiles = [
           return text;
         },
       },
+      // Smaller size
       {
-        module: require.resolve("chalk"),
-        path: path.join(dirname, "./shims/chalk.cjs"),
+        module: getPackageFile("picocolors/picocolors.browser.js"),
+        path: path.join(dirname, "./shims/colors.js"),
       },
     ],
   },
@@ -759,15 +760,6 @@ const nodejsFiles = [
         module: require.resolve("n-readlines"),
         find: "const readBuffer = new Buffer(this.options.readChunk);",
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
-      },
-      // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
-      {
-        module: require.resolve("chalk", {
-          paths: [require.resolve("@babel/highlight")],
-        }),
-        path: require.resolve("chalk", {
-          paths: [require.resolve("@babel/code-frame")],
-        }),
       },
       {
         module: getPackageFile("js-yaml/dist/js-yaml.mjs"),

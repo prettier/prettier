@@ -2791,7 +2791,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:5.4.1, chalk@npm:^5.2.0, chalk@npm:^5.3.0, chalk@npm:^5.4.1":
+"chalk@npm:5.4.1, chalk@npm:^5.2.0, chalk@npm:^5.4.1":
   version: 5.4.1
   resolution: "chalk@npm:5.4.1"
   checksum: 10/29df3ffcdf25656fed6e95962e2ef86d14dfe03cd50e7074b06bad9ffbbf6089adbb40f75c00744d843685c8d008adaf3aed31476780312553caf07fa86e5bc7
@@ -6984,7 +6984,7 @@ __metadata:
     unicode-regex: "npm:4.1.2"
     unified: "npm:9.2.2"
     url-or-path: "npm:2.3.2"
-    vnopts: "npm:2.0.0"
+    vnopts: "npm:2.0.2"
     wcwidth.js: "npm:2.0.0"
     yaml-unist-parser: "npm:2.0.1"
   bin:
@@ -7992,7 +7992,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.6.0, tslib@npm:^2.6.2, tslib@npm:^2.8.1":
+"tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.6.2, tslib@npm:^2.8.1":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10/3e2e043d5c2316461cb54e5c7fe02c30ef6dccb3384717ca22ae5c6b5bc95232a6241df19c622d9c73b809bea33b187f6dbc73030963e29950c2141bc32a79f7
@@ -8277,14 +8277,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vnopts@npm:2.0.0":
-  version: 2.0.0
-  resolution: "vnopts@npm:2.0.0"
+"vnopts@npm:2.0.2":
+  version: 2.0.2
+  resolution: "vnopts@npm:2.0.2"
   dependencies:
-    chalk: "npm:^5.3.0"
     leven: "npm:^4.0.0"
-    tslib: "npm:^2.6.0"
-  checksum: 10/005c75ceb49892413a5c1831d7dda1d9c4c3cb48f192efe6840ce3e63121401fe55f8e3ba4edc713653cdeedcd98762437c22ca97eaac25ca53a646304858c7c
+    picocolors: "npm:^1.1.1"
+  checksum: 10/aec69bf34f4cbb4cd426641ec30489945e823ba1e2f20d8cffa08ad82f4b05ebc92c20958c3c88b745d0ee2df588aad81cf14825c6fb77776a76a137564256c8
   languageName: node
   linkType: hard
 
