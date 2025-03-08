@@ -50,7 +50,7 @@
       matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
     },
     {
-      groupName: "Regex related",
+      groupName: "Regex related dependencies",
       matchPackageNames: ["regexp-util", "unicode-regex", "cjk-regex"],
     },
     {
