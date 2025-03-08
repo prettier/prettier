@@ -2864,13 +2864,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cjk-regex@npm:3.2.0":
-  version: 3.2.0
-  resolution: "cjk-regex@npm:3.2.0"
+"cjk-regex@npm:3.2.1":
+  version: 3.2.1
+  resolution: "cjk-regex@npm:3.2.1"
   dependencies:
     regexp-util: "npm:^2.0.1"
     unicode-regex: "npm:^4.1.0"
-  checksum: 10/e38da00a2bcb65024d7acce6447cc96a8f2927b7257d6e168a9ed51fa32364b55b765e7b64a02506a02fd76b346e78d208eda478e0f3efc2b92f151d01143fbd
+  checksum: 10/957d2206332678eb0b7622b2fb151f1de8955eef52f1138c7ecf2e2929bbca148a2815a36e24616fa72e3d25584b48e4ffaf87712a77e54f3499adcd6ca64596
   languageName: node
   linkType: hard
 
@@ -6893,7 +6893,7 @@ __metadata:
     camelcase: "npm:8.0.0"
     chalk: "npm:5.4.1"
     ci-info: "npm:4.1.0"
-    cjk-regex: "npm:3.2.0"
+    cjk-regex: "npm:3.2.1"
     collapse-white-space: "npm:1.0.6"
     cross-env: "npm:7.0.3"
     cspell: "npm:8.17.2"
@@ -6965,7 +6965,7 @@ __metadata:
     postcss-values-parser: "npm:2.0.1"
     prettier: "npm:3.5.3"
     pretty-bytes: "npm:6.1.1"
-    regexp-util: "npm:2.0.1"
+    regexp-util: "npm:2.0.3"
     remark-footnotes: "npm:2.0.0"
     remark-math: "npm:3.0.1"
     remark-parse: "npm:8.0.3"
@@ -6981,7 +6981,7 @@ __metadata:
     to-fast-properties: "npm:4.0.0"
     ts-expect: "npm:1.3.0"
     typescript: "npm:5.8.2"
-    unicode-regex: "npm:4.1.0"
+    unicode-regex: "npm:4.1.2"
     unified: "npm:9.2.2"
     url-or-path: "npm:2.3.2"
     vnopts: "npm:2.0.0"
@@ -7153,10 +7153,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regexp-util@npm:2.0.1, regexp-util@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "regexp-util@npm:2.0.1"
-  checksum: 10/934345a752cc1226a0b8a83f496e196439fe427c2f173d8d61512b437921dcad0c3cc9b44dd84c85547ec5a15e917071a2f4271ee08964300c7b835718d01ba0
+"regexp-util@npm:2.0.3, regexp-util@npm:^2.0.1":
+  version: 2.0.3
+  resolution: "regexp-util@npm:2.0.3"
+  checksum: 10/8380aa27dc61013b21a01ce1679d61323e6930ce0d3776171045c1ed73e3ba70c5da1cf02d65d9f1f97d1b944de617ff0d609eadce7832344ed8f096919a55ba
   languageName: node
   linkType: hard
 
@@ -8087,12 +8087,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unicode-regex@npm:4.1.0, unicode-regex@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "unicode-regex@npm:4.1.0"
+"unicode-regex@npm:4.1.2, unicode-regex@npm:^4.1.0":
+  version: 4.1.2
+  resolution: "unicode-regex@npm:4.1.2"
   dependencies:
     regexp-util: "npm:^2.0.1"
-  checksum: 10/581fe6275d01ab84f47d14043f62edc2f1bfd7115bbb8993e36f418bd86e8ab4a03fc8acca6270004bb90a8f4e2613d6988062da65b13cd8d39e328b55302314
+  checksum: 10/c2611ab760cd6a76ab775edc47a7d68827a413fd9057f501ea051015f2573322699242b15db83199c28cdabe16428e97927ec874c2567f3bb1065d209ee74e7d
   languageName: node
   linkType: hard
 
