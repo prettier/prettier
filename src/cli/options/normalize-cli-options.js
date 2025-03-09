@@ -1,6 +1,9 @@
-import leven from "leven";
-import picocolors from "picocolors";
-import { normalizeOptions, vnopts } from "../prettier-internal.js";
+import {
+  leven,
+  normalizeOptions,
+  picocolors,
+  vnopts,
+} from "../prettier-internal.js";
 
 const descriptor = {
   key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),

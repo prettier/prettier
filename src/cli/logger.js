@@ -1,7 +1,7 @@
 import readline from "node:readline";
-import picocolors from "picocolors";
 import stripAnsi from "strip-ansi";
 import wcwidth from "wcwidth.js";
+import { picocolors } from "./prettier-internal.js";
 
 const countLines = (stream, text) => {
   const columns = stream.columns || 80;
