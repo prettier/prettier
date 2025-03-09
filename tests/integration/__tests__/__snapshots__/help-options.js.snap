@@ -242,6 +242,18 @@ exports[`show detailed usage with --help find-config-path (stdout) 1`] = `
 
 exports[`show detailed usage with --help find-config-path (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help git-diff (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help git-diff (stdout) 1`] = `
+"--git-diff
+
+  Show git diff of changed file. Can only be used with --check.
+
+Default: false"
+`;
+
+exports[`show detailed usage with --help git-diff (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help help (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help help (stdout) 1`] = `
