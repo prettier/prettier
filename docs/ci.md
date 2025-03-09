@@ -14,8 +14,7 @@ To apply autofix for Prettier from GitHub actions, do the following:
    on:
      pull_request:
      push:
-   permissions:
-     contents: read
+   permissions: {}
    jobs:
      prettier:
        runs-on: ubuntu-latest
@@ -27,7 +26,6 @@ To apply autofix for Prettier from GitHub actions, do the following:
          - uses: autofix-ci/action@v1
            with:
              commit-message: "Apply Prettier format"
-             fail-fast: false
    ```
 
 For more information see [autofix.ci](https://autofix.ci/) website.
