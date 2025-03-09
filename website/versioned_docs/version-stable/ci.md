@@ -21,8 +21,9 @@ To apply autofix for Prettier from GitHub actions, do the following:
        steps:
          - uses: actions/checkout@v4
          - uses: actions/setup-node@v4
-         - run: yarn
-         - run: yarn prettier . --write
+         - run: |
+            yarn
+            yarn prettier . --write
          - uses: autofix-ci/action@v1
            with:
              commit-message: "Apply Prettier format"
