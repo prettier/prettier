@@ -3,8 +3,8 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import chalk from "chalk";
 import { outdent } from "outdent";
+import picocolors from "picocolors";
 
 const createTemporaryDirectory = () => {
   const directory = path.join(
@@ -33,7 +33,7 @@ function cleanUp() {
   if (directoriesToClean.size === 0) {
     return;
   }
-  console.log(chalk.green("Removing installed Prettier:"));
+  console.log(picocolors.green("Removing installed Prettier:"));
 
   for (const directory of directoriesToClean) {
     // Node.js<14 don't support `fs.rmSync`
@@ -44,9 +44,9 @@ function cleanUp() {
     }
 
     if (fs.existsSync(directory)) {
-      console.error(chalk.red(` - ${chalk.inverse(directory)} FAIL`));
+      console.error(picocolors.red(` - ${picocolors.inverse(directory)} FAIL`));
     } else {
-      console.log(chalk.green(` - ${chalk.inverse(directory)} DONE`));
+      console.log(picocolors.green(` - ${picocolors.inverse(directory)} DONE`));
     }
   }
 }
@@ -88,12 +88,12 @@ function installPrettier(packageDirectory) {
   fs.unlinkSync(packed);
 
   console.log(
-    chalk.green(
+    picocolors.green(
       outdent`
         Prettier installed
-          at ${chalk.inverse(temporaryDirectory)}
-          from ${chalk.inverse(packageDirectory)}
-          with ${chalk.inverse(client)}.
+          at ${picocolors.inverse(temporaryDirectory)}
+          from ${picocolors.inverse(packageDirectory)}
+          with ${picocolors.inverse(client)}.
       `,
     ),
   );

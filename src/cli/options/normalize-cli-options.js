@@ -1,5 +1,5 @@
-import chalk from "chalk";
 import leven from "leven";
+import picocolors from "picocolors";
 import { normalizeOptions, vnopts } from "../prettier-internal.js";
 
 const descriptor = {
@@ -32,8 +32,8 @@ class FlagSchema extends vnopts.ChoiceSchema {
       if (suggestion) {
         utils.logger.warn(
           [
-            `Unknown flag ${chalk.yellow(utils.descriptor.value(value))},`,
-            `did you mean ${chalk.blue(utils.descriptor.value(suggestion))}?`,
+            `Unknown flag ${picocolors.yellow(utils.descriptor.value(value))},`,
+            `did you mean ${picocolors.blue(utils.descriptor.value(suggestion))}?`,
           ].join(" "),
         );
         return suggestion;
