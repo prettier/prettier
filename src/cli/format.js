@@ -425,7 +425,7 @@ async function formatFiles(context) {
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
-        const message = `${picocolors.grey(fileNameToDisplay)} ${
+        const message = `${picocolors.gray(fileNameToDisplay)} ${
           Date.now() - start
         }ms (unchanged)`;
         if (isCacheExists) {
