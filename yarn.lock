@@ -5549,13 +5549,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-snapshot-serializer-ansi@npm:2.1.2":
-  version: 2.1.2
-  resolution: "jest-snapshot-serializer-ansi@npm:2.1.2"
+"jest-snapshot-serializer-ansi@npm:2.2.1":
+  version: 2.2.1
+  resolution: "jest-snapshot-serializer-ansi@npm:2.2.1"
   dependencies:
     has-ansi: "npm:^6.0.0"
     strip-ansi: "npm:^7.1.0"
-  checksum: 10/86205f32132f6b140ffdba3d531d2b27f1791df3dc232433f1586f4b10cfd9c05c70c6f48a9c509b8a67109c2c888a32d53d0bcd3e22fc51e14b327972e90d73
+  checksum: 10/afde3e9c51a0bfd247fb5581c7bff46b37204fdda758432a44429343b205fd33b90099c19d59929877e4058d575c60cc3b36cbb18bc8f0850adf3698de89276e
   languageName: node
   linkType: hard
 
@@ -6937,7 +6937,7 @@ __metadata:
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
     jest-light-runner: "npm:0.6.0"
-    jest-snapshot-serializer-ansi: "npm:2.1.2"
+    jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:2.2.2"
     js-yaml: "npm:4.1.0"
