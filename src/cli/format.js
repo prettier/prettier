@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import chalk from "chalk";
+import picocolors from "picocolors";
 import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
 import findCacheFile from "./find-cache-file.js";
@@ -425,7 +425,7 @@ async function formatFiles(context) {
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
-        const message = `${chalk.grey(fileNameToDisplay)} ${
+        const message = `${picocolors.gray(fileNameToDisplay)} ${
           Date.now() - start
         }ms (unchanged)`;
         if (isCacheExists) {
