@@ -3,9 +3,9 @@ id: ci
 title: Run Prettier on CI
 ---
 
-## GitHub actions
+## GitHub Actions
 
-To apply autofix for Prettier from GitHub actions, do the following:
+To apply autofix for Prettier from GitHub Actions, do the following:
 
 1. Install the [`autofix.ci`](https://github.com/apps/autofix-ci) GitHub App.
 1. Make sure you have a **pinned** version of Prettier installed in your repository.
