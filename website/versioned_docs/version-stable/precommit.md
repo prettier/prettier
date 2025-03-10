@@ -60,7 +60,7 @@ pnpm simple-git-hooks
 
 ```bash
 bun add --dev simple-git-hooks pretty-quick
-echo '{\n  "pre-commit": "bum pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+echo '{\n  "pre-commit": "bun pretty-quick --staged"\n}\n' > .simple-git-hooks.json
 bun simple-git-hooks
 ```
 
