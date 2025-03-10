@@ -3,6 +3,8 @@ id: ci
 title: Run Prettier on CI
 ---
 
+### GitHub actions
+
 To apply autofix for Prettier from GitHub actions, do the following:
 
 1. Install the [`autofix.ci`](https://github.com/apps/autofix-ci) GitHub App.
