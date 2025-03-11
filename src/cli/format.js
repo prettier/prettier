@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import picocolors from "picocolors";
 import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
 import findCacheFile from "./find-cache-file.js";
@@ -12,6 +11,7 @@ import {
   createTwoFilesPatch,
   errors,
   mockable,
+  picocolors,
 } from "./prettier-internal.js";
 import { normalizeToPosix, statSafe } from "./utils.js";
 

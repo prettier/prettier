@@ -13,4 +13,6 @@ export const {
   fastGlob,
   createTwoFilesPatch,
   mockable,
+  picocolors,
+  leven,
 } = sharedWithCli;
