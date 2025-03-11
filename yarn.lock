@@ -15,17 +15,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:19.1.2":
-  version: 19.1.2
-  resolution: "@angular/compiler@npm:19.1.2"
+"@angular/compiler@npm:19.2.1":
+  version: 19.2.1
+  resolution: "@angular/compiler@npm:19.2.1"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/core": 19.1.2
+    "@angular/core": 19.2.1
   peerDependenciesMeta:
     "@angular/core":
       optional: true
-  checksum: 10/729889e387f12785962fea3eaac2e5d09a1ffda44eab1db4d51830776c294c6e28c4a3e3e2b71b0d03a0eab3edb5a5ad8804c7af82d6a7667e53e162112cd269
+  checksum: 10/24d094e6f6653e20bd554a1b38488b6e6f752ec65491dd77135fc8b7ac03020f64ed967e21fd9ea38a5e644e7e90e84cf8da24d31ef905944cbafa34c05a31bb
   languageName: node
   linkType: hard
 
@@ -79,16 +79,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:7.26.10, @babel/generator@npm:^7.25.9, @babel/generator@npm:^7.26.0, @babel/generator@npm:^7.7.2":
-  version: 7.26.10
-  resolution: "@babel/generator@npm:7.26.10"
+"@babel/generator@npm:7.26.9, @babel/generator@npm:^7.25.9, @babel/generator@npm:^7.26.0, @babel/generator@npm:^7.7.2":
+  version: 7.26.9
+  resolution: "@babel/generator@npm:7.26.9"
   dependencies:
-    "@babel/parser": "npm:^7.26.10"
-    "@babel/types": "npm:^7.26.10"
+    "@babel/parser": "npm:^7.26.9"
+    "@babel/types": "npm:^7.26.9"
     "@jridgewell/gen-mapping": "npm:^0.3.5"
     "@jridgewell/trace-mapping": "npm:^0.3.25"
     jsesc: "npm:^3.0.2"
-  checksum: 10/acf5e6544ee672810b598add2451302146cc79e1974fa5d87c5f70d5a51cab140abb628e36c434d01616af3747fd42378379e4b828f3eb9672e84c14f21db46b
+  checksum: 10/95075dd6158a49efcc71d7f2c5d20194fcf245348de7723ca35e37cd5800587f1d4de2be6c4ba87b5f5fbb967c052543c109eaab14b43f6a73eb05ccd9a5bb44
   languageName: node
   linkType: hard
 
@@ -178,14 +178,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:7.26.10, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.25.9, @babel/parser@npm:^7.26.0, @babel/parser@npm:^7.26.10":
-  version: 7.26.10
-  resolution: "@babel/parser@npm:7.26.10"
+"@babel/parser@npm:7.26.9, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.25.9, @babel/parser@npm:^7.26.0, @babel/parser@npm:^7.26.9":
+  version: 7.26.9
+  resolution: "@babel/parser@npm:7.26.9"
   dependencies:
-    "@babel/types": "npm:^7.26.10"
+    "@babel/types": "npm:^7.26.9"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 10/3f87781f46795ba72448168061d9e99c394fdf9cd4aa3ddf053a06334247da4d25d0923ccc89195937d3360d384cee181e99711763c1e8fe81d4f17ee22541fc
+  checksum: 10/cb84fe3ba556d6a4360f3373cf7eb0901c46608c8d77330cc1ca021d60f5d6ebb4056a8e7f9dd0ef231923ef1fe69c87b11ce9e160d2252e089a20232a2b942b
   languageName: node
   linkType: hard
 
@@ -402,13 +402,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:7.26.10, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.25.9, @babel/types@npm:^7.26.0, @babel/types@npm:^7.26.10, @babel/types@npm:^7.3.3":
-  version: 7.26.10
-  resolution: "@babel/types@npm:7.26.10"
+"@babel/types@npm:7.26.9, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.25.9, @babel/types@npm:^7.26.0, @babel/types@npm:^7.26.9, @babel/types@npm:^7.3.3":
+  version: 7.26.9
+  resolution: "@babel/types@npm:7.26.9"
   dependencies:
     "@babel/helper-string-parser": "npm:^7.25.9"
     "@babel/helper-validator-identifier": "npm:^7.25.9"
-  checksum: 10/6b4f24ee77af853c2126eaabb65328cd44a7d6f439685131cf929c30567e01b6ea2e5d5653b2c304a09c63a5a6199968f0e27228a007acf35032036d79a9dee6
+  checksum: 10/11b62ea7ed64ef7e39cc9b33852c1084064c3b970ae0eaa5db659241cfb776577d1e68cbff4de438bada885d3a827b52cc0f3746112d8e1bc672bb99a8eb5b56
   languageName: node
   linkType: hard
 
@@ -1951,6 +1951,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prettier/is-es5-identifier-name@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@prettier/is-es5-identifier-name@npm:0.2.0"
+  checksum: 10/dd08fb6cabfc740fab1c60e7a7c0902ce9077aa8ed171ae50a0bcb985d5e48ffaea81ca4ea21b1111aecd96313ca724d740d73ab8e27871457b83c1de89ad889
+  languageName: node
+  linkType: hard
+
 "@prettier/parse-srcset@npm:3.1.0":
   version: 3.1.0
   resolution: "@prettier/parse-srcset@npm:3.1.0"
@@ -2316,19 +2323,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-estree-parser@npm:10.2.0":
-  version: 10.2.0
-  resolution: "angular-estree-parser@npm:10.2.0"
+"angular-estree-parser@npm:11.0.0":
+  version: 11.0.0
+  resolution: "angular-estree-parser@npm:11.0.0"
   peerDependencies:
-    "@angular/compiler": ^17.3.9 || ^18.0.0 || ^19.0.0
-  checksum: 10/1e5a273c99e21e06c177c40cb9a394313296f78d092254b1b46adaa77e244ac7f4241ec67c3e345799e2ab08cab5d78017b73743f57429a4e6d6f6c60ba0a490
+    "@angular/compiler": ^19.0.0
+  checksum: 10/d92456de5efdcb80170ab7d45df5757a0496183ecf2e44d5d204a529ee6fb8cbca85f58f8c5f7c687bcdd489ff58e6fdac3322374a40f6458259b55c193a4aa1
   languageName: node
   linkType: hard
 
-"angular-html-parser@npm:8.1.0":
-  version: 8.1.0
-  resolution: "angular-html-parser@npm:8.1.0"
-  checksum: 10/670c1937c5d95465d6594eb9e3e15495efab8c1a77e4317701ac3d1a8cf4654026376ed6de430e7873aff40f4d2ad7531398346a21fbe571d75a302acc6dd940
+"angular-html-parser@npm:8.0.1":
+  version: 8.0.1
+  resolution: "angular-html-parser@npm:8.0.1"
+  dependencies:
+    tslib: "npm:^2.8.1"
+  checksum: 10/9f179581e5d4e750f2b284f46eb5cb864eaf2201c0ff887b5727fbb50aacf143341570ad280c5795c426209cd45062a41701f267f03e46796cb42772c8ebbb0f
   languageName: node
   linkType: hard
 
@@ -4895,13 +4904,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-es5-identifier-name@npm:1.0.0":
-  version: 1.0.0
-  resolution: "is-es5-identifier-name@npm:1.0.0"
-  checksum: 10/e0f6f06dcaadd10b438fa7bb1e190283ada9b2e91f249a8e905a61649b792c3212b02280d5d1f7f6c3697416ad61962c151a398e2310025152e2acd09092073e
-  languageName: node
-  linkType: hard
-
 "is-extglob@npm:^2.1.1":
   version: 2.1.1
   resolution: "is-extglob@npm:2.1.1"
@@ -6866,14 +6868,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": "npm:19.1.2"
+    "@angular/compiler": "npm:19.2.1"
     "@babel/code-frame": "npm:7.26.2"
-    "@babel/generator": "npm:7.26.10"
-    "@babel/parser": "npm:7.26.10"
-    "@babel/types": "npm:7.26.10"
+    "@babel/generator": "npm:7.26.9"
+    "@babel/parser": "npm:7.26.9"
+    "@babel/types": "npm:7.26.9"
     "@eslint-react/eslint-plugin": "npm:1.27.0"
     "@eslint/js": "npm:9.21.0"
     "@glimmer/syntax": "npm:0.94.8"
+    "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:4.0.1"
     "@types/estree": "npm:1.0.6"
@@ -6882,8 +6885,8 @@ __metadata:
     "@typescript-eslint/visitor-keys": "npm:8.25.0"
     acorn: "npm:8.14.1"
     acorn-jsx: "npm:5.3.2"
-    angular-estree-parser: "npm:10.2.0"
-    angular-html-parser: "npm:8.1.0"
+    angular-estree-parser: "npm:11.0.0"
+    angular-html-parser: "npm:8.0.1"
     browserslist: "npm:4.24.4"
     browserslist-to-esbuild: "npm:2.1.1"
     c8: "npm:10.1.3"
@@ -6929,7 +6932,6 @@ __metadata:
     html-ua-styles: "npm:0.0.8"
     ignore: "npm:7.0.3"
     import-meta-resolve: "npm:4.1.0"
-    is-es5-identifier-name: "npm:1.0.0"
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
@@ -7990,7 +7992,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.6.2":
+"tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.6.2, tslib@npm:^2.8.1":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10/3e2e043d5c2316461cb54e5c7fe02c30ef6dccb3384717ca22ae5c6b5bc95232a6241df19c622d9c73b809bea33b187f6dbc73030963e29950c2141bc32a79f7
