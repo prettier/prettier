@@ -15,17 +15,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:19.1.2":
-  version: 19.1.2
-  resolution: "@angular/compiler@npm:19.1.2"
+"@angular/compiler@npm:19.2.2":
+  version: 19.2.2
+  resolution: "@angular/compiler@npm:19.2.2"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/core": 19.1.2
+    "@angular/core": 19.2.2
   peerDependenciesMeta:
     "@angular/core":
       optional: true
-  checksum: 10/729889e387f12785962fea3eaac2e5d09a1ffda44eab1db4d51830776c294c6e28c4a3e3e2b71b0d03a0eab3edb5a5ad8804c7af82d6a7667e53e162112cd269
+  checksum: 10/2c427e4e4696f8ce357e432a517d12a0730f9cbdb1306b5be49f9d4f7bd54b76442cfaba8f82579152bc814402e5f666bb5092c994f43c3022bb9a93e8d64db6
   languageName: node
   linkType: hard
 
@@ -2316,12 +2316,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-estree-parser@npm:10.2.0":
-  version: 10.2.0
-  resolution: "angular-estree-parser@npm:10.2.0"
+"angular-estree-parser@npm:10.3.0":
+  version: 10.3.0
+  resolution: "angular-estree-parser@npm:10.3.0"
   peerDependencies:
-    "@angular/compiler": ^17.3.9 || ^18.0.0 || ^19.0.0
-  checksum: 10/1e5a273c99e21e06c177c40cb9a394313296f78d092254b1b46adaa77e244ac7f4241ec67c3e345799e2ab08cab5d78017b73743f57429a4e6d6f6c60ba0a490
+    "@angular/compiler": ^19.0.0
+  checksum: 10/befff3bc4470f7da30f31d19e7e618b4cfdbe10fded564975fa4fdd46a519071c0d5dd0dd946a46c0665a35054c8cffc562e571b4b83f34f62f4627fb099b059
   languageName: node
   linkType: hard
 
@@ -6866,7 +6866,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": "npm:19.1.2"
+    "@angular/compiler": "npm:19.2.2"
     "@babel/code-frame": "npm:7.26.2"
     "@babel/generator": "npm:7.26.10"
     "@babel/parser": "npm:7.26.10"
@@ -6882,7 +6882,7 @@ __metadata:
     "@typescript-eslint/visitor-keys": "npm:8.25.0"
     acorn: "npm:8.14.1"
     acorn-jsx: "npm:5.3.2"
-    angular-estree-parser: "npm:10.2.0"
+    angular-estree-parser: "npm:10.3.0"
     angular-html-parser: "npm:8.1.0"
     browserslist: "npm:4.24.4"
     browserslist-to-esbuild: "npm:2.1.1"
