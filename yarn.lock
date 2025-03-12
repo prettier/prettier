@@ -1951,13 +1951,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/is-es5-identifier-name@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@prettier/is-es5-identifier-name@npm:0.2.0"
-  checksum: 10/dd08fb6cabfc740fab1c60e7a7c0902ce9077aa8ed171ae50a0bcb985d5e48ffaea81ca4ea21b1111aecd96313ca724d740d73ab8e27871457b83c1de89ad889
-  languageName: node
-  linkType: hard
-
 "@prettier/parse-srcset@npm:3.1.0":
   version: 3.1.0
   resolution: "@prettier/parse-srcset@npm:3.1.0"
@@ -4904,6 +4897,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-es5-identifier-name@npm:1.0.0":
+  version: 1.0.0
+  resolution: "is-es5-identifier-name@npm:1.0.0"
+  checksum: 10/e0f6f06dcaadd10b438fa7bb1e190283ada9b2e91f249a8e905a61649b792c3212b02280d5d1f7f6c3697416ad61962c151a398e2310025152e2acd09092073e
+  languageName: node
+  linkType: hard
+
 "is-extglob@npm:^2.1.1":
   version: 2.1.1
   resolution: "is-extglob@npm:2.1.1"
@@ -6876,7 +6876,6 @@ __metadata:
     "@eslint-react/eslint-plugin": "npm:1.27.0"
     "@eslint/js": "npm:9.21.0"
     "@glimmer/syntax": "npm:0.94.8"
-    "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:4.0.1"
     "@types/estree": "npm:1.0.6"
@@ -6932,6 +6931,7 @@ __metadata:
     html-ua-styles: "npm:0.0.8"
     ignore: "npm:7.0.3"
     import-meta-resolve: "npm:4.1.0"
+    is-es5-identifier-name: "npm:1.0.0"
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
