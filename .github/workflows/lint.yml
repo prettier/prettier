@@ -64,6 +64,9 @@ jobs:
           ./actionlint -color
         shell: bash
 
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+
       - name: Validate renovate config
         run: npx --package renovate --call renovate-config-validator
 
