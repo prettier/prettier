@@ -269,7 +269,7 @@ class Playground extends React.Component {
               const showFullReport =
                 encodeURIComponent(fullReport).length < MAX_LENGTH;
               return (
-                <React.Fragment>
+                <>
                   <div className="editors-container">
                     <Sidebar visible={editorState.showSidebar}>
                       <SidebarOptions
@@ -278,78 +278,82 @@ class Playground extends React.Component {
                         optionValues={options}
                         onOptionValueChange={this.handleOptionValueChange}
                       />
-                      <SidebarCategory title="Range">
-                        <label>
-                          The selected range will be highlighted in yellow in
-                          the input editor
-                        </label>
-                        <Option
-                          option={this.rangeStartOption}
-                          value={
-                            typeof options.rangeStart === "number"
-                              ? options.rangeStart
-                              : ""
-                          }
-                          onChange={this.handleOptionValueChange}
-                        />
-                        <Option
-                          option={this.rangeEndOption}
-                          value={
-                            typeof options.rangeEnd === "number"
-                              ? options.rangeEnd
-                              : ""
-                          }
-                          overrideMax={content.length}
-                          onChange={this.handleOptionValueChange}
-                        />
-
-                        <Button onClick={this.setSelectionAsRange}>
-                          Set selected text as range
-                        </Button>
-                      </SidebarCategory>
-                      <SidebarCategory title="Cursor">
-                        <Option
-                          option={this.cursorOffsetOption}
-                          value={
-                            options.cursorOffset >= 0
-                              ? options.cursorOffset
-                              : ""
-                          }
-                          onChange={this.handleOptionValueChange}
-                        />
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "baseline",
-                            gap: "10px",
-                          }}
-                        >
-                          <Checkbox
-                            label="track"
-                            checked={Boolean(this.state.trackCursorOffset)}
-                            onChange={() =>
-                              this.setState((state) => ({
-                                trackCursorOffset: !state.trackCursorOffset,
-                              }))
+                      {options.parser == "doc-explorer" ? null : (
+                        <SidebarCategory title="Range">
+                          <label>
+                            The selected range will be highlighted in yellow in
+                            the input editor
+                          </label>
+                          <Option
+                            option={this.rangeStartOption}
+                            value={
+                              typeof options.rangeStart === "number"
+                                ? options.rangeStart
+                                : ""
                             }
+                            onChange={this.handleOptionValueChange}
                           />
-                          {options.cursorOffset >= 0 && (
-                            <>
-                              <Button
-                                onClick={() => {
-                                  this.handleOptionValueChange(
-                                    this.cursorOffsetOption,
-                                    -1,
-                                  );
-                                }}
-                              >
-                                Reset
-                              </Button>
-                              <label>Result: {cursorOffset}</label>
-                            </>
-                          )}
-                        </div>
-                      </SidebarCategory>
+                          <Option
+                            option={this.rangeEndOption}
+                            value={
+                              typeof options.rangeEnd === "number"
+                                ? options.rangeEnd
+                                : ""
+                            }
+                            overrideMax={content.length}
+                            onChange={this.handleOptionValueChange}
+                          />
+
+                          <Button onClick={this.setSelectionAsRange}>
+                            Set selected text as range
+                          </Button>
+                        </SidebarCategory>
+                      )}
+                      {options.parser == "doc-explorer" ? null : (
+                        <SidebarCategory title="Cursor">
+                          <Option
+                            option={this.cursorOffsetOption}
+                            value={
+                              options.cursorOffset >= 0
+                                ? options.cursorOffset
+                                : ""
+                            }
+                            onChange={this.handleOptionValueChange}
+                          />
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "baseline",
+                              gap: "10px",
+                            }}
+                          >
+                            <Checkbox
+                              label="track"
+                              checked={Boolean(this.state.trackCursorOffset)}
+                              onChange={() =>
+                                this.setState((state) => ({
+                                  trackCursorOffset: !state.trackCursorOffset,
+                                }))
+                              }
+                            />
+                            {options.cursorOffset >= 0 && (
+                              <>
+                                <Button
+                                  onClick={() => {
+                                    this.handleOptionValueChange(
+                                      this.cursorOffsetOption,
+                                      -1,
+                                    );
+                                  }}
+                                >
+                                  Reset
+                                </Button>
+                                <label>Result: {cursorOffset}</label>
+                              </>
+                            )}
+                          </div>
+                        </SidebarCategory>
+                      )}
                       <SidebarCategory title="Debug">
                         <Checkbox
                           label="show input"
@@ -366,11 +370,13 @@ class Playground extends React.Component {
                           checked={editorState.showPreprocessedAst}
                           onChange={editorState.togglePreprocessedAst}
                         />
-                        <Checkbox
-                          label="show doc"
-                          checked={editorState.showDoc}
-                          onChange={editorState.toggleDoc}
-                        />
+                        {options.parser == "doc-explorer" ? null : (
+                          <Checkbox
+                            label="show doc"
+                            checked={editorState.showDoc}
+                            onChange={editorState.toggleDoc}
+                          />
+                        )}
                         <Checkbox
                           label="show comments"
                           checked={editorState.showComments}
@@ -381,16 +387,20 @@ class Playground extends React.Component {
                           checked={editorState.showOutput}
                           onChange={editorState.toggleOutput}
                         />
-                        <Checkbox
-                          label="show second format"
-                          checked={editorState.showSecondFormat}
-                          onChange={editorState.toggleSecondFormat}
-                        />
-                        <Checkbox
-                          label="rethrow embed errors"
-                          checked={editorState.rethrowEmbedErrors}
-                          onChange={editorState.toggleEmbedErrors}
-                        />
+                        {options.parser === "doc-explorer" ? null : (
+                          <Checkbox
+                            label="show second format"
+                            checked={editorState.showSecondFormat}
+                            onChange={editorState.toggleSecondFormat}
+                          />
+                        )}
+                        {options.parser === "doc-explorer" ? null : (
+                          <Checkbox
+                            label="rethrow embed errors"
+                            checked={editorState.rethrowEmbedErrors}
+                            onChange={editorState.toggleEmbedErrors}
+                          />
+                        )}
                         {editorState.showDoc && (
                           <ClipboardButton
                             copy={() => this.getMarkdown({ doc: debug.doc })}
@@ -437,7 +447,8 @@ class Playground extends React.Component {
                           autoFold={util.getAstAutoFold(options.parser)}
                         />
                       ) : null}
-                      {editorState.showDoc ? (
+                      {editorState.showDoc &&
+                      options.parser !== "doc-explorer" ? (
                         <DebugPanel value={debug.doc || ""} />
                       ) : null}
                       {editorState.showComments ? (
@@ -484,7 +495,8 @@ class Playground extends React.Component {
                           />
                         )
                       ) : null}
-                      {editorState.showSecondFormat ? (
+                      {editorState.showSecondFormat &&
+                      options.parser !== "doc-explorer" ? (
                         <OutputPanel
                           mode={util.getCodemirrorMode(options.parser)}
                           value={getSecondFormat(formatted, debug.reformatted)}
@@ -550,7 +562,7 @@ class Playground extends React.Component {
                       </a>
                     </div>
                   </div>
-                </React.Fragment>
+                </>
               );
             }}
           </PrettierFormat>

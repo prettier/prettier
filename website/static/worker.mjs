@@ -199,6 +199,15 @@ async function handleFormatMessage(message) {
 }
 
 async function formatCode(text, options, rethrowEmbedErrors) {
+  if (options.parser === "doc-explorer") {
+    options = {
+      ...options,
+      cursorOffset: undefined,
+      rangeStart: undefined,
+      rangeEnd: undefined,
+    };
+  }
+
   try {
     self.PRETTIER_DEBUG = rethrowEmbedErrors;
     return await prettier.formatWithCursor(text, options);
