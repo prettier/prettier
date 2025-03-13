@@ -335,7 +335,7 @@ function printMemberChain(path, options, print) {
   }
 
   const printedGroups = groups.map(printGroup);
-  const oneLine = printedGroups.map((doc) => group(doc));
+  const oneLine = printedGroups;
 
   const cutoff = shouldMerge ? 3 : 2;
   const flatGroups = groups.flat();
@@ -417,7 +417,7 @@ function printMemberChain(path, options, print) {
       // that means that the parent group has already been broken
       // naturally
       willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
-      conditionalGroup([oneLine, group(expanded)]),
+      conditionalGroup([oneLine.map((doc) => group(doc)), group(expanded)]),
     ];
   }
 
