@@ -365,11 +365,13 @@ class Playground extends React.Component {
                           checked={editorState.showAst}
                           onChange={editorState.toggleAst}
                         />
-                        <Checkbox
-                          label="show preprocessed AST"
-                          checked={editorState.showPreprocessedAst}
-                          onChange={editorState.togglePreprocessedAst}
-                        />
+                        {options.parser === "doc-explorer" ? null : (
+                          <Checkbox
+                            label="show preprocessed AST"
+                            checked={editorState.showPreprocessedAst}
+                            onChange={editorState.togglePreprocessedAst}
+                          />
+                        )}
                         {options.parser == "doc-explorer" ? null : (
                           <Checkbox
                             label="show doc"
@@ -377,11 +379,13 @@ class Playground extends React.Component {
                             onChange={editorState.toggleDoc}
                           />
                         )}
-                        <Checkbox
-                          label="show comments"
-                          checked={editorState.showComments}
-                          onChange={editorState.toggleComments}
-                        />
+                        {options.parser === "doc-explorer" ? null : (
+                          <Checkbox
+                            label="show comments"
+                            checked={editorState.showComments}
+                            onChange={editorState.toggleComments}
+                          />
+                        )}
                         <Checkbox
                           label="show output"
                           checked={editorState.showOutput}
@@ -441,7 +445,8 @@ class Playground extends React.Component {
                           autoFold={util.getAstAutoFold(options.parser)}
                         />
                       ) : null}
-                      {editorState.showPreprocessedAst ? (
+                      {editorState.showPreprocessedAst &&
+                      options.parser !== "doc-explorer" ? (
                         <DebugPanel
                           value={debug.preprocessedAst || ""}
                           autoFold={util.getAstAutoFold(options.parser)}
@@ -451,7 +456,8 @@ class Playground extends React.Component {
                       options.parser !== "doc-explorer" ? (
                         <DebugPanel value={debug.doc || ""} />
                       ) : null}
-                      {editorState.showComments ? (
+                      {editorState.showComments &&
+                      options.parser !== "doc-explorer" ? (
                         <DebugPanel
                           value={debug.comments || ""}
                           autoFold={util.getAstAutoFold(options.parser)}
