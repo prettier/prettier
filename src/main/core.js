@@ -392,6 +392,14 @@ async function formatDoc(doc, options) {
 async function printToDoc(originalText, options) {
   options = await normalizeFormatOptions(options);
   const { ast } = await parseText(originalText, options);
+
+  if (options.cursorOffset >= 0) {
+    options = {
+      ...options,
+      ...getCursorLocation(ast, options),
+    };
+  }
+
   return printAstToDoc(ast, options);
 }
 
