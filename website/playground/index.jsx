@@ -37,14 +37,14 @@ class App extends React.Component {
     }
 
     return (
-      <React.Fragment>
+      <>
         <VersionLink version={version} />
         <Playground
           worker={this.worker}
           availableOptions={availableOptions}
           version={version}
         />
-      </React.Fragment>
+      </>
     );
   }
 }
