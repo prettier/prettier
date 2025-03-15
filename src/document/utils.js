@@ -1,3 +1,4 @@
+import { trimNewlinesEnd } from "trim-newlines";
 import { join, literalline } from "./builders.js";
 import {
   DOC_TYPE_ALIGN,
@@ -235,7 +236,7 @@ function stripTrailingHardlineFromDoc(doc) {
       return stripTrailingHardlineFromParts(doc);
 
     case DOC_TYPE_STRING:
-      return doc.replace(/[\n\r]*$/u, "");
+      return trimNewlinesEnd(doc);
 
     case DOC_TYPE_ALIGN:
     case DOC_TYPE_CURSOR:
