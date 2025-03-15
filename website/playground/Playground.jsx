@@ -268,6 +268,7 @@ class Playground extends React.Component {
               });
               const showFullReport =
                 encodeURIComponent(fullReport).length < MAX_LENGTH;
+
               return (
                 <>
                   <div className="editors-container">
@@ -278,7 +279,7 @@ class Playground extends React.Component {
                         optionValues={options}
                         onOptionValueChange={this.handleOptionValueChange}
                       />
-                      {options.parser !== "doc-explorer" && (
+                      {options.parser === "doc-explorer" ? (
                         <SidebarCategory title="Range">
                           <label>
                             The selected range will be highlighted in yellow in
@@ -308,8 +309,8 @@ class Playground extends React.Component {
                             Set selected text as range
                           </Button>
                         </SidebarCategory>
-                      )}
-                      {options.parser !== "doc-explorer" && (
+                      ) : null}
+                      {options.parser === "doc-explorer" ? (
                         <SidebarCategory title="Cursor">
                           <Option
                             option={this.cursorOffsetOption}
@@ -353,7 +354,7 @@ class Playground extends React.Component {
                             )}
                           </div>
                         </SidebarCategory>
-                      )}
+                      ) : null}
                       <SidebarCategory title="Debug">
                         <Checkbox
                           label="show input"
@@ -365,55 +366,55 @@ class Playground extends React.Component {
                           checked={editorState.showAst}
                           onChange={editorState.toggleAst}
                         />
-                        {options.parser !== "doc-explorer" && (
+                        {options.parser === "doc-explorer" ? (
                           <Checkbox
                             label="show preprocessed AST"
                             checked={editorState.showPreprocessedAst}
                             onChange={editorState.togglePreprocessedAst}
                           />
-                        )}
-                        {options.parser !== "doc-explorer" && (
+                        ) : null}
+                        {options.parser === "doc-explorer" ? (
                           <Checkbox
                             label="show doc"
                             checked={editorState.showDoc}
                             onChange={editorState.toggleDoc}
                           />
-                        )}
-                        {options.parser !== "doc-explorer" && (
+                        ) : null}
+                        {options.parser === "doc-explorer" ? (
                           <Checkbox
                             label="show comments"
                             checked={editorState.showComments}
                             onChange={editorState.toggleComments}
                           />
-                        )}
+                        ) : null}
                         <Checkbox
                           label="show output"
                           checked={editorState.showOutput}
                           onChange={editorState.toggleOutput}
                         />
-                        {options.parser !== "doc-explorer" && (
+                        {options.parser === "doc-explorer" ? (
                           <Checkbox
                             label="show second format"
                             checked={editorState.showSecondFormat}
                             onChange={editorState.toggleSecondFormat}
                           />
-                        )}
-                        {options.parser !== "doc-explorer" && (
+                        ) : null}
+                        {options.parser === "doc-explorer" ? (
                           <Checkbox
                             label="rethrow embed errors"
                             checked={editorState.rethrowEmbedErrors}
                             onChange={editorState.toggleEmbedErrors}
                           />
-                        )}
+                        ) : null}
                         {editorState.showDoc &&
-                          options.parser !== "doc-explorer" && (
-                            <ClipboardButton
-                              copy={() => this.getMarkdown({ doc: debug.doc })}
-                              disabled={!debug.doc}
-                            >
-                              Copy doc
-                            </ClipboardButton>
-                          )}
+                        options.parser !== "doc-explorer" ? (
+                          <ClipboardButton
+                            copy={() => this.getMarkdown({ doc: debug.doc })}
+                            disabled={!debug.doc}
+                          >
+                            Copy doc
+                          </ClipboardButton>
+                        ) : null}
                       </SidebarCategory>
                       <div className="sub-options">
                         <Button onClick={this.resetOptions}>
@@ -422,7 +423,7 @@ class Playground extends React.Component {
                       </div>
                     </Sidebar>
                     <div className="editors">
-                      {editorState.showInput && (
+                      {editorState.showInput ? (
                         <InputPanel
                           mode={util.getCodemirrorMode(options.parser)}
                           ruler={options.printWidth}
@@ -439,33 +440,33 @@ class Playground extends React.Component {
                           }}
                           foldGutter={options.parser === "doc-explorer"}
                         />
-                      )}
-                      {editorState.showAst && (
+                      ) : null}
+                      {editorState.showAst ? (
                         <DebugPanel
                           value={debug.ast || ""}
                           autoFold={util.getAstAutoFold(options.parser)}
                         />
-                      )}
+                      ) : null}
                       {editorState.showPreprocessedAst &&
-                        options.parser !== "doc-explorer" && (
-                          <DebugPanel
-                            value={debug.preprocessedAst || ""}
-                            autoFold={util.getAstAutoFold(options.parser)}
-                          />
-                        )}
+                      options.parser !== "doc-explorer" ? (
+                        <DebugPanel
+                          value={debug.preprocessedAst || ""}
+                          autoFold={util.getAstAutoFold(options.parser)}
+                        />
+                      ) : null}
                       {editorState.showDoc &&
-                        options.parser !== "doc-explorer" && (
-                          <DebugPanel value={debug.doc || ""} />
-                        )}
+                      options.parser !== "doc-explorer" ? (
+                        <DebugPanel value={debug.doc || ""} />
+                      ) : null}
                       {editorState.showComments &&
-                        options.parser !== "doc-explorer" && (
-                          <DebugPanel
-                            value={debug.comments || ""}
-                            autoFold={util.getAstAutoFold(options.parser)}
-                          />
-                        )}
-                      {editorState.showOutput &&
-                        (this.state.needsClickForFirstRun ? (
+                      options.parser !== "doc-explorer" ? (
+                        <DebugPanel
+                          value={debug.comments || ""}
+                          autoFold={util.getAstAutoFold(options.parser)}
+                        />
+                      ) : null}
+                      {editorState.showOutput ? (
+                        this.state.needsClickForFirstRun ? (
                           <div className="editor disabled-output-panel">
                             <div className="explanation">
                               <code>doc-explorer</code> involves running code
@@ -500,18 +501,16 @@ class Playground extends React.Component {
                               cursorOffset === -1 ? undefined : cursorOffset + 1
                             }
                           />
-                        ))}
+                        )
+                      ) : null}
                       {editorState.showSecondFormat &&
-                        options.parser !== "doc-explorer" && (
-                          <OutputPanel
-                            mode={util.getCodemirrorMode(options.parser)}
-                            value={getSecondFormat(
-                              formatted,
-                              debug.reformatted,
-                            )}
-                            ruler={options.printWidth}
-                          />
-                        )}
+                      options.parser !== "doc-explorer" ? (
+                        <OutputPanel
+                          mode={util.getCodemirrorMode(options.parser)}
+                          value={getSecondFormat(formatted, debug.reformatted)}
+                          ruler={options.printWidth}
+                        />
+                      ) : null}
                     </div>
                   </div>
                   <div className="bottom-bar">
