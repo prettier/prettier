@@ -278,7 +278,7 @@ class Playground extends React.Component {
                         optionValues={options}
                         onOptionValueChange={this.handleOptionValueChange}
                       />
-                      {options.parser == "doc-explorer" ? null : (
+                      {options.parser !== "doc-explorer" && (
                         <SidebarCategory title="Range">
                           <label>
                             The selected range will be highlighted in yellow in
@@ -309,7 +309,7 @@ class Playground extends React.Component {
                           </Button>
                         </SidebarCategory>
                       )}
-                      {options.parser == "doc-explorer" ? null : (
+                      {options.parser !== "doc-explorer" && (
                         <SidebarCategory title="Cursor">
                           <Option
                             option={this.cursorOffsetOption}
@@ -365,21 +365,21 @@ class Playground extends React.Component {
                           checked={editorState.showAst}
                           onChange={editorState.toggleAst}
                         />
-                        {options.parser === "doc-explorer" ? null : (
+                        {options.parser !== "doc-explorer" && (
                           <Checkbox
                             label="show preprocessed AST"
                             checked={editorState.showPreprocessedAst}
                             onChange={editorState.togglePreprocessedAst}
                           />
                         )}
-                        {options.parser == "doc-explorer" ? null : (
+                        {options.parser !== "doc-explorer" && (
                           <Checkbox
                             label="show doc"
                             checked={editorState.showDoc}
                             onChange={editorState.toggleDoc}
                           />
                         )}
-                        {options.parser === "doc-explorer" ? null : (
+                        {options.parser !== "doc-explorer" && (
                           <Checkbox
                             label="show comments"
                             checked={editorState.showComments}
@@ -391,28 +391,29 @@ class Playground extends React.Component {
                           checked={editorState.showOutput}
                           onChange={editorState.toggleOutput}
                         />
-                        {options.parser === "doc-explorer" ? null : (
+                        {options.parser !== "doc-explorer" && (
                           <Checkbox
                             label="show second format"
                             checked={editorState.showSecondFormat}
                             onChange={editorState.toggleSecondFormat}
                           />
                         )}
-                        {options.parser === "doc-explorer" ? null : (
+                        {options.parser !== "doc-explorer" && (
                           <Checkbox
                             label="rethrow embed errors"
                             checked={editorState.rethrowEmbedErrors}
                             onChange={editorState.toggleEmbedErrors}
                           />
                         )}
-                        {editorState.showDoc && (
-                          <ClipboardButton
-                            copy={() => this.getMarkdown({ doc: debug.doc })}
-                            disabled={!debug.doc}
-                          >
-                            Copy doc
-                          </ClipboardButton>
-                        )}
+                        {editorState.showDoc &&
+                          options.parser !== "doc-explorer" && (
+                            <ClipboardButton
+                              copy={() => this.getMarkdown({ doc: debug.doc })}
+                              disabled={!debug.doc}
+                            >
+                              Copy doc
+                            </ClipboardButton>
+                          )}
                       </SidebarCategory>
                       <div className="sub-options">
                         <Button onClick={this.resetOptions}>
@@ -421,7 +422,7 @@ class Playground extends React.Component {
                       </div>
                     </Sidebar>
                     <div className="editors">
-                      {editorState.showInput ? (
+                      {editorState.showInput && (
                         <InputPanel
                           mode={util.getCodemirrorMode(options.parser)}
                           ruler={options.printWidth}
@@ -438,33 +439,33 @@ class Playground extends React.Component {
                           }}
                           foldGutter={options.parser === "doc-explorer"}
                         />
-                      ) : null}
-                      {editorState.showAst ? (
+                      )}
+                      {editorState.showAst && (
                         <DebugPanel
                           value={debug.ast || ""}
                           autoFold={util.getAstAutoFold(options.parser)}
                         />
-                      ) : null}
+                      )}
                       {editorState.showPreprocessedAst &&
-                      options.parser !== "doc-explorer" ? (
-                        <DebugPanel
-                          value={debug.preprocessedAst || ""}
-                          autoFold={util.getAstAutoFold(options.parser)}
-                        />
-                      ) : null}
+                        options.parser !== "doc-explorer" && (
+                          <DebugPanel
+                            value={debug.preprocessedAst || ""}
+                            autoFold={util.getAstAutoFold(options.parser)}
+                          />
+                        )}
                       {editorState.showDoc &&
-                      options.parser !== "doc-explorer" ? (
-                        <DebugPanel value={debug.doc || ""} />
-                      ) : null}
+                        options.parser !== "doc-explorer" && (
+                          <DebugPanel value={debug.doc || ""} />
+                        )}
                       {editorState.showComments &&
-                      options.parser !== "doc-explorer" ? (
-                        <DebugPanel
-                          value={debug.comments || ""}
-                          autoFold={util.getAstAutoFold(options.parser)}
-                        />
-                      ) : null}
-                      {editorState.showOutput ? (
-                        this.state.needsClickForFirstRun ? (
+                        options.parser !== "doc-explorer" && (
+                          <DebugPanel
+                            value={debug.comments || ""}
+                            autoFold={util.getAstAutoFold(options.parser)}
+                          />
+                        )}
+                      {editorState.showOutput &&
+                        (this.state.needsClickForFirstRun ? (
                           <div className="editor disabled-output-panel">
                             <div className="explanation">
                               <code>doc-explorer</code> involves running code
@@ -499,16 +500,18 @@ class Playground extends React.Component {
                               cursorOffset === -1 ? undefined : cursorOffset + 1
                             }
                           />
-                        )
-                      ) : null}
+                        ))}
                       {editorState.showSecondFormat &&
-                      options.parser !== "doc-explorer" ? (
-                        <OutputPanel
-                          mode={util.getCodemirrorMode(options.parser)}
-                          value={getSecondFormat(formatted, debug.reformatted)}
-                          ruler={options.printWidth}
-                        />
-                      ) : null}
+                        options.parser !== "doc-explorer" && (
+                          <OutputPanel
+                            mode={util.getCodemirrorMode(options.parser)}
+                            value={getSecondFormat(
+                              formatted,
+                              debug.reformatted,
+                            )}
+                            ruler={options.printWidth}
+                          />
+                        )}
                     </div>
                   </div>
                   <div className="bottom-bar">
