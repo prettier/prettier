@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template-literal.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div
+  (action)="
+      \`   hello, \${   world   }  \`
+  "
+  [binding]="
+      \`   hello, \${   world   }  \`
+  "
+  *directive="
+      \`   hello, \${   world   }  \`
+  "
+>
+{{
+\`   hello, \${   world   }  \`
+}}
+
+{{   \`\`  }}  {{   (   ( \`a \${b} \\u0063  \`))}}
+</div>
+
+
+=====================================output=====================================
+<div
+  (action)="(\`   hello, \${world}  \`)"
+  [binding]="\`   hello, \${world}  \`"
+  *directive="\`   hello, \${world}  \`"
+>
+  {{ \`   hello, \${world}  \` }}
+
+  {{ \`\` }} {{ \`a \${b} \\u0063  \` }}
+</div>
+
+================================================================================
+`;
