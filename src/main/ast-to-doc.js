@@ -51,11 +51,13 @@ async function printAstToDoc(ast, options) {
 
   ensureAllCommentsPrinted(options);
 
-  if (options.nodeAfterCursor && !options.nodeBeforeCursor) {
-    return [cursor, doc];
-  }
-  if (options.nodeBeforeCursor && !options.nodeAfterCursor) {
-    return [doc, cursor];
+  if (options.cursorOffset >= 0) {
+    if (options.nodeAfterCursor && !options.nodeBeforeCursor) {
+      return [cursor, doc];
+    }
+    if (options.nodeBeforeCursor && !options.nodeAfterCursor) {
+      return [doc, cursor];
+    }
   }
 
   return doc;

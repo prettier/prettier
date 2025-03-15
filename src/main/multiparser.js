@@ -116,6 +116,10 @@ async function textToDoc(
       ...partialNextOptions,
       parentParser: parentOptions.parser,
       originalText: text,
+      // Improve this if we calculate the relative index
+      cursorOffset: undefined,
+      rangeStart: undefined,
+      rangeEnd: undefined,
     },
     { passThrough: true },
   );
