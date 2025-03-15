@@ -337,7 +337,7 @@ class Playground extends React.Component {
                                 }))
                               }
                             />
-                            {options.cursorOffset >= 0 && (
+                            {options.cursorOffset >= 0 ? (
                               <>
                                 <Button
                                   onClick={() => {
@@ -351,7 +351,7 @@ class Playground extends React.Component {
                                 </Button>
                                 <label>Result: {cursorOffset}</label>
                               </>
-                            )}
+                            ) : null}
                           </div>
                         </SidebarCategory>
                       ) : null}
