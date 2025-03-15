@@ -131,8 +131,6 @@ async function handleFormatMessage(message) {
     },
   };
 
-  const isPrettier2 = prettier.version.startsWith("2.");
-
   for (const key of ["ast", "preprocessedAst"]) {
     if (!message.debug[key]) {
       continue;
@@ -140,19 +138,16 @@ async function handleFormatMessage(message) {
 
     const preprocessForPrint = key === "preprocessedAst";
 
-    if (isPrettier2 && preprocessForPrint) {
-      response.debug[key] = "/* not supported for Prettier 2.x */";
+    if (options.parser === "doc-explorer" && preprocessForPrint) {
       continue;
     }
 
     let ast;
     let errored = false;
     try {
-      const parsed = await prettier.__debug.parse(
-        message.code,
-        options,
-        isPrettier2 ? false : { preprocessForPrint },
-      );
+      const parsed = await prettier.__debug.parse(message.code, options, {
+        preprocessForPrint,
+      });
       ast = serializeAst(parsed.ast);
     } catch (e) {
       errored = true;
@@ -169,7 +164,7 @@ async function handleFormatMessage(message) {
     response.debug[key] = ast;
   }
 
-  if (message.debug.doc) {
+  if (options.parser !== "doc-explorer" && message.debug.doc) {
     try {
       response.debug.doc = await prettier.__debug.formatDoc(
         await prettier.__debug.printToDoc(message.code, options),
@@ -180,7 +175,7 @@ async function handleFormatMessage(message) {
     }
   }
 
-  if (message.debug.comments) {
+  if (options.parser !== "doc-explorer" && message.debug.comments) {
     response.debug.comments = (
       await formatCode(JSON.stringify(formatResult.comments || []), {
         parser: "json",
@@ -189,7 +184,7 @@ async function handleFormatMessage(message) {
     ).formatted;
   }
 
-  if (message.debug.reformat) {
+  if (options.parser !== "doc-explorer" && message.debug.reformat) {
     response.debug.reformatted = (
       await formatCode(response.formatted, options)
     ).formatted;
@@ -211,28 +206,28 @@ async function formatCode(text, options, rethrowEmbedErrors) {
   try {
     self.PRETTIER_DEBUG = rethrowEmbedErrors;
     return await prettier.formatWithCursor(text, options);
-  } catch (e) {
-    if (e.constructor && e.constructor.name === "SyntaxError") {
+  } catch (error) {
+    if (error.constructor?.name === "SyntaxError") {
       // Likely something wrong with the user's code
-      return { formatted: String(e), error: true };
+      return { formatted: String(error), error: true };
     }
     // Likely a bug in Prettier
     // Provide the whole stack for debugging
-    return { formatted: stringifyError(e), error: true };
+    return { formatted: stringifyError(error), error: true };
   } finally {
     self.PRETTIER_DEBUG = undefined;
   }
 }
 
-function stringifyError(e) {
-  const stringified = String(e);
-  if (typeof e.stack !== "string") {
+function stringifyError(error) {
+  const stringified = String(error);
+  if (typeof error.stack !== "string") {
     return stringified;
   }
-  if (e.stack.includes(stringified)) {
+  if (error.stack.includes(stringified)) {
     // Chrome
-    return e.stack;
+    return error.stack;
   }
   // Firefox
-  return stringified + "\n" + e.stack;
+  return stringified + "\n" + error.stack;
 }
