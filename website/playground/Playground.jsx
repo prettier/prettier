@@ -94,8 +94,8 @@ class Playground extends React.Component {
 
     const codeSample = getCodeSample(options.parser);
     const content = original.content || codeSample;
-    const needsClickForFirstRun =
-      options.parser === "doc-explorer" && content !== codeSample;
+    const isDocExplorer = options.parser === "doc-explorer";
+    const needsClickForFirstRun = isDocExplorer && content !== codeSample;
     const selection = {};
 
     this.state = { content, options, selection, needsClickForFirstRun };
@@ -268,6 +268,7 @@ class Playground extends React.Component {
               });
               const showFullReport =
                 encodeURIComponent(fullReport).length < MAX_LENGTH;
+              const isDocExplorer = options.parser === "doc-explorer";
 
               return (
                 <>
@@ -279,7 +280,7 @@ class Playground extends React.Component {
                         optionValues={options}
                         onOptionValueChange={this.handleOptionValueChange}
                       />
-                      {options.parser === "doc-explorer" ? (
+                      {isDocExplorer ? null : (
                         <SidebarCategory title="Range">
                           <label>
                             The selected range will be highlighted in yellow in
@@ -309,8 +310,8 @@ class Playground extends React.Component {
                             Set selected text as range
                           </Button>
                         </SidebarCategory>
-                      ) : null}
-                      {options.parser === "doc-explorer" ? (
+                      )}
+                      {isDocExplorer ? null : (
                         <SidebarCategory title="Cursor">
                           <Option
                             option={this.cursorOffsetOption}
@@ -354,7 +355,7 @@ class Playground extends React.Component {
                             ) : null}
                           </div>
                         </SidebarCategory>
-                      ) : null}
+                      )}
                       <SidebarCategory title="Debug">
                         <Checkbox
                           label="show input"
@@ -366,48 +367,47 @@ class Playground extends React.Component {
                           checked={editorState.showAst}
                           onChange={editorState.toggleAst}
                         />
-                        {options.parser === "doc-explorer" ? (
+                        {isDocExplorer ? null : (
                           <Checkbox
                             label="show preprocessed AST"
                             checked={editorState.showPreprocessedAst}
                             onChange={editorState.togglePreprocessedAst}
                           />
-                        ) : null}
-                        {options.parser === "doc-explorer" ? (
+                        )}
+                        {isDocExplorer ? null : (
                           <Checkbox
                             label="show doc"
                             checked={editorState.showDoc}
                             onChange={editorState.toggleDoc}
                           />
-                        ) : null}
-                        {options.parser === "doc-explorer" ? (
+                        )}
+                        {isDocExplorer ? null : (
                           <Checkbox
                             label="show comments"
                             checked={editorState.showComments}
                             onChange={editorState.toggleComments}
                           />
-                        ) : null}
+                        )}
                         <Checkbox
                           label="show output"
                           checked={editorState.showOutput}
                           onChange={editorState.toggleOutput}
                         />
-                        {options.parser === "doc-explorer" ? (
+                        {isDocExplorer ? null : (
                           <Checkbox
                             label="show second format"
                             checked={editorState.showSecondFormat}
                             onChange={editorState.toggleSecondFormat}
                           />
-                        ) : null}
-                        {options.parser === "doc-explorer" ? (
+                        )}
+                        {isDocExplorer ? null : (
                           <Checkbox
                             label="rethrow embed errors"
                             checked={editorState.rethrowEmbedErrors}
                             onChange={editorState.toggleEmbedErrors}
                           />
-                        ) : null}
-                        {editorState.showDoc &&
-                        options.parser !== "doc-explorer" ? (
+                        )}
+                        {editorState.showDoc && !isDocExplorer ? (
                           <ClipboardButton
                             copy={() => this.getMarkdown({ doc: debug.doc })}
                             disabled={!debug.doc}
@@ -447,19 +447,16 @@ class Playground extends React.Component {
                           autoFold={util.getAstAutoFold(options.parser)}
                         />
                       ) : null}
-                      {editorState.showPreprocessedAst &&
-                      options.parser !== "doc-explorer" ? (
+                      {editorState.showPreprocessedAst && !isDocExplorer ? (
                         <DebugPanel
                           value={debug.preprocessedAst || ""}
                           autoFold={util.getAstAutoFold(options.parser)}
                         />
                       ) : null}
-                      {editorState.showDoc &&
-                      options.parser !== "doc-explorer" ? (
+                      {editorState.showDoc && !isDocExplorer ? (
                         <DebugPanel value={debug.doc || ""} />
                       ) : null}
-                      {editorState.showComments &&
-                      options.parser !== "doc-explorer" ? (
+                      {editorState.showComments && !isDocExplorer ? (
                         <DebugPanel
                           value={debug.comments || ""}
                           autoFold={util.getAstAutoFold(options.parser)}
@@ -503,8 +500,7 @@ class Playground extends React.Component {
                           />
                         )
                       ) : null}
-                      {editorState.showSecondFormat &&
-                      options.parser !== "doc-explorer" ? (
+                      {editorState.showSecondFormat && !isDocExplorer ? (
                         <OutputPanel
                           mode={util.getCodemirrorMode(options.parser)}
                           value={getSecondFormat(formatted, debug.reformatted)}

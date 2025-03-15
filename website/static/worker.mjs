@@ -113,6 +113,8 @@ async function handleFormatMessage(message) {
   delete options.doc;
   delete options.output2;
 
+  const isDocExplorer = options.parser === "doc-explorer";
+
   const formatResult = await formatCode(
     message.code,
     options,
@@ -138,7 +140,7 @@ async function handleFormatMessage(message) {
 
     const preprocessForPrint = key === "preprocessedAst";
 
-    if (options.parser === "doc-explorer" && preprocessForPrint) {
+    if (isDocExplorer && preprocessForPrint) {
       continue;
     }
 
@@ -164,7 +166,7 @@ async function handleFormatMessage(message) {
     response.debug[key] = ast;
   }
 
-  if (options.parser !== "doc-explorer" && message.debug.doc) {
+  if (!isDocExplorer && message.debug.doc) {
     try {
       response.debug.doc = await prettier.__debug.formatDoc(
         await prettier.__debug.printToDoc(message.code, options),
@@ -175,7 +177,7 @@ async function handleFormatMessage(message) {
     }
   }
 
-  if (options.parser !== "doc-explorer" && message.debug.comments) {
+  if (!isDocExplorer && message.debug.comments) {
     response.debug.comments = (
       await formatCode(JSON.stringify(formatResult.comments || []), {
         parser: "json",
@@ -184,7 +186,7 @@ async function handleFormatMessage(message) {
     ).formatted;
   }
 
-  if (options.parser !== "doc-explorer" && message.debug.reformat) {
+  if (!isDocExplorer && message.debug.reformat) {
     response.debug.reformatted = (
       await formatCode(response.formatted, options)
     ).formatted;
