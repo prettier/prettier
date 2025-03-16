@@ -86,7 +86,7 @@ div {
   /* simpler use case: */
   grid: 200px auto / 1fr auto 1fr;
 
-  /* Okay, the the worst of it. The simpler syntaxes: */
+  /* Okay, the worst of it. The simpler syntaxes: */
 
   grid-row-gap: 2em;
   grid-column-gap: 1em;
