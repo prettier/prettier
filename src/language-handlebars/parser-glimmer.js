@@ -51,6 +51,7 @@ const glimmerPrettierParsePlugin = (/* options*/) => ({
   },
 });
 
+/** @type {import("@glimmer/syntax").PreprocessOptions} */
 const glimmerParseOptions = {
   mode: "codemod",
   plugins: { ast: [glimmerPrettierParsePlugin] },
