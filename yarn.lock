@@ -1351,34 +1351,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@glimmer/syntax@npm:0.94.8":
-  version: 0.94.8
-  resolution: "@glimmer/syntax@npm:0.94.8"
+"@glimmer/syntax@npm:0.94.9":
+  version: 0.94.9
+  resolution: "@glimmer/syntax@npm:0.94.9"
   dependencies:
     "@glimmer/interfaces": "npm:0.94.6"
-    "@glimmer/util": "npm:0.94.7"
-    "@glimmer/wire-format": "npm:0.94.7"
+    "@glimmer/util": "npm:0.94.8"
+    "@glimmer/wire-format": "npm:0.94.8"
     "@handlebars/parser": "npm:~2.0.0"
     simple-html-tokenizer: "npm:^0.5.11"
-  checksum: 10/fc285aa99126277095a3ea968f5fd5f26eea0f8c1507d6b73ac44ecb56237a94a51f3fbf8c8b719587ee1f24ea74bf2d719fa2015e22201d4748d0fbad6e102e
+  checksum: 10/b2ed32fc4614b609f6088f8be74cad163b78835f69661a7b111c98e8a4de0e9eab481026f908e6cfd79408806a7f5f49aff08deeba859e9fcec3bef2a515154f
   languageName: node
   linkType: hard
 
-"@glimmer/util@npm:0.94.7":
-  version: 0.94.7
-  resolution: "@glimmer/util@npm:0.94.7"
+"@glimmer/util@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@glimmer/util@npm:0.94.8"
   dependencies:
     "@glimmer/interfaces": "npm:0.94.6"
-  checksum: 10/5ad7ea7a46da3b9fd2804d806f7bb2c8582db19c0124cd4074c20082f2dd4fe4ae82e2adaa130ee39015207f376ca1b53743c5dd3a96fae8eb359eb509ef06ca
+  checksum: 10/97887e287d3115dbc9b8f7b5e506c5e9bba57e79aadb8a1cf774cd7d5fd752027ca6487d65f63b61bf5da737606ccb1d834b26a7a80947e7f01699e6c54101d8
   languageName: node
   linkType: hard
 
-"@glimmer/wire-format@npm:0.94.7":
-  version: 0.94.7
-  resolution: "@glimmer/wire-format@npm:0.94.7"
+"@glimmer/wire-format@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@glimmer/wire-format@npm:0.94.8"
   dependencies:
     "@glimmer/interfaces": "npm:0.94.6"
-  checksum: 10/0428923152225c6a186aac765735ced5cc46b3a68f7b792f27c6057b2ad6647e45b74691258bb11845fa72132db9f1044f494a04f55de20d380edd8397d5f6de
+  checksum: 10/62c833c433b41e8717d9d7eeae302abd0ac3dc1ef52641a77a4fc276d02e00b881bfadac8d1268222af9103103b80036ce22c3c69901ffd2e276df2352095c98
   languageName: node
   linkType: hard
 
@@ -6873,7 +6873,7 @@ __metadata:
     "@babel/types": "npm:7.26.10"
     "@eslint-react/eslint-plugin": "npm:1.27.0"
     "@eslint/js": "npm:9.21.0"
-    "@glimmer/syntax": "npm:0.94.8"
+    "@glimmer/syntax": "npm:0.94.9"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:4.0.1"
     "@types/estree": "npm:1.0.6"
