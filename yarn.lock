@@ -2855,13 +2855,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cjk-regex@npm:3.2.1":
-  version: 3.2.1
-  resolution: "cjk-regex@npm:3.2.1"
+"cjk-regex@npm:3.3.0":
+  version: 3.3.0
+  resolution: "cjk-regex@npm:3.3.0"
   dependencies:
     regexp-util: "npm:^2.0.1"
     unicode-regex: "npm:^4.1.0"
-  checksum: 10/957d2206332678eb0b7622b2fb151f1de8955eef52f1138c7ecf2e2929bbca148a2815a36e24616fa72e3d25584b48e4ffaf87712a77e54f3499adcd6ca64596
+  checksum: 10/fd0a69db662ee99a383d134311f2099acf87b716ce94b2ea29b27f0d49070497bba314c0c7c1c5d6bbfe8cc08d268775b7e4ad8feb8e7b1aa5b049b62344150d
   languageName: node
   linkType: hard
 
@@ -6889,7 +6889,7 @@ __metadata:
     c8: "npm:10.1.3"
     camelcase: "npm:8.0.0"
     ci-info: "npm:4.2.0"
-    cjk-regex: "npm:3.2.1"
+    cjk-regex: "npm:3.3.0"
     collapse-white-space: "npm:1.0.6"
     cross-env: "npm:7.0.3"
     cspell: "npm:8.17.2"
