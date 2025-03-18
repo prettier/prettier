@@ -6975,7 +6975,7 @@ __metadata:
     snapshot-diff: "npm:0.10.0"
     strip-ansi: "npm:7.1.0"
     tempy: "npm:3.1.0"
-    tinybench: "npm:3.1.1"
+    tinybench: "npm:4.0.1"
     to-fast-properties: "npm:4.0.0"
     trim-newlines: "npm:5.0.0"
     ts-expect: "npm:1.3.0"
@@ -7889,10 +7889,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinybench@npm:3.1.1":
-  version: 3.1.1
-  resolution: "tinybench@npm:3.1.1"
-  checksum: 10/1d97035722dd91fc8a496cb2a97c375a06ce2ec03e57586ee5bf4b861bbc8a3ab52839d285ca5948c094ac61c1529fbdf7f47c9cb7e8dce11daafd4239eb47b0
+"tinybench@npm:4.0.1":
+  version: 4.0.1
+  resolution: "tinybench@npm:4.0.1"
+  checksum: 10/d20873cc975fad29c5afe4596dd808b26dd8a5637ddfff89fd5b6b8bf99e50ae1a4c4b2e242990565f094baf7adbfb1bfe0c687f01376b8b0c5c2ba579b7cfa0
   languageName: node
   linkType: hard
 
