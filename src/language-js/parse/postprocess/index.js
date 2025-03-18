@@ -22,6 +22,7 @@ const isNodeWithRaw = createTypeCheckFunction([
   // ESTree
   "Literal",
   "JSXText",
+  "TemplateElement",
 
   // Flow
   "StringLiteralTypeAnnotation",
@@ -84,16 +85,26 @@ function postprocess(ast, options) {
   }
 
   ast = visitNode(ast, (node) => {
-    /* c8 ignore next 3 */
-    if (process.env.NODE_ENV !== "production") {
-      assertRaw(node, text);
-    }
-
     switch (node.type) {
       case "LogicalExpression":
         // We remove unneeded parens around same-operator LogicalExpressions
         if (isUnbalancedLogicalTree(node)) {
           return rebalanceLogicalTree(node);
+        }
+        break;
+
+      case "TemplateElement":
+        // `flow` and `typescript` follows the `espree` style positions
+        // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
+        if (
+          parser === "flow" ||
+          parser === "espree" ||
+          parser === "typescript"
+        ) {
+          const start = locStart(node) + 1;
+          const end = locEnd(node) - (node.tail ? 1 : 2);
+
+          node.range = [start, end];
         }
         break;
 
@@ -133,6 +144,11 @@ function postprocess(ast, options) {
           return node.types[0];
         }
         break;
+    }
+
+    /* c8 ignore next 3 */
+    if (process.env.NODE_ENV !== "production") {
+      assertRaw(node, text);
     }
   });
 
@@ -228,7 +244,8 @@ function assertRaw(node, text) {
   if (!isNodeWithRaw(node)) {
     return;
   }
-  const raw = getRaw(node);
+
+  const raw = node.type === "TemplateElement" ? node.value.raw : getRaw(node);
   assert.equal(raw, text.slice(locStart(node), locEnd(node)));
 }
 
