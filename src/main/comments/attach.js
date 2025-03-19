@@ -142,8 +142,6 @@ function attachComments(ast, options) {
 
   const tiesToBreak = [];
   const {
-    locStart,
-    locEnd,
     printer: {
       experimentalFeatures: {
         // TODO: Make this as default behavior
