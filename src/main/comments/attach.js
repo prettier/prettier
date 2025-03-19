@@ -180,25 +180,6 @@ function attachComments(ast, options) {
       isLastComment,
     } = context;
 
-    if (
-      options.parser === "json" ||
-      options.parser === "json5" ||
-      options.parser === "jsonc" ||
-      options.parser === "__js_expression" ||
-      options.parser === "__ts_expression" ||
-      options.parser === "__vue_expression" ||
-      options.parser === "__vue_ts_expression"
-    ) {
-      if (locStart(comment) - locStart(ast) <= 0) {
-        addLeadingComment(ast, comment);
-        continue;
-      }
-      if (locEnd(comment) - locEnd(ast) >= 0) {
-        addTrailingComment(ast, comment);
-        continue;
-      }
-    }
-
     let args;
     if (avoidAstMutation) {
       args = [context];
