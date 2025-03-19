@@ -41,7 +41,7 @@ printWidth: 80
 // Line comment 1
 /** Block comment 1 */
 // Line comment 2
-
 /** Block comment 3 */
+
 ================================================================================
 `;
