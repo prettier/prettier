@@ -101,3 +101,20 @@ runFormatTest(
   },
   ["json"],
 );
+
+runFormatTest(
+  {
+    importMeta: import.meta,
+    snippets: [
+      "[",
+      ";",
+      '"string";',
+      '"string"\n;',
+      "/* comment */[",
+      "/* comment */;",
+      '/* comment */"string";',
+      '/* comment */"string"\n;',
+    ],
+  },
+  ["json", "json5", "jsonc", "json-stringify"],
+);
