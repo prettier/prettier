@@ -1,4 +1,4 @@
-import chalk from "chalk";
+import styleText from "node-style-text";
 import outdent from "outdent";
 import semver from "semver";
 import {
@@ -39,7 +39,7 @@ export default async function showInstructionsAfterNpmPublish({
   next,
 }) {
   if (next) {
-    console.log(`${chalk.green.bold(`Prettier ${version} published!`)}`);
+    console.log(`${styleText.green.bold(`Prettier ${version} published!`)}`);
     await waitForEnter();
     return;
   }
@@ -47,13 +47,13 @@ export default async function showInstructionsAfterNpmPublish({
   const releaseUrl = getReleaseUrl(version, previousVersion);
   console.log(
     outdent`
-      ${chalk.green.bold(`Prettier ${version} published!`)}
+      ${styleText.green.bold(`Prettier ${version} published!`)}
 
-      ${chalk.yellow.bold("Some manual steps are necessary.")}
+      ${styleText.yellow.bold("Some manual steps are necessary.")}
 
-      ${chalk.bold.underline("Create a GitHub Release")}
-      - Go to ${chalk.cyan.underline(releaseUrl)}
-      - Press ${chalk.bgGreen.black("Publish release ")}
+      ${styleText.bold.underline("Create a GitHub Release")}
+      - Go to ${styleText.cyan.underline(releaseUrl)}
+      - Press ${styleText.bgGreen.black("Publish release")}
 
       After that, we can proceed to bump this repo's Prettier dependency.
     `,

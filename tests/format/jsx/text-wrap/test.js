@@ -273,7 +273,6 @@ single_expression_child_tags =
 expression_does_not_break =
   <div>texty text text text text text text text text text text text {this.props.type} </div>
 
-// FIXME
 br_triggers_expression_break =
   <div><br />
   text text text text text text text text text text text {this.props.type} </div>

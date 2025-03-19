@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`2799.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+$default: #111111 !default;
+$default: #111111   !default;
+$default: #111111
+!default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value"   !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value"
+!default;
+
+$global: #111111 !global;
+$global: #111111   !global;
+$global: #111111
+!global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value"   !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value"
+!global;
+
+=====================================output=====================================
+$default: #111111 !default;
+$default: #111111 !default;
+$default: #111111 !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+
+$global: #111111 !global;
+$global: #111111 !global;
+$global: #111111 !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+
+================================================================================
+`;
+
+exports[`2799.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+$default: #111111 !default;
+$default: #111111   !default;
+$default: #111111
+!default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value"   !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value"
+!default;
+
+$global: #111111 !global;
+$global: #111111   !global;
+$global: #111111
+!global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value"   !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value"
+!global;
+
+=====================================output=====================================
+$default: #111111 !default;
+$default: #111111 !default;
+$default: #111111 !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+
+$global: #111111 !global;
+$global: #111111 !global;
+$global: #111111 !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+
+================================================================================
+`;

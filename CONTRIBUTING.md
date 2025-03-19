@@ -9,7 +9,7 @@ yarn test
 
 ## Tests
 
-The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-testing.html). You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
+The tests use [Jest snapshots](https://jestjs.io/docs/snapshot-testing). You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
 
 Each test directory in `tests/format` has a `format.test.js` file that controls how exactly the rest of the files in the directory are used for tests. This file must contain one or more calls to the `runFormatTest` global function. For example, in directories with JavaScript formatting tests, `format.test.js` generally looks like this:
 
@@ -59,7 +59,7 @@ The implementation of `runFormatTest` can be found in [`tests/config/run-format-
 
 To debug Prettier locally, you can either debug it in Node (recommended) or the browser.
 
-- The easiest way to debug it in Node is to create a local test file with some example code you want formatted and either run it in an editor like VS Code or run it directly via `./bin/prettier.js <your_test_file>`.
+- The easiest way to debug it in Node is to create a local test file with some example code you want formatted and either run it in an editor like VS Code or run it directly via `yarn debug <your_test_file>`.
 - The easiest way to debug it in the browser is to build Prettier's website locally (see [`website/README.md`](website/README.md)).
 
 ## No New Options
@@ -85,13 +85,13 @@ If you want to know more about Prettier's GitHub labels, see the [Issue Labels](
 If you're contributing a performance improvement, the following Prettier CLI options can help:
 
 - `--debug-repeat N` uses a naïve loop to repeat the formatting `N` times and measures the average run duration. It can be useful to highlight hot functions in the profiler. This can also set by environment variable `PRETTIER_PERF_REPEAT`.
-- `--debug-benchmark` uses [`benchmark`](https://npm.im/benchmark) module to produce statistically significant duration measurements.
+- `--debug-benchmark` uses [`tinybench`](https://www.npmjs.com/package/tinybench) module to produce statistically significant duration measurements.
 
 For convenience, the following commands for profiling are available via [`package.json`](package.json) `scripts`.
 
 - `PRETTIER_PERF_REPEAT=1000 yarn perf <filename>` starts the naïve loop. See the CLI output for when the measurements finish, and stop profiling at that moment.
 - `PRETTIER_PERF_REPEAT=1000 yarn perf:inspect <filename>` starts the naïve loop with `node --inspect-brk` flag that pauses execution and waits for Chromium/Chrome/Node Inspector to attach. Open [`chrome://inspect`](chrome://inspect), select the process to inspect, and activate the CPU Profiler, this will unpause execution. See the CLI output for when the measurements finish, and stop the CPU Profiler at that moment to avoid collecting more data than needed.
-- `yarn perf:benchmark <filename>` starts the `benchmark`-powered measurements. See the CLI output for when the measurements finish.
+- `yarn perf:benchmark <filename>` starts the measurements. See the CLI output for when the measurements finish.
 
 In the above commands:
 

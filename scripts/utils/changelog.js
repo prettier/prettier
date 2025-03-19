@@ -10,6 +10,28 @@ export const changelogUnreleasedDirPath = path.join(
   "../../changelog_unreleased",
 );
 
+export const categories = [
+  { dir: "javascript", title: "JavaScript" },
+  { dir: "typescript", title: "TypeScript" },
+  { dir: "flow", title: "Flow" },
+  { dir: "json", title: "JSON" },
+  { dir: "css", title: "CSS" },
+  { dir: "scss", title: "SCSS" },
+  { dir: "less", title: "Less" },
+  { dir: "html", title: "HTML" },
+  { dir: "vue", title: "Vue" },
+  { dir: "angular", title: "Angular" },
+  { dir: "lwc", title: "LWC" },
+  { dir: "handlebars", title: "Ember / Handlebars" },
+  { dir: "graphql", title: "GraphQL" },
+  { dir: "markdown", title: "Markdown" },
+  { dir: "mdx", title: "MDX" },
+  { dir: "yaml", title: "YAML" },
+  { dir: "api", title: "API" },
+  { dir: "cli", title: "CLI" },
+  { dir: "misc", title: "Miscellaneous" },
+];
+
 export const changelogUnreleasedDirs = fs
   .readdirSync(changelogUnreleasedDirPath, {
     withFileTypes: true,

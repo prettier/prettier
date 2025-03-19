@@ -73,5 +73,6 @@ jobs:
         if: ${{ matrix.ENABLE_CODE_COVERAGE }}
         with:
           fail_ci_if_error: true
+          disable_search: true
           files: coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}

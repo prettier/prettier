@@ -1,3 +1,50 @@
+# 3.5.3
+
+[diff](https://github.com/prettier/prettier/compare/3.5.2...3.5.3)
+
+#### Flow: Fix missing parentheses in `ConditionalTypeAnnotation` ([#17196](https://github.com/prettier/prettier/pull/17196) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+type T<U> = 'a' | ('b' extends U ? 'c' : empty);
+type T<U> = 'a' & ('b' extends U ? 'c' : empty);
+
+// Prettier 3.5.2
+type T<U> = "a" | "b" extends U ? "c" : empty;
+type T<U> = "a" & "b" extends U ? "c" : empty;
+
+// Prettier 3.5.3
+type T<U> = "a" | ("b" extends U ? "c" : empty);
+type T<U> = "a" & ("b" extends U ? "c" : empty);
+```
+
+# 3.5.2
+
+[diff](https://github.com/prettier/prettier/compare/3.5.1...3.5.2)
+
+#### Remove `module-sync` condition ([#17156](https://github.com/prettier/prettier/pull/17156) by [@fisker](https://github.com/fisker))
+
+In Prettier 3.5.0, [we added `module-sync` condition to `package.json`](https://prettier.io/blog/2025/02/09/3.5.0#use-esm-entrypoint-for-requireesm-16958-by-tats-u), so that `require("prettier")` can use ESM version, but turns out it doesn't work if CommonJS and ESM plugins both imports builtin plugins. To solve this problem, we decide simply remove the `module-sync` condition, so `require("prettier")` will still use the CommonJS version, we'll revisit until `require(ESM)` feature is more stable.
+
+# 3.5.1
+
+[diff](https://github.com/prettier/prettier/compare/3.5.0...3.5.1)
+
+#### Fix CLI crash when cache for old version exists ([#17100](https://github.com/prettier/prettier/pull/17100) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Prettier 3.5 uses a different cache format than previous versions, Prettier 3.5.0 crashes when reading existing cache file, Prettier 3.5.1 fixed the problem.
+
+#### Support dockercompose and github-actions-workflow in VSCode ([#17101](https://github.com/prettier/prettier/pull/17101) by [@remcohaszing](https://github.com/remcohaszing))
+
+Prettier now supports the `dockercompose` and `github-actions-workflow` languages in Visual Studio Code.
+
+# 3.5.0
+
+[diff](https://github.com/prettier/prettier/compare/3.4.2...3.5.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2025/02/09/3.5.0.html)
+
 # 3.4.2
 
 [diff](https://github.com/prettier/prettier/compare/3.4.1...3.4.2)
@@ -3176,7 +3223,7 @@ export const getVehicleDescriptor = async (
 
 - Config: Match dotfiles in config overrides ([#6194] by [@duailibe])
 
-  When using [`overrides`](https://prettier.io/docs/en/configuration.html#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
+  When using [`overrides`](https://prettier.io/docs/configuration#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
 
 [#6190]: https://github.com/prettier/prettier/pull/6190
 [#6194]: https://github.com/prettier/prettier/pull/6194

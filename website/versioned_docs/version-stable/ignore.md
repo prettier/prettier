@@ -1,7 +1,6 @@
 ---
-id: version-stable-ignore
+id: ignore
 title: Ignoring Code
-original_id: ignore
 ---
 
 Use `.prettierignore` to ignore (i.e. not reformat) certain files and folders completely.
@@ -146,6 +145,8 @@ This type of ignore is only allowed to be used in top-level and aimed to disable
 <!-- prettier-ignore-end -->
 ```
 
+**Important:** You must have a blank line before `<!-- prettier-ignore-start -->` and `<!-- prettier-ignore-end -->` for Prettier to recognize the comments.
+
 ## YAML
 
 To ignore a part of a YAML file, `# prettier-ignore` should be placed on the line immediately above the ignored node:
@@ -190,4 +191,4 @@ For one-off commands, when you want to exclude some files without adding them to
 prettier . "!**/*.{js,jsx,vue}" --write
 ```
 
-See [fast-glob](https://prettier.io/docs/en/cli.html#file-patterns) to learn more about advanced glob syntax.
+See [fast-glob](https://prettier.io/docs/cli#file-patterns) to learn more about advanced glob syntax.

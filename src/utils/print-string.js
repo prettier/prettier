@@ -5,7 +5,7 @@ import makeString from "./make-string.js";
 /** @import {Quote} from "./get-preferred-quote.js" */
 
 function printString(raw, options) {
-  assert(/^(?<quote>["']).*\k<quote>$/su.test(raw));
+  assert.ok(/^(?<quote>["']).*\k<quote>$/su.test(raw));
 
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.

@@ -150,6 +150,7 @@ function getSyntaxFromCategory(category) {
     case "flow":
     case "javascript":
     case "api":
+    case "misc":
       return "jsx";
     case "typescript":
       return "tsx";

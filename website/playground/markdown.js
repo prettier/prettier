@@ -81,4 +81,4 @@ function codeBlock(content, syntax) {
   );
 }
 
-module.exports = formatMarkdown;
+export default formatMarkdown;

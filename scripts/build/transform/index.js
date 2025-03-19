@@ -25,7 +25,8 @@ function transform(original, file) {
           "node_modules/@typescript-eslint/typescript-estree/",
         ),
       ) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/meriyah/"))
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/meriyah/")) ||
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/@glimmer/"))
     )
   ) {
     return original;

@@ -56,13 +56,17 @@ for (let step of [
   },
   params.manual ? steps.publishToNpm : steps.waitForBotRelease,
   steps.showInstructionsAfterNpmPublish,
+  {
+    name: "Merge release notes PR",
+    process: steps.mergeBlogPost,
+  },
   steps.updateDependentsCount,
-  steps.bumpPrettier,
   {
     name: "Cleaning changelog",
     process: steps.cleanChangelog,
     skip: params.dry || params.next,
   },
+  steps.bumpPrettier,
   steps.postPublishSteps,
 ]) {
   if (typeof step === "function") {

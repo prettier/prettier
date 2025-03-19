@@ -1,8 +1,6 @@
+import url from "node:url";
 import { isValidIdentifier } from "@babel/types";
-import createEsmUtils from "esm-utils";
 import serialize from "serialize-javascript";
-
-const { importModule } = createEsmUtils(import.meta);
 
 export default function esbuildPluginEvaluate() {
   return {
@@ -11,8 +9,9 @@ export default function esbuildPluginEvaluate() {
       const { format } = build.initialOptions;
 
       build.onLoad({ filter: /\.evaluate\.c?js$/u }, async ({ path }) => {
-        const module = await importModule(path);
+        const module = await import(url.pathToFileURL(path));
         const text = Object.entries(module)
+          .filter(([specifier]) => specifier !== "module.exports")
           .map(([specifier, value]) => {
             const code =
               value instanceof RegExp

@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-syntax-import-meta
+// https://babeljs.io/docs/babel-plugin-syntax-import-meta
 
 // Enabled by default https://github.com/babel/babel/pull/11406
 

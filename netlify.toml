@@ -1,5 +1,6 @@
 [build]
   command = "yarn build:website"
+  publish = "website/build/"
 
 [build.environment]
   NODE_VERSION = "lts/*"
