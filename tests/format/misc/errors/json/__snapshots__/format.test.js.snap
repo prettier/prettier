@@ -445,16 +445,44 @@ exports[`snippet: #8 [json] format 2`] = `
     |  ^"
 `;
 
+exports[`snippet: #8 [json] format 3`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #8 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[key]: 1}
     |   ^^^"
 `;
 
+exports[`snippet: #8 [json-stringify] format 2`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #8 [json5] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[key]: 1}
     |   ^^^"
+`;
+
+exports[`snippet: #8 [json5] format 2`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #8 [jsonc] format 1`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #9 [json] format 1`] = `
@@ -469,16 +497,48 @@ exports[`snippet: #9 [json] format 2`] = `
     |      ^"
 `;
 
+exports[`snippet: #9 [json] format 3`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+  2 | []
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #9 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[key()]: 1}
     |   ^^^^^"
 `;
 
+exports[`snippet: #9 [json-stringify] format 2`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+  2 | []
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #9 [json5] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[key()]: 1}
     |   ^^^^^"
+`;
+
+exports[`snippet: #9 [json5] format 2`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+  2 | []
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #9 [jsonc] format 1`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+  2 | []
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #10 [json] format 1`] = `

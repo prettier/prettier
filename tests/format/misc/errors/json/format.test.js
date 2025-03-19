@@ -114,6 +114,8 @@ runFormatTest(
       "/* comment */;",
       '/* comment */"string";',
       '/* comment */"string"\n;',
+      "#!/usr/bin/env node",
+      "#!/usr/bin/env node\n[]",
     ],
   },
   ["json", "json5", "jsonc", "json-stringify"],
