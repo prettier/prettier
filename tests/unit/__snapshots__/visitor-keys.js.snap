@@ -73,7 +73,6 @@ exports[`visitor keys estree 1`] = `
     "arguments",
     "callee",
     "typeArguments",
-    "typeParameters",
   ],
   "CatchClause": [
     "body",
@@ -577,7 +576,6 @@ exports[`visitor keys estree 1`] = `
     "arguments",
     "callee",
     "typeArguments",
-    "typeParameters",
   ],
   "NullLiteral": [],
   "NullLiteralTypeAnnotation": [],
@@ -651,7 +649,6 @@ exports[`visitor keys estree 1`] = `
     "arguments",
     "callee",
     "typeArguments",
-    "typeParameters",
   ],
   "OptionalIndexedAccessType": [
     "indexType",
@@ -814,8 +811,8 @@ exports[`visitor keys estree 1`] = `
     "members",
   ],
   "TSEnumDeclaration": [
+    "body",
     "id",
-    "members",
   ],
   "TSEnumMember": [
     "id",
@@ -842,7 +839,6 @@ exports[`visitor keys estree 1`] = `
     "options",
     "qualifier",
     "typeArguments",
-    "typeParameters",
   ],
   "TSIndexSignature": [
     "parameters",
@@ -858,7 +854,6 @@ exports[`visitor keys estree 1`] = `
   "TSInstantiationExpression": [
     "expression",
     "typeArguments",
-    "typeParameters",
   ],
   "TSInterfaceBody": [
     "body",
@@ -997,7 +992,6 @@ exports[`visitor keys estree 1`] = `
   "TSTypeQuery": [
     "exprName",
     "typeArguments",
-    "typeParameters",
   ],
   "TSTypeReference": [
     "typeArguments",
@@ -1013,7 +1007,6 @@ exports[`visitor keys estree 1`] = `
     "quasi",
     "tag",
     "typeArguments",
-    "typeParameters",
   ],
   "TemplateElement": [],
   "TemplateLiteral": [
