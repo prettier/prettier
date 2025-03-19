@@ -28,6 +28,7 @@
     "react-tweet": "3.2.2"
   },
   "devDependencies": {
+    "@docusaurus/faster": "3.7.0",
     "@docusaurus/module-type-aliases": "3.7.0",
     "@docusaurus/types": "3.7.0",
     "@types/js-yaml": "4.0.9",
