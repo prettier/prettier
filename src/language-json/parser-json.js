@@ -15,6 +15,9 @@ function parseEmptyJson(text) {
   const file = parse(text, babelParseOptions);
 
   const { program } = file;
+
+  // Not an empty JSON
+  /* c8 ignore next */
   if (
     !(
       program.body.length === 0 &&
@@ -22,7 +25,7 @@ function parseEmptyJson(text) {
       !program.interpreter
     )
   ) {
-    throw new Error("Not an empty JSON");
+    return;
   }
 
   return file;
