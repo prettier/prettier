@@ -126,7 +126,7 @@ function printTaggedTemplateLiteral(path, print) {
   const quasiDoc = print("quasi");
   return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
     print("tag"),
-    print(path.node.typeArguments ? "typeArguments" : "typeParameters"),
+    print("typeArguments"),
     lineSuffixBoundary,
     quasiDoc,
   ]);
