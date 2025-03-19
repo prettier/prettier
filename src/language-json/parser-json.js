@@ -22,7 +22,7 @@ function parseEmptyJson(text) {
       !program.interpreter
     )
   ) {
-    throw new Error("Not a empty JSON");
+    throw new Error("Not an empty JSON");
   }
 
   return file;
