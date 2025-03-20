@@ -114,16 +114,6 @@ export default function esbuildPluginThrowWarnings({
             continue;
           }
 
-          // `lines-and-columns`
-          if (
-            warning.id === "package.json" &&
-            warning.location.file.startsWith("node_modules/") &&
-            warning.text ===
-              'The condition "types" here will never be used as it comes after both "import" and "require"'
-          ) {
-            continue;
-          }
-
           console.log(warning);
           throw new Error(warning.text);
         }
