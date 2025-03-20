@@ -49,7 +49,7 @@ function parse(text) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { text });
+  return postprocess(ast, { parser: "flow", text });
 }
 
 export const flow = createParser(parse);

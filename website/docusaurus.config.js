@@ -258,6 +258,8 @@ const config = {
         darkTheme: prismThemes.dracula,
       },
     },
+
+  future: { experimental_faster: true },
 };
 
 export default config;
