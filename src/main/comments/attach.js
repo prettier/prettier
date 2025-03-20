@@ -193,7 +193,7 @@ function attachComments(ast, options) {
         addLeadingComment(ast, comment);
         continue;
       }
-      if (locEnd(comment) - locEnd(ast) >= 0) {
+      if (locEnd(comment) > locEnd(ast)) {
         addTrailingComment(ast, comment);
         continue;
       }
