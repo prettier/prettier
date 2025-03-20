@@ -24,8 +24,8 @@ function addBackslash(node) {
 }
 
 const isIndex = (value) => Number.isInteger(value) && value >= 0;
-// Add `loc.{start,end}.offset`
-const addOffset = (node) => {
+// Add `offset` to `loc.{start,end}`
+const setOffset = (node) => {
   const { start, end } = node.loc;
 
   start.offset = node.loc.getStart().offset;
@@ -45,7 +45,7 @@ const glimmerPrettierParsePlugin = (/* options*/) => ({
   name: "glimmerPrettierParsePlugin",
   visitor: {
     All(node) {
-      addOffset(node);
+      setOffset(node);
       addBackslash(node);
     },
   },
