@@ -103,7 +103,7 @@
     "url-or-path": "2.3.2",
     "vnopts": "2.0.2",
     "wcwidth.js": "2.0.0",
-    "yaml-unist-parser": "2.0.3"
+    "yaml-unist-parser": "2.0.5"
   },
   "devDependencies": {
     "@babel/generator": "7.26.10",

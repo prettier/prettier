@@ -6985,7 +6985,7 @@ __metadata:
     url-or-path: "npm:2.3.2"
     vnopts: "npm:2.0.2"
     wcwidth.js: "npm:2.0.0"
-    yaml-unist-parser: "npm:2.0.3"
+    yaml-unist-parser: "npm:2.0.5"
   bin:
     prettier: ./bin/prettier.cjs
   languageName: unknown
@@ -8463,12 +8463,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml-unist-parser@npm:2.0.3":
-  version: 2.0.3
-  resolution: "yaml-unist-parser@npm:2.0.3"
+"yaml-unist-parser@npm:2.0.5":
+  version: 2.0.5
+  resolution: "yaml-unist-parser@npm:2.0.5"
   dependencies:
     yaml: "npm:^1.10.2"
-  checksum: 10/dfe0f82570fbf805a3d54d75b0e556fc833e764ff66920ddfe5072b29ea11af2a787638e622312d91b4922ab7a429e85f762ba02149e29828e4584244a7c4d6d
+  checksum: 10/e8b820e7ecc8157ba105b73c1c6d54dda49cfb7ef0dc234c38d1c5d0e57dc83ca04abe70f99171b42709c39cf157f6bbbaeffc5f5631615576390b97a73c9729
   languageName: node
   linkType: hard
 
