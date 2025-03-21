@@ -506,14 +506,24 @@ function templateLiteralHasNewLines(template) {
 
 /**
  * @param {Estree.TemplateLiteral | Estree.TaggedTemplateExpression} node
+ * @returns {boolean}
+ */
+function isTemplateWithLineBreaks(node) {
+  return (
+    (node.type === "TemplateLiteral" && templateLiteralHasNewLines(node)) ||
+    (node.type === "TaggedTemplateExpression" &&
+      templateLiteralHasNewLines(node.quasi))
+  );
+}
+
+/**
+ * @param {Estree.TemplateLiteral | Estree.TaggedTemplateExpression} node
  * @param {string} text
  * @returns {boolean}
  */
 function isTemplateOnItsOwnLine(node, text) {
   return (
-    ((node.type === "TemplateLiteral" && templateLiteralHasNewLines(node)) ||
-      (node.type === "TaggedTemplateExpression" &&
-        templateLiteralHasNewLines(node.quasi))) &&
+    isTemplateWithLineBreaks(node) &&
     !hasNewline(text, locStart(node), { backwards: true })
   );
 }
@@ -1124,6 +1134,7 @@ export {
   isSimpleType,
   isStringLiteral,
   isTemplateOnItsOwnLine,
+  isTemplateWithLineBreaks,
   isTestCall,
   isTypeAnnotationAFunction,
   isUnionType,
