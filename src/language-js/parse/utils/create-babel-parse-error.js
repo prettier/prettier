@@ -1,6 +1,11 @@
 import createError from "../../../common/parser-create-error.js";
 
 function createBabelParseError(error) {
+  /* c8 ignore next 3 -- not a babel parse error */
+  if (!error.reasonCode || !error.loc) {
+    return error;
+  }
+
   // babel error prints (line:column) with cols that are zero indexed
   // so we need our custom error
   let {

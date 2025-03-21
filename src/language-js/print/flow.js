@@ -16,9 +16,9 @@ import {
   printComponentTypeParameter,
 } from "./component.js";
 import {
-  printEnumBody,
   printEnumDeclaration,
   printEnumMember,
+  printFlowEnumBody,
 } from "./enum.js";
 import {
   printDeclareHook,
@@ -159,14 +159,14 @@ function printFlow(path, options, print) {
 
     case "DeclareEnum":
     case "EnumDeclaration":
-      return printEnumDeclaration(path, print, options);
+      return printEnumDeclaration(path, print);
 
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumBigIntBody":
     case "EnumStringBody":
     case "EnumSymbolBody":
-      return printEnumBody(path, print, options);
+      return printFlowEnumBody(path, print, options);
 
     case "EnumBooleanMember":
     case "EnumNumberMember":

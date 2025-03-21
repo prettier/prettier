@@ -44,6 +44,9 @@ const additionalVisitorKeys = {
   AsConstExpression: ["expression"],
   SatisfiesExpression: ["expression", "typeAnnotation"],
   TypeofTypeAnnotation: ["argument", "typeArguments"],
+
+  // TODO: Remove this when babel release v8 stable
+  TSMappedType: ["typeParameter"],
 };
 
 const excludeKeys = {
@@ -71,10 +74,6 @@ const excludeKeys = {
   // https://github.com/typescript-eslint/typescript-eslint/pull/7065
   // TODO: Use the new AST properties instead
   TSMappedType: ["key", "constraint"],
-  // `body` added in `@typescript-eslint/typescript-estree` v8
-  // https://github.com/typescript-eslint/typescript-eslint/pull/8920
-  // TODO: Use the new AST properties instead
-  TSEnumDeclaration: ["body"],
 };
 
 const visitorKeys = Object.fromEntries(

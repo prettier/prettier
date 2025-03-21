@@ -190,7 +190,6 @@ const allowedReasonCodes = new Set([
   "NonAbstractClassHasAbstractMethod",
   "OptionalTypeBeforeRequired",
   "PatternIsOptional",
-  "OptionalBindingPattern",
   "DeclareClassFieldHasInitializer",
   "TypeImportCannotSpecifyDefaultAndNamed",
   "ConstructorClassField",

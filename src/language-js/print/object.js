@@ -32,7 +32,7 @@ function printObject(path, options, print) {
 
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const isEnumBody =
-    node.type === "TSEnumDeclaration" ||
+    node.type === "TSEnumBody" ||
     node.type === "EnumBooleanBody" ||
     node.type === "EnumNumberBody" ||
     node.type === "EnumBigIntBody" ||
