@@ -11,7 +11,7 @@ import { projectRoot } from "../env.js";
 const { require, importModule } = createEsmUtils(import.meta);
 
 const parserNames = coreOptions.parser.choices.map(({ value }) => value);
-const distDirectory = path.join(projectRoot, "dist");
+const distDirectory = path.join(projectRoot, "dist/prettier");
 
 // Files including U+FFEE can't load in Chrome Extension
 // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
