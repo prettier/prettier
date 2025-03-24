@@ -67,7 +67,7 @@ function printAngular(path, options, print) {
           (node.key.name === "then" ||
             node.key.name === "else" ||
             node.key.name === "as")) ||
-          ((index === 2) &&
+          (index === 2 &&
             ((node.key.name === "else" &&
               parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
               parent.body[index - 1].key.name === "then") ||
@@ -102,7 +102,7 @@ function isNgForOf({ node, index }) {
 }
 
 function isNgForOfTrack(path) {
-  const {node} = path
+  const { node } = path;
   return (
     path.parent.body[1].key.name === "of" &&
     node.type === "NGMicrosyntaxKeyedExpression" &&
