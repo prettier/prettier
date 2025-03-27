@@ -188,7 +188,8 @@ function clean(original, cloned, parent) {
     );
     if (
       hasLanguageComment ||
-      (parent.type === "CallExpression" && parent.callee.name === "graphql") ||
+      (parent.type === "CallExpression" &&
+        (parent.callee.name === "graphql" || parent.callee.name === "gql")) ||
       // TODO: check parser
       // `flow` and `typescript` don't have `leadingComments`
       !original.leadingComments

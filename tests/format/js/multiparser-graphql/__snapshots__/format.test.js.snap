@@ -197,6 +197,23 @@ query allPartsByManufacturerName($name: String!) {
 \${fragments.all}
 \`)
 
+gql(schema, \`
+query allPartsByManufacturerName($name: String!) {
+  allParts(filter:{manufacturer: {name: $name}}) {
+...    PartAll
+}}
+\${fragments.all}
+\`)
+
+const veryLongVariableNameToMakeTheLineBreak2 = gql(schema, \`
+query allPartsByManufacturerName($name: String!) {
+  allParts(filter:{manufacturer: {name: $name}}) {
+...    PartAll
+}}
+\${fragments.all}
+\`)
+
+
 =====================================output=====================================
 graphql(
   schema,
@@ -211,6 +228,30 @@ graphql(
 );
 
 const veryLongVariableNameToMakeTheLineBreak = graphql(
+  schema,
+  \`
+    query allPartsByManufacturerName($name: String!) {
+      allParts(filter: { manufacturer: { name: $name } }) {
+        ...PartAll
+      }
+    }
+    \${fragments.all}
+  \`,
+);
+
+gql(
+  schema,
+  \`
+    query allPartsByManufacturerName($name: String!) {
+      allParts(filter: { manufacturer: { name: $name } }) {
+        ...PartAll
+      }
+    }
+    \${fragments.all}
+  \`,
+);
+
+const veryLongVariableNameToMakeTheLineBreak2 = gql(
   schema,
   \`
     query allPartsByManufacturerName($name: String!) {
@@ -238,8 +279,28 @@ mutation     MarkReadNotificationMutation(
   )
 { markReadNotification(data: $input ) { notification {seenState} } }\`)
 
+gql(schema, \`
+mutation     MarkReadNotificationMutation(
+    $input
+    : MarkReadNotificationData!
+  )
+{ markReadNotification(data: $input ) { notification {seenState} } }\`)
+
 =====================================output=====================================
 graphql(
+  schema,
+  \`
+    mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
+      markReadNotification(data: $input) {
+        notification {
+          seenState
+        }
+      }
+    }
+  \`,
+);
+
+gql(
   schema,
   \`
     mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {

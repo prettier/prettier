@@ -13,3 +13,20 @@ query allPartsByManufacturerName($name: String!) {
 }}
 ${fragments.all}
 `)
+
+gql(schema, `
+query allPartsByManufacturerName($name: String!) {
+  allParts(filter:{manufacturer: {name: $name}}) {
+...    PartAll
+}}
+${fragments.all}
+`)
+
+const veryLongVariableNameToMakeTheLineBreak2 = gql(schema, `
+query allPartsByManufacturerName($name: String!) {
+  allParts(filter:{manufacturer: {name: $name}}) {
+...    PartAll
+}}
+${fragments.all}
+`)
+

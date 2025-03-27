@@ -111,13 +111,14 @@ function isGraphQL({ node, parent }) {
     (parent &&
       ((parent.type === "TaggedTemplateExpression" &&
         ((parent.tag.type === "MemberExpression" &&
-          parent.tag.object.name === "graphql" &&
+          (parent.tag.object.name === "graphql" ||
+            parent.tag.object.name === "gql") &&
           parent.tag.property.name === "experimental") ||
           (parent.tag.type === "Identifier" &&
             (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
         (parent.type === "CallExpression" &&
           parent.callee.type === "Identifier" &&
-          parent.callee.name === "graphql")))
+          (parent.callee.name === "graphql" || parent.callee.name === "gql"))))
   );
 }
 
