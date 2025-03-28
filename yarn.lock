@@ -2063,10 +2063,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:1.0.6, @types/estree@npm:^1.0.6":
-  version: 1.0.6
-  resolution: "@types/estree@npm:1.0.6"
-  checksum: 10/9d35d475095199c23e05b431bcdd1f6fec7380612aed068b14b2a08aa70494de8a9026765a5a91b1073f636fb0368f6d8973f518a31391d519e20c59388ed88d
+"@types/estree@npm:1.0.7, @types/estree@npm:^1.0.6":
+  version: 1.0.7
+  resolution: "@types/estree@npm:1.0.7"
+  checksum: 10/419c845ece767ad4b21171e6e5b63dabb2eb46b9c0d97361edcd9cabbf6a95fcadb91d89b5fa098d1336fa0b8fceaea82fca97a2ef3971f5c86e53031e157b21
   languageName: node
   linkType: hard
 
@@ -6876,7 +6876,7 @@ __metadata:
     "@glimmer/syntax": "npm:0.94.9"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:4.0.1"
-    "@types/estree": "npm:1.0.6"
+    "@types/estree": "npm:1.0.7"
     "@typescript-eslint/eslint-plugin": "npm:8.25.0"
     "@typescript-eslint/typescript-estree": "npm:8.25.0"
     "@typescript-eslint/visitor-keys": "npm:8.25.0"
