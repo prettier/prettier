@@ -2,8 +2,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import url from "node:url";
 import webpack from "webpack";
-import files from "../../build/config.js";
-import { DIST_DIR } from "../../utils/index.js";
+import packageConfig from "../../build/config.js";
 
 function runWebpack(config) {
   return new Promise((resolve, reject) => {
@@ -30,6 +29,7 @@ const TEMPORARY_DIRECTORY = url.fileURLToPath(
   new URL("./.tmp", import.meta.url),
 );
 
+const { distDirectory, files } = packageConfig;
 /* `require` in `parser-typescript.js`, #12338 */
 for (const file of files) {
   if (file.platform !== "universal") {
@@ -39,7 +39,7 @@ for (const file of files) {
 
   const stats = await runWebpack({
     mode: "production",
-    entry: path.join(DIST_DIR, file.output.file),
+    entry: path.join(distDirectory, file.output.file),
     output: {
       path: TEMPORARY_DIRECTORY,
       filename: `${file.output.file}.[contenthash:7].${
