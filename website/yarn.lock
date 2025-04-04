@@ -12311,7 +12311,7 @@ __metadata:
     react-dom: "npm:18.3.1"
     react-markdown: "npm:10.1.0"
     react-tweet: "npm:3.2.2"
-    vite: "npm:6.2.4"
+    vite: "npm:6.2.5"
   languageName: unknown
   linkType: soft
 
@@ -13628,9 +13628,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:6.2.4":
-  version: 6.2.4
-  resolution: "vite@npm:6.2.4"
+"vite@npm:6.2.5":
+  version: 6.2.5
+  resolution: "vite@npm:6.2.5"
   dependencies:
     esbuild: "npm:^0.25.0"
     fsevents: "npm:~2.3.3"
@@ -13676,7 +13676,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/3734c8695b4d35a5b3ea617159594835e370b428745f37e90d9c1daf82b53af5248578c1f1d9977fc1460320c0cdd4aef135095d378b2eba2736c03e2cfa019e
+  checksum: 10/354023589439e7e2bcb77af79d24cd06ce20cfc48b409e663c44e515b373b89eb8f29362223eac16a3ff080d3114e40bc5df158372279d92ad03eb270f9e9762
   languageName: node
   linkType: hard
 
