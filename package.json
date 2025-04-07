@@ -118,7 +118,7 @@
     "cross-env": "7.0.3",
     "cspell": "8.18.1",
     "enquirer": "2.4.1",
-    "esbuild": "0.25.0",
+    "esbuild": "0.25.2",
     "esbuild-plugins-node-modules-polyfill": "1.7.0",
     "esbuild-visualizer": "0.7.0",
     "eslint": "9.24.0",
