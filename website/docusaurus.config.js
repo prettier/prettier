@@ -259,7 +259,18 @@ const config = {
       },
     },
 
-  future: { experimental_faster: true },
+  future: {
+    experimental_faster: {
+      swcJsLoader: true,
+      swcHtmlMinimizer: true,
+      lightningCssMinimizer: true,
+      mdxCrossCompilerCache: true,
+
+      // https://github.com/facebook/docusaurus/issues/11047
+      swcJsMinimizer: false,
+      rspackBundler: false,
+    },
+  },
 };
 
 export default config;
