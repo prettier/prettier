@@ -137,7 +137,7 @@
     "jest-snapshot-serializer-ansi": "2.2.1",
     "jest-snapshot-serializer-raw": "2.0.0",
     "jest-watch-typeahead": "2.2.2",
-    "knip": "5.44.4",
+    "knip": "5.47.0",
     "lines-and-columns": "2.0.4",
     "magic-string": "0.30.17",
     "nano-spawn": "0.2.0",
