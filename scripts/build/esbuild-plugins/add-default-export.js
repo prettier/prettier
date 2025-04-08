@@ -1,6 +1,6 @@
 import path from "node:path";
 
-const namespace = "with-default-export";
+const PLUGIN_NAMESPACE = "with-default-export";
 export default function esbuildPluginAddDefaultExport() {
   return {
     name: "addDefaultExport",
@@ -12,18 +12,18 @@ export default function esbuildPluginAddDefaultExport() {
 
       let entry;
 
-      build.onResolve({ filter: /./u }, (module) => {
+      build.onResolve({ filter: /./, namespace: "file" }, (module) => {
         if (module.kind === "entry-point") {
           const relativePath = module.path
             .slice(module.resolveDir.length + 1)
             .replaceAll("\\", "/");
 
           entry = module.path;
-          return { path: relativePath, namespace };
+          return { path: relativePath, namespace: PLUGIN_NAMESPACE };
         }
       });
 
-      build.onLoad({ filter: /./u, namespace }, () => {
+      build.onLoad({ filter: /./, namespace: PLUGIN_NAMESPACE }, () => {
         const directory = path.dirname(entry);
         const source = `./${path.basename(entry)}`;
 
