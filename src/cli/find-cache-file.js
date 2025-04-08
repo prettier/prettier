@@ -1,15 +1,15 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import findCacheDir from "find-cache-dir";
+import findCacheDirectory from "find-cache-directory";
 import { isJson, statSafe } from "./utils.js";
 
 /**
- * Find default cache file (`./node_modules/.cache/prettier/.prettier-cache`) using https://github.com/avajs/find-cache-dir
+ * Find default cache file (`./node_modules/.cache/prettier/.prettier-cache`) using https://github.com/sindresorhus/find-cache-directory
  */
 function findDefaultCacheFile() {
   const cacheDir =
-    findCacheDir({ name: "prettier", create: true }) || os.tmpdir();
+    findCacheDirectory({ name: "prettier", create: true }) || os.tmpdir();
   const cacheFilePath = path.join(cacheDir, ".prettier-cache");
   return cacheFilePath;
 }
