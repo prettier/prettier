@@ -6694,11 +6694,11 @@ __metadata:
   linkType: hard
 
 "estree-util-value-to-estree@npm:^3.0.1":
-  version: 3.3.2
-  resolution: "estree-util-value-to-estree@npm:3.3.2"
+  version: 3.3.3
+  resolution: "estree-util-value-to-estree@npm:3.3.3"
   dependencies:
     "@types/estree": "npm:^1.0.0"
-  checksum: 10/b9c7829c9cfab06e0cd1d22d0b4ce9db7a06780389b46a2d1033e84a9476a576d39f1e2dd4bf1be16ce0937c30159ce44687ed90643472dd32dd3158d504974e
+  checksum: 10/68c42de34bb44a2c90a0e1cc977a5f7545423a5165439c6bd080f17bbc5bd45892cc6c11857ad83726305cf35631ad2e1f29cdae854331e3159bcbb1f1c70c70
   languageName: node
   linkType: hard
 
