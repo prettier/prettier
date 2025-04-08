@@ -10,8 +10,22 @@ const locationForRange = (text, rangeStart, rangeEnd) => {
     [rangeStart, rangeEnd] = [rangeEnd, rangeStart];
   }
 
-  const start = indexToPosition(text, rangeStart, { oneBased: true });
-  const end = indexToPosition(text, rangeEnd, { oneBased: true });
+  const [start, end] = [rangeStart, rangeEnd].map((index) => {
+    const isOutOfBoundary = index >= text.length;
+
+    const position = indexToPosition(
+      text,
+      isOutOfBoundary ? text.length - 1 : index,
+      { oneBased: true },
+    );
+
+    if (isOutOfBoundary) {
+      position.column += 1;
+    }
+
+    return position;
+  });
+
   if (start.line !== end.line) {
     end.column -= 1;
   }
