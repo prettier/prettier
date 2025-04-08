@@ -4798,7 +4798,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"index-to-position@npm:^1.0.0":
+"index-to-position@npm:1.0.0, index-to-position@npm:^1.0.0":
   version: 1.0.0
   resolution: "index-to-position@npm:1.0.0"
   checksum: 10/4a24b8f0728da8ec6ffea85556acf809a71317d5291d31148db7c2dececa10432abf3c87a932481a2e326af66221bcf77d8dc1f0abfd11537e7f3cc21432a525
@@ -5959,13 +5959,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lines-and-columns@npm:2.0.4":
-  version: 2.0.4
-  resolution: "lines-and-columns@npm:2.0.4"
-  checksum: 10/81ac2f943f5428a46bd4ea2561c74ba674a107d8e6cc70cd317d16892a36ff3ba0dc6e599aca8b6f8668d26c85288394c6edf7a40e985ca843acab3701b80d4c
-  languageName: node
-  linkType: hard
-
 "lines-and-columns@npm:^1.1.6":
   version: 1.2.4
   resolution: "lines-and-columns@npm:1.2.4"
@@ -6911,6 +6904,7 @@ __metadata:
     html-ua-styles: "npm:0.0.8"
     ignore: "npm:7.0.3"
     import-meta-resolve: "npm:4.1.0"
+    index-to-position: "npm:1.0.0"
     is-es5-identifier-name: "npm:1.0.0"
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
@@ -6923,7 +6917,6 @@ __metadata:
     json5: "npm:2.2.3"
     knip: "npm:5.47.0"
     leven: "npm:4.0.0"
-    lines-and-columns: "npm:2.0.4"
     linguist-languages: "npm:7.29.0"
     magic-string: "npm:0.30.17"
     meriyah: "npm:6.0.6"
