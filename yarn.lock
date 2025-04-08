@@ -4798,10 +4798,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"index-to-position@npm:1.0.0, index-to-position@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "index-to-position@npm:1.0.0"
-  checksum: 10/4a24b8f0728da8ec6ffea85556acf809a71317d5291d31148db7c2dececa10432abf3c87a932481a2e326af66221bcf77d8dc1f0abfd11537e7f3cc21432a525
+"index-to-position@npm:1.1.0, index-to-position@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "index-to-position@npm:1.1.0"
+  checksum: 10/16703893c732a025786098fe77cb7e83109afe4b72633dd6feea1595c54f8406623fa7a0a2263a8e08adee7f639fbb1c4731982cd30b4bc30d787bf803f5f3d8
   languageName: node
   linkType: hard
 
@@ -6904,7 +6904,7 @@ __metadata:
     html-ua-styles: "npm:0.0.8"
     ignore: "npm:7.0.3"
     import-meta-resolve: "npm:4.1.0"
-    index-to-position: "npm:1.0.0"
+    index-to-position: "npm:1.1.0"
     is-es5-identifier-name: "npm:1.0.0"
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
