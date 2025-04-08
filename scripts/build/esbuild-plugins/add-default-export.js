@@ -12,7 +12,7 @@ export default function esbuildPluginAddDefaultExport() {
 
       let entry;
 
-      build.onResolve({ filter: /./u }, (module) => {
+      build.onResolve({ filter: /./ }, (module) => {
         if (module.kind === "entry-point") {
           const relativePath = module.path
             .slice(module.resolveDir.length + 1)
@@ -23,7 +23,7 @@ export default function esbuildPluginAddDefaultExport() {
         }
       });
 
-      build.onLoad({ filter: /./u, namespace }, () => {
+      build.onLoad({ filter: /./, namespace }, () => {
         const directory = path.dirname(entry);
         const source = `./${path.basename(entry)}`;
 

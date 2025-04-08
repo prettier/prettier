@@ -8,7 +8,7 @@ export default function esbuildPluginEvaluate() {
     setup(build) {
       const { format } = build.initialOptions;
 
-      build.onLoad({ filter: /\.evaluate\.c?js$/u }, async ({ path }) => {
+      build.onLoad({ filter: /\.evaluate\.c?js$/ }, async ({ path }) => {
         const module = await import(url.pathToFileURL(path));
         const text = Object.entries(module)
           .filter(([specifier]) => specifier !== "module.exports")
