@@ -10,31 +10,32 @@ export default function esbuildPluginAddDefaultExport() {
         return;
       }
 
-      let entry;
-
       build.onResolve({ filter: /./, namespace: "file" }, (module) => {
         if (module.kind === "entry-point") {
-          const relativePath = module.path
-            .slice(module.resolveDir.length + 1)
+          const file = module.path;
+          const relativePath = path
+            .relative(module.resolveDir, file)
             .replaceAll("\\", "/");
-
-          entry = module.path;
-          return { path: relativePath, namespace: PLUGIN_NAMESPACE };
+          return {
+            path: relativePath,
+            namespace: PLUGIN_NAMESPACE,
+            pluginData: { file },
+          };
         }
       });
 
-      build.onLoad({ filter: /./, namespace: PLUGIN_NAMESPACE }, () => {
-        const directory = path.dirname(entry);
-        const source = `./${path.basename(entry)}`;
+      build.onLoad({ filter: /./, namespace: PLUGIN_NAMESPACE }, (module) => {
+        const { file } = module.pluginData;
+        const source = JSON.stringify(`./${path.basename(file)}`);
 
         return {
           contents: /* indent */ `
-            import * as namespace from "${source}";
+            import * as namespace from ${source};
 
-            export * from "${source}";
+            export * from ${source};
             export default namespace;
           `,
-          resolveDir: directory,
+          resolveDir: path.dirname(file),
         };
       });
     },
