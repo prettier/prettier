@@ -15,7 +15,6 @@ function parseArguments() {
       "save-as": { type: "string" },
       report: { type: "string", multiple: true },
     },
-    strict: true,
   });
 
   if (values.minify && values["no-minify"]) {

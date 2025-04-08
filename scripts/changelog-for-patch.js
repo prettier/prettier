@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import path from "node:path";
-import minimist from "minimist";
+import { parseArgs } from "node:util";
 import semver from "semver";
 import {
   categories,
@@ -12,7 +12,7 @@ import {
   replaceVersions,
 } from "./utils/changelog.js";
 
-const { previousVersion, newVersion } = parseArgv();
+const { previousVersion, newVersion } = parseArguments();
 
 const entries = changelogUnreleasedDirs.flatMap((dir) => {
   const dirPath = path.join(changelogUnreleasedDirPath, dir.name);
@@ -34,10 +34,15 @@ console.log(
   ),
 );
 
-function parseArgv() {
-  const argv = minimist(process.argv.slice(2));
-  const previousVersion = argv["prev-version"];
-  const newVersion = argv["new-version"];
+function parseArguments() {
+  const {
+    values: { "prev-version": previousVersion, "new-version": newVersion },
+  } = parseArgs({
+    options: {
+      "prev-version": { type: "string" },
+      "new-version": { type: "string" },
+    },
+  });
   if (
     !previousVersion ||
     !newVersion ||
