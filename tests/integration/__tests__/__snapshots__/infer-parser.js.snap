@@ -76,10 +76,7 @@ exports[`--write with unknown path and no parser multiple files (write) 1`] = `
 
 exports[`--write with unknown path and no parser specific file (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
 
-exports[`Interpreters (stdout) 1`] = `
-"{ "ignored": false, "inferredParser": "babel" }
-"
-`;
+exports[`Interpreters (stdout) 1`] = `"{ "ignored": false, "inferredParser": "babel" }"`;
 
 exports[`Known/Unknown (stdout) 1`] = `"known.js"`;
 
