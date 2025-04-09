@@ -660,7 +660,7 @@ test("print-function-parameter-order", {
     "const printFoo = (path, print, options) => {}",
   ].map((code) => ({
     code,
-    output: code,
+    output: null,
     errors: 1,
   })),
 });
