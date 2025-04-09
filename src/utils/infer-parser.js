@@ -44,14 +44,22 @@ function getLanguageByInterpreter(languages, file) {
     return;
   }
 
+  const languagesWithInterpreters = languages.filter(({ interpreters }) =>
+    Array.isArray(interpreters),
+  );
+
+  if (languagesWithInterpreters.length === 0) {
+    return;
+  }
+
   const interpreter = getInterpreter(file);
 
   if (!interpreter) {
     return;
   }
 
-  return languages.find(({ interpreters }) =>
-    interpreters?.includes(interpreter),
+  return languagesWithInterpreters.find(({ interpreters }) =>
+    interpreters.includes(interpreter),
   );
 }
 
