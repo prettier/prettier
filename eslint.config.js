@@ -29,8 +29,8 @@ coverage/
 dist*/
 **/node_modules/**
 website/build/
-website/static/playground.js
 website/static/lib/
+website/static/playground/
 website/.docusaurus
 scripts/benchmark/*/
 **/.yarn/**
