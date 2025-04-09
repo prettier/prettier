@@ -29,8 +29,8 @@ coverage/
 dist*/
 **/node_modules/**
 website/build/
-website/static/playground.js
 website/static/lib/
+website/static/playground/
 website/.docusaurus
 scripts/benchmark/*/
 **/.yarn/**
@@ -413,6 +413,7 @@ export default [
     files: ["src/language-*/**/*.js"],
     rules: {
       "prettier-internal-rules/directly-loc-start-end": "error",
+      "prettier-internal-rules/print-function-parameter-order": "error",
     },
   },
   {

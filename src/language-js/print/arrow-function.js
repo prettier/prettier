@@ -189,8 +189,8 @@ function printArrowFunctionSignature(path, options, print, args) {
       group([
         printFunctionParameters(
           path,
-          print,
           options,
+          print,
           expandArg,
           /* printTypeParams */ true,
         ),

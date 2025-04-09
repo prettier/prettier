@@ -1,9 +1,5 @@
 import { printDeclareToken } from "./misc.js";
-import { printObject } from "./object.js";
-
-function printEnumMembers(path, print, options) {
-  return printObject(path, options, print);
-}
+import { printObject as printEnumMembers } from "./object.js";
 
 /*
 - `EnumBooleanMember`(flow)
@@ -48,7 +44,7 @@ function printEnumMember(path, print) {
 - `EnumStringBody`(flow)
 - `EnumSymbolBody`(flow)
 */
-function printEnumBody(path, print, options) {
+function printEnumBody(path, options, print) {
   const { node } = path;
   let type;
 
@@ -72,7 +68,7 @@ function printEnumBody(path, print, options) {
     }
   }
 
-  return [type ? `of ${type} ` : "", printEnumMembers(path, print, options)];
+  return [type ? `of ${type} ` : "", printEnumMembers(path, options, print)];
 }
 
 /*
@@ -80,7 +76,7 @@ function printEnumBody(path, print, options) {
 - `EnumDeclaration`(flow)
 - `TSEnumDeclaration`(TypeScript)
 */
-function printEnumDeclaration(path, print, options) {
+function printEnumDeclaration(path, options, print) {
   const { node } = path;
   return [
     printDeclareToken(path),
@@ -89,7 +85,7 @@ function printEnumDeclaration(path, print, options) {
     print("id"),
     " ",
     node.type === "TSEnumDeclaration"
-      ? printEnumMembers(path, print, options)
+      ? printEnumMembers(path, options, print)
       : print("body"),
   ];
 }

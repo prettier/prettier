@@ -159,14 +159,14 @@ function printFlow(path, options, print) {
 
     case "DeclareEnum":
     case "EnumDeclaration":
-      return printEnumDeclaration(path, print, options);
+      return printEnumDeclaration(path, options, print);
 
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumBigIntBody":
     case "EnumStringBody":
     case "EnumSymbolBody":
-      return printEnumBody(path, print, options);
+      return printEnumBody(path, options, print);
 
     case "EnumBooleanMember":
     case "EnumNumberMember":

@@ -33,8 +33,8 @@ import { printFunctionTypeParameters } from "./misc.js";
 
 function printFunctionParameters(
   path,
-  print,
   options,
+  print,
   expandArg,
   printTypeParams,
 ) {

@@ -51,8 +51,8 @@ function printBinaryishExpression(path, options, print) {
 
   const parts = printBinaryishExpressions(
     path,
-    print,
     options,
+    print,
     /* isNested */ false,
     isInsideParenthesis,
   );
@@ -193,8 +193,8 @@ function printBinaryishExpression(path, options, print) {
 // broken before `+`.
 function printBinaryishExpressions(
   path,
-  print,
   options,
+  print,
   isNested,
   isInsideParenthesis,
 ) {
@@ -225,8 +225,8 @@ function printBinaryishExpressions(
       (left) =>
         printBinaryishExpressions(
           left,
-          print,
           options,
+          print,
           /* isNested */ true,
           isInsideParenthesis,
         ),
@@ -283,8 +283,8 @@ function printBinaryishExpressions(
           (left) =>
             printBinaryishExpressions(
               left,
-              print,
               options,
+              print,
               /* isNested */ true,
               isInsideParenthesis,
             ),
