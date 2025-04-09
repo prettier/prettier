@@ -124,6 +124,7 @@ The support information looks like this:
     filenames?: string[];
     linguistLanguageId?: number;
     vscodeLanguageIds?: string[];
+    isSupported?(file: string): boolean;
   }>;
 }
 ```
