@@ -32,7 +32,7 @@ function printComponent(path, options, print) {
 
   parts.push(print("typeParameters"));
 
-  const parametersDoc = printComponentParameters(path, print, options);
+  const parametersDoc = printComponentParameters(path, options, print);
   if (node.rendersType) {
     parts.push(group([parametersDoc, " ", print("rendersType")]));
   } else {
@@ -50,7 +50,7 @@ function printComponent(path, options, print) {
   return parts;
 }
 
-function printComponentParameters(path, print, options) {
+function printComponentParameters(path, options, print) {
   const { node: componentNode } = path;
   let parameters = componentNode.params;
   if (componentNode.rest) {

@@ -18,7 +18,7 @@ import {
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
 
-function printMappingItem(path, print, options) {
+function printMappingItem(path, options, print) {
   const { node, parent } = path;
   const { key, value } = node;
 

@@ -173,7 +173,7 @@ function printEstree(path, options, print, args) {
       return printRestSpread(path, print);
     case "FunctionDeclaration":
     case "FunctionExpression":
-      return printFunction(path, print, options, args);
+      return printFunction(path, options, print, args);
     case "ArrowFunctionExpression":
       return printArrowFunction(path, options, print, args);
     case "YieldExpression":
@@ -632,7 +632,7 @@ function printEstree(path, options, print, args) {
     case "TemplateElement":
       return replaceEndOfLine(node.value.raw);
     case "TemplateLiteral":
-      return printTemplateLiteral(path, print, options);
+      return printTemplateLiteral(path, options, print);
     case "TaggedTemplateExpression":
       return printTaggedTemplateLiteral(path, print);
     case "PrivateIdentifier":

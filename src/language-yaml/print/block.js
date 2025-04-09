@@ -17,7 +17,7 @@ import {
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
 
-function printBlock(path, print, options) {
+function printBlock(path, options, print) {
   const { node } = path;
   const parentIndent = path.ancestors.filter(
     (node) => node.type === "sequence" || node.type === "mapping",
