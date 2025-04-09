@@ -1,2 +1,0 @@
-# This file is for husky to run lint-staged
-npx lint-staged

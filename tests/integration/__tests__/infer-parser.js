@@ -201,11 +201,11 @@ describe("Interpreters", () => {
 });
 
 describe("isSupported", () => {
-  runCli("cli/infer-parser/is-supported", [
+  runCli("cli/infer-parser", [
     "--file-info",
     ".husky/pre-commit",
     "--plugin",
-    "../../../plugins/is-supported/plugin.cjs",
+    "../../plugins/languages/is-supported.js",
   ]).test({
     status: 0,
     stderr: "",
