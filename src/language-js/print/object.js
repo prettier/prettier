@@ -146,6 +146,7 @@ function printObject(path, options, print) {
     (node.type !== "ObjectPattern" &&
       options.objectWrap === "preserve" &&
       propsAndLoc.length > 0 &&
+      // FIXME
       hasNewlineInRange(
         options.originalText,
         locStart(node),
