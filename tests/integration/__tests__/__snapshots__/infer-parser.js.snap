@@ -84,8 +84,7 @@ exports[`isSupported (stdout) 1`] = `
 "{
   "ignored": false,
   "inferredParser": "parser-name-inferred-from-language-is-supported"
-}
-"
+}"
 `;
 
 exports[`stdin no path and no parser --check logs error but exits with 0 (stderr) 1`] = `"[error] No parser and no file path given, couldn't infer a parser."`;
