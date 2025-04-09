@@ -3,7 +3,7 @@ import getInterpreter from "./get-interpreter.js";
 /** @import {Options, SupportLanguage} from "../index.js" */
 
 /**
- * Didn't use `path.basename` since this module needs work in browsers too
+ * Didn't use `path.basename` since this module should work in browsers too
  * And `file` can be a `URL`
  * @param {string | URL} file
  */
@@ -83,7 +83,14 @@ function getLanguageByIsSupported(languages, file) {
     return;
   }
 
-  return languages.find(({ isSupported }) => isSupported?.(String(file)));
+  /*
+  We can't use `url.fileURLToPath` here since this module should work in browsers too
+  `URL#pathname` won't work either since `new URL('file:///C:/path/to/file').pathname`
+  equals to `/C:/path/to/file`, try to improve this part in future
+  */
+  file = String(file);
+
+  return languages.find(({ isSupported }) => isSupported?.(file));
 }
 
 /**
