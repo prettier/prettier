@@ -1,11 +1,19 @@
 import getInterpreter from "./get-interpreter.js";
 
-/** @import {Options} from "../index.js" */
+/** @import {Options, SupportLanguage} from "../index.js" */
 
-// Didn't use `path.basename` since this module need work in browsers too
-// And `file` can be a `URL`
+/**
+ * Didn't use `path.basename` since this module needs work in browsers too
+ * And `file` can be a `URL`
+ * @param {string | URL} file
+ */
 const getFileBasename = (file) => String(file).split(/[/\\]/u).pop();
 
+/**
+ * @param {SupportLanguage[]} languages
+ * @param {string | URL | undefined} [file]
+ * @returns {SupportLanguage | undefined}
+ */
 function getLanguageByFileName(languages, file) {
   if (!file) {
     return;
@@ -23,6 +31,11 @@ function getLanguageByFileName(languages, file) {
   );
 }
 
+/**
+ * @param {SupportLanguage[]} languages
+ * @param {string | undefined} [languageName]
+ * @returns {SupportLanguage | undefined}
+ */
 function getLanguageByLanguageName(languages, languageName) {
   if (!languageName) {
     return;
@@ -35,6 +48,11 @@ function getLanguageByLanguageName(languages, languageName) {
   );
 }
 
+/**
+ * @param {SupportLanguage[]} languages
+ * @param {string | URL | undefined} [file]
+ * @returns {SupportLanguage | undefined}
+ */
 function getLanguageByInterpreter(languages, file) {
   if (
     process.env.PRETTIER_TARGET === "universal" ||
@@ -56,9 +74,22 @@ function getLanguageByInterpreter(languages, file) {
 }
 
 /**
+ * @param {SupportLanguage[]} languages
+ * @param {string | URL | undefined} [file]
+ * @returns {SupportLanguage | undefined}
+ */
+function getLanguageByIsSupported(languages, file) {
+  if (!file) {
+    return;
+  }
+
+  return languages.find(({ isSupported }) => isSupported?.(String(file)));
+}
+
+/**
  * @param {Options} options
- * @param {{physicalFile?: string | URL, file?: string | URL, language?: string}} fileInfo
- * @returns {string | void} matched parser name if found
+ * @param {{physicalFile?: string | URL | undefined, file?: string | URL | undefined, language?: string | undefined}} fileInfo
+ * @returns {string | undefined} matched parser name if found
  */
 function inferParser(options, fileInfo) {
   const languages = options.plugins.flatMap(
@@ -74,7 +105,9 @@ function inferParser(options, fileInfo) {
     getLanguageByLanguageName(languages, fileInfo.language) ??
     getLanguageByFileName(languages, fileInfo.physicalFile) ??
     getLanguageByFileName(languages, fileInfo.file) ??
-    getLanguageByInterpreter(languages, fileInfo.physicalFile);
+    getLanguageByInterpreter(languages, fileInfo.physicalFile) ??
+    getLanguageByIsSupported(languages, fileInfo.file) ??
+    getLanguageByIsSupported(languages, fileInfo.physicalFile);
 
   return language?.parsers[0];
 }
