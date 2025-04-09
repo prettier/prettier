@@ -640,19 +640,6 @@ test("prefer-is-non-empty-array", {
   ],
 });
 
-<<<<<<< HEAD
-test("require-json-extensions", {
-  valid: ['require("./not-exists")', 'require("./index")'],
-  invalid: [
-    {
-      code: 'require("./package")',
-      filename: __filename,
-      output: 'require("./package.json")',
-      errors: [{ message: 'Missing file extension ".json" for "./package".' }],
-    },
-  ],
-});
-
 test("print-function-parameter-order", {
   valid: [
     "function printFoo(path, options, print) {}",

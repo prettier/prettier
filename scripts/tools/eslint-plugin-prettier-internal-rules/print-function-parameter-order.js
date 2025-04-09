@@ -4,9 +4,6 @@ const expectedParameters = ["path", "options", "print"];
 export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/print-function-parameter-order.js",
-    },
     messages: {
       [messageId]:
         "`{{functionName}}` function parameters should in order of `path`, `options` and `print`.",
