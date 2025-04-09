@@ -48,6 +48,7 @@ function getLanguageByInterpreter(languages, file) {
     Array.isArray(interpreters),
   );
 
+  /* c8 ignore next 3 */
   if (languagesWithInterpreters.length === 0) {
     return;
   }
