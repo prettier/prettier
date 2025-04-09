@@ -23,11 +23,15 @@ import {
 } from "../utils/index.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./misc.js";
+import { printObject } from "./object.js";
 
 /**
  * @import {Doc} from "../../document/builders.js"
  */
 
+/*
+- `ImportDeclaration`
+*/
 function printImportDeclaration(path, options, print) {
   const { node } = path;
   /** @type{Doc[]} */
@@ -49,8 +53,8 @@ const isDefaultExport = (node) =>
 /*
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
-- `DeclareExportDeclaration`(flow)
 - `ExportAllDeclaration`
+- `DeclareExportDeclaration`(flow)
 - `DeclareExportAllDeclaration`(flow)
 */
 function printExportDeclaration(path, options, print) {
@@ -271,6 +275,14 @@ function getImportAttributesKeyword(node, options) {
   return isNonEmptyArray(node.attributes) ? "with" : undefined;
 }
 
+/*
+- `ImportDeclaration`
+- `ExportDefaultDeclaration`
+- `ExportNamedDeclaration`
+- `ExportAllDeclaration`
+- `DeclareExportDeclaration`(flow)
+- `DeclareExportAllDeclaration`(flow)
+*/
 function printImportAttributes(path, options, print) {
   const { node } = path;
 
@@ -283,23 +295,7 @@ function printImportAttributes(path, options, print) {
     return "";
   }
 
-  /** @type{Doc[]} */
-  const parts = [` ${keyword} {`];
-
-  if (isNonEmptyArray(node.attributes)) {
-    if (options.bracketSpacing) {
-      parts.push(" ");
-    }
-
-    parts.push(join(", ", path.map(print, "attributes")));
-
-    if (options.bracketSpacing) {
-      parts.push(" ");
-    }
-  }
-  parts.push("}");
-
-  return parts;
+  return [` ${keyword} `, printObject(path, options, print)];
 }
 
 function printModuleSpecifier(path, options, print) {

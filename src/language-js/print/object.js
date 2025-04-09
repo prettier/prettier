@@ -26,10 +26,30 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/builders.js" */
 
+/*
+- `ObjectExpression`
+- `ObjectPattern`
+- `RecordExpression`
+- `ImportDeclaration`
+- `ExportDefaultDeclaration`
+- `ExportNamedDeclaration`
+- `ExportAllDeclaration`
+- `ObjectTypeAnnotation` (Flow)
+- `EnumBooleanBody`(flow)
+- `EnumNumberBody`(flow)
+- `EnumBigIntBody`(flow)
+- `EnumStringBody`(flow)
+- `EnumSymbolBody`(flow)
+- `DeclareExportDeclaration`(flow)
+- `DeclareExportAllDeclaration`(flow)
+- `TSInterfaceBody` (TypeScript)
+- `TSTypeLiteral` (TypeScript)
+- `TSEnumDeclaration`(TypeScript)
+*/
 function printObject(path, options, print) {
   const { node } = path;
 
-  const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
+  const isFlowTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const isEnumBody =
     node.type === "TSEnumBody" ||
     node.type === "EnumBooleanBody" ||
@@ -37,15 +57,28 @@ function printObject(path, options, print) {
     node.type === "EnumBigIntBody" ||
     node.type === "EnumStringBody" ||
     node.type === "EnumSymbolBody";
-  const fields = [
-    node.type === "TSTypeLiteral" || isEnumBody
-      ? "members"
-      : node.type === "TSInterfaceBody"
-        ? "body"
-        : "properties",
-  ];
-  if (isTypeAnnotation) {
-    fields.push("indexers", "callProperties", "internalSlots");
+  const isInterfaceBody = node.type === "TSInterfaceBody";
+  const isImportAttributes =
+    node.type === "ImportDeclaration" ||
+    node.type === "ExportDefaultDeclaration" ||
+    node.type === "ExportNamedDeclaration" ||
+    node.type === "ExportAllDeclaration" ||
+    node.type === "DeclareExportDeclaration" ||
+    node.type === "DeclareExportAllDeclaration";
+
+  const fields = [];
+  if (node.type === "TSTypeLiteral" || isEnumBody) {
+    fields.push("members");
+  } else if (isInterfaceBody) {
+    fields.push("body");
+  } else if (isImportAttributes) {
+    fields.push("attributes");
+  } else {
+    fields.push("properties");
+
+    if (isFlowTypeAnnotation) {
+      fields.push("indexers", "callProperties", "internalSlots");
+    }
   }
 
   // Unfortunately, things grouped together in the ast can be
@@ -68,13 +101,13 @@ function printObject(path, options, print) {
 
   const { parent, key } = path;
   const isFlowInterfaceLikeBody =
-    isTypeAnnotation &&
+    isFlowTypeAnnotation &&
     key === "body" &&
     (parent.type === "InterfaceDeclaration" ||
       parent.type === "DeclareInterface" ||
       parent.type === "DeclareClass");
   const shouldBreak =
-    node.type === "TSInterfaceBody" ||
+    isInterfaceBody ||
     isEnumBody ||
     isFlowInterfaceLikeBody ||
     (node.type === "ObjectPattern" &&
@@ -103,7 +136,7 @@ function printObject(path, options, print) {
 
   const separator = isFlowInterfaceLikeBody
     ? ";"
-    : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
+    : isInterfaceBody || node.type === "TSTypeLiteral"
       ? options.semi
         ? ";"
         : ifBreak("", ";")
