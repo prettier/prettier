@@ -80,6 +80,11 @@ exports[`Interpreters (stdout) 1`] = `"{ "ignored": false, "inferredParser": "ba
 
 exports[`Known/Unknown (stdout) 1`] = `"known.js"`;
 
+exports[`isSupported (stdout) 1`] = `
+"{ "ignored": false, "inferredParser": "foo" }
+"
+`;
+
 exports[`stdin no path and no parser --check logs error but exits with 0 (stderr) 1`] = `"[error] No parser and no file path given, couldn't infer a parser."`;
 
 exports[`stdin no path and no parser --list-different logs error but exits with 0 (stderr) 1`] = `"[error] No parser and no file path given, couldn't infer a parser."`;

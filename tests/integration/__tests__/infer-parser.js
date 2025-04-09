@@ -199,3 +199,16 @@ describe("Interpreters", () => {
     write: [],
   });
 });
+
+describe("isSupported", () => {
+  runCli("cli/infer-parser/is-supported", [
+    "--file-info",
+    ".husky/pre-commit",
+    "--plugin",
+    "../../../plugins/is-supported/plugin.cjs",
+  ]).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+});
