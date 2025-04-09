@@ -225,8 +225,8 @@ function printBinaryishExpressions(
       (left) =>
         printBinaryishExpressions(
           left,
-          print,
           options,
+          print,
           /* isNested */ true,
           isInsideParenthesis,
         ),
