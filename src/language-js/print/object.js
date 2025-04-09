@@ -17,6 +17,7 @@ import {
   hasComment,
   isNextLineEmpty,
   isObjectType,
+  isStringLiteral,
   shouldPrintComma,
 } from "../utils/index.js";
 import { printHardlineAfterHeritage } from "./class.js";
@@ -25,6 +26,21 @@ import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/builders.js" */
+
+const isSingleTypeImportAttributes = (node) => {
+  const { attributes } = node;
+
+  if (attributes.length !== 1) {
+    return false;
+  }
+
+  const [{ type, key }] = attributes;
+  return (
+    type === "ImportAttribute" &&
+    ((key.type === "Identifier" && key.name === "type") ||
+      (isStringLiteral(key) && key.value === "type"))
+  );
+};
 
 /*
 - `ObjectExpression`
@@ -106,6 +122,8 @@ function printObject(path, options, print) {
     (parent.type === "InterfaceDeclaration" ||
       parent.type === "DeclareInterface" ||
       parent.type === "DeclareClass");
+  // Do not break if there is only ONE `type` attribute
+  const shouldInline = isImportAttributes && isSingleTypeImportAttributes(node);
   const shouldBreak =
     isInterfaceBody ||
     isEnumBody ||
@@ -213,19 +231,27 @@ function printObject(path, options, print) {
       printTypeAnnotationProperty(path, print),
     ]);
   } else {
+    const spacing = shouldInline
+      ? options.bracketSpacing
+        ? " "
+        : ""
+      : options.bracketSpacing
+        ? line
+        : softline;
     content = [
       isFlowInterfaceLikeBody && isNonEmptyArray(node.properties)
         ? printHardlineAfterHeritage(parent)
         : "",
       leftBrace,
-      indent([options.bracketSpacing ? line : softline, ...props]),
+      indent([spacing, ...props]),
       ifBreak(
-        canHaveTrailingSeparator &&
+        !shouldInline &&
+          canHaveTrailingSeparator &&
           (separator !== "," || shouldPrintComma(options))
           ? separator
           : "",
       ),
-      options.bracketSpacing ? line : softline,
+      spacing,
       rightBrace,
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),

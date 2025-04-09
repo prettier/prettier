@@ -163,6 +163,26 @@ import json from "./foo.json" with { type: "json", type: "bar" };
 ================================================================================
 `;
 
+exports[`multiple.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import syntaxImportAssertions from "@babel/plugin-syntax-import-assertions" with {
+  BABEL_8_BREAKING: "false",
+  USE_ESM: "true", IS_STANDALONE: "false" };
+
+=====================================output=====================================
+import syntaxImportAssertions from "@babel/plugin-syntax-import-assertions" with {
+  BABEL_8_BREAKING: "false",
+  USE_ESM: "true",
+  IS_STANDALONE: "false",
+};
+
+================================================================================
+`;
+
 exports[`non-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
