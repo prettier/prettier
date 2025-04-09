@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`4635.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+
+@mixin placeholder {
+  &::placeholder {@content}
+}
+
+.container {
+  @include placeholder {
+    color: $color-silver;
+  }
+}
+
+=====================================output=====================================
+@mixin placeholder {
+  &::placeholder {
+    @content;
+  }
+}
+
+.container {
+  @include placeholder {
+    color: $color-silver;
+  }
+}
+
+================================================================================
+`;
+
+exports[`4635.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+
+@mixin placeholder {
+  &::placeholder {@content}
+}
+
+.container {
+  @include placeholder {
+    color: $color-silver;
+  }
+}
+
+=====================================output=====================================
+@mixin placeholder {
+  &::placeholder {
+    @content;
+  }
+}
+
+.container {
+  @include placeholder {
+    color: $color-silver;
+  }
+}
+
+================================================================================
+`;
+
+exports[`5208.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+// Ignore escape "\\" in SCSS mixins
+@mixin margin-bottom-1\\/3 {
+  margin-bottom: 0.8rem;
+}
+
+label {
+  @include margin-bottom-1\\/3;
+}
+
+=====================================output=====================================
+// Ignore escape "\\" in SCSS mixins
+@mixin margin-bottom-1\\/3 {
+  margin-bottom: 0.8rem;
+}
+
+label {
+  @include margin-bottom-1\\/3;
+}
+
+================================================================================
+`;
+
+exports[`5208.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+// Ignore escape "\\" in SCSS mixins
+@mixin margin-bottom-1\\/3 {
+  margin-bottom: 0.8rem;
+}
+
+label {
+  @include margin-bottom-1\\/3;
+}
+
+=====================================output=====================================
+// Ignore escape "\\" in SCSS mixins
+@mixin margin-bottom-1\\/3 {
+  margin-bottom: 0.8rem;
+}
+
+label {
+  @include margin-bottom-1\\/3;
+}
+
+================================================================================
+`;

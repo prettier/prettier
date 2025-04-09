@@ -152,7 +152,7 @@ jobs:
         run: node -v | grep "v0.10.48" || exit 1
 
       - name: Run CLI on Node.js v0.10.48
-        run: node dist/bin/prettier.cjs --version 2>&1 >/dev/null | grep "prettier requires at least version 14 of Node, please upgrade" || exit 1
+        run: node dist/prettier/bin/prettier.cjs --version 2>&1 >/dev/null | grep "prettier requires at least version 14 of Node, please upgrade" || exit 1
 
   preview:
     if: github.event_name == 'pull_request' && github.repository == 'prettier/prettier'
@@ -178,4 +178,4 @@ jobs:
       - name: Release
         run: |
           npx pkg-pr-new publish --compact
-        working-directory: dist
+        working-directory: dist/prettier

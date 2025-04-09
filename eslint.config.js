@@ -1,12 +1,12 @@
 import url from "node:url";
 import eslintPluginJs from "@eslint/js";
+import eslintPluginEslintReact from "@eslint-react/eslint-plugin";
 import eslintPluginStylisticJs from "@stylistic/eslint-plugin-js";
 import eslintPluginTypescriptEslint from "@typescript-eslint/eslint-plugin";
 import { isCI } from "ci-info";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginJest from "eslint-plugin-jest";
 import eslintPluginN from "eslint-plugin-n";
-import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
@@ -29,8 +29,8 @@ coverage/
 dist*/
 **/node_modules/**
 website/build/
-website/static/playground.js
 website/static/lib/
+website/static/playground/
 website/.docusaurus
 scripts/benchmark/*/
 **/.yarn/**
@@ -413,6 +413,7 @@ export default [
     files: ["src/language-*/**/*.js"],
     rules: {
       "prettier-internal-rules/directly-loc-start-end": "error",
+      "prettier-internal-rules/print-function-parameter-order": "error",
     },
   },
   {
@@ -443,33 +444,29 @@ export default [
   },
   {
     files: ["website/**/*"],
-    ...eslintPluginReact.configs.flat.recommended,
+    ...eslintPluginEslintReact.configs.recommended,
   },
   {
     files: ["website/**/*"],
     languageOptions: {
       globals: { ...globals.browser, ...globals.worker },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
     settings: {
-      react: {
+      "react-x": {
         version: "18",
       },
     },
     rules: {
-      "react/display-name": "off",
-      "react/no-deprecated": "off",
-      "react/prop-types": "off",
       "unicorn/filename-case": "off",
     },
   },
   {
-    files: ["website/docusaurus.config.js"],
-    languageOptions: {
-      sourceType: "module",
-    },
-  },
-  {
-    files: ["website/playground/**/*"],
+    files: ["website/docusaurus.config.js", "website/playground/**/*"],
     languageOptions: {
       sourceType: "module",
     },
@@ -483,5 +480,11 @@ export default [
       "no-var": "off",
       "prefer-arrow-callback": "off",
     },
+  },
+  // ESBuild doesn't support regular expressions with `u` flag
+  // https://github.com/evanw/esbuild/issues/4128
+  {
+    files: ["scripts/build/esbuild-plugins/**/*"],
+    rules: { "require-unicode-regexp": "off" },
   },
 ];

@@ -15,6 +15,7 @@ import {
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { printArray } from "./array.js";
 import { printBlock } from "./block.js";
+import printCallArguments from "./call-arguments.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
 import { printClassMethod, printClassProperty } from "./class.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
@@ -102,7 +103,7 @@ function printTypescript(path, options, print) {
       return group([castGroup, print("expression")]);
     }
     case "TSDeclareFunction":
-      return printFunction(path, print, options);
+      return printFunction(path, options, print);
     case "TSExportAssignment":
       return ["export = ", print("expression"), semi];
     case "TSModuleBlock":
@@ -132,7 +133,7 @@ function printTypescript(path, options, print) {
         ),
       ];
     case "TSTemplateLiteralType":
-      return printTemplateLiteral(path, print, options);
+      return printTemplateLiteral(path, options, print);
     case "TSNamedTupleMember":
       return printNamedTupleMember(path, options, print);
     case "TSRestType":
@@ -210,9 +211,8 @@ function printTypescript(path, options, print) {
       return [print("expression"), "!"];
     case "TSImportType":
       return [
-        "import(",
-        print("argument"),
-        ")",
+        "import",
+        printCallArguments(path, options, print),
         !node.qualifier ? "" : [".", print("qualifier")],
         printTypeParameters(
           path,
@@ -245,8 +245,8 @@ function printTypescript(path, options, print) {
 
       const parametersDoc = printFunctionParameters(
         path,
-        print,
         options,
+        print,
         /* expandArg */ false,
         /* printTypeParams */ true,
       );
@@ -274,7 +274,7 @@ function printTypescript(path, options, print) {
     case "TSNamespaceExportDeclaration":
       return ["export as namespace ", print("id"), options.semi ? ";" : ""];
     case "TSEnumDeclaration":
-      return printEnumDeclaration(path, print, options);
+      return printEnumDeclaration(path, options, print);
 
     case "TSEnumMember":
       return printEnumMember(path, print);

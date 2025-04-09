@@ -1,21 +1,21 @@
-/* global toolbox prettierPackageManifest */
-
 "use strict";
 
-importScripts("lib/package-manifest.js");
 importScripts(
+  "lib/package-manifest.js",
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
 );
 
-const plugins = prettierPackageManifest.builtinPlugins.map(
+const { toolbox, prettierPackageManifest } = self;
+const pluginFiles = prettierPackageManifest.builtinPlugins.map(
   ({ file }) => `lib/${file}`,
 );
 
 toolbox.precache([
   // Scripts
-  "lib/standalone.js",
-  ...plugins,
-  "playground.js",
+  "lib/standalone.mjs",
+  "lib/package-manifest.js",
+  "lib/package-manifest.mjs",
+  ...pluginFiles,
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
 
   // CodeMirror; keep this in sync with website/pages/playground/index.html

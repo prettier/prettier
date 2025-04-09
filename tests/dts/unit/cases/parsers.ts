@@ -1,18 +1,18 @@
-import * as prettier from "../../../../dist/index.js";
+import * as prettier from "../../../../dist/prettier/index.js";
 
-import * as prettierPluginEstree from "../../../../dist/plugins/estree.js";
-import * as prettierPluginBabel from "../../../../dist/plugins/babel.js";
-import * as prettierPluginFlow from "../../../../dist/plugins/flow.js";
-import * as prettierPluginTypeScript from "../../../../dist/plugins/typescript.js";
-import * as prettierPluginAcorn from "../../../../dist/plugins/acorn.js";
-import * as prettierPluginMeriyah from "../../../../dist/plugins/meriyah.js";
-import * as prettierPluginAngular from "../../../../dist/plugins/angular.js";
-import * as prettierPluginPostcss from "../../../../dist/plugins/postcss.js";
-import * as prettierPluginGraphql from "../../../../dist/plugins/graphql.js";
-import * as prettierPluginMarkdown from "../../../../dist/plugins/markdown.js";
-import * as prettierPluginGlimmer from "../../../../dist/plugins/glimmer.js";
-import * as prettierPluginHtml from "../../../../dist/plugins/html.js";
-import * as prettierPluginYaml from "../../../../dist/plugins/yaml.js";
+import * as prettierPluginEstree from "../../../../dist/prettier/plugins/estree.js";
+import * as prettierPluginBabel from "../../../../dist/prettier/plugins/babel.js";
+import * as prettierPluginFlow from "../../../../dist/prettier/plugins/flow.js";
+import * as prettierPluginTypeScript from "../../../../dist/prettier/plugins/typescript.js";
+import * as prettierPluginAcorn from "../../../../dist/prettier/plugins/acorn.js";
+import * as prettierPluginMeriyah from "../../../../dist/prettier/plugins/meriyah.js";
+import * as prettierPluginAngular from "../../../../dist/prettier/plugins/angular.js";
+import * as prettierPluginPostcss from "../../../../dist/prettier/plugins/postcss.js";
+import * as prettierPluginGraphql from "../../../../dist/prettier/plugins/graphql.js";
+import * as prettierPluginMarkdown from "../../../../dist/prettier/plugins/markdown.js";
+import * as prettierPluginGlimmer from "../../../../dist/prettier/plugins/glimmer.js";
+import * as prettierPluginHtml from "../../../../dist/prettier/plugins/html.js";
+import * as prettierPluginYaml from "../../../../dist/prettier/plugins/yaml.js";
 
 const options: prettier.ParserOptions = {
   filepath: "/home/mark/prettier/bin/prettier.js",

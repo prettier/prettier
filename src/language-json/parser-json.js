@@ -1,35 +1,76 @@
-import { parseExpression } from "@babel/parser";
+import { parse, parseExpression } from "@babel/parser";
 import createError from "../common/parser-create-error.js";
 import createBabelParseError from "../language-js/parse/utils/create-babel-parse-error.js";
 import createParser from "../language-js/parse/utils/create-parser.js";
 import wrapBabelExpression from "../language-js/parse/utils/wrap-babel-expression.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 
-function createJsonParse(options = {}) {
-  const { allowComments = true } = options;
+const babelParseOptions = {
+  tokens: true,
+  ranges: true,
+  attachComment: false,
+};
 
-  return function parse(text) {
-    let ast;
-    try {
-      ast = parseExpression(text, {
-        tokens: true,
-        ranges: true,
-        attachComment: false,
-      });
-    } catch (/** @type {any} */ error) {
+function parseEmptyJson(text) {
+  const file = parse(text, babelParseOptions);
+
+  const { program } = file;
+
+  // Not an empty JSON
+  /* c8 ignore next */
+  if (
+    !(
+      program.body.length === 0 &&
+      program.directives.length === 0 &&
+      !program.interpreter
+    )
+  ) {
+    return;
+  }
+
+  return file;
+}
+
+function parseJson(text, options = {}) {
+  const { allowComments = true, allowEmpty = false } = options;
+
+  let ast;
+  try {
+    ast = parseExpression(text, babelParseOptions);
+  } catch (/** @type {any} */ error) {
+    if (
+      allowEmpty &&
+      error.code === "BABEL_PARSER_SYNTAX_ERROR" &&
+      error.reasonCode === "UnexpectedToken" &&
+      error.pos === text.length
+    ) {
+      try {
+        ast = parseEmptyJson(text);
+      } catch {
+        // No op
+      }
+    }
+
+    if (!ast) {
       throw createBabelParseError(error);
     }
+  }
 
+  // @ts-expect-error
+  if (!allowComments && isNonEmptyArray(ast.comments)) {
     // @ts-expect-error
-    if (!allowComments && isNonEmptyArray(ast.comments)) {
-      // @ts-expect-error
-      throw createJsonError(ast.comments[0], "Comment");
-    }
+    throw createJsonError(ast.comments[0], "Comment");
+  }
 
-    assertJsonNode(ast);
+  ast = wrapBabelExpression(ast, { type: "JsonRoot", text });
 
-    return wrapBabelExpression(ast, { type: "JsonRoot", text });
-  };
+  if (ast.node.type === "File") {
+    delete ast.node;
+  } else {
+    assertJsonNode(ast.node);
+  }
+
+  return ast;
 }
 
 function createJsonError(node, description) {
@@ -131,19 +172,15 @@ function assertJsonNode(node) {
   }
 }
 
-const parseJson = createJsonParse();
-
 const jsonParsers = {
   json: createParser({
-    parse: parseJson,
-    hasPragma() {
-      return true;
-    },
+    parse: (text) => parseJson(text),
+    hasPragma: () => true,
   }),
-  json5: createParser(parseJson),
-  jsonc: createParser(parseJson),
+  json5: createParser((text) => parseJson(text)),
+  jsonc: createParser((text) => parseJson(text, { allowEmpty: true })),
   "json-stringify": createParser({
-    parse: createJsonParse({ allowComments: false }),
+    parse: (text) => parseJson(text, { allowComments: false }),
     astFormat: "estree-json",
   }),
 };

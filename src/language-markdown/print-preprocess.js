@@ -2,7 +2,8 @@ import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
 // 0x0 ~ 0x10ffff
-const isSingleCharRegex = /^.$/su;
+const isSingleCharRegex = /^\\?.$/su;
+const isNewLineBlockquoteRegex = /^\n *>[ >]*$/u;
 
 function preprocess(ast, options) {
   ast = restoreUnescapedCharacter(ast, options);
@@ -14,21 +15,33 @@ function preprocess(ast, options) {
 }
 
 function restoreUnescapedCharacter(ast, options) {
-  return mapAst(ast, (node) =>
-    node.type !== "text" ||
-    node.value === "*" ||
-    node.value === "_" || // handle these cases in printer
-    !isSingleCharRegex.test(node.value) ||
-    node.position.end.offset - node.position.start.offset === node.value.length
-      ? node
-      : {
-          ...node,
-          value: options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset,
-          ),
-        },
-  );
+  return mapAst(ast, (node) => {
+    if (node.type !== "text") {
+      return node;
+    }
+
+    const { value } = node;
+
+    if (
+      value === "*" ||
+      value === "_" || // handle these cases in printer
+      !isSingleCharRegex.test(value) ||
+      node.position.end.offset - node.position.start.offset === value.length
+    ) {
+      return node;
+    }
+
+    const text = options.originalText.slice(
+      node.position.start.offset,
+      node.position.end.offset,
+    );
+
+    if (isNewLineBlockquoteRegex.test(text)) {
+      return node;
+    }
+
+    return { ...node, value: text };
+  });
 }
 
 function mergeChildren(ast, shouldMerge, mergeNode) {

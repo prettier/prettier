@@ -135,9 +135,9 @@ function printArray(path, options, print) {
                   printArrayElements(
                     path,
                     options,
+                    print,
                     elementsProperty,
                     node.inexact,
-                    print,
                   ),
                   trailingComma,
                 ],
@@ -192,7 +192,7 @@ function isLineAfterElementEmpty({ node }, { originalText: text }) {
   return isNextLineEmptyAfterIndex(text, skipToComma(locEnd(node)));
 }
 
-function printArrayElements(path, options, elementsProperty, inexact, print) {
+function printArrayElements(path, options, print, elementsProperty, inexact) {
   const parts = [];
 
   path.each(({ node, isLast }) => {

@@ -305,7 +305,7 @@ function printNode(path, options, print) {
     }
     case "blockFolded":
     case "blockLiteral":
-      return printBlock(path, print, options);
+      return printBlock(path, options, print);
 
     case "mapping":
     case "sequence":
@@ -317,12 +317,12 @@ function printNode(path, options, print) {
       return !node.content ? "" : print("content");
     case "mappingItem":
     case "flowMappingItem":
-      return printMappingItem(path, print, options);
+      return printMappingItem(path, options, print);
 
     case "flowMapping":
-      return printFlowMapping(path, print, options);
+      return printFlowMapping(path, options, print);
     case "flowSequence":
-      return printFlowSequence(path, print, options);
+      return printFlowSequence(path, options, print);
     case "flowSequenceItem":
       return print("content");
     default:

@@ -15,7 +15,8 @@
       "plugins",
       "cli",
       "api",
-      "browser"
+      "browser",
+      "ci"
     ],
     "Configuring Prettier": [
       "options",
