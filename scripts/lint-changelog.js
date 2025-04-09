@@ -1,34 +1,15 @@
 #!/usr/bin/env node
-"use strict";
-const fs = require("fs");
-const path = require("path");
-const { outdent } = require("outdent");
+
+import fs from "node:fs";
+import indexToPosition from "index-to-position";
+import { outdent } from "outdent";
+import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
 
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
 const BLOG_POST_INTRO_TEMPLATE_FILE = "BLOG_POST_INTRO_TEMPLATE.md";
 const BLOG_POST_INTRO_FILE = "blog-post-intro.md";
-const CHANGELOG_CATEGORIES = [
-  "angular",
-  "api",
-  "cli",
-  "css",
-  "flow",
-  "graphql",
-  "handlebars",
-  "html",
-  "javascript",
-  "json",
-  "less",
-  "lwc",
-  "markdown",
-  "mdx",
-  "scss",
-  "typescript",
-  "vue",
-  "yaml",
-];
-const CHANGELOG_ROOT = path.join(__dirname, `../${CHANGELOG_DIR}`);
+const CHANGELOG_ROOT = new URL(`../${CHANGELOG_DIR}/`, import.meta.url);
 const showErrorMessage = (message) => {
   console.error(message);
   process.exitCode = 1;
@@ -55,22 +36,22 @@ for (const file of [
   }
 }
 
-const authorRegex = /by @[\w-]+|by \[@([\w-]+)]\(https:\/\/github\.com\/\1\)/;
-const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}])/;
+const authorRegex = /by @[\w-]+|by \[@([\w-]+)\]\(https:\/\/github\.com\/\1\)/u;
+const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}\])/u;
 
 const template = fs.readFileSync(
-  path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
-  "utf8"
+  new URL(TEMPLATE_FILE, CHANGELOG_ROOT),
+  "utf8",
 );
-const [templateComment] = template.match(/<!--[\S\s]*?-->/);
+const templateComments = template.match(/<!--.*?-->/gsu);
 const [templateAuthorLink] = template.match(authorRegex);
 const checkedFiles = new Map();
 
 for (const category of CHANGELOG_CATEGORIES) {
-  const files = fs.readdirSync(path.join(CHANGELOG_ROOT, category));
+  const files = fs.readdirSync(new URL(`${category}/`, CHANGELOG_ROOT));
   if (!files.includes(".gitkeep")) {
     showErrorMessage(
-      `Please don't remove ".gitkeep" from "${CHANGELOG_DIR}/${category}".`
+      `Please don't remove ".gitkeep" from "${CHANGELOG_DIR}/${category}".`,
     );
   }
 
@@ -79,30 +60,30 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
 
-    const match = prFile.match(/^(\d{4,})\.md$/);
+    const match = prFile.match(/^(\d{4,})(-\d+)?\.md$/u);
     const displayPath = `${CHANGELOG_DIR}/${category}/${prFile}`;
 
     if (!match) {
       showErrorMessage(
-        `[${displayPath}]: Filename is not in form of "{PR_NUMBER}.md".`
+        `[${displayPath}]: Filename is not in form of "{PR_NUMBER}.md".`,
       );
       continue;
     }
     const [, prNumber] = match;
     const prLink = `#${prNumber}`;
-    if (checkedFiles.has(prNumber)) {
+    if (checkedFiles.has(prFile)) {
       showErrorMessage(
         outdent`
           Duplicate files for ${prLink} found.
-            - ${checkedFiles.get(prNumber)}
+            - ${checkedFiles.get(prFile)}
             - ${displayPath}
-        `
+        `,
       );
     }
-    checkedFiles.set(prNumber, displayPath);
+    checkedFiles.set(prFile, displayPath);
     const content = fs.readFileSync(
-      path.join(CHANGELOG_DIR, category, prFile),
-      "utf8"
+      new URL(`${category}/${prFile}`, CHANGELOG_ROOT),
+      "utf8",
     );
 
     if (!content.includes(prLink)) {
@@ -111,14 +92,19 @@ for (const category of CHANGELOG_CATEGORIES) {
     if (!authorRegex.test(content)) {
       showErrorMessage(`[${displayPath}]: Author link is missing.`);
     }
-    if (content.includes(templateComment)) {
-      showErrorMessage(
-        `[${displayPath}]: Please remove template comments at top.`
-      );
+    for (const comment of templateComments) {
+      if (comment !== "<!-- prettier-ignore -->" && content.includes(comment)) {
+        showErrorMessage(
+          `[${displayPath}]: Please remove ${getCommentDescription(
+            content,
+            comment,
+          )}`,
+        );
+      }
     }
     if (content.includes(templateAuthorLink)) {
       showErrorMessage(
-        `[${displayPath}]: Please change author link to your github account.`
+        `[${displayPath}]: Please change author link to your github account.`,
       );
     }
     if (!content.startsWith("#### ")) {
@@ -135,20 +121,34 @@ for (const category of CHANGELOG_CATEGORIES) {
       [...CHANGELOG_CATEGORIES, "js"].includes(categoryInTitle.toLowerCase())
     ) {
       showErrorMessage(
-        `[${displayPath}]: Please remove "${categoryInTitle}:" in title.`
+        `[${displayPath}]: Please remove "${categoryInTitle}:" in title.`,
       );
     }
 
     if (!title.endsWith(" ") || title.length - title.trimEnd().length !== 1) {
       showErrorMessage(
-        `[${displayPath}]: Please put one space between title and PR link.`
+        `[${displayPath}]: Please put one space between title and PR link.`,
       );
     }
 
-    if (/prettier master/i.test(content)) {
+    if (/prettier master/iu.test(content)) {
       showErrorMessage(
-        `[${displayPath}]: Please use "main" instead of "master".`
+        `[${displayPath}]: Please use "main" instead of "master".`,
       );
     }
   }
+}
+
+function getCommentDescription(content, comment) {
+  const start = content.indexOf(comment);
+  const end = start + comment.length;
+  const [startLine, endLine] = [start, end].map(
+    (index) => indexToPosition(content, index, { oneBased: true }).line,
+  );
+
+  if (startLine === endLine) {
+    return `template comment "${comment}" on line ${startLine}`;
+  }
+
+  return `template comment on line ${startLine}-${endLine}`;
 }

@@ -1,0 +1,642 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`after-close-tag.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<ion-list class="timeline" appScrollItem>
+  @for (let item of items; index as i; trackBy: trackByFn) {
+    <app-tweet-item></app-tweet-item>@if (
+      areaId &&
+      canTweet
+    ) {
+      <ion-item class="recommend-trust-up" lines="full"></ion-item>
+    }
+  }
+</ion-list>
+
+<ng-container *ngIf="
+      areaId &&
+      canTweet
+">
+<ion-item class="recommend-trust-up" lines="full"></ion-item>
+</ng-container>
+
+
+@if (
+      areaId &&
+      canTweet
+    ) {
+      <ion-item class="recommend-trust-up" lines="full"></ion-item>
+    }
+
+=====================================output=====================================
+<ion-list class="timeline" appScrollItem>
+  @for (let item of items; index as i; trackBy: trackByFn) {
+    <app-tweet-item></app-tweet-item>
+    @if (areaId && canTweet) {
+      <ion-item class="recommend-trust-up" lines="full"></ion-item>
+    }
+  }
+</ion-list>
+
+<ng-container *ngIf="areaId && canTweet">
+  <ion-item class="recommend-trust-up" lines="full"></ion-item>
+</ng-container>
+
+@if (areaId && canTweet) {
+  <ion-item class="recommend-trust-up" lines="full"></ion-item>
+}
+
+================================================================================
+`;
+
+exports[`chid.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span>@if (test) {text}</span>
+<div>@if (test) {text}</div>
+
+=====================================output=====================================
+<span>
+  @if (test) {
+    text
+  }
+</span>
+<div>
+  @if (test) {
+    text
+  }
+</div>
+
+================================================================================
+`;
+
+exports[`defer.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@defer (when isCheckedDefer()) {
+<app-c1/>
+}
+@placeholder {
+<span>Placeholder</span>
+}
+@error {
+<span>Error</span>
+}
+@loading(minimum 1s) {
+<span>Loading...</span>
+}
+
+
+@defer (on interaction) {
+<span>Clicked</span>
+}
+@placeholder {
+<span>Placeholder (click on it!)</span>
+}
+
+
+@defer (on hover) {
+<span>Hovered</span>
+}
+@placeholder {
+<span>Placeholder (hover it!)</span>
+}
+
+
+@defer (on idle) {
+<span>Browser has reached an idle state</span>
+}
+@placeholder {
+<span>Placeholder</span>
+}
+
+
+@defer (on timer(5s)) {
+<span>Visible after 5s</span>
+}
+@placeholder {
+<span>Placeholder</span>
+}
+
+
+@defer (on viewport) {
+<app-c2 text="The block entered the viewport"/>
+}
+@placeholder {
+<span>Placeholder</span>
+}
+
+
+@defer (on interaction; prefetch on hover) {
+<app-c3/>
+}
+@placeholder {
+<span>Placeholder (hover it, then click on it!)</span>
+}
+
+
+@defer (on interaction; prefetch on hover) {
+<app-c3/>
+}
+@placeholder {
+<span>Placeholder (hover it, then click on it!)</span>
+}
+
+=====================================output=====================================
+@defer (when isCheckedDefer()) {
+  <app-c1 />
+} @placeholder {
+  <span>Placeholder</span>
+} @error {
+  <span>Error</span>
+} @loading (minimum 1s) {
+  <span>Loading...</span>
+}
+
+@defer (on interaction) {
+  <span>Clicked</span>
+} @placeholder {
+  <span>Placeholder (click on it!)</span>
+}
+
+@defer (on hover) {
+  <span>Hovered</span>
+} @placeholder {
+  <span>Placeholder (hover it!)</span>
+}
+
+@defer (on idle) {
+  <span>Browser has reached an idle state</span>
+} @placeholder {
+  <span>Placeholder</span>
+}
+
+@defer (on timer(5s)) {
+  <span>Visible after 5s</span>
+} @placeholder {
+  <span>Placeholder</span>
+}
+
+@defer (on viewport) {
+  <app-c2 text="The block entered the viewport" />
+} @placeholder {
+  <span>Placeholder</span>
+}
+
+@defer (on interaction; prefetch on hover) {
+  <app-c3 />
+} @placeholder {
+  <span>Placeholder (hover it, then click on it!)</span>
+}
+
+@defer (on interaction; prefetch on hover) {
+  <app-c3 />
+} @placeholder {
+  <span>Placeholder (hover it, then click on it!)</span>
+}
+
+================================================================================
+`;
+
+exports[`element-tags.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@if (true) {<img />}
+
+=====================================output=====================================
+@if (true) {
+  <img />
+}
+
+================================================================================
+`;
+
+exports[`for.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<ul>
+@for (
+            let
+
+            item of items;index as
+i;
+            trackBy: trackByFn
+) {
+<li><strong>{{item.name}}</strong></li>
+}
+@empty {
+<span>The collection is empty</span>
+}
+</ul>
+
+
+<li *ngFor="
+            let
+
+            item of items;index as
+i;
+            trackBy: trackByFn
+"></li>
+
+
+
+<ul>
+@for (item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count) {
+
+<li><strong>{{item.name}}</strong> index={{index}} first={{first}} last={{last}} even={{even}} odd={{odd}} count={{count}}</li>
+
+}
+</ul>
+
+<ul>
+@for (item of
+ emptyCollection; track item.id;) {
+<li><strong>{{item.name}}</strong></li>
+}
+@empty {
+  <span>The collection is empty</span>
+}
+</ul>
+<li *ngFor="
+item of
+ emptyCollection; track item.id;
+"></li>
+
+<div>
+  @for ( item of items; track item){
+  }
+
+  <div *ngFor="item of items; track item"></div>
+</div>
+
+<div>
+  @for (item of items; let i = $index; track block) {}
+
+  <div *ngFor="item of items; let i = $index; track block"></div>
+</div>
+
+=====================================output=====================================
+<ul>
+  @for (let item of items; index as i; trackBy: trackByFn) {
+    <li>
+      <strong>{{ item.name }}</strong>
+    </li>
+  } @empty {
+    <span>The collection is empty</span>
+  }
+</ul>
+
+<li *ngFor="let item of items; index as i; trackBy: trackByFn"></li>
+
+<ul>
+  @for (
+    item of collection;
+    track item.id;
+    let index = $index, first = $first;
+    let last = $last, even = $even, odd = $odd;
+    let count = $count
+  ) {
+    <li>
+      <strong>{{ item.name }}</strong> index={{ index }} first={{
+        first
+      }}
+      last={{ last }} even={{ even }} odd={{ odd }} count={{ count }}
+    </li>
+  }
+</ul>
+
+<ul>
+  @for (item of emptyCollection; track item.id) {
+    <li>
+      <strong>{{ item.name }}</strong>
+    </li>
+  } @empty {
+    <span>The collection is empty</span>
+  }
+</ul>
+<li *ngFor="item of emptyCollection; track item.id"></li>
+
+<div>
+  @for (item of items; track item) {}
+
+  <div *ngFor="item of items; track item"></div>
+</div>
+
+<div>
+  @for (item of items; let i = $index; track block) {}
+
+  <div *ngFor="item of items; let i = $index; track block"></div>
+</div>
+
+================================================================================
+`;
+
+exports[`if.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<h3>&#64;if and &#64;else</h3>
+<div>
+<input #checkbox type="checkbox" [checked]="isChecked()" (change)="isChecked.set(checkbox.checked)" id="checkbox"/>
+</div>
+<div>
+@if (isChecked()) {
+<span>Checked</span>
+}
+@else {
+<span>Not checked</span>
+}
+</div>
+
+@if (users$   |   async;   as   users) { {{   users.length   }} }
+@else if (users$   |   async;   as   users) { {{   users.length   }} }
+
+<div *ngIf="users$   |   async;   as   users">{{   users.length   }}</div>
+
+@else {}
+
+
+@if (isDev) {}
+@else             if (test) {}
+
+@if      (foo(     "quotes")) {}
+@else if (foo(     'quotes')) {}
+
+@if ( widthCategory !== undefined && widthCategory >
+topStartToSideStartMaxSize) {
+<app-component />
+}
+
+@if ( widthCategory; as item) {
+}
+
+<div *ngIf="widthCategory; as item"></div>
+
+=====================================output=====================================
+<h3>&#64;if and &#64;else</h3>
+<div>
+  <input
+    #checkbox
+    type="checkbox"
+    [checked]="isChecked()"
+    (change)="isChecked.set(checkbox.checked)"
+    id="checkbox"
+  />
+</div>
+<div>
+  @if (isChecked()) {
+    <span>Checked</span>
+  } @else {
+    <span>Not checked</span>
+  }
+</div>
+
+@if (users$ | async; as users) {
+  {{ users.length }}
+} @else if (users$ | async; as users) {
+  {{ users.length }}
+}
+
+<div *ngIf="users$ | async; as users">{{ users.length }}</div>
+
+@else {}
+
+@if (isDev) {
+} @else if (test) {}
+
+@if (foo("quotes")) {
+} @else if (foo("quotes")) {}
+
+@if (
+  widthCategory !== undefined && widthCategory > topStartToSideStartMaxSize
+) {
+  <app-component />
+}
+
+@if (widthCategory; as item) {}
+
+<div *ngIf="widthCategory; as item"></div>
+
+================================================================================
+`;
+
+exports[`ignore.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- prettier-ignore -->
+@if (condition) {
+  Foo
+} @else {
+  Other
+}
+
+
+@if (condition) {
+  Foo
+}
+<!-- prettier-ignore -->
+@else {
+  Other
+}
+
+=====================================output=====================================
+<!-- prettier-ignore -->
+@if (condition) {
+  Foo
+}
+@else {
+  Other
+}
+
+@if (condition) {
+  Foo
+}
+<!-- prettier-ignore -->
+@else {
+  Other
+}
+
+================================================================================
+`;
+
+exports[`mix.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@if (user.isHuman) {
+<human-profile [data]="user" />
+} @else if (user.isRobot) {
+<!-- robot users are rare, so load their profiles lazily -->
+@defer {
+<robot-profile [data]="user" />
+}
+} @else {
+<p>The profile is unknown!</p>
+}
+
+=====================================output=====================================
+@if (user.isHuman) {
+  <human-profile [data]="user" />
+} @else if (user.isRobot) {
+  <!-- robot users are rare, so load their profiles lazily -->
+  @defer {
+    <robot-profile [data]="user" />
+  }
+} @else {
+  <p>The profile is unknown!</p>
+}
+
+================================================================================
+`;
+
+exports[`switch.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@switch (radioValue()) {
+@case (1) {
+<span>Case 1</span>
+}
+@case (2) {
+<span>Case 2</span>
+}
+@default {
+<span>Default case (Not 1 or 2)</span>
+}
+}
+
+
+@switch(
+  should
+.be.formatted
+) {
+  @case(
+  should
+.be.formatted) {}
+}
+
+=====================================output=====================================
+@switch (radioValue()) {
+  @case (1) {
+    <span>Case 1</span>
+  }
+  @case (2) {
+    <span>Case 2</span>
+  }
+  @default {
+    <span>Default case (Not 1 or 2)</span>
+  }
+}
+
+@switch (should.be.formatted) {
+  @case (should.be.formatted) {}
+}
+
+================================================================================
+`;
+
+exports[`unclosed.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@empty{}
+
+@else {}
+
+=====================================output=====================================
+@empty {}
+
+@else {}
+
+================================================================================
+`;
+
+exports[`unknown-block.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@unknown (foo) {
+} @unknown (foo) {
+}
+
+=====================================output=====================================
+@unknown (foo) {}
+@unknown (foo) {}
+
+================================================================================
+`;
+
+exports[`with-comment.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>
+  <!-- comment -->
+  <span>Not checked</span>
+</div>
+
+
+<!-- comment -->
+@if (isChecked()) {
+<span>
+  Checked
+  <!-- comment -->
+</span>
+} <!-- comment -->
+@else {
+<span>Not checked</span>
+}
+<!-- comment -->
+
+=====================================output=====================================
+<div>
+  <!-- comment -->
+  <span>Not checked</span>
+</div>
+
+<!-- comment -->
+@if (isChecked()) {
+  <span>
+    Checked
+    <!-- comment -->
+  </span>
+}
+<!-- comment -->
+@else {
+  <span>Not checked</span>
+}
+<!-- comment -->
+
+================================================================================
+`;

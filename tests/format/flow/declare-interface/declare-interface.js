@@ -1,0 +1,4 @@
+declare export interface A {
+
+
+}

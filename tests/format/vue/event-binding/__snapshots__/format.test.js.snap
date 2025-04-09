@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`assignment.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div>
+    <button @click="  foo   =   1  "></button>
+    <button @click="  foo   =   1;  "></button>
+    <button @click="  foo   +=   1  "></button>
+    <button @click="  foo   +=   1;  "></button>
+    <button @click="  foo   -=   1  "></button>
+    <button @click="  foo   -=   1;  "></button>
+    <button @click="  foo   *=   1  "></button>
+    <button @click="  foo   *=   1;  "></button>
+    <button @click="  foo   /=   1  "></button>
+    <button @click="  foo   /=   1;  "></button>
+    <button @click="  foo   %=   1  "></button>
+    <button @click="  foo   %=   1;  "></button>
+    <button @click="  foo   <<=   1  "></button>
+    <button @click="  foo   <<=   1;  "></button>
+    <button @click="  foo   >>=   1  "></button>
+    <button @click="  foo   >>=   1;  "></button>
+    <button @click="  foo   >>>=   1  "></button>
+    <button @click="  foo   >>>=   1;  "></button>
+    <button @click="  foo   |=   1  "></button>
+    <button @click="  foo   |=   1;  "></button>
+    <button @click="  foo   ^=   1  "></button>
+    <button @click="  foo   ^=   1;  "></button>
+    <button @click="  foo   &=   1  "></button>
+    <button @click="  foo   &=   1;  "></button>
+    <button @click="  foo   ||=   1  "></button>
+    <button @click="  foo   ||=   1;  "></button>
+    <button @click="  foo   &&=   1  "></button>
+    <button @click="  foo   &&=   1;  "></button>
+    <button @click="  foo   ??=   1  "></button>
+    <button @click="  foo   ??=   1;  "></button>
+  </div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <button @click="foo = 1"></button>
+    <button @click="foo = 1"></button>
+    <button @click="foo += 1"></button>
+    <button @click="foo += 1"></button>
+    <button @click="foo -= 1"></button>
+    <button @click="foo -= 1"></button>
+    <button @click="foo *= 1"></button>
+    <button @click="foo *= 1"></button>
+    <button @click="foo /= 1"></button>
+    <button @click="foo /= 1"></button>
+    <button @click="foo %= 1"></button>
+    <button @click="foo %= 1"></button>
+    <button @click="foo <<= 1"></button>
+    <button @click="foo <<= 1"></button>
+    <button @click="foo >>= 1"></button>
+    <button @click="foo >>= 1"></button>
+    <button @click="foo >>>= 1"></button>
+    <button @click="foo >>>= 1"></button>
+    <button @click="foo |= 1"></button>
+    <button @click="foo |= 1"></button>
+    <button @click="foo ^= 1"></button>
+    <button @click="foo ^= 1"></button>
+    <button @click="foo &= 1"></button>
+    <button @click="foo &= 1"></button>
+    <button @click="foo ||= 1"></button>
+    <button @click="foo ||= 1"></button>
+    <button @click="foo &&= 1"></button>
+    <button @click="foo &&= 1"></button>
+    <button @click="foo ??= 1"></button>
+    <button @click="foo ??= 1"></button>
+  </div>
+</template>
+
+================================================================================
+`;
+
+exports[`basic-ts.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script setup lang="ts">
+let x = 1;
+function log(...args) {
+  console.log(...args);
+}
+</script>
+
+<template>
+  <div @click="if (x === 1 as number) { log('hello') } else { log('nonhello') };">{{ x }}</div>
+</template>
+
+=====================================output=====================================
+<script setup lang="ts">
+let x = 1;
+function log(...args) {
+  console.log(...args);
+}
+</script>
+
+<template>
+  <div
+    @click="
+      if (x === (1 as number)) {
+        log('hello');
+      } else {
+        log('nonhello');
+      }
+    "
+  >
+    {{ x }}
+  </div>
+</template>
+
+================================================================================
+`;
+
+exports[`function-expression-ts.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script setup lang="ts"></script>
+
+<template>
+  <div @click=" (  x :   never) =>      null">arrow</div>
+  <div @click=" function(  a    :   unknown[])      {
+      console.log(    'abcdefg');
+      return;
+  }">anonymous function</div>
+</template>
+
+=====================================output=====================================
+<script setup lang="ts"></script>
+
+<template>
+  <div @click="(x: never) => null">arrow</div>
+  <div
+    @click="
+      function (a: unknown[]) {
+        console.log('abcdefg');
+        return;
+      }
+    "
+  >
+    anonymous function
+  </div>
+</template>
+
+================================================================================
+`;
+
+exports[`non-ascii-expression.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div @click="   我   " />
+  <div @click="   me   " />
+</template>
+
+=====================================output=====================================
+<template>
+  <div @click="我" />
+  <div @click="me" />
+</template>
+
+================================================================================
+`;
+
+exports[`non-ascii-expression-ts.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script setup lang="ts">
+const 我 = () => {}
+const me = () => {}
+
+type Foo = () => void
+</script>
+
+<template>
+  <div @click="   我   " />
+  <div @click="   me   " />
+  <div @click="我   as Foo" />
+  <div @click="me   as Foo" />
+  <div @click="我   satisfies Foo" />
+  <div @click="me   satisfies Foo" />
+  <div @click="   (<number>我)" />
+  <div @click="   (<number>me)" />
+  <div @click="   我!" />
+  <div @click="   me!" />
+  <div @click="我<   string>" />
+  <div @click="me<   string>" />
+  <div @click="我!   as unknown   satisfies Foo" />
+  <div @click="me!   as unknown   satisfies Foo" />
+</template>
+
+=====================================output=====================================
+<script setup lang="ts">
+const 我 = () => {};
+const me = () => {};
+
+type Foo = () => void;
+</script>
+
+<template>
+  <div @click="我" />
+  <div @click="me" />
+  <div @click="我 as Foo" />
+  <div @click="me as Foo" />
+  <div @click="我 satisfies Foo" />
+  <div @click="me satisfies Foo" />
+  <div @click="<number>我" />
+  <div @click="<number>me" />
+  <div @click="我!" />
+  <div @click="me!" />
+  <div @click="我<string>" />
+  <div @click="me<string>" />
+  <div @click="我! as unknown satisfies Foo" />
+  <div @click="me! as unknown satisfies Foo" />
+</template>
+
+================================================================================
+`;

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.html - {"printWidth":20} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 20
+                    | printWidth
+=====================================input======================================
+@unknown (long expression;long expression;long expression;long expression;long expression;long expression;long expression;long expression;) {
+
+}
+
+=====================================output=====================================
+@unknown (
+  long expression;
+  long expression;
+  long expression;
+  long expression;
+  long expression;
+  long expression;
+  long expression;
+  long expression
+) {}
+
+================================================================================
+`;

@@ -1,0 +1,3 @@
+{
+    "plugins": ["../path-to-plugin"]
+}

@@ -1,69 +1,100 @@
-"use strict";
-
-/** @type {import("assert")} */
-const assert = require("assert");
-const { printDanglingComments } = require("../../main/comments");
-const {
-  getNextNonSpaceNonCommentCharacterIndex,
-} = require("../../common/util");
-const {
-  builders: { line, softline, group, indent, ifBreak, hardline },
-} = require("../../document");
-const {
-  getFunctionParameters,
-  hasLeadingOwnLineComment,
-  isFlowAnnotationComment,
-  isJsxNode,
-  isTemplateOnItsOwnLine,
-  shouldPrintComma,
-  startsWithNoLookaheadToken,
-  returnArgumentHasLeadingComment,
-  isBinaryish,
-  isLineComment,
-  hasComment,
-  getComments,
+import assert from "node:assert";
+import {
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  softline,
+} from "../../document/builders.js";
+import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import { locEnd, locStart } from "../loc.js";
+import {
   CommentCheckFlags,
-} = require("../utils");
-const { locEnd } = require("../loc");
-const {
+  getCallArguments,
+  getFunctionParameters,
+  getLeftSide,
+  hasComment,
+  hasLeadingOwnLineComment,
+  hasNakedLeftSide,
+  isBinaryish,
+  isCallExpression,
+  isJsxElement,
+  isMethod,
+} from "../utils/index.js";
+import {
   printFunctionParameters,
+  shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
-} = require("./function-parameters");
-const { printPropertyKey } = require("./property");
-const { printFunctionTypeParameters } = require("./misc");
+} from "./function-parameters.js";
+import { printDeclareToken, printFunctionTypeParameters } from "./misc.js";
+import { printPropertyKey } from "./property.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
-function printFunctionDeclaration(path, print, options, expandArg) {
-  const n = path.getValue();
-  const parts = [];
+/**
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/builders.js"
+ */
 
-  // For TypeScript the TSDeclareFunction node shares the AST
-  // structure with FunctionDeclaration
-  if (n.type === "TSDeclareFunction" && n.declare) {
-    parts.push("declare ");
+const isMethodValue = ({ node, key, parent }) =>
+  key === "value" &&
+  node.type === "FunctionExpression" &&
+  (parent.type === "ObjectMethod" ||
+    parent.type === "ClassMethod" ||
+    parent.type === "ClassPrivateMethod" ||
+    parent.type === "MethodDefinition" ||
+    parent.type === "TSAbstractMethodDefinition" ||
+    parent.type === "TSDeclareMethod" ||
+    (parent.type === "Property" && isMethod(parent)));
+
+/*
+- "FunctionDeclaration"
+- "FunctionExpression"
+- `TSDeclareFunction`(TypeScript)
+*/
+function printFunction(path, print, options, args) {
+  if (isMethodValue(path)) {
+    return printMethodValue(path, options, print);
   }
 
-  if (n.async) {
-    parts.push("async ");
+  const { node } = path;
+
+  let expandArg = false;
+  if (
+    (node.type === "FunctionDeclaration" ||
+      node.type === "FunctionExpression") &&
+    args?.expandLastArg
+  ) {
+    const { parent } = path;
+    if (
+      isCallExpression(parent) &&
+      (getCallArguments(parent).length > 1 ||
+        getFunctionParameters(node).every(
+          (param) => param.type === "Identifier" && !param.typeAnnotation,
+        ))
+    ) {
+      expandArg = true;
+    }
   }
 
-  if (n.generator) {
-    parts.push("function* ");
-  } else {
-    parts.push("function ");
-  }
-
-  if (n.id) {
-    parts.push(path.call(print, "id"));
-  }
+  const parts = [
+    printDeclareToken(path),
+    node.async ? "async " : "",
+    `function${node.generator ? "*" : ""} `,
+    node.id ? print("id") : "",
+  ];
 
   const parametersDoc = printFunctionParameters(
     path,
     print,
     options,
-    expandArg
+    expandArg,
   );
-  const returnTypeDoc = printReturnType(path, print, options);
-  const shouldGroupParameters = shouldGroupFunctionParameters(n, returnTypeDoc);
+  const returnTypeDoc = printReturnType(path, print);
+  const shouldGroupParameters = shouldGroupFunctionParameters(
+    node,
+    returnTypeDoc,
+  );
 
   parts.push(
     printFunctionTypeParameters(path, options, print),
@@ -71,19 +102,29 @@ function printFunctionDeclaration(path, print, options, expandArg) {
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
-    n.body ? " " : "",
-    path.call(print, "body")
+    node.body ? " " : "",
+    print("body"),
   );
 
-  if (options.semi && (n.declare || !n.body)) {
+  if (options.semi && (node.declare || !node.body)) {
     parts.push(";");
   }
 
   return parts;
 }
 
+/*
+- `ObjectMethod`
+- `Property`
+- `ObjectProperty`
+- `ClassMethod`
+- `ClassPrivateMethod`
+- `MethodDefinition
+- `TSAbstractMethodDefinition` (TypeScript)
+- `TSDeclareMethod` (TypeScript)
+*/
 function printMethod(path, options, print) {
-  const node = path.getNode();
+  const { node } = path;
   const { kind } = node;
   const value = node.value || node;
   const parts = [];
@@ -105,153 +146,41 @@ function printMethod(path, options, print) {
 
   parts.push(
     printPropertyKey(path, options, print),
-    node.optional || node.key.optional ? "?" : ""
+    node.optional || node.key.optional ? "?" : "",
+    node === value ? printMethodValue(path, options, print) : print("value"),
   );
-
-  if (node === value) {
-    parts.push(printMethodInternal(path, options, print));
-  } else if (value.type === "FunctionExpression") {
-    parts.push(
-      path.call((path) => printMethodInternal(path, options, print), "value")
-    );
-  } else {
-    parts.push(path.call(print, "value"));
-  }
 
   return parts;
 }
 
-function printMethodInternal(path, options, print) {
-  const node = path.getNode();
+function printMethodValue(path, options, print) {
+  const { node } = path;
   const parametersDoc = printFunctionParameters(path, print, options);
-  const returnTypeDoc = printReturnType(path, print, options);
+  const returnTypeDoc = printReturnType(path, print);
+  const shouldBreakParameters = shouldBreakFunctionParameters(node);
   const shouldGroupParameters = shouldGroupFunctionParameters(
     node,
-    returnTypeDoc
+    returnTypeDoc,
   );
   const parts = [
     printFunctionTypeParameters(path, options, print),
     group([
-      shouldGroupParameters ? group(parametersDoc) : parametersDoc,
+      shouldBreakParameters
+        ? group(parametersDoc, { shouldBreak: true })
+        : shouldGroupParameters
+          ? group(parametersDoc)
+          : parametersDoc,
       returnTypeDoc,
     ]),
   ];
 
   if (node.body) {
-    parts.push(" ", path.call(print, "body"));
+    parts.push(" ", print("body"));
   } else {
     parts.push(options.semi ? ";" : "");
   }
 
   return parts;
-}
-
-function printArrowFunctionExpression(path, options, print, args) {
-  const n = path.getValue();
-  const parts = [];
-
-  if (n.async) {
-    parts.push("async ");
-  }
-
-  if (shouldPrintParamsWithoutParens(path, options)) {
-    parts.push(path.call(print, "params", 0));
-  } else {
-    parts.push(
-      group([
-        printFunctionParameters(
-          path,
-          print,
-          options,
-          /* expandLast */ args && (args.expandLastArg || args.expandFirstArg),
-          /* printTypeParams */ true
-        ),
-        printReturnType(path, print, options),
-      ])
-    );
-  }
-
-  const dangling = printDanglingComments(
-    path,
-    options,
-    /* sameIndent */ true,
-    (comment) => {
-      const nextCharacter = getNextNonSpaceNonCommentCharacterIndex(
-        options.originalText,
-        comment,
-        locEnd
-      );
-      return (
-        nextCharacter !== false &&
-        options.originalText.slice(nextCharacter, nextCharacter + 2) === "=>"
-      );
-    }
-  );
-  if (dangling) {
-    parts.push(" ", dangling);
-  }
-
-  parts.push(" =>");
-
-  const body = path.call((bodyPath) => print(bodyPath, args), "body");
-
-  // We want to always keep these types of nodes on the same line
-  // as the arrow.
-  if (
-    !hasLeadingOwnLineComment(options.originalText, n.body) &&
-    (n.body.type === "ArrayExpression" ||
-      n.body.type === "ObjectExpression" ||
-      n.body.type === "BlockStatement" ||
-      isJsxNode(n.body) ||
-      isTemplateOnItsOwnLine(n.body, options.originalText) ||
-      n.body.type === "ArrowFunctionExpression" ||
-      n.body.type === "DoExpression")
-  ) {
-    return group([...parts, " ", body]);
-  }
-
-  // We handle sequence expressions as the body of arrows specially,
-  // so that the required parentheses end up on their own lines.
-  if (n.body.type === "SequenceExpression") {
-    return group([
-      ...parts,
-      group([" (", indent([softline, body]), softline, ")"]),
-    ]);
-  }
-
-  // if the arrow function is expanded as last argument, we are adding a
-  // level of indentation and need to add a softline to align the closing )
-  // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
-  // we should align the expression's closing } with the line with the opening {.
-  const shouldAddSoftLine =
-    ((args && args.expandLastArg) ||
-      path.getParentNode().type === "JSXExpressionContainer") &&
-    !hasComment(n);
-
-  const printTrailingComma =
-    args && args.expandLastArg && shouldPrintComma(options, "all");
-
-  // In order to avoid confusion between
-  // a => a ? a : a
-  // a <= a ? a : a
-  const shouldAddParens =
-    n.body.type === "ConditionalExpression" &&
-    !startsWithNoLookaheadToken(n.body, /* forbidFunctionAndClass */ false);
-
-  return group([
-    ...parts,
-    group([
-      indent([
-        line,
-        shouldAddParens ? ifBreak("", "(") : "",
-        body,
-        shouldAddParens ? ifBreak("", ")") : "",
-      ]),
-      shouldAddSoftLine
-        ? [ifBreak(printTrailingComma ? "," : ""), softline]
-        : "",
-    ]),
-  ]);
 }
 
 function canPrintParamsWithoutParens(node) {
@@ -275,89 +204,73 @@ function shouldPrintParamsWithoutParens(path, options) {
   }
 
   if (options.arrowParens === "avoid") {
-    const node = path.getValue();
+    const { node } = path;
     return canPrintParamsWithoutParens(node);
   }
 
   // Fallback default; should be unreachable
-  /* istanbul ignore next */
+  /* c8 ignore next */
   return false;
 }
 
-function printReturnType(path, print, options) {
-  const n = path.getValue();
-  const returnType = path.call(print, "returnType");
-
-  if (
-    n.returnType &&
-    isFlowAnnotationComment(options.originalText, n.returnType)
-  ) {
-    return [" /*: ", returnType, " */"];
-  }
+/** @returns {Doc} */
+function printReturnType(path, print) {
+  const { node } = path;
+  const returnType = printTypeAnnotationProperty(path, print, "returnType");
 
   const parts = [returnType];
 
-  // prepend colon to TypeScript type annotation
-  if (n.returnType && n.returnType.typeAnnotation) {
-    parts.unshift(": ");
-  }
-
-  if (n.predicate) {
-    // The return type will already add the colon, but otherwise we
-    // need to do it ourselves
-    parts.push(n.returnType ? " " : ": ", path.call(print, "predicate"));
+  if (node.predicate) {
+    parts.push(print("predicate"));
   }
 
   return parts;
 }
 
 // `ReturnStatement` and `ThrowStatement`
-function printReturnAndThrowArgument(path, options, print) {
-  const node = path.getValue();
+function printReturnOrThrowArgument(path, options, print) {
+  const { node } = path;
   const semi = options.semi ? ";" : "";
   const parts = [];
 
   if (node.argument) {
+    let argumentDoc = print("argument");
+
     if (returnArgumentHasLeadingComment(options, node.argument)) {
-      parts.push([
-        " (",
-        indent([hardline, path.call(print, "argument")]),
-        hardline,
-        ")",
-      ]);
+      argumentDoc = ["(", indent([hardline, argumentDoc]), hardline, ")"];
     } else if (
       isBinaryish(node.argument) ||
-      node.argument.type === "SequenceExpression"
+      (options.experimentalTernaries &&
+        node.argument.type === "ConditionalExpression" &&
+        (node.argument.consequent.type === "ConditionalExpression" ||
+          node.argument.alternate.type === "ConditionalExpression"))
     ) {
-      parts.push(
-        group([
-          ifBreak(" (", " "),
-          indent([softline, path.call(print, "argument")]),
-          softline,
-          ifBreak(")"),
-        ])
-      );
-    } else {
-      parts.push(" ", path.call(print, "argument"));
+      argumentDoc = group([
+        ifBreak("("),
+        indent([softline, argumentDoc]),
+        softline,
+        ifBreak(")"),
+      ]);
     }
+
+    parts.push(" ", argumentDoc);
   }
 
-  const comments = getComments(node);
-  const lastComment = comments[comments.length - 1];
-  const isLastCommentLine = lastComment && isLineComment(lastComment);
+  const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
+  const shouldPrintSemiBeforeComments =
+    semi &&
+    hasDanglingComments &&
+    hasComment(node, CommentCheckFlags.Last | CommentCheckFlags.Line);
 
-  if (isLastCommentLine) {
+  if (shouldPrintSemiBeforeComments) {
     parts.push(semi);
   }
 
-  if (hasComment(node, CommentCheckFlags.Dangling)) {
-    parts.push(
-      " ",
-      printDanglingComments(path, options, /* sameIndent */ true)
-    );
+  if (hasDanglingComments) {
+    parts.push(" ", printDanglingComments(path, options));
   }
 
-  if (!isLastCommentLine) {
+  if (!shouldPrintSemiBeforeComments) {
     parts.push(semi);
   }
 
@@ -365,19 +278,52 @@ function printReturnAndThrowArgument(path, options, print) {
 }
 
 function printReturnStatement(path, options, print) {
-  return ["return", printReturnAndThrowArgument(path, options, print)];
+  return ["return", printReturnOrThrowArgument(path, options, print)];
 }
 
 function printThrowStatement(path, options, print) {
-  return ["throw", printReturnAndThrowArgument(path, options, print)];
+  return ["throw", printReturnOrThrowArgument(path, options, print)];
 }
 
-module.exports = {
-  printFunctionDeclaration,
-  printArrowFunctionExpression,
+// This recurses the return argument, looking for the first token
+// (the leftmost leaf node) and, if it (or its parents) has any
+// leadingComments, returns true (so it can be wrapped in parens).
+function returnArgumentHasLeadingComment(options, argument) {
+  if (
+    hasLeadingOwnLineComment(options.originalText, argument) ||
+    (hasComment(argument, CommentCheckFlags.Leading, (comment) =>
+      hasNewlineInRange(
+        options.originalText,
+        locStart(comment),
+        locEnd(comment),
+      ),
+    ) &&
+      !isJsxElement(argument))
+  ) {
+    return true;
+  }
+
+  if (hasNakedLeftSide(argument)) {
+    let leftMost = argument;
+    let newLeftMost;
+    while ((newLeftMost = getLeftSide(leftMost))) {
+      leftMost = newLeftMost;
+
+      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+export {
+  printFunction,
   printMethod,
+  printMethodValue,
   printReturnStatement,
+  printReturnType,
   printThrowStatement,
-  printMethodInternal,
   shouldPrintParamsWithoutParens,
 };

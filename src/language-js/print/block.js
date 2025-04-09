@@ -1,42 +1,47 @@
-"use strict";
+import { hardline, indent } from "../../document/builders.js";
+import { printDanglingComments } from "../../main/comments/print.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import {
+  CommentCheckFlags,
+  hasComment,
+  isNextLineEmpty,
+} from "../utils/index.js";
+import { printStatementSequence } from "./statement.js";
 
-const { printDanglingComments } = require("../../main/comments");
-const { isNonEmptyArray } = require("../../common/util");
-const {
-  builders: { hardline, indent },
-} = require("../../document");
-const { hasComment, CommentCheckFlags, isNextLineEmpty } = require("../utils");
-const { printHardlineAfterHeritage } = require("./class");
+/** @import {Doc} from "../../document/builders.js" */
 
-const { printBody } = require("./statement");
-
-/** @typedef {import("../../document").Doc} Doc */
-
+/*
+- `Program`
+- `BlockStatement`
+- `StaticBlock`
+- `TSModuleBlock` (TypeScript)
+*/
 function printBlock(path, options, print) {
-  const node = path.getValue();
+  const bodyDoc = printBlockBody(path, options, print);
+  const { node, parent } = path;
+
+  if (node.type === "Program" && parent?.type !== "ModuleExpression") {
+    return bodyDoc ? [bodyDoc, hardline] : "";
+  }
+
   const parts = [];
 
   if (node.type === "StaticBlock") {
     parts.push("static ");
   }
 
-  if (node.type === "ClassBody" && isNonEmptyArray(node.body)) {
-    const parent = path.getParentNode();
-    parts.push(printHardlineAfterHeritage(parent));
-  }
-
   parts.push("{");
-  const printed = printBlockBody(path, options, print);
-  if (printed) {
-    parts.push(indent([hardline, printed]), hardline);
+  if (bodyDoc) {
+    parts.push(indent([hardline, bodyDoc]), hardline);
   } else {
-    const parent = path.getParentNode();
-    const parentParent = path.getParentNode(1);
+    const parentParent = path.grandparent;
     if (
       !(
         parent.type === "ArrowFunctionExpression" ||
         parent.type === "FunctionExpression" ||
         parent.type === "FunctionDeclaration" ||
+        parent.type === "ComponentDeclaration" ||
+        parent.type === "HookDeclaration" ||
         parent.type === "ObjectMethod" ||
         parent.type === "ClassMethod" ||
         parent.type === "ClassPrivateMethod" ||
@@ -44,11 +49,10 @@ function printBlock(path, options, print) {
         parent.type === "WhileStatement" ||
         parent.type === "DoWhileStatement" ||
         parent.type === "DoExpression" ||
+        parent.type === "ModuleExpression" ||
         (parent.type === "CatchClause" && !parentParent.finalizer) ||
         parent.type === "TSModuleDeclaration" ||
-        parent.type === "TSDeclareFunction" ||
-        node.type === "StaticBlock" ||
-        node.type === "ClassBody"
+        node.type === "StaticBlock"
       )
     ) {
       parts.push(hardline);
@@ -60,44 +64,45 @@ function printBlock(path, options, print) {
   return parts;
 }
 
+/*
+- `Program`
+- `BlockStatement`
+- `StaticBlock`
+- `TSModuleBlock` (TypeScript)
+*/
 function printBlockBody(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
-  const nodeHasDirectives = isNonEmptyArray(node.directives);
-  const nodeHasBody = node.body.some((node) => node.type !== "EmptyStatement");
-  const nodeHasComment = hasComment(node, CommentCheckFlags.Dangling);
+  const hasDirectives = isNonEmptyArray(node.directives);
+  const hasBody = node.body.some((node) => node.type !== "EmptyStatement");
+  const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
 
-  if (!nodeHasDirectives && !nodeHasBody && !nodeHasComment) {
+  if (!hasDirectives && !hasBody && !hasDanglingComments) {
     return "";
   }
 
   const parts = [];
-  // Babel 6
-  if (nodeHasDirectives) {
-    path.each((childPath, index, directives) => {
-      parts.push(print(childPath));
-      if (index < directives.length - 1 || nodeHasBody || nodeHasComment) {
+  // Babel
+  if (hasDirectives) {
+    parts.push(printStatementSequence(path, options, print, "directives"));
+
+    if (hasBody || hasDanglingComments) {
+      parts.push(hardline);
+      if (isNextLineEmpty(node.directives.at(-1), options)) {
         parts.push(hardline);
-        if (isNextLineEmpty(childPath.getValue(), options)) {
-          parts.push(hardline);
-        }
       }
-    }, "directives");
+    }
   }
 
-  if (nodeHasBody) {
-    parts.push(printBody(path, options, print));
+  if (hasBody) {
+    parts.push(printStatementSequence(path, options, print, "body"));
   }
 
-  if (nodeHasComment) {
-    parts.push(printDanglingComments(path, options, /* sameIndent */ true));
-  }
-
-  if (node.type === "Program") {
-    parts.push(hardline);
+  if (hasDanglingComments) {
+    parts.push(printDanglingComments(path, options));
   }
 
   return parts;
 }
 
-module.exports = { printBlock, printBlockBody };
+export { printBlock };

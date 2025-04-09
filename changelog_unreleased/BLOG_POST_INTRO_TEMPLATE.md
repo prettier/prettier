@@ -1,6 +1,5 @@
 ---
-author: "🚧"
-authorURL: "https://github.com/🚧"
+authors: "🚧"
 title: "Prettier 🚧"
 ---
 

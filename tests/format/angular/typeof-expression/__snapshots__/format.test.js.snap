@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`typeof-expression.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div
+  (click)="
+  alert(typeof
+  x)"
+  on-click="
+  alert(typeof
+  x)"
+
+  [target]="
+  typeof
+  x"
+  bind-target="
+  typeof
+  x"
+  [(target)]="
+  typeof
+  x"
+  bindon-target="
+  typeof
+  x"
+
+  *directive="
+  typeof
+  x"
+>
+    {{ typeof
+      x}}
+    {{ typeof
+      x ===
+    'object'}}
+    {{
+      !(typeof
+      x ===
+    'object')
+    }}
+</div>
+
+=====================================output=====================================
+<div
+  (click)="alert(typeof x)"
+  on-click="alert(typeof x)"
+  [target]="typeof x"
+  bind-target="typeof x"
+  [(target)]="typeof x"
+  bindon-target="typeof x"
+  *directive="typeof x"
+>
+  {{ typeof x }}
+  {{ typeof x === "object" }}
+  {{ !(typeof x === "object") }}
+</div>
+
+================================================================================
+`;

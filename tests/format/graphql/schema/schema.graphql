@@ -1,0 +1,13 @@
+"""Schema definition description"""
+schema {
+  query: Root
+  mutation: Mutation
+  subscription: Subscription
+}
+
+extend schema { subscription: Subscription }
+
+# `SchemaExtension`s don't require any operation types and doesn't print
+# curlies in their abscence.
+extend schema
+  @directive

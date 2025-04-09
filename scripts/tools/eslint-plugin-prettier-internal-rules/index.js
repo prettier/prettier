@@ -1,17 +1,40 @@
-"use strict";
+import fs from "node:fs/promises";
+import path from "node:path";
+import packageJson from "./package.json" with { type: "json" };
 
-module.exports = {
-  rules: {
-    "better-parent-property-check-in-needs-parens": require("./better-parent-property-check-in-needs-parens"),
-    "directly-loc-start-end": require("./directly-loc-start-end"),
-    "jsx-identifier-case": require("./jsx-identifier-case"),
-    "no-doc-builder-concat": require("./no-doc-builder-concat"),
-    "no-empty-flat-contents-for-if-break": require("./no-empty-flat-contents-for-if-break"),
-    "no-node-comments": require("./no-node-comments"),
-    "prefer-ast-path-each": require("./prefer-ast-path-each"),
-    "prefer-indent-if-break": require("./prefer-indent-if-break"),
-    "prefer-is-non-empty-array": require("./prefer-is-non-empty-array"),
-    "print-function-parameter-order": require("./print-function-parameter-order"),
-    "require-json-extensions": require("./require-json-extensions"),
-  },
+const rules = {};
+
+for (const dirent of await fs.readdir(import.meta.dirname, {
+  withFileTypes: true,
+})) {
+  const fileName = dirent.name;
+
+  if (
+    dirent.isDirectory() ||
+    !fileName.endsWith(".js") ||
+    fileName === "index.js" ||
+    fileName === "test.js"
+  ) {
+    continue;
+  }
+
+  const name = path.basename(fileName, ".js");
+  const { default: rule } = await import(
+    new URL(fileName, import.meta.url).href
+  );
+
+  if (rule.meta?.docs?.url) {
+    throw new Error(`Please remove 'meta.docs.url' from '${fileName}'.`);
+  }
+
+  rule.meta ??= {};
+  rule.meta.docs ??= {};
+  rule.meta.docs.url = `https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/${fileName}`;
+
+  rules[name] = rule;
+}
+
+export default {
+  meta: { name: packageJson.name, version: packageJson.version },
+  rules,
 };

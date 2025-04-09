@@ -1,68 +1,84 @@
-"use strict";
-
-const { printDanglingComments } = require("../../main/comments");
-const {
-  builders: { line, softline, group, indent, ifBreak, hardline },
-} = require("../../document");
-const {
-  getLast,
-  hasNewlineInRange,
-  hasNewline,
-  isNonEmptyArray,
-} = require("../../common/util");
-const {
-  shouldPrintComma,
-  hasComment,
-  getComments,
+import {
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  line,
+  softline,
+} from "../../document/builders.js";
+import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewline from "../../utils/has-newline.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locEnd, locStart } from "../loc.js";
+import {
   CommentCheckFlags,
+  getComments,
+  hasComment,
   isNextLineEmpty,
-} = require("../utils");
-const { locStart, locEnd } = require("../loc");
+  isObjectType,
+  shouldPrintComma,
+} from "../utils/index.js";
+import { printHardlineAfterHeritage } from "./class.js";
+import { shouldHugTheOnlyFunctionParameter } from "./function-parameters.js";
+import { printOptionalToken } from "./misc.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
-const { printOptionalToken, printTypeAnnotation } = require("./misc");
-const { shouldHugFunctionParameters } = require("./function-parameters");
-const { shouldHugType } = require("./type-annotation");
-const { printHardlineAfterHeritage } = require("./class");
-
-/** @typedef {import("../../document").Doc} Doc */
+/** @import {Doc} from "../../document/builders.js" */
 
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
-  const n = path.getValue();
+  const { node } = path;
 
-  let propertiesField;
-
-  if (n.type === "TSTypeLiteral") {
-    propertiesField = "members";
-  } else if (n.type === "TSInterfaceBody") {
-    propertiesField = "body";
-  } else {
-    propertiesField = "properties";
-  }
-
-  const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
-  const fields = [];
+  const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
+  const isEnumBody =
+    node.type === "TSEnumDeclaration" ||
+    node.type === "EnumBooleanBody" ||
+    node.type === "EnumNumberBody" ||
+    node.type === "EnumBigIntBody" ||
+    node.type === "EnumStringBody" ||
+    node.type === "EnumSymbolBody";
+  const fields = [
+    node.type === "TSTypeLiteral" || isEnumBody
+      ? "members"
+      : node.type === "TSInterfaceBody"
+        ? "body"
+        : "properties",
+  ];
   if (isTypeAnnotation) {
     fields.push("indexers", "callProperties", "internalSlots");
   }
-  fields.push(propertiesField);
 
-  const firstProperty = fields
-    .map((field) => n[field][0])
-    .sort((a, b) => locStart(a) - locStart(b))[0];
+  // Unfortunately, things grouped together in the ast can be
+  // interleaved in the source code. So we need to reorder them before
+  // printing them.
+  const propsAndLoc = fields.flatMap((field) =>
+    path.map(
+      ({ node }) => ({
+        node,
+        printed: print(),
+        loc: locStart(node),
+      }),
+      field,
+    ),
+  );
 
-  const parent = path.getParentNode(0);
+  if (fields.length > 1) {
+    propsAndLoc.sort((a, b) => a.loc - b.loc);
+  }
+
+  const { parent, key } = path;
   const isFlowInterfaceLikeBody =
     isTypeAnnotation &&
-    parent &&
+    key === "body" &&
     (parent.type === "InterfaceDeclaration" ||
       parent.type === "DeclareInterface" ||
-      parent.type === "DeclareClass") &&
-    path.getName() === "body";
+      parent.type === "DeclareClass");
   const shouldBreak =
-    n.type === "TSInterfaceBody" ||
+    node.type === "TSInterfaceBody" ||
+    isEnumBody ||
     isFlowInterfaceLikeBody ||
-    (n.type === "ObjectPattern" &&
+    (node.type === "ObjectPattern" &&
       parent.type !== "FunctionDeclaration" &&
       parent.type !== "FunctionExpression" &&
       parent.type !== "ArrowFunctionExpression" &&
@@ -71,77 +87,59 @@ function printObject(path, options, print) {
       parent.type !== "ClassPrivateMethod" &&
       parent.type !== "AssignmentPattern" &&
       parent.type !== "CatchClause" &&
-      n.properties.some(
+      node.properties.some(
         (property) =>
           property.value &&
           (property.value.type === "ObjectPattern" ||
-            property.value.type === "ArrayPattern")
+            property.value.type === "ArrayPattern"),
       )) ||
-    (n.type !== "ObjectPattern" &&
-      firstProperty &&
+    (node.type !== "ObjectPattern" &&
+      options.objectWrap === "preserve" &&
+      propsAndLoc.length > 0 &&
       hasNewlineInRange(
         options.originalText,
-        locStart(n),
-        locStart(firstProperty)
+        locStart(node),
+        propsAndLoc[0].loc,
       ));
 
   const separator = isFlowInterfaceLikeBody
     ? ";"
-    : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
-    ? ifBreak(semi, ";")
-    : ",";
-  const leftBrace = n.type === "RecordExpression" ? "#{" : n.exact ? "{|" : "{";
-  const rightBrace = n.exact ? "|}" : "}";
-
-  // Unfortunately, things are grouped together in the ast can be
-  // interleaved in the source code. So we need to reorder them before
-  // printing them.
-  const propsAndLoc = [];
-  for (const field of fields) {
-    path.each((childPath) => {
-      const node = childPath.getValue();
-      propsAndLoc.push({
-        node,
-        printed: print(childPath),
-        loc: locStart(node),
-      });
-    }, field);
-  }
+    : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
+      ? ifBreak(semi, ";")
+      : ",";
+  const leftBrace =
+    node.type === "RecordExpression" ? "#{" : node.exact ? "{|" : "{";
+  const rightBrace = node.exact ? "|}" : "}";
 
   /** @type {Doc[]} */
   let separatorParts = [];
-  const props = propsAndLoc
-    .sort((a, b) => a.loc - b.loc)
-    .map((prop) => {
-      const result = [...separatorParts, group(prop.printed)];
-      separatorParts = [separator, line];
-      if (
-        (prop.node.type === "TSPropertySignature" ||
-          prop.node.type === "TSMethodSignature" ||
-          prop.node.type === "TSConstructSignatureDeclaration") &&
-        hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
-      ) {
-        separatorParts.shift();
-      }
-      if (isNextLineEmpty(prop.node, options)) {
-        separatorParts.push(hardline);
-      }
-      return result;
-    });
+  const props = propsAndLoc.map((prop) => {
+    const result = [...separatorParts, group(prop.printed)];
+    separatorParts = [separator, line];
+    if (
+      (prop.node.type === "TSPropertySignature" ||
+        prop.node.type === "TSMethodSignature" ||
+        prop.node.type === "TSConstructSignatureDeclaration" ||
+        prop.node.type === "TSCallSignatureDeclaration") &&
+      hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
+    ) {
+      separatorParts.shift();
+    }
+    if (isNextLineEmpty(prop.node, options)) {
+      separatorParts.push(hardline);
+    }
+    return result;
+  });
 
-  if (n.inexact) {
+  if (node.inexact || node.hasUnknownMembers) {
     let printed;
-    if (hasComment(n, CommentCheckFlags.Dangling)) {
-      const hasLineComments = hasComment(n, CommentCheckFlags.Line);
-      const printedDanglingComments = printDanglingComments(
-        path,
-        options,
-        /* sameIndent */ true
-      );
+    if (hasComment(node, CommentCheckFlags.Dangling)) {
+      const hasLineComments = hasComment(node, CommentCheckFlags.Line);
+      const printedDanglingComments = printDanglingComments(path, options);
       printed = [
         printedDanglingComments,
         hasLineComments ||
-        hasNewline(options.originalText, locEnd(getLast(getComments(n))))
+        hasNewline(options.originalText, locEnd(getComments(node).at(-1)))
           ? hardline
           : line,
         "...",
@@ -152,36 +150,37 @@ function printObject(path, options, print) {
     props.push([...separatorParts, ...printed]);
   }
 
-  const lastElem = getLast(n[propertiesField]);
+  const lastElem = propsAndLoc.at(-1)?.node;
 
   const canHaveTrailingSeparator = !(
-    n.inexact ||
-    (lastElem && lastElem.type === "RestElement") ||
+    node.inexact ||
+    node.hasUnknownMembers ||
     (lastElem &&
-      (lastElem.type === "TSPropertySignature" ||
-        lastElem.type === "TSCallSignatureDeclaration" ||
-        lastElem.type === "TSMethodSignature" ||
-        lastElem.type === "TSConstructSignatureDeclaration") &&
-      hasComment(lastElem, CommentCheckFlags.PrettierIgnore))
+      (lastElem.type === "RestElement" ||
+        ((lastElem.type === "TSPropertySignature" ||
+          lastElem.type === "TSCallSignatureDeclaration" ||
+          lastElem.type === "TSMethodSignature" ||
+          lastElem.type === "TSConstructSignatureDeclaration") &&
+          hasComment(lastElem, CommentCheckFlags.PrettierIgnore))))
   );
 
   let content;
   if (props.length === 0) {
-    if (!hasComment(n, CommentCheckFlags.Dangling)) {
-      return [leftBrace, rightBrace, printTypeAnnotation(path, options, print)];
+    if (!hasComment(node, CommentCheckFlags.Dangling)) {
+      return [leftBrace, rightBrace, printTypeAnnotationProperty(path, print)];
     }
 
     content = group([
       leftBrace,
-      printDanglingComments(path, options),
+      printDanglingComments(path, options, { indent: true }),
       softline,
       rightBrace,
       printOptionalToken(path),
-      printTypeAnnotation(path, options, print),
+      printTypeAnnotationProperty(path, print),
     ]);
   } else {
     content = [
-      isFlowInterfaceLikeBody && isNonEmptyArray(n.properties)
+      isFlowInterfaceLikeBody && isNonEmptyArray(node.properties)
         ? printHardlineAfterHeritage(parent)
         : "",
       leftBrace,
@@ -190,12 +189,12 @@ function printObject(path, options, print) {
         canHaveTrailingSeparator &&
           (separator !== "," || shouldPrintComma(options))
           ? separator
-          : ""
+          : "",
       ),
       options.bracketSpacing ? line : softline,
       rightBrace,
       printOptionalToken(path),
-      printTypeAnnotation(path, options, print),
+      printTypeAnnotationProperty(path, print),
     ];
   }
 
@@ -204,27 +203,32 @@ function printObject(path, options, print) {
   // type
   if (
     path.match(
-      (node) => node.type === "ObjectPattern" && !node.decorators,
-      (node, name, number) =>
-        shouldHugFunctionParameters(node) &&
-        (name === "params" ||
-          name === "parameters" ||
-          name === "this" ||
-          name === "rest") &&
-        number === 0
+      (node) =>
+        node.type === "ObjectPattern" && !isNonEmptyArray(node.decorators),
+      shouldHugTheOnlyParameter,
     ) ||
-    path.match(
-      shouldHugType,
-      (node, name) => name === "typeAnnotation",
-      (node, name) => name === "typeAnnotation",
-      (node, name, number) =>
-        shouldHugFunctionParameters(node) &&
-        (name === "params" ||
-          name === "parameters" ||
-          name === "this" ||
-          name === "rest") &&
-        number === 0
-    )
+    (isObjectType(node) &&
+      (path.match(
+        undefined,
+        (node, name) => name === "typeAnnotation",
+        (node, name) => name === "typeAnnotation",
+        shouldHugTheOnlyParameter,
+      ) ||
+        path.match(
+          undefined,
+          (node, name) =>
+            node.type === "FunctionTypeParam" && name === "typeAnnotation",
+          shouldHugTheOnlyParameter,
+        ))) ||
+    // Assignment printing logic (printAssignment) is responsible
+    // for adding a group if needed
+    (!shouldBreak &&
+      path.match(
+        (node) => node.type === "ObjectPattern",
+        (node) =>
+          node.type === "AssignmentExpression" ||
+          node.type === "VariableDeclarator",
+      ))
   ) {
     return content;
   }
@@ -232,4 +236,14 @@ function printObject(path, options, print) {
   return group(content, { shouldBreak });
 }
 
-module.exports = { printObject };
+function shouldHugTheOnlyParameter(node, name) {
+  return (
+    (name === "params" ||
+      name === "parameters" ||
+      name === "this" ||
+      name === "rest") &&
+    shouldHugTheOnlyFunctionParameter(node)
+  );
+}
+
+export { printObject };

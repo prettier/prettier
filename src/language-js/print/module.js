@@ -1,66 +1,73 @@
-"use strict";
-
-const { isNonEmptyArray } = require("../../common/util");
-const {
-  builders: { softline, group, indent, join, line, ifBreak, hardline },
-} = require("../../document");
-const { printDanglingComments } = require("../../main/comments");
-
-const {
-  hasComment,
+import {
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  join,
+  line,
+  softline,
+} from "../../document/builders.js";
+import { printDanglingComments } from "../../main/comments/print.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
+import { hasSameLoc, locEnd, locStart } from "../loc.js";
+import getRaw from "../utils/get-raw.js";
+import getTextWithoutComments from "../utils/get-text-without-comments.js";
+import {
   CommentCheckFlags,
-  shouldPrintComma,
+  createTypeCheckFunction,
+  hasComment,
+  isStringLiteral,
   needsHardlineAfterDanglingComment,
-} = require("../utils");
-const { locStart, hasSameLoc } = require("../loc");
+  shouldPrintComma,
+} from "../utils/index.js";
+import { printDecoratorsBeforeExport } from "./decorators.js";
+import { printDeclareToken } from "./misc.js";
 
 /**
- * @typedef {import("../../document").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 function printImportDeclaration(path, options, print) {
-  const node = path.getValue();
-  const semi = options.semi ? ";" : "";
+  const { node } = path;
   /** @type{Doc[]} */
-  const parts = [];
-
-  const { importKind } = node;
-
-  parts.push("import");
-
-  if (importKind && importKind !== "value") {
-    parts.push(" ", importKind);
-  }
-
-  parts.push(
+  return [
+    "import",
+    node.phase ? ` ${node.phase}` : "",
+    printImportKind(node),
     printModuleSpecifiers(path, options, print),
     printModuleSource(path, options, print),
-    printImportAssertions(path, options, print),
-    semi
-  );
-
-  return parts;
+    printImportAttributes(path, options, print),
+    options.semi ? ";" : "",
+  ];
 }
 
+const isDefaultExport = (node) =>
+  node.type === "ExportDefaultDeclaration" ||
+  (node.type === "DeclareExportDeclaration" && node.default);
+
+/*
+- `ExportDefaultDeclaration`
+- `ExportNamedDeclaration`
+- `DeclareExportDeclaration`(flow)
+- `ExportAllDeclaration`
+- `DeclareExportAllDeclaration`(flow)
+*/
 function printExportDeclaration(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
+
   /** @type{Doc[]} */
-  const parts = [];
+  const parts = [
+    printDecoratorsBeforeExport(path, options, print),
+    printDeclareToken(path),
+    "export",
+    isDefaultExport(node) ? " default" : "",
+  ];
 
-  const { type, exportKind, declaration } = node;
-
-  parts.push("export");
-
-  const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
-  if (isDefaultExport) {
-    parts.push(" default");
-  }
+  const { declaration, exported } = node;
 
   if (hasComment(node, CommentCheckFlags.Dangling)) {
-    parts.push(
-      " ",
-      printDanglingComments(path, options, /* sameIndent */ true)
-    );
+    parts.push(" ", printDanglingComments(path, options));
 
     if (needsHardlineAfterDanglingComment(node)) {
       parts.push(hardline);
@@ -68,81 +75,74 @@ function printExportDeclaration(path, options, print) {
   }
 
   if (declaration) {
-    parts.push(" ", path.call(print, "declaration"));
+    parts.push(" ", print("declaration"));
   } else {
+    parts.push(printExportKind(node));
+
+    if (
+      node.type === "ExportAllDeclaration" ||
+      node.type === "DeclareExportAllDeclaration"
+    ) {
+      parts.push(" *");
+      if (exported) {
+        parts.push(" as ", print("exported"));
+      }
+    } else {
+      parts.push(printModuleSpecifiers(path, options, print));
+    }
+
     parts.push(
-      exportKind === "type" ? " type" : "",
-      printModuleSpecifiers(path, options, print),
       printModuleSource(path, options, print),
-      printImportAssertions(path, options, print)
+      printImportAttributes(path, options, print),
     );
   }
 
-  if (shouldExportDeclarationPrintSemi(node, options)) {
-    parts.push(";");
-  }
+  parts.push(printSemicolonAfterExportDeclaration(node, options));
 
   return parts;
 }
 
-function printExportAllDeclaration(path, options, print) {
-  const node = path.getValue();
-  const semi = options.semi ? ";" : "";
-  /** @type{Doc[]} */
-  const parts = [];
-
-  const { exportKind, exported } = node;
-
-  parts.push("export");
-
-  if (exportKind === "type") {
-    parts.push(" type");
-  }
-
-  parts.push(" *");
-
-  if (exported) {
-    parts.push(" as ", path.call(print, "exported"));
-  }
-
-  parts.push(
-    printModuleSource(path, options, print),
-    printImportAssertions(path, options, print),
-    semi
-  );
-
-  return parts;
-}
-
-function shouldExportDeclarationPrintSemi(node, options) {
-  if (!options.semi) {
-    return false;
-  }
-
-  const { type, declaration } = node;
-  const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
-  if (!declaration) {
-    return true;
-  }
-
-  const { type: declarationType } = declaration;
+const shouldOmitSemicolon = createTypeCheckFunction([
+  "ClassDeclaration",
+  "ComponentDeclaration",
+  "FunctionDeclaration",
+  "TSInterfaceDeclaration",
+  "DeclareClass",
+  "DeclareComponent",
+  "DeclareFunction",
+  "DeclareHook",
+  "HookDeclaration",
+  "TSDeclareFunction",
+  "EnumDeclaration",
+]);
+function printSemicolonAfterExportDeclaration(node, options) {
   if (
-    isDefaultExport &&
-    declarationType !== "ClassDeclaration" &&
-    declarationType !== "FunctionDeclaration" &&
-    declarationType !== "TSInterfaceDeclaration" &&
-    declarationType !== "DeclareClass" &&
-    declarationType !== "DeclareFunction" &&
-    declarationType !== "TSDeclareFunction" &&
-    declarationType !== "EnumDeclaration"
+    options.semi &&
+    (!node.declaration ||
+      (isDefaultExport(node) && !shouldOmitSemicolon(node.declaration)))
   ) {
-    return true;
+    return ";";
   }
-  return false;
+
+  return "";
+}
+
+function printImportOrExportKind(kind, spaceBeforeKind = true) {
+  return kind && kind !== "value"
+    ? `${spaceBeforeKind ? " " : ""}${kind}${spaceBeforeKind ? "" : " "}`
+    : "";
+}
+
+function printImportKind(node, spaceBeforeKind) {
+  return printImportOrExportKind(node.importKind, spaceBeforeKind);
+}
+
+function printExportKind(node) {
+  return printImportOrExportKind(node.exportKind);
 }
 
 function printModuleSource(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (!node.source) {
     return "";
@@ -150,18 +150,18 @@ function printModuleSource(path, options, print) {
 
   /** @type{Doc[]} */
   const parts = [];
-  if (!shouldNotPrintSpecifiers(node, options)) {
+  if (shouldPrintSpecifiers(node, options)) {
     parts.push(" from");
   }
-  parts.push(" ", path.call(print, "source"));
+  parts.push(" ", print("source"));
 
   return parts;
 }
 
 function printModuleSpecifiers(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
-  if (shouldNotPrintSpecifiers(node, options)) {
+  if (!shouldPrintSpecifiers(node, options)) {
     return "";
   }
 
@@ -172,25 +172,23 @@ function printModuleSpecifiers(path, options, print) {
     const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
-    path.each((specifierPath) => {
-      const specifierType = path.getValue().type;
+    path.each(() => {
+      const specifierType = path.node.type;
       if (
         specifierType === "ExportNamespaceSpecifier" ||
         specifierType === "ExportDefaultSpecifier" ||
         specifierType === "ImportNamespaceSpecifier" ||
         specifierType === "ImportDefaultSpecifier"
       ) {
-        standaloneSpecifiers.push(print(specifierPath));
+        standaloneSpecifiers.push(print());
       } else if (
         specifierType === "ExportSpecifier" ||
         specifierType === "ImportSpecifier"
       ) {
-        groupedSpecifiers.push(print(specifierPath));
+        groupedSpecifiers.push(print());
       } else {
-        /* istanbul ignore next */
-        throw new Error(
-          `Unknown specifier type ${JSON.stringify(specifierType)}`
-        );
+        /* c8 ignore next 3 */
+        throw new UnexpectedNodeError(node, "specifier");
       }
     }, "specifiers");
 
@@ -217,7 +215,7 @@ function printModuleSpecifiers(path, options, print) {
             ifBreak(shouldPrintComma(options) ? "," : ""),
             options.bracketSpacing ? line : softline,
             "}",
-          ])
+          ]),
         );
       } else {
         parts.push([
@@ -235,50 +233,87 @@ function printModuleSpecifiers(path, options, print) {
   return parts;
 }
 
-function shouldNotPrintSpecifiers(node, options) {
-  const { type, importKind, source, specifiers } = node;
-
+function shouldPrintSpecifiers(node, options) {
   if (
-    type !== "ImportDeclaration" ||
-    isNonEmptyArray(specifiers) ||
-    importKind === "type"
+    node.type !== "ImportDeclaration" ||
+    isNonEmptyArray(node.specifiers) ||
+    node.importKind === "type"
   ) {
-    return false;
+    return true;
   }
 
-  // TODO: check tokens
-  return !/{\s*}/.test(
-    options.originalText.slice(locStart(node), locStart(source))
+  const text = getTextWithoutComments(
+    options,
+    locStart(node),
+    locStart(node.source),
   );
+
+  return text.trimEnd().endsWith("from");
 }
 
-function printImportAssertions(path, options, print) {
-  const node = path.getNode();
-  if (isNonEmptyArray(node.assertions)) {
-    return [
-      " assert {",
-      options.bracketSpacing ? " " : "",
-      join(", ", path.map(print, "assertions")),
-      options.bracketSpacing ? " " : "",
-      "}",
-    ];
+function getImportAttributesKeyword(node, options) {
+  // Babel parser add this property to indicate the keyword is `assert`
+  if (node.extra?.deprecatedAssertSyntax) {
+    return "assert";
   }
-  return "";
+
+  const textBetweenSourceAndAttributes = getTextWithoutComments(
+    options,
+    locEnd(node.source),
+    node.attributes?.[0] ? locStart(node.attributes[0]) : locEnd(node),
+  ).trimStart();
+
+  if (textBetweenSourceAndAttributes.startsWith("assert")) {
+    return "assert";
+  }
+
+  if (textBetweenSourceAndAttributes.startsWith("with")) {
+    return "with";
+  }
+
+  return isNonEmptyArray(node.attributes) ? "with" : undefined;
+}
+
+function printImportAttributes(path, options, print) {
+  const { node } = path;
+
+  if (!node.source) {
+    return "";
+  }
+
+  const keyword = getImportAttributesKeyword(node, options);
+  if (!keyword) {
+    return "";
+  }
+
+  /** @type{Doc[]} */
+  const parts = [` ${keyword} {`];
+
+  if (isNonEmptyArray(node.attributes)) {
+    if (options.bracketSpacing) {
+      parts.push(" ");
+    }
+
+    parts.push(join(", ", path.map(print, "attributes")));
+
+    if (options.bracketSpacing) {
+      parts.push(" ");
+    }
+  }
+  parts.push("}");
+
+  return parts;
 }
 
 function printModuleSpecifier(path, options, print) {
-  const node = path.getNode();
+  const { node } = path;
+  const { type } = node;
 
-  const { type, importKind } = node;
-  /** @type{Doc[]} */
-  const parts = [];
-  if (type === "ImportSpecifier" && importKind) {
-    parts.push(importKind, " ");
-  }
-
-  const isImport = type.startsWith("Import");
-  const leftSideProperty = isImport ? "imported" : "local";
-  const rightSideProperty = isImport ? "local" : "exported";
+  const isImportSpecifier = type.startsWith("Import");
+  const leftSideProperty = isImportSpecifier ? "imported" : "local";
+  const rightSideProperty = isImportSpecifier ? "local" : "exported";
+  const leftSideNode = node[leftSideProperty];
+  const rightSideNode = node[rightSideProperty];
   let left = "";
   let right = "";
   if (
@@ -286,26 +321,65 @@ function printModuleSpecifier(path, options, print) {
     type === "ImportNamespaceSpecifier"
   ) {
     left = "*";
-  } else if (node[leftSideProperty]) {
-    left = path.call(print, leftSideProperty);
+  } else if (leftSideNode) {
+    left = print(leftSideProperty);
   }
 
-  if (
-    node[rightSideProperty] &&
-    (!node[leftSideProperty] ||
-      // import {a as a} from '.'
-      !hasSameLoc(node[leftSideProperty], node[rightSideProperty]))
-  ) {
-    right = path.call(print, rightSideProperty);
+  if (rightSideNode && !isShorthandSpecifier(node)) {
+    right = print(rightSideProperty);
   }
 
-  parts.push(left, left && right ? " as " : "", right);
-  return parts;
+  return [
+    printImportOrExportKind(
+      type === "ImportSpecifier" ? node.importKind : node.exportKind,
+      /* spaceBeforeKind */ false,
+    ),
+    left,
+    left && right ? " as " : "",
+    right,
+  ];
 }
 
-module.exports = {
-  printImportDeclaration,
+function isShorthandSpecifier(specifier) {
+  if (
+    specifier.type !== "ImportSpecifier" &&
+    specifier.type !== "ExportSpecifier"
+  ) {
+    return false;
+  }
+
+  const {
+    local,
+    [specifier.type === "ImportSpecifier" ? "imported" : "exported"]:
+      importedOrExported,
+  } = specifier;
+
+  if (
+    local.type !== importedOrExported.type ||
+    !hasSameLoc(local, importedOrExported)
+  ) {
+    return false;
+  }
+
+  if (isStringLiteral(local)) {
+    return (
+      local.value === importedOrExported.value &&
+      getRaw(local) === getRaw(importedOrExported)
+    );
+  }
+
+  switch (local.type) {
+    case "Identifier":
+      return local.name === importedOrExported.name;
+    default:
+      /* c8 ignore next */
+      return false;
+  }
+}
+
+export {
   printExportDeclaration,
-  printExportAllDeclaration,
+  printImportDeclaration,
+  printImportKind,
   printModuleSpecifier,
 };

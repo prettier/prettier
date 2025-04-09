@@ -1,20 +1,27 @@
-"use strict";
+import fs from "node:fs/promises";
+import { runGit, runYarn } from "../utils.js";
 
-const execa = require("execa");
-const { logPromise } = require("../utils");
+const PROJECT_ROOT = new URL("../../../", import.meta.url);
 
-async function install() {
-  await execa("rm", ["-rf", "node_modules"]);
-  await execa("yarn", ["install"]);
+async function installDependenciesInDirectory(directory) {
+  await fs.rm(new URL("./node_modules/", directory), {
+    recursive: true,
+    force: true,
+  });
+  await runYarn("install", { cwd: directory });
+}
 
-  const status = await execa.stdout("git", ["ls-files", "-m"]);
+export default async function installDependencies() {
+  await Promise.all(
+    [PROJECT_ROOT, new URL("./website/", PROJECT_ROOT)].map((directory) =>
+      installDependenciesInDirectory(directory),
+    ),
+  );
+
+  const { stdout: status } = await runGit(["ls-files", "-m"]);
   if (status) {
     throw new Error(
-      "The lockfile needs to be updated, commit it before making the release."
+      "The lockfile needs to be updated, commit it before making the release.",
     );
   }
 }
-
-module.exports = function () {
-  return logPromise("Installing NPM dependencies", install());
-};

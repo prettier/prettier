@@ -3,19 +3,41 @@ id: configuration
 title: Configuration File
 ---
 
-Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support. This means you can configure Prettier via (in order of precedence):
+You can configure Prettier via (in order of precedence):
 
-- A `"prettier"` key in your `package.json` file.
+- A `"prettier"` key in your `package.json`, or [`package.yaml`](https://github.com/pnpm/pnpm/pull/1799) file.
 - A `.prettierrc` file written in JSON or YAML.
 - A `.prettierrc.json`, `.prettierrc.yml`, `.prettierrc.yaml`, or `.prettierrc.json5` file.
-- A `.prettierrc.js`, `.prettierrc.cjs`, `prettier.config.js`, or `prettier.config.cjs` file that exports an object using `module.exports`.
+- A `.prettierrc.js`, `prettier.config.js`, `.prettierrc.ts`, or `prettier.config.ts` file that exports an object using `export default` or `module.exports` (depends on the [`type`](https://nodejs.org/api/packages.html#type) value in your `package.json`).
+- A `.prettierrc.mjs`, `prettier.config.mjs`, `.prettierrc.mts`, or `prettier.config.mts` file that exports an object using `export default`.
+- A `.prettierrc.cjs`, `prettier.config.cjs`, `.prettierrc.cts`, or `prettier.config.cts` file that exports an object using `module.exports`.
 - A `.prettierrc.toml` file.
+
+:::info
+
+TypeScript configuration files support requires [additional setup](#typescript-configuration-files)
+
+:::
 
 The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn’t) found.
 
 Prettier intentionally doesn’t support any kind of global configuration. This is to make sure that when a project is copied to another computer, Prettier’s behavior stays the same. Otherwise, Prettier wouldn’t be able to guarantee that everybody in a team gets the same consistent results.
 
 The options you can use in the configuration file are the same as the [API options](options.md).
+
+### TypeScript Configuration Files
+
+TypeScript support for Node.js is currently experimental, Node.js>=22.6.0 is required and `--experimental-strip-types` is required to run Node.js.
+
+```sh
+node --experimental-strip-types node_modules/prettier/bin/prettier.cjs . --write
+```
+
+or
+
+```sh
+NODE_OPTIONS="--experimental-strip-types" prettier . --write
+```
 
 ## Basic Configuration
 
@@ -30,16 +52,70 @@ JSON:
 }
 ```
 
-JS:
+JS (ES Modules):
 
 ```js
-// prettier.config.js or .prettierrc.js
-module.exports = {
+// prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
+
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
+const config = {
   trailingComma: "es5",
   tabWidth: 4,
   semi: false,
   singleQuote: true,
 };
+
+export default config;
+```
+
+JS (CommonJS):
+
+```js
+// prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs
+
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
+const config = {
+  trailingComma: "es5",
+  tabWidth: 4,
+  semi: false,
+  singleQuote: true,
+};
+
+module.exports = config;
+```
+
+TypeScript (ES Modules):
+
+```ts
+// prettier.config.ts, .prettierrc.ts, prettier.config.mts, or .prettierrc.mts
+
+import { type Config } from "prettier";
+
+const config: Config = {
+  trailingComma: "none",
+};
+
+export default config;
+```
+
+TypeScript (CommonJS):
+
+```ts
+// prettier.config.ts, .prettierrc.ts, prettier.config.cts, or .prettierrc.cts
+
+import { type Config } from "prettier";
+
+const config: Config = {
+  trailingComma: "none",
+};
+
+module.exports = config;
 ```
 
 YAML:
@@ -66,7 +142,7 @@ singleQuote = true
 
 Overrides let you have different configuration for certain file extensions, folders and specific files.
 
-Prettier borrows ESLint’s [override format](https://eslint.org/docs/user-guide/configuring#example-configuration).
+Prettier borrows ESLint’s [override format](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#how-do-overrides-work).
 
 JSON:
 
@@ -107,35 +183,6 @@ overrides:
 
 `files` is required for each override, and may be a string or array of strings. `excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.
 
-## Sharing configurations
-
-Sharing a Prettier configuration is simple: just publish a module that exports a configuration object, say `@company/prettier-config`, and reference it in your `package.json`:
-
-```json
-{
-  "name": "my-cool-library",
-  "version": "9000.0.1",
-  "prettier": "@company/prettier-config"
-}
-```
-
-If you don’t want to use `package.json`, you can use any of the supported extensions to export a string, e.g. `.prettierrc.json`:
-
-```json
-"@company/prettier-config"
-```
-
-An example configuration repository is available [here](https://github.com/azz/prettier-config).
-
-> Note: This method does **not** offer a way to _extend_ the configuration to overwrite some properties from the shared configuration. If you need to do that, import the file in a `.prettierrc.js` file and export the modifications, e.g:
->
-> ```js
-> module.exports = {
->   ...require("@company/prettier-config"),
->   semi: false,
-> };
-> ```
-
 ## Setting the [parser](options.md#parser) option
 
 By default, Prettier automatically infers which parser to use based on the input file extension. Combined with `overrides` you can teach Prettier how to parse files it does not recognize.
@@ -172,4 +219,41 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 
 ## Configuration Schema
 
-If you’d like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
+If you’d like a JSON schema to validate your configuration, one is available here: [https://json.schemastore.org/prettierrc](https://json.schemastore.org/prettierrc).
+
+## EditorConfig
+
+If a [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc.
+
+Here’s an annotated description of how different properties map to Prettier’s behavior:
+
+```ini
+# Stop the editor from looking for .editorconfig files in the parent directories
+# root = true
+
+[*]
+# Non-configurable Prettier behaviors
+charset = utf-8
+insert_final_newline = true
+# Caveat: Prettier won’t trim trailing whitespace inside template strings, but your editor might.
+# trim_trailing_whitespace = true
+
+# Configurable Prettier behaviors
+# (change these if your Prettier config differs)
+end_of_line = lf
+indent_style = space
+indent_size = 2
+max_line_length = 80
+```
+
+Here’s a copy+paste-ready `.editorconfig` file if you use the default options:
+
+```ini
+[*]
+charset = utf-8
+insert_final_newline = true
+end_of_line = lf
+indent_style = space
+indent_size = 2
+max_line_length = 80
+```

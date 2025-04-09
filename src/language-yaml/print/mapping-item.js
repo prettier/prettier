@@ -1,22 +1,25 @@
-"use strict";
+/** @import {Doc} from "../../document/builders.js" */
 
-/** @typedef {import("../../document").Doc} Doc */
-
-const {
-  builders: { conditionalGroup, group, hardline, ifBreak, join, line },
-} = require("../../document");
-const {
+import {
+  conditionalGroup,
+  group,
+  hardline,
+  ifBreak,
+  line,
+} from "../../document/builders.js";
+import {
+  hasEndComments,
   hasLeadingComments,
   hasMiddleComments,
   hasTrailingComment,
-  hasEndComments,
-  isNode,
   isEmptyNode,
   isInlineNode,
-} = require("../utils");
-const { alignWithSpaces } = require("./misc");
+  isNode,
+} from "../utils.js";
+import { alignWithSpaces } from "./misc.js";
 
-function printMappingItem(node, parentNode, path, print, options) {
+function printMappingItem(path, print, options) {
+  const { node, parent } = path;
   const { key, value } = node;
 
   const isEmptyMappingKey = isEmptyNode(key);
@@ -26,11 +29,11 @@ function printMappingItem(node, parentNode, path, print, options) {
     return ": ";
   }
 
-  const printedKey = path.call(print, "key");
+  const printedKey = print("key");
   const spaceBeforeColon = needsSpaceInFrontOfMappingValue(node) ? " " : "";
 
   if (isEmptyMappingValue) {
-    if (node.type === "flowMappingItem" && parentNode.type === "flowMapping") {
+    if (node.type === "flowMappingItem" && parent.type === "flowMapping") {
       return printedKey;
     }
 
@@ -38,7 +41,7 @@ function printMappingItem(node, parentNode, path, print, options) {
       node.type === "mappingItem" &&
       isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
       !hasTrailingComment(key.content) &&
-      (!parentNode.tag || parentNode.tag.value !== "tag:yaml.org,2002:set")
+      parent.tag?.value !== "tag:yaml.org,2002:set"
     ) {
       return [printedKey, spaceBeforeColon, ":"];
     }
@@ -46,7 +49,7 @@ function printMappingItem(node, parentNode, path, print, options) {
     return ["? ", alignWithSpaces(2, printedKey)];
   }
 
-  const printedValue = path.call(print, "value");
+  const printedValue = print("value");
   if (isEmptyMappingKey) {
     return [": ", alignWithSpaces(2, printedValue)];
   }
@@ -57,12 +60,7 @@ function printMappingItem(node, parentNode, path, print, options) {
       "? ",
       alignWithSpaces(2, printedKey),
       hardline,
-      join(
-        "",
-        path
-          .map(print, "value", "leadingComments")
-          .map((comment) => [comment, hardline])
-      ),
+      ...path.map(() => [print(), hardline], "value", "leadingComments"),
       ": ",
       alignWithSpaces(2, printedValue),
     ];
@@ -88,30 +86,59 @@ function printMappingItem(node, parentNode, path, print, options) {
     ifBreak("? "),
     group(alignWithSpaces(2, printedKey), { id: groupId }),
   ]);
-  const breakValue = [hardline, ": ", alignWithSpaces(2, printedValue)];
+
+  // Construct both explicit and implicit mapping values.
+  const explicitMappingValue = [
+    hardline,
+    ": ",
+    alignWithSpaces(2, printedValue),
+  ];
   /** @type {Doc[]} */
-  const flatValueParts = [spaceBeforeColon, ":"];
+  // In the implicit case, it's convenient to treat everything from the key's colon
+  // as part of the mapping value
+  const implicitMappingValueParts = [spaceBeforeColon, ":"];
   if (
     hasLeadingComments(value.content) ||
     (hasEndComments(value) &&
       value.content &&
       !isNode(value.content, ["mapping", "sequence"])) ||
-    (parentNode.type === "mapping" &&
+    (parent.type === "mapping" &&
       hasTrailingComment(key.content) &&
       isInlineNode(value.content)) ||
     (isNode(value.content, ["mapping", "sequence"]) &&
       value.content.tag === null &&
       value.content.anchor === null)
   ) {
-    flatValueParts.push(hardline);
+    implicitMappingValueParts.push(hardline);
   } else if (value.content) {
-    flatValueParts.push(line);
+    implicitMappingValueParts.push(line);
+  } else if (hasTrailingComment(value)) {
+    implicitMappingValueParts.push(" ");
   }
-  flatValueParts.push(printedValue);
-  const flatValue = alignWithSpaces(options.tabWidth, flatValueParts);
+  implicitMappingValueParts.push(printedValue);
+  const implicitMappingValue = alignWithSpaces(
+    options.tabWidth,
+    implicitMappingValueParts,
+  );
 
+  // If a key is definitely single-line, forcibly use implicit style to avoid edge cases (very long
+  // keys) that would otherwise trigger explicit style as if it was multiline.
+  // In those cases, explicit style makes the line even longer and causes confusion.
+  if (
+    isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
+    !hasLeadingComments(key.content) &&
+    !hasMiddleComments(key.content) &&
+    !hasEndComments(key)
+  ) {
+    return conditionalGroup([[printedKey, implicitMappingValue]]);
+  }
+
+  // Use explicit mapping syntax if the key breaks, implicit otherwise
   return conditionalGroup([
-    [groupedKey, ifBreak(breakValue, flatValue, { groupId })],
+    [
+      groupedKey,
+      ifBreak(explicitMappingValue, implicitMappingValue, { groupId }),
+    ],
   ]);
 }
 
@@ -127,6 +154,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
       break;
     case "alias":
       return true;
+
     default:
       return false;
   }
@@ -137,11 +165,11 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
 
   if (
     // backslash-newline
-    /\\$/m.test(
+    /\\$/mu.test(
       options.originalText.slice(
         node.position.start.offset,
-        node.position.end.offset
-      )
+        node.position.end.offset,
+      ),
     )
   ) {
     return false;
@@ -151,19 +179,19 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
     case "never":
       return !node.value.includes("\n");
     case "always":
-      return !/[\n ]/.test(node.value);
-    // istanbul ignore next
+      return !/[\n ]/u.test(node.value);
     default:
+      /* c8 ignore next */
       return false;
   }
 }
 
 function needsSpaceInFrontOfMappingValue(node) {
-  return node.key.content && node.key.content.type === "alias";
+  return node.key.content?.type === "alias";
 }
 
 function isSingleLineNode(node) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!node) {
     return true;
   }
@@ -180,4 +208,4 @@ function isSingleLineNode(node) {
   }
 }
 
-module.exports = printMappingItem;
+export default printMappingItem;

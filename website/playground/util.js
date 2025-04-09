@@ -1,5 +1,5 @@
 export function fixPrettierVersion(version) {
-  const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
+  const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/u);
   if (match) {
     return `pr-${match[1]}`;
   }
@@ -22,7 +22,7 @@ export function buildCliArgs(availableOptions, options) {
   for (const option of availableOptions) {
     const value = options[option.name];
 
-    if (typeof value === "undefined") {
+    if (value === undefined) {
       continue;
     }
 
@@ -53,12 +53,13 @@ export function getCodemirrorMode(parser) {
 }
 
 const astAutoFold = {
-  estree: /^\s*"(loc|start|end)":/,
-  postcss: /^\s*"(source|input|raws|file)":/,
-  html: /^\s*"(sourceSpan|valueSpan|nameSpan|startSourceSpan|endSourceSpan|tagDefinition)":/,
-  mdast: /^\s*"position":/,
-  yaml: /^\s*"position":/,
-  glimmer: /^\s*"loc":/,
+  estree: /^\s*"(loc|start|end|tokens|\w+Comments|comments)":/u,
+  postcss: /^\s*"(source|input|raws|file)":/u,
+  html: /^\s*"(\w+Span|valueTokens|tokens|file|tagDefinition)":/u,
+  mdast: /^\s*"position":/u,
+  yaml: /^\s*"position":/u,
+  glimmer: /^\s*"loc":/u,
+  graphql: /^\s*"loc":/u,
 };
 
 export function getAstAutoFold(parser) {
@@ -68,7 +69,9 @@ export function getAstAutoFold(parser) {
     case "babel-flow":
     case "babel-ts":
     case "typescript":
+    case "acorn":
     case "espree":
+    case "meriyah":
     case "json":
     case "json5":
     case "json-stringify":
@@ -87,7 +90,31 @@ export function getAstAutoFold(parser) {
       return astAutoFold.mdast;
     case "yaml":
       return astAutoFold.yaml;
-    case "glimmer":
-      return astAutoFold.glimmer;
+    default:
+      return astAutoFold[parser];
   }
+}
+
+export function convertSelectionToRange({ head, anchor }, content) {
+  const lines = content.split("\n");
+  return [head, anchor]
+    .map(
+      ({ ch, line }) =>
+        lines.slice(0, line).join("\n").length + ch + (line ? 1 : 0),
+    )
+    .sort((a, b) => a - b);
+}
+
+export function convertOffsetToSelection(offset, content) {
+  let line = 0;
+  let ch = 0;
+  for (let i = 0; i < offset && i <= content.length; i++) {
+    if (content[i] === "\n") {
+      line++;
+      ch = 0;
+    } else {
+      ch++;
+    }
+  }
+  return { anchor: { line, ch } };
 }

@@ -1,9 +1,44 @@
-"use strict";
+import assert from "node:assert";
+import { getSortedChildNodes } from "./comments/attach.js";
 
-const assert = require("assert");
-const comments = require("./comments");
+const isJsonParser = ({ parser }) =>
+  parser === "json" ||
+  parser === "json5" ||
+  parser === "jsonc" ||
+  parser === "json-stringify";
 
-function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
+function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
+  const startNodeAndAncestors = [
+    startNodeAndParents.node,
+    ...startNodeAndParents.parentNodes,
+  ];
+  const endNodeAndAncestors = new Set([
+    endNodeAndParents.node,
+    ...endNodeAndParents.parentNodes,
+  ]);
+  return startNodeAndAncestors.find(
+    (node) =>
+      jsonSourceElements.has(node.type) && endNodeAndAncestors.has(node),
+  );
+}
+
+function dropRootParents(parents) {
+  const index = parents.findLastIndex(
+    (node) => node.type !== "Program" && node.type !== "File",
+  );
+
+  if (index === -1) {
+    return parents;
+  }
+
+  return parents.slice(0, index + 1);
+}
+
+function findSiblingAncestors(
+  startNodeAndParents,
+  endNodeAndParents,
+  { locStart, locEnd },
+) {
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
 
@@ -14,26 +49,23 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
     };
   }
 
-  for (const endParent of endNodeAndParents.parentNodes) {
-    if (
-      endParent.type !== "Program" &&
-      endParent.type !== "File" &&
-      opts.locStart(endParent) >= opts.locStart(startNodeAndParents.node)
-    ) {
+  const startNodeStart = locStart(startNodeAndParents.node);
+  for (const endParent of dropRootParents(endNodeAndParents.parentNodes)) {
+    if (locStart(endParent) >= startNodeStart) {
       resultEndNode = endParent;
     } else {
       break;
     }
   }
 
-  for (const startParent of startNodeAndParents.parentNodes) {
-    if (
-      startParent.type !== "Program" &&
-      startParent.type !== "File" &&
-      opts.locEnd(startParent) <= opts.locEnd(endNodeAndParents.node)
-    ) {
+  const endNodeEnd = locEnd(endNodeAndParents.node);
+  for (const startParent of dropRootParents(startNodeAndParents.parentNodes)) {
+    if (locEnd(startParent) <= endNodeEnd) {
       resultStartNode = startParent;
     } else {
+      break;
+    }
+    if (resultStartNode === resultEndNode) {
       break;
     }
   }
@@ -50,7 +82,7 @@ function findNodeAtOffset(
   options,
   predicate,
   parentNodes = [],
-  type
+  type,
 ) {
   const { locStart, locEnd } = options;
   const start = locStart(node);
@@ -65,21 +97,21 @@ function findNodeAtOffset(
     return;
   }
 
-  for (const childNode of comments.getSortedChildNodes(node, options)) {
+  for (const childNode of getSortedChildNodes(node, options)) {
     const childResult = findNodeAtOffset(
       childNode,
       offset,
       options,
       predicate,
       [node, ...parentNodes],
-      type
+      type,
     );
     if (childResult) {
       return childResult;
     }
   }
 
-  if (!predicate || predicate(node)) {
+  if (!predicate || predicate(node, parentNodes[0])) {
     return {
       node,
       parentNodes,
@@ -88,25 +120,30 @@ function findNodeAtOffset(
 }
 
 // See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
-function isJsSourceElement(type) {
+function isJsSourceElement(type, parentType) {
   return (
-    type === "Directive" ||
-    type === "TypeAlias" ||
-    type === "TSExportAssignment" ||
-    type.startsWith("Declare") ||
-    type.startsWith("TSDeclare") ||
-    type.endsWith("Statement") ||
-    type.endsWith("Declaration")
+    parentType !== "DeclareExportDeclaration" &&
+    type !== "TypeParameterDeclaration" &&
+    (type === "Directive" ||
+      type === "TypeAlias" ||
+      type === "TSExportAssignment" ||
+      type.startsWith("Declare") ||
+      type.startsWith("TSDeclare") ||
+      type.endsWith("Statement") ||
+      type.endsWith("Declaration"))
   );
 }
 
 const jsonSourceElements = new Set([
+  "JsonRoot",
   "ObjectExpression",
   "ArrayExpression",
   "StringLiteral",
   "NumericLiteral",
   "BooleanLiteral",
   "NullLiteral",
+  "UnaryExpression",
+  "TemplateLiteral",
 ]);
 const graphqlSourceElements = new Set([
   "OperationDefinition",
@@ -126,8 +163,8 @@ const graphqlSourceElements = new Set([
   "UnionTypeDefinition",
   "ScalarTypeDefinition",
 ]);
-function isSourceElement(opts, node) {
-  /* istanbul ignore next */
+function isSourceElement(opts, node, parentNode) {
+  /* c8 ignore next 3 */
   if (!node) {
     return false;
   }
@@ -137,10 +174,15 @@ function isSourceElement(opts, node) {
     case "babel-flow":
     case "babel-ts":
     case "typescript":
+    case "acorn":
     case "espree":
     case "meriyah":
-      return isJsSourceElement(node.type);
+    case "__babel_estree":
+      return isJsSourceElement(node.type, parentNode?.type);
     case "json":
+    case "json5":
+    case "jsonc":
+    case "json-stringify":
       return jsonSourceElements.has(node.type);
     case "graphql":
       return graphqlSourceElements.has(node.kind);
@@ -155,12 +197,12 @@ function calculateRange(text, opts, ast) {
   assert.ok(end > start);
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
-  const firstNonWhitespaceCharacterIndex = text.slice(start, end).search(/\S/);
+  const firstNonWhitespaceCharacterIndex = text.slice(start, end).search(/\S/u);
   const isAllWhitespace = firstNonWhitespaceCharacterIndex === -1;
   if (!isAllWhitespace) {
     start += firstNonWhitespaceCharacterIndex;
     for (; end > start; --end) {
-      if (/\S/.test(text[end - 1])) {
+      if (/\S/u.test(text[end - 1])) {
         break;
       }
     }
@@ -170,9 +212,9 @@ function calculateRange(text, opts, ast) {
     ast,
     start,
     opts,
-    (node) => isSourceElement(opts, node),
+    (node, parentNode) => isSourceElement(opts, node, parentNode),
     [],
-    "rangeStart"
+    "rangeStart",
   );
   const endNodeAndParents =
     // No need find Node at `end`, it will be the same as `startNodeAndParents`
@@ -184,7 +226,7 @@ function calculateRange(text, opts, ast) {
           opts,
           (node) => isSourceElement(opts, node),
           [],
-          "rangeEnd"
+          "rangeEnd",
         );
   if (!startNodeAndParents || !endNodeAndParents) {
     return {
@@ -193,11 +235,22 @@ function calculateRange(text, opts, ast) {
     };
   }
 
-  const { startNode, endNode } = findSiblingAncestors(
-    startNodeAndParents,
-    endNodeAndParents,
-    opts
-  );
+  let startNode;
+  let endNode;
+  if (isJsonParser(opts)) {
+    const commonAncestor = findCommonAncestor(
+      startNodeAndParents,
+      endNodeAndParents,
+    );
+    startNode = commonAncestor;
+    endNode = commonAncestor;
+  } else {
+    ({ startNode, endNode } = findSiblingAncestors(
+      startNodeAndParents,
+      endNodeAndParents,
+      opts,
+    ));
+  }
 
   return {
     rangeStart: Math.min(locStart(startNode), locStart(endNode)),
@@ -205,7 +258,4 @@ function calculateRange(text, opts, ast) {
   };
 }
 
-module.exports = {
-  calculateRange,
-  findNodeAtOffset,
-};
+export { calculateRange };

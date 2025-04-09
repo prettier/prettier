@@ -1,30 +1,19 @@
-"use strict";
-
-const { version } = require("../package.json");
-
-const core = require("./main/core");
-const { getSupportInfo } = require("./main/support");
-const sharedUtil = require("./common/util-shared");
-const languages = require("./languages");
-const doc = require("./document");
-
-// Parsers are bundled as separate plugins
-const internalPlugins = languages.map(({ parsers, ...plugin }) => plugin);
+import * as core from "./main/core.js";
+import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 
 function withPlugins(
   fn,
-  optsArgIdx = 1 // Usually `opts` is the 2nd argument
+  optionsArgumentIndex = 1, // Usually `options` is the 2nd argument
 ) {
-  return (...args) => {
-    const opts = args[optsArgIdx] || {};
-    const plugins = opts.plugins || [];
+  // Returns Promises to consistent with functions in `index.js`
+  // eslint-disable-next-line require-await
+  return async (...args) => {
+    const options = args[optionsArgumentIndex] ?? {};
+    const plugins = options.plugins ?? [];
 
-    args[optsArgIdx] = {
-      ...opts,
-      plugins: [
-        ...internalPlugins,
-        ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
-      ],
+    args[optionsArgumentIndex] = {
+      ...options,
+      plugins: Array.isArray(plugins) ? plugins : Object.values(plugins),
     };
 
     return fn(...args);
@@ -33,31 +22,35 @@ function withPlugins(
 
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
-module.exports = {
-  formatWithCursor,
+async function format(text, options) {
+  const { formatted } = await formatWithCursor(text, {
+    ...options,
+    cursorOffset: -1,
+  });
+  return formatted;
+}
 
-  format(text, opts) {
-    return formatWithCursor(text, opts).formatted;
-  },
+async function check(text, options) {
+  return (await format(text, options)) === text;
+}
 
-  check(text, opts) {
-    const { formatted } = formatWithCursor(text, opts);
-    return formatted === text;
-  },
+const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 
-  doc,
-
-  getSupportInfo: withPlugins(getSupportInfo, 0),
-
-  version,
-
-  util: sharedUtil,
-
-  __debug: {
-    parse: withPlugins(core.parse),
-    formatAST: withPlugins(core.formatAST),
-    formatDoc: withPlugins(core.formatDoc),
-    printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString),
-  },
+const debugApis = {
+  parse: withPlugins(core.parse),
+  formatAST: withPlugins(core.formatAst),
+  formatDoc: withPlugins(core.formatDoc),
+  printToDoc: withPlugins(core.printToDoc),
+  printDocToString: withPlugins(core.printDocToString),
 };
+
+export {
+  debugApis as __debug,
+  check,
+  format,
+  formatWithCursor,
+  getSupportInfo,
+};
+export * as doc from "./document/public.js";
+export { default as version } from "./main/version.evaluate.cjs";
+export * as util from "./utils/public.js";

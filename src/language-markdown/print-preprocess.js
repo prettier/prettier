@@ -1,75 +1,47 @@
-"use strict";
-
-const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
 // 0x0 ~ 0x10ffff
-// eslint-disable-next-line no-control-regex
-const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
+const isSingleCharRegex = /^\\?.$/su;
+const isNewLineBlockquoteRegex = /^\n *>[ >]*$/u;
 
 function preprocess(ast, options) {
   ast = restoreUnescapedCharacter(ast, options);
   ast = mergeContinuousTexts(ast);
-  ast = transformInlineCode(ast);
   ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
   ast = markAlignedList(ast, options);
-  ast = splitTextIntoSentences(ast, options);
-  ast = transformImportExport(ast);
-  ast = mergeContinuousImportExport(ast);
+  ast = splitTextIntoSentences(ast);
   return ast;
 }
 
-function transformImportExport(ast) {
-  return mapAst(ast, (node) => {
-    if (node.type !== "import" && node.type !== "export") {
-      return node;
-    }
-
-    return { ...node, type: "importExport" };
-  });
-}
-
-function transformInlineCode(ast) {
-  return mapAst(ast, (node) => {
-    if (node.type !== "inlineCode") {
-      return node;
-    }
-
-    return { ...node, value: node.value.replace(/\s+/g, " ") };
-  });
-}
-
 function restoreUnescapedCharacter(ast, options) {
-  return mapAst(ast, (node) =>
-    node.type !== "text" ||
-    node.value === "*" ||
-    node.value === "_" || // handle these cases in printer
-    !isSingleCharRegex.test(node.value) ||
-    node.position.end.offset - node.position.start.offset === node.value.length
-      ? node
-      : {
-          ...node,
-          value: options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset
-          ),
-        }
-  );
-}
+  return mapAst(ast, (node) => {
+    if (node.type !== "text") {
+      return node;
+    }
 
-function mergeContinuousImportExport(ast) {
-  return mergeChildren(
-    ast,
-    (prevNode, node) =>
-      prevNode.type === "importExport" && node.type === "importExport",
-    (prevNode, node) => ({
-      type: "importExport",
-      value: prevNode.value + "\n\n" + node.value,
-      position: {
-        start: prevNode.position.start,
-        end: node.position.end,
-      },
-    })
-  );
+    const { value } = node;
+
+    if (
+      value === "*" ||
+      value === "_" || // handle these cases in printer
+      !isSingleCharRegex.test(value) ||
+      node.position.end.offset - node.position.start.offset === value.length
+    ) {
+      return node;
+    }
+
+    const text = options.originalText.slice(
+      node.position.start.offset,
+      node.position.end.offset,
+    );
+
+    if (isNewLineBlockquoteRegex.test(text)) {
+      return node;
+    }
+
+    return { ...node, value: text };
+  });
 }
 
 function mergeChildren(ast, shouldMerge, mergeNode) {
@@ -78,7 +50,7 @@ function mergeChildren(ast, shouldMerge, mergeNode) {
       return node;
     }
     const children = node.children.reduce((current, child) => {
-      const lastChild = current[current.length - 1];
+      const lastChild = current.at(-1);
       if (lastChild && shouldMerge(lastChild, child)) {
         current.splice(-1, 1, mergeNode(lastChild, child));
       } else {
@@ -101,11 +73,11 @@ function mergeContinuousTexts(ast) {
         start: prevNode.position.start,
         end: node.position.end,
       },
-    })
+    }),
   );
 }
 
-function splitTextIntoSentences(ast, options) {
+function splitTextIntoSentences(ast) {
   return mapAst(ast, (node, index, [parentNode]) => {
     if (node.type !== "text") {
       return node;
@@ -114,18 +86,20 @@ function splitTextIntoSentences(ast, options) {
     let { value } = node;
 
     if (parentNode.type === "paragraph") {
+      // CommonMark doesn't remove trailing/leading \f, but it should be
+      // removed in the HTML rendering process
       if (index === 0) {
-        value = value.trimStart();
+        value = htmlWhitespaceUtils.trimStart(value);
       }
       if (index === parentNode.children.length - 1) {
-        value = value.trimEnd();
+        value = htmlWhitespaceUtils.trimEnd(value);
       }
     }
 
     return {
       type: "sentence",
       position: node.position,
-      children: splitText(value, options),
+      children: splitText(value),
     };
   });
 }
@@ -134,11 +108,11 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
   return mapAst(ast, (node, index, parentStack) => {
     if (node.type === "code") {
       // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
-      const isIndented = /^\n?( {4,}|\t)/.test(
+      const isIndented = /^\n?(?: {4,}|\t)/u.test(
         options.originalText.slice(
           node.position.start.offset,
-          node.position.end.offset
-        )
+          node.position.end.offset,
+        ),
       );
 
       node.isIndented = isIndented;
@@ -197,7 +171,7 @@ function markAlignedList(ast, options) {
 
     const [firstItem, secondItem] = list.children;
 
-    const firstInfo = getOrderedListItemInfo(firstItem, options.originalText);
+    const firstInfo = getOrderedListItemInfo(firstItem, options);
 
     if (firstInfo.leadingSpaces.length > 1) {
       /**
@@ -266,9 +240,9 @@ function markAlignedList(ast, options) {
      * 1. 123
      * 2. 123
      */
-    const secondInfo = getOrderedListItemInfo(secondItem, options.originalText);
+    const secondInfo = getOrderedListItemInfo(secondItem, options);
     return secondInfo.leadingSpaces.length > 1;
   }
 }
 
-module.exports = preprocess;
+export default preprocess;

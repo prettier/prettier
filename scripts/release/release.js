@@ -1,75 +1,30 @@
 #!/usr/bin/env node
 
-"use strict";
+/* This file can't use any dependency since the dependencies may not installed yet */
+import { exec } from "node:child_process";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const { exec, execSync } = require("child_process");
-
-async function run() {
-  const chalk = require("chalk");
-  const { string: outdentString } = require("outdent");
-  const minimist = require("minimist");
-  const semver = require("semver");
-
-  const { readJson } = require("./utils");
-
-  const params = minimist(process.argv.slice(2), {
-    string: ["version"],
-    boolean: ["dry"],
-    alias: { v: "version" },
+const directory = path.dirname(fileURLToPath(import.meta.url));
+function runCommand(command) {
+  return new Promise((resolve, reject) => {
+    const { stdout, stderr } = exec(command, { cwd: directory }, (error) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve();
+      }
+    });
+    stdout.pipe(process.stdout);
+    stderr.pipe(process.stderr);
   });
-
-  const previousVersion = execSync("git describe --tags --abbrev=0")
-    .toString()
-    .trim();
-
-  if (semver.parse(previousVersion) === null) {
-    throw new Error(`Unexpected previousVersion: ${previousVersion}`);
-  } else {
-    params.previousVersion = previousVersion;
-    params.previousVersionOnDefaultBranch = (
-      await readJson("package.json")
-    ).version;
-  }
-
-  const steps = [
-    require("./steps/validate-new-version"),
-    require("./steps/check-git-status"),
-    require("./steps/install-dependencies"),
-    require("./steps/run-tests"),
-    require("./steps/update-version"),
-    require("./steps/generate-bundles"),
-    require("./steps/update-changelog"),
-    require("./steps/push-to-git"),
-    require("./steps/publish-to-npm"),
-    require("./steps/bump-prettier"),
-    require("./steps/update-dependents-count"),
-    require("./steps/post-publish-steps"),
-  ];
-
-  try {
-    for (const step of steps) {
-      await step(params);
-    }
-  } catch (error) {
-    const message = outdentString(error.message.trim());
-    const stack = error.stack.replace(message, "");
-    console.error(`${chalk.red("error")} ${message}\n${stack}`);
-    process.exit(1);
-  }
 }
 
-exec(
-  [
-    "git fetch --tags", // Fetch git tags to get the previous version number (i.e. the latest tag)
-    "yarn install", // Install script's dependencies before any require
-  ].join(" && "),
-  { cwd: __dirname },
-  (error) => {
-    if (error) {
-      console.error(error);
-      process.exit(1);
-    } else {
-      run();
-    }
-  }
-);
+// Fetch git tags to get the previous version number (i.e. the latest tag)
+await runCommand("git fetch --tags");
+
+// Install script's dependencies before any require
+await runCommand("yarn");
+
+// Ready to run
+await import("./run.js");

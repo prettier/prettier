@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`include plugin's parsers to the values of the \`parser\` option\` (stderr) 1`] = `""`;
+
+exports[`include plugin's parsers to the values of the \`parser\` option\` (stdout) 1`] = `
+"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
+
+  Which parser to use.
+
+Valid options:
+
+  flow             Flow
+  babel            JavaScript
+  babel-flow       Flow
+  babel-ts         TypeScript
+  typescript       TypeScript
+  acorn            JavaScript
+  espree           JavaScript
+  meriyah          JavaScript
+  css              CSS
+  less             Less
+  scss             SCSS
+  json             JSON
+  json5            JSON5
+  jsonc            JSON with Comments
+  json-stringify   JSON.stringify
+  graphql          GraphQL
+  markdown         Markdown
+  mdx              MDX
+  vue              Vue
+  yaml             YAML
+  glimmer          Ember / Handlebars
+  html             HTML
+  angular          Angular
+  lwc              Lightning Web Components
+  foo-parser       foo (plugin: ./plugin.cjs)"
+`;
+
+exports[`include plugin's parsers to the values of the \`parser\` option\` (write) 1`] = `[]`;
+
+exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;
+
+exports[`show detailed external option with \`--help foo-option\` (stdout) 1`] = `
+"--foo-option <bar|baz>
+
+  foo description
+
+Valid options:
+
+  bar   bar description
+  baz   baz description
+
+Default: bar"
+`;
+
+exports[`show detailed external option with \`--help foo-option\` (write) 1`] = `[]`;
+
+exports[`show external options with \`--help\` 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -27,19 +27,21 @@
+    --experimental-operator-position <start|end>
+                             Where to print operators when binary expressions wrap lines.
+                             Defaults to end.
+    --no-experimental-ternaries
+                             Default behavior of ternaries; keep question marks on the same line as the consequent.
++   --foo-option <bar|baz>   foo description
++                            Defaults to bar.
+    --html-whitespace-sensitivity <css|strict|ignore>
+                             How to handle whitespaces in HTML.
+                             Defaults to css.
+    --jsx-single-quote       Use single quotes in JSX.
+                             Defaults to false.
+    --object-wrap <preserve|collapse>
+                             How to wrap object literals.
+                             Defaults to preserve.
+-   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
++   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
+                             Which parser to use.
+    --print-width <int>      The line length where Prettier will try wrap.
+                             Defaults to 80.
+    --prose-wrap <always|never|preserve>
+                             How to wrap prose."
+`;

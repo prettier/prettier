@@ -1,9 +1,7 @@
-"use strict";
-
-const readline = require("readline");
-const chalk = require("chalk");
-const stripAnsi = require("strip-ansi");
-const wcwidth = require("wcwidth");
+import readline from "node:readline";
+import stripAnsi from "strip-ansi";
+import wcwidth from "wcwidth.js";
+import { picocolors } from "./prettier-internal.js";
 
 const countLines = (stream, text) => {
   const columns = stream.columns || 80;
@@ -18,6 +16,7 @@ const clear = (stream, text) => () => {
   const lineCount = countLines(stream, text);
 
   for (let line = 0; line < lineCount; line++) {
+    /* c8 ignore next 3 */
     if (line > 0) {
       readline.moveCursor(stream, 0, -1);
     }
@@ -42,8 +41,8 @@ function createLogger(logLevel = "log") {
       return () => emptyLogResult;
     }
 
-    const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
     const stream = process[loggerName === "log" ? "stdout" : "stderr"];
+    const prefix = color ? `[${picocolors[color](loggerName)}] ` : "";
 
     return (message, options) => {
       options = {
@@ -51,7 +50,8 @@ function createLogger(logLevel = "log") {
         clearable: false,
         ...options,
       };
-      message = message.replace(/^/gm, prefix) + (options.newline ? "\n" : "");
+      message =
+        message.replaceAll(/^/gmu, prefix) + (options.newline ? "\n" : "");
       stream.write(message);
 
       if (options.clearable) {
@@ -87,4 +87,4 @@ function createLogger(logLevel = "log") {
   }
 }
 
-module.exports = { createLogger };
+export default createLogger;

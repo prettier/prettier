@@ -1,77 +1,108 @@
-"use strict";
+import { indent, line } from "../../document/builders.js";
+import { isCallExpression, isMemberExpression } from "../utils/index.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
-const { isNonEmptyArray } = require("../../common/util");
-const {
-  builders: { indent, join, line },
-} = require("../../document");
-const { isFlowAnnotationComment } = require("../utils");
+/**
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/builders.js"
+ */
 
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
 function printOptionalToken(path) {
-  const node = path.getValue();
+  const { node } = path;
   if (
     !node.optional ||
     // It's an optional computed method parsed by typescript-estree.
     // "?" is printed in `printMethod`.
-    (node.type === "Identifier" && node === path.getParentNode().key)
+    (node.type === "Identifier" && node === path.parent.key)
   ) {
     return "";
   }
   if (
-    node.type === "OptionalCallExpression" ||
-    (node.type === "OptionalMemberExpression" && node.computed)
+    isCallExpression(node) ||
+    (isMemberExpression(node) && node.computed) ||
+    node.type === "OptionalIndexedAccessType"
   ) {
     return "?.";
   }
   return "?";
 }
 
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
+function printDefiniteToken(path) {
+  return path.node.definite ||
+    path.match(
+      undefined,
+      (node, name) =>
+        name === "id" && node.type === "VariableDeclarator" && node.definite,
+    )
+    ? "!"
+    : "";
+}
+
+const flowDeclareNodeTypes = new Set([
+  "DeclareClass",
+  "DeclareComponent",
+  "DeclareFunction",
+  "DeclareHook",
+  "DeclareVariable",
+  "DeclareExportDeclaration",
+  "DeclareExportAllDeclaration",
+  "DeclareOpaqueType",
+  "DeclareTypeAlias",
+  "DeclareEnum",
+  "DeclareInterface",
+]);
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
+function printDeclareToken(path) {
+  const { node } = path;
+
+  return (
+    // TypeScript
+    node.declare ||
+      // Flow
+      (flowDeclareNodeTypes.has(node.type) &&
+        path.parent.type !== "DeclareExportDeclaration")
+      ? "declare "
+      : ""
+  );
+}
+
+const tsAbstractNodeTypes = new Set([
+  "TSAbstractMethodDefinition",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
+/**
+ * @param {AstPath} param0
+ * @returns {Doc}
+ */
+function printAbstractToken({ node }) {
+  return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
+}
+
 function printFunctionTypeParameters(path, options, print) {
-  const fun = path.getValue();
+  const fun = path.node;
   if (fun.typeArguments) {
-    return path.call(print, "typeArguments");
+    return print("typeArguments");
   }
   if (fun.typeParameters) {
-    return path.call(print, "typeParameters");
+    return print("typeParameters");
   }
   return "";
 }
 
-function printTypeAnnotation(path, options, print) {
-  const node = path.getValue();
-  if (!node.typeAnnotation) {
-    return "";
-  }
-
-  const parentNode = path.getParentNode();
-  const isDefinite =
-    node.definite ||
-    (parentNode &&
-      parentNode.type === "VariableDeclarator" &&
-      parentNode.definite);
-
-  const isFunctionDeclarationIdentifier =
-    parentNode.type === "DeclareFunction" && parentNode.id === node;
-
-  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
-    return [" /*: ", path.call(print, "typeAnnotation"), " */"];
-  }
-
-  return [
-    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
-    path.call(print, "typeAnnotation"),
-  ];
-}
-
 function printBindExpressionCallee(path, options, print) {
-  return ["::", path.call(print, "callee")];
-}
-
-function printTypeScriptModifiers(path, options, print) {
-  const n = path.getValue();
-  if (!isNonEmptyArray(n.modifiers)) {
-    return "";
-  }
-  return [join(" ", path.map(print, "modifiers")), " "];
+  return ["::", print("callee")];
 }
 
 function adjustClause(node, clause, forceSpace) {
@@ -86,11 +117,22 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
-module.exports = {
-  printOptionalToken,
-  printFunctionTypeParameters,
-  printBindExpressionCallee,
-  printTypeScriptModifiers,
-  printTypeAnnotation,
+function printRestSpread(path, print) {
+  return ["...", print("argument"), printTypeAnnotationProperty(path, print)];
+}
+
+function printTypeScriptAccessibilityToken(node) {
+  return node.accessibility ? node.accessibility + " " : "";
+}
+
+export {
   adjustClause,
+  printAbstractToken,
+  printBindExpressionCallee,
+  printDeclareToken,
+  printDefiniteToken,
+  printFunctionTypeParameters,
+  printOptionalToken,
+  printRestSpread,
+  printTypeScriptAccessibilityToken,
 };

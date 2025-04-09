@@ -1,0 +1,36 @@
+<h3>&#64;if and &#64;else</h3>
+<div>
+<input #checkbox type="checkbox" [checked]="isChecked()" (change)="isChecked.set(checkbox.checked)" id="checkbox"/>
+</div>
+<div>
+@if (isChecked()) {
+<span>Checked</span>
+}
+@else {
+<span>Not checked</span>
+}
+</div>
+
+@if (users$   |   async;   as   users) { {{   users.length   }} }
+@else if (users$   |   async;   as   users) { {{   users.length   }} }
+
+<div *ngIf="users$   |   async;   as   users">{{   users.length   }}</div>
+
+@else {}
+
+
+@if (isDev) {}
+@else             if (test) {}
+
+@if      (foo(     "quotes")) {}
+@else if (foo(     'quotes')) {}
+
+@if ( widthCategory !== undefined && widthCategory >
+topStartToSideStartMaxSize) {
+<app-component />
+}
+
+@if ( widthCategory; as item) {
+}
+
+<div *ngIf="widthCategory; as item"></div>

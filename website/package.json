@@ -1,26 +1,53 @@
 {
+  "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "webpack && docusaurus-build",
-    "start": "concurrently \"docusaurus-start\" \"webpack --mode=development --watch\"",
-    "update-stable-docs": "rm -rf ./versioned_docs ./versions.json && docusaurus-version stable"
+    "playground:build": "vite build",
+    "playground:watch": "vite",
+    "docusaurus": "docusaurus",
+    "start": "concurrently \"yarn playground:watch\" \"docusaurus start\"",
+    "build": "yarn playground:build && docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "update-stable-docs": "node ./scripts/update-stable-docs.mjs"
   },
   "dependencies": {
-    "clipboard": "2.0.6",
-    "codemirror-graphql": "1.0.0",
-    "lz-string": "1.4.4",
-    "prop-types": "15.7.2",
-    "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "@docusaurus/core": "3.7.0",
+    "@docusaurus/preset-classic": "3.7.0",
+    "@mdx-js/react": "3.1.0",
+    "@sandhose/prettier-animated-logo": "1.0.3",
+    "clsx": "2.1.1",
+    "codemirror-graphql": "2.2.0",
+    "prism-react-renderer": "2.4.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-markdown": "10.1.0",
+    "react-tweet": "3.2.2"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.12.13",
-    "@sandhose/prettier-animated-logo": "1.0.3",
-    "babel-loader": "8.2.2",
-    "concurrently": "6.0.0",
-    "docusaurus": "1.14.6",
-    "js-yaml": "4.0.0",
-    "webpack": "5.23.0",
-    "webpack-cli": "4.5.0"
-  }
+    "@docusaurus/faster": "3.7.0",
+    "@docusaurus/module-type-aliases": "3.7.0",
+    "@docusaurus/types": "3.7.0",
+    "@types/js-yaml": "4.0.9",
+    "@vitejs/plugin-react": "4.3.4",
+    "concurrently": "9.1.2",
+    "js-yaml": "4.1.0",
+    "vite": "6.2.5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "packageManager": "yarn@4.8.1"
 }

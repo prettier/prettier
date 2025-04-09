@@ -1,0 +1,4 @@
+[
+    advancedSearchService.patientInformationFieldsRow2 && advancedSearchService.patientInformationFieldsRow2.indexOf(advancedSearchService.formElementData.customFieldList[i].customFieldType) !== -1,
+  (x && y) ?? z
+]

@@ -1,4 +1,0 @@
-{
-    "plugins": ["../path-to-plugin"],
-    "pluginSearchDirs": ["../path-to-plugin-search-dir"]
-}

@@ -1,52 +1,121 @@
-"use strict";
-const getLast = require("../utils/get-last");
-
-function getNodeHelper(path, count) {
-  const stackIndex = getNodeStackIndexHelper(path.stack, count);
-  return stackIndex === -1 ? null : path.stack[stackIndex];
-}
-
-function getNodeStackIndexHelper(stack, count) {
-  for (let i = stack.length - 1; i >= 0; i -= 2) {
-    const value = stack[i];
-    if (value && !Array.isArray(value) && --count < 0) {
-      return i;
-    }
-  }
-  return -1;
-}
-
 class AstPath {
   constructor(value) {
     this.stack = [value];
   }
 
+  /** @type {string | null} */
+  get key() {
+    const { stack, siblings } = this;
+    return stack.at(siblings === null ? -2 : -4) ?? null;
+  }
+
+  /** @type {number | null} */
+  get index() {
+    return this.siblings === null ? null : this.stack.at(-2);
+  }
+
+  /** @type {object} */
+  get node() {
+    return this.stack.at(-1);
+  }
+
+  /** @type {object | null} */
+  get parent() {
+    return this.getNode(1);
+  }
+
+  /** @type {object | null} */
+  get grandparent() {
+    return this.getNode(2);
+  }
+
+  /** @type {boolean} */
+  get isInArray() {
+    return this.siblings !== null;
+  }
+
+  /** @type {object[] | null} */
+  get siblings() {
+    const { stack } = this;
+    const maybeArray = stack.at(-3);
+    return Array.isArray(maybeArray) ? maybeArray : null;
+  }
+
+  /** @type {object | null} */
+  get next() {
+    const { siblings } = this;
+    return siblings === null ? null : siblings[this.index + 1];
+  }
+
+  /** @type {object | null} */
+  get previous() {
+    const { siblings } = this;
+    return siblings === null ? null : siblings[this.index - 1];
+  }
+
+  /** @type {boolean} */
+  get isFirst() {
+    return this.index === 0;
+  }
+
+  /** @type {boolean} */
+  get isLast() {
+    const { siblings, index } = this;
+    return siblings !== null && index === siblings.length - 1;
+  }
+
+  /** @type {boolean} */
+  get isRoot() {
+    return this.stack.length === 1;
+  }
+
+  /** @type {object} */
+  get root() {
+    return this.stack[0];
+  }
+
+  /** @type {object[]} */
+  get ancestors() {
+    return [...this.#getAncestors()];
+  }
+
   // The name of the current property is always the penultimate element of
-  // this.stack, and always a String.
+  // this.stack, and always a string/number/symbol.
   getName() {
     const { stack } = this;
     const { length } = stack;
     if (length > 1) {
-      return stack[length - 2];
+      return stack.at(-2);
     }
-    // Since the name is always a string, null is a safe sentinel value to
-    // return if we do not know the name of the (root) value.
-    /* istanbul ignore next */
+    // Since the name is a string/number/symbol, null is a safe sentinel value
+    // to return if we do not know the name of the (root) value.
+    /* c8 ignore next */
     return null;
   }
 
   // The value of the current property is always the final element of
   // this.stack.
   getValue() {
-    return getLast(this.stack);
+    return this.stack.at(-1);
   }
 
   getNode(count = 0) {
-    return getNodeHelper(this, count);
+    const stackIndex = this.#getNodeStackIndex(count);
+    return stackIndex === -1 ? null : this.stack[stackIndex];
   }
 
   getParentNode(count = 0) {
-    return getNodeHelper(this, count + 1);
+    return this.getNode(count + 1);
+  }
+
+  #getNodeStackIndex(count) {
+    const { stack } = this;
+    for (let i = stack.length - 1; i >= 0; i -= 2) {
+      if (!Array.isArray(stack[i]) && --count < 0) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   // Temporarily push properties named by string arguments given after the
@@ -57,23 +126,33 @@ class AstPath {
   call(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
-    let value = getLast(stack);
+    let value = stack.at(-1);
 
     for (const name of names) {
       value = value[name];
       stack.push(name, value);
     }
-    const result = callback(this);
-    stack.length = length;
-    return result;
+    try {
+      return callback(this);
+    } finally {
+      stack.length = length;
+    }
   }
 
+  /**
+   * @template {(path: AstPath) => any} T
+   * @param {T} callback
+   * @param {number} [count=0]
+   * @returns {ReturnType<T>}
+   */
   callParent(callback, count = 0) {
-    const stackIndex = getNodeStackIndexHelper(this.stack, count + 1);
+    const stackIndex = this.#getNodeStackIndex(count + 1);
     const parentValues = this.stack.splice(stackIndex + 1);
-    const result = callback(this);
-    this.stack.push(...parentValues);
-    return result;
+    try {
+      return callback(this);
+    } finally {
+      this.stack.push(...parentValues);
+    }
   }
 
   // Similar to AstPath.prototype.call, except that the value obtained by
@@ -83,20 +162,22 @@ class AstPath {
   each(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
-    let value = getLast(stack);
+    let value = stack.at(-1);
 
     for (const name of names) {
       value = value[name];
       stack.push(name, value);
     }
 
-    for (let i = 0; i < value.length; ++i) {
-      stack.push(i, value[i]);
-      callback(this, i, value);
-      stack.length -= 2;
+    try {
+      for (let i = 0; i < value.length; ++i) {
+        stack.push(i, value[i]);
+        callback(this, i, value);
+        stack.length -= 2;
+      }
+    } finally {
+      stack.length = length;
     }
-
-    stack.length = length;
   }
 
   // Similar to AstPath.prototype.each, except that the results of the
@@ -104,9 +185,12 @@ class AstPath {
   // the end of the iteration.
   map(callback, ...names) {
     const result = [];
-    this.each((path, index, value) => {
-      result[index] = callback(path, index, value);
-    }, ...names);
+    this.each(
+      (path, index, value) => {
+        result[index] = callback(path, index, value);
+      },
+      ...names,
+    );
     return result;
   }
 
@@ -123,7 +207,7 @@ class AstPath {
     let node = this.stack[stackPointer--];
 
     for (const predicate of predicates) {
-      /* istanbul ignore next */
+      /* c8 ignore next 3 */
       if (node === undefined) {
         return false;
       }
@@ -151,32 +235,45 @@ class AstPath {
    * Traverses the ancestors of the current node heading toward the tree root
    * until it finds a node that matches the provided predicate function. Will
    * return the first matching ancestor. If no such node exists, returns undefined.
-   * @param {(node: any, name: string, number: number | null) => boolean} predicate
+   * @param {(node: any) => boolean} predicate
    * @internal Unstable API. Don't use in plugins for now.
    */
   findAncestor(predicate) {
-    let stackPointer = this.stack.length - 1;
-
-    let name = null;
-    let node = this.stack[stackPointer--];
-
-    while (node) {
-      // skip index/array
-      let number = null;
-      if (typeof name === "number") {
-        number = name;
-        name = this.stack[stackPointer--];
-        node = this.stack[stackPointer--];
-      }
-
-      if (name !== null && predicate(node, name, number)) {
+    for (const node of this.#getAncestors()) {
+      if (predicate(node)) {
         return node;
       }
+    }
+  }
 
-      name = this.stack[stackPointer--];
-      node = this.stack[stackPointer--];
+  /**
+   * Traverses the ancestors of the current node heading toward the tree root
+   * until it finds a node that matches the provided predicate function.
+   * returns true if matched node found.
+   * @param {(node: any) => boolean} predicate
+   * @returns {boolean}
+   * @internal Unstable API. Don't use in plugins for now.
+   */
+  hasAncestor(predicate) {
+    for (const node of this.#getAncestors()) {
+      if (predicate(node)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  *#getAncestors() {
+    const { stack } = this;
+
+    for (let index = stack.length - 3; index >= 0; index -= 2) {
+      const value = stack[index];
+      if (!Array.isArray(value)) {
+        yield value;
+      }
     }
   }
 }
 
-module.exports = AstPath;
+export default AstPath;

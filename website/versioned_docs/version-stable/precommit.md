@@ -1,8 +1,10 @@
 ---
-id: version-stable-precommit
+id: precommit
 title: Pre-commit Hook
-original_id: precommit
 ---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 You can use Prettier with a pre-commit tool. This can re-format your files that are marked as “staged” via `git add` before you commit.
 
@@ -13,62 +15,80 @@ You can use Prettier with a pre-commit tool. This can re-format your files that 
 _Make sure Prettier is installed and is in your [`devDependencies`](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file) before you proceed._
 
 ```bash
-npx mrm lint-staged
+npx mrm@2 lint-staged
 ```
 
 This will install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged), then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
 
 Read more at the [lint-staged](https://github.com/okonet/lint-staged#configuration) repo.
 
-## Option 2. [pretty-quick](https://github.com/azz/pretty-quick)
+## Option 2. [pretty-quick](https://github.com/prettier/pretty-quick)
 
 **Use Case:** Great for when you want an entire file formatting on your changed/staged files.
 
-Install it along with [husky](https://github.com/typicode/husky):
+Install it along with [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks):
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--npm-->
-
-```bash
-npm install --save-dev pretty-quick husky
-```
-
-<!--yarn-->
+<Tabs groupId="package-manager">
+<TabItem value="npm">
 
 ```bash
-yarn add --dev pretty-quick husky
+npm install --save-dev simple-git-hooks pretty-quick
+echo '{\n  "pre-commit": "npx pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+npx simple-git-hooks
 ```
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+<TabItem value="yarn">
 
-Add this to your `package.json`:
+```bash
+yarn add --dev simple-git-hooks pretty-quick
+echo '{\n  "pre-commit": "yarn pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+yarn simple-git-hooks
+```
+
+</TabItem>
+<TabItem value="pnpm">
+
+```bash
+pnpm add --save-dev simple-git-hooks pretty-quick
+echo '{\n  "pre-commit": "pnpm pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+pnpm simple-git-hooks
+```
+
+</TabItem>
+<TabItem value="bun">
+
+```bash
+bun add --dev simple-git-hooks pretty-quick
+echo '{\n  "pre-commit": "bun pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+bun simple-git-hooks
+```
+
+</TabItem>
+</Tabs>
+
+Read more at the [pretty-quick](https://github.com/prettier/pretty-quick) repo.
+
+## Option 3. [Husky.Net](https://github.com/alirezanet/Husky.Net)
+
+**Use Case:** A dotnet solution to use Prettier along with other code quality tools (e.g. dotnet-format, ESLint, Stylelint, etc.). It supports multiple file states (staged - last-commit, git-files etc.)
+
+```bash
+dotnet new tool-manifest
+dotnet tool install husky
+dotnet husky install
+dotnet husky add pre-commit
+```
+
+after installation you can add prettier task to the `task-runner.json`.
 
 ```json
 {
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  }
+  "command": "npx",
+  "args": ["prettier", "--ignore-unknown", "--write", "${staged}"],
+  "pathMode": "absolute"
 }
 ```
-
-Read more at the [pretty-quick](https://github.com/azz/pretty-quick) repo.
-
-## Option 3. [pre-commit](https://github.com/pre-commit/pre-commit)
-
-**Use Case:** Great when working with multi-language projects.
-
-Copy the following config into your `.pre-commit-config.yaml` file:
-
-```yaml
-- repo: https://github.com/pre-commit/mirrors-prettier
-  rev: "" # Use the sha or tag you want to point at
-  hooks:
-    - id: prettier
-```
-
-Read more at [mirror of prettier package for pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
 
 ## Option 4. [git-format-staged](https://github.com/hallettj/git-format-staged)
 
@@ -83,32 +103,44 @@ Git-format-staged is used to run any formatter that can accept file content via 
 
 Git-format-staged requires Python v3 or v2.7. Python is usually pre-installed on Linux and macOS, but not on Windows. Use git-format-staged with [husky](https://github.com/typicode/husky):
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--npm-->
+<Tabs groupId="package-manager">
+<TabItem value="npm">
 
 ```bash
-npm install --save-dev git-format-staged husky
+npx husky init
+npm install --save-dev git-format-staged
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--yarn-->
+</TabItem>
+<TabItem value="yarn">
 
 ```bash
-yarn add --dev git-format-staged husky
+yarn husky init
+yarn add --dev git-format-staged
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+<TabItem value="pnpm">
 
-and add this config to your `package.json`:
-
-```json
-{
-  "husky": {
-    "hooks": {
-      "pre-commit": "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
-    }
-  }
-}
+```bash
+pnpm exec husky init
+pnpm add --save-dev git-format-staged
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
+
+</TabItem>
+<TabItem value="bun">
+
+```bash
+bunx husky init
+bun add --dev git-format-staged
+bun --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
+```
+
+</TabItem>
+</Tabs>
 
 Add or remove file extensions to suit your project. Note that regardless of which extensions you list formatting will respect any `.prettierignore` files in your project.
 
@@ -120,11 +152,11 @@ Alternately you can save this script as `.git/hooks/pre-commit` and give it exec
 
 ```sh
 #!/bin/sh
-FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.js" "*.jsx" | sed 's| |\\ |g')
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
 
 # Prettify all selected files
-echo "$FILES" | xargs ./node_modules/.bin/prettier --write
+echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add

@@ -1,41 +1,44 @@
-"use strict";
+import enquirer from "enquirer";
+import spawn from "nano-spawn";
+import { waitForEnter } from "../utils.js";
 
-const chalk = require("chalk");
-const { string: outdentString } = require("outdent");
-const execa = require("execa");
-const { logPromise, waitForEnter } = require("../utils");
+export default async function publishToNpm({ dry }) {
+  console.log(`Ready to publish to NPM${dry ? "(--dry-run)" : ""}`);
 
-module.exports = async function ({ dry, version }) {
+  await waitForEnter();
+
+  const commonArgs = ["publish"];
   if (dry) {
-    return;
+    commonArgs.push("--dry-run");
   }
 
-  await logPromise(
-    "Publishing to npm",
-    execa("npm", ["publish"], {
-      cwd: "./dist",
-      stdio: "inherit", // we need to input OTP if 2FA enabled
-    })
-  );
+  const runNpmPublish = async () => {
+    const args = [...commonArgs];
 
-  console.log(
-    outdentString(chalk`
-      {green.bold Prettier ${version} published!}
+    if (!dry) {
+      const { otp } = await enquirer.prompt({
+        type: "input",
+        name: "otp",
+        message: "Please enter your npm OTP",
+      });
+      args.push("--otp", otp);
+    }
 
-      {yellow.bold Some manual steps are necessary.}
+    await spawn("npm", args, { cwd: "./dist/prettier" });
+  };
 
-      {bold.underline Create a GitHub Release}
-      - Go to {cyan.underline https://github.com/prettier/prettier/releases/new?tag=${version}}
-      - Copy release notes from {yellow CHANGELOG.md}
-      - Press {bgGreen.black  Publish release }
-
-      {bold.underline Test the new release}
-      - In a new session, run {yellow npm i prettier@latest} in another directory
-      - Test the API and CLI
-
-      After that, we can proceed to bump this repo's Prettier dependency.
-      Press ENTER to continue.
-    `)
-  );
-  await waitForEnter();
-};
+  /**
+   * Retry "npm publish" when to enter OTP is failed.
+   */
+  for (let i = 5; i > 0; i--) {
+    try {
+      return await runNpmPublish();
+    } catch (error) {
+      if (error.code === "EOTP" && i > 0) {
+        console.log(`To enter OTP is failed, you can retry it ${i} times.`);
+        continue;
+      }
+      throw error;
+    }
+  }
+}

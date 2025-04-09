@@ -1,3 +1,2443 @@
+# 3.5.3
+
+[diff](https://github.com/prettier/prettier/compare/3.5.2...3.5.3)
+
+#### Flow: Fix missing parentheses in `ConditionalTypeAnnotation` ([#17196](https://github.com/prettier/prettier/pull/17196) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+type T<U> = 'a' | ('b' extends U ? 'c' : empty);
+type T<U> = 'a' & ('b' extends U ? 'c' : empty);
+
+// Prettier 3.5.2
+type T<U> = "a" | "b" extends U ? "c" : empty;
+type T<U> = "a" & "b" extends U ? "c" : empty;
+
+// Prettier 3.5.3
+type T<U> = "a" | ("b" extends U ? "c" : empty);
+type T<U> = "a" & ("b" extends U ? "c" : empty);
+```
+
+# 3.5.2
+
+[diff](https://github.com/prettier/prettier/compare/3.5.1...3.5.2)
+
+#### Remove `module-sync` condition ([#17156](https://github.com/prettier/prettier/pull/17156) by [@fisker](https://github.com/fisker))
+
+In Prettier 3.5.0, [we added `module-sync` condition to `package.json`](https://prettier.io/blog/2025/02/09/3.5.0#use-esm-entrypoint-for-requireesm-16958-by-tats-u), so that `require("prettier")` can use ESM version, but turns out it doesn't work if CommonJS and ESM plugins both imports builtin plugins. To solve this problem, we decide simply remove the `module-sync` condition, so `require("prettier")` will still use the CommonJS version, we'll revisit until `require(ESM)` feature is more stable.
+
+# 3.5.1
+
+[diff](https://github.com/prettier/prettier/compare/3.5.0...3.5.1)
+
+#### Fix CLI crash when cache for old version exists ([#17100](https://github.com/prettier/prettier/pull/17100) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Prettier 3.5 uses a different cache format than previous versions, Prettier 3.5.0 crashes when reading existing cache file, Prettier 3.5.1 fixed the problem.
+
+#### Support dockercompose and github-actions-workflow in VSCode ([#17101](https://github.com/prettier/prettier/pull/17101) by [@remcohaszing](https://github.com/remcohaszing))
+
+Prettier now supports the `dockercompose` and `github-actions-workflow` languages in Visual Studio Code.
+
+# 3.5.0
+
+[diff](https://github.com/prettier/prettier/compare/3.4.2...3.5.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2025/02/09/3.5.0.html)
+
+# 3.4.2
+
+[diff](https://github.com/prettier/prettier/compare/3.4.1...3.4.2)
+
+#### Treat U+30A0 & U+30FB in Katakana Block as CJK ([#16796](https://github.com/prettier/prettier/pull/16796) by [@tats-u](https://github.com/tats-u))
+
+Prettier doesn't treat U+30A0 & U+30FB as Japanese. U+30FB is commonly used in Japanese to represent the delimitation of first and last names of non-Japanese people or “and”. The following “C言語・C++・Go・Rust” means “C language & C++ & Go & Rust” in Japanese.
+
+<!-- prettier-ignore -->
+```md
+<!-- Input (--prose-wrap=never) -->
+
+C言
+語
+・
+C++
+・
+Go
+・
+Rust
+
+<!-- Prettier 3.4.1 -->
+C言語・ C++ ・ Go ・ Rust
+
+<!-- Prettier 3.4.2 -->
+C言語・C++・Go・Rust
+```
+
+U+30A0 can be used as the replacement of the `-` in non-Japanese names (e.g. “Saint-Saëns” (Charles Camille Saint-Saëns) can be represented as “サン゠サーンス” in Japanese), but substituted by ASCII hyphen (U+002D) or U+FF1D (full width hyphen) in many cases (e.g. “サン=サーンス” or “サン＝サーンス”).
+
+#### Fix comments print on class methods with decorators ([#16891](https://github.com/prettier/prettier/pull/16891) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+class A {
+  @decorator
+  /** 
+   * The method description
+   *
+  */
+  async method(foo: Foo, bar: Bar) {
+    console.log(foo);
+  }
+}
+
+// Prettier 3.4.1
+class A {
+  @decorator
+  async /**
+   * The method description
+   *
+   */
+  method(foo: Foo, bar: Bar) {
+    console.log(foo);
+  }
+}
+
+// Prettier 3.4.2
+class A {
+  @decorator
+  /**
+   * The method description
+   *
+   */
+  async method(foo: Foo, bar: Bar) {
+    console.log(foo);
+  }
+}
+```
+
+#### Fix non-idempotent formatting ([#16899](https://github.com/prettier/prettier/pull/16899) by [@seiyab](https://github.com/seiyab))
+
+This bug fix is not language-specific. You may see similar change in any languages. This fixes regression in 3.4.0 so change caused by it should yield same formatting as 3.3.3.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+<div>
+  foo
+  <span>longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo</span>
+  , abc
+</div>;
+
+// Prettier 3.4.1 (first)
+<div>
+  foo
+  <span>
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo
+  </span>, abc
+</div>;
+
+// Prettier 3.4.1 (second)
+<div>
+  foo
+  <span>longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo</span>
+  , abc
+</div>;
+
+// Prettier 3.4.2
+<div>
+  foo
+  <span>longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo</span>
+  , abc
+</div>;
+```
+
+# 3.4.1
+
+[diff](https://github.com/prettier/prettier/compare/3.4.0...3.4.1)
+
+#### Remove unnecessary parentheses around assignment in `v-on` ([#16887](https://github.com/prettier/prettier/pull/16887) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```vue
+<!-- Input -->
+<template>
+  <button @click="foo += 2">Click</button>
+</template>
+
+<!-- Prettier 3.4.0 -->
+<template>
+  <button @click="(foo += 2)">Click</button>
+</template>
+
+<!-- Prettier 3.4.1 -->
+<template>
+  <button @click="foo += 2">Click</button>
+</template>
+```
+
+# 3.4.0
+
+[diff](https://github.com/prettier/prettier/compare/3.3.3...3.4.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2024/11/26/3.4.0.html)
+
+# 3.3.3
+
+[diff](https://github.com/prettier/prettier/compare/3.3.2...3.3.3)
+
+#### Add parentheses for nullish coalescing in ternary ([#16391](https://github.com/prettier/prettier/pull/16391) by [@cdignam-segment](https://github.com/cdignam-segment))
+
+This change adds clarity to operator precedence.
+
+<!-- prettier-ignore -->
+```js
+// Input
+foo ? bar ?? foo : baz;
+foo ?? bar ? a : b;
+a ? b : foo ?? bar;
+
+// Prettier 3.3.2
+foo ? bar ?? foo : baz;
+foo ?? bar ? a : b;
+a ? b : foo ?? bar;
+
+// Prettier 3.3.3
+foo ? (bar ?? foo) : baz;
+(foo ?? bar) ? a : b;
+a ? b : (foo ?? bar);
+```
+
+#### Add parentheses for decorator expressions ([#16458](https://github.com/prettier/prettier/pull/16458) by [@y-schneider](https://github.com/y-schneider))
+
+Prevent parentheses around member expressions or tagged template literals from being removed to follow the stricter parsing rules of TypeScript 5.5.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+@(foo`tagged template`)
+class X {}
+
+// Prettier 3.3.2
+@foo`tagged template`
+class X {}
+
+// Prettier 3.3.3
+@(foo`tagged template`)
+class X {}
+```
+
+#### Support `@let` declaration syntax ([#16474](https://github.com/prettier/prettier/pull/16474) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Adds support for Angular v18 `@let` declaration syntax.
+
+Please see the following code example. The `@let` declaration allows you to define local variables within the template:
+
+<!-- prettier-ignore -->
+```html
+@let name = 'Frodo';
+
+<h1>Dashboard for {{name}}</h1>
+Hello, {{name}}
+```
+
+For more details, please refer to the excellent blog post by the Angular Team: [Introducing @let in Angular](https://blog.angular.dev/introducing-let-in-angular-686f9f383f0f).
+
+We also appreciate the Angular Team for kindly answering our questions to implement this feature.
+
+# 3.3.2
+
+[diff](https://github.com/prettier/prettier/compare/3.3.1...3.3.2)
+
+#### Fix handlebars path expressions starts with `@` ([#16358](https://github.com/prettier/prettier/pull/16358) by [@Princeyadav05](https://github.com/Princeyadav05))
+
+<!-- prettier-ignore -->
+```hbs
+{{! Input }}
+<div>{{@x.y.z}}</div>
+
+{{! Prettier 3.3.1 }}
+<div>{{@x}}</div>
+
+{{! Prettier 3.3.2 }}
+<div>{{@x.y.z}}</div>
+```
+
+# 3.3.1
+
+[diff](https://github.com/prettier/prettier/compare/3.3.0...3.3.1)
+
+#### Preserve empty lines in front matter ([#16347](https://github.com/prettier/prettier/pull/16347) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+---
+foo:
+  - bar1
+
+  - bar2
+
+  - bar3
+---
+Markdown
+
+<!-- Prettier 3.3.0 -->
+
+---
+foo:
+  - bar1
+  - bar2
+  - bar3
+---
+
+Markdown
+
+
+<!-- Prettier 3.3.1 -->
+---
+foo:
+  - bar1
+
+  - bar2
+
+  - bar3
+---
+
+Markdown
+```
+
+#### Preserve explicit language in front matter ([#16348](https://github.com/prettier/prettier/pull/16348) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+---yaml
+title: Hello
+slug: home
+---
+
+<!-- Prettier 3.3.0 -->
+---
+title: Hello
+slug: home
+---
+
+<!-- Prettier 3.3.1 -->
+---yaml
+title: Hello
+slug: home
+---
+```
+
+#### Avoid line breaks in import attributes ([#16349](https://github.com/prettier/prettier/pull/16349) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type: "json" };
+
+// Prettier 3.3.0
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type:
+  "json" };
+
+// Prettier 3.3.1
+import something from "./some-very-very-very-very-very-very-very-very-long-path.json" with { type: "json" };
+```
+
+# 3.3.0
+
+[diff](https://github.com/prettier/prettier/compare/3.2.5...3.3.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2024/06/01/3.3.0.html)
+
+# 3.2.5
+
+[diff](https://github.com/prettier/prettier/compare/3.2.4...3.2.5)
+
+#### Support Angular inline styles as single template literal ([#15968](https://github.com/prettier/prettier/pull/15968) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+[Angular v17](https://blog.angular.io/introducing-angular-v17-4d7033312e4b) supports single string inline styles.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+@Component({
+  template: `<div>...</div>`,
+  styles: `h1 { color: blue; }`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.4
+@Component({
+  template: `<div>...</div>`,
+  styles: `h1 { color: blue; }`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.5
+@Component({
+  template: `<div>...</div>`,
+  styles: `
+    h1 {
+      color: blue;
+    }
+  `,
+})
+export class AppComponent {}
+
+```
+
+#### Unexpected embedded formatting for Angular template ([#15969](https://github.com/prettier/prettier/pull/15969) by [@JounQin](https://github.com/JounQin))
+
+Computed template should not be considered as Angular component template
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const template = "foobar";
+
+@Component({
+  [template]: `<h1>{{       hello }}</h1>`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.4
+const template = "foobar";
+
+@Component({
+  [template]: `<h1>{{ hello }}</h1>`,
+})
+export class AppComponent {}
+
+// Prettier 3.2.5
+const template = "foobar";
+
+@Component({
+  [template]: `<h1>{{       hello }}</h1>`,
+})
+export class AppComponent {}
+```
+
+#### Use `"json"` parser for `tsconfig.json` by default ([#16012](https://github.com/prettier/prettier/pull/16012) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+In [v3.2.0](https://prettier.io/blog/2024/01/12/3.2.0#new-jsonc-parser-added-15831httpsgithubcomprettierprettierpull15831-by-fiskerhttpsgithubcomfisker), we introduced `"jsonc"` parser which adds trailing comma **by default**.
+
+When adding a new parser we also define how it will be used based on the [`linguist-languages`](https://www.npmjs.com/package/linguist-languages) data.
+
+`tsconfig.json` is a special file used by [TypeScript](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#using-tsconfigjson-or-jsconfigjson), it uses `.json` file extension, but it actually uses the [JSON with Comments](https://code.visualstudio.com/docs/languages/json#_json-with-comments) syntax. However, we found that there are many third-party tools not recognize it correctly because of the confusing `.json` file extension.
+
+We decide to treat it as a JSON file for now to avoid the extra configuration step.
+
+To keep using the `"jsonc"` parser for your `tsconfig.json` files, add the following to your `.prettierrc` file
+
+```json
+{
+  "overrides": [
+    {
+      "files": ["tsconfig.json", "jsconfig.json"],
+      "options": {
+        "parser": "jsonc"
+      }
+    }
+  ]
+}
+```
+
+<!-- prettier-ignore -->
+```
+# Prettier 3.2.4
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "jsonc" }
+
+# Prettier 3.2.5
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "json" }
+```
+
+# 3.2.4
+
+[diff](https://github.com/prettier/prettier/compare/3.2.3...3.2.4)
+
+#### Fix incorrect parser inference ([#15947](https://github.com/prettier/prettier/pull/15947) by [@fisker](https://github.com/fisker))
+
+Files like `.eslintrc.json` were incorrectly formatted as JSONC files.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+prettier --file-info .eslintrc.json
+{ "ignored": false, "inferredParser": "jsonc" }
+
+// Prettier 3.2.4
+prettier --file-info .eslintrc.json
+{ "ignored": false, "inferredParser": "json" }
+```
+
+# 3.2.3
+
+[diff](https://github.com/prettier/prettier/compare/3.2.2...3.2.3)
+
+#### Throw errors for invalid code ([#15881](https://github.com/prettier/prettier/pull/15881) by [@fisker](https://github.com/fisker), [@Josh-Cena](https://github.com/Josh-Cena), [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+1++;
+
+// Prettier 3.2.2
+1++;
+
+// Prettier 3.2.3
+SyntaxError: Invalid left-hand side expression in unary operation (1:1)
+> 1 | 1++;
+    | ^
+```
+
+<!-- prettier-ignore -->
+```ts
+// Input
+try {} catch (error = 1){}
+
+// Prettier 3.2.2
+try {
+} catch (error) {}
+
+// Prettier 3.2.3
+SyntaxError: Catch clause variable cannot have an initializer. (1:23)
+> 1 | try {} catch (error = 1){}
+    |                       ^
+```
+
+#### Fix parser inference ([#15927](https://github.com/prettier/prettier/pull/15927) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```console
+// Prettier 3.2.2
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "json" }
+
+// Prettier 3.2.3
+prettier --file-info tsconfig.json
+{ "ignored": false, "inferredParser": "jsonc" }
+```
+
+# 3.2.2
+
+[diff](https://github.com/prettier/prettier/compare/3.2.1...3.2.2)
+
+#### Fix crash when parsing template literal CSS in a JSX style tag using a spread attribute ([#15896](https://github.com/prettier/prettier/pull/15896) by [@eelco](https://github.com/eelco))
+
+For example this code would crash before:
+
+<!-- prettier-ignore -->
+```jsx
+<style {...spread}>{`.{}`}</style>
+```
+
+#### Fix formatting error on optional call expression and member chain ([#15920](https://github.com/prettier/prettier/pull/15920) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+a(() => {}, c?.d());
+
+// Prettier 3.2.1
+TypeError: Cannot read properties of undefined (reading 'type')
+
+// Prettier 3.2.2
+a(() => {}, c?.d());
+```
+
+# 3.2.1
+
+[diff](https://github.com/prettier/prettier/compare/3.2.0...3.2.1)
+
+#### Fix formatting error on member chain ([#15915](https://github.com/prettier/prettier/pull/15915) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+test().test2().test2(thing?.something);
+
+// Prettier 3.2.0
+TypeError: Cannot read properties of undefined (reading 'type')
+
+// Prettier 3.2.1
+test().test2().test2(thing?.something);
+
+```
+
+# 3.2.0
+
+[diff](https://github.com/prettier/prettier/compare/3.1.1...3.2.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2024/01/12/3.2.0.html)
+
+# 3.1.1
+
+[diff](https://github.com/prettier/prettier/compare/3.1.0...3.1.1)
+
+#### Fix config file search ([#15363](https://github.com/prettier/prettier/pull/15363) by [@fisker](https://github.com/fisker))
+
+Previously, we start search for config files from the filePath as a directory, if it happened to be a directory and contains config file, it will be used by mistake.
+
+```text
+├─ .prettierrc
+└─ test.js         (A directory)
+  └─ .prettierrc
+```
+
+```js
+// Prettier 3.1.0
+await prettier.resolveConfigFile(new URL("./test.js", import.meta.url));
+// <CWD>/test.js/.prettierrc
+
+// Prettier 3.1.1
+await prettier.resolveConfigFile(new URL("./test.js", import.meta.url));
+// <CWD>/.prettierrc
+```
+
+#### Skip explicitly passed symbolic links with `--no-error-on-unmatched-pattern` ([#15533](https://github.com/prettier/prettier/pull/15533) by [@sanmai-NL](https://github.com/sanmai-NL))
+
+Since Prettier v3, we stopped following symbolic links, however in some use cases, the symbolic link patterns can't be filtered out, and there is no way to prevent Prettier from throwing errors.
+
+In Prettier 3.1.1, you can use `--no-error-on-unmatched-pattern` to simply skip symbolic links.
+
+#### Consistently use tabs in ternaries when `useTabs` is `true` ([#15662](https://github.com/prettier/prettier/pull/15662) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+aaaaaaaaaaaaaaa
+	? bbbbbbbbbbbbbbbbbb
+	: ccccccccccccccc
+	  ? ddddddddddddddd
+	  : eeeeeeeeeeeeeee
+	    ? fffffffffffffff
+	    : gggggggggggggggg;
+
+// Prettier 3.1.0
+aaaaaaaaaaaaaaa
+	? bbbbbbbbbbbbbbbbbb
+	: ccccccccccccccc
+	  ? ddddddddddddddd
+	  : eeeeeeeeeeeeeee
+	    ? fffffffffffffff
+	    : gggggggggggggggg;
+
+// Prettier 3.1.1
+aaaaaaaaaaaaaaa
+	? bbbbbbbbbbbbbbbbbb
+	: ccccccccccccccc
+		? ddddddddddddddd
+		: eeeeeeeeeeeeeee
+			? fffffffffffffff
+			: gggggggggggggggg;
+```
+
+#### Improve config file search ([#15663](https://github.com/prettier/prettier/pull/15663) by [@fisker](https://github.com/fisker))
+
+The Prettier config file search performance has been improved by more effective cache strategy.
+
+#### Fix unstable and ugly formatting for comments in destructuring patterns ([#15708](https://github.com/prettier/prettier/pull/15708) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+const {
+  foo,
+  // bar
+  // baz
+}: Foo = expr;
+
+// Prettier 3.1.0
+const {
+  foo1,
+} // bar
+// baz
+: Foo = expr;
+
+// Prettier 3.1.0 second output
+const {
+  foo1, // bar
+} // baz
+: Foo = expr;
+
+// Prettier 3.1.1
+const {
+  foo1,
+  // bar
+  // baz
+}: Foo = expr;
+```
+
+#### Support "Import Attributes" ([#15718](https://github.com/prettier/prettier/pull/15718) by [@fisker](https://github.com/fisker))
+
+[TypeScript 5.3](https://devblogs.microsoft.com/typescript/announcing-typescript-5-3/#import-attributes) supports the latest updates to the [import attributes](https://github.com/tc39/proposal-import-attributes) proposal.
+
+```tsx
+import something from "./something.json" with { type: "json" };
+```
+
+#### Fix false claim in docs that cursorOffset is incompatible with rangeStart/rangeEnd ([#15750](https://github.com/prettier/prettier/pull/15750) by [@ExplodingCabbage](https://github.com/ExplodingCabbage))
+
+The cursorOffset option has in fact been compatible with rangeStart/rangeEnd for over 5 years, thanks to work by @ds300. However, Prettier's documentation (including the CLI `--help` text) continued to claim otherwise, falsely. The documentation is now fixed.
+
+#### Keep curly braces and `from` keyword in empty `import` statements ([#15756](https://github.com/prettier/prettier/pull/15756) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```js
+// Input
+import { } from 'foo';
+import { /* comment */ } from 'bar';
+
+// Prettier 3.1.0
+import {} from "foo";
+import /* comment */ "bar";
+
+// Prettier 3.1.1
+import {} from "foo";
+import {} from /* comment */ "bar";
+```
+
+#### Keep empty import attributes and assertions ([#15757](https://github.com/prettier/prettier/pull/15757) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```js
+// Input
+import foo from "foo" with {};
+import bar from "bar" assert {};
+
+// Prettier 3.1.0
+import foo from "foo";
+import bar from "bar";
+
+// Prettier 3.1.1
+import foo from "foo" with {};
+import bar from "bar" assert {};
+```
+
+# 3.1.0
+
+[diff](https://github.com/prettier/prettier/compare/3.0.3...3.1.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2023/11/13/3.1.0.html)
+
+# 3.0.3
+
+[diff](https://github.com/prettier/prettier/compare/3.0.2...3.0.3)
+
+#### Add `preferUnplugged: true` to `package.json` ([#15169](https://github.com/prettier/prettier/pull/15169) by [@fisker](https://github.com/fisker) and [@so1ve](https://github.com/so1ve))
+
+Prettier v3 uses dynamic imports, user [will need to unplug Prettier](https://github.com/yarnpkg/berry/pull/5411#issuecomment-1523502224) when Yarn's PnP mode is enabled, add [`preferUnplugged: true`](https://yarnpkg.com/configuration/manifest#preferUnplugged) to `package.json`, so Yarn will install Prettier as unplug by default.
+
+#### Support shared config that forbids `require()` ([#15233](https://github.com/prettier/prettier/pull/15233) by [@fisker](https://github.com/fisker))
+
+If an external shared config package is used, and the package `exports` don't have `require` or `default` export.
+
+In Prettier 3.0.2 Prettier fails when attempt to `require()` the package, and throws an error.
+
+```text
+Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: No "exports" main defined in <packageName>/package.json
+```
+
+#### Allow argument of `require()` to break ([#15256](https://github.com/prettier/prettier/pull/15256) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+const plugin = require(
+  global.STANDALONE
+    ? path.join(__dirname, "../standalone.js")
+    : path.join(__dirname, "..")
+);
+
+// Prettier 3.0.2
+const plugin = require(global.STANDALONE
+  ? path.join(__dirname, "../standalone.js")
+  : path.join(__dirname, ".."));
+
+// Prettier 3.0.3
+const plugin = require(
+  global.STANDALONE
+    ? path.join(__dirname, "../standalone.js")
+    : path.join(__dirname, "..")
+);
+```
+
+#### Do not print trailing commas in arrow function type parameter lists in `ts` code blocks ([#15286](https://github.com/prettier/prettier/pull/15286) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+````md
+<!-- Input -->
+```ts
+const foo = <T>() => {}
+```
+
+<!-- Prettier 3.0.2 -->
+```ts
+const foo = <T,>() => {}
+```
+
+<!-- Prettier 3.0.3 -->
+```ts
+const foo = <T>() => {}
+```
+````
+
+#### Support TypeScript 5.2 `using` / `await using` declaration ([#15321](https://github.com/prettier/prettier/pull/15321) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Support for the upcoming Explicit Resource Management feature in ECMAScript. [`using` / `await using` declaration](https://devblogs.microsoft.com/typescript/announcing-typescript-5-2/#using-declarations-and-explicit-resource-management)
+
+<!-- prettier-ignore -->
+```tsx
+{
+   using foo = new Foo();
+   await using bar = new Bar();
+}
+```
+
+# 3.0.2
+
+[diff](https://github.com/prettier/prettier/compare/3.0.1...3.0.2)
+
+#### Break after `=` of assignment if RHS is poorly breakable AwaitExpression or YieldExpression ([#15204](https://github.com/prettier/prettier/pull/15204) by [@seiyab](https://github.com/seiyab))
+
+<!-- prettier-ignore -->
+```js
+// Input
+const { section, rubric, authors, tags } = await utils.upsertCommonData(mainData);
+
+// Prettier 3.0.1
+const { section, rubric, authors, tags } = await utils.upsertCommonData(
+  mainData,
+);
+
+// Prettier 3.0.2
+const { section, rubric, authors, tags } =
+  await utils.upsertCommonData(mainData);
+```
+
+#### Do not add trailing comma for grouped scss comments ([#15217](https://github.com/prettier/prettier/pull/15217) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```scss
+/* Input */
+$foo: (
+	'property': (),
+	// comment 1
+	// comment 2
+)
+
+/* Prettier 3.0.1 */
+$foo: (
+  "property": (),
+  // comment 1
+  // comment 2,
+);
+
+/* Prettier 3.0.2 */
+$foo: (
+  "property": (),
+  // comment 1
+  // comment 2
+);
+```
+
+#### Print `declare` and `export` keywords for nested namespace ([#15249](https://github.com/prettier/prettier/pull/15249) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+declare namespace abc1.def {}
+export namespace abc2.def {}
+
+// Prettier 3.0.1
+namespace abc1.def {}
+namespace abc2.def {}
+
+// Prettier 3.0.2
+declare namespace abc1.def {}
+export namespace abc2.def {}
+```
+
+# 3.0.1
+
+[diff](https://github.com/prettier/prettier/compare/3.0.0...3.0.1)
+
+#### Fix cursor positioning for a special case ([#14812](https://github.com/prettier/prettier/pull/14812) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```js
+// <|> is the cursor position
+
+/* Input */
+// All messages are represented in JSON.
+// So, the prettier.py controls a subprocess which spawns "node {this_file}".
+import {<|>  } from "fs"
+
+/* Prettier 3.0.0 */
+// All messages are represented in JSON.
+// So, the prettier.py <|>controls a subprocess which spawns "node {this_file}".
+import {} from "fs"
+
+/* Prettier 3.0.1 */
+// All messages are represented in JSON.
+// So, the prettier.py controls a subprocess which spawns "node {this_file}".
+import {<|>} from "fs"
+```
+
+#### Fix plugins/estree.d.ts to make it a module ([#15018](https://github.com/prettier/prettier/pull/15018) by [@kingyue737](https://github.com/kingyue737))
+
+Add `export {}` in `plugins/estree.d.ts` to fix the "File is not a module" error
+
+#### Add parenthesis around leading multiline comment in return statement ([#15037](https://github.com/prettier/prettier/pull/15037) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+function fn() {
+  return (
+    /**
+     * @type {...}
+     */ expression
+  )
+}
+
+// Prettier 3.0.0
+function fn() {
+  return /**
+   * @type {...}
+   */ expression;
+}
+
+// Prettier 3.0.1
+function fn() {
+  return (
+    /**
+     * @type {...}
+     */ expression
+  );
+}
+```
+
+#### Add support for Vue "Generic Components" ([#15066](https://github.com/prettier/prettier/pull/15066) by [@auvred](https://github.com/auvred))
+
+https://blog.vuejs.org/posts/vue-3-3#generic-components
+
+<!-- prettier-ignore -->
+```vue
+<!-- Input -->
+<script setup lang="ts" generic="T extends Type1 & Type2 & (Type3 | Type4), U extends string | number | boolean"></script>
+
+<!-- Prettier 3.0.0 -->
+<script
+  setup
+  lang="ts"
+  generic="T extends Type1 & Type2 & (Type3 | Type4), U extends string | number | boolean"
+></script>
+
+<!-- Prettier 3.0.1 -->
+<script
+  setup
+  lang="ts"
+  generic="
+    T extends Type1 & Type2 & (Type3 | Type4),
+    U extends string | number | boolean
+  "
+></script>
+```
+
+#### Fix comments print in `IfStatement` ([#15076](https://github.com/prettier/prettier/pull/15076) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```js
+function a(b) {
+  if (b) return 1; // comment
+  else return 2;
+}
+
+/* Prettier 3.0.0 */
+Error: Comment "comment" was not printed. Please report this error!
+
+/* Prettier 3.0.1 */
+function a(b) {
+  if (b) return 1; // comment
+  else return 2;
+}
+```
+
+#### Add missing type definition for `printer.preprocess` ([#15123](https://github.com/prettier/prettier/pull/15123) by [@so1ve](https://github.com/so1ve))
+
+```diff
+export interface Printer<T = any> {
+  // ...
++ preprocess?:
++   | ((ast: T, options: ParserOptions<T>) => T | Promise<T>)
++   | undefined;
+}
+```
+
+#### Add missing `getVisitorKeys` method type definition for `Printer` ([#15125](https://github.com/prettier/prettier/pull/15125) by [@auvred](https://github.com/auvred))
+
+```tsx
+const printer: Printer = {
+  print: () => [],
+  getVisitorKeys(node, nonTraversableKeys) {
+    return ["body"];
+  },
+};
+```
+
+#### Add typing to support `readonly` array properties of AST Node ([#15127](https://github.com/prettier/prettier/pull/15127) by [@auvred](https://github.com/auvred))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+interface TestNode {
+  readonlyArray: readonly string[];
+}
+
+declare const path: AstPath<TestNode>;
+
+path.map(() => "", "readonlyArray");
+
+// Prettier 3.0.0
+interface TestNode {
+  readonlyArray: readonly string[];
+}
+
+declare const path: AstPath<TestNode>;
+
+path.map(() => "", "readonlyArray");
+//                  ^ Argument of type '"readonlyArray"' is not assignable to parameter of type '"regularArray"'. ts(2345)
+
+// Prettier 3.0.1
+interface TestNode {
+  readonlyArray: readonly string[];
+}
+
+declare const path: AstPath<TestNode>;
+
+path.map(() => "", "readonlyArray");
+```
+
+#### Add space before unary minus followed by a function call ([#15129](https://github.com/prettier/prettier/pull/15129) by [@pamelalozano](https://github.com/pamelalozano))
+
+<!-- prettier-ignore -->
+```less
+// Input
+div {
+  margin: - func();
+}
+
+// Prettier 3.0.0
+div {
+  margin: -func();
+}
+
+// Prettier 3.0.1
+div {
+  margin: - func();
+}
+```
+
+# 3.0.0
+
+[diff](https://github.com/prettier/prettier/compare/3.0.0-alpha.6...3.0.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2023/07/05/3.0.0.html)
+
+# 2.8.8
+
+This version is a republished version of v2.8.7.
+A bad version was accidentally published and [it can't be unpublished](https://github.com/npm/cli/issues/1686), apologies for the churn.
+
+# 2.8.7
+
+[diff](https://github.com/prettier/prettier/compare/2.8.6...2.8.7)
+
+#### Allow multiple decorators on same getter/setter ([#14584](https://github.com/prettier/prettier/pull/14584) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class A {
+  @decorator()
+  get foo () {}
+  
+  @decorator()
+  set foo (value) {}
+}
+
+// Prettier 2.8.6
+SyntaxError: Decorators cannot be applied to multiple get/set accessors of the same name. (5:3)
+  3 |   get foo () {}
+  4 |   
+> 5 |   @decorator()
+    |   ^^^^^^^^^^^^
+  6 |   set foo (value) {}
+  7 | }
+
+// Prettier 2.8.7
+class A {
+  @decorator()
+  get foo() {}
+
+  @decorator()
+  set foo(value) {}
+}
+```
+
+# 2.8.6
+
+[diff](https://github.com/prettier/prettier/compare/2.8.5...2.8.6)
+
+#### Allow decorators on private members and class expressions ([#14548](https://github.com/prettier/prettier/pull/14548) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class A {
+  @decorator()
+  #privateMethod () {}
+}
+
+// Prettier 2.8.5
+SyntaxError: Decorators are not valid here. (2:3)
+  1 | class A {
+> 2 |   @decorator()
+    |   ^^^^^^^^^^^^
+  3 |   #privateMethod () {}
+  4 | }
+
+// Prettier 2.8.6
+class A {
+  @decorator()
+  #privateMethod() {}
+}
+```
+
+# 2.8.5
+
+[diff](https://github.com/prettier/prettier/compare/2.8.4...2.8.5)
+
+#### Support TypeScript 5.0 ([#14391](https://github.com/prettier/prettier/pull/14391) by [@fisker](https://github.com/fisker), [#13819](https://github.com/prettier/prettier/pull/13819) by [@fisker](https://github.com/fisker), [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+TypeScript 5.0 introduces two new syntactic features:
+
+- `const` modifiers for type parameters
+- `export type *` declarations
+
+#### Add missing parentheses for decorator ([#14393](https://github.com/prettier/prettier/pull/14393) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+class Person {
+  @(myDecoratorArray[0])
+  greet() {}
+}
+
+// Prettier 2.8.4
+class Person {
+  @myDecoratorArray[0]
+  greet() {}
+}
+
+// Prettier 2.8.5
+class Person {
+  @(myDecoratorArray[0])
+  greet() {}
+}
+```
+
+#### Add parentheses for `TypeofTypeAnnotation` to improve readability ([#14458](https://github.com/prettier/prettier/pull/14458) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type A = (typeof node.children)[];
+
+// Prettier 2.8.4
+type A = typeof node.children[];
+
+// Prettier 2.8.5
+type A = (typeof node.children)[];
+```
+
+#### Support `max_line_length=off` when parsing `.editorconfig` ([#14516](https://github.com/prettier/prettier/pull/14516) by [@josephfrazier](https://github.com/josephfrazier))
+
+If an .editorconfig file is in your project and it sets `max_line_length=off` for the file you're formatting,
+it will be interpreted as a `printWidth` of `Infinity` rather than being ignored
+(which previously resulted in the default `printWidth` of 80 being applied, if not overridden by Prettier-specific configuration).
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<div className='HelloWorld' title={`You are visitor number ${ num }`} onMouseOver={onMouseOver}/>
+
+<!-- Prettier 2.8.4 -->
+<div
+  className="HelloWorld"
+  title={`You are visitor number ${num}`}
+  onMouseOver={onMouseOver}
+/>;
+
+<!-- Prettier 2.8.5 -->
+<div className="HelloWorld" title={`You are visitor number ${num}`} onMouseOver={onMouseOver} />;
+```
+
+# 2.8.4
+
+[diff](https://github.com/prettier/prettier/compare/2.8.3...2.8.4)
+
+#### Fix leading comments in mapped types with `readonly` ([#13427](https://github.com/prettier/prettier/pull/13427) by [@thorn0](https://github.com/thorn0), [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type Type = {
+  // comment
+  readonly [key in Foo];
+};
+
+// Prettier 2.8.3
+type Type = {
+  readonly // comment
+  [key in Foo];
+};
+
+// Prettier 2.8.4
+type Type = {
+  // comment
+  readonly [key in Foo];
+};
+```
+
+#### Group params in opening block statements ([#14067](https://github.com/prettier/prettier/pull/14067) by [@jamescdavis](https://github.com/jamescdavis))
+
+This is a follow-up to #13930 to establish wrapping consistency between opening block statements and else blocks by
+grouping params in opening blocks. This causes params to break to a new line together and not be split across lines
+unless the length of params exceeds the print width. This also updates the else block wrapping to behave exactly the
+same as opening blocks.
+
+<!-- prettier-ignore -->
+```hbs
+{{! Input }}
+{{#block param param param param param param param param param param as |blockParam|}}
+  Hello
+{{else block param param param param param param param param param param as |blockParam|}}
+  There
+{{/block}}
+
+{{! Prettier 2.8.3 }}
+{{#block
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  as |blockParam|
+}}
+  Hello
+{{else block param
+param
+param
+param
+param
+param
+param
+param
+param
+param}}
+  There
+{{/block}}
+
+{{! Prettier 2.8.4 }}
+{{#block
+  param param param param param param param param param param
+  as |blockParam|
+}}
+  Hello
+{{else block
+  param param param param param param param param param param
+  as |blockParam|
+}}
+  There
+{{/block}}
+```
+
+#### Ignore files in `.sl/` ([#14206](https://github.com/prettier/prettier/pull/14206) by [@bolinfest](https://github.com/bolinfest))
+
+In [Sapling SCM](https://sapling-scm.com/), `.sl/` is the folder where it stores its state, analogous to `.git/` in Git. It should be ignored in Prettier like the other SCM folders.
+
+#### Recognize `@satisfies` in Closure-style type casts ([#14262](https://github.com/prettier/prettier/pull/14262) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+const a = /** @satisfies {Record<string, string>} */ ({hello: 1337});
+const b = /** @type {Record<string, string>} */ ({hello: 1337});
+
+// Prettier 2.8.3
+const a = /** @satisfies {Record<string, string>} */ { hello: 1337 };
+const b = /** @type {Record<string, string>} */ ({ hello: 1337 });
+
+// Prettier 2.8.4
+const a = /** @satisfies {Record<string, string>} */ ({hello: 1337});
+const b = /** @type {Record<string, string>} */ ({hello: 1337});
+```
+
+#### Fix parens in inferred function return types with `extends` ([#14279](https://github.com/prettier/prettier/pull/14279) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type Foo<T> = T extends ((a) => a is infer R extends string) ? R : never;
+
+// Prettier 2.8.3 (First format)
+type Foo<T> = T extends (a) => a is infer R extends string ? R : never;
+
+// Prettier 2.8.3 (Second format)
+SyntaxError: '?' expected. 
+
+// Prettier 2.8.4
+type Foo<T> = T extends ((a) => a is infer R extends string) ? R : never;
+```
+
+# 2.8.3
+
+[diff](https://github.com/prettier/prettier/compare/2.8.2...2.8.3)
+
+#### Allow self-closing tags on custom elements ([#14170](https://github.com/prettier/prettier/pull/14170) by [@fisker](https://github.com/fisker))
+
+See [Angular v15.1.0 release note](https://github.com/angular/angular/releases/tag/15.1.0) for details.
+
+<!-- prettier-ignore -->
+```html
+// Input
+<app-test/>
+
+// Prettier 2.8.2
+SyntaxError: Only void and foreign elements can be self closed "app-test" (1:1)
+> 1 | <app-test/>
+    | ^^^^^^^^^
+  2 |
+
+// Prettier 2.8.3
+<app-test />
+```
+
+# 2.8.2
+
+[diff](https://github.com/prettier/prettier/compare/2.8.1...2.8.2)
+
+#### Don't lowercase link references ([#13155](https://github.com/prettier/prettier/pull/13155) by [@DerekNonGeneric](https://github.com/DerekNonGeneric) & [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```markdown
+<!-- Input -->
+We now don't strictly follow the release notes format suggested by [Keep a Changelog].
+
+[Keep a Changelog]: https://example.com/
+
+<!-- Prettier 2.8.1 -->
+We now don't strictly follow the release notes format suggested by [Keep a Changelog].
+
+[keep a changelog]: https://example.com/
+<!--
+^^^^^^^^^^^^^^^^^^ lowercased
+-->
+
+<!-- Prettier 2.8.2 -->
+<Same as input>
+```
+
+#### Preserve self-closing tags ([#13691](https://github.com/prettier/prettier/pull/13691) by [@dcyriller](https://github.com/dcyriller))
+
+<!-- prettier-ignore -->
+```hbs
+{{! Input }}
+<div />
+<div></div>
+<custom-component />
+<custom-component></custom-component>
+<i />
+<i></i>
+<Component />
+<Component></Component>
+
+{{! Prettier 2.8.1 }}
+<div></div>
+<div></div>
+<custom-component></custom-component>
+<custom-component></custom-component>
+<i></i>
+<i></i>
+<Component />
+<Component />
+
+{{! Prettier 2.8.2 }}
+<div />
+<div></div>
+<custom-component />
+<custom-component></custom-component>
+<i />
+<i></i>
+<Component />
+<Component />
+```
+
+#### Allow custom "else if"-like blocks with block params ([#13930](https://github.com/prettier/prettier/pull/13930) by [@jamescdavis](https://github.com/jamescdavis))
+
+#13507 added support for custom block keywords used with `else`, but failed to allow block params. This updates printer-glimmer to allow block params with custom "else if"-like blocks.
+
+<!-- prettier-ignore -->
+```hbs
+{{! Input }}
+{{#when isAtWork as |work|}}
+  Ship that
+  {{work}}!
+{{else when isReading as |book|}}
+  You can finish
+  {{book}}
+  eventually...
+{{else}}
+  Go to bed!
+{{/when}}
+
+{{! Prettier 2.8.1 }}
+{{#when isAtWork as |work|}}
+  Ship that
+  {{work}}!
+{{else when isReading}}
+  You can finish
+  {{book}}
+  eventually...
+{{else}}
+  Go to bed!
+{{/when}}
+
+{{! Prettier 2.8.2 }}
+{{#when isAtWork as |work|}}
+  Ship that
+  {{work}}!
+{{else when isReading as |book|}}
+  You can finish
+  {{book}}
+  eventually...
+{{else}}
+  Go to bed!
+{{/when}}
+```
+
+#### Preserve empty lines between nested SCSS maps ([#13931](https://github.com/prettier/prettier/pull/13931) by [@jneander](https://github.com/jneander))
+
+<!-- prettier-ignore -->
+```scss
+/* Input */
+$map: (
+  'one': (
+     'key': 'value',
+  ),
+
+  'two': (
+     'key': 'value',
+  ),
+)
+
+/* Prettier 2.8.1 */
+$map: (
+  'one': (
+     'key': 'value',
+  ),
+  'two': (
+     'key': 'value',
+  ),
+)
+
+/* Prettier 2.8.2 */
+$map: (
+  'one': (
+     'key': 'value',
+  ),
+
+  'two': (
+     'key': 'value',
+  ),
+)
+```
+
+#### Fix missing parentheses when an expression statement starts with `let[` ([#14000](https://github.com/prettier/prettier/pull/14000), [#14044](https://github.com/prettier/prettier/pull/14044) by [@fisker](https://github.com/fisker), [@thorn0](https://github.com/thorn0))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+(let[0] = 2);
+
+// Prettier 2.8.1
+let[0] = 2;
+
+// Prettier 2.8.1 (second format)
+SyntaxError: Unexpected token (1:5)
+> 1 | let[0] = 2;
+    |     ^
+  2 |
+
+// Prettier 2.8.2
+(let)[0] = 2;
+```
+
+#### Fix semicolon duplicated at the end of LESS file ([#14007](https://github.com/prettier/prettier/pull/14007) by [@mvorisek](https://github.com/mvorisek))
+
+<!-- prettier-ignore -->
+```less
+// Input
+@variable: {
+  field: something;
+};
+
+// Prettier 2.8.1
+@variable: {
+  field: something;
+}; ;
+
+// Prettier 2.8.2
+@variable: {
+  field: something;
+};
+```
+
+#### Fix no space after unary minus when followed by opening parenthesis in LESS ([#14008](https://github.com/prettier/prettier/pull/14008) by [@mvorisek](https://github.com/mvorisek))
+
+<!-- prettier-ignore -->
+```less
+// Input
+.unary_minus_single {
+  margin: -(@a);
+}
+
+.unary_minus_multi {
+  margin: 0 -(@a);
+}
+
+.binary_minus {
+  margin: 0 - (@a);
+}
+
+// Prettier 2.8.1
+.unary_minus_single {
+  margin: - (@a);
+}
+
+.unary_minus_multi {
+  margin: 0 - (@a);
+}
+
+.binary_minus {
+  margin: 0 - (@a);
+}
+
+// Prettier 2.8.2
+.unary_minus_single {
+  margin: -(@a);
+}
+
+.unary_minus_multi {
+  margin: 0 -(@a);
+}
+
+.binary_minus {
+  margin: 0 - (@a);
+}
+```
+
+#### Do not change case of property name if inside a variable declaration in LESS ([#14034](https://github.com/prettier/prettier/pull/14034) by [@mvorisek](https://github.com/mvorisek))
+
+<!-- prettier-ignore -->
+```less
+// Input
+@var: {
+  preserveCase: 0;
+};
+
+// Prettier 2.8.1
+@var: {
+  preservecase: 0;
+};
+
+// Prettier 2.8.2
+@var: {
+  preserveCase: 0;
+};
+```
+
+#### Fix formatting for auto-accessors with comments ([#14038](https://github.com/prettier/prettier/pull/14038) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+class A {
+  @dec()
+  // comment
+  accessor b;
+}
+
+// Prettier 2.8.1
+class A {
+  @dec()
+  accessor // comment
+  b;
+}
+
+// Prettier 2.8.1 (second format)
+class A {
+  @dec()
+  accessor; // comment
+  b;
+}
+
+// Prettier 2.8.2
+class A {
+  @dec()
+  // comment
+  accessor b;
+}
+```
+
+#### Add parentheses for TSTypeQuery to improve readability ([#14042](https://github.com/prettier/prettier/pull/14042) by [@onishi-kohei](https://github.com/onishi-kohei))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+a as (typeof node.children)[number]
+a as (typeof node.children)[]
+a as ((typeof node.children)[number])[]
+
+// Prettier 2.8.1
+a as typeof node.children[number];
+a as typeof node.children[];
+a as typeof node.children[number][];
+
+// Prettier 2.8.2
+a as (typeof node.children)[number];
+a as (typeof node.children)[];
+a as (typeof node.children)[number][];
+```
+
+#### Fix displacing of comments in default switch case ([#14047](https://github.com/prettier/prettier/pull/14047) by [@thorn0](https://github.com/thorn0))
+
+It was a regression in Prettier 2.6.0.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+switch (state) {
+  default:
+    result = state; // no change
+    break;
+}
+
+// Prettier 2.8.1
+switch (state) {
+  default: // no change
+    result = state;
+    break;
+}
+
+// Prettier 2.8.2
+switch (state) {
+  default:
+    result = state; // no change
+    break;
+}
+```
+
+#### Support type annotations on auto accessors via `babel-ts` ([#14049](https://github.com/prettier/prettier/pull/14049) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+[The bug that `@babel/parser` cannot parse auto accessors with type annotations](https://github.com/babel/babel/issues/15205) has been fixed. So we now support it via `babel-ts` parser.
+
+<!-- prettier-ignore -->
+```tsx
+class Foo {
+  accessor prop: number;
+}
+```
+
+#### Fix formatting of empty type parameters ([#14073](https://github.com/prettier/prettier/pull/14073) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+const foo: bar</* comment */> = () => baz;
+
+// Prettier 2.8.1
+Error: Comment "comment" was not printed. Please report this error!
+
+// Prettier 2.8.2
+const foo: bar</* comment */> = () => baz;
+```
+
+#### Add parentheses to head of `ExpressionStatement` instead of the whole statement ([#14077](https://github.com/prettier/prettier/pull/14077) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+({}).toString.call(foo) === "[object Array]"
+  ? foo.forEach(iterateArray)
+  : iterateObject(foo);
+
+// Prettier 2.8.1
+({}.toString.call(foo) === "[object Array]"
+  ? foo.forEach(iterateArray)
+  : iterateObject(foo));
+
+// Prettier 2.8.2
+({}).toString.call(foo.forEach) === "[object Array]"
+  ? foo.forEach(iterateArray)
+  : iterateObject(foo);
+```
+
+#### Fix comments after directive ([#14081](https://github.com/prettier/prettier/pull/14081) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+"use strict" /* comment */;
+
+// Prettier 2.8.1 (with other js parsers except `babel`)
+Error: Comment "comment" was not printed. Please report this error!
+
+// Prettier 2.8.2
+<Same as input>
+```
+
+#### Fix formatting for comments inside JSX attribute ([#14082](https://github.com/prettier/prettier/pull/14082) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+function MyFunctionComponent() {
+  <button label=/*old*/"new">button</button>
+}
+
+// Prettier 2.8.1
+Error: Comment "old" was not printed. Please report this error!
+
+// Prettier 2.8.2
+function MyFunctionComponent() {
+  <button label=/*old*/ "new">button</button>;
+}
+```
+
+#### Quote numeric keys for json-stringify parser ([#14083](https://github.com/prettier/prettier/pull/14083) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+{0: 'value'}
+
+// Prettier 2.8.1
+{
+  0: "value"
+}
+
+// Prettier 2.8.2
+{
+  "0": "value"
+}
+```
+
+#### Fix removing commas from function arguments in maps ([#14089](https://github.com/prettier/prettier/pull/14089) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```scss
+/* Input */
+$foo: map-fn(
+  (
+    "#{prop}": inner-fn($first, $second),
+  )
+);
+
+/* Prettier 2.8.1 */
+$foo: map-fn(("#{prop}": inner-fn($first $second)));
+
+/* Prettier 2.8.2 */
+$foo: map-fn(
+  (
+    "#{prop}": inner-fn($first, $second),
+  )
+);
+
+```
+
+#### Do not insert space in LESS property access ([#14103](https://github.com/prettier/prettier/pull/14103) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```less
+// Input
+a {
+  color: @colors[@white];
+}
+
+// Prettier 2.8.1
+a {
+  color: @colors[ @white];
+}
+
+// Prettier 2.8.2
+<Same as input>
+```
+
+# 2.8.1
+
+[diff](https://github.com/prettier/prettier/compare/2.8.0...2.8.1)
+
+#### Fix SCSS map in arguments ([#9184](https://github.com/prettier/prettier/pull/9184) by [@agamkrbit](https://github.com/agamkrbit))
+
+<!-- prettier-ignore -->
+```scss
+// Input
+$display-breakpoints: map-deep-merge(
+  (
+    "print-only": "only print",
+    "screen-only": "only screen",
+    "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, "sm")-1})",
+  ),
+  $display-breakpoints
+);
+
+// Prettier 2.8.0
+$display-breakpoints: map-deep-merge(
+  (
+    "print-only": "only print",
+    "screen-only": "only screen",
+    "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, " sm
+      ")-1})",
+  ),
+  $display-breakpoints
+);
+
+// Prettier 2.8.1
+$display-breakpoints: map-deep-merge(
+  (
+    "print-only": "only print",
+    "screen-only": "only screen",
+    "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, "sm")-1})",
+  ),
+  $display-breakpoints
+);
+```
+
+#### Support auto accessors syntax ([#13919](https://github.com/prettier/prettier/pull/13919) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Support for [Auto Accessors Syntax](https://devblogs.microsoft.com/typescript/announcing-typescript-4-9/#auto-accessors-in-classes) landed in TypeScript 4.9.
+
+(Doesn't work well with `babel-ts` parser)
+
+<!-- prettier-ignore -->
+```tsx
+class Foo {
+  accessor foo: number = 3;
+}
+```
+
+# 2.8.0
+
+[diff](https://github.com/prettier/prettier/compare/2.7.1...2.8.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2022/11/23/2.8.0.html)
+
+# 2.7.1
+
+[diff](https://github.com/prettier/prettier/compare/2.7.0...2.7.1)
+
+#### Keep useful empty lines in description ([#13013](https://github.com/prettier/prettier/pull/13013) by [@chimurai](https://github.com/chimurai))
+
+<!-- prettier-ignore -->
+```graphql
+# Input
+"""
+First line
+
+Second Line
+"""
+type Person {
+  name: String
+}
+
+# Prettier 2.7.0
+"""
+First line
+Second Line
+"""
+type Person {
+  name: String
+}
+
+
+# Prettier 2.7.1
+"""
+First line
+
+Second Line
+"""
+type Person {
+  name: String
+}
+```
+
+# 2.7.0
+
+[diff](https://github.com/prettier/prettier/compare/2.6.2...2.7.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2022/06/14/2.7.0.html)
+
+# 2.6.2
+
+[diff](https://github.com/prettier/prettier/compare/2.6.1...2.6.2)
+
+#### Fix LESS/SCSS format error ([#12536](https://github.com/prettier/prettier/pull/12536) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```less
+// Input
+.background-gradient(@cut) {
+    background: linear-gradient(
+        to right,
+        @white 0%,
+        @white (@cut - 0.01%),
+        @portal-background @cut,
+        @portal-background 100%
+    );
+}
+
+// Prettier 2.6.1
+TypeError: Cannot read properties of undefined (reading 'endOffset')
+
+// Prettier 2.6.2
+.background-gradient(@cut) {
+  background: linear-gradient(
+    to right,
+    @white 0%,
+    @white (@cut - 0.01%),
+    @portal-background @cut,
+    @portal-background 100%
+  );
+}
+```
+
+#### Update `meriyah` to fix several bugs ([#12567](https://github.com/prettier/prettier/pull/12567) by [@fisker](https://github.com/fisker), fixes in [`meriyah`](https://github.com/meriyah/meriyah/) by [@3cp](https://github.com/3cp))
+
+Fixes bugs when parsing following valid code:
+
+```js
+foo(await bar());
+```
+
+```js
+const regex = /.*/ms;
+```
+
+```js
+const element = <p>{/w/.test(s)}</p>;
+```
+
+```js
+class A extends B {
+  #privateMethod() {
+    super.method();
+  }
+}
+```
+
+# 2.6.1
+
+[diff](https://github.com/prettier/prettier/compare/2.6.0...2.6.1)
+
+#### Ignore `loglevel` when printing information ([#12477](https://github.com/prettier/prettier/pull/12477) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```bash
+# Prettier 2.6.0
+prettier --loglevel silent --find-config-path index.js
+# Nothing printed
+
+# Prettier 2.6.1
+prettier --loglevel silent --help no-color
+# .prettierrc
+```
+
+#### Make artifact friendly for webpack ([#12485](https://github.com/prettier/prettier/pull/12485), [#12511](https://github.com/prettier/prettier/pull/12511) by [@fisker](https://github.com/fisker))
+
+Fixes two problems when bundling our UMD files with webpack:
+
+- A error ``"`....__exportStar` is not a function"`` throws when running the bundles.
+- Some files cause warning about `"Critical dependency: the request of a dependency is an expression"`.
+
+#### Fix non-idempotent formatting of function calls with complex type arguments ([#12508](https://github.com/prettier/prettier/pull/12508) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+const foo =
+  doSomething<{ foo1: "foo1", foo2: "foo2", foo3: "foo3", foo4: "foo4", foo5: "foo5" }>();
+
+// Prettier 2.6.0 (first)
+const foo =
+  doSomething<{
+    foo1: "foo1";
+    foo2: "foo2";
+    foo3: "foo3";
+    foo4: "foo4";
+    foo5: "foo5";
+  }>();
+
+// Prettier 2.6.0 (second)
+const foo = doSomething<{
+  foo1: "foo1";
+  foo2: "foo2";
+  foo3: "foo3";
+  foo4: "foo4";
+  foo5: "foo5";
+}>();
+
+// Prettier 2.6.1
+const foo = doSomething<{
+  foo1: "foo1";
+  foo2: "foo2";
+  foo3: "foo3";
+  foo4: "foo4";
+  foo5: "foo5";
+}>();
+
+```
+
+#### Fix minimist security issue ([#12513](https://github.com/prettier/prettier/pull/12513) by [@dependabot](https://github.com/dependabot))
+
+Details: [Prototype Pollution](https://security.snyk.io/vuln/SNYK-JS-MINIMIST-559764)
+
+# 2.6.0
+
+[diff](https://github.com/prettier/prettier/compare/2.5.1...2.6.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2022/03/16/2.6.0.html)
+
+# 2.5.1
+
+[diff](https://github.com/prettier/prettier/compare/2.5.0...2.5.1)
+
+#### Improve formatting for empty tuple types ([#11884](https://github.com/prettier/prettier/pull/11884) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type Foo =
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
+
+// Prettier 2.5.0
+type Foo = Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [
+
+]
+  ? Foo3
+  : Foo4;
+
+// Prettier 2.5.0 (tailingCommma = all)
+// Invalid TypeScript code
+type Foo = Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [
+  ,
+]
+  ? Foo3
+  : Foo4;
+
+// Prettier 2.5.1
+type Foo =
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
+
+```
+
+#### Fix compatibility with Jest inline snapshot test ([#11892](https://github.com/prettier/prettier/pull/11892) by [@fisker](https://github.com/fisker))
+
+A internal change in Prettier@v2.5.0 accidentally breaks the Jest inline snapshot test.
+
+#### Support Glimmer's named blocks ([#11899](https://github.com/prettier/prettier/pull/11899) by [@duailibe](https://github.com/duailibe))
+
+Prettier already supported this feature, but it converted empty named blocks to self-closing, which is not supported by the Glimmer compiler.
+
+See: [Glimmer's named blocks](https://emberjs.github.io/rfcs/0460-yieldable-named-blocks.html).
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<Component>
+  <:named></:named>
+</Component>
+
+// Prettier 2.5.0
+<Component>
+  <:named />
+</Component>
+
+// Prettier 2.5.1
+<Component>
+  <:named></:named>
+</Component>
+```
+
+# 2.5.0
+
+[diff](https://github.com/prettier/prettier/compare/2.4.1...2.5.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2021/11/25/2.5.0.html)
+
+# 2.4.1
+
+[diff](https://github.com/prettier/prettier/compare/2.4.0...2.4.1)
+
+#### Fix wildcard syntax in `@forward` ([#11482](https://github.com/prettier/prettier/pull/11482)) ([#11487](https://github.com/prettier/prettier/pull/11487) by [@niksy](https://github.com/niksy))
+
+<!-- prettier-ignore -->
+```scss
+// Input
+@forward "library" as btn-*;
+
+// Prettier 2.4.0
+@forward "library" as btn- *;
+
+// Prettier 2.4.1
+@forward "library" as btn-*;
+```
+
+#### Add new CLI option `debug-print-ast` ([#11514](https://github.com/prettier/prettier/pull/11514) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+A new `--debug-print-ast` CLI flag for debugging.
+
+# 2.4.0
+
+[diff](https://github.com/prettier/prettier/compare/2.3.2...2.4.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2021/09/09/2.4.0.html)
+
+# 2.3.2
+
+[diff](https://github.com/prettier/prettier/compare/2.3.1...2.3.2)
+
+#### Fix failure on dir with trailing slash ([#11000](https://github.com/prettier/prettier/pull/11000) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```console
+$ ls
+1.js  1.unknown
+
+# Prettier 2.3.1
+$ prettier . -l
+1.js
+$ prettier ./ -l
+[error] No supported files were found in the directory: "./".
+
+# Prettier 2.3.2
+$ prettier ./ -l
+1.js
+```
+
+#### Fix handling of parenthesis with Flow's {Optional}IndexedAccess ([#11051](https://github.com/prettier/prettier/pull/11051) by [@gkz](https://github.com/gkz))
+
+Add parens when required.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+type A = (T & S)['bar'];
+type B = (T | S)['bar'];
+type C = (?T)['bar'];
+type D = (typeof x)['bar'];
+type E = (string => void)['bar'];
+
+// Prettier 2.3.1
+type A = T & S["bar"];
+type B = T | S["bar"];
+type C = ?T["bar"];
+type D = typeof x["bar"];
+type E = (string) => void["bar"];
+
+// Prettier 2.3.2
+type A = (T & S)["bar"];
+type B = (T | S)["bar"];
+type C = (?T)["bar"];
+type D = (typeof x)["bar"];
+type E = ((string) => void)["bar"];
+```
+
+#### Print override modifiers for parameter property ([#11074](https://github.com/prettier/prettier/pull/11074) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class D extends B {
+  constructor(override foo: string) {
+    super();
+  }
+}
+
+// Prettier 2.3.1
+class D extends B {
+  constructor(foo: string) {
+    super();
+  }
+}
+
+// Prettier 2.3.2
+class D extends B {
+  constructor(override foo: string) {
+    super();
+  }
+}
+
+```
+
+# 2.3.1
+
+[diff](https://github.com/prettier/prettier/compare/2.3.0...2.3.1)
+
+#### Support TypeScript 4.3 ([#10945](https://github.com/prettier/prettier/pull/10945) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+##### [`override` modifiers in class elements](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#override)
+
+```ts
+class Foo extends  {
+  override method() {}
+}
+```
+
+##### [static index signatures (`[key: KeyType]: ValueType`) in classes](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#static-index-signatures)
+
+```ts
+class Foo {
+  static [key: string]: Bar;
+}
+```
+
+##### [`get` / `set` in type declarations](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#separate-write-types)
+
+```ts
+interface Foo {
+  set foo(value);
+  get foo(): string;
+}
+```
+
+#### Preserve attributes order for element node ([#10958](https://github.com/prettier/prettier/pull/10958) by [@dcyriller](https://github.comdcyriller))
+
+<!-- prettier-ignore -->
+```handlebars
+{{!-- Input --}}
+<MyComponent
+  {{! this is a comment for arg 1}}
+  @arg1="hello"
+  {{on "click" this.modify}}
+  @arg2="hello"
+  {{! this is a comment for arg 3}}
+  @arg3="hello"
+  @arg4="hello"
+  {{! this is a comment for arg 5}}
+  @arg5="hello"
+  ...arguments
+/>
+{{!-- Prettier stable --}}
+<MyComponent
+  @arg1="hello"
+  @arg2="hello"
+  @arg3="hello"
+  @arg4="hello"
+  @arg5="hello"
+  ...arguments
+  {{on "click" this.modify}}
+  {{! this is a comment for arg 1}}
+  {{! this is a comment for arg 3}}
+  {{! this is a comment for arg 5}}
+/>
+{{!-- Prettier main --}}
+<MyComponent
+  {{! this is a comment for arg 1}}
+  @arg1="hello"
+  {{on "click" this.modify}}
+  @arg2="hello"
+  {{! this is a comment for arg 3}}
+  @arg3="hello"
+  @arg4="hello"
+  {{! this is a comment for arg 5}}
+  @arg5="hello"
+  ...arguments
+/>
+```
+
+#### Track cursor position properly when it’s at the end of the range to format ([#10938](https://github.com/prettier/prettier/pull/10938) by [@j-f1](https://github.com/j-f1))
+
+Previously, if the cursor was at the end of the range to format, it would simply be placed back at the end of the updated range.
+Now, it will be repositioned if Prettier decides to add additional code to the end of the range (such as a semicolon).
+
+<!-- prettier-ignore -->
+```jsx
+// Input (<|> represents the cursor)
+const someVariable = myOtherVariable<|>
+// range to format:  ^^^^^^^^^^^^^^^
+
+// Prettier stable
+const someVariable = myOtherVariable;<|>
+// range to format:  ^^^^^^^^^^^^^^^
+
+// Prettier main
+const someVariable = myOtherVariable<|>;
+// range to format:  ^^^^^^^^^^^^^^^
+```
+
+#### Break the LHS of type alias that has complex type parameters ([#10901](https://github.com/prettier/prettier/pull/10901) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+// Prettier stable
+type FieldLayoutWith<T extends string, S extends unknown = { width: string }> =
+  {
+    type: T;
+    code: string;
+    size: S;
+  };
+
+// Prettier main
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+```
+
+#### Break the LHS of assignments that has complex type parameters ([#10916](https://github.com/prettier/prettier/pull/10916) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const map: Map<
+  Function,
+  Map<string | void, { value: UnloadedDescriptor }>
+> = new Map();
+
+// Prettier stable
+const map: Map<Function, Map<string | void, { value: UnloadedDescriptor }>> =
+  new Map();
+
+// Prettier main
+const map: Map<
+  Function,
+  Map<string | void, { value: UnloadedDescriptor }>
+> = new Map();
+
+```
+
+#### Fix incorrectly wrapped arrow functions with return types ([#10940](https://github.com/prettier/prettier/pull/10940) by [@thorn0](https://github.com/thorn0))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+longfunctionWithCall12("bla", foo, (thing: string): complex<type<something>> => {
+  code();
+});
+
+// Prettier stable
+longfunctionWithCall12("bla", foo, (thing: string): complex<
+  type<something>
+> => {
+  code();
+});
+
+// Prettier main
+longfunctionWithCall12(
+  "bla",
+  foo,
+  (thing: string): complex<type<something>> => {
+    code();
+  }
+);
+```
+
+#### Avoid breaking call expressions after assignments with complex type arguments ([#10949](https://github.com/prettier/prettier/pull/10949) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const foo = call<{
+  prop1: string;
+  prop2: string;
+  prop3: string;
+}>();
+
+// Prettier stable
+const foo =
+  call<{
+    prop1: string;
+    prop2: string;
+    prop3: string;
+  }>();
+
+// Prettier main
+const foo = call<{
+  prop1: string;
+  prop2: string;
+  prop3: string;
+}>();
+
+```
+
+#### Fix order of `override` modifiers ([#10961](https://github.com/prettier/prettier/pull/10961) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class Foo extends Bar {
+  abstract override foo: string;
+}
+
+// Prettier stable
+class Foo extends Bar {
+  override abstract foo: string;
+}
+
+// Prettier main
+class Foo extends Bar {
+  abstract override foo: string;
+}
+```
+
+# 2.3.0
+
+[diff](https://github.com/prettier/prettier/compare/2.2.1...2.3.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2021/05/09/2.3.0.html)
+
 # 2.2.1
 
 [diff](https://github.com/prettier/prettier/compare/2.2.0...2.2.1)
@@ -189,7 +2629,7 @@ Test <a href="https://prettier.io">abc</a>.
 #### Fix broken format for `...infer T` ([#9044](https://github.com/prettier/prettier/pull/9044) by [@fisker](https://github.com/fisker))
 
 <!-- prettier-ignore -->
-```typescript
+```ts
 // Input
 type Tail<T extends any[]> = T extends [infer U, ...infer R] ? R : never;
 
@@ -783,7 +3223,7 @@ export const getVehicleDescriptor = async (
 
 - Config: Match dotfiles in config overrides ([#6194] by [@duailibe])
 
-  When using [`overrides`](https://prettier.io/docs/en/configuration.html#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
+  When using [`overrides`](https://prettier.io/docs/configuration#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
 
 [#6190]: https://github.com/prettier/prettier/pull/6190
 [#6194]: https://github.com/prettier/prettier/pull/6194

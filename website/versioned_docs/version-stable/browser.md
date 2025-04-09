@@ -1,69 +1,46 @@
 ---
-id: version-stable-browser
+id: browser
 title: Browser
-original_id: browser
 ---
 
-Run Prettier in the browser using its **standalone** version. This version only formats the code and has no support for config files, ignore files, CLI usage, or automatic loading of plugins.
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+Run Prettier in the browser using its **standalone** version. This version doesn’t depend on Node.js. It only formats the code and has no support for config files, ignore files, CLI usage, or automatic loading of plugins.
 
 The standalone version comes as:
 
-- ES modules: `esm/standalone.mjs`, starting in version 2.2
+- ES modules: `standalone.mjs`, starting in version 3.0 (In version 2, `esm/standalone.mjs`.)
 - UMD: `standalone.js`, starting in version 1.13
 
 The [`browser` field](https://github.com/defunctzombie/package-browser-field-spec) in Prettier’s `package.json` points to `standalone.js`. That’s why you can just `import` or `require` the `prettier` module to access Prettier’s API, and your code can stay compatible with both Node and the browser as long as webpack or another bundler that supports the `browser` field is used. This is especially convenient for [plugins](plugins.md).
 
 ### `prettier.format(code, options)`
 
-Unlike the `format` function from the [main API](api.md#prettierformatsource--options), this function does not load plugins automatically, so a `plugins` property is required if you want to load [plugins](#plugins). Additionally, the parsers included in the Prettier package won’t be loaded automatically, so you need to load them as plugins before using them.
+Required options:
 
-See [Usage](#usage) below for examples.
+- **[`parser`](options.md#parser) (or [`filepath`](options.md#file-path))**: One of these options has to be specified for Prettier to know which parser to use.
 
-## Plugins
+- **`plugins`**: Unlike the `format` function from the [Node.js-based API](api.md#prettierformatsource-options), this function doesn’t load plugins automatically. The `plugins` option is required because all the parsers included in the Prettier package come as plugins (for reasons of file size). These plugins are files in [https://unpkg.com/browse/prettier@3.5.3/plugins](https://unpkg.com/browse/prettier@3.5.3/plugins). Note that `estree` plugin should be loaded when printing JavaScript, TypeScript, Flow, or JSON.
 
-All available plugins are files named `parser-*.js` in <https://unpkg.com/browse/prettier@2.2.1/> and `parser-*.mjs` in <https://unpkg.com/browse/prettier@2.2.1/esm/>.
+  You need to load the ones that you’re going to use and pass them to `prettier.format` using the `plugins` option.
 
-If you want format embed code, you need load related plugins too, for example
-
-```html
-<script type="module">
-  import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
-  import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
-
-  prettier.format("const html = /* HTML */ `<DIV> </DIV>`", {
-    parser: "babel",
-    plugins: [parserBabel],
-  });
-</script>
-```
-
-the HTML code inside JavaScript code won't get formatted, because it requires `html` parser too, correct usage
-
-```html
-<script type="module">
-  import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
-  import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
-  import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs";
-
-  prettier.format("const html = /* HTML */ `<DIV> </DIV>`", {
-    parser: "babel",
-    plugins: [parserBabel, parserHtml],
-  });
-</script>
-```
+See below for examples.
 
 ## Usage
 
 ### Global
 
 ```html
-<script src="https://unpkg.com/prettier@2.2.1/standalone.js"></script>
-<script src="https://unpkg.com/prettier@2.2.1/parser-graphql.js"></script>
+<script src="https://unpkg.com/prettier@3.5.3/standalone.js"></script>
+<script src="https://unpkg.com/prettier@3.5.3/plugins/graphql.js"></script>
 <script>
-  prettier.format("type Query { hello: String }", {
-    parser: "graphql",
-    plugins: prettierPlugins,
-  });
+  (async () => {
+    const formatted = await prettier.format("type Query { hello: String }", {
+      parser: "graphql",
+      plugins: prettierPlugins,
+    });
+  })();
 </script>
 ```
 
@@ -73,12 +50,12 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 
 ```html
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
-  import parserGraphql from "https://unpkg.com/prettier@2.2.1/esm/parser-graphql.mjs";
+  import * as prettier from "https://unpkg.com/prettier@3.5.3/standalone.mjs";
+  import * as prettierPluginGraphql from "https://unpkg.com/prettier@3.5.3/plugins/graphql.mjs";
 
-  prettier.format("type Query { hello: String }", {
+  const formatted = await prettier.format("type Query { hello: String }", {
     parser: "graphql",
-    plugins: [parserGraphql],
+    plugins: [prettierPluginGraphql],
   });
 </script>
 ```
@@ -87,10 +64,10 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 
 ```js
 define([
-  "https://unpkg.com/prettier@2.2.1/standalone.js",
-  "https://unpkg.com/prettier@2.2.1/parser-graphql.js",
-], (prettier, ...plugins) => {
-  prettier.format("type Query { hello: String }", {
+  "https://unpkg.com/prettier@3.5.3/standalone.js",
+  "https://unpkg.com/prettier@3.5.3/plugins/graphql.js",
+], async (prettier, ...plugins) => {
+  const formatted = await prettier.format("type Query { hello: String }", {
     parser: "graphql",
     plugins,
   });
@@ -101,22 +78,88 @@ define([
 
 ```js
 const prettier = require("prettier/standalone");
-const plugins = [require("prettier/parser-graphql")];
-prettier.format("type Query { hello: String }", {
-  parser: "graphql",
-  plugins,
-});
+const plugins = [require("prettier/plugins/graphql")];
+
+(async () => {
+  const formatted = await prettier.format("type Query { hello: String }", {
+    parser: "graphql",
+    plugins,
+  });
+})();
 ```
 
 This syntax doesn’t necessarily work in the browser, but it can be used when bundling the code with browserify, Rollup, webpack, or another bundler.
 
 ### Worker
 
+<Tabs groupId="worker-type">
+<TabItem value="module" label="Module worker">
+
 ```js
-importScripts("https://unpkg.com/prettier@2.2.1/standalone.js");
-importScripts("https://unpkg.com/prettier@2.2.1/parser-graphql.js");
-prettier.format("type Query { hello: String }", {
+import * as prettier from "https://unpkg.com/prettier@3.5.3/standalone.mjs";
+import * as prettierPluginGraphql from "https://unpkg.com/prettier@3.5.31/plugins/graphql.mjs";
+
+const formatted = await prettier.format("type Query { hello: String }", {
   parser: "graphql",
-  plugins: prettierPlugins,
+  plugins: [prettierPluginGraphql],
 });
+```
+
+</TabItem>
+<TabItem value="classic" label="Classic worker">
+
+```js
+importScripts(
+  "https://unpkg.com/prettier@3.5.3/standalone.js",
+  "https://unpkg.com/prettier@3.5.3/plugins/graphql.js",
+);
+
+(async () => {
+  const formatted = await prettier.format("type Query { hello: String }", {
+    parser: "graphql",
+    plugins: prettierPlugins,
+  });
+})();
+```
+
+</TabItem>
+</Tabs>
+
+## Parser plugins for embedded code
+
+If you want to format [embedded code](options.md#embedded-language-formatting), you need to load related plugins too. For example:
+
+```html
+<script type="module">
+  import * as prettier from "https://unpkg.com/prettier@3.5.3/standalone.mjs";
+  import * as prettierPluginBabel from "https://unpkg.com/prettier@3.5.3/plugins/babel.mjs";
+  import * as prettierPluginEstree from "https://unpkg.com/prettier@3.5.3/plugins/estree.mjs";
+
+  console.log(
+    await prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
+      parser: "babel",
+      plugins: [prettierPluginBabel, prettierPluginEstree],
+    }),
+  );
+  // Output: const html = /* HTML */ `<DIV> </DIV>`;
+</script>
+```
+
+The HTML code embedded in JavaScript stays unformatted because the `html` parser hasn’t been loaded. Correct usage:
+
+```html
+<script type="module">
+  import * as prettier from "https://unpkg.com/prettier@3.5.3/standalone.mjs";
+  import * as prettierPluginBabel from "https://unpkg.com/prettier@3.5.3/plugins/babel.mjs";
+  import * as prettierPluginEstree from "https://unpkg.com/prettier@3.5.3/plugins/estree.mjs";
+  import * as prettierPluginHtml from "https://unpkg.com/prettier@3.5.3/plugins/html.mjs";
+
+  console.log(
+    await prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
+      parser: "babel",
+      plugins: [prettierPluginBabel, prettierPluginEstree, prettierPluginHtml],
+    }),
+  );
+  // Output: const html = /* HTML */ `<div></div>`;
+</script>
 ```

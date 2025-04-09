@@ -1,11 +1,13 @@
-"use strict";
+class ConfigError extends Error {
+  name = "ConfigError";
+}
 
-class ConfigError extends Error {}
-class DebugError extends Error {}
-class UndefinedParserError extends Error {}
+class UndefinedParserError extends Error {
+  name = "UndefinedParserError";
+}
 
-module.exports = {
-  ConfigError,
-  DebugError,
-  UndefinedParserError,
-};
+class ArgExpansionBailout extends Error {
+  name = "ArgExpansionBailout";
+}
+
+export { ArgExpansionBailout, ConfigError, UndefinedParserError };

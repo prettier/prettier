@@ -1,8 +1,8 @@
 import * as ESTree from "estree";
 import * as Babel from "@babel/types";
-import { TSESTree } from "@typescript-eslint/types";
+import { TSESTree } from "@typescript-eslint/typescript-estree";
 import { ESTree as Meriyah } from "meriyah";
-import * as NGTree from "angular-estree-parser/lib/types";
+import * as NGTree from "angular-estree-parser/lib/types.js";
 
 type AdditionalFields = {
   extra?: {
@@ -25,7 +25,18 @@ export type Comment = (
   leading?: boolean;
 };
 
-export type Node = (ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode) &
+type FlowAdditionalNode =
+  | { type: "AsExpression"; expression: Node; typeAnnotation: Node }
+  | { type: "AsConstExpression"; expression: Node }
+  | { type: "SatisfiesExpression"; expression: Node; typeAnnotation: Node };
+
+export type Node = (
+  | ESTree.Node
+  | Babel.Node
+  | TSESTree.Node
+  | NGTree.NGNode
+  | FlowAdditionalNode
+) &
   AdditionalFields;
 
 export type TemplateLiteral = (

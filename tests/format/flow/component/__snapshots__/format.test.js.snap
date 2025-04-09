@@ -1,0 +1,468 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component-declaration.js [babel-flow] format 1`] = `
+"Unexpected token, expected "{" (15:8)
+  13 | }
+  14 |
+> 15 | export component MyComponent() {}
+     |        ^
+  16 |
+  17 | export default component MyComponent() {}
+  18 |
+Cause: Unexpected token, expected "{" (15:7)"
+`;
+
+exports[`component-declaration.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+component MyComponent() {}
+
+component MyComponent() renders SomeComponent {}
+
+component MyComponent() renders React.Element<typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng> {}
+
+component MyComponent() {
+  return <OtherComponent />;
+}
+
+component MyComponent(a: string, b: number) renders SomeComponent {
+  return <OtherComponent />;
+}
+
+export component MyComponent() {}
+
+export default component MyComponent() {}
+
+component MyComponent<T>() {}
+
+component MyComponent<T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>() {}
+
+component MyComponent(bar: string) {}
+
+component MyComponent(bar?: string) {}
+
+component MyComponent(bar: string = '') {}
+
+component MyComponent(propBar as bar: string) {}
+
+component MyComponent(propBar as [bar]: $ReadOnlyArray<string>) {}
+
+component MyComponent(propBar as {bar}: $ReadOnly<{bar: string}>) {}
+
+component MyComponent(propBar as {bar, reallllllllllllllllllllllllllllllllllllllyLong}: $ReadOnly<{bar: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>) {}
+
+component MyComponent('data-bar' as bar: string) {}
+
+component MyComponent(...restProps: $ReadOnly<{k: string}>) {}
+
+component MyComponent(bar: string, baz: $ReadOnly<{k: string}>) {}
+
+component MyComponent(bar: string, baz: $ReadOnly<{k: string}>, realllllllllllllllllllyLong: string) {}
+
+component MyComponent(bar: string, baz: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>) {}
+
+component MyComponent(bar: string, 'data-baz' as baz: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>) {}
+
+// Attached comment
+component MyComponent(
+  /**
+   * Commet block
+   */
+  bar: string, // Trailing comment
+
+  // preceding comment
+  'data-baz' as baz: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+) {}
+
+component MyComponent(
+  ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+) {}
+
+component MyComponent() /* Trailing comment */ {}
+
+=====================================output=====================================
+component MyComponent() {}
+
+component MyComponent() renders SomeComponent {}
+
+component MyComponent() renders React.Element<
+  typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng,
+> {}
+
+component MyComponent() {
+  return <OtherComponent />;
+}
+
+component MyComponent(a: string, b: number) renders SomeComponent {
+  return <OtherComponent />;
+}
+
+export component MyComponent() {}
+
+export default component MyComponent() {}
+
+component MyComponent<T>() {}
+
+component MyComponent<
+  T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo,
+>() {}
+
+component MyComponent(bar: string) {}
+
+component MyComponent(bar?: string) {}
+
+component MyComponent(bar: string = "") {}
+
+component MyComponent(propBar as bar: string) {}
+
+component MyComponent(propBar as [bar]: $ReadOnlyArray<string>) {}
+
+component MyComponent(propBar as { bar }: $ReadOnly<{ bar: string }>) {}
+
+component MyComponent(
+  propBar as {
+    bar,
+    reallllllllllllllllllllllllllllllllllllllyLong,
+  }: $ReadOnly<{
+    bar: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>,
+) {}
+
+component MyComponent("data-bar" as bar: string) {}
+
+component MyComponent(...restProps: $ReadOnly<{ k: string }>) {}
+
+component MyComponent(bar: string, baz: $ReadOnly<{ k: string }>) {}
+
+component MyComponent(
+  bar: string,
+  baz: $ReadOnly<{ k: string }>,
+  realllllllllllllllllllyLong: string,
+) {}
+
+component MyComponent(
+  bar: string,
+  baz: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>,
+) {}
+
+component MyComponent(
+  bar: string,
+  "data-baz" as baz: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>,
+) {}
+
+// Attached comment
+component MyComponent(
+  /**
+   * Commet block
+   */
+  bar: string, // Trailing comment
+
+  // preceding comment
+  "data-baz" as baz: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>,
+  // Trailing comment
+) {}
+
+component MyComponent(
+  ...props: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>
+  // Trailing comment
+) {}
+
+component MyComponent() /* Trailing comment */ {}
+
+================================================================================
+`;
+
+exports[`component-type-annotation.js [babel-flow] format 1`] = `
+"Unexpected token (1:20)
+> 1 | type T = component();
+    |                    ^
+  2 |
+  3 | type T = component() renders SomeComponent;
+  4 |
+Cause: Unexpected token (1:19)"
+`;
+
+exports[`component-type-annotation.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type T = component();
+
+type T = component() renders SomeComponent;
+
+type T = component() renders React.Element<typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng>;
+
+type T = component<T>();
+
+type T = component<T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>();
+
+type T = component(bar: string);
+
+type T = component(bar?: string);
+
+type T = component('data-bar': string);
+
+type T = component(...restProps: $ReadOnly<{k: string}>);
+
+type T = component(...$ReadOnly<{k: string}>);
+
+type T = component(bar: string, baz: $ReadOnly<{k: string}>);
+
+type T = component(bar: string, baz: $ReadOnly<{k: string}>, realllllllllllllllllllyLong: string);
+
+// Attached comment
+type T = component(
+  /**
+   * Commet block
+   */
+  bar: string, // Trailing comment
+
+  // preceding comment
+  'data-baz': $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+);
+
+type T = component(
+  ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+);
+
+type T = component(
+  ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+) renders SomeComponent;
+
+type T = component(bar: string) | component(baz: $ReadOnly<{k: string}>) | component(realllllllllllllllllllyLong: string, reallllllllllllllllllllllllllllllllllllllyLong: string);
+
+
+function A(realllllllllllllllllllyLong: string, reallllllllllllllllllllllllllllllllllllllyLong: string): component(realllllllllllllllllllyLong: string, reallllllllllllllllllllllllllllllllllllllyLong: string) {}
+=====================================output=====================================
+type T = component();
+
+type T = component() renders SomeComponent;
+
+type T = component() renders React.Element<
+  typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng,
+>;
+
+type T = component<T>();
+
+type T = component<
+  T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo,
+>();
+
+type T = component(bar: string);
+
+type T = component(bar?: string);
+
+type T = component("data-bar": string);
+
+type T = component(...restProps: $ReadOnly<{ k: string }>);
+
+type T = component(...$ReadOnly<{ k: string }>);
+
+type T = component(bar: string, baz: $ReadOnly<{ k: string }>);
+
+type T = component(
+  bar: string,
+  baz: $ReadOnly<{ k: string }>,
+  realllllllllllllllllllyLong: string,
+);
+
+// Attached comment
+type T = component(
+  /**
+   * Commet block
+   */
+  bar: string, // Trailing comment
+
+  // preceding comment
+  "data-baz": $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>,
+  // Trailing comment
+);
+
+type T = component(
+  ...props: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>
+  // Trailing comment
+);
+
+type T = component(
+  ...props: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>
+  // Trailing comment
+) renders SomeComponent;
+
+type T =
+  | component(bar: string)
+  | component(baz: $ReadOnly<{ k: string }>)
+  | component(
+      realllllllllllllllllllyLong: string,
+      reallllllllllllllllllllllllllllllllllllllyLong: string,
+    );
+
+function A(
+  realllllllllllllllllllyLong: string,
+  reallllllllllllllllllllllllllllllllllllllyLong: string,
+): component(
+  realllllllllllllllllllyLong: string,
+  reallllllllllllllllllllllllllllllllllllllyLong: string,
+) {}
+
+================================================================================
+`;
+
+exports[`declare-component.js [babel-flow] format 1`] = `
+"Unexpected token (1:9)
+> 1 | declare component MyComponent();
+    |         ^
+  2 |
+  3 | declare component MyComponent() renders SomeComponent;
+  4 |
+Cause: Unexpected token (1:8)"
+`;
+
+exports[`declare-component.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare component MyComponent();
+
+declare component MyComponent() renders SomeComponent;
+
+declare component MyComponent() renders React.Element<typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng>;
+
+declare component MyComponent<T>();
+
+declare component MyComponent<T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>();
+
+declare component MyComponent(bar: string);
+
+declare component MyComponent(bar?: string);
+
+declare component MyComponent('data-bar': string);
+
+declare component MyComponent(...restProps: $ReadOnly<{k: string}>);
+
+declare component MyComponent(...$ReadOnly<{k: string}>);
+
+declare component MyComponent(bar: string, baz: $ReadOnly<{k: string}>);
+
+declare component MyComponent(bar: string, baz: $ReadOnly<{k: string}>, realllllllllllllllllllyLong: string);
+
+// Attached comment
+declare component MyComponent(
+  /**
+   * Commet block
+   */
+  bar: string, // Trailing comment
+
+  // preceding comment
+  'data-baz': $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+);
+
+declare component MyComponent(
+  ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+);
+
+declare component MyComponent(
+  ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+) renders SomeComponent;
+=====================================output=====================================
+declare component MyComponent();
+
+declare component MyComponent() renders SomeComponent;
+
+declare component MyComponent() renders React.Element<
+  typeof SomeComponentLonnnnnnnnnnnnnnnnnnnnnnnnnnnnng,
+>;
+
+declare component MyComponent<T>();
+
+declare component MyComponent<
+  T: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo,
+>();
+
+declare component MyComponent(bar: string);
+
+declare component MyComponent(bar?: string);
+
+declare component MyComponent("data-bar": string);
+
+declare component MyComponent(...restProps: $ReadOnly<{ k: string }>);
+
+declare component MyComponent(...$ReadOnly<{ k: string }>);
+
+declare component MyComponent(bar: string, baz: $ReadOnly<{ k: string }>);
+
+declare component MyComponent(
+  bar: string,
+  baz: $ReadOnly<{ k: string }>,
+  realllllllllllllllllllyLong: string,
+);
+
+// Attached comment
+declare component MyComponent(
+  /**
+   * Commet block
+   */
+  bar: string, // Trailing comment
+
+  // preceding comment
+  "data-baz": $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>,
+  // Trailing comment
+);
+
+declare component MyComponent(
+  ...props: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>
+  // Trailing comment
+);
+
+declare component MyComponent(
+  ...props: $ReadOnly<{
+    k: string,
+    reallllllllllllllllllllllllllllllllllllllyLong: string,
+  }>
+  // Trailing comment
+) renders SomeComponent;
+
+================================================================================
+`;

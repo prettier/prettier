@@ -1,28 +1,46 @@
-"use strict";
-
-const lineColumnToIndex = require("../utils/line-column-to-index");
-const { getLast, skipEverythingButNewLine } = require("../common/util");
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import lineColumnToIndex from "../utils/line-column-to-index.js";
+import { skipEverythingButNewLine } from "../utils/skip.js";
 
 function calculateLocStart(node, text) {
+  // `postcss>=8`
+  if (typeof node.source?.start?.offset === "number") {
+    return node.source.start.offset;
+  }
+
   // value-* nodes have this
   if (typeof node.sourceIndex === "number") {
     return node.sourceIndex;
   }
 
-  return node.source ? lineColumnToIndex(node.source.start, text) - 1 : null;
+  if (node.source?.start) {
+    return lineColumnToIndex(node.source.start, text);
+  }
+
+  /* c8 ignore next */
+  throw Object.assign(new Error("Can not locate node."), { node });
 }
 
 function calculateLocEnd(node, text) {
   if (node.type === "css-comment" && node.inline) {
     return skipEverythingButNewLine(text, node.source.startOffset);
   }
-  const endNode = node.nodes && getLast(node.nodes);
-  if (endNode && node.source && !node.source.end) {
-    node = endNode;
+
+  // `postcss>=8`
+  if (typeof node.source?.end?.offset === "number") {
+    return node.source.end.offset;
   }
-  if (node.source && node.source.end) {
-    return lineColumnToIndex(node.source.end, text);
+
+  if (node.source) {
+    if (node.source.end) {
+      return lineColumnToIndex(node.source.end, text);
+    }
+
+    if (isNonEmptyArray(node.nodes)) {
+      return calculateLocEnd(node.nodes.at(-1), text);
+    }
   }
+
   return null;
 }
 
@@ -43,7 +61,7 @@ function calculateLoc(node, text) {
       calculateValueNodeLoc(
         child,
         getValueRootOffset(node),
-        child.text || child.value
+        child.text || child.value,
       );
     } else {
       calculateLoc(child, text);
@@ -76,14 +94,10 @@ function getValueRootOffset(node) {
 
   if (node.type === "css-atrule" && typeof node.name === "string") {
     result +=
-      1 + node.name.length + node.raws.afterName.match(/^\s*:?\s*/)[0].length;
+      1 + node.name.length + node.raws.afterName.match(/^\s*:?\s*/u)[0].length;
   }
 
-  if (
-    node.type !== "css-atrule" &&
-    node.raws &&
-    typeof node.raws.between === "string"
-  ) {
+  if (node.type !== "css-atrule" && typeof node.raws?.between === "string") {
     result += node.raws.between.length;
   }
 
@@ -209,7 +223,7 @@ function replaceQuotesInInlineComments(text) {
   for (const [start, end] of inlineCommentsToReplace) {
     text =
       text.slice(0, start) +
-      text.slice(start, end).replace(/["'*]/g, " ") +
+      text.slice(start, end).replaceAll(/["'*]/gu, " ") +
       text.slice(end);
   }
 
@@ -217,16 +231,11 @@ function replaceQuotesInInlineComments(text) {
 }
 
 function locStart(node) {
-  return node.source.startOffset;
+  return node.source?.startOffset;
 }
 
 function locEnd(node) {
-  return node.source.endOffset;
+  return node.source?.endOffset;
 }
 
-module.exports = {
-  locStart,
-  locEnd,
-  calculateLoc,
-  replaceQuotesInInlineComments,
-};
+export { calculateLoc, locEnd, locStart, replaceQuotesInInlineComments };

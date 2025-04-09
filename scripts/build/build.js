@@ -1,30 +1,18 @@
-"use strict";
+#!/usr/bin/env node
 
-const path = require("path");
-const fs = require("fs").promises;
-const readline = require("readline");
-const chalk = require("chalk");
-const execa = require("execa");
-const minimist = require("minimist");
+import fs from "node:fs/promises";
+import path from "node:path";
+import readline from "node:readline";
+import createEsmUtils from "esm-utils";
+import styleText from "node-style-text";
+import prettyBytes from "pretty-bytes";
+import { DIST_DIR } from "../utils/index.js";
+import packageConfig from "./config.js";
+import parseArguments from "./parse-arguments.js";
 
-const bundler = require("./bundler");
-const bundleConfigs = require("./config");
-const util = require("./util");
-const Cache = require("./cache");
+const { require } = createEsmUtils(import.meta);
 
-// Errors in promises should be fatal.
-const loggedErrors = new Set();
-process.on("unhandledRejection", (err) => {
-  // No need to print it twice.
-  if (!loggedErrors.has(err)) {
-    console.error(err);
-  }
-  process.exit(1);
-});
-
-const CACHE_VERSION = "v32"; // This need update when updating build scripts
 const statusConfig = [
-  { color: "bgYellow", text: "CACHED" },
   { color: "bgGreen", text: "DONE" },
   { color: "bgRed", text: "FAIL" },
   { color: "bgGray", text: "SKIPPED" },
@@ -38,145 +26,141 @@ const padStatusText = (text) => {
 };
 const status = {};
 for (const { color, text } of statusConfig) {
-  status[text] = chalk[color].black(padStatusText(text));
+  status[text] = styleText[color].black(padStatusText(text));
 }
 
 function fitTerminal(input, suffix = "") {
   const columns = Math.min(process.stdout.columns || 40, 80);
   const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
-    const repeatCount = WIDTH - input.length - 1 - suffix.length;
-    input += chalk.dim(".").repeat(repeatCount) + suffix;
+    const repeatCount = Math.max(WIDTH - input.length - 1 - suffix.length, 0);
+    input += styleText.dim(".").repeat(repeatCount) + suffix;
   }
   return input;
 }
 
-async function createBundle(bundleConfig, cache, options) {
-  const { output, target, format, type } = bundleConfig;
-  process.stdout.write(fitTerminal(output));
+const clear = () => {
+  readline.clearLine(process.stdout, 0);
+  readline.cursorTo(process.stdout, 0, null);
+};
+
+async function buildFile({ packageConfig, file, cliOptions, results }) {
+  const { distDirectory } = packageConfig;
+  let displayName = file.output.file;
+  if (
+    (file.platform === "universal" && file.output.format !== "esm") ||
+    (file.output.file.startsWith("index.") && file.output.format !== "esm") ||
+    file.kind === "types"
+  ) {
+    displayName = ` ${displayName}`;
+  }
+
+  process.stdout.write(fitTerminal(displayName));
+
+  if (
+    (cliOptions.files && !cliOptions.files.has(file.output.file)) ||
+    (cliOptions.playground &&
+      (file.output.format !== "esm" ||
+        file.platform !== "universal" ||
+        file.output.file === "doc.mjs"))
+  ) {
+    console.log(status.SKIPPED);
+    return;
+  }
+
+  let result;
   try {
-    const { cached, skipped } = await bundler(bundleConfig, cache, options);
-
-    if (skipped) {
-      console.log(status.SKIPPED);
-      return;
-    }
-
-    if (cached) {
-      console.log(status.CACHED);
-      return;
-    }
-
-    const file = path.join("dist", output);
-
-    // Files including U+FFEE can't load in Chrome Extension
-    // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
-    // details https://github.com/prettier/prettier/pull/8534
-    if (target === "universal") {
-      const content = await fs.readFile(file, "utf8");
-      if (content.includes("\ufffe")) {
-        throw new Error("Bundled umd file should not have U+FFFE character.");
-      }
-    }
-
-    if (options["print-size"]) {
-      // Clear previous line
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
-
-      const prettyBytes = require("pretty-bytes");
-      const getSizeText = async (file) =>
-        prettyBytes((await fs.stat(file)).size);
-      const sizeTexts = [await getSizeText(file)];
-      if (
-        type !== "core" &&
-        format !== "esm" &&
-        bundleConfig.bundler !== "webpack" &&
-        target === "universal"
-      ) {
-        const esmFile = path.join("dist/esm", output.replace(".js", ".mjs"));
-        sizeTexts.push(`esm ${await getSizeText(esmFile)}`);
-      }
-      process.stdout.write(fitTerminal(output, `${sizeTexts.join(", ")} `));
-    }
-
-    console.log(status.DONE);
+    result = await file.build({ packageConfig, file, cliOptions, results });
   } catch (error) {
     console.log(status.FAIL + "\n");
-    handleError(error);
+    console.error(error);
+    throw error;
   }
-}
 
-function handleError(error) {
-  loggedErrors.add(error);
-  console.error(error);
-  throw error;
-}
+  result ??= {};
 
-async function cacheFiles(cache) {
-  // Copy built files to .cache
-  try {
-    await execa("rm", ["-rf", path.join(".cache", "files")]);
-    await execa("mkdir", ["-p", path.join(".cache", "files")]);
-    await execa("mkdir", ["-p", path.join(".cache", "files", "esm")]);
-    const manifest = cache.updated;
+  if (result.skipped) {
+    console.log(status.SKIPPED);
+    return;
+  }
 
-    for (const file of Object.keys(manifest.files)) {
-      await execa("cp", [
-        file,
-        path.join(".cache", file.replace("dist", "files")),
-      ]);
+  const outputFile = cliOptions.saveAs ?? file.output.file;
+
+  const sizeMessages = [];
+  if (cliOptions.printSize) {
+    const { size } = await fs.stat(path.join(distDirectory, outputFile));
+    sizeMessages.push(prettyBytes(size));
+  }
+
+  if (cliOptions.compareSize) {
+    // TODO: Use `import.meta.resolve` when Node.js support
+    const stablePrettierDirectory = path.dirname(require.resolve("prettier"));
+    const stableVersionFile = path.join(stablePrettierDirectory, outputFile);
+    let stableSize;
+    try {
+      ({ size: stableSize } = await fs.stat(stableVersionFile));
+    } catch {
+      // No op
     }
-  } catch (err) {
-    // Don't fail the build
+
+    if (stableSize) {
+      const { size } = await fs.stat(path.join(distDirectory, outputFile));
+      const sizeDiff = size - stableSize;
+      const message = styleText[sizeDiff > 0 ? "yellow" : "green"](
+        prettyBytes(sizeDiff),
+      );
+
+      sizeMessages.push(`${message}`);
+    } else {
+      sizeMessages.push(styleText.blue("[NEW FILE]"));
+    }
+  }
+
+  if (sizeMessages.length > 0) {
+    // Clear previous line
+    clear();
+    process.stdout.write(
+      fitTerminal(displayName, `${sizeMessages.join(", ")} `),
+    );
+  }
+
+  console.log(status.DONE);
+
+  return result;
+}
+
+async function run() {
+  const cliOptions = parseArguments();
+
+  if (cliOptions.clean) {
+    let stat;
+    try {
+      stat = await fs.stat(DIST_DIR);
+    } catch {
+      // No op
+    }
+
+    if (stat) {
+      if (stat.isDirectory()) {
+        await fs.rm(DIST_DIR, { recursive: true, force: true });
+      } else {
+        throw new Error(`"${DIST_DIR}" is not a directory`);
+      }
+    }
+  }
+
+  console.log(styleText.inverse(" Building packages "));
+
+  const results = [];
+  for (const file of packageConfig.files) {
+    const result = await buildFile({
+      packageConfig,
+      file,
+      cliOptions,
+      results,
+    });
+    results.push(result);
   }
 }
 
-async function preparePackage() {
-  const pkg = await util.readJson("package.json");
-  pkg.bin = "./bin-prettier.js";
-  delete pkg.dependencies;
-  delete pkg.devDependencies;
-  pkg.scripts = {
-    prepublishOnly:
-      "node -e \"assert.equal(require('.').version, require('..').version)\"",
-  };
-  pkg.files = ["*.js", "esm/*.mjs"];
-  await util.writeJson("dist/package.json", pkg);
-
-  await util.copyFile("./README.md", "./dist/README.md");
-  await util.copyFile("./LICENSE", "./dist/LICENSE");
-}
-
-async function run(params) {
-  await execa("rm", ["-rf", "dist"]);
-  await execa("mkdir", ["-p", "dist"]);
-  if (!params.playground) {
-    await execa("mkdir", ["-p", "dist/esm"]);
-  }
-
-  if (params["purge-cache"]) {
-    await execa("rm", ["-rf", ".cache"]);
-  }
-
-  const bundleCache = new Cache(".cache/", CACHE_VERSION);
-  await bundleCache.load();
-
-  console.log(chalk.inverse(" Building packages "));
-  for (const bundleConfig of bundleConfigs) {
-    await createBundle(bundleConfig, bundleCache, params);
-  }
-
-  await cacheFiles(bundleCache);
-  await bundleCache.save();
-
-  if (!params.playground) {
-    await preparePackage();
-  }
-}
-
-run(
-  minimist(process.argv.slice(2), {
-    boolean: ["purge-cache", "playground", "print-size"],
-  })
-);
+await run();

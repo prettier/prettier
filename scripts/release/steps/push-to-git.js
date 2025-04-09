@@ -1,19 +1,8 @@
-"use strict";
+import { runGit } from "../utils.js";
 
-const execa = require("execa");
-const { logPromise } = require("../utils");
-
-async function pushGit({ version }) {
-  await execa("git", ["commit", "-am", `Release ${version}`]);
-  await execa("git", ["tag", "-a", version, "-m", `Release ${version}`]);
-  await execa("git", ["push"]);
-  await execa("git", ["push", "--tags"]);
+export default async function pushToGit({ version, repo }) {
+  await runGit(["commit", "-am", `Release ${version}`]);
+  await runGit(["tag", "-a", version, "-m", `Release ${version}`]);
+  await runGit(["push", "--repo", repo]);
+  await runGit(["push", "--tags", "--repo", repo]);
 }
-
-module.exports = function (params) {
-  if (params.dry) {
-    return;
-  }
-
-  return logPromise("Committing and pushing to remote", pushGit(params));
-};

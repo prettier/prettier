@@ -1,5 +1,3 @@
-"use strict";
-
 const getLengthSelector = (path) =>
   `[${path}.type="MemberExpression"][${path}.property.type="Identifier"][${path}.property.name="length"]`;
 const selector = [
@@ -52,13 +50,9 @@ const isArrayIsArrayCall = (node) =>
 
 const MESSAGE_ID = "prefer-is-non-empty-array";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url:
-        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/prefer-is-non-empty-array.js",
-    },
     messages: {
       [MESSAGE_ID]: "Please use `isNonEmptyArray()`.",
     },
@@ -100,7 +94,7 @@ module.exports = {
           fix(fixer) {
             return fixer.replaceTextRange(
               [start, end],
-              `isNonEmptyArray(${objectText})`
+              `isNonEmptyArray(${objectText})`,
             );
           },
         });
@@ -112,7 +106,7 @@ module.exports = {
           left = left.right;
         }
 
-        if (!left.type === "UnaryExpression" || left.operator !== "!") {
+        if (left.type !== "UnaryExpression" || left.operator !== "!") {
           return;
         }
 
@@ -142,7 +136,7 @@ module.exports = {
           fix(fixer) {
             return fixer.replaceTextRange(
               [start, end],
-              `!isNonEmptyArray(${objectText})`
+              `!isNonEmptyArray(${objectText})`,
             );
           },
         });

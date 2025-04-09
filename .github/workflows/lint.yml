@@ -5,7 +5,15 @@ on:
     branches:
       - main
       - patch-release
+      - next
   pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint:
@@ -13,13 +21,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.4
+        uses: actions/setup-node@v4
+        with:
+          cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Check Dependencies
         run: yarn lint:deps
@@ -39,5 +49,60 @@ jobs:
       - name: Lint Changelog
         run: yarn lint:changelog
 
-      - name: Check Lock File Changes
-        run: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
+      - name: Lint "format test"
+        run: yarn lint:format-test
+
+      - name: Lint docs code block
+        run: yarn prettier "{docs,website/versioned_docs/version-stable}/**/*.md" --check
+        env:
+          # Make Prettier throws on embeded format
+          PRETTIER_DEBUG: true
+
+      - name: Lint workflow files
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color
+        shell: bash
+
+      - name: Dependency Review
+        # Doesn't support push event https://github.com/actions/dependency-review-action/issues/826
+        if: github.event_name == 'pull_request'
+        uses: actions/dependency-review-action@v4
+
+      - name: Validate renovate config
+        run: npx --package renovate --call renovate-config-validator
+
+      - name: Run yarn (/)
+        run: |
+          yarn
+          yarn dedupe --check
+
+      - name: Run yarn (/website)
+        run: |
+          yarn
+          yarn dedupe --check
+        working-directory: website
+
+      - name: Run yarn (/scripts/release)
+        run: |
+          yarn
+          yarn dedupe --check
+        working-directory: scripts/release
+
+      - name: Run yarn (/scripts/tools/bundle-test)
+        run: |
+          yarn
+          yarn dedupe --check
+        working-directory: scripts/tools/bundle-test
+
+      - name: Run yarn (/scripts/tools/eslint-plugin-prettier-internal-rules)
+        run: |
+          yarn
+          yarn dedupe --check
+        working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
+
+      - name: Knip
+        run: yarn lint:knip
+
+      - name: Check File Changes
+        run: echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."

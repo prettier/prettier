@@ -1,130 +1,103 @@
 #!/usr/bin/env node
 
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import createEsmUtils from "esm-utils";
+import fg from "fast-glob";
+import semver from "semver";
+import {
+  categories,
+  changelogUnreleasedDirPath,
+  changelogUnreleasedDirs,
+  getEntries,
+  printEntries,
+  replaceVersions,
+} from "./utils/changelog.js";
 
-const fs = require("fs");
-const path = require("path");
-const rimraf = require("rimraf");
-const semver = require("semver");
-
-const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
+const { __dirname, require } = createEsmUtils(import.meta);
 const blogDir = path.join(__dirname, "../website/blog");
 const introTemplateFile = path.join(
-  changelogUnreleasedDir,
-  "BLOG_POST_INTRO_TEMPLATE.md"
+  changelogUnreleasedDirPath,
+  "BLOG_POST_INTRO_TEMPLATE.md",
 );
-const introFile = path.join(changelogUnreleasedDir, "blog-post-intro.md");
+const introFile = path.join(changelogUnreleasedDirPath, "blog-post-intro.md");
 if (!fs.existsSync(introFile)) {
   fs.copyFileSync(introTemplateFile, introFile);
 }
-const previousVersion = require("prettier/package.json").version;
-const version = require("../package.json").version.replace(/-.+/, "");
-const postGlob = path.join(blogDir, `????-??-??-${version}.md`);
+
+const prevVersion = require("../node_modules/prettier/package.json").version;
+const { version } = require("../package.json");
+const nextVersion = `${semver.major(version)}.${semver.minor(
+  version,
+)}.${semver.patch(version)}`;
+
+const postGlob = path.join(blogDir, `????-??-??-${nextVersion}.md`);
 const postFile = path.join(
   blogDir,
-  `${new Date().toISOString().replace(/T.+/, "")}-${version}.md`
+  `${new Date().toISOString().replace(/T.+/u, "")}-${nextVersion}.md`,
 );
 
-const categories = [
-  { dir: "javascript", title: "JavaScript" },
-  { dir: "typescript", title: "TypeScript" },
-  { dir: "flow", title: "Flow" },
-  { dir: "json", title: "JSON" },
-  { dir: "css", title: "CSS" },
-  { dir: "scss", title: "SCSS" },
-  { dir: "less", title: "Less" },
-  { dir: "html", title: "HTML" },
-  { dir: "vue", title: "Vue" },
-  { dir: "angular", title: "Angular" },
-  { dir: "lwc", title: "LWC" },
-  { dir: "handlebars", title: "Handlebars (alpha)" },
-  { dir: "graphql", title: "GraphQL" },
-  { dir: "markdown", title: "Markdown" },
-  { dir: "mdx", title: "MDX" },
-  { dir: "yaml", title: "YAML" },
-  { dir: "api", title: "API" },
-  { dir: "cli", title: "CLI" },
-];
+const categoriesByDir = new Map(
+  categories.map((category) => [category.dir, category]),
+);
 
-const categoriesByDir = categories.reduce((result, category) => {
-  result[category.dir] = category;
-  return result;
-}, {});
-
-const dirs = fs
-  .readdirSync(changelogUnreleasedDir, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory());
-
-for (const dir of dirs) {
-  const dirPath = path.join(changelogUnreleasedDir, dir.name);
-  const category = categoriesByDir[dir.name];
+for (const dir of changelogUnreleasedDirs) {
+  const dirPath = path.join(changelogUnreleasedDirPath, dir.name);
+  const category = categoriesByDir.get(dir.name);
 
   if (!category) {
     throw new Error("Unknown category: " + dir.name);
   }
 
-  category.entries = fs
-    .readdirSync(dirPath)
-    .filter((fileName) => /^\d+\.md$/.test(fileName))
-    .map((fileName) => {
-      const [title, ...rest] = fs
-        .readFileSync(path.join(dirPath, fileName), "utf8")
-        .trim()
-        .split("\n");
-      return {
-        breaking: title.includes("[BREAKING]"),
-        highlight: title.includes("[HIGHLIGHT]"),
-        content: [processTitle(title), ...rest].join("\n"),
-      };
-    });
+  category.entries = getEntries(dirPath);
 }
 
-rimraf.sync(postGlob);
+for (const filePath of fg.sync(postGlob)) {
+  fs.rmSync(filePath);
+}
+
+const introFileData = fs.readFileSync(introFile, "utf8").trim();
+
+const TRUNCATE_COMMENT = "<!-- truncate -->";
+const shouldPrintTruncate = !introFileData.includes(TRUNCATE_COMMENT);
 
 fs.writeFileSync(
   postFile,
   replaceVersions(
     [
-      fs.readFileSync(introFile, "utf8").trim(),
-      "<!--truncate-->",
-      ...printEntries({
+      introFileData,
+      shouldPrintTruncate ? TRUNCATE_COMMENT : "",
+      ...printEntriesWithTitle({
         title: "Highlights",
-        filter: (entry) => entry.highlight,
+        filter: (entry) => entry.section === "highlight",
       }),
-      ...printEntries({
-        title: "Breaking changes",
-        filter: (entry) => entry.breaking && !entry.highlight,
+      ...printEntriesWithTitle({
+        title: "Breaking Changes",
+        filter: (entry) => entry.section === "breaking",
       }),
-      ...printEntries({
-        title: "Other changes",
-        filter: (entry) => !entry.breaking && !entry.highlight,
+      ...printEntriesWithTitle({
+        title: "Formatting Improvements",
+        filter: (entry) => entry.section === "improvement",
       }),
-    ].join("\n\n") + "\n"
-  )
+      ...printEntriesWithTitle({
+        title: "Other Changes",
+        filter: (entry) => !entry.section,
+      }),
+    ]
+      .filter(Boolean)
+      .join("\n\n") + "\n",
+    prevVersion,
+    nextVersion,
+  ),
 );
 
-function processTitle(title) {
-  return title
-    .replace(/\[(BREAKING|HIGHLIGHT)]/g, "")
-    .replace(/\s+/g, " ")
-    .replace(/^#{4} [a-z]/, (s) => s.toUpperCase())
-    .replace(/(?<![[`])@([\w-]+)/g, "[@$1](https://github.com/$1)")
-    .replace(
-      /(?<![[`])#(\d{4,})/g,
-      "[#$1](https://github.com/prettier/prettier/pull/$1)"
-    );
-}
-
-function printEntries({ title, filter }) {
+function printEntriesWithTitle({ title, filter }) {
   const result = [];
 
   for (const { entries = [], title } of categories) {
     const filteredEntries = entries.filter(filter);
     if (filteredEntries.length > 0) {
-      result.push(
-        "### " + title,
-        ...filteredEntries.map((entry) => entry.content)
-      );
+      result.push("### " + title, ...printEntries(filteredEntries));
     }
   }
 
@@ -133,14 +106,4 @@ function printEntries({ title, filter }) {
   }
 
   return result;
-}
-
-function formatVersion(version) {
-  return `${semver.major(version)}.${semver.minor(version)}`;
-}
-
-function replaceVersions(data) {
-  return data
-    .replace(/prettier stable/gi, `Prettier ${formatVersion(previousVersion)}`)
-    .replace(/prettier main/gi, `Prettier ${formatVersion(version)}`);
 }

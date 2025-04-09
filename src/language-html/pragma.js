@@ -1,14 +1,9 @@
-"use strict";
-
 function hasPragma(text) {
-  return /^\s*<!--\s*@(format|prettier)\s*-->/.test(text);
+  return /^\s*<!--\s*@(?:format|prettier)\s*-->/u.test(text);
 }
 
 function insertPragma(text) {
-  return "<!-- @format -->\n\n" + text.replace(/^\s*\n/, "");
+  return "<!-- @format -->\n\n" + text;
 }
 
-module.exports = {
-  hasPragma,
-  insertPragma,
-};
+export { hasPragma, insertPragma };
