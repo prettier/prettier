@@ -1,14 +1,11 @@
-"use strict";
-
 const messageId = "print-function-parameter-order";
 const expectedParameters = ["path", "options", "print"];
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
     docs: {
-      url:
-        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/print-function-parameter-order.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/print-function-parameter-order.js",
     },
     messages: {
       [messageId]:
@@ -21,10 +18,10 @@ module.exports = {
     return {
       ":function[params.length>=3]"(node) {
         const parameterNames = node.params.map((node) =>
-          node.type === "Identifier" ? node.name : ""
+          node.type === "Identifier" ? node.name : "",
         );
 
-        // `embed` function order is `path, print, textToDoc, options`
+        // `embed` function order is `textToDoc, print, path, options`
         if (parameterNames.includes("textToDoc")) {
           return;
         }
@@ -37,7 +34,7 @@ module.exports = {
         // In correct order
         if (
           expectedParameters.every(
-            (name, index) => name === parameterNames[index]
+            (name, index) => name === parameterNames[index],
           )
         ) {
           return;
