@@ -10,10 +10,14 @@ import {
   isBinaryCastExpression,
   isBitwiseOperator,
   isCallExpression,
+  isConditionalType,
+  isIntersectionType,
   isMemberExpression,
   isNullishCoalescing,
+  isNumericLiteral,
   isObjectOrRecordExpression,
   isObjectProperty,
+  isUnionType,
   shouldFlatten,
   startsWithNoLookaheadToken,
 } from "./utils/index.js";
@@ -445,24 +449,17 @@ function needsParens(path, options) {
       }
 
     case "SequenceExpression":
-      switch (parent.type) {
-        case "ForStatement":
-          // Although parentheses wouldn't hurt around sequence
-          // expressions in the head of for loops, traditional style
-          // dictates that e.g. i++, j++ should not be wrapped with
-          // parentheses.
-          return false;
-
-        case "ArrowFunctionExpression":
-          // We do need parentheses, but SequenceExpressions are handled
-          // specially when printing bodies of arrow functions.
-          return key !== "body";
-
-        default:
-          // Otherwise err on the side of overparenthesization, adding
-          // explicit exceptions above if this proves overzealous.
-          return true;
+      // Although parentheses wouldn't hurt around sequence
+      // expressions in the head of for loops, traditional style
+      // dictates that e.g. i++, j++ should not be wrapped with
+      // parentheses.
+      if (parent.type === "ForStatement") {
+        return false;
       }
+
+      // Otherwise err on the side of overparenthesization, adding
+      // explicit exceptions above if this proves overzealous.
+      return true;
 
     case "YieldExpression":
       if (
@@ -525,11 +522,20 @@ function needsParens(path, options) {
     // fallthrough
     case "TSConditionalType":
     case "TSConstructorType":
-      if (key === "extendsType" && parent.type === "TSConditionalType") {
-        if (node.type === "TSConditionalType") {
-          return true;
-        }
+    case "ConditionalTypeAnnotation":
+      if (
+        key === "extendsType" &&
+        isConditionalType(node) &&
+        parent.type === node.type
+      ) {
+        return true;
+      }
 
+      if (key === "checkType" && isConditionalType(parent)) {
+        return true;
+      }
+
+      if (key === "extendsType" && parent.type === "TSConditionalType") {
         let { typeAnnotation } = node.returnType || node.typeAnnotation;
 
         if (
@@ -547,15 +553,11 @@ function needsParens(path, options) {
         }
       }
 
-      if (key === "checkType" && parent.type === "TSConditionalType") {
-        return true;
-      }
     // fallthrough
     case "TSUnionType":
     case "TSIntersectionType":
       if (
-        (parent.type === "TSUnionType" ||
-          parent.type === "TSIntersectionType") &&
+        (isUnionType(parent) || isIntersectionType(parent)) &&
         parent.types.length > 1 &&
         (!node.types || node.types.length > 1)
       ) {
@@ -706,19 +708,6 @@ function needsParens(path, options) {
       );
     }
 
-    case "ConditionalTypeAnnotation":
-      if (
-        key === "extendsType" &&
-        parent.type === "ConditionalTypeAnnotation" &&
-        node.type === "ConditionalTypeAnnotation"
-      ) {
-        return true;
-      }
-
-      if (key === "checkType" && parent.type === "ConditionalTypeAnnotation") {
-        return true;
-      }
-
     // fallthrough
     case "OptionalIndexedAccessType":
       return key === "objectType" && parent.type === "IndexedAccessType";
@@ -741,9 +730,7 @@ function needsParens(path, options) {
       }
 
       return (
-        key === "object" &&
-        parent.type === "MemberExpression" &&
-        typeof node.value === "number"
+        key === "object" && isMemberExpression(parent) && isNumericLiteral(node)
       );
 
     case "AssignmentExpression":

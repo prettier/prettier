@@ -71,7 +71,7 @@ async function buildPlaygroundFiles() {
       continue;
     }
 
-    const { default: pluginModule } = await import(url.pathToFileURL(dist));
+    const pluginModule = await import(url.pathToFileURL(dist));
 
     const plugin = {
       name: path.basename(fileName, ".js"),

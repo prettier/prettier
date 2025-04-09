@@ -1,7 +1,7 @@
 import styleText from "node-style-text";
 import { fetchText, logPromise, processFile, runGit } from "../utils.js";
 
-async function update() {
+async function update({ repo }) {
   const npmPage = await logPromise(
     "Fetching npm dependents count",
     fetchText("https://www.npmjs.com/package/prettier"),
@@ -56,7 +56,7 @@ async function update() {
     await logPromise("Committing and pushing to remote", async () => {
       await runGit(["add", "."]);
       await runGit(["commit", "-m", "Update dependents count"]);
-      await runGit(["push"]);
+      await runGit(["push", "--repo", repo]);
     });
   }
 }
@@ -71,13 +71,13 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-export default async function updateDependentsCount({ dry, next }) {
+export default async function updateDependentsCount({ dry, next, repo }) {
   if (dry || next) {
     return;
   }
 
   try {
-    await update();
+    await update({ repo });
   } catch (error) {
     console.log(styleText.red.bold(error.message));
   }

@@ -1,7 +1,7 @@
 import readline from "node:readline";
-import chalk, { chalkStderr } from "chalk";
 import stripAnsi from "strip-ansi";
 import wcwidth from "wcwidth.js";
+import { picocolors } from "./prettier-internal.js";
 
 const countLines = (stream, text) => {
   const columns = stream.columns || 80;
@@ -42,8 +42,7 @@ function createLogger(logLevel = "log") {
     }
 
     const stream = process[loggerName === "log" ? "stdout" : "stderr"];
-    const chalkInstance = loggerName === "log" ? chalk : chalkStderr;
-    const prefix = color ? `[${chalkInstance[color](loggerName)}] ` : "";
+    const prefix = color ? `[${picocolors[color](loggerName)}] ` : "";
 
     return (message, options) => {
       options = {

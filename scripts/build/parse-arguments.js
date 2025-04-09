@@ -15,10 +15,9 @@ function parseArguments() {
       "save-as": { type: "string" },
       report: { type: "string", multiple: true },
     },
-    strict: true,
   });
 
-  if (values.minify && values.noMinify) {
+  if (values.minify && values["no-minify"]) {
     throw new Error("'--minify' and '--no-minify' can't be used together.");
   }
 

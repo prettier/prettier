@@ -94,8 +94,8 @@ class Playground extends React.Component {
 
     const codeSample = getCodeSample(options.parser);
     const content = original.content || codeSample;
-    const needsClickForFirstRun =
-      options.parser === "doc-explorer" && content !== codeSample;
+    const isDocExplorer = options.parser === "doc-explorer";
+    const needsClickForFirstRun = isDocExplorer && content !== codeSample;
     const selection = {};
 
     this.state = { content, options, selection, needsClickForFirstRun };
@@ -268,8 +268,10 @@ class Playground extends React.Component {
               });
               const showFullReport =
                 encodeURIComponent(fullReport).length < MAX_LENGTH;
+              const isDocExplorer = options.parser === "doc-explorer";
+
               return (
-                <React.Fragment>
+                <>
                   <div className="editors-container">
                     <Sidebar visible={editorState.showSidebar}>
                       <SidebarOptions
@@ -278,78 +280,82 @@ class Playground extends React.Component {
                         optionValues={options}
                         onOptionValueChange={this.handleOptionValueChange}
                       />
-                      <SidebarCategory title="Range">
-                        <label>
-                          The selected range will be highlighted in yellow in
-                          the input editor
-                        </label>
-                        <Option
-                          option={this.rangeStartOption}
-                          value={
-                            typeof options.rangeStart === "number"
-                              ? options.rangeStart
-                              : ""
-                          }
-                          onChange={this.handleOptionValueChange}
-                        />
-                        <Option
-                          option={this.rangeEndOption}
-                          value={
-                            typeof options.rangeEnd === "number"
-                              ? options.rangeEnd
-                              : ""
-                          }
-                          overrideMax={content.length}
-                          onChange={this.handleOptionValueChange}
-                        />
-
-                        <Button onClick={this.setSelectionAsRange}>
-                          Set selected text as range
-                        </Button>
-                      </SidebarCategory>
-                      <SidebarCategory title="Cursor">
-                        <Option
-                          option={this.cursorOffsetOption}
-                          value={
-                            options.cursorOffset >= 0
-                              ? options.cursorOffset
-                              : ""
-                          }
-                          onChange={this.handleOptionValueChange}
-                        />
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "baseline",
-                            gap: "10px",
-                          }}
-                        >
-                          <Checkbox
-                            label="track"
-                            checked={Boolean(this.state.trackCursorOffset)}
-                            onChange={() =>
-                              this.setState((state) => ({
-                                trackCursorOffset: !state.trackCursorOffset,
-                              }))
+                      {isDocExplorer ? null : (
+                        <SidebarCategory title="Range">
+                          <label>
+                            The selected range will be highlighted in yellow in
+                            the input editor
+                          </label>
+                          <Option
+                            option={this.rangeStartOption}
+                            value={
+                              typeof options.rangeStart === "number"
+                                ? options.rangeStart
+                                : ""
                             }
+                            onChange={this.handleOptionValueChange}
                           />
-                          {options.cursorOffset >= 0 && (
-                            <>
-                              <Button
-                                onClick={() => {
-                                  this.handleOptionValueChange(
-                                    this.cursorOffsetOption,
-                                    -1,
-                                  );
-                                }}
-                              >
-                                Reset
-                              </Button>
-                              <label>Result: {cursorOffset}</label>
-                            </>
-                          )}
-                        </div>
-                      </SidebarCategory>
+                          <Option
+                            option={this.rangeEndOption}
+                            value={
+                              typeof options.rangeEnd === "number"
+                                ? options.rangeEnd
+                                : ""
+                            }
+                            overrideMax={content.length}
+                            onChange={this.handleOptionValueChange}
+                          />
+
+                          <Button onClick={this.setSelectionAsRange}>
+                            Set selected text as range
+                          </Button>
+                        </SidebarCategory>
+                      )}
+                      {isDocExplorer ? null : (
+                        <SidebarCategory title="Cursor">
+                          <Option
+                            option={this.cursorOffsetOption}
+                            value={
+                              options.cursorOffset >= 0
+                                ? options.cursorOffset
+                                : ""
+                            }
+                            onChange={this.handleOptionValueChange}
+                          />
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "baseline",
+                              gap: "10px",
+                            }}
+                          >
+                            <Checkbox
+                              label="track"
+                              checked={Boolean(this.state.trackCursorOffset)}
+                              onChange={() =>
+                                this.setState((state) => ({
+                                  trackCursorOffset: !state.trackCursorOffset,
+                                }))
+                              }
+                            />
+                            {options.cursorOffset >= 0 ? (
+                              <>
+                                <Button
+                                  onClick={() => {
+                                    this.handleOptionValueChange(
+                                      this.cursorOffsetOption,
+                                      -1,
+                                    );
+                                  }}
+                                >
+                                  Reset
+                                </Button>
+                                <label>Result: {cursorOffset}</label>
+                              </>
+                            ) : null}
+                          </div>
+                        </SidebarCategory>
+                      )}
                       <SidebarCategory title="Debug">
                         <Checkbox
                           label="show input"
@@ -361,44 +367,54 @@ class Playground extends React.Component {
                           checked={editorState.showAst}
                           onChange={editorState.toggleAst}
                         />
-                        <Checkbox
-                          label="show preprocessed AST"
-                          checked={editorState.showPreprocessedAst}
-                          onChange={editorState.togglePreprocessedAst}
-                        />
-                        <Checkbox
-                          label="show doc"
-                          checked={editorState.showDoc}
-                          onChange={editorState.toggleDoc}
-                        />
-                        <Checkbox
-                          label="show comments"
-                          checked={editorState.showComments}
-                          onChange={editorState.toggleComments}
-                        />
+                        {isDocExplorer ? null : (
+                          <Checkbox
+                            label="show preprocessed AST"
+                            checked={editorState.showPreprocessedAst}
+                            onChange={editorState.togglePreprocessedAst}
+                          />
+                        )}
+                        {isDocExplorer ? null : (
+                          <Checkbox
+                            label="show doc"
+                            checked={editorState.showDoc}
+                            onChange={editorState.toggleDoc}
+                          />
+                        )}
+                        {isDocExplorer ? null : (
+                          <Checkbox
+                            label="show comments"
+                            checked={editorState.showComments}
+                            onChange={editorState.toggleComments}
+                          />
+                        )}
                         <Checkbox
                           label="show output"
                           checked={editorState.showOutput}
                           onChange={editorState.toggleOutput}
                         />
-                        <Checkbox
-                          label="show second format"
-                          checked={editorState.showSecondFormat}
-                          onChange={editorState.toggleSecondFormat}
-                        />
-                        <Checkbox
-                          label="rethrow embed errors"
-                          checked={editorState.rethrowEmbedErrors}
-                          onChange={editorState.toggleEmbedErrors}
-                        />
-                        {editorState.showDoc && (
+                        {isDocExplorer ? null : (
+                          <Checkbox
+                            label="show second format"
+                            checked={editorState.showSecondFormat}
+                            onChange={editorState.toggleSecondFormat}
+                          />
+                        )}
+                        {isDocExplorer ? null : (
+                          <Checkbox
+                            label="rethrow embed errors"
+                            checked={editorState.rethrowEmbedErrors}
+                            onChange={editorState.toggleEmbedErrors}
+                          />
+                        )}
+                        {editorState.showDoc && !isDocExplorer ? (
                           <ClipboardButton
                             copy={() => this.getMarkdown({ doc: debug.doc })}
                             disabled={!debug.doc}
                           >
                             Copy doc
                           </ClipboardButton>
-                        )}
+                        ) : null}
                       </SidebarCategory>
                       <div className="sub-options">
                         <Button onClick={this.resetOptions}>
@@ -431,16 +447,16 @@ class Playground extends React.Component {
                           autoFold={util.getAstAutoFold(options.parser)}
                         />
                       ) : null}
-                      {editorState.showPreprocessedAst ? (
+                      {editorState.showPreprocessedAst && !isDocExplorer ? (
                         <DebugPanel
                           value={debug.preprocessedAst || ""}
                           autoFold={util.getAstAutoFold(options.parser)}
                         />
                       ) : null}
-                      {editorState.showDoc ? (
+                      {editorState.showDoc && !isDocExplorer ? (
                         <DebugPanel value={debug.doc || ""} />
                       ) : null}
-                      {editorState.showComments ? (
+                      {editorState.showComments && !isDocExplorer ? (
                         <DebugPanel
                           value={debug.comments || ""}
                           autoFold={util.getAstAutoFold(options.parser)}
@@ -484,7 +500,7 @@ class Playground extends React.Component {
                           />
                         )
                       ) : null}
-                      {editorState.showSecondFormat ? (
+                      {editorState.showSecondFormat && !isDocExplorer ? (
                         <OutputPanel
                           mode={util.getCodemirrorMode(options.parser)}
                           value={getSecondFormat(formatted, debug.reformatted)}
@@ -550,7 +566,7 @@ class Playground extends React.Component {
                       </a>
                     </div>
                   </div>
-                </React.Fragment>
+                </>
               );
             }}
           </PrettierFormat>

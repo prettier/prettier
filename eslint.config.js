@@ -480,4 +480,10 @@ export default [
       "prefer-arrow-callback": "off",
     },
   },
+  // ESBuild doesn't support regular expressions with `u` flag
+  // https://github.com/evanw/esbuild/issues/4128
+  {
+    files: ["scripts/build/esbuild-plugins/**/*"],
+    rules: { "require-unicode-regexp": "off" },
+  },
 ];

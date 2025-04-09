@@ -50,6 +50,10 @@
       matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
     },
     {
+      groupName: "Regex related dependencies",
+      matchPackageNames: ["regexp-util", "unicode-regex", "cjk-regex"],
+    },
+    {
       branchPrefix: "renovate/website/",
       matchFileNames: ["website/package.json"],
       labels: ["dependency:website"],
