@@ -44,7 +44,7 @@ function printEnumMember(path, print) {
 - `EnumStringBody`(flow)
 - `EnumSymbolBody`(flow)
 */
-function printEnumBody(path, print, options) {
+function printEnumBody(path, options, print) {
   const { node } = path;
   let type;
 
