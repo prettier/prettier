@@ -9,6 +9,6 @@ export const languages = [
     parsers: ["parser-name-inferred-from-language-is-supported"],
     isSupported: (file) =>
       /^\.husky[\\/][^\\/]+/u.test(file) ||
-      /([\\/])\.husky\1[^\\/]+$/u.test(file),
+      /(?<separator>[\\/])\.husky\k<separator>[^\\/]+$/u.test(file),
   },
 ];
