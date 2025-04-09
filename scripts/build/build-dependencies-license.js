@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { outdent } from "outdent";
 import rollupPluginLicense from "rollup-plugin-license";
-import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
+import { PROJECT_ROOT } from "../utils/index.js";
 
 const separator = `\n${"-".repeat(40)}\n\n`;
 
@@ -120,7 +120,14 @@ function getLicenseText(dependencies) {
   return [head, content].join("\n\n");
 }
 
-async function buildDependenciesLicense({ file, files, results, cliOptions }) {
+async function buildDependenciesLicense({
+  packageConfig,
+  file,
+  results,
+  cliOptions,
+}) {
+  const { distDirectory, files } = packageConfig;
+
   const fileName = file.output.file;
 
   if (files.at(-1) !== file) {
@@ -144,7 +151,7 @@ async function buildDependenciesLicense({ file, files, results, cliOptions }) {
 
   const text = getLicenseText(dependencies);
 
-  await fs.writeFile(path.join(DIST_DIR, fileName), text);
+  await fs.writeFile(path.join(distDirectory, fileName), text);
 }
 
 export default buildDependenciesLicense;

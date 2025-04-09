@@ -19,10 +19,10 @@ const {
 } = createEsmUtils(import.meta);
 const resolveEsmModulePath = (specifier) =>
   url.fileURLToPath(importMetaResolve(specifier));
-const copyFileBuilder = ({ file }) =>
+const copyFileBuilder = ({ packageConfig, file }) =>
   copyFile(
     path.join(PROJECT_ROOT, file.input),
-    path.join(DIST_DIR, file.output.file),
+    path.join(packageConfig.distDirectory, file.output.file),
   );
 
 function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
@@ -38,7 +38,7 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
   return {
     input,
     output: {
-      file: outputBaseName + ".d.ts",
+      file: `${outputBaseName}.d.ts`,
     },
     kind: "types",
     isPlugin,
@@ -867,4 +867,8 @@ const metaFiles = [
 
 /** @type {Files[]} */
 const files = [...nodejsFiles, ...universalFiles, ...metaFiles].filter(Boolean);
-export default files;
+export default {
+  packageName: "prettier",
+  distDirectory: path.join(DIST_DIR, "prettier"),
+  files,
+};
