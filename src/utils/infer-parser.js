@@ -112,8 +112,8 @@ function inferParser(options, fileInfo) {
     getLanguageByLanguageName(languages, fileInfo.language) ??
     getLanguageByFileName(languages, fileInfo.physicalFile) ??
     getLanguageByFileName(languages, fileInfo.file) ??
-    getLanguageByIsSupported(languages, fileInfo.file) ??
     getLanguageByIsSupported(languages, fileInfo.physicalFile) ??
+    getLanguageByIsSupported(languages, fileInfo.file) ??
     getLanguageByInterpreter(languages, fileInfo.physicalFile);
 
   return language?.parsers[0];
