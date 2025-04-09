@@ -1153,8 +1153,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     }
   ]
-}
-"
+}"
 `;
 
 exports[`CLI --support-info (write) 1`] = `[]`;

@@ -14,7 +14,9 @@ async function printSupportInfo() {
     ),
   };
 
-  printToScreen(await format(stringify(supportInfo), { parser: "json" }));
+  const result = await format(stringify(supportInfo), { parser: "json" });
+
+  printToScreen(result.trim());
 }
 
 export default printSupportInfo;
