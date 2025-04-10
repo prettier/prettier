@@ -5364,9 +5364,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@fisker/jest-light-runner#child-process":
+"jest-light-runner@nicolo-ribaudo/jest-light-runner#main":
   version: 0.6.0
-  resolution: "jest-light-runner@https://github.com/fisker/jest-light-runner.git#commit=229a40a45f631106539516a8ad2001e8b83a369c"
+  resolution: "jest-light-runner@https://github.com/nicolo-ribaudo/jest-light-runner.git#commit=fb06f9f39e8eec41f51493208d87b246a80236f6"
   dependencies:
     "@jest/expect": "npm:^30.0.0-alpha.1"
     "@jest/fake-timers": "npm:^30.0.0-alpha.1"
@@ -6917,7 +6917,7 @@ __metadata:
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
-    jest-light-runner: "fisker/jest-light-runner#child-process"
+    jest-light-runner: "nicolo-ribaudo/jest-light-runner#main"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:2.2.2"
