@@ -8,7 +8,6 @@ export const languages = [
     name: "language-name-does-not-matter",
     parsers: ["parser-name-inferred-from-language-is-supported"],
     isSupported: (file) =>
-      /^\.husky[\\/][^\\/]+/u.test(file) ||
       /(?<separator>[\\/])\.husky\k<separator>[^\\/]+$/u.test(file),
   },
 ];
