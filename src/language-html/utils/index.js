@@ -108,10 +108,11 @@ function isScriptLikeTag(node) {
     node.type === "element" &&
     (node.fullName === "script" ||
       node.fullName === "style" ||
+      node.fullName === "mj-style" ||
       node.fullName === "svg:style" ||
       node.fullName === "svg:script" ||
       (isUnknownNamespace(node) &&
-        (node.name === "script" || node.name === "style")))
+        (node.name === "script" || node.name === "style" || node.name === "mj-style")))
   );
 }
 
@@ -404,7 +405,7 @@ function inferVueSfcBlockParser(node, options) {
 }
 
 function inferStyleParser(node, options) {
-  if (node.name !== "style") {
+  if (node.name !== "style" && node.name !== "mj-style") {
     return;
   }
   const { lang } = node.attrMap;
