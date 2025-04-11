@@ -296,6 +296,7 @@ export type BuiltInParserName =
   | "markdown"
   | "mdx"
   | "meriyah"
+  | "mjml"
   | "scss"
   | "typescript"
   | "vue"

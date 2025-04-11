@@ -438,7 +438,7 @@ exports[`show detailed usage with --help object-wrap (write) 1`] = `[]`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
 
   Which parser to use.
 
@@ -467,7 +467,8 @@ Valid options:
   glimmer          Ember / Handlebars
   html             HTML
   angular          Angular
-  lwc              Lightning Web Components"
+  lwc              Lightning Web Components
+  mjml             MJML"
 `;
 
 exports[`show detailed usage with --help parser (write) 1`] = `[]`;

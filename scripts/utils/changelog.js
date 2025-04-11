@@ -22,6 +22,7 @@ export const categories = [
   { dir: "vue", title: "Vue" },
   { dir: "angular", title: "Angular" },
   { dir: "lwc", title: "LWC" },
+  { dir: "mjml", title: "MJML" },
   { dir: "handlebars", title: "Ember / Handlebars" },
   { dir: "graphql", title: "GraphQL" },
   { dir: "markdown", title: "Markdown" },

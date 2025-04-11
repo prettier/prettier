@@ -3,7 +3,7 @@
 exports[`include plugin's parsers to the values of the \`parser\` option\` (stderr) 1`] = `""`;
 
 exports[`include plugin's parsers to the values of the \`parser\` option\` (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml|foo-parser>
 
   Which parser to use.
 
@@ -33,6 +33,7 @@ Valid options:
   html             HTML
   angular          Angular
   lwc              Lightning Web Components
+  mjml             MJML
   foo-parser       foo (plugin: ./plugin.cjs)"
 `;
 
@@ -76,8 +77,8 @@ exports[`show external options with \`--help\` 1`] = `
     --object-wrap <preserve|collapse>
                              How to wrap object literals.
                              Defaults to preserve.
--   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
-+   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
+-   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
++   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml|foo-parser>
                              Which parser to use.
     --print-width <int>      The line length where Prettier will try wrap.
                              Defaults to 80.
