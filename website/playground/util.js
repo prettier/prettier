@@ -84,6 +84,7 @@ export function getAstAutoFold(parser) {
     case "angular":
     case "vue":
     case "lwc":
+    case "mjml":
       return astAutoFold.html;
     case "markdown":
     case "mdx":

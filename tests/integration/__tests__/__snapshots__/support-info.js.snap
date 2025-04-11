@@ -62,6 +62,9 @@ exports[`API getSupportInfo() 1`] = `
     "MDX": [
       "mdx",
     ],
+    "MJML": [
+      "mjml",
+    ],
     "Markdown": [
       "markdown",
     ],
@@ -197,6 +200,7 @@ exports[`API getSupportInfo() 1`] = `
         "html",
         "angular",
         "lwc",
+        "mjml",
       ],
       "default": undefined,
       "type": "choice",
@@ -392,8 +396,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".html.hl",
         ".inc",
         ".xht",
-        ".xhtml",
-        ".mjml"
+        ".xhtml"
       ],
       "linguistLanguageId": 146,
       "name": "HTML",
@@ -679,6 +682,21 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "prose",
       "vscodeLanguageIds": ["mdx"],
       "wrap": true
+    },
+    {
+      "aceMode": "html",
+      "aliases": ["MJML", "mjml"],
+      "codemirrorMimeType": "text/html",
+      "codemirrorMode": "htmlmixed",
+      "color": "#e34c26",
+      "extensions": [".mjml"],
+      "filenames": [],
+      "linguistLanguageId": 146,
+      "name": "MJML",
+      "parsers": ["mjml"],
+      "tmScope": "text.mjml.basic",
+      "type": "markup",
+      "vscodeLanguageIds": ["mjml"]
     },
     {
       "aceMode": "text",
@@ -994,7 +1012,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         { "description": "Ember / Handlebars", "value": "glimmer" },
         { "description": "HTML", "value": "html" },
         { "description": "Angular", "value": "angular" },
-        { "description": "Lightning Web Components", "value": "lwc" }
+        { "description": "Lightning Web Components", "value": "lwc" },
+        { "description": "MJML", "value": "mjml" }
       ],
       "description": "Which parser to use.",
       "name": "parser",

@@ -39,6 +39,7 @@ test("builtin parsers", async () => {
       "markdown",
       "mdx",
       "meriyah",
+      "mjml",
       "remark",
       "scss",
       "typescript",

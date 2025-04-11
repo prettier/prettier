@@ -28,7 +28,7 @@ import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 /**
  * @typedef {AngularHtmlParserParseOptions & {
- *   name: 'html' | 'angular' | 'vue' | 'lwc';
+ *   name: 'html' | 'angular' | 'vue' | 'lwc' | 'mjml';
  *   normalizeTagName?: boolean;
  *   normalizeAttributeName?: boolean;
  *   shouldParseAsRawText?: (tagName: string, prefix: string, hasParent: boolean, attrs: Array<{
@@ -444,6 +444,8 @@ const HTML_PARSE_OPTIONS = {
 
 // HTML
 export const html = createParser(HTML_PARSE_OPTIONS);
+// MJML https://mjml.io/
+export const mjml = createParser({ ...HTML_PARSE_OPTIONS, name: "mjml" });
 // Angular
 export const angular = createParser({ name: "angular" });
 // Vue

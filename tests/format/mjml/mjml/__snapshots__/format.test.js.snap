@@ -2,7 +2,7 @@
 
 exports[`empty.mjml format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["mjml"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -15,7 +15,7 @@ printWidth: 80
 
 exports[`head.mjml format 1`] = `
 ====================================options=====================================
-parsers: ["html"]
+parsers: ["mjml"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

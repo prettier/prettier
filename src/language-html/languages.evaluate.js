@@ -9,13 +9,9 @@ const languages = [
     extensions: [".component.html"],
     filenames: [],
   })),
-  createLanguage(linguistLanguages.HTML, (data) => ({
+  createLanguage(linguistLanguages.HTML, () => ({
     parsers: ["html"],
     vscodeLanguageIds: ["html"],
-    extensions: [
-      ...data.extensions,
-      ".mjml", // MJML is considered XML in Linguist but it should be formatted as HTML
-    ],
   })),
   createLanguage(linguistLanguages.HTML, () => ({
     name: "Lightning Web Components",
@@ -23,6 +19,17 @@ const languages = [
     vscodeLanguageIds: ["html"],
     extensions: [],
     filenames: [],
+  })),
+  createLanguage(linguistLanguages.HTML, () => ({
+    name: "MJML",
+    parsers: ["mjml"],
+    extensions: [".mjml"],
+    filenames: [],
+    // https://github.com/mjmlio/vscode-mjml/blob/477f030d400fe838d29495f4a432fba57f2198b7/package.json#L226-L238
+    vscodeLanguageIds: ["mjml"],
+    aliases: ["MJML", "mjml"],
+    // https://github.com/mjmlio/vscode-mjml/blob/477f030d400fe838d29495f4a432fba57f2198b7/package.json#L242
+    tmScope: "text.mjml.basic",
   })),
   createLanguage(linguistLanguages.Vue, () => ({
     parsers: ["vue"],
