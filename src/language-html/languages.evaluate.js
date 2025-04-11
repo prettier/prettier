@@ -28,7 +28,7 @@ const languages = [
     // https://github.com/mjmlio/vscode-mjml/blob/477f030d400fe838d29495f4a432fba57f2198b7/package.json#L226-L238
     vscodeLanguageIds: ["mjml"],
     aliases: ["MJML", "mjml"],
-    // https://github.com/mjmlio/vscode-mjml/blob/477f030d400fe838d29495f4a432fba57f2198b7/syntaxes/MJML.tmLanguage#L1070C13-L1070C28
+    // https://github.com/mjmlio/vscode-mjml/blob/477f030d400fe838d29495f4a432fba57f2198b7/package.json#L242
     tmScope: "text.mjml.basic",
   })),
   createLanguage(linguistLanguages.Vue, () => ({
