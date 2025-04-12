@@ -1,5 +1,5 @@
 import { locEnd, locStart } from "../../loc.js";
-import { hasPragma } from "../../pragma.js";
+import { hasIgnorePragma, hasPragma } from "../../pragma.js";
 
 function createParser(options) {
   options = typeof options === "function" ? { parse: options } : options;
@@ -7,6 +7,7 @@ function createParser(options) {
   return {
     astFormat: "estree",
     hasPragma,
+    hasIgnorePragma,
     locStart,
     locEnd,
     ...options,
