@@ -11,7 +11,6 @@ export default function esbuildPluginEvaluate() {
         async ({ path }) => {
           const module = await import(url.pathToFileURL(path));
           const text = Object.entries(module)
-            .filter(([specifier]) => specifier !== "module.exports")
             .map(([specifier, value]) => {
               const code =
                 value instanceof RegExp
