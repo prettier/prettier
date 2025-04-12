@@ -311,6 +311,11 @@ async function hasPragma(text, options) {
   return !selectedParser.hasPragma || selectedParser.hasPragma(text);
 }
 
+async function hasIgnorePragma(text, options) {
+  const selectedParser = await resolveParser(options);
+  return selectedParser.hasIgnorePragma?.(text);
+}
+
 async function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
@@ -319,7 +324,8 @@ async function formatWithCursor(originalText, originalOptions) {
 
   if (
     (options.rangeStart >= options.rangeEnd && text !== "") ||
-    (options.requirePragma && !(await hasPragma(text, options)))
+    (options.requirePragma && !(await hasPragma(text, options))) ||
+    (options.checkIgnorePragma && (await hasIgnorePragma(text, options)))
   ) {
     return {
       formatted: originalText,

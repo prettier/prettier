@@ -45,6 +45,7 @@ const ENABLED_OPTIONS = [
   "htmlWhitespaceSensitivity",
   "insertPragma",
   "requirePragma",
+  "checkIgnorePragma",
   "vueIndentScriptAndStyle",
   "embeddedLanguageFormatting",
   "bracketSameLine",

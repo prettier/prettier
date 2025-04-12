@@ -89,6 +89,18 @@ exports[`show detailed usage with --help check (stdout) 1`] = `
 
 exports[`show detailed usage with --help check (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help check-ignore-pragma (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help check-ignore-pragma (stdout) 1`] = `
+"--check-ignore-pragma
+
+  Respect @noprettier and @noformat markers at the top of files.
+
+Default: false"
+`;
+
+exports[`show detailed usage with --help check-ignore-pragma (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help color (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help color (stdout) 1`] = `

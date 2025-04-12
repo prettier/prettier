@@ -113,6 +113,7 @@ export const parsers = {
     // The name of the AST that the parser produces.
     astFormat: "dance-ast",
     hasPragma,
+    hasIgnorePragma,
     locStart,
     locEnd,
     preprocess,
@@ -136,6 +137,12 @@ _(Optional)_ The pragma detection function (`hasPragma`) should return if the te
 
 ```ts
 function hasPragma(text: string): boolean;
+```
+
+_(Optional)_ The "ignore pragma" detection function (`hasIgnorePragma`) should return if the text contains a pragma indicating the text should not be formatted.
+
+```ts
+function hasIgnorePragma(text: string): boolean;
 ```
 
 _(Optional)_ The preprocess function can process the input text before passing into `parse` function.

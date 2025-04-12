@@ -44,6 +44,14 @@ import {
 
 /** @type {{ [name: string]: OptionInfo }} */
 const options = {
+  checkIgnorePragma: {
+    category: CATEGORY_SPECIAL,
+    type: "boolean",
+    default: false,
+    description:
+      "Respect @noprettier and @noformat markers at the top of files.",
+    cliCategory: CATEGORY_OTHER,
+  },
   cursorOffset: {
     category: CATEGORY_SPECIAL,
     type: "int",

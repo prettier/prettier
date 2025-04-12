@@ -393,6 +393,16 @@ Note that “in tandem” doesn’t mean “at the same time”. When the two op
 
 [adoption strategy]: https://prettier.io/blog/2017/05/03/1.3.0.html#facebook-adoption-update
 
+## Check Ignore Pragma
+
+Check for `@noprettier` or `@noformat` markers at the top of files. These markers prevent file formatting when this option is enabled.
+
+Enable this option if you want to allow individual files to opt-out of formatting. Checking for these markers incurs a small upfront cost during formatting.
+
+| Default | CLI Override            | API Override                |
+| ------- | ----------------------- | --------------------------- |
+| `false` | `--check-ignore-pragma` | `checkIgnorePragma: <bool>` |
+
 ## Prose Wrap
 
 _First available in v1.8.2_

@@ -35,6 +35,11 @@ exports[`schema 1`] = `
           "description": "Print spaces between brackets.",
           "type": "boolean",
         },
+        "checkIgnorePragma": {
+          "default": false,
+          "description": "Respect @noprettier and @noformat markers at the top of files.",
+          "type": "boolean",
+        },
         "cursorOffset": {
           "default": -1,
           "description": "Print (to stderr) where a cursor at the given position would move to after formatting.",

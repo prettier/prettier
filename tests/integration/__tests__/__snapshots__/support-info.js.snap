@@ -103,6 +103,10 @@ exports[`API getSupportInfo() 1`] = `
       "default": true,
       "type": "boolean",
     },
+    "checkIgnorePragma": {
+      "default": false,
+      "type": "boolean",
+    },
     "cursorOffset": {
       "default": -1,
       "range": {
@@ -822,6 +826,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       "description": "Print spaces between brackets.",
       "name": "bracketSpacing",
       "oppositeDescription": "Do not print spaces between brackets.",
+      "pluginDefaults": {},
+      "type": "boolean"
+    },
+    {
+      "category": "Special",
+      "default": false,
+      "description": "Respect @noprettier and @noformat markers at the top of files.",
+      "name": "checkIgnorePragma",
       "pluginDefaults": {},
       "type": "boolean"
     },

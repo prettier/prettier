@@ -1,6 +1,7 @@
 import assert from "node:assert";
 
 export const FORMAT_PRAGMAS = ["format", "prettier"];
+export const FORMAT_IGNORE_PRAGMAS = ["noformat", "noprettier"];
 export const FORMAT_PRAGMA_TO_INSERT = FORMAT_PRAGMAS[0];
 
 // Regular expressions put in this file so they can be evaluate

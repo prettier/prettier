@@ -128,6 +128,8 @@ Other options:
   --cache-location <path>  Path to the cache file.
   --cache-strategy <metadata|content>
                            Strategy for the cache to use for detecting changed files.
+  --check-ignore-pragma    Respect @noprettier and @noformat markers at the top of files.
+                           Defaults to false.
   --no-color               Do not colorize error messages.
   --no-error-on-unmatched-pattern
                            Prevent errors when pattern is unmatched.
@@ -299,6 +301,8 @@ Other options:
   --cache-location <path>  Path to the cache file.
   --cache-strategy <metadata|content>
                            Strategy for the cache to use for detecting changed files.
+  --check-ignore-pragma    Respect @noprettier and @noformat markers at the top of files.
+                           Defaults to false.
   --no-color               Do not colorize error messages.
   --no-error-on-unmatched-pattern
                            Prevent errors when pattern is unmatched.

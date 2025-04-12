@@ -385,6 +385,10 @@ export interface RequiredOptions extends doc.printer.Options {
    */
   insertPragma: boolean;
   /**
+   * Prettier will detect special @noprettier and @noformat markers at the top of files.
+   */
+  checkIgnorePragma: boolean;
+  /**
    * By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer.
    * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
    * @default "preserve"
@@ -470,6 +474,7 @@ export interface Parser<T = any> {
   parse: (text: string, options: ParserOptions<T>) => T | Promise<T>;
   astFormat: string;
   hasPragma?: ((text: string) => boolean) | undefined;
+  hasIgnorePragma?: ((text: string) => boolean) | undefined;
   locStart: (node: T) => number;
   locEnd: (node: T) => number;
   preprocess?:
