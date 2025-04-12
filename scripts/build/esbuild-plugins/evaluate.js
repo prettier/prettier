@@ -7,7 +7,7 @@ export default function esbuildPluginEvaluate() {
     name: "evaluate",
     setup(build) {
       build.onLoad(
-        { filter: /\.evaluate\.js$/, namespace: "file" },
+        { filter: /\.evaluate\.[cm]?js$/, namespace: "file" },
         async ({ path }) => {
           const module = await import(url.pathToFileURL(path));
           const text = Object.entries(module)
