@@ -15,7 +15,7 @@ export const YAML_IS_PRAGMA_REGEXP = new RegExp(
   String.raw`^\s*@(?:${FORMAT_PRAGMAS.join("|")})\s*$`,
   "u",
 );
-assertRegexpEqual(YAML_IS_PRAGMA_REGEXP, /^\s*@(?:prettier|format)\s*$/u);
+assertRegexpEqual(YAML_IS_PRAGMA_REGEXP, /^\s*@(?:format|prettier)\s*$/u);
 
 export const YAML_HAS_PRAGMA_REGEXP = new RegExp(
   String.raw`^\s*#[^\S\n]*@(?:${FORMAT_PRAGMAS.join("|")})\s*?(?:\n|$)`,
@@ -23,7 +23,16 @@ export const YAML_HAS_PRAGMA_REGEXP = new RegExp(
 );
 assertRegexpEqual(
   YAML_HAS_PRAGMA_REGEXP,
-  /^\s*#[^\S\n]*@(?:prettier|format)\s*?(?:\n|$)/u,
+  /^\s*#[^\S\n]*@(?:format|prettier)\s*?(?:\n|$)/u,
+);
+
+export const YAML_HAS_IGNORE_PRAGMA_REGEXP = new RegExp(
+  String.raw`^\s*#[^\S\n]*@(?:${FORMAT_IGNORE_PRAGMAS.join("|")})\s*?(?:\n|$)`,
+  "u",
+);
+assertRegexpEqual(
+  YAML_HAS_IGNORE_PRAGMA_REGEXP,
+  /^\s*#[^\S\n]*@(?:noformat|noprettier)\s*?(?:\n|$)/u,
 );
 
 export const GRAPHQL_HAS_PRAGMA_REGEXP = new RegExp(
