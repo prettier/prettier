@@ -15,7 +15,7 @@ import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import { Node } from "./ast.js";
 import { parseIeConditionalComment } from "./conditional-comment.js";
 import { locEnd, locStart } from "./loc.js";
-import { hasPragma } from "./pragma.js";
+import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
 import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
@@ -428,6 +428,7 @@ function createParser(parseOptions) {
   return {
     parse: (text, options) => parse(text, parseOptions, options),
     hasPragma,
+    hasIgnorePragma,
     astFormat: "html",
     locStart,
     locEnd,

@@ -43,3 +43,12 @@ assertRegexpEqual(
   HTML_HAS_PRAGMA_REGEXP,
   /^\s*<!--\s*@(?:format|prettier)\s*-->/u,
 );
+
+export const HTML_HAS_IGNORE_PRAGMA_REGEXP = new RegExp(
+  String.raw`^\s*<!--\s*@(?:${FORMAT_IGNORE_PRAGMAS.join("|")})\s*-->`,
+  "u",
+);
+assertRegexpEqual(
+  HTML_HAS_IGNORE_PRAGMA_REGEXP,
+  /^\s*<!--\s*@(?:noformat|noprettier)\s*-->/u,
+);
