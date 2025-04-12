@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with-noformat-pragma.css - {"checkIgnorePragma":false} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: false
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/** @noformat */
+
+.class {    display: none;    }
+
+=====================================output=====================================
+/** @noformat */
+
+.class {
+  display: none;
+}
+
+================================================================================
+`;
+
+exports[`with-noprettier-pragma.css - {"checkIgnorePragma":false} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: false
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/** @noprettier */
+
+.class {    display: none;    }
+
+=====================================output=====================================
+/** @noprettier */
+
+.class {
+  display: none;
+}
+
+================================================================================
+`;

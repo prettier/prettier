@@ -1,4 +1,5 @@
 import {
+  hasIgnorePragma as jsHasIgnorePragma,
   hasPragma as jsHasPragma,
   insertPragma as jsInsertPragma,
 } from "../language-js/pragma.js";
@@ -8,6 +9,10 @@ function hasPragma(text) {
   return jsHasPragma(parseFrontMatter(text).content);
 }
 
+function hasIgnorePragma(text) {
+  return jsHasIgnorePragma(parseFrontMatter(text).content);
+}
+
 function insertPragma(text) {
   const { frontMatter, content } = parseFrontMatter(text);
   return (
@@ -15,4 +20,4 @@ function insertPragma(text) {
   );
 }
 
-export { hasPragma, insertPragma };
+export { hasIgnorePragma, hasPragma, insertPragma };
