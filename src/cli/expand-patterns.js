@@ -51,12 +51,12 @@ async function* expandPatternsInternal(context) {
     context.argv.withNodeModules === true
       ? directoryIgnorerWithoutNodeModules
       : directoryIgnorerWithNodeModules;
-  const cwd = process.cwd();
   const globOptions = {
     dot: true,
     ignore: [...directoryIgnorer.ignorePatterns],
     followSymbolicLinks: false,
   };
+  const cwd = process.cwd();
 
   /** @type {Array<{ type: 'file' | 'dir' | 'glob'; glob: string; input: string; }>} */
   const entries = [];
