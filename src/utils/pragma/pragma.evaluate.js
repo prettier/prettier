@@ -44,6 +44,15 @@ assertRegexpEqual(
   /^\s*#[^\S\n]*@(?:format|prettier)\s*(?:\n|$)/u,
 );
 
+export const GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP = new RegExp(
+  String.raw`^\s*#[^\S\n]*@(?:${FORMAT_IGNORE_PRAGMAS.join("|")})\s*(?:\n|$)`,
+  "u",
+);
+assertRegexpEqual(
+  GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP,
+  /^\s*#[^\S\n]*@(?:noformat|noprettier)\s*(?:\n|$)/u,
+);
+
 export const HTML_HAS_PRAGMA_REGEXP = new RegExp(
   String.raw`^\s*<!--\s*@(?:${FORMAT_PRAGMAS.join("|")})\s*-->`,
   "u",
