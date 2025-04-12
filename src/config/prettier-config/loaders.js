@@ -39,12 +39,12 @@ async function readBunPackageJson(file) {
 }
 
 const loadConfigFromPackageJson = process.versions.bun
-  ? async function loadConfigFromPackageJson(file) {
-      const { prettier } = await readJson(file);
+  ? async function loadConfigFromBunPackageJson(file) {
+      const { prettier } = await readBunPackageJson(file);
       return prettier;
     }
-  : async function loadConfigFromBunPackageJson(file) {
-      const { prettier } = await readBunPackageJson(file);
+  : async function loadConfigFromPackageJson(file) {
+      const { prettier } = await readJson(file);
       return prettier;
     };
 
