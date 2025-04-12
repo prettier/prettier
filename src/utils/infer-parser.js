@@ -1,4 +1,5 @@
 import getInterpreter from "./get-interpreter.js";
+import isNonEmptyArray from "./is-non-empty-array.js";
 
 /** @import {Options} from "../index.js" */
 
@@ -45,7 +46,7 @@ function getLanguageByInterpreter(languages, file) {
   }
 
   const languagesWithInterpreters = languages.filter(({ interpreters }) =>
-    Array.isArray(interpreters),
+    isNonEmptyArray(interpreters),
   );
 
   /* c8 ignore next 3 */
