@@ -1,12 +1,14 @@
 import assert from "node:assert";
 
+export const FORMAT_PRAGMAS = ["format", "prettier"];
+export const FORMAT_PRAGMA_TO_INSERT = FORMAT_PRAGMAS[0];
+
+// Regular expressions put in this file so they can be evaluate
+
 // This exists because the regexp was rewrite from existing, feel free to remove when updating them
 const assertRegexpEqual = (regexpA, regexpB) => {
   assert.ok(regexpA.source, regexpB.source);
 };
-
-export const FORMAT_PRAGMAS = ["format", "prettier"];
-export const FORMAT_PRAGMA_TO_INSERT = FORMAT_PRAGMAS[0];
 
 export const YAML_IS_PRAGMA_REGEXP = new RegExp(
   String.raw`^\s*@(?:${FORMAT_PRAGMAS.join("|")})\s*$`,
