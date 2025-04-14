@@ -316,6 +316,12 @@ exports[`schema 1`] = `
               ],
             },
             {
+              "description": "MJML",
+              "enum": [
+                "mjml",
+              ],
+            },
+            {
               "description": "Custom parser",
               "type": "string",
             },

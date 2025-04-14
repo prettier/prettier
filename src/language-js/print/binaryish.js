@@ -33,6 +33,11 @@ import isTypeCastComment from "../utils/is-type-cast-comment.js";
 /** @import {Doc} from "../../document/builders.js" */
 
 let uid = 0;
+/*
+- `BinaryExpression`
+- `LogicalExpression`
+- `NGPipeExpression`(Angular)
+*/
 function printBinaryishExpression(path, options, print) {
   const { node, parent, grandparent, key } = path;
   const isInsideParenthesis =
@@ -46,8 +51,8 @@ function printBinaryishExpression(path, options, print) {
 
   const parts = printBinaryishExpressions(
     path,
-    print,
     options,
+    print,
     /* isNested */ false,
     isInsideParenthesis,
   );
@@ -188,8 +193,8 @@ function printBinaryishExpression(path, options, print) {
 // broken before `+`.
 function printBinaryishExpressions(
   path,
-  print,
   options,
+  print,
   isNested,
   isInsideParenthesis,
 ) {
@@ -220,8 +225,8 @@ function printBinaryishExpressions(
       (left) =>
         printBinaryishExpressions(
           left,
-          print,
           options,
+          print,
           /* isNested */ true,
           isInsideParenthesis,
         ),
@@ -264,7 +269,12 @@ function printBinaryishExpressions(
   /** @type {Doc} */
   let right;
   if (shouldInline) {
-    right = [operator, " ", print("right"), rightSuffix];
+    right = [
+      operator,
+      hasLeadingOwnLineComment(options.originalText, node.right)
+        ? indent([line, print("right"), rightSuffix])
+        : [" ", print("right"), rightSuffix],
+    ];
   } else {
     const isHackPipeline =
       operator === "|>" && path.root.extra?.__isUsingHackPipeline;
@@ -273,8 +283,8 @@ function printBinaryishExpressions(
           (left) =>
             printBinaryishExpressions(
               left,
-              print,
               options,
+              print,
               /* isNested */ true,
               isInsideParenthesis,
             ),

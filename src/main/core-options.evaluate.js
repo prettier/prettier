@@ -128,6 +128,7 @@ const options = {
       { value: "html", description: "HTML" },
       { value: "angular", description: "Angular" },
       { value: "lwc", description: "Lightning Web Components" },
+      { value: "mjml", description: "MJML" },
     ],
   },
   plugins: {

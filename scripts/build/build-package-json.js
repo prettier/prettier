@@ -1,5 +1,5 @@
 import path from "node:path";
-import { DIST_DIR, PROJECT_ROOT, readJson, writeJson } from "../utils/index.js";
+import { PROJECT_ROOT, readJson, writeJson } from "../utils/index.js";
 
 const keysToKeep = [
   "name",
@@ -20,7 +20,8 @@ const keysToKeep = [
   "preferUnplugged",
 ];
 
-async function buildPackageJson({ file, files }) {
+async function buildPackageJson({ packageConfig, file }) {
+  const { distDirectory, files } = packageConfig;
   const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));
 
   const bin = files.find(
@@ -42,7 +43,6 @@ async function buildPackageJson({ file, files }) {
     exports: {
       ".": {
         types: "./index.d.ts",
-        "module-sync": "./index.mjs",
         require: "./index.cjs",
         browser: {
           import: "./standalone.mjs",
@@ -56,14 +56,14 @@ async function buildPackageJson({ file, files }) {
           .filter((file) => file.output.format === "umd")
           .map((file) => {
             const basename = path.basename(file.output.file, ".js");
-            const mjsPath = `./${file.output.file.replace(/\.js$/u, ".mjs")}`;
             return [
               file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
               {
                 types: `./${file.output.file.replace(/\.js$/u, ".d.ts")}`,
-                "module-sync": mjsPath,
+                // `module-sync` condition can prevent CJS plugins from working: https://github.com/prettier/prettier/issues/17139
+                // Perform a test before re-adding it.
                 require: `./${file.output.file}`,
-                default: mjsPath,
+                default: `./${file.output.file.replace(/\.js$/u, ".mjs")}`,
               },
             ];
           }),
@@ -107,7 +107,7 @@ async function buildPackageJson({ file, files }) {
   };
 
   await writeJson(
-    path.join(DIST_DIR, file.output.file),
+    path.join(distDirectory, file.output.file),
     Object.assign(pick(packageJson, keysToKeep), overrides),
   );
 }

@@ -1,6 +1,7 @@
 import {
   group,
   hardline,
+  ifBreak,
   indent,
   join,
   line,
@@ -100,7 +101,7 @@ function printEstree(path, options, print, args) {
     case "JsExpressionRoot":
       return print("node");
     case "JsonRoot":
-      return [print("node"), hardline];
+      return [printDanglingComments(path, options), print("node"), hardline];
     case "File":
       return printHtmlBinding(path, options, print) ?? print("program");
     // Babel extension.
@@ -172,7 +173,7 @@ function printEstree(path, options, print, args) {
       return printRestSpread(path, print);
     case "FunctionDeclaration":
     case "FunctionExpression":
-      return printFunction(path, print, options, args);
+      return printFunction(path, options, print, args);
     case "ArrowFunctionExpression":
       return printArrowFunction(path, options, print, args);
     case "YieldExpression":
@@ -286,7 +287,19 @@ function printEstree(path, options, print, args) {
         }, "expressions");
         return group(parts);
       }
-      return group(join([",", line], path.map(print, "expressions")));
+
+      const parts = join([",", line], path.map(print, "expressions"));
+
+      if (
+        ((parent.type === "ReturnStatement" ||
+          parent.type === "ThrowStatement") &&
+          path.key === "argument") ||
+        (parent.type === "ArrowFunctionExpression" && path.key === "body")
+      ) {
+        return group(ifBreak([indent([softline, parts]), softline], parts));
+      }
+
+      return group(parts);
     }
     case "ThisExpression":
       return "this";
@@ -619,7 +632,7 @@ function printEstree(path, options, print, args) {
     case "TemplateElement":
       return replaceEndOfLine(node.value.raw);
     case "TemplateLiteral":
-      return printTemplateLiteral(path, print, options);
+      return printTemplateLiteral(path, options, print);
     case "TaggedTemplateExpression":
       return printTaggedTemplateLiteral(path, print);
     case "PrivateIdentifier":

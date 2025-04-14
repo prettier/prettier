@@ -134,6 +134,7 @@ function getSyntaxFromCategory(category) {
     case "angular":
     case "html":
     case "lwc":
+    case "mjml":
       return "html";
     case "cli":
       return "sh";
@@ -150,6 +151,7 @@ function getSyntaxFromCategory(category) {
     case "flow":
     case "javascript":
     case "api":
+    case "misc":
       return "jsx";
     case "typescript":
       return "tsx";

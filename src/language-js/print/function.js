@@ -52,7 +52,7 @@ const isMethodValue = ({ node, key, parent }) =>
 - "FunctionExpression"
 - `TSDeclareFunction`(TypeScript)
 */
-function printFunction(path, print, options, args) {
+function printFunction(path, options, print, args) {
   if (isMethodValue(path)) {
     return printMethodValue(path, options, print);
   }
@@ -86,8 +86,8 @@ function printFunction(path, print, options, args) {
 
   const parametersDoc = printFunctionParameters(
     path,
-    print,
     options,
+    print,
     expandArg,
   );
   const returnTypeDoc = printReturnType(path, print);
@@ -155,7 +155,7 @@ function printMethod(path, options, print) {
 
 function printMethodValue(path, options, print) {
   const { node } = path;
-  const parametersDoc = printFunctionParameters(path, print, options);
+  const parametersDoc = printFunctionParameters(path, options, print);
   const returnTypeDoc = printReturnType(path, print);
   const shouldBreakParameters = shouldBreakFunctionParameters(node);
   const shouldGroupParameters = shouldGroupFunctionParameters(
@@ -240,7 +240,6 @@ function printReturnOrThrowArgument(path, options, print) {
       argumentDoc = ["(", indent([hardline, argumentDoc]), hardline, ")"];
     } else if (
       isBinaryish(node.argument) ||
-      node.argument.type === "SequenceExpression" ||
       (options.experimentalTernaries &&
         node.argument.type === "ConditionalExpression" &&
         (node.argument.consequent.type === "ConditionalExpression" ||

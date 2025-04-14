@@ -4,7 +4,8 @@ import assert from "node:assert";
 import { replaceEndOfLine } from "../../document/utils.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
-import { isMethod, rawText } from "../utils/index.js";
+import getRaw from "../utils/get-raw.js";
+import { isMethod } from "../utils/index.js";
 import isFlowKeywordType from "../utils/is-flow-keyword-type.js";
 import { printArray } from "./array.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
@@ -158,14 +159,14 @@ function printFlow(path, options, print) {
 
     case "DeclareEnum":
     case "EnumDeclaration":
-      return printEnumDeclaration(path, print, options);
+      return printEnumDeclaration(path, options, print);
 
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumBigIntBody":
     case "EnumStringBody":
     case "EnumSymbolBody":
-      return printEnumBody(path, print, options);
+      return printEnumBody(path, options, print);
 
     case "EnumBooleanMember":
     case "EnumNumberMember":
@@ -265,11 +266,11 @@ function printFlow(path, options, print) {
     case "BooleanLiteralTypeAnnotation":
       return String(node.value);
     case "StringLiteralTypeAnnotation":
-      return replaceEndOfLine(printString(rawText(node), options));
+      return replaceEndOfLine(printString(getRaw(node), options));
     case "NumberLiteralTypeAnnotation":
-      return printNumber(node.raw ?? node.extra.raw);
+      return printNumber(getRaw(node));
     case "BigIntLiteralTypeAnnotation":
-      return printBigInt(node.raw ?? node.extra.raw);
+      return printBigInt(getRaw(node));
     case "TypeCastExpression":
       return [
         "(",
