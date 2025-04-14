@@ -1,4 +1,4 @@
-name: Prod
+cccname: Prod
 
 on:
   push:
