@@ -395,9 +395,27 @@ Note that “in tandem” doesn’t mean “at the same time”. When the two op
 
 ## Check Ignore Pragma
 
-Check for `@noprettier` or `@noformat` markers at the top of files. These markers prevent file formatting when this option is enabled.
+_First available in v3.6.0_
 
-Enable this option if you want to allow individual files to opt-out of formatting. Checking for these markers incurs a small upfront cost during formatting.
+Prettier allow individual files that contain a special comment, called a pragma, at the top of the file to opt-out of formatting.
+
+Checking for these markers incurs a small upfront cost during formatting, so it's not enabled by default.
+
+A file with the following as its first comment will **not** be formatted when `--check-ignore-pragma` is supplied:
+
+```js
+/**
+ * @noprettier
+ */
+```
+
+or
+
+```js
+/**
+ * @noformat
+ */
+```
 
 | Default | CLI Override            | API Override                |
 | ------- | ----------------------- | --------------------------- |
