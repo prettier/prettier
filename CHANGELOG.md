@@ -1,3 +1,24 @@
+# 3.5.3
+
+[diff](https://github.com/prettier/prettier/compare/3.5.2...3.5.3)
+
+#### Flow: Fix missing parentheses in `ConditionalTypeAnnotation` ([#17196](https://github.com/prettier/prettier/pull/17196) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+type T<U> = 'a' | ('b' extends U ? 'c' : empty);
+type T<U> = 'a' & ('b' extends U ? 'c' : empty);
+
+// Prettier 3.5.2
+type T<U> = "a" | "b" extends U ? "c" : empty;
+type T<U> = "a" & "b" extends U ? "c" : empty;
+
+// Prettier 3.5.3
+type T<U> = "a" | ("b" extends U ? "c" : empty);
+type T<U> = "a" & ("b" extends U ? "c" : empty);
+```
+
 # 3.5.2
 
 [diff](https://github.com/prettier/prettier/compare/3.5.1...3.5.2)

@@ -45,7 +45,10 @@ async function getFileInfo(file, options) {
 async function getParser(file, options) {
   let config;
   if (options.resolveConfig !== false) {
-    config = await resolveConfig(file);
+    config = await resolveConfig(file, {
+      // No need read `.editorconfig`
+      editorconfig: false,
+    });
   }
 
   return config?.parser ?? inferParser(options, { physicalFile: file });

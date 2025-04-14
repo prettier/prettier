@@ -67,7 +67,10 @@ function printClosingTagSuffix(node, options) {
 }
 
 function printClosingTagStartMarker(node, options) {
-  assert.ok(!node.isSelfClosing);
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production") {
+    assert.ok(!node.isSelfClosing);
+  }
   /* c8 ignore next 3 */
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
@@ -376,7 +379,10 @@ function printOpeningTagStartMarker(node, options) {
 }
 
 function printOpeningTagEndMarker(node) {
-  assert.ok(!node.isSelfClosing);
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production") {
+    assert.ok(!node.isSelfClosing);
+  }
   switch (node.type) {
     case "ieConditionalComment":
       return "]>";

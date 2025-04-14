@@ -40,7 +40,7 @@ The Playground is not integrated with the Docusaurus infrastructure. Its UI (`we
 
 The entry point of the playground is at `static/playground/index.html`.
 
-Another part of the Playground is a web worker where formatting happens. It’s not managed by webpack and resides directly in `static/worker.js`. It expects to find the [UMD bundles of Prettier](https://prettier.io/docs/browser) in `static/lib/`. That’s why running `yarn build:website` or `PULL_REQUEST=true yarn build:website` in the project root is a required step.
+Another part of the Playground is a web worker where formatting happens. It’s not managed by webpack and resides directly in `static/worker.mjs`. It expects to find the [UMD bundles of Prettier](https://prettier.io/docs/browser) in `static/lib/`. That’s why running `yarn build:website` or `PULL_REQUEST=true yarn build:website` in the project root is a required step.
 
 Finally, there is a service worker that caches Prettier’s relatively heavy bundles (`static/service-worker.js`).
 

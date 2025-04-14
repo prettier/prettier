@@ -19,10 +19,10 @@ const {
 } = createEsmUtils(import.meta);
 const resolveEsmModulePath = (specifier) =>
   url.fileURLToPath(importMetaResolve(specifier));
-const copyFileBuilder = ({ file }) =>
+const copyFileBuilder = ({ packageConfig, file }) =>
   copyFile(
     path.join(PROJECT_ROOT, file.input),
-    path.join(DIST_DIR, file.output.file),
+    path.join(packageConfig.distDirectory, file.output.file),
   );
 
 function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
@@ -38,7 +38,7 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
   return {
     input,
     output: {
-      file: outputBaseName + ".d.ts",
+      file: `${outputBaseName}.d.ts`,
     },
     kind: "types",
     isPlugin,
@@ -682,9 +682,10 @@ const nonPluginUniversalFiles = [
           return text;
         },
       },
+      // Smaller size
       {
-        module: require.resolve("chalk"),
-        path: path.join(dirname, "./shims/chalk.cjs"),
+        module: getPackageFile("picocolors/picocolors.browser.js"),
+        path: path.join(dirname, "./shims/colors.js"),
       },
     ],
   },
@@ -760,15 +761,6 @@ const nodejsFiles = [
         find: "const readBuffer = new Buffer(this.options.readChunk);",
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
       },
-      // `@babel/code-frame` and `@babel/highlight` use compatible `chalk`, but they installed separately
-      {
-        module: require.resolve("chalk", {
-          paths: [require.resolve("@babel/highlight")],
-        }),
-        path: require.resolve("chalk", {
-          paths: [require.resolve("@babel/code-frame")],
-        }),
-      },
       {
         module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
         find: "var dump                = dumper.dump;",
@@ -808,7 +800,7 @@ const nodejsFiles = [
   {
     input: "src/cli/index.js",
     outputBaseName: "internal/cli",
-    external: ["benchmark"],
+    external: ["tinybench"],
     // TODO: Remove this when we drop support for Node.js v16
     replaceModule: [
       {
@@ -876,4 +868,8 @@ const metaFiles = [
 
 /** @type {Files[]} */
 const files = [...nodejsFiles, ...universalFiles, ...metaFiles].filter(Boolean);
-export default files;
+export default {
+  packageName: "prettier",
+  distDirectory: path.join(DIST_DIR, "prettier"),
+  files,
+};

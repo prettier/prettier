@@ -56,6 +56,7 @@ function getMarkdownSyntax(options) {
       return "hbs";
     case "angular":
     case "lwc":
+    case "mjml":
       return "html";
     default:
       return options.parser;
@@ -81,4 +82,4 @@ function codeBlock(content, syntax) {
   );
 }
 
-module.exports = formatMarkdown;
+export default formatMarkdown;

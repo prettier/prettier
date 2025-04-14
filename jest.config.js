@@ -13,7 +13,7 @@ const SKIP_PRODUCTION_INSTALL = Boolean(process.env.SKIP_PRODUCTION_INSTALL);
 const SKIP_TESTS_WITH_NEW_SYNTAX = process.versions.node.startsWith("14.");
 
 let PRETTIER_DIR = isProduction
-  ? path.join(PROJECT_ROOT, "dist")
+  ? path.join(PROJECT_ROOT, "dist/prettier")
   : PROJECT_ROOT;
 let PRETTIER_INSTALLED_DIR = "";
 if (

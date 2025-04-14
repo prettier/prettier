@@ -11,7 +11,8 @@
 - image: /images/editors/editor_nova.svg
   name: Nova
   content: |
-    [`Prettier`](https://extensions.panic.com/extensions/alexanderweiss/alexanderweiss.prettier)
+    [`Prettier`](https://extensions.panic.com/extensions/alexanderweiss/alexanderweiss.prettier/)
+    [`Prettier+`](https://extensions.panic.com/extensions/stonerl/stonerl.prettier/)
 - image: /images/editors/editor_sublime.svg
   name: Sublime Text
   content: |

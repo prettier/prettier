@@ -1,5 +1,5 @@
 import { codeFrameColumns } from "@babel/code-frame";
-import { LinesAndColumns } from "lines-and-columns";
+import indexToPosition from "index-to-position";
 const codeFrameColumnsOptions = {
   linesAbove: Number.POSITIVE_INFINITY,
   linesBelow: Number.POSITIVE_INFINITY,
@@ -9,15 +9,11 @@ const locationForRange = (text, rangeStart, rangeEnd) => {
   if (rangeStart > rangeEnd) {
     [rangeStart, rangeEnd] = [rangeEnd, rangeStart];
   }
-  const lines = new LinesAndColumns(text);
-  const start = lines.locationForIndex(rangeStart);
-  const end = lines.locationForIndex(rangeEnd);
 
-  start.line += 1;
-  start.column += 1;
-  end.line += 1;
-  if (start.line === end.line) {
-    end.column += 1;
+  const start = indexToPosition(text, rangeStart, { oneBased: true });
+  const end = indexToPosition(text, rangeEnd, { oneBased: true });
+  if (start.line !== end.line) {
+    end.column -= 1;
   }
 
   return {

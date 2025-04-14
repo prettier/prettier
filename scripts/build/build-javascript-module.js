@@ -4,7 +4,7 @@ import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
 import { nodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "esbuild-plugins-node-modules-polyfill";
 import createEsmUtils from "esm-utils";
-import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
+import { PROJECT_ROOT } from "../utils/index.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
@@ -35,7 +35,9 @@ const getRelativePath = (from, to) => {
   return relativePath;
 };
 
-function getEsbuildOptions({ file, files, cliOptions }) {
+function getEsbuildOptions({ packageConfig, file, cliOptions }) {
+  const { distDirectory, files } = packageConfig;
+
   // Save dependencies to file
   file.dependencies = [];
 
@@ -232,7 +234,7 @@ function getEsbuildOptions({ file, files, cliOptions }) {
     target: [...(buildOptions.target ?? ["node14"])],
     logLevel: "error",
     format: file.output.format,
-    outfile: path.join(DIST_DIR, cliOptions.saveAs ?? file.output.file),
+    outfile: path.join(distDirectory, cliOptions.saveAs ?? file.output.file),
     // https://esbuild.github.io/api/#main-fields
     mainFields: file.platform === "node" ? ["module", "main"] : undefined,
     supported: {

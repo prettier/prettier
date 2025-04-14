@@ -58,3 +58,9 @@ item of
 
   <div *ngFor="item of items; let i = $index; track block"></div>
 </div>
+
+<div>
+  @for (item of items; let i = $index; let count = $count; track block) {}
+
+  <div *ngFor="item of items; let i = $index; let count = $count; track block"></div>
+</div>

@@ -121,6 +121,28 @@ function esmifyTypescriptEslint(text) {
     `,
   );
 
+  /**
+  ```js
+  var FOO;
+  (function (FOO) {
+  })(FOO || (exports.FOO = FOO = {}));
+  ```
+  ->
+  ```js
+  var FOO;
+  (function (FOO) {
+  })(FOO ?? {}));
+  export {FOO};
+  ```
+   */
+  text = text.replaceAll(
+    /(?<=\n\}\))\((?<name>\S+) \|\| \(exports\.\k<name> = \k<name> = \{\}\)\);/gu,
+    outdent`
+      ($<name> ??= {});
+      export {$<name>};
+    `,
+  );
+
   // Make sure ESBuild treat it as Module
   text += "\nexport {};";
 

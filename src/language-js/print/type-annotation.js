@@ -15,6 +15,7 @@ import {
   createTypeCheckFunction,
   hasComment,
   hasLeadingOwnLineComment,
+  isConditionalType,
   isFlowObjectTypePropertyAFunction,
   isObjectType,
   isSimpleType,
@@ -140,8 +141,11 @@ function printIntersectionType(path, options, print) {
         return [" & ", wasIndented ? indent(doc) : doc];
       }
 
-      // If no object is involved, go to the next line if it breaks
-      if (!previousIsObjectType && !currentIsObjectType) {
+      if (
+        // If no object is involved, go to the next line if it breaks
+        (!previousIsObjectType && !currentIsObjectType) ||
+        hasLeadingOwnLineComment(options.originalText, node)
+      ) {
         if (options.experimentalOperatorPosition === "start") {
           return indent([line, "& ", doc]);
         }
@@ -174,9 +178,7 @@ function printUnionType(path, options, print) {
   // If there's a leading comment, the parent is doing the indentation
   const shouldIndent =
     parent.type !== "TypeParameterInstantiation" &&
-    (parent.type !== "TSConditionalType" || !options.experimentalTernaries) &&
-    (parent.type !== "ConditionalTypeAnnotation" ||
-      !options.experimentalTernaries) &&
+    (!isConditionalType(parent) || !options.experimentalTernaries) &&
     parent.type !== "TSTypeParameterInstantiation" &&
     parent.type !== "GenericTypeAnnotation" &&
     parent.type !== "TSTypeReference" &&
@@ -296,8 +298,8 @@ function printFunctionType(path, options, print) {
 
   let parametersDoc = printFunctionParameters(
     path,
-    print,
     options,
+    print,
     /* expandArg */ false,
     /* printTypeParams */ true,
   );
