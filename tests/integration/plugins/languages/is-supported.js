@@ -1,14 +1,13 @@
-// @ts-check
-
 import path from "node:path";
+import createPlugin from "../../../config/utils/create-plugin.cjs";
 
-/** @import {SupportLanguage} from "prettier" */
+const PARSER_NAME = "parser-name-inferred-from-language-is-supported";
+const PRINT_MARK = `formatted by '${PARSER_NAME}' parser`
 
-/** @type {SupportLanguage[]} */
-export const languages = [
+const languages = [
   {
     name: "language-name-does-not-matter",
-    parsers: ["parser-name-inferred-from-language-is-supported"],
+    parsers: [PARSER_NAME],
     isSupported(file) {
       if (!path.isAbsolute(file)) {
         throw new Error("Unexpected non absolute path");
@@ -18,3 +17,12 @@ export const languages = [
     },
   },
 ];
+
+export default {
+  ...createPlugin({
+    name: PARSER_NAME,
+    print: (content) => `${content.replace(PRINT_MARK,"").trim()}\n${PRINT_MARK}`,
+    finalNewLine: false,
+  }),
+  languages,
+};
