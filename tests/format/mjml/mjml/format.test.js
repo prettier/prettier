@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["html"]);
+runFormatTest(import.meta, ["mjml"]);

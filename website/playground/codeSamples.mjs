@@ -309,6 +309,18 @@ export default function getCodeSamples(parser) {
         "  </body>",
         "</HTML>",
       ].join("\n");
+    case "mjml":
+      return [
+        "<mjml> <mj-body>",
+        "    <mj-section>",
+        "      <mj-column>",
+        "<mj-text> Hello World!",
+        "        </mj-text>",
+        "      </mj-column>",
+        "    </mj-section>",
+        "  </mj-body>",
+        "  </mjml>",
+      ].join("\n");
     case "doc-explorer":
       return [
         "group([",
