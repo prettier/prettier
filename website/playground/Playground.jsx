@@ -45,7 +45,8 @@ const ENABLED_OPTIONS = [
   "htmlWhitespaceSensitivity",
   "insertPragma",
   "requirePragma",
-  "checkIgnorePragma",
+  // TODO: Enable this after release 3.6
+  // "checkIgnorePragma",
   "vueIndentScriptAndStyle",
   "embeddedLanguageFormatting",
   "bracketSameLine",

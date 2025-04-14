@@ -184,7 +184,7 @@ const options = {
     type: "boolean",
     default: false,
     description:
-      "Require either '@prettier' or '@format' to be present in the file's first docblock commentin order for it to be formatted.",
+      "Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.",
     cliCategory: CATEGORY_OTHER,
   },
   tabWidth: {
