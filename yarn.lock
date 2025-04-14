@@ -2005,13 +2005,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/is-es5-identifier-name@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@prettier/is-es5-identifier-name@npm:0.2.0"
-  checksum: 10/dd08fb6cabfc740fab1c60e7a7c0902ce9077aa8ed171ae50a0bcb985d5e48ffaea81ca4ea21b1111aecd96313ca724d740d73ab8e27871457b83c1de89ad889
-  languageName: node
-  linkType: hard
-
 "@prettier/parse-srcset@npm:3.1.0":
   version: 3.1.0
   resolution: "@prettier/parse-srcset@npm:3.1.0"
@@ -7052,7 +7045,6 @@ __metadata:
     "@eslint/js": "npm:9.24.0"
     "@glimmer/syntax": "npm:0.94.9"
     "@prettier/cli": "npm:0.7.1"
-    "@prettier/is-es5-identifier-name": "npm:0.2.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:4.2.0"
     "@types/estree": "npm:1.0.7"
