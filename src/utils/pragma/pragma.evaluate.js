@@ -19,54 +19,54 @@ export const YAML_IS_PRAGMA_REGEXP = new RegExp(
 );
 assertRegexpEqual(YAML_IS_PRAGMA_REGEXP, /^\s*@(?:format|prettier)\s*$/u);
 
-export const YAML_HAS_PRAGMA_REGEXP = new RegExp(
-  String.raw`^\s*#[^\S\n]*@(?:${FORMAT_PRAGMAS.join("|")})\s*?(?:\n|$)`,
-  "u",
+export const [YAML_HAS_PRAGMA_REGEXP, YAML_HAS_IGNORE_PRAGMA_REGEXP] = [
+  FORMAT_PRAGMAS,
+  FORMAT_IGNORE_PRAGMAS,
+].map(
+  (pragmas) =>
+    new RegExp(
+      String.raw`^\s*#[^\S\n]*@(?:${pragmas.join("|")})\s*?(?:\n|$)`,
+      "u",
+    ),
 );
 assertRegexpEqual(
   YAML_HAS_PRAGMA_REGEXP,
   /^\s*#[^\S\n]*@(?:format|prettier)\s*?(?:\n|$)/u,
-);
-
-export const YAML_HAS_IGNORE_PRAGMA_REGEXP = new RegExp(
-  String.raw`^\s*#[^\S\n]*@(?:${FORMAT_IGNORE_PRAGMAS.join("|")})\s*?(?:\n|$)`,
-  "u",
 );
 assertRegexpEqual(
   YAML_HAS_IGNORE_PRAGMA_REGEXP,
   /^\s*#[^\S\n]*@(?:noformat|noprettier)\s*?(?:\n|$)/u,
 );
 
-export const GRAPHQL_HAS_PRAGMA_REGEXP = new RegExp(
-  String.raw`^\s*#[^\S\n]*@(?:${FORMAT_PRAGMAS.join("|")})\s*(?:\n|$)`,
-  "u",
+export const [GRAPHQL_HAS_PRAGMA_REGEXP, GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP] = [
+  FORMAT_PRAGMAS,
+  FORMAT_IGNORE_PRAGMAS,
+].map(
+  (pragmas) =>
+    new RegExp(
+      String.raw`^\s*#[^\S\n]*@(?:${pragmas.join("|")})\s*(?:\n|$)`,
+      "u",
+    ),
 );
 assertRegexpEqual(
   GRAPHQL_HAS_PRAGMA_REGEXP,
   /^\s*#[^\S\n]*@(?:format|prettier)\s*(?:\n|$)/u,
-);
-
-export const GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP = new RegExp(
-  String.raw`^\s*#[^\S\n]*@(?:${FORMAT_IGNORE_PRAGMAS.join("|")})\s*(?:\n|$)`,
-  "u",
 );
 assertRegexpEqual(
   GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP,
   /^\s*#[^\S\n]*@(?:noformat|noprettier)\s*(?:\n|$)/u,
 );
 
-export const HTML_HAS_PRAGMA_REGEXP = new RegExp(
-  String.raw`^\s*<!--\s*@(?:${FORMAT_PRAGMAS.join("|")})\s*-->`,
-  "u",
+export const [HTML_HAS_PRAGMA_REGEXP, HTML_HAS_IGNORE_PRAGMA_REGEXP] = [
+  FORMAT_PRAGMAS,
+  FORMAT_IGNORE_PRAGMAS,
+].map(
+  (pragmas) =>
+    new RegExp(String.raw`^\s*<!--\s*@(?:${pragmas.join("|")})\s*-->`, "u"),
 );
 assertRegexpEqual(
   HTML_HAS_PRAGMA_REGEXP,
   /^\s*<!--\s*@(?:format|prettier)\s*-->/u,
-);
-
-export const HTML_HAS_IGNORE_PRAGMA_REGEXP = new RegExp(
-  String.raw`^\s*<!--\s*@(?:${FORMAT_IGNORE_PRAGMAS.join("|")})\s*-->`,
-  "u",
 );
 assertRegexpEqual(
   HTML_HAS_IGNORE_PRAGMA_REGEXP,
