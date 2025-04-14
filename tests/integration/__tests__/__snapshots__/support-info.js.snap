@@ -832,7 +832,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "category": "Special",
       "default": false,
-      "description": "Respect @noprettier and @noformat markers at the top of files.",
+      "description": "Check if '@noprettier' or '@noformat' is present in the file's first docblock comment in order opt-out of formatting.",
       "name": "checkIgnorePragma",
       "pluginDefaults": {},
       "type": "boolean"
@@ -1090,7 +1090,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "category": "Special",
       "default": false,
-      "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment\\nin order for it to be formatted.",
+      "description": "Require either '@prettier' or '@format' to be present in the file's first docblock commentin order for it to be formatted.",
       "name": "requirePragma",
       "pluginDefaults": {},
       "type": "boolean"

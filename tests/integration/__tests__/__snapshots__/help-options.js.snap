@@ -94,7 +94,7 @@ exports[`show detailed usage with --help check-ignore-pragma (stderr) 1`] = `""`
 exports[`show detailed usage with --help check-ignore-pragma (stdout) 1`] = `
 "--check-ignore-pragma
 
-  Respect @noprettier and @noformat markers at the top of files.
+  Check if '@noprettier' or '@noformat' is present in the file's first docblock comment in order opt-out of formatting.
 
 Default: false"
 `;
@@ -575,8 +575,7 @@ exports[`show detailed usage with --help require-pragma (stderr) 1`] = `""`;
 exports[`show detailed usage with --help require-pragma (stdout) 1`] = `
 "--require-pragma
 
-  Require either '@prettier' or '@format' to be present in the file's first docblock comment
-  in order for it to be formatted.
+  Require either '@prettier' or '@format' to be present in the file's first docblock commentin order for it to be formatted.
 
 Default: false"
 `;
