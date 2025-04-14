@@ -674,6 +674,7 @@ export interface SupportLanguage {
   linguistLanguageId?: number | undefined;
   vscodeLanguageIds?: string[] | undefined;
   interpreters?: string[] | undefined;
+  isSupported?: ((file: string) => boolean) | undefined;
 }
 
 export interface SupportOptionRange {
