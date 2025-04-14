@@ -675,6 +675,7 @@ export interface SupportLanguage {
   vscodeLanguageIds?: string[] | undefined;
   interpreters?: string[] | undefined;
   isSupported?: ((file: string) => boolean) | undefined;
+  shouldIgnoreByDefault?: ((file: string) => boolean) | undefined;
 }
 
 export interface SupportOptionRange {
