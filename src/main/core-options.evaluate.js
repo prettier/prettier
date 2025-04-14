@@ -49,7 +49,7 @@ const options = {
     type: "boolean",
     default: false,
     description:
-      "Respect @noprettier and @noformat markers at the top of files.",
+      "Check if '@noprettier' or '@noformat' is present in the file's first docblock comment in order opt-out of formatting.",
     cliCategory: CATEGORY_OTHER,
   },
   cursorOffset: {
@@ -183,10 +183,8 @@ const options = {
     category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
-    description: outdent`
-      Require either '@prettier' or '@format' to be present in the file's first docblock comment
-      in order for it to be formatted.
-    `,
+    description:
+      "Require either '@prettier' or '@format' to be present in the file's first docblock commentin order for it to be formatted.",
     cliCategory: CATEGORY_OTHER,
   },
   tabWidth: {
