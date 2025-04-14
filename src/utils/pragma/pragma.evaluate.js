@@ -4,7 +4,7 @@ export const FORMAT_IGNORE_PRAGMAS = FORMAT_PRAGMAS.map(
 );
 export const FORMAT_PRAGMA_TO_INSERT = FORMAT_PRAGMAS[0];
 
-// Regular expressions put in this file so they can be evaluated
+// Regular expressions are put in this file so they can be evaluated
 
 export const YAML_IS_PRAGMA_REGEXP = new RegExp(
   String.raw`^\s*@(?:${FORMAT_PRAGMAS.join("|")})\s*$`,
