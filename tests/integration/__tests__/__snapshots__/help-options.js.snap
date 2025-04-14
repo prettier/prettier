@@ -94,7 +94,7 @@ exports[`show detailed usage with --help check-ignore-pragma (stderr) 1`] = `""`
 exports[`show detailed usage with --help check-ignore-pragma (stdout) 1`] = `
 "--check-ignore-pragma
 
-  Check if '@noprettier' or '@noformat' is present in the file's first docblock comment in order opt-out of formatting.
+  Check if '@noprettier' or '@noformat' is present in the file's first docblock comment in order to opt-out formatting.
 
 Default: false"
 `;

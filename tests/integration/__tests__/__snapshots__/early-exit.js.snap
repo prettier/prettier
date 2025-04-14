@@ -128,7 +128,7 @@ Other options:
   --cache-location <path>  Path to the cache file.
   --cache-strategy <metadata|content>
                            Strategy for the cache to use for detecting changed files.
-  --check-ignore-pragma    Check if '@noprettier' or '@noformat' is present in the file's first docblock comment in order opt-out of formatting.
+  --check-ignore-pragma    Check if '@noprettier' or '@noformat' is present in the file's first docblock comment in order to opt-out formatting.
                            Defaults to false.
   --no-color               Do not colorize error messages.
   --no-error-on-unmatched-pattern
@@ -300,7 +300,7 @@ Other options:
   --cache-location <path>  Path to the cache file.
   --cache-strategy <metadata|content>
                            Strategy for the cache to use for detecting changed files.
-  --check-ignore-pragma    Check if '@noprettier' or '@noformat' is present in the file's first docblock comment in order opt-out of formatting.
+  --check-ignore-pragma    Check if '@noprettier' or '@noformat' is present in the file's first docblock comment in order to opt-out formatting.
                            Defaults to false.
   --no-color               Do not colorize error messages.
   --no-error-on-unmatched-pattern
