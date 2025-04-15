@@ -385,7 +385,7 @@ export interface RequiredOptions extends doc.printer.Options {
    */
   insertPragma: boolean;
   /**
-   * Prettier allow opt-out formatting individual files that contain a special comment, called a pragma, at the top of the file.
+   * Prettier can allow individual files to opt out of formatting if they contain a special comment, called a pragma, at the top of the file.
    * @default false
    */
   checkIgnorePragma: boolean;

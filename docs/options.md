@@ -397,7 +397,7 @@ Note that “in tandem” doesn’t mean “at the same time”. When the two op
 
 _First available in v3.6.0_
 
-Prettier allow opt-out formatting individual files that contain a special comment, called a pragma, at the top of the file.
+Prettier can allow individual files to opt out of formatting if they contain a special comment, called a pragma, at the top of the file.
 
 Checking for these markers incurs a small upfront cost during formatting, so it's not enabled by default.
 

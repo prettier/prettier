@@ -49,7 +49,7 @@ const options = {
     type: "boolean",
     default: false,
     description:
-      "Check if '@noprettier' or '@noformat' is present in the file's first docblock comment in order for it to opt-out formatting.",
+      "Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.",
     cliCategory: CATEGORY_OTHER,
   },
   cursorOffset: {
