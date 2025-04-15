@@ -246,10 +246,6 @@ function runFormatTest(fixtures, parsers, options) {
       allParsers.push("babel-ts");
     }
 
-    if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
-      allParsers.push("babel-flow");
-    }
-
     if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {
       allParsers.push("__babel_estree");
     }

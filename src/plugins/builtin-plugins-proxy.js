@@ -82,7 +82,6 @@ export const { parsers, printers } = createParsersAndPrinters([
     importPlugin: () => import("./babel.js"),
     parsers: [
       "babel",
-      "babel-flow",
       "babel-ts",
       "__js_expression",
       "__ts_expression",

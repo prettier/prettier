@@ -79,7 +79,7 @@ function willPrintOwnComments(path) {
 }
 
 function isGap(text, { parser }) {
-  if (parser === "flow" || parser === "babel-flow") {
+  if (parser === "flow") {
     // Example: (a /* b */ /* : c */)
     //                gap ^^^^
     text = text.replaceAll(/[\s(]/gu, "");

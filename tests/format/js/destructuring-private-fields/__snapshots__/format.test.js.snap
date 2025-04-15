@@ -35,7 +35,7 @@ Cause: [3:10-3:11]: Unexpected token: 'PrivateField'"
 
 exports[`arrow-params.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -91,7 +91,7 @@ Cause: [5:7-5:8]: Unexpected token: 'PrivateField'"
 
 exports[`assignment.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -150,7 +150,7 @@ Cause: [3:16-3:17]: Unexpected token: 'PrivateField'"
 
 exports[`async-arrow-params.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -206,7 +206,7 @@ Cause: [4:11-4:12]: Unexpected token: 'PrivateField'"
 
 exports[`bindings.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -266,7 +266,7 @@ Cause: [5:10-5:11]: Unexpected token: 'PrivateField'"
 
 exports[`for-lhs.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -328,7 +328,7 @@ Cause: [4:16-4:17]: Unexpected token: 'PrivateField'"
 
 exports[`nested-bindings.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -393,7 +393,7 @@ Cause: [4:11-4:12]: Unexpected token: 'PrivateField'"
 
 exports[`valid-multiple-bindings.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

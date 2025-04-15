@@ -184,12 +184,6 @@ exports[`schema 1`] = `
               ],
             },
             {
-              "description": "Flow",
-              "enum": [
-                "babel-flow",
-              ],
-            },
-            {
               "description": "TypeScript",
               "enum": [
                 "babel-ts",

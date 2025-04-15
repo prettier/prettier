@@ -106,7 +106,6 @@ const options = {
     choices: [
       { value: "flow", description: "Flow" },
       { value: "babel", description: "JavaScript" },
-      { value: "babel-flow", description: "Flow" },
       { value: "babel-ts", description: "TypeScript" },
       { value: "typescript", description: "TypeScript" },
       { value: "acorn", description: "JavaScript" },

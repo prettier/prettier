@@ -1,7 +1,5 @@
 import { parse as babelParse, parseExpression } from "@babel/parser";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import tryCombinations from "../../utils/try-combinations.js";
-import getShebang from "../utils/get-shebang.js";
 import postprocess from "./postprocess/index.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import createParser from "./utils/create-parser.js";
@@ -64,29 +62,6 @@ const appendPlugins = (plugins, options = parseOptions) => ({
   plugins: [...options.plugins, ...plugins],
 });
 
-// Similar to babel
-// https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
-const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/u;
-function isFlowFile(text, options) {
-  if (options.filepath?.endsWith(".js.flow")) {
-    return true;
-  }
-
-  const shebang = getShebang(text);
-  if (shebang) {
-    text = text.slice(shebang.length);
-  }
-
-  const firstNonSpaceNonCommentCharacterIndex =
-    getNextNonSpaceNonCommentCharacterIndex(text, 0);
-
-  if (firstNonSpaceNonCommentCharacterIndex !== false) {
-    text = text.slice(0, firstNonSpaceNonCommentCharacterIndex);
-  }
-
-  return FLOW_PRAGMA_REGEX.test(text);
-}
-
 function parseWithOptions(parse, text, options) {
   const ast = parse(text, options);
   const error = ast.errors.find(
@@ -100,14 +75,6 @@ function parseWithOptions(parse, text, options) {
 
 function createParse({ isExpression = false, optionsCombinations }) {
   return (text, options = {}) => {
-    if (
-      (options.parser === "babel" || options.parser === "__babel_estree") &&
-      isFlowFile(text, options)
-    ) {
-      options.parser = "babel-flow";
-      return babelFlow.parse(text, options);
-    }
-
     let combinations = optionsCombinations;
     const sourceType = options.__babelSourceType ?? getSourceType(options);
     if (sourceType === "script") {
@@ -226,11 +193,6 @@ const babelTSExpression = createBabelParser({
   isExpression: true,
   optionsCombinations: [appendPlugins(["typescript"])],
 });
-const babelFlow = createBabelParser({
-  optionsCombinations: [
-    appendPlugins(["jsx", ["flow", { all: true }], "flowComments"]),
-  ],
-});
 const babelEstree = createBabelParser({
   optionsCombinations: babelParserOptionsCombinations.map((options) =>
     appendPlugins(["estree"], options),
@@ -239,7 +201,6 @@ const babelEstree = createBabelParser({
 
 export default {
   babel,
-  "babel-flow": babelFlow,
   "babel-ts": babelTs,
   /** @internal */
   __js_expression: babelExpression,
