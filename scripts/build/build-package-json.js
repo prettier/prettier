@@ -37,7 +37,7 @@ async function buildPackageJson({ packageConfig, file }) {
       ...packageJson.engines,
       // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
       // Don't delete, comment out if we don't want override
-      node: ">=14",
+      // node: ">=18",
     },
     type: "commonjs",
     exports: {
