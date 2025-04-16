@@ -131,6 +131,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // Ignore Tailwind `@utility` directive ( https://tailwindcss.com/docs/adding-custom-styles#functional-utilities )
+    if (
+      insideAtRuleNode(path, "utility") &&
+      iNode.type === "value-word" &&
+      iNextNode &&
+      iNextNode.type === "value-operator" &&
+      iNextNode.value === "*"
+    ) {
+      continue;
+    }
+
     // Ignore after latest node (i.e. before semicolon)
     if (!iNextNode) {
       continue;
