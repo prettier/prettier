@@ -1,5 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`array-and-object.js - {"experimentalOperatorPosition":"start"} format 1`] = `
+====================================options=====================================
+experimentalOperatorPosition: "start"
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo = foo || [
+  // comment
+  a,
+]
+
+foo = foo || {
+  // comment
+  a,
+}
+
+=====================================output=====================================
+foo = foo || [
+  // comment
+  a,
+];
+
+foo = foo || {
+  // comment
+  a,
+};
+
+================================================================================
+`;
+
+exports[`array-and-object.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo = foo || [
+  // comment
+  a,
+]
+
+foo = foo || {
+  // comment
+  a,
+}
+
+=====================================output=====================================
+foo = foo || [
+  // comment
+  a,
+];
+
+foo = foo || {
+  // comment
+  a,
+};
+
+================================================================================
+`;
+
 exports[`arrow.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
@@ -2361,225 +2422,6 @@ foo(
     ? number + 5
     : false,
 );
-
-================================================================================
-`;
-
-exports[`tuple-and-record.js [acorn] format 1`] = `
-"Unexpected character '[' (6:15)
-  4 | ]
-  5 |
-> 6 | foo = foo || #[
-    |               ^
-  7 |   // comment
-  8 |   a,
-  9 | ]
-Cause: Unexpected character '[' (6:14)"
-`;
-
-exports[`tuple-and-record.js [espree] format 1`] = `
-"Unexpected character '[' (6:15)
-  4 | ]
-  5 |
-> 6 | foo = foo || #[
-    |               ^
-  7 |   // comment
-  8 |   a,
-  9 | ]
-Cause: Unexpected character '['"
-`;
-
-exports[`tuple-and-record.js [flow] format 1`] = `
-"Unexpected token \`#\`, expected an identifier (6:14)
-  4 | ]
-  5 |
-> 6 | foo = foo || #[
-    |              ^
-  7 |   // comment
-  8 |   a,
-  9 | ]"
-`;
-
-exports[`tuple-and-record.js [meriyah] format 1`] = `
-"'#' not followed by identifier (6:14)
-  4 | ]
-  5 |
-> 6 | foo = foo || #[
-    |              ^
-  7 |   // comment
-  8 |   a,
-  9 | ]
-Cause: [6:13-6:14]: '#' not followed by identifier"
-`;
-
-exports[`tuple-and-record.js [typescript] format 1`] = `
-"Invalid character. (6:14)
-  4 | ]
-  5 |
-> 6 | foo = foo || #[
-    |              ^
-  7 |   // comment
-  8 |   a,
-  9 | ]
-Cause: Invalid character."
-`;
-
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [acorn] format 1`] = `
-"Unexpected character '[' (6:15)
-  4 | ]
-  5 |
-> 6 | foo = foo || #[
-    |               ^
-  7 |   // comment
-  8 |   a,
-  9 | ]
-Cause: Unexpected character '[' (6:14)"
-`;
-
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [espree] format 1`] = `
-"Unexpected character '[' (6:15)
-  4 | ]
-  5 |
-> 6 | foo = foo || #[
-    |               ^
-  7 |   // comment
-  8 |   a,
-  9 | ]
-Cause: Unexpected character '['"
-`;
-
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [flow] format 1`] = `
-"Unexpected token \`#\`, expected an identifier (6:14)
-  4 | ]
-  5 |
-> 6 | foo = foo || #[
-    |              ^
-  7 |   // comment
-  8 |   a,
-  9 | ]"
-`;
-
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [meriyah] format 1`] = `
-"'#' not followed by identifier (6:14)
-  4 | ]
-  5 |
-> 6 | foo = foo || #[
-    |              ^
-  7 |   // comment
-  8 |   a,
-  9 | ]
-Cause: [6:13-6:14]: '#' not followed by identifier"
-`;
-
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} [typescript] format 1`] = `
-"Invalid character. (6:14)
-  4 | ]
-  5 |
-> 6 | foo = foo || #[
-    |              ^
-  7 |   // comment
-  8 |   a,
-  9 | ]
-Cause: Invalid character."
-`;
-
-exports[`tuple-and-record.js - {"experimentalOperatorPosition":"start"} format 1`] = `
-====================================options=====================================
-experimentalOperatorPosition: "start"
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-foo = foo || [
-  // comment
-  a,
-]
-
-foo = foo || #[
-  // comment
-  a,
-]
-
-foo = foo || {
-  // comment
-  a,
-}
-
-foo = foo || #{
-  // comment
-  a,
-}
-
-=====================================output=====================================
-foo = foo || [
-  // comment
-  a,
-];
-
-foo = foo || #[
-  // comment
-  a,
-];
-
-foo = foo || {
-  // comment
-  a,
-};
-
-foo = foo || #{
-  // comment
-  a,
-};
-
-================================================================================
-`;
-
-exports[`tuple-and-record.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-foo = foo || [
-  // comment
-  a,
-]
-
-foo = foo || #[
-  // comment
-  a,
-]
-
-foo = foo || {
-  // comment
-  a,
-}
-
-foo = foo || #{
-  // comment
-  a,
-}
-
-=====================================output=====================================
-foo = foo || [
-  // comment
-  a,
-];
-
-foo = foo || #[
-  // comment
-  a,
-];
-
-foo = foo || {
-  // comment
-  a,
-};
-
-foo = foo || #{
-  // comment
-  a,
-};
 
 ================================================================================
 `;

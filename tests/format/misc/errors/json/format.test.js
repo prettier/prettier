@@ -87,6 +87,9 @@ runFormatTest(
       // plugin `explicitResourceManagement`
       "[function() { {using a = b} }]",
       "{using a = b}",
+      // plugin `recordAndTuple`
+      "[#[]]",
+      "[#{}]",
       // plugin `v8intrinsic`
       "[foo%bar()]",
       // plugin `pipelineOperator`
