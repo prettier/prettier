@@ -102,8 +102,10 @@ const isExportDeclaration = createTypeCheckFunction([
   "DeclareExportAllDeclaration",
 ]);
 
+// These two functions exists because we used support `recordAndTuple`
+// Feel free to check `node.type` instead
+// https://github.com/prettier/prettier/pull/17363
 const isArrayExpression = createTypeCheckFunction(["ArrayExpression"]);
-
 const isObjectExpression = createTypeCheckFunction(["ObjectExpression"]);
 
 /**
