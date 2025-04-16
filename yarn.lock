@@ -2411,10 +2411,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-html-parser@npm:8.1.0":
-  version: 8.1.0
-  resolution: "angular-html-parser@npm:8.1.0"
-  checksum: 10/670c1937c5d95465d6594eb9e3e15495efab8c1a77e4317701ac3d1a8cf4654026376ed6de430e7873aff40f4d2ad7531398346a21fbe571d75a302acc6dd940
+"angular-html-parser@npm:9.0.2":
+  version: 9.0.2
+  resolution: "angular-html-parser@npm:9.0.2"
+  checksum: 10/9a8cc2788feb1340cecc4a91faf9acc610610ad0c2eb5c1d8a4a486d3fbfb8514bf4a4a96fbdb27012e4dcc2d4267ada84a8929ec7a02a368556c0c079a36da4
   languageName: node
   linkType: hard
 
@@ -7086,7 +7086,7 @@ __metadata:
     acorn: "npm:8.14.1"
     acorn-jsx: "npm:5.3.2"
     angular-estree-parser: "npm:11.1.1"
-    angular-html-parser: "npm:8.1.0"
+    angular-html-parser: "npm:9.0.2"
     browserslist: "npm:4.24.4"
     browserslist-to-esbuild: "npm:2.1.1"
     c8: "npm:10.1.3"
