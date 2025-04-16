@@ -5364,9 +5364,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@nicolo-ribaudo/jest-light-runner#main":
-  version: 0.6.0
-  resolution: "jest-light-runner@https://github.com/nicolo-ribaudo/jest-light-runner.git#commit=fb06f9f39e8eec41f51493208d87b246a80236f6"
+"jest-light-runner@npm:0.7.0":
+  version: 0.7.0
+  resolution: "jest-light-runner@npm:0.7.0"
   dependencies:
     "@jest/expect": "npm:^30.0.0-alpha.1"
     "@jest/fake-timers": "npm:^30.0.0-alpha.1"
@@ -5379,7 +5379,7 @@ __metadata:
     tinypool: "npm:0.8.4"
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0-0
-  checksum: 10/daaa29e49a1ecc44bd12dc26a158d47805c22d4e1c38c4e86e05ef3f9f449c60c5d73a192496c2aff1a19f740c407cc253628b9d06838f787221740592ca6c40
+  checksum: 10/d30bbb7822ba21906a47cb025e0198e74cd9063f5da862c1e2ec54353ada5fec172b0a30cb01074029183acc59d85fd102baa46c7cb90d22cf717d9b57dd045b
   languageName: node
   linkType: hard
 
@@ -6917,7 +6917,7 @@ __metadata:
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
-    jest-light-runner: "nicolo-ribaudo/jest-light-runner#main"
+    jest-light-runner: "npm:0.7.0"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:2.2.2"
