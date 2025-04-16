@@ -102,15 +102,9 @@ const isExportDeclaration = createTypeCheckFunction([
   "DeclareExportAllDeclaration",
 ]);
 
-const isArrayOrTupleExpression = createTypeCheckFunction([
-  "ArrayExpression",
-  "TupleExpression",
-]);
+const isArrayExpression = createTypeCheckFunction(["ArrayExpression"]);
 
-const isObjectOrRecordExpression = createTypeCheckFunction([
-  "ObjectExpression",
-  "RecordExpression",
-]);
+const isObjectExpression = createTypeCheckFunction(["ObjectExpression"]);
 
 /**
  * @param {Estree.Node} node
@@ -615,14 +609,14 @@ function isSimpleCallArgument(node, depth = 2) {
     );
   }
 
-  if (isObjectOrRecordExpression(node)) {
+  if (isObjectExpression(node)) {
     return node.properties.every(
       (p) =>
         !p.computed && (p.shorthand || (p.value && isChildSimple(p.value))),
     );
   }
 
-  if (isArrayOrTupleExpression(node)) {
+  if (isArrayExpression(node)) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
@@ -1091,7 +1085,7 @@ export {
   hasNodeIgnoreComment,
   hasRestParameter,
   identity,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryCastExpression,
   isBinaryish,
   isBitwiseOperator,
@@ -1113,7 +1107,7 @@ export {
   isNextLineEmpty,
   isNullishCoalescing,
   isNumericLiteral,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isObjectProperty,
   isObjectType,
   isPrettierIgnoreComment,

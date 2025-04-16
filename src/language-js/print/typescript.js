@@ -8,8 +8,8 @@ import {
 } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
-  isArrayOrTupleExpression,
-  isObjectOrRecordExpression,
+  isArrayExpression,
+  isObjectExpression,
   shouldPrintComma,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
@@ -75,8 +75,8 @@ function printTypescript(path, options, print) {
       return "this";
     case "TSTypeAssertion": {
       const shouldBreakAfterCast = !(
-        isArrayOrTupleExpression(node.expression) ||
-        isObjectOrRecordExpression(node.expression)
+        isArrayExpression(node.expression) ||
+        isObjectExpression(node.expression)
       );
 
       const castGroup = group([

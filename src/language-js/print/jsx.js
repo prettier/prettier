@@ -30,11 +30,11 @@ import {
   CommentCheckFlags,
   hasComment,
   hasNodeIgnoreComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryish,
   isCallExpression,
   isJsxElement,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isStringLiteral,
 } from "../utils/index.js";
 
@@ -487,7 +487,6 @@ function separatorWithWhitespace(
 
 const NO_WRAP_PARENTS = new Set([
   "ArrayExpression",
-  "TupleExpression",
   "JSXAttribute",
   "JSXElement",
   "JSXExpressionContainer",
@@ -565,8 +564,8 @@ function printJsxExpressionContainer(path, options, print) {
   const shouldInline = (node, parent) =>
     node.type === "JSXEmptyExpression" ||
     (!hasComment(node) &&
-      (isArrayOrTupleExpression(node) ||
-        isObjectOrRecordExpression(node) ||
+      (isArrayExpression(node) ||
+        isObjectExpression(node) ||
         node.type === "ArrowFunctionExpression" ||
         (node.type === "AwaitExpression" &&
           (shouldInline(node.argument, node) ||

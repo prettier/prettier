@@ -16,9 +16,9 @@ import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isNumericLiteral,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isSignedNumericLiteral,
   shouldPrintComma,
 } from "../utils/index.js";
@@ -44,7 +44,6 @@ function printEmptyArrayElements(path, options, openBracket, closeBracket) {
 
 /*
 - `ArrayExpression`
-- `TupleExpression`
 - `ArrayPattern`
 - `TSTupleType`(TypeScript)
 - `TupleTypeAnnotation`(Flow)
@@ -54,7 +53,7 @@ function printArray(path, options, print) {
   /** @type{Doc[]} */
   const parts = [];
 
-  const openBracket = node.type === "TupleExpression" ? "#[" : "[";
+  const openBracket = "[";
   const closeBracket = "]";
   const elementsProperty =
     // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
@@ -92,10 +91,7 @@ function printArray(path, options, print) {
       elements.length > 1 &&
       elements.every((element, i, elements) => {
         const elementType = element?.type;
-        if (
-          !isArrayOrTupleExpression(element) &&
-          !isObjectOrRecordExpression(element)
-        ) {
+        if (!isArrayExpression(element) && !isObjectExpression(element)) {
           return false;
         }
 
@@ -104,9 +100,7 @@ function printArray(path, options, print) {
           return false;
         }
 
-        const itemsKey = isArrayOrTupleExpression(element)
-          ? "elements"
-          : "properties";
+        const itemsKey = isArrayExpression(element) ? "elements" : "properties";
 
         return element[itemsKey] && element[itemsKey].length > 1;
       });
@@ -161,7 +155,7 @@ function printArray(path, options, print) {
 
 function isConciselyPrintedArray(node, options) {
   return (
-    isArrayOrTupleExpression(node) &&
+    isArrayExpression(node) &&
     node.elements.length > 1 &&
     node.elements.every(
       (element) =>

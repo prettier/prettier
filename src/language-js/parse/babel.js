@@ -45,7 +45,6 @@ const parseOptions = {
     "sourcePhaseImports",
     "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],
-    "recordAndTuple",
   ],
   tokens: true,
   ranges: true,
