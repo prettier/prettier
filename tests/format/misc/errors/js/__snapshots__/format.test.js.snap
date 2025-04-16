@@ -145,10 +145,9 @@ Cause: Unexpected token (5:11)"
 `;
 
 exports[`snippet: #7 [babel] format 1`] = `
-"Unexpected token (1:7)
+"Unexpected token. (1:7)
 > 1 | const #{ a, b } = #{ a: 1, b: 2 };
-    |       ^
-Cause: Unexpected token (1:6)"
+    |       ^"
 `;
 
 exports[`snippet: #8 [babel] format 1`] = `
@@ -159,10 +158,10 @@ Cause: Unexpected token (1:6)"
 `;
 
 exports[`snippet: #9 [babel] format 1`] = `
-"Tuple expressions starting with '[|' are only allowed when the 'syntaxType' option of the 'recordAndTuple' plugin is set to 'bar'. (1:1)
+"Unexpected token (1:2)
 > 1 | [| 1 |]
-    | ^
-Cause: Tuple expressions starting with '[|' are only allowed when the 'syntaxType' option of the 'recordAndTuple' plugin is set to 'bar'. (1:0)"
+    |  ^
+Cause: Unexpected token (1:1)"
 `;
 
 exports[`snippet: #10 [babel] format 1`] = `
