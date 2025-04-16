@@ -53,7 +53,7 @@ function runCliWorker(dir, args, options) {
     stderr: true,
     env: {
       ...process.env,
-      NO_COLOR: "1",
+      FORCE_COLOR: 0,
     },
     workerData: {
       dir,
