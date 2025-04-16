@@ -108,6 +108,62 @@ promise.then(
 ================================================================================
 `;
 
+exports[`array-and-object.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function StatelessFunctionalComponent1({
+  isActive = true,
+  onFiltersUpdated = () => null,
+  onSelect = () => null,
+  onSubmitAndDeselect = () => null,
+  onCancel = () => null,
+  searchFilters = null,
+  title = '',
+  items = [],
+} = {}) {
+}
+
+function StatelessFunctionalComponent3([
+  isActive = true,
+  onFiltersUpdated = () => null,
+  onSelect = () => null,
+  onSubmitAndDeselect = () => null,
+  onCancel = () => null,
+  searchFilters = null,
+  title = '',
+  items = [],
+] = []) {
+}
+
+=====================================output=====================================
+function StatelessFunctionalComponent1({
+  isActive = true,
+  onFiltersUpdated = () => null,
+  onSelect = () => null,
+  onSubmitAndDeselect = () => null,
+  onCancel = () => null,
+  searchFilters = null,
+  title = "",
+  items = [],
+} = {}) {}
+
+function StatelessFunctionalComponent3([
+  isActive = true,
+  onFiltersUpdated = () => null,
+  onSelect = () => null,
+  onSubmitAndDeselect = () => null,
+  onCancel = () => null,
+  searchFilters = null,
+  title = "",
+  items = [],
+] = []) {}
+
+================================================================================
+`;
+
 exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
@@ -231,155 +287,6 @@ class C {
     return <div />;
   }
 }
-
-================================================================================
-`;
-
-exports[`tuple-and-record.js [acorn] format 1`] = `
-"Unexpected character '{' (22:6)
-  20 |   title = '',
-  21 |   items = [],
-> 22 | } = #{}) {
-     |      ^
-  23 | }
-  24 |
-  25 | function StatelessFunctionalComponent3([
-Cause: Unexpected character '{' (22:5)"
-`;
-
-exports[`tuple-and-record.js [espree] format 1`] = `
-"Unexpected character '{' (22:6)
-  20 |   title = '',
-  21 |   items = [],
-> 22 | } = #{}) {
-     |      ^
-  23 | }
-  24 |
-  25 | function StatelessFunctionalComponent3([
-Cause: Unexpected character '{'"
-`;
-
-exports[`tuple-and-record.js [flow] format 1`] = `
-"Unexpected token \`#\`, expected an identifier (22:5)
-  20 |   title = '',
-  21 |   items = [],
-> 22 | } = #{}) {
-     |     ^
-  23 | }
-  24 |
-  25 | function StatelessFunctionalComponent3(["
-`;
-
-exports[`tuple-and-record.js [meriyah] format 1`] = `
-"'#' not followed by identifier (22:5)
-  20 |   title = '',
-  21 |   items = [],
-> 22 | } = #{}) {
-     |     ^
-  23 | }
-  24 |
-  25 | function StatelessFunctionalComponent3([
-Cause: [22:4-22:5]: '#' not followed by identifier"
-`;
-
-exports[`tuple-and-record.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-function StatelessFunctionalComponent1({
-  isActive = true,
-  onFiltersUpdated = () => null,
-  onSelect = () => null,
-  onSubmitAndDeselect = () => null,
-  onCancel = () => null,
-  searchFilters = null,
-  title = '',
-  items = [],
-} = {}) {
-}
-
-function StatelessFunctionalComponent2({
-  isActive = true,
-  onFiltersUpdated = () => null,
-  onSelect = () => null,
-  onSubmitAndDeselect = () => null,
-  onCancel = () => null,
-  searchFilters = null,
-  title = '',
-  items = [],
-} = #{}) {
-}
-
-function StatelessFunctionalComponent3([
-  isActive = true,
-  onFiltersUpdated = () => null,
-  onSelect = () => null,
-  onSubmitAndDeselect = () => null,
-  onCancel = () => null,
-  searchFilters = null,
-  title = '',
-  items = [],
-] = []) {
-}
-
-function StatelessFunctionalComponent4([
-  isActive = true,
-  onFiltersUpdated = () => null,
-  onSelect = () => null,
-  onSubmitAndDeselect = () => null,
-  onCancel = () => null,
-  searchFilters = null,
-  title = '',
-  items = [],
-] = #[]) {
-}
-
-=====================================output=====================================
-function StatelessFunctionalComponent1({
-  isActive = true,
-  onFiltersUpdated = () => null,
-  onSelect = () => null,
-  onSubmitAndDeselect = () => null,
-  onCancel = () => null,
-  searchFilters = null,
-  title = "",
-  items = [],
-} = {}) {}
-
-function StatelessFunctionalComponent2({
-  isActive = true,
-  onFiltersUpdated = () => null,
-  onSelect = () => null,
-  onSubmitAndDeselect = () => null,
-  onCancel = () => null,
-  searchFilters = null,
-  title = "",
-  items = [],
-} = #{}) {}
-
-function StatelessFunctionalComponent3([
-  isActive = true,
-  onFiltersUpdated = () => null,
-  onSelect = () => null,
-  onSubmitAndDeselect = () => null,
-  onCancel = () => null,
-  searchFilters = null,
-  title = "",
-  items = [],
-] = []) {}
-
-function StatelessFunctionalComponent4([
-  isActive = true,
-  onFiltersUpdated = () => null,
-  onSelect = () => null,
-  onSubmitAndDeselect = () => null,
-  onCancel = () => null,
-  searchFilters = null,
-  title = "",
-  items = [],
-] = #[]) {}
 
 ================================================================================
 `;

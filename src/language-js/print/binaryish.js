@@ -19,12 +19,12 @@ import {
   CommentCheckFlags,
   hasComment,
   hasLeadingOwnLineComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryish,
   isCallExpression,
   isJsxElement,
   isMemberExpression,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isObjectProperty,
   shouldFlatten,
 } from "../utils/index.js";
@@ -359,14 +359,11 @@ function shouldInlineLogicalExpression(node) {
     return false;
   }
 
-  if (
-    isObjectOrRecordExpression(node.right) &&
-    node.right.properties.length > 0
-  ) {
+  if (isObjectExpression(node.right) && node.right.properties.length > 0) {
     return true;
   }
 
-  if (isArrayOrTupleExpression(node.right) && node.right.elements.length > 0) {
+  if (isArrayExpression(node.right) && node.right.elements.length > 0) {
     return true;
   }
 

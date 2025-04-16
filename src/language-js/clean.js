@@ -1,5 +1,5 @@
 import {
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isNumericLiteral,
   isStringLiteral,
 } from "./utils/index.js";
@@ -145,7 +145,7 @@ function clean(original, cloned, parent) {
     ] of cloned.expression.arguments[0].properties.entries()) {
       switch (astProps[index].key.name) {
         case "styles":
-          if (isArrayOrTupleExpression(prop.value)) {
+          if (isArrayExpression(prop.value)) {
             removeTemplateElementsValue(prop.value.elements[0]);
           }
           break;

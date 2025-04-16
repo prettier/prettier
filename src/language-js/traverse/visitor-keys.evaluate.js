@@ -94,6 +94,9 @@ const visitorKeys = Object.fromEntries(
   ]),
 );
 
+// Babel will remove these in v8 https://github.com/babel/babel/pull/17242
+delete visitorKeys.TupleExpression;
+delete visitorKeys.RecordExpression;
 // Babel will remove this in v8
 delete visitorKeys.DecimalLiteral;
 // Won't exist since we use `createImportExpressions` when parsing with babel
