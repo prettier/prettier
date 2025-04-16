@@ -1,5 +1,9 @@
 import { extract, parseWithComments, print, strip } from "jest-docblock";
 import { normalizeEndOfLine } from "../common/end-of-line.js";
+import {
+  FORMAT_PRAGMA_TO_INSERT,
+  FORMAT_PRAGMAS,
+} from "../utils/pragma/pragma.evaluate.js";
 import getShebang from "./utils/get-shebang.js";
 
 function parseDocBlock(text) {
@@ -16,7 +20,7 @@ function parseDocBlock(text) {
 
 function hasPragma(text) {
   const { pragmas } = parseDocBlock(text);
-  return Object.hasOwn(pragmas, "prettier") || Object.hasOwn(pragmas, "format");
+  return FORMAT_PRAGMAS.some((pragma) => Object.hasOwn(pragmas, pragma));
 }
 
 function insertPragma(originalText) {
@@ -25,7 +29,7 @@ function insertPragma(originalText) {
 
   let docBlock = print({
     pragmas: {
-      format: "",
+      [FORMAT_PRAGMA_TO_INSERT]: "",
       ...pragmas,
     },
     comments: comments.trimStart(),

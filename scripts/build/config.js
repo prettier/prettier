@@ -792,13 +792,14 @@ const nodejsFiles = [
       {
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
         process: (text) =>
-          text.replace("../src/cli/index.js", "../internal/cli.mjs"),
+          text.replace("../src/cli/index.js", "../internal/legacy-cli.mjs"),
       },
     ],
+    external: ["@prettier/cli"],
   },
   {
     input: "src/cli/index.js",
-    outputBaseName: "internal/cli",
+    outputBaseName: "internal/legacy-cli",
     external: ["tinybench"],
     // TODO: Remove this when we drop support for Node.js v16
     replaceModule: [

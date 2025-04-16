@@ -82,6 +82,7 @@ prettierPluginGlimmer.parsers.glimmer.parse("code", options);
 prettierPluginHtml.parsers.html.parse("code", options);
 prettierPluginHtml.parsers.vue.parse("code", options);
 prettierPluginHtml.parsers.lwc.parse("code", options);
+prettierPluginHtml.parsers.mjml.parse("code", options);
 prettierPluginHtml.parsers.angular.parse("code", options);
 prettierPluginYaml.parsers.yaml.parse("code", options);
 

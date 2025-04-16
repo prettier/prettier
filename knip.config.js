@@ -1,14 +1,24 @@
 export default {
   workspaces: {
     ".": {
-      entry: ["src/plugins/*", "scripts/**"],
+      entry: [
+        "src/plugins/*",
+        "scripts/**",
+        // We use `new Function()` to create `import()` in our `bin` file (bin/prettier.cjs)
+        // so there is no actual use of the CLI files
+        "src/cli/index.js",
+      ],
       project: ["src/**", "scripts/**"],
       ignore: [
         "scripts/build/config.js",
         "scripts/build/build-javascript-module.js",
         "scripts/tools/**",
       ],
-      ignoreDependencies: ["eslint-formatter-friendly", "ts-expect"],
+      ignoreDependencies: [
+        "eslint-formatter-friendly",
+        "ts-expect",
+        "@prettier/cli",
+      ],
       ignoreBinaries: [
         "test-coverage",
         "renovate-config-validator",

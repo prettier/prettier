@@ -117,7 +117,7 @@ export const { parsers, printers } = createParsersAndPrinters([
   },
   {
     importPlugin: () => import("./html.js"),
-    parsers: ["html", "angular", "vue", "lwc"],
+    parsers: ["html", "angular", "vue", "lwc", "mjml"],
     printers: ["html"],
   },
   {

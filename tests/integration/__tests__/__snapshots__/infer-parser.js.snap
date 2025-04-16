@@ -80,17 +80,34 @@ exports[`Interpreters (stdout) 1`] = `"{ "ignored": false, "inferredParser": "ba
 
 exports[`Known/Unknown (stdout) 1`] = `"known.js"`;
 
+exports[`isSupported (stdout) 1`] = `
+"{
+  "ignored": false,
+  "inferredParser": "parser-name-inferred-from-language-is-supported"
+}"
+`;
+
+exports[`isSupported (stdout) 2`] = `
+"content from file
+formatted by 'parser-name-inferred-from-language-is-supported' parser"
+`;
+
+exports[`isSupported (stdout) 3`] = `
+"content from stdin
+formatted by 'parser-name-inferred-from-language-is-supported' parser"
+`;
+
 exports[`stdin no path and no parser --check logs error but exits with 0 (stderr) 1`] = `"[error] No parser and no file path given, couldn't infer a parser."`;
 
 exports[`stdin no path and no parser --list-different logs error but exits with 0 (stderr) 1`] = `"[error] No parser and no file path given, couldn't infer a parser."`;
 
 exports[`stdin no path and no parser logs error and exits with 2 (stderr) 1`] = `"[error] No parser and no file path given, couldn't infer a parser."`;
 
-exports[`stdin with unknown path and no parser --check logs error but exits with 0 (stderr) 1`] = `"[error] No parser could be inferred for file "foo"."`;
+exports[`stdin with unknown path and no parser --check logs error but exits with 0 (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/foo"."`;
 
-exports[`stdin with unknown path and no parser --list-different logs error but exits with 0 (stderr) 1`] = `"[error] No parser could be inferred for file "foo"."`;
+exports[`stdin with unknown path and no parser --list-different logs error but exits with 0 (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/foo"."`;
 
-exports[`stdin with unknown path and no parser logs error and exits with 2 (stderr) 1`] = `"[error] No parser could be inferred for file "foo"."`;
+exports[`stdin with unknown path and no parser logs error and exits with 2 (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/foo"."`;
 
 exports[`unknown path and no parser multiple files (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
 
