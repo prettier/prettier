@@ -1,5 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`array-and-object.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fn12 = (a) => (b) => (c) => (d) => (e) =>
+  ({ foo: bar, bar: baz, baz: foo });
+
+map(() => ([
+  // comment
+  foo
+]));
+
+map(() => ({
+  // comment
+  foo
+}));
+
+=====================================output=====================================
+const fn12 = (a) => (b) => (c) => (d) => (e) => ({
+  foo: bar,
+  bar: baz,
+  baz: foo,
+});
+
+map(() => [
+  // comment
+  foo,
+]);
+
+map(() => ({
+  // comment
+  foo,
+}));
+
+================================================================================
+`;
+
+exports[`array-and-object.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fn12 = (a) => (b) => (c) => (d) => (e) =>
+  ({ foo: bar, bar: baz, baz: foo });
+
+map(() => ([
+  // comment
+  foo
+]));
+
+map(() => ({
+  // comment
+  foo
+}));
+
+=====================================output=====================================
+const fn12 = a => b => c => d => e => ({ foo: bar, bar: baz, baz: foo });
+
+map(() => [
+  // comment
+  foo,
+]);
+
+map(() => ({
+  // comment
+  foo,
+}));
+
+================================================================================
+`;
+
 exports[`arrow_function_expression.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
@@ -4524,232 +4600,6 @@ foo(a => b => (0, 1));
 
 () => ({}) ? 1 : 2;
 () => () => ({}) ? 1 : 2;
-
-================================================================================
-`;
-
-exports[`tuple-and-record.js - {"arrowParens":"always"} [acorn] format 1`] = `
-"Identifier 'fn12' has already been declared (4:7)
-  2 |   ({ foo: bar, bar: baz, baz: foo });
-  3 |
-> 4 | const fn12 = (a) => (b) => (c) => (d) => (e) =>
-    |       ^
-  5 |   (#{ foo: bar, bar: baz, baz: foo });
-  6 |
-  7 | map(() => ([
-Cause: Identifier 'fn12' has already been declared (4:6)"
-`;
-
-exports[`tuple-and-record.js - {"arrowParens":"always"} [espree] format 1`] = `
-"Identifier 'fn12' has already been declared (4:7)
-  2 |   ({ foo: bar, bar: baz, baz: foo });
-  3 |
-> 4 | const fn12 = (a) => (b) => (c) => (d) => (e) =>
-    |       ^
-  5 |   (#{ foo: bar, bar: baz, baz: foo });
-  6 |
-  7 | map(() => ([
-Cause: Identifier 'fn12' has already been declared"
-`;
-
-exports[`tuple-and-record.js - {"arrowParens":"always"} [meriyah] format 1`] = `
-"'#' not followed by identifier (5:4)
-  3 |
-  4 | const fn12 = (a) => (b) => (c) => (d) => (e) =>
-> 5 |   (#{ foo: bar, bar: baz, baz: foo });
-    |    ^
-  6 |
-  7 | map(() => ([
-  8 |   // comment
-Cause: [5:3-5:4]: '#' not followed by identifier"
-`;
-
-exports[`tuple-and-record.js - {"arrowParens":"always"} [typescript] format 1`] = `
-"Invalid character. (5:4)
-  3 |
-  4 | const fn12 = (a) => (b) => (c) => (d) => (e) =>
-> 5 |   (#{ foo: bar, bar: baz, baz: foo });
-    |    ^
-  6 |
-  7 | map(() => ([
-  8 |   // comment
-Cause: Invalid character."
-`;
-
-exports[`tuple-and-record.js - {"arrowParens":"always"} format 1`] = `
-====================================options=====================================
-arrowParens: "always"
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-const fn12 = (a) => (b) => (c) => (d) => (e) =>
-  ({ foo: bar, bar: baz, baz: foo });
-
-const fn12 = (a) => (b) => (c) => (d) => (e) =>
-  (#{ foo: bar, bar: baz, baz: foo });
-
-map(() => ([
-  // comment
-  foo
-]));
-
-map(() => (#[
-  // comment
-  foo
-]));
-
-map(() => ({
-  // comment
-  foo
-}));
-
-map(() => (#{
-  // comment
-  foo
-}));
-
-=====================================output=====================================
-const fn12 = (a) => (b) => (c) => (d) => (e) => ({
-  foo: bar,
-  bar: baz,
-  baz: foo,
-});
-
-const fn12 = (a) => (b) => (c) => (d) => (e) => #{
-  foo: bar,
-  bar: baz,
-  baz: foo,
-};
-
-map(() => [
-  // comment
-  foo,
-]);
-
-map(() => #[
-  // comment
-  foo,
-]);
-
-map(() => ({
-  // comment
-  foo,
-}));
-
-map(() => #{
-  // comment
-  foo,
-});
-
-================================================================================
-`;
-
-exports[`tuple-and-record.js - {"arrowParens":"avoid"} [acorn] format 1`] = `
-"Identifier 'fn12' has already been declared (4:7)
-  2 |   ({ foo: bar, bar: baz, baz: foo });
-  3 |
-> 4 | const fn12 = (a) => (b) => (c) => (d) => (e) =>
-    |       ^
-  5 |   (#{ foo: bar, bar: baz, baz: foo });
-  6 |
-  7 | map(() => ([
-Cause: Identifier 'fn12' has already been declared (4:6)"
-`;
-
-exports[`tuple-and-record.js - {"arrowParens":"avoid"} [espree] format 1`] = `
-"Identifier 'fn12' has already been declared (4:7)
-  2 |   ({ foo: bar, bar: baz, baz: foo });
-  3 |
-> 4 | const fn12 = (a) => (b) => (c) => (d) => (e) =>
-    |       ^
-  5 |   (#{ foo: bar, bar: baz, baz: foo });
-  6 |
-  7 | map(() => ([
-Cause: Identifier 'fn12' has already been declared"
-`;
-
-exports[`tuple-and-record.js - {"arrowParens":"avoid"} [meriyah] format 1`] = `
-"'#' not followed by identifier (5:4)
-  3 |
-  4 | const fn12 = (a) => (b) => (c) => (d) => (e) =>
-> 5 |   (#{ foo: bar, bar: baz, baz: foo });
-    |    ^
-  6 |
-  7 | map(() => ([
-  8 |   // comment
-Cause: [5:3-5:4]: '#' not followed by identifier"
-`;
-
-exports[`tuple-and-record.js - {"arrowParens":"avoid"} [typescript] format 1`] = `
-"Invalid character. (5:4)
-  3 |
-  4 | const fn12 = (a) => (b) => (c) => (d) => (e) =>
-> 5 |   (#{ foo: bar, bar: baz, baz: foo });
-    |    ^
-  6 |
-  7 | map(() => ([
-  8 |   // comment
-Cause: Invalid character."
-`;
-
-exports[`tuple-and-record.js - {"arrowParens":"avoid"} format 1`] = `
-====================================options=====================================
-arrowParens: "avoid"
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-const fn12 = (a) => (b) => (c) => (d) => (e) =>
-  ({ foo: bar, bar: baz, baz: foo });
-
-const fn12 = (a) => (b) => (c) => (d) => (e) =>
-  (#{ foo: bar, bar: baz, baz: foo });
-
-map(() => ([
-  // comment
-  foo
-]));
-
-map(() => (#[
-  // comment
-  foo
-]));
-
-map(() => ({
-  // comment
-  foo
-}));
-
-map(() => (#{
-  // comment
-  foo
-}));
-
-=====================================output=====================================
-const fn12 = a => b => c => d => e => ({ foo: bar, bar: baz, baz: foo });
-
-const fn12 = a => b => c => d => e => #{ foo: bar, bar: baz, baz: foo };
-
-map(() => [
-  // comment
-  foo,
-]);
-
-map(() => #[
-  // comment
-  foo,
-]);
-
-map(() => ({
-  // comment
-  foo,
-}));
-
-map(() => #{
-  // comment
-  foo,
-});
 
 ================================================================================
 `;

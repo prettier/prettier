@@ -15,13 +15,13 @@ import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isCallExpression,
   isLiteral,
   isMemberExpression,
   isMethod,
   isNextLineEmpty,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   needsHardlineAfterDanglingComment,
   startsWithNoLookaheadToken,
 } from "../utils/index.js";
@@ -117,8 +117,8 @@ function printEstree(path, options, print, args) {
     case "ParenthesizedExpression": {
       const shouldHug =
         !hasComment(node.expression) &&
-        (isObjectOrRecordExpression(node.expression) ||
-          isArrayOrTupleExpression(node.expression));
+        (isObjectExpression(node.expression) ||
+          isArrayExpression(node.expression));
       if (shouldHug) {
         return ["(", print("expression"), ")"];
       }
@@ -249,7 +249,6 @@ function printEstree(path, options, print, args) {
 
     case "ObjectExpression":
     case "ObjectPattern":
-    case "RecordExpression":
       return printObject(path, options, print);
     case "Property":
       if (isMethod(node)) {
@@ -266,7 +265,6 @@ function printEstree(path, options, print, args) {
       return ["@", print("expression")];
     case "ArrayExpression":
     case "ArrayPattern":
-    case "TupleExpression":
       return printArray(path, options, print);
     case "SequenceExpression": {
       const { parent } = path;

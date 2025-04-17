@@ -140,5 +140,5 @@ export {
   resolveConfigFile,
 };
 export * as doc from "./document/public.js";
-export { default as version } from "./main/version.evaluate.cjs";
+export { default as version } from "./main/version.evaluate.js";
 export * as util from "./utils/public.js";
