@@ -5558,9 +5558,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.7.0":
-  version: 0.7.0
-  resolution: "jest-light-runner@npm:0.7.0"
+"jest-light-runner@npm:0.7.1":
+  version: 0.7.1
+  resolution: "jest-light-runner@npm:0.7.1"
   dependencies:
     "@jest/expect": "npm:^30.0.0-alpha.1"
     "@jest/fake-timers": "npm:^30.0.0-alpha.1"
@@ -5573,7 +5573,7 @@ __metadata:
     tinypool: "npm:0.8.4"
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0-0
-  checksum: 10/d30bbb7822ba21906a47cb025e0198e74cd9063f5da862c1e2ec54353ada5fec172b0a30cb01074029183acc59d85fd102baa46c7cb90d22cf717d9b57dd045b
+  checksum: 10/860800c4eda36d928d1ba3f7923102e2b7af595cd1c6d2def704ee33b6919d93e7795f507a0ab6e953983d65240e23eac4a2dc61f5cb030f24278f39e895f1f6
   languageName: node
   linkType: hard
 
@@ -7138,7 +7138,7 @@ __metadata:
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
-    jest-light-runner: "npm:0.7.0"
+    jest-light-runner: "npm:0.7.1"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:2.2.2"
