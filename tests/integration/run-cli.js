@@ -146,8 +146,8 @@ function runCli(dir, args = [], options = {}) {
         // manually replacing this character with /*CR*/ to test its true presence
         // If ignoreLineEndings is specified, \r is simply deleted instead
         if (name === "stdout" || name === "stderr") {
-          value = result[name].replace(
-            /\r/gu,
+          value = result[name].replaceAll(
+            "\r",
             options.ignoreLineEndings ? "" : "/*CR*/",
           );
         }
