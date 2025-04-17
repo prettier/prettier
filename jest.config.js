@@ -11,6 +11,10 @@ const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
 // When debugging production test, this flag can skip installing package
 const SKIP_PRODUCTION_INSTALL = Boolean(process.env.SKIP_PRODUCTION_INSTALL);
 
+if (PROJECT_ROOT) {
+  process.env.PRETTIER_LEGACY_CLI = "1";
+}
+
 let PRETTIER_DIR = isProduction
   ? path.join(PROJECT_ROOT, "dist/prettier")
   : PROJECT_ROOT;
