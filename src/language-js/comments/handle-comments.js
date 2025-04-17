@@ -861,9 +861,7 @@ const assignmentLikeNodeTypes = new Set([
 ]);
 const complexExprNodeTypes = new Set([
   "ObjectExpression",
-  "RecordExpression",
   "ArrayExpression",
-  "TupleExpression",
   "TemplateLiteral",
   "TaggedTemplateExpression",
   "ObjectTypeAnnotation",

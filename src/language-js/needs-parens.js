@@ -6,7 +6,7 @@ import {
   getPrecedence,
   hasNakedLeftSide,
   hasNode,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryCastExpression,
   isBitwiseOperator,
   isCallExpression,
@@ -15,7 +15,7 @@ import {
   isMemberExpression,
   isNullishCoalescing,
   isNumericLiteral,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isObjectProperty,
   isUnionType,
   shouldFlatten,
@@ -946,7 +946,7 @@ function needsParens(path, options) {
         (parent.type === "ObjectProperty" &&
           // Preserve parens for compatibility with AngularJS expressions
           !node.extra?.parenthesized) ||
-        isArrayOrTupleExpression(parent) ||
+        isArrayExpression(parent) ||
         (key === "arguments" && isCallExpression(parent)) ||
         (key === "right" && parent.type === "NGPipeExpression") ||
         (key === "property" && parent.type === "MemberExpression") ||
@@ -962,7 +962,7 @@ function needsParens(path, options) {
         (key === "left" &&
           parent.type === "BinaryExpression" &&
           parent.operator === "<") ||
-        (!isArrayOrTupleExpression(parent) &&
+        (!isArrayExpression(parent) &&
           parent.type !== "ArrowFunctionExpression" &&
           parent.type !== "AssignmentExpression" &&
           parent.type !== "AssignmentPattern" &&
@@ -1076,7 +1076,7 @@ function includesFunctionTypeInObjectType(node) {
 }
 
 function endsWithRightBracket(node) {
-  return isObjectOrRecordExpression(node);
+  return isObjectExpression(node);
 }
 
 /**

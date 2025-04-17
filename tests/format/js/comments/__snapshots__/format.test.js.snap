@@ -366,6 +366,67 @@ else /* foo */ foo.split;
 ================================================================================
 `;
 
+exports[`array-and-object.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+let object = // Comment
+{
+  key: 'value'
+}
+
+let array = // Comment
+[
+  'value'
+]
+
+=====================================output=====================================
+let object =
+  // Comment
+  {
+    key: "value",
+  }
+
+let array =
+  // Comment
+  ["value"]
+
+================================================================================
+`;
+
+exports[`array-and-object.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let object = // Comment
+{
+  key: 'value'
+}
+
+let array = // Comment
+[
+  'value'
+]
+
+=====================================output=====================================
+let object =
+  // Comment
+  {
+    key: "value",
+  };
+
+let array =
+  // Comment
+  ["value"];
+
+================================================================================
+`;
+
 exports[`arrow.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -6460,225 +6521,6 @@ try {
   // Comment 9
 }
 // Comment 10
-
-================================================================================
-`;
-
-exports[`tuple-and-record.js [acorn] format 1`] = `
-"Unexpected character '{' (7:2)
-   5 |
-   6 | let record = // Comment
->  7 | #{
-     |  ^
-   8 |   key: 'value'
-   9 | }
-  10 |
-Cause: Unexpected character '{' (7:1)"
-`;
-
-exports[`tuple-and-record.js [espree] format 1`] = `
-"Unexpected character '{' (7:2)
-   5 |
-   6 | let record = // Comment
->  7 | #{
-     |  ^
-   8 |   key: 'value'
-   9 | }
-  10 |
-Cause: Unexpected character '{'"
-`;
-
-exports[`tuple-and-record.js [flow] format 1`] = `
-"Unexpected token \`#\`, expected an identifier (7:1)
-   5 |
-   6 | let record = // Comment
->  7 | #{
-     | ^
-   8 |   key: 'value'
-   9 | }
-  10 |"
-`;
-
-exports[`tuple-and-record.js [meriyah] format 1`] = `
-"'#' not followed by identifier (7:1)
-   5 |
-   6 | let record = // Comment
->  7 | #{
-     | ^
-   8 |   key: 'value'
-   9 | }
-  10 |
-Cause: [7:0-7:1]: '#' not followed by identifier"
-`;
-
-exports[`tuple-and-record.js [typescript] format 1`] = `
-"Invalid character. (7:1)
-   5 |
-   6 | let record = // Comment
->  7 | #{
-     | ^
-   8 |   key: 'value'
-   9 | }
-  10 |
-Cause: Invalid character."
-`;
-
-exports[`tuple-and-record.js - {"semi":false} [acorn] format 1`] = `
-"Unexpected character '{' (7:2)
-   5 |
-   6 | let record = // Comment
->  7 | #{
-     |  ^
-   8 |   key: 'value'
-   9 | }
-  10 |
-Cause: Unexpected character '{' (7:1)"
-`;
-
-exports[`tuple-and-record.js - {"semi":false} [espree] format 1`] = `
-"Unexpected character '{' (7:2)
-   5 |
-   6 | let record = // Comment
->  7 | #{
-     |  ^
-   8 |   key: 'value'
-   9 | }
-  10 |
-Cause: Unexpected character '{'"
-`;
-
-exports[`tuple-and-record.js - {"semi":false} [flow] format 1`] = `
-"Unexpected token \`#\`, expected an identifier (7:1)
-   5 |
-   6 | let record = // Comment
->  7 | #{
-     | ^
-   8 |   key: 'value'
-   9 | }
-  10 |"
-`;
-
-exports[`tuple-and-record.js - {"semi":false} [meriyah] format 1`] = `
-"'#' not followed by identifier (7:1)
-   5 |
-   6 | let record = // Comment
->  7 | #{
-     | ^
-   8 |   key: 'value'
-   9 | }
-  10 |
-Cause: [7:0-7:1]: '#' not followed by identifier"
-`;
-
-exports[`tuple-and-record.js - {"semi":false} [typescript] format 1`] = `
-"Invalid character. (7:1)
-   5 |
-   6 | let record = // Comment
->  7 | #{
-     | ^
-   8 |   key: 'value'
-   9 | }
-  10 |
-Cause: Invalid character."
-`;
-
-exports[`tuple-and-record.js - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-let object = // Comment
-{
-  key: 'value'
-}
-
-let record = // Comment
-#{
-  key: 'value'
-}
-
-let array = // Comment
-[
-  'value'
-]
-
-let tuple = // Comment
-#[
-  'value'
-]
-
-=====================================output=====================================
-let object =
-  // Comment
-  {
-    key: "value",
-  }
-
-let record =
-  // Comment
-  #{
-    key: "value",
-  }
-
-let array =
-  // Comment
-  ["value"]
-
-let tuple =
-  // Comment
-  #["value"]
-
-================================================================================
-`;
-
-exports[`tuple-and-record.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-let object = // Comment
-{
-  key: 'value'
-}
-
-let record = // Comment
-#{
-  key: 'value'
-}
-
-let array = // Comment
-[
-  'value'
-]
-
-let tuple = // Comment
-#[
-  'value'
-]
-
-=====================================output=====================================
-let object =
-  // Comment
-  {
-    key: "value",
-  };
-
-let record =
-  // Comment
-  #{
-    key: "value",
-  };
-
-let array =
-  // Comment
-  ["value"];
-
-let tuple =
-  // Comment
-  #["value"];
 
 ================================================================================
 `;

@@ -1,7 +1,7 @@
 import {
   CommentCheckFlags,
   hasComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isObjectProperty,
 } from "../utils/index.js";
 
@@ -40,7 +40,7 @@ function isAngularComponentStyles(path) {
   return (
     path.match(
       isTemplateLiteral,
-      (node, name) => isArrayOrTupleExpression(node) && name === "elements",
+      (node, name) => isArrayExpression(node) && name === "elements",
       isObjectPropertyNamedStyles,
       ...angularComponentObjectExpressionPredicates,
     ) ||

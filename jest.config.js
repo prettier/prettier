@@ -39,13 +39,6 @@ if (isProduction) {
   );
 }
 
-if (SKIP_TESTS_WITH_NEW_SYNTAX || process.versions.node.startsWith("16.")) {
-  // Uses import attributes
-  testPathIgnorePatterns.push(
-    "<rootDir>/tests/integration/__tests__/help-options.js",
-  );
-}
-
 const config = {
   setupFiles: [
     "<rootDir>/tests/config/format-test-setup.js",

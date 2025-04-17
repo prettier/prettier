@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`array-and-object.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+breakAfterCast = <PermissionsChecker<any> | undefined>(<any>permissions)[receiverType];
+
+testObjLiteral =  <PermissionsChecker<any> | undefined>{ prop1: "myPropVal" };
+
+=====================================output=====================================
+breakAfterCast = <PermissionsChecker<any> | undefined>(
+  (<any>permissions)[receiverType]
+);
+
+testObjLiteral = <PermissionsChecker<any> | undefined>{ prop1: "myPropVal" };
+
+================================================================================
+`;
+
 exports[`as-const.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts", "typescript"]
@@ -372,43 +392,6 @@ true || <x>a;
 function* g() {
   const a = <T>(yield b);
 }
-
-================================================================================
-`;
-
-exports[`tuple-and-record.ts [typescript] format 1`] = `
-"Invalid character. (2:74)
-  1 | breakAfterCast = <PermissionsChecker<any> | undefined>(<any>permissions)[receiverType];
-> 2 | breakAfterCast = <PermissionsChecker<any> | undefined>(<any>permissions)(#[receiverType]);
-    |                                                                          ^
-  3 |
-  4 | testObjLiteral =  <PermissionsChecker<any> | undefined>{ prop1: "myPropVal" };
-  5 | testObjLiteral =  <PermissionsChecker<any> | undefined>#{ prop1: "myPropVal" };
-Cause: Invalid character."
-`;
-
-exports[`tuple-and-record.ts format 1`] = `
-====================================options=====================================
-parsers: ["babel-ts", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-breakAfterCast = <PermissionsChecker<any> | undefined>(<any>permissions)[receiverType];
-breakAfterCast = <PermissionsChecker<any> | undefined>(<any>permissions)(#[receiverType]);
-
-testObjLiteral =  <PermissionsChecker<any> | undefined>{ prop1: "myPropVal" };
-testObjLiteral =  <PermissionsChecker<any> | undefined>#{ prop1: "myPropVal" };
-
-=====================================output=====================================
-breakAfterCast = <PermissionsChecker<any> | undefined>(
-  (<any>permissions)[receiverType]
-);
-breakAfterCast = <PermissionsChecker<any> | undefined>(
-  (<any>permissions)(#[receiverType])
-);
-
-testObjLiteral = <PermissionsChecker<any> | undefined>{ prop1: "myPropVal" };
-testObjLiteral = <PermissionsChecker<any> | undefined>#{ prop1: "myPropVal" };
 
 ================================================================================
 `;
