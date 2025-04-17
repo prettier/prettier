@@ -1,6 +1,7 @@
 import path from "node:path";
 import url from "node:url";
 import { Worker } from "node:worker_threads";
+import stripAnsi from "strip-ansi";
 
 const CLI_WORKER_FILE = new URL("./cli-worker.js", import.meta.url);
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
@@ -51,10 +52,6 @@ function runCliWorker(dir, args, options) {
     ],
     stdout: true,
     stderr: true,
-    env: {
-      ...process.env,
-      NO_COLOR: "1",
-    },
     workerData: {
       dir,
       options,
@@ -71,8 +68,12 @@ function runCliWorker(dir, args, options) {
   return new Promise((resolve, reject) => {
     worker.on("exit", async (code) => {
       result.status = code;
-      result.stdout = removeFinalNewLine(await streamToString(worker.stdout));
-      result.stderr = removeFinalNewLine(await streamToString(worker.stderr));
+      result.stdout = stripAnsi(
+        removeFinalNewLine(await streamToString(worker.stdout)),
+      );
+      result.stderr = stripAnsi(
+        removeFinalNewLine(await streamToString(worker.stderr)),
+      );
       resolve(result);
     });
 
