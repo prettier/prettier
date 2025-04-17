@@ -58,7 +58,7 @@ jobs:
           # Latest even version
           - "22"
           # Minimal version for production
-          - "14"
+          - "18"
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
@@ -70,17 +70,6 @@ jobs:
             node: "23"
           - os: "ubuntu-latest"
             node: "20"
-          - os: "ubuntu-latest"
-            node: "18"
-          - os: "ubuntu-latest"
-            node: "16"
-          # Tests on Intel Mac x Node.js 14 ( https://github.com/prettier/prettier/issues/16248 )
-          - os: "macos-13"
-            node: "14"
-        # setup-node does not support Node.js 14 x M1 Mac
-        exclude:
-          - os: "macos-latest"
-            node: "14"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
     name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Node.js ${{ matrix.node }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
@@ -90,28 +79,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install yarn@3
-        if: ${{ matrix.node == '14' || matrix.node == '16' }}
-        run: |
-          yarn set version 3
-          cat .yarnrc.yml
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
-
-      # `jest@30.0.0-alpha.2` is the last version that supports Node.js v14
-      - name: Install jest@30.0.0-alpha.2
-        if: ${{ matrix.node == '14' }}
-        run: node ./scripts/prepare-nodejs-14-test.js
-
-      - name: Install Dependencies(yarn@3,mutable)
-        if: ${{ matrix.node == '14' || matrix.node == '16' }}
-        env:
-          YARN_ENABLE_IMMUTABLE_INSTALLS: false
-        run: yarn install
 
       - name: Install Dependencies
         run: yarn install --immutable
@@ -151,7 +123,7 @@ jobs:
         run: node -v | grep "v0.10.48" || exit 1
 
       - name: Run CLI on Node.js v0.10.48
-        run: node dist/prettier/bin/prettier.cjs --version 2>&1 >/dev/null | grep "prettier requires at least version 14 of Node, please upgrade" || exit 1
+        run: node dist/prettier/bin/prettier.cjs --version 2>&1 >/dev/null | grep "prettier requires at least version 18 of Node, please upgrade" || exit 1
 
   preview:
     if: github.event_name == 'pull_request' && github.repository == 'prettier/prettier'

@@ -14,12 +14,6 @@ const transform = (code) =>
     "<SHIMS>/",
   );
 
-test("Object.hasOwn", () => {
-  expect(transform("Object.hasOwn(foo, bar)")).toMatchInlineSnapshot(
-    `"Object.prototype.hasOwnProperty.call(foo,bar)"`,
-  );
-});
-
 test(".at", () => {
   expect(transform("foo.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
@@ -47,14 +41,6 @@ test(".at", () => {
 
   // Don't support optional call
   expect(transform("foo.at?.(-1)")).toMatchInlineSnapshot(`"foo.at?.(-1)"`);
-});
-
-test("String#replaceAll", () => {
-  expect(transform("foo.replaceAll('a', 'b')")).toMatchInlineSnapshot(`
-    "import __stringReplaceAll from "<SHIMS>/string-replace-all.js";
-
-    __stringReplaceAll(/* isOptionalObject */false,foo,'a','b')"
-  `);
 });
 
 test("Array#findLast", () => {
