@@ -791,8 +791,17 @@ const nodejsFiles = [
     replaceModule: [
       {
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
-        process: (text) =>
-          text.replace("../src/cli/index.js", "../internal/legacy-cli.mjs"),
+        process(text) {
+          text = text.replace(
+            "../src/cli/index.js",
+            "../internal/legacy-cli.mjs",
+          );
+          text = text.replace(
+            "process.env.PRETTIER_EXPERIMENTAL_CLI",
+            "!process.env.PRETTIER_LEGACY_CLI",
+          );
+          return text;
+        },
       },
     ],
     external: ["@prettier/cli"],
