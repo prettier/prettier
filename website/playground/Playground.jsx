@@ -76,6 +76,11 @@ class Playground extends React.Component {
       options.parser ??= "flow";
     }
 
+    // 1.16 ~ 4.0.0
+    if (options.parser === "babel-flow") {
+      options.parser === "flow";
+    }
+
     // 1.8.2 ~ 1.9.0
     if (typeof options.proseWrap === "boolean") {
       options.proseWrap = options.proseWrap ? "always" : "never";

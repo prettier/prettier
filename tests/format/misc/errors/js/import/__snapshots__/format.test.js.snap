@@ -7,13 +7,6 @@ exports[`snippet: #0 [babel] format 1`] = `
 Cause: Unexpected token (1:7)"
 `;
 
-exports[`snippet: #0 [babel-flow] format 1`] = `
-"Unexpected token (1:8)
-> 1 | import();
-    |        ^
-Cause: Unexpected token (1:7)"
-`;
-
 exports[`snippet: #0 [babel-ts] format 1`] = `
 "Unexpected token (1:8)
 > 1 | import();
@@ -42,13 +35,6 @@ Cause: Dynamic import requires exactly one or two arguments."
 `;
 
 exports[`snippet: #1 [babel] format 1`] = `
-"Unexpected token (1:21)
-> 1 | import(/* comment */);
-    |                     ^
-Cause: Unexpected token (1:20)"
-`;
-
-exports[`snippet: #1 [babel-flow] format 1`] = `
 "Unexpected token (1:21)
 > 1 | import(/* comment */);
     |                     ^
@@ -89,13 +75,6 @@ exports[`snippet: #2 [babel] format 1`] = `
 Cause: Cannot use new with import(...). (1:4)"
 `;
 
-exports[`snippet: #2 [babel-flow] format 1`] = `
-"Cannot use new with import(...). (1:5)
-> 1 | new import('./a.mjs');
-    |     ^
-Cause: Cannot use new with import(...). (1:4)"
-`;
-
 exports[`snippet: #2 [babel-ts] format 1`] = `
 "Cannot use new with import(...). (1:5)
 > 1 | new import('./a.mjs');
@@ -124,13 +103,6 @@ Cause: Expression expected."
 `;
 
 exports[`snippet: #3 [babel] format 1`] = `
-"Unexpected token (1:12)
-> 1 | new import();
-    |            ^
-Cause: Unexpected token (1:11)"
-`;
-
-exports[`snippet: #3 [babel-flow] format 1`] = `
 "Unexpected token (1:12)
 > 1 | new import();
     |            ^

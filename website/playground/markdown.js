@@ -39,7 +39,6 @@ function formatMarkdown({
 function getMarkdownSyntax(options) {
   switch (options.parser) {
     case "babel":
-    case "babel-flow":
     case "flow":
     case "acorn":
     case "espree":

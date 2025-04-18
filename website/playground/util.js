@@ -66,7 +66,6 @@ export function getAstAutoFold(parser) {
   switch (parser) {
     case "flow":
     case "babel":
-    case "babel-flow":
     case "babel-ts":
     case "typescript":
     case "acorn":

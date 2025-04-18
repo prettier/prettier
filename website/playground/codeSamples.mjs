@@ -28,7 +28,6 @@ export default function getCodeSamples(parser) {
         "}",
       ].join("\n");
     case "flow":
-    case "babel-flow":
       return [
         "declare export function graphql<Props, Variables, Component: React$ComponentType<Props>>",
         "  (query: GQLDocument, config?: Config<Props, QueryConfigOptions<Variables>>):",

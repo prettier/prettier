@@ -42,7 +42,7 @@ Cause: Unexpected token bar"
 
 exports[`basic.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -61,7 +61,7 @@ class Foo {
 
 exports[`basic.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -123,7 +123,7 @@ Cause: Unexpected character '@'"
 
 exports[`comments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -146,7 +146,7 @@ class A {
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -208,7 +208,7 @@ Cause: Unexpected token ["
 
 exports[`computed.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -227,7 +227,7 @@ class Foo {
 
 exports[`computed.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -245,7 +245,7 @@ class Foo {
 
 exports[`not-accessor-method.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -264,7 +264,7 @@ class Foo {
 
 exports[`not-accessor-method.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -282,7 +282,7 @@ class Foo {
 
 exports[`not-accessor-property.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -301,7 +301,7 @@ class Foo {
 
 exports[`not-accessor-property.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -359,7 +359,7 @@ Cause: Unexpected token #bar"
 
 exports[`private.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -378,7 +378,7 @@ class Foo {
 
 exports[`private.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -436,7 +436,7 @@ Cause: Unexpected token bar"
 
 exports[`static.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -455,7 +455,7 @@ class Foo {
 
 exports[`static.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -513,7 +513,7 @@ Cause: Unexpected token ["
 
 exports[`static-computed.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -532,7 +532,7 @@ class Foo {
 
 exports[`static-computed.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -590,7 +590,7 @@ Cause: Unexpected token #bar"
 
 exports[`static-private.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -609,7 +609,7 @@ class Foo {
 
 exports[`static-private.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -671,7 +671,7 @@ Cause: Unexpected token clicked"
 
 exports[`with-semicolon-1.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -692,7 +692,7 @@ class C {
 
 exports[`with-semicolon-1.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -756,7 +756,7 @@ Cause: Unexpected token clicked"
 
 exports[`with-semicolon-2.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -777,7 +777,7 @@ class C {
 
 exports[`with-semicolon-2.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript", "babel-flow"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

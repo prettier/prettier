@@ -25,16 +25,16 @@ const categoryParsers = new Map([
   [
     "flow",
     {
-      parsers: ["flow", "babel-flow"],
-      verifyParsers: ["flow", "babel-flow", "typescript", "babel-ts"],
+      parsers: ["flow"],
+      verifyParsers: ["flow", "typescript", "babel-ts"],
       extensions: [".js", ".cjs", ".mjs"],
     },
   ],
   [
     "flow-repo",
     {
-      parsers: ["flow", "babel-flow"],
-      verifyParsers: ["flow", "babel-flow", "typescript", "babel-ts"],
+      parsers: ["flow"],
+      verifyParsers: ["flow", "typescript", "babel-ts"],
       extensions: [".js", ".cjs", ".mjs"],
     },
   ],
@@ -61,7 +61,6 @@ const categoryParsers = new Map([
         "espree",
         "meriyah",
         "flow",
-        "babel-flow",
         "typescript",
         "babel-ts",
       ],
@@ -79,21 +78,12 @@ const categoryParsers = new Map([
   [
     "jsx",
     {
-      parsers: [
-        "babel",
-        "meriyah",
-        "espree",
-        "flow",
-        "babel-flow",
-        "typescript",
-        "babel-ts",
-      ],
+      parsers: ["babel", "meriyah", "espree", "flow", "typescript", "babel-ts"],
       verifyParsers: [
         "babel",
         "meriyah",
         "espree",
         "flow",
-        "babel-flow",
         "typescript",
         "babel-ts",
       ],
@@ -130,7 +120,7 @@ const categoryParsers = new Map([
     "typescript",
     {
       parsers: ["typescript", "babel-ts"],
-      verifyParsers: ["typescript", "babel-ts", "flow", "babel-flow"],
+      verifyParsers: ["typescript", "babel-ts", "flow"],
       extensions: [".ts", ".tsx", ".cts", ".mts"],
     },
   ],

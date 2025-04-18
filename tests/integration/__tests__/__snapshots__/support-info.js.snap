@@ -11,7 +11,6 @@ exports[`API getSupportInfo() 1`] = `
     ],
     "Flow": [
       "flow",
-      "babel-flow",
     ],
     "GraphQL": [
       "graphql",
@@ -36,7 +35,6 @@ exports[`API getSupportInfo() 1`] = `
     ],
     "JSX": [
       "babel",
-      "babel-flow",
       "babel-ts",
       "flow",
       "typescript",
@@ -48,7 +46,6 @@ exports[`API getSupportInfo() 1`] = `
       "acorn",
       "espree",
       "meriyah",
-      "babel-flow",
       "babel-ts",
       "flow",
       "typescript",
@@ -178,7 +175,6 @@ exports[`API getSupportInfo() 1`] = `
       "choices": [
         "flow",
         "babel",
-        "babel-flow",
         "babel-ts",
         "typescript",
         "acorn",
@@ -355,7 +351,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       ],
       "linguistLanguageId": 183,
       "name": "Flow",
-      "parsers": ["flow", "babel-flow"],
+      "parsers": ["flow"],
       "tmScope": "source.js",
       "type": "programming",
       "vscodeLanguageIds": ["javascript"]
@@ -460,7 +456,6 @@ exports[`CLI --support-info (stdout) 1`] = `
         "acorn",
         "espree",
         "meriyah",
-        "babel-flow",
         "babel-ts",
         "flow",
         "typescript"
@@ -599,7 +594,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "name": "JSX",
       "parsers": [
         "babel",
-        "babel-flow",
         "babel-ts",
         "flow",
         "typescript",
@@ -991,7 +985,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "choices": [
         { "description": "Flow", "value": "flow" },
         { "description": "JavaScript", "value": "babel" },
-        { "description": "Flow", "value": "babel-flow" },
         { "description": "TypeScript", "value": "babel-ts" },
         { "description": "TypeScript", "value": "typescript" },
         { "description": "JavaScript", "value": "acorn" },

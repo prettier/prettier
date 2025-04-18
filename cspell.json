@@ -194,6 +194,7 @@
         "neoformat",
         "neovim",
         "nnoremap",
+        "noflow",
         "nonenumerable",
         "Nonspacing",
         "noopener",
