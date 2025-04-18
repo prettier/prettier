@@ -99,3 +99,9 @@ exports[`should not ignore file paths contains object prototype keys (stderr) 1`
 exports[`should not ignore file paths contains object prototype keys (stdout) 1`] = `"constructor/should-be-formatted.js"`;
 
 exports[`should not ignore file paths contains object prototype keys (write) 1`] = `[]`;
+
+exports[`fixtures-6: should handle very long globs (stderr) 1`] = `""`;
+
+exports[`fixtures-6: should handle very long globs (stdout) 1`] = `""`;
+
+exports[`fixtures-6: should handle very long globs (write) 1`] = `[]`;

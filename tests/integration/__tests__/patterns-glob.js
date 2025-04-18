@@ -134,3 +134,16 @@ describe("should not ignore file paths contains object prototype keys", () => {
     "-l",
   ]).test({ status: 1 });
 });
+
+describe("fixtures-6: should handle very long globs", () => {
+  const files = [];
+  let file = "a";
+  for (let i = 1 ; i < 9 ; ++i) {
+    const fileName = file + ".json";
+    files.push(fileName);
+    file += file;
+  }
+  runCli("cli/patterns-glob/fixtures-6", [
+    "{" + files.join(",") + "}"
+  ]).test({ status: 0 });
+});
