@@ -74,6 +74,7 @@ export default [
       "no-implicit-coercion": "error",
       "no-inner-declarations": "error",
       "no-lonely-if": "error",
+      "no-restricted-imports": ["error", "assert", "node:assert"],
       "no-unneeded-ternary": "error",
       "no-useless-return": "error",
       "no-unused-expressions": [
