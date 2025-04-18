@@ -5558,9 +5558,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.7.4":
-  version: 0.7.4
-  resolution: "jest-light-runner@npm:0.7.4"
+"jest-light-runner@npm:0.7.5":
+  version: 0.7.5
+  resolution: "jest-light-runner@npm:0.7.5"
   dependencies:
     "@jest/expect": "npm:^30.0.0-alpha.1"
     "@jest/fake-timers": "npm:^30.0.0-alpha.1"
@@ -5568,12 +5568,12 @@ __metadata:
     jest-each: "npm:^30.0.0-alpha.1"
     jest-mock: "npm:^30.0.0-alpha.1"
     jest-snapshot: "npm:^30.0.0-alpha.1"
-    p-map: "npm:^7.0.3"
+    p-limit: "npm:^6.2.0"
     supports-color: "npm:^9.2.1"
     tinypool: "npm:0.8.4"
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0-0
-  checksum: 10/470b5afc624134835bd73632d6e2d17fe75f70cdba7cee95b56b1a82cbde921f2f7e7e3108f4af561116d4f45158aa97ae7d035347487e8451f43d6eb37bf0d7
+  checksum: 10/6d0ab4a8594672bf238a6b82bca03147f90cba8e2bd8ccaa39cdafa7157ca1e64d606a72cfb5e840599750bcdd157b62294f8825af064672da355cf746956707
   languageName: node
   linkType: hard
 
@@ -6725,6 +6725,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"p-limit@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "p-limit@npm:6.2.0"
+  dependencies:
+    yocto-queue: "npm:^1.1.1"
+  checksum: 10/70e8df3e5f1c173c9bd9fa8390a3c5c2797505240ae42973536992b1f5f59a922153c2f35ff1bf36fb72a0f025b0f13fca062a4233e830adad446960d56b4d84
+  languageName: node
+  linkType: hard
+
 "p-locate@npm:^4.1.0":
   version: 4.1.0
   resolution: "p-locate@npm:4.1.0"
@@ -6752,7 +6761,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-map@npm:^7.0.2, p-map@npm:^7.0.3":
+"p-map@npm:^7.0.2":
   version: 7.0.3
   resolution: "p-map@npm:7.0.3"
   checksum: 10/2ef48ccfc6dd387253d71bf502604f7893ed62090b2c9d73387f10006c342606b05233da0e4f29388227b61eb5aeface6197e166520c465c234552eeab2fe633
@@ -7138,7 +7147,7 @@ __metadata:
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
-    jest-light-runner: "npm:0.7.4"
+    jest-light-runner: "npm:0.7.5"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:2.2.2"
@@ -8936,6 +8945,13 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: 10/f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"yocto-queue@npm:^1.1.1":
+  version: 1.2.1
+  resolution: "yocto-queue@npm:1.2.1"
+  checksum: 10/0843d6c2c0558e5c06e98edf9c17942f25c769e21b519303a5c2adefd5b738c9b2054204dc856ac0cd9d134b1bc27d928ce84fd23c9e2423b7e013d5a6f50577
   languageName: node
   linkType: hard
 
