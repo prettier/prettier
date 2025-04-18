@@ -89,6 +89,18 @@ exports[`show detailed usage with --help check (stdout) 1`] = `
 
 exports[`show detailed usage with --help check (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help check-ignore-pragma (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help check-ignore-pragma (stdout) 1`] = `
+"--check-ignore-pragma
+
+  Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.
+
+Default: false"
+`;
+
+exports[`show detailed usage with --help check-ignore-pragma (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help color (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help color (stdout) 1`] = `
@@ -564,8 +576,7 @@ exports[`show detailed usage with --help require-pragma (stderr) 1`] = `""`;
 exports[`show detailed usage with --help require-pragma (stdout) 1`] = `
 "--require-pragma
 
-  Require either '@prettier' or '@format' to be present in the file's first docblock comment
-  in order for it to be formatted.
+  Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.
 
 Default: false"
 `;

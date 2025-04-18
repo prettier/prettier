@@ -1,6 +1,7 @@
 import { extract, parseWithComments, print, strip } from "jest-docblock";
 import { normalizeEndOfLine } from "../common/end-of-line.js";
 import {
+  FORMAT_IGNORE_PRAGMAS,
   FORMAT_PRAGMA_TO_INSERT,
   FORMAT_PRAGMAS,
 } from "../utils/pragma/pragma.evaluate.js";
@@ -21,6 +22,11 @@ function parseDocBlock(text) {
 function hasPragma(text) {
   const { pragmas } = parseDocBlock(text);
   return FORMAT_PRAGMAS.some((pragma) => Object.hasOwn(pragmas, pragma));
+}
+
+function hasIgnorePragma(text) {
+  const { pragmas } = parseDocBlock(text);
+  return FORMAT_IGNORE_PRAGMAS.some((pragma) => Object.hasOwn(pragmas, pragma));
 }
 
 function insertPragma(originalText) {
@@ -50,4 +56,4 @@ function insertPragma(originalText) {
   );
 }
 
-export { hasPragma, insertPragma };
+export { hasIgnorePragma, hasPragma, insertPragma };

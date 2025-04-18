@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with-noformat-pragma.html - {"checkIgnorePragma":false} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: false
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- @noformat -->
+
+<div
+            >  ABC             </div>
+
+=====================================output=====================================
+<!-- @noformat -->
+
+<div>ABC</div>
+
+================================================================================
+`;
+
+exports[`with-noprettier-pragma.html - {"checkIgnorePragma":false} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: false
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- @noprettier -->
+
+<div
+            >  ABC             </div>
+
+=====================================output=====================================
+<!-- @noprettier -->
+
+<div>ABC</div>
+
+================================================================================
+`;

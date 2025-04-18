@@ -106,6 +106,10 @@ exports[`API getSupportInfo() 1`] = `
       "default": true,
       "type": "boolean",
     },
+    "checkIgnorePragma": {
+      "default": false,
+      "type": "boolean",
+    },
     "cursorOffset": {
       "default": -1,
       "range": {
@@ -845,6 +849,14 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       "category": "Special",
+      "default": false,
+      "description": "Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.",
+      "name": "checkIgnorePragma",
+      "pluginDefaults": {},
+      "type": "boolean"
+    },
+    {
+      "category": "Special",
       "default": -1,
       "description": "Print (to stderr) where a cursor at the given position would move to after formatting.",
       "name": "cursorOffset",
@@ -1097,7 +1109,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "category": "Special",
       "default": false,
-      "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment\\nin order for it to be formatted.",
+      "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.",
       "name": "requirePragma",
       "pluginDefaults": {},
       "type": "boolean"

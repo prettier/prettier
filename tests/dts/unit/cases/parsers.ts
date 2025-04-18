@@ -47,6 +47,7 @@ const options: prettier.ParserOptions = {
   rangeEnd: 240,
   rangeStart: 0,
   requirePragma: false,
+  checkIgnorePragma: false,
   tabWidth: 2,
   useTabs: false,
   embeddedLanguageFormatting: "auto",

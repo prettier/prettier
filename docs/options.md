@@ -394,6 +394,34 @@ Note that “in tandem” doesn’t mean “at the same time”. When the two op
 
 [adoption strategy]: https://prettier.io/blog/2017/05/03/1.3.0.html#facebook-adoption-update
 
+## Check Ignore Pragma
+
+_First available in v3.6.0_
+
+Prettier can allow individual files to opt out of formatting if they contain a special comment, called a pragma, at the top of the file.
+
+Checking for these markers incurs a small upfront cost during formatting, so it's not enabled by default.
+
+A file with the following as its first comment will **not** be formatted when `--check-ignore-pragma` is supplied:
+
+```js
+/**
+ * @noprettier
+ */
+```
+
+or
+
+```js
+/**
+ * @noformat
+ */
+```
+
+| Default | CLI Override            | API Override                |
+| ------- | ----------------------- | --------------------------- |
+| `false` | `--check-ignore-pragma` | `checkIgnorePragma: <bool>` |
+
 ## Prose Wrap
 
 _First available in v1.8.2_

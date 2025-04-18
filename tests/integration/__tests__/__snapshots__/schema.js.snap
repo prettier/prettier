@@ -35,6 +35,11 @@ exports[`schema 1`] = `
           "description": "Print spaces between brackets.",
           "type": "boolean",
         },
+        "checkIgnorePragma": {
+          "default": false,
+          "description": "Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.",
+          "type": "boolean",
+        },
         "cursorOffset": {
           "default": -1,
           "description": "Print (to stderr) where a cursor at the given position would move to after formatting.",
@@ -404,8 +409,7 @@ The range will extend backwards to the start of the first line containing the se
         },
         "requirePragma": {
           "default": false,
-          "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment
-in order for it to be formatted.",
+          "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.",
           "type": "boolean",
         },
         "semi": {

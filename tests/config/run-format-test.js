@@ -438,8 +438,8 @@ function shouldSkipEolTest(code, options) {
   if (code.includes("\r")) {
     return true;
   }
-  const { requirePragma, rangeStart, rangeEnd } = options;
-  if (requirePragma) {
+  const { requirePragma, checkIgnorePragma, rangeStart, rangeEnd } = options;
+  if (requirePragma || checkIgnorePragma) {
     return true;
   }
 

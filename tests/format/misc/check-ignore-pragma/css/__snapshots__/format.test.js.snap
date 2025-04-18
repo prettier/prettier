@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with-noformat-pragma.css - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/** @noformat */
+
+.class {    display: none;    }
+
+=====================================output=====================================
+/** @noformat */
+
+.class {    display: none;    }
+
+================================================================================
+`;
+
+exports[`with-noprettier-pragma.css - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/** @noprettier */
+
+.class {    display: none;    }
+
+=====================================output=====================================
+/** @noprettier */
+
+.class {    display: none;    }
+
+================================================================================
+`;
+
+exports[`with-noprettier-pragma-comments.css - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/** @noprettier -- reason to not format */
+
+.class {    display: none;    }
+
+=====================================output=====================================
+/** @noprettier -- reason to not format */
+
+.class {    display: none;    }
+
+================================================================================
+`;
+
+exports[`without-pragma.css - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+.class {    display: none;    }
+
+=====================================output=====================================
+.class {
+  display: none;
+}
+
+================================================================================
+`;

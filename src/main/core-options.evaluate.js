@@ -44,6 +44,14 @@ import {
 
 /** @type {{ [name: string]: OptionInfo }} */
 const options = {
+  checkIgnorePragma: {
+    category: CATEGORY_SPECIAL,
+    type: "boolean",
+    default: false,
+    description:
+      "Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.",
+    cliCategory: CATEGORY_OTHER,
+  },
   cursorOffset: {
     category: CATEGORY_SPECIAL,
     type: "int",
@@ -176,10 +184,8 @@ const options = {
     category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
-    description: outdent`
-      Require either '@prettier' or '@format' to be present in the file's first docblock comment
-      in order for it to be formatted.
-    `,
+    description:
+      "Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.",
     cliCategory: CATEGORY_OTHER,
   },
   tabWidth: {
