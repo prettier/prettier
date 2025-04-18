@@ -68,6 +68,10 @@ function printChild(childPath, options, print) {
     ];
   }
 
+  if (child.type === "element" && child.name === "a") {
+    return group(print());
+  }
+
   return print();
 }
 
