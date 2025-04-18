@@ -66,8 +66,7 @@ jobs:
 
       - name: Run Tests (coverage)
         if: ${{ matrix.ENABLE_CODE_COVERAGE }}
-        # Use `--runInBand` gets better coverage https://github.com/nicolo-ribaudo/jest-light-runner/pull/92
-        run: yarn c8 yarn test --runInBand
+        run: yarn c8 yarn test
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v5
