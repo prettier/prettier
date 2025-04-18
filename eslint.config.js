@@ -356,13 +356,6 @@ export default [
   },
   {
     files: ["tests/**/*.js"],
-    rules: {
-      // TODO: Enable this when we drop support for Node.js v14
-      "logical-assignment-operators": "off",
-      "unicorn/prefer-array-flat": "off",
-      "unicorn/prefer-array-flat-map": "off",
-      "unicorn/prefer-string-replace-all": "off",
-    },
     languageOptions: {
       globals: {
         runCli: "readonly",
