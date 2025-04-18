@@ -5558,9 +5558,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.6.0":
-  version: 0.6.0
-  resolution: "jest-light-runner@npm:0.6.0"
+"jest-light-runner@npm:0.7.4":
+  version: 0.7.4
+  resolution: "jest-light-runner@npm:0.7.4"
   dependencies:
     "@jest/expect": "npm:^30.0.0-alpha.1"
     "@jest/fake-timers": "npm:^30.0.0-alpha.1"
@@ -5568,11 +5568,12 @@ __metadata:
     jest-each: "npm:^30.0.0-alpha.1"
     jest-mock: "npm:^30.0.0-alpha.1"
     jest-snapshot: "npm:^30.0.0-alpha.1"
+    p-map: "npm:^7.0.3"
     supports-color: "npm:^9.2.1"
-    tinypool: "npm:^0.8.1"
+    tinypool: "npm:0.8.4"
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0-0
-  checksum: 10/74103180fa2b997e46b7ba08e3afa6b673dd35d0c15fcecf825f9b7768c53c4f416bcdb261285b234375caaf45dd7cab397d5def7d95271c8d75ac59237fbf86
+  checksum: 10/470b5afc624134835bd73632d6e2d17fe75f70cdba7cee95b56b1a82cbde921f2f7e7e3108f4af561116d4f45158aa97ae7d035347487e8451f43d6eb37bf0d7
   languageName: node
   linkType: hard
 
@@ -6751,7 +6752,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-map@npm:^7.0.2":
+"p-map@npm:^7.0.2, p-map@npm:^7.0.3":
   version: 7.0.3
   resolution: "p-map@npm:7.0.3"
   checksum: 10/2ef48ccfc6dd387253d71bf502604f7893ed62090b2c9d73387f10006c342606b05233da0e4f29388227b61eb5aeface6197e166520c465c234552eeab2fe633
@@ -7137,7 +7138,7 @@ __metadata:
     iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
-    jest-light-runner: "npm:0.6.0"
+    jest-light-runner: "npm:0.7.4"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:2.2.2"
@@ -8295,7 +8296,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinypool@npm:^0.8.1":
+"tinypool@npm:0.8.4":
   version: 0.8.4
   resolution: "tinypool@npm:0.8.4"
   checksum: 10/7365944c2532f240111443e7012be31a634faf1a02db08a91db3aa07361c26a374d0be00a0f2ea052c4bee39c107ba67f1f814c108d9d51dfc725c559c1a9c03
