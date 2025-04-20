@@ -81,9 +81,7 @@ async function run(options) {
     });
   };
 
-  const { __promise: promise } = await import(
-    url.pathToFileURL(prettierCli).href + `?_=${Date.now()}`
-  );
+  const { __promise: promise } = await import(url.pathToFileURL(prettierCli));
   await promise;
 }
 
