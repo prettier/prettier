@@ -74,7 +74,7 @@ function runCliWorker(dir, args, options) {
   );
 
   return new Promise((resolve, reject) => {
-    worker.on("exit", async (code) => {
+    worker.on("close", async (code) => {
       result.status = code;
       await stdioPromise;
       resolve(result);
