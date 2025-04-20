@@ -1,5 +1,4 @@
 import childProcess from "node:child_process";
-import os from "node:os";
 import path from "node:path";
 import url from "node:url";
 import pLimit from "p-limit";
@@ -8,7 +7,7 @@ const CLI_WORKER_FILE = new URL("./cli-worker.js", import.meta.url);
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
   new URL("./", import.meta.url),
 );
-const mutex = pLimit(os.availableParallelism());
+const mutex = pLimit(1);
 
 const streamToString = (stream) =>
   new Promise((resolve, reject) => {
