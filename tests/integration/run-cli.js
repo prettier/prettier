@@ -3,7 +3,11 @@ import path from "node:path";
 import url from "node:url";
 import pLimit from "p-limit";
 
-const CLI_WORKER_FILE = new URL("./cli-worker.js", import.meta.url);
+// Though the doc says `childProcess.fork` accepts `URL`, but seems not true
+// TODO: Use `URL` directly when we drop support for Node.js v14
+const CLI_WORKER_FILE = url.fileURLToPath(
+  new URL("./cli-worker.js", import.meta.url),
+);
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
   new URL("./", import.meta.url),
 );
