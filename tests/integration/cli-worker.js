@@ -89,6 +89,6 @@ process.on("message", async (options) => {
   try {
     await run(options);
   } finally {
-    process.send({ action: "done", data: process.exitCode });
+    process.send({ action: "done" });
   }
 });
