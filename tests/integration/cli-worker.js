@@ -17,8 +17,6 @@ const replaceAll = (text, find, replacement) =>
   text.replaceAll
     ? text.replaceAll(find, replacement)
     : text.split(find).join(replacement);
-const useMessageToTransformStdio = process.platform === "darwin";
-const STDIO_STREAMS = ["stdout", "stderr"];
 
 async function run(options) {
   Date.now = () => 0;
@@ -54,14 +52,6 @@ async function run(options) {
   process.stdin.isTTY = Boolean(options.isTTY);
   process.stdout.isTTY = Boolean(options.stdoutIsTTY);
 
-  if (useMessageToTransformStdio) {
-    for (const stream of STDIO_STREAMS) {
-      process[stream].write = (data) => {
-        process.send({ action: stream, data });
-      };
-    }
-  }
-
   const prettier = await import(url.pathToFileURL(prettierMainEntry));
   const { mockable } = prettier.__debug;
 
@@ -96,6 +86,17 @@ async function run(options) {
 }
 
 process.on("message", async (options) => {
+  const originalExit = process.exit;
+
+  // https://github.com/nodejs/node/issues/30491
+  process.stdout.cork();
+  process.stderr.cork();
+  process.exit = (code) => {
+    process.stdout.end();
+    process.stderr.end();
+    originalExit(code ?? process.exitCode ?? 0);
+  };
+
   try {
     await run(options);
   } finally {
