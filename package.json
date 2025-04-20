@@ -30,7 +30,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "19.2.5",
+    "@angular/compiler": "19.2.7",
     "@babel/code-frame": "7.26.2",
     "@babel/parser": "7.27.0",
     "@babel/types": "7.27.0",
@@ -94,7 +94,7 @@
     "remark-math": "3.0.1",
     "remark-parse": "8.0.3",
     "sdbm": "2.0.0",
-    "smol-toml": "1.3.1",
+    "smol-toml": "1.3.3",
     "strip-ansi": "7.1.0",
     "to-fast-properties": "4.0.0",
     "trim-newlines": "5.0.0",
@@ -136,7 +136,7 @@
     "globals": "16.0.0",
     "index-to-position": "1.1.0",
     "jest": "30.0.0-alpha.7",
-    "jest-light-runner": "0.7.4",
+    "jest-light-runner": "0.7.5",
     "jest-snapshot-serializer-ansi": "2.2.1",
     "jest-snapshot-serializer-raw": "2.0.0",
     "jest-watch-typeahead": "2.2.2",

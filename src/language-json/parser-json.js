@@ -176,6 +176,7 @@ const jsonParsers = {
   json: createParser({
     parse: (text) => parseJson(text),
     hasPragma: () => true,
+    hasIgnorePragma: () => false,
   }),
   json5: createParser((text) => parseJson(text)),
   jsonc: createParser((text) => parseJson(text, { allowEmpty: true })),

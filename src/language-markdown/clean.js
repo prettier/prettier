@@ -1,5 +1,6 @@
 import collapseWhiteSpace from "collapse-white-space";
 import isFrontMatter from "../utils/front-matter/is-front-matter.js";
+import { FORMAT_PRAGMAS } from "../utils/pragma/pragma.evaluate.js";
 import { startWithPragma } from "./pragma.js";
 
 const ignoredProperties = new Set([
@@ -77,7 +78,7 @@ function clean(original, cloned, parent) {
     (parent.children[0] === original ||
       (isFrontMatter(parent.children[0]) && parent.children[1] === original)) &&
     original.type === "html" &&
-    startWithPragma(original.value)
+    startWithPragma(original.value, FORMAT_PRAGMAS)
   ) {
     return null;
   }
