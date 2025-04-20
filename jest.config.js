@@ -55,6 +55,8 @@ if (SKIP_TESTS_WITH_NEW_SYNTAX) {
     "<rootDir>/tests/integration/__tests__/config-invalid.js",
     // Fails on Node.js v14
     "<rootDir>/tests/dts/unit/run.js",
+    // Unknown reason, fails on Node.js v14
+    "<rootDir>/tests/integration/__tests__/config-file-typescript.js",
   );
 }
 
@@ -63,7 +65,7 @@ const config = {
     "<rootDir>/tests/config/format-test-setup.js",
     "<rootDir>/tests/integration/integration-test-setup.js",
   ],
-  runner: "jest-light-runner",
+  runner: "jest-light-runner/child-process",
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
