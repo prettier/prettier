@@ -11,6 +11,7 @@ const CLI_WORKER_FILE = url.fileURLToPath(
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
   new URL("./", import.meta.url),
 );
+const useMessageToTransformStdio = process.platform === "darwin";
 const mutex = pLimit(1);
 
 const streamToString = (stream) =>
@@ -64,19 +65,31 @@ function runCliWorker(dir, args, options) {
   worker.on("message", ({ action, data }) => {
     if (action === "write-file") {
       result.write.push(data);
+      return;
+    }
+
+    if (
+      useMessageToTransformStdio &&
+      (action === "stdout" || action === "stderr")
+    ) {
+      result[action] += data;
     }
   });
 
-  const stdioPromise = Promise.all(
-    ["stdout", "stderr"].map(async (stdio) => {
-      result[stdio] = removeFinalNewLine(await streamToString(worker[stdio]));
-    }),
-  );
+  const stdioPromise = useMessageToTransformStdio
+    ? undefined
+    : Promise.all(
+        ["stdout", "stderr"].map(async (stdio) => {
+          result[stdio] = await streamToString(worker[stdio]);
+        }),
+      );
 
   return new Promise((resolve, reject) => {
     worker.on("close", async (code) => {
       result.status = code;
       await stdioPromise;
+      result.stdout = removeFinalNewLine(result.stdout);
+      result.stderr = removeFinalNewLine(result.stderr);
       resolve(result);
     });
 
