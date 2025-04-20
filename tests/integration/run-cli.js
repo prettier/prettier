@@ -1,11 +1,14 @@
 import childProcess from "node:child_process";
+import os from "node:os";
 import path from "node:path";
 import url from "node:url";
+import pLimit from "p-limit";
 
 const CLI_WORKER_FILE = new URL("./cli-worker.js", import.meta.url);
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
   new URL("./", import.meta.url),
 );
+const mutex = pLimit(os.availableParallelism());
 
 const streamToString = (stream) =>
   new Promise((resolve, reject) => {
@@ -90,7 +93,7 @@ function runPrettierCli(dir, args, options) {
 }
 
 function runCli(dir, args = [], options = {}) {
-  const promise = runPrettierCli(dir, args, options);
+  const promise = mutex(() => runPrettierCli(dir, args, options));
   const getters = {
     get status() {
       return promise.then(({ status }) => status);
