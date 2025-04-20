@@ -67,17 +67,34 @@ function runCliWorker(dir, args, options) {
     }
   });
 
-  const stdioPromise = Promise.all(
+  const waitForStdio = Promise.all(
     ["stdout", "stderr"].map(async (stdio) => {
       result[stdio] = removeFinalNewLine(await streamToString(worker[stdio]));
     }),
   );
 
+  const waitForExit = new Promise((resolve) => {
+    worker.on("exit", (code) => {
+      resolve(code);
+    });
+  });
+
   return new Promise((resolve, reject) => {
     worker.on("close", async (code) => {
       result.status = code;
-      await stdioPromise;
+      await waitForStdio;
       resolve(result);
+    });
+
+    worker.on("message", async ({ action }) => {
+      if (action !== "done") {
+        return;
+      }
+
+      await waitForStdio;
+      resolve(result);
+
+      worker.kill();
     });
 
     worker.on("error", (error) => {
