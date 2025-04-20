@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
+import { setTimeout } from "node:timers";
 import url from "node:url";
 import { prettierCli, prettierMainEntry } from "./env.js";
 
@@ -89,6 +90,9 @@ process.on("message", async (options) => {
   try {
     await run(options);
   } finally {
-    process.send({ action: "done" });
+    if (process.platform === "darwin") {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    process.exit();
   }
 });

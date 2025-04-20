@@ -73,28 +73,11 @@ function runCliWorker(dir, args, options) {
     }),
   );
 
-  const waitForExit = new Promise((resolve) => {
-    worker.on("exit", (code) => {
-      resolve(code);
-    });
-  });
-
   return new Promise((resolve, reject) => {
     worker.on("close", async (code) => {
       result.status = code;
       await waitForStdio;
       resolve(result);
-    });
-
-    worker.on("message", async ({ action }) => {
-      if (action !== "done") {
-        return;
-      }
-
-      await waitForStdio;
-      resolve(result);
-
-      worker.kill();
     });
 
     worker.on("error", (error) => {
