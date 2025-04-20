@@ -1,6 +1,6 @@
+import childProcess from "node:child_process";
 import path from "node:path";
 import url from "node:url";
-import { Worker } from "node:worker_threads";
 
 const CLI_WORKER_FILE = new URL("./cli-worker.js", import.meta.url);
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
@@ -39,9 +39,8 @@ function runCliWorker(dir, args, options) {
   };
 
   const nodeOptions = options?.nodeOptions ?? [];
-
-  const worker = new Worker(CLI_WORKER_FILE, {
-    argv: args,
+  const worker = childProcess.fork(CLI_WORKER_FILE, args, {
+    cwd: dir,
     execArgv: [
       "--trace-deprecation",
       ...(SUPPORTS_DISABLE_WARNING_FLAG
@@ -49,17 +48,11 @@ function runCliWorker(dir, args, options) {
         : []),
       ...nodeOptions,
     ],
-    stdout: true,
-    stderr: true,
+    stdio: "pipe",
     env: {
       ...process.env,
       NO_COLOR: "1",
     },
-    workerData: {
-      dir,
-      options,
-    },
-    trackUnmanagedFds: false,
   });
 
   worker.on("message", ({ action, data }) => {
@@ -68,11 +61,16 @@ function runCliWorker(dir, args, options) {
     }
   });
 
+  const stdioPromise = Promise.all(
+    ["stdout", "stderr"].map(async (stdio) => {
+      result[stdio] = removeFinalNewLine(await streamToString(worker[stdio]));
+    }),
+  );
+
   return new Promise((resolve, reject) => {
     worker.on("exit", async (code) => {
       result.status = code;
-      result.stdout = removeFinalNewLine(await streamToString(worker.stdout));
-      result.stderr = removeFinalNewLine(await streamToString(worker.stderr));
+      await stdioPromise;
       resolve(result);
     });
 
@@ -80,67 +78,44 @@ function runCliWorker(dir, args, options) {
       reject(error);
     });
 
-    worker.postMessage("run");
+    worker.send(options);
   });
 }
 
-async function runPrettierCli(dir, args, options) {
+function runPrettierCli(dir, args, options) {
   dir = path.resolve(INTEGRATION_TEST_DIRECTORY, dir);
   args = Array.isArray(args) ? args : [args];
 
-  // Worker doesn't support `chdir`
-  const cwd = process.cwd();
-  process.chdir(dir);
-
-  try {
-    return await runCliWorker(dir, args, options);
-  } finally {
-    process.chdir(cwd);
-  }
+  return runCliWorker(dir, args, options);
 }
 
-let runningCli;
 function runCli(dir, args = [], options = {}) {
-  let promise;
+  const promise = runPrettierCli(dir, args, options);
   const getters = {
     get status() {
-      return run().then(({ status }) => status);
+      return promise.then(({ status }) => status);
     },
     get stdout() {
-      return run().then(({ stdout }) => stdout);
+      return promise.then(({ stdout }) => stdout);
     },
     get stderr() {
-      return run().then(({ stderr }) => stderr);
+      return promise.then(({ stderr }) => stderr);
     },
     get write() {
-      return run().then(({ write }) => write);
+      return promise.then(({ write }) => write);
     },
     test: testResult,
     then(onFulfilled, onRejected) {
-      return run().then(onFulfilled, onRejected);
+      return promise.then(onFulfilled, onRejected);
     },
   };
 
   return getters;
 
-  function run() {
-    if (runningCli) {
-      throw new Error("Please wait for previous CLI to exit.");
-    }
-
-    if (!promise) {
-      promise = runPrettierCli(dir, args, options).finally(() => {
-        runningCli = undefined;
-      });
-      runningCli = promise;
-    }
-    return promise;
-  }
-
   function testResult(testOptions) {
     for (const name of ["status", "stdout", "stderr", "write"]) {
       test(`${options.title || ""}(${name})`, async () => {
-        const result = await run();
+        const result = await promise;
         let value = result[name];
         // \r is trimmed from jest snapshots by default;
         // manually replacing this character with /*CR*/ to test its true presence

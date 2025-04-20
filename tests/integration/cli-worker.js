@@ -2,7 +2,6 @@ import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
 import url from "node:url";
-import { parentPort, workerData } from "node:worker_threads";
 import { prettierCli, prettierMainEntry } from "./env.js";
 
 const normalizeToPosix =
@@ -19,9 +18,7 @@ const replaceAll = (text, find, replacement) =>
     ? text.replaceAll(find, replacement)
     : text.split(find).join(replacement);
 
-async function run() {
-  const { options } = workerData;
-
+async function run(options) {
   Date.now = () => 0;
 
   /*
@@ -78,7 +75,7 @@ async function run() {
       );
     }
 
-    parentPort.postMessage({
+    process.send({
       action: "write-file",
       data: { filename, content },
     });
@@ -88,20 +85,9 @@ async function run() {
   await promise;
 }
 
-parentPort.on("message", async () => {
-  const originalExit = process.exit;
-
-  // https://github.com/nodejs/node/issues/30491
-  process.stdout.cork();
-  process.stderr.cork();
-  process.exit = (code) => {
-    process.stdout.end();
-    process.stderr.end();
-    originalExit(code ?? process.exitCode ?? 0);
-  };
-
+process.on("message", async (options) => {
   try {
-    await run();
+    await run(options);
   } finally {
     process.exit();
   }
