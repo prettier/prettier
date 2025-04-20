@@ -89,6 +89,8 @@ process.on("message", async (options) => {
   const originalExit = process.exit;
 
   // https://github.com/nodejs/node/issues/30491
+  process.stdout.cork();
+  process.stderr.cork();
   process.exit = (code) => {
     process.stdout.end();
     process.stderr.end();
