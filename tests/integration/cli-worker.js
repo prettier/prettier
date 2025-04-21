@@ -90,6 +90,7 @@ process.on("message", async (data) => {
   try {
     await run(data);
   } finally {
+    // On MacOS, if we exit too quick the stdio won't received on main thread
     if (process.platform === "darwin") {
       await new Promise((resolve) => setTimeout(resolve, 100));
     }

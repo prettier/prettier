@@ -91,16 +91,5 @@ if (NODE_JS_MAJOR_VERSION < 22) {
       write: [],
       stderr: expect.stringMatching(/bad option: --experimental-strip-types/u),
     });
-
-    // The following is the test code if we run cli in worker
-    // https://github.com/nodejs/node/issues/41103
-    // await expect(() =>
-    //   runCli("cli/config/ts/auto-discovery/", ["--stdin-filepath", "foo.js"], {
-    //     input: code,
-    //     nodeOptions: NODE_TS_SUPPORT_FLAGS,
-    //   }),
-    // ).rejects.toThrow(
-    //   /Initiated Worker with invalid execArgv flags: --experimental-strip-types/u,
-    // );
   });
 }
