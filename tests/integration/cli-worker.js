@@ -90,12 +90,6 @@ process.on("message", async (options) => {
   try {
     await run(options);
   } finally {
-    if (process.platform === "darwin") {
-      process.nextTick(() => {
-        process.exit();
-      });
-    } else {
-      process.exit();
-    }
+    process.send({ action: "finish", data: process.exitCode });
   }
 });

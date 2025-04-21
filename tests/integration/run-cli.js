@@ -13,23 +13,6 @@ const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
 );
 const mutex = pLimit(1);
 
-const streamToString = (stream) =>
-  new Promise((resolve, reject) => {
-    let result = "";
-
-    stream.on("data", (data) => {
-      result += data.toString();
-    });
-
-    stream.on("end", () => {
-      resolve(result);
-    });
-
-    stream.on("error", (error) => {
-      reject(error);
-    });
-  });
-
 const removeFinalNewLine = (string) =>
   string.endsWith("\n") ? string.slice(0, -1) : string;
 
@@ -61,22 +44,33 @@ function runCliWorker(dir, args, options) {
     },
   });
 
-  worker.on("message", ({ action, data }) => {
-    if (action === "write-file") {
-      result.write.push(data);
-    }
-  });
+  for (const stream of ["stdout", "stderr"]) {
+    worker[stream].on("data", (data) => {
+      result[stream] += data.toString();
+    });
+  }
 
-  const waitForStdio = Promise.all(
-    ["stdout", "stderr"].map(async (stdio) => {
-      result[stdio] = removeFinalNewLine(await streamToString(worker[stdio]));
-    }),
-  );
+  const removeStdioFinalNewLine = () => {
+    for (const stream of ["stdout", "stderr"]) {
+      result[stream] = removeFinalNewLine(result[stream]);
+    }
+  };
 
   return new Promise((resolve, reject) => {
-    worker.on("close", async (code) => {
-      result.status = code;
-      await waitForStdio;
+    worker.on("message", ({ action, data }) => {
+      if (action === "write-file") {
+        result.write.push(data);
+      } else if (action === "finish") {
+        result.status = data || 0;
+        removeStdioFinalNewLine();
+        resolve(result);
+        worker.kill();
+      }
+    });
+
+    worker.on("close", (code) => {
+      result.status = result.status || code;
+      removeStdioFinalNewLine();
       resolve(result);
     });
 
