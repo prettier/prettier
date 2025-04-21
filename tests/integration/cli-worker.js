@@ -19,8 +19,7 @@ const replaceAll = (text, find, replacement) =>
     ? text.replaceAll(find, replacement)
     : text.split(find).join(replacement);
 
-async function run({ dir, options }) {
-  process.chdir(dir);
+async function run(options) {
   Date.now = () => 0;
 
   /*

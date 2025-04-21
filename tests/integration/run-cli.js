@@ -71,7 +71,7 @@ function runCliWorker(dir, args, options) {
       reject(error);
     });
 
-    worker.send({ dir, options });
+    worker.send(options);
   });
 }
 
