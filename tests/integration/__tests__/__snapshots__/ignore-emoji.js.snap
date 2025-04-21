@@ -1,13 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ignores file name contains emoji (stderr) 1`] = `""`;
+exports[`ignores file name contains emoji  1`] = `
+{
+  "stderr": "",
+  "stdout": "not-ignored.js",
+  "write": [],
+}
+`;
 
-exports[`ignores file name contains emoji (stdout) 1`] = `"not-ignored.js"`;
-
-exports[`ignores file name contains emoji (write) 1`] = `[]`;
-
-exports[`stdin (stderr) 1`] = `""`;
-
-exports[`stdin (stdout) 1`] = `".name {                         display: none; }"`;
-
-exports[`stdin (write) 1`] = `[]`;
+exports[`stdin  1`] = `
+{
+  "stderr": "",
+  "stdout": ".name {                         display: none; }",
+  "write": [],
+}
+`;

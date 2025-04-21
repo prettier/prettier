@@ -10,10 +10,8 @@ const CLI_WORKER_FILE = url.fileURLToPath(
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
   new URL("./", import.meta.url),
 );
-
 const removeFinalNewLine = (string) =>
   string.endsWith("\n") ? string.slice(0, -1) : string;
-
 const SUPPORTS_DISABLE_WARNING_FLAG =
   Number(process.versions.node.split(".")[0]) >= 20;
 
@@ -107,9 +105,11 @@ function runCli(dir, args = [], options = {}) {
   return getters;
 
   function testResult(testOptions) {
-    for (const name of ["status", "stdout", "stderr", "write"]) {
-      test(`${options.title || ""}(${name})`, async () => {
-        const result = await promise;
+    test(options.title || "", async () => {
+      const result = await promise;
+
+      let snapshot;
+      for (const name of ["status", "stdout", "stderr", "write"]) {
         let value = result[name];
         // \r is trimmed from jest snapshots by default;
         // manually replacing this character with /*CR*/ to test its true presence
@@ -130,10 +130,15 @@ function runCli(dir, args = [], options = {}) {
             expect(value).toEqual(testOptions[name]);
           }
         } else {
-          expect(value).toMatchSnapshot();
+          snapshot = snapshot || {};
+          snapshot[name] = value;
         }
-      });
-    }
+      }
+
+      if (snapshot) {
+        expect(snapshot).toMatchSnapshot();
+      }
+    });
 
     return getters;
   }

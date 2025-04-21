@@ -1,41 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`do not write file with --write + formatted file (stderr) 1`] = `""`;
+exports[`do not write file with --write + formatted file  1`] = `
+{
+  "stderr": "",
+  "stdout": "formatted.js 0ms (unchanged)",
+}
+`;
 
-exports[`do not write file with --write + formatted file (stdout) 1`] = `"formatted.js 0ms (unchanged)"`;
-
-exports[`do not write file with --write + invalid file (stderr) 1`] = `
-"[error] invalid.js: SyntaxError: Unexpected token (1:17)
+exports[`do not write file with --write + invalid file  1`] = `
+{
+  "stderr": "[error] invalid.js: SyntaxError: Unexpected token (1:17)
 [error] > 1 | this is invalid!
-[error]     |                 ^"
+[error]     |                 ^",
+  "stdout": "",
+}
 `;
 
-exports[`do not write file with --write + invalid file (stdout) 1`] = `""`;
-
-exports[`write file with --write + unformatted file (stderr) 1`] = `""`;
-
-exports[`write file with --write + unformatted file (stdout) 1`] = `"unformatted.js 0ms"`;
-
-exports[`write file with --write + unformatted file (write) 1`] = `
-[
-  {
-    "content": "var x = 1;
+exports[`write file with --write + unformatted file  1`] = `
+{
+  "stderr": "",
+  "stdout": "unformatted.js 0ms",
+  "write": [
+    {
+      "content": "var x = 1;
 ",
-    "filename": "unformatted.js",
-  },
-]
+      "filename": "unformatted.js",
+    },
+  ],
+}
 `;
 
-exports[`write file with -w + unformatted file (stderr) 1`] = `""`;
-
-exports[`write file with -w + unformatted file (stdout) 1`] = `"unformatted.js 0ms"`;
-
-exports[`write file with -w + unformatted file (write) 1`] = `
-[
-  {
-    "content": "var x = 1;
+exports[`write file with -w + unformatted file  1`] = `
+{
+  "stderr": "",
+  "stdout": "unformatted.js 0ms",
+  "write": [
+    {
+      "content": "var x = 1;
 ",
-    "filename": "unformatted.js",
-  },
-]
+      "filename": "unformatted.js",
+    },
+  ],
+}
 `;

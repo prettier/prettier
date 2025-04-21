@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`throw error with invalid ignore (stderr) 1`] = `"[error] Unable to read '.prettierignore': EISDIR: illegal operation on a directory, read"`;
-
-exports[`throw error with invalid ignore (stdout) 1`] = `""`;
-
-exports[`throw error with invalid ignore (write) 1`] = `[]`;
+exports[`throw error with invalid ignore  1`] = `
+{
+  "stderr": "[error] Unable to read '.prettierignore': EISDIR: illegal operation on a directory, read",
+  "stdout": "",
+  "write": [],
+}
+`;
