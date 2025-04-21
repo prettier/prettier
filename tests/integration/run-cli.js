@@ -1,7 +1,6 @@
 import childProcess from "node:child_process";
 import path from "node:path";
 import url from "node:url";
-import pLimit from "p-limit";
 
 // Though the doc says `childProcess.fork` accepts `URL`, but seems not true
 // TODO: Use `URL` directly when we drop support for Node.js v14
