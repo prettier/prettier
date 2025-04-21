@@ -77,7 +77,7 @@ function runCliWorker(dir, args, options) {
       }
 
       // It can fail with `write EPIPE` error when running node with unsupported flags like `--experimental-strip-types`
-      // Let's ignore and wait for the `error` event
+      // Let's ignore and wait for the `close` event
       if (
         error.code === "EPIPE" &&
         error.syscall === "write" &&
