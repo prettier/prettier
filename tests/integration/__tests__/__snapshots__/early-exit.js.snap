@@ -1,33 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`show detailed usage with --help l (alias) (stderr) 1`] = `""`;
+exports[`show detailed usage with --help l (alias)  1`] = `
+{
+  "stderr": "",
+  "stdout": "-l, --list-different
 
-exports[`show detailed usage with --help l (alias) (stdout) 1`] = `
-"-l, --list-different
-
-  Print the names of files that are different from Prettier's formatting (see also --check)."
+  Print the names of files that are different from Prettier's formatting (see also --check).",
+  "write": [],
+}
 `;
 
-exports[`show detailed usage with --help l (alias) (write) 1`] = `[]`;
-
-exports[`show detailed usage with plugin options (manual resolution) (stderr) 1`] = `""`;
-
-exports[`show detailed usage with plugin options (manual resolution) (stdout) 1`] = `
-"--tab-width <int>
+exports[`show detailed usage with plugin options (manual resolution)  1`] = `
+{
+  "stderr": "",
+  "stdout": "--tab-width <int>
 
   Number of spaces per indentation level.
 
 Default: 2
 Plugin defaults:
-* ../plugins/automatic/node_modules/prettier-plugin-bar/index.js: 4"
+* ../plugins/automatic/node_modules/prettier-plugin-bar/index.js: 4",
+  "write": [],
+}
 `;
 
-exports[`show detailed usage with plugin options (manual resolution) (write) 1`] = `[]`;
-
-exports[`show usage with --help (stderr) 1`] = `""`;
-
-exports[`show usage with --help (stdout) 1`] = `
-"Usage: prettier [options] [file/dir/glob ...]
+exports[`show usage with --help  1`] = `
+{
+  "stderr": "",
+  "stdout": "Usage: prettier [options] [file/dir/glob ...]
 
 By default, output is written to stdout.
 Stdin is read if it is piped to Prettier and no files are given.
@@ -150,19 +150,22 @@ Other options:
   --support-info           Print support information as JSON.
   -v, --version            Print Prettier version.
 
-"
+",
+  "write": [],
+}
 `;
 
-exports[`show usage with --help (write) 1`] = `[]`;
+exports[`show version with --version  1`] = `
+{
+  "stderr": "",
+  "write": [],
+}
+`;
 
-exports[`show version with --version (stderr) 1`] = `""`;
-
-exports[`show version with --version (write) 1`] = `[]`;
-
-exports[`show warning with --help not-found (typo) (stderr) 1`] = `"[warn] Unknown flag "parserr", did you mean "parser"?"`;
-
-exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
+exports[`show warning with --help not-found (typo)  1`] = `
+{
+  "stderr": "[warn] Unknown flag "parserr", did you mean "parser"?",
+  "stdout": "--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
 
   Which parser to use.
 
@@ -192,15 +195,15 @@ Valid options:
   html             HTML
   angular          Angular
   lwc              Lightning Web Components
-  mjml             MJML"
+  mjml             MJML",
+  "write": [],
+}
 `;
 
-exports[`show warning with --help not-found (typo) (write) 1`] = `[]`;
-
-exports[`throw error and show usage with something unexpected (stderr) 1`] = `""`;
-
-exports[`throw error and show usage with something unexpected (stdout) 1`] = `
-"Usage: prettier [options] [file/dir/glob ...]
+exports[`throw error and show usage with something unexpected  1`] = `
+{
+  "stderr": "",
+  "stdout": "Usage: prettier [options] [file/dir/glob ...]
 
 By default, output is written to stdout.
 Stdin is read if it is piped to Prettier and no files are given.
@@ -323,37 +326,47 @@ Other options:
   --support-info           Print support information as JSON.
   -v, --version            Print Prettier version.
 
-"
+",
+  "write": [],
+}
 `;
 
-exports[`throw error and show usage with something unexpected (write) 1`] = `[]`;
+exports[`throw error with --check + --list-different  1`] = `
+{
+  "stderr": "[error] Cannot use --check and --list-different together.",
+  "stdout": "",
+  "write": [],
+}
+`;
 
-exports[`throw error with --check + --list-different (stderr) 1`] = `"[error] Cannot use --check and --list-different together."`;
+exports[`throw error with --file-info + multiple files  1`] = `
+{
+  "stderr": "[error] Cannot use --file-info with multiple files",
+  "stdout": "",
+  "write": [],
+}
+`;
 
-exports[`throw error with --check + --list-different (stdout) 1`] = `""`;
+exports[`throw error with --find-config-path + multiple files  1`] = `
+{
+  "stderr": "[error] Cannot use --find-config-path with multiple files",
+  "stdout": "",
+  "write": [],
+}
+`;
 
-exports[`throw error with --check + --list-different (write) 1`] = `[]`;
+exports[`throw error with --help not-found  1`] = `
+{
+  "stderr": "[error] Invalid --help value. Expected a flag, but received "not-found".",
+  "stdout": "",
+  "write": [],
+}
+`;
 
-exports[`throw error with --file-info + multiple files (stderr) 1`] = `"[error] Cannot use --file-info with multiple files"`;
-
-exports[`throw error with --file-info + multiple files (stdout) 1`] = `""`;
-
-exports[`throw error with --file-info + multiple files (write) 1`] = `[]`;
-
-exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `"[error] Cannot use --find-config-path with multiple files"`;
-
-exports[`throw error with --find-config-path + multiple files (stdout) 1`] = `""`;
-
-exports[`throw error with --find-config-path + multiple files (write) 1`] = `[]`;
-
-exports[`throw error with --help not-found (stderr) 1`] = `"[error] Invalid --help value. Expected a flag, but received "not-found"."`;
-
-exports[`throw error with --help not-found (stdout) 1`] = `""`;
-
-exports[`throw error with --help not-found (write) 1`] = `[]`;
-
-exports[`throw error with --write + --debug-check (stderr) 1`] = `"[error] Cannot use --write and --debug-check together."`;
-
-exports[`throw error with --write + --debug-check (stdout) 1`] = `""`;
-
-exports[`throw error with --write + --debug-check (write) 1`] = `[]`;
+exports[`throw error with --write + --debug-check  1`] = `
+{
+  "stderr": "[error] Cannot use --write and --debug-check together.",
+  "stdout": "",
+  "write": [],
+}
+`;
