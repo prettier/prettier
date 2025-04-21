@@ -1,37 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`error on unmatched pattern (stderr) 1`] = `"[error] No files matching the pattern were found: "**/*.toml"."`;
+exports[`error on unmatched pattern  1`] = `
+{
+  "stderr": "[error] No files matching the pattern were found: "**/*.toml".",
+  "stdout": "",
+  "write": [],
+}
+`;
 
-exports[`error on unmatched pattern (stdout) 1`] = `""`;
-
-exports[`error on unmatched pattern (write) 1`] = `[]`;
-
-exports[`error on unmatched pattern when 2nd glob has no match (stderr) 1`] = `"[error] No files matching the pattern were found: "**/*.toml"."`;
-
-exports[`error on unmatched pattern when 2nd glob has no match (stdout) 1`] = `
-"const hello = "there";
+exports[`error on unmatched pattern when 2nd glob has no match  1`] = `
+{
+  "stderr": "[error] No files matching the pattern were found: "**/*.toml".",
+  "stdout": "const hello = "there";
 {
   "hello": "there"
 }
-hello: there"
+hello: there",
+  "write": [],
+}
 `;
 
-exports[`error on unmatched pattern when 2nd glob has no match (write) 1`] = `[]`;
+exports[`no error on unmatched pattern  1`] = `
+{
+  "stderr": "",
+  "stdout": "const hello = "there";",
+  "write": [],
+}
+`;
 
-exports[`no error on unmatched pattern (stderr) 1`] = `""`;
-
-exports[`no error on unmatched pattern (stdout) 1`] = `"const hello = "there";"`;
-
-exports[`no error on unmatched pattern (write) 1`] = `[]`;
-
-exports[`no error on unmatched pattern when 2nd glob has no match (stderr) 1`] = `""`;
-
-exports[`no error on unmatched pattern when 2nd glob has no match (stdout) 1`] = `
-"const hello = "there";
+exports[`no error on unmatched pattern when 2nd glob has no match  1`] = `
+{
+  "stderr": "",
+  "stdout": "const hello = "there";
 {
   "hello": "there"
 }
-hello: there"
+hello: there",
+  "write": [],
+}
 `;
-
-exports[`no error on unmatched pattern when 2nd glob has no match (write) 1`] = `[]`;

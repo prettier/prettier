@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`include plugin's parsers to the values of the \`parser\` option\` (stderr) 1`] = `""`;
-
-exports[`include plugin's parsers to the values of the \`parser\` option\` (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml|foo-parser>
+exports[`include plugin's parsers to the values of the \`parser\` option\`  1`] = `
+{
+  "stderr": "",
+  "stdout": "--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml|foo-parser>
 
   Which parser to use.
 
@@ -34,15 +34,15 @@ Valid options:
   angular          Angular
   lwc              Lightning Web Components
   mjml             MJML
-  foo-parser       foo (plugin: ./plugin.cjs)"
+  foo-parser       foo (plugin: ./plugin.cjs)",
+  "write": [],
+}
 `;
 
-exports[`include plugin's parsers to the values of the \`parser\` option\` (write) 1`] = `[]`;
-
-exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;
-
-exports[`show detailed external option with \`--help foo-option\` (stdout) 1`] = `
-"--foo-option <bar|baz>
+exports[`show detailed external option with \`--help foo-option\`  1`] = `
+{
+  "stderr": "",
+  "stdout": "--foo-option <bar|baz>
 
   foo description
 
@@ -51,10 +51,10 @@ Valid options:
   bar   bar description
   baz   baz description
 
-Default: bar"
+Default: bar",
+  "write": [],
+}
 `;
-
-exports[`show detailed external option with \`--help foo-option\` (write) 1`] = `[]`;
 
 exports[`show external options with \`--help\` 1`] = `
 "Snapshot Diff:

@@ -1,33 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`checks stdin with --debug-check (write) 1`] = `[]`;
-
-exports[`doesn't crash when --debug-check is passed (write) 1`] = `[]`;
-
-exports[`should not exit non-zero for already prettified code with --debug-check + --check (stderr) 1`] = `""`;
-
-exports[`should not exit non-zero for already prettified code with --debug-check + --check (stdout) 1`] = `
-"Checking formatting...
-issue-4599.js
-All matched files use Prettier code style!"
+exports[`checks stdin with --debug-check  1`] = `
+{
+  "write": [],
+}
 `;
 
-exports[`should not exit non-zero for already prettified code with --debug-check + --check (write) 1`] = `[]`;
+exports[`doesn't crash when --debug-check is passed  1`] = `
+{
+  "write": [],
+}
+`;
 
-exports[`should not exit non-zero for already prettified code with --debug-check + --list-different (stderr) 1`] = `""`;
+exports[`should not exit non-zero for already prettified code with --debug-check + --check  1`] = `
+{
+  "stderr": "",
+  "stdout": "Checking formatting...
+issue-4599.js
+All matched files use Prettier code style!",
+  "write": [],
+}
+`;
 
-exports[`should not exit non-zero for already prettified code with --debug-check + --list-different (stdout) 1`] = `"issue-4599.js"`;
+exports[`should not exit non-zero for already prettified code with --debug-check + --list-different  1`] = `
+{
+  "stderr": "",
+  "stdout": "issue-4599.js",
+  "write": [],
+}
+`;
 
-exports[`should not exit non-zero for already prettified code with --debug-check + --list-different (write) 1`] = `[]`;
+exports[`should not exit non-zero for jsx style element with spread attribute  1`] = `
+{
+  "stderr": "",
+  "stdout": "issue-15094.jsx",
+  "write": [],
+}
+`;
 
-exports[`should not exit non-zero for jsx style element with spread attribute (stderr) 1`] = `""`;
-
-exports[`should not exit non-zero for jsx style element with spread attribute (stdout) 1`] = `"issue-15094.jsx"`;
-
-exports[`should not exit non-zero for jsx style element with spread attribute (write) 1`] = `[]`;
-
-exports[`show diff for 2+ error files with --debug-check (stderr) 1`] = `
-"[error] a.debug-check: prettier(input) !== prettier(prettier(input))
+exports[`show diff for 2+ error files with --debug-check  1`] = `
+{
+  "stderr": "[error] a.debug-check: prettier(input) !== prettier(prettier(input))
 [error] Index: 
 [error] ===================================================================
 [error] --- 	
@@ -48,9 +61,8 @@ exports[`show diff for 2+ error files with --debug-check (stderr) 1`] = `
 [error]  world
 [error] +world
 [error] +world
-[error] "
+[error] ",
+  "stdout": "",
+  "write": [],
+}
 `;
-
-exports[`show diff for 2+ error files with --debug-check (stdout) 1`] = `""`;
-
-exports[`show diff for 2+ error files with --debug-check (write) 1`] = `[]`;
