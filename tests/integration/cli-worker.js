@@ -19,7 +19,8 @@ const replaceAll = (text, find, replacement) =>
     ? text.replaceAll(find, replacement)
     : text.split(find).join(replacement);
 
-async function run(options) {
+async function run({ dir, options }) {
+  process.chdir(dir);
   Date.now = () => 0;
 
   /*
@@ -86,9 +87,9 @@ async function run(options) {
   await promise;
 }
 
-process.on("message", async (options) => {
+process.on("message", async (data) => {
   try {
-    await run(options);
+    await run(data);
   } finally {
     if (process.platform === "darwin") {
       await new Promise((resolve) => setTimeout(resolve, 100));

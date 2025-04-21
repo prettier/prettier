@@ -1,7 +1,6 @@
 import childProcess from "node:child_process";
 import path from "node:path";
 import url from "node:url";
-import pLimit from "p-limit";
 
 // Though the doc says `childProcess.fork` accepts `URL`, but seems not true
 // TODO: Use `URL` directly when we drop support for Node.js v14
@@ -11,7 +10,6 @@ const CLI_WORKER_FILE = url.fileURLToPath(
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
   new URL("./", import.meta.url),
 );
-const mutex = pLimit(2);
 
 const removeFinalNewLine = (string) =>
   string.endsWith("\n") ? string.slice(0, -1) : string;
@@ -73,7 +71,7 @@ function runCliWorker(dir, args, options) {
       reject(error);
     });
 
-    worker.send(options);
+    worker.send({ dir, options });
   });
 }
 
@@ -85,7 +83,7 @@ function runPrettierCli(dir, args, options) {
 }
 
 function runCli(dir, args = [], options = {}) {
-  const promise = mutex(() => runPrettierCli(dir, args, options));
+  const promise = runPrettierCli(dir, args, options);
   const getters = {
     get status() {
       return promise.then(({ status }) => status);
