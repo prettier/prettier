@@ -129,41 +129,69 @@ describe("plugins `*`", () => {
 if (path.sep === "/") {
   // Don't use snapshots in these tests as they're conditionally executed on non-Windows only.
 
-  const base = path.resolve(__dirname, "../cli/patterns-dirs");
+  const base = path.resolve(__dirname, "../cli/patterns-backslashes");
+  const directoryA = path.join(base, "test-a\\");
+  const directoryB = path.join(base, String.raw`test-b\?`);
 
   describe("Backslashes in names", () => {
-    // We can't commit these dirs without causing problems on Windows.
+    const clean = () => {
+      fs.rmSync(directoryA, { force: true, recursive: true });
+      fs.rmSync(directoryB, { force: true, recursive: true });
+    };
 
     beforeAll(() => {
-      fs.mkdirSync(path.resolve(base, "test-a\\"));
-      fs.writeFileSync(path.resolve(base, "test-a\\", "test.js"), "x");
-      fs.mkdirSync(path.resolve(base, String.raw`test-b\?`));
-      fs.writeFileSync(
-        path.resolve(base, String.raw`test-b\?`, "test.js"),
-        "x",
-      );
+      clean();
+      fs.mkdirSync(directoryA);
+      fs.writeFileSync(path.join(directoryA, "test.js"), "x");
+      fs.mkdirSync(directoryB);
+      fs.writeFileSync(path.join(directoryB, "test.js"), "x");
     });
 
-    afterAll(() => {
-      fs.unlinkSync(path.resolve(base, "test-a\\", "test.js"));
-      fs.rmdirSync(path.resolve(base, "test-a\\"));
-      fs.unlinkSync(path.resolve(base, String.raw`test-b\?`, "test.js"));
-      fs.rmdirSync(path.resolve(base, String.raw`test-b\?`));
-    });
+    afterAll(clean);
 
-    testPatterns("", [String.raw`test-a\/test.js`], {
-      stdout: String.raw`test-a\/test.js`,
-    });
-    testPatterns("", ["test-a\\"], { stdout: String.raw`test-a\/test.js` });
-    testPatterns("", ["test-a*/*"], { stdout: String.raw`test-a\/test.js` });
+    testPatterns(
+      "",
+      [String.raw`test-a\/test.js`],
+      {
+        stdout: String.raw`test-a\/test.js`,
+      },
+      base,
+    );
+    testPatterns(
+      "",
+      ["test-a\\"],
+      { stdout: String.raw`test-a\/test.js` },
+      base,
+    );
+    testPatterns(
+      "",
+      ["test-a*/*"],
+      { stdout: String.raw`test-a\/test.js` },
+      base,
+    );
 
-    testPatterns("", [String.raw`test-b\?/test.js`], {
-      stdout: String.raw`test-b\?/test.js`,
-    });
-    testPatterns("", [String.raw`test-b\?`], {
-      stdout: String.raw`test-b\?/test.js`,
-    });
-    testPatterns("", ["test-b*/*"], { stdout: String.raw`test-b\?/test.js` });
+    testPatterns(
+      "",
+      [String.raw`test-b\?/test.js`],
+      {
+        stdout: String.raw`test-b\?/test.js`,
+      },
+      base,
+    );
+    testPatterns(
+      "",
+      [String.raw`test-b\?`],
+      {
+        stdout: String.raw`test-b\?/test.js`,
+      },
+      base,
+    );
+    testPatterns(
+      "",
+      ["test-b*/*"],
+      { stdout: String.raw`test-b\?/test.js` },
+      base,
+    );
   });
 }
 
