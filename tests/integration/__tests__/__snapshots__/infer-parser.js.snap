@@ -1,116 +1,178 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`--check with unknown path and no parser multiple files (stderr) 1`] = `
-"[error] No parser could be inferred for file "<cli>/infer-parser/FOO".
+exports[`--check with unknown path and no parser multiple files  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".
 [warn] foo.js
-[warn] Code style issues found in the above file. Run Prettier with --write to fix."
+[warn] Code style issues found in the above file. Run Prettier with --write to fix.",
+  "stdout": "Checking formatting...",
+}
 `;
 
-exports[`--check with unknown path and no parser multiple files (stdout) 1`] = `"Checking formatting..."`;
-
-exports[`--check with unknown path and no parser specific file (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
-
-exports[`--check with unknown path and no parser specific file (stdout) 1`] = `
-"Checking formatting...
-All matched files use Prettier code style!"
+exports[`--check with unknown path and no parser specific file  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
+  "stdout": "Checking formatting...
+All matched files use Prettier code style!",
+}
 `;
 
-exports[`--list-different with unknown path and no parser multiple files (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
+exports[`--list-different with unknown path and no parser multiple files  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
+}
+`;
 
-exports[`--list-different with unknown path and no parser specific file (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
+exports[`--list-different with unknown path and no parser specific file  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
+}
+`;
 
-exports[`--write and --check with unknown path and no parser multiple files (stderr) 1`] = `
-"[error] No parser could be inferred for file "<cli>/infer-parser/FOO".
+exports[`--write and --check with unknown path and no parser multiple files  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".
 [warn] foo.js
-[warn] Code style issues fixed in the above file."
-`;
-
-exports[`--write and --check with unknown path and no parser multiple files (stdout) 1`] = `"Checking formatting..."`;
-
-exports[`--write and --check with unknown path and no parser multiple files (write) 1`] = `
-[
-  {
-    "content": "foo();
+[warn] Code style issues fixed in the above file.",
+  "stdout": "Checking formatting...",
+  "write": [
+    {
+      "content": "foo();
 ",
-    "filename": "foo.js",
-  },
-]
+      "filename": "foo.js",
+    },
+  ],
+}
 `;
 
-exports[`--write and --check with unknown path and no parser specific file (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
-
-exports[`--write and --check with unknown path and no parser specific file (stdout) 1`] = `
-"Checking formatting...
-All matched files use Prettier code style!"
+exports[`--write and --check with unknown path and no parser specific file  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
+  "stdout": "Checking formatting...
+All matched files use Prettier code style!",
+}
 `;
 
-exports[`--write and --list-different with unknown path and no parser multiple files (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
-
-exports[`--write and --list-different with unknown path and no parser multiple files (stdout) 1`] = `"foo.js"`;
-
-exports[`--write and --list-different with unknown path and no parser multiple files (write) 1`] = `
-[
-  {
-    "content": "foo();
+exports[`--write and --list-different with unknown path and no parser multiple files  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
+  "stdout": "foo.js",
+  "write": [
+    {
+      "content": "foo();
 ",
-    "filename": "foo.js",
-  },
-]
+      "filename": "foo.js",
+    },
+  ],
+}
 `;
 
-exports[`--write and --list-different with unknown path and no parser specific file (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
+exports[`--write and --list-different with unknown path and no parser specific file  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
+}
+`;
 
-exports[`--write with unknown path and no parser multiple files (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
-
-exports[`--write with unknown path and no parser multiple files (stdout) 1`] = `"foo.js 0ms"`;
-
-exports[`--write with unknown path and no parser multiple files (write) 1`] = `
-[
-  {
-    "content": "foo();
+exports[`--write with unknown path and no parser multiple files  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
+  "stdout": "foo.js 0ms",
+  "write": [
+    {
+      "content": "foo();
 ",
-    "filename": "foo.js",
-  },
-]
+      "filename": "foo.js",
+    },
+  ],
+}
 `;
 
-exports[`--write with unknown path and no parser specific file (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
+exports[`--write with unknown path and no parser specific file  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
+}
+`;
 
-exports[`Interpreters (stdout) 1`] = `"{ "ignored": false, "inferredParser": "babel" }"`;
+exports[`Interpreters  1`] = `
+{
+  "stdout": "{ "ignored": false, "inferredParser": "babel" }",
+}
+`;
 
-exports[`Known/Unknown (stdout) 1`] = `"known.js"`;
+exports[`Known/Unknown  1`] = `
+{
+  "stdout": "known.js",
+}
+`;
 
-exports[`isSupported (stdout) 1`] = `
-"{
+exports[`isSupported  1`] = `
+{
+  "stdout": "{
   "ignored": false,
   "inferredParser": "parser-name-inferred-from-language-is-supported"
-}"
+}",
+}
 `;
 
-exports[`isSupported (stdout) 2`] = `
-"content from file
-formatted by 'parser-name-inferred-from-language-is-supported' parser"
+exports[`isSupported  2`] = `
+{
+  "stdout": "content from file
+formatted by 'parser-name-inferred-from-language-is-supported' parser",
+}
 `;
 
-exports[`isSupported (stdout) 3`] = `
-"content from stdin
-formatted by 'parser-name-inferred-from-language-is-supported' parser"
+exports[`isSupported  3`] = `
+{
+  "stdout": "content from stdin
+formatted by 'parser-name-inferred-from-language-is-supported' parser",
+}
 `;
 
-exports[`stdin no path and no parser --check logs error but exits with 0 (stderr) 1`] = `"[error] No parser and no file path given, couldn't infer a parser."`;
+exports[`stdin no path and no parser --check logs error but exits with 0  1`] = `
+{
+  "stderr": "[error] No parser and no file path given, couldn't infer a parser.",
+}
+`;
 
-exports[`stdin no path and no parser --list-different logs error but exits with 0 (stderr) 1`] = `"[error] No parser and no file path given, couldn't infer a parser."`;
+exports[`stdin no path and no parser --list-different logs error but exits with 0  1`] = `
+{
+  "stderr": "[error] No parser and no file path given, couldn't infer a parser.",
+}
+`;
 
-exports[`stdin no path and no parser logs error and exits with 2 (stderr) 1`] = `"[error] No parser and no file path given, couldn't infer a parser."`;
+exports[`stdin no path and no parser logs error and exits with 2  1`] = `
+{
+  "stderr": "[error] No parser and no file path given, couldn't infer a parser.",
+}
+`;
 
-exports[`stdin with unknown path and no parser --check logs error but exits with 0 (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/foo"."`;
+exports[`stdin with unknown path and no parser --check logs error but exits with 0  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/foo".",
+}
+`;
 
-exports[`stdin with unknown path and no parser --list-different logs error but exits with 0 (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/foo"."`;
+exports[`stdin with unknown path and no parser --list-different logs error but exits with 0  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/foo".",
+}
+`;
 
-exports[`stdin with unknown path and no parser logs error and exits with 2 (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/foo"."`;
+exports[`stdin with unknown path and no parser logs error and exits with 2  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/foo".",
+}
+`;
 
-exports[`unknown path and no parser multiple files (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
+exports[`unknown path and no parser multiple files  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
+  "stdout": "foo();",
+}
+`;
 
-exports[`unknown path and no parser multiple files (stdout) 1`] = `"foo();"`;
-
-exports[`unknown path and no parser specific file (stderr) 1`] = `"[error] No parser could be inferred for file "<cli>/infer-parser/FOO"."`;
+exports[`unknown path and no parser specific file  1`] = `
+{
+  "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
+}
+`;

@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`show detailed external option with \`--help foo-string\` (stderr) 1`] = `""`;
-
-exports[`show detailed external option with \`--help foo-string\` (stdout) 1`] = `
-"--foo-string <string>
+exports[`show detailed external option with \`--help foo-string\`  1`] = `
+{
+  "stderr": "",
+  "stdout": "--foo-string <string>
 
   foo description
 
-Default: bar"
+Default: bar",
+  "write": [],
+}
 `;
-
-exports[`show detailed external option with \`--help foo-string\` (write) 1`] = `[]`;
 
 exports[`show external options with \`--help\` 1`] = `
 "Snapshot Diff:

@@ -1,29 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`infers postcss parser (stderr) 1`] = `""`;
-
-exports[`infers postcss parser (stdout) 1`] = `
-"/* JavaScript */
+exports[`infers postcss parser  1`] = `
+{
+  "stderr": "",
+  "stdout": "/* JavaScript */
 "use strict";
 /* Stylesheet */
 * {
   outline: none;
-}"
+}",
+  "write": [],
+}
 `;
 
-exports[`infers postcss parser (write) 1`] = `[]`;
-
-exports[`infers postcss parser with --check (stderr) 1`] = `""`;
-
-exports[`infers postcss parser with --check (stdout) 1`] = `
-"Checking formatting...
-All matched files use Prettier code style!"
+exports[`infers postcss parser with --check  1`] = `
+{
+  "stderr": "",
+  "stdout": "Checking formatting...
+All matched files use Prettier code style!",
+  "write": [],
+}
 `;
 
-exports[`infers postcss parser with --check (write) 1`] = `[]`;
-
-exports[`infers postcss parser with --list-different (stderr) 1`] = `""`;
-
-exports[`infers postcss parser with --list-different (stdout) 1`] = `""`;
-
-exports[`infers postcss parser with --list-different (write) 1`] = `[]`;
+exports[`infers postcss parser with --list-different  1`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [],
+}
+`;

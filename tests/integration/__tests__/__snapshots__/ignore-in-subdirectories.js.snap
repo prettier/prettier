@@ -1,33 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`formats files when executing in a subdirectory (stderr) 1`] = `""`;
+exports[`formats files when executing in a subdirectory  1`] = `
+{
+  "stderr": "",
+  "stdout": "should-not-ignore.js",
+  "write": [],
+}
+`;
 
-exports[`formats files when executing in a subdirectory (stderr) 2`] = `""`;
+exports[`formats files when executing in a subdirectory  2`] = `
+{
+  "stderr": "",
+  "stdout": "should-not-ignore.js",
+  "write": [],
+}
+`;
 
-exports[`formats files when executing in a subdirectory (stdout) 1`] = `"should-not-ignore.js"`;
+exports[`formats files when executing in a subdirectory and using stdin  1`] = `
+{
+  "stderr": "",
+  "write": [],
+}
+`;
 
-exports[`formats files when executing in a subdirectory (stdout) 2`] = `"should-not-ignore.js"`;
+exports[`ignore files when executing in a subdirectory and using stdin  1`] = `
+{
+  "stderr": "",
+  "write": [],
+}
+`;
 
-exports[`formats files when executing in a subdirectory (write) 1`] = `[]`;
+exports[`ignores files when executing in a subdirectory  1`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [],
+}
+`;
 
-exports[`formats files when executing in a subdirectory (write) 2`] = `[]`;
-
-exports[`formats files when executing in a subdirectory and using stdin (stderr) 1`] = `""`;
-
-exports[`formats files when executing in a subdirectory and using stdin (write) 1`] = `[]`;
-
-exports[`ignore files when executing in a subdirectory and using stdin (stderr) 1`] = `""`;
-
-exports[`ignore files when executing in a subdirectory and using stdin (write) 1`] = `[]`;
-
-exports[`ignores files when executing in a subdirectory (stderr) 1`] = `""`;
-
-exports[`ignores files when executing in a subdirectory (stderr) 2`] = `""`;
-
-exports[`ignores files when executing in a subdirectory (stdout) 1`] = `""`;
-
-exports[`ignores files when executing in a subdirectory (stdout) 2`] = `""`;
-
-exports[`ignores files when executing in a subdirectory (write) 1`] = `[]`;
-
-exports[`ignores files when executing in a subdirectory (write) 2`] = `[]`;
+exports[`ignores files when executing in a subdirectory  2`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [],
+}
+`;

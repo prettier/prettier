@@ -1,24 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`--write with --log-level=silent doesn't log filenames (stderr) 1`] = `""`;
-
-exports[`--write with --log-level=silent doesn't log filenames (stdout) 1`] = `""`;
-
-exports[`--write with --log-level=silent doesn't log filenames (write) 1`] = `
-[
-  {
-    "content": "var x = 1;
+exports[`--write with --log-level=silent doesn't log filenames  1`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [
+    {
+      "content": "var x = 1;
 ",
-    "filename": "unformatted.js",
-  },
-]
+      "filename": "unformatted.js",
+    },
+  ],
+}
 `;
 
-exports[`Should use default level logger to log \`--log-level\` error (stderr) 1`] = `
-"[error] Invalid --log-level value. Expected one of the following values, but received "a-unknown-log-level".
+exports[`Should use default level logger to log \`--log-level\` error  1`] = `
+{
+  "stderr": "[error] Invalid --log-level value. Expected one of the following values, but received "a-unknown-log-level".
 [error] - "debug"
 [error] - "error"
 [error] - "log"
 [error] - "silent"
-[error] - "warn""
+[error] - "warn"",
+}
 `;

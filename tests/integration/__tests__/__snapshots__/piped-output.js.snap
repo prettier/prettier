@@ -1,108 +1,102 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`no file diffs with --check + formatted file (stderr) 1`] = `""`;
-
-exports[`no file diffs with --check + formatted file (stderr) 2`] = `""`;
-
-exports[`no file diffs with --check + formatted file (stdout) 1`] = `
-"Checking formatting...
+exports[`no file diffs with --check + formatted file  1`] = `
+{
+  "stderr": "",
+  "stdout": "Checking formatting...
 formatted.js
 [[called readline.clearLine(process.stdout)]]
-All matched files use Prettier code style!"
+All matched files use Prettier code style!",
+  "write": [],
+}
 `;
 
-exports[`no file diffs with --check + formatted file (stdout) 2`] = `
-"Checking formatting...
-All matched files use Prettier code style!"
+exports[`no file diffs with --check + formatted file  2`] = `
+{
+  "stderr": "",
+  "stdout": "Checking formatting...
+All matched files use Prettier code style!",
+  "write": [],
+}
 `;
 
-exports[`no file diffs with --check + formatted file (write) 1`] = `[]`;
-
-exports[`no file diffs with --check + formatted file (write) 2`] = `[]`;
-
-exports[`no file diffs with --list-different + formatted file (stderr) 1`] = `""`;
-
-exports[`no file diffs with --list-different + formatted file (stderr) 2`] = `""`;
-
-exports[`no file diffs with --list-different + formatted file (stdout) 1`] = `
-"formatted.js
+exports[`no file diffs with --list-different + formatted file  1`] = `
+{
+  "stderr": "",
+  "stdout": "formatted.js
 [[called readline.clearLine(process.stdout)]]
-"
+",
+  "write": [],
+}
 `;
 
-exports[`no file diffs with --list-different + formatted file (stdout) 2`] = `""`;
-
-exports[`no file diffs with --list-different + formatted file (write) 1`] = `[]`;
-
-exports[`no file diffs with --list-different + formatted file (write) 2`] = `[]`;
-
-exports[`output with --check + unformatted differs when piped (stderr) 1`] = `
-"[warn] unformatted.js
-[warn] Code style issues fixed in the above file."
+exports[`no file diffs with --list-different + formatted file  2`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [],
+}
 `;
 
-exports[`output with --check + unformatted differs when piped (stderr) 2`] = `
-"[warn] unformatted.js
-[warn] Code style issues fixed in the above file."
-`;
-
-exports[`output with --check + unformatted differs when piped (stdout) 1`] = `
-"Checking formatting...
+exports[`output with --check + unformatted differs when piped  1`] = `
+{
+  "stderr": "[warn] unformatted.js
+[warn] Code style issues fixed in the above file.",
+  "stdout": "Checking formatting...
 unformatted.js
 [[called readline.clearLine(process.stdout)]]
-"
-`;
-
-exports[`output with --check + unformatted differs when piped (stdout) 2`] = `"Checking formatting..."`;
-
-exports[`output with --check + unformatted differs when piped (write) 1`] = `
-[
-  {
-    "content": "var x = 1;
 ",
-    "filename": "unformatted.js",
-  },
-]
-`;
-
-exports[`output with --check + unformatted differs when piped (write) 2`] = `
-[
-  {
-    "content": "var x = 1;
+  "write": [
+    {
+      "content": "var x = 1;
 ",
-    "filename": "unformatted.js",
-  },
-]
+      "filename": "unformatted.js",
+    },
+  ],
+}
 `;
 
-exports[`output with --list-different + unformatted differs when piped (stderr) 1`] = `""`;
+exports[`output with --check + unformatted differs when piped  2`] = `
+{
+  "stderr": "[warn] unformatted.js
+[warn] Code style issues fixed in the above file.",
+  "stdout": "Checking formatting...",
+  "write": [
+    {
+      "content": "var x = 1;
+",
+      "filename": "unformatted.js",
+    },
+  ],
+}
+`;
 
-exports[`output with --list-different + unformatted differs when piped (stderr) 2`] = `""`;
-
-exports[`output with --list-different + unformatted differs when piped (stdout) 1`] = `
-"unformatted.js
+exports[`output with --list-different + unformatted differs when piped  1`] = `
+{
+  "stderr": "",
+  "stdout": "unformatted.js
 [[called readline.clearLine(process.stdout)]]
-unformatted.js"
+unformatted.js",
+  "write": [
+    {
+      "content": "var x = 1;
+",
+      "filename": "unformatted.js",
+    },
+  ],
+}
 `;
 
-exports[`output with --list-different + unformatted differs when piped (stdout) 2`] = `"unformatted.js"`;
-
-exports[`output with --list-different + unformatted differs when piped (write) 1`] = `
-[
-  {
-    "content": "var x = 1;
+exports[`output with --list-different + unformatted differs when piped  2`] = `
+{
+  "stderr": "",
+  "stdout": "unformatted.js",
+  "write": [
+    {
+      "content": "var x = 1;
 ",
-    "filename": "unformatted.js",
-  },
-]
-`;
-
-exports[`output with --list-different + unformatted differs when piped (write) 2`] = `
-[
-  {
-    "content": "var x = 1;
-",
-    "filename": "unformatted.js",
-  },
-]
+      "filename": "unformatted.js",
+    },
+  ],
+}
 `;
