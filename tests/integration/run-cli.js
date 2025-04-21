@@ -131,7 +131,7 @@ function runCli(dir, args = [], options = {}) {
             expect(value).toEqual(testOptions[name]);
           }
         } else {
-          snapshot ??= {};
+          snapshot = snapshot || {};
           snapshot[name] = value;
         }
       }
