@@ -91,8 +91,11 @@ process.on("message", async (options) => {
     await run(options);
   } finally {
     if (process.platform === "darwin") {
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      process.nextTick(() => {
+        process.exit();
+      });
+    } else {
+      process.exit();
     }
-    process.exit();
   }
 });
