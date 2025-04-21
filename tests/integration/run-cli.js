@@ -64,11 +64,11 @@ function runCliWorker(dir, args, options) {
         result.status = data || 0;
         removeStdioFinalNewLine();
         resolve(result);
-        worker.kill();
+        worker.disconnect();
       }
     });
 
-    worker.on("exit", (code) => {
+    worker.on("close", (code) => {
       result.status = result.status || code || 0;
       removeStdioFinalNewLine();
       resolve(result);
