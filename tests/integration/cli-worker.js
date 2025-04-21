@@ -90,6 +90,9 @@ process.on("message", async (options) => {
   try {
     await run(options);
   } finally {
-    process.send({ action: "finish", data: process.exitCode });
+    if (process.platform === "darwin") {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    process.exit();
   }
 });

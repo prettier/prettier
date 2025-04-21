@@ -44,6 +44,12 @@ function runCliWorker(dir, args, options) {
     },
   });
 
+  worker.on("message", ({ action, data }) => {
+    if (action === "write-file") {
+      result.write.push(data);
+    }
+  });
+
   for (const stream of ["stdout", "stderr"]) {
     worker[stream].on("data", (data) => {
       result[stream] += data.toString();
@@ -57,19 +63,8 @@ function runCliWorker(dir, args, options) {
   };
 
   return new Promise((resolve, reject) => {
-    worker.on("message", ({ action, data }) => {
-      if (action === "write-file") {
-        result.write.push(data);
-      } else if (action === "finish") {
-        result.status = data || 0;
-        removeStdioFinalNewLine();
-        resolve(result);
-        worker.disconnect();
-      }
-    });
-
     worker.on("close", (code) => {
-      result.status = result.status || code || 0;
+      result.status = code;
       removeStdioFinalNewLine();
       resolve(result);
     });
