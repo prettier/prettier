@@ -27,7 +27,7 @@ if (!allowedClients.has(client)) {
 
 const directoriesToClean = new Set();
 
-process.on("exit", cleanUp);
+process.once("exit", cleanUp);
 
 function cleanUp() {
   if (directoriesToClean.size === 0) {

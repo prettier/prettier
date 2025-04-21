@@ -59,12 +59,10 @@ if (NODE_JS_MAJOR_VERSION >= 22) {
 }
 
 if (NODE_JS_MAJOR_VERSION === 22) {
-  test("Should throw errors when flags are missing", async () => {
-    await runCli(
-      "cli/config/ts/auto-discovery/",
-      ["--stdin-filepath", "foo.js"],
-      { input: code },
-    ).test({
+  test("Should throw errors when flags are missing", () => {
+    runCli("cli/config/ts/auto-discovery/", ["--stdin-filepath", "foo.js"], {
+      input: code,
+    }).test({
       status: "non-zero",
       stdout: "",
       write: [],
@@ -74,26 +72,24 @@ if (NODE_JS_MAJOR_VERSION === 22) {
 }
 
 if (NODE_JS_MAJOR_VERSION < 22) {
-  test("Should throw errors when Node.js < 22", async () => {
-    await runCli(
-      "cli/config/ts/auto-discovery/",
-      ["--stdin-filepath", "foo.js"],
-      { input: code },
-    ).test({
+  test("Should throw errors when Node.js < 22", () => {
+    runCli("cli/config/ts/auto-discovery/", ["--stdin-filepath", "foo.js"], {
+      input: code,
+    }).test({
       status: "non-zero",
       stdout: "",
       write: [],
       stderr: expect.stringMatching(/Unknown file extension ".ts" for/u),
     });
 
-    // https://github.com/nodejs/node/issues/41103
-    await expect(() =>
-      runCli("cli/config/ts/auto-discovery/", ["--stdin-filepath", "foo.js"], {
-        input: code,
-        nodeOptions: NODE_TS_SUPPORT_FLAGS,
-      }),
-    ).rejects.toThrow(
-      /Initiated Worker with invalid execArgv flags: --experimental-strip-types/u,
-    );
+    runCli("cli/config/ts/auto-discovery/", ["--stdin-filepath", "foo.js"], {
+      input: code,
+      nodeOptions: NODE_TS_SUPPORT_FLAGS,
+    }).test({
+      status: "non-zero",
+      stdout: "",
+      write: [],
+      stderr: expect.stringMatching(/bad option: --experimental-strip-types/u),
+    });
   });
 }
