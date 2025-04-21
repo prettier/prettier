@@ -85,7 +85,7 @@ function runCliWorker(dir, args, options) {
       ) {
         if (IS_CI) {
           // eslint-disable-next-line no-console
-          console.error(Object.assign(error, { worker }));
+          console.error(Object.assign(error, { dir, args, options, worker }));
         }
         return;
       }
