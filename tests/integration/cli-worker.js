@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
-import { setTimeout } from "node:timers";
 import url from "node:url";
 import { prettierCli, prettierMainEntry } from "./env.js";
 
@@ -86,7 +85,7 @@ async function run(options) {
   await promise;
 }
 
-process.on("message", async (data) => {
+process.once("message", async (data) => {
   try {
     await run(data);
   } finally {

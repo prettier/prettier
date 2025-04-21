@@ -62,13 +62,13 @@ function runCliWorker(dir, args, options) {
   };
 
   return new Promise((resolve, reject) => {
-    worker.on("close", (code) => {
+    worker.once("close", (code) => {
       result.status = code;
       removeStdioFinalNewLine();
       resolve(result);
     });
 
-    worker.on("error", (error) => {
+    worker.once("error", (error) => {
       reject(error);
     });
 
