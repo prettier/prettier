@@ -68,8 +68,8 @@ function runCliWorker(dir, args, options) {
       }
     });
 
-    worker.on("close", (code) => {
-      result.status = result.status || code;
+    worker.on("exit", (code) => {
+      result.status = result.status || code || 0;
       removeStdioFinalNewLine();
       resolve(result);
     });
