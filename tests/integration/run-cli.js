@@ -77,10 +77,10 @@ function runCliWorker(dir, args, options) {
     try {
       worker.send(options);
     } catch (error) {
-      if (error.code === "EPIPE") {
-        // eslint-disable-next-line no-console
-        console.log(error, worker);
-      } else {
+      // eslint-disable-next-line no-console
+      console.log(error, worker);
+
+      if (error.code !== "EPIPE") {
         throw error;
       }
     }
