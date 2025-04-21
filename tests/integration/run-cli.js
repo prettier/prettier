@@ -11,7 +11,7 @@ const CLI_WORKER_FILE = url.fileURLToPath(
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
   new URL("./", import.meta.url),
 );
-const mutex = pLimit(1);
+const mutex = pLimit(2);
 
 const removeFinalNewLine = (string) =>
   string.endsWith("\n") ? string.slice(0, -1) : string;
