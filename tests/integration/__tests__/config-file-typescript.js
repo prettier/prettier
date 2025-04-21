@@ -59,7 +59,7 @@ if (NODE_JS_MAJOR_VERSION >= 22) {
 }
 
 if (NODE_JS_MAJOR_VERSION === 22) {
-  test("Should throw errors when flags are missing", async () => {
+  test("Should throw errors when flags are missing", () => {
     runCli("cli/config/ts/auto-discovery/", ["--stdin-filepath", "foo.js"], {
       input: code,
     }).test({
