@@ -72,7 +72,18 @@ function runCliWorker(dir, args, options) {
       reject(error);
     });
 
-    worker.send(options);
+    // On MacOS, it can fail with `write EPIPE`, maybe because `worker` already errored
+    // Let's wait for the `error` event
+    try {
+      worker.send(options);
+    } catch (error) {
+      if (error.code === "EPIPE") {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      } else {
+        throw error;
+      }
+    }
   });
 }
 
