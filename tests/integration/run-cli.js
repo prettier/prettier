@@ -89,23 +89,7 @@ function runCliWorker(dir, args, options) {
       reject(error);
     });
 
-    if (options.input) {
-      worker.stdin.end(options.input, (error) => {
-        if (!error) {
-          return;
-        }
-
-        // Unknown reason
-        if (error.code === "EPIPE" && error.syscall === "write" && IS_CI) {
-          // eslint-disable-next-line no-console
-          console.error(Object.assign(error, { dir, args, options, worker }));
-        }
-
-        reject(error);
-      });
-    }
-
-    worker.send(options, (error) => {
+    const handleEpipeError = (error) => {
       if (!error) {
         return;
       }
@@ -125,7 +109,13 @@ function runCliWorker(dir, args, options) {
       }
 
       reject(error);
-    });
+    };
+
+    if (options.input) {
+      worker.stdin.end(options.input, handleEpipeError);
+    }
+
+    worker.send(options, handleEpipeError);
   });
 }
 
