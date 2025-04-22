@@ -50,6 +50,29 @@ function runCliWorker(dir, args, options) {
     write: [],
   };
   const { promise, resolve, reject } = promiseWithResolvers();
+  const handleEpipeError = (event) => (error) => {
+    if (!error) {
+      return;
+    }
+
+    // It can fail with `write EPIPE` error when running node with unsupported flags like `--experimental-strip-types`
+    // Let's ignore and wait for the `close` event
+    if (
+      error.code === "EPIPE" &&
+      error.syscall === "write" &&
+      nodeOptions.length > 0
+    ) {
+      if (IS_CI) {
+        // eslint-disable-next-line no-console
+        console.error(
+          Object.assign(error, { event, dir, args, options, worker }),
+        );
+      }
+      return;
+    }
+
+    reject(error);
+  };
 
   const nodeOptions = options?.nodeOptions ?? [];
   const worker = childProcess.fork(CLI_WORKER_FILE, args, {
@@ -99,33 +122,11 @@ function runCliWorker(dir, args, options) {
     reject(error);
   });
 
-  const handleEpipeError = (error) => {
-    if (!error) {
-      return;
-    }
-
-    // It can fail with `write EPIPE` error when running node with unsupported flags like `--experimental-strip-types`
-    // Let's ignore and wait for the `close` event
-    if (
-      error.code === "EPIPE" &&
-      error.syscall === "write" &&
-      nodeOptions.length > 0
-    ) {
-      if (IS_CI) {
-        // eslint-disable-next-line no-console
-        console.error(Object.assign(error, { dir, args, options, worker }));
-      }
-      return;
-    }
-
-    reject(error);
-  };
-
   if (options.input) {
-    worker.stdin.end(options.input, handleEpipeError);
+    worker.stdin.end(options.input, handleEpipeError("worker.stdin.end()"));
   }
 
-  worker.send(options, handleEpipeError);
+  worker.send(options, handleEpipeError("worker.send()"));
 
   return promise;
 }
