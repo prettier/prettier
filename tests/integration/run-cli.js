@@ -26,6 +26,16 @@ const removeFinalNewLine = (string) =>
   string.endsWith("\n") ? string.slice(0, -1) : string;
 const SUPPORTS_DISABLE_WARNING_FLAG =
   Number(process.versions.node.split(".")[0]) >= 20;
+const promiseWithResolvers = Promise.withResolvers
+  ? Promise.withResolvers.bind(Promise)
+  : () => {
+      let resolve;
+      let reject;
+      const promise = new Promise(
+        (_resolve, _reject) => ([resolve, reject] = [_resolve, _reject]),
+      );
+      return { promise, resolve, reject };
+    };
 
 /**
  * @param {string} dir
@@ -39,6 +49,7 @@ function runCliWorker(dir, args, options) {
     stderr: "",
     write: [],
   };
+  const { promise, resolve, reject } = promiseWithResolvers();
 
   const nodeOptions = options?.nodeOptions ?? [];
   const worker = childProcess.fork(CLI_WORKER_FILE, args, {
@@ -70,53 +81,53 @@ function runCliWorker(dir, args, options) {
     }
   };
 
-  return new Promise((resolve, reject) => {
-    worker.on("message", (message) => {
-      if (message.type === "cli:write-file") {
-        result.write.push(message.data);
-      } else if (message.type === "worker:fault") {
-        reject(message.error);
-      }
-    });
+  worker.on("message", (message) => {
+    if (message.type === "cli:write-file") {
+      result.write.push(message.data);
+    } else if (message.type === "worker:fault") {
+      reject(message.error);
+    }
+  });
 
-    worker.once("close", (code) => {
-      result.status = code;
-      removeStdioFinalNewLine();
-      resolve(result);
-    });
+  worker.once("close", (code) => {
+    result.status = code;
+    removeStdioFinalNewLine();
+    resolve(result);
+  });
 
-    worker.once("error", (error) => {
-      reject(error);
-    });
+  worker.once("error", (error) => {
+    reject(error);
+  });
 
-    const handleEpipeError = (error) => {
-      if (!error) {
-        return;
-      }
-
-      // It can fail with `write EPIPE` error when running node with unsupported flags like `--experimental-strip-types`
-      // Let's ignore and wait for the `close` event
-      if (
-        error.code === "EPIPE" &&
-        error.syscall === "write" &&
-        nodeOptions.length > 0
-      ) {
-        if (IS_CI) {
-          // eslint-disable-next-line no-console
-          console.error(Object.assign(error, { dir, args, options, worker }));
-        }
-        return;
-      }
-
-      reject(error);
-    };
-
-    if (options.input) {
-      worker.stdin.end(options.input, handleEpipeError);
+  const handleEpipeError = (error) => {
+    if (!error) {
+      return;
     }
 
-    worker.send(options, handleEpipeError);
-  });
+    // It can fail with `write EPIPE` error when running node with unsupported flags like `--experimental-strip-types`
+    // Let's ignore and wait for the `close` event
+    if (
+      error.code === "EPIPE" &&
+      error.syscall === "write" &&
+      nodeOptions.length > 0
+    ) {
+      if (IS_CI) {
+        // eslint-disable-next-line no-console
+        console.error(Object.assign(error, { dir, args, options, worker }));
+      }
+      return;
+    }
+
+    reject(error);
+  };
+
+  if (options.input) {
+    worker.stdin.end(options.input, handleEpipeError);
+  }
+
+  worker.send(options, handleEpipeError);
+
+  return promise;
 }
 
 function runPrettierCli(dir, args, options) {
