@@ -61,15 +61,13 @@ async function mockImplementations(options) {
       });
     },
     clearStreamText(stream /*, text*/) {
-      stream.write(
-        `\n[[called readline.clearLine(${
-          stream === process.stdout
-            ? "process.stdout"
-            : stream === process.stderr
-              ? "process.stderr"
-              : "unknown stream"
-        })]]\n`,
-      );
+      const streamName =
+        stream === process.stdout
+          ? "process.stdout"
+          : stream === process.stderr
+            ? "process.stderr"
+            : "unknown stream";
+      stream.write(`\n[[called readline.clearLine(${streamName})]]\n`);
     },
   });
 

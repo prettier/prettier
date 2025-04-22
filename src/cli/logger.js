@@ -31,7 +31,7 @@ function createLogger(logLevel = "log") {
 
       if (options.clearable) {
         return {
-          clear: () => mockable.clearSteamText(stream, message),
+          clear: () => mockable.clearStreamText(stream, message),
         };
       }
     };

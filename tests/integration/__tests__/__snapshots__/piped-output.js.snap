@@ -24,8 +24,7 @@ exports[`no file diffs with --list-different + formatted file  1`] = `
 {
   "stderr": "",
   "stdout": "formatted.js
-[[called readline.clearLine(process.stdout)]]
-",
+[[called readline.clearLine(process.stdout)]]",
   "write": [],
 }
 `;
@@ -44,8 +43,7 @@ exports[`output with --check + unformatted differs when piped  1`] = `
 [warn] Code style issues fixed in the above file.",
   "stdout": "Checking formatting...
 unformatted.js
-[[called readline.clearLine(process.stdout)]]
-",
+[[called readline.clearLine(process.stdout)]]",
   "write": [
     {
       "content": "var x = 1;

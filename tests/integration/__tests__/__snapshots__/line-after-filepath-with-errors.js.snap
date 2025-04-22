@@ -36,8 +36,7 @@ exports[`Line breaking after filepath with errors  2`] = `
 invalid-2.js
 invalid-2.unknown
 valid-1.js
-[[called readline.clearLine(process.stdout)]]
-",
+[[called readline.clearLine(process.stdout)]]",
   "write": [],
 }
 `;
