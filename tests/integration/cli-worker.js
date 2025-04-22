@@ -18,8 +18,6 @@ const replaceAll = (text, find, replacement) =>
     : text.split(find).join(replacement);
 
 async function run(options) {
-  Date.now = () => 0;
-
   readline.clearLine = (stream) => {
     stream.write(
       `\n[[called readline.clearLine(${
@@ -38,6 +36,8 @@ async function run(options) {
   const prettier = await import(url.pathToFileURL(prettierMainEntry));
   const { mockable } = prettier.__debug;
 
+  // Time measure in format test
+  mockable.getTimestamp = () => 0;
   mockable.isCI = () => Boolean(options.ci);
   mockable.getPrettierConfigSearchStopDirectory = () =>
     url.fileURLToPath(new URL("./cli", import.meta.url));
