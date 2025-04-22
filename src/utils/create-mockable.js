@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
 @template {{ [key: string]: any }} T
 @template {keyof T} K
