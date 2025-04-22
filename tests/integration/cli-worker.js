@@ -38,11 +38,6 @@ async function run(options) {
   const prettier = await import(url.pathToFileURL(prettierMainEntry));
   const { mockable } = prettier.__debug;
 
-  // We cannot use `jest.setMock("get-stream", impl)` here, because in the
-  // production build everything is bundled into one file so there is no
-  // "get-stream" module to mock.
-  // eslint-disable-next-line require-await
-  mockable.getStdin = async () => options.input || "";
   mockable.isCI = () => Boolean(options.ci);
   mockable.getPrettierConfigSearchStopDirectory = () =>
     url.fileURLToPath(new URL("./cli", import.meta.url));

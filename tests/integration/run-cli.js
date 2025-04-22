@@ -2,6 +2,17 @@ import childProcess from "node:child_process";
 import path from "node:path";
 import url from "node:url";
 
+/**
+@typedef {{
+  isTTY?: boolean,
+  stdoutIsTTY?: boolean,
+  ci?: boolean,
+  mockWriteFileErrors?: Record<string, string>,
+  nodeOptions?: string[],
+  input?: string,
+}} CliTestOptions
+*/
+
 // Though the doc says `childProcess.fork` accepts `URL`, but seems not true
 // TODO: Use `URL` directly when we drop support for Node.js v14
 const CLI_WORKER_FILE = url.fileURLToPath(
@@ -16,6 +27,11 @@ const removeFinalNewLine = (string) =>
 const SUPPORTS_DISABLE_WARNING_FLAG =
   Number(process.versions.node.split(".")[0]) >= 20;
 
+/**
+ * @param {string} dir
+ * @param {string[]} args
+ * @param {CliTestOptions} options
+ */
 function runCliWorker(dir, args, options) {
   const result = {
     status: undefined,
@@ -34,7 +50,7 @@ function runCliWorker(dir, args, options) {
         : []),
       ...nodeOptions,
     ],
-    stdio: "pipe",
+    stdio: [options.input ? "pipe" : "ignore", "pipe", "pipe", "ipc"],
     env: {
       ...process.env,
       NO_COLOR: "1",
@@ -51,6 +67,10 @@ function runCliWorker(dir, args, options) {
     worker[stream].on("data", (data) => {
       result[stream] += data.toString();
     });
+  }
+
+  if (options.input) {
+    worker.stdin.end(options.input);
   }
 
   const removeStdioFinalNewLine = () => {
@@ -101,6 +121,11 @@ function runPrettierCli(dir, args, options) {
   return runCliWorker(dir, args, options);
 }
 
+/**
+ * @param {string} dir
+ * @param {string[]} [args]
+ * @param {CliTestOptions} [options]
+ */
 function runCli(dir, args = [], options = {}) {
   const promise = runPrettierCli(dir, args, options);
   const getters = {

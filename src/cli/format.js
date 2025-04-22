@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import getStdin from "get-stdin";
 import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
 import findCacheFile from "./find-cache-file.js";
@@ -15,7 +16,7 @@ import {
 } from "./prettier-internal.js";
 import { normalizeToPosix, statSafe } from "./utils.js";
 
-const { getStdin, writeFormattedFile } = mockable;
+const { writeFormattedFile } = mockable;
 
 function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
