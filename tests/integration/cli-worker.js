@@ -60,14 +60,16 @@ async function mockImplementations(options) {
         data: { filename, content },
       });
     },
-    clearStreamText2(stream, text) {
-      const streamName =
-        stream === process.stdout
-          ? "process.stdout"
-          : stream === process.stderr
-            ? "process.stderr"
-            : "unknown stream";
-      stream.write(`[Clear ${streamName}]: ${text}`);
+    clearStreamText2(stream /*, text*/) {
+      stream.write(
+        `\n[[called readline.clearLine(${
+          stream === process.stdout
+            ? "process.stdout"
+            : stream === process.stderr
+              ? "process.stderr"
+              : "unknown stream"
+        })]]\n`,
+      );
     },
   });
 
