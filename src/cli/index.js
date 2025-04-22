@@ -90,7 +90,7 @@ async function main(context) {
   const hasFilePatterns = context.filePatterns.length > 0;
   const useStdin =
     !hasFilePatterns &&
-    (!mockable.getStreamIsTTY(process.stdin) || context.argv.filepath);
+    (!mockable.isStreamTTY(process.stdin) || context.argv.filepath);
 
   if (useStdin) {
     if (context.argv.cache) {

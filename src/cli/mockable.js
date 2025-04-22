@@ -8,8 +8,8 @@ import clearStreamText from "./utilities/clear-stream-text.js";
 const mockable = sharedWithCli.utils.createMockable({
   clearStreamText,
   getTimestamp: performance.now.bind(performance),
-  getStreamIsTTY: (stream) => stream.isTTY,
   isCI: () => isCI,
+  isStreamTTY: (stream) => stream.isTTY,
   writeFormattedFile: (file, data) => fs.writeFile(file, data),
 });
 

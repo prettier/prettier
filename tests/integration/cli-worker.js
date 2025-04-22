@@ -46,15 +46,15 @@ async function mockImplementations(options) {
             : "unknown stream";
       stream.write(`\n[[Clear text(${streamName}): ${text}]]\n`);
     },
-    getStreamIsTTY: (stream) =>
+    // Time measure in format test
+    getTimestamp: () => 0,
+    isCI: () => Boolean(options.ci),
+    isStreamTTY: (stream) =>
       stream === process.stdin
         ? Boolean(options.isTTY)
         : stream === process.stdout
           ? Boolean(options.stdoutIsTTY)
           : stream.isTTY,
-    // Time measure in format test
-    getTimestamp: () => 0,
-    isCI: () => Boolean(options.ci),
     // eslint-disable-next-line require-await
     async writeFormattedFile(filename, content) {
       filename = normalizeToPosix(path.relative(process.cwd(), filename));
