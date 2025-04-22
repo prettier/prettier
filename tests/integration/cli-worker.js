@@ -56,7 +56,7 @@ async function mockImplementations(options) {
         );
       }
       process.send({
-        action: "write-file",
+        type: "write-file",
         data: { filename, content },
       });
     },
@@ -89,6 +89,11 @@ async function run(options) {
 process.once("message", async (data) => {
   try {
     await run(data);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    process.send({ type: "fault", error });
+    throw error;
   } finally {
     // On MacOS, if we exit too quick the stdio won't received on main thread
     if (process.platform === "darwin") {

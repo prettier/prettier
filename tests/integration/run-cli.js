@@ -55,12 +55,7 @@ function runCliWorker(dir, args, options) {
       ...process.env,
       NO_COLOR: "1",
     },
-  });
-
-  worker.on("message", ({ action, data }) => {
-    if (action === "write-file") {
-      result.write.push(data);
-    }
+    serialization: "advanced",
   });
 
   for (const stream of ["stdout", "stderr"]) {
@@ -80,6 +75,14 @@ function runCliWorker(dir, args, options) {
   };
 
   return new Promise((resolve, reject) => {
+    worker.on("message", (message) => {
+      if (message.type === "write-file") {
+        result.write.push(message.data);
+      } else if (message.type === "fault") {
+        reject(message.error);
+      }
+    });
+
     worker.once("close", (code) => {
       result.status = code;
       removeStdioFinalNewLine();
