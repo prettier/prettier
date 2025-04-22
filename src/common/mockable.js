@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import { isCI } from "ci-info";
-import getStdin from "get-stdin";
 
 function writeFormattedFile(file, data) {
   return fs.writeFile(file, data);
@@ -8,7 +7,6 @@ function writeFormattedFile(file, data) {
 
 const mockable = {
   getPrettierConfigSearchStopDirectory: () => undefined,
-  getStdin,
   isCI: () => isCI,
   writeFormattedFile,
 };
