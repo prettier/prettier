@@ -60,7 +60,7 @@ async function mockImplementations(options) {
         data: { filename, content },
       });
     },
-    clearStreamText2(stream /*, text*/) {
+    clearStreamText(stream /*, text*/) {
       stream.write(
         `\n[[called readline.clearLine(${
           stream === process.stdout
