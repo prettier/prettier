@@ -50,7 +50,7 @@ function runCliWorker(dir, args, options) {
     write: [],
   };
   const { promise, resolve, reject } = promiseWithResolvers();
-  const handleEpipeError = (event) => (error) => {
+  const createEpipeErrorHandler = (event) => (error) => {
     if (!error) {
       return;
     }
@@ -123,10 +123,13 @@ function runCliWorker(dir, args, options) {
   });
 
   if (options.input) {
-    worker.stdin.end(options.input, handleEpipeError("worker.stdin.end()"));
+    worker.stdin.end(
+      options.input,
+      createEpipeErrorHandler("worker.stdin.end()"),
+    );
   }
 
-  worker.send(options, handleEpipeError("worker.send()"));
+  worker.send(options, createEpipeErrorHandler("worker.send()"));
 
   return promise;
 }
