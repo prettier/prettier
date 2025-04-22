@@ -40,7 +40,6 @@ function runCliWorker(dir, args, options) {
       NO_COLOR: "1",
     },
   });
-  worker.unref();
 
   worker.on("message", ({ action, data }) => {
     if (action === "write-file") {
