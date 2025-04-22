@@ -10,6 +10,7 @@ const CLI_WORKER_FILE = url.fileURLToPath(
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
   new URL("./", import.meta.url),
 );
+const IS_CI = Boolean(process.env.CI);
 const removeFinalNewLine = (string) =>
   string.endsWith("\n") ? string.slice(0, -1) : string;
 const SUPPORTS_DISABLE_WARNING_FLAG =
@@ -39,7 +40,6 @@ function runCliWorker(dir, args, options) {
       NO_COLOR: "1",
     },
   });
-  worker.unref();
 
   worker.on("message", ({ action, data }) => {
     if (action === "write-file") {
@@ -70,7 +70,27 @@ function runCliWorker(dir, args, options) {
       reject(error);
     });
 
-    worker.send(options);
+    worker.send(options, (error) => {
+      if (!error) {
+        return;
+      }
+
+      // It can fail with `write EPIPE` error when running node with unsupported flags like `--experimental-strip-types`
+      // Let's ignore and wait for the `close` event
+      if (
+        error.code === "EPIPE" &&
+        error.syscall === "write" &&
+        nodeOptions.length > 0
+      ) {
+        if (IS_CI) {
+          // eslint-disable-next-line no-console
+          console.error(Object.assign(error, { dir, args, options, worker }));
+        }
+        return;
+      }
+
+      reject(error);
+    });
   });
 }
 
@@ -130,7 +150,7 @@ function runCli(dir, args = [], options = {}) {
             expect(value).toEqual(testOptions[name]);
           }
         } else {
-          snapshot = snapshot || {};
+          snapshot = snapshot ?? {};
           snapshot[name] = value;
         }
       }
