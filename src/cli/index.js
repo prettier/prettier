@@ -109,3 +109,5 @@ async function main(context) {
 }
 
 export { run };
+// Exposed for tests
+export { mockable } from "./mockable.js";

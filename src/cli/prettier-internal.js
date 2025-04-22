@@ -12,7 +12,6 @@ export const {
   vnopts,
   fastGlob,
   createTwoFilesPatch,
-  mockable,
   picocolors,
   leven,
 } = sharedWithCli;

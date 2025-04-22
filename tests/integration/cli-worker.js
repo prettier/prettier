@@ -1,7 +1,10 @@
 import path from "node:path";
-import readline from "node:readline";
 import url from "node:url";
-import { prettierCli, prettierMainEntry } from "./env.js";
+import {
+  prettierCliEntry,
+  prettierCliMockableEntry,
+  prettierMainEntry,
+} from "./env.js";
 
 const normalizeToPosix =
   path.sep === "\\"
@@ -17,49 +20,69 @@ const replaceAll = (text, find, replacement) =>
     ? text.replaceAll(find, replacement)
     : text.split(find).join(replacement);
 
-async function run(options) {
-  readline.clearLine = (stream) => {
-    stream.write(
-      `\n[[called readline.clearLine(${
+async function getApiMockable() {
+  const prettier = await import(url.pathToFileURL(prettierMainEntry));
+  return prettier.__debug.mockable;
+}
+
+async function getCliMockable() {
+  const cli = await import(url.pathToFileURL(prettierCliMockableEntry));
+  return cli.mockable;
+}
+
+async function mockImplementations(options) {
+  // TODO[@fisker]: Move these into mockable modules
+  process.stdin.isTTY = Boolean(options.isTTY);
+  process.stdout.isTTY = Boolean(options.stdoutIsTTY);
+
+  const [apiMockable, cliMockable] = await Promise.all([
+    getApiMockable(),
+    getCliMockable(),
+  ]);
+
+  cliMockable.mockImplementations({
+    // Time measure in format test
+    getTimestamp: () => 0,
+    isCI: () => Boolean(options.ci),
+    // eslint-disable-next-line require-await
+    async writeFormattedFile(filename, content) {
+      filename = normalizeToPosix(path.relative(process.cwd(), filename));
+      if (
+        options.mockWriteFileErrors &&
+        hasOwn(options.mockWriteFileErrors, filename)
+      ) {
+        throw new Error(
+          options.mockWriteFileErrors[filename] + " (mocked error)",
+        );
+      }
+      process.send({
+        action: "write-file",
+        data: { filename, content },
+      });
+    },
+    clearStreamText(stream, text) {
+      const streamName =
         stream === process.stdout
           ? "process.stdout"
           : stream === process.stderr
             ? "process.stderr"
-            : "unknown stream"
-      })]]\n`,
-    );
-  };
+            : "unknown stream";
+      stream.write(`[Clear ${streamName}]: ${text}`);
+    },
+  });
 
-  process.stdin.isTTY = Boolean(options.isTTY);
-  process.stdout.isTTY = Boolean(options.stdoutIsTTY);
+  apiMockable.mockImplementations({
+    getPrettierConfigSearchStopDirectory: () =>
+      url.fileURLToPath(new URL("./cli", import.meta.url)),
+  });
+}
 
-  const prettier = await import(url.pathToFileURL(prettierMainEntry));
-  const { mockable } = prettier.__debug;
+async function run(options) {
+  await mockImplementations(options);
 
-  // Time measure in format test
-  mockable.getTimestamp = () => 0;
-  mockable.isCI = () => Boolean(options.ci);
-  mockable.getPrettierConfigSearchStopDirectory = () =>
-    url.fileURLToPath(new URL("./cli", import.meta.url));
-  // eslint-disable-next-line require-await
-  mockable.writeFormattedFile = async (filename, content) => {
-    filename = normalizeToPosix(path.relative(process.cwd(), filename));
-    if (
-      options.mockWriteFileErrors &&
-      hasOwn(options.mockWriteFileErrors, filename)
-    ) {
-      throw new Error(
-        options.mockWriteFileErrors[filename] + " (mocked error)",
-      );
-    }
-
-    process.send({
-      action: "write-file",
-      data: { filename, content },
-    });
-  };
-
-  const { __promise: promise } = await import(url.pathToFileURL(prettierCli));
+  const { __promise: promise } = await import(
+    url.pathToFileURL(prettierCliEntry)
+  );
   await promise;
 }
 
