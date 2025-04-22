@@ -86,11 +86,8 @@ function runCliWorker(dir, args, options) {
       reject(error);
     });
 
-    worker.once("spawn", async () => {
+    worker.once("spawn", () => {
       if (options.input) {
-        if (process.platform === "darwin") {
-          await new Promise((resolve) => worker.stdin.once("finish", resolve));
-        }
         worker.stdin.end(options.input);
       }
 
