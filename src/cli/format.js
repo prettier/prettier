@@ -16,6 +16,8 @@ import {
 } from "./prettier-internal.js";
 import { normalizeToPosix, statSafe } from "./utils.js";
 
+const { getTimestamp, writeFormattedFile } = mockable;
+
 function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
 }
@@ -191,11 +193,11 @@ async function format(context, input, opt) {
     context.logger.debug(
       `'${performanceTestFlag.name}' found, running formatWithCursor ${repeat} times.`,
     );
-    const start = mockable.getTimestamp();
+    const start = getTimestamp();
     for (let i = 0; i < repeat; ++i) {
       await prettier.formatWithCursor(input, opt);
     }
-    const averageMs = (mockable.getTimestamp() - start) / repeat;
+    const averageMs = (getTimestamp() - start) / repeat;
     const results = {
       repeat,
       hz: 1000 / averageMs,
@@ -361,7 +363,7 @@ async function formatFiles(context) {
       continue;
     }
 
-    const start = mockable.getTimestamp();
+    const start = getTimestamp();
 
     const isCacheExists = formatResultsCache?.existsAvailableFormatResultsCache(
       filename,
@@ -403,7 +405,7 @@ async function formatFiles(context) {
     }
 
     if (context.argv.write) {
-      const timeToDisplay = `${Math.round(mockable.getTimestamp() - start)}ms`;
+      const timeToDisplay = `${Math.round(getTimestamp() - start)}ms`;
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (isDifferent) {
@@ -412,7 +414,7 @@ async function formatFiles(context) {
         }
 
         try {
-          await mockable.writeFormattedFile(filename, output);
+          await writeFormattedFile(filename, output);
 
           // Set cache if format succeeds
           shouldSetCache = true;
