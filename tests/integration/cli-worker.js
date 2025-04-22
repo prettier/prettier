@@ -31,16 +31,27 @@ async function getCliMockable() {
 }
 
 async function mockImplementations(options) {
-  // TODO[@fisker]: Move these into mockable modules
-  process.stdin.isTTY = Boolean(options.isTTY);
-  process.stdout.isTTY = Boolean(options.stdoutIsTTY);
-
   const [apiMockable, cliMockable] = await Promise.all([
     getApiMockable(),
     getCliMockable(),
   ]);
 
   cliMockable.mockImplementations({
+    clearStreamText(stream, text) {
+      const streamName =
+        stream === process.stdout
+          ? "process.stdout"
+          : stream === process.stderr
+            ? "process.stderr"
+            : "unknown stream";
+      stream.write(`\n[[Clear text(${streamName}): ${text}]]\n`);
+    },
+    getStreamIsTTY: (stream) =>
+      stream === process.stdin
+        ? Boolean(options.isTTY)
+        : stream === process.stdout
+          ? Boolean(options.stdoutIsTTY)
+          : stream.isTTY,
     // Time measure in format test
     getTimestamp: () => 0,
     isCI: () => Boolean(options.ci),
@@ -59,15 +70,6 @@ async function mockImplementations(options) {
         type: "cli:write-file",
         data: { filename, content },
       });
-    },
-    clearStreamText(stream, text) {
-      const streamName =
-        stream === process.stdout
-          ? "process.stdout"
-          : stream === process.stderr
-            ? "process.stderr"
-            : "unknown stream";
-      stream.write(`\n[[Clear text(${streamName}): ${text}]]\n`);
     },
   });
 

@@ -4,5 +4,5 @@ import mockable from "./mockable.js";
 // which causes unwanted lines in the output. An additional check for isCI() helps.
 // See https://github.com/prettier/prettier/issues/5801
 export default function isTTY() {
-  return process.stdout.isTTY && !mockable.isCI();
+  return mockable.getStreamIsTTY(process.stdout) && !mockable.isCI();
 }
