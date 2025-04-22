@@ -1,4 +1,3 @@
-import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
 import url from "node:url";
@@ -20,22 +19,6 @@ const replaceAll = (text, find, replacement) =>
 
 async function run(options) {
   Date.now = () => 0;
-
-  /*
-    A fake non-existing directory to test plugin search won't crash.
-
-    See:
-    - `isDirectory` function in `src/common/load-plugins.js`
-    - Test file `./__tests__/plugin-virtual-directory.js`
-    - Pull request #5819
-  */
-  const originalStat = fs.promises.stat;
-  fs.promises.statSync = (filename) =>
-    originalStat(
-      path.basename(filename) === "virtualDirectory"
-        ? import.meta.url
-        : filename,
-    );
 
   readline.clearLine = (stream) => {
     stream.write(
