@@ -6,11 +6,10 @@
 @param {T} implementations
 @returns {{
   mocked: T,
-  mockable: {
-    mockImplementation(functionality: K, implementation: T[K]): void,
-    mockImplementations(overrideImplementations: T): void,
-    mockRestore(): void,
-  }
+  implementations: T,
+  mockImplementation(functionality: K, implementation: T[K]): void,
+  mockImplementations(overrideImplementations: T): void,
+  mockRestore(): void,
 }}
 */
 function createMockable(implementations) {
@@ -35,7 +34,10 @@ function createMockable(implementations) {
 
   return {
     mocked,
-    mockable: { mockImplementation, mockImplementations, mockRestore },
+    implementations,
+    mockImplementation,
+    mockImplementations,
+    mockRestore,
   };
 }
 

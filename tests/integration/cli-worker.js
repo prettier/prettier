@@ -56,11 +56,11 @@ async function mockImplementations(options) {
         );
       }
       process.send({
-        type: "write-file",
+        type: "cli:write-file",
         data: { filename, content },
       });
     },
-    clearStreamText(stream, text) {
+    clearStreamText2(stream, text) {
       const streamName =
         stream === process.stdout
           ? "process.stdout"
@@ -90,9 +90,10 @@ process.once("message", async (data) => {
   try {
     await run(data);
   } catch (error) {
+    // For easier debugging
     // eslint-disable-next-line no-console
     console.error(error);
-    process.send({ type: "fault", error });
+    process.send({ type: "worker:fault", error });
     throw error;
   } finally {
     // On MacOS, if we exit too quick the stdio won't received on main thread

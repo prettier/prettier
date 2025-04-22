@@ -76,9 +76,9 @@ function runCliWorker(dir, args, options) {
 
   return new Promise((resolve, reject) => {
     worker.on("message", (message) => {
-      if (message.type === "write-file") {
+      if (message.type === "cli:write-file") {
         result.write.push(message.data);
-      } else if (message.type === "fault") {
+      } else if (message.type === "worker:fault") {
         reject(message.error);
       }
     });
