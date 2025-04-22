@@ -69,6 +69,10 @@ function runCliWorker(dir, args, options) {
     });
   }
 
+  if (options.input) {
+    worker.stdin.end(options.input);
+  }
+
   const removeStdioFinalNewLine = () => {
     for (const stream of ["stdout", "stderr"]) {
       result[stream] = removeFinalNewLine(result[stream]);
@@ -86,32 +90,26 @@ function runCliWorker(dir, args, options) {
       reject(error);
     });
 
-    worker.once("spawn", () => {
-      if (options.input) {
-        worker.stdin.end(options.input);
+    worker.send(options, (error) => {
+      if (!error) {
+        return;
       }
 
-      worker.send(options, (error) => {
-        if (!error) {
-          return;
+      // It can fail with `write EPIPE` error when running node with unsupported flags like `--experimental-strip-types`
+      // Let's ignore and wait for the `close` event
+      if (
+        error.code === "EPIPE" &&
+        error.syscall === "write" &&
+        nodeOptions.length > 0
+      ) {
+        if (IS_CI) {
+          // eslint-disable-next-line no-console
+          console.error(Object.assign(error, { dir, args, options, worker }));
         }
+        return;
+      }
 
-        // It can fail with `write EPIPE` error when running node with unsupported flags like `--experimental-strip-types`
-        // Let's ignore and wait for the `close` event
-        if (
-          error.code === "EPIPE" &&
-          error.syscall === "write" &&
-          nodeOptions.length > 0
-        ) {
-          if (IS_CI) {
-            // eslint-disable-next-line no-console
-            console.error(Object.assign(error, { dir, args, options, worker }));
-          }
-          return;
-        }
-
-        reject(error);
-      });
+      reject(error);
     });
   });
 }
