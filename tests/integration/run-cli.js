@@ -64,10 +64,6 @@ function runCliWorker(dir, args, options) {
     });
   }
 
-  if (options.input) {
-    worker.stdin.end(options.input);
-  }
-
   const removeStdioFinalNewLine = () => {
     for (const stream of ["stdout", "stderr"]) {
       result[stream] = removeFinalNewLine(result[stream]);
@@ -92,6 +88,22 @@ function runCliWorker(dir, args, options) {
     worker.once("error", (error) => {
       reject(error);
     });
+
+    if (options.input) {
+      worker.stdin.end(options.input, (error) => {
+        if (!error) {
+          return;
+        }
+
+        // Unknown reason
+        if (error.code === "EPIPE" && error.syscall === "write" && IS_CI) {
+          // eslint-disable-next-line no-console
+          console.error(Object.assign(error, { dir, args, options, worker }));
+        }
+
+        reject(error);
+      });
+    }
 
     worker.send(options, (error) => {
       if (!error) {
