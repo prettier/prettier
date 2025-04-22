@@ -50,7 +50,7 @@ function runCliWorker(dir, args, options) {
         : []),
       ...nodeOptions,
     ],
-    stdio: "pipe",
+    stdio: [options.input ? "pipe" : "ignore", "pipe", "pipe", "ipc"],
     env: {
       ...process.env,
       NO_COLOR: "1",
