@@ -5,7 +5,6 @@ import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
 import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
-import isTTY from "./is-tty.js";
 import mockable from "./mockable.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import {
@@ -31,7 +30,7 @@ function handleError(context, filename, error, printedFilename, ignoreUnknown) {
     error instanceof errors.UndefinedParserError;
 
   if (printedFilename) {
-    // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
+    // Can't test on CI, `isTTY` is always false, see comments in `formatFiles`
     /* c8 ignore next 3 */
     if ((context.argv.write || ignoreUnknown) && errorIsUndefinedParseError) {
       printedFilename.clear();
@@ -301,6 +300,11 @@ async function formatFiles(context) {
     }
   }
 
+  // Some CI pipelines incorrectly report process.stdout.isTTY status,
+  // which causes unwanted lines in the output. An additional check for isCI() helps.
+  // See https://github.com/prettier/prettier/issues/5801
+  const isTTY = mockable.isStreamTTY(process.stdout) && !mockable.isCI();
+
   for await (const { error, filename, ignoreUnknown } of expandPatterns(
     context,
   )) {
@@ -329,7 +333,7 @@ async function formatFiles(context) {
 
     const fileNameToDisplay = normalizeToPosix(path.relative(cwd, filename));
     let printedFilename;
-    if (isTTY()) {
+    if (isTTY) {
       printedFilename = context.logger.log(fileNameToDisplay, {
         newline: false,
         clearable: true,
