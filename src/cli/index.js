@@ -4,6 +4,7 @@ import logFileInfoOrDie from "./file-info.js";
 import logResolvedConfigPathOrDie from "./find-config-path.js";
 import { formatFiles, formatStdin } from "./format.js";
 import createLogger from "./logger.js";
+import mockable from "./mockable.js";
 import { parseArgvWithoutPlugins } from "./options/parse-cli-arguments.js";
 import printSupportInfo from "./print-support-info.js";
 import { createDetailedUsage, createUsage } from "./usage.js";
@@ -88,7 +89,8 @@ async function main(context) {
 
   const hasFilePatterns = context.filePatterns.length > 0;
   const useStdin =
-    !hasFilePatterns && (!process.stdin.isTTY || context.argv.filepath);
+    !hasFilePatterns &&
+    (!mockable.isStreamTTY(process.stdin) || context.argv.filepath);
 
   if (useStdin) {
     if (context.argv.cache) {
@@ -109,3 +111,5 @@ async function main(context) {
 }
 
 export { run };
+// Exposed for tests
+export { mockable } from "./mockable.js";

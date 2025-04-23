@@ -300,10 +300,10 @@ exports[`API getSupportInfo() 1`] = `
 }
 `;
 
-exports[`CLI --support-info (stderr) 1`] = `""`;
-
-exports[`CLI --support-info (stdout) 1`] = `
-"{
+exports[`CLI --support-info  1`] = `
+{
+  "stderr": "",
+  "stdout": "{
   "languages": [
     {
       "aceMode": "html",
@@ -1177,7 +1177,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     }
   ]
-}"
+}",
+  "write": [],
+}
 `;
-
-exports[`CLI --support-info (write) 1`] = `[]`;

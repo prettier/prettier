@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`prints information for debugging comment attachment with --debug-print-comments (stdout) 1`] = `
-"[
+exports[`prints information for debugging comment attachment with --debug-print-comments  1`] = `
+{
+  "stdout": "[
   {
     "type": "CommentBlock",
     "value": " 1 ",
@@ -44,7 +45,7 @@ exports[`prints information for debugging comment attachment with --debug-print-
     "trailing": true,
     "nodeDescription": "ExpressionStatement"
   }
-]"
+]",
+  "write": [],
+}
 `;
-
-exports[`prints information for debugging comment attachment with --debug-print-comments (write) 1`] = `[]`;

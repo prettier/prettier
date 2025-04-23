@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`support relative paths (stderr) 1`] = `""`;
-
-exports[`support relative paths (stdout) 1`] = `
-"shouldNotBeIgnored.js
+exports[`support relative paths  1`] = `
+{
+  "stderr": "",
+  "stdout": "shouldNotBeIgnored.js
 level1-glob/level2-glob/level3-glob/shouldNotBeIgnored.scss
-level1-glob/shouldNotBeIgnored.js"
+level1-glob/shouldNotBeIgnored.js",
+  "write": [],
+}
 `;
-
-exports[`support relative paths (write) 1`] = `[]`;

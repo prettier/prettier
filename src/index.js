@@ -12,7 +12,7 @@ import picocolors from "picocolors";
 import * as vnopts from "vnopts";
 import * as errors from "./common/errors.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
-import mockable from "./common/mockable.js";
+import { mockable } from "./common/mockable.js";
 import {
   clearCache as clearConfigCache,
   resolveConfig,
@@ -31,6 +31,7 @@ import {
   getSupportInfo as getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
 } from "./main/support.js";
+import createMockable from "./utils/create-mockable.js";
 import { createIsIgnoredFunction } from "./utils/ignore.js";
 import inferParserWithoutPlugins from "./utils/infer-parser.js";
 import omit from "./utils/object-omit.js";
@@ -114,8 +115,8 @@ const sharedWithCli = {
   leven,
   utils: {
     omit,
+    createMockable,
   },
-  mockable,
 };
 
 const debugApis = {
@@ -124,6 +125,7 @@ const debugApis = {
   formatDoc: withPlugins(core.formatDoc),
   printToDoc: withPlugins(core.printToDoc),
   printDocToString: withPlugins(core.printDocToString),
+  // Exposed for tests
   mockable,
 };
 
