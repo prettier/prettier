@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "node:assert/strict";
 import { locEnd, locStart } from "../loc.js";
 
 function getTextWithoutComments(options, start, end) {
