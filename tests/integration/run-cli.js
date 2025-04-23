@@ -98,12 +98,6 @@ function runCliWorker(dir, args, options) {
     });
   }
 
-  const removeStdioFinalNewLine = () => {
-    for (const stream of ["stdout", "stderr"]) {
-      result[stream] = removeFinalNewLine(result[stream]);
-    }
-  };
-
   worker.on("message", (message) => {
     if (message.type === "cli:write-file") {
       result.write.push(message.data);
@@ -111,6 +105,12 @@ function runCliWorker(dir, args, options) {
       reject(message.error);
     }
   });
+
+  const removeStdioFinalNewLine = () => {
+    for (const stream of ["stdout", "stderr"]) {
+      result[stream] = removeFinalNewLine(result[stream]);
+    }
+  };
 
   worker.once("close", (code) => {
     result.status = code;
