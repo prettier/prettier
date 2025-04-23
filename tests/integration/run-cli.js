@@ -122,14 +122,16 @@ function runCliWorker(dir, args, options) {
     reject(error);
   });
 
-  if (options.input) {
-    worker.stdin.end(
-      options.input,
-      createEpipeErrorHandler("worker.stdin.end()"),
-    );
-  }
+  worker.once("spawn", () => {
+    if (options.input) {
+      worker.stdin.end(
+        options.input,
+        createEpipeErrorHandler("worker.stdin.end()"),
+      );
+    }
 
-  worker.send(options, createEpipeErrorHandler("worker.send()"));
+    worker.send(options, createEpipeErrorHandler("worker.send()"));
+  });
 
   return promise;
 }
