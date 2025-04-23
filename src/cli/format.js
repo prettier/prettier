@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import streamConsumers from "node:stream/consumers";
 import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
 import findCacheFile from "./find-cache-file.js";
@@ -12,7 +13,6 @@ import {
   errors,
   picocolors,
 } from "./prettier-internal.js";
-import getStdin from "./utilities/get-stdin.js";
 import { normalizeToPosix, statSafe } from "./utils.js";
 
 function diff(a, b) {
@@ -230,7 +230,7 @@ async function formatStdin(context) {
   const { filepath } = context.argv;
 
   try {
-    const input = await getStdin();
+    const input = await streamConsumers.text(process.stdin);
     // TODO[@fisker]: Exit if no input.
     // `prettier --config-precedence cli-override`
 
