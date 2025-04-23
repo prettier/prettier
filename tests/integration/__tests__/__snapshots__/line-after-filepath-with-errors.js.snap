@@ -15,7 +15,7 @@ exports[`Line breaking after filepath with errors  1`] = `
 invalid-2.js
 invalid-2.unknown
 valid-1.js
-[[called readline.clearLine(process.stdout)]]
+[[Clear text(process.stdout): valid-1.js]]
 function foo() {}",
   "write": [],
 }
@@ -36,8 +36,7 @@ exports[`Line breaking after filepath with errors  2`] = `
 invalid-2.js
 invalid-2.unknown
 valid-1.js
-[[called readline.clearLine(process.stdout)]]
-",
+[[Clear text(process.stdout): valid-1.js]]",
   "write": [],
 }
 `;
@@ -58,7 +57,7 @@ invalid-1.js
 invalid-2.js
 invalid-2.unknown
 valid-1.js
-[[called readline.clearLine(process.stdout)]]
+[[Clear text(process.stdout): valid-1.js]]
 All matched files use Prettier code style!",
   "write": [],
 }
@@ -78,9 +77,9 @@ exports[`Line breaking after filepath with errors  4`] = `
   "stdout": "invalid-1.js
 invalid-2.js
 invalid-2.unknown
-[[called readline.clearLine(process.stdout)]]
+[[Clear text(process.stdout): invalid-2.unknown]]
 valid-1.js
-[[called readline.clearLine(process.stdout)]]
+[[Clear text(process.stdout): valid-1.js]]
 valid-1.js 0ms (unchanged)",
   "write": [],
 }

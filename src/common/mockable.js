@@ -1,16 +1,8 @@
-import fs from "node:fs/promises";
-import { performance } from "node:perf_hooks";
-import { isCI } from "ci-info";
+import createMockable from "../utils/create-mockable.js";
 
-function writeFormattedFile(file, data) {
-  return fs.writeFile(file, data);
-}
-
-const mockable = {
+const mockable = createMockable({
   getPrettierConfigSearchStopDirectory: () => undefined,
-  isCI: () => isCI,
-  writeFormattedFile,
-  getTimestamp: performance.now.bind(performance),
-};
+});
 
-export default mockable;
+export default mockable.mocked;
+export { mockable };

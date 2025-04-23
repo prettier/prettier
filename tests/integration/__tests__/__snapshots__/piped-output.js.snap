@@ -5,7 +5,7 @@ exports[`no file diffs with --check + formatted file  1`] = `
   "stderr": "",
   "stdout": "Checking formatting...
 formatted.js
-[[called readline.clearLine(process.stdout)]]
+[[Clear text(process.stdout): formatted.js]]
 All matched files use Prettier code style!",
   "write": [],
 }
@@ -24,8 +24,7 @@ exports[`no file diffs with --list-different + formatted file  1`] = `
 {
   "stderr": "",
   "stdout": "formatted.js
-[[called readline.clearLine(process.stdout)]]
-",
+[[Clear text(process.stdout): formatted.js]]",
   "write": [],
 }
 `;
@@ -44,8 +43,7 @@ exports[`output with --check + unformatted differs when piped  1`] = `
 [warn] Code style issues fixed in the above file.",
   "stdout": "Checking formatting...
 unformatted.js
-[[called readline.clearLine(process.stdout)]]
-",
+[[Clear text(process.stdout): unformatted.js]]",
   "write": [
     {
       "content": "var x = 1;
@@ -75,7 +73,7 @@ exports[`output with --list-different + unformatted differs when piped  1`] = `
 {
   "stderr": "",
   "stdout": "unformatted.js
-[[called readline.clearLine(process.stdout)]]
+[[Clear text(process.stdout): unformatted.js]]
 unformatted.js",
   "write": [
     {
