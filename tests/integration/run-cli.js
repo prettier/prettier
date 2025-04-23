@@ -62,7 +62,7 @@ function runCliWorker(dir, args, options) {
       error.syscall === "write" &&
       nodeOptions.length > 0
     ) {
-      if (true || IS_CI) {
+      if (IS_CI) {
         // eslint-disable-next-line no-console
         console.error(
           Object.assign(error, { event, dir, args, options, worker }),
