@@ -15,7 +15,7 @@ pleaseUpgradeNode(packageJson);
 
 var dynamicImport = new Function("module", "return import(module)");
 if (process.env.PRETTIER_EXPERIMENTAL_CLI) {
-  dynamicImport("@prettier/cli/bin");
+  dynamicImport("../src/experimental-cli/index.js");
 } else {
   var promise = dynamicImport("../src/cli/index.js").then(function runCli(cli) {
     return cli.run();

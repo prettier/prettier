@@ -786,11 +786,19 @@ const nodejsFiles = [
     replaceModule: [
       {
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
-        process: (text) =>
-          text.replace("../src/cli/index.js", "../internal/legacy-cli.mjs"),
+        process(text) {
+          text = text.replace(
+            "../src/cli/index.js",
+            "../internal/legacy-cli.mjs",
+          );
+          text = text.replace(
+            "../src/experimental-cli/index.js",
+            "../internal/experimental-cli.mjs",
+          );
+          return text;
+        },
       },
     ],
-    external: ["@prettier/cli"],
   },
   {
     input: "src/cli/index.js",
@@ -810,6 +818,28 @@ const nodejsFiles = [
           `,
       },
     ],
+  },
+  {
+    input: "src/experimental-cli/index.js",
+    outputBaseName: "internal/experimental-cli",
+    external: ["prettier"],
+    replaceModule: [
+      {
+        module: getPackageFile("@prettier/cli/dist/prettier_serial.js"),
+        external: "./experimental-cli-worker.mjs",
+      },
+      {
+        module: getPackageFile("@prettier/cli/dist/prettier_parallel.js"),
+        find: 'new URL("./prettier_serial.js", import.meta.url)',
+        replacement:
+          'new URL("./experimental-cli-worker.mjs", import.meta.url)',
+      },
+    ],
+  },
+  {
+    input: "src/experimental-cli/worker.js",
+    outputBaseName: "internal/experimental-cli-worker",
+    external: ["prettier"],
   },
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
