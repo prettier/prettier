@@ -62,7 +62,7 @@ function runCliWorker(dir, args, options) {
       error.syscall === "write" &&
       nodeOptions.length > 0
     ) {
-      if (IS_CI) {
+      if (true || IS_CI) {
         // eslint-disable-next-line no-console
         console.error(
           Object.assign(error, { event, dir, args, options, worker }),
@@ -124,10 +124,8 @@ function runCliWorker(dir, args, options) {
 
   worker.once("spawn", () => {
     if (options.input) {
-      worker.stdin.end(
-        options.input,
-        createEpipeErrorHandler("worker.stdin.end()"),
-      );
+      worker.stdin.once("error", createEpipeErrorHandler("worker.stdin.end()"));
+      worker.stdin.end(options.input);
     }
 
     worker.send(options, createEpipeErrorHandler("worker.send()"));
