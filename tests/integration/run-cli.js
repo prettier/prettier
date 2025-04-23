@@ -92,12 +92,6 @@ function runCliWorker(dir, args, options) {
     serialization: "advanced",
   });
 
-  for (const stream of ["stdout", "stderr"]) {
-    worker[stream].on("data", (data) => {
-      result[stream] += data.toString();
-    });
-  }
-
   worker.on("message", (message) => {
     if (message.type === "cli:write-file") {
       result.write.push(message.data);
@@ -105,6 +99,12 @@ function runCliWorker(dir, args, options) {
       reject(message.error);
     }
   });
+
+  for (const stream of ["stdout", "stderr"]) {
+    worker[stream].on("data", (data) => {
+      result[stream] += data.toString();
+    });
+  }
 
   const removeStdioFinalNewLine = () => {
     for (const stream of ["stdout", "stderr"]) {
