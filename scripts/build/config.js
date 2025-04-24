@@ -845,6 +845,13 @@ const nodejsFiles = [
     outputBaseName,
     replaceModule: [
       ...replaceModule,
+      {
+        module: getPackageFile("@prettier/cli/dist/constants.js"),
+        path: path.join(
+          PROJECT_ROOT,
+          "src/experimental-cli/constants.evaluate.js",
+        ),
+      },
       ...[
         "package.json",
         "index.mjs",
