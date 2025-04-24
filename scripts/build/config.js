@@ -855,20 +855,12 @@ const nodejsFiles = [
       ...[
         "package.json",
         "index.mjs",
-        "standalone.mjs",
-        "plugins/acorn.mjs",
-        "plugins/babel.mjs",
-        "plugins/flow.mjs",
-        "plugins/graphql.mjs",
-        "plugins/markdown.mjs",
-        "plugins/postcss.mjs",
-        "plugins/yaml.mjs",
-        "plugins/angular.mjs",
-        "plugins/estree.mjs",
-        "plugins/glimmer.mjs",
-        "plugins/html.mjs",
-        "plugins/meriyah.mjs",
-        "plugins/typescript.mjs",
+        ...universalFiles
+          .filter(
+            ({ kind, output }) =>
+              kind === "javascript" && output.format === "esm",
+          )
+          .map(({ output }) => output.file),
       ].map((file) => ({
         module: getPackageFile(`prettier/${file}`),
         external: `../${file}`,
