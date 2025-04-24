@@ -93,10 +93,10 @@ function installPrettier(packageDirectory) {
     picocolors.green(
       outdent`
         Prettier installed
-          at ${picocolors.inverse(temporaryDirectory)}
+          at   ${picocolors.inverse(temporaryDirectory)}
           from ${picocolors.inverse(packageDirectory)}
           with ${picocolors.inverse(client)}
-          in ${picocolors.inverse(`${performance.now() - start}ms`)}.
+          in   ${picocolors.inverse(`${performance.now() - start}ms`)}.
       `,
     ),
   );
