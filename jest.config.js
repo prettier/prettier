@@ -47,7 +47,7 @@ if (nodejsMajorVersion <= 16) {
   );
 }
 
-if (nodejsMajorVersion < 14) {
+if (nodejsMajorVersion <= 14) {
   testPathIgnorePatterns.push(
     "<rootDir>/tests/integration/__tests__/plugin-parsers.js",
     "<rootDir>/tests/integration/__tests__/normalize-doc.js",
