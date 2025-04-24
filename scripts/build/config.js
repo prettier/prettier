@@ -819,28 +819,55 @@ const nodejsFiles = [
       },
     ],
   },
-  {
-    input: "src/experimental-cli/index.js",
-    outputBaseName: "internal/experimental-cli",
-    external: ["prettier"],
+  ...[
+    {
+      input: "src/experimental-cli/index.js",
+      outputBaseName: "internal/experimental-cli",
+      replaceModule: [
+        {
+          module: getPackageFile("@prettier/cli/dist/prettier_serial.js"),
+          external: "./experimental-cli-worker.mjs",
+        },
+        {
+          module: getPackageFile("@prettier/cli/dist/prettier_parallel.js"),
+          find: 'new URL("./prettier_serial.js", import.meta.url)',
+          replacement:
+            'new URL("./experimental-cli-worker.mjs", import.meta.url)',
+        },
+      ],
+    },
+    {
+      input: "src/experimental-cli/worker.js",
+      outputBaseName: "internal/experimental-cli-worker",
+    },
+  ].map(({ input, outputBaseName, replaceModule = [] }) => ({
+    input,
+    outputBaseName,
     replaceModule: [
-      {
-        module: getPackageFile("@prettier/cli/dist/prettier_serial.js"),
-        external: "./experimental-cli-worker.mjs",
-      },
-      {
-        module: getPackageFile("@prettier/cli/dist/prettier_parallel.js"),
-        find: 'new URL("./prettier_serial.js", import.meta.url)',
-        replacement:
-          'new URL("./experimental-cli-worker.mjs", import.meta.url)',
-      },
+      ...replaceModule,
+      ...[
+        "package.json",
+        "index.mjs",
+        "standalone.mjs",
+        "plugins/acorn.mjs",
+        "plugins/babel.mjs",
+        "plugins/flow.mjs",
+        "plugins/graphql.mjs",
+        "plugins/markdown.mjs",
+        "plugins/postcss.mjs",
+        "plugins/yaml.mjs",
+        "plugins/angular.mjs",
+        "plugins/estree.mjs",
+        "plugins/glimmer.mjs",
+        "plugins/html.mjs",
+        "plugins/meriyah.mjs",
+        "plugins/typescript.mjs",
+      ].map((file) => ({
+        module: getPackageFile(`prettier/${file}`),
+        external: `../${file}`,
+      })),
     ],
-  },
-  {
-    input: "src/experimental-cli/worker.js",
-    outputBaseName: "internal/experimental-cli-worker",
-    external: ["prettier"],
-  },
+  })),
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
 
