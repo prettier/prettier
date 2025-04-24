@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { performance } from "node:perf_hooks";
 import { outdent } from "outdent";
 import picocolors from "picocolors";
 
@@ -52,6 +53,7 @@ function cleanUp() {
 }
 
 function installPrettier(packageDirectory) {
+  const start = performance.now();
   const temporaryDirectory = createTemporaryDirectory();
   directoriesToClean.add(temporaryDirectory);
   const fileName = spawnSync("npm", ["pack"], {
@@ -93,7 +95,8 @@ function installPrettier(packageDirectory) {
         Prettier installed
           at ${picocolors.inverse(temporaryDirectory)}
           from ${picocolors.inverse(packageDirectory)}
-          with ${picocolors.inverse(client)}.
+          with ${picocolors.inverse(client)}
+          in ${picocolors.inverse(`${performance.now() - start}ms`)}.
       `,
     ),
   );
