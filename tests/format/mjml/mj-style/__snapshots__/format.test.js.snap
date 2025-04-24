@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid-in-html.mjml [html] format 1`] = `
+"Unexpected closing tag "p". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags (3:15)
+  1 | <mj-style>
+  2 |   a::before {
+> 3 |     content: "</p>"
+    |               ^^^^
+  4 |   }
+  5 | </mj-style>
+  6 |"
+`;
+
+exports[`invalid-in-html.mjml format 1`] = `
+====================================options=====================================
+parsers: ["mjml", "html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<mj-style>
+  a::before {
+    content: "</p>"
+  }
+</mj-style>
+
+=====================================output=====================================
+<mj-style> a::before { content: "</p>" } </mj-style>
+
+================================================================================
+`;
