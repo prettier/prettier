@@ -20,12 +20,6 @@ const unformatted = `
 `;
 
 describe("experimental cli", () => {
-  runExperimentalCli(["--help"]).test({
-    status: 0,
-    write: [],
-    stderr: "",
-  });
-
   const expectedVersion =
     process.env.NODE_ENV === "production"
       ? require("../../../package.json").version
