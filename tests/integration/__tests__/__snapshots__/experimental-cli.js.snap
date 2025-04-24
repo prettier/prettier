@@ -2,7 +2,6 @@
 
 exports[`experimental cli  1`] = `
 {
-  "stderr": "",
   "stdout": "  
   prettier 3.5.3
   
@@ -53,7 +52,7 @@ exports[`experimental cli  1`] = `
     --object-wrap <preserve|collapse>
                               How to wrap object literals
                               Defaults to "preserve"
-    --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|jsonc|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
+    --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
                               Which parser to use
     --print-width <int>       The line length where Prettier will try wrap
                               Defaults to "80"
@@ -137,14 +136,12 @@ exports[`experimental cli  1`] = `
 
 exports[`experimental cli  2`] = `
 {
-  "stderr": "",
   "stdout": "3.5.3",
 }
 `;
 
 exports[`experimental cli  3`] = `
 {
-  "stderr": "",
   "stdout": "",
 }
 `;

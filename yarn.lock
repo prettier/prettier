@@ -2019,9 +2019,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.7.3":
-  version: 0.7.3
-  resolution: "@prettier/cli@npm:0.7.3"
+"@prettier/cli@npm:0.7.4":
+  version: 0.7.4
+  resolution: "@prettier/cli@npm:0.7.4"
   dependencies:
     atomically: "npm:^2.0.3"
     fast-ignore: "npm:^1.1.3"
@@ -2051,7 +2051,7 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0-alpha
   bin:
     prettier-next: dist/bin.js
-  checksum: 10/425e2f4ecd75bd022d1dec8a7c063db32c1a1c8653ae8301353a3c41e06e09b6518a0e8229af157f67331aec3b5d568e7874081b6c4357dc5d599fbd23a68b93
+  checksum: 10/177031e6ab3493bc95f223cea2ba05f0f8ec5a5fedd9fa7b31c8c82d313f8520ac85b88f642fdb8e94e4b01bae1d630a3b78b788a0b26e4627400bfc71547f80
   languageName: node
   linkType: hard
 
@@ -7064,7 +7064,7 @@ __metadata:
     "@eslint-react/eslint-plugin": "npm:1.40.4"
     "@eslint/js": "npm:9.24.0"
     "@glimmer/syntax": "npm:0.94.9"
-    "@prettier/cli": "npm:0.7.3"
+    "@prettier/cli": "npm:0.7.4"
     "@prettier/html-tags": "npm:1.0.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:4.2.0"

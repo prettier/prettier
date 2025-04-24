@@ -35,7 +35,7 @@
     "@babel/parser": "7.27.1",
     "@babel/types": "7.27.1",
     "@glimmer/syntax": "0.94.9",
-    "@prettier/cli": "0.7.3",
+    "@prettier/cli": "0.7.4",
     "@prettier/html-tags": "1.0.0",
     "@prettier/parse-srcset": "3.1.0",
     "@typescript-eslint/typescript-estree": "8.30.1",
