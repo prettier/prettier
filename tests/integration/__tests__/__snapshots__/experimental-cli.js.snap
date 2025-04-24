@@ -136,12 +136,6 @@ exports[`experimental cli  1`] = `
 
 exports[`experimental cli  2`] = `
 {
-  "stdout": "3.5.3",
-}
-`;
-
-exports[`experimental cli  3`] = `
-{
   "stdout": "foo();",
 }
 `;

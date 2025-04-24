@@ -1,4 +1,7 @@
 import fs from "node:fs/promises";
+import createEsmUtils from "esm-utils";
+
+const { require } = createEsmUtils(import.meta);
 
 function runExperimentalCli(args, options) {
   return runCli("cli/experimental-cli", [...args, "--no-cache"], {
@@ -22,11 +25,17 @@ describe("experimental cli", () => {
     write: [],
     stderr: "",
   });
+
   runExperimentalCli(["--version"]).test({
     stderr: "",
     status: 0,
     write: [],
+    stdout:
+      process.env.NODE_ENV === "production"
+        ? require("../../../package.json").version
+        : require("../../../node_modules/prettier/package.json").version,
   });
+
   // Stdin format
   runExperimentalCli(["--parser=meriyah"], { input: "foo(   )" }).test({
     stderr: "",
