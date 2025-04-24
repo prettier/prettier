@@ -25,7 +25,7 @@ describe("experimental cli", () => {
   const expectedVersion =
     process.env.NODE_ENV === "production" ||
     (process.env.PRETTIER_INSTALLED_DIR &&
-      process.env.process.env.PRETTIER_INSTALL_NPM_CLIENT !== "npm")
+      process.env.PRETTIER_INSTALL_NPM_CLIENT !== "npm")
       ? require(path.join(process.env.PRETTIER_DIR, "package.json")).version
       : createRequire(require.resolve("@prettier/cli/package.json"))(
           "prettier/package.json",
