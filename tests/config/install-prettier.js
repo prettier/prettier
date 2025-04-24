@@ -21,7 +21,7 @@ const createTemporaryDirectory = () => {
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
 
-let client = process.env.NPM_CLIENT;
+let client = process.env.PRETTIER_INSTALL_NPM_CLIENT;
 if (!allowedClients.has(client)) {
   client = "yarn";
 }
