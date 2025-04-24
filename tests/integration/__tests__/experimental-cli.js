@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";
+import {} from "../env.js";
 
 const require = createRequire(import.meta.url);
 
@@ -22,7 +23,7 @@ const unformatted = `
 
 describe("experimental cli", () => {
   const expectedVersion =
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === "production" || process.env.PRETTIER_INSTALLED_DIR
       ? require(path.join(process.env.PRETTIER_DIR, "package.json")).version
       : createRequire(require.resolve("@prettier/cli/package.json"))(
           "prettier/package.json",
