@@ -15,7 +15,6 @@ pleaseUpgradeNode(packageJson);
 
 var dynamicImport = new Function("module", "return import(module)");
 
-// Exposed for test
 var promise;
 var index = process.argv.indexOf("--experimental-cli");
 if (process.env.PRETTIER_EXPERIMENTAL_CLI || index !== -1) {
@@ -33,4 +32,5 @@ if (process.env.PRETTIER_EXPERIMENTAL_CLI || index !== -1) {
   });
 }
 
+// Exposed for test
 module.exports.__promise = promise;
