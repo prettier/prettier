@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import path from "node:path";
 import createEsmUtils from "esm-utils";
 
 const { require } = createEsmUtils(import.meta);
@@ -22,7 +23,7 @@ const unformatted = `
 describe("experimental cli", () => {
   const expectedVersion =
     process.env.NODE_ENV === "production"
-      ? require("../../../package.json").version
+      ? require(path.join(process.env.PRETTIER_DIR, "package.json")).version
       : require("../../../node_modules/prettier/package.json").version;
 
   runExperimentalCli(["--version"]).test({
