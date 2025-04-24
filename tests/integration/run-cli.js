@@ -87,6 +87,7 @@ function runCliWorker(dir, args, options) {
     stdio: [options.input ? "pipe" : "ignore", "pipe", "pipe", "ipc"],
     env: {
       ...process.env,
+      ...options.env,
       NO_COLOR: "1",
     },
     serialization: "advanced",

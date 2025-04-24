@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`experimental cli  1`] = `
+{
+  "stderr": "",
+  "stdout": "  
+  prettier 3.5.3
+  
+  USAGE
+    
+    prettier [file/dir/glob...] [options]
+    prettier "src/**/*.js" --check
+    prettier "src/**/*.js" -l --no-cache
+    prettier "src/**/*.js" --write --no-parallel
+    prettier ./path/to/target/file.js --cache-location ./path/to/cache/file.json
+    
+  ARGUMENTS
+    
+    [file/dir/glob...]        Files, directories or globs to format
+    
+  OUTPUT OPTIONS
+    
+    --check, -c               Check if the given files are formatted, print a human-friendly summary (see also --list-different)
+    --list-different, -l      Print the names of files that are different from Prettier's formatting (see also --check)
+    --write, -w               Edit files in-place (Beware!)
+    
+  FORMAT OPTIONS
+    
+    --arrow-parens <always|avoid>
+                              Include parentheses around a sole arrow function parameter
+                              Defaults to "always"
+    --bracket-same-line       Put ">" of opening tags on the last line instead of on a new line
+                              Defaults to "false"
+    --no-bracket-spacing      Do not print spaces between brackets
+                              Defaults to "true"
+    --embedded-language-formatting <auto|off>
+                              Control how Prettier formats quoted code embedded in the file
+                              Defaults to "auto"
+    --end-of-line <lf|crlf|cr|auto>
+                              Which end of line characters to apply
+                              Defaults to "lf"
+    --experimental-operator-position <start|end>
+                              Where to print operators when binary expressions wrap lines
+                              Defaults to "end"
+    --experimental-ternaries 
+                              Use curious ternaries, with the question mark after the condition
+                              Defaults to "false"
+    --html-whitespace-sensitivity <css|strict|ignore>
+                              How to handle whitespaces in HTML
+                              Defaults to "css"
+    --jsx-single-quote        Use single quotes in JSX
+                              Defaults to "false"
+    --object-wrap <preserve|collapse>
+                              How to wrap object literals
+                              Defaults to "preserve"
+    --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|jsonc|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
+                              Which parser to use
+    --print-width <int>       The line length where Prettier will try wrap
+                              Defaults to "80"
+    --prose-wrap <always|never|preserve>
+                              How to wrap prose
+                              Defaults to "preserve"
+    --quote-props <as-needed|consistent|preserve>
+                              Change when properties in objects are quoted
+                              Defaults to "as-needed"
+    --no-semi                 Do not print semicolons, except at the beginning of lines which may need them
+                              Defaults to "true"
+    --single-attribute-per-line 
+                              Enforce single attribute per line in HTML, Vue and JSX
+                              Defaults to "false"
+    --single-quote            Use single quotes instead of double quotes
+                              Defaults to "false"
+    --tab-width <int>         Number of spaces per indentation level
+                              Defaults to "2"
+    --trailing-comma <all|es5|none>
+                              Print trailing commas wherever possible when multi-line
+                              Defaults to "all"
+    --use-tabs                Indent with tabs instead of spaces
+                              Defaults to "false"
+    --vue-indent-script-and-style 
+                              Indent script and style tags in Vue files
+                              Defaults to "false"
+    
+  CONFIG OPTIONS
+    
+    --no-config               Do not look for a configuration file
+    --config-path <path>      Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js)
+    --config-precedence <cli-override|file-override>
+                              Define in which order config files and CLI options should be evaluated.
+                              Defaults to "cli-override"
+    --no-editorconfig         Don't take .editorconfig into account when parsing configuration
+    --no-ignore               Do not look for an ignore file
+    --ignore-path <path...>   Path to a file with patterns describing files to ignore
+                              Multiple values are accepted
+                              Defaults to [.gitignore, .prettierignore]
+    --plugin <package...>     Add a plugin
+                              Multiple plugins are accepted
+                              Defaults to []
+    --with-node-modules       Process files inside the "node_modules" directory
+    
+  EDITOR OPTIONS
+    
+    --cursor-offset <int>     Print (to stderr) where a cursor at the given position would move to after formatting
+                              Defaults to "-1"
+    --range-end <int>         Format code ending at a given character offset (exclusive)
+                              The range will extend forwards to the end of the selected statement
+                              Defaults to "Infinity"
+    --range-start <int>       Format code starting at a given character offset
+                              The range will extend backwards to the start of the first line containing the selected statement
+                              Defaults to "0"
+    
+  OTHER OPTIONS
+    
+    --help                    Display help for the command
+    --version, -v             Display the version number
+    --no-cache                Do not use the built-in caching mechanism
+    --cache-location <path>   Path to the cache file
+    --no-color                Do not colorize output messages
+    --no-error-on-unmatched-pattern 
+                              Prevent errors when pattern is unmatched
+    --ignore-unknown, -u      Ignore unknown files
+    --insert-pragma           Insert @format pragma into file's first docblock comment
+                              Defaults to "false"
+    --log-level <silent|error|warn|log|debug>
+                              What level of logs to report
+                              Defaults to "log"
+    --no-parallel             Process files in parallel
+                              Defaults to "true"
+    --parallel-workers <int>  Number of parallel workers to use
+                              Defaults to "0"
+    --require-pragma          Require either "@prettier" or "@format" to be present in the file's first docblock comment in order for it to be formatted
+                              Defaults to "false"
+    --stdin-filepath <path>   Path to the file to pretend that stdin comes from
+    ",
+}
+`;
+
+exports[`experimental cli  2`] = `
+{
+  "stderr": "",
+  "stdout": "3.5.3",
+}
+`;
+
+exports[`experimental cli  3`] = `
+{
+  "stderr": "",
+  "stdout": "",
+}
+`;
+
+exports[`experimental cli  4`] = `
+{
+  "stderr": "",
+  "stdout": "",
+}
+`;
+
+exports[`experimental cli  5`] = `
+{
+  "stderr": "",
+  "stdout": "",
+}
+`;
+
+exports[`experimental cli  6`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`experimental cli  7`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [],
+}
+`;
