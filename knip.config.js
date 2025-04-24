@@ -14,7 +14,7 @@ export default {
         "scripts/build/config.js",
         "scripts/build/build-javascript-module.js",
         "scripts/tools/**",
-        "src/experimental-cli/worker.js",
+        "src/experimental-cli/**",
       ],
       ignoreDependencies: ["eslint-formatter-friendly", "ts-expect"],
       ignoreBinaries: [
