@@ -1,1 +1,1 @@
-import "@prettier/cli/bin";
+export * from "@prettier/cli/bin";
