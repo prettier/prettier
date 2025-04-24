@@ -19,6 +19,7 @@
       "default": "./src/index.js"
     },
     "./standalone": "./src/standalone.js",
+    "./plugins/*.js": "./src/plugins/*",
     "./*": "./*"
   },
   "engines": {

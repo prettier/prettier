@@ -16,11 +16,21 @@ pleaseUpgradeNode(packageJson);
 var dynamicImport = new Function("module", "return import(module)");
 
 // Exposed for test
-var promise = process.env.PRETTIER_EXPERIMENTAL_CLI
-  ? dynamicImport("../src/experimental-cli/index.js").then(function (cli) {
+var promise;
+
+var index = process.argv.indexOf("--experimental-cli");
+if (process.env.PRETTIER_EXPERIMENTAL_CLI || index !== -1) {
+  if (index !== -1) {
+    process.argv.splice(index, 1);
+  }
+  promise = dynamicImport("../src/experimental-cli/index.js").then(
+    function (cli) {
       return cli.__promise;
-    })
-  : dynamicImport("../src/cli/index.js").then(function runCli(cli) {
-      return cli.run();
-    });
+    }
+  );
+} else {
+  promise = dynamicImport("../src/cli/index.js").then(function runCli(cli) {
+    return cli.run();
+  });
+}
 module.exports.__promise = promise;

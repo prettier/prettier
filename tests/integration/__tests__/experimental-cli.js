@@ -26,14 +26,23 @@ describe("experimental cli", () => {
     stderr: "",
   });
 
+  const expectedVersion =
+    process.env.NODE_ENV === "production"
+      ? require("../../../package.json").version
+      : require("../../../node_modules/prettier/package.json").version;
+
   runExperimentalCli(["--version"]).test({
     stderr: "",
     status: 0,
     write: [],
-    stdout:
-      process.env.NODE_ENV === "production"
-        ? require("../../../package.json").version
-        : require("../../../node_modules/prettier/package.json").version,
+    stdout: expectedVersion,
+  });
+
+  runExperimentalCli(["--version", "--experimental-cli"]).test({
+    stderr: "",
+    status: 0,
+    write: [],
+    stdout: expectedVersion,
   });
 
   // Stdin format
