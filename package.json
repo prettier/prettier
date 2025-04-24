@@ -18,6 +18,7 @@
       "require": "./src/index.cjs",
       "default": "./src/index.js"
     },
+    "./standalone": "./src/standalone.js",
     "./*": "./*"
   },
   "engines": {
