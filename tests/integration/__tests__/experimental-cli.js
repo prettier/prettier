@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
+import { createRequire } from "node:module";
 import path from "node:path";
-import createEsmUtils from "esm-utils";
 
-const { require } = createEsmUtils(import.meta);
+const require = createRequire(import.meta.url);
 
 function runExperimentalCli(args, options) {
   return runCli("cli/experimental-cli", [...args, "--no-cache"], {
@@ -24,7 +24,9 @@ describe("experimental cli", () => {
   const expectedVersion =
     process.env.NODE_ENV === "production"
       ? require(path.join(process.env.PRETTIER_DIR, "package.json")).version
-      : require("../../../node_modules/prettier/package.json").version;
+      : createRequire(require.resolve("@prettier/cli/package.json"))(
+          "prettier/package.json",
+        ).version;
 
   runExperimentalCli(["--version"]).test({
     stderr: "",
