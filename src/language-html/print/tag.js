@@ -355,15 +355,17 @@ function printOpeningTagStartMarker(node, options) {
     case "docType": {
       // Only lowercase HTML5 doctype in `.html` and `.htm` files
       if (node.value === "html") {
-        const filepath = options.filepath ?? "";
-        if (/\.html?$/u.test(filepath)) {
+        const { filepath } = options;
+        if (filepath && /\.html?$/u.test(filepath)) {
           return HTML5_DOCTYPE_START_MARKER;
         }
       }
 
-      const original = options.originalText.slice(locStart(node), locEnd(node));
-
-      return original.slice(0, HTML5_DOCTYPE_START_MARKER.length);
+      const start = locStart(node);
+      return options.originalText.slice(
+        start,
+        start + HTML5_DOCTYPE_START_MARKER.length,
+      );
     }
 
     case "angularIcuExpression":
