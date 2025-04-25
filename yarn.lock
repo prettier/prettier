@@ -3474,6 +3474,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"emoji-test-regex-pattern@npm:2.2.0":
+  version: 2.2.0
+  resolution: "emoji-test-regex-pattern@npm:2.2.0"
+  checksum: 10/d83f79ec5b277b0af31dc08f4da3adafcf015d81d1c69f2fe7906f22dfeb95a50a8979aad5e3ea16cf92ccee0c383a4ac786ac25776f02d61f8d6bf241443099
+  languageName: node
+  linkType: hard
+
 "encoding@npm:^0.1.13":
   version: 0.1.13
   resolution: "encoding@npm:0.1.13"
@@ -7029,6 +7036,7 @@ __metadata:
     diff: "npm:7.0.0"
     editorconfig: "npm:0.15.3"
     emoji-regex-xs: "npm:2.0.1"
+    emoji-test-regex-pattern: "npm:2.2.0"
     enquirer: "npm:2.4.1"
     esbuild: "npm:0.25.2"
     esbuild-plugins-node-modules-polyfill: "npm:1.7.0"
