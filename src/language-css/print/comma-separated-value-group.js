@@ -147,11 +147,15 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // styled.div` background: var(--${one}); `
+    // We should keep spaces between words in a embedded JS expression
+    // examples:
+    //   styled.div` font-size: var(--font-size-h${({ level }) => level}); `;
+    //   styled.div` grid-area: area-${({ area }) => area}; `;
+    //   styled.div` border: 1px ${solid} red; `;
     if (
       iNode.type === "value-word" &&
-      iNode.value.endsWith("-") &&
-      isAtWordPlaceholderNode(iNextNode)
+      isAtWordPlaceholderNode(iNextNode) &&
+      locEnd(iNode) === locStart(iNextNode)
     ) {
       continue;
     }
