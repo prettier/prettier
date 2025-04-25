@@ -155,9 +155,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
     if (
       iNode.type === "value-word" &&
       isAtWordPlaceholderNode(iNextNode) &&
-      !options.originalText
-        .slice(locEnd(iNode), locStart(iNextNode))
-        .includes(" ")
+      locEnd(iNode) === locStart(iNextNode)
     ) {
       continue;
     }
