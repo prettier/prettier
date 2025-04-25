@@ -3,7 +3,7 @@ import lineColumnToIndex from "../utils/line-column-to-index.js";
 import { skipEverythingButNewLine } from "../utils/skip.js";
 
 function fixValueWordLoc(node, originalIndex) {
-  const {value} = node;
+  const { value } = node;
   if (value === "-" || value === "--" || value.charAt(0) !== "-") {
     return originalIndex;
   }
