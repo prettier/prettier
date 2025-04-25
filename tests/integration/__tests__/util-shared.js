@@ -99,10 +99,8 @@ test("sharedUtil.getStringWidth", async () => {
   for (const emoji of strings.trim().split("\n")) {
     try {
       expect(getStringWidth(emoji)).toBe(2);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(`Unexpected string width '${emoji}'`);
-      throw error;
+    } catch {
+      throw new Error(`Unexpected string width '${emoji}'`);
     }
   }
 });
