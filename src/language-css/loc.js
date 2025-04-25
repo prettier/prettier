@@ -3,14 +3,11 @@ import lineColumnToIndex from "../utils/line-column-to-index.js";
 import { skipEverythingButNewLine } from "../utils/skip.js";
 
 function fixValueWordLoc(node, originalIndex) {
-  if (node.value.startsWith("--")) {
-    if (node.value.length > 2) {
-      return originalIndex - 2;
-    }
-  } else if (node.value.startsWith("-") && node.value.length > 1) {
-    return originalIndex - 1;
+  const {value} = node;
+  if (value === "-" || value === "--" || value.charAt(0) !== "-") {
+    return originalIndex;
   }
-  return originalIndex;
+  return originalIndex - (value.charAt(1) === "-" ? 2 : 1);
 }
 
 function calculateLocStart(node, text) {
