@@ -18,6 +18,7 @@ export default {
         "eslint-formatter-friendly",
         "ts-expect",
         "@prettier/cli",
+        "emoji-test-regex-pattern",
       ],
       ignoreBinaries: [
         "test-coverage",

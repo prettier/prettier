@@ -10,6 +10,12 @@ test("emoji", async () => {
     "utf8",
   );
   for (const emoji of strings.trim().split("\n")) {
-    expect(getStringWidth(emoji)).toBe(2);
+    try {
+      expect(getStringWidth(emoji)).toBe(2);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(`Unexpected string width '${emoji}'`);
+      throw error;
+    }
   }
 });
