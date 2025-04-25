@@ -91,7 +91,7 @@ test("sharedUtil.getStringWidth", async () => {
 
   const strings = await fs.readFile(
     new URL(
-      "../../node_modules/emoji-test-regex-pattern/dist/emoji-16.0/index-strings.txt",
+      "../../../node_modules/emoji-test-regex-pattern/dist/emoji-16.0/index-strings.txt",
       import.meta.url,
     ),
     "utf8",
