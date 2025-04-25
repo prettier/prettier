@@ -51,7 +51,7 @@
     "dashify": "2.0.0",
     "diff": "7.0.0",
     "editorconfig": "0.15.3",
-    "emoji-regex": "10.4.0",
+    "emoji-regex-xs": "2.0.1",
     "escape-string-regexp": "5.0.0",
     "espree": "10.3.0",
     "fast-glob": "3.3.3",
