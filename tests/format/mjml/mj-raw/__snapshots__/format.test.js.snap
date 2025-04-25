@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid-in-html.mjml [html] format 1`] = `
+"Unexpected closing tag "p". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags (3:9)
+  1 | <mj-raw><p></mj-raw>
+  2 | <mj-text>Wrapped</mj-text>
+> 3 | <mj-raw></p></mj-raw>
+    |         ^^^^
+  4 |
+  5 | <MJ-RAW><P></MJ-RAW>
+  6 | <MJ-TEXT>WRAPPED</MJ-TEXT>"
+`;
+
+exports[`invalid-in-html.mjml format 1`] = `
+====================================options=====================================
+parsers: ["mjml", "html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<mj-raw><p></mj-raw>
+<mj-text>Wrapped</mj-text>
+<mj-raw></p></mj-raw>
+
+<MJ-RAW><P></MJ-RAW>
+<MJ-TEXT>WRAPPED</MJ-TEXT>
+<MJ-RAW></P></MJ-RAW>
+
+=====================================output=====================================
+<mj-raw><p></mj-raw>
+<mj-text>Wrapped</mj-text>
+<mj-raw></p></mj-raw>
+
+<MJ-RAW><P></MJ-RAW>
+<MJ-TEXT>WRAPPED</MJ-TEXT>
+<MJ-RAW></P></MJ-RAW>
+
+================================================================================
+`;
