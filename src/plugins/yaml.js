@@ -1,4 +1,4 @@
-/*!
+/*
 Be careful when changing this file,
 when bundle UMD version
 build script will change the file content
