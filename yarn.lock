@@ -1996,6 +1996,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prettier/html-tags@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@prettier/html-tags@npm:1.0.0"
+  checksum: 10/46d6657640ebe806fdacfb5a1953daad45f036af980dee0d8d7e778f89738b2501aa8d5566d22c4892af6ad91e9d1ed58a04e927713be38600e842a62015c577
+  languageName: node
+  linkType: hard
+
 "@prettier/parse-srcset@npm:3.1.0":
   version: 3.1.0
   resolution: "@prettier/parse-srcset@npm:3.1.0"
@@ -4784,13 +4791,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-tag-names@npm:2.1.0":
-  version: 2.1.0
-  resolution: "html-tag-names@npm:2.1.0"
-  checksum: 10/96c045ea2afb6c580249fd155275a6d3d362bbc4d2cc0eb6b53cdb7cdc9bf7595aba73cf3dba51ff49ef1b856264feace4b4e941dbffad58e77a87f6f48bdc4b
-  languageName: node
-  linkType: hard
-
 "html-ua-styles@npm:0.0.8":
   version: 0.0.8
   resolution: "html-ua-styles@npm:0.0.8"
@@ -7004,6 +7004,7 @@ __metadata:
     "@eslint/js": "npm:9.24.0"
     "@glimmer/syntax": "npm:0.94.9"
     "@prettier/cli": "npm:0.7.1"
+    "@prettier/html-tags": "npm:1.0.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:4.2.0"
     "@types/estree": "npm:1.0.7"
@@ -7056,7 +7057,6 @@ __metadata:
     graphql: "npm:16.10.0"
     hermes-parser: "npm:0.27.0"
     html-element-attributes: "npm:3.4.0"
-    html-tag-names: "npm:2.1.0"
     html-ua-styles: "npm:0.0.8"
     ignore: "npm:7.0.3"
     import-meta-resolve: "npm:4.1.0"
