@@ -1,9 +1,9 @@
 import { pathToFileURL } from "node:url";
-import { load as parseYaml } from "js-yaml";
 import json5 from "json5";
 import parseJson from "parse-json";
 import { parse as parseToml } from "smol-toml";
 import readFile from "../../utils/read-file.js";
+import {__parsePrettierYamlConfig as parseYaml} from '../../plugins/yaml.js'
 
 async function readJson(file) {
   const content = await readFile(file);

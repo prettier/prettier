@@ -761,11 +761,6 @@ const nodejsFiles = [
         find: "const readBuffer = new Buffer(this.options.readChunk);",
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
       },
-      {
-        module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
-        find: "var dump                = dumper.dump;",
-        replacement: "var dump;",
-      },
       // `parse-json` use another copy of `@babel/code-frame`
       {
         module: require.resolve("@babel/code-frame", {
