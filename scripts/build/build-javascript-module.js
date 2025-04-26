@@ -202,6 +202,13 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
     );
   }
 
+  if (file.output.format === "umd" && file.output.file === "plugins/yaml.js") {
+    replaceModule.push({
+      module: path.join(PROJECT_ROOT, file.input),
+      text: 'export * from "../language-yaml/index.js";',
+    });
+  }
+
   const { buildOptions } = file;
   const shouldMinify =
     cliOptions.minify ?? buildOptions.minify ?? file.platform === "universal";
