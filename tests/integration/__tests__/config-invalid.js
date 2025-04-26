@@ -149,17 +149,13 @@ describe("Invalid yaml file", () => {
     stdout: "",
     write: [],
     stderr: expect.stringContaining(
-      /* cSpell:disable */
+      // Keep the outdent, since error message changes between versions
       outdent`
-        Map keys must be unique at line 1, column 3:
-
-        a:
-          ^
+        Map keys must be unique; "a" is repeated
       `
         .split("\n")
         .map((line) => `[error] ${line}`)
         .join("\n"),
-      /* cSpell:enable */
     ),
   });
 });
