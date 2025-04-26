@@ -202,6 +202,9 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
     );
   }
 
+  // Current version of `yaml` is not tree-shakable,
+  // but when we update it, we may reduce size,
+  // since the UMD version don't need expost `__parsePrettierYamlConfig`
   if (file.output.format === "umd" && file.output.file === "plugins/yaml.js") {
     replaceModule.push({
       module: path.join(PROJECT_ROOT, file.input),
