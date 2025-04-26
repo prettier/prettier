@@ -209,11 +209,6 @@ exports[`htmlTagNames 1`] = `
   },
   {
     "display": "inline",
-    "tagName": "element",
-    "whiteSpace": "normal",
-  },
-  {
-    "display": "inline",
     "tagName": "em",
     "whiteSpace": "normal",
   },
