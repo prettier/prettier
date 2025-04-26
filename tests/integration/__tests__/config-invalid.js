@@ -151,11 +151,10 @@ describe("Invalid yaml file", () => {
     stderr: expect.stringContaining(
       /* cSpell:disable */
       outdent`
-        end of the stream or a document separator is expected (2:1)
+        Map keys must be unique at line 1, column 3:
 
-         1 |   a
-         2 | -b
-        -----^
+        a:
+          ^
       `
         .split("\n")
         .map((line) => `[error] ${line}`)
