@@ -5222,7 +5222,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iterate-directory-up@npm:1.1.1, iterate-directory-up@npm:^1.1.1":
+"iterate-directory-up@npm:^1.1.1":
   version: 1.1.1
   resolution: "iterate-directory-up@npm:1.1.1"
   dependencies:
@@ -7044,7 +7044,6 @@ __metadata:
     import-meta-resolve: "npm:4.1.0"
     index-to-position: "npm:1.1.0"
     is-es5-identifier-name: "npm:1.0.0"
-    iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
     jest-light-runner: "npm:0.7.8"
@@ -7096,7 +7095,7 @@ __metadata:
     typescript: "npm:5.8.3"
     unicode-regex: "npm:4.1.2"
     unified: "npm:9.2.2"
-    url-or-path: "npm:2.3.2"
+    url-or-path: "npm:2.5.0"
     vnopts: "npm:2.0.2"
     wcwidth.js: "npm:2.0.0"
     yaml-unist-parser: "npm:2.0.5"
@@ -8489,14 +8488,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"url-or-path@npm:2.3.2, url-or-path@npm:^2.3.0":
-  version: 2.3.2
-  resolution: "url-or-path@npm:2.3.2"
-  checksum: 10/9078f06d5754293464332da3f98eddd9878dc6a2b4ece5303f72e6a5fa72c3d25a3c33f01bd097bf54cccd29e61283fec38432c928894c032630a04867ceaf81
-  languageName: node
-  linkType: hard
-
-"url-or-path@npm:2.5.0, url-or-path@npm:^2.5.0":
+"url-or-path@npm:2.5.0, url-or-path@npm:^2.3.0, url-or-path@npm:^2.5.0":
   version: 2.5.0
   resolution: "url-or-path@npm:2.5.0"
   checksum: 10/820f2ac8fb19720f27980a46bb27c43f3f754a48dfbfbda93906cc72360fad7d8c0d90e8b167a97ee0d4fee11555969f531cb26eba464adf93d703c85b869bb5
