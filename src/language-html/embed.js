@@ -39,7 +39,7 @@ function embed(path, options) {
 
   switch (node.type) {
     case "element":
-      if (isScriptLikeTag(node) || node.type === "interpolation") {
+      if (isScriptLikeTag(node, options) || node.type === "interpolation") {
         // Fall through to "text"
         return;
       }
@@ -76,7 +76,7 @@ function embed(path, options) {
       break;
 
     case "text":
-      if (isScriptLikeTag(node.parent)) {
+      if (isScriptLikeTag(node.parent, options)) {
         const parser = inferElementParser(node.parent, options);
         if (parser) {
           return async (textToDoc) => {
