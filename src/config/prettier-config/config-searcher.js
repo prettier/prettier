@@ -1,5 +1,4 @@
 import { FileSearcher } from "search-closest";
-import isFile from "../../utils/is-file.js";
 import {
   loadConfigFromPackageJson,
   loadConfigFromPackageYaml,
