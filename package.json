@@ -69,7 +69,6 @@
     "ignore": "7.0.3",
     "import-meta-resolve": "4.1.0",
     "is-es5-identifier-name": "1.0.0",
-    "iterate-directory-up": "1.1.1",
     "jest-docblock": "30.0.0-alpha.7",
     "js-yaml": "4.1.0",
     "json5": "2.2.3",
@@ -102,7 +101,7 @@
     "typescript": "5.8.3",
     "unicode-regex": "4.1.2",
     "unified": "9.2.2",
-    "url-or-path": "2.3.2",
+    "url-or-path": "2.5.0",
     "vnopts": "2.0.2",
     "wcwidth.js": "2.0.0",
     "yaml-unist-parser": "2.0.5"
