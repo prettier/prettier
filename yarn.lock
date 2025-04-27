@@ -4365,6 +4365,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"find-in-directory@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "find-in-directory@npm:2.0.0"
+  dependencies:
+    url-or-path: "npm:2.5.0"
+  checksum: 10/1bad597288ed17a14c2ef029ed2063ac6c1fecc7ca17d045860f7b925812cb41c26e98a825aa0a5d3d3e553ea66c885b0a1d6f50504a280120544e124a4c24e9
+  languageName: node
+  linkType: hard
+
 "find-up-json@npm:^2.0.4, find-up-json@npm:^2.0.5":
   version: 2.0.5
   resolution: "find-up-json@npm:2.0.5"
@@ -5213,7 +5222,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iterate-directory-up@npm:1.1.1":
+"iterate-directory-up@npm:1.1.1, iterate-directory-up@npm:^1.1.1":
   version: 1.1.1
   resolution: "iterate-directory-up@npm:1.1.1"
   dependencies:
@@ -7073,6 +7082,7 @@ __metadata:
     remark-parse: "npm:8.0.3"
     rollup-plugin-license: "npm:3.6.0"
     sdbm: "npm:2.0.0"
+    search-closest: "npm:0.0.4"
     semver: "npm:7.7.1"
     serialize-javascript: "npm:6.0.2"
     smol-toml: "npm:1.3.4"
@@ -7472,6 +7482,17 @@ __metadata:
   version: 2.0.0
   resolution: "sdbm@npm:2.0.0"
   checksum: 10/1a07754d5ae809230e865f54afc82c774188781c591bd19412d1f4095e43ea158e0791cb0cf66be5063d230439c67df38db56bcfebc1bfb9833dd3be604bb3fc
+  languageName: node
+  linkType: hard
+
+"search-closest@npm:0.0.4":
+  version: 0.0.4
+  resolution: "search-closest@npm:0.0.4"
+  dependencies:
+    find-in-directory: "npm:^2.0.0"
+    iterate-directory-up: "npm:^1.1.1"
+    url-or-path: "npm:^2.5.0"
+  checksum: 10/2158413d8c3bf262f844b30a91ec1be5e2cc598487f00a34a53130378c661d47ef9fbddf28b269f35ff75cbf761b9bd82bcfab62a2dd203c53936a862bfe30b7
   languageName: node
   linkType: hard
 
@@ -8472,6 +8493,13 @@ __metadata:
   version: 2.3.2
   resolution: "url-or-path@npm:2.3.2"
   checksum: 10/9078f06d5754293464332da3f98eddd9878dc6a2b4ece5303f72e6a5fa72c3d25a3c33f01bd097bf54cccd29e61283fec38432c928894c032630a04867ceaf81
+  languageName: node
+  linkType: hard
+
+"url-or-path@npm:2.5.0, url-or-path@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "url-or-path@npm:2.5.0"
+  checksum: 10/820f2ac8fb19720f27980a46bb27c43f3f754a48dfbfbda93906cc72360fad7d8c0d90e8b167a97ee0d4fee11555969f531cb26eba464adf93d703c85b869bb5
   languageName: node
   linkType: hard
 

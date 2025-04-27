@@ -2,16 +2,10 @@
 // https://github.com/kirstein/find-project-root/blob/master/index.js
 
 import * as path from "node:path";
-import isDirectory from "../utils/is-directory.js";
-import Searcher from "./searcher.js";
+import { DirectorySearcher } from "search-closest";
 
-const MARKERS = [".git", ".hg"];
+const DIRECTORIES = [".git", ".hg"];
 let searcher;
-const searchOptions = {
-  names: MARKERS,
-  filter: ({ path: directory }) =>
-    isDirectory(directory, { allowSymlinks: false }),
-};
 
 /**
  * Find the directory contains a version control system directory
@@ -20,10 +14,13 @@ const searchOptions = {
  * @returns {Promise<string | undefined>}
  */
 async function findProjectRoot(startDirectory, options) {
-  searcher ??= new Searcher(searchOptions);
-  const mark = await searcher.search(startDirectory, options);
+  searcher ??= new DirectorySearcher({
+    nameOrNames: DIRECTORIES,
+    allowSymlinks: false,
+  });
+  const directory = await searcher.search(startDirectory, options);
 
-  return mark ? path.dirname(mark) : undefined;
+  return directory ? path.dirname(directory) : undefined;
 }
 
 function clearFindProjectRootCache() {

@@ -1,5 +1,5 @@
+import { FileSearcher } from "search-closest";
 import isFile from "../../utils/is-file.js";
-import Searcher from "../searcher.js";
 import {
   loadConfigFromPackageJson,
   loadConfigFromPackageYaml,
@@ -29,10 +29,6 @@ const CONFIG_FILE_NAMES = [
 ];
 
 async function filter({ name, path: file }) {
-  if (!(await isFile(file))) {
-    return false;
-  }
-
   if (name === "package.json") {
     try {
       return Boolean(await loadConfigFromPackageJson(file));
@@ -53,7 +49,11 @@ async function filter({ name, path: file }) {
 }
 
 function getSearcher(stopDirectory) {
-  return new Searcher({ names: CONFIG_FILE_NAMES, filter, stopDirectory });
+  return new FileSearcher({
+    nameOrNames: CONFIG_FILE_NAMES,
+    filter,
+    stopDirectory,
+  });
 }
 
 export default getSearcher;
