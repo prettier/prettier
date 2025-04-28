@@ -4365,6 +4365,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"find-in-directory@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "find-in-directory@npm:2.0.1"
+  dependencies:
+    url-or-path: "npm:2.6.1"
+  checksum: 10/1a02fdec539ff4c4d63d0e296d853bf88a633a882bc82fba8addc24fb08de799eaa2f05c4721e3954a23dddeb8301cc994dd509b58b5cac34d90a95a43e6a5ea
+  languageName: node
+  linkType: hard
+
 "find-up-json@npm:^2.0.4, find-up-json@npm:^2.0.5":
   version: 2.0.5
   resolution: "find-up-json@npm:2.0.5"
@@ -5213,12 +5222,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iterate-directory-up@npm:1.1.1":
-  version: 1.1.1
-  resolution: "iterate-directory-up@npm:1.1.1"
+"iterate-directory-up@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "iterate-directory-up@npm:1.2.1"
   dependencies:
-    url-or-path: "npm:^2.3.0"
-  checksum: 10/b724f63d1035a453b974d15dd9f809a0862131aa38cfe2960b0f388ee8100e42404f8fb8b52c46c82dc2c263c3ca9b30ba8716216ab9ae78cb9142d85110d706
+    url-or-path: "npm:^2.6.1"
+  checksum: 10/35846f8df1d31b6e37eef19cd7c4a7b3c4cbacbbdf80e1b7b1eb2f75ec7a611039da895592328a55885ace3f06def73015402d55409d0aec9e959fd4cb0d6b7e
   languageName: node
   linkType: hard
 
@@ -7035,7 +7044,6 @@ __metadata:
     import-meta-resolve: "npm:4.1.0"
     index-to-position: "npm:1.1.0"
     is-es5-identifier-name: "npm:1.0.0"
-    iterate-directory-up: "npm:1.1.1"
     jest: "npm:30.0.0-alpha.7"
     jest-docblock: "npm:30.0.0-alpha.7"
     jest-light-runner: "npm:0.7.8"
@@ -7073,6 +7081,7 @@ __metadata:
     remark-parse: "npm:8.0.3"
     rollup-plugin-license: "npm:3.6.0"
     sdbm: "npm:2.0.0"
+    search-closest: "npm:0.1.1"
     semver: "npm:7.7.1"
     serialize-javascript: "npm:6.0.2"
     smol-toml: "npm:1.3.4"
@@ -7086,7 +7095,7 @@ __metadata:
     typescript: "npm:5.8.3"
     unicode-regex: "npm:4.1.2"
     unified: "npm:9.2.2"
-    url-or-path: "npm:2.3.2"
+    url-or-path: "npm:2.6.1"
     vnopts: "npm:2.0.2"
     wcwidth.js: "npm:2.0.0"
     yaml-unist-parser: "npm:2.0.5"
@@ -7472,6 +7481,16 @@ __metadata:
   version: 2.0.0
   resolution: "sdbm@npm:2.0.0"
   checksum: 10/1a07754d5ae809230e865f54afc82c774188781c591bd19412d1f4095e43ea158e0791cb0cf66be5063d230439c67df38db56bcfebc1bfb9833dd3be604bb3fc
+  languageName: node
+  linkType: hard
+
+"search-closest@npm:0.1.1":
+  version: 0.1.1
+  resolution: "search-closest@npm:0.1.1"
+  dependencies:
+    find-in-directory: "npm:^2.0.1"
+    iterate-directory-up: "npm:^1.2.1"
+  checksum: 10/5285c2d5e7e5d7ffbb2aa0bf2fd37acd19dff58c3975889125f2a92e9a0c17adea10484c43f1ae67ccf03896f891e7721b54211fea777164ac90b26dde7c93ff
   languageName: node
   linkType: hard
 
@@ -8468,10 +8487,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"url-or-path@npm:2.3.2, url-or-path@npm:^2.3.0":
-  version: 2.3.2
-  resolution: "url-or-path@npm:2.3.2"
-  checksum: 10/9078f06d5754293464332da3f98eddd9878dc6a2b4ece5303f72e6a5fa72c3d25a3c33f01bd097bf54cccd29e61283fec38432c928894c032630a04867ceaf81
+"url-or-path@npm:2.6.1, url-or-path@npm:^2.3.0, url-or-path@npm:^2.6.1":
+  version: 2.6.1
+  resolution: "url-or-path@npm:2.6.1"
+  checksum: 10/707d340bc72dbaccfaa0a371f8e70816518141ecbfdebddc4d6faf8e5e5afa6f33cb01e4e5701c0e76dc661bd699e00041c3b00f1a3e2fb7a0c4e144c9dd6ace
   languageName: node
   linkType: hard
 
