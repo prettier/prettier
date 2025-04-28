@@ -4,6 +4,10 @@ import {
   loadConfigFromPackageYaml,
 } from "./loaders.js";
 
+/**
+@import {SearcherOptions} from 'search-closest'
+*/
+
 const CONFIG_FILE_NAMES = [
   "package.json",
   "package.yaml",
@@ -27,6 +31,7 @@ const CONFIG_FILE_NAMES = [
   ".prettierrc.toml",
 ];
 
+/** @type {SearcherOptions["filter"]} */
 async function filter({ name, path: file }) {
   if (name === "package.json") {
     try {
@@ -48,11 +53,7 @@ async function filter({ name, path: file }) {
 }
 
 function getSearcher(stopDirectory) {
-  return new FileSearcher({
-    nameOrNames: CONFIG_FILE_NAMES,
-    filter,
-    stopDirectory,
-  });
+  return new FileSearcher(CONFIG_FILE_NAMES, { filter, stopDirectory });
 }
 
 export default getSearcher;
