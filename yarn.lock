@@ -4841,10 +4841,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:7.0.3":
-  version: 7.0.3
-  resolution: "ignore@npm:7.0.3"
-  checksum: 10/ce5e812af3acd6607a3fe0a9f9b5f01d53f009a5ace8cbf5b6491d05a481b55d65186e6a7eaa13126e93f15276bcf3d1e8d6ff3ce5549c312f9bb313fff33365
+"ignore@npm:7.0.4":
+  version: 7.0.4
+  resolution: "ignore@npm:7.0.4"
+  checksum: 10/01ee59df2ffd14b0844efc17f5ab3642c848e45efdb7cc757928da5e076cb74313748f77f5ffe362a6407c5e7cc71f10fad5e8eb9d91c1a17c4e7ef2c1f8e40e
   languageName: node
   linkType: hard
 
@@ -7040,7 +7040,7 @@ __metadata:
     hermes-parser: "npm:0.27.0"
     html-element-attributes: "npm:3.4.0"
     html-ua-styles: "npm:0.0.8"
-    ignore: "npm:7.0.3"
+    ignore: "npm:7.0.4"
     import-meta-resolve: "npm:4.1.0"
     index-to-position: "npm:1.1.0"
     is-es5-identifier-name: "npm:1.0.0"
