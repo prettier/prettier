@@ -1,5 +1,4 @@
-<html>
-  <body>
+<mjml>
     <mj-style>
       @media only screen and (max-width: 480px) {
         .mobile-full-width {
@@ -18,5 +17,4 @@ margin:0px;
 transform: translateY(0);
       }
     </mj-style>
-  </body>
-</html>
+</mjml>

@@ -1,5 +1,4 @@
-<html>
-  <body>
+<mjml>
     <mj-style>
 .some-class {
   color: red;
@@ -7,5 +6,4 @@
 padding:10px;
 }
     </mj-style>
-  </body>
-</html>
+  </mjml>
