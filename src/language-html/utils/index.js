@@ -104,28 +104,15 @@ function isTextLikeNode(node) {
 }
 
 function isScriptLikeTag(node, options) {
-  const defaultScriptLikeTagNames = [
-    "script",
-    "style",
-    "svg:style",
-    "svg:script",
-  ];
-  const isMjmlParser = options?.parser === "mjml";
-
-  if (!node || node.type !== "element") {
-    return false;
-  }
-
-  if (isMjmlParser) {
-    defaultScriptLikeTagNames.push("mj-style");
-  }
-
   return (
-    defaultScriptLikeTagNames.includes(node.fullName) ||
-    (isUnknownNamespace(node) &&
-      (node.name === "script" ||
-        node.name === "style" ||
-        (isMjmlParser && node.name === "mj-style")))
+    node.type === "element" &&
+    (node.fullName === "script" ||
+      node.fullName === "style" ||
+      node.fullName === "svg:style" ||
+      node.fullName === "svg:script" ||
+      (node.fullName === "mj-style" && options.parser === "mjml") ||
+      (isUnknownNamespace(node) &&
+        (node.name === "script" || node.name === "style")))
   );
 }
 
@@ -418,15 +405,14 @@ function inferVueSfcBlockParser(node, options) {
 }
 
 function inferStyleParser(node, options) {
-  const styleTagNames = ["style"];
-  if (options?.parser === "mjml") {
-    styleTagNames.push("mj-style");
+  if (node.name === "style") {
+    const { lang } = node.attrMap;
+    return lang ? inferParser(options, { language: lang }) : "css";
   }
-  if (!styleTagNames.includes(node.name)) {
-    return;
+
+  if (node.name === "mj-style" && options.parser === "mjml") {
+    return "css";
   }
-  const { lang } = node.attrMap;
-  return lang ? inferParser(options, { language: lang }) : "css";
 }
 
 function inferElementParser(node, options) {
