@@ -4087,13 +4087,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-utils@npm:4.4.1":
-  version: 4.4.1
-  resolution: "esm-utils@npm:4.4.1"
+"esm-utils@npm:4.4.2":
+  version: 4.4.2
+  resolution: "esm-utils@npm:4.4.2"
   dependencies:
     import-meta-resolve: "npm:^4.1.0"
     url-or-path: "npm:^2.6.1"
-  checksum: 10/0381c1236096105b125b6d2f1730d6e587d987ae467b1dca396b7e69e328f5654c9fe4b9daec62f95da1996c1d6f2f24afc1f0217f48dc470d7a08865c54e2a5
+  checksum: 10/686b3744d231d706919c63a966fb4d659343d4a3ac0889308b522446a78309c6892e56c4c518306ce4785be0a0d7b16704e0cae8c19d81872f5f59101d468b79
   languageName: node
   linkType: hard
 
@@ -7026,7 +7026,7 @@ __metadata:
     eslint-plugin-regexp: "npm:2.7.0"
     eslint-plugin-simple-import-sort: "npm:12.1.1"
     eslint-plugin-unicorn: "npm:59.0.0"
-    esm-utils: "npm:4.4.1"
+    esm-utils: "npm:4.4.2"
     espree: "npm:10.3.0"
     fast-glob: "npm:3.3.3"
     fast-json-stable-stringify: "npm:2.1.0"

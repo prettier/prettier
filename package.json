@@ -132,7 +132,7 @@
     "eslint-plugin-regexp": "2.7.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-unicorn": "59.0.0",
-    "esm-utils": "4.4.1",
+    "esm-utils": "4.4.2",
     "globals": "16.0.0",
     "index-to-position": "1.1.0",
     "jest": "30.0.0-alpha.7",
