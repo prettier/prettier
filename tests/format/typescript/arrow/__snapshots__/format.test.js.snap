@@ -99,7 +99,7 @@ foo4 =
 
 exports[`16067.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["typescript", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -237,7 +237,7 @@ app.get("/", (req, res): void => {
 
 exports[`arrow_regression.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["typescript", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -294,6 +294,12 @@ const fn2 = () => {
 // foo
 ;
 
+const fn3 = (): any => /*
+A comment after an arrow with a type definition, and before a line break.
+Formatting should keep it after the arrow.
+*/
+null;
+
 =====================================output=====================================
 const fn1 = () => {
   return
@@ -304,13 +310,19 @@ const fn2 = () => {
 }
 
 // foo
+const fn3 = (): any =>
+  /*
+A comment after an arrow with a type definition, and before a line break.
+Formatting should keep it after the arrow.
+*/
+  null
 
 ================================================================================
 `;
 
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["typescript", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -325,6 +337,12 @@ const fn2 = () => {
 // foo
 ;
 
+const fn3 = (): any => /*
+A comment after an arrow with a type definition, and before a line break.
+Formatting should keep it after the arrow.
+*/
+null;
+
 =====================================output=====================================
 const fn1 = () => {
   return;
@@ -335,6 +353,12 @@ const fn2 = () => {
 };
 
 // foo
+const fn3 = (): any =>
+  /*
+A comment after an arrow with a type definition, and before a line break.
+Formatting should keep it after the arrow.
+*/
+  null;
 
 ================================================================================
 `;
@@ -390,7 +414,7 @@ const getIconEngagementTypeFrom2 =
 
 exports[`issue-6107-curry.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["typescript", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

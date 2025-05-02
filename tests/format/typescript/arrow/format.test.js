@@ -1,2 +1,2 @@
-runFormatTest(import.meta, ["typescript"]);
+runFormatTest(import.meta, ["typescript", "babel-ts"]);
 runFormatTest(import.meta, ["typescript"], { semi: false });
