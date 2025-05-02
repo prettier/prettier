@@ -300,6 +300,9 @@ Formatting should keep it after the arrow.
 */
 null;
 
+const fn4 = (): any => /* A single line ver of \`fn3\` */
+null;
+
 =====================================output=====================================
 const fn1 = () => {
   return
@@ -316,6 +319,8 @@ A comment after an arrow with a type definition, and before a line break.
 Formatting should keep it after the arrow.
 */
   null
+
+const fn4 = (): any => /* A single line ver of \`fn3\` */ null
 
 ================================================================================
 `;
@@ -343,6 +348,9 @@ Formatting should keep it after the arrow.
 */
 null;
 
+const fn4 = (): any => /* A single line ver of \`fn3\` */
+null;
+
 =====================================output=====================================
 const fn1 = () => {
   return;
@@ -359,6 +367,8 @@ A comment after an arrow with a type definition, and before a line break.
 Formatting should keep it after the arrow.
 */
   null;
+
+const fn4 = (): any => /* A single line ver of \`fn3\` */ null;
 
 ================================================================================
 `;
