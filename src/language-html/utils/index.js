@@ -471,6 +471,11 @@ function getNodeCssStyleDisplay(node, options) {
     return "block";
   }
 
+  // Every element wrapping only one interpolation in Angular is handled as whitespace-sensitive
+  if (options.parser === "angular" && hasOnlySingleInterpolation(node)) {
+    return "inline";
+  }
+
   if (node.prev?.type === "comment") {
     // <!-- display: block -->
     const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/u);
@@ -603,6 +608,23 @@ function isVueSfcBindingsAttribute(attribute, options) {
     (tagName === "script" && attributeName === "setup") ||
     // https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-style-variables.md
     (tagName === "style" && attributeName === "vars")
+  );
+}
+
+/**
+ *
+ * Detect elements like:
+ * ```html
+ *   <h1>{{ foo }}</h1>
+ * ```
+ *
+ */
+function hasOnlySingleInterpolation(node) {
+  return (
+    node.type === "element" &&
+    canHaveInterpolation(node) &&
+    node.children.length === 1 &&
+    node.children[0].type === "interpolation"
   );
 }
 

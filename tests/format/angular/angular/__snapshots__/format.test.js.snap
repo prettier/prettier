@@ -3061,9 +3061,9 @@ printWidth: 80
       | localize: localizationSection
   }}
 </label>
-<div class="Nemo possimus non voluptates dicta accusamus id quia">
-  {{ copyTypes[options.copyType] }}
-</div>
+<div class="Nemo possimus non voluptates dicta accusamus id quia">{{
+  copyTypes[options.copyType]
+}}</div>
 {{
   listRow.NextScheduledSendStatus == 1 ||
     listRow.NextScheduledSendStatus == 2 ||
@@ -3199,16 +3199,19 @@ printWidth: 80
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
 <div>{{ a // hello }}</div>
-<label for="transmissionLayoutRadioButton">
-  {{
-    "SearchSelection.transmissionLayoutRadioButton"
-      | localize: localizationSection
-  }}
-</label>
+<label for="transmissionLayoutRadioButton">{{
+  "SearchSelection.transmissionLayoutRadioButton"
+    | localize: localizationSection
+}}</label>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}</label
 >
-  {{
+<label for="transmissionLayoutRadioButton"
+  >{{
     "SearchSelection.transmissionLayoutRadioButton"
       | localize: localizationSection
   }}
@@ -3217,23 +3220,17 @@ printWidth: 80
   {{
     "SearchSelection.transmissionLayoutRadioButton"
       | localize: localizationSection
-  }}
-</label>
+  }}</label
+>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
       | localize: localizationSection
   }}
 </label>
-<label for="transmissionLayoutRadioButton">
-  {{
-    "SearchSelection.transmissionLayoutRadioButton"
-      | localize: localizationSection
-  }}
-</label>
-<div class="Nemo possimus non voluptates dicta accusamus id quia">
-  {{ copyTypes[options.copyType] }}
-</div>
+<div class="Nemo possimus non voluptates dicta accusamus id quia">{{
+  copyTypes[options.copyType]
+}}</div>
 {{
   listRow.NextScheduledSendStatus == 1 ||
     listRow.NextScheduledSendStatus == 2 ||
@@ -3250,9 +3247,9 @@ printWidth: 80
 --></span>
 <span>
   {{ aNormalValue | aPipe }}:
-  <strong>
-    {{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}
-  </strong>
+  <strong>{{
+    aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
+  }}</strong>
 </span>
 <p>
   {{
@@ -3343,167 +3340,167 @@ printWidth: 1
 <p>{{ {a:a?b:{} } }}</p>
 
 =====================================output=====================================
-<div>
-  {{
+<div
+  >{{
     a
       | b
         : c
         : d
         : e
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a
       | pipe
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     0 -
       1
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     -1
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a
       ? 1
       : 2
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a(
       1
     )(
       2
     )
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a[
       b
     ]
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     [
       1,
     ]
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     {
       a: 1,
     }
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     {
       a: 1,
     }
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     true
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     undefined
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     null
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     1
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     1
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     "hello"
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a(
       1,
       2
     )
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a.b(
       1,
       2
     )
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     x!
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     !x
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a // hello
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a.b
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a?.b()
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a?.b
-  }}
-</div>
-<div>
-  {{
+  }}</div
+>
+<div
+  >{{
     a // hello
-  }}
-</div>
+  }}</div
+>
 <label
   for="transmissionLayoutRadioButton"
   >{{
@@ -3548,14 +3545,13 @@ printWidth: 1
 </label>
 <div
   class="Nemo possimus non voluptates dicta accusamus id quia"
->
-  {{
+  >{{
     copyTypes[
       options
         .copyType
     ]
-  }}
-</div>
+  }}</div
+>
 {{
   listRow.NextScheduledSendStatus ==
     1 ||
@@ -3604,40 +3600,40 @@ printWidth: 1
           }
   }}
 </p>
-<p>
-  {{
+<p
+  >{{
     {
       a:
         1 +
         {},
     }
-  }}
-</p>
-<p>
-  {{
+  }}</p
+>
+<p
+  >{{
     {
       a:
         a ===
         {},
     }
-  }}
-</p>
-<p>
-  {{
+  }}</p
+>
+<p
+  >{{
     {
       a: !{},
     }
-  }}
-</p>
-<p>
-  {{
+  }}</p
+>
+<p
+  >{{
     {
       a: a
         ? b
         : {},
     }
-  }}
-</p>
+  }}</p
+>
 
 ================================================================================
 `;
@@ -3774,9 +3770,9 @@ trailingComma: "es5"
       | localize: localizationSection
   }}
 </label>
-<div class="Nemo possimus non voluptates dicta accusamus id quia">
-  {{ copyTypes[options.copyType] }}
-</div>
+<div class="Nemo possimus non voluptates dicta accusamus id quia">{{
+  copyTypes[options.copyType]
+}}</div>
 {{
   listRow.NextScheduledSendStatus == 1 ||
     listRow.NextScheduledSendStatus == 2 ||
@@ -3941,9 +3937,9 @@ trailingComma: "none"
       | localize: localizationSection
   }}
 </label>
-<div class="Nemo possimus non voluptates dicta accusamus id quia">
-  {{ copyTypes[options.copyType] }}
-</div>
+<div class="Nemo possimus non voluptates dicta accusamus id quia">{{
+  copyTypes[options.copyType]
+}}</div>
 {{
   listRow.NextScheduledSendStatus == 1 ||
     listRow.NextScheduledSendStatus == 2 ||
@@ -4808,9 +4804,9 @@ can be found in the LICENSE file at http://angular.io/license
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
 <div class="context">
-  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">
-    {{ hero.name }}
-  </button>
+  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">{{
+    hero.name
+  }}</button>
 </div>
 
 <p>Template reference variable statement context (#heroForm)</p>
@@ -6366,9 +6362,9 @@ can be found in the LICENSE file at http://angular.io/license
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
 <div class="context">
-  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">
-    {{ hero.name }}
-  </button>
+  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">{{
+    hero.name
+  }}</button>
 </div>
 
 <p>Template reference variable statement context (#heroForm)</p>
@@ -8180,11 +8176,10 @@ can be found in the LICENSE file at http://angular.io/license
     *ngFor="
       let hero of heroes
     "
-  >
-    {{
+    >{{
       hero.name
-    }}
-  </div>
+    }}</div
+  >
 </ng-template>
 
 <p>
@@ -8288,11 +8283,10 @@ can be found in the LICENSE file at http://angular.io/license
         hero
       )
     "
-  >
-    {{
+    >{{
       hero.name
-    }}
-  </button>
+    }}</button
+  >
 </div>
 
 <p>
@@ -9661,11 +9655,10 @@ bindon-ngModel
     *ngFor="
       let hero of heroes
     "
-  >
-    {{
+    >{{
       hero.name
-    }}
-  </div>
+    }}</div
+  >
 </div>
 <br />
 
@@ -10242,12 +10235,12 @@ bindon-ngModel
   }}
 </div>
 
-<div>
-  {{
+<div
+  >{{
     currentHero
       | json
-  }}
-</div>
+  }}</div
+>
 
 <div>
   Birthdate:
@@ -11423,9 +11416,9 @@ can be found in the LICENSE file at http://angular.io/license
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
 <div class="context">
-  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">
-    {{ hero.name }}
-  </button>
+  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">{{
+    hero.name
+  }}</button>
 </div>
 
 <p>Template reference variable statement context (#heroForm)</p>
@@ -12950,9 +12943,9 @@ can be found in the LICENSE file at http://angular.io/license
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
 <div class="context">
-  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">
-    {{ hero.name }}
-  </button>
+  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">{{
+    hero.name
+  }}</button>
 </div>
 
 <p>Template reference variable statement context (#heroForm)</p>
