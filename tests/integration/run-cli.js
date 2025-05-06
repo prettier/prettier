@@ -75,6 +75,13 @@ function runCliWorker(dir, args, options) {
   };
 
   const nodeOptions = options?.nodeOptions ?? [];
+  const env = {
+    ...process.env,
+    ...options.env,
+    NO_COLOR: "1",
+  };
+  delete env.FORCE_COLOR;
+
   const worker = childProcess.fork(CLI_WORKER_FILE, args, {
     cwd: dir,
     execArgv: [
@@ -85,11 +92,7 @@ function runCliWorker(dir, args, options) {
       ...nodeOptions,
     ],
     stdio: [options.input ? "pipe" : "ignore", "pipe", "pipe", "ipc"],
-    env: {
-      ...process.env,
-      ...options.env,
-      NO_COLOR: "1",
-    },
+    env,
     serialization: "advanced",
   });
 
