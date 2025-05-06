@@ -70,7 +70,6 @@
     "import-meta-resolve": "4.1.0",
     "is-es5-identifier-name": "1.0.0",
     "jest-docblock": "30.0.0-alpha.7",
-    "js-yaml": "4.1.0",
     "json5": "2.2.3",
     "leven": "4.0.0",
     "linguist-languages": "7.29.0",
@@ -104,6 +103,7 @@
     "url-or-path": "2.6.1",
     "vnopts": "2.0.2",
     "wcwidth.js": "2.0.0",
+    "yaml": "1.10.2",
     "yaml-unist-parser": "2.0.5"
   },
   "devDependencies": {

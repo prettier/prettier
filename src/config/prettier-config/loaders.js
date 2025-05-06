@@ -1,5 +1,4 @@
 import { pathToFileURL } from "node:url";
-import { load as parseYaml } from "js-yaml";
 import json5 from "json5";
 import parseJson from "parse-json";
 import { parse as parseToml } from "smol-toml";
@@ -53,8 +52,16 @@ async function loadConfigFromPackageYaml(file) {
   return prettier;
 }
 
+let parseYaml;
 async function loadYaml(file) {
   const content = await readFile(file);
+
+  if (!parseYaml) {
+    ({ __parsePrettierYamlConfig: parseYaml } = await import(
+      "../../plugins/yaml.js"
+    ));
+  }
+
   try {
     return parseYaml(content);
   } catch (/** @type {any} */ error) {
