@@ -1960,9 +1960,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.7.6":
-  version: 0.7.6
-  resolution: "@prettier/cli@npm:0.7.6"
+"@prettier/cli@npm:0.8.0":
+  version: 0.8.0
+  resolution: "@prettier/cli@npm:0.8.0"
   dependencies:
     atomically: "npm:^2.0.3"
     fast-ignore: "npm:^1.1.3"
@@ -1977,10 +1977,9 @@ __metadata:
     lomemo: "npm:^1.0.1"
     pioppo: "npm:^1.2.1"
     promise-resolve-timeout: "npm:^2.0.1"
-    smol-toml: "npm:^1.3.3"
+    smol-toml: "npm:^1.3.4"
     specialist: "npm:^1.4.5"
     tiny-editorconfig: "npm:^1.0.0"
-    tiny-jsonc: "npm:^1.0.2"
     tiny-readdir: "npm:^2.7.4"
     tiny-readdir-glob: "npm:^1.23.2"
     tiny-spinner: "npm:^2.0.5"
@@ -1992,7 +1991,7 @@ __metadata:
     prettier: ^3.1.0 || ^4.0.0-alpha
   bin:
     prettier-next: dist/bin.js
-  checksum: 10/da76872ab5e04d404b147f4195cad079fc28fd19e82cc84541e39b468e03dc4ad3e17a651491d194052c160c1e2dc26fc1033f711ee8067e11e472a9119eaae7
+  checksum: 10/753832b6404659c19e88725d99cb650e4cadcc012f5a64fb29c02c52f68307e9c1d17e86a3677b766a19d3ce4733a09d4d3a0092edd064123abcd8e5548e0b0a
   languageName: node
   linkType: hard
 
@@ -6993,7 +6992,7 @@ __metadata:
     "@eslint-react/eslint-plugin": "npm:1.40.4"
     "@eslint/js": "npm:9.24.0"
     "@glimmer/syntax": "npm:0.94.9"
-    "@prettier/cli": "npm:0.7.6"
+    "@prettier/cli": "npm:0.8.0"
     "@prettier/html-tags": "npm:1.0.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:4.2.0"
@@ -7617,7 +7616,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"smol-toml@npm:1.3.4, smol-toml@npm:^1.3.1, smol-toml@npm:^1.3.3":
+"smol-toml@npm:1.3.4, smol-toml@npm:^1.3.1, smol-toml@npm:^1.3.4":
   version: 1.3.4
   resolution: "smol-toml@npm:1.3.4"
   checksum: 10/795db36448db6b353ea1171fad8b72ae2fea3b5f9aa48d2f4c79699e10bdca74d59202f6715ff738fae817bf1f80e0c38c4d3ddf8b812cac26cc6255eaa0caa2
@@ -8087,13 +8086,6 @@ __metadata:
     ini-simple-parser: "npm:^1.0.0"
     zeptomatch: "npm:^1.1.3"
   checksum: 10/9e46fc34d0694c36a340f536c82a7d59597f61397d5e71f87b9956b5a729b7c941b2fbd3fe65da65b9d596a36fa4a327a03e1c9bef63af51b76a255f84f794a6
-  languageName: node
-  linkType: hard
-
-"tiny-jsonc@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "tiny-jsonc@npm:1.0.2"
-  checksum: 10/6eec910615606a2a940233179da74053b139e18de7cda4075689ad8f9da9cfefecb9ec86389fba9885dbe16ce9b708b5e24d847256efb7b8af324447d9d70e15
   languageName: node
   linkType: hard
 
