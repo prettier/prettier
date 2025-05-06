@@ -189,7 +189,7 @@ function extractInterpolation(ast, options) {
 
   const interpolationRegex = /\{\{(.+?)\}\}/su;
   ast.walk((node) => {
-    if (!canHaveInterpolation(node)) {
+    if (!canHaveInterpolation(node, options)) {
       return;
     }
 
@@ -252,7 +252,7 @@ function extractInterpolation(ast, options) {
  * - add `isWhitespaceSensitive`, `isIndentationSensitive` field for text nodes
  * - remove insensitive whitespaces
  */
-function extractWhitespaces(ast /*, options*/) {
+function extractWhitespaces(ast, options) {
   ast.walk((node) => {
     const children = node.$children;
 
@@ -271,7 +271,7 @@ function extractWhitespaces(ast /*, options*/) {
       return;
     }
 
-    const isWhitespaceSensitive = isWhitespaceSensitiveNode(node);
+    const isWhitespaceSensitive = isWhitespaceSensitiveNode(node, options);
     const isIndentationSensitive = isIndentationSensitiveNode(node);
 
     if (!isWhitespaceSensitive) {
@@ -375,7 +375,10 @@ function addIsSpaceSensitive(ast, options) {
       return;
     }
     if (children.length === 0) {
-      node.isDanglingSpaceSensitive = isDanglingSpaceSensitiveNode(node);
+      node.isDanglingSpaceSensitive = isDanglingSpaceSensitiveNode(
+        node,
+        options,
+      );
       return;
     }
     for (const child of children) {

@@ -67,7 +67,7 @@ function shouldPreserveContent(node, options) {
 
   if (
     isVueNonHtmlBlock(node, options) &&
-    !isScriptLikeTag(node) &&
+    !isScriptLikeTag(node, options) &&
     node.type !== "interpolation"
   ) {
     return true;
@@ -103,25 +103,26 @@ function isTextLikeNode(node) {
   return node.type === "text" || node.type === "comment";
 }
 
-function isScriptLikeTag(node) {
+function isScriptLikeTag(node, options) {
   return (
     node.type === "element" &&
     (node.fullName === "script" ||
       node.fullName === "style" ||
       node.fullName === "svg:style" ||
       node.fullName === "svg:script" ||
+      (node.fullName === "mj-style" && options.parser === "mjml") ||
       (isUnknownNamespace(node) &&
         (node.name === "script" || node.name === "style")))
   );
 }
 
-function canHaveInterpolation(node) {
-  return node.children && !isScriptLikeTag(node);
+function canHaveInterpolation(node, options) {
+  return node.children && !isScriptLikeTag(node, options);
 }
 
-function isWhitespaceSensitiveNode(node) {
+function isWhitespaceSensitiveNode(node, options) {
   return (
-    isScriptLikeTag(node) ||
+    isScriptLikeTag(node, options) ||
     node.type === "interpolation" ||
     isIndentationSensitiveNode(node)
   );
@@ -169,7 +170,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
       !node.prev &&
       (node.parent.type === "root" ||
         (isPreLikeNode(node) && node.parent) ||
-        isScriptLikeTag(node.parent) ||
+        isScriptLikeTag(node.parent, options) ||
         isVueCustomBlock(node.parent, options) ||
         !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
     ) {
@@ -212,7 +213,7 @@ function isTrailingSpaceSensitiveNode(node, options) {
     !node.next &&
     (node.parent.type === "root" ||
       (isPreLikeNode(node) && node.parent) ||
-      isScriptLikeTag(node.parent) ||
+      isScriptLikeTag(node.parent, options) ||
       isVueCustomBlock(node.parent, options) ||
       !isLastChildTrailingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
   ) {
@@ -229,10 +230,10 @@ function isTrailingSpaceSensitiveNode(node, options) {
   return true;
 }
 
-function isDanglingSpaceSensitiveNode(node) {
+function isDanglingSpaceSensitiveNode(node, options) {
   return (
     isDanglingSpaceSensitiveCssDisplay(node.cssDisplay) &&
-    !isScriptLikeTag(node)
+    !isScriptLikeTag(node, options)
   );
 }
 
@@ -404,11 +405,14 @@ function inferVueSfcBlockParser(node, options) {
 }
 
 function inferStyleParser(node, options) {
-  if (node.name !== "style") {
-    return;
+  if (node.name === "style") {
+    const { lang } = node.attrMap;
+    return lang ? inferParser(options, { language: lang }) : "css";
   }
-  const { lang } = node.attrMap;
-  return lang ? inferParser(options, { language: lang }) : "css";
+
+  if (node.name === "mj-style" && options.parser === "mjml") {
+    return "css";
+  }
 }
 
 function inferElementParser(node, options) {

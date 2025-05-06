@@ -85,8 +85,8 @@ const pluginFiles = [
         module: require.resolve("@babel/parser"),
         process: (text) =>
           text.replaceAll(
-            "const entity = entities[desc];",
-            "const entity = undefined",
+            /const entity\s?=\s?entities\[desc\];/gu,
+            "const entity = undefined;",
           ),
       },
     ],
@@ -761,11 +761,6 @@ const nodejsFiles = [
         find: "const readBuffer = new Buffer(this.options.readChunk);",
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
       },
-      {
-        module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
-        find: "var dump                = dumper.dump;",
-        replacement: "var dump;",
-      },
       // `parse-json` use another copy of `@babel/code-frame`
       {
         module: require.resolve("@babel/code-frame", {
@@ -791,11 +786,19 @@ const nodejsFiles = [
     replaceModule: [
       {
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
-        process: (text) =>
-          text.replace("../src/cli/index.js", "../internal/legacy-cli.mjs"),
+        process(text) {
+          text = text.replace(
+            "../src/cli/index.js",
+            "../internal/legacy-cli.mjs",
+          );
+          text = text.replace(
+            "../src/experimental-cli/index.js",
+            "../internal/experimental-cli.mjs",
+          );
+          return text;
+        },
       },
     ],
-    external: ["@prettier/cli"],
   },
   {
     input: "src/cli/index.js",
@@ -816,6 +819,54 @@ const nodejsFiles = [
       },
     ],
   },
+  ...[
+    {
+      input: "src/experimental-cli/index.js",
+      outputBaseName: "internal/experimental-cli",
+      replaceModule: [
+        {
+          module: getPackageFile("@prettier/cli/dist/prettier_serial.js"),
+          external: "./experimental-cli-worker.mjs",
+        },
+        {
+          module: getPackageFile("@prettier/cli/dist/prettier_parallel.js"),
+          find: 'new URL("./prettier_serial.js", import.meta.url)',
+          replacement:
+            'new URL("./experimental-cli-worker.mjs", import.meta.url)',
+        },
+      ],
+    },
+    {
+      input: "src/experimental-cli/worker.js",
+      outputBaseName: "internal/experimental-cli-worker",
+    },
+  ].map(({ input, outputBaseName, replaceModule = [] }) => ({
+    input,
+    outputBaseName,
+    replaceModule: [
+      ...replaceModule,
+      {
+        module: getPackageFile("@prettier/cli/dist/constants.js"),
+        path: path.join(
+          PROJECT_ROOT,
+          "src/experimental-cli/constants.evaluate.js",
+        ),
+      },
+      ...[
+        "package.json",
+        "index.mjs",
+        ...universalFiles
+          .filter(
+            ({ kind, output }) =>
+              kind === "javascript" && output.format === "esm",
+          )
+          .map(({ output }) => output.file),
+      ].map((file) => ({
+        module: getPackageFile(`prettier/${file}`),
+        external: `../${file}`,
+      })),
+    ],
+  })),
 ].flatMap((file) => {
   let { input, output, outputBaseName, ...buildOptions } = file;
 

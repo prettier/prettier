@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mj-style.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<mjml>
+
+<mj-style> .should-not-format{
+  as: 'css'
+}</mj-style>
+
+</mjml>
+</template>
+
+=====================================output=====================================
+<template>
+  <mjml>
+    <mj-style> .should-not-format{ as: 'css' }</mj-style>
+  </mjml>
+</template>
+
+================================================================================
+`;

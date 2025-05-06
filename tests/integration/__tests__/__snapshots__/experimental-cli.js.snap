@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`experimental cli  1`] = `
+{
+  "stdout": "foo();",
+}
+`;
+
+exports[`experimental cli '--check --no-parallel' 1`] = `
+{
+  "status": 1,
+  "stderr": "[warn] test-1/should-format.js
+[warn] Code style issues found in 1 file. Run Prettier with --write to fix.",
+  "stdout": "Checking formatting...
+",
+  "write": [],
+}
+`;
+
+exports[`experimental cli '--check' 1`] = `
+{
+  "status": 1,
+  "stderr": "[warn] test-0/should-format.js
+[warn] Code style issues found in 1 file. Run Prettier with --write to fix.",
+  "stdout": "Checking formatting...
+",
+  "write": [],
+}
+`;
+
+exports[`experimental cli '--write --no-parallel' 1`] = `
+{
+  "status": 0,
+  "stderr": "",
+  "stdout": "test-3/should-format.js",
+  "write": [],
+}
+`;
+
+exports[`experimental cli '--write' 1`] = `
+{
+  "status": 0,
+  "stderr": "",
+  "stdout": "test-2/should-format.js",
+  "write": [],
+}
+`;

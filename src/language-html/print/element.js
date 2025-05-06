@@ -81,7 +81,7 @@ function printElement(path, options, print) {
       return indentIfBreak(childrenDoc, { groupId: attrGroupId });
     }
     if (
-      (isScriptLikeTag(node) || isVueCustomBlock(node, options)) &&
+      (isScriptLikeTag(node, options) || isVueCustomBlock(node, options)) &&
       node.parent.type === "root" &&
       options.parser === "vue" &&
       !options.vueIndentScriptAndStyle
