@@ -7088,7 +7088,7 @@ __metadata:
     remark-parse: "npm:8.0.3"
     rollup-plugin-license: "npm:3.6.0"
     sdbm: "npm:2.0.0"
-    search-closest: "npm:0.1.1"
+    search-closest: "npm:0.2.0"
     semver: "npm:7.7.1"
     serialize-javascript: "npm:6.0.2"
     smol-toml: "npm:1.3.4"
@@ -7492,13 +7492,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"search-closest@npm:0.1.1":
-  version: 0.1.1
-  resolution: "search-closest@npm:0.1.1"
+"search-closest@npm:0.2.0":
+  version: 0.2.0
+  resolution: "search-closest@npm:0.2.0"
   dependencies:
     find-in-directory: "npm:^2.0.1"
     iterate-directory-up: "npm:^1.2.1"
-  checksum: 10/5285c2d5e7e5d7ffbb2aa0bf2fd37acd19dff58c3975889125f2a92e9a0c17adea10484c43f1ae67ccf03896f891e7721b54211fea777164ac90b26dde7c93ff
+  checksum: 10/a2807c1cbef9604aa05602c7a99266c162b7b29f28b785d92506f6305be3f414fb27805f07c89709a0f54ef5ee0b4336a059e4be461ed3b6eef6f52a345f014e
   languageName: node
   linkType: hard
 
