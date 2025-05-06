@@ -1,9 +1,12 @@
-import isFile from "../../utils/is-file.js";
-import Searcher from "../searcher.js";
+import { FileSearcher } from "search-closest";
 import {
   loadConfigFromPackageJson,
   loadConfigFromPackageYaml,
 } from "./loaders.js";
+
+/**
+@import {SearcherOptions} from 'search-closest'
+*/
 
 const CONFIG_FILE_NAMES = [
   "package.json",
@@ -28,11 +31,8 @@ const CONFIG_FILE_NAMES = [
   ".prettierrc.toml",
 ];
 
+/** @type {SearcherOptions["filter"]} */
 async function filter({ name, path: file }) {
-  if (!(await isFile(file))) {
-    return false;
-  }
-
   if (name === "package.json") {
     try {
       return Boolean(await loadConfigFromPackageJson(file));
@@ -53,7 +53,7 @@ async function filter({ name, path: file }) {
 }
 
 function getSearcher(stopDirectory) {
-  return new Searcher({ names: CONFIG_FILE_NAMES, filter, stopDirectory });
+  return new FileSearcher(CONFIG_FILE_NAMES, { filter, stopDirectory });
 }
 
 export default getSearcher;

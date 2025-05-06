@@ -85,8 +85,8 @@ const pluginFiles = [
         module: require.resolve("@babel/parser"),
         process: (text) =>
           text.replaceAll(
-            "const entity = entities[desc];",
-            "const entity = undefined",
+            /const entity\s?=\s?entities\[desc\];/gu,
+            "const entity = undefined;",
           ),
       },
     ],
@@ -760,11 +760,6 @@ const nodejsFiles = [
         module: require.resolve("n-readlines"),
         find: "const readBuffer = new Buffer(this.options.readChunk);",
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
-      },
-      {
-        module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
-        find: "var dump                = dumper.dump;",
-        replacement: "var dump;",
       },
       // `parse-json` use another copy of `@babel/code-frame`
       {

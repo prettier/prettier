@@ -17,7 +17,7 @@ import { parseIeConditionalComment } from "./conditional-comment.js";
 import { locEnd, locStart } from "./loc.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
-import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
+import HTML_TAGS from "./utils/html-tags.evaluate.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 /**
