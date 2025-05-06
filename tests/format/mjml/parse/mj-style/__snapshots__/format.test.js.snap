@@ -27,7 +27,11 @@ printWidth: 80
 </MJ-STYLE>
 
 =====================================output=====================================
-<mj-style> a::before { content: "</p>"; } </mj-style>
+<mj-style>
+  a::before {
+    content: "</p>";
+  }
+</mj-style>
 
 <MJ-STYLE> a::before { content: "</p>"; } </MJ-STYLE>
 
