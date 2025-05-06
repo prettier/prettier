@@ -85,8 +85,8 @@ const pluginFiles = [
         module: require.resolve("@babel/parser"),
         process: (text) =>
           text.replaceAll(
-            "const entity = entities[desc];",
-            "const entity = undefined",
+            /const entity\s?=\s?entities\[desc\];/gu,
+            "const entity = undefined;",
           ),
       },
     ],
