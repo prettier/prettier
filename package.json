@@ -144,7 +144,7 @@
     "magic-string": "0.30.17",
     "nano-spawn": "0.2.0",
     "node-style-text": "0.0.7",
-    "npm-run-all2": "7.0.2",
+    "npm-run-all2": "8.0.1",
     "prettier": "3.5.3",
     "pretty-bytes": "6.1.1",
     "rollup-plugin-license": "3.6.0",
