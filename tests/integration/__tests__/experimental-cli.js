@@ -1,7 +1,6 @@
 import fs from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";
-import {} from "../env.js";
 
 const require = createRequire(import.meta.url);
 
