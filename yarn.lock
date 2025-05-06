@@ -1960,39 +1960,38 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.7.1":
-  version: 0.7.1
-  resolution: "@prettier/cli@npm:0.7.1"
+"@prettier/cli@npm:0.8.0":
+  version: 0.8.0
+  resolution: "@prettier/cli@npm:0.8.0"
   dependencies:
     atomically: "npm:^2.0.3"
     fast-ignore: "npm:^1.1.3"
-    find-up-json: "npm:^2.0.4"
-    function-once: "npm:^3.0.0"
+    find-up-json: "npm:^2.0.5"
+    function-once: "npm:^3.0.1"
     import-meta-resolve: "npm:^4.1.0"
-    is-binary-path: "npm:^2.1.0"
+    is-binary-path: "npm:^3.0.0"
     js-yaml: "npm:^4.1.0"
-    json-sorted-stringify: "npm:^1.0.0"
+    json-sorted-stringify: "npm:^1.0.1"
     json5: "npm:^2.2.3"
-    kasi: "npm:^1.1.0"
-    lomemo: "npm:^1.0.0"
-    pioppo: "npm:^1.2.0"
-    promise-resolve-timeout: "npm:^2.0.0"
-    smol-toml: "npm:^1.3.1"
+    kasi: "npm:^1.1.1"
+    lomemo: "npm:^1.0.1"
+    pioppo: "npm:^1.2.1"
+    promise-resolve-timeout: "npm:^2.0.1"
+    smol-toml: "npm:^1.3.4"
     specialist: "npm:^1.4.5"
     tiny-editorconfig: "npm:^1.0.0"
-    tiny-jsonc: "npm:^1.0.1"
     tiny-readdir: "npm:^2.7.4"
-    tiny-readdir-glob: "npm:^1.23.1"
-    tiny-spinner: "npm:^2.0.4"
+    tiny-readdir-glob: "npm:^1.23.2"
+    tiny-spinner: "npm:^2.0.5"
     worktank: "npm:^2.7.3"
-    zeptomatch: "npm:^2.0.0"
-    zeptomatch-escape: "npm:^1.0.0"
-    zeptomatch-is-static: "npm:^1.0.0"
+    zeptomatch: "npm:^2.0.1"
+    zeptomatch-escape: "npm:^1.0.1"
+    zeptomatch-is-static: "npm:^1.0.1"
   peerDependencies:
     prettier: ^3.1.0 || ^4.0.0-alpha
   bin:
     prettier-next: dist/bin.js
-  checksum: 10/ec695d454d82037a8b09bce3c1d74acae924eb226c65cf62435744279a4cedc408c463c42f54d66b2b65471ceedf216ab82f170e000066a425cae47a816c2062
+  checksum: 10/753832b6404659c19e88725d99cb650e4cadcc012f5a64fb29c02c52f68307e9c1d17e86a3677b766a19d3ce4733a09d4d3a0092edd064123abcd8e5548e0b0a
   languageName: node
   linkType: hard
 
@@ -2631,10 +2630,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"binary-extensions@npm:^2.0.0":
-  version: 2.3.0
-  resolution: "binary-extensions@npm:2.3.0"
-  checksum: 10/bcad01494e8a9283abf18c1b967af65ee79b0c6a9e6fcfafebfe91dbe6e0fc7272bafb73389e198b310516ae04f7ad17d79aacf6cb4c0d5d5202a7e2e52c7d98
+"binary-extensions@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "binary-extensions@npm:3.0.0"
+  checksum: 10/2ea1a54b4f0fd466e5601247938fd3811f13de819d024401e1c01ddcba46b8168154ef27fcb6abbe62e51ee3115174e4316ee0b92352844d59279f24fb110d05
   languageName: node
   linkType: hard
 
@@ -4373,7 +4372,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-up-json@npm:^2.0.4, find-up-json@npm:^2.0.5":
+"find-up-json@npm:^2.0.5":
   version: 2.0.5
   resolution: "find-up-json@npm:2.0.5"
   dependencies:
@@ -4520,7 +4519,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"function-once@npm:^3.0.0":
+"function-once@npm:^3.0.1":
   version: 3.0.1
   resolution: "function-once@npm:3.0.1"
   checksum: 10/11cc5e0fc669c01c4ec47f90b416444ee0ebfde80b43dd99011dcde46c9e16200a74cc078db646a60d4fbcb61736be729073ed2b4a46abdf2ed8d0e7e01d35e9
@@ -4983,12 +4982,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-binary-path@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "is-binary-path@npm:2.1.0"
+"is-binary-path@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "is-binary-path@npm:3.0.0"
   dependencies:
-    binary-extensions: "npm:^2.0.0"
-  checksum: 10/078e51b4f956c2c5fd2b26bb2672c3ccf7e1faff38e0ebdba45612265f4e3d9fc3127a1fa8370bbf09eab61339203c3d3b7af5662cbf8be4030f8fac37745b0e
+    binary-extensions: "npm:^3.0.0"
+  checksum: 10/3b2ff558f3f14cc90a7311638b787ed1ebb964dff5b8fb310b8e4f986d9718f9c14885c6963219186c8916a53c6fda4c7884f478c4b8293660d9493230998fa9
   languageName: node
   linkType: hard
 
@@ -5987,7 +5986,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-sorted-stringify@npm:^1.0.0":
+"json-sorted-stringify@npm:^1.0.1":
   version: 1.0.1
   resolution: "json-sorted-stringify@npm:1.0.1"
   checksum: 10/5d23777e2d9114d9b242a1ccda1041d2639ad0db7a4178abd6937ffebf1efb18b018208b29c4ec0f78632d82c64815ec73e53d96fae63930aa7ab5c216e0ad8e
@@ -6010,7 +6009,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kasi@npm:^1.1.0":
+"kasi@npm:^1.1.1":
   version: 1.1.1
   resolution: "kasi@npm:1.1.1"
   checksum: 10/6a686901db23c872c7e5965d4e044610a9b81c988106b733eebac76a49055895d3393331dffba5ed605b85cd532b2bb507133a488ce89617098523dc0df019d0
@@ -6151,7 +6150,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lomemo@npm:^1.0.0":
+"lomemo@npm:^1.0.1":
   version: 1.0.1
   resolution: "lomemo@npm:1.0.1"
   checksum: 10/6459218d0461eb59f2a0ba176b905bfb21c2a41879778b5f5ffcf4a955bbf71b66701b4641290181face7c455dcba486a05923722450b25ddc918a4a29e432c1
@@ -6834,7 +6833,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pioppo@npm:^1.2.0":
+"pioppo@npm:^1.2.1":
   version: 1.2.1
   resolution: "pioppo@npm:1.2.1"
   dependencies:
@@ -6993,7 +6992,7 @@ __metadata:
     "@eslint-react/eslint-plugin": "npm:1.40.4"
     "@eslint/js": "npm:9.24.0"
     "@glimmer/syntax": "npm:0.94.9"
-    "@prettier/cli": "npm:0.7.1"
+    "@prettier/cli": "npm:0.8.0"
     "@prettier/html-tags": "npm:1.0.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin-js": "npm:4.2.0"
@@ -7180,7 +7179,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"promise-resolve-timeout@npm:^2.0.0":
+"promise-resolve-timeout@npm:^2.0.1":
   version: 2.0.1
   resolution: "promise-resolve-timeout@npm:2.0.1"
   checksum: 10/acfff518f185c209caa6d67f9a5bf540105d207752d2065b8d0d5579d49f04f5b2e374d2e64ac08f9459fc7feaabfbbbbb9ec66f342a82a9459db4e8bfd72a4e
@@ -7617,7 +7616,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"smol-toml@npm:1.3.4, smol-toml@npm:^1.3.1":
+"smol-toml@npm:1.3.4, smol-toml@npm:^1.3.1, smol-toml@npm:^1.3.4":
   version: 1.3.4
   resolution: "smol-toml@npm:1.3.4"
   checksum: 10/795db36448db6b353ea1171fad8b72ae2fea3b5f9aa48d2f4c79699e10bdca74d59202f6715ff738fae817bf1f80e0c38c4d3ddf8b812cac26cc6255eaa0caa2
@@ -8090,13 +8089,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-jsonc@npm:^1.0.1":
-  version: 1.0.2
-  resolution: "tiny-jsonc@npm:1.0.2"
-  checksum: 10/6eec910615606a2a940233179da74053b139e18de7cda4075689ad8f9da9cfefecb9ec86389fba9885dbe16ce9b708b5e24d847256efb7b8af324447d9d70e15
-  languageName: node
-  linkType: hard
-
 "tiny-levenshtein@npm:^1.0.1":
   version: 1.0.1
   resolution: "tiny-levenshtein@npm:1.0.1"
@@ -8111,16 +8103,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-readdir-glob@npm:^1.23.1":
-  version: 1.23.1
-  resolution: "tiny-readdir-glob@npm:1.23.1"
+"tiny-readdir-glob@npm:^1.23.2":
+  version: 1.23.2
+  resolution: "tiny-readdir-glob@npm:1.23.2"
   dependencies:
     tiny-readdir: "npm:^2.7.0"
-    zeptomatch: "npm:^1.2.2"
-    zeptomatch-explode: "npm:^1.0.0"
-    zeptomatch-is-static: "npm:^1.0.0"
-    zeptomatch-unescape: "npm:^1.0.0"
-  checksum: 10/ada70ed76fccab497376b1c0bdc0abe4cdc588ae25914907c9d8947a24fc109c21c7c36b065596fb794eea3f3a29505c2551780c54ad526943619274cf2086ec
+    zeptomatch: "npm:^2.0.1"
+    zeptomatch-explode: "npm:^1.0.1"
+    zeptomatch-is-static: "npm:^1.0.1"
+    zeptomatch-unescape: "npm:^1.0.1"
+  checksum: 10/ebc0cfcbb08ef8dc137eb83569410ab809d815921b3c7fe9534956a89e5e80962435b8c034d21399bb856fd95e7cbbe9d10ebaccbd1b89f26516753e12501c76
   languageName: node
   linkType: hard
 
@@ -8133,7 +8125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-spinner@npm:^2.0.4":
+"tiny-spinner@npm:^2.0.5":
   version: 2.0.5
   resolution: "tiny-spinner@npm:2.0.5"
   dependencies:
@@ -8815,35 +8807,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zeptomatch-escape@npm:^1.0.0":
+"zeptomatch-escape@npm:^1.0.1":
   version: 1.0.1
   resolution: "zeptomatch-escape@npm:1.0.1"
   checksum: 10/d2b27a6d0abab50ea59e0f2d8526b1946db02e498dc2f5105ec060868fc8f1e745618d164ed170439ebb85678e5c06acb781c840eb36ec625c775e96472ff0ef
   languageName: node
   linkType: hard
 
-"zeptomatch-explode@npm:^1.0.0":
+"zeptomatch-explode@npm:^1.0.1":
   version: 1.0.1
   resolution: "zeptomatch-explode@npm:1.0.1"
   checksum: 10/4424d5f58484b4e4b191f8afb17d582fbde4efcd1f25fb90a240b0f5490e7d3ab82bf0a0b6ab4e1898a918f83a9e874d611733ff0a1ddb7cf929797d870ead2c
   languageName: node
   linkType: hard
 
-"zeptomatch-is-static@npm:^1.0.0":
+"zeptomatch-is-static@npm:^1.0.1":
   version: 1.0.1
   resolution: "zeptomatch-is-static@npm:1.0.1"
   checksum: 10/2cc3e039034d3fa9081a2f00e50cb2932cc7d9fe061841eadef24f032ec610d32f679e28ddf6e5c50c26c567e7b6d590ded70efe1efc7d066552a0505c02d7a2
   languageName: node
   linkType: hard
 
-"zeptomatch-unescape@npm:^1.0.0":
+"zeptomatch-unescape@npm:^1.0.1":
   version: 1.0.1
   resolution: "zeptomatch-unescape@npm:1.0.1"
   checksum: 10/2139c86901fd58950658b0f2c618fd0ffa4b5389d8a7c3009a17d7da362d9fa4d6a79d94e7c6d969bd72e683354ee84e24c8404bb1476bba1d2b2935a500544d
   languageName: node
   linkType: hard
 
-"zeptomatch@npm:^1.1.3, zeptomatch@npm:^1.2.2":
+"zeptomatch@npm:^1.1.3":
   version: 1.2.2
   resolution: "zeptomatch@npm:1.2.2"
   dependencies:
@@ -8852,7 +8844,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zeptomatch@npm:^2.0.0":
+"zeptomatch@npm:^2.0.1":
   version: 2.0.1
   resolution: "zeptomatch@npm:2.0.1"
   dependencies:

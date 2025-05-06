@@ -100,15 +100,6 @@ async function buildPackageJson({ packageConfig, file }) {
       prepublishOnly:
         "node -e \"assert.equal(require('.').version, require('..').version)\"",
     },
-    peerDependencies: {
-      // Add `^` here, so we don't need release Prettier user can still update CLI
-      "@prettier/cli": `^${packageJson.dependencies["@prettier/cli"]}`,
-    },
-    peerDependenciesMeta: {
-      "@prettier/cli": {
-        optional: true,
-      },
-    },
   };
 
   await writeJson(
