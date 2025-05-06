@@ -445,8 +445,14 @@ const HTML_PARSE_OPTIONS = {
 
 // HTML
 export const html = createParser(HTML_PARSE_OPTIONS);
+
+const MJML_RAW_TAGS = new Set(["mj-style", "mj-raw"]);
 // MJML https://mjml.io/
-export const mjml = createParser({ ...HTML_PARSE_OPTIONS, name: "mjml" });
+export const mjml = createParser({
+  ...HTML_PARSE_OPTIONS,
+  name: "mjml",
+  shouldParseAsRawText: (tagName) => MJML_RAW_TAGS.has(tagName),
+});
 // Angular
 export const angular = createParser({ name: "angular" });
 // Vue
