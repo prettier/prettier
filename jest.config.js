@@ -11,6 +11,9 @@ const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
 // When debugging production test, this flag can skip installing package
 const SKIP_PRODUCTION_INSTALL = Boolean(process.env.SKIP_PRODUCTION_INSTALL);
 
+// New CLI not supported yet
+process.env.PRETTIER_LEGACY_CLI = "1";
+
 let PRETTIER_DIR = isProduction
   ? path.join(PROJECT_ROOT, "dist/prettier")
   : PROJECT_ROOT;
@@ -44,7 +47,7 @@ const config = {
     "<rootDir>/tests/config/format-test-setup.js",
     "<rootDir>/tests/integration/integration-test-setup.js",
   ],
-  runner: "jest-light-runner",
+  runner: "jest-light-runner/child-process",
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
