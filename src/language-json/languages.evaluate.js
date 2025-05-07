@@ -1,6 +1,18 @@
 import linguistLanguages from "linguist-languages";
 import createLanguage from "../utils/create-language.js";
 
+const ignoredFilenames = new Set([
+  // These are generated files, we don't want format them by default
+  "MODULE.bazel.lock",
+  "Package.resolved",
+  "Pipfile.lock",
+  "bun.lock",
+  "composer.lock",
+  "deno.lock",
+  "flake.lock",
+  "mcmod.info",
+]);
+
 const languages = [
   createLanguage(linguistLanguages.JSON, () => ({
     name: "JSON.stringify",
@@ -14,7 +26,7 @@ const languages = [
     vscodeLanguageIds: ["json"],
     extensions: data.extensions.filter((extension) => extension !== ".jsonl"),
     filenames: [
-      ...data.filenames,
+      ...data.filenames.filter((filename) => !ignoredFilenames.has(filename)),
       ".babelrc",
       ".jscsrc",
       ".jshintrc",
