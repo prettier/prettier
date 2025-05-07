@@ -4327,12 +4327,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-entry-cache@npm:10.0.8":
-  version: 10.0.8
-  resolution: "file-entry-cache@npm:10.0.8"
+"file-entry-cache@npm:10.1.0":
+  version: 10.1.0
+  resolution: "file-entry-cache@npm:10.1.0"
   dependencies:
-    flat-cache: "npm:^6.1.8"
-  checksum: 10/1094f55bd39d18de81ba64a3ed998fc8223ae814eef6e65518e2a1491d419febcaa852c8b87df2f4dd67c10b0053906be86b7f04ecdadaa5781821604dc88437
+    flat-cache: "npm:^6.1.9"
+  checksum: 10/c2e6cf0f8ddbb749a6a6dd58dbb562de76eaca6d9016fb171066e648d9cfd32065e77489e3058f6786c033f453e75da5c974bef0e09d00e0b4df5ea1806accad
   languageName: node
   linkType: hard
 
@@ -4445,7 +4445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flat-cache@npm:^6.1.8":
+"flat-cache@npm:^6.1.9":
   version: 6.1.9
   resolution: "flat-cache@npm:6.1.9"
   dependencies:
@@ -7048,7 +7048,7 @@ __metadata:
     espree: "npm:10.3.0"
     fast-glob: "npm:3.3.3"
     fast-json-stable-stringify: "npm:2.1.0"
-    file-entry-cache: "npm:10.0.8"
+    file-entry-cache: "npm:10.1.0"
     find-cache-directory: "npm:6.0.0"
     flow-parser: "npm:0.272.0"
     get-east-asian-width: "npm:1.3.0"
