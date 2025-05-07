@@ -34,7 +34,7 @@
   "dependencies": {
     "@angular/compiler": "19.2.8",
     "@babel/code-frame": "7.27.1",
-    "@babel/parser": "7.27.1",
+    "@babel/parser": "7.27.2",
     "@babel/types": "7.27.1",
     "@glimmer/syntax": "0.94.9",
     "@prettier/cli": "0.8.0",
