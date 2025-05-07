@@ -17,7 +17,7 @@ import { parseIeConditionalComment } from "./conditional-comment.js";
 import { locEnd, locStart } from "./loc.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
-import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
+import HTML_TAGS from "./utils/html-tags.evaluate.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 /**
@@ -445,8 +445,14 @@ const HTML_PARSE_OPTIONS = {
 
 // HTML
 export const html = createParser(HTML_PARSE_OPTIONS);
+
+const MJML_RAW_TAGS = new Set(["mj-style", "mj-raw"]);
 // MJML https://mjml.io/
-export const mjml = createParser({ ...HTML_PARSE_OPTIONS, name: "mjml" });
+export const mjml = createParser({
+  ...HTML_PARSE_OPTIONS,
+  name: "mjml",
+  shouldParseAsRawText: (tagName) => MJML_RAW_TAGS.has(tagName),
+});
 // Angular
 export const angular = createParser({ name: "angular" });
 // Vue

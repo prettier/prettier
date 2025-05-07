@@ -8,6 +8,7 @@
 
 .tmp
 *.log
+*.tgz
 /errors
 /test*.*
 /.vscode/**/*

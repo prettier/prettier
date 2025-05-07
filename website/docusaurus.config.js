@@ -4,6 +4,7 @@ import fs from "node:fs";
 import { createRequire } from "node:module";
 import { load as parseYaml } from "js-yaml";
 import { themes as prismThemes } from "prism-react-renderer";
+import llmsTxtPlugin from "./plugins/llms-txt-plugin.mjs";
 
 const require = createRequire(import.meta.url);
 
@@ -258,7 +259,7 @@ const config = {
         darkTheme: prismThemes.dracula,
       },
     },
-
+  plugins: [llmsTxtPlugin],
   future: {
     experimental_faster: {
       swcJsLoader: true,

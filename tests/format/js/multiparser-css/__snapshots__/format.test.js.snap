@@ -480,6 +480,56 @@ const paragraph3 = css\`
 ================================================================================
 `;
 
+exports[`issue-16692.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const c1 = styled.div\`
+    border:    1px     \${solid}      red;
+\`;
+
+const c2 = styled.div\`
+ font-size:      var(--font-size-h\${level});
+\`;
+
+const c3 = styled.div\`
+    grid-area:       area-\${area};
+\`;
+
+const c4 = styled.div\`
+    grid-area:       var(--\${one});
+\`;
+
+const c5 = styled.div\`
+ font-size:      var(--font-size-h \${level});
+\`;
+
+=====================================output=====================================
+const c1 = styled.div\`
+  border: 1px \${solid} red;
+\`;
+
+const c2 = styled.div\`
+  font-size: var(--font-size-h\${level});
+\`;
+
+const c3 = styled.div\`
+  grid-area: area-\${area};
+\`;
+
+const c4 = styled.div\`
+  grid-area: var(--\${one});
+\`;
+
+const c5 = styled.div\`
+  font-size: var(--font-size-h \${level});
+\`;
+
+================================================================================
+`;
+
 exports[`styled-components.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
