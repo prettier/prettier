@@ -7,7 +7,7 @@
   "dependencies": {
     "enquirer": "2.4.1",
     "fast-glob": "3.3.3",
-    "nano-spawn": "0.2.0",
+    "nano-spawn": "0.2.1",
     "node-style-text": "0.0.7",
     "outdent": "0.8.0",
     "semver": "7.7.1"
