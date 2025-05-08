@@ -37,12 +37,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/prettier/prettier/actions?query=workflow%3AProd+branch%3Amain">
-    <img alt="Github Actions Build Status" src="https://img.shields.io/github/actions/workflow/status/prettier/prettier/prod-test.yml?label=Prod&style=flat-square"></a>
-  <a href="https://github.com/prettier/prettier/actions?query=workflow%3ADev+branch%3Amain">
-    <img alt="Github Actions Build Status" src="https://img.shields.io/github/actions/workflow/status/prettier/prettier/dev-test.yml?label=Dev&style=flat-square"></a>
-  <a href="https://github.com/prettier/prettier/actions?query=workflow%3ALint+branch%3Amain">
-    <img alt="Github Actions Build Status" src="https://img.shields.io/github/actions/workflow/status/prettier/prettier/lint.yml?label=Lint&style=flat-square"></a>
+  <a href="https://github.com/prettier/prettier/actions?query=branch%3Amain">
+    <img alt="Github Actions Build Status" src="https://img.shields.io/github/check-runs/prettier/prettier/main?style=flat-square&label=CI"></a>
   <a href="https://codecov.io/gh/prettier/prettier">
     <img alt="Codecov Coverage Status" src="https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square"></a>
   <a href="https://twitter.com/acdlite/status/974390255393505280">
@@ -54,8 +50,8 @@
     <img alt="weekly downloads from npm" src="https://img.shields.io/npm/dw/prettier.svg?style=flat-square"></a>
   <a href="#badge">
     <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"></a>
-  <a href="https://twitter.com/PrettierCode">
-    <img alt="Follow Prettier on Twitter" src="https://img.shields.io/badge/%40PrettierCode-9f9f9f?style=flat-square&logo=x&labelColor=555"></a>
+  <a href="https://x.com/intent/follow?screen_name=PrettierCode">
+    <img alt="Follow Prettier on X" src="https://img.shields.io/badge/%40PrettierCode-9f9f9f?style=flat-square&logo=x&labelColor=555"></a>
 </p>
 
 ## Intro
