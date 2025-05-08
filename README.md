@@ -38,7 +38,7 @@
 
 <p align="center">
   <a href="https://github.com/prettier/prettier/actions?query=branch%3Amain">
-    <img alt="Build Status" src="https://img.shields.io/github/check-runs/prettier/prettier/main?style=flat-square&label=CI"></a>
+    <img alt="CI Status" src="https://img.shields.io/github/check-runs/prettier/prettier/main?style=flat-square&label=CI"></a>
   <a href="https://codecov.io/gh/prettier/prettier">
     <img alt="Coverage Status" src="https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square"></a>
   <a href="https://twitter.com/acdlite/status/974390255393505280">
