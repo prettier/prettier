@@ -313,7 +313,7 @@ c */
 ================================================================================
 `;
 
-exports[`conditonal-types.ts - {"experimentalTernaries":true} format 1`] = `
+exports[`conditional-types.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
@@ -403,7 +403,7 @@ type U2 = (new () => X) extends T ? U : V;
 ================================================================================
 `;
 
-exports[`conditonal-types.ts format 1`] = `
+exports[`conditional-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
