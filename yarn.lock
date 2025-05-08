@@ -6808,10 +6808,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nano-spawn@npm:0.2.0":
-  version: 0.2.0
-  resolution: "nano-spawn@npm:0.2.0"
-  checksum: 10/efc75810590f9a15ffde05f03ab6408727524040fe13db1a34e8d09512803269f976a294b4facf51ba30bfb32568dcc8a723fee36e45a5748cd045bf566b6790
+"nano-spawn@npm:0.2.1":
+  version: 0.2.1
+  resolution: "nano-spawn@npm:0.2.1"
+  checksum: 10/8cd450e5a6626e4296cdde2d02f5bd1de4b188868abdd433ed18f7ce27689af3afa1c9560078bc49149ee5998c31ef8e0a62acf8a3d308611544404b4d6b2e84
   languageName: node
   linkType: hard
 
@@ -7471,7 +7471,7 @@ __metadata:
     micromatch: "npm:4.0.8"
     minimist: "npm:1.2.8"
     n-readlines: "npm:1.0.1"
-    nano-spawn: "npm:0.2.0"
+    nano-spawn: "npm:0.2.1"
     node-style-text: "npm:0.0.7"
     npm-run-all2: "npm:8.0.1"
     outdent: "npm:0.8.0"
