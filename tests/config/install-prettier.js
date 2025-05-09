@@ -8,15 +8,11 @@ import { outdent } from "outdent";
 import picocolors from "picocolors";
 
 // https://github.com/sindresorhus/nano-spawn/blob/bbf53ec1f0a8f34043ea75b4b5386b40bd1593fc/source/windows.js#L71
-const escapeFile = (file) =>
-  file.replaceAll(/([()\][%!^"`<>&|;, *?])/gu, "^$1");
 const escapeArgument = (argument) =>
   escapeFile(
-    escapeFile(
-      `"${argument
-        .replaceAll(/(\\*)"/gu, String.raw`$1$1\"`)
-        .replace(/(\\*)$/u, "$1$1")}"`,
-    ),
+    `"${argument
+      .replaceAll(/(\\*)"/gu, String.raw`$1$1\"`)
+      .replace(/(\\*)$/u, "$1$1")}"`,
   );
 const spawn = (command, args, options) =>
   spawnSync(
