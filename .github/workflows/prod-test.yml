@@ -56,18 +56,18 @@ jobs:
           - "windows-latest"
         node:
           # Latest even version
-          - "22"
+          - "24"
           # Minimal version for production
           - "14"
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
-            node: "22"
+            node: "24"
             FULL_TEST: true
           # Versions not tested on linux, normally only even versions
           # If latest version is an odd number, it can be listed below too
           - os: "ubuntu-latest"
-            node: "23"
+            node: "22"
           - os: "ubuntu-latest"
             node: "20"
           - os: "ubuntu-latest"
