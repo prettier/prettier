@@ -14,13 +14,12 @@ const escapeArgument = (argument) =>
       .replaceAll(/(\\*)"/gu, String.raw`$1$1\"`)
       .replace(/(\\*)$/u, "$1$1")}"`,
   );
+const escapeFile = (file) =>
+  file.replaceAll(/([()\][%!^"`<>&|;, *?])/gu, "^$1");
 const spawn = (command, args, options) =>
   spawnSync(
     [command, ...args.map((argument) => escapeArgument(argument))].join(" "),
-    {
-      ...options,
-      shell: true,
-    },
+    { ...options, shell: true },
   );
 const createTemporaryDirectory = () => {
   const directory = path.join(
