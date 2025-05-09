@@ -75,16 +75,16 @@ function installPrettier(packageDirectory) {
   switch (client) {
     case "npm":
       // npm fails when engine requirement only with `--engine-strict`
-      runNpmClient(["install", packed, "--engine-strict"]);
+      runNpmClient(["install", JSON.stringify(packed), "--engine-strict"]);
       break;
     case "pnpm":
       // Note: current pnpm can't work with `--engine-strict` and engineStrict setting in `.npmrc`
-      runNpmClient(["add", packed, "--engine-strict"]);
+      runNpmClient(["add", JSON.stringify(packed), "--engine-strict"]);
       break;
     case "yarn":
       // yarn fails when engine requirement not compatible by default
       runNpmClient(["config", "set", "nodeLinker", "node-modules"]);
-      runNpmClient(["add", `prettier@file:${packed}`]);
+      runNpmClient(["add", JSON.stringify(`prettier@file:${packed}`)]);
     // No default
   }
 
