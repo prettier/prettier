@@ -56,7 +56,7 @@ function installPrettier(packageDirectory) {
   const start = performance.now();
   const temporaryDirectory = createTemporaryDirectory();
   directoriesToClean.add(temporaryDirectory);
-  const fileName = spawnSync("npm", ["pack"], {
+  const fileName = spawnSync("npm pack", {
     cwd: packageDirectory,
     shell: true,
     encoding: "utf8",
@@ -67,7 +67,10 @@ function installPrettier(packageDirectory) {
   fs.unlinkSync(file);
 
   const runNpmClient = (args) =>
-    spawnSync(client, args, { cwd: temporaryDirectory, shell: true });
+    spawnSync([client, ...args].join(" "), {
+      cwd: temporaryDirectory,
+      shell: true,
+    });
 
   runNpmClient(client === "pnpm" ? ["init"] : ["init", "-y"]);
 
