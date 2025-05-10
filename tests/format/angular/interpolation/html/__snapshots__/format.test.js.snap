@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`17428.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(there is no {{\`\${activityType === '' ? 'activity' : ''}\${activityType === '' && costCenter === '' ? ' or ' : ''}\${costCenter === '' ? 'cost center' : ''}\`}})
+
+=====================================output=====================================
+(there is no
+{{
+  \`\${activityType === "" ? "activity" : ""}\${activityType === "" && costCenter === "" ? " or " : ""}\${costCenter === "" ? "cost center" : ""}\`
+}})
+
+================================================================================
+`;
