@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pure-single-interpolation-only.html - {"printWidth":10,"htmlWhitespaceSensitivity":"css"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "css"
+parsers: ["angular"]
+printWidth: 10
+          | printWidth
+=====================================input======================================
+<h1>{{ foo }}</h1>
+
+<!-- whitespaces -->
+
+<h1>
+  {{ foo }}
+</h1>
+
+<h1>  {{ foo }}  </h1>
+
+<!-- impurities -->
+
+<h1>leading {{ foo }} trailing</h1>
+
+<!-- multiple interpolations -->
+
+<h1>{{ foo }} {{ bar }}</h1>
+
+=====================================output=====================================
+<h1>{{
+  foo
+}}</h1>
+
+<!-- whitespaces -->
+
+<h1>
+  {{
+    foo
+  }}
+</h1>
+
+<h1>
+  {{
+    foo
+  }}
+</h1>
+
+<!-- impurities -->
+
+<h1>
+  leading
+  {{
+    foo
+  }}
+  trailing
+</h1>
+
+<!-- multiple interpolations -->
+
+<h1>
+  {{
+    foo
+  }}
+  {{
+    bar
+  }}
+</h1>
+
+================================================================================
+`;
+
+exports[`pure-single-interpolation-only.html - {"printWidth":10,"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 10
+          | printWidth
+=====================================input======================================
+<h1>{{ foo }}</h1>
+
+<!-- whitespaces -->
+
+<h1>
+  {{ foo }}
+</h1>
+
+<h1>  {{ foo }}  </h1>
+
+<!-- impurities -->
+
+<h1>leading {{ foo }} trailing</h1>
+
+<!-- multiple interpolations -->
+
+<h1>{{ foo }} {{ bar }}</h1>
+
+=====================================output=====================================
+<h1>{{
+  foo
+}}</h1>
+
+<!-- whitespaces -->
+
+<h1>
+  {{
+    foo
+  }}
+</h1>
+
+<h1>
+  {{
+    foo
+  }}
+</h1>
+
+<!-- impurities -->
+
+<h1>
+  leading
+  {{
+    foo
+  }}
+  trailing
+</h1>
+
+<!-- multiple interpolations -->
+
+<h1>
+  {{
+    foo
+  }}
+  {{
+    bar
+  }}
+</h1>
+
+================================================================================
+`;
+
+exports[`pure-single-interpolation-only.html - {"printWidth":10} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 10
+          | printWidth
+=====================================input======================================
+<h1>{{ foo }}</h1>
+
+<!-- whitespaces -->
+
+<h1>
+  {{ foo }}
+</h1>
+
+<h1>  {{ foo }}  </h1>
+
+<!-- impurities -->
+
+<h1>leading {{ foo }} trailing</h1>
+
+<!-- multiple interpolations -->
+
+<h1>{{ foo }} {{ bar }}</h1>
+
+=====================================output=====================================
+<h1>{{
+  foo
+}}</h1>
+
+<!-- whitespaces -->
+
+<h1>
+  {{
+    foo
+  }}
+</h1>
+
+<h1>
+  {{
+    foo
+  }}
+</h1>
+
+<!-- impurities -->
+
+<h1>
+  leading
+  {{
+    foo
+  }}
+  trailing
+</h1>
+
+<!-- multiple interpolations -->
+
+<h1>
+  {{
+    foo
+  }}
+  {{
+    bar
+  }}
+</h1>
+
+================================================================================
+`;
