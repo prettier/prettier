@@ -95,6 +95,7 @@ function handleEndOfLineComment(context) {
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
+    handleCommentAfterArrowExpression,
   ].some((fn) => fn(context));
 }
 
@@ -1075,6 +1076,39 @@ function handleLastBinaryOperatorOperand({
       return true;
     }
   }
+  return false;
+}
+
+/**
+ * Handle a comment after an arrow, like:
+ *   ```ts
+ *   const test = (): any => /* first line
+ *   second line
+ *   *\/
+ *   null;
+ *   ```
+ *
+ * @param {CommentContext} context
+ * @returns {boolean}
+ */
+function handleCommentAfterArrowExpression({
+  comment,
+  enclosingNode,
+  followingNode,
+  precedingNode,
+}) {
+  if (!(enclosingNode && followingNode && precedingNode)) {
+    return false;
+  }
+
+  if (
+    precedingNode.type === "TSTypeAnnotation" &&
+    enclosingNode.type === "ArrowFunctionExpression"
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
   return false;
 }
 
