@@ -7,6 +7,8 @@ import { performance } from "node:perf_hooks";
 import { outdent } from "outdent";
 import picocolors from "picocolors";
 
+const spawn = (command, args, options) =>
+  spawnSync([command, ...args].join(" "), { ...options, shell: true });
 const createTemporaryDirectory = () => {
   const directory = path.join(
     // The following quoted from https://github.com/es-tooling/module-replacements/blob/27d1acd38f19741e31d2eae561a5c8a914373fc5/docs/modules/tempy.md?plain=1#L20-L21, not sure if it's true
@@ -56,9 +58,8 @@ function installPrettier(packageDirectory) {
   const start = performance.now();
   const temporaryDirectory = createTemporaryDirectory();
   directoriesToClean.add(temporaryDirectory);
-  const fileName = spawnSync("npm", ["pack"], {
+  const fileName = spawn("npm", ["pack"], {
     cwd: packageDirectory,
-    shell: true,
     encoding: "utf8",
   }).stdout.trim();
   const file = path.join(packageDirectory, fileName);
@@ -67,23 +68,23 @@ function installPrettier(packageDirectory) {
   fs.unlinkSync(file);
 
   const runNpmClient = (args) =>
-    spawnSync(client, args, { cwd: temporaryDirectory, shell: true });
+    spawn(client, args, { cwd: temporaryDirectory });
 
   runNpmClient(client === "pnpm" ? ["init"] : ["init", "-y"]);
 
   switch (client) {
     case "npm":
       // npm fails when engine requirement only with `--engine-strict`
-      runNpmClient(["install", packed, "--engine-strict"]);
+      runNpmClient(["install", JSON.stringify(packed), "--engine-strict"]);
       break;
     case "pnpm":
       // Note: current pnpm can't work with `--engine-strict` and engineStrict setting in `.npmrc`
-      runNpmClient(["add", packed, "--engine-strict"]);
+      runNpmClient(["add", JSON.stringify(packed), "--engine-strict"]);
       break;
     case "yarn":
       // yarn fails when engine requirement not compatible by default
       runNpmClient(["config", "set", "nodeLinker", "node-modules"]);
-      runNpmClient(["add", `prettier@file:${packed}`]);
+      runNpmClient(["add", JSON.stringify(`prettier@file:${packed}`)]);
     // No default
   }
 
