@@ -718,7 +718,8 @@ function needsParens(path, options) {
       if (
         typeof node.value === "string" &&
         parent.type === "ExpressionStatement" &&
-        !parent.directive
+        // null in flow, undefined in others
+        (parent.directive === undefined || parent.directive === null)
       ) {
         // To avoid becoming a directive
         const grandParent = path.grandparent;

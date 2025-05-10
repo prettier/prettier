@@ -42,6 +42,15 @@ runFormatTest(
             // comment
           ` + "\n",
       },
+      {
+        code: outdent`
+          ""; // should be kept as directive for all parsers https://github.com/prettier/prettier/issues/17458
+        `,
+        output:
+          outdent`
+            ""; // should be kept as directive for all parsers https://github.com/prettier/prettier/issues/17458
+          ` + "\n",
+      },
     ],
   },
   ["babel", "flow", "typescript"],
