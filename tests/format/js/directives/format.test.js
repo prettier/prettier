@@ -43,13 +43,9 @@ runFormatTest(
           ` + "\n",
       },
       {
-        code: outdent`
-          ""; // should be kept as directive for all parsers https://github.com/prettier/prettier/issues/17458
-        `,
-        output:
-          outdent`
-            ""; // should be kept as directive for all parsers https://github.com/prettier/prettier/issues/17458
-          ` + "\n",
+        // should be kept as directive for all parsers https://github.com/prettier/prettier/issues/17458
+        code: '"";',
+        output: '"";' + "\n",
       },
     ],
   },
