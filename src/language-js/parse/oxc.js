@@ -1,3 +1,4 @@
+import indexToPosition from "index-to-position";
 import { parseAsync as oxcParse, rawTransferSupported } from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsAsync } from "../../utils/try-combinations.js";
@@ -5,14 +6,14 @@ import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import getSourceType from "./utils/get-source-type.js";
 
-function createParseError(error, magicString) {
+function createParseError(error, { text }) {
   const {
     message,
     labels: [{ start: startIndex, end: endIndex }],
   } = error;
 
   const [start, end] = [startIndex, endIndex].map((index) => {
-    const loc = magicString.getLineColumnNumber(index);
+    const loc = indexToPosition(text, index);
     loc.column += 1;
     return loc;
   });
@@ -50,7 +51,7 @@ async function parseWithOptions(filename, text, sourceType) {
     ) {
       continue;
     }
-    throw createParseError(error, result.magicString);
+    throw createParseError(error, { text });
   }
 
   return result;

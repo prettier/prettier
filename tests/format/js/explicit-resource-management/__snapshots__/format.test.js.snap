@@ -298,16 +298,6 @@ async function f() {
 ================================================================================
 `;
 
-exports[`valid-await-using-asi-assignment.js [oxc] format 1`] = `
-"Line terminator not permitted before using declaration. (2:3)
-  1 | async function f() {
-> 2 |   await using
-    |   ^^^^^
-  3 |   using = h();
-  4 | }
-  5 |"
-`;
-
 exports[`valid-await-using-asi-assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -990,14 +980,6 @@ using[x] = 0;
 for (using[x] of []);
 
 ================================================================================
-`;
-
-exports[`valid-using-as-identifier-expression-statement.js [oxc] format 1`] = `
-"Line terminator not permitted before using declaration. (1:1)
-> 1 | using
-    | ^^^^^^
-  2 | reader = getReader()
-  3 |"
 `;
 
 exports[`valid-using-as-identifier-expression-statement.js format 1`] = `

@@ -111,8 +111,6 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
 
       "valid-for-lhs-await-as-identifier.js",
       "valid-module-block-top-level-await-using-binding.js",
-      "valid-using-as-identifier-expression-statement.js",
-      "valid-await-using-asi-assignment.js",
     ],
   },
 });
