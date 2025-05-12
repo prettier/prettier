@@ -8,7 +8,7 @@
     "enquirer": "2.4.1",
     "fast-glob": "3.3.3",
     "nano-spawn": "1.0.1",
-    "node-style-text": "0.0.7",
+    "node-style-text": "0.0.8",
     "outdent": "0.8.0",
     "semver": "7.7.1"
   },
