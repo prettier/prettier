@@ -1,4 +1,4 @@
-import { parseAsync as oxcParse } from "oxc-parser";
+import { parseAsync as oxcParse, rawTransferSupported } from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsAsync } from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
@@ -26,11 +26,18 @@ function createParseError(error, magicString) {
   });
 }
 
+let cachedIsRawTransferSupported;
+const isRawTransferSupported = () => {
+  cachedIsRawTransferSupported ??= rawTransferSupported();
+  return cachedIsRawTransferSupported;
+};
+
 async function parseWithOptions(filename, text, sourceType) {
   const result = await oxcParse(filename, text, {
     sourceType,
     lang: "jsx",
     preserveParens: false,
+    experimentalRawTransfer: isRawTransferSupported(),
   });
 
   const { errors } = result;
