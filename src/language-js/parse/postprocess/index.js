@@ -51,12 +51,6 @@ function postprocess(ast, options) {
     comments.unshift(interpreter);
   }
 
-  if (parser === "oxc" && ast.hashbang) {
-    const { hashbang, comments } = ast;
-    delete ast.hashbang;
-    comments.unshift(hashbang);
-  }
-
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
   if (parser === "babel") {
     const startOffsetsOfTypeCastedNodes = new Set();
