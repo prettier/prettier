@@ -1249,6 +1249,22 @@ foo1(/叱叱叱/)
 ================================================================================
 `;
 
+exports[`issue-17457.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+s.get(u)?.trigger({ triggerKind:   y.SignatureHelpTriggerKind.InvokeFooBarBaz123 });
+
+=====================================output=====================================
+s.get(u)?.trigger({
+  triggerKind: y.SignatureHelpTriggerKind.InvokeFooBarBaz123,
+});
+
+================================================================================
+`;
+
 exports[`logical.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
