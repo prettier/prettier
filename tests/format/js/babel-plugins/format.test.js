@@ -90,8 +90,6 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "pipeline-operator-fsharp.js",
       "pipeline-operator-hack.js",
       "pipeline-operator-minimal.js",
-      "record-tuple-record.js",
-      "record-tuple-tuple.js",
       "throw-expressions.js",
       "typescript.js",
       "v8intrinsic.js",
