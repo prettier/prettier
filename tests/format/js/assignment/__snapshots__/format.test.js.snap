@@ -811,6 +811,23 @@ params.redirectTo.bar.bar.ba.barab["foo"].abr =
 ================================================================================
 `;
 
+exports[`issue-17437.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+didScheduleRenderPhaseUpdateDuringThisPassFoo =
+didScheduleRenderPhaseUpdate
+     = true
+
+=====================================output=====================================
+didScheduleRenderPhaseUpdateDuringThisPassFoo =
+  didScheduleRenderPhaseUpdate = true;
+
+================================================================================
+`;
+
 exports[`lone-arg.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
