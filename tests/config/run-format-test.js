@@ -86,31 +86,6 @@ const babelTsDisabledTests = new Set(
 const oxcDisabledTests = new Set([
   ...espreeDisabledTests,
   ...[
-    /**
-    The following are related to locations
-
-    Positions for following code is incorrect
-    ```
-    // ↪
-    [4n, 6, -12n, 10, 4, 0, 0n];
-    ```
-    */
-    "js/babel-plugins/bigint.js",
-    "jsx/escape/nbsp.js",
-    "js/unicode/combining-characters.js",
-    "js/unicode/nbsp-jsx.js",
-    "js/module-string-names/module-string-names-export.js",
-    "js/module-string-names/module-string-names-import.js",
-    "js/directives/escaped.js",
-    "js/quote-props/objects.js",
-    "js/conditional/postfix-ternary-regressions.js",
-    "js/conditional/new-ternary-examples.js",
-    "js/conditional/comments.js",
-    "js/comments/emoji.js",
-    "js/method-chain/issue-11298.js",
-    "js/quotes/strings.js",
-    "js/strings/strings.js",
-
     // Missing `.phase`
     "js/deferred-import-evaluation/dynamic-import-attributes-expression.js",
     "js/deferred-import-evaluation/dynamic-import.js",
@@ -119,19 +94,7 @@ const oxcDisabledTests = new Set([
     "js/source-phase-imports/import-source-dynamic-import.js",
 
     // Bug
-    "js/babel-plugins/private-fields-in-in.js",
-    "js/babel-plugins/source-phase-imports.js",
     "js/top-level-await/test.cjs", // Parses as `module` even I already told it's `script`
-
-    // TODO: Remove after #17133 get merged
-    "js/comments/15661.js",
-    "js/comments/16398.js",
-    "js/comments/if.js",
-    "js/if/comment_before_else.js",
-    "js/if/expr_and_same_line_comments.js",
-    "js/if/issue-15168.js",
-    "js/if/non-block.js",
-    "js/unary-expression/comments.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 
