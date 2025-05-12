@@ -36,6 +36,7 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
 }
 
 class FormatResultsCache {
+  #useChecksum;
   #fileEntryCache;
 
   /**
@@ -63,6 +64,8 @@ class FormatResultsCache {
         );
       }
     }
+
+    this.#useChecksum = useChecksum;
   }
 
   /**
@@ -70,7 +73,7 @@ class FormatResultsCache {
    * @param {any} options
    */
   existsAvailableFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
+    const fileDescriptor = this.#getFileDescriptor(filePath);
     if (fileDescriptor.notFound || fileDescriptor.changed) {
       return false;
     }
@@ -85,7 +88,7 @@ class FormatResultsCache {
    * @param {any} options
    */
   setFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
+    const fileDescriptor = this.#getFileDescriptor(filePath);
     if (!fileDescriptor.notFound) {
       const meta = getMetadataFromFileDescriptor(fileDescriptor);
       meta.data = { ...meta.data, hashOfOptions: getHashOfOptions(options) };
@@ -101,6 +104,12 @@ class FormatResultsCache {
 
   reconcile() {
     this.#fileEntryCache.reconcile();
+  }
+
+  #getFileDescriptor(filePath) {
+    return this.#fileEntryCache.getFileDescriptor(filePath, {
+      useModifiedTime: !this.#useChecksum,
+    });
   }
 }
 
