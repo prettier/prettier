@@ -1445,8 +1445,6 @@ let m = module {
 ================================================================================
 `;
 
-exports[`module-string-names.js [oxc] format 1`] = `"'"😄"' == '"😄" a'"`;
-
 exports[`module-string-names.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]

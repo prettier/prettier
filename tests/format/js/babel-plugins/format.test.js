@@ -85,7 +85,6 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "function-bind.js",
       "function-sent.js",
       "module-blocks.js",
-      "module-string-names.js",
       "optional-chaining-assignment.js",
       "partial-application.js",
       "pipeline-operator-fsharp.js",
