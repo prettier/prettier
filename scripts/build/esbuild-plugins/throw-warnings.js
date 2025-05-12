@@ -116,6 +116,7 @@ export default function esbuildPluginThrowWarnings({
 
           if (
             warning.location.file ===
+              /* cspell:disable-next-line */
               "node_modules/diff/libesm/diff/sentence.js" &&
             warning.id === "unsupported-regexp"
           ) {
