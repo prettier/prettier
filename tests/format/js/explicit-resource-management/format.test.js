@@ -107,10 +107,9 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       // "invalid-duplicate-using-bindings.js",
       // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",
-      "valid-using-binding-using.js",
-
-      "valid-for-lhs-await-as-identifier.js",
       "valid-module-block-top-level-await-using-binding.js",
+
+      "valid-using-binding-using.js",
     ],
   },
 });
