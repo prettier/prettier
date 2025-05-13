@@ -57,16 +57,17 @@ const unstableTests = new Map(
 );
 
 const unstableAstTests = new Map();
-
-const espreeDisabledTests = new Set(
+const babelOnlyTests = new Set(
   [
     // These tests only work for `babel`
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
-const acornDisabledTests = espreeDisabledTests;
+
+const espreeDisabledTests = babelOnlyTests;
+const acornDisabledTests = babelOnlyTests;
 const meriyahDisabledTests = new Set([
-  ...espreeDisabledTests,
+  ...babelOnlyTests,
   ...[
     // Parsing to different ASTs
     "js/decorators/member-expression.js",
@@ -85,16 +86,34 @@ const babelTsDisabledTests = new Set(
   ),
 );
 const oxcDisabledTests = new Set([
-  ...espreeDisabledTests,
+  ...babelOnlyTests,
   ...[
     // Missing `.phase`
+    // https://github.com/oxc-project/oxc/issues/10978
+    "js/babel-plugins/deferred-import-evaluation.js",
+    "js/babel-plugins/source-phase-imports.js",
     "js/deferred-import-evaluation/dynamic-import-attributes-expression.js",
     "js/deferred-import-evaluation/dynamic-import.js",
+    "js/deferred-import-evaluation/import-defer-attributes-declaration.js",
+    "js/deferred-import-evaluation/import-defer.js",
     "js/dynamic-import/import-phase.js",
     "js/source-phase-imports/import-source-attributes-expression.js",
     "js/source-phase-imports/import-source-dynamic-import.js",
+    "js/source-phase-imports/import-source-attributes-declaration.js",
+    "js/source-phase-imports/import-source-binding-from.js",
+    "js/source-phase-imports/import-source-binding-source.js",
+    "js/source-phase-imports/import-source.js",
 
-    // Bug
+    // Missing `.decorators`
+    // https://github.com/oxc-project/oxc/issues/10921
+    "js/babel-plugins/decorators.js",
+    "js/decorators",
+    "js/decorators/class-expression",
+    "js/decorators-export",
+    "js/decorator-auto-accessors",
+    "js/ignore/class-expression-decorator.js",
+
+    // https://github.com/oxc-project/oxc/issues/10980
     "js/top-level-await/test.cjs", // Parses as `module` even I already told it's `script`
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);

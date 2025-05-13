@@ -271,7 +271,7 @@ Cause: [1:10-1:12]: Invalid left-hand side in for-of"
 `;
 
 exports[`invalid-for-await-of.js [oxc] format 1`] = `
-"Unexpected token (0:6)
+"Cannot assign to this expression (0:6)
   1 | for (a?.b of x);
   2 |"
 `;
@@ -317,7 +317,7 @@ Cause: [1:10-1:12]: Invalid left-hand side in for-in"
 `;
 
 exports[`invalid-for-in.js [oxc] format 1`] = `
-"Unexpected token (0:6)
+"Cannot assign to this expression (0:6)
   1 | for (a?.b in x);
   2 |"
 `;
@@ -363,7 +363,7 @@ Cause: [1:10-1:12]: Invalid left-hand side in for-of"
 `;
 
 exports[`invalid-for-of.js [oxc] format 1`] = `
-"Unexpected token (0:6)
+"Cannot assign to this expression (0:6)
   1 | for (a?.b of x);
   2 |"
 `;
