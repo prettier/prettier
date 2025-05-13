@@ -1,4 +1,6 @@
-<h1 align="center">Prettier OXC plugin.</h1>
+# @prettier/plugin-oxc
+
+> Prettier Oxc plugin.
 
 ## Install
 
@@ -21,3 +23,7 @@ Create or modify your [prettier configuration file](https://prettier.io/docs/en/
   ]
 }
 ```
+
+## Related
+
+- [Oxc](https://oxc.rs/) - The JavaScript Oxidation Compiler
